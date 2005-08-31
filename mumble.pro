@@ -1,0 +1,12 @@
+TEMPLATE	=app
+CONFIG  += qt thread warn_on network release console
+QT           += network
+TARGET = mumble
+DBFILE  = mumble.db
+LANGUAGE	= C++
+RC_FILE = mumble.rc
+FORMS = 
+HEADERS = 
+SOURCES = main.cpp
+INCLUDEPATH += include /dx90sdk/include
+LIBS +=  -Llib -llibspeex -L\\dx90sdk\\lib -ldsound -ldxguid -ldinput8 -lwinmm -lws2_32
