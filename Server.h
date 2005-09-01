@@ -28,30 +28,32 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef _SERVER_H
+#define _SERVER_H
 
-#include "Message.h"
-#include <QTcpSocket>
-#include <QByteArray>
+#include "Player.h"
+#include "Connection.h"
+#include <QObject>
+#include <QMap>
+#include <QTcpServer>
 
-class Connection : public QObject {
-	Q_OBJECT
+class Server : public QObject {
+	Q_OBJECT;
 	protected:
-		QTcpSocket *m_qtsSocket;
-		int m_iPacketLength;
+		QTcpServer *m_qtsServer;
 	protected slots:
-		void socketRead();
-	    void socketError(QAbstractSocket::SocketError);
-	signals:
+		void newClient();
 		void connectionClosed(Connection *);
 	public:
-		Connection(QObject *parent, QTcpSocket *qtsSocket);
-		~Connection();
-		void sendMessage(Message *mMsg);
-		void disconnect();
+		QMap<short, Connection *> m_qmConnections;
+		QMap<Connection *, Player *> m_qmPlayers;
+
+		void sendAll(Message *);
+		void sendExcept(Message *, Connection *);
+
+		Server();
 };
 
 #else
-class Connection;
+class Server;
 #endif

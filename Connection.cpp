@@ -37,6 +37,10 @@ Connection::Connection(QObject *parent, QTcpSocket *qtsSock) : QObject(parent) {
     connect(m_qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 }
 
+Connection::~Connection() {
+	m_qtsSocket->deleteLater();
+}
+
 void Connection::socketRead() {
   int iAvailable;
   while (1) {
@@ -57,7 +61,6 @@ void Connection::socketRead() {
 	  QByteArray qbaBuffer = m_qtsSocket->read(m_iPacketLength);
 	  Message *mMsg = Message::networkToMessage(qbaBuffer);
 	  if (mMsg) {
-		  preprocess(mMsg);
 		  mMsg->process(this);
 		  delete mMsg;
 	  }
@@ -66,6 +69,11 @@ void Connection::socketRead() {
       return;
     }
   }
+}
+
+void Connection::socketError(QAbstractSocket::SocketError) {
+	emit connectionClosed(this);
+	m_qtsSocket->disconnectFromHost();
 }
 
 void Connection::sendMessage(Message *mMsg) {
@@ -77,4 +85,9 @@ void Connection::sendMessage(Message *mMsg) {
 	a_ucBuffer[1]=(qbaBuffer.size() & 0xff);
 	m_qtsSocket->write((const char *) a_ucBuffer, 2);
 	m_qtsSocket->write(qbaBuffer);
+}
+
+void Connection::disconnect() {
+	emit connectionClosed(this);
+	m_qtsSocket->disconnectFromHost();
 }

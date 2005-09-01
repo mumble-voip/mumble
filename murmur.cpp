@@ -28,30 +28,20 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#include <QApplication>
+#include "Server.h"
 
-#include "Message.h"
-#include <QTcpSocket>
-#include <QByteArray>
+extern Server *g_sServer;
 
-class Connection : public QObject {
-	Q_OBJECT
-	protected:
-		QTcpSocket *m_qtsSocket;
-		int m_iPacketLength;
-	protected slots:
-		void socketRead();
-	    void socketError(QAbstractSocket::SocketError);
-	signals:
-		void connectionClosed(Connection *);
-	public:
-		Connection(QObject *parent, QTcpSocket *qtsSocket);
-		~Connection();
-		void sendMessage(Message *mMsg);
-		void disconnect();
-};
+int main(int argc, char **argv)
+{
+	int res;
 
-#else
-class Connection;
-#endif
+	QApplication a(argc, argv);
+
+	g_sServer = new Server();
+	res=a.exec();
+
+	return res;
+}
+

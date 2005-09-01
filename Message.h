@@ -38,43 +38,50 @@
 
 class Message {
 	protected:
-		short m_sPlayerId;
-		enum MessageType { M_SPEEX, M_SOCKETERROR, M_SERVER_JOIN, M_SERVER_LEAVE, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
-		virtual void saveStream(QDataStream &qdsOut) = 0;
-		virtual void restoreStream(QDataStream &qdsIn) = 0;
+		enum MessageType { M_SPEEX, M_SERVER_JOIN, M_SERVER_LEAVE, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
+		virtual void saveStream(QDataStream &);
+		virtual void restoreStream(QDataStream &);
 	public:
+		short m_sPlayerId;
+
 		Message();
 		virtual Message::MessageType messageType() = 0;
-		virtual void process(Connection *cCon) = 0;
+		virtual void process(Connection *) = 0;
 		virtual bool isValid();
 
-		void messageToNetwork(QByteArray &qbaOut);
-		static Message *networkToMessage(QByteArray &qbaIn);
+		void messageToNetwork(QByteArray &);
+		static Message *networkToMessage(QByteArray &);
 };
 
 class MessageSpeex : public Message {
 	protected:
-		void saveStream(QDataStream &qdsOut);
-		void restoreStream(QDataStream &qdsIn);
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
 	public:
 		QByteArray m_qbaSpeexPacket;
 		MessageSpeex();
 		Message::MessageType messageType() { return M_SPEEX; };
-		void process(Connection *cCon);
+		void process(Connection *);
 		bool isValid();
 };
 
 
 class MessageServerJoin : public Message {
 	protected:
-		void saveStream(QDataStream &qdsOut);
-		void restoreStream(QDataStream &qdsIn);
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
 	public:
 		QString m_qsPlayerName;
 		MessageServerJoin();
 		Message::MessageType messageType() { return M_SERVER_JOIN; };
-		void process(Connection *cCon);
+		void process(Connection *);
 		bool isValid();
+};
+
+class MessageServerLeave : public Message {
+	public:
+		Message::MessageType messageType() { return M_SERVER_LEAVE; };
+		void process(Connection *);
 };
 
 #else

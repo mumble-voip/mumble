@@ -28,30 +28,19 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef _PLAYER_H
+#define _PLAYER_H
 
-#include "Message.h"
-#include <QTcpSocket>
-#include <QByteArray>
+#include <QString>
 
-class Connection : public QObject {
-	Q_OBJECT
-	protected:
-		QTcpSocket *m_qtsSocket;
-		int m_iPacketLength;
-	protected slots:
-		void socketRead();
-	    void socketError(QAbstractSocket::SocketError);
-	signals:
-		void connectionClosed(Connection *);
-	public:
-		Connection(QObject *parent, QTcpSocket *qtsSocket);
-		~Connection();
-		void sendMessage(Message *mMsg);
-		void disconnect();
+class Player {
+  	public:
+  		enum State { Connected, Authenticated };
+  		State state;
+		short m_sId;
+		QString m_qsName;
 };
 
 #else
-class Connection;
+class Player;
 #endif

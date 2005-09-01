@@ -1,0 +1,10 @@
+TEMPLATE	=app
+CONFIG  += qt thread warn_on network release console
+QT           += network
+TARGET = murmur
+DBFILE  = murmur.db
+LANGUAGE	= C++
+RC_FILE = mumble.rc
+FORMS = 
+HEADERS = Server.h Connection.h
+SOURCES = murmur.cpp  Message.cpp Connection.cpp Server.cpp

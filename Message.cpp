@@ -85,6 +85,12 @@ bool Message::isValid() {
 	return TRUE;
 }
 
+void Message::saveStream(QDataStream &) {
+}
+
+void Message::restoreStream(QDataStream &) {
+}
+
 
 MessageServerJoin::MessageServerJoin() {
 	m_qsPlayerName = QString();
@@ -126,13 +132,4 @@ void MessageSpeex::restoreStream(QDataStream &qdsIn) {
 
 bool MessageSpeex::isValid() {
 	return ! m_qbaSpeexPacket.isEmpty();
-}
-
-// This will be moved to the actual handlers for client/server stuff
-void MessageServerJoin::process(Connection *cCon)
-{
-}
-
-void MessageSpeex::process(Connection *cCon)
-{
 }
