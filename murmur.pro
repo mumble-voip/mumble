@@ -8,4 +8,4 @@ LANGUAGE	= C++
 RC_FILE = mumble.rc
 FORMS = 
 HEADERS = Server.h Connection.h
-SOURCES = murmur.cpp  Message.cpp Connection.cpp Server.cpp
+SOURCES = murmur.cpp  Message.cpp Connection.cpp Server.cpp Player.cpp

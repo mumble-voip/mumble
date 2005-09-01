@@ -45,7 +45,7 @@ void Connection::socketRead() {
   int iAvailable;
   while (1) {
     iAvailable = m_qtsSocket->bytesAvailable();
-
+    
     if (m_iPacketLength == -1) {
       if (iAvailable < 2)
         return;

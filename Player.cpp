@@ -28,20 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PLAYER_H
-#define _PLAYER_H
+#include "Player.h"
 
-#include <QString>
-
-class Player {
-  	public:
-  		enum State { Connected, Authenticated };
-  		State m_sState;
-		short m_sId;
-		QString m_qsName;
-		Player();
-};
-
-#else
-class Player;
-#endif
+Player::Player() {
+  m_sState = Player::Connected;
+  m_sId = 0; 
+}

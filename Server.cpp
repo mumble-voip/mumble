@@ -53,7 +53,7 @@ void Server::newClient() {
 void Server::connectionClosed(Connection *c) {
 	Player *pPlayer = m_qmPlayers.value(c);
 
-	if (pPlayer->state == Player::Authenticated) {
+	if (pPlayer->m_sState == Player::Authenticated) {
 		MessageServerLeave mslMsg;
 		mslMsg.m_sPlayerId=pPlayer->m_sId;
 		sendExcept(&mslMsg, c);
@@ -87,7 +87,7 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 
 #define MSG_SETUP(st) \
   Player *pPlayer = g_sServer->m_qmPlayers[cCon]; \
-  if (pPlayer->state != st) \
+  if (pPlayer->m_sState != st) \
   	return
 
 void MessageServerJoin::process(Connection *cCon) {
@@ -98,13 +98,13 @@ void MessageServerJoin::process(Connection *cCon) {
 		if (! g_sServer->m_qmConnections.contains(id))
 			break;
 
-	qWarning("Player joined %s", m_qsPlayername.toLatin1().constData());
-
 	pPlayer->m_sId = id;
 	m_sPlayerId = id;
+	g_sServer->m_qmConnections[id] = cCon;
+
 	g_sServer->sendAll(this);
 
-	pPlayer->state = Player::Authenticated;
+	pPlayer->m_sState = Player::Authenticated;
 }
 
 void MessageServerLeave::process(Connection *) {
