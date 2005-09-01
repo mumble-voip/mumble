@@ -51,12 +51,30 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		default:
 			qWarning("Message: Message ID %d couldn't be read", id);
 	}
-	if (mMsg)
+	if (mMsg) {
 		mMsg->restoreStream(qdsIn);
+		if (qdsIn.status() != QDataStream::Ok) {
+			delete mMsg;
+			mMsg = NULL;
+			qWarning("Message: Corrput or short packet id %d", id);
+		} else if (qdsIn.device()->bytesAvailable() != 0) {
+			delete mMsg;
+			mMsg = NULL;
+			qWarning("Message: Long packet id %d", id);
+		} else if (! mMsg->isValid()) {
+			delete mMsg;
+			mMsg = NULL;
+			qWarning("Message: Failed to sanitize packet id %d", id);
+		}
+	}
 
 	return mMsg;
 }
 
+bool Message::isValid() {
+	qWarning("Message: MessageType %d doesn't have a validator", messageType());
+	return TRUE;
+}
 
 MessageServerJoin::MessageServerJoin() {
 	m_iId = 0;
@@ -71,6 +89,16 @@ void MessageServerJoin::saveStream(QDataStream &qdsOut) {
 void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> m_iId;
 	qdsIn >> m_qsPlayerName;
+}
+
+bool MessageServerJoin::isValid() {
+	bool ok = true;
+	for(int i=0;i<m_qsPlayerName.length();i++) {
+		QChar c=m_qsPlayerName[i];
+		if (! c.isLetterOrNumber() && (c != ' '))
+			ok = false;
+	}
+	return ok;
 }
 
 // This will be moved to the actual handlers for client/server stuff

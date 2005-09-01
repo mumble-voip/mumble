@@ -44,6 +44,7 @@ class Message {
 		Message();
 		virtual Message::MessageType messageType() = 0;
 		virtual void process() = 0;
+		virtual bool isValid();
 
 		void messageToNetwork(QByteArray &qbaOut);
 		static Message *networkToMessage(QByteArray &qbaIn);
@@ -59,6 +60,7 @@ class MessageServerJoin : public Message {
 		MessageServerJoin();
 		Message::MessageType messageType() { return M_SERVER_JOIN; };
 		void process();
+		bool isValid();
 };
 
 #else
