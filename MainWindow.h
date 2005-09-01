@@ -28,23 +28,28 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include "MainWindow.h"
+#ifndef _MAINWINDOW_H
+#define _MAINWINDOW_H
 
-MainWindow *g_mwMainWindow;
+#include <QMainWindow>
+#include <QListView>
+#include <QAction>
 
-int main(int argc, char **argv)
-{
-	int res;
+class MainWindow : public QMainWindow {
+	Q_OBJECT
+	protected:
+		QListView *m_qlvPlayers;
+		QAction *m_qaServerConnect, *m_qaServerDisconnect, *m_qaServerStats;
+		QAction *m_qaPlayerKick, *m_qaPlayerMute;
+		QAction *m_qaAudioConfig, *m_qaAudioMuteMic, *m_qaAudioMuteAll, *m_qaAudioReset;
 
-	QApplication a(argc, argv);
+		void setupGui();
+	protected slots:
+		void on_ServerConnect_triggered();
+	public:
+		MainWindow(QWidget *parent);
+};
 
-	g_mwMainWindow=new MainWindow(NULL);
-	g_mwMainWindow->show();
-
-	res=a.exec();
-
-	return res;
-}
-
-
+#else
+class MainWindow;
+#endif

@@ -28,23 +28,52 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include "MainWindow.h"
+#include "Message.h"
 
-MainWindow *g_mwMainWindow;
+Message::Message() {
+}
 
-int main(int argc, char **argv)
-{
-	int res;
+void Message::messageToNetwork(QByteArray &qbaOut) {
+	QDataStream qdsOut(qbaOut);
+	qdsOut << messageType();
+	saveStream(qdsOut);
+}
 
-	QApplication a(argc, argv);
+Message *Message::networkToMessage(QByteArray &qbaIn) {
+	QDataStream qdsIn(qbaIn);
+	Message *mMsg = NULL;
+	int id;
+	qdsIn >> id;
+	switch(id) {
+		case M_SERVER_JOIN:
+			mMsg = new MessageServerJoin();
+			break;
+		default:
+			qWarning("Message: Message ID %d couldn't be read", id);
+	}
+	if (mMsg)
+		mMsg->restoreStream(qdsIn);
 
-	g_mwMainWindow=new MainWindow(NULL);
-	g_mwMainWindow->show();
-
-	res=a.exec();
-
-	return res;
+	return mMsg;
 }
 
 
+MessageServerJoin::MessageServerJoin() {
+	m_iId = 0;
+	m_qsPlayerName = QString();
+}
+
+void MessageServerJoin::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_iId;
+	qdsOut << m_qsPlayerName;
+}
+
+void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_iId;
+	qdsIn >> m_qsPlayerName;
+}
+
+// This will be moved to the actual handlers for client/server stuff
+void MessageServerJoin::process()
+{
+}

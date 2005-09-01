@@ -28,23 +28,39 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include "MainWindow.h"
+#ifndef _MESSAGE_H
+#define _MESSAGE_H
 
-MainWindow *g_mwMainWindow;
+#include <QDataStream>
+#include <QByteArray>
+#include <QString>
 
-int main(int argc, char **argv)
-{
-	int res;
+class Message {
+	protected:
+		enum MessageType { M_SERVER_JOIN, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
+		virtual void saveStream(QDataStream &qdsOut) = 0;
+		virtual void restoreStream(QDataStream &qdsIn) = 0;
+	public:
+		Message();
+		virtual Message::MessageType messageType() = 0;
+		virtual void process() = 0;
 
-	QApplication a(argc, argv);
+		void messageToNetwork(QByteArray &qbaOut);
+		static Message *networkToMessage(QByteArray &qbaIn);
+};
 
-	g_mwMainWindow=new MainWindow(NULL);
-	g_mwMainWindow->show();
+class MessageServerJoin : public Message {
+	protected:
+		void saveStream(QDataStream &qdsOut);
+		void restoreStream(QDataStream &qdsIn);
+	public:
+		int m_iId;
+		QString m_qsPlayerName;
+		MessageServerJoin();
+		Message::MessageType messageType() { return M_SERVER_JOIN; };
+		void process();
+};
 
-	res=a.exec();
-
-	return res;
-}
-
-
+#else
+class Message;
+#endif
