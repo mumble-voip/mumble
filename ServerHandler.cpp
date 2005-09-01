@@ -77,7 +77,7 @@ void ServerHandler::run()
 
 	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(Connection *)), this, SLOT(serverConnectionClosed(Connection *)));
-
+	connect(cConnection, SIGNAL(message(Message *, Connection *, bool *)), this, SLOT(message(Message *, Connection *, bool *)));
 	qtsSock->connectToHost(m_qsHostName, 64738);
 	exec();
 	cConnection->disconnect();
