@@ -63,6 +63,8 @@ void Connection::socketRead() {
 	  if (mMsg) {
 		  mMsg->process(this);
 		  delete mMsg;
+	  } else {
+		  disconnect();
 	  }
       m_iPacketLength = -1;
     } else {

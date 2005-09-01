@@ -52,9 +52,11 @@ void Server::newClient() {
 void Server::connectionClosed(Connection *c) {
 	Player *pPlayer = m_qmPlayers.value(c);
 
-	MessageServerLeave mslMsg;
-	mslMsg.m_sPlayerId=pPlayer->m_sId;
-	sendExcept(&mslMsg, c);
+	if (pPlayer->state == Player::Authenticated) {
+		MessageServerLeave mslMsg;
+		mslMsg.m_sPlayerId=pPlayer->m_sId;
+		sendExcept(&mslMsg, c);
+	}
 
 	m_qmConnections.remove(pPlayer->m_sId);
 	m_qmPlayers.remove(c);
