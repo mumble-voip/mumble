@@ -45,6 +45,7 @@ class Message {
 		short m_sPlayerId;
 
 		Message();
+		virtual ~Message();
 		virtual Message::MessageType messageType() = 0;
 		virtual void process(Connection *) = 0;
 		virtual bool isValid();

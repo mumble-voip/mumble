@@ -35,6 +35,9 @@ Message::Message() {
 	m_sPlayerId = 0;
 }
 
+Message::~Message() {
+}
+
 void Message::messageToNetwork(QByteArray &qbaOut) {
 	QDataStream qdsOut(qbaOut);
 	qdsOut << messageType();
