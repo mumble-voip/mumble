@@ -40,16 +40,16 @@ Message::~Message() {
 
 void Message::messageToNetwork(QByteArray &qbaOut) {
 	QDataStream qdsOut(&qbaOut, QIODevice::WriteOnly);
-	qdsOut << messageType();
-	qdsOut << m_sPlayerId;
+	qdsOut << ((unsigned char) messageType());
+	qdsOut << ((unsigned char) m_sPlayerId);
 	saveStream(qdsOut);
 }
 
 Message *Message::networkToMessage(QByteArray &qbaIn) {
 	QDataStream qdsIn(qbaIn);
 	Message *mMsg = NULL;
-	int iMessageType;
-	short sPlayerId;
+	unsigned char iMessageType;
+	unsigned char sPlayerId;
 	qdsIn >> iMessageType;
 	qdsIn >> sPlayerId;
 	switch(iMessageType) {
