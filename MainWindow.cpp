@@ -29,22 +29,27 @@
 */
 
 #include <QMenuBar>
+#include <QInputDialog>
 #include "MainWindow.h"
+
+MainWindow *g_mwMainWindow;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setupGui();
+
+	connect(g_shServer, SIGNAL(connected()), this, SLOT(serverConnected()));
+	connect(g_shServer, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
 }
 
 void MainWindow::setupGui()  {
 	QMenu *qmServer, *qmPlayer, *qmAudio;
 
-	m_qlvPlayers = new QListView(this);
-	setCentralWidget(m_qlvPlayers);
+	m_qlwPlayers = new QListWidget(this);
+	setCentralWidget(m_qlwPlayers);
 
 	qmServer = new QMenu("&Server", this);
 	qmPlayer = new QMenu("&Player", this);
 	qmAudio = new QMenu("&Audio", this);
-
 
 	m_qaServerConnect=new QAction("&Connect", this);
 	m_qaServerDisconnect=new QAction("&Disconnect", this);
@@ -97,5 +102,46 @@ void MainWindow::setupGui()  {
 
 void MainWindow::on_ServerConnect_triggered()
 {
-	qWarning("ServerConnect");
+	m_qaServerConnect->setEnabled(FALSE);
+
+	QString server = QInputDialog::getText(this, "Server Address", "Addr", QLineEdit::Normal, "128.39.114.2");
+	QString user = QInputDialog::getText(this, "Username", "Uname");
+
+	g_shServer->setConnectionInfo(server, user);
+	g_shServer->start();
+}
+
+void MainWindow::on_ServerDisconnect_triggered()
+{
+	g_shServer->disconnect();
+	m_qaServerDisconnect->setEnabled(FALSE);
+}
+
+void MainWindow::serverConnected()
+{
+	m_qaServerDisconnect->setEnabled(TRUE);
+}
+
+void MainWindow::serverDisconnected()
+{
+	m_qaServerConnect->setEnabled(TRUE);
+}
+
+void MainWindow::customEvent(QEvent *evt) {
+	if (evt->type() != SERVERSEND_EVENT)
+		return;
+
+	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
+
+	shme->m_mMsg->process(NULL);
+}
+
+void MessageServerJoin::process(Connection *) {
+	qWarning("Got new player %s", m_qsPlayerName.toLatin1().constData());
+}
+
+void MessageServerLeave::process(Connection *) {
+}
+
+void MessageSpeex::process(Connection *) {
 }

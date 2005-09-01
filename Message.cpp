@@ -39,7 +39,7 @@ Message::~Message() {
 }
 
 void Message::messageToNetwork(QByteArray &qbaOut) {
-	QDataStream qdsOut(qbaOut);
+	QDataStream qdsOut(&qbaOut, QIODevice::WriteOnly);
 	qdsOut << messageType();
 	qdsOut << m_sPlayerId;
 	saveStream(qdsOut);
@@ -59,6 +59,10 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case M_SERVER_JOIN:
 			mMsg = new MessageServerJoin();
 			break;
+		case M_SERVER_LEAVE:
+			mMsg = new MessageServerLeave();
+			break;
+
 		default:
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}

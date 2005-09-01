@@ -61,8 +61,10 @@ void Connection::socketRead() {
 	  QByteArray qbaBuffer = m_qtsSocket->read(m_iPacketLength);
 	  Message *mMsg = Message::networkToMessage(qbaBuffer);
 	  if (mMsg) {
-		  mMsg->process(this);
-		  delete mMsg;
+		  bool bDel = true;
+		  emit message(mMsg, this, &bDel);
+		  if (bDel)
+		  	delete mMsg;
 	  } else {
 		  disconnect();
 	  }

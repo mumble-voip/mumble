@@ -47,6 +47,7 @@ void Server::newClient() {
 	m_qmPlayers[cCon] = pPlayer;
 
 	connect(cCon, SIGNAL(connectionClosed(Connection *)), this, SLOT(connectionClosed(Connection *)));
+	connect(cCon, SIGNAL(message(Message *,Connection *, bool *)), this, SLOT(message(Message *, Connection *, bool *)));
 }
 
 void Server::connectionClosed(Connection *c) {
@@ -65,6 +66,10 @@ void Server::connectionClosed(Connection *c) {
 
 	delete pPlayer;
 	c->deleteLater();
+}
+
+void Server::message(Message *mMsg, Connection *cCon, bool *) {
+	mMsg->process(cCon);
 }
 
 void Server::sendAll(Message *mMsg) {
@@ -92,6 +97,8 @@ void MessageServerJoin::process(Connection *cCon) {
 	for(id=1;id<32000;id++)
 		if (! g_sServer->m_qmConnections.contains(id))
 			break;
+
+	qWarning("Player joined %s", m_qsPlayername.toLatin1().constData());
 
 	pPlayer->m_sId = id;
 	m_sPlayerId = id;

@@ -30,14 +30,18 @@
 
 #include <QApplication>
 #include "MainWindow.h"
+#include "ServerHandler.h"
 
-MainWindow *g_mwMainWindow;
+extern MainWindow *g_mwMainWindow;
 
 int main(int argc, char **argv)
 {
 	int res;
 
 	QApplication a(argc, argv);
+
+	g_shServer = new ServerHandler();
+	g_shServer->moveToThread(g_shServer);
 
 	g_mwMainWindow=new MainWindow(NULL);
 	g_mwMainWindow->show();

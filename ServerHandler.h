@@ -28,31 +28,52 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef _SERVERHANDLER_H
+#define _SERVERHANDLER_H
 
-#include "Message.h"
+#include <QObject>
+#include <QThread>
 #include <QTcpSocket>
-#include <QByteArray>
+#include <QEvent>
+#include "Connection.h"
+#include "Message.h"
 
-class Connection : public QObject {
-	Q_OBJECT
-	protected:
-		QTcpSocket *m_qtsSocket;
-		int m_iPacketLength;
-	protected slots:
-		void socketRead();
-	    void socketError(QAbstractSocket::SocketError);
-	signals:
-		void connectionClosed(Connection *);
-		void message(Message *, Connection *, bool *);
+#define SERVERSEND_EVENT 3501
+
+class ServerHandlerMessageEvent : public QEvent
+{
 	public:
-		Connection(QObject *parent, QTcpSocket *qtsSocket);
-		~Connection();
-		void sendMessage(Message *mMsg);
-		void disconnect();
+		Message *m_mMsg;
+		ServerHandlerMessageEvent(Message *mMsg);
+		~ServerHandlerMessageEvent();
 };
 
+class ServerHandler : public QThread
+{
+	Q_OBJECT
+	protected:
+		QString m_qsHostName;
+		QString m_qsUserName;
+		Connection *cConnection;
+	public:
+		ServerHandler();
+		~ServerHandler();
+		void setConnectionInfo(QString qsHostName, QString qsUserName);
+		void customEvent(QEvent *evt);
+		void sendMessage(Message *mMsg);
+		void disconnect();
+		void run();
+	signals:
+		void disconnected();
+		void connected();
+	protected slots:
+		void message(Message *, Connection *, bool *);
+		void serverConnectionConnected();
+		void serverConnectionClosed(Connection *);
+};
+
+extern ServerHandler *g_shServer;
+
 #else
-class Connection;
+class ServerHandler;
 #endif

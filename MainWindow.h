@@ -32,20 +32,32 @@
 #define _MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QListView>
+#include <QListWidget>
 #include <QAction>
+#include <QMap>
+#include "Player.h"
+#include "Connection.h"
+#include "ServerHandler.h"
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
-	protected:
-		QListView *m_qlvPlayers;
+	public:
+		QListWidget *m_qlwPlayers;
 		QAction *m_qaServerConnect, *m_qaServerDisconnect, *m_qaServerStats;
 		QAction *m_qaPlayerKick, *m_qaPlayerMute;
 		QAction *m_qaAudioConfig, *m_qaAudioMuteMic, *m_qaAudioMuteAll, *m_qaAudioReset;
 
+		QMap<short, Player *> m_qmPlayers;
+		QMap<QListWidgetItem *, Player *> m_qmPlayerWidgets;
+
 		void setupGui();
-	protected slots:
+		void customEvent(QEvent *evt);
+
+	public slots:
 		void on_ServerConnect_triggered();
+		void on_ServerDisconnect_triggered();
+		void serverConnected();
+		void serverDisconnected();
 	public:
 		MainWindow(QWidget *parent);
 };

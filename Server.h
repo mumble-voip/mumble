@@ -44,6 +44,7 @@ class Server : public QObject {
 	protected slots:
 		void newClient();
 		void connectionClosed(Connection *);
+		void message(Message *, Connection *, bool *);
 	public:
 		QMap<short, Connection *> m_qmConnections;
 		QMap<Connection *, Player *> m_qmPlayers;
