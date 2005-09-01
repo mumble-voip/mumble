@@ -28,55 +28,53 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MESSAGE_H
-#define _MESSAGE_H
-
-#include <QDataStream>
-#include <QByteArray>
-#include <QString>
 #include "Connection.h"
 
-class Message {
-	protected:
-		short m_sPlayerId;
-		enum MessageType { M_SPEEX, M_SOCKETERROR, M_SERVER_JOIN, M_SERVER_LEAVE, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
-		virtual void saveStream(QDataStream &qdsOut) = 0;
-		virtual void restoreStream(QDataStream &qdsIn) = 0;
-	public:
-		Message();
-		virtual Message::MessageType messageType() = 0;
-		virtual void process(Connection *cCon) = 0;
-		virtual bool isValid();
+Connection::Connection(QObject *parent, QTcpSocket *qtsSock) : QObject(parent) {
+	m_qtsSocket = qtsSock;
+	m_iPacketLength = -1;
+    connect(m_qtsSocket, SIGNAL(error(SocketError)), this, SLOT(socketError(SocketError)));
+    connect(m_qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
+}
 
-		void messageToNetwork(QByteArray &qbaOut);
-		static Message *networkToMessage(QByteArray &qbaIn);
-};
+void Connection::socketRead() {
+  int iAvailable;
+  while (1) {
+    iAvailable = m_qtsSocket->bytesAvailable();
 
-class MessageSpeex : public Message {
-	protected:
-		void saveStream(QDataStream &qdsOut);
-		void restoreStream(QDataStream &qdsIn);
-	public:
-		QByteArray m_qbaSpeexPacket;
-		MessageSpeex();
-		Message::MessageType messageType() { return M_SPEEX; };
-		void process(Connection *cCon);
-		bool isValid();
-};
+    if (m_iPacketLength == -1) {
+      if (iAvailable < 2)
+        return;
 
+      unsigned char a_ucBuffer[2];
 
-class MessageServerJoin : public Message {
-	protected:
-		void saveStream(QDataStream &qdsOut);
-		void restoreStream(QDataStream &qdsIn);
-	public:
-		QString m_qsPlayerName;
-		MessageServerJoin();
-		Message::MessageType messageType() { return M_SERVER_JOIN; };
-		void process(Connection *cCon);
-		bool isValid();
-};
+	  m_qtsSocket->read((char *) a_ucBuffer, 2);
+      m_iPacketLength = ((a_ucBuffer[0] << 8) & 0xff00) + a_ucBuffer[1];
+      iAvailable -= 2;
+    }
 
-#else
-class Message;
-#endif
+    if ((m_iPacketLength != -1) && (iAvailable >= m_iPacketLength)) {
+	  QByteArray qbaBuffer = m_qtsSocket->read(m_iPacketLength);
+	  Message *mMsg = Message::networkToMessage(qbaBuffer);
+	  if (mMsg) {
+		  preprocess(mMsg);
+		  mMsg->process(this);
+		  delete mMsg;
+	  }
+      m_iPacketLength = -1;
+    } else {
+      return;
+    }
+  }
+}
+
+void Connection::sendMessage(Message *mMsg) {
+	QByteArray qbaBuffer;
+	unsigned char a_ucBuffer[2];
+
+	mMsg->messageToNetwork(qbaBuffer);
+	a_ucBuffer[0]=(qbaBuffer.size() >> 8) & 0xff;
+	a_ucBuffer[1]=(qbaBuffer.size() & 0xff);
+	m_qtsSocket->write((const char *) a_ucBuffer, 2);
+	m_qtsSocket->write(qbaBuffer);
+}

@@ -29,42 +29,51 @@
 */
 
 #include "Message.h"
+#include <QBuffer>
 
 Message::Message() {
+	m_sPlayerId = 0;
 }
 
 void Message::messageToNetwork(QByteArray &qbaOut) {
 	QDataStream qdsOut(qbaOut);
 	qdsOut << messageType();
+	qdsOut << m_sPlayerId;
 	saveStream(qdsOut);
 }
 
 Message *Message::networkToMessage(QByteArray &qbaIn) {
 	QDataStream qdsIn(qbaIn);
 	Message *mMsg = NULL;
-	int id;
-	qdsIn >> id;
-	switch(id) {
+	int iMessageType;
+	short sPlayerId;
+	qdsIn >> iMessageType;
+	qdsIn >> sPlayerId;
+	switch(iMessageType) {
+		case M_SPEEX:
+			mMsg = new MessageSpeex();
+			break;
 		case M_SERVER_JOIN:
 			mMsg = new MessageServerJoin();
 			break;
 		default:
-			qWarning("Message: Message ID %d couldn't be read", id);
+			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
 	if (mMsg) {
+		mMsg->m_sPlayerId=sPlayerId;
 		mMsg->restoreStream(qdsIn);
 		if (qdsIn.status() != QDataStream::Ok) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: Corrput or short packet id %d", id);
+			qWarning("Message: %d[%d] Corrput or short packet", iMessageType, sPlayerId);
 		} else if (qdsIn.device()->bytesAvailable() != 0) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: Long packet id %d", id);
+			qWarning("Message: %d[%d] Long packet", iMessageType, sPlayerId);
 		} else if (! mMsg->isValid()) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: Failed to sanitize packet id %d", id);
+			qWarning("Message: %d[%d] Failed to validate", iMessageType, sPlayerId);
 		}
 	}
 
@@ -76,18 +85,16 @@ bool Message::isValid() {
 	return TRUE;
 }
 
+
 MessageServerJoin::MessageServerJoin() {
-	m_iId = 0;
 	m_qsPlayerName = QString();
 }
 
 void MessageServerJoin::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_iId;
 	qdsOut << m_qsPlayerName;
 }
 
 void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_iId;
 	qdsIn >> m_qsPlayerName;
 }
 
@@ -101,7 +108,31 @@ bool MessageServerJoin::isValid() {
 	return ok;
 }
 
+
+MessageSpeex::MessageSpeex() {
+	m_qbaSpeexPacket = QByteArray();
+}
+
+void MessageSpeex::saveStream(QDataStream &qdsOut) {
+	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
+	qbBuffer->buffer().append(m_qbaSpeexPacket);
+}
+
+void MessageSpeex::restoreStream(QDataStream &qdsIn) {
+	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
+	m_qbaSpeexPacket = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
+	qbBuffer->seek(qbBuffer->size());
+}
+
+bool MessageSpeex::isValid() {
+	return ! m_qbaSpeexPacket.isEmpty();
+}
+
 // This will be moved to the actual handlers for client/server stuff
-void MessageServerJoin::process()
+void MessageServerJoin::process(Connection *cCon)
+{
+}
+
+void MessageSpeex::process(Connection *cCon)
 {
 }

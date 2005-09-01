@@ -28,55 +28,26 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MESSAGE_H
-#define _MESSAGE_H
+#ifndef _CONNECTION_H
+#define _CONNECTION_H
 
-#include <QDataStream>
+#include "Message.h"
+#include <QTcpSocket>
 #include <QByteArray>
-#include <QString>
-#include "Connection.h"
 
-class Message {
+class Connection : public QObject {
+	Q_OBJECT
 	protected:
-		short m_sPlayerId;
-		enum MessageType { M_SPEEX, M_SOCKETERROR, M_SERVER_JOIN, M_SERVER_LEAVE, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
-		virtual void saveStream(QDataStream &qdsOut) = 0;
-		virtual void restoreStream(QDataStream &qdsIn) = 0;
+		QTcpSocket *m_qtsSocket;
+		int m_iPacketLength;
+		virtual void preprocess(Message *mMsg) = 0;
+	protected slots:
+		void socketRead();
 	public:
-		Message();
-		virtual Message::MessageType messageType() = 0;
-		virtual void process(Connection *cCon) = 0;
-		virtual bool isValid();
-
-		void messageToNetwork(QByteArray &qbaOut);
-		static Message *networkToMessage(QByteArray &qbaIn);
-};
-
-class MessageSpeex : public Message {
-	protected:
-		void saveStream(QDataStream &qdsOut);
-		void restoreStream(QDataStream &qdsIn);
-	public:
-		QByteArray m_qbaSpeexPacket;
-		MessageSpeex();
-		Message::MessageType messageType() { return M_SPEEX; };
-		void process(Connection *cCon);
-		bool isValid();
-};
-
-
-class MessageServerJoin : public Message {
-	protected:
-		void saveStream(QDataStream &qdsOut);
-		void restoreStream(QDataStream &qdsIn);
-	public:
-		QString m_qsPlayerName;
-		MessageServerJoin();
-		Message::MessageType messageType() { return M_SERVER_JOIN; };
-		void process(Connection *cCon);
-		bool isValid();
+		Connection(QObject *parent, QTcpSocket *qtsSocket);
+		void sendMessage(Message *mMsg);
 };
 
 #else
-class Message;
+class Connection;
 #endif
