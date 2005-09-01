@@ -1,5 +1,6 @@
 TEMPLATE	=app
 CONFIG  += qt thread warn_on network release console
+CONFIG	-= gui
 QT           += network
 TARGET = murmur
 DBFILE  = murmur.db

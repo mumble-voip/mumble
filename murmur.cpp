@@ -28,7 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
+#include <QCoreApplication>
 #include "Server.h"
 
 extern Server *g_sServer;
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 {
 	int res;
 
-	QApplication a(argc, argv);
+	QCoreApplication a(argc, argv);
 
 	g_sServer = new Server();
 	res=a.exec();

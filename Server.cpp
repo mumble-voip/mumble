@@ -46,7 +46,7 @@ void Server::newClient() {
 	Player *pPlayer = new Player();
 	m_qmPlayers[cCon] = pPlayer;
 
-	connect(cCon, SIGNAL(connectionClosed()), this, SLOT(connectionClosed(Connection *)));
+	connect(cCon, SIGNAL(connectionClosed(Connection *)), this, SLOT(connectionClosed(Connection *)));
 }
 
 void Server::connectionClosed(Connection *c) {
@@ -58,6 +58,8 @@ void Server::connectionClosed(Connection *c) {
 
 	m_qmConnections.remove(pPlayer->m_sId);
 	m_qmPlayers.remove(c);
+
+	qWarning("Connection closed");
 
 	delete pPlayer;
 	c->deleteLater();
