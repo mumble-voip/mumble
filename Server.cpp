@@ -104,14 +104,26 @@ void MessageServerJoin::process(Connection *cCon) {
 			break;
 
 	pPlayer->m_sId = id;
+	pPlayer->m_qsName = m_qsPlayerName;
 	m_sPlayerId = id;
 	g_sServer->m_qmConnections[id] = cCon;
 
-	g_sServer->sendAll(this);
+	g_sServer->sendExcept(this, cCon);
 
 	pPlayer->m_sState = Player::Authenticated;
-	
+
 	qWarning("Player %s joined", m_qsPlayerName.toLatin1().constData());
+
+	MessageServerJoin msjMsg;
+
+	QMapIterator<Connection *, Player *> iPlayers(g_sServer->m_qmPlayers);
+	while (iPlayers.hasNext()) {
+		iPlayers.next();
+		pPlayer = iPlayers.value();
+		msjMsg.m_sPlayerId = pPlayer->m_sId;
+		msjMsg.m_qsPlayerName = pPlayer->m_qsName;
+		cCon->sendMessage(&msjMsg);
+	}
 }
 
 void MessageServerLeave::process(Connection *) {

@@ -30,7 +30,11 @@
 
 #include "AudioInput.h"
 #include "ServerHandler.h"
-
+extern "C" {
+//	#include <arch.h>
+	#include <sb_celp.h>
+//	#include <nb_celp.h>
+}
 AudioInput *g_aiInput;
 
 int AudioInput::c_iFrameCounter = 0;
@@ -77,6 +81,8 @@ void AudioInput::encodeAudioFrame() {
 	float fArg;
 	int iLen;
 
+	c_iFrameCounter++;
+
 	if (! m_bRunning) {
 		return;
 	}
@@ -111,8 +117,31 @@ void AudioInput::encodeAudioFrame() {
 	if (m_sppPreprocess->loudness2 < 4000)
 		m_sppPreprocess->loudness2 = 4000;
 
+	// If neither this or the previous is voice, we're done
+	if (! iIsSpeech && ! m_bLastVoice)
+		return;
+
+	m_bLastVoice = iIsSpeech ? true : false;
+
+	// Send DTX Packet? This is a truly ugly hack
+	if (! iIsSpeech) {
+		iArg = 0;
+		speex_encoder_ctl(m_esEncState,SPEEX_SET_VBR, &iArg);
+		speex_encoder_ctl(m_esEncState,SPEEX_SET_QUALITY, &iArg);
+
+		SBEncState *sbe = static_cast<SBEncState *>(m_esEncState);
+		EncState *es = static_cast<EncState *>(sbe->st_low);
+		es->dtx_count = 1;
+	}
+
 	speex_bits_reset(&m_sbBits);
 	speex_encode_int(m_esEncState, m_psMic, &m_sbBits);
+
+	// Restore encoder
+	if (! iIsSpeech) {
+		iArg = 1;
+		speex_encoder_ctl(m_esEncState,SPEEX_SET_VBR, &iArg);
+	}
 
 	iLen=speex_bits_nbytes(&m_sbBits);
 	QByteArray qbaPacket(iLen, 0);
@@ -120,7 +149,7 @@ void AudioInput::encodeAudioFrame() {
 
 	MessageSpeex msPacket;
 	msPacket.m_qbaSpeexPacket = qbaPacket;
-	msPacket.m_iSeq = ++c_iFrameCounter;
+	msPacket.m_iSeq = c_iFrameCounter;
 	if (g_shServer)
 		g_shServer->sendMessage(&msPacket);
 }

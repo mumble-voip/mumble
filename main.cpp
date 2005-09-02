@@ -40,6 +40,9 @@ int main(int argc, char **argv)
 {
 	int res;
 
+	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
+		qWarning("Application: Failed to set priority!");
+
 	QApplication a(argc, argv);
 
 	g_shServer = new ServerHandler();

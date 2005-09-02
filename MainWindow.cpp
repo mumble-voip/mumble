@@ -144,6 +144,14 @@ void MainWindow::serverConnected()
 void MainWindow::serverDisconnected()
 {
 	m_qaServerConnect->setEnabled(TRUE);
+	QMapIterator<short, QListWidgetItem *> iItems(m_qmPlayers);
+	while (iItems.hasNext()) {
+		iItems.next();
+		Player *p=m_qmPlayerWidgets.take(iItems.value());
+		delete p;
+		delete iItems.value();
+	}
+	m_qmPlayers.clear();
 }
 
 void MainWindow::customEvent(QEvent *evt) {
@@ -171,7 +179,6 @@ void MessageServerJoin::process(Connection *) {
 }
 
 void MessageServerLeave::process(Connection *) {
-	qWarning("Someone left");
 	if (g_mwMainWindow->m_qmPlayers.contains(m_sPlayerId)) {
 		QListWidgetItem *item=g_mwMainWindow->m_qmPlayers.take(m_sPlayerId);
 		Player *p=g_mwMainWindow->m_qmPlayerWidgets.take(item);
