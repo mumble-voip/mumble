@@ -37,12 +37,8 @@ extern MainWindow *g_mwMainWindow;
 
 ServerHandler *g_shServer;
 
-ServerHandlerMessageEvent::ServerHandlerMessageEvent(Message *mMsg) : QEvent((QEvent::Type) SERVERSEND_EVENT) {
-	m_mMsg = mMsg;
-}
-
-ServerHandlerMessageEvent::~ServerHandlerMessageEvent() {
-	delete m_mMsg;
+ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg) : QEvent((QEvent::Type) SERVERSEND_EVENT) {
+	qbaMsg = msg;
 }
 
 ServerHandler::ServerHandler()
@@ -61,13 +57,15 @@ void ServerHandler::customEvent(QEvent *evt) {
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
 	if (cConnection) {
-		cConnection->sendMessage(shme->m_mMsg);
+		cConnection->sendMessage(shme->qbaMsg);
 	}
 }
 
 void ServerHandler::sendMessage(Message *mMsg)
 {
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(mMsg);
+	QByteArray qbaBuffer;
+	mMsg->messageToNetwork(qbaBuffer);
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer);
 	QApplication::postEvent(this, shme);
 }
 
@@ -78,7 +76,7 @@ void ServerHandler::run()
 
 	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(Connection *)), this, SLOT(serverConnectionClosed(Connection *)));
-	connect(cConnection, SIGNAL(message(Message *, Connection *, bool *)), this, SLOT(message(Message *, Connection *, bool *)));
+	connect(cConnection, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection &)));
 	qtsSock->connectToHost(m_qsHostName, 64738);
 	exec();
 	cConnection->disconnect();
@@ -86,18 +84,23 @@ void ServerHandler::run()
 	delete qtsSock;
 }
 
-void ServerHandler::message(Message *mMsg, Connection *, bool *bDel) {
+void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 	// Handle speex directly (into player threads)
 	// But for now....
+
+	Message *mMsg = Message::networkToMessage(qbaMsg);
+	if (! mMsg)
+		return;
 
 	if (mMsg->messageType() == Message::M_SPEEX) {
 		if (g_aoOutput)
 			g_aoOutput->addFrameToBuffer(mMsg->m_sPlayerId, static_cast<MessageSpeex *>(mMsg)->m_qbaSpeexPacket);
 	} else {
-		*bDel = FALSE;
-		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(mMsg);
+		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg);
 		QApplication::postEvent(g_mwMainWindow, shme);
 	}
+
+	delete mMsg;
 }
 
 void ServerHandler::disconnect() {

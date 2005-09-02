@@ -45,11 +45,12 @@ class Connection : public QObject {
 	    void socketError(QAbstractSocket::SocketError);
 	signals:
 		void connectionClosed(Connection *);
-		void message(Message *, Connection *, bool *);
+		void message(QByteArray &, Connection *);
 	public:
 		Connection(QObject *parent, QTcpSocket *qtsSocket);
 		~Connection();
 		void sendMessage(Message *mMsg);
+		void sendMessage(QByteArray &qbaMsg);
 		void disconnect();
 };
 

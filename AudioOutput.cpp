@@ -102,4 +102,5 @@ void AudioOutput::addFrameToBuffer(short sId, QByteArray &qbaPacket) {
 		m_qmOutputs[sId] = getPlayer(sId);
 	}
 	m_qmOutputs[sId]->addFrameToBuffer(qbaPacket);
+	m_qmOutputMutex.unlock();
 }

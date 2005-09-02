@@ -77,6 +77,8 @@ DXAudioOutput::DXAudioOutput() {
        	qFatal("DXAudioOutput: GetFormat");
 
 	qWarning("DXAudioOutput: Primary buffer of %d Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
+
+	m_bRunning = true;
 }
 
 DXAudioOutput::~DXAudioOutput() {

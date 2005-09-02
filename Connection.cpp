@@ -59,6 +59,8 @@ void Connection::socketRead() {
 
     if ((m_iPacketLength != -1) && (iAvailable >= m_iPacketLength)) {
 	  QByteArray qbaBuffer = m_qtsSocket->read(m_iPacketLength);
+	  emit message(qbaBuffer, this);
+/*
 	  Message *mMsg = Message::networkToMessage(qbaBuffer);
 	  if (mMsg) {
 		  bool bDel = true;
@@ -68,6 +70,7 @@ void Connection::socketRead() {
 	  } else {
 		  disconnect();
 	  }
+*/
       m_iPacketLength = -1;
     } else {
       return;
@@ -82,16 +85,21 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 
 void Connection::sendMessage(Message *mMsg) {
 	QByteArray qbaBuffer;
+
+	mMsg->messageToNetwork(qbaBuffer);
+	sendMessage(qbaBuffer);
+}
+
+void Connection::sendMessage(QByteArray &qbaMsg) {
 	unsigned char a_ucBuffer[2];
 
 	if (m_qtsSocket->state() != QAbstractSocket::ConnectedState)
 		return;
 
-	mMsg->messageToNetwork(qbaBuffer);
-	a_ucBuffer[0]=(qbaBuffer.size() >> 8) & 0xff;
-	a_ucBuffer[1]=(qbaBuffer.size() & 0xff);
+	a_ucBuffer[0]=(qbaMsg.size() >> 8) & 0xff;
+	a_ucBuffer[1]=(qbaMsg.size() & 0xff);
 	m_qtsSocket->write((const char *) a_ucBuffer, 2);
-	m_qtsSocket->write(qbaBuffer);
+	m_qtsSocket->write(qbaMsg);
 }
 
 void Connection::disconnect() {

@@ -43,9 +43,8 @@
 class ServerHandlerMessageEvent : public QEvent
 {
 	public:
-		Message *m_mMsg;
-		ServerHandlerMessageEvent(Message *mMsg);
-		~ServerHandlerMessageEvent();
+		QByteArray qbaMsg;
+		ServerHandlerMessageEvent(QByteArray &msg);
 };
 
 class ServerHandler : public QThread
@@ -67,7 +66,7 @@ class ServerHandler : public QThread
 		void disconnected();
 		void connected();
 	protected slots:
-		void message(Message *, Connection *, bool *);
+		void message(QByteArray &, Connection *);
 		void serverConnectionConnected();
 		void serverConnectionClosed(Connection *);
 };

@@ -133,7 +133,11 @@ void MainWindow::customEvent(QEvent *evt) {
 
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
-	shme->m_mMsg->process(NULL);
+	Message *mMsg = Message::networkToMessage(shme->qbaMsg);
+	if (mMsg) {
+		mMsg->process(NULL);
+		delete mMsg;
+	}
 }
 
 void MessageServerJoin::process(Connection *) {

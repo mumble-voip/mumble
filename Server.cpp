@@ -47,7 +47,7 @@ void Server::newClient() {
 	m_qmPlayers[cCon] = pPlayer;
 
 	connect(cCon, SIGNAL(connectionClosed(Connection *)), this, SLOT(connectionClosed(Connection *)));
-	connect(cCon, SIGNAL(message(Message *,Connection *, bool *)), this, SLOT(message(Message *, Connection *, bool *)));
+	connect(cCon, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
 }
 
 void Server::connectionClosed(Connection *c) {
@@ -68,8 +68,13 @@ void Server::connectionClosed(Connection *c) {
 	c->deleteLater();
 }
 
-void Server::message(Message *mMsg, Connection *cCon, bool *) {
-	mMsg->process(cCon);
+void Server::message(QByteArray &qbaMsg, Connection *cCon) {
+	  Message *mMsg = Message::networkToMessage(qbaMsg);
+	  if (mMsg) {
+		mMsg->process(cCon);
+	  } else {
+		cCon->disconnect();
+	  }
 }
 
 void Server::sendAll(Message *mMsg) {
