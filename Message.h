@@ -60,6 +60,7 @@ class MessageSpeex : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
+		int m_iSeq;
 		QByteArray m_qbaSpeexPacket;
 		MessageSpeex();
 		Message::MessageType messageType() { return Speex; };

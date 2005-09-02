@@ -58,11 +58,10 @@ AudioOutputPlayer::~AudioOutputPlayer() {
 		speex_jitter_destroy(&m_sjJitter);
 }
 
-void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket) {
+void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 	m_qmJitter.lock();
-	speex_jitter_put(&m_sjJitter, qbaPacket.data(), qbaPacket.size(), m_iFrameCounter * 20);
+	speex_jitter_put(&m_sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * 20);
 	m_qmJitter.unlock();
-	m_iFrameCounter++;
 }
 
 void AudioOutputPlayer::decodeNextFrame() {
@@ -96,12 +95,12 @@ void AudioOutput::wipe() {
 	m_qmOutputMutex.unlock();
 }
 
-void AudioOutput::addFrameToBuffer(short sId, QByteArray &qbaPacket) {
+void AudioOutput::addFrameToBuffer(short sId, QByteArray &qbaPacket, int iSeq) {
 	m_qmOutputMutex.lock();
 	if (! m_qmOutputs.contains(sId)) {
 		m_qmOutputs[sId] = getPlayer(sId);
 	}
-	m_qmOutputs[sId]->addFrameToBuffer(qbaPacket);
+	m_qmOutputs[sId]->addFrameToBuffer(qbaPacket, iSeq);
 	m_qmOutputMutex.unlock();
 }
 

@@ -33,6 +33,8 @@
 
 AudioInput *g_aiInput;
 
+int AudioInput::c_iFrameCounter = 0;
+
 AudioInput::AudioInput()
 {
 	speex_bits_init(&m_sbBits);
@@ -118,6 +120,7 @@ void AudioInput::encodeAudioFrame() {
 
 	MessageSpeex msPacket;
 	msPacket.m_qbaSpeexPacket = qbaPacket;
+	msPacket.m_iSeq = ++c_iFrameCounter;
 	if (g_shServer)
 		g_shServer->sendMessage(&msPacket);
 }

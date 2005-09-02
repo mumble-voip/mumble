@@ -98,7 +98,6 @@ void Message::saveStream(QDataStream &) {
 void Message::restoreStream(QDataStream &) {
 }
 
-
 MessageServerJoin::MessageServerJoin() {
 	m_qsPlayerName = QString();
 }
@@ -121,17 +120,18 @@ bool MessageServerJoin::isValid() {
 	return ok;
 }
 
-
 MessageSpeex::MessageSpeex() {
 	m_qbaSpeexPacket = QByteArray();
 }
 
 void MessageSpeex::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_iSeq;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
 	qbBuffer->buffer().append(m_qbaSpeexPacket);
 }
 
 void MessageSpeex::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_iSeq;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
 	m_qbaSpeexPacket = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
 	qbBuffer->seek(qbBuffer->size());

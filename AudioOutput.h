@@ -59,7 +59,7 @@ class AudioOutputPlayer : public QObject {
 
 		void decodeNextFrame();
 	public:
-		void addFrameToBuffer(QByteArray &);
+		void addFrameToBuffer(QByteArray &, int iSeq);
 		AudioOutputPlayer(AudioOutput *, short);
 		~AudioOutputPlayer();
 };
@@ -76,7 +76,7 @@ class AudioOutput : public QObject {
 
 		AudioOutput();
 		~AudioOutput();
-		void addFrameToBuffer(short, QByteArray &);
+		void addFrameToBuffer(short, QByteArray &, int iSeq);
 		void removeBuffer(short);
 };
 

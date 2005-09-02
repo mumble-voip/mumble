@@ -93,8 +93,10 @@ void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 		return;
 
 	if (mMsg->messageType() == Message::Speex) {
-		if (g_aoOutput)
-			g_aoOutput->addFrameToBuffer(mMsg->m_sPlayerId, static_cast<MessageSpeex *>(mMsg)->m_qbaSpeexPacket);
+		if (g_aoOutput) {
+			MessageSpeex *msMsg=static_cast<MessageSpeex *>(mMsg);
+			g_aoOutput->addFrameToBuffer(mMsg->m_sPlayerId, msMsg->m_qbaSpeexPacket, msMsg->m_iSeq);
+		}
 	} else {
 		if (mMsg->messageType() == Message::ServerLeave)
 			if (g_aoOutput)
