@@ -33,6 +33,8 @@
 
 #include <QString>
 #include <QObject>
+#include <QMap>
+#include <QMutex>
 
 class Player : public QObject {
 	Q_OBJECT
@@ -41,8 +43,16 @@ class Player : public QObject {
   		State m_sState;
 		short m_sId;
 		QString m_qsName;
+		bool m_bMute, m_bDeaf;
 		Player();
+		static Player *get(short);
+		static Player *add(short);
+		static void remove(short);
+		static void remove(Player *);
 };
+
+extern QMap<short, Player *> g_qmPlayers;
+extern QMutex g_qmPlayersMutex;
 
 #else
 class Player;

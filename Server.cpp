@@ -136,3 +136,27 @@ void MessageSpeex::process(Connection *cCon) {
 //	g_sServer->sendExcept(this, cCon);
 	g_sServer->sendAll(this);
 }
+
+void MessagePlayerMute::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	pPlayer->m_bMute = m_bMute;
+
+	g_sServer->sendAll(this);
+}
+
+void MessagePlayerDeaf::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	pPlayer->m_bDeaf = m_bDeaf;
+
+	g_sServer->sendAll(this);
+}
+
+void MessagePlayerKick::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	cCon = g_sServer->m_qmConnections[m_sPlayerId];
+	cCon->sendMessage(this);
+	cCon->disconnect();
+}

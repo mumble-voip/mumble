@@ -44,13 +44,13 @@ class MainWindow : public QMainWindow {
 	Q_OBJECT
 	public:
 		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect, *m_qaServerStats;
+		QAction *m_qaServerConnect, *m_qaServerDisconnect;
 		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
 		QAction *m_qaAudioConfig, *m_qaAudioReset;
 		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
 
-		QMap<short, QListWidgetItem *> m_qmPlayers;
-		QMap<QListWidgetItem *, Player *> m_qmPlayerWidgets;
+		QMap<Player *, QListWidgetItem *> m_qmItems;
+		QMap<QListWidgetItem *, Player *> m_qmPlayers;
 
 		void setupGui();
 		void customEvent(QEvent *evt);
@@ -58,6 +58,10 @@ class MainWindow : public QMainWindow {
 	public slots:
 		void on_ServerConnect_triggered();
 		void on_ServerDisconnect_triggered();
+		void on_PlayerMenu_aboutToShow();
+		void on_PlayerKick_triggered();
+		void on_PlayerMute_triggered();
+		void on_PlayerDeaf_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
 		void serverConnected();

@@ -30,7 +30,41 @@
 
 #include "Player.h"
 
+QMap<short, Player *> g_qmPlayers;
+QMutex g_qmPlayersMutex;
+
 Player::Player() {
   m_sState = Player::Connected;
-  m_sId = 0; 
+  m_sId = 0;
+  m_bMute = m_bDeaf = false;
+}
+
+Player *Player::get(short sId) {
+	Player *p = NULL;
+	g_qmPlayersMutex.lock();
+	if (g_qmPlayers.contains(sId))
+		p = g_qmPlayers[sId];
+	g_qmPlayersMutex.unlock();
+	return p;
+}
+
+Player *Player::add(short sId) {
+	Player *p = new Player();
+	p->m_sId = sId;
+	g_qmPlayersMutex.lock();
+	g_qmPlayers[sId] = p;
+	g_qmPlayersMutex.unlock();
+	return p;
+}
+
+void Player::remove(short sId) {
+	g_qmPlayersMutex.lock();
+	g_qmPlayers.remove(sId);
+	g_qmPlayersMutex.unlock();
+}
+
+void Player::remove(Player *p) {
+	g_qmPlayersMutex.lock();
+	g_qmPlayers.remove(p->m_sId);
+	g_qmPlayersMutex.unlock();
 }

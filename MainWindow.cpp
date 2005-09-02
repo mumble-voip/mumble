@@ -53,19 +53,19 @@ void MainWindow::setupGui()  {
 	qmAudio = new QMenu("&Audio", this);
 	qmHelp = new QMenu("&Help", this);
 
+	qmServer->setObjectName("ServerMenu");
+	qmPlayer->setObjectName("PlayerMenu");
+	qmAudio->setObjectName("AudioMenu");
+	qmHelp->setObjectName("HelpMenu");
+
 	m_qaServerConnect=new QAction("&Connect", this);
 	m_qaServerDisconnect=new QAction("&Disconnect", this);
-	m_qaServerStats=new QAction("&Stats", this);
 	m_qaServerConnect->setObjectName("ServerConnect");
 	m_qaServerDisconnect->setObjectName("ServerDisconnect");
-	m_qaServerStats->setObjectName("ServerStats");
 	m_qaServerDisconnect->setEnabled(FALSE);
-	m_qaServerStats->setEnabled(FALSE);
 
 	qmServer->addAction(m_qaServerConnect);
 	qmServer->addAction(m_qaServerDisconnect);
-	qmServer->addAction(m_qaServerStats);
-
 
 	m_qaPlayerKick=new QAction("&Kick", this);
 	m_qaPlayerMute=new QAction("&Mute", this);
@@ -125,6 +125,55 @@ void MainWindow::on_ServerDisconnect_triggered()
 	m_qaServerDisconnect->setEnabled(FALSE);
 }
 
+void MainWindow::on_PlayerMenu_aboutToShow()
+{
+	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	if (! item) {
+		m_qaPlayerKick->setEnabled(false);
+		m_qaPlayerMute->setEnabled(false);
+		m_qaPlayerDeaf->setEnabled(false);
+	} else {
+		Player *p = m_qmPlayers[item];
+		m_qaPlayerKick->setEnabled(true);
+		m_qaPlayerMute->setEnabled(true);
+		m_qaPlayerDeaf->setEnabled(true);
+		m_qaPlayerMute->setChecked(p->m_bMute);
+		m_qaPlayerDeaf->setChecked(p->m_bDeaf);
+	}
+}
+
+void MainWindow::on_PlayerMute_triggered()
+{
+	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	if (! item)
+		return;
+	Player *p = m_qmPlayers[item];
+	MessagePlayerMute mpmMsg;
+	mpmMsg.m_sPlayerId = p->m_sId;
+	mpmMsg.m_bMute = ! p->m_bMute;
+	g_shServer->sendMessage(&mpmMsg);
+}
+
+void MainWindow::on_PlayerDeaf_triggered()
+{
+	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	if (! item)
+		return;
+	Player *p = m_qmPlayers[item];
+	MessagePlayerDeaf mpdMsg;
+	mpdMsg.m_sPlayerId = p->m_sId;
+	mpdMsg.m_bDeaf = ! p->m_bDeaf;
+	g_shServer->sendMessage(&mpdMsg);
+}
+
+void MainWindow::on_PlayerKick_triggered()
+{
+	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	if (! item)
+		return;
+	Player *p = m_qmPlayers[item];
+}
+
 void MainWindow::on_HelpAbout_triggered()
 {
 	AboutDialog adAbout(this);
@@ -144,13 +193,12 @@ void MainWindow::serverConnected()
 void MainWindow::serverDisconnected()
 {
 	m_qaServerConnect->setEnabled(TRUE);
-	QMapIterator<short, QListWidgetItem *> iItems(m_qmPlayers);
+	QMapIterator<Player *, QListWidgetItem *> iItems(m_qmItems);
 	while (iItems.hasNext()) {
 		iItems.next();
-		Player *p=m_qmPlayerWidgets.take(iItems.value());
-		delete p;
 		delete iItems.value();
 	}
+	m_qmItems.clear();
 	m_qmPlayers.clear();
 }
 
@@ -169,24 +217,47 @@ void MainWindow::customEvent(QEvent *evt) {
 
 void MessageServerJoin::process(Connection *) {
 	QListWidgetItem *item = new QListWidgetItem(m_qsPlayerName, g_mwMainWindow->m_qlwPlayers);
-	Player *p = new Player();
+	Player *p = Player::add(m_sPlayerId);
 	p->m_qsName = m_qsPlayerName;
 	p->m_sId = m_sPlayerId;
+
 	item->setData(Qt::UserRole, p);
 
-	g_mwMainWindow->m_qmPlayerWidgets[item]=p;
-	g_mwMainWindow->m_qmPlayers[m_sPlayerId]=item;
+	g_mwMainWindow->m_qmPlayers[item]=p;
+	g_mwMainWindow->m_qmItems[p]=item;
 }
 
+#define MSG_INIT \
+ Player *p=Player::get(m_sPlayerId); \
+ if (! p) \
+ 	qFatal("MainWindow: Message for nonexistant player %d", m_sPlayerId); \
+ QListWidgetItem *item=g_mwMainWindow->m_qmItems[p]
+
 void MessageServerLeave::process(Connection *) {
-	if (g_mwMainWindow->m_qmPlayers.contains(m_sPlayerId)) {
-		QListWidgetItem *item=g_mwMainWindow->m_qmPlayers.take(m_sPlayerId);
-		Player *p=g_mwMainWindow->m_qmPlayerWidgets.take(item);
+	Player *p=Player::get(m_sPlayerId);
+	if (g_mwMainWindow->m_qmItems.contains(p)) {
+		QListWidgetItem *item=g_mwMainWindow->m_qmItems.take(p);
+
+		g_mwMainWindow->m_qmPlayers.remove(item);
 
 		delete item;
+		Player::remove(p);
 		delete p;
 	}
 }
 
 void MessageSpeex::process(Connection *) {
+}
+
+void MessagePlayerMute::process(Connection *) {
+	MSG_INIT;
+	p->m_bMute = m_bMute;
+}
+
+void MessagePlayerDeaf::process(Connection *) {
+	MSG_INIT;
+	p->m_bDeaf = m_bDeaf;
+}
+
+void MessagePlayerKick::process(Connection *) {
 }

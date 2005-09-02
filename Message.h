@@ -41,7 +41,7 @@ class Message {
 		virtual void saveStream(QDataStream &);
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerJoin, ServerLeave };
+		enum MessageType { Speex, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick };
 
 		short m_sPlayerId;
 
@@ -84,6 +84,39 @@ class MessageServerJoin : public Message {
 class MessageServerLeave : public Message {
 	public:
 		Message::MessageType messageType() { return ServerLeave; };
+		void process(Connection *);
+};
+
+class MessagePlayerMute : public Message {
+	protected:
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
+	public:
+		bool m_bMute;
+		MessagePlayerMute();
+		Message::MessageType messageType() { return PlayerMute; };
+		void process(Connection *);
+};
+
+class MessagePlayerDeaf : public Message {
+	protected:
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
+	public:
+		bool m_bDeaf;
+		MessagePlayerDeaf();
+		Message::MessageType messageType() { return PlayerDeaf; };
+		void process(Connection *);
+};
+
+class MessagePlayerKick : public Message {
+	protected:
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
+	public:
+		QString m_qsReason;
+		MessagePlayerKick();
+		Message::MessageType messageType() { return PlayerKick; };
 		void process(Connection *);
 };
 

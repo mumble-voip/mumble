@@ -98,9 +98,12 @@ void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 			g_aoOutput->addFrameToBuffer(mMsg->m_sPlayerId, msMsg->m_qbaSpeexPacket, msMsg->m_iSeq);
 		}
 	} else {
-		if (mMsg->messageType() == Message::ServerLeave)
-			if (g_aoOutput)
-				g_aoOutput->removeBuffer(mMsg->m_sPlayerId);
+		switch(mMsg->messageType()) {
+			case Message::ServerLeave:
+				if (g_aoOutput)
+					g_aoOutput->removeBuffer(mMsg->m_sPlayerId);
+				break;
+		}
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg);
 		QApplication::postEvent(g_mwMainWindow, shme);
 	}

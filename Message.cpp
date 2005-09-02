@@ -62,7 +62,15 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case ServerLeave:
 			mMsg = new MessageServerLeave();
 			break;
-
+		case PlayerMute:
+			mMsg = new MessagePlayerMute();
+			break;
+		case PlayerDeaf:
+			mMsg = new MessagePlayerDeaf();
+			break;
+		case PlayerKick:
+			mMsg = new MessagePlayerKick();
+			break;
 		default:
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
@@ -139,4 +147,43 @@ void MessageSpeex::restoreStream(QDataStream &qdsIn) {
 
 bool MessageSpeex::isValid() {
 	return ! m_qbaSpeexPacket.isEmpty();
+}
+
+
+MessagePlayerMute::MessagePlayerMute() {
+	m_bMute = false;
+}
+
+void MessagePlayerMute::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_bMute;
+}
+
+void MessagePlayerMute::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_bMute;
+}
+
+
+MessagePlayerDeaf::MessagePlayerDeaf() {
+	m_bDeaf = false;
+}
+
+void MessagePlayerDeaf::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_bDeaf;
+}
+
+void MessagePlayerDeaf::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_bDeaf;
+}
+
+
+MessagePlayerKick::MessagePlayerKick() {
+	m_qsReason = QString();
+}
+
+void MessagePlayerKick::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_qsReason;
+}
+
+void MessagePlayerKick::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_qsReason;
 }
