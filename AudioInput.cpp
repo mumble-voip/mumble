@@ -116,8 +116,8 @@ void AudioInput::encodeAudioFrame() {
 	QByteArray qbaPacket(iLen, 0);
 	speex_bits_write(&m_sbBits, qbaPacket.data(), iLen);
 
-	MessageSpeex *msPacket = new MessageSpeex();
-	msPacket->m_qbaSpeexPacket = qbaPacket;
+	MessageSpeex msPacket;
+	msPacket.m_qbaSpeexPacket = qbaPacket;
 	if (g_shServer)
-		g_shServer->sendMessage(msPacket);
+		g_shServer->sendMessage(&msPacket);
 }
