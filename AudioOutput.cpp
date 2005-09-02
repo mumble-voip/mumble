@@ -104,3 +104,12 @@ void AudioOutput::addFrameToBuffer(short sId, QByteArray &qbaPacket) {
 	m_qmOutputs[sId]->addFrameToBuffer(qbaPacket);
 	m_qmOutputMutex.unlock();
 }
+
+void AudioOutput::removeBuffer(short sId) {
+	m_qmOutputMutex.lock();
+	if (m_qmOutputs.contains(sId)) {
+		AudioOutputPlayer *aopOutput = m_qmOutputs.take(sId);
+		delete aopOutput;
+	}
+	m_qmOutputMutex.unlock();
+}

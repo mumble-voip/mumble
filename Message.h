@@ -41,7 +41,7 @@ class Message {
 		virtual void saveStream(QDataStream &);
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { M_SPEEX, M_SERVER_JOIN, M_SERVER_LEAVE, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
+		enum MessageType { Speex, ServerJoin, ServerLeave };
 
 		short m_sPlayerId;
 
@@ -62,7 +62,7 @@ class MessageSpeex : public Message {
 	public:
 		QByteArray m_qbaSpeexPacket;
 		MessageSpeex();
-		Message::MessageType messageType() { return M_SPEEX; };
+		Message::MessageType messageType() { return Speex; };
 		void process(Connection *);
 		bool isValid();
 };
@@ -75,14 +75,14 @@ class MessageServerJoin : public Message {
 	public:
 		QString m_qsPlayerName;
 		MessageServerJoin();
-		Message::MessageType messageType() { return M_SERVER_JOIN; };
+		Message::MessageType messageType() { return ServerJoin; };
 		void process(Connection *);
 		bool isValid();
 };
 
 class MessageServerLeave : public Message {
 	public:
-		Message::MessageType messageType() { return M_SERVER_LEAVE; };
+		Message::MessageType messageType() { return ServerLeave; };
 		void process(Connection *);
 };
 

@@ -141,10 +141,25 @@ void MainWindow::customEvent(QEvent *evt) {
 }
 
 void MessageServerJoin::process(Connection *) {
-	qWarning("Got new player %s", m_qsPlayerName.toLatin1().constData());
+	QListWidgetItem *item = new QListWidgetItem(m_qsPlayerName, g_mwMainWindow->m_qlwPlayers);
+	Player *p = new Player();
+	p->m_qsName = m_qsPlayerName;
+	p->m_sId = m_sPlayerId;
+	item->setData(Qt::UserRole, p);
+
+	g_mwMainWindow->m_qmPlayerWidgets[item]=p;
+	g_mwMainWindow->m_qmPlayers[m_sPlayerId]=item;
 }
 
 void MessageServerLeave::process(Connection *) {
+	qWarning("Someone left");
+	if (g_mwMainWindow->m_qmPlayers.contains(m_sPlayerId)) {
+		QListWidgetItem *item=g_mwMainWindow->m_qmPlayers.take(m_sPlayerId);
+		Player *p=g_mwMainWindow->m_qmPlayerWidgets.take(item);
+
+		delete item;
+		delete p;
+	}
 }
 
 void MessageSpeex::process(Connection *) {

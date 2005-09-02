@@ -172,7 +172,7 @@ void DXAudioOutputPlayer::run() {
 	int nowriteblock;
 	int lastwriteblock = NBLOCKS-1;
 	int timestamp;
-	int iAudioDecodeLag = 2;
+	int iAudioDecodeLag = 4;
 	DWORD dwPlayPosition, dwWritePosition;
     HRESULT             hr;
 

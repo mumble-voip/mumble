@@ -32,8 +32,10 @@
 #define _PLAYER_H
 
 #include <QString>
+#include <QObject>
 
-class Player {
+class Player : public QObject {
+	Q_OBJECT
   	public:
   		enum State { Connected, Authenticated };
   		State m_sState;

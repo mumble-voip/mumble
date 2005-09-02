@@ -92,10 +92,13 @@ void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 	if (! mMsg)
 		return;
 
-	if (mMsg->messageType() == Message::M_SPEEX) {
+	if (mMsg->messageType() == Message::Speex) {
 		if (g_aoOutput)
 			g_aoOutput->addFrameToBuffer(mMsg->m_sPlayerId, static_cast<MessageSpeex *>(mMsg)->m_qbaSpeexPacket);
 	} else {
+		if (mMsg->messageType() == Message::ServerLeave)
+			if (g_aoOutput)
+				g_aoOutput->removeBuffer(mMsg->m_sPlayerId);
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg);
 		QApplication::postEvent(g_mwMainWindow, shme);
 	}

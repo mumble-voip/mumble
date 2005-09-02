@@ -47,7 +47,7 @@ class MainWindow : public QMainWindow {
 		QAction *m_qaPlayerKick, *m_qaPlayerMute;
 		QAction *m_qaAudioConfig, *m_qaAudioMuteMic, *m_qaAudioMuteAll, *m_qaAudioReset;
 
-		QMap<short, Player *> m_qmPlayers;
+		QMap<short, QListWidgetItem *> m_qmPlayers;
 		QMap<QListWidgetItem *, Player *> m_qmPlayerWidgets;
 
 		void setupGui();

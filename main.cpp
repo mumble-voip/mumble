@@ -42,6 +42,9 @@ int main(int argc, char **argv)
 
 	QApplication a(argc, argv);
 
+	g_shServer = new ServerHandler();
+	g_shServer->moveToThread(g_shServer);
+
 	g_mwMainWindow=new MainWindow(NULL);
 	g_mwMainWindow->show();
 
@@ -50,12 +53,7 @@ int main(int argc, char **argv)
 
 	g_aoOutput = new DXAudioOutput();
 
-	g_shServer = new ServerHandler();
-	g_shServer->moveToThread(g_shServer);
-
 	res=a.exec();
 
 	return res;
 }
-
-

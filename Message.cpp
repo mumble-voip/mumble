@@ -53,13 +53,13 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 	qdsIn >> iMessageType;
 	qdsIn >> sPlayerId;
 	switch(iMessageType) {
-		case M_SPEEX:
+		case Speex:
 			mMsg = new MessageSpeex();
 			break;
-		case M_SERVER_JOIN:
+		case ServerJoin:
 			mMsg = new MessageServerJoin();
 			break;
-		case M_SERVER_LEAVE:
+		case ServerLeave:
 			mMsg = new MessageServerLeave();
 			break;
 
