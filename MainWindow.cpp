@@ -30,6 +30,7 @@
 
 #include <QMenuBar>
 #include <QInputDialog>
+#include <QMessageBox>
 #include "MainWindow.h"
 
 MainWindow *g_mwMainWindow;
@@ -42,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 void MainWindow::setupGui()  {
-	QMenu *qmServer, *qmPlayer, *qmAudio;
+	QMenu *qmServer, *qmPlayer, *qmAudio, *qmHelp;
 
 	m_qlwPlayers = new QListWidget(this);
 	setCentralWidget(m_qlwPlayers);
@@ -50,6 +51,7 @@ void MainWindow::setupGui()  {
 	qmServer = new QMenu("&Server", this);
 	qmPlayer = new QMenu("&Player", this);
 	qmAudio = new QMenu("&Audio", this);
+	qmHelp = new QMenu("&Help", this);
 
 	m_qaServerConnect=new QAction("&Connect", this);
 	m_qaServerDisconnect=new QAction("&Disconnect", this);
@@ -67,35 +69,41 @@ void MainWindow::setupGui()  {
 
 	m_qaPlayerKick=new QAction("&Kick", this);
 	m_qaPlayerMute=new QAction("&Mute", this);
+	m_qaPlayerDeaf=new QAction("&Deafen", this);
 	m_qaPlayerKick->setObjectName("PlayerKick");
 	m_qaPlayerMute->setObjectName("PlayerMute");
+	m_qaPlayerDeaf->setObjectName("PlayerDeaf");
 	m_qaPlayerKick->setEnabled(FALSE);
 	m_qaPlayerMute->setCheckable(TRUE);
 	m_qaPlayerMute->setEnabled(FALSE);
+	m_qaPlayerDeaf->setCheckable(TRUE);
+	m_qaPlayerDeaf->setEnabled(FALSE);
 
 	qmPlayer->addAction(m_qaPlayerKick);
 	qmPlayer->addAction(m_qaPlayerMute);
+	qmPlayer->addAction(m_qaPlayerDeaf);
 
 
 	m_qaAudioConfig=new QAction("&Config", this);
-	m_qaAudioMuteMic=new QAction("&Mute mic", this);
-	m_qaAudioMuteAll=new QAction("Mute &all", this);
 	m_qaAudioReset=new QAction("&Reset", this);
 	m_qaAudioConfig->setObjectName("AudioConfig");
-	m_qaAudioMuteMic->setObjectName("AudioMuteMic");
-	m_qaAudioMuteAll->setObjectName("AudioMuteAll");
 	m_qaAudioReset->setObjectName("AudioReset");
-	m_qaAudioMuteMic->setCheckable(TRUE);
-	m_qaAudioMuteAll->setCheckable(TRUE);
 
 	qmAudio->addAction(m_qaAudioConfig);
-	qmAudio->addAction(m_qaAudioMuteMic);
-	qmAudio->addAction(m_qaAudioMuteAll);
 	qmAudio->addAction(m_qaAudioReset);
+
+	m_qaHelpAbout=new QAction("&About", this);
+	m_qaHelpAbout->setObjectName("HelpAbout");
+	m_qaHelpAboutQt=new QAction("&About QT", this);
+	m_qaHelpAboutQt->setObjectName("HelpAboutQt");
+
+	qmHelp->addAction(m_qaHelpAbout);
+	qmHelp->addAction(m_qaHelpAboutQt);
 
 	menuBar()->addMenu(qmServer);
 	menuBar()->addMenu(qmPlayer);
 	menuBar()->addMenu(qmAudio);
+	menuBar()->addMenu(qmHelp);
 
     QMetaObject::connectSlotsByName(this);
 }
@@ -115,6 +123,17 @@ void MainWindow::on_ServerDisconnect_triggered()
 {
 	g_shServer->disconnect();
 	m_qaServerDisconnect->setEnabled(FALSE);
+}
+
+void MainWindow::on_HelpAbout_triggered()
+{
+	AboutDialog adAbout(this);
+	adAbout.exec();
+}
+
+void MainWindow::on_HelpAboutQt_triggered()
+{
+	QMessageBox::aboutQt(this, "About Qt");
 }
 
 void MainWindow::serverConnected()

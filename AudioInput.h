@@ -36,7 +36,6 @@
 #include <QThread>
 #include <speex/speex.h>
 #include <speex/speex_preprocess.h>
-#include <speex/speex_echo.h>
 
 class AudioInput : public QThread {
 	Q_OBJECT

@@ -1,12 +1,8 @@
-TEMPLATE	=app
-CONFIG  += qt thread warn_on network release console
+CONFIG  += release console static
 QT           += network
 TARGET = mumble
-DBFILE  = mumble.db
-LANGUAGE	= C++
 RC_FILE = mumble.rc
-FORMS = 
-HEADERS = AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h DXAudioInput.h DXAudioOutput.h Player.h 
-SOURCES = AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Connection.cpp ServerHandler.cpp DXAudioInput.cpp DXAudioOutput.cpp Player.cpp
+HEADERS = AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h DXAudioInput.h DXAudioOutput.h Player.h About.h
+SOURCES = AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Connection.cpp ServerHandler.cpp DXAudioInput.cpp DXAudioOutput.cpp Player.cpp About.cpp
 INCLUDEPATH += include /dx90sdk/include
-LIBS +=  -Llib -llibspeex -L\\dx90sdk\\lib -ldsound -ldxguid -ldinput8 -lwinmm -lws2_32
+LIBS +=  -Llib -L. -L\\dx90sdk\\lib -ldsound -ldxguid -ldinput8 -lwinmm -lws2_32 -llibspeex
