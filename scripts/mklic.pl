@@ -14,6 +14,7 @@ sub spitout($$) {
   my $l = join("", <IN>);
   $l =~ s/\r//g;
   $l =~ s/\n/\\n/g;
+  $l =~ s/\"/\\\"/g;
 
   return qq!static const char *${var} = \"! . $l . "\";\n\n\n";
 }
