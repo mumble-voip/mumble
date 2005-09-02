@@ -110,6 +110,8 @@ void MessageServerJoin::process(Connection *cCon) {
 	g_sServer->sendAll(this);
 
 	pPlayer->m_sState = Player::Authenticated;
+	
+	qWarning("Player %s joined", m_qsPlayerName.toLatin1().constData());
 }
 
 void MessageServerLeave::process(Connection *) {
