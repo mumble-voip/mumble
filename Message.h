@@ -38,10 +38,11 @@
 
 class Message {
 	protected:
-		enum MessageType { M_SPEEX, M_SERVER_JOIN, M_SERVER_LEAVE, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
 		virtual void saveStream(QDataStream &);
 		virtual void restoreStream(QDataStream &);
 	public:
+		enum MessageType { M_SPEEX, M_SERVER_JOIN, M_SERVER_LEAVE, M_PLAYER_MUTE, M_PLAYER_MUTE_ALL, M_PLAYER_KICK };
+
 		short m_sPlayerId;
 
 		Message();

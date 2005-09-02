@@ -30,6 +30,7 @@
 
 #include "ServerHandler.h"
 #include "MainWindow.h"
+#include "AudioOutput.h"
 #include <QApplication>
 
 extern MainWindow *g_mwMainWindow;
@@ -89,9 +90,14 @@ void ServerHandler::message(Message *mMsg, Connection *, bool *bDel) {
 	// Handle speex directly (into player threads)
 	// But for now....
 
-	*bDel = FALSE;
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(mMsg);
-	QApplication::postEvent(g_mwMainWindow, shme);
+	if (mMsg->messageType() == Message::M_SPEEX) {
+		if (g_aoOutput)
+			g_aoOutput->addFrameToBuffer(mMsg->m_sPlayerId, static_cast<MessageSpeex *>(mMsg)->m_qbaSpeexPacket);
+	} else {
+		*bDel = FALSE;
+		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(mMsg);
+		QApplication::postEvent(g_mwMainWindow, shme);
+	}
 }
 
 void ServerHandler::disconnect() {
@@ -99,6 +105,8 @@ void ServerHandler::disconnect() {
 }
 
 void ServerHandler::serverConnectionClosed(Connection *) {
+	g_aoOutput->wipe();
+
 	emit disconnected();
 
 	exit(0);

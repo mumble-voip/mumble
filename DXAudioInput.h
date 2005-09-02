@@ -28,42 +28,26 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MAINWINDOW_H
-#define _MAINWINDOW_H
+#ifndef _DXAUDIOINPUT_H
+#define _DXAUDIOINPUT_H
 
-#include <QMainWindow>
-#include <QListWidget>
-#include <QAction>
-#include <QMap>
-#include "Player.h"
-#include "Connection.h"
-#include "ServerHandler.h"
+#include "AudioInput.h"
+#include <dsound.h>
 
-class MainWindow : public QMainWindow {
-	Q_OBJECT
+class DXAudioInput : public AudioInput {
+	protected:
+		LPDIRECTSOUNDCAPTURE8      m_pDSCapture;
+		LPDIRECTSOUNDCAPTUREBUFFER m_pDSCaptureBuffer;
+		LPDIRECTSOUNDNOTIFY8       m_pDSNotify;
+
+		HANDLE m_hNotificationEvent;
+		DWORD m_dwBufferSize;
 	public:
-		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect, *m_qaServerStats;
-		QAction *m_qaPlayerKick, *m_qaPlayerMute;
-		QAction *m_qaAudioConfig, *m_qaAudioMuteMic, *m_qaAudioMuteAll, *m_qaAudioReset;
-
-		QMap<short, Player *> m_qmPlayers;
-		QMap<QListWidgetItem *, Player *> m_qmPlayerWidgets;
-
-		void setupGui();
-		void customEvent(QEvent *evt);
-
-	public slots:
-		void on_ServerConnect_triggered();
-		void on_ServerDisconnect_triggered();
-		void serverConnected();
-		void serverDisconnected();
-	public:
-		MainWindow(QWidget *parent);
+		DXAudioInput();
+		~DXAudioInput();
+		void run();
 };
 
-extern MainWindow *g_mwMainWindow;
-
 #else
-class MainWindow;
+class DXAudioInput;
 #endif

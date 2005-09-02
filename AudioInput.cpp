@@ -31,6 +31,8 @@
 #include "AudioInput.h"
 #include "ServerHandler.h"
 
+AudioInput *g_aiInput;
+
 AudioInput::AudioInput()
 {
 	speex_bits_init(&m_sbBits);
@@ -111,7 +113,8 @@ void AudioInput::encodeAudioFrame() {
 	QByteArray qbaPacket(iLen, 0);
 	speex_bits_write(&m_sbBits, qbaPacket.data(), iLen);
 
-	MessageSpeex msPacket;
-	msPacket.m_qbaSpeexPacket = qbaPacket;
-	g_shServer->sendMessage(&msPacket);
+	MessageSpeex *msPacket = new MessageSpeex();
+	msPacket->m_qbaSpeexPacket = qbaPacket;
+	if (g_shServer)
+		g_shServer->sendMessage(msPacket);
 }

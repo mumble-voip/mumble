@@ -45,7 +45,7 @@ void Connection::socketRead() {
   int iAvailable;
   while (1) {
     iAvailable = m_qtsSocket->bytesAvailable();
-    
+
     if (m_iPacketLength == -1) {
       if (iAvailable < 2)
         return;
@@ -83,6 +83,9 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 void Connection::sendMessage(Message *mMsg) {
 	QByteArray qbaBuffer;
 	unsigned char a_ucBuffer[2];
+
+	if (m_qtsSocket->state() != QAbstractSocket::ConnectedState)
+		return;
 
 	mMsg->messageToNetwork(qbaBuffer);
 	a_ucBuffer[0]=(qbaBuffer.size() >> 8) & 0xff;

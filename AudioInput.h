@@ -38,7 +38,6 @@
 #include <speex/speex_preprocess.h>
 #include <speex/speex_echo.h>
 
-
 class AudioInput : public QThread {
 	Q_OBJECT
 	protected:
@@ -60,6 +59,8 @@ class AudioInput : public QThread {
 		~AudioInput();
 		void run() = 0;
 };
+
+extern AudioInput *g_aiInput;
 
 #else
 class AudioInput;

@@ -29,10 +29,12 @@
 */
 
 #include <QApplication>
+
 #include "MainWindow.h"
 #include "ServerHandler.h"
+#include "DXAudioInput.h"
+#include "DXAudioOutput.h"
 
-extern MainWindow *g_mwMainWindow;
 
 int main(int argc, char **argv)
 {
@@ -40,11 +42,16 @@ int main(int argc, char **argv)
 
 	QApplication a(argc, argv);
 
-	g_shServer = new ServerHandler();
-	g_shServer->moveToThread(g_shServer);
-
 	g_mwMainWindow=new MainWindow(NULL);
 	g_mwMainWindow->show();
+
+	g_aiInput = new DXAudioInput();
+	g_aiInput->start();
+
+	g_aoOutput = new DXAudioOutput();
+
+	g_shServer = new ServerHandler();
+	g_shServer->moveToThread(g_shServer);
 
 	res=a.exec();
 

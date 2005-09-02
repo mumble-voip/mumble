@@ -83,8 +83,6 @@ AudioOutput::~AudioOutput() {
 }
 
 void AudioOutput::wipe() {
-	m_bRunning = false;
-
 	m_qmOutputMutex.lock();
 
 	QMapIterator<short, AudioOutputPlayer *> iOutputs(m_qmOutputs);

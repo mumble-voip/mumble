@@ -114,5 +114,6 @@ void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
 	m_sPlayerId = pPlayer->m_sId;
-	g_sServer->sendExcept(this, cCon);
+//	g_sServer->sendExcept(this, cCon);
+	g_sServer->sendAll(this);
 }

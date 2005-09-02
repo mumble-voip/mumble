@@ -28,42 +28,50 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MAINWINDOW_H
-#define _MAINWINDOW_H
+#ifndef _DXAUDIOOUTPUT_H
+#define _DXAUDIOOUTPUT_H
 
-#include <QMainWindow>
-#include <QListWidget>
-#include <QAction>
-#include <QMap>
-#include "Player.h"
-#include "Connection.h"
-#include "ServerHandler.h"
+#include "AudioOutput.h"
+#include <dsound.h>
 
-class MainWindow : public QMainWindow {
+class DXAudioOutput;
+
+class DXAudioOutputPlayer : public AudioOutputPlayer, public QThread {
 	Q_OBJECT
+	protected:
+		LPDIRECTSOUNDBUFFER       pDSBOutput;
+		LPDIRECTSOUNDNOTIFY8       pDSNotify;
+		HANDLE               hNotificationEvent;
+		LPDIRECTSOUND3DBUFFER8     pDS3dBuffer;
+
+		DWORD	dwBufferSize;
+		DWORD	dwLastWritePos;
+		DWORD	dwLastPlayPos;
+		DWORD	dwTotalPlayPos;
+
+		bool	bRunning;
+
+		DXAudioOutput *dxAudio;
 	public:
-		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect, *m_qaServerStats;
-		QAction *m_qaPlayerKick, *m_qaPlayerMute;
-		QAction *m_qaAudioConfig, *m_qaAudioMuteMic, *m_qaAudioMuteAll, *m_qaAudioReset;
-
-		QMap<short, Player *> m_qmPlayers;
-		QMap<QListWidgetItem *, Player *> m_qmPlayerWidgets;
-
-		void setupGui();
-		void customEvent(QEvent *evt);
-
-	public slots:
-		void on_ServerConnect_triggered();
-		void on_ServerDisconnect_triggered();
-		void serverConnected();
-		void serverDisconnected();
-	public:
-		MainWindow(QWidget *parent);
+		DXAudioOutputPlayer(AudioOutput *, short);
+		~DXAudioOutputPlayer();
+		void run();
 };
 
-extern MainWindow *g_mwMainWindow;
+
+class DXAudioOutput : public AudioOutput {
+	friend class DXAudioOutputPlayer;
+	Q_OBJECT
+	protected:
+		LPDIRECTSOUND8             pDS;
+		LPDIRECTSOUNDBUFFER       pDSBPrimary;
+
+		virtual AudioOutputPlayer *getPlayer(short);
+	public:
+		DXAudioOutput();
+		~DXAudioOutput();
+};
 
 #else
-class MainWindow;
+class DXAudioOutput;
 #endif
