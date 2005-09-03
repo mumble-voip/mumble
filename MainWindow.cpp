@@ -151,7 +151,6 @@ void MainWindow::on_PlayerMute_triggered()
 	MessagePlayerMute mpmMsg;
 	mpmMsg.m_sPlayerId = p->m_sId;
 	mpmMsg.m_bMute = ! p->m_bMute;
-	qWarning("Muting %d:%s", p->m_sId, p->m_qsName.toLatin1().constData());
 	g_shServer->sendMessage(&mpmMsg);
 }
 
