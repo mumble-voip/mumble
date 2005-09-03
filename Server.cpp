@@ -100,29 +100,30 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 }
 
 #define MSG_SETUP(st) \
-  Player *pPlayer = g_sServer->m_qmPlayers[cCon]; \
-  if (pPlayer->m_sState != st) \
+  Player *pSrcPlayer = g_sServer->m_qmPlayers[cCon]; \
+  Player *pDstPlayer = Player::get(m_sPlayerId); \
+  if (pSrcPlayer->m_sState != st) \
   	return
 
 void MessageServerJoin::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
 
-	pPlayer->m_qsName = m_qsPlayerName;
-	m_sPlayerId = pPlayer->m_sId;
-	g_sServer->m_qmConnections[pPlayer->m_sId] = cCon;
+	pSrcPlayer->m_qsName = m_qsPlayerName;
+	m_sPlayerId = pSrcPlayer->m_sId;
+	g_sServer->m_qmConnections[pSrcPlayer->m_sId] = cCon;
 
 	g_sServer->sendExcept(this, cCon);
 
-	pPlayer->m_sState = Player::Authenticated;
+	pSrcPlayer->m_sState = Player::Authenticated;
 
-	qWarning("Player %d:%s joined", pPlayer->m_sId, m_qsPlayerName.toLatin1().constData());
+	qWarning("Player %d:%s joined", pSrcPlayer->m_sId, m_qsPlayerName.toLatin1().constData());
 
 	MessageServerJoin msjMsg;
 
 	QMapIterator<Connection *, Player *> iPlayers(g_sServer->m_qmPlayers);
 	while (iPlayers.hasNext()) {
 		iPlayers.next();
-		pPlayer = iPlayers.value();
+		Player *pPlayer = iPlayers.value();
 		msjMsg.m_sPlayerId = pPlayer->m_sId;
 		msjMsg.m_qsPlayerName = pPlayer->m_qsName;
 		cCon->sendMessage(&msjMsg);
@@ -151,16 +152,16 @@ void MessageServerLeave::process(Connection *) {
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	m_sPlayerId = pPlayer->m_sId;
-
-	if (pPlayer->m_bMute)
+	m_sPlayerId = pSrcPlayer->m_sId;
+	
+	if (pSrcPlayer->m_bMute)
 		return;
 
 	QMapIterator<Connection *, Player *> iPlayers(g_sServer->m_qmPlayers);
 	while (iPlayers.hasNext()) {
 		iPlayers.next();
-		pPlayer = iPlayers.value();
-		if (! pPlayer->m_bDeaf)
+		Player *pPlayer = iPlayers.value();
+		if (! pPlayer->m_bDeaf && pPlayer != pSrcPlayer)
 			iPlayers.key()->sendMessage(this);
 	}
 }
@@ -168,7 +169,7 @@ void MessageSpeex::process(Connection *cCon) {
 void MessagePlayerMute::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	pPlayer->m_bMute = m_bMute;
+	pDstPlayer->m_bMute = m_bMute;
 
 	g_sServer->sendAll(this);
 }
@@ -176,7 +177,7 @@ void MessagePlayerMute::process(Connection *cCon) {
 void MessagePlayerDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	pPlayer->m_bDeaf = m_bDeaf;
+	pDstPlayer->m_bDeaf = m_bDeaf;
 
 	g_sServer->sendAll(this);
 }
