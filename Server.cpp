@@ -43,7 +43,14 @@ Server::Server() {
 
 void Server::newClient() {
 	Connection *cCon = new Connection(this, m_qtsServer->nextPendingConnection());
-	Player *pPlayer = new Player();
+
+	short id;
+
+	for(id=1;id<32000;id++)
+		if (! g_sServer->m_qmConnections.contains(id))
+			break;
+
+	Player *pPlayer = Player::add(id);
 	m_qmPlayers[cCon] = pPlayer;
 
 	connect(cCon, SIGNAL(connectionClosed(Connection *)), this, SLOT(connectionClosed(Connection *)));
@@ -63,6 +70,8 @@ void Server::connectionClosed(Connection *c) {
 	m_qmPlayers.remove(c);
 
 	qWarning("Connection closed");
+
+	Player::remove(pPlayer);
 
 	delete pPlayer;
 	c->deleteLater();
@@ -97,22 +106,16 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 
 void MessageServerJoin::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
-	short id;
 
-	for(id=1;id<32000;id++)
-		if (! g_sServer->m_qmConnections.contains(id))
-			break;
-
-	pPlayer->m_sId = id;
 	pPlayer->m_qsName = m_qsPlayerName;
-	m_sPlayerId = id;
-	g_sServer->m_qmConnections[id] = cCon;
+	m_sPlayerId = pPlayer->m_sId;
+	g_sServer->m_qmConnections[pPlayer->m_sId] = cCon;
 
 	g_sServer->sendExcept(this, cCon);
 
 	pPlayer->m_sState = Player::Authenticated;
 
-	qWarning("Player %s joined", m_qsPlayerName.toLatin1().constData());
+	qWarning("Player %d:%s joined", pPlayer->m_sId, m_qsPlayerName.toLatin1().constData());
 
 	MessageServerJoin msjMsg;
 
@@ -123,6 +126,19 @@ void MessageServerJoin::process(Connection *cCon) {
 		msjMsg.m_sPlayerId = pPlayer->m_sId;
 		msjMsg.m_qsPlayerName = pPlayer->m_qsName;
 		cCon->sendMessage(&msjMsg);
+
+		if (pPlayer->m_bMute) {
+			MessagePlayerMute mpmMsg;
+			mpmMsg.m_sPlayerId = pPlayer->m_sId;
+			mpmMsg.m_bMute = pPlayer->m_bMute;
+			cCon->sendMessage(&mpmMsg);
+		}
+		if (pPlayer->m_bDeaf) {
+			MessagePlayerDeaf mpdMsg;
+			mpdMsg.m_sPlayerId = pPlayer->m_sId;
+			mpdMsg.m_bDeaf = pPlayer->m_bDeaf;
+			cCon->sendMessage(&mpdMsg);
+		}
 	}
 }
 
@@ -133,8 +149,17 @@ void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
 	m_sPlayerId = pPlayer->m_sId;
-//	g_sServer->sendExcept(this, cCon);
-	g_sServer->sendAll(this);
+
+	if (pPlayer->m_bMute)
+		return;
+
+	QMapIterator<Connection *, Player *> iPlayers(g_sServer->m_qmPlayers);
+	while (iPlayers.hasNext()) {
+		iPlayers.next();
+		pPlayer = iPlayers.value();
+		if (! pPlayer->m_bDeaf)
+			iPlayers.key()->sendMessage(this);
+	}
 }
 
 void MessagePlayerMute::process(Connection *cCon) {
