@@ -96,8 +96,7 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 }
 
 bool Message::isValid() {
-	qWarning("Message: MessageType %d doesn't have a validator", messageType());
-	return TRUE;
+	return true;
 }
 
 void Message::saveStream(QDataStream &) {

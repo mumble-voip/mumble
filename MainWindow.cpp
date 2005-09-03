@@ -32,6 +32,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include "MainWindow.h"
+#include "AudioInput.h"
 
 MainWindow *g_mwMainWindow;
 
@@ -44,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 void MainWindow::setupGui()  {
 	QMenu *qmServer, *qmPlayer, *qmAudio, *qmHelp;
+
+	setWindowTitle("Mumble -- Compile " __DATE__ " " __TIME__);
 
 	m_qlwPlayers = new QListWidget(this);
 	setCentralWidget(m_qlwPlayers);
@@ -83,13 +86,9 @@ void MainWindow::setupGui()  {
 	qmPlayer->addAction(m_qaPlayerMute);
 	qmPlayer->addAction(m_qaPlayerDeaf);
 
-
-	m_qaAudioConfig=new QAction("&Config", this);
 	m_qaAudioReset=new QAction("&Reset", this);
-	m_qaAudioConfig->setObjectName("AudioConfig");
 	m_qaAudioReset->setObjectName("AudioReset");
 
-	qmAudio->addAction(m_qaAudioConfig);
 	qmAudio->addAction(m_qaAudioReset);
 
 	m_qaHelpAbout=new QAction("&About", this);
@@ -172,6 +171,18 @@ void MainWindow::on_PlayerKick_triggered()
 	if (! item)
 		return;
 	Player *p = m_qmPlayers[item];
+
+	QString reason = QInputDialog::getText(this, "Kicking", "Reason");
+	MessagePlayerKick mpkMsg;
+	mpkMsg.m_sPlayerId=p->m_sId;
+	mpkMsg.m_qsReason = reason;
+	g_shServer->sendMessage(&mpkMsg);
+}
+
+void MainWindow::on_AudioReset_triggered()
+{
+	if (g_aiInput)
+		g_aiInput->m_bResetProcessor = true;
 }
 
 void MainWindow::on_HelpAbout_triggered()
@@ -275,4 +286,6 @@ void MessagePlayerDeaf::process(Connection *) {
 }
 
 void MessagePlayerKick::process(Connection *) {
+	MSG_INIT;
+	QMessageBox::warning(g_mwMainWindow, "Kicked from server", m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
 }

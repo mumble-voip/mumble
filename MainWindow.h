@@ -46,7 +46,7 @@ class MainWindow : public QMainWindow {
 		QListWidget *m_qlwPlayers;
 		QAction *m_qaServerConnect, *m_qaServerDisconnect;
 		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
-		QAction *m_qaAudioConfig, *m_qaAudioReset;
+		QAction *m_qaAudioReset;
 		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
 
 		QMap<Player *, QListWidgetItem *> m_qmItems;
@@ -63,6 +63,7 @@ class MainWindow : public QMainWindow {
 		void on_PlayerKick_triggered();
 		void on_PlayerMute_triggered();
 		void on_PlayerDeaf_triggered();
+		void on_AudioReset_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
 		void serverConnected();
