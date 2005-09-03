@@ -117,6 +117,7 @@ void AudioInput::encodeAudioFrame() {
 	if (m_sppPreprocess->loudness2 < 4000)
 		m_sppPreprocess->loudness2 = 4000;
 
+/*
 	// If neither this or the previous is voice, we're done
 	if (! iIsSpeech && ! m_bLastVoice)
 		return;
@@ -133,15 +134,17 @@ void AudioInput::encodeAudioFrame() {
 		EncState *es = static_cast<EncState *>(sbe->st_low);
 		es->dtx_count = 1;
 	}
-
+*/
 	speex_bits_reset(&m_sbBits);
 	speex_encode_int(m_esEncState, m_psMic, &m_sbBits);
 
+/*
 	// Restore encoder
 	if (! iIsSpeech) {
 		iArg = 1;
 		speex_encoder_ctl(m_esEncState,SPEEX_SET_VBR, &iArg);
 	}
+*/
 
 	iLen=speex_bits_nbytes(&m_sbBits);
 	QByteArray qbaPacket(iLen, 0);
