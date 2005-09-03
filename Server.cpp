@@ -126,18 +126,21 @@ void MessageServerJoin::process(Connection *cCon) {
 		msjMsg.m_sPlayerId = pPlayer->m_sId;
 		msjMsg.m_qsPlayerName = pPlayer->m_qsName;
 		cCon->sendMessage(&msjMsg);
+		qWarning("Notifying of %s", pPlayer->m_qsName.toLatin1().constData());
 
 		if (pPlayer->m_bMute) {
 			MessagePlayerMute mpmMsg;
 			mpmMsg.m_sPlayerId = pPlayer->m_sId;
 			mpmMsg.m_bMute = pPlayer->m_bMute;
 			cCon->sendMessage(&mpmMsg);
+			qWarning("which is mute");
 		}
 		if (pPlayer->m_bDeaf) {
 			MessagePlayerDeaf mpdMsg;
 			mpdMsg.m_sPlayerId = pPlayer->m_sId;
 			mpdMsg.m_bDeaf = pPlayer->m_bDeaf;
 			cCon->sendMessage(&mpdMsg);
+			qWarning("which is deaf");
 		}
 	}
 }

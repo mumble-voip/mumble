@@ -152,6 +152,8 @@ void MainWindow::on_PlayerMute_triggered()
 	mpmMsg.m_sPlayerId = p->m_sId;
 	mpmMsg.m_bMute = ! p->m_bMute;
 	g_shServer->sendMessage(&mpmMsg);
+
+	m_qlwPlayers->setCurrentItem(NULL);
 }
 
 void MainWindow::on_PlayerDeaf_triggered()
@@ -215,6 +217,19 @@ void MainWindow::customEvent(QEvent *evt) {
 	}
 }
 
+void MainWindow::setItemColor(QListWidgetItem *item, Player *p) {
+	if (p->m_bMute) {
+		if (p->m_bDeaf)
+			item->setTextColor(Qt::blue);
+		else
+			item->setTextColor(Qt::yellow);
+	} else if (p->m_bDeaf) {
+		item->setTextColor(Qt::magenta);
+	} else {
+		item->setTextColor(Qt::black);
+	}
+}
+
 void MessageServerJoin::process(Connection *) {
 	QListWidgetItem *item = new QListWidgetItem(m_qsPlayerName, g_mwMainWindow->m_qlwPlayers);
 	Player *p = Player::add(m_sPlayerId);
@@ -252,11 +267,13 @@ void MessageSpeex::process(Connection *) {
 void MessagePlayerMute::process(Connection *) {
 	MSG_INIT;
 	p->m_bMute = m_bMute;
+	MainWindow::setItemColor(item, p);
 }
 
 void MessagePlayerDeaf::process(Connection *) {
 	MSG_INIT;
 	p->m_bDeaf = m_bDeaf;
+	MainWindow::setItemColor(item, p);
 }
 
 void MessagePlayerKick::process(Connection *) {

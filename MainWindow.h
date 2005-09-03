@@ -55,6 +55,7 @@ class MainWindow : public QMainWindow {
 		void setupGui();
 		void customEvent(QEvent *evt);
 
+		static void setItemColor(QListWidgetItem *, Player *);
 	public slots:
 		void on_ServerConnect_triggered();
 		void on_ServerDisconnect_triggered();
