@@ -60,11 +60,11 @@ void Server::newClient() {
 	Player *pPlayer = Player::add(id);
 	m_qmPlayers[cCon] = pPlayer;
 
-	connect(cCon, SIGNAL(connectionClosed(Connection *)), this, SLOT(connectionClosed(Connection *)));
+	connect(cCon, SIGNAL(connectionClosed(Connection *, QString)), this, SLOT(connectionClosed(Connection *, QString)));
 	connect(cCon, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
 }
 
-void Server::connectionClosed(Connection *c) {
+void Server::connectionClosed(Connection *c, QString reason) {
 	Player *pPlayer = m_qmPlayers.value(c);
 
 	if (pPlayer->m_sState == Player::Authenticated) {
@@ -76,7 +76,7 @@ void Server::connectionClosed(Connection *c) {
 	m_qmConnections.remove(pPlayer->m_sId);
 	m_qmPlayers.remove(c);
 
-	qWarning("Connection closed");
+	qWarning("Connection closed: %s", reason.toLatin1().constData());
 
 	Player::remove(pPlayer);
 
