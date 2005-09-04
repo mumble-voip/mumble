@@ -35,7 +35,9 @@ SetCompressor /SOLID lzma
 ;--------------------------------
 ;Pages
 
-  !insertmacro MUI_PAGE_LICENSE "gpl.txt"
+  !insertmacro MUI_PAGE_LICENSE "..\LICENSE"
+  !insertmacro MUI_PAGE_LICENSE "qt.txt"
+  !insertmacro MUI_PAGE_LICENSE "speex.txt"
 ;  !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
 
@@ -63,6 +65,9 @@ Section "Mumble & Murmur" SecMumble
 
   SetOutPath "$INSTDIR"
   
+  File /oname=license.txt "..\LICENSE"
+  File "speex.txt"
+  File "qt.txt"
   File "..\release\mumble.exe"
   File "..\release\murmur.exe"
   File "\qt\4.0.1os\lib\QtCore4.dll"
@@ -71,7 +76,6 @@ Section "Mumble & Murmur" SecMumble
   File "\qt\4.0.1os\lib\QtSql4.dll"
   File "..\release\libspeex.dll"
   File "\mingw\bin\mingwm10.dll"
-  File "gpl.txt"
 
   ;Store installation folder
   WriteRegStr HKCU "Software\Mumble" "" $INSTDIR
@@ -85,7 +89,9 @@ Section "Mumble & Murmur" SecMumble
     CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble.lnk" "$INSTDIR\mumble.exe"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Murmur.lnk" "$INSTDIR\murmur.exe"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\License.lnk" "$INSTDIR\gpl.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble License.lnk" "$INSTDIR\license.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\QT License.lnk" "$INSTDIR\qt.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Speex License.lnk" "$INSTDIR\speex.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
   
   !insertmacro MUI_STARTMENU_WRITE_END
@@ -107,7 +113,9 @@ Section "Uninstall"
   Delete "$INSTDIR\QtSql4.dll"
   Delete "$INSTDIR\libspeex.dll"
   Delete "$INSTDIR\mingwm10.dll"
-  Delete "$INSTDIR\gpl.txt"
+  Delete "$INSTDIR\qt.txt"
+  Delete "$INSTDIR\speex.txt"
+  Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\Uninstall.exe"
 
   RMDir "$INSTDIR"

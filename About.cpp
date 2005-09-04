@@ -34,44 +34,25 @@
 #include <QTextEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
-
+#include <QLabel>
 #include "licenses.h"
 
 static const char *about = "Mumble - A group voice chat utility \n\n\
 http://mumble.sourceforge.net\
 \n\n\
-See 'BSD License' for license information on the Mumble sourcecode.\n\
-For binary releases, all of licenses of libraries Mumble depends \
-on applies as well, see the individual license tabs.";
+See 'Source License' for license information on the Mumble sourcecode.";
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent) {
 	QTabWidget *qtwTab = new QTabWidget(this);
 
-	QTextEdit *qteMain=new QTextEdit();
-	qteMain->setReadOnly(true);
-	qteMain->setPlainText(about);
+	QLabel *qlMain=new QLabel(about);
 
 	QTextEdit *qteBSD=new QTextEdit();
 	qteBSD->setReadOnly(true);
 	qteBSD->setPlainText(licenseMumble);
 
-	QTextEdit *qteQT=new QTextEdit();
-	qteQT->setReadOnly(true);
-	qteQT->setPlainText(licenseGPL);
-
-	QTextEdit *qteSpeex=new QTextEdit();
-	qteSpeex->setReadOnly(true);
-	qteSpeex->setPlainText(licenseSpeex);
-
-	QTextEdit *qteUPX=new QTextEdit();
-	qteUPX->setReadOnly(true);
-	qteUPX->setPlainText(licenseUPX);
-
-	qtwTab->addTab(qteMain, "About Mumble");
-	qtwTab->addTab(qteBSD, "Source License");
-	qtwTab->addTab(qteQT, "QT");
-	qtwTab->addTab(qteSpeex, "Speex");
-	qtwTab->addTab(qteUPX, "UPX");
+	qtwTab->addTab(qlMain, "&About Mumble");
+	qtwTab->addTab(qteBSD, "&License");
 
     QPushButton *okButton = new QPushButton("OK");
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
