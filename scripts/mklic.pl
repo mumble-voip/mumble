@@ -21,10 +21,6 @@ sub spitout($$) {
 
 open(F, "> ../licenses.h");
 
-print F spitout("licenseGPL", "../LICENSE.GPL");
-print F spitout("licenseSpeex", "../LICENSE.SPEEX");
 print F spitout("licenseMumble", "../LICENSE");
-print F spitout("licenseUPX", "../LICENSE.UPX");
 
 close(F);
-
