@@ -1,5 +1,5 @@
 TEMPLATE	=app
-CONFIG  += qt thread warn_on network console debug release
+CONFIG  += qt thread warn_on network console debug_and_release
 CONFIG	-= gui
 QT           += network
 TARGET = murmur
