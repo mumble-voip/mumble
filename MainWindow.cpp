@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setupGui();
 
 	connect(g_shServer, SIGNAL(connected()), this, SLOT(serverConnected()));
-	connect(g_shServer, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
+	connect(g_shServer, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
 }
 
 void MainWindow::setupGui()  {
@@ -208,7 +208,7 @@ void MainWindow::serverConnected()
 	m_qaServerDisconnect->setEnabled(true);
 }
 
-void MainWindow::serverDisconnected()
+void MainWindow::serverDisconnected(QString reason)
 {
 	m_qaServerConnect->setEnabled(true);
 	m_qaServerDisconnect->setEnabled(false);
@@ -219,6 +219,9 @@ void MainWindow::serverDisconnected()
 	}
 	m_qmItems.clear();
 	m_qmPlayers.clear();
+
+	if (! reason.isEmpty())
+	  QMessageBox::warning(this, "Server connection failed", reason, QMessageBox::Ok, QMessageBox::NoButton);
 }
 
 void MainWindow::customEvent(QEvent *evt) {

@@ -78,7 +78,7 @@ void ServerHandler::run()
 	cConnection = new Connection(this, qtsSock);
 
 	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
-	connect(cConnection, SIGNAL(connectionClosed(Connection *)), this, SLOT(serverConnectionClosed(Connection *)));
+	connect(cConnection, SIGNAL(connectionClosed(Connection *, QString)), this, SLOT(serverConnectionClosed(Connection *, QString)));
 	connect(cConnection, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
 	qtsSock->connectToHost(m_qsHostName, m_iPort);
 	exec();
@@ -123,10 +123,10 @@ void ServerHandler::disconnect() {
 	QApplication::postEvent(this, shme);
 }
 
-void ServerHandler::serverConnectionClosed(Connection *) {
+void ServerHandler::serverConnectionClosed(Connection *, QString reason) {
 	g_aoOutput->wipe();
 
-	emit disconnected();
+	emit disconnected(reason);
 
 	exit(0);
 	// Clean up player threads

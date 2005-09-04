@@ -65,12 +65,12 @@ class ServerHandler : public QThread
 		void disconnect();
 		void run();
 	signals:
-		void disconnected();
+		void disconnected(QString reason);
 		void connected();
 	protected slots:
 		void message(QByteArray &, Connection *);
 		void serverConnectionConnected();
-		void serverConnectionClosed(Connection *);
+		void serverConnectionClosed(Connection *, QString);
 };
 
 extern ServerHandler *g_shServer;

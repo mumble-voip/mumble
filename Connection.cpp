@@ -61,17 +61,6 @@ void Connection::socketRead() {
     if ((m_iPacketLength != -1) && (iAvailable >= m_iPacketLength)) {
 	  QByteArray qbaBuffer = m_qtsSocket->read(m_iPacketLength);
 	  emit message(qbaBuffer, this);
-/*
-	  Message *mMsg = Message::networkToMessage(qbaBuffer);
-	  if (mMsg) {
-		  bool bDel = true;
-		  emit message(mMsg, this, &bDel);
-		  if (bDel)
-		  	delete mMsg;
-	  } else {
-		  disconnect();
-	  }
-*/
       m_iPacketLength = -1;
     } else {
       return;
@@ -80,7 +69,7 @@ void Connection::socketRead() {
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {
-	emit connectionClosed(this);
+	emit connectionClosed(this, m_qtsSocket->errorString());
 	m_qtsSocket->disconnectFromHost();
 }
 
@@ -107,6 +96,6 @@ void Connection::sendMessage(QByteArray &qbaMsg) {
 }
 
 void Connection::disconnect() {
-	emit connectionClosed(this);
+	emit connectionClosed(this, QString());
 	m_qtsSocket->disconnectFromHost();
 }
