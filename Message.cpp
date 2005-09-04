@@ -56,6 +56,12 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case Speex:
 			mMsg = new MessageSpeex();
 			break;
+		case ServerAuthenticate:
+			mMsg = new MessageServerAuthenticate();
+			break;
+		case ServerReject:
+			mMsg = new MessageServerReject();
+			break;
 		case ServerJoin:
 			mMsg = new MessageServerJoin();
 			break;
@@ -147,18 +153,6 @@ void MessageServerJoin::saveStream(QDataStream &qdsOut) {
 void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> m_qsPlayerName;
 }
-
-/*
-bool MessageServerJoin::isValid() {
-	bool ok = true;
-	for(int i=0;i<m_qsPlayerName.length();i++) {
-		QChar c=m_qsPlayerName[i];
-		if (! c.isLetterOrNumber() && (c != ' '))
-			ok = false;
-	}
-	return ok;
-}
-*/
 
 MessageSpeex::MessageSpeex() {
 	m_qbaSpeexPacket = QByteArray();
