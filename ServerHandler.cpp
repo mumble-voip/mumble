@@ -77,7 +77,7 @@ void ServerHandler::run()
 	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(Connection *)), this, SLOT(serverConnectionClosed(Connection *)));
 	connect(cConnection, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
-	qtsSock->connectToHost(m_qsHostName, 64738);
+	qtsSock->connectToHost(m_qsHostName, m_iPort);
 	exec();
 	cConnection->disconnect();
 	delete cConnection;
@@ -127,15 +127,17 @@ void ServerHandler::serverConnectionClosed(Connection *) {
 }
 
 void ServerHandler::serverConnectionConnected() {
-	MessageServerJoin msjMsg;
-	msjMsg.m_qsPlayerName = m_qsUserName;
-	cConnection->sendMessage(&msjMsg);
-
+	MessageServerAuthenticate msaMsg;
+	msaMsg.m_qsUsername = m_qsUserName;
+	msaMsg.m_qsPassword = m_qsPassword;
+	cConnection->sendMessage(&msaMsg);
 	emit connected();
 }
 
 
-void ServerHandler::setConnectionInfo(QString qsHostName, QString qsUserName) {
+void ServerHandler::setConnectionInfo(QString qsHostName, int iPort, QString qsUserName, QString qsPassword) {
 	m_qsHostName = qsHostName;
+	m_iPort = iPort;
 	m_qsUserName = qsUserName;
+	m_qsPassword = qsPassword;
 }

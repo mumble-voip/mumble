@@ -53,11 +53,13 @@ class ServerHandler : public QThread
 	protected:
 		QString m_qsHostName;
 		QString m_qsUserName;
+		QString m_qsPassword;
+		int m_iPort;
 		Connection *cConnection;
 	public:
 		ServerHandler();
 		~ServerHandler();
-		void setConnectionInfo(QString qsHostName, QString qsUserName);
+		void setConnectionInfo(QString qsHostName, int iPort, QString qsUserName, QString qsPassword);
 		void customEvent(QEvent *evt);
 		void sendMessage(Message *mMsg);
 		void disconnect();

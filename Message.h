@@ -31,6 +31,8 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
+#define MESSAGE_STREAM_VERSION 1
+
 #include <QDataStream>
 #include <QByteArray>
 #include <QString>
@@ -41,7 +43,7 @@ class Message {
 		virtual void saveStream(QDataStream &);
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick };
 
 		short m_sPlayerId;
 
@@ -69,6 +71,30 @@ class MessageSpeex : public Message {
 };
 
 
+class MessageServerAuthenticate : public Message {
+	protected:
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
+	public:
+		int	m_iVersion;
+		QString m_qsUsername;
+		QString m_qsPassword;
+		MessageServerAuthenticate();
+		Message::MessageType messageType() { return ServerAuthenticate; };
+		void process(Connection *);
+};
+
+class MessageServerReject : public Message {
+	protected:
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
+	public:
+		QString m_qsReason;
+		MessageServerReject();
+		Message::MessageType messageType() { return ServerReject; };
+		void process(Connection *);
+};
+
 class MessageServerJoin : public Message {
 	protected:
 		void saveStream(QDataStream &);
@@ -78,7 +104,6 @@ class MessageServerJoin : public Message {
 		MessageServerJoin();
 		Message::MessageType messageType() { return ServerJoin; };
 		void process(Connection *);
-		bool isValid();
 };
 
 class MessageServerLeave : public Message {

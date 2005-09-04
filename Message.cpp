@@ -105,6 +105,37 @@ void Message::saveStream(QDataStream &) {
 void Message::restoreStream(QDataStream &) {
 }
 
+
+MessageServerAuthenticate::MessageServerAuthenticate() {
+	m_iVersion = MESSAGE_STREAM_VERSION;
+}
+
+void MessageServerAuthenticate::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_iVersion;
+	qdsOut << m_qsUsername;
+	qdsOut << m_qsPassword;
+}
+
+void MessageServerAuthenticate::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_iVersion;
+	qdsIn >> m_qsUsername;
+	qdsIn >> m_qsPassword;
+}
+
+
+MessageServerReject::MessageServerReject() {
+	m_qsReason = QString();
+}
+
+void MessageServerReject::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_qsReason;
+}
+
+void MessageServerReject::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_qsReason;
+}
+
+
 MessageServerJoin::MessageServerJoin() {
 	m_qsPlayerName = QString();
 }
@@ -117,6 +148,7 @@ void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> m_qsPlayerName;
 }
 
+/*
 bool MessageServerJoin::isValid() {
 	bool ok = true;
 	for(int i=0;i<m_qsPlayerName.length();i++) {
@@ -126,6 +158,7 @@ bool MessageServerJoin::isValid() {
 	}
 	return ok;
 }
+*/
 
 MessageSpeex::MessageSpeex() {
 	m_qbaSpeexPacket = QByteArray();

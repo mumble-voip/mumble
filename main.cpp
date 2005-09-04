@@ -45,6 +45,10 @@ int main(int argc, char **argv)
 
 	QApplication a(argc, argv);
 
+	a.setApplicationName("Mumble");
+	a.setOrganizationName("Mumble");
+	a.setOrganizationDomain("mumble.sourceforge.net");
+
 	g_shServer = new ServerHandler();
 	g_shServer->moveToThread(g_shServer);
 

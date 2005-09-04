@@ -109,13 +109,15 @@ void MainWindow::setupGui()  {
 
 void MainWindow::on_ServerConnect_triggered()
 {
-	m_qaServerConnect->setEnabled(FALSE);
+	ConnectDialog *cd = new ConnectDialog(this);
+	int res = cd->exec();
 
-	QString server = QInputDialog::getText(this, "Server Address", "Addr", QLineEdit::Normal, "128.39.114.2");
-	QString user = QInputDialog::getText(this, "Username", "Uname");
-
-	g_shServer->setConnectionInfo(server, user);
-	g_shServer->start();
+	if (res == QDialog::Accepted) {
+		m_qaServerConnect->setEnabled(FALSE);
+		g_shServer->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
+		g_shServer->start();
+	}
+	delete cd;
 }
 
 void MainWindow::on_ServerDisconnect_triggered()
@@ -298,3 +300,11 @@ void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
 	QMessageBox::warning(g_mwMainWindow, "Kicked from server", m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
 }
+
+void MessageServerAuthenticate::process(Connection *) {
+}
+
+void MessageServerReject::process(Connection *) {
+	QMessageBox::warning(g_mwMainWindow, "Server Rejected Connection", m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
+}
+

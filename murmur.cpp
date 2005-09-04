@@ -39,6 +39,10 @@ int main(int argc, char **argv)
 
 	QCoreApplication a(argc, argv);
 
+	a.setApplicationName("Murmur");
+	a.setOrganizationName("Mumble");
+	a.setOrganizationDomain("mumble.sourceforge.net");
+
 	argc = a.argc();
 	argv = a.argv();
 

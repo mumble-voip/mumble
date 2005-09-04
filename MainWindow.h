@@ -39,6 +39,7 @@
 #include "Connection.h"
 #include "ServerHandler.h"
 #include "About.h"
+#include "ConnectDialog.h"
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
