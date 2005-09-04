@@ -1,0 +1,39 @@
+
+Pre-requisites
+==============
+
+Mumble and murmur depends on Qt; either the opensource or commercial
+versions. Please see http://www.trolltech.com/qt/ for more information. As
+we use the Qt build system, it's important that you have a fully functional
+Qt installation.
+
+Mumble depends on libspeex. See http://www.speex.org for details. Note that
+you need the latest "unstable" version to compile. (Speex generally has high
+code quality, the the svn version is probably even more stable than the
+released unstable version).
+
+You may need to adjust the paths in mumble.pro, murmur.pro and mumble.pri to
+reflect where your installed versions of dependant libraries are.
+
+Building Mumble
+===============
+
+At the moment Mumble only works on Win32 clients, as it uses DirectSound
+for audio input and output. The architecture is flexible enough to easily
+accomodate an ALSA version as soon as we get a developer with sufficient
+interrest.
+
+To build mumble, type
+qmake mumble.pro
+make
+
+
+Building Murmur
+===============
+
+Murmur works well on both UNIX and Win32 servers.
+
+To build murmur, type
+qmake murmur.pro
+make
+

@@ -1,6 +1,7 @@
+include(mumble.pri)
+
 TEMPLATE	=app
-VERSION = 0.2.1
-CONFIG  += qt thread warn_on network console debug_and_release
+CONFIG  += network console
 CONFIG	-= gui
 QT           += network
 TARGET = murmur
