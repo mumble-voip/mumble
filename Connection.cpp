@@ -33,8 +33,8 @@
 Connection::Connection(QObject *parent, QTcpSocket *qtsSock) : QObject(parent) {
 	m_qtsSocket = qtsSock;
 	m_iPacketLength = -1;
-    connect(m_qtsSocket, SIGNAL(error(SocketError)), this, SLOT(socketError(SocketError)));
-    connect(m_qtsSocket, SIGNAL(stateChanged(SocketState)), this, SLOT(socketState(SocketState)));
+    connect(m_qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
+    connect(m_qtsSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(socketState(QAbstractSocket::SocketState)));
     connect(m_qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 }
 
@@ -85,7 +85,6 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 }
 
 void Connection::socketState(QAbstractSocket::SocketState state) {
-	qWarning("State %d", state);
 }
 
 void Connection::sendMessage(Message *mMsg) {

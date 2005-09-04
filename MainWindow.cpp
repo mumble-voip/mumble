@@ -204,12 +204,13 @@ void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
 
 void MainWindow::serverConnected()
 {
-	m_qaServerDisconnect->setEnabled(TRUE);
+	m_qaServerDisconnect->setEnabled(true);
 }
 
 void MainWindow::serverDisconnected()
 {
-	m_qaServerConnect->setEnabled(TRUE);
+	m_qaServerConnect->setEnabled(true);
+	m_qaServerDisconnect->setEnabled(false);
 	QMapIterator<Player *, QListWidgetItem *> iItems(m_qmItems);
 	while (iItems.hasNext()) {
 		iItems.next();
