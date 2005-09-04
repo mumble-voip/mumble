@@ -112,20 +112,46 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
   if (pSrcPlayer->m_sState != st) \
   	return
 
-void MessageServerJoin::process(Connection *cCon) {
+void MessageServerAuthenticate::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
 
-	pSrcPlayer->m_qsName = m_qsPlayerName;
+	pSrcPlayer->m_qsName = m_qsUsername;
 	m_sPlayerId = pSrcPlayer->m_sId;
 	g_sServer->m_qmConnections[pSrcPlayer->m_sId] = cCon;
+	
+	MessageServerReject msr;
+	bool ok = false;
 
-	g_sServer->sendExcept(this, cCon);
+	bool nameok = ! m_qsUsername.isEmpty();
+	for(int i=0;i<m_qsUsername.length();i++) {
+		QChar c=m_qsUsername[i];
+		if (! c.isLetterOrNumber() && (c != ' '))
+			ok = false;
+	}
 
-	pSrcPlayer->m_sState = Player::Authenticated;
-
-	qWarning("Player %d:%s joined", pSrcPlayer->m_sId, m_qsPlayerName.toLatin1().constData());
+	if (m_iVersion != MESSAGE_STREAM_VERSION) {
+	  msr.m_qsReason = "Wrong version of mumble protocol";
+	} else if (! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != m_qsPassword) {
+	  msr.m_qsReason = "Invalid Password";
+	} else if (! nameok) {
+	  msr.m_qsReason = "Invalid Username";
+	} else {
+	  ok = true;
+	}
+	
+	if (! ok) {
+	  cCon->sendMessage(&msr);
+	  cCon->disconnect();
+  	  qWarning("Player %d:%s rejected (%s)", pSrcPlayer->m_sId, m_qsUsername.toLatin1().constData(), msr.m_qsReason.toLatin1().constData());
+	  return;
+	}
 
 	MessageServerJoin msjMsg;
+
+	pSrcPlayer->m_sState = Player::Authenticated;
+	msjMsg.m_sPlayerId = pSrcPlayer->m_sId;
+	msjMsg.m_qsPlayerName = pSrcPlayer->m_qsName;
+	g_sServer->sendExcept(&msjMsg, cCon);
 
 	QMapIterator<Connection *, Player *> iPlayers(g_sServer->m_qmPlayers);
 	while (iPlayers.hasNext()) {
@@ -148,9 +174,19 @@ void MessageServerJoin::process(Connection *cCon) {
 			cCon->sendMessage(&mpdMsg);
 		}
 	}
+	qWarning("Player %d:%s joined", pSrcPlayer->m_sId, m_qsUsername.toLatin1().constData());
 }
 
-void MessageServerLeave::process(Connection *) {
+void MessageServerLeave::process(Connection *cCon) {
+  cCon->disconnect();
+}
+
+void MessageServerJoin::process(Connection *cCon) {
+  cCon->disconnect();
+}
+
+void MessageServerReject::process(Connection *cCon) {
+  cCon->disconnect();
 }
 
 void MessageSpeex::process(Connection *cCon) {
