@@ -55,6 +55,15 @@ class Server : public QObject {
 		Server();
 };
 
+struct ServerParams {
+	int iPort;
+	QString qsPassword;
+	bool bTestloop;
+	ServerParams();
+};
+
+extern ServerParams g_sp;
+
 #else
 class Server;
 #endif

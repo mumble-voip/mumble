@@ -31,13 +31,20 @@
 #include "Server.h"
 
 Server *g_sServer;
+ServerParams g_sp;
+
+ServerParams::ServerParams() {
+	qsPassword = QString();
+	bTestloop = false;
+	iPort = 64738;
+}
 
 Server::Server() {
 	m_qtsServer = new QTcpServer(this);
 
 	connect(m_qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()));
 
-	if (! m_qtsServer->listen(QHostAddress::Any, 64738))
+	if (! m_qtsServer->listen(QHostAddress::Any, g_sp.iPort))
 		qFatal("Server: Listen failed");
 }
 
@@ -150,7 +157,7 @@ void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
 	m_sPlayerId = pSrcPlayer->m_sId;
-	
+
 	if (pSrcPlayer->m_bMute)
 		return;
 
@@ -158,7 +165,7 @@ void MessageSpeex::process(Connection *cCon) {
 	while (iPlayers.hasNext()) {
 		iPlayers.next();
 		Player *pPlayer = iPlayers.value();
-		if (! pPlayer->m_bDeaf && pPlayer != pSrcPlayer)
+		if (! pPlayer->m_bDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
 			iPlayers.key()->sendMessage(this);
 	}
 }

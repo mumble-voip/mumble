@@ -39,6 +39,30 @@ int main(int argc, char **argv)
 
 	QCoreApplication a(argc, argv);
 
+	argc = a.argc();
+	argv = a.argv();
+
+	for(int i=1;i<argc;i++) {
+		QString arg = QString(argv[i]).toLower();
+		if (arg == "-loop") {
+			qWarning("Enabling loop mode");
+			g_sp.bTestloop = true;
+		} else if ((arg == "-pw") && ( i+1 < argc )) {
+			i++;
+			g_sp.qsPassword = argv[i];
+			qWarning("Setting password to %s", g_sp.qsPassword.toLatin1().constData());
+		} else if ((arg == "-port") && ( i+1 < argc )) {
+			i++;
+			int p = QString(argv[i]).toInt();
+			if ((p>0) && (p<65536)) {
+				qWarning("Setting listen port to %d", p);
+				g_sp.iPort = p;
+			}
+		} else {
+			qWarning("Unknown argument %s", argv[i]);
+		}
+	}
+
 	g_sServer = new Server();
 	res=a.exec();
 
