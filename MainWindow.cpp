@@ -123,7 +123,6 @@ void MainWindow::on_ServerConnect_triggered()
 void MainWindow::on_ServerDisconnect_triggered()
 {
 	g_shServer->disconnect();
-	m_qaServerDisconnect->setEnabled(FALSE);
 }
 
 void MainWindow::on_PlayerMenu_aboutToShow()

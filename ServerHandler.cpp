@@ -57,7 +57,10 @@ void ServerHandler::customEvent(QEvent *evt) {
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
 	if (cConnection) {
-		cConnection->sendMessage(shme->qbaMsg);
+		if (shme->qbaMsg.size() > 0)
+			cConnection->sendMessage(shme->qbaMsg);
+		else
+			cConnection->disconnect();
 	}
 }
 
@@ -114,7 +117,10 @@ void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 }
 
 void ServerHandler::disconnect() {
-	cConnection->disconnect();
+	// Actual TCP object is in a different thread, so signal it
+	QByteArray qbaBuffer;
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer);
+	QApplication::postEvent(this, shme);
 }
 
 void ServerHandler::serverConnectionClosed(Connection *) {
@@ -133,7 +139,6 @@ void ServerHandler::serverConnectionConnected() {
 	cConnection->sendMessage(&msaMsg);
 	emit connected();
 }
-
 
 void ServerHandler::setConnectionInfo(QString qsHostName, int iPort, QString qsUserName, QString qsPassword) {
 	m_qsHostName = qsHostName;
