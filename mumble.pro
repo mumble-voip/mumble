@@ -1,9 +1,11 @@
 TEMPLATE	= app
+VERSION		= 0.2.1
 QT		+= network
 TARGET		= mumble
 RC_FILE		= mumble.rc
 HEADERS		= AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h DXAudioInput.h DXAudioOutput.h Player.h About.h
 SOURCES		= AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Connection.cpp ServerHandler.cpp DXAudioInput.cpp DXAudioOutput.cpp Player.cpp About.cpp
+DIST		= licenses.h LICENSE mumble.ico mumble.pro murmur.pro
 INCLUDEPATH	+= include /dx90sdk/include
 LIBS 		+= -Llib -L.
 
