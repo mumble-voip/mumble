@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 void MainWindow::setupGui()  {
 	QMenu *qmServer, *qmPlayer, *qmAudio, *qmHelp;
 
-	setWindowTitle("Mumble -- Compile " __DATE__ " " __TIME__);
+	setWindowTitle("Mumble -- Compiled " __DATE__ " " __TIME__);
 
 	m_qlwPlayers = new QListWidget(this);
 	setCentralWidget(m_qlwPlayers);

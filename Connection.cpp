@@ -34,6 +34,7 @@ Connection::Connection(QObject *parent, QTcpSocket *qtsSock) : QObject(parent) {
 	m_qtsSocket = qtsSock;
 	m_iPacketLength = -1;
     connect(m_qtsSocket, SIGNAL(error(SocketError)), this, SLOT(socketError(SocketError)));
+    connect(m_qtsSocket, SIGNAL(stateChanged(SocketState)), this, SLOT(socketState(SocketState)));
     connect(m_qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 }
 
@@ -81,6 +82,10 @@ void Connection::socketRead() {
 void Connection::socketError(QAbstractSocket::SocketError) {
 	emit connectionClosed(this);
 	m_qtsSocket->disconnectFromHost();
+}
+
+void Connection::socketState(QAbstractSocket::SocketState state) {
+	qWarning("State %d", state);
 }
 
 void Connection::sendMessage(Message *mMsg) {

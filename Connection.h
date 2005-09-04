@@ -43,6 +43,7 @@ class Connection : public QObject {
 	protected slots:
 		void socketRead();
 	    void socketError(QAbstractSocket::SocketError);
+	    void socketState(QAbstractSocket::SocketState);
 	signals:
 		void connectionClosed(Connection *);
 		void message(QByteArray &, Connection *);
