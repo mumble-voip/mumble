@@ -51,7 +51,6 @@ class AudioInput : public QThread {
 		void encodeAudioFrame();
 
 		bool m_bRunning;
-		bool m_bLastVoice;
 
 		static int c_iFrameCounter;
 	public:

@@ -44,11 +44,16 @@ class Player : public QObject {
 		short m_sId;
 		QString m_qsName;
 		bool m_bMute, m_bDeaf;
+		bool m_bTalking;
 		Player();
 		static Player *get(short);
 		static Player *add(short);
 		static void remove(short);
 		static void remove(Player *);
+	public slots:
+		void setTalking(bool bTalking);
+	signals:
+		void talkingChanged(Player *pPlayer, bool bTalking);
 };
 
 extern QMap<short, Player *> g_qmPlayers;

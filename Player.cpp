@@ -37,6 +37,7 @@ Player::Player() {
   m_sState = Player::Connected;
   m_sId = 0;
   m_bMute = m_bDeaf = false;
+  m_bTalking = false;
 }
 
 Player *Player::get(short sId) {
@@ -67,4 +68,11 @@ void Player::remove(Player *p) {
 	g_qmPlayersMutex.lock();
 	g_qmPlayers.remove(p->m_sId);
 	g_qmPlayersMutex.unlock();
+}
+
+void Player::setTalking(bool bTalking) {
+	if (bTalking == m_bTalking)
+		return;
+	m_bTalking = bTalking;
+	emit talkingChanged(this, m_bTalking);
 }

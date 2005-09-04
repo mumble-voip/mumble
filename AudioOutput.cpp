@@ -29,6 +29,7 @@
 */
 
 #include "AudioOutput.h"
+#include "Player.h"
 
 AudioOutput *g_aoOutput;
 
@@ -66,10 +67,19 @@ void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 
 void AudioOutputPlayer::decodeNextFrame() {
 	int iTimestamp;
+	bool bSpeech;
+	int iSpeech = 0;
 
 	m_qmJitter.lock();
 	speex_jitter_get(&m_sjJitter, m_psBuffer, &iTimestamp);
+	if (m_sjJitter.valid_bits)
+		iSpeech = speex_bits_unpack_unsigned(&m_sjJitter.current_packet, 1);
 	m_qmJitter.unlock();
+	bSpeech = (iSpeech != 0);
+
+	Player *p=Player::get(m_sId);
+	if (p)
+		p->setTalking(bSpeech);
 }
 
 AudioOutput::AudioOutput() {

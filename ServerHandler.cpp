@@ -103,6 +103,8 @@ void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 				if (g_aoOutput)
 					g_aoOutput->removeBuffer(mMsg->m_sPlayerId);
 				break;
+			default:
+				break;
 		}
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg);
 		QApplication::postEvent(g_mwMainWindow, shme);

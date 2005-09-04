@@ -196,6 +196,12 @@ void MainWindow::on_HelpAboutQt_triggered()
 	QMessageBox::aboutQt(this, "About Qt");
 }
 
+void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
+{
+	QListWidgetItem *item=m_qmItems[p];
+	item->setBackgroundColor(bTalking ? Qt::lightGray : Qt::white);
+}
+
 void MainWindow::serverConnected()
 {
 	m_qaServerDisconnect->setEnabled(TRUE);
@@ -249,6 +255,8 @@ void MessageServerJoin::process(Connection *) {
 
 	g_mwMainWindow->m_qmPlayers[item]=p;
 	g_mwMainWindow->m_qmItems[p]=item;
+
+	QObject::connect(p, SIGNAL(talkingChanged(Player *, bool)), g_mwMainWindow, SLOT(playerTalkingChanged(Player *, bool)));
 }
 
 #define MSG_INIT \

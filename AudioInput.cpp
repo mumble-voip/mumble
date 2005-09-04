@@ -117,34 +117,20 @@ void AudioInput::encodeAudioFrame() {
 	if (m_sppPreprocess->loudness2 < 4000)
 		m_sppPreprocess->loudness2 = 4000;
 
-/*
-	// If neither this or the previous is voice, we're done
-	if (! iIsSpeech && ! m_bLastVoice)
-		return;
 
-	m_bLastVoice = iIsSpeech ? true : false;
+	// Ideally, we'd like to go DTX (discontinous transmission)
+	// if we didn't detect speech. Unfortunately, the jitter
+	// buffer on the receiving end doesn't cope with that
+	// very well.
 
-	// Send DTX Packet? This is a truly ugly hack
 	if (! iIsSpeech) {
-		iArg = 0;
-		speex_encoder_ctl(m_esEncState,SPEEX_SET_VBR, &iArg);
-		speex_encoder_ctl(m_esEncState,SPEEX_SET_QUALITY, &iArg);
-
-		SBEncState *sbe = static_cast<SBEncState *>(m_esEncState);
-		EncState *es = static_cast<EncState *>(sbe->st_low);
-		es->dtx_count = 1;
+		// Zero frame -- we don't want comfort noise
+		memset(m_psMic, 0, m_iByteSize);
 	}
-*/
+
 	speex_bits_reset(&m_sbBits);
 	speex_encode_int(m_esEncState, m_psMic, &m_sbBits);
-
-/*
-	// Restore encoder
-	if (! iIsSpeech) {
-		iArg = 1;
-		speex_encoder_ctl(m_esEncState,SPEEX_SET_VBR, &iArg);
-	}
-*/
+	speex_bits_pack(&m_sbBits, (iIsSpeech) ? 1 : 0, 1);
 
 	iLen=speex_bits_nbytes(&m_sbBits);
 	QByteArray qbaPacket(iLen, 0);

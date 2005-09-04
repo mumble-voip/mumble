@@ -68,6 +68,7 @@ class MainWindow : public QMainWindow {
 		void on_HelpAboutQt_triggered();
 		void serverConnected();
 		void serverDisconnected();
+		void playerTalkingChanged(Player *, bool);
 	public:
 		MainWindow(QWidget *parent);
 };

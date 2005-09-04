@@ -8,6 +8,7 @@ INCLUDEPATH	+= include /dx90sdk/include
 LIBS 		+= -Llib -L.
 
 debug {
+  CONFIG += console
   LIBS	+= -Ldebug
 }
 release {
