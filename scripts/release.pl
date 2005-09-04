@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use Switch;
 use Archive::Tar;
-use Archive::Zip;
+use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use Compress::Bzip2;
 
 my %files;
@@ -50,7 +50,9 @@ foreach my $file ('LICENSE', sort keys %files) {
   open(F, $file);
   sysread(F, $blob, 1000000000);
   $tar->add_data($dir . $file, $blob);
-  $zip->addString($blob, $dir . $file);
+  my $zipmember=$zip->addString($blob, $dir . $file);
+  $zipmember->desiredCompressionMethod( COMPRESSION_DEFLATED );
+  $zipmember->desiredCompressionLevel( 9 );
   close(F);
 }
 
