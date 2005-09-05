@@ -29,6 +29,7 @@
 */
 
 #include <QApplication>
+#include <QIcon>
 
 #include "MainWindow.h"
 #include "ServerHandler.h"
@@ -47,6 +48,12 @@ int main(int argc, char **argv)
 	a.setApplicationName("Mumble");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
+
+	QIcon icon;
+	icon.addFile(":/mumble.png.0");
+	icon.addFile(":/mumble.png.0");
+	icon.addFile(":/mumble.png.0");
+	a.setWindowIcon(icon);
 
 	g_shServer = new ServerHandler();
 	g_shServer->moveToThread(g_shServer);

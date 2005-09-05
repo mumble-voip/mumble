@@ -9,6 +9,7 @@ SOURCES		= AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Co
 DIST		+= licenses.h mumble.ico
 INCLUDEPATH	+= include
 LIBS 		+= -Llib -L.
+RESOURCES	+= mumble.qrc
 
 LIBS	+= -llibspeex
 

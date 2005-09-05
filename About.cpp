@@ -35,33 +35,45 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QWidget>
+#include <QApplication>
+#include <QMessageBox>
+#include <QIcon>
+#include <QFileDialog>
 #include "licenses.h"
-
-static const char *about = "Mumble - A group voice chat utility \n\n\
-http://mumble.sourceforge.net\
-\n\n\
-See 'Source License' for license information on the Mumble sourcecode.";
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent) {
 	QTabWidget *qtwTab = new QTabWidget(this);
+    QVBoxLayout *vblMain = new QVBoxLayout;
 
-	QLabel *qlMain=new QLabel(about);
+	QTextEdit *qteLicense=new QTextEdit();
+	qteLicense->setReadOnly(true);
+	qteLicense->setPlainText(licenseMumble);
 
-	QTextEdit *qteBSD=new QTextEdit();
-	qteBSD->setReadOnly(true);
-	qteBSD->setPlainText(licenseMumble);
+	QWidget *about=new QWidget();
 
-	qtwTab->addTab(qlMain, "&About Mumble");
-	qtwTab->addTab(qteBSD, "&License");
+	QLabel *icon=new QLabel(about);
+	icon->setPixmap(qApp->windowIcon().pixmap(qApp->windowIcon().actualSize(QSize(64,64))));
+
+	QLabel *text=new QLabel(about);
+	text->setText(tr(
+		"<h3>Mumble v0.2.1</h3>"
+		"<p><b>A voicechat utility for gamers</b></p>"
+		"<p><tt>http://mumble.sourceforge.net/</tt></p>"
+	));
+	QHBoxLayout *qhbl=new QHBoxLayout();
+	qhbl->addWidget(icon);
+	qhbl->addWidget(text);
+	about->setLayout(qhbl);
+
+	qtwTab->addTab(about, "&About Mumble");
+	qtwTab->addTab(qteLicense, "&License");
 
     QPushButton *okButton = new QPushButton("OK");
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-    QVBoxLayout *vblMain = new QVBoxLayout;
     vblMain->addWidget(qtwTab);
     vblMain->addWidget(okButton);
 
     setLayout(vblMain);
-
-    resize(550,300);
 }
