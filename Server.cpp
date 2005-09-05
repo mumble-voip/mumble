@@ -46,6 +46,9 @@ Server::Server() {
 
 	if (! m_qtsServer->listen(QHostAddress::Any, g_sp.iPort))
 		qFatal("Server: Listen failed");
+
+	for(int i=1;i<255;i++)
+		m_qqIds.enqueue(i);
 }
 
 void Server::newClient() {
@@ -53,9 +56,12 @@ void Server::newClient() {
 
 	short id;
 
-	for(id=1;id<32000;id++)
-		if (! g_sServer->m_qmConnections.contains(id))
-			break;
+	if (m_qqIds.isEmpty()) {
+		cCon->disconnect();
+		return;
+	}
+
+	id=m_qqIds.dequeue();
 
 	Player *pPlayer = Player::add(id);
 	m_qmPlayers[cCon] = pPlayer;
@@ -80,6 +86,8 @@ void Server::connectionClosed(Connection *c, QString reason) {
 	qWarning("Connection closed: %s", reason.toLatin1().constData());
 
 	Player::remove(pPlayer);
+
+	m_qqIds.enqueue(pPlayer->m_sId);
 
 	delete pPlayer;
 	c->deleteLater();
@@ -118,6 +126,10 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
   Q_UNUSED(pSrcPlayer) \
   Player *pDstPlayer = Player::get(m_sPlayerId); \
   Q_UNUSED(pDstPlayer) \
+  Connection *cDst = NULL; \
+  Q_UNUSED(cDst) \
+  if (g_sServer->m_qmConnections.contains(m_sPlayerId)) \
+  	cDst = g_sServer->m_qmConnections[m_sPlayerId]; \
   if (pSrcPlayer->m_sState != st) \
   	return
 
@@ -240,7 +252,8 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 void MessagePlayerKick::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	cCon = g_sServer->m_qmConnections[m_sPlayerId];
-	cCon->sendMessage(this);
-	cCon->disconnect();
+	if (cDst) {
+		cDst->sendMessage(this);
+		cDst->disconnect();
+	}
 }

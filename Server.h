@@ -36,10 +36,12 @@
 #include <QObject>
 #include <QMap>
 #include <QTcpServer>
+#include <QQueue>
 
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
+		QQueue<int> m_qqIds;
 		QTcpServer *m_qtsServer;
 	protected slots:
 		void newClient();
