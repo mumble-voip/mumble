@@ -10,7 +10,7 @@ use Compress::Bzip2;
 
 my %files;
 my $ver;
-my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1);
+my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1);
 
 system("rm mumble-*");
 
@@ -18,7 +18,7 @@ foreach my $pro ("mumble.pro", "murmur.pro", "mumble.pri") {
   open(F, $pro) or croak;
   while(<F>) {
     chomp();
-    if (/^(\w+)\s*=\s*(.+)$/) {
+    if (/^\s*(\w+)\s*?[\+\-\s]=\s*(.+)$/) {
       my ($var,$value)=(lc $1,$2);
       switch ($var) {
         case "version" {
@@ -47,7 +47,7 @@ my $zipdir = $zip->addDirectory($dir);
 
 foreach my $file ('LICENSE', sort keys %files) {
   print "Adding $file\n";
-  open(F, $file);
+  open(F, $file) or croak "Missing $file";
   sysread(F, $blob, 1000000000);
   $tar->add_data($dir . $file, $blob);
   my $zipmember=$zip->addString($blob, $dir . $file);
