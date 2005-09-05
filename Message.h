@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(QDataStream &);
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick };
 
 		short m_sPlayerId;
 
@@ -92,6 +92,12 @@ class MessageServerReject : public Message {
 		QString m_qsReason;
 		MessageServerReject();
 		Message::MessageType messageType() { return ServerReject; };
+		void process(Connection *);
+};
+
+class MessageServerSync : public Message {
+	public:
+		Message::MessageType messageType() { return ServerSync; };
 		void process(Connection *);
 };
 

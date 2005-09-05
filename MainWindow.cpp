@@ -31,6 +31,7 @@
 #include <QMenuBar>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QSettings>
 #include "MainWindow.h"
 #include "AudioInput.h"
 #include "GlobalShortcut.h"
@@ -42,12 +43,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 	connect(g_shServer, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g_shServer, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
+
+	m_tts=new TextToSpeech(this);
+	recheckTTS();
+	m_tts->say(tr("Welcome to Mumble."));
+	m_tts->say(tr("We apologize for the quality of the text-to-speech engine."));
 }
 
 void MainWindow::setupGui()  {
 	QMenu *qmServer, *qmPlayer, *qmAudio, *qmHelp;
 
-	setWindowTitle("Mumble -- Compiled " __DATE__ " " __TIME__);
+	setWindowTitle(tr("Mumble -- Compiled %1 %2").arg(__DATE__).arg(__TIME__));
 
 	m_qlwPlayers = new QListWidget(this);
 	setCentralWidget(m_qlwPlayers);
@@ -62,8 +68,8 @@ void MainWindow::setupGui()  {
 	qmAudio->setObjectName("AudioMenu");
 	qmHelp->setObjectName("HelpMenu");
 
-	m_qaServerConnect=new QAction("&Connect", this);
-	m_qaServerDisconnect=new QAction("&Disconnect", this);
+	m_qaServerConnect=new QAction(tr("&Connect"), this);
+	m_qaServerDisconnect=new QAction(tr("&Disconnect"), this);
 	m_qaServerConnect->setObjectName("ServerConnect");
 	m_qaServerDisconnect->setObjectName("ServerDisconnect");
 	m_qaServerDisconnect->setEnabled(FALSE);
@@ -71,9 +77,9 @@ void MainWindow::setupGui()  {
 	qmServer->addAction(m_qaServerConnect);
 	qmServer->addAction(m_qaServerDisconnect);
 
-	m_qaPlayerKick=new QAction("&Kick", this);
-	m_qaPlayerMute=new QAction("&Mute", this);
-	m_qaPlayerDeaf=new QAction("&Deafen", this);
+	m_qaPlayerKick=new QAction(tr("&Kick"), this);
+	m_qaPlayerMute=new QAction(tr("&Mute"), this);
+	m_qaPlayerDeaf=new QAction(tr("&Deafen"), this);
 	m_qaPlayerKick->setObjectName("PlayerKick");
 	m_qaPlayerMute->setObjectName("PlayerMute");
 	m_qaPlayerDeaf->setObjectName("PlayerDeaf");
@@ -87,18 +93,22 @@ void MainWindow::setupGui()  {
 	qmPlayer->addAction(m_qaPlayerMute);
 	qmPlayer->addAction(m_qaPlayerDeaf);
 
-	m_qaAudioReset=new QAction("&Reset", this);
+	m_qaAudioReset=new QAction(tr("&Reset"), this);
 	m_qaAudioReset->setObjectName("AudioReset");
-
-	m_qaAudioShortcuts=new QAction("&Shortcuts", this);
+	m_qaAudioShortcuts=new QAction(tr("&Shortcuts"), this);
 	m_qaAudioShortcuts->setObjectName("AudioShortcuts");
+	m_qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
+	m_qaAudioTTS->setObjectName("AudioTextToSpeech");
+	m_qaAudioTTS->setCheckable(TRUE);
+	m_qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
 
 	qmAudio->addAction(m_qaAudioReset);
 	qmAudio->addAction(m_qaAudioShortcuts);
+	qmAudio->addAction(m_qaAudioTTS);
 
-	m_qaHelpAbout=new QAction("&About", this);
+	m_qaHelpAbout=new QAction(tr("&About"), this);
 	m_qaHelpAbout->setObjectName("HelpAbout");
-	m_qaHelpAboutQt=new QAction("&About QT", this);
+	m_qaHelpAboutQt=new QAction(tr("&About QT"), this);
 	m_qaHelpAboutQt->setObjectName("HelpAboutQt");
 
 	qmHelp->addAction(m_qaHelpAbout);
@@ -113,6 +123,11 @@ void MainWindow::setupGui()  {
 	m_gsPushTalk->setObjectName("PushToTalk");
 
     QMetaObject::connectSlotsByName(this);
+}
+
+void MainWindow::recheckTTS()
+{
+	m_tts->setEnabled(m_qaAudioTTS->isChecked());
 }
 
 void MainWindow::on_ServerConnect_triggered()
@@ -181,11 +196,14 @@ void MainWindow::on_PlayerKick_triggered()
 		return;
 	Player *p = m_qmPlayers[item];
 
-	QString reason = QInputDialog::getText(this, "Kicking", "Reason");
-	MessagePlayerKick mpkMsg;
-	mpkMsg.m_sPlayerId=p->m_sId;
-	mpkMsg.m_qsReason = reason;
-	g_shServer->sendMessage(&mpkMsg);
+	bool ok;
+	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->m_qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
+	if (ok) {
+		MessagePlayerKick mpkMsg;
+		mpkMsg.m_sPlayerId=p->m_sId;
+		mpkMsg.m_qsReason = reason;
+		g_shServer->sendMessage(&mpkMsg);
+	}
 }
 
 void MainWindow::on_AudioReset_triggered()
@@ -199,6 +217,12 @@ void MainWindow::on_AudioShortcuts_triggered()
 	GlobalShortcut::configure();
 }
 
+void MainWindow::on_AudioTextToSpeech_triggered()
+{
+	qs.setValue("TextToSpeech", m_qaAudioTTS->isChecked());
+	recheckTTS();
+}
+
 void MainWindow::on_HelpAbout_triggered()
 {
 	AboutDialog adAbout(this);
@@ -207,11 +231,12 @@ void MainWindow::on_HelpAbout_triggered()
 
 void MainWindow::on_HelpAboutQt_triggered()
 {
-	QMessageBox::aboutQt(this, "About Qt");
+	QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
 void MainWindow::on_PushToTalk_triggered(bool down)
 {
+	m_tts->say(QString(down ? "Down" : "Up"));
 }
 
 void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
@@ -222,11 +247,14 @@ void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
 
 void MainWindow::serverConnected()
 {
+	m_tts->say(tr("Connected to server"));
+	m_tts->setEnabled(false);
 	m_qaServerDisconnect->setEnabled(true);
 }
 
 void MainWindow::serverDisconnected(QString reason)
 {
+	recheckTTS();
 	m_qaServerConnect->setEnabled(true);
 	m_qaServerDisconnect->setEnabled(false);
 	QMapIterator<Player *, QListWidgetItem *> iItems(m_qmItems);
@@ -237,8 +265,12 @@ void MainWindow::serverDisconnected(QString reason)
 	m_qmItems.clear();
 	m_qmPlayers.clear();
 
-	if (! reason.isEmpty())
+	if (! reason.isEmpty()) {
+  	  m_tts->say(tr("Server connection failed. %1").arg(reason));
 	  QMessageBox::warning(this, "Server connection failed", reason, QMessageBox::Ok, QMessageBox::NoButton);
+    } else {
+	  m_tts->say(tr("Disconnected from server"));
+	}
 }
 
 void MainWindow::customEvent(QEvent *evt) {
@@ -279,6 +311,8 @@ void MessageServerJoin::process(Connection *) {
 	g_mwMainWindow->m_qmItems[p]=item;
 
 	QObject::connect(p, SIGNAL(talkingChanged(Player *, bool)), g_mwMainWindow, SLOT(playerTalkingChanged(Player *, bool)));
+
+	g_mwMainWindow->m_tts->say(QObject::tr("Joined now: %1").arg(p->m_qsName));
 }
 
 #define MSG_INIT \
@@ -289,6 +323,8 @@ void MessageServerJoin::process(Connection *) {
 
 void MessageServerLeave::process(Connection *) {
 	Player *p=Player::get(m_sPlayerId);
+
+	g_mwMainWindow->m_tts->say(QObject::tr("Left now: %1").arg(p->m_qsName));
 	if (g_mwMainWindow->m_qmItems.contains(p)) {
 		QListWidgetItem *item=g_mwMainWindow->m_qmItems.take(p);
 
@@ -317,13 +353,20 @@ void MessagePlayerDeaf::process(Connection *) {
 
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
-	QMessageBox::warning(g_mwMainWindow, "Kicked from server", m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
+	g_mwMainWindow->m_tts->say(QObject::tr("You were kicked from the server. %1").arg(m_qsReason));
+	QMessageBox::warning(g_mwMainWindow, QObject::tr("Kicked from server"), m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
 }
 
 void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
-	QMessageBox::warning(g_mwMainWindow, "Server Rejected Connection", m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
+	g_mwMainWindow->m_tts->say(QObject::tr("Server connection rejected. %1").arg(m_qsReason));
+	QMessageBox::warning(g_mwMainWindow, QObject::tr("Server Rejected Connection"), m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
 }
 
+void MessageServerSync::process(Connection *) {
+	MSG_INIT;
+	g_mwMainWindow->m_sMyId = m_sPlayerId;
+	g_mwMainWindow->recheckTTS();
+}

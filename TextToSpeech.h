@@ -28,69 +28,30 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MAINWINDOW_H
-#define _MAINWINDOW_H
+#include <QObject.h>
 
-#include <QMainWindow>
-#include <QListWidget>
-#include <QAction>
-#include <QMap>
-#include <QSettings>
-#include "Player.h"
-#include "Connection.h"
-#include "ServerHandler.h"
-#include "About.h"
-#include "ConnectDialog.h"
-#include "GlobalShortcut.h"
-#include "TextToSpeech.h"
+#ifndef _TEXTTOSPEECH_H
+#define _TEXTTOSPEECH_H
 
-class MainWindow : public QMainWindow {
+class TextToSpeechPrivate;
+
+class TextToSpeech : public QObject {
+	friend class TextToSpeechPrivate;
 	Q_OBJECT
+	Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
+	protected:
+		bool enabled;
 	public:
-		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect;
-		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
-		QAction *m_qaAudioReset, *m_qaAudioShortcuts, *m_qaAudioTTS;
-		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
-
-		GlobalShortcut *m_gsPushTalk;
-		TextToSpeech *m_tts;
-
-		QSettings qs;
-
-		QMap<Player *, QListWidgetItem *> m_qmItems;
-		QMap<QListWidgetItem *, Player *> m_qmPlayers;
-
-		void setupGui();
-		void customEvent(QEvent *evt);
-
-		static void setItemColor(QListWidgetItem *, Player *);
-
-		short m_sMyId;
-
-		void recheckTTS();
+		TextToSpeech(QObject *parent = NULL);
+		~TextToSpeech();
+		bool isEnabled() const;
 	public slots:
-		void on_ServerConnect_triggered();
-		void on_ServerDisconnect_triggered();
-		void on_PlayerMenu_aboutToShow();
-		void on_PlayerKick_triggered();
-		void on_PlayerMute_triggered();
-		void on_PlayerDeaf_triggered();
-		void on_AudioReset_triggered();
-		void on_AudioShortcuts_triggered();
-		void on_AudioTextToSpeech_triggered();
-		void on_HelpAbout_triggered();
-		void on_HelpAboutQt_triggered();
-		void on_PushToTalk_triggered(bool);
-		void serverConnected();
-		void serverDisconnected(QString reason);
-		void playerTalkingChanged(Player *, bool);
-	public:
-		MainWindow(QWidget *parent);
+		void say(QString text);
+		void setEnabled(bool ena);
+	private:
+		TextToSpeechPrivate *d;
 };
 
-extern MainWindow *g_mwMainWindow;
-
 #else
-class MainWindow;
+class TextToSpeech;
 #endif

@@ -28,69 +28,56 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MAINWINDOW_H
-#define _MAINWINDOW_H
-
-#include <QMainWindow>
-#include <QListWidget>
-#include <QAction>
-#include <QMap>
-#include <QSettings>
-#include "Player.h"
-#include "Connection.h"
-#include "ServerHandler.h"
-#include "About.h"
-#include "ConnectDialog.h"
-#include "GlobalShortcut.h"
 #include "TextToSpeech.h"
+#include <QMap>
+#include <windows.h>
+#include <servprov.h>
+#include <sapi.h>
 
-class MainWindow : public QMainWindow {
-	Q_OBJECT
+class TextToSpeechPrivate {
 	public:
-		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect;
-		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
-		QAction *m_qaAudioReset, *m_qaAudioShortcuts, *m_qaAudioTTS;
-		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
-
-		GlobalShortcut *m_gsPushTalk;
-		TextToSpeech *m_tts;
-
-		QSettings qs;
-
-		QMap<Player *, QListWidgetItem *> m_qmItems;
-		QMap<QListWidgetItem *, Player *> m_qmPlayers;
-
-		void setupGui();
-		void customEvent(QEvent *evt);
-
-		static void setItemColor(QListWidgetItem *, Player *);
-
-		short m_sMyId;
-
-		void recheckTTS();
-	public slots:
-		void on_ServerConnect_triggered();
-		void on_ServerDisconnect_triggered();
-		void on_PlayerMenu_aboutToShow();
-		void on_PlayerKick_triggered();
-		void on_PlayerMute_triggered();
-		void on_PlayerDeaf_triggered();
-		void on_AudioReset_triggered();
-		void on_AudioShortcuts_triggered();
-		void on_AudioTextToSpeech_triggered();
-		void on_HelpAbout_triggered();
-		void on_HelpAboutQt_triggered();
-		void on_PushToTalk_triggered(bool);
-		void serverConnected();
-		void serverDisconnected(QString reason);
-		void playerTalkingChanged(Player *, bool);
-	public:
-		MainWindow(QWidget *parent);
+		ISpVoice * pVoice;
+		TextToSpeechPrivate();
+		~TextToSpeechPrivate();
+		void say(QString text);
 };
 
-extern MainWindow *g_mwMainWindow;
+TextToSpeechPrivate::TextToSpeechPrivate() {
+	pVoice = NULL;
 
-#else
-class MainWindow;
-#endif
+   	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+   	if( FAILED(hr))
+   		qWarning("TextToSpeechPrivate: Failed to allocate TTS Voice");
+}
+
+TextToSpeechPrivate::~TextToSpeechPrivate() {
+	if (pVoice)
+		pVoice->Release();
+}
+
+void TextToSpeechPrivate::say(QString text) {
+	if (pVoice)
+		pVoice->Speak((const wchar_t *) text.utf16(), SPF_ASYNC, NULL);
+}
+
+TextToSpeech::TextToSpeech(QObject *parent) : QObject(parent) {
+	enabled = true;
+	d = new TextToSpeechPrivate();
+}
+
+TextToSpeech::~TextToSpeech() {
+	delete d;
+}
+
+void TextToSpeech::say(QString text) {
+	if (enabled)
+		d->say(text);
+}
+
+void TextToSpeech::setEnabled(bool e) {
+	enabled = e;
+}
+
+bool TextToSpeech::isEnabled() const {
+	return enabled;
+}

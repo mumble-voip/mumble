@@ -118,7 +118,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	pSrcPlayer->m_qsName = m_qsUsername;
 	m_sPlayerId = pSrcPlayer->m_sId;
 	g_sServer->m_qmConnections[pSrcPlayer->m_sId] = cCon;
-	
+
 	MessageServerReject msr;
 	bool ok = false;
 
@@ -138,7 +138,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	} else {
 	  ok = true;
 	}
-	
+
 	if (! ok) {
 	  cCon->sendMessage(&msr);
 	  cCon->disconnect();
@@ -174,6 +174,9 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 			cCon->sendMessage(&mpdMsg);
 		}
 	}
+	MessageServerSync mssMsg;
+	mssMsg.m_sPlayerId = pSrcPlayer->m_sId;
+	cCon->sendMessage(&mssMsg);
 	qWarning("Player %d:%s joined", pSrcPlayer->m_sId, m_qsUsername.toLatin1().constData());
 }
 
@@ -186,6 +189,10 @@ void MessageServerJoin::process(Connection *cCon) {
 }
 
 void MessageServerReject::process(Connection *cCon) {
+  cCon->disconnect();
+}
+
+void MessageServerSync::process(Connection *cCon) {
   cCon->disconnect();
 }
 
