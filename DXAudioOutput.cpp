@@ -64,9 +64,9 @@ DXAudioOutput::DXAudioOutput() {
    	ZeroMemory( &wfx, sizeof(wfx) );
     wfx.wFormatTag = WAVE_FORMAT_PCM;
 
-    wfx.nChannels = 2;
-    wfx.nSamplesPerSec = 48000;
-    wfx.nBlockAlign = 4;
+    wfx.nChannels = 1;
+    wfx.nSamplesPerSec = SAMPLE_RATE;
+    wfx.nBlockAlign = 2;
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
     wfx.wBitsPerSample = 16;
 
