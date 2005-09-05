@@ -50,8 +50,8 @@ int main(int argc, char **argv)
 	a.setOrganizationDomain("mumble.sourceforge.net");
 
 	QIcon icon;
-	icon.addFile(":/mumble.png.0");
-	icon.addFile(":/mumble.png.0");
+	icon.addFile(":/mumble.png.2");
+	icon.addFile(":/mumble.png.1");
 	icon.addFile(":/mumble.png.0");
 	a.setWindowIcon(icon);
 
