@@ -40,10 +40,12 @@ class Connection : public QObject {
 	protected:
 		QTcpSocket *m_qtsSocket;
 		int m_iPacketLength;
+		bool m_bDisconnectedEmitted;
 	protected slots:
 		void socketRead();
 	    void socketError(QAbstractSocket::SocketError);
 	    void socketState(QAbstractSocket::SocketState);
+	    void socketDisconnected();
 	signals:
 		void connectionClosed(Connection *, QString reason);
 		void message(QByteArray &, Connection *);

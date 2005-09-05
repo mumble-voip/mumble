@@ -66,6 +66,7 @@ Section "Mumble & Murmur" SecMumble
   SetOutPath "$INSTDIR"
   
   File /oname=license.txt "..\LICENSE"
+  File /oname=Readme.txt "..\README"
   File "speex.txt"
   File "qt.txt"
   File "..\release\mumble.exe"
@@ -89,6 +90,7 @@ Section "Mumble & Murmur" SecMumble
     CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble.lnk" "$INSTDIR\mumble.exe"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Murmur.lnk" "$INSTDIR\murmur.exe"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble Readme.lnk" "$INSTDIR\Readme.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble License.lnk" "$INSTDIR\license.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\QT License.lnk" "$INSTDIR\qt.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Speex License.lnk" "$INSTDIR\speex.txt"
@@ -115,6 +117,7 @@ Section "Uninstall"
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\qt.txt"
   Delete "$INSTDIR\speex.txt"
+  Delete "$INSTDIR\Readme.txt"
   Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\Uninstall.exe"
 
@@ -123,6 +126,12 @@ Section "Uninstall"
   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
     
   Delete "$SMPROGRAMS\$MUI_TEMP\Uninstall.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\Mumble.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\Murmur.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\Mumble Readme.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\Mumble License.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\QT License.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\Speex License.lnk"
   
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
@@ -137,6 +146,6 @@ Section "Uninstall"
     StrCmp $MUI_TEMP $SMPROGRAMS startMenuDeleteLoopDone startMenuDeleteLoop
   startMenuDeleteLoopDone:
 
-  DeleteRegKey HKCU "Software\Mumble"
+  DeleteRegKey /ifempty HKCU "Software\Mumble"
 
 SectionEnd

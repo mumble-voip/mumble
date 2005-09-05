@@ -33,9 +33,11 @@
 Connection::Connection(QObject *parent, QTcpSocket *qtsSock) : QObject(parent) {
 	m_qtsSocket = qtsSock;
 	m_iPacketLength = -1;
+	m_bDisconnectedEmitted = false;
     connect(m_qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
-    connect(m_qtsSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(socketState(QAbstractSocket::SocketState)));
+	connect(m_qtsSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(socketState(QAbstractSocket::SocketState)));
     connect(m_qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
+    connect(m_qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 }
 
 Connection::~Connection() {
@@ -69,11 +71,21 @@ void Connection::socketRead() {
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {
-	emit connectionClosed(this, m_qtsSocket->errorString());
+	if (! m_bDisconnectedEmitted) {
+		m_bDisconnectedEmitted = true;
+		emit connectionClosed(this, m_qtsSocket->errorString());
+	}
 	m_qtsSocket->disconnectFromHost();
 }
 
 void Connection::socketState(QAbstractSocket::SocketState state) {
+}
+
+void Connection::socketDisconnected() {
+	if (! m_bDisconnectedEmitted) {
+		m_bDisconnectedEmitted = true;
+		emit connectionClosed(this, QString());
+	}
 }
 
 void Connection::sendMessage(Message *mMsg) {
@@ -96,6 +108,5 @@ void Connection::sendMessage(QByteArray &qbaMsg) {
 }
 
 void Connection::disconnect() {
-	emit connectionClosed(this, QString());
 	m_qtsSocket->disconnectFromHost();
 }
