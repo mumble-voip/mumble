@@ -178,7 +178,8 @@ void MainWindow::on_ServerConnect_triggered()
 	int res = cd->exec();
 
 	if (res == QDialog::Accepted) {
-		m_qaServerConnect->setEnabled(FALSE);
+		m_qaServerConnect->setEnabled(false);
+		m_qaServerDisconnect->setEnabled(true);
 		g_shServer->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
 		g_shServer->start();
 	}

@@ -31,6 +31,8 @@
 #include "AudioInput.h"
 #include "ServerHandler.h"
 #include "Settings.h"
+#include "MainWindow.h"
+#include "Player.h"
 
 AudioInput *g_aiInput;
 
@@ -128,6 +130,10 @@ void AudioInput::encodeAudioFrame() {
 		// Zero frame -- we don't want comfort noise
 		memset(m_psMic, 0, m_iByteSize);
 	}
+
+	Player *p=Player::get(g_mwMainWindow->m_sMyId);
+	if (p)
+		p->setTalking(iIsSpeech);
 
 	speex_bits_reset(&m_sbBits);
 	speex_encode_int(m_esEncState, m_psMic, &m_sbBits);
