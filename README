@@ -1,0 +1,60 @@
+
+
+         M U M B L E
+
+A voicechat utility for gamers
+
+
+Mumble is a voicechat program for gamers written on top of Qt and Speex.
+
+There are two modules in Mumble; the client (mumble) and the server
+(murmur). The client only works on Win32, while the server should work
+on anything QT can be installed on.
+
+Note that when we say Win32, we mean Windows XP or newer.
+
+Running Mumble
+==============
+
+After installation, you should have a new Mumble folder in your Start Menu,
+from which you can start Mumble. You need a server to connect to, either
+create your own or join a friend's.
+
+Note that it's perfectly possible to make the internal state of the audio
+preprocessor incosistant so that voice activity and noise filtration doesn't
+work. Disconnection and reconnection your microphone will cause this, as
+will rubbing it with paper -- anything that causes signals that are way out
+of the normal range. If this happens, use Audio|Reset (or the bound
+shortcut) to reset it.
+
+Running Murmur
+==============
+
+Murmur must be run from the command line, so start a shell (command prompt)
+and go to wherever you installed Mumble. Run murmur as
+
+murmur [-loop] [-pw <password>] [-port <port>]
+
+-loop   Enable loop test mode, where you will also hear yourself speak.
+        Great for testing, but very annoying if there's another person on.
+
+-pw     Set connection password. Players connection without this password
+        will be rejected.
+
+-port   Set the port to bind to. The default is 64738.
+
+Bandwidth usage
+===============
+
+Mumble will use 10-40 kbit/s outgoing, and the same incoming for each user.
+So if there are 10 other users on the server with you, your incoming
+bandwidth requirement will be 100-400 kbit/s.
+
+To keep the jitter-buffers happy and always perfectly tuned, Mumble
+transmits data contignously. If you have VAD or Push-To-Talk enabled, it
+transmits frames of silence when there's no talking; it does not stop 
+transmitting. 
+The only exception to this is if you mute yourself. Be aware that after
+unmuting there will be about a 400ms delay before the jitter buffers on 
+the recieving ends are aligned again.
+
