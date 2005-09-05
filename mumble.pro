@@ -19,8 +19,3 @@ win32 {
   INCLUDEPATH	+= /dx90sdk/include "/Program Files/Microsoft Speech SDK 5.1/Include"
   LIBS	+= -L\\dx90sdk\\lib -L"/Program Files/Microsoft Speech SDK 5.1/Lib/i386" -ldsound -ldxguid -ldinput8 -lsapi -lole32
 }
-
-release {
-  CONFIG -= console
-  CONFIG += windows
-}

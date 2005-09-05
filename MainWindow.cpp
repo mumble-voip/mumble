@@ -112,29 +112,26 @@ void MainWindow::setupGui()  {
 	qag->setExclusive(true);
 	qm=new QMenu(tr("&Transmit"), this);
 
-	qa=new QAction(tr("Continous"), this);
+	qa=new QAction(tr("Continous"), qag);
 	qa->setCheckable(true);
 	qa->setData(Settings::Continous);
 	if (g_s.atTransmit == Settings::Continous)
 		qa->setChecked(true);
 	qm->addAction(qa);
-	qag->addAction(qa);
 
-	qa=new QAction(tr("Voice Activity"), this);
+	qa=new QAction(tr("Voice Activity"), qag);
 	qa->setCheckable(true);
 	qa->setData(Settings::VAD);
 	if (g_s.atTransmit == Settings::VAD)
 		qa->setChecked(true);
 	qm->addAction(qa);
-	qag->addAction(qa);
 
-	qa=new QAction(tr("Push To Talk"), this);
+	qa=new QAction(tr("Push To Talk"), qag);
 	qa->setCheckable(true);
 	qa->setData(Settings::PushToTalk);
 	if (g_s.atTransmit == Settings::PushToTalk)
 		qa->setChecked(true);
 	qm->addAction(qa);
-	qag->addAction(qa);
 
 	qmAudio->addAction(m_qaAudioReset);
 	qmAudio->addAction(m_qaAudioShortcuts);

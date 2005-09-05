@@ -2,11 +2,11 @@ VERSION		= 0.2.1
 DIST		= LICENSE INSTALL README mumble.pro murmur.pro mumble.pri mumble.ico
 CONFIG		+= qt thread debug_and_release
 
-debug {
+CONFIG(debug, debug|release) {
   CONFIG += console
   LIBS	+= -Ldebug
 }
 
-release {
+CONFIG(release, debug|release) {
   LIBS	+= -Lrelease
 }
