@@ -30,11 +30,8 @@
 
 #include "AudioInput.h"
 #include "ServerHandler.h"
-extern "C" {
-//	#include <arch.h>
-	#include <sb_celp.h>
-//	#include <nb_celp.h>
-}
+#include "Settings.h"
+
 AudioInput *g_aiInput;
 
 int AudioInput::c_iFrameCounter = 0;
@@ -117,6 +114,10 @@ void AudioInput::encodeAudioFrame() {
 	if (m_sppPreprocess->loudness2 < 4000)
 		m_sppPreprocess->loudness2 = 4000;
 
+	if (g_s.atTransmit == Settings::PushToTalk)
+		iIsSpeech = g_s.bPushToTalk;
+	else if (g_s.atTransmit == Settings::Continous)
+		iIsSpeech = 1;
 
 	// Ideally, we'd like to go DTX (discontinous transmission)
 	// if we didn't detect speech. Unfortunately, the jitter

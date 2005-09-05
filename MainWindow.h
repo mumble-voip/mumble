@@ -53,7 +53,7 @@ class MainWindow : public QMainWindow {
 		QAction *m_qaAudioReset, *m_qaAudioShortcuts, *m_qaAudioTTS;
 		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
 
-		GlobalShortcut *m_gsPushTalk;
+		GlobalShortcut *m_gsPushTalk, *m_gsResetAudio, *m_gsMuteSelf, *m_gsDeafSelf;
 		TextToSpeech *m_tts;
 
 		QSettings qs;
@@ -82,6 +82,9 @@ class MainWindow : public QMainWindow {
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
 		void on_PushToTalk_triggered(bool);
+		void on_AudioTransmit_triggered(QAction *);
+		void on_MuteSelf_down();
+		void on_DeafSelf_down();
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void playerTalkingChanged(Player *, bool);

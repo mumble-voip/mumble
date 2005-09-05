@@ -34,12 +34,14 @@
 #include <QSettings>
 #include "MainWindow.h"
 #include "AudioInput.h"
-#include "GlobalShortcut.h"
+#include "Settings.h"
 
 MainWindow *g_mwMainWindow;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setupGui();
+
+	m_sMyId = 0;
 
 	connect(g_shServer, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g_shServer, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
@@ -47,21 +49,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	m_tts=new TextToSpeech(this);
 	recheckTTS();
 	m_tts->say(tr("Welcome to Mumble."));
-	m_tts->say(tr("We apologize for the quality of the text-to-speech engine."));
 }
 
 void MainWindow::setupGui()  {
 	QMenu *qmServer, *qmPlayer, *qmAudio, *qmHelp;
+	QAction *qa;
+	QActionGroup *qag;
+	QMenu *qm;
 
 	setWindowTitle(tr("Mumble -- Compiled %1 %2").arg(__DATE__).arg(__TIME__));
 
 	m_qlwPlayers = new QListWidget(this);
 	setCentralWidget(m_qlwPlayers);
 
-	qmServer = new QMenu("&Server", this);
-	qmPlayer = new QMenu("&Player", this);
-	qmAudio = new QMenu("&Audio", this);
-	qmHelp = new QMenu("&Help", this);
+	qmServer = new QMenu(tr("&Server"), this);
+	qmPlayer = new QMenu(tr("&Player"), this);
+	qmAudio = new QMenu(tr("&Audio"), this);
+	qmHelp = new QMenu(tr("&Help"), this);
 
 	qmServer->setObjectName("ServerMenu");
 	qmPlayer->setObjectName("PlayerMenu");
@@ -102,9 +106,40 @@ void MainWindow::setupGui()  {
 	m_qaAudioTTS->setCheckable(TRUE);
 	m_qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
 
+	g_s.atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
+	qag=new QActionGroup(this);
+	qag->setObjectName("AudioTransmit");
+	qag->setExclusive(true);
+	qm=new QMenu(tr("&Transmit"), this);
+
+	qa=new QAction(tr("Continous"), this);
+	qa->setCheckable(true);
+	qa->setData(Settings::Continous);
+	if (g_s.atTransmit == Settings::Continous)
+		qa->setChecked(true);
+	qm->addAction(qa);
+	qag->addAction(qa);
+
+	qa=new QAction(tr("Voice Activity"), this);
+	qa->setCheckable(true);
+	qa->setData(Settings::VAD);
+	if (g_s.atTransmit == Settings::VAD)
+		qa->setChecked(true);
+	qm->addAction(qa);
+	qag->addAction(qa);
+
+	qa=new QAction(tr("Push To Talk"), this);
+	qa->setCheckable(true);
+	qa->setData(Settings::PushToTalk);
+	if (g_s.atTransmit == Settings::PushToTalk)
+		qa->setChecked(true);
+	qm->addAction(qa);
+	qag->addAction(qa);
+
 	qmAudio->addAction(m_qaAudioReset);
 	qmAudio->addAction(m_qaAudioShortcuts);
 	qmAudio->addAction(m_qaAudioTTS);
+	qmAudio->addMenu(qm);
 
 	m_qaHelpAbout=new QAction(tr("&About"), this);
 	m_qaHelpAbout->setObjectName("HelpAbout");
@@ -121,6 +156,16 @@ void MainWindow::setupGui()  {
 
 	m_gsPushTalk=new GlobalShortcut(this, 1, "Push-to-Talk");
 	m_gsPushTalk->setObjectName("PushToTalk");
+
+	m_gsResetAudio=new GlobalShortcut(this, 2, "Reset Audio Processor");
+	m_gsResetAudio->setObjectName("ResetAudio");
+	connect(m_gsResetAudio, SIGNAL(down()), m_qaAudioReset, SLOT(trigger()));
+
+	m_gsMuteSelf=new GlobalShortcut(this, 3, "Toggle Mute Self");
+	m_gsMuteSelf->setObjectName("MuteSelf");
+
+	m_gsDeafSelf=new GlobalShortcut(this, 4, "Toggle Deafen Self");
+	m_gsDeafSelf->setObjectName("DeafSelf");
 
     QMetaObject::connectSlotsByName(this);
 }
@@ -223,6 +268,12 @@ void MainWindow::on_AudioTextToSpeech_triggered()
 	recheckTTS();
 }
 
+void MainWindow::on_AudioTransmit_triggered(QAction *act)
+{
+	g_s.atTransmit = static_cast<Settings::AudioTransmit>(act->data().toInt());
+	qs.setValue("AudioTransmit", g_s.atTransmit);
+}
+
 void MainWindow::on_HelpAbout_triggered()
 {
 	AboutDialog adAbout(this);
@@ -236,7 +287,31 @@ void MainWindow::on_HelpAboutQt_triggered()
 
 void MainWindow::on_PushToTalk_triggered(bool down)
 {
-	m_tts->say(QString(down ? "Down" : "Up"));
+	g_s.bPushToTalk = down;
+}
+
+void MainWindow::on_MuteSelf_down()
+{
+	if (! m_sMyId)
+		return;
+
+	Player *p = Player::get(m_sMyId);
+	MessagePlayerMute mpmMsg;
+	mpmMsg.m_sPlayerId = p->m_sId;
+	mpmMsg.m_bMute = ! p->m_bMute;
+	g_shServer->sendMessage(&mpmMsg);
+}
+
+void MainWindow::on_DeafSelf_down()
+{
+	if (! m_sMyId)
+		return;
+
+	Player *p = Player::get(m_sMyId);
+	MessagePlayerDeaf mpdMsg;
+	mpdMsg.m_sPlayerId = p->m_sId;
+	mpdMsg.m_bDeaf = ! p->m_bDeaf;
+	g_shServer->sendMessage(&mpdMsg);
 }
 
 void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
@@ -254,6 +329,7 @@ void MainWindow::serverConnected()
 
 void MainWindow::serverDisconnected(QString reason)
 {
+	m_sMyId = 0;
 	recheckTTS();
 	m_qaServerConnect->setEnabled(true);
 	m_qaServerDisconnect->setEnabled(false);
@@ -269,7 +345,7 @@ void MainWindow::serverDisconnected(QString reason)
   	  m_tts->say(tr("Server connection failed. %1").arg(reason));
 	  QMessageBox::warning(this, "Server connection failed", reason, QMessageBox::Ok, QMessageBox::NoButton);
     } else {
-	  m_tts->say(tr("Disconnected from server"));
+	  m_tts->say(tr("Disconnected from server."));
 	}
 }
 
@@ -319,7 +395,8 @@ void MessageServerJoin::process(Connection *) {
  Player *p=Player::get(m_sPlayerId); \
  if (! p) \
  	qFatal("MainWindow: Message for nonexistant player %d", m_sPlayerId); \
- QListWidgetItem *item=g_mwMainWindow->m_qmItems[p]
+ QListWidgetItem *item=g_mwMainWindow->m_qmItems[p]; \
+ Q_UNUSED(item)
 
 void MessageServerLeave::process(Connection *) {
 	Player *p=Player::get(m_sPlayerId);
@@ -343,12 +420,18 @@ void MessagePlayerMute::process(Connection *) {
 	MSG_INIT;
 	p->m_bMute = m_bMute;
 	MainWindow::setItemColor(item, p);
+
+	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
+		g_mwMainWindow->m_tts->say(m_bMute ? QObject::tr("Muted") : QObject::tr("Unmuted"));
 }
 
 void MessagePlayerDeaf::process(Connection *) {
 	MSG_INIT;
 	p->m_bDeaf = m_bDeaf;
 	MainWindow::setItemColor(item, p);
+
+	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
+		g_mwMainWindow->m_tts->say(m_bDeaf ? QObject::tr("Deafened") : QObject::tr("Undeafened"));
 }
 
 void MessagePlayerKick::process(Connection *) {

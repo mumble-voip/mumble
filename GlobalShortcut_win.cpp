@@ -111,6 +111,8 @@ void GlobalShortcutWin::remap() {
 		m_diaActions[cnt].uAppData = gs->idx;
 		m_diaActions[cnt].dwSemantic = DIBUTTON_ANY(gs->idx);
 		m_diaActions[cnt].lptszActionName = (const wchar_t *) gs->name.utf16();
+
+		cnt++;
 	}
 
     ZeroMemory( &m_diafGame, sizeof(DIACTIONFORMAT) );
@@ -128,7 +130,7 @@ void GlobalShortcutWin::remap() {
 
 	hr=m_pDI->EnumDevicesBySemantics((wchar_t *)qsUsername.utf16(), &m_diafGame, EnumSuitableDevicesCB, this, 0L);
 	if (FAILED(hr))
-		qWarning("GlobalShortcutWin: EnumDevicesBySemantics failed 0x%08x", hr);
+		qWarning("GlobalShortcutWin: EnumDevicesBySemantics failed 0x%08lx", hr);
 }
 
 BOOL GlobalShortcutWin::EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPDIRECTINPUTDEVICE8 pdidDevice, DWORD, DWORD, LPVOID pContext)
@@ -142,13 +144,13 @@ BOOL GlobalShortcutWin::EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPDIREC
 
     hr = pdidDevice->BuildActionMap( &gsw->m_diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
     if( FAILED(hr) ) {
-		qWarning("GlobalShortcutWin: Failed BuildActionMap: %d", hr);
+		qWarning("GlobalShortcutWin: Failed BuildActionMap: 0x%08lx", hr);
 	}
 
     // Set the action map for the current device
     hr = pdidDevice->SetActionMap( &gsw->m_diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
     if( FAILED(hr) ) {
-		qWarning("GlobalShortcutWin: Failed SetActionMap: %d", hr);
+		qWarning("GlobalShortcutWin: Failed SetActionMap: 0x%08lx", hr);
 	}
 
 	pdidDevice->AddRef();
@@ -184,7 +186,7 @@ void GlobalShortcutWin::configure()
 
     hr = m_pDI->ConfigureDevices( NULL, &dicdp, DICD_EDIT, NULL );
     if( FAILED(hr) ) {
-		qWarning("GlobalShortcutWin: ConfigureDevices failed 0x%08x", hr);
+		qWarning("GlobalShortcutWin: ConfigureDevices failed 0x%08lx", hr);
 		return;
 	}
 
@@ -207,11 +209,6 @@ void GlobalShortcutWin::unacquire() {
 }
 
 void GlobalShortcutWin::timeTicked() {
-    DIDEVICEOBJECTDATA didod[ DX_SAMPLE_BUFFER_SIZE ];
-    DWORD dwElements;
-    DWORD i;
-    HRESULT hr;
-
     if (m_bNeedRemap)
     	remap();
 

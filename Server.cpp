@@ -108,7 +108,9 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 
 #define MSG_SETUP(st) \
   Player *pSrcPlayer = g_sServer->m_qmPlayers[cCon]; \
+  Q_UNUSED(pSrcPlayer) \
   Player *pDstPlayer = Player::get(m_sPlayerId); \
+  Q_UNUSED(pDstPlayer) \
   if (pSrcPlayer->m_sState != st) \
   	return
 

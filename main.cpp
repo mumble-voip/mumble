@@ -35,7 +35,6 @@
 #include "DXAudioInput.h"
 #include "DXAudioOutput.h"
 
-
 int main(int argc, char **argv)
 {
 	int res;

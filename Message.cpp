@@ -63,7 +63,7 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 			mMsg = new MessageServerReject();
 			break;
 		case ServerSync:
-			mMsg = new MessageServerReject();
+			mMsg = new MessageServerSync();
 			break;
 		case ServerJoin:
 			mMsg = new MessageServerJoin();
