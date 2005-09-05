@@ -236,17 +236,19 @@ void MessageSpeex::process(Connection *cCon) {
 void MessagePlayerMute::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	pDstPlayer->m_bMute = m_bMute;
-
-	g_sServer->sendAll(this);
+	if (pDstPlayer) {
+		pDstPlayer->m_bMute = m_bMute;
+		g_sServer->sendAll(this);
+	}
 }
 
 void MessagePlayerDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	pDstPlayer->m_bDeaf = m_bDeaf;
-
-	g_sServer->sendAll(this);
+	if (pDstPlayer) {
+		pDstPlayer->m_bDeaf = m_bDeaf;
+		g_sServer->sendAll(this);
+	}
 }
 
 void MessagePlayerKick::process(Connection *cCon) {
