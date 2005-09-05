@@ -44,7 +44,7 @@ class GlobalShortcut : public QObject {
 	signals:
 		void down();
 		void up();
-		void triggered(bool down);
+		void triggered(bool);
 	public:
 		GlobalShortcut(QObject *parent, int index, QString qsName);
 		~GlobalShortcut();

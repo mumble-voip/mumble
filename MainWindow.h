@@ -40,6 +40,7 @@
 #include "ServerHandler.h"
 #include "About.h"
 #include "ConnectDialog.h"
+#include "GlobalShortcut.h"
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
@@ -49,6 +50,8 @@ class MainWindow : public QMainWindow {
 		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
 		QAction *m_qaAudioReset, *m_qaAudioShortcuts;
 		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
+
+		GlobalShortcut *m_gsPushTalk;
 
 		QMap<Player *, QListWidgetItem *> m_qmItems;
 		QMap<QListWidgetItem *, Player *> m_qmPlayers;
@@ -68,6 +71,7 @@ class MainWindow : public QMainWindow {
 		void on_AudioShortcuts_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
+		void on_PushToTalk_triggered(bool);
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void playerTalkingChanged(Player *, bool);

@@ -42,8 +42,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 	connect(g_shServer, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g_shServer, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
-
-	new GlobalShortcut(this, 1, "Push-to-Talk");
 }
 
 void MainWindow::setupGui()  {
@@ -110,6 +108,9 @@ void MainWindow::setupGui()  {
 	menuBar()->addMenu(qmPlayer);
 	menuBar()->addMenu(qmAudio);
 	menuBar()->addMenu(qmHelp);
+
+	m_gsPushTalk=new GlobalShortcut(this, 1, "Push-to-Talk");
+	m_gsPushTalk->setObjectName("PushToTalk");
 
     QMetaObject::connectSlotsByName(this);
 }
@@ -207,6 +208,10 @@ void MainWindow::on_HelpAbout_triggered()
 void MainWindow::on_HelpAboutQt_triggered()
 {
 	QMessageBox::aboutQt(this, "About Qt");
+}
+
+void MainWindow::on_PushToTalk_triggered(bool down)
+{
 }
 
 void MainWindow::playerTalkingChanged(Player *p, bool bTalking)

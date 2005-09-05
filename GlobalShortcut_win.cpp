@@ -214,9 +214,35 @@ void GlobalShortcutWin::timeTicked() {
 
     if (m_bNeedRemap)
     	remap();
+
+	for(int i=0;i<m_qlDevices.size();i++) {
+        DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
+        DWORD   dwItems = DX_SAMPLE_BUFFER_SIZE;
+        HRESULT hr;
+
+        m_qlDevices[i]->Acquire();
+        m_qlDevices[i]->Poll();
+
+        hr = m_qlDevices[i]->GetDeviceData( sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0 );
+        if( FAILED(hr) )
+            continue;
+
+        for( DWORD j=0; j<dwItems; j++ )
+        {
+            bool  bButtonDown = (rgdod[j].dwData==0x80) ? true : false;
+            if (m_qmShortcuts.contains(rgdod[j].uAppData)) {
+				GlobalShortcut *gs = m_qmShortcuts[rgdod[j].uAppData];
+				emit gs->triggered(bButtonDown);
+				if (bButtonDown)
+					emit gs->down();
+				else
+					emit gs->up();
+			}
+		}
+	}
 }
 
-GlobalShortcut::GlobalShortcut(QObject *parent, int index, QString qsName) {
+GlobalShortcut::GlobalShortcut(QObject *parent, int index, QString qsName) : QObject(parent) {
 	if (! gsw)
 	  gsw = new GlobalShortcutWin();
 	gsw->ref++;
