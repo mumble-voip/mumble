@@ -28,55 +28,31 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MAINWINDOW_H
-#define _MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QListWidget>
-#include <QAction>
-#include <QMap>
-#include "Player.h"
-#include "Connection.h"
-#include "ServerHandler.h"
-#include "About.h"
-#include "ConnectDialog.h"
+#ifndef _GLOBALSHORTCUT_H
+#define _GLOBALSHORTCUT_H
 
-class MainWindow : public QMainWindow {
+#include <QObject>
+#include <QString>
+
+class GlobalShortcut : public QObject {
+	friend class GlobalShortcutWin;
 	Q_OBJECT
+	protected:
+		QString name;
+		int idx;
+	signals:
+		void down();
+		void up();
+		void triggered(bool down);
 	public:
-		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect;
-		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
-		QAction *m_qaAudioReset, *m_qaAudioShortcuts;
-		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
-
-		QMap<Player *, QListWidgetItem *> m_qmItems;
-		QMap<QListWidgetItem *, Player *> m_qmPlayers;
-
-		void setupGui();
-		void customEvent(QEvent *evt);
-
-		static void setItemColor(QListWidgetItem *, Player *);
-	public slots:
-		void on_ServerConnect_triggered();
-		void on_ServerDisconnect_triggered();
-		void on_PlayerMenu_aboutToShow();
-		void on_PlayerKick_triggered();
-		void on_PlayerMute_triggered();
-		void on_PlayerDeaf_triggered();
-		void on_AudioReset_triggered();
-		void on_AudioShortcuts_triggered();
-		void on_HelpAbout_triggered();
-		void on_HelpAboutQt_triggered();
-		void serverConnected();
-		void serverDisconnected(QString reason);
-		void playerTalkingChanged(Player *, bool);
-	public:
-		MainWindow(QWidget *parent);
+		GlobalShortcut(QObject *parent, int index, QString qsName);
+		~GlobalShortcut();
+		static void configure();
+	private:
+	    Q_DISABLE_COPY(GlobalShortcut)
 };
 
-extern MainWindow *g_mwMainWindow;
-
 #else
-class MainWindow;
+class GlobalShortcut;
 #endif

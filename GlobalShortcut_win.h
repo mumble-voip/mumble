@@ -28,55 +28,39 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MAINWINDOW_H
-#define _MAINWINDOW_H
+#include "GlobalShortcut.h"
 
-#include <QMainWindow>
-#include <QListWidget>
-#include <QAction>
+#include <QObject>
+#include <QTimer>
 #include <QMap>
-#include "Player.h"
-#include "Connection.h"
-#include "ServerHandler.h"
-#include "About.h"
-#include "ConnectDialog.h"
+#include <QHash>
 
-class MainWindow : public QMainWindow {
+#define DIRECTINPUT_VERSION 0x0800
+#include <dinput.h>
+
+class GlobalShortcutWin : public QObject {
 	Q_OBJECT
 	public:
-		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect;
-		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
-		QAction *m_qaAudioReset, *m_qaAudioShortcuts;
-		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
+		QTimer *timer;
+		int ref;
 
-		QMap<Player *, QListWidgetItem *> m_qmItems;
-		QMap<QListWidgetItem *, Player *> m_qmPlayers;
-
-		void setupGui();
-		void customEvent(QEvent *evt);
-
-		static void setItemColor(QListWidgetItem *, Player *);
+		LPDIRECTINPUT8 m_pDI;
+		LPDIRECTINPUTDEVICE8 m_pKeyboard;
+		DIACTIONFORMAT        m_diafGame;
+		QList<LPDIRECTINPUTDEVICE8> m_qlDevices;
+		QMap<int, GlobalShortcut *> m_qmShortcuts;
+		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
+		BOOL m_bNeedRemap;
+		DIACTION *m_diaActions;
+		QString qsUsername;
 	public slots:
-		void on_ServerConnect_triggered();
-		void on_ServerDisconnect_triggered();
-		void on_PlayerMenu_aboutToShow();
-		void on_PlayerKick_triggered();
-		void on_PlayerMute_triggered();
-		void on_PlayerDeaf_triggered();
-		void on_AudioReset_triggered();
-		void on_AudioShortcuts_triggered();
-		void on_HelpAbout_triggered();
-		void on_HelpAboutQt_triggered();
-		void serverConnected();
-		void serverDisconnected(QString reason);
-		void playerTalkingChanged(Player *, bool);
+		void timeTicked();
 	public:
-		MainWindow(QWidget *parent);
+		GlobalShortcutWin();
+		~GlobalShortcutWin();
+		void unacquire();
+		void remap();
+		void add(GlobalShortcut *);
+		void remove(GlobalShortcut *);
+		void configure();
 };
-
-extern MainWindow *g_mwMainWindow;
-
-#else
-class MainWindow;
-#endif

@@ -33,6 +33,7 @@
 #include <QMessageBox>
 #include "MainWindow.h"
 #include "AudioInput.h"
+#include "GlobalShortcut.h"
 
 MainWindow *g_mwMainWindow;
 
@@ -41,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 	connect(g_shServer, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g_shServer, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
+
+	new GlobalShortcut(this, 1, "Push-to-Talk");
 }
 
 void MainWindow::setupGui()  {
@@ -89,7 +92,11 @@ void MainWindow::setupGui()  {
 	m_qaAudioReset=new QAction("&Reset", this);
 	m_qaAudioReset->setObjectName("AudioReset");
 
+	m_qaAudioShortcuts=new QAction("&Shortcuts", this);
+	m_qaAudioShortcuts->setObjectName("AudioShortcuts");
+
 	qmAudio->addAction(m_qaAudioReset);
+	qmAudio->addAction(m_qaAudioShortcuts);
 
 	m_qaHelpAbout=new QAction("&About", this);
 	m_qaHelpAbout->setObjectName("HelpAbout");
@@ -184,6 +191,11 @@ void MainWindow::on_AudioReset_triggered()
 {
 	if (g_aiInput)
 		g_aiInput->m_bResetProcessor = true;
+}
+
+void MainWindow::on_AudioShortcuts_triggered()
+{
+	GlobalShortcut::configure();
 }
 
 void MainWindow::on_HelpAbout_triggered()
