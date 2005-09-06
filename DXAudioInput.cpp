@@ -30,6 +30,16 @@
 
 #include "DXAudioInput.h"
 
+static AudioInput *DXAudioInputNew() {
+	return new DXAudioInput();
+}
+
+static QWidget *DXAudioInputConfig(QWidget *parent) {
+	return new QWidget(parent);
+}
+
+AudioInputRegistrar airDX("DirectSound", DXAudioInputNew, DXAudioInputConfig);
+
 #define NBUFFBLOCKS 64
 
 DXAudioInput::DXAudioInput() {

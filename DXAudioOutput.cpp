@@ -35,6 +35,16 @@
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
 #define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
 
+static AudioOutput *DXAudioOutputNew() {
+	return new DXAudioOutput();
+}
+
+static QWidget *DXAudioOutputConfig(QWidget *parent) {
+	return new QWidget(parent);
+}
+
+AudioOutputRegistrar aorDX("DirectSound", DXAudioOutputNew, DXAudioOutputConfig);
+
 DXAudioOutput::DXAudioOutput() {
 	HRESULT hr;
     DSBUFFERDESC        dsbdesc;

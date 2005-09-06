@@ -85,8 +85,6 @@ class MainWindow : public QMainWindow {
 		void on_HelpAboutQt_triggered();
 		void on_PushToTalk_triggered(bool);
 		void on_AudioTransmit_triggered(QAction *);
-		void on_MuteSelf_down();
-		void on_DeafSelf_down();
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void playerTalkingChanged(Player *, bool);

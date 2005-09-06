@@ -30,11 +30,12 @@
 
 #include <QApplication>
 #include <QIcon>
+#include <windows.h>
 
 #include "MainWindow.h"
 #include "ServerHandler.h"
-#include "DXAudioInput.h"
-#include "DXAudioOutput.h"
+#include "AudioInput.h"
+#include "AudioOutput.h"
 
 int main(int argc, char **argv)
 {
@@ -61,10 +62,10 @@ int main(int argc, char **argv)
 	g_mwMainWindow=new MainWindow(NULL);
 	g_mwMainWindow->show();
 
-	g_aiInput = new DXAudioInput();
+	g_aiInput = AudioInputRegistrar::newFromChoice();
 	g_aiInput->start();
 
-	g_aoOutput = new DXAudioOutput();
+	g_aoOutput = AudioOutputRegistrar::newFromChoice();
 
 	res=a.exec();
 

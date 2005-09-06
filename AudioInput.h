@@ -38,6 +38,21 @@
 #include <speex/speex.h>
 #include <speex/speex_preprocess.h>
 
+class AudioInput;
+
+typedef AudioInput *(*AudioInputRegistrarNew)();
+typedef QWidget *(*AudioInputRegistrarConfig)(QWidget *parent);
+
+class AudioInputRegistrar {
+	protected:
+		static QMap<QString, AudioInputRegistrarNew> *qmNew;
+		static QMap<QString, AudioInputRegistrarConfig> *qmConfig;
+	public:
+		static QString current;
+		AudioInputRegistrar(QString name, AudioInputRegistrarNew n, AudioInputRegistrarConfig c);
+		static AudioInput *newFromChoice(QString choice = QString());
+};
+
 class AudioInput : public QThread {
 	Q_OBJECT
 	protected:
@@ -60,7 +75,6 @@ class AudioInput : public QThread {
 		AudioInput();
 		~AudioInput();
 		void run() = 0;
-		static QWidget *configWidget(QWidget *parent = NULL);
 };
 
 extern AudioInput *g_aiInput;

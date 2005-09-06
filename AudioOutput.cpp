@@ -31,8 +31,48 @@
 #include "AudioOutput.h"
 #include "Player.h"
 #include "Settings.h"
+#include <QSettings>
 
 AudioOutput *g_aoOutput;
+
+// Remember that we cannot use static member classes that are not pointers, as the constructor
+// for AudioOutputRegistrar() might be called before they are initialized, as the constructor
+// is called from global initialization.
+// Hence, we allocate upon first call.
+
+QMap<QString, AudioOutputRegistrarNew> *AudioOutputRegistrar::qmNew;
+QMap<QString, AudioOutputRegistrarConfig> *AudioOutputRegistrar::qmConfig;
+QString AudioOutputRegistrar::current = QString();
+
+AudioOutputRegistrar::AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n, AudioOutputRegistrarConfig c) {
+	if (! qmNew)
+		qmNew = new QMap<QString, AudioOutputRegistrarNew>();
+	if (! qmConfig)
+		qmConfig = new QMap<QString, AudioOutputRegistrarConfig>();
+	qmNew->insert(name,n);
+	qmConfig->insert(name,c);
+}
+
+AudioOutput *AudioOutputRegistrar::newFromChoice(QString choice) {
+	QSettings qs;
+	if (!choice.isEmpty() && qmNew->contains(choice)) {
+		qs.setValue("AudioOutputDevice", choice);
+		current = choice;
+		return qmNew->value(choice)();
+	}
+	choice = qs.value("AudioOutputDevice").toString();
+	if (qmNew->contains(choice)) {
+		current = choice;
+		return qmNew->value(choice)();
+	}
+	QMapIterator<QString, AudioOutputRegistrarNew> i(*qmNew);
+	if (i.hasNext()) {
+		i.next();
+		current = i.key();
+		return i.value()();
+	}
+	return NULL;
+}
 
 AudioOutputPlayer::AudioOutputPlayer(AudioOutput *aoOutput, short sId) {
 	m_aoOutput = aoOutput;

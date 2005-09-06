@@ -36,10 +36,24 @@
 #include <QThread>
 #include <QMutex>
 #include <QMap>
+#include <QWidget>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
 
 class AudioOutput;
+
+typedef AudioOutput *(*AudioOutputRegistrarNew)();
+typedef QWidget *(*AudioOutputRegistrarConfig)(QWidget *parent);
+
+class AudioOutputRegistrar {
+	protected:
+		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
+		static QMap<QString, AudioOutputRegistrarConfig> *qmConfig;
+	public:
+		static QString current;
+		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n, AudioOutputRegistrarConfig c);
+		static AudioOutput *newFromChoice(QString choice = QString());
+};
 
 class AudioOutputPlayer : public QObject {
 	Q_OBJECT
@@ -78,7 +92,6 @@ class AudioOutput : public QObject {
 		~AudioOutput();
 		void addFrameToBuffer(short, QByteArray &, int iSeq);
 		void removeBuffer(short);
-		static QWidget *configWidget(QWidget *parent = NULL);
 };
 
 extern AudioOutput *g_aoOutput;

@@ -36,6 +36,46 @@
 
 AudioInput *g_aiInput;
 
+// Remember that we cannot use static member classes that are not pointers, as the constructor
+// for AudioOutputRegistrar() might be called before they are initialized, as the constructor
+// is called from global initialization.
+// Hence, we allocate upon first call.
+
+QMap<QString, AudioInputRegistrarNew> *AudioInputRegistrar::qmNew;
+QMap<QString, AudioInputRegistrarConfig> *AudioInputRegistrar::qmConfig;
+QString AudioInputRegistrar::current = QString();
+
+AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n, AudioInputRegistrarConfig c) {
+	if (! qmNew)
+		qmNew = new QMap<QString, AudioInputRegistrarNew>();
+	if (! qmConfig)
+		qmConfig = new QMap<QString, AudioInputRegistrarConfig>();
+	qmNew->insert(name,n);
+	qmConfig->insert(name,c);
+}
+
+AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {
+	QSettings qs;
+	if (!choice.isEmpty() && qmNew->contains(choice)) {
+		qs.setValue("AudioInputDevice", choice);
+		current = choice;
+		return qmNew->value(choice)();
+	}
+	choice = qs.value("AudioInputDevice").toString();
+	if (qmNew->contains(choice)) {
+		current = choice;
+		return qmNew->value(choice)();
+	}
+	QMapIterator<QString, AudioInputRegistrarNew> i(*qmNew);
+	if (i.hasNext()) {
+		i.next();
+		current = i.key();
+		return i.value()();
+	}
+	return NULL;
+}
+
+
 int AudioInput::c_iFrameCounter = 0;
 
 AudioInput::AudioInput()

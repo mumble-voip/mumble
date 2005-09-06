@@ -173,9 +173,11 @@ void MainWindow::setupGui()  {
 
 	m_gsMuteSelf=new GlobalShortcut(this, 3, "Toggle Mute Self");
 	m_gsMuteSelf->setObjectName("MuteSelf");
+	connect(m_gsMuteSelf, SIGNAL(down()), m_qaAudioMute, SLOT(trigger()));
 
 	m_gsDeafSelf=new GlobalShortcut(this, 4, "Toggle Deafen Self");
 	m_gsDeafSelf->setObjectName("DeafSelf");
+	connect(m_gsDeafSelf, SIGNAL(down()), m_qaAudioDeaf, SLOT(trigger()));
 
     QMetaObject::connectSlotsByName(this);
 }
@@ -343,31 +345,6 @@ void MainWindow::on_HelpAboutQt_triggered()
 void MainWindow::on_PushToTalk_triggered(bool down)
 {
 	g_s.bPushToTalk = down;
-}
-
-
-void MainWindow::on_MuteSelf_down()
-{
-	if (! m_sMyId)
-		return;
-
-	Player *p = Player::get(m_sMyId);
-	MessagePlayerMute mpmMsg;
-	mpmMsg.m_sPlayerId = p->m_sId;
-	mpmMsg.m_bMute = ! p->m_bMute;
-	g_shServer->sendMessage(&mpmMsg);
-}
-
-void MainWindow::on_DeafSelf_down()
-{
-	if (! m_sMyId)
-		return;
-
-	Player *p = Player::get(m_sMyId);
-	MessagePlayerDeaf mpdMsg;
-	mpdMsg.m_sPlayerId = p->m_sId;
-	mpdMsg.m_bDeaf = ! p->m_bDeaf;
-	g_shServer->sendMessage(&mpdMsg);
 }
 
 void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
