@@ -193,6 +193,13 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 			mpdMsg.m_bDeaf = pPlayer->m_bDeaf;
 			cCon->sendMessage(&mpdMsg);
 		}
+		if (pPlayer->m_bSelfDeaf || pPlayer->m_bSelfMute) {
+			MessagePlayerSelfMuteDeaf mpsmdMsg;
+			mpsmdMsg.m_sPlayerId = pPlayer->m_sId;
+			mpsmdMsg.m_bDeaf = pPlayer->m_bSelfDeaf;
+			mpsmdMsg.m_bMute = pPlayer->m_bSelfMute;
+			cCon->sendMessage(&mpsmdMsg);
+		}
 	}
 	MessageServerSync mssMsg;
 	mssMsg.m_sPlayerId = pSrcPlayer->m_sId;
@@ -254,11 +261,10 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 void MessagePlayerSelfMuteDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	if (pDstPlayer) {
-		pDstPlayer->m_bSelfMute = m_bMute;
-		pDstPlayer->m_bSelfDeaf = m_bDeaf;
-		g_sServer->sendAll(this);
-	}
+	m_sPlayerId = pSrcPlayer->m_sId;
+	pSrcPlayer->m_bSelfMute = m_bMute;
+	pSrcPlayer->m_bSelfDeaf = m_bDeaf;
+	g_sServer->sendAll(this);
 }
 
 void MessagePlayerKick::process(Connection *cCon) {

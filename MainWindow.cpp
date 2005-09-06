@@ -57,7 +57,7 @@ void MainWindow::setupGui()  {
 	QActionGroup *qag;
 	QMenu *qm;
 
-	setWindowTitle(tr("Mumble -- Compiled %1 %2").arg(__DATE__).arg(__TIME__));
+	setWindowTitle(tr("Mumble -- ").arg(MUMBLE_VERSION));
 
 	m_qlwPlayers = new QListWidget(this);
 	setCentralWidget(m_qlwPlayers);
@@ -358,6 +358,13 @@ void MainWindow::serverConnected()
 	m_tts->say(tr("Connected to server"));
 	m_tts->setEnabled(false);
 	m_qaServerDisconnect->setEnabled(true);
+
+	if (g_s.bMute || g_s.bDeaf) {
+		MessagePlayerSelfMuteDeaf mpsmd;
+		mpsmd.m_bMute = g_s.bMute;
+		mpsmd.m_bDeaf = g_s.bDeaf;
+		g_shServer->sendMessage(&mpsmd);
+	}
 }
 
 void MainWindow::serverDisconnected(QString reason)
