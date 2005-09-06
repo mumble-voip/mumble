@@ -78,6 +78,7 @@ class AudioOutput : public QObject {
 		~AudioOutput();
 		void addFrameToBuffer(short, QByteArray &, int iSeq);
 		void removeBuffer(short);
+		static QWidget *configWidget(QWidget *parent = NULL);
 };
 
 extern AudioOutput *g_aoOutput;

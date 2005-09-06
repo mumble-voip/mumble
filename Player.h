@@ -44,6 +44,7 @@ class Player : public QObject {
 		short m_sId;
 		QString m_qsName;
 		bool m_bMute, m_bDeaf;
+		bool m_bSelfMute, m_bSelfDeaf;
 		bool m_bTalking;
 		Player();
 		static Player *get(short);

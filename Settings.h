@@ -42,6 +42,7 @@ struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	AudioTransmit atTransmit;
 	bool bPushToTalk;
+	bool bMute, bDeaf;
 	Settings();
 };
 

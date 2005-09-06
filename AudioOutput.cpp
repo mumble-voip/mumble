@@ -30,6 +30,7 @@
 
 #include "AudioOutput.h"
 #include "Player.h"
+#include "Settings.h"
 
 AudioOutput *g_aoOutput;
 
@@ -80,6 +81,9 @@ void AudioOutputPlayer::decodeNextFrame() {
 	Player *p=Player::get(m_sId);
 	if (p)
 		p->setTalking(bSpeech);
+
+	if (g_s.bDeaf)
+		memset(m_psBuffer, 0, m_iByteSize);
 }
 
 AudioOutput::AudioOutput() {

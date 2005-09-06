@@ -50,7 +50,7 @@ class MainWindow : public QMainWindow {
 		QListWidget *m_qlwPlayers;
 		QAction *m_qaServerConnect, *m_qaServerDisconnect;
 		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
-		QAction *m_qaAudioReset, *m_qaAudioShortcuts, *m_qaAudioTTS;
+		QAction *m_qaAudioReset, *m_qaAudioShortcuts, *m_qaAudioMute, *m_qaAudioDeaf, *m_qaAudioTTS;
 		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
 
 		GlobalShortcut *m_gsPushTalk, *m_gsResetAudio, *m_gsMuteSelf, *m_gsDeafSelf;
@@ -78,6 +78,8 @@ class MainWindow : public QMainWindow {
 		void on_PlayerDeaf_triggered();
 		void on_AudioReset_triggered();
 		void on_AudioShortcuts_triggered();
+		void on_AudioMute_triggered();
+		void on_AudioDeaf_triggered();
 		void on_AudioTextToSpeech_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();

@@ -35,4 +35,5 @@ Settings g_s;
 Settings::Settings() {
 	bPushToTalk = false;
 	atTransmit = VAD;
+	bMute = bDeaf = false;
 }

@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(QDataStream &);
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf };
 
 		short m_sPlayerId;
 
@@ -137,6 +137,18 @@ class MessagePlayerDeaf : public Message {
 		bool m_bDeaf;
 		MessagePlayerDeaf();
 		Message::MessageType messageType() { return PlayerDeaf; };
+		void process(Connection *);
+};
+
+class MessagePlayerSelfMuteDeaf : public Message {
+	protected:
+		void saveStream(QDataStream &);
+		void restoreStream(QDataStream &);
+	public:
+		bool m_bMute;
+		bool m_bDeaf;
+		MessagePlayerSelfMuteDeaf();
+		Message::MessageType messageType() { return PlayerSelfMuteDeaf; };
 		void process(Connection *);
 };
 

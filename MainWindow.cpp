@@ -99,11 +99,21 @@ void MainWindow::setupGui()  {
 
 	m_qaAudioReset=new QAction(tr("&Reset"), this);
 	m_qaAudioReset->setObjectName("AudioReset");
+	m_qaAudioMute=new QAction(tr("&Mute"), this);
+	m_qaAudioMute->setObjectName("AudioMute");
+	m_qaAudioDeaf=new QAction(tr("&Deaf"), this);
+	m_qaAudioDeaf->setObjectName("AudioDeaf");
 	m_qaAudioShortcuts=new QAction(tr("&Shortcuts"), this);
 	m_qaAudioShortcuts->setObjectName("AudioShortcuts");
 	m_qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
 	m_qaAudioTTS->setObjectName("AudioTextToSpeech");
-	m_qaAudioTTS->setCheckable(TRUE);
+	m_qaAudioMute->setCheckable(true);
+	m_qaAudioDeaf->setCheckable(true);
+	m_qaAudioTTS->setCheckable(true);
+	g_s.bMute = qs.value("AudioMute", false). toBool();
+	g_s.bDeaf = qs.value("AudioDeaf", false). toBool();
+	m_qaAudioMute->setChecked(g_s.bMute);
+	m_qaAudioDeaf->setChecked(g_s.bDeaf);
 	m_qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
 
 	g_s.atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
@@ -133,6 +143,9 @@ void MainWindow::setupGui()  {
 		qa->setChecked(true);
 	qm->addAction(qa);
 
+	qmAudio->addAction(m_qaAudioMute);
+	qmAudio->addAction(m_qaAudioDeaf);
+	qmAudio->addSeparator();
 	qmAudio->addAction(m_qaAudioReset);
 	qmAudio->addAction(m_qaAudioShortcuts);
 	qmAudio->addAction(m_qaAudioTTS);
@@ -260,6 +273,50 @@ void MainWindow::on_AudioShortcuts_triggered()
 	GlobalShortcut::configure();
 }
 
+void MainWindow::on_AudioMute_triggered()
+{
+	g_s.bMute = m_qaAudioMute->isChecked();
+	if (! g_s.bMute && g_s.bDeaf) {
+		g_s.bDeaf = false;
+		m_qaAudioDeaf->setChecked(false);
+		m_tts->say(tr("Unmuted and undeafened"));
+	} else if (! g_s.bMute) {
+		m_tts->say(tr("Unmuted"));
+	} else {
+		m_tts->say(tr("Muted"));
+	}
+
+	MessagePlayerSelfMuteDeaf mpsmd;
+	mpsmd.m_bMute = g_s.bMute;
+	mpsmd.m_bDeaf = g_s.bDeaf;
+	g_shServer->sendMessage(&mpsmd);
+
+	qs.setValue("AudioMute", g_s.bMute);
+	qs.setValue("AudioDeaf", g_s.bDeaf);
+}
+
+void MainWindow::on_AudioDeaf_triggered()
+{
+	g_s.bDeaf = m_qaAudioDeaf->isChecked();
+	if (g_s.bDeaf && ! g_s.bMute) {
+		g_s.bMute = true;
+		m_qaAudioMute->setChecked(true);
+		m_tts->say(tr("Muted and deafened"));
+	} else if (g_s.bDeaf) {
+		m_tts->say(tr("Deafened"));
+	} else {
+		m_tts->say(tr("Undeafened"));
+	}
+
+	MessagePlayerSelfMuteDeaf mpsmd;
+	mpsmd.m_bMute = g_s.bMute;
+	mpsmd.m_bDeaf = g_s.bDeaf;
+	g_shServer->sendMessage(&mpsmd);
+
+	qs.setValue("AudioMute", g_s.bMute);
+	qs.setValue("AudioDeaf", g_s.bDeaf);
+}
+
 void MainWindow::on_AudioTextToSpeech_triggered()
 {
 	qs.setValue("TextToSpeech", m_qaAudioTTS->isChecked());
@@ -287,6 +344,7 @@ void MainWindow::on_PushToTalk_triggered(bool down)
 {
 	g_s.bPushToTalk = down;
 }
+
 
 void MainWindow::on_MuteSelf_down()
 {
@@ -361,12 +419,12 @@ void MainWindow::customEvent(QEvent *evt) {
 }
 
 void MainWindow::setItemColor(QListWidgetItem *item, Player *p) {
-	if (p->m_bMute) {
-		if (p->m_bDeaf)
+	if (p->m_bMute || p->m_bSelfMute) {
+		if (p->m_bDeaf || p->m_bSelfDeaf)
 			item->setTextColor(Qt::blue);
 		else
 			item->setTextColor(Qt::yellow);
-	} else if (p->m_bDeaf) {
+	} else if (p->m_bDeaf || p->m_bSelfDeaf) {
 		item->setTextColor(Qt::magenta);
 	} else {
 		item->setTextColor(Qt::black);
@@ -414,13 +472,20 @@ void MessageServerLeave::process(Connection *) {
 void MessageSpeex::process(Connection *) {
 }
 
+void MessagePlayerSelfMuteDeaf::process(Connection *) {
+	MSG_INIT;
+	p->m_bSelfMute = m_bMute;
+	p->m_bSelfDeaf = m_bDeaf;
+	MainWindow::setItemColor(item, p);
+}
+
 void MessagePlayerMute::process(Connection *) {
 	MSG_INIT;
 	p->m_bMute = m_bMute;
 	MainWindow::setItemColor(item, p);
 
 	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->m_tts->say(m_bMute ? QObject::tr("Muted") : QObject::tr("Unmuted"));
+		g_mwMainWindow->m_tts->say(m_bMute ? QObject::tr("You are muted") : QObject::tr("You are unmuted"));
 }
 
 void MessagePlayerDeaf::process(Connection *) {
@@ -429,7 +494,7 @@ void MessagePlayerDeaf::process(Connection *) {
 	MainWindow::setItemColor(item, p);
 
 	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->m_tts->say(m_bDeaf ? QObject::tr("Deafened") : QObject::tr("Undeafened"));
+		g_mwMainWindow->m_tts->say(m_bDeaf ? QObject::tr("You are deafened") : QObject::tr("You are undeafened"));
 }
 
 void MessagePlayerKick::process(Connection *) {

@@ -228,7 +228,7 @@ void MessageSpeex::process(Connection *cCon) {
 	while (iPlayers.hasNext()) {
 		iPlayers.next();
 		Player *pPlayer = iPlayers.value();
-		if (! pPlayer->m_bDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
+		if (! pPlayer->m_bDeaf && ! pPlayer->m_bSelfDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
 			iPlayers.key()->sendMessage(this);
 	}
 }
@@ -247,6 +247,16 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 
 	if (pDstPlayer) {
 		pDstPlayer->m_bDeaf = m_bDeaf;
+		g_sServer->sendAll(this);
+	}
+}
+
+void MessagePlayerSelfMuteDeaf::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	if (pDstPlayer) {
+		pDstPlayer->m_bSelfMute = m_bMute;
+		pDstPlayer->m_bSelfDeaf = m_bDeaf;
 		g_sServer->sendAll(this);
 	}
 }

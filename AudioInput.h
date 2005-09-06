@@ -34,6 +34,7 @@
 #define SAMPLE_RATE 16000
 
 #include <QThread>
+#include <QWidget>
 #include <speex/speex.h>
 #include <speex/speex_preprocess.h>
 
@@ -59,6 +60,7 @@ class AudioInput : public QThread {
 		AudioInput();
 		~AudioInput();
 		void run() = 0;
+		static QWidget *configWidget(QWidget *parent = NULL);
 };
 
 extern AudioInput *g_aiInput;

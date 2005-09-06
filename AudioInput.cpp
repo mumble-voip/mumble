@@ -79,6 +79,7 @@ void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
 	int iLen;
+	Player *p=Player::get(g_mwMainWindow->m_sMyId);
 
 	c_iFrameCounter++;
 
@@ -126,14 +127,20 @@ void AudioInput::encodeAudioFrame() {
 	// buffer on the receiving end doesn't cope with that
 	// very well.
 
+	if (g_s.bMute || (p && p->m_bMute)) {
+		if (p)
+			p->setTalking(false);
+		return;
+	}
+
 	if (! iIsSpeech) {
 		// Zero frame -- we don't want comfort noise
 		memset(m_psMic, 0, m_iByteSize);
 	}
 
-	Player *p=Player::get(g_mwMainWindow->m_sMyId);
 	if (p)
 		p->setTalking(iIsSpeech);
+
 
 	speex_bits_reset(&m_sbBits);
 	speex_encode_int(m_esEncState, m_psMic, &m_sbBits);

@@ -77,6 +77,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case PlayerDeaf:
 			mMsg = new MessagePlayerDeaf();
 			break;
+		case PlayerSelfMuteDeaf:
+			mMsg = new MessagePlayerSelfMuteDeaf();
+			break;
 		case PlayerKick:
 			mMsg = new MessagePlayerKick();
 			break;
@@ -204,6 +207,20 @@ void MessagePlayerDeaf::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> m_bDeaf;
 }
 
+MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
+	m_bMute = false;
+	m_bDeaf = false;
+}
+
+void MessagePlayerSelfMuteDeaf::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_bMute;
+	qdsOut << m_bDeaf;
+}
+
+void MessagePlayerSelfMuteDeaf::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_bMute;
+	qdsIn >> m_bDeaf;
+}
 
 MessagePlayerKick::MessagePlayerKick() {
 	m_qsReason = QString();
