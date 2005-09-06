@@ -57,7 +57,7 @@ void MainWindow::setupGui()  {
 	QActionGroup *qag;
 	QMenu *qm;
 
-	setWindowTitle(tr("Mumble -- ").arg(MUMBLE_VERSION));
+	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_VERSION)));
 
 	m_qlwPlayers = new QListWidget(this);
 	setCentralWidget(m_qlwPlayers);
