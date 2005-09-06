@@ -66,6 +66,7 @@ ConnectDialog::ConnectDialog(QWidget *parent) : QDialog(parent) {
 	l->addWidget(qlePort, 1, 1);
 
 	qlePassword=new QLineEdit(qs.value("ServerPassword", "").toString(), this);
+	qlePassword->setEchoMode(QLineEdit::Password);
 	lab=new QLabel("&Password", this);
 	lab->setBuddy(qlePassword);
 
