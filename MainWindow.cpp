@@ -264,7 +264,7 @@ void MainWindow::on_PlayerMute_triggered()
 		return;
 	Player *p = m_qmPlayers[item];
 	MessagePlayerMute mpmMsg;
-	mpmMsg.m_sPlayerId = p->m_sId;
+	mpmMsg.m_sVictim = p->m_sId;
 	mpmMsg.m_bMute = ! p->m_bMute;
 	g_shServer->sendMessage(&mpmMsg);
 }
@@ -276,7 +276,7 @@ void MainWindow::on_PlayerDeaf_triggered()
 		return;
 	Player *p = m_qmPlayers[item];
 	MessagePlayerDeaf mpdMsg;
-	mpdMsg.m_sPlayerId = p->m_sId;
+	mpdMsg.m_sVictim = p->m_sId;
 	mpdMsg.m_bDeaf = ! p->m_bDeaf;
 	g_shServer->sendMessage(&mpdMsg);
 }
@@ -292,7 +292,7 @@ void MainWindow::on_PlayerKick_triggered()
 	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->m_qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
 	if (ok) {
 		MessagePlayerKick mpkMsg;
-		mpkMsg.m_sPlayerId=p->m_sId;
+		mpkMsg.m_sVictim=p->m_sId;
 		mpkMsg.m_qsReason = reason;
 		g_shServer->sendMessage(&mpkMsg);
 	}
@@ -416,7 +416,7 @@ void MainWindow::serverDisconnected(QString reason)
 	m_qmPlayers.clear();
 
 	if (! reason.isEmpty()) {
-  	  log(tr("Server connection failed. %1").arg(reason));
+  	  log(tr("Server connection failed: %1").arg(reason));
     } else {
 	  log(tr("Disconnected from server."));
 	}
@@ -461,28 +461,35 @@ void MessageServerJoin::process(Connection *) {
 
 	QObject::connect(p, SIGNAL(talkingChanged(Player *, bool)), g_mwMainWindow, SLOT(playerTalkingChanged(Player *, bool)));
 
-	g_mwMainWindow->log(QObject::tr("Joined now: %1").arg(p->m_qsName));
+	g_mwMainWindow->log(MainWindow::tr("Joined now: %1").arg(p->m_qsName));
 }
 
 #define MSG_INIT \
- Player *p=Player::get(m_sPlayerId); \
- if (! p) \
- 	qFatal("MainWindow: Message for nonexistant player %d", m_sPlayerId); \
- QListWidgetItem *item=g_mwMainWindow->m_qmItems[p]; \
- Q_UNUSED(item)
+	Player *pSrc=Player::get(m_sPlayerId); \
+	if (! pSrc) \
+		qFatal("MainWindow: Message for nonexistant player %d", m_sPlayerId); \
+	QListWidgetItem *iSrc=g_mwMainWindow->m_qmItems[pSrc]; \
+	Q_UNUSED(iSrc)
+
+#define VICTIM_INIT \
+	Player *pDst=Player::get(m_sVictim); \
+	 if (! pDst) \
+ 		qFatal("MainWindow: Message for nonexistant victim %d", m_sVictim); \
+	QListWidgetItem *iDst=g_mwMainWindow->m_qmItems[pDst]; \
+	Q_UNUSED(iDst)
 
 void MessageServerLeave::process(Connection *) {
-	Player *p=Player::get(m_sPlayerId);
+	MSG_INIT;
 
-	g_mwMainWindow->log(QObject::tr("Left now: %1").arg(p->m_qsName));
-	if (g_mwMainWindow->m_qmItems.contains(p)) {
-		QListWidgetItem *item=g_mwMainWindow->m_qmItems.take(p);
+	g_mwMainWindow->log(MainWindow::tr("Left now: %1").arg(pSrc->m_qsName));
+	if (g_mwMainWindow->m_qmItems.contains(pSrc)) {
+		QListWidgetItem *item=g_mwMainWindow->m_qmItems.take(pSrc);
 
 		g_mwMainWindow->m_qmPlayers.remove(item);
 
 		delete item;
-		Player::remove(p);
-		delete p;
+		Player::remove(pSrc);
+		delete pSrc;
 	}
 }
 
@@ -491,39 +498,55 @@ void MessageSpeex::process(Connection *) {
 
 void MessagePlayerSelfMuteDeaf::process(Connection *) {
 	MSG_INIT;
-	p->m_bSelfMute = m_bMute;
-	p->m_bSelfDeaf = m_bDeaf;
-	MainWindow::setItemColor(item, p);
+	pSrc->m_bSelfMute = m_bMute;
+	pSrc->m_bSelfDeaf = m_bDeaf;
+	MainWindow::setItemColor(iSrc, pSrc);
 }
 
 void MessagePlayerMute::process(Connection *) {
 	MSG_INIT;
-	p->m_bMute = m_bMute;
-	MainWindow::setItemColor(item, p);
+	VICTIM_INIT;
+	pDst->m_bMute = m_bMute;
+	MainWindow::setItemColor(iDst, pDst);
 
-	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->log(m_bMute ? QObject::tr("You are muted") : QObject::tr("You are unmuted"));
+	QString vic = pDst->m_qsName;
+	QString admin = pSrc->m_qsName;
+
+	if (m_sVictim == g_mwMainWindow->m_sMyId)
+		g_mwMainWindow->log(m_bMute ? MainWindow::tr("You were muted by %1").arg(admin) : MainWindow::tr("You were unmuted by %1").arg(admin));
+	else
+		g_mwMainWindow->log(m_bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerDeaf::process(Connection *) {
 	MSG_INIT;
-	p->m_bDeaf = m_bDeaf;
-	MainWindow::setItemColor(item, p);
+	VICTIM_INIT;
+	pDst->m_bDeaf = m_bDeaf;
+	MainWindow::setItemColor(iDst, pDst);
 
-	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->log(m_bDeaf ? QObject::tr("You are deafened") : QObject::tr("You are undeafened"));
+	QString vic = pDst->m_qsName;
+	QString admin = pSrc->m_qsName;
+
+	if (m_sVictim == g_mwMainWindow->m_sMyId)
+		g_mwMainWindow->log(m_bDeaf ? MainWindow::tr("You were deafened by %1").arg(admin) : MainWindow::tr("You were undeafened by %1").arg(admin));
+	else
+		g_mwMainWindow->log(m_bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
-	g_mwMainWindow->log(QObject::tr("You were kicked from the server. %1").arg(m_qsReason));
+	VICTIM_INIT;
+	if (m_sVictim == g_mwMainWindow->m_sMyId)
+		g_mwMainWindow->log(MainWindow::tr("You were kicked from the server by %1: %2").arg(pSrc->m_qsName).arg(m_qsReason));
+	else
+		g_mwMainWindow->log(MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->m_qsName).arg(m_qsReason).arg(pDst->m_qsName));
 }
 
 void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
-	g_mwMainWindow->log(QObject::tr("Server connection rejected. %1").arg(m_qsReason));
+	g_mwMainWindow->log(MainWindow::tr("Server connection rejected: %1").arg(m_qsReason));
 }
 
 void MessageServerSync::process(Connection *) {

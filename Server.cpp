@@ -122,22 +122,23 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 }
 
 #define MSG_SETUP(st) \
-  Player *pSrcPlayer = g_sServer->m_qmPlayers[cCon]; \
-  Q_UNUSED(pSrcPlayer) \
-  Player *pDstPlayer = Player::get(m_sPlayerId); \
-  Q_UNUSED(pDstPlayer) \
-  Connection *cDst = NULL; \
-  Q_UNUSED(cDst) \
-  if (g_sServer->m_qmConnections.contains(m_sPlayerId)) \
-  	cDst = g_sServer->m_qmConnections[m_sPlayerId]; \
-  if (pSrcPlayer->m_sState != st) \
-  	return
+	Player *pSrcPlayer = g_sServer->m_qmPlayers[cCon]; \
+	m_sPlayerId = pSrcPlayer->m_sId; \
+	if (pSrcPlayer->m_sState != st) \
+		return
+
+#define VICTIM_SETUP \
+	Player *pDstPlayer = Player::get(m_sVictim); \
+	Q_UNUSED(pDstPlayer) \
+	Connection *cDst = NULL; \
+	Q_UNUSED(cDst) \
+	if (g_sServer->m_qmConnections.contains(m_sVictim)) \
+		cDst = g_sServer->m_qmConnections[m_sVictim];
 
 void MessageServerAuthenticate::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
 
 	pSrcPlayer->m_qsName = m_qsUsername;
-	m_sPlayerId = pSrcPlayer->m_sId;
 
 	MessageServerReject msr;
 	bool ok = false;
@@ -226,8 +227,6 @@ void MessageServerSync::process(Connection *cCon) {
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	m_sPlayerId = pSrcPlayer->m_sId;
-
 	if (pSrcPlayer->m_bMute)
 		return;
 
@@ -242,6 +241,7 @@ void MessageSpeex::process(Connection *cCon) {
 
 void MessagePlayerMute::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
+	VICTIM_SETUP;
 
 	if (pDstPlayer) {
 		pDstPlayer->m_bMute = m_bMute;
@@ -251,6 +251,7 @@ void MessagePlayerMute::process(Connection *cCon) {
 
 void MessagePlayerDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
+	VICTIM_SETUP;
 
 	if (pDstPlayer) {
 		pDstPlayer->m_bDeaf = m_bDeaf;
@@ -258,20 +259,21 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 	}
 }
 
+void MessagePlayerKick::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+	VICTIM_SETUP;
+
+	m_sPlayerId = pSrcPlayer->m_sId;
+	if (cDst) {
+		g_sServer->sendAll(this);
+		cDst->disconnect();
+	}
+}
+
 void MessagePlayerSelfMuteDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	m_sPlayerId = pSrcPlayer->m_sId;
 	pSrcPlayer->m_bSelfMute = m_bMute;
 	pSrcPlayer->m_bSelfDeaf = m_bDeaf;
 	g_sServer->sendAll(this);
-}
-
-void MessagePlayerKick::process(Connection *cCon) {
-	MSG_SETUP(Player::Authenticated);
-
-	if (cDst) {
-		cDst->sendMessage(this);
-		cDst->disconnect();
-	}
 }

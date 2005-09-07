@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 1
+#define MESSAGE_STREAM_VERSION 2
 
 #include <QDataStream>
 #include <QByteArray>
@@ -123,6 +123,7 @@ class MessagePlayerMute : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
+		short m_sVictim;
 		bool m_bMute;
 		MessagePlayerMute();
 		Message::MessageType messageType() { return PlayerMute; };
@@ -134,6 +135,7 @@ class MessagePlayerDeaf : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
+		short m_sVictim;
 		bool m_bDeaf;
 		MessagePlayerDeaf();
 		Message::MessageType messageType() { return PlayerDeaf; };
@@ -157,6 +159,7 @@ class MessagePlayerKick : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
+		short m_sVictim;
 		QString m_qsReason;
 		MessagePlayerKick();
 		Message::MessageType messageType() { return PlayerKick; };

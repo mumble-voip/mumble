@@ -187,10 +187,12 @@ MessagePlayerMute::MessagePlayerMute() {
 }
 
 void MessagePlayerMute::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_sVictim;
 	qdsOut << m_bMute;
 }
 
 void MessagePlayerMute::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_sVictim;
 	qdsIn >> m_bMute;
 }
 
@@ -200,11 +202,27 @@ MessagePlayerDeaf::MessagePlayerDeaf() {
 }
 
 void MessagePlayerDeaf::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_sVictim;
 	qdsOut << m_bDeaf;
 }
 
 void MessagePlayerDeaf::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_sVictim;
 	qdsIn >> m_bDeaf;
+}
+
+MessagePlayerKick::MessagePlayerKick() {
+	m_qsReason = QString();
+}
+
+void MessagePlayerKick::saveStream(QDataStream &qdsOut) {
+	qdsOut << m_sVictim;
+	qdsOut << m_qsReason;
+}
+
+void MessagePlayerKick::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> m_sVictim;
+	qdsIn >> m_qsReason;
 }
 
 MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
@@ -222,14 +240,3 @@ void MessagePlayerSelfMuteDeaf::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> m_bDeaf;
 }
 
-MessagePlayerKick::MessagePlayerKick() {
-	m_qsReason = QString();
-}
-
-void MessagePlayerKick::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_qsReason;
-}
-
-void MessagePlayerKick::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_qsReason;
-}

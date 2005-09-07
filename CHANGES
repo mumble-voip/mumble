@@ -1,6 +1,7 @@
 0.2.2cvs
 ========
 
+- Make messages track source, so the player who initiated kick/mute/deaf of others is known to all.
 - Check version on startup
 - Show version in mainwidow
 - Add log window on the left
