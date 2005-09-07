@@ -73,7 +73,7 @@ Database::Database() {
 	}
 
 	if (! found) {
-		QMessageBox::critical(NULL, "Database failed", "Mumble failed to initialize a database in any\nof the possible locations.", QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
+		QMessageBox::critical(NULL, tr("Mumble"), tr("Mumble failed to initialize a database in any\nof the possible locations."), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
 		qFatal("Database: Failed initialization");
 	}
 }
