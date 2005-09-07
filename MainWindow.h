@@ -40,7 +40,6 @@
 #include "Connection.h"
 #include "ServerHandler.h"
 #include "About.h"
-#include "ConnectDialog.h"
 #include "GlobalShortcut.h"
 #include "TextToSpeech.h"
 

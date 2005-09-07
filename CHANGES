@@ -1,0 +1,6 @@
+0.2.2cvs
+========
+
+- Store list of servers in connect dialog
+- Added persistant database
+- Added CHANGES file

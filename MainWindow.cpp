@@ -35,6 +35,7 @@
 #include "MainWindow.h"
 #include "AudioInput.h"
 #include "Settings.h"
+#include "ConnectDialog.h"
 
 MainWindow *g_mwMainWindow;
 

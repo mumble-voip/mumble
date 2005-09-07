@@ -33,13 +33,25 @@
 
 #include <QDialog>
 #include <QLineEdit>
+#include <QListView>
+#include <QSqlTableModel>
+#include <QAbstractItemView>
 
 class ConnectDialog : public QDialog {
 	Q_OBJECT;
 	protected:
-		QLineEdit *qleServer, *qlePort, *qleUsername, *qlePassword;
+		QSqlTableModel *qstmServers;
+		QListView *qlwServers;
+		QLineEdit *qleName, *qleServer, *qlePort, *qleUsername, *qlePassword;
+		QModelIndex qmiDirty;
+		QSqlRecord toRecord() const;
+		bool bDirty;
 	public slots:
 		void accept();
+		void on_Add_clicked();
+		void on_Remove_clicked();
+		void onSelection_Changed(const QModelIndex &n, const QModelIndex &p);
+		void onDirty(const QString &);
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		int iPort;
