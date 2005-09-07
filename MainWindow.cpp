@@ -36,6 +36,13 @@
 #include "AudioInput.h"
 #include "Settings.h"
 #include "ConnectDialog.h"
+#include "Player.h"
+#include "Connection.h"
+#include "ServerHandler.h"
+#include "About.h"
+#include "GlobalShortcut.h"
+#include "TextToSpeech.h"
+
 
 MainWindow *g_mwMainWindow;
 

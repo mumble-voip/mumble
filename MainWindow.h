@@ -36,12 +36,13 @@
 #include <QAction>
 #include <QMap>
 #include <QSettings>
-#include "Player.h"
-#include "Connection.h"
-#include "ServerHandler.h"
-#include "About.h"
-#include "GlobalShortcut.h"
-#include "TextToSpeech.h"
+#include <QTextEdit>
+
+class Player;
+class Connection;
+class ServerHandler;
+class GlobalShortcut;
+class TextToSpeech;
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
