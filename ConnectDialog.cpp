@@ -56,11 +56,6 @@ ConnectDialog::ConnectDialog(QWidget *parent) : QDialog(parent) {
 
 	bDirty = false;
 
-/*	query.exec("DELETE FROM servers");
-	query.exec("INSERT INTO servers (name, hostname) VALUES('Hei1','Mixern1')");
-	query.exec("INSERT INTO servers (name, hostname) VALUES('Hei3','Mixern3')");
-	query.exec("INSERT INTO servers (name, hostname) VALUES('Hei2','Mixern2')");
-*/
 	qstmServers = new QSqlTableModel(this);
 	qstmServers->setTable("servers");
 	qstmServers->setSort(1, Qt::AscendingOrder);
@@ -68,13 +63,9 @@ ConnectDialog::ConnectDialog(QWidget *parent) : QDialog(parent) {
 		query.exec("DROP TABLE servers");
 		if (! query.exec("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"))
 			qWarning("ConnectDialog: Failed to create table");
-
-//		delete qstmServers;
-//		qstmServers = new QSqlTableModel(this);
 		qstmServers->setTable("servers");
 		if (! qstmServers->select())
 			qWarning("ConnectDialog: Failed to reselect table");
-		qWarning("%s", qstmServers->lastError().databaseText().toLatin1().constData());
 	}
 	qstmServers->setEditStrategy(QSqlTableModel::OnManualSubmit);
 

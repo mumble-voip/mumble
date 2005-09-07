@@ -32,6 +32,9 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QSettings>
+#include <QSplitter>
+#include <QTextCursor>
+#include <QTime>
 #include "MainWindow.h"
 #include "AudioInput.h"
 #include "Settings.h"
@@ -56,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 	m_tts=new TextToSpeech(this);
 	recheckTTS();
-	m_tts->say(tr("Welcome to Mumble."));
+	log(tr("Welcome to Mumble."));
 }
 
 void MainWindow::setupGui()  {
@@ -68,7 +71,8 @@ void MainWindow::setupGui()  {
 	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_VERSION)));
 
 	m_qlwPlayers = new QListWidget(this);
-	setCentralWidget(m_qlwPlayers);
+	m_qteLog = new QTextEdit(this);
+	m_qteLog->setReadOnly(true);
 
 	qmServer = new QMenu(tr("&Server"), this);
 	qmPlayer = new QMenu(tr("&Player"), this);
@@ -188,11 +192,31 @@ void MainWindow::setupGui()  {
 	connect(m_gsDeafSelf, SIGNAL(down()), m_qaAudioDeaf, SLOT(trigger()));
 
     QMetaObject::connectSlotsByName(this);
+
+	QSplitter *qs = new QSplitter(Qt::Horizontal, this);
+	qs->addWidget(m_qteLog);
+	qs->addWidget(m_qlwPlayers);
+
+	setCentralWidget(qs);
 }
 
 void MainWindow::recheckTTS()
 {
 	m_tts->setEnabled(m_qaAudioTTS->isChecked());
+}
+
+void MainWindow::log(QString entry, QString phonetic, bool maytts)
+{
+	QTime now = QTime::currentTime();
+	if (maytts)
+		m_tts->say(phonetic.isNull() ? entry : phonetic);
+	if (entry.isNull())
+		return;
+	m_qteLog->append(tr("[%1] %2").arg(now.toString(Qt::LocalDate)).arg(entry));
+	QTextCursor pos=m_qteLog->textCursor();
+	pos.movePosition(QTextCursor::End);
+	m_qteLog->setTextCursor(pos);
+	m_qteLog->ensureCursorVisible();
 }
 
 void MainWindow::on_ServerConnect_triggered()
@@ -289,11 +313,11 @@ void MainWindow::on_AudioMute_triggered()
 	if (! g_s.bMute && g_s.bDeaf) {
 		g_s.bDeaf = false;
 		m_qaAudioDeaf->setChecked(false);
-		m_tts->say(tr("Unmuted and undeafened"));
+		log(QString(), tr("Un-muted and undeafened"));
 	} else if (! g_s.bMute) {
-		m_tts->say(tr("Unmuted"));
+		log(QString(), tr("Unmuted"));
 	} else {
-		m_tts->say(tr("Muted"));
+		log(QString(), tr("Muted"));
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
@@ -311,11 +335,11 @@ void MainWindow::on_AudioDeaf_triggered()
 	if (g_s.bDeaf && ! g_s.bMute) {
 		g_s.bMute = true;
 		m_qaAudioMute->setChecked(true);
-		m_tts->say(tr("Muted and deafened"));
+		log(QString(), tr("Muted and deafened"));
 	} else if (g_s.bDeaf) {
-		m_tts->say(tr("Deafened"));
+		log(QString(), tr("Deafened"));
 	} else {
-		m_tts->say(tr("Undeafened"));
+		log(QString(), tr("Undeafened"));
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
@@ -363,7 +387,7 @@ void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
 
 void MainWindow::serverConnected()
 {
-	m_tts->say(tr("Connected to server"));
+	log(tr("Connected to server"));
 	m_tts->setEnabled(false);
 	m_qaServerDisconnect->setEnabled(true);
 
@@ -390,10 +414,9 @@ void MainWindow::serverDisconnected(QString reason)
 	m_qmPlayers.clear();
 
 	if (! reason.isEmpty()) {
-  	  m_tts->say(tr("Server connection failed. %1").arg(reason));
-	  QMessageBox::warning(this, "Server connection failed", reason, QMessageBox::Ok, QMessageBox::NoButton);
+  	  log(tr("Server connection failed. %1").arg(reason));
     } else {
-	  m_tts->say(tr("Disconnected from server."));
+	  log(tr("Disconnected from server."));
 	}
 }
 
@@ -436,7 +459,7 @@ void MessageServerJoin::process(Connection *) {
 
 	QObject::connect(p, SIGNAL(talkingChanged(Player *, bool)), g_mwMainWindow, SLOT(playerTalkingChanged(Player *, bool)));
 
-	g_mwMainWindow->m_tts->say(QObject::tr("Joined now: %1").arg(p->m_qsName));
+	g_mwMainWindow->log(QObject::tr("Joined now: %1").arg(p->m_qsName));
 }
 
 #define MSG_INIT \
@@ -449,7 +472,7 @@ void MessageServerJoin::process(Connection *) {
 void MessageServerLeave::process(Connection *) {
 	Player *p=Player::get(m_sPlayerId);
 
-	g_mwMainWindow->m_tts->say(QObject::tr("Left now: %1").arg(p->m_qsName));
+	g_mwMainWindow->log(QObject::tr("Left now: %1").arg(p->m_qsName));
 	if (g_mwMainWindow->m_qmItems.contains(p)) {
 		QListWidgetItem *item=g_mwMainWindow->m_qmItems.take(p);
 
@@ -477,7 +500,7 @@ void MessagePlayerMute::process(Connection *) {
 	MainWindow::setItemColor(item, p);
 
 	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->m_tts->say(m_bMute ? QObject::tr("You are muted") : QObject::tr("You are unmuted"));
+		g_mwMainWindow->log(m_bMute ? QObject::tr("You are muted") : QObject::tr("You are unmuted"));
 }
 
 void MessagePlayerDeaf::process(Connection *) {
@@ -486,21 +509,19 @@ void MessagePlayerDeaf::process(Connection *) {
 	MainWindow::setItemColor(item, p);
 
 	if (m_sPlayerId == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->m_tts->say(m_bDeaf ? QObject::tr("You are deafened") : QObject::tr("You are undeafened"));
+		g_mwMainWindow->log(m_bDeaf ? QObject::tr("You are deafened") : QObject::tr("You are undeafened"));
 }
 
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
-	g_mwMainWindow->m_tts->say(QObject::tr("You were kicked from the server. %1").arg(m_qsReason));
-	QMessageBox::warning(g_mwMainWindow, QObject::tr("Kicked from server"), m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
+	g_mwMainWindow->log(QObject::tr("You were kicked from the server. %1").arg(m_qsReason));
 }
 
 void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
-	g_mwMainWindow->m_tts->say(QObject::tr("Server connection rejected. %1").arg(m_qsReason));
-	QMessageBox::warning(g_mwMainWindow, QObject::tr("Server Rejected Connection"), m_qsReason, QMessageBox::Ok, QMessageBox::NoButton);
+	g_mwMainWindow->log(QObject::tr("Server connection rejected. %1").arg(m_qsReason));
 }
 
 void MessageServerSync::process(Connection *) {

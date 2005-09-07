@@ -47,6 +47,7 @@ class TextToSpeech;
 class MainWindow : public QMainWindow {
 	Q_OBJECT
 	public:
+		QTextEdit *m_qteLog;
 		QListWidget *m_qlwPlayers;
 		QAction *m_qaServerConnect, *m_qaServerDisconnect;
 		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
@@ -67,8 +68,8 @@ class MainWindow : public QMainWindow {
 		static void setItemColor(QListWidgetItem *, Player *);
 
 		short m_sMyId;
-
 		void recheckTTS();
+		void log(QString entry, QString phonetic = QString(), bool maytts = true);
 	public slots:
 		void on_ServerConnect_triggered();
 		void on_ServerDisconnect_triggered();
