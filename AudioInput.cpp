@@ -148,7 +148,7 @@ void AudioInput::encodeAudioFrame() {
 	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
 	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
 
-	fArg = 12000;
+	fArg = 20000;
 	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
 
 	int iIsSpeech;
