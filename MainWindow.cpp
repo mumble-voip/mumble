@@ -45,7 +45,7 @@
 #include "About.h"
 #include "GlobalShortcut.h"
 #include "TextToSpeech.h"
-
+#include "VersionCheck.h"
 
 MainWindow *g_mwMainWindow;
 
@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	m_tts=new TextToSpeech(this);
 	recheckTTS();
 	log(tr("Welcome to Mumble."));
+
+	new VersionCheck(this);
 }
 
 void MainWindow::setupGui()  {
