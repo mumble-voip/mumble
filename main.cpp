@@ -30,42 +30,51 @@
 
 #include <QApplication>
 #include <QIcon>
+
 #include <windows.h>
 
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#include "Database.h"
 
 int main(int argc, char **argv)
 {
 	int res;
 
-	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
-		qWarning("Application: Failed to set priority!");
-
+	// Initialize application object.
 	QApplication a(argc, argv);
-
 	a.setApplicationName("Mumble");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
 
+	// Set application icon
 	QIcon icon;
 	icon.addFile(":/mumble.png.2");
 	icon.addFile(":/mumble.png.1");
 	icon.addFile(":/mumble.png.0");
 	a.setWindowIcon(icon);
 
+	// Initialize database
+	g_db = new Database();
+
+	// Initialize the serverhandler
 	g_shServer = new ServerHandler();
 	g_shServer->moveToThread(g_shServer);
 
+	// Main Window
 	g_mwMainWindow=new MainWindow(NULL);
 	g_mwMainWindow->show();
 
+	// And the start the last chosen audio system.
 	g_aiInput = AudioInputRegistrar::newFromChoice();
 	g_aiInput->start();
-
 	g_aoOutput = AudioOutputRegistrar::newFromChoice();
+
+	// Increase our priority class to live alongside games.
+	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
+		qWarning("Application: Failed to set priority!");
 
 	res=a.exec();
 

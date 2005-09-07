@@ -80,6 +80,7 @@ Section "Mumble & Murmur" SecMumble
 
   ;Store installation folder
   WriteRegStr HKCU "Software\Mumble" "" $INSTDIR
+  WriteRegStr HKCU "Software\Mumble\Mumble" "InstPath" $INSTDIR
   
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -147,5 +148,5 @@ Section "Uninstall"
   startMenuDeleteLoopDone:
 
   DeleteRegKey /ifempty HKCU "Software\Mumble"
-
+  DeleteRegKey HKCU "Software\Mumble\Mumble\InstPath"
 SectionEnd

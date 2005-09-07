@@ -1,11 +1,11 @@
 include(mumble.pri)
 
 TEMPLATE	= app
-QT		+= network
+QT		+= network sql
 TARGET		= mumble
 RC_FILE		= mumble.rc
-HEADERS		= AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h Player.h About.h Message.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h
-SOURCES		= AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Connection.cpp ServerHandler.cpp Player.cpp About.cpp ConnectDialog.cpp Settings.cpp
+HEADERS		= AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h Player.h About.h Message.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h
+SOURCES		= AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Connection.cpp ServerHandler.cpp Player.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp
 DIST		+= licenses.h mumble.ico mumble.png.0 mumble.png.1 mumble.png.2
 INCLUDEPATH	+= include
 LIBS 		+= -Llib -L.
