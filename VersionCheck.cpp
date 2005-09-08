@@ -28,13 +28,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "VersionCheck.h"
-#include "Settings.h"
-
 #include <QApplication>
 #include <QFile>
 #include <QByteArray>
 #include <QMessageBox>
+
+#include "VersionCheck.h"
+#include "Global.h"
 
 VersionCheck::VersionCheck(QObject *p) : QObject(p) {
 	qhAgent = new QHttp(this);
