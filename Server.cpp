@@ -67,11 +67,12 @@ void Server::newClient() {
 	qmPlayers[cCon] = pPlayer;
 	qmConnections[id] = cCon;
 
-	connect(cCon, SIGNAL(connectionClosed(Connection *, QString)), this, SLOT(connectionClosed(Connection *, QString)));
-	connect(cCon, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
+	connect(cCon, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
+	connect(cCon, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
 }
 
-void Server::connectionClosed(Connection *c, QString reason) {
+void Server::connectionClosed(QString reason) {
+	Connection *c = static_cast<Connection *>(sender());
 	Player *pPlayer = qmPlayers.value(c);
 
 	if (pPlayer->sState == Player::Authenticated) {
@@ -93,8 +94,9 @@ void Server::connectionClosed(Connection *c, QString reason) {
 	c->deleteLater();
 }
 
-void Server::message(QByteArray &qbaMsg, Connection *cCon) {
-	  Message *mMsg = Message::networkToMessage(qbaMsg);
+void Server::message(QByteArray &qbaMsg) {
+	Connection *cCon = static_cast<Connection *>(sender());
+	Message *mMsg = Message::networkToMessage(qbaMsg);
 
 	  // Just leftovers from the buffer and we just kicked
 	  // the user off.

@@ -52,9 +52,9 @@ class Player : public QObject {
 		static void remove(short);
 		static void remove(Player *);
 	public slots:
-		void setTalking(bool bTalking);
+		void setTalking(bool talking);
 	signals:
-		void talkingChanged(Player *pPlayer, bool bTalking);
+		void talkingChanged(bool talking);
 };
 
 extern QMap<short, Player *> g_qmPlayers;

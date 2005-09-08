@@ -68,9 +68,9 @@ class ServerHandler : public QThread
 		void disconnected(QString reason);
 		void connected();
 	protected slots:
-		void message(QByteArray &, Connection *);
+		void message(QByteArray &);
 		void serverConnectionConnected();
-		void serverConnectionClosed(Connection *, QString);
+		void serverConnectionClosed(QString);
 };
 
 #else

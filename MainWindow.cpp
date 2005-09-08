@@ -379,8 +379,9 @@ void MainWindow::on_PushToTalk_triggered(bool down)
 	g.s.bPushToTalk = down;
 }
 
-void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
+void MainWindow::playerTalkingChanged(bool bTalking)
 {
+	Player *p=static_cast<Player *>(sender());
 	QListWidgetItem *item=qmItems[p];
 	item->setBackgroundColor(bTalking ? Qt::lightGray : Qt::white);
 }
@@ -457,7 +458,7 @@ void MessageServerJoin::process(Connection *) {
 	g.mw->qmPlayers[item]=p;
 	g.mw->qmItems[p]=item;
 
-	QObject::connect(p, SIGNAL(talkingChanged(Player *, bool)), g.mw, SLOT(playerTalkingChanged(Player *, bool)));
+	QObject::connect(p, SIGNAL(talkingChanged(bool)), g.mw, SLOT(playerTalkingChanged(bool)));
 
 	g.mw->log(MainWindow::tr("Joined now: %1").arg(p->qsName));
 }

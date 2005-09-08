@@ -62,7 +62,7 @@ void Connection::socketRead() {
 
     if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
 	  QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
-	  emit message(qbaBuffer, this);
+	  emit message(qbaBuffer);
       iPacketLength = -1;
     } else {
       return;
@@ -73,7 +73,7 @@ void Connection::socketRead() {
 void Connection::socketError(QAbstractSocket::SocketError) {
 	if (! bDisconnectedEmitted) {
 		bDisconnectedEmitted = true;
-		emit connectionClosed(this, qtsSocket->errorString());
+		emit connectionClosed(qtsSocket->errorString());
 	}
 	qtsSocket->disconnectFromHost();
 }
@@ -84,7 +84,7 @@ void Connection::socketState(QAbstractSocket::SocketState state) {
 void Connection::socketDisconnected() {
 	if (! bDisconnectedEmitted) {
 		bDisconnectedEmitted = true;
-		emit connectionClosed(this, QString());
+		emit connectionClosed(QString());
 	}
 }
 

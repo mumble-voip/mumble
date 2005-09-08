@@ -45,8 +45,8 @@ class Server : public QObject {
 		QTcpServer *qtsServer;
 	protected slots:
 		void newClient();
-		void connectionClosed(Connection *, QString);
-		void message(QByteArray &, Connection *);
+		void connectionClosed(QString);
+		void message(QByteArray &);
 	public:
 		QMap<short, Connection *> qmConnections;
 		QMap<Connection *, Player *> qmPlayers;

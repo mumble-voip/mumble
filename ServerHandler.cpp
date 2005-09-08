@@ -76,8 +76,8 @@ void ServerHandler::run()
 	cConnection = new Connection(this, qtsSock);
 
 	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
-	connect(cConnection, SIGNAL(connectionClosed(Connection *, QString)), this, SLOT(serverConnectionClosed(Connection *, QString)));
-	connect(cConnection, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
+	connect(cConnection, SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
+	connect(cConnection, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
 	qtsSock->connectToHost(qsHostName, iPort);
 	exec();
 	cConnection->disconnect();
@@ -85,10 +85,7 @@ void ServerHandler::run()
 	delete qtsSock;
 }
 
-void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
-	// Handle speex directly (into player threads)
-	// But for now....
-
+void ServerHandler::message(QByteArray &qbaMsg) {
 	Message *mMsg = Message::networkToMessage(qbaMsg);
 	if (! mMsg)
 		return;
@@ -121,7 +118,7 @@ void ServerHandler::disconnect() {
 	QApplication::postEvent(this, shme);
 }
 
-void ServerHandler::serverConnectionClosed(Connection *, QString reason) {
+void ServerHandler::serverConnectionClosed(QString reason) {
 	g.ao->wipe();
 
 	emit disconnected(reason);

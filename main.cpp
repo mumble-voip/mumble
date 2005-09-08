@@ -79,5 +79,14 @@ int main(int argc, char **argv)
 
 	res=a.exec();
 
+	if (g.ao)
+		delete g.ao;
+	if (g.ai)
+		delete g.ai;
+
+	delete g.mw;
+	delete g.sh;
+	delete g.db;
+
 	return res;
 }

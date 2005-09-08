@@ -74,6 +74,6 @@ void Player::remove(Player *p) {
 void Player::setTalking(bool talking) {
 	if (bTalking == talking)
 		return;
-	bTalking = bTalking;
-	emit talkingChanged(this, bTalking);
+	bTalking = talking;
+	emit talkingChanged(bTalking);
 }

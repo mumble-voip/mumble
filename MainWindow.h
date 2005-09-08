@@ -88,7 +88,7 @@ class MainWindow : public QMainWindow {
 		void on_AudioTransmit_triggered(QAction *);
 		void serverConnected();
 		void serverDisconnected(QString reason);
-		void playerTalkingChanged(Player *, bool);
+		void playerTalkingChanged(bool);
 	public:
 		MainWindow(QWidget *parent);
 };

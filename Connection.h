@@ -47,8 +47,8 @@ class Connection : public QObject {
 	    void socketState(QAbstractSocket::SocketState);
 	    void socketDisconnected();
 	signals:
-		void connectionClosed(Connection *, QString reason);
-		void message(QByteArray &, Connection *);
+		void connectionClosed(QString reason);
+		void message(QByteArray &);
 	public:
 		Connection(QObject *parent, QTcpSocket *qtsSocket);
 		~Connection();
