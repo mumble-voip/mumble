@@ -94,7 +94,7 @@ class AudioOutput : public QObject {
 		void removeBuffer(short);
 };
 
-extern AudioOutput *g_aoOutput;
+extern AudioOutput *g.ao;
 
 #else
 class AudioInput;

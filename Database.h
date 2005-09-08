@@ -38,7 +38,7 @@ class Database : public QObject{
 		Database();
 };
 
-extern Database *g_db;
+extern Database *g.db;
 
 #else
 class Database;

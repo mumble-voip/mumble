@@ -33,7 +33,7 @@
 #include "Settings.h"
 #include <QSettings>
 
-AudioOutput *g_aoOutput;
+AudioOutput *g.ao;
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -122,7 +122,7 @@ void AudioOutputPlayer::decodeNextFrame() {
 	if (p)
 		p->setTalking(bSpeech);
 
-	if (g_s.bDeaf)
+	if (g.s.bDeaf)
 		memset(psBuffer, 0, iByteSize);
 }
 

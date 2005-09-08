@@ -57,20 +57,20 @@ int main(int argc, char **argv)
 	a.setWindowIcon(icon);
 
 	// Initialize database
-	g_db = new Database();
+	g.db = new Database();
 
 	// Initialize the serverhandler
-	g_shServer = new ServerHandler();
-	g_shServer->moveToThread(g_shServer);
+	g.sh = new ServerHandler();
+	g.sh->moveToThread(g.sh);
 
 	// Main Window
-	g_mwMainWindow=new MainWindow(NULL);
-	g_mwMainWindow->show();
+	g.mw=new MainWindow(NULL);
+	g.mw->show();
 
 	// And the start the last chosen audio system.
-	g_aiInput = AudioInputRegistrar::newFromChoice();
-	g_aiInput->start();
-	g_aoOutput = AudioOutputRegistrar::newFromChoice();
+	g.ai = AudioInputRegistrar::newFromChoice();
+	g.ai->start();
+	g.ao = AudioOutputRegistrar::newFromChoice();
 
 	// Increase our priority class to live alongside games.
 	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))

@@ -140,7 +140,7 @@ BOOL GlobalShortcutWin::EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPDIREC
 
 	pdidDevice->Unacquire();
 
-	pdidDevice->SetCooperativeLevel( g_mwMainWindow->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND );
+	pdidDevice->SetCooperativeLevel( g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND );
 
     hr = pdidDevice->BuildActionMap( &gsw->diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
     if( FAILED(hr) ) {
@@ -177,7 +177,7 @@ void GlobalShortcutWin::configure()
     dicdp.dwSize = sizeof(dicdp);
     dicdp.dwcFormats     = 1;
     dicdp.lprgFormats    = &diafGame;
-    dicdp.hwnd           = g_mwMainWindow->winId();
+    dicdp.hwnd           = g.mw->winId();
     dicdp.lpUnkDDSTarget = NULL;
     dicdp.dwcUsers       = 1;
     dicdp.lptszUserNames = (wchar_t *)qsUsername.utf16();

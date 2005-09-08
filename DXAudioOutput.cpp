@@ -56,7 +56,7 @@ DXAudioOutput::DXAudioOutput() {
 		qFatal("DXAudioOutput: DirectSoundCreate");
 
 	    // Set coop level to DSSCL_PRIORITY
-	if( FAILED( hr = pDS->SetCooperativeLevel( g_mwMainWindow->winId(), DSSCL_PRIORITY ) ) )
+	if( FAILED( hr = pDS->SetCooperativeLevel( g.mw->winId(), DSSCL_PRIORITY ) ) )
 		qFatal("DXAudioOutput: SetCooperativeLevel");
 
     // Obtain primary buffer

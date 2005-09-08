@@ -33,9 +33,9 @@
 #include "AudioOutput.h"
 #include <QApplication>
 
-extern MainWindow *g_mwMainWindow;
+extern MainWindow *g.mw;
 
-ServerHandler *g_shServer;
+ServerHandler *g.sh;
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg) : QEvent((QEvent::Type) SERVERSEND_EVENT) {
 	qbaMsg = msg;
@@ -96,21 +96,21 @@ void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 		return;
 
 	if (mMsg->messageType() == Message::Speex) {
-		if (g_aoOutput) {
+		if (g.ao) {
 			MessageSpeex *msMsg=static_cast<MessageSpeex *>(mMsg);
-			g_aoOutput->addFrameToBuffer(mMsg->sPlayerId, msMsg->qbaSpeexPacket, msMsg->iSeq);
+			g.ao->addFrameToBuffer(mMsg->sPlayerId, msMsg->qbaSpeexPacket, msMsg->iSeq);
 		}
 	} else {
 		switch(mMsg->messageType()) {
 			case Message::ServerLeave:
-				if (g_aoOutput)
-					g_aoOutput->removeBuffer(mMsg->sPlayerId);
+				if (g.ao)
+					g.ao->removeBuffer(mMsg->sPlayerId);
 				break;
 			default:
 				break;
 		}
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg);
-		QApplication::postEvent(g_mwMainWindow, shme);
+		QApplication::postEvent(g.mw, shme);
 	}
 
 	delete mMsg;
@@ -124,7 +124,7 @@ void ServerHandler::disconnect() {
 }
 
 void ServerHandler::serverConnectionClosed(Connection *, QString reason) {
-	g_aoOutput->wipe();
+	g.ao->wipe();
 
 	emit disconnected(reason);
 

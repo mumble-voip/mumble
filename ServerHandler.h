@@ -73,7 +73,7 @@ class ServerHandler : public QThread
 		void serverConnectionClosed(Connection *, QString);
 };
 
-extern ServerHandler *g_shServer;
+extern ServerHandler *g.sh;
 
 #else
 class ServerHandler;

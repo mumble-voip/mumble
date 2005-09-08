@@ -38,7 +38,7 @@
 #include <QFile>
 #include <QDir>
 
-Database *g_db;
+Database *g.db;
 
 Database::Database() {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");

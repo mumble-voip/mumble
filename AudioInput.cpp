@@ -34,7 +34,7 @@
 #include "MainWindow.h"
 #include "Player.h"
 
-AudioInput *g_aiInput;
+AudioInput *g.ai;
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -119,7 +119,7 @@ void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
 	int iLen;
-	Player *p=Player::get(g_mwMainWindow->sMyId);
+	Player *p=Player::get(g.mw->sMyId);
 
 	c_iFrameCounter++;
 
@@ -157,9 +157,9 @@ void AudioInput::encodeAudioFrame() {
 	if (sppPreprocess->loudness2 < 4000)
 		sppPreprocess->loudness2 = 4000;
 
-	if (g_s.atTransmit == Settings::PushToTalk)
-		iIsSpeech = g_s.bPushToTalk;
-	else if (g_s.atTransmit == Settings::Continous)
+	if (g.s.atTransmit == Settings::PushToTalk)
+		iIsSpeech = g.s.bPushToTalk;
+	else if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
 
 	// Ideally, we'd like to go DTX (discontinous transmission)
@@ -167,7 +167,7 @@ void AudioInput::encodeAudioFrame() {
 	// buffer on the receiving end doesn't cope with that
 	// very well.
 
-	if (g_s.bMute || (p && p->bMute)) {
+	if (g.s.bMute || (p && p->bMute)) {
 		if (p)
 			p->setTalking(false);
 		return;
@@ -193,6 +193,6 @@ void AudioInput::encodeAudioFrame() {
 	MessageSpeex msPacket;
 	msPacket.qbaSpeexPacket = qbaPacket;
 	msPacket.iSeq = c_iFrameCounter;
-	if (g_shServer)
-		g_shServer->sendMessage(&msPacket);
+	if (g.sh)
+		g.sh->sendMessage(&msPacket);
 }
