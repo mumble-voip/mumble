@@ -54,6 +54,8 @@ class Server : public QObject {
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
 
+		void log(QString s, Connection *c = NULL);
+
 		Server();
 };
 

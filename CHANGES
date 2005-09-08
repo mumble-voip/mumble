@@ -1,6 +1,8 @@
 0.2.2cvs
 ========
 
+- Make server log include date/time
+- Use QObject::sender() for signals
 - Refactored the code to remove m_, and use static_cast<> and friends
 - Make messages track source, so the player who initiated kick/mute/deaf of others is known to all.
 - Check version on startup

@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QDateTime>
 #include "Server.h"
 
 Server *g_sServer;
@@ -47,12 +48,35 @@ Server::Server() {
 	if (! qtsServer->listen(QHostAddress::Any, g_sp.iPort))
 		qFatal("Server: Listen failed");
 
+	log(QString("Server listening on port %1").arg(g_sp.iPort));
+
 	for(int i=1;i<255;i++)
 		qqIds.enqueue(i);
 }
 
+void Server::log(QString s, Connection *c) {
+	if (c) {
+		Player *p = NULL;
+		if (qmPlayers.contains(c))
+			p = qmPlayers[c];
+
+		int id = 0;
+		QString name;
+		if (p) {
+			id = p->sId;
+			name = p->qsName;
+		}
+		qWarning("[%s] <%d:%s> %s", QDateTime::currentDateTime().toString(Qt::ISODate).toAscii().constData(),
+				id, name.toAscii().constData(), s.toAscii().constData());
+	} else {
+		qWarning("[%s] %s", QDateTime::currentDateTime().toString(Qt::ISODate).toAscii().constData(),
+				s.toAscii().constData());
+	}
+}
+
 void Server::newClient() {
-	Connection *cCon = new Connection(this, qtsServer->nextPendingConnection());
+	QTcpSocket *sock = qtsServer->nextPendingConnection();
+	Connection *cCon = new Connection(this, sock);
 
 	short id;
 
@@ -69,11 +93,15 @@ void Server::newClient() {
 
 	connect(cCon, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
 	connect(cCon, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
+
+	log(QString("New connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()), cCon);
 }
 
 void Server::connectionClosed(QString reason) {
 	Connection *c = static_cast<Connection *>(sender());
 	Player *pPlayer = qmPlayers.value(c);
+
+	log(QString("Connection closed: %1").arg(reason), c);
 
 	if (pPlayer->sState == Player::Authenticated) {
 		MessageServerLeave mslMsg;
@@ -83,8 +111,6 @@ void Server::connectionClosed(QString reason) {
 
 	qmConnections.remove(pPlayer->sId);
 	qmPlayers.remove(c);
-
-	qWarning("Connection closed: %s", reason.toLatin1().constData());
 
 	Player::remove(pPlayer);
 
@@ -163,9 +189,9 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 
 	if (! ok) {
+	  g_sServer->log(QString("Rejected connection: %1").arg(msr.qsReason), cCon);
 	  cCon->sendMessage(&msr);
 	  cCon->disconnect();
-  	  qWarning("Player %d:%s rejected (%s)", pSrcPlayer->sId, qsUsername.toLatin1().constData(), msr.qsReason.toLatin1().constData());
 	  return;
 	}
 
@@ -207,7 +233,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;
 	cCon->sendMessage(&mssMsg);
-	qWarning("Player %d:%s joined", pSrcPlayer->sId, qsUsername.toLatin1().constData());
+	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
 }
 
 void MessageServerLeave::process(Connection *cCon) {
