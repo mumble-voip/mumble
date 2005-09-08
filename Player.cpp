@@ -34,11 +34,11 @@ QMap<short, Player *> g_qmPlayers;
 QMutex g_qmPlayersMutex;
 
 Player::Player() {
-  m_sState = Player::Connected;
-  m_sId = 0;
-  m_bMute = m_bDeaf = false;
-  m_bSelfMute = m_bSelfDeaf = false;
-  m_bTalking = false;
+  sState = Player::Connected;
+  sId = 0;
+  bMute = bDeaf = false;
+  bSelfMute = bSelfDeaf = false;
+  bTalking = false;
 }
 
 Player *Player::get(short sId) {
@@ -52,7 +52,7 @@ Player *Player::get(short sId) {
 
 Player *Player::add(short sId) {
 	Player *p = new Player();
-	p->m_sId = sId;
+	p->sId = sId;
 	g_qmPlayersMutex.lock();
 	g_qmPlayers[sId] = p;
 	g_qmPlayersMutex.unlock();
@@ -67,13 +67,13 @@ void Player::remove(short sId) {
 
 void Player::remove(Player *p) {
 	g_qmPlayersMutex.lock();
-	g_qmPlayers.remove(p->m_sId);
+	g_qmPlayers.remove(p->sId);
 	g_qmPlayersMutex.unlock();
 }
 
 void Player::setTalking(bool bTalking) {
-	if (bTalking == m_bTalking)
+	if (bTalking == bTalking)
 		return;
-	m_bTalking = bTalking;
-	emit talkingChanged(this, m_bTalking);
+	bTalking = bTalking;
+	emit talkingChanged(this, bTalking);
 }

@@ -36,12 +36,12 @@
 
 class DXAudioInput : public AudioInput {
 	protected:
-		LPDIRECTSOUNDCAPTURE8      m_pDSCapture;
-		LPDIRECTSOUNDCAPTUREBUFFER m_pDSCaptureBuffer;
-		LPDIRECTSOUNDNOTIFY8       m_pDSNotify;
+		LPDIRECTSOUNDCAPTURE8      pDSCapture;
+		LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
+		LPDIRECTSOUNDNOTIFY8       pDSNotify;
 
-		HANDLE m_hNotificationEvent;
-		DWORD m_dwBufferSize;
+		HANDLE hNotificationEvent;
+		DWORD dwBufferSize;
 	public:
 		DXAudioInput();
 		~DXAudioInput();

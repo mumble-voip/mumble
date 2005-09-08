@@ -44,14 +44,14 @@ class GlobalShortcutWin : public QObject {
 		QTimer *timer;
 		int ref;
 
-		LPDIRECTINPUT8 m_pDI;
-		LPDIRECTINPUTDEVICE8 m_pKeyboard;
-		DIACTIONFORMAT        m_diafGame;
-		QList<LPDIRECTINPUTDEVICE8> m_qlDevices;
-		QMap<int, GlobalShortcut *> m_qmShortcuts;
+		LPDIRECTINPUT8 pDI;
+		LPDIRECTINPUTDEVICE8 pKeyboard;
+		DIACTIONFORMAT        diafGame;
+		QList<LPDIRECTINPUTDEVICE8> qlDevices;
+		QMap<int, GlobalShortcut *> qmShortcuts;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
-		BOOL m_bNeedRemap;
-		DIACTION *m_diaActions;
+		BOOL bNeedRemap;
+		DIACTION *diaActions;
 		QString qsUsername;
 	public slots:
 		void timeTicked();

@@ -80,7 +80,7 @@ void ServerHandler::run()
 	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(Connection *, QString)), this, SLOT(serverConnectionClosed(Connection *, QString)));
 	connect(cConnection, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
-	qtsSock->connectToHost(m_qsHostName, m_iPort);
+	qtsSock->connectToHost(qsHostName, iPort);
 	exec();
 	cConnection->disconnect();
 	delete cConnection;
@@ -98,13 +98,13 @@ void ServerHandler::message(QByteArray &qbaMsg, Connection *) {
 	if (mMsg->messageType() == Message::Speex) {
 		if (g_aoOutput) {
 			MessageSpeex *msMsg=static_cast<MessageSpeex *>(mMsg);
-			g_aoOutput->addFrameToBuffer(mMsg->m_sPlayerId, msMsg->m_qbaSpeexPacket, msMsg->m_iSeq);
+			g_aoOutput->addFrameToBuffer(mMsg->sPlayerId, msMsg->qbaSpeexPacket, msMsg->iSeq);
 		}
 	} else {
 		switch(mMsg->messageType()) {
 			case Message::ServerLeave:
 				if (g_aoOutput)
-					g_aoOutput->removeBuffer(mMsg->m_sPlayerId);
+					g_aoOutput->removeBuffer(mMsg->sPlayerId);
 				break;
 			default:
 				break;
@@ -134,15 +134,15 @@ void ServerHandler::serverConnectionClosed(Connection *, QString reason) {
 
 void ServerHandler::serverConnectionConnected() {
 	MessageServerAuthenticate msaMsg;
-	msaMsg.m_qsUsername = m_qsUserName;
-	msaMsg.m_qsPassword = m_qsPassword;
+	msaMsg.qsUsername = qsUserName;
+	msaMsg.qsPassword = qsPassword;
 	cConnection->sendMessage(&msaMsg);
 	emit connected();
 }
 
 void ServerHandler::setConnectionInfo(QString qsHostName, int iPort, QString qsUserName, QString qsPassword) {
-	m_qsHostName = qsHostName;
-	m_iPort = iPort;
-	m_qsUserName = qsUserName;
-	m_qsPassword = qsPassword;
+	qsHostName = qsHostName;
+	iPort = iPort;
+	qsUserName = qsUserName;
+	qsPassword = qsPassword;
 }

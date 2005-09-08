@@ -80,82 +80,82 @@ int AudioInput::c_iFrameCounter = 0;
 
 AudioInput::AudioInput()
 {
-	speex_bits_init(&m_sbBits);
-	m_esEncState=speex_encoder_init(&speex_wb_mode);
-	speex_encoder_ctl(m_esEncState,SPEEX_GET_FRAME_SIZE,&m_iFrameSize);
+	speex_bits_init(&sbBits);
+	esEncState=speex_encoder_init(&speex_wb_mode);
+	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 
-	m_iByteSize=m_iFrameSize * 2;
+	iByteSize=iFrameSize * 2;
 
 	int iarg=1;
-	speex_encoder_ctl(m_esEncState,SPEEX_SET_VBR, &iarg);
+	speex_encoder_ctl(esEncState,SPEEX_SET_VBR, &iarg);
 
 	iarg = 0;
 
-	speex_encoder_ctl(m_esEncState,SPEEX_SET_VAD, &iarg);
-	speex_encoder_ctl(m_esEncState,SPEEX_SET_DTX, &iarg);
+	speex_encoder_ctl(esEncState,SPEEX_SET_VAD, &iarg);
+	speex_encoder_ctl(esEncState,SPEEX_SET_DTX, &iarg);
 
-	m_bResetProcessor = true;
+	bResetProcessor = true;
 
-	m_sppPreprocess = NULL;
-	m_psMic = new short[m_iFrameSize];
+	sppPreprocess = NULL;
+	psMic = new short[iFrameSize];
 
-	m_bRunning = false;
+	bRunning = false;
 }
 
 AudioInput::~AudioInput()
 {
-	m_bRunning = false;
+	bRunning = false;
 	wait();
-	speex_bits_destroy(&m_sbBits);
-	speex_encoder_destroy(m_esEncState);
+	speex_bits_destroy(&sbBits);
+	speex_encoder_destroy(esEncState);
 
-	if (m_sppPreprocess)
-		speex_preprocess_state_destroy(m_sppPreprocess);
+	if (sppPreprocess)
+		speex_preprocess_state_destroy(sppPreprocess);
 
-	delete [] m_psMic;
+	delete [] psMic;
 }
 
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
 	int iLen;
-	Player *p=Player::get(g_mwMainWindow->m_sMyId);
+	Player *p=Player::get(g_mwMainWindow->sMyId);
 
 	c_iFrameCounter++;
 
-	if (! m_bRunning) {
+	if (! bRunning) {
 		return;
 	}
 
-	if (m_bResetProcessor) {
-		if (m_sppPreprocess)
-			speex_preprocess_state_destroy(m_sppPreprocess);
+	if (bResetProcessor) {
+		if (sppPreprocess)
+			speex_preprocess_state_destroy(sppPreprocess);
 
-		m_sppPreprocess = speex_preprocess_state_init(m_iFrameSize, SAMPLE_RATE);
+		sppPreprocess = speex_preprocess_state_init(iFrameSize, SAMPLE_RATE);
 
-		m_bResetProcessor = false;
+		bResetProcessor = false;
 	}
 
 	fArg = 8;
-	speex_encoder_ctl(m_esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
+	speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
 
 	iArg = 5;
-	speex_encoder_ctl(m_esEncState,SPEEX_SET_COMPLEXITY, &iArg);
+	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
 
 	iArg = 1;
-	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
-	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
-	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
-	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
 
 	fArg = 20000;
-	speex_preprocess_ctl(m_sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
 
 	int iIsSpeech;
-	iIsSpeech=speex_preprocess(m_sppPreprocess, m_psMic, NULL);
+	iIsSpeech=speex_preprocess(sppPreprocess, psMic, NULL);
 
-	if (m_sppPreprocess->loudness2 < 4000)
-		m_sppPreprocess->loudness2 = 4000;
+	if (sppPreprocess->loudness2 < 4000)
+		sppPreprocess->loudness2 = 4000;
 
 	if (g_s.atTransmit == Settings::PushToTalk)
 		iIsSpeech = g_s.bPushToTalk;
@@ -167,7 +167,7 @@ void AudioInput::encodeAudioFrame() {
 	// buffer on the receiving end doesn't cope with that
 	// very well.
 
-	if (g_s.bMute || (p && p->m_bMute)) {
+	if (g_s.bMute || (p && p->bMute)) {
 		if (p)
 			p->setTalking(false);
 		return;
@@ -175,24 +175,24 @@ void AudioInput::encodeAudioFrame() {
 
 	if (! iIsSpeech) {
 		// Zero frame -- we don't want comfort noise
-		memset(m_psMic, 0, m_iByteSize);
+		memset(psMic, 0, iByteSize);
 	}
 
 	if (p)
 		p->setTalking(iIsSpeech);
 
 
-	speex_bits_reset(&m_sbBits);
-	speex_encode_int(m_esEncState, m_psMic, &m_sbBits);
-	speex_bits_pack(&m_sbBits, (iIsSpeech) ? 1 : 0, 1);
+	speex_bits_reset(&sbBits);
+	speex_encode_int(esEncState, psMic, &sbBits);
+	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
 
-	iLen=speex_bits_nbytes(&m_sbBits);
+	iLen=speex_bits_nbytes(&sbBits);
 	QByteArray qbaPacket(iLen, 0);
-	speex_bits_write(&m_sbBits, qbaPacket.data(), iLen);
+	speex_bits_write(&sbBits, qbaPacket.data(), iLen);
 
 	MessageSpeex msPacket;
-	msPacket.m_qbaSpeexPacket = qbaPacket;
-	msPacket.m_iSeq = c_iFrameCounter;
+	msPacket.qbaSpeexPacket = qbaPacket;
+	msPacket.iSeq = c_iFrameCounter;
 	if (g_shServer)
 		g_shServer->sendMessage(&msPacket);
 }

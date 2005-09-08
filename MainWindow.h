@@ -47,27 +47,27 @@ class TextToSpeech;
 class MainWindow : public QMainWindow {
 	Q_OBJECT
 	public:
-		QTextEdit *m_qteLog;
-		QListWidget *m_qlwPlayers;
-		QAction *m_qaServerConnect, *m_qaServerDisconnect;
-		QAction *m_qaPlayerKick, *m_qaPlayerMute, *m_qaPlayerDeaf;
-		QAction *m_qaAudioReset, *m_qaAudioShortcuts, *m_qaAudioMute, *m_qaAudioDeaf, *m_qaAudioTTS;
-		QAction *m_qaHelpAbout, *m_qaHelpAboutQt;
+		QTextEdit *qteLog;
+		QListWidget *qlwPlayers;
+		QAction *qaServerConnect, *qaServerDisconnect;
+		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
+		QAction *qaAudioReset, *qaAudioShortcuts, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS;
+		QAction *qaHelpAbout, *qaHelpAboutQt;
 
-		GlobalShortcut *m_gsPushTalk, *m_gsResetAudio, *m_gsMuteSelf, *m_gsDeafSelf;
-		TextToSpeech *m_tts;
+		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
+		TextToSpeech *tts;
 
 		QSettings qs;
 
-		QMap<Player *, QListWidgetItem *> m_qmItems;
-		QMap<QListWidgetItem *, Player *> m_qmPlayers;
+		QMap<Player *, QListWidgetItem *> qmItems;
+		QMap<QListWidgetItem *, Player *> qmPlayers;
 
 		void setupGui();
 		void customEvent(QEvent *evt);
 
 		static void setItemColor(QListWidgetItem *, Player *);
 
-		short m_sMyId;
+		short sMyId;
 		void recheckTTS();
 		void log(QString entry, QString phonetic = QString(), bool maytts = true);
 	public slots:

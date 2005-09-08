@@ -41,15 +41,15 @@
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
-		QQueue<int> m_qqIds;
-		QTcpServer *m_qtsServer;
+		QQueue<int> qqIds;
+		QTcpServer *qtsServer;
 	protected slots:
 		void newClient();
 		void connectionClosed(Connection *, QString);
 		void message(QByteArray &, Connection *);
 	public:
-		QMap<short, Connection *> m_qmConnections;
-		QMap<Connection *, Player *> m_qmPlayers;
+		QMap<short, Connection *> qmConnections;
+		QMap<Connection *, Player *> qmPlayers;
 
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);

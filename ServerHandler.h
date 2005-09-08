@@ -51,10 +51,10 @@ class ServerHandler : public QThread
 {
 	Q_OBJECT
 	protected:
-		QString m_qsHostName;
-		QString m_qsUserName;
-		QString m_qsPassword;
-		int m_iPort;
+		QString qsHostName;
+		QString qsUserName;
+		QString qsPassword;
+		int iPort;
 		Connection *cConnection;
 	public:
 		ServerHandler();

@@ -32,7 +32,7 @@
 #include <QBuffer>
 
 Message::Message() {
-	m_sPlayerId = 0;
+	sPlayerId = 0;
 }
 
 Message::~Message() {
@@ -41,7 +41,7 @@ Message::~Message() {
 void Message::messageToNetwork(QByteArray &qbaOut) {
 	QDataStream qdsOut(&qbaOut, QIODevice::WriteOnly);
 	qdsOut << ((unsigned char) messageType());
-	qdsOut << ((unsigned char) m_sPlayerId);
+	qdsOut << ((unsigned char) sPlayerId);
 	saveStream(qdsOut);
 }
 
@@ -87,7 +87,7 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
 	if (mMsg) {
-		mMsg->m_sPlayerId=sPlayerId;
+		mMsg->sPlayerId=sPlayerId;
 		mMsg->restoreStream(qdsIn);
 		if (qdsIn.status() != QDataStream::Ok) {
 			delete mMsg;
@@ -119,124 +119,124 @@ void Message::restoreStream(QDataStream &) {
 
 
 MessageServerAuthenticate::MessageServerAuthenticate() {
-	m_iVersion = MESSAGE_STREAM_VERSION;
+	iVersion = MESSAGE_STREAM_VERSION;
 }
 
 void MessageServerAuthenticate::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_iVersion;
-	qdsOut << m_qsUsername;
-	qdsOut << m_qsPassword;
+	qdsOut << iVersion;
+	qdsOut << qsUsername;
+	qdsOut << qsPassword;
 }
 
 void MessageServerAuthenticate::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_iVersion;
-	qdsIn >> m_qsUsername;
-	qdsIn >> m_qsPassword;
+	qdsIn >> iVersion;
+	qdsIn >> qsUsername;
+	qdsIn >> qsPassword;
 }
 
 
 MessageServerReject::MessageServerReject() {
-	m_qsReason = QString();
+	qsReason = QString();
 }
 
 void MessageServerReject::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_qsReason;
+	qdsOut << qsReason;
 }
 
 void MessageServerReject::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_qsReason;
+	qdsIn >> qsReason;
 }
 
 
 MessageServerJoin::MessageServerJoin() {
-	m_qsPlayerName = QString();
+	qsPlayerName = QString();
 }
 
 void MessageServerJoin::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_qsPlayerName;
+	qdsOut << qsPlayerName;
 }
 
 void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_qsPlayerName;
+	qdsIn >> qsPlayerName;
 }
 
 MessageSpeex::MessageSpeex() {
-	m_qbaSpeexPacket = QByteArray();
+	qbaSpeexPacket = QByteArray();
 }
 
 void MessageSpeex::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_iSeq;
+	qdsOut << iSeq;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
-	qbBuffer->buffer().append(m_qbaSpeexPacket);
+	qbBuffer->buffer().append(qbaSpeexPacket);
 }
 
 void MessageSpeex::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_iSeq;
+	qdsIn >> iSeq;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
-	m_qbaSpeexPacket = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
+	qbaSpeexPacket = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
 	qbBuffer->seek(qbBuffer->size());
 }
 
 bool MessageSpeex::isValid() {
-	return ! m_qbaSpeexPacket.isEmpty();
+	return ! qbaSpeexPacket.isEmpty();
 }
 
 
 MessagePlayerMute::MessagePlayerMute() {
-	m_bMute = false;
+	bMute = false;
 }
 
 void MessagePlayerMute::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_sVictim;
-	qdsOut << m_bMute;
+	qdsOut << sVictim;
+	qdsOut << bMute;
 }
 
 void MessagePlayerMute::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_sVictim;
-	qdsIn >> m_bMute;
+	qdsIn >> sVictim;
+	qdsIn >> bMute;
 }
 
 
 MessagePlayerDeaf::MessagePlayerDeaf() {
-	m_bDeaf = false;
+	bDeaf = false;
 }
 
 void MessagePlayerDeaf::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_sVictim;
-	qdsOut << m_bDeaf;
+	qdsOut << sVictim;
+	qdsOut << bDeaf;
 }
 
 void MessagePlayerDeaf::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_sVictim;
-	qdsIn >> m_bDeaf;
+	qdsIn >> sVictim;
+	qdsIn >> bDeaf;
 }
 
 MessagePlayerKick::MessagePlayerKick() {
-	m_qsReason = QString();
+	qsReason = QString();
 }
 
 void MessagePlayerKick::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_sVictim;
-	qdsOut << m_qsReason;
+	qdsOut << sVictim;
+	qdsOut << qsReason;
 }
 
 void MessagePlayerKick::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_sVictim;
-	qdsIn >> m_qsReason;
+	qdsIn >> sVictim;
+	qdsIn >> qsReason;
 }
 
 MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
-	m_bMute = false;
-	m_bDeaf = false;
+	bMute = false;
+	bDeaf = false;
 }
 
 void MessagePlayerSelfMuteDeaf::saveStream(QDataStream &qdsOut) {
-	qdsOut << m_bMute;
-	qdsOut << m_bDeaf;
+	qdsOut << bMute;
+	qdsOut << bDeaf;
 }
 
 void MessagePlayerSelfMuteDeaf::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> m_bMute;
-	qdsIn >> m_bDeaf;
+	qdsIn >> bMute;
+	qdsIn >> bDeaf;
 }
 

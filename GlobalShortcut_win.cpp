@@ -56,12 +56,12 @@ GlobalShortcutWin::GlobalShortcutWin() {
 
     HRESULT hr;
 
-    ZeroMemory( &m_diafGame, sizeof(DIACTIONFORMAT) );
+    ZeroMemory( &diafGame, sizeof(DIACTIONFORMAT) );
 
-    m_pDI = NULL;
-    m_diaActions = NULL;
+    pDI = NULL;
+    diaActions = NULL;
 
-    if(FAILED( hr = DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&m_pDI, NULL)))
+    if(FAILED( hr = DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&pDI, NULL)))
     {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
         return;
@@ -75,60 +75,60 @@ GlobalShortcutWin::GlobalShortcutWin() {
 }
 
 void GlobalShortcutWin::add(GlobalShortcut *gs) {
-	m_qmShortcuts[gs->idx] = gs;
-	m_bNeedRemap = true;
+	qmShortcuts[gs->idx] = gs;
+	bNeedRemap = true;
 }
 
 void GlobalShortcutWin::remove(GlobalShortcut *gs) {
-	m_qmShortcuts.remove(gs->idx);
-	m_bNeedRemap = true;
+	qmShortcuts.remove(gs->idx);
+	bNeedRemap = true;
 }
 
 void GlobalShortcutWin::remap() {
 	HRESULT hr;
 
-   	m_bNeedRemap = false;
+   	bNeedRemap = false;
 
 	unacquire();
-	for(int i=0;i<m_qlDevices.size();i++)
-		m_qlDevices[i]->Release();
-	m_qlDevices.clear();
+	for(int i=0;i<qlDevices.size();i++)
+		qlDevices[i]->Release();
+	qlDevices.clear();
 
-	if (m_qmShortcuts.isEmpty())
+	if (qmShortcuts.isEmpty())
 		return;
 
-	if (m_diaActions)
-		delete [] m_diaActions;
+	if (diaActions)
+		delete [] diaActions;
 
-	m_diaActions = new DIACTION[m_qmShortcuts.count()];
+	diaActions = new DIACTION[qmShortcuts.count()];
 
 	int cnt = 0;
-	QMapIterator<int, GlobalShortcut *> i(m_qmShortcuts);
+	QMapIterator<int, GlobalShortcut *> i(qmShortcuts);
 	while (i.hasNext()) {
 		i.next();
 		GlobalShortcut *gs = i.value();
-		memset(&m_diaActions[cnt], 0, sizeof(DIACTION));
-		m_diaActions[cnt].uAppData = gs->idx;
-		m_diaActions[cnt].dwSemantic = DIBUTTON_ANY(gs->idx);
-		m_diaActions[cnt].lptszActionName = (const wchar_t *) gs->name.utf16();
+		memset(&diaActions[cnt], 0, sizeof(DIACTION));
+		diaActions[cnt].uAppData = gs->idx;
+		diaActions[cnt].dwSemantic = DIBUTTON_ANY(gs->idx);
+		diaActions[cnt].lptszActionName = (const wchar_t *) gs->name.utf16();
 
 		cnt++;
 	}
 
-    ZeroMemory( &m_diafGame, sizeof(DIACTIONFORMAT) );
-    m_diafGame.dwSize          = sizeof(DIACTIONFORMAT);
-    m_diafGame.dwActionSize    = sizeof(DIACTION);
-    m_diafGame.dwDataSize      = m_qmShortcuts.count() * sizeof(DWORD);
-    m_diafGame.guidActionMap   = g_guidApp;
-    m_diafGame.dwGenre         = DIVIRTUAL_REMOTE_CONTROL;
-    m_diafGame.dwNumActions    = m_qmShortcuts.count();
-    m_diafGame.rgoAction       = m_diaActions;
-    m_diafGame.lAxisMin        = -100;
-    m_diafGame.lAxisMax        = 100;
-    m_diafGame.dwBufferSize    = DX_SAMPLE_BUFFER_SIZE;
-    wcscpy( m_diafGame.tszActionMap, (const wchar_t *) QString("Mumble").utf16() );
+    ZeroMemory( &diafGame, sizeof(DIACTIONFORMAT) );
+    diafGame.dwSize          = sizeof(DIACTIONFORMAT);
+    diafGame.dwActionSize    = sizeof(DIACTION);
+    diafGame.dwDataSize      = qmShortcuts.count() * sizeof(DWORD);
+    diafGame.guidActionMap   = g_guidApp;
+    diafGame.dwGenre         = DIVIRTUAL_REMOTE_CONTROL;
+    diafGame.dwNumActions    = qmShortcuts.count();
+    diafGame.rgoAction       = diaActions;
+    diafGame.lAxisMin        = -100;
+    diafGame.lAxisMax        = 100;
+    diafGame.dwBufferSize    = DX_SAMPLE_BUFFER_SIZE;
+    wcscpy( diafGame.tszActionMap, (const wchar_t *) QString("Mumble").utf16() );
 
-	hr=m_pDI->EnumDevicesBySemantics((wchar_t *)qsUsername.utf16(), &m_diafGame, EnumSuitableDevicesCB, this, 0L);
+	hr=pDI->EnumDevicesBySemantics((wchar_t *)qsUsername.utf16(), &diafGame, EnumSuitableDevicesCB, this, 0L);
 	if (FAILED(hr))
 		qWarning("GlobalShortcutWin: EnumDevicesBySemantics failed 0x%08lx", hr);
 }
@@ -142,20 +142,20 @@ BOOL GlobalShortcutWin::EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPDIREC
 
 	pdidDevice->SetCooperativeLevel( g_mwMainWindow->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND );
 
-    hr = pdidDevice->BuildActionMap( &gsw->m_diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
+    hr = pdidDevice->BuildActionMap( &gsw->diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
     if( FAILED(hr) ) {
 		qWarning("GlobalShortcutWin: Failed BuildActionMap: 0x%08lx", hr);
 	}
 
     // Set the action map for the current device
-    hr = pdidDevice->SetActionMap( &gsw->m_diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
+    hr = pdidDevice->SetActionMap( &gsw->diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
     if( FAILED(hr) ) {
 		qWarning("GlobalShortcutWin: Failed SetActionMap: 0x%08lx", hr);
 	}
 
 	pdidDevice->AddRef();
 
-	gsw->m_qlDevices.append(pdidDevice);
+	gsw->qlDevices.append(pdidDevice);
 
     return DIENUM_CONTINUE;
 }
@@ -176,7 +176,7 @@ void GlobalShortcutWin::configure()
     ZeroMemory(&dicdp, sizeof(dicdp));
     dicdp.dwSize = sizeof(dicdp);
     dicdp.dwcFormats     = 1;
-    dicdp.lprgFormats    = &m_diafGame;
+    dicdp.lprgFormats    = &diafGame;
     dicdp.hwnd           = g_mwMainWindow->winId();
     dicdp.lpUnkDDSTarget = NULL;
     dicdp.dwcUsers       = 1;
@@ -184,7 +184,7 @@ void GlobalShortcutWin::configure()
 
 	unacquire();
 
-    hr = m_pDI->ConfigureDevices( NULL, &dicdp, DICD_EDIT, NULL );
+    hr = pDI->ConfigureDevices( NULL, &dicdp, DICD_EDIT, NULL );
     if( FAILED(hr) ) {
 		qWarning("GlobalShortcutWin: ConfigureDevices failed 0x%08lx", hr);
 		return;
@@ -196,39 +196,39 @@ void GlobalShortcutWin::configure()
 
 GlobalShortcutWin::~GlobalShortcutWin() {
 	unacquire();
-	for(int i=0;i<m_qlDevices.size();i++)
-		m_qlDevices[i]->Release();
-	m_qlDevices.clear();
+	for(int i=0;i<qlDevices.size();i++)
+		qlDevices[i]->Release();
+	qlDevices.clear();
 
-	m_pDI->Release();
+	pDI->Release();
 }
 
 void GlobalShortcutWin::unacquire() {
-	for(int i=0;i<m_qlDevices.size();i++)
-		m_qlDevices[i]->Unacquire();
+	for(int i=0;i<qlDevices.size();i++)
+		qlDevices[i]->Unacquire();
 }
 
 void GlobalShortcutWin::timeTicked() {
-    if (m_bNeedRemap)
+    if (bNeedRemap)
     	remap();
 
-	for(int i=0;i<m_qlDevices.size();i++) {
+	for(int i=0;i<qlDevices.size();i++) {
         DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
         DWORD   dwItems = DX_SAMPLE_BUFFER_SIZE;
         HRESULT hr;
 
-        m_qlDevices[i]->Acquire();
-        m_qlDevices[i]->Poll();
+        qlDevices[i]->Acquire();
+        qlDevices[i]->Poll();
 
-        hr = m_qlDevices[i]->GetDeviceData( sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0 );
+        hr = qlDevices[i]->GetDeviceData( sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0 );
         if( FAILED(hr) )
             continue;
 
         for( DWORD j=0; j<dwItems; j++ )
         {
             bool  bButtonDown = (rgdod[j].dwData==0x80) ? true : false;
-            if (m_qmShortcuts.contains(rgdod[j].uAppData)) {
-				GlobalShortcut *gs = m_qmShortcuts[rgdod[j].uAppData];
+            if (qmShortcuts.contains(rgdod[j].uAppData)) {
+				GlobalShortcut *gs = qmShortcuts[rgdod[j].uAppData];
 				emit gs->triggered(bButtonDown);
 				if (bButtonDown)
 					emit gs->down();

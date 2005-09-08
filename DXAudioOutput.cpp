@@ -88,7 +88,7 @@ DXAudioOutput::DXAudioOutput() {
 
 	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
 
-	m_bRunning = true;
+	bRunning = true;
 }
 
 DXAudioOutput::~DXAudioOutput() {
@@ -124,7 +124,7 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *aoOutput, short sId) : Aud
     dsbd.dwSize          = sizeof(DSBUFFERDESC);
     dsbd.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2;
 	dsbd.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
-   	dsbd.dwBufferBytes = m_iFrameSize * 2 * NBLOCKS;
+   	dsbd.dwBufferBytes = iFrameSize * 2 * NBLOCKS;
     dsbd.lpwfxFormat     = &wfx;
 
     // Create the DirectSound buffer
@@ -136,7 +136,7 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *aoOutput, short sId) : Aud
 	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 
 	for(int i=0;i<NBLOCKS;i++) {
-		aPosNotify[i].dwOffset = m_iFrameSize * 2 * i;
+		aPosNotify[i].dwOffset = iFrameSize * 2 * i;
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
@@ -190,11 +190,11 @@ void DXAudioOutputPlayer::run() {
 
 	bRunning = true;
 
-	while (bRunning && dxAudio->m_bRunning) {
+	while (bRunning && dxAudio->bRunning) {
 		if( FAILED( hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition ) ) )
 				qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
-		playblock = dwWritePosition / m_iByteSize;
+		playblock = dwWritePosition / iByteSize;
 		nowriteblock = (playblock + iAudioDecodeLag) % NBLOCKS;
 
 		for(int block=(lastwriteblock + 1) % NBLOCKS;block!=nowriteblock;block=(block + 1) % NBLOCKS) {
@@ -205,19 +205,19 @@ void DXAudioOutputPlayer::run() {
 		    LPVOID aptr1, aptr2;
 		    DWORD nbytes1, nbytes2;
 
-		    if (FAILED( hr = pDSBOutput->Lock(block * m_iByteSize, m_iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
-		    	qFatal("DXAudioOutput: Lock block %d (%d bytes)",block, m_iByteSize);
+		    if (FAILED( hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
+		    	qFatal("DXAudioOutput: Lock block %d (%d bytes)",block, iByteSize);
 			if (aptr1 && nbytes1)
-				CopyMemory(aptr1, m_psBuffer, MIN(m_iByteSize, (int) nbytes1));
+				CopyMemory(aptr1, psBuffer, MIN(iByteSize, (int) nbytes1));
 			if (aptr2 && nbytes2)
-				CopyMemory(aptr2, m_psBuffer+(nbytes1/2), MIN(m_iByteSize-nbytes1, nbytes2));
+				CopyMemory(aptr2, psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
 		    if (FAILED( hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
 		    	qFatal("DXAudioOutput: Unlock");
 
 			if( FAILED( hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition ) ) )
 				qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
-			playblock = dwWritePosition / m_iByteSize;
+			playblock = dwWritePosition / iByteSize;
 			nowriteblock = (playblock + iAudioDecodeLag) % NBLOCKS;
 		}
 		WaitForSingleObject(hNotificationEvent, INFINITE);

@@ -45,7 +45,7 @@ class Message {
 	public:
 		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf };
 
-		short m_sPlayerId;
+		short sPlayerId;
 
 		Message();
 		virtual ~Message();
@@ -62,8 +62,8 @@ class MessageSpeex : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		int m_iSeq;
-		QByteArray m_qbaSpeexPacket;
+		int iSeq;
+		QByteArray qbaSpeexPacket;
 		MessageSpeex();
 		Message::MessageType messageType() { return Speex; };
 		void process(Connection *);
@@ -76,9 +76,9 @@ class MessageServerAuthenticate : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		int	m_iVersion;
-		QString m_qsUsername;
-		QString m_qsPassword;
+		int	iVersion;
+		QString qsUsername;
+		QString qsPassword;
 		MessageServerAuthenticate();
 		Message::MessageType messageType() { return ServerAuthenticate; };
 		void process(Connection *);
@@ -89,7 +89,7 @@ class MessageServerReject : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		QString m_qsReason;
+		QString qsReason;
 		MessageServerReject();
 		Message::MessageType messageType() { return ServerReject; };
 		void process(Connection *);
@@ -106,7 +106,7 @@ class MessageServerJoin : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		QString m_qsPlayerName;
+		QString qsPlayerName;
 		MessageServerJoin();
 		Message::MessageType messageType() { return ServerJoin; };
 		void process(Connection *);
@@ -123,8 +123,8 @@ class MessagePlayerMute : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		short m_sVictim;
-		bool m_bMute;
+		short sVictim;
+		bool bMute;
 		MessagePlayerMute();
 		Message::MessageType messageType() { return PlayerMute; };
 		void process(Connection *);
@@ -135,8 +135,8 @@ class MessagePlayerDeaf : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		short m_sVictim;
-		bool m_bDeaf;
+		short sVictim;
+		bool bDeaf;
 		MessagePlayerDeaf();
 		Message::MessageType messageType() { return PlayerDeaf; };
 		void process(Connection *);
@@ -147,8 +147,8 @@ class MessagePlayerSelfMuteDeaf : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		bool m_bMute;
-		bool m_bDeaf;
+		bool bMute;
+		bool bDeaf;
 		MessagePlayerSelfMuteDeaf();
 		Message::MessageType messageType() { return PlayerSelfMuteDeaf; };
 		void process(Connection *);
@@ -159,8 +159,8 @@ class MessagePlayerKick : public Message {
 		void saveStream(QDataStream &);
 		void restoreStream(QDataStream &);
 	public:
-		short m_sVictim;
-		QString m_qsReason;
+		short sVictim;
+		QString qsReason;
 		MessagePlayerKick();
 		Message::MessageType messageType() { return PlayerKick; };
 		void process(Connection *);

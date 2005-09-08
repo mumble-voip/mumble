@@ -48,10 +48,10 @@ DXAudioInput::DXAudioInput() {
     DSCBUFFERDESC dscbd;
     DSBPOSITIONNOTIFY    aPosNotify[ NBUFFBLOCKS ];
 
-	m_hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
+	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 
     // Create IDirectSoundCapture using the preferred capture device
-    if( FAILED( hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &m_pDSCapture, NULL ) ) )
+    if( FAILED( hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &pDSCapture, NULL ) ) )
     	qFatal("DXAudioInput: DirectSoundCaptureCreate");
 
 	ZeroMemory( &wfx, sizeof(wfx) );
@@ -60,7 +60,7 @@ DXAudioInput::DXAudioInput() {
 	ZeroMemory( &dscbd, sizeof(dscbd) );
     dscbd.dwSize = sizeof(dscbd);
 
-    dscbd.dwBufferBytes = m_dwBufferSize = m_iByteSize * NBUFFBLOCKS;
+    dscbd.dwBufferBytes = dwBufferSize = iByteSize * NBUFFBLOCKS;
     dscbd.lpwfxFormat = &wfx;
 
     wfx.nChannels = 1;
@@ -69,40 +69,40 @@ DXAudioInput::DXAudioInput() {
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
     wfx.wBitsPerSample = 16;
 
-	if( FAILED( hr = m_pDSCapture->CreateCaptureBuffer( &dscbd, &m_pDSCaptureBuffer, NULL ) ) )
+	if( FAILED( hr = pDSCapture->CreateCaptureBuffer( &dscbd, &pDSCaptureBuffer, NULL ) ) )
 		qFatal("DXAudioInput: CreateCaptureBuffer");
 
-	if( FAILED( hr = m_pDSCaptureBuffer->QueryInterface( IID_IDirectSoundNotify, (VOID**)&m_pDSNotify ) ) )
+	if( FAILED( hr = pDSCaptureBuffer->QueryInterface( IID_IDirectSoundNotify, (VOID**)&pDSNotify ) ) )
 		qFatal("DXAudioInput: QueryInterface (Notify)");
 
 
     // Setup the notification positions
     for( int i = 0; i < NBUFFBLOCKS; i++ )
     {
-        aPosNotify[i].dwOffset = (m_iByteSize * (i+1)) -1;
-        aPosNotify[i].hEventNotify = m_hNotificationEvent;
+        aPosNotify[i].dwOffset = (iByteSize * (i+1)) -1;
+        aPosNotify[i].hEventNotify = hNotificationEvent;
     }
 
     // Tell DirectSound when to notify us. the notification will come in the from
     // of signaled events that are handled in WinMain()
-    if( FAILED( hr = m_pDSNotify->SetNotificationPositions( NBUFFBLOCKS, aPosNotify ) ) )
+    if( FAILED( hr = pDSNotify->SetNotificationPositions( NBUFFBLOCKS, aPosNotify ) ) )
     	qFatal("DXAudioInput: SetNotificationPositions");
 
 	qWarning("DXAudioInput: Initialized");
 }
 
 DXAudioInput::~DXAudioInput() {
-	m_bRunning = false;
+	bRunning = false;
 	wait();
 
-	if (m_pDSNotify)
-		m_pDSNotify->Release();
-	if (m_pDSCaptureBuffer)
-		m_pDSCaptureBuffer->Release();
-	if (m_pDSCapture)
-		m_pDSCapture->Release();
+	if (pDSNotify)
+		pDSNotify->Release();
+	if (pDSCaptureBuffer)
+		pDSCaptureBuffer->Release();
+	if (pDSCapture)
+		pDSCapture->Release();
 
-	CloseHandle(m_hNotificationEvent);
+	CloseHandle(hNotificationEvent);
 }
 
 void DXAudioInput::run() {
@@ -115,42 +115,42 @@ void DXAudioInput::run() {
     LPVOID aptr1, aptr2;
   	DWORD nbytes1, nbytes2;
 
-	if( FAILED( hr = m_pDSCaptureBuffer->Start( DSCBSTART_LOOPING ) ) )
+	if( FAILED( hr = pDSCaptureBuffer->Start( DSCBSTART_LOOPING ) ) )
 		qFatal("DXAudioInput: Start");
 
-	m_bRunning = true;
+	bRunning = true;
 
-	while (m_bRunning) {
+	while (bRunning) {
 
 		do {
-			if( FAILED( hr = m_pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition ) ) )
+			if( FAILED( hr = pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition ) ) )
 				qFatal("DXAudioInput: GetCurrentPosition");
 			if (dwReadPosition < dwLastReadPos)
-				dwReadyBytes = (m_dwBufferSize - dwLastReadPos) + dwReadPosition;
+				dwReadyBytes = (dwBufferSize - dwLastReadPos) + dwReadPosition;
 			else
 				dwReadyBytes = dwReadPosition - dwLastReadPos;
 
-			if ((int) dwReadyBytes < m_iByteSize) {
-				WaitForSingleObject(m_hNotificationEvent, INFINITE);
+			if ((int) dwReadyBytes < iByteSize) {
+				WaitForSingleObject(hNotificationEvent, INFINITE);
 			}
-		} while ((int)dwReadyBytes < m_iByteSize);
+		} while ((int)dwReadyBytes < iByteSize);
 
-    	if (FAILED( hr = m_pDSCaptureBuffer->Lock(dwLastReadPos, m_iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
-    		qFatal("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, m_iByteSize);
+    	if (FAILED( hr = pDSCaptureBuffer->Lock(dwLastReadPos, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
+    		qFatal("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, iByteSize);
 
     	if (aptr1 && nbytes1)
-    		CopyMemory(m_psMic, aptr1, nbytes1);
+    		CopyMemory(psMic, aptr1, nbytes1);
 
     	if (aptr2 && nbytes2)
-    		CopyMemory(m_psMic+nbytes1/2, aptr2, nbytes2);
+    		CopyMemory(psMic+nbytes1/2, aptr2, nbytes2);
 
-    	if (FAILED( hr = m_pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
+    	if (FAILED( hr = pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
     		qFatal("DXAudioInput: Unlock");
 
-		dwLastReadPos = (dwLastReadPos + m_iByteSize) % m_dwBufferSize;
+		dwLastReadPos = (dwLastReadPos + iByteSize) % dwBufferSize;
 
 		encodeAudioFrame();
 	}
 
-	m_pDSCaptureBuffer->Stop();
+	pDSCaptureBuffer->Stop();
 }

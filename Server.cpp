@@ -40,54 +40,54 @@ ServerParams::ServerParams() {
 }
 
 Server::Server() {
-	m_qtsServer = new QTcpServer(this);
+	qtsServer = new QTcpServer(this);
 
-	connect(m_qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()));
+	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()));
 
-	if (! m_qtsServer->listen(QHostAddress::Any, g_sp.iPort))
+	if (! qtsServer->listen(QHostAddress::Any, g_sp.iPort))
 		qFatal("Server: Listen failed");
 
 	for(int i=1;i<255;i++)
-		m_qqIds.enqueue(i);
+		qqIds.enqueue(i);
 }
 
 void Server::newClient() {
-	Connection *cCon = new Connection(this, m_qtsServer->nextPendingConnection());
+	Connection *cCon = new Connection(this, qtsServer->nextPendingConnection());
 
 	short id;
 
-	if (m_qqIds.isEmpty()) {
+	if (qqIds.isEmpty()) {
 		cCon->disconnect();
 		return;
 	}
 
-	id=m_qqIds.dequeue();
+	id=qqIds.dequeue();
 
 	Player *pPlayer = Player::add(id);
-	m_qmPlayers[cCon] = pPlayer;
-	m_qmConnections[id] = cCon;
+	qmPlayers[cCon] = pPlayer;
+	qmConnections[id] = cCon;
 
 	connect(cCon, SIGNAL(connectionClosed(Connection *, QString)), this, SLOT(connectionClosed(Connection *, QString)));
 	connect(cCon, SIGNAL(message(QByteArray &, Connection *)), this, SLOT(message(QByteArray &, Connection *)));
 }
 
 void Server::connectionClosed(Connection *c, QString reason) {
-	Player *pPlayer = m_qmPlayers.value(c);
+	Player *pPlayer = qmPlayers.value(c);
 
-	if (pPlayer->m_sState == Player::Authenticated) {
+	if (pPlayer->sState == Player::Authenticated) {
 		MessageServerLeave mslMsg;
-		mslMsg.m_sPlayerId=pPlayer->m_sId;
+		mslMsg.sPlayerId=pPlayer->sId;
 		sendExcept(&mslMsg, c);
 	}
 
-	m_qmConnections.remove(pPlayer->m_sId);
-	m_qmPlayers.remove(c);
+	qmConnections.remove(pPlayer->sId);
+	qmPlayers.remove(c);
 
 	qWarning("Connection closed: %s", reason.toLatin1().constData());
 
 	Player::remove(pPlayer);
 
-	m_qqIds.enqueue(pPlayer->m_sId);
+	qqIds.enqueue(pPlayer->sId);
 
 	delete pPlayer;
 	c->deleteLater();
@@ -98,7 +98,7 @@ void Server::message(QByteArray &qbaMsg, Connection *cCon) {
 
 	  // Just leftovers from the buffer and we just kicked
 	  // the user off.
-	  if (! m_qmPlayers.contains(cCon))
+	  if (! qmPlayers.contains(cCon))
 	  	return;
 
 	  if (mMsg) {
@@ -113,7 +113,7 @@ void Server::sendAll(Message *mMsg) {
 }
 
 void Server::sendExcept(Message *mMsg, Connection *cCon) {
-	QMapIterator<Connection *, Player *> iPlayers(m_qmPlayers);
+	QMapIterator<Connection *, Player *> iPlayers(qmPlayers);
 	while (iPlayers.hasNext()) {
 		iPlayers.next();
 		if (iPlayers.key() != cCon)
@@ -122,40 +122,40 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 }
 
 #define MSG_SETUP(st) \
-	Player *pSrcPlayer = g_sServer->m_qmPlayers[cCon]; \
-	m_sPlayerId = pSrcPlayer->m_sId; \
-	if (pSrcPlayer->m_sState != st) \
+	Player *pSrcPlayer = g_sServer->qmPlayers[cCon]; \
+	sPlayerId = pSrcPlayer->sId; \
+	if (pSrcPlayer->sState != st) \
 		return
 
 #define VICTIM_SETUP \
-	Player *pDstPlayer = Player::get(m_sVictim); \
+	Player *pDstPlayer = Player::get(sVictim); \
 	Q_UNUSED(pDstPlayer) \
 	Connection *cDst = NULL; \
 	Q_UNUSED(cDst) \
-	if (g_sServer->m_qmConnections.contains(m_sVictim)) \
-		cDst = g_sServer->m_qmConnections[m_sVictim];
+	if (g_sServer->qmConnections.contains(sVictim)) \
+		cDst = g_sServer->qmConnections[sVictim];
 
 void MessageServerAuthenticate::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
 
-	pSrcPlayer->m_qsName = m_qsUsername;
+	pSrcPlayer->qsName = qsUsername;
 
 	MessageServerReject msr;
 	bool ok = false;
 
-	bool nameok = ! m_qsUsername.isEmpty();
-	for(int i=0;i<m_qsUsername.length();i++) {
-		QChar c=m_qsUsername[i];
+	bool nameok = ! qsUsername.isEmpty();
+	for(int i=0;i<qsUsername.length();i++) {
+		QChar c=qsUsername[i];
 		if (! c.isLetterOrNumber() && (c != ' '))
 			ok = false;
 	}
 
-	if (m_iVersion != MESSAGE_STREAM_VERSION) {
-	  msr.m_qsReason = "Wrong version of mumble protocol";
-	} else if (! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != m_qsPassword) {
-	  msr.m_qsReason = "Invalid Password";
+	if (iVersion != MESSAGE_STREAM_VERSION) {
+	  msr.qsReason = "Wrong version of mumble protocol";
+	} else if (! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != qsPassword) {
+	  msr.qsReason = "Invalid Password";
 	} else if (! nameok) {
-	  msr.m_qsReason = "Invalid Username";
+	  msr.qsReason = "Invalid Username";
 	} else {
 	  ok = true;
 	}
@@ -163,49 +163,49 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	if (! ok) {
 	  cCon->sendMessage(&msr);
 	  cCon->disconnect();
-  	  qWarning("Player %d:%s rejected (%s)", pSrcPlayer->m_sId, m_qsUsername.toLatin1().constData(), msr.m_qsReason.toLatin1().constData());
+  	  qWarning("Player %d:%s rejected (%s)", pSrcPlayer->sId, qsUsername.toLatin1().constData(), msr.qsReason.toLatin1().constData());
 	  return;
 	}
 
 	MessageServerJoin msjMsg;
 
-	pSrcPlayer->m_sState = Player::Authenticated;
-	msjMsg.m_sPlayerId = pSrcPlayer->m_sId;
-	msjMsg.m_qsPlayerName = pSrcPlayer->m_qsName;
+	pSrcPlayer->sState = Player::Authenticated;
+	msjMsg.sPlayerId = pSrcPlayer->sId;
+	msjMsg.qsPlayerName = pSrcPlayer->qsName;
 	g_sServer->sendExcept(&msjMsg, cCon);
 
-	QMapIterator<Connection *, Player *> iPlayers(g_sServer->m_qmPlayers);
+	QMapIterator<Connection *, Player *> iPlayers(g_sServer->qmPlayers);
 	while (iPlayers.hasNext()) {
 		iPlayers.next();
 		Player *pPlayer = iPlayers.value();
-		msjMsg.m_sPlayerId = pPlayer->m_sId;
-		msjMsg.m_qsPlayerName = pPlayer->m_qsName;
+		msjMsg.sPlayerId = pPlayer->sId;
+		msjMsg.qsPlayerName = pPlayer->qsName;
 		cCon->sendMessage(&msjMsg);
 
-		if (pPlayer->m_bMute) {
+		if (pPlayer->bMute) {
 			MessagePlayerMute mpmMsg;
-			mpmMsg.m_sPlayerId = pPlayer->m_sId;
-			mpmMsg.m_bMute = pPlayer->m_bMute;
+			mpmMsg.sPlayerId = pPlayer->sId;
+			mpmMsg.bMute = pPlayer->bMute;
 			cCon->sendMessage(&mpmMsg);
 		}
-		if (pPlayer->m_bDeaf) {
+		if (pPlayer->bDeaf) {
 			MessagePlayerDeaf mpdMsg;
-			mpdMsg.m_sPlayerId = pPlayer->m_sId;
-			mpdMsg.m_bDeaf = pPlayer->m_bDeaf;
+			mpdMsg.sPlayerId = pPlayer->sId;
+			mpdMsg.bDeaf = pPlayer->bDeaf;
 			cCon->sendMessage(&mpdMsg);
 		}
-		if (pPlayer->m_bSelfDeaf || pPlayer->m_bSelfMute) {
+		if (pPlayer->bSelfDeaf || pPlayer->bSelfMute) {
 			MessagePlayerSelfMuteDeaf mpsmdMsg;
-			mpsmdMsg.m_sPlayerId = pPlayer->m_sId;
-			mpsmdMsg.m_bDeaf = pPlayer->m_bSelfDeaf;
-			mpsmdMsg.m_bMute = pPlayer->m_bSelfMute;
+			mpsmdMsg.sPlayerId = pPlayer->sId;
+			mpsmdMsg.bDeaf = pPlayer->bSelfDeaf;
+			mpsmdMsg.bMute = pPlayer->bSelfMute;
 			cCon->sendMessage(&mpsmdMsg);
 		}
 	}
 	MessageServerSync mssMsg;
-	mssMsg.m_sPlayerId = pSrcPlayer->m_sId;
+	mssMsg.sPlayerId = pSrcPlayer->sId;
 	cCon->sendMessage(&mssMsg);
-	qWarning("Player %d:%s joined", pSrcPlayer->m_sId, m_qsUsername.toLatin1().constData());
+	qWarning("Player %d:%s joined", pSrcPlayer->sId, qsUsername.toLatin1().constData());
 }
 
 void MessageServerLeave::process(Connection *cCon) {
@@ -227,14 +227,14 @@ void MessageServerSync::process(Connection *cCon) {
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	if (pSrcPlayer->m_bMute)
+	if (pSrcPlayer->bMute)
 		return;
 
-	QMapIterator<Connection *, Player *> iPlayers(g_sServer->m_qmPlayers);
+	QMapIterator<Connection *, Player *> iPlayers(g_sServer->qmPlayers);
 	while (iPlayers.hasNext()) {
 		iPlayers.next();
 		Player *pPlayer = iPlayers.value();
-		if (! pPlayer->m_bDeaf && ! pPlayer->m_bSelfDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
+		if (! pPlayer->bDeaf && ! pPlayer->bSelfDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
 			iPlayers.key()->sendMessage(this);
 	}
 }
@@ -244,7 +244,7 @@ void MessagePlayerMute::process(Connection *cCon) {
 	VICTIM_SETUP;
 
 	if (pDstPlayer) {
-		pDstPlayer->m_bMute = m_bMute;
+		pDstPlayer->bMute = bMute;
 		g_sServer->sendAll(this);
 	}
 }
@@ -254,7 +254,7 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 	VICTIM_SETUP;
 
 	if (pDstPlayer) {
-		pDstPlayer->m_bDeaf = m_bDeaf;
+		pDstPlayer->bDeaf = bDeaf;
 		g_sServer->sendAll(this);
 	}
 }
@@ -263,7 +263,7 @@ void MessagePlayerKick::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	m_sPlayerId = pSrcPlayer->m_sId;
+	sPlayerId = pSrcPlayer->sId;
 	if (cDst) {
 		g_sServer->sendAll(this);
 		cDst->disconnect();
@@ -273,7 +273,7 @@ void MessagePlayerKick::process(Connection *cCon) {
 void MessagePlayerSelfMuteDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	pSrcPlayer->m_bSelfMute = m_bMute;
-	pSrcPlayer->m_bSelfDeaf = m_bDeaf;
+	pSrcPlayer->bSelfMute = bMute;
+	pSrcPlayer->bSelfDeaf = bDeaf;
 	g_sServer->sendAll(this);
 }

@@ -58,18 +58,18 @@ class AudioOutputRegistrar {
 class AudioOutputPlayer : public QObject {
 	Q_OBJECT
 	protected:
-		short m_sId;
+		short sId;
 
-		SpeexBits m_sbBits;
-		int	m_iFrameSize;
-		int m_iByteSize;
-		int m_iFrameCounter;
-		QMutex m_qmJitter;
-		SpeexJitter m_sjJitter;
-		void *m_dsDecState;
-		AudioOutput *m_aoOutput;
+		SpeexBits sbBits;
+		int	iFrameSize;
+		int iByteSize;
+		int iFrameCounter;
+		QMutex qmJitter;
+		SpeexJitter sjJitter;
+		void *dsDecState;
+		AudioOutput *aoOutput;
 
-		short *m_psBuffer;
+		short *psBuffer;
 
 		void decodeNextFrame();
 	public:
@@ -81,9 +81,9 @@ class AudioOutputPlayer : public QObject {
 class AudioOutput : public QObject {
 	Q_OBJECT
 	protected:
-		bool m_bRunning;
-		QMutex m_qmOutputMutex;
-		QMap<short, AudioOutputPlayer *> m_qmOutputs;
+		bool bRunning;
+		QMutex qmOutputMutex;
+		QMap<short, AudioOutputPlayer *> qmOutputs;
 		virtual AudioOutputPlayer *getPlayer(short) = 0;
 	public:
 		void wipe();

@@ -56,21 +56,21 @@ class AudioInputRegistrar {
 class AudioInput : public QThread {
 	Q_OBJECT
 	protected:
-		int	m_iFrameSize;
-		int m_iByteSize;
+		int	iFrameSize;
+		int iByteSize;
 
-		SpeexBits m_sbBits;
-		SpeexPreprocessState *m_sppPreprocess;
-		void *m_esEncState;
+		SpeexBits sbBits;
+		SpeexPreprocessState *sppPreprocess;
+		void *esEncState;
 
-		short *m_psMic;
+		short *psMic;
 		void encodeAudioFrame();
 
-		bool m_bRunning;
+		bool bRunning;
 
 		static int c_iFrameCounter;
 	public:
-		bool m_bResetProcessor;
+		bool bResetProcessor;
 
 		AudioInput();
 		~AudioInput();

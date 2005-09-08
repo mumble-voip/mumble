@@ -31,39 +31,39 @@
 #include "Connection.h"
 
 Connection::Connection(QObject *parent, QTcpSocket *qtsSock) : QObject(parent) {
-	m_qtsSocket = qtsSock;
-	m_iPacketLength = -1;
-	m_bDisconnectedEmitted = false;
-    connect(m_qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
-	connect(m_qtsSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(socketState(QAbstractSocket::SocketState)));
-    connect(m_qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
-    connect(m_qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+	qtsSocket = qtsSock;
+	iPacketLength = -1;
+	bDisconnectedEmitted = false;
+    connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
+	connect(qtsSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(socketState(QAbstractSocket::SocketState)));
+    connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
+    connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 }
 
 Connection::~Connection() {
-	m_qtsSocket->deleteLater();
+	qtsSocket->deleteLater();
 }
 
 void Connection::socketRead() {
   int iAvailable;
   while (1) {
-    iAvailable = m_qtsSocket->bytesAvailable();
+    iAvailable = qtsSocket->bytesAvailable();
 
-    if (m_iPacketLength == -1) {
+    if (iPacketLength == -1) {
       if (iAvailable < 2)
         return;
 
       unsigned char a_ucBuffer[2];
 
-	  m_qtsSocket->read((char *) a_ucBuffer, 2);
-      m_iPacketLength = ((a_ucBuffer[0] << 8) & 0xff00) + a_ucBuffer[1];
+	  qtsSocket->read((char *) a_ucBuffer, 2);
+      iPacketLength = ((a_ucBuffer[0] << 8) & 0xff00) + a_ucBuffer[1];
       iAvailable -= 2;
     }
 
-    if ((m_iPacketLength != -1) && (iAvailable >= m_iPacketLength)) {
-	  QByteArray qbaBuffer = m_qtsSocket->read(m_iPacketLength);
+    if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
+	  QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
 	  emit message(qbaBuffer, this);
-      m_iPacketLength = -1;
+      iPacketLength = -1;
     } else {
       return;
     }
@@ -71,19 +71,19 @@ void Connection::socketRead() {
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {
-	if (! m_bDisconnectedEmitted) {
-		m_bDisconnectedEmitted = true;
-		emit connectionClosed(this, m_qtsSocket->errorString());
+	if (! bDisconnectedEmitted) {
+		bDisconnectedEmitted = true;
+		emit connectionClosed(this, qtsSocket->errorString());
 	}
-	m_qtsSocket->disconnectFromHost();
+	qtsSocket->disconnectFromHost();
 }
 
 void Connection::socketState(QAbstractSocket::SocketState state) {
 }
 
 void Connection::socketDisconnected() {
-	if (! m_bDisconnectedEmitted) {
-		m_bDisconnectedEmitted = true;
+	if (! bDisconnectedEmitted) {
+		bDisconnectedEmitted = true;
 		emit connectionClosed(this, QString());
 	}
 }
@@ -98,15 +98,15 @@ void Connection::sendMessage(Message *mMsg) {
 void Connection::sendMessage(QByteArray &qbaMsg) {
 	unsigned char a_ucBuffer[2];
 
-	if (m_qtsSocket->state() != QAbstractSocket::ConnectedState)
+	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
 		return;
 
 	a_ucBuffer[0]=(qbaMsg.size() >> 8) & 0xff;
 	a_ucBuffer[1]=(qbaMsg.size() & 0xff);
-	m_qtsSocket->write((const char *) a_ucBuffer, 2);
-	m_qtsSocket->write(qbaMsg);
+	qtsSocket->write((const char *) a_ucBuffer, 2);
+	qtsSocket->write(qbaMsg);
 }
 
 void Connection::disconnect() {
-	m_qtsSocket->disconnectFromHost();
+	qtsSocket->disconnectFromHost();
 }

@@ -52,12 +52,12 @@ MainWindow *g_mwMainWindow;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setupGui();
 
-	m_sMyId = 0;
+	sMyId = 0;
 
 	connect(g_shServer, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g_shServer, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
 
-	m_tts=new TextToSpeech(this);
+	tts=new TextToSpeech(this);
 	recheckTTS();
 	log(tr("Welcome to Mumble."));
 
@@ -72,9 +72,9 @@ void MainWindow::setupGui()  {
 
 	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_RELEASE)));
 
-	m_qlwPlayers = new QListWidget(this);
-	m_qteLog = new QTextEdit(this);
-	m_qteLog->setReadOnly(true);
+	qlwPlayers = new QListWidget(this);
+	qteLog = new QTextEdit(this);
+	qteLog->setReadOnly(true);
 
 	qmServer = new QMenu(tr("&Server"), this);
 	qmPlayer = new QMenu(tr("&Player"), this);
@@ -86,49 +86,49 @@ void MainWindow::setupGui()  {
 	qmAudio->setObjectName("AudioMenu");
 	qmHelp->setObjectName("HelpMenu");
 
-	m_qaServerConnect=new QAction(tr("&Connect"), this);
-	m_qaServerDisconnect=new QAction(tr("&Disconnect"), this);
-	m_qaServerConnect->setObjectName("ServerConnect");
-	m_qaServerDisconnect->setObjectName("ServerDisconnect");
-	m_qaServerDisconnect->setEnabled(FALSE);
+	qaServerConnect=new QAction(tr("&Connect"), this);
+	qaServerDisconnect=new QAction(tr("&Disconnect"), this);
+	qaServerConnect->setObjectName("ServerConnect");
+	qaServerDisconnect->setObjectName("ServerDisconnect");
+	qaServerDisconnect->setEnabled(FALSE);
 
-	qmServer->addAction(m_qaServerConnect);
-	qmServer->addAction(m_qaServerDisconnect);
+	qmServer->addAction(qaServerConnect);
+	qmServer->addAction(qaServerDisconnect);
 
-	m_qaPlayerKick=new QAction(tr("&Kick"), this);
-	m_qaPlayerMute=new QAction(tr("&Mute"), this);
-	m_qaPlayerDeaf=new QAction(tr("&Deafen"), this);
-	m_qaPlayerKick->setObjectName("PlayerKick");
-	m_qaPlayerMute->setObjectName("PlayerMute");
-	m_qaPlayerDeaf->setObjectName("PlayerDeaf");
-	m_qaPlayerKick->setEnabled(FALSE);
-	m_qaPlayerMute->setCheckable(TRUE);
-	m_qaPlayerMute->setEnabled(FALSE);
-	m_qaPlayerDeaf->setCheckable(TRUE);
-	m_qaPlayerDeaf->setEnabled(FALSE);
+	qaPlayerKick=new QAction(tr("&Kick"), this);
+	qaPlayerMute=new QAction(tr("&Mute"), this);
+	qaPlayerDeaf=new QAction(tr("&Deafen"), this);
+	qaPlayerKick->setObjectName("PlayerKick");
+	qaPlayerMute->setObjectName("PlayerMute");
+	qaPlayerDeaf->setObjectName("PlayerDeaf");
+	qaPlayerKick->setEnabled(FALSE);
+	qaPlayerMute->setCheckable(TRUE);
+	qaPlayerMute->setEnabled(FALSE);
+	qaPlayerDeaf->setCheckable(TRUE);
+	qaPlayerDeaf->setEnabled(FALSE);
 
-	qmPlayer->addAction(m_qaPlayerKick);
-	qmPlayer->addAction(m_qaPlayerMute);
-	qmPlayer->addAction(m_qaPlayerDeaf);
+	qmPlayer->addAction(qaPlayerKick);
+	qmPlayer->addAction(qaPlayerMute);
+	qmPlayer->addAction(qaPlayerDeaf);
 
-	m_qaAudioReset=new QAction(tr("&Reset"), this);
-	m_qaAudioReset->setObjectName("AudioReset");
-	m_qaAudioMute=new QAction(tr("&Mute"), this);
-	m_qaAudioMute->setObjectName("AudioMute");
-	m_qaAudioDeaf=new QAction(tr("&Deaf"), this);
-	m_qaAudioDeaf->setObjectName("AudioDeaf");
-	m_qaAudioShortcuts=new QAction(tr("&Shortcuts"), this);
-	m_qaAudioShortcuts->setObjectName("AudioShortcuts");
-	m_qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
-	m_qaAudioTTS->setObjectName("AudioTextToSpeech");
-	m_qaAudioMute->setCheckable(true);
-	m_qaAudioDeaf->setCheckable(true);
-	m_qaAudioTTS->setCheckable(true);
+	qaAudioReset=new QAction(tr("&Reset"), this);
+	qaAudioReset->setObjectName("AudioReset");
+	qaAudioMute=new QAction(tr("&Mute"), this);
+	qaAudioMute->setObjectName("AudioMute");
+	qaAudioDeaf=new QAction(tr("&Deaf"), this);
+	qaAudioDeaf->setObjectName("AudioDeaf");
+	qaAudioShortcuts=new QAction(tr("&Shortcuts"), this);
+	qaAudioShortcuts->setObjectName("AudioShortcuts");
+	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
+	qaAudioTTS->setObjectName("AudioTextToSpeech");
+	qaAudioMute->setCheckable(true);
+	qaAudioDeaf->setCheckable(true);
+	qaAudioTTS->setCheckable(true);
 	g_s.bMute = qs.value("AudioMute", false). toBool();
 	g_s.bDeaf = qs.value("AudioDeaf", false). toBool();
-	m_qaAudioMute->setChecked(g_s.bMute);
-	m_qaAudioDeaf->setChecked(g_s.bDeaf);
-	m_qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
+	qaAudioMute->setChecked(g_s.bMute);
+	qaAudioDeaf->setChecked(g_s.bDeaf);
+	qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
 
 	g_s.atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
 	qag=new QActionGroup(this);
@@ -157,68 +157,68 @@ void MainWindow::setupGui()  {
 		qa->setChecked(true);
 	qm->addAction(qa);
 
-	qmAudio->addAction(m_qaAudioMute);
-	qmAudio->addAction(m_qaAudioDeaf);
+	qmAudio->addAction(qaAudioMute);
+	qmAudio->addAction(qaAudioDeaf);
 	qmAudio->addSeparator();
-	qmAudio->addAction(m_qaAudioReset);
-	qmAudio->addAction(m_qaAudioShortcuts);
-	qmAudio->addAction(m_qaAudioTTS);
+	qmAudio->addAction(qaAudioReset);
+	qmAudio->addAction(qaAudioShortcuts);
+	qmAudio->addAction(qaAudioTTS);
 	qmAudio->addMenu(qm);
 
-	m_qaHelpAbout=new QAction(tr("&About"), this);
-	m_qaHelpAbout->setObjectName("HelpAbout");
-	m_qaHelpAboutQt=new QAction(tr("&About QT"), this);
-	m_qaHelpAboutQt->setObjectName("HelpAboutQt");
+	qaHelpAbout=new QAction(tr("&About"), this);
+	qaHelpAbout->setObjectName("HelpAbout");
+	qaHelpAboutQt=new QAction(tr("&About QT"), this);
+	qaHelpAboutQt->setObjectName("HelpAboutQt");
 
-	qmHelp->addAction(m_qaHelpAbout);
-	qmHelp->addAction(m_qaHelpAboutQt);
+	qmHelp->addAction(qaHelpAbout);
+	qmHelp->addAction(qaHelpAboutQt);
 
 	menuBar()->addMenu(qmServer);
 	menuBar()->addMenu(qmPlayer);
 	menuBar()->addMenu(qmAudio);
 	menuBar()->addMenu(qmHelp);
 
-	m_gsPushTalk=new GlobalShortcut(this, 1, "Push-to-Talk");
-	m_gsPushTalk->setObjectName("PushToTalk");
+	gsPushTalk=new GlobalShortcut(this, 1, "Push-to-Talk");
+	gsPushTalk->setObjectName("PushToTalk");
 
-	m_gsResetAudio=new GlobalShortcut(this, 2, "Reset Audio Processor");
-	m_gsResetAudio->setObjectName("ResetAudio");
-	connect(m_gsResetAudio, SIGNAL(down()), m_qaAudioReset, SLOT(trigger()));
+	gsResetAudio=new GlobalShortcut(this, 2, "Reset Audio Processor");
+	gsResetAudio->setObjectName("ResetAudio");
+	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 
-	m_gsMuteSelf=new GlobalShortcut(this, 3, "Toggle Mute Self");
-	m_gsMuteSelf->setObjectName("MuteSelf");
-	connect(m_gsMuteSelf, SIGNAL(down()), m_qaAudioMute, SLOT(trigger()));
+	gsMuteSelf=new GlobalShortcut(this, 3, "Toggle Mute Self");
+	gsMuteSelf->setObjectName("MuteSelf");
+	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
 
-	m_gsDeafSelf=new GlobalShortcut(this, 4, "Toggle Deafen Self");
-	m_gsDeafSelf->setObjectName("DeafSelf");
-	connect(m_gsDeafSelf, SIGNAL(down()), m_qaAudioDeaf, SLOT(trigger()));
+	gsDeafSelf=new GlobalShortcut(this, 4, "Toggle Deafen Self");
+	gsDeafSelf->setObjectName("DeafSelf");
+	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
 
     QMetaObject::connectSlotsByName(this);
 
 	QSplitter *qs = new QSplitter(Qt::Horizontal, this);
-	qs->addWidget(m_qteLog);
-	qs->addWidget(m_qlwPlayers);
+	qs->addWidget(qteLog);
+	qs->addWidget(qlwPlayers);
 
 	setCentralWidget(qs);
 }
 
 void MainWindow::recheckTTS()
 {
-	m_tts->setEnabled(m_qaAudioTTS->isChecked());
+	tts->setEnabled(qaAudioTTS->isChecked());
 }
 
 void MainWindow::log(QString entry, QString phonetic, bool maytts)
 {
 	QTime now = QTime::currentTime();
 	if (maytts)
-		m_tts->say(phonetic.isNull() ? entry : phonetic);
+		tts->say(phonetic.isNull() ? entry : phonetic);
 	if (entry.isNull())
 		return;
-	m_qteLog->append(tr("[%1] %2").arg(now.toString(Qt::LocalDate)).arg(entry));
-	QTextCursor pos=m_qteLog->textCursor();
+	qteLog->append(tr("[%1] %2").arg(now.toString(Qt::LocalDate)).arg(entry));
+	QTextCursor pos=qteLog->textCursor();
 	pos.movePosition(QTextCursor::End);
-	m_qteLog->setTextCursor(pos);
-	m_qteLog->ensureCursorVisible();
+	qteLog->setTextCursor(pos);
+	qteLog->ensureCursorVisible();
 }
 
 void MainWindow::on_ServerConnect_triggered()
@@ -227,8 +227,8 @@ void MainWindow::on_ServerConnect_triggered()
 	int res = cd->exec();
 
 	if (res == QDialog::Accepted) {
-		m_qaServerConnect->setEnabled(false);
-		m_qaServerDisconnect->setEnabled(true);
+		qaServerConnect->setEnabled(false);
+		qaServerDisconnect->setEnabled(true);
 		g_shServer->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
 		g_shServer->start();
 	}
@@ -242,58 +242,58 @@ void MainWindow::on_ServerDisconnect_triggered()
 
 void MainWindow::on_PlayerMenu_aboutToShow()
 {
-	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item) {
-		m_qaPlayerKick->setEnabled(false);
-		m_qaPlayerMute->setEnabled(false);
-		m_qaPlayerDeaf->setEnabled(false);
+		qaPlayerKick->setEnabled(false);
+		qaPlayerMute->setEnabled(false);
+		qaPlayerDeaf->setEnabled(false);
 	} else {
-		Player *p = m_qmPlayers[item];
-		m_qaPlayerKick->setEnabled(true);
-		m_qaPlayerMute->setEnabled(true);
-		m_qaPlayerDeaf->setEnabled(true);
-		m_qaPlayerMute->setChecked(p->m_bMute);
-		m_qaPlayerDeaf->setChecked(p->m_bDeaf);
+		Player *p = qmPlayers[item];
+		qaPlayerKick->setEnabled(true);
+		qaPlayerMute->setEnabled(true);
+		qaPlayerDeaf->setEnabled(true);
+		qaPlayerMute->setChecked(p->bMute);
+		qaPlayerDeaf->setChecked(p->bDeaf);
 	}
 }
 
 void MainWindow::on_PlayerMute_triggered()
 {
-	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item)
 		return;
-	Player *p = m_qmPlayers[item];
+	Player *p = qmPlayers[item];
 	MessagePlayerMute mpmMsg;
-	mpmMsg.m_sVictim = p->m_sId;
-	mpmMsg.m_bMute = ! p->m_bMute;
+	mpmMsg.sVictim = p->sId;
+	mpmMsg.bMute = ! p->bMute;
 	g_shServer->sendMessage(&mpmMsg);
 }
 
 void MainWindow::on_PlayerDeaf_triggered()
 {
-	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item)
 		return;
-	Player *p = m_qmPlayers[item];
+	Player *p = qmPlayers[item];
 	MessagePlayerDeaf mpdMsg;
-	mpdMsg.m_sVictim = p->m_sId;
-	mpdMsg.m_bDeaf = ! p->m_bDeaf;
+	mpdMsg.sVictim = p->sId;
+	mpdMsg.bDeaf = ! p->bDeaf;
 	g_shServer->sendMessage(&mpdMsg);
 }
 
 void MainWindow::on_PlayerKick_triggered()
 {
-	QListWidgetItem *item = m_qlwPlayers->currentItem();
+	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item)
 		return;
-	Player *p = m_qmPlayers[item];
+	Player *p = qmPlayers[item];
 
 	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->m_qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
+	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
 	if (ok) {
 		MessagePlayerKick mpkMsg;
-		mpkMsg.m_sVictim=p->m_sId;
-		mpkMsg.m_qsReason = reason;
+		mpkMsg.sVictim=p->sId;
+		mpkMsg.qsReason = reason;
 		g_shServer->sendMessage(&mpkMsg);
 	}
 }
@@ -301,7 +301,7 @@ void MainWindow::on_PlayerKick_triggered()
 void MainWindow::on_AudioReset_triggered()
 {
 	if (g_aiInput)
-		g_aiInput->m_bResetProcessor = true;
+		g_aiInput->bResetProcessor = true;
 }
 
 void MainWindow::on_AudioShortcuts_triggered()
@@ -311,10 +311,10 @@ void MainWindow::on_AudioShortcuts_triggered()
 
 void MainWindow::on_AudioMute_triggered()
 {
-	g_s.bMute = m_qaAudioMute->isChecked();
+	g_s.bMute = qaAudioMute->isChecked();
 	if (! g_s.bMute && g_s.bDeaf) {
 		g_s.bDeaf = false;
-		m_qaAudioDeaf->setChecked(false);
+		qaAudioDeaf->setChecked(false);
 		log(QString(), tr("Un-muted and undeafened"));
 	} else if (! g_s.bMute) {
 		log(QString(), tr("Unmuted"));
@@ -323,8 +323,8 @@ void MainWindow::on_AudioMute_triggered()
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
-	mpsmd.m_bMute = g_s.bMute;
-	mpsmd.m_bDeaf = g_s.bDeaf;
+	mpsmd.bMute = g_s.bMute;
+	mpsmd.bDeaf = g_s.bDeaf;
 	g_shServer->sendMessage(&mpsmd);
 
 	qs.setValue("AudioMute", g_s.bMute);
@@ -333,10 +333,10 @@ void MainWindow::on_AudioMute_triggered()
 
 void MainWindow::on_AudioDeaf_triggered()
 {
-	g_s.bDeaf = m_qaAudioDeaf->isChecked();
+	g_s.bDeaf = qaAudioDeaf->isChecked();
 	if (g_s.bDeaf && ! g_s.bMute) {
 		g_s.bMute = true;
-		m_qaAudioMute->setChecked(true);
+		qaAudioMute->setChecked(true);
 		log(QString(), tr("Muted and deafened"));
 	} else if (g_s.bDeaf) {
 		log(QString(), tr("Deafened"));
@@ -345,8 +345,8 @@ void MainWindow::on_AudioDeaf_triggered()
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
-	mpsmd.m_bMute = g_s.bMute;
-	mpsmd.m_bDeaf = g_s.bDeaf;
+	mpsmd.bMute = g_s.bMute;
+	mpsmd.bDeaf = g_s.bDeaf;
 	g_shServer->sendMessage(&mpsmd);
 
 	qs.setValue("AudioMute", g_s.bMute);
@@ -355,7 +355,7 @@ void MainWindow::on_AudioDeaf_triggered()
 
 void MainWindow::on_AudioTextToSpeech_triggered()
 {
-	qs.setValue("TextToSpeech", m_qaAudioTTS->isChecked());
+	qs.setValue("TextToSpeech", qaAudioTTS->isChecked());
 	recheckTTS();
 }
 
@@ -383,37 +383,37 @@ void MainWindow::on_PushToTalk_triggered(bool down)
 
 void MainWindow::playerTalkingChanged(Player *p, bool bTalking)
 {
-	QListWidgetItem *item=m_qmItems[p];
+	QListWidgetItem *item=qmItems[p];
 	item->setBackgroundColor(bTalking ? Qt::lightGray : Qt::white);
 }
 
 void MainWindow::serverConnected()
 {
 	log(tr("Connected to server"));
-	m_tts->setEnabled(false);
-	m_qaServerDisconnect->setEnabled(true);
+	tts->setEnabled(false);
+	qaServerDisconnect->setEnabled(true);
 
 	if (g_s.bMute || g_s.bDeaf) {
 		MessagePlayerSelfMuteDeaf mpsmd;
-		mpsmd.m_bMute = g_s.bMute;
-		mpsmd.m_bDeaf = g_s.bDeaf;
+		mpsmd.bMute = g_s.bMute;
+		mpsmd.bDeaf = g_s.bDeaf;
 		g_shServer->sendMessage(&mpsmd);
 	}
 }
 
 void MainWindow::serverDisconnected(QString reason)
 {
-	m_sMyId = 0;
+	sMyId = 0;
 	recheckTTS();
-	m_qaServerConnect->setEnabled(true);
-	m_qaServerDisconnect->setEnabled(false);
-	QMapIterator<Player *, QListWidgetItem *> iItems(m_qmItems);
+	qaServerConnect->setEnabled(true);
+	qaServerDisconnect->setEnabled(false);
+	QMapIterator<Player *, QListWidgetItem *> iItems(qmItems);
 	while (iItems.hasNext()) {
 		iItems.next();
 		delete iItems.value();
 	}
-	m_qmItems.clear();
-	m_qmPlayers.clear();
+	qmItems.clear();
+	qmPlayers.clear();
 
 	if (! reason.isEmpty()) {
   	  log(tr("Server connection failed: %1").arg(reason));
@@ -436,12 +436,12 @@ void MainWindow::customEvent(QEvent *evt) {
 }
 
 void MainWindow::setItemColor(QListWidgetItem *item, Player *p) {
-	if (p->m_bMute || p->m_bSelfMute) {
-		if (p->m_bDeaf || p->m_bSelfDeaf)
+	if (p->bMute || p->bSelfMute) {
+		if (p->bDeaf || p->bSelfDeaf)
 			item->setTextColor(Qt::blue);
 		else
 			item->setTextColor(Qt::yellow);
-	} else if (p->m_bDeaf || p->m_bSelfDeaf) {
+	} else if (p->bDeaf || p->bSelfDeaf) {
 		item->setTextColor(Qt::magenta);
 	} else {
 		item->setTextColor(Qt::black);
@@ -449,43 +449,43 @@ void MainWindow::setItemColor(QListWidgetItem *item, Player *p) {
 }
 
 void MessageServerJoin::process(Connection *) {
-	QListWidgetItem *item = new QListWidgetItem(m_qsPlayerName, g_mwMainWindow->m_qlwPlayers);
-	Player *p = Player::add(m_sPlayerId);
-	p->m_qsName = m_qsPlayerName;
-	p->m_sId = m_sPlayerId;
+	QListWidgetItem *item = new QListWidgetItem(qsPlayerName, g_mwMainWindow->qlwPlayers);
+	Player *p = Player::add(sPlayerId);
+	p->qsName = qsPlayerName;
+	p->sId = sPlayerId;
 
 	item->setData(Qt::UserRole, p);
 
-	g_mwMainWindow->m_qmPlayers[item]=p;
-	g_mwMainWindow->m_qmItems[p]=item;
+	g_mwMainWindow->qmPlayers[item]=p;
+	g_mwMainWindow->qmItems[p]=item;
 
 	QObject::connect(p, SIGNAL(talkingChanged(Player *, bool)), g_mwMainWindow, SLOT(playerTalkingChanged(Player *, bool)));
 
-	g_mwMainWindow->log(MainWindow::tr("Joined now: %1").arg(p->m_qsName));
+	g_mwMainWindow->log(MainWindow::tr("Joined now: %1").arg(p->qsName));
 }
 
 #define MSG_INIT \
-	Player *pSrc=Player::get(m_sPlayerId); \
+	Player *pSrc=Player::get(sPlayerId); \
 	if (! pSrc) \
-		qFatal("MainWindow: Message for nonexistant player %d", m_sPlayerId); \
-	QListWidgetItem *iSrc=g_mwMainWindow->m_qmItems[pSrc]; \
+		qFatal("MainWindow: Message for nonexistant player %d", sPlayerId); \
+	QListWidgetItem *iSrc=g_mwMainWindow->qmItems[pSrc]; \
 	Q_UNUSED(iSrc)
 
 #define VICTIM_INIT \
-	Player *pDst=Player::get(m_sVictim); \
+	Player *pDst=Player::get(sVictim); \
 	 if (! pDst) \
- 		qFatal("MainWindow: Message for nonexistant victim %d", m_sVictim); \
-	QListWidgetItem *iDst=g_mwMainWindow->m_qmItems[pDst]; \
+ 		qFatal("MainWindow: Message for nonexistant victim %d", sVictim); \
+	QListWidgetItem *iDst=g_mwMainWindow->qmItems[pDst]; \
 	Q_UNUSED(iDst)
 
 void MessageServerLeave::process(Connection *) {
 	MSG_INIT;
 
-	g_mwMainWindow->log(MainWindow::tr("Left now: %1").arg(pSrc->m_qsName));
-	if (g_mwMainWindow->m_qmItems.contains(pSrc)) {
-		QListWidgetItem *item=g_mwMainWindow->m_qmItems.take(pSrc);
+	g_mwMainWindow->log(MainWindow::tr("Left now: %1").arg(pSrc->qsName));
+	if (g_mwMainWindow->qmItems.contains(pSrc)) {
+		QListWidgetItem *item=g_mwMainWindow->qmItems.take(pSrc);
 
-		g_mwMainWindow->m_qmPlayers.remove(item);
+		g_mwMainWindow->qmPlayers.remove(item);
 
 		delete item;
 		Player::remove(pSrc);
@@ -498,59 +498,59 @@ void MessageSpeex::process(Connection *) {
 
 void MessagePlayerSelfMuteDeaf::process(Connection *) {
 	MSG_INIT;
-	pSrc->m_bSelfMute = m_bMute;
-	pSrc->m_bSelfDeaf = m_bDeaf;
+	pSrc->bSelfMute = bMute;
+	pSrc->bSelfDeaf = bDeaf;
 	MainWindow::setItemColor(iSrc, pSrc);
 }
 
 void MessagePlayerMute::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	pDst->m_bMute = m_bMute;
+	pDst->bMute = bMute;
 	MainWindow::setItemColor(iDst, pDst);
 
-	QString vic = pDst->m_qsName;
-	QString admin = pSrc->m_qsName;
+	QString vic = pDst->qsName;
+	QString admin = pSrc->qsName;
 
-	if (m_sVictim == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->log(m_bMute ? MainWindow::tr("You were muted by %1").arg(admin) : MainWindow::tr("You were unmuted by %1").arg(admin));
+	if (sVictim == g_mwMainWindow->sMyId)
+		g_mwMainWindow->log(bMute ? MainWindow::tr("You were muted by %1").arg(admin) : MainWindow::tr("You were unmuted by %1").arg(admin));
 	else
-		g_mwMainWindow->log(m_bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
+		g_mwMainWindow->log(bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerDeaf::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	pDst->m_bDeaf = m_bDeaf;
+	pDst->bDeaf = bDeaf;
 	MainWindow::setItemColor(iDst, pDst);
 
-	QString vic = pDst->m_qsName;
-	QString admin = pSrc->m_qsName;
+	QString vic = pDst->qsName;
+	QString admin = pSrc->qsName;
 
-	if (m_sVictim == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->log(m_bDeaf ? MainWindow::tr("You were deafened by %1").arg(admin) : MainWindow::tr("You were undeafened by %1").arg(admin));
+	if (sVictim == g_mwMainWindow->sMyId)
+		g_mwMainWindow->log(bDeaf ? MainWindow::tr("You were deafened by %1").arg(admin) : MainWindow::tr("You were undeafened by %1").arg(admin));
 	else
-		g_mwMainWindow->log(m_bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
+		g_mwMainWindow->log(bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	if (m_sVictim == g_mwMainWindow->m_sMyId)
-		g_mwMainWindow->log(MainWindow::tr("You were kicked from the server by %1: %2").arg(pSrc->m_qsName).arg(m_qsReason));
+	if (sVictim == g_mwMainWindow->sMyId)
+		g_mwMainWindow->log(MainWindow::tr("You were kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason));
 	else
-		g_mwMainWindow->log(MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->m_qsName).arg(m_qsReason).arg(pDst->m_qsName));
+		g_mwMainWindow->log(MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
 }
 
 void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
-	g_mwMainWindow->log(MainWindow::tr("Server connection rejected: %1").arg(m_qsReason));
+	g_mwMainWindow->log(MainWindow::tr("Server connection rejected: %1").arg(qsReason));
 }
 
 void MessageServerSync::process(Connection *) {
 	MSG_INIT;
-	g_mwMainWindow->m_sMyId = m_sPlayerId;
+	g_mwMainWindow->sMyId = sPlayerId;
 	g_mwMainWindow->recheckTTS();
 }

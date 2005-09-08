@@ -38,9 +38,9 @@
 class Connection : public QObject {
 	Q_OBJECT
 	protected:
-		QTcpSocket *m_qtsSocket;
-		int m_iPacketLength;
-		bool m_bDisconnectedEmitted;
+		QTcpSocket *qtsSocket;
+		int iPacketLength;
+		bool bDisconnectedEmitted;
 	protected slots:
 		void socketRead();
 	    void socketError(QAbstractSocket::SocketError);

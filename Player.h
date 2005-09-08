@@ -40,12 +40,12 @@ class Player : public QObject {
 	Q_OBJECT
   	public:
   		enum State { Connected, Authenticated };
-  		State m_sState;
-		short m_sId;
-		QString m_qsName;
-		bool m_bMute, m_bDeaf;
-		bool m_bSelfMute, m_bSelfDeaf;
-		bool m_bTalking;
+  		State sState;
+		short sId;
+		QString qsName;
+		bool bMute, bDeaf;
+		bool bSelfMute, bSelfDeaf;
+		bool bTalking;
 		Player();
 		static Player *get(short);
 		static Player *add(short);
