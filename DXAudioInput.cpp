@@ -30,6 +30,9 @@
 
 #include "DXAudioInput.h"
 
+#undef FAILED
+#define FAILED(Status) (static_cast<HRESULT>(Status)<0)
+
 static AudioInput *DXAudioInputNew() {
 	return new DXAudioInput();
 }
@@ -72,7 +75,7 @@ DXAudioInput::DXAudioInput() {
 	if( FAILED( hr = pDSCapture->CreateCaptureBuffer( &dscbd, &pDSCaptureBuffer, NULL ) ) )
 		qFatal("DXAudioInput: CreateCaptureBuffer");
 
-	if( FAILED( hr = pDSCaptureBuffer->QueryInterface( IID_IDirectSoundNotify, (VOID**)&pDSNotify ) ) )
+	if( FAILED( hr = pDSCaptureBuffer->QueryInterface( IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify) ) ) )
 		qFatal("DXAudioInput: QueryInterface (Notify)");
 
 
@@ -130,10 +133,10 @@ void DXAudioInput::run() {
 			else
 				dwReadyBytes = dwReadPosition - dwLastReadPos;
 
-			if ((int) dwReadyBytes < iByteSize) {
+			if (static_cast<int>(dwReadyBytes) < iByteSize) {
 				WaitForSingleObject(hNotificationEvent, INFINITE);
 			}
-		} while ((int)dwReadyBytes < iByteSize);
+		} while (static_cast<int>(dwReadyBytes) < iByteSize);
 
     	if (FAILED( hr = pDSCaptureBuffer->Lock(dwLastReadPos, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
     		qFatal("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, iByteSize);

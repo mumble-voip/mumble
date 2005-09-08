@@ -40,8 +40,8 @@ Message::~Message() {
 
 void Message::messageToNetwork(QByteArray &qbaOut) {
 	QDataStream qdsOut(&qbaOut, QIODevice::WriteOnly);
-	qdsOut << ((unsigned char) messageType());
-	qdsOut << ((unsigned char) sPlayerId);
+	qdsOut << static_cast<unsigned char>(messageType());
+	qdsOut << static_cast<unsigned char>(sPlayerId);
 	saveStream(qdsOut);
 }
 

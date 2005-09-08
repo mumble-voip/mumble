@@ -32,6 +32,9 @@
 #include "MainWindow.h"
 #include "Global.h"
 
+#undef FAILED
+#define FAILED(Status) (static_cast<HRESULT>(Status)<0)
+
 #define DX_SAMPLE_BUFFER_SIZE 512
 
 const GUID GlobalShortcutWin::c_guidApp = { /* ab3baca6-64bc-4d32-9752-49ae9748c06e */
@@ -56,7 +59,7 @@ GlobalShortcutWin::GlobalShortcutWin() {
     pDI = NULL;
     diaActions = NULL;
 
-    if(FAILED( hr = DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&pDI, NULL)))
+    if(FAILED( hr = DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<VOID**>(&pDI), NULL)))
     {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
         return;
@@ -105,7 +108,7 @@ void GlobalShortcutWin::remap() {
 		memset(&diaActions[cnt], 0, sizeof(DIACTION));
 		diaActions[cnt].uAppData = gs->idx;
 		diaActions[cnt].dwSemantic = DIBUTTON_ANY(gs->idx);
-		diaActions[cnt].lptszActionName = (const wchar_t *) gs->name.utf16();
+		diaActions[cnt].lptszActionName = reinterpret_cast<const wchar_t *>(gs->name.utf16());
 
 		cnt++;
 	}
@@ -121,36 +124,36 @@ void GlobalShortcutWin::remap() {
     diafGame.lAxisMin        = -100;
     diafGame.lAxisMax        = 100;
     diafGame.dwBufferSize    = DX_SAMPLE_BUFFER_SIZE;
-    wcscpy( diafGame.tszActionMap, (const wchar_t *) QString("Mumble").utf16() );
+    wcscpy( diafGame.tszActionMap, reinterpret_cast<const wchar_t *>(QString("Mumble").utf16()) );
 
-	hr=pDI->EnumDevicesBySemantics((wchar_t *)qsUsername.utf16(), &diafGame, EnumSuitableDevicesCB, this, 0L);
+	hr=pDI->EnumDevicesBySemantics(reinterpret_cast<const wchar_t *>(qsUsername.utf16()), &diafGame, EnumSuitableDevicesCB, this, 0L);
 	if (FAILED(hr))
 		qWarning("GlobalShortcutWin: EnumDevicesBySemantics failed 0x%08lx", hr);
 }
 
 BOOL GlobalShortcutWin::EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPDIRECTINPUTDEVICE8 pdidDevice, DWORD, DWORD, LPVOID pContext)
 {
-	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(pContext);
+	GlobalShortcutWin *cbgsw=static_cast<GlobalShortcutWin *>(pContext);
 	HRESULT hr;
 
 	pdidDevice->Unacquire();
 
 	pdidDevice->SetCooperativeLevel( g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND );
 
-    hr = pdidDevice->BuildActionMap( &gsw->diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
+    hr = pdidDevice->BuildActionMap( &cbgsw->diafGame, reinterpret_cast<const wchar_t *>(cbgsw->qsUsername.utf16()), 0 );
     if( FAILED(hr) ) {
 		qWarning("GlobalShortcutWin: Failed BuildActionMap: 0x%08lx", hr);
 	}
 
     // Set the action map for the current device
-    hr = pdidDevice->SetActionMap( &gsw->diafGame, (wchar_t *)gsw->qsUsername.utf16(), 0 );
+    hr = pdidDevice->SetActionMap( &cbgsw->diafGame, reinterpret_cast<const wchar_t *>(cbgsw->qsUsername.utf16()), 0 );
     if( FAILED(hr) ) {
 		qWarning("GlobalShortcutWin: Failed SetActionMap: 0x%08lx", hr);
 	}
 
 	pdidDevice->AddRef();
 
-	gsw->qlDevices.append(pdidDevice);
+	cbgsw->qlDevices.append(pdidDevice);
 
     return DIENUM_CONTINUE;
 }
@@ -175,7 +178,7 @@ void GlobalShortcutWin::configure()
     dicdp.hwnd           = g.mw->winId();
     dicdp.lpUnkDDSTarget = NULL;
     dicdp.dwcUsers       = 1;
-    dicdp.lptszUserNames = (wchar_t *)qsUsername.utf16();
+    dicdp.lptszUserNames = const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsUsername.utf16()));
 
 	unacquire();
 
@@ -234,7 +237,7 @@ void GlobalShortcutWin::timeTicked() {
 	}
 }
 
-GlobalShortcut::GlobalShortcut(QObject *parent, int index, QString qsName) : QObject(parent) {
+GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
 	if (! gsw)
 	  gsw = new GlobalShortcutWin();
 	gsw->ref++;

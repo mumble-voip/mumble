@@ -61,8 +61,8 @@ class AudioOutputPlayer : public QObject {
 		short sId;
 
 		SpeexBits sbBits;
-		int	iFrameSize;
-		int iByteSize;
+		unsigned int iFrameSize;
+		unsigned int iByteSize;
 		int iFrameCounter;
 		QMutex qmJitter;
 		SpeexJitter sjJitter;

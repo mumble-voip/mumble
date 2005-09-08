@@ -35,7 +35,7 @@
 
 #include <QApplication>
 
-ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg) : QEvent((QEvent::Type) SERVERSEND_EVENT) {
+ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
 }
 
@@ -138,9 +138,9 @@ void ServerHandler::serverConnectionConnected() {
 	emit connected();
 }
 
-void ServerHandler::setConnectionInfo(QString qsHostName, int iPort, QString qsUserName, QString qsPassword) {
-	qsHostName = qsHostName;
-	iPort = iPort;
-	qsUserName = qsUserName;
-	qsPassword = qsPassword;
+void ServerHandler::setConnectionInfo(QString host, int port, QString username, QString pw) {
+	qsHostName = host;
+	iPort = port;
+	qsUserName = username;
+	qsPassword = pw;
 }

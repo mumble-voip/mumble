@@ -32,6 +32,9 @@
 #include "MainWindow.h"
 #include "Global.h"
 
+#undef FAILED
+#define FAILED(Status) (static_cast<HRESULT>(Status)<0)
+
 #define NBLOCKS 8
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
 #define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
@@ -105,7 +108,7 @@ AudioOutputPlayer *DXAudioOutput::getPlayer(short sId) {
 	return daopPlayer;
 }
 
-DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *aoOutput, short sId) : AudioOutputPlayer(aoOutput, sId) {
+DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutputPlayer(ao, id) {
 	dxAudio = static_cast<DXAudioOutput *>(aoOutput);
 
     DSBUFFERDESC dsbd;
@@ -141,7 +144,7 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *aoOutput, short sId) : Aud
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
-	if( FAILED( hr = pDSBOutput->QueryInterface( IID_IDirectSoundNotify, (VOID**)&pDSNotify ) ) )
+	if( FAILED( hr = pDSBOutput->QueryInterface( IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify) ) ) )
 		qFatal("DXAudioOutputPlayer: QueryInterface (Notify)");
 
     if( FAILED( hr = pDSNotify->SetNotificationPositions( NBLOCKS, aPosNotify ) ) )
@@ -209,7 +212,7 @@ void DXAudioOutputPlayer::run() {
 		    if (FAILED( hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
 		    	qFatal("DXAudioOutput: Lock block %d (%d bytes)",block, iByteSize);
 			if (aptr1 && nbytes1)
-				CopyMemory(aptr1, psBuffer, MIN(iByteSize, (int) nbytes1));
+				CopyMemory(aptr1, psBuffer, MIN(iByteSize, nbytes1));
 			if (aptr2 && nbytes2)
 				CopyMemory(aptr2, psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
 		    if (FAILED( hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))

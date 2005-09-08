@@ -43,7 +43,7 @@
 #include <QSqlRecord>
 #include <QMessageBox>
 
-ConnectDialog::ConnectDialog(QWidget *parent) : QDialog(parent) {
+ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	QSqlQuery query;
 	QGridLayout *l=new QGridLayout;
     QVBoxLayout *vbl = new QVBoxLayout;

@@ -30,9 +30,9 @@
 
 #include "AudioInput.h"
 #include "ServerHandler.h"
-#include "Global.h"
 #include "MainWindow.h"
 #include "Player.h"
+#include "Global.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor

@@ -47,7 +47,7 @@
 #include "TextToSpeech.h"
 #include "VersionCheck.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setupGui();
 
 	sMyId = 0;
@@ -193,11 +193,11 @@ void MainWindow::setupGui()  {
 
     QMetaObject::connectSlotsByName(this);
 
-	QSplitter *qs = new QSplitter(Qt::Horizontal, this);
-	qs->addWidget(qteLog);
-	qs->addWidget(qlwPlayers);
+	QSplitter *qsSplit = new QSplitter(Qt::Horizontal, this);
+	qsSplit->addWidget(qteLog);
+	qsSplit->addWidget(qlwPlayers);
 
-	setCentralWidget(qs);
+	setCentralWidget(qsSplit);
 }
 
 void MainWindow::recheckTTS()
@@ -213,9 +213,9 @@ void MainWindow::log(QString entry, QString phonetic, bool maytts)
 	if (entry.isNull())
 		return;
 	qteLog->append(tr("[%1] %2").arg(now.toString(Qt::LocalDate)).arg(entry));
-	QTextCursor pos=qteLog->textCursor();
-	pos.movePosition(QTextCursor::End);
-	qteLog->setTextCursor(pos);
+	QTextCursor p=qteLog->textCursor();
+	p.movePosition(QTextCursor::End);
+	qteLog->setTextCursor(p);
 	qteLog->ensureCursorVisible();
 }
 

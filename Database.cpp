@@ -28,9 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Database.h"
-#include "Global.h"
-
 #include <QApplication>
 #include <QSqlDatabase>
 #include <QMessageBox>
@@ -38,6 +35,9 @@
 #include <QSettings>
 #include <QFile>
 #include <QDir>
+
+#include "Database.h"
+#include "Global.h"
 
 Database::Database() {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");

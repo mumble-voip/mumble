@@ -71,8 +71,8 @@ void Player::remove(Player *p) {
 	g_qmPlayersMutex.unlock();
 }
 
-void Player::setTalking(bool bTalking) {
-	if (bTalking == bTalking)
+void Player::setTalking(bool talking) {
+	if (bTalking == talking)
 		return;
 	bTalking = bTalking;
 	emit talkingChanged(this, bTalking);

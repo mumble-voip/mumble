@@ -28,11 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "TextToSpeech.h"
 #include <QMap>
 #include <windows.h>
 #include <servprov.h>
 #include <sapi.h>
+
+#include "TextToSpeech.h"
+
+#undef FAILED
+#define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
 class TextToSpeechPrivate {
 	public:
@@ -60,7 +64,8 @@ void TextToSpeechPrivate::say(QString text) {
 		pVoice->Speak((const wchar_t *) text.utf16(), SPF_ASYNC, NULL);
 }
 
-TextToSpeech::TextToSpeech(QObject *parent) : QObject(parent) {
+
+TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
 	enabled = true;
 	d = new TextToSpeechPrivate();
 }

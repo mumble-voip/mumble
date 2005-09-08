@@ -28,12 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "GlobalShortcut.h"
-
 #include <QObject>
 #include <QTimer>
 #include <QMap>
 #include <QHash>
+
+#include "GlobalShortcut.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>

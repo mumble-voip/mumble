@@ -59,9 +59,9 @@ class ServerHandler : public QThread
 	public:
 		ServerHandler();
 		~ServerHandler();
-		void setConnectionInfo(QString qsHostName, int iPort, QString qsUserName, QString qsPassword);
+		void setConnectionInfo(QString host, int port, QString username, QString pw);
 		void customEvent(QEvent *evt);
-		void sendMessage(Message *mMsg);
+		void sendMessage(Message *m);
 		void disconnect();
 		void run();
 	signals:

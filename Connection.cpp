@@ -30,7 +30,7 @@
 
 #include "Connection.h"
 
-Connection::Connection(QObject *parent, QTcpSocket *qtsSock) : QObject(parent) {
+Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
@@ -55,7 +55,7 @@ void Connection::socketRead() {
 
       unsigned char a_ucBuffer[2];
 
-	  qtsSocket->read((char *) a_ucBuffer, 2);
+	  qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 2);
       iPacketLength = ((a_ucBuffer[0] << 8) & 0xff00) + a_ucBuffer[1];
       iAvailable -= 2;
     }
@@ -103,7 +103,7 @@ void Connection::sendMessage(QByteArray &qbaMsg) {
 
 	a_ucBuffer[0]=(qbaMsg.size() >> 8) & 0xff;
 	a_ucBuffer[1]=(qbaMsg.size() & 0xff);
-	qtsSocket->write((const char *) a_ucBuffer, 2);
+	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 2);
 	qtsSocket->write(qbaMsg);
 }
 

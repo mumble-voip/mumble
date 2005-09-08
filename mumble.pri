@@ -1,6 +1,9 @@
 VERSION		= 0.2.1
 DIST		= LICENSE INSTALL README CHANGES mumble.pro murmur.pro mumble.pri mumble.ico
-CONFIG		+= qt thread debug_and_release
+CONFIG		+= qt thread debug_and_release warn_on
+
+QMAKE_CFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+QMAKE_CXXFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
 
 CONFIG(debug, debug|release) {
   CONFIG += console

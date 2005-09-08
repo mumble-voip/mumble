@@ -59,7 +59,12 @@ struct Global {
 	Global();
 };
 
-extern Global g;
+// -Wshadow is bugged. If an inline function of a class uses a variable or
+// parameter named 'g', that will generate a warning even if the class header
+// is inclued long before this definition.
+
+#define g g_global_struct
+extern Global g_global_struct;
 
 #else
 class Settings;

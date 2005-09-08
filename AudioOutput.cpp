@@ -72,9 +72,9 @@ AudioOutput *AudioOutputRegistrar::newFromChoice(QString choice) {
 	return NULL;
 }
 
-AudioOutputPlayer::AudioOutputPlayer(AudioOutput *aoOutput, short sId) {
-	aoOutput = aoOutput;
-	sId = sId;
+AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, short id) {
+	aoOutput = ao;
+	sId = id;
 
 	speex_bits_init(&sbBits);
 	dsDecState=speex_decoder_init(&speex_wb_mode);
@@ -96,6 +96,7 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *aoOutput, short sId) {
 AudioOutputPlayer::~AudioOutputPlayer() {
 		speex_decoder_destroy(dsDecState);
 		speex_jitter_destroy(&sjJitter);
+		delete [] psBuffer;
 }
 
 void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {

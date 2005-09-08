@@ -42,7 +42,7 @@
 #include <QFileDialog>
 #include "licenses.h"
 
-AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent) {
+AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QTabWidget *qtwTab = new QTabWidget(this);
     QVBoxLayout *vblMain = new QVBoxLayout;
 
