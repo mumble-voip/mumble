@@ -36,9 +36,9 @@
 #ifndef MUMBLE_VERSION
 #define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
 #else
-#define XTEXT(X) #X
-#define TEXT(X) XTEXT(X)
-#define MUMBLE_RELEASE TEXT(MUMBLE_VERSION)
+#define MUMXTEXT(X) #X
+#define MUMTEXT(X) MUMXTEXT(X)
+#define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
 #endif
 
 // Global helper class to spread variables around across threads.
