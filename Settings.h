@@ -54,8 +54,6 @@ struct Settings {
 	Settings();
 };
 
-extern Settings g_s;
-
 #else
 class Settings;
 #endif

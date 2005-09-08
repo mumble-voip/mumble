@@ -93,8 +93,6 @@ class MainWindow : public QMainWindow {
 		MainWindow(QWidget *parent);
 };
 
-extern MainWindow *g.mw;
-
 #else
 class MainWindow;
 #endif

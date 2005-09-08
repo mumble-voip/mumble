@@ -37,7 +37,7 @@
 #include <QTime>
 #include "MainWindow.h"
 #include "AudioInput.h"
-#include "Settings.h"
+#include "Global.h"
 #include "ConnectDialog.h"
 #include "Player.h"
 #include "Connection.h"
@@ -46,8 +46,6 @@
 #include "GlobalShortcut.h"
 #include "TextToSpeech.h"
 #include "VersionCheck.h"
-
-MainWindow *g.mw;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setupGui();

@@ -30,6 +30,7 @@
 
 #include "DXAudioOutput.h"
 #include "MainWindow.h"
+#include "Global.h"
 
 #define NBLOCKS 8
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )

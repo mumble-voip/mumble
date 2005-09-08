@@ -43,6 +43,7 @@ class GlobalShortcutWin : public QObject {
 	public:
 		QTimer *timer;
 		int ref;
+		static const GUID c_guidApp;
 
 		LPDIRECTINPUT8 pDI;
 		LPDIRECTINPUTDEVICE8 pKeyboard;

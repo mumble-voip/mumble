@@ -28,72 +28,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOOUTPUT_H
-#define _AUDIOOUTPUT_H
+#include "Global.h"
 
-#define SAMPLE_RATE 16000
+Global g;
 
-#include <QThread>
-#include <QMutex>
-#include <QMap>
-#include <QWidget>
-#include <speex/speex.h>
-#include <speex/speex_jitter.h>
-
-class AudioOutput;
-
-typedef AudioOutput *(*AudioOutputRegistrarNew)();
-typedef QWidget *(*AudioOutputRegistrarConfig)(QWidget *parent);
-
-class AudioOutputRegistrar {
-	protected:
-		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
-		static QMap<QString, AudioOutputRegistrarConfig> *qmConfig;
-	public:
-		static QString current;
-		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n, AudioOutputRegistrarConfig c);
-		static AudioOutput *newFromChoice(QString choice = QString());
-};
-
-class AudioOutputPlayer : public QObject {
-	Q_OBJECT
-	protected:
-		short sId;
-
-		SpeexBits sbBits;
-		int	iFrameSize;
-		int iByteSize;
-		int iFrameCounter;
-		QMutex qmJitter;
-		SpeexJitter sjJitter;
-		void *dsDecState;
-		AudioOutput *aoOutput;
-
-		short *psBuffer;
-
-		void decodeNextFrame();
-	public:
-		void addFrameToBuffer(QByteArray &, int iSeq);
-		AudioOutputPlayer(AudioOutput *, short);
-		~AudioOutputPlayer();
-};
-
-class AudioOutput : public QObject {
-	Q_OBJECT
-	protected:
-		bool bRunning;
-		QMutex qmOutputMutex;
-		QMap<short, AudioOutputPlayer *> qmOutputs;
-		virtual AudioOutputPlayer *getPlayer(short) = 0;
-	public:
-		void wipe();
-
-		AudioOutput();
-		~AudioOutput();
-		void addFrameToBuffer(short, QByteArray &, int iSeq);
-		void removeBuffer(short);
-};
-
-#else
-class AudioInput;
-#endif
+Global::Global() {
+	mw = 0;
+	sh = 0;
+	ai = 0;
+	ao = 0;
+	db = 0;
+}

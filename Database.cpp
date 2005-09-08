@@ -29,6 +29,7 @@
 */
 
 #include "Database.h"
+#include "Global.h"
 
 #include <QApplication>
 #include <QSqlDatabase>
@@ -37,8 +38,6 @@
 #include <QSettings>
 #include <QFile>
 #include <QDir>
-
-Database *g.db;
 
 Database::Database() {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");

@@ -31,11 +31,9 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "AudioOutput.h"
+#include "Global.h"
+
 #include <QApplication>
-
-extern MainWindow *g.mw;
-
-ServerHandler *g.sh;
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg) : QEvent((QEvent::Type) SERVERSEND_EVENT) {
 	qbaMsg = msg;

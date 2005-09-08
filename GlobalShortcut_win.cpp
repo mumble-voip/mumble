@@ -30,21 +30,16 @@
 
 #include "GlobalShortcut_win.h"
 #include "MainWindow.h"
+#include "Global.h"
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
-GUID g_guidApp = { /* ab3baca6-64bc-4d32-9752-49ae9748c06e */
+const GUID GlobalShortcutWin::c_guidApp = { /* ab3baca6-64bc-4d32-9752-49ae9748c06e */
     0xab3baca6,
     0x64bc,
     0x4d32,
     {0x97, 0x52, 0x49, 0xae, 0x97, 0x48, 0xc0, 0x6e}
 };
-
-DIACTION g_rgGameAction[] =
-{
-};
-
-#define NUMBER_OF_GAMEACTIONS    (sizeof(g_rgGameAction)/sizeof(DIACTION))
 
 static GlobalShortcutWin *gsw = NULL;
 
@@ -119,7 +114,7 @@ void GlobalShortcutWin::remap() {
     diafGame.dwSize          = sizeof(DIACTIONFORMAT);
     diafGame.dwActionSize    = sizeof(DIACTION);
     diafGame.dwDataSize      = qmShortcuts.count() * sizeof(DWORD);
-    diafGame.guidActionMap   = g_guidApp;
+    diafGame.guidActionMap   = c_guidApp;
     diafGame.dwGenre         = DIVIRTUAL_REMOTE_CONTROL;
     diafGame.dwNumActions    = qmShortcuts.count();
     diafGame.rgoAction       = diaActions;

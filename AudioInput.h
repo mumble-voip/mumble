@@ -77,8 +77,6 @@ class AudioInput : public QThread {
 		void run() = 0;
 };
 
-extern AudioInput *g.ai;
-
 #else
 class AudioInput;
 #endif

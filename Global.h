@@ -28,72 +28,39 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOOUTPUT_H
-#define _AUDIOOUTPUT_H
+#ifndef _GLOBAL_H
+#define _GLOBAL_H
 
-#define SAMPLE_RATE 16000
+#include "Settings.h"
 
-#include <QThread>
-#include <QMutex>
-#include <QMap>
-#include <QWidget>
-#include <speex/speex.h>
-#include <speex/speex_jitter.h>
+#ifndef MUMBLE_VERSION
+#define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
+#else
+#define XTEXT(X) #X
+#define TEXT(X) XTEXT(X)
+#define MUMBLE_RELEASE TEXT(MUMBLE_VERSION)
+#endif
 
+// Global helper class to spread variables around across threads.
+
+class MainWindow;
+class ServerHandler;
+class AudioInput;
 class AudioOutput;
+class Database;
 
-typedef AudioOutput *(*AudioOutputRegistrarNew)();
-typedef QWidget *(*AudioOutputRegistrarConfig)(QWidget *parent);
-
-class AudioOutputRegistrar {
-	protected:
-		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
-		static QMap<QString, AudioOutputRegistrarConfig> *qmConfig;
-	public:
-		static QString current;
-		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n, AudioOutputRegistrarConfig c);
-		static AudioOutput *newFromChoice(QString choice = QString());
+struct Global {
+	MainWindow *mw;
+	Settings s;
+	ServerHandler *sh;
+	AudioInput *ai;
+	AudioOutput *ao;
+	Database *db;
+	Global();
 };
 
-class AudioOutputPlayer : public QObject {
-	Q_OBJECT
-	protected:
-		short sId;
-
-		SpeexBits sbBits;
-		int	iFrameSize;
-		int iByteSize;
-		int iFrameCounter;
-		QMutex qmJitter;
-		SpeexJitter sjJitter;
-		void *dsDecState;
-		AudioOutput *aoOutput;
-
-		short *psBuffer;
-
-		void decodeNextFrame();
-	public:
-		void addFrameToBuffer(QByteArray &, int iSeq);
-		AudioOutputPlayer(AudioOutput *, short);
-		~AudioOutputPlayer();
-};
-
-class AudioOutput : public QObject {
-	Q_OBJECT
-	protected:
-		bool bRunning;
-		QMutex qmOutputMutex;
-		QMap<short, AudioOutputPlayer *> qmOutputs;
-		virtual AudioOutputPlayer *getPlayer(short) = 0;
-	public:
-		void wipe();
-
-		AudioOutput();
-		~AudioOutput();
-		void addFrameToBuffer(short, QByteArray &, int iSeq);
-		void removeBuffer(short);
-};
+extern Global g;
 
 #else
-class AudioInput;
+class Settings;
 #endif

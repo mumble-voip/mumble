@@ -38,6 +38,7 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Database.h"
+#include "Global.h"
 
 int main(int argc, char **argv)
 {

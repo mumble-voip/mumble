@@ -30,8 +30,6 @@
 
 #include "Settings.h"
 
-Settings g_s;
-
 Settings::Settings() {
 	bPushToTalk = false;
 	atTransmit = VAD;

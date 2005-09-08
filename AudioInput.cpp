@@ -30,14 +30,12 @@
 
 #include "AudioInput.h"
 #include "ServerHandler.h"
-#include "Settings.h"
+#include "Global.h"
 #include "MainWindow.h"
 #include "Player.h"
 
-AudioInput *g.ai;
-
 // Remember that we cannot use static member classes that are not pointers, as the constructor
-// for AudioOutputRegistrar() might be called before they are initialized, as the constructor
+// for AudioInputRegistrar() might be called before they are initialized, as the constructor
 // is called from global initialization.
 // Hence, we allocate upon first call.
 
