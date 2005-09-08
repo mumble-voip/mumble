@@ -1,5 +1,9 @@
-0.2.2cvs
+0.2.3cvs
 ========
+
+
+0.2.2
+=====
 
 - Make server log include date/time
 - Use QObject::sender() for signals
