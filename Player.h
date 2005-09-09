@@ -46,19 +46,24 @@ class Player : public QObject {
 		bool bMute, bDeaf;
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking;
-		Player();
+
+		static QMap<short, Player *> c_qmPlayers;
+		static QMutex c_qmPlayersMutex;
+
+		Player(QObject *p = NULL);
 		static Player *get(short);
-		static Player *add(short);
+		static Player *add(short, QObject *p = NULL);
 		static void remove(short);
 		static void remove(Player *);
 	public slots:
 		void setTalking(bool talking);
+		void setMute(bool mute);
+		void setDeaf(bool deaf);
+		void setSelfMuteDeaf(bool mute, bool deaf);
 	signals:
 		void talkingChanged(bool talking);
+		void muteDeafChanged();
 };
-
-extern QMap<short, Player *> g_qmPlayers;
-extern QMutex g_qmPlayersMutex;
 
 #else
 class Player;

@@ -124,7 +124,6 @@ void ServerHandler::serverConnectionClosed(QString reason) {
 	emit disconnected(reason);
 
 	exit(0);
-	// Clean up player threads
 }
 
 void ServerHandler::serverConnectionConnected() {

@@ -3,5 +3,11 @@
  <file>mumble.png.0</file>
  <file>mumble.png.1</file>
  <file>mumble.png.2</file>
+ <file>icons/talking_on.png</file>
+ <file>icons/talking_off.png</file>
+ <file>icons/muted_self.png</file>
+ <file>icons/deafened_self.png</file>
+ <file>icons/muted_server.png</file>
+ <file>icons/deafened_server.png</file>
 </qresource>
 </RCC>

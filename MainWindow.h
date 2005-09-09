@@ -37,39 +37,41 @@
 #include <QMap>
 #include <QSettings>
 #include <QTextEdit>
+#include <QSplitter>
+#include <QAbstractItemView>
 
 class Player;
 class Connection;
 class ServerHandler;
 class GlobalShortcut;
 class TextToSpeech;
+class PlayerModel;
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
 	public:
 		QTextEdit *qteLog;
-		QListWidget *qlwPlayers;
+		QAbstractItemView *qtvPlayers;
+		PlayerModel *pmModel;
 		QAction *qaServerConnect, *qaServerDisconnect;
 		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
 		QAction *qaAudioReset, *qaAudioShortcuts, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS;
 		QAction *qaHelpAbout, *qaHelpAboutQt;
+		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		TextToSpeech *tts;
 
 		QSettings qs;
 
-		QMap<Player *, QListWidgetItem *> qmItems;
-		QMap<QListWidgetItem *, Player *> qmPlayers;
-
 		void setupGui();
-		void customEvent(QEvent *evt);
-
-		static void setItemColor(QListWidgetItem *, Player *);
 
 		short sMyId;
 		void recheckTTS();
 		void log(QString entry, QString phonetic = QString(), bool maytts = true);
+	protected:
+		void customEvent(QEvent *evt);
+		virtual void closeEvent(QCloseEvent *e);
 	public slots:
 		void on_ServerConnect_triggered();
 		void on_ServerDisconnect_triggered();
@@ -88,7 +90,6 @@ class MainWindow : public QMainWindow {
 		void on_AudioTransmit_triggered(QAction *);
 		void serverConnected();
 		void serverDisconnected(QString reason);
-		void playerTalkingChanged(bool);
 	public:
 		MainWindow(QWidget *parent);
 };

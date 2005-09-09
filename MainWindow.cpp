@@ -35,9 +35,11 @@
 #include <QSplitter>
 #include <QTextCursor>
 #include <QTime>
+#include <QHeaderView>
+#include <QListView>
+#include <QTreeView>
 #include "MainWindow.h"
 #include "AudioInput.h"
-#include "Global.h"
 #include "ConnectDialog.h"
 #include "Player.h"
 #include "Connection.h"
@@ -46,6 +48,8 @@
 #include "GlobalShortcut.h"
 #include "TextToSpeech.h"
 #include "VersionCheck.h"
+#include "PlayerModel.h"
+#include "Global.h"
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setupGui();
@@ -70,7 +74,13 @@ void MainWindow::setupGui()  {
 
 	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_RELEASE)));
 
-	qlwPlayers = new QListWidget(this);
+	QTreeView *view = new QTreeView(this);
+	qtvPlayers = view;
+
+	pmModel = new PlayerModel(this);
+	view->setModel(pmModel);
+	view->setItemDelegate(new PlayerDelegate(view));
+
 	qteLog = new QTextEdit(this);
 	qteLog->setReadOnly(true);
 
@@ -193,11 +203,29 @@ void MainWindow::setupGui()  {
 
     QMetaObject::connectSlotsByName(this);
 
-	QSplitter *qsSplit = new QSplitter(Qt::Horizontal, this);
+	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);
-	qsSplit->addWidget(qlwPlayers);
+	qsSplit->addWidget(qtvPlayers);
 
 	setCentralWidget(qsSplit);
+
+	restoreState(qs.value("mw").toByteArray());
+	qsSplit->restoreState(qs.value("mwSplitter").toByteArray());
+
+	QPoint ps = qs.value("mwPos").toPoint();
+	if (! ps.isNull())
+		move(ps);
+	QSize sz = qs.value("mwSize").toSize();
+	if (sz.isValid())
+		resize(sz);
+}
+
+void MainWindow::closeEvent(QCloseEvent *e) {
+	qs.setValue("mwPos", pos());
+	qs.setValue("mwSize", size());
+	qs.setValue("mw", saveState());
+	qs.setValue("mwSplitter", qsSplit->saveState());
+	MainWindow::closeEvent(e);
 }
 
 void MainWindow::recheckTTS()
@@ -240,6 +268,7 @@ void MainWindow::on_ServerDisconnect_triggered()
 
 void MainWindow::on_PlayerMenu_aboutToShow()
 {
+	/*
 	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item) {
 		qaPlayerKick->setEnabled(false);
@@ -253,10 +282,12 @@ void MainWindow::on_PlayerMenu_aboutToShow()
 		qaPlayerMute->setChecked(p->bMute);
 		qaPlayerDeaf->setChecked(p->bDeaf);
 	}
+	*/
 }
 
 void MainWindow::on_PlayerMute_triggered()
 {
+	/*
 	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item)
 		return;
@@ -265,10 +296,12 @@ void MainWindow::on_PlayerMute_triggered()
 	mpmMsg.sVictim = p->sId;
 	mpmMsg.bMute = ! p->bMute;
 	g.sh->sendMessage(&mpmMsg);
+	*/
 }
 
 void MainWindow::on_PlayerDeaf_triggered()
 {
+	/*
 	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item)
 		return;
@@ -277,10 +310,12 @@ void MainWindow::on_PlayerDeaf_triggered()
 	mpdMsg.sVictim = p->sId;
 	mpdMsg.bDeaf = ! p->bDeaf;
 	g.sh->sendMessage(&mpdMsg);
+	*/
 }
 
 void MainWindow::on_PlayerKick_triggered()
 {
+	/*
 	QListWidgetItem *item = qlwPlayers->currentItem();
 	if (! item)
 		return;
@@ -294,6 +329,7 @@ void MainWindow::on_PlayerKick_triggered()
 		mpkMsg.qsReason = reason;
 		g.sh->sendMessage(&mpkMsg);
 	}
+	*/
 }
 
 void MainWindow::on_AudioReset_triggered()
@@ -379,13 +415,6 @@ void MainWindow::on_PushToTalk_triggered(bool down)
 	g.s.bPushToTalk = down;
 }
 
-void MainWindow::playerTalkingChanged(bool bTalking)
-{
-	Player *p=static_cast<Player *>(sender());
-	QListWidgetItem *item=qmItems[p];
-	item->setBackgroundColor(bTalking ? Qt::lightGray : Qt::white);
-}
-
 void MainWindow::serverConnected()
 {
 	log(tr("Connected to server"));
@@ -406,13 +435,8 @@ void MainWindow::serverDisconnected(QString reason)
 	recheckTTS();
 	qaServerConnect->setEnabled(true);
 	qaServerDisconnect->setEnabled(false);
-	QMapIterator<Player *, QListWidgetItem *> iItems(qmItems);
-	while (iItems.hasNext()) {
-		iItems.next();
-		delete iItems.value();
-	}
-	qmItems.clear();
-	qmPlayers.clear();
+
+	pmModel->removeAllPlayers();
 
 	if (! reason.isEmpty()) {
   	  log(tr("Server connection failed: %1").arg(reason));
@@ -434,62 +458,26 @@ void MainWindow::customEvent(QEvent *evt) {
 	}
 }
 
-void MainWindow::setItemColor(QListWidgetItem *item, Player *p) {
-	if (p->bMute || p->bSelfMute) {
-		if (p->bDeaf || p->bSelfDeaf)
-			item->setTextColor(Qt::blue);
-		else
-			item->setTextColor(Qt::yellow);
-	} else if (p->bDeaf || p->bSelfDeaf) {
-		item->setTextColor(Qt::magenta);
-	} else {
-		item->setTextColor(Qt::black);
-	}
-}
-
 void MessageServerJoin::process(Connection *) {
-	QListWidgetItem *item = new QListWidgetItem(qsPlayerName, g.mw->qlwPlayers);
-	Player *p = Player::add(sPlayerId);
-	p->qsName = qsPlayerName;
-	p->sId = sPlayerId;
-
-	item->setData(Qt::UserRole, p);
-
-	g.mw->qmPlayers[item]=p;
-	g.mw->qmItems[p]=item;
-
-	QObject::connect(p, SIGNAL(talkingChanged(bool)), g.mw, SLOT(playerTalkingChanged(bool)));
-
+	Player *p = g.mw->pmModel->addPlayer(sPlayerId, qsPlayerName);
 	g.mw->log(MainWindow::tr("Joined now: %1").arg(p->qsName));
 }
 
 #define MSG_INIT \
 	Player *pSrc=Player::get(sPlayerId); \
 	if (! pSrc) \
-		qFatal("MainWindow: Message for nonexistant player %d", sPlayerId); \
-	QListWidgetItem *iSrc=g.mw->qmItems[pSrc]; \
-	Q_UNUSED(iSrc)
+		qFatal("MainWindow: Message for nonexistant player %d", sPlayerId);
 
 #define VICTIM_INIT \
 	Player *pDst=Player::get(sVictim); \
 	 if (! pDst) \
- 		qFatal("MainWindow: Message for nonexistant victim %d", sVictim); \
-	QListWidgetItem *iDst=g.mw->qmItems[pDst]; \
-	Q_UNUSED(iDst)
+ 		qFatal("MainWindow: Message for nonexistant victim %d", sVictim);
 
 void MessageServerLeave::process(Connection *) {
 	MSG_INIT;
 
 	g.mw->log(MainWindow::tr("Left now: %1").arg(pSrc->qsName));
-	if (g.mw->qmItems.contains(pSrc)) {
-		QListWidgetItem *item=g.mw->qmItems.take(pSrc);
-
-		g.mw->qmPlayers.remove(item);
-
-		delete item;
-		Player::remove(pSrc);
-		delete pSrc;
-	}
+	g.mw->pmModel->removePlayer(pSrc);
 }
 
 void MessageSpeex::process(Connection *) {
@@ -497,16 +485,14 @@ void MessageSpeex::process(Connection *) {
 
 void MessagePlayerSelfMuteDeaf::process(Connection *) {
 	MSG_INIT;
-	pSrc->bSelfMute = bMute;
-	pSrc->bSelfDeaf = bDeaf;
-	MainWindow::setItemColor(iSrc, pSrc);
+	pSrc->setSelfMuteDeaf(bMute, bDeaf);
 }
 
 void MessagePlayerMute::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	pDst->bMute = bMute;
-	MainWindow::setItemColor(iDst, pDst);
+
+	pDst->setMute(bMute);
 
 	QString vic = pDst->qsName;
 	QString admin = pSrc->qsName;
@@ -520,8 +506,8 @@ void MessagePlayerMute::process(Connection *) {
 void MessagePlayerDeaf::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	pDst->bDeaf = bDeaf;
-	MainWindow::setItemColor(iDst, pDst);
+
+	pDst->setDeaf(bDeaf);
 
 	QString vic = pDst->qsName;
 	QString admin = pSrc->qsName;

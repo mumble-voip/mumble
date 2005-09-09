@@ -30,10 +30,10 @@
 
 #include "Player.h"
 
-QMap<short, Player *> g_qmPlayers;
-QMutex g_qmPlayersMutex;
+QMap<short, Player *> Player::c_qmPlayers;
+QMutex Player::c_qmPlayersMutex;
 
-Player::Player() {
+Player::Player(QObject *p) : QObject(p) {
   sState = Player::Connected;
   sId = 0;
   bMute = bDeaf = false;
@@ -43,32 +43,32 @@ Player::Player() {
 
 Player *Player::get(short sId) {
 	Player *p = NULL;
-	g_qmPlayersMutex.lock();
-	if (g_qmPlayers.contains(sId))
-		p = g_qmPlayers[sId];
-	g_qmPlayersMutex.unlock();
+	c_qmPlayersMutex.lock();
+	if (c_qmPlayers.contains(sId))
+		p = c_qmPlayers[sId];
+	c_qmPlayersMutex.unlock();
 	return p;
 }
 
-Player *Player::add(short sId) {
-	Player *p = new Player();
+Player *Player::add(short sId, QObject *po) {
+	Player *p = new Player(po);
 	p->sId = sId;
-	g_qmPlayersMutex.lock();
-	g_qmPlayers[sId] = p;
-	g_qmPlayersMutex.unlock();
+	c_qmPlayersMutex.lock();
+	c_qmPlayers[sId] = p;
+	c_qmPlayersMutex.unlock();
 	return p;
 }
 
 void Player::remove(short sId) {
-	g_qmPlayersMutex.lock();
-	g_qmPlayers.remove(sId);
-	g_qmPlayersMutex.unlock();
+	c_qmPlayersMutex.lock();
+	c_qmPlayers.remove(sId);
+	c_qmPlayersMutex.unlock();
 }
 
 void Player::remove(Player *p) {
-	g_qmPlayersMutex.lock();
-	g_qmPlayers.remove(p->sId);
-	g_qmPlayersMutex.unlock();
+	c_qmPlayersMutex.lock();
+	c_qmPlayers.remove(p->sId);
+	c_qmPlayersMutex.unlock();
 }
 
 void Player::setTalking(bool talking) {
@@ -76,4 +76,28 @@ void Player::setTalking(bool talking) {
 		return;
 	bTalking = talking;
 	emit talkingChanged(bTalking);
+}
+
+void Player::setMute(bool mute) {
+	if (bMute == mute)
+		return;
+	bMute = mute;
+	if (! bMute && bDeaf)
+		bDeaf = false;
+	emit muteDeafChanged();
+}
+
+void Player::setDeaf(bool deaf) {
+	if (bDeaf == deaf)
+		return;
+	bDeaf = deaf;
+	if (bDeaf && ! bMute)
+		bMute = true;
+	emit muteDeafChanged();
+}
+
+void Player::setSelfMuteDeaf(bool mute, bool deaf) {
+	bSelfDeaf = deaf;
+	bSelfMute = mute;
+	emit muteDeafChanged();
 }

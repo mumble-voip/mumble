@@ -1,6 +1,7 @@
 0.2.3cvs
 ========
 
+- Make main window remember size and position, and the split between log/userlist
 
 0.2.2
 =====

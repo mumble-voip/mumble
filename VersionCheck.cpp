@@ -75,4 +75,5 @@ void VersionCheck::on_Agent_requestFinished(int id, bool error) {
 		if (a.size() > 0)
 			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), a, QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	}
+	deleteLater();
 }
