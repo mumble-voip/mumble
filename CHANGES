@@ -1,6 +1,8 @@
 0.2.3cvs
 ========
 
+- Add icons for mute/unmute and talking status
+- Improved the player list, turned it into a proper view
 - Make main window remember size and position, and the split between log/userlist
 
 0.2.2
