@@ -263,6 +263,18 @@ void MessagePlayerMute::process(Connection *cCon) {
 	VICTIM_SETUP;
 
 	if (pDstPlayer) {
+		if (pDstPlayer->bMute == bMute)
+			return;
+
+		if (! bMute && pDstPlayer->bDeaf) {
+			pDstPlayer->bDeaf = false;
+			MessagePlayerDeaf mpd;
+			mpd.sPlayerId = sPlayerId;
+			mpd.sVictim = sVictim;
+			mpd.bDeaf = false;
+			g_sServer->sendAll(&mpd);
+		}
+
 		pDstPlayer->bMute = bMute;
 		g_sServer->sendAll(this);
 	}
@@ -273,6 +285,18 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 	VICTIM_SETUP;
 
 	if (pDstPlayer) {
+		if (pDstPlayer->bDeaf == bDeaf)
+			return;
+
+		if (bDeaf && ! pDstPlayer->bMute) {
+			pDstPlayer->bMute = true;
+			MessagePlayerMute mpm;
+			mpm.sPlayerId = sPlayerId;
+			mpm.sVictim = sVictim;
+			mpm.bMute = true;
+			g_sServer->sendAll(&mpm);
+		}
+
 		pDstPlayer->bDeaf = bDeaf;
 		g_sServer->sendAll(this);
 	}

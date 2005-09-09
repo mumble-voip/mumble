@@ -268,58 +268,49 @@ void MainWindow::on_ServerDisconnect_triggered()
 
 void MainWindow::on_PlayerMenu_aboutToShow()
 {
-	/*
-	QListWidgetItem *item = qlwPlayers->currentItem();
-	if (! item) {
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (! p) {
 		qaPlayerKick->setEnabled(false);
 		qaPlayerMute->setEnabled(false);
 		qaPlayerDeaf->setEnabled(false);
 	} else {
-		Player *p = qmPlayers[item];
 		qaPlayerKick->setEnabled(true);
 		qaPlayerMute->setEnabled(true);
 		qaPlayerDeaf->setEnabled(true);
 		qaPlayerMute->setChecked(p->bMute);
 		qaPlayerDeaf->setChecked(p->bDeaf);
 	}
-	*/
 }
 
 void MainWindow::on_PlayerMute_triggered()
 {
-	/*
-	QListWidgetItem *item = qlwPlayers->currentItem();
-	if (! item)
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
 		return;
-	Player *p = qmPlayers[item];
+
 	MessagePlayerMute mpmMsg;
 	mpmMsg.sVictim = p->sId;
 	mpmMsg.bMute = ! p->bMute;
 	g.sh->sendMessage(&mpmMsg);
-	*/
 }
 
 void MainWindow::on_PlayerDeaf_triggered()
 {
-	/*
-	QListWidgetItem *item = qlwPlayers->currentItem();
-	if (! item)
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
 		return;
-	Player *p = qmPlayers[item];
+
 	MessagePlayerDeaf mpdMsg;
 	mpdMsg.sVictim = p->sId;
 	mpdMsg.bDeaf = ! p->bDeaf;
 	g.sh->sendMessage(&mpdMsg);
-	*/
 }
 
 void MainWindow::on_PlayerKick_triggered()
 {
-	/*
-	QListWidgetItem *item = qlwPlayers->currentItem();
-	if (! item)
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
 		return;
-	Player *p = qmPlayers[item];
 
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
@@ -329,7 +320,6 @@ void MainWindow::on_PlayerKick_triggered()
 		mpkMsg.qsReason = reason;
 		g.sh->sendMessage(&mpkMsg);
 	}
-	*/
 }
 
 void MainWindow::on_AudioReset_triggered()
