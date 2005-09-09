@@ -30,7 +30,7 @@
 
 #include <QObject>
 #include <QTimer>
-#include <QMap>
+#include <QHash>
 #include <QHash>
 
 #include "GlobalShortcut.h"
@@ -49,7 +49,7 @@ class GlobalShortcutWin : public QObject {
 		LPDIRECTINPUTDEVICE8 pKeyboard;
 		DIACTIONFORMAT        diafGame;
 		QList<LPDIRECTINPUTDEVICE8> qlDevices;
-		QMap<int, GlobalShortcut *> qmShortcuts;
+		QHash<int, GlobalShortcut *> qmShortcuts;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		BOOL bNeedRemap;
 		DIACTION *diaActions;

@@ -34,7 +34,7 @@
 #include "Player.h"
 #include "Connection.h"
 #include <QObject>
-#include <QMap>
+#include <QHash>
 #include <QTcpServer>
 #include <QQueue>
 
@@ -48,8 +48,8 @@ class Server : public QObject {
 		void connectionClosed(QString);
 		void message(QByteArray &);
 	public:
-		QMap<short, Connection *> qmConnections;
-		QMap<Connection *, Player *> qmPlayers;
+		QHash<short, Connection *> qmConnections;
+		QHash<Connection *, Player *> qmPlayers;
 
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);

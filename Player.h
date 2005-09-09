@@ -33,7 +33,7 @@
 
 #include <QString>
 #include <QObject>
-#include <QMap>
+#include <QHash>
 #include <QMutex>
 
 class Player : public QObject {
@@ -47,7 +47,7 @@ class Player : public QObject {
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking;
 
-		static QMap<short, Player *> c_qmPlayers;
+		static QHash<short, Player *> c_qmPlayers;
 		static QMutex c_qmPlayersMutex;
 
 		Player(QObject *p = NULL);

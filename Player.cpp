@@ -30,7 +30,7 @@
 
 #include "Player.h"
 
-QMap<short, Player *> Player::c_qmPlayers;
+QHash<short, Player *> Player::c_qmPlayers;
 QMutex Player::c_qmPlayersMutex;
 
 Player::Player(QObject *p) : QObject(p) {
@@ -42,10 +42,8 @@ Player::Player(QObject *p) : QObject(p) {
 }
 
 Player *Player::get(short sId) {
-	Player *p = NULL;
 	c_qmPlayersMutex.lock();
-	if (c_qmPlayers.contains(sId))
-		p = c_qmPlayers[sId];
+	Player *p = c_qmPlayers.value(sId);
 	c_qmPlayersMutex.unlock();
 	return p;
 }

@@ -36,6 +36,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QMap>
+#include <QHash>
 #include <QWidget>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
@@ -83,7 +84,7 @@ class AudioOutput : public QObject {
 	protected:
 		bool bRunning;
 		QMutex qmOutputMutex;
-		QMap<short, AudioOutputPlayer *> qmOutputs;
+		QHash<short, AudioOutputPlayer *> qmOutputs;
 		virtual AudioOutputPlayer *getPlayer(short) = 0;
 	public:
 		void wipe();

@@ -137,12 +137,9 @@ AudioOutput::~AudioOutput() {
 void AudioOutput::wipe() {
 	qmOutputMutex.lock();
 
-	QMapIterator<short, AudioOutputPlayer *> iOutputs(qmOutputs);
-    while (iOutputs.hasNext()) {
-		iOutputs.next();
-		delete iOutputs.value();
+	foreach(AudioOutputPlayer *aop, qmOutputs) {
+		delete aop;
 	}
-
 	qmOutputs.clear();
 
 	qmOutputMutex.unlock();
@@ -159,9 +156,8 @@ void AudioOutput::addFrameToBuffer(short sId, QByteArray &qbaPacket, int iSeq) {
 
 void AudioOutput::removeBuffer(short sId) {
 	qmOutputMutex.lock();
-	if (qmOutputs.contains(sId)) {
-		AudioOutputPlayer *aopOutput = qmOutputs.take(sId);
+	AudioOutputPlayer *aopOutput = qmOutputs.take(sId);
+	if (aopOutput)
 		delete aopOutput;
-	}
 	qmOutputMutex.unlock();
 }

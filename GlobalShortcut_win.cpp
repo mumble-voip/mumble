@@ -101,10 +101,7 @@ void GlobalShortcutWin::remap() {
 	diaActions = new DIACTION[qmShortcuts.count()];
 
 	int cnt = 0;
-	QMapIterator<int, GlobalShortcut *> i(qmShortcuts);
-	while (i.hasNext()) {
-		i.next();
-		GlobalShortcut *gs = i.value();
+	foreach(GlobalShortcut *gs, qmShortcuts) {
 		memset(&diaActions[cnt], 0, sizeof(DIACTION));
 		diaActions[cnt].uAppData = gs->idx;
 		diaActions[cnt].dwSemantic = DIBUTTON_ANY(gs->idx);
@@ -225,8 +222,8 @@ void GlobalShortcutWin::timeTicked() {
         for( DWORD j=0; j<dwItems; j++ )
         {
             bool  bButtonDown = (rgdod[j].dwData==0x80) ? true : false;
-            if (qmShortcuts.contains(rgdod[j].uAppData)) {
-				GlobalShortcut *gs = qmShortcuts[rgdod[j].uAppData];
+            GlobalShortcut *gs = qmShortcuts.value(rgdod[j].uAppData);
+            if (gs) {
 				emit gs->triggered(bButtonDown);
 				if (bButtonDown)
 					emit gs->down();

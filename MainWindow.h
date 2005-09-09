@@ -34,7 +34,6 @@
 #include <QMainWindow>
 #include <QListWidget>
 #include <QAction>
-#include <QMap>
 #include <QSettings>
 #include <QTextEdit>
 #include <QSplitter>

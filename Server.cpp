@@ -56,9 +56,7 @@ Server::Server() {
 
 void Server::log(QString s, Connection *c) {
 	if (c) {
-		Player *p = NULL;
-		if (qmPlayers.contains(c))
-			p = qmPlayers[c];
+		Player *p = qmPlayers.value(c);
 
 		int id = 0;
 		QString name;
@@ -141,11 +139,10 @@ void Server::sendAll(Message *mMsg) {
 }
 
 void Server::sendExcept(Message *mMsg, Connection *cCon) {
-	QMapIterator<Connection *, Player *> iPlayers(qmPlayers);
-	while (iPlayers.hasNext()) {
-		iPlayers.next();
-		if (iPlayers.key() != cCon)
-			iPlayers.key()->sendMessage(mMsg);
+	QHash<Connection *, Player *>::const_iterator i;
+	for(i=qmPlayers.constBegin(); i != qmPlayers.constEnd(); ++i) {
+		if (i.key() != cCon)
+			i.key()->sendMessage(mMsg);
 	}
 }
 
@@ -158,10 +155,8 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 #define VICTIM_SETUP \
 	Player *pDstPlayer = Player::get(sVictim); \
 	Q_UNUSED(pDstPlayer) \
-	Connection *cDst = NULL; \
-	Q_UNUSED(cDst) \
-	if (g_sServer->qmConnections.contains(sVictim)) \
-		cDst = g_sServer->qmConnections[sVictim];
+	Connection *cDst = g_sServer->qmConnections.value(sVictim); \
+	Q_UNUSED(cDst)
 
 void MessageServerAuthenticate::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
@@ -202,10 +197,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	msjMsg.qsPlayerName = pSrcPlayer->qsName;
 	g_sServer->sendExcept(&msjMsg, cCon);
 
-	QMapIterator<Connection *, Player *> iPlayers(g_sServer->qmPlayers);
-	while (iPlayers.hasNext()) {
-		iPlayers.next();
-		Player *pPlayer = iPlayers.value();
+	foreach(Player *pPlayer, g_sServer->qmPlayers) {
 		msjMsg.sPlayerId = pPlayer->sId;
 		msjMsg.qsPlayerName = pPlayer->qsName;
 		cCon->sendMessage(&msjMsg);
@@ -258,12 +250,11 @@ void MessageSpeex::process(Connection *cCon) {
 	if (pSrcPlayer->bMute)
 		return;
 
-	QMapIterator<Connection *, Player *> iPlayers(g_sServer->qmPlayers);
-	while (iPlayers.hasNext()) {
-		iPlayers.next();
-		Player *pPlayer = iPlayers.value();
+	QHash<Connection *, Player *>::const_iterator i;
+	for (i=g_sServer->qmPlayers.constBegin(); i != g_sServer->qmPlayers.constEnd(); ++i) {
+		Player *pPlayer = i.value();
 		if (! pPlayer->bDeaf && ! pPlayer->bSelfDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
-			iPlayers.key()->sendMessage(this);
+			i.key()->sendMessage(this);
 	}
 }
 
