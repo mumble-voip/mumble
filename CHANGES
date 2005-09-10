@@ -1,4 +1,3 @@
-	* [no log message]
 	* recent updates
 	* Deaf implies Mute logic in Server, and add ability to mute/deaf
 	  players again (added PlayerModel::getPlayer from index)
@@ -28,7 +27,6 @@
 	  GUI guides
 	* Check version against sourceforge
 	* Show correct version in title
-	* [no log message]
 	* Separate log window
 	* Reduce dependencies in MainWindow.h
 	* Add changes file Add persistant storage of server lists
@@ -86,7 +84,6 @@
 	* Encode and display "speaking" state
 	* Accept some paramenters for murmur, to enable e.g. local loop
 	  test
-	* [no log message]
 	* Update libspeex makefile to match dynamic libs Move license
 	  agreements to installer instead of embedded in program
 	* License files for qt and speex for installer
