@@ -30,6 +30,8 @@
 
 #include <QPainter>
 #include "PlayerModel.h"
+#include "MainWindow.h"
+#include "Global.h"
 
 PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOn=QIcon(":/icons/talking_on.png");
@@ -61,6 +63,12 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 
 	if ((role == Qt::DecorationRole) && (idx.column() == 0))
 		return (p->bTalking) ? qiTalkingOn : qiTalkingOff;
+
+	if ((role == Qt::FontRole) && (idx.column() == 0) && (p->sId == g.mw->sMyId)) {
+		QFont f = g.mw->font();
+		f.setBold(true);
+		return f;
+	}
 
     if (role != Qt::DisplayRole)
         return QVariant();
@@ -125,11 +133,19 @@ int PlayerModel::rowCount(const QModelIndex &p) const
 }
 
 Player *PlayerModel::addPlayer(short id, QString name) {
-	int rows = rowCount(QModelIndex());
+	QStringList names;
+	foreach(Player *p, qlPlayers) {
+		names << p->qsName;
+	}
+	names << name;
+	qSort(names);
+
+	int rows = names.indexOf(name);
+
 	beginInsertRows(QModelIndex(), rows, rows);
 	Player *p = Player::add(id, this);
 	p->qsName = name;
-	qlPlayers << p;
+	qlPlayers.insert(rows, p);
 	endInsertRows();
 
 	connect(p, SIGNAL(talkingChanged(bool)), this, SLOT(playerTalkingChanged(bool)));
