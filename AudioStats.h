@@ -28,62 +28,24 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOINPUT_H
-#define _AUDIOINPUT_H
+#ifndef _AUDIOSTATS_H
+#define _AUDIOSTATS_H
 
-#define SAMPLE_RATE 16000
+#include <QDialog>
+#include <QLabel>
+#include <QTimer>
 
-#include <QThread>
-#include <QWidget>
-#include <speex/speex.h>
-#include <speex/speex_preprocess.h>
-
-class AudioInput;
-
-typedef AudioInput *(*AudioInputRegistrarNew)();
-typedef QWidget *(*AudioInputRegistrarConfig)(QWidget *parent);
-
-class AudioInputRegistrar {
+class AudioStats : public QDialog {
+	Q_OBJECT;
 	protected:
-		static QMap<QString, AudioInputRegistrarNew> *qmNew;
-		static QMap<QString, AudioInputRegistrarConfig> *qmConfig;
+		QLabel *qlMicLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
+		QTimer *qtTick;
 	public:
-		static QString current;
-		AudioInputRegistrar(QString name, AudioInputRegistrarNew n, AudioInputRegistrarConfig c);
-		static AudioInput *newFromChoice(QString choice = QString());
-};
-
-class AudioInput : public QThread {
-	Q_OBJECT
-	protected:
-		int	iFrameSize;
-		int iByteSize;
-
-		SpeexBits sbBits;
-		SpeexPreprocessState *sppPreprocess;
-		void *esEncState;
-
-		short *psMic;
-		void encodeAudioFrame();
-
-		bool bRunning;
-
-		static int c_iFrameCounter;
-	public:
-		bool bResetProcessor;
-
-		int iBitrate;
-		double dSnr;
-		double dLoudness;
-		double dPeakMic;
-		double dSpeechProb;
-
-		AudioInput();
-		~AudioInput();
-		void run() = 0;
-		bool isRunning();
+		AudioStats(QWidget *parent);
+	public slots:
+		void on_Tick_timeout();
 };
 
 #else
-class AudioInput;
+class AudioStats;
 #endif

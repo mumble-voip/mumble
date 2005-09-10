@@ -28,6 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <math.h>
+
 #include "AudioInput.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
@@ -97,6 +99,9 @@ AudioInput::AudioInput()
 	sppPreprocess = NULL;
 	psMic = new short[iFrameSize];
 
+	iBitrate = 0;
+	dSnr = dLoudness = dPeakMic = dSpeechProb = 0.0;
+
 	bRunning = false;
 }
 
@@ -113,17 +118,29 @@ AudioInput::~AudioInput()
 	delete [] psMic;
 }
 
+bool AudioInput::isRunning() {
+	return bRunning;
+}
+
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
 	int iLen;
 	Player *p=Player::get(g.mw->sMyId);
+	short max;
+	int i;
 
 	c_iFrameCounter++;
 
 	if (! bRunning) {
 		return;
 	}
+
+	max=1;
+	for(i=0;i<iFrameSize;i++)
+		if (abs(psMic[i]) > max)
+			max=abs(psMic[i]);
+	dPeakMic=20.0*log10((max  * 1.0L) / 32768.0L);
 
 	if (bResetProcessor) {
 		if (sppPreprocess)
@@ -171,6 +188,10 @@ void AudioInput::encodeAudioFrame() {
 		return;
 	}
 
+	dSnr = sppPreprocess->Zlast;
+	dLoudness = sppPreprocess->loudness2;
+	dSpeechProb = sppPreprocess->speech_prob;
+
 	if (! iIsSpeech) {
 		// Zero frame -- we don't want comfort noise
 		memset(psMic, 0, iByteSize);
@@ -182,6 +203,7 @@ void AudioInput::encodeAudioFrame() {
 
 	speex_bits_reset(&sbBits);
 	speex_encode_int(esEncState, psMic, &sbBits);
+	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
 
 	iLen=speex_bits_nbytes(&sbBits);

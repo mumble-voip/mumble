@@ -49,6 +49,7 @@
 #include "TextToSpeech.h"
 #include "VersionCheck.h"
 #include "PlayerModel.h"
+#include "AudioStats.h"
 #include "Global.h"
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
@@ -129,6 +130,8 @@ void MainWindow::setupGui()  {
 	qaAudioShortcuts->setObjectName("AudioShortcuts");
 	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
 	qaAudioTTS->setObjectName("AudioTextToSpeech");
+	qaAudioStats=new QAction(tr("S&tatistics"), this);
+	qaAudioStats->setObjectName("AudioStats");
 	qaAudioMute->setCheckable(true);
 	qaAudioDeaf->setCheckable(true);
 	qaAudioTTS->setCheckable(true);
@@ -172,6 +175,7 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioShortcuts);
 	qmAudio->addAction(qaAudioTTS);
 	qmAudio->addMenu(qm);
+	qmAudio->addAction(qaAudioStats);
 
 	qaHelpAbout=new QAction(tr("&About"), this);
 	qaHelpAbout->setObjectName("HelpAbout");
@@ -387,6 +391,12 @@ void MainWindow::on_AudioTransmit_triggered(QAction *act)
 {
 	g.s.atTransmit = static_cast<Settings::AudioTransmit>(act->data().toInt());
 	qs.setValue("AudioTransmit", g.s.atTransmit);
+}
+
+void MainWindow::on_AudioStats_triggered()
+{
+	AudioStats *as=new AudioStats(this);
+	as->show();
 }
 
 void MainWindow::on_HelpAbout_triggered()

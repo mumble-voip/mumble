@@ -54,7 +54,7 @@ class MainWindow : public QMainWindow {
 		PlayerModel *pmModel;
 		QAction *qaServerConnect, *qaServerDisconnect;
 		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
-		QAction *qaAudioReset, *qaAudioShortcuts, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS;
+		QAction *qaAudioReset, *qaAudioShortcuts, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats;
 		QAction *qaHelpAbout, *qaHelpAboutQt;
 		QSplitter *qsSplit;
 
@@ -83,6 +83,7 @@ class MainWindow : public QMainWindow {
 		void on_AudioMute_triggered();
 		void on_AudioDeaf_triggered();
 		void on_AudioTextToSpeech_triggered();
+		void on_AudioStats_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
 		void on_PushToTalk_triggered(bool);
