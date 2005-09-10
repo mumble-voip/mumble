@@ -199,7 +199,7 @@ void PlayerDelegate::paint(QPainter * painter, const QStyleOptionViewItem &optio
 		for(int i=0;i<ql.size();i++) {
 			QRect r = option.rect;
 			r.setSize(QSize(16,16));
-			r.translate(i*18,0);
+			r.translate(i*18+1,1);
 			drawDecoration(painter, option, r, qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
 		}
 		painter->restore();
