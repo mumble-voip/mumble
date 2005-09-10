@@ -1,21 +1,129 @@
-0.2.3cvs
-========
+	* recent updates
+	* Deaf implies Mute logic in Server, and add ability to mute/deaf
+	  players again (added PlayerModel::getPlayer from index)
+	* QHash, foreach() and STL iterators. What ever gave me the idea
+	  QMap was a hash to begin with?
+	* Model-player-list. Work in progress
+	* Compile bugs in VersionCheck, update version in About dialog as
+	  well
+	* Change versions to 0.2.3cvs
 
-- Add icons for mute/unmute and talking status
-- Improved the player list, turned it into a proper view
-- Make main window remember size and position, and the split between log/userlist
+2005-09-08  tag rel_0_2_2
 
-0.2.2
-=====
+	* Avoid conflicts for MUMBLE_RELEASE
+	* Use new Connection slots for Server Make server log include
+	  date/time
+	* Discover the magic of QObject::sender() and fix some leftover
+	  bugs from the refactorization
+	* Refactor
+	* Oops, we're working on 0.2.2, not 0.2.1 which is already released
+	* Remove compile warnings, and there sure were a lot of them Work
+	  around -Wshadow bug in gcc
+	* Turn g_ into Global, part 2
+	* Turn g_ into struct Global, part 1
+	* Remove m_ from everything
+	* Track both initiator and victim of actions
+	* Make all messageboxes use "Mumble" as the title, to follow the
+	  GUI guides
+	* Check version against sourceforge
+	* Show correct version in title
+	* [no log message]
+	* Separate log window
+	* Reduce dependencies in MainWindow.h
+	* Add changes file Add persistant storage of server lists
+	* Increase default volume gain
+	* Commit database
+	* Configure database for persistent storage
+	* **** the password field
+	* Fix args for window title
+	* Exchange and display selfmute/selfdeaf
+	* Audio Input/Output registration
+	* Support self-mute/self-deafen.  Start support for input/output
+	  configs
+	* config=profile to keep debug info for external profilers
+	* Make the buffer what we need
+	* Make it possible to abort connections, and display self-talk same
+	  as the others
+	* More verifications
+	* Make ids recyclable over time instead of immediately, and
+	  validate that the "target" of messages is actually valid.
+	* The FIRST loaded icon will be the appicon. Make sure it's the
+	  smallest. This really is buggy, Qt!
+	* MainWindow actiongroup for voicetrigger fixed build system fixed
+	  to use proper conditionals
+	* Release build should NOT have the damn console!
+	* Release script fixes
+	* Basic connect dialog
+	* About dialog with icon
+	* Need all 3 icon sizes
+	* Hopefully binary?
+	* Fixed...
+	* .. but Qt can't use windows resources to store images.
+	* Added readme to installer Fixed crashbug in Server Made
+	  connection only emit disconnected once
+	* Temporary icon for alpha and beta stage[cybknight]
+	* Add readme
+	* Global settings and data exchange
+	* Shortcuts for muting self, removed compile warnings
+	* Text-To-Speech
+	* Actually poll the DirectInput devices too.
+	* Global shortcuts
+	* Handle authentication, rejections and propagated error messages
+	* Propagate connection errors for display
+	* When disconnecting, just signal the thread that it's time to end,
+	  don't yank the socket or QT complains
+	* Support logging in with pw
+	* handle authenticate/reject in networkToMessage
+	* Proper connect dialog
+	* Use compression for zips
+	* Add scripts to release source code
+	* Versions in projects
+	* debug_and_release
+	* Because they changed the signal in Qt 4.0.1
+	* Why doesn't closed buffered sockets ever error() on
+	  disconnection?
+	* Encode and display "speaking" state
+	* Accept some paramenters for murmur, to enable e.g. local loop
+	  test
+	* [no log message]
+	* Update libspeex makefile to match dynamic libs Move license
+	  agreements to installer instead of embedded in program
+	* License files for qt and speex for installer
+	* Dynamic release, only need licenses in installer/as files
+	* Forgot to checkin the new about dialog. Ahem.
 
-- Make server log include date/time
-- Use QObject::sender() for signals
-- Refactored the code to remove m_, and use static_cast<> and friends
-- Make messages track source, so the player who initiated kick/mute/deaf of others is known to all.
-- Check version on startup
-- Show version in mainwidow
-- Add log window on the left
-- Reduce dependencies in MainWindow.h
-- Store list of servers in connect dialog
-- Added persistant database
-- Added CHANGES file
+2005-09-03  tag rel0_2
+
+	* Since we depend on mingw dlls anyway, switch to full dynamic
+	  linking and add an installer
+	* remove debug output
+	* Kick
+	* Clean up UI, implement kick, remove debug for missing validators
+	* Ooops, that was a debug statement
+	* DTX is broken
+	* Server testing
+	* Send deaf/mute on connect
+	* Player Mute/Deaf, global Player
+	* DTX Support Make list of players at least somewhat usefull
+	* Add sequence to speex packet
+	* Fix memory leak, it's now safe to pass stack-allocated messages
+	* About box, licenses included, and clean build in mingw
+	* Let's try licenses again...
+	* licenses for about dialog
+	* First functional audio test
+	* connect() typo, and increased AGC 50%
+	* Pass QByteArrays instead of messages, much cleaner with refcounts
+	* Initial DX Audio
+	* Initial audio framework
+	* Shorten down messages by making id and type 1 byte each
+	* actually do something with messages
+	* debugging network
+	* First test of network protocol
+	* Disconnect on errors, don't send disconnect unless authenticated
+	* Compile fixed
+	* virtual destructor (to avoid nag)
+	* Initial version of the server
+	* Network structures
+	* More data checking
+	* Initial datastructures
+	* Initial setup of project
