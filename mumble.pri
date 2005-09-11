@@ -17,10 +17,10 @@ CONFIG(release, debug|release) {
 # To use external profiling tools on the release builds, but
 # we need the debug symbols.
 
-CONFIG(profile) {
-  QMAKE_CFLAGS += -g -O3
-  QMAKE_CXXFLAGS += -g -O3
+CONFIG(symbols) {
+  QMAKE_CFLAGS_RELEASE += -g 
+  QMAKE_CXXFLAGS_RELEASE += -g 
   QMAKE_LFLAGS += -g
-  QMAKE_LFLAGS -= -Wl,-s
+  QMAKE_LFLAGS_RELEASE -= -Wl,-s
 }
   
