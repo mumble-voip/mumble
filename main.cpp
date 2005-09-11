@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 
 	// And the start the last chosen audio system.
 	g.ai = AudioInputRegistrar::newFromChoice();
-	g.ai->start();
+	g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice();
 
 	// Increase our priority class to live alongside games.

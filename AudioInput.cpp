@@ -200,7 +200,6 @@ void AudioInput::encodeAudioFrame() {
 	if (p)
 		p->setTalking(iIsSpeech);
 
-
 	speex_bits_reset(&sbBits);
 	speex_encode_int(esEncState, psMic, &sbBits);
 	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);

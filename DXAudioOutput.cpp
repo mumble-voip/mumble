@@ -104,7 +104,7 @@ DXAudioOutput::~DXAudioOutput() {
 
 AudioOutputPlayer *DXAudioOutput::getPlayer(short sId) {
 	DXAudioOutputPlayer *daopPlayer = new DXAudioOutputPlayer(this, sId);
-	daopPlayer->start();
+	daopPlayer->start(QThread::HighPriority);
 	return daopPlayer;
 }
 
