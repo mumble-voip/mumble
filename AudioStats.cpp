@@ -41,6 +41,8 @@
 AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	setAttribute(Qt::WA_DeleteOnClose, true);
 
+	setWindowTitle("Mumble");
+
     QLabel *lab;
 	QGridLayout *l=new QGridLayout;
     setLayout(l);
