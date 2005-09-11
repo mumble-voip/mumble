@@ -169,6 +169,10 @@ void AudioInput::encodeAudioFrame() {
 	int iIsSpeech;
 	iIsSpeech=speex_preprocess(sppPreprocess, psMic, NULL);
 
+	// The default is a bit short, increase it
+	if (! iIsSpeech && sppPreprocess->last_speech < 40)
+		iIsSpeech = 1;
+
 	if (sppPreprocess->loudness2 < 4000)
 		sppPreprocess->loudness2 = 4000;
 

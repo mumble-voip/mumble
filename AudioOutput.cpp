@@ -100,9 +100,8 @@ AudioOutputPlayer::~AudioOutputPlayer() {
 }
 
 void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
-	qmJitter.lock();
+	QMutexLocker lock(&qmJitter);
 	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * 20);
-	qmJitter.unlock();
 }
 
 void AudioOutputPlayer::decodeNextFrame() {
@@ -110,14 +109,15 @@ void AudioOutputPlayer::decodeNextFrame() {
 	bool bSpeech;
 	int iSpeech = 0;
 
-	qmJitter.lock();
-	speex_jitter_get(&sjJitter, psBuffer, &iTimestamp);
-	if (sjJitter.valid_bits) {
-		iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
-		if (! iSpeech)
-			speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
+	{
+		QMutexLocker lock(&qmJitter);
+		speex_jitter_get(&sjJitter, psBuffer, &iTimestamp);
+		if (sjJitter.valid_bits) {
+			iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
+			if (! iSpeech)
+				speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
+		}
 	}
-	qmJitter.unlock();
 
 	bSpeech = iSpeech;
 
@@ -139,29 +139,25 @@ AudioOutput::~AudioOutput() {
 }
 
 void AudioOutput::wipe() {
-	qmOutputMutex.lock();
+	QWriteLocker locker(&qrwlOutputs);
 
 	foreach(AudioOutputPlayer *aop, qmOutputs) {
 		delete aop;
 	}
 	qmOutputs.clear();
-
-	qmOutputMutex.unlock();
 }
 
 void AudioOutput::addFrameToBuffer(short sId, QByteArray &qbaPacket, int iSeq) {
-	qmOutputMutex.lock();
+	QReadLocker locker(&qrwlOutputs);
 	if (! qmOutputs.contains(sId)) {
 		qmOutputs[sId] = getPlayer(sId);
 	}
 	qmOutputs[sId]->addFrameToBuffer(qbaPacket, iSeq);
-	qmOutputMutex.unlock();
 }
 
 void AudioOutput::removeBuffer(short sId) {
-	qmOutputMutex.lock();
+	QWriteLocker locker(&qrwlOutputs);
 	AudioOutputPlayer *aopOutput = qmOutputs.take(sId);
 	if (aopOutput)
 		delete aopOutput;
-	qmOutputMutex.unlock();
 }

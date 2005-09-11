@@ -34,7 +34,7 @@
 #include <QString>
 #include <QObject>
 #include <QHash>
-#include <QMutex>
+#include <QReadWriteLock>
 
 class Player : public QObject {
 	Q_OBJECT
@@ -48,7 +48,7 @@ class Player : public QObject {
 		bool bTalking;
 
 		static QHash<short, Player *> c_qmPlayers;
-		static QMutex c_qmPlayersMutex;
+		static QReadWriteLock c_qrwlPlayers;
 
 		Player(QObject *p = NULL);
 		static Player *get(short);

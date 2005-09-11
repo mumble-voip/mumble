@@ -35,6 +35,7 @@
 
 #include <QThread>
 #include <QMutex>
+#include <QReadWriteLock>
 #include <QMap>
 #include <QHash>
 #include <QWidget>
@@ -83,7 +84,7 @@ class AudioOutput : public QObject {
 	Q_OBJECT
 	protected:
 		bool bRunning;
-		QMutex qmOutputMutex;
+		QReadWriteLock qrwlOutputs;
 		QHash<short, AudioOutputPlayer *> qmOutputs;
 		virtual AudioOutputPlayer *getPlayer(short) = 0;
 	public:

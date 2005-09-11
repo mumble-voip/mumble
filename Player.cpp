@@ -31,7 +31,7 @@
 #include "Player.h"
 
 QHash<short, Player *> Player::c_qmPlayers;
-QMutex Player::c_qmPlayersMutex;
+QReadWriteLock Player::c_qrwlPlayers;
 
 Player::Player(QObject *p) : QObject(p) {
   sState = Player::Connected;
@@ -42,31 +42,27 @@ Player::Player(QObject *p) : QObject(p) {
 }
 
 Player *Player::get(short sId) {
-	c_qmPlayersMutex.lock();
+	QReadLocker lock(&c_qrwlPlayers);
 	Player *p = c_qmPlayers.value(sId);
-	c_qmPlayersMutex.unlock();
 	return p;
 }
 
 Player *Player::add(short sId, QObject *po) {
+	QWriteLocker lock(&c_qrwlPlayers);
+
 	Player *p = new Player(po);
 	p->sId = sId;
-	c_qmPlayersMutex.lock();
 	c_qmPlayers[sId] = p;
-	c_qmPlayersMutex.unlock();
 	return p;
 }
 
 void Player::remove(short sId) {
-	c_qmPlayersMutex.lock();
+	QWriteLocker lock(&c_qrwlPlayers);
 	c_qmPlayers.remove(sId);
-	c_qmPlayersMutex.unlock();
 }
 
 void Player::remove(Player *p) {
-	c_qmPlayersMutex.lock();
-	c_qmPlayers.remove(p->sId);
-	c_qmPlayersMutex.unlock();
+	remove(p->sId);
 }
 
 void Player::setTalking(bool talking) {
