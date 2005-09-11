@@ -183,22 +183,25 @@ void AudioInput::encodeAudioFrame() {
 	// very well.
 
 	if (g.s.bMute || (p && p->bMute)) {
-		if (p)
-			p->setTalking(false);
-		return;
+		iIsSpeech = 0;
 	}
 
 	dSnr = sppPreprocess->Zlast;
 	dLoudness = sppPreprocess->loudness2;
 	dSpeechProb = sppPreprocess->speech_prob;
 
+	if (p)
+		p->setTalking(iIsSpeech);
+
+	if (! iIsSpeech && ! bPreviousVoice)
+		return;
+
+	bPreviousVoice = iIsSpeech;
+
 	if (! iIsSpeech) {
 		// Zero frame -- we don't want comfort noise
 		memset(psMic, 0, iByteSize);
 	}
-
-	if (p)
-		p->setTalking(iIsSpeech);
 
 	speex_bits_reset(&sbBits);
 	speex_encode_int(esEncState, psMic, &sbBits);

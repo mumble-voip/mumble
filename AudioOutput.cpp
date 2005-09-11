@@ -112,16 +112,20 @@ void AudioOutputPlayer::decodeNextFrame() {
 
 	qmJitter.lock();
 	speex_jitter_get(&sjJitter, psBuffer, &iTimestamp);
-	if (sjJitter.valid_bits)
+	if (sjJitter.valid_bits) {
 		iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
+		if (! iSpeech)
+			speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
+	}
 	qmJitter.unlock();
-	bSpeech = (iSpeech != 0);
+
+	bSpeech = iSpeech;
 
 	Player *p=Player::get(sId);
 	if (p)
 		p->setTalking(bSpeech);
 
-	if (g.s.bDeaf)
+	if (g.s.bDeaf || ! bSpeech)
 		memset(psBuffer, 0, iByteSize);
 }
 
