@@ -30,6 +30,7 @@
 
 #include <QApplication>
 #include <QIcon>
+#include <QMessageBox>
 
 #include <windows.h>
 
@@ -43,6 +44,8 @@
 int main(int argc, char **argv)
 {
 	int res;
+
+	QT_REQUIRE_VERSION(argc, argv, "4.0.1");
 
 	// Initialize application object.
 	QApplication a(argc, argv);
