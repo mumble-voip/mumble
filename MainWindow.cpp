@@ -46,10 +46,10 @@
 #include "ServerHandler.h"
 #include "About.h"
 #include "GlobalShortcut.h"
-#include "TextToSpeech.h"
 #include "VersionCheck.h"
 #include "PlayerModel.h"
 #include "AudioStats.h"
+#include "Log.h"
 #include "Global.h"
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
@@ -59,10 +59,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
-
-	tts=new TextToSpeech(this);
-	recheckTTS();
-	log(tr("Welcome to Mumble."));
 }
 
 void MainWindow::setupGui()  {
@@ -207,23 +203,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	qs.setValue("mwSize", size());
 	qs.setValue("mw", saveState());
 	qs.setValue("mwSplitter", qsSplit->saveState());
-	g.s.save();
-	MainWindow::closeEvent(e);
+	QMainWindow::closeEvent(e);
 }
 
-void MainWindow::recheckTTS()
+void MainWindow::appendLog(QString entry)
 {
-	tts->setEnabled(qaAudioTTS->isChecked());
-}
-
-void MainWindow::log(QString entry, QString phonetic, bool maytts)
-{
-	QTime now = QTime::currentTime();
-	if (maytts)
-		tts->say(phonetic.isNull() ? entry : phonetic);
-	if (entry.isNull())
-		return;
-	qteLog->append(tr("[%1] %2").arg(now.toString(Qt::LocalDate)).arg(entry));
+	qteLog->append(entry);
 	QTextCursor p=qteLog->textCursor();
 	p.movePosition(QTextCursor::End);
 	qteLog->setTextCursor(p);
@@ -317,11 +302,11 @@ void MainWindow::on_AudioMute_triggered()
 	if (! g.s.bMute && g.s.bDeaf) {
 		g.s.bDeaf = false;
 		qaAudioDeaf->setChecked(false);
-		log(QString(), tr("Un-muted and undeafened"));
+		g.l->log(Log::SelfMute, tr("Un-muted and undeafened"));
 	} else if (! g.s.bMute) {
-		log(QString(), tr("Unmuted"));
+		g.l->log(Log::SelfMute, tr("Unmuted"));
 	} else {
-		log(QString(), tr("Muted"));
+		g.l->log(Log::SelfMute, tr("Muted"));
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
@@ -336,11 +321,11 @@ void MainWindow::on_AudioDeaf_triggered()
 	if (g.s.bDeaf && ! g.s.bMute) {
 		g.s.bMute = true;
 		qaAudioMute->setChecked(true);
-		log(QString(), tr("Muted and deafened"));
+		g.l->log(Log::SelfMute, tr("Muted and deafened"));
 	} else if (g.s.bDeaf) {
-		log(QString(), tr("Deafened"));
+		g.l->log(Log::SelfMute, tr("Deafened"));
 	} else {
-		log(QString(), tr("Undeafened"));
+		g.l->log(Log::SelfMute, tr("Undeafened"));
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
@@ -351,8 +336,7 @@ void MainWindow::on_AudioDeaf_triggered()
 
 void MainWindow::on_AudioTextToSpeech_triggered()
 {
-	qs.setValue("TextToSpeech", qaAudioTTS->isChecked());
-	recheckTTS();
+	g.s.bTTS = qaAudioTTS->isChecked();
 }
 
 void MainWindow::on_AudioStats_triggered()
@@ -395,8 +379,10 @@ void MainWindow::on_PushToTalk_triggered(bool down)
 
 void MainWindow::serverConnected()
 {
-	log(tr("Connected to server"));
-	tts->setEnabled(false);
+	sMyId = 0;
+	g.l->clearIgnore();
+	g.l->setIgnore(Log::PlayerJoin);
+	g.l->log(Log::ServerConnected, tr("Connected to server"));
 	qaServerDisconnect->setEnabled(true);
 
 	if (g.s.bMute || g.s.bDeaf) {
@@ -410,16 +396,15 @@ void MainWindow::serverConnected()
 void MainWindow::serverDisconnected(QString reason)
 {
 	sMyId = 0;
-	recheckTTS();
 	qaServerConnect->setEnabled(true);
 	qaServerDisconnect->setEnabled(false);
 
 	pmModel->removeAllPlayers();
 
 	if (! reason.isEmpty()) {
-  	  log(tr("Server connection failed: %1").arg(reason));
+  	  g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1").arg(reason));
     } else {
-	  log(tr("Disconnected from server."));
+	  g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 	}
 }
 
@@ -438,7 +423,7 @@ void MainWindow::customEvent(QEvent *evt) {
 
 void MessageServerJoin::process(Connection *) {
 	Player *p = g.mw->pmModel->addPlayer(sPlayerId, qsPlayerName);
-	g.mw->log(MainWindow::tr("Joined now: %1").arg(p->qsName));
+	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined now: %1").arg(p->qsName));
 }
 
 #define MSG_INIT \
@@ -454,7 +439,7 @@ void MessageServerJoin::process(Connection *) {
 void MessageServerLeave::process(Connection *) {
 	MSG_INIT;
 
-	g.mw->log(MainWindow::tr("Left now: %1").arg(pSrc->qsName));
+	g.l->log(Log::PlayerLeave, MainWindow::tr("Left now: %1").arg(pSrc->qsName));
 	g.mw->pmModel->removePlayer(pSrc);
 }
 
@@ -463,7 +448,18 @@ void MessageSpeex::process(Connection *) {
 
 void MessagePlayerSelfMuteDeaf::process(Connection *) {
 	MSG_INIT;
+
+	QString name = pSrc->qsName;
 	pSrc->setSelfMuteDeaf(bMute, bDeaf);
+
+	if (sPlayerId != g.mw->sMyId) {
+		if (bMute && bDeaf)
+			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted and deafened.").arg(name));
+		else if (bMute)
+			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted").arg(name));
+		else
+			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now unmuted").arg(name));
+	}
 }
 
 void MessagePlayerMute::process(Connection *) {
@@ -476,9 +472,9 @@ void MessagePlayerMute::process(Connection *) {
 	QString admin = pSrc->qsName;
 
 	if (sVictim == g.mw->sMyId)
-		g.mw->log(bMute ? MainWindow::tr("You were muted by %1").arg(admin) : MainWindow::tr("You were unmuted by %1").arg(admin));
+		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1").arg(admin) : MainWindow::tr("You were unmuted by %1").arg(admin));
 	else
-		g.mw->log(bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.mw->sMyId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerDeaf::process(Connection *) {
@@ -491,29 +487,33 @@ void MessagePlayerDeaf::process(Connection *) {
 	QString admin = pSrc->qsName;
 
 	if (sVictim == g.mw->sMyId)
-		g.mw->log(bDeaf ? MainWindow::tr("You were deafened by %1").arg(admin) : MainWindow::tr("You were undeafened by %1").arg(admin));
+		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1").arg(admin) : MainWindow::tr("You were undeafened by %1").arg(admin));
 	else
-		g.mw->log(bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.mw->sMyId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	if (sVictim == g.mw->sMyId)
-		g.mw->log(MainWindow::tr("You were kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason));
-	else
-		g.mw->log(MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
+	if (sVictim == g.mw->sMyId) {
+		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason));
+		g.l->setIgnore(Log::ServerDisconnected, 1);
+	} else {
+		g.l->setIgnore(Log::PlayerLeave, 1);
+		g.l->log((sPlayerId == g.mw->sMyId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
+	}
 }
 
 void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
-	g.mw->log(MainWindow::tr("Server connection rejected: %1").arg(qsReason));
+	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1").arg(qsReason));
+	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
 
 void MessageServerSync::process(Connection *) {
 	MSG_INIT;
 	g.mw->sMyId = sPlayerId;
-	g.mw->recheckTTS();
+	g.l->clearIgnore();
 }

@@ -39,6 +39,7 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Database.h"
+#include "Log.h"
 #include "Global.h"
 
 int main(int argc, char **argv)
@@ -63,6 +64,10 @@ int main(int argc, char **argv)
 	// Load preferences
 	g.s.load();
 
+	// Initialize logger
+	g.l = new Log();
+	g.l->loadSettings();
+
 	// Initialize database
 	g.db = new Database();
 
@@ -73,6 +78,8 @@ int main(int argc, char **argv)
 	// Main Window
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
+
+	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
 	// And the start the last chosen audio system.
 	g.ai = AudioInputRegistrar::newFromChoice();
@@ -85,6 +92,9 @@ int main(int argc, char **argv)
 
 	res=a.exec();
 
+	g.s.save();
+	g.l->saveSettings();
+
 	if (g.ao)
 		delete g.ao;
 	if (g.ai)
@@ -93,6 +103,7 @@ int main(int argc, char **argv)
 	delete g.mw;
 	delete g.sh;
 	delete g.db;
+	delete g.l;
 
 	return res;
 }

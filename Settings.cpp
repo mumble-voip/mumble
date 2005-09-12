@@ -35,6 +35,7 @@
 Settings::Settings() {
 	atTransmit = VAD;
 	bMute = bDeaf = false;
+	bTTS = true;
 	iQuality = 8;
 	iComplexity = 4;
 	iMinLoudness = 4000;
@@ -45,6 +46,7 @@ void Settings::load() {
 	QSettings qs;
 	bMute = qs.value("AudioMute", false). toBool();
 	bDeaf = qs.value("AudioDeaf", false). toBool();
+	bTTS = qs.value("TextToSpeech", bTTS). toBool();
 	atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
 	iQuality = qs.value("AudioQuality", iQuality).toInt();
 	iComplexity = qs.value("AudioComplexity", iComplexity).toInt();
@@ -56,6 +58,7 @@ void Settings::save() {
 	QSettings qs;
 	qs.setValue("AudioMute", g.s.bMute);
 	qs.setValue("AudioDeaf", g.s.bDeaf);
+	qs.setValue("TextToSpeech", g.s.bTTS);
 	qs.setValue("AudioTransmit", g.s.atTransmit);
 	qs.setValue("AudioQuality", iQuality);
 	qs.setValue("AudioComplexity", iComplexity);

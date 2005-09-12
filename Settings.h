@@ -44,6 +44,7 @@ struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	AudioTransmit atTransmit;
 	bool bMute, bDeaf;
+	bool bTTS;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold;
 	QString qsAudioInput, qsAudioOutput;
 	Settings();

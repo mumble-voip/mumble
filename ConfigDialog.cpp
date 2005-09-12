@@ -36,6 +36,7 @@
 
 #include "AudioInput.h"
 #include "AudioConfigDialog.h"
+#include "Log.h"
 
 ConfigWidget::ConfigWidget(QWidget *p) : QWidget(p) {
 }
@@ -68,6 +69,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
 	addPage(new AudioConfigDialog());
+	addPage(new LogConfig());
 
     QHBoxLayout *top = new QHBoxLayout;
     top->addWidget(qlwIcons);

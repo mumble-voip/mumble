@@ -28,47 +28,60 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _GLOBAL_H
-#define _GLOBAL_H
+#ifndef _LOG_H
+#define _LOG_H
 
-#include "Settings.h"
+#include <QThread>
+#include <QGroupBox>
+#include <QComboBox>
+#include <QSlider>
+#include <QLabel>
+#include <QHash>
+#include <QCheckBox>
 
-#ifndef MUMBLE_VERSION
-#define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
-#else
-#define MUMXTEXT(X) #X
-#define MUMTEXT(X) MUMXTEXT(X)
-#define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
-#endif
+#include "TextToSpeech.h"
+#include "ConfigDialog.h"
 
-// Global helper class to spread variables around across threads.
-
-class MainWindow;
-class ServerHandler;
-class AudioInput;
-class AudioOutput;
-class Database;
-class Log;
-
-struct Global {
-	MainWindow *mw;
-	Settings s;
-	ServerHandler *sh;
-	AudioInput *ai;
-	AudioOutput *ao;
-	Database *db;
-	Log *l;
-	bool bPushToTalk;
-	Global();
+class LogConfig : public ConfigWidget {
+	Q_OBJECT
+	protected:
+		QList<QCheckBox *> qlConsole;
+		QList<QCheckBox *> qlTTS;
+	public:
+		LogConfig(QWidget *p = NULL);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void accept();
 };
 
-// -Wshadow is bugged. If an inline function of a class uses a variable or
-// parameter named 'g', that will generate a warning even if the class header
-// is inclued long before this definition.
+struct MsgSettings {
+	bool bConsole;
+	bool bTTS;
+	int iIgnore;
+	MsgSettings();
+};
 
-#define g g_global_struct
-extern Global g_global_struct;
+class Log : public QObject {
+	friend class LogConfig;
+	Q_OBJECT
+	public:
+		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, PlayerJoin, PlayerLeave, YouKicked, PlayerKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther };
+	protected:
+		QHash<MsgType, MsgSettings *> qhSettings;
+		static const char *msgNames[];
+		TextToSpeech *tts;
+	public:
+		Log(QObject *p = NULL);
+		QString msgName(MsgType t) const;
+		void setIgnore(MsgType t, int ignore = 1 << 30);
+		void clearIgnore();
+		void loadSettings();
+		void saveSettings() const;
+	public slots:
+		void log(MsgType t, QString console, QString phonetic=QString());
+};
 
 #else
-class Settings;
+class Log;
 #endif

@@ -59,13 +59,12 @@ class MainWindow : public QMainWindow {
 		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
-		TextToSpeech *tts;
 
 		QSettings qs;
 
 		short sMyId;
 		void recheckTTS();
-		void log(QString entry, QString phonetic = QString(), bool maytts = true);
+		void appendLog(QString entry);
 	protected:
 		QTextEdit *qteLog;
 		QAbstractItemView *qtvPlayers;
