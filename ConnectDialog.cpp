@@ -71,7 +71,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	QSettings qs;
 
-	qlwServers=new QListView(this);
+	qlwServers=new QListView();
 	l->addWidget(qlwServers,0,0,4,1);
 	qlwServers->setModel(qstmServers);
 	qlwServers->setModelColumn(1);
@@ -81,38 +81,38 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	QItemSelectionModel *selectionModel = qlwServers->selectionModel();
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
 
-	qleName=new QLineEdit(qs.value("ServerName", "").toString(), this);
-	lab=new QLabel("&Name", this);
+	qleName=new QLineEdit(qs.value("ServerName", "").toString());
+	lab=new QLabel("&Name");
 	lab->setBuddy(qleName);
 
 	l->addWidget(lab, 0, 1);
 	l->addWidget(qleName, 0, 2);
 
-	qleServer=new QLineEdit(qs.value("ServerAddress", "").toString(), this);
-	lab=new QLabel("A&ddress", this);
+	qleServer=new QLineEdit(qs.value("ServerAddress", "").toString());
+	lab=new QLabel("A&ddress");
 	lab->setBuddy(qleServer);
 
 	l->addWidget(lab, 1, 1);
 	l->addWidget(qleServer, 1, 2);
 
-	qlePort=new QLineEdit(qs.value("ServerPort", "64738").toString(), this);
+	qlePort=new QLineEdit(qs.value("ServerPort", "64738").toString());
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
-	lab=new QLabel("&Port", this);
+	lab=new QLabel("&Port");
 	lab->setBuddy(qlePort);
 
 	l->addWidget(lab, 2, 1);
 	l->addWidget(qlePort, 2, 2);
 
-	qleUsername=new QLineEdit(qs.value("ServerUsername", "").toString(), this);
-	lab=new QLabel("&Username", this);
+	qleUsername=new QLineEdit(qs.value("ServerUsername", "").toString());
+	lab=new QLabel("&Username");
 	lab->setBuddy(qleUsername);
 
 	l->addWidget(lab, 3, 1);
 	l->addWidget(qleUsername, 3, 2);
 
-	qlePassword=new QLineEdit(qs.value("ServerPassword", "").toString(), this);
+	qlePassword=new QLineEdit(qs.value("ServerPassword", "").toString());
 	qlePassword->setEchoMode(QLineEdit::Password);
-	lab=new QLabel("&Password", this);
+	lab=new QLabel("&Password");
 	lab->setBuddy(qlePassword);
 
 	l->addWidget(lab, 4, 1);
