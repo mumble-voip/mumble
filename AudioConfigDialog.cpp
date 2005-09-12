@@ -53,6 +53,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	QList<QString> keys;
 	QString key;
 	int i;
+	QString tip;
 
 	qgbInterface=new QGroupBox(tr("Interfaces"));
 	qgbTransmit=new QGroupBox(tr("Transmission"));
@@ -72,6 +73,10 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	l = new QLabel(tr("Input"));
 	l->setBuddy(qcbInput);
 
+	tip=tr("<b>This is the input method to use for audio.</b><br />Most likely you want to use DirectSound.");
+	qcbInput->setToolTip(tip);
+	l->setToolTip(tip);
+
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbInput, 0, 1);
 
@@ -86,6 +91,10 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	l = new QLabel(tr("Output"));
 	l->setBuddy(qcbOutput);
+
+	tip=tr("<b>This is the output method to use for audio.</b><br />Most likely you want to use DirectSound.");
+	qcbOutput->setToolTip(tip);
+	l->setToolTip(tip);
 
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qcbOutput, 1, 1);
@@ -103,6 +112,13 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	l = new QLabel(tr("Transmit"));
 	l->setBuddy(qcbTransmit);
 
+	tip=tr("<b>When should speech be transmitted?</b><br />"
+			"<i>Continous</i> - All the time<br />"
+			"<i>Voice Activity</i> - When you are speaking clearly.<br />"
+			"<i>Push To Talk</i> - When you hold down the hotkey set in Config|Shortcuts.");
+	qcbTransmit->setToolTip(tip);
+	l->setToolTip(tip);
+
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbTransmit, 0, 1, 1, 2);
 
@@ -119,6 +135,13 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlTransmitHold=new QLabel();
 	qlTransmitHold->setMinimumWidth(40);
 	on_TransmitHold_valueChanged(qsTransmitHold->value());
+
+	tip=tr("<b>How long after a percieved stop in speech should we continue to transmit?</b><br />"
+			"Set this higher if your voice breaks up when you speak (seen by a rapidly strobing voice icon next to your name)<br />"
+			"Only makes sense when used with Voice Activity transmission");
+	qlTransmitHold->setToolTip(tip);
+	qsTransmitHold->setToolTip(tip);
+	l->setToolTip(tip);
 
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qsTransmitHold, 1, 1);
@@ -143,6 +166,12 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlQuality->setMinimumWidth(30);
 	on_Quality_valueChanged(qsQuality->value());
 
+	tip=tr("<b>Quality of compression.</b><br />"
+			"This determines how much bandwidth Mumble is allowed to use.");
+	qsQuality->setToolTip(tip);
+	qlQuality->setToolTip(tip);
+	l->setToolTip(tip);
+
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qsQuality, 0, 1);
 	grid->addWidget(qlQuality, 0, 2);
@@ -160,6 +189,13 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlComplexity=new QLabel();
 	on_Complexity_valueChanged(qsComplexity->value());
 
+	tip=tr("<b>Complexity of compression.</b><br />"
+			"This determines how much CPU Mumble is allowed to use to increase sent"
+			"voice quality. Settings above 5 give only marginal gain.");
+	qsComplexity->setToolTip(tip);
+	qlComplexity->setToolTip(tip);
+	l->setToolTip(tip);
+
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qsComplexity, 1, 1);
 	grid->addWidget(qlComplexity, 1, 2);
@@ -176,6 +212,20 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qlAmp=new QLabel();
 	on_Amp_valueChanged(qsAmp->value());
+
+	tip=tr("<b>Maximum amplification of input.</b><br />"
+			"Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.<br />"
+			"The actual level is continually updated based on your current speech pattern, but it will never go<br />"
+			"above the level specified here.<br />"
+			"If the Mic Volume level of the audio statistics hover around 100%, you probably want to set this to 2.0<br />"
+			"or so, but if, like most people, you are unable to reach 100%, set this to something much higher.<br />"
+			"Ideally, set it so <i>Mic Volume * Amplification Factor >= 100</i>, even when you're speaking really soft.<br /><br />"
+			"Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations<br />"
+			"if you leave it to autotune to that level."
+			);
+	qsAmp->setToolTip(tip);
+	qlAmp->setToolTip(tip);
+	l->setToolTip(tip);
 
 	grid->addWidget(l, 2, 0);
 	grid->addWidget(qsAmp, 2, 1);
