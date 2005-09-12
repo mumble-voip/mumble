@@ -35,11 +35,12 @@
 #include <QWidget>
 #include <QListWidget>
 #include <QStackedWidget>
+#include <QList>
 
 class ConfigWidget : public QWidget {
 	Q_OBJECT
 	public:
-		ConfigWidget(QWidget *p);
+		ConfigWidget(QWidget *p = NULL);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
@@ -49,6 +50,7 @@ class ConfigWidget : public QWidget {
 class ConfigDialog : public QDialog {
 	Q_OBJECT;
 	protected:
+		QList<ConfigWidget *> widgets;
 	    QListWidget *qlwIcons;
 	    QStackedWidget *qswPages;
 	    void addPage(ConfigWidget *aw);

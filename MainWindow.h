@@ -89,7 +89,6 @@ class MainWindow : public QMainWindow {
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
 		void on_PushToTalk_triggered(bool);
-		void on_AudioTransmit_triggered(QAction *);
 		void serverConnected();
 		void serverDisconnected(QString reason);
 	public:

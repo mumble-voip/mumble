@@ -31,6 +31,8 @@
 #ifndef _SETTINGS_H
 #define _SETTINGS_H
 
+#include <QString>
+
 // Global helper class to spread variables around across threads
 // especially helpfull to initialize things like the stored
 // preference for audio transmission, since the GUI elements
@@ -41,9 +43,12 @@
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	AudioTransmit atTransmit;
-	bool bPushToTalk;
 	bool bMute, bDeaf;
+	int iQuality, iComplexity, iMinLoudness, iVoiceHold;
+	QString qsAudioInput, qsAudioOutput;
 	Settings();
+	void load();
+	void save();
 };
 
 #else

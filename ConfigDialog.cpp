@@ -34,54 +34,10 @@
 #include <QHBoxLayout>
 #include "Audio.h"
 
-// In the future, make a registrar system of the config pages. For now, do it
-// manually.
-
 #include "AudioInput.h"
+#include "AudioConfigDialog.h"
 
 ConfigWidget::ConfigWidget(QWidget *p) : QWidget(p) {
-	/*
-	QList<AudioConfigWidget *> widgets;
-	AudioConfigWidget *w;
-
-	QDialog *dlg = new QDialog(this);
-	QTabWidget *qtwTab = new QTabWidget(dlg);
-
-    QVBoxLayout *vblMain = new QVBoxLayout;
-
-	if (base) {
-		w=base(NULL);
-		qtwTab->addTab(w, tr("&Generic"));
-		widgets << w;
-	}
-
-	QMap<QString, AudioRegistrarConfig>::const_iterator iter;
-	for(iter=configs->constBegin(); iter != configs->constEnd(); ++iter) {
-		if (iter.value()) {
-			w=iter.value()(NULL);
-			if (w) {
-				qtwTab->addTab(w, iter.key());
-				widgets << w;
-			}
-		}
-	}
-
-	QHBoxLayout *qhbl=new QHBoxLayout;
-	qhbl->addWidget(okButton);
-	qhbl->addWidget(cancelButton);
-
-    vblMain->addWidget(qtwTab);
-    vblMain->addLayout(qhbl);
-    dlg->setLayout(vblMain);
-
-    dlg->setWindowTitle(title);
-    if (dlg->exec()) {
-		foreach(AudioConfigWidget *acw, widgets) {
-			acw->accept();
-		}
-	}
-    delete dlg;
-	*/
 }
 
 QString ConfigWidget::title() const {
@@ -95,8 +51,8 @@ QIcon ConfigWidget::icon() const {
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
     setWindowTitle(tr("Mumble Configuration"));
 
-    qlwIcons = new QListWidget(this);
-    qswPages = new QStackedWidget(this);
+    qlwIcons = new QListWidget();
+    qswPages = new QStackedWidget();
 
     qlwIcons->setViewMode(QListView::IconMode);
     qlwIcons->setIconSize(QSize(96, 84));
@@ -105,19 +61,13 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
     qlwIcons->setSpacing(12);
     qlwIcons->setObjectName("Icons");
 
-
-    QPushButton *okButton = new QPushButton(tr("&OK"), this);
+    QPushButton *okButton = new QPushButton(tr("&OK"));
     okButton->setDefault(true);
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    QPushButton *cancelButton = new QPushButton(tr("&Cancel"), this);
+    QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-
-	addPage(AudioInput::configPanel(NULL));
-	addPage(AudioInput::configPanel(NULL));
-	addPage(AudioInput::configPanel(NULL));
-
-    qlwIcons->setCurrentRow(0);
+	addPage(new AudioConfigDialog());
 
     QHBoxLayout *top = new QHBoxLayout;
     top->addWidget(qlwIcons);
@@ -136,6 +86,8 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
     setLayout(l);
 
     QMetaObject::connectSlotsByName(this);
+
+    qlwIcons->setCurrentRow(0);
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw) {
@@ -145,6 +97,8 @@ void ConfigDialog::addPage(ConfigWidget *cw) {
 	i->setText(cw->title());
 	i->setTextAlignment(Qt::AlignHCenter);
 	i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+	widgets << cw;
 }
 
 void ConfigDialog::on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
@@ -156,5 +110,7 @@ void ConfigDialog::on_Icons_currentItemChanged(QListWidgetItem *current, QListWi
 }
 
 void ConfigDialog::accept() {
+	foreach(ConfigWidget *cw, widgets)
+		cw->accept();
 	QDialog::accept();
 }

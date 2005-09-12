@@ -28,71 +28,37 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include <QIcon>
-#include <QMessageBox>
+#ifndef _AUDIOCONFIGDIALOG_H
+#define _AUDIOCONFIGDIALOG_H
 
-#include <windows.h>
+#include <QThread>
+#include <QGroupBox>
+#include <QComboBox>
+#include <QSlider>
+#include <QLabel>
+#include "ConfigDialog.h"
 
-#include "MainWindow.h"
-#include "ServerHandler.h"
-#include "AudioInput.h"
-#include "AudioOutput.h"
-#include "Database.h"
-#include "Global.h"
+class AudioConfigDialog : public ConfigWidget {
+	Q_OBJECT
+	protected:
+		QComboBox *qcbInput, *qcbOutput;
+		QComboBox *qcbTransmit;
+		QSlider *qsTransmitHold;
+		QLabel *qlTransmitHold;
+		QSlider *qsQuality, *qsComplexity, *qsAmp;
+		QLabel *qlQuality, *qlComplexity, *qlAmp;
+	public:
+		AudioConfigDialog(QWidget *p = NULL);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void accept();
+		void on_TransmitHold_valueChanged(int v);
+		void on_Quality_valueChanged(int v);
+		void on_Complexity_valueChanged(int v);
+		void on_Amp_valueChanged(int v);
+};
 
-int main(int argc, char **argv)
-{
-	int res;
-
-	QT_REQUIRE_VERSION(argc, argv, "4.0.1");
-
-	// Initialize application object.
-	QApplication a(argc, argv);
-	a.setApplicationName("Mumble");
-	a.setOrganizationName("Mumble");
-	a.setOrganizationDomain("mumble.sourceforge.net");
-
-	// Set application icon
-	QIcon icon;
-	icon.addFile(":/mumble.png.2");
-	icon.addFile(":/mumble.png.1");
-	icon.addFile(":/mumble.png.0");
-	a.setWindowIcon(icon);
-
-	// Load preferences
-	g.s.load();
-
-	// Initialize database
-	g.db = new Database();
-
-	// Initialize the serverhandler
-	g.sh = new ServerHandler();
-	g.sh->moveToThread(g.sh);
-
-	// Main Window
-	g.mw=new MainWindow(NULL);
-	g.mw->show();
-
-	// And the start the last chosen audio system.
-	g.ai = AudioInputRegistrar::newFromChoice();
-	g.ai->start(QThread::HighestPriority);
-	g.ao = AudioOutputRegistrar::newFromChoice();
-
-	// Increase our priority class to live alongside games.
-	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
-		qWarning("Application: Failed to set priority!");
-
-	res=a.exec();
-
-	if (g.ao)
-		delete g.ao;
-	if (g.ai)
-		delete g.ai;
-
-	delete g.mw;
-	delete g.sh;
-	delete g.db;
-
-	return res;
-}
+#else
+class AudioConfigDialog;
+#endif

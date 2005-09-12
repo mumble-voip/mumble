@@ -77,26 +77,6 @@ AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {
 	return NULL;
 }
 
-AudioInputConfig::AudioInputConfig(QWidget *p) : ConfigWidget(p) {
-	qgbChoices=new QGroupBox(tr("Input Method"));
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(qgbChoices);
-    mainLayout->addStretch(1);
-    setLayout(mainLayout);
-}
-
-QString AudioInputConfig::title() const {
-	return tr("Audio Input");
-}
-
-QIcon AudioInputConfig::icon() const {
-	return ConfigWidget::icon();
-}
-
-void AudioInputConfig::accept() {
-}
-
 int AudioInput::c_iFrameCounter = 0;
 
 AudioInput::AudioInput()
@@ -139,10 +119,6 @@ AudioInput::~AudioInput()
 	delete [] psMic;
 }
 
-ConfigWidget *AudioInput::configPanel(QWidget *p) {
-	return new AudioInputConfig(p);
-};
-
 bool AudioInput::isRunning() {
 	return bRunning;
 }
@@ -176,10 +152,10 @@ void AudioInput::encodeAudioFrame() {
 		bResetProcessor = false;
 	}
 
-	fArg = 8;
+	fArg = g.s.iQuality;
 	speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
 
-	iArg = 5;
+	iArg = g.s.iComplexity;
 	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
 
 	iArg = 1;
@@ -195,14 +171,14 @@ void AudioInput::encodeAudioFrame() {
 	iIsSpeech=speex_preprocess(sppPreprocess, psMic, NULL);
 
 	// The default is a bit short, increase it
-	if (! iIsSpeech && sppPreprocess->last_speech < 40)
+	if (! iIsSpeech && sppPreprocess->last_speech < g.s.iVoiceHold)
 		iIsSpeech = 1;
 
-	if (sppPreprocess->loudness2 < 4000)
-		sppPreprocess->loudness2 = 4000;
+	if (sppPreprocess->loudness2 < g.s.iMinLoudness)
+		sppPreprocess->loudness2 = g.s.iMinLoudness;
 
 	if (g.s.atTransmit == Settings::PushToTalk)
-		iIsSpeech = g.s.bPushToTalk;
+		iIsSpeech = g.bPushToTalk;
 	else if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
 

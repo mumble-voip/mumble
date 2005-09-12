@@ -56,6 +56,7 @@ struct Global {
 	AudioInput *ai;
 	AudioOutput *ao;
 	Database *db;
+	bool bPushToTalk;
 	Global();
 };
 

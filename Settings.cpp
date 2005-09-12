@@ -28,10 +28,37 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QSettings>
 #include "Settings.h"
+#include "Global.h"
 
 Settings::Settings() {
-	bPushToTalk = false;
 	atTransmit = VAD;
 	bMute = bDeaf = false;
+	iQuality = 8;
+	iComplexity = 4;
+	iMinLoudness = 4000;
+	iVoiceHold = 30;
+}
+
+void Settings::load() {
+	QSettings qs;
+	bMute = qs.value("AudioMute", false). toBool();
+	bDeaf = qs.value("AudioDeaf", false). toBool();
+	atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
+	iQuality = qs.value("AudioQuality", iQuality).toInt();
+	iComplexity = qs.value("AudioComplexity", iComplexity).toInt();
+	iMinLoudness = qs.value("AudioMinLoudness", iMinLoudness).toInt();
+	iVoiceHold = qs.value("AudioVoiceHold", iVoiceHold).toInt();
+}
+
+void Settings::save() {
+	QSettings qs;
+	qs.setValue("AudioMute", g.s.bMute);
+	qs.setValue("AudioDeaf", g.s.bDeaf);
+	qs.setValue("AudioTransmit", g.s.atTransmit);
+	qs.setValue("AudioQuality", iQuality);
+	qs.setValue("AudioComplexity", iComplexity);
+	qs.setValue("AudioMinLoudness", iMinLoudness);
+	qs.setValue("AudioVoiceHold", iVoiceHold);
 }

@@ -52,18 +52,6 @@ class AudioInputRegistrar {
 		static AudioInput *newFromChoice(QString choice = QString());
 };
 
-class AudioInputConfig : public ConfigWidget {
-	Q_OBJECT
-	protected:
-		QGroupBox *qgbChoices;
-	public:
-		AudioInputConfig(QWidget *p);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void accept();
-};
-
 class AudioInput : public QThread {
 	Q_OBJECT
 	protected:
@@ -94,8 +82,6 @@ class AudioInput : public QThread {
 		~AudioInput();
 		void run() = 0;
 		bool isRunning();
-
-		static ConfigWidget *configPanel(QWidget *p);
 };
 
 #else

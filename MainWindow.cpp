@@ -69,9 +69,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 void MainWindow::setupGui()  {
 	QMenu *qmServer, *qmPlayer, *qmAudio, *qmConfig, *qmHelp;
-	QAction *qa;
-	QActionGroup *qag;
-	QMenu *qm;
 
 	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_RELEASE)));
 
@@ -134,38 +131,9 @@ void MainWindow::setupGui()  {
 	qaAudioMute->setCheckable(true);
 	qaAudioDeaf->setCheckable(true);
 	qaAudioTTS->setCheckable(true);
-	g.s.bMute = qs.value("AudioMute", false). toBool();
-	g.s.bDeaf = qs.value("AudioDeaf", false). toBool();
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
-
-	g.s.atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
-	qag=new QActionGroup(this);
-	qag->setObjectName("AudioTransmit");
-	qag->setExclusive(true);
-	qm=new QMenu(tr("&Transmit"), this);
-
-	qa=new QAction(tr("Continous"), qag);
-	qa->setCheckable(true);
-	qa->setData(Settings::Continous);
-	if (g.s.atTransmit == Settings::Continous)
-		qa->setChecked(true);
-	qm->addAction(qa);
-
-	qa=new QAction(tr("Voice Activity"), qag);
-	qa->setCheckable(true);
-	qa->setData(Settings::VAD);
-	if (g.s.atTransmit == Settings::VAD)
-		qa->setChecked(true);
-	qm->addAction(qa);
-
-	qa=new QAction(tr("Push To Talk"), qag);
-	qa->setCheckable(true);
-	qa->setData(Settings::PushToTalk);
-	if (g.s.atTransmit == Settings::PushToTalk)
-		qa->setChecked(true);
-	qm->addAction(qa);
 
 	qmAudio->addAction(qaAudioMute);
 	qmAudio->addAction(qaAudioDeaf);
@@ -173,7 +141,6 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioReset);
 	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioTTS);
-	qmAudio->addMenu(qm);
 	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioStats);
 
@@ -238,6 +205,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	qs.setValue("mwSize", size());
 	qs.setValue("mw", saveState());
 	qs.setValue("mwSplitter", qsSplit->saveState());
+	g.s.save();
 	MainWindow::closeEvent(e);
 }
 
@@ -358,9 +326,6 @@ void MainWindow::on_AudioMute_triggered()
 	mpsmd.bMute = g.s.bMute;
 	mpsmd.bDeaf = g.s.bDeaf;
 	g.sh->sendMessage(&mpsmd);
-
-	qs.setValue("AudioMute", g.s.bMute);
-	qs.setValue("AudioDeaf", g.s.bDeaf);
 }
 
 void MainWindow::on_AudioDeaf_triggered()
@@ -380,21 +345,12 @@ void MainWindow::on_AudioDeaf_triggered()
 	mpsmd.bMute = g.s.bMute;
 	mpsmd.bDeaf = g.s.bDeaf;
 	g.sh->sendMessage(&mpsmd);
-
-	qs.setValue("AudioMute", g.s.bMute);
-	qs.setValue("AudioDeaf", g.s.bDeaf);
 }
 
 void MainWindow::on_AudioTextToSpeech_triggered()
 {
 	qs.setValue("TextToSpeech", qaAudioTTS->isChecked());
 	recheckTTS();
-}
-
-void MainWindow::on_AudioTransmit_triggered(QAction *act)
-{
-	g.s.atTransmit = static_cast<Settings::AudioTransmit>(act->data().toInt());
-	qs.setValue("AudioTransmit", g.s.atTransmit);
 }
 
 void MainWindow::on_AudioStats_triggered()
@@ -427,7 +383,7 @@ void MainWindow::on_HelpAboutQt_triggered()
 
 void MainWindow::on_PushToTalk_triggered(bool down)
 {
-	g.s.bPushToTalk = down;
+	g.bPushToTalk = down;
 }
 
 void MainWindow::serverConnected()
