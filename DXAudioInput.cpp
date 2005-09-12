@@ -37,8 +37,9 @@ static AudioInput *DXAudioInputNew() {
 	return new DXAudioInput();
 }
 
-static QWidget *DXAudioInputConfig(QWidget *parent) {
-	return new QWidget(parent);
+static ConfigWidget *DXAudioInputConfig(QWidget *parent) {
+//	return new AudioConfigWidget(parent);
+	return NULL;
 }
 
 AudioInputRegistrar airDX("DirectSound", DXAudioInputNew, DXAudioInputConfig);

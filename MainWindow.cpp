@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 }
 
 void MainWindow::setupGui()  {
-	QMenu *qmServer, *qmPlayer, *qmAudio, *qmHelp;
+	QMenu *qmServer, *qmPlayer, *qmAudio, *qmConfig, *qmHelp;
 	QAction *qa;
 	QActionGroup *qag;
 	QMenu *qm;
@@ -88,6 +88,7 @@ void MainWindow::setupGui()  {
 	qmServer = new QMenu(tr("&Server"), this);
 	qmPlayer = new QMenu(tr("&Player"), this);
 	qmAudio = new QMenu(tr("&Audio"), this);
+	qmConfig = new QMenu(tr("&Config"), this);
 	qmHelp = new QMenu(tr("&Help"), this);
 
 	qmServer->setObjectName("ServerMenu");
@@ -126,8 +127,6 @@ void MainWindow::setupGui()  {
 	qaAudioMute->setObjectName("AudioMute");
 	qaAudioDeaf=new QAction(tr("&Deaf"), this);
 	qaAudioDeaf->setObjectName("AudioDeaf");
-	qaAudioShortcuts=new QAction(tr("&Shortcuts"), this);
-	qaAudioShortcuts->setObjectName("AudioShortcuts");
 	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
 	qaAudioTTS->setObjectName("AudioTextToSpeech");
 	qaAudioStats=new QAction(tr("S&tatistics"), this);
@@ -172,10 +171,19 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioDeaf);
 	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioReset);
-	qmAudio->addAction(qaAudioShortcuts);
+	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioTTS);
 	qmAudio->addMenu(qm);
+	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioStats);
+
+	qaConfigDialog=new QAction(tr("&Settings"), this);
+	qaConfigDialog->setObjectName("ConfigDialog");
+	qaConfigShortcuts=new QAction(tr("&Shortcuts"), this);
+	qaConfigShortcuts->setObjectName("ConfigShortcuts");
+
+	qmConfig->addAction(qaConfigDialog);
+	qmConfig->addAction(qaConfigShortcuts);
 
 	qaHelpAbout=new QAction(tr("&About"), this);
 	qaHelpAbout->setObjectName("HelpAbout");
@@ -188,6 +196,7 @@ void MainWindow::setupGui()  {
 	menuBar()->addMenu(qmServer);
 	menuBar()->addMenu(qmPlayer);
 	menuBar()->addMenu(qmAudio);
+	menuBar()->addMenu(qmConfig);
 	menuBar()->addMenu(qmHelp);
 
 	gsPushTalk=new GlobalShortcut(this, 1, "Push-to-Talk");
@@ -205,8 +214,6 @@ void MainWindow::setupGui()  {
 	gsDeafSelf->setObjectName("DeafSelf");
 	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
 
-    QMetaObject::connectSlotsByName(this);
-
 	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);
 	qsSplit->addWidget(qtvPlayers);
@@ -222,6 +229,8 @@ void MainWindow::setupGui()  {
 	QSize sz = qs.value("mwSize").toSize();
 	if (sz.isValid())
 		resize(sz);
+
+    QMetaObject::connectSlotsByName(this);
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
@@ -332,11 +341,6 @@ void MainWindow::on_AudioReset_triggered()
 		g.ai->bResetProcessor = true;
 }
 
-void MainWindow::on_AudioShortcuts_triggered()
-{
-	GlobalShortcut::configure();
-}
-
 void MainWindow::on_AudioMute_triggered()
 {
 	g.s.bMute = qaAudioMute->isChecked();
@@ -397,6 +401,17 @@ void MainWindow::on_AudioStats_triggered()
 {
 	AudioStats *as=new AudioStats(this);
 	as->show();
+}
+
+void MainWindow::on_ConfigDialog_triggered()
+{
+	ConfigDialog dlg;
+	dlg.exec();
+}
+
+void MainWindow::on_ConfigShortcuts_triggered()
+{
+	GlobalShortcut::configure();
 }
 
 void MainWindow::on_HelpAbout_triggered()

@@ -28,8 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "About.h"
-
 #include <QTabWidget>
 #include <QTextEdit>
 #include <QPushButton>
@@ -40,11 +38,12 @@
 #include <QMessageBox>
 #include <QIcon>
 #include <QFileDialog>
+#include "About.h"
 #include "licenses.h"
 
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QTabWidget *qtwTab = new QTabWidget(this);
-    QVBoxLayout *vblMain = new QVBoxLayout;
+    QVBoxLayout *vblMain = new QVBoxLayout(this);
 
 	QTextEdit *qteLicense=new QTextEdit();
 	qteLicense->setReadOnly(true);
@@ -67,10 +66,10 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qhbl->addWidget(text);
 	about->setLayout(qhbl);
 
-	qtwTab->addTab(about, "&About Mumble");
-	qtwTab->addTab(qteLicense, "&License");
+	qtwTab->addTab(about, tr("&About Mumble"));
+	qtwTab->addTab(qteLicense, tr("&License"));
 
-    QPushButton *okButton = new QPushButton("OK");
+    QPushButton *okButton = new QPushButton(tr("OK"));
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
     vblMain->addWidget(qtwTab);

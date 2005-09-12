@@ -28,76 +28,38 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOINPUT_H
-#define _AUDIOINPUT_H
+#ifndef _CONFIGDIALOG_H
+#define _CONFIGDIALOG_H
 
-#include <QThread>
-#include <QGroupBox>
-#include <speex/speex.h>
-#include <speex/speex_preprocess.h>
+#include <QDialog>
+#include <QWidget>
+#include <QListWidget>
+#include <QStackedWidget>
 
-#include "Audio.h"
-
-class AudioInput;
-
-typedef AudioInput *(*AudioInputRegistrarNew)();
-
-class AudioInputRegistrar {
-	public:
-		static QMap<QString, AudioInputRegistrarNew> *qmNew;
-		static QMap<QString, AudioRegistrarConfig> *qmConfig;
-
-		static QString current;
-		AudioInputRegistrar(QString name, AudioInputRegistrarNew n, AudioRegistrarConfig c);
-		static AudioInput *newFromChoice(QString choice = QString());
-};
-
-class AudioInputConfig : public ConfigWidget {
+class ConfigWidget : public QWidget {
 	Q_OBJECT
-	protected:
-		QGroupBox *qgbChoices;
 	public:
-		AudioInputConfig(QWidget *p);
+		ConfigWidget(QWidget *p);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
+		virtual void accept() = 0;
+};
+
+class ConfigDialog : public QDialog {
+	Q_OBJECT;
+	protected:
+	    QListWidget *qlwIcons;
+	    QStackedWidget *qswPages;
+	    void addPage(ConfigWidget *aw);
+	public:
+		ConfigDialog(QWidget *p = NULL);
+	public slots:
+	    void on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 		void accept();
 };
 
-class AudioInput : public QThread {
-	Q_OBJECT
-	protected:
-		int	iFrameSize;
-		int iByteSize;
-
-		SpeexBits sbBits;
-		SpeexPreprocessState *sppPreprocess;
-		void *esEncState;
-
-		short *psMic;
-		void encodeAudioFrame();
-
-		bool bRunning;
-		bool bPreviousVoice;
-
-		static int c_iFrameCounter;
-	public:
-		bool bResetProcessor;
-
-		int iBitrate;
-		double dSnr;
-		double dLoudness;
-		double dPeakMic;
-		double dSpeechProb;
-
-		AudioInput();
-		~AudioInput();
-		void run() = 0;
-		bool isRunning();
-
-		static ConfigWidget *configPanel(QWidget *p);
-};
-
 #else
-class AudioInput;
+class ConfigWidget;
+class ConfigDialog;
 #endif

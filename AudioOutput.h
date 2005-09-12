@@ -31,8 +31,6 @@
 #ifndef _AUDIOOUTPUT_H
 #define _AUDIOOUTPUT_H
 
-#define SAMPLE_RATE 16000
-
 #include <QThread>
 #include <QMutex>
 #include <QReadWriteLock>
@@ -41,19 +39,18 @@
 #include <QWidget>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
+#include "Audio.h"
 
 class AudioOutput;
 
 typedef AudioOutput *(*AudioOutputRegistrarNew)();
-typedef QWidget *(*AudioOutputRegistrarConfig)(QWidget *parent);
 
 class AudioOutputRegistrar {
-	protected:
-		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
-		static QMap<QString, AudioOutputRegistrarConfig> *qmConfig;
 	public:
+		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
+		static QMap<QString, AudioRegistrarConfig> *qmConfig;
 		static QString current;
-		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n, AudioOutputRegistrarConfig c);
+		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n, AudioRegistrarConfig c);
 		static AudioOutput *newFromChoice(QString choice = QString());
 };
 

@@ -43,8 +43,9 @@ static AudioOutput *DXAudioOutputNew() {
 	return new DXAudioOutput();
 }
 
-static QWidget *DXAudioOutputConfig(QWidget *parent) {
-	return new QWidget(parent);
+static ConfigWidget *DXAudioOutputConfig(QWidget *parent) {
+//	return new AudioConfigWidget(parent);
+	return NULL;
 }
 
 AudioOutputRegistrar aorDX("DirectSound", DXAudioOutputNew, DXAudioOutputConfig);

@@ -29,6 +29,8 @@
 */
 
 #include <math.h>
+#include <QIcon>
+#include <QVBoxLayout>
 
 #include "AudioInput.h"
 #include "ServerHandler.h"
@@ -42,14 +44,14 @@
 // Hence, we allocate upon first call.
 
 QMap<QString, AudioInputRegistrarNew> *AudioInputRegistrar::qmNew;
-QMap<QString, AudioInputRegistrarConfig> *AudioInputRegistrar::qmConfig;
+QMap<QString, AudioRegistrarConfig> *AudioInputRegistrar::qmConfig;
 QString AudioInputRegistrar::current = QString();
 
-AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n, AudioInputRegistrarConfig c) {
+AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n, AudioRegistrarConfig c) {
 	if (! qmNew)
 		qmNew = new QMap<QString, AudioInputRegistrarNew>();
 	if (! qmConfig)
-		qmConfig = new QMap<QString, AudioInputRegistrarConfig>();
+		qmConfig = new QMap<QString, AudioRegistrarConfig>();
 	qmNew->insert(name,n);
 	qmConfig->insert(name,c);
 }
@@ -75,6 +77,25 @@ AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {
 	return NULL;
 }
 
+AudioInputConfig::AudioInputConfig(QWidget *p) : ConfigWidget(p) {
+	qgbChoices=new QGroupBox(tr("Input Method"));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(qgbChoices);
+    mainLayout->addStretch(1);
+    setLayout(mainLayout);
+}
+
+QString AudioInputConfig::title() const {
+	return tr("Audio Input");
+}
+
+QIcon AudioInputConfig::icon() const {
+	return ConfigWidget::icon();
+}
+
+void AudioInputConfig::accept() {
+}
 
 int AudioInput::c_iFrameCounter = 0;
 
@@ -117,6 +138,10 @@ AudioInput::~AudioInput()
 
 	delete [] psMic;
 }
+
+ConfigWidget *AudioInput::configPanel(QWidget *p) {
+	return new AudioInputConfig(p);
+};
 
 bool AudioInput::isRunning() {
 	return bRunning;

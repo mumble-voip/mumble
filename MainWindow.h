@@ -38,6 +38,7 @@
 #include <QTextEdit>
 #include <QSplitter>
 #include <QAbstractItemView>
+#include "Audio.h"
 
 class Player;
 class Connection;
@@ -49,12 +50,11 @@ class PlayerModel;
 class MainWindow : public QMainWindow {
 	Q_OBJECT
 	public:
-		QTextEdit *qteLog;
-		QAbstractItemView *qtvPlayers;
 		PlayerModel *pmModel;
 		QAction *qaServerConnect, *qaServerDisconnect;
 		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
-		QAction *qaAudioReset, *qaAudioShortcuts, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats;
+		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats;
+		QAction *qaConfigDialog, *qaConfigShortcuts;
 		QAction *qaHelpAbout, *qaHelpAboutQt;
 		QSplitter *qsSplit;
 
@@ -63,12 +63,13 @@ class MainWindow : public QMainWindow {
 
 		QSettings qs;
 
-		void setupGui();
-
 		short sMyId;
 		void recheckTTS();
 		void log(QString entry, QString phonetic = QString(), bool maytts = true);
 	protected:
+		QTextEdit *qteLog;
+		QAbstractItemView *qtvPlayers;
+		void setupGui();
 		void customEvent(QEvent *evt);
 		virtual void closeEvent(QCloseEvent *e);
 	public slots:
@@ -79,11 +80,12 @@ class MainWindow : public QMainWindow {
 		void on_PlayerMute_triggered();
 		void on_PlayerDeaf_triggered();
 		void on_AudioReset_triggered();
-		void on_AudioShortcuts_triggered();
 		void on_AudioMute_triggered();
 		void on_AudioDeaf_triggered();
 		void on_AudioTextToSpeech_triggered();
 		void on_AudioStats_triggered();
+		void on_ConfigShortcuts_triggered();
+		void on_ConfigDialog_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
 		void on_PushToTalk_triggered(bool);
