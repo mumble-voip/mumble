@@ -170,6 +170,8 @@ void PlayerModel::removeAllPlayers() {
 
 Player *PlayerModel::getPlayer(const QModelIndex &idx) const
 {
+	if (! idx.isValid())
+		return NULL;
 	if (idx.row() > rowCount(idx.parent()))
 		return NULL;
 	return qlPlayers[idx.row()];
