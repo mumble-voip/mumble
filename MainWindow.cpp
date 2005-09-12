@@ -63,8 +63,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	tts=new TextToSpeech(this);
 	recheckTTS();
 	log(tr("Welcome to Mumble."));
-
-	new VersionCheck(this);
 }
 
 void MainWindow::setupGui()  {
@@ -156,9 +154,13 @@ void MainWindow::setupGui()  {
 	qaHelpAbout->setObjectName("HelpAbout");
 	qaHelpAboutQt=new QAction(tr("&About QT"), this);
 	qaHelpAboutQt->setObjectName("HelpAboutQt");
+	qaHelpVersionCheck=new QAction(tr("Check &Updates"), this);
+	qaHelpVersionCheck->setObjectName("HelpVersionCheck");
 
 	qmHelp->addAction(qaHelpAbout);
 	qmHelp->addAction(qaHelpAboutQt);
+	qmHelp->addSeparator();
+	qmHelp->addAction(qaHelpVersionCheck);
 
 	menuBar()->addMenu(qmServer);
 	menuBar()->addMenu(qmPlayer);
@@ -379,6 +381,11 @@ void MainWindow::on_HelpAbout_triggered()
 void MainWindow::on_HelpAboutQt_triggered()
 {
 	QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::on_HelpVersionCheck_triggered()
+{
+	new VersionCheck(this);
 }
 
 void MainWindow::on_PushToTalk_triggered(bool down)
