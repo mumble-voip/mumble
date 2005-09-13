@@ -43,7 +43,6 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress, *qgbJitter;
 	QLabel *l;
 	QVBoxLayout *v;
-	QHBoxLayout *h;
 	QGridLayout *grid;
 	QList<QString> keys;
 	QString key;
@@ -263,7 +262,7 @@ QString AudioConfigDialog::title() const {
 }
 
 QIcon AudioConfigDialog::icon() const {
-	return ConfigWidget::icon();
+	return QIcon(":/icons/config_basic.png");
 }
 
 void AudioConfigDialog::accept() {
