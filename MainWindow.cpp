@@ -38,6 +38,7 @@
 #include <QHeaderView>
 #include <QListView>
 #include <QTreeView>
+#include <QWhatsThis>
 #include "MainWindow.h"
 #include "AudioInput.h"
 #include "ConnectDialog.h"
@@ -53,12 +54,98 @@
 #include "Global.h"
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
+	createActions();
 	setupGui();
 
 	sMyId = 0;
 
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
+}
+
+void MainWindow::createActions() {
+	qaServerConnect=new QAction(tr("&Connect"), this);
+	qaServerConnect->setToolTip(tr("Open the server connection dialog"));
+	qaServerConnect->setWhatsThis(tr("Shows a dialog of registered servers, and also allows quick connect."));
+	qaServerConnect->setObjectName("ServerConnect");
+	qaServerDisconnect=new QAction(tr("&Disconnect"), this);
+	qaServerDisconnect->setToolTip(tr("Disconnect from server"));
+	qaServerDisconnect->setWhatsThis(tr("Disconnects you from the server"));
+	qaServerDisconnect->setObjectName("ServerDisconnect");
+	qaServerDisconnect->setEnabled(false);
+
+	qaPlayerKick=new QAction(tr("&Kick"), this);
+	qaPlayerKick->setObjectName("PlayerKick");
+	qaPlayerKick->setToolTip(tr("Kick player (with reason)"));
+	qaPlayerKick->setWhatsThis(tr("Kick selected player off server. You'll be asked to specify a reason."));
+	qaPlayerMute=new QAction(tr("&Mute"), this);
+	qaPlayerMute->setObjectName("PlayerMute");
+	qaPlayerMute->setCheckable(true);
+	qaPlayerMute->setToolTip(tr("Mute player"));
+	qaPlayerMute->setWhatsThis(tr("Mute or unmute player on server. Unmuting a deafened player will also undeafen them."));
+	qaPlayerDeaf=new QAction(tr("&Deafen"), this);
+	qaPlayerDeaf->setObjectName("PlayerDeaf");
+	qaPlayerDeaf->setCheckable(true);
+	qaPlayerDeaf->setToolTip(tr("Deafen player"));
+	qaPlayerDeaf->setWhatsThis(tr("Deafen or undeafen player on server. Deafening a player will also mute them."));
+
+
+	qaAudioReset=new QAction(tr("&Reset"), this);
+	qaAudioReset->setObjectName("AudioReset");
+	qaAudioReset->setToolTip(tr("Reset audio preprocessor"));
+	qaAudioReset->setWhatsThis(tr("Resets the audio preprocessor, including noice cancellation, automatic gain and voice activity detection. "
+									"If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, "
+									"use this to avoid having to wait for the preprocessor to readjust."));
+	qaAudioMute=new QAction(tr("&Mute"), this);
+	qaAudioMute->setObjectName("AudioMute");
+	qaAudioMute->setCheckable(true);
+	qaAudioMute->setChecked(g.s.bMute);
+	qaAudioMute->setToolTip(tr("Mute yourself"));
+	qaAudioMute->setWhatsThis(tr("Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafned will also undeafen."));
+	qaAudioDeaf=new QAction(tr("&Deaf"), this);
+	qaAudioDeaf->setObjectName("AudioDeaf");
+	qaAudioDeaf->setCheckable(true);
+	qaAudioDeaf->setChecked(g.s.bDeaf);
+	qaAudioDeaf->setToolTip(tr("Deafen yourself"));
+	qaAudioDeaf->setWhatsThis(tr("Deafen or undeafen yourself. When deafened, you will not hear anything. Deafining yourself will also mute."));
+	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
+	qaAudioTTS->setObjectName("AudioTextToSpeech");
+	qaAudioTTS->setCheckable(true);
+	qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
+	qaAudioTTS->setToolTip(tr("Toggle Text-To-Speech"));
+	qaAudioTTS->setWhatsThis(tr("Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Config dialog will actually be spoken."));
+	qaAudioStats=new QAction(tr("S&tatistics"), this);
+	qaAudioStats->setObjectName("AudioStats");
+	qaAudioStats->setToolTip(tr("Display audio statistics"));
+	qaAudioStats->setWhatsThis(tr("Pops up a small dialog with information about your current audio input."));
+
+	qaConfigDialog=new QAction(tr("&Settings"), this);
+	qaConfigDialog->setObjectName("ConfigDialog");
+	qaConfigDialog->setToolTip(tr("Configure Mumble"));
+	qaConfigDialog->setWhatsThis(tr("Allows you to change most settings for Mumble."));
+	qaConfigShortcuts=new QAction(tr("&Shortcuts"), this);
+	qaConfigShortcuts->setObjectName("ConfigShortcuts");
+	qaConfigShortcuts->setToolTip(tr("Configure hotkeys"));
+	qaConfigShortcuts->setWhatsThis(tr("Configure global hotkeys. These will work from anywhere on the system, including inside games."));
+
+	qaHelpWhatsThis = new QAction(tr("&Whats This?"), this);
+	qaHelpWhatsThis->setObjectName("HelpWhatsThis");
+	qaHelpWhatsThis->setToolTip(tr("Enter What's This? mode"));
+	qaHelpWhatsThis->setWhatsThis(tr("Click this to enter \"What's This?\" mode. Your cursor will turn into a quesiton mark. Click "
+									"on any button, menu choice or area to show a description of what it is."));
+	qaHelpAbout=new QAction(tr("&About"), this);
+	qaHelpAbout->setObjectName("HelpAbout");
+	qaHelpAbout->setToolTip(tr("Information about Mumble"));
+	qaHelpAbout->setWhatsThis(tr("Shows a small dialog with information and license for Mumble"));
+	qaHelpAboutQt=new QAction(tr("&About QT"), this);
+	qaHelpAboutQt->setObjectName("HelpAboutQt");
+	qaHelpAboutQt->setToolTip(tr("Information about Qt"));
+	qaHelpAboutQt->setWhatsThis(tr("Shows a small dialog with information about Qt"));
+	qaHelpVersionCheck=new QAction(tr("Check &Updates"), this);
+	qaHelpVersionCheck->setObjectName("HelpVersionCheck");
+	qaHelpVersionCheck->setToolTip(tr("Check for new version of Mumble"));
+	qaHelpVersionCheck->setWhatsThis(tr("Connects to the Mumble webpage and sees if a new version is available for download. "
+										"No download will be done; you'll be notified of where to get the new version."));
 }
 
 void MainWindow::setupGui()  {
@@ -75,6 +162,9 @@ void MainWindow::setupGui()  {
 
 	qteLog = new QTextEdit(this);
 	qteLog->setReadOnly(true);
+	qteLog->setToolTip(tr("Log of messages"));
+	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors, information messasges all show up here.<br />"
+							"To configure exactly which messages show up here, use the <b>Settings</b> command from the menu."));
 
 	qmServer = new QMenu(tr("&Server"), this);
 	qmPlayer = new QMenu(tr("&Player"), this);
@@ -87,47 +177,12 @@ void MainWindow::setupGui()  {
 	qmAudio->setObjectName("AudioMenu");
 	qmHelp->setObjectName("HelpMenu");
 
-	qaServerConnect=new QAction(tr("&Connect"), this);
-	qaServerDisconnect=new QAction(tr("&Disconnect"), this);
-	qaServerConnect->setObjectName("ServerConnect");
-	qaServerDisconnect->setObjectName("ServerDisconnect");
-	qaServerDisconnect->setEnabled(FALSE);
-
 	qmServer->addAction(qaServerConnect);
 	qmServer->addAction(qaServerDisconnect);
-
-	qaPlayerKick=new QAction(tr("&Kick"), this);
-	qaPlayerMute=new QAction(tr("&Mute"), this);
-	qaPlayerDeaf=new QAction(tr("&Deafen"), this);
-	qaPlayerKick->setObjectName("PlayerKick");
-	qaPlayerMute->setObjectName("PlayerMute");
-	qaPlayerDeaf->setObjectName("PlayerDeaf");
-	qaPlayerKick->setEnabled(FALSE);
-	qaPlayerMute->setCheckable(TRUE);
-	qaPlayerMute->setEnabled(FALSE);
-	qaPlayerDeaf->setCheckable(TRUE);
-	qaPlayerDeaf->setEnabled(FALSE);
 
 	qmPlayer->addAction(qaPlayerKick);
 	qmPlayer->addAction(qaPlayerMute);
 	qmPlayer->addAction(qaPlayerDeaf);
-
-	qaAudioReset=new QAction(tr("&Reset"), this);
-	qaAudioReset->setObjectName("AudioReset");
-	qaAudioMute=new QAction(tr("&Mute"), this);
-	qaAudioMute->setObjectName("AudioMute");
-	qaAudioDeaf=new QAction(tr("&Deaf"), this);
-	qaAudioDeaf->setObjectName("AudioDeaf");
-	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
-	qaAudioTTS->setObjectName("AudioTextToSpeech");
-	qaAudioStats=new QAction(tr("S&tatistics"), this);
-	qaAudioStats->setObjectName("AudioStats");
-	qaAudioMute->setCheckable(true);
-	qaAudioDeaf->setCheckable(true);
-	qaAudioTTS->setCheckable(true);
-	qaAudioMute->setChecked(g.s.bMute);
-	qaAudioDeaf->setChecked(g.s.bDeaf);
-	qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
 
 	qmAudio->addAction(qaAudioMute);
 	qmAudio->addAction(qaAudioDeaf);
@@ -138,21 +193,11 @@ void MainWindow::setupGui()  {
 	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioStats);
 
-	qaConfigDialog=new QAction(tr("&Settings"), this);
-	qaConfigDialog->setObjectName("ConfigDialog");
-	qaConfigShortcuts=new QAction(tr("&Shortcuts"), this);
-	qaConfigShortcuts->setObjectName("ConfigShortcuts");
-
 	qmConfig->addAction(qaConfigDialog);
 	qmConfig->addAction(qaConfigShortcuts);
 
-	qaHelpAbout=new QAction(tr("&About"), this);
-	qaHelpAbout->setObjectName("HelpAbout");
-	qaHelpAboutQt=new QAction(tr("&About QT"), this);
-	qaHelpAboutQt->setObjectName("HelpAboutQt");
-	qaHelpVersionCheck=new QAction(tr("Check &Updates"), this);
-	qaHelpVersionCheck->setObjectName("HelpVersionCheck");
-
+	qmHelp->addAction(qaHelpWhatsThis);
+	qmHelp->addSeparator();
 	qmHelp->addAction(qaHelpAbout);
 	qmHelp->addAction(qaHelpAboutQt);
 	qmHelp->addSeparator();
@@ -356,6 +401,11 @@ void MainWindow::on_ConfigShortcuts_triggered()
 	GlobalShortcut::configure();
 }
 
+void MainWindow::on_HelpWhatsThis_triggered()
+{
+	QWhatsThis::enterWhatsThisMode();
+}
+
 void MainWindow::on_HelpAbout_triggered()
 {
 	AboutDialog adAbout(this);
@@ -382,6 +432,7 @@ void MainWindow::serverConnected()
 	sMyId = 0;
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::PlayerJoin);
+	g.l->setIgnore(Log::OtherSelfMute);
 	g.l->log(Log::ServerConnected, tr("Connected to server"));
 	qaServerDisconnect->setEnabled(true);
 

@@ -55,6 +55,10 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
     if (!idx.isValid())
         return QVariant();
 
+	QVariant v = otherRoles(idx.column(), role);
+	if (v.isValid())
+		return v;
+
 	int row = idx.row();
 	if (row >= qlPlayers.count())
 		return QVariant();
@@ -99,16 +103,59 @@ Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
+QVariant PlayerModel::otherRoles(int section, int role) const
+{
+	switch(role) {
+		case Qt::ToolTipRole:
+			switch(section) {
+				case 0:
+					return tr("Name of player");
+				case 1:
+					return tr("Player flags");
+			}
+			break;
+		case Qt::WhatsThisRole:
+			switch(section) {
+				case 0:
+					return tr("This list shows all the players connected to the server. The icon to the left of the player indicates "
+						"whether or not they are talking:<br />"
+						"<img src=\":/icons/talking_on.png\" /> Talking<br />"
+						"<img src=\":/icons/talking_off.png\" /> Not talking"
+						);
+				case 1:
+					return tr("This shows the flags the player has on the server, if any:<br />"
+								"<img src=\":/icons/muted_self.png\" />Muted (by self)<br />"
+								"<img src=\":/icons/muted_server.png\" />Muted (by admin)<br />"
+								"<img src=\":/icons/deafened_self.png\" />Deafened (by self)<br />"
+								"<img src=\":/icons/deafened_server.png\" />Deafened (by admin)<br />"
+								"A player muted by himself is probably just away, talking on the phone or something like that.<br />"
+								"A player muted by an admin is probably also just away, and the noise the player is making was annoying "
+								"enough that an admin muted him.");
+			}
+			break;
+	}
+	return QVariant();
+}
+
 QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
                                int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-		switch(section) {
-			case 0:
-				return QString("Name");
-			case 1:
-				return QString("Flags");
-		}
+	if (orientation != Qt::Horizontal)
+		return QVariant();
+
+	QVariant v = otherRoles(section, role);
+
+	if (v.isValid())
+		return v;
+
+	switch(role) {
+		case Qt::DisplayRole:
+			switch(section) {
+				case 0:
+					return QString("Name");
+				case 1:
+					return QString("Flags");
+			}
 	}
 
     return QVariant();

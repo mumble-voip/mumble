@@ -67,6 +67,7 @@ public:
 	Player *getPlayer(const QModelIndex &idx) const;
 	void removePlayer(Player *p);
 	void removeAllPlayers();
+	QVariant otherRoles(int column, int role) const;
 public slots:
 	void playerTalkingChanged(bool talking);
 	void playerMuteDeafChanged();

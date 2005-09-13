@@ -55,7 +55,7 @@ class MainWindow : public QMainWindow {
 		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats;
 		QAction *qaConfigDialog, *qaConfigShortcuts;
-		QAction *qaHelpAbout, *qaHelpAboutQt, *qaHelpVersionCheck;
+		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutQt, *qaHelpVersionCheck;
 		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
@@ -68,6 +68,7 @@ class MainWindow : public QMainWindow {
 	protected:
 		QTextEdit *qteLog;
 		QAbstractItemView *qtvPlayers;
+		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt);
 		virtual void closeEvent(QCloseEvent *e);
@@ -85,6 +86,7 @@ class MainWindow : public QMainWindow {
 		void on_AudioStats_triggered();
 		void on_ConfigShortcuts_triggered();
 		void on_ConfigDialog_triggered();
+		void on_HelpWhatsThis_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutQt_triggered();
 		void on_HelpVersionCheck_triggered();

@@ -39,10 +39,7 @@
 #include "AudioConfigDialog.h"
 #include "Global.h"
 
-// Things to include
-// atTransmit (ptt, voice etc)
-// vad grace (extra frames to count)
-// quality, complexity, max amplification
+// Argh. All those tooltips should be whatsthis. Curses.
 
 AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress;
@@ -76,6 +73,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	tip=tr("<b>This is the input method to use for audio.</b><br />Most likely you want to use DirectSound.");
 	qcbInput->setToolTip(tip);
 	l->setToolTip(tip);
+	qcbInput->setWhatsThis(tip);
 
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbInput, 0, 1);
