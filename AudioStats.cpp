@@ -76,6 +76,35 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qtTick->setObjectName("Tick");
 	qtTick->start(50);
 
+	qlMicLevel->setToolTip(tr("Peak power in last frame"));
+	qlMicLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms), and is the same measurement "
+								"as you would usually find displayed as \"input power\". Please disregard this and "
+								"look at <b>Loudness</b> instead, which is much more steady and disregards outliers."
+								));
+	qlMicVolume->setToolTip(tr("How close the current input level is to ideal"));
+	qlMicVolume->setWhatsThis(tr("This shows how close your current input volume is to the ideal. To adjust your "
+								 "microphone level, open whatever program you use to adjust the recording volume, "
+								 "and look at the value here while talking.<br />"
+								 "<b>Talk loud, as you would when you're upset over getting fragged by a noob.</b><br />"
+								 "Adjust the volume until this value is close to 100%, but make sure it doesn't go above. "
+								 "If it does go above, you are likely to get clipping in parts of your speech, which will "
+								 "degrade sound quality"));
+	qlMicSNR->setToolTip(tr("Signal-To-Noise ratio from the microphone"));
+	qlMicSNR->setWhatsThis(tr("This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). "
+								"It shows how much clearer "
+								"the voice is compared to the noise.<br />If this value is below 1.0, there's more noise "
+								"than voice in the signal, and so quality is reduced.<br />There is no upper limit to this "
+								"value, but don't expect to see much above 40-50 without a sound studio."));
+	qlSpeechProb->setToolTip(tr("Probability of speech"));
+	qlSpeechProb->setWhatsThis(tr("This is the probability that the last frame (20 ms) was speech and not environment noise.<br />"
+								  "Voice activity transmission depends on this being right. The trick with this is that the middle "
+								  "of a sentence is always detected as speech, the problem is the pauses between words and the "
+								  "start of speech. It's hard to distinguish a sigh from a word starting with 'h'."));
+	qlBitrate->setToolTip(tr("Bitrate of last frame"));
+	qlBitrate->setWhatsThis(tr("This is the bitrate of the last transmitted frame (20 ms), and as such will jump up and down "
+							   "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
+							   "in the Settings dialog"));
+
     QMetaObject::connectSlotsByName(this);
 
     on_Tick_timeout();
