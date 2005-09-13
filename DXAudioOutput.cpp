@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMessageBox>
 #include "DXAudioOutput.h"
 #include "MainWindow.h"
 #include "Global.h"
@@ -56,11 +57,25 @@ DXAudioOutput::DXAudioOutput() {
     WAVEFORMATEX wfx;
     WAVEFORMATEX wfxSet;
 
-	    // Create IDirectSound using the preferred sound device
-	if( FAILED( hr = DirectSoundCreate8( NULL, &pDS, NULL ) ) )
-		qFatal("DXAudioOutput: DirectSoundCreate");
+	pDS = NULL;
 
-	    // Set coop level to DSSCL_PRIORITY
+	bool failed = false;
+
+	if (! g.s.qbaDXOutput.isEmpty()) {
+		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXOutput.data());
+	    if( FAILED( hr = DirectSoundCreate8(lpguid, &pDS, NULL))) {
+			failed = true;
+		}
+	}
+	    // Create IDirectSound using the preferred sound device
+	if (! pDS)
+		if( FAILED( hr = DirectSoundCreate8( &DSDEVID_DefaultVoicePlayback, &pDS, NULL ) ) )
+			qFatal("DXAudioOutput: DirectSoundCreate");
+
+	if (failed)
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
+
+   // Set coop level to DSSCL_PRIORITY
 	if( FAILED( hr = pDS->SetCooperativeLevel( g.mw->winId(), DSSCL_PRIORITY ) ) )
 		qFatal("DXAudioOutput: SetCooperativeLevel");
 
@@ -186,7 +201,6 @@ void DXAudioOutputPlayer::run() {
 	int playblock;
 	int nowriteblock;
 	int lastwriteblock = NBLOCKS-1;
-	int iAudioDecodeLag = 4;
 	DWORD dwPlayPosition, dwWritePosition;
     HRESULT             hr;
 
@@ -200,7 +214,7 @@ void DXAudioOutputPlayer::run() {
 				qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
 		playblock = dwWritePosition / iByteSize;
-		nowriteblock = (playblock + iAudioDecodeLag) % NBLOCKS;
+		nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
 
 		for(int block=(lastwriteblock + 1) % NBLOCKS;block!=nowriteblock;block=(block + 1) % NBLOCKS) {
 			lastwriteblock = block;
@@ -223,7 +237,7 @@ void DXAudioOutputPlayer::run() {
 				qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
 			playblock = dwWritePosition / iByteSize;
-			nowriteblock = (playblock + iAudioDecodeLag) % NBLOCKS;
+			nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
 		}
 		WaitForSingleObject(hNotificationEvent, INFINITE);
 	}

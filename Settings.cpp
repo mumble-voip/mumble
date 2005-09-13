@@ -41,6 +41,7 @@ Settings::Settings() {
 	iMinLoudness = 4000;
 	iVoiceHold = 30;
 	iJitterBufferSize = 4;
+	iDXOutputDelay = 4;
 }
 
 void Settings::load() {
@@ -54,6 +55,9 @@ void Settings::load() {
 	iMinLoudness = qs.value("AudioMinLoudness", iMinLoudness).toInt();
 	iVoiceHold = qs.value("AudioVoiceHold", iVoiceHold).toInt();
 	iJitterBufferSize = qs.value("JitterBufferSize", iJitterBufferSize).toInt();
+	iDXOutputDelay = qs.value("DXOutputDelay", iDXOutputDelay).toInt();
+	qbaDXInput = qs.value("DXInput").toByteArray();
+	qbaDXOutput = qs.value("DXOutput").toByteArray();
 }
 
 void Settings::save() {
@@ -67,4 +71,7 @@ void Settings::save() {
 	qs.setValue("AudioMinLoudness", iMinLoudness);
 	qs.setValue("AudioVoiceHold", iVoiceHold);
 	qs.setValue("JitterBufferSize", iJitterBufferSize);
+	qs.setValue("DXOutputDelay", iDXOutputDelay);
+	qs.setValue("DXInput", qbaDXInput);
+	qs.setValue("DXOutput", qbaDXOutput);
 }

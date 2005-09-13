@@ -32,6 +32,7 @@
 #define _SETTINGS_H
 
 #include <QString>
+#include <QByteArray>
 
 // Global helper class to spread variables around across threads
 // especially helpfull to initialize things like the stored
@@ -46,6 +47,8 @@ struct Settings {
 	bool bMute, bDeaf;
 	bool bTTS;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
+	int iDXOutputDelay;
+	QByteArray qbaDXInput, qbaDXOutput;
 	QString qsAudioInput, qsAudioOutput;
 	Settings();
 	void load();

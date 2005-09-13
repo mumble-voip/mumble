@@ -36,96 +36,126 @@
 #include <QList>
 #include <windows.h>
 #include <dsound.h>
-#include <string>
-#include <iostream>
 
-#include "AudioInput.h"
-#include "AudioOutput.h"
 #include "DXConfigDialog.h"
 #include "Global.h"
 
 
-// Things to include
-// atTransmit (ptt, voice etc)
-// vad grace (extra frames to count)
-// quality, complexity, max amplification
 
 BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
 			 const WCHAR* lpszDrvName, void *ctx)
 {
-
 	if ( lpGUID )
 	{
-		QMap<QString, LPGUID> *qmDevices;
-		qmDevices = reinterpret_cast<QMap<QString, LPGUID> *>(ctx);
-
-		qmDevices->insert(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), lpGUID);
+		QList<dsDevice> *l =reinterpret_cast<QList<dsDevice> *>(ctx);
+		*l << dsDevice(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), *lpGUID);
 	}
-	
+
 	return(true);
 }
 
-
 DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
-
-	QComboBox *qcbInputDevice = new QComboBox();
-	QComboBox *qcbOutputDevice = new QComboBox();
-	
-	QHBoxLayout *h;
-	QLabel *l;
-
+	QGroupBox *qgbDevices, *qgbOutput;
+	QGridLayout *grid;
 	QVBoxLayout *v;
-	
-	QList<QString> keys;
-	QString key;
-	
-	qmDSDevices = new QMap<QString, LPGUID>();
+	dsDevice dev;
+	QLabel *l;
+	QByteArray a;
 
-	DirectSoundEnumerate(reinterpret_cast<LPDSENUMCALLBACK>(DSEnumProc),
-			     reinterpret_cast<void*>(qmDSDevices));
+	qlInput << dsDevice(tr("Default DirectSound Voice Input"), DSDEVID_DefaultVoiceCapture);
+	qlOutput << dsDevice(tr("Default DirectSound Voice Output"),DSDEVID_DefaultVoicePlayback);
 
-	foreach(key, qmDSDevices->keys())
-	{
-		qcbOutputDevice->addItem(key);
-		qcbInputDevice->addItem(key);
+	DirectSoundCaptureEnumerate(DSEnumProc, reinterpret_cast<void *>(&qlInput));
+	DirectSoundEnumerate(DSEnumProc, reinterpret_cast<void *>(&qlOutput));
+
+	qcbInputDevice = new QComboBox();
+	qcbOutputDevice = new QComboBox();
+
+	foreach(dev, qlInput) {
+		a = QByteArray(reinterpret_cast<const char *>(&dev.second), sizeof(GUID));
+		qcbInputDevice->addItem(dev.first, a);
+		if (a == g.s.qbaDXInput)
+			qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
 	}
 
+	foreach(dev, qlOutput) {
+		a = QByteArray(reinterpret_cast<const char *>(&dev.second), sizeof(GUID));
+		qcbOutputDevice->addItem(dev.first, a);
+		if (a == g.s.qbaDXOutput)
+			qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
+	}
+
+	qgbDevices=new QGroupBox(tr("Device selection"));
+	grid=new QGridLayout();
+
+	qcbInputDevice->setToolTip(tr("Device to use for microphone"));
+	qcbInputDevice->setWhatsThis(tr("This sets the input device to use, which is where you have connected the "
+								"microphone."));
+	l = new QLabel(tr("Input"));
+	l->setBuddy(qcbInputDevice);
+	grid->addWidget(l, 0, 0);
+	grid->addWidget(qcbInputDevice, 0, 1);
+
+	qcbOutputDevice->setToolTip(tr("Device to use for speakers/headphones"));
+	qcbOutputDevice->setWhatsThis(tr("This sets the output device to use, which is where you have connected your "
+									"speakers or your headset"));
+	l = new QLabel(tr("Output"));
+	l->setBuddy(qcbOutputDevice);
+	grid->addWidget(l, 1, 0);
+	grid->addWidget(qcbOutputDevice, 1, 1);
+
+	qgbDevices->setLayout(grid);
+
+	qgbOutput=new QGroupBox(tr("Output Options"));
+	grid=new QGridLayout();
+
+	qsOutputDelay = new QSlider(Qt::Horizontal);
+	qsOutputDelay->setRange(1, 6);
+	qsOutputDelay->setSingleStep(1);
+	qsOutputDelay->setPageStep(2);
+	qsOutputDelay->setValue(g.s.iDXOutputDelay);
+	qsOutputDelay->setObjectName("OutputDelay");
+
+	l = new QLabel(tr("OutputDelay"));
+	l->setBuddy(qsOutputDelay);
+
+	qlOutputDelay=new QLabel();
+	qlOutputDelay->setMinimumWidth(30);
+	on_OutputDelay_valueChanged(qsOutputDelay->value());
+
+	qsOutputDelay->setToolTip(tr("Ammount of data to buffer for DirectSound"));
+	qsOutputDelay->setWhatsThis(tr("This sets the ammount of data to prebuffer in the directsound buffer. "
+								"Experiment with different values and set it to the lowest which doesn't "
+								"cause rapid jitter in the sound."));
+	grid->addWidget(l, 0, 0);
+	grid->addWidget(qsOutputDelay, 0, 1);
+	grid->addWidget(qlOutputDelay, 0, 2);
+
+	qgbOutput->setLayout(grid);
 
 	v = new QVBoxLayout();
-	
-	l = new QLabel(tr("Input Device"));
-	
-	h = new QHBoxLayout();
-	h->addWidget(l);
-	h->addStretch(1);
-	h->addWidget(qcbInputDevice);
-	v->addLayout(h);
-
-	l = new QLabel(tr("Output Device"));
-
-	h = new QHBoxLayout();
-	h->addWidget(l);
-	h->addStretch(1);
-	h->addWidget(qcbOutputDevice);
-	v->addLayout(h);
-
-	/* Add option for output buffer size */
-		
-
+	v->addWidget(qgbDevices);
+	v->addWidget(qgbOutput);
 	v->addStretch(1);
 
 	setLayout(v);
-//    QMetaObject::connectSlotsByName(this);
+    QMetaObject::connectSlotsByName(this);
 }
 
 QString DXConfigDialog::title() const {
-	return tr("DX Audio Config");
+	return tr("DirectSound");
 }
 
 QIcon DXConfigDialog::icon() const {
-	return ConfigWidget::icon();
+	return QIcon(":/icons/config_dsound.png");
 }
 
 void DXConfigDialog::accept() {
-	/* foo */
+	g.s.iDXOutputDelay = qsOutputDelay->value();
+	g.s.qbaDXInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toByteArray();
+	g.s.qbaDXOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toByteArray();
+}
+
+void DXConfigDialog::on_OutputDelay_valueChanged(int v) {
+	qlOutputDelay->setText(tr("%1 ms").arg(v*20));
 }

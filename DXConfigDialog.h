@@ -36,41 +36,33 @@
 #include <QComboBox>
 #include <QSlider>
 #include <QLabel>
+#include <QList>
+#include <QPair>
 #include <dsound.h>
 
 #include "ConfigDialog.h"
-//#include "AudioInput.h"
-//#include "AudioOuput.h"
+
+typedef QPair<QString, GUID> dsDevice;
 
 class DXConfigDialog : public ConfigWidget {
 	Q_OBJECT
-	private:
-		QMap<QString, LPGUID> *qmDSDevices; /* Needs a new home */
-						       
-/*
 	protected:
-		QComboBox *qcbInput, *qcbOutput;
-		QComboBox *qcbTransmit;
-		QSlider *qsTransmitHold;
-		QLabel *qlTransmitHold;
-		QSlider *qsQuality, *qsComplexity, *qsAmp;
-		QLabel *qlQuality, *qlComplexity, *qlAmp;
-*/
+		QList<dsDevice> qlInput;
+		QList<dsDevice> qlOutput;
+
+		QComboBox *qcbInputDevice;
+		QComboBox *qcbOutputDevice;
+
+		QSlider *qsOutputDelay;
+		QLabel *qlOutputDelay;
 	public:
 		DXConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
 		void accept();
-/*
-		void on_TransmitHold_valueChanged(int v);
-		void on_Quality_valueChanged(int v);
-		void on_Complexity_valueChanged(int v);
-		void on_Amp_valueChanged(int v);
-*/
+		void on_OutputDelay_valueChanged(int v);
 };
-
-BOOL CALLBACK DSEnumProc(LPGUID, const WCHAR*, const WCHAR*, void*);
 
 #else
 class DXConfigDialog;

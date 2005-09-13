@@ -75,13 +75,9 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	cancelButton->setWhatsThis(tr("This button will reject all changes and return to the application.<br />"
 								  "The settings will be reset to the previous positions."));
 
-<<<<<<< ConfigDialog.cpp
-    addPage(new AudioConfigDialog());
-    addPage(new DXConfigDialog());
-=======
 	addPage(new AudioConfigDialog());
+    addPage(new DXConfigDialog());
 	addPage(new LogConfig());
->>>>>>> 1.4
 
     QHBoxLayout *top = new QHBoxLayout;
     top->addWidget(qlwIcons);

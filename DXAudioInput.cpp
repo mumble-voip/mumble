@@ -28,7 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMessageBox>
 #include "DXAudioInput.h"
+#include "Global.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
@@ -54,9 +56,24 @@ DXAudioInput::DXAudioInput() {
 
 	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 
+	pDSCapture = NULL;
+
+	bool failed = false;
+
+	if (! g.s.qbaDXInput.isEmpty()) {
+		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXInput.data());
+	    if( FAILED( hr = DirectSoundCaptureCreate8(lpguid, &pDSCapture, NULL))) {
+			failed = true;
+		}
+	}
+
     // Create IDirectSoundCapture using the preferred capture device
-    if( FAILED( hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &pDSCapture, NULL ) ) )
-    	qFatal("DXAudioInput: DirectSoundCaptureCreate");
+    if (! pDSCapture)
+	    if( FAILED( hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &pDSCapture, NULL ) ) )
+	    	qFatal("DXAudioInput: DirectSoundCaptureCreate");
+
+	if (failed)
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	ZeroMemory( &wfx, sizeof(wfx) );
 	wfx.wFormatTag = WAVE_FORMAT_PCM;
