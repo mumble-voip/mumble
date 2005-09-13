@@ -47,6 +47,8 @@ class AudioConfigDialog : public ConfigWidget {
 		QLabel *qlTransmitHold;
 		QSlider *qsQuality, *qsComplexity, *qsAmp;
 		QLabel *qlQuality, *qlComplexity, *qlAmp;
+		QSlider *qsJitter;
+		QLabel *qlJitter;
 	public:
 		AudioConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;
@@ -57,6 +59,7 @@ class AudioConfigDialog : public ConfigWidget {
 		void on_Quality_valueChanged(int v);
 		void on_Complexity_valueChanged(int v);
 		void on_Amp_valueChanged(int v);
+		void on_Jitter_valueChanged(int v);
 };
 
 #else

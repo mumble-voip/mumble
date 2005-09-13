@@ -40,6 +40,7 @@ Settings::Settings() {
 	iComplexity = 4;
 	iMinLoudness = 4000;
 	iVoiceHold = 30;
+	iJitterBufferSize = 4;
 }
 
 void Settings::load() {
@@ -52,6 +53,7 @@ void Settings::load() {
 	iComplexity = qs.value("AudioComplexity", iComplexity).toInt();
 	iMinLoudness = qs.value("AudioMinLoudness", iMinLoudness).toInt();
 	iVoiceHold = qs.value("AudioVoiceHold", iVoiceHold).toInt();
+	iJitterBufferSize = qs.value("JitterBufferSize", iJitterBufferSize).toInt();
 }
 
 void Settings::save() {
@@ -64,4 +66,5 @@ void Settings::save() {
 	qs.setValue("AudioComplexity", iComplexity);
 	qs.setValue("AudioMinLoudness", iMinLoudness);
 	qs.setValue("AudioVoiceHold", iVoiceHold);
+	qs.setValue("JitterBufferSize", iJitterBufferSize);
 }

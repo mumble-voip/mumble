@@ -39,13 +39,11 @@
 #include "AudioConfigDialog.h"
 #include "Global.h"
 
-// Argh. All those tooltips should be whatsthis. Curses.
-
 AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress;
+	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress, *qgbJitter;
 	QLabel *l;
-	QHBoxLayout *h;
 	QVBoxLayout *v;
+	QHBoxLayout *h;
 	QGridLayout *grid;
 	QList<QString> keys;
 	QString key;
@@ -54,6 +52,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qgbInterface=new QGroupBox(tr("Interfaces"));
 	qgbTransmit=new QGroupBox(tr("Transmission"));
 	qgbCompress=new QGroupBox(tr("Compression"));
+	qgbJitter=new QGroupBox(tr("Jitter Buffer"));
 
 	grid = new QGridLayout();
 
@@ -217,10 +216,42 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qgbCompress->setLayout(grid);
 
+
+	grid = new QGridLayout();
+
+	qsJitter = new QSlider(Qt::Horizontal);
+	qsJitter->setRange(4, 10);
+	qsJitter->setSingleStep(1);
+	qsJitter->setPageStep(5);
+	qsJitter->setValue(g.s.iJitterBufferSize);
+	qsJitter->setObjectName("Jitter");
+
+	l = new QLabel(tr("Default Jitter Buffer"));
+	l->setBuddy(qsJitter);
+
+	qlJitter=new QLabel();
+	qlJitter->setMinimumWidth(40);
+	on_Jitter_valueChanged(qsJitter->value());
+
+	qsJitter->setToolTip(tr("How long to prebuffer on first packet"));
+	qsJitter->setWhatsThis(tr("<b>This sets the default buffer size for the jitter buffer</b>.<br />"
+							"All incoming audio is buffered, and the jitter buffer continually tries to "
+							"push the buffer to the minimum sustainable by your network, so latency can "
+							"be as low as possible. This sets the default buffer size to use on the first "
+							"packet to arrive from a new speaker, or when a speaker using Voice Activity or "
+							"Push-To-Talk just started talking again. If the start of sentances you hear is "
+							"very jittery, increase this value."));
+	grid->addWidget(l, 0, 0);
+	grid->addWidget(qsJitter, 0, 1);
+	grid->addWidget(qlJitter, 0, 2);
+
+	qgbJitter->setLayout(grid);
+
     v = new QVBoxLayout;
     v->addWidget(qgbInterface);
     v->addWidget(qgbTransmit);
     v->addWidget(qgbCompress);
+    v->addWidget(qgbJitter);
     v->addStretch(1);
     setLayout(v);
 
@@ -240,6 +271,7 @@ void AudioConfigDialog::accept() {
 	g.s.iComplexity = qsComplexity->value();
 	g.s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	g.s.iVoiceHold = qsTransmitHold->value();
+	g.s.iJitterBufferSize = qsJitter->value();
 	g.s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
@@ -261,4 +293,8 @@ void AudioConfigDialog::on_Amp_valueChanged(int v) {
 	v = 18000 - v + 2000;
 	double d = 20000.0/v;
 	qlAmp->setText(QString("%1").arg(d, 0, 'f', 2));
+}
+
+void AudioConfigDialog::on_Jitter_valueChanged(int v) {
+	qlJitter->setText(tr("%1 ms").arg(v*20));
 }

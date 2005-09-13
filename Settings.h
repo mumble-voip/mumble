@@ -45,7 +45,7 @@ struct Settings {
 	AudioTransmit atTransmit;
 	bool bMute, bDeaf;
 	bool bTTS;
-	int iQuality, iComplexity, iMinLoudness, iVoiceHold;
+	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	QString qsAudioInput, qsAudioOutput;
 	Settings();
 	void load();

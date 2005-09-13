@@ -89,6 +89,7 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, short id) {
 	iFrameCounter = 0;
 
 	psBuffer = new short[iFrameSize];
+	bSpeech = false;
 
 	speex_jitter_init(&sjJitter, dsDecState, SAMPLE_RATE);
 }
@@ -101,12 +102,14 @@ AudioOutputPlayer::~AudioOutputPlayer() {
 
 void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 	QMutexLocker lock(&qmJitter);
+
+	if (! bSpeech)
+		sjJitter.buffer_size=g.s.iJitterBufferSize;
 	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * 20);
 }
 
 void AudioOutputPlayer::decodeNextFrame() {
 	int iTimestamp;
-	bool bSpeech;
 	int iSpeech = 0;
 
 	{

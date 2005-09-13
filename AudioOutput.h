@@ -55,6 +55,7 @@ class AudioOutputRegistrar {
 };
 
 class AudioOutputPlayer : public QObject {
+	friend class AudioOutput;
 	Q_OBJECT
 	protected:
 		short sId;
@@ -69,7 +70,7 @@ class AudioOutputPlayer : public QObject {
 		AudioOutput *aoOutput;
 
 		short *psBuffer;
-
+		bool bSpeech;
 		void decodeNextFrame();
 	public:
 		void addFrameToBuffer(QByteArray &, int iSeq);
