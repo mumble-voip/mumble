@@ -35,7 +35,7 @@
 Settings::Settings() {
 	atTransmit = VAD;
 	ptTransmit = PositionVelocity;
-	a3dModel = Full;
+	a3dModel = Panning;
 	bMute = bDeaf = false;
 	bTTS = true;
 	iQuality = 8;
@@ -46,7 +46,7 @@ Settings::Settings() {
 	iDXOutputDelay = 4;
 	fDXMinDistance = 5.0;
 	fDXMaxDistance = 35.0;
-	fDXDoppler = 2.0;
+	fDXDoppler = 0.0;
 	fDXRollOff = 0.5;
 }
 
@@ -79,6 +79,7 @@ void Settings::save() {
 	qs.setValue("TextToSpeech", g.s.bTTS);
 	qs.setValue("PosTransmit", g.s.ptTransmit);
 	qs.setValue("AudioTransmit", g.s.atTransmit);
+	qs.setValue("Audio3D", g.s.a3dModel);
 	qs.setValue("AudioQuality", iQuality);
 	qs.setValue("AudioComplexity", iComplexity);
 	qs.setValue("AudioMinLoudness", iMinLoudness);

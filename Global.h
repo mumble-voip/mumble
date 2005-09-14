@@ -63,12 +63,13 @@ struct Global {
 	Log *l;
 	Plugins *p;
 	bool bPushToTalk;
+	bool bCenterPosition;
 	Global();
 };
 
 // -Wshadow is bugged. If an inline function of a class uses a variable or
 // parameter named 'g', that will generate a warning even if the class header
-// is inclued long before this definition.
+// is included long before this definition.
 
 #define g g_global_struct
 extern Global g_global_struct;

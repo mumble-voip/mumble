@@ -226,7 +226,11 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	on_Doppler_valueChanged(qsDoppler->value());
 	qsDoppler->setToolTip(tr("Ammount of doppler effect"));
 	qsDoppler->setWhatsThis(tr("This tunes the ammount of doppler heard. The default (1.0) equals realworld physics. A higher value "
-								"will exaggerate the pitch shift when players move towards or away from you."));
+								"will exaggerate the pitch shift when players move towards or away from you.<br />"
+								"<b>WARNING:</b> Some sound cards implement doppler by simply playing the buffer slightly faster or "
+								"slower; this will cause the sound to break up as Mumble's sound buffers aren't static data and "
+								"you'll run out of speech."
+								));
 	grid->addWidget(l, 4, 0);
 	grid->addWidget(qsDoppler, 4, 1);
 	grid->addWidget(qlDoppler, 4, 2);
@@ -257,6 +261,12 @@ void DXConfigDialog::accept() {
 	g.s.iDXOutputDelay = qsOutputDelay->value();
 	g.s.qbaDXInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toByteArray();
 	g.s.qbaDXOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toByteArray();
+
+	g.s.a3dModel = static_cast<Settings::Audio3D>(qcbMethod->currentIndex());
+	g.s.fDXMinDistance = qsMinDistance->value() / 10.0;
+	g.s.fDXMaxDistance = qsMaxDistance->value() / 10.0;
+	g.s.fDXDoppler = qsDoppler->value() / 10.0;
+	g.s.fDXRollOff = qsRollOff->value() / 10.0;
 }
 
 void DXConfigDialog::on_OutputDelay_valueChanged(int v) {

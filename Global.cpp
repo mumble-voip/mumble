@@ -40,4 +40,5 @@ Global::Global() {
 	db = 0;
 	p = 0;
 	bPushToTalk = false;
+	bCenterPosition = false;
 }

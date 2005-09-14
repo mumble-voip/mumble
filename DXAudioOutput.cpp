@@ -29,6 +29,7 @@
 */
 
 #include <QMessageBox>
+#include <math.h>
 #include "DXAudioOutput.h"
 #include "MainWindow.h"
 #include "Plugins.h"
@@ -68,7 +69,8 @@ DXAudioOutput::DXAudioOutput() {
 			failed = true;
 		}
 	}
-	    // Create IDirectSound using the preferred sound device
+
+    // Create IDirectSound using the preferred sound device
 	if (! pDS)
 		if( FAILED( hr = DirectSoundCreate8( &DSDEVID_DefaultVoicePlayback, &pDS, NULL ) ) )
 			qFatal("DXAudioOutput: DirectSoundCreate");
@@ -111,9 +113,15 @@ DXAudioOutput::DXAudioOutput() {
        	qFatal("DXAudioOutput: GetFormat");
 
 	p3DListener = NULL;
-    if (g.s.a3dModel != Settings::None)
-		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener))))
+    if (g.s.a3dModel != Settings::None) {
+		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener)))) {
 			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
+		} else {
+			p3DListener->SetRolloffFactor(g.s.fDXRollOff, DS3D_DEFERRED);
+			p3DListener->SetDopplerFactor(g.s.fDXDoppler, DS3D_DEFERRED);
+			p3DListener->CommitDeferredSettings();
+		}
+	}
 
 	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
 
@@ -137,27 +145,26 @@ AudioOutputPlayer *DXAudioOutput::getPlayer(short sId) {
 }
 
 void DXAudioOutput::updateListener() {
+	if (! p3DListener)
+		return;
+
+	HRESULT hr;
 	DS3DLISTENER li;
 	Plugins *p = g.p;
 	li.dwSize=sizeof(li);
 	if (p->bValid && p3DListener) {
-		li.vPosition.x = p->fPosition[0];
-		li.vPosition.y = p->fPosition[1];
-		li.vPosition.z = p->fPosition[2];
-		li.vVelocity.x = p->fVelocity[0];
-		li.vVelocity.y = p->fVelocity[1];
-		li.vVelocity.z = p->fVelocity[2];
-		li.vOrientFront.x = p->fFront[0];
-		li.vOrientFront.y = p->fFront[1];
-		li.vOrientFront.z = p->fFront[2];
-		li.vOrientTop.x = p->fTop[0];
-		li.vOrientTop.y = p->fTop[1];
-		li.vOrientTop.z = p->fTop[2];
-		li.flDistanceFactor = DS3D_DEFAULTDISTANCEFACTOR;
-		li.flRolloffFactor = g.s.fDXRollOff;
-		li.flDopplerFactor = g.s.fDXDoppler;
-		p3DListener->SetAllParameters(&li, DS3D_IMMEDIATE);
+		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], DS3D_DEFERRED);
+		p3DListener->SetVelocity(p->fVelocity[0], p->fVelocity[1], p->fVelocity[2], DS3D_DEFERRED);
+		p3DListener->SetOrientation(p->fFront[0], p->fFront[1], p->fFront[2],
+									p->fTop[0], p->fTop[1], p->fTop[2], DS3D_DEFERRED);
+	} else {
+		p3DListener->SetPosition(0.0, 0.0, 0.0, DS3D_DEFERRED);
+		p3DListener->SetVelocity(0.0, 0.0, 0.0, DS3D_DEFERRED);
+		p3DListener->SetOrientation(0.0, 0.0, 1.0,
+									0.0, 1.0, 0.0, DS3D_DEFERRED);
 	}
+	if (FAILED(hr =p3DListener->CommitDeferredSettings()))
+		qWarning("DXAudioOutputPlayer: CommitDeferrredSettings failed 0x%08lx", hr);
 }
 
 DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutputPlayer(ao, id) {
@@ -218,8 +225,14 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutpu
     if( FAILED( hr = pDSNotify->SetNotificationPositions( NBLOCKS, aPosNotify ) ) )
     	qFatal("DXAudioOutputPlayer: SetNotificationPositions");
 
-	if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer))))
-		qFatal("DXAudioOutputPlayer: QueryInterface (DirectSound3DBuffer)");
+	pDS3dBuffer = NULL;
+	if (dxAudio->p3DListener) {
+		if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer))))
+			qFatal("DXAudioOutputPlayer: QueryInterface (DirectSound3DBuffer)");
+
+		pDS3dBuffer->SetMinDistance(g.s.fDXMinDistance, DS3D_DEFERRED);
+		pDS3dBuffer->SetMaxDistance(g.s.fDXMaxDistance, DS3D_DEFERRED);
+	}
 
     LPVOID aptr1, aptr2;
     DWORD nbytes1, nbytes2;
@@ -279,25 +292,26 @@ void DXAudioOutputPlayer::run() {
 			decodeNextFrame();
 			dxAudio->updateListener();
 
-			DS3DBUFFER buf;
-			buf.dwSize = sizeof(buf);
-			buf.vPosition.x = fPos[0];
-			buf.vPosition.y = fPos[1];
-			buf.vPosition.z = fPos[2];
-			buf.vVelocity.x = fVel[0];
-			buf.vVelocity.y = fVel[1];
-			buf.vVelocity.z = fVel[2];
-			buf.dwInsideConeAngle = DS3D_DEFAULTCONEANGLE;
-			buf.dwOutsideConeAngle = DS3D_DEFAULTCONEANGLE;
-			buf.vConeOrientation.x = 1.0;
-			buf.vConeOrientation.y = 0.0;
-			buf.vConeOrientation.z = 0.0;
-			buf.lConeOutsideVolume = DS3D_DEFAULTCONEOUTSIDEVOLUME;
-			buf.flMinDistance = g.s.fDXMinDistance;
-			buf.flMaxDistance = g.s.fDXMaxDistance;
-			buf.dwMode = DS3DMODE_NORMAL;
-
-			pDS3dBuffer->SetAllParameters(&buf, DS3D_IMMEDIATE);
+			if (pDS3dBuffer) {
+				bool center = g.bCenterPosition;
+				if (! center) {
+					if ((fabs(fPos[0]) < 0.1) && (fabs(fPos[1]) < 0.1) && (fabs(fPos[2]) < 0.1))
+						center = true;
+				}
+				if (center) {
+					Plugins *p = g.p;
+					if (p->bValid) {
+						pDS3dBuffer->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], DS3D_DEFERRED);
+						pDS3dBuffer->SetVelocity(p->fVelocity[0], p->fVelocity[1], p->fVelocity[2], DS3D_DEFERRED);
+					} else {
+						pDS3dBuffer->SetPosition(0.0, 0.0, 0.0, DS3D_DEFERRED);
+						pDS3dBuffer->SetVelocity(0.0, 0.0, 0.0, DS3D_DEFERRED);
+					}
+				} else {
+					pDS3dBuffer->SetPosition(fPos[0], fPos[1], fPos[2], DS3D_DEFERRED);
+					pDS3dBuffer->SetVelocity(fVel[0], fVel[1], fVel[2], DS3D_DEFERRED);
+				}
+			}
 
 		    LPVOID aptr1, aptr2;
 		    DWORD nbytes1, nbytes2;

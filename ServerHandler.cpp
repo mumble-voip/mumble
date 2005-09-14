@@ -83,7 +83,6 @@ void ServerHandler::run()
 	exec();
 	cConnection->disconnect();
 	delete cConnection;
-	delete qtsSock;
 }
 
 void ServerHandler::message(QByteArray &qbaMsg) {

@@ -236,7 +236,7 @@ void Plugins::fetch() {
 		return;
 	}
 	bool ok=locked->p->fetch(fPosition, fVelocity, fFront, fTop);
-	if (! ok) {
+	if (! ok || bUnlink) {
 		locked->p->unlock();
 		locked->locked = false;
 		prevlocked = locked;
@@ -266,6 +266,7 @@ void Plugins::on_Timer_timeout() {
 					tr("Plugin %1 linked.").arg(pi->description),
 					tr("%1 linked.").arg(pi->shortname));
 			pi->locked = true;
+			bUnlink = false;
 			locked = pi;
 			return;
 		}

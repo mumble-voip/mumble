@@ -53,8 +53,17 @@ static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
 	return addr;
 }
 
+
 static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	return ReadProcessMemory(h, base, dest, len, NULL);
+	SIZE_T r;
+	bool ok=ReadProcessMemory(h, base, dest, len, &r);
+	return (ok && (r == len));
+}
+
+static BYTE scratchbuffer[128];
+
+static bool tryRead(VOID *base, SIZE_T len) {
+	return peekProc(base, scratchbuffer, len);
 }
 
 static DWORD peekProc(VOID *base) {
@@ -90,15 +99,13 @@ static int trylock() {
 	BYTE *cacheaddr= mod + 0x4645c;
 	BYTE *cache = peekProcPtr(cacheaddr);
 
-	if (cache) {
-		posptr = peekProcPtr(cache + 0xb4);
-		faceptr = peekProcPtr(cache + 0xb8);
-		topptr = peekProcPtr(cache + 0xbc);
-		velptr = peekProcPtr(cache + 0xc0);
-		if (posptr && faceptr && topptr && velptr) {
+	posptr = peekProcPtr(cache + 0xb4);
+	faceptr = peekProcPtr(cache + 0xb8);
+	topptr = peekProcPtr(cache + 0xbc);
+	velptr = peekProcPtr(cache + 0xc0);
+	if (cache && posptr && faceptr && topptr && velptr)
+		if (tryRead(posptr, 12) && tryRead(faceptr, 12) && tryRead(topptr, 12) && tryRead(velptr, 12))
 			return true;
-		}
-	}
 	CloseHandle(h);
 	h = NULL;
 	return false;

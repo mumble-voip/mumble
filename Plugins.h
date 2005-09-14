@@ -72,6 +72,7 @@ class Plugins : public QObject {
 		PluginInfo *prevlocked;
 	public:
 		bool bValid, bValidPos, bValidVel;
+		bool bUnlink;
 		float fPosition[3], fVelocity[3], fFront[3], fTop[3];
 
 		Plugins(QObject *p = NULL);

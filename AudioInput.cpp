@@ -214,7 +214,7 @@ void AudioInput::encodeAudioFrame() {
 	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
 
-	if ((g.s.ptTransmit != Settings::Nothing) && g.p) {
+	if ((g.s.ptTransmit != Settings::Nothing) && g.p && ! g.bCenterPosition) {
 		g.p->fetch();
 		if (g.p->bValidPos) {
 			QByteArray q;

@@ -53,12 +53,13 @@ class MainWindow : public QMainWindow {
 		PlayerModel *pmModel;
 		QAction *qaServerConnect, *qaServerDisconnect;
 		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
-		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats;
+		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
 		QAction *qaConfigDialog, *qaConfigShortcuts;
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutQt, *qaHelpVersionCheck;
 		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
+		GlobalShortcut *gsUnlink, *gsCenterPos;
 
 		QSettings qs;
 
@@ -83,6 +84,7 @@ class MainWindow : public QMainWindow {
 		void on_AudioMute_triggered();
 		void on_AudioDeaf_triggered();
 		void on_AudioTextToSpeech_triggered();
+		void on_AudioUnlink_triggered();
 		void on_AudioStats_triggered();
 		void on_ConfigShortcuts_triggered();
 		void on_ConfigDialog_triggered();
@@ -91,6 +93,7 @@ class MainWindow : public QMainWindow {
 		void on_HelpAboutQt_triggered();
 		void on_HelpVersionCheck_triggered();
 		void on_PushToTalk_triggered(bool);
+		void on_CenterPos_triggered(bool);
 		void serverConnected();
 		void serverDisconnected(QString reason);
 	public:

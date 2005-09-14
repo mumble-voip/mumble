@@ -50,6 +50,7 @@
 #include "VersionCheck.h"
 #include "PlayerModel.h"
 #include "AudioStats.h"
+#include "Plugins.h"
 #include "Log.h"
 #include "Global.h"
 
@@ -118,6 +119,11 @@ void MainWindow::createActions() {
 	qaAudioStats->setObjectName("AudioStats");
 	qaAudioStats->setToolTip(tr("Display audio statistics"));
 	qaAudioStats->setWhatsThis(tr("Pops up a small dialog with information about your current audio input."));
+	qaAudioUnlink=new QAction(tr("&Unlink"), this);
+	qaAudioUnlink->setObjectName("AudioUnlink");
+	qaAudioUnlink->setToolTip(tr("Forcibly unlink plugin"));
+	qaAudioUnlink->setWhatsThis(tr("This forces the current plugin to unlink, which is handy if it is reading "
+									"completely wrong data."));
 
 	qaConfigDialog=new QAction(tr("&Settings"), this);
 	qaConfigDialog->setObjectName("ConfigDialog");
@@ -188,6 +194,7 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioDeaf);
 	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioReset);
+	qmAudio->addAction(qaAudioUnlink);
 	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioTTS);
 	qmAudio->addSeparator();
@@ -223,6 +230,13 @@ void MainWindow::setupGui()  {
 	gsDeafSelf=new GlobalShortcut(this, 4, "Toggle Deafen Self");
 	gsDeafSelf->setObjectName("DeafSelf");
 	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
+
+	gsUnlink=new GlobalShortcut(this, 5, "Unlink Plugin");
+	gsUnlink->setObjectName("UnlinkPlugin");
+	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
+
+	gsCenterPos=new GlobalShortcut(this, 6, "Force Center Position");
+	gsCenterPos->setObjectName("CenterPos");
 
 	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);
@@ -391,6 +405,11 @@ void MainWindow::on_AudioStats_triggered()
 	as->show();
 }
 
+void MainWindow::on_AudioUnlink_triggered()
+{
+	g.p->bUnlink = true;
+}
+
 void MainWindow::on_ConfigDialog_triggered()
 {
 	ConfigDialog dlg;
@@ -426,6 +445,11 @@ void MainWindow::on_HelpVersionCheck_triggered()
 void MainWindow::on_PushToTalk_triggered(bool down)
 {
 	g.bPushToTalk = down;
+}
+
+void MainWindow::on_CenterPos_triggered(bool down)
+{
+	g.bCenterPosition = down;
 }
 
 void MainWindow::serverConnected()
