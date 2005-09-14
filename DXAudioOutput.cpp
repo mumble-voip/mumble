@@ -31,6 +31,7 @@
 #include <QMessageBox>
 #include "DXAudioOutput.h"
 #include "MainWindow.h"
+#include "Plugins.h"
 #include "Global.h"
 
 #undef FAILED
@@ -75,6 +76,7 @@ DXAudioOutput::DXAudioOutput() {
 	if (failed)
 		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
 
+
    // Set coop level to DSSCL_PRIORITY
 	if( FAILED( hr = pDS->SetCooperativeLevel( g.mw->winId(), DSSCL_PRIORITY ) ) )
 		qFatal("DXAudioOutput: SetCooperativeLevel");
@@ -83,6 +85,8 @@ DXAudioOutput::DXAudioOutput() {
     ZeroMemory( &dsbdesc, sizeof(DSBUFFERDESC) );
     dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
     dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
+    if (g.s.a3dModel != Settings::None)
+    	dsbdesc.dwFlags |= DSBCAPS_CTRL3D;
 
     if( FAILED( hr = pDS->CreateSoundBuffer( &dsbdesc, &pDSBPrimary, NULL ) ) )
     	qFatal("DXAudioOutput: CreateSoundBuffer (Primary) : 0x%08lx", hr);
@@ -106,12 +110,20 @@ DXAudioOutput::DXAudioOutput() {
     if( FAILED( hr = pDSBPrimary->GetFormat( &wfxSet, sizeof(wfxSet), NULL ) ) )
        	qFatal("DXAudioOutput: GetFormat");
 
+	p3DListener = NULL;
+    if (g.s.a3dModel != Settings::None)
+		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener))))
+			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
+
 	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
 
 	bRunning = true;
 }
 
 DXAudioOutput::~DXAudioOutput() {
+	bRunning = false;
+	wipe();
+
 	if (pDSBPrimary)
 		pDSBPrimary->Release();
 	if (pDS)
@@ -122,6 +134,30 @@ AudioOutputPlayer *DXAudioOutput::getPlayer(short sId) {
 	DXAudioOutputPlayer *daopPlayer = new DXAudioOutputPlayer(this, sId);
 	daopPlayer->start(QThread::HighPriority);
 	return daopPlayer;
+}
+
+void DXAudioOutput::updateListener() {
+	DS3DLISTENER li;
+	Plugins *p = g.p;
+	li.dwSize=sizeof(li);
+	if (p->bValid && p3DListener) {
+		li.vPosition.x = p->fPosition[0];
+		li.vPosition.y = p->fPosition[1];
+		li.vPosition.z = p->fPosition[2];
+		li.vVelocity.x = p->fVelocity[0];
+		li.vVelocity.y = p->fVelocity[1];
+		li.vVelocity.z = p->fVelocity[2];
+		li.vOrientFront.x = p->fFront[0];
+		li.vOrientFront.y = p->fFront[1];
+		li.vOrientFront.z = p->fFront[2];
+		li.vOrientTop.x = p->fTop[0];
+		li.vOrientTop.y = p->fTop[1];
+		li.vOrientTop.z = p->fTop[2];
+		li.flDistanceFactor = DS3D_DEFAULTDISTANCEFACTOR;
+		li.flRolloffFactor = g.s.fDXRollOff;
+		li.flDopplerFactor = g.s.fDXDoppler;
+		p3DListener->SetAllParameters(&li, DS3D_IMMEDIATE);
+	}
 }
 
 DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutputPlayer(ao, id) {
@@ -144,16 +180,32 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutpu
     dsbd.dwSize          = sizeof(DSBUFFERDESC);
     dsbd.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2;
 	dsbd.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
+	if (dxAudio->p3DListener)
+		dsbd.dwFlags	 |= DSBCAPS_CTRL3D;
    	dsbd.dwBufferBytes = iFrameSize * 2 * NBLOCKS;
     dsbd.lpwfxFormat     = &wfx;
+	if (dxAudio->p3DListener) {
+		switch (g.s.a3dModel) {
+			case Settings::None:
+			case Settings::Panning:
+			    dsbd.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
+			    break;
+			case Settings::Light:
+			    dsbd.guid3DAlgorithm = DS3DALG_HRTF_LIGHT;
+			    break;
+			case Settings::Full:
+			    dsbd.guid3DAlgorithm = DS3DALG_HRTF_FULL;
+			    break;
+		}
+	}
+
+	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 
     // Create the DirectSound buffer
     if( FAILED( hr = dxAudio->pDS->CreateSoundBuffer( &dsbd, &pDSBOutput, NULL ) ) )
     	qFatal("DXAudioOutputPlayer: CreateSoundBuffer (Secondary): 0x%08lx", hr);
 
 	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
-
-	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 
 	for(int i=0;i<NBLOCKS;i++) {
 		aPosNotify[i].dwOffset = iFrameSize * 2 * i;
@@ -165,6 +217,9 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutpu
 
     if( FAILED( hr = pDSNotify->SetNotificationPositions( NBLOCKS, aPosNotify ) ) )
     	qFatal("DXAudioOutputPlayer: SetNotificationPositions");
+
+	if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer))))
+		qFatal("DXAudioOutputPlayer: QueryInterface (DirectSound3DBuffer)");
 
     LPVOID aptr1, aptr2;
     DWORD nbytes1, nbytes2;
@@ -190,11 +245,13 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutpu
 
 DXAudioOutputPlayer::~DXAudioOutputPlayer() {
 	bRunning = false;
+	SetEvent(hNotificationEvent);
 	wait();
 	if (pDSNotify)
 		pDSNotify->Release();
 	if (pDSBOutput)
 		pDSBOutput->Release();
+	CloseHandle(hNotificationEvent);
 }
 
 void DXAudioOutputPlayer::run() {
@@ -220,6 +277,27 @@ void DXAudioOutputPlayer::run() {
 			lastwriteblock = block;
 
 			decodeNextFrame();
+			dxAudio->updateListener();
+
+			DS3DBUFFER buf;
+			buf.dwSize = sizeof(buf);
+			buf.vPosition.x = fPos[0];
+			buf.vPosition.y = fPos[1];
+			buf.vPosition.z = fPos[2];
+			buf.vVelocity.x = fVel[0];
+			buf.vVelocity.y = fVel[1];
+			buf.vVelocity.z = fVel[2];
+			buf.dwInsideConeAngle = DS3D_DEFAULTCONEANGLE;
+			buf.dwOutsideConeAngle = DS3D_DEFAULTCONEANGLE;
+			buf.vConeOrientation.x = 1.0;
+			buf.vConeOrientation.y = 0.0;
+			buf.vConeOrientation.z = 0.0;
+			buf.lConeOutsideVolume = DS3D_DEFAULTCONEOUTSIDEVOLUME;
+			buf.flMinDistance = g.s.fDXMinDistance;
+			buf.flMaxDistance = g.s.fDXMaxDistance;
+			buf.dwMode = DS3DMODE_NORMAL;
+
+			pDS3dBuffer->SetAllParameters(&buf, DS3D_IMMEDIATE);
 
 		    LPVOID aptr1, aptr2;
 		    DWORD nbytes1, nbytes2;

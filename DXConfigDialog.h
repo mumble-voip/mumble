@@ -52,9 +52,13 @@ class DXConfigDialog : public ConfigWidget {
 
 		QComboBox *qcbInputDevice;
 		QComboBox *qcbOutputDevice;
+		QComboBox *qcbMethod;
 
 		QSlider *qsOutputDelay;
 		QLabel *qlOutputDelay;
+		QSlider *qsMinDistance, *qsMaxDistance, *qsDoppler, *qsRollOff;
+		QLabel *qlMinDistance, *qlMaxDistance, *qlDoppler, *qlRollOff;
+		QLabel *qlIntensity;
 	public:
 		DXConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;
@@ -62,6 +66,11 @@ class DXConfigDialog : public ConfigWidget {
 	public slots:
 		void accept();
 		void on_OutputDelay_valueChanged(int v);
+		void on_MinDistance_valueChanged(int v);
+		void on_MaxDistance_valueChanged(int v);
+		void on_Doppler_valueChanged(int v);
+		void on_RollOff_valueChanged(int v);
+		void updateIntensity();
 };
 
 #else

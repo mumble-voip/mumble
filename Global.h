@@ -31,6 +31,7 @@
 #ifndef _GLOBAL_H
 #define _GLOBAL_H
 
+#include <QReadWriteLock>
 #include "Settings.h"
 
 #ifndef MUMBLE_VERSION
@@ -49,15 +50,18 @@ class AudioInput;
 class AudioOutput;
 class Database;
 class Log;
+class Plugins;
 
 struct Global {
 	MainWindow *mw;
 	Settings s;
 	ServerHandler *sh;
+	QReadWriteLock qrwlAudio;
 	AudioInput *ai;
 	AudioOutput *ao;
 	Database *db;
 	Log *l;
+	Plugins *p;
 	bool bPushToTalk;
 	Global();
 };

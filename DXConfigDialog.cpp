@@ -36,6 +36,7 @@
 #include <QList>
 #include <windows.h>
 #include <dsound.h>
+#include <math.h>
 
 #include "DXConfigDialog.h"
 #include "Global.h"
@@ -55,7 +56,7 @@ BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
 }
 
 DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbDevices, *qgbOutput;
+	QGroupBox *qgbDevices, *qgbOutput, *qgb3D;
 	QGridLayout *grid;
 	QVBoxLayout *v;
 	dsDevice dev;
@@ -115,14 +116,11 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsOutputDelay->setPageStep(2);
 	qsOutputDelay->setValue(g.s.iDXOutputDelay);
 	qsOutputDelay->setObjectName("OutputDelay");
-
 	l = new QLabel(tr("OutputDelay"));
 	l->setBuddy(qsOutputDelay);
-
 	qlOutputDelay=new QLabel();
 	qlOutputDelay->setMinimumWidth(30);
 	on_OutputDelay_valueChanged(qsOutputDelay->value());
-
 	qsOutputDelay->setToolTip(tr("Ammount of data to buffer for DirectSound"));
 	qsOutputDelay->setWhatsThis(tr("This sets the ammount of data to prebuffer in the directsound buffer. "
 								"Experiment with different values and set it to the lowest which doesn't "
@@ -133,9 +131,114 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qgbOutput->setLayout(grid);
 
+
+	qgb3D=new QGroupBox(tr("Positional Audio"));
+	grid=new QGridLayout();
+
+	qcbMethod=new QComboBox();
+	qcbMethod->addItem(tr("None"), Settings::None);
+	qcbMethod->addItem(tr("Panning"), Settings::Panning);
+	qcbMethod->addItem(tr("Light HRTF"), Settings::Light);
+	qcbMethod->addItem(tr("Full HRTF"), Settings::Full);
+	qcbMethod->setCurrentIndex(static_cast<int>(g.s.a3dModel));
+
+	qcbMethod->setToolTip(tr("3D Sound Algorithm"));
+	qcbMethod->setWhatsThis(tr("This sets what 3D Sound algorithm to use.<br />"
+							"<b>None</b> - Disable 3D Sound (least CPU).<br />"
+							"<b>Panning</b> - Just use stereo panning (some CPU).<br />"
+							"<b>Light/Full HRTF</b> - Head-Related Transfer Functions enabled, with doppler "
+							"effects. This may use a small ammount of CPU.<br />"
+							"Note that if you have a soundcard with <i>hardware</i> 3D processing, HRTF "
+							"processing will be done on the soundcard and will use practically no procesing "
+							"power."));
+	l = new QLabel(tr("Method"));
+	l->setBuddy(qcbMethod);
+	grid->addWidget(l, 0, 0);
+	grid->addWidget(qcbMethod, 0, 1, 1, 2);
+
+	qsMinDistance = new QSlider(Qt::Horizontal);
+	qsMaxDistance = new QSlider(Qt::Horizontal);
+	qsRollOff = new QSlider(Qt::Horizontal);
+	qsDoppler = new QSlider(Qt::Horizontal);
+	qlIntensity = new QLabel();
+
+	qsMinDistance->setRange(10, 200);
+	qsMinDistance->setSingleStep(1);
+	qsMinDistance->setPageStep(10);
+	qsMinDistance->setValue(lround(g.s.fDXMinDistance * 10));
+	qsMinDistance->setObjectName("MinDistance");
+	l = new QLabel(tr("MinDistance"));
+	l->setBuddy(qsMinDistance);
+	qlMinDistance=new QLabel();
+	qlMinDistance->setMinimumWidth(40);
+	on_MinDistance_valueChanged(qsMinDistance->value());
+	qsMinDistance->setToolTip(tr("Minimum distance to player before sound decreases"));
+	qsMinDistance->setWhatsThis(tr("This sets the minimum distance for sound calculations. The volume of other players' "
+								"speech will not decrease until they are at least this far away from you."));
+	grid->addWidget(l, 1, 0);
+	grid->addWidget(qsMinDistance, 1, 1);
+	grid->addWidget(qlMinDistance, 1, 2);
+
+	qsMaxDistance->setRange(10, 1000);
+	qsMaxDistance->setSingleStep(1);
+	qsMaxDistance->setPageStep(10);
+	qsMaxDistance->setValue(lround(g.s.fDXMaxDistance * 10));
+	qsMaxDistance->setObjectName("MaxDistance");
+	l = new QLabel(tr("MaxDistance"));
+	l->setBuddy(qsMaxDistance);
+	qlMaxDistance=new QLabel();
+	qlMaxDistance->setMinimumWidth(40);
+	on_MaxDistance_valueChanged(qsMaxDistance->value());
+	qsMaxDistance->setToolTip(tr("Maximum distance, beyond which sound won't decrease"));
+	qsMaxDistance->setWhatsThis(tr("This sets the maximum distance for sound calculations. When farther away than this, "
+								"other players' sound volume will not decrease any more."));
+	grid->addWidget(l, 2, 0);
+	grid->addWidget(qsMaxDistance, 2, 1);
+	grid->addWidget(qlMaxDistance, 2, 2);
+
+	qsRollOff->setRange(lround(DS3D_MINROLLOFFFACTOR*10), lround(DS3D_MAXROLLOFFFACTOR *10));
+	qsRollOff->setSingleStep(1);
+	qsRollOff->setPageStep(10);
+	qsRollOff->setValue(lround(g.s.fDXRollOff * 10));
+	qsRollOff->setObjectName("RollOff");
+	l = new QLabel(tr("RollOff"));
+	l->setBuddy(qsRollOff);
+	qlRollOff=new QLabel();
+	qlRollOff->setMinimumWidth(40);
+	on_RollOff_valueChanged(qsRollOff->value());
+	qsRollOff->setToolTip(tr("Factor for sound volume decrease"));
+	qsRollOff->setWhatsThis(tr("How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that "
+								"sound volume halves each time the distance doubles. Increasing this value means sound volume "
+								"drops faster, while decreasing it means it drops slower."));
+	grid->addWidget(l, 3, 0);
+	grid->addWidget(qsRollOff, 3, 1);
+	grid->addWidget(qlRollOff, 3, 2);
+
+	qsDoppler->setRange(lround(DS3D_MINDOPPLERFACTOR*10), lround(DS3D_MAXDOPPLERFACTOR *10));
+	qsDoppler->setSingleStep(1);
+	qsDoppler->setPageStep(10);
+	qsDoppler->setValue(lround(g.s.fDXDoppler * 10));
+	qsDoppler->setObjectName("Doppler");
+	l = new QLabel(tr("Doppler"));
+	l->setBuddy(qsDoppler);
+	qlDoppler=new QLabel();
+	qlDoppler->setMinimumWidth(40);
+	on_Doppler_valueChanged(qsDoppler->value());
+	qsDoppler->setToolTip(tr("Ammount of doppler effect"));
+	qsDoppler->setWhatsThis(tr("This tunes the ammount of doppler heard. The default (1.0) equals realworld physics. A higher value "
+								"will exaggerate the pitch shift when players move towards or away from you."));
+	grid->addWidget(l, 4, 0);
+	grid->addWidget(qsDoppler, 4, 1);
+	grid->addWidget(qlDoppler, 4, 2);
+
+	grid->addWidget(qlIntensity, 5, 0, 1, 3);
+
+	qgb3D->setLayout(grid);
+
 	v = new QVBoxLayout();
 	v->addWidget(qgbDevices);
 	v->addWidget(qgbOutput);
+	v->addWidget(qgb3D);
 	v->addStretch(1);
 
 	setLayout(v);
@@ -158,4 +261,36 @@ void DXConfigDialog::accept() {
 
 void DXConfigDialog::on_OutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1 ms").arg(v*20));
+}
+
+void DXConfigDialog::on_MinDistance_valueChanged(int v) {
+	qlMinDistance->setText(tr("%1m").arg(v/10.0, 0, 'f', 1));
+	qsMaxDistance->setMinimum(v);
+	updateIntensity();
+}
+
+void DXConfigDialog::on_MaxDistance_valueChanged(int v) {
+	qlMaxDistance->setText(tr("%1m").arg(v/10.0, 0, 'f', 1));
+	if (v > 200)
+		v = 200;
+	qsMinDistance->setMaximum(v);
+	updateIntensity();
+}
+
+void DXConfigDialog::on_Doppler_valueChanged(int v) {
+	qlDoppler->setText(tr("%1").arg(v/10.0, 0, 'f', 1));
+}
+
+void DXConfigDialog::on_RollOff_valueChanged(int v) {
+	qlRollOff->setText(tr("%1").arg(v/10.0, 0, 'f', 1));
+	updateIntensity();
+}
+
+void DXConfigDialog::updateIntensity() {
+	float min = qsMinDistance->value() / 10.0;
+	float max = qsMaxDistance->value() / 10.0;
+	float roll = qsRollOff->value() / 10.0;
+
+	float intensity = min / (min + (max-min)*roll);
+	qlIntensity->setText(tr("Players more than %1 meters away have %2% intensity").arg(max,0,'f',1).arg(intensity * 100.0, 0, 'f', 1));
 }

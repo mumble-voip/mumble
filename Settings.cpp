@@ -34,6 +34,8 @@
 
 Settings::Settings() {
 	atTransmit = VAD;
+	ptTransmit = PositionVelocity;
+	a3dModel = Full;
 	bMute = bDeaf = false;
 	bTTS = true;
 	iQuality = 8;
@@ -42,6 +44,10 @@ Settings::Settings() {
 	iVoiceHold = 30;
 	iJitterBufferSize = 4;
 	iDXOutputDelay = 4;
+	fDXMinDistance = 5.0;
+	fDXMaxDistance = 35.0;
+	fDXDoppler = 2.0;
+	fDXRollOff = 0.5;
 }
 
 void Settings::load() {
@@ -50,6 +56,8 @@ void Settings::load() {
 	bDeaf = qs.value("AudioDeaf", false). toBool();
 	bTTS = qs.value("TextToSpeech", bTTS). toBool();
 	atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
+	ptTransmit = static_cast<Settings::PosTransmit>(qs.value("PosTransmit", Settings::PositionVelocity).toInt());
+	a3dModel = static_cast<Settings::Audio3D>(qs.value("Audio3D", Settings::Full).toInt());
 	iQuality = qs.value("AudioQuality", iQuality).toInt();
 	iComplexity = qs.value("AudioComplexity", iComplexity).toInt();
 	iMinLoudness = qs.value("AudioMinLoudness", iMinLoudness).toInt();
@@ -58,6 +66,10 @@ void Settings::load() {
 	iDXOutputDelay = qs.value("DXOutputDelay", iDXOutputDelay).toInt();
 	qbaDXInput = qs.value("DXInput").toByteArray();
 	qbaDXOutput = qs.value("DXOutput").toByteArray();
+	fDXMinDistance = qs.value("DXMinDistance", fDXMinDistance).toDouble();
+	fDXMaxDistance = qs.value("DXMaxDistance", fDXMaxDistance).toDouble();
+	fDXDoppler = qs.value("DXDoppler", fDXDoppler).toDouble();
+	fDXRollOff = qs.value("DXRollOff", fDXRollOff).toDouble();
 }
 
 void Settings::save() {
@@ -65,6 +77,7 @@ void Settings::save() {
 	qs.setValue("AudioMute", g.s.bMute);
 	qs.setValue("AudioDeaf", g.s.bDeaf);
 	qs.setValue("TextToSpeech", g.s.bTTS);
+	qs.setValue("PosTransmit", g.s.ptTransmit);
 	qs.setValue("AudioTransmit", g.s.atTransmit);
 	qs.setValue("AudioQuality", iQuality);
 	qs.setValue("AudioComplexity", iComplexity);
@@ -74,4 +87,8 @@ void Settings::save() {
 	qs.setValue("DXOutputDelay", iDXOutputDelay);
 	qs.setValue("DXInput", qbaDXInput);
 	qs.setValue("DXOutput", qbaDXOutput);
+	qs.setValue("DXMinDistance", fDXMinDistance);
+	qs.setValue("DXMaxDistance", fDXMaxDistance);
+	qs.setValue("DXDoppler", fDXDoppler);
+	qs.setValue("DXRollOff", fDXRollOff);
 }

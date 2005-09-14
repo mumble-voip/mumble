@@ -40,6 +40,7 @@
 #include "AudioOutput.h"
 #include "Database.h"
 #include "Log.h"
+#include "Plugins.h"
 #include "Global.h"
 
 int main(int argc, char **argv)
@@ -81,10 +82,17 @@ int main(int argc, char **argv)
 
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
+	// Plugins
+	g.p = new Plugins(NULL);
+	g.p->rescanPlugins();
+
 	// And the start the last chosen audio system.
-	g.ai = AudioInputRegistrar::newFromChoice();
-	g.ai->start(QThread::HighestPriority);
-	g.ao = AudioOutputRegistrar::newFromChoice();
+	{
+		QWriteLocker lock(&g.qrwlAudio);
+		g.ai = AudioInputRegistrar::newFromChoice();
+		g.ai->start(QThread::HighestPriority);
+		g.ao = AudioOutputRegistrar::newFromChoice();
+	}
 
 	// Increase our priority class to live alongside games.
 	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
@@ -95,13 +103,23 @@ int main(int argc, char **argv)
 	g.s.save();
 	g.l->saveSettings();
 
-	if (g.ao)
-		delete g.ao;
-	if (g.ai)
-		delete g.ai;
+	{
+		QWriteLocker lock(&g.qrwlAudio);
+		if (g.ao)
+			delete g.ao;
+		g.ao = NULL;
+		if (g.ai)
+			delete g.ai;
+		g.ai = NULL;
+	}
 
+	g.sh->disconnect();
+
+	// This causes QT to complain. Fatally. It's either a bug in
+	// my code or the QT code.
+	// delete g.sh;
 	delete g.mw;
-	delete g.sh;
+
 	delete g.db;
 	delete g.l;
 

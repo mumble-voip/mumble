@@ -35,9 +35,12 @@
 #include "Audio.h"
 
 #include "AudioInput.h"
+#include "AudioOutput.h"
 #include "AudioConfigDialog.h"
 #include "DXConfigDialog.h"
+#include "Plugins.h"
 #include "Log.h"
+#include "Global.h"
 
 ConfigWidget::ConfigWidget(QWidget *p) : QWidget(p) {
 }
@@ -78,6 +81,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	addPage(new AudioConfigDialog());
     addPage(new DXConfigDialog());
 	addPage(new LogConfig());
+	addPage(new PluginConfig());
 
     QHBoxLayout *top = new QHBoxLayout;
     top->addWidget(qlwIcons);
@@ -94,6 +98,9 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
     l->addSpacing(12);
     l->addLayout(buttons);
     setLayout(l);
+
+	qlwIcons->scrollTo(qlwIcons->currentIndex(), QAbstractItemView::PositionAtTop);
+
 
     QMetaObject::connectSlotsByName(this);
 
@@ -123,4 +130,13 @@ void ConfigDialog::accept() {
 	foreach(ConfigWidget *cw, widgets)
 		cw->accept();
 	QDialog::accept();
+
+	QWriteLocker lock(&g.qrwlAudio);
+
+	delete g.ai;
+	delete g.ao;
+
+	g.ai = AudioInputRegistrar::newFromChoice();
+	g.ai->start(QThread::HighestPriority);
+	g.ao = AudioOutputRegistrar::newFromChoice();
 }

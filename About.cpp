@@ -56,7 +56,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 
 	QLabel *text=new QLabel(about);
 	text->setText(tr(
-		"<h3>Mumble v0.2.3</h3>"
+		"<h3>Mumble v0.3.0</h3>"
 		"<p>Copyright 2005 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
 		"<p><b>A voicechat utility for gamers</b></p>"
 		"<p><tt>http://mumble.sourceforge.net/</tt></p>"

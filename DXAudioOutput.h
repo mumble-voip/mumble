@@ -65,8 +65,10 @@ class DXAudioOutput : public AudioOutput {
 	protected:
 		LPDIRECTSOUND8             pDS;
 		LPDIRECTSOUNDBUFFER       pDSBPrimary;
+		LPDIRECTSOUND3DLISTENER8   p3DListener;
 
 		virtual AudioOutputPlayer *getPlayer(short);
+		void updateListener();
 	public:
 		DXAudioOutput();
 		~DXAudioOutput();

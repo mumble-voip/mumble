@@ -111,6 +111,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 }
 
 void AudioStats::on_Tick_timeout() {
+	QReadLocker(&g.qrwlAudio);
 	if (! g.ai || ! g.ai->isRunning())
 		return;
 

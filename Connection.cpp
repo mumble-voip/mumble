@@ -32,6 +32,7 @@
 
 Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
+	qtsSocket->setParent(this);
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
     connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
@@ -41,7 +42,6 @@ Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
 }
 
 Connection::~Connection() {
-	qtsSocket->deleteLater();
 }
 
 void Connection::socketRead() {

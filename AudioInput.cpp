@@ -36,6 +36,7 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "Player.h"
+#include "Plugins.h"
 #include "Global.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
@@ -212,6 +213,26 @@ void AudioInput::encodeAudioFrame() {
 	speex_encode_int(esEncState, psMic, &sbBits);
 	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
+
+	if ((g.s.ptTransmit != Settings::Nothing) && g.p) {
+		g.p->fetch();
+		if (g.p->bValidPos) {
+			QByteArray q;
+			QDataStream ds(&q, QIODevice::WriteOnly);
+			ds << g.p->fPosition[0];
+			ds << g.p->fPosition[1];
+			ds << g.p->fPosition[2];
+			if (g.p->bValidVel && (g.s.ptTransmit == Settings::PositionVelocity)) {
+				ds << g.p->fVelocity[0];
+				ds << g.p->fVelocity[1];
+				ds << g.p->fVelocity[2];
+			}
+			const unsigned char *d=reinterpret_cast<const unsigned char*>(q.data());
+			for(i=0;i<q.size();i++) {
+				speex_bits_pack(&sbBits, d[i], 8);
+			}
+		}
+	}
 
 	iLen=speex_bits_nbytes(&sbBits);
 	QByteArray qbaPacket(iLen, 0);

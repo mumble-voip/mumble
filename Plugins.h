@@ -28,39 +28,59 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _SETTINGS_H
-#define _SETTINGS_H
+#ifndef _PLUGINS_H
+#define _PLUGINS_H
 
-#include <QString>
-#include <QByteArray>
+#include <QThread>
+#include <QGroupBox>
+#include <QComboBox>
+#include <QSlider>
+#include <QLabel>
+#include <QHash>
+#include <QCheckBox>
+#include <QMutex>
+#include <QHash>
+#include "ConfigDialog.h"
 
-// Global helper class to spread variables around across threads
-// especially helpfull to initialize things like the stored
-// preference for audio transmission, since the GUI elements
-// will be created long before the AudioInput object, and the
-// latter lives in a separate thread and so cannot touch the
-// GUI.
+struct PluginInfo;
 
-struct Settings {
-	enum AudioTransmit { Continous, VAD, PushToTalk };
-	enum PosTransmit { Nothing, Position, PositionVelocity };
-	enum Audio3D { None, Panning, Light, Full };
-	AudioTransmit atTransmit;
-	PosTransmit ptTransmit;
-	Audio3D a3dModel;
-	bool bMute, bDeaf;
-	bool bTTS;
-	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
-	int iDXOutputDelay;
-	QByteArray qbaDXInput, qbaDXOutput;
-	QString qsAudioInput, qsAudioOutput;
-	float fDXMinDistance, fDXMaxDistance;
-	float fDXDoppler, fDXRollOff;
-	Settings();
-	void load();
-	void save();
+class PluginConfig : public ConfigWidget {
+	Q_OBJECT
+	protected:
+		QComboBox *qcbTransmit;
+		QListWidget *qlwPlugins;
+		void refillPluginList();
+		QHash<QListWidgetItem *, PluginInfo *> qhInfos;
+	public:
+		PluginConfig(QWidget *p = NULL);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void accept();
+		void on_Config_clicked();
+		void on_About_clicked();
+		void on_Reload_clicked();
+};
+
+class Plugins : public QObject {
+	friend class PluginConfig;
+	Q_OBJECT
+	protected:
+		QMutex qmPlugins;
+		QList<PluginInfo *> qlPlugins;
+		PluginInfo *locked;
+		PluginInfo *prevlocked;
+	public:
+		bool bValid, bValidPos, bValidVel;
+		float fPosition[3], fVelocity[3], fFront[3], fTop[3];
+
+		Plugins(QObject *p = NULL);
+	public slots:
+		void on_Timer_timeout();
+		void rescanPlugins();
+		void fetch();
 };
 
 #else
-class Settings;
+class Log;
 #endif

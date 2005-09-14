@@ -46,6 +46,7 @@ ServerHandler::ServerHandler()
 
 ServerHandler::~ServerHandler()
 {
+	wait();
 }
 
 void ServerHandler::customEvent(QEvent *evt) {
@@ -91,18 +92,16 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 		return;
 
 	if (mMsg->messageType() == Message::Speex) {
+		QWriteLocker alocka(&g.qrwlAudio);
 		if (g.ao) {
 			MessageSpeex *msMsg=static_cast<MessageSpeex *>(mMsg);
 			g.ao->addFrameToBuffer(mMsg->sPlayerId, msMsg->qbaSpeexPacket, msMsg->iSeq);
 		}
 	} else {
-		switch(mMsg->messageType()) {
-			case Message::ServerLeave:
-				if (g.ao)
-					g.ao->removeBuffer(mMsg->sPlayerId);
-				break;
-			default:
-				break;
+		if(mMsg->messageType() == Message::ServerLeave) {
+			QReadLocker alockb(&g.qrwlAudio);
+			if (g.ao)
+				g.ao->removeBuffer(mMsg->sPlayerId);
 		}
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg);
 		QApplication::postEvent(g.mw, shme);
@@ -119,7 +118,11 @@ void ServerHandler::disconnect() {
 }
 
 void ServerHandler::serverConnectionClosed(QString reason) {
-	g.ao->wipe();
+	{
+		QReadLocker alock(&g.qrwlAudio);
+		if (g.ao)
+			g.ao->wipe();
+	}
 
 	emit disconnected(reason);
 

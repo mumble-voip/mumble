@@ -111,6 +111,9 @@ void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 void AudioOutputPlayer::decodeNextFrame() {
 	int iTimestamp;
 	int iSpeech = 0;
+	int left;
+	int i;
+	unsigned int v;
 
 	{
 		QMutexLocker lock(&qmJitter);
@@ -119,6 +122,28 @@ void AudioOutputPlayer::decodeNextFrame() {
 			iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
 			if (! iSpeech)
 				speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
+			left = speex_bits_remaining(&sjJitter.current_packet) / 8;
+			if (left >= 12) {
+				QByteArray qba(left, 0);
+				unsigned char *p = reinterpret_cast<unsigned char *>(qba.data());
+				for(i=0;i<left;i++) {
+					v = speex_bits_unpack_unsigned(&sjJitter.current_packet, 8);
+					p[i]=v;
+				}
+				QDataStream ds(qba);
+				ds >> fPos[0];
+				ds >> fPos[1];
+				ds >> fPos[2];
+				if (left >= 24) {
+					ds >> fVel[0];
+					ds >> fVel[1];
+					ds >> fVel[2];
+				} else {
+					fVel[0] = fVel[1] = fVel[2] = 0.0;
+				}
+			} else {
+				fPos[0] = fPos[1] = fPos[2] = 0.0;
+			}
 		}
 	}
 
@@ -137,8 +162,8 @@ AudioOutput::AudioOutput() {
 }
 
 AudioOutput::~AudioOutput() {
-	if (bRunning)
-		qFatal("AudioOutput: Destructor while running");
+	bRunning = false;
+	wipe();
 }
 
 void AudioOutput::wipe() {

@@ -337,6 +337,7 @@ void MainWindow::on_PlayerKick_triggered()
 
 void MainWindow::on_AudioReset_triggered()
 {
+	QReadLocker(&g.qrwlAudio);
 	if (g.ai)
 		g.ai->bResetProcessor = true;
 }

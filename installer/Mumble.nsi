@@ -79,6 +79,11 @@ Section "Mumble & Murmur" SecMumble
   File "..\release\libspeex.dll"
   File "\mingw\bin\mingwm10.dll"
 
+  SetOutPath "$INSTDIR\plugins"
+  File /oname=bf2.dll "..\plugins\bf2.dll"
+
+  SetOutPath "$INSTDIR"
+
   ;Store installation folder
   WriteRegStr HKCU "Software\Mumble" "" $INSTDIR
   WriteRegStr HKCU "Software\Mumble\Mumble" "InstPath" $INSTDIR
@@ -111,6 +116,7 @@ Section "Uninstall"
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
+  Delete "$INSTDIR\plugins\bf2.dll"
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
   Delete "$INSTDIR\QtNetwork4.dll"
@@ -124,6 +130,7 @@ Section "Uninstall"
   Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\Uninstall.exe"
 
+  RMDir "$INSTDIR\plugins"
   RMDir "$INSTDIR"
 
   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
