@@ -120,10 +120,6 @@ AudioInput::~AudioInput()
 	delete [] psMic;
 }
 
-bool AudioInput::isRunning() const {
-	return bRunning;
-}
-
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;

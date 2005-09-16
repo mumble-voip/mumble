@@ -88,7 +88,7 @@ class AudioOutputPlayer : public QObject {
 		~AudioOutputPlayer();
 };
 
-class AudioOutput : public QObject {
+class AudioOutput : public QThread {
 	Q_OBJECT
 	protected:
 		bool bRunning;
@@ -102,6 +102,7 @@ class AudioOutput : public QObject {
 		~AudioOutput();
 		void addFrameToBuffer(Player *, QByteArray &, int iSeq);
 		void removeBuffer(Player *);
+		void run() = 0;
 };
 
 #else

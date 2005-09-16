@@ -36,7 +36,8 @@
 
 class DXAudioOutput;
 
-class DXAudioOutputPlayer : public AudioOutputPlayer, public QThread {
+class DXAudioOutputPlayer : public AudioOutputPlayer {
+	friend class DXAudioOutput;
 	Q_OBJECT
 	protected:
 		LPDIRECTSOUNDBUFFER       pDSBOutput;
@@ -48,14 +49,15 @@ class DXAudioOutputPlayer : public AudioOutputPlayer, public QThread {
 		DWORD	dwLastWritePos;
 		DWORD	dwLastPlayPos;
 		DWORD	dwTotalPlayPos;
-
-		bool	bRunning;
+		int iLastwriteblock;
 
 		DXAudioOutput *dxAudio;
+
+		bool bPlaying;
 	public:
 		DXAudioOutputPlayer(DXAudioOutput *, Player *);
 		~DXAudioOutputPlayer();
-		void run();
+		bool playFrames();
 };
 
 
@@ -66,14 +68,17 @@ class DXAudioOutput : public AudioOutput {
 		LPDIRECTSOUND8             pDS;
 		LPDIRECTSOUNDBUFFER       pDSBPrimary;
 		LPDIRECTSOUND3DLISTENER8   p3DListener;
+		HANDLE               hNotificationEvent;
 
 		virtual AudioOutputPlayer *getPlayer(Player *);
 		void updateListener();
 
+		bool bRebuild;
 		bool bOk;
 	public:
 		DXAudioOutput();
 		~DXAudioOutput();
+		void run();
 };
 
 #else
