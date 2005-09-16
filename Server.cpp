@@ -202,17 +202,16 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		msjMsg.qsPlayerName = pPlayer->qsName;
 		cCon->sendMessage(&msjMsg);
 
-		if (pPlayer->bMute) {
-			MessagePlayerMute mpmMsg;
-			mpmMsg.sPlayerId = pPlayer->sId;
-			mpmMsg.bMute = pPlayer->bMute;
-			cCon->sendMessage(&mpmMsg);
-		}
 		if (pPlayer->bDeaf) {
 			MessagePlayerDeaf mpdMsg;
 			mpdMsg.sPlayerId = pPlayer->sId;
 			mpdMsg.bDeaf = pPlayer->bDeaf;
 			cCon->sendMessage(&mpdMsg);
+		} else if (pPlayer->bMute) {
+			MessagePlayerMute mpmMsg;
+			mpmMsg.sPlayerId = pPlayer->sId;
+			mpmMsg.bMute = pPlayer->bMute;
+			cCon->sendMessage(&mpmMsg);
 		}
 		if (pPlayer->bSelfDeaf || pPlayer->bSelfMute) {
 			MessagePlayerSelfMuteDeaf mpsmdMsg;
@@ -266,17 +265,12 @@ void MessagePlayerMute::process(Connection *cCon) {
 		if (pDstPlayer->bMute == bMute)
 			return;
 
-		if (! bMute && pDstPlayer->bDeaf) {
-			pDstPlayer->bDeaf = false;
-			MessagePlayerDeaf mpd;
-			mpd.sPlayerId = sPlayerId;
-			mpd.sVictim = sVictim;
-			mpd.bDeaf = false;
-			g_sServer->sendAll(&mpd);
-		}
-
 		pDstPlayer->bMute = bMute;
 		g_sServer->sendAll(this);
+
+		if (! bMute && pDstPlayer->bDeaf) {
+			pDstPlayer->bDeaf = false;
+		}
 	}
 }
 
@@ -288,17 +282,12 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 		if (pDstPlayer->bDeaf == bDeaf)
 			return;
 
-		if (bDeaf && ! pDstPlayer->bMute) {
-			pDstPlayer->bMute = true;
-			MessagePlayerMute mpm;
-			mpm.sPlayerId = sPlayerId;
-			mpm.sVictim = sVictim;
-			mpm.bMute = true;
-			g_sServer->sendAll(&mpm);
-		}
-
 		pDstPlayer->bDeaf = bDeaf;
 		g_sServer->sendAll(this);
+
+		if (bDeaf && ! pDstPlayer->bMute) {
+			pDstPlayer->bMute = true;
+		}
 	}
 }
 
