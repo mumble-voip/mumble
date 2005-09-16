@@ -35,6 +35,7 @@
 #include <dsound.h>
 
 class DXAudioInput : public AudioInput {
+	Q_OBJECT
 	protected:
 		LPDIRECTSOUNDCAPTURE8      pDSCapture;
 		LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
