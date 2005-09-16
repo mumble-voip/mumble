@@ -58,8 +58,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	createActions();
 	setupGui();
 
-	sMyId = 0;
-
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
 }
@@ -112,7 +110,7 @@ void MainWindow::createActions() {
 	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
 	qaAudioTTS->setObjectName("AudioTextToSpeech");
 	qaAudioTTS->setCheckable(true);
-	qaAudioTTS->setChecked(qs.value("TextToSpeech", true).toBool());
+	qaAudioTTS->setChecked(g.qs->value("TextToSpeech", true).toBool());
 	qaAudioTTS->setToolTip(tr("Toggle Text-To-Speech"));
 	qaAudioTTS->setWhatsThis(tr("Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Config dialog will actually be spoken."));
 	qaAudioStats=new QAction(tr("S&tatistics"), this);
@@ -244,13 +242,13 @@ void MainWindow::setupGui()  {
 
 	setCentralWidget(qsSplit);
 
-	restoreState(qs.value("mw").toByteArray());
-	qsSplit->restoreState(qs.value("mwSplitter").toByteArray());
+	restoreState(g.qs->value("mw").toByteArray());
+	qsSplit->restoreState(g.qs->value("mwSplitter").toByteArray());
 
-	QPoint ps = qs.value("mwPos").toPoint();
+	QPoint ps = g.qs->value("mwPos").toPoint();
 	if (! ps.isNull())
 		move(ps);
-	QSize sz = qs.value("mwSize").toSize();
+	QSize sz = g.qs->value("mwSize").toSize();
 	if (sz.isValid())
 		resize(sz);
 
@@ -258,10 +256,10 @@ void MainWindow::setupGui()  {
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
-	qs.setValue("mwPos", pos());
-	qs.setValue("mwSize", size());
-	qs.setValue("mw", saveState());
-	qs.setValue("mwSplitter", qsSplit->saveState());
+	g.qs->setValue("mwPos", pos());
+	g.qs->setValue("mwSize", size());
+	g.qs->setValue("mw", saveState());
+	g.qs->setValue("mwSplitter", qsSplit->saveState());
 	QMainWindow::closeEvent(e);
 }
 
@@ -454,7 +452,7 @@ void MainWindow::on_CenterPos_triggered(bool down)
 
 void MainWindow::serverConnected()
 {
-	sMyId = 0;
+	g.sId = 0;
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::PlayerJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
@@ -471,7 +469,7 @@ void MainWindow::serverConnected()
 
 void MainWindow::serverDisconnected(QString reason)
 {
-	sMyId = 0;
+	g.sId = 0;
 	qaServerConnect->setEnabled(true);
 	qaServerDisconnect->setEnabled(false);
 
@@ -528,7 +526,7 @@ void MessagePlayerSelfMuteDeaf::process(Connection *) {
 	QString name = pSrc->qsName;
 	pSrc->setSelfMuteDeaf(bMute, bDeaf);
 
-	if (sPlayerId != g.mw->sMyId) {
+	if (sPlayerId != g.sId) {
 		if (bMute && bDeaf)
 			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted and deafened.").arg(name));
 		else if (bMute)
@@ -547,10 +545,10 @@ void MessagePlayerMute::process(Connection *) {
 	QString vic = pDst->qsName;
 	QString admin = pSrc->qsName;
 
-	if (sVictim == g.mw->sMyId)
+	if (sVictim == g.sId)
 		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1").arg(admin) : MainWindow::tr("You were unmuted by %1").arg(admin));
 	else
-		g.l->log((sPlayerId == g.mw->sMyId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerDeaf::process(Connection *) {
@@ -562,21 +560,21 @@ void MessagePlayerDeaf::process(Connection *) {
 	QString vic = pDst->qsName;
 	QString admin = pSrc->qsName;
 
-	if (sVictim == g.mw->sMyId)
+	if (sVictim == g.sId)
 		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1").arg(admin) : MainWindow::tr("You were undeafened by %1").arg(admin));
 	else
-		g.l->log((sPlayerId == g.mw->sMyId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	if (sVictim == g.mw->sMyId) {
+	if (sVictim == g.sId) {
 		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason));
 		g.l->setIgnore(Log::ServerDisconnected, 1);
 	} else {
 		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((sPlayerId == g.mw->sMyId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
+		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
 	}
 }
 
@@ -590,6 +588,6 @@ void MessageServerReject::process(Connection *) {
 
 void MessageServerSync::process(Connection *) {
 	MSG_INIT;
-	g.mw->sMyId = sPlayerId;
+	g.sId = sPlayerId;
 	g.l->clearIgnore();
 }

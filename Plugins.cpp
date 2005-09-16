@@ -132,7 +132,7 @@ QString PluginConfig::title() const {
 }
 
 QIcon PluginConfig::icon() const {
-	return QIcon(":/icons/config_plugins.png");
+	return QIcon(":/icons/config_plugin.png");
 }
 
 void PluginConfig::accept() {
@@ -140,6 +140,8 @@ void PluginConfig::accept() {
 
 void PluginConfig::on_Config_clicked() {
 	QListWidgetItem *i = qlwPlugins->currentItem();
+	if (!i)
+		return;
 	PluginInfo *pi=qhInfos[i];
 
 	if (pi->p->config)
@@ -150,6 +152,8 @@ void PluginConfig::on_Config_clicked() {
 
 void PluginConfig::on_About_clicked() {
 	QListWidgetItem *i = qlwPlugins->currentItem();
+	if (!i)
+		return;
 	PluginInfo *pi=qhInfos[i];
 
 	if (pi->p->about)
@@ -241,6 +245,8 @@ void Plugins::fetch() {
 		locked->locked = false;
 		prevlocked = locked;
 		locked = NULL;
+		for(int i=0;i<3;i++)
+			fPosition[i]=fVelocity[i]=fFront[i]=fTop[i]= 0.0;
 	}
 	bValid = bValidPos = bValidVel = ok;
 }

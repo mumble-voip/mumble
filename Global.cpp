@@ -39,6 +39,7 @@ Global::Global() {
 	ao = 0;
 	db = 0;
 	p = 0;
+	sId = 0;
 	bPushToTalk = false;
 	bCenterPosition = false;
 }

@@ -51,6 +51,7 @@ class AudioOutput;
 class Database;
 class Log;
 class Plugins;
+class QSettings;
 
 struct Global {
 	MainWindow *mw;
@@ -62,8 +63,10 @@ struct Global {
 	Database *db;
 	Log *l;
 	Plugins *p;
+	QSettings *qs;
 	bool bPushToTalk;
 	bool bCenterPosition;
+	short sId;
 	Global();
 };
 

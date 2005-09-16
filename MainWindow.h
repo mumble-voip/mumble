@@ -61,9 +61,6 @@ class MainWindow : public QMainWindow {
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos;
 
-		QSettings qs;
-
-		short sMyId;
 		void recheckTTS();
 		void appendLog(QString entry);
 	protected:

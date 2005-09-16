@@ -148,19 +148,17 @@ void Log::clearIgnore() {
 }
 
 void Log::loadSettings() {
-	QSettings qs;
 	for(int i=DebugInfo;i<=OtherMutedOther;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
 		QString key=QString("msg%1").arg(msgName(t));
-		int v = qs.value(key,0xff).toInt();
+		int v = g.qs->value(key,0xff).toInt();
 		ms->bConsole=(v & 0x01);
 		ms->bTTS=(v & 0x02);
 	}
 }
 
 void Log::saveSettings() const {
-	QSettings qs;
 	for(int i=DebugInfo;i<=OtherMutedOther;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
@@ -170,7 +168,7 @@ void Log::saveSettings() const {
 			v |= 0x01;
 		if (ms->bTTS)
 			v |= 0x02;
-		qs.setValue(key, v);
+		g.qs->setValue(key, v);
 	}
 }
 

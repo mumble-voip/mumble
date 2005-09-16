@@ -40,129 +40,128 @@
 
 class Message {
 	protected:
-		virtual void saveStream(QDataStream &);
+		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
 		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf };
-
 		short sPlayerId;
 
 		Message();
 		virtual ~Message();
-		virtual Message::MessageType messageType() = 0;
+		virtual Message::MessageType messageType() const = 0;
 		virtual void process(Connection *) = 0;
-		virtual bool isValid();
+		virtual bool isValid() const;
 
-		void messageToNetwork(QByteArray &);
+		void messageToNetwork(QByteArray &) const;
 		static Message *networkToMessage(QByteArray &);
 };
 
 class MessageSpeex : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		int iSeq;
 		QByteArray qbaSpeexPacket;
 		MessageSpeex();
-		Message::MessageType messageType() { return Speex; };
+		Message::MessageType messageType() const { return Speex; };
 		void process(Connection *);
-		bool isValid();
+		bool isValid() const;
 };
 
 
 class MessageServerAuthenticate : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		int	iVersion;
 		QString qsUsername;
 		QString qsPassword;
 		MessageServerAuthenticate();
-		Message::MessageType messageType() { return ServerAuthenticate; };
+		Message::MessageType messageType() const { return ServerAuthenticate; };
 		void process(Connection *);
 };
 
 class MessageServerReject : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		QString qsReason;
 		MessageServerReject();
-		Message::MessageType messageType() { return ServerReject; };
+		Message::MessageType messageType() const { return ServerReject; };
 		void process(Connection *);
 };
 
 class MessageServerSync : public Message {
 	public:
-		Message::MessageType messageType() { return ServerSync; };
+		Message::MessageType messageType() const { return ServerSync; };
 		void process(Connection *);
 };
 
 class MessageServerJoin : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		QString qsPlayerName;
 		MessageServerJoin();
-		Message::MessageType messageType() { return ServerJoin; };
+		Message::MessageType messageType() const { return ServerJoin; };
 		void process(Connection *);
 };
 
 class MessageServerLeave : public Message {
 	public:
-		Message::MessageType messageType() { return ServerLeave; };
+		Message::MessageType messageType() const { return ServerLeave; };
 		void process(Connection *);
 };
 
 class MessagePlayerMute : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		short sVictim;
 		bool bMute;
 		MessagePlayerMute();
-		Message::MessageType messageType() { return PlayerMute; };
+		Message::MessageType messageType() const { return PlayerMute; };
 		void process(Connection *);
 };
 
 class MessagePlayerDeaf : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		short sVictim;
 		bool bDeaf;
 		MessagePlayerDeaf();
-		Message::MessageType messageType() { return PlayerDeaf; };
+		Message::MessageType messageType() const { return PlayerDeaf; };
 		void process(Connection *);
 };
 
 class MessagePlayerSelfMuteDeaf : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		bool bMute;
 		bool bDeaf;
 		MessagePlayerSelfMuteDeaf();
-		Message::MessageType messageType() { return PlayerSelfMuteDeaf; };
+		Message::MessageType messageType() const { return PlayerSelfMuteDeaf; };
 		void process(Connection *);
 };
 
 class MessagePlayerKick : public Message {
 	protected:
-		void saveStream(QDataStream &);
+		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
 		short sVictim;
 		QString qsReason;
 		MessagePlayerKick();
-		Message::MessageType messageType() { return PlayerKick; };
+		Message::MessageType messageType() const { return PlayerKick; };
 		void process(Connection *);
 };
 

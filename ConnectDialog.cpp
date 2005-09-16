@@ -28,8 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "ConnectDialog.h"
-
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -42,6 +40,9 @@
 #include <QItemSelectionModel>
 #include <QSqlRecord>
 #include <QMessageBox>
+
+#include "ConnectDialog.h"
+#include "Global.h"
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	QSqlQuery query;
@@ -69,8 +70,6 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	}
 	qstmServers->setEditStrategy(QSqlTableModel::OnManualSubmit);
 
-	QSettings qs;
-
 	qlwServers=new QListView();
 	l->addWidget(qlwServers,0,0,4,1);
 	qlwServers->setModel(qstmServers);
@@ -81,21 +80,21 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	QItemSelectionModel *selectionModel = qlwServers->selectionModel();
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
 
-	qleName=new QLineEdit(qs.value("ServerName", "").toString());
+	qleName=new QLineEdit(g.qs->value("ServerName", "").toString());
 	lab=new QLabel("&Name");
 	lab->setBuddy(qleName);
 
 	l->addWidget(lab, 0, 1);
 	l->addWidget(qleName, 0, 2);
 
-	qleServer=new QLineEdit(qs.value("ServerAddress", "").toString());
+	qleServer=new QLineEdit(g.qs->value("ServerAddress", "").toString());
 	lab=new QLabel("A&ddress");
 	lab->setBuddy(qleServer);
 
 	l->addWidget(lab, 1, 1);
 	l->addWidget(qleServer, 1, 2);
 
-	qlePort=new QLineEdit(qs.value("ServerPort", "64738").toString());
+	qlePort=new QLineEdit(g.qs->value("ServerPort", "64738").toString());
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 	lab=new QLabel("&Port");
 	lab->setBuddy(qlePort);
@@ -103,14 +102,14 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	l->addWidget(lab, 2, 1);
 	l->addWidget(qlePort, 2, 2);
 
-	qleUsername=new QLineEdit(qs.value("ServerUsername", "").toString());
+	qleUsername=new QLineEdit(g.qs->value("ServerUsername", "").toString());
 	lab=new QLabel("&Username");
 	lab->setBuddy(qleUsername);
 
 	l->addWidget(lab, 3, 1);
 	l->addWidget(qleUsername, 3, 2);
 
-	qlePassword=new QLineEdit(qs.value("ServerPassword", "").toString());
+	qlePassword=new QLineEdit(g.qs->value("ServerPassword", "").toString());
 	qlePassword->setEchoMode(QLineEdit::Password);
 	lab=new QLabel("&Password");
 	lab->setBuddy(qlePassword);
@@ -153,11 +152,10 @@ void ConnectDialog::accept() {
 	qsPassword = qlePassword->text();
 	iPort = qlePort->text().toInt();
 
-	QSettings qs;
-	qs.setValue("ServerAddress", qsServer);
-	qs.setValue("ServerUsername", qsUsername);
-	qs.setValue("ServerPassword", qsPassword);
-	qs.setValue("ServerPort", iPort);
+	g.qs->setValue("ServerAddress", qsServer);
+	g.qs->setValue("ServerUsername", qsUsername);
+	g.qs->setValue("ServerPassword", qsPassword);
+	g.qs->setValue("ServerPort", iPort);
 
 	QDialog::accept();
 }

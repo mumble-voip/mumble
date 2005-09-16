@@ -81,7 +81,7 @@ class AudioInput : public QThread {
 		AudioInput();
 		~AudioInput();
 		void run() = 0;
-		bool isRunning();
+		bool isRunning() const;
 };
 
 #else

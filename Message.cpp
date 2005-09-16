@@ -38,7 +38,7 @@ Message::Message() {
 Message::~Message() {
 }
 
-void Message::messageToNetwork(QByteArray &qbaOut) {
+void Message::messageToNetwork(QByteArray &qbaOut) const {
 	QDataStream qdsOut(&qbaOut, QIODevice::WriteOnly);
 	qdsOut << static_cast<unsigned char>(messageType());
 	qdsOut << static_cast<unsigned char>(sPlayerId);
@@ -107,11 +107,11 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 	return mMsg;
 }
 
-bool Message::isValid() {
+bool Message::isValid() const {
 	return true;
 }
 
-void Message::saveStream(QDataStream &) {
+void Message::saveStream(QDataStream &) const {
 }
 
 void Message::restoreStream(QDataStream &) {
@@ -122,7 +122,7 @@ MessageServerAuthenticate::MessageServerAuthenticate() {
 	iVersion = MESSAGE_STREAM_VERSION;
 }
 
-void MessageServerAuthenticate::saveStream(QDataStream &qdsOut) {
+void MessageServerAuthenticate::saveStream(QDataStream &qdsOut) const{
 	qdsOut << iVersion;
 	qdsOut << qsUsername;
 	qdsOut << qsPassword;
@@ -139,7 +139,7 @@ MessageServerReject::MessageServerReject() {
 	qsReason = QString();
 }
 
-void MessageServerReject::saveStream(QDataStream &qdsOut) {
+void MessageServerReject::saveStream(QDataStream &qdsOut) const {
 	qdsOut << qsReason;
 }
 
@@ -152,7 +152,7 @@ MessageServerJoin::MessageServerJoin() {
 	qsPlayerName = QString();
 }
 
-void MessageServerJoin::saveStream(QDataStream &qdsOut) {
+void MessageServerJoin::saveStream(QDataStream &qdsOut) const {
 	qdsOut << qsPlayerName;
 }
 
@@ -164,7 +164,7 @@ MessageSpeex::MessageSpeex() {
 	qbaSpeexPacket = QByteArray();
 }
 
-void MessageSpeex::saveStream(QDataStream &qdsOut) {
+void MessageSpeex::saveStream(QDataStream &qdsOut) const {
 	qdsOut << iSeq;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
 	qbBuffer->buffer().append(qbaSpeexPacket);
@@ -177,7 +177,7 @@ void MessageSpeex::restoreStream(QDataStream &qdsIn) {
 	qbBuffer->seek(qbBuffer->size());
 }
 
-bool MessageSpeex::isValid() {
+bool MessageSpeex::isValid() const {
 	return ! qbaSpeexPacket.isEmpty();
 }
 
@@ -186,7 +186,7 @@ MessagePlayerMute::MessagePlayerMute() {
 	bMute = false;
 }
 
-void MessagePlayerMute::saveStream(QDataStream &qdsOut) {
+void MessagePlayerMute::saveStream(QDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << bMute;
 }
@@ -201,7 +201,7 @@ MessagePlayerDeaf::MessagePlayerDeaf() {
 	bDeaf = false;
 }
 
-void MessagePlayerDeaf::saveStream(QDataStream &qdsOut) {
+void MessagePlayerDeaf::saveStream(QDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << bDeaf;
 }
@@ -215,7 +215,7 @@ MessagePlayerKick::MessagePlayerKick() {
 	qsReason = QString();
 }
 
-void MessagePlayerKick::saveStream(QDataStream &qdsOut) {
+void MessagePlayerKick::saveStream(QDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << qsReason;
 }
@@ -230,7 +230,7 @@ MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
 	bDeaf = false;
 }
 
-void MessagePlayerSelfMuteDeaf::saveStream(QDataStream &qdsOut) {
+void MessagePlayerSelfMuteDeaf::saveStream(QDataStream &qdsOut) const {
 	qdsOut << bMute;
 	qdsOut << bDeaf;
 }

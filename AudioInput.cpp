@@ -120,7 +120,7 @@ AudioInput::~AudioInput()
 	delete [] psMic;
 }
 
-bool AudioInput::isRunning() {
+bool AudioInput::isRunning() const {
 	return bRunning;
 }
 
@@ -128,7 +128,7 @@ void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
 	int iLen;
-	Player *p=Player::get(g.mw->sMyId);
+	Player *p=Player::get(g.sId);
 	short max;
 	int i;
 
@@ -179,7 +179,7 @@ void AudioInput::encodeAudioFrame() {
 		sppPreprocess->loudness2 = g.s.iMinLoudness;
 
 	if (g.s.atTransmit == Settings::PushToTalk)
-		iIsSpeech = g.bPushToTalk;
+		iIsSpeech = g.bPushToTalk || g.bCenterPosition;
 	else if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
 

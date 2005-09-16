@@ -51,45 +51,43 @@ Settings::Settings() {
 }
 
 void Settings::load() {
-	QSettings qs;
-	bMute = qs.value("AudioMute", false). toBool();
-	bDeaf = qs.value("AudioDeaf", false). toBool();
-	bTTS = qs.value("TextToSpeech", bTTS). toBool();
-	atTransmit = static_cast<Settings::AudioTransmit>(qs.value("AudioTransmit", Settings::VAD).toInt());
-	ptTransmit = static_cast<Settings::PosTransmit>(qs.value("PosTransmit", Settings::PositionVelocity).toInt());
-	a3dModel = static_cast<Settings::Audio3D>(qs.value("Audio3D", Settings::Full).toInt());
-	iQuality = qs.value("AudioQuality", iQuality).toInt();
-	iComplexity = qs.value("AudioComplexity", iComplexity).toInt();
-	iMinLoudness = qs.value("AudioMinLoudness", iMinLoudness).toInt();
-	iVoiceHold = qs.value("AudioVoiceHold", iVoiceHold).toInt();
-	iJitterBufferSize = qs.value("JitterBufferSize", iJitterBufferSize).toInt();
-	iDXOutputDelay = qs.value("DXOutputDelay", iDXOutputDelay).toInt();
-	qbaDXInput = qs.value("DXInput").toByteArray();
-	qbaDXOutput = qs.value("DXOutput").toByteArray();
-	fDXMinDistance = qs.value("DXMinDistance", fDXMinDistance).toDouble();
-	fDXMaxDistance = qs.value("DXMaxDistance", fDXMaxDistance).toDouble();
-	fDXDoppler = qs.value("DXDoppler", fDXDoppler).toDouble();
-	fDXRollOff = qs.value("DXRollOff", fDXRollOff).toDouble();
+	bMute = g.qs->value("AudioMute", false). toBool();
+	bDeaf = g.qs->value("AudioDeaf", false). toBool();
+	bTTS = g.qs->value("TextToSpeech", bTTS). toBool();
+	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value("AudioTransmit", Settings::VAD).toInt());
+	ptTransmit = static_cast<Settings::PosTransmit>(g.qs->value("PosTransmit", Settings::PositionVelocity).toInt());
+	a3dModel = static_cast<Settings::Audio3D>(g.qs->value("Audio3D", Settings::Full).toInt());
+	iQuality = g.qs->value("AudioQuality", iQuality).toInt();
+	iComplexity = g.qs->value("AudioComplexity", iComplexity).toInt();
+	iMinLoudness = g.qs->value("AudioMinLoudness", iMinLoudness).toInt();
+	iVoiceHold = g.qs->value("AudioVoiceHold", iVoiceHold).toInt();
+	iJitterBufferSize = g.qs->value("JitterBufferSize", iJitterBufferSize).toInt();
+	iDXOutputDelay = g.qs->value("DXOutputDelay", iDXOutputDelay).toInt();
+	qbaDXInput = g.qs->value("DXInput").toByteArray();
+	qbaDXOutput = g.qs->value("DXOutput").toByteArray();
+	fDXMinDistance = g.qs->value("DXMinDistance", fDXMinDistance).toDouble();
+	fDXMaxDistance = g.qs->value("DXMaxDistance", fDXMaxDistance).toDouble();
+	fDXDoppler = g.qs->value("DXDoppler", fDXDoppler).toDouble();
+	fDXRollOff = g.qs->value("DXRollOff", fDXRollOff).toDouble();
 }
 
 void Settings::save() {
-	QSettings qs;
-	qs.setValue("AudioMute", g.s.bMute);
-	qs.setValue("AudioDeaf", g.s.bDeaf);
-	qs.setValue("TextToSpeech", g.s.bTTS);
-	qs.setValue("PosTransmit", g.s.ptTransmit);
-	qs.setValue("AudioTransmit", g.s.atTransmit);
-	qs.setValue("Audio3D", g.s.a3dModel);
-	qs.setValue("AudioQuality", iQuality);
-	qs.setValue("AudioComplexity", iComplexity);
-	qs.setValue("AudioMinLoudness", iMinLoudness);
-	qs.setValue("AudioVoiceHold", iVoiceHold);
-	qs.setValue("JitterBufferSize", iJitterBufferSize);
-	qs.setValue("DXOutputDelay", iDXOutputDelay);
-	qs.setValue("DXInput", qbaDXInput);
-	qs.setValue("DXOutput", qbaDXOutput);
-	qs.setValue("DXMinDistance", fDXMinDistance);
-	qs.setValue("DXMaxDistance", fDXMaxDistance);
-	qs.setValue("DXDoppler", fDXDoppler);
-	qs.setValue("DXRollOff", fDXRollOff);
+	g.qs->setValue("AudioMute", g.s.bMute);
+	g.qs->setValue("AudioDeaf", g.s.bDeaf);
+	g.qs->setValue("TextToSpeech", g.s.bTTS);
+	g.qs->setValue("PosTransmit", g.s.ptTransmit);
+	g.qs->setValue("AudioTransmit", g.s.atTransmit);
+	g.qs->setValue("Audio3D", g.s.a3dModel);
+	g.qs->setValue("AudioQuality", iQuality);
+	g.qs->setValue("AudioComplexity", iComplexity);
+	g.qs->setValue("AudioMinLoudness", iMinLoudness);
+	g.qs->setValue("AudioVoiceHold", iVoiceHold);
+	g.qs->setValue("JitterBufferSize", iJitterBufferSize);
+	g.qs->setValue("DXOutputDelay", iDXOutputDelay);
+	g.qs->setValue("DXInput", qbaDXInput);
+	g.qs->setValue("DXOutput", qbaDXOutput);
+	g.qs->setValue("DXMinDistance", fDXMinDistance);
+	g.qs->setValue("DXMaxDistance", fDXMaxDistance);
+	g.qs->setValue("DXDoppler", fDXDoppler);
+	g.qs->setValue("DXRollOff", fDXRollOff);
 }

@@ -38,7 +38,7 @@
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
-#define NBLOCKS 8
+#define NBLOCKS 50
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
 #define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
 
@@ -47,7 +47,6 @@ static AudioOutput *DXAudioOutputNew() {
 }
 
 static ConfigWidget *DXAudioOutputConfig(QWidget *parent) {
-//	return new AudioConfigWidget(parent);
 	return NULL;
 }
 
@@ -152,16 +151,13 @@ void DXAudioOutput::updateListener() {
 	DS3DLISTENER li;
 	Plugins *p = g.p;
 	li.dwSize=sizeof(li);
-	if (p->bValid && p3DListener) {
+	if (p->bValid && ! g.bCenterPosition && p3DListener) {
+		// Only set this if we need to. If centerposition is on, or we don't have valid data,
+		// the 3d mode for the buffers will be disabled, so don't bother with updates.
 		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], DS3D_DEFERRED);
 		p3DListener->SetVelocity(p->fVelocity[0], p->fVelocity[1], p->fVelocity[2], DS3D_DEFERRED);
 		p3DListener->SetOrientation(p->fFront[0], p->fFront[1], p->fFront[2],
 									p->fTop[0], p->fTop[1], p->fTop[2], DS3D_DEFERRED);
-	} else {
-		p3DListener->SetPosition(0.0, 0.0, 0.0, DS3D_DEFERRED);
-		p3DListener->SetVelocity(0.0, 0.0, 0.0, DS3D_DEFERRED);
-		p3DListener->SetOrientation(0.0, 0.0, 1.0,
-									0.0, 1.0, 0.0, DS3D_DEFERRED);
 	}
 	if (FAILED(hr =p3DListener->CommitDeferredSettings()))
 		qWarning("DXAudioOutputPlayer: CommitDeferrredSettings failed 0x%08lx", hr);
@@ -294,20 +290,21 @@ void DXAudioOutputPlayer::run() {
 
 			if (pDS3dBuffer) {
 				bool center = g.bCenterPosition;
+				DWORD mode;
+
+				pDS3dBuffer->GetMode(&mode);
 				if (! center) {
 					if ((fabs(fPos[0]) < 0.1) && (fabs(fPos[1]) < 0.1) && (fabs(fPos[2]) < 0.1))
 						center = true;
+					else if (! g.p->bValid)
+						center = true;
 				}
 				if (center) {
-					Plugins *p = g.p;
-					if (p->bValid) {
-						pDS3dBuffer->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], DS3D_DEFERRED);
-						pDS3dBuffer->SetVelocity(p->fVelocity[0], p->fVelocity[1], p->fVelocity[2], DS3D_DEFERRED);
-					} else {
-						pDS3dBuffer->SetPosition(0.0, 0.0, 0.0, DS3D_DEFERRED);
-						pDS3dBuffer->SetVelocity(0.0, 0.0, 0.0, DS3D_DEFERRED);
-					}
+					if (mode != DS3DMODE_DISABLE)
+						pDS3dBuffer->SetMode(DS3DMODE_DISABLE, DS3D_DEFERRED);
 				} else {
+					if (mode != DS3DMODE_NORMAL)
+						pDS3dBuffer->SetMode(DS3DMODE_NORMAL, DS3D_DEFERRED);
 					pDS3dBuffer->SetPosition(fPos[0], fPos[1], fPos[2], DS3D_DEFERRED);
 					pDS3dBuffer->SetVelocity(fVel[0], fVel[1], fVel[2], DS3D_DEFERRED);
 				}

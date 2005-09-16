@@ -68,7 +68,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 	if ((role == Qt::DecorationRole) && (idx.column() == 0))
 		return (p->bTalking) ? qiTalkingOn : qiTalkingOff;
 
-	if ((role == Qt::FontRole) && (idx.column() == 0) && (p->sId == g.mw->sMyId)) {
+	if ((role == Qt::FontRole) && (idx.column() == 0) && (p->sId == g.sId)) {
 		QFont f = g.mw->font();
 		f.setBold(true);
 		return f;

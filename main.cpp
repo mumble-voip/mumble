@@ -31,7 +31,7 @@
 #include <QApplication>
 #include <QIcon>
 #include <QMessageBox>
-
+#include <QSettings>
 #include <windows.h>
 
 #include "MainWindow.h"
@@ -54,6 +54,8 @@ int main(int argc, char **argv)
 	a.setApplicationName("Mumble");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
+
+	g.qs = new QSettings();
 
 	// Set application icon
 	QIcon icon;
@@ -122,6 +124,8 @@ int main(int argc, char **argv)
 
 	delete g.db;
 	delete g.l;
+
+	delete g.qs;
 
 	return res;
 }
