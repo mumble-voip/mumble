@@ -53,7 +53,7 @@ class DXAudioOutputPlayer : public AudioOutputPlayer, public QThread {
 
 		DXAudioOutput *dxAudio;
 	public:
-		DXAudioOutputPlayer(AudioOutput *, short);
+		DXAudioOutputPlayer(DXAudioOutput *, Player *);
 		~DXAudioOutputPlayer();
 		void run();
 };
@@ -67,7 +67,7 @@ class DXAudioOutput : public AudioOutput {
 		LPDIRECTSOUNDBUFFER       pDSBPrimary;
 		LPDIRECTSOUND3DLISTENER8   p3DListener;
 
-		virtual AudioOutputPlayer *getPlayer(short);
+		virtual AudioOutputPlayer *getPlayer(Player *);
 		void updateListener();
 
 		bool bOk;

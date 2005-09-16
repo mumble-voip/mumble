@@ -141,8 +141,8 @@ DXAudioOutput::~DXAudioOutput() {
 		pDS->Release();
 }
 
-AudioOutputPlayer *DXAudioOutput::getPlayer(short sId) {
-	DXAudioOutputPlayer *daopPlayer = new DXAudioOutputPlayer(this, sId);
+AudioOutputPlayer *DXAudioOutput::getPlayer(Player *player) {
+	DXAudioOutputPlayer *daopPlayer = new DXAudioOutputPlayer(this, player);
 	if (bOk)
 		daopPlayer->start(QThread::HighPriority);
 	return daopPlayer;
@@ -168,7 +168,7 @@ void DXAudioOutput::updateListener() {
 		qWarning("DXAudioOutputPlayer: CommitDeferrredSettings failed 0x%08lx", hr);
 }
 
-DXAudioOutputPlayer::DXAudioOutputPlayer(AudioOutput *ao, short id) : AudioOutputPlayer(ao, id) {
+DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : AudioOutputPlayer(ao, player) {
 	dxAudio = static_cast<DXAudioOutput *>(aoOutput);
 
     DSBUFFERDESC dsbd;

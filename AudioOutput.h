@@ -31,6 +31,12 @@
 #ifndef _AUDIOOUTPUT_H
 #define _AUDIOOUTPUT_H
 
+// AudioOutput depends on Player being valid. This means it's important
+// to removeBuffer from here BEFORE MainWindow gets any PlayerLeft
+// messages. Any decendant player should feel free to remove unused
+// AudioOutputPlayer objects; it's better to recreate them than
+// having them use resources while unused.
+
 #include <QThread>
 #include <QMutex>
 #include <QReadWriteLock>
@@ -39,6 +45,7 @@
 #include <QWidget>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
+#include "Player.h"
 #include "Audio.h"
 
 class AudioOutput;
@@ -58,7 +65,7 @@ class AudioOutputPlayer : public QObject {
 	friend class AudioOutput;
 	Q_OBJECT
 	protected:
-		short sId;
+		Player *p;
 
 		SpeexBits sbBits;
 		unsigned int iFrameSize;
@@ -77,7 +84,7 @@ class AudioOutputPlayer : public QObject {
 		bool decodeNextFrame();
 	public:
 		void addFrameToBuffer(QByteArray &, int iSeq);
-		AudioOutputPlayer(AudioOutput *, short);
+		AudioOutputPlayer(AudioOutput *, Player *);
 		~AudioOutputPlayer();
 };
 
@@ -86,15 +93,15 @@ class AudioOutput : public QObject {
 	protected:
 		bool bRunning;
 		QReadWriteLock qrwlOutputs;
-		QHash<short, AudioOutputPlayer *> qmOutputs;
-		virtual AudioOutputPlayer *getPlayer(short) = 0;
+		QHash<Player *, AudioOutputPlayer *> qmOutputs;
+		virtual AudioOutputPlayer *getPlayer(Player *) = 0;
 	public:
 		void wipe();
 
 		AudioOutput();
 		~AudioOutput();
-		void addFrameToBuffer(short, QByteArray &, int iSeq);
-		void removeBuffer(short);
+		void addFrameToBuffer(Player *, QByteArray &, int iSeq);
+		void removeBuffer(Player *);
 };
 
 #else

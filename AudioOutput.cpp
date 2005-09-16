@@ -72,9 +72,9 @@ AudioOutput *AudioOutputRegistrar::newFromChoice(QString choice) {
 	return NULL;
 }
 
-AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, short id) {
+AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
 	aoOutput = ao;
-	sId = id;
+	p = player;
 
 	speex_bits_init(&sbBits);
 	dsDecState=speex_decoder_init(&speex_wb_mode);
@@ -128,10 +128,10 @@ bool AudioOutputPlayer::decodeNextFrame() {
 			left = speex_bits_remaining(&sjJitter.current_packet) / 8;
 			if (left >= 12) {
 				QByteArray qba(left, 0);
-				unsigned char *p = reinterpret_cast<unsigned char *>(qba.data());
+				unsigned char *ptr = reinterpret_cast<unsigned char *>(qba.data());
 				for(i=0;i<left;i++) {
 					v = speex_bits_unpack_unsigned(&sjJitter.current_packet, 8);
-					p[i]=v;
+					ptr[i]=v;
 				}
 				QDataStream ds(qba);
 				ds >> fPos[0];
@@ -154,9 +154,7 @@ bool AudioOutputPlayer::decodeNextFrame() {
 
 	bSpeech = iSpeech;
 
-	Player *p=Player::get(sId);
-	if (p)
-		p->setTalking(bSpeech);
+	p->setTalking(bSpeech);
 
 	if (g.s.bDeaf || ! bSpeech)
 		memset(psBuffer, 0, iByteSize);
@@ -182,17 +180,19 @@ void AudioOutput::wipe() {
 	qmOutputs.clear();
 }
 
-void AudioOutput::addFrameToBuffer(short sId, QByteArray &qbaPacket, int iSeq) {
+void AudioOutput::addFrameToBuffer(Player *player, QByteArray &qbaPacket, int iSeq) {
 	QReadLocker locker(&qrwlOutputs);
-	if (! qmOutputs.contains(sId)) {
-		qmOutputs[sId] = getPlayer(sId);
+	AudioOutputPlayer *aop = qmOutputs.value(player);
+	if (! aop) {
+		aop = getPlayer(player);
+		qmOutputs[player]=aop;
 	}
-	qmOutputs[sId]->addFrameToBuffer(qbaPacket, iSeq);
+	aop->addFrameToBuffer(qbaPacket, iSeq);
 }
 
-void AudioOutput::removeBuffer(short sId) {
+void AudioOutput::removeBuffer(Player *player) {
 	QWriteLocker locker(&qrwlOutputs);
-	AudioOutputPlayer *aopOutput = qmOutputs.take(sId);
+	AudioOutputPlayer *aopOutput = qmOutputs.take(player);
 	if (aopOutput)
 		delete aopOutput;
 }
