@@ -36,6 +36,15 @@ foreach my $pro ("mumble.pro", "murmur.pro", "mumble.pri") {
   close(F);
 }
 
+open(F, "mumble.qrc");
+while(<F>) {
+  chomp();
+  if (/\<file\>(.+)<\/file\>/) {
+    $files{$1}=1;
+  }
+}
+close(F);
+
 delete($files{'LICENSE'});
 
 my $tar = new Archive::Tar();
