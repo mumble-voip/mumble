@@ -69,6 +69,8 @@ class DXAudioOutput : public AudioOutput {
 
 		virtual AudioOutputPlayer *getPlayer(short);
 		void updateListener();
+
+		bool bOk;
 	public:
 		DXAudioOutput();
 		~DXAudioOutput();

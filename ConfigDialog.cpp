@@ -77,6 +77,10 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	cancelButton->setToolTip(tr("Reject changes"));
 	cancelButton->setWhatsThis(tr("This button will reject all changes and return to the application.<br />"
 								  "The settings will be reset to the previous positions."));
+    QPushButton *applyButton = new QPushButton(tr("&Apply"));
+    connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
+	applyButton->setToolTip(tr("Apply changes"));
+	applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
 
 	addPage(new AudioConfigDialog());
     addPage(new DXConfigDialog());
@@ -89,6 +93,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
     QHBoxLayout *buttons = new QHBoxLayout;
     buttons->addStretch(1);
+    buttons->addWidget(applyButton);
     buttons->addWidget(okButton);
     buttons->addWidget(cancelButton);
 
@@ -126,10 +131,9 @@ void ConfigDialog::on_Icons_currentItemChanged(QListWidgetItem *current, QListWi
     qswPages->setCurrentIndex(qlwIcons->row(current));
 }
 
-void ConfigDialog::accept() {
+void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, widgets)
 		cw->accept();
-	QDialog::accept();
 
 	QWriteLocker lock(&g.qrwlAudio);
 
@@ -139,4 +143,9 @@ void ConfigDialog::accept() {
 	g.ai = AudioInputRegistrar::newFromChoice();
 	g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice();
+}
+
+void ConfigDialog::accept() {
+	apply();
+	QDialog::accept();
 }

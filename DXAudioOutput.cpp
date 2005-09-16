@@ -62,36 +62,13 @@ DXAudioOutput::DXAudioOutput() {
 
 	bool failed = false;
 
-	if (! g.s.qbaDXOutput.isEmpty()) {
-		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXOutput.data());
-	    if( FAILED( hr = DirectSoundCreate8(lpguid, &pDS, NULL))) {
-			failed = true;
-		}
-	}
+	bOk = false;
 
-    // Create IDirectSound using the preferred sound device
-	if (! pDS)
-		if( FAILED( hr = DirectSoundCreate8( &DSDEVID_DefaultVoicePlayback, &pDS, NULL ) ) )
-			qFatal("DXAudioOutput: DirectSoundCreate");
-
-	if (failed)
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
-
-
-   // Set coop level to DSSCL_PRIORITY
-	if( FAILED( hr = pDS->SetCooperativeLevel( g.mw->winId(), DSSCL_PRIORITY ) ) )
-		qFatal("DXAudioOutput: SetCooperativeLevel");
-
-    // Obtain primary buffer
     ZeroMemory( &dsbdesc, sizeof(DSBUFFERDESC) );
     dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
     dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
     if (g.s.a3dModel != Settings::None)
     	dsbdesc.dwFlags |= DSBCAPS_CTRL3D;
-
-    if( FAILED( hr = pDS->CreateSoundBuffer( &dsbdesc, &pDSBPrimary, NULL ) ) )
-    	qFatal("DXAudioOutput: CreateSoundBuffer (Primary) : 0x%08lx", hr);
-
 
    	ZeroMemory( &wfxSet, sizeof(wfxSet) );
     wfxSet.wFormatTag = WAVE_FORMAT_PCM;
@@ -105,22 +82,47 @@ DXAudioOutput::DXAudioOutput() {
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
     wfx.wBitsPerSample = 16;
 
-	if( FAILED( hr = pDSBPrimary->SetFormat( &wfx ) ) )
-    	qFatal("DXAudioOutput: SetFormat");
-
-    if( FAILED( hr = pDSBPrimary->GetFormat( &wfxSet, sizeof(wfxSet), NULL ) ) )
-       	qFatal("DXAudioOutput: GetFormat");
-
+	pDS = NULL;
+	pDSBPrimary = NULL;
 	p3DListener = NULL;
-    if (g.s.a3dModel != Settings::None) {
+
+	if (! g.s.qbaDXOutput.isEmpty()) {
+		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXOutput.data());
+	    if( FAILED( hr = DirectSoundCreate8(lpguid, &pDS, NULL))) {
+			failed = true;
+		}
+	}
+
+	if (! pDS && FAILED( hr = DirectSoundCreate8( &DSDEVID_DefaultVoicePlayback, &pDS, NULL ) ) )
+		qWarning("DXAudioOutput: DirectSoundCreate");
+	else if( FAILED( hr = pDS->SetCooperativeLevel( g.mw->winId(), DSSCL_PRIORITY ) ) )
+		qWarning("DXAudioOutput: SetCooperativeLevel");
+	else if( FAILED( hr = pDS->CreateSoundBuffer( &dsbdesc, &pDSBPrimary, NULL ) ) )
+    	qWarning("DXAudioOutput: CreateSoundBuffer (Primary) : 0x%08lx", hr);
+	else if( FAILED( hr = pDSBPrimary->SetFormat( &wfx ) ) )
+    	qFatal("DXAudioOutput: SetFormat");
+    else if( FAILED( hr = pDSBPrimary->GetFormat( &wfxSet, sizeof(wfxSet), NULL ) ) )
+       	qFatal("DXAudioOutput: GetFormat");
+	else if (g.s.a3dModel != Settings::None) {
 		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener)))) {
 			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
 		} else {
 			p3DListener->SetRolloffFactor(g.s.fDXRollOff, DS3D_DEFERRED);
 			p3DListener->SetDopplerFactor(g.s.fDXDoppler, DS3D_DEFERRED);
 			p3DListener->CommitDeferredSettings();
+			bOk = true;
 		}
+	} else {
+		bOk = true;
 	}
+
+	if (! bOk) {
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. No audio will be heard."), QMessageBox::Ok, QMessageBox::NoButton);
+		return;
+	}
+
+	if (failed)
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
 
@@ -131,6 +133,8 @@ DXAudioOutput::~DXAudioOutput() {
 	bRunning = false;
 	wipe();
 
+	if (p3DListener)
+		p3DListener->Release();
 	if (pDSBPrimary)
 		pDSBPrimary->Release();
 	if (pDS)
@@ -139,7 +143,8 @@ DXAudioOutput::~DXAudioOutput() {
 
 AudioOutputPlayer *DXAudioOutput::getPlayer(short sId) {
 	DXAudioOutputPlayer *daopPlayer = new DXAudioOutputPlayer(this, sId);
-	daopPlayer->start(QThread::HighPriority);
+	if (bOk)
+		daopPlayer->start(QThread::HighPriority);
 	return daopPlayer;
 }
 

@@ -56,23 +56,12 @@ DXAudioInput::DXAudioInput() {
 	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 
 	pDSCapture = NULL;
+	pDSCaptureBuffer = NULL;
+	pDSNotify = NULL;
+
+	bOk = false;
 
 	bool failed = false;
-
-	if (! g.s.qbaDXInput.isEmpty()) {
-		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXInput.data());
-	    if( FAILED( hr = DirectSoundCaptureCreate8(lpguid, &pDSCapture, NULL))) {
-			failed = true;
-		}
-	}
-
-    // Create IDirectSoundCapture using the preferred capture device
-    if (! pDSCapture)
-	    if( FAILED( hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &pDSCapture, NULL ) ) )
-	    	qFatal("DXAudioInput: DirectSoundCaptureCreate");
-
-	if (failed)
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	ZeroMemory( &wfx, sizeof(wfx) );
 	wfx.wFormatTag = WAVE_FORMAT_PCM;
@@ -89,24 +78,39 @@ DXAudioInput::DXAudioInput() {
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
     wfx.wBitsPerSample = 16;
 
-	if( FAILED( hr = pDSCapture->CreateCaptureBuffer( &dscbd, &pDSCaptureBuffer, NULL ) ) )
-		qFatal("DXAudioInput: CreateCaptureBuffer");
-
-	if( FAILED( hr = pDSCaptureBuffer->QueryInterface( IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify) ) ) )
-		qFatal("DXAudioInput: QueryInterface (Notify)");
-
-
-    // Setup the notification positions
     for( int i = 0; i < NBUFFBLOCKS; i++ )
     {
         aPosNotify[i].dwOffset = (iByteSize * (i+1)) -1;
         aPosNotify[i].hEventNotify = hNotificationEvent;
     }
 
-    // Tell DirectSound when to notify us. the notification will come in the from
-    // of signaled events that are handled in WinMain()
-    if( FAILED( hr = pDSNotify->SetNotificationPositions( NBUFFBLOCKS, aPosNotify ) ) )
-    	qFatal("DXAudioInput: SetNotificationPositions");
+    // Create IDirectSoundCapture using the preferred capture device
+	if (! g.s.qbaDXInput.isEmpty()) {
+		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXInput.data());
+	    if( FAILED( hr = DirectSoundCaptureCreate8(lpguid, &pDSCapture, NULL))) {
+			failed = true;
+		}
+	}
+
+    if (! pDSCapture && FAILED( hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &pDSCapture, NULL ) ) )
+	    qWarning("DXAudioInput: DirectSoundCaptureCreate");
+	else if( FAILED( hr = pDSCapture->CreateCaptureBuffer( &dscbd, &pDSCaptureBuffer, NULL)))
+		qWarning("DXAudioInput: CreateCaptureBuffer");
+	else if( FAILED( hr = pDSCaptureBuffer->QueryInterface( IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify) ) ) )
+		qWarning("DXAudioInput: QueryInterface (Notify)");
+	else if( FAILED( hr = pDSNotify->SetNotificationPositions( NBUFFBLOCKS, aPosNotify ) ) )
+    	qWarning("DXAudioInput: SetNotificationPositions");
+    else
+    	bOk = true;
+
+
+	if (! bOk) {
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. No microphone capture will be done."), QMessageBox::Ok, QMessageBox::NoButton);
+		return;
+	}
+
+	if (failed)
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	qWarning("DXAudioInput: Initialized");
 }
@@ -134,6 +138,9 @@ void DXAudioInput::run() {
 
     LPVOID aptr1, aptr2;
   	DWORD nbytes1, nbytes2;
+
+	if (! bOk)
+		return;
 
 	if( FAILED( hr = pDSCaptureBuffer->Start( DSCBSTART_LOOPING ) ) )
 		qFatal("DXAudioInput: Start");

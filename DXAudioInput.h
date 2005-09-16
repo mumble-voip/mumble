@@ -43,6 +43,7 @@ class DXAudioInput : public AudioInput {
 
 		HANDLE hNotificationEvent;
 		DWORD dwBufferSize;
+		bool bOk;
 	public:
 		DXAudioInput();
 		~DXAudioInput();

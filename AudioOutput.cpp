@@ -108,20 +108,23 @@ void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * 20);
 }
 
-void AudioOutputPlayer::decodeNextFrame() {
+bool AudioOutputPlayer::decodeNextFrame() {
 	int iTimestamp;
 	int iSpeech = 0;
 	int left;
 	int i;
 	unsigned int v;
+	bool alive = true;
 
 	{
 		QMutexLocker lock(&qmJitter);
 		speex_jitter_get(&sjJitter, psBuffer, &iTimestamp);
 		if (sjJitter.valid_bits) {
 			iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
-			if (! iSpeech)
+			if (! iSpeech) {
+				sjJitter.reset_state = 1;
 				speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
+			}
 			left = speex_bits_remaining(&sjJitter.current_packet) / 8;
 			if (left >= 12) {
 				QByteArray qba(left, 0);
@@ -145,6 +148,8 @@ void AudioOutputPlayer::decodeNextFrame() {
 				fPos[0] = fPos[1] = fPos[2] = 0.0;
 			}
 		}
+		if (sjJitter.reset_state)
+			alive = false;
 	}
 
 	bSpeech = iSpeech;
@@ -155,6 +160,8 @@ void AudioOutputPlayer::decodeNextFrame() {
 
 	if (g.s.bDeaf || ! bSpeech)
 		memset(psBuffer, 0, iByteSize);
+
+	return alive;
 }
 
 AudioOutput::AudioOutput() {

@@ -58,6 +58,7 @@ class ConfigDialog : public QDialog {
 		ConfigDialog(QWidget *p = NULL);
 	public slots:
 	    void on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+	    void apply();
 		void accept();
 };
 
