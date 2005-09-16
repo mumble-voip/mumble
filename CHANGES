@@ -1,3 +1,49 @@
+	* Failing to open DirectSound shouldn't be fatal, just a messagebox
+	  error Add Apply button to the config screen
+	* Fix a few missing Q_OBJECT
+	* Fixed a few bugs with positional audio Made a lot more member
+	  functions const Moved playerId to Global, it didn't belong in
+	  MainWindow
+	* Pixmap for Game plugin screen[cybknight]
+	* Bugfixes for positional Audio Added a Center Position hotkey, to
+	  force yourself and all others to a center audio position, usefull
+	  to give commands to the whole group.
+	* Positional Audio Plugins Ability to switch input/output device
+	  without restart Version changed to 0.3.0cvs
+	* Use selected device from DXConfig. Still needs to close/reopen on
+	  ConfigDialog exit.
+	* Added (unfinished) config dialog for DX Audio.[kjetijor]
+	* New icons used in config
+	* Pixmaps for config windows.[cybknight]
+	* Adjustable jitter buffer initial size
+	* More tooltips and whatsthis
+	* ToolTips and WhatsThis for rest of application.
+	* Global Log class, which remembers what should be logged to
+	  console and TTS Fixed infinite selfrecursion in MainWindow, the
+	  application now actually exits when you close it instead of
+	  silently crashing
+	* Make versionchecking a userinitiated action
+	* Add lots of detailed tooltips. Our first piece of documentation.
+	* Finish basic config widget for audio Added config options for
+	  compression and amplification Moved a few menu things into the
+	  config Keep user settings in Settings and statevars in Global
+	* When using nested layouts, Qt barfs if a widget already has a
+	  parent, so make sure it doesn't.
+	* Fixed crash bug if opening player menu while unconnected
+	* Centralized configuration dialog
+	* Switch a few QMutex to QReadWriteLock, and start using
+	  QMutexLocker, QReadLocker etc
+	* Squashed 3 QT bugs, submitted patches, and can now use them in
+	  our application.
+	* DTX transmission support
+	* Export symbol files for debugging of release builds
+	* Window title for the audiostats
+	* Set thread priorities; gui is LOW priority, but as we can't set
+	  it low we set everything else high.
+	* Audio statistics window
+	* Status icons for user window[cybknight]
+	* Make list of players sorted by name and make local user bold
+	* Offset status icons by 1 pixel
 	* Turn cvs log into CHANGES, and restart CHANGES to get rid of cvs
 	  log messages for it
 	* recent updates
