@@ -35,6 +35,7 @@
 #include <QGroupBox>
 #include <speex/speex.h>
 #include <speex/speex_preprocess.h>
+#include <speex/speex_echo.h>
 
 #include "Audio.h"
 
@@ -60,13 +61,18 @@ class AudioInput : public QThread {
 
 		SpeexBits sbBits;
 		SpeexPreprocessState *sppPreprocess;
+		SpeexEchoState *sesEcho;
 		void *esEncState;
 
 		short *psMic;
+		short *psSpeaker;
+		short *psClean;
+		float *pfY;
 		void encodeAudioFrame();
 
 		bool bRunning;
 		bool bPreviousVoice;
+		bool bHasSpeaker;
 
 		static int c_iFrameCounter;
 	public:
@@ -75,7 +81,7 @@ class AudioInput : public QThread {
 		int iBitrate;
 		double dSnr;
 		double dLoudness;
-		double dPeakMic;
+		double dPeakMic, dPeakSpeaker;
 		double dSpeechProb;
 
 		AudioInput();

@@ -52,25 +52,30 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qlMicLevel = new QLabel(this);
 	l->addWidget(qlMicLevel, 0, 1);
 
-	lab = new QLabel(tr("Microphone loudness"), this);
+	lab = new QLabel(tr("Peak speaker level"), this);
 	l->addWidget(lab, 1, 0);
+	qlSpeakerLevel = new QLabel(this);
+	l->addWidget(qlSpeakerLevel, 1, 1);
+
+	lab = new QLabel(tr("Microphone loudness"), this);
+	l->addWidget(lab, 2, 0);
 	qlMicVolume = new QLabel(this);
-	l->addWidget(qlMicVolume, 1, 1);
+	l->addWidget(qlMicVolume, 2, 1);
 
 	lab = new QLabel(tr("Mic Signal-To-Noise"), this);
-	l->addWidget(lab, 2, 0);
+	l->addWidget(lab, 3, 0);
 	qlMicSNR = new QLabel(this);
-	l->addWidget(qlMicSNR, 2, 1);
+	l->addWidget(qlMicSNR, 3, 1);
 
 	lab = new QLabel(tr("Speech Probability"), this);
-	l->addWidget(lab, 3, 0);
+	l->addWidget(lab, 4, 0);
 	qlSpeechProb = new QLabel(this);
-	l->addWidget(qlSpeechProb, 3, 1);
+	l->addWidget(qlSpeechProb, 4, 1);
 
 	lab = new QLabel(tr("Audio bitrate"), this);
-	l->addWidget(lab, 4, 0);
+	l->addWidget(lab, 5, 0);
 	qlBitrate = new QLabel(this);
-	l->addWidget(qlBitrate, 4, 1);
+	l->addWidget(qlBitrate, 5, 1);
 
 	qtTick = new QTimer(this);
 	qtTick->setObjectName("Tick");
@@ -81,6 +86,11 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 								"as you would usually find displayed as \"input power\". Please disregard this and "
 								"look at <b>Loudness</b> instead, which is much more steady and disregards outliers."
 								));
+	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
+	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) of the speakers. Unless you "
+								"are using a multichannel sampling method (such as ASIO) with speaker channels "
+								"configured, this will be 0. If you have such a setup configured, and this still "
+								"shows 0 while you're playing audio from other programs, your setup is not working."));
 	qlMicVolume->setToolTip(tr("How close the current input level is to ideal"));
 	qlMicVolume->setWhatsThis(tr("This shows how close your current input volume is to the ideal. To adjust your "
 								 "microphone level, open whatever program you use to adjust the recording volume, "
@@ -119,6 +129,9 @@ void AudioStats::on_Tick_timeout() {
 
 	txt.sprintf("%06.2f dB",g.ai->dPeakMic);
 	qlMicLevel->setText(txt);
+
+	txt.sprintf("%06.2f dB",g.ai->dPeakSpeaker);
+	qlSpeakerLevel->setText(txt);
 
 	double level = g.ai->dLoudness / 200.0;
 

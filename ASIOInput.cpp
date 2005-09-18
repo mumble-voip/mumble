@@ -108,7 +108,7 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 
 	foreach(ad, qlDevs) {
 		qcbDevice->addItem(ad.first, QVariant(ad.second));
-		if (ad.first == "Creative ASIO") {
+		if (ad.second == g.s.qsASIOclass) {
 			qcbDevice->setCurrentIndex(qcbDevice->count() - 1);
 		}
 	}
@@ -116,6 +116,12 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 	qgbDevices=new QGroupBox(tr("Device selection"));
 	qgbCapab = new QGroupBox(tr("Capabilities"));
 	qgbChannels = new QGroupBox(tr("Channels"));
+	qgbChannels->setToolTip(tr("Configure input channels"));
+	qgbChannels->setWhatsThis(tr("This will configure the input channels for ASIO. Make sure you select at least one "
+								"channel as microphone and speaker. Microphone should be where your mic is attached, "
+								"and Speaker should be a channel that samples \"What you hear\".<br />"
+								"For example, on the Audigy 2 ZS, a good selection for Mic would be \"Mic L\" while "
+								"Speaker should be \"Mix L\" and \"Mix R\""));
 
 	grid=new QGridLayout();
 
@@ -123,7 +129,6 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 	qcbDevice->setWhatsThis(tr("This chooses what device to query. You still need to actually query the device and "
 							"select which channels to use"));
 	l = new QLabel(tr("Device"));
-	l->setBuddy(qcbDevice);
 
 	QPushButton *queryButton=new QPushButton("&Query");
 	queryButton->setObjectName("Query");
@@ -466,6 +471,8 @@ ASIOInput::ASIOInput() {
 
 	int i, idx;
 
+	bHasSpeaker = true;
+
 	// Allocate buffers
 	pdInputBuffer = new double[960];
 	pdOutputBuffer = new double[iFrameSize];
@@ -575,6 +582,8 @@ ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBo
 
 void ASIOInput::bufferReady(long buffindex) {
 	int c, i;
+
+	// Microphone inputs
 	short *buf = static_cast<short *>(abiInfo[0].buffers[buffindex]);
 
 	for(i=0;i<960;i++)
@@ -597,9 +606,30 @@ void ASIOInput::bufferReady(long buffindex) {
 	for(i=0;i<320;i++)
 		psMic[i] = static_cast<short>(pdOutputBuffer[i] * 32768.0);
 
-	encodeAudioFrame();
 
-	qWarning("Got Buffer %d", buffindex);
+	// Speaker inputs
+	buf = static_cast<short *>(abiInfo[iNumMic].buffers[buffindex]);
+	for(i=0;i<960;i++)
+		pdInputBuffer[i]=buf[i];
+
+	for(c=1;c<iNumSpeaker;c++) {
+		buf = static_cast<short *>(abiInfo[iNumMic+c].buffers[buffindex]);
+		for(i=0;i<960;i++)
+			pdInputBuffer[i]+=buf[i];
+	}
+
+	mul = 1.0 / (32768.0 * iNumSpeaker);
+
+	for(i=0;i<960;i++) {
+		pdInputBuffer[i] *= mul;
+	}
+
+	decim(pdInputBuffer, pdOutputBuffer, pdSpeakerDelayLine);
+
+	for(i=0;i<320;i++)
+		psSpeaker[i] = static_cast<short>(pdOutputBuffer[i] * 32768.0);
+
+	encodeAudioFrame();
 }
 
 void ASIOInput::bufferSwitch(long index, ASIOBool processNow)

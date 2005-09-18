@@ -108,10 +108,17 @@ AudioInput::AudioInput()
 	bResetProcessor = true;
 
 	sppPreprocess = NULL;
+	sesEcho = NULL;
+
 	psMic = new short[iFrameSize];
+	psSpeaker = new short[iFrameSize];
+	psClean = new short[iFrameSize];
+	pfY = new float[iFrameSize+1];
+
+	bHasSpeaker = false;
 
 	iBitrate = 0;
-	dSnr = dLoudness = dPeakMic = dSpeechProb = 0.0;
+	dSnr = dLoudness = dPeakMic = dPeakSpeaker = dSpeechProb = 0.0;
 
 	bRunning = false;
 }
@@ -125,8 +132,13 @@ AudioInput::~AudioInput()
 
 	if (sppPreprocess)
 		speex_preprocess_state_destroy(sppPreprocess);
+	if (sesEcho)
+		speex_echo_state_destroy(sesEcho);
 
 	delete [] psMic;
+	delete [] psSpeaker;
+	delete [] psClean;
+	delete [] pfY;
 }
 
 void AudioInput::encodeAudioFrame() {
@@ -149,11 +161,28 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psMic[i]);
 	dPeakMic=20.0*log10((max  * 1.0L) / 32768.0L);
 
+	if (bHasSpeaker) {
+		max=1;
+		for(i=0;i<iFrameSize;i++)
+			if (abs(psSpeaker[i]) > max)
+				max=abs(psSpeaker[i]);
+		dPeakSpeaker=20.0*log10((max  * 1.0L) / 32768.0L);
+	} else {
+		dPeakSpeaker = 0.0;
+	}
+
 	if (bResetProcessor) {
 		if (sppPreprocess)
 			speex_preprocess_state_destroy(sppPreprocess);
 
 		sppPreprocess = speex_preprocess_state_init(iFrameSize, SAMPLE_RATE);
+
+		if (bHasSpeaker) {
+			if (sesEcho)
+				speex_echo_state_destroy(sesEcho);
+			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*5);
+			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
+		}
 
 		bResetProcessor = false;
 	}
@@ -174,7 +203,13 @@ void AudioInput::encodeAudioFrame() {
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
 
 	int iIsSpeech;
-	iIsSpeech=speex_preprocess(sppPreprocess, psMic, NULL);
+
+	if (bHasSpeaker) {
+		speex_echo_cancel(sesEcho, psMic, psSpeaker, psClean, pfY);
+		iIsSpeech=speex_preprocess(sppPreprocess, psClean, pfY);
+	} else {
+		iIsSpeech=speex_preprocess(sppPreprocess, psMic, NULL);
+	}
 
 	// The default is a bit short, increase it
 	if (! iIsSpeech && sppPreprocess->last_speech < g.s.iVoiceHold)
@@ -204,8 +239,10 @@ void AudioInput::encodeAudioFrame() {
 	if (p)
 		p->setTalking(iIsSpeech);
 
-	if (! iIsSpeech && ! bPreviousVoice)
+	if (! iIsSpeech && ! bPreviousVoice) {
+		iBitrate = 0;
 		return;
+	}
 
 	bPreviousVoice = iIsSpeech;
 
