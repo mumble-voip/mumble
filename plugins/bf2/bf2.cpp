@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <tlhelp32.h>
+#include <math.h>
 
 #include "../mumble_plugin.h"
 
@@ -81,7 +82,54 @@ static void about(HWND h) {
 	::MessageBox(h, L"Read audio position information from BF2 (v 1.02)", L"Mumble BF2 Plugin", MB_OK);
 }
 
+static bool sane(float *pos, float *vel, float *face, float *top, bool initial = false) {
+	int i;
+	bool ok = true;
+
+	float min = (initial) ? 0.1 : 0.00001;
+
+	// Sanity check #1: Position should be from -1000 to +1000, and not 0.
+	for(i=0;i<3;i++) {
+		ok = ok && (fabs(pos[i]) > min);
+		ok = ok && (fabs(pos[i]) < 1000.0);
+	}
+	if (! ok) {
+		return false;
+	}
+
+	// Sanity check #2: Directional vectors should have length 1. (and 1 * 1 == 1, so no sqrt)
+	double sqdist;
+	sqdist=face[0] * face[0] + face[1] * face[1] + face[2] * face[2];
+	if (fabs(sqdist - 1.0) > 0.1) {
+		return false;
+	}
+
+
+	sqdist=top[0] * top[0] + top[1] * top[1] + top[2] * top[2];
+	if (fabs(sqdist - 1.0) > 0.1) {
+		return false;
+	}
+
+	if (! initial)
+		return true;
+
+	// .. and it's not looking STRAIGHT ahead...
+	if (face[2] == 1.0)
+		return false;
+	if (top[1] == 1.0)
+		return false;
+
+	// Sanity check #3: Initial speed vector should be >0.2 (BF2 gravity) and < 1.0
+	sqdist=vel[0] * vel[0] + vel[1] * vel[1] + vel[2] * vel[2];
+	if ((sqdist < 0.2) || (sqdist > 1.0))
+		return false;
+
+	// We're good!
+	return true;
+}
+
 static int trylock() {
+
 	h = NULL;
 	posptr = faceptr = topptr = velptr = NULL;
 
@@ -103,9 +151,23 @@ static int trylock() {
 	faceptr = peekProcPtr(cache + 0xb8);
 	topptr = peekProcPtr(cache + 0xbc);
 	velptr = peekProcPtr(cache + 0xc0);
-	if (cache && posptr && faceptr && topptr && velptr)
-		if (tryRead(posptr, 12) && tryRead(faceptr, 12) && tryRead(topptr, 12) && tryRead(velptr, 12))
+	if (cache && posptr && faceptr && topptr && velptr) {
+		float pos[3];
+		float vel[3];
+		float face[3];
+		float top[3];
+
+		bool ok = peekProc(posptr, pos, 12) &&
+			peekProc(velptr, vel, 12) &&
+			peekProc(faceptr, face, 12) &&
+			peekProc(topptr, top, 12);
+
+		if (ok)
+			ok = sane(pos, vel, face, top, true);
+
+		if (ok)
 			return true;
+	}
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -125,6 +187,11 @@ static int fetch(float *pos, float *vel, float *front, float *top) {
 		peekProc(velptr, vel, 12) &&
 		peekProc(faceptr, front, 12) &&
 		peekProc(topptr, top, 12);
+
+	if (ok) {
+		ok = sane(pos, vel, front, top);
+	}
+
 	return ok;
 }
 

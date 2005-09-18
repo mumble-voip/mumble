@@ -132,7 +132,7 @@ void MainWindow::createActions() {
 	qaConfigShortcuts->setToolTip(tr("Configure hotkeys"));
 	qaConfigShortcuts->setWhatsThis(tr("Configure global hotkeys. These will work from anywhere on the system, including inside games."));
 
-	qaHelpWhatsThis = new QAction(tr("&Whats This?"), this);
+	qaHelpWhatsThis = new QAction(tr("&What's This?"), this);
 	qaHelpWhatsThis->setObjectName("HelpWhatsThis");
 	qaHelpWhatsThis->setToolTip(tr("Enter What's This? mode"));
 	qaHelpWhatsThis->setWhatsThis(tr("Click this to enter \"What's This?\" mode. Your cursor will turn into a quesiton mark. Click "
