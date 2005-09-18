@@ -38,7 +38,7 @@
 class AudioStats : public QDialog {
 	Q_OBJECT;
 	protected:
-		QLabel *qlMicLevel, *qlSpeakerLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
+		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
 		QTimer *qtTick;
 	public:
 		AudioStats(QWidget *parent);

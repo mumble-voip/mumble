@@ -57,25 +57,30 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qlSpeakerLevel = new QLabel(this);
 	l->addWidget(qlSpeakerLevel, 1, 1);
 
-	lab = new QLabel(tr("Microphone loudness"), this);
+	lab = new QLabel(tr("Peak clean level"), this);
 	l->addWidget(lab, 2, 0);
+	qlSignalLevel = new QLabel(this);
+	l->addWidget(qlSignalLevel, 2, 1);
+
+	lab = new QLabel(tr("Microphone loudness"), this);
+	l->addWidget(lab, 3, 0);
 	qlMicVolume = new QLabel(this);
-	l->addWidget(qlMicVolume, 2, 1);
+	l->addWidget(qlMicVolume, 3, 1);
 
 	lab = new QLabel(tr("Mic Signal-To-Noise"), this);
-	l->addWidget(lab, 3, 0);
+	l->addWidget(lab, 4, 0);
 	qlMicSNR = new QLabel(this);
-	l->addWidget(qlMicSNR, 3, 1);
+	l->addWidget(qlMicSNR, 4, 1);
 
 	lab = new QLabel(tr("Speech Probability"), this);
-	l->addWidget(lab, 4, 0);
+	l->addWidget(lab, 5, 0);
 	qlSpeechProb = new QLabel(this);
-	l->addWidget(qlSpeechProb, 4, 1);
+	l->addWidget(qlSpeechProb, 5, 1);
 
 	lab = new QLabel(tr("Audio bitrate"), this);
-	l->addWidget(lab, 5, 0);
+	l->addWidget(lab, 6, 0);
 	qlBitrate = new QLabel(this);
-	l->addWidget(qlBitrate, 5, 1);
+	l->addWidget(qlBitrate, 6, 1);
 
 	qtTick = new QTimer(this);
 	qtTick->setObjectName("Tick");
@@ -91,6 +96,13 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 								"are using a multichannel sampling method (such as ASIO) with speaker channels "
 								"configured, this will be 0. If you have such a setup configured, and this still "
 								"shows 0 while you're playing audio from other programs, your setup is not working."));
+	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
+	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) after all processing. Ideally, "
+								"this should be -96 dB when you're not talking. In reality, a sound studio should see "
+								"-60 dB, and you should hopefully see somewhere around -20dB. When you are talking, this "
+								"should rise to somewhere between -5 and -10 dB.<br />"
+								"If you are using echo cancellation, and this rises to more than -15 dB when you're not "
+								"talking, your setup is not working, and you'll annoy other players with echos."));
 	qlMicVolume->setToolTip(tr("How close the current input level is to ideal"));
 	qlMicVolume->setWhatsThis(tr("This shows how close your current input volume is to the ideal. To adjust your "
 								 "microphone level, open whatever program you use to adjust the recording volume, "
@@ -132,6 +144,9 @@ void AudioStats::on_Tick_timeout() {
 
 	txt.sprintf("%06.2f dB",g.ai->dPeakSpeaker);
 	qlSpeakerLevel->setText(txt);
+
+	txt.sprintf("%06.2f dB",g.ai->dPeakSignal);
+	qlSignalLevel->setText(txt);
 
 	double level = g.ai->dLoudness / 200.0;
 

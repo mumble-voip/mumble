@@ -81,7 +81,7 @@ class AudioInput : public QThread {
 		int iBitrate;
 		double dSnr;
 		double dLoudness;
-		double dPeakMic, dPeakSpeaker;
+		double dPeakMic, dPeakSpeaker, dPeakSignal;
 		double dSpeechProb;
 
 		AudioInput();

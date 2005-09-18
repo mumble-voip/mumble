@@ -149,6 +149,8 @@ void AudioInput::encodeAudioFrame() {
 	short max;
 	int i;
 
+	short *psSource;
+
 	c_iFrameCounter++;
 
 	if (! bRunning) {
@@ -180,7 +182,7 @@ void AudioInput::encodeAudioFrame() {
 		if (bHasSpeaker) {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
-			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*5);
+			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*10);
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 		}
 
@@ -207,9 +209,17 @@ void AudioInput::encodeAudioFrame() {
 	if (bHasSpeaker) {
 		speex_echo_cancel(sesEcho, psMic, psSpeaker, psClean, pfY);
 		iIsSpeech=speex_preprocess(sppPreprocess, psClean, pfY);
+		psSource = psClean;
 	} else {
 		iIsSpeech=speex_preprocess(sppPreprocess, psMic, NULL);
+		psSource = psMic;
 	}
+
+	max=1;
+	for(i=0;i<iFrameSize;i++)
+		if (abs(psSource[i]) > max)
+			max=abs(psSource[i]);
+	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
 
 	// The default is a bit short, increase it
 	if (! iIsSpeech && sppPreprocess->last_speech < g.s.iVoiceHold)
@@ -252,7 +262,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	speex_bits_reset(&sbBits);
-	speex_encode_int(esEncState, psMic, &sbBits);
+	speex_encode_int(esEncState, psSource, &sbBits);
 	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
 
