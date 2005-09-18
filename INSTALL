@@ -21,6 +21,11 @@ you need the latest "unstable" version to compile. (Speex generally has high
 code quality, the the svn version is probably even more stable than the
 released unstable version).
 
+Mumble needs the ASIO SDK to compile ASIO support. If you don't have the SDK,
+remove the line that says CONFIG+=asio in mumble.pro
+
+CVS versions of Mumble and Murmur may depend on the Boost C++ library.
+
 You may need to adjust the paths in mumble.pro, murmur.pro and mumble.pri to
 reflect where your installed versions of dependant libraries are.
 

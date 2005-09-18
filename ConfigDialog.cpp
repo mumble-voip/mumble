@@ -40,6 +40,7 @@
 #include "DXConfigDialog.h"
 #include "Plugins.h"
 #include "Log.h"
+#include "ASIOInput.h"
 #include "Global.h"
 
 ConfigWidget::ConfigWidget(QWidget *p) : QWidget(p) {
@@ -84,6 +85,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	addPage(new AudioConfigDialog());
     addPage(new DXConfigDialog());
+    addPage(new ASIOConfig());
 	addPage(new LogConfig());
 	addPage(new PluginConfig());
 
@@ -140,9 +142,9 @@ void ConfigDialog::apply() {
 	delete g.ai;
 	delete g.ao;
 
-	g.ai = AudioInputRegistrar::newFromChoice();
+	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	g.ai->start(QThread::HighestPriority);
-	g.ao = AudioOutputRegistrar::newFromChoice();
+	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
 }
 
 void ConfigDialog::accept() {

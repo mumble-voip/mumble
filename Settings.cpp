@@ -69,6 +69,9 @@ void Settings::load() {
 	fDXMaxDistance = g.qs->value("DXMaxDistance", fDXMaxDistance).toDouble();
 	fDXDoppler = g.qs->value("DXDoppler", fDXDoppler).toDouble();
 	fDXRollOff = g.qs->value("DXRollOff", fDXRollOff).toDouble();
+	qsASIOclass = g.qs->value("ASIOclass").toString();
+	qlASIOmic = g.qs->value("ASIOmic").toList();
+	qlASIOspeaker = g.qs->value("ASIOspeaker").toList();
 }
 
 void Settings::save() {
@@ -90,4 +93,7 @@ void Settings::save() {
 	g.qs->setValue("DXMaxDistance", fDXMaxDistance);
 	g.qs->setValue("DXDoppler", fDXDoppler);
 	g.qs->setValue("DXRollOff", fDXRollOff);
+	g.qs->setValue("ASIOclass", qsASIOclass);
+	g.qs->setValue("ASIOmic", qlASIOmic);
+	g.qs->setValue("ASIOspeaker", qlASIOspeaker);
 }

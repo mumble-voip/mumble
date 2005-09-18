@@ -62,13 +62,22 @@ AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		qs.setValue("AudioInputDevice", choice);
 		current = choice;
-		return qmNew->value(choice)();
+		return qmNew->value(current)();
 	}
 	choice = qs.value("AudioInputDevice").toString();
 	if (qmNew->contains(choice)) {
 		current = choice;
 		return qmNew->value(choice)();
 	}
+
+	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
+	// pretty early in the sorted map.
+
+	if (qmNew->contains("DirectSound")) {
+		current = "DirectSound";
+		return qmNew->value(current)();
+	}
+
 	QMapIterator<QString, AudioInputRegistrarNew> i(*qmNew);
 	if (i.hasNext()) {
 		i.next();

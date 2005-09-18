@@ -33,6 +33,7 @@
 
 #include <QString>
 #include <QByteArray>
+#include <QVariant>
 
 // Global helper class to spread variables around across threads
 // especially helpfull to initialize things like the stored
@@ -51,11 +52,17 @@ struct Settings {
 	bool bMute, bDeaf;
 	bool bTTS;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
+	QString qsAudioInput, qsAudioOutput;
+
 	int iDXOutputDelay;
 	QByteArray qbaDXInput, qbaDXOutput;
-	QString qsAudioInput, qsAudioOutput;
 	float fDXMinDistance, fDXMaxDistance;
 	float fDXDoppler, fDXRollOff;
+
+	QString qsASIOclass;
+	QList<QVariant> qlASIOmic;
+	QList<QVariant> qlASIOspeaker;
+
 	Settings();
 	void load();
 	void save();
