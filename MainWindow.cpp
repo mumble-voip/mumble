@@ -69,7 +69,7 @@ void MainWindow::createActions() {
 	qaServerConnect->setObjectName("ServerConnect");
 	qaServerDisconnect=new QAction(tr("&Disconnect"), this);
 	qaServerDisconnect->setToolTip(tr("Disconnect from server"));
-	qaServerDisconnect->setWhatsThis(tr("Disconnects you from the server"));
+	qaServerDisconnect->setWhatsThis(tr("Disconnects you from the server."));
 	qaServerDisconnect->setObjectName("ServerDisconnect");
 	qaServerDisconnect->setEnabled(false);
 
@@ -95,18 +95,18 @@ void MainWindow::createActions() {
 	qaAudioReset->setWhatsThis(tr("Resets the audio preprocessor, including noice cancellation, automatic gain and voice activity detection. "
 									"If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, "
 									"use this to avoid having to wait for the preprocessor to readjust."));
-	qaAudioMute=new QAction(tr("&Mute"), this);
+	qaAudioMute=new QAction(tr("&Mute Self"), this);
 	qaAudioMute->setObjectName("AudioMute");
 	qaAudioMute->setCheckable(true);
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioMute->setToolTip(tr("Mute yourself"));
-	qaAudioMute->setWhatsThis(tr("Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafned will also undeafen."));
-	qaAudioDeaf=new QAction(tr("&Deaf"), this);
+	qaAudioMute->setWhatsThis(tr("Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen."));
+	qaAudioDeaf=new QAction(tr("&Deafen Self"), this);
 	qaAudioDeaf->setObjectName("AudioDeaf");
 	qaAudioDeaf->setCheckable(true);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioDeaf->setToolTip(tr("Deafen yourself"));
-	qaAudioDeaf->setWhatsThis(tr("Deafen or undeafen yourself. When deafened, you will not hear anything. Deafining yourself will also mute."));
+	qaAudioDeaf->setWhatsThis(tr("Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute."));
 	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
 	qaAudioTTS->setObjectName("AudioTextToSpeech");
 	qaAudioTTS->setCheckable(true);
@@ -135,25 +135,25 @@ void MainWindow::createActions() {
 	qaHelpWhatsThis = new QAction(tr("&What's This?"), this);
 	qaHelpWhatsThis->setObjectName("HelpWhatsThis");
 	qaHelpWhatsThis->setToolTip(tr("Enter What's This? mode"));
-	qaHelpWhatsThis->setWhatsThis(tr("Click this to enter \"What's This?\" mode. Your cursor will turn into a quesiton mark. Click "
+	qaHelpWhatsThis->setWhatsThis(tr("Click this to enter \"What's This?\" mode. Your cursor will turn into a question mark. Click "
 									"on any button, menu choice or area to show a description of what it is."));
 	qaHelpAbout=new QAction(tr("&About"), this);
 	qaHelpAbout->setObjectName("HelpAbout");
 	qaHelpAbout->setToolTip(tr("Information about Mumble"));
-	qaHelpAbout->setWhatsThis(tr("Shows a small dialog with information and license for Mumble"));
+	qaHelpAbout->setWhatsThis(tr("Shows a small dialog with information and license for Mumble."));
 	qaHelpAboutSpeex=new QAction(tr("About &Speex"), this);
 	qaHelpAboutSpeex->setObjectName("HelpAboutSpeex");
 	qaHelpAboutSpeex->setToolTip(tr("Information about Speex"));
-	qaHelpAboutSpeex->setWhatsThis(tr("Shows a small dialog with information about Speex"));
+	qaHelpAboutSpeex->setWhatsThis(tr("Shows a small dialog with information about Speex."));
 	qaHelpAboutQt=new QAction(tr("&About QT"), this);
 	qaHelpAboutQt->setObjectName("HelpAboutQt");
 	qaHelpAboutQt->setToolTip(tr("Information about Qt"));
-	qaHelpAboutQt->setWhatsThis(tr("Shows a small dialog with information about Qt"));
-	qaHelpVersionCheck=new QAction(tr("Check &Updates"), this);
+	qaHelpAboutQt->setWhatsThis(tr("Shows a small dialog with information about Qt."));
+	qaHelpVersionCheck=new QAction(tr("Check for &Updates"), this);
 	qaHelpVersionCheck->setObjectName("HelpVersionCheck");
 	qaHelpVersionCheck->setToolTip(tr("Check for new version of Mumble"));
-	qaHelpVersionCheck->setWhatsThis(tr("Connects to the Mumble webpage and sees if a new version is available for download. "
-										"No download will be done; you'll be notified of where to get the new version."));
+	qaHelpVersionCheck->setWhatsThis(tr("Connects to the Mumble webpage to check if a new version is available, and notifies "
+										"you with an appropriate download URL if this is the case."));
 }
 
 void MainWindow::setupGui()  {
@@ -171,7 +171,7 @@ void MainWindow::setupGui()  {
 	qteLog = new QTextEdit(this);
 	qteLog->setReadOnly(true);
 	qteLog->setToolTip(tr("Log of messages"));
-	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors, information messasges all show up here.<br />"
+	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors and information messasges all show up here.<br />"
 							"To configure exactly which messages show up here, use the <b>Settings</b> command from the menu."));
 
 	qmServer = new QMenu(tr("&Server"), this);
@@ -365,11 +365,11 @@ void MainWindow::on_AudioMute_triggered()
 	if (! g.s.bMute && g.s.bDeaf) {
 		g.s.bDeaf = false;
 		qaAudioDeaf->setChecked(false);
-		g.l->log(Log::SelfMute, tr("Un-muted and undeafened"));
+		g.l->log(Log::SelfMute, tr("Un-muted and undeafened."));
 	} else if (! g.s.bMute) {
-		g.l->log(Log::SelfMute, tr("Unmuted"));
+		g.l->log(Log::SelfMute, tr("Unmuted."));
 	} else {
-		g.l->log(Log::SelfMute, tr("Muted"));
+		g.l->log(Log::SelfMute, tr("Muted."));
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
@@ -384,11 +384,11 @@ void MainWindow::on_AudioDeaf_triggered()
 	if (g.s.bDeaf && ! g.s.bMute) {
 		g.s.bMute = true;
 		qaAudioMute->setChecked(true);
-		g.l->log(Log::SelfMute, tr("Muted and deafened"));
+		g.l->log(Log::SelfMute, tr("Muted and deafened."));
 	} else if (g.s.bDeaf) {
-		g.l->log(Log::SelfMute, tr("Deafened"));
+		g.l->log(Log::SelfMute, tr("Deafened."));
 	} else {
-		g.l->log(Log::SelfMute, tr("Undeafened"));
+		g.l->log(Log::SelfMute, tr("Undeafened."));
 	}
 
 	MessagePlayerSelfMuteDeaf mpsmd;
@@ -467,7 +467,7 @@ void MainWindow::serverConnected()
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::PlayerJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
-	g.l->log(Log::ServerConnected, tr("Connected to server"));
+	g.l->log(Log::ServerConnected, tr("Connected to server."));
 	qaServerDisconnect->setEnabled(true);
 
 	if (g.s.bMute || g.s.bDeaf) {
@@ -487,7 +487,7 @@ void MainWindow::serverDisconnected(QString reason)
 	pmModel->removeAllPlayers();
 
 	if (! reason.isEmpty()) {
-  	  g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1").arg(reason));
+  	  g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
     } else {
 	  g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 	}
@@ -508,23 +508,23 @@ void MainWindow::customEvent(QEvent *evt) {
 
 void MessageServerJoin::process(Connection *) {
 	Player *p = g.mw->pmModel->addPlayer(sPlayerId, qsPlayerName);
-	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined now: %1").arg(p->qsName));
+	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined now: %1.").arg(p->qsName));
 }
 
 #define MSG_INIT \
 	Player *pSrc=Player::get(sPlayerId); \
 	if (! pSrc) \
-		qFatal("MainWindow: Message for nonexistant player %d", sPlayerId);
+		qFatal("MainWindow: Message for nonexistant player %d.", sPlayerId);
 
 #define VICTIM_INIT \
 	Player *pDst=Player::get(sVictim); \
 	 if (! pDst) \
- 		qFatal("MainWindow: Message for nonexistant victim %d", sVictim);
+ 		qFatal("MainWindow: Message for nonexistant victim %d.", sVictim);
 
 void MessageServerLeave::process(Connection *) {
 	MSG_INIT;
 
-	g.l->log(Log::PlayerLeave, MainWindow::tr("Left now: %1").arg(pSrc->qsName));
+	g.l->log(Log::PlayerLeave, MainWindow::tr("Left now: %1.").arg(pSrc->qsName));
 	g.mw->pmModel->removePlayer(pSrc);
 }
 
@@ -541,9 +541,9 @@ void MessagePlayerSelfMuteDeaf::process(Connection *) {
 		if (bMute && bDeaf)
 			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted and deafened.").arg(name));
 		else if (bMute)
-			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted").arg(name));
+			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted.").arg(name));
 		else
-			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now unmuted").arg(name));
+			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now unmuted.").arg(name));
 	}
 }
 
@@ -557,9 +557,9 @@ void MessagePlayerMute::process(Connection *) {
 	QString admin = pSrc->qsName;
 
 	if (sVictim == g.sId)
-		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1").arg(admin) : MainWindow::tr("You were unmuted by %1").arg(admin));
+		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1.").arg(admin) : MainWindow::tr("You were unmuted by %1.").arg(admin));
 	else
-		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerDeaf::process(Connection *) {
@@ -572,20 +572,20 @@ void MessagePlayerDeaf::process(Connection *) {
 	QString admin = pSrc->qsName;
 
 	if (sVictim == g.sId)
-		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1").arg(admin) : MainWindow::tr("You were undeafened by %1").arg(admin));
+		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
 	else
-		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 defened by %2").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 defened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
 	if (sVictim == g.sId) {
-		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason));
+		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason));
 		g.l->setIgnore(Log::ServerDisconnected, 1);
 	} else {
 		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
+		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
 	}
 }
 
@@ -593,7 +593,7 @@ void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
-	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1").arg(qsReason));
+	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1.").arg(qsReason));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
 

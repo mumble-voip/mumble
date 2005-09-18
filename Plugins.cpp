@@ -97,7 +97,7 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	reloadButton->setObjectName("Reload");
 	reloadButton->setToolTip(tr("Reloads all plugins"));
 	reloadButton->setWhatsThis(tr("This rescans and reloads plugins. Use this if you just added or changed "
-								"a plugin to the plugins directory"));
+								"a plugin to the plugins directory."));
 	QPushButton *aboutButton=new QPushButton("&About");
 	aboutButton->setObjectName("About");
 	aboutButton->setToolTip(tr("Information about plugin"));

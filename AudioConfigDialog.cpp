@@ -126,9 +126,9 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	on_TransmitHold_valueChanged(qsTransmitHold->value());
 
 	qsTransmitHold->setToolTip(tr("How long to keep transmitting after silence"));
-	qsTransmitHold->setWhatsThis(tr("<b>This selects how long after a percieved stop in speech tranmission should continue.</b><br />"
-			"Set this higher if your voice breaks up when you speak (seen by a rapidly strobing voice icon next to your name)<br />"
-			"Only makes sense when used with Voice Activity transmission"));
+	qsTransmitHold->setWhatsThis(tr("<b>This selects how long after a perceived stop in speech transmission should continue.</b><br />"
+			"Set this higher if your voice breaks up when you speak (seen by a rapidly strobing voice icon next to your name).<br />"
+			"Only makes sense when used with Voice Activity transmission."));
 
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qsTransmitHold, 1, 1);

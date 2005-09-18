@@ -79,7 +79,7 @@ static BYTE *peekProcPtr(VOID *base) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Read audio position information from BF2 (v 1.02)", L"Mumble BF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from BF2 (v 1.02)", L"Mumble BF2 Plugin", MB_OK);
 }
 
 static bool sane(float *pos, float *vel, float *face, float *top, bool initial = false) {

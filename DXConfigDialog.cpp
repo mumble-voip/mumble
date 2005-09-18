@@ -121,8 +121,8 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlOutputDelay=new QLabel();
 	qlOutputDelay->setMinimumWidth(30);
 	on_OutputDelay_valueChanged(qsOutputDelay->value());
-	qsOutputDelay->setToolTip(tr("Ammount of data to buffer for DirectSound"));
-	qsOutputDelay->setWhatsThis(tr("This sets the ammount of data to prebuffer in the directsound buffer. "
+	qsOutputDelay->setToolTip(tr("Amount of data to buffer for DirectSound"));
+	qsOutputDelay->setWhatsThis(tr("This sets the amount of data to prebuffer in the directsound buffer. "
 								"Experiment with different values and set it to the lowest which doesn't "
 								"cause rapid jitter in the sound."));
 	grid->addWidget(l, 0, 0);
@@ -147,9 +147,9 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 							"<b>None</b> - Disable 3D Sound (least CPU).<br />"
 							"<b>Panning</b> - Just use stereo panning (some CPU).<br />"
 							"<b>Light/Full HRTF</b> - Head-Related Transfer Functions enabled, with doppler "
-							"effects. This may use a small ammount of CPU.<br />"
+							"effects. This may use a small amount of CPU.<br />"
 							"Note that if you have a soundcard with <i>hardware</i> 3D processing, HRTF "
-							"processing will be done on the soundcard and will use practically no procesing "
+							"processing will be done on the soundcard and will use practically no processing "
 							"power."));
 	l = new QLabel(tr("Method"));
 	l->setBuddy(qcbMethod);
@@ -224,12 +224,12 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlDoppler=new QLabel();
 	qlDoppler->setMinimumWidth(40);
 	on_Doppler_valueChanged(qsDoppler->value());
-	qsDoppler->setToolTip(tr("Ammount of doppler effect"));
-	qsDoppler->setWhatsThis(tr("This tunes the ammount of doppler heard. The default (1.0) equals realworld physics. A higher value "
+	qsDoppler->setToolTip(tr("Amount of doppler effect"));
+	qsDoppler->setWhatsThis(tr("This tunes the amount of doppler heard. The default (1.0) equals realworld physics. A higher value "
 								"will exaggerate the pitch shift when players move towards or away from you.<br />"
 								"<b>WARNING:</b> Some sound cards implement doppler by simply playing the buffer slightly faster or "
 								"slower; this will cause the sound to break up as Mumble's sound buffers aren't static data and "
-								"you'll run out of speech."
+								"you will run out of speech."
 								));
 	grid->addWidget(l, 4, 0);
 	grid->addWidget(qsDoppler, 4, 1);
