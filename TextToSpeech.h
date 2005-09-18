@@ -28,7 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QObject.h>
+#include <QObject>
 
 #ifndef _TEXTTOSPEECH_H
 #define _TEXTTOSPEECH_H
