@@ -55,7 +55,7 @@ class MainWindow : public QMainWindow {
 		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
 		QAction *qaConfigDialog, *qaConfigShortcuts;
-		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutQt, *qaHelpVersionCheck;
+		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
 		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
@@ -87,6 +87,7 @@ class MainWindow : public QMainWindow {
 		void on_ConfigDialog_triggered();
 		void on_HelpWhatsThis_triggered();
 		void on_HelpAbout_triggered();
+		void on_HelpAboutSpeex_triggered();
 		void on_HelpAboutQt_triggered();
 		void on_HelpVersionCheck_triggered();
 		void on_PushToTalk_triggered(bool);

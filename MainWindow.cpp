@@ -141,6 +141,10 @@ void MainWindow::createActions() {
 	qaHelpAbout->setObjectName("HelpAbout");
 	qaHelpAbout->setToolTip(tr("Information about Mumble"));
 	qaHelpAbout->setWhatsThis(tr("Shows a small dialog with information and license for Mumble"));
+	qaHelpAboutSpeex=new QAction(tr("About &Speex"), this);
+	qaHelpAboutSpeex->setObjectName("HelpAboutSpeex");
+	qaHelpAboutSpeex->setToolTip(tr("Information about Speex"));
+	qaHelpAboutSpeex->setWhatsThis(tr("Shows a small dialog with information about Speex"));
 	qaHelpAboutQt=new QAction(tr("&About QT"), this);
 	qaHelpAboutQt->setObjectName("HelpAboutQt");
 	qaHelpAboutQt->setToolTip(tr("Information about Qt"));
@@ -204,6 +208,7 @@ void MainWindow::setupGui()  {
 	qmHelp->addAction(qaHelpWhatsThis);
 	qmHelp->addSeparator();
 	qmHelp->addAction(qaHelpAbout);
+	qmHelp->addAction(qaHelpAboutSpeex);
 	qmHelp->addAction(qaHelpAboutQt);
 	qmHelp->addSeparator();
 	qmHelp->addAction(qaHelpVersionCheck);
@@ -427,6 +432,12 @@ void MainWindow::on_HelpWhatsThis_triggered()
 void MainWindow::on_HelpAbout_triggered()
 {
 	AboutDialog adAbout(this);
+	adAbout.exec();
+}
+
+void MainWindow::on_HelpAboutSpeex_triggered()
+{
+	AboutSpeexDialog adAbout(this);
 	adAbout.exec();
 }
 

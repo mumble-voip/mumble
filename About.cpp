@@ -38,6 +38,7 @@
 #include <QMessageBox>
 #include <QIcon>
 #include <QFileDialog>
+#include <speex/speex.h>
 #include "About.h"
 #include "licenses.h"
 
@@ -75,5 +76,31 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
     vblMain->addWidget(qtwTab);
     vblMain->addWidget(okButton);
 
+    setLayout(vblMain);
+}
+
+AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
+	char *verptr;
+	speex_lib_ctl(SPEEX_LIB_GET_VERSION_STRING, &verptr);
+
+	QLabel *text=new QLabel();
+	text->setText(tr(
+		"<h3>About Speex</h3>"
+		"<p><tt>http://www.speex.org/</tt></p>"
+		"<p>This program uses Speex version %1</p>"
+		"<p>Speex is used for echo cancellation, noise<br />"
+		"filtering, voice activity detection and speech<br />"
+		"compression.</p>"
+	).arg(verptr));
+
+    QPushButton *okButton = new QPushButton(tr("OK"));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+
+    QVBoxLayout *vblMain = new QVBoxLayout();
+	QHBoxLayout *qhbl=new QHBoxLayout();
+	qhbl->addWidget(text);
+
+	vblMain->addLayout(qhbl);
+	vblMain->addWidget(okButton);
     setLayout(vblMain);
 }

@@ -39,6 +39,10 @@ class AboutDialog : public QDialog {
 		AboutDialog(QWidget *parent);
 };
 
-#else
-class AboutDialog;
+class AboutSpeexDialog : public QDialog {
+	Q_OBJECT;
+	public:
+		AboutSpeexDialog(QWidget *parent);
+};
+
 #endif
