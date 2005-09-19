@@ -69,11 +69,16 @@ VersionCheck::VersionCheck(QObject *p) : QObject(p) {
 }
 
 void VersionCheck::on_Agent_requestFinished(int id, bool error) {
+	if (id != iReqId)
+		return;
+
 	QHttpResponseHeader head = qhAgent->lastResponse();
-	if ((head.statusCode() == 200) && (id == iReqId) && !error) {
+	if ((head.statusCode() == 200) && !error) {
 		QByteArray a=qhAgent->readAll();
 		if (a.size() > 0)
 			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), a, QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
-		deleteLater();
+	} else {
+			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Failed to retrieve version information from server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	}
+	deleteLater();
 }
