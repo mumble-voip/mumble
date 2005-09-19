@@ -72,23 +72,29 @@ void Server::udpReady() {
         quint16 senderPort;
 		qusUdp->readDatagram(qba.data(), qba.size(), &senderAddr, &senderPort);
 		Message *msg = Message::networkToMessage(qba);
-		if (! msg || (msg->messageType() != Message::Speex))
+		if (! msg)
 			continue;
+		if (msg->messageType() != Message::Speex) {
+			delete msg;
+			continue;
+		}
 		Peer p(senderAddr, senderPort);
 
 		Connection *source;
 
 		source = qhPeerConnections.value(p);
+
 		if (source != qmConnections.value(msg->sPlayerId)) {
 			source = qmConnections.value(msg->sPlayerId);
-			if (! source)
+			if (! source || ! (source->peerAddress() == senderAddr)) {
+				delete msg;
 				continue;
-			if (! (source->peerAddress() == senderAddr))
-				continue;
+			}
 			qhPeerConnections[p] = source;
 			qhPeers[source] = p;
 		}
-		message(qba);
+		message(qba, source);
+		delete msg;
 	}
 }
 
@@ -159,8 +165,9 @@ void Server::connectionClosed(QString reason) {
 	c->deleteLater();
 }
 
-void Server::message(QByteArray &qbaMsg) {
-	Connection *cCon = static_cast<Connection *>(sender());
+void Server::message(QByteArray &qbaMsg, Connection *cCon) {
+        if (cCon == NULL)
+		cCon = static_cast<Connection *>(sender());
 	Message *mMsg = Message::networkToMessage(qbaMsg);
 
 	  // Just leftovers from the buffer and we just kicked

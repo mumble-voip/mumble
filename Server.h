@@ -31,14 +31,14 @@
 #ifndef _SERVER_H
 #define _SERVER_H
 
-#include "Player.h"
-#include "Connection.h"
 #include <QObject>
 #include <QHash>
 #include <QTcpServer>
 #include <QUdpSocket>
 #include <QQueue>
 #include <QPair>
+#include "Player.h"
+#include "Connection.h"
 
 typedef QPair<QHostAddress, quint16> Peer;
 
@@ -51,7 +51,7 @@ class Server : public QObject {
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
-		void message(QByteArray &);
+		void message(QByteArray &, Connection *cCon = NULL);
 		void udpReady();
 	public:
 		QHash<short, Connection *> qmConnections;
