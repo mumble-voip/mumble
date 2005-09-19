@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
+
+	ti = new TrayIcon(this);
 }
 
 void MainWindow::createActions() {

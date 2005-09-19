@@ -39,6 +39,7 @@
 #include <QSplitter>
 #include <QAbstractItemView>
 #include "Audio.h"
+#include "TrayIcon.h"
 
 class Player;
 class Connection;
@@ -60,6 +61,8 @@ class MainWindow : public QMainWindow {
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos;
+
+		TrayIcon *ti;
 
 		void recheckTTS();
 		void appendLog(QString entry);
