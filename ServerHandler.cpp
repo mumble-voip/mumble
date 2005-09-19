@@ -63,6 +63,8 @@ void ServerHandler::customEvent(QEvent *evt) {
 			if (shme->bUdp) {
 				if (! qusUdp) {
 					qusUdp = new QUdpSocket(this);
+					qusUdp->bind();
+					connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 					qhaRemote = cConnection->peerAddress();
 				}
 				qusUdp->writeDatagram(shme->qbaMsg, qhaRemote, iPort);
@@ -71,6 +73,30 @@ void ServerHandler::customEvent(QEvent *evt) {
 			}
 		} else
 			cConnection->disconnect();
+	}
+}
+
+void ServerHandler::udpReady() {
+	while (qusUdp->hasPendingDatagrams()) {
+		QByteArray qba;
+		qba.resize(qusUdp->pendingDatagramSize());
+		QHostAddress senderAddr;
+		quint16 senderPort;
+		qusUdp->readDatagram(qba.data(), qba.size(), &senderAddr, &senderPort);
+
+		if (!(senderAddr == qhaRemote) || (senderPort != iPort))
+			continue;
+
+		Message *msg = Message::networkToMessage(qba);
+
+		if (! msg)
+			continue;
+		if (msg->messageType() != Message::Speex) {
+			delete msg;
+			continue;
+		}
+        message(qba);
+		delete msg;
 	}
 }
 
@@ -164,6 +190,7 @@ void ServerHandler::serverConnectionConnected() {
 }
 
 void ServerHandler::setConnectionInfo(QString host, int port, bool udp, QString username, QString pw) {
+	qWarning("bUDP set to %d", udp);
 	qsHostName = host;
 	iPort = port;
 	bUdp = udp;

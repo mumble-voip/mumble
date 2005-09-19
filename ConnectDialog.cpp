@@ -154,11 +154,13 @@ void ConnectDialog::accept() {
 	qsUsername = qleUsername->text();
 	qsPassword = qlePassword->text();
 	iPort = qlePort->text().toInt();
+	bUdp = qcbUdp->isChecked();
 
 	g.qs->setValue("ServerAddress", qsServer);
 	g.qs->setValue("ServerUsername", qsUsername);
 	g.qs->setValue("ServerPassword", qsPassword);
 	g.qs->setValue("ServerPort", iPort);
+	g.qs->setValue("ServerUDP", bUdp);
 
 	QDialog::accept();
 }

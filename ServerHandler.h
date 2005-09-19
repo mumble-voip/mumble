@@ -78,6 +78,7 @@ class ServerHandler : public QThread
 		void message(QByteArray &);
 		void serverConnectionConnected();
 		void serverConnectionClosed(QString);
+		void udpReady();
 };
 
 #else
