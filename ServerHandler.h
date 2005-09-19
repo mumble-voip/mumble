@@ -34,7 +34,9 @@
 #include <QObject>
 #include <QThread>
 #include <QTcpSocket>
+#include <QUdpSocket>
 #include <QEvent>
+#include <QHostAddress>
 #include "Connection.h"
 #include "Message.h"
 
@@ -44,7 +46,8 @@ class ServerHandlerMessageEvent : public QEvent
 {
 	public:
 		QByteArray qbaMsg;
-		ServerHandlerMessageEvent(QByteArray &msg);
+		bool bUdp;
+		ServerHandlerMessageEvent(QByteArray &msg, bool udp);
 };
 
 class ServerHandler : public QThread
@@ -55,11 +58,15 @@ class ServerHandler : public QThread
 		QString qsUserName;
 		QString qsPassword;
 		int iPort;
+		bool bUdp;
 		Connection *cConnection;
+
+		QHostAddress qhaRemote;
+		QUdpSocket *qusUdp;
 	public:
 		ServerHandler();
 		~ServerHandler();
-		void setConnectionInfo(QString host, int port, QString username, QString pw);
+		void setConnectionInfo(QString host, int port, bool udp, QString username, QString pw);
 		void customEvent(QEvent *evt);
 		void sendMessage(Message *m);
 		void disconnect();

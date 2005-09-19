@@ -28,20 +28,23 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
+#include <QApplication>
+#include <QHostAddress>
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "AudioOutput.h"
 #include "Global.h"
 
-#include <QApplication>
-
-ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
+ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool udp) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
+	bUdp = udp;
 }
 
 ServerHandler::ServerHandler()
 {
 	cConnection = NULL;
+	qusUdp = NULL;
 }
 
 ServerHandler::~ServerHandler()
@@ -56,9 +59,17 @@ void ServerHandler::customEvent(QEvent *evt) {
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
 	if (cConnection) {
-		if (shme->qbaMsg.size() > 0)
-			cConnection->sendMessage(shme->qbaMsg);
-		else
+		if (shme->qbaMsg.size() > 0) {
+			if (shme->bUdp) {
+				if (! qusUdp) {
+					qusUdp = new QUdpSocket(this);
+					qhaRemote = cConnection->peerAddress();
+				}
+				qusUdp->writeDatagram(shme->qbaMsg, qhaRemote, iPort);
+			} else {
+				cConnection->sendMessage(shme->qbaMsg);
+			}
+		} else
 			cConnection->disconnect();
 	}
 }
@@ -66,8 +77,9 @@ void ServerHandler::customEvent(QEvent *evt) {
 void ServerHandler::sendMessage(Message *mMsg)
 {
 	QByteArray qbaBuffer;
+	mMsg->sPlayerId = g.sId;
 	mMsg->messageToNetwork(qbaBuffer);
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer);
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, bUdp && g.sId && (mMsg->messageType() == Message::Speex));
 	QApplication::postEvent(this, shme);
 }
 
@@ -75,6 +87,7 @@ void ServerHandler::run()
 {
 	QTcpSocket *qtsSock = new QTcpSocket(this);
 	cConnection = new Connection(this, qtsSock);
+	qusUdp = NULL;
 
 	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
@@ -83,6 +96,11 @@ void ServerHandler::run()
 	exec();
 	cConnection->disconnect();
 	delete cConnection;
+	cConnection = NULL;
+	if (qusUdp) {
+		delete qusUdp;
+		qusUdp = NULL;
+	}
 }
 
 void ServerHandler::message(QByteArray &qbaMsg) {
@@ -112,7 +130,7 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 			if (g.ao)
 				g.ao->removeBuffer(p);
 		}
-		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg);
+		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, false);
 		QApplication::postEvent(g.mw, shme);
 	}
 
@@ -122,7 +140,7 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 void ServerHandler::disconnect() {
 	// Actual TCP object is in a different thread, so signal it
 	QByteArray qbaBuffer;
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer);
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, false);
 	QApplication::postEvent(this, shme);
 }
 
@@ -134,7 +152,6 @@ void ServerHandler::serverConnectionClosed(QString reason) {
 	}
 
 	emit disconnected(reason);
-
 	exit(0);
 }
 
@@ -146,9 +163,10 @@ void ServerHandler::serverConnectionConnected() {
 	emit connected();
 }
 
-void ServerHandler::setConnectionInfo(QString host, int port, QString username, QString pw) {
+void ServerHandler::setConnectionInfo(QString host, int port, bool udp, QString username, QString pw) {
 	qsHostName = host;
 	iPort = port;
+	bUdp = udp;
 	qsUserName = username;
 	qsPassword = pw;
 }

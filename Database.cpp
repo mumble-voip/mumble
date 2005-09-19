@@ -35,6 +35,7 @@
 #include <QSettings>
 #include <QFile>
 #include <QDir>
+#include <QSqlQuery>
 
 #include "Database.h"
 #include "Global.h"
@@ -75,4 +76,9 @@ Database::Database() {
 		QMessageBox::critical(NULL, tr("Mumble"), tr("Mumble failed to initialize a database in any\nof the possible locations."), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
 		qFatal("Database: Failed initialization");
 	}
+
+	QSqlQuery query;
+	// query.exec("DROP TABLE servers");
+	query.exec("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)");
+	query.exec("ALTER TABLE servers ADD COLUMN udp INTEGER DEFAULT 1");
 }

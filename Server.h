@@ -36,26 +36,34 @@
 #include <QObject>
 #include <QHash>
 #include <QTcpServer>
+#include <QUdpSocket>
 #include <QQueue>
+#include <QPair>
+
+typedef QPair<QHostAddress, quint16> Peer;
 
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
 		QQueue<int> qqIds;
 		QTcpServer *qtsServer;
+		QUdpSocket *qusUdp;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
 		void message(QByteArray &);
+		void udpReady();
 	public:
 		QHash<short, Connection *> qmConnections;
 		QHash<Connection *, Player *> qmPlayers;
+		QHash<Connection *, Peer> qhPeers;
+		QHash<Peer, Connection *> qhPeerConnections;
 
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
+		void sendMessage(Connection *, Message *);
 
 		void log(QString s, Connection *c = NULL);
-
 		Server();
 };
 

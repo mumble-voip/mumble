@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QHostAddress>
 #include "Connection.h"
 
 Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
@@ -109,4 +110,13 @@ void Connection::sendMessage(QByteArray &qbaMsg) {
 
 void Connection::disconnect() {
 	qtsSocket->disconnectFromHost();
+}
+
+
+QHostAddress Connection::peerAddress() const {
+	return qtsSocket->peerAddress();
+}
+
+quint16 Connection::peerPort() const {
+	return qtsSocket->peerPort();
 }

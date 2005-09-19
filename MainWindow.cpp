@@ -287,7 +287,7 @@ void MainWindow::on_ServerConnect_triggered()
 	if (res == QDialog::Accepted) {
 		qaServerConnect->setEnabled(false);
 		qaServerDisconnect->setEnabled(true);
-		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
+		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->bUdp, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
 	}
 	delete cd;

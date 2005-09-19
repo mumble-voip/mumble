@@ -28,8 +28,8 @@ unix {
   INCLUDEPATH	+= ..
 }
 
-
 CONFIG(asio) {
+	CONFIG	+= console
 	INCLUDEPATH += asio/common asio/host asio/host/pc
 	HEADERS += ASIOInput.h
 	SOURCES	+= ASIOInput.cpp

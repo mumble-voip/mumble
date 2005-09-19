@@ -238,7 +238,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 							"push the buffer to the minimum sustainable by your network, so latency can "
 							"be as low as possible. This sets the default buffer size to use on the first "
 							"packet to arrive from a new speaker, or when a speaker using Voice Activity or "
-							"Push-To-Talk just started talking again. If the start of sentances you hear is "
+							"Push-To-Talk just started talking again. If the start of sentences you hear is "
 							"very jittery, increase this value."));
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qsJitter, 0, 1);

@@ -127,7 +127,7 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 
 	qcbDevice->setToolTip(tr("Device to use for microphone"));
 	qcbDevice->setWhatsThis(tr("This chooses what device to query. You still need to actually query the device and "
-							"select which channels to use"));
+							"select which channels to use."));
 	l = new QLabel(tr("Device"));
 
 	QPushButton *queryButton=new QPushButton("&Query");
@@ -257,26 +257,38 @@ void ASIOConfig::on_Query_clicked() {
 
 	clearQuery();
 
+	qWarning("Want to query device %s", qsCls.toLatin1().constData());
+
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iorigasio)) == S_OK) {
+		qWarning("Instanciate OK!");
 		IASIOThiscallResolver iasio(iorigasio);
-		if (iasio.init(NULL)) {
-			char buff[255];
-			memset(buff, 0, 255);
+		qWarning("Resolve OK!");
+		if (iasio.init(winId())) {
+			qWarning("INIT ok!");
+			char buff[512];
+			memset(buff, 0, 512);
+
+			qWarning("GetDriverName");
 			iasio.getDriverName(buff);
+			qWarning("GetDriverVer");
 			long ver = iasio.getDriverVersion();
 
 			long ilat, olat;
 			ilat = olat = 0;
+			qWarning("GetLatencies");
 			iasio.getLatencies(&ilat, &olat);
 
+			qWarning("GetSampRate");
 			ASIOSampleRate srate;
 			iasio.getSampleRate(&srate);
 			if (fabs(srate-48000.0) > 1.0) {
+				qWarning("ReGetSetSampRate");
 				iasio.setSampleRate(48000.0);
 				iasio.getSampleRate(&srate);
 			}
 
+			qWarning("GetBufferSize");
 			long minSize, maxSize, prefSize, granSize;
 			iasio.getBufferSize(&minSize, &maxSize, &prefSize, &granSize);
 
@@ -323,6 +335,7 @@ void ASIOConfig::on_Query_clicked() {
 			qlBuffers->setText(s);
 
 			if (bOk) {
+				qWarning("GetChannels");
 				long ichannels, ochannels;
 				iasio.getChannels(&ichannels, &ochannels);
 				long cnum;
@@ -332,6 +345,7 @@ void ASIOConfig::on_Query_clicked() {
 					ASIOChannelInfo aciInfo;
 					aciInfo.channel = cnum;
 					aciInfo.isInput = true;
+					qWarning("GetChannelInfo");
 					iasio.getChannelInfo(&aciInfo);
 					if (aciInfo.type == ASIOSTInt16LSB) {
 						QListWidget *widget = qlwUnused;
@@ -353,7 +367,9 @@ void ASIOConfig::on_Query_clicked() {
 			iasio.getErrorMessage(err);
 			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(err), QMessageBox::Ok, QMessageBox::NoButton);
 		}
+		qWarning("Release");
 		iasio.Release();
+		qWarning("If you can read this -- I'm gone");
 	} else {
 		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instanciate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
 	}

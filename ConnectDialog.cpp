@@ -45,7 +45,6 @@
 #include "Global.h"
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
-	QSqlQuery query;
 	QGridLayout *l=new QGridLayout;
     QVBoxLayout *vbl = new QVBoxLayout;
 	QHBoxLayout *vbh = new QHBoxLayout();
@@ -61,17 +60,12 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qstmServers->setTable("servers");
 	qstmServers->setSort(1, Qt::AscendingOrder);
 	if (! qstmServers->select()) {
-		query.exec("DROP TABLE servers");
-		if (! query.exec("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"))
-			qWarning("ConnectDialog: Failed to create table");
-		qstmServers->setTable("servers");
-		if (! qstmServers->select())
-			qWarning("ConnectDialog: Failed to reselect table");
+		qWarning("ConnectDialog: Failed to reselect table");
 	}
 	qstmServers->setEditStrategy(QSqlTableModel::OnManualSubmit);
 
 	qlwServers=new QListView();
-	l->addWidget(qlwServers,0,0,4,1);
+	l->addWidget(qlwServers,0,0,6,1);
 	qlwServers->setModel(qstmServers);
 	qlwServers->setModelColumn(1);
 	qlwServers->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -117,6 +111,14 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	l->addWidget(lab, 4, 1);
 	l->addWidget(qlePassword, 4,2);
 
+	qcbUdp=new QCheckBox("Use &UDP");
+	qcbUdp->setChecked(g.qs->value("ServerUDP", true).toBool());
+	lab=new QLabel("Voice Transmit");
+	lab->setBuddy(qcbUdp);
+
+	l->addWidget(lab, 5, 1);
+	l->addWidget(qcbUdp, 5,2);
+
     QPushButton *okButton = new QPushButton("&Connect");
     okButton->setDefault(true);
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
@@ -140,6 +142,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qleUsername, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePassword, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePort, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
+	connect(qcbUdp, SIGNAL(stateChanged(int)), this, SLOT(onDirty()));
 
 	connect(qlwServers, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
 
@@ -168,6 +171,7 @@ QSqlRecord ConnectDialog::toRecord() const
 	r.setValue("username", qleUsername->text());
 	r.setValue("password", qlePassword->text());
 	r.setValue("port", qlePort->text().toInt());
+	r.setValue("udp", qcbUdp->isChecked());
 	return r;
 }
 
@@ -186,6 +190,7 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	qleUsername->setText(r.value("username").toString());
 	qlePassword->setText(r.value("password").toString());
 	qlePort->setText(r.value("port").toString());
+	qcbUdp->setChecked(r.value("udp").toBool());
 	bDirty = false;
 }
 
@@ -199,10 +204,8 @@ void ConnectDialog::on_Add_clicked()
 
 void ConnectDialog::on_Remove_clicked()
 {
-	int row=qlwServers->currentIndex().row();
 	qstmServers->removeRows(qlwServers->currentIndex().row(), 1, QModelIndex());
 	qstmServers->submitAll();
-	qWarning("Dumped %d", row);
 }
 
 void ConnectDialog::onDirty(const QString &) {

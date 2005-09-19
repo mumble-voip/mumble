@@ -34,6 +34,10 @@
 Server *g_sServer;
 ServerParams g_sp;
 
+uint qHash(const Peer &p) {
+	return qHash(p.first.toIPv4Address()) ^ qHash(p.second);
+}
+
 ServerParams::ServerParams() {
 	qsPassword = QString();
 	bTestloop = false;
@@ -48,10 +52,44 @@ Server::Server() {
 	if (! qtsServer->listen(QHostAddress::Any, g_sp.iPort))
 		qFatal("Server: Listen failed");
 
+	qusUdp = new QUdpSocket(this);
+	if (! qusUdp->bind(g_sp.iPort))
+		qFatal("Server: UDP Bind failed");
+
+	connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
+
 	log(QString("Server listening on port %1").arg(g_sp.iPort));
 
 	for(int i=1;i<255;i++)
 		qqIds.enqueue(i);
+}
+
+void Server::udpReady() {
+	while (qusUdp->hasPendingDatagrams()) {
+		QByteArray qba;
+		qba.resize(qusUdp->pendingDatagramSize());
+	    QHostAddress senderAddr;
+        quint16 senderPort;
+		qusUdp->readDatagram(qba.data(), qba.size(), &senderAddr, &senderPort);
+		Message *msg = Message::networkToMessage(qba);
+		if (! msg || (msg->messageType() != Message::Speex))
+			continue;
+		Peer p(senderAddr, senderPort);
+
+		Connection *source;
+
+		source = qhPeerConnections.value(p);
+		if (source != qmConnections.value(msg->sPlayerId)) {
+			source = qmConnections.value(msg->sPlayerId);
+			if (! source)
+				continue;
+			if (! (source->peerAddress() == senderAddr))
+				continue;
+			qhPeerConnections[p] = source;
+			qhPeers[source] = p;
+		}
+		message(qba);
+	}
 }
 
 void Server::log(QString s, Connection *c) {
@@ -114,6 +152,9 @@ void Server::connectionClosed(QString reason) {
 
 	qqIds.enqueue(pPlayer->sId);
 
+	Peer udppeer = qhPeers.take(c);
+	qhPeerConnections.remove(udppeer);
+
 	delete pPlayer;
 	c->deleteLater();
 }
@@ -129,9 +170,21 @@ void Server::message(QByteArray &qbaMsg) {
 
 	  if (mMsg) {
 		mMsg->process(cCon);
+		delete mMsg;
 	  } else {
 		cCon->disconnect();
 	  }
+}
+
+void Server::sendMessage(Connection *c, Message *mMsg) {
+	if ((mMsg->messageType() == Message::Speex) && qhPeers.contains(c)) {
+		Peer p = qhPeers[c];
+		QByteArray qba;
+		mMsg->messageToNetwork(qba);
+		qusUdp->writeDatagram(qba, p.first, p.second);
+	} else {
+		c->sendMessage(mMsg);
+	}
 }
 
 void Server::sendAll(Message *mMsg) {
@@ -142,7 +195,7 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 	QHash<Connection *, Player *>::const_iterator i;
 	for(i=qmPlayers.constBegin(); i != qmPlayers.constEnd(); ++i) {
 		if (i.key() != cCon)
-			i.key()->sendMessage(mMsg);
+			sendMessage(i.key(), mMsg);
 	}
 }
 
@@ -185,7 +238,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 	if (! ok) {
 	  g_sServer->log(QString("Rejected connection: %1").arg(msr.qsReason), cCon);
-	  cCon->sendMessage(&msr);
+	  g_sServer->sendMessage(cCon, &msr);
 	  cCon->disconnect();
 	  return;
 	}
@@ -200,30 +253,30 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	foreach(Player *pPlayer, g_sServer->qmPlayers) {
 		msjMsg.sPlayerId = pPlayer->sId;
 		msjMsg.qsPlayerName = pPlayer->qsName;
-		cCon->sendMessage(&msjMsg);
+		g_sServer->sendMessage(cCon, &msjMsg);
 
 		if (pPlayer->bDeaf) {
 			MessagePlayerDeaf mpdMsg;
 			mpdMsg.sPlayerId = pPlayer->sId;
 			mpdMsg.bDeaf = pPlayer->bDeaf;
-			cCon->sendMessage(&mpdMsg);
+			g_sServer->sendMessage(cCon, &mpdMsg);
 		} else if (pPlayer->bMute) {
 			MessagePlayerMute mpmMsg;
 			mpmMsg.sPlayerId = pPlayer->sId;
 			mpmMsg.bMute = pPlayer->bMute;
-			cCon->sendMessage(&mpmMsg);
+			g_sServer->sendMessage(cCon, &mpmMsg);
 		}
 		if (pPlayer->bSelfDeaf || pPlayer->bSelfMute) {
 			MessagePlayerSelfMuteDeaf mpsmdMsg;
 			mpsmdMsg.sPlayerId = pPlayer->sId;
 			mpsmdMsg.bDeaf = pPlayer->bSelfDeaf;
 			mpsmdMsg.bMute = pPlayer->bSelfMute;
-			cCon->sendMessage(&mpsmdMsg);
+			g_sServer->sendMessage(cCon, &mpsmdMsg);
 		}
 	}
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;
-	cCon->sendMessage(&mssMsg);
+	g_sServer->sendMessage(cCon, &mssMsg);
 	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
 }
 
@@ -253,7 +306,7 @@ void MessageSpeex::process(Connection *cCon) {
 	for (i=g_sServer->qmPlayers.constBegin(); i != g_sServer->qmPlayers.constEnd(); ++i) {
 		Player *pPlayer = i.value();
 		if (! pPlayer->bDeaf && ! pPlayer->bSelfDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
-			i.key()->sendMessage(this);
+			g_sServer->sendMessage(i.key(), this);
 	}
 }
 

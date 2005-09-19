@@ -147,7 +147,6 @@ void MessageServerReject::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> qsReason;
 }
 
-
 MessageServerJoin::MessageServerJoin() {
 	qsPlayerName = QString();
 }

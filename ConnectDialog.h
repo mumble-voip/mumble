@@ -36,6 +36,7 @@
 #include <QListView>
 #include <QSqlTableModel>
 #include <QAbstractItemView>
+#include <QCheckBox>
 
 class ConnectDialog : public QDialog {
 	Q_OBJECT;
@@ -43,6 +44,7 @@ class ConnectDialog : public QDialog {
 		QSqlTableModel *qstmServers;
 		QListView *qlwServers;
 		QLineEdit *qleName, *qleServer, *qlePort, *qleUsername, *qlePassword;
+		QCheckBox *qcbUdp;
 		QModelIndex qmiDirty;
 		QSqlRecord toRecord() const;
 		bool bDirty;
@@ -51,10 +53,11 @@ class ConnectDialog : public QDialog {
 		void on_Add_clicked();
 		void on_Remove_clicked();
 		void onSelection_Changed(const QModelIndex &n, const QModelIndex &p);
-		void onDirty(const QString &);
+		void onDirty(const QString &qs = QString());
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		int iPort;
+		bool bUdp;
 		ConnectDialog(QWidget *parent);
 };
 
