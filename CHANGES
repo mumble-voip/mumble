@@ -1,3 +1,24 @@
+	* Provide feedback if an error occured.
+	* Minimize to tray.
+	* Start of unix compiles for mumble
+	* Spelling fixes
+	* Typo in MainWindow fixed.  Made the BF2 plugin slightly more
+	  picky about what values it accepts.
+	* When sampling speakers, encode the cleaned output, not the
+	  original.  Add clean signal power to the audio stats.
+	* About Speex dialog, still waiting for the icon.
+	* Echo Canceller for inputs that can sample the speakers.
+	* ASIO Audio Input
+	* Single-threaded directsound output
+	* Change version to 0.3.1
+	* Don't send implied messages anymore, the client already knows
+	* Send the player object to AudioOutputPlayer, not just the sId.
+	* Fix the versionchecker so it doesn't delete itself before showing
+	  the message.
+	* Fixups for release script
+
+2005-09-16  tag rel_0_3_0
+
 	* Failing to open DirectSound shouldn't be fatal, just a messagebox
 	  error Add Apply button to the config screen
 	* Fix a few missing Q_OBJECT
