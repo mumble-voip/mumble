@@ -228,12 +228,9 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	MessageServerReject msr;
 	bool ok = false;
 
-	bool nameok = ! qsUsername.isEmpty();
-	for(int i=0;i<qsUsername.length();i++) {
-		QChar c=qsUsername[i];
-		if (! c.isLetterOrNumber() && (c != ' '))
-			nameok = false;
-	}
+	QRegExp re("[\\w\\[\\]\\{\\}\\(\\)\\@\\|]+");
+
+	bool nameok = re.exactMatch(qsUsername);
 	if (qsUsername[0] == '@')
 		nameok = false;
 	if (qsUsername[0] == '#')
