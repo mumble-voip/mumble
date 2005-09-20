@@ -128,6 +128,9 @@ if ($auth) {
     $smtp->datasend("\n\n");
     $smtp->datasend("If you have no idea what this is about, just disregard this message.");
     $smtp->dataend();
+    
+    print '<h1>Registration complete</h1><p>Thank you for registering. An email has been sent to you with ';
+    print 'an activation code.</p>';
   } else {
     print '<ul>';
     foreach my $error (@errors) {
