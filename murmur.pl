@@ -70,6 +70,9 @@ if ($auth) {
      print "<h1>Tsk tsk</h1><p>Now, that's not a valid auth code, is it?</p>";
    }
    $sth->finish();
+   $sth = $dbh->prepare("DELETE FROM player_auth WHERE authcode = ?");
+   $sth->execute($q->param('auth'));
+   $sth->finish();
    $showit = 0;
 } elsif (defined($name) && defined($pw) && defined($email)) {
   my @errors;
