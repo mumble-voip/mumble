@@ -29,6 +29,7 @@
 */
 
 #include <QDateTime>
+#include <QRegExp>
 #include "Server.h"
 #include "ServerDB.h"
 
@@ -231,9 +232,9 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	QRegExp re("[\\w\\[\\]\\{\\}\\(\\)\\@\\|]+");
 
 	bool nameok = re.exactMatch(qsUsername);
-	if (qsUsername[0] == '@')
+	if (nameok && qsUsername[0] == '@')
 		nameok = false;
-	if (qsUsername[0] == '#')
+	if (nameok && qsUsername[0] == '#')
 		nameok = false;
 
 	// Fetch ID and stored username
