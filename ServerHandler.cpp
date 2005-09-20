@@ -190,7 +190,6 @@ void ServerHandler::serverConnectionConnected() {
 }
 
 void ServerHandler::setConnectionInfo(QString host, int port, bool udp, QString username, QString pw) {
-	qWarning("bUDP set to %d", udp);
 	qsHostName = host;
 	iPort = port;
 	bUdp = udp;
