@@ -239,8 +239,10 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	if (qsUsername[0] == '#')
 		nameok = false;
 
+	// Fetch ID and stored username
 	int id = ServerDB::authenticate(qsUsername, qsPassword);
 	pSrcPlayer->iId = id;
+	pSrcPlayer->qsName = qsUsername;
 
 	if (iVersion != MESSAGE_STREAM_VERSION) {
 	  msr.qsReason = "Wrong version of mumble protocol";

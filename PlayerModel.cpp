@@ -127,6 +127,7 @@ QVariant PlayerModel::otherRoles(int section, int role) const
 						);
 				case 1:
 					return tr("This shows the flags the player has on the server, if any:<br />"
+								"<img src=\":/icons/authenticated.png\" />Authenticated user<br />"
 								"<img src=\":/icons/muted_self.png\" />Muted (by self)<br />"
 								"<img src=\":/icons/muted_server.png\" />Muted (by admin)<br />"
 								"<img src=\":/icons/deafened_self.png\" />Deafened (by self)<br />"
