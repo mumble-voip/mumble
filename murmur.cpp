@@ -30,6 +30,7 @@
 
 #include <QCoreApplication>
 #include "Server.h"
+#include "ServerDB.h"
 
 extern Server *g_sServer;
 
@@ -66,6 +67,8 @@ int main(int argc, char **argv)
 			qWarning("Unknown argument %s", argv[i]);
 		}
 	}
+
+	ServerDB db;
 
 	g_sServer = new Server();
 	res=a.exec();

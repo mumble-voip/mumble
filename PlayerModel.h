@@ -52,6 +52,7 @@ protected:
 	QIcon qiTalkingOn, qiTalkingOff;
 	QIcon qiMutedSelf, qiMutedServer;
 	QIcon qiDeafenedSelf, qiDeafenedServer;
+	QIcon qiAuthenticated;
 public:
 	PlayerModel(QObject *parent = 0);
 	~PlayerModel();

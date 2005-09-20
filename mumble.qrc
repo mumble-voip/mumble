@@ -9,6 +9,7 @@
  <file>icons/deafened_self.png</file>
  <file>icons/muted_server.png</file>
  <file>icons/deafened_server.png</file>
+ <file>icons/authenticated.png</file>
  <file>icons/config_basic.png</file>
  <file>icons/config_dsound.png</file>
  <file>icons/config_msgs.png</file>

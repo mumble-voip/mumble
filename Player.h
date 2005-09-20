@@ -42,6 +42,7 @@ class Player : public QObject {
   		enum State { Connected, Authenticated };
   		State sState;
 		short sId;
+		int iId;
 		QString qsName;
 		bool bMute, bDeaf;
 		bool bSelfMute, bSelfDeaf;

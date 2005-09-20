@@ -40,6 +40,7 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiMutedServer=QIcon(":/icons/muted_server.png");
 	qiDeafenedSelf=QIcon(":/icons/deafened_self.png");
 	qiDeafenedServer=QIcon(":/icons/deafened_server.png");
+	qiAuthenticated=QIcon(":/icons/authenticated.png");
 }
 
 PlayerModel::~PlayerModel() {
@@ -82,6 +83,8 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 			return p->qsName;
 		case 1:
 			QList<QVariant> l;
+			if (p->iId >= 0)
+				l << qiAuthenticated;
 			if (p->bMute)
 				l << qiMutedServer;
 			if (p->bDeaf)

@@ -30,6 +30,7 @@
 
 #include <QDateTime>
 #include "Server.h"
+#include "ServerDB.h"
 
 Server *g_sServer;
 ServerParams g_sp;
@@ -230,15 +231,22 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	for(int i=0;i<qsUsername.length();i++) {
 		QChar c=qsUsername[i];
 		if (! c.isLetterOrNumber() && (c != ' '))
-			ok = false;
+			nameok = false;
 	}
+	if (qsUsername[0] == '@')
+		nameok = false;
+	if (qsUsername[0] == '#')
+		nameok = false;
+
+	int id = ServerDB::authenticate(qsUsername, qsPassword);
+	pSrcPlayer->iId = id;
 
 	if (iVersion != MESSAGE_STREAM_VERSION) {
 	  msr.qsReason = "Wrong version of mumble protocol";
-	} else if (! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != qsPassword) {
-	  msr.qsReason = "Invalid Password";
 	} else if (! nameok) {
 	  msr.qsReason = "Invalid Username";
+	} else if ((id==-1) || (id==-2 && ! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != qsPassword)) {
+	  msr.qsReason = "Invalid Password";
 	} else {
 	  ok = true;
 	}
@@ -254,11 +262,13 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 	pSrcPlayer->sState = Player::Authenticated;
 	msjMsg.sPlayerId = pSrcPlayer->sId;
+	msjMsg.iId = pSrcPlayer->iId;
 	msjMsg.qsPlayerName = pSrcPlayer->qsName;
 	g_sServer->sendExcept(&msjMsg, cCon);
 
 	foreach(Player *pPlayer, g_sServer->qmPlayers) {
 		msjMsg.sPlayerId = pPlayer->sId;
+		msjMsg.iId = pPlayer->iId;
 		msjMsg.qsPlayerName = pPlayer->qsName;
 		g_sServer->sendMessage(cCon, &msjMsg);
 

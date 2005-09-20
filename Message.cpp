@@ -149,14 +149,17 @@ void MessageServerReject::restoreStream(QDataStream &qdsIn) {
 
 MessageServerJoin::MessageServerJoin() {
 	qsPlayerName = QString();
+	iId = -2;
 }
 
 void MessageServerJoin::saveStream(QDataStream &qdsOut) const {
 	qdsOut << qsPlayerName;
+	qdsOut << iId;
 }
 
 void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> qsPlayerName;
+	qdsIn >> iId;
 }
 
 MessageSpeex::MessageSpeex() {
@@ -179,7 +182,6 @@ void MessageSpeex::restoreStream(QDataStream &qdsIn) {
 bool MessageSpeex::isValid() const {
 	return ! qbaSpeexPacket.isEmpty();
 }
-
 
 MessagePlayerMute::MessagePlayerMute() {
 	bMute = false;

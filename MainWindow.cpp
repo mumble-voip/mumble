@@ -510,6 +510,7 @@ void MainWindow::customEvent(QEvent *evt) {
 
 void MessageServerJoin::process(Connection *) {
 	Player *p = g.mw->pmModel->addPlayer(sPlayerId, qsPlayerName);
+	p->iId = iId;
 	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined now: %1.").arg(p->qsName));
 }
 

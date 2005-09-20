@@ -257,40 +257,34 @@ void ASIOConfig::on_Query_clicked() {
 
 	clearQuery();
 
-	qWarning("Want to query device %s", qsCls.toLatin1().constData());
-
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iorigasio)) == S_OK) {
-		qWarning("Instanciate OK!");
+		SleepEx(10, false);
 		IASIOThiscallResolver iasio(iorigasio);
-		qWarning("Resolve OK!");
 		if (iasio.init(winId())) {
-			qWarning("INIT ok!");
+			SleepEx(10, false);
 			char buff[512];
 			memset(buff, 0, 512);
 
-			qWarning("GetDriverName");
 			iasio.getDriverName(buff);
-			qWarning("GetDriverVer");
+			SleepEx(10, false);
+
 			long ver = iasio.getDriverVersion();
+			SleepEx(10, false);
 
-			long ilat, olat;
-			ilat = olat = 0;
-			qWarning("GetLatencies");
-			iasio.getLatencies(&ilat, &olat);
-
-			qWarning("GetSampRate");
 			ASIOSampleRate srate;
 			iasio.getSampleRate(&srate);
+			SleepEx(10, false);
 			if (fabs(srate-48000.0) > 1.0) {
-				qWarning("ReGetSetSampRate");
 				iasio.setSampleRate(48000.0);
+				SleepEx(10, false);
 				iasio.getSampleRate(&srate);
+				SleepEx(10, false);
 			}
 
-			qWarning("GetBufferSize");
 			long minSize, maxSize, prefSize, granSize;
 			iasio.getBufferSize(&minSize, &maxSize, &prefSize, &granSize);
+			SleepEx(10, false);
 
 			// We need sample sizes in ms for 2 bytes at 48khz
 
@@ -335,9 +329,9 @@ void ASIOConfig::on_Query_clicked() {
 			qlBuffers->setText(s);
 
 			if (bOk) {
-				qWarning("GetChannels");
 				long ichannels, ochannels;
 				iasio.getChannels(&ichannels, &ochannels);
+				SleepEx(10, false);
 				long cnum;
 
 				bool match = (g.s.qsASIOclass == qsCls);
@@ -345,8 +339,8 @@ void ASIOConfig::on_Query_clicked() {
 					ASIOChannelInfo aciInfo;
 					aciInfo.channel = cnum;
 					aciInfo.isInput = true;
-					qWarning("GetChannelInfo");
 					iasio.getChannelInfo(&aciInfo);
+					SleepEx(10, false);
 					if (aciInfo.type == ASIOSTInt16LSB) {
 						QListWidget *widget = qlwUnused;
 						QVariant v = static_cast<int>(cnum);
@@ -363,13 +357,13 @@ void ASIOConfig::on_Query_clicked() {
 			ok = true;
 		}
 		if (! ok) {
+			SleepEx(10, false);
 			char err[255];
 			iasio.getErrorMessage(err);
+			SleepEx(10, false);
 			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(err), QMessageBox::Ok, QMessageBox::NoButton);
 		}
-		qWarning("Release");
 		iasio.Release();
-		qWarning("If you can read this -- I'm gone");
 	} else {
 		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instanciate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
 	}
@@ -384,12 +378,17 @@ void ASIOConfig::on_Config_clicked() {
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iorigasio)) == S_OK) {
+		SleepEx(10, false);
 		IASIOThiscallResolver iasio(iorigasio);
 		if (iasio.init(winId())) {
+			SleepEx(10, false);
 			ok = (iasio.controlPanel() == ASE_OK);
+			SleepEx(10, false);
 		} else {
+			SleepEx(10, false);
 			char err[255];
 			iasio.getErrorMessage(err);
+			SleepEx(10, false);
 			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(err), QMessageBox::Ok, QMessageBox::NoButton);
 		}
 		iasio.Release();

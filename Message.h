@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 2
+#define MESSAGE_STREAM_VERSION 3
 
 #include <QDataStream>
 #include <QByteArray>
@@ -106,6 +106,7 @@ class MessageServerJoin : public Message {
 		void restoreStream(QDataStream &);
 	public:
 		QString qsPlayerName;
+		int iId;
 		MessageServerJoin();
 		Message::MessageType messageType() const { return ServerJoin; };
 		void process(Connection *);
