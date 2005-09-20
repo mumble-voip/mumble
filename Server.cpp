@@ -333,6 +333,9 @@ void MessagePlayerMute::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
+	if (pSrcPlayer->iId < 0)
+		return;
+
 	if (pDstPlayer) {
 		if (pDstPlayer->bMute == bMute)
 			return;
@@ -350,6 +353,9 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
+	if (pSrcPlayer->iId < 0)
+		return;
+
 	if (pDstPlayer) {
 		if (pDstPlayer->bDeaf == bDeaf)
 			return;
@@ -366,6 +372,9 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 void MessagePlayerKick::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
+
+	if (pSrcPlayer->iId < 0)
+		return;
 
 	sPlayerId = pSrcPlayer->sId;
 	if (cDst) {
