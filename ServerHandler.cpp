@@ -62,6 +62,8 @@ void ServerHandler::customEvent(QEvent *evt) {
 		if (shme->qbaMsg.size() > 0) {
 			if (shme->bUdp) {
 				if (! qusUdp) {
+					if (cConnection->peerAddress().isNull())
+						return;
 					qusUdp = new QUdpSocket(this);
 					qusUdp->bind();
 					connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));

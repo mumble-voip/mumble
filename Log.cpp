@@ -184,7 +184,7 @@ void Log::log(MsgType t, QString console, QString phonetic) {
 
 	if (ms->bConsole)
 		g.mw->appendLog(tr("[%2] %1").arg(console).arg(now.toString(Qt::LocalDate)));
-	if (! ms->bTTS || (! phonetic.isNull() && phonetic.isEmpty()))
+	if (! g.s.bTTS || ! ms->bTTS || (! phonetic.isNull() && phonetic.isEmpty()))
 		return;
 	tts->say(phonetic.isNull() ? console : phonetic);
 }
