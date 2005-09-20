@@ -43,6 +43,7 @@ ServerParams::ServerParams() {
 	qsPassword = QString();
 	bTestloop = false;
 	iPort = 64738;
+	qsWelcomeText = QString("Welcome to this server");
 }
 
 Server::Server() {
@@ -293,6 +294,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;
+	mssMsg.qsWelcomeText = g_sp.qsWelcomeText;
 	g_sServer->sendMessage(cCon, &mssMsg);
 	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
 }

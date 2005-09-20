@@ -147,6 +147,18 @@ void MessageServerReject::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> qsReason;
 }
 
+MessageServerSync::MessageServerSync() {
+	qsWelcomeText = QString();
+}
+
+void MessageServerSync::saveStream(QDataStream &qdsOut) const {
+	qdsOut << qsWelcomeText;
+}
+
+void MessageServerSync::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> qsWelcomeText;
+}
+
 MessageServerJoin::MessageServerJoin() {
 	qsPlayerName = QString();
 	iId = -2;

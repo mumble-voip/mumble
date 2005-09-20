@@ -56,6 +56,10 @@ int main(int argc, char **argv)
 			i++;
 			g_sp.qsPassword = argv[i];
 			qWarning("Setting password to %s", g_sp.qsPassword.toLatin1().constData());
+		} else if ((arg == "-text") && ( i+1 < argc )) {
+			i++;
+			g_sp.qsWelcomeText = argv[i];
+			qWarning("Setting welcome text to \"%s\"", g_sp.qsWelcomeText.toLatin1().constData());
 		} else if ((arg == "-port") && ( i+1 < argc )) {
 			i++;
 			int p = QString(argv[i]).toInt();

@@ -70,6 +70,7 @@ class Server : public QObject {
 struct ServerParams {
 	int iPort;
 	QString qsPassword;
+	QString qsWelcomeText;
 	bool bTestloop;
 	ServerParams();
 };

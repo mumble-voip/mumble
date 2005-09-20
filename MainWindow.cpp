@@ -604,4 +604,5 @@ void MessageServerSync::process(Connection *) {
 	MSG_INIT;
 	g.sId = sPlayerId;
 	g.l->clearIgnore();
+	g.l->log(Log::Information, qsWelcomeText, QString());
 }

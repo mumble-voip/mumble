@@ -95,7 +95,12 @@ class MessageServerReject : public Message {
 };
 
 class MessageServerSync : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
 	public:
+		QString qsWelcomeText;
+		MessageServerSync();
 		Message::MessageType messageType() const { return ServerSync; };
 		void process(Connection *);
 };
