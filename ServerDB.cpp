@@ -63,7 +63,7 @@ ServerDB::ServerDB() {
 	if (! found) {
 		for(i = 0; (i < datapaths.size()) && ! found; i++) {
 			if (!datapaths[i].isEmpty()) {
-				QFile f(datapaths[i] + "/mumble.sqlite");
+				QFile f(datapaths[i] + "/murmur.sqlite");
 				db.setDatabaseName(f.fileName());
 				found = db.open();
 			}
@@ -82,8 +82,17 @@ ServerDB::ServerDB() {
 	query.exec("CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
 	query.exec("CREATE UNIQUE INDEX player_auth_name ON player_auth(name)");
 	query.exec("CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode)");
+}
 
-	query.exec("INSERT INTO players (name, email, pw) VALUES ('Slicer', 'no@where', 'daff')");
+bool ServerDB::hasUsers() {
+	QSqlQuery query;
+	query.prepare("SELECT count(*) FROM players");
+	query.exec();
+	if (query.next()) {
+		if (query.value(0).toInt() > 0)
+			return true;
+	}
+	return false;
 }
 
 int ServerDB::authenticate(QString &name, QString pw) {

@@ -38,6 +38,7 @@ class ServerDB : public QObject {
 	public:
 		ServerDB();
 		static int authenticate(QString &name, QString pw);
+		static bool hasUsers();
 };
 
 #endif

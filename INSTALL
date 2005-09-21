@@ -52,4 +52,6 @@ qmake murmur.pro
 make
 
 Note that you need to set up and configure murmur.pl as a CGI on your
-webserver for user registration to work.
+webserver for user registration to work. Note that after the first user
+has registered, only registered users will be allowed to mute/kick others.
+

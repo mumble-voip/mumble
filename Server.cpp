@@ -333,7 +333,7 @@ void MessagePlayerMute::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (pSrcPlayer->iId < 0)
+	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
 		return;
 
 	if (pDstPlayer) {
@@ -353,7 +353,7 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (pSrcPlayer->iId < 0)
+	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
 		return;
 
 	if (pDstPlayer) {
@@ -373,7 +373,7 @@ void MessagePlayerKick::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (pSrcPlayer->iId < 0)
+	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
 		return;
 
 	sPlayerId = pSrcPlayer->sId;
