@@ -1,3 +1,5 @@
+	* Only check if registered player if there ARE registered players.
+	  Without any, everybody is priviliged.
 	* like =
 	* Made icon slightly fatter...[cybknight]
 	* New icon for registered users[cybknight]
