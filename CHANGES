@@ -1,3 +1,23 @@
+	* like =
+	* Made icon slightly fatter...[cybknight]
+	* New icon for registered users[cybknight]
+	* Slightly more agressive defaults, sounds better for most people.
+	* Slightly more permissive namecheck
+	* Only registered users can mute/deafen/kick others
+	* And remove the authcode used...
+	* Notify use when it succeeded as well.
+	* Registration script.
+	* Empty tts should not be spoken.
+	* Welcome messages.
+	* Per-player password.	Persistant storage on server.  Minor ASIO
+	  fixes.
+	* Final part of UDP implementation.
+	* UDP bugfixes on server.
+	* Version 0.3.2.  First part of UDP support.
+	* No console in release!
+
+2005-09-19  tag rel_0_3_1
+
 	* Provide feedback if an error occured.
 	* Minimize to tray.
 	* Start of unix compiles for mumble

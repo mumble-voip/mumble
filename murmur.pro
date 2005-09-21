@@ -12,4 +12,4 @@ RC_FILE = mumble.rc
 FORMS = 
 HEADERS = Server.h Connection.h Player.h ServerDB.h
 SOURCES = murmur.cpp  Message.cpp Connection.cpp Server.cpp Player.cpp ServerDB.cpp
-
+DIST = murmur.pl

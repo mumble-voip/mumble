@@ -51,3 +51,5 @@ To build murmur, type
 qmake murmur.pro
 make
 
+Note that you need to set up and configure murmur.pl as a CGI on your
+webserver for user registration to work.
