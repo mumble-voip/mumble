@@ -96,7 +96,7 @@ if ($auth) {
     }
   }
   
-  my $sth=$dbh->prepare("SELECT name FROM players WHERE name=?");
+  my $sth=$dbh->prepare("SELECT name FROM players WHERE name like ?");
   $sth->execute($name);
   if (my $r= $sth->fetchrow_hashref()) {
     push @errors, "Name is already taken";
