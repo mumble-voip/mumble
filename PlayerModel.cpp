@@ -70,7 +70,6 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 }
 
 PlayerModel::~PlayerModel() {
-	ciRoot->dump();
 	removeAll();
 }
 
