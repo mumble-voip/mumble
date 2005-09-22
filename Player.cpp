@@ -40,6 +40,7 @@ Player::Player(QObject *p) : QObject(p) {
   bMute = bDeaf = false;
   bSelfMute = bSelfDeaf = false;
   bTalking = false;
+  cChannel = false;
 }
 
 Player *Player::get(short sId) {
@@ -59,7 +60,9 @@ Player *Player::add(short sId, QObject *po) {
 
 void Player::remove(short sId) {
 	QWriteLocker lock(&c_qrwlPlayers);
-	c_qmPlayers.remove(sId);
+	Player *p = c_qmPlayers.take(sId);
+	if (p && p->cChannel)
+		p->cChannel->removePlayer(p);
 }
 
 void Player::remove(Player *p) {

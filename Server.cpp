@@ -186,6 +186,11 @@ void Server::message(QByteArray &qbaMsg, Connection *cCon) {
 	  }
 }
 
+void Server::sendMessage(short id, Message *mMsg) {
+	Connection *c = qmConnections.value(id);
+	sendMessage(c, mMsg);
+}
+
 void Server::sendMessage(Connection *c, Message *mMsg) {
 	if ((mMsg->messageType() == Message::Speex) && qhPeers.contains(c)) {
 		Peer p = qhPeers[c];
@@ -209,6 +214,43 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 	}
 }
 
+void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
+	Channel *c;
+	Player *p;
+
+	if (dest == NULL)
+		dest = Channel::get(chan->iParent);
+
+	foreach(c, chan->qlChannels) {
+		removeChannel(c, src, dest);
+	}
+
+	foreach(p, chan->qlPlayers) {
+		chan->removePlayer(p);
+		dest->addPlayer(p);
+
+		MessagePlayerMove mpm;
+		mpm.sPlayerId = 0;
+		mpm.sVictim = p->sId;
+		mpm.iChannelId = dest->iId;
+		sendAll(&mpm);
+
+		ServerDB::setLastChannel(p);
+	}
+
+	MessageChannelRemove mcr;
+	mcr.sPlayerId = src->sId;
+	mcr.iId = chan->iId;
+	sendAll(&mcr);
+
+	ServerDB::removeChannel(chan);
+
+	if (chan->cParent)
+		chan->cParent->removeChannel(chan);
+
+	delete chan;
+}
+
 #define MSG_SETUP(st) \
 	Player *pSrcPlayer = g_sServer->qmPlayers[cCon]; \
 	sPlayerId = pSrcPlayer->sId; \
@@ -223,6 +265,8 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 
 void MessageServerAuthenticate::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
+
+	Channel *c;
 
 	pSrcPlayer->qsName = qsUsername;
 
@@ -259,6 +303,24 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	  return;
 	}
 
+	ServerDB::readLastChannel(pSrcPlayer);
+
+	QQueue<Channel *> q;
+	q << Channel::get(0);
+	while (! q.isEmpty()) {
+		c = q.dequeue();
+		MessageChannelAdd mca;
+		mca.sPlayerId = 0;
+		mca.iId = c->iId;
+		mca.iParent = c->iParent;
+		mca.qsName = c->qsName;
+		if (c->iId != 0)
+			g_sServer->sendMessage(cCon, &mca);
+
+		foreach(c, c->qlChannels)
+			q.enqueue(c);
+	}
+
 	MessageServerJoin msjMsg;
 
 	pSrcPlayer->sState = Player::Authenticated;
@@ -291,7 +353,14 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 			mpsmdMsg.bMute = pPlayer->bSelfMute;
 			g_sServer->sendMessage(cCon, &mpsmdMsg);
 		}
+
+		MessagePlayerMove mpm;
+		mpm.sPlayerId = 0;
+		mpm.sVictim = pPlayer->sId;
+		mpm.iChannelId = pPlayer->cChannel->iId;
+		g_sServer->sendMessage(cCon, &mpm);
 	}
+
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;
 	mssMsg.qsWelcomeText = g_sp.qsWelcomeText;
@@ -317,15 +386,14 @@ void MessageServerSync::process(Connection *cCon) {
 
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
+	Player *p;
 
 	if (pSrcPlayer->bMute)
 		return;
 
-	QHash<Connection *, Player *>::const_iterator i;
-	for (i=g_sServer->qmPlayers.constBegin(); i != g_sServer->qmPlayers.constEnd(); ++i) {
-		Player *pPlayer = i.value();
-		if (! pPlayer->bDeaf && ! pPlayer->bSelfDeaf && (g_sp.bTestloop || (pPlayer != pSrcPlayer)))
-			g_sServer->sendMessage(i.key(), this);
+	foreach(p, pSrcPlayer->cChannel->qlPlayers) {
+		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
+			g_sServer->sendMessage(sPlayerId, this);
 	}
 }
 
@@ -388,5 +456,84 @@ void MessagePlayerSelfMuteDeaf::process(Connection *cCon) {
 
 	pSrcPlayer->bSelfMute = bMute;
 	pSrcPlayer->bSelfDeaf = bDeaf;
+	g_sServer->sendAll(this);
+}
+
+void MessagePlayerMove::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+	VICTIM_SETUP;
+
+	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+		return;
+
+	Channel *c = Channel::get(iChannelId);
+	if (!c)
+		return;
+
+	if (!pDstPlayer)
+		return;
+
+	c->addPlayer(pDstPlayer);
+
+	g_sServer->sendAll(this);
+
+	ServerDB::setLastChannel(pDstPlayer);
+}
+
+void MessageChannelAdd::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+		return;
+
+	Channel *p = Channel::get(iParent);
+	if (!p)
+		return;
+
+	Channel *c = ServerDB::addChannel(p, qsName);
+
+	iId = c->iId;
+	g_sServer->sendAll(this);
+}
+
+void MessageChannelRemove::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+		return;
+
+	Channel *c = Channel::get(iId);
+	if (!c)
+		return;
+
+	if (iId == 0)
+		return;
+
+	g_sServer->removeChannel(c, pSrcPlayer);
+}
+
+void MessageChannelMove::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+		return;
+
+	Channel *c = Channel::get(iId);
+	Channel *np = Channel::get(iParent);
+	if (!c || ! np)
+		return;
+
+	// Can't move to a subchannel of itself
+	Channel *p = np->cParent;
+	while (p) {
+		if (p == c)
+			return;
+		p = p->cParent;
+	}
+
+	p = np->cParent;
+	p->removeChannel(c);
+	np->addChannel(c);
+	ServerDB::updateChannel(c);
 	g_sServer->sendAll(this);
 }

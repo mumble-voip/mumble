@@ -35,8 +35,10 @@
 #include <QFile>
 #include <QDir>
 #include <QSqlQuery>
+#include <QSqlError>
 
 #include "ServerDB.h"
+#include "Channel.h"
 
 ServerDB::ServerDB() {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -78,10 +80,14 @@ ServerDB::ServerDB() {
 
 	QSqlQuery query;
 	query.exec("CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, pw TEXT)");
+	query.exec("ALTER TABLE players ADD COLUMN lastchannel INTEGER");
 	query.exec("CREATE UNIQUE INDEX players_name ON players (name)");
 	query.exec("CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
 	query.exec("CREATE UNIQUE INDEX player_auth_name ON player_auth(name)");
 	query.exec("CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode)");
+	query.exec("CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT)");
+	query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channel FOR EACH ROW BEGIN DELETE FROM channel WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
+	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
 }
 
 bool ServerDB::hasUsers() {
@@ -110,4 +116,84 @@ int ServerDB::authenticate(QString &name, QString pw) {
 		}
 	}
 	return res;
+}
+
+Channel *ServerDB::addChannel(Channel *parent, QString name) {
+	QSqlQuery query;
+	query.prepare("INSERT INTO channels (parent_id, name) VALUES (?,?)");
+	query.addBindValue(parent->iId);
+	query.addBindValue(name);
+	query.exec();
+	int id = query.lastInsertId().toInt();
+	return Channel::add(id, name, parent);
+}
+
+void ServerDB::removeChannel(Channel *c) {
+	QSqlQuery query;
+	query.prepare("DELETE FROM channels WHERE channel_id = ?");
+	query.addBindValue(c->iId);
+	query.exec();
+}
+
+void ServerDB::updateChannel(Channel *c) {
+	QSqlQuery query;
+	query.prepare("UPDATE channels SET parent_id = ? WHERE channel_id = ?");
+	query.addBindValue(c->iParent);
+	query.addBindValue(c->iId);
+	query.exec();
+}
+
+void ServerDB::readChannels(Channel *p) {
+	QList<Channel *> kids;
+	Channel *c;
+	QSqlQuery query;
+	int parentid = -1;
+
+	if (p)
+		parentid = p->iId;
+
+	query.prepare("SELECT channel_id, name FROM channels WHERE parent_id=? ORDER BY name");
+	query.addBindValue(parentid);
+	query.exec();
+	while (query.next()) {
+		c = Channel::add(query.value(0).toInt(), query.value(1).toString(), p);
+		kids << c;
+	}
+
+	foreach(c, kids)
+		readChannels(c);
+}
+
+void ServerDB::setLastChannel(Player *p) {
+	if (p->iId < 0)
+		return;
+
+	QSqlQuery query;
+
+	query.prepare("UPDATE players SET lastchannel=? WHERE player_id = ?");
+	query.addBindValue(p->cChannel->iId);
+	query.addBindValue(p->iId);
+	query.exec();
+}
+
+int ServerDB::readLastChannel(Player *p) {
+	Channel *c = Channel::get(0);
+
+	if (p->iId >= 0) {
+		QSqlQuery query;
+
+		query.prepare("SELECT lastchannel FROM players WHERE player_id = ?");
+		query.addBindValue(p->iId);
+		query.exec();
+
+		if (query.next()) {
+			int id = query.value(0).toInt();
+			qWarning("Restored player %d to %d", p->iId, id);
+			Channel *chan = Channel::get(id);
+			if (chan)
+				c = chan;
+		}
+	}
+	c->addPlayer(p);
+	return c->iId;
 }

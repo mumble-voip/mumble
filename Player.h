@@ -35,6 +35,7 @@
 #include <QObject>
 #include <QHash>
 #include <QReadWriteLock>
+#include "Channel.h"
 
 class Player : public QObject {
 	Q_OBJECT
@@ -47,6 +48,7 @@ class Player : public QObject {
 		bool bMute, bDeaf;
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking;
+		Channel *cChannel;
 
 		static QHash<short, Player *> c_qmPlayers;
 		static QReadWriteLock c_qrwlPlayers;

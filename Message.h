@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 3
+#define MESSAGE_STREAM_VERSION 4
 
 #include <QDataStream>
 #include <QByteArray>
@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove };
 		short sPlayerId;
 
 		Message();
@@ -168,6 +168,54 @@ class MessagePlayerKick : public Message {
 		QString qsReason;
 		MessagePlayerKick();
 		Message::MessageType messageType() const { return PlayerKick; };
+		void process(Connection *);
+};
+
+class MessagePlayerMove : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		short sVictim;
+		int iChannelId;
+		MessagePlayerMove();
+		Message::MessageType messageType() const { return PlayerMove; };
+		void process(Connection *);
+};
+
+class MessageChannelAdd : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		int iId;
+		int iParent;
+		QString qsName;
+		MessageChannelAdd();
+		Message::MessageType messageType() const { return ChannelAdd; };
+		void process(Connection *);
+};
+
+class MessageChannelRemove : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		int iId;
+		MessageChannelRemove();
+		Message::MessageType messageType() const { return ChannelRemove; };
+		void process(Connection *);
+};
+
+class MessageChannelMove : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		int iId;
+		int iParent;
+		MessageChannelMove();
+		Message::MessageType messageType() const { return ChannelMove; };
 		void process(Connection *);
 };
 

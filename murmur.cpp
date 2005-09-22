@@ -73,6 +73,7 @@ int main(int argc, char **argv)
 	}
 
 	ServerDB db;
+	db.readChannels();
 
 	g_sServer = new Server();
 	res=a.exec();

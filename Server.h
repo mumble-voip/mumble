@@ -61,9 +61,13 @@ class Server : public QObject {
 
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
+		void sendMessage(short, Message *);
 		void sendMessage(Connection *, Message *);
 
 		void log(QString s, Connection *c = NULL);
+
+		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
+
 		Server();
 };
 

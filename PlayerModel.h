@@ -44,15 +44,38 @@ class PlayerDelegate : public QItemDelegate {
 		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
-class PlayerModel : public QAbstractItemModel {
-	Q_OBJECT
+class ChannelItem {
+	friend class PlayerModel;
 
+	protected:
+		ChannelItem *ciParent;
+		Channel *c;
+		QList<Channel *> qlChannels;
+		QList<Player *> qlPlayers;
+		ChannelItem(ChannelItem *parent, Channel *c);
+		void dump();
+};
+
+class PlayerModel : public QAbstractItemModel {
+	friend class ChannelItem;
+	Q_OBJECT
 protected:
-	QList<Player *> qlPlayers;
 	QIcon qiTalkingOn, qiTalkingOff;
 	QIcon qiMutedSelf, qiMutedServer;
 	QIcon qiDeafenedSelf, qiDeafenedServer;
 	QIcon qiAuthenticated;
+	ChannelItem *ciRoot;
+	QHash <Channel *, ChannelItem *> qhChannelItems;
+
+	QModelIndex parentIndex(ChannelItem *) const;
+	QModelIndex index(Player *, int column = 0) const;
+	QModelIndex index(Channel *) const;
+
+	void hidePlayer(Player *p);
+	void showPlayer(Player *p, Channel *c);
+
+	void hideChannel(Channel *c);
+	void showChannel(Channel *c, Channel *p);
 public:
 	PlayerModel(QObject *parent = 0);
 	~PlayerModel();
@@ -64,10 +87,25 @@ public:
     QModelIndex parent(const QModelIndex &index) const;
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
+	Qt::DropActions supportedDropActions() const;
+	QStringList mimeTypes() const;
+	QMimeData *mimeData(const QModelIndexList &idx) const;
+	bool dropMimeData ( const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
+
 	Player *addPlayer(short id, QString name);
 	Player *getPlayer(const QModelIndex &idx) const;
+
+	Channel *addChannel(int id, Channel *p, QString name);
+	Channel *getChannel(const QModelIndex &idx) const;
+
+	void movePlayer(Player *p, int id);
+	void moveChannel(Channel *p, int id);
+
 	void removePlayer(Player *p);
-	void removeAllPlayers();
+	void removeChannel(Channel *c);
+
+	void removeAll();
+
 	QVariant otherRoles(int column, int role) const;
 public slots:
 	void playerTalkingChanged(bool talking);

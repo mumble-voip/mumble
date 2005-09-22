@@ -32,6 +32,7 @@
 #define _DATABASE_H
 
 #include <QObject>
+#include "Channel.h"
 
 class ServerDB : public QObject {
 	Q_OBJECT
@@ -39,6 +40,12 @@ class ServerDB : public QObject {
 		ServerDB();
 		static int authenticate(QString &name, QString pw);
 		static bool hasUsers();
+		static Channel *addChannel(Channel *c, QString name);
+		static void removeChannel(Channel *c);
+		static void readChannels(Channel *p = NULL);
+		static void updateChannel(Channel *c);
+		static void setLastChannel(Player *p);
+		static int readLastChannel(Player *p);
 };
 
 #endif

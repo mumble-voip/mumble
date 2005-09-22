@@ -83,6 +83,18 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case PlayerKick:
 			mMsg = new MessagePlayerKick();
 			break;
+		case PlayerMove:
+			mMsg = new MessagePlayerMove();
+			break;
+		case ChannelAdd:
+			mMsg = new MessageChannelAdd();
+			break;
+		case ChannelRemove:
+			mMsg = new MessageChannelRemove();
+			break;
+		case ChannelMove:
+			mMsg = new MessageChannelMove();
+			break;
 		default:
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
@@ -238,6 +250,21 @@ void MessagePlayerKick::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> qsReason;
 }
 
+MessagePlayerMove::MessagePlayerMove() {
+	sVictim = -1;
+	iChannelId = 0;
+}
+
+void MessagePlayerMove::saveStream(QDataStream &qdsOut) const {
+	qdsOut << sVictim;
+	qdsOut << iChannelId;
+}
+
+void MessagePlayerMove::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> sVictim;
+	qdsIn >> iChannelId;
+}
+
 MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
 	bMute = false;
 	bDeaf = false;
@@ -253,3 +280,46 @@ void MessagePlayerSelfMuteDeaf::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> bDeaf;
 }
 
+MessageChannelAdd::MessageChannelAdd() {
+	iId = 0;
+	iParent = -1;
+}
+
+void MessageChannelAdd::saveStream(QDataStream &qdsOut) const {
+	qdsOut << iId;
+	qdsOut << iParent;
+	qdsOut << qsName;
+}
+
+void MessageChannelAdd::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> iId;
+	qdsIn >> iParent;
+	qdsIn >> qsName;
+}
+
+MessageChannelRemove::MessageChannelRemove() {
+	iId = 0;
+}
+
+void MessageChannelRemove::saveStream(QDataStream &qdsOut) const {
+	qdsOut << iId;
+}
+
+void MessageChannelRemove::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> iId;
+}
+
+MessageChannelMove::MessageChannelMove() {
+	iId = 0;
+	iParent = 0;
+}
+
+void MessageChannelMove::saveStream(QDataStream &qdsOut) const {
+	qdsOut << iId;
+	qdsOut << iParent;
+}
+
+void MessageChannelMove::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> iId;
+	qdsIn >> iParent;
+}

@@ -55,6 +55,8 @@
 #include "Global.h"
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
+	Channel::add(0, tr("Root"), NULL);
+
 	createActions();
 	setupGui();
 
@@ -90,6 +92,14 @@ void MainWindow::createActions() {
 	qaPlayerDeaf->setToolTip(tr("Deafen player"));
 	qaPlayerDeaf->setWhatsThis(tr("Deafen or undeafen player on server. Deafening a player will also mute them."));
 
+	qaChannelAdd=new QAction(tr("&Add"), this);
+	qaChannelAdd->setObjectName("ChannelAdd");
+	qaChannelAdd->setToolTip(tr("Add new channel"));
+	qaChannelAdd->setWhatsThis(tr("This adds a new subchannel to the currently selected channel."));
+	qaChannelRemove=new QAction(tr("&Remove"), this);
+	qaChannelRemove->setObjectName("ChannelRemove");
+	qaChannelRemove->setToolTip(tr("Remove channel"));
+	qaChannelRemove->setWhatsThis(tr("This removes a channel and all subchannels."));
 
 	qaAudioReset=new QAction(tr("&Reset"), this);
 	qaAudioReset->setObjectName("AudioReset");
@@ -159,7 +169,7 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::setupGui()  {
-	QMenu *qmServer, *qmPlayer, *qmAudio, *qmConfig, *qmHelp;
+	QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
 
 	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_RELEASE)));
 
@@ -169,6 +179,9 @@ void MainWindow::setupGui()  {
 	pmModel = new PlayerModel(this);
 	view->setModel(pmModel);
 	view->setItemDelegate(new PlayerDelegate(view));
+	view->setDragEnabled(true);
+	view->setDropIndicatorShown(true);
+	view->setAcceptDrops(true);
 
 	qteLog = new QTextEdit(this);
 	qteLog->setReadOnly(true);
@@ -178,13 +191,16 @@ void MainWindow::setupGui()  {
 
 	qmServer = new QMenu(tr("&Server"), this);
 	qmPlayer = new QMenu(tr("&Player"), this);
+	qmChannel = new QMenu(tr("&Channel"), this);
 	qmAudio = new QMenu(tr("&Audio"), this);
 	qmConfig = new QMenu(tr("&Config"), this);
 	qmHelp = new QMenu(tr("&Help"), this);
 
 	qmServer->setObjectName("ServerMenu");
 	qmPlayer->setObjectName("PlayerMenu");
+	qmChannel->setObjectName("ChannelMenu");
 	qmAudio->setObjectName("AudioMenu");
+	qmConfig->setObjectName("ConfigMenu");
 	qmHelp->setObjectName("HelpMenu");
 
 	qmServer->addAction(qaServerConnect);
@@ -193,6 +209,9 @@ void MainWindow::setupGui()  {
 	qmPlayer->addAction(qaPlayerKick);
 	qmPlayer->addAction(qaPlayerMute);
 	qmPlayer->addAction(qaPlayerDeaf);
+
+	qmChannel->addAction(qaChannelAdd);
+	qmChannel->addAction(qaChannelRemove);
 
 	qmAudio->addAction(qaAudioMute);
 	qmAudio->addAction(qaAudioDeaf);
@@ -217,6 +236,7 @@ void MainWindow::setupGui()  {
 
 	menuBar()->addMenu(qmServer);
 	menuBar()->addMenu(qmPlayer);
+	menuBar()->addMenu(qmChannel);
 	menuBar()->addMenu(qmAudio);
 	menuBar()->addMenu(qmConfig);
 	menuBar()->addMenu(qmHelp);
@@ -354,6 +374,49 @@ void MainWindow::on_PlayerKick_triggered()
 	}
 }
 
+void MainWindow::on_ChannelMenu_aboutToShow()
+{
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! c) {
+		qaChannelAdd->setEnabled(false);
+		qaChannelRemove->setEnabled(false);
+	} else {
+		qaChannelAdd->setEnabled(true);
+		qaChannelRemove->setEnabled(true);
+	}
+}
+
+void MainWindow::on_ChannelAdd_triggered()
+{
+	bool ok;
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! c)
+		return;
+	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, "", &ok);
+	if (ok) {
+		MessageChannelAdd mca;
+		mca.qsName = name;
+		mca.iParent = c->iId;
+		g.sh->sendMessage(&mca);
+	}
+}
+
+void MainWindow::on_ChannelRemove_triggered()
+{
+	int ret;
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! c)
+		return;
+
+	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+
+	if (ret == QMessageBox::Yes ) {
+		MessageChannelRemove mcr;
+		mcr.iId = c->iId;
+		g.sh->sendMessage(&mcr);
+	}
+}
+
 void MainWindow::on_AudioReset_triggered()
 {
 	QReadLocker(&g.qrwlAudio);
@@ -486,7 +549,7 @@ void MainWindow::serverDisconnected(QString reason)
 	qaServerConnect->setEnabled(true);
 	qaServerDisconnect->setEnabled(false);
 
-	pmModel->removeAllPlayers();
+	pmModel->removeAll();
 
 	if (! reason.isEmpty()) {
   	  g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
@@ -516,8 +579,7 @@ void MessageServerJoin::process(Connection *) {
 
 #define MSG_INIT \
 	Player *pSrc=Player::get(sPlayerId); \
-	if (! pSrc) \
-		qFatal("MainWindow: Message for nonexistant player %d.", sPlayerId);
+	Q_UNUSED(pSrc);
 
 #define VICTIM_INIT \
 	Player *pDst=Player::get(sVictim); \
@@ -590,6 +652,28 @@ void MessagePlayerKick::process(Connection *) {
 		g.l->setIgnore(Log::PlayerLeave, 1);
 		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
 	}
+}
+
+void MessagePlayerMove::process(Connection *) {
+	MSG_INIT;
+	VICTIM_INIT;
+	g.mw->pmModel->movePlayer(pDst, iChannelId);
+}
+
+void MessageChannelAdd::process(Connection *) {
+	Channel *p = Channel::get(iParent);
+	if (p)
+		g.mw->pmModel->addChannel(iId, p, qsName);
+}
+
+void MessageChannelRemove::process(Connection *) {
+	Channel *c = Channel::get(iId);
+	if (c)
+		g.mw->pmModel->removeChannel(c);
+}
+
+void MessageChannelMove::process(Connection *) {
+	g.mw->pmModel->moveChannel(Channel::get(iId), iParent);
 }
 
 void MessageServerAuthenticate::process(Connection *) {
