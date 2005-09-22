@@ -233,11 +233,6 @@ void AudioInput::encodeAudioFrame() {
 	else if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
 
-	// Ideally, we'd like to go DTX (discontinous transmission)
-	// if we didn't detect speech. Unfortunately, the jitter
-	// buffer on the receiving end doesn't cope with that
-	// very well.
-
 	if (g.s.bMute || (p && p->bMute)) {
 		iIsSpeech = 0;
 	}
@@ -257,7 +252,6 @@ void AudioInput::encodeAudioFrame() {
 	bPreviousVoice = iIsSpeech;
 
 	if (! iIsSpeech) {
-		// Zero frame -- we don't want comfort noise
 		memset(psMic, 0, iByteSize);
 	}
 
