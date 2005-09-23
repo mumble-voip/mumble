@@ -540,6 +540,10 @@ bool PlayerModel::dropMimeData (const QMimeData *md, Qt::DropAction action, int 
 		mpm.iChannelId = c->iId;
 		g.sh->sendMessage(&mpm);
 	} else {
+		MessageChannelMove mcm;
+		mcm.iId = iId;
+		mcm.iParent = c->iId;
+		g.sh->sendMessage(&mcm);
 	}
 
 	return true;

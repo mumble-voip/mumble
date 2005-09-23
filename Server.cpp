@@ -441,7 +441,7 @@ void MessageSpeex::process(Connection *cCon) {
 
 	foreach(p, pSrcPlayer->cChannel->qlPlayers) {
 		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
-			g_sServer->sendMessage(sPlayerId, this);
+			g_sServer->sendMessage(p->sId, this);
 	}
 }
 
@@ -528,25 +528,27 @@ void MessagePlayerMove::process(Connection *cCon) {
 	if (! pDstPlayer)
 		return;
 
+	Channel *c = Channel::get(iChannelId);
+	if (!c || (c == pDstPlayer->cChannel))
+		return;
+
 	if ((pSrcPlayer != pDstPlayer) && ! ChanACL::hasPermission(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MoveKick)) {
 		PERM_DENIED(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MoveKick);
 		return;
 	}
 
-	Channel *c = Channel::get(iChannelId);
-	if (!c)
-		return;
 
 	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::MoveKick) && ! ChanACL::hasPermission(pDstPlayer, c, ChanACL::Enter)) {
 		PERM_DENIED(pDstPlayer, c, ChanACL::Enter);
 		return;
 	}
+	
 
 	g_sServer->sendAll(this);
 	g_sServer->playerEnterChannel(pDstPlayer, c);
 
 	ServerDB::setLastChannel(pDstPlayer);
-	g_sServer->log(QString("Moved to %1 (%2)").arg(c->qsName).arg(pSrcPlayer->qsName), cCon);
+	g_sServer->log(QString("Moved to %1 (%2)").arg(c->qsName).arg(pDstPlayer->qsName), cCon);
 }
 
 void MessageChannelAdd::process(Connection *cCon) {
@@ -616,7 +618,7 @@ void MessageChannelMove::process(Connection *cCon) {
 	}
 
 	// Can't move to a subchannel of itself
-	Channel *p = np->cParent;
+	Channel *p = np;
 	while (p) {
 		if (p == c)
 			return;

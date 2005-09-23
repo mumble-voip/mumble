@@ -116,7 +116,7 @@ ServerDB::ServerDB() {
 	query.exec("CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode)");
 
 	query.exec("CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, inheritACL INTEGER)");
-	query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
+	query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channels WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
 
 	query.exec("CREATE TABLE groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)");
 	query.exec("CREATE UNIQUE INDEX groups_name_channels ON groups(name, channel_id)");
@@ -205,6 +205,7 @@ void ServerDB::removeChannel(Channel *c) {
 	query.prepare("DELETE FROM channels WHERE channel_id = ?");
 	query.addBindValue(c->iId);
 	query.exec();
+	SQLDUMP(query);
 }
 
 void ServerDB::updateChannel(Channel *c) {

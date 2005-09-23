@@ -77,11 +77,15 @@ void Channel::remove(Channel *c) {
 
 void Channel::addChannel(Channel *c) {
 	c->iParent = iId;
+	c->cParent = this;
+	c->setParent(this);
 	qlChannels << c;
 }
 
 void Channel::removeChannel(Channel *c) {
 	c->iParent = 0;
+	c->cParent = NULL;
+	c->setParent(NULL);
 	qlChannels.removeAll(c);
 }
 
