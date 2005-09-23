@@ -569,9 +569,9 @@ void MessageChannelAdd::process(Connection *cCon) {
 	}
 
 	Channel *c = ServerDB::addChannel(p, qsName);
-	if (sPlayerId >= 0) {
+	if (pSrcPlayer->iId >= 0) {
 		Group *g = new Group(c, "admin");
-		g->qsAdd << sPlayerId;
+		g->qsAdd << pSrcPlayer->iId;
 	}
 	ServerDB::updateChannel(c);
 

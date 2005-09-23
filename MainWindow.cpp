@@ -670,6 +670,8 @@ void MessagePlayerMove::process(Connection *) {
 	bool log = true;
 	if ((sVictim == g.sId) && (sPlayerId == sVictim))
 		log = false;
+	if (g.sId == 0)
+		log = false;
 
 	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
