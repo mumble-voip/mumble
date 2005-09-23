@@ -66,7 +66,9 @@ class Log : public QObject {
 	friend class LogConfig;
 	Q_OBJECT
 	public:
-		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, PlayerJoin, PlayerLeave, YouKicked, PlayerKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther };
+		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, PlayerJoin, PlayerLeave, YouKicked, PlayerKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied };
+		static const MsgType firstMsgType = DebugInfo;
+		static const MsgType lastMsgType = PermissionDenied;
 	protected:
 		QHash<MsgType, MsgSettings *> qhSettings;
 		static const char *msgNames[];

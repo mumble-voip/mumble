@@ -44,8 +44,10 @@ class ServerDB : public QObject {
 		static void removeChannel(Channel *c);
 		static void readChannels(Channel *p = NULL);
 		static void updateChannel(Channel *c);
+		static void readChannelPrivs(Channel *c);
 		static void setLastChannel(Player *p);
 		static int readLastChannel(Player *p);
+		static void dumpChannel(Channel *c);
 };
 
 #endif

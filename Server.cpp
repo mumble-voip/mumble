@@ -106,13 +106,15 @@ void Server::log(QString s, Connection *c) {
 		Player *p = qmPlayers.value(c);
 
 		int id = 0;
+		int iid = -1;
 		QString name;
 		if (p) {
 			id = p->sId;
+			iid = p->iId;
 			name = p->qsName;
 		}
-		qWarning("[%s] <%d:%s> %s", QDateTime::currentDateTime().toString(Qt::ISODate).toAscii().constData(),
-				id, name.toAscii().constData(), s.toAscii().constData());
+		qWarning("[%s] <%d:%s(%d)> %s", QDateTime::currentDateTime().toString(Qt::ISODate).toAscii().constData(),
+				id, name.toAscii().constData(), iid, s.toAscii().constData());
 	} else {
 		qWarning("[%s] %s", QDateTime::currentDateTime().toString(Qt::ISODate).toAscii().constData(),
 				s.toAscii().constData());
@@ -227,13 +229,14 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 
 	foreach(p, chan->qlPlayers) {
 		chan->removePlayer(p);
-		dest->addPlayer(p);
 
 		MessagePlayerMove mpm;
 		mpm.sPlayerId = 0;
 		mpm.sVictim = p->sId;
 		mpm.iChannelId = dest->iId;
 		sendAll(&mpm);
+
+		playerEnterChannel(p, dest);
 
 		ServerDB::setLastChannel(p);
 	}
@@ -251,8 +254,31 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	delete chan;
 }
 
+void Server::playerEnterChannel(Player *p, Channel *c) {
+	if (p->cChannel == c)
+		return;
+
+	c->addPlayer(p);
+
+	bool mayspeak = ChanACL::hasPermission(p, c, ChanACL::Speak);
+	bool sup = p->bSuppressed;
+
+	if (! p->bMute) {
+		if (mayspeak == sup) {
+			// Ok, he can speak and was suppressed, or vice versa
+			p->bSuppressed = ! mayspeak;
+
+			MessagePlayerMute mpm;
+			mpm.sPlayerId = p->sId;
+			mpm.bMute = p->bSuppressed;
+			g_sServer->sendAll(&mpm);
+		}
+	}
+}
+
 #define MSG_SETUP(st) \
 	Player *pSrcPlayer = g_sServer->qmPlayers[cCon]; \
+	MessagePermissionDenied mpd; \
 	sPlayerId = pSrcPlayer->sId; \
 	if (pSrcPlayer->sState != st) \
 		return
@@ -262,6 +288,15 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	Q_UNUSED(pDstPlayer) \
 	Connection *cDst = g_sServer->qmConnections.value(sVictim); \
 	Q_UNUSED(cDst)
+
+#define PERM_DENIED(who, where, what) \
+	mpd.qsReason = QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName); \
+	cCon->sendMessage(&mpd); \
+	g_sServer->log(mpd.qsReason, cCon)
+#define PERM_DENIED_TEXT(text) \
+	mpd.qsReason = text; \
+	cCon->sendMessage(&mpd)
+
 
 void MessageServerAuthenticate::process(Connection *cCon) {
 	MSG_SETUP(Player::Connected);
@@ -303,7 +338,14 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	  return;
 	}
 
-	ServerDB::readLastChannel(pSrcPlayer);
+	int lchan = ServerDB::readLastChannel(pSrcPlayer);
+	Channel *lc = Channel::get(lchan);
+	if (! lc)
+		lc = Channel::get(0);
+	else if (! ChanACL::hasPermission(pSrcPlayer, lc, ChanACL::Enter))
+		lc = Channel::get(0);
+
+	g_sServer->playerEnterChannel(pSrcPlayer, lc);
 
 	QQueue<Channel *> q;
 	q << Channel::get(0);
@@ -337,13 +379,15 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 		if (pPlayer->bDeaf) {
 			MessagePlayerDeaf mpdMsg;
-			mpdMsg.sPlayerId = pPlayer->sId;
-			mpdMsg.bDeaf = pPlayer->bDeaf;
+			mpdMsg.sPlayerId = 0;
+			mpdMsg.sVictim = pPlayer->sId;
+			mpdMsg.bDeaf = true;
 			g_sServer->sendMessage(cCon, &mpdMsg);
-		} else if (pPlayer->bMute) {
+		} else if (pPlayer->bMute || pPlayer->bSuppressed) {
 			MessagePlayerMute mpmMsg;
-			mpmMsg.sPlayerId = pPlayer->sId;
-			mpmMsg.bMute = pPlayer->bMute;
+			mpmMsg.sPlayerId = 0;
+			mpmMsg.sVictim = pPlayer->sId;
+			mpmMsg.bMute = true;
 			g_sServer->sendMessage(cCon, &mpmMsg);
 		}
 		if (pPlayer->bSelfDeaf || pPlayer->bSelfMute) {
@@ -384,11 +428,15 @@ void MessageServerSync::process(Connection *cCon) {
   cCon->disconnect();
 }
 
+void MessagePermissionDenied::process(Connection *cCon) {
+  cCon->disconnect();
+}
+
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	Player *p;
 
-	if (pSrcPlayer->bMute)
+	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
 		return;
 
 	foreach(p, pSrcPlayer->cChannel->qlPlayers) {
@@ -401,54 +449,68 @@ void MessagePlayerMute::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+	if (! pDstPlayer)
 		return;
 
-	if (pDstPlayer) {
-		if (pDstPlayer->bMute == bMute)
-			return;
-
-		pDstPlayer->bMute = bMute;
-		g_sServer->sendAll(this);
-
-		if (! bMute && pDstPlayer->bDeaf) {
-			pDstPlayer->bDeaf = false;
-		}
+	if (! ChanACL::hasPermission(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MuteDeafen)) {
+		PERM_DENIED(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MuteDeafen);
+		return;
 	}
+
+	if (! bMute && pDstPlayer->bSuppressed) {
+		pDstPlayer->bSuppressed = false;
+	} else if (pDstPlayer->bMute == bMute) {
+		return;
+	}
+
+	pDstPlayer->bMute = bMute;
+	g_sServer->sendAll(this);
+
+	if (! bMute && pDstPlayer->bDeaf) {
+		pDstPlayer->bDeaf = false;
+	}
+	g_sServer->log(QString("Muted %1 (%2)").arg(pDstPlayer->qsName).arg(bMute), cCon);
 }
 
 void MessagePlayerDeaf::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+	if (! pDstPlayer)
 		return;
 
-	if (pDstPlayer) {
-		if (pDstPlayer->bDeaf == bDeaf)
-			return;
-
-		pDstPlayer->bDeaf = bDeaf;
-		g_sServer->sendAll(this);
-
-		if (bDeaf && ! pDstPlayer->bMute) {
-			pDstPlayer->bMute = true;
-		}
+	if (! ChanACL::hasPermission(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MuteDeafen)) {
+		PERM_DENIED(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MuteDeafen);
+		return;
 	}
+
+	if (pDstPlayer->bDeaf == bDeaf)
+		return;
+
+	pDstPlayer->bDeaf = bDeaf;
+	g_sServer->sendAll(this);
+
+	if (bDeaf && ! pDstPlayer->bMute) {
+		pDstPlayer->bMute = true;
+	}
+	g_sServer->log(QString("Deafened %1 (%2)").arg(pDstPlayer->qsName).arg(bDeaf), cCon);
 }
 
 void MessagePlayerKick::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+	if (! pDstPlayer)
 		return;
 
-	sPlayerId = pSrcPlayer->sId;
-	if (cDst) {
-		g_sServer->sendAll(this);
-		cDst->disconnect();
+	if (! ChanACL::hasPermission(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MoveKick)) {
+		PERM_DENIED(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MoveKick);
+		return;
 	}
+
+	g_sServer->sendAll(this);
+	g_sServer->log(QString("Kicked %1 (%2)").arg(pDstPlayer->qsName).arg(qsReason), cCon);
+	cDst->disconnect();
 }
 
 void MessagePlayerSelfMuteDeaf::process(Connection *cCon) {
@@ -463,51 +525,69 @@ void MessagePlayerMove::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
+	if (! pDstPlayer)
 		return;
+
+	if ((pSrcPlayer != pDstPlayer) && ! ChanACL::hasPermission(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MoveKick)) {
+		PERM_DENIED(pSrcPlayer, pDstPlayer->cChannel, ChanACL::MoveKick);
+		return;
+	}
 
 	Channel *c = Channel::get(iChannelId);
 	if (!c)
 		return;
 
-	if (!pDstPlayer)
+	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::MoveKick) && ! ChanACL::hasPermission(pDstPlayer, c, ChanACL::Enter)) {
+		PERM_DENIED(pDstPlayer, c, ChanACL::Enter);
 		return;
-
-	c->addPlayer(pDstPlayer);
+	}
 
 	g_sServer->sendAll(this);
+	g_sServer->playerEnterChannel(pDstPlayer, c);
 
 	ServerDB::setLastChannel(pDstPlayer);
+	g_sServer->log(QString("Moved to %1 (%2)").arg(c->qsName).arg(pSrcPlayer->qsName), cCon);
 }
 
 void MessageChannelAdd::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
-		return;
-
 	Channel *p = Channel::get(iParent);
 	if (!p)
 		return;
+
+	if (! ChanACL::hasPermission(pSrcPlayer, p, ChanACL::MakeChannel)) {
+		PERM_DENIED(pSrcPlayer, p, ChanACL::MakeChannel);
+		return;
+	}
+
+	QRegExp re("[\\w\\[\\]\\{\\}\\(\\)\\@\\|]+");
+
+	if (! re.exactMatch(qsName)) {
+		PERM_DENIED_TEXT("Illegal channel name");
+		return;
+	}
 
 	Channel *c = ServerDB::addChannel(p, qsName);
 
 	iId = c->iId;
 	g_sServer->sendAll(this);
+	g_sServer->log(QString("Added channel %1 (%2)").arg(qsName).arg(p->qsName), cCon);
 }
 
 void MessageChannelRemove::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
-		return;
-
 	Channel *c = Channel::get(iId);
 	if (!c)
 		return;
 
-	if (iId == 0)
+	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Write) || (iId == 0)) {
+		PERM_DENIED(pSrcPlayer, c, ChanACL::Write);
 		return;
+	}
+
+	g_sServer->log(QString("Removed channel %1").arg(c->qsName), cCon);
 
 	g_sServer->removeChannel(c, pSrcPlayer);
 }
@@ -515,13 +595,20 @@ void MessageChannelRemove::process(Connection *cCon) {
 void MessageChannelMove::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
-	if (ServerDB::hasUsers() && (pSrcPlayer->iId < 0))
-		return;
-
 	Channel *c = Channel::get(iId);
 	Channel *np = Channel::get(iParent);
 	if (!c || ! np)
 		return;
+
+	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Write)) {
+		PERM_DENIED(pSrcPlayer, c, ChanACL::Write);
+		return;
+	}
+
+	if (! ChanACL::hasPermission(pSrcPlayer, np, ChanACL::MakeChannel)) {
+		PERM_DENIED(pSrcPlayer, np, ChanACL::MakeChannel);
+		return;
+	}
 
 	// Can't move to a subchannel of itself
 	Channel *p = np->cParent;
@@ -531,8 +618,9 @@ void MessageChannelMove::process(Connection *cCon) {
 		p = p->cParent;
 	}
 
-	p = np->cParent;
-	p->removeChannel(c);
+	g_sServer->log(QString("Moved channel %1 (%2 -> %3)").arg(c->qsName).arg(c->cParent->qsName).arg(np->qsName), cCon);
+
+	c->cParent->removeChannel(c);
 	np->addChannel(c);
 	ServerDB::updateChannel(c);
 	g_sServer->sendAll(this);

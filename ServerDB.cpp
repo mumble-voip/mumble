@@ -36,9 +36,36 @@
 #include <QDir>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlDriver>
 
 #include "ServerDB.h"
 #include "Channel.h"
+#include "Group.h"
+#include "ACL.h"
+
+#define SQLDUMP(x) qWarning("%s", x.lastError().text().toLatin1().constData())
+
+class TransactionHolder {
+	protected:
+		bool bAbort;
+	public:
+		TransactionHolder() {
+			QSqlDatabase::database().transaction();
+			bAbort = false;
+		}
+
+		void abort() {
+			bAbort = true;
+		}
+
+		~TransactionHolder() {
+			if (bAbort) {
+				QSqlDatabase::database().rollback();
+			} else {
+				QSqlDatabase::database().commit();
+			}
+		}
+};
 
 ServerDB::ServerDB() {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -79,18 +106,57 @@ ServerDB::ServerDB() {
 	}
 
 	QSqlQuery query;
+
 	query.exec("CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, pw TEXT)");
 	query.exec("ALTER TABLE players ADD COLUMN lastchannel INTEGER");
 	query.exec("CREATE UNIQUE INDEX players_name ON players (name)");
+
 	query.exec("CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
 	query.exec("CREATE UNIQUE INDEX player_auth_name ON player_auth(name)");
 	query.exec("CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode)");
-	query.exec("CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT)");
-	query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channel FOR EACH ROW BEGIN DELETE FROM channel WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
+
+	query.exec("CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, inheritACL INTEGER)");
+	query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
+
+	query.exec("CREATE TABLE groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)");
+	query.exec("CREATE UNIQUE INDEX groups_name_channels ON groups(name, channel_id)");
+	query.exec("CREATE TRIGGER groups_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM groups WHERE channel_id = old.channel_id; END;");
+
+	query.exec("CREATE TABLE group_members (group_members_id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, player_id INTEGER, addit INTEGER)");
+	query.exec("CREATE TRIGGER groups_members_del_group AFTER DELETE ON groups FOR EACH ROW BEGIN DELETE FROM group_members WHERE group_id = old.group_id; END;");
+	query.exec("CREATE TRIGGER groups_members_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM group_members WHERE player_id = old.player_id; END;");
+
+	query.exec("CREATE TABLE acl (acl_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grant INTEGER, revoke INTEGER)");
+	query.exec("CREATE UNIQUE INDEX acl_channel_pri ON acl(channel_id, priority)");
+	query.exec("CREATE TRIGGER acl_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM acl WHERE channel_id = old.channel_id; END;");
+	query.exec("CREATE TRIGGER acl_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM acl WHERE player_id = old.player_id; END;");
+
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
+
+	query.exec("SELECT COUNT(*) FROM acl");
+	if (query.next()) {
+		int c = query.value(0).toInt();
+		if (c == 0) {
+			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (0, 1, -1, 'reg', 1, 1, 112, 0)");
+			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (0, 2, -1, 'admin', 1, 1, 1, 0)");
+		}
+	}
+
+	query.exec("SELECT COUNT(*) FROM groups");
+	if (query.next()) {
+		int c = query.value(0).toInt();
+		if (c == 0) {
+			query.exec("INSERT INTO groups (group_id, name, channel_id, inherit, inheritable) VALUES (0, 'admin', 0, 1, 1)");
+			query.exec("INSERT INTO group_members (group_id, player_id, addit) VALUES (0, 0, 1)");
+		}
+	}
+
+	query.exec("VACUUM");
 }
 
 bool ServerDB::hasUsers() {
+	TransactionHolder th;
+
 	QSqlQuery query;
 	query.prepare("SELECT count(*) FROM players");
 	query.exec();
@@ -102,6 +168,8 @@ bool ServerDB::hasUsers() {
 }
 
 int ServerDB::authenticate(QString &name, QString pw) {
+	TransactionHolder th;
+
 	int res = -2;
 	QSqlQuery query;
 	query.prepare("SELECT player_id,name,pw FROM players WHERE name like ?");
@@ -119,6 +187,8 @@ int ServerDB::authenticate(QString &name, QString pw) {
 }
 
 Channel *ServerDB::addChannel(Channel *parent, QString name) {
+	TransactionHolder th;
+
 	QSqlQuery query;
 	query.prepare("INSERT INTO channels (parent_id, name) VALUES (?,?)");
 	query.addBindValue(parent->iId);
@@ -129,6 +199,8 @@ Channel *ServerDB::addChannel(Channel *parent, QString name) {
 }
 
 void ServerDB::removeChannel(Channel *c) {
+	TransactionHolder th;
+
 	QSqlQuery query;
 	query.prepare("DELETE FROM channels WHERE channel_id = ?");
 	query.addBindValue(c->iId);
@@ -136,28 +208,134 @@ void ServerDB::removeChannel(Channel *c) {
 }
 
 void ServerDB::updateChannel(Channel *c) {
+	TransactionHolder th;
+	Group *g;
+	ChanACL *acl;
+
 	QSqlQuery query;
-	query.prepare("UPDATE channels SET parent_id = ? WHERE channel_id = ?");
+	query.prepare("UPDATE channels SET parent_id = ?, inheritACL = ? WHERE channel_id = ?");
 	query.addBindValue(c->iParent);
+	query.addBindValue(c->bInheritACL ? 1 : 0);
 	query.addBindValue(c->iId);
 	query.exec();
+
+	query.prepare("DELETE FROM groups WHERE channel_id = ?");
+	query.addBindValue(c->iId);
+	query.exec();
+
+	query.prepare("DELETE FROM acl WHERE channel_id = ?");
+	query.addBindValue(c->iId);
+	query.exec();
+
+	foreach(g, c->qhGroups) {
+		query.prepare("INSERT INTO groups (name, channel_id, inherit, inheritable) VALUES (?,?,?,?)");
+		query.addBindValue(g->qsName);
+		query.addBindValue(g->c->iId);
+		query.addBindValue(g->bInherit ? 1 : 0);
+		query.addBindValue(g->bInheritable ? 1 : 0);
+		query.exec();
+
+		int id = query.lastInsertId().toInt();
+		int pid;
+
+		foreach(pid, g->qsAdd) {
+			query.prepare("INSERT INTO group_members (group_id, player_id, addit) VALUES (?, ?, ?)");
+			query.addBindValue(id);
+			query.addBindValue(pid);
+			query.addBindValue(1);
+			query.exec();
+		}
+		foreach(pid, g->qsRemove) {
+			query.prepare("INSERT INTO group_members (group_id, player_id, addit) VALUES (?, ?, ?)");
+			query.addBindValue(id);
+			query.addBindValue(pid);
+			query.addBindValue(0);
+			query.exec();
+		}
+	}
+
+	int pri = 5;
+
+	foreach(acl, c->qlACL) {
+		query.prepare("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (?,?,?,?,?,?,?,?)");
+		query.addBindValue(acl->c->iId);
+		query.addBindValue(pri++);
+		query.addBindValue(acl->iPlayerId);
+		query.addBindValue(acl->qsGroup);
+		query.addBindValue(acl->bApplyHere ? 1 : 0);
+		query.addBindValue(acl->bApplySubs ? 1 : 0);
+		query.addBindValue(static_cast<int>(acl->pAllow));
+		query.addBindValue(static_cast<int>(acl->pDeny));
+		query.exec();
+	}
+}
+
+void ServerDB::readChannelPrivs(Channel *c) {
+	TransactionHolder th;
+
+	int cid = c->iId;
+
+	QSqlQuery query;
+	query.prepare("SELECT group_id, name, inherit, inheritable FROM groups WHERE channel_id = ?");
+	query.addBindValue(cid);
+	query.exec();
+	while (query.next()) {
+		int gid = query.value(0).toInt();
+		QString name = query.value(1).toString();
+		Group *g = new Group(c, name);
+		g->bInherit = query.value(2).toBool();
+		g->bInheritable = query.value(3).toBool();
+
+		QSqlQuery mem;
+		mem.prepare("SELECT player_id, addit FROM group_members WHERE group_id = ?");
+		mem.addBindValue(gid);
+		mem.exec();
+		while (mem.next()) {
+			int uid = mem.value(0).toInt();
+			if (mem.value(1).toBool())
+				g->qsAdd << uid;
+			else
+				g->qsRemove << uid;
+		}
+	}
+
+	query.prepare("SELECT player_id, group_name, apply_here, apply_sub, grant, revoke FROM acl WHERE channel_id = ? ORDER BY priority");
+	query.addBindValue(cid);
+	query.exec();
+	while (query.next()) {
+		ChanACL *acl = new ChanACL(c);
+		acl->iPlayerId = query.value(0).toInt();
+		acl->qsGroup = query.value(1).toString();
+		acl->bApplyHere = query.value(2).toBool();
+		acl->bApplySubs = query.value(3).toBool();
+		acl->pAllow = static_cast<ChanACL::Permissions>(query.value(4).toInt());
+		acl->pDeny = static_cast<ChanACL::Permissions>(query.value(5).toInt());
+	}
 }
 
 void ServerDB::readChannels(Channel *p) {
+
 	QList<Channel *> kids;
 	Channel *c;
 	QSqlQuery query;
 	int parentid = -1;
 
-	if (p)
+	if (p) {
 		parentid = p->iId;
+		readChannelPrivs(Channel::get(parentid));
+	}
 
-	query.prepare("SELECT channel_id, name FROM channels WHERE parent_id=? ORDER BY name");
-	query.addBindValue(parentid);
-	query.exec();
-	while (query.next()) {
-		c = Channel::add(query.value(0).toInt(), query.value(1).toString(), p);
-		kids << c;
+	{
+		TransactionHolder th;
+		query.prepare("SELECT channel_id, name, inheritACL FROM channels WHERE parent_id=? ORDER BY name");
+		query.addBindValue(parentid);
+		query.exec();
+		SQLDUMP(query);
+		while (query.next()) {
+			c = Channel::add(query.value(0).toInt(), query.value(1).toString(), p);
+			c->bInheritACL = query.value(2).toBool();
+			kids << c;
+		}
 	}
 
 	foreach(c, kids)
@@ -165,6 +343,8 @@ void ServerDB::readChannels(Channel *p) {
 }
 
 void ServerDB::setLastChannel(Player *p) {
+	TransactionHolder th;
+
 	if (p->iId < 0)
 		return;
 
@@ -177,9 +357,11 @@ void ServerDB::setLastChannel(Player *p) {
 }
 
 int ServerDB::readLastChannel(Player *p) {
+
 	Channel *c = Channel::get(0);
 
 	if (p->iId >= 0) {
+		TransactionHolder th;
 		QSqlQuery query;
 
 		query.prepare("SELECT lastchannel FROM players WHERE player_id = ?");
@@ -188,12 +370,40 @@ int ServerDB::readLastChannel(Player *p) {
 
 		if (query.next()) {
 			int id = query.value(0).toInt();
-			qWarning("Restored player %d to %d", p->iId, id);
 			Channel *chan = Channel::get(id);
 			if (chan)
 				c = chan;
 		}
 	}
-	c->addPlayer(p);
 	return c->iId;
+}
+
+
+void ServerDB::dumpChannel(Channel *c) {
+	Group *g;
+	ChanACL *acl;
+	int pid;
+
+	if (c == NULL) {
+		c = Channel::get(0);
+	}
+
+	qWarning("Channel %s (ACLInherit %d)", c->qsName.toLatin1().constData(), c->bInheritACL);
+	foreach(g, c->qhGroups) {
+		qWarning("Group %s (Inh %d  Able %d)", g->qsName.toLatin1().constData(), g->bInherit, g->bInheritable);
+		foreach(pid, g->qsAdd)
+			qWarning("Add %d", pid);
+		foreach(pid, g->qsRemove)
+			qWarning("Remove %d", pid);
+	}
+	foreach(acl, c->qlACL) {
+		int allow = static_cast<int>(acl->pAllow);
+		int deny = static_cast<int>(acl->pDeny);
+		qWarning("ChanACL Here %d Sub %d Allow %04x Deny %04x ID %d Group %s", acl->bApplyHere, acl->bApplySubs, allow, deny, acl->iPlayerId, acl->qsGroup.toLatin1().constData());
+	}
+	qWarning(" ");
+
+	foreach(c, c->qlChannels) {
+		dumpChannel(c);
+	}
 }

@@ -102,6 +102,10 @@ void Connection::sendMessage(QByteArray &qbaMsg) {
 	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
 		return;
 
+	if (qbaMsg.size() > 0xffff) {
+		qFatal("Connection: Oversized message (%d bytes)", qbaMsg.size());
+	}
+
 	a_ucBuffer[0]=(qbaMsg.size() >> 8) & 0xff;
 	a_ucBuffer[1]=(qbaMsg.size() & 0xff);
 	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 2);

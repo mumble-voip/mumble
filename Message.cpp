@@ -95,6 +95,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case ChannelMove:
 			mMsg = new MessageChannelMove();
 			break;
+		case PermissionDenied:
+			mMsg = new MessagePermissionDenied();
+			break;
 		default:
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
@@ -184,6 +187,18 @@ void MessageServerJoin::saveStream(QDataStream &qdsOut) const {
 void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> qsPlayerName;
 	qdsIn >> iId;
+}
+
+MessagePermissionDenied::MessagePermissionDenied() {
+	qsReason = QString();
+}
+
+void MessagePermissionDenied::saveStream(QDataStream &qdsOut) const {
+	qdsOut << qsReason;
+}
+
+void MessagePermissionDenied::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> qsReason;
 }
 
 MessageSpeex::MessageSpeex() {

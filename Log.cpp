@@ -52,7 +52,7 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	lab=new QLabel(tr("TTS"));
 	l->addWidget(lab, 0, 2);
 
-	for(int i=Log::DebugInfo;i<=Log::OtherMutedOther;++i) {
+	for(int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
 		QCheckBox *qcb;
 		Log::MsgType t=static_cast<Log::MsgType>(i);
 		MsgSettings *ms=g.l->qhSettings[t];
@@ -93,7 +93,7 @@ QIcon LogConfig::icon() const {
 }
 
 void LogConfig::accept() {
-	for(int i=Log::DebugInfo;i<=Log::OtherMutedOther;++i) {
+	for(int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
 		Log::MsgType t=static_cast<Log::MsgType>(i);
 		MsgSettings *ms=g.l->qhSettings[t];
 		ms->bConsole = (qlConsole[i]->checkState() == Qt::Checked);
@@ -108,7 +108,7 @@ MsgSettings::MsgSettings() {
 }
 
 Log::Log(QObject *p) : QObject(p) {
-	for(int i=DebugInfo;i<=OtherMutedOther;++i)
+	for(int i=firstMsgType;i<=lastMsgType;++i)
 		qhSettings[static_cast<MsgType>(i)]=new MsgSettings();
 	tts=new TextToSpeech(this);
 	loadSettings();
@@ -121,15 +121,18 @@ const char *Log::msgNames[] = {
 	"Information",
 	"Server Connected",
 	"Server Disconnected",
-	"Player Joined",
-	"Player Left",
+	"Player Joined Server",
+	"Player Left Server",
 	"Player kicked (you or by you)",
 	"Player kicked",
 	"You selfmuted/deafened",
 	"Other selfmuted/selfdeafened",
 	"Player muted (you)",
 	"Player muted (by you)",
-	"Player muted (other)"
+	"Player muted (other)",
+	"Player Joined Channel",
+	"Player Left Channel",
+	"Permission Denied"
 };
 
 QString Log::msgName(MsgType t) const {
@@ -148,7 +151,7 @@ void Log::clearIgnore() {
 }
 
 void Log::loadSettings() {
-	for(int i=DebugInfo;i<=OtherMutedOther;++i) {
+	for(int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
 		QString key=QString("msg%1").arg(msgName(t));
@@ -159,7 +162,7 @@ void Log::loadSettings() {
 }
 
 void Log::saveSettings() const {
-	for(int i=DebugInfo;i<=OtherMutedOther;++i) {
+	for(int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
 		QString key=QString("msg%1").arg(msgName(t));

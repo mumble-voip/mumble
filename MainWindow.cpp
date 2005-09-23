@@ -574,7 +574,7 @@ void MainWindow::customEvent(QEvent *evt) {
 void MessageServerJoin::process(Connection *) {
 	Player *p = g.mw->pmModel->addPlayer(sPlayerId, qsPlayerName);
 	p->iId = iId;
-	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined now: %1.").arg(p->qsName));
+	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined server: %1.").arg(p->qsName));
 }
 
 #define MSG_INIT \
@@ -589,7 +589,7 @@ void MessageServerJoin::process(Connection *) {
 void MessageServerLeave::process(Connection *) {
 	MSG_INIT;
 
-	g.l->log(Log::PlayerLeave, MainWindow::tr("Left now: %1.").arg(pSrc->qsName));
+	g.l->log(Log::PlayerLeave, MainWindow::tr("Left server: %1.").arg(pSrc->qsName));
 	g.mw->pmModel->removePlayer(pSrc);
 }
 
@@ -599,17 +599,20 @@ void MessageSpeex::process(Connection *) {
 void MessagePlayerSelfMuteDeaf::process(Connection *) {
 	MSG_INIT;
 
-	QString name = pSrc->qsName;
 	pSrc->setSelfMuteDeaf(bMute, bDeaf);
 
-	if (sPlayerId != g.sId) {
-		if (bMute && bDeaf)
-			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted and deafened.").arg(name));
-		else if (bMute)
-			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted.").arg(name));
-		else
-			g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now unmuted.").arg(name));
-	}
+	if (sPlayerId == g.sId)
+		return;
+	if (pSrc->cChannel != Player::get(g.sId)->cChannel)
+		return;
+
+	QString name = pSrc->qsName;
+	if (bMute && bDeaf)
+		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted and deafened.").arg(name));
+	else if (bMute)
+		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted.").arg(name));
+	else
+		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now unmuted.").arg(name));
 }
 
 void MessagePlayerMute::process(Connection *) {
@@ -618,8 +621,11 @@ void MessagePlayerMute::process(Connection *) {
 
 	pDst->setMute(bMute);
 
+	if (pDst->cChannel != Player::get(g.sId)->cChannel)
+		return;
+
 	QString vic = pDst->qsName;
-	QString admin = pSrc->qsName;
+	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
 
 	if (sVictim == g.sId)
 		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1.").arg(admin) : MainWindow::tr("You were unmuted by %1.").arg(admin));
@@ -633,8 +639,11 @@ void MessagePlayerDeaf::process(Connection *) {
 
 	pDst->setDeaf(bDeaf);
 
+	if (pDst->cChannel != Player::get(g.sId)->cChannel)
+		return;
+
 	QString vic = pDst->qsName;
-	QString admin = pSrc->qsName;
+	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
 
 	if (sVictim == g.sId)
 		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
@@ -657,7 +666,26 @@ void MessagePlayerKick::process(Connection *) {
 void MessagePlayerMove::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
+
+	bool log = true;
+	if ((sVictim == g.sId) && (sPlayerId == sVictim))
+		log = false;
+
+	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
+		if (pDst == pSrc || (!pSrc))
+			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 left channel.").arg(pDst->qsName));
+		else
+			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2").arg(pDst->qsName).arg(pSrc->qsName));
+	}
+
 	g.mw->pmModel->movePlayer(pDst, iChannelId);
+
+	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
+		if (pDst == pSrc || (!pSrc))
+			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 entered channel.").arg(pDst->qsName));
+		else
+			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 moved in by %2.").arg(pDst->qsName).arg(pSrc->qsName));
+	}
 }
 
 void MessageChannelAdd::process(Connection *) {
@@ -682,6 +710,10 @@ void MessageServerAuthenticate::process(Connection *) {
 void MessageServerReject::process(Connection *) {
 	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1.").arg(qsReason));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
+}
+
+void MessagePermissionDenied::process(Connection *) {
+	g.l->log(Log::PermissionDenied, MainWindow::tr("Denied: %1.").arg(qsReason));
 }
 
 void MessageServerSync::process(Connection *) {

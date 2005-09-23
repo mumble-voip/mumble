@@ -47,6 +47,8 @@ Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 Channel::~Channel() {
 	Q_ASSERT(qlChannels.count() == 0);
 	Q_ASSERT(qlPlayers.count() == 0);
+	Q_ASSERT(qhGroups.count() == 0);
+	Q_ASSERT(qlACL.count() == 0);
 	Q_ASSERT(children().count() == 0);
 }
 

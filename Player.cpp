@@ -40,6 +40,7 @@ Player::Player(QObject *p) : QObject(p) {
   bMute = bDeaf = false;
   bSelfMute = bSelfDeaf = false;
   bTalking = false;
+  bSuppressed = false;
   cChannel = false;
 }
 

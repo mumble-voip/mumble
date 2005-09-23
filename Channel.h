@@ -37,6 +37,8 @@
 #include <QReadWriteLock>
 #include <QList>
 #include "Player.h"
+#include "Group.h"
+#include "ACL.h"
 
 class Channel : public QObject {
 	Q_OBJECT
@@ -45,9 +47,11 @@ class Channel : public QObject {
 		int iParent;
 		Channel *cParent;
 		QString qsName;
-		QHash<int, Channel *> qhChannels;
 		QList<Channel *> qlChannels;
 		QList<Player *> qlPlayers;
+		QHash<QString, Group *> qhGroups;
+		QList<ChanACL *> qlACL;
+		bool bInheritACL;
 
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;

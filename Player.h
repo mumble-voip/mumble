@@ -45,7 +45,7 @@ class Player : public QObject {
 		short sId;
 		int iId;
 		QString qsName;
-		bool bMute, bDeaf;
+		bool bMute, bDeaf, bSuppressed;
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking;
 		Channel *cChannel;
