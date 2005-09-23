@@ -37,6 +37,7 @@ Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 	iId = id;
 	iParent = 0;
 	qsName = name;
+	bInheritACL = true;
 	cParent = qobject_cast<Channel *>(p);
 	if (cParent) {
 		iParent = cParent->iId;

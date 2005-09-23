@@ -126,21 +126,32 @@ bool Group::isMember(Channel *c, QString name, int id) {
 		return true;
 	}
 
-	p=c;
+	QStack<Group *> s;
+
+	p = c;
+
 	while (p) {
 		g = p->qhGroups.value(name);
-		p = p->cParent;
+
 		if (g) {
 			if ((p != c) && ! g->bInheritable)
 				break;
+			s.push(g);
 			if (! g->bInherit)
-				p = NULL;
-			if (g->qsAdd.contains(id))
-				m = true;
-			if (g->qsRemove.contains(id))
-				m = false;
+				break;
 		}
+
+		p = p->cParent;
 	}
+
+	while (! s.isEmpty()) {
+		g = s.pop();
+		if (g->qsAdd.contains(id))
+			m = true;
+		if (g->qsRemove.contains(id))
+			m = false;
+	}
+
 	return m;
 }
 
