@@ -44,7 +44,6 @@ class Connection : public QObject {
 	protected slots:
 		void socketRead();
 	    void socketError(QAbstractSocket::SocketError);
-	    void socketState(QAbstractSocket::SocketState);
 	    void socketDisconnected();
 	signals:
 		void connectionClosed(QString reason);

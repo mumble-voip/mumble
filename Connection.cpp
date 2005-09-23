@@ -37,7 +37,6 @@ Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
     connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
-	connect(qtsSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(socketState(QAbstractSocket::SocketState)));
     connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
     connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 }
@@ -77,9 +76,6 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 		emit connectionClosed(qtsSocket->errorString());
 	}
 	qtsSocket->disconnectFromHost();
-}
-
-void Connection::socketState(QAbstractSocket::SocketState state) {
 }
 
 void Connection::socketDisconnected() {
