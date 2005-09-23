@@ -537,12 +537,11 @@ void MessagePlayerMove::process(Connection *cCon) {
 		return;
 	}
 
-
 	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::MoveKick) && ! ChanACL::hasPermission(pDstPlayer, c, ChanACL::Enter)) {
 		PERM_DENIED(pDstPlayer, c, ChanACL::Enter);
 		return;
 	}
-	
+
 
 	g_sServer->sendAll(this);
 	g_sServer->playerEnterChannel(pDstPlayer, c);
@@ -605,6 +604,9 @@ void MessageChannelMove::process(Connection *cCon) {
 	Channel *c = Channel::get(iId);
 	Channel *np = Channel::get(iParent);
 	if (!c || ! np)
+		return;
+
+	if (np == c->cParent)
 		return;
 
 	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Write)) {
