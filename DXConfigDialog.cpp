@@ -196,10 +196,10 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qsMaxDistance, 2, 1);
 	grid->addWidget(qlMaxDistance, 2, 2);
 
-	qsRollOff->setRange(lround(DS3D_MINROLLOFFFACTOR*10), lround(DS3D_MAXROLLOFFFACTOR *10));
+	qsRollOff->setRange(0, 200);
 	qsRollOff->setSingleStep(1);
 	qsRollOff->setPageStep(10);
-	qsRollOff->setValue(lround(g.s.fDXRollOff * 10));
+	qsRollOff->setValue(lround(g.s.fDXRollOff * 100));
 	qsRollOff->setObjectName("RollOff");
 	l = new QLabel(tr("RollOff"));
 	l->setBuddy(qsRollOff);
@@ -266,7 +266,7 @@ void DXConfigDialog::accept() {
 	g.s.fDXMinDistance = qsMinDistance->value() / 10.0;
 	g.s.fDXMaxDistance = qsMaxDistance->value() / 10.0;
 	g.s.fDXDoppler = qsDoppler->value() / 10.0;
-	g.s.fDXRollOff = qsRollOff->value() / 10.0;
+	g.s.fDXRollOff = qsRollOff->value() / 100.0;
 }
 
 void DXConfigDialog::on_OutputDelay_valueChanged(int v) {
@@ -292,14 +292,14 @@ void DXConfigDialog::on_Doppler_valueChanged(int v) {
 }
 
 void DXConfigDialog::on_RollOff_valueChanged(int v) {
-	qlRollOff->setText(tr("%1").arg(v/10.0, 0, 'f', 1));
+	qlRollOff->setText(tr("%1").arg(v/100.0, 0, 'f', 2));
 	updateIntensity();
 }
 
 void DXConfigDialog::updateIntensity() {
 	float min = qsMinDistance->value() / 10.0;
 	float max = qsMaxDistance->value() / 10.0;
-	float roll = qsRollOff->value() / 10.0;
+	float roll = qsRollOff->value() / 100.0;
 
 	float intensity = min / (min + (max-min)*roll);
 	qlIntensity->setText(tr("Players more than %1 meters away have %2% intensity").arg(max,0,'f',1).arg(intensity * 100.0, 0, 'f', 1));

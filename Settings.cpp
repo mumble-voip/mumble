@@ -44,10 +44,10 @@ Settings::Settings() {
 	iVoiceHold = 30;
 	iJitterBufferSize = 8;
 	iDXOutputDelay = 1;
-	fDXMinDistance = 5.0;
-	fDXMaxDistance = 35.0;
+	fDXMinDistance = 10.0;
+	fDXMaxDistance = 50.0;
 	fDXDoppler = 0.0;
-	fDXRollOff = 0.5;
+	fDXRollOff = 0.15;
 }
 
 void Settings::load() {

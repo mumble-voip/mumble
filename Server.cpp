@@ -405,6 +405,8 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		g_sServer->sendMessage(cCon, &mpm);
 	}
 
+	// Legg til MOVE
+
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;
 	mssMsg.qsWelcomeText = g_sp.qsWelcomeText;

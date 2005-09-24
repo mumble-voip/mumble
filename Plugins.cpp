@@ -136,6 +136,7 @@ QIcon PluginConfig::icon() const {
 }
 
 void PluginConfig::accept() {
+	g.s.ptTransmit = static_cast<Settings::PosTransmit>(qcbTransmit->currentIndex());
 }
 
 void PluginConfig::on_Config_clicked() {

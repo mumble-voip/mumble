@@ -125,6 +125,8 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : Au
 
 DXAudioOutputPlayer::~DXAudioOutputPlayer() {
 	qWarning("DXAudioOutputPlayer: %s: Removed", p->qsName.toLatin1().constData());
+	if (pDS3dBuffer)
+		pDS3dBuffer->Release();
 	if (pDSNotify)
 		pDSNotify->Release();
 	if (pDSBOutput) {

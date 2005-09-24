@@ -182,6 +182,7 @@ void MainWindow::setupGui()  {
 	view->setDragEnabled(true);
 	view->setDropIndicatorShown(true);
 	view->setAcceptDrops(true);
+	view->setIndentation(10);
 
 	qteLog = new QTextEdit(this);
 	qteLog->setReadOnly(true);
