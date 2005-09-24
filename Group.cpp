@@ -40,7 +40,7 @@ Group::Group(Channel *assoc, QString name) {
 	c->qhGroups[name] = this;
 }
 
-QList<int> Group::members() {
+QSet<int> Group::members() {
 	QStack<Group *> s;
 	QSet<int> m;
 	Channel *p;
@@ -69,10 +69,26 @@ QList<int> Group::members() {
 			m.remove(i);
 	}
 
-	return m.toList();
+	return m;
 }
 
-QStringList Group::groupNames(Channel *chan) {
+Group *Group::getGroup(Channel *chan, QString name) {
+	Channel *p = chan;
+	while (p) {
+		Group *g = chan->qhGroups.value(name);
+		if (g) {
+			if (chan == p)
+				return g;
+			else if (g->bInheritable)
+				return g;
+			else
+				return NULL;
+		}
+	}
+	return NULL;
+}
+
+QSet<QString> Group::groupNames(Channel *chan) {
 	QStack<Channel *> s;
 	QSet<QString> m;
 	Channel *c = chan;
@@ -93,7 +109,7 @@ QStringList Group::groupNames(Channel *chan) {
 		}
 	}
 
-	return m.toList();
+	return m;
 }
 
 bool Group::isMember(Channel *c, QString name, int id) {
@@ -106,13 +122,14 @@ bool Group::isMember(Channel *c, QString name, int id) {
 	if (name.isEmpty())
 		return false;
 
-	if (name == "all") {
-		return true;
-	}
+	if (name == "none")
+		return false;
 
-	if (name == "reg") {
+	if (name == "all")
+		return true;
+
+	if (name == "reg")
 		return (id >= 0);
-	}
 
 	if (name == "in") {
 		if (pl && pl->cChannel == c)

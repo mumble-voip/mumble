@@ -37,13 +37,14 @@
 #include <QByteArray>
 #include <QString>
 #include "Connection.h"
+#include "ACL.h"
 
 class Message {
 	protected:
 		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers};
 		short sPlayerId;
 
 		Message();
@@ -228,6 +229,60 @@ class MessagePermissionDenied : public Message {
 		MessagePermissionDenied();
 		Message::MessageType messageType() const { return PermissionDenied; };
 		void process(Connection *);
+};
+
+
+class MessageEditACL : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		struct GroupStruct {
+			QString qsName;
+			bool bInherited;
+			bool bInherit;
+			bool bInheritable;
+			QList<int> qlAdd;
+			QList<int> qlRemove;
+			QList<int> qlInheritedMembers;
+		};
+
+		struct ACLStruct {
+			bool bApplyHere;
+			bool bApplySubs;
+			bool bInherited;
+			int iPlayerId;
+			QString qsGroup;
+			ChanACL::Permissions pAllow;
+			ChanACL::Permissions pDeny;
+		};
+
+		int iId;
+		bool bQuery;
+		bool bInheritACL;
+		QList<GroupStruct> groups;
+		QList<ACLStruct> acls;
+		MessageEditACL();
+		Message::MessageType messageType() const { return EditACL; };
+		void process(Connection *);
+};
+
+QDataStream & operator<< ( QDataStream & out, const MessageEditACL::GroupStruct &gs );
+QDataStream & operator>> ( QDataStream & in, MessageEditACL::GroupStruct &gs );
+QDataStream & operator<< ( QDataStream & out, const MessageEditACL::ACLStruct &gs );
+QDataStream & operator>> ( QDataStream & in, MessageEditACL::ACLStruct &gs );
+
+class MessageQueryUsers : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		QList<int> qlIds;
+		QList<QString> qlNames;
+		MessageQueryUsers();
+		Message::MessageType messageType() const { return QueryUsers; };
+		void process(Connection *);
+		bool isValid() const;
 };
 
 #else

@@ -59,6 +59,9 @@ class Server : public QObject {
 		QHash<Connection *, Peer> qhPeers;
 		QHash<Peer, Connection *> qhPeerConnections;
 
+		QHash<int, QString> qhUserNameCache;
+		QHash<QString, int> qhUserIDCache;
+
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
 		void sendMessage(short, Message *);

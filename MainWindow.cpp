@@ -57,6 +57,8 @@
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	Channel::add(0, tr("Root"), NULL);
 
+	aclEdit = NULL;
+
 	createActions();
 	setupGui();
 
@@ -100,6 +102,10 @@ void MainWindow::createActions() {
 	qaChannelRemove->setObjectName("ChannelRemove");
 	qaChannelRemove->setToolTip(tr("Remove channel"));
 	qaChannelRemove->setWhatsThis(tr("This removes a channel and all subchannels."));
+	qaChannelACL=new QAction(tr("&Edit ACL"), this);
+	qaChannelACL->setObjectName("ChannelACL");
+	qaChannelACL->setToolTip(tr("Edit Groups and ACL for channel"));
+	qaChannelACL->setWhatsThis(tr("This opens the Group and ACL dialog for the channel, to control permissions."));
 
 	qaAudioReset=new QAction(tr("&Reset"), this);
 	qaAudioReset->setObjectName("AudioReset");
@@ -194,7 +200,7 @@ void MainWindow::setupGui()  {
 	qmPlayer = new QMenu(tr("&Player"), this);
 	qmChannel = new QMenu(tr("&Channel"), this);
 	qmAudio = new QMenu(tr("&Audio"), this);
-	qmConfig = new QMenu(tr("&Config"), this);
+	qmConfig = new QMenu(tr("C&onfig"), this);
 	qmHelp = new QMenu(tr("&Help"), this);
 
 	qmServer->setObjectName("ServerMenu");
@@ -213,6 +219,7 @@ void MainWindow::setupGui()  {
 
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelRemove);
+	qmChannel->addAction(qaChannelACL);
 
 	qmAudio->addAction(qaAudioMute);
 	qmAudio->addAction(qaAudioDeaf);
@@ -381,9 +388,11 @@ void MainWindow::on_ChannelMenu_aboutToShow()
 	if (! c) {
 		qaChannelAdd->setEnabled(false);
 		qaChannelRemove->setEnabled(false);
+		qaChannelACL->setEnabled(false);
 	} else {
 		qaChannelAdd->setEnabled(true);
 		qaChannelRemove->setEnabled(true);
+		qaChannelACL->setEnabled(true);
 	}
 }
 
@@ -415,6 +424,24 @@ void MainWindow::on_ChannelRemove_triggered()
 		MessageChannelRemove mcr;
 		mcr.iId = c->iId;
 		g.sh->sendMessage(&mcr);
+	}
+}
+
+void MainWindow::on_ChannelACL_triggered()
+{
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! c)
+		return;
+
+	MessageEditACL mea;
+	mea.iId = c->iId;
+	mea.bQuery = true;
+	g.sh->sendMessage(&mea);
+
+	if (aclEdit) {
+		aclEdit->reject();
+		delete aclEdit;
+		aclEdit = NULL;
 	}
 }
 
@@ -549,6 +576,12 @@ void MainWindow::serverDisconnected(QString reason)
 	g.sId = 0;
 	qaServerConnect->setEnabled(true);
 	qaServerDisconnect->setEnabled(false);
+
+	if (aclEdit) {
+		aclEdit->reject();
+		delete aclEdit;
+		aclEdit = NULL;
+	}
 
 	pmModel->removeAll();
 
@@ -724,4 +757,19 @@ void MessageServerSync::process(Connection *) {
 	g.sId = sPlayerId;
 	g.l->clearIgnore();
 	g.l->log(Log::Information, qsWelcomeText, QString(""));
+}
+
+void MessageEditACL::process(Connection *) {
+	if (g.mw->aclEdit) {
+		g.mw->aclEdit->reject();
+		delete g.mw->aclEdit;
+		g.mw->aclEdit = NULL;
+	}
+	g.mw->aclEdit = new ACLEditor(this, g.mw);
+	g.mw->aclEdit->show();
+}
+
+void MessageQueryUsers::process(Connection *) {
+	if (g.mw->aclEdit)
+		g.mw->aclEdit->returnQuery(this);
 }

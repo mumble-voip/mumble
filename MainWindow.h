@@ -40,6 +40,7 @@
 #include <QAbstractItemView>
 #include "Audio.h"
 #include "TrayIcon.h"
+#include "ACLEditor.h"
 
 class Player;
 class Connection;
@@ -57,13 +58,15 @@ class MainWindow : public QMainWindow {
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
 		QAction *qaConfigDialog, *qaConfigShortcuts;
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
-		QAction *qaChannelAdd, *qaChannelRemove;
+		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL;
 		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos;
 
 		TrayIcon *ti;
+
+		ACLEditor *aclEdit;
 
 		void recheckTTS();
 		void appendLog(QString entry);
@@ -84,6 +87,7 @@ class MainWindow : public QMainWindow {
 		void on_ChannelMenu_aboutToShow();
 		void on_ChannelAdd_triggered();
 		void on_ChannelRemove_triggered();
+		void on_ChannelACL_triggered();
 		void on_AudioReset_triggered();
 		void on_AudioMute_triggered();
 		void on_AudioDeaf_triggered();

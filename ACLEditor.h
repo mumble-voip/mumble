@@ -28,32 +28,44 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _GROUP_H
-#define _GROUP_H
+#ifndef _ACLEDITOR_H
+#define _ACLEDITOR_H
 
-#include <QString>
-#include <QSet>
-#include "Channel.h"
+#include <QDialog>
+#include <QWidget>
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QList>
+#include <QHash>
+#include "Message.h"
 
-class Group {
+class ACLEditor : public QDialog {
+	Q_OBJECT;
+	protected:
+		enum WaitID {
+			GroupAdd, GroupRemove, GroupInherit, ACLList
+		};
+		QHash<int, QString> qhNameCache;
+		QHash<QString, int> qhIDCache;
+
+		QHash<int, QSet<WaitID> > qhIDWait;
+		QHash<QString, QSet<WaitID> > qhNameWait;
+
+		void addQuery(WaitID me, int id);
+		void addQuery(WaitID me, QString name);
+		void doneQuery();
+		void cleanQuery();
+		void refill(WaitID what);
+
+		QList<MessageEditACL::ACLStruct> acls;
+		QList<MessageEditACL::GroupStruct> groups;
 	public:
-		Channel *c;
-		QString qsName;
-		bool bInherit;
-		bool bInheritable;
-		QSet<int> qsAdd;
-		QSet<int> qsRemove;
-		QSet<int> members();
-		Group(Channel *assoc, QString name);
-
-		static QSet<QString> groupNames(Channel *c);
-		static Group *getGroup(Channel *c, QString name);
-
-		static bool isMember(Channel *c, QString name, int);
-		static bool isMember(Channel *c, QString name, Player *);
-		static bool isMember(Player *, QString name);
+		ACLEditor(const MessageEditACL *mea, QWidget *p = NULL);
+		void returnQuery(const MessageQueryUsers *mqu);
+	public slots:
+		void accept();
 };
 
 #else
-class Group;
+class ACLEditor;
 #endif

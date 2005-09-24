@@ -186,6 +186,34 @@ int ServerDB::authenticate(QString &name, QString pw) {
 	return res;
 }
 
+QString ServerDB::getUserName(int id) {
+	TransactionHolder th;
+	QString name;
+
+	QSqlQuery query;
+	query.prepare("SELECT name FROM players WHERE player_id = ?");
+	query.addBindValue(id);
+	query.exec();
+	if (query.next()) {
+		name = query.value(0).toString();
+	}
+	return name;
+}
+
+int ServerDB::getUserID(QString name) {
+	TransactionHolder th;
+	int id = -1;
+
+	QSqlQuery query;
+	query.prepare("SELECT player_id FROM players WHERE name like ?");
+	query.addBindValue(name);
+	query.exec();
+	if (query.next()) {
+		id = query.value(0).toInt();
+	}
+	return id;
+}
+
 Channel *ServerDB::addChannel(Channel *parent, QString name) {
 	TransactionHolder th;
 

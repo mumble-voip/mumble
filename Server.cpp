@@ -30,6 +30,8 @@
 
 #include <QDateTime>
 #include <QRegExp>
+#include <QStack>
+#include <QSet>
 #include "Server.h"
 #include "ServerDB.h"
 
@@ -291,11 +293,11 @@ void Server::playerEnterChannel(Player *p, Channel *c) {
 
 #define PERM_DENIED(who, where, what) \
 	mpd.qsReason = QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName); \
-	cCon->sendMessage(&mpd); \
+	g_sServer->sendMessage(cCon, &mpd); \
 	g_sServer->log(mpd.qsReason, cCon)
 #define PERM_DENIED_TEXT(text) \
 	mpd.qsReason = text; \
-	cCon->sendMessage(&mpd)
+	g_sServer->sendMessage(cCon, &mpd)
 
 
 void MessageServerAuthenticate::process(Connection *cCon) {
@@ -635,4 +637,144 @@ void MessageChannelMove::process(Connection *cCon) {
 	np->addChannel(c);
 	ServerDB::updateChannel(c);
 	g_sServer->sendAll(this);
+}
+
+void MessageEditACL::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	Channel *c = Channel::get(iId);
+	if (!c)
+		return;
+
+	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Write)) {
+		PERM_DENIED(pSrcPlayer, c, ChanACL::Write);
+		return;
+	}
+
+	MessageEditACL mea;
+	mea.iId = iId;
+
+	if (bQuery) {
+		QStack<Channel *> chans;
+		Channel *p;
+		ChanACL *acl;
+
+		p = c;
+		while (p) {
+			chans.push(p);
+			if (p->bInheritACL)
+				p = p->cParent;
+			else
+				p = NULL;
+		}
+
+		mea.bQuery = false;
+		mea.bInheritACL = c->bInheritACL;
+
+		while(! chans.isEmpty()) {
+			p = chans.pop();
+			foreach(acl, p->qlACL) {
+				if ((p == c) || (acl->bApplySubs)) {
+					ACLStruct as;
+					as.bInherited = (p != c);
+					as.bApplyHere = acl->bApplyHere;
+					as.bApplySubs = acl->bApplySubs;
+					as.iPlayerId = acl->iPlayerId;
+					as.qsGroup = acl->qsGroup;
+					as.pDeny = acl->pDeny;
+					as.pAllow = acl->pAllow;
+					mea.acls << as;
+				}
+			}
+		}
+
+		p = c->cParent;
+		QSet<QString> allnames=Group::groupNames(c);
+		QString name;
+		foreach(name, allnames) {
+			Group *g = Group::getGroup(c, name);
+			Group *pg = p ? Group::getGroup(p, name) : NULL;
+			GroupStruct gs;
+			gs.qsName = name;
+			gs.bInherit = g->bInherit;
+			gs.bInheritable = g->bInheritable;
+			gs.bInherited = (g->c != c);
+			gs.qlAdd = g->qsAdd.toList();
+			gs.qlRemove = g->qsRemove.toList();
+			if (pg)
+				gs.qlInheritedMembers = pg->members().toList();
+			mea.groups << gs;
+		}
+		g_sServer->sendMessage(cCon, &mea);
+	} else {
+		Group *g;
+		ChanACL *a;
+		GroupStruct gs;
+		ACLStruct as;
+
+		foreach(g, c->qhGroups)
+			delete g;
+		foreach(a, c->qlACL)
+			delete a;
+
+		c->qhGroups.clear();
+		c->qlACL.clear();
+
+		c->bInheritACL = bInheritACL;
+
+		foreach(gs, groups) {
+			g = new Group(c, gs.qsName);
+			g->bInherit = gs.bInherit;
+			g->bInheritable = gs.bInheritable;
+			g->qsAdd = gs.qlAdd.toSet();
+			g->qsRemove = gs.qlRemove.toSet();
+		}
+
+		foreach(as, acls) {
+			a = new ChanACL(c);
+			a->bApplyHere=as.bApplyHere;
+			a->bApplySubs=as.bApplySubs;
+			a->iPlayerId=as.iPlayerId;
+			a->qsGroup=as.qsGroup;
+			a->pDeny=as.pDeny;
+			a->pAllow=as.pAllow;
+		}
+
+		if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Write)) {
+			a = new ChanACL(c);
+			a->bApplyHere=true;
+			a->bApplySubs=false;
+			a->iPlayerId=pSrcPlayer->iId;
+			a->pDeny=ChanACL::None;
+			a->pAllow=ChanACL::Write | ChanACL::Traverse;
+		}
+
+		g_sServer->log(QString("Updated ACL in channel %1(%2)").arg(c->qsName).arg(c->iId), cCon);
+	}
+}
+
+void MessageQueryUsers::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	int i;
+	for(i=0;i<qlIds.count();i++) {
+		QString name = qlNames[i];
+		int id = qlIds[i];
+		if (id == -1) {
+			if (! g_sServer->qhUserIDCache.contains(name)) {
+				id = ServerDB::getUserID(name);
+				if (id != -1)
+					g_sServer->qhUserIDCache[name] = id;
+			}
+			qlIds[i] = g_sServer->qhUserIDCache.value(name);
+		} else {
+			if (! g_sServer->qhUserNameCache.contains(id)) {
+				name = ServerDB::getUserName(id);
+				if (! name.isEmpty())
+					g_sServer->qhUserNameCache[id] = name;
+			}
+			qlNames[i] = g_sServer->qhUserNameCache.value(id);
+		}
+	}
+	g_sServer->sendMessage(cCon, this);
 }

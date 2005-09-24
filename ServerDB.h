@@ -48,6 +48,8 @@ class ServerDB : public QObject {
 		static void setLastChannel(Player *p);
 		static int readLastChannel(Player *p);
 		static void dumpChannel(Channel *c);
+		static int getUserID(QString name);
+		static QString getUserName(int id);
 };
 
 #endif

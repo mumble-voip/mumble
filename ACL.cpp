@@ -62,7 +62,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 	}
 
 	// Default permissions
-	Permissions def = Read | Enter | Speak;
+	Permissions def = Traverse | Enter | Speak;
 	Permissions granted = def;
 
 	bool traverse = true;
@@ -74,9 +74,9 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 
 		foreach(acl, ch->qlACL) {
 			if ((acl->iPlayerId == p->iId) || Group::isMember(chan, acl->qsGroup, p)) {
-				if (acl->pAllow & Read)
+				if (acl->pAllow & Traverse)
 					traverse = true;
-				if (acl->pDeny & Read)
+				if (acl->pDeny & Traverse)
 					traverse = false;
 				if ((ch==chan && acl->bApplyHere) || (ch!=chan && acl->bApplySubs)) {
 					granted |= acl->pAllow;
@@ -97,8 +97,8 @@ QString ChanACL::permName(Perm p) {
 			return "None";
 		case Write:
 			return "Write";
-		case Read:
-			return "Read";
+		case Traverse:
+			return "Traverse";
 		case Enter:
 			return "Enter";
 		case Speak:

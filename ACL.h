@@ -40,7 +40,7 @@ class ChanACL {
 		enum Perm {
 			None = 0x0,
 			Write = 0x1,
-			Read = 0x2,
+			Traverse = 0x2,
 			Enter = 0x4,
 			Speak = 0x8,
 			MuteDeafen = 0x10,

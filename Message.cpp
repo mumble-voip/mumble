@@ -98,6 +98,12 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case PermissionDenied:
 			mMsg = new MessagePermissionDenied();
 			break;
+		case EditACL:
+			mMsg = new MessageEditACL();
+			break;
+		case QueryUsers:
+			mMsg = new MessageQueryUsers();
+			break;
 		default:
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
@@ -337,4 +343,105 @@ void MessageChannelMove::saveStream(QDataStream &qdsOut) const {
 void MessageChannelMove::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> iId;
 	qdsIn >> iParent;
+}
+
+MessageEditACL::MessageEditACL() {
+	bQuery = true;
+	iId = 0;
+	bInheritACL = true;
+}
+
+void MessageEditACL::saveStream(QDataStream &qdsOut) const {
+	qdsOut << iId;
+	qdsOut << bQuery;
+	if (bQuery)
+		return;
+
+	qdsOut << bInheritACL;
+	qdsOut << groups;
+	qdsOut << acls;
+}
+
+void MessageEditACL::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> iId;
+	qdsIn >> bQuery;
+	if (bQuery)
+		return;
+
+	qdsIn >> bInheritACL;
+	qdsIn >> groups;
+	qdsIn >> acls;
+}
+
+MessageQueryUsers::MessageQueryUsers() {
+}
+
+void MessageQueryUsers::saveStream(QDataStream &qdsOut) const {
+	qdsOut << qlIds;
+	qdsOut << qlNames;
+}
+
+void MessageQueryUsers::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> qlIds;
+	qdsIn >> qlNames;
+}
+
+bool MessageQueryUsers::isValid() const {
+	if (qlIds.count() != qlNames.count())
+		return false;
+
+	int i;
+	for(i=0;i<qlIds.count();i++) {
+		if ((qlIds[i] == -1) && (qlNames[i].isEmpty()))
+			return false;
+	}
+	return true;
+}
+
+QDataStream & operator<< ( QDataStream & out, const MessageEditACL::GroupStruct &gs ) {
+	out << gs.qsName;
+	out << gs.bInherited;
+	out << gs.bInherit;
+	out << gs.bInheritable;
+	out << gs.qlAdd;
+	out << gs.qlRemove;
+	out << gs.qlInheritedMembers;
+	return out;
+}
+
+QDataStream & operator>> ( QDataStream & in, MessageEditACL::GroupStruct &gs ) {
+	in >> gs.qsName;
+	in >> gs.bInherited;
+	in >> gs.bInherit;
+	in >> gs.bInheritable;
+	in >> gs.qlAdd;
+	in >> gs.qlRemove;
+	in >> gs.qlInheritedMembers;
+	return in;
+}
+
+QDataStream & operator<< ( QDataStream & out, const MessageEditACL::ACLStruct &as ) {
+	out << as.bApplyHere;
+	out << as.bApplySubs;
+	out << as.bInherited;
+	out << as.iPlayerId;
+	out << as.qsGroup;
+	out << static_cast<int>(as.pAllow);
+	out << static_cast<int>(as.pDeny);
+	return out;
+}
+
+QDataStream & operator>> ( QDataStream & in, MessageEditACL::ACLStruct &as ) {
+	int v;
+
+	in >> as.bApplyHere;
+	in >> as.bApplySubs;
+	in >> as.bInherited;
+	in >> as.iPlayerId;
+	in >> as.qsGroup;
+	in >> v;
+	as.pAllow = static_cast<ChanACL::Permissions>(v);
+	in >> v;
+	as.pDeny = static_cast<ChanACL::Permissions>(v);
+	return in;
 }
