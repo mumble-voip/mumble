@@ -106,7 +106,7 @@ QString ChanACL::permName(Perm p) {
 		case MuteDeafen:
 			return "Mute/Deafen";
 		case MoveKick:
-			return "Mute/Kick";
+			return "Move/Kick";
 		case MakeChannel:
 			return "Make channel";
 		default:

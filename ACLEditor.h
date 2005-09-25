@@ -59,9 +59,14 @@ class ACLEditor : public QDialog {
 		void cleanQuery();
 		void refill(WaitID what);
 
+		QHash<MessageEditACL::ACLStruct *, QString> qhACLNameWait;
+
+		MessageEditACL::GroupStruct *currentGroup();
+		MessageEditACL::ACLStruct *currentACL();
+
 		bool bInheritACL;
-		QList<MessageEditACL::ACLStruct> acls;
-		QList<MessageEditACL::GroupStruct> groups;
+		QList<MessageEditACL::ACLStruct *> acls;
+		QList<MessageEditACL::GroupStruct *> groups;
 		int numInheritACL;
 
 		QString userName(int id);
@@ -95,6 +100,7 @@ class ACLEditor : public QDialog {
 		QPushButton *qpbGroupInheritRemove;
 	public:
 		ACLEditor(const MessageEditACL *mea, QWidget *p = NULL);
+		~ACLEditor();
 		void returnQuery(const MessageQueryUsers *mqu);
 	public slots:
 		void accept();
@@ -103,7 +109,19 @@ class ACLEditor : public QDialog {
 		void refillGroupAdd();
 		void refillGroupRemove();
 		void refillGroupInherit();
+		void groupEnableCheck();
+		void ACLEnableCheck();
 
+		void on_ACLList_currentRowChanged();
+		void on_ACLAdd_clicked();
+		void on_ACLRemove_clicked();
+		void on_ACLUp_clicked();
+		void on_ACLDown_clicked();
+		void on_ACLInherit_clicked(bool checked);
+		void on_ACLApplyHere_clicked(bool checked);
+		void on_ACLApplySubs_clicked(bool checked);
+		void on_ACLGroup_activated(const QString &text);
+		void on_ACLUser_editingFinished();
 };
 
 #else

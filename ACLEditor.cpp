@@ -45,6 +45,8 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	QLabel *l;
 	MessageEditACL::ACLStruct as;
 	MessageEditACL::GroupStruct gs;
+	MessageEditACL::ACLStruct *asp;
+	MessageEditACL::GroupStruct *gsp;
 
 	QTabWidget *qtwTab = new QTabWidget(this);
 	QWidget *groupEditor=new QWidget();
@@ -84,7 +86,6 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	qvblAclList->addLayout(qhblAclList);
 
 	qgbACLs->setLayout(qvblAclList);
-
 
 	QGridLayout *grid = new QGridLayout();
 
@@ -253,32 +254,34 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
     ml->addLayout(buttons);
     setLayout(ml);
 
-
-	acls = mea->acls;
-	groups = mea->groups;
+	foreach (as, mea->acls) {
+		asp = new MessageEditACL::ACLStruct(as);
+		acls << asp;
+	}
+	foreach (gs, mea->groups) {
+		gsp = new MessageEditACL::GroupStruct(gs);
+		groups << gsp;
+	}
 
 	numInheritACL = 0;
 
 	bInheritACL = mea->bInheritACL;
+	qcbACLInherit->setChecked(bInheritACL);
 
-	foreach(as, acls) {
-		if (as.bInherited)
+	foreach(asp, acls) {
+		if (asp->bInherited)
 			numInheritACL++;
-		if (as.iPlayerId != -1)
-			addQuery(ACLList, as.iPlayerId);
+		if (asp->iPlayerId != -1)
+			addQuery(ACLList, asp->iPlayerId);
 	}
-	foreach(gs, groups) {
+	foreach(gsp, groups) {
 		int id;
-		foreach(id, gs.qsAdd)
+		foreach(id, gsp->qsAdd)
 			addQuery(GroupAdd, id);
-		foreach(id, gs.qsRemove)
+		foreach(id, gsp->qsRemove)
 			addQuery(GroupRemove, id);
-		foreach(id, gs.qsInheritedMembers)
+		foreach(id, gsp->qsInheritedMembers)
 			addQuery(GroupInherit, id);
-	}
-
-	foreach(gs, groups) {
-		qcbGroupList->addItem(gs.qsName);
 	}
 
 	refill(GroupAdd);
@@ -290,7 +293,26 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
     QMetaObject::connectSlotsByName(this);
 
+	foreach(gsp, groups) {
+		qcbGroupList->addItem(gsp->qsName);
+	}
+
 	resize(minimumSize());
+
+	ACLEnableCheck();
+	groupEnableCheck();
+}
+
+ACLEditor::~ACLEditor() {
+	MessageEditACL::ACLStruct *asp;
+	MessageEditACL::GroupStruct *gsp;
+
+	foreach(asp, acls) {
+		delete asp;
+	}
+	foreach(gsp, groups) {
+		delete gsp;
+	}
 }
 
 void ACLEditor::accept() {
@@ -381,45 +403,87 @@ QString ACLEditor::userName(int id) {
 }
 
 void ACLEditor::refillACL() {
-	MessageEditACL::ACLStruct as;
+	MessageEditACL::ACLStruct *as;
+
+	foreach(as, qhACLNameWait.keys()) {
+		if (acls.indexOf(as) >= 0) {
+			QString name = qhACLNameWait.value(as);
+			qWarning("Scanning for %s", name.toLatin1().constData());
+			if (qhIDCache.contains(name)) {
+				int id = qhIDCache.value(name);
+				qWarning("Found as %d", id);
+				if (id != -1) {
+					as->iPlayerId = id;
+					as->qsGroup = QString();
+				} else {
+					as->iPlayerId = -1;
+					as->qsGroup = "all";
+				}
+				qhACLNameWait.remove(as);
+			}
+		}
+	}
+
 	int idx = qlwACLs->currentRow();
+	bool previnh = bInheritACL;
+	bInheritACL = qcbACLInherit->isChecked();
+
+
 	qlwACLs->clear();
 	foreach(as, acls) {
-		if (! bInheritACL && as.bInherited)
+		if (! bInheritACL && as->bInherited)
 			continue;
 		QString text;
-		if (as.iPlayerId == -1)
-			text=QString("@%1").arg(as.qsGroup);
+		if (as->iPlayerId == -1)
+			text=QString("@%1").arg(as->qsGroup);
 		else
-			text=userName(as.iPlayerId);
+			text=userName(as->iPlayerId);
 		QListWidgetItem *item=new QListWidgetItem(text, qlwACLs);
-		if (as.bInherited) {
+		if (as->bInherited) {
 			QFont f = item->font();
 			f.setItalic(true);
 			item->setFont(f);
 		}
 	}
+	if (bInheritACL && ! previnh)
+		idx += numInheritACL;
+	if (! bInheritACL && previnh)
+		idx -= numInheritACL;
+
 	qlwACLs->setCurrentRow(idx);
 }
 
-void ACLEditor::refillGroupAdd() {
+MessageEditACL::GroupStruct *ACLEditor::currentGroup() {
 	QString group = qcbGroupList->currentText().toLower();
-	MessageEditACL::GroupStruct gs;
-
-	bool found = false;
+	MessageEditACL::GroupStruct *gs;
 
 	foreach(gs, groups) {
-		if (gs.qsName == group) {
-			found = true;
-			break;
+		if (gs->qsName == group) {
+			return gs;
 		}
 	}
 
-	if (! found)
+	return NULL;
+}
+
+MessageEditACL::ACLStruct *ACLEditor::currentACL() {
+	int idx = qlwACLs->currentRow();
+	if (idx == -1)
+		return NULL;
+
+	if (! bInheritACL)
+		idx += numInheritACL;
+	return acls[idx];
+}
+
+void ACLEditor::refillGroupAdd() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+
+	if (! gs)
 		return;
 
 	QStringList qsl;
-	foreach(int id, gs.qsAdd) {
+	foreach(int id, gs->qsAdd) {
 		qsl << userName(id);
 	}
 	qsl.sort();
@@ -430,7 +494,222 @@ void ACLEditor::refillGroupAdd() {
 }
 
 void ACLEditor::refillGroupRemove() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+
+	if (! gs)
+		return;
+
+	QStringList qsl;
+	foreach(int id, gs->qsAdd) {
+		qsl << userName(id);
+	}
+	qsl.sort();
+	qlwGroupRemove->clear();
+	foreach(QString name, qsl) {
+		qlwGroupRemove->addItem(name);
+	}
 }
 
 void ACLEditor::refillGroupInherit() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+
+	if (! gs)
+		return;
+
+	QStringList qsl;
+	foreach(int id, gs->qsInheritedMembers) {
+		qsl << userName(id);
+	}
+	qsl.sort();
+	qlwGroupInherit->clear();
+	foreach(QString name, qsl) {
+		qlwGroupInherit->addItem(name);
+	}
+}
+
+void ACLEditor::groupEnableCheck() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+
+	bool ena = true;
+
+	if (! gs)
+		ena = false;
+	else
+		ena = gs->bInherit;
+
+	qlwGroupRemove->setEnabled(ena);
+	qlwGroupInherit->setEnabled(ena);
+	qleGroupRemove->setEnabled(ena);
+	qpbGroupRemoveAdd->setEnabled(ena);
+	qpbGroupRemoveRemove->setEnabled(ena);
+	qpbGroupInheritRemove->setEnabled(ena);
+
+	ena = (gs != NULL);
+	qlwGroupAdd->setEnabled(ena);
+	qpbGroupAddAdd->setEnabled(ena);
+	qpbGroupAddRemove->setEnabled(ena);
+	qcbGroupInherit->setEnabled(ena);
+	qcbGroupInheritable->setEnabled(ena);
+}
+
+void ACLEditor::ACLEnableCheck() {
+	MessageEditACL::ACLStruct *as = currentACL();
+	MessageEditACL::GroupStruct *gs;;
+
+	bool ena = true;
+	if (! as)
+		ena = false;
+	else
+		ena = ! as->bInherited;
+
+	qpbACLRemove->setEnabled(ena);
+	qpbACLUp->setEnabled(ena);
+	qpbACLDown->setEnabled(ena);
+	qcbACLApplyHere->setEnabled(ena);
+	qcbACLApplySubs->setEnabled(ena);
+	qcbACLGroup->setEnabled(ena);
+	qleACLUser->setEnabled(ena);
+
+	int idx;
+	for(idx=0;idx<qlACLAllow.count();idx++) {
+		qlACLAllow[idx]->setEnabled(ena);
+		qlACLDeny[idx]->setEnabled(ena);
+	}
+
+	if (as) {
+		qcbACLApplyHere->setChecked(as->bApplyHere);
+		qcbACLApplySubs->setChecked(as->bApplyHere);
+		int p = 0x1;
+		for(idx=0;idx<qlACLAllow.count();idx++) {
+			qlACLAllow[idx]->setChecked(static_cast<int>(as->pAllow) & p);
+			qlACLDeny[idx]->setChecked(static_cast<int>(as->pDeny) & p);
+			p = p * 2;
+		}
+		qcbACLGroup->clear();
+		qcbACLGroup->addItem(QString());
+		qcbACLGroup->addItem("all");
+		qcbACLGroup->addItem("reg");
+		qcbACLGroup->addItem("in");
+		qcbACLGroup->addItem("out");
+		foreach(gs, groups)
+			qcbACLGroup->addItem(gs->qsName);
+		if (as->iPlayerId == -1) {
+			qleACLUser->setText(QString());
+			qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
+		} else {
+			qleACLUser->setText(userName(as->iPlayerId));
+		}
+	}
+}
+
+void ACLEditor::on_ACLList_currentRowChanged() {
+	ACLEnableCheck();
+}
+
+void ACLEditor::on_ACLAdd_clicked() {
+	MessageEditACL::ACLStruct *as = new MessageEditACL::ACLStruct;
+	as->bApplyHere = true;
+	as->bApplySubs = true;
+	as->bInherited = false;
+	as->qsGroup = "all";
+	as->iPlayerId = -1;
+	as->pAllow = ChanACL::None;
+	as->pDeny = ChanACL::None;
+	acls << as;
+	refillACL();
+	qlwACLs->setCurrentRow(qlwACLs->count() - 1);
+}
+
+void ACLEditor::on_ACLRemove_clicked() {
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+	acls.removeAll(as);
+	delete as;
+	refillACL();
+}
+
+void ACLEditor::on_ACLUp_clicked() {
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+
+	int idx = acls.indexOf(as);
+	if (idx <= numInheritACL)
+		return;
+	acls.swap(idx - 1, idx);
+	qlwACLs->setCurrentRow(qlwACLs->currentRow() - 1);
+	refillACL();
+}
+
+void ACLEditor::on_ACLDown_clicked() {
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+
+	int idx = acls.indexOf(as) + 1;
+	if (idx >= acls.count())
+		return;
+	acls.swap(idx - 1, idx);
+	qlwACLs->setCurrentRow(qlwACLs->currentRow() + 1);
+	refillACL();
+}
+
+void ACLEditor::on_ACLInherit_clicked(bool checked) {
+	refillACL();
+}
+
+void ACLEditor::on_ACLApplyHere_clicked(bool checked) {
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+
+	as->bApplyHere = checked;
+}
+
+void ACLEditor::on_ACLApplySubs_clicked(bool checked) {
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+
+	as->bApplySubs = checked;
+}
+
+void ACLEditor::on_ACLGroup_activated(const QString &text) {
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+
+	qWarning("Triggum");
+
+	if (text.isEmpty()) {
+		qcbACLGroup->setCurrentIndex(1);
+		as->qsGroup="all";
+	} else {
+		qleACLUser->setText(QString());
+		as->qsGroup=text;
+	}
+	refillACL();
+}
+
+void ACLEditor::on_ACLUser_editingFinished() {
+	QString text = qleACLUser->text();
+
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+
+	if (text.isEmpty()) {
+		as->iPlayerId = -1;
+		if (qcbACLGroup->currentIndex() == 0) {
+			qcbACLGroup->setCurrentIndex(1);
+			as->qsGroup="all";
+		}
+		refillACL();
+	} else {
+		qcbACLGroup->setCurrentIndex(0);
+		qhACLNameWait[as] = text;
+		addQuery(ACLList, text);
+		doneQuery();
+	}
 }

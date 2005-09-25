@@ -763,12 +763,13 @@ void MessageQueryUsers::process(Connection *cCon) {
 		QString name = qlNames[i];
 		int id = qlIds[i];
 		if (id == -1) {
+			id = g_sServer->qhUserIDCache.value(name);
 			if (! g_sServer->qhUserIDCache.contains(name)) {
 				id = ServerDB::getUserID(name);
 				if (id != -1)
 					g_sServer->qhUserIDCache[name] = id;
 			}
-			qlIds[i] = g_sServer->qhUserIDCache.value(name);
+			qlIds[i] = id;
 		} else {
 			if (! g_sServer->qhUserNameCache.contains(id)) {
 				name = ServerDB::getUserName(id);
