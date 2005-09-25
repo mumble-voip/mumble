@@ -132,9 +132,11 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 		l = new QLabel(name);
 		grid->addWidget(l,idx,0);
 		qcb=new QCheckBox();
+		connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
 		grid->addWidget(qcb,idx,1);
 		qlACLDeny << qcb;
 		qcb=new QCheckBox();
+		connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
 		grid->addWidget(qcb,idx,2);
 		qlACLAllow << qcb;
 
@@ -158,16 +160,19 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	qcbGroupList->setObjectName("GroupList");
 	qcbGroupList->setEditable(true);
 	grid->addWidget(qcbGroupList,0,0);
+	qpbGroupRemove=new QPushButton(tr("Remove"));
+	qpbGroupRemove->setObjectName("GroupRemove");
+	grid->addWidget(qpbGroupRemove,0,1);
 	qcbGroupInherit=new QCheckBox(tr("Inherit"));
 	qcbGroupInherit->setObjectName("GroupInherit");
-	grid->addWidget(qcbGroupInherit,0,1);
+	grid->addWidget(qcbGroupInherit,0,2);
 	qcbGroupInheritable=new QCheckBox(tr("Inheritable"));
 	qcbGroupInheritable->setObjectName("GroupInheritable");
-	grid->addWidget(qcbGroupInheritable,0,2);
+	grid->addWidget(qcbGroupInheritable,0,3);
 	qcbGroupInherited=new QCheckBox(tr("Inherited"));
 	qcbGroupInherited->setObjectName("GroupInherited");
 	qcbGroupInherited->setEnabled(false);
-	grid->addWidget(qcbGroupInherited,0,3);
+	grid->addWidget(qcbGroupInherited,0,4);
 
 	qgbGroups->setLayout(grid);
 
@@ -293,9 +298,7 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
     QMetaObject::connectSlotsByName(this);
 
-	foreach(gsp, groups) {
-		qcbGroupList->addItem(gsp->qsName);
-	}
+	refillGroupNames();
 
 	resize(minimumSize());
 
@@ -369,10 +372,8 @@ void ACLEditor::returnQuery(const MessageQueryUsers *mqu) {
 	for(i=0;i<mqu->qlIds.count();i++) {
 		int id = mqu->qlIds[i];
 		QString name = mqu->qlNames[i];
-		if ((id != -1) && ! name.isEmpty()) {
-			qhIDCache[name] = id;
-			qhNameCache[id] = name;
-		}
+		qhIDCache[name] = id;
+		qhNameCache[id] = name;
 	}
 	cleanQuery();
 }
@@ -408,16 +409,11 @@ void ACLEditor::refillACL() {
 	foreach(as, qhACLNameWait.keys()) {
 		if (acls.indexOf(as) >= 0) {
 			QString name = qhACLNameWait.value(as);
-			qWarning("Scanning for %s", name.toLatin1().constData());
 			if (qhIDCache.contains(name)) {
 				int id = qhIDCache.value(name);
-				qWarning("Found as %d", id);
 				if (id != -1) {
 					as->iPlayerId = id;
 					as->qsGroup = QString();
-				} else {
-					as->iPlayerId = -1;
-					as->qsGroup = "all";
 				}
 				qhACLNameWait.remove(as);
 			}
@@ -451,6 +447,23 @@ void ACLEditor::refillACL() {
 		idx -= numInheritACL;
 
 	qlwACLs->setCurrentRow(idx);
+}
+
+void ACLEditor::refillGroupNames() {
+	MessageEditACL::GroupStruct *gsp;
+
+	QString text = qcbGroupList->currentText();
+	QStringList qsl;
+
+	foreach(gsp, groups) {
+		qsl << gsp->qsName;
+	}
+	qsl.sort();
+
+	qcbGroupList->clear();
+	foreach(QString name, qsl)
+		qcbGroupList->addItem(name);
+	qcbGroupList->setCurrentIndex(qcbGroupList->findText(text, Qt::MatchExactly));
 }
 
 MessageEditACL::GroupStruct *ACLEditor::currentGroup() {
@@ -500,7 +513,7 @@ void ACLEditor::refillGroupRemove() {
 		return;
 
 	QStringList qsl;
-	foreach(int id, gs->qsAdd) {
+	foreach(int id, gs->qsRemove) {
 		qsl << userName(id);
 	}
 	qsl.sort();
@@ -550,6 +563,12 @@ void ACLEditor::groupEnableCheck() {
 	qpbGroupAddRemove->setEnabled(ena);
 	qcbGroupInherit->setEnabled(ena);
 	qcbGroupInheritable->setEnabled(ena);
+
+	if (gs) {
+		qcbGroupInherit->setChecked(gs->bInherit);
+		qcbGroupInheritable->setChecked(gs->bInheritable);
+		qcbGroupInherited->setChecked(gs->bInherited);
+	}
 }
 
 void ACLEditor::ACLEnableCheck() {
@@ -680,7 +699,7 @@ void ACLEditor::on_ACLGroup_activated(const QString &text) {
 	if (! as || as->bInherited)
 		return;
 
-	qWarning("Triggum");
+	as->iPlayerId = -1;
 
 	if (text.isEmpty()) {
 		qcbACLGroup->setCurrentIndex(1);
@@ -712,4 +731,66 @@ void ACLEditor::on_ACLUser_editingFinished() {
 		addQuery(ACLList, text);
 		doneQuery();
 	}
+}
+
+void ACLEditor::ACLPermissions_clicked() {
+	MessageEditACL::ACLStruct *as = currentACL();
+	if (! as || as->bInherited)
+		return;
+
+	int a, d, p, idx;
+	a = 0;
+	d = 0;
+
+	p = 0x1;
+	for(idx=0;idx<qlACLAllow.count();idx++) {
+		if (qlACLAllow[idx]->isChecked())
+			a |= p;
+		if (qlACLDeny[idx]->isChecked())
+			d |= p;
+		p = p * 2;
+	}
+
+	as->pAllow=static_cast<ChanACL::Permissions>(a);
+	as->pDeny=static_cast<ChanACL::Permissions>(d);
+}
+
+void ACLEditor::on_GroupList_activated(const QString &text) {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (text.isEmpty())
+		return;
+	if (! gs) {
+		gs = new MessageEditACL::GroupStruct;
+		gs->bInherited = false;
+		gs->bInherit = true;
+		gs->bInheritable = true;
+		gs->qsName = text;
+		groups << gs;
+	}
+
+	refillGroupNames();
+	refillGroupAdd();
+	refillGroupRemove();
+	refillGroupInherit();
+	groupEnableCheck();
+}
+
+void ACLEditor::on_GroupRemove_clicked() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+	if (gs->bInherited) {
+		gs->bInheritable = true;
+		gs->bInherit = true;
+		gs->qsAdd.clear();
+		gs->qsRemove.clear();
+	} else {
+		groups.removeAll(gs);
+		delete gs;
+	}
+	refillGroupNames();
+	refillGroupAdd();
+	refillGroupRemove();
+	refillGroupInherit();
+	groupEnableCheck();
 }

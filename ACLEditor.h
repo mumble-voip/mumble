@@ -85,6 +85,7 @@ class ACLEditor : public QDialog {
 		QList<QCheckBox *> qlACLDeny;
 
 		QComboBox *qcbGroupList;
+		QPushButton *qpbGroupRemove;
 		QCheckBox *qcbGroupInherit;
 		QCheckBox *qcbGroupInheritable;
 		QCheckBox *qcbGroupInherited;
@@ -106,6 +107,7 @@ class ACLEditor : public QDialog {
 		void accept();
 	public slots:
 		void refillACL();
+		void refillGroupNames();
 		void refillGroupAdd();
 		void refillGroupRemove();
 		void refillGroupInherit();
@@ -122,6 +124,10 @@ class ACLEditor : public QDialog {
 		void on_ACLApplySubs_clicked(bool checked);
 		void on_ACLGroup_activated(const QString &text);
 		void on_ACLUser_editingFinished();
+		void ACLPermissions_clicked();
+
+		void on_GroupList_activated(const QString &text);
+		void on_GroupRemove_clicked();
 };
 
 #else
