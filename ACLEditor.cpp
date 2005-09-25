@@ -48,6 +48,9 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	MessageEditACL::ACLStruct *asp;
 	MessageEditACL::GroupStruct *gsp;
 
+	iId = mea->iId;
+	setWindowTitle(QString("Mumble - Edit ACL for %1").arg(Channel::get(iId)->qsName));
+
 	QTabWidget *qtwTab = new QTabWidget(this);
 	QWidget *groupEditor=new QWidget();
 	QWidget *aclEditor=new QWidget();
@@ -319,6 +322,32 @@ ACLEditor::~ACLEditor() {
 }
 
 void ACLEditor::accept() {
+	MessageEditACL::ACLStruct as;
+	MessageEditACL::GroupStruct gs;
+	MessageEditACL::ACLStruct *asp;
+	MessageEditACL::GroupStruct *gsp;
+	MessageEditACL mea;
+
+	mea.iId = iId;
+	mea.bQuery = false;
+	mea.bInheritACL = bInheritACL;
+
+	foreach(asp, acls) {
+		as = *asp;
+		if (as.bInherited)
+			continue;
+		mea.acls << as;
+	}
+
+	foreach(gsp, groups) {
+		gs = *gsp;
+		if (gs.bInherited && gs.bInherit && gs.bInheritable && (gs.qsAdd.count() == 0) && (gs.qsRemove.count() == 0))
+			continue;
+		gs.qsInheritedMembers.clear();
+		mea.groups << gs;
+	}
+
+	g.sh->sendMessage(&mea);
 	QDialog::accept();
 }
 
@@ -400,7 +429,6 @@ QString ACLEditor::userName(int id) {
 		return qhNameCache.value(id);
 	else
 		return QString("#%1").arg(id);
-
 }
 
 void ACLEditor::refillACL() {
@@ -490,10 +518,26 @@ MessageEditACL::ACLStruct *ACLEditor::currentACL() {
 }
 
 void ACLEditor::refillGroupAdd() {
-	MessageEditACL::GroupStruct *gs = currentGroup();
+	MessageEditACL::GroupStruct *gs;
+
+	foreach(gs, qhAddNameWait.keys()) {
+		if (groups.indexOf(gs) >= 0) {
+			QString name = qhAddNameWait.value(gs);
+			if (qhIDCache.contains(name)) {
+				int id = qhIDCache.value(name);
+				if (id != -1) {
+					gs->qsAdd.insert(id);
+				}
+				qhAddNameWait.remove(gs);
+			}
+		}
+	}
+
+	gs = currentGroup();
 
 	if (! gs)
 		return;
+
 
 	QStringList qsl;
 	foreach(int id, gs->qsAdd) {
@@ -507,8 +551,22 @@ void ACLEditor::refillGroupAdd() {
 }
 
 void ACLEditor::refillGroupRemove() {
-	MessageEditACL::GroupStruct *gs = currentGroup();
+	MessageEditACL::GroupStruct *gs;
 
+	foreach(gs, qhRemoveNameWait.keys()) {
+		if (groups.indexOf(gs) >= 0) {
+			QString name = qhRemoveNameWait.value(gs);
+			if (qhIDCache.contains(name)) {
+				int id = qhIDCache.value(name);
+				if (id != -1) {
+					gs->qsRemove.insert(id);
+				}
+				qhRemoveNameWait.remove(gs);
+			}
+		}
+	}
+
+	gs = currentGroup();
 	if (! gs)
 		return;
 
@@ -793,4 +851,99 @@ void ACLEditor::on_GroupRemove_clicked() {
 	refillGroupRemove();
 	refillGroupInherit();
 	groupEnableCheck();
+}
+
+void ACLEditor::on_GroupInherit_clicked(bool checked) {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+	gs->bInherit = checked;
+	groupEnableCheck();
+}
+
+void ACLEditor::on_GroupInheritable_clicked(bool checked) {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+	gs->bInheritable = checked;
+}
+
+void ACLEditor::on_GroupAddName_editingFinished() {
+	QString text = qleGroupAdd->text();
+
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+
+	if (text.isEmpty())
+		return;
+
+	qhAddNameWait[gs] = text;
+	addQuery(GroupAdd, text);
+	doneQuery();
+}
+
+void ACLEditor::on_GroupAddAdd_clicked() {
+	on_GroupAddName_editingFinished();
+}
+
+void ACLEditor::on_GroupAddRemove_clicked() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+
+	QListWidgetItem *item= qlwGroupAdd->currentItem();
+	if (! item)
+		return;
+
+	int id = qhIDCache.value(item->text());
+	gs->qsAdd.remove(id);
+	refillGroupAdd();
+}
+
+void ACLEditor::on_GroupRemoveName_editingFinished() {
+	QString text = qleGroupRemove->text();
+
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+
+	if (text.isEmpty())
+		return;
+
+	qhRemoveNameWait[gs] = text;
+	addQuery(GroupRemove, text);
+	doneQuery();
+}
+
+void ACLEditor::on_GroupRemoveAdd_clicked() {
+	on_GroupRemoveName_editingFinished();
+}
+
+void ACLEditor::on_GroupRemoveRemove_clicked() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+
+	QListWidgetItem *item= qlwGroupRemove->currentItem();
+	if (! item)
+		return;
+
+	int id = qhIDCache.value(item->text());
+	gs->qsRemove.remove(id);
+	refillGroupRemove();
+}
+
+void ACLEditor::on_GroupInheritRemove_clicked() {
+	MessageEditACL::GroupStruct *gs = currentGroup();
+	if (! gs)
+		return;
+
+	QListWidgetItem *item= qlwGroupInherit->currentItem();
+	if (! item)
+		return;
+
+	int id = qhIDCache.value(item->text());
+	gs->qsRemove.insert(id);
+	refillGroupRemove();
 }

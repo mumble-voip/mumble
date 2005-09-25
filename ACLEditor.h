@@ -47,6 +47,7 @@ class ACLEditor : public QDialog {
 		enum WaitID {
 			GroupAdd, GroupRemove, GroupInherit, ACLList
 		};
+		int iId;
 		QHash<int, QString> qhNameCache;
 		QHash<QString, int> qhIDCache;
 
@@ -60,6 +61,8 @@ class ACLEditor : public QDialog {
 		void refill(WaitID what);
 
 		QHash<MessageEditACL::ACLStruct *, QString> qhACLNameWait;
+		QHash<MessageEditACL::GroupStruct *, QString> qhAddNameWait;
+		QHash<MessageEditACL::GroupStruct *, QString> qhRemoveNameWait;
 
 		MessageEditACL::GroupStruct *currentGroup();
 		MessageEditACL::ACLStruct *currentACL();
@@ -128,6 +131,15 @@ class ACLEditor : public QDialog {
 
 		void on_GroupList_activated(const QString &text);
 		void on_GroupRemove_clicked();
+		void on_GroupInherit_clicked(bool checked);
+		void on_GroupInheritable_clicked(bool checked);
+		void on_GroupAddName_editingFinished();
+		void on_GroupAddAdd_clicked();
+		void on_GroupAddRemove_clicked();
+		void on_GroupRemoveName_editingFinished();
+		void on_GroupRemoveAdd_clicked();
+		void on_GroupRemoveRemove_clicked();
+		void on_GroupInheritRemove_clicked();
 };
 
 #else

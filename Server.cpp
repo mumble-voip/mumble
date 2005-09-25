@@ -698,7 +698,7 @@ void MessageEditACL::process(Connection *cCon) {
 			gs.qsName = name;
 			gs.bInherit = g ? g->bInherit : true;
 			gs.bInheritable = g ? g->bInheritable : true;
-			gs.bInherited = (pg != NULL);
+			gs.bInherited = ((pg != NULL) && pg->bInheritable);
 			if (g) {
 				gs.qsAdd = g->qsAdd;
 				gs.qsRemove = g->qsRemove;
