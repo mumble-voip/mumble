@@ -403,9 +403,9 @@ QDataStream & operator<< ( QDataStream & out, const MessageEditACL::GroupStruct 
 	out << gs.bInherited;
 	out << gs.bInherit;
 	out << gs.bInheritable;
-	out << gs.qlAdd;
-	out << gs.qlRemove;
-	out << gs.qlInheritedMembers;
+	out << gs.qsAdd;
+	out << gs.qsRemove;
+	out << gs.qsInheritedMembers;
 	return out;
 }
 
@@ -414,9 +414,9 @@ QDataStream & operator>> ( QDataStream & in, MessageEditACL::GroupStruct &gs ) {
 	in >> gs.bInherited;
 	in >> gs.bInherit;
 	in >> gs.bInheritable;
-	in >> gs.qlAdd;
-	in >> gs.qlRemove;
-	in >> gs.qlInheritedMembers;
+	in >> gs.qsAdd;
+	in >> gs.qsRemove;
+	in >> gs.qsInheritedMembers;
 	return in;
 }
 

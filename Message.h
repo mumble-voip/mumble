@@ -242,9 +242,9 @@ class MessageEditACL : public Message {
 			bool bInherited;
 			bool bInherit;
 			bool bInheritable;
-			QList<int> qlAdd;
-			QList<int> qlRemove;
-			QList<int> qlInheritedMembers;
+			QSet<int> qsAdd;
+			QSet<int> qsRemove;
+			QSet<int> qsInheritedMembers;
 		};
 
 		struct ACLStruct {

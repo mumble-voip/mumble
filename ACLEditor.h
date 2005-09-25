@@ -34,7 +34,9 @@
 #include <QDialog>
 #include <QWidget>
 #include <QListWidget>
-#include <QStackedWidget>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QLineEdit>
 #include <QList>
 #include <QHash>
 #include "Message.h"
@@ -57,13 +59,51 @@ class ACLEditor : public QDialog {
 		void cleanQuery();
 		void refill(WaitID what);
 
+		bool bInheritACL;
 		QList<MessageEditACL::ACLStruct> acls;
 		QList<MessageEditACL::GroupStruct> groups;
+		int numInheritACL;
+
+		QString userName(int id);
+
+		QCheckBox *qcbACLInherit;
+		QPushButton *qpbACLAdd;
+		QPushButton *qpbACLRemove;
+		QPushButton *qpbACLUp;
+		QPushButton *qpbACLDown;
+		QListWidget *qlwACLs;
+		QCheckBox *qcbACLApplyHere;
+		QCheckBox *qcbACLApplySubs;
+		QComboBox *qcbACLGroup;
+		QLineEdit *qleACLUser;
+		QList<QCheckBox *> qlACLAllow;
+		QList<QCheckBox *> qlACLDeny;
+
+		QComboBox *qcbGroupList;
+		QCheckBox *qcbGroupInherit;
+		QCheckBox *qcbGroupInheritable;
+		QCheckBox *qcbGroupInherited;
+		QListWidget *qlwGroupAdd;
+		QListWidget *qlwGroupRemove;
+		QListWidget *qlwGroupInherit;
+		QLineEdit *qleGroupAdd;
+		QLineEdit *qleGroupRemove;
+		QPushButton *qpbGroupAddAdd;
+		QPushButton *qpbGroupAddRemove;
+		QPushButton *qpbGroupRemoveAdd;
+		QPushButton *qpbGroupRemoveRemove;
+		QPushButton *qpbGroupInheritRemove;
 	public:
 		ACLEditor(const MessageEditACL *mea, QWidget *p = NULL);
 		void returnQuery(const MessageQueryUsers *mqu);
 	public slots:
 		void accept();
+	public slots:
+		void refillACL();
+		void refillGroupAdd();
+		void refillGroupRemove();
+		void refillGroupInherit();
+
 };
 
 #else

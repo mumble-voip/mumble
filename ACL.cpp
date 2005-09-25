@@ -110,7 +110,7 @@ QString ChanACL::permName(Perm p) {
 		case MakeChannel:
 			return "Make channel";
 		default:
-			qFatal("Asked to translate unknown permission %d", p);
+			break;
 	}
-	return "";
+	return QString();
 }

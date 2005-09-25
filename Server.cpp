@@ -662,7 +662,7 @@ void MessageEditACL::process(Connection *cCon) {
 		p = c;
 		while (p) {
 			chans.push(p);
-			if (p->bInheritACL)
+			if ((p==c) || p->bInheritACL)
 				p = p->cParent;
 			else
 				p = NULL;
@@ -692,17 +692,19 @@ void MessageEditACL::process(Connection *cCon) {
 		QSet<QString> allnames=Group::groupNames(c);
 		QString name;
 		foreach(name, allnames) {
-			Group *g = Group::getGroup(c, name);
+			Group *g = c->qhGroups.value(name);
 			Group *pg = p ? Group::getGroup(p, name) : NULL;
 			GroupStruct gs;
 			gs.qsName = name;
-			gs.bInherit = g->bInherit;
-			gs.bInheritable = g->bInheritable;
-			gs.bInherited = (g->c != c);
-			gs.qlAdd = g->qsAdd.toList();
-			gs.qlRemove = g->qsRemove.toList();
+			gs.bInherit = g ? g->bInherit : true;
+			gs.bInheritable = g ? g->bInheritable : true;
+			gs.bInherited = (g == NULL);
+			if (g) {
+				gs.qsAdd = g->qsAdd;
+				gs.qsRemove = g->qsRemove;
+			}
 			if (pg)
-				gs.qlInheritedMembers = pg->members().toList();
+				gs.qsInheritedMembers = pg->members();
 			mea.groups << gs;
 		}
 		g_sServer->sendMessage(cCon, &mea);
@@ -726,8 +728,8 @@ void MessageEditACL::process(Connection *cCon) {
 			g = new Group(c, gs.qsName);
 			g->bInherit = gs.bInherit;
 			g->bInheritable = gs.bInheritable;
-			g->qsAdd = gs.qlAdd.toSet();
-			g->qsRemove = gs.qlRemove.toSet();
+			g->qsAdd = gs.qsAdd;
+			g->qsRemove = gs.qsRemove;
 		}
 
 		foreach(as, acls) {
