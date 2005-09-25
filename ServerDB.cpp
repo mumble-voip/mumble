@@ -132,6 +132,7 @@ ServerDB::ServerDB() {
 	query.exec("CREATE TRIGGER acl_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM acl WHERE player_id = old.player_id; END;");
 
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
+	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
 
 	query.exec("SELECT COUNT(*) FROM acl");
 	if (query.next()) {
@@ -178,7 +179,7 @@ int ServerDB::authenticate(QString &name, QString pw) {
 	if (query.next()) {
 		res = -1;
 		QString storedpw = query.value(2).toString();
-		if (storedpw == pw) {
+		if (! storedpw.isEmpty() && (storedpw == pw)) {
 			name = query.value(1).toString();
 			res = query.value(0).toInt();
 		}
