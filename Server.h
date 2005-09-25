@@ -79,8 +79,10 @@ struct ServerParams {
 	int iPort;
 	QString qsPassword;
 	QString qsWelcomeText;
+	QString qsDatabase;
 	bool bTestloop;
 	ServerParams();
+	void read(QString fname = QString("murmur.ini"));
 };
 
 extern ServerParams g_sp;

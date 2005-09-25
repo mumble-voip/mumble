@@ -42,6 +42,7 @@
 #include "Channel.h"
 #include "Group.h"
 #include "ACL.h"
+#include "Server.h"
 
 #define SQLDUMP(x) qWarning("%s", x.lastError().text().toLatin1().constData())
 
@@ -73,28 +74,35 @@ ServerDB::ServerDB() {
 	QStringList datapaths;
 	int i;
 
-	datapaths << qs.value("DBPath").toString();
-	datapaths << QCoreApplication::instance()->applicationDirPath();
-	datapaths << QDir::currentPath();
-	datapaths << QDir::homePath();
 	bool found = false;
 
-	for(i = 0; (i < datapaths.size()) && ! found; i++) {
-		if (!datapaths[i].isEmpty()) {
-			QFile f(datapaths[i] + "/murmur.sqlite");
-			if (f.exists()) {
-				db.setDatabaseName(f.fileName());
-				found = db.open();
-			}
-		}
-	}
+	if (! g_sp.qsDatabase.isEmpty()) {
+		db.setDatabaseName(g_sp.qsDatabase);
+		found = db.open();
+	} else {
 
-	if (! found) {
+		datapaths << qs.value("DBPath").toString();
+		datapaths << QCoreApplication::instance()->applicationDirPath();
+		datapaths << QDir::currentPath();
+		datapaths << QDir::homePath();
+
 		for(i = 0; (i < datapaths.size()) && ! found; i++) {
 			if (!datapaths[i].isEmpty()) {
 				QFile f(datapaths[i] + "/murmur.sqlite");
-				db.setDatabaseName(f.fileName());
-				found = db.open();
+				if (f.exists()) {
+					db.setDatabaseName(f.fileName());
+					found = db.open();
+				}
+			}
+		}
+
+		if (! found) {
+			for(i = 0; (i < datapaths.size()) && ! found; i++) {
+				if (!datapaths[i].isEmpty()) {
+					QFile f(datapaths[i] + "/murmur.sqlite");
+					db.setDatabaseName(f.fileName());
+					found = db.open();
+				}
 			}
 		}
 	}
@@ -187,6 +195,16 @@ int ServerDB::authenticate(QString &name, QString pw) {
 	return res;
 }
 
+void ServerDB::setPW(int id, QString pw) {
+	TransactionHolder th;
+
+	QSqlQuery query;
+	query.prepare("UPDATE players SET pw=? WHERE player_id = ?");
+	query.addBindValue(pw);
+	query.addBindValue(id);
+	query.exec();
+}
+
 QString ServerDB::getUserName(int id) {
 	TransactionHolder th;
 	QString name;
@@ -234,7 +252,6 @@ void ServerDB::removeChannel(Channel *c) {
 	query.prepare("DELETE FROM channels WHERE channel_id = ?");
 	query.addBindValue(c->iId);
 	query.exec();
-	SQLDUMP(query);
 }
 
 void ServerDB::updateChannel(Channel *c) {
@@ -360,7 +377,6 @@ void ServerDB::readChannels(Channel *p) {
 		query.prepare("SELECT channel_id, name, inheritACL FROM channels WHERE parent_id=? ORDER BY name");
 		query.addBindValue(parentid);
 		query.exec();
-		SQLDUMP(query);
 		while (query.next()) {
 			c = Channel::add(query.value(0).toInt(), query.value(1).toString(), p);
 			c->bInheritACL = query.value(2).toBool();

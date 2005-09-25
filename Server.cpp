@@ -32,6 +32,7 @@
 #include <QRegExp>
 #include <QStack>
 #include <QSet>
+#include <QSettings>
 #include "Server.h"
 #include "ServerDB.h"
 
@@ -47,6 +48,19 @@ ServerParams::ServerParams() {
 	bTestloop = false;
 	iPort = 64738;
 	qsWelcomeText = QString("Welcome to this server");
+	qsDatabase = QString();
+}
+
+void ServerParams::read(QString fname) {
+	if (fname.isEmpty())
+		fname = "murmur.ini";
+	QSettings qs(fname, QSettings::IniFormat);
+
+	qsPassword = qs.value("serverpassword", qsPassword).toString();
+	bTestloop = qs.value("loop", bTestloop).toBool();
+	iPort = qs.value("port", iPort).toInt();
+	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
+	qsDatabase = qs.value("database", qsDatabase).toString();
 }
 
 Server::Server() {
@@ -751,6 +765,7 @@ void MessageEditACL::process(Connection *cCon) {
 			a->pAllow=ChanACL::Write | ChanACL::Traverse;
 		}
 
+		ServerDB::updateChannel(c);
 		g_sServer->log(QString("Updated ACL in channel %1(%2)").arg(c->qsName).arg(c->iId), cCon);
 	}
 }

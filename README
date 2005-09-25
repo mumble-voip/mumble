@@ -35,28 +35,20 @@ Running Murmur
 Murmur must be run from the command line, so start a shell (command prompt)
 and go to wherever you installed Mumble. Run murmur as
 
-murmur [-loop] [-pw <password>] [-port <port>]
+murmur [-supw <password>] [-ini <inifile>]
 
--loop   Enable loop test mode, where you will also hear yourself speak.
-        Great for testing, but very annoying if there's another person on.
+-supw   Set new password for the user SuperUser, which is hardcoded to
+        bypass ACLs. Keep this password safe. Until you set a password,
+        the SuperUser is disabled. If you use this option, murmur will
+        set the password in the database and then exit.
 
--pw     Set connection password. Players connection without this password
-        will be rejected.
-
--port   Set the port to bind to. The default is 64738.
+-ini    Use a inifile other than murmur.ini, use this to run several isntances
+        of murmur from the same directory. Make sure each instance is using
+        a separate database.
 
 Bandwidth usage
 ===============
 
 Mumble will use 10-40 kbit/s outgoing, and the same incoming for each user.
 So if there are 10 other users on the server with you, your incoming
-bandwidth requirement will be 100-400 kbit/s.
-
-To keep the jitter-buffers happy and always perfectly tuned, Mumble
-transmits data contignously. If you have VAD or Push-To-Talk enabled, it
-transmits frames of silence when there's no talking; it does not stop 
-transmitting. 
-The only exception to this is if you mute yourself. Be aware that after
-unmuting there will be about a 400ms delay before the jitter buffers on 
-the recieving ends are aligned again.
-
+bandwidth requirement will be 100-400 kbit/s if they all talk at the same time.

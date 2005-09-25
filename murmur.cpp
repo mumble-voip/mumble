@@ -47,34 +47,32 @@ int main(int argc, char **argv)
 	argc = a.argc();
 	argv = a.argv();
 
+	QString inifile;
+	QString supw;
+
 	for(int i=1;i<argc;i++) {
 		QString arg = QString(argv[i]).toLower();
-		if (arg == "-loop") {
-			qWarning("Enabling loop mode");
-			g_sp.bTestloop = true;
-		} else if ((arg == "-pw") && ( i+1 < argc )) {
+		if ((arg == "-supw") && ( i+1 < argc )) {
 			i++;
-			g_sp.qsPassword = argv[i];
-			qWarning("Setting password to %s", g_sp.qsPassword.toLatin1().constData());
-		} else if ((arg == "-text") && ( i+1 < argc )) {
+			supw = argv[i];
+		} else if ((arg == "-ini") && ( i+1 < argc )) {
 			i++;
-			g_sp.qsWelcomeText = argv[i];
-			qWarning("Setting welcome text to \"%s\"", g_sp.qsWelcomeText.toLatin1().constData());
-		} else if ((arg == "-port") && ( i+1 < argc )) {
-			i++;
-			int p = QString(argv[i]).toInt();
-			if ((p>0) && (p<65536)) {
-				qWarning("Setting listen port to %d", p);
-				g_sp.iPort = p;
-			}
+			inifile=argv[i];
 		} else {
 			qWarning("Unknown argument %s", argv[i]);
 		}
 	}
 
 	ServerDB db;
+
+	if (! supw.isEmpty()) {
+		ServerDB::setPW(0, supw);
+		qFatal("Superuser password set");
+	}
+
+	g_sp.read(inifile);
+
 	db.readChannels();
-	db.dumpChannel(NULL);
 
 	g_sServer = new Server();
 	res=a.exec();

@@ -50,6 +50,7 @@ class ServerDB : public QObject {
 		static void dumpChannel(Channel *c);
 		static int getUserID(QString name);
 		static QString getUserName(int id);
+		static void setPW(int id, QString pw);
 };
 
 #endif
