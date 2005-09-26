@@ -372,6 +372,26 @@ void ACLEditor::addToolTipsWhatsThis() {
 		qlACLDeny[idx]->setWhatsThis(tr("This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(perm).arg(ChanACL::whatsThis(prm)));
 		p = p * 2;
 	}
+
+	qcbGroupList->setToolTip(tr("List of groups"));
+	qcbGroupList->setWhatsThis(tr("This is all the groups currently defined for the channel. To create a new group, just type in the "
+							"name and press enter."));
+	qpbGroupRemove->setToolTip(tr("Remove selected group"));
+	qpbGroupRemove->setWhatsThis(tr("This removes the currently selected group. If the group was inherited, it will not be removed "
+							"from the list, but all local information about the group will be cleared."));
+	qcbGroupInherit->setToolTip(tr("Inherit group members from parent"));
+	qcbGroupInherit->setWhatsThis(tr("This inherits all the members in the group from the parent, if the group is marked as "
+							"<i>Inheritable</i> in the parent channel."));
+	qcbGroupInheritable->setToolTip(tr("Make group inheritable to subchannels"));
+	qcbGroupInheritable->setWhatsThis(tr("This makes this group inheritable to subchannels. If the group is non-inheritable, "
+							"subchannels are still free to create a new group with the same name."));
+	qcbGroupInherited->setToolTip(tr("Group was inherited from parent channel"));
+	qcbGroupInherited->setWhatsThis(tr("This indicates that the group was inherited from the parent channel. You cannot edit "
+							"this flag, it's just for information."));
+	qleGroupAdd->setToolTip(tr("Add member to group"));
+	qleGroupAdd->setWhatsThis(tr("Type in the name of a player you wish to add to the group and press enter."));
+	qleGroupRemove->setToolTip(tr("Remove member from group"));
+	qleGroupRemove->setWhatsThis(tr("Type in the name of a player you wish to remove from the group and press enter."));
 }
 
 
