@@ -392,7 +392,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	mpm.sPlayerId = 0;
 	mpm.sVictim = pSrcPlayer->sId;
 	mpm.iChannelId = pSrcPlayer->cChannel->iId;
-	g_sServer->sendExcept(&msjMsg, cCon);
+	g_sServer->sendExcept(&mpmMsg, cCon);
 
 	foreach(Player *pPlayer, g_sServer->qmPlayers) {
 		msjMsg.sPlayerId = pPlayer->sId;
@@ -421,7 +421,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 			g_sServer->sendMessage(cCon, &mpsmdMsg);
 		}
 
-		MessagePlayerMove mpm;
+		mpm;
 		mpm.sPlayerId = 0;
 		mpm.sVictim = pPlayer->sId;
 		mpm.iChannelId = pPlayer->cChannel->iId;

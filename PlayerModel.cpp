@@ -79,6 +79,97 @@ int PlayerModel::columnCount(const QModelIndex &) const
 	return 2;
 }
 
+QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const
+{
+	ChannelItem *item;
+	QModelIndex idx = QModelIndex();
+
+	if (row == -1) {
+		return QModelIndex();
+	}
+
+	if ( ! p.isValid()) {
+		item = ciRoot;
+	} else {
+        item = static_cast<ChannelItem *>(p.internalPointer());
+        if (p.row() < 0 || p.row() >= item->qlChannels.count()) {
+        	return idx;
+		}
+        item = qhChannelItems.value(item->qlChannels[p.row()]);
+	}
+	if (row >= (item->qlPlayers.count() + item->qlChannels.count()))
+		return idx;
+
+	idx = createIndex(row, column, item);
+
+    return idx;
+}
+
+QModelIndex PlayerModel::index(Player *p, int column) const
+{
+	ChannelItem *item = qhChannelItems.value(p->cChannel);
+	QModelIndex idx=createIndex(item->qlChannels.count() + item->qlPlayers.indexOf(p), column, item);
+	return idx;
+}
+
+QModelIndex PlayerModel::index(Channel *c) const
+{
+	ChannelItem *item = qhChannelItems.value(c->cParent);
+	if (! item)
+		return QModelIndex();
+
+	QModelIndex idx=createIndex(item->qlChannels.indexOf(c), 0, item);
+
+	return idx;
+}
+
+QModelIndex PlayerModel::parentIndex(ChannelItem *ci) const
+{
+	return parent(index(ci->c));
+}
+
+QModelIndex PlayerModel::parent(const QModelIndex &idx) const
+{
+	if (! idx.isValid())
+	    return QModelIndex();
+
+    ChannelItem *item = static_cast<ChannelItem *>(idx.internalPointer());
+
+    if (! item || ! item->ciParent)
+    	return QModelIndex();
+
+    if (idx.row() >= (item->qlPlayers.count() + item->qlChannels.count()))
+    	return QModelIndex();
+
+	QModelIndex pidx = createIndex(item->ciParent->qlChannels.indexOf(item->c), 0, item->ciParent);
+
+    return pidx;
+}
+
+
+int PlayerModel::rowCount(const QModelIndex &p) const
+{
+    ChannelItem *item;
+    int val = 0;
+
+    if (!p.isValid())
+        item = ciRoot;
+    else
+        item = static_cast<ChannelItem *>(p.internalPointer());
+
+	if (p.row() == -1) {
+		// Catch when it's asking for "this" item
+		val = item->qlPlayers.count() + item->qlChannels.count();
+	} else if (p.row() >= item->qlChannels.count()) {
+		val = 0;
+	} else {
+		item = qhChannelItems.value(item->qlChannels[p.row()]);
+		val = item->qlPlayers.count() + item->qlChannels.count();
+	}
+
+	return val;
+}
+
 QString PlayerModel::stringIndex(const QModelIndex &idx) const
 {
 	ChannelItem *item = static_cast<ChannelItem *>(idx.internalPointer());
@@ -215,97 +306,6 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 	}
 
     return QVariant();
-}
-
-QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const
-{
-	ChannelItem *item;
-	QModelIndex idx = QModelIndex();
-
-	if (row == -1) {
-		return QModelIndex();
-	}
-
-	if ( ! p.isValid()) {
-		item = ciRoot;
-	} else {
-        item = static_cast<ChannelItem *>(p.internalPointer());
-        if (p.row() < 0 || p.row() >= item->qlChannels.count()) {
-        	return idx;
-		}
-        item = qhChannelItems.value(item->qlChannels[p.row()]);
-	}
-	if (row >= (item->qlPlayers.count() + item->qlChannels.count()))
-		return idx;
-
-	idx = createIndex(row, column, item);
-
-    return idx;
-}
-
-QModelIndex PlayerModel::index(Player *p, int column) const
-{
-	ChannelItem *item = qhChannelItems.value(p->cChannel);
-	QModelIndex idx=createIndex(item->qlChannels.count() + item->qlPlayers.indexOf(p), column, item);
-	return idx;
-}
-
-QModelIndex PlayerModel::index(Channel *c) const
-{
-	ChannelItem *item = qhChannelItems.value(c->cParent);
-	if (! item)
-		return QModelIndex();
-
-	QModelIndex idx=createIndex(item->qlChannels.indexOf(c), 0, item);
-
-	return idx;
-}
-
-QModelIndex PlayerModel::parentIndex(ChannelItem *ci) const
-{
-	return parent(index(ci->c));
-}
-
-QModelIndex PlayerModel::parent(const QModelIndex &idx) const
-{
-	if (! idx.isValid())
-	    return QModelIndex();
-
-    ChannelItem *item = static_cast<ChannelItem *>(idx.internalPointer());
-
-    if (! item || ! item->ciParent)
-    	return QModelIndex();
-
-    if (idx.row() >= (item->qlPlayers.count() + item->qlChannels.count()))
-    	return QModelIndex();
-
-	QModelIndex pidx = createIndex(item->ciParent->qlChannels.indexOf(item->c), 0, item->ciParent);
-
-    return pidx;
-}
-
-
-int PlayerModel::rowCount(const QModelIndex &p) const
-{
-    ChannelItem *item;
-    int val = 0;
-
-    if (!p.isValid())
-        item = ciRoot;
-    else
-        item = static_cast<ChannelItem *>(p.internalPointer());
-
-	if (p.row() == -1) {
-		// Catch when it's asking for "this" item
-		val = item->qlPlayers.count() + item->qlChannels.count();
-	} else if (p.row() >= item->qlChannels.count()) {
-		val = 0;
-	} else {
-		item = qhChannelItems.value(item->qlChannels[p.row()]);
-		val = item->qlPlayers.count() + item->qlChannels.count();
-	}
-
-	return val;
 }
 
 void PlayerModel::hidePlayer(Player *p) {
