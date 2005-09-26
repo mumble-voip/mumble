@@ -66,6 +66,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 	Permissions granted = def;
 
 	bool traverse = true;
+	bool write = false;
 
 	while (! chanstack.isEmpty()) {
 		ch = chanstack.pop();
@@ -78,13 +79,17 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 					traverse = true;
 				if (acl->pDeny & Traverse)
 					traverse = false;
+				if (acl->pAllow & Write)
+					write = true;
+				if (acl->pDeny & Write)
+					write = false;
 				if ((ch==chan && acl->bApplyHere) || (ch!=chan && acl->bApplySubs)) {
 					granted |= acl->pAllow;
 					granted &= ~acl->pDeny;
 				}
 			}
 		}
-		if (! traverse)
+		if (! traverse && ! write)
 			return false;
 	}
 

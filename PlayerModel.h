@@ -76,6 +76,8 @@ protected:
 
 	void hideChannel(Channel *c);
 	void showChannel(Channel *c, Channel *p);
+
+	QString stringIndex(const QModelIndex &index) const;
 public:
 	PlayerModel(QObject *parent = 0);
 	~PlayerModel();

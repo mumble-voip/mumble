@@ -79,6 +79,16 @@ int PlayerModel::columnCount(const QModelIndex &) const
 	return 2;
 }
 
+QString PlayerModel::stringIndex(const QModelIndex &idx) const
+{
+	ChannelItem *item = static_cast<ChannelItem *>(idx.internalPointer());
+	if (!idx.isValid())
+		return QString("invIdx");
+	if (!item)
+		return QString("invPtr");
+	return QString("[%1(%2,%3 %4 %5)]").arg(item->c->qsName).arg(idx.row()).arg(idx.column()).arg(item->qlChannels.count()).arg(item->qlPlayers.count());
+}
+
 QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 {
     if (!idx.isValid())
@@ -139,8 +149,11 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 
 Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const
 {
-    if (!idx.isValid() || idx.column() != 0)
-        return Qt::ItemIsEnabled | Qt::ItemIsDropEnabled;
+	if (!idx.isValid())
+		return 0;
+
+    if (idx.column() != 0)
+        return Qt::ItemIsEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsDragEnabled;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
 }
@@ -207,25 +220,34 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const
 {
 	ChannelItem *item;
+	QModelIndex idx = QModelIndex();
+
+	if (row == -1) {
+		return QModelIndex();
+	}
+
 	if ( ! p.isValid()) {
 		item = ciRoot;
 	} else {
         item = static_cast<ChannelItem *>(p.internalPointer());
         if (p.row() < 0 || p.row() >= item->qlChannels.count()) {
-        	return QModelIndex();
+        	return idx;
 		}
         item = qhChannelItems.value(item->qlChannels[p.row()]);
 	}
 	if (row >= (item->qlPlayers.count() + item->qlChannels.count()))
-		return QModelIndex();
+		return idx;
 
-    return createIndex(row, column, item);
+	idx = createIndex(row, column, item);
+
+    return idx;
 }
 
 QModelIndex PlayerModel::index(Player *p, int column) const
 {
 	ChannelItem *item = qhChannelItems.value(p->cChannel);
-	return createIndex(item->qlChannels.count() + item->qlPlayers.indexOf(p), column, item);
+	QModelIndex idx=createIndex(item->qlChannels.count() + item->qlPlayers.indexOf(p), column, item);
+	return idx;
 }
 
 QModelIndex PlayerModel::index(Channel *c) const
@@ -234,12 +256,14 @@ QModelIndex PlayerModel::index(Channel *c) const
 	if (! item)
 		return QModelIndex();
 
-	return createIndex(item->qlChannels.indexOf(c), 0, item);
+	QModelIndex idx=createIndex(item->qlChannels.indexOf(c), 0, item);
+
+	return idx;
 }
 
 QModelIndex PlayerModel::parentIndex(ChannelItem *ci) const
 {
-	return index(ci->c);
+	return parent(index(ci->c));
 }
 
 QModelIndex PlayerModel::parent(const QModelIndex &idx) const
@@ -255,13 +279,16 @@ QModelIndex PlayerModel::parent(const QModelIndex &idx) const
     if (idx.row() >= (item->qlPlayers.count() + item->qlChannels.count()))
     	return QModelIndex();
 
-    return createIndex(item->ciParent->qlChannels.indexOf(item->c), 0, item->ciParent);
+	QModelIndex pidx = createIndex(item->ciParent->qlChannels.indexOf(item->c), 0, item->ciParent);
+
+    return pidx;
 }
 
 
 int PlayerModel::rowCount(const QModelIndex &p) const
 {
     ChannelItem *item;
+    int val = 0;
 
     if (!p.isValid())
         item = ciRoot;
@@ -270,15 +297,15 @@ int PlayerModel::rowCount(const QModelIndex &p) const
 
 	if (p.row() == -1) {
 		// Catch when it's asking for "this" item
-		return (item->qlPlayers.count() + item->qlChannels.count());
-	}
-
-	if (p.row() >= item->qlChannels.count()) {
-		return 0;
+		val = item->qlPlayers.count() + item->qlChannels.count();
+	} else if (p.row() >= item->qlChannels.count()) {
+		val = 0;
 	} else {
 		item = qhChannelItems.value(item->qlChannels[p.row()]);
-		return (item->qlPlayers.count() + item->qlChannels.count());
+		val = item->qlPlayers.count() + item->qlChannels.count();
 	}
+
+	return val;
 }
 
 void PlayerModel::hidePlayer(Player *p) {
@@ -287,6 +314,7 @@ void PlayerModel::hidePlayer(Player *p) {
 
 	int row = item->qlPlayers.indexOf(p);
 	int rowidx = row + item->qlChannels.count();
+
 	beginRemoveRows(parentIndex(item), rowidx, rowidx);
 	c->removePlayer(p);
 	item->qlPlayers.removeAt(row);
@@ -359,7 +387,7 @@ void PlayerModel::showChannel(Channel *c, Channel *p) {
 
 	int rows = names.indexOf(c->qsName);
 
-	QModelIndex pidx = index(p);
+	QModelIndex pidx = (pitem==ciRoot) ? QModelIndex() : index(p);
 	beginInsertRows(pidx, rows, rows);
 	pitem->qlChannels.insert(rows, c);
 	item->ciParent = pitem;
