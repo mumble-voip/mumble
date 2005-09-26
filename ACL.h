@@ -35,7 +35,8 @@
 #include <QObject>
 #include "Channel.h"
 
-class ChanACL {
+class ChanACL : public QObject {
+	Q_OBJECT
 	public:
 		enum Perm {
 			None = 0x0,
@@ -61,7 +62,9 @@ class ChanACL {
 
 		ChanACL(Channel *c);
 		static bool hasPermission(Player *p, Channel *c, Perm p);
+		static QString shortName(Perm p);
 		static QString permName(Perm p);
+		static QString whatsThis(Perm p);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ChanACL::Permissions)

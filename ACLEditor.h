@@ -102,6 +102,8 @@ class ACLEditor : public QDialog {
 		QPushButton *qpbGroupRemoveAdd;
 		QPushButton *qpbGroupRemoveRemove;
 		QPushButton *qpbGroupInheritRemove;
+
+		void addToolTipsWhatsThis();
 	public:
 		ACLEditor(const MessageEditACL *mea, QWidget *p = NULL);
 		~ACLEditor();

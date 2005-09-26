@@ -91,24 +91,81 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 	return ((granted & (perm | Write)) != None);
 }
 
+QString ChanACL::shortName(Perm p) {
+	switch (p) {
+		case Write:
+			return tr("W");
+		case Traverse:
+			return tr("T");
+		case Enter:
+			return tr("E");
+		case Speak:
+			return tr("S");
+		case MuteDeafen:
+			return tr("M");
+		case MoveKick:
+			return tr("K");
+		case MakeChannel:
+			return tr("C");
+		default:
+			break;
+	}
+	return QString();
+}
+
 QString ChanACL::permName(Perm p) {
 	switch (p) {
 		case None:
-			return "None";
+			return tr("None");
 		case Write:
-			return "Write";
+			return tr("Write");
 		case Traverse:
-			return "Traverse";
+			return tr("Traverse");
 		case Enter:
-			return "Enter";
+			return tr("Enter");
 		case Speak:
-			return "Speak";
+			return tr("Speak");
 		case MuteDeafen:
-			return "Mute/Deafen";
+			return tr("Mute/Deafen");
 		case MoveKick:
-			return "Move/Kick";
+			return tr("Move/Kick");
 		case MakeChannel:
-			return "Make channel";
+			return tr("Make channel");
+		default:
+			break;
+	}
+	return QString();
+}
+
+QString ChanACL::whatsThis(Perm p) {
+	switch (p) {
+		case None:
+			return tr("This represents no privileges.");
+		case Write:
+			return tr("This represents total access to the channel, including the ability to change group and ACL information. "
+					"This privilege implies all other privileges.");
+		case Traverse:
+			return tr("This represents the permission to traverse the channel. If a user is denied this privilege, he will be "
+					"unable to access this channel and any subchannels in any way, regardless of other permissions in the "
+					"subchannels.");
+		case Enter:
+			return tr("This represents the permission to join the channel. If you have a hierarchical channel structure, you "
+					"might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.");
+		case Speak:
+			return tr("This represents the permission to speak in a channel. Users without this privilege will be suppressed by "
+					"the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
+					"appropriate privileges.");
+		case MuteDeafen:
+			return tr("This represents the permission to mute and deafen other players. Once muted, a player will stay muted "
+					"until he is unmuted by another privileged player or reconnects to the server.");
+		case MoveKick:
+			return tr("This represents the permission to move a player to another channel or kick him from the server. To actually "
+					"move the player, either the moving player must have Move/Kick privileges in the destination channel, or "
+					"the player must normally be allowed to enter the channel. Players with this privilege can move players "
+					"into channels the target player normally wouldn't have permission to enter.");
+		case MakeChannel:
+			return tr("This represents the permission to make subchannels. The player making the subchannel will be added to the "
+					"admin group of the subchannel, so adjust inherited ACLs applying to the admin group according to taste.");
 		default:
 			break;
 	}

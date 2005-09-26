@@ -307,6 +307,8 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
 	ACLEnableCheck();
 	groupEnableCheck();
+
+	addToolTipsWhatsThis();
 }
 
 ACLEditor::~ACLEditor() {
@@ -320,6 +322,58 @@ ACLEditor::~ACLEditor() {
 		delete gsp;
 	}
 }
+
+void ACLEditor::addToolTipsWhatsThis() {
+	qlwACLs->setToolTip(tr("List of entries"));
+	qlwACLs->setWhatsThis(tr("This shows all the entries active on this channel. Entries inherited from parent channels will be "
+						"show in italics."));
+	qcbACLInherit->setToolTip(tr("Inherit ACL of parent?"));
+	qcbACLInherit->setWhatsThis(tr("This sets whether or not the ACL up the chain of parent channels are applied to this object. "
+						"Only those entries that are marked in the parent as \"Apply to Subchannels\" will be inherited."));
+	qpbACLAdd->setToolTip(tr("Add new entry"));
+	qpbACLAdd->setWhatsThis(tr("This adds a new entry, initially set with no permissions and applying to all."));
+	qpbACLRemove->setToolTip(tr("Remove entry"));
+	qpbACLRemove->setWhatsThis(tr("This removes the currently selected entry."));
+	qpbACLUp->setToolTip(tr("Move entry up"));
+	qpbACLUp->setWhatsThis(tr("This moves the entry up in the list. As entries are evaluated in order, this may change "
+						"the effective permissions of users. You cannot move an entry above an inherited entry, if you "
+						"really need that you'll have to duplicate the inherited entry."));
+	qpbACLDown->setToolTip(tr("Move entry down"));
+	qpbACLDown->setWhatsThis(tr("This moves the entry down in the list. As entries are evaluated in order, this may change "
+						"the effective permissions of users."));
+	qcbACLApplyHere->setToolTip(tr("Entry should apply to this channel"));
+	qcbACLApplyHere->setWhatsThis(tr("This makes the entry apply to this channel."));
+	qcbACLApplySubs->setToolTip(tr("Entry should apply to subchannels."));
+	qcbACLApplySubs->setWhatsThis(tr("This makes the entry apply to subchannels of this channel."));
+	qcbACLGroup->setToolTip(tr("Group this entry applies to"));
+	qcbACLGroup->setWhatsThis(tr("This control which group of users this entry applies to.<br />Note that the group is evaluated "
+							"in the context of the channel the entry is used in. For example, the default ACL on the Root "
+							"channel gives <i>Write</i> permission to the <i>admin</i> group. This entry, if inherited by a "
+							"channel, will give a user write priviliges if he belongs to the <i>admin</i> group in that channel, "
+							"even if he doesn't belong to the <i>admin</i> group in the channel where the ACL originated.<br />"
+							"A few special predefined groups are:<br />"
+							"<b>all</b> - Everyone will match.<br />"
+							"<b>reg</b> - All registered users will match.<br />"
+							"<b>in</b> - Users currently in the channel will match.<br />"
+							"<b>out</b> - Users outside the channel will match.<br />"
+							"Note that an entry applies to either a user or a group, not both."));
+	qleACLUser->setToolTip(tr("User this entry applies to"));
+	qleACLUser->setWhatsThis(tr("This controls which user this entry applies to. Just type in the user name and hit enter "
+							"to query the server for a match."));
+
+	int idx;
+	int p = 0x1;
+	for(idx=0;idx<qlACLAllow.count();idx++) {
+		ChanACL::Perm prm=static_cast<ChanACL::Perm>(p);
+		QString perm = ChanACL::permName(prm);
+		qlACLAllow[idx]->setToolTip(tr("Allow %1").arg(perm));
+		qlACLDeny[idx]->setToolTip(tr("Deny %1").arg(perm));
+		qlACLAllow[idx]->setWhatsThis(tr("This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(perm).arg(ChanACL::whatsThis(prm)));
+		qlACLDeny[idx]->setWhatsThis(tr("This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(perm).arg(ChanACL::whatsThis(prm)));
+		p = p * 2;
+	}
+}
+
 
 void ACLEditor::accept() {
 	MessageEditACL::ACLStruct as;

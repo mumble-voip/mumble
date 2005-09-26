@@ -252,6 +252,9 @@ QModelIndex PlayerModel::parent(const QModelIndex &idx) const
     if (! item || ! item->ciParent)
     	return QModelIndex();
 
+    if (idx.row() >= (item->qlPlayers.count() + item->qlChannels.count()))
+    	return QModelIndex();
+
     return createIndex(item->ciParent->qlChannels.indexOf(item->c), 0, item->ciParent);
 }
 
@@ -370,18 +373,15 @@ void PlayerModel::hideChannel(Channel *c) {
 
 	p = Channel::get(c->iParent);
 
-	qWarning("Going to hide channel %s in %s", c->qsName.toLatin1().constData(), p->qsName.toLatin1().constData());
-
 	myitem=qhChannelItems.value(c);
 	pitem=qhChannelItems.value(p);
 
 	int row = pitem->qlChannels.indexOf(c);
 	beginRemoveRows(parentIndex(myitem), row, row);
 	pitem->qlChannels.removeAt(row);
-	endRemoveRows();
-
 	p->removeChannel(c);
 	myitem->ciParent = NULL;
+	endRemoveRows();
 }
 
 Channel *PlayerModel::addChannel(int id, Channel *p, QString name) {
