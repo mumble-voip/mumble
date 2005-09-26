@@ -44,7 +44,7 @@
 #include "ACL.h"
 #include "Server.h"
 
-#define SQLDUMP(x) qWarning("%s", x.lastError().text().toLatin1().constData())
+#define SQLDUMP(x) qWarning("%s", qPrintable(x.lastError().text())
 
 class TransactionHolder {
 	protected:
@@ -434,9 +434,9 @@ void ServerDB::dumpChannel(Channel *c) {
 		c = Channel::get(0);
 	}
 
-	qWarning("Channel %s (ACLInherit %d)", c->qsName.toLatin1().constData(), c->bInheritACL);
+	qWarning("Channel %s (ACLInherit %d)", qPrintable(c->qsName), c->bInheritACL);
 	foreach(g, c->qhGroups) {
-		qWarning("Group %s (Inh %d  Able %d)", g->qsName.toLatin1().constData(), g->bInherit, g->bInheritable);
+		qWarning("Group %s (Inh %d  Able %d)", qPrintable(g->qsName), g->bInherit, g->bInheritable);
 		foreach(pid, g->qsAdd)
 			qWarning("Add %d", pid);
 		foreach(pid, g->qsRemove)
@@ -445,7 +445,7 @@ void ServerDB::dumpChannel(Channel *c) {
 	foreach(acl, c->qlACL) {
 		int allow = static_cast<int>(acl->pAllow);
 		int deny = static_cast<int>(acl->pDeny);
-		qWarning("ChanACL Here %d Sub %d Allow %04x Deny %04x ID %d Group %s", acl->bApplyHere, acl->bApplySubs, allow, deny, acl->iPlayerId, acl->qsGroup.toLatin1().constData());
+		qWarning("ChanACL Here %d Sub %d Allow %04x Deny %04x ID %d Group %s", acl->bApplyHere, acl->bApplySubs, allow, deny, acl->iPlayerId, qPrintable(acl->qsGroup));
 	}
 	qWarning(" ");
 

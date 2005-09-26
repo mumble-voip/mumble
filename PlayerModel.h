@@ -67,9 +67,9 @@ protected:
 	ChannelItem *ciRoot;
 	QHash <Channel *, ChannelItem *> qhChannelItems;
 
-	QModelIndex parentIndex(ChannelItem *) const;
 	QModelIndex index(Player *, int column = 0) const;
 	QModelIndex index(Channel *) const;
+	QModelIndex index(ChannelItem *) const;
 
 	void hidePlayer(Player *p);
 	void showPlayer(Player *p, Channel *c);

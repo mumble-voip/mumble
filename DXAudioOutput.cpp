@@ -120,11 +120,11 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : Au
 		pDS3dBuffer->SetMaxDistance(g.s.fDXMaxDistance, DS3D_DEFERRED);
 	}
 
-	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", p->qsName.toLatin1().constData(), SAMPLE_RATE, dsbd.dwBufferBytes);
+	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", qPrintable(p->qsName), SAMPLE_RATE, dsbd.dwBufferBytes);
 }
 
 DXAudioOutputPlayer::~DXAudioOutputPlayer() {
-	qWarning("DXAudioOutputPlayer: %s: Removed", p->qsName.toLatin1().constData());
+	qWarning("DXAudioOutputPlayer: %s: Removed", qPrintable(p->qsName));
 	if (pDS3dBuffer)
 		pDS3dBuffer->Release();
 	if (pDSNotify)

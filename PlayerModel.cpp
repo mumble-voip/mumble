@@ -45,7 +45,7 @@ void ChannelItem::dump() {
 	Channel *subc;
 	qWarning("ChannelItem %p", this);
 	qWarning("Parent %p", ciParent);
-	qWarning("Channel %p (%s)", c, c->qsName.toLatin1().constData());
+	qWarning("Channel %p (%s)", c, qPrintable(c->qsName));
 	qWarning("Channels: %d", qlChannels.count());
 	qWarning("Players: %d", qlPlayers.count());
 	foreach (subc, qlChannels)
@@ -123,9 +123,9 @@ QModelIndex PlayerModel::index(Channel *c) const
 	return idx;
 }
 
-QModelIndex PlayerModel::parentIndex(ChannelItem *ci) const
+QModelIndex PlayerModel::index(ChannelItem *ci) const
 {
-	return parent(index(ci->c));
+	return index(ci->c);
 }
 
 QModelIndex PlayerModel::parent(const QModelIndex &idx) const
@@ -315,7 +315,7 @@ void PlayerModel::hidePlayer(Player *p) {
 	int row = item->qlPlayers.indexOf(p);
 	int rowidx = row + item->qlChannels.count();
 
-	beginRemoveRows(parentIndex(item), rowidx, rowidx);
+	beginRemoveRows(index(item), rowidx, rowidx);
 	c->removePlayer(p);
 	item->qlPlayers.removeAt(row);
 	endRemoveRows();
@@ -336,7 +336,7 @@ void PlayerModel::showPlayer(Player *p, Channel *c) {
 	int rows = names.indexOf(p->qsName);
 	int rowidx = rows + item->qlChannels.count();
 
-	beginInsertRows(parentIndex(item), rowidx, rowidx);
+	beginInsertRows(index(item), rowidx, rowidx);
 	c->addPlayer(p);
 	item->qlPlayers.insert(rows, p);
 	endInsertRows();
@@ -355,17 +355,10 @@ Player *PlayerModel::addPlayer(short id, QString name) {
 }
 
 void PlayerModel::removePlayer(Player *p) {
-	Channel *c = p->cChannel;
-	ChannelItem *item = qhChannelItems.value(c);
+	hidePlayer(p);
 
-	int row = item->qlPlayers.indexOf(p);
-	int rowidx = row + item->qlChannels.count();
-	beginRemoveRows(parentIndex(item), rowidx, rowidx);
-	c->removePlayer(p);
 	Player::remove(p);
-	item->qlPlayers.removeAt(row);
 	delete p;
-	endRemoveRows();
 }
 
 void PlayerModel::movePlayer(Player *p, int id) {
@@ -405,7 +398,7 @@ void PlayerModel::hideChannel(Channel *c) {
 	pitem=qhChannelItems.value(p);
 
 	int row = pitem->qlChannels.indexOf(c);
-	beginRemoveRows(parentIndex(myitem), row, row);
+	beginRemoveRows(parent(index(myitem)), row, row);
 	pitem->qlChannels.removeAt(row);
 	p->removeChannel(c);
 	myitem->ciParent = NULL;
