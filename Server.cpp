@@ -286,7 +286,7 @@ void Server::playerEnterChannel(Player *p, Channel *c) {
 
 			MessagePlayerMute mpm;
 			mpm.sPlayerId = 0;
-			mpm.sVictimId = p->sId;
+			mpm.sVictim = p->sId;
 			mpm.bMute = p->bSuppressed;
 			g_sServer->sendAll(&mpm);
 		}
