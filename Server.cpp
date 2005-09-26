@@ -421,7 +421,6 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 			g_sServer->sendMessage(cCon, &mpsmdMsg);
 		}
 
-		mpm;
 		mpm.sPlayerId = 0;
 		mpm.sVictim = pPlayer->sId;
 		mpm.iChannelId = pPlayer->cChannel->iId;
