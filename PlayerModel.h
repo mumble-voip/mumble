@@ -74,7 +74,11 @@ struct ModelItem {
 	void insertChannel(Channel *c);
 	void insertPlayer(Player *p);
 
-	bool isValid() const;
+#ifdef QT_NO_DEBUG
+	bool isValid(const int line = 0) const { };
+#else
+	bool isValid(const int line = 0) const;
+#endif
 };
 
 class PlayerModel : public QAbstractItemModel {
@@ -135,6 +139,7 @@ public:
 public slots:
 	void playerTalkingChanged(bool talking);
 	void playerMuteDeafChanged();
+	void ensureSelfVisible();
 };
 
 #else

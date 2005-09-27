@@ -162,22 +162,30 @@ void ModelItem::insertPlayer(Player *p) {
 	qlPlayers.insert(idx, p);
 }
 
-bool ModelItem::isValid() const {
+#ifndef QT_NO_DEBUG
+
+bool ModelItem::isValid(int line) const {
 	if (pPlayer && cChan)
-		qFatal("ModelItem: Both Player and Channel");
+		qFatal("ModelItem %d: Both Player and Channel", line);
 	if (!pPlayer && !cChan)
-		qFatal("ModelItem: Neither Player nor Channel");
+		qFatal("ModelItem %d: Neither Player nor Channel", line);
+
 
 	if (pPlayer)
 		return true;
 
-	if (cChan->qlChannels.toSet() != qlChannels.toSet())
-		qFatal("ModelItem: Channel mismatch");
-	if (cChan->qlPlayers.toSet() != qlPlayers.toSet())
-		qFatal("ModelItem: Player mistmatch");
+	// Ideally, we'd like to compare .toSet(), but operator==
+	// in QHash is broken.
+
+	if (cChan->qlChannels.count() != qlChannels.count())
+		qFatal("ModelItem %d: Channel mismatch (%s)", line, qPrintable(cChan->qsName));
+	if (cChan->qlPlayers.count() != qlPlayers.count())
+		qFatal("ModelItem %d: Player mismatch (%s)", line, qPrintable(cChan->qsName));
 
 	return true;
 }
+
+#endif
 
 PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOn=QIcon(":/icons/talking_on.png");
@@ -221,12 +229,10 @@ QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const
         item = static_cast<ModelItem *>(p.internalPointer());
 	}
 
-    item->isValid();
+    item->isValid(__LINE__);
 
 	if (! item->validRow(row))
 		return idx;
-
-	Q_ASSERT(item->child(row));
 
 	idx = createIndex(row, column, item->child(row));
 
@@ -261,6 +267,8 @@ QModelIndex PlayerModel::parent(const QModelIndex &idx) const
 	    return QModelIndex();
 
     ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
+    item->isValid(__LINE__);
+
 	ModelItem *pitem = item->parent();
 	ModelItem *gpitem = (pitem) ? pitem->parent() : NULL;
 
@@ -285,6 +293,7 @@ int PlayerModel::rowCount(const QModelIndex &p) const
     else
         item = static_cast<ModelItem *>(p.internalPointer());
 
+	item->isValid(__LINE__);
 	val = item->rows();
 	qDebug("rowcount(%s) => %d",qPrintable(stringIndex(p)),val);
 
@@ -302,6 +311,7 @@ QString PlayerModel::stringIndex(const QModelIndex &idx) const
 		return QString("P:%1 [%2,%3]").arg(item->pPlayer->qsName).arg(idx.row()).arg(idx.column());
 	else
 		return QString("C:%1 [%2,%3]").arg(item->cChan->qsName).arg(idx.row()).arg(idx.column());
+	item->isValid(__LINE__);
 }
 
 QVariant PlayerModel::data(const QModelIndex &idx, int role) const
@@ -310,7 +320,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
         return QVariant();
 
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
-	item->isValid();
+	item->isValid(__LINE__);
 
 	Channel *c = item->cChan;
 	Player *p = item->pPlayer;
@@ -464,10 +474,14 @@ void PlayerModel::hidePlayer(Player *p) {
 
 	unbugHide(index(p));
 
+	item->isValid(__LINE__);
+
 	beginRemoveRows(index(c), row, row);
 	c->removePlayer(p);
 	item->qlPlayers.removeAll(p);
 	endRemoveRows();
+
+	item->isValid(__LINE__);
 
 	p->cChannel = NULL;
 }
@@ -480,22 +494,31 @@ void PlayerModel::showPlayer(Player *p, Channel *c) {
 	Q_ASSERT(item);
 
 	int row = item->insertIndex(p);
+	item->isValid(__LINE__);
 
 	beginInsertRows(index(c), row, row);
 	c->addPlayer(p);
 	item->insertPlayer(p);
 	endInsertRows();
 
-	if (p->sId == g.sId) {
-		QStack<Channel *> chans;
-		while (c) {
-			chans.push(c);
-			c = c->cParent;
-		}
-		while (! chans.isEmpty()) {
-			c = chans.pop();
-			g.mw->qtvPlayers->setExpanded(index(c), true);
-		}
+	item->isValid(__LINE__);
+
+	ensureSelfVisible();
+}
+
+void PlayerModel::ensureSelfVisible() {
+	QStack<Channel *> chans;
+
+	if (! g.sId)
+		return;
+	Channel *c = Player::get(g.sId)->cChannel;
+	while (c) {
+		chans.push(c);
+		c = c->cParent;
+	}
+	while (! chans.isEmpty()) {
+		c = chans.pop();
+		g.mw->qtvPlayers->setExpanded(index(c), true);
 	}
 }
 
@@ -536,12 +559,21 @@ void PlayerModel::showChannel(Channel *c, Channel *p) {
 	Q_ASSERT(c);
 	Q_ASSERT(item);
 
+	qWarning("Want to show %s", qPrintable(c->qsName));
+	qWarning("in %s", qPrintable(p->qsName));
+	item->isValid(__LINE__);
+
 	int row = item->insertIndex(c);
 
 	beginInsertRows(index(p), row, row);
 	p->addChannel(c);
 	item->insertChannel(c);
 	endInsertRows();
+
+	item = ModelItem::c_qhChannels.value(c);
+	item->isValid(__LINE__);
+
+	ensureSelfVisible();
 }
 
 void PlayerModel::hideChannel(Channel *c) {
@@ -550,16 +582,21 @@ void PlayerModel::hideChannel(Channel *c) {
 
 	int row = item->rowOf(c);
 
+	item->isValid(__LINE__);
+
 	unbugHide(index(c));
 
 	beginRemoveRows(index(p), row, row);
 	p->removeChannel(c);
 	item->qlChannels.removeAll(c);
 	endRemoveRows();
+
+	item = ModelItem::c_qhChannels.value(c);
+	item->isValid(__LINE__);
 }
 
 Channel *PlayerModel::addChannel(int id, Channel *p, QString name) {
-	Channel *c = Channel::add(id, name, p);
+	Channel *c = Channel::add(id, name, NULL);
 
 	new ModelItem(c);
 
@@ -610,6 +647,7 @@ Player *PlayerModel::getPlayer(const QModelIndex &idx) const
 
     ModelItem *item;
     item = static_cast<ModelItem *>(idx.internalPointer());
+    item->isValid(__LINE__);
 
     return item->pPlayer;
 }
@@ -621,6 +659,7 @@ Channel *PlayerModel::getChannel(const QModelIndex &idx) const
 
     ModelItem *item;
     item = static_cast<ModelItem *>(idx.internalPointer());
+    item->isValid(__LINE__);
 
 	if (item->pPlayer)
 		return item->pPlayer->cChannel;

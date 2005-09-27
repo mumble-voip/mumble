@@ -782,6 +782,7 @@ void MessageServerSync::process(Connection *) {
 	g.sId = sPlayerId;
 	g.l->clearIgnore();
 	g.l->log(Log::Information, qsWelcomeText, QString(""));
+	g.mw->pmModel->ensureSelfVisible();
 }
 
 void MessageEditACL::process(Connection *) {

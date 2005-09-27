@@ -41,7 +41,7 @@ Player::Player(QObject *p) : QObject(p) {
   bSelfMute = bSelfDeaf = false;
   bTalking = false;
   bSuppressed = false;
-  cChannel = false;
+  cChannel = 0;
 }
 
 Player *Player::get(short sId) {
