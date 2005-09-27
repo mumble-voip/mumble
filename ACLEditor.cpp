@@ -353,7 +353,7 @@ void ACLEditor::addToolTipsWhatsThis() {
 							"even if he doesn't belong to the <i>admin</i> group in the channel where the ACL originated.<br />"
 							"A few special predefined groups are:<br />"
 							"<b>all</b> - Everyone will match.<br />"
-							"<b>reg</b> - All registered users will match.<br />"
+							"<b>auth</b> - All authenticated users will match.<br />"
 							"<b>in</b> - Users currently in the channel will match.<br />"
 							"<b>out</b> - Users outside the channel will match.<br />"
 							"Note that an entry applies to either a user or a group, not both."));
@@ -739,7 +739,7 @@ void ACLEditor::ACLEnableCheck() {
 		qcbACLGroup->clear();
 		qcbACLGroup->addItem(QString());
 		qcbACLGroup->addItem("all");
-		qcbACLGroup->addItem("reg");
+		qcbACLGroup->addItem("auth");
 		qcbACLGroup->addItem("in");
 		qcbACLGroup->addItem("out");
 		foreach(gs, groups)

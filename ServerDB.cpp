@@ -146,7 +146,7 @@ ServerDB::ServerDB() {
 	if (query.next()) {
 		int c = query.value(0).toInt();
 		if (c == 0) {
-			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (0, 1, -1, 'reg', 1, 0, 64, 0)");
+			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (0, 1, -1, 'auth', 1, 0, 64, 0)");
 			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (0, 2, -1, 'admin', 1, 1, 1, 0)");
 		}
 	}

@@ -175,20 +175,20 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::setupGui()  {
-	QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
-
 	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_RELEASE)));
+
+	pmModel = new PlayerModel(this);
 
 	QTreeView *view = new QTreeView(this);
 	qtvPlayers = view;
-
-	pmModel = new PlayerModel(this);
-	view->setModel(pmModel);
-	view->setItemDelegate(new PlayerDelegate(view));
-	view->setDragEnabled(true);
-	view->setDropIndicatorShown(true);
-	view->setAcceptDrops(true);
-	view->setIndentation(10);
+	qtvPlayers->setObjectName("Players");
+	qtvPlayers->setContextMenuPolicy(Qt::CustomContextMenu);
+	qtvPlayers->setModel(pmModel);
+	qtvPlayers->setItemDelegate(new PlayerDelegate(view));
+	qtvPlayers->setDragEnabled(true);
+	qtvPlayers->setAcceptDrops(true);
+	qtvPlayers->setDropIndicatorShown(true);
+	qtvPlayers->setIndentation(10);
 
 	qteLog = new QTextEdit(this);
 	qteLog->setReadOnly(true);
@@ -307,6 +307,20 @@ void MainWindow::appendLog(QString entry)
 	qteLog->ensureCursorVisible();
 }
 
+void MainWindow::on_Players_customContextMenuRequested(const QPoint &mpos) {
+	QModelIndex idx = qtvPlayers->indexAt(mpos);
+	if (! idx.isValid())
+		idx = qtvPlayers->currentIndex();
+	Player *p = pmModel->getPlayer(idx);
+
+	if (p) {
+		qmPlayer->popup(qtvPlayers->mapToGlobal(mpos), qaPlayerMute);
+	} else {
+		qmChannel->popup(qtvPlayers->mapToGlobal(mpos), qaChannelACL);
+	}
+}
+
+
 void MainWindow::on_ServerConnect_triggered()
 {
 	ConnectDialog *cd = new ConnectDialog(this);
@@ -384,11 +398,12 @@ void MainWindow::on_PlayerKick_triggered()
 
 void MainWindow::on_ChannelMenu_aboutToShow()
 {
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	QModelIndex idx = qtvPlayers->currentIndex();
+	Channel *c = pmModel->getChannel(idx);
 	if (! c) {
-		qaChannelAdd->setEnabled(false);
+		qaChannelAdd->setEnabled(g.sId != 0);
 		qaChannelRemove->setEnabled(false);
-		qaChannelACL->setEnabled(false);
+		qaChannelACL->setEnabled(g.sId != 0);
 	} else {
 		qaChannelAdd->setEnabled(true);
 		qaChannelRemove->setEnabled(true);
@@ -400,13 +415,12 @@ void MainWindow::on_ChannelAdd_triggered()
 {
 	bool ok;
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
-	if (! c)
-		return;
+	int iParent = c ? c->iId : 0;
 	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, "", &ok);
 	if (ok) {
 		MessageChannelAdd mca;
 		mca.qsName = name;
-		mca.iParent = c->iId;
+		mca.iParent = iParent;
 		g.sh->sendMessage(&mca);
 	}
 }
@@ -430,11 +444,10 @@ void MainWindow::on_ChannelRemove_triggered()
 void MainWindow::on_ChannelACL_triggered()
 {
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
-	if (! c)
-		return;
+	int id = c ? c->iId : 0;
 
 	MessageEditACL mea;
-	mea.iId = c->iId;
+	mea.iId = id;
 	mea.bQuery = true;
 	g.sh->sendMessage(&mea);
 

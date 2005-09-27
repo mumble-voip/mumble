@@ -44,16 +44,37 @@ class PlayerDelegate : public QItemDelegate {
 		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
-class ChannelItem {
+struct ModelItem {
 	friend class PlayerModel;
 
-	protected:
-		ChannelItem *ciParent;
-		Channel *c;
-		QList<Channel *> qlChannels;
-		QList<Player *> qlPlayers;
-		ChannelItem(ChannelItem *parent, Channel *c);
-		void dump();
+	Channel *cChan;
+	Player *pPlayer;
+	QList<Channel *> qlChannels;
+	QList<Player *> qlPlayers;
+
+	static QHash <Channel *, ModelItem *> c_qhChannels;
+	static QHash <Player *, ModelItem *> c_qhPlayers;
+
+	ModelItem(Channel *c);
+	ModelItem(Player *p);
+	~ModelItem();
+
+	ModelItem *parent() const;
+	ModelItem *child(int idx) const;
+
+	bool validRow(int idx) const;
+	Player *playerAt(int idx) const;
+	Channel *channelAt(int idx) const;
+	int rowOf(Channel *c) const;
+	int rowOf(Player *p) const;
+	int rowOfSelf() const;
+	int rows() const;
+	int insertIndex(Channel *c) const;
+	int insertIndex(Player *p) const;
+	void insertChannel(Channel *c);
+	void insertPlayer(Player *p);
+
+	bool isValid() const;
 };
 
 class PlayerModel : public QAbstractItemModel {
@@ -63,8 +84,8 @@ protected:
 	QIcon qiTalkingOn, qiTalkingOff;
 	QIcon qiMutedSelf, qiMutedServer;
 	QIcon qiDeafenedSelf, qiDeafenedServer;
-	QIcon qiAuthenticated;
-	ChannelItem *ciRoot;
+	QIcon qiAuthenticated, qiChannel;
+	ModelItem *miRoot;
 	QHash <Channel *, ChannelItem *> qhChannelItems;
 
 	QModelIndex index(Player *, int column = 0) const;
@@ -78,6 +99,8 @@ protected:
 	void showChannel(Channel *c, Channel *p);
 
 	QString stringIndex(const QModelIndex &index) const;
+
+	void unbugHide(const QModelIndex &index);
 public:
 	PlayerModel(QObject *parent = 0);
 	~PlayerModel();
@@ -108,7 +131,7 @@ public:
 
 	void removeAll();
 
-	QVariant otherRoles(int column, int role) const;
+	QVariant otherRoles(int column, int role, bool isPlayer) const;
 public slots:
 	void playerTalkingChanged(bool talking);
 	void playerMuteDeafChanged();

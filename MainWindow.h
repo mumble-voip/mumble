@@ -37,7 +37,8 @@
 #include <QSettings>
 #include <QTextEdit>
 #include <QSplitter>
-#include <QAbstractItemView>
+#include <QTreeView>
+#include <QMenu>
 #include "Audio.h"
 #include "TrayIcon.h"
 #include "ACLEditor.h"
@@ -50,9 +51,11 @@ class TextToSpeech;
 class PlayerModel;
 
 class MainWindow : public QMainWindow {
+	friend class PlayerModel;
 	Q_OBJECT
 	public:
 		PlayerModel *pmModel;
+		QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
 		QAction *qaServerConnect, *qaServerDisconnect;
 		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
@@ -72,12 +75,13 @@ class MainWindow : public QMainWindow {
 		void appendLog(QString entry);
 	protected:
 		QTextEdit *qteLog;
-		QAbstractItemView *qtvPlayers;
+		QTreeView *qtvPlayers;
 		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt);
 		virtual void closeEvent(QCloseEvent *e);
 	public slots:
+		void on_Players_customContextMenuRequested(const QPoint &pos);
 		void on_ServerConnect_triggered();
 		void on_ServerDisconnect_triggered();
 		void on_PlayerMenu_aboutToShow();

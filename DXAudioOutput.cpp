@@ -167,7 +167,7 @@ bool DXAudioOutputPlayer::playFrames() {
 		dwLastPlayPos = 0;
 		dwTotalPlayPos = 0;
 
-		iLastwriteblock = NBLOCKS - 1;
+		iLastwriteblock = (NBLOCKS - 1 + g.s.iDXOutputDelay) % NBLOCKS;
 
 	    bPlaying = true;
 	}

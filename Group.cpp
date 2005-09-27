@@ -128,7 +128,7 @@ bool Group::isMember(Channel *c, QString name, int id) {
 	if (name == "all")
 		return true;
 
-	if (name == "reg")
+	if (name == "auth")
 		return (id >= 0);
 
 	if (name == "in") {

@@ -89,10 +89,6 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	addPage(new LogConfig());
 	addPage(new PluginConfig());
 
-    QHBoxLayout *top = new QHBoxLayout;
-    top->addWidget(qlwIcons);
-    top->addWidget(qswPages, 1);
-
     QHBoxLayout *buttons = new QHBoxLayout;
     buttons->addStretch(1);
     buttons->addWidget(applyButton);
@@ -100,14 +96,18 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
     buttons->addWidget(cancelButton);
 
     QVBoxLayout *l = new QVBoxLayout;
-    l->addLayout(top);
-    l->addStretch(1);
+    l->addWidget(qswPages, 1);
     l->addSpacing(12);
     l->addLayout(buttons);
-    setLayout(l);
+
+
+    QHBoxLayout *top = new QHBoxLayout;
+    top->addWidget(qlwIcons);
+    top->addLayout(l);
+
+    setLayout(top);
 
 	qlwIcons->scrollTo(qlwIcons->currentIndex(), QAbstractItemView::PositionAtTop);
-
 
     QMetaObject::connectSlotsByName(this);
 
