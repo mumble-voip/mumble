@@ -215,7 +215,7 @@ QModelIndex PlayerModel::index(Player *p, int column) const
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
 	Q_ASSERT(p);
 	Q_ASSERT(item);
-	QModelIndex idx=createIndex(item->rowOfSelf(), 0, item);
+	QModelIndex idx=createIndex(item->rowOfSelf(), column, item);
 	return idx;
 }
 
@@ -626,6 +626,8 @@ void PlayerModel::playerTalkingChanged(bool bTalking)
 void PlayerModel::playerMuteDeafChanged()
 {
 	Player *p=static_cast<Player *>(sender());
+	qWarning("Got teh messy for %p", p);
+	qWarning(".. %s", qPrintable(p->qsName));
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
 }
