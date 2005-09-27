@@ -320,6 +320,15 @@ void MainWindow::on_Players_customContextMenuRequested(const QPoint &mpos) {
 	}
 }
 
+void MainWindow::on_Players_doubleClicked(const QModelIndex &idx) {
+	Channel *c = pmModel->getChannel(idx);
+	if (!c)
+		return;
+	MessagePlayerMove mpm;
+	mpm.sVictim = g.sId;
+	mpm.iChannelId = c->iId;
+	g.sh->sendMessage(&mpm);
+}
 
 void MainWindow::on_ServerConnect_triggered()
 {
@@ -432,7 +441,7 @@ void MainWindow::on_ChannelRemove_triggered()
 	if (! c)
 		return;
 
-	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1 and all it's subchannels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
 
 	if (ret == QMessageBox::Yes ) {
 		MessageChannelRemove mcr;
@@ -648,7 +657,7 @@ void MessagePlayerSelfMuteDeaf::process(Connection *) {
 
 	pSrc->setSelfMuteDeaf(bMute, bDeaf);
 
-	if (sPlayerId == g.sId)
+	if (sPlayerId == g.sId || ! g.sId)
 		return;
 	if (pSrc->cChannel != Player::get(g.sId)->cChannel)
 		return;
@@ -668,7 +677,7 @@ void MessagePlayerMute::process(Connection *) {
 
 	pDst->setMute(bMute);
 
-	if (pDst->cChannel != Player::get(g.sId)->cChannel)
+	if (!g.sId || pDst->cChannel != Player::get(g.sId)->cChannel)
 		return;
 
 	QString vic = pDst->qsName;
@@ -686,7 +695,7 @@ void MessagePlayerDeaf::process(Connection *) {
 
 	pDst->setDeaf(bDeaf);
 
-	if (pDst->cChannel != Player::get(g.sId)->cChannel)
+	if (!g.sId || pDst->cChannel != Player::get(g.sId)->cChannel)
 		return;
 
 	QString vic = pDst->qsName;
@@ -720,20 +729,23 @@ void MessagePlayerMove::process(Connection *) {
 	if (g.sId == 0)
 		log = false;
 
+	QString pname = pDst->qsName;
+	QString admin = pSrc ? pSrc->qsName : "server";
+
 	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
-			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 left channel.").arg(pDst->qsName));
+			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 left channel.").arg(pname));
 		else
-			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2").arg(pDst->qsName).arg(pSrc->qsName));
+			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2").arg(pname).arg(admin));
 	}
 
 	g.mw->pmModel->movePlayer(pDst, iChannelId);
 
 	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
-			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 entered channel.").arg(pDst->qsName));
+			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 entered channel.").arg(pname));
 		else
-			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 moved in by %2.").arg(pDst->qsName).arg(pSrc->qsName));
+			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 moved in by %2.").arg(pname).arg(admin));
 	}
 }
 

@@ -82,6 +82,7 @@ class MainWindow : public QMainWindow {
 		virtual void closeEvent(QCloseEvent *e);
 	public slots:
 		void on_Players_customContextMenuRequested(const QPoint &pos);
+		void on_Players_doubleClicked(const QModelIndex &idx);
 		void on_ServerConnect_triggered();
 		void on_ServerDisconnect_triggered();
 		void on_PlayerMenu_aboutToShow();
