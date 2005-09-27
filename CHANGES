@@ -1,3 +1,34 @@
+	* Massively reduce debugging statements.
+	* PlayerModel fixes, work around bug in QSet operator ==
+	* Doubleclick to join channel
+	* Rewrote the player model, should be more "in tune" with Qts
+	  method of referencing items now.  Made the iconlist in the config
+	  dialog resizable.  Updated "reg" to "auth" in a few places.
+	* New icon for channel linked...[cybknight]
+	* Fixed authenticated and changed R shape into A shape.  New
+	  channel icon[cybknight]
+	* qPrintable()
+	* Fix tree
+	* Bugfixing session
+	* Tooltips and whatsthis for ACL part of ACLEditor.
+	* Have long strings in "" in .ini files.
+	* .ini files for the server, updating documentation to reflect
+	  this.
+	* Functional ACL/Group editor. Let the bugfest commence.
+	* ACLEditor, ACL actions started, server bugfixes.
+	* ACLEditor, GUI elements done, missing action-logic.
+	* ACLEditor, server part.
+	* Bugfixes from testing (release of 3d buffer, saving of transmit
+	  from settings, better rolloff defaults, smaller indentation for
+	  the channelview).
+	* Warning fixes.
+	* On channel creation, add creator to "admin" group.
+	* Channel ACLs and groups. (Still missing a edit function)
+	* Update version string
+	* Preliminary support for channels
+
+2005-09-21  tag rel_0_3_2
+
 	* Only check if registered player if there ARE registered players.
 	  Without any, everybody is priviliged.
 	* like =
