@@ -73,12 +73,6 @@ struct ModelItem {
 	int insertIndex(Player *p) const;
 	void insertChannel(Channel *c);
 	void insertPlayer(Player *p);
-
-#ifdef QT_NO_DEBUG
-	bool isValid(const int line = 0) const { };
-#else
-	bool isValid(const int line = 0) const;
-#endif
 };
 
 class PlayerModel : public QAbstractItemModel {
