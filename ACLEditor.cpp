@@ -554,7 +554,7 @@ void ACLEditor::refillACL() {
 void ACLEditor::refillGroupNames() {
 	MessageEditACL::GroupStruct *gsp;
 
-	QString text = qcbGroupList->currentText();
+	QString text = qcbGroupList->currentText().toLower();
 	QStringList qsl;
 
 	foreach(gsp, groups) {
@@ -892,11 +892,12 @@ void ACLEditor::on_GroupList_activated(const QString &text) {
 	if (text.isEmpty())
 		return;
 	if (! gs) {
+		QString name = text.toLower();
 		gs = new MessageEditACL::GroupStruct;
 		gs->bInherited = false;
 		gs->bInherit = true;
 		gs->bInheritable = true;
-		gs->qsName = text;
+		gs->qsName = name;
 		groups << gs;
 	}
 
