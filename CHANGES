@@ -1,3 +1,4 @@
+	* Fix flag display
 	* lowercase groupnames
 	* Massively reduce debugging statements.
 	* PlayerModel fixes, work around bug in QSet operator ==
