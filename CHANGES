@@ -1,3 +1,4 @@
+	* lowercase groupnames
 	* Massively reduce debugging statements.
 	* PlayerModel fixes, work around bug in QSet operator ==
 	* Doubleclick to join channel
