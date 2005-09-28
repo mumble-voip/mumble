@@ -44,10 +44,15 @@ Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 }
 
 Channel::~Channel() {
+	foreach(ChanACL *acl, qlACL)
+		delete acl;
+	foreach(Group *g, qhGroups)
+		delete g;
+	c->qlACL.clear();
+	c->qhGroups.clear();
+
 	Q_ASSERT(qlChannels.count() == 0);
 	Q_ASSERT(qlPlayers.count() == 0);
-	Q_ASSERT(qhGroups.count() == 0);
-	Q_ASSERT(qlACL.count() == 0);
 	Q_ASSERT(children().count() == 0);
 }
 
@@ -65,13 +70,6 @@ Channel *Channel::add(int id, QString name, QObject *po) {
 }
 
 void Channel::remove(Channel *c) {
-	foreach(ChanACL *acl, c->qlACL)
-		delete acl;
-	foreach(Group *g, c->qhGroups)
-		delete g;
-	c->qlACL.clear();
-	c->qhGroups.clear();
-
 	QWriteLocker lock(&c_qrwlChannels);
 	c_qhChannels.remove(c->iId);
 }

@@ -84,6 +84,7 @@ Group *Group::getGroup(Channel *chan, QString name) {
 			else
 				return NULL;
 		}
+		p = p->cParent;
 	}
 	return NULL;
 }
