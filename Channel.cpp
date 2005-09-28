@@ -48,8 +48,6 @@ Channel::~Channel() {
 		delete acl;
 	foreach(Group *g, qhGroups)
 		delete g;
-	c->qlACL.clear();
-	c->qhGroups.clear();
 
 	Q_ASSERT(qlChannels.count() == 0);
 	Q_ASSERT(qlPlayers.count() == 0);
