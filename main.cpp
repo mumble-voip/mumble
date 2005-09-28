@@ -32,7 +32,9 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QSettings>
+#ifdef Q_OS_WIN
 #include <windows.h>
+#endif
 
 #include "MainWindow.h"
 #include "ServerHandler.h"
