@@ -39,6 +39,12 @@
 #include "AudioConfigDialog.h"
 #include "Global.h"
 
+static ConfigWidget *AudioConfigDialogNew() {
+	return new AudioConfigDialog();
+}
+
+static ConfigRegistrar registrar(10, AudioConfigDialogNew);
+
 AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress, *qgbJitter;
 	QLabel *l;

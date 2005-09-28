@@ -47,6 +47,16 @@ class ConfigWidget : public QWidget {
 		virtual void accept() = 0;
 };
 
+typedef ConfigWidget *(*ConfigWidgetNew)();
+
+class ConfigRegistrar {
+	friend class ConfigDialog;
+	protected:
+		static QMap<int, ConfigWidgetNew> *c_qmNew;
+	public:
+		ConfigRegistrar(int priority, ConfigWidgetNew n);
+};
+
 class ConfigDialog : public QDialog {
 	Q_OBJECT;
 	protected:

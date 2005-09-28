@@ -41,6 +41,11 @@
 #include "DXConfigDialog.h"
 #include "Global.h"
 
+static ConfigWidget *DXConfigDialogNew() {
+	return new DXConfigDialog();
+}
+
+static ConfigRegistrar registrar(20, DXConfigDialogNew);
 
 
 BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,

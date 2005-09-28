@@ -39,11 +39,7 @@ static AudioInput *DXAudioInputNew() {
 	return new DXAudioInput();
 }
 
-static ConfigWidget *DXAudioInputConfig(QWidget *parent) {
-	return NULL;
-}
-
-AudioInputRegistrar airDX("DirectSound", DXAudioInputNew, DXAudioInputConfig);
+static AudioInputRegistrar airDX("DirectSound", DXAudioInputNew);
 
 #define NBUFFBLOCKS 50
 

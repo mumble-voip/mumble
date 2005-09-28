@@ -41,6 +41,12 @@
 #include "Log.h"
 #include "Global.h"
 
+static ConfigWidget *LogConfigDialogNew() {
+	return new LogConfig();
+}
+
+static ConfigRegistrar registrar(40, LogConfigDialogNew);
+
 LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	QGroupBox *qgbMessages = new QGroupBox(tr("Messages"));
 	QLabel *lab;

@@ -45,16 +45,12 @@
 // Hence, we allocate upon first call.
 
 QMap<QString, AudioInputRegistrarNew> *AudioInputRegistrar::qmNew;
-QMap<QString, AudioRegistrarConfig> *AudioInputRegistrar::qmConfig;
 QString AudioInputRegistrar::current = QString();
 
-AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n, AudioRegistrarConfig c) {
+AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n) {
 	if (! qmNew)
 		qmNew = new QMap<QString, AudioInputRegistrarNew>();
-	if (! qmConfig)
-		qmConfig = new QMap<QString, AudioRegistrarConfig>();
 	qmNew->insert(name,n);
-	qmConfig->insert(name,c);
 }
 
 AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {

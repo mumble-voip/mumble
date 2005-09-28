@@ -36,12 +36,15 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include "AudioConfigDialog.h"
-#include "DXConfigDialog.h"
-#include "Plugins.h"
-#include "Log.h"
-#include "ASIOInput.h"
 #include "Global.h"
+
+QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;
+
+ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {
+	if (! c_qmNew)
+		c_qmNew = new QMap<int, ConfigWidgetNew>();
+	c_qmNew->insert(priority,n);
+}
 
 ConfigWidget::ConfigWidget(QWidget *p) : QWidget(p) {
 }
@@ -83,11 +86,10 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	applyButton->setToolTip(tr("Apply changes"));
 	applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
 
-	addPage(new AudioConfigDialog());
-    addPage(new DXConfigDialog());
-    addPage(new ASIOConfig());
-	addPage(new LogConfig());
-	addPage(new PluginConfig());
+	ConfigWidgetNew cwn;
+	foreach(cwn, *ConfigRegistrar::c_qmNew) {
+		addPage(cwn());
+	}
 
     QHBoxLayout *buttons = new QHBoxLayout;
     buttons->addStretch(1);

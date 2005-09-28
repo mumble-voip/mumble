@@ -97,9 +97,11 @@ int main(int argc, char **argv)
 		g.ao->start(QThread::HighPriority);
 	}
 
+#ifdef Q_OS_WIN
 	// Increase our priority class to live alongside games.
 	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
 		qWarning("Application: Failed to set priority!");
+#endif
 
 	res=a.exec();
 

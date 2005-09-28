@@ -55,9 +55,8 @@ typedef AudioOutput *(*AudioOutputRegistrarNew)();
 class AudioOutputRegistrar {
 	public:
 		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
-		static QMap<QString, AudioRegistrarConfig> *qmConfig;
 		static QString current;
-		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n, AudioRegistrarConfig c);
+		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n);
 		static AudioOutput *newFromChoice(QString choice = QString());
 };
 

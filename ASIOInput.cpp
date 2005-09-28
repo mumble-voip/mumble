@@ -50,11 +50,15 @@ static AudioInput *ASIOAudioInputNew() {
 	return new ASIOInput();
 }
 
-static ConfigWidget *ASIOAudioInputConfig(QWidget *parent) {
-	return NULL;
+static AudioInputRegistrar airASIO("ASIO", ASIOAudioInputNew);
+
+
+static ConfigWidget *ASIOConfigDialogNew() {
+	return new ASIOConfig();
 }
 
-AudioInputRegistrar airASIO("ASIO", ASIOAudioInputNew, ASIOAudioInputConfig);
+static ConfigRegistrar registrar(22, ASIOConfigDialogNew);
+
 
 ASIOInput *ASIOInput::aiSelf;
 

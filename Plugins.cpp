@@ -48,6 +48,13 @@
 #include "plugins/mumble_plugin.h"
 #include "Global.h"
 
+static ConfigWidget *PluginConfigDialogNew() {
+	return new PluginConfig();
+}
+
+static ConfigRegistrar registrar(50, PluginConfigDialogNew);
+
+
 struct PluginInfo {
 	bool locked;
 	QLibrary lib;
