@@ -64,13 +64,16 @@ Channel *Channel::add(int id, QString name, QObject *po) {
 	return c;
 }
 
-void Channel::remove(int id) {
-	QWriteLocker lock(&c_qrwlChannels);
-	c_qhChannels.remove(id);
-}
-
 void Channel::remove(Channel *c) {
-	remove(c->iId);
+	foreach(ChanACL *acl, c->qlACL)
+		delete acl;
+	foreach(Group *g, c->qhGroups)
+		delete g;
+	c->qlACL.clear();
+	c->qhGroups.clear();
+
+	QWriteLocker lock(&c_qrwlChannels);
+	c_qhChannels.remove(c->iId);
 }
 
 void Channel::addChannel(Channel *c) {

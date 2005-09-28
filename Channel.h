@@ -61,7 +61,6 @@ class Channel : public QObject {
 
 		static Channel *get(int);
 		static Channel *add(int, QString, QObject *p = NULL);
-		static void remove(int);
 		static void remove(Channel *);
 
 		void addChannel(Channel *c);
