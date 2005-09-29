@@ -357,10 +357,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 
 	Player *ppOld = Player::match(pSrcPlayer);
-	if (ok && ppOld) {
-		Connection *cOld = g_sServer->qmConnections.value(ppOld->sId);
-		cOld->disconnect();
-	} else if (ok && Player::match(pSrcPlayer, true)) {
+	if (ok && !ppOld && Player::match(pSrcPlayer, true)) {
 		msr.qsReason = "Playername already in use";
 		ok = false;
 	}
@@ -452,6 +449,13 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	mssMsg.qsWelcomeText = g_sp.qsWelcomeText;
 	g_sServer->sendMessage(cCon, &mssMsg);
 	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
+
+	// Kick ghost
+	if (ppOld) {
+		Connection *cOld = g_sServer->qmConnections.value(ppOld->sId);
+		g_sServer->log(QString("Disconnecting ghost"), cOld);
+		cOld->disconnect();
+	}
 }
 
 void MessageServerLeave::process(Connection *cCon) {
