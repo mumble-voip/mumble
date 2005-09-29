@@ -50,6 +50,7 @@ class ChanACL : public QObject {
 			MuteDeafen = 0x10,
 			MoveKick = 0x20,
 			MakeChannel = 0x40,
+			LinkChannel = 0x80,
 			Cached = 0x80000000,
 			All = 0xffff
 		};

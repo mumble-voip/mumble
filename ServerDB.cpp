@@ -145,6 +145,9 @@ ServerDB::ServerDB() {
 	query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
 	query.exec("DELETE FROM connections");
 
+	query.exec("CREATE TABLE channel_links (link_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
+	query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id; DELETE FROM channel_links WHERE link_id = old.channel_id; END;");
+
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
 	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
 
@@ -237,6 +240,36 @@ int ServerDB::getUserID(QString name) {
 		id = query.value(0).toInt();
 	}
 	return id;
+}
+
+void ServerDB::addLink(Channel *c, Channel *l) {
+	TransactionHolder th;
+
+	QSqlQuery query;
+	query.prepare("INSERT INTO channel_links (channel_id, link_id) VALUES (?,?)");
+	query.addBindValue(c->iId);
+	query.addBindValue(l->iId);
+	query.exec();
+
+	query.prepare("INSERT INTO channel_links (channel_id, link_id) VALUES (?,?)");
+	query.addBindValue(l->iId);
+	query.addBindValue(c->iId);
+	query.exec();
+}
+
+void ServerDB::removeLink(Channel *c, Channel *l) {
+	TransactionHolder th;
+
+	QSqlQuery query;
+	query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
+	query.addBindValue(c->iId);
+	query.addBindValue(l->iId);
+	query.exec();
+
+	query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
+	query.addBindValue(l->iId);
+	query.addBindValue(c->iId);
+	query.exec();
 }
 
 Channel *ServerDB::addChannel(Channel *parent, QString name) {

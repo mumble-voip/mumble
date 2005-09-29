@@ -39,6 +39,7 @@
 #include "Group.h"
 #include "Message.h"
 #include "ServerDB.h"
+#include "Connection.h"
 #include "Server.h"
 
 Server *g_sServer;
@@ -380,9 +381,13 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	ServerDB::conLoggedOn(pSrcPlayer, cCon);
 
 	QQueue<Channel *> q;
+	QSet<Channel *> chans;
 	q << Channel::get(0);
 	while (! q.isEmpty()) {
 		c = q.dequeue();
+
+		chans.insert(c);
+
 		MessageChannelAdd mca;
 		mca.sPlayerId = 0;
 		mca.iId = c->iId;
@@ -393,6 +398,16 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 		foreach(c, c->qlChannels)
 			q.enqueue(c);
+	}
+
+	foreach(c, chans) {
+		foreach(Channel *l, c->qsLinks) {
+			MessageChannelLink mcl;
+			mcl.iId = c->iId;
+			mcl.iTarget = l->iId;
+			mcl.bCreate = true;
+			g_sServer->sendMessage(cCon, &mcl);
+		}
 	}
 
 	MessageServerJoin msjMsg;
@@ -485,9 +500,44 @@ void MessageSpeex::process(Connection *cCon) {
 	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
 		return;
 
-	foreach(p, pSrcPlayer->cChannel->qlPlayers) {
+	Channel *c = pSrcPlayer->cChannel;
+
+	foreach(p, c->qlPlayers) {
 		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
 			g_sServer->sendMessage(p->sId, this);
+	}
+
+	if (! c->qsLinks.isEmpty()) {
+
+		// First, build a list of linked channels, with links of links
+
+		Channel *l, *link;
+		QSet<Channel *> sent;
+		QStack<Channel *> seen;
+		sent << c;
+		seen.push(c);
+		while (! seen.isEmpty()) {
+			link = seen.pop();
+			foreach(l, link->qsLinks) {
+				if (! sent.contains(l)) {
+					sent.insert(l);
+					seen.push(l);
+				}
+			}
+		}
+
+		// Don't resend to ourselves
+		sent.remove(c);
+
+		// And send to all the links
+		foreach(l, sent) {
+			if (ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Speak)) {
+				foreach(p, c->qlPlayers) {
+					if (! p->bDeaf && ! p->bSelfDeaf)
+						g_sServer->sendMessage(p->sId, this);
+				}
+			}
+		}
 	}
 }
 
@@ -677,6 +727,46 @@ void MessageChannelMove::process(Connection *cCon) {
 	np->addChannel(c);
 	ServerDB::updateChannel(c);
 	g_sServer->sendAll(this);
+}
+
+void MessageChannelLink::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	Channel *c = Channel::get(iId);
+	Channel *l = Channel::get(iTarget);
+	if (!c || !l || (c == l))
+		return;
+
+	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::LinkChannel)) {
+		PERM_DENIED(pSrcPlayer, c, ChanACL::LinkChannel);
+		return;
+	}
+	if (bCreate && ! ChanACL::hasPermission(pSrcPlayer, l, ChanACL::LinkChannel)) {
+		PERM_DENIED(pSrcPlayer, l, ChanACL::LinkChannel);
+		return;
+	}
+
+	if (bCreate && c->isLinked(l))
+		return;
+	if (!bCreate && ! c->isLinked(l))
+		return;
+
+	if (bCreate) {
+		c->link(l);
+		ServerDB::addLink(c, l);
+	} else {
+		c->unlink(l);
+		ServerDB::removeLink(c, l);
+	}
+
+	if (bCreate)
+		g_sServer->log(QString("Linked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
+	else
+		g_sServer->log(QString("Unlinked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
+
+	ServerDB::updateChannel(c);
+	g_sServer->sendAll(this);
+
 }
 
 void MessageEditACL::process(Connection *cCon) {

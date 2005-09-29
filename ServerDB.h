@@ -57,6 +57,8 @@ class ServerDB : public QObject {
 		static void conChangedChannel(Player *p);
 		static void conLoggedOn(Player *p, Connection *con);
 		static void conLoggedOff(Player *p);
+		static void addLink(Channel *c, Channel *l);
+		static void removeLink(Channel *c, Channel *l);
 };
 
 #endif

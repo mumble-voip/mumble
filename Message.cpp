@@ -95,6 +95,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case ChannelMove:
 			mMsg = new MessageChannelMove();
 			break;
+		case ChannelLink:
+			mMsg = new MessageChannelLink();
+			break;
 		case PermissionDenied:
 			mMsg = new MessagePermissionDenied();
 			break;
@@ -328,6 +331,24 @@ void MessageChannelRemove::saveStream(QDataStream &qdsOut) const {
 
 void MessageChannelRemove::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> iId;
+}
+
+MessageChannelLink::MessageChannelLink() {
+	iId = 0;
+	iTarget = -1;
+	bCreate = false;
+}
+
+void MessageChannelLink::saveStream(QDataStream &qdsOut) const {
+	qdsOut << iId;
+	qdsOut << bCreate;
+	qdsOut << iTarget;
+}
+
+void MessageChannelLink::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> iId;
+	qdsIn >> bCreate;
+	qdsIn >> iTarget;
 }
 
 MessageChannelMove::MessageChannelMove() {

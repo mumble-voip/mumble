@@ -109,6 +109,11 @@ void MainWindow::createActions() {
 	qaChannelACL->setObjectName("ChannelACL");
 	qaChannelACL->setToolTip(tr("Edit Groups and ACL for channel"));
 	qaChannelACL->setWhatsThis(tr("This opens the Group and ACL dialog for the channel, to control permissions."));
+	qaChannelLink=new QAction(tr("&Link"), this);
+	qaChannelLink->setObjectName("ChannelLink");
+	qaChannelLink->setToolTip(tr("Link your channel to another channel"));
+	qaChannelLink->setWhatsThis(tr("This links your current channel to the selected channel. If they have permission to speak in "
+							"the other channel, players can now hear each other."));
 
 	qaAudioReset=new QAction(tr("&Reset"), this);
 	qaAudioReset->setObjectName("AudioReset");
@@ -470,6 +475,20 @@ void MainWindow::on_ChannelACL_triggered()
 	}
 }
 
+void MainWindow::on_ChannelLink_triggered()
+{
+	Channel *c = Player::get(g.sId)->cChannel;
+	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! l)
+		l = Channel::get(0);
+
+	MessageChannelLink mcl;
+	mcl.iId = c->iId;
+	mcl.iTarget = l->iId;
+	mcl.bCreate = true;
+	g.sh->sendMessage(&mcl);
+}
+
 void MainWindow::on_AudioReset_triggered()
 {
 	QReadLocker(&g.qrwlAudio);
@@ -766,6 +785,11 @@ void MessageChannelRemove::process(Connection *) {
 
 void MessageChannelMove::process(Connection *) {
 	g.mw->pmModel->moveChannel(Channel::get(iId), iParent);
+}
+
+void MessageChannelLink::process(Connection *) {
+	Channel *c = Channel::get(iId);
+	Channel *l = Channel::get(iTarget);
 }
 
 void MessageServerAuthenticate::process(Connection *) {

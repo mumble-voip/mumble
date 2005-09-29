@@ -107,7 +107,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 		}
 	}
 
-	c_qhACLCache[chan][p] = granted;
+	c_qhACLCache[chan][p] = granted & Cached;
 
 	return ((granted & (perm | Write)) != None);
 }
@@ -128,6 +128,8 @@ QString ChanACL::shortName(Perm p) {
 			return tr("K");
 		case MakeChannel:
 			return tr("C");
+		case LinkChannel:
+			return tr("L");
 		default:
 			break;
 	}
@@ -152,6 +154,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Move/Kick");
 		case MakeChannel:
 			return tr("Make channel");
+		case LinkChannel:
+			return tr("Link channel");
 		default:
 			break;
 	}
@@ -187,6 +191,10 @@ QString ChanACL::whatsThis(Perm p) {
 		case MakeChannel:
 			return tr("This represents the permission to make subchannels. The player making the subchannel will be added to the "
 					"admin group of the subchannel, so adjust inherited ACLs applying to the admin group according to taste.");
+		case LinkChannel:
+			return tr("This represents the permission to link channels. Players in linked channels hear each other, as long as "
+					"the speaking player has the <i>speak</i> privilege in the channel of the listener. You need the link "
+					"privilege in both channels to create a link, but just in either channel to remove it.");
 		default:
 			break;
 	}

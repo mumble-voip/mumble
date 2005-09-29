@@ -51,6 +51,8 @@ Channel::~Channel() {
 		delete acl;
 	foreach(Group *g, qhGroups)
 		delete g;
+	foreach(Channel *l, qsLinks)
+		unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
 	Q_ASSERT(qlPlayers.count() == 0);
@@ -73,6 +75,20 @@ Channel *Channel::add(int id, QString name, QObject *po) {
 void Channel::remove(Channel *c) {
 	QWriteLocker lock(&c_qrwlChannels);
 	c_qhChannels.remove(c->iId);
+}
+
+bool Channel::isLinked(Channel *l) {
+	return qsLinks.contains(l);
+}
+
+void Channel::link(Channel *l) {
+	qsLinks.insert(l);
+	l->qsLinks.insert(this);
+}
+
+void Channel::unlink(Channel *l) {
+	qsLinks.remove(l);
+	l->qsLinks.remove(this);
 }
 
 void Channel::addChannel(Channel *c) {

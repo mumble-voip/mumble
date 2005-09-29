@@ -37,15 +37,16 @@
 #include <QByteArray>
 #include <QString>
 #include <QSet>
-#include "Connection.h"
 #include "ACL.h"
+
+class Connection;
 
 class Message {
 	protected:
 		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers};
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers, ChannelLink };
 		short sPlayerId;
 
 		Message();
@@ -218,6 +219,19 @@ class MessageChannelMove : public Message {
 		int iParent;
 		MessageChannelMove();
 		Message::MessageType messageType() const { return ChannelMove; };
+		void process(Connection *);
+};
+
+class MessageChannelLink : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		int iId;
+		bool bCreate;
+		int iTarget;
+		MessageChannelLink();
+		Message::MessageType messageType() const { return ChannelLink; };
 		void process(Connection *);
 };
 
