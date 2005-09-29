@@ -343,7 +343,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 	// Fetch ID and stored username
 	int id = ServerDB::authenticate(qsUsername, qsPassword);
-	pSrcPlayer->iId = id;
+	pSrcPlayer->iId = id >= 0 ? id : -1;
 	pSrcPlayer->qsName = qsUsername;
 
 	if (iVersion != MESSAGE_STREAM_VERSION) {

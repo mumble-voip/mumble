@@ -37,7 +37,7 @@ QReadWriteLock Player::c_qrwlPlayers;
 Player::Player(QObject *p) : QObject(p) {
   sState = Player::Connected;
   sId = 0;
-  iId = -2;
+  iId = -1;
   bMute = bDeaf = false;
   bSelfMute = bSelfDeaf = false;
   bTalking = false;

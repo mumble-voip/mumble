@@ -517,9 +517,6 @@ void PlayerModel::showChannel(Channel *c, Channel *p) {
 	Q_ASSERT(c);
 	Q_ASSERT(item);
 
-	qWarning("Want to show %s", qPrintable(c->qsName));
-	qWarning("in %s", qPrintable(p->qsName));
-
 	int row = item->insertIndex(c);
 
 	beginInsertRows(index(p), row, row);
@@ -628,8 +625,6 @@ void PlayerModel::playerTalkingChanged(bool bTalking)
 void PlayerModel::playerMuteDeafChanged()
 {
 	Player *p=static_cast<Player *>(sender());
-	qWarning("Got teh messy for %p", p);
-	qWarning(".. %s", qPrintable(p->qsName));
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
 }
