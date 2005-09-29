@@ -34,6 +34,8 @@
 #include "Player.h"
 #include <QStack>
 
+QHash<Channel *, QHash<Player *, ChanACL::Permissions > > ChanACL::c_qhACLCache;
+
 ChanACL::ChanACL(Channel *chan) {
 	bApplyHere = true;
 	bApplySubs = true;
@@ -58,6 +60,12 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 	if (p->iId == 0)
 		return true;
 
+	Permissions granted;
+
+	granted=c_qhACLCache[chan][p];
+	if (granted & Cached)
+		return ((granted & (perm | Write)) != None);
+
 	ch = chan;
 	while (ch) {
 		chanstack.push(ch);
@@ -66,7 +74,8 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 
 	// Default permissions
 	Permissions def = Traverse | Enter | Speak;
-	Permissions granted = def;
+
+	granted = def;
 
 	bool traverse = true;
 	bool write = false;
@@ -92,9 +101,13 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 				}
 			}
 		}
-		if (! traverse && ! write)
-			return false;
+		if (! traverse && ! write) {
+			granted = None;
+			break;
+		}
 	}
+
+	c_qhACLCache[chan][p] = granted;
 
 	return ((granted & (perm | Write)) != None);
 }
@@ -178,4 +191,8 @@ QString ChanACL::whatsThis(Perm p) {
 			break;
 	}
 	return QString();
+}
+
+void ChanACL::clearCache() {
+	c_qhACLCache.clear();
 }

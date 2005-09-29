@@ -33,6 +33,7 @@
 
 #include <QString>
 #include <QObject>
+#include <QHash>
 
 class Channel;
 class Player;
@@ -49,9 +50,13 @@ class ChanACL : public QObject {
 			MuteDeafen = 0x10,
 			MoveKick = 0x20,
 			MakeChannel = 0x40,
+			Cached = 0x80000000,
 			All = 0xffff
 		};
+
 		Q_DECLARE_FLAGS(Permissions, Perm)
+
+		static QHash<Channel *, QHash<Player *, Permissions > > c_qhACLCache;
 
 		Channel *c;
 		bool bApplyHere;
@@ -67,6 +72,8 @@ class ChanACL : public QObject {
 		static QString shortName(Perm p);
 		static QString permName(Perm p);
 		static QString whatsThis(Perm p);
+
+		static void clearCache();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ChanACL::Permissions)

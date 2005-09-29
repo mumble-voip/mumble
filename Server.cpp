@@ -782,6 +782,8 @@ void MessageEditACL::process(Connection *cCon) {
 			a->pAllow=as.pAllow;
 		}
 
+		ChanACL::clearCache();
+
 		if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Write)) {
 			a = new ChanACL(c);
 			a->bApplyHere=true;
@@ -789,6 +791,8 @@ void MessageEditACL::process(Connection *cCon) {
 			a->iPlayerId=pSrcPlayer->iId;
 			a->pDeny=ChanACL::None;
 			a->pAllow=ChanACL::Write | ChanACL::Traverse;
+
+			ChanACL::clearCache();
 		}
 
 		ServerDB::updateChannel(c);
