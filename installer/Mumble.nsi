@@ -72,6 +72,9 @@ Section "Mumble & Murmur" SecMumble
   File "qt.txt"
   File "..\release\mumble.exe"
   File "..\release\murmur.exe"
+  SetOverwrite off
+  File "..\murmur.ini"
+  SetOverwrite on
   File "\qt\4.0.1os\lib\QtCore4.dll"
   File "\qt\4.0.1os\lib\QtGui4.dll"
   File "\qt\4.0.1os\lib\QtNetwork4.dll"
