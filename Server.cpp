@@ -372,8 +372,6 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	  return;
 	}
 
-	ServerDB::conLoggedOn(pSrcPlayer, cCon);
-
 	int lchan = ServerDB::readLastChannel(pSrcPlayer);
 	Channel *lc = Channel::get(lchan);
 	if (! lc)
@@ -382,6 +380,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		lc = Channel::get(0);
 
 	g_sServer->playerEnterChannel(pSrcPlayer, lc);
+	ServerDB::conLoggedOn(pSrcPlayer, cCon);
 
 	QQueue<Channel *> q;
 	q << Channel::get(0);
