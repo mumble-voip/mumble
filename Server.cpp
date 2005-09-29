@@ -531,8 +531,8 @@ void MessageSpeex::process(Connection *cCon) {
 
 		// And send to all the links
 		foreach(l, sent) {
-			if (ChanACL::hasPermission(pSrcPlayer, c, ChanACL::Speak)) {
-				foreach(p, c->qlPlayers) {
+			if (ChanACL::hasPermission(pSrcPlayer, l, ChanACL::Speak)) {
+				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
 						g_sServer->sendMessage(p->sId, this);
 				}

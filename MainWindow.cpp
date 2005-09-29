@@ -228,6 +228,7 @@ void MainWindow::setupGui()  {
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelRemove);
 	qmChannel->addAction(qaChannelACL);
+	qmChannel->addAction(qaChannelLink);
 
 	qmAudio->addAction(qaAudioMute);
 	qmAudio->addAction(qaAudioDeaf);
@@ -421,10 +422,12 @@ void MainWindow::on_ChannelMenu_aboutToShow()
 		qaChannelAdd->setEnabled(g.sId != 0);
 		qaChannelRemove->setEnabled(false);
 		qaChannelACL->setEnabled(g.sId != 0);
+		qaChannelLink->setEnabled(g.sId != 0);
 	} else {
 		qaChannelAdd->setEnabled(true);
 		qaChannelRemove->setEnabled(true);
 		qaChannelACL->setEnabled(true);
+		qaChannelLink->setEnabled(true);
 	}
 }
 

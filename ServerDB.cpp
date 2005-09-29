@@ -145,7 +145,7 @@ ServerDB::ServerDB() {
 	query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
 	query.exec("DELETE FROM connections");
 
-	query.exec("CREATE TABLE channel_links (link_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
+	query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
 	query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id; DELETE FROM channel_links WHERE link_id = old.channel_id; END;");
 
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
