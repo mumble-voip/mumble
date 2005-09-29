@@ -31,9 +31,10 @@
 #ifndef _CONNECTION_H
 #define _CONNECTION_H
 
-#include "Message.h"
 #include <QTcpSocket>
 #include <QByteArray>
+
+class Message;
 
 class Connection : public QObject {
 	Q_OBJECT

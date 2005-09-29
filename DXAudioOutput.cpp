@@ -33,6 +33,7 @@
 #include "DXAudioOutput.h"
 #include "MainWindow.h"
 #include "Plugins.h"
+#include "Player.h"
 #include "Global.h"
 
 #undef FAILED

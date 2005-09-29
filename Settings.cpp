@@ -41,7 +41,7 @@ Settings::Settings() {
 	iQuality = 8;
 	iComplexity = 4;
 	iMinLoudness = 4000;
-	iVoiceHold = 30;
+	iVoiceHold = 50;
 	iJitterBufferSize = 8;
 	iDXOutputDelay = 1;
 	fDXMinDistance = 10.0;

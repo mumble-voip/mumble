@@ -33,7 +33,9 @@
 
 #include <QString>
 #include <QSet>
-#include "Channel.h"
+
+class Channel;
+class Player;
 
 class Group {
 	public:

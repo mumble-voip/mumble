@@ -39,8 +39,9 @@
 #include <QHash>
 #include <QCheckBox>
 
-#include "TextToSpeech.h"
 #include "ConfigDialog.h"
+
+class TextToSpeech;
 
 class LogConfig : public ConfigWidget {
 	Q_OBJECT

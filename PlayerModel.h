@@ -34,7 +34,10 @@
 #include <QAbstractItemModel>
 #include <QItemDelegate>
 #include <QIcon>
-#include "Player.h"
+#include <QHash>
+
+class Player;
+class Channel;
 
 class PlayerDelegate : public QItemDelegate {
 	Q_OBJECT

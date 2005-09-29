@@ -37,6 +37,8 @@
 #include "MainWindow.h"
 #include "Message.h"
 #include "ServerHandler.h"
+#include "Channel.h"
+#include "Player.h"
 #include "Global.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;

@@ -36,9 +36,10 @@
 #include <QHash>
 #include <QReadWriteLock>
 #include <QList>
-#include "Player.h"
-#include "Group.h"
-#include "ACL.h"
+
+class Player;
+class Group;
+class ChanACL;
 
 class Channel : public QObject {
 	Q_OBJECT

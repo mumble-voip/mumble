@@ -39,10 +39,9 @@
 #include <QSplitter>
 #include <QTreeView>
 #include <QMenu>
-#include "Audio.h"
-#include "TrayIcon.h"
-#include "ACLEditor.h"
 
+class TrayIcon;
+class ACLEditor;
 class Player;
 class Connection;
 class ServerHandler;

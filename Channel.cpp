@@ -29,6 +29,9 @@
 */
 
 #include "Channel.h"
+#include "Player.h"
+#include "Group.h"
+#include "ACL.h"
 
 QHash<int, Channel *> Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;

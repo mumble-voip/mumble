@@ -34,6 +34,9 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "AudioOutput.h"
+#include "Message.h"
+#include "Player.h"
+#include "Connection.h"
 #include "Global.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool udp) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {

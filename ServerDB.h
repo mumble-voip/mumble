@@ -32,7 +32,9 @@
 #define _DATABASE_H
 
 #include <QObject>
-#include "Channel.h"
+
+class Channel;
+class Player;
 
 class ServerDB : public QObject {
 	Q_OBJECT

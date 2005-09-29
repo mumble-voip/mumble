@@ -32,8 +32,6 @@
 #define _AUDIO_H
 
 #include "ConfigDialog.h"
-
 #define SAMPLE_RATE 16000
-typedef ConfigWidget *(*AudioRegistrarConfig)(QWidget *parent);
 
 #endif

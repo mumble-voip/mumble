@@ -33,8 +33,13 @@
 #include <QStack>
 #include <QSet>
 #include <QSettings>
-#include "Server.h"
+#include "Player.h"
+#include "Channel.h"
+#include "ACL.h"
+#include "Group.h"
+#include "Message.h"
 #include "ServerDB.h"
+#include "Server.h"
 
 Server *g_sServer;
 ServerParams g_sp;

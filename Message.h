@@ -36,6 +36,7 @@
 #include <QDataStream>
 #include <QByteArray>
 #include <QString>
+#include <QSet>
 #include "Connection.h"
 #include "ACL.h"
 

@@ -39,6 +39,7 @@
 #include "ACLEditor.h"
 #include "ACL.h"
 #include "ServerHandler.h"
+#include "Channel.h"
 #include "Global.h"
 
 ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {

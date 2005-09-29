@@ -33,7 +33,9 @@
 
 #include <QString>
 #include <QObject>
-#include "Channel.h"
+
+class Channel;
+class Player;
 
 class ChanACL : public QObject {
 	Q_OBJECT

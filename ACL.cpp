@@ -29,6 +29,9 @@
 */
 
 #include "ACL.h"
+#include "Channel.h"
+#include "Group.h"
+#include "Player.h"
 #include <QStack>
 
 ChanACL::ChanACL(Channel *chan) {

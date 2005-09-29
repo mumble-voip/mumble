@@ -29,6 +29,7 @@
 */
 
 #include <QHostAddress>
+#include "Message.h"
 #include "Connection.h"
 
 Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {

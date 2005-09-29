@@ -11,10 +11,10 @@ place offering Mumble is likely to contain trojans or viruses.
 Pre-requisites
 ==============
 
-Mumble and murmur depends on Qt; either the opensource or commercial
-versions. Please see http://www.trolltech.com/qt/ for more information. As
-we use the Qt build system, it's important that you have a fully functional
-Qt installation.
+Mumble and murmur depends on Qt version 4.0.1 or above; either the opensource
+or commercial versions will do.
+Please see http://www.trolltech.com/qt/ for more information. As we use the Qt
+build system, it's important that you have a fully functional Qt installation.
 
 Mumble depends on libspeex. See http://www.speex.org for details. Note that
 you need the latest "unstable" version to compile. (Speex generally has high

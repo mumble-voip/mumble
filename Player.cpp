@@ -29,6 +29,7 @@
 */
 
 #include "Player.h"
+#include "Channel.h"
 
 QHash<short, Player *> Player::c_qmPlayers;
 QReadWriteLock Player::c_qrwlPlayers;

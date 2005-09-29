@@ -45,10 +45,10 @@
 #include <QWidget>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
-#include "Player.h"
 #include "Audio.h"
 
 class AudioOutput;
+class Player;
 
 typedef AudioOutput *(*AudioOutputRegistrarNew)();
 

@@ -37,8 +37,11 @@
 #include <QUdpSocket>
 #include <QQueue>
 #include <QPair>
-#include "Player.h"
-#include "Connection.h"
+
+class Player;
+class Connection;
+class Message;
+class Channel;
 
 typedef QPair<QHostAddress, quint16> Peer;
 

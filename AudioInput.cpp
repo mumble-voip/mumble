@@ -37,6 +37,7 @@
 #include "MainWindow.h"
 #include "Player.h"
 #include "Plugins.h"
+#include "Message.h"
 #include "Global.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor

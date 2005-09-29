@@ -39,6 +39,7 @@
 #include <QLineEdit>
 #include <QList>
 #include <QHash>
+
 #include "Message.h"
 
 class ACLEditor : public QDialog {

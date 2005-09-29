@@ -35,7 +35,8 @@
 #include <QObject>
 #include <QHash>
 #include <QReadWriteLock>
-#include "Channel.h"
+
+class Channel;
 
 class Player : public QObject {
 	Q_OBJECT

@@ -37,10 +37,11 @@
 #include <QUdpSocket>
 #include <QEvent>
 #include <QHostAddress>
-#include "Connection.h"
-#include "Message.h"
 
 #define SERVERSEND_EVENT 3501
+
+class Connection;
+class Message;
 
 class ServerHandlerMessageEvent : public QEvent
 {

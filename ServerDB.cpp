@@ -39,6 +39,7 @@
 #include <QSqlDriver>
 
 #include "ServerDB.h"
+#include "Player.h"
 #include "Channel.h"
 #include "Group.h"
 #include "ACL.h"

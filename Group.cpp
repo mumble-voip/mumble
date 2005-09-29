@@ -28,9 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Group.h"
 #include <QStack>
 #include <QStringList>
+
+#include "Group.h"
+#include "Channel.h"
+#include "Player.h"
 
 Group::Group(Channel *assoc, QString name) {
 	c = assoc;
