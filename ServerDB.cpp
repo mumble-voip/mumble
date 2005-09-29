@@ -44,6 +44,7 @@
 #include "Group.h"
 #include "ACL.h"
 #include "Server.h"
+#include "Connection.h"
 
 #define SQLDUMP(x) qWarning("%s", qPrintable(x.lastError().text())
 
@@ -139,6 +140,10 @@ ServerDB::ServerDB() {
 	query.exec("CREATE UNIQUE INDEX acl_channel_pri ON acl(channel_id, priority)");
 	query.exec("CREATE TRIGGER acl_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM acl WHERE channel_id = old.channel_id; END;");
 	query.exec("CREATE TRIGGER acl_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM acl WHERE player_id = old.player_id; END;");
+
+	query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
+	query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
+	query.exec("DELETE FROM connections");
 
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
 	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
@@ -425,6 +430,38 @@ int ServerDB::readLastChannel(Player *p) {
 	return c->iId;
 }
 
+void ServerDB::conLoggedOn(Player *p, Connection *con) {
+	TransactionHolder th;
+	QSqlQuery query;
+
+	query.prepare("INSERT INTO connections (con_id, player_id, channel_id, player_name, ip, port) VALUES (?,?,?,?,?,?)");
+	query.addBindValue(p->sId);
+	query.addBindValue(p->iId);
+	query.addBindValue(p->cChannel->iId);
+	query.addBindValue(p->qsName);
+	query.addBindValue(con->peerAddress().toString());
+	query.addBindValue(con->peerPort());
+	query.exec();
+}
+
+void ServerDB::conLoggedOff(Player *p) {
+	TransactionHolder th;
+	QSqlQuery query;
+
+	query.prepare("DELETE FROM connections WHERE con_id = ?");
+	query.addBindValue(p->sId);
+	query.exec();
+}
+
+void ServerDB::conChangedChannel(Player *p) {
+	TransactionHolder th;
+	QSqlQuery query;
+
+	query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
+	query.addBindValue(p->cChannel->iId);
+	query.addBindValue(p->sId);
+	query.exec();
+}
 
 void ServerDB::dumpChannel(Channel *c) {
 	Group *g;

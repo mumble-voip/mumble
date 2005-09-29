@@ -175,6 +175,8 @@ void Server::connectionClosed(QString reason) {
 		MessageServerLeave mslMsg;
 		mslMsg.sPlayerId=pPlayer->sId;
 		sendExcept(&mslMsg, c);
+
+		ServerDB::conLoggedOff(pPlayer);
 	}
 
 	qmConnections.remove(pPlayer->sId);
@@ -258,8 +260,6 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 		sendAll(&mpm);
 
 		playerEnterChannel(p, dest);
-
-		ServerDB::setLastChannel(p);
 	}
 
 	MessageChannelRemove mcr;
@@ -280,6 +280,9 @@ void Server::playerEnterChannel(Player *p, Channel *c) {
 		return;
 
 	c->addPlayer(p);
+
+	ServerDB::conChangedChannel(p);
+	ServerDB::setLastChannel(p);
 
 	bool mayspeak = ChanACL::hasPermission(p, c, ChanACL::Speak);
 	bool sup = p->bSuppressed;
@@ -353,12 +356,23 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	  ok = true;
 	}
 
+	Player *ppOld = Player::match(pSrcPlayer);
+	if (ok && ppOld) {
+		Connection *cOld = g_sServer->qmConnections.value(ppOld->sId);
+		cOld->disconnect();
+	} else if (ok && Player::match(pSrcPlayer, true)) {
+		msr.qsReason = "Playername already in use";
+		ok = false;
+	}
+
 	if (! ok) {
 	  g_sServer->log(QString("Rejected connection: %1").arg(msr.qsReason), cCon);
 	  g_sServer->sendMessage(cCon, &msr);
 	  cCon->disconnect();
 	  return;
 	}
+
+	ServerDB::conLoggedOn(pSrcPlayer, cCon);
 
 	int lchan = ServerDB::readLastChannel(pSrcPlayer);
 	Channel *lc = Channel::get(lchan);
@@ -574,8 +588,6 @@ void MessagePlayerMove::process(Connection *cCon) {
 
 	g_sServer->sendAll(this);
 	g_sServer->playerEnterChannel(pDstPlayer, c);
-
-	ServerDB::setLastChannel(pDstPlayer);
 	g_sServer->log(QString("Moved to %1 (%2)").arg(c->qsName).arg(pDstPlayer->qsName), cCon);
 }
 

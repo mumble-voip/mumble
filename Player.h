@@ -57,6 +57,7 @@ class Player : public QObject {
 		Player(QObject *p = NULL);
 		static Player *get(short);
 		static Player *add(short, QObject *p = NULL);
+		static Player *match(const Player *p, bool matchname = false);
 		static void remove(short);
 		static void remove(Player *);
 	public slots:

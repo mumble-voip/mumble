@@ -60,6 +60,21 @@ Player *Player::add(short sId, QObject *po) {
 	return p;
 }
 
+Player *Player::match(const Player *other, bool matchname) {
+	QReadLocker lock(&c_qrwlPlayers);
+
+	Player *p;
+	foreach(p, c_qmPlayers) {
+		if (p == other)
+			continue;
+		if ((p->iId >= 0) && (p->iId == other->iId))
+			return p;
+		if (matchname && (p->qsName == other->qsName))
+			return p;
+	}
+	return NULL;
+}
+
 void Player::remove(short sId) {
 	QWriteLocker lock(&c_qrwlPlayers);
 	Player *p = c_qmPlayers.take(sId);

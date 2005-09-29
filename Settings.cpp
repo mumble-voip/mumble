@@ -34,7 +34,7 @@
 
 Settings::Settings() {
 	atTransmit = VAD;
-	ptTransmit = PositionVelocity;
+	ptTransmit = Position;
 	a3dModel = Panning;
 	bMute = bDeaf = false;
 	bTTS = true;
