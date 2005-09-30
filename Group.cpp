@@ -116,10 +116,9 @@ QSet<QString> Group::groupNames(Channel *chan) {
 	return m;
 }
 
-bool Group::isMember(Channel *c, QString name, int id) {
+bool Group::isMember(Channel *c, QString name, Player *pl) {
 	Channel *p;
 	Group *g;
-	Player *pl = Player::get(id);
 
 	bool m = false;
 
@@ -133,16 +132,16 @@ bool Group::isMember(Channel *c, QString name, int id) {
 		return true;
 
 	if (name == "auth")
-		return (id >= 0);
+		return (pl->iId >= 0);
 
 	if (name == "in") {
-		if (pl && pl->cChannel == c)
+		if (pl->cChannel == c)
 			return true;
 		return false;
 	}
 
 	if (name == "out") {
-		if (pl && pl->cChannel == c)
+		if (pl->cChannel == c)
 			return false;
 		return true;
 	}
@@ -167,19 +166,11 @@ bool Group::isMember(Channel *c, QString name, int id) {
 
 	while (! s.isEmpty()) {
 		g = s.pop();
-		if (g->qsAdd.contains(id))
+		if (g->qsAdd.contains(pl->iId))
 			m = true;
-		if (g->qsRemove.contains(id))
+		if (g->qsRemove.contains(pl->iId))
 			m = false;
 	}
 
 	return m;
-}
-
-bool Group::isMember(Channel *c, QString name, Player *p) {
-	return isMember(c, name, p->iId);
-}
-
-bool Group::isMember(Player *p, QString name) {
-	return isMember(p->cChannel, name, p->iId);
 }
