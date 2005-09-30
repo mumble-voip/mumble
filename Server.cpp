@@ -320,8 +320,10 @@ void Server::checkCommands() {
 		QString cmdname = cmd.first;
 		QList<QVariant> argv = cmd.second;
 		if (cmdname == "moveplayer") {
+		  qWarning("Got order to Move");
 			Player *p = Player::get(argv[0].toInt());
-			Channel *c = Channel::get(argv[0].toInt());
+			Channel *c = Channel::get(argv[1].toInt());
+
 			if (! p || ! c)
 				continue;
 			playerEnterChannel(p, c);

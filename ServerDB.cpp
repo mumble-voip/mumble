@@ -547,11 +547,11 @@ QList<ServerDB::qpCommand> ServerDB::getCommands() {
 	while (query.next()) {
 		qpCommand cmd;
 		cmd.first = query.value(0).toString();
-		for(int i=0;i<9;i++)
-			cmd.second[i] = query.value(i+1);
+		for(int i=1;i<10;i++)
+			cmd.second.append(query.value(i));
 		commands << cmd;
 	}
-	query.prepare("DELETE FROM command");
+	query.prepare("DELETE FROM commands");
 	query.exec();
 	return commands;
 }
