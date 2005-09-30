@@ -747,10 +747,11 @@ void MessageChannelLink::process(Connection *cCon) {
 
 	if (bCreate)
 		g_sServer->log(QString("Linked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
-	else
+	else if (l)
 		g_sServer->log(QString("Unlinked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
+	else
+		g_sServer->log(QString("Unlinked all from channel %1").arg(c->qsName), cCon);
 
-	ServerDB::updateChannel(c);
 	g_sServer->sendAll(this);
 
 }

@@ -119,6 +119,7 @@ Section "Uninstall"
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
+  Delete "$INSTDIR\murmur.ini"
   Delete "$INSTDIR\plugins\bf2.dll"
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
