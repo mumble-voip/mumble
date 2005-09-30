@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QStack>
 #include "Channel.h"
 #include "Player.h"
 #include "Group.h"
@@ -38,7 +39,6 @@ QReadWriteLock Channel::c_qrwlChannels;
 
 Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 	iId = id;
-	iParent = 0;
 	qsName = name;
 	bInheritACL = true;
 	cParent = qobject_cast<Channel *>(p);
@@ -87,19 +87,44 @@ void Channel::link(Channel *l) {
 }
 
 void Channel::unlink(Channel *l) {
-	qsLinks.remove(l);
-	l->qsLinks.remove(this);
+	if (l) {
+		qsLinks.remove(l);
+		l->qsLinks.remove(this);
+	} else {
+		foreach(Channel *c, qsLinks)
+			unlink(c);
+	}
+}
+
+QSet<Channel *> Channel::allLinks() {
+	QSet<Channel *> seen;
+	seen.insert(this);
+	if (qsLinks.isEmpty())
+		return seen;
+
+	Channel *l, *lnk;
+	QStack<Channel *> stack;
+	stack.push(this);
+
+	while (! stack.isEmpty()) {
+		lnk = stack.pop();
+		foreach(l, lnk->qsLinks) {
+			if (! seen.contains(l)) {
+				seen.insert(l);
+				stack.push(l);
+			}
+		}
+	}
+	return seen;
 }
 
 void Channel::addChannel(Channel *c) {
-	c->iParent = iId;
 	c->cParent = this;
 	c->setParent(this);
 	qlChannels << c;
 }
 
 void Channel::removeChannel(Channel *c) {
-	c->iParent = 0;
 	c->cParent = NULL;
 	c->setParent(NULL);
 	qlChannels.removeAll(c);

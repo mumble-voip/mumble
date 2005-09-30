@@ -114,6 +114,14 @@ void MainWindow::createActions() {
 	qaChannelLink->setToolTip(tr("Link your channel to another channel"));
 	qaChannelLink->setWhatsThis(tr("This links your current channel to the selected channel. If they have permission to speak in "
 							"the other channel, players can now hear each other."));
+	qaChannelUnlink=new QAction(tr("&Unlink"), this);
+	qaChannelUnlink->setObjectName("ChannelUnlink");
+	qaChannelUnlink->setToolTip(tr("Unlink your channel from another channel"));
+	qaChannelUnlink->setWhatsThis(tr("This unlinks your current channel from the selected channel."));
+	qaChannelUnlinkAll=new QAction(tr("Unlink &All"), this);
+	qaChannelUnlinkAll->setObjectName("ChannelUnlinkAll");
+	qaChannelUnlinkAll->setToolTip(tr("Unlinks your channel from all linked channels."));
+	qaChannelUnlinkAll->setWhatsThis(tr("This unlinks your current channel (not the selected one) from all linked channels."));
 
 	qaAudioReset=new QAction(tr("&Reset"), this);
 	qaAudioReset->setObjectName("AudioReset");
@@ -229,6 +237,8 @@ void MainWindow::setupGui()  {
 	qmChannel->addAction(qaChannelRemove);
 	qmChannel->addAction(qaChannelACL);
 	qmChannel->addAction(qaChannelLink);
+	qmChannel->addAction(qaChannelUnlink);
+	qmChannel->addAction(qaChannelUnlinkAll);
 
 	qmAudio->addAction(qaAudioMute);
 	qmAudio->addAction(qaAudioDeaf);
@@ -417,18 +427,38 @@ void MainWindow::on_PlayerKick_triggered()
 void MainWindow::on_ChannelMenu_aboutToShow()
 {
 	QModelIndex idx = qtvPlayers->currentIndex();
-	Channel *c = pmModel->getChannel(idx);
-	if (! c) {
-		qaChannelAdd->setEnabled(g.sId != 0);
-		qaChannelRemove->setEnabled(false);
-		qaChannelACL->setEnabled(g.sId != 0);
-		qaChannelLink->setEnabled(g.sId != 0);
-	} else {
-		qaChannelAdd->setEnabled(true);
-		qaChannelRemove->setEnabled(true);
-		qaChannelACL->setEnabled(true);
-		qaChannelLink->setEnabled(true);
+
+	bool add, remove, acl, link, unlink, unlinkall;
+
+	add = remove = acl = link = unlink = unlinkall = false;
+
+	if (g.sId != 0) {
+		add = true;
+		acl = true;
+
+		Channel *c = pmModel->getChannel(idx);
+		Channel *home = Player::get(g.sId)->cChannel;
+
+		if (c && c->iId != 0)
+			remove = true;
+		if (! c)
+			c = Channel::get(0);
+
+		unlinkall = (home->qsLinks.count() > 0);
+
+		if (home != c) {
+			if (c->allLinks().contains(home))
+				unlink = true;
+			else
+				link = true;
+		}
 	}
+
+	qaChannelAdd->setEnabled(add);
+	qaChannelRemove->setEnabled(remove);
+	qaChannelACL->setEnabled(acl);
+	qaChannelLink->setEnabled(link);
+	qaChannelUnlink->setEnabled(unlink);
 }
 
 void MainWindow::on_ChannelAdd_triggered()
@@ -489,6 +519,31 @@ void MainWindow::on_ChannelLink_triggered()
 	mcl.iId = c->iId;
 	mcl.iTarget = l->iId;
 	mcl.bCreate = true;
+	g.sh->sendMessage(&mcl);
+}
+
+void MainWindow::on_ChannelUnlink_triggered()
+{
+	Channel *c = Player::get(g.sId)->cChannel;
+	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! l)
+		l = Channel::get(0);
+
+	MessageChannelLink mcl;
+	mcl.iId = c->iId;
+	mcl.iTarget = l->iId;
+	mcl.bCreate = false;
+	g.sh->sendMessage(&mcl);
+}
+
+void MainWindow::on_ChannelUnlinkAll_triggered()
+{
+	Channel *c = Player::get(g.sId)->cChannel;
+
+	MessageChannelLink mcl;
+	mcl.iId = c->iId;
+	mcl.iTarget = -1;
+	mcl.bCreate = false;
 	g.sh->sendMessage(&mcl);
 }
 
@@ -793,6 +848,10 @@ void MessageChannelMove::process(Connection *) {
 void MessageChannelLink::process(Connection *) {
 	Channel *c = Channel::get(iId);
 	Channel *l = Channel::get(iTarget);
+	if (bCreate)
+		g.mw->pmModel->linkChannel(c, l);
+	else
+		g.mw->pmModel->unlinkChannel(c, l);
 }
 
 void MessageServerAuthenticate::process(Connection *) {

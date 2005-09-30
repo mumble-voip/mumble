@@ -245,7 +245,9 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	Player *p;
 
 	if (dest == NULL)
-		dest = Channel::get(chan->iParent);
+		dest = Channel::get(chan->cParent->iId);
+
+	chan->unlink(NULL);
 
 	foreach(c, chan->qlChannels) {
 		removeChannel(c, src, dest);
@@ -391,7 +393,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		MessageChannelAdd mca;
 		mca.sPlayerId = 0;
 		mca.iId = c->iId;
-		mca.iParent = c->iParent;
+		mca.iParent = (c->cParent) ? c->cParent->iId : -1;
 		mca.qsName = c->qsName;
 		if (c->iId != 0)
 			g_sServer->sendMessage(cCon, &mca);
@@ -508,29 +510,10 @@ void MessageSpeex::process(Connection *cCon) {
 	}
 
 	if (! c->qsLinks.isEmpty()) {
+		QSet<Channel *> chans = c->allLinks();
+		chans.remove(c);
 
-		// First, build a list of linked channels, with links of links
-
-		Channel *l, *link;
-		QSet<Channel *> sent;
-		QStack<Channel *> seen;
-		sent << c;
-		seen.push(c);
-		while (! seen.isEmpty()) {
-			link = seen.pop();
-			foreach(l, link->qsLinks) {
-				if (! sent.contains(l)) {
-					sent.insert(l);
-					seen.push(l);
-				}
-			}
-		}
-
-		// Don't resend to ourselves
-		sent.remove(c);
-
-		// And send to all the links
-		foreach(l, sent) {
+		foreach(Channel *l, chans) {
 			if (ChanACL::hasPermission(pSrcPlayer, l, ChanACL::Speak)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
@@ -734,7 +717,10 @@ void MessageChannelLink::process(Connection *cCon) {
 
 	Channel *c = Channel::get(iId);
 	Channel *l = Channel::get(iTarget);
-	if (!c || !l || (c == l))
+	if (!c || (c == l))
+		return;
+
+	if (bCreate && !l)
 		return;
 
 	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::LinkChannel)) {
@@ -748,7 +734,7 @@ void MessageChannelLink::process(Connection *cCon) {
 
 	if (bCreate && c->isLinked(l))
 		return;
-	if (!bCreate && ! c->isLinked(l))
+	if (!bCreate && l && ! c->isLinked(l))
 		return;
 
 	if (bCreate) {

@@ -44,9 +44,10 @@ class ChanACL;
 
 class Channel : public QObject {
 	Q_OBJECT
+	private:
+		QSet<Channel *> qsUnseen;
   	public:
 		int iId;
-		int iParent;
 		Channel *cParent;
 		QString qsName;
 		QList<Channel *> qlChannels;
@@ -74,6 +75,8 @@ class Channel : public QObject {
 		bool isLinked(Channel *c);
 		void link(Channel *c);
 		void unlink(Channel *c);
+
+		QSet<Channel *> allLinks();
 };
 
 #else

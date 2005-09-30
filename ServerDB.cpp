@@ -146,7 +146,7 @@ ServerDB::ServerDB() {
 	query.exec("DELETE FROM connections");
 
 	query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
-	query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id; DELETE FROM channel_links WHERE link_id = old.channel_id; END;");
+	query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
 	query.exec("DELETE FROM channel_links");
 
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
@@ -262,15 +262,23 @@ void ServerDB::removeLink(Channel *c, Channel *l) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
-	query.addBindValue(c->iId);
-	query.addBindValue(l->iId);
-	query.exec();
 
-	query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
-	query.addBindValue(l->iId);
-	query.addBindValue(c->iId);
-	query.exec();
+	if (l) {
+		query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
+		query.addBindValue(c->iId);
+		query.addBindValue(l->iId);
+		query.exec();
+
+		query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
+		query.addBindValue(l->iId);
+		query.addBindValue(c->iId);
+		query.exec();
+	} else {
+		query.prepare("DELETE FROM channel_links WHERE channel_id = ? OR link_id = ?");
+		query.addBindValue(c->iId);
+		query.addBindValue(c->iId);
+		query.exec();
+	}
 }
 
 Channel *ServerDB::addChannel(Channel *parent, QString name) {
@@ -301,7 +309,7 @@ void ServerDB::updateChannel(Channel *c) {
 
 	QSqlQuery query;
 	query.prepare("UPDATE channels SET parent_id = ?, inheritACL = ? WHERE channel_id = ?");
-	query.addBindValue(c->iParent);
+	query.addBindValue(c->cParent ? c->cParent->iId : -1);
 	query.addBindValue(c->bInheritACL ? 1 : 0);
 	query.addBindValue(c->iId);
 	query.exec();

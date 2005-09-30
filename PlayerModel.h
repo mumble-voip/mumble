@@ -35,6 +35,7 @@
 #include <QItemDelegate>
 #include <QIcon>
 #include <QHash>
+#include <QSet>
 
 class Player;
 class Channel;
@@ -85,9 +86,10 @@ protected:
 	QIcon qiTalkingOn, qiTalkingOff;
 	QIcon qiMutedSelf, qiMutedServer;
 	QIcon qiDeafenedSelf, qiDeafenedServer;
-	QIcon qiAuthenticated, qiChannel;
+	QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
 	ModelItem *miRoot;
 	QHash <Channel *, ChannelItem *> qhChannelItems;
+	QSet<Channel *> qsLinked;
 
 	QModelIndex index(Player *, int column = 0) const;
 	QModelIndex index(Channel *) const;
@@ -130,6 +132,9 @@ public:
 	void removePlayer(Player *p);
 	void removeChannel(Channel *c);
 
+	void linkChannel(Channel *c, Channel *l);
+	void unlinkChannel(Channel *c, Channel *l);
+
 	void removeAll();
 
 	QVariant otherRoles(int column, int role, bool isPlayer) const;
@@ -137,6 +142,7 @@ public slots:
 	void playerTalkingChanged(bool talking);
 	void playerMuteDeafChanged();
 	void ensureSelfVisible();
+	void recheckLinks();
 };
 
 #else

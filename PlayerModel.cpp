@@ -173,6 +173,7 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiDeafenedServer=QIcon(":/icons/deafened_server.png");
 	qiAuthenticated=QIcon(":/icons/authenticated.png");
 	qiChannel=QIcon(":/icons/channel.png");
+	qiLinkedChannel=QIcon(":/icons/channel_linked.png");
 
 	miRoot = new ModelItem(Channel::get(0));
 }
@@ -332,8 +333,9 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 	} else {
 		switch (role) {
 			case Qt::DecorationRole:
-				if (idx.column() == 0)
-					return qiChannel;
+				if (idx.column() == 0) {
+					return qsLinked.contains(c) ? qiLinkedChannel : qiChannel;
+				}
 			case Qt::DisplayRole:
 				if (idx.column() == 0)
 					return c->qsName;
@@ -478,6 +480,29 @@ void PlayerModel::ensureSelfVisible() {
 		c = chans.pop();
 		g.mw->qtvPlayers->setExpanded(index(c), true);
 	}
+	recheckLinks();
+}
+
+void PlayerModel::recheckLinks() {
+	if (! g.sId)
+		return;
+
+	Channel *home = Player::get(g.sId)->cChannel;
+
+	QSet<Channel *> all = home->allLinks();
+
+	if (all == qsLinked)
+		return;
+
+	QSet<Channel *> changed = (all - qsLinked);
+	changed += (qsLinked - all);
+
+	qsLinked = all;
+
+	foreach(Channel *c, changed) {
+		QModelIndex idx = index(c);
+		emit dataChanged(idx, idx);
+	}
 }
 
 Player *PlayerModel::addPlayer(short id, QString name) {
@@ -540,6 +565,7 @@ void PlayerModel::hideChannel(Channel *c) {
 	beginRemoveRows(index(p), row, row);
 	p->removeChannel(c);
 	item->qlChannels.removeAll(c);
+	qsLinked.remove(c);
 	endRemoveRows();
 
 	item = ModelItem::c_qhChannels.value(c);
@@ -580,6 +606,16 @@ void PlayerModel::moveChannel(Channel *c, int id) {
 	showChannel(c, np);
 }
 
+void PlayerModel::linkChannel(Channel *c, Channel *l) {
+	c->link(l);
+	recheckLinks();
+}
+
+void PlayerModel::unlinkChannel(Channel *c, Channel *l) {
+	c->unlink(l);
+	recheckLinks();
+}
+
 void PlayerModel::removeAll() {
 	ModelItem *item = miRoot;
 
@@ -588,6 +624,8 @@ void PlayerModel::removeAll() {
 
 	while (item->qlPlayers.count() > 0)
 		removePlayer(item->qlPlayers[0]);
+
+	qsLinked.clear();
 }
 
 Player *PlayerModel::getPlayer(const QModelIndex &idx) const
