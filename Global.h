@@ -64,7 +64,8 @@ struct Global {
 	Log *l;
 	Plugins *p;
 	QSettings *qs;
-	bool bPushToTalk;
+	int iPushToTalk;
+	bool bPushToMute;
 	bool bCenterPosition;
 	short sId;
 	Global();

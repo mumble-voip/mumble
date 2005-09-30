@@ -40,6 +40,7 @@ Global::Global() {
 	db = 0;
 	p = 0;
 	sId = 0;
-	bPushToTalk = false;
+	iPushToTalk = 0;
+	bPushToMute = false;
 	bCenterPosition = false;
 }

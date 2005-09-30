@@ -132,7 +132,7 @@ void Channel::playerUnlink(Channel *l, Player *p) {
 		return;
 
 	qsPlayerLinks.remove(pl);
-	l->qsPlayerLinks.remove(pl);
+	l->qsPlayerLinks.remove(qpPlayerLink(p, this));
 	qhLinks[l]--;
 	l->qhLinks[this]--;
 
@@ -185,5 +185,12 @@ void Channel::addPlayer(Player *p) {
 }
 
 void Channel::removePlayer(Player *p) {
+	foreach(qpPlayerLink pl, qsPlayerLinks) {
+		if (pl.first == p) {
+			qsPlayerLinks.remove(pl);
+			pl.second->qsPlayerLinks.remove(qpPlayerLink(p, this));
+		}
+	}
+
 	qlPlayers.removeAll(p);
 }

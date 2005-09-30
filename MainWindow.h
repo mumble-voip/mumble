@@ -64,7 +64,7 @@ class MainWindow : public QMainWindow {
 		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
-		GlobalShortcut *gsUnlink, *gsCenterPos;
+		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute;
 
 		TrayIcon *ti;
 
@@ -109,9 +109,11 @@ class MainWindow : public QMainWindow {
 		void on_HelpAboutQt_triggered();
 		void on_HelpVersionCheck_triggered();
 		void on_PushToTalk_triggered(bool);
+		void on_PushToMute_triggered(bool);
 		void on_CenterPos_triggered(bool);
 		void serverConnected();
 		void serverDisconnected(QString reason);
+		void pushLink(bool down);
 	public:
 		MainWindow(QWidget *parent);
 };

@@ -113,7 +113,8 @@ void MainWindow::createActions() {
 	qaChannelLink->setObjectName("ChannelLink");
 	qaChannelLink->setToolTip(tr("Link your channel to another channel"));
 	qaChannelLink->setWhatsThis(tr("This links your current channel to the selected channel. If they have permission to speak in "
-							"the other channel, players can now hear each other."));
+							"the other channel, players can now hear each other. This is a permanent link, and will last until "
+							"manually unlinked or the server is restarted. Please see the shortcuts for push-to-link."));
 	qaChannelUnlink=new QAction(tr("&Unlink"), this);
 	qaChannelUnlink->setObjectName("ChannelUnlink");
 	qaChannelUnlink->setToolTip(tr("Unlink your channel from another channel"));
@@ -268,27 +269,48 @@ void MainWindow::setupGui()  {
 	menuBar()->addMenu(qmConfig);
 	menuBar()->addMenu(qmHelp);
 
-	gsPushTalk=new GlobalShortcut(this, 1, "Push-to-Talk");
+	int idx = 1;
+
+	gsPushTalk=new GlobalShortcut(this, idx++, "Push-to-Talk");
 	gsPushTalk->setObjectName("PushToTalk");
 
-	gsResetAudio=new GlobalShortcut(this, 2, "Reset Audio Processor");
+	gsResetAudio=new GlobalShortcut(this, idx++, "Reset Audio Processor");
 	gsResetAudio->setObjectName("ResetAudio");
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 
-	gsMuteSelf=new GlobalShortcut(this, 3, "Toggle Mute Self");
+	gsMuteSelf=new GlobalShortcut(this, idx++, "Toggle Mute Self");
 	gsMuteSelf->setObjectName("MuteSelf");
 	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
 
-	gsDeafSelf=new GlobalShortcut(this, 4, "Toggle Deafen Self");
+	gsDeafSelf=new GlobalShortcut(this, idx++, "Toggle Deafen Self");
 	gsDeafSelf->setObjectName("DeafSelf");
 	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
 
-	gsUnlink=new GlobalShortcut(this, 5, "Unlink Plugin");
+	gsUnlink=new GlobalShortcut(this, idx++, "Unlink Plugin");
 	gsUnlink->setObjectName("UnlinkPlugin");
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 
-	gsCenterPos=new GlobalShortcut(this, 6, "Force Center Position");
+	gsCenterPos=new GlobalShortcut(this, idx++, "Force Center Position");
 	gsCenterPos->setObjectName("CenterPos");
+
+	GlobalShortcut *gs;
+
+	gs = new GlobalShortcut(this, idx++, "Push-Link Parent");
+	gs->setData(0);
+	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
+
+	for(int i = 1; i< 10;i++) {
+		gs = new GlobalShortcut(this, idx++, QString("Push-Link Sub#%1").arg(i));
+		gs->setData(i);
+		connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
+	}
+
+	gs = new GlobalShortcut(this, idx++, "Push-Link All Subs");
+	gs->setData(10);
+	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
+
+	gsPushMute=new GlobalShortcut(this, idx++, "Push-to-Mute");
+	gsPushMute->setObjectName("PushToMute");
 
 	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);
@@ -459,6 +481,7 @@ void MainWindow::on_ChannelMenu_aboutToShow()
 	qaChannelACL->setEnabled(acl);
 	qaChannelLink->setEnabled(link);
 	qaChannelUnlink->setEnabled(unlink);
+	qaChannelUnlinkAll->setEnabled(unlinkall);
 }
 
 void MainWindow::on_ChannelAdd_triggered()
@@ -647,12 +670,62 @@ void MainWindow::on_HelpVersionCheck_triggered()
 
 void MainWindow::on_PushToTalk_triggered(bool down)
 {
-	g.bPushToTalk = down;
+	if (down)
+		g.iPushToTalk++;
+	else
+		g.iPushToTalk--;
+}
+
+void MainWindow::on_PushToMute_triggered(bool down)
+{
+	g.bPushToMute = down;
 }
 
 void MainWindow::on_CenterPos_triggered(bool down)
 {
 	g.bCenterPosition = down;
+
+	if (down)
+		g.iPushToTalk++;
+	else
+		g.iPushToTalk--;
+}
+
+void MainWindow::pushLink(bool down)
+{
+	if (down)
+		g.iPushToTalk++;
+	else
+		g.iPushToTalk--;
+
+	if (g.sId == 0)
+		return;
+
+	GlobalShortcut *gs = qobject_cast<GlobalShortcut *>(sender());
+	int idx = gs->data().toInt();
+
+	Channel *home = Player::get(g.sId)->cChannel;
+	MessageChannelLink mcl;
+	mcl.iId = home->iId;
+	if (down)
+		mcl.ltType = MessageChannelLink::PushLink;
+	else
+		mcl.ltType = MessageChannelLink::PushUnlink;
+	if (idx == 0) {
+		if (! home->cParent)
+			return;
+		mcl.qlTargets << home->cParent->iId;
+	} else if (idx == 10) {
+		foreach(Channel *l, home->qlChannels)
+			mcl.qlTargets << l->iId;
+		if (mcl.qlTargets.count() == 0)
+			return;
+	} else if (idx > home->qlChannels.count()) {
+		return;
+	} else {
+		mcl.qlTargets << home->qlChannels[idx-1]->iId;
+	}
+	g.sh->sendMessage(&mcl);
 }
 
 void MainWindow::serverConnected()

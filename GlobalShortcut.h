@@ -34,12 +34,15 @@
 
 #include <QObject>
 #include <QString>
+#include <QVariant>
 
 class GlobalShortcut : public QObject {
 	friend class GlobalShortcutWin;
 	Q_OBJECT
+	Q_PROPERTY(QVariant data READ data WRITE setData)
 	protected:
 		QString name;
+		QVariant dv;
 		int idx;
 	signals:
 		void down();
@@ -49,6 +52,8 @@ class GlobalShortcut : public QObject {
 		GlobalShortcut(QObject *parent, int index, QString qsName);
 		~GlobalShortcut();
 		static void configure();
+		QVariant data() const { return dv; };
+		void setData(QVariant d) { dv = d; };
 	private:
 	    Q_DISABLE_COPY(GlobalShortcut)
 };

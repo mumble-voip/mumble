@@ -226,11 +226,11 @@ void AudioInput::encodeAudioFrame() {
 		sppPreprocess->loudness2 = g.s.iMinLoudness;
 
 	if (g.s.atTransmit == Settings::PushToTalk)
-		iIsSpeech = g.bPushToTalk || g.bCenterPosition;
+		iIsSpeech = (g.iPushToTalk > 0);
 	else if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
 
-	if (g.s.bMute || (p && p->bMute)) {
+	if (g.s.bMute || (p && p->bMute) || g.bPushToMute) {
 		iIsSpeech = 0;
 	}
 
