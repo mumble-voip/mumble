@@ -149,6 +149,9 @@ ServerDB::ServerDB() {
 	query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
 	query.exec("DELETE FROM channel_links");
 
+	query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
+	query.exec("DELETE FROM commands");
+
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
 	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
 
@@ -532,4 +535,23 @@ void ServerDB::dumpChannel(Channel *c) {
 	foreach(c, c->qlChannels) {
 		dumpChannel(c);
 	}
+}
+
+QList<ServerDB::qpCommand> ServerDB::getCommands() {
+	TransactionHolder th;
+	QList<qpCommand> commands;
+
+	QSqlQuery query;
+	query.prepare("SELECT command,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9 FROM commands ORDER BY command_id");
+	query.exec();
+	while (query.next()) {
+		qpCommand cmd;
+		cmd.first = query.value(0).toString();
+		for(int i=0;i<9;i++)
+			cmd.second[i] = query.value(i+1);
+		commands << cmd;
+	}
+	query.prepare("DELETE FROM command");
+	query.exec();
+	return commands;
 }

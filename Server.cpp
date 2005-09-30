@@ -53,6 +53,7 @@ ServerParams::ServerParams() {
 	qsPassword = QString();
 	bTestloop = false;
 	iPort = 64738;
+	iCommandFrequency = 10;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 }
@@ -65,6 +66,7 @@ void ServerParams::read(QString fname) {
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
 	bTestloop = qs.value("loop", bTestloop).toBool();
 	iPort = qs.value("port", iPort).toInt();
+	iCommandFrequency = qs.value("commandtime", iCommandFrequency).toInt();
 	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
 	qsDatabase = qs.value("database", qsDatabase).toString();
 }
@@ -87,6 +89,11 @@ Server::Server() {
 
 	for(int i=1;i<255;i++)
 		qqIds.enqueue(i);
+
+	qtTimer = new QTimer(this);
+	connect(qtTimer, SIGNAL(timeout()), this, SLOT(checkCommands()));
+	if (g_sp.iCommandFrequency > 0)
+		qtTimer->start(g_sp.iCommandFrequency * 1000);
 }
 
 void Server::udpReady() {
@@ -302,6 +309,31 @@ void Server::playerEnterChannel(Player *p, Channel *c) {
 			g_sServer->sendAll(&mpm);
 		}
 	}
+}
+
+void Server::checkCommands() {
+	qWarning("Aaaaiiiieee");
+	QList<ServerDB::qpCommand> list=ServerDB::getCommands();
+	if (list.count() == 0)
+		return;
+	foreach(ServerDB::qpCommand cmd, list) {
+		QString cmdname = cmd.first;
+		QList<QVariant> argv = cmd.second;
+		if (cmdname == "moveplayer") {
+			Player *p = Player::get(argv[0].toInt());
+			Channel *c = Channel::get(argv[0].toInt());
+			if (! p || ! c)
+				continue;
+			playerEnterChannel(p, c);
+			MessagePlayerMove mpm;
+			mpm.sPlayerId = 0;
+			mpm.sVictim = p->sId;
+			mpm.iChannelId = c->iId;
+			sendAll(&mpm);
+		}
+	}
+
+	qWarning("Peekabo");
 }
 
 #define MSG_SETUP(st) \
@@ -640,7 +672,7 @@ void MessageChannelAdd::process(Connection *cCon) {
 		return;
 	}
 
-	QRegExp re("[\\w\\[\\]\\{\\}\\(\\)\\@\\|]+");
+	QRegExp re("[ \\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
 
 	if (! re.exactMatch(qsName)) {
 		PERM_DENIED_TEXT("Illegal channel name");

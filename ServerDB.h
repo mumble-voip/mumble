@@ -32,6 +32,9 @@
 #define _DATABASE_H
 
 #include <QObject>
+#include <QPair>
+#include <QList>
+#include <QVariant>
 
 class Channel;
 class Player;
@@ -40,6 +43,7 @@ class Connection;
 class ServerDB : public QObject {
 	Q_OBJECT
 	public:
+		typedef QPair<QString, QList<QVariant> > qpCommand;
 		ServerDB();
 		static int authenticate(QString &name, QString pw);
 		static bool hasUsers();
@@ -59,6 +63,7 @@ class ServerDB : public QObject {
 		static void conLoggedOff(Player *p);
 		static void addLink(Channel *c, Channel *l);
 		static void removeLink(Channel *c, Channel *l);
+		static QList<qpCommand> getCommands();
 };
 
 #endif

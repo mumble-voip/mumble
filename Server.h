@@ -37,6 +37,7 @@
 #include <QUdpSocket>
 #include <QQueue>
 #include <QPair>
+#include <QTimer>
 
 class Player;
 class Connection;
@@ -51,11 +52,13 @@ class Server : public QObject {
 		QQueue<int> qqIds;
 		QTcpServer *qtsServer;
 		QUdpSocket *qusUdp;
+		QTimer *qtTimer;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
 		void message(QByteArray &, Connection *cCon = NULL);
 		void udpReady();
+		void checkCommands();
 	public:
 		QHash<short, Connection *> qmConnections;
 		QHash<Connection *, Player *> qmPlayers;
@@ -80,6 +83,7 @@ class Server : public QObject {
 
 struct ServerParams {
 	int iPort;
+	int iCommandFrequency;
 	QString qsPassword;
 	QString qsWelcomeText;
 	QString qsDatabase;
