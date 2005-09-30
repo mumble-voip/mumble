@@ -791,6 +791,7 @@ void MessageChannelLink::process(Connection *cCon) {
 		return;
 
 	MessageChannelLink mcl;
+	mcl.iId = iId;
 	mcl.sPlayerId=sPlayerId;
 
 	if (newset.count() > oldset.count()) {
