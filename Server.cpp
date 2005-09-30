@@ -739,6 +739,7 @@ void MessageChannelLink::process(Connection *cCon) {
 		case Unlink:
 			if (!l)
 				return;
+			break;
 		case UnlinkAll:
 			if (qlTargets.count() > 0)
 				return;
