@@ -444,7 +444,7 @@ void MainWindow::on_ChannelMenu_aboutToShow()
 		if (! c)
 			c = Channel::get(0);
 
-		unlinkall = (home->qsLinks.count() > 0);
+		unlinkall = (home->qhLinks.count() > 0);
 
 		if (home != c) {
 			if (c->allLinks().contains(home))
@@ -517,8 +517,8 @@ void MainWindow::on_ChannelLink_triggered()
 
 	MessageChannelLink mcl;
 	mcl.iId = c->iId;
-	mcl.iTarget = l->iId;
-	mcl.bCreate = true;
+	mcl.qlTargets << l->iId;
+	mcl.ltType = MessageChannelLink::Link;
 	g.sh->sendMessage(&mcl);
 }
 
@@ -531,8 +531,8 @@ void MainWindow::on_ChannelUnlink_triggered()
 
 	MessageChannelLink mcl;
 	mcl.iId = c->iId;
-	mcl.iTarget = l->iId;
-	mcl.bCreate = false;
+	mcl.qlTargets << l->iId;
+	mcl.ltType = MessageChannelLink::Unlink;
 	g.sh->sendMessage(&mcl);
 }
 
@@ -542,8 +542,7 @@ void MainWindow::on_ChannelUnlinkAll_triggered()
 
 	MessageChannelLink mcl;
 	mcl.iId = c->iId;
-	mcl.iTarget = -1;
-	mcl.bCreate = false;
+	mcl.ltType = MessageChannelLink::UnlinkAll;
 	g.sh->sendMessage(&mcl);
 }
 
@@ -847,11 +846,25 @@ void MessageChannelMove::process(Connection *) {
 
 void MessageChannelLink::process(Connection *) {
 	Channel *c = Channel::get(iId);
-	Channel *l = Channel::get(iTarget);
-	if (bCreate)
-		g.mw->pmModel->linkChannel(c, l);
-	else
-		g.mw->pmModel->unlinkChannel(c, l);
+	QList<Channel *> qlChans;
+	foreach(int id, qlTargets) {
+		Channel *l = Channel::get(id);
+		qlChans << l;
+	}
+
+	switch (ltType) {
+		case Link:
+			g.mw->pmModel->linkChannels(c, qlChans);
+			break;
+		case Unlink:
+			g.mw->pmModel->unlinkChannels(c, qlChans);
+			break;
+		case UnlinkAll:
+			g.mw->pmModel->unlinkAll(c);
+			break;
+		default:
+			qFatal("Unknown link message");
+	}
 }
 
 void MessageServerAuthenticate::process(Connection *) {

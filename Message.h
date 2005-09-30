@@ -227,9 +227,12 @@ class MessageChannelLink : public Message {
 		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
+		enum LinkType {
+			Link, Unlink, UnlinkAll, PushLink, PushUnlink
+		};
 		int iId;
-		bool bCreate;
-		int iTarget;
+		LinkType ltType;
+		QList<int> qlTargets;
 		MessageChannelLink();
 		Message::MessageType messageType() const { return ChannelLink; };
 		void process(Connection *);

@@ -403,11 +403,12 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 
 	foreach(c, chans) {
-		foreach(Channel *l, c->qsLinks) {
+		if (c->qhLinks.count() > 0) {
 			MessageChannelLink mcl;
 			mcl.iId = c->iId;
-			mcl.iTarget = l->iId;
-			mcl.bCreate = true;
+			mcl.ltType = MessageChannelLink::Link;
+			foreach(Channel *l, c->qhLinks.keys())
+				mcl.qlTargets << l->iId;
 			g_sServer->sendMessage(cCon, &mcl);
 		}
 	}
@@ -509,7 +510,7 @@ void MessageSpeex::process(Connection *cCon) {
 			g_sServer->sendMessage(p->sId, this);
 	}
 
-	if (! c->qsLinks.isEmpty()) {
+	if (! c->qhLinks.isEmpty()) {
 		QSet<Channel *> chans = c->allLinks();
 		chans.remove(c);
 
@@ -716,44 +717,92 @@ void MessageChannelLink::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
 	Channel *c = Channel::get(iId);
-	Channel *l = Channel::get(iTarget);
-	if (!c || (c == l))
-		return;
-
-	if (bCreate && !l)
+	if (!c)
 		return;
 
 	if (! ChanACL::hasPermission(pSrcPlayer, c, ChanACL::LinkChannel)) {
 		PERM_DENIED(pSrcPlayer, c, ChanACL::LinkChannel);
 		return;
 	}
-	if (bCreate && ! ChanACL::hasPermission(pSrcPlayer, l, ChanACL::LinkChannel)) {
-		PERM_DENIED(pSrcPlayer, l, ChanACL::LinkChannel);
-		return;
+
+	Channel *l = (qlTargets.count() == 1 ) ? Channel::get(qlTargets[0]) : NULL;
+
+	switch (ltType) {
+		case Link:
+			if (!l)
+				return;
+			if (! ChanACL::hasPermission(pSrcPlayer, l, ChanACL::LinkChannel)) {
+				PERM_DENIED(pSrcPlayer, l, ChanACL::LinkChannel);
+				return;
+			}
+			break;
+		case Unlink:
+			if (!l)
+				return;
+		case UnlinkAll:
+			if (qlTargets.count() > 0)
+				return;
+			break;
+		default:
+			if (qlTargets.count() <= 0)
+				return;
 	}
 
-	if (bCreate && c->isLinked(l))
-		return;
-	if (!bCreate && l && ! c->isLinked(l))
+	QSet<Channel *> oldset = c->qhLinks.keys().toSet();
+
+	switch(ltType) {
+		case UnlinkAll:
+			c->unlink(NULL);
+			ServerDB::removeLink(c, NULL);
+			g_sServer->log(QString("Unlinked all from channel %1").arg(c->qsName), cCon);
+			g_sServer->sendAll(this);
+			return;
+
+		case Link:
+			c->link(l);
+			ServerDB::addLink(c, l);
+			g_sServer->log(QString("Linked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
+			break;
+		case Unlink:
+			c->unlink(l);
+			ServerDB::removeLink(c, l);
+			g_sServer->log(QString("Unlinked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
+			break;
+		case PushLink:
+			foreach(int tid, qlTargets) {
+				l=Channel::get(tid);
+				if (l && ChanACL::hasPermission(pSrcPlayer, l, ChanACL::LinkChannel))
+					c->playerLink(l, pSrcPlayer);
+			}
+			break;
+		case PushUnlink:
+			foreach(int tid, qlTargets) {
+				l=Channel::get(tid);
+				if (l)
+					c->playerUnlink(l, pSrcPlayer);
+			}
+			break;
+	}
+
+	QSet<Channel *> newset = c->qhLinks.keys().toSet();
+	QSet<Channel *> changed;
+
+	if (newset.count() == oldset.count())
 		return;
 
-	if (bCreate) {
-		c->link(l);
-		ServerDB::addLink(c, l);
+	MessageChannelLink mcl;
+	mcl.sPlayerId=sPlayerId;
+
+	if (newset.count() > oldset.count()) {
+		mcl.ltType = Link;
+		changed = newset - oldset;
 	} else {
-		c->unlink(l);
-		ServerDB::removeLink(c, l);
+		mcl.ltType = Unlink;
+		changed = oldset - newset;
 	}
-
-	if (bCreate)
-		g_sServer->log(QString("Linked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
-	else if (l)
-		g_sServer->log(QString("Unlinked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
-	else
-		g_sServer->log(QString("Unlinked all from channel %1").arg(c->qsName), cCon);
-
-	g_sServer->sendAll(this);
-
+	foreach(l, changed)
+		mcl.qlTargets << l->iId;
+	g_sServer->sendAll(&mcl);
 }
 
 void MessageEditACL::process(Connection *cCon) {

@@ -37,6 +37,20 @@
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
+
+struct InputDevice {
+	LPDIRECTINPUTDEVICE8 pDID;
+	GUID guid;
+	// dwType to name
+	QHash<DWORD, QString> qhNames;
+
+	// Map dwType to dwOfs in our structure
+	QHash<DWORD, DWORD> qhTypeToOfs;
+
+	// Map dwOfs in our structure to dwType
+	QHash<DWORD, DWORD> qhOfsToType;
+};
+
 const GUID GlobalShortcutWin::c_guidApp = { /* ab3baca6-64bc-4d32-9752-49ae9748c06e */
     0xab3baca6,
     0x64bc,
@@ -72,6 +86,86 @@ GlobalShortcutWin::GlobalShortcutWin() {
 	timer->start(20);
 }
 
+BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(
+                      LPCDIDEVICEOBJECTINSTANCE lpddoi,
+                      LPVOID pvRef)
+{
+	InputDevice *id=static_cast<InputDevice *>(pvRef);
+	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(lpddoi->tszName));
+//	qWarning("%08lx %08lx %s",lpddoi->dwOfs,lpddoi->dwType, qPrintable(name));
+	id->qhNames[lpddoi->dwType] = name;
+
+	return DIENUM_CONTINUE;
+}
+
+BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext)
+{
+	GlobalShortcutWin *cbgsw=static_cast<GlobalShortcutWin *>(pContext);
+	HRESULT hr;
+
+	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszProductName));
+	qWarning("%s", qPrintable(name));
+	QString sname = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszInstanceName));
+	qWarning("%s", qPrintable(sname));
+
+	InputDevice *id = new InputDevice;
+	id->guid = pdidi->guidInstance;
+
+	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, NULL)))
+		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
+
+	if (FAILED(hr = id->pDID->EnumObjects(EnumDeviceObjectsCallback, static_cast<void *>(id), DIDFT_BUTTON)))
+		qFatal("GlobalShortcutWin: EnumObjects: %lx", hr);
+
+
+
+	if (id->qhNames.count() > 0) {
+		QList<DWORD> types = id->qhNames.keys();
+		qSort(types);
+
+		int nbuttons = types.count();
+		DIOBJECTDATAFORMAT *rgodf = new DIOBJECTDATAFORMAT[nbuttons];
+		DIDATAFORMAT df;
+		ZeroMemory(&df, sizeof(df));
+		df.dwSize = sizeof(df);
+		df.dwObjSize = sizeof(DIOBJECTDATAFORMAT);
+		df.dwFlags=DIDF_ABSAXIS;
+		df.dwDataSize = (nbuttons + 3) & (~0x3);
+		df.dwNumObjs = nbuttons;
+		df.rgodf = rgodf;
+		for(int i=0;i<nbuttons;i++) {
+			ZeroMemory(& rgodf[i], sizeof(DIOBJECTDATAFORMAT));
+			DWORD dwType = types[i];
+			DWORD dwOfs = i;
+			rgodf[i].dwOfs = dwOfs;
+			rgodf[i].dwType = dwType;
+			id->qhOfsToType[dwOfs] = dwType;
+			id->qhTypeToOfs[dwType] = dwOfs;
+		}
+
+		if (FAILED(hr = id->pDID->SetCooperativeLevel( g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND )))
+			qFatal("GlobalShortcutWin: SetCooperativeLevel: %lx", hr);
+
+		if (FAILED(hr = id->pDID->SetDataFormat(&df)))
+			qFatal("GlobalShortcutWin: SetDataFormat: %lx", hr);
+
+        DIPROPDWORD dipdw;
+
+        dipdw.diph.dwSize       = sizeof(DIPROPDWORD);
+        dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
+        dipdw.diph.dwObj        = 0;
+        dipdw.diph.dwHow        = DIPH_DEVICE;
+        dipdw.dwData            = DX_SAMPLE_BUFFER_SIZE;
+
+        if(FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
+        	qFatal("GlobalShortcutWin::SetProperty");
+	} else {
+		id->pDID->Release();
+	}
+
+    return DIENUM_CONTINUE;
+}
+
 void GlobalShortcutWin::add(GlobalShortcut *gs) {
 	qmShortcuts[gs->idx] = gs;
 	bNeedRemap = true;
@@ -94,6 +188,9 @@ void GlobalShortcutWin::remap() {
 
 	if (qmShortcuts.isEmpty())
 		return;
+
+//	pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
+//	qFatal("Done");
 
 	if (diaActions)
 		delete [] diaActions;

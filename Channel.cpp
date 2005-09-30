@@ -37,6 +37,10 @@
 QHash<int, Channel *> Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
 
+uint qHash(const Channel::qpPlayerLink & pl) {
+	return qHash(pl.first) + qHash(pl.second);
+}
+
 Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 	iId = id;
 	qsName = name;
@@ -51,7 +55,7 @@ Channel::~Channel() {
 		delete acl;
 	foreach(Group *g, qhGroups)
 		delete g;
-	foreach(Channel *l, qsLinks)
+	foreach(Channel *l, qhLinks.keys())
 		unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
@@ -78,28 +82,70 @@ void Channel::remove(Channel *c) {
 }
 
 bool Channel::isLinked(Channel *l) {
-	return qsLinks.contains(l);
+	return qhLinks.contains(l);
 }
 
 void Channel::link(Channel *l) {
-	qsLinks.insert(l);
-	l->qsLinks.insert(this);
+	if (qsPermLinks.contains(l))
+		return;
+	qsPermLinks.insert(l);
+	qhLinks[l]++;
+	l->qsPermLinks.insert(this);
+	l->qhLinks[this]++;
 }
 
 void Channel::unlink(Channel *l) {
 	if (l) {
-		qsLinks.remove(l);
-		l->qsLinks.remove(this);
+		qsPermLinks.remove(l);
+		qhLinks.remove(l);
+		l->qsPermLinks.remove(this);
+		l->qhLinks.remove(this);
+
+		foreach(qpPlayerLink pl, qsPlayerLinks) {
+			if (pl.second == l)
+				qsPlayerLinks.remove(pl);
+		}
+		foreach(qpPlayerLink pl, l->qsPlayerLinks) {
+			if (pl.second == l)
+				qsPlayerLinks.remove(pl);
+		}
 	} else {
-		foreach(Channel *c, qsLinks)
+		foreach(Channel *c, qhLinks.keys())
 			unlink(c);
 	}
+}
+
+void Channel::playerLink(Channel *l, Player *p) {
+	qpPlayerLink pl(p, l);
+	if (qsPlayerLinks.contains(pl))
+		return;
+
+	qsPlayerLinks.insert(pl);
+	l->qsPlayerLinks.insert(pl);
+	qhLinks[l]++;
+	l->qhLinks[this]++;
+}
+
+void Channel::playerUnlink(Channel *l, Player *p) {
+	qpPlayerLink pl(p, l);
+	if (! qsPlayerLinks.contains(pl))
+		return;
+
+	qsPlayerLinks.remove(pl);
+	l->qsPlayerLinks.remove(pl);
+	qhLinks[l]--;
+	l->qhLinks[this]--;
+
+	if (qhLinks[l] == 0)
+		qhLinks.remove(l);
+	if (l->qhLinks[this] == 0);
+		l->qhLinks.remove(this);
 }
 
 QSet<Channel *> Channel::allLinks() {
 	QSet<Channel *> seen;
 	seen.insert(this);
-	if (qsLinks.isEmpty())
+	if (qhLinks.isEmpty())
 		return seen;
 
 	Channel *l, *lnk;
@@ -108,7 +154,7 @@ QSet<Channel *> Channel::allLinks() {
 
 	while (! stack.isEmpty()) {
 		lnk = stack.pop();
-		foreach(l, lnk->qsLinks) {
+		foreach(l, lnk->qhLinks.keys()) {
 			if (! seen.contains(l)) {
 				seen.insert(l);
 				stack.push(l);

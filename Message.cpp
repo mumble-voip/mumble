@@ -335,20 +335,21 @@ void MessageChannelRemove::restoreStream(QDataStream &qdsIn) {
 
 MessageChannelLink::MessageChannelLink() {
 	iId = 0;
-	iTarget = -1;
-	bCreate = false;
+	ltType = UnlinkAll;
 }
 
 void MessageChannelLink::saveStream(QDataStream &qdsOut) const {
 	qdsOut << iId;
-	qdsOut << bCreate;
-	qdsOut << iTarget;
+	qdsOut << static_cast<int>(ltType);
+	qdsOut << qlTargets;
 }
 
 void MessageChannelLink::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> iId;
-	qdsIn >> bCreate;
-	qdsIn >> iTarget;
+	int v;
+	qdsIn >> v;
+	ltType = static_cast<LinkType>(v);
+	qdsIn >> qlTargets;
 }
 
 MessageChannelMove::MessageChannelMove() {

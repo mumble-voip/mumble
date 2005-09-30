@@ -606,13 +606,20 @@ void PlayerModel::moveChannel(Channel *c, int id) {
 	showChannel(c, np);
 }
 
-void PlayerModel::linkChannel(Channel *c, Channel *l) {
-	c->link(l);
+void PlayerModel::linkChannels(Channel *c, QList<Channel *> links) {
+	foreach(Channel *l, links)
+		c->link(l);
 	recheckLinks();
 }
 
-void PlayerModel::unlinkChannel(Channel *c, Channel *l) {
-	c->unlink(l);
+void PlayerModel::unlinkChannels(Channel *c, QList<Channel *> links) {
+	foreach(Channel *l, links)
+		c->unlink(l);
+	recheckLinks();
+}
+
+void PlayerModel::unlinkAll(Channel *c) {
+	c->unlink(NULL);
 	recheckLinks();
 }
 

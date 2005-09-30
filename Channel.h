@@ -37,6 +37,7 @@
 #include <QReadWriteLock>
 #include <QList>
 #include <QSet>
+#include <QPair>
 
 class Player;
 class Group;
@@ -54,7 +55,13 @@ class Channel : public QObject {
 		QList<Player *> qlPlayers;
 		QHash<QString, Group *> qhGroups;
 		QList<ChanACL *> qlACL;
-		QSet<Channel *> qsLinks;
+
+		QSet<Channel *> qsPermLinks;
+		QHash<Channel *, int> qhLinks;
+
+		typedef QPair<Player *, Channel *> qpPlayerLink;
+		QSet<qpPlayerLink> qsPlayerLinks;
+
 		bool bInheritACL;
 
 		static QHash<int, Channel *> c_qhChannels;
@@ -75,6 +82,9 @@ class Channel : public QObject {
 		bool isLinked(Channel *c);
 		void link(Channel *c);
 		void unlink(Channel *c);
+
+		void playerLink(Channel *c, Player *p);
+		void playerUnlink(Channel *c, Player *p);
 
 		QSet<Channel *> allLinks();
 };

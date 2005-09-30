@@ -132,8 +132,9 @@ public:
 	void removePlayer(Player *p);
 	void removeChannel(Channel *c);
 
-	void linkChannel(Channel *c, Channel *l);
-	void unlinkChannel(Channel *c, Channel *l);
+	void linkChannels(Channel *c, QList<Channel *> links);
+	void unlinkChannels(Channel *c, QList<Channel *> links);
+	void unlinkAll(Channel *c);
 
 	void removeAll();
 

@@ -46,11 +46,12 @@ class GlobalShortcutWin : public QObject {
 		static const GUID c_guidApp;
 
 		LPDIRECTINPUT8 pDI;
-		LPDIRECTINPUTDEVICE8 pKeyboard;
 		DIACTIONFORMAT        diafGame;
 		QList<LPDIRECTINPUTDEVICE8> qlDevices;
 		QHash<int, GlobalShortcut *> qmShortcuts;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
+		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
+		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
 		BOOL bNeedRemap;
 		DIACTION *diaActions;
 		QString qsUsername;
