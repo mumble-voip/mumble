@@ -33,6 +33,8 @@
 #include <QStack>
 #include <QSet>
 #include <QSettings>
+#include <QStringList>
+#include <QRegExp>
 #include "Player.h"
 #include "Channel.h"
 #include "ACL.h"
@@ -312,7 +314,6 @@ void Server::playerEnterChannel(Player *p, Channel *c) {
 }
 
 void Server::checkCommands() {
-	qWarning("Aaaaiiiieee");
 	QList<ServerDB::qpCommand> list=ServerDB::getCommands();
 	if (list.count() == 0)
 		return;
@@ -320,7 +321,6 @@ void Server::checkCommands() {
 		QString cmdname = cmd.first;
 		QList<QVariant> argv = cmd.second;
 		if (cmdname == "moveplayer") {
-		  qWarning("Got order to Move");
 			Player *p = Player::get(argv[0].toInt());
 			Channel *c = Channel::get(argv[1].toInt());
 
@@ -332,10 +332,37 @@ void Server::checkCommands() {
 			mpm.sVictim = p->sId;
 			mpm.iChannelId = c->iId;
 			sendAll(&mpm);
+		} else if (cmdname == "createchannel") {
+			Channel *p = Channel::get(argv[0].toInt());
+			QString name = argv[1].toString();
+
+			if (! p || name.isEmpty())
+				continue;
+
+			Channel *c = ServerDB::addChannel(p, name);
+			ServerDB::updateChannel(c);
+
+			MessageChannelAdd mca;
+			mca.sPlayerId = 0;
+			mca.qsName = name;
+			mca.iParent = p->iId;
+			mca.iId = c->iId;
+			g_sServer->sendAll(&mca);
+		} else if (cmdname == "setgroup") {
+			Channel *c = Channel::get(argv[0].toInt());
+			QString name = argv[1].toString();
+			QStringList list = argv[2].toString().split(QRegExp("\\D+"), QString::SkipEmptyParts);
+			QList<int> mems;
+			foreach(QString m, list) {
+				mems.append(m.toInt());
+			}
+			Group *g = c->qhGroups.value(name);
+			if (g)
+				delete g;
+			g = new Group(c, name);
+			g->qsAdd = mems.toSet();
 		}
 	}
-
-	qWarning("Peekabo");
 }
 
 #define MSG_SETUP(st) \
@@ -494,7 +521,6 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		g_sServer->sendMessage(cCon, &mpm);
 	}
 
-	// Legg til MOVE
 
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;

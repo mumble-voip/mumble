@@ -1,0 +1,53 @@
+
+=======
+WARNING
+=======
+
+This has the potential to ruin your stored database for murmur, putting it in
+a state where murmur will no longer run, or where all users have superuser
+privileges. Don't use it unless you really know what you're doing.
+
+
+======
+NOTICE
+======
+
+Even if you do know, this is a very temporary solution until we get some sort
+of Qt-friendly RPC.
+
+=================
+Command Interface
+=================
+
+This is intended for scripts to be able to control the running instance. You
+have two choices, either implement a copy of the mumble protocol and create a
+proper bot, or use the SQL command interface.
+
+Most of the commands dealing with players work with connection IDs, which can
+be found in the connections table; see ServerDB.cpp for the database schemas
+or dump them with sqlite3.
+
+Commands are entered by setting the "command" field to the command, and
+arguments in the fields "arg1" to "arg9". You are strongly encouraged to keep
+your commands grouped by protecting them with a transaction, that way they
+will all be executed at the same time.
+
+By default, murmur checks for new commands every 10 seconds, this can be
+changed in the .ini file.
+
+Most of these commands will completely bypass ACLs; if you have write access
+to the database you're already as privileged as can be.
+
+A list of commands and arguments follows:
+
+moveplayer connection-id,channel-id
+Moves a player to a new channel.
+
+createchannel parent-id,name
+Creates a new channel
+
+setgroup channel-id,group-name,player-id-list
+Makes the group inherited and inheritable, clears any members and replaces
+them with the contents of player-id-list. player-id-list is a comma-separated
+list of player ids (not connection ids).
+
