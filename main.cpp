@@ -45,8 +45,21 @@
 #include "Plugins.h"
 #include "Global.h"
 
+#define cpuid(func,ax,bx,cx,dx) __asm__ __volatile__ ("cpuid": "=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func));
+#define MMXSSE 0x02800000
+
 int main(int argc, char **argv)
 {
+	// Check for SSE and MMX, but only in the windows binaries
+#ifdef Q_OS_WIN
+	unsigned int ax, bx, cx, dx;
+	cpuid(1,ax,bx,cx,dx);
+	if ((dx & MMXSSE) != MMXSSE) {
+		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
+		exit(0);
+	}
+#endif
+
 	int res;
 
 	QT_REQUIRE_VERSION(argc, argv, "4.0.1");

@@ -29,6 +29,10 @@
 */
 
 #include <QCoreApplication>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 #include "Server.h"
 #include "ServerDB.h"
 
@@ -36,6 +40,16 @@ extern Server *g_sServer;
 
 int main(int argc, char **argv)
 {
+	// Check for SSE and MMX, but only in the windows binaries
+#ifdef Q_OS_WIN
+	unsigned int ax, bx, cx, dx;
+	cpuid(1,ax,bx,cx,dx);
+	if ((dx & MMXSSE) != MMXSSE) {
+		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
+		exit(0);
+	}
+#endif
+
 	int res;
 
 	QCoreApplication a(argc, argv);

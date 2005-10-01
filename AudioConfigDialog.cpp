@@ -166,6 +166,13 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qlFrames, 2, 2);
 
 	qlBitrate = new QLabel();
+	qlBitrate->setToolTip(tr("Maximum bandwidth used for sent audio"));
+	qlBitrate->setWhatsThis(tr("<b>This shows peak outgoing bandwidth used.</b><br />"
+							"This shows the peak ammount of bandwidth sent out from your machine. Audio bitrate "
+							"is the maximum bitrate (as we use VBR) for the audio data alone. Position "
+							"is the bitrate used for positional information. Overhead is our framing and the "
+							"IP packet headers (IP and UDP is 90% of this overhead)."));
+
 	l = new QLabel(tr("Outgoing Bitrate"));
 	l->setBuddy(qlBitrate);
 
@@ -257,7 +264,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid = new QGridLayout();
 
 	qsJitter = new QSlider(Qt::Horizontal);
-	qsJitter->setRange(4, 10);
+	qsJitter->setRange(2, 10);
 	qsJitter->setSingleStep(1);
 	qsJitter->setPageStep(5);
 	qsJitter->setValue(g.s.iJitterBufferSize);
