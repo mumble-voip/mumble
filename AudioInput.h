@@ -88,6 +88,8 @@ class AudioInput : public QThread {
 		double dPeakMic, dPeakSpeaker, dPeakSignal;
 		double dSpeechProb;
 
+		bool isTransmitting() { return bPreviousVoice; };
+
 		AudioInput();
 		~AudioInput();
 		void run() = 0;

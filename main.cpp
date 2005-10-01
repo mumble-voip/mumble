@@ -45,13 +45,12 @@
 #include "Plugins.h"
 #include "Global.h"
 
-#define cpuid(func,ax,bx,cx,dx) __asm__ __volatile__ ("cpuid": "=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func));
-#define MMXSSE 0x02800000
-
 int main(int argc, char **argv)
 {
 	// Check for SSE and MMX, but only in the windows binaries
 #ifdef Q_OS_WIN
+#define cpuid(func,ax,bx,cx,dx) __asm__ __volatile__ ("cpuid": "=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func));
+#define MMXSSE 0x02800000
 	unsigned int ax, bx, cx, dx;
 	cpuid(1,ax,bx,cx,dx);
 	if ((dx & MMXSSE) != MMXSSE) {

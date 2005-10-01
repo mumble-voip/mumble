@@ -40,6 +40,7 @@ class AudioStats : public QDialog {
 	protected:
 		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
 		QTimer *qtTick;
+		bool bTalking;
 	public:
 		AudioStats(QWidget *parent);
 	public slots:

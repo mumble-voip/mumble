@@ -32,6 +32,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QTimer>
+#include <QFont>
 
 #include "AudioStats.h"
 #include "AudioInput.h"
@@ -121,13 +122,16 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qlSpeechProb->setWhatsThis(tr("This is the probability that the last frame (20 ms) was speech and not environment noise.<br />"
 								  "Voice activity transmission depends on this being right. The trick with this is that the middle "
 								  "of a sentence is always detected as speech, the problem is the pauses between words and the "
-								  "start of speech. It's hard to distinguish a sigh from a word starting with 'h'."));
+								  "start of speech. It's hard to distinguish a sigh from a word starting with 'h'.<br />"
+								  "If this is bolded, that means Mumble is currently transmitting (if you're connected)."));
 	qlBitrate->setToolTip(tr("Bitrate of last frame"));
-	qlBitrate->setWhatsThis(tr("This is the bitrate of the last transmitted frame (20 ms), and as such will jump up and down "
+	qlBitrate->setWhatsThis(tr("This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down "
 							   "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
-							   "in the Settings dialog"));
+							   "in the Settings dialog."));
 
     QMetaObject::connectSlotsByName(this);
+
+	bTalking = false;
 
     on_Tick_timeout();
 }
@@ -161,4 +165,12 @@ void AudioStats::on_Tick_timeout() {
 
 	txt.sprintf("%04.1f kbit/s",g.ai->iBitrate / 1000.0);
 	qlBitrate->setText(txt);
+
+	bool nTalking = g.ai->isTransmitting();
+	if (nTalking != bTalking) {
+		bTalking = nTalking;
+		QFont f = qlSpeechProb->font();
+		f.setBold(bTalking);
+		qlSpeechProb->setFont(f);
+	}
 }
