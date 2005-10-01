@@ -35,6 +35,7 @@
 #include <QSettings>
 #include <QStringList>
 #include <QRegExp>
+#include <QCoreApplication>
 #include "Player.h"
 #include "Channel.h"
 #include "ACL.h"
@@ -361,6 +362,8 @@ void Server::checkCommands() {
 				delete g;
 			g = new Group(c, name);
 			g->qsAdd = mems.toSet();
+		} else if (cmdname == "quit") {
+			QCoreApplication::instance()->quit();
 		}
 	}
 }

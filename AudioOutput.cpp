@@ -101,7 +101,7 @@ void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 
 	if (! bSpeech)
 		sjJitter.buffer_size=g.s.iJitterBufferSize;
-	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * 20);
+	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * iFrameSize);
 }
 
 bool AudioOutputPlayer::decodeNextFrame() {

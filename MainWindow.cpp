@@ -295,22 +295,25 @@ void MainWindow::setupGui()  {
 
 	GlobalShortcut *gs;
 
-	gs = new GlobalShortcut(this, idx++, "Push-Link Parent");
+	gs = new GlobalShortcut(this, idx++, "Chan Parent");
 	gs->setData(0);
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
 	for(int i = 1; i< 10;i++) {
-		gs = new GlobalShortcut(this, idx++, QString("Push-Link Sub#%1").arg(i));
+		gs = new GlobalShortcut(this, idx++, QString("Chan Sub#%1").arg(i));
 		gs->setData(i);
 		connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 	}
 
-	gs = new GlobalShortcut(this, idx++, "Push-Link All Subs");
+	gs = new GlobalShortcut(this, idx++, "Chan All Subs");
 	gs->setData(10);
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
 	gsPushMute=new GlobalShortcut(this, idx++, "Push-to-Mute");
 	gsPushMute->setObjectName("PushToMute");
+
+	gsMetaChannel=new GlobalShortcut(this, idx++, "Join Channel");
+	gsMetaChannel->setObjectName("MetaChannel");
 
 	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);
@@ -703,29 +706,47 @@ void MainWindow::pushLink(bool down)
 
 	GlobalShortcut *gs = qobject_cast<GlobalShortcut *>(sender());
 	int idx = gs->data().toInt();
-
 	Channel *home = Player::get(g.sId)->cChannel;
-	MessageChannelLink mcl;
-	mcl.iId = home->iId;
-	if (down)
-		mcl.ltType = MessageChannelLink::PushLink;
-	else
-		mcl.ltType = MessageChannelLink::PushUnlink;
-	if (idx == 0) {
-		if (! home->cParent)
+
+	Channel *target = NULL;
+	switch(idx) {
+		case 0:
+			target = home->cParent;
+			break;
+		case 10:
+			break;
+		default:
+			target = pmModel->getSubChannel(home, idx-1);
+			break;
+	}
+
+
+	if (gsMetaChannel->active()) {
+		if (! target || ! down)
 			return;
-		mcl.qlTargets << home->cParent->iId;
-	} else if (idx == 10) {
-		foreach(Channel *l, home->qlChannels)
-			mcl.qlTargets << l->iId;
+
+		MessagePlayerMove mpm;
+		mpm.sVictim = g.sId;
+		mpm.iChannelId = target->iId;
+		g.sh->sendMessage(&mpm);
+		g.l->log(Log::Information, tr("Joining %1.").arg(target->qsName));
+	} else {
+		MessageChannelLink mcl;
+		mcl.iId = home->iId;
+		if (down)
+			mcl.ltType = MessageChannelLink::PushLink;
+		else
+			mcl.ltType = MessageChannelLink::PushUnlink;
+		if (idx == 10) {
+			foreach(Channel *l, home->qlChannels)
+				mcl.qlTargets << l->iId;
+		} else if (target) {
+				mcl.qlTargets << target->iId;
+		}
 		if (mcl.qlTargets.count() == 0)
 			return;
-	} else if (idx > home->qlChannels.count()) {
-		return;
-	} else {
-		mcl.qlTargets << home->qlChannels[idx-1]->iId;
+		g.sh->sendMessage(&mcl);
 	}
-	g.sh->sendMessage(&mcl);
 }
 
 void MainWindow::serverConnected()

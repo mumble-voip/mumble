@@ -151,7 +151,7 @@ int ModelItem::insertIndex(Player *p) const {
 	qls << p->qsName;
 	qSort(qls);
 
-	return qls.lastIndexOf(p->qsName);
+	return qls.lastIndexOf(p->qsName) + qlChannels.count();
 }
 
 void ModelItem::insertChannel(Channel *c) {
@@ -160,7 +160,7 @@ void ModelItem::insertChannel(Channel *c) {
 }
 
 void ModelItem::insertPlayer(Player *p) {
-	int idx = insertIndex(p);
+	int idx = insertIndex(p) - qlChannels.count();
 	qlPlayers.insert(idx, p);
 }
 
@@ -659,6 +659,15 @@ Channel *PlayerModel::getChannel(const QModelIndex &idx) const
 	else
 	    return item->cChan;
 }
+
+Channel *PlayerModel::getSubChannel(Channel *p, int idx) const
+{
+	ModelItem *item=ModelItem::c_qhChannels.value(p);
+	if (idx < 0 || idx >= item->qlChannels.count())
+		return NULL;
+	return item->qlChannels.at(idx);
+}
+
 
 void PlayerModel::playerTalkingChanged(bool bTalking)
 {

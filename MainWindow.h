@@ -64,7 +64,7 @@ class MainWindow : public QMainWindow {
 		QSplitter *qsSplit;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
-		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute;
+		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel;
 
 		TrayIcon *ti;
 

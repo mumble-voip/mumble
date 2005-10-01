@@ -322,10 +322,13 @@ void GlobalShortcutWin::timeTicked() {
             GlobalShortcut *gs = qmShortcuts.value(rgdod[j].uAppData);
             if (gs) {
 				emit gs->triggered(bButtonDown);
-				if (bButtonDown)
+				if (bButtonDown) {
+					gs->act = true;
 					emit gs->down();
-				else
+				} else {
+					gs->act = false;
 					emit gs->up();
+				}
 			}
 		}
 	}
@@ -337,6 +340,7 @@ GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(
 	gsw->ref++;
 	idx = index;
 	name=qsName;
+	act = false;
 	gsw->add(this);
 }
 

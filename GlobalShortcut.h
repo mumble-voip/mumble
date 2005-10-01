@@ -40,10 +40,12 @@ class GlobalShortcut : public QObject {
 	friend class GlobalShortcutWin;
 	Q_OBJECT
 	Q_PROPERTY(QVariant data READ data WRITE setData)
+	Q_PROPERTY(bool active READ active)
 	protected:
 		QString name;
 		QVariant dv;
 		int idx;
+		bool act;
 	signals:
 		void down();
 		void up();
@@ -54,6 +56,7 @@ class GlobalShortcut : public QObject {
 		static void configure();
 		QVariant data() const { return dv; };
 		void setData(QVariant d) { dv = d; };
+		bool active() const { return act; };
 	private:
 	    Q_DISABLE_COPY(GlobalShortcut)
 };

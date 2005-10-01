@@ -88,7 +88,6 @@ protected:
 	QIcon qiDeafenedSelf, qiDeafenedServer;
 	QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
 	ModelItem *miRoot;
-	QHash <Channel *, ChannelItem *> qhChannelItems;
 	QSet<Channel *> qsLinked;
 
 	QModelIndex index(Player *, int column = 0) const;
@@ -125,6 +124,8 @@ public:
 
 	Channel *addChannel(int id, Channel *p, QString name);
 	Channel *getChannel(const QModelIndex &idx) const;
+
+	Channel *getSubChannel(Channel *p, int idx) const;
 
 	void movePlayer(Player *p, int id);
 	void moveChannel(Channel *p, int id);
