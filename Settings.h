@@ -52,6 +52,7 @@ struct Settings {
 	bool bMute, bDeaf;
 	bool bTTS;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
+	int iFramesPerPacket;
 	QString qsAudioInput, qsAudioOutput;
 
 	int iDXOutputDelay;

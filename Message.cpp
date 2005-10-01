@@ -56,6 +56,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case Speex:
 			mMsg = new MessageSpeex();
 			break;
+		case MultiSpeex:
+			mMsg = new MessageMultiSpeex();
+			break;
 		case ServerAuthenticate:
 			mMsg = new MessageServerAuthenticate();
 			break;
@@ -211,17 +214,20 @@ void MessagePermissionDenied::restoreStream(QDataStream &qdsIn) {
 }
 
 MessageSpeex::MessageSpeex() {
+	iSeq = 0;
 	qbaSpeexPacket = QByteArray();
 }
 
 void MessageSpeex::saveStream(QDataStream &qdsOut) const {
-	qdsOut << iSeq;
+	qdsOut << static_cast<unsigned short>(iSeq);
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
 	qbBuffer->buffer().append(qbaSpeexPacket);
 }
 
 void MessageSpeex::restoreStream(QDataStream &qdsIn) {
-	qdsIn >> iSeq;
+	unsigned short useq;
+	qdsIn >> useq;
+	iSeq = useq;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
 	qbaSpeexPacket = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
 	qbBuffer->seek(qbBuffer->size());
@@ -229,6 +235,37 @@ void MessageSpeex::restoreStream(QDataStream &qdsIn) {
 
 bool MessageSpeex::isValid() const {
 	return ! qbaSpeexPacket.isEmpty();
+}
+
+MessageMultiSpeex::MessageMultiSpeex() {
+	iSeq = 0;
+}
+
+void MessageMultiSpeex::saveStream(QDataStream &qdsOut) const {
+	qdsOut << static_cast<unsigned short>(iSeq);
+	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
+
+	foreach(QByteArray qba, qlFrames) {
+		qbBuffer->buffer().append(static_cast<char>(qba.size()));
+		qbBuffer->buffer().append(qba);
+	}
+}
+
+void MessageMultiSpeex::restoreStream(QDataStream &qdsIn) {
+	unsigned short useq;
+	qdsIn >> useq;
+	iSeq = useq;
+	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
+	QByteArray qba = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
+	qbBuffer->seek(qbBuffer->size());
+
+	int ofs = 0;
+	while(ofs < qba.size()) {
+		char csize = qba.at(ofs);
+		int size = static_cast<unsigned char>(csize);
+		qlFrames << qba.mid(ofs + 1, size);
+		ofs += size + 1;
+	}
 }
 
 MessagePlayerMute::MessagePlayerMute() {

@@ -87,6 +87,10 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
 	psBuffer = new short[iFrameSize];
 	bSpeech = false;
 
+	for(int i=0;i<3;i++)
+		fPos[i]=fVel[i]=0.0;
+	iMissCount = 0;
+
 	speex_jitter_init(&sjJitter, dsDecState, SAMPLE_RATE);
 }
 
@@ -141,8 +145,11 @@ bool AudioOutputPlayer::decodeNextFrame() {
 				} else {
 					fVel[0] = fVel[1] = fVel[2] = 0.0;
 				}
+				iMissCount = 0;
 			} else {
-				fPos[0] = fPos[1] = fPos[2] = 0.0;
+				iMissCount++;
+				if (iMissCount >= 4)
+					fPos[0] = fPos[1] = fPos[2] = 0.0;
 			}
 		}
 		if (sjJitter.reset_state)

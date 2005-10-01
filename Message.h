@@ -31,12 +31,13 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 4
+#define MESSAGE_STREAM_VERSION 5
 
 #include <QDataStream>
 #include <QByteArray>
 #include <QString>
 #include <QSet>
+#include <QList>
 #include "ACL.h"
 
 class Connection;
@@ -46,7 +47,7 @@ class Message {
 		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers, ChannelLink };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers, ChannelLink, MultiSpeex };
 		short sPlayerId;
 
 		Message();
@@ -64,12 +65,24 @@ class MessageSpeex : public Message {
 		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
-		int iSeq;
+		unsigned short iSeq;
 		QByteArray qbaSpeexPacket;
 		MessageSpeex();
 		Message::MessageType messageType() const { return Speex; };
 		void process(Connection *);
 		bool isValid() const;
+};
+
+class MessageMultiSpeex : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		unsigned short iSeq;
+		QList<QByteArray> qlFrames;
+		MessageMultiSpeex();
+		Message::MessageType messageType() const { return MultiSpeex; };
+		void process(Connection *);
 };
 
 

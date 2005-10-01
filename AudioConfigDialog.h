@@ -43,19 +43,22 @@ class AudioConfigDialog : public ConfigWidget {
 	protected:
 		QComboBox *qcbInput, *qcbOutput;
 		QComboBox *qcbTransmit;
-		QSlider *qsTransmitHold;
-		QLabel *qlTransmitHold;
+		QSlider *qsTransmitHold, *qsFrames;
+		QLabel *qlTransmitHold, *qlFrames;
 		QSlider *qsQuality, *qsComplexity, *qsAmp;
 		QLabel *qlQuality, *qlComplexity, *qlAmp;
 		QSlider *qsJitter;
 		QLabel *qlJitter;
+		QLabel *qlBitrate;
 	public:
 		AudioConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
 		void accept();
+		void updateBitrate();
 		void on_TransmitHold_valueChanged(int v);
+		void on_Frames_valueChanged(int v);
 		void on_Quality_valueChanged(int v);
 		void on_Complexity_valueChanged(int v);
 		void on_Amp_valueChanged(int v);

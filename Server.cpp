@@ -559,6 +559,37 @@ void MessagePermissionDenied::process(Connection *cCon) {
   cCon->disconnect();
 }
 
+// Make sure the two following are clones; exactly identical.
+
+void MessageMultiSpeex::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+	Player *p;
+
+	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
+		return;
+
+	Channel *c = pSrcPlayer->cChannel;
+
+	foreach(p, c->qlPlayers) {
+		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
+			g_sServer->sendMessage(p->sId, this);
+	}
+
+	if (! c->qhLinks.isEmpty()) {
+		QSet<Channel *> chans = c->allLinks();
+		chans.remove(c);
+
+		foreach(Channel *l, chans) {
+			if (ChanACL::hasPermission(pSrcPlayer, l, ChanACL::Speak)) {
+				foreach(p, l->qlPlayers) {
+					if (! p->bDeaf && ! p->bSelfDeaf)
+						g_sServer->sendMessage(p->sId, this);
+				}
+			}
+		}
+	}
+}
+
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	Player *p;

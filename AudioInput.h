@@ -66,13 +66,19 @@ class AudioInput : public QThread {
 		short *psSpeaker;
 		short *psClean;
 		float *pfY;
+
+		QList<QByteArray> qlFrames;
+
 		void encodeAudioFrame();
 
 		bool bRunning;
 		bool bPreviousVoice;
 		bool bHasSpeaker;
 
-		static int c_iFrameCounter;
+		int iFrameCounter;
+		int iSilentFrames;
+
+		void flushCheck();
 	public:
 		bool bResetProcessor;
 

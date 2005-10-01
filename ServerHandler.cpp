@@ -155,6 +155,20 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 				g.ao->removeBuffer(p);
 			}
 		}
+	} else if (mMsg->messageType() == Message::MultiSpeex) {
+		QWriteLocker alocka(&g.qrwlAudio);
+		if (g.ao) {
+			if (p) {
+				MessageMultiSpeex *mmsMsg=static_cast<MessageMultiSpeex *>(mMsg);
+				int idx = 0;
+				foreach(QByteArray qba, mmsMsg->qlFrames) {
+					g.ao->addFrameToBuffer(p, qba, mmsMsg->iSeq + idx);
+					idx++;
+				}
+			} else {
+				g.ao->removeBuffer(p);
+			}
+		}
 	} else {
 		if(mMsg->messageType() == Message::ServerLeave) {
 			QReadLocker alockb(&g.qrwlAudio);

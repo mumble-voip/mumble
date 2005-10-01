@@ -84,7 +84,6 @@ AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {
 	return NULL;
 }
 
-int AudioInput::c_iFrameCounter = 0;
 
 AudioInput::AudioInput()
 {
@@ -93,6 +92,9 @@ AudioInput::AudioInput()
 	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 
 	iByteSize=iFrameSize * 2;
+
+	iFrameCounter = 0;
+	iSilentFrames = 0;
 
 	int iarg=1;
 	speex_encoder_ctl(esEncState,SPEEX_SET_VBR, &iarg);
@@ -148,7 +150,7 @@ void AudioInput::encodeAudioFrame() {
 
 	short *psSource;
 
-	c_iFrameCounter++;
+	iFrameCounter++;
 
 	if (! bRunning) {
 		return;
@@ -234,6 +236,14 @@ void AudioInput::encodeAudioFrame() {
 		iIsSpeech = 0;
 	}
 
+	if (iIsSpeech)
+		iSilentFrames = 0;
+	else {
+		iSilentFrames++;
+		if (iSilentFrames > 200)
+			iFrameCounter = 0;
+	}
+
 	dSnr = sppPreprocess->Zlast;
 	dLoudness = sppPreprocess->loudness2;
 	dSpeechProb = sppPreprocess->speech_prob;
@@ -257,7 +267,7 @@ void AudioInput::encodeAudioFrame() {
 	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
 
-	if ((g.s.ptTransmit != Settings::Nothing) && g.p && ! g.bCenterPosition) {
+	if ((g.s.ptTransmit != Settings::Nothing) && g.p && ! g.bCenterPosition && (qlFrames.count() == 0)) {
 		g.p->fetch();
 		if (g.p->bValidPos) {
 			QByteArray q;
@@ -281,9 +291,29 @@ void AudioInput::encodeAudioFrame() {
 	QByteArray qbaPacket(iLen, 0);
 	speex_bits_write(&sbBits, qbaPacket.data(), iLen);
 
-	MessageSpeex msPacket;
-	msPacket.qbaSpeexPacket = qbaPacket;
-	msPacket.iSeq = c_iFrameCounter;
-	if (g.sh)
-		g.sh->sendMessage(&msPacket);
+	qlFrames << qbaPacket;
+
+	flushCheck();
+}
+
+void AudioInput::flushCheck() {
+	if (qlFrames.count() == 0)
+		return;
+	if ((qlFrames.count() < g.s.iFramesPerPacket) && bPreviousVoice)
+		return;
+
+	if (qlFrames.count() == 1) {
+		MessageSpeex msPacket;
+		msPacket.qbaSpeexPacket = qlFrames[0];
+		msPacket.iSeq = iFrameCounter;
+		if (g.sh)
+			g.sh->sendMessage(&msPacket);
+	} else {
+		MessageMultiSpeex mmsPacket;
+		mmsPacket.qlFrames = qlFrames;
+		mmsPacket.iSeq = iFrameCounter - qlFrames.count() + 1;
+		if (g.sh)
+			g.sh->sendMessage(&mmsPacket);
+	}
+	qlFrames.clear();
 }

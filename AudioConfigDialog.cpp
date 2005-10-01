@@ -34,6 +34,7 @@
 #include <QLabel>
 #include <QString>
 #include <QList>
+#include <speex/speex.h>
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "AudioConfigDialog.h"
@@ -140,13 +141,44 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qsTransmitHold, 1, 1);
 	grid->addWidget(qlTransmitHold, 1, 2);
 
+	qsFrames = new QSlider(Qt::Horizontal);
+	qsFrames->setRange(1, 4);
+	qsFrames->setSingleStep(1);
+	qsFrames->setPageStep(1);
+	qsFrames->setValue(g.s.iFramesPerPacket);
+	qsFrames->setObjectName("Frames");
+
+	l = new QLabel(tr("Audio per packet"));
+	l->setBuddy(qsFrames);
+
+	qlFrames=new QLabel();
+	qlFrames->setMinimumWidth(40);
+	qsQuality = NULL;
+	qlBitrate = NULL;
+	on_Frames_valueChanged(qsFrames->value());
+
+	qsFrames->setToolTip(tr("How many audio frames to send per packet"));
+	qsFrames->setWhatsThis(tr("<b>This selects how many audio frames should be put in one packet.</b><br />"
+							"Increasing this will increase the "
+							"latency of your voice, but will also reduce bandwidth requirements."));
+	grid->addWidget(l, 2, 0);
+	grid->addWidget(qsFrames, 2, 1);
+	grid->addWidget(qlFrames, 2, 2);
+
+	qlBitrate = new QLabel();
+	l = new QLabel(tr("Outgoing Bitrate"));
+	l->setBuddy(qlBitrate);
+
+	grid->addWidget(l, 3, 0);
+	grid->addWidget(qlBitrate, 3, 1, 1, 2);
+
 	qgbTransmit->setLayout(grid);
 
 
 	grid = new QGridLayout();
 
 	qsQuality = new QSlider(Qt::Horizontal);
-	qsQuality->setRange(4, 10);
+	qsQuality->setRange(2, 10);
 	qsQuality->setSingleStep(1);
 	qsQuality->setPageStep(2);
 	qsQuality->setValue(g.s.iQuality);
@@ -276,10 +308,16 @@ void AudioConfigDialog::accept() {
 	g.s.iComplexity = qsComplexity->value();
 	g.s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	g.s.iVoiceHold = qsTransmitHold->value();
+	g.s.iFramesPerPacket = qsFrames->value();
 	g.s.iJitterBufferSize = qsJitter->value();
 	g.s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
+}
+
+void AudioConfigDialog::on_Frames_valueChanged(int v) {
+	qlFrames->setText(tr("%1 ms").arg(v*20));
+	updateBitrate();
 }
 
 void AudioConfigDialog::on_TransmitHold_valueChanged(int v) {
@@ -288,6 +326,7 @@ void AudioConfigDialog::on_TransmitHold_valueChanged(int v) {
 
 void AudioConfigDialog::on_Quality_valueChanged(int v) {
 	qlQuality->setText(QString::number(v));
+	updateBitrate();
 }
 
 void AudioConfigDialog::on_Complexity_valueChanged(int v) {
@@ -302,4 +341,48 @@ void AudioConfigDialog::on_Amp_valueChanged(int v) {
 
 void AudioConfigDialog::on_Jitter_valueChanged(int v) {
 	qlJitter->setText(tr("%1 ms").arg(v*20));
+}
+
+void AudioConfigDialog::updateBitrate() {
+	if (! qsQuality || ! qsFrames || ! qlBitrate)
+		return;
+	int q = qsQuality->value();
+	int p = qsFrames->value();
+
+	int audiorate, overhead, posrate;
+	float f = q;
+	void *es;
+
+	es = speex_encoder_init(&speex_wb_mode);
+	speex_encoder_ctl(es,SPEEX_SET_VBR_QUALITY, &f);
+	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
+	speex_encoder_destroy(es);
+
+	// 50 packets, in bits, IP + UDP + type/id (Message header) + seq
+	overhead = 50 * 8 * (40 + 8 + 2 + 2);
+
+	// Individual packet sizes
+	if (p > 1)
+		overhead += p;
+
+	switch (g.s.ptTransmit) {
+		case Settings::Nothing:
+			posrate = 0;
+			break;
+		case Settings::Position:
+			posrate = 12;
+			break;
+		case Settings::PositionVelocity:
+			posrate = 24;
+			break;
+	}
+	posrate = posrate * 50 * 8;
+
+	overhead = overhead / p;
+	posrate = posrate / p;
+
+	int total = audiorate + overhead + posrate;
+
+	QString v = QString("%1kbit/s (Audio %2, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1);
+	qlBitrate->setText(v);
 }
