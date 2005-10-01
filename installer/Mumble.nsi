@@ -94,6 +94,25 @@ Section "Mumble & Murmur" SecMumble
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "DisplayName" "Mumble and Murmur"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "UninstallString" "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "InstallLocation" "$INSTDIR"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "Publisher" "Mumble"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "InstallSource" "http://prdownloads.sourceforge.net/mumble/Mumble-0.9.1.exe?download"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "URLInfoAbout" "http://mumble.sourceforge.net/"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "DisplayVersion" "0.9.1"
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "NoModify" 1
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
+                 "NoRepair" 1
+
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     
     ;Create shortcuts
@@ -162,4 +181,5 @@ Section "Uninstall"
 
   DeleteRegKey /ifempty HKCU "Software\Mumble"
   DeleteRegKey HKCU "Software\Mumble\Mumble\InstPath"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble"
 SectionEnd
