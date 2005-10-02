@@ -190,7 +190,7 @@ QString ChanACL::whatsThis(Perm p) {
 					"into channels the target player normally wouldn't have permission to enter.");
 		case MakeChannel:
 			return tr("This represents the permission to make subchannels. The player making the subchannel will be added to the "
-					"admin group of the subchannel, so adjust inherited ACLs applying to the admin group according to taste.");
+					"admin group of the subchannel.");
 		case LinkChannel:
 			return tr("This represents the permission to link channels. Players in linked channels hear each other, as long as "
 					"the speaking player has the <i>speak</i> privilege in the channel of the listener. You need the link "
