@@ -1,3 +1,33 @@
+	* Bold speec probability when we would transmit.  Fix the SSE
+	  detection.
+	* Tooltips & whatsthis for the bitrate in AudioConfig.	Bail out if
+	  SSE not detected (as we ship binaries which require it).
+	* Variable number of frames / packet
+	* Various bugfixes.  Added metakey for shortcuts, to join channel
+	  instead of talk-to channel.  Update to match timestamp in
+	  jitterbuffer in speex.
+	* Add uninstaller to Add/Remove programs in control panel.
+	* Example of how to link murmur to other servers, using qstat
+	* Fix "in" and "out" groups.
+	* More command interface.
+	* Serverside commands through SQL.
+	* Experimentation with non-actionmapped directinput; will be a lot
+	  of GUI work though.  Added push-to-link support to the server.
+	* Version to 0.9.1
+	* Channel linking, part 2.
+	* Channel linking, part 1.
+	* Cache ACL lookups.
+	* Kick off ghost connections, refuse connections with same name for
+	  anonymous users.
+	* Connection table in sqlite
+	* Include murmur.ini
+	* Use class references in headers instead of .h files, reduces
+	  dependency path to more sane levels.
+	* Move config into registrars.
+	* Remove ACLs when removing channel
+
+2005-09-27  tag rel_0_9_0
+
 	* Fix flag display
 	* lowercase groupnames
 	* Massively reduce debugging statements.
