@@ -366,7 +366,7 @@ void AudioConfigDialog::updateBitrate() {
 	speex_encoder_destroy(es);
 
 	// 50 packets, in bits, IP + UDP + type/id (Message header) + seq
-	overhead = 50 * 8 * (40 + 8 + 2 + 2);
+	overhead = 50 * 8 * (20 + 8 + 2 + 2);
 
 	// Individual packet sizes
 	if (p > 1)
