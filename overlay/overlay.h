@@ -28,58 +28,20 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _GLOBAL_H
-#define _GLOBAL_H
+#ifndef _INTERNAL_OVERLAY_H
+#define _INTERNAL_OVERLAY_H
 
-#include <QReadWriteLock>
-#include "Settings.h"
-
-#ifndef MUMBLE_VERSION
-#define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
-#else
-#define MUMXTEXT(X) #X
-#define MUMTEXT(X) MUMXTEXT(X)
-#define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
-#endif
-
-// Global helper class to spread variables around across threads.
-
-class MainWindow;
-class ServerHandler;
-class AudioInput;
-class AudioOutput;
-class Database;
-class Log;
-class Plugins;
-class QSettings;
-class Overlay;
-
-struct Global {
-	MainWindow *mw;
-	Settings s;
-	ServerHandler *sh;
-	QReadWriteLock qrwlAudio;
-	AudioInput *ai;
-	AudioOutput *ao;
-	Database *db;
-	Log *l;
-	Plugins *p;
-	QSettings *qs;
-	Overlay *o;
-	int iPushToTalk;
-	bool bPushToMute;
-	bool bCenterPosition;
-	short sId;
-	Global();
+struct PlayerEntry {
+	wchar_t name[128];
+	bool bTalking;
 };
 
-// -Wshadow is bugged. If an inline function of a class uses a variable or
-// parameter named 'g', that will generate a warning even if the class header
-// is included long before this definition.
+struct SharedMem {
+	DWORD lastAppAlive;
+	bool bHooked;
+	int iWidth;
+	int iHeight;
+	PlayerEntry players[32];
+};
 
-#define g g_global_struct
-extern Global g_global_struct;
-
-#else
-class Settings;
 #endif

@@ -145,6 +145,7 @@ public slots:
 	void playerMuteDeafChanged();
 	void ensureSelfVisible();
 	void recheckLinks();
+	void updateOverlay() const;
 };
 
 #else

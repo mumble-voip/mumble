@@ -40,6 +40,9 @@
 #include "Channel.h"
 #include "Player.h"
 #include "Global.h"
+#ifdef Q_OS_WIN
+#include "Overlay.h"
+#endif
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <Player *, ModelItem *> ModelItem::c_qhPlayers;
@@ -446,6 +449,9 @@ void PlayerModel::hidePlayer(Player *p) {
 	item->qlPlayers.removeAll(p);
 	endRemoveRows();
 
+	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+		updateOverlay();
+
 	p->cChannel = NULL;
 }
 
@@ -462,6 +468,9 @@ void PlayerModel::showPlayer(Player *p, Channel *c) {
 	c->addPlayer(p);
 	item->insertPlayer(p);
 	endInsertRows();
+
+	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+		updateOverlay();
 
 	ensureSelfVisible();
 }
@@ -674,6 +683,8 @@ void PlayerModel::playerTalkingChanged(bool bTalking)
 	Player *p=static_cast<Player *>(sender());
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
+	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+		updateOverlay();
 }
 
 void PlayerModel::playerMuteDeafChanged()
@@ -751,6 +762,21 @@ bool PlayerModel::dropMimeData (const QMimeData *md, Qt::DropAction action, int 
 	}
 
 	return true;
+}
+
+void PlayerModel::updateOverlay() const {
+#ifdef Q_OS_WIN
+	if (g.sId) {
+		Channel *c = Player::get(g.sId)->cChannel;
+		ModelItem *item = ModelItem::c_qhChannels.value(c);
+		if (item) {
+			g.o->setPlayers(item->qlPlayers);
+			return;
+		}
+	}
+	QList<Player *> empty;
+	g.o->setPlayers(empty);
+#endif
 }
 
 PlayerDelegate::PlayerDelegate(QObject *p) : QItemDelegate(p) {

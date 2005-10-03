@@ -34,6 +34,7 @@
 #include <QSettings>
 #ifdef Q_OS_WIN
 #include <windows.h>
+#include "Overlay.h"
 #endif
 
 #include "MainWindow.h"
@@ -92,6 +93,11 @@ int main(int argc, char **argv)
 	g.sh = new ServerHandler();
 	g.sh->moveToThread(g.sh);
 
+#ifdef Q_OS_WIN
+	g.o = new Overlay();
+	g.o->setActive(true);
+#endif
+
 	// Main Window
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
@@ -133,6 +139,10 @@ int main(int argc, char **argv)
 	}
 
 	g.sh->disconnect();
+
+#ifdef Q_OS_WIN
+	delete g.o;
+#endif
 
 	// This causes QT to complain. Fatally. It's either a bug in
 	// my code or the QT code.

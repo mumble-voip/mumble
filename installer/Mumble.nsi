@@ -72,6 +72,7 @@ Section "Mumble & Murmur" SecMumble
   File "qt.txt"
   File "..\release\mumble.exe"
   File "..\release\murmur.exe"
+  File "..\overlay\mumble_ol.dll"
   SetOverwrite off
   File "..\murmur.ini"
   SetOverwrite on
@@ -138,6 +139,7 @@ Section "Uninstall"
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
+  Delete "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\murmur.ini"
   Delete "$INSTDIR\plugins\bf2.dll"
   Delete "$INSTDIR\QtCore4.dll"

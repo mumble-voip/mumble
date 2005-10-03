@@ -28,58 +28,34 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _GLOBAL_H
-#define _GLOBAL_H
+#ifndef _OVERLAY_H
+#define _OVERLAY_H
 
-#include <QReadWriteLock>
-#include "Settings.h"
+#include <QTimer>
+#include <QList>
+#include <QLibrary>
+#include <windows.h>
+#include "overlay/overlay.h"
 
-#ifndef MUMBLE_VERSION
-#define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
-#else
-#define MUMXTEXT(X) #X
-#define MUMTEXT(X) MUMXTEXT(X)
-#define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
-#endif
+class Player;
 
-// Global helper class to spread variables around across threads.
-
-class MainWindow;
-class ServerHandler;
-class AudioInput;
-class AudioOutput;
-class Database;
-class Log;
-class Plugins;
-class QSettings;
-class Overlay;
-
-struct Global {
-	MainWindow *mw;
-	Settings s;
-	ServerHandler *sh;
-	QReadWriteLock qrwlAudio;
-	AudioInput *ai;
-	AudioOutput *ao;
-	Database *db;
-	Log *l;
-	Plugins *p;
-	QSettings *qs;
-	Overlay *o;
-	int iPushToTalk;
-	bool bPushToMute;
-	bool bCenterPosition;
-	short sId;
-	Global();
+class Overlay : public QObject {
+	Q_OBJECT
+	protected:
+		typedef void (__cdecl *HooksProc)();
+		QLibrary *qlOverlay;
+		QTimer *qtTimer;
+		HANDLE hMutex;
+		HooksProc hpInstall, hpRemove;
+		SharedMem *sm;
+	public:
+		Overlay();
+		~Overlay();
+		bool isActive() const;
+	public slots:
+		void on_Timer_timeout();
+		void setPlayers(QList<Player *> players);
+		void setActive(bool act);
 };
 
-// -Wshadow is bugged. If an inline function of a class uses a variable or
-// parameter named 'g', that will generate a warning even if the class header
-// is included long before this definition.
-
-#define g g_global_struct
-extern Global g_global_struct;
-
-#else
-class Settings;
 #endif
