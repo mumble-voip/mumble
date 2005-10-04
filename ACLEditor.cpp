@@ -1,4 +1,4 @@
-/* Copyright (C) 2005, Thorvald Natvig <thorvald@natvig.com>
+/* copyright (C) 2005, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -105,6 +105,7 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	grid = new QGridLayout();
 
 	qcbACLGroup=new QComboBox();
+	qcbACLGroup->setEditable(true);
 	qcbACLGroup->setObjectName("ACLGroup");
 	l=new QLabel(tr("Group"));
 	l->setBuddy(qcbACLGroup);
@@ -352,11 +353,15 @@ void ACLEditor::addToolTipsWhatsThis() {
 							"channel gives <i>Write</i> permission to the <i>admin</i> group. This entry, if inherited by a "
 							"channel, will give a user write priviliges if he belongs to the <i>admin</i> group in that channel, "
 							"even if he doesn't belong to the <i>admin</i> group in the channel where the ACL originated.<br />"
+							"If a groupname starts with a !, it's membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than "
+							"the channel the ACL is active in. Order is important; <i>!~in</i> is valid, but <i>~!in</i> is not.<br />"
 							"A few special predefined groups are:<br />"
 							"<b>all</b> - Everyone will match.<br />"
 							"<b>auth</b> - All authenticated users will match.<br />"
-							"<b>in</b> - Users currently in the channel will match.<br />"
-							"<b>out</b> - Users outside the channel will match.<br />"
+							"<b>sub,a,b,c</b> - User currently in a subchannel minimum <i>a</i> common parents, and between <i>b</i> and <i>c</i> channels down the chain. "
+							"See the website for more extensive documentation on this one.<br />"
+							"<b>in</b> - Users currently in the channel will match (convenience for <i>sub,0,0,0</i>.<br />"
+							"<b>out</b> - Users outside the channel will match (convencience for <i>!sub,0,0,0</i>.<br />"
 							"Note that an entry applies to either a user or a group, not both."));
 	qleACLUser->setToolTip(tr("User this entry applies to"));
 	qleACLUser->setWhatsThis(tr("This controls which user this entry applies to. Just type in the user name and hit enter "
@@ -742,11 +747,16 @@ void ACLEditor::ACLEnableCheck() {
 		qcbACLGroup->addItem("all");
 		qcbACLGroup->addItem("auth");
 		qcbACLGroup->addItem("in");
+		qcbACLGroup->addItem("sub");
 		qcbACLGroup->addItem("out");
+		qcbACLGroup->addItem("~in");
+		qcbACLGroup->addItem("~sub");
+		qcbACLGroup->addItem("~out");
 		foreach(gs, groups)
 			qcbACLGroup->addItem(gs->qsName);
 		if (as->iPlayerId == -1) {
 			qleACLUser->setText(QString());
+			qcbACLGroup->addItem(as->qsGroup);
 			qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
 		} else {
 			qleACLUser->setText(userName(as->iPlayerId));
@@ -867,6 +877,8 @@ void ACLEditor::on_ACLUser_editingFinished() {
 }
 
 void ACLEditor::ACLPermissions_clicked() {
+	QCheckBox *source = qobject_cast<QCheckBox *>(sender());
+
 	MessageEditACL::ACLStruct *as = currentACL();
 	if (! as || as->bInherited)
 		return;
@@ -877,6 +889,12 @@ void ACLEditor::ACLPermissions_clicked() {
 
 	p = 0x1;
 	for(idx=0;idx<qlACLAllow.count();idx++) {
+		if (qlACLAllow[idx]->isChecked() && qlACLDeny[idx]->isChecked()) {
+			if (source == qlACLAllow[idx])
+				qlACLDeny[idx]->setChecked(false);
+			else
+				qlACLAllow[idx]->setChecked(false);
+		}
 		if (qlACLAllow[idx]->isChecked())
 			a |= p;
 		if (qlACLDeny[idx]->isChecked())

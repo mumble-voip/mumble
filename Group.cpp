@@ -116,61 +116,125 @@ QSet<QString> Group::groupNames(Channel *chan) {
 	return m;
 }
 
-bool Group::isMember(Channel *c, QString name, Player *pl) {
+#define RET_FALSE (invert ? true : false)
+#define RET_TRUE (invert ? false : true)
+
+bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *pl) {
 	Channel *p;
+	Channel *c;
 	Group *g;
 
 	bool m = false;
+	bool invert = false;
+	c = curChan;
 
 	if (name.isEmpty())
 		return false;
 
+
+	if (name.startsWith('~')) {
+		invert = true;
+		name = name.remove(0,1);
+	}
+
+	if (name.startsWith('~')) {
+		c = aclChan;
+		name = name.remove(0,1);
+	}
+
 	if (name == "none")
-		return false;
-
-	if (name == "all")
-		return true;
-
-	if (name == "auth")
-		return (pl->iId >= 0);
-
-	if (name == "in") {
-		if (pl->cChannel == c)
-			return true;
-		return false;
-	}
-
-	if (name == "out") {
-		if (pl->cChannel == c)
-			return false;
-		return true;
-	}
-
-	QStack<Group *> s;
-
-	p = c;
-
-	while (p) {
-		g = p->qhGroups.value(name);
-
-		if (g) {
-			if ((p != c) && ! g->bInheritable)
-				break;
-			s.push(g);
-			if (! g->bInherit)
+		m = false;
+	else if (name == "all")
+		m = true;
+	else if (name == "auth")
+		m = (pl->iId >= 0);
+	else if (name == "in")
+		m = (pl->cChannel == c);
+	else if (name == "out")
+		m = !(pl->cChannel == c);
+	else if (name.startsWith("sub")) {
+		name = name.remove(0,4);
+		int mindesc = 1;
+		int maxdesc = 1000;
+		int minpath = 0;
+		QStringList args = name.split(",");
+		switch(args.count()) {
+			default:
+			case 3:
+				maxdesc = args[1].isEmpty() ? maxdesc : args[2].toInt();
+			case 2:
+				mindesc = args[0].isEmpty() ? mindesc : args[1].toInt();
+			case 1:
+				minpath = args[2].isEmpty() ? minpath : args[0].toInt();
+			case 0:
 				break;
 		}
 
-		p = p->cParent;
-	}
+		Channel *home = pl->cChannel;
+		QList<Channel *> playerChain;
+		QList<Channel *> groupChain;
 
-	while (! s.isEmpty()) {
-		g = s.pop();
-		if (g->qsAdd.contains(pl->iId))
-			m = true;
-		if (g->qsRemove.contains(pl->iId))
-			m = false;
-	}
+		p = home;
+		while (p) {
+			playerChain.prepend(p);
+			p = p->cParent;
+		}
 
-	return m;
+		p = curChan;
+		while (p) {
+			groupChain.prepend(p);
+			p = p->cParent;
+		}
+
+		int cofs = groupChain.indexOf(c);
+		Q_ASSERT( cofs != -1);
+
+		cofs += minpath;
+
+		if (cofs >= groupChain.count()) {
+			return RET_FALSE;
+		} else if (cofs < 0) {
+			cofs = 0;
+		}
+
+		Channel *needed = groupChain[cofs];
+		if (playerChain.indexOf(needed) == -1) {
+			return RET_FALSE;
+		}
+
+		int mindepth = cofs + mindesc;
+		int maxdepth = cofs + maxdesc;
+
+		int pdepth = playerChain.count() - 1;
+
+		m = (pdepth >= mindepth) && (pdepth <= maxdepth);
+	} else {
+
+		QStack<Group *> s;
+
+		p = c;
+
+		while (p) {
+			g = p->qhGroups.value(name);
+
+			if (g) {
+				if ((p != c) && ! g->bInheritable)
+					break;
+				s.push(g);
+				if (! g->bInherit)
+					break;
+			}
+
+			p = p->cParent;
+		}
+
+		while (! s.isEmpty()) {
+			g = s.pop();
+			if (g->qsAdd.contains(pl->iId))
+				m = true;
+			if (g->qsRemove.contains(pl->iId))
+				m = false;
+		}
+	}
+	return invert ? !m : m;
 }

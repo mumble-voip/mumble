@@ -86,7 +86,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 			granted = def;
 
 		foreach(acl, ch->qlACL) {
-			if ((acl->iPlayerId == p->iId) || Group::isMember(chan, acl->qsGroup, p)) {
+			if ((acl->iPlayerId == p->iId) || Group::isMember(chan, ch, acl->qsGroup, p)) {
 				if (acl->pAllow & Traverse)
 					traverse = true;
 				if (acl->pDeny & Traverse)

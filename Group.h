@@ -51,7 +51,7 @@ class Group {
 		static QSet<QString> groupNames(Channel *c);
 		static Group *getGroup(Channel *c, QString name);
 
-		static bool isMember(Channel *c, QString name, Player *);
+		static bool isMember(Channel *c, Channel *aclChan, QString name, Player *);
 };
 
 #else
