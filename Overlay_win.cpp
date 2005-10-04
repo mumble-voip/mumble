@@ -201,7 +201,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qlChannelTalking = new QLabel();
 	qpbChannelTalking = new QPushButton(tr("Change"));
 	qpbChannelTalking->setObjectName("ChannelTalking");
-	lab = new QLabel(tr("Color for ChannelTalkings"));
+	lab = new QLabel(tr("Color for active Channels"));
 	setColorLabel(qlChannelTalking, qcChannelTalking);
 
 	grid->addWidget(lab, 5, 0);
@@ -320,6 +320,9 @@ Overlay::Overlay() : QObject() {
 	}
 
 	sm=reinterpret_cast<SharedMem *>(qlOverlay->resolve("sm"));
+#ifndef QT_NO_DEBUG
+	sm->bDebug = true;
+#endif
 
 	hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
 	hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
