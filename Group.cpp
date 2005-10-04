@@ -131,7 +131,6 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 	if (name.isEmpty())
 		return false;
 
-
 	if (name.startsWith('~')) {
 		invert = true;
 		name = name.remove(0,1);
