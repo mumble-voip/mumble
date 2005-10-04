@@ -131,7 +131,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 	if (name.isEmpty())
 		return false;
 
-	if (name.startsWith('~')) {
+	if (name.startsWith('!')) {
 		invert = true;
 		name = name.remove(0,1);
 	}
@@ -160,11 +160,11 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 		switch(args.count()) {
 			default:
 			case 3:
-				maxdesc = args[1].isEmpty() ? maxdesc : args[2].toInt();
+				maxdesc = args[2].isEmpty() ? maxdesc : args[2].toInt();
 			case 2:
-				mindesc = args[0].isEmpty() ? mindesc : args[1].toInt();
+				mindesc = args[1].isEmpty() ? mindesc : args[1].toInt();
 			case 1:
-				minpath = args[2].isEmpty() ? minpath : args[0].toInt();
+				minpath = args[0].isEmpty() ? minpath : args[0].toInt();
 			case 0:
 				break;
 		}
@@ -189,7 +189,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 		Q_ASSERT( cofs != -1);
 
 		cofs += minpath;
-
+		
 		if (cofs >= groupChain.count()) {
 			return RET_FALSE;
 		} else if (cofs < 0) {
