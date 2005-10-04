@@ -39,6 +39,7 @@ struct PlayerEntry {
 struct SharedMem {
 	DWORD lastAppAlive;
 	bool bHooked;
+	bool bDebug;
 	int iWidth;
 	int iHeight;
 	PlayerEntry players[32];

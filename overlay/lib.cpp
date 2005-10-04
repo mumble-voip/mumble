@@ -45,9 +45,11 @@ using namespace std;
 
 #pragma data_seg(".SHARED")
 
-extern "C" __declspec(dllexport) SharedMem sm = {0, false, 100, 20};
+extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, 100, 20};
 
 HHOOK hhookCBT = 0, hhookWnd = 0;
+
+bool bChaining = false;
 
 #pragma data_seg()
 #pragma comment(linker, "/section:.SHARED,RWS")
@@ -86,7 +88,6 @@ map<wstring, LPDIRECT3DTEXTURE9> texMap;
 bool bHooked = false;
 HMODULE hSelf = NULL;
 HANDLE hSharedMutex = NULL;
-bool bPinned = false;
 
 DevState::DevState() {
 	dev = NULL;
@@ -264,6 +265,9 @@ void DevState::cleanState() {
 }
 
 void __cdecl ods(const char *format, ...) {
+	if (! sm.bDebug)
+		return;
+
 	char	buf[4096], *p = buf;
 	va_list	args;
 
@@ -557,7 +561,7 @@ HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE Dev
 void HookCreate(IDirect3D9 *pD3D) {
 	ods("Injecting CreateDevice");
 
-	bPinned = true;
+	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (wchar_t *) &HookCreate, &hSelf);
 
 	hSharedMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
@@ -566,10 +570,16 @@ void HookCreate(IDirect3D9 *pD3D) {
 	hhCreateDevice.inject();
 }
 
-LRESULT CALLBACK CBTProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	wchar_t procname[1024];
-	GetModuleFileName(NULL, procname, 1024);
+void checkHook() {
+	if (bChaining) {
+		return;
+		ods("Causing a chain");
+	}
+
+	bChaining = true;
+
 	HMODULE hD3D = GetModuleHandle(L"D3D9.DLL");
+
 	if (hD3D != NULL) {
 		if (! bHooked) {
 			wchar_t procname[1024];
@@ -586,10 +596,28 @@ LRESULT CALLBACK CBTProc(int nCode, WPARAM wParam, LPARAM lParam) {
 			}
 		}
 	}
-
 	checkUnhook();
 
-	return CallNextHookEx(NULL, nCode, wParam, lParam);
+	bChaining = false;
+}
+
+LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
+	CWPSTRUCT *s = (CWPSTRUCT *) lParam;
+	if (s) {
+		switch (s->message) {
+			case WM_CREATE:
+			case WM_DESTROY:
+			case WM_SETFOCUS:
+			case WM_GETMINMAXINFO:	// For things that link directly
+			case WM_GETICON:		// Worked for BF2
+			case WM_NCCREATE:		// Lots of games
+				checkHook();
+				break;
+			default:
+				break;
+		}
+	}
+	return CallNextHookEx(hhookWnd, nCode, wParam, lParam);
 }
 
 extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
@@ -599,10 +627,6 @@ extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		if (sm.bHooked) {
-			if (hhookCBT) {
-				UnhookWindowsHookEx(hhookCBT);
-				hhookCBT = NULL;
-			}
 			if (hhookWnd) {
 				UnhookWindowsHookEx(hhookWnd);
 				hhookWnd = NULL;
@@ -627,10 +651,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 			if (hSelf == NULL) {
 				ods("Failed to find myself");
 			} else {
-				hhookCBT = SetWindowsHookEx(WH_CBT,CBTProc,hSelf,0);
-				if (hhookCBT == NULL)
-					ods("Failed to insert CBT hook");
-				hhookWnd = SetWindowsHookEx(WH_CALLWNDPROC,CBTProc,hSelf,0);
+				hhookWnd = SetWindowsHookEx(WH_CALLWNDPROC,CallWndProc,hSelf,0);
 				if (hhookWnd == NULL)
 					ods("Failed to insert WNDProc hook");
 			}
@@ -644,29 +665,26 @@ void checkUnhook(IDirect3DDevice9 *idd) {
 	DWORD now = GetTickCount();
 	if ((now - sm.lastAppAlive) > 5000) {
 		ods("Application is dead.");
-		if (bPinned) {
-			DevState *ds = devMap[idd];
-			if (ds && ds->bInitialized) {
-				bool b = ds->bMyRefs;
-				ds->bMyRefs = true;
-				ds->releaseData();
-				ds->bMyRefs = b;
-				ds->bInitialized = false;
-			} else {
-				ods("Terminating with leakage.");
-			}
-			hhCreateDevice.restore();
-			hhEndScene.restore();
-			hhReset.restore();
-			hhAddRef.restore();
-			hhRelease.restore();
-			if (ds) {
-				for(int i=0;i < (ds->refCount + ds->myRefCount); i++)
-					ds->dev->AddRef();
-			}
-			FreeLibrary(hSelf);
-			bPinned = false;
-		}
 		RemoveHooks();
+		DevState *ds = devMap[idd];
+		if (ds && ds->bInitialized) {
+			bool b = ds->bMyRefs;
+			ds->bMyRefs = true;
+			ds->releaseData();
+			ds->bMyRefs = b;
+			ds->bInitialized = false;
+		} else {
+			ods("Terminating with leakage.");
+		}
+		hhCreateDevice.restore();
+		hhBeginScene.restore();
+		hhEndScene.restore();
+		hhReset.restore();
+		hhAddRef.restore();
+		hhRelease.restore();
+		if (ds) {
+			for(int i=0;i < (ds->refCount + ds->myRefCount); i++)
+				ds->dev->AddRef();
+		}
 	}
 }
