@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 
 #ifdef Q_OS_WIN
 	g.o = new Overlay();
-	g.o->setActive(true);
+	g.o->setActive(g.s.bOverlayEnable);
 #endif
 
 	// Main Window
@@ -140,10 +140,6 @@ int main(int argc, char **argv)
 
 	g.sh->disconnect();
 
-#ifdef Q_OS_WIN
-	delete g.o;
-#endif
-
 	// This causes QT to complain. Fatally. It's either a bug in
 	// my code or the QT code.
 	// delete g.sh;
@@ -151,6 +147,10 @@ int main(int argc, char **argv)
 
 	delete g.db;
 	delete g.l;
+
+#ifdef Q_OS_WIN
+	delete g.o;
+#endif
 
 	delete g.qs;
 

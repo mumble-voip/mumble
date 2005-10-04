@@ -34,6 +34,8 @@
 #include <QString>
 #include <QByteArray>
 #include <QVariant>
+#include <QFont>
+#include <QColor>
 
 // Global helper class to spread variables around across threads
 // especially helpfull to initialize things like the stored
@@ -63,6 +65,17 @@ struct Settings {
 	QString qsASIOclass;
 	QList<QVariant> qlASIOmic;
 	QList<QVariant> qlASIOspeaker;
+
+	bool bOverlayEnable;
+	float fOverlayX;
+	float fOverlayY;
+	bool bOverlayLeft, bOverlayRight, bOverlayTop, bOverlayBottom;
+	QFont qfOverlayFont;
+	float fOverlayWidth;
+	QColor qcOverlayPlayer;
+	QColor qcOverlayTalking;
+	QColor qcOverlayChannel;
+	QColor qcOverlayChannelTalking;
 
 	Settings();
 	void load();

@@ -31,18 +31,27 @@
 #ifndef _INTERNAL_OVERLAY_H
 #define _INTERNAL_OVERLAY_H
 
-struct PlayerEntry {
-	wchar_t name[128];
-	bool bTalking;
+struct TextEntry {
+	wchar_t text[128];
+	DWORD color;
 };
+
+#define NUM_TEXTS 32
 
 struct SharedMem {
 	DWORD lastAppAlive;
 	bool bHooked;
 	bool bDebug;
-	int iWidth;
-	int iHeight;
-	PlayerEntry players[32];
+	bool bReset;
+	wchar_t strFontname[128];
+	int iFontSize;
+	bool bFontBold;
+	bool bFontItalic;
+	float fWidthFactor;
+	float fX, fY;
+	bool bTop, bBottom, bLeft, bRight;
+
+	TextEntry texts[NUM_TEXTS];
 };
 
 #endif

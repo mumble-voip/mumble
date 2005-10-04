@@ -496,6 +496,8 @@ void PlayerModel::recheckLinks() {
 	if (! g.sId)
 		return;
 
+	bool bChanged = false;
+
 	Channel *home = Player::get(g.sId)->cChannel;
 
 	QSet<Channel *> all = home->allLinks();
@@ -511,7 +513,10 @@ void PlayerModel::recheckLinks() {
 	foreach(Channel *c, changed) {
 		QModelIndex idx = index(c);
 		emit dataChanged(idx, idx);
+		bChanged = true;
 	}
+	if (bChanged)
+		updateOverlay();
 }
 
 Player *PlayerModel::addPlayer(short id, QString name) {

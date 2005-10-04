@@ -741,6 +741,12 @@ void MessageChannelAdd::process(Connection *cCon) {
 		return;
 	}
 
+	QRegExp re2("\\w");
+	if (re2.indexIn(qsName) == -1) {
+		PERM_DENIED_TEXT("Must have alphanumeric in name");
+		return;
+	}
+
 	Channel *c = ServerDB::addChannel(p, qsName);
 	if (pSrcPlayer->iId >= 0) {
 		Group *g = new Group(c, "admin");

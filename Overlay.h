@@ -34,12 +34,52 @@
 #include <QTimer>
 #include <QList>
 #include <QLibrary>
+#include <QSlider>
+#include <QCheckBox>
+#include <QPushButton>
+#include <QLabel>
 #include <windows.h>
 #include "overlay/overlay.h"
+#include "ConfigDialog.h"
 
 class Player;
 
+class OverlayConfig : public ConfigWidget {
+	Q_OBJECT
+	protected:
+		QCheckBox *qcbEnable;
+
+		QSlider *qsX, *qsY;
+		QCheckBox *qcbLeft, *qcbRight, *qcbTop, *qcbBottom;
+		QLabel *qlCurrentFont;
+
+		QFont qfFont;
+		QPushButton *qpbSetFont;
+		QSlider *qsMaxWidth;
+		QLabel *qlMaxWidth;
+
+		QColor qcPlayer, qcTalking, qcChannel, qcChannelTalking;
+
+		QLabel *qlPlayer, *qlTalking, *qlChannel, *qlChannelTalking;
+		QPushButton *qpbPlayer, *qpbTalking, *qpbChannel, *qpbChannelTalking;
+
+		static void setColorLabel(QLabel *label, QColor col);
+	public:
+		OverlayConfig(QWidget *p = NULL);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void on_MaxWidth_valueChanged(int v);
+		void on_SetFont_clicked();
+		void on_Player_clicked();
+		void on_Talking_clicked();
+		void on_Channel_clicked();
+		void on_ChannelTalking_clicked();
+		void accept();
+};
+
 class Overlay : public QObject {
+	friend class OverlayConfig;
 	Q_OBJECT
 	protected:
 		typedef void (__cdecl *HooksProc)();
@@ -48,6 +88,8 @@ class Overlay : public QObject {
 		HANDLE hMutex;
 		HooksProc hpInstall, hpRemove;
 		SharedMem *sm;
+
+		bool bReset;
 	public:
 		Overlay();
 		~Overlay();

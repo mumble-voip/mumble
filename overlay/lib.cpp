@@ -38,6 +38,7 @@
 #include <d3d9.h>
 #include <d3dx9core.h>
 #include <map>
+#include <vector>
 #include <string>
 #include "overlay.h"
 
@@ -45,7 +46,7 @@ using namespace std;
 
 #pragma data_seg(".SHARED")
 
-extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, 100, 20};
+extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, false, L"Arial", 15, false, false, 20.0, 1.0, 0.0, false, true, true, false};
 
 HHOOK hhookCBT = 0, hhookWnd = 0;
 
@@ -85,9 +86,12 @@ public:
 
 map<IDirect3DDevice9 *, DevState *> devMap;
 map<wstring, LPDIRECT3DTEXTURE9> texMap;
+map<wstring, int> texWidth;
 bool bHooked = false;
 HMODULE hSelf = NULL;
 HANDLE hSharedMutex = NULL;
+int iHeight;
+int iMaxWidth;
 
 DevState::DevState() {
 	dev = NULL;
@@ -102,10 +106,16 @@ DevState::DevState() {
 void DevState::initData() {
 	ods("Init Data of %p", dev);
 
+	D3DVIEWPORT9 vp;
+	dev->GetViewport(&vp);
+
+	iHeight = MulDiv(sm.iFontSize, vp.Height, 768);
+	iMaxWidth = iHeight * sm.fWidthFactor;
+
 	D3DXCreateSprite(dev, &pTextSprite );
-	D3DXCreateFont(dev, sm.iHeight, 0, FW_BOLD, 1, FALSE, DEFAULT_CHARSET,
+	D3DXCreateFont(dev, iHeight, 0, sm.bFontBold ? FW_BOLD : FW_NORMAL, 1, sm.bFontItalic, DEFAULT_CHARSET,
 					OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
-					L"Arial", &pFont);
+					sm.strFontname, &pFont);
 
 	bNeedPrep = true;
 
@@ -117,11 +127,11 @@ void DevState::prep() {
 
 	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		for(int i=0;i<16;i++) {
-			if (sm.players[i].name[0]) {
-				wstring str(sm.players[i].name);
+		for(int i=0;i<NUM_TEXTS;i++) {
+			if (sm.texts[i].text[0]) {
+				wstring str(sm.texts[i].text);
 				if (texMap[str] == NULL) {
-					mkString(sm.players[i].name);
+					mkString(sm.texts[i].text);
 				}
 			}
 		}
@@ -134,7 +144,17 @@ void DevState::mkString(const wchar_t *str) {
 	IDirect3DSurface9 *pSurf, *pPrevSurf = NULL, *pDS = NULL;
 	LPDIRECT3DTEXTURE9 pTex;
 
-	dev->CreateTexture(sm.iWidth, sm.iHeight, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pTex, NULL);
+	RECT rc;
+	SetRect( &rc, 0, 0, iMaxWidth, iHeight );
+	pFont->DrawText( NULL, str, -1, &rc, DT_CALCRECT | DT_SINGLELINE, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
+
+	int width = rc.right + 2;
+	if (width > iMaxWidth)
+		width = iMaxWidth;
+
+	ods("Width %d", width);
+
+	dev->CreateTexture(width, iHeight + 2, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pTex, NULL);
 
 	dev->GetRenderTarget(0, &pPrevSurf);
 
@@ -148,8 +168,8 @@ void DevState::mkString(const wchar_t *str) {
 	D3DVIEWPORT9 vp, oldVP;
 	vp.X = 0;
 	vp.Y = 0;
-	vp.Width = sm.iWidth;
-	vp.Height = sm.iHeight;
+	vp.Height = iHeight + 2;
+	vp.Width = width;
 	vp.MinZ = 0.0;
 	vp.MaxZ = 1.0;
 
@@ -162,7 +182,6 @@ void DevState::mkString(const wchar_t *str) {
 
 	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
 
-	RECT rc;
 	SetRect( &rc, 0, 0, 0, 0 );
 	pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
 	SetRect( &rc, 2, 0, 0, 0 );
@@ -187,6 +206,7 @@ void DevState::mkString(const wchar_t *str) {
 
 	wstring s(str);
 	texMap[str]=pTex;
+	texWidth[str]=width;
 }
 
 void DevState::releaseData() {
@@ -201,25 +221,38 @@ void DevState::releaseData() {
 		}
 	}
 	texMap.clear();
+	texWidth.clear();
 }
 
 void DevState::draw() {
 	D3DVIEWPORT9 vp;
 	dev->GetViewport(&vp);
 
-	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
 	int idx = 0;
+
+	vector<LPDIRECT3DTEXTURE9> texs;
+	vector<int> widths;
+	vector<int> yofs;
+	vector<DWORD> colors;
+
+	int y = 0;
 
 	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		for(int i=0;i<16;i++) {
-			if (sm.players[i].name[0]) {
-				wstring str(sm.players[i].name);
+		for(int i=0;i<NUM_TEXTS;i++) {
+			if (sm.texts[i].text[0] == ' ') {
+				y += iHeight / 4;
+			} else if (sm.texts[i].text[0]) {
+				wstring str(sm.texts[i].text);
 				IDirect3DTexture9 *tex = texMap[str];
 				if (tex) {
-					D3DXVECTOR3 p(vp.Width-sm.iWidth, idx*sm.iHeight, 1.0);
-					pTextSprite->Draw(tex, NULL, NULL, &p, sm.players[i].bTalking ? 0xFFFFFFC0 : 0x80FFFFFF);
+					int w = texWidth[str];
+					texs.push_back(tex);
+					colors.push_back(sm.texts[i].color);
+					widths.push_back(w);
+					yofs.push_back(y);
 					idx++;
+					y += iHeight;
 				} else {
 					bNeedPrep = true;
 				}
@@ -228,8 +261,46 @@ void DevState::draw() {
 		ReleaseMutex(hSharedMutex);
 	}
 
-	pTextSprite->End();
+	if (idx == 0)
+		return;
 
+	int height = y;
+	y = vp.Height * sm.fY;
+
+	if (sm.bTop) {
+		y -= height;
+	} else if (sm.bBottom) {
+	} else {
+		y -= height / 2;
+	}
+
+	if (y < 1)
+		y = 1;
+	if ((y + height + 1) > vp.Height)
+		y = vp.Height - height - 1;
+
+	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
+	for(int i=0;i<idx;i++) {
+		int width = widths[i];
+
+		int x = vp.Width * sm.fX;
+
+		if (sm.bLeft) {
+			x -= width;
+		} else if (sm.bRight) {
+		} else {
+			x -= width / 2;
+		}
+
+		if (x < 1)
+			x = 1;
+		if ((x + width + 1) > vp.Width)
+			x = vp.Width - width - 1;
+
+		D3DXVECTOR3 p(x, y + yofs[i], 1.0);
+		pTextSprite->Draw(texs[i], NULL, NULL, &p, colors[i]);
+	}
+	pTextSprite->End();
 }
 
 void DevState::cleanState() {
@@ -379,7 +450,7 @@ HRESULT __stdcall myBeginScene(IDirect3DDevice9 * idd) {
 	hhBeginScene.restore();
 
 	DevState *ds = devMap[idd];
-	if (ds && (ds->bNeedPrep || ! ds->bInitialized)) {
+	if (ds && (sm.bReset || ds->bNeedPrep || ! ds->bInitialized)) {
 		hhEndScene.restore();
 
 		bool b = ds->bMyRefs;
@@ -389,6 +460,13 @@ HRESULT __stdcall myBeginScene(IDirect3DDevice9 * idd) {
 	  	idd->CreateStateBlock( D3DSBT_ALL, &pStateBlock );
 	  	pStateBlock->Capture();
 
+		if (sm.bReset) {
+			sm.bReset = false;
+			if (ds->bInitialized) {
+				ds->releaseData();
+				ds->bInitialized = false;
+			}
+		}
 		if (! ds->bInitialized) {
 			ds->initData();
 			ds->bInitialized = true;

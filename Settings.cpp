@@ -49,6 +49,20 @@ Settings::Settings() {
 	fDXMaxDistance = 50.0;
 	fDXDoppler = 0.0;
 	fDXRollOff = 0.15;
+
+	bOverlayEnable = true;
+	fOverlayX = 1.0;
+	fOverlayY = 0.0;
+	bOverlayTop = false;
+	bOverlayBottom = true;
+	bOverlayLeft = true;
+	bOverlayRight = false;
+	qfOverlayFont = QFont("Arial", 20);
+	fOverlayWidth = 20.0;
+	qcOverlayPlayer = QColor(255,255,255,128);
+	qcOverlayTalking = QColor(255,255,196,255);
+	qcOverlayChannel = QColor(192,192,255,192);
+	qcOverlayChannelTalking = QColor(224,224,255,255);
 }
 
 void Settings::load() {
@@ -74,6 +88,19 @@ void Settings::load() {
 	qsASIOclass = g.qs->value("ASIOclass").toString();
 	qlASIOmic = g.qs->value("ASIOmic").toList();
 	qlASIOspeaker = g.qs->value("ASIOspeaker").toList();
+	bOverlayEnable = g.qs->value("OverlayEnable",bOverlayEnable).toBool();
+	fOverlayX = g.qs->value("OverlayX",fOverlayX).toDouble();
+	fOverlayY = g.qs->value("OverlayY",fOverlayY).toDouble();
+	bOverlayTop = g.qs->value("OverlayTop",bOverlayTop).toBool();
+	bOverlayBottom = g.qs->value("OverlayBottom",bOverlayBottom).toBool();
+	bOverlayLeft = g.qs->value("OverlayLeft",bOverlayLeft).toBool();
+	bOverlayRight = g.qs->value("OverlayRight",bOverlayRight).toBool();
+	qfOverlayFont = qvariant_cast<QFont>(g.qs->value("OverlayFont",qfOverlayFont));
+	fOverlayWidth = g.qs->value("OverlayWidth", fOverlayWidth).toDouble();
+	qcOverlayPlayer = qvariant_cast<QColor>(g.qs->value("OverlayPlayer",qcOverlayPlayer));
+	qcOverlayTalking = qvariant_cast<QColor>(g.qs->value("OverlayTalking",qcOverlayTalking));
+	qcOverlayChannel = qvariant_cast<QColor>(g.qs->value("OverlayChannel",qcOverlayChannel));
+	qcOverlayChannelTalking = qvariant_cast<QColor>(g.qs->value("OverlayChannelTalking",qcOverlayChannelTalking));
 }
 
 void Settings::save() {
@@ -99,4 +126,17 @@ void Settings::save() {
 	g.qs->setValue("ASIOclass", qsASIOclass);
 	g.qs->setValue("ASIOmic", qlASIOmic);
 	g.qs->setValue("ASIOspeaker", qlASIOspeaker);
+	g.qs->setValue("OverlayEnable", bOverlayEnable);
+	g.qs->setValue("OverlayX", fOverlayX);
+	g.qs->setValue("OverlayY", fOverlayY);
+	g.qs->setValue("OverlayTop", bOverlayTop);
+	g.qs->setValue("OverlayBottom", bOverlayBottom);
+	g.qs->setValue("OverlayLeft", bOverlayLeft);
+	g.qs->setValue("OverlayRight", bOverlayRight);
+	g.qs->setValue("OverlayFont", qfOverlayFont);
+	g.qs->setValue("OverlayWidth", fOverlayWidth);
+	g.qs->setValue("OverlayPlayer", qcOverlayPlayer);
+	g.qs->setValue("OverlayTalking", qcOverlayTalking);
+	g.qs->setValue("OverlayChannel", qcOverlayChannel);
+	g.qs->setValue("OverlayChannelTalking", qcOverlayChannelTalking);
 }
