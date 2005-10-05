@@ -88,8 +88,6 @@ class Overlay : public QObject {
 		HANDLE hMutex;
 		HooksProc hpInstall, hpRemove;
 		SharedMem *sm;
-
-		bool bReset;
 	public:
 		Overlay();
 		~Overlay();
@@ -98,6 +96,8 @@ class Overlay : public QObject {
 		void on_Timer_timeout();
 		void setPlayers(QList<Player *> players);
 		void setActive(bool act);
+		void toggleShow();
+		void forceSettings();
 };
 
 #endif

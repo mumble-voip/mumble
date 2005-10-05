@@ -300,8 +300,8 @@ void OverlayConfig::accept() {
 	g.s.qcOverlayChannel = qcChannel;
 	g.s.qcOverlayChannelTalking = qcChannelTalking;
 
-	g.o->bReset = true;
-	setEnabled(g.s.bOverlayEnable);
+	g.o->forceSettings();
+	g.o->setActive(g.s.bOverlayEnable);
 }
 
 Overlay::Overlay() : QObject() {
@@ -331,8 +331,9 @@ Overlay::Overlay() : QObject() {
 	qtTimer->setObjectName("Timer");
 	qtTimer->start();
 
-	bReset = true;
 	hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
+
+	forceSettings();
 
 	QMetaObject::connectSlotsByName(this);
 }
@@ -355,6 +356,38 @@ void Overlay::setActive(bool act) {
 
 void Overlay::on_Timer_timeout() {
 	sm->lastAppAlive = GetTickCount();
+}
+
+void Overlay::toggleShow() {
+	DWORD dwWaitResult = WaitForSingleObject(hMutex, 500L);
+	if (dwWaitResult == WAIT_OBJECT_0) {
+		sm->bShow = ! sm->bShow;
+		ReleaseMutex(hMutex);
+	}
+}
+
+void Overlay::forceSettings() {
+	QString str;
+	const wchar_t *wstr;
+
+	DWORD dwWaitResult = WaitForSingleObject(hMutex, 500L);
+	if (dwWaitResult == WAIT_OBJECT_0) {
+		str = g.s.qfOverlayFont.family();
+		wstr = reinterpret_cast<const wchar_t *>(str.utf16());
+		wcscpy(sm->strFontname, wstr);
+		sm->iFontSize = g.s.qfOverlayFont.pointSize();
+		sm->bFontBold = g.s.qfOverlayFont.bold();
+		sm->bFontItalic = g.s.qfOverlayFont.italic();
+		sm->fWidthFactor = g.s.fOverlayWidth;
+		sm->fX = g.s.fOverlayX;
+		sm->fY = g.s.fOverlayY;
+		sm->bTop = g.s.bOverlayTop;
+		sm->bBottom = g.s.bOverlayBottom;
+		sm->bLeft = g.s.bOverlayLeft;
+		sm->bRight = g.s.bOverlayRight;
+		sm->bReset = true;
+		ReleaseMutex(hMutex);
+	}
 }
 
 #define SAFE_INC_IDX(x) x=(x < NUM_TEXTS) ? (x+1) : (NUM_TEXTS-1)
@@ -386,25 +419,6 @@ void Overlay::setPlayers(QList<Player *> players) {
 
 	DWORD dwWaitResult = WaitForSingleObject(hMutex, 500L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		str = g.s.qfOverlayFont.family();
-		wstr = reinterpret_cast<const wchar_t *>(str.utf16());
-		wcscpy(sm->strFontname, wstr);
-		sm->iFontSize = g.s.qfOverlayFont.pointSize();
-		sm->bFontBold = g.s.qfOverlayFont.bold();
-		sm->bFontItalic = g.s.qfOverlayFont.italic();
-		sm->fWidthFactor = g.s.fOverlayWidth;
-		sm->fX = g.s.fOverlayX;
-		sm->fY = g.s.fOverlayY;
-		sm->bTop = g.s.bOverlayTop;
-		sm->bBottom = g.s.bOverlayBottom;
-		sm->bLeft = g.s.bOverlayLeft;
-		sm->bRight = g.s.bOverlayRight;
-
-		if (bReset) {
-			sm->bReset = true;
-			bReset = false;
-		}
-
 		int idx = 0;
 
 		if (g.s.bOverlayTop) {

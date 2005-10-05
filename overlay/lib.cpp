@@ -46,7 +46,7 @@ using namespace std;
 
 #pragma data_seg(".SHARED")
 
-extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, false, L"Arial", 15, false, false, 20.0, 1.0, 0.0, false, true, true, false};
+extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, true, false, L"Arial", 120, false, false, 20.0, 1.0, 0.0, false, true, true, false};
 
 HHOOK hhookCBT = 0, hhookWnd = 0;
 
@@ -91,6 +91,7 @@ bool bHooked = false;
 HMODULE hSelf = NULL;
 HANDLE hSharedMutex = NULL;
 int iHeight;
+int iOutline;
 int iMaxWidth;
 
 DevState::DevState() {
@@ -110,6 +111,9 @@ void DevState::initData() {
 	dev->GetViewport(&vp);
 
 	iHeight = MulDiv(sm.iFontSize, vp.Height, 768);
+	iOutline = iHeight / 15;
+	if (iOutline < 1)
+		iOutline = 1;
 	iMaxWidth = iHeight * sm.fWidthFactor;
 
 	D3DXCreateSprite(dev, &pTextSprite );
@@ -128,7 +132,7 @@ void DevState::prep() {
 	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		for(int i=0;i<NUM_TEXTS;i++) {
-			if (sm.texts[i].text[0]) {
+			if (sm.texts[i].text[0] && (sm.texts[i].text[0] != ' ')) {
 				wstring str(sm.texts[i].text);
 				if (texMap[str] == NULL) {
 					mkString(sm.texts[i].text);
@@ -142,59 +146,101 @@ void DevState::prep() {
 void DevState::mkString(const wchar_t *str) {
 	ods("Making string %ls", str);
 	IDirect3DSurface9 *pSurf, *pPrevSurf = NULL, *pDS = NULL;
-	LPDIRECT3DTEXTURE9 pTex;
+	LPDIRECT3DTEXTURE9 pTex, pShadTex;
+	D3DVIEWPORT9 vp, oldVP;
+
+	dev->GetRenderTarget(0, &pPrevSurf);
+	dev->GetDepthStencilSurface(&pDS);
+	dev->GetViewport(&oldVP);
 
 	RECT rc;
 	SetRect( &rc, 0, 0, iMaxWidth, iHeight );
 	pFont->DrawText( NULL, str, -1, &rc, DT_CALCRECT | DT_SINGLELINE, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
 
-	int width = rc.right + 2;
+	int width = rc.right + 2 * iOutline;
+	int height = iHeight + 2 * iOutline;
 	if (width > iMaxWidth)
 		width = iMaxWidth;
 
-	ods("Width %d", width);
+	dev->CreateTexture(width, height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pTex, NULL);
+	dev->CreateTexture(width, height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pShadTex, NULL);
 
-	dev->CreateTexture(width, iHeight + 2, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pTex, NULL);
+	dev->SetDepthStencilSurface(NULL);
 
-	dev->GetRenderTarget(0, &pPrevSurf);
+	pShadTex->GetSurfaceLevel(0, &pSurf);
+	dev->SetRenderTarget(0, pSurf);
+	pSurf->Release();
+
+	vp.X = 0;
+	vp.Y = 0;
+	vp.Height = height;
+	vp.Width = width;
+	vp.MinZ = 0.0;
+	vp.MaxZ = 1.0;
+
+	dev->SetViewport(&vp);
+
+	dev->BeginScene();
+	dev->Clear( 0L, NULL, D3DCLEAR_TARGET, 0x00000000, 1.0f, 0L );
+
+	int min=0;
+	int max=2*iOutline;
+
+	for(int x = 0; x <= max; x++) {
+			SetRect( &rc, x, 0, 0, 0 );
+			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
+			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
+			pTextSprite->End();
+			SetRect( &rc, x, max, 0, 0 );
+			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
+			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
+			pTextSprite->End();
+	}
+	for(int y = 1; y < max; y++) {
+			SetRect( &rc, 0, y, 0, 0 );
+			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
+			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
+			pTextSprite->End();
+			SetRect( &rc, max, y, 0, 0 );
+			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
+			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
+			pTextSprite->End();
+
+	}
+
+	for(int y=1;y<max;y++) {
+		for(int x=1;x<max;x++) {
+			SetRect( &rc, x, y, 0, 0 );
+			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
+			dev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+			dev->SetRenderState(D3DRS_ALPHAREF, 0xFF);
+			dev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_EQUAL);
+			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
+			pTextSprite->End();
+		}
+	}
+
+	dev->EndScene();
+
 
 	pTex->GetSurfaceLevel(0, &pSurf);
 	dev->SetRenderTarget(0, pSurf);
 	pSurf->Release();
 
-	dev->GetDepthStencilSurface(&pDS);
-	dev->SetDepthStencilSurface(NULL);
-
-	D3DVIEWPORT9 vp, oldVP;
-	vp.X = 0;
-	vp.Y = 0;
-	vp.Height = iHeight + 2;
-	vp.Width = width;
-	vp.MinZ = 0.0;
-	vp.MaxZ = 1.0;
-
-
-	dev->GetViewport(&oldVP);
-	dev->SetViewport(&vp);
-
+	dev->Clear( 0L, NULL, D3DCLEAR_TARGET, 0x00000000, 1.0f, 0L );
 	dev->BeginScene();
-	dev->Clear( 0L, NULL, D3DCLEAR_TARGET, 0x000000ff, 1.0f, 0L );
 
-	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
 
-	SetRect( &rc, 0, 0, 0, 0 );
-	pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
-	SetRect( &rc, 2, 0, 0, 0 );
-	pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
-	SetRect( &rc, 2, 2, 0, 0 );
-	pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
-	SetRect( &rc, 0, 2, 0, 0 );
-	pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
-	SetRect( &rc, 1, 1, 0, 0 );
+	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_DEPTH_FRONTTOBACK);
+	D3DXVECTOR3 pos(0,0,0.1);
+	pTextSprite->Draw(pShadTex, NULL, NULL, &pos, 0xF0000000);
+	SetRect( &rc, iOutline, iOutline, 0, 0 );
 	pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
 	pTextSprite->End();
 
 	dev->EndScene();
+
+
 	dev->SetViewport(&oldVP);
 
 	dev->SetDepthStencilSurface(pDS);
@@ -203,6 +249,8 @@ void DevState::mkString(const wchar_t *str) {
 
 	dev->SetRenderTarget(0, pPrevSurf);
 	pPrevSurf->Release();
+
+	pShadTex->Release();
 
 	wstring s(str);
 	texMap[str]=pTex;
@@ -450,7 +498,7 @@ HRESULT __stdcall myBeginScene(IDirect3DDevice9 * idd) {
 	hhBeginScene.restore();
 
 	DevState *ds = devMap[idd];
-	if (ds && (sm.bReset || ds->bNeedPrep || ! ds->bInitialized)) {
+	if (ds && sm.bShow && (sm.bReset || ds->bNeedPrep || ! ds->bInitialized)) {
 		hhEndScene.restore();
 
 		bool b = ds->bMyRefs;
@@ -491,7 +539,7 @@ HRESULT __stdcall myBeginScene(IDirect3DDevice9 * idd) {
 
 HRESULT __stdcall myEndScene(IDirect3DDevice9 * idd) {
 	DevState *ds = devMap[idd];
-	if (ds) {
+	if (ds && sm.bShow) {
 		bool b = ds->bMyRefs;
 		ds->bMyRefs = true;
 		ds->triggerCount = ds->refCount / 4;
@@ -741,7 +789,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 
 void checkUnhook(IDirect3DDevice9 *idd) {
 	DWORD now = GetTickCount();
-	if ((now - sm.lastAppAlive) > 5000) {
+	if ((now - sm.lastAppAlive) > 30000) {
 		ods("Application is dead.");
 		RemoveHooks();
 		DevState *ds = devMap[idd];

@@ -55,6 +55,9 @@
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
+#ifdef Q_OS_WIN
+#include "Overlay.h"
+#endif
 #include "Global.h"
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
@@ -314,6 +317,10 @@ void MainWindow::setupGui()  {
 
 	gsMetaChannel=new GlobalShortcut(this, idx++, "Join Channel");
 	gsMetaChannel->setObjectName("MetaChannel");
+
+	gsToggleOverlay=new GlobalShortcut(this, idx++, "Toggle Overlay");
+	gsToggleOverlay->setObjectName("ToggleOverlay");
+	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 
 	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);

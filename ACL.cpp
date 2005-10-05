@@ -89,7 +89,6 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm) {
 			bool matchPlayer = (acl->iPlayerId != -1) && (acl->iPlayerId == p->iId);
 			bool matchGroup = Group::isMember(chan, ch, acl->qsGroup, p);
 			if (matchPlayer || matchGroup) {
-				qWarning("Matched rule for %s", qPrintable(acl->qsGroup));
 				if (acl->pAllow & Traverse)
 					traverse = true;
 				if (acl->pDeny & Traverse)

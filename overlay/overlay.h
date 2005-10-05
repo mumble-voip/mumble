@@ -42,6 +42,7 @@ struct SharedMem {
 	DWORD lastAppAlive;
 	bool bHooked;
 	bool bDebug;
+	bool bShow;
 	bool bReset;
 	wchar_t strFontname[128];
 	int iFontSize;
