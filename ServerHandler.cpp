@@ -110,7 +110,11 @@ void ServerHandler::sendMessage(Message *mMsg)
 	QByteArray qbaBuffer;
 	mMsg->sPlayerId = g.sId;
 	mMsg->messageToNetwork(qbaBuffer);
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, bUdp && g.sId && (mMsg->messageType() == Message::Speex));
+
+	bool mayUdp = bUdp && g.sId;
+	mayUdp = mayUdp && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex));
+
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
 	QApplication::postEvent(this, shme);
 }
 

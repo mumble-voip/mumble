@@ -109,7 +109,7 @@ void Server::udpReady() {
 		Message *msg = Message::networkToMessage(qba);
 		if (! msg)
 			continue;
-		if (msg->messageType() != Message::Speex) {
+		if ((msg->messageType() != Message::Speex) && (msg->messageType() != Message::MultiSpeex)) {
 			delete msg;
 			continue;
 		}
@@ -228,7 +228,7 @@ void Server::sendMessage(short id, Message *mMsg) {
 }
 
 void Server::sendMessage(Connection *c, Message *mMsg) {
-	if ((mMsg->messageType() == Message::Speex) && qhPeers.contains(c)) {
+	if (((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex)) && qhPeers.contains(c)) {
 		Peer p = qhPeers[c];
 		QByteArray qba;
 		mMsg->messageToNetwork(qba);
