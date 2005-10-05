@@ -96,7 +96,7 @@ void ServerHandler::udpReady() {
 
 		if (! msg)
 			continue;
-		if (msg->messageType() != Message::Speex) {
+		if ((msg->messageType() != Message::Speex)  && (msg->messageType() != Message::MultiSpeex)) {
 			delete msg;
 			continue;
 		}
