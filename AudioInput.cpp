@@ -226,6 +226,8 @@ void AudioInput::encodeAudioFrame() {
 
 	if (sppPreprocess->loudness2 < g.s.iMinLoudness)
 		sppPreprocess->loudness2 = g.s.iMinLoudness;
+	if (isnan(sppPreprocess->loudness2))
+		bResetProcessor = true;
 
 	if (g.s.atTransmit == Settings::PushToTalk)
 		iIsSpeech = (g.iPushToTalk > 0);

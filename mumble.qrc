@@ -16,5 +16,7 @@
  <file>icons/config_dsound.png</file>
  <file>icons/config_msgs.png</file>
  <file>icons/config_plugin.png</file>
+ <file>icons/config_asio.png</file>
+ <file>icons/config_osd.png</file>
 </qresource>
 </RCC>
