@@ -342,6 +342,7 @@ void MainWindow::setupGui()  {
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
+	g.sId = 0;
 	g.qs->setValue("mwPos", pos());
 	g.qs->setValue("mwSize", size());
 	g.qs->setValue("mw", saveState());
