@@ -1,3 +1,13 @@
+	* Set sId=0 when closing
+	* Audio bugfixing.  Added new icons to code.
+	* New icons for ASIO and OSD settings[cybknight]
+	* Fix for multispeex-packet in UDP mode.
+	* Immediate update of overlay on parameter change
+	* Debugging of ~sub
+	* sub,a,b,c groups
+	* Config for overlay.
+	* Make hooking less resource intensive on system.
+	* Overlay.
 	* Bold speec probability when we would transmit.  Fix the SSE
 	  detection.
 	* Tooltips & whatsthis for the bitrate in AudioConfig.	Bail out if
