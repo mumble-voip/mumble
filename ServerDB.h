@@ -44,6 +44,7 @@ class ServerDB : public QObject {
 	Q_OBJECT
 	public:
 		typedef QPair<QString, QList<QVariant> > qpCommand;
+		typedef QPair<quint32, int> qpBan;
 		ServerDB();
 		static int authenticate(QString &name, QString pw);
 		static bool hasUsers();
@@ -65,6 +66,8 @@ class ServerDB : public QObject {
 		static void addLink(Channel *c, Channel *l);
 		static void removeLink(Channel *c, Channel *l);
 		static QList<qpCommand> getCommands();
+		static QList<qpBan> getBans();
+		static void setBans(QList<qpBan> bans);
 };
 
 #endif

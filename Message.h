@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 5
+#define MESSAGE_STREAM_VERSION 6
 
 #include <QDataStream>
 #include <QByteArray>

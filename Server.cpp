@@ -97,6 +97,8 @@ Server::Server() {
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(checkCommands()));
 	if (g_sp.iCommandFrequency > 0)
 		qtTimer->start(g_sp.iCommandFrequency * 1000);
+
+	bans = ServerDB::getBans();
 }
 
 void Server::udpReady() {
@@ -155,6 +157,22 @@ void Server::log(QString s, Connection *c) {
 
 void Server::newClient() {
 	QTcpSocket *sock = qtsServer->nextPendingConnection();
+
+	QHostAddress adr = sock->peerAddress();
+	quint32 base = adr.toIPv4Address();
+
+	QPair<quint32,int> ban;
+
+	foreach(ban, bans) {
+		int mask = 32 - ban.second;
+		mask = (1 << mask) - 1;
+		if ((base & ~mask) == (ban.first & ~mask)) {
+			sock->disconnect();
+			return;
+		}
+	}
+
+
 	Connection *cCon = new Connection(this, sock);
 
 	short id;
@@ -315,10 +333,10 @@ void Server::playerEnterChannel(Player *p, Channel *c) {
 }
 
 void Server::checkCommands() {
-	QList<ServerDB::qpCommand> list=ServerDB::getCommands();
-	if (list.count() == 0)
+	QList<ServerDB::qpCommand> cmdlist=ServerDB::getCommands();
+	if (cmdlist.count() == 0)
 		return;
-	foreach(ServerDB::qpCommand cmd, list) {
+	foreach(ServerDB::qpCommand cmd, cmdlist) {
 		QString cmdname = cmd.first;
 		QList<QVariant> argv = cmd.second;
 		if (cmdname == "moveplayer") {

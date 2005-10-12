@@ -152,6 +152,8 @@ ServerDB::ServerDB() {
 	query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
 	query.exec("DELETE FROM commands");
 
+	query.exec("CREATE TABLE bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)");
+
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
 	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
 
@@ -564,4 +566,35 @@ QList<ServerDB::qpCommand> ServerDB::getCommands() {
 	query.prepare("DELETE FROM commands");
 	query.exec();
 	return commands;
+}
+
+QList<ServerDB::qpBan> ServerDB::getBans() {
+	TransactionHolder th;
+	QList<qpBan> bans;
+
+	QSqlQuery query;
+	query.prepare("SELECT base,mask FROM bans");
+	query.exec();
+	while (query.next()) {
+		qpBan ban;
+		ban.first = query.value(0).toUInt();
+		ban.second = query.value(1).toInt();
+		bans << ban;
+	}
+	return bans;
+}
+
+void ServerDB::setBans(QList<ServerDB::qpBan> bans) {
+	TransactionHolder th;
+	qpBan ban;
+
+	QSqlQuery query;
+	query.prepare("DELETE FROM bans");
+	query.exec();
+	foreach(ban, bans) {
+		query.prepare("INSERT INTO bans (base,mask) VALUES (?,?)");
+		query.addBindValue(ban.first);
+		query.addBindValue(ban.second);
+		query.exec();
+	}
 }

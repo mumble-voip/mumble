@@ -49,6 +49,7 @@ typedef QPair<QHostAddress, quint16> Peer;
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
+		QList<QPair<quint32, int> > bans;
 		QQueue<int> qqIds;
 		QTcpServer *qtsServer;
 		QUdpSocket *qusUdp;
