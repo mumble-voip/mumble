@@ -167,6 +167,7 @@ void Server::newClient() {
 		int mask = 32 - ban.second;
 		mask = (1 << mask) - 1;
 		if ((base & ~mask) == (ban.first & ~mask)) {
+			log(QString("Ignoring connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()));
 			sock->disconnect();
 			return;
 		}
