@@ -933,6 +933,11 @@ void MessagePlayerMove::process(Connection *) {
 	}
 }
 
+void MessagePlayerRename::process(Connection *) {
+	MSG_INIT;
+	g.mw->pmModel->renamePlayer(pSrc, qsName);
+}
+
 void MessageChannelAdd::process(Connection *) {
 	Channel *p = Channel::get(iParent);
 	if (p)

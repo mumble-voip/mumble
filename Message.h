@@ -47,7 +47,7 @@ class Message {
 		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers, ChannelLink, MultiSpeex };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers, ChannelLink, MultiSpeex, PlayerRename };
 		short sPlayerId;
 
 		Message();
@@ -196,6 +196,17 @@ class MessagePlayerMove : public Message {
 		int iChannelId;
 		MessagePlayerMove();
 		Message::MessageType messageType() const { return PlayerMove; };
+		void process(Connection *);
+};
+
+class MessagePlayerRename : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		QString qsName;
+		MessagePlayerRename();
+		Message::MessageType messageType() const { return PlayerRename; };
 		void process(Connection *);
 };
 

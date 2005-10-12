@@ -58,6 +58,7 @@ class ServerDB : public QObject {
 		static int getUserID(QString name);
 		static QString getUserName(int id);
 		static void setPW(int id, QString pw);
+		static void conChangedName(Player *p);
 		static void conChangedChannel(Player *p);
 		static void conLoggedOn(Player *p, Connection *con);
 		static void conLoggedOff(Player *p);

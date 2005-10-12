@@ -502,6 +502,16 @@ void ServerDB::conChangedChannel(Player *p) {
 	TransactionHolder th;
 	QSqlQuery query;
 
+	query.prepare("UPDATE connections SET player_name=? WHERE con_id = ?");
+	query.addBindValue(p->qsName);
+	query.addBindValue(p->sId);
+	query.exec();
+}
+
+void ServerDB::conChangedName(Player *p) {
+	TransactionHolder th;
+	QSqlQuery query;
+
 	query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
 	query.addBindValue(p->cChannel->iId);
 	query.addBindValue(p->sId);

@@ -333,6 +333,16 @@ void Server::checkCommands() {
 			mpm.sVictim = p->sId;
 			mpm.iChannelId = c->iId;
 			sendAll(&mpm);
+		} else if (cmdname == "rename") {
+			Player *p = Player::get(argv[0].toInt());
+			QString name = argv[1].toString();
+
+			if (! p || name.isEmpty())
+				continue;
+			MessagePlayerRename mpr;
+			mpr.sPlayerId = p->sId;
+			mpr.qsName = name;
+			sendAll(&mpr);
 		} else if (cmdname == "createchannel") {
 			Channel *p = Channel::get(argv[0].toInt());
 			QString name = argv[1].toString();
@@ -556,6 +566,10 @@ void MessageServerSync::process(Connection *cCon) {
 }
 
 void MessagePermissionDenied::process(Connection *cCon) {
+  cCon->disconnect();
+}
+
+void MessagePlayerRename::process(Connection *cCon) {
   cCon->disconnect();
 }
 

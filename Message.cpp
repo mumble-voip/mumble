@@ -41,7 +41,7 @@ Message::~Message() {
 void Message::messageToNetwork(QByteArray &qbaOut) const {
 	QDataStream qdsOut(&qbaOut, QIODevice::WriteOnly);
 	qdsOut << static_cast<unsigned char>(messageType());
-	qdsOut << static_cast<unsigned char>(sPlayerId);
+	qdsOut << sPlayerId;
 	saveStream(qdsOut);
 }
 
@@ -49,7 +49,7 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 	QDataStream qdsIn(qbaIn);
 	Message *mMsg = NULL;
 	unsigned char iMessageType;
-	unsigned char sPlayerId;
+	short sPlayerId;
 	qdsIn >> iMessageType;
 	qdsIn >> sPlayerId;
 	switch(iMessageType) {
@@ -88,6 +88,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 			break;
 		case PlayerMove:
 			mMsg = new MessagePlayerMove();
+			break;
+		case PlayerRename:
+			mMsg = new MessagePlayerRename();
 			break;
 		case ChannelAdd:
 			mMsg = new MessageChannelAdd();
@@ -324,6 +327,17 @@ void MessagePlayerMove::saveStream(QDataStream &qdsOut) const {
 void MessagePlayerMove::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> sVictim;
 	qdsIn >> iChannelId;
+}
+
+MessagePlayerRename::MessagePlayerRename() {
+}
+
+void MessagePlayerRename::saveStream(QDataStream &qdsOut) const {
+	qdsOut << qsName;
+}
+
+void MessagePlayerRename::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> qsName;
 }
 
 MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {

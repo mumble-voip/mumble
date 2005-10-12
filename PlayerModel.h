@@ -127,6 +127,8 @@ public:
 
 	Channel *getSubChannel(Channel *p, int idx) const;
 
+	void renamePlayer(Player *p, QString name);
+
 	void movePlayer(Player *p, int id);
 	void moveChannel(Channel *p, int id);
 

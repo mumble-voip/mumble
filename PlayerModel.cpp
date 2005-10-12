@@ -549,6 +549,15 @@ void PlayerModel::movePlayer(Player *p, int id) {
 	showPlayer(p, np);
 }
 
+void PlayerModel::renamePlayer(Player *p, QString name) {
+	p->qsName = name;
+
+	QModelIndex idx = index(p);
+	emit dataChanged(idx, idx);
+	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+		updateOverlay();
+}
+
 void PlayerModel::showChannel(Channel *c, Channel *p) {
 	ModelItem *item = ModelItem::c_qhChannels.value(p);
 
