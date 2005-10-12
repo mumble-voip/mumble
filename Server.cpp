@@ -90,7 +90,7 @@ Server::Server() {
 
 	log(QString("Server listening on port %1").arg(g_sp.iPort));
 
-	for(int i=1;i<255;i++)
+	for(int i=1;i<2000;i++)
 		qqIds.enqueue(i);
 
 	qtTimer = new QTimer(this);
