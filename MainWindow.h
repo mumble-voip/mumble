@@ -56,7 +56,7 @@ class MainWindow : public QMainWindow {
 		PlayerModel *pmModel;
 		QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
 		QAction *qaServerConnect, *qaServerDisconnect;
-		QAction *qaPlayerKick, *qaPlayerMute, *qaPlayerDeaf;
+		QAction *qaPlayerKick, *qaPlayerBan, *qaPlayerMute, *qaPlayerDeaf;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
 		QAction *qaConfigDialog, *qaConfigShortcuts;
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
@@ -86,6 +86,7 @@ class MainWindow : public QMainWindow {
 		void on_ServerDisconnect_triggered();
 		void on_PlayerMenu_aboutToShow();
 		void on_PlayerKick_triggered();
+		void on_PlayerBan_triggered();
 		void on_PlayerMute_triggered();
 		void on_PlayerDeaf_triggered();
 		void on_ChannelMenu_aboutToShow();

@@ -89,6 +89,10 @@ void MainWindow::createActions() {
 	qaPlayerKick->setObjectName("PlayerKick");
 	qaPlayerKick->setToolTip(tr("Kick player (with reason)"));
 	qaPlayerKick->setWhatsThis(tr("Kick selected player off server. You'll be asked to specify a reason."));
+	qaPlayerBan=new QAction(tr("&Ban"), this);
+	qaPlayerBan->setObjectName("PlayerBan");
+	qaPlayerBan->setToolTip(tr("Kick and ban player (with reason)"));
+	qaPlayerBan->setWhatsThis(tr("Kick and ban selected player from server. You'll be asked to specify a reason."));
 	qaPlayerMute=new QAction(tr("&Mute"), this);
 	qaPlayerMute->setObjectName("PlayerMute");
 	qaPlayerMute->setCheckable(true);
@@ -234,6 +238,7 @@ void MainWindow::setupGui()  {
 	qmServer->addAction(qaServerDisconnect);
 
 	qmPlayer->addAction(qaPlayerKick);
+	qmPlayer->addAction(qaPlayerBan);
 	qmPlayer->addAction(qaPlayerMute);
 	qmPlayer->addAction(qaPlayerDeaf);
 
@@ -406,10 +411,12 @@ void MainWindow::on_PlayerMenu_aboutToShow()
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (! p) {
 		qaPlayerKick->setEnabled(false);
+		qaPlayerBan->setEnabled(false);
 		qaPlayerMute->setEnabled(false);
 		qaPlayerDeaf->setEnabled(false);
 	} else {
 		qaPlayerKick->setEnabled(true);
+		qaPlayerBan->setEnabled(true);
 		qaPlayerMute->setEnabled(true);
 		qaPlayerDeaf->setEnabled(true);
 		qaPlayerMute->setChecked(p->bMute);
@@ -454,6 +461,22 @@ void MainWindow::on_PlayerKick_triggered()
 		mpkMsg.sVictim=p->sId;
 		mpkMsg.qsReason = reason;
 		g.sh->sendMessage(&mpkMsg);
+	}
+}
+
+void MainWindow::on_PlayerBan_triggered()
+{
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
+		return;
+
+	bool ok;
+	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
+	if (ok) {
+		MessagePlayerBan mpbMsg;
+		mpbMsg.sVictim=p->sId;
+		mpbMsg.qsReason = reason;
+		g.sh->sendMessage(&mpbMsg);
 	}
 }
 
