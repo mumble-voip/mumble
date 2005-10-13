@@ -42,6 +42,7 @@
 
 class TrayIcon;
 class ACLEditor;
+class BanEditor;
 class Player;
 class Connection;
 class ServerHandler;
@@ -55,7 +56,7 @@ class MainWindow : public QMainWindow {
 	public:
 		PlayerModel *pmModel;
 		QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
-		QAction *qaServerConnect, *qaServerDisconnect;
+		QAction *qaServerConnect, *qaServerDisconnect, *qaServerBanList;
 		QAction *qaPlayerKick, *qaPlayerBan, *qaPlayerMute, *qaPlayerDeaf;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
 		QAction *qaConfigDialog, *qaConfigShortcuts;
@@ -69,6 +70,7 @@ class MainWindow : public QMainWindow {
 		TrayIcon *ti;
 
 		ACLEditor *aclEdit;
+		BanEditor *banEdit;
 
 		void recheckTTS();
 		void appendLog(QString entry);
@@ -84,6 +86,7 @@ class MainWindow : public QMainWindow {
 		void on_Players_doubleClicked(const QModelIndex &idx);
 		void on_ServerConnect_triggered();
 		void on_ServerDisconnect_triggered();
+		void on_ServerBanList_triggered();
 		void on_PlayerMenu_aboutToShow();
 		void on_PlayerKick_triggered();
 		void on_PlayerBan_triggered();

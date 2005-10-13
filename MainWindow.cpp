@@ -46,6 +46,7 @@
 #include "Channel.h"
 #include "TrayIcon.h"
 #include "ACLEditor.h"
+#include "BanEditor.h"
 #include "Connection.h"
 #include "ServerHandler.h"
 #include "About.h"
@@ -64,6 +65,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	Channel::add(0, tr("Root"), NULL);
 
 	aclEdit = NULL;
+	banEdit = NULL;
 
 	createActions();
 	setupGui();
@@ -84,6 +86,11 @@ void MainWindow::createActions() {
 	qaServerDisconnect->setWhatsThis(tr("Disconnects you from the server."));
 	qaServerDisconnect->setObjectName("ServerDisconnect");
 	qaServerDisconnect->setEnabled(false);
+	qaServerBanList=new QAction(tr("&Banlists"), this);
+	qaServerBanList->setToolTip(tr("Edit banlists on server"));
+	qaServerBanList->setWhatsThis(tr("This lets you edit the serverside IP banlists."));
+	qaServerBanList->setObjectName("ServerBanList");
+	qaServerBanList->setEnabled(false);
 
 	qaPlayerKick=new QAction(tr("&Kick"), this);
 	qaPlayerKick->setObjectName("PlayerKick");
@@ -236,6 +243,7 @@ void MainWindow::setupGui()  {
 
 	qmServer->addAction(qaServerConnect);
 	qmServer->addAction(qaServerDisconnect);
+	qmServer->addAction(qaServerBanList);
 
 	qmPlayer->addAction(qaPlayerKick);
 	qmPlayer->addAction(qaPlayerBan);
@@ -404,6 +412,19 @@ void MainWindow::on_ServerConnect_triggered()
 void MainWindow::on_ServerDisconnect_triggered()
 {
 	g.sh->disconnect();
+}
+
+void MainWindow::on_ServerBanList_triggered()
+{
+	MessageServerBanList msbl;
+	msbl.bQuery = true;
+	g.sh->sendMessage(&msbl);
+
+	if (banEdit) {
+		banEdit->reject();
+		delete banEdit;
+		banEdit = NULL;
+	}
 }
 
 void MainWindow::on_PlayerMenu_aboutToShow()
@@ -788,6 +809,7 @@ void MainWindow::serverConnected()
 	g.l->setIgnore(Log::OtherSelfMute);
 	g.l->log(Log::ServerConnected, tr("Connected to server."));
 	qaServerDisconnect->setEnabled(true);
+	qaServerBanList->setEnabled(true);
 
 	if (g.s.bMute || g.s.bDeaf) {
 		MessagePlayerSelfMuteDeaf mpsmd;
@@ -802,11 +824,18 @@ void MainWindow::serverDisconnected(QString reason)
 	g.sId = 0;
 	qaServerConnect->setEnabled(true);
 	qaServerDisconnect->setEnabled(false);
+	qaServerBanList->setEnabled(false);
 
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
 		aclEdit = NULL;
+	}
+
+	if (banEdit) {
+		banEdit->reject();
+		delete banEdit;
+		banEdit = NULL;
 	}
 
 	pmModel->removeAll();
@@ -855,6 +884,15 @@ void MessageServerLeave::process(Connection *) {
 
 void MessageServerBanList::process(Connection *) {
 	MSG_INIT;
+
+	if (g.mw->banEdit) {
+		g.mw->banEdit->reject();
+		delete g.mw->banEdit;
+		g.mw->banEdit = NULL;
+	}
+	g.mw->banEdit = new BanEditor(this, g.mw);
+	g.mw->banEdit->show();
+
 }
 
 void MessageSpeex::process(Connection *) {

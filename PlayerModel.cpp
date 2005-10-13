@@ -550,12 +550,10 @@ void PlayerModel::movePlayer(Player *p, int id) {
 }
 
 void PlayerModel::renamePlayer(Player *p, QString name) {
+	Channel *c = p->cChannel;
+	hidePlayer(p);
 	p->qsName = name;
-
-	QModelIndex idx = index(p);
-	emit dataChanged(idx, idx);
-	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
-		updateOverlay();
+	showPlayer(p, c);
 }
 
 void PlayerModel::showChannel(Channel *c, Channel *p) {
