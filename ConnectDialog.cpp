@@ -65,7 +65,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qstmServers->setEditStrategy(QSqlTableModel::OnManualSubmit);
 
 	qlwServers=new QListView();
-	l->addWidget(qlwServers,0,0,6,1);
+	l->addWidget(qlwServers,0,0,5,1);
 	qlwServers->setModel(qstmServers);
 	qlwServers->setModelColumn(1);
 	qlwServers->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -111,14 +111,6 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	l->addWidget(lab, 4, 1);
 	l->addWidget(qlePassword, 4,2);
 
-	qcbUdp=new QCheckBox("Use &UDP");
-	qcbUdp->setChecked(g.qs->value("ServerUDP", true).toBool());
-	lab=new QLabel("Voice Transmit");
-	lab->setBuddy(qcbUdp);
-
-	l->addWidget(lab, 5, 1);
-	l->addWidget(qcbUdp, 5,2);
-
     QPushButton *okButton = new QPushButton("&Connect");
     okButton->setDefault(true);
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
@@ -142,7 +134,6 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qleUsername, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePassword, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePort, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
-	connect(qcbUdp, SIGNAL(stateChanged(int)), this, SLOT(onDirty()));
 
 	connect(qlwServers, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
 
@@ -150,17 +141,23 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 }
 
 void ConnectDialog::accept() {
+	if (bDirty && qlwServers->currentIndex().isValid()) {
+		QSqlRecord r;
+		r = toRecord();
+		qstmServers->setRecord(qlwServers->currentIndex().row(), r);
+		qstmServers->submitAll();
+	}
+
 	qsServer = qleServer->text();
 	qsUsername = qleUsername->text();
 	qsPassword = qlePassword->text();
 	iPort = qlePort->text().toInt();
-	bUdp = qcbUdp->isChecked();
+	bUdp = true;
 
 	g.qs->setValue("ServerAddress", qsServer);
 	g.qs->setValue("ServerUsername", qsUsername);
 	g.qs->setValue("ServerPassword", qsPassword);
 	g.qs->setValue("ServerPort", iPort);
-	g.qs->setValue("ServerUDP", bUdp);
 
 	QDialog::accept();
 }
@@ -173,7 +170,7 @@ QSqlRecord ConnectDialog::toRecord() const
 	r.setValue("username", qleUsername->text());
 	r.setValue("password", qlePassword->text());
 	r.setValue("port", qlePort->text().toInt());
-	r.setValue("udp", qcbUdp->isChecked());
+	r.setValue("udp", true);
 	return r;
 }
 
@@ -192,7 +189,6 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	qleUsername->setText(r.value("username").toString());
 	qlePassword->setText(r.value("password").toString());
 	qlePort->setText(r.value("port").toString());
-	qcbUdp->setChecked(r.value("udp").toBool());
 	bDirty = false;
 }
 

@@ -38,6 +38,7 @@
 #include <QString>
 #include <QSet>
 #include <QList>
+#include <QPair>
 #include "ACL.h"
 
 class Connection;
@@ -47,8 +48,8 @@ class Message {
 		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, PlayerMute, PlayerDeaf, PlayerKick, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, PlayerMove, PermissionDenied, EditACL, QueryUsers, ChannelLink, MultiSpeex, PlayerRename };
-		short sPlayerId;
+		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers};
+		unsigned short sPlayerId;
 
 		Message();
 		virtual ~Message();
@@ -187,6 +188,18 @@ class MessagePlayerKick : public Message {
 		void process(Connection *);
 };
 
+class MessagePlayerBan : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		short sVictim;
+		QString qsReason;
+		MessagePlayerBan();
+		Message::MessageType messageType() const { return PlayerBan; };
+		void process(Connection *);
+};
+
 class MessagePlayerMove : public Message {
 	protected:
 		void saveStream(QDataStream &) const;
@@ -262,6 +275,18 @@ class MessageChannelLink : public Message {
 		void process(Connection *);
 };
 
+class MessageServerBanList : public Message {
+	protected:
+		void saveStream(QDataStream &) const;
+		void restoreStream(QDataStream &);
+	public:
+		bool bQuery;
+		QList<QPair<quint32, int> > qlBans;
+		MessageServerBanList();
+		Message::MessageType messageType() const { return ServerBanList; };
+		void process(Connection *);
+};
+
 class MessagePermissionDenied : public Message {
 	protected:
 		void saveStream(QDataStream &) const;
@@ -272,7 +297,6 @@ class MessagePermissionDenied : public Message {
 		Message::MessageType messageType() const { return PermissionDenied; };
 		void process(Connection *);
 };
-
 
 class MessageEditACL : public Message {
 	protected:

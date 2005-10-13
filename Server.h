@@ -49,7 +49,6 @@ typedef QPair<QHostAddress, quint16> Peer;
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
-		QList<QPair<quint32, int> > bans;
 		QQueue<int> qqIds;
 		QTcpServer *qtsServer;
 		QUdpSocket *qusUdp;
@@ -68,6 +67,8 @@ class Server : public QObject {
 
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;
+
+		QList<QPair<quint32, int> > qlBans;
 
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);

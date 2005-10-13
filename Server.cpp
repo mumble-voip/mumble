@@ -98,7 +98,7 @@ Server::Server() {
 	if (g_sp.iCommandFrequency > 0)
 		qtTimer->start(g_sp.iCommandFrequency * 1000);
 
-	bans = ServerDB::getBans();
+	qlBans = ServerDB::getBans();
 }
 
 void Server::udpReady() {
@@ -163,7 +163,7 @@ void Server::newClient() {
 
 	QPair<quint32,int> ban;
 
-	foreach(ban, bans) {
+	foreach(ban, qlBans) {
 		int mask = 32 - ban.second;
 		mask = (1 << mask) - 1;
 		if ((base & ~mask) == (ban.first & ~mask)) {
@@ -568,6 +568,25 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 }
 
+void MessageServerBanList::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+
+	if (! ChanACL::hasPermission(pSrcPlayer, Channel::get(0), ChanACL::Write)) {
+		PERM_DENIED(pSrcPlayer, Channel::get(0), ChanACL::Write);
+		return;
+	}
+	if (bQuery) {
+		MessageServerBanList msbl;
+		msbl.sPlayerId = 0;
+		msbl.bQuery = false;
+		msbl.qlBans = g_sServer->qlBans;
+		g_sServer->sendMessage(cCon, &msbl);
+	} else {
+		g_sServer->qlBans = qlBans;
+		g_sServer->log(QString("Updated banlist"), cCon);
+	}
+}
+
 void MessageServerLeave::process(Connection *cCon) {
   cCon->disconnect();
 }
@@ -717,6 +736,29 @@ void MessagePlayerKick::process(Connection *cCon) {
 
 	g_sServer->sendAll(this);
 	g_sServer->log(QString("Kicked %1 (%2)").arg(pDstPlayer->qsName).arg(qsReason), cCon);
+	cDst->disconnect();
+}
+
+void MessagePlayerBan::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+	VICTIM_SETUP;
+
+	if (! pDstPlayer)
+		return;
+
+	if (! ChanACL::hasPermission(pSrcPlayer, Channel::get(0), ChanACL::MoveKick)) {
+		PERM_DENIED(pSrcPlayer, Channel::get(0), ChanACL::MoveKick);
+		return;
+	}
+
+	g_sServer->sendAll(this);
+	g_sServer->log(QString("Kickbanned %1 (%2)").arg(pDstPlayer->qsName).arg(qsReason), cCon);
+
+
+	QHostAddress adr = cDst->peerAddress();
+	quint32 base = adr.toIPv4Address();
+	g_sServer->qlBans << QPair<quint32,int>(base, 32);
+
 	cDst->disconnect();
 }
 

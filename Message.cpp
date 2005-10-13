@@ -74,6 +74,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case ServerLeave:
 			mMsg = new MessageServerLeave();
 			break;
+		case ServerBanList:
+			mMsg = new MessageServerBanList();
+			break;
 		case PlayerMute:
 			mMsg = new MessagePlayerMute();
 			break;
@@ -85,6 +88,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 			break;
 		case PlayerKick:
 			mMsg = new MessagePlayerKick();
+			break;
+		case PlayerBan:
+			mMsg = new MessagePlayerBan();
 			break;
 		case PlayerMove:
 			mMsg = new MessagePlayerMove();
@@ -204,6 +210,20 @@ void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> iId;
 }
 
+MessageServerBanList::MessageServerBanList() {
+	bQuery = true;
+}
+
+void MessageServerBanList::saveStream(QDataStream &qdsOut) const {
+	qdsOut << bQuery;
+	qdsOut << qlBans;
+}
+
+void MessageServerBanList::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> bQuery;
+	qdsIn >> qlBans;
+}
+
 MessagePermissionDenied::MessagePermissionDenied() {
 	qsReason = QString();
 }
@@ -310,6 +330,20 @@ void MessagePlayerKick::saveStream(QDataStream &qdsOut) const {
 }
 
 void MessagePlayerKick::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> sVictim;
+	qdsIn >> qsReason;
+}
+
+MessagePlayerBan::MessagePlayerBan() {
+	qsReason = QString();
+}
+
+void MessagePlayerBan::saveStream(QDataStream &qdsOut) const {
+	qdsOut << sVictim;
+	qdsOut << qsReason;
+}
+
+void MessagePlayerBan::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> sVictim;
 	qdsIn >> qsReason;
 }

@@ -830,6 +830,10 @@ void MessageServerLeave::process(Connection *) {
 	g.mw->pmModel->removePlayer(pSrc);
 }
 
+void MessageServerBanList::process(Connection *) {
+	MSG_INIT;
+}
+
 void MessageSpeex::process(Connection *) {
 }
 
@@ -900,6 +904,18 @@ void MessagePlayerKick::process(Connection *) {
 	} else {
 		g.l->setIgnore(Log::PlayerLeave, 1);
 		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
+	}
+}
+
+void MessagePlayerBan::process(Connection *) {
+	MSG_INIT;
+	VICTIM_INIT;
+	if (sVictim == g.sId) {
+		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason));
+		g.l->setIgnore(Log::ServerDisconnected, 1);
+	} else {
+		g.l->setIgnore(Log::PlayerLeave, 1);
+		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
 	}
 }
 
