@@ -759,7 +759,7 @@ void MessagePlayerBan::process(Connection *cCon) {
 	QHostAddress adr = cDst->peerAddress();
 	quint32 base = adr.toIPv4Address();
 	g_sServer->qlBans << QPair<quint32,int>(base, 32);
-	ServerDB::setBans(qlBans);
+	ServerDB::setBans(g_sServer->qlBans);
 
 	cDst->disconnect();
 }
