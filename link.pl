@@ -8,19 +8,7 @@ use XML::LibXML;
 
 # BF2 Link Script
 # 
-# Links murmur to one or more BF2 servers, putting players with
-# ingame names matching their mumble username in the right
-# channel, and adds them to the @players group of the respective
-# channels. You should set an inheritable set of ACLs on
-# the basechannel as follows:
-#
-# @all -speak -enter
-# @in +speak
-# @players +link +speak +enter
-#
-# This will allow anonymous users to speak in the channel they're
-# forced into ("Unassigned") and will enable registered users
-# to move inside the squad hierarchy and speak at will.
+# Links murmur to one or more BF2 servers, see the wiki for details.
 #
 
 our $dbpath = "murmur.sqlite";
