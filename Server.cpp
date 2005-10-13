@@ -584,6 +584,7 @@ void MessageServerBanList::process(Connection *cCon) {
 	} else {
 		g_sServer->qlBans = qlBans;
 		g_sServer->log(QString("Updated banlist"), cCon);
+		ServerDB::setBans(qlBans);
 	}
 }
 
