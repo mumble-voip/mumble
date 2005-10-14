@@ -88,6 +88,7 @@ class Overlay : public QObject {
 		HANDLE hMutex;
 		HooksProc hpInstall, hpRemove;
 		SharedMem *sm;
+		bool bShowAll;
 	public:
 		Overlay();
 		~Overlay();

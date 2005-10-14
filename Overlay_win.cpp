@@ -333,6 +333,8 @@ Overlay::Overlay() : QObject() {
 
 	hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
 
+	bShowAll = true;
+
 	forceSettings();
 
 	QMetaObject::connectSlotsByName(this);
@@ -361,7 +363,14 @@ void Overlay::on_Timer_timeout() {
 void Overlay::toggleShow() {
 	DWORD dwWaitResult = WaitForSingleObject(hMutex, 500L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		sm->bShow = ! sm->bShow;
+		if (sm->bShow && bShowAll) {
+			bShowAll = false;
+		} else if (sm->bShow) {
+			sm->bShow = false;
+		} else {
+			sm->bShow = true;
+			bShowAll = true;
+		}
 		ReleaseMutex(hMutex);
 	}
 }
@@ -423,11 +432,13 @@ void Overlay::setPlayers(QList<Player *> players) {
 
 		if (g.s.bOverlayTop) {
 			foreach(qpChanCol cc, linkchans) {
-				sm->texts[idx].color = cc.second;
-				str = cc.first.left(127);
-				wstr = reinterpret_cast<const wchar_t *>(str.utf16());
-				wcscpy(sm->texts[idx].text, wstr);
-				SAFE_INC_IDX(idx);
+				if (bShowAll || (cc.second == colChannelTalking)) {
+					sm->texts[idx].color = cc.second;
+					str = cc.first.left(127);
+					wstr = reinterpret_cast<const wchar_t *>(str.utf16());
+					wcscpy(sm->texts[idx].text, wstr);
+					SAFE_INC_IDX(idx);
+				}
 			}
 			if (linkchans.count() > 0) {
 				sm->texts[idx].text[0] = L' ';
@@ -437,11 +448,13 @@ void Overlay::setPlayers(QList<Player *> players) {
 		}
 
 		foreach(Player *p, players) {
-			sm->texts[idx].color = p->bTalking ? colTalking : colPlayer;
-			str = p->qsName.left(127);
-			wstr = reinterpret_cast<const wchar_t *>(str.utf16());
-			wcscpy(sm->texts[idx].text, wstr);
-			SAFE_INC_IDX(idx);
+			if (bShowAll || p->bTalking) {
+				sm->texts[idx].color = p->bTalking ? colTalking : colPlayer;
+				str = p->qsName.left(127);
+				wstr = reinterpret_cast<const wchar_t *>(str.utf16());
+				wcscpy(sm->texts[idx].text, wstr);
+				SAFE_INC_IDX(idx);
+			}
 		}
 
 		if (! g.s.bOverlayTop) {
@@ -451,11 +464,13 @@ void Overlay::setPlayers(QList<Player *> players) {
 				SAFE_INC_IDX(idx);
 			}
 			foreach(qpChanCol cc, linkchans) {
-				sm->texts[idx].color = cc.second;
-				str = cc.first.left(127);
-				wstr = reinterpret_cast<const wchar_t *>(str.utf16());
-				wcscpy(sm->texts[idx].text, wstr);
-				SAFE_INC_IDX(idx);
+				if (bShowAll || (cc.second == colChannelTalking)) {
+					sm->texts[idx].color = cc.second;
+					str = cc.first.left(127);
+					wstr = reinterpret_cast<const wchar_t *>(str.utf16());
+					wcscpy(sm->texts[idx].text, wstr);
+					SAFE_INC_IDX(idx);
+				}
 			}
 		}
 
