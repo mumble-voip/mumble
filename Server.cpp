@@ -521,7 +521,8 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	mpm.sPlayerId = 0;
 	mpm.sVictim = pSrcPlayer->sId;
 	mpm.iChannelId = pSrcPlayer->cChannel->iId;
-	g_sServer->sendExcept(&mpm, cCon);
+	if (mpm.iChannelId != 0)
+		g_sServer->sendExcept(&mpm, cCon);
 
 	foreach(Player *pPlayer, g_sServer->qmPlayers) {
 		msjMsg.sPlayerId = pPlayer->sId;
