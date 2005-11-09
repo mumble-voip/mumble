@@ -1088,3 +1088,6 @@ void MessageQueryUsers::process(Connection *) {
 	if (g.mw->aclEdit)
 		g.mw->aclEdit->returnQuery(this);
 }
+
+void MessagePing::process(Connection *) {
+}

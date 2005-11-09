@@ -69,7 +69,7 @@ class ChanACL : public QObject {
 		Permissions pDeny;
 
 		ChanACL(Channel *c);
-		static bool hasPermission(Player *p, Channel *c, Perm p);
+		static bool hasPermission(Player *p, Channel *c, Perm p, bool cacheonly=false);
 		static QString shortName(Perm p);
 		static QString permName(Perm p);
 		static QString whatsThis(Perm p);

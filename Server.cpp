@@ -111,7 +111,7 @@ void Server::udpReady() {
 		Message *msg = Message::networkToMessage(qba);
 		if (! msg)
 			continue;
-		if ((msg->messageType() != Message::Speex) && (msg->messageType() != Message::MultiSpeex)) {
+		if ((msg->messageType() != Message::Speex) && (msg->messageType() != Message::MultiSpeex) && (msg->messageType() != Message::Ping)) {
 			delete msg;
 			continue;
 		}
@@ -130,7 +130,10 @@ void Server::udpReady() {
 			qhPeerConnections[p] = source;
 			qhPeers[source] = p;
 		}
-		message(qba, source);
+		if (msg->messageType() == Message::Ping)
+			qusUdp->writeDatagram(qba, p.first, p.second);
+		else
+			message(qba, source);
 		delete msg;
 	}
 }
@@ -1129,5 +1132,10 @@ void MessageQueryUsers::process(Connection *cCon) {
 			qlNames[i] = g_sServer->qhUserNameCache.value(id);
 		}
 	}
+	g_sServer->sendMessage(cCon, this);
+}
+
+void MessagePing::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
 	g_sServer->sendMessage(cCon, this);
 }

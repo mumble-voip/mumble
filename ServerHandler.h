@@ -80,6 +80,7 @@ class ServerHandler : public QThread
 		void serverConnectionConnected();
 		void serverConnectionClosed(QString);
 		void udpReady();
+		void sendPing();
 };
 
 #else

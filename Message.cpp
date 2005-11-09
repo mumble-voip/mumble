@@ -119,6 +119,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case QueryUsers:
 			mMsg = new MessageQueryUsers();
 			break;
+		case Ping:
+			mMsg = new MessagePing();
+			break;
 		default:
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
@@ -153,6 +156,8 @@ void Message::saveStream(QDataStream &) const {
 void Message::restoreStream(QDataStream &) {
 }
 
+MessagePing::MessagePing() {
+}
 
 MessageServerAuthenticate::MessageServerAuthenticate() {
 	iVersion = MESSAGE_STREAM_VERSION;
@@ -284,7 +289,7 @@ void MessageMultiSpeex::restoreStream(QDataStream &qdsIn) {
 
 	int ofs = 0;
 	while(ofs < qba.size()) {
-		char csize = qba.at(ofs);
+		unsigned char csize = qba.at(ofs);
 		int size = static_cast<unsigned char>(csize);
 		qlFrames << qba.mid(ofs + 1, size);
 		ofs += size + 1;

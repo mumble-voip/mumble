@@ -48,7 +48,7 @@ class Message {
 		virtual void saveStream(QDataStream &) const;
 		virtual void restoreStream(QDataStream &);
 	public:
-		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers};
+		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping};
 		unsigned short sPlayerId;
 
 		Message();
@@ -97,6 +97,13 @@ class MessageServerAuthenticate : public Message {
 		QString qsPassword;
 		MessageServerAuthenticate();
 		Message::MessageType messageType() const { return ServerAuthenticate; };
+		void process(Connection *);
+};
+
+class MessagePing : public Message {
+	public:
+		MessagePing();
+		Message::MessageType messageType() const { return Ping; };
 		void process(Connection *);
 };
 

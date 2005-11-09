@@ -31,6 +31,7 @@
 
 #include <QApplication>
 #include <QHostAddress>
+#include <QTimer>
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "AudioOutput.h"
@@ -112,7 +113,7 @@ void ServerHandler::sendMessage(Message *mMsg)
 	mMsg->messageToNetwork(qbaBuffer);
 
 	bool mayUdp = bUdp && g.sId;
-	mayUdp = mayUdp && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex));
+	mayUdp = mayUdp && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex) || (mMsg->messageType() == Message::Ping));
 
 	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
 	QApplication::postEvent(this, shme);
@@ -128,7 +129,14 @@ void ServerHandler::run()
 	connect(cConnection, SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
 	connect(cConnection, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
 	qtsSock->connectToHost(qsHostName, iPort);
+
+	QTimer *ticker = new QTimer(this);
+	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
+	ticker->start(10000);
+
 	exec();
+
+	ticker->stop();
 	cConnection->disconnect();
 	delete cConnection;
 	cConnection = NULL;
@@ -136,6 +144,17 @@ void ServerHandler::run()
 		delete qusUdp;
 		qusUdp = NULL;
 	}
+}
+
+void ServerHandler::sendPing() {
+	bool oldudp = bUdp;
+
+	MessagePing mp;
+	bUdp = false;
+	sendMessage(&mp);
+	bUdp = oldudp;
+	if (bUdp)
+		sendMessage(&mp);
 }
 
 void ServerHandler::message(QByteArray &qbaMsg) {
