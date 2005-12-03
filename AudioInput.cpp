@@ -156,6 +156,14 @@ void AudioInput::encodeAudioFrame() {
 		return;
 	}
 
+/*
+	// Sine wave test
+	for(i=0;i<iFrameSize;i++) {
+		psMic[i] = (sin((40.0 * M_PI * i) / (iFrameSize * 1.0)) * 32767.0);
+		qWarning("%d %d", i, psMic[i]);
+	}
+*/
+
 	max=1;
 	for(i=0;i<iFrameSize;i++)
 		if (abs(psMic[i]) > max)

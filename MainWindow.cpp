@@ -345,11 +345,12 @@ void MainWindow::setupGui()  {
 	qsSplit->restoreState(g.qs->value("mwSplitter").toByteArray());
 
 	QPoint ps = g.qs->value("mwPos").toPoint();
-	if (! ps.isNull())
+	if (! ps.isNull() && (ps.x() >= 0) && (ps.y() >= 0)) {
 		move(ps);
-	QSize sz = g.qs->value("mwSize").toSize();
-	if (sz.isValid())
-		resize(sz);
+		QSize sz = g.qs->value("mwSize").toSize();
+		if (sz.isValid())
+			resize(sz);
+	}
 
     QMetaObject::connectSlotsByName(this);
 }

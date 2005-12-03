@@ -33,11 +33,78 @@
 #include <QGridLayout>
 #include <QTimer>
 #include <QFont>
+#include <QPainter>
+
+#include <math.h>
 
 #include "AudioStats.h"
 #include "AudioInput.h"
 #include "Global.h"
 
+AudioNoiseWidget::AudioNoiseWidget(QWidget *p) : QWidget(p) {
+	setMinimumSize(100,60);
+}
+
+void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
+	QPainter paint(this);
+	QPalette pal;
+
+	paint.fillRect(rect(), pal.color(QPalette::Background));
+
+	if (! g.ai || ! g.ai->isRunning())
+		return;
+
+	QPolygonF poly;
+
+	SpeexPreprocessState *st = g.ai->sppPreprocess;
+
+	qreal sx, sy;
+
+	sx = (width() - 1.0f) / (st->ps_size * 1.0f);
+	sy = height() - 1;
+
+	poly << QPointF(0.0f, height() - 1);
+
+	float fftmul = 1.0 / (st->ps_size * 32768.0);
+
+	for(int i=0; i < st->ps_size; i++) {
+		qreal xp, yp;
+		xp = i * sx;
+		yp = sqrt(st->noise[i]) - 1;
+		yp = yp * fftmul;
+		yp = fmin(yp * 30.0, 1.0);
+		yp = (1 - yp) * sy;
+//		yp = (1 - st->noise[i]) * sy;
+//		qWarning("%d %f %f", i, xp, yp);
+		poly << QPointF(xp, yp);
+	}
+
+//	poly << QPointF(0.0f, 0.0f);
+//	poly << QPointF(width(), 0.0f);
+
+
+	poly << QPointF(width() - 1, height() - 1);
+	poly << QPointF(0.0f, height() - 1);
+
+	paint.setPen(Qt::blue);
+	paint.setBrush(Qt::blue);
+	paint.drawPolygon(poly);
+
+	poly.clear();
+
+	for(int i=0;i < st->ps_size; i++) {
+		qreal xp, yp;
+		xp = i * sx;
+		yp = sqrt(st->ps[i]) - 1;
+		yp = yp * fftmul;
+		yp = fmin(yp * 30.0, 1.0);
+		yp = (1 - yp) * sy;
+		poly << QPointF(xp, yp);
+	}
+
+	paint.setPen(Qt::red);
+	paint.drawPolyline(poly);
+}
 
 AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	setAttribute(Qt::WA_DeleteOnClose, true);
@@ -82,6 +149,10 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	l->addWidget(lab, 6, 0);
 	qlBitrate = new QLabel(this);
 	l->addWidget(qlBitrate, 6, 1);
+
+	anwNoise = new AudioNoiseWidget(this);
+	l->addWidget(anwNoise,7,0,1,2);
+	l->setRowStretch(7, 1);
 
 	qtTick = new QTimer(this);
 	qtTick->setObjectName("Tick");
@@ -129,6 +200,15 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 							   "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
 							   "in the Settings dialog."));
 
+	anwNoise->setToolTip(tr("Power spectrum of input signal and noise estimate"));
+	anwNoise->setWhatsThis(tr("This shows the power spectrum of the current input signal (red line) and the current noise estimate "
+							  "(filled blue).<br />"
+							  "All amplitudes are multiplied by 30 to show the interresting parts (how much more signal than noise "
+							  "is present in each waveband).<br />"
+							  "This is probably only of interrest if you're trying to finetune noise conditions on your microphone. "
+							  "Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than "
+							  "halfway up on the graph, you have a seriously noisy environment."));
+
     QMetaObject::connectSlotsByName(this);
 
 	bTalking = false;
@@ -173,4 +253,6 @@ void AudioStats::on_Tick_timeout() {
 		f.setBold(bTalking);
 		qlSpeechProb->setFont(f);
 	}
+
+	anwNoise->update();
 }

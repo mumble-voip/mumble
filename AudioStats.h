@@ -35,10 +35,19 @@
 #include <QLabel>
 #include <QTimer>
 
+class AudioNoiseWidget : public QWidget {
+	Q_OBJECT
+	public:
+		AudioNoiseWidget(QWidget *parent);
+	protected slots:
+		void paintEvent (QPaintEvent *event);
+};
+
 class AudioStats : public QDialog {
 	Q_OBJECT;
 	protected:
 		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
+		AudioNoiseWidget *anwNoise;
 		QTimer *qtTick;
 		bool bTalking;
 	public:
