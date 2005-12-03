@@ -74,14 +74,8 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 		yp = yp * fftmul;
 		yp = fmin(yp * 30.0, 1.0);
 		yp = (1 - yp) * sy;
-//		yp = (1 - st->noise[i]) * sy;
-//		qWarning("%d %f %f", i, xp, yp);
 		poly << QPointF(xp, yp);
 	}
-
-//	poly << QPointF(0.0f, 0.0f);
-//	poly << QPointF(width(), 0.0f);
-
 
 	poly << QPointF(width() - 1, height() - 1);
 	poly << QPointF(0.0f, height() - 1);
