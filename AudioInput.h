@@ -36,10 +36,12 @@
 #include <speex/speex.h>
 #include <speex/speex_preprocess.h>
 #include <speex/speex_echo.h>
+#include <boost/shared_ptr.hpp>
 
 #include "Audio.h"
 
 class AudioInput;
+typedef boost::shared_ptr<AudioInput> AudioInputPtr;
 
 typedef AudioInput *(*AudioInputRegistrarNew)();
 
@@ -48,7 +50,7 @@ class AudioInputRegistrar {
 		static QMap<QString, AudioInputRegistrarNew> *qmNew;
 		static QString current;
 		AudioInputRegistrar(QString name, AudioInputRegistrarNew n);
-		static AudioInput *newFromChoice(QString choice = QString());
+		static AudioInputPtr newFromChoice(QString choice = QString());
 };
 
 class AudioInput : public QThread {

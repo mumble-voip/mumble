@@ -54,17 +54,17 @@ AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n)
 	qmNew->insert(name,n);
 }
 
-AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {
+AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	QSettings qs;
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		qs.setValue("AudioInputDevice", choice);
 		current = choice;
-		return qmNew->value(current)();
+		return AudioInputPtr(qmNew->value(current)());
 	}
 	choice = qs.value("AudioInputDevice").toString();
 	if (qmNew->contains(choice)) {
 		current = choice;
-		return qmNew->value(choice)();
+		return AudioInputPtr(qmNew->value(choice)());
 	}
 
 	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
@@ -72,16 +72,16 @@ AudioInput *AudioInputRegistrar::newFromChoice(QString choice) {
 
 	if (qmNew->contains("DirectSound")) {
 		current = "DirectSound";
-		return qmNew->value(current)();
+		return AudioInputPtr(qmNew->value(current)());
 	}
 
 	QMapIterator<QString, AudioInputRegistrarNew> i(*qmNew);
 	if (i.hasNext()) {
 		i.next();
 		current = i.key();
-		return i.value()();
+		return AudioInputPtr(i.value()());
 	}
-	return NULL;
+	return AudioInputPtr();
 }
 
 

@@ -47,25 +47,25 @@ AudioOutputRegistrar::AudioOutputRegistrar(QString name, AudioOutputRegistrarNew
 	qmNew->insert(name,n);
 }
 
-AudioOutput *AudioOutputRegistrar::newFromChoice(QString choice) {
+AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	QSettings qs;
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		qs.setValue("AudioOutputDevice", choice);
 		current = choice;
-		return qmNew->value(choice)();
+		return AudioOutputPtr(qmNew->value(choice)());
 	}
 	choice = qs.value("AudioOutputDevice").toString();
 	if (qmNew->contains(choice)) {
 		current = choice;
-		return qmNew->value(choice)();
+		return AudioOutputPtr(qmNew->value(choice)());
 	}
 	QMapIterator<QString, AudioOutputRegistrarNew> i(*qmNew);
 	if (i.hasNext()) {
 		i.next();
 		current = i.key();
-		return i.value()();
+		return AudioOutputPtr(i.value()());
 	}
-	return NULL;
+	return AudioOutputPtr();
 }
 
 AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {

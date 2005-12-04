@@ -35,8 +35,6 @@ Global g;
 Global::Global() {
 	mw = 0;
 	sh = 0;
-	ai = 0;
-	ao = 0;
 	db = 0;
 	p = 0;
 	sId = 0;

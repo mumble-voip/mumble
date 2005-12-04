@@ -627,9 +627,9 @@ void MainWindow::on_ChannelUnlinkAll_triggered()
 
 void MainWindow::on_AudioReset_triggered()
 {
-	QReadLocker(&g.qrwlAudio);
-	if (g.ai)
-		g.ai->bResetProcessor = true;
+	AudioInputPtr ai = g.ai;
+	if (ai)
+		ai->bResetProcessor = true;
 }
 
 void MainWindow::on_AudioMute_triggered()

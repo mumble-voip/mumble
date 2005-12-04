@@ -45,19 +45,21 @@
 #include <QWidget>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
+#include <boost/shared_ptr.hpp>
 #include "Audio.h"
 
 class AudioOutput;
 class Player;
 
 typedef AudioOutput *(*AudioOutputRegistrarNew)();
+typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
 class AudioOutputRegistrar {
 	public:
 		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
 		static QString current;
 		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n);
-		static AudioOutput *newFromChoice(QString choice = QString());
+		static AudioOutputPtr newFromChoice(QString choice = QString());
 };
 
 class AudioOutputPlayer : public QObject {

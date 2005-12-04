@@ -109,13 +109,9 @@ int main(int argc, char **argv)
 	g.p->rescanPlugins();
 
 	// And the start the last chosen audio system.
-	{
-		QWriteLocker lock(&g.qrwlAudio);
-		g.ai = AudioInputRegistrar::newFromChoice();
-		g.ai->start(QThread::HighestPriority);
-		g.ao = AudioOutputRegistrar::newFromChoice();
-		g.ao->start(QThread::HighPriority);
-	}
+	g.ai = AudioInputRegistrar::newFromChoice();
+	g.ai->start(QThread::HighestPriority);
+	g.ao = AudioOutputRegistrar::newFromChoice();
 
 #ifdef Q_OS_WIN
 	// Increase our priority class to live alongside games.
@@ -128,15 +124,8 @@ int main(int argc, char **argv)
 	g.s.save();
 	g.l->saveSettings();
 
-	{
-		QWriteLocker lock(&g.qrwlAudio);
-		if (g.ao)
-			delete g.ao;
-		g.ao = NULL;
-		if (g.ai)
-			delete g.ai;
-		g.ai = NULL;
-	}
+	g.ao.reset();
+	g.ai.reset();
 
 	g.sh->disconnect();
 

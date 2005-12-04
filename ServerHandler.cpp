@@ -164,39 +164,38 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 
 	Player *p = Player::get(mMsg->sPlayerId);
 
+	AudioOutputPtr ao = g.ao;
+
 	if (mMsg->messageType() == Message::Speex) {
-		QWriteLocker alocka(&g.qrwlAudio);
-		if (g.ao) {
+		if (ao) {
 			if (p) {
 				MessageSpeex *msMsg=static_cast<MessageSpeex *>(mMsg);
-				g.ao->addFrameToBuffer(p, msMsg->qbaSpeexPacket, msMsg->iSeq);
+				ao->addFrameToBuffer(p, msMsg->qbaSpeexPacket, msMsg->iSeq);
 			} else {
 				// Eek, we just got a late packet for a player already removed. Remove
 				// the buffer and pretend this never happened.
 				// If ~AudioOutputPlayer or decendants uses the Player object now,
 				// Bad Things happen.
-				g.ao->removeBuffer(p);
+				ao->removeBuffer(p);
 			}
 		}
 	} else if (mMsg->messageType() == Message::MultiSpeex) {
-		QWriteLocker alocka(&g.qrwlAudio);
-		if (g.ao) {
+		if (ao) {
 			if (p) {
 				MessageMultiSpeex *mmsMsg=static_cast<MessageMultiSpeex *>(mMsg);
 				int idx = 0;
 				foreach(QByteArray qba, mmsMsg->qlFrames) {
-					g.ao->addFrameToBuffer(p, qba, mmsMsg->iSeq + idx);
+					ao->addFrameToBuffer(p, qba, mmsMsg->iSeq + idx);
 					idx++;
 				}
 			} else {
-				g.ao->removeBuffer(p);
+				ao->removeBuffer(p);
 			}
 		}
 	} else {
 		if(mMsg->messageType() == Message::ServerLeave) {
-			QReadLocker alockb(&g.qrwlAudio);
-			if (g.ao)
-				g.ao->removeBuffer(p);
+			if (ao)
+				ao->removeBuffer(p);
 		}
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, false);
 		QApplication::postEvent(g.mw, shme);
@@ -213,11 +212,9 @@ void ServerHandler::disconnect() {
 }
 
 void ServerHandler::serverConnectionClosed(QString reason) {
-	{
-		QReadLocker alock(&g.qrwlAudio);
-		if (g.ao)
-			g.ao->wipe();
-	}
+	AudioOutputPtr ao = g.ao;
+	if (ao)
+			ao->wipe();
 
 	emit disconnected(reason);
 	exit(0);

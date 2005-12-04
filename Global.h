@@ -32,6 +32,7 @@
 #define _GLOBAL_H
 
 #include <QReadWriteLock>
+#include <boost/shared_ptr.hpp>
 #include "Settings.h"
 
 #ifndef MUMBLE_VERSION
@@ -58,9 +59,8 @@ struct Global {
 	MainWindow *mw;
 	Settings s;
 	ServerHandler *sh;
-	QReadWriteLock qrwlAudio;
-	AudioInput *ai;
-	AudioOutput *ao;
+	boost::shared_ptr<AudioInput> ai;
+	boost::shared_ptr<AudioOutput> ao;
 	Database *db;
 	Log *l;
 	Plugins *p;

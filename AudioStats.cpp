@@ -51,12 +51,13 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 
 	paint.fillRect(rect(), pal.color(QPalette::Background));
 
-	if (! g.ai || ! g.ai->isRunning())
+	AudioInputPtr ai = g.ai;
+	if (ai.get() == NULL || ! ai->isRunning() || ! ai->sppPreprocess)
 		return;
 
 	QPolygonF poly;
 
-	SpeexPreprocessState *st = g.ai->sppPreprocess;
+	SpeexPreprocessState *st = ai->sppPreprocess;
 
 	qreal sx, sy;
 
@@ -211,36 +212,36 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 }
 
 void AudioStats::on_Tick_timeout() {
-	QReadLocker(&g.qrwlAudio);
-	if (! g.ai || ! g.ai->isRunning())
+	AudioInputPtr ai = g.ai;
+	if (ai.get() == NULL || ! ai->isRunning())
 		return;
 
 	QString txt;
 
-	txt.sprintf("%06.2f dB",g.ai->dPeakMic);
+	txt.sprintf("%06.2f dB",ai->dPeakMic);
 	qlMicLevel->setText(txt);
 
-	txt.sprintf("%06.2f dB",g.ai->dPeakSpeaker);
+	txt.sprintf("%06.2f dB",ai->dPeakSpeaker);
 	qlSpeakerLevel->setText(txt);
 
-	txt.sprintf("%06.2f dB",g.ai->dPeakSignal);
+	txt.sprintf("%06.2f dB",ai->dPeakSignal);
 	qlSignalLevel->setText(txt);
 
-	double level = g.ai->dLoudness / 200.0;
+	double level = ai->dLoudness / 200.0;
 
 	txt.sprintf("%03.0f%%", level);
 	qlMicVolume->setText(txt);
 
-	txt.sprintf("%06.3f",g.ai->dSnr);
+	txt.sprintf("%06.3f",ai->dSnr);
 	qlMicSNR->setText(txt);
 
-	txt.sprintf("%03.0f%%",g.ai->dSpeechProb * 100.0);
+	txt.sprintf("%03.0f%%",ai->dSpeechProb * 100.0);
 	qlSpeechProb->setText(txt);
 
-	txt.sprintf("%04.1f kbit/s",g.ai->iBitrate / 1000.0);
+	txt.sprintf("%04.1f kbit/s",ai->iBitrate / 1000.0);
 	qlBitrate->setText(txt);
 
-	bool nTalking = g.ai->isTransmitting();
+	bool nTalking = ai->isTransmitting();
 	if (nTalking != bTalking) {
 		bTalking = nTalking;
 		QFont f = qlSpeechProb->font();

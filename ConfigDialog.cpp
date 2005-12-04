@@ -32,6 +32,7 @@
 #include <QIcon>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <boost/weak_ptr.hpp>
 #include "Audio.h"
 
 #include "AudioInput.h"
@@ -139,10 +140,15 @@ void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, widgets)
 		cw->accept();
 
-	QWriteLocker lock(&g.qrwlAudio);
+	boost::weak_ptr<AudioInput> wai(g.ai);
+	boost::weak_ptr<AudioOutput> wao(g.ao);
 
-	delete g.ai;
-	delete g.ao;
+	g.ai.reset();
+	g.ao.reset();
+
+	while(! wai.expired() || ! wao.expired()) {
+		// Where is QThread::yield() ?
+	}
 
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	g.ai->start(QThread::HighestPriority);
