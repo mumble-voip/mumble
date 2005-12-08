@@ -69,6 +69,7 @@ int main(int argc, char **argv)
 	a.setApplicationName("Mumble");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
+	a.setQuitOnLastWindowClosed(false);
 
 	g.qs = new QSettings();
 
@@ -119,6 +120,7 @@ int main(int argc, char **argv)
 		qWarning("Application: Failed to set priority!");
 #endif
 
+	a.setQuitOnLastWindowClosed(true);
 	res=a.exec();
 
 	g.s.save();

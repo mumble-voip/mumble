@@ -315,13 +315,14 @@ Overlay::Overlay() : QObject() {
 
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
-		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library."), QMessageBox::Ok, QMessageBox::NoButton);
-		qFatal("Overlay failure");
+		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that the library (mumble_ol.dll) wasn't found in the directory you ran mumble from, or that you're on an OS earlier than WinXP SP2."), QMessageBox::Ok, QMessageBox::NoButton);
+		qWarning("Overlay failure");
 	}
 
 	sm=reinterpret_cast<SharedMem *>(qlOverlay->resolve("sm"));
 #ifndef QT_NO_DEBUG
-	sm->bDebug = true;
+	if (sm)
+		sm->bDebug = true;
 #endif
 
 	hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
@@ -346,10 +347,16 @@ Overlay::~Overlay() {
 }
 
 bool Overlay::isActive() const {
+	if (! sm)
+		return false;
+
 	return sm->bHooked;
 }
 
 void Overlay::setActive(bool act) {
+	if (! sm)
+		return;
+
 	if (act)
 		hpInstall();
 	else
@@ -357,10 +364,14 @@ void Overlay::setActive(bool act) {
 }
 
 void Overlay::on_Timer_timeout() {
-	sm->lastAppAlive = GetTickCount();
+	if (sm)
+		sm->lastAppAlive = GetTickCount();
 }
 
 void Overlay::toggleShow() {
+	if (! sm)
+		return;
+
 	DWORD dwWaitResult = WaitForSingleObject(hMutex, 500L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		if (sm->bShow && bShowAll) {
@@ -378,6 +389,9 @@ void Overlay::toggleShow() {
 void Overlay::forceSettings() {
 	QString str;
 	const wchar_t *wstr;
+
+	if (! sm)
+		return;
 
 	DWORD dwWaitResult = WaitForSingleObject(hMutex, 500L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
@@ -411,6 +425,9 @@ void Overlay::setPlayers(QList<Player *> players) {
 	QString str;
 	QList<qpChanCol> linkchans;
 	const wchar_t *wstr;
+
+	if (! sm)
+		return;
 
 	if (players.count() > 0) {
 		Channel *home = Player::get(g.sId)->cChannel;
