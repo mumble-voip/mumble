@@ -1,7 +1,7 @@
 include(mumble.pri)
 
 TEMPLATE	= app
-QT		+= network sql
+QT		+= network sql opengl
 TARGET		= mumble
 RC_FILE		= mumble.rc
 HEADERS		= ACL.h BanEditor.h Group.h ACLEditor.h Channel.h Log.h TrayIcon.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h Player.h About.h Message.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h

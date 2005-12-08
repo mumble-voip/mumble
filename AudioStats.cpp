@@ -41,6 +41,137 @@
 #include "AudioInput.h"
 #include "Global.h"
 
+
+/** Speex echo cancellation state; sync from mdf.c in Speex distribution.
+  */
+
+typedef float spx_word16_t;
+typedef float spx_word32_t;
+struct SpeexEchoState {
+   int frame_size;           /**< Number of samples processed each time */
+   int window_size;
+   int M;
+   int cancel_count;
+   int adapted;
+   float sum_adapt;
+   spx_word16_t *e;
+   spx_word16_t *x;
+   spx_word16_t *X;
+   spx_word16_t *d;
+   spx_word16_t *y;
+   spx_word16_t *last_y;
+   spx_word32_t *Yps;
+   spx_word16_t *Y;
+   spx_word16_t *E;
+   spx_word16_t *PHI;
+   spx_word16_t *W;
+   spx_word32_t *power;
+   float *power_1;
+   spx_word32_t *Rf;
+   spx_word32_t *Yf;
+   spx_word32_t *Xf;
+   spx_word32_t *Eh;
+   spx_word32_t *Yh;
+   float Pey;
+   float Pyy;
+   /*struct drft_lookup *fft_lookup;*/
+   void *fft_table;
+};
+
+
+AudioEchoWidget::AudioEchoWidget(QWidget *p) : QGLWidget(p) {
+	setMinimumSize(100, 60);
+}
+
+void AudioEchoWidget::initializeGL() {
+    glDisable(GL_LIGHTING);
+
+	glClearColor(0,0,0,0);
+    glShadeModel(GL_SMOOTH);
+
+    glEnable(GL_COLOR_MATERIAL);
+    glDisable(GL_CULL_FACE);
+}
+
+void AudioEchoWidget::resizeGL(int w, int h) {
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+static inline void mapEchoToColor(float echo) {
+	bool neg = (echo < 0);
+	echo = fabs(echo);
+
+	echo = echo * 2;
+
+	float a, b, c;
+
+	if (echo > 1.0) {
+		echo = 1.0;
+		c = 0.5;
+	} else {
+		c = 0.0;
+	}
+
+	if (echo < 0.5) {
+		a = echo * 2;
+		b = 0;
+	} else {
+		a = 1;
+		b = (echo - 0.5) * 2;
+	}
+
+	if (neg)
+		glColor3f(a, b, c);
+	else
+		glColor3f(c, b, a);
+}
+
+#define WGT(x,y) st->W[(y)*N + 2*(x)+1]
+
+void AudioEchoWidget::paintGL() {
+	AudioInputPtr ai = g.ai;
+	if (! ai || ! ai->sesEcho)
+		return;
+
+	SpeexEchoState *st = ai->sesEcho;
+
+    int N = st->window_size;
+    int n = N / 2;
+    int M = st->M;
+
+    double xscale = 1.0 / n;
+    double yscale = 1.0 / M;
+
+
+    glBegin(GL_QUADS);
+
+    for(int j = 0; j < M; j++) {
+    	for(int i=0;i < n; i++) {
+			double xa = i * xscale;
+			double ya = j * yscale;
+
+			double xb = xa + xscale;
+			double yb = ya + yscale;
+
+			mapEchoToColor(WGT(i, j));
+			glVertex2f(xa, ya);
+
+			glVertex2f(xb, ya);
+
+			glVertex2f(xb, yb);
+
+			glVertex2f(xa, yb);
+		}
+	}
+
+	glEnd();
+}
+
 AudioNoiseWidget::AudioNoiseWidget(QWidget *p) : QWidget(p) {
 	setMinimumSize(100,60);
 }
@@ -149,6 +280,15 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	l->addWidget(anwNoise,7,0,1,2);
 	l->setRowStretch(7, 1);
 
+	AudioInputPtr ai = g.ai;
+	if (ai && ai->sesEcho) {
+		aewEcho = new AudioEchoWidget(this);
+		l->addWidget(aewEcho,8,0,1,2);
+		l->setRowStretch(8, 1);
+	} else {
+		aewEcho = NULL;
+	}
+
 	qtTick = new QTimer(this);
 	qtTick->setObjectName("Tick");
 	qtTick->start(50);
@@ -250,4 +390,6 @@ void AudioStats::on_Tick_timeout() {
 	}
 
 	anwNoise->update();
+	if (aewEcho)
+		aewEcho->updateGL();
 }

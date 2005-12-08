@@ -34,6 +34,17 @@
 #include <QDialog>
 #include <QLabel>
 #include <QTimer>
+#include <QGLWidget>
+
+class AudioEchoWidget : public QGLWidget {
+	Q_OBJECT
+	public:
+		AudioEchoWidget(QWidget *parent);
+	protected:
+		void initializeGL();
+		void resizeGL(int w, int h);
+		void paintGL();
+};
 
 class AudioNoiseWidget : public QWidget {
 	Q_OBJECT
@@ -48,6 +59,7 @@ class AudioStats : public QDialog {
 	protected:
 		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
 		AudioNoiseWidget *anwNoise;
+		AudioEchoWidget *aewEcho;
 		QTimer *qtTick;
 		bool bTalking;
 	public:

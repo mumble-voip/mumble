@@ -55,6 +55,8 @@ class AudioInputRegistrar {
 
 class AudioInput : public QThread {
 	friend class AudioNoiseWidget;
+	friend class AudioEchoWidget;
+	friend class AudioStats;
 	Q_OBJECT
 	protected:
 		int	iFrameSize;

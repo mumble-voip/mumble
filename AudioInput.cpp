@@ -140,6 +140,8 @@ AudioInput::~AudioInput()
 	delete [] pfY;
 }
 
+int frama = 0;
+
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
@@ -156,13 +158,19 @@ void AudioInput::encodeAudioFrame() {
 		return;
 	}
 
-/*
+	frama++;
+	if (frama >= 100)
+		frama = 0;
+
 	// Sine wave test
+	/*
 	for(i=0;i<iFrameSize;i++) {
-		psMic[i] = (sin((40.0 * M_PI * i) / (iFrameSize * 1.0)) * 32767.0);
-		qWarning("%d %d", i, psMic[i]);
+		psMic[i]    += (sin(((5.0 + (frama + 0)%50) * M_PI * i) / (iFrameSize * 1.0)) * 4096.0);
+		psSpeaker[i] = (sin(((5.0 + (frama + 4)%50) * M_PI * i) / (iFrameSize * 1.0)) * 8192.0);
+//		psSpeaker[i] = psMic[i] * 2;
+//		qWarning("%d %d", i, psMic[i]);
 	}
-*/
+	*/
 
 	max=1;
 	for(i=0;i<iFrameSize;i++)
@@ -189,12 +197,32 @@ void AudioInput::encodeAudioFrame() {
 		if (bHasSpeaker) {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
-			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*10);
+			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*20);
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 		}
 
 		bResetProcessor = false;
+
+/*
+		SpeexEchoState *st = sesEcho;
+		if (st && ! st->adapted) {
+
+			for(i=0;i<st->window_size*st->M;i++)
+				st->W[i] = 0.0;
+
+			int frame = st->M - 4 - 1;
+			for(i=0;i<st->window_size/2;i++) {
+				st->W[frame * st->window_size + 2 * i + 1] = 0.5;
+			}
+
+			if (st->adapted)
+				for(i=0;i<st->window_size;i++)
+					printf("%3d %f\n", i, st->W[frame * st->window_size + i]);
+		}
+*/
+
 	}
+
 
 	fArg = g.s.iQuality;
 	speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
