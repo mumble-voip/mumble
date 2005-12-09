@@ -340,20 +340,27 @@ void ASIOConfig::on_Query_clicked() {
 
 				bool match = (g.s.qsASIOclass == qsCls);
 				for(cnum=0;cnum<ichannels;cnum++) {
-					ASIOChannelInfo aciInfo;
-					aciInfo.channel = cnum;
-					aciInfo.isInput = true;
-					iasio.getChannelInfo(&aciInfo);
+					ASIOChannelInfo aci;
+					aci.channel = cnum;
+					aci.isInput = true;
+					iasio.getChannelInfo(&aci);
 					SleepEx(10, false);
-					if (aciInfo.type == ASIOSTInt16LSB) {
-						QListWidget *widget = qlwUnused;
-						QVariant v = static_cast<int>(cnum);
-						if (match && g.s.qlASIOmic.contains(v))
-							widget = qlwMic;
-						else if (match && g.s.qlASIOspeaker.contains(v))
-							widget = qlwSpeaker;
-						QListWidgetItem *item = new QListWidgetItem(aciInfo.name, widget);
-						item->setData(Qt::UserRole, static_cast<int>(cnum));
+					switch(aci.type) {
+						case ASIOSTInt32LSB:
+						case ASIOSTInt16LSB:
+							{
+								QListWidget *widget = qlwUnused;
+								QVariant v = static_cast<int>(cnum);
+								if (match && g.s.qlASIOmic.contains(v))
+									widget = qlwMic;
+								else if (match && g.s.qlASIOspeaker.contains(v))
+									widget = qlwSpeaker;
+								QListWidgetItem *item = new QListWidgetItem(aci.name, widget);
+								item->setData(Qt::UserRole, static_cast<int>(cnum));
+							}
+							break;
+						default:
+							qWarning("ASIOInput: Channel %d %s (Unusable format %d)", cnum, aci.name,aci.type);
 					}
 				}
 			}
@@ -487,6 +494,7 @@ ASIOInput::ASIOInput() {
 	iorigasio = false;
 	iasio = NULL;
 	abiInfo = NULL;
+	aciInfo = NULL;
 
 	int i, idx;
 
@@ -521,15 +529,28 @@ ASIOInput::ASIOInput() {
 			if ((fabs(srate - 48000.0) < 1.0) || (iasio->setSampleRate(48000.0) == ASE_OK)) {
 
 				abiInfo = new ASIOBufferInfo[iNumMic + iNumSpeaker];
+				aciInfo = new ASIOChannelInfo[iNumMic + iNumSpeaker];
 				idx = 0;
 				for(i=0;i<iNumMic;i++) {
 					abiInfo[idx].isInput = true;
 					abiInfo[idx].channelNum = g.s.qlASIOmic[i].toInt();
+
+					aciInfo[idx].channel = abiInfo[idx].channelNum;
+					aciInfo[idx].isInput = true;
+					iasio->getChannelInfo(&aciInfo[idx]);
+					SleepEx(10, false);
+
 					idx++;
 				}
 				for(i=0;i<iNumSpeaker;i++) {
 					abiInfo[idx].isInput = true;
 					abiInfo[idx].channelNum = g.s.qlASIOspeaker[i].toInt();
+
+					aciInfo[idx].channel = abiInfo[idx].channelNum;
+					aciInfo[idx].isInput = true;
+					iasio->getChannelInfo(&aciInfo[idx]);
+					SleepEx(10, false);
+
 					idx++;
 				}
 
@@ -548,6 +569,11 @@ ASIOInput::ASIOInput() {
 	if (abiInfo) {
 		delete [] abiInfo;
 		abiInfo = NULL;
+	}
+
+	if (aciInfo) {
+		delete [] aciInfo;
+		aciInfo = NULL;
 	}
 
 	if (iasio) {
@@ -599,20 +625,32 @@ ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBo
 	return 0L;
 }
 
+void ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst) {
+	switch (sampType) {
+		case ASIOSTInt16LSB:
+			{
+				short *buf=static_cast<short *>(src);
+				for(int i=0;i<960;i++)
+					dst[i]+=buf[i];
+			}
+			break;
+		case ASIOSTInt32LSB:
+			{
+				int *buf=static_cast<int *>(src);
+				for(int i=0;i<960;i++)
+					dst[i]+=(buf[i] >> 16);
+			}
+			break;
+	}
+}
+
 void ASIOInput::bufferReady(long buffindex) {
 	int c, i;
 
 	// Microphone inputs
-	short *buf = static_cast<short *>(abiInfo[0].buffers[buffindex]);
-
-	for(i=0;i<960;i++)
-		pdInputBuffer[i]=buf[i];
-
-	for(c=1;c<iNumMic;c++) {
-		buf = static_cast<short *>(abiInfo[c].buffers[buffindex]);
-		for(i=0;i<960;i++)
-			pdInputBuffer[i]+=buf[i];
-	}
+	ZeroMemory(pdInputBuffer, sizeof(double) * 960);
+	for(c=0;c<iNumMic;c++)
+		addBuffer(aciInfo[c].type, abiInfo[c].buffers[buffindex], pdInputBuffer);
 
 	double mul = 1.0 / (32768.0 * iNumMic);
 
@@ -627,15 +665,9 @@ void ASIOInput::bufferReady(long buffindex) {
 
 
 	// Speaker inputs
-	buf = static_cast<short *>(abiInfo[iNumMic].buffers[buffindex]);
-	for(i=0;i<960;i++)
-		pdInputBuffer[i]=buf[i];
-
-	for(c=1;c<iNumSpeaker;c++) {
-		buf = static_cast<short *>(abiInfo[iNumMic+c].buffers[buffindex]);
-		for(i=0;i<960;i++)
-			pdInputBuffer[i]+=buf[i];
-	}
+	ZeroMemory(pdInputBuffer, sizeof(double) * 960);
+	for(c=0;c<iNumMic;c++)
+		addBuffer(aciInfo[iNumMic+c].type, abiInfo[iNumMic+c].buffers[buffindex], pdInputBuffer);
 
 	mul = 1.0 / (32768.0 * iNumSpeaker);
 

@@ -79,6 +79,7 @@ class ASIOInput : public AudioInput {
 
 		int iNumMic, iNumSpeaker;
 		ASIOBufferInfo *abiInfo;
+		ASIOChannelInfo *aciInfo;
 
 		// ASIO Callbacks
 		static ASIOInput *aiSelf;
@@ -86,6 +87,7 @@ class ASIOInput : public AudioInput {
 		static void sampleRateChanged(ASIOSampleRate sRate);
 		static long asioMessages(long selector, long value, void* message, double* opt);
 		static void bufferSwitch(long index, ASIOBool processNow);
+		static void addBuffer(long sampType, void *src, double *dst);
 		static ASIOTime *bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBool processNow);
 
 		void bufferReady(long index);
