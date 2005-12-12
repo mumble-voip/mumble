@@ -140,8 +140,6 @@ AudioInput::~AudioInput()
 	delete [] pfY;
 }
 
-int frama = 0;
-
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
@@ -158,19 +156,24 @@ void AudioInput::encodeAudioFrame() {
 		return;
 	}
 
-	frama++;
-	if (frama >= 100)
-		frama = 0;
+// #define ECHOTEST
+#ifdef ECHOTEST
+
+	static double framhist[10];
+
+	for(int i=0;i<9;i++)
+		framhist[i]=framhist[i+1];
+	framhist[9]=1+(int) (310.0*rand()/(RAND_MAX+1.0));
 
 	// Sine wave test
-	/*
 	for(i=0;i<iFrameSize;i++) {
-		psMic[i]    += (sin(((5.0 + (frama + 0)%50) * M_PI * i) / (iFrameSize * 1.0)) * 4096.0);
-		psSpeaker[i] = (sin(((5.0 + (frama + 4)%50) * M_PI * i) / (iFrameSize * 1.0)) * 8192.0);
+		psMic[i]    += (sin((framhist[0] * M_PI * i) / (iFrameSize * 1.0)) * 4096.0);
+		psSpeaker[i] = (sin((framhist[4] * M_PI * i) / (iFrameSize * 1.0)) * 8192.0);
 //		psSpeaker[i] = psMic[i] * 2;
 //		qWarning("%d %d", i, psMic[i]);
 	}
-	*/
+#endif
+
 
 	max=1;
 	for(i=0;i<iFrameSize;i++)

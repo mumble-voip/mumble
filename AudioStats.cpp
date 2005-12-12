@@ -160,11 +160,8 @@ void AudioEchoWidget::paintGL() {
 
 			mapEchoToColor(WGT(i, j));
 			glVertex2f(xa, ya);
-
 			glVertex2f(xb, ya);
-
 			glVertex2f(xb, yb);
-
 			glVertex2f(xa, yb);
 		}
 	}
@@ -343,6 +340,20 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 							  "This is probably only of interrest if you're trying to finetune noise conditions on your microphone. "
 							  "Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than "
 							  "halfway up on the graph, you have a seriously noisy environment."));
+
+	if (aewEcho) {
+		aewEcho->setToolTip(tr("Weights of the echo canceller"));
+		aewEcho->setWhatsThis(tr("This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.<br />"
+								  "Ideally, this should be black, indicating no echo exists at all. More commonly, you'll have one or more horizontal stripes "
+								  "of bluish color representing time delayed echo. If you have reddish stripes instead of blue, the signal is inverted somewhere "
+								  "along the path, and while this won't affect echo cancellation, you might want to check your cabling.<br />"
+								  "If you have a checkerboard pattern of small, alternating red/blue rectangles, the echo canceller is having trouble locking on "
+								  "to your echo. Your echo path should preferably be stable over a bit of time, so using a headphone microphone (which moves) with "
+								  "stationary loudspeakers will hinder the adaptation. <br />"
+								  "If the entire image fluctuates massively, the echo canceller fails to find any correlation whatsoever between the two input "
+								  "sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is misconfigured."
+								  ));
+	}
 
     QMetaObject::connectSlotsByName(this);
 

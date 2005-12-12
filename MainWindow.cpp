@@ -331,9 +331,11 @@ void MainWindow::setupGui()  {
 	gsMetaChannel=new GlobalShortcut(this, idx++, "Join Channel");
 	gsMetaChannel->setObjectName("MetaChannel");
 
+#ifdef Q_OS_WIN
 	gsToggleOverlay=new GlobalShortcut(this, idx++, "Toggle Overlay");
 	gsToggleOverlay->setObjectName("ToggleOverlay");
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
+#endif
 
 	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);
