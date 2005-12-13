@@ -35,10 +35,15 @@
 #include <QLabel>
 #include <QTimer>
 #include <QGLWidget>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QMap>
 
 class AudioEchoWidget : public QGLWidget {
 	Q_OBJECT
 	public:
+		enum Mode { REAL, IMAGINARY, MODULUS, PHASE };
+		Mode mode;
 		AudioEchoWidget(QWidget *parent);
 	protected:
 		void initializeGL();
@@ -58,6 +63,7 @@ class AudioStats : public QDialog {
 	Q_OBJECT;
 	protected:
 		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
+		QMap<QObject *, AudioEchoWidget::Mode> qmEchoMode;
 		AudioNoiseWidget *anwNoise;
 		AudioEchoWidget *aewEcho;
 		QTimer *qtTick;
@@ -66,6 +72,7 @@ class AudioStats : public QDialog {
 		AudioStats(QWidget *parent);
 	public slots:
 		void on_Tick_timeout();
+		void onEchoMode(bool);
 };
 
 #else

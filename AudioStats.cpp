@@ -47,7 +47,8 @@
 
 typedef float spx_word16_t;
 typedef float spx_word32_t;
-struct SpeexEchoState {
+typedef float spx_float_t;
+struct SpeexEchoState{
    int frame_size;           /**< Number of samples processed each time */
    int window_size;
    int M;
@@ -66,7 +67,7 @@ struct SpeexEchoState {
    spx_word16_t *PHI;
    spx_word16_t *W;
    spx_word32_t *power;
-   float *power_1;
+   spx_float_t *power_1;
    spx_word32_t *Rf;
    spx_word32_t *Yf;
    spx_word32_t *Xf;
@@ -76,11 +77,13 @@ struct SpeexEchoState {
    float Pyy;
    /*struct drft_lookup *fft_lookup;*/
    void *fft_table;
+   spx_word16_t memX, memD, memE;
+   spx_word16_t preemph;
 };
-
 
 AudioEchoWidget::AudioEchoWidget(QWidget *p) : QGLWidget(p) {
 	setMinimumSize(100, 60);
+	mode = MODULUS;
 }
 
 void AudioEchoWidget::initializeGL() {
@@ -105,8 +108,6 @@ void AudioEchoWidget::resizeGL(int w, int h) {
 static inline void mapEchoToColor(float echo) {
 	bool neg = (echo < 0);
 	echo = fabs(echo);
-
-	echo = echo * 2;
 
 	float a, b, c;
 
@@ -158,7 +159,35 @@ void AudioEchoWidget::paintGL() {
 			double xb = xa + xscale;
 			double yb = ya + yscale;
 
-			mapEchoToColor(WGT(i, j));
+			float real = 1.0;
+			float imag = 0.0;
+			if (i == 0)
+				real = st->W[j*N];
+			else if (i == n-1)
+				real = st->W[j*N + 2*i];
+			else {
+				real = st->W[j*N + 2*i - 1];
+				imag = st->W[j*N + 2*i];
+			}
+
+			float v;
+
+			switch (mode) {
+				case REAL:
+					v = real;
+					break;
+				case IMAGINARY:
+					v = imag;
+					break;
+				case MODULUS:
+					v = sqrt(real*real+imag*imag);
+					break;
+				case PHASE:
+					v = atan2(imag,real)/M_PI;
+					break;
+			}
+
+			mapEchoToColor(v);
 			glVertex2f(xa, ya);
 			glVertex2f(xb, ya);
 			glVertex2f(xb, yb);
@@ -279,9 +308,37 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 
 	AudioInputPtr ai = g.ai;
 	if (ai && ai->sesEcho) {
+
+		QHBoxLayout *hbox = new QHBoxLayout;
+
+		QRadioButton *b;
+
+		b = new QRadioButton("Real");
+		qmEchoMode[b] = AudioEchoWidget::REAL;
+		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
+		hbox->addWidget(b);
+
+		b = new QRadioButton("Imaginary");
+		qmEchoMode[b] = AudioEchoWidget::IMAGINARY;
+		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
+		hbox->addWidget(b);
+
+		b = new QRadioButton("Modulus");
+		b->setChecked(true);
+		qmEchoMode[b] = AudioEchoWidget::MODULUS;
+		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
+		hbox->addWidget(b);
+
+		b = new QRadioButton("Phase");
+		qmEchoMode[b] = AudioEchoWidget::PHASE;
+		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
+		hbox->addWidget(b);
+
+		l->addLayout(hbox, 8, 0, 1, 2);
+
 		aewEcho = new AudioEchoWidget(this);
-		l->addWidget(aewEcho,8,0,1,2);
-		l->setRowStretch(8, 1);
+		l->addWidget(aewEcho,9,0,1,2);
+		l->setRowStretch(9, 1);
 	} else {
 		aewEcho = NULL;
 	}
@@ -345,12 +402,15 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 		aewEcho->setToolTip(tr("Weights of the echo canceller"));
 		aewEcho->setWhatsThis(tr("This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.<br />"
 								  "Ideally, this should be black, indicating no echo exists at all. More commonly, you'll have one or more horizontal stripes "
-								  "of bluish color representing time delayed echo. If you have reddish stripes instead of blue, the signal is inverted somewhere "
-								  "along the path, and while this won't affect echo cancellation, you might want to check your cabling.<br />"
-								  "If you have a checkerboard pattern of small, alternating red/blue rectangles, the echo canceller is having trouble locking on "
-								  "to your echo. Your echo path should preferably be stable over a bit of time, so using a headphone microphone (which moves) with "
-								  "stationary loudspeakers will hinder the adaptation. <br />"
-								  "If the entire image fluctuates massively, the echo canceller fails to find any correlation whatsoever between the two input "
+								  "of bluish color representing time delayed echo. You should be able to see the weights updated in real time.<br />"
+								  "Please note that as long as you have nothing to echo off, you won't see much usefull data here. Play some music and "
+								  "things should stabilize. <br />"
+								  "You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and "
+								  "phase. The most usefull of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the "
+								  "outgoing signal is being removed at that time step. The other viewing modes are mostly usefull to people who want to tune the "
+								  "echo cancellation algorithms.<br />"
+								  "Please note: If the entire image fluctuates massively while in modulus mode, "
+								  "the echo canceller fails to find any correlation whatsoever between the two input "
 								  "sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is misconfigured."
 								  ));
 	}
@@ -403,4 +463,9 @@ void AudioStats::on_Tick_timeout() {
 	anwNoise->update();
 	if (aewEcho)
 		aewEcho->updateGL();
+}
+
+void AudioStats::onEchoMode(bool) {
+	if (aewEcho)
+		aewEcho->mode = qmEchoMode[sender()];
 }
