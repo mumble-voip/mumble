@@ -87,7 +87,7 @@ if ($auth) {
     push @errors, "Username contains illegal characters.";
   }
   
-  if ($email !~ /^[0-9a-zA-Z\.\-]+\@(.+)$/) {
+  if ($email !~ /^[0-9a-zA-Z\.\-\_]+\@(.+)$/) {
     push @errors, "That doesn't even look like an email adddress.";
   } else {
     my @mx = mx($1); 
