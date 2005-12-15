@@ -1,3 +1,29 @@
+	* Allow _ in email addresses (darn@the-space.net)
+	* Visualize all parts of the echo weights.
+	* rename from libspeex.dll to just speex.dll
+	* Updates to enable compilation on Linux, even if it's missing
+	  features.
+	* Enable ASIO with 32bit input. Needs verification.
+	* Visualization of echo canceller, and some testing.. Seems the
+	  weights get set non-optimally.
+	* Visualization of echo canceller, and some testing.. Seems the
+	  weights get set non-optimally.
+	* Support graceful failure of loading the overlay (For Win2k
+	  support)
+	* Update INSTALL to reflect we now require Boost
+	* Use boost::shared_ptr<> for objects shared between threads that
+	  we need to delete(). (AudioInput and Output mostly).
+	* Visualize power spectrum of input and noise estimate.
+	* Add fftpwrap for speex compile
+	* Ping support
+	* make "Toggle overlay" a tristate; show only talking, show all or
+	  show none.
+	* Banlist editor.
+	* Removed TCP voice support; with Nagle it will always be laggy.
+	  Added message to query/set banlist.  Reordered message ids.
+	* Banlist (serverside).
+	* Bump version
+	* Rename player support.
 	* Set sId=0 when closing
 	* Audio bugfixing.  Added new icons to code.
 	* New icons for ASIO and OSD settings[cybknight]
