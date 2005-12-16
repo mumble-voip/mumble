@@ -46,6 +46,16 @@ class Channel;
 
 typedef QPair<QHostAddress, quint16> Peer;
 
+#define N_BANDWIDTH_SLOTS 96
+struct BandwidthRecord {
+	int iRecNum;
+	int iSum;
+	int a_iBW[N_BANDWIDTH_SLOTS];
+
+	BandwidthRecord();
+	void addFrame(int size);
+};
+
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
@@ -62,6 +72,7 @@ class Server : public QObject {
 	public:
 		QHash<short, Connection *> qmConnections;
 		QHash<Connection *, Player *> qmPlayers;
+		QHash<Connection *, BandwidthRecord *> qmBandwidth;
 		QHash<Connection *, Peer> qhPeers;
 		QHash<Peer, Connection *> qhPeerConnections;
 

@@ -76,6 +76,21 @@ void ServerParams::read(QString fname) {
 	qsDatabase = qs.value("database", qsDatabase).toString();
 }
 
+BandwidthRecord::BandwidthRecord() {
+	iRecNum = 0;
+	iSum = 0;
+	for(int i=0;i<N_BANDWIDTH_SLOTS;i++)
+		a_iBW[i] = 0;
+}
+
+void BandwidthRecord::addFrame(int size) {
+	iSum -= a_iBW[iRecNum];
+	a_iBW[iRecNum] = size;
+	iSum += a_iBW[iRecNum];
+
+	iRecNum++;
+}
+
 Server::Server() {
 	qtsServer = new QTcpServer(this);
 
@@ -192,6 +207,7 @@ void Server::newClient() {
 
 	Player *pPlayer = Player::add(id);
 	qmPlayers[cCon] = pPlayer;
+	qmBandwidth[cCon] = new BandwidthRecord();
 	qmConnections[id] = cCon;
 
 	connect(cCon, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
@@ -216,6 +232,9 @@ void Server::connectionClosed(QString reason) {
 
 	qmConnections.remove(pPlayer->sId);
 	qmPlayers.remove(c);
+
+	BandwidthRecord *bw = qmBandwidth.take(c);
+	delete bw;
 
 	Player::remove(pPlayer);
 
@@ -633,17 +652,16 @@ void MessageMultiSpeex::process(Connection *cCon) {
 	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
 		return;
 
-	int packetsize = 20 + 8 + 3 + 2;
-	int npackets = 0;
+	BandwidthRecord *bw = g_sServer->qmBandwidth[cCon];
+
+	int nframes = qlFrames.count();
+	int packetsize = 20 + 8 + 3 + 2 + nframes;
 	foreach(QByteArray qba, qlFrames) {
-		packetsize += 1 + qba.size();
-		npackets++;
+		bw->addFrame(packetsize / nframes + qba.size());
 	}
 
-	int bandwidth = (packetsize * 50) / npackets;
-
-	if (bandwidth > g_sp.iMaxBandwidth) {
-		g_sServer->log(QString("Exceeding bandwidth (%1 bytes, %2 frames/packet, %3 bytes/s)").arg(packetsize).arg(npackets).arg(bandwidth), cCon);
+	if (bw->iSum > g_sp.iMaxBandwidth) {
+		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bw->iSum), cCon);
 		cCon->disconnect();
 	}
 
@@ -676,10 +694,13 @@ void MessageSpeex::process(Connection *cCon) {
 	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
 		return;
 
-	int packetsize = 20 + 8 + 3 + 2 + qbaSpeexPacket.size();
+	BandwidthRecord *bw = g_sServer->qmBandwidth[cCon];
 
-	if ((packetsize * 50) > g_sp.iMaxBandwidth) {
-		g_sServer->log("Exceeding bandwidth", cCon);
+	int packetsize = 20 + 8 + 3 + 2 + qbaSpeexPacket.size();
+	bw->addFrame(packetsize);
+
+	if (bw->iSum > g_sp.iMaxBandwidth) {
+		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bw->iSum), cCon);
 		cCon->disconnect();
 	}
 
