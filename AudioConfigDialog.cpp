@@ -370,7 +370,7 @@ void AudioConfigDialog::updateBitrate() {
 
 	// Individual packet sizes
 	if (p > 1)
-		overhead += p;
+		overhead += p * 8 * 50;
 
 	switch (g.s.ptTransmit) {
 		case Settings::Nothing:
@@ -392,7 +392,7 @@ void AudioConfigDialog::updateBitrate() {
 
 	QPalette pal;
 
-	if ((total / 250 > g.iMaxBandwidth) && g.sId) {
+	if ((total / 8 > g.iMaxBandwidth) && g.sId) {
 		pal.setColor(qlBitrate->foregroundRole(), Qt::red);
 	}
 

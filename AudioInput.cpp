@@ -143,9 +143,14 @@ AudioInput::~AudioInput()
 int AudioInput::getMaxBandwidth() {
 	int audiorate;
 
-	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE,&audiorate);
+	void *es;
+	float f = g.s.iQuality;
+	es = speex_encoder_init(&speex_wb_mode);
+	speex_encoder_ctl(es,SPEEX_SET_VBR_QUALITY, &f);
+	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
+	speex_encoder_destroy(es);
 
-	audiorate /= 8;
+	audiorate /= 400/g.s.iFramesPerPacket;
 
 	// Overhead
 	audiorate += 20 + 8 + 3 + 2;

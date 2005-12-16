@@ -464,7 +464,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 
 	if (iMaxBandwidth > g_sp.iMaxBandwidth) {
-		msr.qsReason = QString("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(iMaxBandwidth/1000.0).arg(g_sp.iMaxBandwidth/1000.0);
+		msr.qsReason = QString("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(iMaxBandwidth/125.0).arg(g_sp.iMaxBandwidth/125.0);
 		ok = false;
 	}
 
