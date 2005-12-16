@@ -640,8 +640,10 @@ void MessageMultiSpeex::process(Connection *cCon) {
 		npackets++;
 	}
 
-	if (((packetsize * 50) / npackets) > g_sp.iMaxBandwidth) {
-		g_sServer->log("Exceeding bandwidth", cCon);
+	int bandwidth = (packetsize * 50) / npackets;
+
+	if (bandwidth > g_sp.iMaxBandwidth) {
+		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bandwidth), cCon);
 		cCon->disconnect();
 	}
 
