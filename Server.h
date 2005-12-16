@@ -46,14 +46,20 @@ class Channel;
 
 typedef QPair<QHostAddress, quint16> Peer;
 
-#define N_BANDWIDTH_SLOTS 96
+// Unfortunately, this needs to be "large enough" to hold
+// enough frames to account for both short-term and 
+// long-term "maladjustments".
+
+#define N_BANDWIDTH_SLOTS 360
+
 struct BandwidthRecord {
 	int iRecNum;
 	int iSum;
-	int a_iBW[N_BANDWIDTH_SLOTS];
+	unsigned char a_iBW[N_BANDWIDTH_SLOTS];
 
 	BandwidthRecord();
 	void addFrame(int size);
+	int bytesPerSec();
 };
 
 class Server : public QObject {

@@ -57,7 +57,7 @@ ServerParams::ServerParams() {
 	bTestloop = false;
 	iPort = 64738;
 	iCommandFrequency = 10;
-	iMaxBandwidth = 85000;
+	iMaxBandwidth = 5000;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 }
@@ -89,6 +89,13 @@ void BandwidthRecord::addFrame(int size) {
 	iSum += a_iBW[iRecNum];
 
 	iRecNum++;
+	if (iRecNum == N_BANDWIDTH_SLOTS)
+		iRecNum = 0;
+}
+
+int BandwidthRecord::bytesPerSec() {
+	// Multiply by 45; give 10% leniency
+	return (iSum * 50) / N_BANDWIDTH_SLOTS;
 }
 
 Server::Server() {
@@ -660,11 +667,11 @@ void MessageMultiSpeex::process(Connection *cCon) {
 		bw->addFrame(packetsize / nframes + qba.size());
 	}
 
-	if (bw->iSum > g_sp.iMaxBandwidth) {
-		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bw->iSum), cCon);
+	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
+		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bw->bytesPerSec()), cCon);
 		cCon->disconnect();
 	}
-
+	
 	Channel *c = pSrcPlayer->cChannel;
 
 	foreach(p, c->qlPlayers) {
@@ -699,8 +706,8 @@ void MessageSpeex::process(Connection *cCon) {
 	int packetsize = 20 + 8 + 3 + 2 + qbaSpeexPacket.size();
 	bw->addFrame(packetsize);
 
-	if (bw->iSum > g_sp.iMaxBandwidth) {
-		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bw->iSum), cCon);
+	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
+		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bw->bytesPerSec()), cCon);
 		cCon->disconnect();
 	}
 
