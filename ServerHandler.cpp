@@ -34,6 +34,7 @@
 #include <QTimer>
 #include "ServerHandler.h"
 #include "MainWindow.h"
+#include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Message.h"
 #include "Player.h"
@@ -221,9 +222,14 @@ void ServerHandler::serverConnectionClosed(QString reason) {
 }
 
 void ServerHandler::serverConnectionConnected() {
+	AudioInputPtr ai = g.ai;
 	MessageServerAuthenticate msaMsg;
 	msaMsg.qsUsername = qsUserName;
 	msaMsg.qsPassword = qsPassword;
+	if (ai)
+		msaMsg.iMaxBandwidth = ai->getMaxBandwidth();
+	else
+		msaMsg.iMaxBandwidth = 0;
 	cConnection->sendMessage(&msaMsg);
 	emit connected();
 }

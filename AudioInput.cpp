@@ -140,6 +140,36 @@ AudioInput::~AudioInput()
 	delete [] pfY;
 }
 
+int AudioInput::getMaxBandwidth() {
+	int audiorate;
+
+	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE,&audiorate);
+
+	audiorate /= 8;
+
+	// Overhead
+	audiorate += 20 + 8 + 3 + 2;
+
+	// Subframe lengths
+	if (g.s.iFramesPerPacket > 1)
+		audiorate += g.s.iFramesPerPacket;
+
+	switch (g.s.ptTransmit) {
+		case Settings::Nothing:
+			break;
+		case Settings::Position:
+			audiorate += 12;
+			break;
+		case Settings::PositionVelocity:
+			audiorate += 24;
+			break;
+	}
+
+	audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
+
+	return audiorate;
+}
+
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;

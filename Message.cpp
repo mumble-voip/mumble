@@ -161,16 +161,19 @@ MessagePing::MessagePing() {
 
 MessageServerAuthenticate::MessageServerAuthenticate() {
 	iVersion = MESSAGE_STREAM_VERSION;
+	iMaxBandwidth = 100000;
 }
 
 void MessageServerAuthenticate::saveStream(QDataStream &qdsOut) const{
 	qdsOut << iVersion;
+	qdsOut << iMaxBandwidth;
 	qdsOut << qsUsername;
 	qdsOut << qsPassword;
 }
 
 void MessageServerAuthenticate::restoreStream(QDataStream &qdsIn) {
 	qdsIn >> iVersion;
+	qdsIn >> iMaxBandwidth;
 	qdsIn >> qsUsername;
 	qdsIn >> qsPassword;
 }
@@ -193,10 +196,12 @@ MessageServerSync::MessageServerSync() {
 }
 
 void MessageServerSync::saveStream(QDataStream &qdsOut) const {
+	qdsOut << iMaxBandwidth;
 	qdsOut << qsWelcomeText;
 }
 
 void MessageServerSync::restoreStream(QDataStream &qdsIn) {
+	qdsIn >> iMaxBandwidth;
 	qdsIn >> qsWelcomeText;
 }
 

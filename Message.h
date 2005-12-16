@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 6
+#define MESSAGE_STREAM_VERSION 7
 
 #include <QDataStream>
 #include <QByteArray>
@@ -93,6 +93,7 @@ class MessageServerAuthenticate : public Message {
 		void restoreStream(QDataStream &);
 	public:
 		int	iVersion;
+		int iMaxBandwidth;
 		QString qsUsername;
 		QString qsPassword;
 		MessageServerAuthenticate();
@@ -123,6 +124,7 @@ class MessageServerSync : public Message {
 		void saveStream(QDataStream &) const;
 		void restoreStream(QDataStream &);
 	public:
+		int iMaxBandwidth;
 		QString qsWelcomeText;
 		MessageServerSync();
 		Message::MessageType messageType() const { return ServerSync; };

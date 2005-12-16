@@ -70,6 +70,7 @@ struct Global {
 	bool bPushToMute;
 	bool bCenterPosition;
 	short sId;
+	int iMaxBandwidth;
 	Global();
 };
 

@@ -390,6 +390,14 @@ void AudioConfigDialog::updateBitrate() {
 
 	int total = audiorate + overhead + posrate;
 
+	QPalette pal;
+
+	if ((total / 250 > g.iMaxBandwidth) && g.sId) {
+		pal.setColor(qlBitrate->foregroundRole(), Qt::red);
+	}
+
+	qlBitrate->setPalette(pal);
+
 	QString v = QString("%1kbit/s (Audio %2, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1);
 	qlBitrate->setText(v);
 }

@@ -1071,6 +1071,7 @@ void MessagePermissionDenied::process(Connection *) {
 
 void MessageServerSync::process(Connection *) {
 	MSG_INIT;
+	g.iMaxBandwidth = iMaxBandwidth;
 	g.sId = sPlayerId;
 	g.l->clearIgnore();
 	g.l->log(Log::Information, qsWelcomeText, QString(""));

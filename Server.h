@@ -86,6 +86,7 @@ class Server : public QObject {
 struct ServerParams {
 	int iPort;
 	int iCommandFrequency;
+	int iMaxBandwidth;
 	QString qsPassword;
 	QString qsWelcomeText;
 	QString qsDatabase;

@@ -57,6 +57,7 @@ ServerParams::ServerParams() {
 	bTestloop = false;
 	iPort = 64738;
 	iCommandFrequency = 10;
+	iMaxBandwidth = 85000;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 }
@@ -70,6 +71,7 @@ void ServerParams::read(QString fname) {
 	bTestloop = qs.value("loop", bTestloop).toBool();
 	iPort = qs.value("port", iPort).toInt();
 	iCommandFrequency = qs.value("commandtime", iCommandFrequency).toInt();
+	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
 	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
 	qsDatabase = qs.value("database", qsDatabase).toString();
 }
@@ -461,6 +463,11 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		ok = false;
 	}
 
+	if (iMaxBandwidth > g_sp.iMaxBandwidth) {
+		msr.qsReason = QString("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(iMaxBandwidth/1000.0).arg(g_sp.iMaxBandwidth/1000.0);
+		ok = false;
+	}
+
 	if (! ok) {
 	  g_sServer->log(QString("Rejected connection: %1").arg(msr.qsReason), cCon);
 	  g_sServer->sendMessage(cCon, &msr);
@@ -561,6 +568,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;
 	mssMsg.qsWelcomeText = g_sp.qsWelcomeText;
+	mssMsg.iMaxBandwidth = g_sp.iMaxBandwidth;
 	g_sServer->sendMessage(cCon, &mssMsg);
 	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
 
@@ -625,6 +633,18 @@ void MessageMultiSpeex::process(Connection *cCon) {
 	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
 		return;
 
+	int packetsize = 20 + 8 + 3 + 2;
+	int npackets = 0;
+	foreach(QByteArray qba, qlFrames) {
+		packetsize += 1 + qba.size();
+		npackets++;
+	}
+
+	if (((packetsize * 50) / npackets) > g_sp.iMaxBandwidth) {
+		g_sServer->log("Exceeding bandwidth", cCon);
+		cCon->disconnect();
+	}
+
 	Channel *c = pSrcPlayer->cChannel;
 
 	foreach(p, c->qlPlayers) {
@@ -653,6 +673,13 @@ void MessageSpeex::process(Connection *cCon) {
 
 	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
 		return;
+
+	int packetsize = 20 + 8 + 3 + 2 + qbaSpeexPacket.size();
+
+	if ((packetsize * 50) > g_sp.iMaxBandwidth) {
+		g_sServer->log("Exceeding bandwidth", cCon);
+		cCon->disconnect();
+	}
 
 	Channel *c = pSrcPlayer->cChannel;
 
