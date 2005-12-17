@@ -1,3 +1,7 @@
+	* average bandwidth over short time to avoid being kicked for VBR
+	  spike
+	* Bugfixing bandwidth limits
+	* Maximum bandwidth setting serverside.
 	* Allow _ in email addresses (darn@the-space.net)
 	* Visualize all parts of the echo weights.
 	* rename from libspeex.dll to just speex.dll
