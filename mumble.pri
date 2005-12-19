@@ -1,4 +1,4 @@
-VERSION		= 0.9.2
+VERSION		= 0.9.3
 DIST		= LICENSE INSTALL README CHANGES mumble.pro murmur.pro mumble.pri mumble.ico
 CONFIG		+= qt thread debug_and_release warn_on
 
