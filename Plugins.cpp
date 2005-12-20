@@ -274,6 +274,35 @@ void Plugins::on_Timer_timeout() {
 
 	if (g.s.ptTransmit == Settings::Nothing)
 		return;
+
+#ifdef Q_OS_WIN
+	// According to MS KB Q131065, we need this to OpenProcess()
+
+	HANDLE hToken = NULL;
+
+    if(!OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken))
+    {
+        if (GetLastError() == ERROR_NO_TOKEN)
+        {
+            ImpersonateSelf(SecurityImpersonation);
+            OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken);
+		}
+     }
+
+    TOKEN_PRIVILEGES tp;
+    LUID luid;
+    TOKEN_PRIVILEGES tpPrevious;
+    DWORD cbPrevious=sizeof(TOKEN_PRIVILEGES);
+
+    LookupPrivilegeValue( NULL, SE_DEBUG_NAME, &luid);
+
+    tp.PrivilegeCount           = 1;
+    tp.Privileges[0].Luid       = luid;
+    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+    AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), &tpPrevious, &cbPrevious);
+#endif
+
 	foreach(PluginInfo *pi, qlPlugins) {
 		if (pi->p->trylock()) {
 			g.l->log(Log::Information,
@@ -282,7 +311,12 @@ void Plugins::on_Timer_timeout() {
 			pi->locked = true;
 			bUnlink = false;
 			locked = pi;
-			return;
+			break;
 		}
 	}
+
+#ifdef Q_OS_WIN
+    AdjustTokenPrivileges(hToken, FALSE, &tpPrevious, cbPrevious, NULL, NULL);
+    CloseHandle(hToken);
+#endif
 }

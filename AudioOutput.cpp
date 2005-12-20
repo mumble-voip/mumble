@@ -32,6 +32,7 @@
 #include "Player.h"
 #include "Global.h"
 #include <QSettings>
+#include <QTime>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -108,6 +109,8 @@ void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * iFrameSize);
 }
 
+static QTime tt;
+
 bool AudioOutputPlayer::decodeNextFrame() {
 	int iTimestamp;
 	int iSpeech = 0;
@@ -115,6 +118,8 @@ bool AudioOutputPlayer::decodeNextFrame() {
 	int i;
 	unsigned int v;
 	bool alive = true;
+
+//	qWarning("Asking for packet at %08ld", tt.elapsed() / 20);
 
 	{
 		QMutexLocker lock(&qmJitter);
@@ -152,8 +157,9 @@ bool AudioOutputPlayer::decodeNextFrame() {
 					fPos[0] = fPos[1] = fPos[2] = 0.0;
 			}
 		}
-		if (sjJitter.reset_state)
+		if (sjJitter.reset_state) {
 			alive = false;
+		}
 	}
 
 	bSpeech = iSpeech;

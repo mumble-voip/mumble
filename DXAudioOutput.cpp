@@ -39,6 +39,10 @@
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
+// #define MY_DEFERRED DS3D_DEFERRED
+#define MY_DEFERRED DS3D_IMMEDIATE
+
+
 #define NBLOCKS 50
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
 #define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
@@ -113,8 +117,8 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : Au
 		if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer))))
 			qFatal("DXAudioOutputPlayer: QueryInterface (DirectSound3DBuffer)");
 
-		pDS3dBuffer->SetMinDistance(g.s.fDXMinDistance, DS3D_DEFERRED);
-		pDS3dBuffer->SetMaxDistance(g.s.fDXMaxDistance, DS3D_DEFERRED);
+		pDS3dBuffer->SetMinDistance(g.s.fDXMinDistance, MY_DEFERRED);
+		pDS3dBuffer->SetMaxDistance(g.s.fDXMaxDistance, MY_DEFERRED);
 	}
 
 	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", qPrintable(p->qsName), SAMPLE_RATE, dsbd.dwBufferBytes);
@@ -144,6 +148,8 @@ bool DXAudioOutputPlayer::playFrames() {
 
     bool alive = true;
 
+	DWORD dwApply = MY_DEFERRED;
+
 	if (! bPlaying) {
 	    if (FAILED( hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER)))
 	    	qFatal("DXAudioOutputPlayer: Initial Lock");
@@ -157,8 +163,8 @@ bool DXAudioOutputPlayer::playFrames() {
 	    if (FAILED( hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
 	    	qFatal("DXAudioOutputPlayer: Initial Unlock");
 
-	    if (FAILED( hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING)))
-	    	qFatal("DXAUdioOutputPlayer: Play");
+		dwApply = DS3D_IMMEDIATE;
+
 
 		dwLastWritePos = 0;
 		dwLastPlayPos = 0;
@@ -166,19 +172,35 @@ bool DXAudioOutputPlayer::playFrames() {
 
 		iLastwriteblock = (NBLOCKS - 1 + g.s.iDXOutputDelay) % NBLOCKS;
 
-	    bPlaying = true;
 	}
 
 	if( FAILED( hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition ) ) )
 		qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
+
 	playblock = dwWritePosition / iByteSize;
 	nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
 
 	for(int block=(iLastwriteblock + 1) % NBLOCKS;alive && (block!=nowriteblock);block=(block + 1) % NBLOCKS) {
+
+		// Apparantly, even high end cards can sometimes move the play cursor BACKWARDS in 3D mode.
+		// If that happens, let's just say we're in synch.
+
+		bool broken = false;
+		for(int i=0;i<10;i++)
+			if ((nowriteblock + i)%NBLOCKS == iLastwriteblock)
+				broken = true;
+
+		if (broken) {
+			qWarning("DXAudioOutputPlayer: Playbackwards");
+			iLastwriteblock = (nowriteblock + NBLOCKS - 1) % NBLOCKS;
+			break;
+		}
+
 		iLastwriteblock = block;
 
 		alive = decodeNextFrame();
+//		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iDXOutputDelay);
 		if (! alive) {
 			pDSBOutput->Stop();
 			bPlaying = false;
@@ -198,12 +220,12 @@ bool DXAudioOutputPlayer::playFrames() {
 			}
 			if (center) {
 				if (mode != DS3DMODE_DISABLE)
-					pDS3dBuffer->SetMode(DS3DMODE_DISABLE, DS3D_DEFERRED);
+					pDS3dBuffer->SetMode(DS3DMODE_DISABLE, dwApply);
 			} else {
 				if (mode != DS3DMODE_NORMAL)
-					pDS3dBuffer->SetMode(DS3DMODE_NORMAL, DS3D_DEFERRED);
-				pDS3dBuffer->SetPosition(fPos[0], fPos[1], fPos[2], DS3D_DEFERRED);
-				pDS3dBuffer->SetVelocity(fVel[0], fVel[1], fVel[2], DS3D_DEFERRED);
+					pDS3dBuffer->SetMode(DS3DMODE_NORMAL, dwApply);
+				pDS3dBuffer->SetPosition(fPos[0], fPos[1], fPos[2], dwApply);
+				pDS3dBuffer->SetVelocity(fVel[0], fVel[1], fVel[2], dwApply);
 			}
 		}
 
@@ -225,6 +247,14 @@ bool DXAudioOutputPlayer::playFrames() {
 		playblock = dwWritePosition / iByteSize;
 		nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
 	}
+
+
+	if (! bPlaying) {
+	    if (FAILED( hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING)))
+	    	qFatal("DXAUdioOutputPlayer: Play");
+	    bPlaying = true;
+	}
+
 	return alive;
 }
 
@@ -286,8 +316,8 @@ DXAudioOutput::DXAudioOutput() {
 		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener)))) {
 			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
 		} else {
-			p3DListener->SetRolloffFactor(g.s.fDXRollOff, DS3D_DEFERRED);
-			p3DListener->SetDopplerFactor(g.s.fDXDoppler, DS3D_DEFERRED);
+			p3DListener->SetRolloffFactor(g.s.fDXRollOff, MY_DEFERRED);
+			p3DListener->SetDopplerFactor(g.s.fDXDoppler, MY_DEFERRED);
 			p3DListener->CommitDeferredSettings();
 			bOk = true;
 		}
@@ -340,13 +370,19 @@ void DXAudioOutput::updateListener() {
 	if (p->bValid && ! g.bCenterPosition && p3DListener) {
 		// Only set this if we need to. If centerposition is on, or we don't have valid data,
 		// the 3d mode for the buffers will be disabled, so don't bother with updates.
-		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], DS3D_DEFERRED);
-		p3DListener->SetVelocity(p->fVelocity[0], p->fVelocity[1], p->fVelocity[2], DS3D_DEFERRED);
+		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], MY_DEFERRED);
+		p3DListener->SetVelocity(p->fVelocity[0], p->fVelocity[1], p->fVelocity[2], MY_DEFERRED);
 		p3DListener->SetOrientation(p->fFront[0], p->fFront[1], p->fFront[2],
-									p->fTop[0], p->fTop[1], p->fTop[2], DS3D_DEFERRED);
+									p->fTop[0], p->fTop[1], p->fTop[2], MY_DEFERRED);
 	}
 	if (FAILED(hr =p3DListener->CommitDeferredSettings()))
 		qWarning("DXAudioOutputPlayer: CommitDeferrredSettings failed 0x%08lx", hr);
+
+/*
+	float a[3], b[3];
+	p3DListener->GetOrientation((D3DVECTOR *) a, (D3DVECTOR *) b);
+	qWarning("%f %f %f -- %f %f %f", a[0], a[1], a[2], b[0], b[1], b[2]);
+*/
 }
 
 
