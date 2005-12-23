@@ -54,13 +54,20 @@ static AudioOutput *DXAudioOutputNew() {
 static AudioOutputRegistrar aorDX("DirectSound", DXAudioOutputNew);
 
 DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : AudioOutputPlayer(ao, player) {
+	bPlaying = false;
 	dxAudio = static_cast<DXAudioOutput *>(aoOutput);
 
+	pDSBOutput = NULL;
+	pDSNotify = NULL;
+	pDS3dBuffer = NULL;
+
+	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
+}
+
+void DXAudioOutputPlayer::setupAudioDevice() {
     DSBUFFERDESC dsbd;
     WAVEFORMATEX wfx;
     HRESULT hr;
-
-	bPlaying = false;
 
    	ZeroMemory( &wfx, sizeof(wfx) );
     wfx.wFormatTag = WAVE_FORMAT_PCM;
@@ -93,8 +100,6 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : Au
 		}
 	}
 
-	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
-
     // Create the DirectSound buffer
     if( FAILED( hr = dxAudio->pDS->CreateSoundBuffer( &dsbd, &pDSBOutput, NULL ) ) )
     	qFatal("DXAudioOutputPlayer: CreateSoundBuffer (Secondary): 0x%08lx", hr);
@@ -112,7 +117,6 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : Au
     if( FAILED( hr = pDSNotify->SetNotificationPositions( NBLOCKS, aPosNotify ) ) )
     	qFatal("DXAudioOutputPlayer: SetNotificationPositions");
 
-	pDS3dBuffer = NULL;
 	if (dxAudio->p3DListener) {
 		if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer))))
 			qFatal("DXAudioOutputPlayer: QueryInterface (DirectSound3DBuffer)");
@@ -150,7 +154,9 @@ bool DXAudioOutputPlayer::playFrames() {
 
 	DWORD dwApply = MY_DEFERRED;
 
-	if (! bPlaying) {
+	if (! pDSBOutput) {
+		setupAudioDevice();
+
 	    if (FAILED( hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER)))
 	    	qFatal("DXAudioOutputPlayer: Initial Lock");
 
@@ -165,18 +171,15 @@ bool DXAudioOutputPlayer::playFrames() {
 
 		dwApply = DS3D_IMMEDIATE;
 
-
 		dwLastWritePos = 0;
 		dwLastPlayPos = 0;
 		dwTotalPlayPos = 0;
 
 		iLastwriteblock = (NBLOCKS - 1 + g.s.iDXOutputDelay) % NBLOCKS;
-
 	}
 
 	if( FAILED( hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition ) ) )
 		qFatal("DXAudioOutputPlayer: GetCurrentPosition");
-
 
 	playblock = dwWritePosition / iByteSize;
 	nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
@@ -202,9 +205,17 @@ bool DXAudioOutputPlayer::playFrames() {
 		alive = decodeNextFrame();
 //		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iDXOutputDelay);
 		if (! alive) {
-			pDSBOutput->Stop();
-			bPlaying = false;
-			return false;
+			iMissingFrames++;
+			// Give 5 seconds grace before killing off buffer, as it seems continously creating and destroying them
+			// taxes cheap soundcards more then it should.
+			if (iMissingFrames > 250) {
+				qWarning("nMissing %d", iMissingFrames);
+				pDSBOutput->Stop();
+				bPlaying = false;
+				return false;
+			}
+		} else {
+			iMissingFrames = 0;
 		}
 
 		if (pDS3dBuffer) {
@@ -255,7 +266,7 @@ bool DXAudioOutputPlayer::playFrames() {
 	    bPlaying = true;
 	}
 
-	return alive;
+	return true;
 }
 
 

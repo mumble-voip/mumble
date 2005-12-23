@@ -54,6 +54,9 @@ class DXAudioOutputPlayer : public AudioOutputPlayer {
 		DXAudioOutput *dxAudio;
 
 		bool bPlaying;
+
+		int iMissingFrames;
+		void setupAudioDevice();
 	public:
 		DXAudioOutputPlayer(DXAudioOutput *, Player *);
 		~DXAudioOutputPlayer();
