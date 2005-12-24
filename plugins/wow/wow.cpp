@@ -29,27 +29,6 @@ static DWORD getProcess(const wchar_t *exename) {
 	return pid;
 }
 
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		bool ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-
 static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
 	bool ok=ReadProcessMemory(h, base, dest, len, &r);
@@ -60,9 +39,9 @@ static void about(HWND h) {
 	::MessageBox(h, L"Reads audio position information from World of Warcraft (1.8.4)", L"Mumble WoW Plugin", MB_OK);
 }
 
-static int fetch(float *pos, float *vel, float *front, float *top) {
+static int fetch(float *pos, float *front, float *top) {
 	for(int i=0;i<3;i++)
-		pos[i]=vel[i]=front[i]=top[i]=0.0;
+		pos[i]=front[i]=top[i]=0.0;
 
 	bool ok = true;
 
@@ -114,8 +93,8 @@ static int trylock() {
 	if (!h)
 		return false;
 
-	float pos[3], vel[3], front[3], top[3];
-	if (fetch(pos, vel, front, top))
+	float pos[3], front[3], top[3];
+	if (fetch(pos, front, top))
 		return true;
 
 	CloseHandle(h);

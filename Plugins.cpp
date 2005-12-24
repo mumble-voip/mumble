@@ -73,28 +73,19 @@ PluginInfo::PluginInfo() {
 PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	QGroupBox *qgbOptions = new QGroupBox(tr("Options"));
 	QGroupBox *qgbPlugins = new QGroupBox(tr("Plugins"));
-	QLabel *lab;
 	QVBoxLayout *v;
 	QHBoxLayout *h;
 	QGridLayout *grid;
 
 	grid=new QGridLayout();
-	qcbTransmit = new QComboBox();
-
-	qcbTransmit->addItem(tr("Nothing"), Settings::Nothing);
-	qcbTransmit->addItem(tr("Position"), Settings::Position);
-	qcbTransmit->addItem(tr("Position and Velocity"), Settings::PositionVelocity);
-	qcbTransmit->setToolTip(tr("What information to transmit from plugins"));
-	qcbTransmit->setWhatsThis(tr("This sets what information to transfer from the game to "
-								"other players. <b>Position</b> enables them to hear your "
-								"voice from the correct direction, and <b>Velocity</b> allows "
-								"doppler effects as well (the weeeee-owwww sound a car makes just "
-								"as it passes you)."));
-	qcbTransmit->setCurrentIndex(static_cast<int>(g.s.ptTransmit));
-	lab = new QLabel(tr("Transmit"));
-	lab->setBuddy(qcbTransmit);
-	grid->addWidget(lab, 0, 0);
-	grid->addWidget(qcbTransmit, 0, 1);
+	qcbTransmit = new QCheckBox("Link to Game and Transmit Position");
+	qcbTransmit->setChecked(g.s.bTransmitPosition);
+	qcbTransmit->setToolTip(tr("Enable plugins and transmit positional information"));
+	qcbTransmit->setWhatsThis(tr("This enables plugins for supported games to fetch your ingame position "
+								"and transmit that with each voice packet. This enables other players to "
+								"hear your voice ingame from the direction your character is in relation "
+								"to their own."));
+	grid->addWidget(qcbTransmit, 0, 0);
 	qgbOptions->setLayout(grid);
 
 	qlwPlugins = new QListWidget();
@@ -143,7 +134,7 @@ QIcon PluginConfig::icon() const {
 }
 
 void PluginConfig::accept() {
-	g.s.ptTransmit = static_cast<Settings::PosTransmit>(qcbTransmit->currentIndex());
+	g.s.bTransmitPosition = qcbTransmit->isChecked();
 }
 
 void PluginConfig::on_Config_clicked() {
@@ -194,7 +185,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	locked = prevlocked = NULL;
 	bValid = false;
 	for(int i=0;i<3;i++)
-		fPosition[i]=fVelocity[i]=fFront[i]=fTop[i]= 0.0;
+		fPosition[i]=fFront[i]=fTop[i]= 0.0;
     QMetaObject::connectSlotsByName(this);
 }
 
@@ -244,19 +235,19 @@ void Plugins::fetch() {
 	QMutexLocker lock(&qmPlugins);
 
 	if (! locked) {
-		bValid = bValidPos = bValidVel = false;
+		bValid = false;
 		return;
 	}
-	bool ok=locked->p->fetch(fPosition, fVelocity, fFront, fTop);
+	bool ok=locked->p->fetch(fPosition, fFront, fTop);
 	if (! ok || bUnlink) {
 		locked->p->unlock();
 		locked->locked = false;
 		prevlocked = locked;
 		locked = NULL;
 		for(int i=0;i<3;i++)
-			fPosition[i]=fVelocity[i]=fFront[i]=fTop[i]= 0.0;
+			fPosition[i]=fFront[i]=fTop[i]= 0.0;
 	}
-	bValid = bValidPos = bValidVel = ok;
+	bValid = ok;
 }
 
 void Plugins::on_Timer_timeout() {
@@ -272,7 +263,7 @@ void Plugins::on_Timer_timeout() {
 	if (locked)
 		return;
 
-	if (g.s.ptTransmit == Settings::Nothing)
+	if (! g.s.bTransmitPosition)
 		return;
 
 #ifdef Q_OS_WIN

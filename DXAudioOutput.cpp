@@ -209,7 +209,6 @@ bool DXAudioOutputPlayer::playFrames() {
 			// Give 5 seconds grace before killing off buffer, as it seems continously creating and destroying them
 			// taxes cheap soundcards more then it should.
 			if (iMissingFrames > 250) {
-				qWarning("nMissing %d", iMissingFrames);
 				pDSBOutput->Stop();
 				bPlaying = false;
 				return false;
@@ -236,7 +235,6 @@ bool DXAudioOutputPlayer::playFrames() {
 				if (mode != DS3DMODE_NORMAL)
 					pDS3dBuffer->SetMode(DS3DMODE_NORMAL, dwApply);
 				pDS3dBuffer->SetPosition(fPos[0], fPos[1], fPos[2], dwApply);
-				pDS3dBuffer->SetVelocity(fVel[0], fVel[1], fVel[2], dwApply);
 			}
 		}
 
@@ -328,7 +326,7 @@ DXAudioOutput::DXAudioOutput() {
 			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
 		} else {
 			p3DListener->SetRolloffFactor(g.s.fDXRollOff, MY_DEFERRED);
-			p3DListener->SetDopplerFactor(g.s.fDXDoppler, MY_DEFERRED);
+			p3DListener->SetDopplerFactor(DS3D_MINDOPPLERFACTOR, MY_DEFERRED);
 			p3DListener->CommitDeferredSettings();
 			bOk = true;
 		}
@@ -382,7 +380,6 @@ void DXAudioOutput::updateListener() {
 		// Only set this if we need to. If centerposition is on, or we don't have valid data,
 		// the 3d mode for the buffers will be disabled, so don't bother with updates.
 		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], MY_DEFERRED);
-		p3DListener->SetVelocity(p->fVelocity[0], p->fVelocity[1], p->fVelocity[2], MY_DEFERRED);
 		p3DListener->SetOrientation(p->fFront[0], p->fFront[1], p->fFront[2],
 									p->fTop[0], p->fTop[1], p->fTop[2], MY_DEFERRED);
 	}

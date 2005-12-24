@@ -151,8 +151,8 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qcbMethod->setWhatsThis(tr("This sets what 3D Sound algorithm to use.<br />"
 							"<b>None</b> - Disable 3D Sound (least CPU).<br />"
 							"<b>Panning</b> - Just use stereo panning (some CPU).<br />"
-							"<b>Light/Full HRTF</b> - Head-Related Transfer Functions enabled, with doppler "
-							"effects. This may use a small amount of CPU.<br />"
+							"<b>Light/Full HRTF</b> - Head-Related Transfer Functions enabled. "
+							"This may use a small amount of CPU.<br />"
 							"Note that if you have a soundcard with <i>hardware</i> 3D processing, HRTF "
 							"processing will be done on the soundcard and will use practically no processing "
 							"power."));
@@ -164,7 +164,6 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsMinDistance = new QSlider(Qt::Horizontal);
 	qsMaxDistance = new QSlider(Qt::Horizontal);
 	qsRollOff = new QSlider(Qt::Horizontal);
-	qsDoppler = new QSlider(Qt::Horizontal);
 	qlIntensity = new QLabel();
 
 	qsMinDistance->setRange(10, 200);
@@ -219,28 +218,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qsRollOff, 3, 1);
 	grid->addWidget(qlRollOff, 3, 2);
 
-	qsDoppler->setRange(lround(DS3D_MINDOPPLERFACTOR*10), lround(DS3D_MAXDOPPLERFACTOR *10));
-	qsDoppler->setSingleStep(1);
-	qsDoppler->setPageStep(10);
-	qsDoppler->setValue(lround(g.s.fDXDoppler * 10));
-	qsDoppler->setObjectName("Doppler");
-	l = new QLabel(tr("Doppler"));
-	l->setBuddy(qsDoppler);
-	qlDoppler=new QLabel();
-	qlDoppler->setMinimumWidth(40);
-	on_Doppler_valueChanged(qsDoppler->value());
-	qsDoppler->setToolTip(tr("Amount of doppler effect"));
-	qsDoppler->setWhatsThis(tr("This tunes the amount of doppler heard. The default (1.0) equals realworld physics. A higher value "
-								"will exaggerate the pitch shift when players move towards or away from you.<br />"
-								"<b>WARNING:</b> Some sound cards implement doppler by simply playing the buffer slightly faster or "
-								"slower; this will cause the sound to break up as Mumble's sound buffers aren't static data and "
-								"you will run out of speech."
-								));
-	grid->addWidget(l, 4, 0);
-	grid->addWidget(qsDoppler, 4, 1);
-	grid->addWidget(qlDoppler, 4, 2);
-
-	grid->addWidget(qlIntensity, 5, 0, 1, 3);
+	grid->addWidget(qlIntensity, 4, 0, 1, 3);
 
 	qgb3D->setLayout(grid);
 
@@ -270,7 +248,6 @@ void DXConfigDialog::accept() {
 	g.s.a3dModel = static_cast<Settings::Audio3D>(qcbMethod->currentIndex());
 	g.s.fDXMinDistance = qsMinDistance->value() / 10.0;
 	g.s.fDXMaxDistance = qsMaxDistance->value() / 10.0;
-	g.s.fDXDoppler = qsDoppler->value() / 10.0;
 	g.s.fDXRollOff = qsRollOff->value() / 100.0;
 }
 
@@ -290,10 +267,6 @@ void DXConfigDialog::on_MaxDistance_valueChanged(int v) {
 		v = 200;
 	qsMinDistance->setMaximum(v);
 	updateIntensity();
-}
-
-void DXConfigDialog::on_Doppler_valueChanged(int v) {
-	qlDoppler->setText(tr("%1").arg(v/10.0, 0, 'f', 1));
 }
 
 void DXConfigDialog::on_RollOff_valueChanged(int v) {

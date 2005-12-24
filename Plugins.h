@@ -47,7 +47,7 @@ struct PluginInfo;
 class PluginConfig : public ConfigWidget {
 	Q_OBJECT
 	protected:
-		QComboBox *qcbTransmit;
+		QCheckBox *qcbTransmit;
 		QListWidget *qlwPlugins;
 		void refillPluginList();
 		QHash<QListWidgetItem *, PluginInfo *> qhInfos;
@@ -71,9 +71,9 @@ class Plugins : public QObject {
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
 	public:
-		bool bValid, bValidPos, bValidVel;
+		bool bValid;
 		bool bUnlink;
-		float fPosition[3], fVelocity[3], fFront[3], fTop[3];
+		float fPosition[3], fFront[3], fTop[3];
 
 		Plugins(QObject *p = NULL);
 	public slots:

@@ -56,8 +56,8 @@ class DXConfigDialog : public ConfigWidget {
 
 		QSlider *qsOutputDelay;
 		QLabel *qlOutputDelay;
-		QSlider *qsMinDistance, *qsMaxDistance, *qsDoppler, *qsRollOff;
-		QLabel *qlMinDistance, *qlMaxDistance, *qlDoppler, *qlRollOff;
+		QSlider *qsMinDistance, *qsMaxDistance, *qsRollOff;
+		QLabel *qlMinDistance, *qlMaxDistance, *qlRollOff;
 		QLabel *qlIntensity;
 	public:
 		DXConfigDialog(QWidget *p = NULL);
@@ -68,7 +68,6 @@ class DXConfigDialog : public ConfigWidget {
 		void on_OutputDelay_valueChanged(int v);
 		void on_MinDistance_valueChanged(int v);
 		void on_MaxDistance_valueChanged(int v);
-		void on_Doppler_valueChanged(int v);
 		void on_RollOff_valueChanged(int v);
 		void updateIntensity();
 };

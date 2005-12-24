@@ -81,7 +81,7 @@ class AudioOutputPlayer : public QObject {
 		bool bSpeech;
 
 		int iMissCount;
-		float fPos[3], fVel[3];
+		float fPos[3];
 
 		bool decodeNextFrame();
 	public:

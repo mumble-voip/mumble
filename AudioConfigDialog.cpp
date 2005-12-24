@@ -372,17 +372,11 @@ void AudioConfigDialog::updateBitrate() {
 	if (p > 1)
 		overhead += p * 8 * 50;
 
-	switch (g.s.ptTransmit) {
-		case Settings::Nothing:
-			posrate = 0;
-			break;
-		case Settings::Position:
-			posrate = 12;
-			break;
-		case Settings::PositionVelocity:
-			posrate = 24;
-			break;
-	}
+	if (g.s.bTransmitPosition)
+		posrate = 12;
+	else
+		posrate = 0;
+
 	posrate = posrate * 50 * 8;
 
 	overhead = overhead / p;

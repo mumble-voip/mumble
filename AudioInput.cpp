@@ -159,16 +159,8 @@ int AudioInput::getMaxBandwidth() {
 	if (g.s.iFramesPerPacket > 1)
 		audiorate += g.s.iFramesPerPacket;
 
-	switch (g.s.ptTransmit) {
-		case Settings::Nothing:
-			break;
-		case Settings::Position:
-			audiorate += 12;
-			break;
-		case Settings::PositionVelocity:
-			audiorate += 24;
-			break;
-	}
+	if (g.s.bTransmitPosition)
+		audiorate += 12;
 
 	audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
 
@@ -343,19 +335,14 @@ void AudioInput::encodeAudioFrame() {
 	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
 
-	if ((g.s.ptTransmit != Settings::Nothing) && g.p && ! g.bCenterPosition && (qlFrames.count() == 0)) {
+	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (qlFrames.count() == 0)) {
 		g.p->fetch();
-		if (g.p->bValidPos) {
+		if (g.p->bValid) {
 			QByteArray q;
 			QDataStream ds(&q, QIODevice::WriteOnly);
 			ds << g.p->fPosition[0];
 			ds << g.p->fPosition[1];
 			ds << g.p->fPosition[2];
-			if (g.p->bValidVel && (g.s.ptTransmit == Settings::PositionVelocity)) {
-				ds << g.p->fVelocity[0];
-				ds << g.p->fVelocity[1];
-				ds << g.p->fVelocity[2];
-			}
 			const unsigned char *d=reinterpret_cast<const unsigned char*>(q.data());
 			for(i=0;i<q.size();i++) {
 				speex_bits_pack(&sbBits, d[i], 8);

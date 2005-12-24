@@ -34,7 +34,6 @@
 
 Settings::Settings() {
 	atTransmit = VAD;
-	ptTransmit = Position;
 	a3dModel = Panning;
 	bMute = bDeaf = false;
 	bTTS = true;
@@ -47,7 +46,6 @@ Settings::Settings() {
 	iDXOutputDelay = 1;
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
-	fDXDoppler = 0.0;
 	fDXRollOff = 0.15;
 
 	bOverlayEnable = true;
@@ -57,6 +55,7 @@ Settings::Settings() {
 	bOverlayBottom = true;
 	bOverlayLeft = true;
 	bOverlayRight = false;
+	bTransmitPosition = true;
 	qfOverlayFont = QFont("Arial", 20);
 	fOverlayWidth = 20.0;
 	qcOverlayPlayer = QColor(255,255,255,128);
@@ -70,7 +69,6 @@ void Settings::load() {
 	bDeaf = g.qs->value("AudioDeaf", false). toBool();
 	bTTS = g.qs->value("TextToSpeech", bTTS). toBool();
 	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value("AudioTransmit", Settings::VAD).toInt());
-	ptTransmit = static_cast<Settings::PosTransmit>(g.qs->value("PosTransmit", Settings::PositionVelocity).toInt());
 	a3dModel = static_cast<Settings::Audio3D>(g.qs->value("Audio3D", Settings::Full).toInt());
 	iQuality = g.qs->value("AudioQuality", iQuality).toInt();
 	iComplexity = g.qs->value("AudioComplexity", iComplexity).toInt();
@@ -83,7 +81,6 @@ void Settings::load() {
 	qbaDXOutput = g.qs->value("DXOutput").toByteArray();
 	fDXMinDistance = g.qs->value("DXMinDistance", fDXMinDistance).toDouble();
 	fDXMaxDistance = g.qs->value("DXMaxDistance", fDXMaxDistance).toDouble();
-	fDXDoppler = g.qs->value("DXDoppler", fDXDoppler).toDouble();
 	fDXRollOff = g.qs->value("DXRollOff", fDXRollOff).toDouble();
 	qsASIOclass = g.qs->value("ASIOclass").toString();
 	qlASIOmic = g.qs->value("ASIOmic").toList();
@@ -91,6 +88,7 @@ void Settings::load() {
 	bOverlayEnable = g.qs->value("OverlayEnable",bOverlayEnable).toBool();
 	fOverlayX = g.qs->value("OverlayX",fOverlayX).toDouble();
 	fOverlayY = g.qs->value("OverlayY",fOverlayY).toDouble();
+	bTransmitPosition = g.qs->value("PosTransmit",bTransmitPosition).toBool();
 	bOverlayTop = g.qs->value("OverlayTop",bOverlayTop).toBool();
 	bOverlayBottom = g.qs->value("OverlayBottom",bOverlayBottom).toBool();
 	bOverlayLeft = g.qs->value("OverlayLeft",bOverlayLeft).toBool();
@@ -107,7 +105,7 @@ void Settings::save() {
 	g.qs->setValue("AudioMute", g.s.bMute);
 	g.qs->setValue("AudioDeaf", g.s.bDeaf);
 	g.qs->setValue("TextToSpeech", g.s.bTTS);
-	g.qs->setValue("PosTransmit", g.s.ptTransmit);
+	g.qs->setValue("PosTransmit", g.s.bTransmitPosition);
 	g.qs->setValue("AudioTransmit", g.s.atTransmit);
 	g.qs->setValue("Audio3D", g.s.a3dModel);
 	g.qs->setValue("AudioQuality", iQuality);
@@ -121,7 +119,6 @@ void Settings::save() {
 	g.qs->setValue("DXOutput", qbaDXOutput);
 	g.qs->setValue("DXMinDistance", fDXMinDistance);
 	g.qs->setValue("DXMaxDistance", fDXMaxDistance);
-	g.qs->setValue("DXDoppler", fDXDoppler);
 	g.qs->setValue("DXRollOff", fDXRollOff);
 	g.qs->setValue("ASIOclass", qsASIOclass);
 	g.qs->setValue("ASIOmic", qlASIOmic);

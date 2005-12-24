@@ -89,7 +89,7 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
 	bSpeech = false;
 
 	for(int i=0;i<3;i++)
-		fPos[i]=fVel[i]=0.0;
+		fPos[i]=0.0;
 	iMissCount = 0;
 
 	speex_jitter_init(&sjJitter, dsDecState, SAMPLE_RATE);
@@ -143,13 +143,6 @@ bool AudioOutputPlayer::decodeNextFrame() {
 				ds >> fPos[0];
 				ds >> fPos[1];
 				ds >> fPos[2];
-				if (left >= 24) {
-					ds >> fVel[0];
-					ds >> fVel[1];
-					ds >> fVel[2];
-				} else {
-					fVel[0] = fVel[1] = fVel[2] = 0.0;
-				}
 				iMissCount = 0;
 			} else {
 				iMissCount++;

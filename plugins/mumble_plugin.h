@@ -31,7 +31,7 @@
 #ifndef _MUMBLE_PLUGIN_H
 #define _MUMBLE_PLUGIN_H
 
-#define MUMBLE_PLUGIN_MAGIC 0xd63ab7fd
+#define MUMBLE_PLUGIN_MAGIC 0xd63ab7fe
 
 typedef struct _MumblePlugin {
 	unsigned int magic;
@@ -41,7 +41,7 @@ typedef struct _MumblePlugin {
 	void (__cdecl *config)(HWND);
 	int (__cdecl *trylock)();
 	void (__cdecl *unlock)();
-	int (__cdecl *fetch)(float *pos, float *vel, float *front, float *top);
+	int (__cdecl *fetch)(float *pos, float *front, float *top);
 } MumblePlugin;
 
 typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
@@ -63,8 +63,7 @@ typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
  *		because fetch failed.
  * fetch(...) - Fetch data from locked process. pos is position in
  *		world coordinates (1 meter per unit). front and top specify
- *		the heading of the player, as in where he is looking. vel
- *		is the current velocity vector.
+ *		the heading of the player, as in where he is looking.
  *		You need at minimum to figure out pos and front, otherwise
  *		sounds cannot be placed. If you do not fetch top, make it the
  *		same as front but rotated 90 degrees "upwards". Fetching

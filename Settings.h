@@ -46,10 +46,9 @@
 
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
-	enum PosTransmit { Nothing, Position, PositionVelocity };
 	enum Audio3D { None, Panning, Light, Full };
 	AudioTransmit atTransmit;
-	PosTransmit ptTransmit;
+	bool bTransmitPosition;
 	Audio3D a3dModel;
 	bool bMute, bDeaf;
 	bool bTTS;
@@ -59,8 +58,7 @@ struct Settings {
 
 	int iDXOutputDelay;
 	QByteArray qbaDXInput, qbaDXOutput;
-	float fDXMinDistance, fDXMaxDistance;
-	float fDXDoppler, fDXRollOff;
+	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
 
 	QString qsASIOclass;
 	QList<QVariant> qlASIOmic;
