@@ -330,7 +330,7 @@ Overlay::Overlay() : QObject() {
 
 	qtTimer=new QTimer(this);
 	qtTimer->setObjectName("Timer");
-	qtTimer->start();
+	qtTimer->start(1000);
 
 	hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
 
