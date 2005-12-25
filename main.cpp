@@ -62,8 +62,7 @@ int main(int argc, char **argv)
 
 	int res;
 
-//	Ironically, this macro is actually broken in 4.0.1
-//	QT_REQUIRE_VERSION(argc, argv, "4.0.1");
+	QT_REQUIRE_VERSION(argc, argv, "4.1.0");
 
 	// Initialize application object.
 	QApplication a(argc, argv);
