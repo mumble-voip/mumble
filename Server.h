@@ -47,7 +47,7 @@ class Channel;
 typedef QPair<QHostAddress, quint16> Peer;
 
 // Unfortunately, this needs to be "large enough" to hold
-// enough frames to account for both short-term and 
+// enough frames to account for both short-term and
 // long-term "maladjustments".
 
 #define N_BANDWIDTH_SLOTS 360
@@ -104,6 +104,7 @@ struct ServerParams {
 	int iPort;
 	int iCommandFrequency;
 	int iMaxBandwidth;
+	int iMaxUsers;
 	QString qsPassword;
 	QString qsWelcomeText;
 	QString qsDatabase;

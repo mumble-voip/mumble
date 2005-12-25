@@ -57,7 +57,8 @@ ServerParams::ServerParams() {
 	bTestloop = false;
 	iPort = 64738;
 	iCommandFrequency = 10;
-	iMaxBandwidth = 5000;
+	iMaxBandwidth = 10000;
+	iMaxUsers = 1000;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 }
@@ -72,6 +73,7 @@ void ServerParams::read(QString fname) {
 	iPort = qs.value("port", iPort).toInt();
 	iCommandFrequency = qs.value("commandtime", iCommandFrequency).toInt();
 	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
+	iMaxUsers = qs.value("users", iMaxUsers).toInt();
 	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
 	qsDatabase = qs.value("database", qsDatabase).toString();
 }
@@ -494,6 +496,11 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		ok = false;
 	}
 
+	if ((id != 0) && (g_sServer->qmPlayers.count() > g_sp.iMaxUsers)) {
+		msr.qsReason = QString("Server is full (max %1 users)").arg(g_sp.iMaxUsers);
+		ok = false;
+	}
+
 	if (! ok) {
 	  g_sServer->log(QString("Rejected connection: %1").arg(msr.qsReason), cCon);
 	  g_sServer->sendMessage(cCon, &msr);
@@ -671,7 +678,7 @@ void MessageMultiSpeex::process(Connection *cCon) {
 		g_sServer->log(QString("Exceeding bandwidth (%1 bytes/s)").arg(bw->bytesPerSec()), cCon);
 		cCon->disconnect();
 	}
-	
+
 	Channel *c = pSrcPlayer->cChannel;
 
 	foreach(p, c->qlPlayers) {
