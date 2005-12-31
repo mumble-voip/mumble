@@ -28,17 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QMenuBar>
-#include <QInputDialog>
-#include <QMessageBox>
-#include <QSettings>
-#include <QSplitter>
-#include <QTextCursor>
-#include <QTime>
-#include <QHeaderView>
-#include <QListView>
-#include <QTreeView>
-#include <QWhatsThis>
 #include "MainWindow.h"
 #include "AudioInput.h"
 #include "ConnectDialog.h"

@@ -28,19 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QGridLayout>
-#include <QIntValidator>
-#include <QSettings>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QItemSelectionModel>
-#include <QSqlRecord>
-#include <QMessageBox>
-
 #include "ConnectDialog.h"
 #include "Global.h"
 

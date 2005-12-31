@@ -28,19 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QPushButton>
-#include <QLabel>
-#include <QGridLayout>
-#include <QTimer>
-#include <QFont>
-#include <QPainter>
-
-#include <math.h>
-
 #include "AudioStats.h"
 #include "AudioInput.h"
 #include "Global.h"
-
 
 /** Speex echo cancellation state; sync from mdf.c in Speex distribution.
   */

@@ -31,14 +31,6 @@
 #ifndef _AUDIOSTATS_H
 #define _AUDIOSTATS_H
 
-#include <QDialog>
-#include <QLabel>
-#include <QTimer>
-#include <QGLWidget>
-#include <QRadioButton>
-#include <QButtonGroup>
-#include <QMap>
-
 class AudioEchoWidget : public QGLWidget {
 	Q_OBJECT
 	public:

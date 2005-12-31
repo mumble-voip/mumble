@@ -31,11 +31,6 @@
 #ifndef _TRAYICON_H
 #define _TRAYICON_H
 
-#include <QWidget>
-#include <QMainWindow>
-#include <QObject>
-#include <QEvent>
-
 class TrayIconPrivate;
 
 class TrayIcon : public QWidget {

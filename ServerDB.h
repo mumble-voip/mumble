@@ -31,11 +31,6 @@
 #ifndef _DATABASE_H
 #define _DATABASE_H
 
-#include <QObject>
-#include <QPair>
-#include <QList>
-#include <QVariant>
-
 class Channel;
 class Player;
 class Connection;

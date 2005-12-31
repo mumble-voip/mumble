@@ -31,9 +31,6 @@
 #ifndef _GROUP_H
 #define _GROUP_H
 
-#include <QString>
-#include <QSet>
-
 class Channel;
 class Player;
 

@@ -13,6 +13,8 @@ RESOURCES	+= mumble.qrc
 
 TRANSLATIONS	= mumble_en.ts
 
+PRECOMPILED_HEADER = mumble_pch.h
+
 LIBS	+= -lspeex
 
 win32 {
@@ -22,6 +24,7 @@ win32 {
   LIBS	+= -L\\dx90sdk\\lib -L"/Program Files/Microsoft Speech SDK 5.1/Lib/i386" -ldsound -ldxguid -ldinput8 -lsapi -lole32
   INCLUDEPATH	+= /boost/include/boost-1_33
   CONFIG	+= asio
+  DEFINES += WIN32
 }
 
 unix {
@@ -32,5 +35,4 @@ CONFIG(asio) {
 	INCLUDEPATH += asio/common asio/host asio/host/pc
 	HEADERS += ASIOInput.h
 	SOURCES	+= ASIOInput.cpp
-	DEFINES += WIN32
 }

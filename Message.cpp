@@ -29,7 +29,6 @@
 */
 
 #include "Message.h"
-#include <QBuffer>
 
 Message::Message() {
 	sPlayerId = 0;

@@ -37,15 +37,6 @@
 // AudioOutputPlayer objects; it's better to recreate them than
 // having them use resources while unused.
 
-#include <QThread>
-#include <QMutex>
-#include <QReadWriteLock>
-#include <QMap>
-#include <QHash>
-#include <QWidget>
-#include <speex/speex.h>
-#include <speex/speex_jitter.h>
-#include <boost/shared_ptr.hpp>
 #include "Audio.h"
 
 class AudioOutput;

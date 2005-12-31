@@ -28,11 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include <QIcon>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <boost/weak_ptr.hpp>
 #include "Audio.h"
 
 #include "AudioInput.h"

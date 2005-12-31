@@ -28,10 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <math.h>
-#include <QIcon>
-#include <QVBoxLayout>
-
 #include "AudioInput.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"

@@ -28,12 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QString>
-#include <QList>
 #include <speex/speex.h>
 #include "AudioInput.h"
 #include "AudioOutput.h"

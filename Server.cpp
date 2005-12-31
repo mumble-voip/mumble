@@ -28,14 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QDateTime>
-#include <QRegExp>
-#include <QStack>
-#include <QSet>
-#include <QSettings>
-#include <QStringList>
-#include <QRegExp>
-#include <QCoreApplication>
 #include "Player.h"
 #include "Channel.h"
 #include "ACL.h"

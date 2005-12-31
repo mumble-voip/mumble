@@ -31,14 +31,6 @@
 #ifndef _CHANNEL_H
 #define _CHANNEL_H
 
-#include <QString>
-#include <QObject>
-#include <QHash>
-#include <QReadWriteLock>
-#include <QList>
-#include <QSet>
-#include <QPair>
-
 class Player;
 class Group;
 class ChanACL;

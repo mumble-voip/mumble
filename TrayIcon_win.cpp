@@ -29,11 +29,6 @@
 */
 
 
-#define _WIN32_IE 0x0600
-#include <windows.h>
-#include <shellapi.h>
-#include <QApplication>
-#include <QHideEvent>
 #include "TrayIcon.h"
 
 #define TI_EVENT (WM_USER + 938)

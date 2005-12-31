@@ -28,21 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QString>
-#include <QList>
-#include <QTime>
-#include <QSettings>
-#include <QDir>
-#include <QLibrary>
-#include <QApplication>
-#include <QTimer>
-#include <QPushButton>
-#include <QMessageBox>
-#include <windows.h>
 #include "Plugins.h"
 #include "Log.h"
 #include "plugins/mumble_plugin.h"

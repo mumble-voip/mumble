@@ -28,15 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include <QSqlDatabase>
-#include <QMessageBox>
-#include <QStringList>
-#include <QSettings>
-#include <QFile>
-#include <QDir>
-#include <QSqlQuery>
-
 #include "Database.h"
 #include "Global.h"
 

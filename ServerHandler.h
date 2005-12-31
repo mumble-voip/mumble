@@ -31,13 +31,6 @@
 #ifndef _SERVERHANDLER_H
 #define _SERVERHANDLER_H
 
-#include <QObject>
-#include <QThread>
-#include <QTcpSocket>
-#include <QUdpSocket>
-#include <QEvent>
-#include <QHostAddress>
-
 #define SERVERSEND_EVENT 3501
 
 class Connection;

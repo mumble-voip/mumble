@@ -31,8 +31,6 @@
 #include "AudioOutput.h"
 #include "Player.h"
 #include "Global.h"
-#include <QSettings>
-#include <QTime>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor

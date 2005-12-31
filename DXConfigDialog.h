@@ -31,13 +31,6 @@
 #ifndef _DXCONFIGDIALOG_H
 #define _DXCONFIGDIALOG_H
 
-#include <QThread>
-#include <QGroupBox>
-#include <QComboBox>
-#include <QSlider>
-#include <QLabel>
-#include <QList>
-#include <QPair>
 #include <dsound.h>
 
 #include "ConfigDialog.h"

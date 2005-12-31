@@ -33,10 +33,6 @@
 
 #include <windows.h>
 #include <asiodrvr.h>
-#include <QList>
-#include <QComboBox>
-#include <QLabel>
-#include <QWaitCondition>
 #include "AudioInput.h"
 #include "ConfigDialog.h"
 

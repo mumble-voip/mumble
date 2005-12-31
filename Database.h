@@ -31,8 +31,6 @@
 #ifndef _DATABASE_H
 #define _DATABASE_H
 
-#include <QObject>
-
 class Database : public QObject{
 	Q_OBJECT
 	public:

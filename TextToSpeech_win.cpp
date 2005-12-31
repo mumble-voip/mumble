@@ -28,8 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QMap>
-#include <windows.h>
 #include <servprov.h>
 #include <sapi.h>
 

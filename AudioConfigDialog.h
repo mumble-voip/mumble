@@ -31,11 +31,6 @@
 #ifndef _AUDIOCONFIGDIALOG_H
 #define _AUDIOCONFIGDIALOG_H
 
-#include <QThread>
-#include <QGroupBox>
-#include <QComboBox>
-#include <QSlider>
-#include <QLabel>
 #include "ConfigDialog.h"
 
 class AudioConfigDialog : public ConfigWidget {

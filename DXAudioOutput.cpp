@@ -28,8 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QMessageBox>
-#include <math.h>
 #include "DXAudioOutput.h"
 #include "MainWindow.h"
 #include "Plugins.h"

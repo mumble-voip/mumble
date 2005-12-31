@@ -28,9 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QStack>
-#include <QStringList>
-
 #include "Group.h"
 #include "Channel.h"
 #include "Player.h"
@@ -189,7 +186,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 		Q_ASSERT( cofs != -1);
 
 		cofs += minpath;
-		
+
 		if (cofs >= groupChain.count()) {
 			return RET_FALSE;
 		} else if (cofs < 0) {

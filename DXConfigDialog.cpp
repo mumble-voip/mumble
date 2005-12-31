@@ -28,16 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QString>
-#include <QList>
-#include <windows.h>
-#include <dsound.h>
-#include <math.h>
-
 #include "DXConfigDialog.h"
 #include "Global.h"
 

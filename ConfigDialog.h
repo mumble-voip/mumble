@@ -31,12 +31,6 @@
 #ifndef _CONFIGDIALOG_H
 #define _CONFIGDIALOG_H
 
-#include <QDialog>
-#include <QWidget>
-#include <QListWidget>
-#include <QStackedWidget>
-#include <QList>
-
 class ConfigWidget : public QWidget {
 	Q_OBJECT
 	public:

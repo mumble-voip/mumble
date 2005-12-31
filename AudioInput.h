@@ -31,13 +31,6 @@
 #ifndef _AUDIOINPUT_H
 #define _AUDIOINPUT_H
 
-#include <QThread>
-#include <QGroupBox>
-#include <speex/speex.h>
-#include <speex/speex_preprocess.h>
-#include <speex/speex_echo.h>
-#include <boost/shared_ptr.hpp>
-
 #include "Audio.h"
 
 class AudioInput;

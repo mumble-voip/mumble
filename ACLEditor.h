@@ -31,15 +31,6 @@
 #ifndef _ACLEDITOR_H
 #define _ACLEDITOR_H
 
-#include <QDialog>
-#include <QWidget>
-#include <QListWidget>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QLineEdit>
-#include <QList>
-#include <QHash>
-
 #include "Message.h"
 
 class ACLEditor : public QDialog {

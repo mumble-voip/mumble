@@ -28,10 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include <QIcon>
-#include <QMessageBox>
-#include <QSettings>
 #ifdef Q_OS_WIN
 #include <windows.h>
 #include "Overlay.h"

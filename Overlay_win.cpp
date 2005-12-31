@@ -28,15 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QMessageBox>
-#include <QApplication>
-#include <QLabel>
-#include <QGroupBox>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QFontDialog>
-#include <QColorDialog>
-#include <QPair>
 #include "Player.h"
 #include "Channel.h"
 #include "Overlay.h"

@@ -31,14 +31,6 @@
 #ifndef _SERVER_H
 #define _SERVER_H
 
-#include <QObject>
-#include <QHash>
-#include <QTcpServer>
-#include <QUdpSocket>
-#include <QQueue>
-#include <QPair>
-#include <QTimer>
-
 class Player;
 class Connection;
 class Message;

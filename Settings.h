@@ -31,12 +31,6 @@
 #ifndef _SETTINGS_H
 #define _SETTINGS_H
 
-#include <QString>
-#include <QByteArray>
-#include <QVariant>
-#include <QFont>
-#include <QColor>
-
 // Global helper class to spread variables around across threads
 // especially helpfull to initialize things like the stored
 // preference for audio transmission, since the GUI elements

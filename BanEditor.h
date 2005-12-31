@@ -31,14 +31,6 @@
 #ifndef _BANEDITOR_H
 #define _BANEDITOR_H
 
-#include <QDialog>
-#include <QWidget>
-#include <QListWidget>
-#include <QLineEdit>
-#include <QList>
-#include <QPair>
-#include <QSpinBox>
-
 #include "Message.h"
 
 class BanEditor : public QDialog {

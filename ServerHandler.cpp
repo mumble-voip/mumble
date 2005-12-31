@@ -28,10 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
-#include <QApplication>
-#include <QHostAddress>
-#include <QTimer>
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "AudioInput.h"

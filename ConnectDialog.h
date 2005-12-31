@@ -31,13 +31,6 @@
 #ifndef _CONNECTDIALOG_H
 #define _CONNECTDIALOG_H
 
-#include <QDialog>
-#include <QLineEdit>
-#include <QListView>
-#include <QSqlTableModel>
-#include <QAbstractItemView>
-#include <QCheckBox>
-
 class ConnectDialog : public QDialog {
 	Q_OBJECT;
 	protected:

@@ -28,11 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QPainter>
-#include <QMimeData>
-#include <QTreeView>
-#include <QItemSelectionModel>
-#include <QStack>
 #include "PlayerModel.h"
 #include "MainWindow.h"
 #include "Message.h"

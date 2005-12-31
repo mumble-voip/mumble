@@ -31,15 +31,6 @@
 #ifndef _PLUGINS_H
 #define _PLUGINS_H
 
-#include <QThread>
-#include <QGroupBox>
-#include <QComboBox>
-#include <QSlider>
-#include <QLabel>
-#include <QHash>
-#include <QCheckBox>
-#include <QMutex>
-#include <QHash>
 #include "ConfigDialog.h"
 
 struct PluginInfo;

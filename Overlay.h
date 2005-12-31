@@ -31,14 +31,6 @@
 #ifndef _OVERLAY_H
 #define _OVERLAY_H
 
-#include <QTimer>
-#include <QList>
-#include <QLibrary>
-#include <QSlider>
-#include <QCheckBox>
-#include <QPushButton>
-#include <QLabel>
-#include <windows.h>
 #include "overlay/overlay.h"
 #include "ConfigDialog.h"
 

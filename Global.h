@@ -31,8 +31,6 @@
 #ifndef _GLOBAL_H
 #define _GLOBAL_H
 
-#include <QReadWriteLock>
-#include <boost/shared_ptr.hpp>
 #include "Settings.h"
 
 #ifndef MUMBLE_VERSION

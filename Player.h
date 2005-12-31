@@ -31,11 +31,6 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
 
-#include <QString>
-#include <QObject>
-#include <QHash>
-#include <QReadWriteLock>
-
 class Channel;
 
 class Player : public QObject {

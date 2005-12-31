@@ -28,16 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QCoreApplication>
-#include <QSqlDatabase>
-#include <QStringList>
-#include <QSettings>
-#include <QFile>
-#include <QDir>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QSqlDriver>
-
 #include "ServerDB.h"
 #include "Player.h"
 #include "Channel.h"

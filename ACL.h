@@ -31,10 +31,6 @@
 #ifndef _ACL_H
 #define _ACL_H
 
-#include <QString>
-#include <QObject>
-#include <QHash>
-
 class Channel;
 class Player;
 

@@ -31,8 +31,6 @@
 #ifndef _ABOUT_H
 #define _ABOUT_H
 
-#include <QDialog>
-
 class AboutDialog : public QDialog {
 	Q_OBJECT;
 	public:

@@ -31,10 +31,6 @@
 #ifndef _VERSIONCHECK_H
 #define _VERSIONCHECK_H
 
-#include <QObject>
-#include <QUrl>
-#include <QHttp>
-
 class VersionCheck : public QObject {
 	Q_OBJECT
 	protected:

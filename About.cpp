@@ -28,17 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QTabWidget>
-#include <QTextEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QWidget>
-#include <QApplication>
-#include <QMessageBox>
-#include <QIcon>
-#include <QFileDialog>
-#include <speex/speex.h>
 #include "About.h"
 #include "licenses.h"
 

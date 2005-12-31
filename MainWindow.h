@@ -31,20 +31,9 @@
 #ifndef _MAINWINDOW_H
 #define _MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QListWidget>
-#include <QAction>
-#include <QSettings>
-#include <QTextEdit>
-#include <QSplitter>
-#include <QTreeView>
-#include <QMenu>
-
 class TrayIcon;
 class ACLEditor;
 class BanEditor;
-class Player;
-class Connection;
 class ServerHandler;
 class GlobalShortcut;
 class TextToSpeech;

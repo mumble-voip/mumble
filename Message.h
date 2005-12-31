@@ -33,12 +33,6 @@
 
 #define MESSAGE_STREAM_VERSION 7
 
-#include <QDataStream>
-#include <QByteArray>
-#include <QString>
-#include <QSet>
-#include <QList>
-#include <QPair>
 #include "ACL.h"
 
 class Connection;

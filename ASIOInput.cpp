@@ -28,13 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QMessageBox>
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QGroupBox>
-#include <QMutex>
-#include <math.h>
 #include "ASIOInput.h"
 #include "MainWindow.h"
 #include "Global.h"

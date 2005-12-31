@@ -32,7 +32,6 @@
 #include "Channel.h"
 #include "Group.h"
 #include "Player.h"
-#include <QStack>
 
 QHash<Channel *, QHash<Player *, ChanACL::Permissions > > ChanACL::c_qhACLCache;
 

@@ -31,12 +31,6 @@
 #ifndef _PLAYERMODEL_H
 #define _PLAYERMODEL_H
 
-#include <QAbstractItemModel>
-#include <QItemDelegate>
-#include <QIcon>
-#include <QHash>
-#include <QSet>
-
 class Player;
 class Channel;
 
