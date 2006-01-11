@@ -28,7 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <speex/speex.h>
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "AudioConfigDialog.h"

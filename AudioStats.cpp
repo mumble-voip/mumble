@@ -38,13 +38,18 @@
 typedef float spx_word16_t;
 typedef float spx_word32_t;
 typedef float spx_float_t;
-struct SpeexEchoState{
+/** Speex echo cancellation state. */
+struct SpeexEchoState {
    int frame_size;           /**< Number of samples processed each time */
    int window_size;
    int M;
    int cancel_count;
    int adapted;
-   float sum_adapt;
+   spx_int32_t sampling_rate;
+   spx_word16_t spec_average;
+   spx_word16_t beta0;
+   spx_word16_t beta_max;
+   spx_word32_t sum_adapt;
    spx_word16_t *e;
    spx_word16_t *x;
    spx_word16_t *X;
@@ -63,8 +68,9 @@ struct SpeexEchoState{
    spx_word32_t *Xf;
    spx_word32_t *Eh;
    spx_word32_t *Yh;
-   float Pey;
-   float Pyy;
+   spx_float_t Pey;
+   spx_float_t Pyy;
+   spx_word16_t *window;
    /*struct drft_lookup *fft_lookup;*/
    void *fft_table;
    spx_word16_t memX, memD, memE;

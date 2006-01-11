@@ -36,7 +36,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from World of Warcraft (1.8.4)", L"Mumble WoW Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from World of Warcraft", L"Mumble WoW Plugin", MB_OK);
 }
 
 static int fetch(float *pos, float *front, float *top) {
@@ -57,8 +57,8 @@ static int fetch(float *pos, float *front, float *top) {
 	// the last seems to be the "official" one. IE, the
 	// first will update Z while jumping, on elevators etc,
 	// the latter won't.
-	ok = ok && peekProc((BYTE *) 0x00C5AD34, pos, 12);
-	ok = ok && peekProc((BYTE *) 0x00C5AD4C, front, 12);
+	ok = ok && peekProc((BYTE *) 0x00C705BC, pos, 12);
+	ok = ok && peekProc((BYTE *) 0x00C705D4, front, 12);
 
 	if (! ok)
 		return false;
@@ -113,7 +113,7 @@ static void unlock() {
 
 static MumblePlugin wowplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"World of Warcraft 1.8.4",
+	L"World of Warcraft 1.9.1(Euro)",
 	L"World of Warcraft",
 	about,
 	NULL,
