@@ -2,6 +2,10 @@
 #define _WIN32_IE 0x0600
 #include <windows.h>
 #include <shellapi.h>
+#else
+#define CopyMemory(dst,ptr,len) memcpy(dst,ptr,len)
+#define ZeroMemory(ptr,len) memset(ptr, 0, len)
+#define __cdecl 
 #endif
 
 #include <QtCore>
@@ -19,3 +23,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
+
+#ifndef WIN32
+typedef WId HWND;
+#endif
