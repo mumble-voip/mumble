@@ -21,7 +21,7 @@ win32 {
   HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h Overlay.h
   SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp GlobalShortcut_win.cpp TextToSpeech_win.cpp TrayIcon_win.cpp Overlay_win.cpp
   INCLUDEPATH	+= /dx90sdk/include "/Program Files/Microsoft Speech SDK 5.1/Include" "/Program Files/FMOD SoundSystem/FMOD Programmers API/api/inc"
-  LIBS	+= -L\\dx90sdk\\lib -L"/Program Files/Microsoft Speech SDK 5.1/Lib/i386" -L"/Program Files/FMOD SoundSystem/FMOD Programmers API/api/lib" -ldsound -ldxguid -ldinput8 -lsapi -lole32
+  LIBS	+= -L\\dx90sdk\\lib -L"/Program Files/Microsoft Speech SDK 5.1/Lib/i386" -L"/Program Files/FMOD SoundSystem/FMOD Programmers API/api/lib" -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lfmodex
   INCLUDEPATH	+= /boost/include/boost-1_33
   CONFIG	+= asio
   DEFINES += WIN32
