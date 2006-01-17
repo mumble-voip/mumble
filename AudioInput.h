@@ -50,6 +50,7 @@ class AudioInput : public QThread {
 	friend class AudioNoiseWidget;
 	friend class AudioEchoWidget;
 	friend class AudioStats;
+	friend class FMODSystem;
 	Q_OBJECT
 	protected:
 		int	iFrameSize;

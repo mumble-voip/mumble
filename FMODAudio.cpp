@@ -40,8 +40,159 @@
 static AudioOutput *FMODAudioOutputNew() {
 	return new FMODAudioOutput();
 }
+static AudioInput *FMODAudioInputNew() {
+	return new FMODAudioInput();
+}
 
 static AudioOutputRegistrar aorFMOD("FMOD", FMODAudioOutputNew);
+static AudioInputRegistrar airFMOD("FMOD", FMODAudioInputNew);
+
+WeakFMODSystemPtr FMODSystem::fsSystem;
+QMutex FMODSystem::qmSystem;
+
+FMODSystem::FMODSystem() {
+	aiInput = NULL;
+	aoOutput = NULL;
+	bRunning = true;
+}
+
+FMODSystem::~FMODSystem() {
+	bRunning = false;
+	wait();
+}
+
+FMODSystemPtr FMODSystem::getSystem() {
+	qmSystem.lock();
+
+	FMODSystemPtr ptr = fsSystem.lock();
+	if (! ptr) {
+		ptr = FMODSystemPtr(new FMODSystem());
+		fsSystem = ptr;
+		ptr->start(QThread::HighPriority);
+	}
+
+	qmSystem.unlock();
+	return ptr;
+}
+
+void FMODSystem::run() {
+    FMOD_RESULT             result;
+
+    result = FMOD_System_Create(&system);
+	result = FMOD_System_Init(system, 4, FMOD_INIT_NORMAL, NULL);
+
+	qWarning("FMODSystem: System initialized");
+
+	while (bRunning) {
+		if (aoOutput) {
+				if (! aoOutput->bRunning) {
+					aoOutput->wipe();
+					qwWait.wakeAll();
+				} else
+					aoOutput->frame(system);
+		}
+		if (aiInput) {
+			if (! aiInput->bRunning) {
+				aiInput->release();
+				qwWait.wakeAll();
+			} else
+				aiInput->frame(system);
+		}
+		FMOD_System_Update(system);
+		msleep(10);
+	};
+
+    result = FMOD_System_Close(system);
+    result = FMOD_System_Release(system);
+
+    qWarning("FMODSystem: Exiting");
+}
+
+FMODAudioInput::FMODAudioInput() {
+	sound = NULL;
+}
+
+FMODAudioInput::~FMODAudioInput() {
+	bRunning = false;
+	wait();
+}
+
+void FMODAudioInput::release() {
+	if (sound) {
+		FMOD_Sound_Release(sound);
+		sound = NULL;
+	}
+}
+
+void FMODAudioInput::run() {
+	FMODSystemPtr sys = FMODSystem::getSystem();
+	QMutex m;
+
+	bRunning = true;
+
+	sys->aiInput = this;
+	while (bRunning) {
+		m.lock();
+		sys->qwWait.wait(&m);
+		m.unlock();
+	}
+	sys->aiInput = NULL;
+}
+
+void FMODAudioInput::frame(FMOD_SYSTEM *system) {
+	if (! sound) {
+    	FMOD_CREATESOUNDEXINFO exinfo;
+    	FMOD_RESULT result;
+
+    	memset(&exinfo, 0, sizeof(FMOD_CREATESOUNDEXINFO));
+
+    	uiBufferSize = iFrameSize * sizeof(short) * 8;
+
+	    exinfo.cbsize           = sizeof(FMOD_CREATESOUNDEXINFO);
+	    exinfo.numchannels      = 1;
+	    exinfo.format           = FMOD_SOUND_FORMAT_PCM16;
+	    exinfo.defaultfrequency = SAMPLE_RATE;
+	    exinfo.length           = uiBufferSize;
+
+		result = FMOD_System_CreateSound(system, 0, FMOD_2D | FMOD_SOFTWARE | FMOD_OPENUSER, &exinfo, &sound);
+		result = FMOD_System_RecordStart(system, sound, true);
+
+		uiLastRead = 0;
+	}
+
+	unsigned int recordpos;
+
+	unsigned int ready;
+
+	do {
+		FMOD_System_GetRecordPosition(system, &recordpos);
+		recordpos *= 2;
+		if (recordpos < uiLastRead)
+			ready = (uiBufferSize - uiLastRead) + recordpos;
+		else
+			ready = recordpos - uiLastRead;
+
+		if (ready > iByteSize) {
+		    void *ptr1, *ptr2;
+		    unsigned int len1, len2;
+
+			FMOD_Sound_Lock(sound, uiLastRead, iByteSize, &ptr1, &ptr2, &len1, &len2);
+
+	    	if (ptr1 && len1)
+	    		CopyMemory(psMic, ptr1, len1);
+
+	    	if (ptr2 && len2)
+	    		CopyMemory(psMic+len1/2, ptr2, len2);
+
+			FMOD_Sound_Unlock(sound, ptr1, ptr2, len1, len2);
+
+			encodeAudioFrame();
+
+			uiLastRead = (uiLastRead + iByteSize) % uiBufferSize;
+		}
+
+	} while(ready >= iByteSize * 2);
+}
 
 FMODOutputPlayer::FMODOutputPlayer(FMODAudioOutput *ao, Player *player) : AudioOutputPlayer(ao, player) {
 	fao = static_cast<FMODAudioOutput *>(aoOutput);
@@ -50,25 +201,31 @@ FMODOutputPlayer::FMODOutputPlayer(FMODAudioOutput *ao, Player *player) : AudioO
 	channel = NULL;
 }
 
-void FMODOutputPlayer::setupSound() {
+void FMODOutputPlayer::setupSound(FMOD_SYSTEM *system) {
 	FMOD_CREATESOUNDEXINFO  createsoundexinfo;
 	FMOD_RESULT result;
 	FMOD_MODE mode = FMOD_2D | FMOD_OPENUSER | FMOD_LOOP_NORMAL | FMOD_HARDWARE | FMOD_CREATESTREAM;
 	memset(&createsoundexinfo, 0, sizeof(FMOD_CREATESOUNDEXINFO));
     createsoundexinfo.cbsize            = sizeof(FMOD_CREATESOUNDEXINFO);              /* required. */
-    createsoundexinfo.decodebuffersize  = SAMPLE_RATE * NBLOCKS;                             /* Chunk size of stream update in samples.  This will be the amount of data passed to the user callback. */
-    createsoundexinfo.length            = SAMPLE_RATE * NBLOCKS * sizeof(signed short) * 5; /* Length of PCM data in bytes of whole song (for Sound::getLength) */
+    createsoundexinfo.decodebuffersize  = iFrameSize * 5;                             /* Chunk size of stream update in samples.  This will be the amount of data passed to the user callback. */
+    createsoundexinfo.length            = iFrameSize * sizeof(signed short) * 10; /* Length of PCM data in bytes of whole song (for Sound::getLength) */
     createsoundexinfo.numchannels       = 1;                                    /* Number of channels in the sound. */
     createsoundexinfo.defaultfrequency  = SAMPLE_RATE;                                       /* Default playback rate of sound. */
     createsoundexinfo.format            = FMOD_SOUND_FORMAT_PCM16;                     /* Data format of sound. */
     createsoundexinfo.pcmreadcallback   = PCMReadCallback;                             /* User callback for reading. */
     createsoundexinfo.userdata = this;
 
+	bSetup = true;
 
-    result = FMOD_System_CreateSound(fao->system, 0, mode, &createsoundexinfo, &sound);
-    result = FMOD_System_PlaySound(fao->system, FMOD_CHANNEL_FREE, sound, 0, &channel);
+    result = FMOD_System_CreateSound(system, 0, mode, &createsoundexinfo, &sound);
+    result = FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, sound, 0, &channel);
+
+    bSetup = false;
 
 	qWarning("FMODOutputPlayer: %s initialized", qPrintable(p->qsName));
+
+	bAlive = true;
+	iAliveHold = 0;
 }
 
 FMODOutputPlayer::~FMODOutputPlayer() {
@@ -88,15 +245,30 @@ FMOD_RESULT F_CALLBACK FMODOutputPlayer::PCMReadCallback(FMOD_SOUND *sound, void
 }
 
 void FMODOutputPlayer::ReadNextFrames(void *data, unsigned int datalen) {
+	if (bSetup) {
+		ZeroMemory(data, datalen);
+		return;
+	}
+
 	short *buffer_orig = psBuffer;
 	psBuffer = static_cast<short *>(data);
 
 	bool alive;
 
 	while(datalen) {
-		alive = alive && decodeNextFrame();
+		alive = decodeNextFrame();
 		psBuffer += iFrameSize;
 		datalen -= iByteSize;
+
+		if (alive)
+			iAliveHold = 0;
+		else {
+			iAliveHold++;
+			if (iAliveHold > 50) {
+				bAlive = false;
+			}
+		}
+
 	}
 
 	psBuffer = buffer_orig;
@@ -104,48 +276,43 @@ void FMODOutputPlayer::ReadNextFrames(void *data, unsigned int datalen) {
 
 
 FMODAudioOutput::FMODAudioOutput() {
-    FMOD_RESULT             result;
-
-    result = FMOD_System_Create(&system);
-    qWarning("SysCre Res %d", result);
-	result = FMOD_System_Init(system, 4, FMOD_INIT_NORMAL, NULL);
-    qWarning("SysInit Res %d", result);
-
-	qWarning("FMODAudioOutput: System %p initialized", system);
-
 	bRunning = true;
 }
 
 FMODAudioOutput::~FMODAudioOutput() {
-    FMOD_RESULT             result;
-
-	qWarning("Going away");
-
 	bRunning = false;
-	wipe();
-
-    result = FMOD_System_Close(system);
-    result = FMOD_System_Release(system);
+	wait();
 }
 
 AudioOutputPlayer *FMODAudioOutput::getPlayer(Player *player) {
-	qWarning("Ashhkking for playah");
 	return new FMODOutputPlayer(this, player);
 }
 
-void FMODAudioOutput::run() {
-	while (bRunning) {
-		qWarning("Checking lost sheep");
-		qrwlOutputs.lockForRead();
-		foreach(AudioOutputPlayer *aop, qmOutputs) {
-			FMODOutputPlayer *fop=static_cast<FMODOutputPlayer *>(aop);
-			if (! fop->sound)
-				fop->setupSound();
+void FMODAudioOutput::frame(FMOD_SYSTEM *system) {
+	qrwlOutputs.lockForRead();
+	foreach(AudioOutputPlayer *aop, qmOutputs) {
+		FMODOutputPlayer *fop=static_cast<FMODOutputPlayer *>(aop);
+		if (! fop->sound)
+			fop->setupSound(system);
+		else if (! fop->bAlive) {
+			qrwlOutputs.unlock();
+			removeBuffer(fop->p);
+			qrwlOutputs.lockForRead();
+			break;
 		}
-		qrwlOutputs.unlock();
-
-		qWarning("Running system update on %p", system);
-		FMOD_System_Update(system);
-		msleep(10);
 	}
+	qrwlOutputs.unlock();
+}
+
+void FMODAudioOutput::run() {
+	FMODSystemPtr sys = FMODSystem::getSystem();
+	QMutex m;
+
+	sys->aoOutput = this;
+	while (bRunning) {
+		m.lock();
+		sys->qwWait.wait(&m);
+		m.unlock();
+	}
+	sys->aoOutput = NULL;
 }

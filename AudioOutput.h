@@ -82,6 +82,7 @@ class AudioOutputPlayer : public QObject {
 };
 
 class AudioOutput : public QThread {
+	friend class FMODSystem;
 	Q_OBJECT
 	protected:
 		bool bRunning;

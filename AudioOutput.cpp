@@ -58,6 +58,16 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 		current = choice;
 		return AudioOutputPtr(qmNew->value(choice)());
 	}
+
+	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
+	// pretty early in the sorted map.
+
+	if (qmNew->contains("DirectSound")) {
+		current = "DirectSound";
+		return AudioOutputPtr(qmNew->value(current)());
+	}
+
+
 	QMapIterator<QString, AudioOutputRegistrarNew> i(*qmNew);
 	if (i.hasNext()) {
 		i.next();

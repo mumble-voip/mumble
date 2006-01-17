@@ -31,12 +31,53 @@
 #ifndef _FMODAUDIO_H
 #define _FMODAUDIO_H
 
+#include "AudioInput.h"
 #include "AudioOutput.h"
 #include <fmod.h>
 #include <fmod_errors.h>
 
-class FMODAudioOutput;
+class FMODSystem;
+typedef boost::shared_ptr<FMODSystem> FMODSystemPtr;
+typedef boost::weak_ptr<FMODSystem> WeakFMODSystemPtr;
 
+class FMODSystem : public QThread {
+	friend class FMODAudioOutput;
+	friend class FMODAudioInput;
+	Q_OBJECT
+	protected:
+		static QMutex qmSystem;
+		static WeakFMODSystemPtr fsSystem;
+
+		FMOD_SYSTEM *system;
+		FMODAudioOutput *aoOutput;
+		FMODAudioInput *aiInput;
+		bool bRunning;
+	public:
+		QWaitCondition qwWait;
+
+		FMODSystem();
+		~FMODSystem();
+
+		static FMODSystemPtr getSystem();
+		void run();
+};
+
+class FMODAudioInput : public AudioInput {
+	friend class FMODSystem;
+	Q_OBJECT
+	protected:
+		FMOD_SOUND *sound;
+		unsigned int uiLastRead;
+		unsigned int uiBufferSize;
+		void frame(FMOD_SYSTEM *system);
+		void release();
+	public:
+		FMODAudioInput();
+		~FMODAudioInput();
+		void run();
+};
+
+class FMODAudioOutput;
 class FMODOutputPlayer : public AudioOutputPlayer {
 	friend class FMODAudioOutput;
 	Q_OBJECT
@@ -44,7 +85,10 @@ class FMODOutputPlayer : public AudioOutputPlayer {
 		FMOD_SOUND *sound;
 		FMOD_CHANNEL *channel;
 		FMODAudioOutput *fao;
-		void setupSound();
+		bool bAlive;
+		bool bSetup;
+		int iAliveHold;
+		void setupSound(FMOD_SYSTEM *system);
 		void ReadNextFrames(void *data, unsigned int datalen);
 		static FMOD_RESULT F_CALLBACK PCMReadCallback(FMOD_SOUND *sound, void *data, unsigned int datalen);
  	public:
@@ -54,11 +98,12 @@ class FMODOutputPlayer : public AudioOutputPlayer {
 
 
 class FMODAudioOutput : public AudioOutput {
+	friend class FMODSystem;
 	friend class FMODOutputPlayer;
 	Q_OBJECT
 	protected:
-		FMOD_SYSTEM *system;
     	virtual AudioOutputPlayer *getPlayer(Player *);
+    	void frame(FMOD_SYSTEM *system);
 	public:
 		FMODAudioOutput();
 		~FMODAudioOutput();
