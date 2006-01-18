@@ -73,6 +73,8 @@ struct ModelItem {
 	void insertPlayer(Player *p);
 };
 
+class ChannelItem;
+
 class PlayerModel : public QAbstractItemModel {
 	friend class ChannelItem;
 	Q_OBJECT

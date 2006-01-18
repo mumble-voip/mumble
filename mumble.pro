@@ -29,8 +29,8 @@ win32 {
 
 unix {
   SOURCES	+= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp TrayIcon_unix.cpp
-  INCLUDEPATH	+= .. fmod/api/inc
-  LIBS		+= -Lfmod/api/lib -lfmodex64
+  INCLUDEPATH	+= .. fmod/api/inc /usr/local/include
+  LIBS		+= -Lfmod/api/lib -lfmodex -L/usr/local/lib
 }
 
 CONFIG(asio) {

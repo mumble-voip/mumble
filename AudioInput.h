@@ -64,7 +64,7 @@ class AudioInput : public QThread {
 		short *psMic;
 		short *psSpeaker;
 		short *psClean;
-		float *pfY;
+		int *pfY;
 
 		QList<QByteArray> qlFrames;
 

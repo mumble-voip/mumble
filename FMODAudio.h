@@ -37,6 +37,9 @@
 #include <fmod_errors.h>
 
 class FMODSystem;
+class FMODAudioOutput;
+class FMODAudioInput;
+
 typedef boost::shared_ptr<FMODSystem> FMODSystemPtr;
 typedef boost::weak_ptr<FMODSystem> WeakFMODSystemPtr;
 

@@ -78,8 +78,12 @@ FMODSystemPtr FMODSystem::getSystem() {
 void FMODSystem::run() {
     FMOD_RESULT             result;
 
-    result = FMOD_System_Create(&system);
+       result = FMOD_System_Create(&system);
+       if (result != FMOD_OK)
+       	qWarning("FMODSystem: FMOD_System_Create %d", result);
 	result = FMOD_System_Init(system, 4, FMOD_INIT_NORMAL, NULL);
+       if (result != FMOD_OK)
+       	qWarning("FMODSystem: FMOD_System_Init %d", result);
 
 	qWarning("FMODSystem: System initialized");
 
@@ -146,7 +150,7 @@ void FMODAudioInput::frame(FMOD_SYSTEM *system) {
 
     	memset(&exinfo, 0, sizeof(FMOD_CREATESOUNDEXINFO));
 
-    	uiBufferSize = iFrameSize * sizeof(short) * 8;
+    	uiBufferSize = iFrameSize * sizeof(short) * 32;
 
 	    exinfo.cbsize           = sizeof(FMOD_CREATESOUNDEXINFO);
 	    exinfo.numchannels      = 1;
@@ -167,11 +171,12 @@ void FMODAudioInput::frame(FMOD_SYSTEM *system) {
 	do {
 		FMOD_System_GetRecordPosition(system, &recordpos);
 		recordpos *= 2;
-		if (recordpos < uiLastRead)
+		if (recordpos <= uiLastRead)
 			ready = (uiBufferSize - uiLastRead) + recordpos;
 		else
 			ready = recordpos - uiLastRead;
-
+			
+			
 		if (ready > iByteSize) {
 		    void *ptr1, *ptr2;
 		    unsigned int len1, len2;
@@ -204,7 +209,7 @@ FMODOutputPlayer::FMODOutputPlayer(FMODAudioOutput *ao, Player *player) : AudioO
 void FMODOutputPlayer::setupSound(FMOD_SYSTEM *system) {
 	FMOD_CREATESOUNDEXINFO  createsoundexinfo;
 	FMOD_RESULT result;
-	FMOD_MODE mode = FMOD_2D | FMOD_OPENUSER | FMOD_LOOP_NORMAL | FMOD_HARDWARE | FMOD_CREATESTREAM;
+	FMOD_MODE mode = FMOD_2D | FMOD_OPENUSER | FMOD_LOOP_NORMAL | FMOD_SOFTWARE | FMOD_CREATESTREAM;
 	memset(&createsoundexinfo, 0, sizeof(FMOD_CREATESOUNDEXINFO));
     createsoundexinfo.cbsize            = sizeof(FMOD_CREATESOUNDEXINFO);              /* required. */
     createsoundexinfo.decodebuffersize  = iFrameSize * 5;                             /* Chunk size of stream update in samples.  This will be the amount of data passed to the user callback. */
@@ -218,7 +223,11 @@ void FMODOutputPlayer::setupSound(FMOD_SYSTEM *system) {
 	bSetup = true;
 
     result = FMOD_System_CreateSound(system, 0, mode, &createsoundexinfo, &sound);
+       if (result != FMOD_OK)
+       	qWarning("FMODOutputPlayer: FMOD_System_CreateSound %d", result);
     result = FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, sound, 0, &channel);
+       if (result != FMOD_OK)
+       	qWarning("FMODOutputPlayer: FMOD_System_PlaySound %d", result);
 
     bSetup = false;
 
@@ -276,6 +285,7 @@ void FMODOutputPlayer::ReadNextFrames(void *data, unsigned int datalen) {
 
 
 FMODAudioOutput::FMODAudioOutput() {
+	qWarning("FMODAudioOutput: Initialized");
 	bRunning = true;
 }
 
@@ -309,6 +319,7 @@ void FMODAudioOutput::run() {
 	QMutex m;
 
 	sys->aoOutput = this;
+
 	while (bRunning) {
 		m.lock();
 		sys->qwWait.wait(&m);

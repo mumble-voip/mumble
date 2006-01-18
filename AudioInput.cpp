@@ -108,7 +108,7 @@ AudioInput::AudioInput()
 	psMic = new short[iFrameSize];
 	psSpeaker = new short[iFrameSize];
 	psClean = new short[iFrameSize];
-	pfY = new float[iFrameSize+1];
+	pfY = new int[iFrameSize+1];
 
 	bHasSpeaker = false;
 
