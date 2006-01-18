@@ -10,7 +10,7 @@
 Mumble is a voicechat program for gamers written on top of Qt and Speex.
 
 There are two modules in Mumble; the client (mumble) and the server
-(murmur). The client only works on Win32, while the server should work
+(murmur). The client works on Win32 and Linux, while the server should work
 on anything QT can be installed on.
 
 Note that when we say Win32, we mean Windows XP or newer.
