@@ -112,7 +112,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qcbTransmit, 0, 1, 1, 2);
 
 	qsTransmitHold = new QSlider(Qt::Horizontal);
-	qsTransmitHold->setRange(20, 50);
+	qsTransmitHold->setRange(20, 250);
 	qsTransmitHold->setSingleStep(1);
 	qsTransmitHold->setPageStep(5);
 	qsTransmitHold->setValue(g.s.iVoiceHold);
@@ -321,7 +321,9 @@ void AudioConfigDialog::on_Frames_valueChanged(int v) {
 }
 
 void AudioConfigDialog::on_TransmitHold_valueChanged(int v) {
-	qlTransmitHold->setText(tr("%1 ms").arg(v*20));
+	double val = v * 20;
+	val = val / 1000.0;
+	qlTransmitHold->setText(tr("%1s").arg(val, 0, 'f', 2));
 }
 
 void AudioConfigDialog::on_Quality_valueChanged(int v) {

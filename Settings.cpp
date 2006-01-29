@@ -39,7 +39,7 @@ Settings::Settings() {
 	iQuality = 8;
 	iComplexity = 4;
 	iMinLoudness = 4000;
-	iVoiceHold = 50;
+	iVoiceHold = 200;
 	iJitterBufferSize = 8;
 	iFramesPerPacket = 1;
 	iDXOutputDelay = 1;
