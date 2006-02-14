@@ -37,6 +37,14 @@
 #include "Connection.h"
 #include "Server.h"
 
+#ifdef Q_OS_UNIX
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <errno.h>
+#endif
+
 Server *g_sServer;
 ServerParams g_sp;
 
@@ -103,6 +111,12 @@ Server::Server() {
 	qusUdp = new QUdpSocket(this);
 	if (! qusUdp->bind(g_sp.iPort))
 		qFatal("Server: UDP Bind failed");
+
+#ifdef Q_OS_UNIX
+	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
+	if (setsockopt(qusUdp->socketDescriptor(), SOL_IP, IP_TOS, &val, sizeof(val)))
+		qWarning("Server: Failed to set TOS for UDP Socket");
+#endif
 
 	connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 
