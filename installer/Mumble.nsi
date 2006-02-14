@@ -76,6 +76,7 @@ Section "Mumble & Murmur" SecMumble
   SetOverwrite off
   File "..\murmur.ini"
   SetOverwrite on
+  File "qos.reg"
   File "\qt\4.1.0os\lib\QtCore4.dll"
   File "\qt\4.1.0os\lib\QtGui4.dll"
   File "\qt\4.1.0os\lib\QtNetwork4.dll"
@@ -143,6 +144,7 @@ Section "Uninstall"
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
   Delete "$INSTDIR\mumble_ol.dll"
+  Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"
   Delete "$INSTDIR\plugins\bf2.dll"
   Delete "$INSTDIR\plugins\wow.dll"
