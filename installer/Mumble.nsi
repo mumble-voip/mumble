@@ -88,7 +88,7 @@ Section "Mumble & Murmur" SecMumble
 
   SetOutPath "$INSTDIR\plugins"
   File /oname=bf2.dll "..\plugins\bf2.dll"
-  File /oname=wow.dll "..\plugins\wow.dll"
+  ;File /oname=wow.dll "..\plugins\wow.dll"
 
   SetOutPath "$INSTDIR"
 
@@ -147,7 +147,7 @@ Section "Uninstall"
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"
   Delete "$INSTDIR\plugins\bf2.dll"
-  Delete "$INSTDIR\plugins\wow.dll"
+  ;Delete "$INSTDIR\plugins\wow.dll"
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
   Delete "$INSTDIR\QtNetwork4.dll"
