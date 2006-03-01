@@ -33,7 +33,7 @@
 
 Settings::Settings() {
 	atTransmit = VAD;
-	a3dModel = Panning;
+	a3dModel = None;
 	bMute = bDeaf = false;
 	bTTS = true;
 	iQuality = 8;
@@ -42,7 +42,7 @@ Settings::Settings() {
 	iVoiceHold = 200;
 	iJitterBufferSize = 8;
 	iFramesPerPacket = 1;
-	iDXOutputDelay = 1;
+	iDXOutputDelay = 5;
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
 	fDXRollOff = 0.15;

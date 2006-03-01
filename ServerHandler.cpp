@@ -69,8 +69,11 @@ void ServerHandler::customEvent(QEvent *evt) {
 					qusUdp->bind();
 					connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 #ifdef Q_OS_WIN
-					int tos = 0x98;
-					setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos));
+					int tos = 0xb8;
+					if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos)) != 0) {
+						tos = 0x98;
+						setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos));
+					}
 #endif
 					qhaRemote = cConnection->peerAddress();
 				}
