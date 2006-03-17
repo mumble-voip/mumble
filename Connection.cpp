@@ -31,6 +31,13 @@
 #include "Message.h"
 #include "Connection.h"
 
+#ifdef Q_OS_UNIX
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#endif
+
 Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	qtsSocket->setParent(this);
