@@ -61,7 +61,7 @@ void ServerHandler::customEvent(QEvent *evt) {
 
 	if (cConnection) {
 		if (shme->qbaMsg.size() > 0) {
-			if (shme->bUdp) {
+			if (shme->bUdp && ! g.s.bTCPCompat) {
 				if (! qusUdp) {
 					if (cConnection->peerAddress().isNull())
 						return;
@@ -80,6 +80,8 @@ void ServerHandler::customEvent(QEvent *evt) {
 				qusUdp->writeDatagram(shme->qbaMsg, qhaRemote, iPort);
 			} else {
 				cConnection->sendMessage(shme->qbaMsg);
+				if (shme->bUdp)
+					cConnection->forceFlush();
 			}
 		} else
 			cConnection->disconnect();

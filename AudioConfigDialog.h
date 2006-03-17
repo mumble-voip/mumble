@@ -43,6 +43,7 @@ class AudioConfigDialog : public ConfigWidget {
 		QSlider *qsQuality, *qsComplexity, *qsAmp;
 		QLabel *qlQuality, *qlComplexity, *qlAmp;
 		QSlider *qsJitter;
+		QCheckBox *qcbTCP;
 		QLabel *qlJitter;
 		QLabel *qlBitrate;
 	public:

@@ -52,6 +52,7 @@ class Connection : public QObject {
 		void sendMessage(Message *mMsg);
 		void sendMessage(QByteArray &qbaMsg);
 		void disconnect();
+		void forceFlush();
 
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;

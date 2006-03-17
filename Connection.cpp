@@ -108,6 +108,20 @@ void Connection::sendMessage(QByteArray &qbaMsg) {
 	qtsSocket->write(qbaMsg);
 }
 
+void Connection::forceFlush() {
+	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
+		return;
+
+	int nodelay;
+
+	qtsSocket->flush();
+
+	nodelay = 1;
+	setsockopt(qtsSocket->socketDescriptor(), IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<char *>(&nodelay), sizeof(nodelay));
+	nodelay = 0;
+	setsockopt(qtsSocket->socketDescriptor(), IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<char *>(&nodelay), sizeof(nodelay));
+}
+
 void Connection::disconnect() {
 	qtsSocket->disconnectFromHost();
 }

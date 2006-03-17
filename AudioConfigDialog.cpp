@@ -158,6 +158,16 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qsFrames, 2, 1);
 	grid->addWidget(qlFrames, 2, 2);
 
+	qcbTCP = new QCheckBox(tr("Use TCP mode"));
+	qcbTCP->setChecked(g.s.bTCPCompat);
+	qcbTCP->setToolTip(tr("Use TCP Compability mode"));
+	qcbTCP->setWhatsThis(tr("<b>Enable TCP Compability mode</b>.<br />"
+						"This will make Mumble use only TCP when communicating with the server. "
+						"This will increase overhead and cause lost packets to produce noticable "
+						"pauses in communication, so this should only be used if you are unable to "
+						"use the default (which uses UDP for voice and TCP for control)."));
+	grid->addWidget(qcbTCP,3,1);
+
 	qlBitrate = new QLabel();
 	qlBitrate->setToolTip(tr("Maximum bandwidth used for sent audio"));
 	qlBitrate->setWhatsThis(tr("<b>This shows peak outgoing bandwidth used.</b><br />"
@@ -169,8 +179,8 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	l = new QLabel(tr("Outgoing Bitrate"));
 	l->setBuddy(qlBitrate);
 
-	grid->addWidget(l, 3, 0);
-	grid->addWidget(qlBitrate, 3, 1, 1, 2);
+	grid->addWidget(l, 4, 0);
+	grid->addWidget(qlBitrate, 4, 1, 1, 2);
 
 	qgbTransmit->setLayout(grid);
 
@@ -309,6 +319,7 @@ void AudioConfigDialog::accept() {
 	g.s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	g.s.iVoiceHold = qsTransmitHold->value();
 	g.s.iFramesPerPacket = qsFrames->value();
+	g.s.bTCPCompat = qcbTCP->isChecked();
 	g.s.iJitterBufferSize = qsJitter->value();
 	g.s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	g.s.qsAudioInput = qcbInput->currentText();
@@ -362,6 +373,10 @@ void AudioConfigDialog::updateBitrate() {
 
 	// 50 packets, in bits, IP + UDP + type/id (Message header) + seq
 	overhead = 50 * 8 * (20 + 8 + 3 + 2);
+
+	// TCP is 12 more bytes than UDP
+	if (qcbTCP->isChecked())
+		overhead += 50 * 8 * 12;
 
 	// Individual packet sizes
 	if (p > 1)

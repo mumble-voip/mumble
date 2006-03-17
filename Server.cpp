@@ -286,13 +286,16 @@ void Server::sendMessage(short id, Message *mMsg) {
 }
 
 void Server::sendMessage(Connection *c, Message *mMsg) {
-	if (((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex)) && qhPeers.contains(c)) {
+	bool mayUdp = (mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex);
+	if (mayUdp && qhPeers.contains(c)) {
 		Peer p = qhPeers[c];
 		QByteArray qba;
 		mMsg->messageToNetwork(qba);
 		qusUdp->writeDatagram(qba, p.first, p.second);
 	} else {
 		c->sendMessage(mMsg);
+		if (mayUdp)
+			c->forceFlush();
 	}
 }
 
