@@ -113,7 +113,7 @@ static void unlock() {
 
 static MumblePlugin wowplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"World of Warcraft 1.9.1(Euro)",
+	L"World of Warcraft 1.10(Euro)",
 	L"World of Warcraft",
 	about,
 	NULL,
