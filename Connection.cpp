@@ -37,6 +37,9 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #endif
+#ifdef Q_OS_WIN
+#include <winsock2.h>
+#endif
 
 Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;

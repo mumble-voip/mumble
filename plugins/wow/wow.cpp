@@ -57,8 +57,8 @@ static int fetch(float *pos, float *front, float *top) {
 	// the last seems to be the "official" one. IE, the
 	// first will update Z while jumping, on elevators etc,
 	// the latter won't.
-	ok = ok && peekProc((BYTE *) 0x00C705BC, pos, 12);
-	ok = ok && peekProc((BYTE *) 0x00C705D4, front, 12);
+	ok = ok && peekProc((BYTE *) 0x00C8DDA4, pos, 12);
+	ok = ok && peekProc((BYTE *) 0x00C8DDBC, front, 12);
 
 	if (! ok)
 		return false;

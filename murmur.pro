@@ -14,3 +14,7 @@ HEADERS = ACL.h Group.h Channel.h Server.h Connection.h Player.h ServerDB.h
 SOURCES = ACL.cpp Group.cpp Channel.cpp murmur.cpp  Message.cpp Connection.cpp Server.cpp Player.cpp ServerDB.cpp
 PRECOMPILED_HEADER = murmur_pch.h
 DIST = murmur.pl murmur.ini link.pl Commands.txt
+
+win32 {
+  LIBS	+= -lws2_32
+}
