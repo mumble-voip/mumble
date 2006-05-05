@@ -38,6 +38,7 @@
 typedef float spx_word16_t;
 typedef float spx_word32_t;
 typedef float spx_float_t;
+typedef spx_word32_t spx_mem_t;
 /** Speex echo cancellation state. */
 struct SpeexEchoState {
    int frame_size;           /**< Number of samples processed each time */
@@ -59,10 +60,14 @@ struct SpeexEchoState {
    spx_word32_t *Yps;
    spx_word16_t *Y;
    spx_word16_t *E;
-   spx_word16_t *PHI;
-   spx_word16_t *W;
+   spx_word32_t *PHI;
+   spx_word32_t *W;
    spx_word32_t *power;
    spx_float_t *power_1;
+   spx_word16_t *wtmp;
+#ifdef FIXED_POINT
+   spx_word16_t *wtmp2;
+#endif
    spx_word32_t *Rf;
    spx_word32_t *Yf;
    spx_word32_t *Xf;
@@ -71,10 +76,15 @@ struct SpeexEchoState {
    spx_float_t Pey;
    spx_float_t Pyy;
    spx_word16_t *window;
-   /*struct drft_lookup *fft_lookup;*/
    void *fft_table;
    spx_word16_t memX, memD, memE;
    spx_word16_t preemph;
+   spx_word16_t notch_radius;
+   spx_mem_t notch_mem[2];
+
+   /* NOTE: If you only use speex_echo_cancel() and want to save some memory, remove this */
+   spx_int16_t *play_buf;
+   int play_buf_pos;
 };
 
 AudioEchoWidget::AudioEchoWidget(QWidget *p) : QGLWidget(p) {
