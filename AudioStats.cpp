@@ -40,7 +40,7 @@ typedef float spx_word32_t;
 typedef float spx_float_t;
 typedef spx_word32_t spx_mem_t;
 /** Speex echo cancellation state. */
-struct SpeexEchoState {
+struct CloneSpeexEchoState {
    int frame_size;           /**< Number of samples processed each time */
    int window_size;
    int M;
@@ -145,7 +145,7 @@ void AudioEchoWidget::paintGL() {
 	if (! ai || ! ai->sesEcho)
 		return;
 
-	SpeexEchoState *st = ai->sesEcho;
+	CloneSpeexEchoState *st = reinterpret_cast<CloneSpeexEchoState *>(ai->sesEcho);
 
     int N = st->window_size;
     int n = N / 2;
