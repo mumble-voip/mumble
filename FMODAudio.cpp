@@ -32,6 +32,8 @@
 #include "Player.h"
 #include "Global.h"
 
+#include <fmod_errors.h>
+
 #define NBLOCKS 8
 
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
@@ -81,9 +83,14 @@ void FMODSystem::run() {
        result = FMOD_System_Create(&system);
        if (result != FMOD_OK)
        	qWarning("FMODSystem: FMOD_System_Create %d", result);
+
+       	FMOD_System_SetOutput(system, FMOD_OUTPUTTYPE_ALSA);
+       if (result != FMOD_OK)
+       	qWarning("FMODSystem: FMOD_System_SetOutput %d", result);
+       	
 	result = FMOD_System_Init(system, 4, FMOD_INIT_NORMAL, NULL);
        if (result != FMOD_OK)
-       	qWarning("FMODSystem: FMOD_System_Init %d", result);
+       	qWarning("FMODSystem: FMOD_System_Init %d: %s", result,FMOD_ErrorString(result));
 
 	qWarning("FMODSystem: System initialized");
 
@@ -123,6 +130,7 @@ FMODAudioInput::~FMODAudioInput() {
 
 void FMODAudioInput::release() {
 	if (sound) {
+		qWarning("Releasing FMOD AI");
 		FMOD_Sound_Release(sound);
 		sound = NULL;
 	}
