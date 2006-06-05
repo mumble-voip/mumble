@@ -26,10 +26,12 @@ remove the line that says CONFIG+=asio in mumble.pro
 
 Mumble needs the Boost C++ library. http://www.boost.org
 
-On Linux, Mumble needs FMOD, http://www.fmod.org
-
 You may need to adjust the paths in mumble.pro, murmur.pro and mumble.pri to
 reflect where your installed versions of dependant libraries are.
+
+The Linux version of the client has been tested on Ubuntu 6.06. It may work on
+other updated distributions. The server should work on any modern UNIX-based
+distribution and on Windows.
 
 Building Mumble
 ===============

@@ -52,6 +52,3 @@ Bandwidth usage
 Mumble will use 10-40 kbit/s outgoing, and the same incoming for each user.
 So if there are 10 other users on the server with you, your incoming
 bandwidth requirement will be 100-400 kbit/s if they all talk at the same time.
-
-This program may use
-FMOD Sound System, copyright © Firelight Technologies Pty, Ltd., 1994-2005.
