@@ -30,8 +30,6 @@ win32 {
 unix {
   HEADERS	+= ALSAAudio.h
   SOURCES	+= ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp TrayIcon_unix.cpp
-  INCLUDEPATH	+= /usr/local/include ../speex/include
-  LIBS		+= -L/usr/local/lib -L../speex/lib
 }
 
 CONFIG(asio) {

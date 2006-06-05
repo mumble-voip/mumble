@@ -24,6 +24,10 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
+#ifndef JITTER_BUFFER_OK
+#define SPEEX_ANCIENT
+#endif
+
 #ifndef WIN32
 typedef WId HWND;
 #endif
