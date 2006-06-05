@@ -137,7 +137,8 @@ bool AudioOutputPlayer::decodeNextFrame() {
 		if (sjJitter.valid_bits) {
 			iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
 			if (! iSpeech) {
-				jitter_buffer_reset(sjJitter.packets);
+				// FIXME
+				// jitter_buffer_reset(sjJitter.packets);
 				sjJitter.valid_bits = 0;
 				speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
 			}
