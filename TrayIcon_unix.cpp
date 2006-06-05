@@ -32,6 +32,7 @@
 #include "TrayIcon.h"
 
 TrayIcon::TrayIcon(QMainWindow *mw) : QWidget(mw) {
+	setVisible(false);
 }
 
 TrayIcon::~TrayIcon() {
