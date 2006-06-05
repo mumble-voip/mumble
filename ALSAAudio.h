@@ -33,6 +33,7 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#include <alsa/asoundlib.h>
 
 class ALSAAudioOutput;
 class ALSAAudioInput;
@@ -53,7 +54,11 @@ class ALSAOutputPlayer : public AudioOutputPlayer {
 	Q_OBJECT
 	protected:
 		ALSAAudioOutput *aao;
+		snd_pcm_t *pcm_handle;
+		int iAliveHold;
+		bool playFrames();
  	public:
+ 		void initialize();
 		ALSAOutputPlayer(ALSAAudioOutput *, Player *);
 		~ALSAOutputPlayer();
 };

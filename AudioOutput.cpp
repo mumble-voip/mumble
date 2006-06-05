@@ -98,6 +98,8 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
 
 	for(int i=0;i<3;i++)
 		fPos[i]=0.0;
+	for(int i=0;i<iFrameSize;i++)
+		psBuffer[i]=0;
 	iMissCount = 0;
 
 	speex_jitter_init(&sjJitter, dsDecState, SAMPLE_RATE);
@@ -115,7 +117,6 @@ void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 /*	if (! bSpeech)
 		sjJitter.buffer_size=g.s.iJitterBufferSize;
 */
-
 	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * iFrameSize);
 }
 

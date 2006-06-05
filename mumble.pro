@@ -30,6 +30,7 @@ win32 {
 unix {
   HEADERS	+= ALSAAudio.h
   SOURCES	+= ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp TrayIcon_unix.cpp
+  LIBS		+= -lasound
 }
 
 CONFIG(asio) {
