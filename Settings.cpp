@@ -55,7 +55,7 @@ Settings::Settings() {
 	bOverlayBottom = true;
 	bOverlayLeft = true;
 	bOverlayRight = false;
-	bTransmitPosition = true;
+	bTransmitPosition = false;
 	qfOverlayFont = QFont("Arial", 20);
 	fOverlayWidth = 20.0;
 	qcOverlayPlayer = QColor(255,255,255,128);
@@ -68,8 +68,8 @@ void Settings::load() {
 	bMute = g.qs->value("AudioMute", false). toBool();
 	bDeaf = g.qs->value("AudioDeaf", false). toBool();
 	bTTS = g.qs->value("TextToSpeech", bTTS). toBool();
-	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value("AudioTransmit", Settings::VAD).toInt());
-	a3dModel = static_cast<Settings::Audio3D>(g.qs->value("Audio3D", Settings::Full).toInt());
+	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value("AudioTransmit", atTransmit).toInt());
+	a3dModel = static_cast<Settings::Audio3D>(g.qs->value("Audio3D", a3dModel).toInt());
 	iQuality = g.qs->value("AudioQuality", iQuality).toInt();
 	iComplexity = g.qs->value("AudioComplexity", iComplexity).toInt();
 	iMinLoudness = g.qs->value("AudioMinLoudness", iMinLoudness).toInt();
