@@ -2,8 +2,8 @@ CXX		=	icl
 CXXFLAGS	=	-nologo -Zm500 -Qrestrict -W3 -MT -O3 -G7 -Ob2 -Gf -QxK -Qip -GX
 INCPATH		=	-I"C:\dx90sdk\include" 
 LINK		=	link
-LFLAGS		=	/NOLOGO /NODEFAULTLIB:msvcrt /NODEFAULTLIB:"libc" /SUBSYSTEM:console /DLL  /LIBPATH:"c:\dx90sdk\lib"
-LIBS		=	"kernel32.lib" "user32.lib" "uuid.lib" "d3dx9.lib" "Advapi32.lib" "gdi32.lib"
+LFLAGS		=	/NOLOGO /NODEFAULTLIB:msvcrt /NODEFAULTLIB:"libc" /SUBSYSTEM:console /DLL  /LIBPATH:"c:\dx90sdk\lib\x86"
+LIBS		=	"kernel32.lib" "user32.lib" "uuid.lib" "d3dx9.lib" "d3d9.lib" "Advapi32.lib" "gdi32.lib"
 OBJECTS		=	lib.obj
 TARGET		=	mumble_ol.dll
 
