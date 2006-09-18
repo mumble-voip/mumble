@@ -121,8 +121,10 @@ int main(int argc, char **argv)
 
 #ifdef Q_OS_WIN
 	// Increase our priority class to live alongside games.
+#ifdef QT_NO_DEBUG
 	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
 		qWarning("Application: Failed to set priority!");
+#endif
 #endif
 
 	a.setQuitOnLastWindowClosed(true);

@@ -523,6 +523,8 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		lc = Channel::get(0);
 	else if (! ChanACL::hasPermission(pSrcPlayer, lc, ChanACL::Enter))
 		lc = Channel::get(0);
+	else if (! ChanACL::hasPermission(pSrcPlayer, lc, ChanACL::Speak))
+		lc = Channel::get(0);
 
 	g_sServer->playerEnterChannel(pSrcPlayer, lc);
 	ServerDB::conLoggedOn(pSrcPlayer, cCon);

@@ -727,7 +727,7 @@ void ACLEditor::ACLEnableCheck() {
 
 	if (as) {
 		qcbACLApplyHere->setChecked(as->bApplyHere);
-		qcbACLApplySubs->setChecked(as->bApplyHere);
+		qcbACLApplySubs->setChecked(as->bApplySubs);
 		int p = 0x1;
 		for(idx=0;idx<qlACLAllow.count();idx++) {
 			qlACLAllow[idx]->setChecked(static_cast<int>(as->pAllow) & p);
