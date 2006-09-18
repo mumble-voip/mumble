@@ -50,10 +50,10 @@ class OverlayConfig : public ConfigWidget {
 		QSlider *qsMaxWidth;
 		QLabel *qlMaxWidth;
 
-		QColor qcPlayer, qcTalking, qcChannel, qcChannelTalking;
+		QColor qcPlayer, qcAltTalking, qcTalking, qcChannel, qcChannelTalking;
 
-		QLabel *qlPlayer, *qlTalking, *qlChannel, *qlChannelTalking;
-		QPushButton *qpbPlayer, *qpbTalking, *qpbChannel, *qpbChannelTalking;
+		QLabel *qlPlayer, *qlTalking, *qlAltTalking, *qlChannel, *qlChannelTalking;
+		QPushButton *qpbPlayer, *qpbTalking, *qpbAltTalking, *qpbChannel, *qpbChannelTalking;
 
 		static void setColorLabel(QLabel *label, QColor col);
 	public:
@@ -65,6 +65,7 @@ class OverlayConfig : public ConfigWidget {
 		void on_SetFont_clicked();
 		void on_Player_clicked();
 		void on_Talking_clicked();
+		void on_AltTalking_clicked();
 		void on_Channel_clicked();
 		void on_ChannelTalking_clicked();
 		void accept();

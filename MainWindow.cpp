@@ -326,6 +326,9 @@ void MainWindow::setupGui()  {
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 #endif
 
+	gsAltTalk=new GlobalShortcut(this, idx++, "Alt Push-to-Talk");
+	gsAltTalk->setObjectName("AltPushToTalk");
+
 	qsSplit = new QSplitter(Qt::Horizontal, this);
 	qsSplit->addWidget(qteLog);
 	qsSplit->addWidget(qtvPlayers);
@@ -726,6 +729,16 @@ void MainWindow::on_PushToTalk_triggered(bool down)
 void MainWindow::on_PushToMute_triggered(bool down)
 {
 	g.bPushToMute = down;
+}
+
+void MainWindow::on_AltPushToTalk_triggered(bool down)
+{
+	if (down)
+		g.iPushToTalk++;
+	else
+		g.iPushToTalk--;
+
+	g.bAltSpeak = down;
 }
 
 void MainWindow::on_CenterPos_triggered(bool down)

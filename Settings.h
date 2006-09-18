@@ -67,6 +67,7 @@ struct Settings {
 	float fOverlayWidth;
 	QColor qcOverlayPlayer;
 	QColor qcOverlayTalking;
+	QColor qcOverlayAltTalking;
 	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
 

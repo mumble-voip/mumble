@@ -55,6 +55,7 @@ class MainWindow : public QMainWindow {
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
+		GlobalShortcut *gsAltTalk;
 
 		TrayIcon *ti;
 
@@ -103,6 +104,7 @@ class MainWindow : public QMainWindow {
 		void on_HelpVersionCheck_triggered();
 		void on_PushToTalk_triggered(bool);
 		void on_PushToMute_triggered(bool);
+		void on_AltPushToTalk_triggered(bool);
 		void on_CenterPos_triggered(bool);
 		void serverConnected();
 		void serverDisconnected(QString reason);

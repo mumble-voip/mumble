@@ -67,6 +67,7 @@ struct Global {
 	int iPushToTalk;
 	bool bPushToMute;
 	bool bCenterPosition;
+	bool bAltSpeak;
 	short sId;
 	int iMaxBandwidth;
 	Global();

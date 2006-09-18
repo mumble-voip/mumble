@@ -295,10 +295,11 @@ void AudioInput::encodeAudioFrame() {
 	if (isnan(sppPreprocess->loudness2))
 		bResetProcessor = true;
 
-	if (g.s.atTransmit == Settings::PushToTalk)
-		iIsSpeech = (g.iPushToTalk > 0);
-	else if (g.s.atTransmit == Settings::Continous)
+	if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
+	else
+		iIsSpeech = iIsSpeech || (g.iPushToTalk > 0) || g.bAltSpeak;
+
 
 	if (g.s.bMute || (p && p->bMute) || g.bPushToMute) {
 		iIsSpeech = 0;
@@ -317,7 +318,7 @@ void AudioInput::encodeAudioFrame() {
 	dSpeechProb = sppPreprocess->speech_prob;
 
 	if (p)
-		p->setTalking(iIsSpeech);
+		p->setTalking(iIsSpeech, g.bAltSpeak);
 
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
@@ -334,6 +335,7 @@ void AudioInput::encodeAudioFrame() {
 	speex_encode_int(esEncState, psSource, &sbBits);
 	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
+	speex_bits_pack(&sbBits, (g.bAltSpeak)? 1 : 0, 1);
 
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (qlFrames.count() == 0)) {
 		g.p->fetch();
@@ -349,6 +351,7 @@ void AudioInput::encodeAudioFrame() {
 			}
 		}
 	}
+
 
 	iLen=speex_bits_nbytes(&sbBits);
 	QByteArray qbaPacket(iLen, 0);
@@ -369,12 +372,14 @@ void AudioInput::flushCheck() {
 		MessageSpeex msPacket;
 		msPacket.qbaSpeexPacket = qlFrames[0];
 		msPacket.iSeq = iFrameCounter;
+		msPacket.ucFlags = g.bAltSpeak ? 1 : 0;
 		if (g.sh)
 			g.sh->sendMessage(&msPacket);
 	} else {
 		MessageMultiSpeex mmsPacket;
 		mmsPacket.qlFrames = qlFrames;
 		mmsPacket.iSeq = iFrameCounter - qlFrames.count() + 1;
+		mmsPacket.ucFlags = g.bAltSpeak ? 1 : 0;
 		if (g.sh)
 			g.sh->sendMessage(&mmsPacket);
 	}

@@ -86,10 +86,11 @@ void Player::remove(Player *p) {
 	remove(p->sId);
 }
 
-void Player::setTalking(bool talking) {
-	if (bTalking == talking)
+void Player::setTalking(bool talking, bool altspeech) {
+	if ((bTalking == talking) && (bAltSpeak == altspeech))
 		return;
 	bTalking = talking;
+	bAltSpeak = altspeech;
 	emit talkingChanged(bTalking);
 }
 

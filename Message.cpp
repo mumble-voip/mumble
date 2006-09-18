@@ -247,11 +247,13 @@ void MessagePermissionDenied::restoreStream(QDataStream &qdsIn) {
 
 MessageSpeex::MessageSpeex() {
 	iSeq = 0;
+	ucFlags = 0;
 	qbaSpeexPacket = QByteArray();
 }
 
 void MessageSpeex::saveStream(QDataStream &qdsOut) const {
 	qdsOut << static_cast<unsigned short>(iSeq);
+	qdsOut << static_cast<unsigned char>(ucFlags);
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
 	qbBuffer->buffer().append(qbaSpeexPacket);
 }
@@ -260,6 +262,7 @@ void MessageSpeex::restoreStream(QDataStream &qdsIn) {
 	unsigned short useq;
 	qdsIn >> useq;
 	iSeq = useq;
+	qdsIn >> ucFlags;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
 	qbaSpeexPacket = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
 	qbBuffer->seek(qbBuffer->size());
@@ -271,10 +274,12 @@ bool MessageSpeex::isValid() const {
 
 MessageMultiSpeex::MessageMultiSpeex() {
 	iSeq = 0;
+	ucFlags = 0;
 }
 
 void MessageMultiSpeex::saveStream(QDataStream &qdsOut) const {
 	qdsOut << static_cast<unsigned short>(iSeq);
+	qdsOut << static_cast<unsigned char>(ucFlags);
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
 
 	foreach(QByteArray qba, qlFrames) {
@@ -287,6 +292,7 @@ void MessageMultiSpeex::restoreStream(QDataStream &qdsIn) {
 	unsigned short useq;
 	qdsIn >> useq;
 	iSeq = useq;
+	qdsIn >> ucFlags;
 	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
 	QByteArray qba = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
 	qbBuffer->seek(qbBuffer->size());

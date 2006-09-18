@@ -41,4 +41,5 @@ Global::Global() {
 	iPushToTalk = 0;
 	bPushToMute = false;
 	bCenterPosition = false;
+	bAltSpeak = false;
 }

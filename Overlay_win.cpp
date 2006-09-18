@@ -179,15 +179,25 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qlTalking, 3, 1);
 	grid->addWidget(qpbTalking, 3, 2);
 
+	qlAltTalking = new QLabel();
+	qpbAltTalking = new QPushButton(tr("Change"));
+	qpbAltTalking->setObjectName("AltTalking");
+	lab = new QLabel(tr("Color for alt-talking players"));
+	setColorLabel(qlAltTalking, qcAltTalking);
+
+	grid->addWidget(lab, 4, 0);
+	grid->addWidget(qlAltTalking, 4, 1);
+	grid->addWidget(qpbAltTalking, 4, 2);
+
 	qlChannel = new QLabel();
 	qpbChannel = new QPushButton(tr("Change"));
 	qpbChannel->setObjectName("Channel");
 	lab = new QLabel(tr("Color for Channels"));
 	setColorLabel(qlChannel, qcChannel);
 
-	grid->addWidget(lab, 4, 0);
-	grid->addWidget(qlChannel, 4, 1);
-	grid->addWidget(qpbChannel, 4, 2);
+	grid->addWidget(lab, 5, 0);
+	grid->addWidget(qlChannel, 5, 1);
+	grid->addWidget(qpbChannel, 5, 2);
 
 	qlChannelTalking = new QLabel();
 	qpbChannelTalking = new QPushButton(tr("Change"));
@@ -195,9 +205,9 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	lab = new QLabel(tr("Color for active Channels"));
 	setColorLabel(qlChannelTalking, qcChannelTalking);
 
-	grid->addWidget(lab, 5, 0);
-	grid->addWidget(qlChannelTalking, 5, 1);
-	grid->addWidget(qpbChannelTalking, 5, 2);
+	grid->addWidget(lab, 6, 0);
+	grid->addWidget(qlChannelTalking, 6, 1);
+	grid->addWidget(qpbChannelTalking, 6, 2);
 
 	qgbColors->setLayout(grid);
 
@@ -246,6 +256,15 @@ void OverlayConfig::on_Talking_clicked() {
 	}
 }
 
+void OverlayConfig::on_AltTalking_clicked() {
+	bool ok;
+	QRgb rgb=QColorDialog::getRgba(qcAltTalking.rgba(), &ok, this);
+	if (ok) {
+		qcAltTalking = QColor::fromRgba(rgb);
+		setColorLabel(qlAltTalking, qcAltTalking);
+	}
+}
+
 void OverlayConfig::on_Channel_clicked() {
 	bool ok;
 	QRgb rgb=QColorDialog::getRgba(qcChannel.rgba(), &ok, this);
@@ -288,6 +307,7 @@ void OverlayConfig::accept() {
 	g.s.fOverlayWidth = qsMaxWidth->value() / 100.0;
 	g.s.qcOverlayPlayer = qcPlayer;
 	g.s.qcOverlayTalking = qcTalking;
+	g.s.qcOverlayAltTalking = qcAltTalking;
 	g.s.qcOverlayChannel = qcChannel;
 	g.s.qcOverlayChannelTalking = qcChannelTalking;
 
@@ -411,6 +431,7 @@ typedef QPair<QString, DWORD> qpChanCol;
 void Overlay::setPlayers(QList<Player *> players) {
 	DWORD colPlayer = g.s.qcOverlayPlayer.rgba();
 	DWORD colTalking = g.s.qcOverlayTalking.rgba();
+	DWORD colAltTalking = g.s.qcOverlayAltTalking.rgba();
 	DWORD colChannel = g.s.qcOverlayChannel.rgba();
 	DWORD colChannelTalking = g.s.qcOverlayChannelTalking.rgba();
 	QString str;
@@ -427,9 +448,13 @@ void Overlay::setPlayers(QList<Player *> players) {
 				continue;
 
 			bool act = false;
-			foreach(Player *p, c->qlPlayers)
+			foreach(Player *p, c->qlPlayers) {
 				act = act || p->bTalking;
-			linkchans << qpChanCol(c->qsName, act ? colChannelTalking : colChannel);
+				if (p->bTalking)
+					linkchans << qpChanCol(p->qsName + QString("[") + c->qsName + QString("]"), colChannelTalking);
+			}
+			if (! act)
+				linkchans << qpChanCol(c->qsName, colChannel);
 		}
 		qSort(linkchans);
 	}
@@ -457,7 +482,7 @@ void Overlay::setPlayers(QList<Player *> players) {
 
 		foreach(Player *p, players) {
 			if (bShowAll || p->bTalking) {
-				sm->texts[idx].color = p->bTalking ? colTalking : colPlayer;
+				sm->texts[idx].color = p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer;
 				str = p->qsName.left(127);
 				wstr = reinterpret_cast<const wchar_t *>(str.utf16());
 				wcscpy(sm->texts[idx].text, wstr);

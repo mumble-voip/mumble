@@ -43,7 +43,7 @@ class Player : public QObject {
 		QString qsName;
 		bool bMute, bDeaf, bSuppressed;
 		bool bSelfMute, bSelfDeaf;
-		bool bTalking;
+		bool bTalking, bAltSpeak;
 		Channel *cChannel;
 
 		static QHash<short, Player *> c_qmPlayers;
@@ -56,7 +56,7 @@ class Player : public QObject {
 		static void remove(short);
 		static void remove(Player *);
 	public slots:
-		void setTalking(bool talking);
+		void setTalking(bool talking, bool altspeech);
 		void setMute(bool mute);
 		void setDeaf(bool deaf);
 		void setSelfMuteDeaf(bool mute, bool deaf);

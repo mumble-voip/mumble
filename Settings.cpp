@@ -60,6 +60,7 @@ Settings::Settings() {
 	fOverlayWidth = 20.0;
 	qcOverlayPlayer = QColor(255,255,255,128);
 	qcOverlayTalking = QColor(255,255,196,255);
+	qcOverlayAltTalking = QColor(255,128,128,255);
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
 }

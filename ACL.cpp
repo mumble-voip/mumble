@@ -75,7 +75,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly)
 	}
 
 	// Default permissions
-	Permissions def = Traverse | Enter | Speak;
+	Permissions def = Traverse | Enter | Speak | AltSpeak;
 
 	granted = def;
 
@@ -126,6 +126,8 @@ QString ChanACL::shortName(Perm p) {
 			return tr("E");
 		case Speak:
 			return tr("S");
+		case AltSpeak:
+			return tr("A");
 		case MuteDeafen:
 			return tr("M");
 		case MoveKick:
@@ -152,6 +154,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Enter");
 		case Speak:
 			return tr("Speak");
+		case AltSpeak:
+			return tr("AltSpeak");
 		case MuteDeafen:
 			return tr("Mute/Deafen");
 		case MoveKick:
@@ -184,6 +188,10 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents the permission to speak in a channel. Users without this privilege will be suppressed by "
 					"the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
 					"appropriate privileges.");
+		case AltSpeak:
+			return tr("This represents the permission to speak in a channel with flagged speech. This works exactly like the <i>speek</i> "
+					"privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy "
+					"of channels without linking.");
 		case MuteDeafen:
 			return tr("This represents the permission to mute and deafen other players. Once muted, a player will stay muted "
 					"until he is unmuted by another privileged player or reconnects to the server.");

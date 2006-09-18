@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 7
+#define MESSAGE_STREAM_VERSION 8
 
 #include "ACL.h"
 
@@ -62,6 +62,7 @@ class MessageSpeex : public Message {
 	public:
 		unsigned short iSeq;
 		QByteArray qbaSpeexPacket;
+		unsigned char ucFlags;
 		MessageSpeex();
 		Message::MessageType messageType() const { return Speex; };
 		void process(Connection *);
@@ -74,6 +75,7 @@ class MessageMultiSpeex : public Message {
 		void restoreStream(QDataStream &);
 	public:
 		unsigned short iSeq;
+		unsigned char ucFlags;
 		QList<QByteArray> qlFrames;
 		MessageMultiSpeex();
 		Message::MessageType messageType() const { return MultiSpeex; };

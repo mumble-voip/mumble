@@ -700,7 +700,7 @@ void MessageMultiSpeex::process(Connection *cCon) {
 		chans.remove(c);
 
 		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(pSrcPlayer, l, ChanACL::Speak)) {
+			if (ChanACL::hasPermission(pSrcPlayer, l, ucFlags ? ChanACL::Speak : ChanACL::AltSpeak)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
 						g_sServer->sendMessage(p->sId, this);
@@ -739,7 +739,7 @@ void MessageSpeex::process(Connection *cCon) {
 		chans.remove(c);
 
 		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(pSrcPlayer, l, ChanACL::Speak)) {
+			if (ChanACL::hasPermission(pSrcPlayer, l, ucFlags ? ChanACL::Speak : ChanACL::AltSpeak)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
 						g_sServer->sendMessage(p->sId, this);

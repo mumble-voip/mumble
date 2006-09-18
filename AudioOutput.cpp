@@ -125,6 +125,7 @@ static QTime tt;
 bool AudioOutputPlayer::decodeNextFrame() {
 	int iTimestamp;
 	int iSpeech = 0;
+	int iAltSpeak = 0;
 	int left;
 	int i;
 	unsigned int v;
@@ -137,6 +138,7 @@ bool AudioOutputPlayer::decodeNextFrame() {
 		speex_jitter_get(&sjJitter, psBuffer, &iTimestamp);
 		if (sjJitter.valid_bits) {
 			iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
+			iAltSpeak = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
 			if (! iSpeech) {
 #ifdef SPEEX_ANCIENT
 				sjJitter.reset_state = 1;
@@ -172,7 +174,7 @@ bool AudioOutputPlayer::decodeNextFrame() {
 
 	bSpeech = iSpeech;
 
-	p->setTalking(bSpeech);
+	p->setTalking(bSpeech, (iAltSpeak ? true : false));
 
 	if (g.s.bDeaf || ! bSpeech)
 		memset(psBuffer, 0, iByteSize);

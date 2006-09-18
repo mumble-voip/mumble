@@ -47,6 +47,7 @@ class ChanACL : public QObject {
 			MoveKick = 0x20,
 			MakeChannel = 0x40,
 			LinkChannel = 0x80,
+			AltSpeak = 0x100,
 			Cached = 0x80000000,
 			All = 0xffff
 		};
