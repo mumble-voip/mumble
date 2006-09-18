@@ -42,6 +42,15 @@
 #include "Plugins.h"
 #include "Global.h"
 
+#ifdef BOOST_NO_EXCEPTIONS
+namespace boost {
+	void throw_exception(std::exception const & e) {
+		qFatal("Exception caught!");
+	}
+}
+#endif
+
+
 int main(int argc, char **argv)
 {
 	// Check for SSE and MMX, but only in the windows binaries

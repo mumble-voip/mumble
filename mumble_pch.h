@@ -5,7 +5,7 @@
 #else
 #define CopyMemory(dst,ptr,len) memcpy(dst,ptr,len)
 #define ZeroMemory(ptr,len) memset(ptr, 0, len)
-#define __cdecl 
+#define __cdecl
 #endif
 
 #include <QtCore>
