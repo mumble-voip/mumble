@@ -62,8 +62,12 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly)
 	Permissions granted;
 
 	granted=c_qhACLCache[chan][p];
-	if (granted & Cached)
-		return ((granted & (perm | Write)) != None);
+	if (granted & Cached) {
+		if ((perm != Speak) && (perm != AltSpeak)) 
+			return ((granted & (perm | Write)) != None);
+		else
+			return ((granted & perm) != None);
+	}
 
 	if (cacheonly)
 		return false;
@@ -113,7 +117,10 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly)
 
 	c_qhACLCache[chan][p] = granted & Cached;
 
-	return ((granted & (perm | Write)) != None);
+	if ((perm != Speak) && (perm != AltSpeak)) 
+		return ((granted & (perm | Write)) != None);
+	else
+		return ((granted & perm) != None);
 }
 
 QString ChanACL::shortName(Perm p) {
