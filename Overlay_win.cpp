@@ -123,6 +123,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qfFont = g.s.qfOverlayFont;
 	qcPlayer = g.s.qcOverlayPlayer;
 	qcTalking= g.s.qcOverlayTalking;
+	qcAltTalking= g.s.qcOverlayAltTalking;
 	qcChannel = g.s.qcOverlayChannel;
 	qcChannelTalking = g.s.qcOverlayChannelTalking;
 

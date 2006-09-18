@@ -205,7 +205,6 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 
 		m = (pdepth >= mindepth) && (pdepth <= maxdepth);
 	} else {
-
 		QStack<Group *> s;
 
 		p = c;
