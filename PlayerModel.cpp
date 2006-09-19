@@ -690,8 +690,9 @@ void PlayerModel::playerTalkingChanged(bool bTalking)
 	Player *p=static_cast<Player *>(sender());
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
-	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
-		updateOverlay();
+//	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+	// If we can hear them, we need to update them
+	updateOverlay();
 }
 
 void PlayerModel::playerMuteDeafChanged()
