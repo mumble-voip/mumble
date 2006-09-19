@@ -164,9 +164,11 @@ void ModelItem::insertPlayer(Player *p) {
 
 PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOn=QIcon(":/icons/talking_on.png");
+	qiTalkingAlt=QIcon(":/icons/talking_alt.png");
 	qiTalkingOff=QIcon(":/icons/talking_off.png");
 	qiMutedSelf=QIcon(":/icons/muted_self.png");
 	qiMutedServer=QIcon(":/icons/muted_server.png");
+	qiMutedLocal=QIcon(":/icons/muted_local.png");
 	qiDeafenedSelf=QIcon(":/icons/deafened_self.png");
 	qiDeafenedServer=QIcon(":/icons/deafened_server.png");
 	qiAuthenticated=QIcon(":/icons/authenticated.png");
@@ -302,7 +304,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0)
-					return (p->bTalking) ? qiTalkingOn : qiTalkingOff;
+					return (p->bTalking) ? (p->bAltSpeak ? qiTalkingAlt : qiTalkingOn) : qiTalkingOff;
 				break;
 			case Qt::FontRole:
 				if ((idx.column() == 0) && (p->sId == g.sId)) {
@@ -324,6 +326,8 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 					l << qiMutedSelf;
 				if (p->bSelfDeaf)
 					l << qiDeafenedSelf;
+				if (p->bLocalMute)
+					l << qiMutedLocal;
 				return l;
 			default:
 				break;

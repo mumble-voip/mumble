@@ -40,7 +40,8 @@ Player::Player(QObject *p) : QObject(p) {
   iId = -1;
   bMute = bDeaf = false;
   bSelfMute = bSelfDeaf = false;
-  bTalking = false;
+  bTalking = bAltSpeak = false;
+  bLocalMute = false;
   bSuppressed = false;
   cChannel = 0;
 }
@@ -100,6 +101,13 @@ void Player::setMute(bool mute) {
 	bMute = mute;
 	if (! bMute && bDeaf)
 		bDeaf = false;
+	emit muteDeafChanged();
+}
+
+void Player::setLocalMute(bool mute) {
+	if (bLocalMute == mute)
+		return;
+	bLocalMute = mute;
 	emit muteDeafChanged();
 }
 

@@ -79,8 +79,8 @@ class PlayerModel : public QAbstractItemModel {
 	friend class ChannelItem;
 	Q_OBJECT
 protected:
-	QIcon qiTalkingOn, qiTalkingOff;
-	QIcon qiMutedSelf, qiMutedServer;
+	QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
+	QIcon qiMutedSelf, qiMutedServer, qiMutedLocal;
 	QIcon qiDeafenedSelf, qiDeafenedServer;
 	QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
 	ModelItem *miRoot;

@@ -77,11 +77,11 @@ Section "Mumble & Murmur" SecMumble
   File "..\murmur.ini"
   SetOverwrite on
   File "qos.reg"
-  File "\qt\4.1.3os\lib\QtCore4.dll"
-  File "\qt\4.1.3os\lib\QtGui4.dll"
-  File "\qt\4.1.3os\lib\QtNetwork4.dll"
-  File "\qt\4.1.3os\lib\QtSql4.dll"
-  File "\qt\4.1.3os\lib\QtOpenGL4.dll"
+  File "\qt\4.1.4os\lib\QtCore4.dll"
+  File "\qt\4.1.4os\lib\QtGui4.dll"
+  File "\qt\4.1.4os\lib\QtNetwork4.dll"
+  File "\qt\4.1.4os\lib\QtSql4.dll"
+  File "\qt\4.1.4os\lib\QtOpenGL4.dll"
   File "..\release\speex.dll"
   ;File "\mingw\bin\mingwm10.dll"
 

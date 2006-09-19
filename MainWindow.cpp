@@ -99,6 +99,11 @@ void MainWindow::createActions() {
 	qaPlayerDeaf->setCheckable(true);
 	qaPlayerDeaf->setToolTip(tr("Deafen player"));
 	qaPlayerDeaf->setWhatsThis(tr("Deafen or undeafen player on server. Deafening a player will also mute them."));
+	qaPlayerLocalMute=new QAction(tr("&Local Mute"), this);
+	qaPlayerLocalMute->setObjectName("PlayerLocalMute");
+	qaPlayerLocalMute->setCheckable(true);
+	qaPlayerLocalMute->setToolTip(tr("Mute player"));
+	qaPlayerLocalMute->setWhatsThis(tr("Mute or unmute player locally."));
 
 	qaChannelAdd=new QAction(tr("&Add"), this);
 	qaChannelAdd->setObjectName("ChannelAdd");
@@ -238,6 +243,7 @@ void MainWindow::setupGui()  {
 	qmPlayer->addAction(qaPlayerBan);
 	qmPlayer->addAction(qaPlayerMute);
 	qmPlayer->addAction(qaPlayerDeaf);
+	qmPlayer->addAction(qaPlayerLocalMute);
 
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelRemove);
@@ -429,13 +435,16 @@ void MainWindow::on_PlayerMenu_aboutToShow()
 		qaPlayerKick->setEnabled(false);
 		qaPlayerBan->setEnabled(false);
 		qaPlayerMute->setEnabled(false);
+		qaPlayerLocalMute->setEnabled(false);
 		qaPlayerDeaf->setEnabled(false);
 	} else {
 		qaPlayerKick->setEnabled(true);
 		qaPlayerBan->setEnabled(true);
 		qaPlayerMute->setEnabled(true);
+		qaPlayerLocalMute->setEnabled(true);
 		qaPlayerDeaf->setEnabled(true);
 		qaPlayerMute->setChecked(p->bMute);
+		qaPlayerLocalMute->setChecked(p->bLocalMute);
 		qaPlayerDeaf->setChecked(p->bDeaf);
 	}
 }
@@ -450,6 +459,15 @@ void MainWindow::on_PlayerMute_triggered()
 	mpmMsg.sVictim = p->sId;
 	mpmMsg.bMute = ! p->bMute;
 	g.sh->sendMessage(&mpmMsg);
+}
+
+void MainWindow::on_PlayerLocalMute_triggered()
+{
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
+		return;
+
+	p->setLocalMute(qaPlayerLocalMute->isChecked());
 }
 
 void MainWindow::on_PlayerDeaf_triggered()

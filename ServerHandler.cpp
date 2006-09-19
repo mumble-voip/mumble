@@ -176,7 +176,8 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 		if (ao) {
 			if (p) {
 				MessageSpeex *msMsg=static_cast<MessageSpeex *>(mMsg);
-				ao->addFrameToBuffer(p, msMsg->qbaSpeexPacket, msMsg->iSeq);
+				if (! p->bLocalMute)
+					ao->addFrameToBuffer(p, msMsg->qbaSpeexPacket, msMsg->iSeq);
 			} else {
 				// Eek, we just got a late packet for a player already removed. Remove
 				// the buffer and pretend this never happened.
@@ -191,7 +192,8 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 				MessageMultiSpeex *mmsMsg=static_cast<MessageMultiSpeex *>(mMsg);
 				int idx = 0;
 				foreach(QByteArray qba, mmsMsg->qlFrames) {
-					ao->addFrameToBuffer(p, qba, mmsMsg->iSeq + idx);
+					if (! p->bLocalMute)
+						ao->addFrameToBuffer(p, qba, mmsMsg->iSeq + idx);
 					idx++;
 				}
 			} else {

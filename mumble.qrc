@@ -4,11 +4,13 @@
  <file>mumble.png.1</file>
  <file>mumble.png.2</file>
  <file>icons/talking_on.png</file>
+ <file>icons/talking_alt.png</file>
  <file>icons/talking_off.png</file>
- <file>icons/muted_self.png</file>
  <file>icons/deafened_self.png</file>
- <file>icons/muted_server.png</file>
  <file>icons/deafened_server.png</file>
+ <file>icons/muted_self.png</file>
+ <file>icons/muted_server.png</file>
+ <file>icons/muted_local.png</file>
  <file>icons/authenticated.png</file>
  <file>icons/channel.png</file>
  <file>icons/channel_linked.png</file>

@@ -42,6 +42,7 @@ class Player : public QObject {
 		int iId;
 		QString qsName;
 		bool bMute, bDeaf, bSuppressed;
+		bool bLocalMute;
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
@@ -59,6 +60,7 @@ class Player : public QObject {
 		void setTalking(bool talking, bool altspeech);
 		void setMute(bool mute);
 		void setDeaf(bool deaf);
+		void setLocalMute(bool mute);
 		void setSelfMuteDeaf(bool mute, bool deaf);
 	signals:
 		void talkingChanged(bool talking);
