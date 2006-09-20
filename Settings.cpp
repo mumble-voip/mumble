@@ -36,6 +36,7 @@ Settings::Settings() {
 	a3dModel = None;
 	bMute = bDeaf = false;
 	bTTS = true;
+	iTTSVolume = 75;
 	iQuality = 8;
 	iComplexity = 4;
 	iMinLoudness = 4000;
@@ -69,6 +70,7 @@ void Settings::load() {
 	bMute = g.qs->value("AudioMute", false). toBool();
 	bDeaf = g.qs->value("AudioDeaf", false). toBool();
 	bTTS = g.qs->value("TextToSpeech", bTTS). toBool();
+	iTTSVolume = g.qs->value("TTSVolume", iTTSVolume).toInt();
 	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value("AudioTransmit", atTransmit).toInt());
 	a3dModel = static_cast<Settings::Audio3D>(g.qs->value("Audio3D", a3dModel).toInt());
 	iQuality = g.qs->value("AudioQuality", iQuality).toInt();
@@ -107,6 +109,7 @@ void Settings::save() {
 	g.qs->setValue("AudioMute", g.s.bMute);
 	g.qs->setValue("AudioDeaf", g.s.bDeaf);
 	g.qs->setValue("TextToSpeech", g.s.bTTS);
+	g.qs->setValue("TTSVolume", g.s.iTTSVolume);
 	g.qs->setValue("PosTransmit", g.s.bTransmitPosition);
 	g.qs->setValue("AudioTransmit", g.s.atTransmit);
 	g.qs->setValue("Audio3D", g.s.a3dModel);

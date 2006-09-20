@@ -82,8 +82,27 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 
 	qgbMessages->setLayout(l);
 
+	QGroupBox *qgbTTS = new QGroupBox(tr("Text To Speech"));
+	l = new QGridLayout();
+
+	lab=new QLabel(tr("Volume"));
+	l->addWidget(lab,0,0);
+	qsVolume = new QSlider(Qt::Horizontal);
+	qsVolume->setRange(0, 100);
+	qsVolume->setSingleStep(5);
+	qsVolume->setPageStep(20);
+	qsVolume->setValue(g.s.iTTSVolume);
+	qsVolume->setObjectName("Volume");
+	qsVolume->setToolTip(tr("Volume of Text-To-Speech Engine"));
+	qsVolume->setWhatsThis(tr("<b>This is the volume used for the speech synthesis.</b>"));
+	l->addWidget(qsVolume,0,1);
+
+	qgbTTS->setLayout(l);
+
+
     QVBoxLayout *v = new QVBoxLayout;
     v->addWidget(qgbMessages);
+    v->addWidget(qgbTTS);
     v->addStretch(1);
     setLayout(v);
 
@@ -105,6 +124,8 @@ void LogConfig::accept() {
 		ms->bConsole = (qlConsole[i]->checkState() == Qt::Checked);
 		ms->bTTS = (qlTTS[i]->checkState() == Qt::Checked);
 	}
+	g.s.iTTSVolume=qsVolume->value();
+	g.l->tts->setVolume(g.s.iTTSVolume);
 }
 
 MsgSettings::MsgSettings() {
@@ -118,6 +139,7 @@ Log::Log(QObject *p) : QObject(p) {
 		qhSettings[static_cast<MsgType>(i)]=new MsgSettings();
 	tts=new TextToSpeech(this);
 	loadSettings();
+	tts->setVolume(g.s.iTTSVolume);
 }
 
 const char *Log::msgNames[] = {

@@ -46,6 +46,7 @@ struct Settings {
 	Audio3D a3dModel;
 	bool bMute, bDeaf;
 	bool bTTS;
+	int iTTSVolume;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iFramesPerPacket;
 	bool bTCPCompat;

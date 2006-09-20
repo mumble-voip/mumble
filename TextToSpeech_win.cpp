@@ -42,6 +42,7 @@ class TextToSpeechPrivate {
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
 		void say(QString text);
+		void setVolume(int v);
 };
 
 TextToSpeechPrivate::TextToSpeechPrivate() {
@@ -62,6 +63,10 @@ void TextToSpeechPrivate::say(QString text) {
 		pVoice->Speak((const wchar_t *) text.utf16(), SPF_ASYNC, NULL);
 }
 
+void TextToSpeechPrivate::setVolume(int volume) {
+	if (pVoice)
+		pVoice->SetVolume(volume);
+}
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
 	enabled = true;
@@ -79,6 +84,10 @@ void TextToSpeech::say(QString text) {
 
 void TextToSpeech::setEnabled(bool e) {
 	enabled = e;
+}
+
+void TextToSpeech::setVolume(int volume) {
+	d->setVolume(volume);
 }
 
 bool TextToSpeech::isEnabled() const {

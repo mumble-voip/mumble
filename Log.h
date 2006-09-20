@@ -48,6 +48,7 @@ class LogConfig : public ConfigWidget {
 	protected:
 		QList<QCheckBox *> qlConsole;
 		QList<QCheckBox *> qlTTS;
+		QSlider *qsVolume;
 	public:
 		LogConfig(QWidget *p = NULL);
 		virtual QString title() const;
