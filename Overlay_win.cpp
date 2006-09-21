@@ -466,51 +466,54 @@ void Overlay::updateOverlay() {
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		int idx = 0;
 
-		if (g.s.bOverlayTop) {
-			foreach(qpChanCol cc, linkchans) {
-				if (bShowAll || (cc.second == colChannelTalking)) {
-					sm->texts[idx].color = cc.second;
-					str = cc.first.left(127);
+		if (g.sId) {
+
+			if (g.s.bOverlayTop) {
+				foreach(qpChanCol cc, linkchans) {
+					if (bShowAll || (cc.second == colChannelTalking)) {
+						sm->texts[idx].color = cc.second;
+						str = cc.first.left(127);
+						wstr = reinterpret_cast<const wchar_t *>(str.utf16());
+						wcscpy(sm->texts[idx].text, wstr);
+						SAFE_INC_IDX(idx);
+					}
+				}
+				if (linkchans.count() > 0) {
+					sm->texts[idx].text[0] = L' ';
+					sm->texts[idx].text[1] = 0;
+					SAFE_INC_IDX(idx);
+				}
+			}
+
+			foreach(Player *p, Player::get(g.sId)->cChannel->qlPlayers) {
+				if (bShowAll || p->bTalking) {
+					QString name = p->qsName;
+					if (p->bDeaf || p->bSelfDeaf)
+						name = name + QString("(D)");
+					else if (p->bMute || p->bSelfMute || p->bLocalMute)
+						name = name + QString("(M)");
+					sm->texts[idx].color = p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer;
+					str = name.left(127);
 					wstr = reinterpret_cast<const wchar_t *>(str.utf16());
 					wcscpy(sm->texts[idx].text, wstr);
 					SAFE_INC_IDX(idx);
 				}
 			}
-			if (linkchans.count() > 0) {
-				sm->texts[idx].text[0] = L' ';
-				sm->texts[idx].text[1] = 0;
-				SAFE_INC_IDX(idx);
-			}
-		}
 
-		foreach(Player *p, Player::get(g.sId)->cChannel->qlPlayers) {
-			if (bShowAll || p->bTalking) {
-				QString name = p->qsName;
-				if (p->bDeaf || p->bSelfDeaf)
-					name = name + QString("(D)");
-				else if (p->bMute || p->bSelfMute || p->bLocalMute)
-					name = name + QString("(M)");
-				sm->texts[idx].color = p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer;
-				str = name.left(127);
-				wstr = reinterpret_cast<const wchar_t *>(str.utf16());
-				wcscpy(sm->texts[idx].text, wstr);
-				SAFE_INC_IDX(idx);
-			}
-		}
-
-		if (! g.s.bOverlayTop) {
-			if (linkchans.count() > 0) {
-				sm->texts[idx].text[0] = L' ';
-				sm->texts[idx].text[1] = 0;
-				SAFE_INC_IDX(idx);
-			}
-			foreach(qpChanCol cc, linkchans) {
-				if (bShowAll || (cc.second == colChannelTalking)) {
-					sm->texts[idx].color = cc.second;
-					str = cc.first.left(127);
-					wstr = reinterpret_cast<const wchar_t *>(str.utf16());
-					wcscpy(sm->texts[idx].text, wstr);
+			if (! g.s.bOverlayTop) {
+				if (linkchans.count() > 0) {
+					sm->texts[idx].text[0] = L' ';
+					sm->texts[idx].text[1] = 0;
 					SAFE_INC_IDX(idx);
+				}
+				foreach(qpChanCol cc, linkchans) {
+					if (bShowAll || (cc.second == colChannelTalking)) {
+						sm->texts[idx].color = cc.second;
+						str = cc.first.left(127);
+						wstr = reinterpret_cast<const wchar_t *>(str.utf16());
+						wcscpy(sm->texts[idx].text, wstr);
+						SAFE_INC_IDX(idx);
+					}
 				}
 			}
 		}
