@@ -166,7 +166,19 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 						"This will increase overhead and cause lost packets to produce noticable "
 						"pauses in communication, so this should only be used if you are unable to "
 						"use the default (which uses UDP for voice and TCP for control)."));
-	grid->addWidget(qcbTCP,3,1);
+
+	qcbReconnect = new QCheckBox(tr("Automatic Reconnect"));
+	qcbReconnect->setChecked(g.s.bReconnect);
+	qcbReconnect->setToolTip(tr("Reconnect when disconnected"));
+	qcbReconnect->setWhatsThis(tr("<b>Reconnect when disconnected</b>.<br />"
+						"This will make Mumble try to automatically reconnect after 10 "
+						"seconds if your server "
+						"connection fails."));
+
+	QHBoxLayout *qhbl=new QHBoxLayout();
+	qhbl->addWidget(qcbTCP);
+	qhbl->addWidget(qcbReconnect);
+	grid->addLayout(qhbl,3,1,1,2);
 
 	qlBitrate = new QLabel();
 	qlBitrate->setToolTip(tr("Maximum bandwidth used for sent audio"));
@@ -320,6 +332,7 @@ void AudioConfigDialog::accept() {
 	g.s.iVoiceHold = qsTransmitHold->value();
 	g.s.iFramesPerPacket = qsFrames->value();
 	g.s.bTCPCompat = qcbTCP->isChecked();
+	g.s.bReconnect = qcbReconnect->isChecked();
 	g.s.iJitterBufferSize = qsJitter->value();
 	g.s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	g.s.qsAudioInput = qcbInput->currentText();
@@ -371,8 +384,8 @@ void AudioConfigDialog::updateBitrate() {
 	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
 	speex_encoder_destroy(es);
 
-	// 50 packets, in bits, IP + UDP + type/id (Message header) + seq
-	overhead = 50 * 8 * (20 + 8 + 3 + 2);
+	// 50 packets, in bits, IP + UDP + type/id (Message header) + flags + seq
+	overhead = 50 * 8 * (20 + 8 + 3 + 1 + 2);
 
 	// TCP is 12 more bytes than UDP
 	if (qcbTCP->isChecked())
