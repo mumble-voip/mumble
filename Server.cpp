@@ -349,11 +349,14 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	delete chan;
 }
 
-void Server::playerEnterChannel(Player *p, Channel *c) {
-	if (p->cChannel == c)
+void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
+	if (!quiet && (p->cChannel == c))
 		return;
 
 	c->addPlayer(p);
+
+	if (quiet)
+		return;
 
 	ServerDB::conChangedChannel(p);
 	ServerDB::setLastChannel(p);
@@ -523,10 +526,8 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		lc = Channel::get(0);
 	else if (! ChanACL::hasPermission(pSrcPlayer, lc, ChanACL::Enter))
 		lc = Channel::get(0);
-	else if (! ChanACL::hasPermission(pSrcPlayer, lc, ChanACL::Speak))
-		lc = Channel::get(0);
 
-	g_sServer->playerEnterChannel(pSrcPlayer, lc);
+	g_sServer->playerEnterChannel(pSrcPlayer, lc, true);
 	ServerDB::conLoggedOn(pSrcPlayer, cCon);
 
 	QQueue<Channel *> q;
@@ -615,6 +616,8 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	mssMsg.iMaxBandwidth = g_sp.iMaxBandwidth;
 	g_sServer->sendMessage(cCon, &mssMsg);
 	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
+
+	g_sServer->playerEnterChannel(pSrcPlayer, lc, false);
 
 	// Kick ghost
 	if (ppOld) {

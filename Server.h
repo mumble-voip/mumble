@@ -87,7 +87,7 @@ class Server : public QObject {
 		void log(QString s, Connection *c = NULL);
 
 		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
-		void playerEnterChannel(Player *p, Channel *c);
+		void playerEnterChannel(Player *p, Channel *c, bool quiet = false);
 
 		Server();
 };
