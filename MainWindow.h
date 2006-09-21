@@ -67,6 +67,7 @@ class MainWindow : public QMainWindow {
 	protected:
 		QTextEdit *qteLog;
 		QTreeView *qtvPlayers;
+		QTimer *qtReconnect;
 		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt);
@@ -107,6 +108,7 @@ class MainWindow : public QMainWindow {
 		void on_PushToMute_triggered(bool);
 		void on_AltPushToTalk_triggered(bool);
 		void on_CenterPos_triggered(bool);
+		void on_Reconnect_timeout();
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void pushLink(bool down);

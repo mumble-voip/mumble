@@ -49,7 +49,7 @@ struct Settings {
 	int iTTSVolume;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iFramesPerPacket;
-	bool bTCPCompat;
+	bool bTCPCompat, bReconnect;
 	QString qsAudioInput, qsAudioOutput;
 
 	int iDXOutputDelay;

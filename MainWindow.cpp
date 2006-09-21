@@ -56,6 +56,11 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	aclEdit = NULL;
 	banEdit = NULL;
 
+	qtReconnect = new QTimer(this);
+	qtReconnect->setInterval(10000);
+	qtReconnect->setSingleShot(true);
+	qtReconnect->setObjectName("Reconnect");
+
 	createActions();
 	setupGui();
 
@@ -412,6 +417,7 @@ void MainWindow::on_ServerConnect_triggered()
 
 void MainWindow::on_ServerDisconnect_triggered()
 {
+	qtReconnect->stop();
 	g.sh->disconnect();
 }
 
@@ -865,10 +871,21 @@ void MainWindow::serverDisconnected(QString reason)
 
 	if (! reason.isEmpty()) {
   	  g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
+  	  if (g.s.bReconnect) {
+		  qaServerDisconnect->setEnabled(true);
+		  qtReconnect->start();
+	  }
     } else {
 	  g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 	}
 }
+
+void MainWindow::on_Reconnect_timeout()
+{
+		g.l->log(Log::ServerDisconnected, tr("Reconnecting."));
+		g.sh->start(QThread::TimeCriticalPriority);
+}
+
 
 void MainWindow::customEvent(QEvent *evt) {
 	if (evt->type() != SERVERSEND_EVENT)

@@ -44,6 +44,7 @@ Settings::Settings() {
 	iJitterBufferSize = 8;
 	iFramesPerPacket = 2;
 	bTCPCompat = false;
+	bReconnect = true;
 	iDXOutputDelay = 5;
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
@@ -80,6 +81,7 @@ void Settings::load() {
 	iJitterBufferSize = g.qs->value("JitterBufferSize", iJitterBufferSize).toInt();
 	iFramesPerPacket = g.qs->value("FramesPerPacket", iFramesPerPacket).toInt();
 	bTCPCompat = g.qs->value("TCPCompat", bTCPCompat).toBool();
+	bReconnect = g.qs->value("Reconnect", bReconnect).toBool();
 	iDXOutputDelay = g.qs->value("DXOutputDelay", iDXOutputDelay).toInt();
 	qbaDXInput = g.qs->value("DXInput").toByteArray();
 	qbaDXOutput = g.qs->value("DXOutput").toByteArray();
@@ -120,6 +122,7 @@ void Settings::save() {
 	g.qs->setValue("JitterBufferSize", iJitterBufferSize);
 	g.qs->setValue("FramesPerPacket", iFramesPerPacket);
 	g.qs->setValue("TCPCompat", bTCPCompat);
+	g.qs->setValue("Reconnect", bReconnect);
 	g.qs->setValue("DXOutputDelay", iDXOutputDelay);
 	g.qs->setValue("DXInput", qbaDXInput);
 	g.qs->setValue("DXOutput", qbaDXOutput);
