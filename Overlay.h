@@ -88,7 +88,7 @@ class Overlay : public QObject {
 		bool isActive() const;
 	public slots:
 		void on_Timer_timeout();
-		void setPlayers(QList<Player *> players);
+		void updateOverlay();
 		void setActive(bool act);
 		void toggleShow();
 		void forceSettings();

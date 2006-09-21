@@ -694,8 +694,6 @@ void PlayerModel::playerTalkingChanged(bool bTalking)
 	Player *p=static_cast<Player *>(sender());
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
-//	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
-	// If we can hear them, we need to update them
 	updateOverlay();
 }
 
@@ -704,6 +702,8 @@ void PlayerModel::playerMuteDeafChanged()
 	Player *p=static_cast<Player *>(sender());
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
+	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+		updateOverlay();
 }
 
 Qt::DropActions PlayerModel::supportedDropActions() const {
@@ -778,16 +778,7 @@ bool PlayerModel::dropMimeData (const QMimeData *md, Qt::DropAction action, int 
 
 void PlayerModel::updateOverlay() const {
 #ifdef Q_OS_WIN
-	if (g.sId) {
-		Channel *c = Player::get(g.sId)->cChannel;
-		ModelItem *item = ModelItem::c_qhChannels.value(c);
-		if (item) {
-			g.o->setPlayers(item->qlPlayers);
-			return;
-		}
-	}
-	QList<Player *> empty;
-	g.o->setPlayers(empty);
+	g.o->updateOverlay();
 #endif
 }
 

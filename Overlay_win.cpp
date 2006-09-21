@@ -396,6 +396,7 @@ void Overlay::toggleShow() {
 		}
 		ReleaseMutex(hMutex);
 	}
+	updateOverlay();
 }
 
 void Overlay::forceSettings() {
@@ -423,13 +424,14 @@ void Overlay::forceSettings() {
 		sm->bReset = true;
 		ReleaseMutex(hMutex);
 	}
+	updateOverlay();
 }
 
 #define SAFE_INC_IDX(x) x=(x < NUM_TEXTS) ? (x+1) : (NUM_TEXTS-1)
 
 typedef QPair<QString, DWORD> qpChanCol;
 
-void Overlay::setPlayers(QList<Player *> players) {
+void Overlay::updateOverlay() {
 	DWORD colPlayer = g.s.qcOverlayPlayer.rgba();
 	DWORD colTalking = g.s.qcOverlayTalking.rgba();
 	DWORD colAltTalking = g.s.qcOverlayAltTalking.rgba();
@@ -442,7 +444,7 @@ void Overlay::setPlayers(QList<Player *> players) {
 	if (! sm)
 		return;
 
-	if (players.count() > 0) {
+	if (g.sId) {
 		Channel *home = Player::get(g.sId)->cChannel;
 		foreach(Channel *c, home->allLinks()) {
 			if (home == c)
@@ -481,10 +483,15 @@ void Overlay::setPlayers(QList<Player *> players) {
 			}
 		}
 
-		foreach(Player *p, players) {
+		foreach(Player *p, Player::get(g.sId)->cChannel->qlPlayers) {
 			if (bShowAll || p->bTalking) {
+				QString name = p->qsName;
+				if (p->bDeaf || p->bSelfDeaf)
+					name = name + QString("(D)");
+				else if (p->bMute || p->bSelfMute || p->bLocalMute)
+					name = name + QString("(M)");
 				sm->texts[idx].color = p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer;
-				str = p->qsName.left(127);
+				str = name.left(127);
 				wstr = reinterpret_cast<const wchar_t *>(str.utf16());
 				wcscpy(sm->texts[idx].text, wstr);
 				SAFE_INC_IDX(idx);
