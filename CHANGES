@@ -1,321 +1,919 @@
+2006-09-22 [r369-377]  slicer:
+
+	* SVN Changelog
+
+	* SVN Changelog
+
+	* 2006 updates
+
+	* Overlay crash fix
+
+	* Cleaned up overlay interface and made it show mute/deafen status.
+
+	* GUI for reconnect
+
+	* Allow connect directly to channels you're supressed in without
+	  crashing.
+
+	* Automatic reconnect (GUI config missing)
+
+	* TTS Volume adjustable
+
+2006-09-20 [r367-368]  CybKnight:
+
+	* Third try for talking_alt.png icon color.
+
+	* Updated icons, to remove white border on _on&_off and to try a
+	  lighter shade on _alt.
+
+2006-09-19 [r366]  slicer:
+
+	* Added local mute and updated icons.
+
+2006-09-19 [r365]  CybKnight:
+
+	* Added muted_local.png and talking_alt.png after request from main
+	  developer.
+
+2006-09-19 [r359-364]  slicer:
+
+	* Fixed push-to-talk, which I broke. Fixed overlay for players in
+	  other channels.
+
+	* Swapped privileges for Speak and AltSpeak
+
+	* Various AltSpeak fixes. Fixed Deny-Speak-Implies-Mute on
+	  remembered channel freeze. Don't set high priority in debug
+	  client.
+
+	* write does not imply speak
+
+	* Support no-exception compile to avoid mingw lib dependency.
+
+	* AltSpeak
+
+2006-08-25 [r358]  slicer:
+
+	* Updated overlay to compile with newer DX SDK
+
+2006-08-23 [r357]  slicer:
+
+	* Updated defaults for 3D sound
+
+2006-06-05 [r351-356]  slicer:
+
+	* The client now works on Linux, and FMOD is no longer used.
+
+	* Removed FMOD from distribution
+
+	* TrayIcon should hide
+
+	* Poll() based ALSA, sigio crashes X
+
+	* Ubtuntu has ancient Speex.
+
+	* Initial ALSA Skeleton
+
+2006-05-31 [r349-350]  slicer:
+
+	* Use ALSA on Linux
+
+	* Compiles on Linux again
+
+2006-05-27 [r348]  slicer:
+
+	* QT 4.1.3 updates
+
+2006-05-05 [r347]  slicer:
+
+	* Updates for new speex jitter buffer
+
+2006-03-29 [r345-346]  slicer:
+
+	* WoW 1.10
+
+	* Minor updates
+
+2006-03-17 [r343-344]  slicer:
+
+	* UNIX murmur compile fixes
+
+	* Qt 4.1.1 Allow TCP Compability mode (with TCP_NODELAY) for people
+	  with seriously broken ISPs.
+
+2006-03-01 [r341-342]  slicer:
+
+	* No longer default export of wow plugin, as it's out of date.
+
+	* Try EF type of service first. Also, more conservative defaults
+	  for audio settings, as the current defaults cause problems on
+	  most AC97 onboard cards.
+
+2006-02-14 [r338-340]  slicer:
+
+	* *** empty log message ***
+
+	* Server IP TOS
+
+	* IP Type of Service
+
+2006-01-29 [r337]  slicer:
+
+	* Longer AudioHold
+
+2006-01-18 [r329-336]  slicer:
+
+	* Textfile changes for the Linux release.
+
+	* Initial Linux testing work
+
+	* missing distfiles
+
+	* *** empty log message ***
+
+	* Linux compiles clean
+
+	* Forgot to check in pch headers
+
+	* Fixed FMOD
+
+	* FMOD support, not working yet though.
+
+2006-01-11 [r328]  slicer:
+
+	* WoW 1.9.1 updates
+
+2005-12-31 [r327]  slicer:
+
+	* Precompiled header support
+
+2005-12-25 [r322-326]  slicer:
+
+	* Require 4.1.0 for mumble client, as that seems to work without
+	  patching Qt (which was required for 4.0.1)
+
+	* Support max # users limitation on server.
+
+	* Update installer for Qt 4.1.0
+
+	* Qt 4.1.0 compilation fixes.
+
+	* Remove support for doppler effects; only works on a few
+	  soundcards, and makes sound horrible for anyone else that tries
+	  to enable it.
+
+2005-12-23 [r321]  slicer:
+
+	* Create DSound buffer in same thread it's used, and let buffers
+	  linger for 5 secs before destroying them; some soundcards don't
+	  handle buffer creation very well.
+
+2005-12-20 [r320]  slicer:
+
+	* wow support. Fixed a bug with some hardware 3d cards.
+
+2005-12-19 [r319]  slicer:
+
+	* Update version to 0.9.3
+
+2005-12-17 [r317]  slicer:
+
+	* *** empty log message ***
+
+2005-12-16 [r307-316]  slicer:
+
+	* *** empty log message ***
+
 	* average bandwidth over short time to avoid being kicked for VBR
 	  spike
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Bugfixing bandwidth limits
+
 	* Maximum bandwidth setting serverside.
+
+	* *** empty log message ***
+
 	* Allow _ in email addresses (darn@the-space.net)
+
+2005-12-13 [r303-306]  slicer:
+
 	* Visualize all parts of the echo weights.
+
 	* rename from libspeex.dll to just speex.dll
+
+	* *** empty log message ***
+
 	* Updates to enable compilation on Linux, even if it's missing
 	  features.
+
+2005-12-09 [r299-302]  slicer:
+
 	* Enable ASIO with 32bit input. Needs verification.
+
 	* Visualization of echo canceller, and some testing.. Seems the
 	  weights get set non-optimally.
+
 	* Visualization of echo canceller, and some testing.. Seems the
 	  weights get set non-optimally.
+
 	* Support graceful failure of loading the overlay (For Win2k
 	  support)
+
+2005-12-04 [r297-298]  slicer:
+
 	* Update INSTALL to reflect we now require Boost
+
 	* Use boost::shared_ptr<> for objects shared between threads that
 	  we need to delete(). (AudioInput and Output mostly).
+
+2005-12-03 [r294-296]  slicer:
+
+	* *** empty log message ***
+
 	* Visualize power spectrum of input and noise estimate.
+
 	* Add fftpwrap for speex compile
+
+2005-11-09 [r292-293]  slicer:
+
+	* *** empty log message ***
+
 	* Ping support
+
+2005-10-14 [r291]  slicer:
+
 	* make "Toggle overlay" a tristate; show only talking, show all or
 	  show none.
+
+2005-10-13 [r279-290]  slicer:
+
 	* Banlist editor.
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Removed TCP voice support; with Nagle it will always be laggy.
-	  Added message to query/set banlist.  Reordered message ids.
+	  Added message to query/set banlist. Reordered message ids.
+
+	* *** empty log message ***
+
 	* Banlist (serverside).
+
+	* *** empty log message ***
+
 	* Bump version
+
 	* Rename player support.
+
+	* *** empty log message ***
+
+2005-10-09 [r278]  slicer:
+
 	* Set sId=0 when closing
-	* Audio bugfixing.  Added new icons to code.
-	* New icons for ASIO and OSD settings[cybknight]
+
+2005-10-05 [r277]  slicer:
+
+	* Audio bugfixing. Added new icons to code.
+
+2005-10-05 [r276]  cybknight:
+
+	* New icons for ASIO and OSD settings
+
+2005-10-05 [r265-275]  slicer:
+
+	* *** empty log message ***
+
 	* Fix for multispeex-packet in UDP mode.
+
 	* Immediate update of overlay on parameter change
+
 	* Debugging of ~sub
+
+	* *** empty log message ***
+
 	* sub,a,b,c groups
+
+	* *** empty log message ***
+
 	* Config for overlay.
+
 	* Make hooking less resource intensive on system.
+
+	* *** empty log message ***
+
 	* Overlay.
-	* Bold speec probability when we would transmit.  Fix the SSE
+
+2005-10-02 [r220-264]  slicer:
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* Bold speec probability when we would transmit. Fix the SSE
 	  detection.
-	* Tooltips & whatsthis for the bitrate in AudioConfig.	Bail out if
+
+	* Tooltips & whatsthis for the bitrate in AudioConfig. Bail out if
 	  SSE not detected (as we ship binaries which require it).
+
 	* Variable number of frames / packet
-	* Various bugfixes.  Added metakey for shortcuts, to join channel
-	  instead of talk-to channel.  Update to match timestamp in
+
+	* Various bugfixes. Added metakey for shortcuts, to join channel
+	  instead of talk-to channel. Update to match timestamp in
 	  jitterbuffer in speex.
+
 	* Add uninstaller to Add/Remove programs in control panel.
+
 	* Example of how to link murmur to other servers, using qstat
+
 	* Fix "in" and "out" groups.
+
 	* More command interface.
+
+	* *** empty log message ***
+
 	* Serverside commands through SQL.
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Experimentation with non-actionmapped directinput; will be a lot
-	  of GUI work though.  Added push-to-link support to the server.
+	  of GUI work though. Added push-to-link support to the server.
+
 	* Version to 0.9.1
+
+	* *** empty log message ***
+
 	* Channel linking, part 2.
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Channel linking, part 1.
+
 	* Cache ACL lookups.
+
 	* Kick off ghost connections, refuse connections with same name for
 	  anonymous users.
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Connection table in sqlite
+
 	* Include murmur.ini
+
 	* Use class references in headers instead of .h files, reduces
 	  dependency path to more sane levels.
+
+	* *** empty log message ***
+
 	* Move config into registrars.
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Remove ACLs when removing channel
 
-2005-09-27  tag rel_0_9_0
+	* *** empty log message ***
 
 	* Fix flag display
+
+	* *** empty log message ***
+
 	* lowercase groupnames
+
+	* *** empty log message ***
+
 	* Massively reduce debugging statements.
+
 	* PlayerModel fixes, work around bug in QSet operator ==
+
 	* Doubleclick to join channel
+
 	* Rewrote the player model, should be more "in tune" with Qts
-	  method of referencing items now.  Made the iconlist in the config
-	  dialog resizable.  Updated "reg" to "auth" in a few places.
-	* New icon for channel linked...[cybknight]
-	* Fixed authenticated and changed R shape into A shape.  New
-	  channel icon[cybknight]
+	  method of referencing items now. Made the iconlist in the config
+	  dialog resizable. Updated "reg" to "auth" in a few places.
+
+2005-09-27 [r218-219]  cybknight:
+
+	* New icon for channel linked...
+
+	* Fixed authenticated and changed R shape into A shape. New channel
+	  icon
+
+2005-09-26 [r188-217]  slicer:
+
 	* qPrintable()
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Fix tree
+
+	* *** empty log message ***
+
 	* Bugfixing session
+
+	* *** empty log message ***
+
 	* Tooltips and whatsthis for ACL part of ACLEditor.
+
+	* *** empty log message ***
+
 	* Have long strings in "" in .ini files.
+
 	* .ini files for the server, updating documentation to reflect
 	  this.
+
 	* Functional ACL/Group editor. Let the bugfest commence.
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* ACLEditor, ACL actions started, server bugfixes.
+
 	* ACLEditor, GUI elements done, missing action-logic.
+
 	* ACLEditor, server part.
+
 	* Bugfixes from testing (release of 3d buffer, saving of transmit
 	  from settings, better rolloff defaults, smaller indentation for
 	  the channelview).
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Warning fixes.
+
+	* *** empty log message ***
+
 	* On channel creation, add creator to "admin" group.
+
 	* Channel ACLs and groups. (Still missing a edit function)
+
 	* Update version string
+
+	* *** empty log message ***
+
 	* Preliminary support for channels
 
-2005-09-21  tag rel_0_3_2
+2005-09-21 [r183-186]  slicer:
+
+	* *** empty log message ***
 
 	* Only check if registered player if there ARE registered players.
 	  Without any, everybody is priviliged.
+
+	* *** empty log message ***
+
 	* like =
-	* Made icon slightly fatter...[cybknight]
-	* New icon for registered users[cybknight]
+
+2005-09-20 [r181-182]  cybknight:
+
+	* Made icon slightly fatter...
+
+	* New icon for registered users
+
+2005-09-20 [r152-180]  slicer:
+
 	* Slightly more agressive defaults, sounds better for most people.
+
+	* *** empty log message ***
+
 	* Slightly more permissive namecheck
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* Only registered users can mute/deafen/kick others
+
+	* *** empty log message ***
+
 	* And remove the authcode used...
+
 	* Notify use when it succeeded as well.
+
 	* Registration script.
+
 	* Empty tts should not be spoken.
+
 	* Welcome messages.
-	* Per-player password.	Persistant storage on server.  Minor ASIO
+
+	* *** empty log message ***
+
+	* Per-player password. Persistant storage on server. Minor ASIO
 	  fixes.
+
 	* Final part of UDP implementation.
+
 	* UDP bugfixes on server.
-	* Version 0.3.2.  First part of UDP support.
+
+	* Version 0.3.2. First part of UDP support.
+
 	* No console in release!
 
-2005-09-19  tag rel_0_3_1
+	* *** empty log message ***
 
 	* Provide feedback if an error occured.
+
 	* Minimize to tray.
+
 	* Start of unix compiles for mumble
+
 	* Spelling fixes
-	* Typo in MainWindow fixed.  Made the BF2 plugin slightly more
-	  picky about what values it accepts.
+
+	* Typo in MainWindow fixed. Made the BF2 plugin slightly more picky
+	  about what values it accepts.
+
 	* When sampling speakers, encode the cleaned output, not the
-	  original.  Add clean signal power to the audio stats.
+	  original. Add clean signal power to the audio stats.
+
 	* About Speex dialog, still waiting for the icon.
+
 	* Echo Canceller for inputs that can sample the speakers.
+
 	* ASIO Audio Input
+
+2005-09-16 [r141-151]  slicer:
+
 	* Single-threaded directsound output
+
 	* Change version to 0.3.1
+
 	* Don't send implied messages anymore, the client already knows
+
 	* Send the player object to AudioOutputPlayer, not just the sId.
+
 	* Fix the versionchecker so it doesn't delete itself before showing
 	  the message.
+
 	* Fixups for release script
 
-2005-09-16  tag rel_0_3_0
+	* *** empty log message ***
 
 	* Failing to open DirectSound shouldn't be fatal, just a messagebox
 	  error Add Apply button to the config screen
+
 	* Fix a few missing Q_OBJECT
+
 	* Fixed a few bugs with positional audio Made a lot more member
 	  functions const Moved playerId to Global, it didn't belong in
 	  MainWindow
-	* Pixmap for Game plugin screen[cybknight]
+
+2005-09-15 [r140]  cybknight:
+
+	* Pixmap for Game plugin screen
+
+2005-09-14 [r137-139]  slicer:
+
 	* Bugfixes for positional Audio Added a Center Position hotkey, to
 	  force yourself and all others to a center audio position, usefull
 	  to give commands to the whole group.
+
 	* Positional Audio Plugins Ability to switch input/output device
 	  without restart Version changed to 0.3.0cvs
+
 	* Use selected device from DXConfig. Still needs to close/reopen on
 	  ConfigDialog exit.
-	* Added (unfinished) config dialog for DX Audio.[kjetijor]
+
+2005-09-13 [r136]  kjetijor:
+
+	* Added (unfinished) config dialog for DX Audio.
+
+2005-09-13 [r135]  slicer:
+
 	* New icons used in config
-	* Pixmaps for config windows.[cybknight]
+
+2005-09-13 [r134]  cybknight:
+
+	* Pixmaps for config windows.
+
+2005-09-13 [r117-133]  slicer:
+
 	* Adjustable jitter buffer initial size
+
 	* More tooltips and whatsthis
+
 	* ToolTips and WhatsThis for rest of application.
+
 	* Global Log class, which remembers what should be logged to
 	  console and TTS Fixed infinite selfrecursion in MainWindow, the
 	  application now actually exits when you close it instead of
 	  silently crashing
+
 	* Make versionchecking a userinitiated action
+
 	* Add lots of detailed tooltips. Our first piece of documentation.
+
 	* Finish basic config widget for audio Added config options for
 	  compression and amplification Moved a few menu things into the
 	  config Keep user settings in Settings and statevars in Global
+
 	* When using nested layouts, Qt barfs if a widget already has a
 	  parent, so make sure it doesn't.
+
 	* Fixed crash bug if opening player menu while unconnected
+
 	* Centralized configuration dialog
+
 	* Switch a few QMutex to QReadWriteLock, and start using
 	  QMutexLocker, QReadLocker etc
+
 	* Squashed 3 QT bugs, submitted patches, and can now use them in
 	  our application.
+
 	* DTX transmission support
+
 	* Export symbol files for debugging of release builds
+
 	* Window title for the audiostats
+
 	* Set thread priorities; gui is LOW priority, but as we can't set
 	  it low we set everything else high.
+
 	* Audio statistics window
-	* Status icons for user window[cybknight]
+
+2005-09-10 [r116]  cybknight:
+
+	* Status icons for user window
+
+2005-09-10 [r61-115]  slicer:
+
 	* Make list of players sorted by name and make local user bold
+
 	* Offset status icons by 1 pixel
+
+	* *** empty log message ***
+
 	* Turn cvs log into CHANGES, and restart CHANGES to get rid of cvs
 	  log messages for it
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
+	* *** empty log message ***
+
 	* recent updates
+
 	* Deaf implies Mute logic in Server, and add ability to mute/deaf
 	  players again (added PlayerModel::getPlayer from index)
+
 	* QHash, foreach() and STL iterators. What ever gave me the idea
 	  QMap was a hash to begin with?
+
 	* Model-player-list. Work in progress
+
 	* Compile bugs in VersionCheck, update version in About dialog as
 	  well
+
 	* Change versions to 0.2.3cvs
 
-2005-09-08  tag rel_0_2_2
-
 	* Avoid conflicts for MUMBLE_RELEASE
+
 	* Use new Connection slots for Server Make server log include
 	  date/time
+
 	* Discover the magic of QObject::sender() and fix some leftover
 	  bugs from the refactorization
+
 	* Refactor
+
 	* Oops, we're working on 0.2.2, not 0.2.1 which is already released
+
 	* Remove compile warnings, and there sure were a lot of them Work
 	  around -Wshadow bug in gcc
+
 	* Turn g_ into Global, part 2
+
 	* Turn g_ into struct Global, part 1
+
 	* Remove m_ from everything
+
 	* Track both initiator and victim of actions
+
 	* Make all messageboxes use "Mumble" as the title, to follow the
 	  GUI guides
+
 	* Check version against sourceforge
+
 	* Show correct version in title
+
+	* *** empty log message ***
+
 	* Separate log window
+
 	* Reduce dependencies in MainWindow.h
+
 	* Add changes file Add persistant storage of server lists
+
 	* Increase default volume gain
+
 	* Commit database
+
 	* Configure database for persistent storage
+
 	* **** the password field
+
 	* Fix args for window title
+
 	* Exchange and display selfmute/selfdeaf
+
 	* Audio Input/Output registration
-	* Support self-mute/self-deafen.  Start support for input/output
+
+	* Support self-mute/self-deafen. Start support for input/output
 	  configs
+
 	* config=profile to keep debug info for external profilers
+
 	* Make the buffer what we need
+
 	* Make it possible to abort connections, and display self-talk same
 	  as the others
+
 	* More verifications
+
 	* Make ids recyclable over time instead of immediately, and
 	  validate that the "target" of messages is actually valid.
+
 	* The FIRST loaded icon will be the appicon. Make sure it's the
 	  smallest. This really is buggy, Qt!
+
 	* MainWindow actiongroup for voicetrigger fixed build system fixed
 	  to use proper conditionals
+
 	* Release build should NOT have the damn console!
+
 	* Release script fixes
+
 	* Basic connect dialog
+
 	* About dialog with icon
+
 	* Need all 3 icon sizes
+
 	* Hopefully binary?
+
 	* Fixed...
+
 	* .. but Qt can't use windows resources to store images.
+
 	* Added readme to installer Fixed crashbug in Server Made
 	  connection only emit disconnected once
-	* Temporary icon for alpha and beta stage[cybknight]
+
+2005-09-05 [r60]  cybknight:
+
+	* Temporary icon for alpha and beta stage
+
+2005-09-05 [r2-59]  slicer:
+
 	* Add readme
+
 	* Global settings and data exchange
+
 	* Shortcuts for muting self, removed compile warnings
+
 	* Text-To-Speech
+
 	* Actually poll the DirectInput devices too.
+
 	* Global shortcuts
+
 	* Handle authentication, rejections and propagated error messages
+
 	* Propagate connection errors for display
+
 	* When disconnecting, just signal the thread that it's time to end,
 	  don't yank the socket or QT complains
+
 	* Support logging in with pw
+
 	* handle authenticate/reject in networkToMessage
+
 	* Proper connect dialog
+
 	* Use compression for zips
+
 	* Add scripts to release source code
+
 	* Versions in projects
+
 	* debug_and_release
+
 	* Because they changed the signal in Qt 4.0.1
+
 	* Why doesn't closed buffered sockets ever error() on
 	  disconnection?
+
 	* Encode and display "speaking" state
+
 	* Accept some paramenters for murmur, to enable e.g. local loop
 	  test
+
+	* *** empty log message ***
+
 	* Update libspeex makefile to match dynamic libs Move license
 	  agreements to installer instead of embedded in program
-	* License files for qt and speex for installer
-	* Dynamic release, only need licenses in installer/as files
-	* Forgot to checkin the new about dialog. Ahem.
 
-2005-09-03  tag rel0_2
+	* License files for qt and speex for installer
+
+	* Dynamic release, only need licenses in installer/as files
+
+	* Forgot to checkin the new about dialog. Ahem.
 
 	* Since we depend on mingw dlls anyway, switch to full dynamic
 	  linking and add an installer
+
 	* remove debug output
+
 	* Kick
+
 	* Clean up UI, implement kick, remove debug for missing validators
+
 	* Ooops, that was a debug statement
+
 	* DTX is broken
+
 	* Server testing
+
 	* Send deaf/mute on connect
+
 	* Player Mute/Deaf, global Player
+
 	* DTX Support Make list of players at least somewhat usefull
+
 	* Add sequence to speex packet
+
 	* Fix memory leak, it's now safe to pass stack-allocated messages
+
 	* About box, licenses included, and clean build in mingw
+
 	* Let's try licenses again...
+
 	* licenses for about dialog
+
 	* First functional audio test
+
 	* connect() typo, and increased AGC 50%
+
 	* Pass QByteArrays instead of messages, much cleaner with refcounts
+
 	* Initial DX Audio
+
 	* Initial audio framework
+
 	* Shorten down messages by making id and type 1 byte each
+
 	* actually do something with messages
+
 	* debugging network
+
 	* First test of network protocol
+
 	* Disconnect on errors, don't send disconnect unless authenticated
+
 	* Compile fixed
+
 	* virtual destructor (to avoid nag)
+
 	* Initial version of the server
+
 	* Network structures
+
 	* More data checking
+
 	* Initial datastructures
+
 	* Initial setup of project
+

@@ -43,6 +43,10 @@ void TextToSpeech::setEnabled(bool e) {
 	enabled = e;
 }
 
+void TextToSpeech::setVolume(int) {
+}
+
+
 bool TextToSpeech::isEnabled() const {
 	return enabled;
 }
