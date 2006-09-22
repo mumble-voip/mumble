@@ -327,7 +327,10 @@ Overlay::Overlay() : QObject() {
 
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
-		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that the library (mumble_ol.dll) wasn't found in the directory you ran mumble from, or that you're on an OS earlier than WinXP SP2."), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
+				"- the library (mumble_ol.dll) wasn't found in the directory you ran mumble from\n"
+				"- you're on an OS earlier than WinXP SP2\n"
+				"- you do not have the August 2006 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
 		qWarning("Overlay failure");
 	}
 
