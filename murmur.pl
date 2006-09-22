@@ -57,8 +57,41 @@ my $auth = $q->param('auth');
 my $name = $q->param('name');
 my $pw = $q->param('pw');
 my $email = $q->param('email');
+my $forgot = $q->param('forgot');
 
-if ($auth) {
+if ($forgot) {
+  print "<h1>Resent<</h1><p>Any usernames/passwords associated with that email have been resent.</p>";
+  my $sth = $dbh->prepare("SELECT COUNT(*) AS num FROM players WHERE email = ?");
+  $sth->execute($forgot);
+  my $r=$sth->fetchrow_hashref();
+  $sth->finish();
+  if ($$r{'num'} > 0) {
+    my $smtp = new Net::SMTP($emailserver);
+    $smtp->mail($emailfrom);
+    $smtp->to($forgot);
+    $smtp->data();
+    $smtp->datasend("From: $emailfrom\n");
+    $smtp->datasend("To: $forgot\n");
+    $smtp->datasend("Subject: Murmur password reminder\n");
+    $smtp->datasend("\n");
+    $smtp->datasend("A user from $ENV{'REMOTE_ADDR'} requested murmur usernames\n");
+    $smtp->datasend("on \"${servername}\" be resent.\n\n");
+    $smtp->datasend(sprintf("%20s %s\n","Username","Password"));
+    $smtp->datasend(sprintf("%20s %s\n","--------","--------"));
+
+    $sth = $dbh->prepare("SELECT * FROM players WHERE email = ?");
+    $sth->execute($forgot);
+    while((my $r=$sth->fetchrow_hashref())) {
+      $smtp->datasend(sprintf("%20s %s\n",$$r{'name'},$$r{'pw'}));
+    }
+    $sth->finish();
+
+    $smtp->datasend("\nNow try to remember them, please ;)\n");
+    $smtp->dataend();
+  }
+  $showit = 0;
+  
+} elsif ($auth) {
    my $sth = $dbh->prepare("SELECT * FROM player_auth WHERE authcode = ?");
    $sth->execute($q->param('auth'));
    if (my $r = $sth->fetchrow_hashref()) {
@@ -157,6 +190,16 @@ if ($showit) {
   print $q->password_field(-name=>'pw', -size=>'10');
   print "<br />\n";
   print $q->submit(-value=>'Register');
+  print $q->end_form();
+  print '</p>';
+
+  print '<h1>Forgot your pw?</h1>';
+  print '<p>';
+  print $q->start_form(-method=>'POST');
+  print "Email ";
+  print $q->textfield(-name=>'forgot', -size=>'30');
+  print "<br />\n";
+  print $q->submit(-value=>'Resend passwords');
   print $q->end_form();
   print '</p>';
 }
