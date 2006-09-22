@@ -1,5 +1,4 @@
 #! /bin/bash
 
-cvs update -Pd .
-scripts/cvs2cl.pl -f CHANGES .
-cvs commit -m "" CHANGES
+svn update
+svn log -v --xml | python svn2log.py -s -O -L -H -p '/(branches/[^/]+|trunk)/' -D 86400 -o /dev/stdout -o CHANGES
