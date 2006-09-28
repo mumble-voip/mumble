@@ -16,6 +16,9 @@ or commercial versions will do.
 Please see http://www.trolltech.com/qt/ for more information. As we use the Qt
 build system, it's important that you have a fully functional Qt installation.
 
+The mumble build uses pre-comiled headers. If you use GCC, make sure it's at
+least version 3.4.
+
 Mumble depends on libspeex. See http://www.speex.org for details. Note that
 you need the latest "unstable" version to compile. (Speex generally has high
 code quality, the the svn version is probably even more stable than the
