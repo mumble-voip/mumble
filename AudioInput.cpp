@@ -228,8 +228,10 @@ void AudioInput::encodeAudioFrame() {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
 			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*20);
+#ifndef SPEEX_ANCIENT
 			iArg = SAMPLE_RATE;
 			speex_echo_ctl(sesEcho, SPEEX_SET_SAMPLING_RATE, &iArg);
+#endif
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 		}
 
