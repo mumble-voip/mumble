@@ -1,0 +1,18 @@
+Source: mumble
+Section: comm
+Priority: optional
+Maintainer: Thorvald Natvig <slicer@sourceforge.net>
+Build-Depends: debhelper (>= 4.0.0), libqt4-dev (>= 4.1.2), libspeex-dev (>= 1.1.11), libboost-dev (>= 1.33.1), libasound2-dev (>= 1.0.10)
+Standards-Version: 3.6.2
+
+Package: mumble
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Voice chat client
+ Description coming.
+
+Package: mumble-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Voice chat server (murmur)
+ Description coming.
