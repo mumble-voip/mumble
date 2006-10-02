@@ -39,7 +39,8 @@ class Player;
 class OverlayConfig : public ConfigWidget {
 	Q_OBJECT
 	protected:
-		QCheckBox *qcbEnable;
+		QCheckBox *qcbEnable, *qcbAlwaysSelf;
+		QComboBox *qcbShow;
 
 		QSlider *qsX, *qsY;
 		QCheckBox *qcbLeft, *qcbRight, *qcbTop, *qcbBottom;
@@ -81,7 +82,6 @@ class Overlay : public QObject {
 		HANDLE hMutex;
 		HooksProc hpInstall, hpRemove;
 		SharedMem *sm;
-		bool bShowAll;
 	public:
 		Overlay();
 		~Overlay();

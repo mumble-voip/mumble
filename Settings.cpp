@@ -51,6 +51,8 @@ Settings::Settings() {
 	fDXRollOff = 0.15;
 
 	bOverlayEnable = true;
+	osOverlay = All;
+	bOverlayAlwaysSelf = true;
 	fOverlayX = 1.0;
 	fOverlayY = 0.0;
 	bOverlayTop = false;
@@ -92,6 +94,8 @@ void Settings::load() {
 	qlASIOmic = g.qs->value("ASIOmic").toList();
 	qlASIOspeaker = g.qs->value("ASIOspeaker").toList();
 	bOverlayEnable = g.qs->value("OverlayEnable",bOverlayEnable).toBool();
+	osOverlay = static_cast<Settings::OverlayShow>(g.qs->value("OverlayShow", osOverlay).toInt());
+	bOverlayAlwaysSelf = g.qs->value("OverlayAlwaysSelf",bOverlayAlwaysSelf).toBool();
 	fOverlayX = g.qs->value("OverlayX",fOverlayX).toDouble();
 	fOverlayY = g.qs->value("OverlayY",fOverlayY).toDouble();
 	bTransmitPosition = g.qs->value("PosTransmit",bTransmitPosition).toBool();
@@ -133,6 +137,8 @@ void Settings::save() {
 	g.qs->setValue("ASIOmic", qlASIOmic);
 	g.qs->setValue("ASIOspeaker", qlASIOspeaker);
 	g.qs->setValue("OverlayEnable", bOverlayEnable);
+	g.qs->setValue("OverlayShow", osOverlay);
+	g.qs->setValue("OverlayAlwaysSelf", bOverlayAlwaysSelf);
 	g.qs->setValue("OverlayX", fOverlayX);
 	g.qs->setValue("OverlayY", fOverlayY);
 	g.qs->setValue("OverlayTop", bOverlayTop);

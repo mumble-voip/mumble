@@ -41,6 +41,7 @@
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	enum Audio3D { None, Panning, Light, Full };
+	enum OverlayShow { Nothing, Talking, All };
 	AudioTransmit atTransmit;
 	bool bTransmitPosition;
 	Audio3D a3dModel;
@@ -61,6 +62,8 @@ struct Settings {
 	QList<QVariant> qlASIOspeaker;
 
 	bool bOverlayEnable;
+	OverlayShow osOverlay;
+	bool bOverlayAlwaysSelf;
 	float fOverlayX;
 	float fOverlayY;
 	bool bOverlayLeft, bOverlayRight, bOverlayTop, bOverlayBottom;

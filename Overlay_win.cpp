@@ -54,9 +54,40 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbEnable->setToolTip(tr("Enable overlay."));
 	qcbEnable->setWhatsThis(tr("This sets whether the overlay is enabled or not. This settings is "
 							"only checked with D3D9 applications are started, so make sure Mumble "
-							"is running and this option is on before you start the application."));
+							"is running and this option is on before you start the application.<br />"
+							"Please note that if you start the application after starting Mumble, "
+							"or if you disable the overlay while running, there is no safe way "
+							"to restart the overlay without also restarting the application."));
 	qcbEnable->setChecked(g.s.bOverlayEnable);
-	grid->addWidget(qcbEnable, 0, 0);
+	grid->addWidget(qcbEnable, 0, 0, 1, 2);
+
+	qcbShow = new QComboBox();
+	qcbShow->addItem(tr("No one"), Settings::Nothing);
+	qcbShow->addItem(tr("Only talking"), Settings::Talking);
+	qcbShow->addItem(tr("Everyone"), Settings::All);
+	qcbShow->setCurrentIndex(g.s.osOverlay);
+	lab = new QLabel(tr("Show"));
+	lab->setBuddy(qcbShow);
+	qcbShow->setToolTip(tr("Who to show on the overlay"));
+	qcbShow->setWhatsThis(tr("<b>This sets who to show in the ingame overlay.</b><br />"
+			"If many people are connected to the same channel, the overlay list might be "
+			"very long. Use this to shorten it."
+			"<i>No one</i> - Don't show anyone (but leave overlay running).<br />"
+			"<i>Only talking</i> - Only show talking people.<br />"
+			"<i>Everyone</i> - Show everyone."));
+	grid->addWidget(lab, 1, 0);
+	grid->addWidget(qcbShow, 1, 1, 1, 2);
+
+	qcbAlwaysSelf = new QCheckBox(tr("Always Show Self"));
+	qcbAlwaysSelf->setObjectName("AlwaysSelf");
+	qcbAlwaysSelf->setToolTip(tr("Always show yourself on overlay."));
+	qcbAlwaysSelf->setWhatsThis(tr("This sets whether to always show yourself or not. "
+							"This setting is usefull if you aren't showing everyone in the overlay, "
+							"as then you would only see your own status if you were talking, which "
+							"wouldn't let you see that you were deafned or muted."));
+	qcbAlwaysSelf->setChecked(g.s.bOverlayAlwaysSelf);
+	grid->addWidget(qcbAlwaysSelf, 2, 0, 1, 2);
+
 	qgbOptions->setLayout(grid);
 
 	grid=new QGridLayout();
@@ -298,6 +329,8 @@ QIcon OverlayConfig::icon() const {
 
 void OverlayConfig::accept() {
 	g.s.bOverlayEnable = qcbEnable->isChecked();
+	g.s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
+	g.s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
 	g.s.fOverlayX = qsX->value() / 100.0;
 	g.s.fOverlayY = 1.0 - qsY->value() / 100.0;
 	g.s.bOverlayLeft = qcbLeft->isChecked();
@@ -349,8 +382,6 @@ Overlay::Overlay() : QObject() {
 
 	hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
 
-	bShowAll = true;
-
 	forceSettings();
 
 	QMetaObject::connectSlotsByName(this);
@@ -384,19 +415,24 @@ void Overlay::on_Timer_timeout() {
 }
 
 void Overlay::toggleShow() {
-	if (! sm)
-		return;
+	Settings::OverlayShow ns;
+
+	switch(g.s.osOverlay) {
+		case Settings::Nothing:
+			ns = Settings::All;
+			break;
+		case Settings::All:
+			ns = Settings::Talking;
+			break;
+		default:
+			ns = Settings::All;
+			break;
+	}
+	g.s.osOverlay = ns;
 
 	DWORD dwWaitResult = WaitForSingleObject(hMutex, 500L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (sm->bShow && bShowAll) {
-			bShowAll = false;
-		} else if (sm->bShow) {
-			sm->bShow = false;
-		} else {
-			sm->bShow = true;
-			bShowAll = true;
-		}
+		sm->bShow = (g.s.osOverlay != Settings::Nothing);
 		ReleaseMutex(hMutex);
 	}
 	updateOverlay();
@@ -425,6 +461,7 @@ void Overlay::forceSettings() {
 		sm->bLeft = g.s.bOverlayLeft;
 		sm->bRight = g.s.bOverlayRight;
 		sm->bReset = true;
+		sm->bShow = (g.s.osOverlay != Settings::Nothing);
 		ReleaseMutex(hMutex);
 	}
 	updateOverlay();
@@ -473,7 +510,7 @@ void Overlay::updateOverlay() {
 
 			if (g.s.bOverlayTop) {
 				foreach(qpChanCol cc, linkchans) {
-					if (bShowAll || (cc.second == colChannelTalking)) {
+					if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
 						sm->texts[idx].color = cc.second;
 						str = cc.first.left(127);
 						wstr = reinterpret_cast<const wchar_t *>(str.utf16());
@@ -489,7 +526,7 @@ void Overlay::updateOverlay() {
 			}
 
 			foreach(Player *p, Player::get(g.sId)->cChannel->qlPlayers) {
-				if (bShowAll || p->bTalking) {
+				if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == Player::get(g.sId)) && g.s.bOverlayAlwaysSelf)) {
 					QString name = p->qsName;
 					if (p->bDeaf || p->bSelfDeaf)
 						name = name + QString("(D)");
@@ -510,7 +547,7 @@ void Overlay::updateOverlay() {
 					SAFE_INC_IDX(idx);
 				}
 				foreach(qpChanCol cc, linkchans) {
-					if (bShowAll || (cc.second == colChannelTalking)) {
+					if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
 						sm->texts[idx].color = cc.second;
 						str = cc.first.left(127);
 						wstr = reinterpret_cast<const wchar_t *>(str.utf16());
