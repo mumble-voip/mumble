@@ -20,5 +20,6 @@
  <file>icons/config_plugin.png</file>
  <file>icons/config_asio.png</file>
  <file>icons/config_osd.png</file>
+ <file>icons/config_shortcuts.png</file>
 </qresource>
 </RCC>

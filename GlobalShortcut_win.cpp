@@ -145,8 +145,11 @@ GlobalShortcutWinConfig::GlobalShortcutWinConfig(QWidget *p) : ConfigWidget(p) {
 		l->addWidget(lab, i+1, 0);
 		l->addWidget(dikw, i+1, 1);
 
+		dikw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
+		dikw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
+							"Click this field and then the desired key/button combo "
+							"to rebind. Doubleclick to clear.").arg(gs->name));
 		qhKeys[gs]=dikw;
-
 		i++;
 	}
 
@@ -165,20 +168,21 @@ QString GlobalShortcutWinConfig::title() const {
 }
 
 QIcon GlobalShortcutWinConfig::icon() const {
-	return QIcon(":/icons/config_msgs.png");
+	return QIcon(":/icons/config_shortcuts.png");
 }
 
 void GlobalShortcutWinConfig::accept() {
 	foreach(GlobalShortcut *gs, gsw->qmShortcuts) {
 		DirectInputKeyWidget *dikw = qhKeys[gs];
-
-		QString base=QString("GS%1_").arg(gs->idx);
-		g.qs->setValue(base + QString("num"), dikw->qlButtons.count());
-		int i=0;
-		foreach(qpButton button, dikw->qlButtons) {
-			g.qs->setValue(base + QString("%1_GUID").arg(i), QUuid(dikw->qlButtons[i].first).toString());
-			g.qs->setValue(base + QString("%1_Type").arg(i), static_cast<int>(dikw->qlButtons[i].second));
-			i++;
+		if (dikw->bModified) {
+			QString base=QString("GS%1_").arg(gs->idx);
+			g.qs->setValue(base + QString("num"), dikw->qlButtons.count());
+			int i=0;
+			foreach(qpButton button, dikw->qlButtons) {
+				g.qs->setValue(base + QString("%1_GUID").arg(i), QUuid(dikw->qlButtons[i].first).toString());
+				g.qs->setValue(base + QString("%1_Type").arg(i), static_cast<int>(dikw->qlButtons[i].second));
+				i++;
+			}
 		}
 	}
 
@@ -318,6 +322,7 @@ void GlobalShortcutWin::remap() {
 	foreach(Shortcut *s, qhGlobalToWin) {
 		free(s);
 	}
+	qhGlobalToWin.clear();
 
 	foreach(GlobalShortcut *gs, qmShortcuts) {
 		QString base=QString("GS%1_").arg(gs->idx);
