@@ -9,10 +9,11 @@ Package: mumble
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Voice chat client
- Description coming.
+ Mumble is a low-latency, high quality voice chat software primarily intended for use while gaming. It features noise cancellation and voice activation.
 
 Package: mumble-server
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Voice chat server (murmur)
- Description coming.
+ Mumble is a low-latency, high quality voice chat software primarily intended for use while gaming. It features noise cancellation and voice activation.
+
