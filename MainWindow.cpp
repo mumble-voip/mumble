@@ -140,7 +140,7 @@ void MainWindow::createActions() {
 	qaAudioReset=new QAction(tr("&Reset"), this);
 	qaAudioReset->setObjectName("AudioReset");
 	qaAudioReset->setToolTip(tr("Reset audio preprocessor"));
-	qaAudioReset->setWhatsThis(tr("Resets the audio preprocessor, including noice cancellation, automatic gain and voice activity detection. "
+	qaAudioReset->setWhatsThis(tr("Resets the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. "
 									"If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, "
 									"use this to avoid having to wait for the preprocessor to readjust."));
 	qaAudioMute=new QAction(tr("&Mute Self"), this);
@@ -219,7 +219,7 @@ void MainWindow::setupGui()  {
 	qteLog = new QTextEdit(this);
 	qteLog->setReadOnly(true);
 	qteLog->setToolTip(tr("Log of messages"));
-	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors and information messasges all show up here.<br />"
+	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors and information messages all show up here.<br />"
 							"To configure exactly which messages show up here, use the <b>Settings</b> command from the menu."));
 
 	qmServer = new QMenu(tr("&Server"), this);
@@ -983,7 +983,7 @@ void MessagePlayerDeaf::process(Connection *) {
 	if (sVictim == g.sId)
 		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
 	else
-		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 defened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin), QString());
 }
 
 void MessagePlayerKick::process(Connection *) {

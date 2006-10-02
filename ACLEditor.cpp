@@ -343,7 +343,7 @@ void ACLEditor::addToolTipsWhatsThis() {
 	qcbACLGroup->setWhatsThis(tr("This control which group of users this entry applies to.<br />Note that the group is evaluated "
 							"in the context of the channel the entry is used in. For example, the default ACL on the Root "
 							"channel gives <i>Write</i> permission to the <i>admin</i> group. This entry, if inherited by a "
-							"channel, will give a user write priviliges if he belongs to the <i>admin</i> group in that channel, "
+							"channel, will give a user write privileges if he belongs to the <i>admin</i> group in that channel, "
 							"even if he doesn't belong to the <i>admin</i> group in the channel where the ACL originated.<br />"
 							"If a groupname starts with a !, it's membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than "
 							"the channel the ACL is active in. Order is important; <i>!~in</i> is valid, but <i>~!in</i> is not.<br />"
@@ -353,7 +353,7 @@ void ACLEditor::addToolTipsWhatsThis() {
 							"<b>sub,a,b,c</b> - User currently in a subchannel minimum <i>a</i> common parents, and between <i>b</i> and <i>c</i> channels down the chain. "
 							"See the website for more extensive documentation on this one.<br />"
 							"<b>in</b> - Users currently in the channel will match (convenience for <i>sub,0,0,0</i>.<br />"
-							"<b>out</b> - Users outside the channel will match (convencience for <i>!sub,0,0,0</i>.<br />"
+							"<b>out</b> - Users outside the channel will match (convenience for <i>!sub,0,0,0</i>.<br />"
 							"Note that an entry applies to either a user or a group, not both."));
 	qleACLUser->setToolTip(tr("User this entry applies to"));
 	qleACLUser->setWhatsThis(tr("This controls which user this entry applies to. Just type in the user name and hit enter "

@@ -96,7 +96,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid = new QGridLayout();
 
 	qcbTransmit = new QComboBox();
-	qcbTransmit->addItem(tr("Continous"), Settings::Continous);
+	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
 	qcbTransmit->setCurrentIndex(g.s.atTransmit);
@@ -105,9 +105,9 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbTransmit->setToolTip(tr("When to transmit your speech"));
 	qcbTransmit->setWhatsThis(tr("<b>This sets when speech should be transmitted.</b><br />"
-			"<i>Continous</i> - All the time<br />"
+			"<i>Continuous</i> - All the time<br />"
 			"<i>Voice Activity</i> - When you are speaking clearly.<br />"
-			"<i>Push To Talk</i> - When you hold down the hotkey set in Config|Shortcuts."));
+			"<i>Push To Talk</i> - When you hold down the hotkey set under <i>Shortcuts</i>."));
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbTransmit, 0, 1, 1, 2);
 
@@ -160,10 +160,10 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbTCP = new QCheckBox(tr("Use TCP mode"));
 	qcbTCP->setChecked(g.s.bTCPCompat);
-	qcbTCP->setToolTip(tr("Use TCP Compability mode"));
-	qcbTCP->setWhatsThis(tr("<b>Enable TCP Compability mode</b>.<br />"
+	qcbTCP->setToolTip(tr("Use TCP Compatibility mode"));
+	qcbTCP->setWhatsThis(tr("<b>Enable TCP Compatibility mode</b>.<br />"
 						"This will make Mumble use only TCP when communicating with the server. "
-						"This will increase overhead and cause lost packets to produce noticable "
+						"This will increase overhead and cause lost packets to produce noticeable "
 						"pauses in communication, so this should only be used if you are unable to "
 						"use the default (which uses UDP for voice and TCP for control)."));
 
@@ -183,7 +183,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlBitrate = new QLabel();
 	qlBitrate->setToolTip(tr("Maximum bandwidth used for sent audio"));
 	qlBitrate->setWhatsThis(tr("<b>This shows peak outgoing bandwidth used.</b><br />"
-							"This shows the peak ammount of bandwidth sent out from your machine. Audio bitrate "
+							"This shows the peak amount of bandwidth sent out from your machine. Audio bitrate "
 							"is the maximum bitrate (as we use VBR) for the audio data alone. Position "
 							"is the bitrate used for positional information. Overhead is our framing and the "
 							"IP packet headers (IP and UDP is 90% of this overhead)."));

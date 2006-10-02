@@ -190,10 +190,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This control which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write priviliges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a groupname starts with a !, it&apos;s membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a subchannel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convencience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;.&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>User this entry applies to</source>
         <translation type="unfinished"></translation>
     </message>
@@ -271,6 +267,10 @@
     </message>
     <message>
         <source>Type in the name of a player you wish to remove from the group and press enter.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This control which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a groupname starts with a !, it&apos;s membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a subchannel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;.&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -380,6 +380,10 @@
         <source>ASIO</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Failed to instantiate ASIO driver</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ASIOInput</name>
@@ -469,10 +473,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Continous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Voice Activity</source>
         <translation type="unfinished"></translation>
     </message>
@@ -486,10 +486,6 @@
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set in Config|Shortcuts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -521,14 +517,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use TCP Compability mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Enable TCP Compability mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Automatic Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
@@ -542,10 +530,6 @@
     </message>
     <message>
         <source>Maximum bandwidth used for sent audio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak ammount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 90% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -610,6 +594,26 @@
     </message>
     <message>
         <source>%1s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use TCP Compatibility mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Enable TCP Compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 90% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -680,10 +684,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech, the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is bolded, that means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Bitrate of last frame</source>
         <translation type="unfinished"></translation>
     </message>
@@ -696,15 +696,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interresting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interrest if you&apos;re trying to finetune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Weights of the echo canceller</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much usefull data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most usefull of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly usefull to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is misconfigured.</source>
+        <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech, the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, that means Mumble is currently transmitting (if you&apos;re connected).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to finetune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is misconfigured.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1353,10 +1357,6 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Resets the audio preprocessor, including noice cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Mute Self</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1490,10 +1490,6 @@ of the possible locations.</source>
     </message>
     <message>
         <source>Log of messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This shows all recent activity. Connecting to servers, errors and information messasges all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1641,10 +1637,6 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 defened by %2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 undeafened by %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1686,6 +1678,18 @@ of the possible locations.</source>
     </message>
     <message>
         <source>Denied: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resets the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 deafened by %2.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1759,10 +1763,6 @@ of the possible locations.</source>
     </message>
     <message>
         <source>Always show yourself on overlay.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This sets whether to always show yourself or not. This setting is usefull if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafned or muted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1875,6 +1875,10 @@ of the possible locations.</source>
     </message>
     <message>
         <source>Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

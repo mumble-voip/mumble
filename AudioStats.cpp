@@ -389,7 +389,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 								  "Voice activity transmission depends on this being right. The trick with this is that the middle "
 								  "of a sentence is always detected as speech, the problem is the pauses between words and the "
 								  "start of speech. It's hard to distinguish a sigh from a word starting with 'h'.<br />"
-								  "If this is bolded, that means Mumble is currently transmitting (if you're connected)."));
+								  "If this is in bold font, that means Mumble is currently transmitting (if you're connected)."));
 	qlBitrate->setToolTip(tr("Bitrate of last frame"));
 	qlBitrate->setWhatsThis(tr("This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down "
 							   "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
@@ -398,9 +398,9 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	anwNoise->setToolTip(tr("Power spectrum of input signal and noise estimate"));
 	anwNoise->setWhatsThis(tr("This shows the power spectrum of the current input signal (red line) and the current noise estimate "
 							  "(filled blue).<br />"
-							  "All amplitudes are multiplied by 30 to show the interresting parts (how much more signal than noise "
+							  "All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise "
 							  "is present in each waveband).<br />"
-							  "This is probably only of interrest if you're trying to finetune noise conditions on your microphone. "
+							  "This is probably only of interest if you're trying to finetune noise conditions on your microphone. "
 							  "Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than "
 							  "halfway up on the graph, you have a seriously noisy environment."));
 
@@ -409,11 +409,11 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 		aewEcho->setWhatsThis(tr("This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.<br />"
 								  "Ideally, this should be black, indicating no echo exists at all. More commonly, you'll have one or more horizontal stripes "
 								  "of bluish color representing time delayed echo. You should be able to see the weights updated in real time.<br />"
-								  "Please note that as long as you have nothing to echo off, you won't see much usefull data here. Play some music and "
+								  "Please note that as long as you have nothing to echo off, you won't see much useful data here. Play some music and "
 								  "things should stabilize. <br />"
 								  "You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and "
-								  "phase. The most usefull of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the "
-								  "outgoing signal is being removed at that time step. The other viewing modes are mostly usefull to people who want to tune the "
+								  "phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the "
+								  "outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the "
 								  "echo cancellation algorithms.<br />"
 								  "Please note: If the entire image fluctuates massively while in modulus mode, "
 								  "the echo canceller fails to find any correlation whatsoever between the two input "

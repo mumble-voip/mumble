@@ -369,7 +369,7 @@ void ASIOConfig::on_Query_clicked() {
 		}
 		iasio.Release();
 	} else {
-		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instanciate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
 	}
 }
 

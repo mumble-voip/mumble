@@ -82,9 +82,9 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbAlwaysSelf->setObjectName("AlwaysSelf");
 	qcbAlwaysSelf->setToolTip(tr("Always show yourself on overlay."));
 	qcbAlwaysSelf->setWhatsThis(tr("This sets whether to always show yourself or not. "
-							"This setting is usefull if you aren't showing everyone in the overlay, "
+							"This setting is useful if you aren't showing everyone in the overlay, "
 							"as then you would only see your own status if you were talking, which "
-							"wouldn't let you see that you were deafned or muted."));
+							"wouldn't let you see that you were deafened or muted."));
 	qcbAlwaysSelf->setChecked(g.s.bOverlayAlwaysSelf);
 	grid->addWidget(qcbAlwaysSelf, 2, 0, 1, 2);
 
