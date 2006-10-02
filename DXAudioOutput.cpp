@@ -341,6 +341,8 @@ DXAudioOutput::DXAudioOutput() {
 		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
+	if (p3DListener)
+		qWarning("DXAudioOutput: 3D mode active");
 
 	bRunning = true;
 }

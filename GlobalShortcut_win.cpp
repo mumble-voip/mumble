@@ -232,7 +232,6 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 
 	InputDevice *id = new InputDevice;
 	id->guid = pdidi->guidInstance;
-	cbgsw->qhInputDevices[id->guid] = id;
 
 	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, NULL)))
 		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
@@ -281,8 +280,11 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 
         if(FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
         	qFatal("GlobalShortcutWin::SetProperty");
+
+		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
 		id->pDID->Release();
+		free(id);
 	}
 
     return DIENUM_CONTINUE;
@@ -310,7 +312,6 @@ void GlobalShortcutWin::remap() {
 
 	foreach(InputDevice *id, qhInputDevices) {
 		if (id->pDID) {
-			id->pDID->Unacquire();
 			id->pDID->Release();
 		}
 		free(id);
@@ -358,6 +359,11 @@ void GlobalShortcutWin::remap() {
 GlobalShortcutWin::~GlobalShortcutWin() {
 	unacquire();
 
+	foreach(InputDevice *id, qhInputDevices) {
+		if (id->pDID) {
+			id->pDID->Release();
+		}
+	}
 	pDI->Release();
 }
 
@@ -374,6 +380,7 @@ void GlobalShortcutWin::timeTicked() {
 
     if (bNeedRemap)
     	remap();
+
 
 	foreach(InputDevice *id, qhInputDevices) {
         DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
@@ -402,6 +409,7 @@ void GlobalShortcutWin::timeTicked() {
 						pressed = true;
 				}
 			}
+
 			foreach(Shortcut *s, id->qmhOfsToShortcut.values(rgdod[j].dwOfs)) {
 				qpButton button(id->guid, id->qhOfsToType[rgdod[j].dwOfs]);
 				int idx;

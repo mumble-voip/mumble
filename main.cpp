@@ -50,6 +50,30 @@ namespace boost {
 }
 #endif
 
+void mumbleMessageOutput(QtMsgType type, const char *msg)
+{
+	FILE *f=NULL;
+	f=fopen("Console.txt", "a+");
+	if (!f)
+		f=stderr;
+
+	char c;
+	switch (type) {
+		case QtDebugMsg:
+			c='D';
+			break;
+		case QtWarningMsg:
+			c='W';
+			break;
+		case QtFatalMsg:
+			c='F';
+			break;
+		default:
+			c='X';
+	}
+	fprintf(f, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")), msg);
+	fclose(f);
+}
 
 int main(int argc, char **argv)
 {
@@ -68,6 +92,9 @@ int main(int argc, char **argv)
 	int res;
 
 	QT_REQUIRE_VERSION(argc, argv, "4.1.0");
+#ifdef QT_NO_DEBUG
+	qInstallMsgHandler(mumbleMessageOutput);
+#endif
 
 	// Initialize application object.
 	QApplication a(argc, argv);
