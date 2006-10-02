@@ -29,29 +29,90 @@
 */
 
 #include "GlobalShortcut.h"
+#include "ConfigDialog.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+
+typedef QPair<GUID, DWORD> qpButton;
+
+struct Shortcut {
+	GlobalShortcut *gs;
+	bool bActive;
+	int iNumDown;
+	QList<qpButton> qlButtons;
+	QList<bool> qlActive;
+};
+
+struct InputDevice {
+	LPDIRECTINPUTDEVICE8 pDID;
+	GUID guid;
+	QString name;
+
+	// dwType to name
+	QHash<DWORD, QString> qhNames;
+
+	// Map dwType to dwOfs in our structure
+	QHash<DWORD, DWORD> qhTypeToOfs;
+
+	// Map dwOfs in our structure to dwType
+	QHash<DWORD, DWORD> qhOfsToType;
+
+	// Map dwOfs for this device to possible matching shortcut
+	QMultiHash<DWORD, Shortcut *> qmhOfsToShortcut;
+
+	// Buttons active since last reset
+	unsigned char activeMap[256];
+};
+
+class DirectInputKeyWidget : public QLineEdit {
+	Q_OBJECT
+	protected:
+		virtual void focusInEvent(QFocusEvent *event);
+		virtual void focusOutEvent(QFocusEvent *event);
+		virtual void mouseDoubleClickEvent(QMouseEvent *e);
+	public:
+		QList<qpButton> qlButtons;
+		bool bModified;
+		DirectInputKeyWidget(QWidget *p = NULL);
+		void setShortcut(GlobalShortcut *gs);
+	public slots:
+		void updateKeys(bool last);
+		void displayKeys();
+};
+
+class GlobalShortcutWinConfig : public ConfigWidget {
+	Q_OBJECT
+	protected:
+		QHash<GlobalShortcut *,DirectInputKeyWidget *> qhKeys;
+	public:
+		GlobalShortcutWinConfig(QWidget *p = NULL);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void accept();
+};
 
 class GlobalShortcutWin : public QObject {
 	Q_OBJECT
 	public:
 		QTimer *timer;
 		int ref;
-		static const GUID c_guidApp;
 
 		LPDIRECTINPUT8 pDI;
-		DIACTIONFORMAT        diafGame;
-		QList<LPDIRECTINPUTDEVICE8> qlDevices;
 		QHash<int, GlobalShortcut *> qmShortcuts;
+		QHash<GlobalShortcut *, Shortcut *> qhGlobalToWin;
+		QHash<GUID, InputDevice *> qhInputDevices;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
-		BOOL bNeedRemap;
-		DIACTION *diaActions;
-		QString qsUsername;
+		bool bNeedRemap;
+		bool bIgnoreActive;
+		int iButtonsDown;
 	public slots:
 		void timeTicked();
+	signals:
+		void buttonPressed(bool last);
 	public:
 		GlobalShortcutWin();
 		~GlobalShortcutWin();
@@ -59,5 +120,8 @@ class GlobalShortcutWin : public QObject {
 		void remap();
 		void add(GlobalShortcut *);
 		void remove(GlobalShortcut *);
-		void configure();
+		void resetMap();
+		QList<qpButton> getCurrentButtons();
 };
+
+uint qHash(const GUID &);

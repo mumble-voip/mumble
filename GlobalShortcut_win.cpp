@@ -37,28 +37,153 @@
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
-
-struct InputDevice {
-	LPDIRECTINPUTDEVICE8 pDID;
-	GUID guid;
-	// dwType to name
-	QHash<DWORD, QString> qhNames;
-
-	// Map dwType to dwOfs in our structure
-	QHash<DWORD, DWORD> qhTypeToOfs;
-
-	// Map dwOfs in our structure to dwType
-	QHash<DWORD, DWORD> qhOfsToType;
-};
-
-const GUID GlobalShortcutWin::c_guidApp = { /* ab3baca6-64bc-4d32-9752-49ae9748c06e */
-    0xab3baca6,
-    0x64bc,
-    0x4d32,
-    {0x97, 0x52, 0x49, 0xae, 0x97, 0x48, 0xc0, 0x6e}
-};
-
 static GlobalShortcutWin *gsw = NULL;
+
+static ConfigWidget *GlobalShortcutWinConfigDialogNew() {
+	return new GlobalShortcutWinConfig();
+}
+
+static ConfigRegistrar registrar(55, GlobalShortcutWinConfigDialogNew);
+
+uint qHash(const GUID &a) {
+	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
+	for(int i=0;i<8;i++)
+		val += a.Data4[i];
+	return val;
+}
+
+DirectInputKeyWidget::DirectInputKeyWidget(QWidget *p) : QLineEdit(p) {
+	setReadOnly(true);
+	clearFocus();
+	bModified = false;
+	displayKeys();
+}
+
+void DirectInputKeyWidget::setShortcut(GlobalShortcut *gs) {
+	if (gsw->qhGlobalToWin.contains(gs)) {
+		Shortcut *s = gsw->qhGlobalToWin[gs];
+		qlButtons = s->qlButtons;
+		displayKeys();
+	}
+}
+
+void DirectInputKeyWidget::focusInEvent(QFocusEvent *e) {
+	if (e->reason() == Qt::MouseFocusReason) {
+		setText(tr("Press Shortcut"));
+
+		QPalette pal=parentWidget()->palette();
+		pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
+		setPalette(pal);
+
+		setForegroundRole(QPalette::Button);
+		gsw->resetMap();
+		connect(gsw, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
+	}
+}
+
+void DirectInputKeyWidget::focusOutEvent(QFocusEvent *) {
+	setPalette(parentWidget()->palette());
+	clearFocus();
+	disconnect(gsw, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
+	displayKeys();
+}
+
+void DirectInputKeyWidget::mouseDoubleClickEvent (QMouseEvent *) {
+	bModified = true;
+	qlButtons.clear();
+	clearFocus();
+	displayKeys();
+}
+
+
+void DirectInputKeyWidget::updateKeys(bool last) {
+	qlButtons = gsw->getCurrentButtons();
+	bModified = true;
+	if (last)
+		clearFocus();
+	else
+		displayKeys();
+}
+
+void DirectInputKeyWidget::displayKeys() {
+	QStringList keys;
+
+	foreach(qpButton button, qlButtons) {
+		QString device=QString("O:");
+		QString name=QString("Unknown");
+		if (button.first == GUID_SysMouse)
+			device=QString("M:");
+		else if ((button.first == GUID_SysKeyboard) || (button.first.Data1 == 0))
+			device=QString("K:");
+		InputDevice *id = gsw->qhInputDevices[button.first];
+		if (id) {
+			name=id->qhNames[button.second];
+		}
+		keys << device+name;
+	}
+	setText(keys.join(QString(" + ")));
+}
+
+GlobalShortcutWinConfig::GlobalShortcutWinConfig(QWidget *p) : ConfigWidget(p) {
+	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
+	QLabel *lab;
+
+	QGridLayout *l=new QGridLayout();
+
+	lab=new QLabel(tr("Function"));
+	l->addWidget(lab, 0, 0);
+	lab=new QLabel(tr("Shortcut"));
+	l->addWidget(lab, 0, 1);
+
+	int i=0;
+
+	foreach(GlobalShortcut *gs, gsw->qmShortcuts) {
+		DirectInputKeyWidget *dikw=new DirectInputKeyWidget();
+		dikw->setShortcut(gs);
+
+		lab=new QLabel(gs->name);
+		l->addWidget(lab, i+1, 0);
+		l->addWidget(dikw, i+1, 1);
+
+		qhKeys[gs]=dikw;
+
+		i++;
+	}
+
+	qgbShortcuts->setLayout(l);
+
+    QVBoxLayout *v = new QVBoxLayout;
+    v->addWidget(qgbShortcuts);
+    v->addStretch(1);
+    setLayout(v);
+
+    QMetaObject::connectSlotsByName(this);
+}
+
+QString GlobalShortcutWinConfig::title() const {
+	return tr("Shortcuts");
+}
+
+QIcon GlobalShortcutWinConfig::icon() const {
+	return QIcon(":/icons/config_msgs.png");
+}
+
+void GlobalShortcutWinConfig::accept() {
+	foreach(GlobalShortcut *gs, gsw->qmShortcuts) {
+		DirectInputKeyWidget *dikw = qhKeys[gs];
+
+		QString base=QString("GS%1_").arg(gs->idx);
+		g.qs->setValue(base + QString("num"), dikw->qlButtons.count());
+		int i=0;
+		foreach(qpButton button, dikw->qlButtons) {
+			g.qs->setValue(base + QString("%1_GUID").arg(i), QUuid(dikw->qlButtons[i].first).toString());
+			g.qs->setValue(base + QString("%1_Type").arg(i), static_cast<int>(dikw->qlButtons[i].second));
+			i++;
+		}
+	}
+
+	gsw->remap();
+}
 
 GlobalShortcutWin::GlobalShortcutWin() {
 	gsw = this;
@@ -68,18 +193,13 @@ GlobalShortcutWin::GlobalShortcutWin() {
 
     HRESULT hr;
 
-    ZeroMemory( &diafGame, sizeof(DIACTIONFORMAT) );
-
     pDI = NULL;
-    diaActions = NULL;
 
     if(FAILED( hr = DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<VOID**>(&pDI), NULL)))
     {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
         return;
 	}
-
-	qsUsername="MumbleUser";
 
 	remap();
 
@@ -104,20 +224,17 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	HRESULT hr;
 
 	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszProductName));
-	qWarning("%s", qPrintable(name));
 	QString sname = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszInstanceName));
-	qWarning("%s", qPrintable(sname));
 
 	InputDevice *id = new InputDevice;
 	id->guid = pdidi->guidInstance;
+	cbgsw->qhInputDevices[id->guid] = id;
 
 	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, NULL)))
 		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
 
 	if (FAILED(hr = id->pDID->EnumObjects(EnumDeviceObjectsCallback, static_cast<void *>(id), DIDFT_BUTTON)))
 		qFatal("GlobalShortcutWin: EnumObjects: %lx", hr);
-
-
 
 	if (id->qhNames.count() > 0) {
 		QList<DWORD> types = id->qhNames.keys();
@@ -141,6 +258,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 			rgodf[i].dwType = dwType;
 			id->qhOfsToType[dwOfs] = dwType;
 			id->qhTypeToOfs[dwType] = dwOfs;
+//			qWarning("%4x %4x %s", dwType, dwOfs, qPrintable(id->qhNames[dwType]));
 		}
 
 		if (FAILED(hr = id->pDID->SetCooperativeLevel( g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND )))
@@ -182,156 +300,159 @@ void GlobalShortcutWin::remap() {
    	bNeedRemap = false;
 
 	unacquire();
-	for(int i=0;i<qlDevices.size();i++)
-		qlDevices[i]->Release();
-	qlDevices.clear();
 
 	if (qmShortcuts.isEmpty())
 		return;
 
-//	pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
-//	qFatal("Done");
+	foreach(InputDevice *id, qhInputDevices) {
+		if (id->pDID) {
+			id->pDID->Unacquire();
+			id->pDID->Release();
+		}
+		free(id);
+	}
+	qhInputDevices.clear();
 
-	if (diaActions)
-		delete [] diaActions;
+	pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
 
-	diaActions = new DIACTION[qmShortcuts.count()];
+	foreach(Shortcut *s, qhGlobalToWin) {
+		free(s);
+	}
 
-	int cnt = 0;
 	foreach(GlobalShortcut *gs, qmShortcuts) {
-		memset(&diaActions[cnt], 0, sizeof(DIACTION));
-		diaActions[cnt].uAppData = gs->idx;
-		diaActions[cnt].dwSemantic = DIBUTTON_ANY(gs->idx);
-		diaActions[cnt].lptszActionName = reinterpret_cast<const wchar_t *>(gs->name.utf16());
-
-		cnt++;
+		QString base=QString("GS%1_").arg(gs->idx);
+		QList<QUuid> guids;
+		QList<DWORD> types;
+		int nbuttons = g.qs->value(base + QString("num"), 0).toInt();
+		for(int i=0;i<nbuttons;i++) {
+			QUuid guid(g.qs->value(base + QString("%1_GUID").arg(i), QUuid(GUID_SysKeyboard).toString()).toString());
+			DWORD type = g.qs->value(base + QString("%1_Type").arg(i), 0xffffffff).toUInt();
+			if (! guid.isNull() && (type != 0xffffffff)) {
+				guids << guid;
+				types << type;
+			}
+		}
+		if (guids.count() > 0) {
+			Shortcut *s = new Shortcut();
+			s->gs = gs;
+			s->bActive = false;
+			s->iNumDown = 0;
+			for(int i=0;i<guids.count();i++) {
+				s->qlButtons << qpButton(guids[i], types[i]);
+				s->qlActive << false;
+				if (qhInputDevices.contains(guids[i])) {
+					InputDevice *id = qhInputDevices[guids[i]];
+					id->qmhOfsToShortcut.insert(id->qhTypeToOfs[types[i]], s);
+				}
+			}
+			qhGlobalToWin[gs] = s;
+		}
 	}
-
-    ZeroMemory( &diafGame, sizeof(DIACTIONFORMAT) );
-    diafGame.dwSize          = sizeof(DIACTIONFORMAT);
-    diafGame.dwActionSize    = sizeof(DIACTION);
-    diafGame.dwDataSize      = qmShortcuts.count() * sizeof(DWORD);
-    diafGame.guidActionMap   = c_guidApp;
-    diafGame.dwGenre         = DIVIRTUAL_REMOTE_CONTROL;
-    diafGame.dwNumActions    = qmShortcuts.count();
-    diafGame.rgoAction       = diaActions;
-    diafGame.lAxisMin        = -100;
-    diafGame.lAxisMax        = 100;
-    diafGame.dwBufferSize    = DX_SAMPLE_BUFFER_SIZE;
-    wcscpy( diafGame.tszActionMap, reinterpret_cast<const wchar_t *>(QString("Mumble").utf16()) );
-
-	hr=pDI->EnumDevicesBySemantics(reinterpret_cast<const wchar_t *>(qsUsername.utf16()), &diafGame, EnumSuitableDevicesCB, this, 0L);
-	if (FAILED(hr))
-		qWarning("GlobalShortcutWin: EnumDevicesBySemantics failed 0x%08lx", hr);
 }
-
-BOOL GlobalShortcutWin::EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPDIRECTINPUTDEVICE8 pdidDevice, DWORD, DWORD, LPVOID pContext)
-{
-	GlobalShortcutWin *cbgsw=static_cast<GlobalShortcutWin *>(pContext);
-	HRESULT hr;
-
-	pdidDevice->Unacquire();
-
-	pdidDevice->SetCooperativeLevel( g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND );
-
-    hr = pdidDevice->BuildActionMap( &cbgsw->diafGame, reinterpret_cast<const wchar_t *>(cbgsw->qsUsername.utf16()), 0 );
-    if( FAILED(hr) ) {
-		qWarning("GlobalShortcutWin: Failed BuildActionMap: 0x%08lx", hr);
-	}
-
-    // Set the action map for the current device
-    hr = pdidDevice->SetActionMap( &cbgsw->diafGame, reinterpret_cast<const wchar_t *>(cbgsw->qsUsername.utf16()), 0 );
-    if( FAILED(hr) ) {
-		qWarning("GlobalShortcutWin: Failed SetActionMap: 0x%08lx", hr);
-	}
-
-	pdidDevice->AddRef();
-
-	cbgsw->qlDevices.append(pdidDevice);
-
-    return DIENUM_CONTINUE;
-}
-
-void GlobalShortcutWin::configure()
-{
-    HRESULT hr;
-
-    remap();
-
-    // Initialize all the colors here
-    DICOLORSET dics;
-    ZeroMemory(&dics, sizeof(DICOLORSET));
-    dics.dwSize = sizeof(DICOLORSET);
-
-    // Fill in all the params
-    DICONFIGUREDEVICESPARAMS dicdp;
-    ZeroMemory(&dicdp, sizeof(dicdp));
-    dicdp.dwSize = sizeof(dicdp);
-    dicdp.dwcFormats     = 1;
-    dicdp.lprgFormats    = &diafGame;
-    dicdp.hwnd           = g.mw->winId();
-    dicdp.lpUnkDDSTarget = NULL;
-    dicdp.dwcUsers       = 1;
-    dicdp.lptszUserNames = const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsUsername.utf16()));
-
-	unacquire();
-
-    hr = pDI->ConfigureDevices( NULL, &dicdp, DICD_EDIT, NULL );
-    if( FAILED(hr) ) {
-		qWarning("GlobalShortcutWin: ConfigureDevices failed 0x%08lx", hr);
-		return;
-	}
-
-	remap();
-}
-
 
 GlobalShortcutWin::~GlobalShortcutWin() {
 	unacquire();
-	for(int i=0;i<qlDevices.size();i++)
-		qlDevices[i]->Release();
-	qlDevices.clear();
 
 	pDI->Release();
 }
 
 void GlobalShortcutWin::unacquire() {
-	for(int i=0;i<qlDevices.size();i++)
-		qlDevices[i]->Unacquire();
+	foreach(InputDevice *id, qhInputDevices) {
+		if (id->pDID) {
+			id->pDID->Unacquire();
+		}
+	}
 }
 
 void GlobalShortcutWin::timeTicked() {
+	bool pressed = false;
+
     if (bNeedRemap)
     	remap();
 
-	for(int i=0;i<qlDevices.size();i++) {
+	foreach(InputDevice *id, qhInputDevices) {
         DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
         DWORD   dwItems = DX_SAMPLE_BUFFER_SIZE;
         HRESULT hr;
 
-        qlDevices[i]->Acquire();
-        qlDevices[i]->Poll();
+        id->pDID->Acquire();
+        id->pDID->Poll();
 
-        hr = qlDevices[i]->GetDeviceData( sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0 );
+        hr = id->pDID->GetDeviceData( sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0 );
         if( FAILED(hr) )
             continue;
 
         for( DWORD j=0; j<dwItems; j++ )
         {
-            bool  bButtonDown = (rgdod[j].dwData==0x80) ? true : false;
-            GlobalShortcut *gs = qmShortcuts.value(rgdod[j].uAppData);
-            if (gs) {
-				emit gs->triggered(bButtonDown);
-				if (bButtonDown) {
-					gs->act = true;
-					emit gs->down();
-				} else {
-					gs->act = false;
-					emit gs->up();
+//			qWarning("%4x %4x", rgdod[j].dwOfs, rgdod[j].dwData);
+
+			if (!bIgnoreActive) {
+				if (rgdod[j].dwData & 0x80) {
+					gsw->iButtonsDown++;
+					id->activeMap[rgdod[j].dwOfs] = true;
+					pressed = true;
+				} else if (id->activeMap[rgdod[j].dwOfs]) {
+					gsw->iButtonsDown--;
+					if (gsw->iButtonsDown == 0)
+						pressed = true;
+				}
+			}
+			foreach(Shortcut *s, id->qmhOfsToShortcut.values(rgdod[j].dwOfs)) {
+				qpButton button(id->guid, id->qhOfsToType[rgdod[j].dwOfs]);
+				int idx;
+				for(idx=0;idx<s->qlButtons.count();idx++) {
+					if(s->qlButtons[idx] == button) {
+						bool a = (rgdod[j].dwData & 0x80);
+						if (a != s->qlActive[idx]) {
+							s->qlActive[idx] = a;
+							if (!a && s->bActive) {
+								s->iNumDown--;
+								s->bActive = false;
+								emit s->gs->triggered(a);
+								s->gs->act = false;
+								emit s->gs->up();
+							} else if (!a) {
+								s->iNumDown--;
+							} else if (a) {
+								s->iNumDown++;
+								if (s->iNumDown == s->qlActive.count()) {
+									s->bActive = true;
+									emit s->gs->triggered(a);
+									s->gs->act = true;
+									emit s->gs->down();
+								}
+							}
+						}
+					}
 				}
 			}
 		}
 	}
+
+	if (pressed)
+		emit buttonPressed(gsw->iButtonsDown == 0);
+	bIgnoreActive = false;
+}
+
+void GlobalShortcutWin::resetMap() {
+	foreach(InputDevice *id, qhInputDevices) {
+		for(int i=0;i<256;i++)
+			id->activeMap[i]=false;
+	}
+	bIgnoreActive = true;
+	iButtonsDown = 0;
+}
+
+QList<qpButton> GlobalShortcutWin::getCurrentButtons() {
+	QList<qpButton> buttons;
+	foreach(InputDevice *id, qhInputDevices) {
+		foreach(DWORD ofs, id->qhTypeToOfs) {
+			if (id->activeMap[ofs]) {
+				buttons << qpButton(id->guid, id->qhOfsToType[ofs]);
+			}
+		}
+	}
+	return buttons;
 }
 
 GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
@@ -352,9 +473,4 @@ GlobalShortcut::~GlobalShortcut()
 		delete gsw;
 		gsw = 0;
 	}
-}
-
-void GlobalShortcut::configure()
-{
-	gsw->configure();
 }

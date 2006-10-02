@@ -36,7 +36,3 @@ GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(
 GlobalShortcut::~GlobalShortcut()
 {
 }
-
-void GlobalShortcut::configure()
-{
-}

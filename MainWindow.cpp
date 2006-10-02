@@ -175,10 +175,6 @@ void MainWindow::createActions() {
 	qaConfigDialog->setObjectName("ConfigDialog");
 	qaConfigDialog->setToolTip(tr("Configure Mumble"));
 	qaConfigDialog->setWhatsThis(tr("Allows you to change most settings for Mumble."));
-	qaConfigShortcuts=new QAction(tr("&Shortcuts"), this);
-	qaConfigShortcuts->setObjectName("ConfigShortcuts");
-	qaConfigShortcuts->setToolTip(tr("Configure hotkeys"));
-	qaConfigShortcuts->setWhatsThis(tr("Configure global hotkeys. These will work from anywhere on the system, including inside games."));
 
 	qaHelpWhatsThis = new QAction(tr("&What's This?"), this);
 	qaHelpWhatsThis->setObjectName("HelpWhatsThis");
@@ -268,7 +264,6 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioStats);
 
 	qmConfig->addAction(qaConfigDialog);
-	qmConfig->addAction(qaConfigShortcuts);
 
 	qmHelp->addAction(qaHelpWhatsThis);
 	qmHelp->addSeparator();
@@ -708,11 +703,6 @@ void MainWindow::on_ConfigDialog_triggered()
 {
 	ConfigDialog dlg;
 	dlg.exec();
-}
-
-void MainWindow::on_ConfigShortcuts_triggered()
-{
-	GlobalShortcut::configure();
 }
 
 void MainWindow::on_HelpWhatsThis_triggered()

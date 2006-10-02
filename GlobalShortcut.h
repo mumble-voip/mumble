@@ -38,6 +38,7 @@
 
 class GlobalShortcut : public QObject {
 	friend class GlobalShortcutWin;
+	friend class GlobalShortcutWinConfig;
 	Q_OBJECT
 	Q_PROPERTY(QVariant data READ data WRITE setData)
 	Q_PROPERTY(bool active READ active)
@@ -53,7 +54,6 @@ class GlobalShortcut : public QObject {
 	public:
 		GlobalShortcut(QObject *parent, int index, QString qsName);
 		~GlobalShortcut();
-		static void configure();
 		QVariant data() const { return dv; };
 		void setData(QVariant d) { dv = d; };
 		bool active() const { return act; };
