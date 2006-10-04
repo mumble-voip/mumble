@@ -29,7 +29,6 @@
 */
 
 #ifdef Q_OS_WIN
-#include <windows.h>
 #include "Overlay.h"
 #endif
 
@@ -45,56 +44,23 @@
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
 	void throw_exception(std::exception const & e) {
-		qFatal("Exception caught!");
+		qFatal("Boost exception caught!");
 	}
 }
 #endif
 
-void mumbleMessageOutput(QtMsgType type, const char *msg)
-{
-	FILE *f=NULL;
-	f=fopen("Console.txt", "a+");
-	if (!f)
-		f=stderr;
-
-	char c;
-	switch (type) {
-		case QtDebugMsg:
-			c='D';
-			break;
-		case QtWarningMsg:
-			c='W';
-			break;
-		case QtFatalMsg:
-			c='F';
-			break;
-		default:
-			c='X';
-	}
-	fprintf(f, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")), msg);
-	fclose(f);
-}
+extern void os_init();
 
 int main(int argc, char **argv)
 {
 	// Check for SSE and MMX, but only in the windows binaries
-#ifdef Q_OS_WIN
-#define cpuid(func,ax,bx,cx,dx) __asm__ __volatile__ ("cpuid": "=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func));
-#define MMXSSE 0x02800000
-	unsigned int ax, bx, cx, dx;
-	cpuid(1,ax,bx,cx,dx);
-	if ((dx & MMXSSE) != MMXSSE) {
-		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
-		exit(0);
-	}
-#endif
 
 	int res;
+#ifdef Q_OS_WIN
+	os_init();
+#endif
 
 	QT_REQUIRE_VERSION(argc, argv, "4.1.0");
-#ifdef QT_NO_DEBUG
-	qInstallMsgHandler(mumbleMessageOutput);
-#endif
 
 	// Initialize application object.
 	QApplication a(argc, argv);
@@ -145,14 +111,6 @@ int main(int argc, char **argv)
 	g.ai = AudioInputRegistrar::newFromChoice();
 	g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice();
-
-#ifdef Q_OS_WIN
-	// Increase our priority class to live alongside games.
-#ifdef QT_NO_DEBUG
-	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
-		qWarning("Application: Failed to set priority!");
-#endif
-#endif
 
 	a.setQuitOnLastWindowClosed(true);
 	res=a.exec();
