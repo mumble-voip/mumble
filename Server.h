@@ -31,6 +31,8 @@
 #ifndef _SERVER_H
 #define _SERVER_H
 
+#include "murmur_pch.h"
+
 class Player;
 class Connection;
 class Message;

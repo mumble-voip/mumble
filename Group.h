@@ -31,6 +31,8 @@
 #ifndef _GROUP_H
 #define _GROUP_H
 
+#include "murmur_pch.h"
+
 class Channel;
 class Player;
 

@@ -31,6 +31,8 @@
 #ifndef _DATABASE_H
 #define _DATABASE_H
 
+#include "murmur_pch.h"
+
 class Channel;
 class Player;
 class Connection;

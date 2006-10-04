@@ -31,6 +31,8 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
 
+#include "murmur_pch.h"
+
 class Channel;
 
 class Player : public QObject {
