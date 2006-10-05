@@ -21,7 +21,7 @@ win32 {
   HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h Overlay.h
   SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp GlobalShortcut_win.cpp TextToSpeech_win.cpp TrayIcon_win.cpp Overlay_win.cpp os_win.cpp
   INCLUDEPATH	+= /dx90sdk/include "/Program Files/Microsoft Speech SDK 5.1/Include"
-  LIBS	+= -L\\dx90sdk\\lib -L"/Program Files/Microsoft Speech SDK 5.1/Lib/i386" -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32
+  LIBS	+= -L\\dx90sdk\\lib -L\"/Program Files/Microsoft Speech SDK 5.1/Lib/i386\" -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32
   INCLUDEPATH	+= /boost/include/boost-1_33
   CONFIG	+= asio
   DEFINES += WIN32

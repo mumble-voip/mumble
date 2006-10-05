@@ -77,11 +77,11 @@ Section "Mumble & Murmur" SecMumble
   File "..\murmur.ini"
   SetOverwrite on
   File "qos.reg"
-  File "\qt\4.1.4os\lib\QtCore4.dll"
-  File "\qt\4.1.4os\lib\QtGui4.dll"
-  File "\qt\4.1.4os\lib\QtNetwork4.dll"
-  File "\qt\4.1.4os\lib\QtSql4.dll"
-  File "\qt\4.1.4os\lib\QtOpenGL4.dll"
+  File "\qt\4.2.0os\lib\QtCore4.dll"
+  File "\qt\4.2.0os\lib\QtGui4.dll"
+  File "\qt\4.2.0os\lib\QtNetwork4.dll"
+  File "\qt\4.2.0os\lib\QtSql4.dll"
+  File "\qt\4.2.0os\lib\QtOpenGL4.dll"
   File "..\release\speex.dll"
   ;File "\mingw\bin\mingwm10.dll"
 
@@ -111,7 +111,7 @@ Section "Mumble & Murmur" SecMumble
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "URLInfoAbout" "http://mumble.sourceforge.net/"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
-                 "DisplayVersion" "0.9.1"
+                 "DisplayVersion" "0.9.4"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
