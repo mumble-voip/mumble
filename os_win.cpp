@@ -60,7 +60,7 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 
 	qWarning("=============================================================================");
 	qWarning("Mumble crash report. Cut and paste this entire report as well as the previos");
-	qWarning("10 seconds (see the timestamps).");
+	qWarning("10 seconds (see the timestamps). Build " __DATE__ " " __TIME__);
 	qWarning("=============================================================================");
 
 	while (er) {
@@ -94,17 +94,19 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	qWarning("EAX %08lx EBX %08lx ECX %08lx EDX %08lx",ctx->Eax,ctx->Ebx,ctx->Ecx,ctx->Edx);
 	qWarning("ESI %08lx EDI %08lx EBP %08lx ESP %08lx",ctx->Esi,ctx->Edi,ctx->Ebp,ctx->Esp);
 
-	DWORD Sp;
+	DWORD Sp=ctx->Esp;
+	DWORD Bp=ctx->Ebp;
+
 	DWORD start,stop;
-	start = ctx->Esp;
-	stop = ctx->Ebp;
-	if ((stop < start) || (stop-start >256))
-		stop = start + 256;
+	start = Sp;
+	stop = Bp + 0x40;
+	if ((stop < start) || (stop-start >512))
+		stop = start + 512;
 	for(Sp=stop;Sp>=start;Sp-=sizeof(DWORD)) {
-		DWORD val = 0;
-		DWORD nbytes = sizeof(DWORD);
-		if (ReadProcessMemory(GetCurrentProcess(), reinterpret_cast<const void *>(Sp), &val,sizeof(DWORD), &nbytes))
-			qWarning("%08lx %08lx", Sp, val);
+		DWORD val[4] = {0,0,0,0};
+		DWORD nbytes = sizeof(DWORD)*4;
+		if (ReadProcessMemory(GetCurrentProcess(), reinterpret_cast<const void *>(Sp), &val[0],sizeof(DWORD)*4, &nbytes))
+			qWarning("%08lx[%04lx][%08lx] %08lx %08lx %08lx %08lx", Sp, Sp-ctx->Esp,Sp-Bp, val[0],val[1],val[2],val[3]);
 		else
 			break;
 	}
