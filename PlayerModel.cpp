@@ -351,7 +351,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const
 {
 	if (!idx.isValid())
-		return 0;
+		return Qt::ItemIsDropEnabled;
 
     if (idx.column() != 0)
         return Qt::ItemIsEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsDragEnabled;
