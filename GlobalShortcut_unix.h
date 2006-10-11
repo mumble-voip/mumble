@@ -28,41 +28,63 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "GlobalShortcut.h"
+#include "ConfigDialog.h"
 
-#ifndef _GLOBALSHORTCUT_H
-#define _GLOBALSHORTCUT_H
+typedef QPair<int, unsigned int> qpButton;
 
-#include <QObject>
-#include <QString>
-#include <QVariant>
-
-class GlobalShortcut : public QObject {
-	friend class GlobalShortcutWin;
-	friend class GlobalShortcutWinConfig;
-	friend class GlobalShortcutX;
-	friend class GlobalShortcutXConfig;
-	Q_OBJECT
-	Q_PROPERTY(QVariant data READ data WRITE setData)
-	Q_PROPERTY(bool active READ active)
-	protected:
-		QString name;
-		QVariant dv;
-		int idx;
-		bool act;
-	signals:
-		void down();
-		void up();
-		void triggered(bool);
-	public:
-		GlobalShortcut(QObject *parent, int index, QString qsName);
-		~GlobalShortcut();
-		QVariant data() const { return dv; };
-		void setData(QVariant d) { dv = d; };
-		bool active() const { return act; };
-	private:
-	    Q_DISABLE_COPY(GlobalShortcut)
+struct Shortcut {
+  GlobalShortcut *gs;
+  bool bActive;
+  qpButton button;
 };
 
-#else
-class GlobalShortcut;
-#endif
+class XInputKeyWidget : public QLineEdit {
+	Q_OBJECT
+	protected:
+		virtual void focusInEvent(QFocusEvent *event);
+		virtual void focusOutEvent(QFocusEvent *event);
+		virtual void mouseDoubleClickEvent(QMouseEvent *e);
+	public:
+		qpButton button;
+		bool bModified;
+		XInputKeyWidget(QWidget *p = NULL);
+		void setShortcut(GlobalShortcut *gs);
+	public slots:
+	        void setKey(qpButton);
+	        void doneKey(qpButton);
+		void displayKeys();
+};
+
+class GlobalShortcutXConfig : public ConfigWidget {
+	Q_OBJECT
+	protected:
+		QHash<GlobalShortcut *,XInputKeyWidget *> qhKeys;
+	public:
+		GlobalShortcutXConfig(QWidget *p = NULL);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void accept();
+};
+
+class GlobalShortcutX : public QWidget {
+	Q_OBJECT
+	public:
+		int ref;
+		QHash<int, GlobalShortcut *> qmShortcuts;
+		QHash<GlobalShortcut *, Shortcut *> qhGlobalToX;
+		bool globalEvent(XEvent *);
+		bool bGrabbing;
+		void grab();
+		void release();
+	public:
+		GlobalShortcutX();
+		~GlobalShortcutX();
+		void remap();
+		void add(GlobalShortcut *);
+		void remove(GlobalShortcut *);
+        signals:
+		void keyPress(qpButton);
+		void keyRelease(qpButton);
+};

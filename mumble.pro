@@ -28,7 +28,7 @@ win32 {
 }
 
 unix {
-  HEADERS	+= ALSAAudio.h
+  HEADERS	+= ALSAAudio.h GlobalShortcut_unix.h
   SOURCES	+= ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp TrayIcon_unix.cpp
   LIBS		+= -lasound
 }
