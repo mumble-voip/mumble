@@ -35,7 +35,6 @@ typedef QPair<int, unsigned int> qpButton;
 
 struct Shortcut {
   GlobalShortcut *gs;
-  bool bActive;
   qpButton button;
 };
 

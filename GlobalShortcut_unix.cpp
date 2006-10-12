@@ -101,6 +101,8 @@ void XInputKeyWidget::doneKey(qpButton) {
 }
 
 void XInputKeyWidget::displayKeys() {
+  KeySym keysym=XKeycodeToKeysym(QX11Info::display(), button.first, 0);
+
   unsigned int mods = 0;
   if (button.second & ShiftMask)
     mods |= Qt::SHIFT;
@@ -110,7 +112,7 @@ void XInputKeyWidget::displayKeys() {
     mods |= Qt::ALT;
   if (button.second & Mod5Mask)
     mods |= Qt::META;
-  QKeySequence keys(button.first | mods);
+  QKeySequence keys(keysym | mods);
   setText(keys.toString());
 }
 
@@ -174,11 +176,28 @@ void GlobalShortcutXConfig::accept() {
         gsx->remap();
 }
 
+void RecurseSelectInput(Window w) {
+  Window parent;
+  Window root;
+  Window *children;
+  unsigned int nchildren;
+  XQueryTree(QX11Info::display(), w, &root, &parent, &children, &nchildren);
+  for(unsigned int i=0;i<nchildren;i++)
+    RecurseSelectInput(children[i]);
+  if (nchildren>0)
+    XFree(children);
+  
+  XSelectInput(QX11Info::display(), w, KeyPressMask|KeyReleaseMask|SubstructureNotifyMask);
+}
+
 GlobalShortcutX::GlobalShortcutX() {
   gsx = this;
   ref = 0;
   bGrabbing = false;
-  
+
+  RecurseSelectInput(QApplication::desktop()->winId());
+
+
   remap();
 }
 
@@ -204,10 +223,35 @@ GlobalShortcutX::~GlobalShortcutX() {
 }
 
 void GlobalShortcutX::remap() {
+  foreach(Shortcut *s, qhGlobalToX) {
+    free(s);
+  }
+  qhGlobalToX.clear();
+
+  foreach(GlobalShortcut *gs, qmShortcuts) {
+    QString base=QString("GS%1_").arg(gs->idx);
+    int sym=g.qs->value(base + QString("sym"), 0).toInt();
+    unsigned int state=g.qs->value(base + QString("state"), 0).toUInt();
+    if (sym) {
+      qpButton b(sym,state);
+      Shortcut *s=new Shortcut;
+      s->gs=gs;
+      s->button = b;
+      qhGlobalToX[gs]=s;
+    }
+  }
+
   qWarning("remapping");
 }
 
 bool GlobalShortcutX::globalEvent(XEvent *evt) {
+  if (evt->type == CreateNotify) {
+    qWarning("Created %x", evt->xcreatewindow.window);
+    XSelectInput(QX11Info::display(), evt->xcreatewindow.window, KeyPressMask|KeyReleaseMask|SubstructureNotifyMask);
+    qWarning("Done");
+    return true;
+  }
+
   if ((evt->type != KeyPress) && (evt->type != KeyRelease))
     return false;
 
@@ -216,8 +260,7 @@ bool GlobalShortcutX::globalEvent(XEvent *evt) {
     XFlush(QX11Info::display());
   }
 
-  KeySym keysym=XLookupKeysym(reinterpret_cast<XKeyEvent *>(evt), 0);
-  qpButton button(keysym, evt->xkey.state);
+  qpButton button(evt->xkey.keycode, evt->xkey.state);
 
   if (bGrabbing) {
     if (evt->type == KeyPress)
@@ -227,7 +270,10 @@ bool GlobalShortcutX::globalEvent(XEvent *evt) {
     return true;
   }
 
-  qWarning("%x %x", keysym, evt->xkey.state);
+  if (evt->type == KeyPress)
+    qWarning("D %x %x", evt->xkey.keycode, evt->xkey.state);
+  else
+    qWarning("U %x %x", evt->xkey.keycode, evt->xkey.state);
 
   foreach(Shortcut *s, qhGlobalToX) {
     if (s->button == button) {
