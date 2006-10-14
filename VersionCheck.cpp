@@ -46,16 +46,15 @@ VersionCheck::VersionCheck(QObject *p) : QObject(p) {
 	QFile f(qApp->applicationFilePath());
 	if (! f.open(QIODevice::ReadOnly)) {
 		qWarning("VersionCheck: Failed to open binary");
-		return;
+	} else {
+		QByteArray a = f.readAll();
+		if (a.size() < 1) {
+			qWarning("VersionCehck: suspiciously small binary");
+		} else {
+			quUrl.addQueryItem("crc", QString::number(qChecksum(a.data(), a.size()),16));
+		}
 	}
-	QByteArray a = f.readAll();
 
-	if (a.size() < 1) {
-		qWarning("VersionCehck: suspiciously small binary");
-		return;
-	}
-
-	quUrl.addQueryItem("crc", QString::number(qChecksum(a.data(), a.size()),16));
 	QHttpRequestHeader req("GET", quUrl.toString(QUrl::RemoveScheme|QUrl::RemoveAuthority));
 	req.setValue("Host", quUrl.host());
 
