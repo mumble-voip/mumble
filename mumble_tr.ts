@@ -1136,6 +1136,54 @@
     </message>
 </context>
 <context>
+    <name>ConnectDialog</name>
+    <message>
+        <location filename="ConnectDialog.cpp" line="65"/>
+        <source>&amp;Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="72"/>
+        <source>A&amp;ddress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="80"/>
+        <source>&amp;Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="87"/>
+        <source>&amp;Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="95"/>
+        <source>&amp;Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="101"/>
+        <source>&amp;Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="105"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="108"/>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="111"/>
+        <source>&amp;Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DXAudioInput</name>
     <message>
         <location filename="DXAudioInput.cpp" line="108"/>
@@ -1402,27 +1450,27 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutXConfig</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="157"/>
+        <location filename="GlobalShortcut_unix.cpp" line="156"/>
         <source>Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="123"/>
+        <location filename="GlobalShortcut_unix.cpp" line="122"/>
         <source>Function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="125"/>
+        <location filename="GlobalShortcut_unix.cpp" line="124"/>
         <source>Shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="138"/>
+        <location filename="GlobalShortcut_unix.cpp" line="137"/>
         <source>Shortcut bound to %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="141"/>
+        <location filename="GlobalShortcut_unix.cpp" line="140"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Doubleclick to clear.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2126,7 +2174,7 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="121"/>
+        <location filename="main.cpp" line="110"/>
         <source>Welcome to Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2505,7 +2553,7 @@ of the possible locations.</source>
 <context>
     <name>XInputKeyWidget</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="62"/>
+        <location filename="GlobalShortcut_unix.cpp" line="63"/>
         <source>Press Shortcut</source>
         <translation type="unfinished"></translation>
     </message>

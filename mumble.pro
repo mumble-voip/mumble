@@ -11,7 +11,7 @@ INCLUDEPATH	+= include
 LIBS 		+= -Llib -L.
 RESOURCES	+= mumble.qrc
 
-TRANSLATIONS	= mumble_es.ts mumble_tr.ts
+TRANSLATIONS	= mumble_es.ts mumble_de.ts mumble_tr.ts
 
 PRECOMPILED_HEADER = mumble_pch.h
 

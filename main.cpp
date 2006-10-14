@@ -69,6 +69,12 @@ int main(int argc, char **argv)
 	a.setOrganizationDomain("mumble.sourceforge.net");
 	a.setQuitOnLastWindowClosed(false);
 
+    QString locale = QLocale::system().name();
+
+    QTranslator translator;
+    translator.load(QString(":/mumble_") + locale);
+    a.installTranslator(&translator);
+
 	g.qs = new QSettings();
 
 	// Set application icon

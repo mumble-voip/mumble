@@ -62,14 +62,14 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
 
 	qleName=new QLineEdit(g.qs->value("ServerName", "").toString());
-	lab=new QLabel("&Name");
+	lab=new QLabel(tr("&Name"));
 	lab->setBuddy(qleName);
 
 	l->addWidget(lab, 0, 1);
 	l->addWidget(qleName, 0, 2);
 
 	qleServer=new QLineEdit(g.qs->value("ServerAddress", "").toString());
-	lab=new QLabel("A&ddress");
+	lab=new QLabel(tr("A&ddress"));
 	lab->setBuddy(qleServer);
 
 	l->addWidget(lab, 1, 1);
@@ -77,14 +77,14 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qlePort=new QLineEdit(g.qs->value("ServerPort", "64738").toString());
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
-	lab=new QLabel("&Port");
+	lab=new QLabel(tr("&Port"));
 	lab->setBuddy(qlePort);
 
 	l->addWidget(lab, 2, 1);
 	l->addWidget(qlePort, 2, 2);
 
 	qleUsername=new QLineEdit(g.qs->value("ServerUsername", "").toString());
-	lab=new QLabel("&Username");
+	lab=new QLabel(tr("&Username"));
 	lab->setBuddy(qleUsername);
 
 	l->addWidget(lab, 3, 1);
@@ -92,23 +92,23 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qlePassword=new QLineEdit(g.qs->value("ServerPassword", "").toString());
 	qlePassword->setEchoMode(QLineEdit::Password);
-	lab=new QLabel("&Password");
+	lab=new QLabel(tr("&Password"));
 	lab->setBuddy(qlePassword);
 
 	l->addWidget(lab, 4, 1);
 	l->addWidget(qlePassword, 4,2);
 
-    QPushButton *okButton = new QPushButton("&Connect");
+    QPushButton *okButton = new QPushButton(tr("&Connect"));
     okButton->setDefault(true);
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-    QPushButton *cancelButton = new QPushButton("Cancel");
+    QPushButton *cancelButton = new QPushButton(tr("Cancel"));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-    QPushButton *addButton = new QPushButton("&Add");
+    QPushButton *addButton = new QPushButton(tr("&Add"));
     addButton->setObjectName("Add");
 
-    QPushButton *removeButton = new QPushButton("&Remove");
+    QPushButton *removeButton = new QPushButton(tr("&Remove"));
     removeButton->setObjectName("Remove");
 
 	vbh->addWidget(okButton);
