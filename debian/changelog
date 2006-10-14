@@ -1,3 +1,9 @@
+mumble (0.9.4) dapper; urgency=low
+
+  * Global shortcuts working
+
+ -- Thorvald Natvig <slicer@sourceforge.net>  Sat, 14 Oct 2006 15:54:32 +0200
+
 mumble (0.9.3) dapper; urgency=low
 
   * Initial Release.

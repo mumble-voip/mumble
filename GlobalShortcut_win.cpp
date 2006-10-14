@@ -284,7 +284,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
 		id->pDID->Release();
-		free(id);
+		delete(id);
 	}
 
     return DIENUM_CONTINUE;
@@ -314,14 +314,14 @@ void GlobalShortcutWin::remap() {
 		if (id->pDID) {
 			id->pDID->Release();
 		}
-		free(id);
+		delete(id);
 	}
 	qhInputDevices.clear();
 
 	pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
 
 	foreach(Shortcut *s, qhGlobalToWin) {
-		free(s);
+		delete(s);
 	}
 	qhGlobalToWin.clear();
 

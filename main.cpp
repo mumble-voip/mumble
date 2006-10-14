@@ -51,19 +51,6 @@ namespace boost {
 
 extern void os_init();
 
-#ifdef Q_OS_UNIX
-	// This shouldn't be necesarry. REALLY.
-extern bool globalshortcutevent(XEvent *);
-class MumbleApplication : public QApplication {
-	public:
-		MumbleApplication(int _argc, char **_argv) : QApplication(_argc, _argv) {
-		};
-		bool x11EventFilter(XEvent *_event) {
-			return globalshortcutevent(_event);
-		};
-};
-#endif
-
 int main(int argc, char **argv)
 {
 	// Check for SSE and MMX, but only in the windows binaries
@@ -76,11 +63,7 @@ int main(int argc, char **argv)
 	QT_REQUIRE_VERSION(argc, argv, "4.1.0");
 
 	// Initialize application object.
-#ifdef Q_OS_UNIX
-	MumbleApplication a(argc, argv);
-#else
 	QApplication a(argc, argv);
-#endif
 	a.setApplicationName("Mumble");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
