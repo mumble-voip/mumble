@@ -72,7 +72,8 @@ int main(int argc, char **argv)
     QString locale = QLocale::system().name();
 
     QTranslator translator;
-    translator.load(QString(":/mumble_") + locale);
+    if (! translator.load(QString("mumble_") + locale))
+		translator.load(QString(":/mumble_") + locale);
     a.installTranslator(&translator);
 
 	g.qs = new QSettings();

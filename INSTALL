@@ -24,13 +24,27 @@ you need the latest "unstable" version to compile. (Speex generally has high
 code quality, the the svn version is probably even more stable than the
 released unstable version).
 
-Mumble needs the ASIO SDK to compile ASIO support. If you don't have the SDK,
-remove the line that says CONFIG+=asio in mumble.pro
-
 Mumble needs the Boost C++ library. http://www.boost.org
 
 You may need to adjust the paths in mumble.pro, murmur.pro and mumble.pri to
 reflect where your installed versions of dependant libraries are.
+
+Windows pre-requisites
+======================
+
+Mumble needs the ASIO SDK to compile ASIO support. If you don't have
+the SDK, remove the line that says CONFIG+=asio in mumble.pro
+
+Mumble also needs the DirectX 9.0 SDK, and the Microsoft Speech SDK 5.1.
+
+The windows build has only been done with MinGW. If you have success with other
+build environments, please let us know.
+
+Linux pre-requisites
+====================
+
+Mumble needs libasound2 (the ALSA developer libraries) as well as the developer
+libraries for Xevie.
 
 The Linux version of the client has been tested on Ubuntu 6.06. It may work on
 other updated distributions. The server should work on any modern UNIX-based
@@ -41,6 +55,7 @@ Building Mumble
 
 To build mumble, type
 qmake mumble.pro
+lrelease mumble.pro
 make
 
 You may need to edit mumble.pro to reflect the installation paths you use for

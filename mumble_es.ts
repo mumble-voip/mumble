@@ -1140,47 +1140,47 @@
     <message>
         <location filename="ConnectDialog.cpp" line="65"/>
         <source>&amp;Name</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nombre</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="72"/>
         <source>A&amp;ddress</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dirección</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="80"/>
         <source>&amp;Port</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Puerto</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="87"/>
         <source>&amp;Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de &amp;usuario</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="95"/>
         <source>&amp;Password</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Contraseña</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="101"/>
         <source>&amp;Connect</source>
-        <translation type="unfinished">&amp;Conectar</translation>
+        <translation>&amp;Conectar</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="105"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="108"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Agregar</translation>
+        <translation>&amp;Agregar</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="111"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Eliminar</translation>
+        <translation>&amp;Eliminar</translation>
     </message>
 </context>
 <context>
@@ -1453,27 +1453,27 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="156"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">Métodos abreviados</translation>
+        <translation>Métodos abreviados</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="122"/>
         <source>Function</source>
-        <translation type="unfinished">Función</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="124"/>
         <source>Shortcut</source>
-        <translation type="unfinished">Método abreviado</translation>
+        <translation>Método abreviado</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="137"/>
         <source>Shortcut bound to %1.</source>
-        <translation type="unfinished">Método abreviado asignado a %1.</translation>
+        <translation>Método abreviado asignado a %1.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="140"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Doubleclick to clear.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Éste es el método abreviado global asociado a %1&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas/botones deseada para volver a asociarlo. Haga doble click para borrar.</translation>
     </message>
 </context>
 <context>
@@ -1535,7 +1535,7 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="110"/>
+        <location filename="main.cpp" line="111"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>
@@ -2544,12 +2544,12 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="76"/>
+        <location filename="VersionCheck.cpp" line="75"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="76"/>
+        <location filename="VersionCheck.cpp" line="75"/>
         <source>Failed to retrieve version information from server.</source>
         <translation>No se pudo recuperar del servidor la información de la versión.</translation>
     </message>
@@ -2559,7 +2559,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="63"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished">Presione la tecla de método abreviado</translation>
+        <translation>Presione la tecla de método abreviado</translation>
     </message>
 </context>
 </TS>

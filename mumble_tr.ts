@@ -2174,7 +2174,7 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="110"/>
+        <location filename="main.cpp" line="111"/>
         <source>Welcome to Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2540,12 +2540,12 @@ of the possible locations.</source>
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="76"/>
+        <location filename="VersionCheck.cpp" line="75"/>
         <source>Mumble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="76"/>
+        <location filename="VersionCheck.cpp" line="75"/>
         <source>Failed to retrieve version information from server.</source>
         <translation type="unfinished"></translation>
     </message>
