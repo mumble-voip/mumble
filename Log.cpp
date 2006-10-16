@@ -143,24 +143,24 @@ Log::Log(QObject *p) : QObject(p) {
 }
 
 const char *Log::msgNames[] = {
-	"Debug",
-	"Critical",
-	"Warning",
-	"Information",
-	"Server Connected",
-	"Server Disconnected",
-	"Player Joined Server",
-	"Player Left Server",
-	"Player kicked (you or by you)",
-	"Player kicked",
-	"You selfmuted/deafened",
-	"Other selfmuted/selfdeafened",
-	"Player muted (you)",
-	"Player muted (by you)",
-	"Player muted (other)",
-	"Player Joined Channel",
-	"Player Left Channel",
-	"Permission Denied"
+	QT_TR_NOOP("Debug"),
+	QT_TR_NOOP("Critical"),
+	QT_TR_NOOP("Warning"),
+	QT_TR_NOOP("Information"),
+	QT_TR_NOOP("Server Connected"),
+	QT_TR_NOOP("Server Disconnected"),
+	QT_TR_NOOP("Player Joined Server"),
+	QT_TR_NOOP("Player Left Server"),
+	QT_TR_NOOP("Player kicked (you or by you)"),
+	QT_TR_NOOP("Player kicked"),
+	QT_TR_NOOP("You selfmuted/deafened"),
+	QT_TR_NOOP("Other selfmuted/selfdeafened"),
+	QT_TR_NOOP("Player muted (you)"),
+	QT_TR_NOOP("Player muted (by you)"),
+	QT_TR_NOOP("Player muted (other)"),
+	QT_TR_NOOP("Player Joined Channel"),
+	QT_TR_NOOP("Player Left Channel"),
+	QT_TR_NOOP("Permission Denied")
 };
 
 QString Log::msgName(MsgType t) const {

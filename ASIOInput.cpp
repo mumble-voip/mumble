@@ -127,14 +127,14 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 							"select which channels to use."));
 	l = new QLabel(tr("Device"));
 
-	QPushButton *queryButton=new QPushButton("&Query");
+	QPushButton *queryButton=new QPushButton(tr("&Query"));
 	queryButton->setObjectName("Query");
 	queryButton->setToolTip(tr("Query selected device"));
 	queryButton->setWhatsThis(tr("This queries the selected device for channels. Be aware that many ASIO drivers are "
 								"buggy to the extreme, and querying them might cause a crash of either the application "
 								"or the system."));
 
-	QPushButton *configButton=new QPushButton("&Config");
+	QPushButton *configButton=new QPushButton(tr("&Config"));
 	configButton->setObjectName("Config");
 	configButton->setToolTip(tr("Configure selected device"));
 	configButton->setWhatsThis(tr("This configures the selected device. Be aware that many ASIO drivers are "

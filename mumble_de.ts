@@ -480,6 +480,16 @@
         <source>ASIO</source>
         <translation>ASIO</translation>
     </message>
+    <message>
+        <location filename="ASIOInput.cpp" line="130"/>
+        <source>&amp;Query</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ASIOInput.cpp" line="137"/>
+        <source>&amp;Config</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ASIOInput</name>
@@ -1483,6 +1493,96 @@ der möglichen Orte initialisieren.</translation>
         <source>[%2] %1</source>
         <translation>[%2] %1</translation>
     </message>
+    <message>
+        <location filename="Log.cpp" line="146"/>
+        <source>Debug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="147"/>
+        <source>Critical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="148"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="149"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="150"/>
+        <source>Server Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="151"/>
+        <source>Server Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="152"/>
+        <source>Player Joined Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="153"/>
+        <source>Player Left Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="154"/>
+        <source>Player kicked (you or by you)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="155"/>
+        <source>Player kicked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="156"/>
+        <source>You selfmuted/deafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="157"/>
+        <source>Other selfmuted/selfdeafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="158"/>
+        <source>Player muted (you)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="159"/>
+        <source>Player muted (by you)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="160"/>
+        <source>Player muted (other)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="161"/>
+        <source>Player Joined Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="162"/>
+        <source>Player Left Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Log.cpp" line="164"/>
+        <source>Permission Denied</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LogConfig</name>
@@ -2179,6 +2279,84 @@ der möglichen Orte initialisieren.</translation>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen zu Mumble.</translation>
     </message>
+    <message>
+        <location filename="MainWindow.cpp" line="285"/>
+        <source>Push-to-Talk</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="288"/>
+        <source>Reset Audio Processor</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="292"/>
+        <source>Toggle Mute Self</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="296"/>
+        <source>Toggle Deafen Self</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="304"/>
+        <source>Force Center Position</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="309"/>
+        <source>Chan Parent</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="314"/>
+        <source>Chan Sub#%1</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="319"/>
+        <source>Chan All Subs</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="323"/>
+        <source>Push-to-Mute</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="326"/>
+        <source>Join Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="330"/>
+        <source>Toggle Overlay</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="335"/>
+        <source>Alt Push-to-Talk</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="300"/>
+        <source>Unlink Plugin</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Overlay</name>
@@ -2516,6 +2694,26 @@ der möglichen Orte initialisieren.</translation>
         <location filename="Plugins.cpp" line="146"/>
         <source>Plugin has no about function</source>
         <translation>Plugin hat keine Über-Funktion</translation>
+    </message>
+    <message>
+        <location filename="Plugins.cpp" line="66"/>
+        <source>Link to Game and Transmit Position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Plugins.cpp" line="79"/>
+        <source>&amp;Reload plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Plugins.cpp" line="84"/>
+        <source>&amp;About</source>
+        <translation type="unfinished">Ü&amp;ber</translation>
+    </message>
+    <message>
+        <location filename="Plugins.cpp" line="88"/>
+        <source>&amp;Config</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

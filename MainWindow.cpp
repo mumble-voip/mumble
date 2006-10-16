@@ -282,57 +282,57 @@ void MainWindow::setupGui()  {
 
 	int idx = 1;
 
-	gsPushTalk=new GlobalShortcut(this, idx++, "Push-to-Talk");
+	gsPushTalk=new GlobalShortcut(this, idx++, tr("Push-to-Talk", "Global Shortcut"));
 	gsPushTalk->setObjectName("PushToTalk");
 
-	gsResetAudio=new GlobalShortcut(this, idx++, "Reset Audio Processor");
+	gsResetAudio=new GlobalShortcut(this, idx++, tr("Reset Audio Processor", "Global Shortcut"));
 	gsResetAudio->setObjectName("ResetAudio");
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 
-	gsMuteSelf=new GlobalShortcut(this, idx++, "Toggle Mute Self");
+	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Toggle Mute Self", "Global Shortcut"));
 	gsMuteSelf->setObjectName("MuteSelf");
 	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
 
-	gsDeafSelf=new GlobalShortcut(this, idx++, "Toggle Deafen Self");
+	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Toggle Deafen Self", "Global Shortcut"));
 	gsDeafSelf->setObjectName("DeafSelf");
 	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
 
-	gsUnlink=new GlobalShortcut(this, idx++, "Unlink Plugin");
+	gsUnlink=new GlobalShortcut(this, idx++, tr("Unlink Plugin", "Global Shortcut"));
 	gsUnlink->setObjectName("UnlinkPlugin");
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 
-	gsCenterPos=new GlobalShortcut(this, idx++, "Force Center Position");
+	gsCenterPos=new GlobalShortcut(this, idx++, tr("Force Center Position", "Global Shortcut"));
 	gsCenterPos->setObjectName("CenterPos");
 
 	GlobalShortcut *gs;
 
-	gs = new GlobalShortcut(this, idx++, "Chan Parent");
+	gs = new GlobalShortcut(this, idx++, tr("Chan Parent", "Global Shortcut"));
 	gs->setData(0);
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
 	for(int i = 1; i< 10;i++) {
-		gs = new GlobalShortcut(this, idx++, QString("Chan Sub#%1").arg(i));
+		gs = new GlobalShortcut(this, idx++, tr("Chan Sub#%1", "Global Shortcut").arg(i));
 		gs->setData(i);
 		connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 	}
 
-	gs = new GlobalShortcut(this, idx++, "Chan All Subs");
+	gs = new GlobalShortcut(this, idx++, tr("Chan All Subs", "Global Shortcut"));
 	gs->setData(10);
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
-	gsPushMute=new GlobalShortcut(this, idx++, "Push-to-Mute");
+	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
 	gsPushMute->setObjectName("PushToMute");
 
-	gsMetaChannel=new GlobalShortcut(this, idx++, "Join Channel");
+	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
 	gsMetaChannel->setObjectName("MetaChannel");
 
 #ifdef Q_OS_WIN
-	gsToggleOverlay=new GlobalShortcut(this, idx++, "Toggle Overlay");
+	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"));
 	gsToggleOverlay->setObjectName("ToggleOverlay");
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 #endif
 
-	gsAltTalk=new GlobalShortcut(this, idx++, "Alt Push-to-Talk");
+	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName("AltPushToTalk");
 
 	qsSplit = new QSplitter(Qt::Horizontal, this);

@@ -63,7 +63,7 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	QGridLayout *grid;
 
 	grid=new QGridLayout();
-	qcbTransmit = new QCheckBox("Link to Game and Transmit Position");
+	qcbTransmit = new QCheckBox(tr("Link to Game and Transmit Position"));
 	qcbTransmit->setChecked(g.s.bTransmitPosition);
 	qcbTransmit->setToolTip(tr("Enable plugins and transmit positional information"));
 	qcbTransmit->setWhatsThis(tr("This enables plugins for supported games to fetch your ingame position "
@@ -76,16 +76,16 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	qlwPlugins = new QListWidget();
 	refillPluginList();
 
-	QPushButton *reloadButton=new QPushButton("&Reload plugins");
+	QPushButton *reloadButton=new QPushButton(tr("&Reload plugins"));
 	reloadButton->setObjectName("Reload");
 	reloadButton->setToolTip(tr("Reloads all plugins"));
 	reloadButton->setWhatsThis(tr("This rescans and reloads plugins. Use this if you just added or changed "
 								"a plugin to the plugins directory."));
-	QPushButton *aboutButton=new QPushButton("&About");
+	QPushButton *aboutButton=new QPushButton(tr("&About"));
 	aboutButton->setObjectName("About");
 	aboutButton->setToolTip(tr("Information about plugin"));
 	aboutButton->setWhatsThis(tr("This shows a small information message about the plugin."));
-	QPushButton *configButton=new QPushButton("&Config");
+	QPushButton *configButton=new QPushButton(tr("&Config"));
 	configButton->setObjectName("Config");
 	configButton->setToolTip(tr("Show configuration page of plugin"));
 	configButton->setWhatsThis(tr("This shows the configuration page of the plugin, if any."));
