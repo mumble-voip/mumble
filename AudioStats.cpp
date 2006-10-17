@@ -366,7 +366,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
 	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) after all processing. Ideally, "
 								"this should be -96 dB when you're not talking. In reality, a sound studio should see "
-								"-60 dB, and you should hopefully see somewhere around -20dB. When you are talking, this "
+								"-60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this "
 								"should rise to somewhere between -5 and -10 dB.<br />"
 								"If you are using echo cancellation, and this rises to more than -15 dB when you're not "
 								"talking, your setup is not working, and you'll annoy other players with echos."));

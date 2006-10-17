@@ -34,7 +34,7 @@
 #include "Global.h"
 
 BanEditor::BanEditor(const MessageServerBanList *msbl, QWidget *p) : QDialog(p) {
-	setWindowTitle(QString("Mumble - Edit Bans"));
+	setWindowTitle(tr("Mumble - Edit Bans"));
 
 	qlwBans = new QListWidget();
 	qleIP = new QLineEdit("0.0.0.0");

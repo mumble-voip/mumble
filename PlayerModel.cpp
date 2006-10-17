@@ -407,9 +407,9 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 		case Qt::DisplayRole:
 			switch(section) {
 				case 0:
-					return QString("Name");
+					return tr("Name");
 				case 1:
-					return QString("Flags");
+					return tr("Flags");
 			}
 	}
 

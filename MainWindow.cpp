@@ -189,7 +189,7 @@ void MainWindow::createActions() {
 	qaHelpAboutSpeex->setObjectName("HelpAboutSpeex");
 	qaHelpAboutSpeex->setToolTip(tr("Information about Speex"));
 	qaHelpAboutSpeex->setWhatsThis(tr("Shows a small dialog with information about Speex."));
-	qaHelpAboutQt=new QAction(tr("&About QT"), this);
+	qaHelpAboutQt=new QAction(tr("&About Qt"), this);
 	qaHelpAboutQt->setObjectName("HelpAboutQt");
 	qaHelpAboutQt->setToolTip(tr("Information about Qt"));
 	qaHelpAboutQt->setWhatsThis(tr("Shows a small dialog with information about Qt."));
@@ -1027,7 +1027,7 @@ void MessagePlayerMove::process(Connection *) {
 		if (pDst == pSrc || (!pSrc))
 			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 left channel.").arg(pname));
 		else
-			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2").arg(pname).arg(admin));
+			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2.").arg(pname).arg(admin));
 	}
 
 	g.mw->pmModel->movePlayer(pDst, iChannelId);

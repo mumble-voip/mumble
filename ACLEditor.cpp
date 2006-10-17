@@ -42,7 +42,7 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	MessageEditACL::GroupStruct *gsp;
 
 	iId = mea->iId;
-	setWindowTitle(QString("Mumble - Edit ACL for %1").arg(Channel::get(iId)->qsName));
+	setWindowTitle(tr("Mumble - Edit ACL for %1").arg(Channel::get(iId)->qsName));
 
 	QTabWidget *qtwTab = new QTabWidget(this);
 	QWidget *groupEditor=new QWidget();
@@ -241,7 +241,7 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
     QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	cancelButton->setToolTip(tr("Reject changes"));
-	cancelButton->setWhatsThis(tr("This button will cancels all changes and closes the dialog without "
+	cancelButton->setWhatsThis(tr("This button will cancel all changes and closes the dialog without "
 								  "updating the ACLs or groups on the server."));
 
     QHBoxLayout *buttons = new QHBoxLayout;
@@ -340,7 +340,7 @@ void ACLEditor::addToolTipsWhatsThis() {
 	qcbACLApplySubs->setToolTip(tr("Entry should apply to subchannels."));
 	qcbACLApplySubs->setWhatsThis(tr("This makes the entry apply to subchannels of this channel."));
 	qcbACLGroup->setToolTip(tr("Group this entry applies to"));
-	qcbACLGroup->setWhatsThis(tr("This control which group of users this entry applies to.<br />Note that the group is evaluated "
+	qcbACLGroup->setWhatsThis(tr("This controls which group of users this entry applies to.<br />Note that the group is evaluated "
 							"in the context of the channel the entry is used in. For example, the default ACL on the Root "
 							"channel gives <i>Write</i> permission to the <i>admin</i> group. This entry, if inherited by a "
 							"channel, will give a user write privileges if he belongs to the <i>admin</i> group in that channel, "
@@ -352,8 +352,8 @@ void ACLEditor::addToolTipsWhatsThis() {
 							"<b>auth</b> - All authenticated users will match.<br />"
 							"<b>sub,a,b,c</b> - User currently in a subchannel minimum <i>a</i> common parents, and between <i>b</i> and <i>c</i> channels down the chain. "
 							"See the website for more extensive documentation on this one.<br />"
-							"<b>in</b> - Users currently in the channel will match (convenience for <i>sub,0,0,0</i>.<br />"
-							"<b>out</b> - Users outside the channel will match (convenience for <i>!sub,0,0,0</i>.<br />"
+							"<b>in</b> - Users currently in the channel will match (convenience for <i>sub,0,0,0</i>).<br />"
+							"<b>out</b> - Users outside the channel will match (convenience for <i>!sub,0,0,0</i>).<br />"
 							"Note that an entry applies to either a user or a group, not both."));
 	qleACLUser->setToolTip(tr("User this entry applies to"));
 	qleACLUser->setWhatsThis(tr("This controls which user this entry applies to. Just type in the user name and hit enter "

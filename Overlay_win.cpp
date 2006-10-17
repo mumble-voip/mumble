@@ -71,7 +71,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbShow->setToolTip(tr("Who to show on the overlay"));
 	qcbShow->setWhatsThis(tr("<b>This sets who to show in the ingame overlay.</b><br />"
 			"If many people are connected to the same channel, the overlay list might be "
-			"very long. Use this to shorten it."
+			"very long. Use this to shorten it.<br />"
 			"<i>No one</i> - Don't show anyone (but leave overlay running).<br />"
 			"<i>Only talking</i> - Only show talking people.<br />"
 			"<i>Everyone</i> - Show everyone."));
@@ -172,7 +172,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qsMaxWidth = new QSlider(Qt::Horizontal);
 	qsMaxWidth->setObjectName("MaxWidth");
 	qsMaxWidth->setToolTip(tr("Maximum width of names."));
-	qsMaxWidth->setWhatsThis(tr("This sets the maximum width of names shows, relative to the height. If you set this to 100%, no line "
+	qsMaxWidth->setWhatsThis(tr("This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line "
 							"of text will be wider than it is high. At 500%, no line will be more than 5 times wider than it's height, "
 							"and so on."));
 	qsMaxWidth->setRange(100, 5000);
@@ -361,7 +361,7 @@ Overlay::Overlay() : QObject() {
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
 		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
-				"- the library (mumble_ol.dll) wasn't found in the directory you ran mumble from\n"
+				"- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
 				"- you're on an OS earlier than WinXP SP2\n"
 				"- you do not have the August 2006 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
 		qWarning("Overlay failure");

@@ -63,7 +63,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly)
 
 	granted=c_qhACLCache[chan][p];
 	if (granted & Cached) {
-		if ((perm != Speak) && (perm != AltSpeak)) 
+		if ((perm != Speak) && (perm != AltSpeak))
 			return ((granted & (perm | Write)) != None);
 		else
 			return ((granted & perm) != None);
@@ -117,7 +117,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly)
 
 	c_qhACLCache[chan][p] = granted & Cached;
 
-	if ((perm != Speak) && (perm != AltSpeak)) 
+	if ((perm != Speak) && (perm != AltSpeak))
 		return ((granted & (perm | Write)) != None);
 	else
 		return ((granted & perm) != None);
@@ -196,7 +196,7 @@ QString ChanACL::whatsThis(Perm p) {
 					"the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
 					"appropriate privileges.");
 		case AltSpeak:
-			return tr("This represents the permission to speak in a channel with flagged speech. This works exactly like the <i>speek</i> "
+			return tr("This represents the permission to speak in a channel with flagged speech. This works exactly like the <i>speak</i> "
 					"privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy "
 					"of channels without linking.");
 		case MuteDeafen:

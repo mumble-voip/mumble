@@ -148,9 +148,9 @@
         <translation>Rechazar cambios</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="245"/>
+        <location filename="" line="6815843"/>
         <source>This button will cancels all changes and closes the dialog without updating the ACLs or groups on the server.</source>
-        <translation>Este botón cancelará todos los cambios y cerrará el cuadro de diálogo sin actualizar las LCAs o los grupos en el servidor.</translation>
+        <translation type="obsolete">Este botón cancelará todos los cambios y cerrará el cuadro de diálogo sin actualizar las LCAs o los grupos en el servidor.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="321"/>
@@ -300,12 +300,12 @@
     <message>
         <location filename="ACLEditor.cpp" line="383"/>
         <source>Make group inheritable to subchannels</source>
-        <translation>Hace al grupo heredable en los subcanales</translation>
+        <translation>Hace al grupo heredable a los subcanales</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="385"/>
         <source>This makes this group inheritable to subchannels. If the group is non-inheritable, subchannels are still free to create a new group with the same name.</source>
-        <translation>Hace este grupo heredable en los subcanales. Si el grupo no es heredable, los subcaneles son libres de crear un nuevo grupo con el mismo nombre.</translation>
+        <translation>Hace este grupo heredable a los subcanales. Si el grupo no es heredable, los subcaneles son libres de crear un nuevo grupo con el mismo nombre.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="386"/>
@@ -338,8 +338,23 @@
         <translation>Escriba el nombre de un jugador que desee eliminar del grupo y presione intro.</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="357"/>
+        <location filename="" line="6815843"/>
         <source>This control which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a groupname starts with a !, it&apos;s membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a subchannel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;.&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
+        <translation type="obsolete">Controla a que grupo de usuarios se aplica esta entrada.&lt;br /&gt;Preste atención a que el grupo se evalúa en el contexto del canal en el que se usa la entrada. Por ejemplo, la LCA en el canal Raíz da el permiso &lt;i&gt;Escritura&lt;/i&gt; al grupo &lt;i&gt;admin&lt;/i&gt;. Esta entrada, si es heredada por un canal, dará al usuario privilegios de escritura si pertenece al grupo &lt;i&gt;admin&lt;/i&gt; en ese canal, incluso si no pertence al grupo &lt;i&gt;admin&lt;/i&gt; en el canal donde la LCA se originó. &lt;br /&gt;Si un nombre de grupo comienza por !, se niega su pertenencia, y si comienza por ~, se evalúa en el canal en el que la LCA se definió, en vez de en el canal en el que la LCA está activa. El orden es importante; &lt;i&gt;!~in&lt;/i&gt; es válido, pero &lt;i&gt;~!in&lt;/i&gt; no lo es.&lt;br/&gt;Algunos grupos especiales predefinidos son:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Representa a todos los usuarios.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Representa a todos los usuarios autenticados.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Representa a un usuario en un subcanal con un mínimo de &lt;i&gt;a&lt;/i&gt; padres comunes, y entre &lt;i&gt;b&lt;/i&gt; y &lt;i&gt;c&lt;/i&gt; canales por debajo en la cadena. Vea nuestro sitio web para una documentación más extensa acerca de éste.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Representa a los usuarios actualmente en el canal (abreviatura de &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Representa los usuarios fuera del canal (abreviatura de &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Fíjese en que una entrada se aplica o a un usuario o a un grupo, no a ambos.</translation>
+    </message>
+    <message>
+        <location filename="ACLEditor.cpp" line="45"/>
+        <source>Mumble - Edit ACL for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ACLEditor.cpp" line="245"/>
+        <source>This button will cancel all changes and closes the dialog without updating the ACLs or groups on the server.</source>
+        <translation type="unfinished">Este botón cancelará todos los cambios y cerrá el cuadro de diálogo sin actualizar las LCAs o los grupos en el servidor.</translation>
+    </message>
+    <message>
+        <location filename="ACLEditor.cpp" line="357"/>
+        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a groupname starts with a !, it&apos;s membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a subchannel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
         <translation>Controla a que grupo de usuarios se aplica esta entrada.&lt;br /&gt;Preste atención a que el grupo se evalúa en el contexto del canal en el que se usa la entrada. Por ejemplo, la LCA en el canal Raíz da el permiso &lt;i&gt;Escritura&lt;/i&gt; al grupo &lt;i&gt;admin&lt;/i&gt;. Esta entrada, si es heredada por un canal, dará al usuario privilegios de escritura si pertenece al grupo &lt;i&gt;admin&lt;/i&gt; en ese canal, incluso si no pertence al grupo &lt;i&gt;admin&lt;/i&gt; en el canal donde la LCA se originó. &lt;br /&gt;Si un nombre de grupo comienza por !, se niega su pertenencia, y si comienza por ~, se evalúa en el canal en el que la LCA se definió, en vez de en el canal en el que la LCA está activa. El orden es importante; &lt;i&gt;!~in&lt;/i&gt; es válido, pero &lt;i&gt;~!in&lt;/i&gt; no lo es.&lt;br/&gt;Algunos grupos especiales predefinidos son:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Representa a todos los usuarios.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Representa a todos los usuarios autenticados.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Representa a un usuario en un subcanal con un mínimo de &lt;i&gt;a&lt;/i&gt; padres comunes, y entre &lt;i&gt;b&lt;/i&gt; y &lt;i&gt;c&lt;/i&gt; canales por debajo en la cadena. Vea nuestro sitio web para una documentación más extensa acerca de éste.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Representa a los usuarios actualmente en el canal (abreviatura de &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Representa los usuarios fuera del canal (abreviatura de &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Fíjese en que una entrada se aplica o a un usuario o a un grupo, no a ambos.</translation>
     </message>
 </context>
@@ -378,7 +393,7 @@
     <message>
         <location filename="ASIOInput.cpp" line="127"/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Elige qué dispositivo consultar. Aún tiene que consultar realmente el dispositivo y seleccionar qué canales usar.</translation>
+        <translation>Elige qué dispositivo consultar. Aún debe consultar realmente el dispositivo y seleccionar qué canales usar.</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="128"/>
@@ -483,12 +498,12 @@
     <message>
         <location filename="ASIOInput.cpp" line="130"/>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Consultar</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="137"/>
         <source>&amp;Config</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Configurar</translation>
     </message>
 </context>
 <context>
@@ -514,7 +529,7 @@
     <message>
         <location filename="About.cpp" line="53"/>
         <source>&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voicechat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Traducción al español por Álvaro M. Recio Pérez&lt;br /&gt;naproxeno@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla mediante voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Traducción al español por Álvaro M. Recio Pérez&lt;br /&gt;naproxeno@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla por voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="About.cpp" line="59"/>
@@ -831,9 +846,9 @@
         <translation>Muestra la potencia máxima de los altavoces en la última trama (20 ms). A menos que esté usando un método de muestreo multicanal (como ASIO) con los canales de altavoces configurados, ésto será 0. Si tiene configurada tal instalación, y ésto aún muestra 0 mientras reproduce audio de otros programas, su instalación no está funcionando.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="372"/>
+        <location filename="" line="6815843"/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echos.</source>
-        <translation>Muestra la potencia máxima en la última trama (20 ms) tras todo el procesado. Idealmente, esto debería ser -96 dB cuando no esté hablando. En realidad, un estudio de sonido debería ver -60 dB, y usted debería ver con suerte en torno a -20 dB. Cuando hable, ésto debería aumentar hasta un valor entre -5 y -10 dB.&lt;br /&gt;Si está usando cancelación de eco, y ésto sube a más de -15 dB cuando no está hablando, su instalación no está funcionando, y molestará con ecos a otros jugadores.</translation>
+        <translation type="obsolete">Muestra la potencia máxima en la última trama (20 ms) tras todo el procesado. Idealmente, esto debería ser -96 dB cuando no esté hablando. En realidad, un estudio de sonido debería ver -60 dB, y usted debería ver con suerte en torno a -20 dB. Cuando hable, ésto debería aumentar hasta un valor entre -5 y -10 dB.&lt;br /&gt;Si está usando cancelación de eco, y ésto sube a más de -15 dB cuando no está hablando, su instalación no está funcionando, y molestará con ecos a otros jugadores.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="373"/>
@@ -895,6 +910,11 @@
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is misconfigured.</source>
         <translation>Muestra los pesos del cancelador de eco, con el tiempo incrementándose hacia abajo y la frecuencia incrementándose hacia la derecha.&lt;br /&gt;Idealmente, ésto debería ser negro, indicando que no existe eco alguno. Más comúnmente, habrá una o más bandas horizontales de color azulado que representan eco retrasado en el tiempo. Debería poder ver los pesos actualizados en tiempo real.&lt;br /&gt;Fíjese en que mientras no haya nada a lo que cancelar el eco, no verá datos muy útiles aquí. Reproduzca algo de música y las cosas deberían estabilizarse.&lt;br /&gt;Puede elegir ver las partes reales o imaginarias de los pesos en el dominio de la frecuencia, o de forma alternativa el módulo y la fase calculados. Lo más útil de éstos probablemente sea el módulo, que es la amplitud del eco, y muestra cuánto de la señal saliente está siendo eliminado en este paso de tiempo. Los otros modos de visionado son útiles en su mayoría a personas que quieren ajustar los algoritmos de cancelación de eco.&lt;br /&gt;Por favor fíjese en que si la imagen completa fluctúa ampliamente mientras está en el modo módulo, el cancelador de eco no logra encontrar ninguna correlación entre las dos fuentes de entrada (altavoces y micrófono). O tiene un retraso muy largo en el eco, o una de las fuentes de entrada está mal configurada.</translation>
     </message>
+    <message>
+        <location filename="AudioStats.cpp" line="372"/>
+        <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echos.</source>
+        <translation type="unfinished">Muestra la potencia máxima en la última trama (20 ms) tras todo el procesado. Idealmente, esto debería ser -96 dB cuando no esté hablando. En realidad, un estudio de sonido debería ver -60 dB, y usted debería ver con suerte en torno a -20 dB. Cuando hable, ésto debería aumentar hasta un valor entre -5 y -10 dB.&lt;br /&gt;Si está usando cancelación de eco, y ésto sube a más de -15 dB cuando no está hablando, su instalación no está funcionando, y molestará con ecos a otros jugadores.</translation>
+    </message>
 </context>
 <context>
     <name>BanEditor</name>
@@ -942,6 +962,11 @@
         <location filename="BanEditor.cpp" line="79"/>
         <source>This button will cancels all changes and closes the dialog without updating the ACLs or groups on the server.</source>
         <translation>Este botón cancelará todos los cambios y cerrá el cuadro de diálogo sin actualizar las LCAs o los grupos en el servidor.</translation>
+    </message>
+    <message>
+        <location filename="BanEditor.cpp" line="37"/>
+        <source>Mumble - Edit Bans</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1067,9 +1092,9 @@
         <translation>Representa el permiso de hablar en un canal. Los usuarios sin este privilegio serán suprimidos por el servidor (vistos como mudos), y no podrán hablar hasta que se les de voz con los privilegios adecuados.</translation>
     </message>
     <message>
-        <location filename="ACL.cpp" line="201"/>
+        <location filename="" line="6815843"/>
         <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speek&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Representa el permiso de hablar en un canal con habla marcada. Funciona exactamente como el privilegio &lt;i&gt;hablar&lt;/i&gt;, pero se aplica a paquetes hablados con PresionarParaHablarAlt pulsado. Se usa para transmitir a una jerarquía de canales sin vincular.</translation>
+        <translation type="obsolete">Representa el permiso de hablar en un canal con habla marcada. Funciona exactamente como el privilegio &lt;i&gt;hablar&lt;/i&gt;, pero se aplica a paquetes hablados con PresionarParaHablarAlt pulsado. Se usa para transmitir a una jerarquía de canales sin vincular.</translation>
     </message>
     <message>
         <location filename="ACL.cpp" line="204"/>
@@ -1090,6 +1115,11 @@
         <location filename="ACL.cpp" line="216"/>
         <source>This represents the permission to link channels. Players in linked channels hear each other, as long as the speaking player has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
         <translation>Representa el permiso de vincular canales. Los jugadores en canales vinculados se oirán entre sí, siempre que el jugador que habla tenga el privilegio &lt;i&gt;hablar&lt;/i&gt; en el canal del oyente. Necesita el privilegio de vincular en ambos canales para crear un vínculo, pero sólo en uno de los caneles para eliminarlo.</translation>
+    </message>
+    <message>
+        <location filename="ACL.cpp" line="201"/>
+        <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy of channels without linking.</source>
+        <translation type="unfinished">Representa el permiso de hablar en un canal con habla marcada. Funciona exactamente como el privilegio &lt;i&gt;hablar&lt;/i&gt;, pero se aplica a paquetes hablados con PresionarParaHablarAlt pulsado. Se usa para transmitir a una jerarquía de canales sin vincular.</translation>
     </message>
 </context>
 <context>
@@ -1267,9 +1297,9 @@
         <translation>Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
-        <location filename="DXConfigDialog.cpp" line="97"/>
+        <location filename="" line="6815843"/>
         <source>This sets the output device to use, which is where you have connected your speakers or your headset</source>
-        <translation>Establece el dispositivo de salida a usar, que es donde ha conectado sus altavoces o auriculares</translation>
+        <translation type="obsolete">Establece el dispositivo de salida a usar, que es donde ha conectado sus altavoces o auriculares.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="98"/>
@@ -1292,9 +1322,9 @@
         <translation>Cantidad de datos a almacenar en el búfer para DirectSound</translation>
     </message>
     <message>
-        <location filename="DXConfigDialog.cpp" line="122"/>
+        <location filename="" line="6815843"/>
         <source>This sets the amount of data to prebuffer in the directsound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
+        <translation type="obsolete">Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="130"/>
@@ -1329,7 +1359,7 @@
     <message>
         <location filename="DXConfigDialog.cpp" line="148"/>
         <source>This sets what 3D Sound algorithm to use.&lt;br /&gt;&lt;b&gt;None&lt;/b&gt; - Disable 3D Sound (least CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Just use stereo panning (some CPU).&lt;br /&gt;&lt;b&gt;Light/Full HRTF&lt;/b&gt; - Head-Related Transfer Functions enabled. This may use a small amount of CPU.&lt;br /&gt;Note that if you have a soundcard with &lt;i&gt;hardware&lt;/i&gt; 3D processing, HRTF processing will be done on the soundcard and will use practically no processing power.</source>
-        <translation>Establece qué algoritmo de Sonido 3D usar.&lt;br /&gt;&lt;b&gt;Ninguno&lt;/b&gt; - Desactiva el Sonido 3D (menos CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Sólo usa panning estéreo (poca CPU).&lt;br /&gt;HRTF Ligera/Completa&lt;/b&gt; - Habilita las Funciones de Transferencia Relacionadas a la Cabeza (HRTF). Ésto podría usar una pequeña cantidad de CPU.&lt;br /&gt;Fíjese en que si tiene una tarjeta de sonido con procesamiento 3D &lt;i&gt;hardware&lt;/i&gt;, el procesado de HRTF se hará en la tarjeta de sonido y casi no usará  poder de procesamiento.</translation>
+        <translation>Establece qué algoritmo de Sonido 3D usar.&lt;br /&gt;&lt;b&gt;Ninguno&lt;/b&gt; - Desactiva el Sonido 3D (menos CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Sólo usa panning estéreo (poca CPU).&lt;br /&gt;&lt;b&gt;HRTF Ligera/Completa&lt;/b&gt; - Habilita las Funciones de Transferencia Relacionadas a la Cabeza (HRTF). Ésto podría usar una pequeña cantidad de CPU.&lt;br /&gt;Fíjese en que si tiene una tarjeta de sonido con procesamiento 3D &lt;i&gt;hardware&lt;/i&gt;, el procesado de HRTF se hará en la tarjeta de sonido y casi no usará  poder de procesamiento.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="149"/>
@@ -1405,6 +1435,16 @@
         <location filename="DXConfigDialog.cpp" line="273"/>
         <source>Players more than %1 meters away have %2% intensity</source>
         <translation>Los jugadores alejados más de %1 metros tendrán %2% de intensidad</translation>
+    </message>
+    <message>
+        <location filename="DXConfigDialog.cpp" line="97"/>
+        <source>This sets the output device to use, which is where you have connected your speakers or your headset.</source>
+        <translation type="unfinished">Establece el dispositivo de salida a usar, que es donde ha conectado sus altavoces o auriculares.</translation>
+    </message>
+    <message>
+        <location filename="DXConfigDialog.cpp" line="122"/>
+        <source>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
+        <translation type="unfinished">Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
 </context>
 <context>
@@ -1496,92 +1536,92 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Log.cpp" line="146"/>
         <source>Debug</source>
-        <translation type="unfinished">Le Bug</translation>
+        <translation>Depuración</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="147"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Crítico</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="148"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="149"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="150"/>
         <source>Server Connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectado al servidor</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="151"/>
         <source>Server Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado del servidor</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="152"/>
         <source>Player Joined Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador se unió al servidor</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="153"/>
         <source>Player Left Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador abandonó el servidor</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="154"/>
         <source>Player kicked (you or by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador expulsado (usted o por usted)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="155"/>
         <source>Player kicked</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador expulsado</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="156"/>
         <source>You selfmuted/deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Se enmudeció/ensordeció a sí mismo</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="157"/>
         <source>Other selfmuted/selfdeafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Otro se enmudeció/ensordeció a sí mismo</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="158"/>
         <source>Player muted (you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador le enmudeció (a usted)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="159"/>
         <source>Player muted (by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador enmudecido (por usted)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="160"/>
         <source>Player muted (other)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador enmudecido (otro)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="161"/>
         <source>Player Joined Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador se unió al canal</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="162"/>
         <source>Player Left Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador abandonó el canal</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="164"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Permiso denegado</translation>
     </message>
 </context>
 <context>
@@ -1990,9 +2030,9 @@ de las ubicaciones posibles.</translation>
         <translation>Muestra un pequeño cuadro de diálogo con información acerca de Speex.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="192"/>
+        <location filename="" line="6815843"/>
         <source>&amp;About QT</source>
-        <translation>&amp;Acerca de QT</translation>
+        <translation type="obsolete">&amp;Acerca de Qt</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="194"/>
@@ -2240,9 +2280,9 @@ de las ubicaciones posibles.</translation>
         <translation>%1 abandonó el canal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1030"/>
+        <location filename="" line="6815843"/>
         <source>%1 moved out by %2</source>
-        <translation>%2 mudó a %1</translation>
+        <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1037"/>
@@ -2283,43 +2323,43 @@ de las ubicaciones posibles.</translation>
         <location filename="MainWindow.cpp" line="285"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Presionar-para-Hablar</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="288"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar el preprocesador de audio</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="292"/>
         <source>Toggle Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conmutar enmudecerse</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="296"/>
         <source>Toggle Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conmutar ensordecerse</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="300"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Plugin Unlinka</translation>
+        <translation>Desvincular plugin</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="304"/>
         <source>Force Center Position</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Forzar posición central</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="309"/>
         <source>Chan Parent</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Canal padre</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="314"/>
@@ -2337,25 +2377,35 @@ de las ubicaciones posibles.</translation>
         <location filename="MainWindow.cpp" line="323"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Presionar-para-Enmudecer</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="326"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Unirse al canal</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="330"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conmutar sobreimpresión</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="335"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Presionar-para-Hablar Alt</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="192"/>
+        <source>&amp;About Qt</source>
+        <translation type="unfinished">&amp;Acerca de Qt</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="1030"/>
+        <source>%1 moved out by %2.</source>
+        <translation type="unfinished">%2 mudó a %1.</translation>
     </message>
 </context>
 <context>
@@ -2366,15 +2416,23 @@ de las ubicaciones posibles.</translation>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="366"/>
+        <location filename="" line="6815843"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the August 2006 updated version of DX9.0c</source>
-        <translation>No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que:
-- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó mumble
+        <translation type="obsolete">No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que:
+- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble
 - está usando un SO anterior a WinXP SP2
 - no tiene la versión actualizada en agosto de 2006 de DX9.0c</translation>
+    </message>
+    <message>
+        <location filename="Overlay_win.cpp" line="366"/>
+        <source>Failed to load overlay library. This means either that:
+- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
+- you&apos;re on an OS earlier than WinXP SP2
+- you do not have the August 2006 updated version of DX9.0c</source>
+        <translation type="unfinished">No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que:- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble- está usando un SO anterior a WinXP SP2- no tiene la versión actualizada en agosto de 2006 de DX9.0c</translation>
     </message>
 </context>
 <context>
@@ -2407,7 +2465,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Overlay_win.cpp" line="60"/>
         <source>This sets whether the overlay is enabled or not. This settings is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Establece si la sobreimpresión está activada o no. Estas opciones se comprueban sólo cuando se inician aplicaciones D3D9, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
+        <translation>Establece si la sobreimpresión está habilitada o no. Estas opciones se comprueban sólo cuando se inician aplicaciones D3D9, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="65"/>
@@ -2435,9 +2493,9 @@ de las ubicaciones posibles.</translation>
         <translation>Quién mostrar en la sobreimpresión</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="77"/>
+        <location filename="" line="6815843"/>
         <source>&lt;b&gt;This sets who to show in the ingame overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use ésto para acortarla.&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo hablando&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
+        <translation type="obsolete">&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use ésto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo hablando&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="81"/>
@@ -2545,9 +2603,9 @@ de las ubicaciones posibles.</translation>
         <translation>Anchura máxima de los nombres.</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="177"/>
+        <location filename="" line="6815843"/>
         <source>This sets the maximum width of names shows, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than it&apos;s height, and so on.</source>
-        <translation>Establece la anchura máxima de los nombres mostrados, relativa a la altura. Si fija ésto a 100%, ninguna línea de texto será más ancha que su altura. A 500%, ninguna línea será 5 veces más ancha que su altura, y así sucesivamente.</translation>
+        <translation type="obsolete">Establece la anchura máxima de los nombres mostrados, relativa a la altura. Si fija ésto a 100%, ninguna línea de texto será más ancha que su altura. A 500%, ninguna línea será 5 veces más ancha que su altura, y así sucesivamente.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="187"/>
@@ -2577,12 +2635,12 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Overlay_win.cpp" line="227"/>
         <source>Color for Channels</source>
-        <translation>Color de los Canales</translation>
+        <translation>Color de los canales</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="237"/>
         <source>Color for active Channels</source>
-        <translation>Color de los Canales activos</translation>
+        <translation>Color de los canales activos</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="323"/>
@@ -2593,6 +2651,16 @@ de las ubicaciones posibles.</translation>
         <location filename="Overlay_win.cpp" line="87"/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
         <translation>Establece si mostrarse siempre a sí mismo o no. Esta opción es útil si no está mostrando a todos en la sobreimpresión, ya que entonces sólo vería su propio estado si usted está hablando, lo que no le permitiría ver si fue ensordecido o enmudecido.</translation>
+    </message>
+    <message>
+        <location filename="Overlay_win.cpp" line="77"/>
+        <source>&lt;b&gt;This sets who to show in the ingame overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
+        <translation type="unfinished">&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use ésto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo hablando&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
+    </message>
+    <message>
+        <location filename="Overlay_win.cpp" line="177"/>
+        <source>This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than it&apos;s height, and so on.</source>
+        <translation type="unfinished">Establece la anchura máxima de los nombres mostrados, relativa a la altura. Si fija ésto a 100%, ninguna línea de texto será más ancha que su altura. A 500%, ninguna línea será 5 veces más ancha que su altura, y así sucesivamente.</translation>
     </message>
 </context>
 <context>
@@ -2626,6 +2694,16 @@ de las ubicaciones posibles.</translation>
         <location filename="PlayerModel.cpp" line="393"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>Muestra los emblemas que el jugador tiene en el servidor, si los hubiera:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Usuario autenticado&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Mudo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Mudo (por un administrador)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Sordo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Sordo (por un administrador)&lt;br /&gt;Un jugador enmudecido por sí mismo probablemente sólo está ausente, hablando por teléfono o algo similar.&lt;br /&gt;Un jugador enmudecido por un administrador probablemente está también sólo ausente, y el ruido que estaba haciendo el jugador era lo bastante molesto para que un adminstrador lo haya enmudecido.</translation>
+    </message>
+    <message>
+        <location filename="PlayerModel.cpp" line="410"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="PlayerModel.cpp" line="412"/>
+        <source>Flags</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2698,22 +2776,22 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Plugins.cpp" line="66"/>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Vincularse al juego y transmitir la posición</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="79"/>
         <source>&amp;Reload plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Recargar plugins</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="84"/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Acerca de</translation>
+        <translation>&amp;Acerca de</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="88"/>
         <source>&amp;Config</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Configurar</translation>
     </message>
 </context>
 <context>

@@ -149,8 +149,8 @@
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="245"/>
-        <source>This button will cancels all changes and closes the dialog without updating the ACLs or groups on the server.</source>
-        <translation>Dieser Button macht alle Änderungen rückgängig und schließt den Dialog ohne ACLs oder Gruppen auf dem Server zu aktualisieren. </translation>
+        <source>This button will cancel all changes and closes the dialog without updating the ACLs or groups on the server.</source>
+        <translation type="unfinished">Dieser Button macht alle Änderungen rückgängig und schließt den Dialog ohne ACLs oder Gruppen auf dem Server zu aktualisieren. </translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="321"/>
@@ -239,8 +239,8 @@
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="357"/>
-        <source>This control which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a groupname starts with a !, it&apos;s membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a subchannel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;.&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Dies kontrolliert welche Gruppe von Nutzern dieser Eintrag betrifft.&lt;br /&gt;Die Gruppen werden im Kontext des Kanals ausgewertet in dem sich der Eintrag befindet. Zum Beispiel gibt der Standard ACL in den Wurzelkanälen &lt;i&gt;Schreib&lt;/i&gt;-Rechte der &lt;i&gt;Admin&lt;/i&gt;-Gruppe. Dieser Eintrag gibt den Nutzern - wenn von einem Kanal geerbt - Schreibrecht, wenn er zur Gruppe der &lt;i&gt;Admin&lt;/i&gt;s in diesem Kanal gehört, selbst wenn er nicht zu der &lt;i&gt;Admin&lt;/i&gt;-Gruppe gehört woher der ACL eigentlich stammt.&lt;br /&gt;Beginnt ein Gruppenname mit einem &quot;!&quot;, wird die Mitgliedschaft negiert und wenn es mit einem &quot;~&quot; beginnt, wird es in dem Kanal ausgewertet in dem die ACL definiert wurde. Die Reihenfolge ist wichtig; &lt;i&gt;!~in&lt;/i&gt; ist gültig, &lt;i&gt;~!in&lt;/i&gt; jedoch nicht. Einige wenige spezielle vordefinierte Gruppen sind: &lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Jeder trifft zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle authentifizierten Nutzer treffen zu.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Nutzer im Channel treffen zu.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Nutzer außerhalb des Kanals treffen zu.&lt;br /&gt;Ein Eintrag trifft dabei entweder auf einen Nutzer oder eine Gruppe zu, nicht auf beide.</translation>
+        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a groupname starts with a !, it&apos;s membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a subchannel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
+        <translation type="unfinished">Dies kontrolliert welche Gruppe von Nutzern dieser Eintrag betrifft.&lt;br /&gt;Die Gruppen werden im Kontext des Kanals ausgewertet in dem sich der Eintrag befindet. Zum Beispiel gibt der Standard ACL in den Wurzelkanälen &lt;i&gt;Schreib&lt;/i&gt;-Rechte der &lt;i&gt;Admin&lt;/i&gt;-Gruppe. Dieser Eintrag gibt den Nutzern - wenn von einem Kanal geerbt - Schreibrecht, wenn er zur Gruppe der &lt;i&gt;Admin&lt;/i&gt;s in diesem Kanal gehört, selbst wenn er nicht zu der &lt;i&gt;Admin&lt;/i&gt;-Gruppe gehört woher der ACL eigentlich stammt.&lt;br /&gt;Beginnt ein Gruppenname mit einem &quot;!&quot;, wird die Mitgliedschaft negiert und wenn es mit einem &quot;~&quot; beginnt, wird es in dem Kanal ausgewertet in dem die ACL definiert wurde. Die Reihenfolge ist wichtig; &lt;i&gt;!~in&lt;/i&gt; ist gültig, &lt;i&gt;~!in&lt;/i&gt; jedoch nicht. Einige wenige spezielle vordefinierte Gruppen sind: &lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Jeder trifft zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle authentifizierten Nutzer treffen zu.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Nutzer im Channel treffen zu.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Nutzer außerhalb des Kanals treffen zu.&lt;br /&gt;Ein Eintrag trifft dabei entweder auf einen Nutzer oder eine Gruppe zu, nicht auf beide.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="358"/>
@@ -341,6 +341,11 @@
         <location filename="ACLEditor.cpp" line="392"/>
         <source>Type in the name of a player you wish to remove from the group and press enter.</source>
         <translation>Namen des Players eingeben, der aus der Gruppe entfernt werden soll.</translation>
+    </message>
+    <message>
+        <location filename="ACLEditor.cpp" line="45"/>
+        <source>Mumble - Edit ACL for %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -832,8 +837,8 @@
     </message>
     <message>
         <location filename="AudioStats.cpp" line="372"/>
-        <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echos.</source>
-        <translation>Dies zeigt die Spitzenpower im letzten Frame (20ms) nach dem Processing an. Im Idealfall sollte dies -96 dB betragen, wann man nicht spricht. Die Realität zeigt, dass man in einem Tonstudio etwa -60 dB und zuhause -20 dB erwarten kann. When man spricht, sollte dies bis auf -5 bis -10 dB ansteigen.&lt;br /&gt;Nutzt man Echoauslöschung und der Wert steigt auf mehr als -15 dB wenn man nicht spricht, arbeitet das Setup nicht korrekt und man stört andere Spieler mit Echos.</translation>
+        <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echos.</source>
+        <translation type="unfinished">Dies zeigt die Spitzenpower im letzten Frame (20ms) nach dem Processing an. Im Idealfall sollte dies -96 dB betragen, wann man nicht spricht. Die Realität zeigt, dass man in einem Tonstudio etwa -60 dB und zuhause -20 dB erwarten kann. When man spricht, sollte dies bis auf -5 bis -10 dB ansteigen.&lt;br /&gt;Nutzt man Echoauslöschung und der Wert steigt auf mehr als -15 dB wenn man nicht spricht, arbeitet das Setup nicht korrekt und man stört andere Spieler mit Echos.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="373"/>
@@ -942,6 +947,11 @@
         <location filename="BanEditor.cpp" line="79"/>
         <source>This button will cancels all changes and closes the dialog without updating the ACLs or groups on the server.</source>
         <translation>Dieser Button macht alle Änderungen rückgängig und schließt den Dialog ohne ACLs oder Gruppen auf dem Server zu aktualisieren. </translation>
+    </message>
+    <message>
+        <location filename="BanEditor.cpp" line="37"/>
+        <source>Mumble - Edit Bans</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1068,8 +1078,8 @@
     </message>
     <message>
         <location filename="ACL.cpp" line="201"/>
-        <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speek&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Dies repräsentiert das Recht in einem Kanal mit belegter Sprache zu sprechen. Dies funktioniert genauso wie das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg, betrifft aber Pakete gesprochen mit Alt-Push-To-Talk. Es wird genutzt um Sprache in einer Hierarchie von Kanälen zu verbreiten ohne sie zu verbinden.</translation>
+        <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy of channels without linking.</source>
+        <translation type="unfinished">Dies repräsentiert das Recht in einem Kanal mit belegter Sprache zu sprechen. Dies funktioniert genauso wie das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg, betrifft aber Pakete gesprochen mit Alt-Push-To-Talk. Es wird genutzt um Sprache in einer Hierarchie von Kanälen zu verbreiten ohne sie zu verbinden.</translation>
     </message>
     <message>
         <location filename="ACL.cpp" line="204"/>
@@ -1268,8 +1278,8 @@
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="97"/>
-        <source>This sets the output device to use, which is where you have connected your speakers or your headset</source>
-        <translation>Dies legt das Ausgabegerät fest, welches mit Lautsprechern oder Headset verbunden ist</translation>
+        <source>This sets the output device to use, which is where you have connected your speakers or your headset.</source>
+        <translation type="unfinished">Dies legt das Ausgabegerät fest, welches mit Lautsprechern oder Headset verbunden ist.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="98"/>
@@ -1293,8 +1303,8 @@
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="122"/>
-        <source>This sets the amount of data to prebuffer in the directsound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Dies legt die Menge an Daten fest, die für den DirectSound-Puffer vorgepuffert werden sollen. Es sollte der niedrigste Wert gewählt werden, der noch keinen Jitter im Sound produziert.</translation>
+        <source>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
+        <translation type="unfinished">Dies legt die Menge an Daten fest, die für den DirectSound-Puffer vorgepuffert werden sollen. Es sollte der niedrigste Wert gewählt werden, der noch keinen Jitter im Sound produziert.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="130"/>
@@ -1483,7 +1493,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="140"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Doubleclick to clear.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
 </context>
 <context>
@@ -1991,8 +2001,8 @@ der möglichen Orte initialisieren.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="192"/>
-        <source>&amp;About QT</source>
-        <translation>Über &amp;Qt</translation>
+        <source>&amp;About Qt</source>
+        <translation type="unfinished">Über &amp;Qt</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="194"/>
@@ -2251,8 +2261,8 @@ der möglichen Orte initialisieren.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1030"/>
-        <source>%1 moved out by %2</source>
-        <translation>%1 von %2 rausgeschoben</translation>
+        <source>%1 moved out by %2.</source>
+        <translation type="unfinished">%1 von %2 rausgeschoben.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1037"/>
@@ -2368,10 +2378,10 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Overlay_win.cpp" line="366"/>
         <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran mumble from
+- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the August 2006 updated version of DX9.0c</source>
-        <translation>Konnte Overlaybibliothek nicht laden. Dies bedeutet:
+        <translation type="unfinished">Konnte Overlaybibliothek nicht laden. Dies bedeutet:
 - Die Bibliothek (mumble_ol.dll) wurde nicht in dem Verzeichnis gefunden in dem mumble gestartet wurde
 - Es wird ein früheres OS als WinXP SP2 genutzt
 - Die August 2006 Version von DX9.0c wurde nicht installiert</translation>
@@ -2436,8 +2446,8 @@ der möglichen Orte initialisieren.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="77"/>
-        <source>&lt;b&gt;This sets who to show in the ingame overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Dies legt fest, wer im Ingame-Overlay angezeigt wird.&lt;/b&gt;&lt;br /&gt;Falls viele Leute im selben Kanal sind, könnte die Overlayliste sehr lang werden. Mit diesen Einstellungen kann sie gekürzt werden.&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden an (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Leute.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige jeden an.</translation>
+        <source>&lt;b&gt;This sets who to show in the ingame overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
+        <translation type="unfinished">&lt;b&gt;Dies legt fest, wer im Ingame-Overlay angezeigt wird.&lt;/b&gt;&lt;br /&gt;Falls viele Leute im selben Kanal sind, könnte die Overlayliste sehr lang werden. Mit diesen Einstellungen kann sie gekürzt werden.&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden an (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Leute.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige jeden an.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="81"/>
@@ -2551,8 +2561,8 @@ der möglichen Orte initialisieren.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="177"/>
-        <source>This sets the maximum width of names shows, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than it&apos;s height, and so on.</source>
-        <translation>Dies setzt die maximale Breite der angezeigten Namen relativ zur Höhe. Wird es auf 100% gesetzt, ist keine Zeile Text breiter als hoch. Bei 500%, ist keine Zeile mehr als fünf mal breiter als hoch.</translation>
+        <source>This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than it&apos;s height, and so on.</source>
+        <translation type="unfinished">Dies setzt die maximale Breite der angezeigten Namen relativ zur Höhe. Wird es auf 100% gesetzt, ist keine Zeile Text breiter als hoch. Bei 500%, ist keine Zeile mehr als fünf mal breiter als hoch.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="187"/>
@@ -2626,6 +2636,16 @@ der möglichen Orte initialisieren.</translation>
         <location filename="PlayerModel.cpp" line="393"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>Dies zeigt die Attribute die der Spieler auf dem Server hat an: &lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Authorisierter Nutzer&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Stumm (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Stumm (durch Admin)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Taub (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Taub (durch Admin)&lt;br /&gt;Ein Spieler der sich selbst stummgestellt hat ist vermutlich vom PC entfernt.</translation>
+    </message>
+    <message>
+        <location filename="PlayerModel.cpp" line="410"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="PlayerModel.cpp" line="412"/>
+        <source>Flags</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

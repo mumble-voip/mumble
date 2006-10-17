@@ -94,7 +94,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbOutputDevice->setToolTip(tr("Device to use for speakers/headphones"));
 	qcbOutputDevice->setWhatsThis(tr("This sets the output device to use, which is where you have connected your "
-									"speakers or your headset"));
+									"speakers or your headset."));
 	l = new QLabel(tr("Output"));
 	l->setBuddy(qcbOutputDevice);
 	grid->addWidget(l, 1, 0);
@@ -117,7 +117,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlOutputDelay->setMinimumWidth(30);
 	on_OutputDelay_valueChanged(qsOutputDelay->value());
 	qsOutputDelay->setToolTip(tr("Amount of data to buffer for DirectSound"));
-	qsOutputDelay->setWhatsThis(tr("This sets the amount of data to prebuffer in the directsound buffer. "
+	qsOutputDelay->setWhatsThis(tr("This sets the amount of data to prebuffer in the DirectSound buffer. "
 								"Experiment with different values and set it to the lowest which doesn't "
 								"cause rapid jitter in the sound."));
 	grid->addWidget(l, 0, 0);
