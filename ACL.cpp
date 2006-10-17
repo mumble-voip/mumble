@@ -186,8 +186,8 @@ QString ChanACL::whatsThis(Perm p) {
 					"This privilege implies all other privileges.");
 		case Traverse:
 			return tr("This represents the permission to traverse the channel. If a user is denied this privilege, he will be "
-					"unable to access this channel and any subchannels in any way, regardless of other permissions in the "
-					"subchannels.");
+					"unable to access this channel and any sub-channels in any way, regardless of other permissions in the "
+					"sub-channels.");
 		case Enter:
 			return tr("This represents the permission to join the channel. If you have a hierarchical channel structure, you "
 					"might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.");
@@ -197,7 +197,7 @@ QString ChanACL::whatsThis(Perm p) {
 					"appropriate privileges.");
 		case AltSpeak:
 			return tr("This represents the permission to speak in a channel with flagged speech. This works exactly like the <i>speak</i> "
-					"privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy "
+					"privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy "
 					"of channels without linking.");
 		case MuteDeafen:
 			return tr("This represents the permission to mute and deafen other players. Once muted, a player will stay muted "
@@ -208,8 +208,8 @@ QString ChanACL::whatsThis(Perm p) {
 					"the player must normally be allowed to enter the channel. Players with this privilege can move players "
 					"into channels the target player normally wouldn't have permission to enter.");
 		case MakeChannel:
-			return tr("This represents the permission to make subchannels. The player making the subchannel will be added to the "
-					"admin group of the subchannel.");
+			return tr("This represents the permission to make sub-channels. The player making the sub-channel will be added to the "
+					"admin group of the sub-channel.");
 		case LinkChannel:
 			return tr("This represents the permission to link channels. Players in linked channels hear each other, as long as "
 					"the speaking player has the <i>speak</i> privilege in the channel of the listener. You need the link "

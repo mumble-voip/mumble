@@ -111,7 +111,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsOutputDelay->setPageStep(2);
 	qsOutputDelay->setValue(g.s.iDXOutputDelay);
 	qsOutputDelay->setObjectName("OutputDelay");
-	l = new QLabel(tr("OutputDelay"));
+	l = new QLabel(tr("Output Delay"));
 	l->setBuddy(qsOutputDelay);
 	qlOutputDelay=new QLabel();
 	qlOutputDelay->setMinimumWidth(30);
@@ -242,7 +242,7 @@ void DXConfigDialog::accept() {
 }
 
 void DXConfigDialog::on_OutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1 ms").arg(v*20));
+	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }
 
 void DXConfigDialog::on_MinDistance_valueChanged(int v) {

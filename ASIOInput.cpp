@@ -115,9 +115,9 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 	qgbChannels = new QGroupBox(tr("Channels"));
 	qgbChannels->setToolTip(tr("Configure input channels"));
 	qgbChannels->setWhatsThis(tr("This will configure the input channels for ASIO. Make sure you select at least one "
-								"channel as microphone and speaker. Microphone should be where your mic is attached, "
-								"and Speaker should be a channel that samples \"What you hear\".<br />"
-								"For example, on the Audigy 2 ZS, a good selection for Mic would be \"Mic L\" while "
+								"channel as microphone and speaker. <i>Microphone</i> should be where your microphone is attached, "
+								"and <i>Speaker</i> should be a channel that samples \"What you hear\".<br />"
+								"For example, on the Audigy 2 ZS, a good selection for Microphone would be \"Mic L\" while "
 								"Speaker should be \"Mix L\" and \"Mix R\""));
 
 	grid=new QGridLayout();
@@ -134,7 +134,7 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 								"buggy to the extreme, and querying them might cause a crash of either the application "
 								"or the system."));
 
-	QPushButton *configButton=new QPushButton(tr("&Config"));
+	QPushButton *configButton=new QPushButton(tr("&Configure"));
 	configButton->setObjectName("Config");
 	configButton->setToolTip(tr("Configure selected device"));
 	configButton->setWhatsThis(tr("This configures the selected device. Be aware that many ASIO drivers are "
@@ -397,7 +397,7 @@ void ASIOConfig::on_Config_clicked() {
 		}
 		iasio.Release();
 	} else {
-		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instanciate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
 	}
 }
 

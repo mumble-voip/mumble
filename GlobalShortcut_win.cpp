@@ -148,7 +148,7 @@ GlobalShortcutWinConfig::GlobalShortcutWinConfig(QWidget *p) : ConfigWidget(p) {
 		dikw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
 		dikw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
 							"Click this field and then the desired key/button combo "
-							"to rebind. Doubleclick to clear.").arg(gs->name));
+							"to rebind. Double-click to clear.").arg(gs->name));
 		qhKeys[gs]=dikw;
 		i++;
 	}

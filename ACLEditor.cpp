@@ -87,7 +87,7 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
 	qcbACLApplyHere=new QCheckBox(tr("Applies to this channel"));
 	qcbACLApplyHere->setObjectName("ACLApplyHere");
-	qcbACLApplySubs=new QCheckBox(tr("Applies to subchannels"));
+	qcbACLApplySubs=new QCheckBox(tr("Applies to sub-channels"));
 	qcbACLApplySubs->setObjectName("ACLApplySubs");
 	grid->addWidget(qcbACLApplyHere,0,0);
 	grid->addWidget(qcbACLApplySubs,1,0);
@@ -323,7 +323,7 @@ void ACLEditor::addToolTipsWhatsThis() {
 						"show in italics."));
 	qcbACLInherit->setToolTip(tr("Inherit ACL of parent?"));
 	qcbACLInherit->setWhatsThis(tr("This sets whether or not the ACL up the chain of parent channels are applied to this object. "
-						"Only those entries that are marked in the parent as \"Apply to Subchannels\" will be inherited."));
+						"Only those entries that are marked in the parent as \"Apply to sub-channels\" will be inherited."));
 	qpbACLAdd->setToolTip(tr("Add new entry"));
 	qpbACLAdd->setWhatsThis(tr("This adds a new entry, initially set with no permissions and applying to all."));
 	qpbACLRemove->setToolTip(tr("Remove entry"));
@@ -337,20 +337,20 @@ void ACLEditor::addToolTipsWhatsThis() {
 						"the effective permissions of users."));
 	qcbACLApplyHere->setToolTip(tr("Entry should apply to this channel"));
 	qcbACLApplyHere->setWhatsThis(tr("This makes the entry apply to this channel."));
-	qcbACLApplySubs->setToolTip(tr("Entry should apply to subchannels."));
-	qcbACLApplySubs->setWhatsThis(tr("This makes the entry apply to subchannels of this channel."));
+	qcbACLApplySubs->setToolTip(tr("Entry should apply to sub-channels."));
+	qcbACLApplySubs->setWhatsThis(tr("This makes the entry apply to sub-channels of this channel."));
 	qcbACLGroup->setToolTip(tr("Group this entry applies to"));
 	qcbACLGroup->setWhatsThis(tr("This controls which group of users this entry applies to.<br />Note that the group is evaluated "
 							"in the context of the channel the entry is used in. For example, the default ACL on the Root "
 							"channel gives <i>Write</i> permission to the <i>admin</i> group. This entry, if inherited by a "
 							"channel, will give a user write privileges if he belongs to the <i>admin</i> group in that channel, "
 							"even if he doesn't belong to the <i>admin</i> group in the channel where the ACL originated.<br />"
-							"If a groupname starts with a !, it's membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than "
+							"If a group name starts with a !, its membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than "
 							"the channel the ACL is active in. Order is important; <i>!~in</i> is valid, but <i>~!in</i> is not.<br />"
 							"A few special predefined groups are:<br />"
 							"<b>all</b> - Everyone will match.<br />"
 							"<b>auth</b> - All authenticated users will match.<br />"
-							"<b>sub,a,b,c</b> - User currently in a subchannel minimum <i>a</i> common parents, and between <i>b</i> and <i>c</i> channels down the chain. "
+							"<b>sub,a,b,c</b> - User currently in a sub-channel minimum <i>a</i> common parents, and between <i>b</i> and <i>c</i> channels down the chain. "
 							"See the website for more extensive documentation on this one.<br />"
 							"<b>in</b> - Users currently in the channel will match (convenience for <i>sub,0,0,0</i>).<br />"
 							"<b>out</b> - Users outside the channel will match (convenience for <i>!sub,0,0,0</i>).<br />"
@@ -380,9 +380,9 @@ void ACLEditor::addToolTipsWhatsThis() {
 	qcbGroupInherit->setToolTip(tr("Inherit group members from parent"));
 	qcbGroupInherit->setWhatsThis(tr("This inherits all the members in the group from the parent, if the group is marked as "
 							"<i>Inheritable</i> in the parent channel."));
-	qcbGroupInheritable->setToolTip(tr("Make group inheritable to subchannels"));
-	qcbGroupInheritable->setWhatsThis(tr("This makes this group inheritable to subchannels. If the group is non-inheritable, "
-							"subchannels are still free to create a new group with the same name."));
+	qcbGroupInheritable->setToolTip(tr("Make group inheritable to sub-channels"));
+	qcbGroupInheritable->setWhatsThis(tr("This makes this group inheritable to sub-channels. If the group is non-inheritable, "
+							"sub-channels are still free to create a new group with the same name."));
 	qcbGroupInherited->setToolTip(tr("Group was inherited from parent channel"));
 	qcbGroupInherited->setWhatsThis(tr("This indicates that the group was inherited from the parent channel. You cannot edit "
 							"this flag, it's just for information."));

@@ -105,7 +105,7 @@ DXAudioInput::DXAudioInput() {
 	}
 
 	if (failed)
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. Default device will be used."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	qWarning("DXAudioInput: Initialized");
 }

@@ -52,7 +52,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbEnable = new QCheckBox(tr("Enable Overlay"));
 	qcbEnable->setObjectName("Enable");
 	qcbEnable->setToolTip(tr("Enable overlay."));
-	qcbEnable->setWhatsThis(tr("This sets whether the overlay is enabled or not. This settings is "
+	qcbEnable->setWhatsThis(tr("This sets whether the overlay is enabled or not. This setting is "
 							"only checked with D3D9 applications are started, so make sure Mumble "
 							"is running and this option is on before you start the application.<br />"
 							"Please note that if you start the application after starting Mumble, "
@@ -69,7 +69,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	lab = new QLabel(tr("Show"));
 	lab->setBuddy(qcbShow);
 	qcbShow->setToolTip(tr("Who to show on the overlay"));
-	qcbShow->setWhatsThis(tr("<b>This sets who to show in the ingame overlay.</b><br />"
+	qcbShow->setWhatsThis(tr("<b>This sets who to show in the in-game overlay.</b><br />"
 			"If many people are connected to the same channel, the overlay list might be "
 			"very long. Use this to shorten it.<br />"
 			"<i>No one</i> - Don't show anyone (but leave overlay running).<br />"
@@ -173,7 +173,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qsMaxWidth->setObjectName("MaxWidth");
 	qsMaxWidth->setToolTip(tr("Maximum width of names."));
 	qsMaxWidth->setWhatsThis(tr("This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line "
-							"of text will be wider than it is high. At 500%, no line will be more than 5 times wider than it's height, "
+							"of text will be wider than it is high. At 500%, no line will be more than 5 times wider than its height, "
 							"and so on."));
 	qsMaxWidth->setRange(100, 5000);
 	qsMaxWidth->setSingleStep(10);

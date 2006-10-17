@@ -338,7 +338,7 @@ DXAudioOutput::DXAudioOutput() {
 	}
 
 	if (failed)
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. Using defaults."), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Output failed. Default device will be used."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
 	if (p3DListener)

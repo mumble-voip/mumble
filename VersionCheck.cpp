@@ -72,7 +72,7 @@ void VersionCheck::on_Agent_requestFinished(int id, bool error) {
 		if (a.size() > 0)
 			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), a, QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	} else {
-			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Failed to retrieve version information from server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
+			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Mumble failed to retrieve version information from the SourceForge server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	}
 	deleteLater();
 }

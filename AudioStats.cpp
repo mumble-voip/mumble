@@ -360,7 +360,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 								));
 	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
 	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) of the speakers. Unless you "
-								"are using a multichannel sampling method (such as ASIO) with speaker channels "
+								"are using a multi-channel sampling method (such as ASIO) with speaker channels "
 								"configured, this will be 0. If you have such a setup configured, and this still "
 								"shows 0 while you're playing audio from other programs, your setup is not working."));
 	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
@@ -369,7 +369,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 								"-60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this "
 								"should rise to somewhere between -5 and -10 dB.<br />"
 								"If you are using echo cancellation, and this rises to more than -15 dB when you're not "
-								"talking, your setup is not working, and you'll annoy other players with echos."));
+								"talking, your setup is not working, and you'll annoy other players with echoes."));
 	qlMicVolume->setToolTip(tr("How close the current input level is to ideal"));
 	qlMicVolume->setWhatsThis(tr("This shows how close your current input volume is to the ideal. To adjust your "
 								 "microphone level, open whatever program you use to adjust the recording volume, "
@@ -387,9 +387,9 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qlSpeechProb->setToolTip(tr("Probability of speech"));
 	qlSpeechProb->setWhatsThis(tr("This is the probability that the last frame (20 ms) was speech and not environment noise.<br />"
 								  "Voice activity transmission depends on this being right. The trick with this is that the middle "
-								  "of a sentence is always detected as speech, the problem is the pauses between words and the "
+								  "of a sentence is always detected as speech; the problem is the pauses between words and the "
 								  "start of speech. It's hard to distinguish a sigh from a word starting with 'h'.<br />"
-								  "If this is in bold font, that means Mumble is currently transmitting (if you're connected)."));
+								  "If this is in bold font, it means Mumble is currently transmitting (if you're connected)."));
 	qlBitrate->setToolTip(tr("Bitrate of last frame"));
 	qlBitrate->setWhatsThis(tr("This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down "
 							   "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
@@ -400,7 +400,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 							  "(filled blue).<br />"
 							  "All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise "
 							  "is present in each waveband).<br />"
-							  "This is probably only of interest if you're trying to finetune noise conditions on your microphone. "
+							  "This is probably only of interest if you're trying to fine-tune noise conditions on your microphone. "
 							  "Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than "
 							  "halfway up on the graph, you have a seriously noisy environment."));
 
@@ -417,7 +417,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 								  "echo cancellation algorithms.<br />"
 								  "Please note: If the entire image fluctuates massively while in modulus mode, "
 								  "the echo canceller fails to find any correlation whatsoever between the two input "
-								  "sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is misconfigured."
+								  "sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong."
 								  ));
 	}
 

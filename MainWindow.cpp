@@ -80,9 +80,9 @@ void MainWindow::createActions() {
 	qaServerDisconnect->setWhatsThis(tr("Disconnects you from the server."));
 	qaServerDisconnect->setObjectName("ServerDisconnect");
 	qaServerDisconnect->setEnabled(false);
-	qaServerBanList=new QAction(tr("&Banlists"), this);
-	qaServerBanList->setToolTip(tr("Edit banlists on server"));
-	qaServerBanList->setWhatsThis(tr("This lets you edit the serverside IP banlists."));
+	qaServerBanList=new QAction(tr("&Ban lists"), this);
+	qaServerBanList->setToolTip(tr("Edit ban lists on server"));
+	qaServerBanList->setWhatsThis(tr("This lets you edit the server-side IP ban lists."));
 	qaServerBanList->setObjectName("ServerBanList");
 	qaServerBanList->setEnabled(false);
 
@@ -113,11 +113,11 @@ void MainWindow::createActions() {
 	qaChannelAdd=new QAction(tr("&Add"), this);
 	qaChannelAdd->setObjectName("ChannelAdd");
 	qaChannelAdd->setToolTip(tr("Add new channel"));
-	qaChannelAdd->setWhatsThis(tr("This adds a new subchannel to the currently selected channel."));
+	qaChannelAdd->setWhatsThis(tr("This adds a new sub-channel to the currently selected channel."));
 	qaChannelRemove=new QAction(tr("&Remove"), this);
 	qaChannelRemove->setObjectName("ChannelRemove");
 	qaChannelRemove->setToolTip(tr("Remove channel"));
-	qaChannelRemove->setWhatsThis(tr("This removes a channel and all subchannels."));
+	qaChannelRemove->setWhatsThis(tr("This removes a channel and all sub-channels."));
 	qaChannelACL=new QAction(tr("&Edit ACL"), this);
 	qaChannelACL->setObjectName("ChannelACL");
 	qaChannelACL->setToolTip(tr("Edit Groups and ACL for channel"));
@@ -140,7 +140,7 @@ void MainWindow::createActions() {
 	qaAudioReset=new QAction(tr("&Reset"), this);
 	qaAudioReset->setObjectName("AudioReset");
 	qaAudioReset->setToolTip(tr("Reset audio preprocessor"));
-	qaAudioReset->setWhatsThis(tr("Resets the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. "
+	qaAudioReset->setWhatsThis(tr("This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. "
 									"If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, "
 									"use this to avoid having to wait for the preprocessor to readjust."));
 	qaAudioMute=new QAction(tr("&Mute Self"), this);
@@ -160,7 +160,7 @@ void MainWindow::createActions() {
 	qaAudioTTS->setCheckable(true);
 	qaAudioTTS->setChecked(g.qs->value("TextToSpeech", true).toBool());
 	qaAudioTTS->setToolTip(tr("Toggle Text-To-Speech"));
-	qaAudioTTS->setWhatsThis(tr("Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Config dialog will actually be spoken."));
+	qaAudioTTS->setWhatsThis(tr("Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken."));
 	qaAudioStats=new QAction(tr("S&tatistics"), this);
 	qaAudioStats->setObjectName("AudioStats");
 	qaAudioStats->setToolTip(tr("Display audio statistics"));
@@ -226,7 +226,7 @@ void MainWindow::setupGui()  {
 	qmPlayer = new QMenu(tr("&Player"), this);
 	qmChannel = new QMenu(tr("&Channel"), this);
 	qmAudio = new QMenu(tr("&Audio"), this);
-	qmConfig = new QMenu(tr("C&onfig"), this);
+	qmConfig = new QMenu(tr("C&onfigure"), this);
 	qmHelp = new QMenu(tr("&Help"), this);
 
 	qmServer->setObjectName("ServerMenu");
@@ -574,7 +574,7 @@ void MainWindow::on_ChannelRemove_triggered()
 	if (! c)
 		return;
 
-	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1 and all it's subchannels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
 
 	if (ret == QMessageBox::Yes ) {
 		MessageChannelRemove mcr;
@@ -651,7 +651,7 @@ void MainWindow::on_AudioMute_triggered()
 	if (! g.s.bMute && g.s.bDeaf) {
 		g.s.bDeaf = false;
 		qaAudioDeaf->setChecked(false);
-		g.l->log(Log::SelfMute, tr("Un-muted and undeafened."));
+		g.l->log(Log::SelfMute, tr("Unmuted and undeafened."));
 	} else if (! g.s.bMute) {
 		g.l->log(Log::SelfMute, tr("Unmuted."));
 	} else {

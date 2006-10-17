@@ -127,7 +127,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsTransmitHold->setToolTip(tr("How long to keep transmitting after silence"));
 	qsTransmitHold->setWhatsThis(tr("<b>This selects how long after a perceived stop in speech transmission should continue.</b><br />"
-			"Set this higher if your voice breaks up when you speak (seen by a rapidly strobing voice icon next to your name).<br />"
+			"Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).<br />"
 			"Only makes sense when used with Voice Activity transmission."));
 
 	grid->addWidget(l, 1, 0);
@@ -262,11 +262,11 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 			"Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.<br />"
 			"The actual level is continually updated based on your current speech pattern, but it will never go "
 			"above the level specified here.<br />"
-			"If the Mic Volume level of the audio statistics hover around 100%, you probably want to set this to 2.0 "
+			"If the <i>Microphone loudness</i> level of the audio statistics hover around 100%, you probably want to set this to 2.0 "
 			"or so, but if, like most people, you are unable to reach 100%, set this to something much higher.<br />"
-			"Ideally, set it so <i>Mic Volume * Amplification Factor >= 100</i>, even when you're speaking really soft.<br /><br />"
+			"Ideally, set it so <i>Microphone Loudness * Amplification Factor >= 100</i>, even when you're speaking really soft.<br /><br />"
 			"Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations "
-			"if you leave it to autotune to that level."
+			"if you leave it to auto-tune to that level."
 			));
 
 	grid->addWidget(l, 2, 0);

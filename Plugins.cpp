@@ -66,9 +66,9 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	qcbTransmit = new QCheckBox(tr("Link to Game and Transmit Position"));
 	qcbTransmit->setChecked(g.s.bTransmitPosition);
 	qcbTransmit->setToolTip(tr("Enable plugins and transmit positional information"));
-	qcbTransmit->setWhatsThis(tr("This enables plugins for supported games to fetch your ingame position "
+	qcbTransmit->setWhatsThis(tr("This enables plugins for supported games to fetch your in-game position "
 								"and transmit that with each voice packet. This enables other players to "
-								"hear your voice ingame from the direction your character is in relation "
+								"hear your voice in-game from the direction your character is in relation "
 								"to their own."));
 	grid->addWidget(qcbTransmit, 0, 0);
 	qgbOptions->setLayout(grid);
@@ -85,7 +85,7 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	aboutButton->setObjectName("About");
 	aboutButton->setToolTip(tr("Information about plugin"));
 	aboutButton->setWhatsThis(tr("This shows a small information message about the plugin."));
-	QPushButton *configButton=new QPushButton(tr("&Config"));
+	QPushButton *configButton=new QPushButton(tr("&Configure"));
 	configButton->setObjectName("Config");
 	configButton->setToolTip(tr("Show configuration page of plugin"));
 	configButton->setWhatsThis(tr("This shows the configuration page of the plugin, if any."));
@@ -131,7 +131,7 @@ void PluginConfig::on_Config_clicked() {
 	if (pi->p->config)
 		pi->p->config(winId());
 	else
-		QMessageBox::information(this, tr("Mumble"), tr("Plugin has no config function"), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::information(this, tr("Mumble"), tr("Plugin has no configure function."), QMessageBox::Ok, QMessageBox::NoButton);
 }
 
 void PluginConfig::on_About_clicked() {
@@ -143,7 +143,7 @@ void PluginConfig::on_About_clicked() {
 	if (pi->p->about)
 		pi->p->about(winId());
 	else
-		QMessageBox::information(this, tr("Mumble"), tr("Plugin has no about function"), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::information(this, tr("Mumble"), tr("Plugin has no about function."), QMessageBox::Ok, QMessageBox::NoButton);
 }
 
 void PluginConfig::on_Reload_clicked() {

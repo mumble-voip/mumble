@@ -48,7 +48,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	text->setText(tr(
 		"<h3>Mumble v0.9.4</h3>"
 		"<p>Copyright 2005-2006 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
-		"<p><b>A voicechat utility for gamers</b></p>"
+		"<p><b>A voice-chat utility for gamers</b></p>"
 		"<p><tt>http://mumble.sourceforge.net/</tt></p>"
 	));
 	QHBoxLayout *qhbl=new QHBoxLayout();

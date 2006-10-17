@@ -137,7 +137,7 @@ GlobalShortcutXConfig::GlobalShortcutXConfig(QWidget *p) : ConfigWidget(p) {
                 dikw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
                 dikw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
                                                         "Click this field and then the desired key combo "
-                                                        "to rebind. Doubleclick to clear.").arg(gs->name));
+                                                        "to rebind. Double-click to clear.").arg(gs->name));
                 qhKeys[gs]=dikw;
                 i++;
         }
@@ -242,7 +242,7 @@ void GlobalShortcutX::remap() {
   qmhKeyToShortcut.clear();
 
   foreach(GlobalShortcut *gs, qmShortcuts) {
-    
+
     QString base=QString("GS%1_").arg(gs->idx);
     QList<int> buttons;
     int nbuttons = g.qs->value(base + QString("num"), 0).toInt();
@@ -299,7 +299,7 @@ void GlobalShortcutX::run() {
 	case KeyRelease:
 	  {
 	    bool down = (evt.type == KeyPress);
-	    
+
 	    if (down == activeMap[evt.xkey.keycode])
 	      break;
        	    activeMap[evt.xkey.keycode] = down;
@@ -324,7 +324,7 @@ void GlobalShortcutX::run() {
 	      }
 	    }
 	  }
-	  
+
 	  break;
 	default:
 	  qWarning("GlobalShortcutX: EVT %x", evt.type);
