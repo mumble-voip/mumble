@@ -109,13 +109,15 @@ void DirectInputKeyWidget::displayKeys() {
 	QStringList keys;
 
 	foreach(qpButton button, qlButtons) {
-		QString device=QString("O:");
+		QString device=QString::number(button.first.Data1,16) + ":";
 		QString name=QString("Unknown");
+		InputDevice *id = gsw->qhInputDevices[button.first];
 		if (button.first == GUID_SysMouse)
 			device=QString("M:");
 		else if ((button.first == GUID_SysKeyboard) || (button.first.Data1 == 0))
 			device=QString("K:");
-		InputDevice *id = gsw->qhInputDevices[button.first];
+		else if (id)
+			device=id->name+":";
 		if (id) {
 			name=id->qhNames[button.second];
 		}
@@ -231,6 +233,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	QString sname = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszInstanceName));
 
 	InputDevice *id = new InputDevice;
+	id->name = name;
 	id->guid = pdidi->guidInstance;
 
 	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, NULL)))
@@ -280,6 +283,8 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 
         if(FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
         	qFatal("GlobalShortcutWin::SetProperty");
+
+		qWarning("Adding device %s %s %s:%d", qPrintable(QUuid(id->guid).toString()),qPrintable(name),qPrintable(sname),id->qhNames.count());
 
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
@@ -401,9 +406,9 @@ void GlobalShortcutWin::timeTicked() {
 			if (!bIgnoreActive) {
 				if (rgdod[j].dwData & 0x80) {
 					gsw->iButtonsDown++;
-					id->activeMap[rgdod[j].dwOfs] = true;
+					id->activeMap.insert(rgdod[j].dwOfs);
 					pressed = true;
-				} else if (id->activeMap[rgdod[j].dwOfs]) {
+				} else if (id->activeMap.contains(rgdod[j].dwOfs)) {
 					gsw->iButtonsDown--;
 					if (gsw->iButtonsDown == 0)
 						pressed = true;
@@ -449,8 +454,7 @@ void GlobalShortcutWin::timeTicked() {
 
 void GlobalShortcutWin::resetMap() {
 	foreach(InputDevice *id, qhInputDevices) {
-		for(int i=0;i<256;i++)
-			id->activeMap[i]=false;
+		id->activeMap.clear();
 	}
 	bIgnoreActive = true;
 	iButtonsDown = 0;
@@ -459,10 +463,8 @@ void GlobalShortcutWin::resetMap() {
 QList<qpButton> GlobalShortcutWin::getCurrentButtons() {
 	QList<qpButton> buttons;
 	foreach(InputDevice *id, qhInputDevices) {
-		foreach(DWORD ofs, id->qhTypeToOfs) {
-			if (id->activeMap[ofs]) {
-				buttons << qpButton(id->guid, id->qhOfsToType[ofs]);
-			}
+		foreach(DWORD ofs, id->activeMap) {
+			buttons << qpButton(id->guid, id->qhOfsToType[ofs]);
 		}
 	}
 	return buttons;

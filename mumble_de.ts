@@ -65,7 +65,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="90"/>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished">Betrifft Unterkanäle</translation>
+        <translation>Betrifft Unterkanäle</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="109"/>
@@ -150,7 +150,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="245"/>
         <source>This button will cancel all changes and closes the dialog without updating the ACLs or groups on the server.</source>
-        <translation type="unfinished">Dieser Button macht alle Änderungen rückgängig und schließt den Dialog ohne ACLs oder Gruppen auf dem Server zu aktualisieren. </translation>
+        <translation>Dieser Button macht alle Änderungen rückgängig und schließt den Dialog ohne ACLs oder Gruppen auf dem Server zu aktualisieren.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="321"/>
@@ -170,7 +170,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="326"/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished">Dies legt fest ob ACL am Anfang der Kette von Elternkanälen betreffen dieses Object. Nur solche Einträge die in den Eltern als &quot;Betrifft Unterkanäle&quot; markiert sind, werden beerbt.</translation>
+        <translation>Dies legt fest ob ACL am Anfang der Kette von Elternkanälen dieses Objekt betrifft. Nur solche Einträge die in den Eltern als &quot;Betrifft Unterkanäle&quot; markiert sind, werden beerbt.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="327"/>
@@ -225,12 +225,12 @@
     <message>
         <location filename="ACLEditor.cpp" line="340"/>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished">Eintrag sollte Unterkanäle betreffen.</translation>
+        <translation>Eintrag sollte Unterkanäle betreffen.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="341"/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation type="unfinished">Dies lässt den Eintrag Unterkanäle des Kanals betreffen.</translation>
+        <translation>Dies lässt den Eintrag Unterkanäle des Kanals betreffen.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="342"/>
@@ -240,7 +240,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="357"/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a !, its membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished">Dies kontrolliert welche Gruppe von Nutzern dieser Eintrag betrifft.&lt;br /&gt;Die Gruppen werden im Kontext des Kanals ausgewertet in dem sich der Eintrag befindet. Zum Beispiel gibt der Standard ACL in den Wurzelkanälen &lt;i&gt;Schreib&lt;/i&gt;-Rechte der &lt;i&gt;Admin&lt;/i&gt;-Gruppe. Dieser Eintrag gibt den Nutzern - wenn von einem Kanal geerbt - Schreibrecht, wenn er zur Gruppe der &lt;i&gt;Admin&lt;/i&gt;s in diesem Kanal gehört, selbst wenn er nicht zu der &lt;i&gt;Admin&lt;/i&gt;-Gruppe gehört woher der ACL eigentlich stammt.&lt;br /&gt;Beginnt ein Gruppenname mit einem &quot;!&quot;, wird die Mitgliedschaft negiert und wenn es mit einem &quot;~&quot; beginnt, wird es in dem Kanal ausgewertet in dem die ACL definiert wurde. Die Reihenfolge ist wichtig; &lt;i&gt;!~in&lt;/i&gt; ist gültig, &lt;i&gt;~!in&lt;/i&gt; jedoch nicht. Einige wenige spezielle vordefinierte Gruppen sind: &lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Jeder trifft zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle authentifizierten Nutzer treffen zu.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Nutzer im Channel treffen zu.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Nutzer außerhalb des Kanals treffen zu.&lt;br /&gt;Ein Eintrag trifft dabei entweder auf einen Nutzer oder eine Gruppe zu, nicht auf beide.</translation>
+        <translation>Dies kontrolliert welche Gruppe von Nutzern dieser Eintrag betrifft.&lt;br /&gt;Die Gruppen werden im Kontext des Kanals ausgewertet in dem sich der Eintrag befindet. Zum Beispiel gibt der Standard ACL in den Wurzelkanälen &lt;i&gt;Schreib&lt;/i&gt;-Rechte der &lt;i&gt;Admin&lt;/i&gt;-Gruppe. Dieser Eintrag gibt den Nutzern - wenn von einem Kanal geerbt - Schreibrecht, wenn er zur Gruppe der &lt;i&gt;Admin&lt;/i&gt;s in diesem Kanal gehört, selbst wenn er nicht zu der &lt;i&gt;Admin&lt;/i&gt;-Gruppe gehört woher der ACL eigentlich stammt.&lt;br /&gt;Beginnt ein Gruppenname mit einem &quot;!&quot;, wird die Mitgliedschaft negiert und wenn es mit einem &quot;~&quot; beginnt, wird es in dem Kanal ausgewertet in dem die ACL definiert wurde. Die Reihenfolge ist wichtig; &lt;i&gt;!~in&lt;/i&gt; ist gültig, &lt;i&gt;~!in&lt;/i&gt; jedoch nicht. Einige wenige spezielle vordefinierte Gruppen sind: &lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Jeder trifft zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle authentifizierten Nutzer treffen zu.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Nutzer im Channel treffen zu.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Nutzer außerhalb des Kanals treffen zu.&lt;br /&gt;Ein Eintrag trifft dabei entweder auf einen Nutzer oder eine Gruppe zu, nicht auf beide.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="358"/>
@@ -305,12 +305,12 @@
     <message>
         <location filename="ACLEditor.cpp" line="383"/>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished">Gruppe zu Unterkanal vererbbar machen</translation>
+        <translation>Gruppe zu Unterkanal vererbbar machen</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="385"/>
         <source>This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished">Dies macht die Gruppe zu Unterkanälen vererbbar. Ist die Gruppe nicht-vererbbar, können Unterkanäle Gruppen mit demselben Namen erstellen.</translation>
+        <translation>Dies macht die Gruppe zu Unterkanälen vererbbar. Ist die Gruppe nicht-vererbbar, können Unterkanäle Gruppen mit demselben Namen erstellen.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="386"/>
@@ -345,7 +345,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="45"/>
         <source>Mumble - Edit ACL for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - ACL von %1 editieren</translation>
     </message>
 </context>
 <context>
@@ -373,7 +373,7 @@
     <message>
         <location filename="ASIOInput.cpp" line="121"/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &quot;What you hear&quot;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &quot;Mic L&quot; while Speaker should be &quot;Mix L&quot; and &quot;Mix R&quot;</source>
-        <translation type="unfinished">Dies konfiguriert die Eingangskanäle für ASIO. Es muss sichergestellt werden, dass wenigstens ein Kanal als Mikrofon und Lautsprecher ausgewählt wurde. &lt;br /&gt;Eine gute Auswahl für eine Audigy 2 ZS wäre für Mikrofon &quot;Mic L&quot;, während es für die Lautsprecher &quot;Mix L&quot; und &quot;Mix R&quot; sein sollte</translation>
+        <translation>Dies konfiguriert die Eingangskanäle für ASIO. Es muss sichergestellt werden, dass wenigstens ein Kanal als Mikrofon und Lautsprecher ausgewählt wurde. &lt;br /&gt;Eine gute Auswahl für eine Audigy 2 ZS wäre für Mikrofon &quot;Mic L&quot;, während es für die Lautsprecher &quot;Mix L&quot; und &quot;Mix R&quot; sein sollte</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="125"/>
@@ -488,12 +488,12 @@
     <message>
         <location filename="ASIOInput.cpp" line="130"/>
         <source>&amp;Query</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Abfragen</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="137"/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Konfigurieren</translation>
     </message>
 </context>
 <context>
@@ -519,7 +519,7 @@
     <message>
         <location filename="About.cpp" line="53"/>
         <source>&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Deutsche Übersetzung von Matthias Vogelgesang&lt;br /&gt; m0ta@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Voicechat-Programm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Deutsche Übersetzung von Matthias Vogelgesang&lt;br /&gt; m0ta@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Voicechat-Programm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="About.cpp" line="59"/>
@@ -645,7 +645,7 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="131"/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</source>
-        <translation type="unfinished">&lt;b&gt;Dies wählt aus, wie lange nach Beenden der Sprache noch übertragen werden soll.&lt;/b&gt;&lt;br /&gt;Höhere Werte nutzen, wenn die Stimme plötzlich abbricht wenn man spricht (erkennbar an einem flackerndem Voice-Icon neben dem Namen).&lt;br /&gt;Dies ist nur bei Stimmaktivierungs-Übertragung sinnvoll.</translation>
+        <translation>&lt;b&gt;Dies wählt aus, wie lange nach Beenden des Gesprächs noch übertragen werden soll.&lt;/b&gt;&lt;br /&gt;Höhere Werte nutzen, wenn die Stimme plötzlich abbricht (erkennbar an einem flackerndem Voice-Icon neben dem Namen).&lt;br /&gt;Dies ist nur bei Stimmaktivierungs-Übertragung sinnvoll.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="144"/>
@@ -750,7 +750,7 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="270"/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished">&lt;b&gt;Maximale Verstärkung des Eingangs.&lt;/b&gt;&lt;br /&gt;Mumble normalisiert die Eingangslautstärke vor der Kompression, wobei dies einstellt wie stark verstärkt werden darf.&lt;br /&gt;Der tatsächliche Level wird kontinuierlich vom Sprachmuster abhängig aktualisiert, aber niemals höher als hier festgelegt.&lt;br /&gt;Wenn das Mikrofonlautstärkelevel in den Audiostatistiken um 100% liegt, sollte man dies auf 2.0 setzenm für Leute die dies kaum erreichen, muss es deutlich höher angesetzt werden.&lt;br /&gt;Idealerweise sollte es so gesetzt werden: &lt;i&gt;Mikrofon Lautstärke * Verstärkungsfaktor &gt;= 100&lt;/i&gt;, selbst wenn man wirklich leise spricht.&lt;br /&gt;Es ist nicht schädlich dies auf das Maximum zu setzen, aber Mumble wird auch andere Gespräche aufnehmen.</translation>
+        <translation>&lt;b&gt;Maximale Verstärkung des Eingangs.&lt;/b&gt;&lt;br /&gt;Mumble normalisiert die Eingangslautstärke vor der Kompression, wobei dies einstellt wie sehr verstärkt werden darf.&lt;br /&gt;Der tatsächliche Level wird kontinuierlich, vom Sprachmuster abhängig, aktualisiert; allerdings nie höher als hier festgelegt.&lt;br /&gt;Wenn die Mikrofonlautstärke in den Audiostatistiken um 100% liegt, sollte man dies auf 2.0 setzen. Für Leute die dies kaum erreichen, muss es deutlich höher angesetzt werden.&lt;br /&gt;Idealerweise sollte es folgendermaßen gesetzt werden: &lt;i&gt;Mikrofon Lautstärke * Verstärkungsfaktor &gt;= 100&lt;/i&gt;, selbst wenn man wirklich leise spricht.&lt;br /&gt;Es ist nicht schädlich dies auf das Maximum zu setzen, aber Mumble wird auch Umgebungsgeräusche aufnehmen.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="288"/>
@@ -833,12 +833,12 @@
     <message>
         <location filename="AudioStats.cpp" line="365"/>
         <source>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
-        <translation type="unfinished">Dies zeigt die Spitzenpower im letzten Frame (20ms) des Lautsprechers an. Solange keine Multikanal Sampling Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Hat man solch ein Setup konfiguriert und der Wert ist trotzdem 0 während man Klänge von anderen Programmen abspielt, arbeit das Setup nicht korrekt.</translation>
+        <translation>Dies zeigt die Spitzenpower im letzten Frame (20ms) des Lautsprechers an. Solange keine Multikanal Sampling Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Hat man solch ein Setup konfiguriert und der Wert ist trotzdem 0 während man Klänge von anderen Programmen abspielt, arbeit das Setup nicht korrekt.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="372"/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echoes.</source>
-        <translation type="unfinished">Dies zeigt die Spitzenpower im letzten Frame (20ms) nach dem Processing an. Im Idealfall sollte dies -96 dB betragen, wann man nicht spricht. Die Realität zeigt, dass man in einem Tonstudio etwa -60 dB und zuhause -20 dB erwarten kann. When man spricht, sollte dies bis auf -5 bis -10 dB ansteigen.&lt;br /&gt;Nutzt man Echoauslöschung und der Wert steigt auf mehr als -15 dB wenn man nicht spricht, arbeitet das Setup nicht korrekt und man stört andere Spieler mit Echos.</translation>
+        <translation>Dies zeigt die Spitzenpower im letzten Frame (20ms) nach dem Processing an. Im Idealfall sollte dies -96 dB betragen, wann man nicht spricht. Die Realität zeigt, dass man in einem Tonstudio etwa -60 dB und zuhause -20 dB erwarten kann. When man spricht, sollte dies auf -5 bis -10 dB ansteigen.&lt;br /&gt;Nutzt man Echoauslöschung und der Wert steigt auf mehr als -15 dB wenn man nicht spricht, sind die Audioeinstellungen nicht korrekt und man stört andere Spieler mit Echos.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="373"/>
@@ -868,7 +868,7 @@
     <message>
         <location filename="AudioStats.cpp" line="392"/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation type="unfinished">Dies ist die Wahrscheinlichkeit, dass der letzte Frame (20ms) war Sprache und kein Umgebungsgeräusch.&lt;br /&gt;Die Stimmaktivierungserkennung hängt davon ab, wie es eingestellt ist. Der Trick ist, dass die Mitte eines Satzes immer als Sprache erkannt wird; problematisch sind Pausen zwischen Wörtern und der Anfang des Satzes.&lt;br /&gt;Ist dies fett geschrieben, bedeutet es, dass Mumble gerade übertragt (wenn man verbunden ist).</translation>
+        <translation>Dies ist die Wahrscheinlichkeit, dass der letzte Frame (20ms) Sprache und kein Umgebungsgeräusch war.&lt;br /&gt;Die Stimmaktivierungserkennung hängt davon ab, wie es eingestellt ist. Der Trick ist, dass die Mitte eines Satzes immer als Sprache erkannt wird; problematisch sind Pausen zwischen Wörtern und der Anfang des Satzes.&lt;br /&gt;Ist dies fett geschrieben, bedeutet dies, dass Mumble gerade übertragt (wenn man verbunden ist).</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="393"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="AudioStats.cpp" line="405"/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation type="unfinished">Dies zeigt das Powerspektrum des Eingangssignals (rote Linie) und die Geräuschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wieviel mehr Signal als Geräusch im Wellenband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Geräuschbedingungen des Mikrofones finetuned. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine schwierige Geräuschkulisse.</translation>
+        <translation>Dies zeigt das Powerspektrum des Eingangssignals (rote Linie) und die Geräuschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wieviel mehr Signal als Geräusch im Wellenband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Geräuschbedingungen des Mikrofones präzise einstellt. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine ungünstige Geräuschkulisse.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="408"/>
@@ -898,7 +898,7 @@
     <message>
         <location filename="AudioStats.cpp" line="421"/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished">Dies zeigt die Gewichte des Echoauslöschers, mit der Zeit auf der Y- und der Frequenz auf der X-Achse.&lt;br /&gt;Idealerweise sollte dies schwarz sein, was kein Echo bedeutet. Normalerweise hat man einen oder mehrere horizontale Streifen von blauer Farbe, die das zeitverzögerte Echo darstellen. Man sollte sehen, wie die Gewichte in Echtzeit aktualisiert werden.&lt;br /&gt;So lange man keine Echoquelle hat, wird man keine nützlichen Daten hier sehen, weshalb man etwas Musik abspielen sollte.&lt;br /&gt;Man kann zwischen Real- und Imaginäranteilen des Frequenzdomänen-Gewischte oder alternativ den berechneten Modulus und Phase auswählen. Am nützlichsten ist hierbei Modulus, was die Amplitude des Echos angibt und anzeigt wieviel vom ausgehenden Signal bei diesem Zeitschritt entfernt wird. Die anderen Ansichten sind nützlich für diejenigen die den Echoauslöschungs-Algorithmus finetunen wollen.&lt;br /&gt;Achtung: Wenn das Gesamtbild im Modulus-Modus massiv fluktuiert, kann der Echoauslöscher keine Korrelation zwischen den beiden Eingangsquellen (Lautsprecher und Mikrofon) finden. Entweder hat man eine lange Verzögerung des Echos oder eine der Eingangsquellen sind falsch konfiguriert.</translation>
+        <translation>Dies zeigt die Gewichte des Echoauslöschers, mit der Zeit auf der Y- und der Frequenz auf der X-Achse.&lt;br /&gt;Idealerweise sollte dies schwarz sein, was kein Echo bedeutet. Normalerweise hat man einen oder mehrere horizontale Streifen von blauer Farbe, die das zeitverzögerte Echo darstellen. Man sollte sehen, wie die Gewichte in Echtzeit aktualisiert werden.&lt;br /&gt;So lange man keine Echoquelle hat, wird man keine nützlichen Daten hier sehen, weshalb man etwas Musik abspielen sollte.&lt;br /&gt;Man kann zwischen Real- und Imaginäranteilen des Frequenzdomänen-Gewischte oder alternativ den berechneten Modulus und Phase auswählen. Am nützlichsten ist hierbei Modulus, was die Amplitude des Echos angibt und anzeigt wieviel vom ausgehenden Signal bei diesem Zeitschritt entfernt wird. Die anderen Ansichten sind nützlich für diejenigen die den Echoauslöschungs-Algorithmus finetunen wollen.&lt;br /&gt;Achtung: Wenn das Gesamtbild im Modulus-Modus massiv fluktuiert, kann der Echoauslöscher keine Korrelation zwischen den beiden Eingangsquellen (Lautsprecher und Mikrofon) herstellen. Entweder hat man eine lange Verzögerung des Echos oder eine der Eingangsquellen sind falsch konfiguriert.</translation>
     </message>
 </context>
 <context>
@@ -951,7 +951,7 @@
     <message>
         <location filename="BanEditor.cpp" line="37"/>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - Bans editieren</translation>
     </message>
 </context>
 <context>
@@ -1064,7 +1064,7 @@
     <message>
         <location filename="ACL.cpp" line="190"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation type="unfinished">Dies repräsentiert Rechte um den Channel zu durchlaufen. Wenn ein Benutzer dieses Privileg nicht hat, kann er auf keinen Kanal oder irgendeinen Unterkanal zugreifen, egal welche Rechte er in den Unterkanälen hat.</translation>
+        <translation>Dies repräsentiert Rechte um den Channel zu durchlaufen. Wenn ein Benutzer dieses Privileg nicht hat, kann er auf keinen Kanal oder Unterkanal zugreifen, egal welche Rechte er in den Unterkanälen hat.</translation>
     </message>
     <message>
         <location filename="ACL.cpp" line="193"/>
@@ -1079,7 +1079,7 @@
     <message>
         <location filename="ACL.cpp" line="201"/>
         <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation type="unfinished">Dies repräsentiert das Recht in einem Kanal mit belegter Sprache zu sprechen. Dies funktioniert genauso wie das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg, betrifft aber Pakete gesprochen mit Alt-Push-To-Talk. Es wird genutzt um Sprache in einer Hierarchie von Kanälen zu verbreiten ohne sie zu verbinden.</translation>
+        <translation>Dies repräsentiert das Recht in einem Kanal mit belegter Sprache zu sprechen. Dies funktioniert genauso wie das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg, betrifft aber Pakete gesprochen mit Alt-Push-To-Talk. Es wird genutzt um Sprache in einer Hierarchie von Kanälen zu verbreiten ohne sie zu verbinden.</translation>
     </message>
     <message>
         <location filename="ACL.cpp" line="204"/>
@@ -1094,7 +1094,7 @@
     <message>
         <location filename="ACL.cpp" line="212"/>
         <source>This represents the permission to make sub-channels. The player making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished">Dies repräsentiert das Recht Unterkanäle zu erstellen. Der Spieler der den Unterkanal erstellt, gehört automatisch zur Admingruppe des Kanals.</translation>
+        <translation>Dies repräsentiert das Recht Unterkanäle zu erstellen. Der Spieler der den Unterkanal erstellt, gehört automatisch zur Admingruppe des Kanals.</translation>
     </message>
     <message>
         <location filename="ACL.cpp" line="216"/>
@@ -1223,7 +1223,7 @@
     <message>
         <location filename="DXAudioInput.cpp" line="108"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
-        <translation type="unfinished">Öffnen des DirectSound Eingangsgerätes gescheitert. Standardeinstellungen werden benutzt.</translation>
+        <translation>Öffnen des DirectSound Eingangsgerätes gescheitert. Standardgerät wird benutzt.</translation>
     </message>
 </context>
 <context>
@@ -1246,7 +1246,7 @@
     <message>
         <location filename="DXAudioOutput.cpp" line="341"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
-        <translation type="unfinished">Öffnen des DirectSound Ausgabegerätes gescheitert. Standardeinstellungen werden benutzt.</translation>
+        <translation>Öffnen des DirectSound Ausgabegerätes gescheitert. Standardgerät wird benutzt.</translation>
     </message>
 </context>
 <context>
@@ -1289,7 +1289,7 @@
     <message>
         <location filename="DXConfigDialog.cpp" line="97"/>
         <source>This sets the output device to use, which is where you have connected your speakers or your headset.</source>
-        <translation type="unfinished">Dies legt das Ausgabegerät fest, welches mit Lautsprechern oder Headset verbunden ist.</translation>
+        <translation>Dies legt das Ausgabegerät fest, welches mit Lautsprechern oder Headset verbunden ist.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="98"/>
@@ -1304,7 +1304,7 @@
     <message>
         <location filename="DXConfigDialog.cpp" line="114"/>
         <source>Output Delay</source>
-        <translation type="unfinished">Asugabeverzögerung</translation>
+        <translation>Ausgabeverzögerung</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="119"/>
@@ -1314,7 +1314,7 @@
     <message>
         <location filename="DXConfigDialog.cpp" line="122"/>
         <source>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished">Dies legt die Menge an Daten fest, die für den DirectSound-Puffer vorgepuffert werden sollen. Es sollte der niedrigste Wert gewählt werden, der noch keinen Jitter im Sound produziert.</translation>
+        <translation>Dies legt die Menge an Daten fest, die für den DirectSound-Puffer vorgepuffert werden sollen. Es sollte der niedrigste Wert gewählt werden, der noch kein Knacken im Sound produziert.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="130"/>
@@ -1480,7 +1480,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="151"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
-        <translation type="unfinished">&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
+        <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
 </context>
 <context>
@@ -1488,27 +1488,27 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="156"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">Shortcuts</translation>
+        <translation>Abkürzungen</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="122"/>
         <source>Function</source>
-        <translation type="unfinished">Funktion</translation>
+        <translation>Funktion</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="124"/>
         <source>Shortcut</source>
-        <translation type="unfinished">Shortcut</translation>
+        <translation>Abkürzung</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="137"/>
         <source>Shortcut bound to %1.</source>
-        <translation type="unfinished">Shortcut an %1 gebunden.</translation>
+        <translation>Abkürzung an %1 gebunden.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="140"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Double-click to clear.</source>
-        <translation type="unfinished">&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
+        <translation>&lt;b&gt;Die globale Abkürzung ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
 </context>
 <context>
@@ -1521,92 +1521,92 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Log.cpp" line="146"/>
         <source>Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Debug</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="147"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Kritisch</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="148"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="149"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="150"/>
         <source>Server Connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Server verbunden</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="151"/>
         <source>Server Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Serververbindung abgebrochen</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="152"/>
         <source>Player Joined Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler betrat Server</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="153"/>
         <source>Player Left Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler verließ Server</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="154"/>
         <source>Player kicked (you or by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler gekickt (du oder von dir)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="155"/>
         <source>Player kicked</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler gekickt</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="156"/>
         <source>You self-muted/deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Selbst stumm-/taubgestellt</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="157"/>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Anderer stumm-/taubgestellt</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="158"/>
         <source>Player muted (you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler stummgestellt (dich)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="159"/>
         <source>Player muted (by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler stummgestellt (durch dich)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="160"/>
         <source>Player muted (other)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler stummgestellt (jemand anderes)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="161"/>
         <source>Player Joined Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler betrat Kanal</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="162"/>
         <source>Player Left Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieler verließ Kanal</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="164"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlaubnis verweigert</translation>
     </message>
 </context>
 <context>
@@ -1697,17 +1697,17 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="83"/>
         <source>&amp;Ban lists</source>
-        <translation type="unfinished">&amp;Banliste</translation>
+        <translation>&amp;Banliste</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="84"/>
         <source>Edit ban lists on server</source>
-        <translation type="unfinished">Banlisten auf Server editieren</translation>
+        <translation>Banlisten auf Server editieren</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="85"/>
         <source>This lets you edit the server-side IP ban lists.</source>
-        <translation type="unfinished">Dies lässt die serverseitige IP Banliste editieren.</translation>
+        <translation>Hierdurch lässt sich die serverseitige IP Banliste editieren.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="89"/>
@@ -1792,7 +1792,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="116"/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation type="unfinished">Dies fügt dem aktuell gewählten Kanal einen Unterkanal hinzu.</translation>
+        <translation>Dies fügt dem aktuell gewählten Kanal einen Unterkanal hinzu.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="117"/>
@@ -1807,7 +1807,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="120"/>
         <source>This removes a channel and all sub-channels.</source>
-        <translation type="unfinished">Dies entfernt einen Kanal und all seine Unterkanäle.</translation>
+        <translation>Dies entfernt einen Kanal und all seine Unterkanäle.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="121"/>
@@ -1882,7 +1882,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="145"/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation type="unfinished">Setzt den Audio-Präprozessor zurück, unter anderem Geräuschunterdrückung, automatisches Gain und Stimmaktivierungserkennung. Wenn etwas plötzlich die Audioumgebung verschlechtert (z.B. das Mikrofon fallen zu lassen), kann dies benutzt werden um den Präprozessor sofort neu auszurichten.</translation>
+        <translation>Setzt den Audio-Präprozessor zurück: unter anderem Geräuschunterdrückung, automatisches Gain und Stimmaktivierungserkennung. Wenn etwas plötzlich die Audioumgebung verschlechtert (z.B. das Mikrofon fallen lassen), kann dies benutzt werden um den Präprozessor sofort neu auszurichten.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="146"/>
@@ -1927,7 +1927,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="163"/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation type="unfinished">Text-To-Speech-Engine ein oder ausschalten. Nur Nachrichten die im Konfigurationsdialog entsprechend aktiviert sind werden tatsächlich gesprochen.</translation>
+        <translation>Text-To-Speech-Engine ein oder ausschalten. Nur Nachrichten die im Konfigurationsdialog entsprechend aktiviert sind werden tatsächlich gesprochen.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="164"/>
@@ -2017,7 +2017,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="192"/>
         <source>&amp;About Qt</source>
-        <translation type="unfinished">Über &amp;Qt</translation>
+        <translation>Über &amp;Qt</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="194"/>
@@ -2082,7 +2082,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="229"/>
         <source>C&amp;onfigure</source>
-        <translation type="unfinished">K&amp;onfiguration</translation>
+        <translation>K&amp;onfiguration</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="230"/>
@@ -2122,7 +2122,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="654"/>
         <source>Unmuted and undeafened.</source>
-        <translation type="unfinished">Stumm- und Taubstellen ausgeschalten.</translation>
+        <translation>Stumm- und Taubstellen ausgeschalten.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="656"/>
@@ -2277,7 +2277,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="1030"/>
         <source>%1 moved out by %2.</source>
-        <translation type="unfinished">%1 von %2 rausgeschoben.</translation>
+        <translation>%1 von %2 rausgeschoben.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1037"/>
@@ -2308,84 +2308,84 @@ der möglichen Orte initialisieren.</translation>
         <location filename="MainWindow.cpp" line="285"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Push-To-Talk</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="288"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Audio Prozessor zurücksetzen</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="292"/>
         <source>Toggle Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Selbst stummstellen umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="296"/>
         <source>Toggle Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Selbst taubstellen umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="304"/>
         <source>Force Center Position</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Erzwinge Mittelposition</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="309"/>
         <source>Chan Parent</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kanal Eltern</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="314"/>
         <source>Chan Sub#%1</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kanal Sub#%1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="319"/>
         <source>Chan All Subs</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kanal alle Subs</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="323"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Push-To-Mute</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="326"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kanal betreten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="330"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Overlay umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="335"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alt Push-To-Talk</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="300"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Plugin ausklinken</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="577"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sicher %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
 </context>
 <context>
@@ -2401,9 +2401,9 @@ der möglichen Orte initialisieren.</translation>
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the August 2006 updated version of DX9.0c</source>
-        <translation type="unfinished">Konnte Overlaybibliothek nicht laden. Dies bedeutet:
+        <translation>Konnte Overlaybibliothek nicht laden. Dies bedeutet:
 - Die Bibliothek (mumble_ol.dll) wurde nicht in dem Verzeichnis gefunden in dem mumble gestartet wurde
-- Es wird ein früheres OS als WinXP SP2 genutzt
+- Es wird ein älteres OS als WinXP SP2 genutzt
 - Die August 2006 Version von DX9.0c wurde nicht installiert</translation>
     </message>
 </context>
@@ -2437,7 +2437,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Overlay_win.cpp" line="60"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation type="unfinished">Dies legt fest ob das Overlay angeschalten ist oder nicht. Diese Einstellung ist nur aktiviert wenn D3D9-Anwendungen gestartet sind, somit muss sichergestellt werden, dass Mumble läuft und die Einstellungen gesetzt ist, bevor die Anwendung gestartet wurde.&lt;br /&gt;Achtung: Wird die Anwendung nach Mumble gestartet oder das Overlay während des Betriebs abgestellt, gibt es keinen sicheren Weg das Overlay wieder zu aktivieren außer die Anwendung neu zu starten.</translation>
+        <translation>Dies legt fest ob das Overlay angeschalten ist oder nicht. Diese Einstellung ist nur aktiviert wenn D3D9-Anwendungen gestartet sind, somit muss sichergestellt werden, dass Mumble läuft und die Einstellungen gesetzt ist, bevor die Anwendung gestartet wurde.&lt;br /&gt;Achtung: Wird die Anwendung nach Mumble gestartet oder das Overlay während des Betriebs abgestellt, gibt es keinen sicheren Weg das Overlay wieder zu aktivieren außer die Anwendung neu zu starten.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="65"/>
@@ -2467,7 +2467,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Overlay_win.cpp" line="77"/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation type="unfinished">&lt;b&gt;Dies legt fest, wer im Ingame-Overlay angezeigt wird.&lt;/b&gt;&lt;br /&gt;Falls viele Leute im selben Kanal sind, könnte die Overlayliste sehr lang werden. Mit diesen Einstellungen kann sie gekürzt werden.&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden an (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Leute.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige jeden an.</translation>
+        <translation>&lt;b&gt;Dies legt fest, wer im Ingame-Overlay angezeigt wird.&lt;/b&gt;&lt;br /&gt;Falls viele Leute im selben Kanal sind, könnte die Overlayliste sehr lang werden. Mit diesen Einstellungen kann sie gekürzt werden.&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden an (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Leute.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige jeden an.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="81"/>
@@ -2582,7 +2582,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Overlay_win.cpp" line="177"/>
         <source>This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than its height, and so on.</source>
-        <translation type="unfinished">Dies setzt die maximale Breite der angezeigten Namen relativ zur Höhe. Wird es auf 100% gesetzt, ist keine Zeile Text breiter als hoch. Bei 500%, ist keine Zeile mehr als fünf mal breiter als hoch.</translation>
+        <translation>Dies legt die maximale Breite der angezeigten Namen relativ zur Höhe fest. Wird es auf 100% gesetzt, ist keine Zeile Text breiter als hoch. Bei 500%, ist keine Zeile mehr als fünf mal breiter als hoch.</translation>
     </message>
     <message>
         <location filename="Overlay_win.cpp" line="187"/>
@@ -2660,12 +2660,12 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="PlayerModel.cpp" line="410"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="412"/>
         <source>Flags</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
 </context>
 <context>
@@ -2688,7 +2688,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Plugins.cpp" line="72"/>
         <source>This enables plugins for supported games to fetch your in-game position and transmit that with each voice packet. This enables other players to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation type="unfinished">Dies aktiviert Plugins für unterstützte Spiele, um Ingame-Positionen zu ermitteln und diese mit jedem Sprachpaket zu übertragen. Dies lässt andere Spieler die eigene Stimme aus der Richtung hören in der sich der Spielcharakter befindet.</translation>
+        <translation>Dies aktiviert Plugins für unterstützte Spiele, um Ingame-Positionen zu ermitteln und diese mit jedem Sprachpaket zu übertragen. Dies lässt andere Spieler die eigene Stimme aus der Richtung hören in der sich der sprechende Spielcharakter befindet.</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="81"/>
@@ -2728,7 +2728,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Plugins.cpp" line="134"/>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished">Plugin hat keine Konfigurationsfunktion.</translation>
+        <translation>Plugin hat keine Konfigurationsfunktion.</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="146"/>
@@ -2738,27 +2738,27 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Plugins.cpp" line="66"/>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit Spiel verbinden und Position übertragen</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="79"/>
         <source>&amp;Reload plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugins &amp;neuladen</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="84"/>
         <source>&amp;About</source>
-        <translation type="unfinished">Ü&amp;ber</translation>
+        <translation>Ü&amp;ber</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="88"/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Konfigurieren</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="146"/>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished">Plugin hat keine Über-Funktion.</translation>
+        <translation>Plugin hat keine Über-Funktion.</translation>
     </message>
 </context>
 <context>
@@ -2809,7 +2809,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="VersionCheck.cpp" line="75"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation type="unfinished">Konnte Versionsinformation nicht vom Server ermitteln.</translation>
+        <translation>Konnte Versionsinformation nicht vom SourceForge-Server ermitteln.</translation>
     </message>
 </context>
 <context>
@@ -2817,7 +2817,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="63"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished">Shortcut drücken</translation>
+        <translation>Shortcut drücken</translation>
     </message>
 </context>
 </TS>

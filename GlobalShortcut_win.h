@@ -62,7 +62,7 @@ struct InputDevice {
 	QMultiHash<DWORD, Shortcut *> qmhOfsToShortcut;
 
 	// Buttons active since last reset
-	unsigned char activeMap[256];
+	QSet<DWORD> activeMap;
 };
 
 class DirectInputKeyWidget : public QLineEdit {
