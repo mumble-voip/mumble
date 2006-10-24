@@ -52,7 +52,6 @@ class ServerHandler : public QThread
 		QString qsUserName;
 		QString qsPassword;
 		int iPort;
-		bool bUdp;
 		Connection *cConnection;
 
 		QHostAddress qhaRemote;
@@ -60,9 +59,9 @@ class ServerHandler : public QThread
 	public:
 		ServerHandler();
 		~ServerHandler();
-		void setConnectionInfo(QString host, int port, bool udp, QString username, QString pw);
+		void setConnectionInfo(QString host, int port, QString username, QString pw);
 		void customEvent(QEvent *evt);
-		void sendMessage(Message *m);
+		void sendMessage(Message *m, bool forceTCP=false);
 		void disconnect();
 		void run();
 	signals:

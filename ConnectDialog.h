@@ -50,7 +50,6 @@ class ConnectDialog : public QDialog {
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		int iPort;
-		bool bUdp;
 		ConnectDialog(QWidget *parent);
 };
 

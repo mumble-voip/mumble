@@ -61,21 +61,21 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	QItemSelectionModel *selectionModel = qlwServers->selectionModel();
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
 
-	qleName=new QLineEdit(g.qs->value("ServerName", "").toString());
+	qleName=new QLineEdit();
 	lab=new QLabel(tr("&Name"));
 	lab->setBuddy(qleName);
 
 	l->addWidget(lab, 0, 1);
 	l->addWidget(qleName, 0, 2);
 
-	qleServer=new QLineEdit(g.qs->value("ServerAddress", "").toString());
+	qleServer=new QLineEdit();
 	lab=new QLabel(tr("A&ddress"));
 	lab->setBuddy(qleServer);
 
 	l->addWidget(lab, 1, 1);
 	l->addWidget(qleServer, 1, 2);
 
-	qlePort=new QLineEdit(g.qs->value("ServerPort", "64738").toString());
+	qlePort=new QLineEdit("64738");
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 	lab=new QLabel(tr("&Port"));
 	lab->setBuddy(qlePort);
@@ -83,14 +83,14 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	l->addWidget(lab, 2, 1);
 	l->addWidget(qlePort, 2, 2);
 
-	qleUsername=new QLineEdit(g.qs->value("ServerUsername", "").toString());
+	qleUsername=new QLineEdit();
 	lab=new QLabel(tr("&Username"));
 	lab->setBuddy(qleUsername);
 
 	l->addWidget(lab, 3, 1);
 	l->addWidget(qleUsername, 3, 2);
 
-	qlePassword=new QLineEdit(g.qs->value("ServerPassword", "").toString());
+	qlePassword=new QLineEdit();
 	qlePassword->setEchoMode(QLineEdit::Password);
 	lab=new QLabel(tr("&Password"));
 	lab->setBuddy(qlePassword);
@@ -125,6 +125,10 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qlwServers, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
 
     QMetaObject::connectSlotsByName(this);
+
+	QModelIndex idx = qstmServers->index(g.qs->value("ServerRow",-1).toInt(),0);
+	if (idx.isValid())
+		qlwServers->setCurrentIndex(idx);
 }
 
 void ConnectDialog::accept() {
@@ -139,13 +143,8 @@ void ConnectDialog::accept() {
 	qsUsername = qleUsername->text();
 	qsPassword = qlePassword->text();
 	iPort = qlePort->text().toInt();
-	bUdp = true;
 
-	g.qs->setValue("ServerAddress", qsServer);
-	g.qs->setValue("ServerUsername", qsUsername);
-	g.qs->setValue("ServerPassword", qsPassword);
-	g.qs->setValue("ServerPort", iPort);
-
+	g.qs->setValue("ServerRow", qlwServers->currentIndex().row());
 	QDialog::accept();
 }
 
@@ -157,7 +156,6 @@ QSqlRecord ConnectDialog::toRecord() const
 	r.setValue("username", qleUsername->text());
 	r.setValue("password", qlePassword->text());
 	r.setValue("port", qlePort->text().toInt());
-	r.setValue("udp", true);
 	return r;
 }
 
@@ -166,25 +164,28 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	QSqlRecord r;
 
 	if (bDirty) {
+		bDirty = false;
 		r = toRecord();
 		qstmServers->setRecord(previndex.row(), r);
 		qstmServers->submitAll();
 	}
-	r = qstmServers->record(index.row());
-	qleName->setText(r.value("name").toString());
-	qleServer->setText(r.value("hostname").toString());
-	qleUsername->setText(r.value("username").toString());
-	qlePassword->setText(r.value("password").toString());
-	qlePort->setText(r.value("port").toString());
-	bDirty = false;
+	if (index.isValid()) {
+		r = qstmServers->record(index.row());
+		qleName->setText(r.value("name").toString());
+		qleServer->setText(r.value("hostname").toString());
+		qleUsername->setText(r.value("username").toString());
+		qlePassword->setText(r.value("password").toString());
+		qlePort->setText(r.value("port").toString());
+		bDirty = false;
+	}
 }
 
 void ConnectDialog::on_Add_clicked()
 {
+	bDirty = false;
 	QSqlRecord r = toRecord();
 	qstmServers->insertRecord(-1, r);
 	qstmServers->submitAll();
-	bDirty = false;
 }
 
 void ConnectDialog::on_Remove_clicked()

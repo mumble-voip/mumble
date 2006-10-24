@@ -112,14 +112,13 @@ void ServerHandler::udpReady() {
 	}
 }
 
-void ServerHandler::sendMessage(Message *mMsg)
+void ServerHandler::sendMessage(Message *mMsg, bool forceTCP)
 {
 	QByteArray qbaBuffer;
 	mMsg->sPlayerId = g.sId;
 	mMsg->messageToNetwork(qbaBuffer);
 
-	bool mayUdp = bUdp && g.sId;
-	mayUdp = mayUdp && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex) || (mMsg->messageType() == Message::Ping));
+	bool mayUdp = !forceTCP && g.sId && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex) || (mMsg->messageType() == Message::Ping));
 
 	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
 	QApplication::postEvent(this, shme);
@@ -153,14 +152,9 @@ void ServerHandler::run()
 }
 
 void ServerHandler::sendPing() {
-	bool oldudp = bUdp;
-
 	MessagePing mp;
-	bUdp = false;
-	sendMessage(&mp);
-	bUdp = oldudp;
-	if (bUdp)
-		sendMessage(&mp);
+	sendMessage(&mp, true);
+	sendMessage(&mp, false);
 }
 
 void ServerHandler::message(QByteArray &qbaMsg) {
@@ -241,10 +235,9 @@ void ServerHandler::serverConnectionConnected() {
 	emit connected();
 }
 
-void ServerHandler::setConnectionInfo(QString host, int port, bool udp, QString username, QString pw) {
+void ServerHandler::setConnectionInfo(QString host, int port, QString username, QString pw) {
 	qsHostName = host;
 	iPort = port;
-	bUdp = udp;
 	qsUserName = username;
 	qsPassword = pw;
 }
