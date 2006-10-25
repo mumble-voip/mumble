@@ -91,6 +91,7 @@ AudioInput::AudioInput()
 
 	iFrameCounter = 0;
 	iSilentFrames = 0;
+	iHoldFrames = 0;
 
 	int iarg=1;
 	speex_encoder_ctl(esEncState,SPEEX_SET_VBR, &iarg);
@@ -117,7 +118,7 @@ AudioInput::AudioInput()
 	bHasSpeaker = false;
 
 	iBitrate = 0;
-	dSnr = dLoudness = dPeakMic = dPeakSpeaker = dSpeechProb = 0.0;
+	dPeakMic = dPeakSignal = dPeakSpeaker = 0.0;
 
 	bRunning = false;
 }
@@ -224,6 +225,15 @@ void AudioInput::encodeAudioFrame() {
 
 		sppPreprocess = speex_preprocess_state_init(iFrameSize, SAMPLE_RATE);
 
+		iArg = 1;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
+
+		fArg = 20000;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
+
 		if (bHasSpeaker) {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
@@ -264,15 +274,6 @@ void AudioInput::encodeAudioFrame() {
 	iArg = g.s.iComplexity;
 	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
 
-	iArg = 1;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
-
-	fArg = 20000;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
-
 	int iIsSpeech;
 
 	if (bHasSpeaker) {
@@ -290,14 +291,23 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psSource[i]);
 	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
 
-	// The default is a bit short, increase it
-	if (! iIsSpeech && sppPreprocess->last_speech < g.s.iVoiceHold)
-		iIsSpeech = 1;
+	CloneSpeexPreprocessState *pps=reinterpret_cast<CloneSpeexPreprocessState *>(sppPreprocess);
 
-	if (sppPreprocess->loudness2 < g.s.iMinLoudness)
-		sppPreprocess->loudness2 = g.s.iMinLoudness;
-	if (isnan(sppPreprocess->loudness2))
+	// The default is a bit short, increase it
+	if (! iIsSpeech) {
+		iHoldFrames++;
+		if (iHoldFrames < g.s.iVoiceHold)
+			iIsSpeech=1;
+	} else {
+		iHoldFrames = 0;
+	}
+
+	if (pps->loudness2 < g.s.iMinLoudness)
+		pps->loudness2 = g.s.iMinLoudness;
+	if (isnan(pps->loudness2)) {
+		qWarning("AudioInput: loudness is nan");
 		bResetProcessor = true;
+	}
 
 	if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
@@ -317,10 +327,6 @@ void AudioInput::encodeAudioFrame() {
 		if (iSilentFrames > 200)
 			iFrameCounter = 0;
 	}
-
-	dSnr = sppPreprocess->Zlast;
-	dLoudness = sppPreprocess->loudness2;
-	dSpeechProb = sppPreprocess->speech_prob;
 
 	if (p)
 		p->setTalking(iIsSpeech, g.bAltSpeak);

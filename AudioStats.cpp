@@ -220,7 +220,8 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 
 	QPolygonF poly;
 
-	SpeexPreprocessState *st = ai->sppPreprocess;
+	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(ai->sppPreprocess);
+
 
 	qreal sx, sy;
 
@@ -430,8 +431,12 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 
 void AudioStats::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
-	if (ai.get() == NULL || ! ai->isRunning())
+
+	if (ai.get() == NULL || ! ai->isRunning() || ! ai->sppPreprocess)
 		return;
+
+	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(ai->sppPreprocess);
+	bool nTalking = ai->isTransmitting();
 
 	QString txt;
 
@@ -444,21 +449,34 @@ void AudioStats::on_Tick_timeout() {
 	txt.sprintf("%06.2f dB",ai->dPeakSignal);
 	qlSignalLevel->setText(txt);
 
-	double level = ai->dLoudness / 200.0;
+	double level = st->loudness2 / 200.0;
 
 	txt.sprintf("%03.0f%%", level);
 	qlMicVolume->setText(txt);
 
-	txt.sprintf("%06.3f",ai->dSnr);
+#ifdef SPEEX_ANCIENT
+	txt.sprintf("%06.3f",st->Zlast);
+#else
+	float Zframe = 0;
+	int freq_start = static_cast<int>(300.0f*2.f*st->ps_size/st->sampling_rate);
+	int freq_end   = static_cast<int>(2000.0f*2.f*st->ps_size/st->sampling_rate);
+	for (int i=freq_start;i<freq_end;i++)
+		Zframe += st->zeta[i];
+	Zframe /= (freq_end-freq_start);
+	txt.sprintf("%06.3f",Zframe);
+#endif
 	qlMicSNR->setText(txt);
 
-	txt.sprintf("%03.0f%%",ai->dSpeechProb * 100.0);
+#ifdef SPEEX_ANCIENT
+	txt.sprintf("%03.0f%%",st->speech_prob * 100.0);
+#else
+	txt.sprintf("%03.0f%%",nTalking ? 100.0 : 0.0);
+#endif
 	qlSpeechProb->setText(txt);
 
 	txt.sprintf("%04.1f kbit/s",ai->iBitrate / 1000.0);
 	qlBitrate->setText(txt);
 
-	bool nTalking = ai->isTransmitting();
 	if (nTalking != bTalking) {
 		bTalking = nTalking;
 		QFont f = qlSpeechProb->font();

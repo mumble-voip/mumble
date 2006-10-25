@@ -80,16 +80,14 @@ class AudioInput : public QThread {
 
 		int iFrameCounter;
 		int iSilentFrames;
+		int iHoldFrames;
 
 		void flushCheck();
 	public:
 		bool bResetProcessor;
 
 		int iBitrate;
-		double dSnr;
-		double dLoudness;
 		double dPeakMic, dPeakSpeaker, dPeakSignal;
-		double dSpeechProb;
 
 		bool isTransmitting() { return bPreviousVoice; };
 
