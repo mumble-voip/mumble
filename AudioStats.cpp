@@ -222,16 +222,17 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 
 	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(ai->sppPreprocess);
 
-
 	qreal sx, sy;
 
 	sx = (width() - 1.0f) / (st->ps_size * 1.0f);
 	sy = height() - 1;
 
 	poly << QPointF(0.0f, height() - 1);
-
+#ifdef SPEEX_ANCIENT
 	float fftmul = 1.0 / (st->ps_size * 32768.0);
-
+#else
+	float fftmul = 1.0 / (32768.0);
+#endif
 	for(int i=0; i < st->ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
@@ -258,6 +259,8 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 		yp = yp * fftmul;
 		yp = fmin(yp * 30.0, 1.0);
 		yp = (1 - yp) * sy;
+		if (i<10)
+			qWarning("%3d %f %f", i, yp, st->noise[i]);
 		poly << QPointF(xp, yp);
 	}
 
