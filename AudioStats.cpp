@@ -228,7 +228,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 	sy = height() - 1;
 
 	poly << QPointF(0.0f, height() - 1);
-#ifdef SPEEX_ANCIENT
+#ifdef SPEEX_ANCIENT_PP
 	float fftmul = 1.0 / (st->ps_size * 32768.0);
 #else
 	float fftmul = 1.0 / (32768.0);
@@ -259,8 +259,6 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 		yp = yp * fftmul;
 		yp = fmin(yp * 30.0, 1.0);
 		yp = (1 - yp) * sy;
-		if (i<10)
-			qWarning("%3d %f %f", i, yp, st->noise[i]);
 		poly << QPointF(xp, yp);
 	}
 
@@ -457,7 +455,7 @@ void AudioStats::on_Tick_timeout() {
 	txt.sprintf("%03.0f%%", level);
 	qlMicVolume->setText(txt);
 
-#ifdef SPEEX_ANCIENT
+#ifdef SPEEX_ANCIENT_PP
 	txt.sprintf("%06.3f",st->Zlast);
 #else
 	float Zframe = 0;
@@ -470,7 +468,7 @@ void AudioStats::on_Tick_timeout() {
 #endif
 	qlMicSNR->setText(txt);
 
-#ifdef SPEEX_ANCIENT
+#ifdef SPEEX_ANCIENT_PP
 	txt.sprintf("%03.0f%%",st->speech_prob * 100.0);
 #else
 	txt.sprintf("%03.0f%%",nTalking ? 100.0 : 0.0);

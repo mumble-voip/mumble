@@ -28,7 +28,8 @@
 #define SPEEX_ANCIENT
 #endif
 
-#ifdef SPEEX_ANCIENT
+#define SPEEX_ANCIENT_PP
+#ifdef SPEEX_ANCIENT_PP
 typedef SpeexPreprocessState CloneSpeexPreprocessState;
 #else
 typedef struct {
