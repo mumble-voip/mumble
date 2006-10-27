@@ -205,6 +205,8 @@ GlobalShortcutX::GlobalShortcutX() {
     return;
   }
 
+  XevieSelectInput(display, KeyPressMask | KeyReleaseMask);
+
   bRunning=true;
   start(QThread::TimeCriticalPriority);
 }
