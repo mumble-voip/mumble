@@ -123,7 +123,7 @@ ALSAOutputPlayer::ALSAOutputPlayer(ALSAAudioOutput * ao, Player * player):AudioO
 ALSAOutputPlayer::~ALSAOutputPlayer()
 {
     if (pcm_handle) {
-	snd_pcm_close(pcm_handle);
+		snd_pcm_close(pcm_handle);
     }
     // If playing, stop
     qWarning("ALSAOutputPlayer: %s: Removed", qPrintable(p->qsName));
@@ -138,19 +138,19 @@ bool ALSAOutputPlayer::playFrames()
     if (avail < 0)
 	return false;
     while (avail >= iFrameSize) {
-	alive = decodeNextFrame();
-	snd_pcm_writei(pcm_handle, psBuffer, iFrameSize);
-	avail = snd_pcm_avail_update(pcm_handle);
-	if (avail < 0)
-	    return false;
-	if (alive)
-	    iAliveHold = 0;
-	else {
-	    iAliveHold++;
-	    if (iAliveHold > 50) {
-		return false;
-	    }
-	}
+		alive = decodeNextFrame();
+		snd_pcm_writei(pcm_handle, psBuffer, iFrameSize);
+		avail = snd_pcm_avail_update(pcm_handle);
+		if (avail < 0)
+			return false;
+		if (alive)
+			iAliveHold = 0;
+		else {
+			iAliveHold++;
+			if (iAliveHold > 50) {
+			return false;
+			}
+		}
     }
     return true;
 }
@@ -207,8 +207,8 @@ void ALSAOutputPlayer::initialize()
     snd_pcm_prepare(pcm_handle);
 
     // Fill one frame
-    for (int i = 0; i < 20; i++)
-	snd_pcm_writei(pcm_handle, psBuffer, iFrameSize);
+    for (int i = 0; i < 5; i++)
+		snd_pcm_writei(pcm_handle, psBuffer, iFrameSize);
 
     snd_pcm_start(pcm_handle);
 }
@@ -242,7 +242,7 @@ void ALSAAudioOutput::run()
     QSet <ALSAOutputPlayer *> del;
     QMap <ALSAOutputPlayer *, int> map;
     QMap <ALSAOutputPlayer *, int> cmap;
-    
+
 
     bRunning = true;
 
@@ -250,45 +250,45 @@ void ALSAAudioOutput::run()
     AudioOutputPlayer *aop;
 
     while (bRunning) {
-	del.clear();
-	map.clear();
-	cmap.clear();
-	
-	qrwlOutputs.lockForRead();
-	idx = 0;
-	foreach(aop, qmOutputs) {
-	    aaop = static_cast < ALSAOutputPlayer * >(aop);
-	    aaop->initialize();
-	    count = snd_pcm_poll_descriptors_count(aaop->pcm_handle);
-	    snd_pcm_poll_descriptors(aaop->pcm_handle, &fds[idx], count);
-	    map[aaop] = idx;
-	    cmap[aaop] = count;
-	    idx += count;
-	}
-	qrwlOutputs.unlock();
+		del.clear();
+		map.clear();
+		cmap.clear();
 
-	poll(fds, idx, 20);
-
-	qrwlOutputs.lockForRead();
-	foreach(aop, qmOutputs) {
-	    unsigned short revents;
-	    aaop = static_cast < ALSAOutputPlayer * >(aop);
-	    idx = map[aaop];
-	    count = cmap[aaop];
-	    if (count) {
-		snd_pcm_poll_descriptors_revents(aaop->pcm_handle, &fds[idx], count, &revents);
-		if (revents & POLLERR) {
-		    del.insert(aaop);
-		} else if (revents & POLLOUT) {
-		    if (!aaop->playFrames())
-			del.insert(aaop);
+		qrwlOutputs.lockForRead();
+		idx = 0;
+		foreach(aop, qmOutputs) {
+			aaop = static_cast < ALSAOutputPlayer * >(aop);
+			aaop->initialize();
+			count = snd_pcm_poll_descriptors_count(aaop->pcm_handle);
+			snd_pcm_poll_descriptors(aaop->pcm_handle, &fds[idx], count);
+			map[aaop] = idx;
+			cmap[aaop] = count;
+			idx += count;
 		}
-	    }
-	}
-	qrwlOutputs.unlock();
+		qrwlOutputs.unlock();
 
-	foreach(aaop, del) {
-	    removeBuffer(aaop->p);
-	}
+		poll(fds, idx, 20);
+
+		qrwlOutputs.lockForRead();
+		foreach(aop, qmOutputs) {
+			unsigned short revents;
+			aaop = static_cast < ALSAOutputPlayer * >(aop);
+			idx = map[aaop];
+			count = cmap[aaop];
+			if (count) {
+				snd_pcm_poll_descriptors_revents(aaop->pcm_handle, &fds[idx], count, &revents);
+				if (revents & POLLERR) {
+					del.insert(aaop);
+				} else if (revents & POLLOUT) {
+					if (!aaop->playFrames())
+					del.insert(aaop);
+				}
+			}
+		}
+		qrwlOutputs.unlock();
+
+		foreach(aaop, del) {
+			removeBuffer(aaop->p);
+		}
     }
 }
