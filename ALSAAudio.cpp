@@ -158,7 +158,7 @@ bool ALSAOutputPlayer::playFrames()
 void ALSAOutputPlayer::initialize()
 {
     if (pcm_handle)
-	return;
+		return;
 
     unsigned int rate = SAMPLE_RATE;
     snd_pcm_uframes_t period_size = iFrameSize;
@@ -174,7 +174,6 @@ void ALSAOutputPlayer::initialize()
     snd_pcm_open(&pcm_handle, device_name, SND_PCM_STREAM_PLAYBACK, 0);
 
     /* Error check */
-
 
     snd_pcm_hw_params_malloc(&hw_params);
     snd_pcm_hw_params_any(pcm_handle, hw_params);

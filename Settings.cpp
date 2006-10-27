@@ -37,7 +37,7 @@ Settings::Settings() {
 	bMute = bDeaf = false;
 	bTTS = true;
 	iTTSVolume = 75;
-	iQuality = 8;
+	iQuality = 6;
 	iComplexity = 4;
 	iMinLoudness = 4000;
 	iVoiceHold = 200;
@@ -75,7 +75,6 @@ void Settings::load() {
 	bTTS = g.qs->value("TextToSpeech", bTTS). toBool();
 	iTTSVolume = g.qs->value("TTSVolume", iTTSVolume).toInt();
 	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value("AudioTransmit", atTransmit).toInt());
-	a3dModel = static_cast<Settings::Audio3D>(g.qs->value("Audio3D", a3dModel).toInt());
 	iQuality = g.qs->value("AudioQuality", iQuality).toInt();
 	iComplexity = g.qs->value("AudioComplexity", iComplexity).toInt();
 	iMinLoudness = g.qs->value("AudioMinLoudness", iMinLoudness).toInt();
@@ -84,6 +83,8 @@ void Settings::load() {
 	iFramesPerPacket = g.qs->value("FramesPerPacket", iFramesPerPacket).toInt();
 	bTCPCompat = g.qs->value("TCPCompat", bTCPCompat).toBool();
 	bReconnect = g.qs->value("Reconnect", bReconnect).toBool();
+#ifdef Q_OS_WIN
+	a3dModel = static_cast<Settings::Audio3D>(g.qs->value("Audio3D", a3dModel).toInt());
 	iDXOutputDelay = g.qs->value("DXOutputDelay", iDXOutputDelay).toInt();
 	qbaDXInput = g.qs->value("DXInput").toByteArray();
 	qbaDXOutput = g.qs->value("DXOutput").toByteArray();
@@ -109,6 +110,7 @@ void Settings::load() {
 	qcOverlayTalking = qvariant_cast<QColor>(g.qs->value("OverlayTalking",qcOverlayTalking));
 	qcOverlayChannel = qvariant_cast<QColor>(g.qs->value("OverlayChannel",qcOverlayChannel));
 	qcOverlayChannelTalking = qvariant_cast<QColor>(g.qs->value("OverlayChannelTalking",qcOverlayChannelTalking));
+#endif
 }
 
 void Settings::save() {
@@ -116,9 +118,7 @@ void Settings::save() {
 	g.qs->setValue("AudioDeaf", g.s.bDeaf);
 	g.qs->setValue("TextToSpeech", g.s.bTTS);
 	g.qs->setValue("TTSVolume", g.s.iTTSVolume);
-	g.qs->setValue("PosTransmit", g.s.bTransmitPosition);
 	g.qs->setValue("AudioTransmit", g.s.atTransmit);
-	g.qs->setValue("Audio3D", g.s.a3dModel);
 	g.qs->setValue("AudioQuality", iQuality);
 	g.qs->setValue("AudioComplexity", iComplexity);
 	g.qs->setValue("AudioMinLoudness", iMinLoudness);
@@ -127,6 +127,9 @@ void Settings::save() {
 	g.qs->setValue("FramesPerPacket", iFramesPerPacket);
 	g.qs->setValue("TCPCompat", bTCPCompat);
 	g.qs->setValue("Reconnect", bReconnect);
+#ifdef Q_OS_WIN
+	g.qs->setValue("PosTransmit", g.s.bTransmitPosition);
+	g.qs->setValue("Audio3D", g.s.a3dModel);
 	g.qs->setValue("DXOutputDelay", iDXOutputDelay);
 	g.qs->setValue("DXInput", qbaDXInput);
 	g.qs->setValue("DXOutput", qbaDXOutput);
@@ -151,4 +154,5 @@ void Settings::save() {
 	g.qs->setValue("OverlayTalking", qcOverlayTalking);
 	g.qs->setValue("OverlayChannel", qcOverlayChannel);
 	g.qs->setValue("OverlayChannelTalking", qcOverlayChannelTalking);
+#endif
 }
