@@ -43,7 +43,7 @@ build-arch: build-arch-stamp
 build-arch-stamp: configure-stamp 
 
 	# Add here commands to compile the arch part of the package.
-	lrelease mumble.pro
+	lrelease-qt4 mumble.pro
 	$(MAKE) -f Makefile.mumble release
 	$(MAKE) -f Makefile.murmur release
 	touch build-arch-stamp
