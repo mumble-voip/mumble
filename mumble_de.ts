@@ -786,117 +786,117 @@
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="276"/>
+        <location filename="AudioStats.cpp" line="278"/>
         <source>Peak microphone level</source>
         <translation>Höchster Mikrofonlevel</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="281"/>
+        <location filename="AudioStats.cpp" line="283"/>
         <source>Peak speaker level</source>
         <translation>Höchster Lautsprecherlevel</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="286"/>
+        <location filename="AudioStats.cpp" line="288"/>
         <source>Peak clean level</source>
         <translation>Höchster sauberer Level</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="291"/>
+        <location filename="AudioStats.cpp" line="293"/>
         <source>Microphone loudness</source>
         <translation>Mikrofonlautstärke</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="296"/>
+        <location filename="AudioStats.cpp" line="298"/>
         <source>Mic Signal-To-Noise</source>
         <translation>Mic Signal-Geräusch</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="301"/>
+        <location filename="AudioStats.cpp" line="303"/>
         <source>Speech Probability</source>
         <translation>Sprachwahrscheinlichkeit</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="306"/>
+        <location filename="AudioStats.cpp" line="308"/>
         <source>Audio bitrate</source>
         <translation>Audio Bitrate</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="366"/>
+        <location filename="AudioStats.cpp" line="368"/>
         <source>Peak power in last frame</source>
         <translation>Spitzenpower im letzten Frame</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="360"/>
+        <location filename="AudioStats.cpp" line="362"/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Loudness&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
         <translation>Dies zeigt die Spitzenleistung im letzten Frame (20ms) an und ist als Maß äquivalent zu &quot;Input Power&quot;. Stattdessen bitte &lt;b&gt;Lautstärke&lt;/b&gt; nutzen.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="365"/>
+        <location filename="AudioStats.cpp" line="367"/>
         <source>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <translation>Dies zeigt die Spitzenpower im letzten Frame (20ms) des Lautsprechers an. Solange keine Multikanal Sampling Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Hat man solch ein Setup konfiguriert und der Wert ist trotzdem 0 während man Klänge von anderen Programmen abspielt, arbeit das Setup nicht korrekt.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="372"/>
+        <location filename="AudioStats.cpp" line="374"/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echoes.</source>
         <translation>Dies zeigt die Spitzenpower im letzten Frame (20ms) nach dem Processing an. Im Idealfall sollte dies -96 dB betragen, wann man nicht spricht. Die Realität zeigt, dass man in einem Tonstudio etwa -60 dB und zuhause -20 dB erwarten kann. When man spricht, sollte dies auf -5 bis -10 dB ansteigen.&lt;br /&gt;Nutzt man Echoauslöschung und der Wert steigt auf mehr als -15 dB wenn man nicht spricht, sind die Audioeinstellungen nicht korrekt und man stört andere Spieler mit Echos.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="373"/>
+        <location filename="AudioStats.cpp" line="375"/>
         <source>How close the current input level is to ideal</source>
         <translation>Wie nah das aktuelle Eingangssignal zum Idealzustand ist</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="380"/>
+        <location filename="AudioStats.cpp" line="382"/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality</source>
         <translation>Dies zeigt an wie nah die Eingangssignallautstärke am Ideal ist. Um die Mikrofonlautstärke anzupassen, sollte das Programm gestartet werden mit dem die Aufnahmelautstärke angepasst wird.&lt;br /&gt;&lt;b&gt;Nun sollte man, so laut wie es im Spiel vorkommt, sprechen&lt;/b&gt;&lt;br /&gt;Die Lautstärke muss nun so nah wie möglich an die 100% angepasst werden, aber nicht darüber hinaus. Wenn dem so ist, wird es hörbares Clipping geben, was die Soundqualität mindert</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="381"/>
+        <location filename="AudioStats.cpp" line="383"/>
         <source>Signal-To-Noise ratio from the microphone</source>
         <translation>Signal-Geräusch Rate des Mikrofons</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="386"/>
+        <location filename="AudioStats.cpp" line="388"/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
         <translation>Dies ist die Signal-Geräusch-Rate (SNR) des Mikrofons im letzten Frame (20ms). Es zeigt an, um wieviel klarer die Stimme im Vergleich zum Geräusch ist.&lt;br /&gt;Ist der Wert unter 1.0, gibt es mehr Geräusche als Stimme im Signal, weshalb die Qualität reduziert ist.&lt;br /&gt;Es gibt keine Obergrenze, aber ein Wert über 40-50 kann ohne Tonstudio nicht erwartet werden.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="387"/>
+        <location filename="AudioStats.cpp" line="389"/>
         <source>Probability of speech</source>
         <translation>Sprachwahrscheinlichkeit</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="392"/>
+        <location filename="AudioStats.cpp" line="394"/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
         <translation>Dies ist die Wahrscheinlichkeit, dass der letzte Frame (20ms) Sprache und kein Umgebungsgeräusch war.&lt;br /&gt;Die Stimmaktivierungserkennung hängt davon ab, wie es eingestellt ist. Der Trick ist, dass die Mitte eines Satzes immer als Sprache erkannt wird; problematisch sind Pausen zwischen Wörtern und der Anfang des Satzes.&lt;br /&gt;Ist dies fett geschrieben, bedeutet dies, dass Mumble gerade übertragt (wenn man verbunden ist).</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="393"/>
+        <location filename="AudioStats.cpp" line="395"/>
         <source>Bitrate of last frame</source>
         <translation>Bitrate des letzten Frame</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="396"/>
+        <location filename="AudioStats.cpp" line="398"/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
         <translation>Dies ist die Audiobitrate des letzten komprimierten Frame (20ms) und als solche wird es hoch und runter springen während das VBR die Qualität anpasst. Um die Spitzenbitrate einzustellen muss &lt;b&gt;Kompressionsqualität&lt;/b&gt; im Einstellungsdialog angepasst werden.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="398"/>
+        <location filename="AudioStats.cpp" line="400"/>
         <source>Power spectrum of input signal and noise estimate</source>
         <translation>Spektrum des Eingangssignals und Geräuschabschätzung</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="405"/>
+        <location filename="AudioStats.cpp" line="407"/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
         <translation>Dies zeigt das Powerspektrum des Eingangssignals (rote Linie) und die Geräuschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wieviel mehr Signal als Geräusch im Wellenband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Geräuschbedingungen des Mikrofones präzise einstellt. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine ungünstige Geräuschkulisse.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="408"/>
+        <location filename="AudioStats.cpp" line="410"/>
         <source>Weights of the echo canceller</source>
         <translation>Gewichte des Echoauslöschers</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="421"/>
+        <location filename="AudioStats.cpp" line="423"/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
         <translation>Dies zeigt die Gewichte des Echoauslöschers, mit der Zeit auf der Y- und der Frequenz auf der X-Achse.&lt;br /&gt;Idealerweise sollte dies schwarz sein, was kein Echo bedeutet. Normalerweise hat man einen oder mehrere horizontale Streifen von blauer Farbe, die das zeitverzögerte Echo darstellen. Man sollte sehen, wie die Gewichte in Echtzeit aktualisiert werden.&lt;br /&gt;So lange man keine Echoquelle hat, wird man keine nützlichen Daten hier sehen, weshalb man etwas Musik abspielen sollte.&lt;br /&gt;Man kann zwischen Real- und Imaginäranteilen des Frequenzdomänen-Gewischte oder alternativ den berechneten Modulus und Phase auswählen. Am nützlichsten ist hierbei Modulus, was die Amplitude des Echos angibt und anzeigt wieviel vom ausgehenden Signal bei diesem Zeitschritt entfernt wird. Die anderen Ansichten sind nützlich für diejenigen die den Echoauslöschungs-Algorithmus finetunen wollen.&lt;br /&gt;Achtung: Wenn das Gesamtbild im Modulus-Modus massiv fluktuiert, kann der Echoauslöscher keine Korrelation zwischen den beiden Eingangsquellen (Lautsprecher und Mikrofon) herstellen. Entweder hat man eine lange Verzögerung des Echos oder eine der Eingangsquellen sind falsch konfiguriert.</translation>
     </message>
@@ -1458,27 +1458,27 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutWinConfig</name>
     <message>
-        <location filename="GlobalShortcut_win.cpp" line="167"/>
+        <location filename="GlobalShortcut_win.cpp" line="169"/>
         <source>Shortcuts</source>
         <translation>Shortcuts</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_win.cpp" line="133"/>
+        <location filename="GlobalShortcut_win.cpp" line="135"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_win.cpp" line="135"/>
+        <location filename="GlobalShortcut_win.cpp" line="137"/>
         <source>Shortcut</source>
         <translation>Shortcut</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_win.cpp" line="148"/>
+        <location filename="GlobalShortcut_win.cpp" line="150"/>
         <source>Shortcut bound to %1.</source>
         <translation>Shortcut an %1 gebunden.</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_win.cpp" line="151"/>
+        <location filename="GlobalShortcut_win.cpp" line="153"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
         <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
