@@ -30,8 +30,8 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
-	qmake-qt4 -o Makefile.mumble mumble.pro
-	qmake-qt4 -o Makefile.murmur murmur.pro
+	qmake-qt4 -o Makefile.mumble DEFINES+=MUMBLE_VERSION="0.9.4" mumble.pro
+	qmake-qt4 -o Makefile.murmur DEFINES+=MUMBLE_VERSION="0.9.4" murmur.pro
 
 	touch configure-stamp
 
