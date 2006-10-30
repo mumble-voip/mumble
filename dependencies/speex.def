@@ -1,0 +1,79 @@
+;
+; speex.def
+;
+LIBRARY
+NAME speex.dll
+EXPORTS
+;
+speex_bits_advance @1
+speex_bits_destroy @2
+speex_bits_init @3
+speex_bits_init_buffer @4
+speex_bits_insert_terminator @5
+speex_bits_nbytes @6
+speex_bits_pack @7
+speex_bits_peek @8
+speex_bits_peek_unsigned @9
+speex_bits_read_from @10
+speex_bits_read_whole_bytes @11
+speex_bits_remaining @12
+speex_bits_reset @13
+speex_bits_rewind @14
+speex_bits_unpack_signed @15
+speex_bits_unpack_unsigned @16
+speex_bits_write @17
+speex_bits_write_whole_bytes @18
+speex_decode @19
+speex_decode_stereo @20
+speex_decoder_ctl @21
+speex_decoder_destroy @22
+speex_decoder_init @23
+speex_default_user_handler @24
+speex_encode @25
+speex_encode_stereo @26
+speex_encoder_ctl @27
+speex_encoder_destroy @28
+speex_encoder_init @29
+speex_header_to_packet @30
+speex_inband_handler @31
+speex_init_header @32
+speex_lib_ctl @33
+speex_mode_query @34
+speex_packet_to_header @35
+speex_std_char_handler @36
+speex_std_enh_request_handler @37
+speex_std_high_mode_request_handler @38
+speex_std_low_mode_request_handler @39
+speex_std_mode_request_handler @40
+speex_std_stereo_request_handler @41
+speex_std_vbr_quality_request_handler @42
+speex_std_vbr_request_handler @43
+speex_decode_int @44
+speex_decode_stereo_int @45
+speex_echo_cancel @46
+speex_echo_state_destroy @47
+speex_echo_state_init @48
+speex_echo_state_reset @49
+speex_encode_int @50
+speex_encode_stereo_int @51
+speex_jitter_destroy @52
+speex_jitter_get @53
+speex_jitter_get_pointer_timestamp @54
+speex_jitter_init @55
+speex_jitter_put @56
+speex_lib_get_mode @57
+speex_preprocess @58
+speex_preprocess_ctl @59
+speex_preprocess_estimate_update @60
+speex_preprocess_state_destroy @61
+speex_preprocess_state_init @62
+speex_nb_mode @63 DATA
+speex_wb_mode @64 DATA
+speex_uwb_mode @65 DATA
+jitter_buffer_reset @66
+jitter_buffer_destroy @67
+jitter_buffer_put @68
+jitter_buffer_get @69
+jitter_buffer_get_pointer_timestamp @70
+jitter_buffer_tick @71
+speex_echo_ctl @72
