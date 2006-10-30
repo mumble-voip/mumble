@@ -10,7 +10,7 @@ use Compress::Bzip2;
 
 my %files;
 my $ver;
-my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1, 'precompiled_header' => 1);
+my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1, 'precompiled_header' => 1, 'translations' => 1);
 
 system("rm mumble-*");
 
@@ -45,6 +45,12 @@ while(<F>) {
 }
 close(F);
 
+opendir(D, 'debian');
+foreach my $f (grep(! /\./,readdir(D))) {
+  $files{'debian/'.$f}=1;
+}
+closedir(D);
+
 delete($files{'LICENSE'});
 
 my $tar = new Archive::Tar();
@@ -55,6 +61,10 @@ my $dir="mumble-$ver/";
 my $zipdir = $zip->addDirectory($dir);
 
 foreach my $file ('LICENSE', sort keys %files) {
+  if ($file =~ /\.qm$/) {
+    print "Skipping $file\n";
+    next;
+  }
   print "Adding $file\n";
   open(F, $file) or croak "Missing $file";
   sysread(F, $blob, 1000000000);

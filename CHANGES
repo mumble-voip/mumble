@@ -1,4 +1,131 @@
-2006-09-22 [r369-377]  slicer:
+2006-10-30 [r418-419]  slicer:
+
+	* Add lrelase for debian build
+
+	* Last batch of translations for 0.9.4
+
+2006-10-27 [r415-417]  slicer:
+
+	* Don't save Win-only settings on non-win32.
+
+	* Reduce initial buffer fill
+
+	* Edgy Eft
+
+2006-10-26 [r411-414]  slicer:
+
+	* Negative user feedback on the new speex preprocessor; revert to
+	  last beta until it's finished.
+
+	* Fixing of audiostats for new speex.
+
+	* Support for new Speex preprocessor which doesn't export it's
+	  data.
+
+	* Updates for connectdialog in qt 4.2.
+
+2006-10-20 [r410]  slicer:
+
+	* DirectInput workaround for keyboards with thousands of buttons.
+
+2006-10-17 [r408-409]  slicer:
+
+	* Grammar fixes
+
+	* Even more translatable strings
+
+2006-10-16 [r402-407]  slicer:
+
+	* Add a few more strings for translation.
+
+	* Updated translation settings.
+
+	* Minor typo in translation fixed.
+
+	* VersionCheck shouldn't bail if it can't read the binary.
+
+	* German translation provided by Matthias Vogelgesang (m0ta@sf.net)
+	  Spanish translation provided by Álvaro M. Recio Pérez
+	  (naproxeno@sf.net) Added more strings to be translated based on
+	  patch by m0ta. Made translation files embedded in binary.
+
+	* Working Globalkeys for X11
+
+2006-10-12 [r399-401]  slicer:
+
+	* More globalkeys linux. Mostly messed up.
+
+	* Add Turkish translation
+
+	* Start of shortcuts for X11
+
+2006-10-08 [r398]  slicer:
+
+	* Fix for new modelview in 4.2.0. Now possible to drop in root
+	  channel again.
+
+2006-10-05 [r394-397]  slicer:
+
+	* Update for QT 4.2.0
+
+	* Update debug output slightly
+
+	* Murmur can now compile on compilers without Precompiled Headers.
+
+	* Split windows debug into separate file, add proper crashlog to
+	  the Console.txt
+
+2006-10-02 [r390-393]  slicer:
+
+	* Console.txt error logging and fixed some shortcut bugs
+
+	* Spelling fixes
+
+	* Prepare for Spanish translation.
+
+	* Add icon to dialog, fix a few bugs
+
+2006-10-02 [r389]  CybKnight:
+
+	* New temporary icon for shortcuts as requested by lead developer.
+
+2006-10-02 [r388]  slicer:
+
+	* Dumped DI actions in favor of raw.. Which enables more fancy
+	  combinations, but DIA was standardized.. If only the config
+	  dialog had been prettier.
+
+2006-10-02 [r387]  grannas:
+
+	* Added a more informative description.
+
+2006-10-02 [r385-386]  slicer:
+
+	* Overlay nothing/all/talking as config option
+
+	* Bump version
+
+2006-09-29 [r384]  slicer:
+
+	* ubuntu dapper build
+
+2006-09-28 [r382-383]  slicer:
+
+	* Older speex libraries don't have speex_echo_ctl
+
+	* Add pch files to tarball and mention PCH in INSTALL
+
+2006-09-25 [r381]  slicer:
+
+	* Set sample rate for echo canceller
+
+2006-09-22 [r369-380]  slicer:
+
+	* Password resend
+
+	* Updated Overlay error message.
+
+	* Changelog update
 
 	* SVN Changelog
 
