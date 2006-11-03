@@ -67,7 +67,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
 
-	ti = new TrayIcon(this);
+//	ti = new TrayIcon(this);
 }
 
 void MainWindow::createActions() {
@@ -352,6 +352,10 @@ void MainWindow::setupGui()  {
 			resize(sz);
 	}
 
+	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
+	qstiIcon->setObjectName("Icon");
+	qstiIcon->show();
+
     QMetaObject::connectSlotsByName(this);
 }
 
@@ -362,6 +366,11 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.qs->setValue("mw", saveState());
 	g.qs->setValue("mwSplitter", qsSplit->saveState());
 	QMainWindow::closeEvent(e);
+}
+
+void MainWindow::hideEvent(QHideEvent *e) {
+	if (qstiIcon->isSystemTrayAvailable())
+		qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
 }
 
 void MainWindow::appendLog(QString entry)
@@ -876,8 +885,20 @@ void MainWindow::on_Reconnect_timeout()
 		g.sh->start(QThread::TimeCriticalPriority);
 }
 
+void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason) {
+	if (! isVisible()) {
+		show();
+		showNormal();
+	}
+	activateWindow();
+}
+
 
 void MainWindow::customEvent(QEvent *evt) {
+	if (evt->type() == TI_QEVENT) {
+			hide();
+			return;
+	}
 	if (evt->type() != SERVERSEND_EVENT)
 		return;
 

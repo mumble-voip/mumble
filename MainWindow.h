@@ -31,7 +31,8 @@
 #ifndef _MAINWINDOW_H
 #define _MAINWINDOW_H
 
-class TrayIcon;
+#define TI_QEVENT (QEvent::User + 938)
+
 class ACLEditor;
 class BanEditor;
 class ServerHandler;
@@ -52,12 +53,11 @@ class MainWindow : public QMainWindow {
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
 		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
 		QSplitter *qsSplit;
+		QSystemTrayIcon *qstiIcon;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
 		GlobalShortcut *gsAltTalk;
-
-		TrayIcon *ti;
 
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
@@ -72,6 +72,7 @@ class MainWindow : public QMainWindow {
 		void setupGui();
 		void customEvent(QEvent *evt);
 		virtual void closeEvent(QCloseEvent *e);
+		virtual void hideEvent (QHideEvent *e);
 	public slots:
 		void on_Players_customContextMenuRequested(const QPoint &pos);
 		void on_Players_doubleClicked(const QModelIndex &idx);
@@ -108,6 +109,7 @@ class MainWindow : public QMainWindow {
 		void on_AltPushToTalk_triggered(bool);
 		void on_CenterPos_triggered(bool);
 		void on_Reconnect_timeout();
+		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void pushLink(bool down);
