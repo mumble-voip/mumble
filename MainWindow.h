@@ -54,6 +54,8 @@ class MainWindow : public QMainWindow {
 		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
 		QSplitter *qsSplit;
 		QSystemTrayIcon *qstiIcon;
+		QTextEdit *qteLog;
+		QTreeView *qtvPlayers;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
@@ -65,8 +67,6 @@ class MainWindow : public QMainWindow {
 		void recheckTTS();
 		void appendLog(QString entry);
 	protected:
-		QTextEdit *qteLog;
-		QTreeView *qtvPlayers;
 		QTimer *qtReconnect;
 		void createActions();
 		void setupGui();

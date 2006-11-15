@@ -69,14 +69,28 @@ int main(int argc, char **argv)
 	a.setOrganizationDomain("mumble.sourceforge.net");
 	a.setQuitOnLastWindowClosed(false);
 
-    QString locale = QLocale::system().name();
+	g.qs = new QSettings();
 
+	QString style=g.qs->value("Style").toString();
+	if (! style.isEmpty()) {
+		a.setStyle(style);
+	}
+
+	QString skin=g.qs->value("Skin").toString();
+	if (! skin.isEmpty()) {
+	    QFile file(skin);
+	    file.open(QFile::ReadOnly);
+	    QString styleSheet = file.readAll();
+	    if (! styleSheet.isEmpty())
+		    a.setStyleSheet(styleSheet);
+	}
+
+    QString locale=g.qs->value("Language", QLocale::system().name()).toString();
     QTranslator translator;
     if (! translator.load(QString("mumble_") + locale))
 		translator.load(QString(":/mumble_") + locale);
     a.installTranslator(&translator);
 
-	g.qs = new QSettings();
 
 	// Set application icon
 	QIcon icon;

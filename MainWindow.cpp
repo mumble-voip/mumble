@@ -33,7 +33,6 @@
 #include "ConnectDialog.h"
 #include "Player.h"
 #include "Channel.h"
-#include "TrayIcon.h"
 #include "ACLEditor.h"
 #include "BanEditor.h"
 #include "Connection.h"
@@ -335,10 +334,15 @@ void MainWindow::setupGui()  {
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName("AltPushToTalk");
 
-	qsSplit = new QSplitter(Qt::Horizontal, this);
-	qsSplit->addWidget(qteLog);
-	qsSplit->addWidget(qtvPlayers);
-
+	if (g.qs->value("Horizontal", true).toBool()) {
+		qsSplit = new QSplitter(Qt::Horizontal, this);
+		qsSplit->addWidget(qteLog);
+		qsSplit->addWidget(qtvPlayers);
+	} else {
+		qsSplit = new QSplitter(Qt::Vertical, this);
+		qsSplit->addWidget(qtvPlayers);
+		qsSplit->addWidget(qteLog);
+	}
 	setCentralWidget(qsSplit);
 
 	restoreState(g.qs->value("mw").toByteArray());

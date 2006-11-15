@@ -4,14 +4,14 @@ TEMPLATE	= app
 QT		+= network sql opengl
 TARGET		= mumble
 RC_FILE		= mumble.rc
-HEADERS		= ACL.h BanEditor.h Group.h ACLEditor.h Channel.h Log.h TrayIcon.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h Player.h About.h Message.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h
-SOURCES		= ACL.cpp BanEditor.cpp Group.cpp ACLEditor.cpp Channel.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Connection.cpp ServerHandler.cpp Player.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp
+HEADERS		= ACL.h BanEditor.h Group.h ACLEditor.h Channel.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h Connection.h ServerHandler.h Player.h About.h Message.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h
+SOURCES		= ACL.cpp BanEditor.cpp Group.cpp ACLEditor.cpp Channel.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp Message.cpp Connection.cpp ServerHandler.cpp Player.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp
 DIST		+= licenses.h mumble.ico plugins/mumble_plugin.h overlay/overlay.h
 INCLUDEPATH	+= include
 LIBS 		+= -Llib -L.
 RESOURCES	+= mumble.qrc
 
-TRANSLATIONS	= mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts
+TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts
 
 PRECOMPILED_HEADER = mumble_pch.h
 
