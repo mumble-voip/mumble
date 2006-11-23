@@ -67,7 +67,7 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	l = new QLabel(tr("Language"));
 	l->setBuddy(qcbLanguage);
 	qcbLanguage->setToolTip(tr("Language to use (requires restart)"));
-	qcbLanguage->setWhatsThis(tr("<b>This sets which language mumble should use.</b><br />You have to restart Mumble to use the new language."));
+	qcbLanguage->setWhatsThis(tr("<b>This sets which language Mumble should use.</b><br />You have to restart Mumble to use the new language."));
 
 	grid->addWidget(l,0,0);
 	grid->addWidget(qcbLanguage, 0, 1);

@@ -1665,7 +1665,7 @@ of the possible locations.</source>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="70"/>
-        <source>&lt;b&gt;This sets which language mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
+        <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1724,7 +1724,7 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="170"/>
+        <location filename="LookConfig.cpp" line="171"/>
         <source>Choose skin file</source>
         <translation type="unfinished"></translation>
     </message>
