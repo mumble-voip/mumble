@@ -21,9 +21,11 @@
  <file>icons/config_asio.png</file>
  <file>icons/config_osd.png</file>
  <file>icons/config_shortcuts.png</file>
+ <file>icons/config_ui.png</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>
  <file>mumble_de.qm</file>
  <file>mumble_tr.qm</file>
+ <file>mumble_ru.qm</file>
 </qresource>
 </RCC>
