@@ -512,35 +512,35 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="About.cpp" line="53"/>
-        <source>&lt;h3&gt;Mumble v0.9.5&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="About.cpp" line="59"/>
+        <location filename="About.cpp" line="60"/>
         <source>&amp;About Mumble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="About.cpp" line="60"/>
+        <location filename="About.cpp" line="61"/>
         <source>&amp;License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="About.cpp" line="62"/>
+        <location filename="About.cpp" line="63"/>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="About.cpp" line="54"/>
+        <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>AboutSpeexDialog</name>
     <message>
-        <location filename="About.cpp" line="83"/>
+        <location filename="About.cpp" line="84"/>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;http://www.speex.org/&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="About.cpp" line="85"/>
+        <location filename="About.cpp" line="86"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>

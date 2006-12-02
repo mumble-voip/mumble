@@ -29,6 +29,7 @@
 */
 
 #include "About.h"
+#include "Global.h"
 #include "licenses.h"
 
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
@@ -46,11 +47,11 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 
 	QLabel *text=new QLabel(about);
 	text->setText(tr(
-		"<h3>Mumble v0.9.5</h3>"
+		"<h3>Mumble v%1</h3>"
 		"<p>Copyright 2005-2006 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
 		"<p><b>A voice-chat utility for gamers</b></p>"
 		"<p><tt>http://mumble.sourceforge.net/</tt></p>"
-	));
+	).arg(MUMBLE_RELEASE));
 	QHBoxLayout *qhbl=new QHBoxLayout();
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);

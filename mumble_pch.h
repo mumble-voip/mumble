@@ -8,6 +8,9 @@
 #define __cdecl
 #endif
 
+#define QT_NO_DEBUG_STREAM
+#define QT_ASCII_CAST_WARNINGS
+#define QT_NO_CAST_TO_ASCII
 #include <QtCore>
 #include <QtGui>
 #include <QtNetwork>
