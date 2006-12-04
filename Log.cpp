@@ -182,7 +182,8 @@ void Log::loadSettings() {
 	for(int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
-		QString key=QString("msg%1").arg(msgName(t));
+		QString key=QString("msg%1").arg(msgNames[t]);
+		key = key.remove(QRegExp("[ /\\(\\)-]"));
 		int v = g.qs->value(key,0xff).toInt();
 		ms->bConsole=(v & 0x01);
 		ms->bTTS=(v & 0x02);
@@ -193,7 +194,8 @@ void Log::saveSettings() const {
 	for(int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
-		QString key=QString("msg%1").arg(msgName(t));
+		QString key=QString("msg%1").arg(msgNames[t]);
+		key = key.remove(QRegExp("[ /\\(\\)-]"));
 		int v = 0;
 		if (ms->bConsole)
 			v |= 0x01;
