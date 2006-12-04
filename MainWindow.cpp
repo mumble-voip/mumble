@@ -345,16 +345,9 @@ void MainWindow::setupGui()  {
 	}
 	setCentralWidget(qsSplit);
 
+	restoreGeometry(g.qs->value("mwgeom").toByteArray());
 	restoreState(g.qs->value("mw").toByteArray());
 	qsSplit->restoreState(g.qs->value("mwSplitter").toByteArray());
-
-	QPoint ps = g.qs->value("mwPos").toPoint();
-	if (! ps.isNull() && (ps.x() >= 0) && (ps.y() >= 0)) {
-		move(ps);
-		QSize sz = g.qs->value("mwSize").toSize();
-		if (sz.isValid())
-			resize(sz);
-	}
 
 	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
 	qstiIcon->setObjectName("Icon");
@@ -365,8 +358,7 @@ void MainWindow::setupGui()  {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 	g.sId = 0;
-	g.qs->setValue("mwPos", pos());
-	g.qs->setValue("mwSize", size());
+	g.qs->setValue("mwgeom", saveGeometry());
 	g.qs->setValue("mw", saveState());
 	g.qs->setValue("mwSplitter", qsSplit->saveState());
 	QMainWindow::closeEvent(e);
