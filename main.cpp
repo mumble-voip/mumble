@@ -69,7 +69,11 @@ int main(int argc, char **argv)
 	a.setOrganizationDomain("mumble.sourceforge.net");
 	a.setQuitOnLastWindowClosed(false);
 
-	g.qs = new QSettings();
+	QFile inifile(QString("%1/mumble.ini").arg(a.applicationDirPath()));
+	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser))
+		g.qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
+	else
+		g.qs = new QSettings();
 
 	QString style=g.qs->value("Style").toString();
 	if (! style.isEmpty()) {
