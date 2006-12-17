@@ -80,14 +80,14 @@ int main(int argc, char **argv)
 		}
 	}
 
+	g_sp.read(inifile);
+
 	ServerDB db;
 
 	if (! supw.isEmpty()) {
 		ServerDB::setPW(0, supw);
 		qFatal("Superuser password set");
 	}
-
-	g_sp.read(inifile);
 
 	db.readChannels();
 
