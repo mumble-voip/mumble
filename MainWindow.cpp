@@ -353,7 +353,7 @@ void MainWindow::setupGui()  {
 	qstiIcon->setObjectName("Icon");
 	qstiIcon->show();
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
@@ -406,8 +406,13 @@ void MainWindow::on_ServerConnect_triggered()
 	ConnectDialog *cd = new ConnectDialog(this);
 	int res = cd->exec();
 
+	if (g.sh && g.sh->isRunning() && res == QDialog::Accepted)
+	{
+		on_ServerDisconnect_triggered();
+		g.sh->wait();
+	}	
+	
 	if (res == QDialog::Accepted) {
-		qaServerConnect->setEnabled(false);
 		qaServerDisconnect->setEnabled(true);
 		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
@@ -846,7 +851,6 @@ void MainWindow::serverConnected()
 void MainWindow::serverDisconnected(QString reason)
 {
 	g.sId = 0;
-	qaServerConnect->setEnabled(true);
 	qaServerDisconnect->setEnabled(false);
 	qaServerBanList->setEnabled(false);
 
