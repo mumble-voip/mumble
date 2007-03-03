@@ -306,7 +306,7 @@ void Server::sendAll(Message *mMsg) {
 void Server::sendExcept(Message *mMsg, Connection *cCon) {
 	QHash<Connection *, Player *>::const_iterator i;
 	for(i=qmPlayers.constBegin(); i != qmPlayers.constEnd(); ++i) {
-		if (i.key() != cCon)
+		if ((i.key() != cCon) && (i.value()->sState == Player::Authenticated))
 			sendMessage(i.key(), mMsg);
 	}
 }
@@ -577,6 +577,8 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		g_sServer->sendExcept(&mpm, cCon);
 
 	foreach(Player *pPlayer, g_sServer->qmPlayers) {
+		if (pPlayer->sState != Player::Authenticated)
+			continue;
 		msjMsg.sPlayerId = pPlayer->sId;
 		msjMsg.iId = pPlayer->iId;
 		msjMsg.qsPlayerName = pPlayer->qsName;
