@@ -63,53 +63,88 @@ ALSAAudioInput::~ALSAAudioInput()
 
 void ALSAAudioInput::run()
 {
-    int ready, readblapp;
+    int readblapp;
 
 
-    snd_pcm_t *capture_handle;
     const char *device_name = "default";
     snd_pcm_hw_params_t *hw_params;
 
     unsigned int rrate = SAMPLE_RATE;
 
     bRunning = true;
+    int err = 0;
 
     qWarning("ALSAAudioInput: Initing audiocapture.");
-    snd_pcm_open(&capture_handle, device_name, SND_PCM_STREAM_CAPTURE, 0);
+    err = snd_pcm_open(&capture_handle, device_name, SND_PCM_STREAM_CAPTURE, 0);
+    if (err < 0) qWarning("ALSAAudioInput: %s", snd_strerror(err));
 
     /* Setup parameters using hw_params structure */
-    snd_pcm_hw_params_malloc(&hw_params);
-    snd_pcm_hw_params_any(capture_handle, hw_params);
-    snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
-    snd_pcm_hw_params_set_format(capture_handle, hw_params, SND_PCM_FORMAT_S16_LE);
-    snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL);
-    snd_pcm_hw_params_set_channels(capture_handle, hw_params, 1);
-    snd_pcm_hw_params(capture_handle, hw_params);
+    err = snd_pcm_hw_params_malloc(&hw_params);
+    if (err < 0) qWarning("ALSAAudioInput: Allocating Memory: %s", snd_strerror(err));
+    err = snd_pcm_hw_params_any(capture_handle, hw_params);
+    if (err < 0) qWarning("ALSAAudioInput: Any Settings: %s", snd_strerror(err));
+    err = snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
+    if (err < 0) qWarning("ALSAAudioInput: Access: %s", snd_strerror(err));
+    err = snd_pcm_hw_params_set_format(capture_handle, hw_params, SND_PCM_FORMAT_S16_LE);
+    if (err < 0) qWarning("ALSAAudioInput: Format: %s", snd_strerror(err));
+    err = snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL);
+    if (err < 0) qWarning("ALSAAudioInput: Rate: %s", snd_strerror(err));
+    err = snd_pcm_hw_params_set_channels(capture_handle, hw_params, 1);
+    if (err < 0) qWarning("ALSAAudioInput: Channels: %s", snd_strerror(err));
+
+    err = snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&iByteSize);
+    if (err < 0) qWarning("ALSAAudioInput: Buffer Size: %s", snd_strerror(err));
+    err = snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&iFrameSize, NULL);
+    if (err < 0) qWarning("ALSAAudioInput: Period Size: %s", snd_strerror(err));
+    err = snd_pcm_hw_params(capture_handle, hw_params);
+    if (err < 0) qWarning("ALSAAudioInput: hw params: %s", snd_strerror(err));
+
     snd_pcm_hw_params_free(hw_params);
 
+/*
+ * Add this information to either very very very vers verbose output
+ * or debug output
+    snd_output_t *log;
+    snd_pcm_status_t *status;
+    snd_output_stdio_attach(&log, stderr,0 );
+    snd_pcm_dump(capture_handle, log);
+ */
+
     /* Prepare device */
-    snd_pcm_prepare(capture_handle);
+    err = snd_pcm_prepare(capture_handle);
+    if (err < 0) qWarning("ALSAAudioInput: Prepare: %s", snd_strerror(err));
+
+    /* Start device - not necessary */
+    err = snd_pcm_start(capture_handle);
+    if (err < 0) qWarning("ALSAAudioInput: Start: %s", snd_strerror(err));
 
     while (bRunning) {
-
-	ready = snd_pcm_avail_update(capture_handle);
-	while (ready < 0) {
-	    qWarning("ALSAAudioInput: Buffer overrun.");
-	    snd_pcm_prepare(capture_handle);
-	    sleep(2);
-	    ready = snd_pcm_avail_update(capture_handle);
-	}
-
+/*
+ * Add this information to either very very very very verbose output
+ * or debug output.
+	snd_pcm_status_malloc(&status);
+	snd_pcm_status(capture_handle, status);
+	snd_pcm_status_dump(status, log);
+	snd_pcm_status_free(status);
+ */
 	readblapp = snd_pcm_readi(capture_handle, psMic, iFrameSize);
-	if (readblapp < 0) {
-	    qWarning("ALSAAudioInput: Buffer overrun.");
-	    snd_pcm_prepare(capture_handle);
-	} else {
+	if (readblapp == -ESTRPIPE) {
+	    // suspend event - what to do?
+	    qWarning("ALSAAudioInput: %s", snd_strerror(readblapp));
+	} else if (readblapp == -EPIPE) {
+	    err = snd_pcm_prepare(capture_handle);
+	    qWarning("ALSAAudioInput: %s: %s", snd_strerror(readblapp), snd_strerror(err));
+	} else if (readblapp < 0) {
+	    err = snd_pcm_prepare(capture_handle);
+	    qWarning("ALSAAudioInput: %s: %s", snd_strerror(readblapp), snd_strerror(err));
+	} else if (iFrameSize == readblapp) {
 	    encodeAudioFrame();
 	}
     }
 
+    snd_pcm_drain(capture_handle);
     snd_pcm_close(capture_handle);
+
     qWarning("ALSAAudioInput: Releasing ALSA Mic.");
 }
 
