@@ -553,8 +553,10 @@ QList<ServerDB::qpCommand> ServerDB::getCommands() {
 			cmd.second.append(query.value(i));
 		commands << cmd;
 	}
-	query.prepare("DELETE FROM commands");
-	query.exec();
+	if (commands.count() != 0) {
+		query.prepare("DELETE FROM commands");
+		query.exec();
+	}
 	return commands;
 }
 
