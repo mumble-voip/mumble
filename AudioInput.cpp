@@ -287,7 +287,6 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psSource[i]);
 	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
 
-	CloneSpeexPreprocessState *pps=reinterpret_cast<CloneSpeexPreprocessState *>(sppPreprocess);
 
 	// The default is a bit short, increase it
 	if (! iIsSpeech) {
@@ -297,14 +296,15 @@ void AudioInput::encodeAudioFrame() {
 	} else {
 		iHoldFrames = 0;
 	}
-
+/*
+	CloneSpeexPreprocessState *pps=reinterpret_cast<CloneSpeexPreprocessState *>(sppPreprocess);
 	if (pps->loudness2 < g.s.iMinLoudness)
 		pps->loudness2 = g.s.iMinLoudness;
 	if (isnan(pps->loudness2)) {
 		qWarning("AudioInput: loudness is nan");
 		bResetProcessor = true;
 	}
-
+*/
 	if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
 	else if (g.s.atTransmit == Settings::PushToTalk)
