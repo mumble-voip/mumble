@@ -68,6 +68,7 @@ void ALSAAudioInput::run()
 
     const char *device_name = "default";
     snd_pcm_hw_params_t *hw_params;
+    snd_pcm_t *capture_handle;
 
     unsigned int rrate = SAMPLE_RATE;
 

@@ -3,6 +3,7 @@
 
 TEMPLATE = lib
 CONFIG -= qt
+CONFIG += staticlib debug_and_release
 VPATH	= ../speex/libspeex
 TARGET = speex
 DEFINES += NDEBUG HAVE_CONFIG_H VAR_ARRAYS 

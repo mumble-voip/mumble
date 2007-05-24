@@ -9,12 +9,12 @@ INCLUDEPATH	+= ..
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  LIBS	+= -L../../debug
+  QMAKE_LFLAGS	+= -L../../debug
   DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  LIBS	+= -L../../release
+  QMAKE_LFLAGS	+= -L../../release
   DESTDIR	= ../../release
 }
 

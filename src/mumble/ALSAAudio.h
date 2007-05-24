@@ -39,7 +39,6 @@ class ALSAAudioOutput;
 class ALSAAudioInput;
 
 class ALSAAudioInput : public AudioInput {
-		snd_pcm_t *capture_handle;
 	Q_OBJECT
 	protected:
 		void release();
@@ -54,6 +53,7 @@ class ALSAOutputPlayer : public AudioOutputPlayer {
 	friend class ALSAAudioOutput;
 	Q_OBJECT
 	protected:
+		snd_pcm_t *pcm_handle;
 		ALSAAudioOutput *aao;
 		int iAliveHold;
 		bool playFrames();
