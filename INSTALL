@@ -49,28 +49,33 @@ The Linux version of the client is developed on Ubuntu 6.10. It may work on
 other updated distributions. The server should work on any modern UNIX-based
 distribution and on Windows.
 
-Building Mumble
-===============
+Building Mumble and Murmur
+==========================
 
 To build mumble, type
-qmake mumble.pro
-lupdate mumble.pro
-lrelease mumble.pro
+qmake main.pro
 make
 
-You may need to edit mumble.pro to reflect the installation paths you use for
-libraries.
+You may need to edit src/mumble/mumble.pro to reflect the installation paths you
+use for libraries.
 
-Building Murmur
-===============
+Building only Murmur
+====================
 
 To build murmur, type
+cd src/murmur
 qmake murmur.pro
 make
 
-To enable user registration, copy murmur.pl to murmur.cgi and put it
+To enable user registration, copy scripts/murmur.pl to murmur.cgi and put it
 somewhere accessible by your webserver. Make sure your webserver is 
 configured to execute it as a CGI, and make sure you edit it to reflect
 the configuration parameters. Note that the user the CGI will run as needs
 write permissions to both the database file and the directory the database
 file resides in.
+
+Building from SVN
+=================
+
+If you are building from SVN, Speex will not be part of the source tree. Please
+do a checkout of the speex trunk to a directory named 'speex'.

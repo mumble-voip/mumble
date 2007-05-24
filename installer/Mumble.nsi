@@ -74,7 +74,7 @@ Section "Mumble & Murmur" SecMumble
   File "..\release\murmur.exe"
   File "..\overlay\mumble_ol.dll"
   SetOverwrite off
-  File "..\murmur.ini"
+  File "..\scripts\murmur.ini"
   SetOverwrite on
   File "qos.reg"
   File "\dev\Qt4.3.0\lib\QtCore4.dll"

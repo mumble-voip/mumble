@@ -1,5 +1,5 @@
 
- The Qt GUI Toolkit is Copyright (C) 1994-2005 Trolltech AS.
+ The Qt GUI Toolkit is Copyright (C) 1994-2007 Trolltech ASA.
 
  You may use, distribute and copy the Qt GUI Toolkit under the terms of
  GNU General Public License version 2, which is displayed below.
@@ -10,7 +10,7 @@
 		       Version 2, June 1991
 
  Copyright (C) 1989, 1991 Free Software Foundation, Inc.
-                       59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+                       51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
@@ -313,7 +313,7 @@ the "copyright" line and a pointer to where the full notice is found.
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 Also add information on how to contact you by electronic and paper mail.
@@ -348,3 +348,14 @@ library.  If this is what you want to do, use the GNU Library General
 Public License instead of this License.
 
 -------------------------------------------------------------------------
+
+In addition, as a special exception, Trolltech gives permission to link the
+code of its release of Qt with the OpenSSL project's "OpenSSL" library (or
+modified versions of the "OpenSSL" library that use the same license as the
+original version), and distribute the linked executables.
+
+You must comply with the GNU General Public License version 2 in all respects
+for all of the code used other than the "OpenSSL" code.  If you modify this
+file, you may extend this exception to your version of the file, but you are
+not obligated to do so.  If you do not wish to do so, delete this exception
+statement from your version of this file.

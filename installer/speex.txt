@@ -1,9 +1,10 @@
-Copyright 2002-2005 
+Copyright 2002-2007 
         Xiph.org Foundation
         Jean-Marc Valin
         David Rowe
         EpicGames
         Analog Devices
+        Commonwealth Scientific and Industrial Research Organisation (CSIRO)
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
