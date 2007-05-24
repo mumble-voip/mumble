@@ -30,7 +30,7 @@
 
 #include "Plugins.h"
 #include "Log.h"
-#include "plugins/mumble_plugin.h"
+#include "../../plugins/mumble_plugin.h"
 #include "Global.h"
 
 static ConfigWidget *PluginConfigDialogNew() {

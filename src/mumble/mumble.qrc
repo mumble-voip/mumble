@@ -1,0 +1,31 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+ <file>../../icons/mumble.png.0</file>
+ <file>../../icons/mumble.png.1</file>
+ <file>../../icons/mumble.png.2</file>
+ <file>../../icons/talking_on.png</file>
+ <file>../../icons/talking_alt.png</file>
+ <file>../../icons/talking_off.png</file>
+ <file>../../icons/deafened_self.png</file>
+ <file>../../icons/deafened_server.png</file>
+ <file>../../icons/muted_self.png</file>
+ <file>../../icons/muted_server.png</file>
+ <file>../../icons/muted_local.png</file>
+ <file>../../icons/authenticated.png</file>
+ <file>../../icons/channel.png</file>
+ <file>../../icons/channel_linked.png</file>
+ <file>../../icons/config_basic.png</file>
+ <file>../../icons/config_dsound.png</file>
+ <file>../../icons/config_msgs.png</file>
+ <file>../../icons/config_plugin.png</file>
+ <file>../../icons/config_asio.png</file>
+ <file>../../icons/config_osd.png</file>
+ <file>../../icons/config_shortcuts.png</file>
+ <file>../../icons/config_ui.png</file>
+ <file>mumble_en.qm</file>
+ <file>mumble_es.qm</file>
+ <file>mumble_de.qm</file>
+ <file>mumble_tr.qm</file>
+ <file>mumble_ru.qm</file>
+</qresource>
+</RCC>

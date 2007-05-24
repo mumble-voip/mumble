@@ -31,7 +31,7 @@
 #ifndef _OVERLAY_H
 #define _OVERLAY_H
 
-#include "overlay/overlay.h"
+#include "../../overlay/overlay.h"
 #include "ConfigDialog.h"
 
 class Player;

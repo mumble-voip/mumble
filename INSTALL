@@ -19,11 +19,6 @@ build system, it's important that you have a fully functional Qt installation.
 The mumble build uses pre-comiled headers. If you use GCC, make sure it's at
 least version 3.4.
 
-Mumble depends on libspeex. See http://www.speex.org for details. Note that
-you need the latest "unstable" version to compile. (Speex generally has high
-code quality, the the svn version is probably even more stable than the
-released unstable version).
-
 Mumble needs the Boost C++ library. http://www.boost.org
 
 You may need to adjust the paths in mumble.pro, murmur.pro and mumble.pri to

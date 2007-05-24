@@ -5,13 +5,17 @@ CONFIG		+= qt thread debug_and_release warn_on precompile_header
 QMAKE_CFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
 QMAKE_CXXFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
 
+INCLUDEPATH	+= ..
+
 CONFIG(debug, debug|release) {
   CONFIG += console
-  LIBS	+= -Ldebug
+  LIBS	+= -L../../debug
+  DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  LIBS	+= -Lrelease
+  LIBS	+= -L../../release
+  DESTDIR	= ../../release
 }
 
 # To use external profiling tools on the release builds, but
