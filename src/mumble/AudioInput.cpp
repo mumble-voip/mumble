@@ -230,6 +230,12 @@ void AudioInput::encodeAudioFrame() {
 		fArg = 20000;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
 
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_MAX_GAIN, &iArg);
+		qWarning("PrevMaxGain: %d", iArg);
+
+		double v = 20000.0 / g.s.iMinLoudness;
+		iArg = floor(20.0 * log10(v));
+
 		if (bHasSpeaker) {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
@@ -285,6 +291,10 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psSource[i]);
 	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
 
+	if (dPeakSignal > -20)
+		iIsSpeech = 1;
+	else
+		iIsSpeech = 0;
 
 	// The default is a bit short, increase it
 	if (! iIsSpeech) {

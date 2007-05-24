@@ -1,27 +1,27 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
- <file>../../icons/mumble.png.0</file>
- <file>../../icons/mumble.png.1</file>
- <file>../../icons/mumble.png.2</file>
- <file>../../icons/talking_on.png</file>
- <file>../../icons/talking_alt.png</file>
- <file>../../icons/talking_off.png</file>
- <file>../../icons/deafened_self.png</file>
- <file>../../icons/deafened_server.png</file>
- <file>../../icons/muted_self.png</file>
- <file>../../icons/muted_server.png</file>
- <file>../../icons/muted_local.png</file>
- <file>../../icons/authenticated.png</file>
- <file>../../icons/channel.png</file>
- <file>../../icons/channel_linked.png</file>
- <file>../../icons/config_basic.png</file>
- <file>../../icons/config_dsound.png</file>
- <file>../../icons/config_msgs.png</file>
- <file>../../icons/config_plugin.png</file>
- <file>../../icons/config_asio.png</file>
- <file>../../icons/config_osd.png</file>
- <file>../../icons/config_shortcuts.png</file>
- <file>../../icons/config_ui.png</file>
+ <file alias="mumble.png.0">../../icons/mumble.png.0</file>
+ <file alias="mumble.png.1">../../icons/mumble.png.1</file>
+ <file alias="mumble.png.2">../../icons/mumble.png.2</file>
+ <file alias="talking_on.png">../../icons/talking_on.png</file>
+ <file alias="talking_alt.png">../../icons/talking_alt.png</file>
+ <file alias="talking_off.png">../../icons/talking_off.png</file>
+ <file alias="deafened_self.png">../../icons/deafened_self.png</file>
+ <file alias="deafened_server.png">../../icons/deafened_server.png</file>
+ <file alias="muted_self.png">../../icons/muted_self.png</file>
+ <file alias="muted_server.png">../../icons/muted_server.png</file>
+ <file alias="muted_local.png">../../icons/muted_local.png</file>
+ <file alias="authenticated.png">../../icons/authenticated.png</file>
+ <file alias="channel.png">../../icons/channel.png</file>
+ <file alias="channel_linked.png">../../icons/channel_linked.png</file>
+ <file alias="config_basic.png">../../icons/config_basic.png</file>
+ <file alias="config_dsound.png">../../icons/config_dsound.png</file>
+ <file alias="config_msgs.png">../../icons/config_msgs.png</file>
+ <file alias="config_plugin.png">../../icons/config_plugin.png</file>
+ <file alias="config_asio.png">../../icons/config_asio.png</file>
+ <file alias="config_osd.png">../../icons/config_osd.png</file>
+ <file alias="config_shortcuts.png">../../icons/config_shortcuts.png</file>
+ <file alias="config_ui.png">../../icons/config_ui.png</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>
  <file>mumble_de.qm</file>
