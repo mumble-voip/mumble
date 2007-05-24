@@ -157,7 +157,7 @@ QString GlobalShortcutXConfig::title() const {
 }
 
 QIcon GlobalShortcutXConfig::icon() const {
-        return QIcon(":/icons/config_shortcuts.png");
+        return QIcon(":/config_shortcuts.png");
 }
 
 void GlobalShortcutXConfig::accept() {

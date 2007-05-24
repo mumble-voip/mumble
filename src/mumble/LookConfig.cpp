@@ -128,7 +128,7 @@ QString LookConfig::title() const {
 }
 
 QIcon LookConfig::icon() const {
-	return QIcon(":/icons/config_ui.png");
+	return QIcon(":/config_ui.png");
 }
 
 void LookConfig::accept() {

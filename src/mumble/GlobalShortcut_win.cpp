@@ -170,7 +170,7 @@ QString GlobalShortcutWinConfig::title() const {
 }
 
 QIcon GlobalShortcutWinConfig::icon() const {
-	return QIcon(":/icons/config_shortcuts.png");
+	return QIcon(":/config_shortcuts.png");
 }
 
 void GlobalShortcutWinConfig::accept() {

@@ -163,17 +163,17 @@ void ModelItem::insertPlayer(Player *p) {
 }
 
 PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOn=QIcon(":/icons/talking_on.png");
-	qiTalkingAlt=QIcon(":/icons/talking_alt.png");
-	qiTalkingOff=QIcon(":/icons/talking_off.png");
-	qiMutedSelf=QIcon(":/icons/muted_self.png");
-	qiMutedServer=QIcon(":/icons/muted_server.png");
-	qiMutedLocal=QIcon(":/icons/muted_local.png");
-	qiDeafenedSelf=QIcon(":/icons/deafened_self.png");
-	qiDeafenedServer=QIcon(":/icons/deafened_server.png");
-	qiAuthenticated=QIcon(":/icons/authenticated.png");
-	qiChannel=QIcon(":/icons/channel.png");
-	qiLinkedChannel=QIcon(":/icons/channel_linked.png");
+	qiTalkingOn=QIcon(":/talking_on.png");
+	qiTalkingAlt=QIcon(":/talking_alt.png");
+	qiTalkingOff=QIcon(":/talking_off.png");
+	qiMutedSelf=QIcon(":/muted_self.png");
+	qiMutedServer=QIcon(":/muted_server.png");
+	qiMutedLocal=QIcon(":/muted_local.png");
+	qiDeafenedSelf=QIcon(":/deafened_self.png");
+	qiDeafenedServer=QIcon(":/deafened_server.png");
+	qiAuthenticated=QIcon(":/authenticated.png");
+	qiChannel=QIcon(":/channel.png");
+	qiLinkedChannel=QIcon(":/channel_linked.png");
 
 	miRoot = new ModelItem(Channel::get(0));
 }
@@ -376,18 +376,18 @@ QVariant PlayerModel::otherRoles(int section, int role, bool isPlayer) const
 					if (isPlayer)
  						return tr("This is a player connected to the server. The icon to the left of the player indicates "
 							"whether or not they are talking:<br />"
-							"<img src=\":/icons/talking_on.png\" /> Talking<br />"
-							"<img src=\":/icons/talking_off.png\" /> Not talking"
+							"<img src=\":/talking_on.png\" /> Talking<br />"
+							"<img src=\":/talking_off.png\" /> Not talking"
 							);
 					else
 						return tr("This is a channel on the server. Only players in the same channel can hear each other.");
 				case 1:
 					return tr("This shows the flags the player has on the server, if any:<br />"
-								"<img src=\":/icons/authenticated.png\" />Authenticated user<br />"
-								"<img src=\":/icons/muted_self.png\" />Muted (by self)<br />"
-								"<img src=\":/icons/muted_server.png\" />Muted (by admin)<br />"
-								"<img src=\":/icons/deafened_self.png\" />Deafened (by self)<br />"
-								"<img src=\":/icons/deafened_server.png\" />Deafened (by admin)<br />"
+								"<img src=\":/authenticated.png\" />Authenticated user<br />"
+								"<img src=\":/muted_self.png\" />Muted (by self)<br />"
+								"<img src=\":/muted_server.png\" />Muted (by admin)<br />"
+								"<img src=\":/deafened_self.png\" />Deafened (by self)<br />"
+								"<img src=\":/deafened_server.png\" />Deafened (by admin)<br />"
 								"A player muted by himself is probably just away, talking on the phone or something like that.<br />"
 								"A player muted by an admin is probably also just away, and the noise the player is making was annoying "
 								"enough that an admin muted him.");

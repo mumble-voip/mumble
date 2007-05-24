@@ -98,9 +98,9 @@ int main(int argc, char **argv)
 
 	// Set application icon
 	QIcon icon;
-	icon.addFile(":/icons/mumble.png.2");
-	icon.addFile(":/icons/mumble.png.1");
-	icon.addFile(":/icons/mumble.png.0");
+	icon.addFile(":/mumble.png.2");
+	icon.addFile(":/mumble.png.1");
+	icon.addFile(":/mumble.png.0");
 	a.setWindowIcon(icon);
 
 	// Load preferences

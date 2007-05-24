@@ -227,7 +227,7 @@ QString DXConfigDialog::title() const {
 }
 
 QIcon DXConfigDialog::icon() const {
-	return QIcon(":/icons/config_dsound.png");
+	return QIcon(":/config_dsound.png");
 }
 
 void DXConfigDialog::accept() {

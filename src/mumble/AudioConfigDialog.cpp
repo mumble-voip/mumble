@@ -322,7 +322,7 @@ QString AudioConfigDialog::title() const {
 }
 
 QIcon AudioConfigDialog::icon() const {
-	return QIcon(":/icons/config_basic.png");
+	return QIcon(":/config_basic.png");
 }
 
 void AudioConfigDialog::accept() {

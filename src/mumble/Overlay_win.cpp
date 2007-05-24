@@ -324,7 +324,7 @@ QString OverlayConfig::title() const {
 }
 
 QIcon OverlayConfig::icon() const {
-	return QIcon(":/icons/config_osd.png");
+	return QIcon(":/config_osd.png");
 }
 
 void OverlayConfig::accept() {

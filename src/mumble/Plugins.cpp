@@ -115,7 +115,7 @@ QString PluginConfig::title() const {
 }
 
 QIcon PluginConfig::icon() const {
-	return QIcon(":/icons/config_plugin.png");
+	return QIcon(":/config_plugin.png");
 }
 
 void PluginConfig::accept() {
