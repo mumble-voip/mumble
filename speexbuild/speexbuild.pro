@@ -5,7 +5,10 @@ TEMPLATE = lib
 CONFIG -= qt
 VPATH	= ../speex/libspeex
 TARGET = speex
-DEFINES += NDEBUG WIN32 _WINDOWS HAVE_CONFIG_H VAR_ARRAYS _USE_SSE
+DEFINES += NDEBUG HAVE_CONFIG_H VAR_ARRAYS 
+win32 {
+	DEFINES+=WIN32 _WINDOWS _USE_SSE
+}
 #VORBIS_PSYCHO
 INCLUDEPATH = ../speex/win32 ../speex/include ../speex/libspeex
 DEF_FILE = speex.def
