@@ -84,6 +84,7 @@ class AudioInput : public QThread {
 
 		int iBitrate;
 		double dPeakMic, dPeakSpeaker, dPeakSignal;
+		double dSNR;
 
 		bool isTransmitting() { return bPreviousVoice; };
 

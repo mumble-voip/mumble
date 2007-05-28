@@ -236,6 +236,11 @@ void AudioInput::encodeAudioFrame() {
 		double v = 20000.0 / g.s.iMinLoudness;
 		iArg = floor(20.0 * log10(v));
 
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
+
+		iArg = -45;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+
 		if (bHasSpeaker) {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
@@ -291,7 +296,17 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psSource[i]);
 	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
 
-	if (dPeakSignal > -20)
+
+	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(sppPreprocess);
+	float Zframe = 0;
+	int freq_start = static_cast<int>(300.0f*2.f*st->ps_size/st->sampling_rate);
+	int freq_end   = static_cast<int>(2000.0f*2.f*st->ps_size/st->sampling_rate);
+	for (int i=freq_start;i<freq_end;i++)
+		Zframe += st->zeta[i];
+	Zframe /= (freq_end-freq_start);
+	dSNR = Zframe;
+
+	if (dSNR > 1.0)
 		iIsSpeech = 1;
 	else
 		iIsSpeech = 0;
