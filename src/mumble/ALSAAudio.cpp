@@ -82,34 +82,45 @@ void ALSAAudioInput::run()
     /* Setup parameters using hw_params structure */
     err = snd_pcm_hw_params_malloc(&hw_params);
     if (err < 0) qWarning("ALSAAudioInput: Allocating Memory: %s", snd_strerror(err));
+
     err = snd_pcm_hw_params_any(capture_handle, hw_params);
     if (err < 0) qWarning("ALSAAudioInput: Any Settings: %s", snd_strerror(err));
+
     err = snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
     if (err < 0) qWarning("ALSAAudioInput: Access: %s", snd_strerror(err));
+
     err = snd_pcm_hw_params_set_format(capture_handle, hw_params, SND_PCM_FORMAT_S16_LE);
     if (err < 0) qWarning("ALSAAudioInput: Format: %s", snd_strerror(err));
+
     err = snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL);
     if (err < 0) qWarning("ALSAAudioInput: Rate: %s", snd_strerror(err));
+
     err = snd_pcm_hw_params_set_channels(capture_handle, hw_params, 1);
     if (err < 0) qWarning("ALSAAudioInput: Channels: %s", snd_strerror(err));
 
-    err = snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&iByteSize);
-    if (err < 0) qWarning("ALSAAudioInput: Buffer Size: %s", snd_strerror(err));
-    err = snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&iFrameSize, NULL);
+    int wantPeriod = iFrameSize;
+    err = snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&wantPeriod, NULL);
     if (err < 0) qWarning("ALSAAudioInput: Period Size: %s", snd_strerror(err));
+
+    int wantBuff = wantPeriod * 4;
+    err = snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&wantBuff);
+    if (err < 0) qWarning("ALSAAudioInput: Buffer Size: %s", snd_strerror(err));
+
     err = snd_pcm_hw_params(capture_handle, hw_params);
     if (err < 0) qWarning("ALSAAudioInput: hw params: %s", snd_strerror(err));
+    
+    qWarning("ALSAAudioInput: Actual buffer %d samples [%d(%d) per period]",wantBuff,wantPeriod,iFrameSize);
 
     snd_pcm_hw_params_free(hw_params);
 
 /*
  * Add this information to either very very very vers verbose output
  * or debug output
+ */
     snd_output_t *log;
     snd_pcm_status_t *status;
     snd_output_stdio_attach(&log, stderr,0 );
     snd_pcm_dump(capture_handle, log);
- */
 
     /* Prepare device */
     err = snd_pcm_prepare(capture_handle);
@@ -139,6 +150,7 @@ void ALSAAudioInput::run()
 	    err = snd_pcm_prepare(capture_handle);
 	    qWarning("ALSAAudioInput: %s: %s", snd_strerror(readblapp), snd_strerror(err));
 	} else if (iFrameSize == readblapp) {
+	    qWarning("ALSAAudioInput: Encoding Frame");
 	    encodeAudioFrame();
 	}
     }
