@@ -36,6 +36,7 @@
 
 #include "Server.h"
 #include "ServerDB.h"
+#include "DBus.h"
 
 extern Server *g_sServer;
 
@@ -83,6 +84,10 @@ int main(int argc, char **argv)
 	g_sp.read(inifile);
 
 	ServerDB db;
+
+	new MurmurDBus(a);
+	QDBusConnection::sessionBus().registerObject("/Murmur", &a);
+	QDBusConnection::sessionBus().registerService("net.sourceforge.mumble");
 
 	if (! supw.isEmpty()) {
 		ServerDB::setPW(0, supw);

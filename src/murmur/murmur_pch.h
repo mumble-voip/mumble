@@ -3,5 +3,6 @@
 #include <QtCore>
 #include <QtNetwork>
 #include <QtSql>
+#include <QtDBus>
 #include <math.h>
 #endif
