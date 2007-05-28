@@ -398,6 +398,9 @@ void AudioStats::on_Tick_timeout() {
 	txt.sprintf("%06.3f",ai->dSNR);
 	qlMicSNR->setText(txt);
 
+	txt.sprintf("%03.0f%%",100.0 / st->agc_gain);
+	qlMicVolume->setText(txt);
+
 	txt.sprintf("%03.0f%%",nTalking ? 100.0 : 0.0);
 	qlSpeechProb->setText(txt);
 
