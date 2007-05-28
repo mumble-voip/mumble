@@ -230,12 +230,8 @@ void AudioInput::encodeAudioFrame() {
 		fArg = 20000;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
 
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_MAX_GAIN, &iArg);
-		qWarning("PrevMaxGain: %d", iArg);
-
 		double v = 20000.0 / g.s.iMinLoudness;
 		iArg = floor(20.0 * log10(v));
-
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
 
 		iArg = -45;
@@ -251,25 +247,6 @@ void AudioInput::encodeAudioFrame() {
 		}
 
 		bResetProcessor = false;
-
-/*
-		SpeexEchoState *st = sesEcho;
-		if (st && ! st->adapted) {
-
-			for(i=0;i<st->window_size*st->M;i++)
-				st->W[i] = 0.0;
-
-			int frame = st->M - 4 - 1;
-			for(i=0;i<st->window_size/2;i++) {
-				st->W[frame * st->window_size + 2 * i + 1] = 0.5;
-			}
-
-			if (st->adapted)
-				for(i=0;i<st->window_size;i++)
-					printf("%3d %f\n", i, st->W[frame * st->window_size + i]);
-		}
-*/
-
 	}
 
 
