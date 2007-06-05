@@ -3,6 +3,8 @@
 #include <QtCore>
 #include <QtNetwork>
 #include <QtSql>
+#ifdef Q_OS_UNIX
 #include <QtDBus>
+#endif
 #include <math.h>
 #endif

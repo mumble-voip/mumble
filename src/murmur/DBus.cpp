@@ -28,19 +28,132 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "Server.h"
 #include "DBus.h"
 
-MurmurDBus::MurmurDBus(QCoreApplication &app) : QDBusAbstractAdaptor(&app) {
-}
-
-QList<int> MurmurDBus::getPlayers() {
-  QList<int> a;
-  a << 2;
-  a << 8;
-  a << 9;
+QDBusArgument &operator<<(QDBusArgument &a, const PlayerInfo &s) {
+  a.beginStructure();
+  a << s.session << s.id << s.name << s.mute << s.deaf << s.suppressed << s.selfMute << s.selfDeaf << s.channel;
+  a.endStructure();
   return a;
 }
 
-QString MurmurDBus::getPlayerName(int id) {
-  return QString("Blipponaff");
+const QDBusArgument & operator >>(const QDBusArgument &a, PlayerInfo &s) {
+  a.beginStructure();
+  a >> s.session >> s.id >> s.name >> s.mute >> s.deaf >> s.suppressed >> s.selfMute >> s.selfDeaf >> s.channel;
+  a.endStructure();
+  return a;
 }
+
+QDBusArgument &operator<<(QDBusArgument &a, const ChannelInfo &s) {
+  a.beginStructure();
+  a << s.id << s.name << s.parent << s.links;
+  a.endStructure();
+  return a;
+}
+
+const QDBusArgument & operator >>(const QDBusArgument &a, ChannelInfo &s) {
+  a.beginStructure();
+  a >> s.id >> s.name >> s.parent >> s.links;
+  a.endStructure();
+  return a;
+}
+
+QDBusArgument &operator<<(QDBusArgument &a, const GroupInfo &s) {
+  a.beginStructure();
+  a << s.name << s.inherited << s.inherit << s.inheritable;
+  a << s.add << s.remove << s.members;
+  a.endStructure();
+  return a;
+}
+
+const QDBusArgument & operator >>(const QDBusArgument &a, GroupInfo &s) {
+  a.beginStructure();
+  a >> s.name >> s.inherited >> s.inherit >> s.inheritable;
+  a >> s.add >> s.remove >> s.members;
+  a.endStructure();
+  return a;
+}
+
+QDBusArgument &operator<<(QDBusArgument &a, const ACLInfo &s) {
+  a.beginStructure();
+  a << s.applyHere << s.applySubs << s.inherited;
+  a << s.playerid << s.group;
+  a << s.allow << s.deny;
+  a.endStructure();
+  return a;
+}
+
+const QDBusArgument & operator >>(const QDBusArgument &a, ACLInfo &s) {
+  a.beginStructure();
+  a >> s.applyHere >> s.applySubs >> s.inherited;
+  a >> s.playerid >> s.group;
+  a >> s.allow >> s.deny;
+  a.endStructure();
+  return a;
+}
+
+MurmurDBus::MurmurDBus(QCoreApplication &app) : QDBusAbstractAdaptor(&app) {
+  qDBusRegisterMetaType<PlayerInfo>();
+  qDBusRegisterMetaType<ChannelInfo>();
+  qDBusRegisterMetaType<GroupInfo>();
+  qDBusRegisterMetaType<ACLInfo>();
+}
+
+QList<PlayerInfo> MurmurDBus::getPlayers() {
+  QList<PlayerInfo> a;
+  foreach(Player *p, g_sServer->qmPlayers) {
+    a << PlayerInfo(p);
+  }
+  return a;
+}
+
+QList<ChannelInfo> MurmurDBus::getChannels() {
+  QList<ChannelInfo> a;
+  return a;
+}
+
+PlayerInfo::PlayerInfo(Player *p) {
+  session = p->sId;
+  id = p->iId;
+  name = p->qsName;
+  mute = p->bMute;
+  deaf = p->bDeaf;
+  suppressed = p->bSuppressed;
+  selfMute = p->bSelfMute;
+  selfDeaf = p->bSelfDeaf;
+  channel = p->cChannel->iId;
+}
+
+ChannelInfo::ChannelInfo(Channel *c) {
+  id = c->iId;
+  name = c->qsName;
+  parent = c->cParent ? c->cParent->iId : -1;
+  foreach(Channel *chn, c->qsPermLinks)
+    links << chn->iId;
+}
+
+void MurmurDBus::playerStateChanged(Player *p) {
+  emit playerStateChanged(PlayerInfo(p));
+}
+
+void MurmurDBus::playerConnected(Player *p) {
+  emit playerConnected(PlayerInfo(p));
+}
+
+void MurmurDBus::playerDisconnected(Player *p) {
+  emit playerDisconnected(PlayerInfo(p));
+}
+
+void MurmurDBus::channelStateChanged(Channel *c) {
+  emit channelStateChanged(ChannelInfo(c));
+}
+
+void MurmurDBus::channelCreated(Channel *c) {
+  emit channelCreated(ChannelInfo(c));
+}
+
+void MurmurDBus::channelRemoved(Channel *c) {
+  emit channelRemoved(ChannelInfo(c));
+}
+

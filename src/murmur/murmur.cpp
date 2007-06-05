@@ -40,6 +40,8 @@
 
 extern Server *g_sServer;
 
+MurmurDBus *dbus;
+
 int main(int argc, char **argv)
 {
 	// Check for SSE and MMX, but only in the windows binaries
@@ -85,9 +87,11 @@ int main(int argc, char **argv)
 
 	ServerDB db;
 
-	new MurmurDBus(a);
+	dbus=new MurmurDBus(a);
+#ifdef Q_OS_UNIX
 	QDBusConnection::sessionBus().registerObject("/Murmur", &a);
 	QDBusConnection::sessionBus().registerService("net.sourceforge.mumble");
+#endif
 
 	if (! supw.isEmpty()) {
 		ServerDB::setPW(0, supw);

@@ -36,6 +36,7 @@
 #include "ServerDB.h"
 #include "Connection.h"
 #include "Server.h"
+#include "DBus.h"
 
 #ifdef Q_OS_UNIX
 #include <sys/types.h>
@@ -243,6 +244,7 @@ void Server::connectionClosed(QString reason) {
 		sendExcept(&mslMsg, c);
 
 		ServerDB::conLoggedOff(pPlayer);
+		dbus->playerDisconnected(pPlayer);
 	}
 
 	qmConnections.remove(pPlayer->sId);
@@ -342,6 +344,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	sendAll(&mcr);
 
 	ServerDB::removeChannel(chan);
+	dbus->channelRemoved(chan);
 
 	if (chan->cParent)
 		chan->cParent->removeChannel(chan);
@@ -360,6 +363,7 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 
 	ServerDB::conChangedChannel(p);
 	ServerDB::setLastChannel(p);
+	dbus->playerStateChanged(p);
 
 	bool mayspeak = ChanACL::hasPermission(p, c, ChanACL::Speak);
 	bool sup = p->bSuppressed;
@@ -619,6 +623,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	g_sServer->sendMessage(cCon, &mssMsg);
 	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
 
+	dbus->playerConnected(pSrcPlayer);
 	g_sServer->playerEnterChannel(pSrcPlayer, lc, false);
 
 	// Kick ghost
@@ -780,6 +785,9 @@ void MessagePlayerMute::process(Connection *cCon) {
 	if (! bMute && pDstPlayer->bDeaf) {
 		pDstPlayer->bDeaf = false;
 	}
+	
+	dbus->playerStateChanged(pDstPlayer);
+	
 	g_sServer->log(QString("Muted %1 (%2)").arg(pDstPlayer->qsName).arg(bMute), cCon);
 }
 
@@ -804,6 +812,9 @@ void MessagePlayerDeaf::process(Connection *cCon) {
 	if (bDeaf && ! pDstPlayer->bMute) {
 		pDstPlayer->bMute = true;
 	}
+
+	dbus->playerStateChanged(pDstPlayer);
+
 	g_sServer->log(QString("Deafened %1 (%2)").arg(pDstPlayer->qsName).arg(bDeaf), cCon);
 }
 
@@ -854,6 +865,7 @@ void MessagePlayerSelfMuteDeaf::process(Connection *cCon) {
 	pSrcPlayer->bSelfMute = bMute;
 	pSrcPlayer->bSelfDeaf = bDeaf;
 	g_sServer->sendAll(this);
+	dbus->playerStateChanged(pSrcPlayer);
 }
 
 void MessagePlayerMove::process(Connection *cCon) {
@@ -915,6 +927,8 @@ void MessageChannelAdd::process(Connection *cCon) {
 	}
 	ServerDB::updateChannel(c);
 
+	dbus->channelCreated(c);
+
 	iId = c->iId;
 	g_sServer->sendAll(this);
 	g_sServer->log(QString("Added channel %1 (%2)").arg(qsName).arg(p->qsName), cCon);
@@ -971,6 +985,7 @@ void MessageChannelMove::process(Connection *cCon) {
 	c->cParent->removeChannel(c);
 	np->addChannel(c);
 	ServerDB::updateChannel(c);
+	dbus->channelStateChanged(c);
 	g_sServer->sendAll(this);
 }
 
@@ -1016,18 +1031,20 @@ void MessageChannelLink::process(Connection *cCon) {
 		case UnlinkAll:
 			c->unlink(NULL);
 			ServerDB::removeLink(c, NULL);
+			dbus->channelStateChanged(c);
 			g_sServer->log(QString("Unlinked all from channel %1").arg(c->qsName), cCon);
 			g_sServer->sendAll(this);
 			return;
-
 		case Link:
 			c->link(l);
 			ServerDB::addLink(c, l);
+			dbus->channelStateChanged(c);
 			g_sServer->log(QString("Linked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
 			break;
 		case Unlink:
 			c->unlink(l);
 			ServerDB::removeLink(c, l);
+			dbus->channelStateChanged(c);
 			g_sServer->log(QString("Unlinked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
 			break;
 		case PushLink:

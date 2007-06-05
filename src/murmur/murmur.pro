@@ -1,7 +1,7 @@
 include(../mumble.pri)
 
 TEMPLATE	=app
-CONFIG  += network console qdbus
+CONFIG  += network console
 CONFIG	-= gui
 QT += network sql
 QT -= gui
@@ -10,8 +10,8 @@ DBFILE  = murmur.db
 LANGUAGE	= C++
 RC_FILE = murmur.rc
 FORMS = 
-HEADERS = Server.h ServerDB.h DBus.h
-SOURCES = murmur.cpp Server.cpp ServerDB.cpp DBus.cpp
+HEADERS = Server.h ServerDB.h
+SOURCES = murmur.cpp Server.cpp ServerDB.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp
 
@@ -19,5 +19,12 @@ PRECOMPILED_HEADER = murmur_pch.h
 DIST = murmur.pl murmur.ini link.pl Commands.txt
 
 win32 {
+  HEADERS += DBus_fake.h
   LIBS	+= -lws2_32
+}
+
+unix {
+  SOURCES += DBus.cpp
+  HEADERS += DBus_real.h
+  CONFIG += qdbus
 }

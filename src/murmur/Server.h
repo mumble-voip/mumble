@@ -108,6 +108,7 @@ struct ServerParams {
 };
 
 extern ServerParams g_sp;
+extern Server *g_sServer;
 
 #else
 class Server;

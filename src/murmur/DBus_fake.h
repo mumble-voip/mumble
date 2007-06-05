@@ -28,8 +28,32 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef Q_OS_UNIX
-#include "DBus_real.h"
+#ifndef _DBUS_H
+#define _DBUS_H
+
+#include "murmur_pch.h"
+
+#include "Player.h"
+#include "Channel.h"
+#include "Group.h"
+#include "ACL.h"
+
+class MurmurDBus : public QObject {
+  Q_OBJECT
+  public:
+    MurmurDBus(QCoreApplication &) {};
+
+    void playerStateChanged(Player *) {};
+    void playerConnected(Player *) {};
+    void playerDisconnected(Player *) {};
+
+    void channelStateChanged(Channel *) {};
+    void channelCreated(Channel *) {};
+    void channelRemoved(Channel *) {};
+};
+
+extern MurmurDBus *dbus;
+
 #else
-#include "DBus_fake.h"
+class MurmurDBus;
 #endif
