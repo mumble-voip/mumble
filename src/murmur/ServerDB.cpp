@@ -443,6 +443,11 @@ void ServerDB::setLastChannel(Player *p) {
 	query.addBindValue(p->cChannel->iId);
 	query.addBindValue(p->iId);
 	query.exec();
+	
+	query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
+	query.addBindValue(p->cChannel->iId);
+	query.addBindValue(p->sId);
+	query.exec();
 }
 
 int ServerDB::readLastChannel(Player *p) {
