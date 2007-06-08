@@ -87,6 +87,7 @@ int main(int argc, char **argv)
 
 	ServerDB db;
 
+	MurmurDBus::registerTypes();
 	dbus=new MurmurDBus(a);
 #ifdef Q_OS_UNIX
 	QDBusConnection::sessionBus().registerObject("/Murmur", &a);

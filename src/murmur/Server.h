@@ -49,7 +49,9 @@ typedef QPair<QHostAddress, quint16> Peer;
 struct BandwidthRecord {
 	int iRecNum;
 	int iSum;
+	QTime qtFirst;
 	unsigned char a_iBW[N_BANDWIDTH_SLOTS];
+	QTime a_qtWhen[N_BANDWIDTH_SLOTS];
 
 	BandwidthRecord();
 	void addFrame(int size);

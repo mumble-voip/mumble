@@ -40,9 +40,7 @@
 
 struct PlayerInfo
 {
-  int session;
-  int id;
-  QString name;
+  short session;
   bool mute, deaf, suppressed;
   bool selfMute, selfDeaf;
   int channel;
@@ -51,6 +49,17 @@ struct PlayerInfo
 };
 Q_DECLARE_METATYPE(PlayerInfo);
 
+struct PlayerInfoExtended : public PlayerInfo
+{
+  int id;
+  QString name;
+  int onlinesecs;
+  int bytespersec;
+  PlayerInfoExtended() {};
+  PlayerInfoExtended(Player *);
+};
+Q_DECLARE_METATYPE(PlayerInfoExtended);
+Q_DECLARE_METATYPE(QList<PlayerInfoExtended>);
 
 struct ChannelInfo
 {
@@ -62,6 +71,7 @@ struct ChannelInfo
   ChannelInfo(Channel *c);
 };
 Q_DECLARE_METATYPE(ChannelInfo);
+Q_DECLARE_METATYPE(QList<ChannelInfo>);
 
 struct GroupInfo
 {
@@ -70,6 +80,7 @@ struct GroupInfo
   QList<int> add, remove, members;
 };
 Q_DECLARE_METATYPE(GroupInfo);
+Q_DECLARE_METATYPE(QList<GroupInfo>);
 
 struct ACLInfo
 {
@@ -79,6 +90,15 @@ struct ACLInfo
   unsigned int allow, deny;
 };
 Q_DECLARE_METATYPE(ACLInfo);
+Q_DECLARE_METATYPE(QList<ACLInfo>);
+
+struct BanInfo
+{
+  unsigned int address;
+  int bits;
+};
+Q_DECLARE_METATYPE(BanInfo);
+Q_DECLARE_METATYPE(QList<BanInfo>);
 
 class MurmurDBus : public QDBusAbstractAdaptor {
   Q_OBJECT
@@ -93,10 +113,24 @@ class MurmurDBus : public QDBusAbstractAdaptor {
     void channelStateChanged(Channel *c);
     void channelCreated(Channel *c);
     void channelRemoved(Channel *c);
+    static void registerTypes();
   public slots:
-    QList<PlayerInfo> getPlayers();
+    QList<PlayerInfoExtended> getPlayers();
     QList<ChannelInfo> getChannels();
+    
+    void getACL(int channel, QList<ACLInfo> &,QList<GroupInfo> &);
+    void setACL(int channel, QList<ACLInfo>, QList<GroupInfo>);
+    
+    QList<BanInfo> getBans();
+    void setBans(QList<BanInfo>);
+    
+    void kickPlayer(short session, QString reason);
+    PlayerInfo getPlayerState(short session);
+    void setPlayerState(PlayerInfo);
+    void setChannelState(ChannelInfo);
 
+    void removeChannel(int id);
+    int addChannel(QString name, int parent);
   signals:
     void playerStateChanged(PlayerInfo);
     void playerConnected(PlayerInfo);

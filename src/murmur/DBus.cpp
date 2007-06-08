@@ -33,14 +33,28 @@
 
 QDBusArgument &operator<<(QDBusArgument &a, const PlayerInfo &s) {
   a.beginStructure();
-  a << s.session << s.id << s.name << s.mute << s.deaf << s.suppressed << s.selfMute << s.selfDeaf << s.channel;
+  a << s.session << s.mute << s.deaf << s.suppressed << s.selfMute << s.selfDeaf << s.channel;
   a.endStructure();
   return a;
 }
 
 const QDBusArgument & operator >>(const QDBusArgument &a, PlayerInfo &s) {
   a.beginStructure();
-  a >> s.session >> s.id >> s.name >> s.mute >> s.deaf >> s.suppressed >> s.selfMute >> s.selfDeaf >> s.channel;
+  a >> s.session >> s.mute >> s.deaf >> s.suppressed >> s.selfMute >> s.selfDeaf >> s.channel;
+  a.endStructure();
+  return a;
+}
+
+QDBusArgument &operator<<(QDBusArgument &a, const PlayerInfoExtended &s) {
+  a.beginStructure();
+  a << s.session << s.mute << s.deaf << s.suppressed << s.selfMute << s.selfDeaf << s.channel << s.id << s.name << s.onlinesecs << s.bytespersec;
+  a.endStructure();
+  return a;
+}
+
+const QDBusArgument & operator >>(const QDBusArgument &a, PlayerInfoExtended &s) {
+  a.beginStructure();
+  a >> s.session >> s.mute >> s.deaf >> s.suppressed >> s.selfMute >> s.selfDeaf >> s.channel >> s.id >> s.name >> s.onlinesecs >> s.bytespersec;
   a.endStructure();
   return a;
 }
@@ -93,17 +107,23 @@ const QDBusArgument & operator >>(const QDBusArgument &a, ACLInfo &s) {
   return a;
 }
 
-MurmurDBus::MurmurDBus(QCoreApplication &app) : QDBusAbstractAdaptor(&app) {
+void MurmurDBus::registerTypes() {
   qDBusRegisterMetaType<PlayerInfo>();
+  qDBusRegisterMetaType<PlayerInfoExtended>();
+  qDBusRegisterMetaType<QList<PlayerInfoExtended> >();
   qDBusRegisterMetaType<ChannelInfo>();
+  qDBusRegisterMetaType<QList<ChannelInfo> >();
   qDBusRegisterMetaType<GroupInfo>();
   qDBusRegisterMetaType<ACLInfo>();
 }
 
-QList<PlayerInfo> MurmurDBus::getPlayers() {
-  QList<PlayerInfo> a;
+MurmurDBus::MurmurDBus(QCoreApplication &app) : QDBusAbstractAdaptor(&app) {
+}
+
+QList<PlayerInfoExtended> MurmurDBus::getPlayers() {
+  QList<PlayerInfoExtended> a;
   foreach(Player *p, g_sServer->qmPlayers) {
-    a << PlayerInfo(p);
+    a << PlayerInfoExtended(p);
   }
   return a;
 }
@@ -113,16 +133,65 @@ QList<ChannelInfo> MurmurDBus::getChannels() {
   return a;
 }
 
+void MurmurDBus::kickPlayer(short session, QString reason) {
+}
+
+PlayerInfo MurmurDBus::getPlayerState(short session) {
+ return PlayerInfo();
+}
+
+void MurmurDBus::setPlayerState(PlayerInfo pi) {
+}
+
+
+int MurmurDBus::addChannel(QString name, int chanparent) {
+  return 42;
+}
+
+void MurmurDBus::removeChannel(int id) {
+}
+
+void MurmurDBus::setChannelState(ChannelInfo i) {
+}
+
+void MurmurDBus::getACL(int id, QList<ACLInfo> &acls, QList<GroupInfo> &groups) {
+}
+
+void MurmurDBus::setACL(int id, QList<ACLInfo> acls, QList<GroupInfo> groups) {
+}
+
+QList<BanInfo> MurmurDBus::getBans() {
+}
+
+void MurmurDBus::setBans(QList<BanInfo> bans) {
+}
+
+
 PlayerInfo::PlayerInfo(Player *p) {
   session = p->sId;
-  id = p->iId;
-  name = p->qsName;
   mute = p->bMute;
   deaf = p->bDeaf;
   suppressed = p->bSuppressed;
   selfMute = p->bSelfMute;
   selfDeaf = p->bSelfDeaf;
   channel = p->cChannel->iId;
+}
+
+PlayerInfoExtended::PlayerInfoExtended(Player *p) : PlayerInfo(p) {
+  id = p->iId;
+  name = p->qsName;
+  
+  Connection *c = g_sServer->qmConnections[p->sId];
+  BandwidthRecord *bw= g_sServer->qmBandwidth[c];
+  onlinesecs = bw->qtFirst.elapsed() / 1000;
+  
+  int sincelast = bw->a_qtWhen[bw->iRecNum].elapsed() / 20;
+  int todo = N_BANDWIDTH_SLOTS - sincelast;
+  int sum = 0;
+  for(int i=0;i<todo;i++) {
+    sum += bw->a_iBW[(bw->iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS];
+  }
+  bytespersec= (sum * 50) / N_BANDWIDTH_SLOTS;
 }
 
 ChannelInfo::ChannelInfo(Channel *c) {
@@ -156,4 +225,3 @@ void MurmurDBus::channelCreated(Channel *c) {
 void MurmurDBus::channelRemoved(Channel *c) {
   emit channelRemoved(ChannelInfo(c));
 }
-

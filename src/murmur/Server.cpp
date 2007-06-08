@@ -82,6 +82,7 @@ void ServerParams::read(QString fname) {
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
 	iSum = 0;
+	qtFirst.start();
 	for(int i=0;i<N_BANDWIDTH_SLOTS;i++)
 		a_iBW[i] = 0;
 }
@@ -90,6 +91,8 @@ void BandwidthRecord::addFrame(int size) {
 	iSum -= a_iBW[iRecNum];
 	a_iBW[iRecNum] = size;
 	iSum += a_iBW[iRecNum];
+	
+	a_qtWhen[iRecNum].start();
 
 	iRecNum++;
 	if (iRecNum == N_BANDWIDTH_SLOTS)
