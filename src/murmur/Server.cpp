@@ -342,7 +342,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	}
 
 	MessageChannelRemove mcr;
-	mcr.sPlayerId = src->sId;
+	mcr.sPlayerId = src ? src->sId : 0;
 	mcr.iId = chan->iId;
 	sendAll(&mcr);
 

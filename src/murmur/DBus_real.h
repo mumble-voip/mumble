@@ -78,6 +78,8 @@ struct GroupInfo
   QString name;
   bool inherited, inherit, inheritable;
   QList<int> add, remove, members;
+  GroupInfo() { };
+  GroupInfo(Group *g);
 };
 Q_DECLARE_METATYPE(GroupInfo);
 Q_DECLARE_METATYPE(QList<GroupInfo>);
@@ -88,6 +90,8 @@ struct ACLInfo
   int playerid;
   QString group;
   unsigned int allow, deny;
+  ACLInfo() { };
+  ACLInfo(ChanACL *acl);
 };
 Q_DECLARE_METATYPE(ACLInfo);
 Q_DECLARE_METATYPE(QList<ACLInfo>);
@@ -96,6 +100,8 @@ struct BanInfo
 {
   unsigned int address;
   int bits;
+  BanInfo() { };
+  BanInfo(QPair<quint32,int>);
 };
 Q_DECLARE_METATYPE(BanInfo);
 Q_DECLARE_METATYPE(QList<BanInfo>);
@@ -115,22 +121,22 @@ class MurmurDBus : public QDBusAbstractAdaptor {
     void channelRemoved(Channel *c);
     static void registerTypes();
   public slots:
-    QList<PlayerInfoExtended> getPlayers();
-    QList<ChannelInfo> getChannels();
+    void getPlayers(QList<PlayerInfoExtended> &);
+    void getChannels(QList<ChannelInfo> &);
     
-    void getACL(int channel, QList<ACLInfo> &,QList<GroupInfo> &);
-    void setACL(int channel, QList<ACLInfo>, QList<GroupInfo>);
+    void getACL(int channel, QList<ACLInfo> &,QList<GroupInfo> &, bool &,const QDBusMessage &);
+    void setACL(int channel, QList<ACLInfo>, QList<GroupInfo>, bool, const QDBusMessage &);
     
-    QList<BanInfo> getBans();
-    void setBans(QList<BanInfo>);
+    void getBans(QList<BanInfo> &);
+    void setBans(QList<BanInfo>, const QDBusMessage &);
     
-    void kickPlayer(short session, QString reason);
-    PlayerInfo getPlayerState(short session);
-    void setPlayerState(PlayerInfo);
-    void setChannelState(ChannelInfo);
+    void kickPlayer(short session, QString reason, const QDBusMessage &);
+    void getPlayerState(short session, PlayerInfo &, const QDBusMessage &);
+    void setPlayerState(PlayerInfo, const QDBusMessage &);
+    void setChannelState(ChannelInfo, const QDBusMessage &);
 
-    void removeChannel(int id);
-    int addChannel(QString name, int parent);
+    void removeChannel(int id, const QDBusMessage &);
+    void addChannel(QString name, int parent, int &, const QDBusMessage &);
   signals:
     void playerStateChanged(PlayerInfo);
     void playerConnected(PlayerInfo);
