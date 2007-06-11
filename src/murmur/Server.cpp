@@ -62,6 +62,8 @@ ServerParams::ServerParams() {
 	iMaxUsers = 1000;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
+	iDBPort = 0;
+	qsDBDriver = "QSQLITE";
 }
 
 void ServerParams::read(QString fname) {
@@ -76,7 +78,14 @@ void ServerParams::read(QString fname) {
 	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = qs.value("users", iMaxUsers).toInt();
 	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
+
 	qsDatabase = qs.value("database", qsDatabase).toString();
+	
+	qsDBDriver = qs.value("dbDriver", qsDBDriver).toString();
+	qsDBUserName = qs.value("dbUsername", qsDBUserName).toString();
+	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
+	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
+	iDBPort = qs.value("dbPort", iDBPort).toInt();
 }
 
 BandwidthRecord::BandwidthRecord() {

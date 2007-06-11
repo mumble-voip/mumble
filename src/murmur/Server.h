@@ -127,8 +127,16 @@ struct ServerParams {
 	int iMaxUsers;
 	QString qsPassword;
 	QString qsWelcomeText;
-	QString qsDatabase;
 	bool bTestloop;
+
+	QString qsDatabase;
+
+	QString qsDBDriver;
+	QString qsDBUserName;
+	QString qsDBPassword;
+	QString qsDBHostName;
+	int iDBPort;
+
 	ServerParams();
 	void read(QString fname = QString("murmur.ini"));
 };

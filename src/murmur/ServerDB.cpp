@@ -61,46 +61,56 @@ class TransactionHolder {
 };
 
 ServerDB::ServerDB() {
-	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-	QSettings qs;
+	if (! QSqlDatabase::isDriverAvailable(g_sp.qsDBDriver)) {
+		qFatal("Database driver %s not available", qPrintable(g_sp.qsDBDriver));
+	}
+	QSqlDatabase db = QSqlDatabase::addDatabase(g_sp.qsDBDriver);
 	QStringList datapaths;
 	int i;
 
 	bool found = false;
 
-	if (! g_sp.qsDatabase.isEmpty()) {
-		db.setDatabaseName(g_sp.qsDatabase);
-		found = db.open();
-	} else {
+	if (g_sp.qsDBDriver == "QSQLITE") {
+		if (! g_sp.qsDatabase.isEmpty()) {
+			db.setDatabaseName(g_sp.qsDatabase);
+				found = db.open();
+		} else {
+			datapaths << QCoreApplication::instance()->applicationDirPath();
+			datapaths << QDir::currentPath();
+			datapaths << QDir::homePath();
 
-		datapaths << qs.value("DBPath").toString();
-		datapaths << QCoreApplication::instance()->applicationDirPath();
-		datapaths << QDir::currentPath();
-		datapaths << QDir::homePath();
-
-		for(i = 0; (i < datapaths.size()) && ! found; i++) {
-			if (!datapaths[i].isEmpty()) {
-				QFile f(datapaths[i] + "/murmur.sqlite");
-				if (f.exists()) {
-					db.setDatabaseName(f.fileName());
-					found = db.open();
-				}
-			}
-		}
-
-		if (! found) {
 			for(i = 0; (i < datapaths.size()) && ! found; i++) {
 				if (!datapaths[i].isEmpty()) {
 					QFile f(datapaths[i] + "/murmur.sqlite");
-					db.setDatabaseName(f.fileName());
-					found = db.open();
+					if (f.exists()) {
+						db.setDatabaseName(f.fileName());
+						found = db.open();
+					}
+				}
+			}
+
+			if (! found) {
+				for(i = 0; (i < datapaths.size()) && ! found; i++) {
+					if (!datapaths[i].isEmpty()) {
+						QFile f(datapaths[i] + "/murmur.sqlite");
+						db.setDatabaseName(f.fileName());
+						found = db.open();
+					}
 				}
 			}
 		}
+	} else {
+		db.setDatabaseName(g_sp.qsDatabase);
+		db.setHostName(g_sp.qsDBHostName);
+		db.setPort(g_sp.iDBPort);
+		db.setUserName(g_sp.qsDBUserName);
+		db.setPassword(g_sp.qsDBPassword);
+		found = db.open();
 	}
 
 	if (! found) {
-		qFatal("ServerDB: Failed initialization");
+		QSqlError e = db.lastError();
+		qFatal("ServerDB: Failed initialization: %s",qPrintable(e.text()));
 	} else {
 		qWarning("ServerDB: Opened successfully");
 	}
