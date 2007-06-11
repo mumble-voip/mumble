@@ -58,25 +58,47 @@ struct BandwidthRecord {
 	int bytesPerSec();
 };
 
+class UDPThread : public QThread {
+	friend class Server;
+	Q_OBJECT;
+	protected:
+		QUdpSocket *qusUdp;
+		QHash<Connection *, Peer> qhPeers;
+		QHash<Peer, Connection *> qhPeerConnections;
+		void processMsg(Message *msg, Connection *cCon);
+		void sendMessage(short id, Message *msg);
+	protected slots:
+		void udpReady();
+		void fakeUdpPacket(QByteArray);
+	signals:
+		void tcpTransmit(QByteArray, Connection *cCon);
+	public:
+		UDPThread();
+		void run();
+};
+
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
 		QQueue<int> qqIds;
 		QTcpServer *qtsServer;
-		QUdpSocket *qusUdp;
+//		QUdpSocket *qusUdp;
 		QTimer *qtTimer;
+		UDPThread *udp;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
 		void message(QByteArray &, Connection *cCon = NULL);
-		void udpReady();
+//		void udpReady();
 		void checkCommands();
+		void tcpTransmit(QByteArray, Connection *);
+	signals:
+		void speexPacket(QByteArray);
 	public:
 		QHash<short, Connection *> qmConnections;
 		QHash<Connection *, Player *> qmPlayers;
 		QHash<Connection *, BandwidthRecord *> qmBandwidth;
-		QHash<Connection *, Peer> qhPeers;
-		QHash<Peer, Connection *> qhPeerConnections;
+		QReadWriteLock qrwlConnections;
 
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;
@@ -92,6 +114,8 @@ class Server : public QObject {
 
 		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
 		void playerEnterChannel(Player *p, Channel *c, bool quiet = false);
+		
+		void emitPacket(Message *msg);
 
 		Server();
 };
