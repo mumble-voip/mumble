@@ -19,8 +19,8 @@ sub spitout($$) {
   return qq!static const char *${var} = \"! . $l . "\";\n\n\n";
 }
 
-open(F, "> ../licenses.h");
+open(F, "> ../src/mumble/licenses.h");
 
-print F spitout("licenseMumble", "../LICENSE");
+print F spitout("licenseMumble", "../installer/gpl.txt");
 
 close(F);

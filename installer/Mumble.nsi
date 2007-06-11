@@ -35,9 +35,7 @@ SetCompressor /SOLID lzma
 ;--------------------------------
 ;Pages
 
-  !insertmacro MUI_PAGE_LICENSE "..\LICENSE"
-  !insertmacro MUI_PAGE_LICENSE "qt.txt"
-  !insertmacro MUI_PAGE_LICENSE "speex.txt"
+  !insertmacro MUI_PAGE_LICENSE "gpl.txt"
 ;  !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
 
@@ -65,7 +63,7 @@ Section "Mumble & Murmur" SecMumble
 
   SetOutPath "$INSTDIR"
   
-  File /oname=license.txt "..\LICENSE"
+  File /oname=license.txt "gpl.txt"
   File /oname=Readme.txt "..\README"
   File /oname=Changes.txt "..\CHANGES"
   File "speex.txt"
