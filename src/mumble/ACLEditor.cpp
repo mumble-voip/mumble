@@ -1,4 +1,4 @@
-/* copyright (C) 2005-2006, Thorvald Natvig <thorvald@natvig.com>
+/* copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 

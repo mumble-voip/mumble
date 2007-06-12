@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2006, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -48,7 +48,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QLabel *text=new QLabel(about);
 	text->setText(tr(
 		"<h3>Mumble v%1</h3>"
-		"<p>Copyright 2005-2006 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
+		"<p>Copyright 2005-2007 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
 		"<p><b>A voice-chat utility for gamers</b></p>"
 		"<p><tt>http://mumble.sourceforge.net/</tt></p>"
 	).arg(QString::fromAscii(MUMBLE_RELEASE)));
