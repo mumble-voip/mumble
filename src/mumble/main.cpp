@@ -138,6 +138,7 @@ int main(int argc, char **argv)
 	g.ao = AudioOutputRegistrar::newFromChoice();
 
 	a.setQuitOnLastWindowClosed(true);
+	g.mw->on_ServerConnect_triggered();
 	res=a.exec();
 
 	g.s.save();
