@@ -30,8 +30,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
-	qmake-qt4 -o Makefile.mumble DEFINES+=MUMBLE_VERSION="0.9.5" mumble.pro
-	qmake-qt4 -o Makefile.murmur DEFINES+=MUMBLE_VERSION="0.9.5" murmur.pro
+	qmake-qt4 DEFINES+=MUMBLE_VERSION="0.9.5" main.pro
 
 	touch configure-stamp
 
@@ -43,9 +42,7 @@ build-arch: build-arch-stamp
 build-arch-stamp: configure-stamp 
 
 	# Add here commands to compile the arch part of the package.
-	lrelease-qt4 mumble.pro
-	$(MAKE) -f Makefile.mumble release
-	$(MAKE) -f Makefile.murmur release
+	$(MAKE) release
 	touch build-arch-stamp
 
 build-indep: build-indep-stamp
@@ -61,8 +58,7 @@ clean:	configure-stamp
 	rm -f build-arch-stamp build-indep-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
-	-$(MAKE) -f Makefile.mumble distclean
-	-$(MAKE) -f Makefile.murmur distclean
+	-$(MAKE) distclean
 
 	dh_clean 
 
@@ -90,8 +86,8 @@ install-arch:
 	# $(MAKE) install 
 	install -d $(CURDIR)/debian/mumble/usr/bin
 	install -d $(CURDIR)/debian/mumble-server/usr/bin
-	install ./mumble $(CURDIR)/debian/mumble/usr/bin
-	install ./murmur $(CURDIR)/debian/mumble-server/usr/bin
+	install ./release/mumble $(CURDIR)/debian/mumble/usr/bin
+	install ./release/murmur $(CURDIR)/debian/mumble-server/usr/bin
 
 	dh_install -s
 # Must not depend on anything. This is to be called by

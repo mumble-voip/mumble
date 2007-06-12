@@ -2,18 +2,18 @@ Source: mumble
 Section: comm
 Priority: optional
 Maintainer: Thorvald Natvig <slicer@sourceforge.net>
-Build-Depends: debhelper (>= 4.0.0), libqt4-dev (>= 4.2.0), libspeex-dev (>= 1.1.12), libboost-dev (>= 1.33.1), libasound2-dev (>= 1.0.10), libxevie-dev (>= 1.0.0)
-Standards-Version: 3.6.2
+Build-Depends: debhelper (>= 4.0.0), libqt4-dev (>= 4.2.0), libboost-dev (>= 1.33.1), libasound2-dev (>= 1.0.10), libxevie-dev (>= 1.0.0)
+Standards-Version: 3.7.2
 
 Package: mumble
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Voice chat client
- Mumble is a low-latency, high quality voice chat software primarily intended for use while gaming. It features noise cancellation and voice activation.
+ Mumble is a low-latency, high quality voice chat program for gaming.
 
 Package: mumble-server
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Voice chat server (murmur)
- Mumble is a low-latency, high quality voice chat software primarily intended for use while gaming. It features noise cancellation and voice activation.
+ Mumble is a low-latency, high quality voice chat program for gaming.
 
