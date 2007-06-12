@@ -92,7 +92,7 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	qsVolume->setSingleStep(5);
 	qsVolume->setPageStep(20);
 	qsVolume->setValue(g.s.iTTSVolume);
-	qsVolume->setObjectName("Volume");
+	qsVolume->setObjectName(QString::fromAscii("Volume"));
 	qsVolume->setToolTip(tr("Volume of Text-To-Speech Engine"));
 	qsVolume->setWhatsThis(tr("<b>This is the volume used for the speech synthesis.</b>"));
 	l->addWidget(qsVolume,0,1);
@@ -114,7 +114,7 @@ QString LogConfig::title() const {
 }
 
 QIcon LogConfig::icon() const {
-	return QIcon(":/config_msgs.png");
+	return QIcon(QString::fromAscii(":/config_msgs.png"));
 }
 
 void LogConfig::accept() {
@@ -182,8 +182,8 @@ void Log::loadSettings() {
 	for(int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
-		QString key=QString("msg%1").arg(msgNames[t]);
-		key = key.remove(QRegExp("[ /\\(\\)-]"));
+		QString key=QString::fromAscii("msg%1").arg(QString::fromAscii(msgNames[t]));
+		key = key.remove(QRegExp(QString::fromAscii("[ /\\(\\)-]")));
 		int v = g.qs->value(key,0xff).toInt();
 		ms->bConsole=(v & 0x01);
 		ms->bTTS=(v & 0x02);
@@ -194,8 +194,8 @@ void Log::saveSettings() const {
 	for(int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
-		QString key=QString("msg%1").arg(msgNames[t]);
-		key = key.remove(QRegExp("[ /\\(\\)-]"));
+		QString key=QString::fromAscii("msg%1").arg(QString::fromAscii(msgNames[t]));
+		key = key.remove(QRegExp(QString::fromAscii("[ /\\(\\)-]")));
 		int v = 0;
 		if (ms->bConsole)
 			v |= 0x01;

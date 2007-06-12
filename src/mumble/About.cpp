@@ -38,7 +38,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 
 	QTextEdit *qteLicense=new QTextEdit();
 	qteLicense->setReadOnly(true);
-	qteLicense->setPlainText(licenseMumble);
+	qteLicense->setPlainText(QString::fromAscii(licenseMumble));
 
 	QWidget *about=new QWidget();
 
@@ -51,7 +51,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 		"<p>Copyright 2005-2006 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
 		"<p><b>A voice-chat utility for gamers</b></p>"
 		"<p><tt>http://mumble.sourceforge.net/</tt></p>"
-	).arg(MUMBLE_RELEASE));
+	).arg(QString::fromAscii(MUMBLE_RELEASE)));
 	QHBoxLayout *qhbl=new QHBoxLayout();
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
@@ -81,7 +81,7 @@ AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
 		"<p>Speex is used for echo cancellation, noise<br />"
 		"filtering, voice activity detection and speech<br />"
 		"compression.</p>"
-	).arg(verptr));
+	).arg(QString::fromAscii(verptr)));
 
     QPushButton *okButton = new QPushButton(tr("OK"));
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));

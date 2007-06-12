@@ -116,7 +116,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsTransmitHold->setSingleStep(1);
 	qsTransmitHold->setPageStep(5);
 	qsTransmitHold->setValue(g.s.iVoiceHold);
-	qsTransmitHold->setObjectName("TransmitHold");
+	qsTransmitHold->setObjectName(QString::fromAscii("TransmitHold"));
 
 	l = new QLabel(tr("Voice Hold"));
 	l->setBuddy(qsTransmitHold);
@@ -139,7 +139,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsFrames->setSingleStep(1);
 	qsFrames->setPageStep(1);
 	qsFrames->setValue(g.s.iFramesPerPacket);
-	qsFrames->setObjectName("Frames");
+	qsFrames->setObjectName(QString::fromAscii("Frames"));
 
 	l = new QLabel(tr("Audio per packet"));
 	l->setBuddy(qsFrames);
@@ -204,7 +204,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsQuality->setSingleStep(1);
 	qsQuality->setPageStep(2);
 	qsQuality->setValue(g.s.iQuality);
-	qsQuality->setObjectName("Quality");
+	qsQuality->setObjectName(QString::fromAscii("Quality"));
 
 	l = new QLabel(tr("Quality"));
 	l->setBuddy(qsQuality);
@@ -226,7 +226,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsComplexity->setSingleStep(1);
 	qsComplexity->setPageStep(2);
 	qsComplexity->setValue(g.s.iComplexity);
-	qsComplexity->setObjectName("Complexity");
+	qsComplexity->setObjectName(QString::fromAscii("Complexity"));
 
 	l = new QLabel(tr("Complexity"));
 	l->setBuddy(qsComplexity);
@@ -248,7 +248,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsAmp->setSingleStep(500);
 	qsAmp->setPageStep(2000);
 	qsAmp->setValue(20000 - g.s.iMinLoudness);
-	qsAmp->setObjectName("Amp");
+	qsAmp->setObjectName(QString::fromAscii("Amp"));
 
 	l = new QLabel(tr("Amp"));
 	l->setBuddy(qsAmp);
@@ -283,7 +283,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qsJitter->setSingleStep(1);
 	qsJitter->setPageStep(5);
 	qsJitter->setValue(g.s.iJitterBufferSize);
-	qsJitter->setObjectName("Jitter");
+	qsJitter->setObjectName(QString::fromAscii("Jitter"));
 
 	l = new QLabel(tr("Default Jitter Buffer"));
 	l->setBuddy(qsJitter);
@@ -322,7 +322,7 @@ QString AudioConfigDialog::title() const {
 }
 
 QIcon AudioConfigDialog::icon() const {
-	return QIcon(":/config_basic.png");
+	return QIcon(QString::fromAscii(":/config_basic.png"));
 }
 
 void AudioConfigDialog::accept() {
@@ -362,7 +362,7 @@ void AudioConfigDialog::on_Complexity_valueChanged(int v) {
 void AudioConfigDialog::on_Amp_valueChanged(int v) {
 	v = 18000 - v + 2000;
 	double d = 20000.0/v;
-	qlAmp->setText(QString("%1").arg(d, 0, 'f', 2));
+	qlAmp->setText(QString::fromAscii("%1").arg(d, 0, 'f', 2));
 }
 
 void AudioConfigDialog::on_Jitter_valueChanged(int v) {

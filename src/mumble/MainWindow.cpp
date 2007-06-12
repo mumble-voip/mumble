@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
 	qtReconnect->setSingleShot(true);
-	qtReconnect->setObjectName("Reconnect");
+	qtReconnect->setObjectName(QString::fromAscii("Reconnect"));
 
 	createActions();
 	setupGui();
@@ -73,140 +73,140 @@ void MainWindow::createActions() {
 	qaServerConnect=new QAction(tr("&Connect"), this);
 	qaServerConnect->setToolTip(tr("Open the server connection dialog"));
 	qaServerConnect->setWhatsThis(tr("Shows a dialog of registered servers, and also allows quick connect."));
-	qaServerConnect->setObjectName("ServerConnect");
+	qaServerConnect->setObjectName(QString::fromAscii("ServerConnect"));
 	qaServerDisconnect=new QAction(tr("&Disconnect"), this);
 	qaServerDisconnect->setToolTip(tr("Disconnect from server"));
 	qaServerDisconnect->setWhatsThis(tr("Disconnects you from the server."));
-	qaServerDisconnect->setObjectName("ServerDisconnect");
+	qaServerDisconnect->setObjectName(QString::fromAscii("ServerDisconnect"));
 	qaServerDisconnect->setEnabled(false);
 	qaServerBanList=new QAction(tr("&Ban lists"), this);
 	qaServerBanList->setToolTip(tr("Edit ban lists on server"));
 	qaServerBanList->setWhatsThis(tr("This lets you edit the server-side IP ban lists."));
-	qaServerBanList->setObjectName("ServerBanList");
+	qaServerBanList->setObjectName(QString::fromAscii("ServerBanList"));
 	qaServerBanList->setEnabled(false);
 
 	qaPlayerKick=new QAction(tr("&Kick"), this);
-	qaPlayerKick->setObjectName("PlayerKick");
+	qaPlayerKick->setObjectName(QString::fromAscii("PlayerKick"));
 	qaPlayerKick->setToolTip(tr("Kick player (with reason)"));
 	qaPlayerKick->setWhatsThis(tr("Kick selected player off server. You'll be asked to specify a reason."));
 	qaPlayerBan=new QAction(tr("&Ban"), this);
-	qaPlayerBan->setObjectName("PlayerBan");
+	qaPlayerBan->setObjectName(QString::fromAscii("PlayerBan"));
 	qaPlayerBan->setToolTip(tr("Kick and ban player (with reason)"));
 	qaPlayerBan->setWhatsThis(tr("Kick and ban selected player from server. You'll be asked to specify a reason."));
 	qaPlayerMute=new QAction(tr("&Mute"), this);
-	qaPlayerMute->setObjectName("PlayerMute");
+	qaPlayerMute->setObjectName(QString::fromAscii("PlayerMute"));
 	qaPlayerMute->setCheckable(true);
 	qaPlayerMute->setToolTip(tr("Mute player"));
 	qaPlayerMute->setWhatsThis(tr("Mute or unmute player on server. Unmuting a deafened player will also undeafen them."));
 	qaPlayerDeaf=new QAction(tr("&Deafen"), this);
-	qaPlayerDeaf->setObjectName("PlayerDeaf");
+	qaPlayerDeaf->setObjectName(QString::fromAscii("PlayerDeaf"));
 	qaPlayerDeaf->setCheckable(true);
 	qaPlayerDeaf->setToolTip(tr("Deafen player"));
 	qaPlayerDeaf->setWhatsThis(tr("Deafen or undeafen player on server. Deafening a player will also mute them."));
 	qaPlayerLocalMute=new QAction(tr("&Local Mute"), this);
-	qaPlayerLocalMute->setObjectName("PlayerLocalMute");
+	qaPlayerLocalMute->setObjectName(QString::fromAscii("PlayerLocalMute"));
 	qaPlayerLocalMute->setCheckable(true);
 	qaPlayerLocalMute->setToolTip(tr("Mute player"));
 	qaPlayerLocalMute->setWhatsThis(tr("Mute or unmute player locally."));
 
 	qaChannelAdd=new QAction(tr("&Add"), this);
-	qaChannelAdd->setObjectName("ChannelAdd");
+	qaChannelAdd->setObjectName(QString::fromAscii("ChannelAdd"));
 	qaChannelAdd->setToolTip(tr("Add new channel"));
 	qaChannelAdd->setWhatsThis(tr("This adds a new sub-channel to the currently selected channel."));
 	qaChannelRemove=new QAction(tr("&Remove"), this);
-	qaChannelRemove->setObjectName("ChannelRemove");
+	qaChannelRemove->setObjectName(QString::fromAscii("ChannelRemove"));
 	qaChannelRemove->setToolTip(tr("Remove channel"));
 	qaChannelRemove->setWhatsThis(tr("This removes a channel and all sub-channels."));
 	qaChannelACL=new QAction(tr("&Edit ACL"), this);
-	qaChannelACL->setObjectName("ChannelACL");
+	qaChannelACL->setObjectName(QString::fromAscii("ChannelACL"));
 	qaChannelACL->setToolTip(tr("Edit Groups and ACL for channel"));
 	qaChannelACL->setWhatsThis(tr("This opens the Group and ACL dialog for the channel, to control permissions."));
 	qaChannelLink=new QAction(tr("&Link"), this);
-	qaChannelLink->setObjectName("ChannelLink");
+	qaChannelLink->setObjectName(QString::fromAscii("ChannelLink"));
 	qaChannelLink->setToolTip(tr("Link your channel to another channel"));
 	qaChannelLink->setWhatsThis(tr("This links your current channel to the selected channel. If they have permission to speak in "
 							"the other channel, players can now hear each other. This is a permanent link, and will last until "
 							"manually unlinked or the server is restarted. Please see the shortcuts for push-to-link."));
 	qaChannelUnlink=new QAction(tr("&Unlink"), this);
-	qaChannelUnlink->setObjectName("ChannelUnlink");
+	qaChannelUnlink->setObjectName(QString::fromAscii("ChannelUnlink"));
 	qaChannelUnlink->setToolTip(tr("Unlink your channel from another channel"));
 	qaChannelUnlink->setWhatsThis(tr("This unlinks your current channel from the selected channel."));
 	qaChannelUnlinkAll=new QAction(tr("Unlink &All"), this);
-	qaChannelUnlinkAll->setObjectName("ChannelUnlinkAll");
+	qaChannelUnlinkAll->setObjectName(QString::fromAscii("ChannelUnlinkAll"));
 	qaChannelUnlinkAll->setToolTip(tr("Unlinks your channel from all linked channels."));
 	qaChannelUnlinkAll->setWhatsThis(tr("This unlinks your current channel (not the selected one) from all linked channels."));
 
 	qaAudioReset=new QAction(tr("&Reset"), this);
-	qaAudioReset->setObjectName("AudioReset");
+	qaAudioReset->setObjectName(QString::fromAscii("AudioReset"));
 	qaAudioReset->setToolTip(tr("Reset audio preprocessor"));
 	qaAudioReset->setWhatsThis(tr("This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. "
 									"If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, "
 									"use this to avoid having to wait for the preprocessor to readjust."));
 	qaAudioMute=new QAction(tr("&Mute Self"), this);
-	qaAudioMute->setObjectName("AudioMute");
+	qaAudioMute->setObjectName(QString::fromAscii("AudioMute"));
 	qaAudioMute->setCheckable(true);
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioMute->setToolTip(tr("Mute yourself"));
 	qaAudioMute->setWhatsThis(tr("Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen."));
 	qaAudioDeaf=new QAction(tr("&Deafen Self"), this);
-	qaAudioDeaf->setObjectName("AudioDeaf");
+	qaAudioDeaf->setObjectName(QString::fromAscii("AudioDeaf"));
 	qaAudioDeaf->setCheckable(true);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioDeaf->setToolTip(tr("Deafen yourself"));
 	qaAudioDeaf->setWhatsThis(tr("Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute."));
 	qaAudioTTS=new QAction(tr("&Text-To-Speech"), this);
-	qaAudioTTS->setObjectName("AudioTextToSpeech");
+	qaAudioTTS->setObjectName(QString::fromAscii("AudioTextToSpeech"));
 	qaAudioTTS->setCheckable(true);
-	qaAudioTTS->setChecked(g.qs->value("TextToSpeech", true).toBool());
+	qaAudioTTS->setChecked(g.qs->value(QString::fromAscii("TextToSpeech"), true).toBool());
 	qaAudioTTS->setToolTip(tr("Toggle Text-To-Speech"));
 	qaAudioTTS->setWhatsThis(tr("Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken."));
 	qaAudioStats=new QAction(tr("S&tatistics"), this);
-	qaAudioStats->setObjectName("AudioStats");
+	qaAudioStats->setObjectName(QString::fromAscii("AudioStats"));
 	qaAudioStats->setToolTip(tr("Display audio statistics"));
 	qaAudioStats->setWhatsThis(tr("Pops up a small dialog with information about your current audio input."));
 	qaAudioUnlink=new QAction(tr("&Unlink"), this);
-	qaAudioUnlink->setObjectName("AudioUnlink");
+	qaAudioUnlink->setObjectName(QString::fromAscii("AudioUnlink"));
 	qaAudioUnlink->setToolTip(tr("Forcibly unlink plugin"));
 	qaAudioUnlink->setWhatsThis(tr("This forces the current plugin to unlink, which is handy if it is reading "
 									"completely wrong data."));
 
 	qaConfigDialog=new QAction(tr("&Settings"), this);
-	qaConfigDialog->setObjectName("ConfigDialog");
+	qaConfigDialog->setObjectName(QString::fromAscii("ConfigDialog"));
 	qaConfigDialog->setToolTip(tr("Configure Mumble"));
 	qaConfigDialog->setWhatsThis(tr("Allows you to change most settings for Mumble."));
 
 	qaHelpWhatsThis = new QAction(tr("&What's This?"), this);
-	qaHelpWhatsThis->setObjectName("HelpWhatsThis");
+	qaHelpWhatsThis->setObjectName(QString::fromAscii("HelpWhatsThis"));
 	qaHelpWhatsThis->setToolTip(tr("Enter What's This? mode"));
 	qaHelpWhatsThis->setWhatsThis(tr("Click this to enter \"What's This?\" mode. Your cursor will turn into a question mark. Click "
 									"on any button, menu choice or area to show a description of what it is."));
 	qaHelpAbout=new QAction(tr("&About"), this);
-	qaHelpAbout->setObjectName("HelpAbout");
+	qaHelpAbout->setObjectName(QString::fromAscii("HelpAbout"));
 	qaHelpAbout->setToolTip(tr("Information about Mumble"));
 	qaHelpAbout->setWhatsThis(tr("Shows a small dialog with information and license for Mumble."));
 	qaHelpAboutSpeex=new QAction(tr("About &Speex"), this);
-	qaHelpAboutSpeex->setObjectName("HelpAboutSpeex");
+	qaHelpAboutSpeex->setObjectName(QString::fromAscii("HelpAboutSpeex"));
 	qaHelpAboutSpeex->setToolTip(tr("Information about Speex"));
 	qaHelpAboutSpeex->setWhatsThis(tr("Shows a small dialog with information about Speex."));
 	qaHelpAboutQt=new QAction(tr("&About Qt"), this);
-	qaHelpAboutQt->setObjectName("HelpAboutQt");
+	qaHelpAboutQt->setObjectName(QString::fromAscii("HelpAboutQt"));
 	qaHelpAboutQt->setToolTip(tr("Information about Qt"));
 	qaHelpAboutQt->setWhatsThis(tr("Shows a small dialog with information about Qt."));
 	qaHelpVersionCheck=new QAction(tr("Check for &Updates"), this);
-	qaHelpVersionCheck->setObjectName("HelpVersionCheck");
+	qaHelpVersionCheck->setObjectName(QString::fromAscii("HelpVersionCheck"));
 	qaHelpVersionCheck->setToolTip(tr("Check for new version of Mumble"));
 	qaHelpVersionCheck->setWhatsThis(tr("Connects to the Mumble webpage to check if a new version is available, and notifies "
 										"you with an appropriate download URL if this is the case."));
 }
 
 void MainWindow::setupGui()  {
-	setWindowTitle(tr("Mumble -- %1").arg(QString(MUMBLE_RELEASE)));
+	setWindowTitle(tr("Mumble -- %1").arg(QString::fromAscii(MUMBLE_RELEASE)));
 
 	pmModel = new PlayerModel(this);
 
 	QTreeView *view = new QTreeView(this);
 	qtvPlayers = view;
-	qtvPlayers->setObjectName("Players");
+	qtvPlayers->setObjectName(QString::fromAscii("Players"));
 	qtvPlayers->setContextMenuPolicy(Qt::CustomContextMenu);
 	qtvPlayers->setModel(pmModel);
 	qtvPlayers->setItemDelegate(new PlayerDelegate(view));
@@ -228,12 +228,12 @@ void MainWindow::setupGui()  {
 	qmConfig = new QMenu(tr("C&onfigure"), this);
 	qmHelp = new QMenu(tr("&Help"), this);
 
-	qmServer->setObjectName("ServerMenu");
-	qmPlayer->setObjectName("PlayerMenu");
-	qmChannel->setObjectName("ChannelMenu");
-	qmAudio->setObjectName("AudioMenu");
-	qmConfig->setObjectName("ConfigMenu");
-	qmHelp->setObjectName("HelpMenu");
+	qmServer->setObjectName(QString::fromAscii("ServerMenu"));
+	qmPlayer->setObjectName(QString::fromAscii("PlayerMenu"));
+	qmChannel->setObjectName(QString::fromAscii("ChannelMenu"));
+	qmAudio->setObjectName(QString::fromAscii("AudioMenu"));
+	qmConfig->setObjectName(QString::fromAscii("ConfigMenu"));
+	qmHelp->setObjectName(QString::fromAscii("HelpMenu"));
 
 	qmServer->addAction(qaServerConnect);
 	qmServer->addAction(qaServerDisconnect);
@@ -282,26 +282,26 @@ void MainWindow::setupGui()  {
 	int idx = 1;
 
 	gsPushTalk=new GlobalShortcut(this, idx++, tr("Push-to-Talk", "Global Shortcut"));
-	gsPushTalk->setObjectName("PushToTalk");
+	gsPushTalk->setObjectName(QString::fromAscii("PushToTalk"));
 
 	gsResetAudio=new GlobalShortcut(this, idx++, tr("Reset Audio Processor", "Global Shortcut"));
-	gsResetAudio->setObjectName("ResetAudio");
+	gsResetAudio->setObjectName(QString::fromAscii("ResetAudio"));
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 
 	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Toggle Mute Self", "Global Shortcut"));
-	gsMuteSelf->setObjectName("MuteSelf");
+	gsMuteSelf->setObjectName(QString::fromAscii("MuteSelf"));
 	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
 
 	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Toggle Deafen Self", "Global Shortcut"));
-	gsDeafSelf->setObjectName("DeafSelf");
+	gsDeafSelf->setObjectName(QString::fromAscii("DeafSelf"));
 	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
 
 	gsUnlink=new GlobalShortcut(this, idx++, tr("Unlink Plugin", "Global Shortcut"));
-	gsUnlink->setObjectName("UnlinkPlugin");
+	gsUnlink->setObjectName(QString::fromAscii("UnlinkPlugin"));
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 
 	gsCenterPos=new GlobalShortcut(this, idx++, tr("Force Center Position", "Global Shortcut"));
-	gsCenterPos->setObjectName("CenterPos");
+	gsCenterPos->setObjectName(QString::fromAscii("CenterPos"));
 
 	GlobalShortcut *gs;
 
@@ -320,21 +320,21 @@ void MainWindow::setupGui()  {
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
 	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
-	gsPushMute->setObjectName("PushToMute");
+	gsPushMute->setObjectName(QString::fromAscii("PushToMute"));
 
 	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
-	gsMetaChannel->setObjectName("MetaChannel");
+	gsMetaChannel->setObjectName(QString::fromAscii("MetaChannel"));
 
 #ifdef Q_OS_WIN
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"));
-	gsToggleOverlay->setObjectName("ToggleOverlay");
+	gsToggleOverlay->setObjectName(QString::fromAscii("ToggleOverlay"));
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 #endif
 
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
-	gsAltTalk->setObjectName("AltPushToTalk");
+	gsAltTalk->setObjectName(QString::fromAscii("AltPushToTalk"));
 
-	if (g.qs->value("Horizontal", true).toBool()) {
+	if (g.qs->value(QString::fromAscii("Horizontal"), true).toBool()) {
 		qsSplit = new QSplitter(Qt::Horizontal, this);
 		qsSplit->addWidget(qteLog);
 		qsSplit->addWidget(qtvPlayers);
@@ -345,12 +345,12 @@ void MainWindow::setupGui()  {
 	}
 	setCentralWidget(qsSplit);
 
-	restoreGeometry(g.qs->value("mwgeom").toByteArray());
-	restoreState(g.qs->value("mw").toByteArray());
-	qsSplit->restoreState(g.qs->value("mwSplitter").toByteArray());
+	restoreGeometry(g.qs->value(QString::fromAscii("mwgeom")).toByteArray());
+	restoreState(g.qs->value(QString::fromAscii("mw")).toByteArray());
+	qsSplit->restoreState(g.qs->value(QString::fromAscii("mwSplitter")).toByteArray());
 
 	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
-	qstiIcon->setObjectName("Icon");
+	qstiIcon->setObjectName(QString::fromAscii("Icon"));
 	qstiIcon->show();
 
 	QMetaObject::connectSlotsByName(this);
@@ -358,13 +358,13 @@ void MainWindow::setupGui()  {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 	g.sId = 0;
-	g.qs->setValue("mwgeom", saveGeometry());
-	g.qs->setValue("mw", saveState());
-	g.qs->setValue("mwSplitter", qsSplit->saveState());
+	g.qs->setValue(QString::fromAscii("mwgeom"), saveGeometry());
+	g.qs->setValue(QString::fromAscii("mw"), saveState());
+	g.qs->setValue(QString::fromAscii("mwSplitter"), qsSplit->saveState());
 	QMainWindow::closeEvent(e);
 }
 
-void MainWindow::hideEvent(QHideEvent *e) {
+void MainWindow::hideEvent(QHideEvent *) {
 	if (qstiIcon->isSystemTrayAvailable())
 		qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
 }
@@ -500,7 +500,7 @@ void MainWindow::on_PlayerKick_triggered()
 		return;
 
 	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
+	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
 	if (ok) {
 		MessagePlayerKick mpkMsg;
 		mpkMsg.sVictim=p->sId;
@@ -516,7 +516,7 @@ void MainWindow::on_PlayerBan_triggered()
 		return;
 
 	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, "", &ok);
+	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
 	if (ok) {
 		MessagePlayerBan mpbMsg;
 		mpbMsg.sVictim=p->sId;
@@ -568,7 +568,7 @@ void MainWindow::on_ChannelAdd_triggered()
 	bool ok;
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	int iParent = c ? c->iId : 0;
-	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, "", &ok);
+	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, QString(), &ok);
 	if (ok) {
 		MessageChannelAdd mca;
 		mca.qsName = name;
@@ -1010,12 +1010,14 @@ void MessagePlayerDeaf::process(Connection *) {
 void MessagePlayerKick::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
+	QString admin = pSrc ? pSrc->qsName : QString::fromAscii("server");
+
 	if (sVictim == g.sId) {
-		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason));
+		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2.").arg(admin).arg(qsReason));
 		g.l->setIgnore(Log::ServerDisconnected, 1);
 	} else {
 		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
+		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(qsReason).arg(pDst->qsName));
 	}
 }
 
@@ -1042,7 +1044,7 @@ void MessagePlayerMove::process(Connection *) {
 		log = false;
 
 	QString pname = pDst->qsName;
-	QString admin = pSrc ? pSrc->qsName : "server";
+	QString admin = pSrc ? pSrc->qsName : QString::fromAscii("server");
 
 	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
@@ -1122,7 +1124,7 @@ void MessageServerSync::process(Connection *) {
 	g.iMaxBandwidth = iMaxBandwidth;
 	g.sId = sPlayerId;
 	g.l->clearIgnore();
-	g.l->log(Log::Information, qsWelcomeText, QString(""));
+	g.l->log(Log::Information, qsWelcomeText, QString());
 	g.mw->pmModel->ensureSelfVisible();
 }
 

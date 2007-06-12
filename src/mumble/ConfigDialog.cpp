@@ -46,7 +46,7 @@ ConfigWidget::ConfigWidget(QWidget *p) : QWidget(p) {
 }
 
 QString ConfigWidget::title() const {
-	return QString("Missing Title");
+	return QString::fromAscii("Missing Title");
 }
 
 QIcon ConfigWidget::icon() const {
@@ -64,7 +64,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
     qlwIcons->setMovement(QListView::Static);
     qlwIcons->setMaximumWidth(128);
     qlwIcons->setSpacing(12);
-    qlwIcons->setObjectName("Icons");
+    qlwIcons->setObjectName(QString::fromAscii("Icons"));
 
     QPushButton *okButton = new QPushButton(tr("&OK"));
     okButton->setDefault(true);

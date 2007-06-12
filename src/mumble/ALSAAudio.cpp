@@ -47,8 +47,8 @@ static AudioInput *ALSAAudioInputNew()
     return new ALSAAudioInput();
 }
 
-static AudioOutputRegistrar aorALSA("ALSA", ALSAAudioOutputNew);
-static AudioInputRegistrar airALSA("ALSA", ALSAAudioInputNew);
+static AudioOutputRegistrar aorALSA(QString::fromAscii("ALSA"), ALSAAudioOutputNew);
+static AudioInputRegistrar airALSA(QString::fromAscii("ALSA"), ALSAAudioInputNew);
 
 ALSAAudioInput::ALSAAudioInput()
 {
@@ -98,18 +98,18 @@ void ALSAAudioInput::run()
     err = snd_pcm_hw_params_set_channels(capture_handle, hw_params, 1);
     if (err < 0) qWarning("ALSAAudioInput: Channels: %s", snd_strerror(err));
 
-    int wantPeriod = iFrameSize;
-    err = snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&wantPeriod, NULL);
+    snd_pcm_uframes_t wantPeriod = iFrameSize;
+    err = snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &wantPeriod, NULL);
     if (err < 0) qWarning("ALSAAudioInput: Period Size: %s", snd_strerror(err));
 
-    int wantBuff = wantPeriod * 4;
-    err = snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, (snd_pcm_uframes_t *)&wantBuff);
+    snd_pcm_uframes_t wantBuff = wantPeriod * 4;
+    err = snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, &wantBuff);
     if (err < 0) qWarning("ALSAAudioInput: Buffer Size: %s", snd_strerror(err));
 
     err = snd_pcm_hw_params(capture_handle, hw_params);
     if (err < 0) qWarning("ALSAAudioInput: hw params: %s", snd_strerror(err));
     
-    qWarning("ALSAAudioInput: Actual buffer %d samples [%d(%d) per period]",wantBuff,wantPeriod,iFrameSize);
+    qWarning("ALSAAudioInput: Actual buffer %ld samples [%ld(%d) per period]",wantBuff,wantPeriod,iFrameSize);
 
     snd_pcm_hw_params_free(hw_params);
 
@@ -118,7 +118,7 @@ void ALSAAudioInput::run()
  * or debug output
  */
     snd_output_t *log;
-    snd_pcm_status_t *status;
+    // snd_pcm_status_t *status;
     snd_output_stdio_attach(&log, stderr,0 );
     snd_pcm_dump(capture_handle, log);
 

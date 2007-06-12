@@ -77,16 +77,16 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	refillPluginList();
 
 	QPushButton *reloadButton=new QPushButton(tr("&Reload plugins"));
-	reloadButton->setObjectName("Reload");
+	reloadButton->setObjectName(QString::fromAscii("Reload"));
 	reloadButton->setToolTip(tr("Reloads all plugins"));
 	reloadButton->setWhatsThis(tr("This rescans and reloads plugins. Use this if you just added or changed "
 								"a plugin to the plugins directory."));
 	QPushButton *aboutButton=new QPushButton(tr("&About"));
-	aboutButton->setObjectName("About");
+	aboutButton->setObjectName(QString::fromAscii("About"));
 	aboutButton->setToolTip(tr("Information about plugin"));
 	aboutButton->setWhatsThis(tr("This shows a small information message about the plugin."));
 	QPushButton *configButton=new QPushButton(tr("&Configure"));
-	configButton->setObjectName("Config");
+	configButton->setObjectName(QString::fromAscii("Config"));
 	configButton->setToolTip(tr("Show configuration page of plugin"));
 	configButton->setWhatsThis(tr("This shows the configuration page of the plugin, if any."));
 
@@ -115,7 +115,7 @@ QString PluginConfig::title() const {
 }
 
 QIcon PluginConfig::icon() const {
-	return QIcon(":/config_plugin.png");
+	return QIcon(QString::fromAscii(":/config_plugin.png"));
 }
 
 void PluginConfig::accept() {
@@ -165,7 +165,7 @@ void PluginConfig::refillPluginList() {
 
 Plugins::Plugins(QObject *p) : QObject(p) {
 	QTimer *timer=new QTimer(this);
-	timer->setObjectName("Timer");
+	timer->setObjectName(QString::fromAscii("Timer"));
 	timer->start(1000);
 	locked = prevlocked = NULL;
 	bValid = false;
@@ -188,19 +188,19 @@ void Plugins::rescanPlugins() {
 	bValid = false;
 
 #ifdef QT_NO_DEBUG
-	QString path=QString("%1/plugins").arg(qApp->applicationDirPath());
+	QString path=QString::fromAscii("%1/plugins").arg(qApp->applicationDirPath());
 #else
-	QString path=QString("%1/../plugins").arg(qApp->applicationDirPath());
+	QString path=QString::fromAscii("%1/../plugins").arg(qApp->applicationDirPath());
 #endif
 
-	QDir qd(path,"*.dll", QDir::Name, QDir::Files | QDir::Readable);
+	QDir qd(path,QString::fromAscii("*.dll"), QDir::Name, QDir::Files | QDir::Readable);
 	QStringList libs = qd.entryList();
 	foreach(QString libname, libs) {
 		pi = new PluginInfo();
-		pi->filename = QString("%1/%2").arg(path).arg(libname);
+		pi->filename = QString::fromAscii("%1/%2").arg(path).arg(libname);
 		pi->lib.setFileName(pi->filename);
 		if (pi->lib.load()) {
-			mumblePluginFunc mpf = (mumblePluginFunc)(pi->lib.resolve("getMumblePlugin"));
+			mumblePluginFunc mpf = reinterpret_cast<mumblePluginFunc>(pi->lib.resolve("getMumblePlugin"));
 			if (mpf) {
 				pi->p = mpf();
 				if (pi->p) {

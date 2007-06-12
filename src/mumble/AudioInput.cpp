@@ -53,11 +53,11 @@ AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n)
 AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	QSettings qs;
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
-		qs.setValue("AudioInputDevice", choice);
+		qs.setValue(QString::fromAscii("AudioInputDevice"), choice);
 		current = choice;
 		return AudioInputPtr(qmNew->value(current)());
 	}
-	choice = qs.value("AudioInputDevice").toString();
+	choice = qs.value(QString::fromAscii("AudioInputDevice")).toString();
 	if (qmNew->contains(choice)) {
 		current = choice;
 		return AudioInputPtr(qmNew->value(choice)());
@@ -66,8 +66,8 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
 	// pretty early in the sorted map.
 
-	if (qmNew->contains("DirectSound")) {
-		current = "DirectSound";
+	if (qmNew->contains(QString::fromAscii("DirectSound"))) {
+		current = QString::fromAscii("DirectSound");
 		return AudioInputPtr(qmNew->value(current)());
 	}
 
@@ -231,7 +231,7 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
 
 		double v = 20000.0 / g.s.iMinLoudness;
-		iArg = floor(20.0 * log10(v));
+		iArg = lround(floor(20.0 * log10(v)));
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
 
 		iArg = -45;
@@ -278,8 +278,8 @@ void AudioInput::encodeAudioFrame() {
 	float Zframe = 0;
 	int freq_start = static_cast<int>(300.0f*2.f*st->ps_size/st->sampling_rate);
 	int freq_end   = static_cast<int>(2000.0f*2.f*st->ps_size/st->sampling_rate);
-	for (int i=freq_start;i<freq_end;i++)
-		Zframe += st->zeta[i];
+	for (int ii=freq_start;ii<freq_end;ii++)
+		Zframe += st->zeta[ii];
 	Zframe /= (freq_end-freq_start);
 	dSNR = Zframe;
 

@@ -121,7 +121,7 @@ void AudioEchoWidget::paintGL() {
 				imag = st->W[j*N + 2*i];
 			}
 
-			float v;
+			float v = 0.0;
 
 			switch (mode) {
 				case REAL:
@@ -153,7 +153,7 @@ AudioNoiseWidget::AudioNoiseWidget(QWidget *p) : QWidget(p) {
 	setMinimumSize(100,60);
 }
 
-void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
+void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	QPainter paint(this);
 	QPalette pal;
 
@@ -214,7 +214,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *evt) {
 AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	setAttribute(Qt::WA_DeleteOnClose, true);
 
-	setWindowTitle("Mumble");
+	setWindowTitle(tr("Mumble"));
 
     QLabel *lab;
 	QGridLayout *l=new QGridLayout;
@@ -266,23 +266,23 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 
 		QRadioButton *b;
 
-		b = new QRadioButton("Real");
+		b = new QRadioButton(tr("Real"));
 		qmEchoMode[b] = AudioEchoWidget::REAL;
 		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
 		hbox->addWidget(b);
 
-		b = new QRadioButton("Imaginary");
+		b = new QRadioButton(tr("Imaginary"));
 		qmEchoMode[b] = AudioEchoWidget::IMAGINARY;
 		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
 		hbox->addWidget(b);
 
-		b = new QRadioButton("Modulus");
+		b = new QRadioButton(tr("Modulus"));
 		b->setChecked(true);
 		qmEchoMode[b] = AudioEchoWidget::MODULUS;
 		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
 		hbox->addWidget(b);
 
-		b = new QRadioButton("Phase");
+		b = new QRadioButton(tr("Phase"));
 		qmEchoMode[b] = AudioEchoWidget::PHASE;
 		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
 		hbox->addWidget(b);
@@ -297,7 +297,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	}
 
 	qtTick = new QTimer(this);
-	qtTick->setObjectName("Tick");
+	qtTick->setObjectName(QString::fromAscii("Tick"));
 	qtTick->start(50);
 
 	qlMicLevel->setToolTip(tr("Peak power in last frame"));

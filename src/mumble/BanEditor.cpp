@@ -37,25 +37,25 @@ BanEditor::BanEditor(const MessageServerBanList *msbl, QWidget *p) : QDialog(p) 
 	setWindowTitle(tr("Mumble - Edit Bans"));
 
 	qlwBans = new QListWidget();
-	qleIP = new QLineEdit("0.0.0.0");
+	qleIP = new QLineEdit(tr("0.0.0.0"));
 	qsbMask = new QSpinBox();
 	qpbAdd = new QPushButton(tr("&Add"));
 	qpbUpdate = new QPushButton(tr("&Update"));
 	qpbRemove = new QPushButton(tr("&Remove"));
 
-	qlwBans->setObjectName("Bans");
+	qlwBans->setObjectName(QString::fromAscii("Bans"));
 
-	qleIP->setObjectName("IP");
-	QRegExp rx("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
+	qleIP->setObjectName(QString::fromAscii("IP"));
+	QRegExp rx(QString::fromAscii("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"));
     QValidator *validator = new QRegExpValidator(rx, this);
     qleIP->setValidator(validator);
 
-	qsbMask->setObjectName("Mask");
+	qsbMask->setObjectName(QString::fromAscii("Mask"));
 	qsbMask->setRange(8,32);
 	qsbMask->setValue(24);
-	qpbAdd->setObjectName("Add");
-	qpbUpdate->setObjectName("Update");
-	qpbRemove->setObjectName("Remove");
+	qpbAdd->setObjectName(QString::fromAscii("Add"));
+	qpbUpdate->setObjectName(QString::fromAscii("Update"));
+	qpbRemove->setObjectName(QString::fromAscii("Remove"));
 
 	QGridLayout *grid = new QGridLayout;
 
@@ -130,10 +130,10 @@ void BanEditor::on_Add_clicked() {
 	ok = addr.setAddress(qleIP->text());
 	if (ok) {
 		quint32 base = addr.toIPv4Address();
-		quint32 mask = qsbMask->value();
-		quint32 bitmask = (1<<(32-mask))-1;
+		quint32 nmask = qsbMask->value();
+		quint32 bitmask = (1<<(32-nmask))-1;
 		ban.first = base & ~bitmask;
-		ban.second = mask;
+		ban.second = nmask;
 		qlBans << ban;
 		refreshBanList();
 		qlwBans->setCurrentRow(qlBans.indexOf(ban));
@@ -161,7 +161,7 @@ void BanEditor::refreshBanList() {
 
 	foreach(ban,qlBans) {
 		QHostAddress addr(ban.first);
-		QString qs = QString("%1/%2").arg(addr.toString()).arg(ban.second);
+		QString qs = QString::fromAscii("%1/%2").arg(addr.toString()).arg(ban.second);
 		qlwBans->addItem(qs);
 	}
 }

@@ -44,7 +44,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	bDirty = false;
 
 	qstmServers = new QSqlTableModel(this);
-	qstmServers->setTable("servers");
+	qstmServers->setTable(QString::fromAscii("servers"));
 	qstmServers->setSort(1, Qt::AscendingOrder);
 	if (! qstmServers->select()) {
 		qWarning("ConnectDialog: Failed to reselect table");
@@ -56,7 +56,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qlwServers->setModel(qstmServers);
 	qlwServers->setModelColumn(1);
 	qlwServers->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	qlwServers->setObjectName("List");
+	qlwServers->setObjectName(QString::fromAscii("List"));
 
 	QItemSelectionModel *selectionModel = qlwServers->selectionModel();
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
@@ -75,7 +75,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	l->addWidget(lab, 1, 1);
 	l->addWidget(qleServer, 1, 2);
 
-	qlePort=new QLineEdit("64738");
+	qlePort=new QLineEdit(QString::fromAscii("64738"));
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 	lab=new QLabel(tr("&Port"));
 	lab->setBuddy(qlePort);
@@ -106,10 +106,10 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     QPushButton *addButton = new QPushButton(tr("&Add"));
-    addButton->setObjectName("Add");
+    addButton->setObjectName(QString::fromAscii("Add"));
 
     QPushButton *removeButton = new QPushButton(tr("&Remove"));
-    removeButton->setObjectName("Remove");
+    removeButton->setObjectName(QString::fromAscii("Remove"));
 
 	vbh->addWidget(okButton);
 	vbh->addWidget(cancelButton);
@@ -126,7 +126,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
     QMetaObject::connectSlotsByName(this);
 
-	QModelIndex idx = qstmServers->index(g.qs->value("ServerRow",-1).toInt(),0);
+	QModelIndex idx = qstmServers->index(g.qs->value(QString::fromAscii("ServerRow"),-1).toInt(),0);
 	if (idx.isValid())
 		qlwServers->setCurrentIndex(idx);
 }
@@ -144,18 +144,18 @@ void ConnectDialog::accept() {
 	qsPassword = qlePassword->text();
 	iPort = qlePort->text().toInt();
 
-	g.qs->setValue("ServerRow", qlwServers->currentIndex().row());
+	g.qs->setValue(QString::fromAscii("ServerRow"), qlwServers->currentIndex().row());
 	QDialog::accept();
 }
 
 QSqlRecord ConnectDialog::toRecord() const
 {
 	QSqlRecord r = qstmServers->record();
-	r.setValue("name", qleName->text());
-	r.setValue("hostname", qleServer->text());
-	r.setValue("username", qleUsername->text());
-	r.setValue("password", qlePassword->text());
-	r.setValue("port", qlePort->text().toInt());
+	r.setValue(QString::fromAscii("name"), qleName->text());
+	r.setValue(QString::fromAscii("hostname"), qleServer->text());
+	r.setValue(QString::fromAscii("username"), qleUsername->text());
+	r.setValue(QString::fromAscii("password"), qlePassword->text());
+	r.setValue(QString::fromAscii("port"), qlePort->text().toInt());
 	return r;
 }
 
@@ -171,11 +171,11 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	}
 	if (index.isValid()) {
 		r = qstmServers->record(index.row());
-		qleName->setText(r.value("name").toString());
-		qleServer->setText(r.value("hostname").toString());
-		qleUsername->setText(r.value("username").toString());
-		qlePassword->setText(r.value("password").toString());
-		qlePort->setText(r.value("port").toString());
+		qleName->setText(r.value(QString::fromAscii("name")).toString());
+		qleServer->setText(r.value(QString::fromAscii("hostname")).toString());
+		qleUsername->setText(r.value(QString::fromAscii("username")).toString());
+		qlePassword->setText(r.value(QString::fromAscii("password")).toString());
+		qlePort->setText(r.value(QString::fromAscii("port")).toString());
 		bDirty = false;
 	}
 }

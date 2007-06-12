@@ -57,17 +57,17 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	QGroupBox *qgbGroupMembers = new QGroupBox(tr("Members"));
 
 	qlwACLs = new QListWidget();
-	qlwACLs->setObjectName("ACLList");
+	qlwACLs->setObjectName(QString::fromAscii("ACLList"));
 	qpbACLAdd=new QPushButton(tr("&Add"));
-	qpbACLAdd->setObjectName("ACLAdd");
+	qpbACLAdd->setObjectName(QString::fromAscii("ACLAdd"));
 	qpbACLRemove=new QPushButton(tr("&Remove"));
-	qpbACLRemove->setObjectName("ACLRemove");
+	qpbACLRemove->setObjectName(QString::fromAscii("ACLRemove"));
 	qpbACLUp=new QPushButton(tr("&Up"));
-	qpbACLUp->setObjectName("ACLUp");
+	qpbACLUp->setObjectName(QString::fromAscii("ACLUp"));
 	qpbACLDown=new QPushButton(tr("&Down"));
-	qpbACLDown->setObjectName("ACLDown");
+	qpbACLDown->setObjectName(QString::fromAscii("ACLDown"));
 	qcbACLInherit=new QCheckBox(tr("Inherit ACLs"));
-	qcbACLInherit->setObjectName("ACLInherit");
+	qcbACLInherit->setObjectName(QString::fromAscii("ACLInherit"));
 
 	QHBoxLayout *qhblAclList = new QHBoxLayout;
 	qhblAclList->addWidget(qcbACLInherit);
@@ -86,9 +86,9 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	QGridLayout *grid = new QGridLayout();
 
 	qcbACLApplyHere=new QCheckBox(tr("Applies to this channel"));
-	qcbACLApplyHere->setObjectName("ACLApplyHere");
+	qcbACLApplyHere->setObjectName(QString::fromAscii("ACLApplyHere"));
 	qcbACLApplySubs=new QCheckBox(tr("Applies to sub-channels"));
-	qcbACLApplySubs->setObjectName("ACLApplySubs");
+	qcbACLApplySubs->setObjectName(QString::fromAscii("ACLApplySubs"));
 	grid->addWidget(qcbACLApplyHere,0,0);
 	grid->addWidget(qcbACLApplySubs,1,0);
 
@@ -98,14 +98,14 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
 	qcbACLGroup=new QComboBox();
 	qcbACLGroup->setEditable(true);
-	qcbACLGroup->setObjectName("ACLGroup");
+	qcbACLGroup->setObjectName(QString::fromAscii("ACLGroup"));
 	l=new QLabel(tr("Group"));
 	l->setBuddy(qcbACLGroup);
 	grid->addWidget(qcbACLGroup,0,0);
 	grid->addWidget(l,0,1);
 
 	qleACLUser=new QLineEdit();
-	qleACLUser->setObjectName("ACLUser");
+	qleACLUser->setObjectName(QString::fromAscii("ACLUser"));
 	l=new QLabel(tr("User ID"));
 	l->setBuddy(qleACLUser);
 	grid->addWidget(qleACLUser,1,0);
@@ -154,20 +154,20 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	grid = new QGridLayout();
 
 	qcbGroupList=new QComboBox();
-	qcbGroupList->setObjectName("GroupList");
+	qcbGroupList->setObjectName(QString::fromAscii("GroupList"));
 	qcbGroupList->setEditable(true);
 	grid->addWidget(qcbGroupList,0,0);
 	qpbGroupRemove=new QPushButton(tr("Remove"));
-	qpbGroupRemove->setObjectName("GroupRemove");
+	qpbGroupRemove->setObjectName(QString::fromAscii("GroupRemove"));
 	grid->addWidget(qpbGroupRemove,0,1);
 	qcbGroupInherit=new QCheckBox(tr("Inherit"));
-	qcbGroupInherit->setObjectName("GroupInherit");
+	qcbGroupInherit->setObjectName(QString::fromAscii("GroupInherit"));
 	grid->addWidget(qcbGroupInherit,0,2);
 	qcbGroupInheritable=new QCheckBox(tr("Inheritable"));
-	qcbGroupInheritable->setObjectName("GroupInheritable");
+	qcbGroupInheritable->setObjectName(QString::fromAscii("GroupInheritable"));
 	grid->addWidget(qcbGroupInheritable,0,3);
 	qcbGroupInherited=new QCheckBox(tr("Inherited"));
-	qcbGroupInherited->setObjectName("GroupInherited");
+	qcbGroupInherited->setObjectName(QString::fromAscii("GroupInherited"));
 	qcbGroupInherited->setEnabled(false);
 	grid->addWidget(qcbGroupInherited,0,4);
 
@@ -176,11 +176,11 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	grid = new QGridLayout();
 
 	qlwGroupAdd = new QListWidget();
-	qlwGroupAdd->setObjectName("ListGroupAdd");
+	qlwGroupAdd->setObjectName(QString::fromAscii("ListGroupAdd"));
 	qlwGroupRemove = new QListWidget();
-	qlwGroupRemove->setObjectName("ListGroupRemove");
+	qlwGroupRemove->setObjectName(QString::fromAscii("ListGroupRemove"));
 	qlwGroupInherit = new QListWidget();
-	qlwGroupInherit->setObjectName("ListGroupInherit");
+	qlwGroupInherit->setObjectName(QString::fromAscii("ListGroupInherit"));
 
 	l = new QLabel(tr("Add"));
 	grid->addWidget(l, 0, 0, 1, 2);
@@ -194,22 +194,22 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	grid->addWidget(qlwGroupInherit, 1, 4, 2, 2);
 
 	qleGroupAdd=new QLineEdit();
-	qleGroupAdd->setObjectName("GroupAddName");
+	qleGroupAdd->setObjectName(QString::fromAscii("GroupAddName"));
 	qleGroupRemove=new QLineEdit();
-	qleGroupRemove->setObjectName("GroupRemoveName");
+	qleGroupRemove->setObjectName(QString::fromAscii("GroupRemoveName"));
 
 	qpbGroupAddAdd=new QPushButton(tr("Add"));
-	qpbGroupAddAdd->setObjectName("GroupAddAdd");
+	qpbGroupAddAdd->setObjectName(QString::fromAscii("GroupAddAdd"));
 	qpbGroupAddRemove=new QPushButton(tr("Remove"));
-	qpbGroupAddRemove->setObjectName("GroupAddRemove");
+	qpbGroupAddRemove->setObjectName(QString::fromAscii("GroupAddRemove"));
 
 	qpbGroupRemoveAdd=new QPushButton(tr("Add"));
-	qpbGroupRemoveAdd->setObjectName("GroupRemoveAdd");
+	qpbGroupRemoveAdd->setObjectName(QString::fromAscii("GroupRemoveAdd"));
 	qpbGroupRemoveRemove=new QPushButton(tr("Remove"));
-	qpbGroupRemoveRemove->setObjectName("GroupRemoveRemove");
+	qpbGroupRemoveRemove->setObjectName(QString::fromAscii("GroupRemoveRemove"));
 
 	qpbGroupInheritRemove=new QPushButton(tr("Add to Remove"));
-	qpbGroupInheritRemove->setObjectName("GroupInheritRemove");
+	qpbGroupInheritRemove->setObjectName(QString::fromAscii("GroupInheritRemove"));
 
 	grid->addWidget(qleGroupAdd, 2, 0);
 	grid->addWidget(qpbGroupAddAdd, 2, 1);
@@ -500,7 +500,7 @@ QString ACLEditor::userName(int id) {
 	if (qhNameCache.contains(id))
 		return qhNameCache.value(id);
 	else
-		return QString("#%1").arg(id);
+		return QString::fromAscii("#%1").arg(id);
 }
 
 void ACLEditor::refillACL() {
@@ -531,7 +531,7 @@ void ACLEditor::refillACL() {
 			continue;
 		QString text;
 		if (as->iPlayerId == -1)
-			text=QString("@%1").arg(as->qsGroup);
+			text=QString::fromAscii("@%1").arg(as->qsGroup);
 		else
 			text=userName(as->iPlayerId);
 		QListWidgetItem *item=new QListWidgetItem(text, qlwACLs);
@@ -736,14 +736,14 @@ void ACLEditor::ACLEnableCheck() {
 		}
 		qcbACLGroup->clear();
 		qcbACLGroup->addItem(QString());
-		qcbACLGroup->addItem("all");
-		qcbACLGroup->addItem("auth");
-		qcbACLGroup->addItem("in");
-		qcbACLGroup->addItem("sub");
-		qcbACLGroup->addItem("out");
-		qcbACLGroup->addItem("~in");
-		qcbACLGroup->addItem("~sub");
-		qcbACLGroup->addItem("~out");
+		qcbACLGroup->addItem(QString::fromAscii("all"));
+		qcbACLGroup->addItem(QString::fromAscii("auth"));
+		qcbACLGroup->addItem(QString::fromAscii("in"));
+		qcbACLGroup->addItem(QString::fromAscii("sub"));
+		qcbACLGroup->addItem(QString::fromAscii("out"));
+		qcbACLGroup->addItem(QString::fromAscii("~in"));
+		qcbACLGroup->addItem(QString::fromAscii("~sub"));
+		qcbACLGroup->addItem(QString::fromAscii("~out"));
 		foreach(gs, groups)
 			qcbACLGroup->addItem(gs->qsName);
 		if (as->iPlayerId == -1) {
@@ -765,7 +765,7 @@ void ACLEditor::on_ACLAdd_clicked() {
 	as->bApplyHere = true;
 	as->bApplySubs = true;
 	as->bInherited = false;
-	as->qsGroup = "all";
+	as->qsGroup = QString::fromAscii("all");
 	as->iPlayerId = -1;
 	as->pAllow = ChanACL::None;
 	as->pDeny = ChanACL::None;
@@ -809,7 +809,7 @@ void ACLEditor::on_ACLDown_clicked() {
 	refillACL();
 }
 
-void ACLEditor::on_ACLInherit_clicked(bool checked) {
+void ACLEditor::on_ACLInherit_clicked(bool) {
 	refillACL();
 }
 
@@ -838,7 +838,7 @@ void ACLEditor::on_ACLGroup_activated(const QString &text) {
 
 	if (text.isEmpty()) {
 		qcbACLGroup->setCurrentIndex(1);
-		as->qsGroup="all";
+		as->qsGroup=QString::fromAscii("all");
 	} else {
 		qleACLUser->setText(QString());
 		as->qsGroup=text;
@@ -857,7 +857,7 @@ void ACLEditor::on_ACLUser_editingFinished() {
 		as->iPlayerId = -1;
 		if (qcbACLGroup->currentIndex() == 0) {
 			qcbACLGroup->setCurrentIndex(1);
-			as->qsGroup="all";
+			as->qsGroup=QString::fromAscii("all");
 		}
 		refillACL();
 	} else {

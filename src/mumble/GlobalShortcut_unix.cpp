@@ -100,17 +100,17 @@ void XInputKeyWidget::displayKeys() {
   foreach(int key, qlButtons) {
     KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
     if (ks == NoSymbol) {
-      sl << QString("0x")+QString::number(key,16);
+      sl << QString::fromAscii("0x")+QString::number(key,16);
     } else {
       const char *str = XKeysymToString(ks);
       if (strlen(str) == 0) {
-	sl << QString("KS0x")+QString::number(ks,16);
+	sl << QString::fromAscii("KS0x")+QString::number(ks,16);
       } else {
-	sl << QString(str);
+	sl << QString::fromAscii(str);
       }
     }
   }
-  setText(sl.join(" "));
+  setText(sl.join(QString::fromAscii(" ")));
 }
 
 GlobalShortcutXConfig::GlobalShortcutXConfig(QWidget *p) : ConfigWidget(p) {
@@ -157,18 +157,18 @@ QString GlobalShortcutXConfig::title() const {
 }
 
 QIcon GlobalShortcutXConfig::icon() const {
-        return QIcon(":/config_shortcuts.png");
+        return QIcon(QString::fromAscii(":/config_shortcuts.png"));
 }
 
 void GlobalShortcutXConfig::accept() {
   foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
     XInputKeyWidget *dikw = qhKeys[gs];
     if (dikw->bModified) {
-      QString base=QString("GS%1_").arg(gs->idx);
-      g.qs->setValue(base + QString("num"), dikw->qlButtons.count());
+      QString base=QString::fromAscii("GS%1_").arg(gs->idx);
+      g.qs->setValue(base + QString::fromAscii("num"), dikw->qlButtons.count());
       int i=0;
       foreach(int bt, dikw->qlButtons) {
-	g.qs->setValue(base + QString("%1_Key").arg(i), bt);
+	g.qs->setValue(base + QString::fromAscii("%1_Key").arg(i), bt);
 	i++;
       }
     }
@@ -245,11 +245,11 @@ void GlobalShortcutX::remap() {
 
   foreach(GlobalShortcut *gs, qmShortcuts) {
 
-    QString base=QString("GS%1_").arg(gs->idx);
-    QList<int> buttons;
-    int nbuttons = g.qs->value(base + QString("num"), 0).toInt();
+    QString base=QString::fromAscii("GS%1_").arg(gs->idx);
+    QList<unsigned int> buttons;
+    int nbuttons = g.qs->value(base + QString::fromAscii("num"), 0).toInt();
     for(int i=0;i<nbuttons;i++) {
-      int key = g.qs->value(base + QString("%1_Key").arg(i), 0xffffffff).toUInt();
+      unsigned int key = g.qs->value(base + QString::fromAscii("%1_Key").arg(i), 0xffffffff).toUInt();
       if (key != 0xffffffff) {
 	buttons << key;
       }
