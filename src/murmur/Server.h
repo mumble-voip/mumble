@@ -136,6 +136,8 @@ struct ServerParams {
 	QString qsDBPassword;
 	QString qsDBHostName;
 	int iDBPort;
+	
+	QString qsDBus;
 
 	ServerParams();
 	void read(QString fname = QString("murmur.ini"));

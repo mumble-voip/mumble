@@ -87,11 +87,33 @@ int main(int argc, char **argv)
 
 	ServerDB db;
 
+#ifdef Q_OS_UNIX
 	MurmurDBus::registerTypes();
+#endif
 	dbus=new MurmurDBus(a);
 #ifdef Q_OS_UNIX
-	QDBusConnection::sessionBus().registerObject("/Murmur", &a);
-	QDBusConnection::sessionBus().registerService("net.sourceforge.mumble");
+	QDBusConnection qdbc("mainbus");
+	if (g_sp.qsDBus == "session")
+		qdbc = QDBusConnection::sessionBus();
+	else if (g_sp.qsDBus == "system")
+		qdbc = QDBusConnection::systemBus();
+	else {
+		// QtDBus is not quite finished yet.
+		qWarning("Warning: Peer-to-peer session support is currently nonworking.");
+		qdbc = QDBusConnection::connectToBus(g_sp.qsDBus, "mainbus");
+		if (! qdbc.isConnected()) {
+			QDBusServer *qdbs = new QDBusServer(g_sp.qsDBus, &a);
+			qWarning("%s",qPrintable(qdbs->lastError().name()));
+			qWarning("%d",qdbs->isConnected());
+			qWarning("%s",qPrintable(qdbs->address()));
+			qdbc = QDBusConnection::connectToBus(g_sp.qsDBus, "mainbus");
+		}
+	}
+	if (! qdbc.isConnected()) {
+		qWarning("Failed to connect to D-Bus %s",qPrintable(g_sp.qsDBus));
+	}
+	qdbc.registerObject("/Murmur", &a);
+	qdbc.registerService("net.sourceforge.mumble");
 #endif
 
 	if (! supw.isEmpty()) {

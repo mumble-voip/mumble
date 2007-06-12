@@ -64,6 +64,7 @@ ServerParams::ServerParams() {
 	qsDatabase = QString();
 	iDBPort = 0;
 	qsDBDriver = "QSQLITE";
+	qsDBus = "session";
 }
 
 void ServerParams::read(QString fname) {
@@ -86,6 +87,8 @@ void ServerParams::read(QString fname) {
 	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
+	
+	qsDBus = qs.value("dbus", qsDBus).toString();
 }
 
 BandwidthRecord::BandwidthRecord() {
