@@ -200,7 +200,7 @@ void Plugins::rescanPlugins() {
 		pi->filename = QString::fromAscii("%1/%2").arg(path).arg(libname);
 		pi->lib.setFileName(pi->filename);
 		if (pi->lib.load()) {
-			mumblePluginFunc mpf = reinterpret_cast<mumblePluginFunc>(pi->lib.resolve("getMumblePlugin"));
+			mumblePluginFunc mpf = (mumblePluginFunc)(pi->lib.resolve("getMumblePlugin"));
 			if (mpf) {
 				pi->p = mpf();
 				if (pi->p) {

@@ -807,7 +807,11 @@ void PlayerDelegate::paint(QPainter * painter, const QStyleOptionViewItem &optio
 			QRect r = option.rect;
 			r.setSize(QSize(16,16));
 			r.translate(i*18+1,1);
-			drawDecoration(painter, option, r, qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
+			QPixmap pixmap= (qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
+			QPoint p = QStyle::alignedRect(option.direction, option.decorationAlignment, pixmap.size(), r).topLeft();
+			painter->drawPixmap(p, pixmap);
+
+//			drawDecoration(painter, option, r, qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
 		}
 		painter->restore();
 		return;

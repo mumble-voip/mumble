@@ -91,9 +91,9 @@ void Settings::load() {
 	fDXMinDistance = g.qs->value(QString::fromAscii("DXMinDistance"), fDXMinDistance).toDouble();
 	fDXMaxDistance = g.qs->value(QString::fromAscii("DXMaxDistance"), fDXMaxDistance).toDouble();
 	fDXRollOff = g.qs->value(QString::fromAscii("DXRollOff"), fDXRollOff).toDouble();
-	qsASIOclass = g.qs->value(QString::fromAscii("ASIOclass").toString();
-	qlASIOmic = g.qs->value(QString::fromAscii("ASIOmic").toList();
-	qlASIOspeaker = g.qs->value(QString::fromAscii("ASIOspeaker").toList();
+	qsASIOclass = g.qs->value(QString::fromAscii("ASIOclass")).toString();
+	qlASIOmic = g.qs->value(QString::fromAscii("ASIOmic")).toList();
+	qlASIOspeaker = g.qs->value(QString::fromAscii("ASIOspeaker")).toList();
 	bOverlayEnable = g.qs->value(QString::fromAscii("OverlayEnable"),bOverlayEnable).toBool();
 	osOverlay = static_cast<Settings::OverlayShow>(g.qs->value(QString::fromAscii("OverlayShow"), osOverlay).toInt());
 	bOverlayAlwaysSelf = g.qs->value(QString::fromAscii("OverlayAlwaysSelf"),bOverlayAlwaysSelf).toBool();
