@@ -2,6 +2,9 @@ include(../mumble.pri)
 
 TEMPLATE	=app
 CONFIG  += network console
+CONFIG(static) {
+	QMAKE_LFLAGS += -static
+}
 CONFIG	-= gui
 QT += network sql
 QT -= gui
