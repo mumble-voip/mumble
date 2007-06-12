@@ -50,13 +50,19 @@ Database::Database() {
 				db.setDatabaseName(f.fileName());
 				found = db.open();
 			}
+
+			QFile f2(datapaths[i] + "/.mumble.sqlite");
+			if (f2.exists()) {
+				db.setDatabaseName(f2.fileName());
+				found = db.open();
+			}
 		}
 	}
 
 	if (! found) {
 		for(i = 0; (i < datapaths.size()) && ! found; i++) {
 			if (!datapaths[i].isEmpty()) {
-				QFile f(datapaths[i] + "/mumble.sqlite");
+				QFile f(datapaths[i] + "/.mumble.sqlite");
 				db.setDatabaseName(f.fileName());
 				found = db.open();
 			}
