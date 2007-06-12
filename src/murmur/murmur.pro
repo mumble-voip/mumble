@@ -15,6 +15,8 @@ SOURCES = murmur.cpp Server.cpp ServerDB.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp
 
+DIST = DBus.h
+
 PRECOMPILED_HEADER = murmur_pch.h
 DIST = murmur.pl murmur.ini link.pl Commands.txt
 

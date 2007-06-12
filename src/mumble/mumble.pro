@@ -36,8 +36,10 @@ unix {
   HEADERS	+= ALSAAudio.h GlobalShortcut_unix.h
   SOURCES	+= ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp
   LIBS		+= -lasound -lXevie 
-  QMAKE_CFLAGS += -I../../speex/include
-  QMAKE_CXXFLAGS += -I../../speex/include
+  QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
+  QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
+  QMAKE_CXXFLAGS_RELEASE += -I../../speex/include -I../../speexbuild
+  QMAKE_CXXFLAGS_DEBUG += -I../../speex/include -I../../speexbuild
 }
 
 CONFIG(asio) {

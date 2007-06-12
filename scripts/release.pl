@@ -14,8 +14,10 @@ my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'f
 
 system("rm mumble-*");
 
-foreach my $pro ("mumble.pro", "murmur.pro", "mumble.pri") {
-  open(F, $pro) or croak;
+foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
+  open(F, $pro) or croak "Failed to open $pro";
+  print "Processing $pro\n";
+  $files{$pro}=1;
   while(<F>) {
     chomp();
     if (/^\s*(\w+)\s*?[\+\-\s]=\s*(.+)$/) {
@@ -27,7 +29,12 @@ foreach my $pro ("mumble.pro", "murmur.pro", "mumble.pri") {
         }
         case %filevars {
           foreach my $f (split(/\s+/,$value)) {
-            $files{$f}=1;
+            $f =~ s/^.+\///g;
+            foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/") {
+              if (-f "$d$f") {
+                $files{$d.$f}=1;
+              }
+            }
           }
         }
       }
@@ -36,20 +43,27 @@ foreach my $pro ("mumble.pro", "murmur.pro", "mumble.pri") {
   close(F);
 }
 
-open(F, "mumble.qrc");
+open(F, "src/mumble/mumble.qrc");
 while(<F>) {
   chomp();
   if (/\<file\>(.+)<\/file\>/) {
     $files{$1}=1;
+  } elsif (/\<file alias=\"(.+)\"\>/) {
+    $files{"icons/$1"}=1;
   }
 }
 close(F);
 
-opendir(D, 'debian');
-foreach my $f (grep(! /\./,readdir(D))) {
-  $files{'debian/'.$f}=1;
+foreach my $dir ('debian','speex','speex/include/speex','speex/libspeex') {
+  opendir(D, $dir) or croak "Could not open $dir";
+  foreach my $f (grep(! /^\./,readdir(D))) {
+    my $ff=$dir . '/' . $f;
+    if (-f $ff) {
+      $files{$ff}=1;
+    }
+  }
+  closedir(D);
 }
-closedir(D);
 
 delete($files{'LICENSE'});
 

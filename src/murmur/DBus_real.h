@@ -137,6 +137,9 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 
     void removeChannel(int id, const QDBusMessage &);
     void addChannel(QString name, int parent, int &, const QDBusMessage &);
+    
+    void getPlayerNames(QList<QString> &names, QList<int> ids, const QDBusMessage &);
+    void getPlayerIds(QList<int> &ids, QList<QString> names, const QDBusMessage &);
   signals:
     void playerStateChanged(PlayerInfo);
     void playerConnected(PlayerInfo);

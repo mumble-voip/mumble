@@ -441,6 +441,32 @@ void MurmurDBus::setBans(QList<BanInfo> bans, const QDBusMessage &) {
   ServerDB::setBans(g_sServer->qlBans);
 }
 
+void MurmurDBus::getPlayerNames(QList<QString> &names, QList<int> ids, const QDBusMessage &) {
+  names.clear();
+  foreach(int id, ids) {
+    if (! g_sServer->qhUserNameCache.contains(id)) {
+      QString name=ServerDB::getUserName(id);
+      if (! name.isEmpty()) {
+        g_sServer->qhUserNameCache[id]=name;
+      }
+    }
+    names << g_sServer->qhUserNameCache.value(id);
+  }
+}
+
+void MurmurDBus::getPlayerIds(QList<int> &ids, QList<QString> names, const QDBusMessage &) {
+  ids.clear();
+  foreach(QString name, names) {
+    if (! g_sServer->qhUserIDCache.contains(name)) {
+      int id=ServerDB::getUserID(name);
+      if (id != -1) {
+        g_sServer->qhUserIDCache[name]=id;
+      }
+    }
+    ids << g_sServer->qhUserIDCache.value(name);
+  }
+}
+
 PlayerInfo::PlayerInfo(Player *p) {
   session = p->sId;
   mute = p->bMute;

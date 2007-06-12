@@ -1,5 +1,5 @@
 VERSION		= 0.9.5
-DIST		= LICENSE INSTALL README CHANGES mumble.pro murmur.pro mumble.pri mumble.ico
+DIST		= LICENSE INSTALL README CHANGES mumble.pro murmur.pro mumble.pri mumble.ico Message.h mumble_plugin.h
 CONFIG		+= qt thread debug_and_release warn_on precompile_header
 
 QMAKE_CFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
