@@ -32,12 +32,12 @@
 #include "Global.h"
 
 Database::Database() {
-	QSqlDatabase db = QSqlDatabase::addDatabase(QString::fromAscii("QSQLITE"));
+	QSqlDatabase db = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"));
 	QSettings qs;
 	QStringList datapaths;
 	int i;
 
-	datapaths << qs.value(QString::fromAscii("InstPath")).toString();
+	datapaths << qs.value(QLatin1String("InstPath")).toString();
 	datapaths << QDir::homePath();
 	datapaths << qApp->applicationDirPath();
 	datapaths << QDir::currentPath();
@@ -45,13 +45,13 @@ Database::Database() {
 
 	for(i = 0; (i < datapaths.size()) && ! found; i++) {
 		if (!datapaths[i].isEmpty()) {
-			QFile f(datapaths[i] + QString::fromAscii("/mumble.sqlite"));
+			QFile f(datapaths[i] + QLatin1String("/mumble.sqlite"));
 			if (f.exists()) {
 				db.setDatabaseName(f.fileName());
 				found = db.open();
 			}
 
-			QFile f2(datapaths[i] + QString::fromAscii("/.mumble.sqlite"));
+			QFile f2(datapaths[i] + QLatin1String("/.mumble.sqlite"));
 			if (f2.exists()) {
 				db.setDatabaseName(f2.fileName());
 				found = db.open();
@@ -62,7 +62,7 @@ Database::Database() {
 	if (! found) {
 		for(i = 0; (i < datapaths.size()) && ! found; i++) {
 			if (!datapaths[i].isEmpty()) {
-				QFile f(datapaths[i] + QString::fromAscii("/.mumble.sqlite"));
+				QFile f(datapaths[i] + QLatin1String("/.mumble.sqlite"));
 				db.setDatabaseName(f.fileName());
 				found = db.open();
 			}
@@ -76,6 +76,6 @@ Database::Database() {
 
 	QSqlQuery query;
 	// query.exec("DROP TABLE servers");
-	query.exec(QString::fromAscii("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"));
-	query.exec(QString::fromAscii("ALTER TABLE servers ADD COLUMN udp INTEGER DEFAULT 1"));
+	query.exec(QLatin1String("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"));
+	query.exec(QLatin1String("ALTER TABLE servers ADD COLUMN udp INTEGER DEFAULT 1"));
 }

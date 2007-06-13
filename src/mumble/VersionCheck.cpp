@@ -33,13 +33,13 @@
 
 VersionCheck::VersionCheck(QObject *p) : QObject(p) {
 	qhAgent = new QHttp(this);
-	qhAgent->setObjectName(QString::fromAscii("Agent"));
-	quUrl.setScheme(QString::fromAscii("http"));
-	quUrl.setHost(QString::fromAscii("mumble.sourceforge.net"));
-	quUrl.setPath(QString::fromAscii("/ver.php"));
-	quUrl.addQueryItem(QString::fromAscii("ver"), QString::fromAscii(QUrl::toPercentEncoding(QString::fromAscii(MUMBLE_RELEASE))));
-	quUrl.addQueryItem(QString::fromAscii("date"), QString::fromAscii(QUrl::toPercentEncoding(QString::fromAscii(__DATE__))));
-	quUrl.addQueryItem(QString::fromAscii("time"), QString::fromAscii(QUrl::toPercentEncoding(QString::fromAscii(__TIME__))));
+	qhAgent->setObjectName(QLatin1String("Agent"));
+	quUrl.setScheme(QLatin1String("http"));
+	quUrl.setHost(QLatin1String("mumble.sourceforge.net"));
+	quUrl.setPath(QLatin1String("/ver.php"));
+	quUrl.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
+	quUrl.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
+	quUrl.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
 
     QMetaObject::connectSlotsByName(this);
 
@@ -51,12 +51,12 @@ VersionCheck::VersionCheck(QObject *p) : QObject(p) {
 		if (a.size() < 1) {
 			qWarning("VersionCheck: suspiciously small binary");
 		} else {
-			quUrl.addQueryItem(QString::fromAscii("crc"), QString::number(qChecksum(a.data(), a.size()),16));
+			quUrl.addQueryItem(QLatin1String("crc"), QString::number(qChecksum(a.data(), a.size()),16));
 		}
 	}
 
-	QHttpRequestHeader req(QString::fromAscii("GET"), quUrl.toString(QUrl::RemoveScheme|QUrl::RemoveAuthority));
-	req.setValue(QString::fromAscii("Host"), quUrl.host());
+	QHttpRequestHeader req(QLatin1String("GET"), quUrl.toString(QUrl::RemoveScheme|QUrl::RemoveAuthority));
+	req.setValue(QLatin1String("Host"), quUrl.host());
 
 	qhAgent->setHost(quUrl.host());
 	iReqId=qhAgent->request(req);
@@ -70,7 +70,7 @@ void VersionCheck::on_Agent_requestFinished(int id, bool error) {
 	if ((head.statusCode() == 200) && !error) {
 		QByteArray a=qhAgent->readAll();
 		if (a.size() > 0)
-			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), QString::fromAscii(a), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
+			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), QLatin1String(a), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	} else {
 			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Mumble failed to retrieve version information from the SourceForge server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	}

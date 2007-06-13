@@ -47,8 +47,8 @@ static AudioInput *ALSAAudioInputNew()
     return new ALSAAudioInput();
 }
 
-static AudioOutputRegistrar aorALSA(QString::fromAscii("ALSA"), ALSAAudioOutputNew);
-static AudioInputRegistrar airALSA(QString::fromAscii("ALSA"), ALSAAudioInputNew);
+static AudioOutputRegistrar aorALSA(QLatin1String("ALSA"), ALSAAudioOutputNew);
+static AudioInputRegistrar airALSA(QLatin1String("ALSA"), ALSAAudioInputNew);
 
 ALSAAudioInput::ALSAAudioInput()
 {

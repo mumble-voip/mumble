@@ -138,22 +138,22 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 		name = name.remove(0,1);
 	}
 
-	if (name == QString::fromAscii("none"))
+	if (name == QLatin1String("none"))
 		m = false;
-	else if (name == QString::fromAscii("all"))
+	else if (name == QLatin1String("all"))
 		m = true;
-	else if (name == QString::fromAscii("auth"))
+	else if (name == QLatin1String("auth"))
 		m = (pl->iId >= 0);
-	else if (name == QString::fromAscii("in"))
+	else if (name == QLatin1String("in"))
 		m = (pl->cChannel == c);
-	else if (name == QString::fromAscii("out"))
+	else if (name == QLatin1String("out"))
 		m = !(pl->cChannel == c);
-	else if (name.startsWith(QString::fromAscii("sub"))) {
+	else if (name.startsWith(QLatin1String("sub"))) {
 		name = name.remove(0,4);
 		int mindesc = 1;
 		int maxdesc = 1000;
 		int minpath = 0;
-		QStringList args = name.split(QString::fromAscii(","));
+		QStringList args = name.split(QLatin1String(","));
 		switch(args.count()) {
 			default:
 			case 3:

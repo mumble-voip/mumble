@@ -43,19 +43,19 @@ BanEditor::BanEditor(const MessageServerBanList *msbl, QWidget *p) : QDialog(p) 
 	qpbUpdate = new QPushButton(tr("&Update"));
 	qpbRemove = new QPushButton(tr("&Remove"));
 
-	qlwBans->setObjectName(QString::fromAscii("Bans"));
+	qlwBans->setObjectName(QLatin1String("Bans"));
 
-	qleIP->setObjectName(QString::fromAscii("IP"));
-	QRegExp rx(QString::fromAscii("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"));
+	qleIP->setObjectName(QLatin1String("IP"));
+	QRegExp rx(QLatin1String("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"));
     QValidator *validator = new QRegExpValidator(rx, this);
     qleIP->setValidator(validator);
 
-	qsbMask->setObjectName(QString::fromAscii("Mask"));
+	qsbMask->setObjectName(QLatin1String("Mask"));
 	qsbMask->setRange(8,32);
 	qsbMask->setValue(24);
-	qpbAdd->setObjectName(QString::fromAscii("Add"));
-	qpbUpdate->setObjectName(QString::fromAscii("Update"));
-	qpbRemove->setObjectName(QString::fromAscii("Remove"));
+	qpbAdd->setObjectName(QLatin1String("Add"));
+	qpbUpdate->setObjectName(QLatin1String("Update"));
+	qpbRemove->setObjectName(QLatin1String("Remove"));
 
 	QGridLayout *grid = new QGridLayout;
 
@@ -161,7 +161,7 @@ void BanEditor::refreshBanList() {
 
 	foreach(ban,qlBans) {
 		QHostAddress addr(ban.first);
-		QString qs = QString::fromAscii("%1/%2").arg(addr.toString()).arg(ban.second);
+		QString qs = QString::fromLatin1("%1/%2").arg(addr.toString()).arg(ban.second);
 		qlwBans->addItem(qs);
 	}
 }

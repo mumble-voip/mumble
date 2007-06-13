@@ -64,43 +64,43 @@ int main(int argc, char **argv)
 
 	// Initialize application object.
 	QApplication a(argc, argv);
-	a.setApplicationName(QString::fromAscii("Mumble"));
-	a.setOrganizationName(QString::fromAscii("Mumble"));
-	a.setOrganizationDomain(QString::fromAscii("mumble.sourceforge.net"));
+	a.setApplicationName(QLatin1String("Mumble"));
+	a.setOrganizationName(QLatin1String("Mumble"));
+	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
-	QFile inifile(QString::fromAscii("%1/mumble.ini").arg(a.applicationDirPath()));
+	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(a.applicationDirPath()));
 	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser))
 		g.qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
 	else
 		g.qs = new QSettings();
 
-	QString style=g.qs->value(QString::fromAscii("Style")).toString();
+	QString style=g.qs->value(QLatin1String("Style")).toString();
 	if (! style.isEmpty()) {
 		a.setStyle(style);
 	}
 
-	QString skin=g.qs->value(QString::fromAscii("Skin")).toString();
+	QString skin=g.qs->value(QLatin1String("Skin")).toString();
 	if (! skin.isEmpty()) {
 	    QFile file(skin);
 	    file.open(QFile::ReadOnly);
-	    QString styleSheet=QString::fromAscii(file.readAll());
+	    QString styleSheet=QLatin1String(file.readAll());
 	    if (! styleSheet.isEmpty())
 		    a.setStyleSheet(styleSheet);
 	}
 
-    QString locale=g.qs->value(QString::fromAscii("Language"), QLocale::system().name()).toString();
+    QString locale=g.qs->value(QLatin1String("Language"), QLocale::system().name()).toString();
     QTranslator translator;
-    if (! translator.load(QString::fromAscii("mumble_") + locale))
-		translator.load(QString::fromAscii(":/mumble_") + locale);
+    if (! translator.load(QLatin1String("mumble_") + locale))
+		translator.load(QLatin1String(":/mumble_") + locale);
     a.installTranslator(&translator);
 
 
 	// Set application icon
 	QIcon icon;
-	icon.addFile(QString::fromAscii(":/mumble.png.2"));
-	icon.addFile(QString::fromAscii(":/mumble.png.1"));
-	icon.addFile(QString::fromAscii(":/mumble.png.0"));
+	icon.addFile(QLatin1String(":/mumble.png.2"));
+	icon.addFile(QLatin1String(":/mumble.png.1"));
+	icon.addFile(QLatin1String(":/mumble.png.0"));
 	a.setWindowIcon(icon);
 
 	// Load preferences

@@ -44,7 +44,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	bDirty = false;
 
 	qstmServers = new QSqlTableModel(this);
-	qstmServers->setTable(QString::fromAscii("servers"));
+	qstmServers->setTable(QLatin1String("servers"));
 	qstmServers->setSort(1, Qt::AscendingOrder);
 	if (! qstmServers->select()) {
 		qWarning("ConnectDialog: Failed to reselect table");
@@ -56,7 +56,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qlwServers->setModel(qstmServers);
 	qlwServers->setModelColumn(1);
 	qlwServers->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	qlwServers->setObjectName(QString::fromAscii("List"));
+	qlwServers->setObjectName(QLatin1String("List"));
 
 	QItemSelectionModel *selectionModel = qlwServers->selectionModel();
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
@@ -75,7 +75,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	l->addWidget(lab, 1, 1);
 	l->addWidget(qleServer, 1, 2);
 
-	qlePort=new QLineEdit(QString::fromAscii("64738"));
+	qlePort=new QLineEdit(QLatin1String("64738"));
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 	lab=new QLabel(tr("&Port"));
 	lab->setBuddy(qlePort);
@@ -106,10 +106,10 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     QPushButton *addButton = new QPushButton(tr("&Add"));
-    addButton->setObjectName(QString::fromAscii("Add"));
+    addButton->setObjectName(QLatin1String("Add"));
 
     QPushButton *removeButton = new QPushButton(tr("&Remove"));
-    removeButton->setObjectName(QString::fromAscii("Remove"));
+    removeButton->setObjectName(QLatin1String("Remove"));
 
 	vbh->addWidget(okButton);
 	vbh->addWidget(cancelButton);
@@ -126,7 +126,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
     QMetaObject::connectSlotsByName(this);
 
-	QModelIndex idx = qstmServers->index(g.qs->value(QString::fromAscii("ServerRow"),-1).toInt(),0);
+	QModelIndex idx = qstmServers->index(g.qs->value(QLatin1String("ServerRow"),-1).toInt(),0);
 	if (idx.isValid())
 		qlwServers->setCurrentIndex(idx);
 }
@@ -144,18 +144,18 @@ void ConnectDialog::accept() {
 	qsPassword = qlePassword->text();
 	iPort = qlePort->text().toInt();
 
-	g.qs->setValue(QString::fromAscii("ServerRow"), qlwServers->currentIndex().row());
+	g.qs->setValue(QLatin1String("ServerRow"), qlwServers->currentIndex().row());
 	QDialog::accept();
 }
 
 QSqlRecord ConnectDialog::toRecord() const
 {
 	QSqlRecord r = qstmServers->record();
-	r.setValue(QString::fromAscii("name"), qleName->text());
-	r.setValue(QString::fromAscii("hostname"), qleServer->text());
-	r.setValue(QString::fromAscii("username"), qleUsername->text());
-	r.setValue(QString::fromAscii("password"), qlePassword->text());
-	r.setValue(QString::fromAscii("port"), qlePort->text().toInt());
+	r.setValue(QLatin1String("name"), qleName->text());
+	r.setValue(QLatin1String("hostname"), qleServer->text());
+	r.setValue(QLatin1String("username"), qleUsername->text());
+	r.setValue(QLatin1String("password"), qlePassword->text());
+	r.setValue(QLatin1String("port"), qlePort->text().toInt());
 	return r;
 }
 
@@ -171,11 +171,11 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	}
 	if (index.isValid()) {
 		r = qstmServers->record(index.row());
-		qleName->setText(r.value(QString::fromAscii("name")).toString());
-		qleServer->setText(r.value(QString::fromAscii("hostname")).toString());
-		qleUsername->setText(r.value(QString::fromAscii("username")).toString());
-		qlePassword->setText(r.value(QString::fromAscii("password")).toString());
-		qlePort->setText(r.value(QString::fromAscii("port")).toString());
+		qleName->setText(r.value(QLatin1String("name")).toString());
+		qleServer->setText(r.value(QLatin1String("hostname")).toString());
+		qleUsername->setText(r.value(QLatin1String("username")).toString());
+		qlePassword->setText(r.value(QLatin1String("password")).toString());
+		qlePort->setText(r.value(QLatin1String("port")).toString());
 		bDirty = false;
 	}
 }

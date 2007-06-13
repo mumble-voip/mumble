@@ -54,14 +54,14 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 
 	qcbLanguage = new QComboBox();
 	qcbLanguage->addItem(tr("System default"));
-	QDir d(QString::fromAscii(":"),QString::fromAscii("*.qm"),QDir::Name,QDir::Files);
+	QDir d(QLatin1String(":"),QLatin1String("*.qm"),QDir::Name,QDir::Files);
 	QStringList langs;
 	foreach(QString key, d.entryList()) {
 		QString cc = key.mid(7,2);
 		langs << cc;
 		qcbLanguage->addItem(cc);
 	}
-	i=langs.indexOf(g.qs->value(QString::fromAscii("Language")).toString());
+	i=langs.indexOf(g.qs->value(QLatin1String("Language")).toString());
 	if (i >= 0)
 		qcbLanguage->setCurrentIndex(i+1);
 	l = new QLabel(tr("Language"));
@@ -83,7 +83,7 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	foreach(QString key, styles) {
 		qcbStyle->addItem(key);
 	}
-	i=styles.indexOf(g.qs->value(QString::fromAscii("Style")).toString());
+	i=styles.indexOf(g.qs->value(QLatin1String("Style")).toString());
 	if (i >= 0)
 		qcbStyle->setCurrentIndex(i+1);
 	l = new QLabel(tr("Style"));
@@ -93,11 +93,11 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(l,0,0);
 	grid->addWidget(qcbStyle, 0, 1, 1, 2);
 
-	qleCSS = new QLineEdit(g.qs->value(QString::fromAscii("Skin")).toString());
+	qleCSS = new QLineEdit(g.qs->value(QLatin1String("Skin")).toString());
 	l = new QLabel(tr("Skin"));
 	l->setBuddy(qcbLanguage);
 	qpbCSS = new QPushButton(tr("..."));
-	qpbCSS->setObjectName(QString::fromAscii("SkinFile"));
+	qpbCSS->setObjectName(QLatin1String("SkinFile"));
 	qleCSS->setToolTip(tr("Skin file to use"));
 	qleCSS->setWhatsThis(tr("<b>This sets which skin Mumble should use.</b><br />The skin is a style file applied on top of the basic widget style."));
 	qpbCSS->setToolTip(qleCSS->toolTip());
@@ -107,7 +107,7 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qpbCSS, 1, 2);
 
 	qcbHorizontal = new QCheckBox(tr("Use Horizontal Splitter"));
-	qcbHorizontal->setChecked(g.qs->value(QString::fromAscii("Horizontal"), true).toBool());
+	qcbHorizontal->setChecked(g.qs->value(QLatin1String("Horizontal"), true).toBool());
 	qcbHorizontal->setToolTip(tr("Use horizontal or vertical splitter for the main window"));
 	qcbHorizontal->setWhatsThis(tr("<b>This sets whether the split in the main window is horizontal or vertical.</b>"));
 	grid->addWidget(qcbHorizontal, 2, 1, 1, 2);
@@ -128,34 +128,34 @@ QString LookConfig::title() const {
 }
 
 QIcon LookConfig::icon() const {
-	return QIcon(QString::fromAscii(":/config_ui.png"));
+	return QIcon(QLatin1String(":/config_ui.png"));
 }
 
 void LookConfig::accept() {
 	if (qcbLanguage->currentIndex() == 0)
-		g.qs->remove(QString::fromAscii("Language"));
+		g.qs->remove(QLatin1String("Language"));
 	else
-		g.qs->setValue(QString::fromAscii("Language"), qcbLanguage->currentText());
+		g.qs->setValue(QLatin1String("Language"), qcbLanguage->currentText());
 
 	if (qcbStyle->currentIndex() == 0)
-		g.qs->remove(QString::fromAscii("Style"));
+		g.qs->remove(QLatin1String("Style"));
 	else {
-		g.qs->setValue(QString::fromAscii("Style"), qcbStyle->currentText());
+		g.qs->setValue(QLatin1String("Style"), qcbStyle->currentText());
 		qApp->setStyle(qcbStyle->currentText());
 	}
 
 	if (qleCSS->text().isEmpty()) {
 		qApp->setStyleSheet(QString());
-		g.qs->remove(QString::fromAscii("Skin"));
+		g.qs->remove(QLatin1String("Skin"));
 	} else {
 	    QFile file(qleCSS->text());
 	    file.open(QFile::ReadOnly);
-	    QString sheet = QString::fromAscii(file.readAll());
+	    QString sheet = QLatin1String(file.readAll());
 	    if (! sheet.isEmpty())
 		    qApp->setStyleSheet(sheet);
-		g.qs->setValue(QString::fromAscii("Skin"), qleCSS->text());
+		g.qs->setValue(QLatin1String("Skin"), qleCSS->text());
 	}
-	g.qs->setValue(QString::fromAscii("Horizontal"), qcbHorizontal->isChecked());
+	g.qs->setValue(QLatin1String("Horizontal"), qcbHorizontal->isChecked());
 	if (qcbHorizontal->isChecked()) {
 		g.mw->qsSplit->setOrientation(Qt::Horizontal);
 		g.mw->qsSplit->addWidget(g.mw->qteLog);
@@ -168,7 +168,7 @@ void LookConfig::accept() {
 }
 
 void LookConfig::on_SkinFile_clicked(bool) {
-	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), QString(), QString::fromAscii("*.qss"));
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), QString(), QLatin1String("*.qss"));
 	if (! file.isEmpty()) {
 		qleCSS->setText(file);
 	}

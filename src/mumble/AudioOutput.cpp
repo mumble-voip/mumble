@@ -49,11 +49,11 @@ AudioOutputRegistrar::AudioOutputRegistrar(QString name, AudioOutputRegistrarNew
 AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	QSettings qs;
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
-		qs.setValue(QString::fromAscii("AudioOutputDevice"), choice);
+		qs.setValue(QLatin1String("AudioOutputDevice"), choice);
 		current = choice;
 		return AudioOutputPtr(qmNew->value(choice)());
 	}
-	choice = qs.value(QString::fromAscii("AudioOutputDevice")).toString();
+	choice = qs.value(QLatin1String("AudioOutputDevice")).toString();
 	if (qmNew->contains(choice)) {
 		current = choice;
 		return AudioOutputPtr(qmNew->value(choice)());
@@ -62,8 +62,8 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
 	// pretty early in the sorted map.
 
-	if (qmNew->contains(QString::fromAscii("DirectSound"))) {
-		current = QString::fromAscii("DirectSound");
+	if (qmNew->contains(QLatin1String("DirectSound"))) {
+		current = QLatin1String("DirectSound");
 		return AudioOutputPtr(qmNew->value(current)());
 	}
 

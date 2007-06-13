@@ -297,7 +297,7 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	}
 
 	qtTick = new QTimer(this);
-	qtTick->setObjectName(QString::fromAscii("Tick"));
+	qtTick->setObjectName(QLatin1String("Tick"));
 	qtTick->start(50);
 
 	qlMicLevel->setToolTip(tr("Peak power in last frame"));

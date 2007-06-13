@@ -163,17 +163,17 @@ void ModelItem::insertPlayer(Player *p) {
 }
 
 PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOn=QIcon(QString::fromAscii(":/talking_on.png"));
-	qiTalkingAlt=QIcon(QString::fromAscii(":/talking_alt.png"));
-	qiTalkingOff=QIcon(QString::fromAscii(":/talking_off.png"));
-	qiMutedSelf=QIcon(QString::fromAscii(":/muted_self.png"));
-	qiMutedServer=QIcon(QString::fromAscii(":/muted_server.png"));
-	qiMutedLocal=QIcon(QString::fromAscii(":/muted_local.png"));
-	qiDeafenedSelf=QIcon(QString::fromAscii(":/deafened_self.png"));
-	qiDeafenedServer=QIcon(QString::fromAscii(":/deafened_server.png"));
-	qiAuthenticated=QIcon(QString::fromAscii(":/authenticated.png"));
-	qiChannel=QIcon(QString::fromAscii(":/channel.png"));
-	qiLinkedChannel=QIcon(QString::fromAscii(":/channel_linked.png"));
+	qiTalkingOn=QIcon(QLatin1String(":/talking_on.png"));
+	qiTalkingAlt=QIcon(QLatin1String(":/talking_alt.png"));
+	qiTalkingOff=QIcon(QLatin1String(":/talking_off.png"));
+	qiMutedSelf=QIcon(QLatin1String(":/muted_self.png"));
+	qiMutedServer=QIcon(QLatin1String(":/muted_server.png"));
+	qiMutedLocal=QIcon(QLatin1String(":/muted_local.png"));
+	qiDeafenedSelf=QIcon(QLatin1String(":/deafened_self.png"));
+	qiDeafenedServer=QIcon(QLatin1String(":/deafened_server.png"));
+	qiAuthenticated=QIcon(QLatin1String(":/authenticated.png"));
+	qiChannel=QIcon(QLatin1String(":/channel.png"));
+	qiLinkedChannel=QIcon(QLatin1String(":/channel_linked.png"));
 
 	miRoot = new ModelItem(Channel::get(0));
 }
@@ -272,13 +272,13 @@ QString PlayerModel::stringIndex(const QModelIndex &idx) const
 {
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 	if (!idx.isValid())
-		return QString::fromAscii("invIdx");
+		return QLatin1String("invIdx");
 	if (!item)
-		return QString::fromAscii("invPtr");
+		return QLatin1String("invPtr");
 	if (item->pPlayer)
-		return QString::fromAscii("P:%1 [%2,%3]").arg(item->pPlayer->qsName).arg(idx.row()).arg(idx.column());
+		return QString::fromLatin1("P:%1 [%2,%3]").arg(item->pPlayer->qsName).arg(idx.row()).arg(idx.column());
 	else
-		return QString::fromAscii("C:%1 [%2,%3]").arg(item->cChan->qsName).arg(idx.row()).arg(idx.column());
+		return QString::fromLatin1("C:%1 [%2,%3]").arg(item->cChan->qsName).arg(idx.row()).arg(idx.column());
 }
 
 QVariant PlayerModel::data(const QModelIndex &idx, int role) const
@@ -712,7 +712,7 @@ Qt::DropActions PlayerModel::supportedDropActions() const {
 
 QStringList PlayerModel::mimeTypes() const {
 	QStringList sl;
-	sl << QString::fromAscii("mumble/dragentry");
+	sl << QLatin1String("mumble/dragentry");
 	return sl;
 }
 
@@ -733,7 +733,7 @@ QMimeData *PlayerModel::mimeData(const QModelIndexList &idxs) const {
 		}
 	}
 	QMimeData *md = new QMimeData();
-	md->setData(QString::fromAscii("mumble/dragentry"), qba);
+	md->setData(QLatin1String("mumble/dragentry"), qba);
 	return md;
 }
 
