@@ -178,7 +178,7 @@ void MurmurDBus::getChannels(QList<ChannelInfo> &a) {
   }
 }
 
-void MurmurDBus::kickPlayer(short session, QString reason, const QDBusMessage &msg) {
+void MurmurDBus::kickPlayer(short session, const QString &reason, const QDBusMessage &msg) {
   PLAYER_SETUP;
   Connection *c = g_sServer->qmConnections.value(session);
   if (!c) 
@@ -192,24 +192,18 @@ void MurmurDBus::kickPlayer(short session, QString reason, const QDBusMessage &m
   c->disconnect();
 }
 
-void MurmurDBus::getPlayerState(short session, PlayerInfo &pi, const QDBusMessage &msg) {
+void MurmurDBus::getPlayerState(short session, const QDBusMessage &msg, PlayerInfo &pi) {
   PLAYER_SETUP;
   pi = PlayerInfo(pPlayer);
 }
 
-void MurmurDBus::setPlayerState(PlayerInfo pi, const QDBusMessage &msg) {
+void MurmurDBus::setPlayerState(const PlayerInfo &pi, const QDBusMessage &msg) {
   PLAYER_SETUP_VAR(pi.session);
   CHANNEL_SETUP_VAR(pi.channel);
   PlayerInfo npi(pPlayer);
   
   bool changed = false;
   
-  if (pi.deaf)
-    pi.mute = true;
-    
-  if (! pi.mute)
-    pi.deaf = false;
-
   if (pi.deaf != npi.deaf) {
     MessagePlayerDeaf mpd;
     mpd.sPlayerId = 0;
@@ -241,7 +235,7 @@ void MurmurDBus::setPlayerState(PlayerInfo pi, const QDBusMessage &msg) {
     emit playerStateChanged(PlayerInfo(pPlayer));
 }
 
-void MurmurDBus::addChannel(QString name, int chanparent, int &newid, const QDBusMessage &msg) {
+void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMessage &msg, int &newid) {
   CHANNEL_SETUP_VAR(chanparent);
   
   Channel *nc = ServerDB::addChannel(cChannel, name);
@@ -261,7 +255,7 @@ void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
   g_sServer->removeChannel(cChannel, NULL);
 }
 
-void MurmurDBus::setChannelState(ChannelInfo nci, const QDBusMessage &msg) {
+void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg) {
   CHANNEL_SETUP_VAR(nci.id);
   ChannelInfo ci(cChannel);
 
@@ -338,7 +332,7 @@ void MurmurDBus::setChannelState(ChannelInfo nci, const QDBusMessage &msg) {
     emit channelStateChanged(ChannelInfo(cChannel));
 }
 
-void MurmurDBus::getACL(int id, QList<ACLInfo> &acls, QList<GroupInfo> &groups, bool &inherit, const QDBusMessage &msg) {
+void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList<ACLInfo> &acls, QList<GroupInfo> &groups, bool &inherit) {
   CHANNEL_SETUP_VAR(id);
   
   QStack<Channel *> chans;
@@ -387,7 +381,7 @@ void MurmurDBus::getACL(int id, QList<ACLInfo> &acls, QList<GroupInfo> &groups, 
   }
 }
 
-void MurmurDBus::setACL(int id, QList<ACLInfo> acls, QList<GroupInfo> groups, bool inherit, const QDBusMessage &msg) {
+void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInfo> &groups, bool inherit, const QDBusMessage &msg) {
   CHANNEL_SETUP_VAR(id);
   
   Group *g;
@@ -434,14 +428,14 @@ void MurmurDBus::getBans(QList<BanInfo> &bi) {
   }
 }
 
-void MurmurDBus::setBans(QList<BanInfo> bans, const QDBusMessage &) {
+void MurmurDBus::setBans(const QList<BanInfo> &bans, const QDBusMessage &) {
   g_sServer->qlBans.clear();
   foreach(BanInfo bi, bans) 
     g_sServer->qlBans << QPair<quint32,int>(bi.address,bi.bits);
   ServerDB::setBans(g_sServer->qlBans);
 }
 
-void MurmurDBus::getPlayerNames(QList<QString> &names, QList<int> ids, const QDBusMessage &) {
+void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names) {
   names.clear();
   foreach(int id, ids) {
     if (! g_sServer->qhUserNameCache.contains(id)) {
@@ -454,7 +448,7 @@ void MurmurDBus::getPlayerNames(QList<QString> &names, QList<int> ids, const QDB
   }
 }
 
-void MurmurDBus::getPlayerIds(QList<int> &ids, QList<QString> names, const QDBusMessage &) {
+void MurmurDBus::getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids) {
   ids.clear();
   foreach(QString name, names) {
     if (! g_sServer->qhUserIDCache.contains(name)) {
