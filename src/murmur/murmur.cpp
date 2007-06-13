@@ -87,6 +87,12 @@ int main(int argc, char **argv)
 
 	ServerDB db;
 
+	if (! supw.isEmpty()) {
+		ServerDB::setPW(0, supw);
+		qFatal("Superuser password set");
+	}
+
+
 #ifdef Q_OS_UNIX
 	MurmurDBus::registerTypes();
 #endif
@@ -115,11 +121,6 @@ int main(int argc, char **argv)
 	qdbc.registerObject("/Murmur", &a);
 	qdbc.registerService("net.sourceforge.mumble");
 #endif
-
-	if (! supw.isEmpty()) {
-		ServerDB::setPW(0, supw);
-		qFatal("Superuser password set");
-	}
 
 	db.readChannels();
 

@@ -275,8 +275,8 @@ Server::Server() {
 	if (! qtsServer->listen(QHostAddress::Any, g_sp.iPort))
 		qFatal("Server: Listen failed");
 
-	UDPThread *t = new UDPThread();
-	t->moveToThread(t);
+	udp = new UDPThread();
+	udp->moveToThread(udp);
 
 	log(QString("Server listening on port %1").arg(g_sp.iPort));
 
@@ -290,7 +290,7 @@ Server::Server() {
 
 	qlBans = ServerDB::getBans();
 	
-	t->start(QThread::HighestPriority);
+	udp->start(QThread::HighestPriority);
 }
 
 void Server::log(QString s, Connection *c) {
@@ -384,8 +384,10 @@ void Server::connectionClosed(QString reason) {
 
 	qqIds.enqueue(pPlayer->sId);
 	
-        Peer udppeer = udp->qhPeers.take(c);
-	udp->qhPeerConnections.remove(udppeer);
+	if (udp->qhPeers.contains(c)) {
+	        Peer udppeer = udp->qhPeers.take(c);
+		udp->qhPeerConnections.remove(udppeer);
+	}
 
 	delete pPlayer;
 	c->deleteLater();

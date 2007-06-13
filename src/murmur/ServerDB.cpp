@@ -117,52 +117,74 @@ ServerDB::ServerDB() {
 
 	QSqlQuery query;
 
-	query.exec("CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, pw TEXT)");
-	query.exec("ALTER TABLE players ADD COLUMN lastchannel INTEGER");
-	query.exec("CREATE UNIQUE INDEX players_name ON players (name)");
+	if (g_sp.qsDBDriver == "QSQLITE") {
+		query.exec("CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, pw TEXT)");
+		query.exec("ALTER TABLE players ADD COLUMN lastchannel INTEGER");
+		query.exec("CREATE UNIQUE INDEX players_name ON players (name)");
 
-	query.exec("CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
-	query.exec("CREATE UNIQUE INDEX player_auth_name ON player_auth(name)");
-	query.exec("CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode)");
+		query.exec("CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
+		query.exec("CREATE UNIQUE INDEX player_auth_name ON player_auth(name)");
+		query.exec("CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode)");
 
-	query.exec("CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, inheritACL INTEGER)");
-	query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channels WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
+		query.exec("CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, inheritACL INTEGER)");
+		query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channels WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
 
-	query.exec("CREATE TABLE groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)");
-	query.exec("CREATE UNIQUE INDEX groups_name_channels ON groups(name, channel_id)");
-	query.exec("CREATE TRIGGER groups_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM groups WHERE channel_id = old.channel_id; END;");
+		query.exec("CREATE TABLE groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)");
+		query.exec("CREATE UNIQUE INDEX groups_name_channels ON groups(name, channel_id)");
+		query.exec("CREATE TRIGGER groups_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM groups WHERE channel_id = old.channel_id; END;");
 
-	query.exec("CREATE TABLE group_members (group_members_id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, player_id INTEGER, addit INTEGER)");
-	query.exec("CREATE TRIGGER groups_members_del_group AFTER DELETE ON groups FOR EACH ROW BEGIN DELETE FROM group_members WHERE group_id = old.group_id; END;");
-	query.exec("CREATE TRIGGER groups_members_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM group_members WHERE player_id = old.player_id; END;");
+		query.exec("CREATE TABLE group_members (group_members_id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, player_id INTEGER, addit INTEGER)");
+		query.exec("CREATE TRIGGER groups_members_del_group AFTER DELETE ON groups FOR EACH ROW BEGIN DELETE FROM group_members WHERE group_id = old.group_id; END;");
+		query.exec("CREATE TRIGGER groups_members_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM group_members WHERE player_id = old.player_id; END;");
 
-	query.exec("CREATE TABLE acl (acl_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grant INTEGER, revoke INTEGER)");
-	query.exec("CREATE UNIQUE INDEX acl_channel_pri ON acl(channel_id, priority)");
-	query.exec("CREATE TRIGGER acl_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM acl WHERE channel_id = old.channel_id; END;");
-	query.exec("CREATE TRIGGER acl_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM acl WHERE player_id = old.player_id; END;");
+		bool migrate = false;
 
-	query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
-	query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
-	query.exec("DELETE FROM connections");
+		if (query.exec("SELECT COUNT(*) FROM acl WHERE grant=0")) {
+			qWarning("ServerDB: Migrating old ACL table");
+			migrate = true;
+			query.exec("ALTER TABLE acl RENAME TO aclold");
+		}
 
-	query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
-	query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
-	query.exec("DELETE FROM channel_links");
+		query.exec("CREATE TABLE acl (acl_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)");
+		query.exec("CREATE UNIQUE INDEX acl_channel_pri ON acl(channel_id, priority)");
+		query.exec("CREATE TRIGGER acl_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM acl WHERE channel_id = old.channel_id; END;");
+		query.exec("CREATE TRIGGER acl_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM acl WHERE player_id = old.player_id; END;");
+		
+		if (migrate) {
+			query.exec("INSERT INTO acl SELECT acl_id,channel_id,priority,player_id,group_name,apply_here,apply_sub,grant,revoke FROM aclold");
+			query.exec("DROP TABLE aclold");
+		}
 
-	query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
-	query.exec("DELETE FROM commands");
+		query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
+		query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
+		query.exec("DELETE FROM connections");
 
-	query.exec("CREATE TABLE bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)");
+		query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
+		query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
+		query.exec("DELETE FROM channel_links");
 
-	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, -1, 'Root')");
+		query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
+		query.exec("DELETE FROM commands");
+
+		query.exec("CREATE TABLE bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)");
+	}
+
+	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, NULL, 'Root')");
 	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
+
+	// Work around BUG in mysql, because apparantly insert with explicit id 0 means "aha, use the auto_increment"
+	query.exec("UPDATE players SET player_id = 0 WHERE name LIKE 'SuperUser'");
+	query.exec("UPDATE channels SET channel_id = 0 WHERE name LIKE 'Root' AND parent_id IS NULL");
+
+	// Update from old method for sqlite
+	query.exec("UPDATE channels SET parent_id = NULL WHERE name LIKE 'Root' AND parent_id = -1");
 
 	query.exec("SELECT COUNT(*) FROM acl");
 	if (query.next()) {
 		int c = query.value(0).toInt();
 		if (c == 0) {
-			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (0, 1, -1, 'auth', 1, 0, 64, 0)");
-			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (0, 2, -1, 'admin', 1, 1, 1, 0)");
+			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (0, 1, NULL, 'auth', 1, 0, 64, 0)");
+			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (0, 2, NULL, 'admin', 1, 1, 1, 0)");
 		}
 	}
 
@@ -214,7 +236,7 @@ void ServerDB::setPW(int id, QString pw) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("UPDATE players SET pw=? WHERE player_id = ?");
+	query.prepare("UPDATE players SET pw=? WHERE player_id=?");
 	query.addBindValue(pw);
 	query.addBindValue(id);
 	query.exec();
@@ -314,7 +336,7 @@ void ServerDB::updateChannel(Channel *c) {
 
 	QSqlQuery query;
 	query.prepare("UPDATE channels SET parent_id = ?, inheritACL = ? WHERE channel_id = ?");
-	query.addBindValue(c->cParent ? c->cParent->iId : -1);
+	query.addBindValue(c->cParent ? c->cParent->iId : QVariant());
 	query.addBindValue(c->bInheritACL ? 1 : 0);
 	query.addBindValue(c->iId);
 	query.exec();
@@ -357,11 +379,12 @@ void ServerDB::updateChannel(Channel *c) {
 	int pri = 5;
 
 	foreach(acl, c->qlACL) {
-		query.prepare("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grant, revoke) VALUES (?,?,?,?,?,?,?,?)");
+		query.prepare("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (?,?,?,?,?,?,?,?)");
 		query.addBindValue(acl->c->iId);
 		query.addBindValue(pri++);
-		query.addBindValue(acl->iPlayerId);
-		query.addBindValue(acl->qsGroup);
+		
+		query.addBindValue((acl->iPlayerId == -1) ? QVariant() : acl->iPlayerId);
+		query.addBindValue((acl->qsGroup.isEmpty()) ? QVariant() : acl->qsGroup);
 		query.addBindValue(acl->bApplyHere ? 1 : 0);
 		query.addBindValue(acl->bApplySubs ? 1 : 0);
 		query.addBindValue(static_cast<int>(acl->pAllow));
@@ -399,12 +422,12 @@ void ServerDB::readChannelPrivs(Channel *c) {
 		}
 	}
 
-	query.prepare("SELECT player_id, group_name, apply_here, apply_sub, grant, revoke FROM acl WHERE channel_id = ? ORDER BY priority");
+	query.prepare("SELECT player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv FROM acl WHERE channel_id = ? ORDER BY priority");
 	query.addBindValue(cid);
 	query.exec();
 	while (query.next()) {
 		ChanACL *acl = new ChanACL(c);
-		acl->iPlayerId = query.value(0).toInt();
+		acl->iPlayerId = query.value(0).isNull() ? -1 : query.value(0).toInt();
 		acl->qsGroup = query.value(1).toString();
 		acl->bApplyHere = query.value(2).toBool();
 		acl->bApplySubs = query.value(3).toBool();
@@ -427,8 +450,12 @@ void ServerDB::readChannels(Channel *p) {
 
 	{
 		TransactionHolder th;
-		query.prepare("SELECT channel_id, name, inheritACL FROM channels WHERE parent_id=? ORDER BY name");
-		query.addBindValue(parentid);
+		if (parentid == -1) {
+			query.prepare("SELECT channel_id, name, inheritACL FROM channels WHERE parent_id IS NULL ORDER BY name");
+		} else {
+			query.prepare("SELECT channel_id, name, inheritACL FROM channels WHERE parent_id=? ORDER BY name");
+			query.addBindValue(parentid);
+		}
 		query.exec();
 		while (query.next()) {
 			c = Channel::add(query.value(0).toInt(), query.value(1).toString(), p);
