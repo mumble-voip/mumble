@@ -569,7 +569,8 @@ void PlayerModel::showChannel(Channel *c, Channel *p) {
 	item->insertChannel(c);
 	endInsertRows();
 
-	item = ModelItem::c_qhChannels.value(c);
+	if (g.s.bExpandAll)
+		g.mw->qtvPlayers->setExpanded(index(c), true);
 
 	ensureSelfVisible();
 }

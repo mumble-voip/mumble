@@ -112,6 +112,12 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	qcbHorizontal->setWhatsThis(tr("<b>This sets whether the split in the main window is horizontal or vertical.</b>"));
 	grid->addWidget(qcbHorizontal, 2, 1, 1, 2);
 
+	qcbExpand = new QCheckBox(tr("Expand All Channels"));
+	qcbExpand->setChecked(g.s.bExpandAll);
+	qcbExpand->setToolTip(tr("Expand all channels when connecting"));
+	qcbExpand->setWhatsThis(tr("<b>If set, all channels will be expanded by default when you connect to a server.</b>"));
+	grid->addWidget(qcbExpand, 3, 1, 1, 2);
+
 	qgbLook->setLayout(grid);
 
     v = new QVBoxLayout;
@@ -156,6 +162,7 @@ void LookConfig::accept() {
 		g.qs->setValue(QLatin1String("Skin"), qleCSS->text());
 	}
 	g.qs->setValue(QLatin1String("Horizontal"), qcbHorizontal->isChecked());
+	g.s.bExpandAll=qcbExpand->isChecked();
 	if (qcbHorizontal->isChecked()) {
 		g.mw->qsSplit->setOrientation(Qt::Horizontal);
 		g.mw->qsSplit->addWidget(g.mw->qteLog);

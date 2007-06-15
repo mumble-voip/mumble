@@ -50,7 +50,7 @@ struct Settings {
 	int iTTSVolume;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iFramesPerPacket;
-	bool bTCPCompat, bReconnect;
+	bool bTCPCompat, bReconnect, bExpandAll;
 	QString qsAudioInput, qsAudioOutput;
 
 	int iDXOutputDelay;

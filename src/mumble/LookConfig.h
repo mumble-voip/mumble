@@ -40,6 +40,7 @@ class LookConfig : public ConfigWidget {
 		QLineEdit *qleCSS;
 		QPushButton *qpbCSS;
 		QCheckBox *qcbHorizontal;
+		QCheckBox *qcbExpand;
 	public:
 		LookConfig(QWidget *p = NULL);
 		virtual QString title() const;

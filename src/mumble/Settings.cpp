@@ -45,6 +45,7 @@ Settings::Settings() {
 	iFramesPerPacket = 2;
 	bTCPCompat = false;
 	bReconnect = true;
+	bExpandAll = false;
 	iDXOutputDelay = 5;
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
@@ -83,6 +84,7 @@ void Settings::load() {
 	iFramesPerPacket = g.qs->value(QLatin1String("FramesPerPacket"), iFramesPerPacket).toInt();
 	bTCPCompat = g.qs->value(QLatin1String("TCPCompat"), bTCPCompat).toBool();
 	bReconnect = g.qs->value(QLatin1String("Reconnect"), bReconnect).toBool();
+	bExpandAll = g.qs->value(QLatin1String("ExpandAll"), bExpandAll).toBool();
 #ifdef Q_OS_WIN
 	a3dModel = static_cast<Settings::Audio3D>(g.qs->value(QLatin1String("Audio3D"), a3dModel).toInt());
 	iDXOutputDelay = g.qs->value(QLatin1String("DXOutputDelay"), iDXOutputDelay).toInt();
@@ -127,6 +129,7 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("FramesPerPacket"), iFramesPerPacket);
 	g.qs->setValue(QLatin1String("TCPCompat"), bTCPCompat);
 	g.qs->setValue(QLatin1String("Reconnect"), bReconnect);
+	g.qs->setValue(QLatin1String("ExpandAll"), bExpandAll);
 #ifdef Q_OS_WIN
 	g.qs->setValue(QLatin1String("PosTransmit"), g.s.bTransmitPosition);
 	g.qs->setValue(QLatin1String("Audio3D"), g.s.a3dModel);
