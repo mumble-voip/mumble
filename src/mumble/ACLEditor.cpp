@@ -159,6 +159,8 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	grid->addWidget(qcbGroupList,0,0);
 	qpbGroupRemove=new QPushButton(tr("Remove"));
 	qpbGroupRemove->setObjectName(QLatin1String("GroupRemove"));
+	qpbGroupRemove->setDefault(false);
+	qpbGroupRemove->setAutoDefault(false);
 	grid->addWidget(qpbGroupRemove,0,1);
 	qcbGroupInherit=new QCheckBox(tr("Inherit"));
 	qcbGroupInherit->setObjectName(QLatin1String("GroupInherit"));
@@ -561,9 +563,13 @@ void ACLEditor::refillGroupNames() {
 	qsl.sort();
 
 	qcbGroupList->clear();
-	foreach(QString name, qsl)
+
+	foreach(QString name, qsl) {
 		qcbGroupList->addItem(name);
-	qcbGroupList->setCurrentIndex(qcbGroupList->findText(text, Qt::MatchExactly));
+    	}
+
+	int wantindex = qcbGroupList->findText(text, Qt::MatchExactly);
+	qcbGroupList->setCurrentIndex(wantindex);
 }
 
 MessageEditACL::GroupStruct *ACLEditor::currentGroup() {
