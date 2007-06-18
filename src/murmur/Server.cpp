@@ -81,13 +81,13 @@ void ServerParams::read(QString fname) {
 	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
 
 	qsDatabase = qs.value("database", qsDatabase).toString();
-	
+
 	qsDBDriver = qs.value("dbDriver", qsDBDriver).toString();
 	qsDBUserName = qs.value("dbUsername", qsDBUserName).toString();
 	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
-	
+
 	qsDBus = qs.value("dbus", qsDBus).toString();
 }
 
@@ -103,7 +103,7 @@ void BandwidthRecord::addFrame(int size) {
 	iSum -= a_iBW[iRecNum];
 	a_iBW[iRecNum] = size;
 	iSum += a_iBW[iRecNum];
-	
+
 	a_qtWhen[iRecNum].start();
 
 	iRecNum++;
@@ -178,7 +178,7 @@ void UDPThread::processMsg(Message *msg, Connection *cCon) {
 		mss = dynamic_cast<MessageMultiSpeex *>(msg);
 
 	Player *pSrcPlayer = g_sServer->qmPlayers.value(cCon);
-	if (!pSrcPlayer || (pSrcPlayer->sState != Player::Authenticated)) 
+	if (!pSrcPlayer || (pSrcPlayer->sState != Player::Authenticated))
 		return;
 
 	Player *p;
@@ -197,7 +197,7 @@ void UDPThread::processMsg(Message *msg, Connection *cCon) {
 	} else {
 		int packetsize = 20 + 8 + 3 + 2 + ms->qbaSpeexPacket.size();
 		bw->addFrame(packetsize);
-	}	
+	}
 
 	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
 		// Suppress packet.
@@ -205,7 +205,7 @@ void UDPThread::processMsg(Message *msg, Connection *cCon) {
 	}
 
 	Channel *c = pSrcPlayer->cChannel;
-	
+
 	foreach(p, c->qlPlayers) {
 		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
 			sendMessage(p->sId, msg);
@@ -262,8 +262,8 @@ void UDPThread::run() {
 #endif
 
 	connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
-	connect(this, SIGNAL(tcpTransmit(QByteArray, Connection *)), g_sServer, SLOT(tcpTransmit(QByteArray, Connection *)));
-	connect(g_sServer, SIGNAL(speexPacket(QByteArray)), this, SLOT(fakeUdpPacket(QByteArray)));
+	connect(this, SIGNAL(tcpTransmit(QByteArray, Connection *)), g_sServer, SLOT(tcpTransmit(QByteArray, Connection *)), Qt::QueuedConnection);
+	connect(g_sServer, SIGNAL(speexPacket(QByteArray)), this, SLOT(fakeUdpPacket(QByteArray)), Qt::QueuedConnection);
 	exec();
 }
 
@@ -289,7 +289,7 @@ Server::Server() {
 		qtTimer->start(g_sp.iCommandFrequency * 1000);
 
 	qlBans = ServerDB::getBans();
-	
+
 	udp->start(QThread::HighestPriority);
 }
 
@@ -371,7 +371,7 @@ void Server::connectionClosed(QString reason) {
 		ServerDB::conLoggedOff(pPlayer);
 		dbus->playerDisconnected(pPlayer);
 	}
-	
+
 	QWriteLocker wl(&qrwlConnections);
 
 	qmConnections.remove(pPlayer->sId);
@@ -383,7 +383,7 @@ void Server::connectionClosed(QString reason) {
 	Player::remove(pPlayer);
 
 	qqIds.enqueue(pPlayer->sId);
-	
+
 	if (udp->qhPeers.contains(c)) {
 	        Peer udppeer = udp->qhPeers.take(c);
 		udp->qhPeerConnections.remove(udppeer);
@@ -849,9 +849,9 @@ void MessagePlayerMute::process(Connection *cCon) {
 	if (! bMute && pDstPlayer->bDeaf) {
 		pDstPlayer->bDeaf = false;
 	}
-	
+
 	dbus->playerStateChanged(pDstPlayer);
-	
+
 	g_sServer->log(QString("Muted %1 (%2)").arg(pDstPlayer->qsName).arg(bMute), cCon);
 }
 
