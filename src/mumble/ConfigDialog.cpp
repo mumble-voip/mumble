@@ -113,7 +113,19 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw) {
-	qswPages->addWidget(cw);
+    	QDesktopWidget dw;
+    	QRect ds=dw.availableGeometry();
+    	QSize ms=cw->minimumSizeHint();
+    	ms.rwidth() += 128;
+    	ms.rheight() += 64;
+    	if ((ms.width() > ds.width()) || (ms.height() > ds.height())) {
+	    QScrollArea *qsa=new QScrollArea(this);
+	    qsa->setWidget(cw);
+	    qswPages->addWidget(qsa);
+	    	qWarning("Widget %s has size %d %d", qPrintable(cw->title()), ms.width(), ms.height());
+	    } else {
+		qswPages->addWidget(cw);
+    	}
 	QListWidgetItem *i = new QListWidgetItem(qlwIcons);
 	i->setIcon(cw->icon());
 	i->setText(cw->title());

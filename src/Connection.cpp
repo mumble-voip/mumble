@@ -54,6 +54,10 @@ Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
 Connection::~Connection() {
 }
 
+int Connection::activityTime() const {
+    return qtLastPacket.elapsed();
+}
+
 void Connection::socketRead() {
   int iAvailable;
   while (1) {
@@ -73,7 +77,8 @@ void Connection::socketRead() {
     if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
 	  QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
 	  emit message(qbaBuffer);
-      iPacketLength = -1;
+          iPacketLength = -1;
+        qtLastPacket.restart();
     } else {
       return;
     }
@@ -95,14 +100,14 @@ void Connection::socketDisconnected() {
 	}
 }
 
-void Connection::sendMessage(Message *mMsg) {
+void Connection::sendMessage(const Message *mMsg) {
 	QByteArray qbaBuffer;
 
 	mMsg->messageToNetwork(qbaBuffer);
 	sendMessage(qbaBuffer);
 }
 
-void Connection::sendMessage(QByteArray &qbaMsg) {
+void Connection::sendMessage(const QByteArray &qbaMsg) {
 	unsigned char a_ucBuffer[2];
 
 	if (qtsSocket->state() != QAbstractSocket::ConnectedState)

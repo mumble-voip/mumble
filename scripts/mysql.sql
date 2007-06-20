@@ -35,16 +35,17 @@ DROP TABLE IF EXISTS channels;
 DROP TABLE IF EXISTS player_auth;
 DROP TABLE IF EXISTS players;
 
+CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTO_INCREMENT, parent_id INTEGER, name varchar(255), inheritACL INTEGER) Type=InnoDB;
+CREATE UNIQUE INDEX channels_bugged_mysql ON channels(parent_id, name);
+ALTER TABLE channels ADD CONSTRAINT channel_del_channel FOREIGN KEY (parent_id) REFERENCES channels(channel_id) ON DELETE CASCADE;
+
 CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), pw varchar(255), lastchannel INTEGER) Type=InnoDB;
 CREATE UNIQUE INDEX players_name ON players (name);
+ALTER TABLE players ADD CONSTRAINT player_del_channl FOREIGN KEY (lastchannel) REFERENCES channels(channel_id) ON DELETE SET NULL;
 
 CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), pw varchar(255), email varchar(255), authcode varchar(255)) Type=InnoDB;
 CREATE UNIQUE INDEX player_auth_name ON player_auth(name);
 CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode);
-
-CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTO_INCREMENT, parent_id INTEGER, name varchar(255), inheritACL INTEGER) Type=InnoDB;
-CREATE UNIQUE INDEX channels_bugged_mysql ON channels(parent_id, name);
-ALTER TABLE channels ADD CONSTRAINT channel_del_channel FOREIGN KEY (parent_id) REFERENCES channels(channel_id) ON DELETE CASCADE;
 
 CREATE TABLE groups (group_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), channel_id INTEGER, inherit INTEGER, inheritable INTEGER) Type=InnoDB;
 CREATE UNIQUE INDEX groups_name_channels ON groups(name, channel_id);

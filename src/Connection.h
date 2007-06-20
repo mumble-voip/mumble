@@ -39,6 +39,7 @@ class Connection : public QObject {
 	Q_OBJECT
 	protected:
 		QTcpSocket *qtsSocket;
+		QTime qtLastPacket;
 		int iPacketLength;
 		bool bDisconnectedEmitted;
 	protected slots:
@@ -51,10 +52,11 @@ class Connection : public QObject {
 	public:
 		Connection(QObject *parent, QTcpSocket *qtsSocket);
 		~Connection();
-		void sendMessage(Message *mMsg);
-		void sendMessage(QByteArray &qbaMsg);
+		void sendMessage(const Message *mMsg);
+		void sendMessage(const QByteArray &qbaMsg);
 		void disconnect();
 		void forceFlush();
+		int activityTime() const;
 
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;

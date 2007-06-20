@@ -82,15 +82,15 @@ class Server : public QObject {
 	protected:
 		QQueue<int> qqIds;
 		QTcpServer *qtsServer;
-//		QUdpSocket *qusUdp;
 		QTimer *qtTimer;
+		QTimer *qtTimeout;
 		UDPThread *udp;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
 		void message(QByteArray &, Connection *cCon = NULL);
-//		void udpReady();
 		void checkCommands();
+		void checkTimeout();
 		void tcpTransmit(QByteArray, Connection *);
 	signals:
 		void speexPacket(QByteArray);
@@ -114,7 +114,7 @@ class Server : public QObject {
 
 		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
 		void playerEnterChannel(Player *p, Channel *c, bool quiet = false);
-		
+
 		void emitPacket(Message *msg);
 
 		Server();
@@ -123,6 +123,7 @@ class Server : public QObject {
 struct ServerParams {
 	int iPort;
 	int iCommandFrequency;
+	int iTimeout;
 	int iMaxBandwidth;
 	int iMaxUsers;
 	QString qsPassword;
@@ -136,7 +137,7 @@ struct ServerParams {
 	QString qsDBPassword;
 	QString qsDBHostName;
 	int iDBPort;
-	
+
 	QString qsDBus;
 
 	ServerParams();

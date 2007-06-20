@@ -58,6 +58,7 @@ ServerParams::ServerParams() {
 	bTestloop = false;
 	iPort = 64738;
 	iCommandFrequency = 10;
+	iTimeout = 30;
 	iMaxBandwidth = 10000;
 	iMaxUsers = 1000;
 	qsWelcomeText = QString("Welcome to this server");
@@ -76,6 +77,7 @@ void ServerParams::read(QString fname) {
 	bTestloop = qs.value("loop", bTestloop).toBool();
 	iPort = qs.value("port", iPort).toInt();
 	iCommandFrequency = qs.value("commandtime", iCommandFrequency).toInt();
+	iTimeout = qs.value("timeout", iTimeout).toInt();
 	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = qs.value("users", iMaxUsers).toInt();
 	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
@@ -150,13 +152,20 @@ void UDPThread::udpReady() {
 				delete msg;
 				continue;
 			}
+			// At any point after this, the connection might go away WHILE we're processing. That is "bad".
 			rl.unlock();
 			{
 				QWriteLocker wl(&g_sServer->qrwlConnections);
-				qhPeerConnections[p] = source;
-				qhPeers[source] = p;
+				if (g_sServer->qmConnections.contains(msg->sPlayerId)) {
+					qhPeerConnections[p] = source;
+					qhPeers[source] = p;
+			    	}
 			}
 			rl.relock();
+			if (! g_sServer->qmConnections.contains(msg->sPlayerId)) {
+			    delete msg;
+			    continue;
+			}
 		}
 
 		if (msg->messageType() == Message::Ping)
@@ -288,6 +297,10 @@ Server::Server() {
 	if (g_sp.iCommandFrequency > 0)
 		qtTimer->start(g_sp.iCommandFrequency * 1000);
 
+	qtTimeout = new QTimer(this);
+	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
+	qtTimeout->start(5500);
+
 	qlBans = ServerDB::getBans();
 
 	udp->start(QThread::HighestPriority);
@@ -411,6 +424,17 @@ void Server::message(QByteArray &qbaMsg, Connection *cCon) {
 	  }
 }
 
+
+void Server::checkTimeout() {
+	QWriteLocker wl(&qrwlConnections);
+	foreach(Connection *c, qmConnections) {
+	    if (c->activityTime() > (g_sp.iTimeout * 1000)) {
+		log(QLatin1String("Timeout"), c);
+		  c->disconnect();
+	    }
+	}
+}
+
 void Server::emitPacket(Message *msg) {
 	QByteArray qba;
 	msg->messageToNetwork(qba);
@@ -518,10 +542,15 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 }
 
 void Server::checkCommands() {
+    	static bool warned = false;
 	QList<ServerDB::qpCommand> cmdlist=ServerDB::getCommands();
 	if (cmdlist.count() == 0)
 		return;
 	foreach(ServerDB::qpCommand cmd, cmdlist) {
+	    	if (! warned) {
+		    log(QLatin1String("The commands table is deprecated and will be removed in a later release. Please migrate to DBus."), NULL);
+		    warned = true;
+		}
 		QString cmdname = cmd.first;
 		QList<QVariant> argv = cmd.second;
 		if (cmdname == "moveplayer") {
@@ -636,10 +665,15 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	  ok = true;
 	}
 
-	Player *ppOld = Player::match(pSrcPlayer);
-	if (ok && !ppOld && Player::match(pSrcPlayer, true)) {
-		msr.qsReason = "Playername already in use";
-		ok = false;
+	Player *ppOld = Player::match(pSrcPlayer, true);
+	Connection *cOld = ppOld ? g_sServer->qmConnections.value(ppOld->sId) : NULL;
+
+	// Allow reuse of name from same IP
+	if (ok && ppOld && (pSrcPlayer->iId == -1)) {
+	    	if (cOld->peerAddress() != cCon->peerAddress()) {
+			msr.qsReason = "Playername already in use";
+			ok = false;
+  	        }
 	}
 
 	if (iMaxBandwidth > g_sp.iMaxBandwidth) {
@@ -657,6 +691,12 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	  g_sServer->sendMessage(cCon, &msr);
 	  cCon->disconnect();
 	  return;
+	}
+
+	// Kick ghost
+	if (ppOld) {
+		g_sServer->log(QString("Disconnecting ghost"), cOld);
+		cOld->disconnect();
 	}
 
 	int lchan = ServerDB::readLastChannel(pSrcPlayer);
@@ -760,13 +800,6 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 	dbus->playerConnected(pSrcPlayer);
 	g_sServer->playerEnterChannel(pSrcPlayer, lc, false);
-
-	// Kick ghost
-	if (ppOld) {
-		Connection *cOld = g_sServer->qmConnections.value(ppOld->sId);
-		g_sServer->log(QString("Disconnecting ghost"), cOld);
-		cOld->disconnect();
-	}
 }
 
 void MessageServerBanList::process(Connection *cCon) {

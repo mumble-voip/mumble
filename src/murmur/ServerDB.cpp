@@ -149,34 +149,37 @@ ServerDB::ServerDB() {
 		query.exec("CREATE UNIQUE INDEX acl_channel_pri ON acl(channel_id, priority)");
 		query.exec("CREATE TRIGGER acl_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM acl WHERE channel_id = old.channel_id; END;");
 		query.exec("CREATE TRIGGER acl_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM acl WHERE player_id = old.player_id; END;");
-		
+
 		if (migrate) {
 			query.exec("INSERT INTO acl SELECT acl_id,channel_id,priority,player_id,group_name,apply_here,apply_sub,grant,revoke FROM aclold");
 			query.exec("DROP TABLE aclold");
 		}
 
+/* Deprecated. Support if exists, but don't create in new installations.
+ *
 		query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
 		query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
 		query.exec("DELETE FROM connections");
-
+*/
 		query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
 		query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
 		query.exec("DELETE FROM channel_links");
 
+/* Deprecated
 		query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
 		query.exec("DELETE FROM commands");
-
+*/
 		query.exec("CREATE TABLE bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)");
 	}
 
 	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, NULL, 'Root')");
 	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
 
-	// Work around BUG in mysql, because apparantly insert with explicit id 0 means "aha, use the auto_increment"
+	// Work around BUG in mysql, because apparantly insert with explicit id 0 means "aha, use the auto_increment and make it '1'"
 	query.exec("UPDATE players SET player_id = 0 WHERE name LIKE 'SuperUser'");
 	query.exec("UPDATE channels SET channel_id = 0 WHERE name LIKE 'Root' AND parent_id IS NULL");
 
-	// Update from old method for sqlite
+	// Update from old method for sqlite. Root is now the only channel with a 'NULL' parent. This allows foreign keys in mysql.
 	query.exec("UPDATE channels SET parent_id = NULL WHERE name LIKE 'Root' AND parent_id = -1");
 
 	query.exec("SELECT COUNT(*) FROM acl");
@@ -382,7 +385,7 @@ void ServerDB::updateChannel(Channel *c) {
 		query.prepare("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (?,?,?,?,?,?,?,?)");
 		query.addBindValue(acl->c->iId);
 		query.addBindValue(pri++);
-		
+
 		query.addBindValue((acl->iPlayerId == -1) ? QVariant() : acl->iPlayerId);
 		query.addBindValue((acl->qsGroup.isEmpty()) ? QVariant() : acl->qsGroup);
 		query.addBindValue(acl->bApplyHere ? 1 : 0);
@@ -480,7 +483,7 @@ void ServerDB::setLastChannel(Player *p) {
 	query.addBindValue(p->cChannel->iId);
 	query.addBindValue(p->iId);
 	query.exec();
-	
+
 	query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
 	query.addBindValue(p->cChannel->iId);
 	query.addBindValue(p->sId);
