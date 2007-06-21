@@ -364,9 +364,10 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	QMainWindow::closeEvent(e);
 }
 
-void MainWindow::hideEvent(QHideEvent *) {
+void MainWindow::hideEvent(QHideEvent *e) {
 	if (qstiIcon->isSystemTrayAvailable())
 		qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
+	QMainWindow::hideEvent(e);
 }
 
 void MainWindow::appendLog(QString entry)
