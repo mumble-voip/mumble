@@ -78,8 +78,15 @@ int main(int argc, char **argv)
 		} else if ((arg == "-ini") && ( i+1 < argc )) {
 			i++;
 			inifile=argv[i];
+		} else if ((arg == "-h") || (arg == "--help")) {
+			i++;
+			qWarning("Usage: %s [-ini <inifile>] [-supw <password>]",argv[0]);
+			qWarning("  -ini <inifile>  Specify ini file to use.");
+			qWarning("  -supw <pw>      Set password for 'SuperUser' account.");
+			qWarning("If no inifile is provided, murmur will search for one in ");
+			qFatal("default locations.");
 		} else {
-			qWarning("Unknown argument %s", argv[i]);
+			qFatal("Unknown argument %s", argv[i]);
 		}
 	}
 
@@ -98,28 +105,30 @@ int main(int argc, char **argv)
 #endif
 	dbus=new MurmurDBus(a);
 #ifdef Q_OS_UNIX
-	QDBusConnection qdbc("mainbus");
-	if (g_sp.qsDBus == "session")
-		qdbc = QDBusConnection::sessionBus();
-	else if (g_sp.qsDBus == "system")
-		qdbc = QDBusConnection::systemBus();
-	else {
-		// QtDBus is not quite finished yet.
-		qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-		qdbc = QDBusConnection::connectToBus(g_sp.qsDBus, "mainbus");
-		if (! qdbc.isConnected()) {
-			QDBusServer *qdbs = new QDBusServer(g_sp.qsDBus, &a);
-			qWarning("%s",qPrintable(qdbs->lastError().name()));
-			qWarning("%d",qdbs->isConnected());
-			qWarning("%s",qPrintable(qdbs->address()));
+	if (! g_sp.qsDBus.isEmpty()) {
+		QDBusConnection qdbc("mainbus");
+		if (g_sp.qsDBus == "session")
+			qdbc = QDBusConnection::sessionBus();
+		else if (g_sp.qsDBus == "system")
+			qdbc = QDBusConnection::systemBus();
+		else {
+			// QtDBus is not quite finished yet.
+			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
 			qdbc = QDBusConnection::connectToBus(g_sp.qsDBus, "mainbus");
+			if (! qdbc.isConnected()) {
+				QDBusServer *qdbs = new QDBusServer(g_sp.qsDBus, &a);
+				qWarning("%s",qPrintable(qdbs->lastError().name()));
+				qWarning("%d",qdbs->isConnected());
+				qWarning("%s",qPrintable(qdbs->address()));
+				qdbc = QDBusConnection::connectToBus(g_sp.qsDBus, "mainbus");
+			}
 		}
+		if (! qdbc.isConnected()) {
+			qWarning("Failed to connect to D-Bus %s",qPrintable(g_sp.qsDBus));
+		}
+		qdbc.registerObject("/Murmur", &a);
+		qdbc.registerService("net.sourceforge.mumble");
 	}
-	if (! qdbc.isConnected()) {
-		qWarning("Failed to connect to D-Bus %s",qPrintable(g_sp.qsDBus));
-	}
-	qdbc.registerObject("/Murmur", &a);
-	qdbc.registerService("net.sourceforge.mumble");
 #endif
 
 	db.readChannels();

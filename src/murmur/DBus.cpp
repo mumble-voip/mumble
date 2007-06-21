@@ -197,31 +197,42 @@ void MurmurDBus::getPlayerState(short session, const QDBusMessage &msg, PlayerIn
   pi = PlayerInfo(pPlayer);
 }
 
-void MurmurDBus::setPlayerState(const PlayerInfo &pi, const QDBusMessage &msg) {
-  PLAYER_SETUP_VAR(pi.session);
-  CHANNEL_SETUP_VAR(pi.channel);
-  PlayerInfo npi(pPlayer);
+void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) {
+  PLAYER_SETUP_VAR(npi.session);
+  CHANNEL_SETUP_VAR(npi.channel);
+  PlayerInfo pi(pPlayer);
   
   bool changed = false;
   
-  if (pi.deaf != npi.deaf) {
+  bool deaf = npi.deaf;
+  bool mute = npi.mute;
+  if (deaf)
+    mute = true;
+  if (! mute)
+    deaf = false;
+  
+  if ((pi.deaf != deaf) && (deaf || (!deaf && mute))) {
+    pPlayer->bDeaf = deaf;
+    pPlayer->bMute = mute;
     MessagePlayerDeaf mpd;
     mpd.sPlayerId = 0;
     mpd.sVictim=pPlayer->sId;
-    mpd.bDeaf = npi.deaf;
+    mpd.bDeaf = deaf;
     g_sServer->sendAll(&mpd);
-    pPlayer->bDeaf = npi.deaf;
     changed = true;
-  } else if ((! npi.deaf) && (pi.mute != npi.mute)) {
+  } else if ((pi.deaf != deaf) || (pi.mute != mute)) {
+    pPlayer->bDeaf = deaf;
+    pPlayer->bMute = mute;
+
     MessagePlayerMute mpm;
     mpm.sPlayerId = 0;
     mpm.sVictim=pPlayer->sId;
-    mpm.bMute=npi.mute;
+    mpm.bMute=mute;
     g_sServer->sendAll(&mpm);
     changed = true;
   }
 
-  if (cChannel->iId != npi.channel) {
+  if (cChannel->iId != pi.channel) {
     g_sServer->playerEnterChannel(pPlayer, cChannel);
     MessagePlayerMove mpm;
     mpm.sPlayerId = 0;
