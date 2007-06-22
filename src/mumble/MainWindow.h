@@ -46,6 +46,7 @@ class MainWindow : public QMainWindow {
 	public:
 		PlayerModel *pmModel;
 		QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
+		QAction *qaQuit;
 		QAction *qaServerConnect, *qaServerDisconnect, *qaServerBanList;
 		QAction *qaPlayerKick, *qaPlayerBan, *qaPlayerMute, *qaPlayerDeaf, *qaPlayerLocalMute;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
@@ -104,6 +105,7 @@ class MainWindow : public QMainWindow {
 		void on_HelpAboutSpeex_triggered();
 		void on_HelpAboutQt_triggered();
 		void on_HelpVersionCheck_triggered();
+		void on_Quit_triggered();
 		void on_PushToTalk_triggered(bool);
 		void on_PushToMute_triggered(bool);
 		void on_AltPushToTalk_triggered(bool);

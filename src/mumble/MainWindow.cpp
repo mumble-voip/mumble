@@ -70,15 +70,23 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 }
 
 void MainWindow::createActions() {
+    	qaQuit = new QAction(tr("&Quit"), this);
+    	qaQuit->setToolTip(tr("Closes the program"));
+    	qaQuit->setWhatsThis(tr("Exits the application."));
+    	qaQuit->setObjectName(QLatin1String("Quit"));
+    	qaQuit->setShortcut(tr("Ctrl+Q", "Quit"));
+
 	qaServerConnect=new QAction(tr("&Connect"), this);
 	qaServerConnect->setToolTip(tr("Open the server connection dialog"));
 	qaServerConnect->setWhatsThis(tr("Shows a dialog of registered servers, and also allows quick connect."));
 	qaServerConnect->setObjectName(QLatin1String("ServerConnect"));
+	qaServerConnect->setShortcuts(QKeySequence::Open);
 	qaServerDisconnect=new QAction(tr("&Disconnect"), this);
 	qaServerDisconnect->setToolTip(tr("Disconnect from server"));
 	qaServerDisconnect->setWhatsThis(tr("Disconnects you from the server."));
 	qaServerDisconnect->setObjectName(QLatin1String("ServerDisconnect"));
 	qaServerDisconnect->setEnabled(false);
+	qaServerDisconnect->setShortcuts(QKeySequence::Close);
 	qaServerBanList=new QAction(tr("&Ban lists"), this);
 	qaServerBanList->setToolTip(tr("Edit ban lists on server"));
 	qaServerBanList->setWhatsThis(tr("This lets you edit the server-side IP ban lists."));
@@ -180,6 +188,7 @@ void MainWindow::createActions() {
 	qaHelpWhatsThis->setToolTip(tr("Enter What's This? mode"));
 	qaHelpWhatsThis->setWhatsThis(tr("Click this to enter \"What's This?\" mode. Your cursor will turn into a question mark. Click "
 									"on any button, menu choice or area to show a description of what it is."));
+	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 	qaHelpAbout=new QAction(tr("&About"), this);
 	qaHelpAbout->setObjectName(QLatin1String("HelpAbout"));
 	qaHelpAbout->setToolTip(tr("Information about Mumble"));
@@ -238,6 +247,8 @@ void MainWindow::setupGui()  {
 	qmServer->addAction(qaServerConnect);
 	qmServer->addAction(qaServerDisconnect);
 	qmServer->addAction(qaServerBanList);
+	qmServer->addSeparator();
+	qmServer->addAction(qaQuit);
 
 	qmPlayer->addAction(qaPlayerKick);
 	qmPlayer->addAction(qaPlayerBan);
@@ -411,8 +422,8 @@ void MainWindow::on_ServerConnect_triggered()
 	{
 		on_ServerDisconnect_triggered();
 		g.sh->wait();
-	}	
-	
+	}
+
 	if (res == QDialog::Accepted) {
 		qaServerDisconnect->setEnabled(true);
 		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
@@ -524,6 +535,11 @@ void MainWindow::on_PlayerBan_triggered()
 		mpbMsg.qsReason = reason;
 		g.sh->sendMessage(&mpbMsg);
 	}
+}
+
+void MainWindow::on_Quit_triggered()
+{
+    qApp->closeAllWindows();
 }
 
 void MainWindow::on_ChannelMenu_aboutToShow()
