@@ -426,13 +426,18 @@ void Server::message(QByteArray &qbaMsg, Connection *cCon) {
 
 
 void Server::checkTimeout() {
-	QWriteLocker wl(&qrwlConnections);
+    	QList<Connection *> qlClose;
+
+	qrwlConnections.lockForRead();
 	foreach(Connection *c, qmConnections) {
 	    if (c->activityTime() > (g_sp.iTimeout * 1000)) {
 		log(QLatin1String("Timeout"), c);
-		  c->disconnect();
+		qlClose.append(c);
 	    }
 	}
+	qrwlConnections.unlock();
+	foreach(Connection *c, qlClose)
+		c->disconnect();
 }
 
 void Server::emitPacket(Message *msg) {
