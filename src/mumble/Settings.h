@@ -40,11 +40,8 @@
 
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
-	enum Audio3D { None, Panning, Light, Full };
-	enum OverlayShow { Nothing, Talking, All };
 	AudioTransmit atTransmit;
 	bool bTransmitPosition;
-	Audio3D a3dModel;
 	bool bMute, bDeaf;
 	bool bTTS;
 	int iTTSVolume;
@@ -54,12 +51,24 @@ struct Settings {
 	QString qsAudioInput, qsAudioOutput;
 
 	int iDXOutputDelay;
-	QByteArray qbaDXInput, qbaDXOutput;
-	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
+	
+#ifdef Q_OS_UNIX
+	QString qsFestival;
+#endif
 
+#ifdef USE_ASIO
 	QString qsASIOclass;
 	QList<QVariant> qlASIOmic;
 	QList<QVariant> qlASIOspeaker;
+#endif
+
+#ifdef Q_OS_WIN
+	enum Audio3D { None, Panning, Light, Full };
+	enum OverlayShow { Nothing, Talking, All };
+	Audio3D a3dModel;
+
+	QByteArray qbaDXInput, qbaDXOutput;
+	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
 
 	bool bOverlayEnable;
 	OverlayShow osOverlay;
@@ -74,6 +83,7 @@ struct Settings {
 	QColor qcOverlayAltTalking;
 	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
+#endif
 
 	Settings();
 	void load();

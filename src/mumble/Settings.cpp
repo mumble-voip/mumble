@@ -33,7 +33,7 @@
 
 Settings::Settings() {
 	atTransmit = VAD;
-	a3dModel = None;
+	bTransmitPosition = false;
 	bMute = bDeaf = false;
 	bTTS = true;
 	iTTSVolume = 75;
@@ -46,7 +46,15 @@ Settings::Settings() {
 	bTCPCompat = false;
 	bReconnect = true;
 	bExpandAll = false;
+
 	iDXOutputDelay = 5;
+
+#ifdef Q_OS_UNIX
+	qsFestival=QLatin1String("/usr/bin/festival --batch --pipe");
+#endif
+
+#ifdef Q_OS_WIN
+	a3dModel = None;
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
 	fDXRollOff = 0.15;
@@ -60,7 +68,6 @@ Settings::Settings() {
 	bOverlayBottom = true;
 	bOverlayLeft = true;
 	bOverlayRight = false;
-	bTransmitPosition = false;
 	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
 	fOverlayWidth = 20.0;
 	qcOverlayPlayer = QColor(255,255,255,128);
@@ -68,6 +75,7 @@ Settings::Settings() {
 	qcOverlayAltTalking = QColor(255,128,128,255);
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
+#endif
 }
 
 void Settings::load() {
@@ -85,17 +93,22 @@ void Settings::load() {
 	bTCPCompat = g.qs->value(QLatin1String("TCPCompat"), bTCPCompat).toBool();
 	bReconnect = g.qs->value(QLatin1String("Reconnect"), bReconnect).toBool();
 	bExpandAll = g.qs->value(QLatin1String("ExpandAll"), bExpandAll).toBool();
+	iDXOutputDelay = g.qs->value(QLatin1String("DXOutputDelay"), iDXOutputDelay).toInt();
+#ifdef Q_OS_UNIX
+	qsFestival = g.qs->value(QLatin1String("Festival"),qsFestival).toString();
+#endif
+#ifdef USE_ASIO
+	qsASIOclass = g.qs->value(QLatin1String("ASIOclass")).toString();
+	qlASIOmic = g.qs->value(QLatin1String("ASIOmic")).toList();
+	qlASIOspeaker = g.qs->value(QLatin1String("ASIOspeaker")).toList();
+#endif
 #ifdef Q_OS_WIN
 	a3dModel = static_cast<Settings::Audio3D>(g.qs->value(QLatin1String("Audio3D"), a3dModel).toInt());
-	iDXOutputDelay = g.qs->value(QLatin1String("DXOutputDelay"), iDXOutputDelay).toInt();
 	qbaDXInput = g.qs->value(QLatin1String("DXInput")).toByteArray();
 	qbaDXOutput = g.qs->value(QLatin1String("DXOutput")).toByteArray();
 	fDXMinDistance = g.qs->value(QLatin1String("DXMinDistance"), fDXMinDistance).toDouble();
 	fDXMaxDistance = g.qs->value(QLatin1String("DXMaxDistance"), fDXMaxDistance).toDouble();
 	fDXRollOff = g.qs->value(QLatin1String("DXRollOff"), fDXRollOff).toDouble();
-	qsASIOclass = g.qs->value(QLatin1String("ASIOclass")).toString();
-	qlASIOmic = g.qs->value(QLatin1String("ASIOmic")).toList();
-	qlASIOspeaker = g.qs->value(QLatin1String("ASIOspeaker")).toList();
 	bOverlayEnable = g.qs->value(QLatin1String("OverlayEnable"),bOverlayEnable).toBool();
 	osOverlay = static_cast<Settings::OverlayShow>(g.qs->value(QLatin1String("OverlayShow"), osOverlay).toInt());
 	bOverlayAlwaysSelf = g.qs->value(QLatin1String("OverlayAlwaysSelf"),bOverlayAlwaysSelf).toBool();
@@ -130,18 +143,23 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("TCPCompat"), bTCPCompat);
 	g.qs->setValue(QLatin1String("Reconnect"), bReconnect);
 	g.qs->setValue(QLatin1String("ExpandAll"), bExpandAll);
+	g.qs->setValue(QLatin1String("DXOutputDelay"), iDXOutputDelay);
+#ifdef Q_OS_UNIX
+	g.qs->setValue(QLatin1String("Festival"), qsFestival);
+#endif
+#ifdef USE_ASIO
+	g.qs->setValue(QLatin1String("ASIOclass"), qsASIOclass);
+	g.qs->setValue(QLatin1String("ASIOmic"), qlASIOmic);
+	g.qs->setValue(QLatin1String("ASIOspeaker"), qlASIOspeaker);
+#endif
 #ifdef Q_OS_WIN
 	g.qs->setValue(QLatin1String("PosTransmit"), g.s.bTransmitPosition);
 	g.qs->setValue(QLatin1String("Audio3D"), g.s.a3dModel);
-	g.qs->setValue(QLatin1String("DXOutputDelay"), iDXOutputDelay);
 	g.qs->setValue(QLatin1String("DXInput"), qbaDXInput);
 	g.qs->setValue(QLatin1String("DXOutput"), qbaDXOutput);
 	g.qs->setValue(QLatin1String("DXMinDistance"), fDXMinDistance);
 	g.qs->setValue(QLatin1String("DXMaxDistance"), fDXMaxDistance);
 	g.qs->setValue(QLatin1String("DXRollOff"), fDXRollOff);
-	g.qs->setValue(QLatin1String("ASIOclass"), qsASIOclass);
-	g.qs->setValue(QLatin1String("ASIOmic"), qlASIOmic);
-	g.qs->setValue(QLatin1String("ASIOspeaker"), qlASIOspeaker);
 	g.qs->setValue(QLatin1String("OverlayEnable"), bOverlayEnable);
 	g.qs->setValue(QLatin1String("OverlayShow"), osOverlay);
 	g.qs->setValue(QLatin1String("OverlayAlwaysSelf"), bOverlayAlwaysSelf);

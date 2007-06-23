@@ -200,12 +200,16 @@ GlobalShortcutX::GlobalShortcutX() {
 
   qWarning("GlobalShortcutX: XEVIE %d.%d", maj, min);
 
+  // Here's the thing. If we're debugging, it doesn't do to have the xevie application hang.
+
+#ifdef QT_NO_DEBUG
   if (! XevieStart(display)) {
     qWarning("GlobalShortcutX: Another client is already using XEVIE");
     return;
   }
 
   XevieSelectInput(display, KeyPressMask | KeyReleaseMask);
+#endif
 
   bRunning=true;
   start(QThread::TimeCriticalPriority);

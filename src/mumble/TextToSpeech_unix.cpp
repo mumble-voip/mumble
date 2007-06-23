@@ -29,21 +29,57 @@
 */
 
 #include "TextToSpeech.h"
+#include "Global.h"
+
+class TextToSpeechPrivate {
+	protected:
+		QProcess qpFestival;
+	public:
+		TextToSpeechPrivate();
+		~TextToSpeechPrivate();
+		void say(QString text);
+		void setVolume(int v);
+};
+
+TextToSpeechPrivate::TextToSpeechPrivate() {
+	qpFestival.start(g.s.qsFestival,QIODevice::ReadWrite);
+	qpFestival.waitForStarted(5000);
+}
+
+TextToSpeechPrivate::~TextToSpeechPrivate() {
+	qpFestival.closeWriteChannel();
+	qpFestival.close();
+}
+
+void TextToSpeechPrivate::say(QString text) {
+	QTextDocument td;
+	td.setHtml(text);
+	qpFestival.write(QString::fromLatin1("(SayText \"%1\")").arg(td.toPlainText().replace(QLatin1String("\""),QLatin1String("\\\""))).toUtf8());
+}
+
+void TextToSpeechPrivate::setVolume(int) {
+}
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
+	enabled = true;
+	d = new TextToSpeechPrivate();
 }
 
 TextToSpeech::~TextToSpeech() {
+	delete d;
 }
 
 void TextToSpeech::say(QString text) {
+	if (enabled)
+		d->say(text);
 }
 
 void TextToSpeech::setEnabled(bool e) {
 	enabled = e;
 }
 
-void TextToSpeech::setVolume(int) {
+void TextToSpeech::setVolume(int volume) {
+	d->setVolume(volume);
 }
 
 
