@@ -145,8 +145,8 @@ void UDPThread::udpReady() {
 		Peer p(senderAddr, senderPort);
 
 		Connection *source = qhPeerConnections.value(p);
-
-		if (source != g_sServer->qmConnections.value(msg->sPlayerId)) {
+		
+		if (!source || (source != g_sServer->qmConnections.value(msg->sPlayerId))) {
 			source = g_sServer->qmConnections.value(msg->sPlayerId);
 			if (! source || ! (source->peerAddress() == senderAddr)) {
 				delete msg;
