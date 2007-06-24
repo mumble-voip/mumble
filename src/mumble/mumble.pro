@@ -23,6 +23,8 @@ LIBS	+= -lspeex
 
 SUBDIRS	= speex
 
+QMAKE_CXXFLAGS	+= -msse -mmmx
+
 win32 {
   HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h Overlay.h
   SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp

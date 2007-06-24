@@ -72,6 +72,7 @@ class AudioOutputPlayer : public QObject {
 		bool bSpeech;
 
 		int iMissCount;
+		int iMissedFrames;
 		float fPos[3];
 
 		bool decodeNextFrame();
@@ -89,6 +90,7 @@ class AudioOutput : public QThread {
 		QReadWriteLock qrwlOutputs;
 		QHash<Player *, AudioOutputPlayer *> qmOutputs;
 		virtual AudioOutputPlayer *getPlayer(Player *) = 0;
+		void mixAudio(short *output);
 	public:
 		void wipe();
 

@@ -28,6 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <mmintrin.h>
+
 #include "AudioOutput.h"
 #include "Player.h"
 #include "Global.h"
@@ -101,6 +103,7 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
 	for(unsigned int i=0;i<iFrameSize;i++)
 		psBuffer[i]=0;
 	iMissCount = 0;
+	iMissedFrames = 0;
 
 	speex_jitter_init(&sjJitter, dsDecState, SAMPLE_RATE);
 }
@@ -137,14 +140,11 @@ bool AudioOutputPlayer::decodeNextFrame() {
 		QMutexLocker lock(&qmJitter);
 		speex_jitter_get(&sjJitter, psBuffer, &iTimestamp);
 		if (sjJitter.valid_bits) {
+			iMissedFrames = 0;
 			iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
 			iAltSpeak = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
 			if (! iSpeech) {
-#ifdef SPEEX_ANCIENT
-				sjJitter.reset_state = 1;
-#else
 				jitter_buffer_reset(sjJitter.packets);
-#endif
 				sjJitter.valid_bits = 0;
 				speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
 			}
@@ -166,6 +166,8 @@ bool AudioOutputPlayer::decodeNextFrame() {
 				if (iMissCount >= 4)
 					fPos[0] = fPos[1] = fPos[2] = 0.0;
 			}
+		} else {
+			iMissedFrames++;
 		}
 		if (! sjJitter.valid_bits) {
 			alive = false;
@@ -223,4 +225,40 @@ void AudioOutput::removeBuffer(Player *player) {
 	AudioOutputPlayer *aopOutput = qmOutputs.take(player);
 	if (aopOutput)
 		delete aopOutput;
+}
+
+bool AudioOutput::mixAudio(short *buffer) {
+	AudioOutputPlayer *aop;
+	QList<AudioOutputPlayer *> qlMix;
+	QList<AudioOutputPlayer *> qlDel;
+
+	int iFrameSize = 0;
+
+	qrwlOutputs.lockForRead();
+	foreach(aop, qmOutputs) {
+		aop->decodeNextFrame();
+		if (aop->iMissedFrames > 25)
+			qlDel.append(aop);
+		else {
+			iFrameSize = aop->iFrameSize;
+			qlMix.append(aop);
+		}
+	}
+	if (iFrameSize > 0) {
+		__m64 *out=reinterpret_cast<__m64 *>(buffer);
+		__m64 zero=_mm_cvtsi32_si64(0);
+		for(int i=0;i<iFrameSize/4;i++)
+			out[i]=zero;
+
+		foreach(aop, qlMix) {
+			__m64 *in=reinterpret_cast<__m64 *>(aop->psBuffer);
+			for(int i=0;i<iFrameSize/4;i++)
+				out[i]=_mm_adds_pi16(in[i],out[i]);
+		}
+	}
+	qrwlOutputs.unlock();
+	foreach(aop, qlDel)
+		removeBuffer(aop->p);
+		
+	return (iFrameSize != 0);
 }
