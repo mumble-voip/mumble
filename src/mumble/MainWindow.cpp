@@ -373,6 +373,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.qs->setValue(QLatin1String("mw"), saveState());
 	g.qs->setValue(QLatin1String("mwSplitter"), qsSplit->saveState());
 	QMainWindow::closeEvent(e);
+	qApp->quit();
 }
 
 void MainWindow::hideEvent(QHideEvent *e) {

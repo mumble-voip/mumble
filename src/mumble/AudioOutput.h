@@ -87,10 +87,11 @@ class AudioOutput : public QThread {
 	Q_OBJECT
 	protected:
 		bool bRunning;
+		int iFrameSize;
 		QReadWriteLock qrwlOutputs;
 		QHash<Player *, AudioOutputPlayer *> qmOutputs;
 		virtual AudioOutputPlayer *getPlayer(Player *) = 0;
-		void mixAudio(short *output);
+		bool mixAudio(short *output);
 	public:
 		void wipe();
 

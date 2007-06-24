@@ -185,6 +185,9 @@ bool AudioOutputPlayer::decodeNextFrame() {
 }
 
 AudioOutput::AudioOutput() {
+	void *ds=speex_decoder_init(&speex_wb_mode);
+	speex_decoder_ctl(ds, SPEEX_GET_FRAME_SIZE, &iFrameSize);
+	speex_decoder_destroy(ds);
 	bRunning = false;
 }
 
@@ -232,8 +235,11 @@ bool AudioOutput::mixAudio(short *buffer) {
 	QList<AudioOutputPlayer *> qlMix;
 	QList<AudioOutputPlayer *> qlDel;
 
-	int iFrameSize = 0;
-
+	__m64 *out=reinterpret_cast<__m64 *>(buffer);
+	__m64 zero=_mm_cvtsi32_si64(0);
+	for(int i=0;i<iFrameSize/4;i++)
+		out[i]=zero;
+	
 	qrwlOutputs.lockForRead();
 	foreach(aop, qmOutputs) {
 		aop->decodeNextFrame();
@@ -241,14 +247,9 @@ bool AudioOutput::mixAudio(short *buffer) {
 			qlDel.append(aop);
 		else {
 			iFrameSize = aop->iFrameSize;
-			qlMix.append(aop);
 		}
 	}
 	if (iFrameSize > 0) {
-		__m64 *out=reinterpret_cast<__m64 *>(buffer);
-		__m64 zero=_mm_cvtsi32_si64(0);
-		for(int i=0;i<iFrameSize/4;i++)
-			out[i]=zero;
 
 		foreach(aop, qlMix) {
 			__m64 *in=reinterpret_cast<__m64 *>(aop->psBuffer);
@@ -260,5 +261,5 @@ bool AudioOutput::mixAudio(short *buffer) {
 	foreach(aop, qlDel)
 		removeBuffer(aop->p);
 		
-	return (iFrameSize != 0);
+	return (! qlMix.isEmpty());
 }

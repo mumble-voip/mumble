@@ -396,14 +396,18 @@ bool ALSAOutputPlayer::playFrames()
     return true;
 }
 
-void ALSAOutputPlayer::initialize()
+void ALSAOutputPlayer::initialize(snd_pcm_t * &pcm_handle, int period)
 {
     if (pcm_handle)
 		return;
+		
+    short zerobuff[period];
+    for(int i=0;i<period;i++)
+      zerobuff[i]=0;
 
     unsigned int rate = SAMPLE_RATE;
-    snd_pcm_uframes_t period_size = iFrameSize;
-    snd_pcm_uframes_t buffer_size = iFrameSize * 5;
+    snd_pcm_uframes_t period_size = period;
+    snd_pcm_uframes_t buffer_size = period * 5;
 
     snd_pcm_hw_params_t *hw_params;
     snd_pcm_sw_params_t *sw_params;
@@ -448,13 +452,14 @@ void ALSAOutputPlayer::initialize()
 
     // Fill one frame
     for (int i = 0; i < 5; i++)
-		snd_pcm_writei(pcm_handle, psBuffer, iFrameSize);
+		snd_pcm_writei(pcm_handle, zerobuff, period);
 
     snd_pcm_start(pcm_handle);
 }
 
 ALSAAudioOutput::ALSAAudioOutput()
 {
+  bSingle = false;
     qWarning("ALSAAudioOutput: Initialized");
 }
 
@@ -475,7 +480,19 @@ AudioOutputPlayer *ALSAAudioOutput::getPlayer(Player * player)
 
 #define MAX_FDS 256
 
-void ALSAAudioOutput::run()
+void ALSAAudioOutput::run() 
+{
+  if (bSingle)
+    singleRun();
+  else
+    multiRun();
+}
+
+void ALSAAudioOutput::singleRun()
+{
+}
+
+void ALSAAudioOutput::multiRun()
 {
     struct pollfd fds[MAX_FDS];
     int count, idx;
@@ -498,7 +515,7 @@ void ALSAAudioOutput::run()
 		idx = 0;
 		foreach(aop, qmOutputs) {
 			aaop = static_cast < ALSAOutputPlayer * >(aop);
-			aaop->initialize();
+			aaop->initialize(aaop->pcm_handle, iFrameSize);
 			count = snd_pcm_poll_descriptors_count(aaop->pcm_handle);
 			snd_pcm_poll_descriptors(aaop->pcm_handle, &fds[idx], count);
 			map[aaop] = idx;
