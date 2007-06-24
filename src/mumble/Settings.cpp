@@ -51,6 +51,8 @@ Settings::Settings() {
 
 #ifdef Q_OS_UNIX
 	qsFestival=QLatin1String("/usr/bin/festival --batch --pipe");
+	qsALSAInput=QLatin1String("default");
+	qsALSAOutput=QLatin1String("default");
 #endif
 
 #ifdef Q_OS_WIN
@@ -96,6 +98,8 @@ void Settings::load() {
 	iDXOutputDelay = g.qs->value(QLatin1String("DXOutputDelay"), iDXOutputDelay).toInt();
 #ifdef Q_OS_UNIX
 	qsFestival = g.qs->value(QLatin1String("Festival"),qsFestival).toString();
+	qsALSAInput = g.qs->value(QLatin1String("ALSAInput"),qsALSAInput).toString();
+	qsALSAOutput = g.qs->value(QLatin1String("ALSAOutput"),qsALSAOutput).toString();
 #endif
 #ifdef USE_ASIO
 	qsASIOclass = g.qs->value(QLatin1String("ASIOclass")).toString();
@@ -146,6 +150,8 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("DXOutputDelay"), iDXOutputDelay);
 #ifdef Q_OS_UNIX
 	g.qs->setValue(QLatin1String("Festival"), qsFestival);
+	g.qs->setValue(QLatin1String("ALSAInput"), qsALSAInput);
+	g.qs->setValue(QLatin1String("ALSAOutput"), qsALSAOutput);
 #endif
 #ifdef USE_ASIO
 	g.qs->setValue(QLatin1String("ASIOclass"), qsASIOclass);

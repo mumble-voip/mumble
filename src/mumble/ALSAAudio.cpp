@@ -38,10 +38,18 @@
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
 #define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
 
+class ALSAEnumerator {
+  public:
+    QHash<QString,QString> qhInput;
+    QHash<QString,QString> qhOutput;
+    ALSAEnumerator();
+};
+
 static AudioOutput *ALSAAudioOutputNew()
 {
     return new ALSAAudioOutput();
 }
+
 static AudioInput *ALSAAudioInputNew()
 {
     return new ALSAAudioInput();
@@ -50,6 +58,190 @@ static AudioInput *ALSAAudioInputNew()
 static AudioOutputRegistrar aorALSA(QLatin1String("ALSA"), ALSAAudioOutputNew);
 static AudioInputRegistrar airALSA(QLatin1String("ALSA"), ALSAAudioInputNew);
 
+static ConfigWidget *ALSAConfigDialogNew() {
+        return new ALSAConfig();
+}
+        
+static ConfigRegistrar registrar(20, ALSAConfigDialogNew);
+
+static ALSAEnumerator cards;
+
+ALSAEnumerator::ALSAEnumerator() {
+  qhInput.insert(QLatin1String("default"), QLatin1String("Default ALSA Card"));
+  qhOutput.insert(QLatin1String("default"), QLatin1String("Default ALSA Card"));
+
+  int card=-1;
+  snd_card_next(&card);
+  while (card != -1) {
+    char *name;
+    snd_ctl_t *ctl=NULL;
+    snd_card_get_longname(card, &name);
+    QByteArray dev=QString::fromLatin1("hw:%1").arg(card).toUtf8();
+    if (snd_ctl_open(&ctl, dev.data(), SND_CTL_READONLY) >= 0) {
+      snd_pcm_info_t *info = NULL;
+      snd_pcm_info_malloc(&info);
+
+      char *cname = NULL;
+      snd_card_get_name(card, &cname);
+
+      int device = -1;
+      snd_ctl_pcm_next_device(ctl, &device);
+      
+      bool play = false;
+      bool cap = false;
+      
+      while (device != -1) {
+        QString devname=QString::fromLatin1("hw:%1,%2").arg(card).arg(device);
+        snd_pcm_info_set_device(info, device);
+        snd_pcm_info_set_stream(info, SND_PCM_STREAM_CAPTURE);
+        if (snd_ctl_pcm_info(ctl,info) == 0) {
+          QString fname=QString::fromLatin1(snd_pcm_info_get_name(info));
+          qhInput.insert(devname,fname);
+          qhInput.insert(QString::fromLatin1("plug:\"")+devname+QString::fromLatin1("\""), fname);
+          cap = true;
+        }
+
+        snd_pcm_info_set_stream(info, SND_PCM_STREAM_PLAYBACK);
+        if (snd_ctl_pcm_info(ctl,info) == 0) {
+          QString fname=QString::fromLatin1(snd_pcm_info_get_name(info));
+          qhOutput.insert(devname,fname);
+          qhOutput.insert(QString::fromLatin1("plug:")+devname, fname);
+          play = true;
+        }
+
+        snd_ctl_pcm_next_device(ctl, &device);
+      }
+      if (play) {
+        qhOutput.insert(QString::fromLatin1("plug:\"dmix:CARD=%1\"").arg(card),QLatin1String(cname));
+      }
+      if (cap) {
+        qhInput.insert(QString::fromLatin1("plug:\"dsnoop:CARD=%1\"").arg(card),QLatin1String(cname));
+      }
+      snd_pcm_info_free(info);
+      snd_ctl_close(ctl);
+    }
+    snd_card_next(&card);
+  }
+}
+
+ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
+  QGroupBox *qgbDevices, *qgbOutput;
+  QGridLayout *grid;
+  QVBoxLayout *v;
+  QLabel *l;
+  
+  qcbInputDevice = new QComboBox();
+  qcbOutputDevice = new QComboBox();
+  
+  QList<QString> qlOutputDevs = cards.qhOutput.keys();
+  qSort(qlOutputDevs);
+  QList<QString> qlInputDevs = cards.qhInput.keys();
+  qSort(qlInputDevs);
+
+  bool found;
+  
+  
+  found = false;
+  foreach(QString dev, qlInputDevs) {
+    QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhInput[dev]);
+    qcbInputDevice->addItem(t, dev);
+    if (dev == g.s.qsALSAInput) {
+      found = true;
+      qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
+    }
+  }
+  if (! found) {
+    qcbInputDevice->addItem(g.s.qsALSAInput, g.s.qsALSAInput);
+    qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
+  }
+
+  found = false;
+  foreach(QString dev, qlOutputDevs) {
+    QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhOutput[dev]);
+    qcbOutputDevice->addItem(t, dev);
+    if (dev == g.s.qsALSAOutput) {
+      found = true;
+      qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
+    }
+  }
+  if (! found) {
+    qcbOutputDevice->addItem(g.s.qsALSAOutput, g.s.qsALSAOutput);
+    qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
+  }
+  
+  qgbDevices = new QGroupBox(tr("Device selection"));
+  grid=new QGridLayout();
+  
+  qcbInputDevice->setToolTip(tr("Device to use for microphone"));
+  qcbInputDevice->setWhatsThis(tr("This set which device mumble should use. The <i>default</i> device is whatever you have configured in alsaconfig, the <i>hwplug</i> "
+                          "devices are specific hardware devices backed by the ALSA mixer and the <i>hw</i> devices are raw hardware access. Unless your soundcard "
+                          "supports hardware mixing of audio, using the <i>hw</i> device will exclude all other programs from using audio."));
+  qcbOutputDevice->setToolTip(tr("Device to use for speakers/headphones"));
+  qcbOutputDevice->setWhatsThis(qcbInputDevice->whatsThis());
+
+  l = new QLabel(tr("Input"));
+  l->setBuddy(qcbInputDevice);
+  grid->addWidget(l, 0, 0);
+  grid->addWidget(qcbInputDevice, 0, 1);
+  
+  l = new QLabel(tr("Output"));
+  l->setBuddy(qcbOutputDevice);
+  grid->addWidget(l, 1, 0);
+  grid->addWidget(qcbOutputDevice, 1, 1);
+  
+  qgbDevices->setLayout(grid);  
+
+  qgbOutput = new QGroupBox(tr("Output Options"));
+  grid = new QGridLayout();
+  
+  qsOutputDelay = new QSlider(Qt::Horizontal);
+  qsOutputDelay->setRange(1, 6);
+  
+  qsOutputDelay->setSingleStep(1);
+  qsOutputDelay->setPageStep(2);
+  qsOutputDelay->setValue(g.s.iDXOutputDelay);
+  qsOutputDelay->setObjectName(QLatin1String("OutputDelay"));
+  l = new QLabel(tr("Output Delay"));
+  l->setBuddy(qsOutputDelay);
+  qlOutputDelay=new QLabel();
+  qlOutputDelay->setMinimumWidth(30);
+  on_OutputDelay_valueChanged(qsOutputDelay->value());
+  qsOutputDelay->setToolTip(tr("Amount of data to buffer for ALSA"));
+  qsOutputDelay->setWhatsThis(tr("This sets the amount of data to prebuffer in the output buffer. "
+                                 "Experiment with different values and set it to the lowest which doesn't "
+                                 "cause rapid jitter in the sound."));
+  grid->addWidget(l, 0, 0);
+  grid->addWidget(qsOutputDelay, 0, 1);
+  grid->addWidget(qlOutputDelay, 0, 2);
+
+  qgbOutput->setLayout(grid);
+  
+  v = new QVBoxLayout();
+  v->addWidget(qgbDevices);
+  v->addWidget(qgbOutput);
+  v->addStretch(1);
+  setLayout(v);
+  QMetaObject::connectSlotsByName(this);
+}
+
+QString ALSAConfig::title() const {
+  return tr("ALSA");
+}
+
+QIcon ALSAConfig::icon() const {
+  return QIcon(QLatin1String(":/config_dsound.png"));
+}
+
+void ALSAConfig::accept() {
+  g.s.iDXOutputDelay = qsOutputDelay->value();
+  g.s.qsALSAInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
+  g.s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
+}
+
+void ALSAConfig::on_OutputDelay_valueChanged(int v) {
+  qlOutputDelay->setText(tr("%1ms").arg(v*20));
+}
+        
 ALSAAudioInput::ALSAAudioInput()
 {
 }
@@ -66,17 +258,19 @@ void ALSAAudioInput::run()
     int readblapp;
 
 
-    const char *device_name = "default";
+    QByteArray device_name = g.s.qsALSAInput.toLatin1();
     snd_pcm_hw_params_t *hw_params;
     snd_pcm_t *capture_handle;
+    
+//    device_name = "default";
 
     unsigned int rrate = SAMPLE_RATE;
 
     bRunning = true;
     int err = 0;
 
-    qWarning("ALSAAudioInput: Initing audiocapture.");
-    err = snd_pcm_open(&capture_handle, device_name, SND_PCM_STREAM_CAPTURE, 0);
+    qWarning("ALSAAudioInput: Initing audiocapture %s.",device_name.data());
+    err = snd_pcm_open(&capture_handle, device_name.data(), SND_PCM_STREAM_CAPTURE, 0);
     if (err < 0) qWarning("ALSAAudioInput: %s", snd_strerror(err));
 
     /* Setup parameters using hw_params structure */
@@ -150,7 +344,6 @@ void ALSAAudioInput::run()
 	    err = snd_pcm_prepare(capture_handle);
 	    qWarning("ALSAAudioInput: %s: %s", snd_strerror(readblapp), snd_strerror(err));
 	} else if (iFrameSize == readblapp) {
-	    qWarning("ALSAAudioInput: Encoding Frame");
 	    encodeAudioFrame();
 	}
     }
@@ -216,10 +409,10 @@ void ALSAOutputPlayer::initialize()
     snd_pcm_sw_params_t *sw_params;
 
     /* The device name */
-    const char *device_name = "default";
+    QByteArray device_name = g.s.qsALSAOutput.toLatin1();
 
     /* Open the device */
-    snd_pcm_open(&pcm_handle, device_name, SND_PCM_STREAM_PLAYBACK, 0);
+    snd_pcm_open(&pcm_handle, device_name.data(), SND_PCM_STREAM_PLAYBACK, 0);
 
     /* Error check */
 

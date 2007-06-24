@@ -38,6 +38,22 @@
 class ALSAAudioOutput;
 class ALSAAudioInput;
 
+class ALSAConfig : public ConfigWidget {
+	Q_OBJECT
+	protected:
+		QComboBox *qcbInputDevice;
+		QComboBox *qcbOutputDevice;
+		QSlider *qsOutputDelay;
+		QLabel *qlOutputDelay;
+	public:
+		ALSAConfig(QWidget *p = NULL);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void accept();
+		void on_OutputDelay_valueChanged(int v);
+};
+
 class ALSAAudioInput : public AudioInput {
 	Q_OBJECT
 	protected:

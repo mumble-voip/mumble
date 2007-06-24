@@ -54,6 +54,7 @@ struct Settings {
 	
 #ifdef Q_OS_UNIX
 	QString qsFestival;
+	QString qsALSAInput, qsALSAOutput;
 #endif
 
 #ifdef USE_ASIO
