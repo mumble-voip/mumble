@@ -49,6 +49,10 @@
 #endif
 #include "Global.h"
 
+MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)){
+	msg = m;
+}
+
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	Channel::add(0, tr("Root"), NULL);
 
@@ -365,6 +369,11 @@ void MainWindow::setupGui()  {
 	qstiIcon->show();
 
 	QMetaObject::connectSlotsByName(this);
+}
+
+void MainWindow::msgBox(QString msg) {
+	MessageBoxEvent *mbe=new MessageBoxEvent(msg);
+	QApplication::postEvent(this, mbe);
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
@@ -916,6 +925,11 @@ void MainWindow::customEvent(QEvent *evt) {
 	if (evt->type() == TI_QEVENT) {
 			hide();
 			return;
+	}
+	if (evt->type() == MB_QEVENT) {
+		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
+		QMessageBox::warning(NULL, tr("Mumble"), mbe->msg, QMessageBox::Ok, QMessageBox::NoButton);
+		return;
 	}
 	if (evt->type() != SERVERSEND_EVENT)
 		return;

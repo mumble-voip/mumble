@@ -160,6 +160,7 @@ void ConfigDialog::apply() {
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
+	g.ao->start(QThread::HighPriority);
 }
 
 void ConfigDialog::accept() {

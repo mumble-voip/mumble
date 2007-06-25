@@ -123,8 +123,6 @@ void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
 	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * iFrameSize);
 }
 
-static QTime tt;
-
 bool AudioOutputPlayer::decodeNextFrame() {
 	int iTimestamp;
 	int iSpeech = 0;
@@ -133,8 +131,6 @@ bool AudioOutputPlayer::decodeNextFrame() {
 	int i;
 	unsigned int v;
 	bool alive = true;
-
-//	qWarning("Asking for packet at %08ld", tt.elapsed() / 20);
 
 	{
 		QMutexLocker lock(&qmJitter);
@@ -218,8 +214,6 @@ void AudioOutput::addFrameToBuffer(Player *player, QByteArray &qbaPacket, int iS
 
 	aop->addFrameToBuffer(qbaPacket, iSeq);
 
-	if (! isRunning())
-		start(QThread::HighPriority);
 	qrwlOutputs.unlock();
 }
 
@@ -235,31 +229,39 @@ bool AudioOutput::mixAudio(short *buffer) {
 	QList<AudioOutputPlayer *> qlMix;
 	QList<AudioOutputPlayer *> qlDel;
 
-	__m64 *out=reinterpret_cast<__m64 *>(buffer);
-	__m64 zero=_mm_cvtsi32_si64(0);
-	for(int i=0;i<iFrameSize/4;i++)
-		out[i]=zero;
-	
 	qrwlOutputs.lockForRead();
 	foreach(aop, qmOutputs) {
 		aop->decodeNextFrame();
-		if (aop->iMissedFrames > 25)
+		if (aop->iMissedFrames > 25) {
 			qlDel.append(aop);
-		else {
-			iFrameSize = aop->iFrameSize;
+		} else {
+			qlMix.append(aop);
 		}
 	}
-	if (iFrameSize > 0) {
 
-		foreach(aop, qlMix) {
-			__m64 *in=reinterpret_cast<__m64 *>(aop->psBuffer);
-			for(int i=0;i<iFrameSize/4;i++)
-				out[i]=_mm_adds_pi16(in[i],out[i]);
-		}
+	_mm_empty();	
+	__m64 *out=reinterpret_cast<__m64 *>(buffer);
+	__m64 zero=_mm_cvtsi32_si64(0);
+
+	for(int i=0;i<iFrameSize/4;i++)
+		out[i]=zero;
+
+	foreach(aop, qlMix) {
+		__m64 *in=reinterpret_cast<__m64 *>(aop->psBuffer);
+
+		for(int i=0;i<iFrameSize/4;i++)
+			out[i]=_mm_adds_pi16(in[i],out[i]);
+
+		for(int i=0;i<iFrameSize;i++)
+			buffer[i]=aop->psBuffer[i];
+
 	}
 	qrwlOutputs.unlock();
+
+	_mm_empty();	
+
 	foreach(aop, qlDel)
 		removeBuffer(aop->p);
-		
+
 	return (! qlMix.isEmpty());
 }

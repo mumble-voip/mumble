@@ -136,6 +136,7 @@ int main(int argc, char **argv)
 	g.ai = AudioInputRegistrar::newFromChoice();
 	g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice();
+	g.ao->start(QThread::HighPriority);
 
 	a.setQuitOnLastWindowClosed(true);
 	g.mw->on_ServerConnect_triggered();

@@ -65,16 +65,13 @@ class ALSAAudioInput : public AudioInput {
 };
 
 class ALSAAudioOutput;
+
 class ALSAOutputPlayer : public AudioOutputPlayer {
 	friend class ALSAAudioOutput;
 	Q_OBJECT
 	protected:
-		snd_pcm_t *pcm_handle;
 		ALSAAudioOutput *aao;
-		int iAliveHold;
-		bool playFrames();
  	public:
- 		static void initialize(snd_pcm_t * &pcm_handle, int period);
 		ALSAOutputPlayer(ALSAAudioOutput *, Player *);
 		~ALSAOutputPlayer();
 };
@@ -84,10 +81,8 @@ class ALSAAudioOutput : public AudioOutput {
 	friend class ALSAOutputPlayer;
 	Q_OBJECT
 	protected:
-		bool bSingle;
-		void multiRun();
-		void singleRun();
 	    	virtual AudioOutputPlayer *getPlayer(Player *);
+ 		static void initialize(snd_pcm_t * &pcm_handle, int period);
 	public:
 		ALSAAudioOutput();
 		~ALSAAudioOutput();

@@ -32,6 +32,7 @@
 #define _MAINWINDOW_H
 
 #define TI_QEVENT (QEvent::User + 938)
+#define MB_QEVENT (QEvent::User + 939)
 
 class ACLEditor;
 class BanEditor;
@@ -39,6 +40,12 @@ class ServerHandler;
 class GlobalShortcut;
 class TextToSpeech;
 class PlayerModel;
+
+class MessageBoxEvent : public QEvent {
+	public:
+		QString msg;
+		MessageBoxEvent(QString msg);
+};
 
 class MainWindow : public QMainWindow {
 	friend class PlayerModel;
@@ -67,6 +74,8 @@ class MainWindow : public QMainWindow {
 
 		void recheckTTS();
 		void appendLog(QString entry);
+		
+		void msgBox(QString msg);
 	protected:
 		QTimer *qtReconnect;
 		void createActions();
