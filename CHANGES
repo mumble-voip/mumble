@@ -1,4 +1,224 @@
-2006-10-30 [r418-419]  slicer:
+2007-06-26 [r496-498]  slicer:
+
+	* Fix race in UDP thread creation
+
+	* Fixed demonizing on Linux
+
+	* Daemonized murmur
+
+2007-06-25 [r495]  slicer:
+
+	* Softmixed ALSA
+
+2007-06-24 [r491-494]  slicer:
+
+	* Start of mix-it-all-together ALSA support
+
+	* Add MMX based software mixer
+
+	* ALSA Config dialog
+
+	* Fix crashbug on late UDP packets
+
+2007-06-23 [r484-489]  slicer:
+
+	* Festival under Linux
+
+	* Make new timeout code lock-safe on Qt 4.2. Oops.
+
+	* Add shortcut to quit application, and add standard shortcuts for
+	  a few other actions.
+
+	* Really close on mainwindow close
+
+	* Fix a few bugs, add -h to murmur
+
+	* Train coding session. Connections have a timeout on the server.
+	  Config dialog will add a scrollbar if needed. ServerDB doesn't
+	  create deprecated tables. Ghost handling autokicks if old ip ==
+	  new ip, even if unregistered. Added some more locks to the thread
+	  handling.
+
+2007-06-18 [r483]  slicer:
+
+	* Explicitly used queued connections for UDP thread.
+
+2007-06-16 [r482]  slicer:
+
+	* Allow adding groups again
+
+2007-06-15 [r481]  slicer:
+
+	* Option to expand all channels when connecting [Feture Req
+	  1619001]
+
+2007-06-13 [r462-480]  slicer:
+
+	* Make DBUS bindings conform to Qt standard, fix Introspection bugs
+
+	* Binary linux server release script
+
+	* QLatin1String
+
+	* More database updates
+
+	* Open connect dialog on program start
+
+	* Last part of qstring fixes and some qt 4.3 fixes for win32.
+
+	* Update copyrights to 2007
+
+	* Support fully static build of murmur
+
+	* QString::fromAscii
+
+	* Updated Ubuntu build scripts
+
+	* Updated source-release scripts
+
+	* Make .mumble.sqlite hidden
+
+	* Remove deprecated Commands.txt
+
+	* Multiple dbus sources
+
+	* Clarified licensing of binaries
+
+	* Initial multi-database support
+
+	* Fast path UDP thread
+
+	* Ensure correct include path
+
+	* Implemented all DBUS functions
+
+2007-06-08 [r460-461]  slicer:
+
+	* update connections table when changing channel
+
+	* DBus skeleton functions done, seems to work
+
+2007-06-05 [r458-459]  slicer:
+
+	* Don't install DBus on win32
+
+	* Functional DBUS
+
+2007-05-29 [r452-457]  slicer:
+
+	* Install QtDBus on Win32, and go back to Qt 4.2 until 4.3 is
+	  actually released.
+
+	* Initial DBus tests
+
+	* Setting period size changes the pointed to int
+
+	* Dead code removal
+
+	* Restored the "Microphone Loudness" information.
+
+	* SNR based voice detect
+
+2007-05-24 [r440-451]  slicer:
+
+	* restored icons
+
+	* Post-refactoring cleanups.
+
+	* Speex is now a static library, don't include the old dll in the
+	  installer.
+
+	* Linux build updates
+
+	* Updates to speex build for Linux
+
+	* Refactoring. Updated licenses to 2007 versions.
+
+	* Refactoring
+
+	* Refactoring
+
+	* No longer manually reset preprocessor loudness.
+
+	* Updating to SVN Speex again. Missing voice detection.
+
+	* Avoid contignous disk access in murmur, patch by buggerone
+
+	* Applied ALSA patch from uz_ Made some minor corrections to
+	  installer in preparation for Qt4.3
+
+2007-03-03 [r439]  slicer:
+
+	* Bugfix: Iterating all connected players should only iterate
+	  players that are also logged on.
+
+2006-12-21 [r438]  kjetijor:
+
+	* Connect-dialog available while connected. When connectiong while
+	  connected, an implicit disconnect will be issued first. 4
+	  whitespaces replaced with a tab
+
+2006-12-17 [r437]  slicer:
+
+	* Murmur should read .ini file before opening DB. [patch by
+	  buggerone]
+
+2006-12-13 [r436]  slicer:
+
+	* Use .ini file in executable directory if it exists.
+
+2006-12-04 [r434-435]  slicer:
+
+	* Don't translate registry strings.
+
+	* Use Qt 4.2's saveGeometry/restoreGeometry
+
+2006-12-02 [r433]  slicer:
+
+	* Updated paths to match recommendations from Wiki
+
+2006-11-27 [r432]  slicer:
+
+	* Add firmumble.inc to tarball
+
+2006-11-26 [r431]  slicer:
+
+	* Added Russian translation. Added icon for LookConfig
+
+2006-11-24 [r430]  CybKnight:
+
+	* Updated config_shortcuts.png with better look and feel and added
+	  config_ui.png for evaluation by lead programmer.
+
+2006-11-23 [r429]  slicer:
+
+	* Tiny typo correction.
+
+2006-11-18 [r428]  slicer:
+
+	* Add LookConfig
+
+2006-11-15 [r427]  slicer:
+
+	* Look&Feel Config. Skinning support.
+
+2006-11-03 [r426]  slicer:
+
+	* Switch to use QSystemTrayIcon
+
+2006-10-30 [r418-425]  slicer:
+
+	* Bitrate info in AudioDialog is now translated.
+
+	* bump version
+
+	* Add version info for debian builds
+
+	* Updated the speex build files for win32
+
+	* qt4 lrelease. *Sigh*
+
+	* Changelog update
 
 	* Add lrelase for debian build
 
