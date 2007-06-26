@@ -33,6 +33,12 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
+#ifdef Q_OS_UNIX
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#endif
+
 
 #include "Server.h"
 #include "ServerDB.h"
@@ -63,9 +69,9 @@ static void murmurMessageOutput(QtMsgType type, const char *msg)
 
 	if (! logfile || ! logfile->isOpen()) {
 #ifdef Q_OS_UNIX
-		fprintf(stderr, "%s", qPrintable(msg));
+		fprintf(stderr, "%s\n", msg);
 #else
-		::MessageBoxA(NULL, qPrintable(msg), "Murmur", MB_OK | MB_ICONWARNING);
+		::MessageBoxA(NULL, msg, "Murmur", MB_OK | MB_ICONWARNING);
 #endif
 	} else {
 	    logfile->write(m.toUtf8());
@@ -136,7 +142,7 @@ int main(int argc, char **argv)
 		qFatal("Superuser password set");
 	}
 
-	if (! g_sp.qsLogfile.isEmpty()) {
+	if (detach && ! g_sp.qsLogfile.isEmpty()) {
 		logfile = new QFile(g_sp.qsLogfile);
 	    if (! logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 		delete logfile;
@@ -157,6 +163,20 @@ int main(int argc, char **argv)
 	    if (fork() != 0) {
 		_exit(0);
 	    }
+	    chdir("/");
+	    int fd;
+	    
+	    fd = open("/dev/null", O_RDONLY);
+	    dup2(fd, 0);
+	    close(fd);
+
+	    fd = open("/dev/null", O_WRONLY);
+	    dup2(fd, 1);
+	    close(fd);
+
+	    fd = open("/dev/null", O_WRONLY);
+	    dup2(fd, 2);
+	    close(fd);
 	}
 
 	MurmurDBus::registerTypes();
