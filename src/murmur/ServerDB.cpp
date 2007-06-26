@@ -111,8 +111,6 @@ ServerDB::ServerDB() {
 	if (! found) {
 		QSqlError e = db.lastError();
 		qFatal("ServerDB: Failed initialization: %s",qPrintable(e.text()));
-	} else {
-		qWarning("ServerDB: Opened successfully");
 	}
 
 	QSqlQuery query;

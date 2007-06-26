@@ -140,6 +140,8 @@ struct ServerParams {
 
 	QString qsDBus;
 
+	QString qsLogfile;
+
 	ServerParams();
 	void read(QString fname = QString("murmur.ini"));
 };

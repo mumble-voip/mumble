@@ -66,11 +66,16 @@ ServerParams::ServerParams() {
 	iDBPort = 0;
 	qsDBDriver = "QSQLITE";
 	qsDBus = "session";
+	qsLogfile = "murmur.log";
 }
 
 void ServerParams::read(QString fname) {
 	if (fname.isEmpty())
 		fname = "murmur.ini";
+	else {
+	    if (! QFile(fname).exists())
+	    	qFatal("Specified ini file %s could not be opened", qPrintable(fname));
+	}
 	QSettings qs(fname, QSettings::IniFormat);
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
@@ -91,6 +96,8 @@ void ServerParams::read(QString fname) {
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
+
+	qsLogfile = qs.value("logfile", qsLogfile).toString();
 }
 
 BandwidthRecord::BandwidthRecord() {
@@ -145,7 +152,7 @@ void UDPThread::udpReady() {
 		Peer p(senderAddr, senderPort);
 
 		Connection *source = qhPeerConnections.value(p);
-		
+
 		if (!source || (source != g_sServer->qmConnections.value(msg->sPlayerId))) {
 			source = g_sServer->qmConnections.value(msg->sPlayerId);
 			if (! source || ! (source->peerAddress() == senderAddr)) {
@@ -318,11 +325,9 @@ void Server::log(QString s, Connection *c) {
 			iid = p->iId;
 			name = p->qsName;
 		}
-		qWarning("[%s] <%d:%s(%d)> %s", QDateTime::currentDateTime().toString(Qt::ISODate).toAscii().constData(),
-				id, name.toAscii().constData(), iid, s.toAscii().constData());
+		qWarning("<%d:%s(%d)> %s", id, qPrintable(name), iid, qPrintable(s));
 	} else {
-		qWarning("[%s] %s", QDateTime::currentDateTime().toString(Qt::ISODate).toAscii().constData(),
-				s.toAscii().constData());
+		qWarning("%s", qPrintable(s));
 	}
 }
 

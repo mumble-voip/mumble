@@ -1,7 +1,7 @@
 include(../mumble.pri)
 
 TEMPLATE	=app
-CONFIG  += network console
+CONFIG  += network
 CONFIG(static) {
 	QMAKE_LFLAGS += -static
 }

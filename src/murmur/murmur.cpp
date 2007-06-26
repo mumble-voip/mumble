@@ -39,8 +39,39 @@
 #include "DBus.h"
 
 extern Server *g_sServer;
-
 MurmurDBus *dbus;
+QFile *logfile;
+
+static void murmurMessageOutput(QtMsgType type, const char *msg)
+{
+
+	char c;
+	switch (type) {
+		case QtDebugMsg:
+			c='D';
+			break;
+		case QtWarningMsg:
+			c='W';
+			break;
+		case QtFatalMsg:
+			c='F';
+			break;
+		default:
+			c='X';
+	}
+	QString m= QString::fromLatin1("<%1>%2 %3\n").arg(QChar::fromLatin1(c)).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(msg);
+
+	if (! logfile || ! logfile->isOpen()) {
+#ifdef Q_OS_UNIX
+		fprintf(stderr, "%s", qPrintable(msg));
+#else
+		::MessageBoxA(NULL, qPrintable(msg), "Murmur", MB_OK | MB_ICONWARNING);
+#endif
+	} else {
+	    logfile->write(m.toUtf8());
+	    logfile->flush();
+       }
+}
 
 int main(int argc, char **argv)
 {
@@ -55,7 +86,6 @@ int main(int argc, char **argv)
 		exit(0);
 	}
 #endif
-
 	int res;
 
 	QCoreApplication a(argc, argv);
@@ -70,6 +100,10 @@ int main(int argc, char **argv)
 	QString inifile;
 	QString supw;
 
+	bool detach = true;
+
+        qInstallMsgHandler(murmurMessageOutput);
+
 	for(int i=1;i<argc;i++) {
 		QString arg = QString(argv[i]).toLower();
 		if ((arg == "-supw") && ( i+1 < argc )) {
@@ -78,13 +112,16 @@ int main(int argc, char **argv)
 		} else if ((arg == "-ini") && ( i+1 < argc )) {
 			i++;
 			inifile=argv[i];
+		} else if ((arg == "-fg")) {
+		    	detach = false;
 		} else if ((arg == "-h") || (arg == "--help")) {
 			i++;
-			qWarning("Usage: %s [-ini <inifile>] [-supw <password>]",argv[0]);
-			qWarning("  -ini <inifile>  Specify ini file to use.");
-			qWarning("  -supw <pw>      Set password for 'SuperUser' account.");
-			qWarning("If no inifile is provided, murmur will search for one in ");
-			qFatal("default locations.");
+			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
+				"  -ini <inifile>  Specify ini file to use.\n"
+				"  -supw <pw>      Set password for 'SuperUser' account.\n"
+				"  -fg             Don't detach from console [Linux only].\n"
+				"If no inifile is provided, murmur will search for one in \n"
+				"default locations.",argv[0]);
 		} else {
 			qFatal("Unknown argument %s", argv[i]);
 		}
@@ -99,8 +136,29 @@ int main(int argc, char **argv)
 		qFatal("Superuser password set");
 	}
 
+	if (! g_sp.qsLogfile.isEmpty()) {
+		logfile = new QFile(g_sp.qsLogfile);
+	    if (! logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+		delete logfile;
+		logfile = NULL;
+		qWarning("Failed to open logfile %s. Will not detach.",qPrintable(g_sp.qsLogfile));
+		detach = false;
+	    }
+	} else {
+	    detach = false;
+    	}
 
 #ifdef Q_OS_UNIX
+	if (detach) {
+	    if (fork() != 0) {
+		_exit(0);
+	    }
+	    setsid();
+	    if (fork() != 0) {
+		_exit(0);
+	    }
+	}
+
 	MurmurDBus::registerTypes();
 #endif
 	dbus=new MurmurDBus(a);
