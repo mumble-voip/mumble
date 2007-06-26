@@ -165,7 +165,7 @@ int main(int argc, char **argv)
 	    }
 	    chdir("/");
 	    int fd;
-	    
+
 	    fd = open("/dev/null", O_RDONLY);
 	    dup2(fd, 0);
 	    close(fd);
@@ -212,6 +212,7 @@ int main(int argc, char **argv)
 	db.readChannels();
 
 	g_sServer = new Server();
+	g_sServer->udp->start(QThread::HighestPriority);
 	res=a.exec();
 
 	return res;

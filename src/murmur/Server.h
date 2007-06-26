@@ -84,7 +84,6 @@ class Server : public QObject {
 		QTcpServer *qtsServer;
 		QTimer *qtTimer;
 		QTimer *qtTimeout;
-		UDPThread *udp;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
@@ -99,6 +98,8 @@ class Server : public QObject {
 		QHash<Connection *, Player *> qmPlayers;
 		QHash<Connection *, BandwidthRecord *> qmBandwidth;
 		QReadWriteLock qrwlConnections;
+
+		UDPThread *udp;
 
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;

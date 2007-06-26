@@ -309,8 +309,6 @@ Server::Server() {
 	qtTimeout->start(5500);
 
 	qlBans = ServerDB::getBans();
-
-	udp->start(QThread::HighestPriority);
 }
 
 void Server::log(QString s, Connection *c) {
