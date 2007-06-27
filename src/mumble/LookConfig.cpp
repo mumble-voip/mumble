@@ -109,7 +109,7 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	qcbHorizontal = new QCheckBox(tr("Use Horizontal Splitter"));
 	qcbHorizontal->setChecked(g.qs->value(QLatin1String("Horizontal"), true).toBool());
 	qcbHorizontal->setToolTip(tr("Use horizontal or vertical splitter for the main window"));
-	qcbHorizontal->setWhatsThis(tr("<b>This sets whether the split in the main window is horizontal or vertical.</b>"));
+	qcbHorizontal->setWhatsThis(tr("<b>This sets whether the split in the main window is horizontal (side by side) or vertical (above and below).</b>"));
 	grid->addWidget(qcbHorizontal, 2, 1, 1, 2);
 
 	qcbExpand = new QCheckBox(tr("Expand All Channels"));
