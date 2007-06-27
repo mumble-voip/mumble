@@ -1,4 +1,4 @@
-VERSION		= 0.9.5
+VERSION		= 1.0.0
 DIST		= LICENSE INSTALL README CHANGES mumble.pro murmur.pro mumble.pri mumble.ico Message.h mumble_plugin.h
 CONFIG		+= qt thread debug_and_release warn_on precompile_header
 

@@ -30,7 +30,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
-	qmake-qt4 DEFINES+=MUMBLE_VERSION="0.9.5" main.pro
+	qmake-qt4 DEFINES+=MUMBLE_VERSION="1.0.0" main.pro
 
 	touch configure-stamp
 

@@ -1,3 +1,9 @@
+mumble (1.0.0) feisty; urgency=low
+
+  * Bugfix release
+
+ -- Thorvald Natvig <slicer@sourceforge.net>  Tue, 27 Jun 2007 13:35:20 +0200
+
 mumble (0.9.5) feisty; urgency=low
 
   * Embedded speex
