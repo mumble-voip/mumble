@@ -29,6 +29,7 @@
 */
 
 #include "Message.h"
+#include "PacketDataStream.h"
 
 Message::Message() {
 	sPlayerId = 0;
@@ -38,14 +39,14 @@ Message::~Message() {
 }
 
 void Message::messageToNetwork(QByteArray &qbaOut) const {
-	QDataStream qdsOut(&qbaOut, QIODevice::WriteOnly);
-	qdsOut << static_cast<unsigned char>(messageType());
+	PacketDataStream qdsOut(qbaOut.data(), qbaOut.capacity());
+	qdsOut << messageType();
 	qdsOut << sPlayerId;
 	saveStream(qdsOut);
 }
 
 Message *Message::networkToMessage(QByteArray &qbaIn) {
-	QDataStream qdsIn(qbaIn);
+	PacketDataStream qdsIn(qbaIn.constData(), qbaIn.size());
 	Message *mMsg = NULL;
 	unsigned char iMessageType;
 	short sPlayerId;
@@ -127,11 +128,11 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 	if (mMsg) {
 		mMsg->sPlayerId=sPlayerId;
 		mMsg->restoreStream(qdsIn);
-		if (qdsIn.status() != QDataStream::Ok) {
+		if (! qdsIn.isValid()) {
 			delete mMsg;
 			mMsg = NULL;
 			qWarning("Message: %d[%d] Corrput or short packet", iMessageType, sPlayerId);
-		} else if (qdsIn.device()->bytesAvailable() != 0) {
+		} else if (qdsIn.left() != 0) {
 			delete mMsg;
 			mMsg = NULL;
 			qWarning("Message: %d[%d] Long packet", iMessageType, sPlayerId);
@@ -149,10 +150,10 @@ bool Message::isValid() const {
 	return true;
 }
 
-void Message::saveStream(QDataStream &) const {
+void Message::saveStream(PacketDataStream &) const {
 }
 
-void Message::restoreStream(QDataStream &) {
+void Message::restoreStream(PacketDataStream &) {
 }
 
 MessagePing::MessagePing() {
@@ -163,14 +164,14 @@ MessageServerAuthenticate::MessageServerAuthenticate() {
 	iMaxBandwidth = 100000;
 }
 
-void MessageServerAuthenticate::saveStream(QDataStream &qdsOut) const{
+void MessageServerAuthenticate::saveStream(PacketDataStream &qdsOut) const{
 	qdsOut << iVersion;
 	qdsOut << iMaxBandwidth;
 	qdsOut << qsUsername;
 	qdsOut << qsPassword;
 }
 
-void MessageServerAuthenticate::restoreStream(QDataStream &qdsIn) {
+void MessageServerAuthenticate::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iVersion;
 	qdsIn >> iMaxBandwidth;
 	qdsIn >> qsUsername;
@@ -182,11 +183,11 @@ MessageServerReject::MessageServerReject() {
 	qsReason = QString();
 }
 
-void MessageServerReject::saveStream(QDataStream &qdsOut) const {
+void MessageServerReject::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsReason;
 }
 
-void MessageServerReject::restoreStream(QDataStream &qdsIn) {
+void MessageServerReject::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsReason;
 }
 
@@ -194,12 +195,12 @@ MessageServerSync::MessageServerSync() {
 	qsWelcomeText = QString();
 }
 
-void MessageServerSync::saveStream(QDataStream &qdsOut) const {
+void MessageServerSync::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iMaxBandwidth;
 	qdsOut << qsWelcomeText;
 }
 
-void MessageServerSync::restoreStream(QDataStream &qdsIn) {
+void MessageServerSync::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iMaxBandwidth;
 	qdsIn >> qsWelcomeText;
 }
@@ -209,12 +210,12 @@ MessageServerJoin::MessageServerJoin() {
 	iId = -2;
 }
 
-void MessageServerJoin::saveStream(QDataStream &qdsOut) const {
+void MessageServerJoin::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsPlayerName;
 	qdsOut << iId;
 }
 
-void MessageServerJoin::restoreStream(QDataStream &qdsIn) {
+void MessageServerJoin::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsPlayerName;
 	qdsIn >> iId;
 }
@@ -223,12 +224,12 @@ MessageServerBanList::MessageServerBanList() {
 	bQuery = true;
 }
 
-void MessageServerBanList::saveStream(QDataStream &qdsOut) const {
+void MessageServerBanList::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << bQuery;
 	qdsOut << qlBans;
 }
 
-void MessageServerBanList::restoreStream(QDataStream &qdsIn) {
+void MessageServerBanList::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> bQuery;
 	qdsIn >> qlBans;
 }
@@ -237,11 +238,11 @@ MessagePermissionDenied::MessagePermissionDenied() {
 	qsReason = QString();
 }
 
-void MessagePermissionDenied::saveStream(QDataStream &qdsOut) const {
+void MessagePermissionDenied::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsReason;
 }
 
-void MessagePermissionDenied::restoreStream(QDataStream &qdsIn) {
+void MessagePermissionDenied::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsReason;
 }
 
@@ -251,21 +252,18 @@ MessageSpeex::MessageSpeex() {
 	qbaSpeexPacket = QByteArray();
 }
 
-void MessageSpeex::saveStream(QDataStream &qdsOut) const {
+void MessageSpeex::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << static_cast<unsigned short>(iSeq);
 	qdsOut << static_cast<unsigned char>(ucFlags);
-	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
-	qbBuffer->buffer().append(qbaSpeexPacket);
+	qdsOut.append(qbaSpeexPacket.constData(), qbaSpeexPacket.size());
 }
 
-void MessageSpeex::restoreStream(QDataStream &qdsIn) {
+void MessageSpeex::restoreStream(PacketDataStream &qdsIn) {
 	unsigned short useq;
 	qdsIn >> useq;
 	iSeq = useq;
 	qdsIn >> ucFlags;
-	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
-	qbaSpeexPacket = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
-	qbBuffer->seek(qbBuffer->size());
+	qbaSpeexPacket = qdsIn.dataBlock(qdsIn.left());
 }
 
 bool MessageSpeex::isValid() const {
@@ -277,45 +275,30 @@ MessageMultiSpeex::MessageMultiSpeex() {
 	ucFlags = 0;
 }
 
-void MessageMultiSpeex::saveStream(QDataStream &qdsOut) const {
+void MessageMultiSpeex::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << static_cast<unsigned short>(iSeq);
 	qdsOut << static_cast<unsigned char>(ucFlags);
-	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsOut.device());
-
-	foreach(QByteArray qba, qlFrames) {
-		qbBuffer->buffer().append(static_cast<char>(qba.size()));
-		qbBuffer->buffer().append(qba);
-	}
+	qdsOut << qlFrames;
 }
 
-void MessageMultiSpeex::restoreStream(QDataStream &qdsIn) {
+void MessageMultiSpeex::restoreStream(PacketDataStream &qdsIn) {
 	unsigned short useq;
 	qdsIn >> useq;
 	iSeq = useq;
 	qdsIn >> ucFlags;
-	QBuffer *qbBuffer = static_cast<QBuffer *>(qdsIn.device());
-	QByteArray qba = qbBuffer->buffer().right(qbBuffer->bytesAvailable());
-	qbBuffer->seek(qbBuffer->size());
-
-	int ofs = 0;
-	while(ofs < qba.size()) {
-		unsigned char csize = qba.at(ofs);
-		int size = static_cast<unsigned char>(csize);
-		qlFrames << qba.mid(ofs + 1, size);
-		ofs += size + 1;
-	}
+	qdsIn >> qlFrames;
 }
 
 MessagePlayerMute::MessagePlayerMute() {
 	bMute = false;
 }
 
-void MessagePlayerMute::saveStream(QDataStream &qdsOut) const {
+void MessagePlayerMute::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << bMute;
 }
 
-void MessagePlayerMute::restoreStream(QDataStream &qdsIn) {
+void MessagePlayerMute::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> sVictim;
 	qdsIn >> bMute;
 }
@@ -325,12 +308,12 @@ MessagePlayerDeaf::MessagePlayerDeaf() {
 	bDeaf = false;
 }
 
-void MessagePlayerDeaf::saveStream(QDataStream &qdsOut) const {
+void MessagePlayerDeaf::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << bDeaf;
 }
 
-void MessagePlayerDeaf::restoreStream(QDataStream &qdsIn) {
+void MessagePlayerDeaf::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> sVictim;
 	qdsIn >> bDeaf;
 }
@@ -339,12 +322,12 @@ MessagePlayerKick::MessagePlayerKick() {
 	qsReason = QString();
 }
 
-void MessagePlayerKick::saveStream(QDataStream &qdsOut) const {
+void MessagePlayerKick::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << qsReason;
 }
 
-void MessagePlayerKick::restoreStream(QDataStream &qdsIn) {
+void MessagePlayerKick::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> sVictim;
 	qdsIn >> qsReason;
 }
@@ -353,12 +336,12 @@ MessagePlayerBan::MessagePlayerBan() {
 	qsReason = QString();
 }
 
-void MessagePlayerBan::saveStream(QDataStream &qdsOut) const {
+void MessagePlayerBan::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << qsReason;
 }
 
-void MessagePlayerBan::restoreStream(QDataStream &qdsIn) {
+void MessagePlayerBan::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> sVictim;
 	qdsIn >> qsReason;
 }
@@ -368,12 +351,12 @@ MessagePlayerMove::MessagePlayerMove() {
 	iChannelId = 0;
 }
 
-void MessagePlayerMove::saveStream(QDataStream &qdsOut) const {
+void MessagePlayerMove::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << sVictim;
 	qdsOut << iChannelId;
 }
 
-void MessagePlayerMove::restoreStream(QDataStream &qdsIn) {
+void MessagePlayerMove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> sVictim;
 	qdsIn >> iChannelId;
 }
@@ -381,11 +364,11 @@ void MessagePlayerMove::restoreStream(QDataStream &qdsIn) {
 MessagePlayerRename::MessagePlayerRename() {
 }
 
-void MessagePlayerRename::saveStream(QDataStream &qdsOut) const {
+void MessagePlayerRename::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsName;
 }
 
-void MessagePlayerRename::restoreStream(QDataStream &qdsIn) {
+void MessagePlayerRename::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsName;
 }
 
@@ -394,12 +377,12 @@ MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
 	bDeaf = false;
 }
 
-void MessagePlayerSelfMuteDeaf::saveStream(QDataStream &qdsOut) const {
+void MessagePlayerSelfMuteDeaf::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << bMute;
 	qdsOut << bDeaf;
 }
 
-void MessagePlayerSelfMuteDeaf::restoreStream(QDataStream &qdsIn) {
+void MessagePlayerSelfMuteDeaf::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> bMute;
 	qdsIn >> bDeaf;
 }
@@ -409,13 +392,13 @@ MessageChannelAdd::MessageChannelAdd() {
 	iParent = -1;
 }
 
-void MessageChannelAdd::saveStream(QDataStream &qdsOut) const {
+void MessageChannelAdd::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iId;
 	qdsOut << iParent;
 	qdsOut << qsName;
 }
 
-void MessageChannelAdd::restoreStream(QDataStream &qdsIn) {
+void MessageChannelAdd::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 	qdsIn >> iParent;
 	qdsIn >> qsName;
@@ -425,11 +408,11 @@ MessageChannelRemove::MessageChannelRemove() {
 	iId = 0;
 }
 
-void MessageChannelRemove::saveStream(QDataStream &qdsOut) const {
+void MessageChannelRemove::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iId;
 }
 
-void MessageChannelRemove::restoreStream(QDataStream &qdsIn) {
+void MessageChannelRemove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 }
 
@@ -438,13 +421,13 @@ MessageChannelLink::MessageChannelLink() {
 	ltType = UnlinkAll;
 }
 
-void MessageChannelLink::saveStream(QDataStream &qdsOut) const {
+void MessageChannelLink::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iId;
 	qdsOut << static_cast<int>(ltType);
 	qdsOut << qlTargets;
 }
 
-void MessageChannelLink::restoreStream(QDataStream &qdsIn) {
+void MessageChannelLink::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 	int v;
 	qdsIn >> v;
@@ -457,12 +440,12 @@ MessageChannelMove::MessageChannelMove() {
 	iParent = 0;
 }
 
-void MessageChannelMove::saveStream(QDataStream &qdsOut) const {
+void MessageChannelMove::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iId;
 	qdsOut << iParent;
 }
 
-void MessageChannelMove::restoreStream(QDataStream &qdsIn) {
+void MessageChannelMove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 	qdsIn >> iParent;
 }
@@ -473,7 +456,7 @@ MessageEditACL::MessageEditACL() {
 	bInheritACL = true;
 }
 
-void MessageEditACL::saveStream(QDataStream &qdsOut) const {
+void MessageEditACL::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iId;
 	qdsOut << bQuery;
 	if (bQuery)
@@ -484,7 +467,7 @@ void MessageEditACL::saveStream(QDataStream &qdsOut) const {
 	qdsOut << acls;
 }
 
-void MessageEditACL::restoreStream(QDataStream &qdsIn) {
+void MessageEditACL::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 	qdsIn >> bQuery;
 	if (bQuery)
@@ -498,12 +481,12 @@ void MessageEditACL::restoreStream(QDataStream &qdsIn) {
 MessageQueryUsers::MessageQueryUsers() {
 }
 
-void MessageQueryUsers::saveStream(QDataStream &qdsOut) const {
+void MessageQueryUsers::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qlIds;
 	qdsOut << qlNames;
 }
 
-void MessageQueryUsers::restoreStream(QDataStream &qdsIn) {
+void MessageQueryUsers::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qlIds;
 	qdsIn >> qlNames;
 }
@@ -520,7 +503,7 @@ bool MessageQueryUsers::isValid() const {
 	return true;
 }
 
-QDataStream & operator<< ( QDataStream & out, const MessageEditACL::GroupStruct &gs ) {
+PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::GroupStruct &gs ) {
 	out << gs.qsName;
 	out << gs.bInherited;
 	out << gs.bInherit;
@@ -531,7 +514,7 @@ QDataStream & operator<< ( QDataStream & out, const MessageEditACL::GroupStruct 
 	return out;
 }
 
-QDataStream & operator>> ( QDataStream & in, MessageEditACL::GroupStruct &gs ) {
+PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::GroupStruct &gs ) {
 	in >> gs.qsName;
 	in >> gs.bInherited;
 	in >> gs.bInherit;
@@ -542,7 +525,7 @@ QDataStream & operator>> ( QDataStream & in, MessageEditACL::GroupStruct &gs ) {
 	return in;
 }
 
-QDataStream & operator<< ( QDataStream & out, const MessageEditACL::ACLStruct &as ) {
+PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::ACLStruct &as ) {
 	out << as.bApplyHere;
 	out << as.bApplySubs;
 	out << as.bInherited;
@@ -553,7 +536,7 @@ QDataStream & operator<< ( QDataStream & out, const MessageEditACL::ACLStruct &a
 	return out;
 }
 
-QDataStream & operator>> ( QDataStream & in, MessageEditACL::ACLStruct &as ) {
+PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::ACLStruct &as ) {
 	int v;
 
 	in >> as.bApplyHere;

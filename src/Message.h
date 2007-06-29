@@ -36,11 +36,12 @@
 #include "ACL.h"
 
 class Connection;
+class PacketDataStream;
 
 class Message {
 	protected:
-		virtual void saveStream(QDataStream &) const;
-		virtual void restoreStream(QDataStream &);
+		virtual void saveStream(PacketDataStream &) const;
+		virtual void restoreStream(PacketDataStream &);
 	public:
 		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping};
 		unsigned short sPlayerId;
@@ -57,8 +58,8 @@ class Message {
 
 class MessageSpeex : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		unsigned short iSeq;
 		QByteArray qbaSpeexPacket;
@@ -71,8 +72,8 @@ class MessageSpeex : public Message {
 
 class MessageMultiSpeex : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		unsigned short iSeq;
 		unsigned char ucFlags;
@@ -85,8 +86,8 @@ class MessageMultiSpeex : public Message {
 
 class MessageServerAuthenticate : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		int	iVersion;
 		int iMaxBandwidth;
@@ -106,8 +107,8 @@ class MessagePing : public Message {
 
 class MessageServerReject : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		QString qsReason;
 		MessageServerReject();
@@ -117,8 +118,8 @@ class MessageServerReject : public Message {
 
 class MessageServerSync : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		int iMaxBandwidth;
 		QString qsWelcomeText;
@@ -129,8 +130,8 @@ class MessageServerSync : public Message {
 
 class MessageServerJoin : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		QString qsPlayerName;
 		int iId;
@@ -147,8 +148,8 @@ class MessageServerLeave : public Message {
 
 class MessagePlayerMute : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		short sVictim;
 		bool bMute;
@@ -159,8 +160,8 @@ class MessagePlayerMute : public Message {
 
 class MessagePlayerDeaf : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		short sVictim;
 		bool bDeaf;
@@ -171,8 +172,8 @@ class MessagePlayerDeaf : public Message {
 
 class MessagePlayerSelfMuteDeaf : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		bool bMute;
 		bool bDeaf;
@@ -183,8 +184,8 @@ class MessagePlayerSelfMuteDeaf : public Message {
 
 class MessagePlayerKick : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		short sVictim;
 		QString qsReason;
@@ -195,8 +196,8 @@ class MessagePlayerKick : public Message {
 
 class MessagePlayerBan : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		short sVictim;
 		QString qsReason;
@@ -207,8 +208,8 @@ class MessagePlayerBan : public Message {
 
 class MessagePlayerMove : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		short sVictim;
 		int iChannelId;
@@ -219,8 +220,8 @@ class MessagePlayerMove : public Message {
 
 class MessagePlayerRename : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		QString qsName;
 		MessagePlayerRename();
@@ -230,8 +231,8 @@ class MessagePlayerRename : public Message {
 
 class MessageChannelAdd : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		int iId;
 		int iParent;
@@ -243,8 +244,8 @@ class MessageChannelAdd : public Message {
 
 class MessageChannelRemove : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		int iId;
 		MessageChannelRemove();
@@ -254,8 +255,8 @@ class MessageChannelRemove : public Message {
 
 class MessageChannelMove : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		int iId;
 		int iParent;
@@ -266,8 +267,8 @@ class MessageChannelMove : public Message {
 
 class MessageChannelLink : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		enum LinkType {
 			Link, Unlink, UnlinkAll, PushLink, PushUnlink
@@ -282,8 +283,8 @@ class MessageChannelLink : public Message {
 
 class MessageServerBanList : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		bool bQuery;
 		QList<QPair<quint32, int> > qlBans;
@@ -294,8 +295,8 @@ class MessageServerBanList : public Message {
 
 class MessagePermissionDenied : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		QString qsReason;
 		MessagePermissionDenied();
@@ -305,8 +306,8 @@ class MessagePermissionDenied : public Message {
 
 class MessageEditACL : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		struct GroupStruct {
 			QString qsName;
@@ -338,15 +339,15 @@ class MessageEditACL : public Message {
 		void process(Connection *);
 };
 
-QDataStream & operator<< ( QDataStream & out, const MessageEditACL::GroupStruct &gs );
-QDataStream & operator>> ( QDataStream & in, MessageEditACL::GroupStruct &gs );
-QDataStream & operator<< ( QDataStream & out, const MessageEditACL::ACLStruct &gs );
-QDataStream & operator>> ( QDataStream & in, MessageEditACL::ACLStruct &gs );
+PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::GroupStruct &gs );
+PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::GroupStruct &gs );
+PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::ACLStruct &gs );
+PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::ACLStruct &gs );
 
 class MessageQueryUsers : public Message {
 	protected:
-		void saveStream(QDataStream &) const;
-		void restoreStream(QDataStream &);
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
 		QList<int> qlIds;
 		QList<QString> qlNames;
