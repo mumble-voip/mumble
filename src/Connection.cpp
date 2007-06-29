@@ -102,8 +102,8 @@ void Connection::socketDisconnected() {
 
 void Connection::sendMessage(const Message *mMsg) {
 	QByteArray qbaBuffer;
-
 	mMsg->messageToNetwork(qbaBuffer);
+
 	sendMessage(qbaBuffer);
 }
 

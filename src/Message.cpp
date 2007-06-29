@@ -43,7 +43,8 @@ void Message::messageToNetwork(QByteArray &qbaOut) const {
 	PacketDataStream qdsOut(qbaOut.data(), qbaOut.capacity());
 	qdsOut << messageType();
 	qdsOut << sPlayerId;
-	
+	saveStream(qdsOut);
+
 	qbaOut = QByteArray(qbaOut.constData(), qdsOut.size());
 }
 
@@ -261,9 +262,7 @@ void MessageSpeex::saveStream(PacketDataStream &qdsOut) const {
 }
 
 void MessageSpeex::restoreStream(PacketDataStream &qdsIn) {
-	unsigned short useq;
-	qdsIn >> useq;
-	iSeq = useq;
+	qdsIn >> iSeq;
 	qdsIn >> ucFlags;
 	qbaSpeexPacket = qdsIn.dataBlock(qdsIn.left());
 }

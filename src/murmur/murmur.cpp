@@ -108,7 +108,9 @@ int main(int argc, char **argv)
 
 	bool detach = true;
 
+#ifdef Q_NO_DEBUG
         qInstallMsgHandler(murmurMessageOutput);
+#endif
 
 	for(int i=1;i<argc;i++) {
 		QString arg = QString(argv[i]).toLower();

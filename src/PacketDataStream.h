@@ -46,7 +46,7 @@ class PacketDataStream {
 		quint32 size() const {
 			return offset;
 		}
-		
+
 		bool isValid() const {
 			return ok;
 		}
@@ -56,12 +56,12 @@ class PacketDataStream {
 		}
 
 		void append(const quint32 v) {
-			if (offset < maxsize) 
+			if (offset < maxsize)
 				data[offset++] = v;
 			else
 				ok = false;
 		};
-		
+
 		void append(const char *d, quint32 len) {
 			if (left() >= len) {
 				memcpy(& data[offset], d, len);
@@ -70,7 +70,7 @@ class PacketDataStream {
 				ok = false;
 			}
 		}
-		
+
 		quint32 next() {
 			if (offset < maxsize)
 				return data[offset++];
@@ -79,7 +79,7 @@ class PacketDataStream {
 				return 0;
 			}
 		};
-		
+
 		const unsigned char *dataPtr() const {
 			return reinterpret_cast<const unsigned char *>(& data[offset]);
 		}
@@ -87,7 +87,7 @@ class PacketDataStream {
 		const char *charPtr() const {
 			return reinterpret_cast<const char *>(& data[offset]);
 		}
-		
+
 		QByteArray dataBlock(quint32 len) {
 			if (len <= left()) {
 				QByteArray a(charPtr(), len);
@@ -98,7 +98,7 @@ class PacketDataStream {
 				return QByteArray();
 			}
 		}
-		
+
 	protected:
 		void setup(unsigned char *d, int msize) {
 			data = d;
@@ -118,7 +118,7 @@ class PacketDataStream {
 		PacketDataStream(unsigned char *d, int msize) {
 			setup(d, msize);
 		};
-		
+
 		PacketDataStream &operator <<(const quint32 i) {
 			if (i < 0x80) {
 				append(i);
@@ -151,13 +151,12 @@ class PacketDataStream {
 			} else if ((v & 0xF0) == 0xE0) {
 				i=(v & 0x0F) << 24 | next() << 16 | next() << 8 | next();
 			} else if ((v & 0xE0) == 0xC0) {
-				i=(v & 0x1F) << 16 | next() << 8 | next();	
+				i=(v & 0x1F) << 16 | next() << 8 | next();
 			} else if ((v & 0xC0) == 0x80) {
 			        i=(v & 0x3F) << 8 | next();
 			} else {
 				i=(v & 0x7F);
 			}
-			qWarning("Val %x %x", v, i);			
 			return *this;
 		}
 
@@ -166,11 +165,11 @@ class PacketDataStream {
 			append(a.constData(), a.size());
 			return *this;
 		}
-		
+
 		PacketDataStream &operator >>(QByteArray &a) {
 			quint32 len;
 			*this >> len;
-			if (len < left()) {
+			if (len > left()) {
 				len = left();
 				ok = false;
 			}
@@ -178,16 +177,16 @@ class PacketDataStream {
 			offset+=len;
 			return *this;
 		}
-		
+
 		PacketDataStream &operator <<(const QString &s) {
 			return *this << s.toUtf8();
 		}
-		
+
 		// Using the data directly instead of through qbuff avoids a copy.
 		PacketDataStream &operator >>(QString &s) {
 			quint32 len;
 			*this >> len;
-			if (len < left()) {
+			if (len > left()) {
 				len = left();
 				ok = false;
 			}
@@ -200,7 +199,7 @@ class PacketDataStream {
 			quint32 v = b ? 1 : 0;
 			return *this << v;
 		}
-		
+
 		PacketDataStream &operator >>(bool &b) {
 			quint32 v;
 			*this >> v;
@@ -219,7 +218,7 @@ class PacketDataStream {
 			return *this; \
 		}
 
-		
+
 		INTMAPOPERATOR(int);
 //		Oh, how horribly this bugs
 //		INTMAPOPERATOR(unsigned int);
@@ -228,7 +227,7 @@ class PacketDataStream {
 		INTMAPOPERATOR(unsigned short);
 		INTMAPOPERATOR(char);
 		INTMAPOPERATOR(unsigned char);
-		
+
 		template <typename T>
 		PacketDataStream &operator <<(const QList<T> &l) {
 			*this << l.size();
@@ -236,28 +235,29 @@ class PacketDataStream {
 				*this << l.at(i);
 			return *this;
 		}
-		
+
 		template <typename T>
 		PacketDataStream &operator >>(QList<T> &l) {
 			l.clear();
 			quint32 len;
 			*this >> len;
-			if (len < left()) {
+			if (len > left()) {
 				len = left();
 				ok = false;
 			}
 			for(quint32 i=0;i<len;i++) {
-				T t;
-				*this >> t;
-				l.append(t);
 				if (left() == 0) {
 					ok = false;
 					break;
 				}
+
+				T t;
+				*this >> t;
+				l.append(t);
 			}
 			return *this;
 		}
-		
+
 
 		template <typename T>
 		PacketDataStream &operator <<(const QSet<T> &s) {
@@ -266,24 +266,25 @@ class PacketDataStream {
 				*this << *i;
 			return *this;
 		}
-		
+
 		template <typename T>
 		PacketDataStream &operator >>(QSet<T> &s) {
 			s.clear();
 			quint32 len;
 			*this >> len;
-			if (len < left()) {
+			if (len > left()) {
 				len = left();
 				ok = false;
 			}
 			for(quint32 i=0;i<len;i++) {
-				T t;
-				*this >> t;
-				s.insert(t);
 				if (left() == 0) {
 					ok = false;
 					break;
 				}
+
+				T t;
+				*this >> t;
+				s.insert(t);
 			}
 			return *this;
 		}
@@ -292,12 +293,12 @@ class PacketDataStream {
 		PacketDataStream &operator <<(const QPair<T,U> &p) {
 			return *this << p.first << p.second;
 		}
-		
+
 		template <typename T,typename U>
 		PacketDataStream &operator >>(QPair<T,U> &p) {
 			return *this >> p.first >> p.second;
 		}
-		
+
 };
 
 #else

@@ -117,7 +117,6 @@ void ServerHandler::sendMessage(Message *mMsg, bool forceTCP)
 	QByteArray qbaBuffer;
 	mMsg->sPlayerId = g.sId;
 	mMsg->messageToNetwork(qbaBuffer);
-
 	bool mayUdp = !forceTCP && g.sId && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex) || (mMsg->messageType() == Message::Ping));
 
 	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
@@ -231,6 +230,7 @@ void ServerHandler::serverConnectionConnected() {
 		msaMsg.iMaxBandwidth = ai->getMaxBandwidth();
 	else
 		msaMsg.iMaxBandwidth = 0;
+
 	cConnection->sendMessage(&msaMsg);
 	emit connected();
 }
