@@ -44,6 +44,7 @@ void Message::messageToNetwork(QByteArray &qbaOut) const {
 	qdsOut << messageType();
 	qdsOut << sPlayerId;
 	saveStream(qdsOut);
+	qbaOut.resize(qdsOut.size());
 }
 
 Message *Message::networkToMessage(QByteArray &qbaIn) {
