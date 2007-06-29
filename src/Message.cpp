@@ -39,6 +39,7 @@ Message::~Message() {
 }
 
 void Message::messageToNetwork(QByteArray &qbaOut) const {
+	qbaOut.reserve(65535);
 	PacketDataStream qdsOut(qbaOut.data(), qbaOut.capacity());
 	qdsOut << messageType();
 	qdsOut << sPlayerId;
