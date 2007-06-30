@@ -3,6 +3,7 @@
 #include <QtCore>
 #include <QtNetwork>
 #include <QtSql>
+#include <QtXml>
 #ifdef Q_OS_UNIX
 #include <QtDBus>
 #endif

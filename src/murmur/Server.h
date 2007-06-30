@@ -139,6 +139,10 @@ struct ServerParams {
 
 	QString qsLogfile;
 
+	QString qsRegName;
+	QString qsRegPassword;
+	QUrl qurlRegWeb;
+
 	ServerParams();
 	void read(QString fname = QString("murmur.ini"));
 };

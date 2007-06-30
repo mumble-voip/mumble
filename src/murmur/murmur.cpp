@@ -43,6 +43,7 @@
 #include "Server.h"
 #include "ServerDB.h"
 #include "DBus.h"
+#include "Register.h"
 
 extern Server *g_sServer;
 MurmurDBus *dbus;
@@ -215,6 +216,9 @@ int main(int argc, char **argv)
 
 	g_sServer = new Server();
 	g_sServer->udp->start(QThread::HighestPriority);
+
+	Register r;
+
 	res=a.exec();
 
 	return res;

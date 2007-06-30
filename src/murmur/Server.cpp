@@ -66,7 +66,6 @@ ServerParams::ServerParams() {
 	qsDatabase = QString();
 	iDBPort = 0;
 	qsDBDriver = "QSQLITE";
-	qsDBus = "session";
 	qsLogfile = "murmur.log";
 }
 
@@ -97,8 +96,11 @@ void ServerParams::read(QString fname) {
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
-
 	qsLogfile = qs.value("logfile", qsLogfile).toString();
+	
+	qsRegName = qs.value("registerName", qsRegName).toString();
+	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
+	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
 }
 
 BandwidthRecord::BandwidthRecord() {
