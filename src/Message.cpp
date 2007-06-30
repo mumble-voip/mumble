@@ -48,6 +48,13 @@ void Message::messageToNetwork(QByteArray &qbaOut) const {
 	qbaOut = QByteArray(qbaOut.constData(), qdsOut.size());
 }
 
+void Message::messageToNetwork(PacketDataStream &pds) const {
+	pds << messageType();
+	pds << sPlayerId;
+	saveStream(pds);
+	pds.truncate();
+}
+
 Message *Message::networkToMessage(QByteArray &qbaIn) {
 	PacketDataStream qdsIn(qbaIn.constData(), qbaIn.size());
 	Message *mMsg = NULL;

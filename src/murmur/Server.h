@@ -32,13 +32,14 @@
 #define _SERVER_H
 
 #include "murmur_pch.h"
+#include "Message.h"
 
 class Player;
 class Connection;
-class Message;
 class Channel;
+class PacketDataStream;
 
-typedef QPair<QHostAddress, quint16> Peer;
+typedef QPair<quint32, quint16> Peer;
 
 // Unfortunately, this needs to be "large enough" to hold
 // enough frames to account for both short-term and
@@ -63,17 +64,14 @@ class UDPThread : public QThread {
 	Q_OBJECT;
 	protected:
 		QUdpSocket *qusUdp;
-		QHash<Connection *, Peer> qhPeers;
-		QHash<Peer, Connection *> qhPeerConnections;
-		void processMsg(Message *msg, Connection *cCon);
-		void sendMessage(short id, Message *msg);
-	protected slots:
-		void udpReady();
-		void fakeUdpPacket(QByteArray);
+		QHash<short, Peer> qhPeers;
+		QHash<short, QHostAddress> qhHosts;
+		void processMsg(Message::MessageType msgType, PacketDataStream &pds, Connection *cCon);
+		void sendMessage(short id, const char *data, int len, QByteArray &cache);
 	signals:
-		void tcpTransmit(QByteArray, Connection *cCon);
+		void tcpTransmit(QByteArray, short id);
 	public:
-		UDPThread();
+		void fakeUdpPacket(Message *msg, Connection *source);
 		void run();
 };
 
@@ -90,9 +88,7 @@ class Server : public QObject {
 		void message(QByteArray &, Connection *cCon = NULL);
 		void checkCommands();
 		void checkTimeout();
-		void tcpTransmit(QByteArray, Connection *);
-	signals:
-		void speexPacket(QByteArray);
+		void tcpTransmit(QByteArray, short);
 	public:
 		QHash<short, Connection *> qmConnections;
 		QHash<Connection *, Player *> qmPlayers;

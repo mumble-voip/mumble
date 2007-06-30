@@ -70,6 +70,13 @@ class PacketDataStream {
 				ok = false;
 			}
 		}
+		
+		void skip(quint32 len) {
+			if (left() >= len)
+				offset += len;
+			else
+				ok = false;
+		}
 
 		quint32 next() {
 			if (offset < maxsize)
@@ -79,6 +86,14 @@ class PacketDataStream {
 				return 0;
 			}
 		};
+		
+		void rewind() {
+			offset = 0;
+		}
+		
+		void truncate() {
+			maxsize = offset;
+		}
 
 		const unsigned char *dataPtr() const {
 			return reinterpret_cast<const unsigned char *>(& data[offset]);

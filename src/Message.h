@@ -53,6 +53,7 @@ class Message {
 		virtual bool isValid() const;
 
 		void messageToNetwork(QByteArray &) const;
+		void messageToNetwork(PacketDataStream &) const;
 		static Message *networkToMessage(QByteArray &);
 };
 

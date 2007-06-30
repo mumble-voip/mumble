@@ -37,6 +37,7 @@
 #include "Connection.h"
 #include "Server.h"
 #include "DBus.h"
+#include "PacketDataStream.h"
 
 #ifdef Q_OS_UNIX
 #include <sys/types.h>
@@ -50,7 +51,7 @@ Server *g_sServer;
 ServerParams g_sp;
 
 uint qHash(const Peer &p) {
-	return qHash(p.first.toIPv4Address()) ^ qHash(p.second);
+	return p.first ^ p.second;
 }
 
 ServerParams::ServerParams() {
@@ -125,147 +126,6 @@ int BandwidthRecord::bytesPerSec() {
 	return (iSum * 50) / N_BANDWIDTH_SLOTS;
 }
 
-UDPThread::UDPThread() {
-}
-
-void UDPThread::udpReady() {
-	if (! qusUdp->hasPendingDatagrams())
-		return;
-
-	QReadLocker rl(& g_sServer->qrwlConnections);
-
-	while (qusUdp->hasPendingDatagrams()) {
-		QByteArray qba;
-		qba.resize(qusUdp->pendingDatagramSize());
-		QHostAddress senderAddr;
-		quint16 senderPort;
-
-		qusUdp->readDatagram(qba.data(), qba.size(), &senderAddr, &senderPort);
-		Message *msg = Message::networkToMessage(qba);
-
-		if (! msg)
-			continue;
-		if ((msg->messageType() != Message::Speex) && (msg->messageType() != Message::MultiSpeex) && (msg->messageType() != Message::Ping)) {
-			delete msg;
-			continue;
-		}
-		Peer p(senderAddr, senderPort);
-
-		Connection *source = qhPeerConnections.value(p);
-
-		if (!source || (source != g_sServer->qmConnections.value(msg->sPlayerId))) {
-			source = g_sServer->qmConnections.value(msg->sPlayerId);
-			if (! source || ! (source->peerAddress() == senderAddr)) {
-				delete msg;
-				continue;
-			}
-			// At any point after this, the connection might go away WHILE we're processing. That is "bad".
-			rl.unlock();
-			{
-				QWriteLocker wl(&g_sServer->qrwlConnections);
-				if (g_sServer->qmConnections.contains(msg->sPlayerId)) {
-					qhPeerConnections[p] = source;
-					qhPeers[source] = p;
-			    	}
-			}
-			rl.relock();
-			if (! g_sServer->qmConnections.contains(msg->sPlayerId)) {
-			    delete msg;
-			    continue;
-			}
-		}
-
-		if (msg->messageType() == Message::Ping)
-			qusUdp->writeDatagram(qba, p.first, p.second);
-		else {
-			msg->sPlayerId = g_sServer->qmPlayers[source]->sId;
-			processMsg(msg, source);
-		}
-		delete msg;
-	}
-}
-
-void UDPThread::processMsg(Message *msg, Connection *cCon) {
-	MessageSpeex *ms = NULL;
-	MessageMultiSpeex *mss = NULL;
-	if (msg->messageType() == Message::Speex)
-		ms = dynamic_cast<MessageSpeex *>(msg);
-	else
-		mss = dynamic_cast<MessageMultiSpeex *>(msg);
-
-	Player *pSrcPlayer = g_sServer->qmPlayers.value(cCon);
-	if (!pSrcPlayer || (pSrcPlayer->sState != Player::Authenticated))
-		return;
-
-	Player *p;
-
-	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
-		return;
-
-	BandwidthRecord *bw = g_sServer->qmBandwidth[cCon];
-
-	if (mss) {
-		int nframes = mss->qlFrames.count();
-		int packetsize = 20 + 8 + 3 + 2 + nframes;
-		foreach(QByteArray qba, mss->qlFrames) {
-			bw->addFrame(packetsize / nframes + qba.size());
-		}
-	} else {
-		int packetsize = 20 + 8 + 3 + 2 + ms->qbaSpeexPacket.size();
-		bw->addFrame(packetsize);
-	}
-
-	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
-		// Suppress packet.
-		return;
-	}
-
-	Channel *c = pSrcPlayer->cChannel;
-
-	foreach(p, c->qlPlayers) {
-		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
-			sendMessage(p->sId, msg);
-	}
-
-	unsigned char flags = ms ? ms->ucFlags : mss->ucFlags;
-
-	if (! c->qhLinks.isEmpty()) {
-		QSet<Channel *> chans = c->allLinks();
-		chans.remove(c);
-
-		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(pSrcPlayer, l, flags ? ChanACL::AltSpeak : ChanACL::Speak)) {
-				foreach(p, l->qlPlayers) {
-					if (! p->bDeaf && ! p->bSelfDeaf)
-						sendMessage(p->sId, msg);
-				}
-			}
-		}
-	}
-}
-
-void UDPThread::fakeUdpPacket(QByteArray qba) {
-	Message *msg = Message::networkToMessage(qba);
-	QReadLocker rl(&g_sServer->qrwlConnections);
-
-	Connection *source = g_sServer->qmConnections.value(msg->sPlayerId);
-	if (source)
-		processMsg(msg, source);
-	delete msg;
-}
-
-void UDPThread::sendMessage(short id, Message *msg) {
-	Connection *c = g_sServer->qmConnections.value(id);
-	QByteArray qba;
-	msg->messageToNetwork(qba);
-	if (qhPeers.contains(c)) {
-		Peer p = qhPeers[c];
-		qusUdp->writeDatagram(qba, p.first, p.second);
-	} else {
-		emit tcpTransmit(qba,c);
-	}
-}
-
 void UDPThread::run() {
 	qusUdp = new QUdpSocket();
 	if (! qusUdp->bind(g_sp.iPort))
@@ -276,12 +136,151 @@ void UDPThread::run() {
 	if (setsockopt(qusUdp->socketDescriptor(), SOL_IP, IP_TOS, &val, sizeof(val)))
 		qWarning("Server: Failed to set TOS for UDP Socket");
 #endif
+	connect(this, SIGNAL(tcpTransmit(QByteArray, short)), g_sServer, SLOT(tcpTransmit(QByteArray, short)), Qt::QueuedConnection);
 
-	connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
-	connect(this, SIGNAL(tcpTransmit(QByteArray, Connection *)), g_sServer, SLOT(tcpTransmit(QByteArray, Connection *)), Qt::QueuedConnection);
-	connect(g_sServer, SIGNAL(speexPacket(QByteArray)), this, SLOT(fakeUdpPacket(QByteArray)), Qt::QueuedConnection);
-	exec();
+	QHostAddress senderAddr;
+	quint16 senderPort;
+	qint32 len;
+	char buffer[65535];
+	
+	quint32 msgType;
+	int sPlayerId;
+
+	while (qusUdp->waitForReadyRead(-1)) {
+		QReadLocker rl(& g_sServer->qrwlConnections);
+		while (qusUdp->hasPendingDatagrams()) {
+			
+			len=qusUdp->readDatagram(buffer, 65535, &senderAddr, &senderPort);
+			
+			PacketDataStream pds(buffer, len);
+			pds >> msgType >> sPlayerId;
+
+			if ((msgType != Message::Speex) && (msgType != Message::MultiSpeex) && (msgType != Message::Ping))
+				continue;
+			if (! pds.isValid())
+				continue;
+				
+			Peer p(senderAddr.toIPv4Address(), senderPort);
+
+			if (p != qhPeers.value(sPlayerId)) {
+				Connection *source = g_sServer->qmConnections.value(sPlayerId);
+				if (! source || ! (source->peerAddress() == senderAddr)) {
+					continue;
+				}
+				// At any point after this, the connection might go away WHILE we're processing. That is "bad".
+				rl.unlock();
+				{
+					QWriteLocker wl(&g_sServer->qrwlConnections);
+					if (g_sServer->qmConnections.contains(sPlayerId)) {
+						qhHosts[sPlayerId] = senderAddr;
+						qhPeers[sPlayerId] = p;
+				    	}
+				}
+				rl.relock();
+				if (! g_sServer->qmConnections.contains(sPlayerId)) {
+				    continue;
+				}
+			}
+
+			if (msgType == Message::Ping)
+				qusUdp->writeDatagram(buffer, len, senderAddr, senderPort);
+			else {
+				processMsg(static_cast<Message::MessageType>(msgType), pds, g_sServer->qmConnections.value(sPlayerId));
+			}
+		}
+	}
 }
+
+void UDPThread::fakeUdpPacket(Message *msg, Connection *source) {
+	char buffer[65535];
+	PacketDataStream pds(buffer, 65535);
+	msg->messageToNetwork(pds);
+	pds.rewind();
+
+	quint32 msgType;
+	int sPlayerId;
+
+	pds >> msgType >> sPlayerId;
+
+	QReadLocker rl(&g_sServer->qrwlConnections);
+	processMsg(static_cast<Message::MessageType>(msgType), pds, source);
+}
+
+void UDPThread::sendMessage(short id, const char *data, int len, QByteArray &cache) {
+	if (qhPeers.contains(id)) {
+		qusUdp->writeDatagram(data, len, qhHosts[id], qhPeers[id].second);
+	} else {
+		if (cache.isEmpty())
+			cache = QByteArray(data, len);
+		emit tcpTransmit(cache,id);
+	}
+}
+
+void UDPThread::processMsg(Message::MessageType msgType, PacketDataStream &pds, Connection *cCon) {
+	Player *pSrcPlayer = g_sServer->qmPlayers.value(cCon);
+	if (!pSrcPlayer || (pSrcPlayer->sState != Player::Authenticated))
+		return;
+
+	Player *p;
+	int seq, flags;
+
+	if (pSrcPlayer->bMute || pSrcPlayer->bSuppressed)
+		return;
+
+	BandwidthRecord *bw = g_sServer->qmBandwidth[cCon];
+
+	pds >> seq;
+	pds >> flags;
+
+	if (msgType == Message::MultiSpeex) {
+		int nframes;
+		int flen;
+		pds >> nframes;
+		
+		int psize = (20 + 8 + 3 + nframes) / nframes;
+		for(int i=0;i<nframes;i++) {
+			pds >> flen;
+			bw->addFrame(psize + flen);
+			pds.skip(flen);
+		}
+	} else {
+		int packetsize = 20 + 8 + 3 + pds.left();
+		bw->addFrame(packetsize);
+	}
+
+	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
+		// Suppress packet.
+		return;
+	}
+
+	Channel *c = pSrcPlayer->cChannel;
+
+	QByteArray qba;
+
+	pds.rewind();
+	const char *data = pds.charPtr();
+	int len = pds.left();
+
+	foreach(p, c->qlPlayers) {
+		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
+			sendMessage(p->sId, data, len, qba);
+	}
+
+	if (! c->qhLinks.isEmpty()) {
+		QSet<Channel *> chans = c->allLinks();
+		chans.remove(c);
+
+		foreach(Channel *l, chans) {
+			if (ChanACL::hasPermission(pSrcPlayer, l, flags ? ChanACL::AltSpeak : ChanACL::Speak)) {
+				foreach(p, l->qlPlayers) {
+					if (! p->bDeaf && ! p->bSelfDeaf)
+						sendMessage(p->sId, data, len, qba);
+				}
+			}
+		}
+	}
+}
+
 
 Server::Server() {
 	qtsServer = new QTcpServer(this);
@@ -400,10 +399,8 @@ void Server::connectionClosed(QString reason) {
 
 	qqIds.enqueue(pPlayer->sId);
 
-	if (udp->qhPeers.contains(c)) {
-	        Peer udppeer = udp->qhPeers.take(c);
-		udp->qhPeerConnections.remove(udppeer);
-	}
+	udp->qhHosts.remove(pPlayer->sId);
+	udp->qhPeers.remove(pPlayer->sId);
 
 	delete pPlayer;
 	c->deleteLater();
@@ -443,15 +440,12 @@ void Server::checkTimeout() {
 		c->disconnect();
 }
 
-void Server::emitPacket(Message *msg) {
-	QByteArray qba;
-	msg->messageToNetwork(qba);
-	emit speexPacket(qba);
-}
-
-void Server::tcpTransmit(QByteArray a, Connection *c) {
-	c->sendMessage(a);
-	c->forceFlush();
+void Server::tcpTransmit(QByteArray a, short id) {
+	Connection *c = qmConnections.value(id);
+	if (c) {
+		c->sendMessage(a);
+		c->forceFlush();
+	}
 }
 
 void Server::sendMessage(short id, Message *mMsg) {
@@ -857,13 +851,13 @@ void MessagePlayerRename::process(Connection *cCon) {
 void MessageMultiSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	sPlayerId = pSrcPlayer->sId;
-	g_sServer->emitPacket(this);
+	g_sServer->udp->fakeUdpPacket(this, cCon);
 }
 
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	sPlayerId = pSrcPlayer->sId;
-	g_sServer->emitPacket(this);
+	g_sServer->udp->fakeUdpPacket(this, cCon);
 }
 
 void MessagePlayerMute::process(Connection *cCon) {

@@ -30,6 +30,7 @@
 
 #include "Message.h"
 #include "Connection.h"
+#include "PacketDataStream.h"
 
 #ifdef Q_OS_UNIX
 #include <sys/socket.h>
