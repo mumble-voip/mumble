@@ -654,6 +654,8 @@ void PlayerModel::removeAll() {
 		removePlayer(item->qlPlayers[0]);
 
 	qsLinked.clear();
+
+	updateOverlay();
 }
 
 Player *PlayerModel::getPlayer(const QModelIndex &idx) const
