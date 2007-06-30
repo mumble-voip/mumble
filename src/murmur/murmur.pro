@@ -21,7 +21,7 @@ SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.c
 DIST = DBus.h
 
 PRECOMPILED_HEADER = murmur_pch.h
-DIST = murmur.pl murmur.ini link.pl Commands.txt
+DIST = murmur.pl murmur.ini link.pl Commands.txt mysql.sql
 
 win32 {
   HEADERS += DBus_fake.h
