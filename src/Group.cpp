@@ -75,7 +75,7 @@ QSet<int> Group::members() {
 Group *Group::getGroup(Channel *chan, QString name) {
 	Channel *p = chan;
 	while (p) {
-		Group *g = chan->qhGroups.value(name);
+		Group *g = p->qhGroups.value(name);
 		if (g) {
 			if (chan == p)
 				return g;
