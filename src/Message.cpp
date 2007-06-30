@@ -39,13 +39,13 @@ Message::~Message() {
 }
 
 void Message::messageToNetwork(QByteArray &qbaOut) const {
-	qbaOut.reserve(65535);
-	PacketDataStream qdsOut(qbaOut.data(), qbaOut.capacity());
+	char buffer[65535];
+	PacketDataStream qdsOut(buffer, 65535);
 	qdsOut << messageType();
 	qdsOut << sPlayerId;
 	saveStream(qdsOut);
 
-	qbaOut = QByteArray(qbaOut.constData(), qdsOut.size());
+	qbaOut = QByteArray(buffer, qdsOut.size());
 }
 
 void Message::messageToNetwork(PacketDataStream &pds) const {
