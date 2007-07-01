@@ -60,12 +60,20 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	qlwACLs->setObjectName(QLatin1String("ACLList"));
 	qpbACLAdd=new QPushButton(tr("&Add"));
 	qpbACLAdd->setObjectName(QLatin1String("ACLAdd"));
+	qpbACLAdd->setDefault(false);
+	qpbACLAdd->setAutoDefault(false);
 	qpbACLRemove=new QPushButton(tr("&Remove"));
 	qpbACLRemove->setObjectName(QLatin1String("ACLRemove"));
+	qpbACLRemove->setDefault(false);
+	qpbACLRemove->setAutoDefault(false);
 	qpbACLUp=new QPushButton(tr("&Up"));
 	qpbACLUp->setObjectName(QLatin1String("ACLUp"));
+	qpbACLUp->setDefault(false);
+	qpbACLUp->setAutoDefault(false);
 	qpbACLDown=new QPushButton(tr("&Down"));
 	qpbACLDown->setObjectName(QLatin1String("ACLDown"));
+	qpbACLDown->setDefault(false);
+	qpbACLDown->setAutoDefault(false);
 	qcbACLInherit=new QCheckBox(tr("Inherit ACLs"));
 	qcbACLInherit->setObjectName(QLatin1String("ACLInherit"));
 
@@ -236,12 +244,16 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
     QPushButton *okButton = new QPushButton(tr("&OK"));
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+    okButton->setDefault(false);
+    okButton->setAutoDefault(false);
     okButton->setToolTip(tr("Accept changes"));
     okButton->setWhatsThis(tr("This button will accept current groups/ACLs and send them to "
     						"the server. Note that if you mistakenly remove write permission "
     						"from yourself, the server will add it."));
     QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	cancelButton->setDefault(false);
+	cancelButton->setAutoDefault(false);
 	cancelButton->setToolTip(tr("Reject changes"));
 	cancelButton->setWhatsThis(tr("This button will cancel all changes and closes the dialog without "
 								  "updating the ACLs or groups on the server."));
