@@ -251,10 +251,6 @@ bool AudioOutput::mixAudio(short *buffer) {
 
 		for(int i=0;i<iFrameSize/4;i++)
 			out[i]=_mm_adds_pi16(in[i],out[i]);
-
-		for(int i=0;i<iFrameSize;i++)
-			buffer[i]=aop->psBuffer[i];
-
 	}
 	qrwlOutputs.unlock();
 
