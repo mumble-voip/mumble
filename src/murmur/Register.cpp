@@ -92,7 +92,12 @@ void Register::update() {
   http = new QHttp(this);
   connect(http, SIGNAL(done(bool)), this, SLOT(done(bool)));
   http->setHost(QLatin1String("xeno.stud.hive.no"), 80);
-  http->post("/murmur/register.cgi", doc.toString().toUtf8());
+  
+  QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/murmur/register.cgi"));
+  h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
+  h.setValue(QLatin1String("Host"), QLatin1String("xeno.stud.hive.no"));
+  h.setContentType(QLatin1String("text/xml"));
+  http->request(h, doc.toString().toUtf8());
 }
 
 void Register::done(bool err) {

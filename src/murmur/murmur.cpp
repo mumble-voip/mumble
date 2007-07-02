@@ -110,7 +110,7 @@ int main(int argc, char **argv)
 
 	bool detach = true;
 
-#ifdef Q_NO_DEBUG
+#ifdef QT_NO_DEBUG
         qInstallMsgHandler(murmurMessageOutput);
 #endif
 
@@ -208,6 +208,7 @@ int main(int argc, char **argv)
 		if (! qdbc.isConnected()) {
 			qWarning("Failed to connect to D-Bus %s",qPrintable(g_sp.qsDBus));
 		}
+		dbus->qdbc = qdbc;
 		qdbc.registerObject("/Murmur", &a);
 		qdbc.registerService("net.sourceforge.mumble");
 	}

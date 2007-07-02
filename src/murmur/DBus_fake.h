@@ -50,6 +50,10 @@ class MurmurDBus : public QObject {
     void channelStateChanged(Channel *) {};
     void channelCreated(Channel *) {};
     void channelRemoved(Channel *) {};
+
+    int mapNameToId() { return -2 };
+    QString mapIdToString() { return QString() };
+    int authenticate(const QString &uname, const QString &pw) { return -2 };
 };
 
 extern MurmurDBus *dbus;

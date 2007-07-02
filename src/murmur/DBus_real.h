@@ -109,7 +109,12 @@ Q_DECLARE_METATYPE(QList<BanInfo>);
 class MurmurDBus : public QDBusAbstractAdaptor {
   Q_OBJECT
   Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
+  protected:
+    QString qsAuthService;
+    QString qsAuthPath;
   public:
+    QDBusConnection qdbc;
+  
     MurmurDBus(QCoreApplication &application);
 
     void playerStateChanged(Player *p);
@@ -120,6 +125,10 @@ class MurmurDBus : public QDBusAbstractAdaptor {
     void channelCreated(Channel *c);
     void channelRemoved(Channel *c);
     static void registerTypes();
+
+    int mapNameToId(const QString &name);
+    QString mapIdToName(int id);
+    int authenticate(const QString &uname, const QString &pw);
   public slots:
     // Order of paremeters is IMPORTANT, or Qt will barf.
     // Needs to be:
@@ -148,6 +157,8 @@ class MurmurDBus : public QDBusAbstractAdaptor {
     
     void getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names);
     void getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids);
+    
+    void setAuthenticator(const QDBusObjectPath &path, const QDBusMessage &);
   signals:
     void playerStateChanged(const PlayerInfo &state);
     void playerConnected(const PlayerInfo &state);

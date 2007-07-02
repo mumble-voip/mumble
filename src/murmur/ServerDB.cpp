@@ -35,6 +35,7 @@
 #include "ACL.h"
 #include "Server.h"
 #include "Connection.h"
+#include "DBus.h"
 
 #define SQLDUMP(x) qWarning("%s", qPrintable(x.lastError().text())
 
@@ -215,9 +216,12 @@ bool ServerDB::hasUsers() {
 }
 
 int ServerDB::authenticate(QString &name, QString pw) {
+	int res = dbus->authenticate(name, pw);
+	if (res != -2)
+		return res;
+
 	TransactionHolder th;
 
-	int res = -2;
 	QSqlQuery query;
 	query.prepare("SELECT player_id,name,pw FROM players WHERE name like ?");
 	query.addBindValue(name);
@@ -244,9 +248,11 @@ void ServerDB::setPW(int id, QString pw) {
 }
 
 QString ServerDB::getUserName(int id) {
-	TransactionHolder th;
-	QString name;
+	QString name = dbus->mapIdToName(id);
+	if (! name.isNull())
+		return name;
 
+	TransactionHolder th;
 	QSqlQuery query;
 	query.prepare("SELECT name FROM players WHERE player_id = ?");
 	query.addBindValue(id);
@@ -258,8 +264,11 @@ QString ServerDB::getUserName(int id) {
 }
 
 int ServerDB::getUserID(QString name) {
+	int id = dbus->mapNameToId(name);
+	
+	if (id != -2)
+		return id;
 	TransactionHolder th;
-	int id = -1;
 
 	QSqlQuery query;
 	query.prepare("SELECT player_id FROM players WHERE name like ?");

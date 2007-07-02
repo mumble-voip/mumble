@@ -138,7 +138,55 @@ void MurmurDBus::registerTypes() {
   qDBusRegisterMetaType<QList<BanInfo> >();
 }
 
-MurmurDBus::MurmurDBus(QCoreApplication &app) : QDBusAbstractAdaptor(&app) {
+MurmurDBus::MurmurDBus(QCoreApplication &app) : QDBusAbstractAdaptor(&app), qdbc(QLatin1String("mainbus")) {
+}
+
+QString MurmurDBus::mapIdToName(int id) {
+  if (qsAuthPath.isEmpty())
+    return QString();
+  
+  QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+  QDBusReply<QString> reply = remoteApp.call("getUserName",id);
+  if (reply.isValid()) 
+    return reply.value();
+  else {
+    qWarning("Authenticator failed getUserName for %d: %s", id, qPrintable(reply.error().message()));
+    qsAuthPath = QString();
+    qsAuthService = QString();
+    return QString();
+  }    
+}
+
+int MurmurDBus::mapNameToId(const QString &name) {
+  if (qsAuthPath.isEmpty())
+    return -2;
+  
+  QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+  QDBusReply<int> reply = remoteApp.call("getUserId",name);
+  if (reply.isValid()) 
+    return reply.value();
+  else {
+    qWarning("Authenticator failed getUserId for %s: %s", qPrintable(name), qPrintable(reply.error().message()));
+    qsAuthPath = QString();
+    qsAuthService = QString();
+    return -2;
+  }    
+}
+
+int MurmurDBus::authenticate(const QString &uname, const QString &pw) {
+  if (qsAuthPath.isEmpty())
+    return -2;
+  
+  QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+  QDBusReply<int> reply = remoteApp.call("authenticate",uname,pw);
+  if (reply.isValid()) 
+    return reply.value();
+  else {
+    qWarning("Authenticator failed authenticate for %s: %s", qPrintable(uname), qPrintable(reply.error().message()));
+    qsAuthPath = QString();
+    qsAuthService = QString();
+    return -2;
+  }    
 }
 
 #define PLAYER_SETUP_VAR(var) \
@@ -470,6 +518,12 @@ void MurmurDBus::getPlayerIds(const QList<QString> &names, const QDBusMessage &,
     }
     ids << g_sServer->qhUserIDCache.value(name);
   }
+}
+
+void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, const QDBusMessage &msg) {
+  qsAuthPath = path.path();
+  qsAuthService = msg.service();
+  qWarning("Authenticator set to %s %s",qPrintable(qsAuthService),qPrintable(qsAuthPath));
 }
 
 PlayerInfo::PlayerInfo(Player *p) {
