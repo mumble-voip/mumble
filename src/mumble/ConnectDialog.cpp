@@ -37,7 +37,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
     QWidget *local = createLocal();
     QWidget *remote = createRemote();
 
-    qhList = new QHttp(QLatin1String("xeno.stud.hive.no"), 80, this);
+    qhList = new QHttp(QLatin1String("mumble.hive.no"), 80, this);
     qhList->setObjectName(QLatin1String("Request"));
 
     bPublicInit = false;
@@ -51,6 +51,11 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
     vbl->addWidget(qtwTab);
     setLayout(vbl);
+
+    if (qstmServers->rowCount() < 10) {
+    	qtwTab->setCurrentIndex(1);
+    	initList();
+    }
 
     QMetaObject::connectSlotsByName(this);
 
@@ -245,8 +250,7 @@ void ConnectDialog::initList() {
 
     bPublicInit = true;
 
-    qWarning("Firing request");
-    qhList->get(QLatin1String("/murmur/list.cgi"));
+    qhList->get(QLatin1String("/list.cgi"));
 }
 
 void ConnectDialog::fillList() {
@@ -316,9 +320,6 @@ void ConnectDialog::on_Request_done(bool err) {
 	}
 	n = n.nextSibling();
     }
-
-
-    qWarning("Result %d", err);
 
     fillList();
 }
