@@ -60,6 +60,7 @@ class MainWindow : public QMainWindow {
 		QAction *qaConfigDialog;
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
 		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
+		QAction *qaTextMessage;
 		QSplitter *qsSplit;
 		QSystemTrayIcon *qstiIcon;
 		QTextEdit *qteLog;
@@ -102,6 +103,7 @@ class MainWindow : public QMainWindow {
 		void on_ChannelLink_triggered();
 		void on_ChannelUnlink_triggered();
 		void on_ChannelUnlinkAll_triggered();
+		void on_TextMessage_triggered();
 		void on_AudioReset_triggered();
 		void on_AudioMute_triggered();
 		void on_AudioDeaf_triggered();

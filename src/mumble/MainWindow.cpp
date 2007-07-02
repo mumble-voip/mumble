@@ -210,6 +210,11 @@ void MainWindow::createActions() {
 	qaHelpVersionCheck->setToolTip(tr("Check for new version of Mumble"));
 	qaHelpVersionCheck->setWhatsThis(tr("Connects to the Mumble webpage to check if a new version is available, and notifies "
 										"you with an appropriate download URL if this is the case."));
+
+	qaTextMessage = new QAction(tr("Send Messa&ge"), this);
+	qaTextMessage->setObjectName(QLatin1String("TextMessage"));
+	qaTextMessage->setToolTip(tr("Send a Text Message"));
+	qaTextMessage->setWhatsThis(tr("Send a text message to another user."));
 }
 
 void MainWindow::setupGui()  {
@@ -259,6 +264,7 @@ void MainWindow::setupGui()  {
 	qmPlayer->addAction(qaPlayerMute);
 	qmPlayer->addAction(qaPlayerDeaf);
 	qmPlayer->addAction(qaPlayerLocalMute);
+	qmPlayer->addAction(qaTextMessage);
 
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelRemove);
@@ -470,6 +476,7 @@ void MainWindow::on_PlayerMenu_aboutToShow()
 		qaPlayerMute->setEnabled(false);
 		qaPlayerLocalMute->setEnabled(false);
 		qaPlayerDeaf->setEnabled(false);
+		qaTextMessage->setEnabled(false);
 	} else {
 		qaPlayerKick->setEnabled(true);
 		qaPlayerBan->setEnabled(true);
@@ -479,6 +486,7 @@ void MainWindow::on_PlayerMenu_aboutToShow()
 		qaPlayerMute->setChecked(p->bMute);
 		qaPlayerLocalMute->setChecked(p->bLocalMute);
 		qaPlayerDeaf->setChecked(p->bDeaf);
+		qaTextMessage->setEnabled(true);
 	}
 }
 
@@ -673,6 +681,24 @@ void MainWindow::on_ChannelUnlinkAll_triggered()
 	mcl.iId = c->iId;
 	mcl.ltType = MessageChannelLink::UnlinkAll;
 	g.sh->sendMessage(&mcl);
+}
+
+void MainWindow::on_TextMessage_triggered()
+{
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+
+	if (!p)
+		return;
+
+	bool ok;
+	QString message = QInputDialog::getText(this, tr("Sending message to %1").arg(p->qsName), tr("Enter message"), QLineEdit::Normal, QString(), &ok);
+	if (ok) {
+		MessageTextMessage mtxt;
+		mtxt.sVictim = p->sId;
+		mtxt.qsMessage = message;
+//		g.l->log(Log::TextMessage, tr("Message to %1: %2").arg(p->qsName).arg(mtxt.qsMessage), tr("Sent message to %1").arg(p->qsName));
+		g.sh->sendMessage(&mtxt);
+	}
 }
 
 void MainWindow::on_AudioReset_triggered()
@@ -1018,7 +1044,7 @@ void MessagePlayerMute::process(Connection *) {
 	if (sVictim == g.sId)
 		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1.").arg(admin) : MainWindow::tr("You were unmuted by %1.").arg(admin));
 	else
-		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin));
 }
 
 void MessagePlayerDeaf::process(Connection *) {
@@ -1036,7 +1062,7 @@ void MessagePlayerDeaf::process(Connection *) {
 	if (sVictim == g.sId)
 		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
 	else
-		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin), QString());
+		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin));
 }
 
 void MessagePlayerKick::process(Connection *) {
@@ -1156,8 +1182,14 @@ void MessageServerSync::process(Connection *) {
 	g.iMaxBandwidth = iMaxBandwidth;
 	g.sId = sPlayerId;
 	g.l->clearIgnore();
-	g.l->log(Log::Information, qsWelcomeText, QString());
+	g.l->log(Log::Information, qsWelcomeText);
 	g.mw->pmModel->ensureSelfVisible();
+}
+
+void MessageTextMessage::process(Connection *) {
+	MSG_INIT;
+	g.l->log(Log::TextMessage, MainWindow::tr("Message from %1: %2").arg(pSrc->qsName).arg(qsMessage),
+	         MainWindow::tr("Received message from %1").arg(pSrc->qsName));
 }
 
 void MessageEditACL::process(Connection *) {

@@ -97,6 +97,18 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	qsVolume->setWhatsThis(tr("<b>This is the volume used for the speech synthesis.</b>"));
 	l->addWidget(qsVolume,0,1);
 
+	lab=new QLabel(tr("Length threshold"));
+	l->addWidget(lab,1,0);
+	qsbThreshold = new QSpinBox();
+	qsbThreshold->setRange(0, 5000);
+	qsbThreshold->setSingleStep(10);
+	qsbThreshold->setValue(g.s.iTTSThreshold);
+	qsbThreshold->setObjectName(QLatin1String("Threshold"));
+	qsbThreshold->setToolTip(tr("Message length threshold for Text-To-Speech Engine"));
+	qsbThreshold->setWhatsThis(tr("<b>This is the length threshold used for the Text-To-Speech Engine.</b><br />"
+	                             "Messages longer than this limit will not be read aloud in their full length."));
+	l->addWidget(qsbThreshold,1,1);
+
 	qgbTTS->setLayout(l);
 
 
@@ -125,6 +137,7 @@ void LogConfig::accept() {
 		ms->bTTS = (qlTTS[i]->checkState() == Qt::Checked);
 	}
 	g.s.iTTSVolume=qsVolume->value();
+	g.s.iTTSThreshold=qsbThreshold->value();
 	g.l->tts->setVolume(g.s.iTTSVolume);
 }
 
@@ -160,7 +173,8 @@ const char *Log::msgNames[] = {
 	QT_TR_NOOP("Player muted (other)"),
 	QT_TR_NOOP("Player Joined Channel"),
 	QT_TR_NOOP("Player Left Channel"),
-	QT_TR_NOOP("Permission Denied")
+	QT_TR_NOOP("Permission Denied"),
+	QT_TR_NOOP("Text Message")
 };
 
 QString Log::msgName(MsgType t) const {
@@ -205,7 +219,7 @@ void Log::saveSettings() const {
 	}
 }
 
-void Log::log(MsgType t, QString console, QString phonetic) {
+void Log::log(MsgType t, const QString &console, const QString &terse) {
 	QTime now = QTime::currentTime();
 	MsgSettings *ms=qhSettings.value(t);
 	Q_ASSERT(ms);
@@ -217,8 +231,12 @@ void Log::log(MsgType t, QString console, QString phonetic) {
 
 	if (ms->bConsole)
 		g.mw->appendLog(tr("[%2] %1").arg(console).arg(now.toString(Qt::LocalDate)));
-	if (! g.s.bTTS || ! ms->bTTS || (! phonetic.isNull() && phonetic.isEmpty()))
+	if (! g.s.bTTS || ! ms->bTTS)
 		return;
-	tts->say(phonetic.isNull() ? console : phonetic);
-}
 
+	/* TTS threshold limiter. */
+	if (console.length() <= g.s.iTTSThreshold)
+		tts->say(console);
+	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
+		tts->say(terse);
+}

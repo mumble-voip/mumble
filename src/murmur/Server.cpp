@@ -1186,6 +1186,12 @@ void MessageChannelLink::process(Connection *cCon) {
 	g_sServer->sendAll(&mcl);
 }
 
+void MessageTextMessage::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+	VICTIM_SETUP;
+	g_sServer->sendMessage(cDst, this);
+}
+
 void MessageEditACL::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 

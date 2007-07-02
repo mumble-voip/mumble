@@ -49,6 +49,7 @@ class LogConfig : public ConfigWidget {
 		QList<QCheckBox *> qlConsole;
 		QList<QCheckBox *> qlTTS;
 		QSlider *qsVolume;
+		QSpinBox *qsbThreshold;
 	public:
 		LogConfig(QWidget *p = NULL);
 		virtual QString title() const;
@@ -68,9 +69,9 @@ class Log : public QObject {
 	friend class LogConfig;
 	Q_OBJECT
 	public:
-		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, PlayerJoin, PlayerLeave, YouKicked, PlayerKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied };
+		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, PlayerJoin, PlayerLeave, YouKicked, PlayerKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage };
 		static const MsgType firstMsgType = DebugInfo;
-		static const MsgType lastMsgType = PermissionDenied;
+		static const MsgType lastMsgType = TextMessage;
 	protected:
 		QHash<MsgType, MsgSettings *> qhSettings;
 		static const char *msgNames[];
@@ -83,7 +84,7 @@ class Log : public QObject {
 		void loadSettings();
 		void saveSettings() const;
 	public slots:
-		void log(MsgType t, QString console, QString phonetic=QString());
+		void log(MsgType t, const QString &console, const QString &terse=QString());
 };
 
 #else

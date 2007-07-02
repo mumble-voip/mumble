@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 8
+#define MESSAGE_STREAM_VERSION 9
 
 #include "ACL.h"
 
@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping};
+		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage };
 		unsigned short sPlayerId;
 
 		Message();
@@ -291,6 +291,18 @@ class MessageServerBanList : public Message {
 		QList<QPair<quint32, int> > qlBans;
 		MessageServerBanList();
 		Message::MessageType messageType() const { return ServerBanList; };
+		void process(Connection *);
+};
+
+class MessageTextMessage : public Message {
+	protected:
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
+	public:
+		short sVictim;
+		QString qsMessage;
+		MessageTextMessage();
+		Message::MessageType messageType() const { return TextMessage; };
 		void process(Connection *);
 };
 

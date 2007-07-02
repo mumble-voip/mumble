@@ -32,13 +32,29 @@
 #include "Global.h"
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
-	QGridLayout *l=new QGridLayout;
-    QVBoxLayout *vbl = new QVBoxLayout;
-	QHBoxLayout *vbh = new QHBoxLayout();
-    vbl->addLayout(l);
-    vbl->addLayout(vbh);
+    QWidget *local = createLocal();
 
+    QVBoxLayout *vbl = new QVBoxLayout;
+
+    qtwTab = new QTabWidget();
+    qtwTab->addTab(local, tr("&Custom Servers"));
+
+    vbl->addWidget(qtwTab);
     setLayout(vbl);
+
+    QMetaObject::connectSlotsByName(this);
+
+}
+
+QWidget *ConnectDialog::createLocal() {
+    	QWidget *w = new QWidget();
+
+	QGridLayout *l=new QGridLayout;
+	QVBoxLayout *vbl = new QVBoxLayout;
+	QHBoxLayout *vbh = new QHBoxLayout();
+	vbl->addLayout(l);
+	vbl->addLayout(vbh);
+
 	QLabel *lab;
 
 	bDirty = false;
@@ -124,12 +140,14 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	connect(qlwServers, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
 
-    QMetaObject::connectSlotsByName(this);
-
 	QModelIndex idx = qstmServers->index(g.qs->value(QLatin1String("ServerRow"),-1).toInt(),0);
 	if (idx.isValid())
 		qlwServers->setCurrentIndex(idx);
+
+    	w->setLayout(vbl);
+    	return w;
 }
+
 
 void ConnectDialog::accept() {
 	if (bDirty && qlwServers->currentIndex().isValid()) {

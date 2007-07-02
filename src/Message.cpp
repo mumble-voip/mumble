@@ -120,6 +120,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case ChannelLink:
 			mMsg = new MessageChannelLink();
 			break;
+		case TextMessage:
+			mMsg = new MessageTextMessage();
+			break;
 		case PermissionDenied:
 			mMsg = new MessagePermissionDenied();
 			break;
@@ -456,6 +459,20 @@ void MessageChannelMove::saveStream(PacketDataStream &qdsOut) const {
 void MessageChannelMove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 	qdsIn >> iParent;
+}
+
+MessageTextMessage::MessageTextMessage() {
+	qsMessage = QString();
+}
+
+void MessageTextMessage::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << sVictim;
+	qdsOut << qsMessage;
+}
+
+void MessageTextMessage::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> sVictim;
+	qdsIn >> qsMessage;
 }
 
 MessageEditACL::MessageEditACL() {

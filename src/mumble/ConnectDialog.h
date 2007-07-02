@@ -31,9 +31,18 @@
 #ifndef _CONNECTDIALOG_H
 #define _CONNECTDIALOG_H
 
+struct PublicInfo {
+    QString name;
+    QUrl url;
+    QString ip;
+    int port;
+};
+
 class ConnectDialog : public QDialog {
 	Q_OBJECT;
 	protected:
+		QTabWidget *qtwTab;
+		static QList<PublicInfo> qlPublicServers;
 		QSqlTableModel *qstmServers;
 		QListView *qlwServers;
 		QLineEdit *qleName, *qleServer, *qlePort, *qleUsername, *qlePassword;
@@ -41,6 +50,8 @@ class ConnectDialog : public QDialog {
 		QModelIndex qmiDirty;
 		QSqlRecord toRecord() const;
 		bool bDirty;
+		QWidget *createLocal();
+		QWidget *createRemote();
 	public slots:
 		void accept();
 		void on_Add_clicked();
