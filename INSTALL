@@ -73,9 +73,3 @@ configured to execute it as a CGI, and make sure you edit it to reflect
 the configuration parameters. Note that the user the CGI will run as needs
 write permissions to both the database file and the directory the database
 file resides in.
-
-Building from SVN
-=================
-
-If you are building from SVN, Speex will not be part of the source tree. Please
-do a checkout of the speex trunk to a directory named 'speex'.

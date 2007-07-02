@@ -696,7 +696,7 @@ void MainWindow::on_TextMessage_triggered()
 		MessageTextMessage mtxt;
 		mtxt.sVictim = p->sId;
 		mtxt.qsMessage = message;
-//		g.l->log(Log::TextMessage, tr("Message to %1: %2").arg(p->qsName).arg(mtxt.qsMessage), tr("Sent message to %1").arg(p->qsName));
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(mtxt.qsMessage), tr("Message to %1").arg(p->qsName));
 		g.sh->sendMessage(&mtxt);
 	}
 }
@@ -1188,8 +1188,8 @@ void MessageServerSync::process(Connection *) {
 
 void MessageTextMessage::process(Connection *) {
 	MSG_INIT;
-	g.l->log(Log::TextMessage, MainWindow::tr("Message from %1: %2").arg(pSrc->qsName).arg(qsMessage),
-	         MainWindow::tr("Received message from %1").arg(pSrc->qsName));
+	g.l->log(Log::TextMessage, MainWindow::tr("From %1: %2").arg(pSrc->qsName).arg(qsMessage),
+	         MainWindow::tr("Message from %1").arg(pSrc->qsName));
 }
 
 void MessageEditACL::process(Connection *) {
