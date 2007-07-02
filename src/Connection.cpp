@@ -50,6 +50,7 @@ Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
     connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
     connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
     connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+        qtLastPacket.restart();
 }
 
 Connection::~Connection() {
