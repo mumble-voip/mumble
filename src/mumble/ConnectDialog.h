@@ -43,8 +43,10 @@ class ConnectDialog : public QDialog {
 	protected:
 		QTabWidget *qtwTab;
 		static QList<PublicInfo> qlPublicServers;
+		bool bPublicInit;
 		QSqlTableModel *qstmServers;
 		QListView *qlwServers;
+	        QTableWidget *qtwServers;
 		QLineEdit *qleName, *qleServer, *qlePort, *qleUsername, *qlePassword;
 		QCheckBox *qcbUdp;
 		QModelIndex qmiDirty;
@@ -52,12 +54,21 @@ class ConnectDialog : public QDialog {
 		bool bDirty;
 		QWidget *createLocal();
 		QWidget *createRemote();
+		QHttp *qhList;
+
+		void initList();
+		void fillList();
 	public slots:
 		void accept();
 		void on_Add_clicked();
 		void on_Remove_clicked();
 		void onSelection_Changed(const QModelIndex &n, const QModelIndex &p);
 		void onDirty(const QString &qs = QString());
+
+		void on_Tab_currentChanged(int);
+		void on_Request_done(bool);
+		void on_URL_clicked();
+		void on_Copy_clicked();
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		int iPort;

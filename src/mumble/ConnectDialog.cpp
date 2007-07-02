@@ -31,13 +31,23 @@
 #include "ConnectDialog.h"
 #include "Global.h"
 
+QList<PublicInfo> ConnectDialog::qlPublicServers;
+
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
     QWidget *local = createLocal();
+    QWidget *remote = createRemote();
+
+    qhList = new QHttp(QLatin1String("xeno.stud.hive.no"), 80, this);
+    qhList->setObjectName(QLatin1String("Request"));
+
+    bPublicInit = false;
 
     QVBoxLayout *vbl = new QVBoxLayout;
 
     qtwTab = new QTabWidget();
     qtwTab->addTab(local, tr("&Custom Servers"));
+    qtwTab->addTab(remote, tr("Server &Browser"));
+    qtwTab->setObjectName(QLatin1String("Tab"));
 
     vbl->addWidget(qtwTab);
     setLayout(vbl);
@@ -148,21 +158,73 @@ QWidget *ConnectDialog::createLocal() {
     	return w;
 }
 
+QWidget *ConnectDialog::createRemote() {
+    QWidget *w=new QWidget();
+    QVBoxLayout *vbl = new QVBoxLayout;
+    QHBoxLayout *vbh = new QHBoxLayout();
+
+
+    qtwServers = new QTableWidget(0, 3);
+    QStringList labels;
+    labels << tr("Name");
+    labels << tr("Address");
+    labels << tr("URL");
+    qtwServers->setHorizontalHeaderLabels(labels);
+
+    QPushButton *connectButton = new QPushButton(tr("&Connect"));
+    connectButton->setDefault(true);
+    connect(connectButton, SIGNAL(clicked()), this, SLOT(accept()));
+
+    QPushButton *copyButton = new QPushButton(tr("C&opy to custom"));
+    copyButton->setObjectName(QLatin1String("Copy"));
+
+    QPushButton *urlButton = new QPushButton(tr("&View Webpage"));
+    urlButton->setObjectName(QLatin1String("URL"));
+
+    vbh->addWidget(connectButton);
+    vbh->addWidget(copyButton);
+    vbh->addWidget(urlButton);
+
+    vbl->addWidget(qtwServers);
+    vbl->addLayout(vbh);
+    w->setLayout(vbl);
+    return w;
+}
 
 void ConnectDialog::accept() {
-	if (bDirty && qlwServers->currentIndex().isValid()) {
-		QSqlRecord r;
-		r = toRecord();
-		qstmServers->setRecord(qlwServers->currentIndex().row(), r);
-		qstmServers->submitAll();
-	}
+    	if (qtwTab->currentIndex() == 1) {
+		int row = qtwServers->currentRow();
+		if (row == -1)
+			return;
 
-	qsServer = qleServer->text();
-	qsUsername = qleUsername->text();
-	qsPassword = qlePassword->text();
-	iPort = qlePort->text().toInt();
+		bool ok;
+		QString defUserName = g.qs->value(QLatin1String("defUserName")).toString();
+		defUserName = QInputDialog::getText(this, tr("Connecting to ").arg(qtwServers->item(row, 0)->text()), tr("Enter username"), QLineEdit::Normal, defUserName, &ok);
+		if (! ok)
+			return;
 
-	g.qs->setValue(QLatin1String("ServerRow"), qlwServers->currentIndex().row());
+		g.qs->setValue(QLatin1String("defUserName"), defUserName);
+		qsUsername = defUserName;
+		qsPassword = QString();
+		QStringList a = qtwServers->item(row, 1)->text().split(QLatin1Char(':'));
+		qsServer = a.at(0);
+		iPort = a.at(1).toInt();
+	} else {
+
+	    if (bDirty && qlwServers->currentIndex().isValid()) {
+		    QSqlRecord r;
+		    r = toRecord();
+		    qstmServers->setRecord(qlwServers->currentIndex().row(), r);
+		    qstmServers->submitAll();
+	    }
+
+	    qsServer = qleServer->text();
+	    qsUsername = qleUsername->text();
+	    qsPassword = qlePassword->text();
+	    iPort = qlePort->text().toInt();
+
+	    g.qs->setValue(QLatin1String("ServerRow"), qlwServers->currentIndex().row());
+       }
 	QDialog::accept();
 }
 
@@ -175,6 +237,90 @@ QSqlRecord ConnectDialog::toRecord() const
 	r.setValue(QLatin1String("password"), qlePassword->text());
 	r.setValue(QLatin1String("port"), qlePort->text().toInt());
 	return r;
+}
+
+void ConnectDialog::initList() {
+    if (bPublicInit || (qlPublicServers.count() > 0))
+    	return;
+
+    bPublicInit = true;
+
+    qWarning("Firing request");
+    qhList->get(QLatin1String("/murmur/list.cgi"));
+}
+
+void ConnectDialog::fillList() {
+    for(int i=0;i<qtwServers->rowCount();i++)
+    	qtwServers->removeRow(0);
+
+    foreach(PublicInfo pi, qlPublicServers) {
+	qtwServers->insertRow(0);
+	qtwServers->setItem(0, 0, new QTableWidgetItem(pi.name));
+	qtwServers->setItem(0, 1, new QTableWidgetItem(QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port)));
+	qtwServers->setItem(0, 2, new QTableWidgetItem(pi.url.toString()));
+    }
+    qtwServers->resizeColumnsToContents();
+    qtwServers->setSortingEnabled(true);
+}
+
+void ConnectDialog::on_URL_clicked() {
+	int row=qtwServers->currentRow();
+	if (row == -1)
+		return;
+
+	QDesktopServices::openUrl(QUrl(qtwServers->item(row, 2)->text()));
+}
+
+void ConnectDialog::on_Copy_clicked() {
+	int row=qtwServers->currentRow();
+	if (row == -1)
+		return;
+
+	QStringList a = qtwServers->item(row, 1)->text().split(QLatin1Char(':'));
+
+	qleName->setText(qtwServers->item(row, 0)->text());
+	qleServer->setText(a.at(0));
+	qleUsername->setText(g.qs->value(QLatin1String("defUserName")).toString());
+	qlePassword->setText(QString());
+	qlePort->setText(a.at(1));
+
+	qtwTab->setCurrentIndex(0);
+
+	on_Add_clicked();
+}
+
+void ConnectDialog::on_Request_done(bool err) {
+    if (err) {
+	QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
+    	return;
+    }
+
+    QDomDocument doc;
+    doc.setContent(qhList->readAll());
+
+    qlPublicServers.clear();
+
+    QDomElement root=doc.documentElement();
+    QDomNode n = root.firstChild();
+    while (!n.isNull()) {
+	QDomElement e = n.toElement();
+	if (!e.isNull()) {
+	    if (e.tagName() == QLatin1String("server")) {
+		    PublicInfo pi;
+		    pi.name = e.attribute(QLatin1String("name"));
+		    pi.url = e.attribute(QLatin1String("url"));
+		    pi.ip = e.attribute(QLatin1String("ip"));
+		    pi.port = e.attribute(QLatin1String("port")).toInt();
+		    qlPublicServers << pi;
+	    }
+	}
+	n = n.nextSibling();
+    }
+
+
+    qWarning("Result %d", err);
+
+    fillList();
 }
 
 void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIndex &previndex)
@@ -214,4 +360,12 @@ void ConnectDialog::on_Remove_clicked()
 
 void ConnectDialog::onDirty(const QString &) {
 	bDirty = true;
+}
+
+void ConnectDialog::on_Tab_currentChanged(int idx) {
+    if (idx != 1)
+    	return;
+
+    initList();
+    fillList();
 }

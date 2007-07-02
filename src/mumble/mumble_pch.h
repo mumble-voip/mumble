@@ -16,6 +16,7 @@
 #include <QtNetwork>
 #include <QtOpenGL>
 #include <QtSql>
+#include <QtXml>
 #include <speex/speex.h>
 
 #include <math.h>

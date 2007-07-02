@@ -1,7 +1,7 @@
 include(../mumble.pri)
 
 TEMPLATE	= app
-QT		+= network sql opengl
+QT		+= network sql opengl xml
 TARGET		= mumble
 RC_FILE		= mumble.rc
 HEADERS		+=
