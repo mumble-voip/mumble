@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 9
+#define MESSAGE_STREAM_VERSION 8
 
 #include "ACL.h"
 
