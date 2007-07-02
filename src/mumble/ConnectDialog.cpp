@@ -52,7 +52,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
     vbl->addWidget(qtwTab);
     setLayout(vbl);
 
-    if (qstmServers->rowCount() < 10) {
+    if (qstmServers->rowCount() < 1) {
     	qtwTab->setCurrentIndex(1);
     	initList();
     }
