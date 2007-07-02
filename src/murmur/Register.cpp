@@ -39,7 +39,7 @@ Register::Register() {
   
   if (! g_sp.qsRegName.isEmpty()) {
     if ((! g_sp.qsRegName.isEmpty()) && (! g_sp.qsRegPassword.isEmpty()) && (g_sp.qurlRegWeb.isValid()) && (g_sp.qsPassword.isEmpty()))
-      qtTick.start(1000);
+      qtTick.start(60000);
     else
       qWarning("Registration needs nonempty name, password and url, and the server must not be password protected.");
   } else {
@@ -91,11 +91,11 @@ void Register::update() {
   
   http = new QHttp(this);
   connect(http, SIGNAL(done(bool)), this, SLOT(done(bool)));
-  http->setHost(QLatin1String("xeno.stud.hive.no"), 80);
+  http->setHost(QLatin1String("mumble.hive.no"), 80);
   
-  QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/murmur/register.cgi"));
+  QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/register.cgi"));
   h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
-  h.setValue(QLatin1String("Host"), QLatin1String("xeno.stud.hive.no"));
+  h.setValue(QLatin1String("Host"), QLatin1String("mumble.hive.no"));
   h.setContentType(QLatin1String("text/xml"));
   http->request(h, doc.toString().toUtf8());
 }
