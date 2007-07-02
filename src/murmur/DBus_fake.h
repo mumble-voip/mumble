@@ -51,8 +51,8 @@ class MurmurDBus : public QObject {
     void channelCreated(Channel *) {};
     void channelRemoved(Channel *) {};
 
-    int mapNameToId() { return -2; };
-    QString mapIdToString() { return QString(); };
+    int mapNameToId(const QString &) { return -2; };
+    QString mapIdToName(int) { return QString(); };
     int authenticate(const QString &uname, const QString &pw) { return -2; };
 };
 
