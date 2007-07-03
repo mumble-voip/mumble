@@ -36,6 +36,19 @@
 
 class Player;
 
+class SharedMemoryPrivate;
+class SharedMemory {
+    protected:
+    	SharedMemoryPrivate *d;
+    public:
+	SharedMem *sm;
+	SharedMemory();
+	~SharedMemory();
+	void resolve(QLibrary *lib);
+	bool tryLock();
+	void unlock();
+};
+
 class OverlayConfig : public ConfigWidget {
 	Q_OBJECT
 	protected:
@@ -48,8 +61,8 @@ class OverlayConfig : public ConfigWidget {
 
 		QFont qfFont;
 		QPushButton *qpbSetFont;
-		QSlider *qsMaxWidth;
-		QLabel *qlMaxWidth;
+		QSlider *qsMaxHeight;
+		QLabel *qlMaxHeight;
 
 		QColor qcPlayer, qcAltTalking, qcTalking, qcChannel, qcChannelTalking;
 
@@ -62,7 +75,7 @@ class OverlayConfig : public ConfigWidget {
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void on_MaxWidth_valueChanged(int v);
+		void on_MaxHeight_valueChanged(int v);
 		void on_SetFont_clicked();
 		void on_Player_clicked();
 		void on_Talking_clicked();
@@ -72,16 +85,24 @@ class OverlayConfig : public ConfigWidget {
 		void accept();
 };
 
+class OverlayPrivate;
 class Overlay : public QObject {
 	friend class OverlayConfig;
 	Q_OBJECT
 	protected:
-		typedef void (__cdecl *HooksProc)();
+		OverlayPrivate *d;
+
+		typedef QPair<QString, quint32> TextLine;
+		QList<TextLine> qlCurrentTexts;
+		QHash<QString, unsigned char *> qhTextures;
+		QHash<QString, short> qhWidths;
 		QLibrary *qlOverlay;
 		QTimer *qtTimer;
-		HANDLE hMutex;
-		HooksProc hpInstall, hpRemove;
-		SharedMem *sm;
+		float fFontBase;
+		SharedMemory sm;
+		void platformInit();
+		void setTexts(const QList<TextLine> &lines);
+		void fixFont();
 	public:
 		Overlay();
 		~Overlay();

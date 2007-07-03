@@ -51,7 +51,7 @@ struct Settings {
 	QString qsAudioInput, qsAudioOutput;
 
 	int iDXOutputDelay;
-	
+
 #ifdef Q_OS_UNIX
 	QString qsFestival;
 	QString qsALSAInput, qsALSAOutput;
@@ -70,6 +70,7 @@ struct Settings {
 
 	QByteArray qbaDXInput, qbaDXOutput;
 	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
+#endif
 
 	bool bOverlayEnable;
 	OverlayShow osOverlay;
@@ -78,13 +79,12 @@ struct Settings {
 	float fOverlayY;
 	bool bOverlayLeft, bOverlayRight, bOverlayTop, bOverlayBottom;
 	QFont qfOverlayFont;
-	float fOverlayWidth;
+	float fOverlayHeight;
 	QColor qcOverlayPlayer;
 	QColor qcOverlayTalking;
 	QColor qcOverlayAltTalking;
 	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
-#endif
 
 	Settings();
 	void load();

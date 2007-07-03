@@ -31,26 +31,29 @@
 #ifndef _INTERNAL_OVERLAY_H
 #define _INTERNAL_OVERLAY_H
 
-struct TextEntry {
-	wchar_t text[128];
-	DWORD color;
-};
-
+#define TEXT_WIDTH 600
+#define TEXT_HEIGHT 60
 #define NUM_TEXTS 32
 
+#define TEXTURE_SIZE (TEXT_WIDTH*TEXT_HEIGHT*4)
+
+struct TextEntry {
+	unsigned int color;
+	wchar_t text[128];
+	bool bUpdated;
+	short width;
+	unsigned char texture[TEXTURE_SIZE];
+};
+
 struct SharedMem {
-	DWORD lastAppAlive;
+	unsigned int lastAppAlive;
 	bool bHooked;
 	bool bDebug;
 	bool bShow;
 	bool bReset;
-	wchar_t strFontname[128];
-	int iFontSize;
-	bool bFontBold;
-	bool bFontItalic;
-	float fWidthFactor;
 	float fX, fY;
 	bool bTop, bBottom, bLeft, bRight;
+	float fFontSize;
 
 	TextEntry texts[NUM_TEXTS];
 };

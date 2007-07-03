@@ -61,6 +61,7 @@ Settings::Settings() {
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
 	fDXRollOff = 0.15;
+#endif
 
 	bOverlayEnable = true;
 	osOverlay = All;
@@ -72,13 +73,12 @@ Settings::Settings() {
 	bOverlayLeft = true;
 	bOverlayRight = false;
 	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
-	fOverlayWidth = 20.0;
+	fOverlayHeight = 30.0;
 	qcOverlayPlayer = QColor(255,255,255,128);
 	qcOverlayTalking = QColor(255,255,196,255);
 	qcOverlayAltTalking = QColor(255,128,128,255);
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
-#endif
 }
 
 void Settings::load() {
@@ -115,6 +115,8 @@ void Settings::load() {
 	fDXMinDistance = g.qs->value(QLatin1String("DXMinDistance"), fDXMinDistance).toDouble();
 	fDXMaxDistance = g.qs->value(QLatin1String("DXMaxDistance"), fDXMaxDistance).toDouble();
 	fDXRollOff = g.qs->value(QLatin1String("DXRollOff"), fDXRollOff).toDouble();
+#endif
+
 	bOverlayEnable = g.qs->value(QLatin1String("OverlayEnable"),bOverlayEnable).toBool();
 	osOverlay = static_cast<Settings::OverlayShow>(g.qs->value(QLatin1String("OverlayShow"), osOverlay).toInt());
 	bOverlayAlwaysSelf = g.qs->value(QLatin1String("OverlayAlwaysSelf"),bOverlayAlwaysSelf).toBool();
@@ -126,12 +128,11 @@ void Settings::load() {
 	bOverlayLeft = g.qs->value(QLatin1String("OverlayLeft"),bOverlayLeft).toBool();
 	bOverlayRight = g.qs->value(QLatin1String("OverlayRight"),bOverlayRight).toBool();
 	qfOverlayFont = qvariant_cast<QFont>(g.qs->value(QLatin1String("OverlayFont"),qfOverlayFont));
-	fOverlayWidth = g.qs->value(QLatin1String("OverlayWidth"), fOverlayWidth).toDouble();
+	fOverlayHeight = g.qs->value(QLatin1String("OverlayHeight"), fOverlayHeight).toDouble();
 	qcOverlayPlayer = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayPlayer"),qcOverlayPlayer));
 	qcOverlayTalking = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayTalking"),qcOverlayTalking));
 	qcOverlayChannel = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayChannel"),qcOverlayChannel));
 	qcOverlayChannelTalking = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayChannelTalking"),qcOverlayChannelTalking));
-#endif
 }
 
 void Settings::save() {
@@ -169,6 +170,7 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("DXMinDistance"), fDXMinDistance);
 	g.qs->setValue(QLatin1String("DXMaxDistance"), fDXMaxDistance);
 	g.qs->setValue(QLatin1String("DXRollOff"), fDXRollOff);
+#endif
 	g.qs->setValue(QLatin1String("OverlayEnable"), bOverlayEnable);
 	g.qs->setValue(QLatin1String("OverlayShow"), osOverlay);
 	g.qs->setValue(QLatin1String("OverlayAlwaysSelf"), bOverlayAlwaysSelf);
@@ -179,10 +181,9 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("OverlayLeft"), bOverlayLeft);
 	g.qs->setValue(QLatin1String("OverlayRight"), bOverlayRight);
 	g.qs->setValue(QLatin1String("OverlayFont"), qfOverlayFont);
-	g.qs->setValue(QLatin1String("OverlayWidth"), fOverlayWidth);
+	g.qs->setValue(QLatin1String("OverlayHeight"), fOverlayHeight);
 	g.qs->setValue(QLatin1String("OverlayPlayer"), qcOverlayPlayer);
 	g.qs->setValue(QLatin1String("OverlayTalking"), qcOverlayTalking);
 	g.qs->setValue(QLatin1String("OverlayChannel"), qcOverlayChannel);
 	g.qs->setValue(QLatin1String("OverlayChannelTalking"), qcOverlayChannelTalking);
-#endif
 }

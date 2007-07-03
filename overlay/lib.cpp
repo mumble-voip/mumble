@@ -46,7 +46,7 @@ using namespace std;
 
 #pragma data_seg(".SHARED")
 
-extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, true, false, L"Arial", 120, false, false, 20.0, 1.0, 0.0, false, true, true, false};
+extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, true, false, 1.0, 0.0, false, true, true, false, 72};
 
 HHOOK hhookCBT = 0, hhookWnd = 0;
 
@@ -70,10 +70,12 @@ public:
 	bool bInitialized;
 	bool bNeedPrep;
 	bool bMyRefs;
+
+	LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
+
 	DevState();
 
 	ID3DXSprite*        pTextSprite;
-	ID3DXFont*          pFont;
 
 	void cleanState();
 	void initData();
@@ -81,18 +83,12 @@ public:
 	void prep();
 	void draw();
 	void postDraw();
-	void mkString(const wchar_t *string);
 };
 
 map<IDirect3DDevice9 *, DevState *> devMap;
-map<wstring, LPDIRECT3DTEXTURE9> texMap;
-map<wstring, int> texWidth;
 bool bHooked = false;
 HMODULE hSelf = NULL;
 HANDLE hSharedMutex = NULL;
-int iHeight;
-int iOutline;
-int iMaxWidth;
 
 DevState::DevState() {
 	dev = NULL;
@@ -102,25 +98,14 @@ DevState::DevState() {
 	refCount = 0;
 	myRefCount = 0;
 	triggerCount = 0;
+	for(int i = 0;i < NUM_TEXTS;i++)
+		tex[i] = NULL;
 }
 
 void DevState::initData() {
 	ods("Init Data of %p", dev);
 
-	D3DVIEWPORT9 vp;
-	dev->GetViewport(&vp);
-
-	iHeight = MulDiv(sm.iFontSize, vp.Height, 768);
-	iOutline = iHeight / 15;
-	if (iOutline < 1)
-		iOutline = 1;
-	iMaxWidth = iHeight * sm.fWidthFactor;
-
 	D3DXCreateSprite(dev, &pTextSprite );
-	D3DXCreateFont(dev, iHeight, 0, sm.bFontBold ? FW_BOLD : FW_NORMAL, 1, sm.bFontItalic, DEFAULT_CHARSET,
-					OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
-					sm.strFontname, &pFont);
-
 	bNeedPrep = true;
 
 	return;
@@ -132,144 +117,37 @@ void DevState::prep() {
 	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		for(int i=0;i<NUM_TEXTS;i++) {
-			if (sm.texts[i].text[0] && (sm.texts[i].text[0] != ' ')) {
-				wstring str(sm.texts[i].text);
-				if (texMap[str] == NULL) {
-					mkString(sm.texts[i].text);
+		    	if ((sm.texts[i].bUpdated || tex[i] == NULL) && (sm.texts[i].width > 0)) {
+			    	if (tex[i])
+			    		tex[i]->Release();
+				dev->CreateTexture(sm.texts[i].width, TEXT_HEIGHT, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex[i], NULL);
+
+				D3DLOCKED_RECT lr;
+
+				DWORD res=tex[i]->LockRect(0, &lr, NULL, D3DLOCK_DISCARD);
+
+				for(int r=0;r<TEXT_HEIGHT;r++) {
+				    unsigned char *dptr = (unsigned char *) lr.pBits + r * lr.Pitch;
+					memcpy(dptr, sm.texts[i].texture + r * TEXT_WIDTH * 4, sm.texts[i].width * 4);
 				}
+
+				tex[i]->UnlockRect(0);
+				sm.texts[i].bUpdated = false;
 			}
 		}
 		ReleaseMutex(hSharedMutex);
 	}
 }
 
-void DevState::mkString(const wchar_t *str) {
-	ods("Making string %ls", str);
-	IDirect3DSurface9 *pSurf, *pPrevSurf = NULL, *pDS = NULL;
-	LPDIRECT3DTEXTURE9 pTex, pShadTex;
-	D3DVIEWPORT9 vp, oldVP;
-
-	dev->GetRenderTarget(0, &pPrevSurf);
-	dev->GetDepthStencilSurface(&pDS);
-	dev->GetViewport(&oldVP);
-
-	RECT rc;
-	SetRect( &rc, 0, 0, iMaxWidth, iHeight );
-	pFont->DrawText( NULL, str, -1, &rc, DT_CALCRECT | DT_SINGLELINE, D3DXCOLOR( 0.0f, 0.0f, 0.0f, 1.0f ));
-
-	int width = rc.right + 2 * iOutline;
-	int height = iHeight + 2 * iOutline;
-	if (width > iMaxWidth)
-		width = iMaxWidth;
-
-	dev->CreateTexture(width, height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pTex, NULL);
-	dev->CreateTexture(width, height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pShadTex, NULL);
-
-	dev->SetDepthStencilSurface(NULL);
-
-	pShadTex->GetSurfaceLevel(0, &pSurf);
-	dev->SetRenderTarget(0, pSurf);
-	pSurf->Release();
-
-	vp.X = 0;
-	vp.Y = 0;
-	vp.Height = height;
-	vp.Width = width;
-	vp.MinZ = 0.0;
-	vp.MaxZ = 1.0;
-
-	dev->SetViewport(&vp);
-
-	dev->BeginScene();
-	dev->Clear( 0L, NULL, D3DCLEAR_TARGET, 0x00000000, 1.0f, 0L );
-
-	int min=0;
-	int max=2*iOutline;
-
-	for(int x = 0; x <= max; x++) {
-			SetRect( &rc, x, 0, 0, 0 );
-			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
-			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
-			pTextSprite->End();
-			SetRect( &rc, x, max, 0, 0 );
-			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
-			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
-			pTextSprite->End();
-	}
-	for(int y = 1; y < max; y++) {
-			SetRect( &rc, 0, y, 0, 0 );
-			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
-			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
-			pTextSprite->End();
-			SetRect( &rc, max, y, 0, 0 );
-			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
-			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
-			pTextSprite->End();
-
-	}
-
-	for(int y=1;y<max;y++) {
-		for(int x=1;x<max;x++) {
-			SetRect( &rc, x, y, 0, 0 );
-			pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
-			dev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-			dev->SetRenderState(D3DRS_ALPHAREF, 0xFF);
-			dev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_EQUAL);
-			pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
-			pTextSprite->End();
-		}
-	}
-
-	dev->EndScene();
-
-
-	pTex->GetSurfaceLevel(0, &pSurf);
-	dev->SetRenderTarget(0, pSurf);
-	pSurf->Release();
-
-	dev->Clear( 0L, NULL, D3DCLEAR_TARGET, 0x00000000, 1.0f, 0L );
-	dev->BeginScene();
-
-
-	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_DEPTH_FRONTTOBACK);
-	D3DXVECTOR3 pos(0,0,0.1);
-	pTextSprite->Draw(pShadTex, NULL, NULL, &pos, 0xF0000000);
-	SetRect( &rc, iOutline, iOutline, 0, 0 );
-	pFont->DrawText( pTextSprite, str, -1, &rc, DT_NOCLIP, D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ));
-	pTextSprite->End();
-
-	dev->EndScene();
-
-
-	dev->SetViewport(&oldVP);
-
-	dev->SetDepthStencilSurface(pDS);
-	if (pDS)
-		pDS->Release();
-
-	dev->SetRenderTarget(0, pPrevSurf);
-	pPrevSurf->Release();
-
-	pShadTex->Release();
-
-	wstring s(str);
-	texMap[str]=pTex;
-	texWidth[str]=width;
-}
-
 void DevState::releaseData() {
 	ods("Release Data");
-	pFont->Release();
 	pTextSprite->Release();
 
-	map<wstring, LPDIRECT3DTEXTURE9>::const_iterator texIter;
-	for(texIter=texMap.begin();texIter != texMap.end(); ++texIter) {
-		if ((*texIter).second != NULL) {
-			(*texIter).second->Release();
-		}
-	}
-	texMap.clear();
-	texWidth.clear();
+	for(int i=0;i<NUM_TEXTS;i++)
+		if (tex[i]) {
+		    tex[i]->Release();
+		    tex[i] = NULL;
+	       }
 }
 
 void DevState::draw() {
@@ -285,17 +163,29 @@ void DevState::draw() {
 
 	int y = 0;
 
+	if (sm.fFontSize < 0.01)
+		sm.fFontSize = 0.01;
+	else if (sm.fFontSize > 1.0)
+		sm.fFontSize = 1.0;
+
+	int iHeight = vp.Height * sm.fFontSize;
+	if (iHeight > TEXT_HEIGHT)
+		iHeight = TEXT_HEIGHT;
+
+	float s = iHeight / 60.0;
+
+	ods("Init: Scale %f. iH %d. Final scale %f", sm.fFontSize, iHeight, s);
+
 	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		for(int i=0;i<NUM_TEXTS;i++) {
-			if (sm.texts[i].text[0] == ' ') {
+			if (sm.texts[i].width == 0) {
 				y += iHeight / 4;
-			} else if (sm.texts[i].text[0]) {
-				wstring str(sm.texts[i].text);
-				IDirect3DTexture9 *tex = texMap[str];
-				if (tex) {
-					int w = texWidth[str];
-					texs.push_back(tex);
+			} else if (sm.texts[i].width > 0) {
+				IDirect3DTexture9 *t = tex[i];
+				if (tex && (sm.texts[i].bUpdated == false)) {
+					int w = sm.texts[i].width * s;
+					texs.push_back(t);
 					colors.push_back(sm.texts[i].color);
 					widths.push_back(w);
 					yofs.push_back(y);
@@ -322,10 +212,18 @@ void DevState::draw() {
 		y -= height / 2;
 	}
 
+
 	if (y < 1)
 		y = 1;
 	if ((y + height + 1) > vp.Height)
 		y = vp.Height - height - 1;
+
+	D3DXMATRIX scale(
+	    s,               0.0f,            0.0f,            0.0f,
+	    0.0f,            s,               0.0f,            0.0f,
+	    0.0f,            0.0f,            s,               0.0f,
+	    0.0f,            0.0f,            0.0f,            1.0f
+	);
 
 	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
 	for(int i=0;i<idx;i++) {
@@ -345,7 +243,10 @@ void DevState::draw() {
 		if ((x + width + 1) > vp.Width)
 			x = vp.Width - width - 1;
 
-		D3DXVECTOR3 p(x, y + yofs[i], 1.0);
+		D3DXVECTOR3 p(x/s, (y + yofs[i])/s, 1.0);
+		ods("With scale %f this is %f %f from %f", s, p.x, p.y, sm.fFontSize);
+
+		pTextSprite->SetTransform(&scale);
 		pTextSprite->Draw(texs[i], NULL, NULL, &p, colors[i]);
 	}
 	pTextSprite->End();
