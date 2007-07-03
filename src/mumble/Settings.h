@@ -65,13 +65,13 @@ struct Settings {
 
 #ifdef Q_OS_WIN
 	enum Audio3D { None, Panning, Light, Full };
-	enum OverlayShow { Nothing, Talking, All };
 	Audio3D a3dModel;
 
 	QByteArray qbaDXInput, qbaDXOutput;
 	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
 #endif
 
+	enum OverlayShow { Nothing, Talking, All };
 	bool bOverlayEnable;
 	OverlayShow osOverlay;
 	bool bOverlayAlwaysSelf;
