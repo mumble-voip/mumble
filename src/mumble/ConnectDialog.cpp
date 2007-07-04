@@ -204,7 +204,7 @@ void ConnectDialog::accept() {
 
 		bool ok;
 		QString defUserName = g.qs->value(QLatin1String("defUserName")).toString();
-		defUserName = QInputDialog::getText(this, tr("Connecting to ").arg(qtwServers->item(row, 0)->text()), tr("Enter username"), QLineEdit::Normal, defUserName, &ok);
+		defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(qtwServers->item(row, 0)->text()), tr("Enter username"), QLineEdit::Normal, defUserName, &ok);
 		if (! ok)
 			return;
 

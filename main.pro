@@ -7,3 +7,7 @@ SUBDIRS += src/mumble src/murmur
 win32 {
   SUBDIRS += plugins
 }
+
+unix {
+  SUBDIRS += overlay_gl
+}
