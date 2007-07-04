@@ -43,6 +43,7 @@ class SharedMemoryPrivate {
 
 SharedMemory::SharedMemory() {
     d = new SharedMemoryPrivate();
+    sm = NULL;
 }
 
 SharedMemory::~SharedMemory() {

@@ -353,17 +353,27 @@ Overlay::Overlay() : QObject() {
 	qlOverlay = new QLibrary(this);
 
 #ifndef QT_NO_DEBUG
+#ifdef Q_OS_WIN
 	QString path="../overlay/mumble_ol.dll";
 #else
+	QString path="../gloverlay/mumble_ol.so";
+#endif
+#else
+#ifdef Q_OS_WIN
 	QString path=QString("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
+#else
+	QString path=QString("%1/mumble_ol.so").arg(qApp->applicationDirPath());
+#endif
 #endif
 
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
+#ifdef Q_OS_WIN
 		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
 				"- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
 				"- you're on an OS earlier than WinXP SP2\n"
 				"- you do not have the June 2007 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
+#endif
 		qWarning("Overlay failure");
 	}
 
@@ -455,9 +465,9 @@ void Overlay::updateOverlay() {
 	QString str;
 	QList<qpChanCol> linkchans;
 
-	if (! sm.sm)
+	if (! isActive())
 		return;
-
+		
 	if (g.sId) {
 		Channel *home = Player::get(g.sId)->cChannel;
 		foreach(Channel *c, home->allLinks()) {

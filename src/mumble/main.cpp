@@ -28,10 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef Q_OS_WIN
 #include "Overlay.h"
-#endif
-
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "AudioInput.h"
@@ -117,10 +114,8 @@ int main(int argc, char **argv)
 	g.sh = new ServerHandler();
 	g.sh->moveToThread(g.sh);
 
-#ifdef Q_OS_WIN
 	g.o = new Overlay();
 	g.o->setActive(g.s.bOverlayEnable);
-#endif
 
 	// Main Window
 	g.mw=new MainWindow(NULL);
@@ -158,9 +153,7 @@ int main(int argc, char **argv)
 	delete g.db;
 	delete g.l;
 
-#ifdef Q_OS_WIN
 	delete g.o;
-#endif
 
 	delete g.qs;
 
