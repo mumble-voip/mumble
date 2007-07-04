@@ -526,7 +526,7 @@ void ServerDB::conLoggedOn(Player *p, Connection *con) {
 	query.prepare("INSERT INTO connections (con_id, player_id, channel_id, player_name, ip, port) VALUES (?,?,?,?,?,?)");
 	query.addBindValue(p->sId);
 	query.addBindValue(p->iId);
-	query.addBindValue(p->cChannel->iId);
+	query.addBindValue(QVariant());
 	query.addBindValue(p->qsName);
 	query.addBindValue(con->peerAddress().toString());
 	query.addBindValue(con->peerPort());
