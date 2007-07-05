@@ -450,8 +450,10 @@ void MainWindow::on_ServerConnect_triggered()
 
 void MainWindow::on_ServerDisconnect_triggered()
 {
-	qtReconnect->stop();
-	g.sh->disconnect();
+	if (qtReconnect->isActive())
+		qtReconnect->stop();
+	if (g.sh && g.sh->isRunning()) 
+		g.sh->disconnect();
 }
 
 void MainWindow::on_ServerBanList_triggered()
