@@ -135,6 +135,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case Ping:
 			mMsg = new MessagePing();
 			break;
+		case PlayerTexture:
+			mMsg = new MessageTexture();
+			break;
 		default:
 			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
 	}
@@ -526,6 +529,19 @@ bool MessageQueryUsers::isValid() const {
 			return false;
 	}
 	return true;
+}
+
+MessageTexture::MessageTexture() {
+}
+
+void MessageTexture::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << iPlayerId;
+	qdsOut << qbaTexture;
+}
+
+void MessageTexture::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> iPlayerId;
+	qdsIn >> qbaTexture;
 }
 
 PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::GroupStruct &gs ) {

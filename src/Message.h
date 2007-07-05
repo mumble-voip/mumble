@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage };
+		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture };
 		unsigned short sPlayerId;
 
 		Message();
@@ -368,6 +368,18 @@ class MessageQueryUsers : public Message {
 		Message::MessageType messageType() const { return QueryUsers; };
 		void process(Connection *);
 		bool isValid() const;
+};
+
+class MessageTexture : public Message {
+	protected:
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
+	public:
+		int iPlayerId;
+		QByteArray qbaTexture;
+		MessageTexture();
+		Message::MessageType messageType() const { return PlayerTexture; }
+		void process(Connection *);
 };
 
 #else

@@ -119,6 +119,7 @@ ServerDB::ServerDB() {
 	if (g_sp.qsDBDriver == "QSQLITE") {
 		query.exec("CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, pw TEXT)");
 		query.exec("ALTER TABLE players ADD COLUMN lastchannel INTEGER");
+		query.exec("ALTER TABLE players ADD COLUMN texture BLOB");
 		query.exec("CREATE UNIQUE INDEX players_name ON players (name)");
 
 		query.exec("CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
@@ -215,7 +216,7 @@ bool ServerDB::hasUsers() {
 	return false;
 }
 
-int ServerDB::authenticate(QString &name, QString pw) {
+int ServerDB::authenticate(QString &name, const QString &pw) {
 	int res = dbus->authenticate(name, pw);
 	if (res != -2)
 		return res;
@@ -237,7 +238,7 @@ int ServerDB::authenticate(QString &name, QString pw) {
 	return res;
 }
 
-void ServerDB::setPW(int id, QString pw) {
+void ServerDB::setPW(int id, const QString &pw) {
 	TransactionHolder th;
 
 	QSqlQuery query;
@@ -263,7 +264,7 @@ QString ServerDB::getUserName(int id) {
 	return name;
 }
 
-int ServerDB::getUserID(QString name) {
+int ServerDB::getUserID(const QString &name) {
 	int id = dbus->mapNameToId(name);
 	
 	if (id != -2)
@@ -278,6 +279,23 @@ int ServerDB::getUserID(QString name) {
 		id = query.value(0).toInt();
 	}
 	return id;
+}
+
+QByteArray ServerDB::getUserTexture(int id) {
+	QByteArray qba=dbus->mapIdToTexture(id);
+	if (! qba.isNull())
+		return qba;
+
+	TransactionHolder th;
+
+	QSqlQuery query;
+	query.prepare("SELECT texture FROM players WHERE player_id = ?");
+	query.addBindValue(id);
+	query.exec();
+	if (query.next()) {
+		qba = query.value(0).toByteArray();
+	}
+	return qba;
 }
 
 void ServerDB::addLink(Channel *c, Channel *l) {
@@ -318,7 +336,7 @@ void ServerDB::removeLink(Channel *c, Channel *l) {
 	}
 }
 
-Channel *ServerDB::addChannel(Channel *parent, QString name) {
+Channel *ServerDB::addChannel(Channel *parent, const QString &name) {
 	TransactionHolder th;
 
 	QSqlQuery query;
@@ -330,7 +348,7 @@ Channel *ServerDB::addChannel(Channel *parent, QString name) {
 	return Channel::add(id, name, parent);
 }
 
-void ServerDB::removeChannel(Channel *c) {
+void ServerDB::removeChannel(const Channel *c) {
 	TransactionHolder th;
 
 	QSqlQuery query;
@@ -339,7 +357,7 @@ void ServerDB::removeChannel(Channel *c) {
 	query.exec();
 }
 
-void ServerDB::updateChannel(Channel *c) {
+void ServerDB::updateChannel(const Channel *c) {
 	TransactionHolder th;
 	Group *g;
 	ChanACL *acl;
@@ -447,7 +465,6 @@ void ServerDB::readChannelPrivs(Channel *c) {
 }
 
 void ServerDB::readChannels(Channel *p) {
-
 	QList<Channel *> kids;
 	Channel *c;
 	QSqlQuery query;
@@ -478,7 +495,7 @@ void ServerDB::readChannels(Channel *p) {
 		readChannels(c);
 }
 
-void ServerDB::setLastChannel(Player *p) {
+void ServerDB::setLastChannel(const Player *p) {
 
 	if (p->iId < 0)
 		return;
@@ -525,7 +542,7 @@ int ServerDB::readLastChannel(Player *p) {
 	return c->iId;
 }
 
-void ServerDB::conLoggedOn(Player *p, Connection *con) {
+void ServerDB::conLoggedOn(const Player *p, const Connection *con) {
 	TransactionHolder th;
 	QSqlQuery query;
 
@@ -539,7 +556,7 @@ void ServerDB::conLoggedOn(Player *p, Connection *con) {
 	query.exec();
 }
 
-void ServerDB::conLoggedOff(Player *p) {
+void ServerDB::conLoggedOff(const Player *p) {
 	TransactionHolder th;
 	QSqlQuery query;
 
@@ -548,7 +565,7 @@ void ServerDB::conLoggedOff(Player *p) {
 	query.exec();
 }
 
-void ServerDB::conChangedChannel(Player *p) {
+void ServerDB::conChangedChannel(const Player *p) {
 	TransactionHolder th;
 	QSqlQuery query;
 
@@ -558,7 +575,7 @@ void ServerDB::conChangedChannel(Player *p) {
 	query.exec();
 }
 
-void ServerDB::conChangedName(Player *p) {
+void ServerDB::conChangedName(const Player *p) {
 	TransactionHolder th;
 	QSqlQuery query;
 
@@ -568,7 +585,7 @@ void ServerDB::conChangedName(Player *p) {
 	query.exec();
 }
 
-void ServerDB::dumpChannel(Channel *c) {
+void ServerDB::dumpChannel(const Channel *c) {
 	Group *g;
 	ChanACL *acl;
 	int pid;

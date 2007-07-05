@@ -403,6 +403,8 @@ void Server::connectionClosed(QString reason) {
 
 	udp->qhHosts.remove(pPlayer->sId);
 	udp->qhPeers.remove(pPlayer->sId);
+	
+	qhUserTextureCache.remove(pPlayer->iId);
 
 	delete pPlayer;
 	c->deleteLater();
@@ -1343,4 +1345,14 @@ void MessageQueryUsers::process(Connection *cCon) {
 void MessagePing::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	g_sServer->sendMessage(cCon, this);
+}
+
+void MessageTexture::process(Connection *cCon) {
+	MSG_SETUP(Player::Authenticated);
+	if (! g_sServer->qhUserTextureCache.contains(iPlayerId)) {
+		g_sServer->qhUserTextureCache.insert(iPlayerId, ServerDB::getUserTexture(iPlayerId));
+	}
+	qbaTexture = g_sServer->qhUserTextureCache.value(iPlayerId);
+	if (! qbaTexture.isNull())
+		g_sServer->sendMessage(cCon, this);
 }

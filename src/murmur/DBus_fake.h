@@ -53,6 +53,7 @@ class MurmurDBus : public QObject {
 
     int mapNameToId(const QString &) { return -2; };
     QString mapIdToName(int) { return QString(); };
+    QByteArray mapIdToTexture(int) { return QByteArray(); };
     int authenticate(const QString &uname, const QString &pw) { return -2; };
 };
 

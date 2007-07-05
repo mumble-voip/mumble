@@ -157,6 +157,20 @@ QString MurmurDBus::mapIdToName(int id) {
   }    
 }
 
+QByteArray MurmurDBus::mapIdToTexture(int id) {
+  if (qsAuthPath.isEmpty())
+    return QByteArray();
+  
+  QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+  QDBusReply<QByteArray> reply = remoteApp.call("getUserTexture",id);
+  if (reply.isValid()) 
+    return reply.value();
+  else {
+    // This is NOT a critical failure, it's an OPTIONAL implementation.
+    return QByteArray();
+  }    
+}
+
 int MurmurDBus::mapNameToId(const QString &name) {
   if (qsAuthPath.isEmpty())
     return -2;

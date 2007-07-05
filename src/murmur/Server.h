@@ -97,6 +97,7 @@ class Server : public QObject {
 
 		UDPThread *udp;
 
+		QHash<int, QByteArray> qhUserTextureCache;
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;
 
