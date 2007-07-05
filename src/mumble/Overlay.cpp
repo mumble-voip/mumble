@@ -607,17 +607,24 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		QImage qi(td, TEXT_WIDTH, TEXT_HEIGHT, QImage::Format_ARGB32);
 
 		QPainterPath qp;
-		qp.addText(0, fFontBase, g.s.qfOverlayFont, e.first);
+		qp.addText(2, fFontBase, g.s.qfOverlayFont, e.first);
 
 		QPainter p(&qi);
 		p.setRenderHint(QPainter::Antialiasing);
 		p.setRenderHint(QPainter::TextAntialiasing);
 		p.setBrush(Qt::white);
-		p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+
+		// Draw with big border, this will be the "outline"
+		p.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                 p.drawPath(qp);
 
+		// And again, all white with no border. This avoids thin fonts being just black outline.
+		p.setPen(Qt::NoPen);
+                p.drawPath(qp);
+
+
 		qhTextures[e.first] = td;
-		qhWidths[e.first] = qMin(static_cast<int>(qp.boundingRect().width())+4, TEXT_WIDTH);
+		qhWidths[e.first] = qMin(static_cast<int>(qp.boundingRect().width())+6, TEXT_WIDTH);
 	    }
 	}
 

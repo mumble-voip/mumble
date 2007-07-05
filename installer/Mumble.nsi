@@ -70,6 +70,8 @@ Section "Mumble & Murmur" SecMumble
   File "qt.txt"
   File "..\release\mumble.exe"
   File "..\release\murmur.exe"
+  ; Because it kinda is open, but deleting it first works. Go figure.
+  Delete "$INSTDIR\mumble_ol.dll"
   File "..\overlay\mumble_ol.dll"
   SetOverwrite off
   File "..\scripts\murmur.ini"
