@@ -452,7 +452,7 @@ void MainWindow::on_ServerDisconnect_triggered()
 {
 	if (qtReconnect->isActive())
 		qtReconnect->stop();
-	if (g.sh && g.sh->isRunning()) 
+	if (g.sh && g.sh->isRunning())
 		g.sh->disconnect();
 }
 
@@ -1210,4 +1210,9 @@ void MessageQueryUsers::process(Connection *) {
 }
 
 void MessagePing::process(Connection *) {
+}
+
+void MessageTexture::process(Connection *) {
+    if (! qbaTexture.isEmpty())
+    	g.o->textureResponse(iPlayerId,qbaTexture);
 }

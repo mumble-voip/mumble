@@ -32,6 +32,8 @@
 #include "Channel.h"
 #include "Overlay.h"
 #include "Global.h"
+#include "Message.h"
+#include "ServerHandler.h"
 
 static ConfigWidget *OverlayConfigDialogNew() {
 	return new OverlayConfig();
@@ -358,27 +360,20 @@ Overlay::Overlay() : QObject() {
 #else
 	QString path=QString("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
 #endif
-#else
-	QString path=QString("%1/libmumble_ol.so").arg(qApp->applicationDirPath());
-#endif
 
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
-#ifdef Q_OS_WIN
 		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
 				"- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
 				"- you're on an OS earlier than WinXP SP2\n"
 				"- you do not have the June 2007 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
-#else
-		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
-				"- you don't have libmumble_ol.so \n"
-				"- this isn't Linux with glibc2.3\n"
-				"- you have discovered a new and interesting bug"), QMessageBox::Ok, QMessageBox::NoButton);
-#endif
 		qWarning("Overlay failure");
 	} else {
   	  sm.resolve(qlOverlay);
   	}
+#else
+	sm.resolve(qlOverlay);
+#endif
 
 #ifndef QT_NO_DEBUG
 	if (sm.sm)
@@ -456,7 +451,33 @@ void Overlay::forceSettings() {
 	updateOverlay();
 }
 
-#define SAFE_INC_IDX(x) x=(x < NUM_TEXTS) ? (x+1) : (NUM_TEXTS-1)
+void Overlay::textureResponse(int id, const QByteArray &texture) {
+    qWarning("Response for %d", id);
+    QString s = qhQueried.value(id);
+    if (s.isEmpty())
+    	return;
+
+    qWarning("Which we're waiting for");
+
+    QByteArray t = qUncompress(texture);
+
+    qWarning("decompressed to %d", t.size());
+
+    if (t.size() != TEXTURE_SIZE)
+    	return;
+
+    const unsigned char *data = reinterpret_cast<const unsigned char *>(t.constData());
+
+    int width = 0;
+    for(int y=0;y<TEXT_HEIGHT;y++) {
+	for(int x=0;x<TEXT_WIDTH; x++) {
+	    if ((x > width) && (data[(y*TEXT_WIDTH+x)*4] != 0x00))
+	    	width = x;
+	}
+    }
+    qhUserTextures[s] = UserTexture(width, t);
+    qsForce.insert(s);
+}
 
 typedef QPair<QString, quint32> qpChanCol;
 
@@ -471,7 +492,7 @@ void Overlay::updateOverlay() {
 
 	if (! isActive())
 		return;
-		
+
 	if (g.sId) {
 		Channel *home = Player::get(g.sId)->cChannel;
 		foreach(Channel *c, home->allLinks()) {
@@ -507,6 +528,12 @@ void Overlay::updateOverlay() {
 
 		foreach(Player *p, Player::get(g.sId)->cChannel->qlPlayers) {
 			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == Player::get(g.sId)) && g.s.bOverlayAlwaysSelf)) {
+			    	if ((p->iId >= 0) && (! qhQueried.contains(p->iId))) {
+				    qhQueried.insert(p->iId, p->qsName);
+				    MessageTexture mt;
+				    mt.iPlayerId = p->iId;
+				    g.sh->sendMessage(&mt);
+				}
 				QString name = p->qsName;
 				if (p->bDeaf || p->bSelfDeaf)
 					name = name + QString("(D)");
@@ -526,6 +553,8 @@ void Overlay::updateOverlay() {
 				}
 			}
 		}
+	} else {
+	    clearCache();
 	}
 	setTexts(lines);
 }
@@ -550,17 +579,23 @@ void Overlay::fixFont() {
 	    qp.addText(0, 0, g.s.qfOverlayFont, QLatin1String("Üy"));
 	    br=qp.boundingRect();
 	    qWarning("Overlay: Attempt for pixelsize %d gave actual sizes %f %f", psize+1, br.height(),br.top());
-    } while ((br.height()+2) > TEXT_HEIGHT);	  
+    } while ((br.height()+2) > TEXT_HEIGHT);
 
     fFontBase = fabs(br.top());
 
+    clearCache();
+
+    qlCurrentTexts.clear();
+}
+
+void Overlay::clearCache() {
     foreach(unsigned char *ptr, qhTextures)
     	delete [] ptr;
 
     qhTextures.clear();
     qhWidths.clear();
-
-    qlCurrentTexts.clear();
+    qhQueried.clear();
+    qhUserTextures.clear();
 }
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
@@ -580,17 +615,15 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		p.setBrush(Qt::white);
 		p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                 p.drawPath(qp);
-//		p.setFont(g.s.qfOverlayFont);
-//		p.drawText(0, fm.ascent(), e.first);
 
 		qhTextures[e.first] = td;
 		qhWidths[e.first] = qMin(static_cast<int>(qp.boundingRect().width())+4, TEXT_WIDTH);
 	    }
 	}
-	
+
 	if (! sm.tryLock())
 		return;
-		
+
 	int i;
 
 	for(i=0;i<lines.count();i++) {
@@ -603,14 +636,21 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		wcscpy(te->text, reinterpret_cast<const wchar_t *>(tl.first.left(127).utf16()));
 	    	te->color = lines[i].second;
 
-		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].first != tl.first)) {
+		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].first != tl.first) || qsForce.contains(tl.first)) {
 		    if (tl.first.isNull()) {
 		    	te->width = 0;
 		    } else {
-			memcpy(sm.sm->texts[i].texture, qhTextures[tl.first], TEXTURE_SIZE);
-			te->width = qhWidths[tl.first];
+			if (qhUserTextures.contains(tl.first)) {
+			    const UserTexture &ut=qhUserTextures.value(tl.first);
+			    memcpy(sm.sm->texts[i].texture, ut.second.constData(), TEXTURE_SIZE);
+			    te->width = ut.first;
+		    	} else {
+			    memcpy(sm.sm->texts[i].texture, qhTextures[tl.first], TEXTURE_SIZE);
+			    te->width = qhWidths[tl.first];
+		    	}
 			te->bUpdated = true;
 		    }
+		    qsForce.remove(tl.first);
 		}
 	}
 

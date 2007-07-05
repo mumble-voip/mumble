@@ -93,9 +93,13 @@ class Overlay : public QObject {
 		OverlayPrivate *d;
 
 		typedef QPair<QString, quint32> TextLine;
+		typedef QPair<short, QByteArray> UserTexture;
 		QList<TextLine> qlCurrentTexts;
 		QHash<QString, unsigned char *> qhTextures;
+		QHash<QString, UserTexture> qhUserTextures;
 		QHash<QString, short> qhWidths;
+		QHash<int, QString> qhQueried;
+		QSet<QString> qsForce;
 		QLibrary *qlOverlay;
 		QTimer *qtTimer;
 		float fFontBase;
@@ -103,10 +107,12 @@ class Overlay : public QObject {
 		void platformInit();
 		void setTexts(const QList<TextLine> &lines);
 		void fixFont();
+		void clearCache();
 	public:
 		Overlay();
 		~Overlay();
 		bool isActive() const;
+		void textureResponse(int id, const QByteArray &texture);
 	public slots:
 		void on_Timer_timeout();
 		void updateOverlay();

@@ -188,7 +188,6 @@ class PacketDataStream {
 		PacketDataStream &operator >>(QByteArray &a) {
 			quint32 len;
 			*this >> len;
-			qWarning("Looking for %d bytes with %d left", len, left());
 			if (len > left()) {
 				len = left();
 				ok = false;
