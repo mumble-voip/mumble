@@ -352,18 +352,14 @@ void OverlayConfig::accept() {
 Overlay::Overlay() : QObject() {
 	qlOverlay = new QLibrary(this);
 
-#ifndef QT_NO_DEBUG
 #ifdef Q_OS_WIN
+#ifndef QT_NO_DEBUG
 	QString path="../overlay/mumble_ol.dll";
 #else
-	QString path="../gloverlay/mumble_ol.so";
-#endif
-#else
-#ifdef Q_OS_WIN
 	QString path=QString("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
-#else
-	QString path=QString("%1/mumble_ol.so").arg(qApp->applicationDirPath());
 #endif
+#else
+	QString path=QString("%1/libmumble_ol.so").arg(qApp->applicationDirPath());
 #endif
 
 	qlOverlay->setFileName(path);
@@ -373,15 +369,23 @@ Overlay::Overlay() : QObject() {
 				"- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
 				"- you're on an OS earlier than WinXP SP2\n"
 				"- you do not have the June 2007 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
+#else
+		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
+				"- you don't have libmumble_ol.so \n"
+				"- this isn't Linux with glibc2.3\n"
+				"- you have discovered a new and interesting bug"), QMessageBox::Ok, QMessageBox::NoButton);
 #endif
 		qWarning("Overlay failure");
-	}
-
-	sm.resolve(qlOverlay);
+	} else {
+  	  sm.resolve(qlOverlay);
+  	}
 
 #ifndef QT_NO_DEBUG
 	if (sm.sm)
 		sm.sm->bDebug = true;
+#else
+	if (sm.sm)
+		sm.sm->bDebug = false;
 #endif
 
 	qtTimer=new QTimer(this);
@@ -536,12 +540,17 @@ void Overlay::updateOverlay() {
 void Overlay::fixFont() {
     g.s.qfOverlayFont.setStyleStrategy(QFont::ForceOutline);
 
-    g.s.qfOverlayFont.setPixelSize(TEXT_HEIGHT);
+    int psize = TEXT_HEIGHT;
 
-    QPainterPath qp;
-    qp.addText(0, 0, g.s.qfOverlayFont, QLatin1String("Üy"));
-    QRectF br=qp.boundingRect();
-    qWarning("Attempt for size %d gave %f %f", TEXT_HEIGHT, br.height(),br.top());
+    QRectF br;
+
+    do {
+	    g.s.qfOverlayFont.setPixelSize(psize--);
+	    QPainterPath qp;
+	    qp.addText(0, 0, g.s.qfOverlayFont, QLatin1String("Üy"));
+	    br=qp.boundingRect();
+	    qWarning("Overlay: Attempt for pixelsize %d gave actual sizes %f %f", psize+1, br.height(),br.top());
+    } while ((br.height()+2) > TEXT_HEIGHT);	  
 
     fFontBase = fabs(br.top());
 
@@ -578,10 +587,10 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		qhWidths[e.first] = qMin(static_cast<int>(qp.boundingRect().width())+4, TEXT_WIDTH);
 	    }
 	}
-
+	
 	if (! sm.tryLock())
 		return;
-
+		
 	int i;
 
 	for(i=0;i<lines.count();i++) {

@@ -1,0 +1,30 @@
+
+OpenGL Overlay
+==============
+
+The OpenGL overlay works by intercepting the call to switch buffers, and just
+before the buffer switch we draw our nice GUI.
+
+To load a game with the overlay enabled, start the game as this:
+LD_PRELOAD=/path/to/mumble/libmumble_ol.so.1.0.0 gamename
+
+For example, to start Enemy Territory using the default Ubuntu packages:
+LD_PRELOAD=/usr/lib/libmumble_ol.so.1.0.0 et
+
+Global Keyboard Events
+======================
+
+Unlike Windows, there is no easy way to monitor all key and mouse events
+under X11. At the moment, Mumble uses the Xevie extension to accomplish
+this, but unfortunately that extension is disabled by default. To enable it
+(and push-to-talk), add the following to your xorg.conf:
+
+Section "Extensions"
+	Option "XEVIE" "Enable"
+EndSection
+
+Without Xevie, we would have to either:
+ a) [Normal events] Accept shortcuts only when Mumble was the active
+    application, making it useless for gaming.
+ b) [XGrabKey] Accept only key-down of specific combinations, so that you
+    could bind Ctrl-S to "toggle send speech". No binding of keyup in normal X11.

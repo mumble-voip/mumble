@@ -3,9 +3,10 @@
 
 TEMPLATE = lib
 CONFIG -= qt
-CONFIG += release
+CONFIG += debug_and_release
 TARGET = mumble_ol
 SOURCES = overlay.cpp
+LIBS += -lrt
 
 CONFIG(debug, debug|release) {
   DESTDIR       = ../debug

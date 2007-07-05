@@ -11,3 +11,5 @@ win32 {
 unix {
   SUBDIRS += overlay_gl
 }
+
+DIST=LICENSE INSTALL README README.Linux CHANGES

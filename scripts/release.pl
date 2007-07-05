@@ -14,13 +14,13 @@ my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'f
 
 system("rm mumble-*");
 
-foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
+foreach my $pro ("main.pro", "overlay_gl/overlay_gl.pro", "overlay/overlay.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
   open(F, $pro) or croak "Failed to open $pro";
   print "Processing $pro\n";
   $files{$pro}=1;
   while(<F>) {
     chomp();
-    if (/^\s*(\w+)\s*?[\+\-\s]=\s*(.+)$/) {
+    if (/^\s*(\w+)\s*?[\+\-]{0,1}=\s*(.+)$/) {
       my ($var,$value)=(lc $1,$2);
       switch ($var) {
         case "version" {
@@ -30,7 +30,7 @@ foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro
         case %filevars {
           foreach my $f (split(/\s+/,$value)) {
             $f =~ s/^.+\///g;
-            foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/") {
+            foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/", "overlay/", "overlay_gl/") {
               if (-f "$d$f") {
                 $files{$d.$f}=1;
               }
@@ -57,6 +57,7 @@ close(F);
 foreach my $dir ('debian','speex','speex/include/speex','speex/libspeex') {
   opendir(D, $dir) or croak "Could not open $dir";
   foreach my $f (grep(! /^\./,readdir(D))) {
+    next if ($f =~ /\~$/);
     my $ff=$dir . '/' . $f;
     if (-f $ff) {
       $files{$ff}=1;

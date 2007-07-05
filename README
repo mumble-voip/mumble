@@ -52,15 +52,3 @@ Bandwidth usage
 Mumble will use 10-40 kbit/s outgoing, and the same incoming for each user.
 So if there are 10 other users on the server with you, your incoming
 bandwidth requirement will be 100-400 kbit/s if they all talk at the same time.
-
-Mumble on X11
-=============
-
-Unlike Windows, there is no easy way to monitor all key and mouse events
-under X11. At the moment, Mumble uses the Xevie extension to accomplish
-this, but unfortunately that extension is disabled by default. To enable it
-(and push-to-talk), add the following to your xorg.conf:
-
-Section "Extensions"
-	Option "XEVIE" "Enable"
-EndSection

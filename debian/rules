@@ -85,8 +85,10 @@ install-arch:
 	# debian/tmp.
 	# $(MAKE) install 
 	install -d $(CURDIR)/debian/mumble/usr/bin
+	install -d $(CURDIR)/debian/mumble/usr/lib
 	install -d $(CURDIR)/debian/mumble-server/usr/bin
 	install ./release/mumble $(CURDIR)/debian/mumble/usr/bin
+	install ./release/libmumble_ol.so.1.0.0 $(CURDIR)/debian/mumble/usr/lib
 	install ./release/murmur $(CURDIR)/debian/mumble-server/usr/bin
 
 	dh_install -s

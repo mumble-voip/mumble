@@ -34,6 +34,8 @@
 #include <time.h>
 #include <semaphore.h>
 #include <fcntl.h>
+#include <errno.h>
+#include <string.h>
 
 #include "Player.h"
 #include "Channel.h"
@@ -80,9 +82,12 @@ void SharedMemory::resolve(QLibrary *) {
 		if (sm == reinterpret_cast<SharedMem *>(-1)) {
 			sm = NULL;
 		}
-	} 
-	d->sem = sem_open("/MumbleOverlaySem", IPC_CREAT, 0600, 1);
+	}  else {
+		qWarning("SharedMemory: Failed to open: %s", strerror(errno));
+	}
+	d->sem = sem_open("/MumbleOverlaySem", O_CREAT, 0600, 1);
 	if (d->sem == SEM_FAILED) {
+		qWarning("SharedMemory: Failed to create semaphore: %s",strerror(errno));
 		d->sem = NULL;
 	}
 }
@@ -101,6 +106,7 @@ bool SharedMemory::tryLock() {
 		ts.tv_nsec = tv.tv_usec * 1000;
 		return (sem_timedwait(d->sem, &ts) == 0);
 	}
+	return false;
 }
 
 void SharedMemory::unlock() {

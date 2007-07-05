@@ -175,7 +175,8 @@ QWidget *ConnectDialog::createRemote() {
     labels << tr("Address");
     labels << tr("URL");
     qtwServers->setHorizontalHeaderLabels(labels);
-
+    qtwServers->setObjectName(QLatin1String("Servers"));
+    
     QPushButton *connectButton = new QPushButton(tr("&Connect"));
     connectButton->setDefault(true);
     connect(connectButton, SIGNAL(clicked()), this, SLOT(accept()));
@@ -232,6 +233,11 @@ void ConnectDialog::accept() {
        }
 	QDialog::accept();
 }
+
+void ConnectDialog::on_Servers_itemDoubleClicked(QTableWidgetItem *item) {
+  accept();
+}
+
 
 QSqlRecord ConnectDialog::toRecord() const
 {

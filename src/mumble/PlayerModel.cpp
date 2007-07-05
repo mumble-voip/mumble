@@ -35,9 +35,7 @@
 #include "Channel.h"
 #include "Player.h"
 #include "Global.h"
-#ifdef Q_OS_WIN
 #include "Overlay.h"
-#endif
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <Player *, ModelItem *> ModelItem::c_qhPlayers;
@@ -780,9 +778,7 @@ bool PlayerModel::dropMimeData (const QMimeData *md, Qt::DropAction, int, int, c
 }
 
 void PlayerModel::updateOverlay() const {
-#ifdef Q_OS_WIN
 	g.o->updateOverlay();
-#endif
 }
 
 PlayerDelegate::PlayerDelegate(QObject *p) : QItemDelegate(p) {

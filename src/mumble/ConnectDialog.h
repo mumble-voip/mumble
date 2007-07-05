@@ -69,6 +69,7 @@ class ConnectDialog : public QDialog {
 		void on_Request_done(bool);
 		void on_URL_clicked();
 		void on_Copy_clicked();
+		void on_Servers_itemDoubleClicked(QTableWidgetItem *);
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		int iPort;
