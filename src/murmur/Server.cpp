@@ -1350,9 +1350,13 @@ void MessagePing::process(Connection *cCon) {
 void MessageTexture::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	if (! g_sServer->qhUserTextureCache.contains(iPlayerId)) {
-		g_sServer->qhUserTextureCache.insert(iPlayerId, ServerDB::getUserTexture(iPlayerId));
+		QByteArray qba = ServerDB::getUserTexture(iPlayerId);
+		if (! qba.isEmpty()) {
+			qba = qCompress(qba);
+		}
+		g_sServer->qhUserTextureCache.insert(iPlayerId, qba);
 	}
 	qbaTexture = g_sServer->qhUserTextureCache.value(iPlayerId);
-	if (! qbaTexture.isNull())
+	if (! qbaTexture.isEmpty())
 		g_sServer->sendMessage(cCon, this);
 }

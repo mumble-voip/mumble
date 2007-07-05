@@ -66,14 +66,14 @@ void Connection::socketRead() {
     iAvailable = qtsSocket->bytesAvailable();
 
     if (iPacketLength == -1) {
-      if (iAvailable < 2)
+      if (iAvailable < 3)
         return;
 
-      unsigned char a_ucBuffer[2];
+      unsigned char a_ucBuffer[3];
 
-	  qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 2);
-      iPacketLength = ((a_ucBuffer[0] << 8) & 0xff00) + a_ucBuffer[1];
-      iAvailable -= 2;
+	  qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
+      iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
+      iAvailable -= 3;
     }
 
     if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
@@ -110,7 +110,7 @@ void Connection::sendMessage(const Message *mMsg) {
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	unsigned char a_ucBuffer[2];
+	unsigned char a_ucBuffer[3];
 
 	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
 		return;
@@ -119,9 +119,10 @@ void Connection::sendMessage(const QByteArray &qbaMsg) {
 		qFatal("Connection: Oversized message (%d bytes)", qbaMsg.size());
 	}
 
+	a_ucBuffer[0]=(qbaMsg.size() >> 16) & 0xff;
 	a_ucBuffer[0]=(qbaMsg.size() >> 8) & 0xff;
 	a_ucBuffer[1]=(qbaMsg.size() & 0xff);
-	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 2);
+	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 3);
 	qtsSocket->write(qbaMsg);
 }
 

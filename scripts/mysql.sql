@@ -39,7 +39,7 @@ CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTO_INCREMENT, parent_id 
 CREATE UNIQUE INDEX channels_bugged_mysql ON channels(parent_id, name);
 ALTER TABLE channels ADD CONSTRAINT channel_del_channel FOREIGN KEY (parent_id) REFERENCES channels(channel_id) ON DELETE CASCADE;
 
-CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), pw varchar(255), lastchannel INTEGER) Type=InnoDB;
+CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), pw varchar(255), lastchannel INTEGER, texture LONGBLOB) Type=InnoDB;
 CREATE UNIQUE INDEX players_name ON players (name);
 ALTER TABLE players ADD CONSTRAINT player_del_channl FOREIGN KEY (lastchannel) REFERENCES channels(channel_id) ON DELETE SET NULL;
 
