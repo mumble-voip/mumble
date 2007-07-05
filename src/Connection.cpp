@@ -64,7 +64,7 @@ void Connection::socketRead() {
   int iAvailable;
   while (1) {
     iAvailable = qtsSocket->bytesAvailable();
-
+    
     if (iPacketLength == -1) {
       if (iAvailable < 3)
         return;
@@ -120,8 +120,8 @@ void Connection::sendMessage(const QByteArray &qbaMsg) {
 	}
 
 	a_ucBuffer[0]=(qbaMsg.size() >> 16) & 0xff;
-	a_ucBuffer[0]=(qbaMsg.size() >> 8) & 0xff;
-	a_ucBuffer[1]=(qbaMsg.size() & 0xff);
+	a_ucBuffer[1]=(qbaMsg.size() >> 8) & 0xff;
+	a_ucBuffer[2]=(qbaMsg.size() & 0xff);
 	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 3);
 	qtsSocket->write(qbaMsg);
 }
