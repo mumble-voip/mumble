@@ -44,9 +44,7 @@
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
-#ifdef Q_OS_WIN
 #include "Overlay.h"
-#endif
 #include "Global.h"
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)){
@@ -346,11 +344,9 @@ void MainWindow::setupGui()  {
 	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
 	gsMetaChannel->setObjectName(QLatin1String("MetaChannel"));
 
-#ifdef Q_OS_WIN
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"));
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
-#endif
 
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));

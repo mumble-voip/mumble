@@ -14,6 +14,7 @@ use CGI::Carp 'fatalsToBrowser';
 use Net::SMTP;
 use Net::DNS;
 use DBI;
+use Image::Magick;
 
 ## User configurable settings:
 
@@ -58,6 +59,7 @@ my $name = $q->param('name');
 my $pw = $q->param('pw');
 my $email = $q->param('email');
 my $forgot = $q->param('forgot');
+my $image = $q->upload('image');
 
 if ($forgot) {
   print "<h1>Resent<</h1><p>Any usernames/passwords associated with that email have been resent.</p>";
@@ -81,7 +83,7 @@ if ($forgot) {
 
     $sth = $dbh->prepare("SELECT * FROM players WHERE email = ?");
     $sth->execute($forgot);
-    while((my $r=$sth->fetchrow_hashref())) {
+    while(($r=$sth->fetchrow_hashref())) {
       $smtp->datasend(sprintf("%20s %s\n",$$r{'name'},$$r{'pw'}));
     }
     $sth->finish();
@@ -90,7 +92,6 @@ if ($forgot) {
     $smtp->dataend();
   }
   $showit = 0;
-  
 } elsif ($auth) {
    my $sth = $dbh->prepare("SELECT * FROM player_auth WHERE authcode = ?");
    $sth->execute($q->param('auth'));
@@ -107,6 +108,45 @@ if ($forgot) {
    $sth->execute($q->param('auth'));
    $sth->finish();
    $showit = 0;
+} elsif (defined($name) && defined($pw) && defined($image)) {
+   my $sth = $dbh->prepare("SELECT * FROM players WHERE name = ? AND pw = ?");
+   $sth->execute($name,$pw);
+   my $r = $sth->fetchrow_hashref();
+   $sth->finish();
+   if (! $r) {
+     print "<h1>Tsk tsk</h1><p>Now, that's not a valid user and password, is it?</p>";
+   } else {
+     my $blob;
+     sysread($image,$blob,1000000);
+     my $image=Image::Magick->new();
+     $r=$image->BlobToImage($blob);
+     if (! $r) {
+       $image->Chop(x => 0, y => 0, width => 600, height => 60);
+       $image->Extent(x => 0, y => 0, width => 600, height => 60);
+       my $out=$image->ImageToBlob(magick => 'rgba', depth => 8);
+       if (length($out) == (600*60*4)) {
+         # We need BGRA, AKA ARGB inverse
+         my @a=unpack("C*", $out);
+         for(my $i=0;$i<600*60;$i++) {
+           my $red=$a[$i*4];
+           my $blue=$a[$i*4+2];
+           $a[$i*4]=$blue;
+           $a[$i*4+2]=$red;
+         }
+         $out=pack("C*",@a);   
+         $sth=$dbh->prepare("UPDATE players SET texture=? WHERE name=?");
+         $sth->execute($out,$name);
+         $sth->finish();
+       } else {
+         $r=1;
+       }
+     }
+     if ($r) {
+        print "<h1>Image failure</h1><p>Failed to convert that to a proper image.</p>";
+     } else {
+        print "<h1>Succeeded</h1><p>Reconnect to use the new image.</p>";
+     }
+   }
 } elsif (defined($name) && defined($pw) && defined($email)) {
   my @errors;
 
@@ -131,14 +171,13 @@ if ($forgot) {
   
   my $sth=$dbh->prepare("SELECT name FROM players WHERE name like ?");
   $sth->execute($name);
-  if (my $r= $sth->fetchrow_hashref()) {
+  if (my $r=$sth->fetchrow_hashref()) {
     push @errors, "Name is already taken";
   }
   
   if ($#errors == -1) {
     my $code = randomCode(10);
     
-    my $sth;
     $sth=$dbh->prepare("DELETE FROM player_auth WHERE name like ?");
     $sth->execute($name);
     $sth->finish();
@@ -202,7 +241,24 @@ if ($showit) {
   print $q->submit(-value=>'Resend passwords');
   print $q->end_form();
   print '</p>';
+
+  print '<h1>Upload custom texture?</h1>';
+  print '<p>';
+  print 'Remember that the image must be 600 by 60 pixels, and must have an alpha channel.<br />';
+  print "\n";
+  print $q->start_form(-method=>'POST');
+  print "Username ";
+  print $q->textfield(-name=>'name', -size=>'10');
+  print "<br />\n";
+  print "Password ";
+  print $q->password_field(-name=>'pw', -size=>'10');
+  print "<br />\n";
+  print "Image ";
+  print $q->filefield(-name=>'image', -size=>'30');
+  print "<br />\n";
+  print $q->submit(-value=>'Upload Image');
+  print $q->end_form();
+  print '</p>';
 }
 
 print $q->end_html();
-  
