@@ -554,6 +554,7 @@ void Overlay::updateOverlay() {
 			}
 		}
 	} else {
+	    qhUserTextures.clear();
 	    clearCache();
 	}
 	setTexts(lines);
@@ -595,7 +596,6 @@ void Overlay::clearCache() {
     qhTextures.clear();
     qhWidths.clear();
     qhQueried.clear();
-    qhUserTextures.clear();
 }
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
