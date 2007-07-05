@@ -70,7 +70,7 @@ class PacketDataStream {
 				ok = false;
 			}
 		}
-		
+
 		void skip(quint32 len) {
 			if (left() >= len)
 				offset += len;
@@ -86,11 +86,11 @@ class PacketDataStream {
 				return 0;
 			}
 		};
-		
+
 		void rewind() {
 			offset = 0;
 		}
-		
+
 		void truncate() {
 			maxsize = offset;
 		}
@@ -136,15 +136,19 @@ class PacketDataStream {
 
 		PacketDataStream &operator <<(const quint32 i) {
 			if (i < 0x80) {
+			    	// Need top bit clear
 				append(i);
-			} else if (i < 0xC000) {
+			} else if (i < 0x4000) {
+			    	// Need top two bits clear
 				append((i >> 8) | 0x80);
 				append(i & 0xFF);
-			} else if (i < 0xE00000) {
+			} else if (i < 0x200000) {
+			    	// Need top three bits clear
 				append((i >> 16) | 0xC0);
 				append((i >> 8) & 0xFF);
 				append(i & 0xFF);
-			} else if (i < 0xF0000000) {
+			} else if (i < 0x10000000) {
+			    	// Need top four bits clear
 				append((i >> 24) | 0xE0);
 				append((i >> 16) & 0xFF);
 				append((i >> 8) & 0xFF);
@@ -184,6 +188,7 @@ class PacketDataStream {
 		PacketDataStream &operator >>(QByteArray &a) {
 			quint32 len;
 			*this >> len;
+			qWarning("Looking for %d bytes with %d left", len, left());
 			if (len > left()) {
 				len = left();
 				ok = false;

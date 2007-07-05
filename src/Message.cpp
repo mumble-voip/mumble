@@ -147,7 +147,7 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		if (! qdsIn.isValid()) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Corrput or short packet", iMessageType, sPlayerId);
+			qWarning("Message: %d[%d] Corrupt or short packet", iMessageType, sPlayerId);
 		} else if (qdsIn.left() != 0) {
 			delete mMsg;
 			mMsg = NULL;
