@@ -513,7 +513,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 }
 
 void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
-	if (!quiet && (p->cChannel == c))
+	if (quiet && (p->cChannel == c))
 		return;
 
 	{
@@ -710,7 +710,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	else if (! ChanACL::hasPermission(pSrcPlayer, lc, ChanACL::Enter))
 		lc = Channel::get(0);
 
-//	g_sServer->playerEnterChannel(pSrcPlayer, lc, true);
+	g_sServer->playerEnterChannel(pSrcPlayer, lc, true);
 	ServerDB::conLoggedOn(pSrcPlayer, cCon);
 
 	QQueue<Channel *> q;
@@ -794,7 +794,6 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		g_sServer->sendMessage(cCon, &mpm);
 	}
 
-	g_sServer->playerEnterChannel(pSrcPlayer, lc, false);
 
 	MessageServerSync mssMsg;
 	mssMsg.sPlayerId = pSrcPlayer->sId;
@@ -804,6 +803,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	g_sServer->log(QString("Authenticated: %1").arg(qsUsername), cCon);
 
 	dbus->playerConnected(pSrcPlayer);
+	g_sServer->playerEnterChannel(pSrcPlayer, lc, false);
 }
 
 void MessageServerBanList::process(Connection *cCon) {

@@ -479,22 +479,28 @@ void ServerDB::readChannels(Channel *p) {
 }
 
 void ServerDB::setLastChannel(Player *p) {
-	TransactionHolder th;
 
 	if (p->iId < 0)
 		return;
 
-	QSqlQuery query;
+	{
+		TransactionHolder th;
+		QSqlQuery query;
 
-	query.prepare("UPDATE players SET lastchannel=? WHERE player_id = ?");
-	query.addBindValue(p->cChannel->iId);
-	query.addBindValue(p->iId);
-	query.exec();
+		query.prepare("UPDATE players SET lastchannel=? WHERE player_id = ?");
+		query.addBindValue(p->cChannel->iId);
+		query.addBindValue(p->iId);
+		query.exec();
+	}
 
-	query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
-	query.addBindValue(p->cChannel->iId);
-	query.addBindValue(p->sId);
-	query.exec();
+	{
+		TransactionHolder th;
+		QSqlQuery query;
+		query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
+		query.addBindValue(p->cChannel->iId);
+		query.addBindValue(p->sId);
+		query.exec();
+	}
 }
 
 int ServerDB::readLastChannel(Player *p) {
