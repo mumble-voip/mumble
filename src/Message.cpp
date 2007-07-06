@@ -196,15 +196,18 @@ void MessageServerAuthenticate::restoreStream(PacketDataStream &qdsIn) {
 
 
 MessageServerReject::MessageServerReject() {
-	qsReason = QString();
 }
 
 void MessageServerReject::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsReason;
+	qdsOut << static_cast<int>(rtType);
 }
 
 void MessageServerReject::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsReason;
+	int v;
+	qdsIn >> v;
+	rtType = static_cast<RejectType>(v);
 }
 
 MessageServerSync::MessageServerSync() {

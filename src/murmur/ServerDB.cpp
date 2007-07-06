@@ -216,6 +216,9 @@ bool ServerDB::hasUsers() {
 	return false;
 }
 
+// -1 Wrong PW
+// -2 Anonymous
+
 int ServerDB::authenticate(QString &name, const QString &pw) {
 	int res = dbus->authenticate(name, pw);
 	if (res != -2)

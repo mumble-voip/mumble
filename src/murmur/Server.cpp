@@ -663,10 +663,16 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 	if (iVersion != MESSAGE_STREAM_VERSION) {
 	  msr.qsReason = "Wrong version of mumble protocol";
+	  msr.rtType = MessageServerReject::WrongVersion;
 	} else if (! nameok) {
 	  msr.qsReason = "Invalid Username";
-	} else if ((id==-1) || (id==-2 && ! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != qsPassword)) {
-	  msr.qsReason = "Invalid Password";
+	  msr.rtType = MessageServerReject::InvalidUsername;
+	} else if (id==-1) {
+	  msr.qsReason = "Wrong password for user";
+	  msr.rtType = MessageServerReject::WrongUserPW;
+	} else if (id==-2 && ! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != qsPassword) {
+	  msr.qsReason = "Invalid server password";
+	  msr.rtType = MessageServerReject::WrongServerPW;
 	} else {
 	  ok = true;
 	}
@@ -678,17 +684,20 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	if (ok && ppOld && (pSrcPlayer->iId == -1)) {
 	    	if (cOld->peerAddress() != cCon->peerAddress()) {
 			msr.qsReason = "Playername already in use";
+			msr.rtType = MessageServerReject::UsernameInUse;
 			ok = false;
   	        }
 	}
 
 	if (iMaxBandwidth > g_sp.iMaxBandwidth) {
 		msr.qsReason = QString("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(iMaxBandwidth/125.0).arg(g_sp.iMaxBandwidth/125.0);
+		msr.rtType = MessageServerReject::BandwidthExceeded;
 		ok = false;
 	}
 
 	if ((id != 0) && (g_sServer->qmPlayers.count() > g_sp.iMaxUsers)) {
 		msr.qsReason = QString("Server is full (max %1 users)").arg(g_sp.iMaxUsers);
+		msr.rtType = MessageServerReject::ServerFull;
 		ok = false;
 	}
 
