@@ -29,6 +29,7 @@
 */
 
 #include <mmintrin.h>
+#include <math.h>
 
 #include "AudioOutput.h"
 #include "Player.h"
@@ -79,8 +80,13 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	return AudioOutputPtr();
 }
 
-AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
-	aoOutput = ao;
+AudioOutputPlayer::AudioOutputPlayer(const QString name) : qsName(name) {
+    	iFrameSize = 0;
+    	psBuffer = NULL;
+    	fPos[0]=fPos[1]=fPos[2]=0.0;
+}
+
+AudioOutputSpeech::AudioOutputSpeech(Player *player) : AudioOutputPlayer(player->qsName) {
 	p = player;
 
 	speex_bits_init(&sbBits);
@@ -91,15 +97,11 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
 	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
 	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 
-	iByteSize = iFrameSize * 2;
-
 	iFrameCounter = 0;
 
 	psBuffer = new short[iFrameSize];
 	bSpeech = false;
 
-	for(int i=0;i<3;i++)
-		fPos[i]=0.0;
 	for(unsigned int i=0;i<iFrameSize;i++)
 		psBuffer[i]=0;
 	iMissCount = 0;
@@ -108,22 +110,22 @@ AudioOutputPlayer::AudioOutputPlayer(AudioOutput *ao, Player *player) {
 	speex_jitter_init(&sjJitter, dsDecState, SAMPLE_RATE);
 }
 
-AudioOutputPlayer::~AudioOutputPlayer() {
+AudioOutputSpeech::~AudioOutputSpeech() {
 	speex_decoder_destroy(dsDecState);
 	speex_jitter_destroy(&sjJitter);
 	delete [] psBuffer;
 }
 
-void AudioOutputPlayer::addFrameToBuffer(QByteArray &qbaPacket, int iSeq) {
+void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, int iSeq) {
 	QMutexLocker lock(&qmJitter);
 
 /*	if (! bSpeech)
 		sjJitter.buffer_size=g.s.iJitterBufferSize;
 */
-	speex_jitter_put(&sjJitter, qbaPacket.data(), qbaPacket.size(), iSeq * iFrameSize);
+	speex_jitter_put(&sjJitter, const_cast<char *>(qbaPacket.constData()), qbaPacket.size(), iSeq * iFrameSize);
 }
 
-bool AudioOutputPlayer::decodeNextFrame() {
+bool AudioOutputSpeech::decodeNextFrame() {
 	int iTimestamp;
 	int iSpeech = 0;
 	int iAltSpeak = 0;
@@ -163,21 +165,23 @@ bool AudioOutputPlayer::decodeNextFrame() {
 					fPos[0] = fPos[1] = fPos[2] = 0.0;
 			}
 		} else {
-			iMissedFrames++;
-		}
-		if (! sjJitter.valid_bits) {
 			alive = false;
+			iMissedFrames++;
 		}
 	}
 
-	bSpeech = iSpeech;
-
-	p->setTalking(bSpeech, (iAltSpeak ? true : false));
-
-	if (g.s.bDeaf || ! bSpeech)
-		memset(psBuffer, 0, iByteSize);
-
-	return alive;
+	if (alive) {
+		bSpeech = iSpeech;
+		p->setTalking(bSpeech, (iAltSpeak ? true : false));
+		if (!bSpeech)
+			return false;
+    	} else if (iMissedFrames > 10) {
+	    	memset(psBuffer, 0, iFrameSize*2);
+	    	bSpeech = false;
+	    	p->setTalking(false, false);
+	    	return false;
+	}
+	return true;
 }
 
 AudioOutput::AudioOutput() {
@@ -193,23 +197,31 @@ AudioOutput::~AudioOutput() {
 	wipe();
 }
 
-void AudioOutput::wipe() {
-	QWriteLocker locker(&qrwlOutputs);
-
-	foreach(AudioOutputPlayer *aop, qmOutputs) {
-		delete aop;
-	}
-	qmOutputs.clear();
+void AudioOutput::newPlayer(AudioOutputPlayer *) {
 }
 
-void AudioOutput::addFrameToBuffer(Player *player, QByteArray &qbaPacket, int iSeq) {
+void AudioOutput::wipe() {
+    	foreach(const Player *p, qmOutputs.keys())
+    		removeBuffer(p);
+}
+
+void AudioOutput::playSine(float hz, float i, int frames) {
+    	qrwlOutputs.lockForWrite();
+    	AudioSine *as = new AudioSine(hz,i,frames);
+    	qmOutputs.insert(NULL, as);
+    	newPlayer(as);
+    	qrwlOutputs.unlock();
+}
+
+void AudioOutput::addFrameToBuffer(Player *player, const QByteArray &qbaPacket, int iSeq) {
 	qrwlOutputs.lockForRead();
-	AudioOutputPlayer *aop = qmOutputs.value(player);
+	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(player));
 	if (! aop) {
 		qrwlOutputs.unlock();
 		qrwlOutputs.lockForWrite();
-		aop = getPlayer(player);
-		qmOutputs[player]=aop;
+		aop = new AudioOutputSpeech(player);
+		qmOutputs.replace(player,aop);
+		newPlayer(aop);
 	}
 
 	aop->addFrameToBuffer(qbaPacket, iSeq);
@@ -217,11 +229,21 @@ void AudioOutput::addFrameToBuffer(Player *player, QByteArray &qbaPacket, int iS
 	qrwlOutputs.unlock();
 }
 
-void AudioOutput::removeBuffer(Player *player) {
+void AudioOutput::removeBuffer(const Player *player) {
+    	removeBuffer(qmOutputs.value(player));
+}
+
+void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 	QWriteLocker locker(&qrwlOutputs);
-	AudioOutputPlayer *aopOutput = qmOutputs.take(player);
-	if (aopOutput)
-		delete aopOutput;
+	QMultiHash<const Player *, AudioOutputPlayer *>::iterator i=qmOutputs.begin();
+	while(i != qmOutputs.end()) {
+	    if (i.value() == aop) {
+	    	qmOutputs.erase(i);
+	    	delete aop;
+	    	break;
+	    }
+	    ++i;
+	}
 }
 
 bool AudioOutput::mixAudio(short *buffer) {
@@ -231,15 +253,14 @@ bool AudioOutput::mixAudio(short *buffer) {
 
 	qrwlOutputs.lockForRead();
 	foreach(aop, qmOutputs) {
-		aop->decodeNextFrame();
-		if (aop->iMissedFrames > 25) {
+		if (! aop->decodeNextFrame()) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);
 		}
 	}
 
-	_mm_empty();	
+	_mm_empty();
 	__m64 *out=reinterpret_cast<__m64 *>(buffer);
 	__m64 zero=_mm_cvtsi32_si64(0);
 
@@ -254,10 +275,37 @@ bool AudioOutput::mixAudio(short *buffer) {
 	}
 	qrwlOutputs.unlock();
 
-	_mm_empty();	
+	_mm_empty();
 
 	foreach(aop, qlDel)
-		removeBuffer(aop->p);
+		removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
+}
+
+AudioSine::AudioSine(float hz, float i, int frm) : AudioOutputPlayer(QLatin1String("Sine")) {
+    v = 0.0;
+    inc = M_PI * hz / 8000.0;
+    dinc = M_PI * i / (8000.0 * 8000.0);
+    frames = frm;
+    iFrameSize = 160;
+    psBuffer = new short[iFrameSize];
+}
+
+AudioSine::~AudioSine() {
+    delete [] psBuffer;
+}
+
+bool AudioSine::decodeNextFrame() {
+    	if (frames-- > 0) {
+	    for(int i=0;i<iFrameSize;i++) {
+		    psBuffer[i]=sin(v) * 20000.0;
+		    inc+=dinc;
+		    v+=inc;
+	    }
+	    return true;
+        } else {
+	    memset(psBuffer, 0, iFrameSize*2);
+	    return false;
+	}
 }

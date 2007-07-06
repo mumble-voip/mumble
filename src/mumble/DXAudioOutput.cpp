@@ -51,13 +51,16 @@ static AudioOutput *DXAudioOutputNew() {
 
 static AudioOutputRegistrar aorDX("DirectSound", DXAudioOutputNew);
 
-DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, Player *player) : AudioOutputPlayer(ao, player) {
+DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, AudioOutputPlayer *aopl) {
 	bPlaying = false;
-	dxAudio = static_cast<DXAudioOutput *>(aoOutput);
+	dxAudio = ao;
+	aop=aopl;
 
 	pDSBOutput = NULL;
 	pDSNotify = NULL;
 	pDS3dBuffer = NULL;
+
+	iByteSize = aop->iFrameSize * 2;
 
 	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 }
@@ -81,7 +84,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 	dsbd.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
 	if (dxAudio->p3DListener)
 		dsbd.dwFlags	 |= DSBCAPS_CTRL3D;
-   	dsbd.dwBufferBytes = iFrameSize * 2 * NBLOCKS;
+   	dsbd.dwBufferBytes = aop->iFrameSize * 2 * NBLOCKS;
     dsbd.lpwfxFormat     = &wfx;
 	if (dxAudio->p3DListener) {
 		switch (g.s.a3dModel) {
@@ -105,7 +108,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
 
 	for(int i=0;i<NBLOCKS;i++) {
-		aPosNotify[i].dwOffset = iFrameSize * 2 * i;
+		aPosNotify[i].dwOffset = aop->iFrameSize * 2 * i;
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
@@ -123,11 +126,11 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 		pDS3dBuffer->SetMaxDistance(g.s.fDXMaxDistance, MY_DEFERRED);
 	}
 
-	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", qPrintable(p->qsName), SAMPLE_RATE, dsbd.dwBufferBytes);
+	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", qPrintable(aop->qsName), SAMPLE_RATE, dsbd.dwBufferBytes);
 }
 
 DXAudioOutputPlayer::~DXAudioOutputPlayer() {
-	qWarning("DXAudioOutputPlayer: %s: Removed", qPrintable(p->qsName));
+	qWarning("DXAudioOutputPlayer: %s: Removed", qPrintable(aop->qsName));
 	if (pDS3dBuffer)
 		pDS3dBuffer->Release();
 	if (pDSNotify)
@@ -200,7 +203,7 @@ bool DXAudioOutputPlayer::playFrames() {
 
 		iLastwriteblock = block;
 
-		alive = decodeNextFrame();
+		alive = aop->decodeNextFrame();
 //		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iDXOutputDelay);
 		if (! alive) {
 			iMissingFrames++;
@@ -221,7 +224,7 @@ bool DXAudioOutputPlayer::playFrames() {
 
 			pDS3dBuffer->GetMode(&mode);
 			if (! center) {
-				if ((fabs(fPos[0]) < 0.1) && (fabs(fPos[1]) < 0.1) && (fabs(fPos[2]) < 0.1))
+				if ((fabs(aop->fPos[0]) < 0.1) && (fabs(aop->fPos[1]) < 0.1) && (fabs(aop->fPos[2]) < 0.1))
 					center = true;
 				else if (! g.p->bValid)
 					center = true;
@@ -232,16 +235,16 @@ bool DXAudioOutputPlayer::playFrames() {
 			} else {
 				if (mode != DS3DMODE_NORMAL)
 					pDS3dBuffer->SetMode(DS3DMODE_NORMAL, dwApply);
-				pDS3dBuffer->SetPosition(fPos[0], fPos[1], fPos[2], dwApply);
+				pDS3dBuffer->SetPosition(aop->fPos[0], aop->fPos[1], aop->fPos[2], dwApply);
 			}
 		}
 
 	    if (FAILED( hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
 	    	qFatal("DXAudioOutput: Lock block %d (%d bytes)",block, iByteSize);
 		if (aptr1 && nbytes1)
-			CopyMemory(aptr1, psBuffer, MIN(iByteSize, nbytes1));
+			CopyMemory(aptr1, aop->psBuffer, MIN(iByteSize, nbytes1));
 		if (aptr2 && nbytes2)
-			CopyMemory(aptr2, psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
+			CopyMemory(aptr2, aop->psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
 	    if (FAILED( hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
 	    	qFatal("DXAudioOutput: Unlock");
 
@@ -362,10 +365,11 @@ DXAudioOutput::~DXAudioOutput() {
 	CloseHandle(hNotificationEvent);
 }
 
-AudioOutputPlayer *DXAudioOutput::getPlayer(Player *player) {
-	DXAudioOutputPlayer *daopPlayer = new DXAudioOutputPlayer(this, player);
-	SetEvent(daopPlayer->hNotificationEvent);
-	return daopPlayer;
+void DXAudioOutput::newPlayer(AudioOutputPlayer *aop) {
+	DXAudioOutputPlayer *dxaop = new DXAudioOutputPlayer(this, aop);
+	SetEvent(dxaop->hNotificationEvent);
+
+	qhPlayers[aop] = dxaop;
 }
 
 void DXAudioOutput::updateListener() {
@@ -393,6 +397,12 @@ void DXAudioOutput::updateListener() {
 */
 }
 
+void DXAudioOutput::removeBuffer(AudioOutputPlayer *aop) {
+    DXAudioOutputPlayer *dxaop=qhPlayers.take(aop);
+    if (dxaop)
+    	delete dxaop;
+    AudioOutput::removeBuffer(aop);
+}
 
 void DXAudioOutput::run() {
 	DXAudioOutputPlayer *dxaop;
@@ -422,8 +432,7 @@ void DXAudioOutput::run() {
 		count = 0;
 
 		qrwlOutputs.lockForRead();
-		foreach(aop, qmOutputs) {
-			dxaop=static_cast<DXAudioOutputPlayer *>(aop);
+		foreach(dxaop, qhPlayers) {
 			handles[count++] = dxaop->hNotificationEvent;
 		}
 		handles[count++] = hNotificationEvent;
@@ -441,8 +450,7 @@ void DXAudioOutput::run() {
 
 		qrwlOutputs.lockForRead();
 		if (hit >= WAIT_OBJECT_0 && hit < WAIT_OBJECT_0 + count - 1) {
-			foreach(aop, qmOutputs) {
-				dxaop=static_cast<DXAudioOutputPlayer *>(aop);
+			foreach(dxaop, qhPlayers) {
 				if (handles[hit - WAIT_OBJECT_0] == dxaop->hNotificationEvent) {
 					found = true;
 					alive = dxaop->playFrames();
@@ -453,6 +461,6 @@ void DXAudioOutput::run() {
 		qrwlOutputs.unlock();
 
 		if (found && ! alive)
-			removeBuffer(dxaop->p);
+			removeBuffer(dxaop->aop);
 	}
 }

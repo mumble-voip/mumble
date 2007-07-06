@@ -54,32 +54,54 @@ class AudioOutputRegistrar {
 };
 
 class AudioOutputPlayer : public QObject {
+    friend class AudioOutput;
+    Q_OBJECT
+    public:
+    	AudioOutputPlayer(const QString name);
+	const QString qsName;
+	unsigned int iFrameSize;
+	short *psBuffer;
+	float fPos[3];
+    	virtual bool decodeNextFrame() = 0;
+};
+
+class AudioOutputSpeech : public AudioOutputPlayer {
 	friend class AudioOutput;
 	Q_OBJECT
 	protected:
-		Player *p;
 
 		SpeexBits sbBits;
-		unsigned int iFrameSize;
-		unsigned int iByteSize;
 		int iFrameCounter;
 		QMutex qmJitter;
 		SpeexJitter sjJitter;
 		void *dsDecState;
-		AudioOutput *aoOutput;
 
-		short *psBuffer;
 		bool bSpeech;
 
 		int iMissCount;
-		int iMissedFrames;
-		float fPos[3];
-
-		bool decodeNextFrame();
 	public:
-		void addFrameToBuffer(QByteArray &, int iSeq);
-		AudioOutputPlayer(AudioOutput *, Player *);
-		~AudioOutputPlayer();
+		int iMissedFrames;
+		Player *p;
+
+		virtual bool decodeNextFrame();
+
+		void addFrameToBuffer(const QByteArray &, int iSeq);
+		AudioOutputSpeech(Player * = NULL);
+		~AudioOutputSpeech();
+};
+
+
+class AudioSine : public AudioOutputPlayer {
+    	Q_OBJECT
+    	protected:
+    		float v;
+    		float inc;
+    		float dinc;
+    		int frames;
+    	public:
+    		bool decodeNextFrame();
+    		AudioSine(float hz, float i, int frm);
+    		~AudioSine();
 };
 
 class AudioOutput : public QThread {
@@ -89,16 +111,18 @@ class AudioOutput : public QThread {
 		bool bRunning;
 		int iFrameSize;
 		QReadWriteLock qrwlOutputs;
-		QHash<Player *, AudioOutputPlayer *> qmOutputs;
-		virtual AudioOutputPlayer *getPlayer(Player *) = 0;
+		QMultiHash<const Player *, AudioOutputPlayer *> qmOutputs;
+		virtual void newPlayer(AudioOutputPlayer *);
+		virtual void removeBuffer(AudioOutputPlayer *);
 		bool mixAudio(short *output);
 	public:
 		void wipe();
 
 		AudioOutput();
 		~AudioOutput();
-		void addFrameToBuffer(Player *, QByteArray &, int iSeq);
-		void removeBuffer(Player *);
+		void addFrameToBuffer(Player *, const QByteArray &, int iSeq);
+		void removeBuffer(const Player *);
+		void playSine(float hz, float i,int frames);
 		void run() = 0;
 };
 

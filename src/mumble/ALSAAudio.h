@@ -64,19 +64,6 @@ class ALSAAudioInput : public AudioInput {
 		void run();
 };
 
-class ALSAAudioOutput;
-
-class ALSAOutputPlayer : public AudioOutputPlayer {
-	friend class ALSAAudioOutput;
-	Q_OBJECT
-	protected:
-		ALSAAudioOutput *aao;
- 	public:
-		ALSAOutputPlayer(ALSAAudioOutput *, Player *);
-		~ALSAOutputPlayer();
-};
-
-
 class ALSAAudioOutput : public AudioOutput {
 	friend class ALSAOutputPlayer;
 	Q_OBJECT

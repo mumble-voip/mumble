@@ -42,6 +42,7 @@ struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	AudioTransmit atTransmit;
 	bool bTransmitPosition;
+	bool bPushClick;
 	bool bMute, bDeaf;
 	bool bTTS;
 	bool bPlayerTop;

@@ -63,7 +63,7 @@ static AudioInputRegistrar airALSA(QLatin1String("ALSA"), ALSAAudioInputNew);
 static ConfigWidget *ALSAConfigDialogNew() {
         return new ALSAConfig();
 }
-        
+
 static ConfigRegistrar registrar(20, ALSAConfigDialogNew);
 
 static ALSAEnumerator cards;
@@ -88,10 +88,10 @@ ALSAEnumerator::ALSAEnumerator() {
 
       int device = -1;
       snd_ctl_pcm_next_device(ctl, &device);
-      
+
       bool play = false;
       bool cap = false;
-      
+
       while (device != -1) {
         QString devname=QString::fromLatin1("hw:%1,%2").arg(card).arg(device);
         snd_pcm_info_set_device(info, device);
@@ -131,18 +131,18 @@ ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
   QGridLayout *grid;
   QVBoxLayout *v;
   QLabel *l;
-  
+
   qcbInputDevice = new QComboBox();
   qcbOutputDevice = new QComboBox();
-  
+
   QList<QString> qlOutputDevs = cards.qhOutput.keys();
   qSort(qlOutputDevs);
   QList<QString> qlInputDevs = cards.qhInput.keys();
   qSort(qlInputDevs);
 
   bool found;
-  
-  
+
+
   found = false;
   foreach(QString dev, qlInputDevs) {
     QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhInput[dev]);
@@ -170,10 +170,10 @@ ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
     qcbOutputDevice->addItem(g.s.qsALSAOutput, g.s.qsALSAOutput);
     qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
   }
-  
+
   qgbDevices = new QGroupBox(tr("Device selection"));
   grid=new QGridLayout();
-  
+
   qcbInputDevice->setToolTip(tr("Device to use for microphone"));
   qcbInputDevice->setWhatsThis(tr("This set which device mumble should use. The <i>default</i> device is whatever you have configured in alsaconfig, the <i>hwplug</i> "
                           "devices are specific hardware devices backed by the ALSA mixer and the <i>hw</i> devices are raw hardware access. Unless your soundcard "
@@ -185,20 +185,20 @@ ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
   l->setBuddy(qcbInputDevice);
   grid->addWidget(l, 0, 0);
   grid->addWidget(qcbInputDevice, 0, 1);
-  
+
   l = new QLabel(tr("Output"));
   l->setBuddy(qcbOutputDevice);
   grid->addWidget(l, 1, 0);
   grid->addWidget(qcbOutputDevice, 1, 1);
-  
-  qgbDevices->setLayout(grid);  
+
+  qgbDevices->setLayout(grid);
 
   qgbOutput = new QGroupBox(tr("Output Options"));
   grid = new QGridLayout();
-  
+
   qsOutputDelay = new QSlider(Qt::Horizontal);
   qsOutputDelay->setRange(1, 6);
-  
+
   qsOutputDelay->setSingleStep(1);
   qsOutputDelay->setPageStep(2);
   qsOutputDelay->setValue(g.s.iDXOutputDelay);
@@ -217,7 +217,7 @@ ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
   grid->addWidget(qlOutputDelay, 0, 2);
 
   qgbOutput->setLayout(grid);
-  
+
   v = new QVBoxLayout();
   v->addWidget(qgbDevices);
   v->addWidget(qgbOutput);
@@ -243,7 +243,7 @@ void ALSAConfig::accept() {
 void ALSAConfig::on_OutputDelay_valueChanged(int v) {
   qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }
-        
+
 ALSAAudioInput::ALSAAudioInput()
 {
 }
@@ -267,7 +267,7 @@ void ALSAAudioInput::run()
     snd_pcm_t *capture_handle = NULL;
     snd_pcm_uframes_t wantPeriod = iFrameSize;
     snd_pcm_uframes_t wantBuff = wantPeriod * 4;
-    
+
     unsigned int rrate = SAMPLE_RATE;
     bool bOk = true;
 
@@ -299,9 +299,9 @@ void ALSAAudioInput::run()
     ALSA_ERRBAIL(snd_pcm_prepare(capture_handle));
     ALSA_ERRBAIL(snd_pcm_start(capture_handle));
 
-    if (hw_params)    
+    if (hw_params)
       snd_pcm_hw_params_free(hw_params);
-    
+
     if (! bOk) {
       if (capture_handle) {
         snd_pcm_drain(capture_handle);
@@ -340,16 +340,6 @@ void ALSAAudioInput::run()
     qWarning("ALSAAudioInput: Releasing ALSA Mic.");
 }
 
-ALSAOutputPlayer::ALSAOutputPlayer(ALSAAudioOutput * ao, Player * player):AudioOutputPlayer(ao, player)
-{
-    aao = static_cast < ALSAAudioOutput * >(aoOutput);
-}
-
-ALSAOutputPlayer::~ALSAOutputPlayer()
-{
-    qWarning("ALSAOutputPlayer: %s: Removed", qPrintable(p->qsName));
-}
-
 void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period)
 {
     int err = 0;
@@ -357,7 +347,7 @@ void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period)
 
     if (pcm_handle)
 		return;
-		
+
     short zerobuff[period];
     for(int i=0;i<period;i++)
       zerobuff[i]=0;
@@ -389,7 +379,7 @@ void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period)
     ALSA_ERRBAIL(snd_pcm_sw_params_set_avail_min(pcm_handle, sw_params, period_size));
 
     ALSA_ERRBAIL(snd_pcm_sw_params(pcm_handle, sw_params));
-    
+
     ALSA_ERRBAIL(snd_pcm_prepare(pcm_handle));
 
     // Fill one frame
@@ -427,12 +417,7 @@ ALSAAudioOutput::~ALSAAudioOutput()
     qWarning("ALSAAudioOutput: Destroyed");
 }
 
-AudioOutputPlayer *ALSAAudioOutput::getPlayer(Player * player)
-{
-    return new ALSAOutputPlayer(this, player);
-}
-
-void ALSAAudioOutput::run() 
+void ALSAAudioOutput::run()
 {
   snd_pcm_t *pcm_handle = NULL;
   struct pollfd fds[16];
@@ -442,7 +427,7 @@ void ALSAAudioOutput::run()
   initialize(pcm_handle, iFrameSize);
 
   bRunning = true;
-  
+
   if (! pcm_handle)
     return;
 
@@ -455,7 +440,7 @@ void ALSAAudioOutput::run()
 
       count = snd_pcm_poll_descriptors_count(pcm_handle);
       snd_pcm_poll_descriptors(pcm_handle, fds, count);
-      
+
 
   while (bRunning) {
     poll(fds, count, 20);

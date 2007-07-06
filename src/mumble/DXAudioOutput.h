@@ -36,9 +36,8 @@
 
 class DXAudioOutput;
 
-class DXAudioOutputPlayer : public AudioOutputPlayer {
+class DXAudioOutputPlayer {
 	friend class DXAudioOutput;
-	Q_OBJECT
 	protected:
 		LPDIRECTSOUNDBUFFER       pDSBOutput;
 		LPDIRECTSOUNDNOTIFY8       pDSNotify;
@@ -52,13 +51,15 @@ class DXAudioOutputPlayer : public AudioOutputPlayer {
 		int iLastwriteblock;
 
 		DXAudioOutput *dxAudio;
+		AudioOutputPlayer *aop;
 
 		bool bPlaying;
 
+		unsigned int iByteSize;
 		int iMissingFrames;
 		void setupAudioDevice();
 	public:
-		DXAudioOutputPlayer(DXAudioOutput *, Player *);
+		DXAudioOutputPlayer(DXAudioOutput *, AudioOutputPlayer *);
 		~DXAudioOutputPlayer();
 		bool playFrames();
 };
@@ -73,7 +74,10 @@ class DXAudioOutput : public AudioOutput {
 		LPDIRECTSOUND3DLISTENER8   p3DListener;
 		HANDLE               hNotificationEvent;
 
-		virtual AudioOutputPlayer *getPlayer(Player *);
+		QHash<AudioOutputPlayer *, DXAudioOutputPlayer *> qhPlayers;
+
+		virtual void newPlayer(AudioOutputPlayer *);
+		virtual void removeBuffer(AudioOutputPlayer *);
 		void updateListener();
 
 		bool bRebuild;

@@ -47,6 +47,7 @@ Settings::Settings() {
 	bTCPCompat = false;
 	bReconnect = true;
 	bExpandAll = false;
+	bPushClick = false;
 
 	bPlayerTop = false;
 
@@ -84,13 +85,14 @@ Settings::Settings() {
 }
 
 void Settings::load() {
-	bMute = g.qs->value(QLatin1String("AudioMute"), false). toBool();
-	bDeaf = g.qs->value(QLatin1String("AudioDeaf"), false). toBool();
-	bPlayerTop = g.qs->value(QLatin1String("PlayerTop"), bPlayerTop). toBool();
-	bTTS = g.qs->value(QLatin1String("TextToSpeech"), bTTS). toBool();
+	bMute = g.qs->value(QLatin1String("AudioMute"), false).toBool();
+	bDeaf = g.qs->value(QLatin1String("AudioDeaf"), false).toBool();
+	bPlayerTop = g.qs->value(QLatin1String("PlayerTop"), bPlayerTop).toBool();
+	bTTS = g.qs->value(QLatin1String("TextToSpeech"), bTTS).toBool();
 	iTTSVolume = g.qs->value(QLatin1String("TTSVolume"), iTTSVolume).toInt();
 	iTTSThreshold = g.qs->value(QLatin1String("TTSThreshold"), iTTSThreshold).toInt();
 	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value(QLatin1String("AudioTransmit"), atTransmit).toInt());
+	bPushClick = g.qs->value(QLatin1String("PushClick"), bPushClick).toBool();
 	iQuality = g.qs->value(QLatin1String("AudioQuality"), iQuality).toInt();
 	iComplexity = g.qs->value(QLatin1String("AudioComplexity"), iComplexity).toInt();
 	iMinLoudness = g.qs->value(QLatin1String("AudioMinLoudness"), iMinLoudness).toInt();
@@ -146,6 +148,7 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("TTSVolume"), g.s.iTTSVolume);
 	g.qs->setValue(QLatin1String("TTSThreshold"), g.s.iTTSThreshold);
 	g.qs->setValue(QLatin1String("AudioTransmit"), g.s.atTransmit);
+	g.qs->setValue(QLatin1String("PushClick"), g.s.bPushClick);
 	g.qs->setValue(QLatin1String("AudioQuality"), iQuality);
 	g.qs->setValue(QLatin1String("AudioComplexity"), iComplexity);
 	g.qs->setValue(QLatin1String("AudioMinLoudness"), iMinLoudness);

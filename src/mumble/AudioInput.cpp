@@ -29,6 +29,7 @@
 */
 
 #include "AudioInput.h"
+#include "AudioOutput.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "Player.h"
@@ -316,9 +317,9 @@ void AudioInput::encodeAudioFrame() {
 		iIsSpeech = 0;
 	}
 
-	if (iIsSpeech)
+	if (iIsSpeech) {
 		iSilentFrames = 0;
-	else {
+	} else {
 		iSilentFrames++;
 		if (iSilentFrames > 200)
 			iFrameCounter = 0;
@@ -327,6 +328,12 @@ void AudioInput::encodeAudioFrame() {
 	if (p)
 		p->setTalking(iIsSpeech, g.bAltSpeak);
 
+	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
+		if (iIsSpeech && ! bPreviousVoice)
+	    		g.ao->playSine(400,1200,5);
+	    	else if (!iIsSpeech && bPreviousVoice)
+	    		g.ao->playSine(620,-1200,5);
+    	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 		return;

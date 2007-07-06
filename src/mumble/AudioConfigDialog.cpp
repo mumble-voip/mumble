@@ -158,6 +158,12 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qsFrames, 2, 1);
 	grid->addWidget(qlFrames, 2, 2);
 
+	qcbPushClick = new QCheckBox(tr("PTT Audio cue"));
+	qcbPushClick->setChecked(g.s.bPushClick);
+	qcbPushClick->setToolTip(tr("Audible audio cue when push-to-talk pressed and released"));
+	qcbPushClick->setWhatsThis(tr("<b>This enables the audio cues for push to talk.</b><br />"
+			"Setting this will give you a short audio beep when push to talk is pressed and released."));
+
 	qcbTCP = new QCheckBox(tr("Use TCP mode"));
 	qcbTCP->setChecked(g.s.bTCPCompat);
 	qcbTCP->setToolTip(tr("Use TCP Compatibility mode"));
@@ -176,6 +182,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 						"connection fails."));
 
 	QHBoxLayout *qhbl=new QHBoxLayout();
+	qhbl->addWidget(qcbPushClick);
 	qhbl->addWidget(qcbTCP);
 	qhbl->addWidget(qcbReconnect);
 	grid->addLayout(qhbl,3,1,1,2);
@@ -331,6 +338,7 @@ void AudioConfigDialog::accept() {
 	g.s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	g.s.iVoiceHold = qsTransmitHold->value();
 	g.s.iFramesPerPacket = qsFrames->value();
+	g.s.bPushClick = qcbPushClick->isChecked();
 	g.s.bTCPCompat = qcbTCP->isChecked();
 	g.s.bReconnect = qcbReconnect->isChecked();
 	g.s.iJitterBufferSize = qsJitter->value();
