@@ -126,7 +126,6 @@ struct ServerParams {
 	int iMaxUsers;
 	QString qsPassword;
 	QString qsWelcomeText;
-	bool bTestloop;
 
 	QString qsDatabase;
 

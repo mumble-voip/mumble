@@ -13,7 +13,7 @@ use CGI;
 use CGI::Carp 'fatalsToBrowser';
 use Net::SMTP;
 use Net::DNS;
-use DBI;
+use DBI qw(:sql_types);
 use Image::Magick;
 
 ## User configurable settings:
@@ -121,7 +121,7 @@ if ($forgot) {
      my $image=Image::Magick->new();
      $r=$image->BlobToImage($blob);
      if (! $r) {
-       $image->Chop(x => 0, y => 0, width => 600, height => 60);
+#       $image->Crop(x => 0, y => 0, width => 600, height => 60);
        $image->Extent(x => 0, y => 0, width => 600, height => 60);
        my $out=$image->ImageToBlob(magick => 'rgba', depth => 8);
        if (length($out) == (600*60*4)) {
@@ -135,7 +135,9 @@ if ($forgot) {
          }
          $out=pack("C*",@a);   
          $sth=$dbh->prepare("UPDATE players SET texture=? WHERE name=?");
-         $sth->execute($out,$name);
+         $sth->bind_param(1, $out, SQL_BLOB);
+         $sth->bind_param(2, $name);
+         $sth->execute();
          $sth->finish();
        } else {
          $r=1;

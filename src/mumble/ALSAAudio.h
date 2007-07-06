@@ -68,7 +68,6 @@ class ALSAAudioOutput : public AudioOutput {
 	friend class ALSAOutputPlayer;
 	Q_OBJECT
 	protected:
-	    	virtual AudioOutputPlayer *getPlayer(Player *);
  		static void initialize(snd_pcm_t * &pcm_handle, int period);
 	public:
 		ALSAAudioOutput();

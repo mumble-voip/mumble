@@ -56,7 +56,6 @@ uint qHash(const Peer &p) {
 
 ServerParams::ServerParams() {
 	qsPassword = QString();
-	bTestloop = false;
 	iPort = 64738;
 	iCommandFrequency = 0;
 	iTimeout = 30;
@@ -81,7 +80,6 @@ void ServerParams::read(QString fname) {
 	qDebug("Initializing settings from %s", qPrintable(qs.fileName()));
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
-	bTestloop = qs.value("loop", bTestloop).toBool();
 	iPort = qs.value("port", iPort).toInt();
 	iCommandFrequency = qs.value("commandtime", iCommandFrequency).toInt();
 	iTimeout = qs.value("timeout", iTimeout).toInt();
@@ -268,8 +266,13 @@ void UDPThread::processMsg(Message::MessageType msgType, PacketDataStream &pds, 
 	const char *data = pds.charPtr();
 	int len = pds.left();
 
+	if (flags & 0x02) {
+		sendMessage(pSrcPlayer->sId, data, len, qba);
+		return;
+	}
+
 	foreach(p, c->qlPlayers) {
-		if (! p->bDeaf && ! p->bSelfDeaf && (g_sp.bTestloop || (p != pSrcPlayer)))
+		if (! p->bDeaf && ! p->bSelfDeaf && (p != pSrcPlayer))
 			sendMessage(p->sId, data, len, qba);
 	}
 
@@ -278,7 +281,7 @@ void UDPThread::processMsg(Message::MessageType msgType, PacketDataStream &pds, 
 		chans.remove(c);
 
 		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(pSrcPlayer, l, flags ? ChanACL::AltSpeak : ChanACL::Speak)) {
+			if (ChanACL::hasPermission(pSrcPlayer, l, (flags & 0x01) ? ChanACL::AltSpeak : ChanACL::Speak)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
 						sendMessage(p->sId, data, len, qba);

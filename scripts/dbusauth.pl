@@ -19,7 +19,7 @@ sub new {
 # Possible responses are:
 # >0 ID of user
 # 0 SuperUser
-# -1 Unknown user
+# -1 Wrong password
 # -2 Unknown user -- fall back to builtin database
 
 sub authenticate {
