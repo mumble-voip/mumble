@@ -58,7 +58,7 @@ ServerParams::ServerParams() {
 	qsPassword = QString();
 	bTestloop = false;
 	iPort = 64738;
-	iCommandFrequency = 10;
+	iCommandFrequency = 0;
 	iTimeout = 30;
 	iMaxBandwidth = 10000;
 	iMaxUsers = 1000;
@@ -77,6 +77,8 @@ void ServerParams::read(QString fname) {
 	    	qFatal("Specified ini file %s could not be opened", qPrintable(fname));
 	}
 	QSettings qs(fname, QSettings::IniFormat);
+
+	qDebug("Initializing settings from %s", qPrintable(qs.fileName()));
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
 	bTestloop = qs.value("loop", bTestloop).toBool();
@@ -129,9 +131,10 @@ int BandwidthRecord::bytesPerSec() {
 }
 
 void UDPThread::run() {
+	qDebug("Starting UDP Thread");
 	qusUdp = new QUdpSocket();
 	if (! qusUdp->bind(g_sp.iPort))
-		qFatal("Server: UDP Bind failed");
+		qFatal("Server: UDP Bind to port %d failed",g_sp.iPort);
 
 #ifdef Q_OS_UNIX
 	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
@@ -147,6 +150,8 @@ void UDPThread::run() {
 	
 	quint32 msgType;
 	int sPlayerId;
+
+	qDebug("Entering UDP event loop");
 
 	while (qusUdp->waitForReadyRead(-1)) {
 		QReadLocker rl(& g_sServer->qrwlConnections);
@@ -290,7 +295,7 @@ Server::Server() {
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()));
 
 	if (! qtsServer->listen(QHostAddress::Any, g_sp.iPort))
-		qFatal("Server: Listen failed");
+		qFatal("Server: TCP Listen on port %d failed",g_sp.iPort);
 
 	udp = new UDPThread();
 	udp->moveToThread(udp);

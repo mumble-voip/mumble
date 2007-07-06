@@ -50,12 +50,16 @@ extern Server *g_sServer;
 MurmurDBus *dbus;
 QFile *logfile;
 
+static bool bVerbose = false;
+
 static void murmurMessageOutput(QtMsgType type, const char *msg)
 {
 
 	char c;
 	switch (type) {
 		case QtDebugMsg:
+			if (! bVerbose)
+				return;
 			c='D';
 			break;
 		case QtWarningMsg:
@@ -124,11 +128,14 @@ int main(int argc, char **argv)
 			inifile=argv[i];
 		} else if ((arg == "-fg")) {
 		    	detach = false;
+		} else if ((arg == "-v")) {
+		    	bVerbose = true;
 		} else if ((arg == "-h") || (arg == "--help")) {
 			i++;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
 				"  -ini <inifile>  Specify ini file to use.\n"
 				"  -supw <pw>      Set password for 'SuperUser' account.\n"
+				"  -v              Add verbose output.\n"
 				"  -fg             Don't detach from console [Linux only].\n"
 				"If no inifile is provided, murmur will search for one in \n"
 				"default locations.",argv[0]);
@@ -225,4 +232,3 @@ int main(int argc, char **argv)
 
 	return res;
 }
-

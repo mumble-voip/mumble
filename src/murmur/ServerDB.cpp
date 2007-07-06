@@ -74,7 +74,7 @@ ServerDB::ServerDB() {
 	if (g_sp.qsDBDriver == "QSQLITE") {
 		if (! g_sp.qsDatabase.isEmpty()) {
 			db.setDatabaseName(g_sp.qsDatabase);
-				found = db.open();
+			found = db.open();
 		} else {
 			datapaths << QCoreApplication::instance()->applicationDirPath();
 			datapaths << QDir::currentPath();
@@ -99,6 +99,10 @@ ServerDB::ServerDB() {
 					}
 				}
 			}
+		}
+		if (found) {
+			QFileInfo fi(db.databaseName());
+			qDebug("Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
 		}
 	} else {
 		db.setDatabaseName(g_sp.qsDatabase);
