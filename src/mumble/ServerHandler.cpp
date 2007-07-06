@@ -138,6 +138,8 @@ void ServerHandler::run()
 	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
 	ticker->start(10000);
 
+	g.mw->rtLast = MessageServerReject::None;
+
 	exec();
 
 	ticker->stop();
@@ -235,9 +237,16 @@ void ServerHandler::serverConnectionConnected() {
 	emit connected();
 }
 
-void ServerHandler::setConnectionInfo(QString host, int port, QString username, QString pw) {
+void ServerHandler::setConnectionInfo(const QString &host, int port, const QString &username, const QString &pw) {
 	qsHostName = host;
 	iPort = port;
 	qsUserName = username;
 	qsPassword = pw;
+}
+
+void ServerHandler::getConnectionInfo(QString &host, int &port, QString &username, QString &pw) {
+	host = qsHostName;
+	port = iPort;
+	username = qsUserName;
+	pw = qsPassword;
 }

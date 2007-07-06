@@ -41,6 +41,8 @@ class GlobalShortcut;
 class TextToSpeech;
 class PlayerModel;
 
+#include "Message.h"
+
 class MessageBoxEvent : public QEvent {
 	public:
 		QString msg;
@@ -73,9 +75,11 @@ class MainWindow : public QMainWindow {
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
 
+		MessageServerReject::RejectType rtLast;
+
 		void recheckTTS();
 		void appendLog(QString entry);
-		
+
 		void msgBox(QString msg);
 	protected:
 		QTimer *qtReconnect;

@@ -444,6 +444,12 @@ void MainWindow::on_ServerConnect_triggered()
 	delete cd;
 }
 
+void MainWindow::on_Reconnect_timeout()
+{
+		g.l->log(Log::ServerDisconnected, tr("Reconnecting."));
+		g.sh->start(QThread::TimeCriticalPriority);
+}
+
 void MainWindow::on_ServerDisconnect_triggered()
 {
 	if (qtReconnect->isActive())
@@ -920,20 +926,38 @@ void MainWindow::serverDisconnected(QString reason)
 	pmModel->removeAll();
 
 	if (! reason.isEmpty()) {
-  	  g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
-  	  if (g.s.bReconnect) {
-		  qaServerDisconnect->setEnabled(true);
-		  qtReconnect->start();
-	  }
-    } else {
+		g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
+		QString uname, pw, host;
+		int port;
+		g.sh->getConnectionInfo(host, port, uname, pw);
+		bool ok = false;
+		bool matched = false;
+
+		  switch (rtLast) {
+			case MessageServerReject::InvalidUsername:
+			case MessageServerReject::UsernameInUse:
+			    matched = true;
+			    uname = QInputDialog::getText(this, reason, tr("Enter username"), QLineEdit::Normal, uname, &ok);
+			    break;
+			case MessageServerReject::WrongUserPW:
+			case MessageServerReject::WrongServerPW:
+			    matched = true;
+			    pw = QInputDialog::getText(this, reason, tr("Enter password"), QLineEdit::Password, pw, &ok);
+			    break;
+			default:
+			    break;
+		    }
+		 if (ok && matched) {
+		      qaServerDisconnect->setEnabled(true);
+			g.sh->setConnectionInfo(host, port, uname, pw);
+			g.sh->start(QThread::TimeCriticalPriority);
+		 } else if (!matched && g.s.bReconnect) {
+		      qaServerDisconnect->setEnabled(true);
+		      qtReconnect->start();
+	      }
+	} else {
 	  g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 	}
-}
-
-void MainWindow::on_Reconnect_timeout()
-{
-		g.l->log(Log::ServerDisconnected, tr("Reconnecting."));
-		g.sh->start(QThread::TimeCriticalPriority);
 }
 
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason) {
@@ -1167,6 +1191,7 @@ void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
+    	g.mw->rtLast = rtType;
 	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1.").arg(qsReason));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }

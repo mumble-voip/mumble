@@ -111,7 +111,7 @@ class MessageServerReject : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		enum RejectType { WrongVersion, InvalidUsername, WrongUserPW, WrongServerPW, UsernameInUse, BandwidthExceeded, ServerFull };
+		enum RejectType { None, WrongVersion, InvalidUsername, WrongUserPW, WrongServerPW, UsernameInUse, BandwidthExceeded, ServerFull };
 		QString qsReason;
 		RejectType rtType;
 		MessageServerReject();
