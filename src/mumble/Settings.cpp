@@ -48,6 +48,8 @@ Settings::Settings() {
 	bReconnect = true;
 	bExpandAll = false;
 
+	bPlayerTop = false;
+
 	iDXOutputDelay = 5;
 
 #ifdef Q_OS_UNIX
@@ -84,6 +86,7 @@ Settings::Settings() {
 void Settings::load() {
 	bMute = g.qs->value(QLatin1String("AudioMute"), false). toBool();
 	bDeaf = g.qs->value(QLatin1String("AudioDeaf"), false). toBool();
+	bPlayerTop = g.qs->value(QLatin1String("PlayerTop"), bPlayerTop). toBool();
 	bTTS = g.qs->value(QLatin1String("TextToSpeech"), bTTS). toBool();
 	iTTSVolume = g.qs->value(QLatin1String("TTSVolume"), iTTSVolume).toInt();
 	iTTSThreshold = g.qs->value(QLatin1String("TTSThreshold"), iTTSThreshold).toInt();
@@ -138,6 +141,7 @@ void Settings::load() {
 void Settings::save() {
 	g.qs->setValue(QLatin1String("AudioMute"), g.s.bMute);
 	g.qs->setValue(QLatin1String("AudioDeaf"), g.s.bDeaf);
+	g.qs->setValue(QLatin1String("PlayerTop"), g.s.bPlayerTop);
 	g.qs->setValue(QLatin1String("TextToSpeech"), g.s.bTTS);
 	g.qs->setValue(QLatin1String("TTSVolume"), g.s.iTTSVolume);
 	g.qs->setValue(QLatin1String("TTSThreshold"), g.s.iTTSThreshold);

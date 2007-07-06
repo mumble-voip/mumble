@@ -39,6 +39,7 @@
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <Player *, ModelItem *> ModelItem::c_qhPlayers;
+bool ModelItem::bPlayersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
 	this->cChan = c;
@@ -77,10 +78,17 @@ ModelItem *ModelItem::child(int idx) const {
 	if (! validRow(idx))
 		return NULL;
 
-	if (idx < qlChannels.count())
-		return c_qhChannels.value(channelAt(idx));
-	else
-		return c_qhPlayers.value(playerAt(idx));
+	if (! bPlayersTop) {
+	    if (idx < qlChannels.count())
+		    return c_qhChannels.value(channelAt(idx));
+	    else
+		    return c_qhPlayers.value(playerAt(idx));
+    	} else {
+	    if (idx < qlPlayers.count())
+		    return c_qhPlayers.value(playerAt(idx));
+	    else
+		    return c_qhChannels.value(channelAt(idx));
+    	}
 }
 
 bool ModelItem::validRow(int idx) const {
@@ -88,13 +96,16 @@ bool ModelItem::validRow(int idx) const {
 }
 
 Player *ModelItem::playerAt(int idx) const {
-	idx -= qlChannels.count();
+    	if (! bPlayersTop)
+		idx -= qlChannels.count();
 	if ((idx>= 0) && (idx < qlPlayers.count()))
 		return qlPlayers.at(idx);
 	return NULL;
 }
 
 Channel *ModelItem::channelAt(int idx) const {
+    	if (bPlayersTop)
+		idx -= qlPlayers.count();
 	if ((idx>= 0) && (idx < qlChannels.count()))
 		return qlChannels.at(idx);
 	return NULL;
@@ -107,7 +118,7 @@ int ModelItem::rowOf(Channel *c) const {
 int ModelItem::rowOf(Player *p) const {
 	int v = qlPlayers.lastIndexOf(p);
 	if (v != -1)
-		v += qlChannels.count();
+		v += (bPlayersTop) ? 0 : qlChannels.count();
 	return v;
 }
 
@@ -135,7 +146,7 @@ int ModelItem::insertIndex(Channel *c) const {
 	qls << c->qsName;
 	qSort(qls);
 
-	return qls.lastIndexOf(c->qsName);
+	return qls.lastIndexOf(c->qsName) + (bPlayersTop ? qlPlayers.count() : 0);
 }
 
 int ModelItem::insertIndex(Player *p) const {
@@ -147,16 +158,16 @@ int ModelItem::insertIndex(Player *p) const {
 	qls << p->qsName;
 	qSort(qls);
 
-	return qls.lastIndexOf(p->qsName) + qlChannels.count();
+	return qls.lastIndexOf(p->qsName) + (bPlayersTop ? 0 : qlChannels.count());
 }
 
 void ModelItem::insertChannel(Channel *c) {
-	int idx = insertIndex(c);
+	int idx = insertIndex(c) - (bPlayersTop ? qlPlayers.count() : 0);
 	qlChannels.insert(idx, c);
 }
 
 void ModelItem::insertPlayer(Player *p) {
-	int idx = insertIndex(p) - qlChannels.count();
+	int idx = insertIndex(p) - (bPlayersTop ? 0 : qlChannels.count());
 	qlPlayers.insert(idx, p);
 }
 
@@ -172,6 +183,8 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiAuthenticated=QIcon(QLatin1String(":/authenticated.png"));
 	qiChannel=QIcon(QLatin1String(":/channel.png"));
 	qiLinkedChannel=QIcon(QLatin1String(":/channel_linked.png"));
+
+	ModelItem::bPlayersTop = g.s.bPlayerTop;
 
 	miRoot = new ModelItem(Channel::get(0));
 }
@@ -809,8 +822,6 @@ void PlayerDelegate::paint(QPainter * painter, const QStyleOptionViewItem &optio
 			QPixmap pixmap= (qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
 			QPoint p = QStyle::alignedRect(option.direction, option.decorationAlignment, pixmap.size(), r).topLeft();
 			painter->drawPixmap(p, pixmap);
-
-//			drawDecoration(painter, option, r, qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
 		}
 		painter->restore();
 		return;

@@ -52,6 +52,7 @@ struct ModelItem {
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
 	static QHash <Player *, ModelItem *> c_qhPlayers;
+	static bool bPlayersTop;
 
 	ModelItem(Channel *c);
 	ModelItem(Player *p);
@@ -76,7 +77,7 @@ struct ModelItem {
 class ChannelItem;
 
 class PlayerModel : public QAbstractItemModel {
-	friend class ChannelItem;
+	friend class ModelItem;
 	Q_OBJECT
 protected:
 	QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
@@ -107,7 +108,7 @@ public:
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-    QModelIndex parent(const QModelIndex &index) const;
+    	QModelIndex parent(const QModelIndex &index) const;
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 	Qt::DropActions supportedDropActions() const;

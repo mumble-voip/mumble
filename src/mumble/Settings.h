@@ -44,6 +44,7 @@ struct Settings {
 	bool bTransmitPosition;
 	bool bMute, bDeaf;
 	bool bTTS;
+	bool bPlayerTop;
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iFramesPerPacket;

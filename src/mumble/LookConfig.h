@@ -41,6 +41,7 @@ class LookConfig : public ConfigWidget {
 		QPushButton *qpbCSS;
 		QCheckBox *qcbHorizontal;
 		QCheckBox *qcbExpand;
+		QCheckBox *qcbPlayersTop;
 	public:
 		LookConfig(QWidget *p = NULL);
 		virtual QString title() const;

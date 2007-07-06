@@ -118,6 +118,12 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	qcbExpand->setWhatsThis(tr("<b>If set, all channels will be expanded by default when you connect to a server.</b>"));
 	grid->addWidget(qcbExpand, 3, 1, 1, 2);
 
+	qcbPlayersTop = new QCheckBox(tr("Players above Channels"));
+	qcbPlayersTop->setChecked(g.s.bPlayerTop);
+	qcbPlayersTop->setToolTip(tr("List players above subchannels (requires restart)."));
+	qcbPlayersTop->setWhatsThis(tr("<b>If set, players will be shown above subchannels in the channel view.</b><br />A restart of mumble is required to see the change."));
+	grid->addWidget(qcbPlayersTop, 4, 1, 1, 2);
+
 	qgbLook->setLayout(grid);
 
     v = new QVBoxLayout;
@@ -172,6 +178,7 @@ void LookConfig::accept() {
 		g.mw->qsSplit->addWidget(g.mw->qtvPlayers);
 		g.mw->qsSplit->addWidget(g.mw->qteLog);
 	}
+	g.s.bPlayerTop=qcbPlayersTop->isChecked();
 }
 
 void LookConfig::on_SkinFile_clicked(bool) {
