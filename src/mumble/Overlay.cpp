@@ -452,16 +452,11 @@ void Overlay::forceSettings() {
 }
 
 void Overlay::textureResponse(int id, const QByteArray &texture) {
-    qWarning("Response for %d", id);
     QString s = qhQueried.value(id);
     if (s.isEmpty())
     	return;
 
-    qWarning("Which we're waiting for");
-
     QByteArray t = qUncompress(texture);
-
-    qWarning("decompressed to %d", t.size());
 
     if (t.size() != TEXTURE_SIZE)
     	return;
