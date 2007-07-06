@@ -45,6 +45,10 @@
 QMap<QString, AudioInputRegistrarNew> *AudioInputRegistrar::qmNew;
 QString AudioInputRegistrar::current = QString();
 
+// Static Player that never goes away, used for local loopback.
+
+static Player pLoopPlayer;
+
 AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n) {
 	if (! qmNew)
 		qmNew = new QMap<QString, AudioInputRegistrarNew>();
@@ -118,6 +122,17 @@ AudioInput::AudioInput()
 	dPeakMic = dPeakSignal = dPeakSpeaker = 0.0;
 
 	bRunning = false;
+
+	pLoopPlayer.qsName = QLatin1String("Loopy");
+	pLoopPlayer.sId = 0;
+	pLoopPlayer.iId = 0;
+	pLoopPlayer.sState = Player::Authenticated;
+	pLoopPlayer.bMute = pLoopPlayer.bDeaf = pLoopPlayer.bSuppressed = false;
+	pLoopPlayer.bLocalMute = pLoopPlayer.bSelfDeaf = false;
+	pLoopPlayer.bTalking = false;
+	pLoopPlayer.bAltSpeak = false;
+	pLoopPlayer.cChannel = NULL;
+
 }
 
 AudioInput::~AudioInput()
@@ -329,10 +344,11 @@ void AudioInput::encodeAudioFrame() {
 		p->setTalking(iIsSpeech, g.bAltSpeak);
 
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
-		if (iIsSpeech && ! bPreviousVoice)
-	    		g.ao->playSine(400,1200,5);
-	    	else if (!iIsSpeech && bPreviousVoice)
-	    		g.ao->playSine(620,-1200,5);
+	    	AudioOutputPtr ao = g.ao;
+		if (iIsSpeech && ! bPreviousVoice && ao)
+	    		ao->playSine(400,1200,5);
+	    	else if (ao && !iIsSpeech && bPreviousVoice && ao)
+	    		ao->playSine(620,-1200,5);
     	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
@@ -382,20 +398,42 @@ void AudioInput::flushCheck() {
 	if ((qlFrames.count() < g.s.iFramesPerPacket) && bPreviousVoice)
 		return;
 
+	unsigned char flags = 0;
+	if (g.bAltSpeak)
+		flags += 0x01;
+	if (g.lmLoopMode == Global::Server)
+		flags += 0x02;
+
 	if (qlFrames.count() == 1) {
 		MessageSpeex msPacket;
 		msPacket.qbaSpeexPacket = qlFrames[0];
 		msPacket.iSeq = iFrameCounter;
-		msPacket.ucFlags = g.bAltSpeak ? 1 : 0;
-		if (g.sh)
+		msPacket.ucFlags = flags;
+		if (g.lmLoopMode == Global::Local) {
+		    	AudioOutputPtr ao = g.ao;
+		    	if (ao) {
+				ao->addFrameToBuffer(&pLoopPlayer, qlFrames[0], static_cast<int>(msPacket.iSeq));
+		    	}
+	    	} else if (g.sh) {
 			g.sh->sendMessage(&msPacket);
+	    	}
 	} else {
 		MessageMultiSpeex mmsPacket;
 		mmsPacket.qlFrames = qlFrames;
 		mmsPacket.iSeq = iFrameCounter - qlFrames.count() + 1;
-		mmsPacket.ucFlags = g.bAltSpeak ? 1 : 0;
-		if (g.sh)
+		mmsPacket.ucFlags = flags;
+		if (g.lmLoopMode == Global::Local) {
+		    	AudioOutputPtr ao = g.ao;
+		    	if (ao) {
+			    	int idx = 0;
+			    	foreach(const QByteArray &qba, qlFrames) {
+					g.ao->addFrameToBuffer(&pLoopPlayer, qba, static_cast<int>(mmsPacket.iSeq + idx));
+					idx++;
+			    	}
+		    	}
+	    	} else if (g.sh) {
 			g.sh->sendMessage(&mmsPacket);
+	    	}
 	}
 	qlFrames.clear();
 }

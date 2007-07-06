@@ -47,6 +47,7 @@ class AudioConfigDialog : public ConfigWidget {
 		QCheckBox *qcbPushClick;
 		QLabel *qlJitter;
 		QLabel *qlBitrate;
+		QComboBox *qcbLoopback;
 	public:
 		AudioConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;

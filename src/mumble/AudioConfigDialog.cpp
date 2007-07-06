@@ -40,7 +40,7 @@ static ConfigWidget *AudioConfigDialogNew() {
 static ConfigRegistrar registrar(10, AudioConfigDialogNew);
 
 AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress, *qgbJitter;
+	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress, *qgbJitter, *qgbLoop;
 	QLabel *l;
 	QVBoxLayout *v;
 	QGridLayout *grid;
@@ -52,6 +52,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qgbTransmit=new QGroupBox(tr("Transmission"));
 	qgbCompress=new QGroupBox(tr("Compression"));
 	qgbJitter=new QGroupBox(tr("Jitter Buffer"));
+	qgbLoop=new QGroupBox(tr("Loopback Test"));
 
 	grid = new QGridLayout();
 
@@ -313,11 +314,36 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qgbJitter->setLayout(grid);
 
+
+	grid = new QGridLayout();
+
+	qcbLoopback = new QComboBox();
+	qcbLoopback->addItem(tr("None"), Global::None);
+	qcbLoopback->addItem(tr("Local"), Global::Local);
+	qcbLoopback->addItem(tr("Server"), Global::Server);
+	qcbLoopback->setCurrentIndex(g.lmLoopMode);
+	l = new QLabel(tr("Loopback"));
+	l->setBuddy(qcbLoopback);
+
+	qcbLoopback->setToolTip(tr("Desired loopback mode"));
+	qcbLoopback->setWhatsThis(tr("<b>This enables one of the loopback testmodes.</b><br />"
+			"<i>None</i> - Loopback disabled<br />"
+			"<i>Local</i> - Emulate a local server.<br />"
+			"<i>Server</i> - Request loopback from server.<br />"
+			"Please note than when loopback is enabled, no other players will hear your voice. "
+			"This setting is not saved on application exit."
+			));
+	grid->addWidget(l, 0, 0);
+	grid->addWidget(qcbLoopback, 0, 1, 1, 2);
+
+	qgbLoop->setLayout(grid);
+
     v = new QVBoxLayout;
     v->addWidget(qgbInterface);
     v->addWidget(qgbTransmit);
     v->addWidget(qgbCompress);
     v->addWidget(qgbJitter);
+    v->addWidget(qgbLoop);
     v->addStretch(1);
     setLayout(v);
 
@@ -345,6 +371,7 @@ void AudioConfigDialog::accept() {
 	g.s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
+	g.lmLoopMode = static_cast<Global::LoopMode>(qcbLoopback->currentIndex());
 }
 
 void AudioConfigDialog::on_Frames_valueChanged(int v) {

@@ -186,7 +186,7 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 			if (p) {
 				MessageMultiSpeex *mmsMsg=static_cast<MessageMultiSpeex *>(mMsg);
 				int idx = 0;
-				foreach(QByteArray qba, mmsMsg->qlFrames) {
+				foreach(const QByteArray &qba, mmsMsg->qlFrames) {
 					if (! p->bLocalMute)
 						ao->addFrameToBuffer(p, qba, mmsMsg->iSeq + idx);
 					idx++;
