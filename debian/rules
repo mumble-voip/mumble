@@ -92,6 +92,10 @@ install-arch:
 	ln -sf /usr/lib/libGL.so.1 $(CURDIR)/debian/mumble/usr/lib/mumble/libGL.original.so.1
 	install ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin
 	install ./release/murmur $(CURDIR)/debian/mumble-server/usr/bin
+	
+	# install menu entry
+	install ./scripts/mumble.desktop $(CURDIR)/debian/mumble/usr/share/applications
+	install ./icons/mumble.png.1 $(CURDIR)/debian/mumble/usr/share/pixmaps
 
 	dh_install -s
 # Must not depend on anything. This is to be called by
