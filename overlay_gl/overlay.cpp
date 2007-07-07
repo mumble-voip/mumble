@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#define GLX_GLXEXT_LEGACY
 #include <GL/glx.h>
-#include <GL/glu.h>
 #include <GL/gl.h>
 #include <dlfcn.h>
 #include <stdio.h>
@@ -49,132 +49,32 @@
 
 using namespace std;
 
+extern "C" void * __libc_dlsym(void *, const char *);
+
 // Prototypes
-static void resolveOpenGL(void *);
 static void resolveSM();
 static void ods(const char *format, ...);
 
-static SharedMem *sm;
+static SharedMem *sm = NULL;
+static sem_t *sem = NULL;
 
-#define FDEF(return,name,args) typedef return(*f##name)args; static f##name o##name
+#define FDEF(name) static __typeof__(&name) o##name = NULL
 
-FDEF(void,glXSwapBuffers,(Display *,GLXDrawable));
-FDEF(GLXContext, glXGetCurrentContext,(void));
-FDEF(void, glGenTextures,(GLsizei,GLuint *));
-FDEF(void, glXQueryDrawable, (Display *,GLXDrawable, int, unsigned int *));
-FDEF(void, glBindTexture, (GLenum, GLuint));
-FDEF(void, glBegin, (GLenum));
-FDEF(void, glVertex2f, (GLfloat, GLfloat));
-FDEF(void, glEnd, (void));
-FDEF(void, glPushAttrib, (GLbitfield));
-FDEF(void, glPopAttrib, (void));
-FDEF(void, glViewport, (GLint, GLint, GLsizei, GLsizei));
-FDEF(void, glMatrixMode, (GLenum));
-FDEF(void, glPushMatrix, (void));
-FDEF(void, glPopMatrix, (void));
-FDEF(void, glLoadIdentity, (void));
-FDEF(void, glOrtho, (GLdouble, GLdouble, GLdouble, GLdouble, GLdouble, GLdouble));
-FDEF(void, glActiveTextureARB, (GLenum));
-FDEF(void, glEnable, (GLenum));
-FDEF(void, glDisable, (GLenum));
-FDEF(void, glBlendFunc, (GLenum, GLenum));
-FDEF(void, glColorMaterial, (GLenum, GLenum));
-FDEF(void, glTexParameteri, (GLenum, GLenum, GLint));
-FDEF(void, glTexImage2D, (GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid *));
-FDEF(void, glColor4ub, (GLubyte, GLubyte, GLubyte, GLubyte));
-FDEF(void, glTranslatef, (GLfloat, GLfloat, GLfloat));
-FDEF(void, glTexCoord2f, (GLfloat, GLfloat));
+#ifdef PRELOAD
+FDEF(dlsym);
+#endif
 
-// Typdefs for functions we're overriding
-typedef void *(*fdlsym)(void *, const char *);
+FDEF(glXSwapBuffers);
+FDEF(glXGetProcAddressARB);
+FDEF(glXGetProcAddress);
 
-// Original and replacement swapbuffers
-void glXSwapBuffers(Display *, GLXDrawable);
+#define RESOLVE(x) if (! o##x) o##x = (__typeof__(&x)) dlsym(RTLD_NEXT, #x)
 
-// Define for the dlsym we're chaining to. Ugly hack.
-extern "C" void * __libc_dlsym(void *, const char *);
-
-// if true, we'll always return the "true" symbol.
-static bool bTrueSymbol = false;
-
-/*
- * This is a truly ugly hack, but as many games dlopen the GL
- * libraries and then dlsym the functions directly, we have
- * to override dlsym. And we also have to call the original dlsym,
- * which leaves us a problem, as we can't very well dlsym("dlsym").
- *
- * This works, but requires glibc2.
- */
-
-void *dlsym(void *ctx, const char *fname) {
-  static fdlsym gdlsym;
-  if (gdlsym == NULL) {
-    void *dl = dlopen("libdl.so.2", RTLD_LAZY);
-    if (! dl) {
-      fprintf(stderr, "Failed to open libdl.so.2\n");
-    } else {
-      gdlsym=(fdlsym) __libc_dlsym(dl, "dlsym");
-    }
-  }
-  if (! bTrueSymbol) {
-    if (strcmp(fname, "glXSwapBuffers")==0) {
-      resolveOpenGL(ctx);
-      if (oglXSwapBuffers)
-        return (void *) glXSwapBuffers;
-      else
-        return (void *) oglXSwapBuffers;
-    }
-  }
-  return gdlsym(ctx, fname);
-}
-
-#define RESOLVE(x) o##x = (f##x) dlsym(ctx, #x)
-
-static void resolveOpenGL(void *ctx) {
-  bTrueSymbol = true;
-  if (ctx == RTLD_DEFAULT)
-    ctx = RTLD_NEXT;
-
-RESOLVE(glXSwapBuffers);
-RESOLVE(glXGetCurrentContext);
-RESOLVE(glGenTextures);
-RESOLVE(glXQueryDrawable);
-RESOLVE(glBindTexture);
-RESOLVE(glBegin);
-RESOLVE(glVertex2f);
-RESOLVE(glEnd);
-RESOLVE(glPushAttrib);
-RESOLVE(glPopAttrib);
-RESOLVE(glViewport);
-RESOLVE(glMatrixMode);
-RESOLVE(glPushMatrix);
-RESOLVE(glPopMatrix);
-RESOLVE(glLoadIdentity);
-RESOLVE(glOrtho);
-RESOLVE(glActiveTextureARB);
-RESOLVE(glEnable);
-RESOLVE(glDisable);
-RESOLVE(glBlendFunc);
-RESOLVE(glColorMaterial);
-RESOLVE(glTexParameteri);
-RESOLVE(glTexImage2D);
-RESOLVE(glColor4ub);
-RESOLVE(glTranslatef);
-RESOLVE(glTexCoord2f);
-
-  RESOLVE(glXGetCurrentContext);
+static void resolveOpenGL() {
   RESOLVE(glXSwapBuffers);
-  RESOLVE(glGenTextures);
-  RESOLVE(glXQueryDrawable);
-  RESOLVE(glBindTexture);
-  RESOLVE(glBegin);
-  RESOLVE(glVertex2f);
-  RESOLVE(glEnd);
-
-  bTrueSymbol = false;
+  RESOLVE(glXGetProcAddressARB);
+  RESOLVE(glXGetProcAddress);
 }
-
-static sem_t *sem;
 
 static void resolveSM() {
   int fd = shm_open("/MumbleOverlayMem", O_RDWR, 0600);
@@ -207,9 +107,10 @@ void ods(const char *format, ...) {
 }
 
 class GLContext {
-  public:
+  protected:
     GLXContext ctx;
     GLuint textures[NUM_TEXTS];
+  public:
     GLContext(GLXContext context);
     void draw(Display *, GLXDrawable);
     ~GLContext();
@@ -217,7 +118,7 @@ class GLContext {
 
 GLContext::GLContext(GLXContext context) { 
   ctx = context;
-  oglGenTextures(NUM_TEXTS, textures);
+  glGenTextures(NUM_TEXTS, textures);
 }
 
 GLContext::~GLContext() {
@@ -230,8 +131,8 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
   // sm->bDebug = true;
   
   unsigned int width, height;
-  oglXQueryDrawable(dpy, draw, GLX_WIDTH, &width);
-  oglXQueryDrawable(dpy, draw, GLX_HEIGHT, &height);
+  glXQueryDrawable(dpy, draw, GLX_WIDTH, &width);
+  glXQueryDrawable(dpy, draw, GLX_HEIGHT, &height);
   
   ods("DrawStart: Screen is %d x %d", width, height);
 
@@ -257,59 +158,59 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
     return;
     
   // Save all state. Please?
-  oglPushAttrib(-1);
+  glPushAttrib(-1);
 
-  oglViewport(0,0,width,height);
+  glViewport(0,0,width,height);
 
-  oglMatrixMode(GL_PROJECTION);
-  oglPushMatrix();
-  oglLoadIdentity();
-  oglOrtho(0, width, height, 0, -100.0, 100.0);
-  oglMatrixMode(GL_TEXTURE);
-  oglPushMatrix();
-  oglLoadIdentity();
-  oglMatrixMode(GL_COLOR);
-  oglPushMatrix();
-  oglLoadIdentity();
+  glMatrixMode(GL_PROJECTION);
+  glPushMatrix();
+  glLoadIdentity();
+  glOrtho(0, width, height, 0, -100.0, 100.0);
+  glMatrixMode(GL_TEXTURE);
+  glPushMatrix();
+  glLoadIdentity();
+  glMatrixMode(GL_COLOR);
+  glPushMatrix();
+  glLoadIdentity();
 
-  oglMatrixMode(GL_MODELVIEW);
-  oglPushMatrix();
-  oglLoadIdentity();
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+  glLoadIdentity();
 
-  oglActiveTextureARB(GL_TEXTURE0_ARB);
+  glActiveTextureARB(GL_TEXTURE0_ARB);
 
   // Here we go. From the top. Where is glResetState?
-  oglDisable(GL_ALPHA_TEST);
-  oglDisable(GL_AUTO_NORMAL);
-  oglEnable(GL_BLEND);
+  glDisable(GL_ALPHA_TEST);
+  glDisable(GL_AUTO_NORMAL);
+  glEnable(GL_BLEND);
   // Skip clip planes, there are thousands of them.
-  oglDisable(GL_COLOR_LOGIC_OP);
-  oglEnable(GL_COLOR_MATERIAL);
-  oglDisable(GL_COLOR_TABLE);
-  oglDisable(GL_CONVOLUTION_1D);
-  oglDisable(GL_CONVOLUTION_2D);
-  oglDisable(GL_CULL_FACE);
-  oglDisable(GL_DEPTH_TEST);
-  oglDisable(GL_DITHER);
-  oglDisable(GL_FOG);
-  oglDisable(GL_HISTOGRAM);
-  oglDisable(GL_INDEX_LOGIC_OP);
-  oglDisable(GL_LIGHTING);
+  glDisable(GL_COLOR_LOGIC_OP);
+  glEnable(GL_COLOR_MATERIAL);
+  glDisable(GL_COLOR_TABLE);
+  glDisable(GL_CONVOLUTION_1D);
+  glDisable(GL_CONVOLUTION_2D);
+  glDisable(GL_CULL_FACE);
+  glDisable(GL_DEPTH_TEST);
+  glDisable(GL_DITHER);
+  glDisable(GL_FOG);
+  glDisable(GL_HISTOGRAM);
+  glDisable(GL_INDEX_LOGIC_OP);
+  glDisable(GL_LIGHTING);
   // Skip line smmooth 
   // Skip map
-  oglDisable(GL_MINMAX);
+  glDisable(GL_MINMAX);
   // Skip polygon offset
-  oglDisable(GL_SEPARABLE_2D);
-  oglDisable(GL_SCISSOR_TEST);
-  oglDisable(GL_STENCIL_TEST);
-  oglEnable(GL_TEXTURE_2D);
-  oglDisable(GL_TEXTURE_GEN_Q);
-  oglDisable(GL_TEXTURE_GEN_R);
-  oglDisable(GL_TEXTURE_GEN_S);
-  oglDisable(GL_TEXTURE_GEN_T);
+  glDisable(GL_SEPARABLE_2D);
+  glDisable(GL_SCISSOR_TEST);
+  glDisable(GL_STENCIL_TEST);
+  glEnable(GL_TEXTURE_2D);
+  glDisable(GL_TEXTURE_GEN_Q);
+  glDisable(GL_TEXTURE_GEN_R);
+  glDisable(GL_TEXTURE_GEN_S);
+  glDisable(GL_TEXTURE_GEN_T);
   
-  oglBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  oglColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
   
   for(int i=0;i<NUM_TEXTS;i++) {
     if (sm->texts[i].width == 0) {
@@ -317,14 +218,12 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
     } else if (sm->texts[i].width > 0) {
       if (sm->texts[i].bUpdated) {
         ods("Updating %d %d texture", sm->texts[i].width, TEXT_HEIGHT);      
-        oglBindTexture(GL_TEXTURE_2D, textures[i]);
-        oglTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-        oglTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-//        oglTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-//        oglTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-        oglTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
-        oglTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
-        oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[i].texture);
+        glBindTexture(GL_TEXTURE_2D, textures[i]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[i].texture);
         sm->texts[i].bUpdated = false;
       }
       texs[idx] = textures[i];
@@ -369,9 +268,9 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
       x = width - w - 1;
     
     ods("Drawing text at %d %d  %d %d", x, y+yofs[i], w, iHeight);
-    oglBindTexture(GL_TEXTURE_2D, texs[i]);
-    oglPushMatrix();
-    oglLoadIdentity();
+    glBindTexture(GL_TEXTURE_2D, texs[i]);
+    glPushMatrix();
+    glLoadIdentity();
         
     double xm = 0.0;
     double ym = 0.0;
@@ -380,41 +279,42 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
 
     unsigned int c = color[i];
 
-    oglColor4ub((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
+    glColor4ub((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
 
     
-    oglTranslatef(x, y + yofs[i], 0.0);
-    oglBegin(GL_QUADS);
-    oglTexCoord2f(xm, ymx);
-    oglVertex2f(0, iHeight);
-    oglTexCoord2f(xm, ym);
-    oglVertex2f(0, 0);
-    oglTexCoord2f(xmx, ym);
-    oglVertex2f(w, 0);
-    oglTexCoord2f(xmx, ymx);
-    oglVertex2f(w, iHeight);
-    oglEnd();
-    oglPopMatrix();
+    glTranslatef(x, y + yofs[i], 0.0);
+    glBegin(GL_QUADS);
+    glTexCoord2f(xm, ymx);
+    glVertex2f(0, iHeight);
+    glTexCoord2f(xm, ym);
+    glVertex2f(0, 0);
+    glTexCoord2f(xmx, ym);
+    glVertex2f(w, 0);
+    glTexCoord2f(xmx, ymx);
+    glVertex2f(w, iHeight);
+    glEnd();
+    glPopMatrix();
   }    
   
-  oglBindTexture(GL_TEXTURE_2D, textures[NUM_TEXTS-1]);
+  glBindTexture(GL_TEXTURE_2D, textures[NUM_TEXTS-1]);
   
-  oglPopMatrix();
-  oglMatrixMode(GL_COLOR);
-  oglPopMatrix();
-  oglMatrixMode(GL_TEXTURE);
-  oglPopMatrix();
-  oglMatrixMode(GL_PROJECTION);
-  oglPopMatrix();
+  glPopMatrix();
+  glMatrixMode(GL_COLOR);
+  glPopMatrix();
+  glMatrixMode(GL_TEXTURE);
+  glPopMatrix();
+  glMatrixMode(GL_PROJECTION);
+  glPopMatrix();
   
-  oglPopAttrib();
+  glPopAttrib();
 }
 
 static map<GLXContext, GLContext *> contexts;
 
+__attribute__ ((visibility("default")))
 void glXSwapBuffers(Display *dpy, GLXDrawable draw) {
   if (! oglXSwapBuffers)
-    resolveOpenGL(RTLD_NEXT);
+    resolveOpenGL();
   
   if (! sm) {
     resolveSM();
@@ -426,7 +326,7 @@ void glXSwapBuffers(Display *dpy, GLXDrawable draw) {
   }
     
   if (sm) {
-      GLXContext ctx = oglXGetCurrentContext();
+      GLXContext ctx = glXGetCurrentContext();
   
     GLContext *c = contexts[ctx];
     if (!c) {
@@ -441,5 +341,55 @@ void glXSwapBuffers(Display *dpy, GLXDrawable draw) {
       warned = true;
     }
   }
+  ods("Old chain is %p", oglXSwapBuffers);
   oglXSwapBuffers(dpy, draw);
 }
+
+#define FGRAB(x) if (strcmp(reinterpret_cast<const char *>(func), #x)==0) return reinterpret_cast<__GLXextFuncPtr>(x);
+
+__attribute__ ((visibility("default")))
+void (*glXGetProcAddress(const GLubyte *func))(void) {
+  FGRAB(glXSwapBuffers);
+  FGRAB(glXGetProcAddressARB);
+  FGRAB(glXGetProcAddress);
+
+  if (! oglXGetProcAddressARB && ! oglXGetProcAddress)
+    resolveOpenGL();
+  if (oglXGetProcAddress)
+    return oglXGetProcAddress(func);
+  else if (oglXGetProcAddressARB)
+    return oglXGetProcAddressARB(func);  
+  else
+    return reinterpret_cast<__GLXextFuncPtr>(dlsym(RTLD_NEXT, reinterpret_cast<const char *>(func)));
+}
+
+__attribute__ ((visibility("default")))
+__GLXextFuncPtr glXGetProcAddressARB(const GLubyte *func) {
+  return (void(*)(void)) glXGetProcAddress(func);
+}
+
+#ifdef PRELOAD
+
+#define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; __typeof__(&name) t = (__typeof__(&name)) reinterpret_cast<__typeof__(&name)>(odlsym(handle, #name)); if (t) { o##name = t; return reinterpret_cast<void *>(name); } else { return NULL;}
+
+__attribute__ ((visibility("default")))
+void *dlsym(void *handle, const char *name) {
+  if (! odlsym) {
+    void *dl = dlopen("libdl.so.2", RTLD_LAZY);
+    if (!dl) {
+      fprintf(stderr, "Failed to open libdl.so.2\n");
+    } else {
+      odlsym = (__typeof__(&dlsym)) __libc_dlsym(dl, "dlsym");
+    }
+  }
+  if (strcmp(name, "glXSwapBuffers")==0) {
+    OGRAB(glXSwapBuffers);
+  } else if (strcmp(name, "glXGetProcAddress")==0) {
+    OGRAB(glXGetProcAddress);
+  } else if (strcmp(name, "glXGetProcAddressARB")==0) {
+    OGRAB(glXGetProcAddressARB);
+  }
+  return odlsym(handle, name);
+}
+
+#endif

@@ -6,10 +6,11 @@ The OpenGL overlay works by intercepting the call to switch buffers, and just
 before the buffer switch we draw our nice GUI.
 
 To load a game with the overlay enabled, start the game as this:
-LD_PRELOAD=/path/to/mumble/libmumble_ol.so.1.0.0 gamename
+  LD_LIBRARY_PATH=/path/to/overlay_gl/ gamename
 
-For example, to start Enemy Territory using the default Ubuntu packages:
-LD_PRELOAD=/usr/lib/libmumble_ol.so.1.0.0 et
+If you have Mumble installed through the binary packages, this can be done by
+simply typing:
+  mumble-overlay gamename
 
 Global Keyboard Events
 ======================

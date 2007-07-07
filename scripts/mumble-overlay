@@ -1,0 +1,9 @@
+#! /bin/sh
+
+MUMBLE_OVERLAY_PATH=/usr/lib/mumble/
+
+if [ -f /etc/sysconfig/mumble ]; then
+  . /etc/sysconfig/mumble
+fi
+
+LD_LIBRARY_PATH="${MUMBLE_OVERLAY_PATH}:${LD_LIBRARY_PATH}" "${@}"
