@@ -66,9 +66,6 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		case Speex:
 			mMsg = new MessageSpeex();
 			break;
-		case MultiSpeex:
-			mMsg = new MessageMultiSpeex();
-			break;
 		case ServerAuthenticate:
 			mMsg = new MessageServerAuthenticate();
 			break;
@@ -267,43 +264,21 @@ void MessagePermissionDenied::restoreStream(PacketDataStream &qdsIn) {
 
 MessageSpeex::MessageSpeex() {
 	iSeq = 0;
-	ucFlags = 0;
 	qbaSpeexPacket = QByteArray();
 }
 
 void MessageSpeex::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << static_cast<unsigned short>(iSeq);
-	qdsOut << static_cast<unsigned char>(ucFlags);
 	qdsOut.append(qbaSpeexPacket.constData(), qbaSpeexPacket.size());
 }
 
 void MessageSpeex::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iSeq;
-	qdsIn >> ucFlags;
 	qbaSpeexPacket = qdsIn.dataBlock(qdsIn.left());
 }
 
 bool MessageSpeex::isValid() const {
 	return ! qbaSpeexPacket.isEmpty();
-}
-
-MessageMultiSpeex::MessageMultiSpeex() {
-	iSeq = 0;
-	ucFlags = 0;
-}
-
-void MessageMultiSpeex::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << static_cast<unsigned short>(iSeq);
-	qdsOut << static_cast<unsigned char>(ucFlags);
-	qdsOut << qlFrames;
-}
-
-void MessageMultiSpeex::restoreStream(PacketDataStream &qdsIn) {
-	unsigned short useq;
-	qdsIn >> useq;
-	iSeq = useq;
-	qdsIn >> ucFlags;
-	qdsIn >> qlFrames;
 }
 
 MessagePlayerMute::MessagePlayerMute() {

@@ -97,6 +97,13 @@ AudioOutputSpeech::AudioOutputSpeech(Player *player) : AudioOutputPlayer(player-
 	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
 	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 
+	SpeexCallback sc;
+	sc.callback_id = 1;
+	sc.func = speexCallback;
+	sc.data = this;
+
+	speex_decoder_ctl(dsDecState, SPEEX_SET_USER_HANDLER, &sc);
+
 	iFrameCounter = 0;
 
 	psBuffer = new short[iFrameSize];
@@ -114,6 +121,27 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 	speex_decoder_destroy(dsDecState);
 	speex_jitter_destroy(&sjJitter);
 	delete [] psBuffer;
+}
+
+int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *state, void *data) {
+    AudioOutputSpeech *aos=reinterpret_cast<AudioOutputSpeech *>(data);
+
+    int len=speex_bits_unpack_unsigned(bits, 4);
+
+    qWarning("GOT INBANDY! %d bytes",len);
+
+    QByteArray qba(len, 0);
+    unsigned char *ptr = reinterpret_cast<unsigned char *>(qba.data());
+
+    for(int i=0;i<len;i++)
+    	ptr[i]=speex_bits_unpack_unsigned(bits, 8);
+    QDataStream ds(qba);
+    ds >> aos->fPos[0];
+    ds >> aos->fPos[1];
+    ds >> aos->fPos[2];
+    aos->iMissCount = 0;
+
+    return 0;
 }
 
 void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, int iSeq) {

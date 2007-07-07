@@ -89,6 +89,9 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 AudioInput::AudioInput()
 {
 	speex_bits_init(&sbBits);
+	speex_bits_reset(&sbBits);
+	iFrames = 0;
+
 	esEncState=speex_encoder_init(&speex_wb_mode);
 	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 
@@ -183,7 +186,6 @@ int AudioInput::getMaxBandwidth() {
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
-	int iLen;
 	Player *p=Player::get(g.sId);
 	short max;
 	int i;
@@ -261,6 +263,9 @@ void AudioInput::encodeAudioFrame() {
 			speex_echo_ctl(sesEcho, SPEEX_SET_SAMPLING_RATE, &iArg);
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 		}
+
+		iFrames = 0;
+		speex_bits_reset(&sbBits);
 
 		bResetProcessor = false;
 	}
@@ -361,13 +366,7 @@ void AudioInput::encodeAudioFrame() {
 		memset(psMic, 0, iByteSize);
 	}
 
-	speex_bits_reset(&sbBits);
-	speex_encode_int(esEncState, psSource, &sbBits);
-	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
-	speex_bits_pack(&sbBits, (iIsSpeech) ? 1 : 0, 1);
-	speex_bits_pack(&sbBits, (g.bAltSpeak)? 1 : 0, 1);
-
-	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (qlFrames.count() == 0)) {
+	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (iFrames == 0)) {
 		g.p->fetch();
 		if (g.p->bValid) {
 			QByteArray q;
@@ -375,6 +374,15 @@ void AudioInput::encodeAudioFrame() {
 			ds << g.p->fPosition[0];
 			ds << g.p->fPosition[1];
 			ds << g.p->fPosition[2];
+
+			// Make inband and nice.
+			// add number of bits here AND AT DEPACK.
+
+			// And make jitter buffer be nice and only one speexmsg.
+
+			speex_bits_pack(&sbBits, 13, 5);
+			speex_bits_pack(&sbBits, q.size(), 4);
+
 			const unsigned char *d=reinterpret_cast<const unsigned char*>(q.data());
 			for(i=0;i<q.size();i++) {
 				speex_bits_pack(&sbBits, d[i], 8);
@@ -382,58 +390,47 @@ void AudioInput::encodeAudioFrame() {
 		}
 	}
 
+	speex_encode_int(esEncState, psSource, &sbBits);
+	iFrames++;
 
-	iLen=speex_bits_nbytes(&sbBits);
-	QByteArray qbaPacket(iLen, 0);
-	speex_bits_write(&sbBits, qbaPacket.data(), iLen);
-
-	qlFrames << qbaPacket;
+	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
 
 	flushCheck();
 }
 
 void AudioInput::flushCheck() {
-	if (qlFrames.count() == 0)
-		return;
-	if ((qlFrames.count() < g.s.iFramesPerPacket) && bPreviousVoice)
-		return;
+    	if (bPreviousVoice && iFrames < g.s.iFramesPerPacket)
+    		return;
 
 	unsigned char flags = 0;
 	if (g.bAltSpeak)
-		flags += 0x01;
+		flags += MessageSpeex::AltSpeak;
 	if (g.lmLoopMode == Global::Server)
-		flags += 0x02;
+		flags += MessageSpeex::LoopBack;
 
-	if (qlFrames.count() == 1) {
-		MessageSpeex msPacket;
-		msPacket.qbaSpeexPacket = qlFrames[0];
-		msPacket.iSeq = iFrameCounter;
-		msPacket.ucFlags = flags;
-		if (g.lmLoopMode == Global::Local) {
-		    	AudioOutputPtr ao = g.ao;
-		    	if (ao) {
-				ao->addFrameToBuffer(&pLoopPlayer, qlFrames[0], static_cast<int>(msPacket.iSeq));
-		    	}
-	    	} else if (g.sh) {
-			g.sh->sendMessage(&msPacket);
-	    	}
-	} else {
-		MessageMultiSpeex mmsPacket;
-		mmsPacket.qlFrames = qlFrames;
-		mmsPacket.iSeq = iFrameCounter - qlFrames.count() + 1;
-		mmsPacket.ucFlags = flags;
-		if (g.lmLoopMode == Global::Local) {
-		    	AudioOutputPtr ao = g.ao;
-		    	if (ao) {
-			    	int idx = 0;
-			    	foreach(const QByteArray &qba, qlFrames) {
-					g.ao->addFrameToBuffer(&pLoopPlayer, qba, static_cast<int>(mmsPacket.iSeq + idx));
-					idx++;
-			    	}
-		    	}
-	    	} else if (g.sh) {
-			g.sh->sendMessage(&mmsPacket);
-	    	}
+	if (! bPreviousVoice)
+		flags += MessageSpeex::EndSpeech;
+
+	flags += (iFrames - 1) << 4;
+
+	int len = speex_bits_nbytes(&sbBits);
+	QByteArray qba(len + 1, 0);
+	qba[0] = flags;
+
+	speex_bits_write(&sbBits, qba.data() + 1, len);
+
+	MessageSpeex msPacket;
+	msPacket.qbaSpeexPacket = qba;
+	msPacket.iSeq = iFrameCounter;
+
+	if (g.lmLoopMode == Global::Local) {
+		AudioOutputPtr ao = g.ao;
+		if (ao) {
+			ao->addFrameToBuffer(&pLoopPlayer, qba, static_cast<int>(msPacket.iSeq));
+		}
+	} else if (g.sh) {
+		g.sh->sendMessage(&msPacket);
 	}
-	qlFrames.clear();
+
+	speex_bits_reset(&sbBits);
 }

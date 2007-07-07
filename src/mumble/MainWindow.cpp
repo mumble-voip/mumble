@@ -1029,9 +1029,6 @@ void MessageServerBanList::process(Connection *) {
 void MessageSpeex::process(Connection *) {
 }
 
-void MessageMultiSpeex::process(Connection *) {
-}
-
 void MessagePlayerSelfMuteDeaf::process(Connection *) {
 	MSG_INIT;
 

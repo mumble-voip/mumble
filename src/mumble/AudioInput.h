@@ -66,8 +66,6 @@ class AudioInput : public QThread {
 		short *psClean;
 		int *pfY;
 
-		QList<QByteArray> qlFrames;
-
 		void encodeAudioFrame();
 
 		bool bRunning;
@@ -77,6 +75,8 @@ class AudioInput : public QThread {
 		int iFrameCounter;
 		int iSilentFrames;
 		int iHoldFrames;
+
+		int iFrames;
 
 		void flushCheck();
 	public:

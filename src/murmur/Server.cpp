@@ -97,7 +97,7 @@ void ServerParams::read(QString fname) {
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
 	qsLogfile = qs.value("logfile", qsLogfile).toString();
-	
+
 	qsRegName = qs.value("registerName", qsRegName).toString();
 	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
 	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
@@ -145,7 +145,7 @@ void UDPThread::run() {
 	quint16 senderPort;
 	qint32 len;
 	char buffer[65535];
-	
+
 	quint32 msgType;
 	int sPlayerId;
 
@@ -154,17 +154,17 @@ void UDPThread::run() {
 	while (qusUdp->waitForReadyRead(-1)) {
 		QReadLocker rl(& g_sServer->qrwlConnections);
 		while (qusUdp->hasPendingDatagrams()) {
-			
+
 			len=qusUdp->readDatagram(buffer, 65535, &senderAddr, &senderPort);
-			
+
 			PacketDataStream pds(buffer, len);
 			pds >> msgType >> sPlayerId;
 
-			if ((msgType != Message::Speex) && (msgType != Message::MultiSpeex) && (msgType != Message::Ping))
+			if ((msgType != Message::Speex) && (msgType != Message::Ping))
 				continue;
 			if (! pds.isValid())
 				continue;
-				
+
 			Peer p(senderAddr.toIPv4Address(), senderPort);
 
 			if (p != qhPeers.value(sPlayerId)) {
@@ -237,21 +237,10 @@ void UDPThread::processMsg(Message::MessageType msgType, PacketDataStream &pds, 
 	pds >> seq;
 	pds >> flags;
 
-	if (msgType == Message::MultiSpeex) {
-		int nframes;
-		int flen;
-		pds >> nframes;
-		
-		int psize = (20 + 8 + 3 + nframes) / nframes;
-		for(int i=0;i<nframes;i++) {
-			pds >> flen;
-			bw->addFrame(psize + flen);
-			pds.skip(flen);
-		}
-	} else {
-		int packetsize = 20 + 8 + 3 + pds.left();
+    	int nframes = ((flags >> 4) & 0x03) + 1;
+	int packetsize = (20 + 8 + 3 + pds.left() + nframes - 1) / nframes;
+	for(int i = 0; i < nframes; i++)
 		bw->addFrame(packetsize);
-	}
 
 	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
 		// Suppress packet.
@@ -266,7 +255,7 @@ void UDPThread::processMsg(Message::MessageType msgType, PacketDataStream &pds, 
 	const char *data = pds.charPtr();
 	int len = pds.left();
 
-	if (flags & 0x02) {
+	if (flags & MessageSpeex::LoopBack) {
 		sendMessage(pSrcPlayer->sId, data, len, qba);
 		return;
 	}
@@ -281,7 +270,7 @@ void UDPThread::processMsg(Message::MessageType msgType, PacketDataStream &pds, 
 		chans.remove(c);
 
 		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(pSrcPlayer, l, (flags & 0x01) ? ChanACL::AltSpeak : ChanACL::Speak)) {
+			if (ChanACL::hasPermission(pSrcPlayer, l, (flags & MessageSpeex::AltSpeak) ? ChanACL::AltSpeak : ChanACL::Speak)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
 						sendMessage(p->sId, data, len, qba);
@@ -411,7 +400,7 @@ void Server::connectionClosed(QString reason) {
 
 	udp->qhHosts.remove(pPlayer->sId);
 	udp->qhPeers.remove(pPlayer->sId);
-	
+
 	qhUserTextureCache.remove(pPlayer->iId);
 
 	delete pPlayer;
@@ -867,12 +856,6 @@ void MessagePermissionDenied::process(Connection *cCon) {
 
 void MessagePlayerRename::process(Connection *cCon) {
   cCon->disconnect();
-}
-
-void MessageMultiSpeex::process(Connection *cCon) {
-	MSG_SETUP(Player::Authenticated);
-	sPlayerId = pSrcPlayer->sId;
-	g_sServer->udp->fakeUdpPacket(this, cCon);
 }
 
 void MessageSpeex::process(Connection *cCon) {

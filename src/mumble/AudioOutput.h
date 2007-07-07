@@ -79,13 +79,15 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		bool bSpeech;
 
 		int iMissCount;
+
+		static int speexCallback(SpeexBits *bits, void *state, void *data);
 	public:
 		int iMissedFrames;
 		Player *p;
 
 		virtual bool decodeNextFrame();
 
-		void addFrameToBuffer(const QByteArray &, int iSeq);
+		void addFrameToBuffer(const QByteArray &, int iBaseSeq);
 		AudioOutputSpeech(Player * = NULL);
 		~AudioOutputSpeech();
 };

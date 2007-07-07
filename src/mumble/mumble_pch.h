@@ -24,6 +24,7 @@
 #include <speex/speex_jitter.h>
 #include <speex/speex_preprocess.h>
 #include <speex/speex_echo.h>
+#include <speex/speex_callbacks.h>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>

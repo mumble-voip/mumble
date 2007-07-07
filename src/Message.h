@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 1
+#define MESSAGE_STREAM_VERSION 2
 
 #include "ACL.h"
 
@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { Speex, MultiSpeex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture };
+		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture };
 		unsigned short sPlayerId;
 
 		Message();
@@ -62,28 +62,15 @@ class MessageSpeex : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		unsigned short iSeq;
+		enum { AltSpeak = 0x01, LoopBack = 0x02, EndSpeech = 0x04, FrameCountMask = 0x50 };
+		unsigned int iSeq;
+		// Flags is in first byte of packet.
 		QByteArray qbaSpeexPacket;
-		unsigned char ucFlags;
 		MessageSpeex();
 		Message::MessageType messageType() const { return Speex; };
 		void process(Connection *);
 		bool isValid() const;
 };
-
-class MessageMultiSpeex : public Message {
-	protected:
-		void saveStream(PacketDataStream &) const;
-		void restoreStream(PacketDataStream &);
-	public:
-		unsigned short iSeq;
-		unsigned char ucFlags;
-		QList<QByteArray> qlFrames;
-		MessageMultiSpeex();
-		Message::MessageType messageType() const { return MultiSpeex; };
-		void process(Connection *);
-};
-
 
 class MessageServerAuthenticate : public Message {
 	protected:

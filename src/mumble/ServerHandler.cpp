@@ -103,7 +103,7 @@ void ServerHandler::udpReady() {
 
 		if (! msg)
 			continue;
-		if ((msg->messageType() != Message::Speex)  && (msg->messageType() != Message::MultiSpeex)) {
+		if ((msg->messageType() != Message::Speex)) {
 			delete msg;
 			continue;
 		}
@@ -117,7 +117,7 @@ void ServerHandler::sendMessage(Message *mMsg, bool forceTCP)
 	QByteArray qbaBuffer;
 	mMsg->sPlayerId = g.sId;
 	mMsg->messageToNetwork(qbaBuffer);
-	bool mayUdp = !forceTCP && g.sId && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::MultiSpeex) || (mMsg->messageType() == Message::Ping));
+	bool mayUdp = !forceTCP && g.sId && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping));
 
 	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
 	QApplication::postEvent(this, shme);
@@ -178,20 +178,6 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 				// the buffer and pretend this never happened.
 				// If ~AudioOutputPlayer or decendants uses the Player object now,
 				// Bad Things happen.
-				ao->removeBuffer(p);
-			}
-		}
-	} else if (mMsg->messageType() == Message::MultiSpeex) {
-		if (ao) {
-			if (p) {
-				MessageMultiSpeex *mmsMsg=static_cast<MessageMultiSpeex *>(mMsg);
-				int idx = 0;
-				foreach(const QByteArray &qba, mmsMsg->qlFrames) {
-					if (! p->bLocalMute)
-						ao->addFrameToBuffer(p, qba, mmsMsg->iSeq + idx);
-					idx++;
-				}
-			} else {
 				ao->removeBuffer(p);
 			}
 		}
