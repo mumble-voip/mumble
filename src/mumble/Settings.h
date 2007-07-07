@@ -75,6 +75,7 @@ struct Settings {
 
 	enum OverlayShow { Nothing, Talking, All };
 	bool bOverlayEnable;
+	bool bOverlayUserTextures;
 	OverlayShow osOverlay;
 	bool bOverlayAlwaysSelf;
 	float fOverlayX;

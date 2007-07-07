@@ -67,6 +67,7 @@ Settings::Settings() {
 #endif
 
 	bOverlayEnable = true;
+	bOverlayUserTextures=true;
 	osOverlay = All;
 	bOverlayAlwaysSelf = true;
 	fOverlayX = 1.0;
@@ -124,6 +125,7 @@ void Settings::load() {
 
 	bOverlayEnable = g.qs->value(QLatin1String("OverlayEnable"),bOverlayEnable).toBool();
 	osOverlay = static_cast<Settings::OverlayShow>(g.qs->value(QLatin1String("OverlayShow"), osOverlay).toInt());
+	bOverlayUserTextures = g.qs->value(QLatin1String("OverlayUserTextures"),bOverlayUserTextures).toBool();
 	bOverlayAlwaysSelf = g.qs->value(QLatin1String("OverlayAlwaysSelf"),bOverlayAlwaysSelf).toBool();
 	fOverlayX = g.qs->value(QLatin1String("OverlayX"),fOverlayX).toDouble();
 	fOverlayY = g.qs->value(QLatin1String("OverlayY"),fOverlayY).toDouble();
@@ -181,6 +183,7 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("OverlayEnable"), bOverlayEnable);
 	g.qs->setValue(QLatin1String("OverlayShow"), osOverlay);
 	g.qs->setValue(QLatin1String("OverlayAlwaysSelf"), bOverlayAlwaysSelf);
+	g.qs->setValue(QLatin1String("OverlayUserTextures"), bOverlayUserTextures);
 	g.qs->setValue(QLatin1String("OverlayX"), fOverlayX);
 	g.qs->setValue(QLatin1String("OverlayY"), fOverlayY);
 	g.qs->setValue(QLatin1String("OverlayTop"), bOverlayTop);

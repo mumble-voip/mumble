@@ -90,6 +90,15 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbAlwaysSelf->setChecked(g.s.bOverlayAlwaysSelf);
 	grid->addWidget(qcbAlwaysSelf, 2, 0, 1, 2);
 
+	qcbUserTextures = new QCheckBox(tr("Show User Textures"));
+	qcbUserTextures->setObjectName(QLatin1String("UserTextures"));
+	qcbUserTextures->setToolTip(tr("Show User custom textures instead of text on the overlay."));
+	qcbUserTextures->setWhatsThis(tr("This sets whether to download and use custom textures for registered users. "
+				   "If disabled, the regular outline text will be used instead."));
+	qcbUserTextures->setChecked(g.s.bOverlayUserTextures);
+	grid->addWidget(qcbUserTextures, 3, 0, 1, 2);
+
+
 	qgbOptions->setLayout(grid);
 
 	grid=new QGridLayout();
@@ -333,6 +342,7 @@ void OverlayConfig::accept() {
 	g.s.bOverlayEnable = qcbEnable->isChecked();
 	g.s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
 	g.s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
+	g.s.bOverlayUserTextures = qcbUserTextures->isChecked();
 	g.s.fOverlayX = qsX->value() / 100.0;
 	g.s.fOverlayY = 1.0 - qsY->value() / 100.0;
 	g.s.bOverlayLeft = qcbLeft->isChecked();
@@ -472,6 +482,7 @@ void Overlay::textureResponse(int id, const QByteArray &texture) {
     }
     qhUserTextures[s] = UserTexture(width, t);
     qsForce.insert(s);
+    setTexts(qlCurrentTexts);
 }
 
 typedef QPair<QString, quint32> qpChanCol;
@@ -523,7 +534,7 @@ void Overlay::updateOverlay() {
 
 		foreach(Player *p, Player::get(g.sId)->cChannel->qlPlayers) {
 			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == Player::get(g.sId)) && g.s.bOverlayAlwaysSelf)) {
-			    	if ((p->iId >= 0) && (! qhQueried.contains(p->iId))) {
+			    	if (g.s.bOverlayUserTextures && (p->iId >= 0) && (! qhQueried.contains(p->iId))) {
 				    qhQueried.insert(p->iId, p->qsName);
 				    MessageTexture mt;
 				    mt.iPlayerId = p->iId;
@@ -642,7 +653,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		    if (tl.first.isNull()) {
 		    	te->width = 0;
 		    } else {
-			if (qhUserTextures.contains(tl.first)) {
+			if (g.s.bOverlayUserTextures && qhUserTextures.contains(tl.first)) {
 			    const UserTexture &ut=qhUserTextures.value(tl.first);
 			    memcpy(sm.sm->texts[i].texture, ut.second.constData(), TEXTURE_SIZE);
 			    te->width = ut.first;

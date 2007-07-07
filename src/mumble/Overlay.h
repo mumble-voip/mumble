@@ -54,6 +54,7 @@ class OverlayConfig : public ConfigWidget {
 	protected:
 		QCheckBox *qcbEnable, *qcbAlwaysSelf;
 		QComboBox *qcbShow;
+		QCheckBox *qcbUserTextures;
 
 		QSlider *qsX, *qsY;
 		QCheckBox *qcbLeft, *qcbRight, *qcbTop, *qcbBottom;
