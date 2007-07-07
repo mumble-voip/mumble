@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="de">
 <context>
     <name>ACLEditor</name>
     <message>
@@ -353,7 +353,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="311"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnen des ALSA-Eingabegerätes fehlgeschlagen: %1</translation>
     </message>
 </context>
 <context>
@@ -361,7 +361,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="406"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnen des ALSA-Ausgabegerätes fehlgeschlagen: %1</translation>
     </message>
 </context>
 <context>
@@ -369,62 +369,62 @@
     <message>
         <location filename="ALSAAudio.cpp" line="174"/>
         <source>Device selection</source>
-        <translation type="unfinished">Geräteauswahl</translation>
+        <translation>Geräteauswahl</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="177"/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished">Mikrofongerät</translation>
+        <translation>Mikrofon</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="180"/>
         <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is whatever you have configured in alsaconfig, the &lt;i&gt;hwplug&lt;/i&gt; devices are specific hardware devices backed by the ALSA mixer and the &lt;i&gt;hw&lt;/i&gt; devices are raw hardware access. Unless your soundcard supports hardware mixing of audio, using the &lt;i&gt;hw&lt;/i&gt; device will exclude all other programs from using audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies legt fest, welches Gerät Mumble nutzen soll. Das &lt;i&gt;Standard&lt;/i&gt;-Gerät ist durch alsaconfig konfiguriert, die &lt;i&gt;hwplug&lt;/i&gt; Geräte sind spezielle Hardware-Geräte die vom ALSA-Mixer genutzt werden und die &lt;i&gt;hw&lt;/i&gt;-Geräte bieten rohen Hardwarezugriff. Falls ihre Soundkarte Hardware Mixing von Audio nicht unterstützt, wird die Verwendung von &lt;i&gt;hw&lt;/i&gt;-Geräten alle anderen Programme vom Audiozugriff ausschließen.</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="181"/>
         <source>Device to use for speakers/headphones</source>
-        <translation type="unfinished">Gerät für Lautsprecher/Kopfhörer</translation>
+        <translation>Gerät für Lautsprecher/Kopfhörer</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="184"/>
         <source>Input</source>
-        <translation type="unfinished">Eingang</translation>
+        <translation>Eingang</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="189"/>
         <source>Output</source>
-        <translation type="unfinished">Ausgabe</translation>
+        <translation>Ausgabe</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="196"/>
         <source>Output Options</source>
-        <translation type="unfinished">Ausgabeoptionen</translation>
+        <translation>Ausgabeoptionen</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="206"/>
         <source>Output Delay</source>
-        <translation type="unfinished">Ausgabeverzögerung</translation>
+        <translation>Ausgabeverzögerung</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="211"/>
         <source>Amount of data to buffer for ALSA</source>
-        <translation type="unfinished"></translation>
+        <translation>Menge an Daten die ALSA puffern soll</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="214"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies liegt die Menge an daten fest, die im Ausgabepuffer vorgepuffert werden sollen. Experimentiere mit verschiedenen Werten und setze es auf den niedrigsten Wert, der noch kein schnelles Jitter im Sound verursacht.</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="230"/>
         <source>ALSA</source>
-        <translation type="unfinished"></translation>
+        <translation>ALSA</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="244"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
 </context>
 <context>
@@ -552,7 +552,7 @@
     <message>
         <location filename="ASIOInput.cpp" line="400"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation type="unfinished">Konnte ASIO-Treiber nicht instanziieren</translation>
+        <translation>Konnte ASIO-Treiber nicht instanziieren</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="437"/>
@@ -613,7 +613,7 @@
     <message>
         <location filename="About.cpp" line="54"/>
         <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Deutsche Übersetzung von Matthias Vogelgesang&lt;br /&gt; m0ta@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Voicechat-Programm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -864,7 +864,7 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="418"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kbit/2 (Audio %2, Position %4, Overhead %3)</translation>
     </message>
 </context>
 <context>
@@ -987,27 +987,27 @@
     <message>
         <location filename="AudioStats.cpp" line="217"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="269"/>
         <source>Real</source>
-        <translation type="unfinished"></translation>
+        <translation>Real</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="274"/>
         <source>Imaginary</source>
-        <translation type="unfinished"></translation>
+        <translation>Imaginär</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="279"/>
         <source>Modulus</source>
-        <translation type="unfinished"></translation>
+        <translation>Modulus</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="285"/>
         <source>Phase</source>
-        <translation type="unfinished"></translation>
+        <translation>Phase</translation>
     </message>
 </context>
 <context>
@@ -1065,7 +1065,7 @@
     <message>
         <location filename="BanEditor.cpp" line="40"/>
         <source>0.0.0.0</source>
-        <translation type="unfinished"></translation>
+        <translation>0.0.0.0</translation>
     </message>
 </context>
 <context>
@@ -1776,102 +1776,102 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="LookConfig.cpp" line="67"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprache</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="51"/>
         <source>Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation>Aussehen</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="82"/>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation>Systemstandard</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="69"/>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprachauswahl (benötigt Neustart)</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="70"/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies legt die Sprache fest, die Mumble verwenden soll.&lt;/b&gt;&lt;br /&gt;Ein Neustart ist nötig um die neue Sprache zu nutzen.</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="89"/>
         <source>Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="91"/>
         <source>Basic widget style</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfacher Widget-Stil</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="92"/>
         <source>&lt;b&gt;This sets the basic look and feel to use.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies legt das einfache Aussehen fest.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="97"/>
         <source>Skin</source>
-        <translation type="unfinished"></translation>
+        <translation>Skin</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="101"/>
         <source>Skin file to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Skindatei</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="102"/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies legt fest, welchen Skin Mumble nutzen soll.&lt;/b&gt;&lt;br /&gt;Der Skin ist eine Stildatei die auf den einfachen Widgetstil angewandt wird.</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="109"/>
         <source>Use Horizontal Splitter</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutze horizontale Splitter</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="111"/>
         <source>Use horizontal or vertical splitter for the main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutze horizontale oder vertikale Splitter für das Hauptfenster</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="133"/>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerinterface</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="99"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="178"/>
         <source>Choose skin file</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle Skindatei</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="112"/>
         <source>&lt;b&gt;This sets whether the split in the main window is horizontal (side by side) or vertical (above and below).&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies legt fest, ob der Splitter im Hauptfenster horizontal (rechts nach links) oder vertikal (oben und unten) ist.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="115"/>
         <source>Expand All Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Expandiere alle Kanäle</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="117"/>
         <source>Expand all channels when connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Expandiere alle Kanäle beim Verbindungsaufbau</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="118"/>
         <source>&lt;b&gt;If set, all channels will be expanded by default when you connect to a server.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Wenn gesetzt werden alle Kanäle standardmäßig beim Verbindungsaufbau zum Server expandiert.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -2607,23 +2607,23 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="77"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Beenden</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="78"/>
         <source>Closes the program</source>
-        <translation type="unfinished"></translation>
+        <translation>Schließt das Programm</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="79"/>
         <source>Exits the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Beendet die Applikation.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="81"/>
         <source>Ctrl+Q</source>
         <comment>Quit</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
 </context>
 <context>
@@ -2908,12 +2908,12 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="PlayerModel.cpp" line="381"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;:/talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;:/talking_off.png&quot; /&gt; Not talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist ein mit dem Server verbundener Spieler. Das Icon links vom Spieler zeigt an ob er spricht:&lt;br /&gt;&lt;img src=&quot;:/talkin_on.png&quot; /&gt; Sprechend&lt;br /&gt;&lt;img src=&quot;:/talkin_off.png&quot; /&gt; Nicht sprechend</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="393"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;:/authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;:/muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;:/muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;:/deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;:/deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies zeigt die Attribute an die, die ein Spieler auf dem Server an hat:&lt;br /&gt;&lt;img src=&quot;:/authenticated.png&quot; /&gt;Authentifizierter Benutzer&lt;br /&gt;&lt;img src=&quot;:/muted_self.png&quot; /&gt;Stumm (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;:/muted_server.png&quot; /&gt;Stumm (durch Admin)&lt;br /&gt;&lt;img src=&quot;:/deafened_self.png&quot; /&gt;Taub (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;:/deafened_server.png&quot; /&gt;Taub (durch Admin)&lt;br /&gt;Ein Spieler der sich selbst stumm gestellt hat, ist wahrscheinlich nicht anwesend oder spricht am Telefon&lt;br /&gt;Ein Spieler der durch einen Admin stumm gestellt wurde, ist wahrscheinlich auch abwesend, wobei die Geräusche die der Spieler verursacht hat, so störend waren, das ein Admin ihn stumm gestellt hat.</translation>
     </message>
 </context>
 <context>
