@@ -1339,7 +1339,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="118"/>
         <source>&amp;Username</source>
-        <translation>N&amp;utzername</translation>
+        <translation>Ben&amp;utzername</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="126"/>
@@ -1369,7 +1369,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="48"/>
         <source>&amp;Custom Servers</source>
-        <translation>&amp;Custom Server</translation>
+        <translation>&amp;Benutzerdefinierte Server</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="49"/>
@@ -1394,7 +1394,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="184"/>
         <source>C&amp;opy to custom</source>
-        <translation>K&amp;opiere zu Custom</translation>
+        <translation>Zu benutzerdefinierten &amp;hhinzufügen</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="187"/>
@@ -1707,7 +1707,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="156"/>
         <source>Shortcuts</source>
-        <translation>Abkürzungen</translation>
+        <translation>Shortcuts</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="122"/>
@@ -1717,17 +1717,17 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="124"/>
         <source>Shortcut</source>
-        <translation>Abkürzung</translation>
+        <translation>Shortcut</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="137"/>
         <source>Shortcut bound to %1.</source>
-        <translation>Abkürzung an %1 gebunden.</translation>
+        <translation>Shortcut an %1 gebunden.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="140"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Double-click to clear.</source>
-        <translation>&lt;b&gt;Die globale Abkürzung ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
+        <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
 </context>
 <context>
@@ -2414,7 +2414,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="238"/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>Dies zeigt die neuesten Aktivitäten an. Verbindungen zum Server, Fehler und Informationsnachrichten werden hier angezeigt.&lt;br /&gt;Um genau zu konfigurieren welche Nachrichten angezeigt werden sollen, kann das &lt;b&gt;Einstellungen&lt;/b&gt; Kommando vom Menü genutzt werden.</translation>
+        <translation>Dieser Bereicht zeigt die letzten Nachrichten an. Verbindungen zum Server, Fehler und Informationsnachrichten werden hier angezeigt.&lt;br /&gt;Zur Konfigurierung der Anzeigen, müssen die &lt;b&gt;Einstellungen&lt;/b&gt; im Konfigurationsmenü geändert werden.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="240"/>
@@ -2547,112 +2547,112 @@ der möglichen Orte initialisieren.</translation>
         <translation>Server verlassen: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1047"/>
+        <location filename="MainWindow.cpp" line="1044"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ist jetzt stumm und taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1049"/>
+        <location filename="MainWindow.cpp" line="1046"/>
         <source>%1 is now muted.</source>
         <translation>%1 ist jetzt stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1051"/>
+        <location filename="MainWindow.cpp" line="1048"/>
         <source>%1 is now unmuted.</source>
         <translation>%1 ist jetzt nicht mehr stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1082"/>
+        <location filename="MainWindow.cpp" line="1079"/>
         <source>server</source>
         <translation>Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1067"/>
+        <location filename="MainWindow.cpp" line="1064"/>
         <source>You were muted by %1.</source>
         <translation>Du wurdest von %1 stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1067"/>
+        <location filename="MainWindow.cpp" line="1064"/>
         <source>You were unmuted by %1.</source>
         <translation>Stummstellen wurde von %1 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1069"/>
+        <location filename="MainWindow.cpp" line="1066"/>
         <source>%1 muted by %2.</source>
         <translation>%1 von %2 stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1069"/>
+        <location filename="MainWindow.cpp" line="1066"/>
         <source>%1 unmuted by %2.</source>
         <translation>Stummstellung von %1 durch %2 aufgehoben.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1085"/>
+        <location filename="MainWindow.cpp" line="1082"/>
         <source>You were deafened by %1.</source>
         <translation>Du wurdest von %1 taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1085"/>
+        <location filename="MainWindow.cpp" line="1082"/>
         <source>You were undeafened by %1.</source>
         <translation>Taubstellen von %1 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1087"/>
+        <location filename="MainWindow.cpp" line="1084"/>
         <source>%1 deafened by %2.</source>
         <translation>%1 wurde von %2 taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1087"/>
+        <location filename="MainWindow.cpp" line="1084"/>
         <source>%1 undeafened by %2.</source>
         <translation>Taubstellen von %1 durch %2 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1096"/>
+        <location filename="MainWindow.cpp" line="1093"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Du wurdest von %1 vom Server gekickt: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1100"/>
+        <location filename="MainWindow.cpp" line="1097"/>
         <source>%3 was kicked from the server by %1: %2.</source>
         <translation>%3 wurde von %1 vom Server gekickt: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1108"/>
+        <location filename="MainWindow.cpp" line="1105"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
         <translation>Du wurdest von %1 vom Server gekickt und gebannet: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1112"/>
+        <location filename="MainWindow.cpp" line="1109"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
         <translation>%3 wurde von %1 vom Server gekickt und gebannet: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1131"/>
+        <location filename="MainWindow.cpp" line="1128"/>
         <source>%1 left channel.</source>
         <translation>%1 hat den Kanal verlassen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1133"/>
+        <location filename="MainWindow.cpp" line="1130"/>
         <source>%1 moved out by %2.</source>
         <translation>%1 von %2 rausgeschoben.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1140"/>
+        <location filename="MainWindow.cpp" line="1137"/>
         <source>%1 entered channel.</source>
         <translation>%1 betrat den Kanal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1142"/>
+        <location filename="MainWindow.cpp" line="1139"/>
         <source>%1 moved in by %2.</source>
         <translation>%1 von %2 reingeschoben.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1195"/>
+        <location filename="MainWindow.cpp" line="1192"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serververbindung abgelehnt : %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1200"/>
+        <location filename="MainWindow.cpp" line="1197"/>
         <source>Denied: %1.</source>
         <translation>Abgelehnt: %1.</translation>
     </message>
@@ -2831,12 +2831,12 @@ der möglichen Orte initialisieren.</translation>
         <translation>Falsches Serverpasswort für unregistrierten Benutzer-Account, bitte noch einmal versuchen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1214"/>
+        <location filename="MainWindow.cpp" line="1211"/>
         <source>From %1: %2</source>
         <translation>Von %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1215"/>
+        <location filename="MainWindow.cpp" line="1212"/>
         <source>Message from %1</source>
         <translation>Nachricht von %1</translation>
     </message>
@@ -2936,12 +2936,12 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Overlay.cpp" line="83"/>
         <source>Always Show Self</source>
-        <translation>Immer selbst anzeigen</translation>
+        <translation>Sich selbst anzeigen</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="85"/>
         <source>Always show yourself on overlay.</source>
-        <translation>Immer selbst auf dem Overlay anzeigen.</translation>
+        <translation>Sich selbst immer auf dem Overlay anzeigen.</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="89"/>

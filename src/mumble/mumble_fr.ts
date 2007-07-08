@@ -2635,112 +2635,112 @@ of the possible locations.</source>
         <translation>%1 a quitté le serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1047"/>
+        <location filename="MainWindow.cpp" line="1044"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 est maintenant sourd(e) et muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1049"/>
+        <location filename="MainWindow.cpp" line="1046"/>
         <source>%1 is now muted.</source>
         <translation>%1 est maintenant muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1051"/>
+        <location filename="MainWindow.cpp" line="1048"/>
         <source>%1 is now unmuted.</source>
         <translation>%1 n&apos;est plus muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1082"/>
+        <location filename="MainWindow.cpp" line="1079"/>
         <source>server</source>
         <translation>serveur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1067"/>
+        <location filename="MainWindow.cpp" line="1064"/>
         <source>You were muted by %1.</source>
         <translation>%1 vous a rendu muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1067"/>
+        <location filename="MainWindow.cpp" line="1064"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 vous a rendu le droit à la parole.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1069"/>
+        <location filename="MainWindow.cpp" line="1066"/>
         <source>%1 muted by %2.</source>
         <translation>%2 a rendu %1 muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1069"/>
+        <location filename="MainWindow.cpp" line="1066"/>
         <source>%1 unmuted by %2.</source>
         <translation>%1 n&apos;est plus muet (%2).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1085"/>
+        <location filename="MainWindow.cpp" line="1082"/>
         <source>You were deafened by %1.</source>
         <translation>%1 vous a rendu sourd(e).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1085"/>
+        <location filename="MainWindow.cpp" line="1082"/>
         <source>You were undeafened by %1.</source>
         <translation>%1 vous a rendu le droit à la parole et à l&apos;écoute.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1087"/>
+        <location filename="MainWindow.cpp" line="1084"/>
         <source>%1 deafened by %2.</source>
         <translation>%1 a été rendu sourd et muet par %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1087"/>
+        <location filename="MainWindow.cpp" line="1084"/>
         <source>%1 undeafened by %2.</source>
         <translation>%1 n&apos;est plus sourd et muet (%2).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1096"/>
+        <location filename="MainWindow.cpp" line="1093"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Vous avez été expulsé(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1100"/>
+        <location filename="MainWindow.cpp" line="1097"/>
         <source>%3 was kicked from the server by %1: %2.</source>
         <translation>%3 a été expulsé(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1108"/>
+        <location filename="MainWindow.cpp" line="1105"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
         <translation>Vous avez été expulsé(e) et banni(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1112"/>
+        <location filename="MainWindow.cpp" line="1109"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
         <translation>%3 a été expulsé(e) et banni(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1131"/>
+        <location filename="MainWindow.cpp" line="1128"/>
         <source>%1 left channel.</source>
         <translation>%1 a quitté le canal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1133"/>
+        <location filename="MainWindow.cpp" line="1130"/>
         <source>%1 moved out by %2.</source>
         <translation>%1 a été sorti(e) du canal par %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1140"/>
+        <location filename="MainWindow.cpp" line="1137"/>
         <source>%1 entered channel.</source>
         <translation>%1 est entré(e) dans le canal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1142"/>
+        <location filename="MainWindow.cpp" line="1139"/>
         <source>%1 moved in by %2.</source>
         <translation>%1 a été déplacé(e) dans le canal par %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1195"/>
+        <location filename="MainWindow.cpp" line="1192"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connexion au serveur rejetée : %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1200"/>
+        <location filename="MainWindow.cpp" line="1197"/>
         <source>Denied: %1.</source>
         <translation>Refusé : %1.</translation>
     </message>
@@ -2810,12 +2810,12 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1214"/>
+        <location filename="MainWindow.cpp" line="1211"/>
         <source>From %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1215"/>
+        <location filename="MainWindow.cpp" line="1212"/>
         <source>Message from %1</source>
         <translation type="unfinished"></translation>
     </message>
