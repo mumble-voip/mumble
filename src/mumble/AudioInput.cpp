@@ -121,6 +121,8 @@ AudioInput::AudioInput()
 
 	bHasSpeaker = false;
 
+	bPreviousVoice = false;
+
 	iBitrate = 0;
 	dPeakMic = dPeakSignal = dPeakSpeaker = 0.0;
 
@@ -432,5 +434,6 @@ void AudioInput::flushCheck() {
 		g.sh->sendMessage(&msPacket);
 	}
 
+	iFrames = 0;
 	speex_bits_reset(&sbBits);
 }

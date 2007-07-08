@@ -34,6 +34,7 @@
 #include "AudioOutput.h"
 #include "Player.h"
 #include "Global.h"
+#include "Message.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -89,7 +90,6 @@ AudioOutputPlayer::AudioOutputPlayer(const QString name) : qsName(name) {
 AudioOutputSpeech::AudioOutputSpeech(Player *player) : AudioOutputPlayer(player->qsName) {
 	p = player;
 
-	speex_bits_init(&sbBits);
 	dsDecState=speex_decoder_init(&speex_wb_mode);
 
 	int iArg=1;
@@ -114,12 +114,18 @@ AudioOutputSpeech::AudioOutputSpeech(Player *player) : AudioOutputPlayer(player-
 	iMissCount = 0;
 	iMissedFrames = 0;
 
-	speex_jitter_init(&sjJitter, dsDecState, SAMPLE_RATE);
+	jbJitter = jitter_buffer_init(iFrameSize);
+	int margin = g.s.iJitterBufferSize;
+	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
+
+	speex_bits_init(&sbBits);
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
 	speex_decoder_destroy(dsDecState);
-	speex_jitter_destroy(&sjJitter);
+	jitter_buffer_destroy(jbJitter);
+	speex_bits_destroy(&sbBits);
+
 	delete [] psBuffer;
 }
 
@@ -127,8 +133,6 @@ int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *state, void *data) {
     AudioOutputSpeech *aos=reinterpret_cast<AudioOutputSpeech *>(data);
 
     int len=speex_bits_unpack_unsigned(bits, 4);
-
-    qWarning("GOT INBANDY! %d bytes",len);
 
     QByteArray qba(len, 0);
     unsigned char *ptr = reinterpret_cast<unsigned char *>(qba.data());
@@ -147,69 +151,64 @@ int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *state, void *data) {
 void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, int iSeq) {
 	QMutexLocker lock(&qmJitter);
 
-/*	if (! bSpeech)
-		sjJitter.buffer_size=g.s.iJitterBufferSize;
-*/
-	speex_jitter_put(&sjJitter, const_cast<char *>(qbaPacket.constData()), qbaPacket.size(), iSeq * iFrameSize);
+	if (qbaPacket.size() < 1)
+		return;
+
+	unsigned int flags = qbaPacket.at(0);
+	unsigned int frames = (flags >> 4) + 1;
+
+	JitterBufferPacket jbp;
+	jbp.data = const_cast<char *>(qbaPacket.constData());
+	jbp.len = qbaPacket.size();
+	jbp.span = iFrameSize * frames;
+	jbp.timestamp = iFrameSize * iSeq;
+
+	jitter_buffer_put(jbJitter, &jbp);
 }
 
 bool AudioOutputSpeech::decodeNextFrame() {
-	int iTimestamp;
-	int iSpeech = 0;
-	int iAltSpeak = 0;
-	int left;
-	int i;
-	unsigned int v;
 	bool alive = true;
 
-	{
+	if (speex_decode_int(dsDecState, &sbBits, psBuffer) == 0) {
+	    jitter_buffer_tick(jbJitter);
+    	} else {
 		QMutexLocker lock(&qmJitter);
-		speex_jitter_get(&sjJitter, psBuffer, &iTimestamp);
-		if (sjJitter.valid_bits) {
-			iMissedFrames = 0;
-			iSpeech = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
-			iAltSpeak = speex_bits_unpack_unsigned(&sjJitter.current_packet, 1);
-			if (! iSpeech) {
-				jitter_buffer_reset(sjJitter.packets);
-				sjJitter.valid_bits = 0;
-				speex_decoder_ctl(dsDecState, SPEEX_RESET_STATE, NULL);
-			}
-			left = speex_bits_remaining(&sjJitter.current_packet) / 8;
-			if (left >= 12) {
-				QByteArray qba(left, 0);
-				unsigned char *ptr = reinterpret_cast<unsigned char *>(qba.data());
-				for(i=0;i<left;i++) {
-					v = speex_bits_unpack_unsigned(&sjJitter.current_packet, 8);
-					ptr[i]=v;
-				}
-				QDataStream ds(qba);
-				ds >> fPos[0];
-				ds >> fPos[1];
-				ds >> fPos[2];
-				iMissCount = 0;
-			} else {
-				iMissCount++;
-				if (iMissCount >= 4)
-					fPos[0] = fPos[1] = fPos[2] = 0.0;
-			}
-		} else {
-			alive = false;
-			iMissedFrames++;
-		}
-	}
 
-	if (alive) {
-		bSpeech = iSpeech;
-		p->setTalking(bSpeech, (iAltSpeak ? true : false));
-		if (!bSpeech)
-			return false;
-    	} else if (iMissedFrames > 10) {
-	    	memset(psBuffer, 0, iFrameSize*2);
-	    	bSpeech = false;
-	    	p->setTalking(false, false);
-	    	return false;
-	}
-	return true;
+		char data[4096];
+		JitterBufferPacket jbp;
+		jbp.data = data;
+
+		if (jitter_buffer_get(jbJitter, &jbp, NULL) == JITTER_BUFFER_OK) {
+		    ucFlags = jbp.data[0];
+		    fPos[0] = fPos[1] = fPos[2] = 0.0;
+		    speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);
+		    speex_decode_int(dsDecState, &sbBits, psBuffer);
+		} else {
+		    if (ucFlags & MessageSpeex::EndSpeech) {
+			memset(psBuffer, 0, iFrameSize*2);
+			alive = false;
+		    } else {
+			iMissCount++;
+			if (iMissCount < 5) {
+				speex_decode_int(dsDecState, NULL, psBuffer);
+			} else {
+				memset(psBuffer, 0, iFrameSize*2);
+				alive = false;
+		    	}
+		    }
+		}
+
+		int activity;
+	        speex_decoder_ctl(dsDecState, SPEEX_GET_ACTIVITY, &activity);
+                if (activity < 30)
+                   jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+
+	        jitter_buffer_tick(jbJitter);
+        }
+
+	if (p)
+		p->setTalking(alive, ((ucFlags & MessageSpeex::AltSpeak) ? true : false));
+	return alive;
 }
 
 AudioOutput::AudioOutput() {

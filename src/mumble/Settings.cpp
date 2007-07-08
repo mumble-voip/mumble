@@ -42,7 +42,7 @@ Settings::Settings() {
 	iComplexity = 4;
 	iMinLoudness = 4000;
 	iVoiceHold = 200;
-	iJitterBufferSize = 8;
+	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	bTCPCompat = false;
 	bReconnect = true;

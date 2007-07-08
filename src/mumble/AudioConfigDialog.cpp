@@ -287,7 +287,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid = new QGridLayout();
 
 	qsJitter = new QSlider(Qt::Horizontal);
-	qsJitter->setRange(2, 10);
+	qsJitter->setRange(1, 5);
 	qsJitter->setSingleStep(1);
 	qsJitter->setPageStep(5);
 	qsJitter->setValue(g.s.iJitterBufferSize);

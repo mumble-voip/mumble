@@ -73,12 +73,14 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		SpeexBits sbBits;
 		int iFrameCounter;
 		QMutex qmJitter;
-		SpeexJitter sjJitter;
+		JitterBuffer *jbJitter;
 		void *dsDecState;
 
 		bool bSpeech;
 
 		int iMissCount;
+
+		unsigned char ucFlags;
 
 		static int speexCallback(SpeexBits *bits, void *state, void *data);
 	public:
