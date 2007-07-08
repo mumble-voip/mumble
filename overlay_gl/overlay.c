@@ -29,6 +29,7 @@
 */
 
 #define GLX_GLXEXT_LEGACY
+#define _GNU_SOURCE
 #include <GL/glx.h>
 #include <GL/gl.h>
 #include <dlfcn.h>
@@ -44,19 +45,30 @@
 #include <semaphore.h>
 #include <fcntl.h>
 #include <stdarg.h>
-#include <map>
+#include <math.h>
+
+typedef unsigned char bool;
+#define true 1
+#define false 0
+
 #include "../overlay/overlay.h"
 
-using namespace std;
-
-extern "C" void * __libc_dlsym(void *, const char *);
+void * __libc_dlsym(void *, const char *);
 
 // Prototypes
 static void resolveSM();
 static void ods(const char *format, ...);
 
-static SharedMem *sm = NULL;
+static struct SharedMem *sm = NULL;
 static sem_t *sem = NULL;
+
+typedef struct _Context {
+  struct _Context *next;
+  GLXContext glctx;
+  GLuint textures[NUM_TEXTS];
+} Context;
+
+static Context *contexts = NULL;
 
 #define FDEF(name) static __typeof__(&name) o##name = NULL
 
@@ -79,14 +91,14 @@ static void resolveOpenGL() {
 static void resolveSM() {
   int fd = shm_open("/MumbleOverlayMem", O_RDWR, 0600);
   if (fd >= 0) {
-    sm=static_cast<SharedMem *>(mmap(NULL, sizeof(SharedMem), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0));
-    if (sm == reinterpret_cast<SharedMem *>(-1)) {
+    sm=(struct SharedMem *) (mmap(NULL, sizeof(struct SharedMem), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0));
+    if (sm == (void *)(-1)) {
       sm = NULL;
       close(fd);
     } else {
       sem = sem_open("/MumbleOverlaySem", 0);
       if (sem == SEM_FAILED) {
-        munmap(sm, sizeof(SharedMem));
+        munmap(sm, sizeof(struct SharedMem));
         sm = NULL;
         close(fd);
       }
@@ -94,8 +106,10 @@ static void resolveSM() {
   }
 }
 
-void ods(const char *format, ...) {
-  if (!sm || ! sm->bDebug)
+__attribute__ ((format (printf, 1, 2)))
+void ods(const char *format, ...)
+{
+  if (sm && ! sm->bDebug)
     return;
     
   va_list args;
@@ -106,31 +120,27 @@ void ods(const char *format, ...) {
   fflush(stderr);
 }
 
-class GLContext {
-  protected:
-    GLXContext ctx;
-    GLuint textures[NUM_TEXTS];
-  public:
-    GLContext(GLXContext context);
-    void draw(Display *, GLXDrawable);
-    ~GLContext();
-};
+static void newContext(Context *ctx) {
+  int i;
 
-GLContext::GLContext(GLXContext context) { 
-  ctx = context;
-  glGenTextures(NUM_TEXTS, textures);
+  if (sm) {
+    sm->bHooked = true;
+    for(i=0;i<NUM_TEXTS;i++)
+      sm->texts[i].bUpdated = true;
+  }
+
+  glGenTextures(NUM_TEXTS, ctx->textures);
 }
 
-GLContext::~GLContext() {
-}
-
-void GLContext::draw(Display *dpy, GLXDrawable draw) {
+static void drawContext(Context *ctx, Display *dpy, GLXDrawable draw) {
   sm->bHooked = true;
   
   // DEBUG
   // sm->bDebug = true;
   
   unsigned int width, height;
+  int i;
+
   glXQueryDrawable(dpy, draw, GLX_WIDTH, &width);
   glXQueryDrawable(dpy, draw, GLX_HEIGHT, &height);
   
@@ -141,7 +151,7 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
   else if (sm->fFontSize > 1.0)
     sm->fFontSize = 1.0;
     
-  int iHeight = (height *1.0) * sm->fFontSize;
+  int iHeight = (int)((height *1.0) * sm->fFontSize);
   if (iHeight > TEXT_HEIGHT)
     iHeight = TEXT_HEIGHT;
   
@@ -212,13 +222,13 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
   
-  for(int i=0;i<NUM_TEXTS;i++) {
+  for(i=0;i<NUM_TEXTS;i++) {
     if (sm->texts[i].width == 0) {
       y+= iHeight / 4;
     } else if (sm->texts[i].width > 0) {
       if (sm->texts[i].bUpdated) {
         ods("Updating %d %d texture", sm->texts[i].width, TEXT_HEIGHT);      
-        glBindTexture(GL_TEXTURE_2D, textures[i]);
+        glBindTexture(GL_TEXTURE_2D, ctx->textures[i]);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
@@ -226,7 +236,7 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[i].texture);
         sm->texts[i].bUpdated = false;
       }
-      texs[idx] = textures[i];
+      texs[idx] = ctx->textures[i];
       widths[idx] = sm->texts[i].width;
       color[idx] = sm->texts[i].color;
       yofs[idx] = y;
@@ -237,7 +247,7 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
   sem_post(sem);
   
   int h = y;
-  y = height * sm->fY;
+  y = (int)(height * sm->fY);
 
   if (sm->bTop) {
     y -= h;
@@ -252,9 +262,9 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
     y = height - h - 1;
 
 
-  for(int i=0;i<idx;i++) {
-    int w = widths[i] * s;
-    int x = width * sm->fX;
+  for(i=0;i<idx;i++) {
+    int w = (int)(widths[i] * s);
+    int x = (int)(width * sm->fX);
     if (sm->bLeft) {
       x -= w;
     } else if (sm->bRight) {
@@ -296,7 +306,7 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
     glPopMatrix();
   }    
   
-  glBindTexture(GL_TEXTURE_2D, textures[NUM_TEXTS-1]);
+  glBindTexture(GL_TEXTURE_2D, ctx->textures[NUM_TEXTS-1]);
   
   glPopMatrix();
   glMatrixMode(GL_COLOR);
@@ -309,7 +319,7 @@ void GLContext::draw(Display *dpy, GLXDrawable draw) {
   glPopAttrib();
 }
 
-static map<GLXContext, GLContext *> contexts;
+// static map<GLXContext, GLContext *> contexts;
 
 __attribute__ ((visibility("default")))
 void glXSwapBuffers(Display *dpy, GLXDrawable draw) {
@@ -318,34 +328,37 @@ void glXSwapBuffers(Display *dpy, GLXDrawable draw) {
   
   if (! sm) {
     resolveSM();
-    if (sm) {
-      sm->bHooked = true;
-      for(int i=0;i<NUM_TEXTS;i++)
-        sm->texts[i].bUpdated = true;
-    }
   }
     
   if (sm) {
       GLXContext ctx = glXGetCurrentContext();
-  
-    GLContext *c = contexts[ctx];
-    if (!c) {
-      c = new GLContext(ctx);
-      contexts[ctx] = c;
+
+    Context *c = contexts;
+    while (c) {
+      if (c->glctx == ctx) 
+        break;
+      c = c->next;
     }
-    c->draw(dpy,draw);
+
+    if (! c) {
+      c = (Context *) malloc(sizeof(Context));
+      c->next = contexts;
+      c->glctx = ctx;
+      newContext(c);
+    }
+
+    drawContext(c, dpy, draw);
   } else {
     static bool warned = false;
     if (! warned) {
-      fprintf(stderr, "MUMBLE OVERLAY:: NO CONTACT WITH MUMBLE\n");
+      ods("MUMBLE OVERLAY:: NO CONTACT WITH MUMBLE\n");
       warned = true;
     }
   }
-  ods("Old chain is %p", oglXSwapBuffers);
   oglXSwapBuffers(dpy, draw);
 }
 
-#define FGRAB(x) if (strcmp(reinterpret_cast<const char *>(func), #x)==0) return reinterpret_cast<__GLXextFuncPtr>(x);
+#define FGRAB(x) if (strcmp((const char *)(func), #x)==0) return (__GLXextFuncPtr)(x);
 
 __attribute__ ((visibility("default")))
 void (*glXGetProcAddress(const GLubyte *func))(void) {
@@ -360,7 +373,7 @@ void (*glXGetProcAddress(const GLubyte *func))(void) {
   else if (oglXGetProcAddressARB)
     return oglXGetProcAddressARB(func);  
   else
-    return reinterpret_cast<__GLXextFuncPtr>(dlsym(RTLD_NEXT, reinterpret_cast<const char *>(func)));
+    return (__GLXextFuncPtr)(dlsym(RTLD_NEXT, (const char *)(func)));
 }
 
 __attribute__ ((visibility("default")))
@@ -370,14 +383,14 @@ __GLXextFuncPtr glXGetProcAddressARB(const GLubyte *func) {
 
 #ifdef PRELOAD
 
-#define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; __typeof__(&name) t = (__typeof__(&name)) reinterpret_cast<__typeof__(&name)>(odlsym(handle, #name)); if (t) { o##name = t; return reinterpret_cast<void *>(name); } else { return NULL;}
+#define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; __typeof__(&name) t = (__typeof__(&name)) (__typeof__(&name))(odlsym(handle, #name)); if (t) { o##name = t; return (void *)(name); } else { return NULL;}
 
 __attribute__ ((visibility("default")))
 void *dlsym(void *handle, const char *name) {
   if (! odlsym) {
     void *dl = dlopen("libdl.so.2", RTLD_LAZY);
     if (!dl) {
-      fprintf(stderr, "Failed to open libdl.so.2\n");
+      ods("Failed to open libdl.so.2\n");
     } else {
       odlsym = (__typeof__(&dlsym)) __libc_dlsym(dl, "dlsym");
     }

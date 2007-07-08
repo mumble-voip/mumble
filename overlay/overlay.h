@@ -55,7 +55,7 @@ struct SharedMem {
 	bool bTop, bBottom, bLeft, bRight;
 	float fFontSize;
 
-	TextEntry texts[NUM_TEXTS];
+	struct TextEntry texts[NUM_TEXTS];
 };
 
 #endif
