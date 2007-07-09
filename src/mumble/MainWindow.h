@@ -58,11 +58,11 @@ class MainWindow : public QMainWindow {
 		QAction *qaQuit;
 		QAction *qaServerConnect, *qaServerDisconnect, *qaServerBanList;
 		QAction *qaPlayerKick, *qaPlayerBan, *qaPlayerMute, *qaPlayerDeaf, *qaPlayerLocalMute;
+		QAction *qaPlayerTextMessage;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
 		QAction *qaConfigDialog;
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
 		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
-		QAction *qaTextMessage;
 		QSplitter *qsSplit;
 		QSystemTrayIcon *qstiIcon;
 		QTextEdit *qteLog;
@@ -100,6 +100,7 @@ class MainWindow : public QMainWindow {
 		void on_PlayerMute_triggered();
 		void on_PlayerDeaf_triggered();
 		void on_PlayerLocalMute_triggered();
+		void on_PlayerTextMessage_triggered();
 		void on_ChannelMenu_aboutToShow();
 		void on_ChannelAdd_triggered();
 		void on_ChannelRemove_triggered();
@@ -107,7 +108,6 @@ class MainWindow : public QMainWindow {
 		void on_ChannelLink_triggered();
 		void on_ChannelUnlink_triggered();
 		void on_ChannelUnlinkAll_triggered();
-		void on_TextMessage_triggered();
 		void on_AudioReset_triggered();
 		void on_AudioMute_triggered();
 		void on_AudioDeaf_triggered();
