@@ -216,8 +216,8 @@ int main(int argc, char **argv)
 			qWarning("Failed to connect to D-Bus %s",qPrintable(g_sp.qsDBus));
 		}
 		dbus->qdbc = qdbc;
-		qdbc.registerObject("/Murmur", &a);
-		qdbc.registerService("net.sourceforge.mumble");
+		qdbc.registerObject("/", &a);
+		qdbc.registerService("net.sourceforge.mumble.murmur");
 	}
 #endif
 

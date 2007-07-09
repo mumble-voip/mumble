@@ -214,7 +214,7 @@ int MurmurDBus::authenticate(const QString &uname, const QString &pw) {
 
 #define CHANNEL_SETUP_VAR2(dst,var) \
   Channel *dst = Channel::get(var); \
-  if (! cChannel) { \
+  if (! dst) { \
     QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id")); \
     return; \
   }
@@ -325,6 +325,10 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 
 void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
   CHANNEL_SETUP_VAR(id);
+  if (!cChannel->cParent) {
+    QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id")); 
+    return; 
+  }
   g_sServer->removeChannel(cChannel, NULL);
 }
 
