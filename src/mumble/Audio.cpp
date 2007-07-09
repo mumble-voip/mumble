@@ -28,3 +28,90 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <math.h>
+
+#include "Audio.h"
+#include "AudioOutput.h"
+#include "Global.h"
+
+#define DOUBLE_RAND (rand()/(double)RAND_MAX)
+
+LoopPlayer LoopPlayer::lpLoopy;
+
+LoopPlayer::LoopPlayer() {
+	qsName = QLatin1String("Loopy");
+	sId = 0;
+	iId = 0;
+	sState = Player::Authenticated;
+	bMute = bDeaf = bSuppressed = false;
+	bLocalMute = bSelfDeaf = false;
+	bTalking = false;
+	bAltSpeak = false;
+	cChannel = NULL;
+	qtTicker.start();
+}
+
+void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
+    if (DOUBLE_RAND < g.dPacketLoss)
+    	return;
+
+    bool restart = (qtLastFetch.elapsed() > 100);
+
+    {
+	    QMutexLocker l(&qmLock);
+
+	    double time = qtTicker.elapsed();
+
+	    double r;
+	    if (restart)
+	    	r = 0.0;
+	    else
+	    	r = DOUBLE_RAND * g.dMaxPacketDelay;
+	    qWarning("Insert for time %f with add %f: %f", time, r, time+r);
+
+	    qmPackets.insert(time + r, Packet(seq, packet));
+    }
+
+    // Restart check
+    if (qtLastFetch.elapsed() > 100) {
+	AudioOutputPtr ao = g.ao;
+	if (ao) {
+	    qWarning("LoopPlayer: Starting new feedback loop");
+	    ao->addFrameToBuffer(this, QByteArray(), 0);
+//	    ao->addFrameToBuffer(this, packet, seq);
+	}
+    }
+
+}
+
+void LoopPlayer::fetchFrames() {
+    QMutexLocker l(&qmLock);
+
+    AudioOutputPtr ao = g.ao;
+    if (!ao || qmPackets.isEmpty())
+    	return;
+
+    double cmp = qtTicker.elapsed();
+
+    QMultiMap<double, Packet>::iterator i = qmPackets.begin();
+
+    while(i != qmPackets.end()) {
+	if (i.key() > cmp)
+		break;
+	qWarning("Adding one %f",i.key());
+	ao->addFrameToBuffer(this, i.value().second, i.value().first);
+	i = qmPackets.erase(i);
+    }
+
+    qtLastFetch.restart();
+}
+
+/*
+
+
+
+		AudioOutputPtr ao = g.ao;
+		if (ao) {
+			ao->addFrameToBuffer(&pLoopPlayer, qba, static_cast<int>(msPacket.iSeq));
+		}
+*/

@@ -136,6 +136,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qcbMethod->addItem(tr("Light HRTF"), Settings::Light);
 	qcbMethod->addItem(tr("Full HRTF"), Settings::Full);
 	qcbMethod->setCurrentIndex(static_cast<int>(g.s.a3dModel));
+	qcbMethod->setObjectName(QLatin1String("Method"));
 
 	qcbMethod->setToolTip(tr("3D Sound Algorithm"));
 	qcbMethod->setWhatsThis(tr("This sets what 3D Sound algorithm to use.<br />"
@@ -219,7 +220,11 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	v->addStretch(1);
 
 	setLayout(v);
+
+    on_Method_currentIndexChanged(qcbMethod->currentIndex());
+
     QMetaObject::connectSlotsByName(this);
+
 }
 
 QString DXConfigDialog::title() const {
@@ -271,4 +276,14 @@ void DXConfigDialog::updateIntensity() {
 
 	float intensity = min / (min + (max-min)*roll);
 	qlIntensity->setText(tr("Players more than %1 meters away have %2% intensity").arg(max,0,'f',1).arg(intensity * 100.0, 0, 'f', 1));
+}
+
+void DXConfigDialog::on_Method_currentIndexChanged(int v) {
+    bool ena = (v > 0);
+    qsMinDistance->setEnabled(ena);
+    qsMaxDistance->setEnabled(ena);
+    qsRollOff->setEnabled(ena);
+    qlMinDistance->setEnabled(ena);
+    qlMaxDistance->setEnabled(ena);
+    qlRollOff->setEnabled(ena);
 }

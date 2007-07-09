@@ -101,6 +101,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
 	qcbTransmit->setCurrentIndex(g.s.atTransmit);
+	qcbTransmit->setObjectName(QLatin1String("Transmit"));
 	l = new QLabel(tr("Transmit"));
 	l->setBuddy(qcbTransmit);
 
@@ -322,6 +323,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qcbLoopback->addItem(tr("Local"), Global::Local);
 	qcbLoopback->addItem(tr("Server"), Global::Server);
 	qcbLoopback->setCurrentIndex(g.lmLoopMode);
+	qcbLoopback->setObjectName(QLatin1String("Loopback"));
 	l = new QLabel(tr("Loopback"));
 	l->setBuddy(qcbLoopback);
 
@@ -336,6 +338,56 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbLoopback, 0, 1, 1, 2);
 
+
+	qsPacketDelay = new QSlider(Qt::Horizontal);
+	qsPacketDelay->setRange(0, 100);
+	qsPacketDelay->setSingleStep(1);
+	qsPacketDelay->setPageStep(10);
+	qsPacketDelay->setValue(static_cast<int>(g.dMaxPacketDelay));
+	qsPacketDelay->setObjectName(QLatin1String("PacketDelay"));
+
+	l = new QLabel(tr("Delay Variance"));
+	l->setBuddy(qsPacketDelay);
+
+	qlPacketDelay=new QLabel();
+	qlPacketDelay->setMinimumWidth(40);
+	on_PacketDelay_valueChanged(qsPacketDelay->value());
+
+	qsPacketDelay->setToolTip(tr("Variance in packet latency"));
+	qsPacketDelay->setWhatsThis(tr("<b>This sets the packet latency variance for loopback testing</b><br />"
+			"Most audio paths contain some variable latency. This allows you set that variance for loopback "
+			"mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency "
+			"or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms"
+			));
+
+	grid->addWidget(l, 1, 0);
+	grid->addWidget(qsPacketDelay, 1, 1);
+	grid->addWidget(qlPacketDelay, 1, 2);
+
+	qsPacketLoss = new QSlider(Qt::Horizontal);
+	qsPacketLoss->setRange(0, 50);
+	qsPacketLoss->setSingleStep(5);
+	qsPacketLoss->setPageStep(20);
+	qsPacketLoss->setValue(static_cast<int>(g.dPacketLoss * 100.0));
+	qsPacketLoss->setObjectName(QLatin1String("PacketLoss"));
+
+	l = new QLabel(tr("Packet Loss"));
+	l->setBuddy(qsPacketLoss);
+
+	qlPacketLoss=new QLabel();
+	qlPacketLoss->setMinimumWidth(40);
+	on_PacketLoss_valueChanged(qsPacketLoss->value());
+
+	qsPacketLoss->setToolTip(tr("Packet loss for loopback mode"));
+	qsPacketLoss->setWhatsThis(tr("<b>This sets the packet loss for loopback mode.</b><br />"
+			"This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or "
+			"there's something wrong with your network connection, this will be 0%%"
+			));
+
+	grid->addWidget(l, 2, 0);
+	grid->addWidget(qsPacketLoss, 2, 1);
+	grid->addWidget(qlPacketLoss, 2, 2);
+
 	qgbLoop->setLayout(grid);
 
     v = new QVBoxLayout;
@@ -347,7 +399,11 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
     v->addStretch(1);
     setLayout(v);
 
+    on_Transmit_currentIndexChanged(qcbTransmit->currentIndex());
+    on_Loopback_currentIndexChanged(qcbLoopback->currentIndex());
+
     QMetaObject::connectSlotsByName(this);
+
 }
 
 QString AudioConfigDialog::title() const {
@@ -372,6 +428,8 @@ void AudioConfigDialog::accept() {
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
 	g.lmLoopMode = static_cast<Global::LoopMode>(qcbLoopback->currentIndex());
+	g.dMaxPacketDelay = qsPacketDelay->value();
+	g.dPacketLoss = qsPacketLoss->value() / 100.0;
 }
 
 void AudioConfigDialog::on_Frames_valueChanged(int v) {
@@ -382,7 +440,7 @@ void AudioConfigDialog::on_Frames_valueChanged(int v) {
 void AudioConfigDialog::on_TransmitHold_valueChanged(int v) {
 	double val = v * 20;
 	val = val / 1000.0;
-	qlTransmitHold->setText(tr("%1s").arg(val, 0, 'f', 2));
+	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
 
 void AudioConfigDialog::on_Quality_valueChanged(int v) {
@@ -403,6 +461,15 @@ void AudioConfigDialog::on_Amp_valueChanged(int v) {
 void AudioConfigDialog::on_Jitter_valueChanged(int v) {
 	qlJitter->setText(tr("%1 ms").arg(v*20));
 }
+
+void AudioConfigDialog::on_PacketDelay_valueChanged(int v) {
+	qlPacketDelay->setText(tr("%1 ms").arg(v));
+}
+
+void AudioConfigDialog::on_PacketLoss_valueChanged(int v) {
+	qlPacketLoss->setText(tr("%1%").arg(v));
+}
+
 
 void AudioConfigDialog::updateBitrate() {
 	if (! qsQuality || ! qsFrames || ! qlBitrate)
@@ -452,4 +519,33 @@ void AudioConfigDialog::updateBitrate() {
 
 	QString v = tr("%1kbit/s (Audio %2, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1);
 	qlBitrate->setText(v);
+}
+
+void AudioConfigDialog::on_Transmit_currentIndexChanged(int v) {
+    bool cue = false;
+    bool hold = false;
+
+    switch(v) {
+	case 1:
+		hold = true;
+		break;
+	case 2:
+		cue = true;
+		break;
+    }
+
+    qcbPushClick->setEnabled(cue);
+    qsTransmitHold->setEnabled(hold);
+    qlTransmitHold->setEnabled(hold);
+}
+
+void AudioConfigDialog::on_Loopback_currentIndexChanged(int v) {
+    bool ena = false;
+    if (v == 1)
+    	ena = true;
+
+    qsPacketDelay->setEnabled(ena);
+    qlPacketDelay->setEnabled(ena);
+    qsPacketLoss->setEnabled(ena);
+    qlPacketLoss->setEnabled(ena);
 }

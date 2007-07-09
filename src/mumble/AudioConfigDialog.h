@@ -48,6 +48,8 @@ class AudioConfigDialog : public ConfigWidget {
 		QLabel *qlJitter;
 		QLabel *qlBitrate;
 		QComboBox *qcbLoopback;
+		QSlider *qsPacketDelay, *qsPacketLoss;
+		QLabel *qlPacketDelay, *qlPacketLoss;
 	public:
 		AudioConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;
@@ -61,6 +63,11 @@ class AudioConfigDialog : public ConfigWidget {
 		void on_Complexity_valueChanged(int v);
 		void on_Amp_valueChanged(int v);
 		void on_Jitter_valueChanged(int v);
+		void on_PacketDelay_valueChanged(int v);
+		void on_PacketLoss_valueChanged(int v);
+
+		void on_Transmit_currentIndexChanged(int v);
+		void on_Loopback_currentIndexChanged(int v);
 };
 
 #else

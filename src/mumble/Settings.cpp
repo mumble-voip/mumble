@@ -98,7 +98,7 @@ void Settings::load() {
 	iComplexity = g.qs->value(QLatin1String("AudioComplexity"), iComplexity).toInt();
 	iMinLoudness = g.qs->value(QLatin1String("AudioMinLoudness"), iMinLoudness).toInt();
 	iVoiceHold = g.qs->value(QLatin1String("AudioVoiceHold"), iVoiceHold).toInt();
-	iJitterBufferSize = g.qs->value(QLatin1String("JitterBufferSize"), iJitterBufferSize).toInt();
+	iJitterBufferSize = g.qs->value(QLatin1String("JitterBufferSize2"), iJitterBufferSize).toInt();
 	iFramesPerPacket = g.qs->value(QLatin1String("FramesPerPacket"), iFramesPerPacket).toInt();
 	bTCPCompat = g.qs->value(QLatin1String("TCPCompat"), bTCPCompat).toBool();
 	bReconnect = g.qs->value(QLatin1String("Reconnect"), bReconnect).toBool();
@@ -155,7 +155,7 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("AudioComplexity"), iComplexity);
 	g.qs->setValue(QLatin1String("AudioMinLoudness"), iMinLoudness);
 	g.qs->setValue(QLatin1String("AudioVoiceHold"), iVoiceHold);
-	g.qs->setValue(QLatin1String("JitterBufferSize"), iJitterBufferSize);
+	g.qs->setValue(QLatin1String("JitterBufferSize2"), iJitterBufferSize);
 	g.qs->setValue(QLatin1String("FramesPerPacket"), iFramesPerPacket);
 	g.qs->setValue(QLatin1String("TCPCompat"), bTCPCompat);
 	g.qs->setValue(QLatin1String("Reconnect"), bReconnect);

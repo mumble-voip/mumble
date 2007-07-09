@@ -70,6 +70,8 @@ struct Global {
 	bool bCenterPosition;
 	bool bAltSpeak;
 	LoopMode lmLoopMode;
+	double dPacketLoss;
+	double dMaxPacketDelay;
 	short sId;
 	int iMaxBandwidth;
 	Global();

@@ -32,6 +32,22 @@
 #define _AUDIO_H
 
 #include "ConfigDialog.h"
+#include "Player.h"
+
 #define SAMPLE_RATE 16000
+
+class LoopPlayer : public Player {
+    protected:
+    	typedef QPair<quint32, QByteArray> Packet;
+    	QMutex qmLock;
+    	QTime qtTicker;
+    	QTime qtLastFetch;
+    	QMultiMap<double, Packet> qmPackets;
+    	LoopPlayer();
+    public:
+    	static LoopPlayer lpLoopy;
+    	void addFrame(const QByteArray &packet, int seq);
+    	void fetchFrames();
+};
 
 #endif

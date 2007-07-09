@@ -169,6 +169,9 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, int iSeq) 
 bool AudioOutputSpeech::decodeNextFrame() {
 	bool alive = true;
 
+	if(p == &LoopPlayer::lpLoopy)
+		LoopPlayer::lpLoopy.fetchFrames();
+
 	if (speex_decode_int(dsDecState, &sbBits, psBuffer) == 0) {
 	    jitter_buffer_tick(jbJitter);
     	} else {

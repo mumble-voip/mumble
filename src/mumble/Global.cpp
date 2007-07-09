@@ -42,4 +42,7 @@ Global::Global() {
 	bPushToMute = false;
 	bCenterPosition = false;
 	bAltSpeak = false;
+	lmLoopMode = None;
+	dPacketLoss = 0;
+	dMaxPacketDelay = 0.0;
 }

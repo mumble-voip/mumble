@@ -47,8 +47,6 @@ QString AudioInputRegistrar::current = QString();
 
 // Static Player that never goes away, used for local loopback.
 
-static Player pLoopPlayer;
-
 AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n) {
 	if (! qmNew)
 		qmNew = new QMap<QString, AudioInputRegistrarNew>();
@@ -127,17 +125,6 @@ AudioInput::AudioInput()
 	dPeakMic = dPeakSignal = dPeakSpeaker = 0.0;
 
 	bRunning = false;
-
-	pLoopPlayer.qsName = QLatin1String("Loopy");
-	pLoopPlayer.sId = 0;
-	pLoopPlayer.iId = 0;
-	pLoopPlayer.sState = Player::Authenticated;
-	pLoopPlayer.bMute = pLoopPlayer.bDeaf = pLoopPlayer.bSuppressed = false;
-	pLoopPlayer.bLocalMute = pLoopPlayer.bSelfDeaf = false;
-	pLoopPlayer.bTalking = false;
-	pLoopPlayer.bAltSpeak = false;
-	pLoopPlayer.cChannel = NULL;
-
 }
 
 AudioInput::~AudioInput()
@@ -426,10 +413,7 @@ void AudioInput::flushCheck() {
 	msPacket.iSeq = iFrameCounter;
 
 	if (g.lmLoopMode == Global::Local) {
-		AudioOutputPtr ao = g.ao;
-		if (ao) {
-			ao->addFrameToBuffer(&pLoopPlayer, qba, static_cast<int>(msPacket.iSeq));
-		}
+	    	LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
 	} else if (g.sh) {
 		g.sh->sendMessage(&msPacket);
 	}

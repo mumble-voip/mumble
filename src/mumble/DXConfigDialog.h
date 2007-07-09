@@ -63,6 +63,7 @@ class DXConfigDialog : public ConfigWidget {
 		void on_MaxDistance_valueChanged(int v);
 		void on_RollOff_valueChanged(int v);
 		void updateIntensity();
+		void on_Method_currentIndexChanged(int v);
 };
 
 #else
