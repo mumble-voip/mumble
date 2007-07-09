@@ -46,7 +46,7 @@ Settings::Settings() {
 	iFramesPerPacket = 2;
 	bTCPCompat = false;
 	bReconnect = true;
-	bExpandAll = false;
+	bExpandAll = true;
 	bPushClick = false;
 
 	bPlayerTop = false;
