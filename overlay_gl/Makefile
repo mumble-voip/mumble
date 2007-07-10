@@ -30,4 +30,12 @@ libmumble.so.1: overlay_p.o
 clean:
 	-rm -f *~ *.o *.so.1
 distclean: clean
-	
+
+indent:
+	indent -kr -l999 overlay.c
+
+test:	libGL.so.1
+	LD_LIBRARY_PATH=$$(pwd):$$LD_LIBRARY_PATH glxgears
+
+quake:	libGL.so.1
+	LD_LIBRARY_PATH=$$(pwd):$$LD_LIBRARY_PATH quake4-demo
