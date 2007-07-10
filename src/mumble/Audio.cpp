@@ -67,7 +67,6 @@ void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
 	    	r = 0.0;
 	    else
 	    	r = DOUBLE_RAND * g.dMaxPacketDelay;
-	    qWarning("Insert for time %f with add %f: %f", time, r, time+r);
 
 	    qmPackets.insert(time + r, Packet(seq, packet));
     }
@@ -76,9 +75,7 @@ void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
     if (qtLastFetch.elapsed() > 100) {
 	AudioOutputPtr ao = g.ao;
 	if (ao) {
-	    qWarning("LoopPlayer: Starting new feedback loop");
 	    ao->addFrameToBuffer(this, QByteArray(), 0);
-//	    ao->addFrameToBuffer(this, packet, seq);
 	}
     }
 
@@ -98,20 +95,9 @@ void LoopPlayer::fetchFrames() {
     while(i != qmPackets.end()) {
 	if (i.key() > cmp)
 		break;
-	qWarning("Adding one %f",i.key());
 	ao->addFrameToBuffer(this, i.value().second, i.value().first);
 	i = qmPackets.erase(i);
     }
 
     qtLastFetch.restart();
 }
-
-/*
-
-
-
-		AudioOutputPtr ao = g.ao;
-		if (ao) {
-			ao->addFrameToBuffer(&pLoopPlayer, qba, static_cast<int>(msPacket.iSeq));
-		}
-*/
