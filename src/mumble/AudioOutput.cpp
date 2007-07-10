@@ -28,7 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifdef __MMX__
 #include <mmintrin.h>
+#endif
 #include <math.h>
 
 #include "AudioOutput.h"
@@ -290,6 +292,7 @@ bool AudioOutput::mixAudio(short *buffer) {
 		}
 	}
 
+#ifdef __MMX__
 	_mm_empty();
 	__m64 *out=reinterpret_cast<__m64 *>(buffer);
 	__m64 zero=_mm_cvtsi32_si64(0);
@@ -303,9 +306,23 @@ bool AudioOutput::mixAudio(short *buffer) {
 		for(int i=0;i<iFrameSize/4;i++)
 			out[i]=_mm_adds_pi16(in[i],out[i]);
 	}
-	qrwlOutputs.unlock();
 
 	_mm_empty();
+#else
+	int t[iFrameSize];
+	for(int i=0;i<iFrameSize;i++)
+		t[i]=0;
+
+	foreach(aop, qlMix)
+		for(int i=0;i<iFrameSize;i++)
+			t[i] += aop->psBuffer[i];
+
+	for(int i=0;i<iFrameSize;i++)
+		buffer[i]=qMax(-32727,qMin(32767,t[i]));
+#endif
+
+	qrwlOutputs.unlock();
+
 
 	foreach(aop, qlDel)
 		removeBuffer(aop);
@@ -318,7 +335,7 @@ AudioSine::AudioSine(float hz, float i, int frm) : AudioOutputPlayer(QLatin1Stri
     inc = M_PI * hz / 8000.0;
     dinc = M_PI * i / (8000.0 * 8000.0);
     frames = frm;
-    iFrameSize = 160;
+    iFrameSize = 320;
     psBuffer = new short[iFrameSize];
 }
 

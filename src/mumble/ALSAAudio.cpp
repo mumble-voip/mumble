@@ -33,7 +33,9 @@
 #include "Global.h"
 #include "MainWindow.h"
 #include <sys/poll.h>
+#ifdef __MMX__
 #include <xmmintrin.h>
+#endif
 
 #define NBLOCKS 8
 
@@ -431,7 +433,11 @@ void ALSAAudioOutput::run()
   if (! pcm_handle)
     return;
 
+#ifdef __MMX__
   short *buffer=static_cast<short *>(_mm_malloc(iFrameSize * sizeof(short), 128));
+#else
+  short buffer[iFrameSize];
+#endif
 
     short zerobuff[iFrameSize];
     for(int i=0;i<iFrameSize;i++)
@@ -480,5 +486,7 @@ void ALSAAudioOutput::run()
       }
     }
   }
+#ifdef __MMX__
   _mm_free(buffer);
+#endif
 }
