@@ -60,7 +60,7 @@ class MainWindow : public QMainWindow {
 		QAction *qaPlayerKick, *qaPlayerBan, *qaPlayerMute, *qaPlayerDeaf, *qaPlayerLocalMute;
 		QAction *qaPlayerTextMessage;
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
-		QAction *qaConfigDialog;
+		QAction *qaConfigDialog, *qaAudioWizard;
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
 		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
 		QSplitter *qsSplit;
@@ -115,6 +115,7 @@ class MainWindow : public QMainWindow {
 		void on_AudioUnlink_triggered();
 		void on_AudioStats_triggered();
 		void on_ConfigDialog_triggered();
+		void on_AudioWizard_triggered();
 		void on_HelpWhatsThis_triggered();
 		void on_HelpAbout_triggered();
 		void on_HelpAboutSpeex_triggered();

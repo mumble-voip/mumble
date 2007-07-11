@@ -43,13 +43,16 @@
 // is called from global initialization.
 // Hence, we allocate upon first call.
 
-QMap<QString, AudioOutputRegistrarNew> *AudioOutputRegistrar::qmNew;
+QMap<QString, AudioOutputRegistrar *> *AudioOutputRegistrar::qmNew;
 QString AudioOutputRegistrar::current = QString();
 
-AudioOutputRegistrar::AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n) {
+AudioOutputRegistrar::AudioOutputRegistrar(const QString &n) : name(n) {
 	if (! qmNew)
-		qmNew = new QMap<QString, AudioOutputRegistrarNew>();
-	qmNew->insert(name,n);
+		qmNew = new QMap<QString, AudioOutputRegistrar *>();
+	qmNew->insert(name,this);
+}
+
+AudioOutputRegistrar::~AudioOutputRegistrar() {
 }
 
 AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
@@ -57,12 +60,12 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		qs.setValue(QLatin1String("AudioOutputDevice"), choice);
 		current = choice;
-		return AudioOutputPtr(qmNew->value(choice)());
+		return AudioOutputPtr(qmNew->value(choice)->create());
 	}
 	choice = qs.value(QLatin1String("AudioOutputDevice")).toString();
 	if (qmNew->contains(choice)) {
 		current = choice;
-		return AudioOutputPtr(qmNew->value(choice)());
+		return AudioOutputPtr(qmNew->value(choice)->create());
 	}
 
 	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
@@ -70,15 +73,15 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 
 	if (qmNew->contains(QLatin1String("DirectSound"))) {
 		current = QLatin1String("DirectSound");
-		return AudioOutputPtr(qmNew->value(current)());
+		return AudioOutputPtr(qmNew->value(current)->create());
 	}
 
 
-	QMapIterator<QString, AudioOutputRegistrarNew> i(*qmNew);
+	QMapIterator<QString, AudioOutputRegistrar *> i(*qmNew);
 	if (i.hasNext()) {
 		i.next();
 		current = i.key();
-		return AudioOutputPtr(i.value()());
+		return AudioOutputPtr(i.value()->create());
 	}
 	return AudioOutputPtr();
 }
@@ -237,7 +240,7 @@ void AudioOutput::wipe() {
     		removeBuffer(p);
 }
 
-void AudioOutput::playSine(float hz, float i, int frames) {
+void AudioOutput::playSine(float hz, float i, unsigned int frames) {
     	qrwlOutputs.lockForWrite();
     	AudioSine *as = new AudioSine(hz,i,frames);
     	qmOutputs.insert(NULL, as);
@@ -330,7 +333,7 @@ bool AudioOutput::mixAudio(short *buffer) {
 	return (! qlMix.isEmpty());
 }
 
-AudioSine::AudioSine(float hz, float i, int frm) : AudioOutputPlayer(QLatin1String("Sine")) {
+AudioSine::AudioSine(float hz, float i, unsigned int frm) : AudioOutputPlayer(QLatin1String("Sine")) {
     v = 0.0;
     inc = M_PI * hz / 8000.0;
     dinc = M_PI * i / (8000.0 * 8000.0);
@@ -344,11 +347,16 @@ AudioSine::~AudioSine() {
 }
 
 bool AudioSine::decodeNextFrame() {
-    	if (frames-- > 0) {
+    	if (frames > 0) {
+	    frames--;
+
+	    float t = v;
+	    v += iFrameSize * inc + 0.5 * dinc * iFrameSize * iFrameSize;
+
 	    for(int i=0;i<iFrameSize;i++) {
-		    psBuffer[i]=sin(v) * 20000.0;
+		    psBuffer[i]=sin(t) * 10000.0;
 		    inc+=dinc;
-		    v+=inc;
+		    t+=inc;
 	    }
 	    return true;
         } else {

@@ -40,7 +40,9 @@
 
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
+	enum VADSource { Amplitude, SignalToNoise };
 	AudioTransmit atTransmit;
+
 	bool bTransmitPosition;
 	bool bPushClick;
 	bool bMute, bDeaf;
@@ -48,6 +50,8 @@ struct Settings {
 	bool bPlayerTop;
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
+	VADSource vsVAD;
+	float fVADmin, fVADmax;
 	int iFramesPerPacket;
 	bool bTCPCompat, bReconnect, bExpandAll;
 	QString qsAudioInput, qsAudioOutput;

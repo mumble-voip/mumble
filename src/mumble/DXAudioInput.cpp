@@ -30,15 +30,76 @@
 
 #include "DXAudioInput.h"
 #include "Global.h"
+#include "DXConfigDialog.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
-static AudioInput *DXAudioInputNew() {
+class DXAudioInputRegistrar : public AudioInputRegistrar {
+    	public:
+    		DXAudioInputRegistrar();
+		virtual AudioInput *create();
+		virtual const QList<audioDevice> getDeviceChoices();
+		virtual void setDeviceChoice(const QVariant &);
+
+};
+
+// Static singleton
+static DXAudioInputRegistrar airDX;
+
+DXAudioInputRegistrar::DXAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("DirectSound")) {
+}
+
+AudioInput *DXAudioInputRegistrar::create() {
 	return new DXAudioInput();
 }
 
-static AudioInputRegistrar airDX("DirectSound", DXAudioInputNew);
+typedef QPair<QString, GUID> dsDevice;
+
+static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
+			 const WCHAR* lpszDrvName, void *ctx)
+{
+	if ( lpGUID )
+	{
+		QList<dsDevice> *l =reinterpret_cast<QList<dsDevice> *>(ctx);
+		*l << dsDevice(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), *lpGUID);
+	}
+
+	return(true);
+}
+
+const QList<audioDevice> DXAudioInputRegistrar::getDeviceChoices() {
+	QList<dsDevice> qlInput;
+
+	qlInput << dsDevice(DXConfigDialog::tr("Default DirectSound Voice Input"), DSDEVID_DefaultVoiceCapture);
+	DirectSoundCaptureEnumerate(DSEnumProc, reinterpret_cast<void *>(&qlInput));
+
+	QList<audioDevice> qlReturn;
+
+	const GUID *lpguid = NULL;
+
+	if (! g.s.qbaDXInput.isEmpty()) {
+		lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXInput.data());
+	} else {
+	    	lpguid = &DSDEVID_DefaultVoiceCapture;
+	}
+
+	foreach(dsDevice d, qlInput) {
+	    if (d.second == *lpguid) {
+		qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+	    }
+	}
+	foreach(dsDevice d, qlInput) {
+	    if (d.second != *lpguid) {
+		qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+	    }
+	}
+	return qlReturn;
+}
+
+void DXAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
+	g.s.qbaDXInput = choice.toByteArray();
+}
 
 #define NBUFFBLOCKS 50
 

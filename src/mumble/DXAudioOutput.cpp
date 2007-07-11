@@ -33,6 +33,7 @@
 #include "Plugins.h"
 #include "Player.h"
 #include "Global.h"
+#include "DXConfigDialog.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
@@ -45,11 +46,72 @@
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
 #define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
 
-static AudioOutput *DXAudioOutputNew() {
+class DXAudioOutputRegistrar : public AudioOutputRegistrar {
+    	public:
+    		DXAudioOutputRegistrar();
+		virtual AudioOutput *create();
+		virtual const QList<audioDevice> getDeviceChoices();
+		virtual void setDeviceChoice(const QVariant &);
+
+};
+
+// Static singleton
+static DXAudioOutputRegistrar airDX;
+
+DXAudioOutputRegistrar::DXAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("DirectSound")) {
+}
+
+AudioOutput *DXAudioOutputRegistrar::create() {
 	return new DXAudioOutput();
 }
 
-static AudioOutputRegistrar aorDX("DirectSound", DXAudioOutputNew);
+typedef QPair<QString, GUID> dsDevice;
+
+static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
+			 const WCHAR* lpszDrvName, void *ctx)
+{
+	if ( lpGUID )
+	{
+		QList<dsDevice> *l =reinterpret_cast<QList<dsDevice> *>(ctx);
+		*l << dsDevice(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), *lpGUID);
+	}
+
+	return(true);
+}
+
+const QList<audioDevice> DXAudioOutputRegistrar::getDeviceChoices() {
+	QList<dsDevice> qlOutput;
+
+	qlOutput << dsDevice(DXConfigDialog::tr("Default DirectSound Voice Output"), DSDEVID_DefaultVoicePlayback);
+	DirectSoundEnumerate(DSEnumProc, reinterpret_cast<void *>(&qlOutput));
+
+	QList<audioDevice> qlReturn;
+
+	const GUID *lpguid = NULL;
+
+	if (! g.s.qbaDXOutput.isEmpty()) {
+		lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXOutput.data());
+	} else {
+	    	lpguid = &DSDEVID_DefaultVoicePlayback;
+	}
+
+	foreach(dsDevice d, qlOutput) {
+	    if (d.second == *lpguid) {
+		qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+	    }
+	}
+	foreach(dsDevice d, qlOutput) {
+	    if (d.second != *lpguid) {
+		qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+	    }
+	}
+	return qlReturn;
+}
+
+void DXAudioOutputRegistrar::setDeviceChoice(const QVariant &choice) {
+	g.s.qbaDXOutput = choice.toByteArray();
+}
+
 
 DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, AudioOutputPlayer *aopl) {
 	bPlaying = false;
@@ -464,3 +526,4 @@ void DXAudioOutput::run() {
 			removeBuffer(dxaop->aop);
 	}
 }
+

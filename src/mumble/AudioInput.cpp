@@ -42,15 +42,16 @@
 // is called from global initialization.
 // Hence, we allocate upon first call.
 
-QMap<QString, AudioInputRegistrarNew> *AudioInputRegistrar::qmNew;
+QMap<QString, AudioInputRegistrar *> *AudioInputRegistrar::qmNew;
 QString AudioInputRegistrar::current = QString();
 
-// Static Player that never goes away, used for local loopback.
-
-AudioInputRegistrar::AudioInputRegistrar(QString name, AudioInputRegistrarNew n) {
+AudioInputRegistrar::AudioInputRegistrar(const QString &n) : name(n) {
 	if (! qmNew)
-		qmNew = new QMap<QString, AudioInputRegistrarNew>();
-	qmNew->insert(name,n);
+		qmNew = new QMap<QString, AudioInputRegistrar *>();
+	qmNew->insert(name,this);
+}
+
+AudioInputRegistrar::~AudioInputRegistrar() {
 }
 
 AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
@@ -58,12 +59,12 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		qs.setValue(QLatin1String("AudioInputDevice"), choice);
 		current = choice;
-		return AudioInputPtr(qmNew->value(current)());
+		return AudioInputPtr(qmNew->value(current)->create());
 	}
 	choice = qs.value(QLatin1String("AudioInputDevice")).toString();
 	if (qmNew->contains(choice)) {
 		current = choice;
-		return AudioInputPtr(qmNew->value(choice)());
+		return AudioInputPtr(qmNew->value(choice)->create());
 	}
 
 	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
@@ -71,14 +72,14 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 
 	if (qmNew->contains(QLatin1String("DirectSound"))) {
 		current = QLatin1String("DirectSound");
-		return AudioInputPtr(qmNew->value(current)());
+		return AudioInputPtr(qmNew->value(current)->create());
 	}
 
-	QMapIterator<QString, AudioInputRegistrarNew> i(*qmNew);
+	QMapIterator<QString, AudioInputRegistrar *> i(*qmNew);
 	if (i.hasNext()) {
 		i.next();
 		current = i.key();
-		return AudioInputPtr(i.value()());
+		return AudioInputPtr(i.value()->create());
 	}
 	return AudioInputPtr();
 }
@@ -177,6 +178,7 @@ void AudioInput::encodeAudioFrame() {
 	float fArg;
 	Player *p=Player::get(g.sId);
 	short max;
+	double micMax;
 	int i;
 
 	short *psSource;
@@ -211,6 +213,7 @@ void AudioInput::encodeAudioFrame() {
 		if (abs(psMic[i]) > max)
 			max=abs(psMic[i]);
 	dPeakMic=20.0*log10((max  * 1.0L) / 32768.0L);
+	micMax = max;
 
 	if (bHasSpeaker) {
 		max=1;
@@ -293,12 +296,15 @@ void AudioInput::encodeAudioFrame() {
 	Zframe /= (freq_end-freq_start);
 	dSNR = Zframe;
 
-	if (dSNR > 1.0)
+	double level = (g.s.vsVAD == Settings::SignalToNoise) ? dSNR / 32.767 : micMax / 32767.0;
+
+	if (level > g.s.fVADmax)
+		iIsSpeech = 1;
+	else if (level > g.s.fVADmin && bPreviousVoice)
 		iIsSpeech = 1;
 	else
 		iIsSpeech = 0;
 
-	// The default is a bit short, increase it
 	if (! iIsSpeech) {
 		iHoldFrames++;
 		if (iHoldFrames < g.s.iVoiceHold)
@@ -306,15 +312,7 @@ void AudioInput::encodeAudioFrame() {
 	} else {
 		iHoldFrames = 0;
 	}
-/*
-	CloneSpeexPreprocessState *pps=reinterpret_cast<CloneSpeexPreprocessState *>(sppPreprocess);
-	if (pps->loudness2 < g.s.iMinLoudness)
-		pps->loudness2 = g.s.iMinLoudness;
-	if (isnan(pps->loudness2)) {
-		qWarning("AudioInput: loudness is nan");
-		bResetProcessor = true;
-	}
-*/
+
 	if (g.s.atTransmit == Settings::Continous)
 		iIsSpeech = 1;
 	else if (g.s.atTransmit == Settings::PushToTalk)
@@ -363,11 +361,6 @@ void AudioInput::encodeAudioFrame() {
 			ds << g.p->fPosition[0];
 			ds << g.p->fPosition[1];
 			ds << g.p->fPosition[2];
-
-			// Make inband and nice.
-			// add number of bits here AND AT DEPACK.
-
-			// And make jitter buffer be nice and only one speexmsg.
 
 			speex_bits_pack(&sbBits, 13, 5);
 			speex_bits_pack(&sbBits, q.size(), 4);

@@ -38,7 +38,7 @@ static ConfigWidget *DXConfigDialogNew() {
 static ConfigRegistrar registrar(20, DXConfigDialogNew);
 
 
-BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
+static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
 			 const WCHAR* lpszDrvName, void *ctx)
 {
 	if ( lpGUID )

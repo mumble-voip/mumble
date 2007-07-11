@@ -29,6 +29,7 @@
 */
 
 #include "MainWindow.h"
+#include "AudioWizard.h"
 #include "AudioInput.h"
 #include "ConnectDialog.h"
 #include "Player.h"
@@ -189,6 +190,11 @@ void MainWindow::createActions() {
 	qaConfigDialog->setToolTip(tr("Configure Mumble"));
 	qaConfigDialog->setWhatsThis(tr("Allows you to change most settings for Mumble."));
 
+	qaAudioWizard=new QAction(tr("&Audio Wizard"), this);
+	qaAudioWizard->setObjectName(QLatin1String("AudioWizard"));
+	qaAudioWizard->setToolTip(tr("Start the audio configuration wizard"));
+	qaAudioWizard->setWhatsThis(tr("This will guide you through the process of configuring your audio hardware."));
+
 	qaHelpWhatsThis = new QAction(tr("&What's This?"), this);
 	qaHelpWhatsThis->setObjectName(QLatin1String("HelpWhatsThis"));
 	qaHelpWhatsThis->setToolTip(tr("Enter What's This? mode"));
@@ -281,6 +287,7 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioStats);
 
 	qmConfig->addAction(qaConfigDialog);
+	qmConfig->addAction(qaAudioWizard);
 
 	qmHelp->addAction(qaHelpWhatsThis);
 	qmHelp->addSeparator();
@@ -775,6 +782,13 @@ void MainWindow::on_ConfigDialog_triggered()
 {
 	ConfigDialog dlg;
 	dlg.exec();
+}
+
+void MainWindow::on_AudioWizard_triggered()
+{
+    	AudioWizard aw;
+
+	aw.exec();
 }
 
 void MainWindow::on_HelpWhatsThis_triggered()

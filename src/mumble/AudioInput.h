@@ -36,14 +36,19 @@
 class AudioInput;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
 
-typedef AudioInput *(*AudioInputRegistrarNew)();
-
 class AudioInputRegistrar {
 	public:
-		static QMap<QString, AudioInputRegistrarNew> *qmNew;
+		static QMap<QString, AudioInputRegistrar *> *qmNew;
 		static QString current;
-		AudioInputRegistrar(QString name, AudioInputRegistrarNew n);
 		static AudioInputPtr newFromChoice(QString choice = QString());
+
+		const QString name;
+
+		AudioInputRegistrar(const QString &n);
+		virtual ~AudioInputRegistrar();
+		virtual AudioInput *create() = 0;
+		virtual const QList<audioDevice> getDeviceChoices() = 0;
+		virtual void setDeviceChoice(const QVariant &) = 0;
 };
 
 class AudioInput : public QThread {

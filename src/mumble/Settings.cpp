@@ -40,10 +40,13 @@ Settings::Settings() {
 	iTTSThreshold = 250;
 	iQuality = 6;
 	iComplexity = 4;
-	iMinLoudness = 4000;
+	iMinLoudness = 1000;
 	iVoiceHold = 200;
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
+	vsVAD = SignalToNoise;
+	fVADmin = 1.0 / 32.767;
+	fVADmax = 4.0 / 32.767;
 	bTCPCompat = false;
 	bReconnect = true;
 	bExpandAll = true;
@@ -97,6 +100,9 @@ void Settings::load() {
 	iQuality = g.qs->value(QLatin1String("AudioQuality"), iQuality).toInt();
 	iComplexity = g.qs->value(QLatin1String("AudioComplexity"), iComplexity).toInt();
 	iMinLoudness = g.qs->value(QLatin1String("AudioMinLoudness"), iMinLoudness).toInt();
+	vsVAD = static_cast<Settings::VADSource>(g.qs->value(QLatin1String("VAD"), vsVAD).toInt());
+	fVADmin = g.qs->value(QLatin1String("VADmin"), fVADmin).toDouble();
+	fVADmax = g.qs->value(QLatin1String("VADmax"), fVADmax).toDouble();
 	iVoiceHold = g.qs->value(QLatin1String("AudioVoiceHold"), iVoiceHold).toInt();
 	iJitterBufferSize = g.qs->value(QLatin1String("JitterBufferSize2"), iJitterBufferSize).toInt();
 	iFramesPerPacket = g.qs->value(QLatin1String("FramesPerPacket"), iFramesPerPacket).toInt();
@@ -155,6 +161,9 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("AudioComplexity"), iComplexity);
 	g.qs->setValue(QLatin1String("AudioMinLoudness"), iMinLoudness);
 	g.qs->setValue(QLatin1String("AudioVoiceHold"), iVoiceHold);
+	g.qs->setValue(QLatin1String("VAD"), vsVAD);
+	g.qs->setValue(QLatin1String("VADmin"), fVADmin);
+	g.qs->setValue(QLatin1String("VADmax"), fVADmax);
 	g.qs->setValue(QLatin1String("JitterBufferSize2"), iJitterBufferSize);
 	g.qs->setValue(QLatin1String("FramesPerPacket"), iFramesPerPacket);
 	g.qs->setValue(QLatin1String("TCPCompat"), bTCPCompat);

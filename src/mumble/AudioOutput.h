@@ -42,15 +42,21 @@
 class AudioOutput;
 class Player;
 
-typedef AudioOutput *(*AudioOutputRegistrarNew)();
 typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
 class AudioOutputRegistrar {
 	public:
-		static QMap<QString, AudioOutputRegistrarNew> *qmNew;
+		static QMap<QString, AudioOutputRegistrar *> *qmNew;
 		static QString current;
-		AudioOutputRegistrar(QString name, AudioOutputRegistrarNew n);
 		static AudioOutputPtr newFromChoice(QString choice = QString());
+
+		const QString name;
+
+		AudioOutputRegistrar(const QString &n);
+		virtual ~AudioOutputRegistrar();
+		virtual AudioOutput *create() = 0;
+		virtual const QList<audioDevice> getDeviceChoices() = 0;
+		virtual void setDeviceChoice(const QVariant &) = 0;
 };
 
 class AudioOutputPlayer : public QObject {
@@ -101,15 +107,14 @@ class AudioSine : public AudioOutputPlayer {
     		float v;
     		float inc;
     		float dinc;
-    		int frames;
+    		unsigned int frames;
     	public:
     		bool decodeNextFrame();
-    		AudioSine(float hz, float i, int frm);
+    		AudioSine(float hz, float i, unsigned int frm);
     		~AudioSine();
 };
 
 class AudioOutput : public QThread {
-	friend class FMODSystem;
 	Q_OBJECT
 	protected:
 		bool bRunning;
@@ -126,7 +131,7 @@ class AudioOutput : public QThread {
 		~AudioOutput();
 		void addFrameToBuffer(Player *, const QByteArray &, int iSeq);
 		void removeBuffer(const Player *);
-		void playSine(float hz, float i,int frames);
+		void playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff);
 		void run() = 0;
 };
 

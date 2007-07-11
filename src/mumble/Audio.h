@@ -36,6 +36,8 @@
 
 #define SAMPLE_RATE 16000
 
+typedef QPair<QString,QVariant> audioDevice;
+
 class LoopPlayer : public Player {
     protected:
     	typedef QPair<quint32, QByteArray> Packet;

@@ -39,12 +39,32 @@
  * (960 == 20 ms of samples at 48000)
  */
 
-static AudioInput *ASIOAudioInputNew() {
-	return new ASIOInput();
+class ASIOAudioInputRegistrar : public AudioInputRegistrar {
+    	public:
+    		ASIOAudioInputRegistrar();
+		virtual AudioInput *create();
+		virtual const QList<audioDevice> getDeviceChoices();
+		virtual void setDeviceChoice(const QVariant &);
+
+};
+
+// Static singleton
+static ASIOAudioInputRegistrar airASIO;
+
+ASIOAudioInputRegistrar::ASIOAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ASIO")) {
 }
 
-static AudioInputRegistrar airASIO("ASIO", ASIOAudioInputNew);
+AudioInput *ASIOAudioInputRegistrar::create() {
+	return new ASIOInput();
+}
+const QList<audioDevice> ASIOAudioInputRegistrar::getDeviceChoices() {
+	QList<audioDevice> qlReturn;
+	return qlReturn;
+}
 
+void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
+    	qWarning("ASIOInputRegistrar::setDeviceChoice was called");
+}
 
 static ConfigWidget *ASIOConfigDialogNew() {
 	return new ASIOConfig();
@@ -590,6 +610,7 @@ ASIOInput::~ASIOInput() {
 		iasio->disposeBuffers();
 		iaOriginal->Release();
 		delete iasio;
+		iasio = NULL;
 	}
 	if (abiInfo) {
 		delete [] abiInfo;
