@@ -22,6 +22,8 @@
  <file alias="config_osd.png">../../icons/config_osd.png</file>
  <file alias="config_shortcuts.png">../../icons/config_shortcuts.png</file>
  <file alias="config_ui.png">../../icons/config_ui.png</file>
+ <file alias="muted_overlay.png">../../icons/muted_overlay.png</file>
+ <file alias="deafened_overlay.png">../../icons/deafened_overlay.png</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>
  <file>mumble_fr.qm</file>

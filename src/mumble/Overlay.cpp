@@ -393,6 +393,13 @@ Overlay::Overlay() : QObject() {
 		sm.sm->bDebug = false;
 #endif
 
+	QImage img;
+	img.load(":/muted_overlay.png");
+	qbaMuted = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
+
+	img.load(":/deafened_overlay.png");
+	qbaDeafened = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
+
 	qtTimer=new QTimer(this);
 	qtTimer->setObjectName(QLatin1String("Timer"));
 	qtTimer->start(1000);
@@ -480,8 +487,8 @@ void Overlay::textureResponse(int id, const QByteArray &texture) {
 	    	width = x;
 	}
     }
-    qhUserTextures[s] = UserTexture(width, t);
-    qsForce.insert(s);
+    qhUserTextures[id] = UserTexture(width, t);
+    qsForce.insert(id);
     setTexts(qlCurrentTexts);
 }
 
@@ -541,11 +548,12 @@ void Overlay::updateOverlay() {
 				    g.sh->sendMessage(&mt);
 				}
 				QString name = p->qsName;
+				Decoration dec = None;
 				if (p->bDeaf || p->bSelfDeaf)
-					name = name + QString::fromLatin1("(D)");
+					dec = Deafened;
 				else if (p->bMute || p->bSelfMute || p->bLocalMute)
-					name = name + QString::fromLatin1("(M)");
-				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer);
+					dec = Muted;
+				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer, p->iId, dec);
 			}
 		}
 
@@ -605,15 +613,15 @@ void Overlay::clearCache() {
 }
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
-	foreach(TextLine e, lines) {
-	    if ((! e.first.isEmpty()) && (! qhTextures.contains(e.first))) {
+	foreach(const TextLine &e, lines) {
+	    if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && (! qhUserTextures.contains(e.iPlayer))) {
 		unsigned char *td = new unsigned char[TEXTURE_SIZE];
 		memset(td, 0, TEXTURE_SIZE);
 
 		QImage qi(td, TEXT_WIDTH, TEXT_HEIGHT, QImage::Format_ARGB32);
 
 		QPainterPath qp;
-		qp.addText(2, fFontBase, g.s.qfOverlayFont, e.first);
+		qp.addText(2, fFontBase, g.s.qfOverlayFont, e.qsText);
 
 		QPainter p(&qi);
 		p.setRenderHint(QPainter::Antialiasing);
@@ -629,8 +637,8 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
                 p.drawPath(qp);
 
 
-		qhTextures[e.first] = td;
-		qhWidths[e.first] = qMin(static_cast<int>(qp.boundingRect().width())+6, TEXT_WIDTH);
+		qhTextures[e.qsText] = td;
+		qhWidths[e.qsText] = qMin(static_cast<int>(qp.boundingRect().width())+6, TEXT_WIDTH);
 	    }
 	}
 
@@ -646,24 +654,57 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 	    	const TextLine &tl = lines.at(i);
 	    	TextEntry *te = & sm.sm->texts[i];
 
-		wcscpy(te->text, reinterpret_cast<const wchar_t *>(tl.first.left(127).utf16()));
-	    	te->color = lines[i].second;
+		wcscpy(te->text, reinterpret_cast<const wchar_t *>(tl.qsText.left(127).utf16()));
+	    	te->color = lines[i].uiColor;
 
-		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].first != tl.first) || qsForce.contains(tl.first)) {
-		    if (tl.first.isNull()) {
+		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].dDecor != tl.dDecor) || (qlCurrentTexts[i].qsText != tl.qsText) || qsForce.contains(tl.iPlayer)) {
+		    if (tl.qsText.isNull()) {
 		    	te->width = 0;
 		    } else {
-			if (g.s.bOverlayUserTextures && qhUserTextures.contains(tl.first)) {
-			    const UserTexture &ut=qhUserTextures.value(tl.first);
-			    memcpy(sm.sm->texts[i].texture, ut.second.constData(), TEXTURE_SIZE);
-			    te->width = ut.first;
+			int width = 0;
+			const unsigned char *src = NULL;
+
+			if (qhUserTextures.contains(tl.iPlayer)) {
+			    const UserTexture &ut=qhUserTextures.value(tl.iPlayer);
+			    width = ut.first;
+			    src = reinterpret_cast<const unsigned char *>(ut.second.constData());
 		    	} else {
-			    memcpy(sm.sm->texts[i].texture, qhTextures[tl.first], TEXTURE_SIZE);
-			    te->width = qhWidths[tl.first];
+			    width = qhWidths[tl.qsText];
+			    src = qhTextures[tl.qsText];
 		    	}
+
+		    	unsigned char * dst = NULL;
+
+		    	if (tl.dDecor != None) {
+			    unsigned char * decdst;
+			    const unsigned char * decsrc = reinterpret_cast<const unsigned char *>((tl.dDecor == Muted) ? qbaMuted.constData() : qbaDeafened.constData());
+
+			    width = qMin(TEXT_WIDTH - TEXT_HEIGHT, width);
+			    if (g.s.bOverlayLeft) {
+			    	dst = sm.sm->texts[i].texture + TEXT_HEIGHT * 4;
+			    	decdst = sm.sm->texts[i].texture;
+			    } else {
+			    	dst = sm.sm->texts[i].texture;
+			    	decdst = sm.sm->texts[i].texture + width * 4;
+			    }
+			    for(int j=0;j<TEXT_HEIGHT;j++)
+			    	memcpy(decdst + j * TEXT_WIDTH * 4, decsrc + j * TEXT_HEIGHT * 4, TEXT_HEIGHT * 4);
+
+			} else {
+			    width = qMin(TEXT_WIDTH, width);
+			    dst = sm.sm->texts[i].texture;
+		        }
+
+			for(int j=0;j<TEXT_HEIGHT;j++)
+				memcpy(dst + j * TEXT_WIDTH * 4, src + j * TEXT_WIDTH * 4, width * 4);
+
+			if (tl.dDecor != None)
+				width += TEXT_HEIGHT;
+
+			te->width = width;
 			te->bUpdated = true;
 		    }
-		    qsForce.remove(tl.first);
+		    qsForce.remove(tl.iPlayer);
 		}
 	}
 

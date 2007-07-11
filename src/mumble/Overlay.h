@@ -86,6 +86,7 @@ class OverlayConfig : public ConfigWidget {
 		void accept();
 };
 
+
 class OverlayPrivate;
 class Overlay : public QObject {
 	friend class OverlayConfig;
@@ -93,14 +94,24 @@ class Overlay : public QObject {
 	protected:
 		OverlayPrivate *d;
 
-		typedef QPair<QString, quint32> TextLine;
+		enum Decoration { None, Muted, Deafened };
+
+		struct TextLine {
+		    QString qsText;
+		    int iPlayer;
+		    quint32 uiColor;
+		    Decoration dDecor;
+		    TextLine(const QString &t, quint32 c, int p = -1, Decoration d = None) : qsText(t), iPlayer(p), uiColor(c), dDecor(d) { };
+		};
+
 		typedef QPair<short, QByteArray> UserTexture;
+		QByteArray qbaMuted, qbaDeafened;
 		QList<TextLine> qlCurrentTexts;
 		QHash<QString, unsigned char *> qhTextures;
-		QHash<QString, UserTexture> qhUserTextures;
+		QHash<int, UserTexture> qhUserTextures;
 		QHash<QString, short> qhWidths;
 		QHash<int, QString> qhQueried;
-		QSet<QString> qsForce;
+		QSet<int> qsForce;
 		QLibrary *qlOverlay;
 		QTimer *qtTimer;
 		float fFontBase;
