@@ -741,7 +741,7 @@ QMimeData *PlayerModel::mimeData(const QModelIndexList &idxs) const {
 		if (p) {
 			ds << false;
 			ds << p->sId;
-		} else {
+		} else if (c) {
 			ds << true;
 			ds << c->iId;
 		}
