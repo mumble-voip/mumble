@@ -45,19 +45,72 @@ class ALSAEnumerator {
     QHash<QString,QString> qhOutput;
     ALSAEnumerator();
 };
+static ALSAEnumerator cards;
 
-static AudioOutput *ALSAAudioOutputNew()
-{
-    return new ALSAAudioOutput();
+class ALSAAudioInputRegistrar : public AudioInputRegistrar {
+        public:
+                ALSAAudioInputRegistrar();
+                virtual AudioInput *create();
+                virtual const QList<audioDevice> getDeviceChoices();
+                virtual void setDeviceChoice(const QVariant &);
+};
+
+
+class ALSAAudioOutputRegistrar : public AudioOutputRegistrar {
+        public:
+                ALSAAudioOutputRegistrar();
+                virtual AudioOutput *create();
+                virtual const QList<audioDevice> getDeviceChoices();
+                virtual void setDeviceChoice(const QVariant &);
+};
+
+static ALSAAudioInputRegistrar airALSA;
+static ALSAAudioOutputRegistrar aorALSA;
+
+ALSAAudioInputRegistrar::ALSAAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ALSA")) {
 }
 
-static AudioInput *ALSAAudioInputNew()
-{
-    return new ALSAAudioInput();
+AudioInput *ALSAAudioInputRegistrar::create() {
+        return new ALSAAudioInput();
 }
 
-static AudioOutputRegistrar aorALSA(QLatin1String("ALSA"), ALSAAudioOutputNew);
-static AudioInputRegistrar airALSA(QLatin1String("ALSA"), ALSAAudioInputNew);
+const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
+        QList<audioDevice> qlReturn;
+        
+        QHash<QString,QString>::const_iterator i;
+        
+        for(i=cards.qhInput.constBegin();i!=cards.qhInput.constEnd();++i) {
+          qlReturn << audioDevice(i.value(), i.key());
+        }
+        return qlReturn;
+}
+
+void ALSAAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
+        g.s.qsALSAInput = choice.toString();
+}
+
+
+ALSAAudioOutputRegistrar::ALSAAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("ALSA")) {
+}
+
+AudioOutput *ALSAAudioOutputRegistrar::create() {
+        return new ALSAAudioOutput();
+}
+
+const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
+        QList<audioDevice> qlReturn;
+        
+        QHash<QString,QString>::const_iterator i;
+        
+        for(i=cards.qhOutput.constBegin();i!=cards.qhOutput.constEnd();++i) {
+          qlReturn << audioDevice(i.value(), i.key());
+        }
+        return qlReturn;
+}
+
+void ALSAAudioOutputRegistrar::setDeviceChoice(const QVariant &choice) {
+        g.s.qsALSAOutput = choice.toString();
+}
 
 static ConfigWidget *ALSAConfigDialogNew() {
         return new ALSAConfig();
@@ -65,7 +118,6 @@ static ConfigWidget *ALSAConfigDialogNew() {
 
 static ConfigRegistrar registrar(20, ALSAConfigDialogNew);
 
-static ALSAEnumerator cards;
 
 ALSAEnumerator::ALSAEnumerator() {
   qhInput.insert(QLatin1String("default"), QLatin1String("Default ALSA Card"));
