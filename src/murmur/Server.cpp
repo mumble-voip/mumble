@@ -125,7 +125,8 @@ void BandwidthRecord::addFrame(int size) {
 
 int BandwidthRecord::bytesPerSec() {
 	// Multiply by 45; give 10% leniency
-	return (iSum * 50) / N_BANDWIDTH_SLOTS;
+	unsigned int elapsed = a_qtWhen[iRecNum].elapsed();
+	return (iSum * 1000) / elapsed;
 }
 
 void UDPThread::run() {
@@ -190,7 +191,7 @@ void UDPThread::run() {
 			if (msgType == Message::Ping)
 				qusUdp->writeDatagram(buffer, len, senderAddr, senderPort);
 			else {
-				processMsg(static_cast<Message::MessageType>(msgType), pds, g_sServer->qmConnections.value(sPlayerId));
+				processMsg(pds, g_sServer->qmConnections.value(sPlayerId));
 			}
 		}
 	}
@@ -208,7 +209,7 @@ void UDPThread::fakeUdpPacket(Message *msg, Connection *source) {
 	pds >> msgType >> sPlayerId;
 
 	QReadLocker rl(&g_sServer->qrwlConnections);
-	processMsg(static_cast<Message::MessageType>(msgType), pds, source);
+	processMsg(pds, source);
 }
 
 void UDPThread::sendMessage(short id, const char *data, int len, QByteArray &cache) {
@@ -221,7 +222,7 @@ void UDPThread::sendMessage(short id, const char *data, int len, QByteArray &cac
 	}
 }
 
-void UDPThread::processMsg(Message::MessageType msgType, PacketDataStream &pds, Connection *cCon) {
+void UDPThread::processMsg(PacketDataStream &pds, Connection *cCon) {
 	Player *pSrcPlayer = g_sServer->qmPlayers.value(cCon);
 	if (!pSrcPlayer || (pSrcPlayer->sState != Player::Authenticated))
 		return;

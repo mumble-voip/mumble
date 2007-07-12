@@ -66,7 +66,7 @@ class UDPThread : public QThread {
 		QUdpSocket *qusUdp;
 		QHash<short, Peer> qhPeers;
 		QHash<short, QHostAddress> qhHosts;
-		void processMsg(Message::MessageType msgType, PacketDataStream &pds, Connection *cCon);
+		void processMsg(PacketDataStream &pds, Connection *cCon);
 		void sendMessage(short id, const char *data, int len, QByteArray &cache);
 	signals:
 		void tcpTransmit(QByteArray, short id);
