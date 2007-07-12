@@ -160,6 +160,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
     void getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids);
     
     void setAuthenticator(const QDBusObjectPath &path, const QDBusMessage &);
+    void setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &);
   signals:
     void playerStateChanged(const PlayerInfo &state);
     void playerConnected(const PlayerInfo &state);

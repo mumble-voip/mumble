@@ -163,9 +163,9 @@ QByteArray MurmurDBus::mapIdToTexture(int id) {
   
   QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
   QDBusReply<QByteArray> reply = remoteApp.call("getUserTexture",id);
-  if (reply.isValid()) 
+  if (reply.isValid()) {
     return reply.value();
-  else {
+  } else {
     // This is NOT a critical failure, it's an OPTIONAL implementation.
     return QByteArray();
   }    
@@ -192,10 +192,10 @@ int MurmurDBus::authenticate(const QString &uname, const QString &pw) {
     return -2;
   
   QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-  QDBusReply<int> reply = remoteApp.call("authenticate",uname,pw);
-  if (reply.isValid()) 
+  QDBusReply<int> reply = remoteApp.call(QDBus::BlockWithGui, "authenticate",uname,pw);
+  if (reply.isValid()) {
     return reply.value();
-  else {
+  } else {
     qWarning("Authenticator failed authenticate for %s: %s", qPrintable(uname), qPrintable(reply.error().message()));
     qsAuthPath = QString();
     qsAuthService = QString();
@@ -465,9 +465,13 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
   ChanACL *a;
   ACLInfo ai;
   GroupInfo gi;
-  
-  foreach(g, cChannel->qhGroups)
+
+  QHash<QString, QSet<int> > hOldTemp;
+                  
+  foreach(g, cChannel->qhGroups) {
+    hOldTemp.insert(g->qsName, g->qsTemporary);
     delete g;
+  }
   foreach(a, cChannel->qlACL)
     delete a;
   cChannel->qhGroups.clear();
@@ -481,6 +485,7 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
     g->bInheritable=gi.inheritable;
     g->qsAdd = gi.add.toSet();
     g->qsRemove = gi.remove.toSet();
+    g->qsTemporary = hOldTemp.value(gi.name);
   }
   
   foreach(ai, acls) {
@@ -542,6 +547,25 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, const QDBusMessag
   qsAuthPath = path.path();
   qsAuthService = msg.service();
   qWarning("Authenticator set to %s %s",qPrintable(qsAuthService),qPrintable(qsAuthPath));
+}
+
+void MurmurDBus::setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &msg) {
+  CHANNEL_SETUP_VAR(channel);
+
+  Group *g;
+  foreach(g, cChannel->qhGroups)
+    g->qsTemporary.remove(playerid);
+
+  QString gname;
+  foreach(gname, groups) {
+    g = cChannel->qhGroups.value(gname);
+    if (! g) {
+      g = new Group(cChannel, gname);
+    }
+    g->qsTemporary.insert(playerid);
+  }
+
+  ChanACL::clearCache();
 }
 
 PlayerInfo::PlayerInfo(Player *p) {

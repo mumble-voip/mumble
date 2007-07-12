@@ -163,16 +163,18 @@ ServerDB::ServerDB() {
  *
 		query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
 		query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
-		query.exec("DELETE FROM connections");
 */
+		query.exec("DELETE FROM connections");
+
 		query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
 		query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
 		query.exec("DELETE FROM channel_links");
 
 /* Deprecated
 		query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
-		query.exec("DELETE FROM commands");
 */
+		query.exec("DELETE FROM commands");
+
 		query.exec("CREATE TABLE bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)");
 	}
 
@@ -224,13 +226,24 @@ bool ServerDB::hasUsers() {
 // -2 Anonymous
 
 int ServerDB::authenticate(QString &name, const QString &pw) {
+
 	int res = dbus->authenticate(name, pw);
-	if (res != -2)
+	if (res != -2) {
+		if (res != -1) {
+			TransactionHolder th;
+			QSqlQuery query;
+			
+			query.prepare("INSERT INTO players (player_id, name) VALUES (?,?)");
+			query.addBindValue(res);
+			query.addBindValue(name);
+			query.exec();
+		}
 		return res;
+	}
 
 	TransactionHolder th;
-
 	QSqlQuery query;
+
 	query.prepare("SELECT player_id,name,pw FROM players WHERE name like ?");
 	query.addBindValue(name);
 	query.exec();
@@ -290,8 +303,9 @@ int ServerDB::getUserID(const QString &name) {
 
 QByteArray ServerDB::getUserTexture(int id) {
 	QByteArray qba=dbus->mapIdToTexture(id);
-	if (! qba.isNull())
+	if (! qba.isNull()) {
 		return qba;
+	}
 
 	TransactionHolder th;
 

@@ -41,7 +41,7 @@ ALTER TABLE channels ADD CONSTRAINT channel_del_channel FOREIGN KEY (parent_id) 
 
 CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), pw varchar(255), lastchannel INTEGER, texture LONGBLOB) Type=InnoDB;
 CREATE UNIQUE INDEX players_name ON players (name);
-ALTER TABLE players ADD CONSTRAINT player_del_channl FOREIGN KEY (lastchannel) REFERENCES channels(channel_id) ON DELETE SET NULL;
+ALTER TABLE players ADD CONSTRAINT player_del_channel FOREIGN KEY (lastchannel) REFERENCES channels(channel_id) ON DELETE SET NULL;
 
 CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), pw varchar(255), email varchar(255), authcode varchar(255)) Type=InnoDB;
 CREATE UNIQUE INDEX player_auth_name ON player_auth(name);

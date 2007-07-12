@@ -225,7 +225,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 
 		while (! s.isEmpty()) {
 			g = s.pop();
-			if (g->qsAdd.contains(pl->iId))
+			if (g->qsAdd.contains(pl->iId) || g->qsTemporary.contains(pl->iId))
 				m = true;
 			if (g->qsRemove.contains(pl->iId))
 				m = false;

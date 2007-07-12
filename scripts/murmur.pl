@@ -96,8 +96,15 @@ if ($forgot) {
    my $sth = $dbh->prepare("SELECT * FROM player_auth WHERE authcode = ?");
    $sth->execute($q->param('auth'));
    if (my $r = $sth->fetchrow_hashref()) {
-     my $ins = $dbh->prepare("INSERT INTO players (name, email, pw) VALUES (?,?,?)");
-     $ins->execute($$r{'name'}, $$r{'email'}, $$r{'pw'});
+     # Find lowest unused ID which isn't a proxy.
+     my $idh = $dbh->prepare("SELECT MAX(player_id)+1 AS id FROM players WHERE player_id < 100000");
+     $idh->execute();
+     my $idr = $idh->fetchrow_hashref();
+     my $id = $$idr{'id'};
+     $idh->finish();
+
+     my $ins = $dbh->prepare("INSERT INTO players (player_id, name, email, pw) VALUES (?,?,?,?)");
+     $ins->execute($id, $$r{'name'}, $$r{'email'}, $$r{'pw'});
      $ins->finish();
      print "<h1>Succeeded</h1><p>Thank you for registering.</p>";
    } else {

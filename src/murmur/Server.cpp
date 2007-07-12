@@ -1270,8 +1270,13 @@ void MessageEditACL::process(Connection *cCon) {
 		GroupStruct gs;
 		ACLStruct as;
 
-		foreach(g, c->qhGroups)
+		QHash<QString, QSet<int> > hOldTemp;
+
+		foreach(g, c->qhGroups) {
+			hOldTemp.insert(g->qsName, g->qsTemporary);
 			delete g;
+		}
+
 		foreach(a, c->qlACL)
 			delete a;
 
@@ -1286,6 +1291,7 @@ void MessageEditACL::process(Connection *cCon) {
 			g->bInheritable = gs.bInheritable;
 			g->qsAdd = gs.qsAdd;
 			g->qsRemove = gs.qsRemove;
+			g->qsTemporary = hOldTemp.value(gs.qsName);
 		}
 
 		foreach(as, acls) {

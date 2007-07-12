@@ -44,6 +44,7 @@ class Group {
 		bool bInheritable;
 		QSet<int> qsAdd;
 		QSet<int> qsRemove;
+		QSet<int> qsTemporary;
 		QSet<int> members();
 		Group(Channel *assoc, QString name);
 
