@@ -134,7 +134,7 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 	delete [] psBuffer;
 }
 
-int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *state, void *data) {
+int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *, void *data) {
     AudioOutputSpeech *aos=reinterpret_cast<AudioOutputSpeech *>(data);
 
     int len=speex_bits_unpack_unsigned(bits, 4);
@@ -353,8 +353,8 @@ bool AudioSine::decodeNextFrame() {
 	    float t = v;
 	    v += iFrameSize * inc + 0.5 * dinc * iFrameSize * iFrameSize;
 
-	    for(int i=0;i<iFrameSize;i++) {
-		    psBuffer[i]=sin(t) * 10000.0;
+	    for(unsigned int i=0;i<iFrameSize;i++) {
+		    psBuffer[i]=static_cast<short>(sin(t) * 10000.0);
 		    inc+=dinc;
 		    t+=inc;
 	    }

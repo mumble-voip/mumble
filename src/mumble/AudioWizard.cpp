@@ -104,7 +104,7 @@ AudioWizard::AudioWizard() {
     addPage(volumePage());
     addPage(triggerPage());
     addPage(donePage());
-    setWindowTitle("Audio Tuning Wizard");
+    setWindowTitle(tr("Audio Tuning Wizard"));
 
     sOldSettings = g.s;
 
@@ -448,7 +448,7 @@ QWizardPage *AudioWizard::deviceTuningPage() {
     return qwpage;
 }
 
-void AudioWizard::on_Input_activated(int v) {
+void AudioWizard::on_Input_activated(int) {
     qcbInputDevice->clear();
 
     AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
@@ -463,7 +463,7 @@ void AudioWizard::on_Input_activated(int v) {
     on_InputDevice_activated(0);
 }
 
-void AudioWizard::on_InputDevice_activated(int v) {
+void AudioWizard::on_InputDevice_activated(int) {
     	if (bInit)
     		return;
 
@@ -483,7 +483,7 @@ void AudioWizard::on_InputDevice_activated(int v) {
 	g.ai->start(QThread::HighestPriority);
 }
 
-void AudioWizard::on_Output_activated(int v) {
+void AudioWizard::on_Output_activated(int) {
     qcbOutputDevice->clear();
 
     AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());

@@ -23,7 +23,7 @@ LIBS	+= -lspeex
 
 SUBDIRS	= speex
 
-QMAKE_CXXFLAGS	+= -msse -mmmx
+QMAKE_CXXFLAGS	+= -msse -mmmx -Wall -Wextra
 
 win32 {
   HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h 

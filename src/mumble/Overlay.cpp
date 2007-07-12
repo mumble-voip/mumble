@@ -394,10 +394,10 @@ Overlay::Overlay() : QObject() {
 #endif
 
 	QImage img;
-	img.load(":/muted_overlay.png");
+	img.load(QLatin1String(":/muted_overlay.png"));
 	qbaMuted = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
 
-	img.load(":/deafened_overlay.png");
+	img.load(QLatin1String(":/deafened_overlay.png"));
 	qbaDeafened = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
 
 	qtTimer=new QTimer(this);

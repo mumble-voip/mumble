@@ -234,7 +234,7 @@ void ConnectDialog::accept() {
 	QDialog::accept();
 }
 
-void ConnectDialog::on_Servers_itemDoubleClicked(QTableWidgetItem *item) {
+void ConnectDialog::on_Servers_itemDoubleClicked(QTableWidgetItem *) {
   accept();
 }
 

@@ -34,7 +34,7 @@
 #include "AudioOutput.h"
 #include "Global.h"
 
-#define DOUBLE_RAND (rand()/(double)RAND_MAX)
+#define DOUBLE_RAND (rand()/static_cast<double>(RAND_MAX))
 
 LoopPlayer LoopPlayer::lpLoopy;
 
