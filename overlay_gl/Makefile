@@ -24,7 +24,7 @@ libGL.so.1: overlay.o libGL.link.so.1
 	strip $@
 
 libmumble.so.1: overlay_p.o
-	$(CXX) -shared -Wl,-soname,$@ -o $@ $^ -lrt
+	$(CXX) -shared -Wl,-soname,$@ -o $@ $^ -lrt -ldl
 	strip $@
 	
 clean:

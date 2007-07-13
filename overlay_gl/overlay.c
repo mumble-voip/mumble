@@ -74,15 +74,13 @@ static Context *contexts = NULL;
 
 #define FDEF(name) static __typeof__(&name) o##name = NULL
 
-#ifdef PRELOAD
 FDEF(dlsym);
-#endif
 
 FDEF(glXSwapBuffers);
 FDEF(glXGetProcAddressARB);
 FDEF(glXGetProcAddress);
 
-#define RESOLVE(x) if (! o##x) o##x = (__typeof__(&x)) dlsym(RTLD_NEXT, #x)
+#define RESOLVE(x) if (! o##x) o##x = (__typeof__(&x)) odlsym(RTLD_NEXT, #x)
 
 static void resolveOpenGL()
 {
@@ -387,7 +385,7 @@ void (*glXGetProcAddress(const GLubyte * func)) (void)
     else if (oglXGetProcAddressARB)
 	return oglXGetProcAddressARB(func);
     else
-	return (__GLXextFuncPtr) (dlsym(RTLD_NEXT, (const char *) (func)));
+	return (__GLXextFuncPtr) (odlsym(RTLD_NEXT, (const char *) (func)));
 }
 
 __attribute__ ((visibility("default")))
@@ -396,29 +394,46 @@ __GLXextFuncPtr glXGetProcAddressARB(const GLubyte * func)
     return (void (*)(void)) glXGetProcAddress(func);
 }
 
+__attribute__ ((constructor))
+void initializeLibrary() {
+    if (odlsym)
+      return;
+
 #ifdef PRELOAD
-
-#define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; __typeof__(&name) t = (__typeof__(&name)) (__typeof__(&name))(odlsym(handle, #name)); if (t) { o##name = t; return (void *)(name); } else { return NULL;}
-
-__attribute__ ((visibility("default")))
-void *dlsym(void *handle, const char *name)
-{
-    if (!odlsym) {
+        printf("Library is HOT\n");
 	void *dl = dlopen("libdl.so.2", RTLD_LAZY);
 	if (!dl) {
 	    ods("Failed to open libdl.so.2\n");
 	} else {
 	    odlsym = (__typeof__(&dlsym)) __libc_dlsym(dl, "dlsym");
 	}
-    }
+#else
+  odlsym = &dlsym;
+#endif
+}
+
+#ifdef PRELOAD
+#define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; symbol = odlsym(handle, #name); if (symbol) { o##name = (__typeof__(&name)) symbol; symbol = (void *) name;}
+__attribute__ ((visibility("default")))
+void *dlsym(void *handle, const char *name)
+{
+    if (! odlsym)
+      initializeLibrary();
+
+    void *symbol;
+    
+    printf("Request for symbol %s (%p)\n", name, odlsym);
+
     if (strcmp(name, "glXSwapBuffers") == 0) {
 	OGRAB(glXSwapBuffers);
     } else if (strcmp(name, "glXGetProcAddress") == 0) {
 	OGRAB(glXGetProcAddress);
     } else if (strcmp(name, "glXGetProcAddressARB") == 0) {
 	OGRAB(glXGetProcAddressARB);
+    } else {
+       symbol = odlsym(handle, name);
     }
-    return odlsym(handle, name);
+    printf("Returning %p\n", symbol);
+    return symbol;
 }
-
 #endif
