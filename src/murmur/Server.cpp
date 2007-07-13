@@ -54,6 +54,13 @@ uint qHash(const Peer &p) {
 	return p.first ^ p.second;
 }
 
+LogEmitter::LogEmitter(QObject *p) : QObject(p) {
+};
+
+void LogEmitter::addLogEntry(const QString &msg) {
+    emit newLogEntry(msg);
+};
+
 ServerParams::ServerParams() {
 	qsPassword = QString();
 	iPort = 64738;
@@ -282,7 +289,7 @@ void UDPThread::processMsg(PacketDataStream &pds, Connection *cCon) {
 }
 
 
-Server::Server() {
+Server::Server(QObject *p) : QObject(p) {
 	qtsServer = new QTcpServer(this);
 
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()));

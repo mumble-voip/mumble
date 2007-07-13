@@ -32,6 +32,7 @@
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+#include "Tray.h"
 #endif
 #ifdef Q_OS_UNIX
 #include <unistd.h>
@@ -51,10 +52,16 @@ MurmurDBus *dbus;
 QFile *logfile;
 
 static bool bVerbose = false;
+#ifdef QT_NO_DEBUG
+bool detach = true;
+#else
+bool detach = false;
+#endif
+
+LogEmitter le;
 
 static void murmurMessageOutput(QtMsgType type, const char *msg)
 {
-
 	char c;
 	switch (type) {
 		case QtDebugMsg:
@@ -71,18 +78,26 @@ static void murmurMessageOutput(QtMsgType type, const char *msg)
 		default:
 			c='X';
 	}
-	QString m= QString::fromLatin1("<%1>%2 %3\n").arg(QChar::fromLatin1(c)).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(msg);
+	QString m= QString::fromLatin1("<%1>%2 %3").arg(QChar::fromLatin1(c)).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(msg);
 
 	if (! logfile || ! logfile->isOpen()) {
 #ifdef Q_OS_UNIX
-		fprintf(stderr, "%s\n", msg);
+		fprintf(stderr, "%s\n", qPrintable(m));
 #else
+#ifdef QT_NO_DEBUG
 		::MessageBoxA(NULL, msg, "Murmur", MB_OK | MB_ICONWARNING);
+#else
+		fprintf(stderr, "%s\n", qPrintable(m));
+#endif
 #endif
 	} else {
 	    logfile->write(m.toUtf8());
+	    logfile->write("\n");
 	    logfile->flush();
        }
+       le.addLogEntry(m);
+       if (type == QtFatalMsg)
+       	 exit(0);
 }
 
 int main(int argc, char **argv)
@@ -100,8 +115,18 @@ int main(int argc, char **argv)
 #endif
 	int res;
 
-	QCoreApplication a(argc, argv);
+#ifdef Q_OS_WIN
+	QApplication a(argc, argv);
+	a.setQuitOnLastWindowClosed(false);
 
+	QIcon icon;
+	icon.addFile(QLatin1String(":/mumble.png.2"));
+	icon.addFile(QLatin1String(":/mumble.png.1"));
+	icon.addFile(QLatin1String(":/mumble.png.0"));
+	a.setWindowIcon(icon);
+#else
+	QCoreApplication a(argc, argv);
+#endif
 	a.setApplicationName("Murmur");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
@@ -112,10 +137,10 @@ int main(int argc, char **argv)
 	QString inifile;
 	QString supw;
 
-	bool detach = true;
-
-#ifdef QT_NO_DEBUG
         qInstallMsgHandler(murmurMessageOutput);
+
+#ifdef Q_OS_WIN
+	Tray tray(NULL, &le);
 #endif
 
 	for(int i=1;i<argc;i++) {
@@ -160,11 +185,12 @@ int main(int argc, char **argv)
 		logfile = NULL;
 		qWarning("Failed to open logfile %s. Will not detach.",qPrintable(g_sp.qsLogfile));
 		detach = false;
+	    } else {
+		logfile->setTextModeEnabled(true);
 	    }
 	} else {
 	    detach = false;
     	}
-
 #ifdef Q_OS_UNIX
 	if (detach) {
 	    if (fork() != 0) {
@@ -223,12 +249,20 @@ int main(int argc, char **argv)
 
 	db.readChannels();
 
-	g_sServer = new Server();
+	Server s;
+	g_sServer = &s;
 	g_sServer->udp->start(QThread::HighestPriority);
 
 	Register r;
 
 	res=a.exec();
+
+	qWarning("Shutting down");
+
+	if (logfile)
+		delete logfile;
+
+	qInstallMsgHandler(NULL);
 
 	return res;
 }

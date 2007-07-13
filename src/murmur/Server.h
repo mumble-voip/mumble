@@ -59,6 +59,15 @@ struct BandwidthRecord {
 	int bytesPerSec();
 };
 
+class LogEmitter : public QObject {
+    Q_OBJECT
+    signals:
+    	void newLogEntry(const QString &msg);
+    public:
+    	LogEmitter(QObject *parent = NULL);
+    	void addLogEntry(const QString &msg);
+};
+
 class UDPThread : public QThread {
 	friend class Server;
 	Q_OBJECT;
@@ -115,7 +124,7 @@ class Server : public QObject {
 
 		void emitPacket(Message *msg);
 
-		Server();
+		Server(QObject *parent = NULL);
 };
 
 struct ServerParams {

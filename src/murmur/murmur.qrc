@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+ <file alias="mumble.png.0">../../icons/mumble.png.0</file>
+ <file alias="mumble.png.1">../../icons/mumble.png.1</file>
+ <file alias="mumble.png.2">../../icons/mumble.png.2</file>
+</qresource>
+</RCC>

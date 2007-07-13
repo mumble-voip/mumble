@@ -24,8 +24,13 @@ PRECOMPILED_HEADER = murmur_pch.h
 DIST = murmur.pl murmur.ini link.pl Commands.txt mysql.sql mysql_upgrade.sql
 
 win32 {
+  CONFIG += gui
+  QT += gui
   HEADERS += DBus_fake.h
   LIBS	+= -lws2_32
+  RESOURCES	+= murmur.qrc
+  SOURCES += Tray.cpp
+  HEADERS += Tray.h
 }
 
 unix {
