@@ -34,6 +34,8 @@
 #include "Global.h"
 #include "Settings.h"
 
+#if QT_VERSION >= 0x040300
+
 AudioBar::AudioBar(QWidget *p) : QWidget(p) {
     qcBelow = Qt::yellow;
     qcAbove = Qt::red;
@@ -650,3 +652,5 @@ void AudioWizard::on_Amplitude_clicked(bool on) {
     if (on)
     	g.s.vsVAD = Settings::Amplitude;
 }
+
+#endif

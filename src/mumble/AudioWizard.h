@@ -31,6 +31,8 @@
 #ifndef _AUDIOWIZARD_H
 #define _AUDIOWIZARD_H
 
+#if QT_VERSION >= 0x040300
+
 #include "Settings.h"
 
 class AudioBar : public QWidget {
@@ -103,5 +105,7 @@ class AudioWizard: public QWizard {
     	void reject();
     	void accept();
 };
+
+#endif
 
 #endif
