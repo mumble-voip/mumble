@@ -34,8 +34,6 @@
 #include "Global.h"
 #include "Settings.h"
 
-#if QT_VERSION >= 0x040300
-
 AudioBar::AudioBar(QWidget *p) : QWidget(p) {
     qcBelow = Qt::yellow;
     qcAbove = Qt::red;
@@ -369,8 +367,6 @@ QWizardPage *AudioWizard::triggerPage() {
     qsMinVAD->setValue(static_cast<int>(g.s.fVADmin * 32767.0));
     qsMinVAD->setObjectName(QLatin1String("VADmin"));
 
-    qWarning("What the .. %f? %d", g.s.fVADmin, static_cast<int>(g.s.fVADmin * 32767.0));
-
     v->addWidget(qsMinVAD);
 
     qsMaxVAD = new QSlider(Qt::Horizontal);
@@ -652,5 +648,3 @@ void AudioWizard::on_Amplitude_clicked(bool on) {
     if (on)
     	g.s.vsVAD = Settings::Amplitude;
 }
-
-#endif

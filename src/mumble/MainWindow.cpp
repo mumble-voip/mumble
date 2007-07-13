@@ -190,7 +190,7 @@ void MainWindow::createActions() {
 	qaConfigDialog->setToolTip(tr("Configure Mumble"));
 	qaConfigDialog->setWhatsThis(tr("Allows you to change most settings for Mumble."));
 
-#if QT_VERSION >= 0x040300
+#ifdef Q_OS_WIN
 	qaAudioWizard=new QAction(tr("&Audio Wizard"), this);
 	qaAudioWizard->setObjectName(QLatin1String("AudioWizard"));
 	qaAudioWizard->setToolTip(tr("Start the audio configuration wizard"));
@@ -289,7 +289,7 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioStats);
 
 	qmConfig->addAction(qaConfigDialog);
-#if QT_VERSION >= 0x040300
+#ifdef Q_OS_WIN
 	qmConfig->addAction(qaAudioWizard);
 #endif
 
@@ -790,7 +790,7 @@ void MainWindow::on_ConfigDialog_triggered()
 
 void MainWindow::on_AudioWizard_triggered()
 {
-#if QT_VERSION >= 0x040300
+#ifdef Q_OS_WIN
     	AudioWizard aw;
 	aw.exec();
 #endif
