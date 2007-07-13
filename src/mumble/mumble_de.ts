@@ -1103,222 +1103,222 @@
 <context>
     <name>AudioWizard</name>
     <message>
-        <location filename="AudioWizard.cpp" line="109"/>
+        <location filename="AudioWizard.cpp" line="107"/>
         <source>Audio Tuning Wizard</source>
         <translation>Audio Tuning Assistent</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="137"/>
+        <location filename="AudioWizard.cpp" line="135"/>
         <source>Introduction</source>
         <translation>Einführung</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="138"/>
+        <location filename="AudioWizard.cpp" line="136"/>
         <source>Welcome to the Mumble Audio Wizard</source>
         <translation>Willkommen zum Mumble Audio Assistenten</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="141"/>
+        <location filename="AudioWizard.cpp" line="139"/>
         <source>This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.</source>
         <translation>Dies ist der Audio Tuning Assistent von Mumble. Er wird Ihnen helfen, die richtigen Eingabelautstärken ihrer Soundkarte und die korrekten Parameter für das Sound Processing festzulegen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="146"/>
+        <location filename="AudioWizard.cpp" line="144"/>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
         <translation>Bitte beachten Sie, dass jegliches Audio lokal zurückgespielt wird, solange der Assistent aktiv ist. Währenddessen wird auch kein Audio an den Server geschickt.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="156"/>
+        <location filename="AudioWizard.cpp" line="154"/>
         <source>Finished</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="157"/>
+        <location filename="AudioWizard.cpp" line="155"/>
         <source>Enjoy using Mumble</source>
         <translation>Viel Spaß mit Mumble</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="159"/>
+        <location filename="AudioWizard.cpp" line="157"/>
         <source>Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.</source>
         <translation>Herzlichen Glückwunsch. Sie sollten nun eine reichere Sounderfahrung mit Mumble machen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="172"/>
+        <location filename="AudioWizard.cpp" line="170"/>
         <source>Device selection</source>
         <translation>Geräteauswahl</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="173"/>
+        <location filename="AudioWizard.cpp" line="171"/>
         <source>Selecting the input and output device to use with Mumble.</source>
         <translation>Wählen Sie das Eingabe- und Ausgabegerät aus das Mumble benutzen soll.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="176"/>
+        <location filename="AudioWizard.cpp" line="174"/>
         <source>Input device</source>
         <translation>Eingabegerät</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="179"/>
+        <location filename="AudioWizard.cpp" line="177"/>
         <source>This is the device your microphone is connected to.</source>
         <translation>Dies ist das Gerät was mit ihrem Mikrofon verbunden ist.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="240"/>
+        <location filename="AudioWizard.cpp" line="238"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="196"/>
+        <location filename="AudioWizard.cpp" line="194"/>
         <source>Input method for audio</source>
         <translation>Eingabemethode für Audio</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="197"/>
+        <location filename="AudioWizard.cpp" line="195"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;Dies ist die Eingabemethode für Audio.&lt;/b&gt;&lt;br /&gt;Am wahrscheinlichsten sollte DirectSound ausgewählt werden.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="256"/>
+        <location filename="AudioWizard.cpp" line="254"/>
         <source>Device</source>
         <translation>Gerät</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="212"/>
+        <location filename="AudioWizard.cpp" line="210"/>
         <source>Input device to use</source>
         <translation>Eingabegerät</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="213"/>
+        <location filename="AudioWizard.cpp" line="211"/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Wählt aus welche Soundkarte für Audioeingaben benutzt werden soll&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="223"/>
+        <location filename="AudioWizard.cpp" line="221"/>
         <source>Output device</source>
         <translation>Ausgabegerät</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="226"/>
+        <location filename="AudioWizard.cpp" line="224"/>
         <source>This is the device your speakers or headphones are connected to.</source>
         <translation>Dies ist das Gerät an das ihre Lautsprecher oder Kopfhörer angeschlossen sind.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="243"/>
+        <location filename="AudioWizard.cpp" line="241"/>
         <source>Output method for audio</source>
         <translation>Ausgabemethode für Audio</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="244"/>
+        <location filename="AudioWizard.cpp" line="242"/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;Dies ist die Ausgabemethode für Audio.&lt;/b&gt;&lt;br /&gt;Am wahrscheinlichsten sollte DirectSound ausgewählt werden.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="259"/>
+        <location filename="AudioWizard.cpp" line="257"/>
         <source>Output device to use</source>
         <translation>Ausgabegerät</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="260"/>
+        <location filename="AudioWizard.cpp" line="258"/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Wählt aus welche Soundkarte für Audioausgaben benutzt werden soll&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="282"/>
+        <location filename="AudioWizard.cpp" line="280"/>
         <source>Volume tuning</source>
         <translation>Lautstärke Tuning</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="283"/>
+        <location filename="AudioWizard.cpp" line="281"/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
         <translation>Tune Mikrofonhardware Lautstärke auf optimale Werte.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="289"/>
+        <location filename="AudioWizard.cpp" line="287"/>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
         <translation>Öffnen Sie die Lautstärkeeinstellungen und gehen Sie zu den Aufnahmeeinstellungen. Versichern Sie sich, dass das Mikrofon als aktives Eingabegerät mit maximaler Aufnahmelautstärke ausgewählt ist. Falls es eine Option &quot;Mikrofon Boost&quot; gibt, sollte diese aktiviert sein.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="296"/>
+        <location filename="AudioWizard.cpp" line="294"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
         <translation>Sprechen Sie so laut, als wären Sie verärgert oder aufgeregt. Verringern Sie die Lautstärke in den Lautstärkeeinstellungen bis der Balken so weit wie möglich oben im blauen und grünen, aber nicht im roten Bereich ist, während Sie sprechen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="305"/>
+        <location filename="AudioWizard.cpp" line="303"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
         <translation>Sprechen Sie jetzt so ruhig. als würden sie spät nachts sprechen und niemanden stören wollen. Bewegen Sie den Schieber so, dass der Balken im Grünen ist während Sie sprechen, aber im Blauen bleibt wenn Sie nichts sagen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="325"/>
+        <location filename="AudioWizard.cpp" line="323"/>
         <source>Voice Activity Detection</source>
         <translation>Sprachaktivitäts-Erkennung</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="326"/>
+        <location filename="AudioWizard.cpp" line="324"/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
         <translation>Lassen Sie Mumble herausfinden wann Sie sprechen und wann nicht.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="331"/>
+        <location filename="AudioWizard.cpp" line="329"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
         <translation>Dies wird Mumble helfen herauszufinden, wann Sie sprechen. Der erste Schritt ist den zu benutzenden Datenwert auszuwählen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="335"/>
+        <location filename="AudioWizard.cpp" line="333"/>
         <source>Raw amplitude from input</source>
         <translation>Rohamplitude der Eingabe</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="339"/>
+        <location filename="AudioWizard.cpp" line="337"/>
         <source>Signal-To-Noise ratio</source>
         <translation>Signal-Geräusch-Verhältnis</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="361"/>
+        <location filename="AudioWizard.cpp" line="359"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <translation>Als nächstes müssen Sie die folgenden beiden Schieber einstellen. Die ersten paar Geräusche die Sie machen sollten im grünen Bereich landen (definitv Sprache). Während Sie sprechen, sollten Sie im Gelben bleiben (könnte Sprache sein) und wenn Sie nicht sprechen, sollte alles im Roten bleiben (definitiv keine Sprache).</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="386"/>
+        <location filename="AudioWizard.cpp" line="382"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
         <translation>Als letztes müssen Sie die Aufschubzeit festlegen. Mumble könnte soviel unnütze Geräusche aufnehmen und weiter übertragen bevor es abbricht. Dies hilft ihnen die Atemgeräusche während des Sprechens zu filtern.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="415"/>
+        <location filename="AudioWizard.cpp" line="411"/>
         <source>Device tuning</source>
         <translation>Gerätetuning</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="416"/>
+        <location filename="AudioWizard.cpp" line="412"/>
         <source>Changing hardware output delays to their minimum value.</source>
         <translation>Setze Hardwareausgabe-Verzögerungen auf ein Minimum.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="422"/>
+        <location filename="AudioWizard.cpp" line="418"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>Um die Latenz auf ein Minimum zu reduzieren, ist es wichtig so wenig wie möglich Audio auf der Soundkarte zu puffern. Jedoch geben viele Soundkarten an, einen deutlich kleineren Puffer zu benötigen, mit dem Sie aber nicht arbeiten können. Versuch und Fehlschlag ist der somit der einzige Weg diesen Wert festzulegen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="427"/>
+        <location filename="AudioWizard.cpp" line="423"/>
         <source>You should hear a multitone chord. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound.</source>
         <translation>Sie sollten einen Multiton-Akkord hören. Setzen Sie den Schieber auf den niedrigsten Wert, der &lt;b&gt;keine&lt;/b&gt; Unterbrechungen oder Jitter im Sound verursacht.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="442"/>
+        <location filename="AudioWizard.cpp" line="438"/>
         <source>Amount of data to buffer.</source>
         <translation>Menge an zu puffernden Daten.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="445"/>
+        <location filename="AudioWizard.cpp" line="441"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>Dies liegt die Menge an daten fest, die im Ausgabepuffer vorgepuffert werden sollen. Experimentieren Sie mit verschiedenen Werten und setzen Sie es auf den niedrigsten Wert, der noch kein schnelles Jitter im Sound verursacht.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="524"/>
+        <location filename="AudioWizard.cpp" line="520"/>
         <source>%1ms</source>
         <translation>%1ms</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="643"/>
+        <location filename="AudioWizard.cpp" line="639"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -3107,6 +3107,21 @@ der möglichen Orte initialisieren.</translation>
         <location filename="MainWindow.cpp" line="194"/>
         <source>&amp;Audio Wizard</source>
         <translation>&amp;Audio Assistent</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="125"/>
+        <source>Sends a text message to another user.</source>
+        <translation>Schickt eine Textnachricht einem anderen Benutzer.</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="196"/>
+        <source>Start the audio configuration wizard</source>
+        <translation>Startet den Audiokonfigurations-Assistenten</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="197"/>
+        <source>This will guide you through the process of configuring your audio hardware.</source>
+        <translation>Dies leitet Sie durch den Hardwarekonfigurierungs-Prozess.</translation>
     </message>
 </context>
 <context>
