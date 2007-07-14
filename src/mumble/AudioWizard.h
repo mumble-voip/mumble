@@ -31,6 +31,8 @@
 #ifndef _AUDIOWIZARD_H
 #define _AUDIOWIZARD_H
 
+#ifdef Q_OS_WIN
+
 #include "Settings.h"
 
 class AudioBar : public QWidget {
@@ -106,3 +108,4 @@ class AudioWizard: public QWizard {
 
 #endif
 
+#endif
