@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -424,7 +425,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="265"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="281"/>
@@ -889,92 +890,92 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="55"/>
         <source>Loopback Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Prueba de bucle de retorno</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="163"/>
         <source>PTT Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicación de audio PTT</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="165"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicación de audio sonora cuando se presione o suelte presionar-para-hablar (PTT)</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="167"/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Habilita las indicaciones de audio para presionar para hablar.&lt;/b&gt;&lt;br /&gt;Si se activa, se produciran pitidos cortos de audio cuando se presione o suelte presionar para hablar.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="322"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="323"/>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation>Local</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="324"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="327"/>
         <source>Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>Circuito cerrado</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="330"/>
         <source>Desired loopback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de bucle deseado</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="337"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Activa uno de los modos de prueba de bucle de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ninguno&lt;/i&gt; - Bucle de retorno desactivado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula un servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Solicita un bucle de retorno desde el servidor.&lt;br /&gt;Por favor, fíjese en que cuando está activado el modo de bucle de retorno, ningún otro jugador oirá su voz. Esta opción no se guarda al salir de la aplicación.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="349"/>
         <source>Delay Variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Variancia del retraso</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="356"/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"></translation>
+        <translation>Variancia de la latencia de los paquetes</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="361"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Establece la variancia de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15ms, se emulará una red con 20-35ms de latencia de ping u 80-95ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="374"/>
         <source>Packet Loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Pérdida de paquetes</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="381"/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Pérdida de paquetes para el modo de bucle de retorno</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="385"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%%</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Establece la pérdida de paquetes para el modo de bucle de retorno.&lt;/b&gt;&lt;br /&gt;Esta será la tasa de paquetes perdidos. A menos que su ancho de banda de salida haya alcanzado el máximo o haya algún problema con su conexión, esto será 0%%</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="443"/>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="470"/>
         <source>%1%</source>
-        <translation type="unfinished"></translation>
+        <translation>%1%</translation>
     </message>
 </context>
 <context>
@@ -1092,7 +1093,7 @@
     <message>
         <location filename="AudioStats.cpp" line="368"/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Muestra los pesos del cancelador de eco, con el tiempo incrementándose hacia abajo y la frecuencia incrementándose hacia la derecha.&lt;br /&gt;Idealmente, esto debería ser negro, indicando que no existe eco alguno. Más comúnmente, habrá una o más bandas horizontales de color azulado que representan eco retrasado en el tiempo. Debería poder ver los pesos actualizados en tiempo real.&lt;br /&gt;Fíjese en que mientras no haya nada a lo que cancelar el eco, no verá datos muy útiles aquí. Reproduzca algo de música y las cosas deberían estabilizarse.&lt;br /&gt;Puede elegir ver las partes reales o imaginarias de los pesos en el dominio de la frecuencia, o de forma alternativa el módulo y la fase calculados. Lo más útil de estos probablemente sea el módulo, que es la amplitud del eco, y muestra cuánto de la señal saliente está siendo eliminado en este paso de tiempo. Los otros modos de visionado son útiles en su mayoría a personas que quieren ajustar los algoritmos de cancelación de eco.&lt;br /&gt;Por favor fíjese en que si la imagen completa fluctúa ampliamente mientras está en el modo módulo, el cancelador de eco no logra encontrar ninguna correlación entre las dos fuentes de entrada (altavoces y micrófono). O tiene un retraso muy largo en el eco, o una de las fuentes de entrada está mal configurada.</translation>
+        <translation>Muestra los pesos del cancelador de eco, con el tiempo incrementándose hacia abajo y la frecuencia incrementándose hacia la derecha.&lt;br /&gt;Idealmente, esto debería ser negro, indicando que no existe eco alguno. Más comúnmente, habrá una o más bandas horizontales de color azulado que representan eco retrasado en el tiempo. Debería poder ver los pesos actualizados en tiempo real.&lt;br /&gt;Fíjese en que mientras no haya nada a lo que cancelar el eco, no verá datos muy útiles aquí. Reproduzca algo de música y las cosas deberían estabilizarse.&lt;br /&gt;Puede elegir ver las partes reales o imaginarias de los pesos en el dominio de la frecuencia, o de forma alternativa el módulo y la fase calculados. Lo más útil de estos probablemente sea el módulo, que es la amplitud del eco, y muestra cuánto de la señal saliente está siendo eliminado en este paso de tiempo. Los otros modos de visionado son útiles en su mayoría a personas que quieren ajustar los algoritmos de cancelación de eco.&lt;br /&gt;Por favor, fíjese en que si la imagen completa fluctúa ampliamente mientras está en el modo módulo, el cancelador de eco no logra encontrar ninguna correlación entre las dos fuentes de entrada (altavoces y micrófono). O tiene un retraso muy largo en el eco, o una de las fuentes de entrada está mal configurada.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="319"/>
@@ -1130,222 +1131,222 @@
     <message>
         <location filename="AudioWizard.cpp" line="107"/>
         <source>Audio Tuning Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Asistente para ajuste de audio</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="135"/>
         <source>Introduction</source>
-        <translation type="unfinished"></translation>
+        <translation>Introducción</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="136"/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Bienvenido al Asistente para ajuste de audio de Mumble</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="139"/>
         <source>This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este es el asistente para el ajuste de audio de Mumble. Le ayudará a establecer correctamente los niveles de entrada de su tarjeta de sonido, y también fijará los parámetros correctos para el procesamiento de sonido en Mumble.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="144"/>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, sea consciente de que mientras el asistente este activo, el audio será redirigido localmente para permitirle escucharlo, y no se enviará al servidor.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="154"/>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Finalizado</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="155"/>
         <source>Enjoy using Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Disfrute usando Mumble</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="157"/>
         <source>Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhorabuena. Ahora debería estar listo para disfrutar una experiencia de sonido más rica con Mumble.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="170"/>
         <source>Device selection</source>
-        <translation type="unfinished">Selección del dispositivo</translation>
+        <translation>Selección del dispositivo</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="171"/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionando el dispositivo de entrada y salida a usar con Mumble.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="174"/>
         <source>Input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de entrada</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="177"/>
         <source>This is the device your microphone is connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este es el dispositivo al que esta conectado su micrófono.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="238"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="194"/>
         <source>Input method for audio</source>
-        <translation type="unfinished">Método de entrada para el audio</translation>
+        <translation>Método de entrada para el audio</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="195"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;Éste es el método de entrada a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
+        <translation>&lt;b&gt;Éste es el método de entrada a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="254"/>
         <source>Device</source>
-        <translation type="unfinished">Dispositivo</translation>
+        <translation>Dispositivo</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="210"/>
         <source>Input device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de entrada a usar</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="211"/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Selecciona qué tarjeta de sonido usar para la entrada de audio.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="221"/>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de salida</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="224"/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Éste es el dispositivo al que están conectados sus altavoces o auriculares.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="241"/>
         <source>Output method for audio</source>
-        <translation type="unfinished">Método de salida para el audio</translation>
+        <translation>Método de salida para el audio</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="242"/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Éste es el método de salida a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente quiera utilizar DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="257"/>
         <source>Output device to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de salida a usar</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="258"/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Selecciona qué tarjeta de sonido usar para la salida de audio.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="280"/>
         <source>Volume tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste del volumen</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="281"/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustando el volumen del hardware del micrófono al nivel óptimo.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="287"/>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abra su panel de control de sonido y vaya a las opciones de grabación. Asegúrese de que el micrófono está seleccionado como la entrada activa y con el máximo volumen de grabación. Si existe una opción para activar un &quot;Potenciado del micrófono&quot; asegúrese de que está activada.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="294"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volumen en el panel de control de sonido hasta que la barra de abajo, mientras habla, permanezca tan alto como sea posible en la zona azul y verde pero &lt;b&gt;no&lt;/b&gt; en la zona roja.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="303"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ahora hable bajito, como cuando está hablando tarde en la noche y no quiere molestar a nadie. Ajuste el control deslizante de abajo de forma que la barra sea verde mientras habla, pero permanezca azul mientras guarde silencio.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="323"/>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Detección de la Actividad Vocal</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="324"/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir a Mumble suponer cuándo está hablando y cuándo guarda silencio.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="329"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ésto ayudará a Mumble averiguar cuándo está hablando. El primer paso es seleccionar qué valor de datos usar.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="333"/>
         <source>Raw amplitude from input</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplitud sin procesar de la entrada</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="337"/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Relación señal-ruiido</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="359"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ahora debe ajustar los siguientes dos controles deslizantes. Las primeras palabras que diga deberían terminar en el área verde (sin duda es habla). Mientras habla, debería permanecer en la amarilla (podria ser habla) y cuando no esté hablando, todo deberia estar en la roja (sin duda no es habla).</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="382"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por último, debe ajustar el tiempo de gracia. Mumble puede detectar este tiempo como si no hablara y aún seguir transmitiendo antes de interrumpirlo. Ésto le permite recobrar el aliento mientras habla.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="411"/>
         <source>Device tuning</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste del dispositivo</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="412"/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiando el retraso del hardware de salida al valor mínimo.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="418"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para mantener la latencia en el mínimo absoluto, es importante almacenar en la tarjeta de sonido la menor cantidad de audio que sea posible. Sin embargo, muchas tarjetas de sonido informan de que requieren un búfer mucho más pequeño del que en realidad necesitan para funcionar, asi que la única forma de establecer este valor es mediante prueba y error.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="423"/>
         <source>You should hear a multitone chord. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Debería oir un acorde multitono. Cambie el control deslizante de abajo al valor mas bajo con el que no obtenga &lt;b&gt;ninguna&lt;/b&gt; interrupción ni ruido en el sonido.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="438"/>
         <source>Amount of data to buffer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cantidad de datos a almacenar.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="441"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished">Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="520"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="639"/>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 s</translation>
     </message>
 </context>
 <context>
@@ -1662,57 +1663,57 @@
     <message>
         <location filename="ConnectDialog.cpp" line="48"/>
         <source>&amp;Custom Servers</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidores &amp;favoritos</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="49"/>
         <source>Server &amp;Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Explorador de servidores</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="174"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="175"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="176"/>
         <source>URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="184"/>
         <source>C&amp;opy to custom</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;opiar a favoritos</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="187"/>
         <source>&amp;View Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ver página web</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="208"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectando a %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="208"/>
         <source>Enter username</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca el nombre de usuario</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="304"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="304"/>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo obtener la lista de servidores</translation>
     </message>
 </context>
 <context>
@@ -1861,7 +1862,7 @@
     <message>
         <location filename="DXConfigDialog.cpp" line="149"/>
         <source>This sets what 3D Sound algorithm to use.&lt;br /&gt;&lt;b&gt;None&lt;/b&gt; - Disable 3D Sound (least CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Just use stereo panning (some CPU).&lt;br /&gt;&lt;b&gt;Light/Full HRTF&lt;/b&gt; - Head-Related Transfer Functions enabled. This may use a small amount of CPU.&lt;br /&gt;Note that if you have a soundcard with &lt;i&gt;hardware&lt;/i&gt; 3D processing, HRTF processing will be done on the soundcard and will use practically no processing power.</source>
-        <translation>Establece qué algoritmo de Sonido 3D usar.&lt;br /&gt;&lt;b&gt;Ninguno&lt;/b&gt; - Desactiva el Sonido 3D (menos CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Sólo usa panning estéreo (poca CPU).&lt;br /&gt;&lt;b&gt;HRTF Ligera/Completa&lt;/b&gt; - Habilita las Funciones de Transferencia Relacionadas a la Cabeza (HRTF). Esto podría usar una pequeña cantidad de CPU.&lt;br /&gt;Fíjese en que si tiene una tarjeta de sonido con procesamiento 3D &lt;i&gt;hardware&lt;/i&gt;, el procesado de HRTF se hará en la tarjeta de sonido y casi no usará  poder de procesamiento.</translation>
+        <translation>Establece qué algoritmo de Sonido 3D usar.&lt;br /&gt;&lt;b&gt;Ninguno&lt;/b&gt; - Desactiva el Sonido 3D (menos CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Sólo usa panning estéreo (poca CPU).&lt;br /&gt;&lt;b&gt;HRTF Ligera/Completa&lt;/b&gt; - Activa las Funciones de Transferencia Relativas a la Cabeza (HRTF). Esto podría usar una pequeña cantidad de CPU.&lt;br /&gt;Fíjese en que si tiene una tarjeta de sonido con procesamiento 3D &lt;i&gt;hardware&lt;/i&gt;, el procesado de HRTF se hará en la tarjeta de sonido y casi no usará  poder de procesamiento.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="150"/>
@@ -1946,7 +1947,7 @@
     <message>
         <location filename="DXConfigDialog.cpp" line="122"/>
         <source>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="250"/>
@@ -2133,7 +2134,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Log.cpp" line="178"/>
         <source>Text Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje de texto</translation>
     </message>
 </context>
 <context>
@@ -2186,17 +2187,17 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Log.cpp" line="100"/>
         <source>Length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbral de longitud</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="107"/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbral de longitud del mensaje para el motor Texto-A-Voz</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="109"/>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Establece el umbral de longitud a usar para el motor de Texto-A-Voz.&lt;/b&gt;&lt;br /&gt;No se leeran en voz alta por completo los mensajes mayores que este límite.</translation>
     </message>
 </context>
 <context>
@@ -2244,7 +2245,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="LookConfig.cpp" line="97"/>
         <source>Skin</source>
-        <translation>Máscara</translation>
+        <translation>Carátula</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="101"/>
@@ -2314,17 +2315,17 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="LookConfig.cpp" line="121"/>
         <source>Players above Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugadores sobre canales</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="123"/>
         <source>List players above subchannels (requires restart).</source>
-        <translation type="unfinished"></translation>
+        <translation>Listar los jugadores por encima de los subcanales (requiere reiniciar).</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="124"/>
         <source>&lt;b&gt;If set, players will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of mumble is required to see the change.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Si se marca, los jugadores se mostrarán sobre los subcanales en la vista del canal.&lt;/b&gt;&lt;br /&gt;Se requiere reiniciar Mumble para ver el cambio.</translation>
     </message>
 </context>
 <context>
@@ -2978,7 +2979,7 @@ de las ubicaciones posibles.</translation>
         <location filename="MainWindow.cpp" line="313"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Presionar-para-Hablar</translation>
+        <translation>Presionar-para-Hablar (PTT)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="316"/>
@@ -3091,92 +3092,92 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.cpp" line="122"/>
         <source>Send Messa&amp;ge</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Enviar Mensaje</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="124"/>
         <source>Send a Text Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Envía un mensaje de texto</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="586"/>
         <source>Sending message to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviando mensaje a %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="586"/>
         <source>Enter message</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca el mensaje</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="591"/>
         <source>To %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Para %1: %2</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="591"/>
         <source>Message to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje para %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="964"/>
         <source>Invalid username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario no válido</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="964"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha conectado con un nombre de usuario no válido, por favor, intente con otro.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="964"/>
         <source>That username is already in use, please try another username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ese nombre de usuario ya esta en uso, por favor, intente con otro nombre de usuario.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="969"/>
         <source>Wrong password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña incorrecta</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="969"/>
         <source>Wrong password for registered users, please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña para los usuarios registrados incorrecta, por favor, inténtelo otra vez.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="969"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña del servidor incorrecta para cuenta de usuario no registrada, por favor, inténtelo de nuevo.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1235"/>
         <source>From %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>De %1: %2</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1236"/>
         <source>Message from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje de %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="194"/>
         <source>&amp;Audio Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Asistente de audio</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="125"/>
         <source>Sends a text message to another user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="196"/>
         <source>Start the audio configuration wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicia el asistente de configuración de audio</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="197"/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ésto le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
 </context>
 <context>
@@ -3214,7 +3215,7 @@ de las ubicaciones posibles.</translation>
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que:- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble- está usando un SO anterior a WinXP SP2- no tiene la versión actualizada en junio de 2007 de DX9.0c</translation>
     </message>
 </context>
 <context>
@@ -3247,7 +3248,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Overlay.cpp" line="62"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Establece si la sobreimpresión está habilitada o no. Esta opción se comprueba sólo cuando se inician aplicaciones D3D9, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
+        <translation>Establece si la sobreimpresión está habilitada o no. Esta opción se comprueba sólo cuando se inician aplicaciones D3D9, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor, fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="67"/>
@@ -3447,32 +3448,32 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Overlay.cpp" line="93"/>
         <source>Show User Textures</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar texturas de los usuarios</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="95"/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra texturas personalizadas por el usuario en vez de texto en la sobreimpresión.</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="97"/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece si se descargarán y usarán texturas personalizadas para los usuarios registrados. Si se desactiva, se usará en su lugar el texto resumido habitual.</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="185"/>
         <source>Maximum height of names.</source>
-        <translation type="unfinished"></translation>
+        <translation>Altura maxima de los nombres.</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="188"/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece la altura máxima de los nombres mostrados, en relación a la altura de la pantalla. Si su ventana 3D activa tiene 800 píxeles de alto y se fija ésto a 5%, entonces cada nombre tendrá 40 píxeles de alto. Fíjese en que los nombres no serán más altos de 60 píxeles sin importar lo que se establezca aquí.</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="198"/>
         <source>Maximum height</source>
-        <translation type="unfinished"></translation>
+        <translation>Altura máxima</translation>
     </message>
 </context>
 <context>
