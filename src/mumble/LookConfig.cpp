@@ -121,7 +121,7 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	qcbPlayersTop = new QCheckBox(tr("Players above Channels"));
 	qcbPlayersTop->setChecked(g.s.bPlayerTop);
 	qcbPlayersTop->setToolTip(tr("List players above subchannels (requires restart)."));
-	qcbPlayersTop->setWhatsThis(tr("<b>If set, players will be shown above subchannels in the channel view.</b><br />A restart of mumble is required to see the change."));
+	qcbPlayersTop->setWhatsThis(tr("<b>If set, players will be shown above subchannels in the channel view.</b><br />A restart of Mumble is required to see the change."));
 	grid->addWidget(qcbPlayersTop, 4, 1, 1, 2);
 
 	qgbLook->setLayout(grid);
