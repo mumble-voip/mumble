@@ -62,6 +62,8 @@ static void ods(const char *format, ...);
 static struct SharedMem *sm = NULL;
 static sem_t *sem = NULL;
 
+static bool bDebug;
+
 typedef struct _Context {
     struct _Context *next;
     Display *dpy;
@@ -111,8 +113,12 @@ static void resolveSM()
 __attribute__ ((format(printf, 1, 2)))
 void ods(const char *format, ...)
 {
-    if (sm && !sm->bDebug)
+    if (sm) {
+	if (!sm->bDebug)
+	    return;
+    } else if (!bDebug) {
 	return;
+    }
 
     va_list args;
     va_start(args, format);
@@ -395,34 +401,35 @@ __GLXextFuncPtr glXGetProcAddressARB(const GLubyte * func)
 }
 
 __attribute__ ((constructor))
-void initializeLibrary() {
+void initializeLibrary()
+{
     if (odlsym)
-      return;
+	return;
 
-#ifdef PRELOAD
-        printf("Library is HOT\n");
-	void *dl = dlopen("libdl.so.2", RTLD_LAZY);
-	if (!dl) {
-	    ods("Failed to open libdl.so.2\n");
-	} else {
-	    odlsym = (__typeof__(&dlsym)) __libc_dlsym(dl, "dlsym");
-	}
-#else
-  odlsym = &dlsym;
-#endif
+    if (getenv("MUMBLE_OVERLAY_DEBUG"))
+	bDebug = true;
+    else
+	bDebug = false;
+
+    ods("Library is HOT\n");
+    void *dl = dlopen("libdl.so.2", RTLD_LAZY);
+    if (!dl) {
+	ods("Failed to open libdl.so.2\n");
+    } else {
+	odlsym = (__typeof__(&dlsym)) __libc_dlsym(dl, "dlsym");
+    }
 }
 
-#ifdef PRELOAD
 #define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; symbol = odlsym(handle, #name); if (symbol) { o##name = (__typeof__(&name)) symbol; symbol = (void *) name;}
 __attribute__ ((visibility("default")))
 void *dlsym(void *handle, const char *name)
 {
-    if (! odlsym)
-      initializeLibrary();
+    if (!odlsym)
+	initializeLibrary();
 
     void *symbol;
-    
-    printf("Request for symbol %s (%p)\n", name, odlsym);
+
+    ods("Request for symbol %s (%p)\n", name, odlsym);
 
     if (strcmp(name, "glXSwapBuffers") == 0) {
 	OGRAB(glXSwapBuffers);
@@ -431,9 +438,7 @@ void *dlsym(void *handle, const char *name)
     } else if (strcmp(name, "glXGetProcAddressARB") == 0) {
 	OGRAB(glXGetProcAddressARB);
     } else {
-       symbol = odlsym(handle, name);
+	symbol = odlsym(handle, name);
     }
-    printf("Returning %p\n", symbol);
     return symbol;
 }
-#endif

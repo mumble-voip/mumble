@@ -1,9 +1,9 @@
 #! /bin/sh
 
-MUMBLE_OVERLAY_PATH=/usr/lib/mumble/
+MUMBLE_OVERLAY_PATH=/usr/lib/
 
 if [ -f /etc/sysconfig/mumble ]; then
   . /etc/sysconfig/mumble
 fi
 
-LD_LIBRARY_PATH="${MUMBLE_OVERLAY_PATH}:${LD_LIBRARY_PATH}" "${@}"
+LD_PRELOAD="${MUMBLE_OVERLAY_PATH}/libmumble.so.1.0.0 ${LD_PRELOAD}" "${@}"

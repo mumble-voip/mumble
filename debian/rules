@@ -88,9 +88,8 @@ install-arch:
 	install -d $(CURDIR)/debian/mumble/usr/lib/mumble
 	install -d $(CURDIR)/debian/mumble-server/usr/bin
 	install ./release/mumble $(CURDIR)/debian/mumble/usr/bin
-	install ./overlay_gl/libGL.so.1 $(CURDIR)/debian/mumble/usr/lib/mumble
-	ln -sf /usr/lib/libGL.so.1 $(CURDIR)/debian/mumble/usr/lib/mumble/libGL.original.so.1
 	install ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin
+	install ./release/libmumble.so.1.0.0 $(CURDIR)/debian/mumble/usr/lib/
 	install ./release/murmur $(CURDIR)/debian/mumble-server/usr/bin
 	
 	# install menu entry
