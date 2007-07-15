@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -924,12 +925,12 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="327"/>
         <source>Loopback</source>
-        <translation>Circuito cerrado</translation>
+        <translation>Bucle de retorno</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="330"/>
         <source>Desired loopback mode</source>
-        <translation>Modo de bucle deseado</translation>
+        <translation>Modo de bucle de retorno deseado</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="337"/>
@@ -939,17 +940,17 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="349"/>
         <source>Delay Variance</source>
-        <translation>Variancia del retraso</translation>
+        <translation>Varianza del retraso</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="356"/>
         <source>Variance in packet latency</source>
-        <translation>Variancia de la latencia de los paquetes</translation>
+        <translation>Varianza de la latencia de los paquetes</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="361"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
-        <translation>&lt;b&gt;Establece la variancia de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15ms, se emulará una red con 20-35ms de latencia de ping u 80-95ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms</translation>
+        <translation>&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15ms, se emulará una red con 20-35ms de latencia de ping u 80-95ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="374"/>
@@ -1067,7 +1068,7 @@
     <message>
         <location filename="AudioStats.cpp" line="343"/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
-        <translation>Ésta es la velocidad de transmisión de la última trama comprimida (20 ms), y como tal aumentará y disminuirá mientras VBR ajusta la calidad. Para ajustar la velocidad de transmisión máxima, ajuste &lt;b&gt;Complejidad de Compresión&lt;/b&gt; en el cuadro de diálogo Opciones.</translation>
+        <translation>Esta es la velocidad de transmisión de la última trama comprimida (20 ms), y como tal aumentará y disminuirá mientras VBR ajusta la calidad. Para ajustar la velocidad de transmisión máxima, ajuste &lt;b&gt;Complejidad de Compresión&lt;/b&gt; en el cuadro de diálogo Opciones.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="345"/>
@@ -1150,7 +1151,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="144"/>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
-        <translation>Por favor, sea consciente de que mientras el asistente este activo, el audio será redirigido localmente para permitirle escucharlo, y no se enviará al servidor.</translation>
+        <translation>Por favor, sea consciente de que mientras el asistente esté activo, el audio será redirigido localmente para permitirle escucharlo, y no se enviará al servidor.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="154"/>
@@ -1265,12 +1266,12 @@
     <message>
         <location filename="AudioWizard.cpp" line="294"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
-        <translation>Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volumen en el panel de control de sonido hasta que la barra de abajo, mientras habla, permanezca tan alto como sea posible en la zona azul y verde pero &lt;b&gt;no&lt;/b&gt; en la zona roja.</translation>
+        <translation>Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volumen en el panel de control de sonido hasta que la barra de abajo permanezca, mientras habla, tan alto como sea posible en la zona azul y verde pero &lt;b&gt;no&lt;/b&gt; en la zona roja.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="303"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Ahora hable bajito, como cuando está hablando tarde en la noche y no quiere molestar a nadie. Ajuste el control deslizante de abajo de forma que la barra sea verde mientras habla, pero permanezca azul mientras guarde silencio.</translation>
+        <translation>Ahora hable bajito, como cuando está hablando tarde en la noche y no quiere molestar a nadie. Ajuste el control deslizante de abajo de forma que la barra alcance el verde mientras habla, pero permanezca en azul mientras guarde silencio.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="323"/>
@@ -1285,7 +1286,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="329"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Ésto ayudará a Mumble averiguar cuándo está hablando. El primer paso es seleccionar qué valor de datos usar.</translation>
+        <translation>Esto ayudará a Mumble averiguar cuándo está hablando. El primer paso es seleccionar qué valor de datos usar.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="333"/>
@@ -1300,12 +1301,12 @@
     <message>
         <location filename="AudioWizard.cpp" line="359"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
-        <translation>Ahora debe ajustar los siguientes dos controles deslizantes. Las primeras palabras que diga deberían terminar en el área verde (sin duda es habla). Mientras habla, debería permanecer en la amarilla (podria ser habla) y cuando no esté hablando, todo deberia estar en la roja (sin duda no es habla).</translation>
+        <translation>Ahora debe ajustar los siguientes dos controles deslizantes. Las primeras palabras que diga deberían terminar en el área verde (decididamente es habla). Mientras habla, debería permanecer en la amarilla (podria ser habla) y cuando no esté hablando, todo deberia estar en la roja (decididamente no es habla).</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="382"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
-        <translation>Por último, debe ajustar el tiempo de gracia. Mumble puede detectar este tiempo como si no hablara y aún seguir transmitiendo antes de interrumpirlo. Ésto le permite recobrar el aliento mientras habla.</translation>
+        <translation>Por último, debe ajustar el tiempo de gracia. Mumble puede detectar este tiempo sin habla y aún seguir transmitiendo antes de interrumpirlo. Esto le permite recobrar el aliento mientras habla.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="411"/>
@@ -1662,7 +1663,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="48"/>
         <source>&amp;Custom Servers</source>
-        <translation>Servidores &amp;favoritos</translation>
+        <translation>Servidores &amp;personales</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="49"/>
@@ -1687,7 +1688,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="184"/>
         <source>C&amp;opy to custom</source>
-        <translation>C&amp;opiar a favoritos</translation>
+        <translation>C&amp;opiar a personales</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="187"/>
@@ -2314,17 +2315,17 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="LookConfig.cpp" line="121"/>
         <source>Players above Channels</source>
-        <translation>Jugadores sobre canales</translation>
+        <translation>Jugadores encima de los canales</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="123"/>
         <source>List players above subchannels (requires restart).</source>
-        <translation>Listar los jugadores por encima de los subcanales (requiere reiniciar).</translation>
+        <translation>Listar los jugadores encima de los subcanales (requiere reiniciar).</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="124"/>
         <source>&lt;b&gt;If set, players will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation type="unfinished">&lt;b&gt;Si se marca, los jugadores se mostrarán sobre los subcanales en la vista del canal.&lt;/b&gt;&lt;br /&gt;Se requiere reiniciar Mumble para ver el cambio.</translation>
+        <translation>&lt;b&gt;Si se marca, los jugadores se mostrarán encima de los subcanales en la vista del canal.&lt;/b&gt;&lt;br /&gt;Se requiere reiniciar Mumble para ver el cambio.</translation>
     </message>
 </context>
 <context>
@@ -3176,7 +3177,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.cpp" line="199"/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation>Ésto le guiará a través del proceso de configuración de su hardware de audio.</translation>
+        <translation>Esto le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
 </context>
 <context>
@@ -3467,7 +3468,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Overlay.cpp" line="188"/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Establece la altura máxima de los nombres mostrados, en relación a la altura de la pantalla. Si su ventana 3D activa tiene 800 píxeles de alto y se fija ésto a 5%, entonces cada nombre tendrá 40 píxeles de alto. Fíjese en que los nombres no serán más altos de 60 píxeles sin importar lo que se establezca aquí.</translation>
+        <translation>Establece la altura máxima de los nombres mostrados, en relación a la altura de la pantalla. Si su ventana 3D activa tiene 800 píxeles de alto y se fija esto a 5%, entonces cada nombre tendrá 40 píxeles de alto. Fíjese en que los nombres no serán más altos de 60 píxeles sin importar lo que se establezca aquí.</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="198"/>
