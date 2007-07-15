@@ -328,9 +328,11 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw)
 	}
 
 	if (!c) {
+	    ods("Current context is: %p", ctx);
 
 	    int attrib[4] = { GLX_FBCONFIG_ID, -1, 0, 0 };
 	    glXQueryContext(dpy, ctx, GLX_FBCONFIG_ID, &attrib[1]);
+	    
 
 	    int screen = -1;
 	    glXQueryContext(dpy, ctx, GLX_SCREEN, &screen);
