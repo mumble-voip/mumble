@@ -14,7 +14,7 @@ my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'f
 
 system("rm mumble-*");
 
-foreach my $pro ("main.pro", "overlay/overlay.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
+foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
   open(F, $pro) or croak "Failed to open $pro";
   print "Processing $pro\n";
   $files{$pro}=1;
@@ -42,9 +42,6 @@ foreach my $pro ("main.pro", "overlay/overlay.pro", "speexbuild/speexbuild.pro",
   }
   close(F);
 }
-
-# Troublesome files
-$files{"overlay_gl/Makefile"}=1;
 
 open(F, "src/mumble/mumble.qrc");
 while(<F>) {
