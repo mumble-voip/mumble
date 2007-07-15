@@ -93,6 +93,8 @@ install-arch:
 	install ./release/murmur $(CURDIR)/debian/mumble-server/usr/bin
 	
 	# install menu entry
+	install -d $(CURDIR)/debian/mumble/usr/share/applications
+	install -d $(CURDIR)/debian/mumble/usr/share/pixmaps
 	install ./scripts/mumble.desktop $(CURDIR)/debian/mumble/usr/share/applications
 	install ./icons/mumble.png.1 $(CURDIR)/debian/mumble/usr/share/pixmaps
 
