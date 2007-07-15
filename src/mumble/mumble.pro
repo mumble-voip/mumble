@@ -51,6 +51,12 @@ CONFIG(asio) {
 	SOURCES	+= ASIOInput.cpp
 }
 
+copytrans.target = qt_de.qm
+copytrans.commands  = $$QMAKE_COPY $$[QT_INSTALL_TRANSLATIONS]/qt_de.qm . ;
+copytrans.commands += $$QMAKE_COPY $$[QT_INSTALL_TRANSLATIONS]/qt_fr.qm . ;
+copytrans.commands += $$QMAKE_COPY $$[QT_INSTALL_TRANSLATIONS]/qt_es.qm . ;
+copytrans.commands += $$QMAKE_COPY $$[QT_INSTALL_TRANSLATIONS]/qt_ru.qm . ;
+
 lrel.target = mumble_en.qm
 lrel.commands = lrelease mumble.pro
 lrel.depends = mumble_en.ts
@@ -58,7 +64,6 @@ lrel.depends = mumble_en.ts
 lupd.target = mumble_en.ts
 lupd.commands = lupdate mumble.pro
 
-QMAKE_EXTRA_TARGETS += lrel lupd
+QMAKE_EXTRA_TARGETS += lrel lupd copytrans
 
-PRE_TARGETDEPS = mumble_en.qm
-
+PRE_TARGETDEPS = mumble_en.qm qt_de.qm

@@ -30,5 +30,9 @@
  <file>mumble_de.qm</file>
  <file>mumble_tr.qm</file>
  <file>mumble_ru.qm</file>
+ <file>qt_de.qm</file>
+ <file>qt_es.qm</file>
+ <file>qt_fr.qm</file>
+ <file>qt_ru.qm</file>
 </qresource>
 </RCC>

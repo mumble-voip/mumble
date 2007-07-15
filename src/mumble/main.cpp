@@ -92,6 +92,11 @@ int main(int argc, char **argv)
 		translator.load(QLatin1String(":/mumble_") + locale);
     a.installTranslator(&translator);
 
+    QTranslator qttranslator;
+    if (! qttranslator.load(QLatin1String("qt_") + locale))
+		qttranslator.load(QLatin1String(":/qt_") + locale);
+    a.installTranslator(&qttranslator);
+
 
 	// Set application icon
 	QIcon icon;
