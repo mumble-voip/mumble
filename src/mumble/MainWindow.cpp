@@ -29,7 +29,9 @@
 */
 
 #include "MainWindow.h"
+#ifdef Q_OS_WIN
 #include "AudioWizard.h"
+#endif
 #include "AudioInput.h"
 #include "ConnectDialog.h"
 #include "Player.h"
