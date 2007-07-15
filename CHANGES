@@ -1,4 +1,245 @@
-2007-06-26 [r496-498]  slicer:
+2007-07-15 [r597-600]  slicer:
+
+	* Changelog update
+
+	* Final lupdate before release.
+
+	* Some more Qt 4.2.2 fixes.
+
+	* Capitalization fix.
+
+2007-07-14 [r596]  naproxeno:
+
+	* Updated Spanish translation
+
+2007-07-14 [r593-595]  slicer:
+
+	* Updated French translations from Thibaut Girka.
+
+	* Keep just the LD_PRELOAD overlay
+
+	* Forgot a conditional for the audio wizard
+
+2007-07-13 [r591-592]  m0ta:
+
+	* Should do svn update more often ;)
+
+	* more translations. Unfortunately since I don't have Qt 4.3 I
+	  can't really check if the translations fit the wizard.
+
+2007-07-13 [r571-590]  slicer:
+
+	* Textlogger for murmur win32.
+
+	* AudioWizard builds on Win32 only for now -- no reliable way to
+	  get moc to check qt version.
+
+	* Clean compile on Qt 4.2.2
+
+	* More stable LD_PRELOAD for GL overlay
+
+	* Fix compiler warnings
+
+	* Wizard registrar for ALSA
+
+	* Fix bugs discovered by Klocwork [www.klocwork.com]
+
+	* Simple userauth. Example expanded to show phpBB3 authentication.
+
+	* More flexible bandwidth detection
+
+	* Use new overlay icons.
+
+	* Audio Wizard. Breaks Linux for now.
+
+	* Use aligned stack buffer for MMX mix
+
+	* I give up -- we create a separate context for the overlay
+
+	* Loopback cleanups
+
+	* SineAudio fix, and non-mmx mixer support.
+
+	* Doubleclick player to send message, based on patch by m0ta.
+
+	* expand all channels by default.
+
+	* Minor Dbus fix and changed path and service name
+
+	* Packet loss and delay variance for Loopback mode.
+
+	* Revert to plain old C for Linux overlay
+
+2007-07-08 [r570]  CybKnight:
+
+	* Test icons with hard edges for overlay for cartoon look. If this
+	  doesn't look good, I will try soft edges.
+
+2007-07-08 [r569]  m0ta:
+
+	* slight changes to the translations
+
+2007-07-08 [r567-568]  slicer:
+
+	* Jitter buffer fixes. Should work better now.
+
+	* Part #1 of Speex Packet merging and Jitter updates.
+
+2007-07-07 [r564-566]  m0ta:
+
+	* updated german translation
+
+	* add menu entry for freedesktop.org compliant distributions
+
+	* updated german translation
+
+2007-07-07 [r532-563]  slicer:
+
+	* Include French translation in binaries.
+
+	* FR 1749422: User Textures can now be disabled.
+
+	* Updated Linux overlay
+
+	* QLatin1String for Overlay
+
+	* Server loopback mode
+
+	* Local loopback mode.
+
+	* Overhaul of Audio Output to support non-speech sources. Probably
+	  break ALSA.
+
+	* Overhaul of Audio Output to support non-speech sources. Probably
+	  break ALSA.
+
+	* Players On Top
+
+	* Verbose output
+
+	* Popup user dialog on wrong username/pw to reconnect.
+
+	* Popup on rejects.
+
+	* Add rejection enum
+
+	* Overlay tuning.
+
+	* Overlay tuning.
+
+	* Updated murmur cgi script for image upload
+
+	* Custom UserTextures
+
+	* Wrong int encoding in PacketDataStream.
+
+	* Fixup of Connection
+
+	* More blob support, and break binary protocol AGAIN
+
+	* Serverside usertexture support
+
+	* Reconnect bugfix
+
+	* Proper fix for supression bug
+
+	* Working Linux OpenGL overlay
+
+	* Testfix for 1746996
+
+	* Text fixups
+
+	* Functional gl injection on linux games
+
+	* Mumble-side of Linux overlay
+
+	* Mumble-side of Linux overlay
+
+	* Config fixes
+
+	* Updated overlay for Win32, should now be possible to port it to
+	  Linux.
+
+	* Updated french translation from Damien Rannou and Thibaut Girka.
+
+2007-07-02 [r519-531]  slicer:
+
+	* Consider connecting "Activity"
+
+	* Typo in ConnectDialog
+
+	* Need to distribute QtXml too.
+
+	* Correct path in client browser.
+
+	* Correct path for server registration
+
+	* Server Browser
+
+	* Patch cleanups.
+
+	* Keep stream version at 8.
+
+	* TextMessage patch by Mikkel Krautz
+
+	* Fix fake DBus for Win32
+
+	* Fix fake DBus for Win32
+
+	* DBus based authentication, based on patch from Thibaut Girka
+
+	* Fixed softmixer
+
+2007-07-01 [r518]  Naproxeno:
+
+	* Updated translation
+
+2007-07-01 [r511-517]  slicer:
+
+	* Remove default buttons until they're fixed.
+
+	* Registration part for the server browser
+
+	* Fix recursion bug in getGroup
+
+	* Update overlay on disconnect.
+
+	* Add mysql.sql to distribution
+
+	* Avoid double-allocation of outgoing packets
+
+	* Start of zero-copy UDP thread
+
+2007-06-30 [r510]  CybKnight:
+
+	* Fix alpha blending in some icons. Was due to indexed colors in
+	  source files. Need to see a test version to verify quality.
+
+2007-06-29 [r502-509]  slicer:
+
+	* French translation from Damien Rannou
+
+	* Updates for new binary protocol.
+
+	* Reserve space
+
+	* Reserve space
+
+	* Reserve space
+
+	* New datastream. Breaks all kinds of things
+
+	* Forgot to rerun lupdate prior to release. Oops.
+
+	* Updated Spanish translation [naproxeno]
+
+2007-06-27 [r496-501]  slicer:
+
+	* More descriptive information for horizontal splitter.
+
+	* Bump version to 1.0.0
+
+	* Changelog update
 
 	* Fix race in UDP thread creation
 
