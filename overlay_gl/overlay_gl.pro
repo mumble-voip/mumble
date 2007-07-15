@@ -9,6 +9,11 @@ VERSION = 1.0.0
 SOURCES = overlay.c
 LIBS += -lrt -ldl
 QMAKE_CFLAGS += -fvisibility=hidden
+equals(QMAKE_LINK,g++) {
+  message(Overriding linker)
+  QMAKE_LINK = gcc
+  QMAKE_LINK_SHLIB = gcc
+}
 
 CONFIG(debug, debug|release) {
   DESTDIR       = ../debug
