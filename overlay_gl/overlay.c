@@ -113,11 +113,11 @@ static void resolveSM()
 __attribute__ ((format(printf, 1, 2)))
 void ods(const char *format, ...)
 {
-    if (sm) {
-	if (!sm->bDebug)
-	    return;
-    } else if (!bDebug) {
-	return;
+    if (!bDebug) {
+	if (sm) {
+	    if (!sm->bDebug)
+		return;
+	}
     }
 
     va_list args;
@@ -332,7 +332,7 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw)
 
 	    int attrib[4] = { GLX_FBCONFIG_ID, -1, 0, 0 };
 	    glXQueryContext(dpy, ctx, GLX_FBCONFIG_ID, &attrib[1]);
-	    
+
 
 	    int screen = -1;
 	    glXQueryContext(dpy, ctx, GLX_SCREEN, &screen);
