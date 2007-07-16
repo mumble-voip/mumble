@@ -13,6 +13,7 @@ our $dbname="phpbb3";
 our $dbuser="phpbb3";
 our $dbpass="uhduqw1237a";
 our $dbprefix="phpbb_";
+our $dbhost="localhost";
 
 # Assign user id as phpbb3 user_id plus this, to avoid clashing
 # with local murmur users. If you're going to use ONLY external 
@@ -33,7 +34,7 @@ use LWP::UserAgent;
 
 our %texturecache;
 
-our $dbh=DBI->connect("dbi:mysql:dbname=${dbname}", $dbuser, $dbpass) || croak $DBI::errstr;
+our @dbhparams=("dbi:mysql:dbname=${dbname};host=${dbhost}", $dbuser, $dbpass);
 our $agent=new LWP::UserAgent;
 $agent->timeout(5);
 
@@ -79,6 +80,11 @@ sub authenticate {
   my $uname = shift;
   my $pw = shift;
   
+  my $dbh=DBI->connect_cached(@dbhparams);
+  if (! $dbh) {
+    carp $DBI::errstr;
+    return -2;
+  }
   my $sth=$dbh->prepare("SELECT user_id, user_password, user_type FROM ${dbprefix}users WHERE username = ?");
   $sth->execute($uname);
   if ((my $r=$sth->fetchrow_hashref())) {
@@ -117,6 +123,11 @@ sub getUserName {
   my $self = shift;
   my $id = shift;
 
+  my $dbh=DBI->connect_cached(@dbhparams);
+  if (! $dbh) {
+    carp $DBI::errstr;
+    return undef;
+  }
   my $sth=$dbh->prepare("SELECT username FROM ${dbprefix}users WHERE user_id = ?");
   $sth->execute($id - $id_offset);
   if ((my $r=$sth->fetchrow_hashref())) {
@@ -131,6 +142,11 @@ sub getUserId {
   my $self = shift;
   my $name = shift;
 
+  my $dbh=DBI->connect_cached(@dbhparams);
+  if (! $dbh) {
+    carp $DBI::errstr;
+    return -2;
+  }
   my $sth=$dbh->prepare("SELECT user_id FROM ${dbprefix}users WHERE username = ?");
   $sth->execute($name);
   if ((my $r=$sth->fetchrow_hashref())) {
@@ -147,6 +163,11 @@ sub getUserTexture {
 
   my @a;
 
+  my $dbh=DBI->connect_cached(@dbhparams);
+  if (! $dbh) {
+    carp $DBI::errstr;
+    return undef;
+  }
   my $sth=$dbh->prepare("SELECT user_avatar, user_avatar_type FROM ${dbprefix}users WHERE user_id = ?");
   $sth->execute($uid - $id_offset);
   if ((my $r=$sth->fetchrow_hashref())) {
