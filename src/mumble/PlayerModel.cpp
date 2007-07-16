@@ -112,7 +112,10 @@ Channel *ModelItem::channelAt(int idx) const {
 }
 
 int ModelItem::rowOf(Channel *c) const {
-	return qlChannels.lastIndexOf(c);
+    	int v = qlChannels.lastIndexOf(c);
+    	if (v != -1)
+    		v += (!bPlayersTop) ? 0 : qlPlayers.count();
+	return v;
 }
 
 int ModelItem::rowOf(Player *p) const {
