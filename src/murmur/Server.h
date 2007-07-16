@@ -150,6 +150,7 @@ struct ServerParams {
 
 	QString qsRegName;
 	QString qsRegPassword;
+	QString qsRegHost;
 	QUrl qurlRegWeb;
 
 	ServerParams();

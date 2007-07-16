@@ -107,6 +107,7 @@ void ServerParams::read(QString fname) {
 
 	qsRegName = qs.value("registerName", qsRegName).toString();
 	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
+	qsRegHost = qs.value("registerHostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
 }
 

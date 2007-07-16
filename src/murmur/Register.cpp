@@ -71,6 +71,12 @@ void Register::update() {
   t=doc.createTextNode(g_sp.qsRegName);
   tag.appendChild(t);
 
+  tag=doc.createElement(QLatin1String("host"));
+  root.appendChild(tag);
+  
+  t=doc.createTextNode(g_sp.qsRegHost);
+  tag.appendChild(t);
+
   tag=doc.createElement(QLatin1String("password"));
   root.appendChild(tag);
   
