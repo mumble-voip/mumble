@@ -106,7 +106,7 @@ sub authenticate {
     }
     my $response = $object->setTemporaryGroups(0, $id, \@groups);
     Dumper($response);
-    print "Authenticated $uname as ID $id with $#groups groups\n";
+    print "Authenticated $uname as ID $id with groups ".join(" ",@groups)."\n";
     return $id;
   } else {
     print "Unknown user $uname\n";
@@ -131,8 +131,10 @@ sub getUserName {
   my $sth=$dbh->prepare("SELECT username FROM ${dbprefix}users WHERE user_id = ?");
   $sth->execute($id - $id_offset);
   if ((my $r=$sth->fetchrow_hashref())) {
+    print "UID $id :: " .$$r{'username'}."\n";
     return $$r{'username'};
   }
+  print "No match for id $id\n";
   return undef;
 }
 
@@ -173,7 +175,7 @@ sub getUserTexture {
   if ((my $r=$sth->fetchrow_hashref())) {
     my $file = $$r{'user_avatar'};
     my $type = $$r{'user_avatar_type'};
-    if ($type != 1) {
+    if (($type != 1) && ($type != 2)) {
       print "Request for texture $uid :: not uploaded texture\n";
       return \@a;
     }
@@ -181,7 +183,7 @@ sub getUserTexture {
       return $texturecache{$file};
     }
     
-    my $response = $agent->get($avatar_path . $file);
+    my $response = $agent->get((($type == 1) ? $avatar_path : '') . $file);
     if (! $response->is_success) {
       print "Request for texture $uid :: Fetch failed: ". $response->status_line . "\n";
     } else {
@@ -215,4 +217,5 @@ sub getUserTexture {
 
 package main;
 
+print "Entering main DBus loop...\n";
 $r->run();

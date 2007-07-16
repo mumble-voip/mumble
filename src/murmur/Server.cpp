@@ -696,19 +696,19 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 
 	if (iMaxBandwidth > g_sp.iMaxBandwidth) {
-		msr.qsReason = QString("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(iMaxBandwidth/125.0).arg(g_sp.iMaxBandwidth/125.0);
+		msr.qsReason = QString::fromLatin1("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(iMaxBandwidth/125.0).arg(g_sp.iMaxBandwidth/125.0);
 		msr.rtType = MessageServerReject::BandwidthExceeded;
 		ok = false;
 	}
 
 	if ((id != 0) && (g_sServer->qmPlayers.count() > g_sp.iMaxUsers)) {
-		msr.qsReason = QString("Server is full (max %1 users)").arg(g_sp.iMaxUsers);
+		msr.qsReason = QString::fromLatin1("Server is full (max %1 users)").arg(g_sp.iMaxUsers);
 		msr.rtType = MessageServerReject::ServerFull;
 		ok = false;
 	}
 
 	if (! ok) {
-	  g_sServer->log(QString("Rejected connection: %1").arg(msr.qsReason), cCon);
+	  g_sServer->log(QString::fromLatin1("Rejected connection: %1").arg(msr.qsReason), cCon);
 	  g_sServer->sendMessage(cCon, &msr);
 	  cCon->disconnect();
 	  return;
@@ -716,7 +716,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 	// Kick ghost
 	if (ppOld) {
-		g_sServer->log(QString("Disconnecting ghost"), cOld);
+		g_sServer->log(QString::fromLatin1("Disconnecting ghost"), cOld);
 		cOld->disconnect();
 	}
 

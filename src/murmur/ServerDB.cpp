@@ -270,7 +270,7 @@ void ServerDB::setPW(int id, const QString &pw) {
 
 QString ServerDB::getUserName(int id) {
 	QString name = dbus->mapIdToName(id);
-	if (! name.isNull())
+	if (! name.isEmpty())
 		return name;
 
 	TransactionHolder th;
