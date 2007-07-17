@@ -553,8 +553,15 @@ void MainWindow::on_PlayerKick_triggered()
 	if (!p)
 		return;
 
+	short session = p->sId;
+
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
+
+	p = Player::get(session);
+	if (!p)
+		return;
+
 	if (ok) {
 		MessagePlayerKick mpkMsg;
 		mpkMsg.sVictim=p->sId;
@@ -569,8 +576,14 @@ void MainWindow::on_PlayerBan_triggered()
 	if (!p)
 		return;
 
+	short session = p->sId;
+
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
+	p = Player::get(session);
+	if (!p)
+		return;
+
 	if (ok) {
 		MessagePlayerBan mpbMsg;
 		mpbMsg.sVictim=p->sId;
@@ -586,8 +599,14 @@ void MainWindow::on_PlayerTextMessage_triggered()
 	if (!p)
 		return;
 
+	short session = p->sId;
+
 	bool ok;
 	QString message = QInputDialog::getText(this, tr("Sending message to %1").arg(p->qsName), tr("Enter message"), QLineEdit::Normal, QString(), &ok);
+	p = Player::get(session);
+	if (!p)
+		return;
+
 	if (ok) {
 		MessageTextMessage mtxt;
 		mtxt.sVictim = p->sId;
@@ -646,6 +665,11 @@ void MainWindow::on_ChannelAdd_triggered()
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	int iParent = c ? c->iId : 0;
 	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, QString(), &ok);
+
+	c = Channel::get(iParent);
+	if (! c)
+		return;
+
 	if (ok) {
 		MessageChannelAdd mca;
 		mca.qsName = name;
@@ -661,7 +685,13 @@ void MainWindow::on_ChannelRemove_triggered()
 	if (! c)
 		return;
 
+	int id = c->iId;
+
 	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+
+	c = Channel::get(id);
+	if (!c)
+		return;
 
 	if (ret == QMessageBox::Yes ) {
 		MessageChannelRemove mcr;
