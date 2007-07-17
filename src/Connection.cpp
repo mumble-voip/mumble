@@ -92,8 +92,6 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 	if (! bDisconnectedEmitted) {
 		bDisconnectedEmitted = true;
 		emit connectionClosed(qtsSocket->errorString());
-		if (qtsSocket->state() == QAbstractSocket::ConnectedState)
-			qtsSocket->disconnectFromHost();
 	}
 }
 
