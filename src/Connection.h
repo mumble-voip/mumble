@@ -38,7 +38,7 @@ class Message;
 class Connection : public QObject {
 	Q_OBJECT
 	protected:
-		QTcpSocket *qtsSocket;
+		QSslSocket *qtsSocket;
 		QTime qtLastPacket;
 		int iPacketLength;
 		bool bDisconnectedEmitted;
@@ -46,11 +46,15 @@ class Connection : public QObject {
 		void socketRead();
 	    void socketError(QAbstractSocket::SocketError);
 	    void socketDisconnected();
+	    void socketSslErrors(const QList<QSslError> &errors);
+	public slots:
+	    void proceedAnyway();
 	signals:
 		void connectionClosed(QString reason);
 		void message(QByteArray &);
+		void handleSslErrors(const QList<QSslError> &);
 	public:
-		Connection(QObject *parent, QTcpSocket *qtsSocket);
+		Connection(QObject *parent, QSslSocket *qtsSocket);
 		~Connection();
 		void sendMessage(const Message *mMsg);
 		void sendMessage(const QByteArray &qbaMsg);

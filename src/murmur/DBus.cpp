@@ -194,6 +194,7 @@ int MurmurDBus::authenticate(const QString &uname, const QString &pw) {
   QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
   QDBusReply<int> reply = remoteApp.call(QDBus::BlockWithGui, "authenticate",uname,pw);
   if (reply.isValid()) {
+    qWarning("Authenticate success for %s: %d", qPrintable(uname),reply.value());
     return reply.value();
   } else {
     qWarning("Authenticator failed authenticate for %s: %s", qPrintable(uname), qPrintable(reply.error().message()));

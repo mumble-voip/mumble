@@ -46,6 +46,7 @@
 #include "ServerDB.h"
 #include "DBus.h"
 #include "Register.h"
+#include "Cert.h"
 
 extern Server *g_sServer;
 MurmurDBus *dbus;
@@ -170,8 +171,8 @@ int main(int argc, char **argv)
 	}
 
 	g_sp.read(inifile);
-
 	ServerDB db;
+	cert.initialize();
 
 	if (! supw.isEmpty()) {
 		ServerDB::setPW(0, supw);

@@ -31,6 +31,7 @@
 #include <QtXml>
 
 #include "Server.h"
+#include "Cert.h"
 #include "Register.h"
 
 Register::Register() {
@@ -93,6 +94,12 @@ void Register::update() {
   root.appendChild(tag);
   
   t=doc.createTextNode(g_sp.qurlRegWeb.toString());
+  tag.appendChild(t);
+
+  tag=doc.createElement(QLatin1String("digest"));
+  root.appendChild(tag);
+  
+  t=doc.createTextNode(cert.getDigest());
   tag.appendChild(t);
   
   http = new QHttp(this);

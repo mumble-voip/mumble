@@ -84,16 +84,27 @@ class UDPThread : public QThread {
 		void run();
 };
 
+class SslServer : public QTcpServer {
+	Q_OBJECT;
+	protected:
+		QList<QSslSocket *> qlSockets;
+		void incomingConnection(int);
+	public:
+		QSslSocket *nextPendingSSLConnection();
+		SslServer(QObject *parent = NULL);
+};
+
 class Server : public QObject {
 	Q_OBJECT;
 	protected:
 		QQueue<int> qqIds;
-		QTcpServer *qtsServer;
+		SslServer *qtsServer;
 		QTimer *qtTimer;
 		QTimer *qtTimeout;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
+		void sslError(const QList<QSslError> &);
 		void message(QByteArray &, Connection *cCon = NULL);
 		void checkCommands();
 		void checkTimeout();
@@ -152,6 +163,10 @@ struct ServerParams {
 	QString qsRegPassword;
 	QString qsRegHost;
 	QUrl qurlRegWeb;
+	
+	QString qsSSLCert;
+	QString qsSSLKey;
+	QString qsSSLStore;
 
 	ServerParams();
 	void read(QString fname = QString("murmur.ini"));

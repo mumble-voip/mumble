@@ -42,7 +42,7 @@
 #include <winsock2.h>
 #endif
 
-Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
+Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	qtsSocket->setParent(this);
 	iPacketLength = -1;
@@ -50,6 +50,7 @@ Connection::Connection(QObject *p, QTcpSocket *qtsSock) : QObject(p) {
     connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
     connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
     connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+    connect(qtsSocket, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(socketSslErrors(const QList<QSslError> &)));
         qtLastPacket.restart();
 }
 
@@ -91,8 +92,21 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 	if (! bDisconnectedEmitted) {
 		bDisconnectedEmitted = true;
 		emit connectionClosed(qtsSocket->errorString());
+		if (qtsSocket->state() == QAbstractSocket::ConnectedState)
+			qtsSocket->disconnectFromHost();
 	}
-	qtsSocket->disconnectFromHost();
+}
+
+void Connection::socketSslErrors(const QList<QSslError> &qlErr) {
+	foreach(QSslError e, qlErr) {
+		qDebug("Ssl Error: %s",qPrintable(e.errorString()));
+	}
+	emit handleSslErrors(qlErr);
+}
+
+void Connection::proceedAnyway() {
+	qDebug("Allowing SSL connection to proceed.");
+	qtsSocket->ignoreSslErrors();
 }
 
 void Connection::socketDisconnected() {

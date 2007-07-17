@@ -38,6 +38,7 @@
 #include "Server.h"
 #include "DBus.h"
 #include "PacketDataStream.h"
+#include "Cert.h"
 
 #ifdef Q_OS_UNIX
 #include <sys/types.h>
@@ -61,6 +62,21 @@ void LogEmitter::addLogEntry(const QString &msg) {
     emit newLogEntry(msg);
 };
 
+SslServer::SslServer(QObject *p) : QTcpServer(p) {
+}
+
+void SslServer::incomingConnection(int v) {
+    QSslSocket *s = new QSslSocket(this);
+    s->setSocketDescriptor(v);
+    qlSockets.append(s);
+}
+
+QSslSocket *SslServer::nextPendingSSLConnection() {
+	if (qlSockets.isEmpty())
+		return NULL;
+	return qlSockets.takeFirst();
+}
+
 ServerParams::ServerParams() {
 	qsPassword = QString();
 	iPort = 64738;
@@ -73,6 +89,7 @@ ServerParams::ServerParams() {
 	iDBPort = 0;
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
+	qsSSLStore = "murmur.pem";
 }
 
 void ServerParams::read(QString fname) {
@@ -109,6 +126,10 @@ void ServerParams::read(QString fname) {
 	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
 	qsRegHost = qs.value("registerHostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
+	
+	qsSSLCert = qs.value("sslCert", qsSSLCert).toString();
+	qsSSLKey = qs.value("sslKey", qsSSLKey).toString();
+	qsSSLStore = qs.value("sslStore", qsSSLStore).toString();
 }
 
 BandwidthRecord::BandwidthRecord() {
@@ -291,7 +312,7 @@ void UDPThread::processMsg(PacketDataStream &pds, Connection *cCon) {
 
 
 Server::Server(QObject *p) : QObject(p) {
-	qtsServer = new QTcpServer(this);
+	qtsServer = new SslServer(this);
 
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()));
 
@@ -337,7 +358,7 @@ void Server::log(QString s, Connection *c) {
 }
 
 void Server::newClient() {
-	QTcpSocket *sock = qtsServer->nextPendingConnection();
+	QSslSocket *sock = qtsServer->nextPendingSSLConnection();
 
 	QHostAddress adr = sock->peerAddress();
 	quint32 base = adr.toIPv4Address();
@@ -354,6 +375,8 @@ void Server::newClient() {
 		}
 	}
 
+	sock->setPrivateKey(cert.getKey());
+	sock->setLocalCertificate(cert.getCert());
 
 	Connection *cCon = new Connection(this, sock);
 
@@ -376,8 +399,27 @@ void Server::newClient() {
 
 	connect(cCon, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
 	connect(cCon, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
+	connect(cCon, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 
 	log(QString("New connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()), cCon);
+	
+	sock->startServerEncryption();
+}
+
+void Server::sslError(const QList<QSslError> &errors) {
+	bool ok = true;
+	foreach(QSslError e, errors) {
+		switch (e.error()) {
+			case QSslError::NoPeerCertificate:
+				break;
+			default:
+				ok = false;
+		}
+	}
+	if (ok) {
+		Connection *c = static_cast<Connection *>(sender());
+		c->proceedAnyway();
+	}	
 }
 
 void Server::connectionClosed(QString reason) {
