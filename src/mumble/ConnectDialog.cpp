@@ -176,7 +176,7 @@ QWidget *ConnectDialog::createRemote() {
     labels << tr("URL");
     qtwServers->setHorizontalHeaderLabels(labels);
     qtwServers->setObjectName(QLatin1String("Servers"));
-    
+
     QPushButton *connectButton = new QPushButton(tr("&Connect"));
     connectButton->setDefault(true);
     connect(connectButton, SIGNAL(clicked()), this, SLOT(accept()));
@@ -262,6 +262,8 @@ void ConnectDialog::initList() {
 void ConnectDialog::fillList() {
     for(int i=0;i<qtwServers->rowCount();i++)
     	qtwServers->removeRow(0);
+
+    qtwServers->setSortingEnabled(false);
 
     foreach(PublicInfo pi, qlPublicServers) {
 	qtwServers->insertRow(0);
