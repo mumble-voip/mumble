@@ -85,6 +85,7 @@ sub authenticate {
     carp $DBI::errstr;
     return -2;
   }
+  $dbh->do("SET names utf8");
   my $sth=$dbh->prepare("SELECT user_id, user_password, user_type FROM ${dbprefix}users WHERE username = ?");
   $sth->execute($uname);
   if ((my $r=$sth->fetchrow_hashref())) {
@@ -128,6 +129,7 @@ sub getUserName {
     carp $DBI::errstr;
     return undef;
   }
+  $dbh->do("SET names utf8");
   my $sth=$dbh->prepare("SELECT username FROM ${dbprefix}users WHERE user_id = ?");
   $sth->execute($id - $id_offset);
   if ((my $r=$sth->fetchrow_hashref())) {
@@ -149,6 +151,7 @@ sub getUserId {
     carp $DBI::errstr;
     return -2;
   }
+  $dbh->do("SET names utf8");
   my $sth=$dbh->prepare("SELECT user_id FROM ${dbprefix}users WHERE username = ?");
   $sth->execute($name);
   if ((my $r=$sth->fetchrow_hashref())) {
@@ -170,6 +173,7 @@ sub getUserTexture {
     carp $DBI::errstr;
     return undef;
   }
+  $dbh->do("SET names utf8");
   my $sth=$dbh->prepare("SELECT user_avatar, user_avatar_type FROM ${dbprefix}users WHERE user_id = ?");
   $sth->execute($uid - $id_offset);
   if ((my $r=$sth->fetchrow_hashref())) {
