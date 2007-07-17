@@ -49,6 +49,7 @@
 #include "Log.h"
 #include "Overlay.h"
 #include "Global.h"
+#include "Database.h"
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)){
 	msg = m;
@@ -455,6 +456,7 @@ void MainWindow::on_ServerConnect_triggered()
 	}
 
 	if (res == QDialog::Accepted) {
+	    	rtLast = MessageServerReject::None;
 		qaServerDisconnect->setEnabled(true);
 		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
@@ -937,6 +939,10 @@ void MainWindow::serverDisconnected(QString reason)
 	qaServerDisconnect->setEnabled(false);
 	qaServerBanList->setEnabled(false);
 
+	QString uname, pw, host;
+	int port;
+	g.sh->getConnectionInfo(host, port, uname, pw);
+
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
@@ -951,38 +957,72 @@ void MainWindow::serverDisconnected(QString reason)
 
 	pmModel->removeAll();
 
-	if (! reason.isEmpty()) {
-		g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
-		QString uname, pw, host;
-		int port;
-		g.sh->getConnectionInfo(host, port, uname, pw);
-		bool ok = false;
-		bool matched = false;
+	if (! g.sh->qlErrors.isEmpty()) {
+	    foreach(QSslError e, g.sh->qlErrors)
+		    g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
+	    if (! g.sh->qscCert.isNull()) {
+		QSslCertificate c = g.sh->qscCert;
+		QString basereason;
+		if (! Database::getDigest(host, port).isNull()) {
+		    basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
+		} else {
+		    basereason = tr("Sever presented a certificate which failed verification.");
+		}
+		QStringList qsl;
+		foreach(QSslError e, g.sh->qlErrors)
+			qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
 
-		  switch (rtLast) {
-			case MessageServerReject::InvalidUsername:
-			case MessageServerReject::UsernameInUse:
-			    matched = true;
-			    uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MessageServerReject::InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok);
-			    break;
-			case MessageServerReject::WrongUserPW:
-			case MessageServerReject::WrongServerPW:
-			    matched = true;
-			    pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MessageServerReject::WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok);
-			    break;
-			default:
-			    break;
-		    }
-		 if (ok && matched) {
+		QStringList det;
+		det << tr("<li><b>Common Name:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CommonName));
+		det << tr("<li><b>Organization:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::Organization));
+		det << tr("<li><b>Subunit:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::OrganizationalUnitName));
+		det << tr("<li><b>Country:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CountryName));
+		det << tr("<li><b>Locality:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::LocalityName));
+		det << tr("<li><b>State:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::StateOrProvinceName));
+
+		if (QMessageBox::warning(this, tr("Mumble"),
+				tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
+				"<p>The details for this certificate are as follows: %3</p>"
+				"<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
+				).arg(basereason).arg(qsl.join(QString())).arg(det.join(QString())), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+				    Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
 		      qaServerDisconnect->setEnabled(true);
-			g.sh->setConnectionInfo(host, port, uname, pw);
 			g.sh->start(QThread::TimeCriticalPriority);
-		 } else if (!matched && g.s.bReconnect) {
-		      qaServerDisconnect->setEnabled(true);
-		      qtReconnect->start();
-	      }
+
+	    	}
+	    }
 	} else {
-	  g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
+	    bool ok = false;
+	    bool matched = false;
+
+	    	if (! reason.isEmpty()) {
+		    g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
+		}  else {
+	      g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
+	    }
+
+	      switch (rtLast) {
+		    case MessageServerReject::InvalidUsername:
+		    case MessageServerReject::UsernameInUse:
+			matched = true;
+			uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MessageServerReject::InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok);
+			break;
+		    case MessageServerReject::WrongUserPW:
+		    case MessageServerReject::WrongServerPW:
+			matched = true;
+			pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MessageServerReject::WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok);
+			break;
+		    default:
+			break;
+		}
+		     if (ok && matched) {
+			  qaServerDisconnect->setEnabled(true);
+			    g.sh->setConnectionInfo(host, port, uname, pw);
+			    g.sh->start(QThread::TimeCriticalPriority);
+		     } else if (!matched && g.s.bReconnect && ! reason.isEmpty()) {
+			  qaServerDisconnect->setEnabled(true);
+			  qtReconnect->start();
+		  }
 	}
 }
 

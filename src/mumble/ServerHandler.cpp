@@ -36,6 +36,7 @@
 #include "Player.h"
 #include "Connection.h"
 #include "Global.h"
+#include "Database.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool udp) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -46,6 +47,19 @@ ServerHandler::ServerHandler()
 {
 	cConnection = NULL;
 	qusUdp = NULL;
+
+	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
+	qWarning("OpenSSL Support: %d", QSslSocket::supportsSsl());
+
+  QList<QSslCipher> pref;
+  foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
+    if (c.usedBits() < 128)
+      continue;
+    pref << c;
+  }
+  if (pref.isEmpty())
+    qFatal("No ciphers of at least 128 bit found");
+  QSslSocket::setDefaultCiphers(pref);
 }
 
 ServerHandler::~ServerHandler()
@@ -125,14 +139,18 @@ void ServerHandler::sendMessage(Message *mMsg, bool forceTCP)
 
 void ServerHandler::run()
 {
-	QTcpSocket *qtsSock = new QTcpSocket(this);
+	QSslSocket *qtsSock = new QSslSocket(this);
 	cConnection = new Connection(this, qtsSock);
 	qusUdp = NULL;
 
-	connect(qtsSock, SIGNAL(connected()), this, SLOT(serverConnectionConnected()));
+	qlErrors.clear();
+	qscCert = QSslCertificate();
+
+	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
 	connect(cConnection, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
-	qtsSock->connectToHost(qsHostName, iPort);
+	connect(cConnection, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
+	qtsSock->connectToHostEncrypted(qsHostName, iPort);
 
 	QTimer *ticker = new QTimer(this);
 	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
@@ -150,6 +168,14 @@ void ServerHandler::run()
 		delete qusUdp;
 		qusUdp = NULL;
 	}
+}
+
+void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
+    	qscCert = cConnection->peerCertificate();
+    	if (QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, iPort))
+    		cConnection->proceedAnyway();
+    	else
+	    	qlErrors = errors;
 }
 
 void ServerHandler::sendPing() {
@@ -204,7 +230,6 @@ void ServerHandler::serverConnectionClosed(QString reason) {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 			ao->wipe();
-
 	emit disconnected(reason);
 	exit(0);
 }

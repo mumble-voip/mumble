@@ -78,4 +78,29 @@ Database::Database() {
 	// query.exec("DROP TABLE servers");
 	query.exec(QLatin1String("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"));
 	query.exec(QLatin1String("ALTER TABLE servers ADD COLUMN udp INTEGER DEFAULT 1"));
+
+	query.exec(QLatin1String("CREATE TABLE cert (id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT, port INTEGER, digest TEST)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX cert_host_port ON cert(hostname,port)"));
+}
+
+const QString Database::getDigest(const QString &hostname, unsigned short port) {
+    QSqlQuery query;
+
+    query.prepare("SELECT digest FROM cert WHERE hostname = ? AND port = ?");
+    query.addBindValue(hostname);;
+    query.addBindValue(port);
+    query.exec();
+    if (query.next()) {
+	return query.value(0).toString();
+    }
+    return QString();
+}
+
+void Database::setDigest(const QString &hostname, unsigned short port, const QString &digest) {
+    QSqlQuery query;
+    query.prepare("REPLACE INTO cert (hostname,port,digest) VALUES (?,?,?)");
+    query.addBindValue(hostname);
+    query.addBindValue(port);
+    query.addBindValue(digest);
+    query.exec();
 }

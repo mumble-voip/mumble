@@ -51,12 +51,17 @@ class ServerHandler : public QThread
 		QString qsHostName;
 		QString qsUserName;
 		QString qsPassword;
+		QString qsDigest;
 		int iPort;
 		Connection *cConnection;
 
 		QHostAddress qhaRemote;
 		QUdpSocket *qusUdp;
+
 	public:
+		QList<QSslError> qlErrors;
+		QSslCertificate qscCert;
+
 		ServerHandler();
 		~ServerHandler();
 		void setConnectionInfo(const QString &host, int port, const QString &username, const QString &pw);
@@ -72,6 +77,7 @@ class ServerHandler : public QThread
 		void message(QByteArray &);
 		void serverConnectionConnected();
 		void serverConnectionClosed(QString);
+		void setSslErrors(const QList<QSslError> &);
 		void udpReady();
 		void sendPing();
 };

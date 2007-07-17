@@ -65,7 +65,7 @@ void Connection::socketRead() {
   int iAvailable;
   while (1) {
     iAvailable = qtsSocket->bytesAvailable();
-    
+
     if (iPacketLength == -1) {
       if (iAvailable < 3)
         return;
@@ -165,4 +165,8 @@ QHostAddress Connection::peerAddress() const {
 
 quint16 Connection::peerPort() const {
 	return qtsSocket->peerPort();
+}
+
+QSslCertificate Connection::peerCertificate() const {
+    	return qtsSocket->peerCertificate();
 }

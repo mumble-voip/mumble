@@ -62,6 +62,8 @@ class Connection : public QObject {
 		void forceFlush();
 		int activityTime() const;
 
+		QSslCertificate peerCertificate() const;
+
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;
 };

@@ -20,7 +20,6 @@ SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.c
 
 DIST = DBus.h
 
-LIBS += -lssl
 
 PRECOMPILED_HEADER = murmur_pch.h
 DIST = murmur.pl murmur.ini link.pl dbusauth.pl Commands.txt mysql.sql mysql_upgrade.sql
@@ -33,10 +32,12 @@ win32 {
   RESOURCES	+= murmur.qrc
   SOURCES += Tray.cpp
   HEADERS += Tray.h
+  LIBS += -leay32
 }
 
 unix {
   SOURCES += DBus.cpp
   HEADERS += DBus_real.h
   CONFIG += qdbus
+  LIBS += -lssl
 }
