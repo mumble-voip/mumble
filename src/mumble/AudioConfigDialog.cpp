@@ -411,7 +411,7 @@ QString AudioConfigDialog::title() const {
 }
 
 QIcon AudioConfigDialog::icon() const {
-	return QIcon(QLatin1String(":/config_basic.png"));
+	return QIcon(QLatin1String("skin:config_basic.png"));
 }
 
 void AudioConfigDialog::accept() {

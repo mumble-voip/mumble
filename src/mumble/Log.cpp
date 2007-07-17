@@ -126,7 +126,7 @@ QString LogConfig::title() const {
 }
 
 QIcon LogConfig::icon() const {
-	return QIcon(QLatin1String(":/config_msgs.png"));
+	return QIcon(QLatin1String("skin:config_msgs.png"));
 }
 
 void LogConfig::accept() {

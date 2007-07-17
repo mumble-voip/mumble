@@ -335,7 +335,7 @@ QString OverlayConfig::title() const {
 }
 
 QIcon OverlayConfig::icon() const {
-	return QIcon(QLatin1String(":/config_osd.png"));
+	return QIcon(QLatin1String("skin:config_osd.png"));
 }
 
 void OverlayConfig::accept() {
@@ -394,10 +394,10 @@ Overlay::Overlay() : QObject() {
 #endif
 
 	QImage img;
-	img.load(QLatin1String(":/muted_overlay.png"));
+	img.load(QLatin1String("skin:muted_overlay.png"));
 	qbaMuted = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
 
-	img.load(QLatin1String(":/deafened_overlay.png"));
+	img.load(QLatin1String("skin:deafened_overlay.png"));
 	qbaDeafened = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
 
 	qtTimer=new QTimer(this);

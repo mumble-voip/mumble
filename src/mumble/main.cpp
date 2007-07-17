@@ -77,32 +77,38 @@ int main(int argc, char **argv)
 		a.setStyle(style);
 	}
 
-	QString skin=g.qs->value(QLatin1String("Skin")).toString();
+
+	QString skin=g.qs->value(QLatin1String("skin")).toString();
 	if (! skin.isEmpty()) {
 	    QFile file(skin);
 	    file.open(QFile::ReadOnly);
 	    QString styleSheet=QLatin1String(file.readAll());
-	    if (! styleSheet.isEmpty())
+	    if (! styleSheet.isEmpty()) {
+		    QFileInfo fi(skin);
+		    QDir::addSearchPath(QLatin1String("skin"), fi.path());
 		    a.setStyleSheet(styleSheet);
+	    }
 	}
+
+	QDir::addSearchPath(QLatin1String("skin"),QLatin1String(":/"));
+	QDir::addSearchPath(QLatin1String("translation"), a.applicationDirPath());
+	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
 
     QString locale=g.qs->value(QLatin1String("Language"), QLocale::system().name()).toString();
     QTranslator translator;
-    if (! translator.load(QLatin1String("mumble_") + locale))
-		translator.load(QLatin1String(":/mumble_") + locale);
+    translator.load(QLatin1String("translation:mumble_") + locale);
     a.installTranslator(&translator);
 
     QTranslator qttranslator;
-    if (! qttranslator.load(QLatin1String("qt_") + locale))
-		qttranslator.load(QLatin1String(":/qt_") + locale);
+    qttranslator.load(QLatin1String("translation:qt_") + locale);
     a.installTranslator(&qttranslator);
 
 
 	// Set application icon
 	QIcon icon;
-	icon.addFile(QLatin1String(":/mumble.png.2"));
-	icon.addFile(QLatin1String(":/mumble.png.1"));
-	icon.addFile(QLatin1String(":/mumble.png.0"));
+	icon.addFile(QLatin1String("skin:mumble.png.2"));
+	icon.addFile(QLatin1String("skin:mumble.png.1"));
+	icon.addFile(QLatin1String("skin:mumble.png.0"));
 	a.setWindowIcon(icon);
 
 	// Load preferences

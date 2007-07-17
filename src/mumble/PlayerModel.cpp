@@ -175,17 +175,17 @@ void ModelItem::insertPlayer(Player *p) {
 }
 
 PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOn=QIcon(QLatin1String(":/talking_on.png"));
-	qiTalkingAlt=QIcon(QLatin1String(":/talking_alt.png"));
-	qiTalkingOff=QIcon(QLatin1String(":/talking_off.png"));
-	qiMutedSelf=QIcon(QLatin1String(":/muted_self.png"));
-	qiMutedServer=QIcon(QLatin1String(":/muted_server.png"));
-	qiMutedLocal=QIcon(QLatin1String(":/muted_local.png"));
-	qiDeafenedSelf=QIcon(QLatin1String(":/deafened_self.png"));
-	qiDeafenedServer=QIcon(QLatin1String(":/deafened_server.png"));
-	qiAuthenticated=QIcon(QLatin1String(":/authenticated.png"));
-	qiChannel=QIcon(QLatin1String(":/channel.png"));
-	qiLinkedChannel=QIcon(QLatin1String(":/channel_linked.png"));
+	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.png"));
+	qiTalkingAlt=QIcon(QLatin1String("skin:talking_alt.png"));
+	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.png"));
+	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.png"));
+	qiMutedServer=QIcon(QLatin1String("skin:muted_server.png"));
+	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.png"));
+	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.png"));
+	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.png"));
+	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.png"));
+	qiChannel=QIcon(QLatin1String("skin:channel.png"));
+	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.png"));
 
 	ModelItem::bPlayersTop = g.s.bPlayerTop;
 
@@ -390,18 +390,18 @@ QVariant PlayerModel::otherRoles(int section, int role, bool isPlayer) const
 					if (isPlayer)
  						return tr("This is a player connected to the server. The icon to the left of the player indicates "
 							"whether or not they are talking:<br />"
-							"<img src=\":/talking_on.png\" /> Talking<br />"
-							"<img src=\":/talking_off.png\" /> Not talking"
+							"<img src=\"skin:talking_on.png\" /> Talking<br />"
+							"<img src=\"skin:talking_off.png\" /> Not talking"
 							);
 					else
 						return tr("This is a channel on the server. Only players in the same channel can hear each other.");
 				case 1:
 					return tr("This shows the flags the player has on the server, if any:<br />"
-								"<img src=\":/authenticated.png\" />Authenticated user<br />"
-								"<img src=\":/muted_self.png\" />Muted (by self)<br />"
-								"<img src=\":/muted_server.png\" />Muted (by admin)<br />"
-								"<img src=\":/deafened_self.png\" />Deafened (by self)<br />"
-								"<img src=\":/deafened_server.png\" />Deafened (by admin)<br />"
+								"<img src=\"skin:authenticated.png\" />Authenticated user<br />"
+								"<img src=\"skin:muted_self.png\" />Muted (by self)<br />"
+								"<img src=\"skin:muted_server.png\" />Muted (by admin)<br />"
+								"<img src=\"skin:deafened_self.png\" />Deafened (by self)<br />"
+								"<img src=\"skin:deafened_server.png\" />Deafened (by admin)<br />"
 								"A player muted by himself is probably just away, talking on the phone or something like that.<br />"
 								"A player muted by an admin is probably also just away, and the noise the player is making was annoying "
 								"enough that an admin muted him.");

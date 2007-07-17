@@ -54,7 +54,7 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 
 	qcbLanguage = new QComboBox();
 	qcbLanguage->addItem(tr("System default"));
-	QDir d(QLatin1String(":"),QLatin1String("*.qm"),QDir::Name,QDir::Files);
+	QDir d(QLatin1String(":"),QLatin1String("mumble_*.qm"),QDir::Name,QDir::Files);
 	QStringList langs;
 	foreach(QString key, d.entryList()) {
 		QString cc = key.mid(7,2);
@@ -99,7 +99,10 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	qpbCSS = new QPushButton(tr("..."));
 	qpbCSS->setObjectName(QLatin1String("SkinFile"));
 	qleCSS->setToolTip(tr("Skin file to use"));
-	qleCSS->setWhatsThis(tr("<b>This sets which skin Mumble should use.</b><br />The skin is a style file applied on top of the basic widget style."));
+	qleCSS->setWhatsThis(tr("<b>This sets which skin Mumble should use.</b><br />"
+				"The skin is a style file applied on top of the basic widget style. "
+				"If there are icons in the same directory as the style sheet, those will replace the default icons."
+				));
 	qpbCSS->setToolTip(qleCSS->toolTip());
 	qpbCSS->setWhatsThis(qleCSS->whatsThis());
 	grid->addWidget(l,1,0);
@@ -140,7 +143,7 @@ QString LookConfig::title() const {
 }
 
 QIcon LookConfig::icon() const {
-	return QIcon(QLatin1String(":/config_ui.png"));
+	return QIcon(QLatin1String("skin:config_ui.png"));
 }
 
 void LookConfig::accept() {

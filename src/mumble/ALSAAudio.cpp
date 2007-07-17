@@ -282,7 +282,7 @@ QString ALSAConfig::title() const {
 }
 
 QIcon ALSAConfig::icon() const {
-  return QIcon(QLatin1String(":/config_dsound.png"));
+  return QIcon(QLatin1String("skin:config_dsound.png"));
 }
 
 void ALSAConfig::accept() {

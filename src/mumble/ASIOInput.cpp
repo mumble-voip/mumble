@@ -458,7 +458,7 @@ QString ASIOConfig::title() const {
 }
 
 QIcon ASIOConfig::icon() const {
-	return QIcon(":/config_asio.png");
+	return QIcon("skin:config_asio.png");
 }
 
 void ASIOConfig::accept() {
