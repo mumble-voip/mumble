@@ -51,7 +51,7 @@
 #include "Global.h"
 #include "Database.h"
 
-MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)){
+MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
 }
 
@@ -76,11 +76,11 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 }
 
 void MainWindow::createActions() {
-    	qaQuit = new QAction(tr("&Quit"), this);
-    	qaQuit->setToolTip(tr("Closes the program"));
-    	qaQuit->setWhatsThis(tr("Exits the application."));
-    	qaQuit->setObjectName(QLatin1String("Quit"));
-    	qaQuit->setShortcut(tr("Ctrl+Q", "Quit"));
+	qaQuit = new QAction(tr("&Quit"), this);
+	qaQuit->setToolTip(tr("Closes the program"));
+	qaQuit->setWhatsThis(tr("Exits the application."));
+	qaQuit->setObjectName(QLatin1String("Quit"));
+	qaQuit->setShortcut(tr("Ctrl+Q", "Quit"));
 
 	qaServerConnect=new QAction(tr("&Connect"), this);
 	qaServerConnect->setToolTip(tr("Open the server connection dialog"));
@@ -143,8 +143,8 @@ void MainWindow::createActions() {
 	qaChannelLink->setObjectName(QLatin1String("ChannelLink"));
 	qaChannelLink->setToolTip(tr("Link your channel to another channel"));
 	qaChannelLink->setWhatsThis(tr("This links your current channel to the selected channel. If they have permission to speak in "
-							"the other channel, players can now hear each other. This is a permanent link, and will last until "
-							"manually unlinked or the server is restarted. Please see the shortcuts for push-to-link."));
+	                               "the other channel, players can now hear each other. This is a permanent link, and will last until "
+	                               "manually unlinked or the server is restarted. Please see the shortcuts for push-to-link."));
 	qaChannelUnlink=new QAction(tr("&Unlink"), this);
 	qaChannelUnlink->setObjectName(QLatin1String("ChannelUnlink"));
 	qaChannelUnlink->setToolTip(tr("Unlink your channel from another channel"));
@@ -158,8 +158,8 @@ void MainWindow::createActions() {
 	qaAudioReset->setObjectName(QLatin1String("AudioReset"));
 	qaAudioReset->setToolTip(tr("Reset audio preprocessor"));
 	qaAudioReset->setWhatsThis(tr("This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. "
-									"If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, "
-									"use this to avoid having to wait for the preprocessor to readjust."));
+	                              "If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, "
+	                              "use this to avoid having to wait for the preprocessor to readjust."));
 	qaAudioMute=new QAction(tr("&Mute Self"), this);
 	qaAudioMute->setObjectName(QLatin1String("AudioMute"));
 	qaAudioMute->setCheckable(true);
@@ -186,7 +186,7 @@ void MainWindow::createActions() {
 	qaAudioUnlink->setObjectName(QLatin1String("AudioUnlink"));
 	qaAudioUnlink->setToolTip(tr("Forcibly unlink plugin"));
 	qaAudioUnlink->setWhatsThis(tr("This forces the current plugin to unlink, which is handy if it is reading "
-									"completely wrong data."));
+	                               "completely wrong data."));
 
 	qaConfigDialog=new QAction(tr("&Settings"), this);
 	qaConfigDialog->setObjectName(QLatin1String("ConfigDialog"));
@@ -204,7 +204,7 @@ void MainWindow::createActions() {
 	qaHelpWhatsThis->setObjectName(QLatin1String("HelpWhatsThis"));
 	qaHelpWhatsThis->setToolTip(tr("Enter What's This? mode"));
 	qaHelpWhatsThis->setWhatsThis(tr("Click this to enter \"What's This?\" mode. Your cursor will turn into a question mark. Click "
-									"on any button, menu choice or area to show a description of what it is."));
+	                                 "on any button, menu choice or area to show a description of what it is."));
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 	qaHelpAbout=new QAction(tr("&About"), this);
 	qaHelpAbout->setObjectName(QLatin1String("HelpAbout"));
@@ -222,7 +222,7 @@ void MainWindow::createActions() {
 	qaHelpVersionCheck->setObjectName(QLatin1String("HelpVersionCheck"));
 	qaHelpVersionCheck->setToolTip(tr("Check for new version of Mumble"));
 	qaHelpVersionCheck->setWhatsThis(tr("Connects to the Mumble webpage to check if a new version is available, and notifies "
-										"you with an appropriate download URL if this is the case."));
+	                                    "you with an appropriate download URL if this is the case."));
 }
 
 void MainWindow::setupGui()  {
@@ -245,7 +245,7 @@ void MainWindow::setupGui()  {
 	qteLog->setReadOnly(true);
 	qteLog->setToolTip(tr("Log of messages"));
 	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors and information messages all show up here.<br />"
-							"To configure exactly which messages show up here, use the <b>Settings</b> command from the menu."));
+	                        "To configure exactly which messages show up here, use the <b>Settings</b> command from the menu."));
 
 	qmServer = new QMenu(tr("&Server"), this);
 	qmPlayer = new QMenu(tr("&Player"), this);
@@ -341,7 +341,7 @@ void MainWindow::setupGui()  {
 	gs->setData(0);
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
-	for(int i = 1; i< 10;i++) {
+	for (int i = 1; i< 10;i++) {
 		gs = new GlobalShortcut(this, idx++, tr("Chan Sub#%1", "Global Shortcut").arg(i));
 		gs->setData(i);
 		connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
@@ -406,8 +406,7 @@ void MainWindow::hideEvent(QHideEvent *e) {
 	QMainWindow::hideEvent(e);
 }
 
-void MainWindow::appendLog(QString entry)
-{
+void MainWindow::appendLog(QString entry) {
 	qteLog->append(entry);
 	QTextCursor p=qteLog->textCursor();
 	p.movePosition(QTextCursor::End);
@@ -429,8 +428,8 @@ void MainWindow::on_Players_customContextMenuRequested(const QPoint &mpos) {
 }
 
 void MainWindow::on_Players_doubleClicked(const QModelIndex &idx) {
-    	Player *p = pmModel->getPlayer(idx);
-    	if (p) {
+	Player *p = pmModel->getPlayer(idx);
+	if (p) {
 		on_PlayerTextMessage_triggered();
 		return;
 	}
@@ -444,19 +443,17 @@ void MainWindow::on_Players_doubleClicked(const QModelIndex &idx) {
 	g.sh->sendMessage(&mpm);
 }
 
-void MainWindow::on_ServerConnect_triggered()
-{
+void MainWindow::on_ServerConnect_triggered() {
 	ConnectDialog *cd = new ConnectDialog(this);
 	int res = cd->exec();
 
-	if (g.sh && g.sh->isRunning() && res == QDialog::Accepted)
-	{
+	if (g.sh && g.sh->isRunning() && res == QDialog::Accepted) {
 		on_ServerDisconnect_triggered();
 		g.sh->wait();
 	}
 
 	if (res == QDialog::Accepted) {
-	    	rtLast = MessageServerReject::None;
+		rtLast = MessageServerReject::None;
 		qaServerDisconnect->setEnabled(true);
 		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
@@ -464,22 +461,19 @@ void MainWindow::on_ServerConnect_triggered()
 	delete cd;
 }
 
-void MainWindow::on_Reconnect_timeout()
-{
-		g.l->log(Log::ServerDisconnected, tr("Reconnecting."));
-		g.sh->start(QThread::TimeCriticalPriority);
+void MainWindow::on_Reconnect_timeout() {
+	g.l->log(Log::ServerDisconnected, tr("Reconnecting."));
+	g.sh->start(QThread::TimeCriticalPriority);
 }
 
-void MainWindow::on_ServerDisconnect_triggered()
-{
+void MainWindow::on_ServerDisconnect_triggered() {
 	if (qtReconnect->isActive())
 		qtReconnect->stop();
 	if (g.sh && g.sh->isRunning())
 		g.sh->disconnect();
 }
 
-void MainWindow::on_ServerBanList_triggered()
-{
+void MainWindow::on_ServerBanList_triggered() {
 	MessageServerBanList msbl;
 	msbl.bQuery = true;
 	g.sh->sendMessage(&msbl);
@@ -491,8 +485,7 @@ void MainWindow::on_ServerBanList_triggered()
 	}
 }
 
-void MainWindow::on_PlayerMenu_aboutToShow()
-{
+void MainWindow::on_PlayerMenu_aboutToShow() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (! p) {
 		qaPlayerKick->setEnabled(false);
@@ -514,8 +507,7 @@ void MainWindow::on_PlayerMenu_aboutToShow()
 	}
 }
 
-void MainWindow::on_PlayerMute_triggered()
-{
+void MainWindow::on_PlayerMute_triggered() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (!p)
 		return;
@@ -526,8 +518,7 @@ void MainWindow::on_PlayerMute_triggered()
 	g.sh->sendMessage(&mpmMsg);
 }
 
-void MainWindow::on_PlayerLocalMute_triggered()
-{
+void MainWindow::on_PlayerLocalMute_triggered() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (!p)
 		return;
@@ -535,8 +526,7 @@ void MainWindow::on_PlayerLocalMute_triggered()
 	p->setLocalMute(qaPlayerLocalMute->isChecked());
 }
 
-void MainWindow::on_PlayerDeaf_triggered()
-{
+void MainWindow::on_PlayerDeaf_triggered() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (!p)
 		return;
@@ -547,8 +537,7 @@ void MainWindow::on_PlayerDeaf_triggered()
 	g.sh->sendMessage(&mpdMsg);
 }
 
-void MainWindow::on_PlayerKick_triggered()
-{
+void MainWindow::on_PlayerKick_triggered() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (!p)
 		return;
@@ -570,8 +559,7 @@ void MainWindow::on_PlayerKick_triggered()
 	}
 }
 
-void MainWindow::on_PlayerBan_triggered()
-{
+void MainWindow::on_PlayerBan_triggered() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (!p)
 		return;
@@ -592,8 +580,7 @@ void MainWindow::on_PlayerBan_triggered()
 	}
 }
 
-void MainWindow::on_PlayerTextMessage_triggered()
-{
+void MainWindow::on_PlayerTextMessage_triggered() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 
 	if (!p)
@@ -616,13 +603,11 @@ void MainWindow::on_PlayerTextMessage_triggered()
 	}
 }
 
-void MainWindow::on_Quit_triggered()
-{
-    qApp->closeAllWindows();
+void MainWindow::on_Quit_triggered() {
+	qApp->closeAllWindows();
 }
 
-void MainWindow::on_ChannelMenu_aboutToShow()
-{
+void MainWindow::on_ChannelMenu_aboutToShow() {
 	QModelIndex idx = qtvPlayers->currentIndex();
 
 	bool add, remove, acl, link, unlink, unlinkall;
@@ -659,8 +644,7 @@ void MainWindow::on_ChannelMenu_aboutToShow()
 	qaChannelUnlinkAll->setEnabled(unlinkall);
 }
 
-void MainWindow::on_ChannelAdd_triggered()
-{
+void MainWindow::on_ChannelAdd_triggered() {
 	bool ok;
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	int iParent = c ? c->iId : 0;
@@ -678,8 +662,7 @@ void MainWindow::on_ChannelAdd_triggered()
 	}
 }
 
-void MainWindow::on_ChannelRemove_triggered()
-{
+void MainWindow::on_ChannelRemove_triggered() {
 	int ret;
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! c)
@@ -693,15 +676,14 @@ void MainWindow::on_ChannelRemove_triggered()
 	if (!c)
 		return;
 
-	if (ret == QMessageBox::Yes ) {
+	if (ret == QMessageBox::Yes) {
 		MessageChannelRemove mcr;
 		mcr.iId = c->iId;
 		g.sh->sendMessage(&mcr);
 	}
 }
 
-void MainWindow::on_ChannelACL_triggered()
-{
+void MainWindow::on_ChannelACL_triggered() {
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	int id = c ? c->iId : 0;
 
@@ -717,8 +699,7 @@ void MainWindow::on_ChannelACL_triggered()
 	}
 }
 
-void MainWindow::on_ChannelLink_triggered()
-{
+void MainWindow::on_ChannelLink_triggered() {
 	Channel *c = Player::get(g.sId)->cChannel;
 	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! l)
@@ -731,8 +712,7 @@ void MainWindow::on_ChannelLink_triggered()
 	g.sh->sendMessage(&mcl);
 }
 
-void MainWindow::on_ChannelUnlink_triggered()
-{
+void MainWindow::on_ChannelUnlink_triggered() {
 	Channel *c = Player::get(g.sId)->cChannel;
 	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! l)
@@ -745,8 +725,7 @@ void MainWindow::on_ChannelUnlink_triggered()
 	g.sh->sendMessage(&mcl);
 }
 
-void MainWindow::on_ChannelUnlinkAll_triggered()
-{
+void MainWindow::on_ChannelUnlinkAll_triggered() {
 	Channel *c = Player::get(g.sId)->cChannel;
 
 	MessageChannelLink mcl;
@@ -755,15 +734,13 @@ void MainWindow::on_ChannelUnlinkAll_triggered()
 	g.sh->sendMessage(&mcl);
 }
 
-void MainWindow::on_AudioReset_triggered()
-{
+void MainWindow::on_AudioReset_triggered() {
 	AudioInputPtr ai = g.ai;
 	if (ai)
 		ai->bResetProcessor = true;
 }
 
-void MainWindow::on_AudioMute_triggered()
-{
+void MainWindow::on_AudioMute_triggered() {
 	g.s.bMute = qaAudioMute->isChecked();
 	if (! g.s.bMute && g.s.bDeaf) {
 		g.s.bDeaf = false;
@@ -781,8 +758,7 @@ void MainWindow::on_AudioMute_triggered()
 	g.sh->sendMessage(&mpsmd);
 }
 
-void MainWindow::on_AudioDeaf_triggered()
-{
+void MainWindow::on_AudioDeaf_triggered() {
 	g.s.bDeaf = qaAudioDeaf->isChecked();
 	if (g.s.bDeaf && ! g.s.bMute) {
 		g.s.bMute = true;
@@ -800,78 +776,65 @@ void MainWindow::on_AudioDeaf_triggered()
 	g.sh->sendMessage(&mpsmd);
 }
 
-void MainWindow::on_AudioTextToSpeech_triggered()
-{
+void MainWindow::on_AudioTextToSpeech_triggered() {
 	g.s.bTTS = qaAudioTTS->isChecked();
 }
 
-void MainWindow::on_AudioStats_triggered()
-{
+void MainWindow::on_AudioStats_triggered() {
 	AudioStats *as=new AudioStats(this);
 	as->show();
 }
 
-void MainWindow::on_AudioUnlink_triggered()
-{
+void MainWindow::on_AudioUnlink_triggered() {
 	g.p->bUnlink = true;
 }
 
-void MainWindow::on_ConfigDialog_triggered()
-{
+void MainWindow::on_ConfigDialog_triggered() {
 	ConfigDialog dlg;
 	dlg.exec();
 }
 
-void MainWindow::on_AudioWizard_triggered()
-{
+void MainWindow::on_AudioWizard_triggered() {
 #ifdef Q_OS_WIN
-    	AudioWizard aw;
+	AudioWizard aw;
 	aw.exec();
 #endif
 }
 
-void MainWindow::on_HelpWhatsThis_triggered()
-{
+void MainWindow::on_HelpWhatsThis_triggered() {
 	QWhatsThis::enterWhatsThisMode();
 }
 
-void MainWindow::on_HelpAbout_triggered()
-{
+void MainWindow::on_HelpAbout_triggered() {
 	AboutDialog adAbout(this);
 	adAbout.exec();
 }
 
-void MainWindow::on_HelpAboutSpeex_triggered()
-{
+void MainWindow::on_HelpAboutSpeex_triggered() {
 	AboutSpeexDialog adAbout(this);
 	adAbout.exec();
 }
 
-void MainWindow::on_HelpAboutQt_triggered()
-{
+void MainWindow::on_HelpAboutQt_triggered() {
 	QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
-void MainWindow::on_HelpVersionCheck_triggered()
-{
+void MainWindow::on_HelpVersionCheck_triggered() {
 	new VersionCheck(this);
 }
 
-void MainWindow::on_PushToTalk_triggered(bool down)
-{
+void MainWindow::on_PushToTalk_triggered(bool down) {
 	if (down)
 		g.iPushToTalk++;
 	else
 		g.iPushToTalk--;
 }
 
-void MainWindow::on_PushToMute_triggered(bool down)
-{
+void MainWindow::on_PushToMute_triggered(bool down) {
 	g.bPushToMute = down;
 }
 
-void MainWindow::on_AltPushToTalk_triggered(bool down)
-{
+void MainWindow::on_AltPushToTalk_triggered(bool down) {
 	if (down)
 		g.iPushToTalk++;
 	else
@@ -880,8 +843,7 @@ void MainWindow::on_AltPushToTalk_triggered(bool down)
 	g.bAltSpeak = down;
 }
 
-void MainWindow::on_CenterPos_triggered(bool down)
-{
+void MainWindow::on_CenterPos_triggered(bool down) {
 	g.bCenterPosition = down;
 
 	if (down)
@@ -890,8 +852,7 @@ void MainWindow::on_CenterPos_triggered(bool down)
 		g.iPushToTalk--;
 }
 
-void MainWindow::pushLink(bool down)
-{
+void MainWindow::pushLink(bool down) {
 	if (down)
 		g.iPushToTalk++;
 	else
@@ -905,7 +866,7 @@ void MainWindow::pushLink(bool down)
 	Channel *home = Player::get(g.sId)->cChannel;
 
 	Channel *target = NULL;
-	switch(idx) {
+	switch (idx) {
 		case 0:
 			target = home->cParent;
 			break;
@@ -935,9 +896,9 @@ void MainWindow::pushLink(bool down)
 			mcl.ltType = MessageChannelLink::PushUnlink;
 		if (idx == 10) {
 			foreach(Channel *l, home->qlChannels)
-				mcl.qlTargets << l->iId;
+			mcl.qlTargets << l->iId;
 		} else if (target) {
-				mcl.qlTargets << target->iId;
+			mcl.qlTargets << target->iId;
 		}
 		if (mcl.qlTargets.count() == 0)
 			return;
@@ -945,8 +906,7 @@ void MainWindow::pushLink(bool down)
 	}
 }
 
-void MainWindow::serverConnected()
-{
+void MainWindow::serverConnected() {
 	g.sId = 0;
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::PlayerJoin);
@@ -963,8 +923,7 @@ void MainWindow::serverConnected()
 	}
 }
 
-void MainWindow::serverDisconnected(QString reason)
-{
+void MainWindow::serverDisconnected(QString reason) {
 	g.sId = 0;
 	qaServerDisconnect->setEnabled(false);
 	qaServerBanList->setEnabled(false);
@@ -988,71 +947,71 @@ void MainWindow::serverDisconnected(QString reason)
 	pmModel->removeAll();
 
 	if (! g.sh->qlErrors.isEmpty()) {
-	    foreach(QSslError e, g.sh->qlErrors)
-		    g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
-	    if (! g.sh->qscCert.isNull()) {
-		QSslCertificate c = g.sh->qscCert;
-		QString basereason;
-		if (! Database::getDigest(host, port).isNull()) {
-		    basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
-		} else {
-		    basereason = tr("Sever presented a certificate which failed verification.");
-		}
-		QStringList qsl;
 		foreach(QSslError e, g.sh->qlErrors)
+		g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
+		if (! g.sh->qscCert.isNull()) {
+			QSslCertificate c = g.sh->qscCert;
+			QString basereason;
+			if (! Database::getDigest(host, port).isNull()) {
+				basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
+			} else {
+				basereason = tr("Sever presented a certificate which failed verification.");
+			}
+			QStringList qsl;
+			foreach(QSslError e, g.sh->qlErrors)
 			qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
 
-		QStringList det;
-		det << tr("<li><b>Common Name:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CommonName));
-		det << tr("<li><b>Organization:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::Organization));
-		det << tr("<li><b>Subunit:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::OrganizationalUnitName));
-		det << tr("<li><b>Country:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CountryName));
-		det << tr("<li><b>Locality:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::LocalityName));
-		det << tr("<li><b>State:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::StateOrProvinceName));
+			QStringList det;
+			det << tr("<li><b>Common Name:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CommonName));
+			det << tr("<li><b>Organization:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::Organization));
+			det << tr("<li><b>Subunit:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::OrganizationalUnitName));
+			det << tr("<li><b>Country:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CountryName));
+			det << tr("<li><b>Locality:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::LocalityName));
+			det << tr("<li><b>State:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::StateOrProvinceName));
 
-		if (QMessageBox::warning(this, tr("Mumble"),
-				tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
-				"<p>The details for this certificate are as follows: %3</p>"
-				"<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
-				).arg(basereason).arg(qsl.join(QString())).arg(det.join(QString())), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
-				    Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
-		      qaServerDisconnect->setEnabled(true);
-			g.sh->start(QThread::TimeCriticalPriority);
+			if (QMessageBox::warning(this, tr("Mumble"),
+			                         tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
+			                            "<p>The details for this certificate are as follows: %3</p>"
+			                            "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
+			                           ).arg(basereason).arg(qsl.join(QString())).arg(det.join(QString())), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+				Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+				qaServerDisconnect->setEnabled(true);
+				g.sh->start(QThread::TimeCriticalPriority);
 
-	    	}
-	    }
-	} else {
-	    bool ok = false;
-	    bool matched = false;
-
-	    	if (! reason.isEmpty()) {
-		    g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
-		}  else {
-	      g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
-	    }
-
-	      switch (rtLast) {
-		    case MessageServerReject::InvalidUsername:
-		    case MessageServerReject::UsernameInUse:
-			matched = true;
-			uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MessageServerReject::InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok);
-			break;
-		    case MessageServerReject::WrongUserPW:
-		    case MessageServerReject::WrongServerPW:
-			matched = true;
-			pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MessageServerReject::WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok);
-			break;
-		    default:
-			break;
+			}
 		}
-		     if (ok && matched) {
-			  qaServerDisconnect->setEnabled(true);
-			    g.sh->setConnectionInfo(host, port, uname, pw);
-			    g.sh->start(QThread::TimeCriticalPriority);
-		     } else if (!matched && g.s.bReconnect && ! reason.isEmpty()) {
-			  qaServerDisconnect->setEnabled(true);
-			  qtReconnect->start();
-		  }
+	} else {
+		bool ok = false;
+		bool matched = false;
+
+		if (! reason.isEmpty()) {
+			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
+		}  else {
+			g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
+		}
+
+		switch (rtLast) {
+			case MessageServerReject::InvalidUsername:
+			case MessageServerReject::UsernameInUse:
+				matched = true;
+				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MessageServerReject::InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok);
+				break;
+			case MessageServerReject::WrongUserPW:
+			case MessageServerReject::WrongServerPW:
+				matched = true;
+				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MessageServerReject::WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok);
+				break;
+			default:
+				break;
+		}
+		if (ok && matched) {
+			qaServerDisconnect->setEnabled(true);
+			g.sh->setConnectionInfo(host, port, uname, pw);
+			g.sh->start(QThread::TimeCriticalPriority);
+		} else if (!matched && g.s.bReconnect && ! reason.isEmpty()) {
+			qaServerDisconnect->setEnabled(true);
+			qtReconnect->start();
+		}
 	}
 }
 
@@ -1067,8 +1026,8 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason) {
 
 void MainWindow::customEvent(QEvent *evt) {
 	if (evt->type() == TI_QEVENT) {
-			hide();
-			return;
+		hide();
+		return;
 	}
 	if (evt->type() == MB_QEVENT) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
@@ -1284,7 +1243,7 @@ void MessageServerAuthenticate::process(Connection *) {
 }
 
 void MessageServerReject::process(Connection *) {
-    	g.mw->rtLast = rtType;
+	g.mw->rtLast = rtType;
 	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1.").arg(qsReason));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
@@ -1327,6 +1286,6 @@ void MessagePing::process(Connection *) {
 }
 
 void MessageTexture::process(Connection *) {
-    if (! qbaTexture.isEmpty())
-    	g.o->textureResponse(iPlayerId,qbaTexture);
+	if (! qbaTexture.isEmpty())
+		g.o->textureResponse(iPlayerId,qbaTexture);
 }

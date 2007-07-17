@@ -32,8 +32,7 @@
 #include <tlhelp32.h>
 
 static FILE *fConsole;
-static void mumbleMessageOutput(QtMsgType type, const char *msg)
-{
+static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	char c;
 	switch (type) {
 		case QtDebugMsg:
@@ -83,7 +82,7 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 			CloseHandle(hSnap);
 		}
 
-		for(unsigned int i=0;i<er->NumberParameters;i++) {
+		for (unsigned int i=0;i<er->NumberParameters;i++) {
 			qWarning("Parameter %4d: %08lx", i, er->ExceptionInformation[i]);
 		}
 		if (er->ExceptionRecord)
@@ -102,7 +101,7 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	stop = Bp + 0x40;
 	if ((stop < start) || (stop-start >512))
 		stop = start + 512;
-	for(Sp=stop;Sp>=start;Sp-=sizeof(DWORD)) {
+	for (Sp=stop;Sp>=start;Sp-=sizeof(DWORD)) {
 		DWORD val[4] = {0,0,0,0};
 		DWORD nbytes = sizeof(DWORD)*4;
 		if (ReadProcessMemory(GetCurrentProcess(), reinterpret_cast<const void *>(Sp), &val[0],sizeof(DWORD)*4, &nbytes))

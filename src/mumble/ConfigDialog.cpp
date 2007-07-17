@@ -54,31 +54,31 @@ QIcon ConfigWidget::icon() const {
 }
 
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
-    setWindowTitle(tr("Mumble Configuration"));
+	setWindowTitle(tr("Mumble Configuration"));
 
-    qlwIcons = new QListWidget();
-    qswPages = new QStackedWidget();
+	qlwIcons = new QListWidget();
+	qswPages = new QStackedWidget();
 
-    qlwIcons->setViewMode(QListView::IconMode);
-    qlwIcons->setIconSize(QSize(96, 84));
-    qlwIcons->setMovement(QListView::Static);
-    qlwIcons->setMaximumWidth(128);
-    qlwIcons->setSpacing(12);
-    qlwIcons->setObjectName(QLatin1String("Icons"));
+	qlwIcons->setViewMode(QListView::IconMode);
+	qlwIcons->setIconSize(QSize(96, 84));
+	qlwIcons->setMovement(QListView::Static);
+	qlwIcons->setMaximumWidth(128);
+	qlwIcons->setSpacing(12);
+	qlwIcons->setObjectName(QLatin1String("Icons"));
 
-    QPushButton *okButton = new QPushButton(tr("&OK"));
-    okButton->setDefault(true);
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    okButton->setToolTip(tr("Accept changes"));
-    okButton->setWhatsThis(tr("This button will accept current settings and return to the application.<br />"
-    						"The settings will be stored to disk when you leave the application."));
-    QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	QPushButton *okButton = new QPushButton(tr("&OK"));
+	okButton->setDefault(true);
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	okButton->setToolTip(tr("Accept changes"));
+	okButton->setWhatsThis(tr("This button will accept current settings and return to the application.<br />"
+	                          "The settings will be stored to disk when you leave the application."));
+	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	cancelButton->setToolTip(tr("Reject changes"));
 	cancelButton->setWhatsThis(tr("This button will reject all changes and return to the application.<br />"
-								  "The settings will be reset to the previous positions."));
-    QPushButton *applyButton = new QPushButton(tr("&Apply"));
-    connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
+	                              "The settings will be reset to the previous positions."));
+	QPushButton *applyButton = new QPushButton(tr("&Apply"));
+	connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
 	applyButton->setToolTip(tr("Apply changes"));
 	applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
 
@@ -87,45 +87,45 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 		addPage(cwn());
 	}
 
-    QHBoxLayout *buttons = new QHBoxLayout;
-    buttons->addStretch(1);
-    buttons->addWidget(applyButton);
-    buttons->addWidget(okButton);
-    buttons->addWidget(cancelButton);
+	QHBoxLayout *buttons = new QHBoxLayout;
+	buttons->addStretch(1);
+	buttons->addWidget(applyButton);
+	buttons->addWidget(okButton);
+	buttons->addWidget(cancelButton);
 
-    QVBoxLayout *l = new QVBoxLayout;
-    l->addWidget(qswPages, 1);
-    l->addSpacing(12);
-    l->addLayout(buttons);
+	QVBoxLayout *l = new QVBoxLayout;
+	l->addWidget(qswPages, 1);
+	l->addSpacing(12);
+	l->addLayout(buttons);
 
 
-    QHBoxLayout *top = new QHBoxLayout;
-    top->addWidget(qlwIcons);
-    top->addLayout(l);
+	QHBoxLayout *top = new QHBoxLayout;
+	top->addWidget(qlwIcons);
+	top->addLayout(l);
 
-    setLayout(top);
+	setLayout(top);
 
 	qlwIcons->scrollTo(qlwIcons->currentIndex(), QAbstractItemView::PositionAtTop);
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 
-    qlwIcons->setCurrentRow(0);
+	qlwIcons->setCurrentRow(0);
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw) {
-    	QDesktopWidget dw;
-    	QRect ds=dw.availableGeometry();
-    	QSize ms=cw->minimumSizeHint();
-    	ms.rwidth() += 128;
-    	ms.rheight() += 64;
-    	if ((ms.width() > ds.width()) || (ms.height() > ds.height())) {
-	    QScrollArea *qsa=new QScrollArea(this);
-	    qsa->setWidget(cw);
-	    qswPages->addWidget(qsa);
-	    	qWarning("Widget %s has size %d %d", qPrintable(cw->title()), ms.width(), ms.height());
-	    } else {
+	QDesktopWidget dw;
+	QRect ds=dw.availableGeometry();
+	QSize ms=cw->minimumSizeHint();
+	ms.rwidth() += 128;
+	ms.rheight() += 64;
+	if ((ms.width() > ds.width()) || (ms.height() > ds.height())) {
+		QScrollArea *qsa=new QScrollArea(this);
+		qsa->setWidget(cw);
+		qswPages->addWidget(qsa);
+		qWarning("Widget %s has size %d %d", qPrintable(cw->title()), ms.width(), ms.height());
+	} else {
 		qswPages->addWidget(cw);
-    	}
+	}
 	QListWidgetItem *i = new QListWidgetItem(qlwIcons);
 	i->setIcon(cw->icon());
 	i->setText(cw->title());
@@ -135,17 +135,16 @@ void ConfigDialog::addPage(ConfigWidget *cw) {
 	widgets << cw;
 }
 
-void ConfigDialog::on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
-{
-    if (!current)
-        current = previous;
+void ConfigDialog::on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+	if (!current)
+		current = previous;
 
-    qswPages->setCurrentIndex(qlwIcons->row(current));
+	qswPages->setCurrentIndex(qlwIcons->row(current));
 }
 
 void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, widgets)
-		cw->accept();
+	cw->accept();
 
 	boost::weak_ptr<AudioInput> wai(g.ai);
 	boost::weak_ptr<AudioOutput> wao(g.ao);
@@ -153,7 +152,7 @@ void ConfigDialog::apply() {
 	g.ai.reset();
 	g.ao.reset();
 
-	while(! wai.expired() || ! wao.expired()) {
+	while (! wai.expired() || ! wao.expired()) {
 		// Where is QThread::yield() ?
 	}
 

@@ -67,7 +67,9 @@ class MessageSpeex : public Message {
 		// Flags is in first byte of packet.
 		QByteArray qbaSpeexPacket;
 		MessageSpeex();
-		Message::MessageType messageType() const { return Speex; };
+		Message::MessageType messageType() const {
+			return Speex;
+		};
 		void process(Connection *);
 		bool isValid() const;
 };
@@ -82,14 +84,18 @@ class MessageServerAuthenticate : public Message {
 		QString qsUsername;
 		QString qsPassword;
 		MessageServerAuthenticate();
-		Message::MessageType messageType() const { return ServerAuthenticate; };
+		Message::MessageType messageType() const {
+			return ServerAuthenticate;
+		};
 		void process(Connection *);
 };
 
 class MessagePing : public Message {
 	public:
 		MessagePing();
-		Message::MessageType messageType() const { return Ping; };
+		Message::MessageType messageType() const {
+			return Ping;
+		};
 		void process(Connection *);
 };
 
@@ -102,7 +108,9 @@ class MessageServerReject : public Message {
 		QString qsReason;
 		RejectType rtType;
 		MessageServerReject();
-		Message::MessageType messageType() const { return ServerReject; };
+		Message::MessageType messageType() const {
+			return ServerReject;
+		};
 		void process(Connection *);
 };
 
@@ -114,7 +122,9 @@ class MessageServerSync : public Message {
 		int iMaxBandwidth;
 		QString qsWelcomeText;
 		MessageServerSync();
-		Message::MessageType messageType() const { return ServerSync; };
+		Message::MessageType messageType() const {
+			return ServerSync;
+		};
 		void process(Connection *);
 };
 
@@ -126,13 +136,17 @@ class MessageServerJoin : public Message {
 		QString qsPlayerName;
 		int iId;
 		MessageServerJoin();
-		Message::MessageType messageType() const { return ServerJoin; };
+		Message::MessageType messageType() const {
+			return ServerJoin;
+		};
 		void process(Connection *);
 };
 
 class MessageServerLeave : public Message {
 	public:
-		Message::MessageType messageType() const { return ServerLeave; };
+		Message::MessageType messageType() const {
+			return ServerLeave;
+		};
 		void process(Connection *);
 };
 
@@ -144,7 +158,9 @@ class MessagePlayerMute : public Message {
 		short sVictim;
 		bool bMute;
 		MessagePlayerMute();
-		Message::MessageType messageType() const { return PlayerMute; };
+		Message::MessageType messageType() const {
+			return PlayerMute;
+		};
 		void process(Connection *);
 };
 
@@ -156,7 +172,9 @@ class MessagePlayerDeaf : public Message {
 		short sVictim;
 		bool bDeaf;
 		MessagePlayerDeaf();
-		Message::MessageType messageType() const { return PlayerDeaf; };
+		Message::MessageType messageType() const {
+			return PlayerDeaf;
+		};
 		void process(Connection *);
 };
 
@@ -168,7 +186,9 @@ class MessagePlayerSelfMuteDeaf : public Message {
 		bool bMute;
 		bool bDeaf;
 		MessagePlayerSelfMuteDeaf();
-		Message::MessageType messageType() const { return PlayerSelfMuteDeaf; };
+		Message::MessageType messageType() const {
+			return PlayerSelfMuteDeaf;
+		};
 		void process(Connection *);
 };
 
@@ -180,7 +200,9 @@ class MessagePlayerKick : public Message {
 		short sVictim;
 		QString qsReason;
 		MessagePlayerKick();
-		Message::MessageType messageType() const { return PlayerKick; };
+		Message::MessageType messageType() const {
+			return PlayerKick;
+		};
 		void process(Connection *);
 };
 
@@ -192,7 +214,9 @@ class MessagePlayerBan : public Message {
 		short sVictim;
 		QString qsReason;
 		MessagePlayerBan();
-		Message::MessageType messageType() const { return PlayerBan; };
+		Message::MessageType messageType() const {
+			return PlayerBan;
+		};
 		void process(Connection *);
 };
 
@@ -204,7 +228,9 @@ class MessagePlayerMove : public Message {
 		short sVictim;
 		int iChannelId;
 		MessagePlayerMove();
-		Message::MessageType messageType() const { return PlayerMove; };
+		Message::MessageType messageType() const {
+			return PlayerMove;
+		};
 		void process(Connection *);
 };
 
@@ -215,7 +241,9 @@ class MessagePlayerRename : public Message {
 	public:
 		QString qsName;
 		MessagePlayerRename();
-		Message::MessageType messageType() const { return PlayerRename; };
+		Message::MessageType messageType() const {
+			return PlayerRename;
+		};
 		void process(Connection *);
 };
 
@@ -228,7 +256,9 @@ class MessageChannelAdd : public Message {
 		int iParent;
 		QString qsName;
 		MessageChannelAdd();
-		Message::MessageType messageType() const { return ChannelAdd; };
+		Message::MessageType messageType() const {
+			return ChannelAdd;
+		};
 		void process(Connection *);
 };
 
@@ -239,7 +269,9 @@ class MessageChannelRemove : public Message {
 	public:
 		int iId;
 		MessageChannelRemove();
-		Message::MessageType messageType() const { return ChannelRemove; };
+		Message::MessageType messageType() const {
+			return ChannelRemove;
+		};
 		void process(Connection *);
 };
 
@@ -251,7 +283,9 @@ class MessageChannelMove : public Message {
 		int iId;
 		int iParent;
 		MessageChannelMove();
-		Message::MessageType messageType() const { return ChannelMove; };
+		Message::MessageType messageType() const {
+			return ChannelMove;
+		};
 		void process(Connection *);
 };
 
@@ -267,7 +301,9 @@ class MessageChannelLink : public Message {
 		LinkType ltType;
 		QList<int> qlTargets;
 		MessageChannelLink();
-		Message::MessageType messageType() const { return ChannelLink; };
+		Message::MessageType messageType() const {
+			return ChannelLink;
+		};
 		void process(Connection *);
 };
 
@@ -279,7 +315,9 @@ class MessageServerBanList : public Message {
 		bool bQuery;
 		QList<QPair<quint32, int> > qlBans;
 		MessageServerBanList();
-		Message::MessageType messageType() const { return ServerBanList; };
+		Message::MessageType messageType() const {
+			return ServerBanList;
+		};
 		void process(Connection *);
 };
 
@@ -291,7 +329,9 @@ class MessageTextMessage : public Message {
 		short sVictim;
 		QString qsMessage;
 		MessageTextMessage();
-		Message::MessageType messageType() const { return TextMessage; };
+		Message::MessageType messageType() const {
+			return TextMessage;
+		};
 		void process(Connection *);
 };
 
@@ -302,7 +342,9 @@ class MessagePermissionDenied : public Message {
 	public:
 		QString qsReason;
 		MessagePermissionDenied();
-		Message::MessageType messageType() const { return PermissionDenied; };
+		Message::MessageType messageType() const {
+			return PermissionDenied;
+		};
 		void process(Connection *);
 };
 
@@ -337,14 +379,16 @@ class MessageEditACL : public Message {
 		QList<GroupStruct> groups;
 		QList<ACLStruct> acls;
 		MessageEditACL();
-		Message::MessageType messageType() const { return EditACL; };
+		Message::MessageType messageType() const {
+			return EditACL;
+		};
 		void process(Connection *);
 };
 
-PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::GroupStruct &gs );
-PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::GroupStruct &gs );
-PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::ACLStruct &gs );
-PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::ACLStruct &gs );
+PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::GroupStruct &gs);
+PacketDataStream & operator>> (PacketDataStream & in, MessageEditACL::GroupStruct &gs);
+PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::ACLStruct &gs);
+PacketDataStream & operator>> (PacketDataStream & in, MessageEditACL::ACLStruct &gs);
 
 class MessageQueryUsers : public Message {
 	protected:
@@ -354,7 +398,9 @@ class MessageQueryUsers : public Message {
 		QList<int> qlIds;
 		QList<QString> qlNames;
 		MessageQueryUsers();
-		Message::MessageType messageType() const { return QueryUsers; };
+		Message::MessageType messageType() const {
+			return QueryUsers;
+		};
 		void process(Connection *);
 		bool isValid() const;
 };
@@ -367,7 +413,9 @@ class MessageTexture : public Message {
 		int iPlayerId;
 		QByteArray qbaTexture;
 		MessageTexture();
-		Message::MessageType messageType() const { return PlayerTexture; }
+		Message::MessageType messageType() const {
+			return PlayerTexture;
+		}
 		void process(Connection *);
 };
 

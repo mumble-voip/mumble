@@ -60,20 +60,20 @@ class AudioOutputRegistrar {
 };
 
 class AudioOutputPlayer : public QObject {
-    friend class AudioOutput;
-    Q_OBJECT
-    public:
-    	AudioOutputPlayer(const QString name);
-	const QString qsName;
-	unsigned int iFrameSize;
-	short *psBuffer;
-	float fPos[3];
-    	virtual bool decodeNextFrame() = 0;
+		friend class AudioOutput;
+		Q_OBJECT
+	public:
+		AudioOutputPlayer(const QString name);
+		const QString qsName;
+		unsigned int iFrameSize;
+		short *psBuffer;
+		float fPos[3];
+		virtual bool decodeNextFrame() = 0;
 };
 
 class AudioOutputSpeech : public AudioOutputPlayer {
-	friend class AudioOutput;
-	Q_OBJECT
+		friend class AudioOutput;
+		Q_OBJECT
 	protected:
 
 		SpeexBits sbBits;
@@ -102,20 +102,20 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 
 
 class AudioSine : public AudioOutputPlayer {
-    	Q_OBJECT
-    	protected:
-    		float v;
-    		float inc;
-    		float dinc;
-    		unsigned int frames;
-    	public:
-    		bool decodeNextFrame();
-    		AudioSine(float hz, float i, unsigned int frm);
-    		~AudioSine();
+		Q_OBJECT
+	protected:
+		float v;
+		float inc;
+		float dinc;
+		unsigned int frames;
+	public:
+		bool decodeNextFrame();
+		AudioSine(float hz, float i, unsigned int frm);
+		~AudioSine();
 };
 
 class AudioOutput : public QThread {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		bool bRunning;
 		int iFrameSize;

@@ -34,74 +34,74 @@
 #include "Settings.h"
 
 class AudioBar : public QWidget {
-    Q_OBJECT
-    protected:
-	void paintEvent (QPaintEvent *event);
-    public:
-    	AudioBar(QWidget *parent = NULL);
-    	int iMin, iMax;
-    	int iBelow, iAbove;
-    	int iValue, iPeak;
-    	QColor qcBelow, qcInside, qcAbove;
+		Q_OBJECT
+	protected:
+		void paintEvent(QPaintEvent *event);
+	public:
+		AudioBar(QWidget *parent = NULL);
+		int iMin, iMax;
+		int iBelow, iAbove;
+		int iValue, iPeak;
+		QColor qcBelow, qcInside, qcAbove;
 };
 
 class AudioWizard: public QWizard {
-    Q_OBJECT
-    protected:
-    	QComboBox *qcbInput, *qcbInputDevice;
-    	QComboBox *qcbOutput, *qcbOutputDevice;
+		Q_OBJECT
+	protected:
+		QComboBox *qcbInput, *qcbInputDevice;
+		QComboBox *qcbOutput, *qcbOutputDevice;
 
-	QSlider *qsOutputDelay;
-	QLabel *qlOutputDelay;
+		QSlider *qsOutputDelay;
+		QLabel *qlOutputDelay;
 
-	AudioBar *abAmplify;
-	QSlider *qsMaxAmp;
+		AudioBar *abAmplify;
+		QSlider *qsMaxAmp;
 
-	AudioBar *abVAD;
-	QRadioButton *qrAmplitude, *qrSNR;
-	QSlider *qsMinVAD, *qsMaxVAD;
+		AudioBar *abVAD;
+		QRadioButton *qrAmplitude, *qrSNR;
+		QSlider *qsMinVAD, *qsMaxVAD;
 
-	QSlider *qsHoldtime;
-	QLabel *qlHoldtime;
+		QSlider *qsHoldtime;
+		QLabel *qlHoldtime;
 
-    	QWizardPage *introPage();
-    	QWizardPage *devicePage();
-    	QWizardPage *volumePage();
-    	QWizardPage *triggerPage();
-    	QWizardPage *deviceTuningPage();
-    	QWizardPage *donePage();
+		QWizardPage *introPage();
+		QWizardPage *devicePage();
+		QWizardPage *volumePage();
+		QWizardPage *triggerPage();
+		QWizardPage *deviceTuningPage();
+		QWizardPage *donePage();
 
-	QHash<QString, QVariant> qhOldInputDevice;
-	QHash<QString, QVariant> qhOldOutputDevice;
-	Settings sOldSettings;
+		QHash<QString, QVariant> qhOldInputDevice;
+		QHash<QString, QVariant> qhOldOutputDevice;
+		Settings sOldSettings;
 
-	QTimer *ticker;
+		QTimer *ticker;
 
-	bool bInit;
+		bool bInit;
 
-	int iMaxPeak;
-	int iTicks;
+		int iMaxPeak;
+		int iTicks;
 
-	void restartAudio();
-	void playChord();
-    public slots:
-    	void on_Input_activated(int);
-    	void on_InputDevice_activated(int);
-    	void on_Output_activated(int);
-    	void on_OutputDevice_activated(int);
-	void on_OutputDelay_valueChanged(int);
-	void on_MaxAmp_valueChanged(int);
-	void on_Ticker_timeout();
-	void on_VADmin_valueChanged(int);
-	void on_VADmax_valueChanged(int);
-	void on_Holdtime_valueChanged(int);
-	void on_Amplitude_clicked(bool);
-	void on_SNR_clicked(bool);
-    	void showPage(int);
-    public:
-    	AudioWizard();
-    	void reject();
-    	void accept();
+		void restartAudio();
+		void playChord();
+	public slots:
+		void on_Input_activated(int);
+		void on_InputDevice_activated(int);
+		void on_Output_activated(int);
+		void on_OutputDevice_activated(int);
+		void on_OutputDelay_valueChanged(int);
+		void on_MaxAmp_valueChanged(int);
+		void on_Ticker_timeout();
+		void on_VADmin_valueChanged(int);
+		void on_VADmax_valueChanged(int);
+		void on_Holdtime_valueChanged(int);
+		void on_Amplitude_clicked(bool);
+		void on_SNR_clicked(bool);
+		void showPage(int);
+	public:
+		AudioWizard();
+		void reject();
+		void accept();
 };
 
 #endif

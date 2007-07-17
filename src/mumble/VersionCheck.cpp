@@ -41,7 +41,7 @@ VersionCheck::VersionCheck(QObject *p) : QObject(p) {
 	quUrl.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
 	quUrl.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 
 	QFile f(qApp->applicationFilePath());
 	if (! f.open(QIODevice::ReadOnly)) {
@@ -72,7 +72,7 @@ void VersionCheck::on_Agent_requestFinished(int id, bool error) {
 		if (a.size() > 0)
 			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), QLatin1String(a), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	} else {
-			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Mumble failed to retrieve version information from the SourceForge server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
+		QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Mumble failed to retrieve version information from the SourceForge server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	}
 	deleteLater();
 }

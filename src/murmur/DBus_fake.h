@@ -39,22 +39,30 @@
 #include "ACL.h"
 
 class MurmurDBus : public QObject {
-  Q_OBJECT
-  public:
-    MurmurDBus(QCoreApplication &) {};
+		Q_OBJECT
+	public:
+		MurmurDBus(QCoreApplication &) {};
 
-    void playerStateChanged(Player *) {};
-    void playerConnected(Player *) {};
-    void playerDisconnected(Player *) {};
+		void playerStateChanged(Player *) {};
+		void playerConnected(Player *) {};
+		void playerDisconnected(Player *) {};
 
-    void channelStateChanged(Channel *) {};
-    void channelCreated(Channel *) {};
-    void channelRemoved(Channel *) {};
+		void channelStateChanged(Channel *) {};
+		void channelCreated(Channel *) {};
+		void channelRemoved(Channel *) {};
 
-    int mapNameToId(const QString &) { return -2; };
-    QString mapIdToName(int) { return QString(); };
-    QByteArray mapIdToTexture(int) { return QByteArray(); };
-    int authenticate(const QString &uname, const QString &pw) { return -2; };
+		int mapNameToId(const QString &) {
+			return -2;
+		};
+		QString mapIdToName(int) {
+			return QString();
+		};
+		QByteArray mapIdToTexture(int) {
+			return QByteArray();
+		};
+		int authenticate(const QString &uname, const QString &pw) {
+			return -2;
+		};
 };
 
 extern MurmurDBus *dbus;

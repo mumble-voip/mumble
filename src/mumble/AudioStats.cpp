@@ -38,21 +38,21 @@ AudioEchoWidget::AudioEchoWidget(QWidget *p) : QGLWidget(p) {
 }
 
 void AudioEchoWidget::initializeGL() {
-    glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHTING);
 
 	glClearColor(0,0,0,0);
-    glShadeModel(GL_SMOOTH);
+	glShadeModel(GL_SMOOTH);
 
-    glEnable(GL_COLOR_MATERIAL);
-    glDisable(GL_CULL_FACE);
+	glEnable(GL_COLOR_MATERIAL);
+	glDisable(GL_CULL_FACE);
 }
 
 void AudioEchoWidget::resizeGL(int w, int h) {
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
-    glMatrixMode(GL_MODELVIEW);
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
 
@@ -92,18 +92,18 @@ void AudioEchoWidget::paintGL() {
 
 	CloneSpeexEchoState *st = reinterpret_cast<CloneSpeexEchoState *>(ai->sesEcho);
 
-    int N = st->window_size;
-    int n = N / 2;
-    int M = st->M;
+	int N = st->window_size;
+	int n = N / 2;
+	int M = st->M;
 
-    double xscale = 1.0 / n;
-    double yscale = 1.0 / M;
+	double xscale = 1.0 / n;
+	double yscale = 1.0 / M;
 
 
-    glBegin(GL_QUADS);
+	glBegin(GL_QUADS);
 
-    for(int j = 0; j < M; j++) {
-    	for(int i=0;i < n; i++) {
+	for (int j = 0; j < M; j++) {
+		for (int i=0;i < n; i++) {
 			double xa = i * xscale;
 			double ya = j * yscale;
 
@@ -178,7 +178,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 #else
 	float fftmul = 1.0 / (32768.0);
 #endif
-	for(int i=0; i < st->ps_size; i++) {
+	for (int i=0; i < st->ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
 		yp = sqrt(st->noise[i]) - 1;
@@ -197,7 +197,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	poly.clear();
 
-	for(int i=0;i < st->ps_size; i++) {
+	for (int i=0;i < st->ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
 		yp = sqrt(st->ps[i]) - 1;
@@ -216,9 +216,9 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 
 	setWindowTitle(tr("Mumble"));
 
-    QLabel *lab;
+	QLabel *lab;
 	QGridLayout *l=new QGridLayout;
-    setLayout(l);
+	setLayout(l);
 
 	lab = new QLabel(tr("Peak microphone level"), this);
 	l->addWidget(lab, 0, 0);
@@ -302,77 +302,77 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 
 	qlMicLevel->setToolTip(tr("Peak power in last frame"));
 	qlMicLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms), and is the same measurement "
-								"as you would usually find displayed as \"input power\". Please disregard this and "
-								"look at <b>Loudness</b> instead, which is much more steady and disregards outliers."
-								));
+	                            "as you would usually find displayed as \"input power\". Please disregard this and "
+	                            "look at <b>Loudness</b> instead, which is much more steady and disregards outliers."
+	                           ));
 	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
 	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) of the speakers. Unless you "
-								"are using a multi-channel sampling method (such as ASIO) with speaker channels "
-								"configured, this will be 0. If you have such a setup configured, and this still "
-								"shows 0 while you're playing audio from other programs, your setup is not working."));
+	                                "are using a multi-channel sampling method (such as ASIO) with speaker channels "
+	                                "configured, this will be 0. If you have such a setup configured, and this still "
+	                                "shows 0 while you're playing audio from other programs, your setup is not working."));
 	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
 	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) after all processing. Ideally, "
-								"this should be -96 dB when you're not talking. In reality, a sound studio should see "
-								"-60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this "
-								"should rise to somewhere between -5 and -10 dB.<br />"
-								"If you are using echo cancellation, and this rises to more than -15 dB when you're not "
-								"talking, your setup is not working, and you'll annoy other players with echoes."));
+	                                "this should be -96 dB when you're not talking. In reality, a sound studio should see "
+	                                "-60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this "
+	                                "should rise to somewhere between -5 and -10 dB.<br />"
+	                                "If you are using echo cancellation, and this rises to more than -15 dB when you're not "
+	                                "talking, your setup is not working, and you'll annoy other players with echoes."));
 	qlMicVolume->setToolTip(tr("How close the current input level is to ideal"));
 	qlMicVolume->setWhatsThis(tr("This shows how close your current input volume is to the ideal. To adjust your "
-								 "microphone level, open whatever program you use to adjust the recording volume, "
-								 "and look at the value here while talking.<br />"
-								 "<b>Talk loud, as you would when you're upset over getting fragged by a noob.</b><br />"
-								 "Adjust the volume until this value is close to 100%, but make sure it doesn't go above. "
-								 "If it does go above, you are likely to get clipping in parts of your speech, which will "
-								 "degrade sound quality"));
+	                             "microphone level, open whatever program you use to adjust the recording volume, "
+	                             "and look at the value here while talking.<br />"
+	                             "<b>Talk loud, as you would when you're upset over getting fragged by a noob.</b><br />"
+	                             "Adjust the volume until this value is close to 100%, but make sure it doesn't go above. "
+	                             "If it does go above, you are likely to get clipping in parts of your speech, which will "
+	                             "degrade sound quality"));
 	qlMicSNR->setToolTip(tr("Signal-To-Noise ratio from the microphone"));
 	qlMicSNR->setWhatsThis(tr("This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). "
-								"It shows how much clearer "
-								"the voice is compared to the noise.<br />If this value is below 1.0, there's more noise "
-								"than voice in the signal, and so quality is reduced.<br />There is no upper limit to this "
-								"value, but don't expect to see much above 40-50 without a sound studio."));
+	                          "It shows how much clearer "
+	                          "the voice is compared to the noise.<br />If this value is below 1.0, there's more noise "
+	                          "than voice in the signal, and so quality is reduced.<br />There is no upper limit to this "
+	                          "value, but don't expect to see much above 40-50 without a sound studio."));
 	qlSpeechProb->setToolTip(tr("Probability of speech"));
 	qlSpeechProb->setWhatsThis(tr("This is the probability that the last frame (20 ms) was speech and not environment noise.<br />"
-								  "Voice activity transmission depends on this being right. The trick with this is that the middle "
-								  "of a sentence is always detected as speech; the problem is the pauses between words and the "
-								  "start of speech. It's hard to distinguish a sigh from a word starting with 'h'.<br />"
-								  "If this is in bold font, it means Mumble is currently transmitting (if you're connected)."));
+	                              "Voice activity transmission depends on this being right. The trick with this is that the middle "
+	                              "of a sentence is always detected as speech; the problem is the pauses between words and the "
+	                              "start of speech. It's hard to distinguish a sigh from a word starting with 'h'.<br />"
+	                              "If this is in bold font, it means Mumble is currently transmitting (if you're connected)."));
 	qlBitrate->setToolTip(tr("Bitrate of last frame"));
 	qlBitrate->setWhatsThis(tr("This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down "
-							   "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
-							   "in the Settings dialog."));
+	                           "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
+	                           "in the Settings dialog."));
 
 	anwNoise->setToolTip(tr("Power spectrum of input signal and noise estimate"));
 	anwNoise->setWhatsThis(tr("This shows the power spectrum of the current input signal (red line) and the current noise estimate "
-							  "(filled blue).<br />"
-							  "All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise "
-							  "is present in each waveband).<br />"
-							  "This is probably only of interest if you're trying to fine-tune noise conditions on your microphone. "
-							  "Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than "
-							  "halfway up on the graph, you have a seriously noisy environment."));
+	                          "(filled blue).<br />"
+	                          "All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise "
+	                          "is present in each waveband).<br />"
+	                          "This is probably only of interest if you're trying to fine-tune noise conditions on your microphone. "
+	                          "Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than "
+	                          "halfway up on the graph, you have a seriously noisy environment."));
 
 	if (aewEcho) {
 		aewEcho->setToolTip(tr("Weights of the echo canceller"));
 		aewEcho->setWhatsThis(tr("This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.<br />"
-								  "Ideally, this should be black, indicating no echo exists at all. More commonly, you'll have one or more horizontal stripes "
-								  "of bluish color representing time delayed echo. You should be able to see the weights updated in real time.<br />"
-								  "Please note that as long as you have nothing to echo off, you won't see much useful data here. Play some music and "
-								  "things should stabilize. <br />"
-								  "You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and "
-								  "phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the "
-								  "outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the "
-								  "echo cancellation algorithms.<br />"
-								  "Please note: If the entire image fluctuates massively while in modulus mode, "
-								  "the echo canceller fails to find any correlation whatsoever between the two input "
-								  "sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong."
-								  ));
+		                         "Ideally, this should be black, indicating no echo exists at all. More commonly, you'll have one or more horizontal stripes "
+		                         "of bluish color representing time delayed echo. You should be able to see the weights updated in real time.<br />"
+		                         "Please note that as long as you have nothing to echo off, you won't see much useful data here. Play some music and "
+		                         "things should stabilize. <br />"
+		                         "You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and "
+		                         "phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the "
+		                         "outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the "
+		                         "echo cancellation algorithms.<br />"
+		                         "Please note: If the entire image fluctuates massively while in modulus mode, "
+		                         "the echo canceller fails to find any correlation whatsoever between the two input "
+		                         "sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong."
+		                        ));
 	}
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 
 	bTalking = false;
 
-    on_Tick_timeout();
+	on_Tick_timeout();
 }
 
 void AudioStats::on_Tick_timeout() {

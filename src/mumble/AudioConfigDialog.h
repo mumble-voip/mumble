@@ -34,7 +34,7 @@
 #include "ConfigDialog.h"
 
 class AudioConfigDialog : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QComboBox *qcbInput, *qcbOutput;
 		QComboBox *qcbTransmit;

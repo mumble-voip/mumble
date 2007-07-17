@@ -52,11 +52,11 @@ class AudioInputRegistrar {
 };
 
 class AudioInput : public QThread {
-	friend class AudioNoiseWidget;
-	friend class AudioEchoWidget;
-	friend class AudioStats;
-	friend class FMODSystem;
-	Q_OBJECT
+		friend class AudioNoiseWidget;
+		friend class AudioEchoWidget;
+		friend class AudioStats;
+		friend class FMODSystem;
+		Q_OBJECT
 	protected:
 		int	iFrameSize;
 		int iByteSize;
@@ -91,7 +91,9 @@ class AudioInput : public QThread {
 		double dPeakMic, dPeakSpeaker, dPeakSignal;
 		double dSNR;
 
-		bool isTransmitting() { return bPreviousVoice; };
+		bool isTransmitting() {
+			return bPreviousVoice;
+		};
 
 		int getMaxBandwidth();
 

@@ -38,326 +38,324 @@
 static GlobalShortcutX *gsx = NULL;
 
 static ConfigWidget *GlobalShortcutXConfigDialogNew() {
-        return new GlobalShortcutXConfig();
+	return new GlobalShortcutXConfig();
 }
 
 static ConfigRegistrar registrar(55, GlobalShortcutXConfigDialogNew);
 
 XInputKeyWidget::XInputKeyWidget(QWidget *p) : QLineEdit(p) {
-        setReadOnly(true);
-        clearFocus();
-        bModified = false;
-        displayKeys();
+	setReadOnly(true);
+	clearFocus();
+	bModified = false;
+	displayKeys();
 }
 
 void XInputKeyWidget::setShortcut(GlobalShortcut *gs) {
-        if (gsx->qhGlobalToX.contains(gs)) {
-                Shortcut *s = gsx->qhGlobalToX[gs];
-                qlButtons = s->qlButtons;
-                displayKeys();
-        }
+	if (gsx->qhGlobalToX.contains(gs)) {
+		Shortcut *s = gsx->qhGlobalToX[gs];
+		qlButtons = s->qlButtons;
+		displayKeys();
+	}
 }
 
 void XInputKeyWidget::focusInEvent(QFocusEvent *e) {
-        if (e->reason() == Qt::MouseFocusReason) {
-                setText(tr("Press Shortcut"));
+	if (e->reason() == Qt::MouseFocusReason) {
+		setText(tr("Press Shortcut"));
 
-                QPalette pal=parentWidget()->palette();
-                pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
-                setPalette(pal);
+		QPalette pal=parentWidget()->palette();
+		pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
+		setPalette(pal);
 
-                setForegroundRole(QPalette::Button);
+		setForegroundRole(QPalette::Button);
 		gsx->resetMap();
 		connect(gsx, SIGNAL(buttonPressed(bool)), this, SLOT(setButton(bool)));
-        }
+	}
 }
 
 void XInputKeyWidget::focusOutEvent(QFocusEvent *) {
-        setPalette(parentWidget()->palette());
-        clearFocus();
+	setPalette(parentWidget()->palette());
+	clearFocus();
 	disconnect(gsx, SIGNAL(buttonPressed(bool)), this, SLOT(setButton(bool)));
-        displayKeys();
+	displayKeys();
 }
 
-void XInputKeyWidget::mouseDoubleClickEvent (QMouseEvent *) {
-  bModified = true;
-  qlButtons.clear();
-  clearFocus();
-  displayKeys();
+void XInputKeyWidget::mouseDoubleClickEvent(QMouseEvent *) {
+	bModified = true;
+	qlButtons.clear();
+	clearFocus();
+	displayKeys();
 }
 
 void XInputKeyWidget::setButton(bool last) {
-  qlButtons = gsx->getCurrentButtons();
-  bModified = true;
-  if (last)
-    clearFocus();
-  else
-    displayKeys();
+	qlButtons = gsx->getCurrentButtons();
+	bModified = true;
+	if (last)
+		clearFocus();
+	else
+		displayKeys();
 }
 
 void XInputKeyWidget::displayKeys() {
-  QStringList sl;
-  foreach(int key, qlButtons) {
-    KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
-    if (ks == NoSymbol) {
-      sl << QLatin1String("0x")+QString::number(key,16);
-    } else {
-      const char *str = XKeysymToString(ks);
-      if (strlen(str) == 0) {
-	sl << QLatin1String("KS0x")+QString::number(ks,16);
-      } else {
-	sl << QLatin1String(str);
-      }
-    }
-  }
-  setText(sl.join(QLatin1String(" ")));
+	QStringList sl;
+	foreach(int key, qlButtons) {
+		KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
+		if (ks == NoSymbol) {
+			sl << QLatin1String("0x")+QString::number(key,16);
+		} else {
+			const char *str = XKeysymToString(ks);
+			if (strlen(str) == 0) {
+				sl << QLatin1String("KS0x")+QString::number(ks,16);
+			} else {
+				sl << QLatin1String(str);
+			}
+		}
+	}
+	setText(sl.join(QLatin1String(" ")));
 }
 
 GlobalShortcutXConfig::GlobalShortcutXConfig(QWidget *p) : ConfigWidget(p) {
-        QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
-        QLabel *lab;
+	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
+	QLabel *lab;
 
-        QGridLayout *l=new QGridLayout();
+	QGridLayout *l=new QGridLayout();
 
-        lab=new QLabel(tr("Function"));
-        l->addWidget(lab, 0, 0);
-        lab=new QLabel(tr("Shortcut"));
-        l->addWidget(lab, 0, 1);
+	lab=new QLabel(tr("Function"));
+	l->addWidget(lab, 0, 0);
+	lab=new QLabel(tr("Shortcut"));
+	l->addWidget(lab, 0, 1);
 
-        int i=0;
+	int i=0;
 
-        foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
-                XInputKeyWidget *dikw=new XInputKeyWidget();
-                dikw->setShortcut(gs);
+	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
+		XInputKeyWidget *dikw=new XInputKeyWidget();
+		dikw->setShortcut(gs);
 
-                lab=new QLabel(gs->name);
-                l->addWidget(lab, i+1, 0);
-                l->addWidget(dikw, i+1, 1);
+		lab=new QLabel(gs->name);
+		l->addWidget(lab, i+1, 0);
+		l->addWidget(dikw, i+1, 1);
 
-                dikw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
-                dikw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
-                                                        "Click this field and then the desired key combo "
-                                                        "to rebind. Double-click to clear.").arg(gs->name));
-                qhKeys[gs]=dikw;
-                i++;
-        }
+		dikw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
+		dikw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
+		                      "Click this field and then the desired key combo "
+		                      "to rebind. Double-click to clear.").arg(gs->name));
+		qhKeys[gs]=dikw;
+		i++;
+	}
 
-        qgbShortcuts->setLayout(l);
+	qgbShortcuts->setLayout(l);
 
-    QVBoxLayout *v = new QVBoxLayout;
-    v->addWidget(qgbShortcuts);
-    v->addStretch(1);
-    setLayout(v);
+	QVBoxLayout *v = new QVBoxLayout;
+	v->addWidget(qgbShortcuts);
+	v->addStretch(1);
+	setLayout(v);
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 QString GlobalShortcutXConfig::title() const {
-        return tr("Shortcuts");
+	return tr("Shortcuts");
 }
 
 QIcon GlobalShortcutXConfig::icon() const {
-        return QIcon(QLatin1String("skin:config_shortcuts.png"));
+	return QIcon(QLatin1String("skin:config_shortcuts.png"));
 }
 
 void GlobalShortcutXConfig::accept() {
-  foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
-    XInputKeyWidget *dikw = qhKeys[gs];
-    if (dikw->bModified) {
-      QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
-      g.qs->setValue(base + QLatin1String("num"), dikw->qlButtons.count());
-      int i=0;
-      foreach(int bt, dikw->qlButtons) {
-	g.qs->setValue(base + QString::fromLatin1("%1_Key").arg(i), bt);
-	i++;
-      }
-    }
-  }
-  gsx->bNeedRemap = true;
+	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
+		XInputKeyWidget *dikw = qhKeys[gs];
+		if (dikw->bModified) {
+			QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
+			g.qs->setValue(base + QLatin1String("num"), dikw->qlButtons.count());
+			int i=0;
+			foreach(int bt, dikw->qlButtons) {
+				g.qs->setValue(base + QString::fromLatin1("%1_Key").arg(i), bt);
+				i++;
+			}
+		}
+	}
+	gsx->bNeedRemap = true;
 }
 
 GlobalShortcutX::GlobalShortcutX() {
-  gsx = this;
-  ref = 0;
-  bGrabbing = false;
-  bNeedRemap = true;
-  int min, maj;
-  bRunning=false;
-  display = XOpenDisplay(NULL);
+	gsx = this;
+	ref = 0;
+	bGrabbing = false;
+	bNeedRemap = true;
+	int min, maj;
+	bRunning=false;
+	display = XOpenDisplay(NULL);
 
-  if (! display) {
-    qWarning("GlobalShortcutX: Unable to open dedicated display connection.");
-    return;
-  }
+	if (! display) {
+		qWarning("GlobalShortcutX: Unable to open dedicated display connection.");
+		return;
+	}
 
-  maj = 1;
-  min = 1;
+	maj = 1;
+	min = 1;
 
-  if (! XevieQueryVersion(display, &maj, &min)) {
-    qWarning("GlobalShortcutX: XEVIE extension not found. Enable it in xorg.conf");
-    return;
-  }
+	if (! XevieQueryVersion(display, &maj, &min)) {
+		qWarning("GlobalShortcutX: XEVIE extension not found. Enable it in xorg.conf");
+		return;
+	}
 
-  qWarning("GlobalShortcutX: XEVIE %d.%d", maj, min);
+	qWarning("GlobalShortcutX: XEVIE %d.%d", maj, min);
 
-  // Here's the thing. If we're debugging, it doesn't do to have the xevie application hang.
+	// Here's the thing. If we're debugging, it doesn't do to have the xevie application hang.
 
 #ifdef QT_NO_DEBUG
-  if (! XevieStart(display)) {
-    qWarning("GlobalShortcutX: Another client is already using XEVIE");
-    return;
-  }
+	if (! XevieStart(display)) {
+		qWarning("GlobalShortcutX: Another client is already using XEVIE");
+		return;
+	}
 
-  XevieSelectInput(display, KeyPressMask | KeyReleaseMask);
+	XevieSelectInput(display, KeyPressMask | KeyReleaseMask);
 #endif
 
-  bRunning=true;
-  start(QThread::TimeCriticalPriority);
+	bRunning=true;
+	start(QThread::TimeCriticalPriority);
 }
 
 void GlobalShortcutX::add(GlobalShortcut *gs) {
-  qmShortcuts[gs->idx] = gs;
-  bNeedRemap=true;
+	qmShortcuts[gs->idx] = gs;
+	bNeedRemap=true;
 }
 
 void GlobalShortcutX::remove(GlobalShortcut *gs) {
-  qmShortcuts.remove(gs->idx);
-  bNeedRemap=true;
+	qmShortcuts.remove(gs->idx);
+	bNeedRemap=true;
 }
 
 void GlobalShortcutX::grab() {
-  bGrabbing = true;
+	bGrabbing = true;
 }
 
 void GlobalShortcutX::release() {
-  bGrabbing = false;
+	bGrabbing = false;
 }
 
 GlobalShortcutX::~GlobalShortcutX() {
-  bRunning = false;
-  wait();
+	bRunning = false;
+	wait();
 }
 
 void GlobalShortcutX::remap() {
-  bNeedRemap = false;
+	bNeedRemap = false;
 
-  foreach(Shortcut *s, qhGlobalToX) {
-    delete s;
-  }
-  qhGlobalToX.clear();
-  qmhKeyToShortcut.clear();
+	foreach(Shortcut *s, qhGlobalToX) {
+		delete s;
+	}
+	qhGlobalToX.clear();
+	qmhKeyToShortcut.clear();
 
-  foreach(GlobalShortcut *gs, qmShortcuts) {
+	foreach(GlobalShortcut *gs, qmShortcuts) {
 
-    QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
-    QList<unsigned int> buttons;
-    int nbuttons = g.qs->value(base + QLatin1String("num"), 0).toInt();
-    for(int i=0;i<nbuttons;i++) {
-      unsigned int key = g.qs->value(base + QString::fromLatin1("%1_Key").arg(i), 0xffffffff).toUInt();
-      if (key != 0xffffffff) {
-	buttons << key;
-      }
-    }
-    if (buttons.count() > 0) {
-      Shortcut *s = new Shortcut();
-      s->gs = gs;
-      s->bActive = false;
-      s->iNumDown = 0;
-      for(int i=0;i<buttons.count();i++) {
-	s->qlButtons << buttons[i];
-	qmhKeyToShortcut.insert(buttons[i], s);
-      }
-      qhGlobalToX[gs] = s;
-    }
-  }
+		QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
+		QList<unsigned int> buttons;
+		int nbuttons = g.qs->value(base + QLatin1String("num"), 0).toInt();
+		for (int i=0;i<nbuttons;i++) {
+			unsigned int key = g.qs->value(base + QString::fromLatin1("%1_Key").arg(i), 0xffffffff).toUInt();
+			if (key != 0xffffffff) {
+				buttons << key;
+			}
+		}
+		if (buttons.count() > 0) {
+			Shortcut *s = new Shortcut();
+			s->gs = gs;
+			s->bActive = false;
+			s->iNumDown = 0;
+			for (int i=0;i<buttons.count();i++) {
+				s->qlButtons << buttons[i];
+				qmhKeyToShortcut.insert(buttons[i], s);
+			}
+			qhGlobalToX[gs] = s;
+		}
+	}
 }
 
 void GlobalShortcutX::resetMap() {
-  for(int i=0;i<256;i++)
-    touchMap[i]=false;
+	for (int i=0;i<256;i++)
+		touchMap[i]=false;
 }
 
 QList<int> GlobalShortcutX::getCurrentButtons() {
-  QList<int> keys;
-  for(int i=0;i<256;i++)
-    if (touchMap[i])
-      keys << i;
-  return keys;
+	QList<int> keys;
+	for (int i=0;i<256;i++)
+		if (touchMap[i])
+			keys << i;
+	return keys;
 }
 
 void GlobalShortcutX::run() {
-  fd_set in_fds;
-  XEvent evt;
-  struct timeval tv;
-  while(bRunning) {
-    if (bNeedRemap)
-      remap();
-    FD_ZERO(&in_fds);
-    FD_SET(ConnectionNumber(display), &in_fds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 100000;
-    if(select(ConnectionNumber(display)+1, &in_fds, NULL, NULL, &tv)) {
-      while (XPending(display)) {
-	XNextEvent(display, &evt);
-	XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
-	switch(evt.type) {
-	case KeyPress:
-	case KeyRelease:
-	  {
-	    bool down = (evt.type == KeyPress);
+	fd_set in_fds;
+	XEvent evt;
+	struct timeval tv;
+	while (bRunning) {
+		if (bNeedRemap)
+			remap();
+		FD_ZERO(&in_fds);
+		FD_SET(ConnectionNumber(display), &in_fds);
+		tv.tv_sec = 0;
+		tv.tv_usec = 100000;
+		if (select(ConnectionNumber(display)+1, &in_fds, NULL, NULL, &tv)) {
+			while (XPending(display)) {
+				XNextEvent(display, &evt);
+				XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
+				switch (evt.type) {
+					case KeyPress:
+					case KeyRelease: {
+							bool down = (evt.type == KeyPress);
 
-	    if (down == activeMap[evt.xkey.keycode])
-	      break;
-       	    activeMap[evt.xkey.keycode] = down;
-	    if (down)
-	      touchMap[evt.xkey.keycode] = true;
-	    emit buttonPressed(!down);
-	    foreach(Shortcut *s, qmhKeyToShortcut.values(evt.xkey.keycode)) {
-	      if (down) {
-		s->iNumDown++;
-		if (s->iNumDown == s->qlButtons.count()) {
-		  s->bActive = true;
-		  emit s->gs->triggered(down);
-		  emit s->gs->down();
-		}
-	      } else {
-		s->iNumDown--;
-		if (s->bActive) {
-		  s->bActive = false;
-		  emit s->gs->triggered(down);
-		  emit s->gs->up();
-		}
-	      }
-	    }
-	  }
+							if (down == activeMap[evt.xkey.keycode])
+								break;
+							activeMap[evt.xkey.keycode] = down;
+							if (down)
+								touchMap[evt.xkey.keycode] = true;
+							emit buttonPressed(!down);
+							foreach(Shortcut *s, qmhKeyToShortcut.values(evt.xkey.keycode)) {
+								if (down) {
+									s->iNumDown++;
+									if (s->iNumDown == s->qlButtons.count()) {
+										s->bActive = true;
+										emit s->gs->triggered(down);
+										emit s->gs->down();
+									}
+								} else {
+									s->iNumDown--;
+									if (s->bActive) {
+										s->bActive = false;
+										emit s->gs->triggered(down);
+										emit s->gs->up();
+									}
+								}
+							}
+						}
 
-	  break;
-	default:
-	  qWarning("GlobalShortcutX: EVT %x", evt.type);
+						break;
+					default:
+						qWarning("GlobalShortcutX: EVT %x", evt.type);
+				}
+			}
+		}
 	}
-      }
-    }
-  }
-  XevieEnd(display);
-  XCloseDisplay(display);
+	XevieEnd(display);
+	XCloseDisplay(display);
 }
 
 GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
-  if (! gsx)
-    gsx = new GlobalShortcutX();
-  gsx->ref++;
-  idx = index;
-  name=qsName;
-  act = false;
-  gsx->add(this);
+	if (! gsx)
+		gsx = new GlobalShortcutX();
+	gsx->ref++;
+	idx = index;
+	name=qsName;
+	act = false;
+	gsx->add(this);
 }
 
-GlobalShortcut::~GlobalShortcut()
-{
-  gsx->remove(this);
-  gsx->ref--;
-  if (gsx->ref == 0) {
-    delete gsx;
-    gsx = NULL;
-  }
+GlobalShortcut::~GlobalShortcut() {
+	gsx->remove(this);
+	gsx->ref--;
+	if (gsx->ref == 0) {
+		delete gsx;
+		gsx = NULL;
+	}
 }

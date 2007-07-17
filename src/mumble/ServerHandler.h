@@ -36,17 +36,15 @@
 class Connection;
 class Message;
 
-class ServerHandlerMessageEvent : public QEvent
-{
+class ServerHandlerMessageEvent : public QEvent {
 	public:
 		QByteArray qbaMsg;
 		bool bUdp;
 		ServerHandlerMessageEvent(QByteArray &msg, bool udp);
 };
 
-class ServerHandler : public QThread
-{
-	Q_OBJECT
+class ServerHandler : public QThread {
+		Q_OBJECT
 	protected:
 		QString qsHostName;
 		QString qsUserName;

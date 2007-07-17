@@ -67,9 +67,9 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	qcbTransmit->setChecked(g.s.bTransmitPosition);
 	qcbTransmit->setToolTip(tr("Enable plugins and transmit positional information"));
 	qcbTransmit->setWhatsThis(tr("This enables plugins for supported games to fetch your in-game position "
-								"and transmit that with each voice packet. This enables other players to "
-								"hear your voice in-game from the direction your character is in relation "
-								"to their own."));
+	                             "and transmit that with each voice packet. This enables other players to "
+	                             "hear your voice in-game from the direction your character is in relation "
+	                             "to their own."));
 	grid->addWidget(qcbTransmit, 0, 0);
 	qgbOptions->setLayout(grid);
 
@@ -80,7 +80,7 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	reloadButton->setObjectName(QLatin1String("Reload"));
 	reloadButton->setToolTip(tr("Reloads all plugins"));
 	reloadButton->setWhatsThis(tr("This rescans and reloads plugins. Use this if you just added or changed "
-								"a plugin to the plugins directory."));
+	                              "a plugin to the plugins directory."));
 	QPushButton *aboutButton=new QPushButton(tr("&About"));
 	aboutButton->setObjectName(QLatin1String("About"));
 	aboutButton->setToolTip(tr("Information about plugin"));
@@ -101,13 +101,13 @@ PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
 	v->addLayout(h);
 	qgbPlugins->setLayout(v);
 
-    v = new QVBoxLayout;
-    v->addWidget(qgbOptions);
-    v->addWidget(qgbPlugins);
-    v->addStretch(1);
-    setLayout(v);
+	v = new QVBoxLayout;
+	v->addWidget(qgbOptions);
+	v->addWidget(qgbPlugins);
+	v->addStretch(1);
+	setLayout(v);
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 QString PluginConfig::title() const {
@@ -169,9 +169,9 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	timer->start(1000);
 	locked = prevlocked = NULL;
 	bValid = false;
-	for(int i=0;i<3;i++)
+	for (int i=0;i<3;i++)
 		fPosition[i]=fFront[i]=fTop[i]= 0.0;
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 void Plugins::rescanPlugins() {
@@ -229,7 +229,7 @@ void Plugins::fetch() {
 		locked->locked = false;
 		prevlocked = locked;
 		locked = NULL;
-		for(int i=0;i<3;i++)
+		for (int i=0;i<3;i++)
 			fPosition[i]=fFront[i]=fTop[i]= 0.0;
 	}
 	bValid = ok;
@@ -240,8 +240,8 @@ void Plugins::on_Timer_timeout() {
 
 	if (prevlocked) {
 		g.l->log(Log::Information,
-				tr("Plugin %1 lost link.").arg(prevlocked->description),
-				tr("%1 lost link.").arg(prevlocked->shortname));
+		         tr("Plugin %1 lost link.").arg(prevlocked->description),
+		         tr("%1 lost link.").arg(prevlocked->shortname));
 		prevlocked = NULL;
 	}
 
@@ -256,34 +256,32 @@ void Plugins::on_Timer_timeout() {
 
 	HANDLE hToken = NULL;
 
-    if(!OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken))
-    {
-        if (GetLastError() == ERROR_NO_TOKEN)
-        {
-            ImpersonateSelf(SecurityImpersonation);
-            OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken);
+	if (!OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken)) {
+		if (GetLastError() == ERROR_NO_TOKEN) {
+			ImpersonateSelf(SecurityImpersonation);
+			OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken);
 		}
-     }
+	}
 
-    TOKEN_PRIVILEGES tp;
-    LUID luid;
-    TOKEN_PRIVILEGES tpPrevious;
-    DWORD cbPrevious=sizeof(TOKEN_PRIVILEGES);
+	TOKEN_PRIVILEGES tp;
+	LUID luid;
+	TOKEN_PRIVILEGES tpPrevious;
+	DWORD cbPrevious=sizeof(TOKEN_PRIVILEGES);
 
-    LookupPrivilegeValue( NULL, SE_DEBUG_NAME, &luid);
+	LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &luid);
 
-    tp.PrivilegeCount           = 1;
-    tp.Privileges[0].Luid       = luid;
-    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+	tp.PrivilegeCount           = 1;
+	tp.Privileges[0].Luid       = luid;
+	tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 
-    AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), &tpPrevious, &cbPrevious);
+	AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), &tpPrevious, &cbPrevious);
 #endif
 
 	foreach(PluginInfo *pi, qlPlugins) {
 		if (pi->p->trylock()) {
 			g.l->log(Log::Information,
-					tr("Plugin %1 linked.").arg(pi->description),
-					tr("%1 linked.").arg(pi->shortname));
+			         tr("Plugin %1 linked.").arg(pi->description),
+			         tr("%1 linked.").arg(pi->shortname));
 			pi->locked = true;
 			bUnlink = false;
 			locked = pi;
@@ -292,7 +290,7 @@ void Plugins::on_Timer_timeout() {
 	}
 
 #ifdef Q_OS_WIN
-    AdjustTokenPrivileges(hToken, FALSE, &tpPrevious, cbPrevious, NULL, NULL);
-    CloseHandle(hToken);
+	AdjustTokenPrivileges(hToken, FALSE, &tpPrevious, cbPrevious, NULL, NULL);
+	CloseHandle(hToken);
 #endif
 }

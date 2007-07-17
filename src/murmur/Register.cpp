@@ -35,90 +35,90 @@
 #include "Register.h"
 
 Register::Register() {
-  http = NULL;
-  connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
-  
-  if (! g_sp.qsRegName.isEmpty()) {
-    if ((! g_sp.qsRegName.isEmpty()) && (! g_sp.qsRegPassword.isEmpty()) && (g_sp.qurlRegWeb.isValid()) && (g_sp.qsPassword.isEmpty()))
-      qtTick.start(60000);
-    else
-      qWarning("Registration needs nonempty name, password and url, and the server must not be password protected.");
-  } else {
-      qWarning("Not registering server as public");
-  }
+	http = NULL;
+	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
+
+	if (! g_sp.qsRegName.isEmpty()) {
+		if ((! g_sp.qsRegName.isEmpty()) && (! g_sp.qsRegPassword.isEmpty()) && (g_sp.qurlRegWeb.isValid()) && (g_sp.qsPassword.isEmpty()))
+			qtTick.start(60000);
+		else
+			qWarning("Registration needs nonempty name, password and url, and the server must not be password protected.");
+	} else {
+		qWarning("Not registering server as public");
+	}
 }
 
 void Register::abort() {
-  if (http) {
-    http->deleteLater();
-    http = NULL;
-  }
+	if (http) {
+		http->deleteLater();
+		http = NULL;
+	}
 }
 
 void Register::update() {
-  abort();
-  qtTick.start(1000 * 60 * 60);
+	abort();
+	qtTick.start(1000 * 60 * 60);
 
-  QDomDocument doc;
-  QDomElement root=doc.createElement(QLatin1String("server"));
-  doc.appendChild(root);
-  
-  QDomElement tag;
-  QDomText t;
-  
-  tag=doc.createElement(QLatin1String("name"));
-  root.appendChild(tag);
-  
-  t=doc.createTextNode(g_sp.qsRegName);
-  tag.appendChild(t);
+	QDomDocument doc;
+	QDomElement root=doc.createElement(QLatin1String("server"));
+	doc.appendChild(root);
 
-  tag=doc.createElement(QLatin1String("host"));
-  root.appendChild(tag);
-  
-  t=doc.createTextNode(g_sp.qsRegHost);
-  tag.appendChild(t);
+	QDomElement tag;
+	QDomText t;
 
-  tag=doc.createElement(QLatin1String("password"));
-  root.appendChild(tag);
-  
-  t=doc.createTextNode(g_sp.qsRegPassword);
-  tag.appendChild(t);
+	tag=doc.createElement(QLatin1String("name"));
+	root.appendChild(tag);
 
-  tag=doc.createElement(QLatin1String("port"));
-  root.appendChild(tag);
-  
-  t=doc.createTextNode(QString::number(g_sp.iPort));
-  tag.appendChild(t);
+	t=doc.createTextNode(g_sp.qsRegName);
+	tag.appendChild(t);
 
-  tag=doc.createElement(QLatin1String("url"));
-  root.appendChild(tag);
-  
-  t=doc.createTextNode(g_sp.qurlRegWeb.toString());
-  tag.appendChild(t);
+	tag=doc.createElement(QLatin1String("host"));
+	root.appendChild(tag);
 
-  tag=doc.createElement(QLatin1String("digest"));
-  root.appendChild(tag);
-  
-  t=doc.createTextNode(cert.getDigest());
-  tag.appendChild(t);
-  
-  http = new QHttp(this);
-  connect(http, SIGNAL(done(bool)), this, SLOT(done(bool)));
-  http->setHost(QLatin1String("mumble.hive.no"), 80);
-  
-  QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/register.cgi"));
-  h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
-  h.setValue(QLatin1String("Host"), QLatin1String("mumble.hive.no"));
-  h.setContentType(QLatin1String("text/xml"));
-  http->request(h, doc.toString().toUtf8());
+	t=doc.createTextNode(g_sp.qsRegHost);
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("password"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(g_sp.qsRegPassword);
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("port"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(QString::number(g_sp.iPort));
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("url"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(g_sp.qurlRegWeb.toString());
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("digest"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(cert.getDigest());
+	tag.appendChild(t);
+
+	http = new QHttp(this);
+	connect(http, SIGNAL(done(bool)), this, SLOT(done(bool)));
+	http->setHost(QLatin1String("mumble.hive.no"), 80);
+
+	QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/register.cgi"));
+	h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
+	h.setValue(QLatin1String("Host"), QLatin1String("mumble.hive.no"));
+	h.setContentType(QLatin1String("text/xml"));
+	http->request(h, doc.toString().toUtf8());
 }
 
 void Register::done(bool err) {
-  if (err) {
-    qWarning("Regstration failed: %s", qPrintable(http->errorString()));
-  } else {
-    QByteArray qba = http->readAll();
-    qWarning("Registration: %s", qPrintable(QString(QLatin1String(qba))));
-  }
-  abort();
+	if (err) {
+		qWarning("Regstration failed: %s", qPrintable(http->errorString()));
+	} else {
+		QByteArray qba = http->readAll();
+		qWarning("Registration: %s", qPrintable(QString(QLatin1String(qba))));
+	}
+	abort();
 }

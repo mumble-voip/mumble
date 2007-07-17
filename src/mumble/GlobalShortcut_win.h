@@ -66,7 +66,7 @@ struct InputDevice {
 };
 
 class DirectInputKeyWidget : public QLineEdit {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		virtual void focusInEvent(QFocusEvent *event);
 		virtual void focusOutEvent(QFocusEvent *event);
@@ -82,7 +82,7 @@ class DirectInputKeyWidget : public QLineEdit {
 };
 
 class GlobalShortcutWinConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QHash<GlobalShortcut *,DirectInputKeyWidget *> qhKeys;
 	public:
@@ -94,7 +94,7 @@ class GlobalShortcutWinConfig : public ConfigWidget {
 };
 
 class GlobalShortcutWin : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		QTimer *timer;
 		int ref;

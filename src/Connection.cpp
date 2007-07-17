@@ -47,45 +47,45 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket->setParent(this);
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
-    connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
-    connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
-    connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
-    connect(qtsSocket, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(socketSslErrors(const QList<QSslError> &)));
-        qtLastPacket.restart();
+	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
+	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
+	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
+	connect(qtsSocket, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(socketSslErrors(const QList<QSslError> &)));
+	qtLastPacket.restart();
 }
 
 Connection::~Connection() {
 }
 
 int Connection::activityTime() const {
-    return qtLastPacket.elapsed();
+	return qtLastPacket.elapsed();
 }
 
 void Connection::socketRead() {
-  int iAvailable;
-  while (1) {
-    iAvailable = qtsSocket->bytesAvailable();
+	int iAvailable;
+	while (1) {
+		iAvailable = qtsSocket->bytesAvailable();
 
-    if (iPacketLength == -1) {
-      if (iAvailable < 3)
-        return;
+		if (iPacketLength == -1) {
+			if (iAvailable < 3)
+				return;
 
-      unsigned char a_ucBuffer[3];
+			unsigned char a_ucBuffer[3];
 
-	  qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
-      iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
-      iAvailable -= 3;
-    }
+			qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
+			iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
+			iAvailable -= 3;
+		}
 
-    if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
-	  QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
-	  emit message(qbaBuffer);
-          iPacketLength = -1;
-        qtLastPacket.restart();
-    } else {
-      return;
-    }
-  }
+		if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
+			QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
+			emit message(qbaBuffer);
+			iPacketLength = -1;
+			qtLastPacket.restart();
+		} else {
+			return;
+		}
+	}
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {
@@ -166,5 +166,5 @@ quint16 Connection::peerPort() const {
 }
 
 QSslCertificate Connection::peerCertificate() const {
-    	return qtsSocket->peerCertificate();
+	return qtsSocket->peerCertificate();
 }

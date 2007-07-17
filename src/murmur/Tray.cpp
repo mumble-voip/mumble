@@ -32,26 +32,26 @@
 #include "Server.h"
 
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
-    	le = logger;
+	le = logger;
 
 	qsti = new QSystemTrayIcon(qApp->windowIcon(), this);
 	qsti->setObjectName(QLatin1String("Tray"));
 	qsti->setToolTip(tr("Murmur"));
 
 	qaQuit = new QAction(tr("&Quit Murmur"), this);
-    	qaQuit->setShortcut(tr("Ctrl+Q", "Quit"));
-    	qaQuit->setObjectName(QLatin1String("Quit"));
+	qaQuit->setShortcut(tr("Ctrl+Q", "Quit"));
+	qaQuit->setObjectName(QLatin1String("Quit"));
 
 	qaShowLog = new QAction(tr("&Show Log"), this);
-    	qaShowLog->setShortcut(tr("Ctrl+L", "Quit"));
-    	qaShowLog->setObjectName(QLatin1String("ShowLog"));
+	qaShowLog->setShortcut(tr("Ctrl+L", "Quit"));
+	qaShowLog->setObjectName(QLatin1String("ShowLog"));
 
 	// Can't construct a QMenu which decends from QObject, and qsti is a QObject.
 	// Qt bug?
-    	qm = new QMenu(tr("Murmur"), NULL);
-    	qm->addAction(qaQuit);
-    	qm->addSeparator();
-    	qm->addAction(qaShowLog);
+	qm = new QMenu(tr("Murmur"), NULL);
+	qm->addAction(qaQuit);
+	qm->addSeparator();
+	qm->addAction(qaShowLog);
 	qsti->setContextMenu(qm);
 
 	qsti->show();
@@ -62,36 +62,36 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 }
 
 void Tray::on_Tray_activated(QSystemTrayIcon::ActivationReason r) {
-    if (r == QSystemTrayIcon::Trigger) {
-	int numclients = g_sServer->qmConnections.count();
-	int port = g_sp.iPort;
-	qsti->showMessage(tr("Murmur"), tr("Server running on port %1 with %2 conencted clients.").arg(port).arg(numclients), QSystemTrayIcon::Information, 5000);
-    }
+	if (r == QSystemTrayIcon::Trigger) {
+		int numclients = g_sServer->qmConnections.count();
+		int port = g_sp.iPort;
+		qsti->showMessage(tr("Murmur"), tr("Server running on port %1 with %2 conencted clients.").arg(port).arg(numclients), QSystemTrayIcon::Information, 5000);
+	}
 }
 
 void Tray::on_Quit_triggered() {
 	if (QMessageBox::question(NULL, tr("Murmur"), tr("Are you sure you wish to quit murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
-	    qApp->quit();
+		qApp->quit();
 	}
 }
 
 void Tray::on_ShowLog_triggered() {
-    QMainWindow *mw = new QMainWindow();
-    mw->setAttribute(Qt::WA_DeleteOnClose);
-    QTextBrowser *tb = new QTextBrowser();
-    mw->setCentralWidget(tb);
+	QMainWindow *mw = new QMainWindow();
+	mw->setAttribute(Qt::WA_DeleteOnClose);
+	QTextBrowser *tb = new QTextBrowser();
+	mw->setCentralWidget(tb);
 
-    connect(le, SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
+	connect(le, SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
 
-    foreach(const QString &m, qlLog)
-    	tb->append(m);
+	foreach(const QString &m, qlLog)
+	tb->append(m);
 
-    mw->show();
+	mw->show();
 }
 
 void Tray::addLogMessage(const QString &msg) {
-    if (qlLog.count() >= 100)
-    	qlLog.removeFirst();
+	if (qlLog.count() >= 100)
+		qlLog.removeFirst();
 
-    qlLog.append(msg);
+	qlLog.append(msg);
 }

@@ -39,7 +39,7 @@ class ALSAAudioOutput;
 class ALSAAudioInput;
 
 class ALSAConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QComboBox *qcbInputDevice;
 		QComboBox *qcbOutputDevice;
@@ -55,7 +55,7 @@ class ALSAConfig : public ConfigWidget {
 };
 
 class ALSAAudioInput : public AudioInput {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		void release();
 	public:
@@ -65,10 +65,10 @@ class ALSAAudioInput : public AudioInput {
 };
 
 class ALSAAudioOutput : public AudioOutput {
-	friend class ALSAOutputPlayer;
-	Q_OBJECT
+		friend class ALSAOutputPlayer;
+		Q_OBJECT
 	protected:
- 		static void initialize(snd_pcm_t * &pcm_handle, int period);
+		static void initialize(snd_pcm_t * &pcm_handle, int period);
 	public:
 		ALSAAudioOutput();
 		~ALSAAudioOutput();

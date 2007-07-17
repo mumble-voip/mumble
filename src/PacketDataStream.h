@@ -136,19 +136,19 @@ class PacketDataStream {
 
 		PacketDataStream &operator <<(const quint32 i) {
 			if (i < 0x80) {
-			    	// Need top bit clear
+				// Need top bit clear
 				append(i);
 			} else if (i < 0x4000) {
-			    	// Need top two bits clear
+				// Need top two bits clear
 				append((i >> 8) | 0x80);
 				append(i & 0xFF);
 			} else if (i < 0x200000) {
-			    	// Need top three bits clear
+				// Need top three bits clear
 				append((i >> 16) | 0xC0);
 				append((i >> 8) & 0xFF);
 				append(i & 0xFF);
 			} else if (i < 0x10000000) {
-			    	// Need top four bits clear
+				// Need top four bits clear
 				append((i >> 24) | 0xE0);
 				append((i >> 16) & 0xFF);
 				append((i >> 8) & 0xFF);
@@ -172,7 +172,7 @@ class PacketDataStream {
 			} else if ((v & 0xE0) == 0xC0) {
 				i=(v & 0x1F) << 16 | next() << 8 | next();
 			} else if ((v & 0xC0) == 0x80) {
-			        i=(v & 0x3F) << 8 | next();
+				i=(v & 0x3F) << 8 | next();
 			} else {
 				i=(v & 0x7F);
 			}
@@ -250,7 +250,7 @@ class PacketDataStream {
 		template <typename T>
 		PacketDataStream &operator <<(const QList<T> &l) {
 			*this << l.size();
-			for(int i=0;i < l.size();i++)
+			for (int i=0;i < l.size();i++)
 				*this << l.at(i);
 			return *this;
 		}
@@ -264,7 +264,7 @@ class PacketDataStream {
 				len = left();
 				ok = false;
 			}
-			for(quint32 i=0;i<len;i++) {
+			for (quint32 i=0;i<len;i++) {
 				if (left() == 0) {
 					ok = false;
 					break;
@@ -281,7 +281,7 @@ class PacketDataStream {
 		template <typename T>
 		PacketDataStream &operator <<(const QSet<T> &s) {
 			*this << s.size();
-			for(typename QSet<T>::const_iterator i=s.constBegin();i!=s.constEnd();++i)
+			for (typename QSet<T>::const_iterator i=s.constBegin();i!=s.constEnd();++i)
 				*this << *i;
 			return *this;
 		}
@@ -295,7 +295,7 @@ class PacketDataStream {
 				len = left();
 				ok = false;
 			}
-			for(quint32 i=0;i<len;i++) {
+			for (quint32 i=0;i<len;i++) {
 				if (left() == 0) {
 					ok = false;
 					break;

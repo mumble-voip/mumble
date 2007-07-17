@@ -32,7 +32,7 @@
 #define _AUDIOSTATS_H
 
 class AudioEchoWidget : public QGLWidget {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		enum Mode { REAL, IMAGINARY, MODULUS, PHASE };
 		Mode mode;
@@ -44,15 +44,15 @@ class AudioEchoWidget : public QGLWidget {
 };
 
 class AudioNoiseWidget : public QWidget {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		AudioNoiseWidget(QWidget *parent);
 	protected slots:
-		void paintEvent (QPaintEvent *event);
+		void paintEvent(QPaintEvent *event);
 };
 
 class AudioStats : public QDialog {
-	Q_OBJECT;
+		Q_OBJECT;
 	protected:
 		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
 		QMap<QObject *, AudioEchoWidget::Mode> qmEchoMode;

@@ -37,13 +37,13 @@
 #include <QVariant>
 
 class GlobalShortcut : public QObject {
-	friend class GlobalShortcutWin;
-	friend class GlobalShortcutWinConfig;
-	friend class GlobalShortcutX;
-	friend class GlobalShortcutXConfig;
-	Q_OBJECT
-	Q_PROPERTY(QVariant data READ data WRITE setData)
-	Q_PROPERTY(bool active READ active)
+		friend class GlobalShortcutWin;
+		friend class GlobalShortcutWinConfig;
+		friend class GlobalShortcutX;
+		friend class GlobalShortcutXConfig;
+		Q_OBJECT
+		Q_PROPERTY(QVariant data READ data WRITE setData)
+		Q_PROPERTY(bool active READ active)
 	protected:
 		QString name;
 		QVariant dv;
@@ -56,11 +56,17 @@ class GlobalShortcut : public QObject {
 	public:
 		GlobalShortcut(QObject *parent, int index, QString qsName);
 		~GlobalShortcut();
-		QVariant data() const { return dv; };
-		void setData(QVariant d) { dv = d; };
-		bool active() const { return act; };
+		QVariant data() const {
+			return dv;
+		};
+		void setData(QVariant d) {
+			dv = d;
+		};
+		bool active() const {
+			return act;
+		};
 	private:
-	    Q_DISABLE_COPY(GlobalShortcut)
+		Q_DISABLE_COPY(GlobalShortcut)
 };
 
 #else

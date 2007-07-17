@@ -32,7 +32,7 @@
 #define _VERSIONCHECK_H
 
 class VersionCheck : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QUrl quUrl;
 		QHttp *qhAgent;

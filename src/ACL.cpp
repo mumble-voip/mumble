@@ -183,37 +183,37 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents no privileges.");
 		case Write:
 			return tr("This represents total access to the channel, including the ability to change group and ACL information. "
-					"This privilege implies all other privileges.");
+			          "This privilege implies all other privileges.");
 		case Traverse:
 			return tr("This represents the permission to traverse the channel. If a user is denied this privilege, he will be "
-					"unable to access this channel and any sub-channels in any way, regardless of other permissions in the "
-					"sub-channels.");
+			          "unable to access this channel and any sub-channels in any way, regardless of other permissions in the "
+			          "sub-channels.");
 		case Enter:
 			return tr("This represents the permission to join the channel. If you have a hierarchical channel structure, you "
-					"might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.");
+			          "might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.");
 		case Speak:
 			return tr("This represents the permission to speak in a channel. Users without this privilege will be suppressed by "
-					"the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
-					"appropriate privileges.");
+			          "the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
+			          "appropriate privileges.");
 		case AltSpeak:
 			return tr("This represents the permission to speak in a channel with flagged speech. This works exactly like the <i>speak</i> "
-					"privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy "
-					"of channels without linking.");
+			          "privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy "
+			          "of channels without linking.");
 		case MuteDeafen:
 			return tr("This represents the permission to mute and deafen other players. Once muted, a player will stay muted "
-					"until he is unmuted by another privileged player or reconnects to the server.");
+			          "until he is unmuted by another privileged player or reconnects to the server.");
 		case MoveKick:
 			return tr("This represents the permission to move a player to another channel or kick him from the server. To actually "
-					"move the player, either the moving player must have Move/Kick privileges in the destination channel, or "
-					"the player must normally be allowed to enter the channel. Players with this privilege can move players "
-					"into channels the target player normally wouldn't have permission to enter.");
+			          "move the player, either the moving player must have Move/Kick privileges in the destination channel, or "
+			          "the player must normally be allowed to enter the channel. Players with this privilege can move players "
+			          "into channels the target player normally wouldn't have permission to enter.");
 		case MakeChannel:
 			return tr("This represents the permission to make sub-channels. The player making the sub-channel will be added to the "
-					"admin group of the sub-channel.");
+			          "admin group of the sub-channel.");
 		case LinkChannel:
 			return tr("This represents the permission to link channels. Players in linked channels hear each other, as long as "
-					"the speaking player has the <i>speak</i> privilege in the channel of the listener. You need the link "
-					"privilege in both channels to create a link, but just in either channel to remove it.");
+			          "the speaking player has the <i>speak</i> privilege in the channel of the listener. You need the link "
+			          "privilege in both channels to create a link, but just in either channel to remove it.");
 		default:
 			break;
 	}

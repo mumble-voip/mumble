@@ -34,7 +34,7 @@
 #include "Message.h"
 
 class BanEditor : public QDialog {
-	Q_OBJECT;
+		Q_OBJECT;
 	protected:
 		QList<QPair<quint32, int> > qlBans;
 

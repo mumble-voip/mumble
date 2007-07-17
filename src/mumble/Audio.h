@@ -39,17 +39,17 @@
 typedef QPair<QString,QVariant> audioDevice;
 
 class LoopPlayer : public Player {
-    protected:
-    	typedef QPair<quint32, QByteArray> Packet;
-    	QMutex qmLock;
-    	QTime qtTicker;
-    	QTime qtLastFetch;
-    	QMultiMap<double, Packet> qmPackets;
-    	LoopPlayer();
-    public:
-    	static LoopPlayer lpLoopy;
-    	void addFrame(const QByteArray &packet, int seq);
-    	void fetchFrames();
+	protected:
+		typedef QPair<quint32, QByteArray> Packet;
+		QMutex qmLock;
+		QTime qtTicker;
+		QTime qtLastFetch;
+		QMultiMap<double, Packet> qmPackets;
+		LoopPlayer();
+	public:
+		static LoopPlayer lpLoopy;
+		void addFrame(const QByteArray &packet, int seq);
+		void fetchFrames();
 };
 
 #endif

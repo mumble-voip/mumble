@@ -48,9 +48,9 @@ class TextToSpeechPrivate {
 TextToSpeechPrivate::TextToSpeechPrivate() {
 	pVoice = NULL;
 
-   	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
-   	if( FAILED(hr))
-   		qWarning("TextToSpeechPrivate: Failed to allocate TTS Voice");
+	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+	if (FAILED(hr))
+		qWarning("TextToSpeechPrivate: Failed to allocate TTS Voice");
 }
 
 TextToSpeechPrivate::~TextToSpeechPrivate() {

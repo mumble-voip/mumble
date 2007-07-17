@@ -54,7 +54,7 @@ class QSettings;
 class Overlay;
 
 struct Global {
-    	enum LoopMode { None, Local, Server };
+	enum LoopMode { None, Local, Server };
 	MainWindow *mw;
 	Settings s;
 	ServerHandler *sh;

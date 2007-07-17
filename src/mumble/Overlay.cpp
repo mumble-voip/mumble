@@ -55,11 +55,11 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbEnable->setObjectName(QLatin1String("Enable"));
 	qcbEnable->setToolTip(tr("Enable overlay."));
 	qcbEnable->setWhatsThis(tr("This sets whether the overlay is enabled or not. This setting is "
-							"only checked with D3D9 applications are started, so make sure Mumble "
-							"is running and this option is on before you start the application.<br />"
-							"Please note that if you start the application after starting Mumble, "
-							"or if you disable the overlay while running, there is no safe way "
-							"to restart the overlay without also restarting the application."));
+	                           "only checked with D3D9 applications are started, so make sure Mumble "
+	                           "is running and this option is on before you start the application.<br />"
+	                           "Please note that if you start the application after starting Mumble, "
+	                           "or if you disable the overlay while running, there is no safe way "
+	                           "to restart the overlay without also restarting the application."));
 	qcbEnable->setChecked(g.s.bOverlayEnable);
 	grid->addWidget(qcbEnable, 0, 0, 1, 2);
 
@@ -72,11 +72,11 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	lab->setBuddy(qcbShow);
 	qcbShow->setToolTip(tr("Who to show on the overlay"));
 	qcbShow->setWhatsThis(tr("<b>This sets who to show in the in-game overlay.</b><br />"
-			"If many people are connected to the same channel, the overlay list might be "
-			"very long. Use this to shorten it.<br />"
-			"<i>No one</i> - Don't show anyone (but leave overlay running).<br />"
-			"<i>Only talking</i> - Only show talking people.<br />"
-			"<i>Everyone</i> - Show everyone."));
+	                         "If many people are connected to the same channel, the overlay list might be "
+	                         "very long. Use this to shorten it.<br />"
+	                         "<i>No one</i> - Don't show anyone (but leave overlay running).<br />"
+	                         "<i>Only talking</i> - Only show talking people.<br />"
+	                         "<i>Everyone</i> - Show everyone."));
 	grid->addWidget(lab, 1, 0);
 	grid->addWidget(qcbShow, 1, 1, 1, 2);
 
@@ -84,9 +84,9 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbAlwaysSelf->setObjectName(QLatin1String("AlwaysSelf"));
 	qcbAlwaysSelf->setToolTip(tr("Always show yourself on overlay."));
 	qcbAlwaysSelf->setWhatsThis(tr("This sets whether to always show yourself or not. "
-							"This setting is useful if you aren't showing everyone in the overlay, "
-							"as then you would only see your own status if you were talking, which "
-							"wouldn't let you see that you were deafened or muted."));
+	                               "This setting is useful if you aren't showing everyone in the overlay, "
+	                               "as then you would only see your own status if you were talking, which "
+	                               "wouldn't let you see that you were deafened or muted."));
 	qcbAlwaysSelf->setChecked(g.s.bOverlayAlwaysSelf);
 	grid->addWidget(qcbAlwaysSelf, 2, 0, 1, 2);
 
@@ -94,7 +94,7 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbUserTextures->setObjectName(QLatin1String("UserTextures"));
 	qcbUserTextures->setToolTip(tr("Show User custom textures instead of text on the overlay."));
 	qcbUserTextures->setWhatsThis(tr("This sets whether to download and use custom textures for registered users. "
-				   "If disabled, the regular outline text will be used instead."));
+	                                 "If disabled, the regular outline text will be used instead."));
 	qcbUserTextures->setChecked(g.s.bOverlayUserTextures);
 	grid->addWidget(qcbUserTextures, 3, 0, 1, 2);
 
@@ -107,29 +107,29 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcbLeft->setObjectName(QLatin1String("Left"));
 	qcbLeft->setToolTip(tr("Let overlay grow to the left"));
 	qcbLeft->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-							"you have selected. This allows the overlay to grow to the left if "
-							"needed."));
+	                         "you have selected. This allows the overlay to grow to the left if "
+	                         "needed."));
 	qcbLeft->setChecked(g.s.bOverlayLeft);
 	qcbRight = new QCheckBox(tr("Grow Right"));
 	qcbRight->setObjectName(QLatin1String("Right"));
 	qcbRight->setToolTip(tr("Let overlay grow to the Right"));
 	qcbRight->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-							"you have selected. This allows the overlay to grow to the Right if "
-							"needed."));
+	                          "you have selected. This allows the overlay to grow to the Right if "
+	                          "needed."));
 	qcbRight->setChecked(g.s.bOverlayRight);
 	qcbTop = new QCheckBox(tr("Grow Up"));
 	qcbTop->setObjectName(QLatin1String("Top"));
 	qcbTop->setToolTip(tr("Let overlay grow upwards"));
 	qcbTop->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-							"you have selected. This allows the overlay to grow to the top if "
-							"needed."));
+	                        "you have selected. This allows the overlay to grow to the top if "
+	                        "needed."));
 	qcbTop->setChecked(g.s.bOverlayTop);
 	qcbBottom = new QCheckBox(tr("Grow Down"));
 	qcbBottom->setObjectName(QLatin1String("Bottom"));
 	qcbBottom->setToolTip(tr("Let overlay grow downwards"));
 	qcbBottom->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-							"you have selected. This allows the overlay to grow towards the bottom if "
-							"needed."));
+	                           "you have selected. This allows the overlay to grow towards the bottom if "
+	                           "needed."));
 	qcbBottom->setChecked(g.s.bOverlayBottom);
 
 	qsX = new QSlider(Qt::Horizontal);
@@ -184,8 +184,8 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qsMaxHeight->setObjectName(QLatin1String("MaxHeight"));
 	qsMaxHeight->setToolTip(tr("Maximum height of names."));
 	qsMaxHeight->setWhatsThis(tr("This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels "
-					"tall. Note that the names will not be taller than 60 pixels "
-					"no matter what you set here."));
+	                             "tall. Note that the names will not be taller than 60 pixels "
+	                             "no matter what you set here."));
 	qsMaxHeight->setRange(10, 200);
 	qsMaxHeight->setSingleStep(1);
 	qsMaxHeight->setPageStep(10);
@@ -254,22 +254,22 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 
 	qgbColors->setLayout(grid);
 
-    v = new QVBoxLayout;
-    v->addWidget(qgbOptions);
-    v->addWidget(qgbPosition);
-    v->addWidget(qgbColors);
-    v->addStretch(1);
-    setLayout(v);
+	v = new QVBoxLayout;
+	v->addWidget(qgbOptions);
+	v->addWidget(qgbPosition);
+	v->addWidget(qgbColors);
+	v->addStretch(1);
+	setLayout(v);
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 void OverlayConfig::setColorLabel(QLabel *label, QColor col) {
 	label->setText(col.name());
 
-    QPalette palette;
-    palette.setColor(label->foregroundRole(), col);
-    label->setPalette(palette);
+	QPalette palette;
+	palette.setColor(label->foregroundRole(), col);
+	label->setPalette(palette);
 }
 
 void OverlayConfig::on_SetFont_clicked() {
@@ -374,13 +374,13 @@ Overlay::Overlay() : QObject() {
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
 		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
-				"- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
-				"- you're on an OS earlier than WinXP SP2\n"
-				"- you do not have the June 2007 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
+		                      "- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
+		                      "- you're on an OS earlier than WinXP SP2\n"
+		                      "- you do not have the June 2007 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
 		qWarning("Overlay failure");
 	} else {
-  	  sm.resolve(qlOverlay);
-  	}
+		sm.resolve(qlOverlay);
+	}
 #else
 	sm.resolve(qlOverlay);
 #endif
@@ -425,7 +425,7 @@ bool Overlay::isActive() const {
 void Overlay::toggleShow() {
 	Settings::OverlayShow ns;
 
-	switch(g.s.osOverlay) {
+	switch (g.s.osOverlay) {
 		case Settings::Nothing:
 			ns = Settings::All;
 			break;
@@ -469,27 +469,27 @@ void Overlay::forceSettings() {
 }
 
 void Overlay::textureResponse(int id, const QByteArray &texture) {
-    QString s = qhQueried.value(id);
-    if (s.isEmpty())
-    	return;
+	QString s = qhQueried.value(id);
+	if (s.isEmpty())
+		return;
 
-    QByteArray t = qUncompress(texture);
+	QByteArray t = qUncompress(texture);
 
-    if (t.size() != TEXTURE_SIZE)
-    	return;
+	if (t.size() != TEXTURE_SIZE)
+		return;
 
-    const unsigned char *data = reinterpret_cast<const unsigned char *>(t.constData());
+	const unsigned char *data = reinterpret_cast<const unsigned char *>(t.constData());
 
-    int width = 0;
-    for(int y=0;y<TEXT_HEIGHT;y++) {
-	for(int x=0;x<TEXT_WIDTH; x++) {
-	    if ((x > width) && (data[(y*TEXT_WIDTH+x)*4] != 0x00))
-	    	width = x;
+	int width = 0;
+	for (int y=0;y<TEXT_HEIGHT;y++) {
+		for (int x=0;x<TEXT_WIDTH; x++) {
+			if ((x > width) && (data[(y*TEXT_WIDTH+x)*4] != 0x00))
+				width = x;
+		}
 	}
-    }
-    qhUserTextures[id] = UserTexture(width, t);
-    qsForce.insert(id);
-    setTexts(qlCurrentTexts);
+	qhUserTextures[id] = UserTexture(width, t);
+	qsForce.insert(id);
+	setTexts(qlCurrentTexts);
 }
 
 typedef QPair<QString, quint32> qpChanCol;
@@ -541,11 +541,11 @@ void Overlay::updateOverlay() {
 
 		foreach(Player *p, Player::get(g.sId)->cChannel->qlPlayers) {
 			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == Player::get(g.sId)) && g.s.bOverlayAlwaysSelf)) {
-			    	if (g.s.bOverlayUserTextures && (p->iId >= 0) && (! qhQueried.contains(p->iId))) {
-				    qhQueried.insert(p->iId, p->qsName);
-				    MessageTexture mt;
-				    mt.iPlayerId = p->iId;
-				    g.sh->sendMessage(&mt);
+				if (g.s.bOverlayUserTextures && (p->iId >= 0) && (! qhQueried.contains(p->iId))) {
+					qhQueried.insert(p->iId, p->qsName);
+					MessageTexture mt;
+					mt.iPlayerId = p->iId;
+					g.sh->sendMessage(&mt);
 				}
 				QString name = p->qsName;
 				Decoration dec = None;
@@ -568,8 +568,8 @@ void Overlay::updateOverlay() {
 			}
 		}
 	} else {
-	    qhUserTextures.clear();
-	    clearCache();
+		qhUserTextures.clear();
+		clearCache();
 	}
 	setTexts(lines);
 }
@@ -582,64 +582,64 @@ void Overlay::updateOverlay() {
  */
 
 void Overlay::fixFont() {
-    g.s.qfOverlayFont.setStyleStrategy(QFont::ForceOutline);
+	g.s.qfOverlayFont.setStyleStrategy(QFont::ForceOutline);
 
-    int psize = TEXT_HEIGHT;
+	int psize = TEXT_HEIGHT;
 
-    QRectF br;
+	QRectF br;
 
-    do {
-	    g.s.qfOverlayFont.setPixelSize(psize--);
-	    QPainterPath qp;
-	    qp.addText(0, 0, g.s.qfOverlayFont, QLatin1String("Üy"));
-	    br=qp.boundingRect();
-	    qWarning("Overlay: Attempt for pixelsize %d gave actual sizes %f %f", psize+1, br.height(),br.top());
-    } while ((br.height()+2) > TEXT_HEIGHT);
+	do {
+		g.s.qfOverlayFont.setPixelSize(psize--);
+		QPainterPath qp;
+		qp.addText(0, 0, g.s.qfOverlayFont, QLatin1String("Üy"));
+		br=qp.boundingRect();
+		qWarning("Overlay: Attempt for pixelsize %d gave actual sizes %f %f", psize+1, br.height(),br.top());
+	} while ((br.height()+2) > TEXT_HEIGHT);
 
-    fFontBase = fabs(br.top());
+	fFontBase = fabs(br.top());
 
-    clearCache();
+	clearCache();
 
-    qlCurrentTexts.clear();
+	qlCurrentTexts.clear();
 }
 
 void Overlay::clearCache() {
-    foreach(unsigned char *ptr, qhTextures)
-    	delete [] ptr;
+	foreach(unsigned char *ptr, qhTextures)
+	delete [] ptr;
 
-    qhTextures.clear();
-    qhWidths.clear();
-    qhQueried.clear();
+	qhTextures.clear();
+	qhWidths.clear();
+	qhQueried.clear();
 }
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
 	foreach(const TextLine &e, lines) {
-	    if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && (! qhUserTextures.contains(e.iPlayer))) {
-		unsigned char *td = new unsigned char[TEXTURE_SIZE];
-		memset(td, 0, TEXTURE_SIZE);
+		if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && (! qhUserTextures.contains(e.iPlayer))) {
+			unsigned char *td = new unsigned char[TEXTURE_SIZE];
+			memset(td, 0, TEXTURE_SIZE);
 
-		QImage qi(td, TEXT_WIDTH, TEXT_HEIGHT, QImage::Format_ARGB32);
+			QImage qi(td, TEXT_WIDTH, TEXT_HEIGHT, QImage::Format_ARGB32);
 
-		QPainterPath qp;
-		qp.addText(2, fFontBase, g.s.qfOverlayFont, e.qsText);
+			QPainterPath qp;
+			qp.addText(2, fFontBase, g.s.qfOverlayFont, e.qsText);
 
-		QPainter p(&qi);
-		p.setRenderHint(QPainter::Antialiasing);
-		p.setRenderHint(QPainter::TextAntialiasing);
-		p.setBrush(Qt::white);
+			QPainter p(&qi);
+			p.setRenderHint(QPainter::Antialiasing);
+			p.setRenderHint(QPainter::TextAntialiasing);
+			p.setBrush(Qt::white);
 
-		// Draw with big border, this will be the "outline"
-		p.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-                p.drawPath(qp);
+			// Draw with big border, this will be the "outline"
+			p.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+			p.drawPath(qp);
 
-		// And again, all white with no border. This avoids thin fonts being just black outline.
-		p.setPen(Qt::NoPen);
-                p.drawPath(qp);
+			// And again, all white with no border. This avoids thin fonts being just black outline.
+			p.setPen(Qt::NoPen);
+			p.drawPath(qp);
 
 
-		qhTextures[e.qsText] = td;
-		qhWidths[e.qsText] = qMin(static_cast<int>(qp.boundingRect().width())+6, TEXT_WIDTH);
-	    }
+			qhTextures[e.qsText] = td;
+			qhWidths[e.qsText] = qMin(static_cast<int>(qp.boundingRect().width())+6, TEXT_WIDTH);
+		}
 	}
 
 	if (! sm.tryLock())
@@ -647,69 +647,69 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 
 	int i;
 
-	for(i=0;i<lines.count();i++) {
-	    	if (i >= NUM_TEXTS)
-	    		break;
+	for (i=0;i<lines.count();i++) {
+		if (i >= NUM_TEXTS)
+			break;
 
-	    	const TextLine &tl = lines.at(i);
-	    	TextEntry *te = & sm.sm->texts[i];
+		const TextLine &tl = lines.at(i);
+		TextEntry *te = & sm.sm->texts[i];
 
 		wcscpy(te->text, reinterpret_cast<const wchar_t *>(tl.qsText.left(127).utf16()));
-	    	te->color = lines[i].uiColor;
+		te->color = lines[i].uiColor;
 
 		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].dDecor != tl.dDecor) || (qlCurrentTexts[i].qsText != tl.qsText) || qsForce.contains(tl.iPlayer)) {
-		    if (tl.qsText.isNull()) {
-		    	te->width = 0;
-		    } else {
-			int width = 0;
-			const unsigned char *src = NULL;
-
-			if (qhUserTextures.contains(tl.iPlayer)) {
-			    const UserTexture &ut=qhUserTextures.value(tl.iPlayer);
-			    width = ut.first;
-			    src = reinterpret_cast<const unsigned char *>(ut.second.constData());
-		    	} else {
-			    width = qhWidths[tl.qsText];
-			    src = qhTextures[tl.qsText];
-		    	}
-
-		    	unsigned char * dst = NULL;
-
-		    	if (tl.dDecor != None) {
-			    unsigned char * decdst;
-			    const unsigned char * decsrc = reinterpret_cast<const unsigned char *>((tl.dDecor == Muted) ? qbaMuted.constData() : qbaDeafened.constData());
-
-			    width = qMin(TEXT_WIDTH - TEXT_HEIGHT, width);
-			    if (g.s.bOverlayLeft) {
-			    	dst = sm.sm->texts[i].texture + TEXT_HEIGHT * 4;
-			    	decdst = sm.sm->texts[i].texture;
-			    } else {
-			    	dst = sm.sm->texts[i].texture;
-			    	decdst = sm.sm->texts[i].texture + width * 4;
-			    }
-			    for(int j=0;j<TEXT_HEIGHT;j++)
-			    	memcpy(decdst + j * TEXT_WIDTH * 4, decsrc + j * TEXT_HEIGHT * 4, TEXT_HEIGHT * 4);
-
+			if (tl.qsText.isNull()) {
+				te->width = 0;
 			} else {
-			    width = qMin(TEXT_WIDTH, width);
-			    dst = sm.sm->texts[i].texture;
-		        }
+				int width = 0;
+				const unsigned char *src = NULL;
 
-			for(int j=0;j<TEXT_HEIGHT;j++)
-				memcpy(dst + j * TEXT_WIDTH * 4, src + j * TEXT_WIDTH * 4, width * 4);
+				if (qhUserTextures.contains(tl.iPlayer)) {
+					const UserTexture &ut=qhUserTextures.value(tl.iPlayer);
+					width = ut.first;
+					src = reinterpret_cast<const unsigned char *>(ut.second.constData());
+				} else {
+					width = qhWidths[tl.qsText];
+					src = qhTextures[tl.qsText];
+				}
 
-			if (tl.dDecor != None)
-				width += TEXT_HEIGHT;
+				unsigned char * dst = NULL;
 
-			te->width = width;
-			te->bUpdated = true;
-		    }
-		    qsForce.remove(tl.iPlayer);
+				if (tl.dDecor != None) {
+					unsigned char * decdst;
+					const unsigned char * decsrc = reinterpret_cast<const unsigned char *>((tl.dDecor == Muted) ? qbaMuted.constData() : qbaDeafened.constData());
+
+					width = qMin(TEXT_WIDTH - TEXT_HEIGHT, width);
+					if (g.s.bOverlayLeft) {
+						dst = sm.sm->texts[i].texture + TEXT_HEIGHT * 4;
+						decdst = sm.sm->texts[i].texture;
+					} else {
+						dst = sm.sm->texts[i].texture;
+						decdst = sm.sm->texts[i].texture + width * 4;
+					}
+					for (int j=0;j<TEXT_HEIGHT;j++)
+						memcpy(decdst + j * TEXT_WIDTH * 4, decsrc + j * TEXT_HEIGHT * 4, TEXT_HEIGHT * 4);
+
+				} else {
+					width = qMin(TEXT_WIDTH, width);
+					dst = sm.sm->texts[i].texture;
+				}
+
+				for (int j=0;j<TEXT_HEIGHT;j++)
+					memcpy(dst + j * TEXT_WIDTH * 4, src + j * TEXT_WIDTH * 4, width * 4);
+
+				if (tl.dDecor != None)
+					width += TEXT_HEIGHT;
+
+				te->width = width;
+				te->bUpdated = true;
+			}
+			qsForce.remove(tl.iPlayer);
 		}
 	}
 
-	for(;i<NUM_TEXTS;i++) {
-	    sm.sm->texts[i].width = -1;
+	for (;i<NUM_TEXTS;i++) {
+		sm.sm->texts[i].width = -1;
 	}
 
 	qlCurrentTexts = lines;

@@ -32,21 +32,21 @@
 #define _CONNECTDIALOG_H
 
 struct PublicInfo {
-    QString name;
-    QUrl url;
-    QString ip;
-    int port;
+	QString name;
+	QUrl url;
+	QString ip;
+	int port;
 };
 
 class ConnectDialog : public QDialog {
-	Q_OBJECT;
+		Q_OBJECT;
 	protected:
 		QTabWidget *qtwTab;
 		static QList<PublicInfo> qlPublicServers;
 		bool bPublicInit;
 		QSqlTableModel *qstmServers;
 		QListView *qlwServers;
-	        QTableWidget *qtwServers;
+		QTableWidget *qtwServers;
 		QLineEdit *qleName, *qleServer, *qlePort, *qleUsername, *qlePassword;
 		QCheckBox *qcbUdp;
 		QModelIndex qmiDirty;

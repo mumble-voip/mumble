@@ -34,7 +34,7 @@
 #include "Message.h"
 
 class ACLEditor : public QDialog {
-	Q_OBJECT;
+		Q_OBJECT;
 	protected:
 		enum WaitID {
 			GroupAdd, GroupRemove, GroupInherit, ACLList

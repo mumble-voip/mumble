@@ -34,7 +34,7 @@
 
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QTabWidget *qtwTab = new QTabWidget(this);
-    QVBoxLayout *vblMain = new QVBoxLayout(this);
+	QVBoxLayout *vblMain = new QVBoxLayout(this);
 
 	QTextEdit *qteLicense=new QTextEdit();
 	qteLicense->setReadOnly(true);
@@ -47,11 +47,11 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 
 	QLabel *text=new QLabel(about);
 	text->setText(tr(
-		"<h3>Mumble v%1</h3>"
-		"<p>Copyright 2005-2007 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
-		"<p><b>A voice-chat utility for gamers</b></p>"
-		"<p><tt>http://mumble.sourceforge.net/</tt></p>"
-	).arg(QLatin1String(MUMBLE_RELEASE)));
+	                  "<h3>Mumble v%1</h3>"
+	                  "<p>Copyright 2005-2007 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
+	                  "<p><b>A voice-chat utility for gamers</b></p>"
+	                  "<p><tt>http://mumble.sourceforge.net/</tt></p>"
+	              ).arg(QLatin1String(MUMBLE_RELEASE)));
 	QHBoxLayout *qhbl=new QHBoxLayout();
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
@@ -60,13 +60,13 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qtwTab->addTab(about, tr("&About Mumble"));
 	qtwTab->addTab(qteLicense, tr("&License"));
 
-    QPushButton *okButton = new QPushButton(tr("OK"));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	QPushButton *okButton = new QPushButton(tr("OK"));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-    vblMain->addWidget(qtwTab);
-    vblMain->addWidget(okButton);
+	vblMain->addWidget(qtwTab);
+	vblMain->addWidget(okButton);
 
-    setLayout(vblMain);
+	setLayout(vblMain);
 }
 
 AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
@@ -75,22 +75,22 @@ AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
 
 	QLabel *text=new QLabel();
 	text->setText(tr(
-		"<h3>About Speex</h3>"
-		"<p><tt>http://www.speex.org/</tt></p>"
-		"<p>This program uses Speex version %1</p>"
-		"<p>Speex is used for echo cancellation, noise<br />"
-		"filtering, voice activity detection and speech<br />"
-		"compression.</p>"
-	).arg(QLatin1String(verptr)));
+	                  "<h3>About Speex</h3>"
+	                  "<p><tt>http://www.speex.org/</tt></p>"
+	                  "<p>This program uses Speex version %1</p>"
+	                  "<p>Speex is used for echo cancellation, noise<br />"
+	                  "filtering, voice activity detection and speech<br />"
+	                  "compression.</p>"
+	              ).arg(QLatin1String(verptr)));
 
-    QPushButton *okButton = new QPushButton(tr("OK"));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	QPushButton *okButton = new QPushButton(tr("OK"));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-    QVBoxLayout *vblMain = new QVBoxLayout();
+	QVBoxLayout *vblMain = new QVBoxLayout();
 	QHBoxLayout *qhbl=new QHBoxLayout();
 	qhbl->addWidget(text);
 
 	vblMain->addLayout(qhbl);
 	vblMain->addWidget(okButton);
-    setLayout(vblMain);
+	setLayout(vblMain);
 }

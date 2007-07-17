@@ -85,8 +85,7 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 }
 
 
-AudioInput::AudioInput()
-{
+AudioInput::AudioInput() {
 	speex_bits_init(&sbBits);
 	speex_bits_reset(&sbBits);
 	iFrames = 0;
@@ -128,8 +127,7 @@ AudioInput::AudioInput()
 	bRunning = false;
 }
 
-AudioInput::~AudioInput()
-{
+AudioInput::~AudioInput() {
 	bRunning = false;
 	wait();
 	speex_bits_destroy(&sbBits);
@@ -194,12 +192,12 @@ void AudioInput::encodeAudioFrame() {
 
 	static double framhist[10];
 
-	for(int i=0;i<9;i++)
+	for (int i=0;i<9;i++)
 		framhist[i]=framhist[i+1];
-	framhist[9]=1+(int) (310.0*rand()/(RAND_MAX+1.0));
+	framhist[9]=1+(int)(310.0*rand()/(RAND_MAX+1.0));
 
 	// Sine wave test
-	for(i=0;i<iFrameSize;i++) {
+	for (i=0;i<iFrameSize;i++) {
 		psMic[i]    += (sin((framhist[0] * M_PI * i) / (iFrameSize * 1.0)) * 4096.0);
 		psSpeaker[i] = (sin((framhist[4] * M_PI * i) / (iFrameSize * 1.0)) * 8192.0);
 //		psSpeaker[i] = psMic[i] * 2;
@@ -209,7 +207,7 @@ void AudioInput::encodeAudioFrame() {
 
 
 	max=1;
-	for(i=0;i<iFrameSize;i++)
+	for (i=0;i<iFrameSize;i++)
 		if (abs(psMic[i]) > max)
 			max=abs(psMic[i]);
 	dPeakMic=20.0*log10((max  * 1.0L) / 32768.0L);
@@ -217,7 +215,7 @@ void AudioInput::encodeAudioFrame() {
 
 	if (bHasSpeaker) {
 		max=1;
-		for(i=0;i<iFrameSize;i++)
+		for (i=0;i<iFrameSize;i++)
 			if (abs(psSpeaker[i]) > max)
 				max=abs(psSpeaker[i]);
 		dPeakSpeaker=20.0*log10((max  * 1.0L) / 32768.0L);
@@ -281,7 +279,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	max=1;
-	for(i=0;i<iFrameSize;i++)
+	for (i=0;i<iFrameSize;i++)
 		if (abs(psSource[i]) > max)
 			max=abs(psSource[i]);
 	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
@@ -336,12 +334,12 @@ void AudioInput::encodeAudioFrame() {
 		p->setTalking(iIsSpeech, g.bAltSpeak);
 
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
-	    	AudioOutputPtr ao = g.ao;
+		AudioOutputPtr ao = g.ao;
 		if (iIsSpeech && ! bPreviousVoice && ao)
-	    		ao->playSine(400,1200,5);
-	    	else if (ao && !iIsSpeech && bPreviousVoice && ao)
-	    		ao->playSine(620,-1200,5);
-    	}
+			ao->playSine(400,1200,5);
+		else if (ao && !iIsSpeech && bPreviousVoice && ao)
+			ao->playSine(620,-1200,5);
+	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 		return;
@@ -366,7 +364,7 @@ void AudioInput::encodeAudioFrame() {
 			speex_bits_pack(&sbBits, q.size(), 4);
 
 			const unsigned char *d=reinterpret_cast<const unsigned char*>(q.data());
-			for(i=0;i<q.size();i++) {
+			for (i=0;i<q.size();i++) {
 				speex_bits_pack(&sbBits, d[i], 8);
 			}
 		}
@@ -381,8 +379,8 @@ void AudioInput::encodeAudioFrame() {
 }
 
 void AudioInput::flushCheck() {
-    	if (bPreviousVoice && iFrames < g.s.iFramesPerPacket)
-    		return;
+	if (bPreviousVoice && iFrames < g.s.iFramesPerPacket)
+		return;
 
 	unsigned char flags = 0;
 	if (g.bAltSpeak)
@@ -406,7 +404,7 @@ void AudioInput::flushCheck() {
 	msPacket.iSeq = iFrameCounter;
 
 	if (g.lmLoopMode == Global::Local) {
-	    	LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
+		LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
 	} else if (g.sh) {
 		g.sh->sendMessage(&msPacket);
 	}

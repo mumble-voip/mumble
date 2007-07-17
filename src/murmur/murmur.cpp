@@ -61,8 +61,7 @@ bool detach = false;
 
 LogEmitter le;
 
-static void murmurMessageOutput(QtMsgType type, const char *msg)
-{
+static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	char c;
 	switch (type) {
 		case QtDebugMsg:
@@ -92,17 +91,16 @@ static void murmurMessageOutput(QtMsgType type, const char *msg)
 #endif
 #endif
 	} else {
-	    logfile->write(m.toUtf8());
-	    logfile->write("\n");
-	    logfile->flush();
-       }
-       le.addLogEntry(m);
-       if (type == QtFatalMsg)
-       	 exit(0);
+		logfile->write(m.toUtf8());
+		logfile->write("\n");
+		logfile->flush();
+	}
+	le.addLogEntry(m);
+	if (type == QtFatalMsg)
+		exit(0);
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	// Check for SSE and MMX, but only in the windows binaries
 #ifdef Q_OS_WIN
 #define cpuid(func,ax,bx,cx,dx) __asm__ __volatile__ ("cpuid": "=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func));
@@ -138,33 +136,33 @@ int main(int argc, char **argv)
 	QString inifile;
 	QString supw;
 
-        qInstallMsgHandler(murmurMessageOutput);
+	qInstallMsgHandler(murmurMessageOutput);
 
 #ifdef Q_OS_WIN
 	Tray tray(NULL, &le);
 #endif
 
-	for(int i=1;i<argc;i++) {
+	for (int i=1;i<argc;i++) {
 		QString arg = QString(argv[i]).toLower();
-		if ((arg == "-supw") && ( i+1 < argc )) {
+		if ((arg == "-supw") && (i+1 < argc)) {
 			i++;
 			supw = argv[i];
-		} else if ((arg == "-ini") && ( i+1 < argc )) {
+		} else if ((arg == "-ini") && (i+1 < argc)) {
 			i++;
 			inifile=argv[i];
 		} else if ((arg == "-fg")) {
-		    	detach = false;
+			detach = false;
 		} else if ((arg == "-v")) {
-		    	bVerbose = true;
+			bVerbose = true;
 		} else if ((arg == "-h") || (arg == "--help")) {
 			i++;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-				"  -ini <inifile>  Specify ini file to use.\n"
-				"  -supw <pw>      Set password for 'SuperUser' account.\n"
-				"  -v              Add verbose output.\n"
-				"  -fg             Don't detach from console [Linux only].\n"
-				"If no inifile is provided, murmur will search for one in \n"
-				"default locations.",argv[0]);
+			       "  -ini <inifile>  Specify ini file to use.\n"
+			       "  -supw <pw>      Set password for 'SuperUser' account.\n"
+			       "  -v              Add verbose output.\n"
+			       "  -fg             Don't detach from console [Linux only].\n"
+			       "If no inifile is provided, murmur will search for one in \n"
+			       "default locations.",argv[0]);
 		} else {
 			qFatal("Unknown argument %s", argv[i]);
 		}
@@ -181,40 +179,40 @@ int main(int argc, char **argv)
 
 	if (detach && ! g_sp.qsLogfile.isEmpty()) {
 		logfile = new QFile(g_sp.qsLogfile);
-	    if (! logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-		delete logfile;
-		logfile = NULL;
-		qWarning("Failed to open logfile %s. Will not detach.",qPrintable(g_sp.qsLogfile));
-		detach = false;
-	    } else {
-		logfile->setTextModeEnabled(true);
-	    }
+		if (! logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+			delete logfile;
+			logfile = NULL;
+			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(g_sp.qsLogfile));
+			detach = false;
+		} else {
+			logfile->setTextModeEnabled(true);
+		}
 	} else {
-	    detach = false;
-    	}
+		detach = false;
+	}
 #ifdef Q_OS_UNIX
 	if (detach) {
-	    if (fork() != 0) {
-		_exit(0);
-	    }
-	    setsid();
-	    if (fork() != 0) {
-		_exit(0);
-	    }
-	    chdir("/");
-	    int fd;
+		if (fork() != 0) {
+			_exit(0);
+		}
+		setsid();
+		if (fork() != 0) {
+			_exit(0);
+		}
+		chdir("/");
+		int fd;
 
-	    fd = open("/dev/null", O_RDONLY);
-	    dup2(fd, 0);
-	    close(fd);
+		fd = open("/dev/null", O_RDONLY);
+		dup2(fd, 0);
+		close(fd);
 
-	    fd = open("/dev/null", O_WRONLY);
-	    dup2(fd, 1);
-	    close(fd);
+		fd = open("/dev/null", O_WRONLY);
+		dup2(fd, 1);
+		close(fd);
 
-	    fd = open("/dev/null", O_WRONLY);
-	    dup2(fd, 2);
-	    close(fd);
+		fd = open("/dev/null", O_WRONLY);
+		dup2(fd, 2);
+		close(fd);
 	}
 
 	MurmurDBus::registerTypes();

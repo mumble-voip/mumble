@@ -45,27 +45,27 @@
 
 
 class SharedMemoryPrivate {
-    public:
-    	int fd;
-    	sem_t *sem;
+	public:
+		int fd;
+		sem_t *sem;
 };
 
 SharedMemory::SharedMemory() {
-    d = new SharedMemoryPrivate();
-    d->fd = -1;
-    d->sem = NULL;
-    sm = NULL;
+	d = new SharedMemoryPrivate();
+	d->fd = -1;
+	d->sem = NULL;
+	sm = NULL;
 }
 
 SharedMemory::~SharedMemory() {
 	if (sm)
 		munmap(sm, sizeof(SharedMem));
-		
+
 	if (d->sem != 0) {
 		sem_close(d->sem);
 		sem_unlink("/MumbleOverlaySem");
-	}	
-	
+	}
+
 	if (d->fd >= 0) {
 		close(d->fd);
 		shm_unlink("/MumbleOverlayMem");
@@ -118,7 +118,7 @@ class OverlayPrivate {
 };
 
 void Overlay::platformInit() {
-    	d = new OverlayPrivate();
+	d = new OverlayPrivate();
 }
 
 void Overlay::setActive(bool) {

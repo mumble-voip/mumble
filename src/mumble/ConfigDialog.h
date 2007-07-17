@@ -32,7 +32,7 @@
 #define _CONFIGDIALOG_H
 
 class ConfigWidget : public QWidget {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		ConfigWidget(QWidget *p = NULL);
 		virtual QString title() const;
@@ -44,7 +44,7 @@ class ConfigWidget : public QWidget {
 typedef ConfigWidget *(*ConfigWidgetNew)();
 
 class ConfigRegistrar {
-	friend class ConfigDialog;
+		friend class ConfigDialog;
 	protected:
 		static QMap<int, ConfigWidgetNew> *c_qmNew;
 	public:
@@ -52,17 +52,17 @@ class ConfigRegistrar {
 };
 
 class ConfigDialog : public QDialog {
-	Q_OBJECT;
+		Q_OBJECT;
 	protected:
 		QList<ConfigWidget *> widgets;
-	    QListWidget *qlwIcons;
-	    QStackedWidget *qswPages;
-	    void addPage(ConfigWidget *aw);
+		QListWidget *qlwIcons;
+		QStackedWidget *qswPages;
+		void addPage(ConfigWidget *aw);
 	public:
 		ConfigDialog(QWidget *p = NULL);
 	public slots:
-	    void on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-	    void apply();
+		void on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+		void apply();
 		void accept();
 };
 

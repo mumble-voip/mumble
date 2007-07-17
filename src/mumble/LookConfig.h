@@ -34,7 +34,7 @@
 #include "ConfigDialog.h"
 
 class LookConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QComboBox *qcbLanguage, *qcbStyle;
 		QLineEdit *qleCSS;

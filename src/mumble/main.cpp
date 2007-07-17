@@ -40,16 +40,15 @@
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
-	void throw_exception(std::exception const & e) {
-		qFatal("Boost exception caught!");
-	}
+void throw_exception(std::exception const & e) {
+	qFatal("Boost exception caught!");
+}
 }
 #endif
 
 extern void os_init();
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	// Check for SSE and MMX, but only in the windows binaries
 
 	int res;
@@ -80,28 +79,28 @@ int main(int argc, char **argv)
 
 	QString skin=g.qs->value(QLatin1String("skin")).toString();
 	if (! skin.isEmpty()) {
-	    QFile file(skin);
-	    file.open(QFile::ReadOnly);
-	    QString styleSheet=QLatin1String(file.readAll());
-	    if (! styleSheet.isEmpty()) {
-		    QFileInfo fi(skin);
-		    QDir::addSearchPath(QLatin1String("skin"), fi.path());
-		    a.setStyleSheet(styleSheet);
-	    }
+		QFile file(skin);
+		file.open(QFile::ReadOnly);
+		QString styleSheet=QLatin1String(file.readAll());
+		if (! styleSheet.isEmpty()) {
+			QFileInfo fi(skin);
+			QDir::addSearchPath(QLatin1String("skin"), fi.path());
+			a.setStyleSheet(styleSheet);
+		}
 	}
 
 	QDir::addSearchPath(QLatin1String("skin"),QLatin1String(":/"));
 	QDir::addSearchPath(QLatin1String("translation"), a.applicationDirPath());
 	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
 
-    QString locale=g.qs->value(QLatin1String("Language"), QLocale::system().name()).toString();
-    QTranslator translator;
-    translator.load(QLatin1String("translation:mumble_") + locale);
-    a.installTranslator(&translator);
+	QString locale=g.qs->value(QLatin1String("Language"), QLocale::system().name()).toString();
+	QTranslator translator;
+	translator.load(QLatin1String("translation:mumble_") + locale);
+	a.installTranslator(&translator);
 
-    QTranslator qttranslator;
-    qttranslator.load(QLatin1String("translation:qt_") + locale);
-    a.installTranslator(&qttranslator);
+	QTranslator qttranslator;
+	qttranslator.load(QLatin1String("translation:qt_") + locale);
+	a.installTranslator(&qttranslator);
 
 
 	// Set application icon

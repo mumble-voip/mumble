@@ -36,10 +36,10 @@
 class Channel;
 
 class Player : public QObject {
-	Q_OBJECT
-  	public:
-  		enum State { Connected, Authenticated };
-  		State sState;
+		Q_OBJECT
+	public:
+		enum State { Connected, Authenticated };
+		State sState;
 		short sId;
 		int iId;
 		QString qsName;

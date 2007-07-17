@@ -38,7 +38,7 @@
 typedef QPair<QString, GUID> dsDevice;
 
 class DXConfigDialog : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QList<dsDevice> qlInput;
 		QList<dsDevice> qlOutput;

@@ -100,9 +100,9 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	qpbCSS->setObjectName(QLatin1String("SkinFile"));
 	qleCSS->setToolTip(tr("Skin file to use"));
 	qleCSS->setWhatsThis(tr("<b>This sets which skin Mumble should use.</b><br />"
-				"The skin is a style file applied on top of the basic widget style. "
-				"If there are icons in the same directory as the style sheet, those will replace the default icons."
-				));
+	                        "The skin is a style file applied on top of the basic widget style. "
+	                        "If there are icons in the same directory as the style sheet, those will replace the default icons."
+	                       ));
 	qpbCSS->setToolTip(qleCSS->toolTip());
 	qpbCSS->setWhatsThis(qleCSS->whatsThis());
 	grid->addWidget(l,1,0);
@@ -129,13 +129,13 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 
 	qgbLook->setLayout(grid);
 
-    v = new QVBoxLayout;
-    v->addWidget(qgbLanguage);
-    v->addWidget(qgbLook);
-    v->addStretch(1);
-    setLayout(v);
+	v = new QVBoxLayout;
+	v->addWidget(qgbLanguage);
+	v->addWidget(qgbLook);
+	v->addStretch(1);
+	setLayout(v);
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 QString LookConfig::title() const {
@@ -163,11 +163,11 @@ void LookConfig::accept() {
 		qApp->setStyleSheet(QString());
 		g.qs->remove(QLatin1String("Skin"));
 	} else {
-	    QFile file(qleCSS->text());
-	    file.open(QFile::ReadOnly);
-	    QString sheet = QLatin1String(file.readAll());
-	    if (! sheet.isEmpty())
-		    qApp->setStyleSheet(sheet);
+		QFile file(qleCSS->text());
+		file.open(QFile::ReadOnly);
+		QString sheet = QLatin1String(file.readAll());
+		if (! sheet.isEmpty())
+			qApp->setStyleSheet(sheet);
 		g.qs->setValue(QLatin1String("Skin"), qleCSS->text());
 	}
 	g.qs->setValue(QLatin1String("Horizontal"), qcbHorizontal->isChecked());

@@ -38,137 +38,131 @@
 #include "Group.h"
 #include "ACL.h"
 
-struct PlayerInfo
-{
-  short session;
-  bool mute, deaf, suppressed;
-  bool selfMute, selfDeaf;
-  int channel;
-  PlayerInfo() { };
-  PlayerInfo(Player *);
+struct PlayerInfo {
+	short session;
+	bool mute, deaf, suppressed;
+	bool selfMute, selfDeaf;
+	int channel;
+	PlayerInfo() { };
+	PlayerInfo(Player *);
 };
 Q_DECLARE_METATYPE(PlayerInfo);
 
-struct PlayerInfoExtended : public PlayerInfo
-{
-  int id;
-  QString name;
-  int onlinesecs;
-  int bytespersec;
-  PlayerInfoExtended() {};
-  PlayerInfoExtended(Player *);
+struct PlayerInfoExtended : public PlayerInfo {
+	int id;
+	QString name;
+	int onlinesecs;
+	int bytespersec;
+	PlayerInfoExtended() {};
+	PlayerInfoExtended(Player *);
 };
 Q_DECLARE_METATYPE(PlayerInfoExtended);
 Q_DECLARE_METATYPE(QList<PlayerInfoExtended>);
 
-struct ChannelInfo
-{
-  int id;
-  QString name;
-  int parent;
-  QList<int> links;
-  ChannelInfo() { };
-  ChannelInfo(Channel *c);
+struct ChannelInfo {
+	int id;
+	QString name;
+	int parent;
+	QList<int> links;
+	ChannelInfo() { };
+	ChannelInfo(Channel *c);
 };
 Q_DECLARE_METATYPE(ChannelInfo);
 Q_DECLARE_METATYPE(QList<ChannelInfo>);
 
-struct GroupInfo
-{
-  QString name;
-  bool inherited, inherit, inheritable;
-  QList<int> add, remove, members;
-  GroupInfo() { };
-  GroupInfo(Group *g);
+struct GroupInfo {
+	QString name;
+	bool inherited, inherit, inheritable;
+	QList<int> add, remove, members;
+	GroupInfo() { };
+	GroupInfo(Group *g);
 };
 Q_DECLARE_METATYPE(GroupInfo);
 Q_DECLARE_METATYPE(QList<GroupInfo>);
 
-struct ACLInfo
-{
-  bool applyHere, applySubs, inherited;
-  int playerid;
-  QString group;
-  unsigned int allow, deny;
-  ACLInfo() { };
-  ACLInfo(ChanACL *acl);
+struct ACLInfo {
+	bool applyHere, applySubs, inherited;
+	int playerid;
+	QString group;
+	unsigned int allow, deny;
+	ACLInfo() { };
+	ACLInfo(ChanACL *acl);
 };
 Q_DECLARE_METATYPE(ACLInfo);
 Q_DECLARE_METATYPE(QList<ACLInfo>);
 
-struct BanInfo
-{
-  unsigned int address;
-  int bits;
-  BanInfo() { };
-  BanInfo(QPair<quint32,int>);
+struct BanInfo {
+	unsigned int address;
+	int bits;
+	BanInfo() { };
+	BanInfo(QPair<quint32,int>);
 };
 Q_DECLARE_METATYPE(BanInfo);
 Q_DECLARE_METATYPE(QList<BanInfo>);
 
 class MurmurDBus : public QDBusAbstractAdaptor {
-  Q_OBJECT
-  Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
-  protected:
-    QString qsAuthService;
-    QString qsAuthPath;
-  public:
-    QDBusConnection qdbc;
-  
-    MurmurDBus(QCoreApplication &application);
+		Q_OBJECT
+		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
+	protected:
+		QString qsAuthService;
+		QString qsAuthPath;
+	public:
+		QDBusConnection qdbc;
 
-    void playerStateChanged(Player *p);
-    void playerConnected(Player *p);
-    void playerDisconnected(Player *p);
+		MurmurDBus(QCoreApplication &application);
 
-    void channelStateChanged(Channel *c);
-    void channelCreated(Channel *c);
-    void channelRemoved(Channel *c);
-    static void registerTypes();
+		void playerStateChanged(Player *p);
+		void playerConnected(Player *p);
+		void playerDisconnected(Player *p);
 
-    int mapNameToId(const QString &name);
-    QString mapIdToName(int id);
-    QByteArray mapIdToTexture(int id);
-    int authenticate(const QString &uname, const QString &pw);
-  public slots:
-    // Order of paremeters is IMPORTANT, or Qt will barf.
-    // Needs to be:
-    // First all input parameters (non-ref or const-ref)
-    // Then const QDbusMessage ref
-    // Then output paremeters (ref)
-    // Unfortunately, this makes things look chaotic, but luckily it looks sane again when introspected.
-    // make SURE arguments have sane names, the argument-name will be exported in introspection xml.
+		void channelStateChanged(Channel *c);
+		void channelCreated(Channel *c);
+		void channelRemoved(Channel *c);
+		static void registerTypes();
 
-    void getPlayers(QList<PlayerInfoExtended> &player_list);
-    void getChannels(QList<ChannelInfo> &channel_list);
-    
-    void getACL(int channel, const QDBusMessage &, QList<ACLInfo> &acls,QList<GroupInfo> &groups, bool &inherit);
-    void setACL(int channel, const QList<ACLInfo> &acls, const QList<GroupInfo> &groups, bool inherit, const QDBusMessage &);
-    
-    void getBans(QList<BanInfo> &bans);
-    void setBans(const QList<BanInfo> &bans, const QDBusMessage &);
-    
-    void kickPlayer(short session, const QString &reason, const QDBusMessage &);
-    void getPlayerState(short session, const QDBusMessage &, PlayerInfo &state);
-    void setPlayerState(const PlayerInfo &state, const QDBusMessage &);
-    void setChannelState(const ChannelInfo &state, const QDBusMessage &);
+		int mapNameToId(const QString &name);
+		QString mapIdToName(int id);
+		QByteArray mapIdToTexture(int id);
+		int authenticate(const QString &uname, const QString &pw);
+	public slots:
+		// Order of paremeters is IMPORTANT, or Qt will barf.
+		// Needs to be:
+		// First all input parameters (non-ref or const-ref)
+		// Then const QDbusMessage ref
+		// Then output paremeters (ref)
+		// Unfortunately, this makes things look chaotic, but luckily it looks sane again when introspected.
+		// make SURE arguments have sane names, the argument-name will be exported in introspection xml.
 
-    void removeChannel(int id, const QDBusMessage &);
-    void addChannel(const QString &name, int parent, const QDBusMessage &, int &newid);
-    
-    void getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names);
-    void getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids);
-    
-    void setAuthenticator(const QDBusObjectPath &path, const QDBusMessage &);
-    void setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &);
-  signals:
-    void playerStateChanged(const PlayerInfo &state);
-    void playerConnected(const PlayerInfo &state);
-    void playerDisconnected(const PlayerInfo &state);
+		void getPlayers(QList<PlayerInfoExtended> &player_list);
+		void getChannels(QList<ChannelInfo> &channel_list);
 
-    void channelStateChanged(const ChannelInfo &state);
-    void channelCreated(const ChannelInfo &state);
-    void channelRemoved(const ChannelInfo &state);
+		void getACL(int channel, const QDBusMessage &, QList<ACLInfo> &acls,QList<GroupInfo> &groups, bool &inherit);
+		void setACL(int channel, const QList<ACLInfo> &acls, const QList<GroupInfo> &groups, bool inherit, const QDBusMessage &);
+
+		void getBans(QList<BanInfo> &bans);
+		void setBans(const QList<BanInfo> &bans, const QDBusMessage &);
+
+		void kickPlayer(short session, const QString &reason, const QDBusMessage &);
+		void getPlayerState(short session, const QDBusMessage &, PlayerInfo &state);
+		void setPlayerState(const PlayerInfo &state, const QDBusMessage &);
+		void setChannelState(const ChannelInfo &state, const QDBusMessage &);
+
+		void removeChannel(int id, const QDBusMessage &);
+		void addChannel(const QString &name, int parent, const QDBusMessage &, int &newid);
+
+		void getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names);
+		void getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids);
+
+		void setAuthenticator(const QDBusObjectPath &path, const QDBusMessage &);
+		void setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &);
+	signals:
+		void playerStateChanged(const PlayerInfo &state);
+		void playerConnected(const PlayerInfo &state);
+		void playerDisconnected(const PlayerInfo &state);
+
+		void channelStateChanged(const ChannelInfo &state);
+		void channelCreated(const ChannelInfo &state);
+		void channelRemoved(const ChannelInfo &state);
 };
 
 extern MurmurDBus *dbus;

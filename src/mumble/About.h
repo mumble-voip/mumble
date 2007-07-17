@@ -32,13 +32,13 @@
 #define _ABOUT_H
 
 class AboutDialog : public QDialog {
-	Q_OBJECT;
+		Q_OBJECT;
 	public:
 		AboutDialog(QWidget *parent);
 };
 
 class AboutSpeexDialog : public QDialog {
-	Q_OBJECT;
+		Q_OBJECT;
 	public:
 		AboutSpeexDialog(QWidget *parent);
 };

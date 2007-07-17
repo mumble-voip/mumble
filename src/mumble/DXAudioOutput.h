@@ -37,7 +37,7 @@
 class DXAudioOutput;
 
 class DXAudioOutputPlayer {
-	friend class DXAudioOutput;
+		friend class DXAudioOutput;
 	protected:
 		LPDIRECTSOUNDBUFFER       pDSBOutput;
 		LPDIRECTSOUNDNOTIFY8       pDSNotify;
@@ -66,8 +66,8 @@ class DXAudioOutputPlayer {
 
 
 class DXAudioOutput : public AudioOutput {
-	friend class DXAudioOutputPlayer;
-	Q_OBJECT
+		friend class DXAudioOutputPlayer;
+		Q_OBJECT
 	protected:
 		LPDIRECTSOUND8             pDS;
 		LPDIRECTSOUNDBUFFER       pDSBPrimary;

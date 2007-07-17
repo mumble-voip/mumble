@@ -36,7 +36,7 @@
 class Message;
 
 class Connection : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QSslSocket *qtsSocket;
 		QTime qtLastPacket;
@@ -44,11 +44,11 @@ class Connection : public QObject {
 		bool bDisconnectedEmitted;
 	protected slots:
 		void socketRead();
-	    void socketError(QAbstractSocket::SocketError);
-	    void socketDisconnected();
-	    void socketSslErrors(const QList<QSslError> &errors);
+		void socketError(QAbstractSocket::SocketError);
+		void socketDisconnected();
+		void socketSslErrors(const QList<QSslError> &errors);
 	public slots:
-	    void proceedAnyway();
+		void proceedAnyway();
 	signals:
 		void connectionClosed(QString reason);
 		void message(QByteArray &);

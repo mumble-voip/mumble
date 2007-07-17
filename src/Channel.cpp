@@ -51,11 +51,11 @@ Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 
 Channel::~Channel() {
 	foreach(ChanACL *acl, qlACL)
-		delete acl;
+	delete acl;
 	foreach(Group *g, qhGroups)
-		delete g;
+	delete g;
 	foreach(Channel *l, qhLinks.keys())
-		unlink(l);
+	unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
 	Q_ASSERT(qlPlayers.count() == 0);
@@ -110,7 +110,7 @@ void Channel::unlink(Channel *l) {
 		}
 	} else {
 		foreach(Channel *c, qhLinks.keys())
-			unlink(c);
+		unlink(c);
 	}
 }
 
@@ -138,7 +138,7 @@ void Channel::playerUnlink(Channel *l, Player *p) {
 	if (qhLinks[l] == 0)
 		qhLinks.remove(l);
 	if (l->qhLinks[this] == 0);
-		l->qhLinks.remove(this);
+	l->qhLinks.remove(this);
 }
 
 QSet<Channel *> Channel::allLinks() {

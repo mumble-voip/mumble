@@ -38,7 +38,7 @@ class Player;
 class Connection;
 
 class ServerDB : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		typedef QPair<QString, QList<QVariant> > qpCommand;
 		typedef QPair<quint32, int> qpBan;

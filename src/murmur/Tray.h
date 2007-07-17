@@ -35,21 +35,21 @@
 #include "Server.h"
 
 class Tray : public QObject {
-    Q_OBJECT
-    protected:
-    	QSystemTrayIcon *qsti;
-    	QMenu *qm;
-    	QAction *qaQuit;
-    	QAction *qaShowLog;
-    	QList<QString> qlLog;
-    	LogEmitter *le;
-    public slots:
-    	void on_Tray_activated(QSystemTrayIcon::ActivationReason);
-    	void on_Quit_triggered();
-    	void on_ShowLog_triggered();
-    	void addLogMessage(const QString &);
-    public:
-    	Tray(QObject *parent, LogEmitter *le);
+		Q_OBJECT
+	protected:
+		QSystemTrayIcon *qsti;
+		QMenu *qm;
+		QAction *qaQuit;
+		QAction *qaShowLog;
+		QList<QString> qlLog;
+		LogEmitter *le;
+	public slots:
+		void on_Tray_activated(QSystemTrayIcon::ActivationReason);
+		void on_Quit_triggered();
+		void on_ShowLog_triggered();
+		void addLogMessage(const QString &);
+	public:
+		Tray(QObject *parent, LogEmitter *le);
 };
 
 #endif

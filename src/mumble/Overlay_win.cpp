@@ -37,13 +37,13 @@ typedef void (__cdecl *HooksProc)();
 
 
 class SharedMemoryPrivate {
-    public:
-    	HANDLE hMutex;
+	public:
+		HANDLE hMutex;
 };
 
 SharedMemory::SharedMemory() {
-    d = new SharedMemoryPrivate();
-    sm = NULL;
+	d = new SharedMemoryPrivate();
+	sm = NULL;
 }
 
 SharedMemory::~SharedMemory() {
@@ -58,8 +58,8 @@ void SharedMemory::resolve(QLibrary *lib) {
 }
 
 bool SharedMemory::tryLock() {
-        DWORD dwWaitResult = WaitForSingleObject(d->hMutex, 500L);
-        return (dwWaitResult == WAIT_OBJECT_0);
+	DWORD dwWaitResult = WaitForSingleObject(d->hMutex, 500L);
+	return (dwWaitResult == WAIT_OBJECT_0);
 }
 
 void SharedMemory::unlock() {
@@ -67,12 +67,12 @@ void SharedMemory::unlock() {
 }
 
 class OverlayPrivate {
-    public:
-	HooksProc hpInstall, hpRemove;
+	public:
+		HooksProc hpInstall, hpRemove;
 };
 
 void Overlay::platformInit() {
-    	d = new OverlayPrivate();
+	d = new OverlayPrivate();
 	d->hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
 	d->hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
 }

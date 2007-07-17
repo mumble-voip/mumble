@@ -60,17 +60,17 @@ struct BandwidthRecord {
 };
 
 class LogEmitter : public QObject {
-    Q_OBJECT
-    signals:
-    	void newLogEntry(const QString &msg);
-    public:
-    	LogEmitter(QObject *parent = NULL);
-    	void addLogEntry(const QString &msg);
+		Q_OBJECT
+	signals:
+		void newLogEntry(const QString &msg);
+	public:
+		LogEmitter(QObject *parent = NULL);
+		void addLogEntry(const QString &msg);
 };
 
 class UDPThread : public QThread {
-	friend class Server;
-	Q_OBJECT;
+		friend class Server;
+		Q_OBJECT;
 	protected:
 		QUdpSocket *qusUdp;
 		QHash<short, Peer> qhPeers;
@@ -85,7 +85,7 @@ class UDPThread : public QThread {
 };
 
 class SslServer : public QTcpServer {
-	Q_OBJECT;
+		Q_OBJECT;
 	protected:
 		QList<QSslSocket *> qlSockets;
 		void incomingConnection(int);
@@ -95,7 +95,7 @@ class SslServer : public QTcpServer {
 };
 
 class Server : public QObject {
-	Q_OBJECT;
+		Q_OBJECT;
 	protected:
 		QQueue<int> qqIds;
 		SslServer *qtsServer;
@@ -163,7 +163,7 @@ struct ServerParams {
 	QString qsRegPassword;
 	QString qsRegHost;
 	QUrl qurlRegWeb;
-	
+
 	QString qsSSLCert;
 	QString qsSSLKey;
 	QString qsSSLStore;

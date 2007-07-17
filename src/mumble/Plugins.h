@@ -36,7 +36,7 @@
 struct PluginInfo;
 
 class PluginConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QCheckBox *qcbTransmit;
 		QListWidget *qlwPlugins;
@@ -54,8 +54,8 @@ class PluginConfig : public ConfigWidget {
 };
 
 class Plugins : public QObject {
-	friend class PluginConfig;
-	Q_OBJECT
+		friend class PluginConfig;
+		Q_OBJECT
 	protected:
 		QMutex qmPlugins;
 		QList<PluginInfo *> qlPlugins;

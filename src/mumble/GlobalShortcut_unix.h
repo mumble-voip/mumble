@@ -34,14 +34,14 @@
 typedef QPair<int, unsigned int> qpButton;
 
 struct Shortcut {
-  GlobalShortcut *gs;
-  int iNumDown;
-  bool bActive;
-  QList<int> qlButtons;
+	GlobalShortcut *gs;
+	int iNumDown;
+	bool bActive;
+	QList<int> qlButtons;
 };
 
 class XInputKeyWidget : public QLineEdit {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		virtual void focusInEvent(QFocusEvent *event);
 		virtual void focusOutEvent(QFocusEvent *event);
@@ -52,12 +52,12 @@ class XInputKeyWidget : public QLineEdit {
 		XInputKeyWidget(QWidget *p = NULL);
 		void setShortcut(GlobalShortcut *gs);
 	public slots:
-	        void setButton(bool);
+		void setButton(bool);
 		void displayKeys();
 };
 
 class GlobalShortcutXConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QHash<GlobalShortcut *,XInputKeyWidget *> qhKeys;
 	public:
@@ -69,9 +69,9 @@ class GlobalShortcutXConfig : public ConfigWidget {
 };
 
 class GlobalShortcutX : public QThread {
-	Q_OBJECT
+		Q_OBJECT
 	public:
-	        Display *display;
+		Display *display;
 		int ref;
 		bool bRunning;
 		bool activeMap[256];
@@ -93,6 +93,6 @@ class GlobalShortcutX : public QThread {
 		void add(GlobalShortcut *);
 		void remove(GlobalShortcut *);
 		QList<int> getCurrentButtons();
-        signals:
+	signals:
 		void buttonPressed(bool);
 };

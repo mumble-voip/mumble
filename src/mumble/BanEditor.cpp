@@ -47,8 +47,8 @@ BanEditor::BanEditor(const MessageServerBanList *msbl, QWidget *p) : QDialog(p) 
 
 	qleIP->setObjectName(QLatin1String("IP"));
 	QRegExp rx(QLatin1String("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"));
-    QValidator *validator = new QRegExpValidator(rx, this);
-    qleIP->setValidator(validator);
+	QValidator *validator = new QRegExpValidator(rx, this);
+	qleIP->setValidator(validator);
 
 	qsbMask->setObjectName(QLatin1String("Mask"));
 	qsbMask->setRange(8,32);
@@ -66,33 +66,33 @@ BanEditor::BanEditor(const MessageServerBanList *msbl, QWidget *p) : QDialog(p) 
 	grid->addWidget(qpbUpdate,1,2);
 	grid->addWidget(qpbRemove,1,3);
 
-    QPushButton *okButton = new QPushButton(tr("&OK"));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    okButton->setToolTip(tr("Accept changes"));
-    okButton->setWhatsThis(tr("This button will accept current groups/ACLs and send them to "
-    						"the server. Note that if you mistakenly remove write permission "
-    						"from yourself, the server will add it."));
-    QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	QPushButton *okButton = new QPushButton(tr("&OK"));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	okButton->setToolTip(tr("Accept changes"));
+	okButton->setWhatsThis(tr("This button will accept current groups/ACLs and send them to "
+	                          "the server. Note that if you mistakenly remove write permission "
+	                          "from yourself, the server will add it."));
+	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	cancelButton->setToolTip(tr("Reject changes"));
 	cancelButton->setWhatsThis(tr("This button will cancels all changes and closes the dialog without "
-								  "updating the ACLs or groups on the server."));
+	                              "updating the ACLs or groups on the server."));
 
-    QHBoxLayout *buttons = new QHBoxLayout;
-    buttons->addStretch(1);
-    buttons->addWidget(okButton);
-    buttons->addWidget(cancelButton);
+	QHBoxLayout *buttons = new QHBoxLayout;
+	buttons->addStretch(1);
+	buttons->addWidget(okButton);
+	buttons->addWidget(cancelButton);
 
-    QVBoxLayout *ml = new QVBoxLayout;
-    ml->addLayout(grid);
-    ml->addSpacing(12);
-    ml->addLayout(buttons);
-    setLayout(ml);
+	QVBoxLayout *ml = new QVBoxLayout;
+	ml->addLayout(grid);
+	ml->addSpacing(12);
+	ml->addLayout(buttons);
+	setLayout(ml);
 
 	qlBans = msbl->qlBans;
 	refreshBanList();
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 	addToolTipsWhatsThis();
 }
 

@@ -32,16 +32,16 @@
 #define _REGISTER_H
 
 class Register : public QObject {
-  Q_OBJECT
-  protected:
-    QTimer qtTick;
-    QHttp *http;
-  public slots:
-    void done(bool);
-    void update();
-    void abort();
-  public:
-    Register();
+		Q_OBJECT
+	protected:
+		QTimer qtTick;
+		QHttp *http;
+	public slots:
+		void done(bool);
+		void update();
+		void abort();
+	public:
+		Register();
 };
 
 #else

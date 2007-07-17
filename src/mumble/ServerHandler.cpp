@@ -43,27 +43,25 @@ ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool udp) 
 	bUdp = udp;
 }
 
-ServerHandler::ServerHandler()
-{
+ServerHandler::ServerHandler() {
 	cConnection = NULL;
 	qusUdp = NULL;
 
 	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
 	qWarning("OpenSSL Support: %d", QSslSocket::supportsSsl());
 
-  QList<QSslCipher> pref;
-  foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
-    if (c.usedBits() < 128)
-      continue;
-    pref << c;
-  }
-  if (pref.isEmpty())
-    qFatal("No ciphers of at least 128 bit found");
-  QSslSocket::setDefaultCiphers(pref);
+	QList<QSslCipher> pref;
+	foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
+		if (c.usedBits() < 128)
+			continue;
+		pref << c;
+	}
+	if (pref.isEmpty())
+		qFatal("No ciphers of at least 128 bit found");
+	QSslSocket::setDefaultCiphers(pref);
 }
 
-ServerHandler::~ServerHandler()
-{
+ServerHandler::~ServerHandler() {
 	wait();
 }
 
@@ -121,13 +119,12 @@ void ServerHandler::udpReady() {
 			delete msg;
 			continue;
 		}
-        message(qba);
+		message(qba);
 		delete msg;
 	}
 }
 
-void ServerHandler::sendMessage(Message *mMsg, bool forceTCP)
-{
+void ServerHandler::sendMessage(Message *mMsg, bool forceTCP) {
 	QByteArray qbaBuffer;
 	mMsg->sPlayerId = g.sId;
 	mMsg->messageToNetwork(qbaBuffer);
@@ -137,8 +134,7 @@ void ServerHandler::sendMessage(Message *mMsg, bool forceTCP)
 	QApplication::postEvent(this, shme);
 }
 
-void ServerHandler::run()
-{
+void ServerHandler::run() {
 	QSslSocket *qtsSock = new QSslSocket(this);
 	cConnection = new Connection(this, qtsSock);
 	qusUdp = NULL;
@@ -171,11 +167,11 @@ void ServerHandler::run()
 }
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
-    	qscCert = cConnection->peerCertificate();
-    	if (QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, iPort))
-    		cConnection->proceedAnyway();
-    	else
-	    	qlErrors = errors;
+	qscCert = cConnection->peerCertificate();
+	if (QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, iPort))
+		cConnection->proceedAnyway();
+	else
+		qlErrors = errors;
 }
 
 void ServerHandler::sendPing() {
@@ -208,7 +204,7 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 			}
 		}
 	} else {
-		if(mMsg->messageType() == Message::ServerLeave) {
+		if (mMsg->messageType() == Message::ServerLeave) {
 			if (ao)
 				ao->removeBuffer(p);
 		}
@@ -229,7 +225,7 @@ void ServerHandler::disconnect() {
 void ServerHandler::serverConnectionClosed(QString reason) {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
-			ao->wipe();
+		ao->wipe();
 	emit disconnected(reason);
 	exit(0);
 }

@@ -37,7 +37,7 @@ class Channel;
 class Player;
 
 class ChanACL : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		enum Perm {
 			None = 0x0,

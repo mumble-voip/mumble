@@ -107,9 +107,9 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbTransmit->setToolTip(tr("When to transmit your speech"));
 	qcbTransmit->setWhatsThis(tr("<b>This sets when speech should be transmitted.</b><br />"
-			"<i>Continuous</i> - All the time<br />"
-			"<i>Voice Activity</i> - When you are speaking clearly.<br />"
-			"<i>Push To Talk</i> - When you hold down the hotkey set under <i>Shortcuts</i>."));
+	                             "<i>Continuous</i> - All the time<br />"
+	                             "<i>Voice Activity</i> - When you are speaking clearly.<br />"
+	                             "<i>Push To Talk</i> - When you hold down the hotkey set under <i>Shortcuts</i>."));
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbTransmit, 0, 1, 1, 2);
 
@@ -129,8 +129,8 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsTransmitHold->setToolTip(tr("How long to keep transmitting after silence"));
 	qsTransmitHold->setWhatsThis(tr("<b>This selects how long after a perceived stop in speech transmission should continue.</b><br />"
-			"Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).<br />"
-			"Only makes sense when used with Voice Activity transmission."));
+	                                "Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).<br />"
+	                                "Only makes sense when used with Voice Activity transmission."));
 
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qsTransmitHold, 1, 1);
@@ -154,8 +154,8 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsFrames->setToolTip(tr("How many audio frames to send per packet"));
 	qsFrames->setWhatsThis(tr("<b>This selects how many audio frames should be put in one packet.</b><br />"
-							"Increasing this will increase the "
-							"latency of your voice, but will also reduce bandwidth requirements."));
+	                          "Increasing this will increase the "
+	                          "latency of your voice, but will also reduce bandwidth requirements."));
 	grid->addWidget(l, 2, 0);
 	grid->addWidget(qsFrames, 2, 1);
 	grid->addWidget(qlFrames, 2, 2);
@@ -164,24 +164,24 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qcbPushClick->setChecked(g.s.bPushClick);
 	qcbPushClick->setToolTip(tr("Audible audio cue when push-to-talk pressed and released"));
 	qcbPushClick->setWhatsThis(tr("<b>This enables the audio cues for push to talk.</b><br />"
-			"Setting this will give you a short audio beep when push to talk is pressed and released."));
+	                              "Setting this will give you a short audio beep when push to talk is pressed and released."));
 
 	qcbTCP = new QCheckBox(tr("Use TCP mode"));
 	qcbTCP->setChecked(g.s.bTCPCompat);
 	qcbTCP->setToolTip(tr("Use TCP Compatibility mode"));
 	qcbTCP->setWhatsThis(tr("<b>Enable TCP Compatibility mode</b>.<br />"
-						"This will make Mumble use only TCP when communicating with the server. "
-						"This will increase overhead and cause lost packets to produce noticeable "
-						"pauses in communication, so this should only be used if you are unable to "
-						"use the default (which uses UDP for voice and TCP for control)."));
+	                        "This will make Mumble use only TCP when communicating with the server. "
+	                        "This will increase overhead and cause lost packets to produce noticeable "
+	                        "pauses in communication, so this should only be used if you are unable to "
+	                        "use the default (which uses UDP for voice and TCP for control)."));
 
 	qcbReconnect = new QCheckBox(tr("Automatic Reconnect"));
 	qcbReconnect->setChecked(g.s.bReconnect);
 	qcbReconnect->setToolTip(tr("Reconnect when disconnected"));
 	qcbReconnect->setWhatsThis(tr("<b>Reconnect when disconnected</b>.<br />"
-						"This will make Mumble try to automatically reconnect after 10 "
-						"seconds if your server "
-						"connection fails."));
+	                              "This will make Mumble try to automatically reconnect after 10 "
+	                              "seconds if your server "
+	                              "connection fails."));
 
 	QHBoxLayout *qhbl=new QHBoxLayout();
 	qhbl->addWidget(qcbPushClick);
@@ -192,10 +192,10 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qlBitrate = new QLabel();
 	qlBitrate->setToolTip(tr("Maximum bandwidth used for sent audio"));
 	qlBitrate->setWhatsThis(tr("<b>This shows peak outgoing bandwidth used.</b><br />"
-							"This shows the peak amount of bandwidth sent out from your machine. Audio bitrate "
-							"is the maximum bitrate (as we use VBR) for the audio data alone. Position "
-							"is the bitrate used for positional information. Overhead is our framing and the "
-							"IP packet headers (IP and UDP is 90% of this overhead)."));
+	                           "This shows the peak amount of bandwidth sent out from your machine. Audio bitrate "
+	                           "is the maximum bitrate (as we use VBR) for the audio data alone. Position "
+	                           "is the bitrate used for positional information. Overhead is our framing and the "
+	                           "IP packet headers (IP and UDP is 90% of this overhead)."));
 
 	l = new QLabel(tr("Outgoing Bitrate"));
 	l->setBuddy(qlBitrate);
@@ -224,7 +224,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsQuality->setToolTip(tr("Quality of compression (peak bandwidth)"));
 	qsQuality->setWhatsThis(tr("<b>This sets the quality of compression.</b><br />"
-			"This determines how much bandwidth Mumble is allowed to use for outgoing audio."));
+	                           "This determines how much bandwidth Mumble is allowed to use for outgoing audio."));
 
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qsQuality, 0, 1);
@@ -245,8 +245,8 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsComplexity->setToolTip(tr("Complexity of compression (CPU)"));
 	qsComplexity->setWhatsThis(tr("<b>This sets the complexity of compression.</b><br />"
-			"This determines how much CPU Mumble is allowed to use to increase transmitted "
-			"voice quality. Settings above 5 give only marginal gain."));
+	                              "This determines how much CPU Mumble is allowed to use to increase transmitted "
+	                              "voice quality. Settings above 5 give only marginal gain."));
 
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qsComplexity, 1, 1);
@@ -267,16 +267,16 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsAmp->setToolTip(tr("Maximum amplification of input sound"));
 	qsAmp->setWhatsThis(tr(
-			"<b>Maximum amplification of input.</b><br />"
-			"Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.<br />"
-			"The actual level is continually updated based on your current speech pattern, but it will never go "
-			"above the level specified here.<br />"
-			"If the <i>Microphone loudness</i> level of the audio statistics hover around 100%, you probably want to set this to 2.0 "
-			"or so, but if, like most people, you are unable to reach 100%, set this to something much higher.<br />"
-			"Ideally, set it so <i>Microphone Loudness * Amplification Factor >= 100</i>, even when you're speaking really soft.<br /><br />"
-			"Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations "
-			"if you leave it to auto-tune to that level."
-			));
+	                        "<b>Maximum amplification of input.</b><br />"
+	                        "Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.<br />"
+	                        "The actual level is continually updated based on your current speech pattern, but it will never go "
+	                        "above the level specified here.<br />"
+	                        "If the <i>Microphone loudness</i> level of the audio statistics hover around 100%, you probably want to set this to 2.0 "
+	                        "or so, but if, like most people, you are unable to reach 100%, set this to something much higher.<br />"
+	                        "Ideally, set it so <i>Microphone Loudness * Amplification Factor >= 100</i>, even when you're speaking really soft.<br /><br />"
+	                        "Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations "
+	                        "if you leave it to auto-tune to that level."
+	                    ));
 
 	grid->addWidget(l, 2, 0);
 	grid->addWidget(qsAmp, 2, 1);
@@ -303,12 +303,12 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsJitter->setToolTip(tr("How long to prebuffer on first packet"));
 	qsJitter->setWhatsThis(tr("<b>This sets the default buffer size for the jitter buffer</b>.<br />"
-							"All incoming audio is buffered, and the jitter buffer continually tries to "
-							"push the buffer to the minimum sustainable by your network, so latency can "
-							"be as low as possible. This sets the default buffer size to use on the first "
-							"packet to arrive from a new speaker, or when a speaker using Voice Activity or "
-							"Push-To-Talk just started talking again. If the start of sentences you hear is "
-							"very jittery, increase this value."));
+	                          "All incoming audio is buffered, and the jitter buffer continually tries to "
+	                          "push the buffer to the minimum sustainable by your network, so latency can "
+	                          "be as low as possible. This sets the default buffer size to use on the first "
+	                          "packet to arrive from a new speaker, or when a speaker using Voice Activity or "
+	                          "Push-To-Talk just started talking again. If the start of sentences you hear is "
+	                          "very jittery, increase this value."));
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qsJitter, 0, 1);
 	grid->addWidget(qlJitter, 0, 2);
@@ -329,12 +329,12 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbLoopback->setToolTip(tr("Desired loopback mode"));
 	qcbLoopback->setWhatsThis(tr("<b>This enables one of the loopback testmodes.</b><br />"
-			"<i>None</i> - Loopback disabled<br />"
-			"<i>Local</i> - Emulate a local server.<br />"
-			"<i>Server</i> - Request loopback from server.<br />"
-			"Please note than when loopback is enabled, no other players will hear your voice. "
-			"This setting is not saved on application exit."
-			));
+	                             "<i>None</i> - Loopback disabled<br />"
+	                             "<i>Local</i> - Emulate a local server.<br />"
+	                             "<i>Server</i> - Request loopback from server.<br />"
+	                             "Please note than when loopback is enabled, no other players will hear your voice. "
+	                             "This setting is not saved on application exit."
+	                            ));
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbLoopback, 0, 1, 1, 2);
 
@@ -355,10 +355,10 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsPacketDelay->setToolTip(tr("Variance in packet latency"));
 	qsPacketDelay->setWhatsThis(tr("<b>This sets the packet latency variance for loopback testing</b><br />"
-			"Most audio paths contain some variable latency. This allows you set that variance for loopback "
-			"mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency "
-			"or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms"
-			));
+	                               "Most audio paths contain some variable latency. This allows you set that variance for loopback "
+	                               "mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency "
+	                               "or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms"
+	                              ));
 
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qsPacketDelay, 1, 1);
@@ -380,9 +380,9 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qsPacketLoss->setToolTip(tr("Packet loss for loopback mode"));
 	qsPacketLoss->setWhatsThis(tr("<b>This sets the packet loss for loopback mode.</b><br />"
-			"This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or "
-			"there's something wrong with your network connection, this will be 0%%"
-			));
+	                              "This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or "
+	                              "there's something wrong with your network connection, this will be 0%%"
+	                             ));
 
 	grid->addWidget(l, 2, 0);
 	grid->addWidget(qsPacketLoss, 2, 1);
@@ -390,19 +390,19 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qgbLoop->setLayout(grid);
 
-    v = new QVBoxLayout;
-    v->addWidget(qgbInterface);
-    v->addWidget(qgbTransmit);
-    v->addWidget(qgbCompress);
-    v->addWidget(qgbJitter);
-    v->addWidget(qgbLoop);
-    v->addStretch(1);
-    setLayout(v);
+	v = new QVBoxLayout;
+	v->addWidget(qgbInterface);
+	v->addWidget(qgbTransmit);
+	v->addWidget(qgbCompress);
+	v->addWidget(qgbJitter);
+	v->addWidget(qgbLoop);
+	v->addStretch(1);
+	setLayout(v);
 
-    on_Transmit_currentIndexChanged(qcbTransmit->currentIndex());
-    on_Loopback_currentIndexChanged(qcbLoopback->currentIndex());
+	on_Transmit_currentIndexChanged(qcbTransmit->currentIndex());
+	on_Loopback_currentIndexChanged(qcbLoopback->currentIndex());
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 
 }
 
@@ -522,30 +522,30 @@ void AudioConfigDialog::updateBitrate() {
 }
 
 void AudioConfigDialog::on_Transmit_currentIndexChanged(int v) {
-    bool cue = false;
-    bool hold = false;
+	bool cue = false;
+	bool hold = false;
 
-    switch(v) {
-	case 1:
-		hold = true;
-		break;
-	case 2:
-		cue = true;
-		break;
-    }
+	switch (v) {
+		case 1:
+			hold = true;
+			break;
+		case 2:
+			cue = true;
+			break;
+	}
 
-    qcbPushClick->setEnabled(cue);
-    qsTransmitHold->setEnabled(hold);
-    qlTransmitHold->setEnabled(hold);
+	qcbPushClick->setEnabled(cue);
+	qsTransmitHold->setEnabled(hold);
+	qlTransmitHold->setEnabled(hold);
 }
 
 void AudioConfigDialog::on_Loopback_currentIndexChanged(int v) {
-    bool ena = false;
-    if (v == 1)
-    	ena = true;
+	bool ena = false;
+	if (v == 1)
+		ena = true;
 
-    qsPacketDelay->setEnabled(ena);
-    qlPacketDelay->setEnabled(ena);
-    qsPacketLoss->setEnabled(ena);
-    qlPacketLoss->setEnabled(ena);
+	qsPacketDelay->setEnabled(ena);
+	qlPacketDelay->setEnabled(ena);
+	qsPacketLoss->setEnabled(ena);
+	qlPacketLoss->setEnabled(ena);
 }

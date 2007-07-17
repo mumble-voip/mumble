@@ -38,10 +38,10 @@ class Group;
 class ChanACL;
 
 class Channel : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	private:
 		QSet<Channel *> qsUnseen;
-  	public:
+	public:
 		int iId;
 		Channel *cParent;
 		QString qsName;

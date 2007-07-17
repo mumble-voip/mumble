@@ -80,7 +80,7 @@ ServerDB::ServerDB() {
 			datapaths << QDir::currentPath();
 			datapaths << QDir::homePath();
 
-			for(i = 0; (i < datapaths.size()) && ! found; i++) {
+			for (i = 0; (i < datapaths.size()) && ! found; i++) {
 				if (!datapaths[i].isEmpty()) {
 					QFile f(datapaths[i] + "/murmur.sqlite");
 					if (f.exists()) {
@@ -91,7 +91,7 @@ ServerDB::ServerDB() {
 			}
 
 			if (! found) {
-				for(i = 0; (i < datapaths.size()) && ! found; i++) {
+				for (i = 0; (i < datapaths.size()) && ! found; i++) {
 					if (!datapaths[i].isEmpty()) {
 						QFile f(datapaths[i] + "/murmur.sqlite");
 						db.setDatabaseName(f.fileName());
@@ -159,20 +159,20 @@ ServerDB::ServerDB() {
 			query.exec("DROP TABLE aclold");
 		}
 
-/* Deprecated. Support if exists, but don't create in new installations.
- *
-		query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
-		query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
-*/
+		/* Deprecated. Support if exists, but don't create in new installations.
+		 *
+				query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
+				query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
+		*/
 		query.exec("DELETE FROM connections");
 
 		query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
 		query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
 		query.exec("DELETE FROM channel_links");
 
-/* Deprecated
-		query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
-*/
+		/* Deprecated
+				query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
+		*/
 		query.exec("DELETE FROM commands");
 
 		query.exec("CREATE TABLE bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)");
@@ -232,7 +232,7 @@ int ServerDB::authenticate(QString &name, const QString &pw) {
 		if (res != -1) {
 			TransactionHolder th;
 			QSqlQuery query;
-			
+
 			query.prepare("INSERT INTO players (player_id, name) VALUES (?,?)");
 			query.addBindValue(res);
 			query.addBindValue(name);
@@ -286,7 +286,7 @@ QString ServerDB::getUserName(int id) {
 
 int ServerDB::getUserID(const QString &name) {
 	int id = dbus->mapNameToId(name);
-	
+
 	if (id != -2)
 		return id;
 	TransactionHolder th;
@@ -513,7 +513,7 @@ void ServerDB::readChannels(Channel *p) {
 	}
 
 	foreach(c, kids)
-		readChannels(c);
+	readChannels(c);
 }
 
 void ServerDB::setLastChannel(const Player *p) {
@@ -619,9 +619,9 @@ void ServerDB::dumpChannel(const Channel *c) {
 	foreach(g, c->qhGroups) {
 		qWarning("Group %s (Inh %d  Able %d)", qPrintable(g->qsName), g->bInherit, g->bInheritable);
 		foreach(pid, g->qsAdd)
-			qWarning("Add %d", pid);
+		qWarning("Add %d", pid);
 		foreach(pid, g->qsRemove)
-			qWarning("Remove %d", pid);
+		qWarning("Remove %d", pid);
 	}
 	foreach(acl, c->qlACL) {
 		int allow = static_cast<int>(acl->pAllow);
@@ -645,7 +645,7 @@ QList<ServerDB::qpCommand> ServerDB::getCommands() {
 	while (query.next()) {
 		qpCommand cmd;
 		cmd.first = query.value(0).toString();
-		for(int i=1;i<10;i++)
+		for (int i=1;i<10;i++)
 			cmd.second.append(query.value(i));
 		commands << cmd;
 	}

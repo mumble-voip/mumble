@@ -35,10 +35,10 @@ class Player;
 class Channel;
 
 class PlayerDelegate : public QItemDelegate {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		PlayerDelegate(QObject *parent = NULL);
-		QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index) const;
+		QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
@@ -77,74 +77,74 @@ struct ModelItem {
 class ChannelItem;
 
 class PlayerModel : public QAbstractItemModel {
-	friend class ModelItem;
-	Q_OBJECT
-protected:
-	QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
-	QIcon qiMutedSelf, qiMutedServer, qiMutedLocal;
-	QIcon qiDeafenedSelf, qiDeafenedServer;
-	QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
-	ModelItem *miRoot;
-	QSet<Channel *> qsLinked;
+		friend class ModelItem;
+		Q_OBJECT
+	protected:
+		QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
+		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal;
+		QIcon qiDeafenedSelf, qiDeafenedServer;
+		QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
+		ModelItem *miRoot;
+		QSet<Channel *> qsLinked;
 
-	QModelIndex index(Player *, int column = 0) const;
-	QModelIndex index(Channel *) const;
-	QModelIndex index(ChannelItem *) const;
+		QModelIndex index(Player *, int column = 0) const;
+		QModelIndex index(Channel *) const;
+		QModelIndex index(ChannelItem *) const;
 
-	void hidePlayer(Player *p);
-	void showPlayer(Player *p, Channel *c);
+		void hidePlayer(Player *p);
+		void showPlayer(Player *p, Channel *c);
 
-	void hideChannel(Channel *c);
-	void showChannel(Channel *c, Channel *p);
+		void hideChannel(Channel *c);
+		void showChannel(Channel *c, Channel *p);
 
-	QString stringIndex(const QModelIndex &index) const;
+		QString stringIndex(const QModelIndex &index) const;
 
-	void unbugHide(const QModelIndex &index);
-public:
-	PlayerModel(QObject *parent = 0);
-	~PlayerModel();
+		void unbugHide(const QModelIndex &index);
+	public:
+		PlayerModel(QObject *parent = 0);
+		~PlayerModel();
 
-	QVariant data(const QModelIndex &index, int role) const;
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-    	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
-	Qt::DropActions supportedDropActions() const;
-	QStringList mimeTypes() const;
-	QMimeData *mimeData(const QModelIndexList &idx) const;
-	bool dropMimeData ( const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
+		QVariant data(const QModelIndex &index, int role) const;
+		Qt::ItemFlags flags(const QModelIndex &index) const;
+		QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+		QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+		QModelIndex parent(const QModelIndex &index) const;
+		int rowCount(const QModelIndex &parent = QModelIndex()) const;
+		int columnCount(const QModelIndex &parent = QModelIndex()) const;
+		Qt::DropActions supportedDropActions() const;
+		QStringList mimeTypes() const;
+		QMimeData *mimeData(const QModelIndexList &idx) const;
+		bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
 
-	Player *addPlayer(short id, QString name);
-	Player *getPlayer(const QModelIndex &idx) const;
+		Player *addPlayer(short id, QString name);
+		Player *getPlayer(const QModelIndex &idx) const;
 
-	Channel *addChannel(int id, Channel *p, QString name);
-	Channel *getChannel(const QModelIndex &idx) const;
+		Channel *addChannel(int id, Channel *p, QString name);
+		Channel *getChannel(const QModelIndex &idx) const;
 
-	Channel *getSubChannel(Channel *p, int idx) const;
+		Channel *getSubChannel(Channel *p, int idx) const;
 
-	void renamePlayer(Player *p, QString name);
+		void renamePlayer(Player *p, QString name);
 
-	void movePlayer(Player *p, int id);
-	void moveChannel(Channel *p, int id);
+		void movePlayer(Player *p, int id);
+		void moveChannel(Channel *p, int id);
 
-	void removePlayer(Player *p);
-	void removeChannel(Channel *c);
+		void removePlayer(Player *p);
+		void removeChannel(Channel *c);
 
-	void linkChannels(Channel *c, QList<Channel *> links);
-	void unlinkChannels(Channel *c, QList<Channel *> links);
-	void unlinkAll(Channel *c);
+		void linkChannels(Channel *c, QList<Channel *> links);
+		void unlinkChannels(Channel *c, QList<Channel *> links);
+		void unlinkAll(Channel *c);
 
-	void removeAll();
+		void removeAll();
 
-	QVariant otherRoles(int column, int role, bool isPlayer) const;
-public slots:
-	void playerTalkingChanged(bool talking);
-	void playerMuteDeafChanged();
-	void ensureSelfVisible();
-	void recheckLinks();
-	void updateOverlay() const;
+		QVariant otherRoles(int column, int role, bool isPlayer) const;
+	public slots:
+		void playerTalkingChanged(bool talking);
+		void playerMuteDeafChanged();
+		void ensureSelfVisible();
+		void recheckLinks();
+		void updateOverlay() const;
 };
 
 #else

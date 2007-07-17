@@ -58,7 +58,7 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	lab=new QLabel(tr("TTS"));
 	l->addWidget(lab, 0, 2);
 
-	for(int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
+	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
 		QCheckBox *qcb;
 		Log::MsgType t=static_cast<Log::MsgType>(i);
 		MsgSettings *ms=g.l->qhSettings[t];
@@ -106,19 +106,19 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	qsbThreshold->setObjectName(QLatin1String("Threshold"));
 	qsbThreshold->setToolTip(tr("Message length threshold for Text-To-Speech Engine"));
 	qsbThreshold->setWhatsThis(tr("<b>This is the length threshold used for the Text-To-Speech Engine.</b><br />"
-	                             "Messages longer than this limit will not be read aloud in their full length."));
+	                              "Messages longer than this limit will not be read aloud in their full length."));
 	l->addWidget(qsbThreshold,1,1);
 
 	qgbTTS->setLayout(l);
 
 
-    QVBoxLayout *v = new QVBoxLayout;
-    v->addWidget(qgbMessages);
-    v->addWidget(qgbTTS);
-    v->addStretch(1);
-    setLayout(v);
+	QVBoxLayout *v = new QVBoxLayout;
+	v->addWidget(qgbMessages);
+	v->addWidget(qgbTTS);
+	v->addStretch(1);
+	setLayout(v);
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 QString LogConfig::title() const {
@@ -130,7 +130,7 @@ QIcon LogConfig::icon() const {
 }
 
 void LogConfig::accept() {
-	for(int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
+	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
 		Log::MsgType t=static_cast<Log::MsgType>(i);
 		MsgSettings *ms=g.l->qhSettings[t];
 		ms->bConsole = (qlConsole[i]->checkState() == Qt::Checked);
@@ -148,7 +148,7 @@ MsgSettings::MsgSettings() {
 }
 
 Log::Log(QObject *p) : QObject(p) {
-	for(int i=firstMsgType;i<=lastMsgType;++i)
+	for (int i=firstMsgType;i<=lastMsgType;++i)
 		qhSettings[static_cast<MsgType>(i)]=new MsgSettings();
 	tts=new TextToSpeech(this);
 	loadSettings();
@@ -189,11 +189,11 @@ void Log::setIgnore(MsgType t, int ignore) {
 
 void Log::clearIgnore() {
 	foreach(MsgSettings *ms, qhSettings)
-		ms->iIgnore=0;
+	ms->iIgnore=0;
 }
 
 void Log::loadSettings() {
-	for(int i=firstMsgType;i<=lastMsgType;++i) {
+	for (int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
 		QString key=QString::fromLatin1("msg%1").arg(QLatin1String(msgNames[t]));
@@ -205,7 +205,7 @@ void Log::loadSettings() {
 }
 
 void Log::saveSettings() const {
-	for(int i=firstMsgType;i<=lastMsgType;++i) {
+	for (int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
 		MsgSettings *ms=qhSettings[t];
 		QString key=QString::fromLatin1("msg%1").arg(QLatin1String(msgNames[t]));

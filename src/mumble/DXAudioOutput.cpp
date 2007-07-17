@@ -47,8 +47,8 @@
 #define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
 
 class DXAudioOutputRegistrar : public AudioOutputRegistrar {
-    	public:
-    		DXAudioOutputRegistrar();
+	public:
+		DXAudioOutputRegistrar();
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &);
@@ -68,10 +68,8 @@ AudioOutput *DXAudioOutputRegistrar::create() {
 typedef QPair<QString, GUID> dsDevice;
 
 static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
-			 const WCHAR* lpszDrvName, void *ctx)
-{
-	if ( lpGUID )
-	{
+                                const WCHAR* lpszDrvName, void *ctx) {
+	if (lpGUID) {
 		QList<dsDevice> *l =reinterpret_cast<QList<dsDevice> *>(ctx);
 		*l << dsDevice(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), *lpGUID);
 	}
@@ -92,18 +90,18 @@ const QList<audioDevice> DXAudioOutputRegistrar::getDeviceChoices() {
 	if (! g.s.qbaDXOutput.isEmpty()) {
 		lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXOutput.data());
 	} else {
-	    	lpguid = &DSDEVID_DefaultVoicePlayback;
+		lpguid = &DSDEVID_DefaultVoicePlayback;
 	}
 
 	foreach(dsDevice d, qlOutput) {
-	    if (d.second == *lpguid) {
-		qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
-	    }
+		if (d.second == *lpguid) {
+			qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+		}
 	}
 	foreach(dsDevice d, qlOutput) {
-	    if (d.second != *lpguid) {
-		qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
-	    }
+		if (d.second != *lpguid) {
+			qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+		}
 	}
 	return qlReturn;
 }
@@ -124,61 +122,61 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, AudioOutputPlayer *a
 
 	iByteSize = aop->iFrameSize * 2;
 
-	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
+	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 }
 
 void DXAudioOutputPlayer::setupAudioDevice() {
-    DSBUFFERDESC dsbd;
-    WAVEFORMATEX wfx;
-    HRESULT hr;
+	DSBUFFERDESC dsbd;
+	WAVEFORMATEX wfx;
+	HRESULT hr;
 
-   	ZeroMemory( &wfx, sizeof(wfx) );
-    wfx.wFormatTag = WAVE_FORMAT_PCM;
-    wfx.nChannels = 1;
-    wfx.nBlockAlign = 2;
-    wfx.nSamplesPerSec = SAMPLE_RATE;
-    wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
-    wfx.wBitsPerSample = 16;
+	ZeroMemory(&wfx, sizeof(wfx));
+	wfx.wFormatTag = WAVE_FORMAT_PCM;
+	wfx.nChannels = 1;
+	wfx.nBlockAlign = 2;
+	wfx.nSamplesPerSec = SAMPLE_RATE;
+	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+	wfx.wBitsPerSample = 16;
 
-    ZeroMemory( &dsbd, sizeof(DSBUFFERDESC) );
-    dsbd.dwSize          = sizeof(DSBUFFERDESC);
-    dsbd.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2;
+	ZeroMemory(&dsbd, sizeof(DSBUFFERDESC));
+	dsbd.dwSize          = sizeof(DSBUFFERDESC);
+	dsbd.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2;
 	dsbd.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
 	if (dxAudio->p3DListener)
 		dsbd.dwFlags	 |= DSBCAPS_CTRL3D;
-   	dsbd.dwBufferBytes = aop->iFrameSize * 2 * NBLOCKS;
-    dsbd.lpwfxFormat     = &wfx;
+	dsbd.dwBufferBytes = aop->iFrameSize * 2 * NBLOCKS;
+	dsbd.lpwfxFormat     = &wfx;
 	if (dxAudio->p3DListener) {
 		switch (g.s.a3dModel) {
 			case Settings::None:
 			case Settings::Panning:
-			    dsbd.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
-			    break;
+				dsbd.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
+				break;
 			case Settings::Light:
-			    dsbd.guid3DAlgorithm = DS3DALG_HRTF_LIGHT;
-			    break;
+				dsbd.guid3DAlgorithm = DS3DALG_HRTF_LIGHT;
+				break;
 			case Settings::Full:
-			    dsbd.guid3DAlgorithm = DS3DALG_HRTF_FULL;
-			    break;
+				dsbd.guid3DAlgorithm = DS3DALG_HRTF_FULL;
+				break;
 		}
 	}
 
-    // Create the DirectSound buffer
-    if( FAILED( hr = dxAudio->pDS->CreateSoundBuffer( &dsbd, &pDSBOutput, NULL ) ) )
-    	qFatal("DXAudioOutputPlayer: CreateSoundBuffer (Secondary): 0x%08lx", hr);
+	// Create the DirectSound buffer
+	if (FAILED(hr = dxAudio->pDS->CreateSoundBuffer(&dsbd, &pDSBOutput, NULL)))
+		qFatal("DXAudioOutputPlayer: CreateSoundBuffer (Secondary): 0x%08lx", hr);
 
 	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
 
-	for(int i=0;i<NBLOCKS;i++) {
+	for (int i=0;i<NBLOCKS;i++) {
 		aPosNotify[i].dwOffset = aop->iFrameSize * 2 * i;
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
-	if( FAILED( hr = pDSBOutput->QueryInterface( IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify) ) ) )
+	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify))))
 		qFatal("DXAudioOutputPlayer: QueryInterface (Notify)");
 
-    if( FAILED( hr = pDSNotify->SetNotificationPositions( NBLOCKS, aPosNotify ) ) )
-    	qFatal("DXAudioOutputPlayer: SetNotificationPositions");
+	if (FAILED(hr = pDSNotify->SetNotificationPositions(NBLOCKS, aPosNotify)))
+		qFatal("DXAudioOutputPlayer: SetNotificationPositions");
 
 	if (dxAudio->p3DListener) {
 		if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer))))
@@ -208,29 +206,29 @@ bool DXAudioOutputPlayer::playFrames() {
 	int playblock;
 	int nowriteblock;
 	DWORD dwPlayPosition, dwWritePosition;
-    HRESULT             hr;
+	HRESULT             hr;
 
-    LPVOID aptr1, aptr2;
-    DWORD nbytes1, nbytes2;
+	LPVOID aptr1, aptr2;
+	DWORD nbytes1, nbytes2;
 
-    bool alive = true;
+	bool alive = true;
 
 	DWORD dwApply = MY_DEFERRED;
 
 	if (! pDSBOutput) {
 		setupAudioDevice();
 
-	    if (FAILED( hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER)))
-	    	qFatal("DXAudioOutputPlayer: Initial Lock");
+		if (FAILED(hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER)))
+			qFatal("DXAudioOutputPlayer: Initial Lock");
 
-	    dwBufferSize = nbytes1 + nbytes2;
-	    if (aptr1)
-	   		ZeroMemory(aptr1, nbytes1);
-	   	if (aptr2)
-	   		ZeroMemory(aptr2, nbytes2);
+		dwBufferSize = nbytes1 + nbytes2;
+		if (aptr1)
+			ZeroMemory(aptr1, nbytes1);
+		if (aptr2)
+			ZeroMemory(aptr2, nbytes2);
 
-	    if (FAILED( hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
-	    	qFatal("DXAudioOutputPlayer: Initial Unlock");
+		if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
+			qFatal("DXAudioOutputPlayer: Initial Unlock");
 
 		dwApply = DS3D_IMMEDIATE;
 
@@ -241,19 +239,19 @@ bool DXAudioOutputPlayer::playFrames() {
 		iLastwriteblock = (NBLOCKS - 1 + g.s.iDXOutputDelay) % NBLOCKS;
 	}
 
-	if( FAILED( hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition ) ) )
+	if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition)))
 		qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
 	playblock = dwWritePosition / iByteSize;
 	nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
 
-	for(int block=(iLastwriteblock + 1) % NBLOCKS;alive && (block!=nowriteblock);block=(block + 1) % NBLOCKS) {
+	for (int block=(iLastwriteblock + 1) % NBLOCKS;alive && (block!=nowriteblock);block=(block + 1) % NBLOCKS) {
 
 		// Apparantly, even high end cards can sometimes move the play cursor BACKWARDS in 3D mode.
 		// If that happens, let's just say we're in synch.
 
 		bool broken = false;
-		for(int i=0;i<10;i++)
+		for (int i=0;i<10;i++)
 			if ((nowriteblock + i)%NBLOCKS == iLastwriteblock)
 				broken = true;
 
@@ -301,19 +299,19 @@ bool DXAudioOutputPlayer::playFrames() {
 			}
 		}
 
-	    if (FAILED( hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
-	    	qFatal("DXAudioOutput: Lock block %d (%d bytes)",block, iByteSize);
+		if (FAILED(hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
+			qFatal("DXAudioOutput: Lock block %d (%d bytes)",block, iByteSize);
 		if (aptr1 && nbytes1)
 			CopyMemory(aptr1, aop->psBuffer, MIN(iByteSize, nbytes1));
 		if (aptr2 && nbytes2)
 			CopyMemory(aptr2, aop->psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
-	    if (FAILED( hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
-	    	qFatal("DXAudioOutput: Unlock");
+		if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
+			qFatal("DXAudioOutput: Unlock");
 
 		// If we get another while we're working, we're already taking care of it.
 		ResetEvent(hNotificationEvent);
 
-		if( FAILED( hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition ) ) )
+		if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition)))
 			qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
 		playblock = dwWritePosition / iByteSize;
@@ -322,9 +320,9 @@ bool DXAudioOutputPlayer::playFrames() {
 
 
 	if (! bPlaying) {
-	    if (FAILED( hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING)))
-	    	qFatal("DXAUdioOutputPlayer: Play");
-	    bPlaying = true;
+		if (FAILED(hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING)))
+			qFatal("DXAUdioOutputPlayer: Play");
+		bPlaying = true;
 	}
 
 	return true;
@@ -333,9 +331,9 @@ bool DXAudioOutputPlayer::playFrames() {
 
 DXAudioOutput::DXAudioOutput() {
 	HRESULT hr;
-    DSBUFFERDESC        dsbdesc;
-    WAVEFORMATEX wfx;
-    WAVEFORMATEX wfxSet;
+	DSBUFFERDESC        dsbdesc;
+	WAVEFORMATEX wfx;
+	WAVEFORMATEX wfxSet;
 
 	pDS = NULL;
 
@@ -343,47 +341,47 @@ DXAudioOutput::DXAudioOutput() {
 
 	bOk = false;
 
-    ZeroMemory( &dsbdesc, sizeof(DSBUFFERDESC) );
-    dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
-    dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
-    if (g.s.a3dModel != Settings::None)
-    	dsbdesc.dwFlags |= DSBCAPS_CTRL3D;
+	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
+	dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
+	dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
+	if (g.s.a3dModel != Settings::None)
+		dsbdesc.dwFlags |= DSBCAPS_CTRL3D;
 
-   	ZeroMemory( &wfxSet, sizeof(wfxSet) );
-    wfxSet.wFormatTag = WAVE_FORMAT_PCM;
+	ZeroMemory(&wfxSet, sizeof(wfxSet));
+	wfxSet.wFormatTag = WAVE_FORMAT_PCM;
 
-   	ZeroMemory( &wfx, sizeof(wfx) );
-    wfx.wFormatTag = WAVE_FORMAT_PCM;
+	ZeroMemory(&wfx, sizeof(wfx));
+	wfx.wFormatTag = WAVE_FORMAT_PCM;
 
-    wfx.nChannels = 1;
-    wfx.nSamplesPerSec = SAMPLE_RATE;
-    wfx.nBlockAlign = 2;
-    wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
-    wfx.wBitsPerSample = 16;
+	wfx.nChannels = 1;
+	wfx.nSamplesPerSec = SAMPLE_RATE;
+	wfx.nBlockAlign = 2;
+	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+	wfx.wBitsPerSample = 16;
 
 	pDS = NULL;
 	pDSBPrimary = NULL;
 	p3DListener = NULL;
 
-	hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
+	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 	if (! g.s.qbaDXOutput.isEmpty()) {
 		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXOutput.data());
-	    if( FAILED( hr = DirectSoundCreate8(lpguid, &pDS, NULL))) {
+		if (FAILED(hr = DirectSoundCreate8(lpguid, &pDS, NULL))) {
 			failed = true;
 		}
 	}
 
-	if (! pDS && FAILED( hr = DirectSoundCreate8( &DSDEVID_DefaultVoicePlayback, &pDS, NULL ) ) )
+	if (! pDS && FAILED(hr = DirectSoundCreate8(&DSDEVID_DefaultVoicePlayback, &pDS, NULL)))
 		qWarning("DXAudioOutput: DirectSoundCreate");
-	else if( FAILED( hr = pDS->SetCooperativeLevel( g.mw->winId(), DSSCL_PRIORITY ) ) )
+	else if (FAILED(hr = pDS->SetCooperativeLevel(g.mw->winId(), DSSCL_PRIORITY)))
 		qWarning("DXAudioOutput: SetCooperativeLevel");
-	else if( FAILED( hr = pDS->CreateSoundBuffer( &dsbdesc, &pDSBPrimary, NULL ) ) )
-    	qWarning("DXAudioOutput: CreateSoundBuffer (Primary) : 0x%08lx", hr);
-	else if( FAILED( hr = pDSBPrimary->SetFormat( &wfx ) ) )
-    	qFatal("DXAudioOutput: SetFormat");
-    else if( FAILED( hr = pDSBPrimary->GetFormat( &wfxSet, sizeof(wfxSet), NULL ) ) )
-       	qFatal("DXAudioOutput: GetFormat");
+	else if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBPrimary, NULL)))
+		qWarning("DXAudioOutput: CreateSoundBuffer (Primary) : 0x%08lx", hr);
+	else if (FAILED(hr = pDSBPrimary->SetFormat(&wfx)))
+		qFatal("DXAudioOutput: SetFormat");
+	else if (FAILED(hr = pDSBPrimary->GetFormat(&wfxSet, sizeof(wfxSet), NULL)))
+		qFatal("DXAudioOutput: GetFormat");
 	else if (g.s.a3dModel != Settings::None) {
 		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener)))) {
 			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
@@ -447,23 +445,23 @@ void DXAudioOutput::updateListener() {
 		// the 3d mode for the buffers will be disabled, so don't bother with updates.
 		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], MY_DEFERRED);
 		p3DListener->SetOrientation(p->fFront[0], p->fFront[1], p->fFront[2],
-									p->fTop[0], p->fTop[1], p->fTop[2], MY_DEFERRED);
+		                            p->fTop[0], p->fTop[1], p->fTop[2], MY_DEFERRED);
 	}
 	if (FAILED(hr =p3DListener->CommitDeferredSettings()))
 		qWarning("DXAudioOutputPlayer: CommitDeferrredSettings failed 0x%08lx", hr);
 
-/*
-	float a[3], b[3];
-	p3DListener->GetOrientation((D3DVECTOR *) a, (D3DVECTOR *) b);
-	qWarning("%f %f %f -- %f %f %f", a[0], a[1], a[2], b[0], b[1], b[2]);
-*/
+	/*
+		float a[3], b[3];
+		p3DListener->GetOrientation((D3DVECTOR *) a, (D3DVECTOR *) b);
+		qWarning("%f %f %f -- %f %f %f", a[0], a[1], a[2], b[0], b[1], b[2]);
+	*/
 }
 
 void DXAudioOutput::removeBuffer(AudioOutputPlayer *aop) {
-    DXAudioOutputPlayer *dxaop=qhPlayers.take(aop);
-    if (dxaop)
-    	delete dxaop;
-    AudioOutput::removeBuffer(aop);
+	DXAudioOutputPlayer *dxaop=qhPlayers.take(aop);
+	if (dxaop)
+		delete dxaop;
+	AudioOutput::removeBuffer(aop);
 }
 
 void DXAudioOutput::run() {
@@ -476,7 +474,8 @@ void DXAudioOutput::run() {
 	LARGE_INTEGER ticksPerSecond;
 	LARGE_INTEGER ticksPerFrame;
 	LARGE_INTEGER ticksNow;
-	LARGE_INTEGER ticksNext = {QuadPart: 0L};
+LARGE_INTEGER ticksNext = {QuadPart:
+	                           0L};
 
 	bool found;
 	bool alive;

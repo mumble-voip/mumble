@@ -31,8 +31,8 @@
 #ifndef _DATABASE_H
 #define _DATABASE_H
 
-class Database : public QObject{
-	Q_OBJECT
+class Database : public QObject {
+		Q_OBJECT
 	public:
 		Database();
 		static const QString getDigest(const QString &hostname, unsigned short port);

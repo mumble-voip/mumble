@@ -39,7 +39,7 @@
 typedef QPair<QString, QString> ASIODev;
 
 class ASIOConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QList<ASIODev> qlDevs;
 		QComboBox *qcbDevice;
@@ -68,7 +68,7 @@ class ASIOConfig : public ConfigWidget {
 class IASIOThiscallResolver;
 
 class ASIOInput : public AudioInput {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		IASIO *iaOriginal;
 		IASIOThiscallResolver *iasio;

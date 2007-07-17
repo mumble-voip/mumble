@@ -34,35 +34,35 @@
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
-    QWidget *local = createLocal();
-    QWidget *remote = createRemote();
+	QWidget *local = createLocal();
+	QWidget *remote = createRemote();
 
-    qhList = new QHttp(QLatin1String("mumble.hive.no"), 80, this);
-    qhList->setObjectName(QLatin1String("Request"));
+	qhList = new QHttp(QLatin1String("mumble.hive.no"), 80, this);
+	qhList->setObjectName(QLatin1String("Request"));
 
-    bPublicInit = false;
+	bPublicInit = false;
 
-    QVBoxLayout *vbl = new QVBoxLayout;
+	QVBoxLayout *vbl = new QVBoxLayout;
 
-    qtwTab = new QTabWidget();
-    qtwTab->addTab(local, tr("&Custom Servers"));
-    qtwTab->addTab(remote, tr("Server &Browser"));
-    qtwTab->setObjectName(QLatin1String("Tab"));
+	qtwTab = new QTabWidget();
+	qtwTab->addTab(local, tr("&Custom Servers"));
+	qtwTab->addTab(remote, tr("Server &Browser"));
+	qtwTab->setObjectName(QLatin1String("Tab"));
 
-    vbl->addWidget(qtwTab);
-    setLayout(vbl);
+	vbl->addWidget(qtwTab);
+	setLayout(vbl);
 
-    if (qstmServers->rowCount() < 1) {
-    	qtwTab->setCurrentIndex(1);
-    	initList();
-    }
+	if (qstmServers->rowCount() < 1) {
+		qtwTab->setCurrentIndex(1);
+		initList();
+	}
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 
 }
 
 QWidget *ConnectDialog::createLocal() {
-    	QWidget *w = new QWidget();
+	QWidget *w = new QWidget();
 
 	QGridLayout *l=new QGridLayout;
 	QVBoxLayout *vbl = new QVBoxLayout;
@@ -129,18 +129,18 @@ QWidget *ConnectDialog::createLocal() {
 	l->addWidget(lab, 4, 1);
 	l->addWidget(qlePassword, 4,2);
 
-    QPushButton *okButton = new QPushButton(tr("&Connect"));
-    okButton->setDefault(true);
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	QPushButton *okButton = new QPushButton(tr("&Connect"));
+	okButton->setDefault(true);
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-    QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	QPushButton *cancelButton = new QPushButton(tr("Cancel"));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-    QPushButton *addButton = new QPushButton(tr("&Add"));
-    addButton->setObjectName(QLatin1String("Add"));
+	QPushButton *addButton = new QPushButton(tr("&Add"));
+	addButton->setObjectName(QLatin1String("Add"));
 
-    QPushButton *removeButton = new QPushButton(tr("&Remove"));
-    removeButton->setObjectName(QLatin1String("Remove"));
+	QPushButton *removeButton = new QPushButton(tr("&Remove"));
+	removeButton->setObjectName(QLatin1String("Remove"));
 
 	vbh->addWidget(okButton);
 	vbh->addWidget(cancelButton);
@@ -159,46 +159,46 @@ QWidget *ConnectDialog::createLocal() {
 	if (idx.isValid())
 		qlwServers->setCurrentIndex(idx);
 
-    	w->setLayout(vbl);
-    	return w;
+	w->setLayout(vbl);
+	return w;
 }
 
 QWidget *ConnectDialog::createRemote() {
-    QWidget *w=new QWidget();
-    QVBoxLayout *vbl = new QVBoxLayout;
-    QHBoxLayout *vbh = new QHBoxLayout();
+	QWidget *w=new QWidget();
+	QVBoxLayout *vbl = new QVBoxLayout;
+	QHBoxLayout *vbh = new QHBoxLayout();
 
 
-    qtwServers = new QTableWidget(0, 3);
-    QStringList labels;
-    labels << tr("Name");
-    labels << tr("Address");
-    labels << tr("URL");
-    qtwServers->setHorizontalHeaderLabels(labels);
-    qtwServers->setObjectName(QLatin1String("Servers"));
+	qtwServers = new QTableWidget(0, 3);
+	QStringList labels;
+	labels << tr("Name");
+	labels << tr("Address");
+	labels << tr("URL");
+	qtwServers->setHorizontalHeaderLabels(labels);
+	qtwServers->setObjectName(QLatin1String("Servers"));
 
-    QPushButton *connectButton = new QPushButton(tr("&Connect"));
-    connectButton->setDefault(true);
-    connect(connectButton, SIGNAL(clicked()), this, SLOT(accept()));
+	QPushButton *connectButton = new QPushButton(tr("&Connect"));
+	connectButton->setDefault(true);
+	connect(connectButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-    QPushButton *copyButton = new QPushButton(tr("C&opy to custom"));
-    copyButton->setObjectName(QLatin1String("Copy"));
+	QPushButton *copyButton = new QPushButton(tr("C&opy to custom"));
+	copyButton->setObjectName(QLatin1String("Copy"));
 
-    QPushButton *urlButton = new QPushButton(tr("&View Webpage"));
-    urlButton->setObjectName(QLatin1String("URL"));
+	QPushButton *urlButton = new QPushButton(tr("&View Webpage"));
+	urlButton->setObjectName(QLatin1String("URL"));
 
-    vbh->addWidget(connectButton);
-    vbh->addWidget(copyButton);
-    vbh->addWidget(urlButton);
+	vbh->addWidget(connectButton);
+	vbh->addWidget(copyButton);
+	vbh->addWidget(urlButton);
 
-    vbl->addWidget(qtwServers);
-    vbl->addLayout(vbh);
-    w->setLayout(vbl);
-    return w;
+	vbl->addWidget(qtwServers);
+	vbl->addLayout(vbh);
+	w->setLayout(vbl);
+	return w;
 }
 
 void ConnectDialog::accept() {
-    	if (qtwTab->currentIndex() == 1) {
+	if (qtwTab->currentIndex() == 1) {
 		int row = qtwServers->currentRow();
 		if (row == -1)
 			return;
@@ -217,30 +217,29 @@ void ConnectDialog::accept() {
 		iPort = a.at(1).toInt();
 	} else {
 
-	    if (bDirty && qlwServers->currentIndex().isValid()) {
-		    QSqlRecord r;
-		    r = toRecord();
-		    qstmServers->setRecord(qlwServers->currentIndex().row(), r);
-		    qstmServers->submitAll();
-	    }
+		if (bDirty && qlwServers->currentIndex().isValid()) {
+			QSqlRecord r;
+			r = toRecord();
+			qstmServers->setRecord(qlwServers->currentIndex().row(), r);
+			qstmServers->submitAll();
+		}
 
-	    qsServer = qleServer->text();
-	    qsUsername = qleUsername->text();
-	    qsPassword = qlePassword->text();
-	    iPort = qlePort->text().toInt();
+		qsServer = qleServer->text();
+		qsUsername = qleUsername->text();
+		qsPassword = qlePassword->text();
+		iPort = qlePort->text().toInt();
 
-	    g.qs->setValue(QLatin1String("ServerRow"), qlwServers->currentIndex().row());
-       }
+		g.qs->setValue(QLatin1String("ServerRow"), qlwServers->currentIndex().row());
+	}
 	QDialog::accept();
 }
 
 void ConnectDialog::on_Servers_itemDoubleClicked(QTableWidgetItem *) {
-  accept();
+	accept();
 }
 
 
-QSqlRecord ConnectDialog::toRecord() const
-{
+QSqlRecord ConnectDialog::toRecord() const {
 	QSqlRecord r = qstmServers->record();
 	r.setValue(QLatin1String("name"), qleName->text());
 	r.setValue(QLatin1String("hostname"), qleServer->text());
@@ -251,28 +250,28 @@ QSqlRecord ConnectDialog::toRecord() const
 }
 
 void ConnectDialog::initList() {
-    if (bPublicInit || (qlPublicServers.count() > 0))
-    	return;
+	if (bPublicInit || (qlPublicServers.count() > 0))
+		return;
 
-    bPublicInit = true;
+	bPublicInit = true;
 
-    qhList->get(QString::fromLatin1("/list.cgi?version=%1").arg(MUMBLE_RELEASE));
+	qhList->get(QString::fromLatin1("/list.cgi?version=%1").arg(MUMBLE_RELEASE));
 }
 
 void ConnectDialog::fillList() {
-    for(int i=0;i<qtwServers->rowCount();i++)
-    	qtwServers->removeRow(0);
+	for (int i=0;i<qtwServers->rowCount();i++)
+		qtwServers->removeRow(0);
 
-    qtwServers->setSortingEnabled(false);
+	qtwServers->setSortingEnabled(false);
 
-    foreach(PublicInfo pi, qlPublicServers) {
-	qtwServers->insertRow(0);
-	qtwServers->setItem(0, 0, new QTableWidgetItem(pi.name));
-	qtwServers->setItem(0, 1, new QTableWidgetItem(QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port)));
-	qtwServers->setItem(0, 2, new QTableWidgetItem(pi.url.toString()));
-    }
-    qtwServers->resizeColumnsToContents();
-    qtwServers->setSortingEnabled(true);
+	foreach(PublicInfo pi, qlPublicServers) {
+		qtwServers->insertRow(0);
+		qtwServers->setItem(0, 0, new QTableWidgetItem(pi.name));
+		qtwServers->setItem(0, 1, new QTableWidgetItem(QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port)));
+		qtwServers->setItem(0, 2, new QTableWidgetItem(pi.url.toString()));
+	}
+	qtwServers->resizeColumnsToContents();
+	qtwServers->setSortingEnabled(true);
 }
 
 void ConnectDialog::on_URL_clicked() {
@@ -302,38 +301,37 @@ void ConnectDialog::on_Copy_clicked() {
 }
 
 void ConnectDialog::on_Request_done(bool err) {
-    if (err) {
-	QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
-    	return;
-    }
-
-    QDomDocument doc;
-    doc.setContent(qhList->readAll());
-
-    qlPublicServers.clear();
-
-    QDomElement root=doc.documentElement();
-    QDomNode n = root.firstChild();
-    while (!n.isNull()) {
-	QDomElement e = n.toElement();
-	if (!e.isNull()) {
-	    if (e.tagName() == QLatin1String("server")) {
-		    PublicInfo pi;
-		    pi.name = e.attribute(QLatin1String("name"));
-		    pi.url = e.attribute(QLatin1String("url"));
-		    pi.ip = e.attribute(QLatin1String("ip"));
-		    pi.port = e.attribute(QLatin1String("port")).toInt();
-		    qlPublicServers << pi;
-	    }
+	if (err) {
+		QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
+		return;
 	}
-	n = n.nextSibling();
-    }
 
-    fillList();
+	QDomDocument doc;
+	doc.setContent(qhList->readAll());
+
+	qlPublicServers.clear();
+
+	QDomElement root=doc.documentElement();
+	QDomNode n = root.firstChild();
+	while (!n.isNull()) {
+		QDomElement e = n.toElement();
+		if (!e.isNull()) {
+			if (e.tagName() == QLatin1String("server")) {
+				PublicInfo pi;
+				pi.name = e.attribute(QLatin1String("name"));
+				pi.url = e.attribute(QLatin1String("url"));
+				pi.ip = e.attribute(QLatin1String("ip"));
+				pi.port = e.attribute(QLatin1String("port")).toInt();
+				qlPublicServers << pi;
+			}
+		}
+		n = n.nextSibling();
+	}
+
+	fillList();
 }
 
-void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIndex &previndex)
-{
+void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIndex &previndex) {
 	QSqlRecord r;
 
 	if (bDirty) {
@@ -353,16 +351,14 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	}
 }
 
-void ConnectDialog::on_Add_clicked()
-{
+void ConnectDialog::on_Add_clicked() {
 	bDirty = false;
 	QSqlRecord r = toRecord();
 	qstmServers->insertRecord(-1, r);
 	qstmServers->submitAll();
 }
 
-void ConnectDialog::on_Remove_clicked()
-{
+void ConnectDialog::on_Remove_clicked() {
 	qstmServers->removeRows(qlwServers->currentIndex().row(), 1, QModelIndex());
 	qstmServers->submitAll();
 }
@@ -372,9 +368,9 @@ void ConnectDialog::onDirty(const QString &) {
 }
 
 void ConnectDialog::on_Tab_currentChanged(int idx) {
-    if (idx != 1)
-    	return;
+	if (idx != 1)
+		return;
 
-    initList();
-    fillList();
+	initList();
+	fillList();
 }

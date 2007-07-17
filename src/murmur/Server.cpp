@@ -59,16 +59,16 @@ LogEmitter::LogEmitter(QObject *p) : QObject(p) {
 };
 
 void LogEmitter::addLogEntry(const QString &msg) {
-    emit newLogEntry(msg);
+	emit newLogEntry(msg);
 };
 
 SslServer::SslServer(QObject *p) : QTcpServer(p) {
 }
 
 void SslServer::incomingConnection(int v) {
-    QSslSocket *s = new QSslSocket(this);
-    s->setSocketDescriptor(v);
-    qlSockets.append(s);
+	QSslSocket *s = new QSslSocket(this);
+	s->setSocketDescriptor(v);
+	qlSockets.append(s);
 }
 
 QSslSocket *SslServer::nextPendingSSLConnection() {
@@ -96,8 +96,8 @@ void ServerParams::read(QString fname) {
 	if (fname.isEmpty())
 		fname = "murmur.ini";
 	else {
-	    if (! QFile(fname).exists())
-	    	qFatal("Specified ini file %s could not be opened", qPrintable(fname));
+		if (! QFile(fname).exists())
+			qFatal("Specified ini file %s could not be opened", qPrintable(fname));
 	}
 	QSettings qs(fname, QSettings::IniFormat);
 
@@ -126,7 +126,7 @@ void ServerParams::read(QString fname) {
 	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
 	qsRegHost = qs.value("registerHostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
-	
+
 	qsSSLCert = qs.value("sslCert", qsSSLCert).toString();
 	qsSSLKey = qs.value("sslKey", qsSSLKey).toString();
 	qsSSLStore = qs.value("sslStore", qsSSLStore).toString();
@@ -136,7 +136,7 @@ BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
 	iSum = 0;
 	qtFirst.start();
-	for(int i=0;i<N_BANDWIDTH_SLOTS;i++)
+	for (int i=0;i<N_BANDWIDTH_SLOTS;i++)
 		a_iBW[i] = 0;
 }
 
@@ -199,7 +199,7 @@ void UDPThread::run() {
 
 			if (p != qhPeers.value(sPlayerId)) {
 				Connection *source = g_sServer->qmConnections.value(sPlayerId);
-				if (! source || ! (source->peerAddress() == senderAddr)) {
+				if (! source || !(source->peerAddress() == senderAddr)) {
 					continue;
 				}
 				// At any point after this, the connection might go away WHILE we're processing. That is "bad".
@@ -209,11 +209,11 @@ void UDPThread::run() {
 					if (g_sServer->qmConnections.contains(sPlayerId)) {
 						qhHosts[sPlayerId] = senderAddr;
 						qhPeers[sPlayerId] = p;
-				    	}
+					}
 				}
 				rl.relock();
 				if (! g_sServer->qmConnections.contains(sPlayerId)) {
-				    continue;
+					continue;
 				}
 			}
 
@@ -267,9 +267,9 @@ void UDPThread::processMsg(PacketDataStream &pds, Connection *cCon) {
 	pds >> seq;
 	pds >> flags;
 
-    	int nframes = ((flags >> 4) & 0x03) + 1;
+	int nframes = ((flags >> 4) & 0x03) + 1;
 	int packetsize = (20 + 8 + 3 + pds.left() + nframes - 1) / nframes;
-	for(int i = 0; i < nframes; i++)
+	for (int i = 0; i < nframes; i++)
 		bw->addFrame(packetsize);
 
 	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
@@ -324,7 +324,7 @@ Server::Server(QObject *p) : QObject(p) {
 
 	log(QString("Server listening on port %1").arg(g_sp.iPort));
 
-	for(int i=1;i<2000;i++)
+	for (int i=1;i<2000;i++)
 		qqIds.enqueue(i);
 
 	qtTimer = new QTimer(this);
@@ -402,7 +402,7 @@ void Server::newClient() {
 	connect(cCon, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 
 	log(QString("New connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()), cCon);
-	
+
 	sock->startServerEncryption();
 }
 
@@ -419,7 +419,7 @@ void Server::sslError(const QList<QSslError> &errors) {
 	if (ok) {
 		Connection *c = static_cast<Connection *>(sender());
 		c->proceedAnyway();
-	}	
+	}
 }
 
 void Server::connectionClosed(QString reason) {
@@ -459,37 +459,37 @@ void Server::connectionClosed(QString reason) {
 }
 
 void Server::message(QByteArray &qbaMsg, Connection *cCon) {
-        if (cCon == NULL)
+	if (cCon == NULL)
 		cCon = static_cast<Connection *>(sender());
 	Message *mMsg = Message::networkToMessage(qbaMsg);
 
-	  // Just leftovers from the buffer and we just kicked
-	  // the user off.
-	  if (! qmPlayers.contains(cCon))
-	  	return;
+	// Just leftovers from the buffer and we just kicked
+	// the user off.
+	if (! qmPlayers.contains(cCon))
+		return;
 
-	  if (mMsg) {
+	if (mMsg) {
 		mMsg->process(cCon);
 		delete mMsg;
-	  } else {
+	} else {
 		cCon->disconnect();
-	  }
+	}
 }
 
 
 void Server::checkTimeout() {
-    	QList<Connection *> qlClose;
+	QList<Connection *> qlClose;
 
 	qrwlConnections.lockForRead();
 	foreach(Connection *c, qmConnections) {
-	    if (c->activityTime() > (g_sp.iTimeout * 1000)) {
-		log(QLatin1String("Timeout"), c);
-		qlClose.append(c);
-	    }
+		if (c->activityTime() > (g_sp.iTimeout * 1000)) {
+			log(QLatin1String("Timeout"), c);
+			qlClose.append(c);
+		}
 	}
 	qrwlConnections.unlock();
 	foreach(Connection *c, qlClose)
-		c->disconnect();
+	c->disconnect();
 }
 
 void Server::tcpTransmit(QByteArray a, short id) {
@@ -515,7 +515,7 @@ void Server::sendAll(Message *mMsg) {
 
 void Server::sendExcept(Message *mMsg, Connection *cCon) {
 	QHash<Connection *, Player *>::const_iterator i;
-	for(i=qmPlayers.constBegin(); i != qmPlayers.constEnd(); ++i) {
+	for (i=qmPlayers.constBegin(); i != qmPlayers.constEnd(); ++i) {
 		if ((i.key() != cCon) && (i.value()->sState == Player::Authenticated))
 			sendMessage(i.key(), mMsg);
 	}
@@ -596,14 +596,14 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 }
 
 void Server::checkCommands() {
-    	static bool warned = false;
+	static bool warned = false;
 	QList<ServerDB::qpCommand> cmdlist=ServerDB::getCommands();
 	if (cmdlist.count() == 0)
 		return;
 	foreach(ServerDB::qpCommand cmd, cmdlist) {
-	    	if (! warned) {
-		    log(QLatin1String("The commands table is deprecated and will be removed in a later release. Please migrate to DBus."), NULL);
-		    warned = true;
+		if (! warned) {
+			log(QLatin1String("The commands table is deprecated and will be removed in a later release. Please migrate to DBus."), NULL);
+			warned = true;
 		}
 		QString cmdname = cmd.first;
 		QList<QVariant> argv = cmd.second;
@@ -710,19 +710,19 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	pSrcPlayer->qsName = qsUsername;
 
 	if (iVersion != MESSAGE_STREAM_VERSION) {
-	  msr.qsReason = "Wrong version of mumble protocol";
-	  msr.rtType = MessageServerReject::WrongVersion;
+		msr.qsReason = "Wrong version of mumble protocol";
+		msr.rtType = MessageServerReject::WrongVersion;
 	} else if (! nameok) {
-	  msr.qsReason = "Invalid Username";
-	  msr.rtType = MessageServerReject::InvalidUsername;
+		msr.qsReason = "Invalid Username";
+		msr.rtType = MessageServerReject::InvalidUsername;
 	} else if (id==-1) {
-	  msr.qsReason = "Wrong password for user";
-	  msr.rtType = MessageServerReject::WrongUserPW;
+		msr.qsReason = "Wrong password for user";
+		msr.rtType = MessageServerReject::WrongUserPW;
 	} else if (id==-2 && ! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != qsPassword) {
-	  msr.qsReason = "Invalid server password";
-	  msr.rtType = MessageServerReject::WrongServerPW;
+		msr.qsReason = "Invalid server password";
+		msr.rtType = MessageServerReject::WrongServerPW;
 	} else {
-	  ok = true;
+		ok = true;
 	}
 
 	Player *ppOld = Player::match(pSrcPlayer, true);
@@ -730,11 +730,11 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 
 	// Allow reuse of name from same IP
 	if (ok && ppOld && (pSrcPlayer->iId == -1)) {
-	    	if (cOld->peerAddress() != cCon->peerAddress()) {
+		if (cOld->peerAddress() != cCon->peerAddress()) {
 			msr.qsReason = "Playername already in use";
 			msr.rtType = MessageServerReject::UsernameInUse;
 			ok = false;
-  	        }
+		}
 	}
 
 	if (iMaxBandwidth > g_sp.iMaxBandwidth) {
@@ -750,10 +750,10 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 
 	if (! ok) {
-	  g_sServer->log(QString::fromLatin1("Rejected connection: %1").arg(msr.qsReason), cCon);
-	  g_sServer->sendMessage(cCon, &msr);
-	  cCon->disconnect();
-	  return;
+		g_sServer->log(QString::fromLatin1("Rejected connection: %1").arg(msr.qsReason), cCon);
+		g_sServer->sendMessage(cCon, &msr);
+		cCon->disconnect();
+		return;
 	}
 
 	// Kick ghost
@@ -789,7 +789,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 			g_sServer->sendMessage(cCon, &mca);
 
 		foreach(c, c->qlChannels)
-			q.enqueue(c);
+		q.enqueue(c);
 	}
 
 	foreach(c, chans) {
@@ -798,7 +798,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 			mcl.iId = c->iId;
 			mcl.ltType = MessageChannelLink::Link;
 			foreach(Channel *l, c->qhLinks.keys())
-				mcl.qlTargets << l->iId;
+			mcl.qlTargets << l->iId;
 			g_sServer->sendMessage(cCon, &mcl);
 		}
 	}
@@ -886,27 +886,27 @@ void MessageServerBanList::process(Connection *cCon) {
 }
 
 void MessageServerLeave::process(Connection *cCon) {
-  cCon->disconnect();
+	cCon->disconnect();
 }
 
 void MessageServerJoin::process(Connection *cCon) {
-  cCon->disconnect();
+	cCon->disconnect();
 }
 
 void MessageServerReject::process(Connection *cCon) {
-  cCon->disconnect();
+	cCon->disconnect();
 }
 
 void MessageServerSync::process(Connection *cCon) {
-  cCon->disconnect();
+	cCon->disconnect();
 }
 
 void MessagePermissionDenied::process(Connection *cCon) {
-  cCon->disconnect();
+	cCon->disconnect();
 }
 
 void MessagePlayerRename::process(Connection *cCon) {
-  cCon->disconnect();
+	cCon->disconnect();
 }
 
 void MessageSpeex::process(Connection *cCon) {
@@ -1155,7 +1155,7 @@ void MessageChannelLink::process(Connection *cCon) {
 		return;
 	}
 
-	Channel *l = (qlTargets.count() == 1 ) ? Channel::get(qlTargets[0]) : NULL;
+	Channel *l = (qlTargets.count() == 1) ? Channel::get(qlTargets[0]) : NULL;
 
 	switch (ltType) {
 		case Link:
@@ -1181,7 +1181,7 @@ void MessageChannelLink::process(Connection *cCon) {
 
 	QSet<Channel *> oldset = c->qhLinks.keys().toSet();
 
-	switch(ltType) {
+	switch (ltType) {
 		case UnlinkAll:
 			c->unlink(NULL);
 			ServerDB::removeLink(c, NULL);
@@ -1235,7 +1235,7 @@ void MessageChannelLink::process(Connection *cCon) {
 		changed = oldset - newset;
 	}
 	foreach(l, changed)
-		mcl.qlTargets << l->iId;
+	mcl.qlTargets << l->iId;
 	g_sServer->sendAll(&mcl);
 }
 
@@ -1277,7 +1277,7 @@ void MessageEditACL::process(Connection *cCon) {
 		mea.bQuery = false;
 		mea.bInheritACL = c->bInheritACL;
 
-		while(! chans.isEmpty()) {
+		while (! chans.isEmpty()) {
 			p = chans.pop();
 			foreach(acl, p->qlACL) {
 				if ((p == c) || (acl->bApplySubs)) {
@@ -1328,7 +1328,7 @@ void MessageEditACL::process(Connection *cCon) {
 		}
 
 		foreach(a, c->qlACL)
-			delete a;
+		delete a;
 
 		c->qhGroups.clear();
 		c->qlACL.clear();
@@ -1376,7 +1376,7 @@ void MessageQueryUsers::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 
 	int i;
-	for(i=0;i<qlIds.count();i++) {
+	for (i=0;i<qlIds.count();i++) {
 		QString name = qlNames[i];
 		int id = qlIds[i];
 		if (id == -1) {

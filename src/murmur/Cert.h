@@ -35,16 +35,16 @@
 #include "Server.h"
 
 class Cert : public QObject {
-  Q_OBJECT
-  protected:
-    QSslCertificate qscCert;
-    QSslKey qskKey;
-  public:
-    Cert();
-    void initialize();
-    const QSslCertificate &getCert() const;
-    const QSslKey &getKey() const;
-    const QString getDigest() const;
+		Q_OBJECT
+	protected:
+		QSslCertificate qscCert;
+		QSslKey qskKey;
+	public:
+		Cert();
+		void initialize();
+		const QSslCertificate &getCert() const;
+		const QSslKey &getKey() const;
+		const QString getDigest() const;
 };
 
 extern Cert cert;

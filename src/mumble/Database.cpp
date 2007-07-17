@@ -43,7 +43,7 @@ Database::Database() {
 	datapaths << QDir::currentPath();
 	bool found = false;
 
-	for(i = 0; (i < datapaths.size()) && ! found; i++) {
+	for (i = 0; (i < datapaths.size()) && ! found; i++) {
 		if (!datapaths[i].isEmpty()) {
 			QFile f(datapaths[i] + QLatin1String("/mumble.sqlite"));
 			if (f.exists()) {
@@ -60,7 +60,7 @@ Database::Database() {
 	}
 
 	if (! found) {
-		for(i = 0; (i < datapaths.size()) && ! found; i++) {
+		for (i = 0; (i < datapaths.size()) && ! found; i++) {
 			if (!datapaths[i].isEmpty()) {
 				QFile f(datapaths[i] + QLatin1String("/.mumble.sqlite"));
 				db.setDatabaseName(f.fileName());
@@ -84,23 +84,23 @@ Database::Database() {
 }
 
 const QString Database::getDigest(const QString &hostname, unsigned short port) {
-    QSqlQuery query;
+	QSqlQuery query;
 
-    query.prepare("SELECT digest FROM cert WHERE hostname = ? AND port = ?");
-    query.addBindValue(hostname);;
-    query.addBindValue(port);
-    query.exec();
-    if (query.next()) {
-	return query.value(0).toString();
-    }
-    return QString();
+	query.prepare("SELECT digest FROM cert WHERE hostname = ? AND port = ?");
+	query.addBindValue(hostname);;
+	query.addBindValue(port);
+	query.exec();
+	if (query.next()) {
+		return query.value(0).toString();
+	}
+	return QString();
 }
 
 void Database::setDigest(const QString &hostname, unsigned short port, const QString &digest) {
-    QSqlQuery query;
-    query.prepare("REPLACE INTO cert (hostname,port,digest) VALUES (?,?,?)");
-    query.addBindValue(hostname);
-    query.addBindValue(port);
-    query.addBindValue(digest);
-    query.exec();
+	QSqlQuery query;
+	query.prepare("REPLACE INTO cert (hostname,port,digest) VALUES (?,?,?)");
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+	query.addBindValue(digest);
+	query.exec();
 }

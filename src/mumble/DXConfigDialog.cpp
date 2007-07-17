@@ -39,10 +39,8 @@ static ConfigRegistrar registrar(20, DXConfigDialogNew);
 
 
 static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
-			 const WCHAR* lpszDrvName, void *ctx)
-{
-	if ( lpGUID )
-	{
+                                const WCHAR* lpszDrvName, void *ctx) {
+	if (lpGUID) {
 		QList<dsDevice> *l =reinterpret_cast<QList<dsDevice> *>(ctx);
 		*l << dsDevice(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), *lpGUID);
 	}
@@ -86,7 +84,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbInputDevice->setToolTip(tr("Device to use for microphone"));
 	qcbInputDevice->setWhatsThis(tr("This sets the input device to use, which is where you have connected the "
-								"microphone."));
+	                                "microphone."));
 	l = new QLabel(tr("Input"));
 	l->setBuddy(qcbInputDevice);
 	grid->addWidget(l, 0, 0);
@@ -94,7 +92,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbOutputDevice->setToolTip(tr("Device to use for speakers/headphones"));
 	qcbOutputDevice->setWhatsThis(tr("This sets the output device to use, which is where you have connected your "
-									"speakers or your headset."));
+	                                 "speakers or your headset."));
 	l = new QLabel(tr("Output"));
 	l->setBuddy(qcbOutputDevice);
 	grid->addWidget(l, 1, 0);
@@ -118,8 +116,8 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	on_OutputDelay_valueChanged(qsOutputDelay->value());
 	qsOutputDelay->setToolTip(tr("Amount of data to buffer for DirectSound"));
 	qsOutputDelay->setWhatsThis(tr("This sets the amount of data to prebuffer in the DirectSound buffer. "
-								"Experiment with different values and set it to the lowest which doesn't "
-								"cause rapid jitter in the sound."));
+	                               "Experiment with different values and set it to the lowest which doesn't "
+	                               "cause rapid jitter in the sound."));
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qsOutputDelay, 0, 1);
 	grid->addWidget(qlOutputDelay, 0, 2);
@@ -140,13 +138,13 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	qcbMethod->setToolTip(tr("3D Sound Algorithm"));
 	qcbMethod->setWhatsThis(tr("This sets what 3D Sound algorithm to use.<br />"
-							"<b>None</b> - Disable 3D Sound (least CPU).<br />"
-							"<b>Panning</b> - Just use stereo panning (some CPU).<br />"
-							"<b>Light/Full HRTF</b> - Head-Related Transfer Functions enabled. "
-							"This may use a small amount of CPU.<br />"
-							"Note that if you have a soundcard with <i>hardware</i> 3D processing, HRTF "
-							"processing will be done on the soundcard and will use practically no processing "
-							"power."));
+	                           "<b>None</b> - Disable 3D Sound (least CPU).<br />"
+	                           "<b>Panning</b> - Just use stereo panning (some CPU).<br />"
+	                           "<b>Light/Full HRTF</b> - Head-Related Transfer Functions enabled. "
+	                           "This may use a small amount of CPU.<br />"
+	                           "Note that if you have a soundcard with <i>hardware</i> 3D processing, HRTF "
+	                           "processing will be done on the soundcard and will use practically no processing "
+	                           "power."));
 	l = new QLabel(tr("Method"));
 	l->setBuddy(qcbMethod);
 	grid->addWidget(l, 0, 0);
@@ -169,7 +167,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	on_MinDistance_valueChanged(qsMinDistance->value());
 	qsMinDistance->setToolTip(tr("Minimum distance to player before sound decreases"));
 	qsMinDistance->setWhatsThis(tr("This sets the minimum distance for sound calculations. The volume of other players' "
-								"speech will not decrease until they are at least this far away from you."));
+	                               "speech will not decrease until they are at least this far away from you."));
 	grid->addWidget(l, 1, 0);
 	grid->addWidget(qsMinDistance, 1, 1);
 	grid->addWidget(qlMinDistance, 1, 2);
@@ -186,7 +184,7 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	on_MaxDistance_valueChanged(qsMaxDistance->value());
 	qsMaxDistance->setToolTip(tr("Maximum distance, beyond which sound won't decrease"));
 	qsMaxDistance->setWhatsThis(tr("This sets the maximum distance for sound calculations. When farther away than this, "
-								"other players' sound volume will not decrease any more."));
+	                               "other players' sound volume will not decrease any more."));
 	grid->addWidget(l, 2, 0);
 	grid->addWidget(qsMaxDistance, 2, 1);
 	grid->addWidget(qlMaxDistance, 2, 2);
@@ -203,8 +201,8 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	on_RollOff_valueChanged(qsRollOff->value());
 	qsRollOff->setToolTip(tr("Factor for sound volume decrease"));
 	qsRollOff->setWhatsThis(tr("How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that "
-								"sound volume halves each time the distance doubles. Increasing this value means sound volume "
-								"drops faster, while decreasing it means it drops slower."));
+	                           "sound volume halves each time the distance doubles. Increasing this value means sound volume "
+	                           "drops faster, while decreasing it means it drops slower."));
 	grid->addWidget(l, 3, 0);
 	grid->addWidget(qsRollOff, 3, 1);
 	grid->addWidget(qlRollOff, 3, 2);
@@ -221,9 +219,9 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 
 	setLayout(v);
 
-    on_Method_currentIndexChanged(qcbMethod->currentIndex());
+	on_Method_currentIndexChanged(qcbMethod->currentIndex());
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 
 }
 
@@ -279,11 +277,11 @@ void DXConfigDialog::updateIntensity() {
 }
 
 void DXConfigDialog::on_Method_currentIndexChanged(int v) {
-    bool ena = (v > 0);
-    qsMinDistance->setEnabled(ena);
-    qsMaxDistance->setEnabled(ena);
-    qsRollOff->setEnabled(ena);
-    qlMinDistance->setEnabled(ena);
-    qlMaxDistance->setEnabled(ena);
-    qlRollOff->setEnabled(ena);
+	bool ena = (v > 0);
+	qsMinDistance->setEnabled(ena);
+	qsMaxDistance->setEnabled(ena);
+	qsRollOff->setEnabled(ena);
+	qlMinDistance->setEnabled(ena);
+	qlMaxDistance->setEnabled(ena);
+	qlRollOff->setEnabled(ena);
 }

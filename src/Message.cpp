@@ -62,7 +62,7 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 	short sPlayerId;
 	qdsIn >> iMessageType;
 	qdsIn >> sPlayerId;
-	switch(iMessageType) {
+	switch (iMessageType) {
 		case Speex:
 			mMsg = new MessageSpeex();
 			break;
@@ -177,7 +177,7 @@ MessageServerAuthenticate::MessageServerAuthenticate() {
 	iMaxBandwidth = 100000;
 }
 
-void MessageServerAuthenticate::saveStream(PacketDataStream &qdsOut) const{
+void MessageServerAuthenticate::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iVersion;
 	qdsOut << iMaxBandwidth;
 	qdsOut << qsUsername;
@@ -502,7 +502,7 @@ bool MessageQueryUsers::isValid() const {
 		return false;
 
 	int i;
-	for(i=0;i<qlIds.count();i++) {
+	for (i=0;i<qlIds.count();i++) {
 		if ((qlIds[i] == -1) && (qlNames[i].isEmpty()))
 			return false;
 	}
@@ -522,7 +522,7 @@ void MessageTexture::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qbaTexture;
 }
 
-PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::GroupStruct &gs ) {
+PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::GroupStruct &gs) {
 	out << gs.qsName;
 	out << gs.bInherited;
 	out << gs.bInherit;
@@ -533,7 +533,7 @@ PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::Gr
 	return out;
 }
 
-PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::GroupStruct &gs ) {
+PacketDataStream & operator>> (PacketDataStream & in, MessageEditACL::GroupStruct &gs) {
 	in >> gs.qsName;
 	in >> gs.bInherited;
 	in >> gs.bInherit;
@@ -544,7 +544,7 @@ PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::GroupStru
 	return in;
 }
 
-PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::ACLStruct &as ) {
+PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::ACLStruct &as) {
 	out << as.bApplyHere;
 	out << as.bApplySubs;
 	out << as.bInherited;
@@ -555,7 +555,7 @@ PacketDataStream & operator<< ( PacketDataStream & out, const MessageEditACL::AC
 	return out;
 }
 
-PacketDataStream & operator>> ( PacketDataStream & in, MessageEditACL::ACLStruct &as ) {
+PacketDataStream & operator>> (PacketDataStream & in, MessageEditACL::ACLStruct &as) {
 	int v;
 
 	in >> as.bApplyHere;

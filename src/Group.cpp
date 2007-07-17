@@ -64,9 +64,9 @@ QSet<int> Group::members() {
 	while (! s.isEmpty()) {
 		g = s.pop();
 		foreach(i, g->qsAdd)
-			m.insert(i);
+		m.insert(i);
 		foreach(i, g->qsRemove)
-			m.remove(i);
+		m.remove(i);
 	}
 
 	return m;
@@ -154,7 +154,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 		int maxdesc = 1000;
 		int minpath = 0;
 		QStringList args = name.split(QLatin1String(","));
-		switch(args.count()) {
+		switch (args.count()) {
 			default:
 			case 3:
 				maxdesc = args[2].isEmpty() ? maxdesc : args[2].toInt();
@@ -183,7 +183,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *p
 		}
 
 		int cofs = groupChain.indexOf(c);
-		Q_ASSERT( cofs != -1);
+		Q_ASSERT(cofs != -1);
 
 		cofs += minpath;
 

@@ -35,15 +35,15 @@ QHash<short, Player *> Player::c_qmPlayers;
 QReadWriteLock Player::c_qrwlPlayers;
 
 Player::Player(QObject *p) : QObject(p) {
-  sState = Player::Connected;
-  sId = 0;
-  iId = -1;
-  bMute = bDeaf = false;
-  bSelfMute = bSelfDeaf = false;
-  bTalking = bAltSpeak = false;
-  bLocalMute = false;
-  bSuppressed = false;
-  cChannel = 0;
+	sState = Player::Connected;
+	sId = 0;
+	iId = -1;
+	bMute = bDeaf = false;
+	bSelfMute = bSelfDeaf = false;
+	bTalking = bAltSpeak = false;
+	bLocalMute = false;
+	bSuppressed = false;
+	cChannel = 0;
 }
 
 Player *Player::get(short sId) {

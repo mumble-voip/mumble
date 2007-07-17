@@ -40,8 +40,8 @@
  */
 
 class ASIOAudioInputRegistrar : public AudioInputRegistrar {
-    	public:
-    		ASIOAudioInputRegistrar();
+	public:
+		ASIOAudioInputRegistrar();
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &);
@@ -63,7 +63,7 @@ const QList<audioDevice> ASIOAudioInputRegistrar::getDeviceChoices() {
 }
 
 void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
-    	qWarning("ASIOInputRegistrar::setDeviceChoice was called");
+	qWarning("ASIOInputRegistrar::setDeviceChoice was called");
 }
 
 static ConfigWidget *ASIOConfigDialogNew() {
@@ -111,7 +111,7 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 		RegCloseKey(hkDevs);
 	}
 
-    bOk = false;
+	bOk = false;
 
 	QGroupBox *qgbDevices, *qgbCapab, *qgbChannels;
 	QGridLayout *grid;
@@ -135,31 +135,31 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 	qgbChannels = new QGroupBox(tr("Channels"));
 	qgbChannels->setToolTip(tr("Configure input channels"));
 	qgbChannels->setWhatsThis(tr("This will configure the input channels for ASIO. Make sure you select at least one "
-								"channel as microphone and speaker. <i>Microphone</i> should be where your microphone is attached, "
-								"and <i>Speaker</i> should be a channel that samples \"What you hear\".<br />"
-								"For example, on the Audigy 2 ZS, a good selection for Microphone would be \"Mic L\" while "
-								"Speaker should be \"Mix L\" and \"Mix R\""));
+	                             "channel as microphone and speaker. <i>Microphone</i> should be where your microphone is attached, "
+	                             "and <i>Speaker</i> should be a channel that samples \"What you hear\".<br />"
+	                             "For example, on the Audigy 2 ZS, a good selection for Microphone would be \"Mic L\" while "
+	                             "Speaker should be \"Mix L\" and \"Mix R\""));
 
 	grid=new QGridLayout();
 
 	qcbDevice->setToolTip(tr("Device to use for microphone"));
 	qcbDevice->setWhatsThis(tr("This chooses what device to query. You still need to actually query the device and "
-							"select which channels to use."));
+	                           "select which channels to use."));
 	l = new QLabel(tr("Device"));
 
 	QPushButton *queryButton=new QPushButton(tr("&Query"));
 	queryButton->setObjectName("Query");
 	queryButton->setToolTip(tr("Query selected device"));
 	queryButton->setWhatsThis(tr("This queries the selected device for channels. Be aware that many ASIO drivers are "
-								"buggy to the extreme, and querying them might cause a crash of either the application "
-								"or the system."));
+	                             "buggy to the extreme, and querying them might cause a crash of either the application "
+	                             "or the system."));
 
 	QPushButton *configButton=new QPushButton(tr("&Configure"));
 	configButton->setObjectName("Config");
 	configButton->setToolTip(tr("Configure selected device"));
 	configButton->setWhatsThis(tr("This configures the selected device. Be aware that many ASIO drivers are "
-								"buggy to the extreme, and querying them might cause a crash of either the application "
-								"or the system."));
+	                              "buggy to the extreme, and querying them might cause a crash of either the application "
+	                              "or the system."));
 
 	grid->addWidget(l, 0, 0);
 	grid->addWidget(qcbDevice, 0, 1);
@@ -260,7 +260,7 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 
 	setLayout(v);
 
-    QMetaObject::connectSlotsByName(this);
+	QMetaObject::connectSlotsByName(this);
 }
 
 #include "iasiothiscallresolver.h"
@@ -315,7 +315,7 @@ void ASIOConfig::on_Query_clicked() {
 						bOk = true;
 				} else if (granSize == -1) {
 					long v = minSize;
-					for(int i=0;i<100;i++) {
+					for (int i=0;i<100;i++) {
 						if (v == 1920) {
 							bOk = true;
 							break;
@@ -352,16 +352,15 @@ void ASIOConfig::on_Query_clicked() {
 				long cnum;
 
 				bool match = (g.s.qsASIOclass == qsCls);
-				for(cnum=0;cnum<ichannels;cnum++) {
+				for (cnum=0;cnum<ichannels;cnum++) {
 					ASIOChannelInfo aci;
 					aci.channel = cnum;
 					aci.isInput = true;
 					iasio.getChannelInfo(&aci);
 					SleepEx(10, false);
-					switch(aci.type) {
+					switch (aci.type) {
 						case ASIOSTInt32LSB:
-						case ASIOSTInt16LSB:
-							{
+						case ASIOSTInt16LSB: {
 								QListWidget *widget = qlwUnused;
 								QVariant v = static_cast<int>(cnum);
 								if (match && g.s.qlASIOmic.contains(v))
@@ -469,7 +468,7 @@ void ASIOConfig::accept() {
 
 	QList<QVariant> list;
 
-	for(int i=0;i<qlwMic->count();i++) {
+	for (int i=0;i<qlwMic->count();i++) {
 		QListWidgetItem *item = qlwMic->item(i);
 		list << item->data(Qt::UserRole);
 	}
@@ -478,7 +477,7 @@ void ASIOConfig::accept() {
 
 	list.clear();
 
-	for(int i=0;i<qlwSpeaker->count();i++) {
+	for (int i=0;i<qlwSpeaker->count();i++) {
 		QListWidgetItem *item = qlwSpeaker->item(i);
 		list << item->data(Qt::UserRole);
 	}
@@ -519,7 +518,7 @@ ASIOInput::ASIOInput() {
 	pdMicDelayLine = new double[MUMBLE_SFP_LENGTH];
 	pdSpeakerDelayLine = new double[MUMBLE_SFP_LENGTH];
 
-	for(i=0;i<MUMBLE_SFP_LENGTH;i++)
+	for (i=0;i<MUMBLE_SFP_LENGTH;i++)
 		pdMicDelayLine[i]=pdSpeakerDelayLine[i] = 0.0;
 
 	// Sanity check things first.
@@ -529,7 +528,7 @@ ASIOInput::ASIOInput() {
 
 	if ((iNumMic == 0) || (iNumSpeaker == 0)) {
 		QMessageBox::warning(NULL, tr("Mumble"), tr("You need to select at least one microphone and one speaker source to use ASIO. "
-					"If you just need microphone sampling, use DirectSound."),  QMessageBox::Ok, QMessageBox::NoButton);
+		                     "If you just need microphone sampling, use DirectSound."),  QMessageBox::Ok, QMessageBox::NoButton);
 		return;
 	}
 
@@ -544,7 +543,7 @@ ASIOInput::ASIOInput() {
 				abiInfo = new ASIOBufferInfo[iNumMic + iNumSpeaker];
 				aciInfo = new ASIOChannelInfo[iNumMic + iNumSpeaker];
 				idx = 0;
-				for(i=0;i<iNumMic;i++) {
+				for (i=0;i<iNumMic;i++) {
 					abiInfo[idx].isInput = true;
 					abiInfo[idx].channelNum = g.s.qlASIOmic[i].toInt();
 
@@ -555,7 +554,7 @@ ASIOInput::ASIOInput() {
 
 					idx++;
 				}
-				for(i=0;i<iNumSpeaker;i++) {
+				for (i=0;i<iNumSpeaker;i++) {
 					abiInfo[idx].isInput = true;
 					abiInfo[idx].channelNum = g.s.qlASIOspeaker[i].toInt();
 
@@ -598,7 +597,7 @@ ASIOInput::ASIOInput() {
 	}
 
 	QMessageBox::critical(NULL, tr("Mumble"), tr("Opening selected ASIO device failed. No input will be done."),
-				QMessageBox::Ok, QMessageBox::NoButton);
+	                      QMessageBox::Ok, QMessageBox::NoButton);
 
 }
 
@@ -641,17 +640,15 @@ ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBo
 
 void ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst) {
 	switch (sampType) {
-		case ASIOSTInt16LSB:
-			{
+		case ASIOSTInt16LSB: {
 				short *buf=static_cast<short *>(src);
-				for(int i=0;i<960;i++)
+				for (int i=0;i<960;i++)
 					dst[i]+=buf[i];
 			}
 			break;
-		case ASIOSTInt32LSB:
-			{
+		case ASIOSTInt32LSB: {
 				int *buf=static_cast<int *>(src);
-				for(int i=0;i<960;i++)
+				for (int i=0;i<960;i++)
 					dst[i]+=(buf[i] >> 16);
 			}
 			break;
@@ -663,69 +660,65 @@ void ASIOInput::bufferReady(long buffindex) {
 
 	// Microphone inputs
 	ZeroMemory(pdInputBuffer, sizeof(double) * 960);
-	for(c=0;c<iNumMic;c++)
+	for (c=0;c<iNumMic;c++)
 		addBuffer(aciInfo[c].type, abiInfo[c].buffers[buffindex], pdInputBuffer);
 
 	double mul = 1.0 / (32768.0 * iNumMic);
 
-	for(i=0;i<960;i++) {
+	for (i=0;i<960;i++) {
 		pdInputBuffer[i] *= mul;
 	}
 
 	decim(pdInputBuffer, pdOutputBuffer, pdMicDelayLine);
 
-	for(i=0;i<320;i++)
+	for (i=0;i<320;i++)
 		psMic[i] = static_cast<short>(pdOutputBuffer[i] * 32768.0);
 
 
 	// Speaker inputs
 	ZeroMemory(pdInputBuffer, sizeof(double) * 960);
-	for(c=0;c<iNumMic;c++)
+	for (c=0;c<iNumMic;c++)
 		addBuffer(aciInfo[iNumMic+c].type, abiInfo[iNumMic+c].buffers[buffindex], pdInputBuffer);
 
 	mul = 1.0 / (32768.0 * iNumSpeaker);
 
-	for(i=0;i<960;i++) {
+	for (i=0;i<960;i++) {
 		pdInputBuffer[i] *= mul;
 	}
 
 	decim(pdInputBuffer, pdOutputBuffer, pdSpeakerDelayLine);
 
-	for(i=0;i<320;i++)
+	for (i=0;i<320;i++)
 		psSpeaker[i] = static_cast<short>(pdOutputBuffer[i] * 32768.0);
 
 	encodeAudioFrame();
 }
 
-void ASIOInput::bufferSwitch(long index, ASIOBool processNow)
-{
+void ASIOInput::bufferSwitch(long index, ASIOBool processNow) {
 	ASIOTime  timeInfo;
-	memset (&timeInfo, 0, sizeof (timeInfo));
+	memset(&timeInfo, 0, sizeof(timeInfo));
 
-	if(aiSelf->iasio->getSamplePosition(&timeInfo.timeInfo.samplePosition, &timeInfo.timeInfo.systemTime) == ASE_OK)
+	if (aiSelf->iasio->getSamplePosition(&timeInfo.timeInfo.samplePosition, &timeInfo.timeInfo.systemTime) == ASE_OK)
 		timeInfo.timeInfo.flags = kSystemTimeValid | kSamplePositionValid;
 
-	bufferSwitchTimeInfo (&timeInfo, index, processNow);
+	bufferSwitchTimeInfo(&timeInfo, index, processNow);
 }
 
-void ASIOInput::sampleRateChanged(ASIOSampleRate sRate)
-{
+void ASIOInput::sampleRateChanged(ASIOSampleRate sRate) {
 	qFatal("ASIOInput: sampleRateChanged");
 }
 
-long ASIOInput::asioMessages(long selector, long value, void* message, double* opt)
-{
+long ASIOInput::asioMessages(long selector, long value, void* message, double* opt) {
 	long ret = 0;
-	switch(selector)
-	{
+	switch (selector) {
 		case kAsioSelectorSupported:
-			if(value == kAsioResetRequest
-			|| value == kAsioEngineVersion
-			|| value == kAsioResyncRequest
-			|| value == kAsioLatenciesChanged
-			|| value == kAsioSupportsTimeInfo
-			|| value == kAsioSupportsTimeCode
-			|| value == kAsioSupportsInputMonitor)
+			if (value == kAsioResetRequest
+			        || value == kAsioEngineVersion
+			        || value == kAsioResyncRequest
+			        || value == kAsioLatenciesChanged
+			        || value == kAsioSupportsTimeInfo
+			        || value == kAsioSupportsTimeCode
+			        || value == kAsioSupportsInputMonitor)
 				ret = 1L;
 			break;
 		case kAsioResetRequest:
@@ -783,27 +776,27 @@ long ASIOInput::asioMessages(long selector, long value, void* message, double* o
 #define p_H mumble_sfp
 
 void ASIOInput::decim(const double *p_inp, double *p_out, double *p_Z) {
-    int tap;
-    double sum;
-    int num_inp = 960;
+	int tap;
+	double sum;
+	int num_inp = 960;
 
-    while (num_inp >= factor_M) {
-        /* shift Z delay line up to make room for next samples */
-        for (tap = H_size - 1; tap >= factor_M; tap--) {
-            p_Z[tap] = p_Z[tap - factor_M];
-        }
+	while (num_inp >= factor_M) {
+		/* shift Z delay line up to make room for next samples */
+		for (tap = H_size - 1; tap >= factor_M; tap--) {
+			p_Z[tap] = p_Z[tap - factor_M];
+		}
 
-        /* copy next samples from input buffer to bottom of Z delay line */
-        for (tap = factor_M - 1; tap >= 0; tap--) {
-            p_Z[tap] = *p_inp++;
-        }
-        num_inp -= factor_M;
+		/* copy next samples from input buffer to bottom of Z delay line */
+		for (tap = factor_M - 1; tap >= 0; tap--) {
+			p_Z[tap] = *p_inp++;
+		}
+		num_inp -= factor_M;
 
-        /* calculate FIR sum */
-        sum = 0.0;
-        for (tap = 0; tap < H_size; tap++) {
-            sum += p_H[tap] * p_Z[tap];
-        }
-        *p_out++ = sum;     /* store sum and point to next output */
-    }
+		/* calculate FIR sum */
+		sum = 0.0;
+		for (tap = 0; tap < H_size; tap++) {
+			sum += p_H[tap] * p_Z[tap];
+		}
+		*p_out++ = sum;     /* store sum and point to next output */
+	}
 }

@@ -44,7 +44,7 @@
 class TextToSpeech;
 
 class LogConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QList<QCheckBox *> qlConsole;
 		QList<QCheckBox *> qlTTS;
@@ -66,8 +66,8 @@ struct MsgSettings {
 };
 
 class Log : public QObject {
-	friend class LogConfig;
-	Q_OBJECT
+		friend class LogConfig;
+		Q_OBJECT
 	public:
 		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, PlayerJoin, PlayerLeave, YouKicked, PlayerKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage };
 		static const MsgType firstMsgType = DebugInfo;

@@ -34,9 +34,9 @@
 class TextToSpeechPrivate;
 
 class TextToSpeech : public QObject {
-	friend class TextToSpeechPrivate;
-	Q_OBJECT
-	Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
+		friend class TextToSpeechPrivate;
+		Q_OBJECT
+		Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
 	protected:
 		bool enabled;
 	public:

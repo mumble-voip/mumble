@@ -38,19 +38,19 @@ class Player;
 
 class SharedMemoryPrivate;
 class SharedMemory {
-    protected:
-    	SharedMemoryPrivate *d;
-    public:
-	SharedMem *sm;
-	SharedMemory();
-	~SharedMemory();
-	void resolve(QLibrary *lib);
-	bool tryLock();
-	void unlock();
+	protected:
+		SharedMemoryPrivate *d;
+	public:
+		SharedMem *sm;
+		SharedMemory();
+		~SharedMemory();
+		void resolve(QLibrary *lib);
+		bool tryLock();
+		void unlock();
 };
 
 class OverlayConfig : public ConfigWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QCheckBox *qcbEnable, *qcbAlwaysSelf;
 		QComboBox *qcbShow;
@@ -89,19 +89,19 @@ class OverlayConfig : public ConfigWidget {
 
 class OverlayPrivate;
 class Overlay : public QObject {
-	friend class OverlayConfig;
-	Q_OBJECT
+		friend class OverlayConfig;
+		Q_OBJECT
 	protected:
 		OverlayPrivate *d;
 
 		enum Decoration { None, Muted, Deafened };
 
 		struct TextLine {
-		    QString qsText;
-		    int iPlayer;
-		    quint32 uiColor;
-		    Decoration dDecor;
-		    TextLine(const QString &t, quint32 c, int p = -1, Decoration d = None) : qsText(t), iPlayer(p), uiColor(c), dDecor(d) { };
+			QString qsText;
+			int iPlayer;
+			quint32 uiColor;
+			Decoration dDecor;
+			TextLine(const QString &t, quint32 c, int p = -1, Decoration d = None) : qsText(t), iPlayer(p), uiColor(c), dDecor(d) { };
 		};
 
 		typedef QPair<short, QByteArray> UserTexture;

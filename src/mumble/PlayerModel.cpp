@@ -79,16 +79,16 @@ ModelItem *ModelItem::child(int idx) const {
 		return NULL;
 
 	if (! bPlayersTop) {
-	    if (idx < qlChannels.count())
-		    return c_qhChannels.value(channelAt(idx));
-	    else
-		    return c_qhPlayers.value(playerAt(idx));
-    	} else {
-	    if (idx < qlPlayers.count())
-		    return c_qhPlayers.value(playerAt(idx));
-	    else
-		    return c_qhChannels.value(channelAt(idx));
-    	}
+		if (idx < qlChannels.count())
+			return c_qhChannels.value(channelAt(idx));
+		else
+			return c_qhPlayers.value(playerAt(idx));
+	} else {
+		if (idx < qlPlayers.count())
+			return c_qhPlayers.value(playerAt(idx));
+		else
+			return c_qhChannels.value(channelAt(idx));
+	}
 }
 
 bool ModelItem::validRow(int idx) const {
@@ -96,7 +96,7 @@ bool ModelItem::validRow(int idx) const {
 }
 
 Player *ModelItem::playerAt(int idx) const {
-    	if (! bPlayersTop)
+	if (! bPlayersTop)
 		idx -= qlChannels.count();
 	if ((idx>= 0) && (idx < qlPlayers.count()))
 		return qlPlayers.at(idx);
@@ -104,7 +104,7 @@ Player *ModelItem::playerAt(int idx) const {
 }
 
 Channel *ModelItem::channelAt(int idx) const {
-    	if (bPlayersTop)
+	if (bPlayersTop)
 		idx -= qlPlayers.count();
 	if ((idx>= 0) && (idx < qlChannels.count()))
 		return qlChannels.at(idx);
@@ -112,9 +112,9 @@ Channel *ModelItem::channelAt(int idx) const {
 }
 
 int ModelItem::rowOf(Channel *c) const {
-    	int v = qlChannels.lastIndexOf(c);
-    	if (v != -1)
-    		v += (!bPlayersTop) ? 0 : qlPlayers.count();
+	int v = qlChannels.lastIndexOf(c);
+	if (v != -1)
+		v += (!bPlayersTop) ? 0 : qlPlayers.count();
 	return v;
 }
 
@@ -145,7 +145,7 @@ int ModelItem::insertIndex(Channel *c) const {
 	Channel *cp;
 
 	foreach(cp, qlChannels)
-		qls << cp->qsName;
+	qls << cp->qsName;
 	qls << c->qsName;
 	qSort(qls);
 
@@ -157,7 +157,7 @@ int ModelItem::insertIndex(Player *p) const {
 	Player *pp;
 
 	foreach(pp, qlPlayers)
-		qls << pp->qsName;
+	qls << pp->qsName;
 	qls << p->qsName;
 	qSort(qls);
 
@@ -199,13 +199,11 @@ PlayerModel::~PlayerModel() {
 }
 
 
-int PlayerModel::columnCount(const QModelIndex &) const
-{
+int PlayerModel::columnCount(const QModelIndex &) const {
 	return 2;
 }
 
-QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const
-{
+QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const {
 	ModelItem *item;
 	QModelIndex idx = QModelIndex();
 
@@ -213,10 +211,10 @@ QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const
 		return QModelIndex();
 	}
 
-	if ( ! p.isValid()) {
+	if (! p.isValid()) {
 		item = miRoot;
 	} else {
-        item = static_cast<ModelItem *>(p.internalPointer());
+		item = static_cast<ModelItem *>(p.internalPointer());
 	}
 
 	if (! item->validRow(row))
@@ -224,11 +222,10 @@ QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const
 
 	idx = createIndex(row, column, item->child(row));
 
-    return idx;
+	return idx;
 }
 
-QModelIndex PlayerModel::index(Player *p, int column) const
-{
+QModelIndex PlayerModel::index(Player *p, int column) const {
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
 	Q_ASSERT(p);
 	Q_ASSERT(item);
@@ -236,8 +233,7 @@ QModelIndex PlayerModel::index(Player *p, int column) const
 	return idx;
 }
 
-QModelIndex PlayerModel::index(Channel *c) const
-{
+QModelIndex PlayerModel::index(Channel *c) const {
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
 	Q_ASSERT(c);
 	Q_ASSERT(item);
@@ -247,12 +243,11 @@ QModelIndex PlayerModel::index(Channel *c) const
 	return idx;
 }
 
-QModelIndex PlayerModel::parent(const QModelIndex &idx) const
-{
+QModelIndex PlayerModel::parent(const QModelIndex &idx) const {
 	if (! idx.isValid())
-	    return QModelIndex();
+		return QModelIndex();
 
-    ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
+	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 
 	ModelItem *pitem = item->parent();
 	ModelItem *gpitem = (pitem) ? pitem->parent() : NULL;
@@ -263,27 +258,25 @@ QModelIndex PlayerModel::parent(const QModelIndex &idx) const
 	QModelIndex pidx = createIndex(pitem->rowOfSelf(), 0, pitem);
 
 
-    return pidx;
+	return pidx;
 }
 
-int PlayerModel::rowCount(const QModelIndex &p) const
-{
-    ModelItem *item;
+int PlayerModel::rowCount(const QModelIndex &p) const {
+	ModelItem *item;
 
-    int val = 0;
+	int val = 0;
 
-    if (!p.isValid())
-        item = miRoot;
-    else
-        item = static_cast<ModelItem *>(p.internalPointer());
+	if (!p.isValid())
+		item = miRoot;
+	else
+		item = static_cast<ModelItem *>(p.internalPointer());
 
 	val = item->rows();
 
 	return val;
 }
 
-QString PlayerModel::stringIndex(const QModelIndex &idx) const
-{
+QString PlayerModel::stringIndex(const QModelIndex &idx) const {
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 	if (!idx.isValid())
 		return QLatin1String("invIdx");
@@ -295,10 +288,9 @@ QString PlayerModel::stringIndex(const QModelIndex &idx) const
 		return QString::fromLatin1("C:%1 [%2,%3]").arg(item->cChan->qsName).arg(idx.row()).arg(idx.column());
 }
 
-QVariant PlayerModel::data(const QModelIndex &idx, int role) const
-{
-    if (!idx.isValid())
-        return QVariant();
+QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
+	if (!idx.isValid())
+		return QVariant();
 
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 
@@ -362,22 +354,20 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const
 	return QVariant();
 }
 
-Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const
-{
+Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const {
 	if (!idx.isValid())
 		return Qt::ItemIsDropEnabled;
 
-    if (idx.column() != 0)
-        return Qt::ItemIsEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsDragEnabled;
+	if (idx.column() != 0)
+		return Qt::ItemIsEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsDragEnabled;
 
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
+	return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
 }
 
-QVariant PlayerModel::otherRoles(int section, int role, bool isPlayer) const
-{
-	switch(role) {
+QVariant PlayerModel::otherRoles(int section, int role, bool isPlayer) const {
+	switch (role) {
 		case Qt::ToolTipRole:
-			switch(section) {
+			switch (section) {
 				case 0:
 					return isPlayer ? tr("Name of player") : tr("Name of channel");
 				case 1:
@@ -385,26 +375,26 @@ QVariant PlayerModel::otherRoles(int section, int role, bool isPlayer) const
 			}
 			break;
 		case Qt::WhatsThisRole:
-			switch(section) {
+			switch (section) {
 				case 0:
 					if (isPlayer)
- 						return tr("This is a player connected to the server. The icon to the left of the player indicates "
-							"whether or not they are talking:<br />"
-							"<img src=\"skin:talking_on.png\" /> Talking<br />"
-							"<img src=\"skin:talking_off.png\" /> Not talking"
-							);
+						return tr("This is a player connected to the server. The icon to the left of the player indicates "
+						          "whether or not they are talking:<br />"
+						          "<img src=\"skin:talking_on.png\" /> Talking<br />"
+						          "<img src=\"skin:talking_off.png\" /> Not talking"
+						         );
 					else
 						return tr("This is a channel on the server. Only players in the same channel can hear each other.");
 				case 1:
 					return tr("This shows the flags the player has on the server, if any:<br />"
-								"<img src=\"skin:authenticated.png\" />Authenticated user<br />"
-								"<img src=\"skin:muted_self.png\" />Muted (by self)<br />"
-								"<img src=\"skin:muted_server.png\" />Muted (by admin)<br />"
-								"<img src=\"skin:deafened_self.png\" />Deafened (by self)<br />"
-								"<img src=\"skin:deafened_server.png\" />Deafened (by admin)<br />"
-								"A player muted by himself is probably just away, talking on the phone or something like that.<br />"
-								"A player muted by an admin is probably also just away, and the noise the player is making was annoying "
-								"enough that an admin muted him.");
+					          "<img src=\"skin:authenticated.png\" />Authenticated user<br />"
+					          "<img src=\"skin:muted_self.png\" />Muted (by self)<br />"
+					          "<img src=\"skin:muted_server.png\" />Muted (by admin)<br />"
+					          "<img src=\"skin:deafened_self.png\" />Deafened (by self)<br />"
+					          "<img src=\"skin:deafened_server.png\" />Deafened (by admin)<br />"
+					          "A player muted by himself is probably just away, talking on the phone or something like that.<br />"
+					          "A player muted by an admin is probably also just away, and the noise the player is making was annoying "
+					          "enough that an admin muted him.");
 			}
 			break;
 	}
@@ -412,14 +402,13 @@ QVariant PlayerModel::otherRoles(int section, int role, bool isPlayer) const
 }
 
 QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
-                               int role) const
-{
+                                 int role) const {
 	if (orientation != Qt::Horizontal)
 		return QVariant();
 
-	switch(role) {
+	switch (role) {
 		case Qt::DisplayRole:
-			switch(section) {
+			switch (section) {
 				case 0:
 					return tr("Name");
 				case 1:
@@ -427,7 +416,7 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 			}
 	}
 
-    return QVariant();
+	return QVariant();
 }
 
 void PlayerModel::unbugHide(const QModelIndex &idx) {
@@ -623,10 +612,10 @@ void PlayerModel::removeChannel(Channel *c) {
 	item=ModelItem::c_qhChannels.value(c);
 
 	foreach(subc, item->qlChannels)
-		removeChannel(subc);
+	removeChannel(subc);
 
 	foreach(pl, item->qlPlayers)
-		removePlayer(pl);
+	removePlayer(pl);
 
 	hideChannel(c);
 	Channel::remove(c);
@@ -643,13 +632,13 @@ void PlayerModel::moveChannel(Channel *c, int id) {
 
 void PlayerModel::linkChannels(Channel *c, QList<Channel *> links) {
 	foreach(Channel *l, links)
-		c->link(l);
+	c->link(l);
 	recheckLinks();
 }
 
 void PlayerModel::unlinkChannels(Channel *c, QList<Channel *> links) {
 	foreach(Channel *l, links)
-		c->unlink(l);
+	c->unlink(l);
 	recheckLinks();
 }
 
@@ -672,33 +661,30 @@ void PlayerModel::removeAll() {
 	updateOverlay();
 }
 
-Player *PlayerModel::getPlayer(const QModelIndex &idx) const
-{
+Player *PlayerModel::getPlayer(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return NULL;
 
-    ModelItem *item;
-    item = static_cast<ModelItem *>(idx.internalPointer());
+	ModelItem *item;
+	item = static_cast<ModelItem *>(idx.internalPointer());
 
-    return item->pPlayer;
+	return item->pPlayer;
 }
 
-Channel *PlayerModel::getChannel(const QModelIndex &idx) const
-{
+Channel *PlayerModel::getChannel(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return NULL;
 
-    ModelItem *item;
-    item = static_cast<ModelItem *>(idx.internalPointer());
+	ModelItem *item;
+	item = static_cast<ModelItem *>(idx.internalPointer());
 
 	if (item->pPlayer)
 		return item->pPlayer->cChannel;
 	else
-	    return item->cChan;
+		return item->cChan;
 }
 
-Channel *PlayerModel::getSubChannel(Channel *p, int idx) const
-{
+Channel *PlayerModel::getSubChannel(Channel *p, int idx) const {
 	ModelItem *item=ModelItem::c_qhChannels.value(p);
 	if (idx < 0 || idx >= item->qlChannels.count())
 		return NULL;
@@ -706,16 +692,14 @@ Channel *PlayerModel::getSubChannel(Channel *p, int idx) const
 }
 
 
-void PlayerModel::playerTalkingChanged(bool)
-{
+void PlayerModel::playerTalkingChanged(bool) {
 	Player *p=static_cast<Player *>(sender());
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 	updateOverlay();
 }
 
-void PlayerModel::playerMuteDeafChanged()
-{
+void PlayerModel::playerMuteDeafChanged() {
 	Player *p=static_cast<Player *>(sender());
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
@@ -754,7 +738,7 @@ QMimeData *PlayerModel::mimeData(const QModelIndexList &idxs) const {
 	return md;
 }
 
-bool PlayerModel::dropMimeData (const QMimeData *md, Qt::DropAction, int, int, const QModelIndex &p) {
+bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, const QModelIndex &p) {
 	if (! md->hasFormat(mimeTypes().at(0)))
 		return false;
 
@@ -772,7 +756,7 @@ bool PlayerModel::dropMimeData (const QMimeData *md, Qt::DropAction, int, int, c
 		ds >> sId;
 
 	Channel *c;
-	if ( ! p.isValid()) {
+	if (! p.isValid()) {
 		c = Channel::get(0);
 	} else {
 		c = getChannel(p);
@@ -800,7 +784,7 @@ void PlayerModel::updateOverlay() const {
 PlayerDelegate::PlayerDelegate(QObject *p) : QItemDelegate(p) {
 }
 
-QSize PlayerDelegate::sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index) const {
+QSize PlayerDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
 	if (index.column() == 1) {
 		const QAbstractItemModel *m = index.model();
 		QVariant data = m->data(index);
@@ -818,7 +802,7 @@ void PlayerDelegate::paint(QPainter * painter, const QStyleOptionViewItem &optio
 		QList<QVariant> ql = data.toList();
 
 		painter->save();
-		for(int i=0;i<ql.size();i++) {
+		for (int i=0;i<ql.size();i++) {
 			QRect r = option.rect;
 			r.setSize(QSize(16,16));
 			r.translate(i*18+1,1);

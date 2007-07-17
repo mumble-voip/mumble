@@ -50,8 +50,8 @@ class MessageBoxEvent : public QEvent {
 };
 
 class MainWindow : public QMainWindow {
-	friend class PlayerModel;
-	Q_OBJECT
+		friend class PlayerModel;
+		Q_OBJECT
 	public:
 		PlayerModel *pmModel;
 		QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
@@ -87,7 +87,7 @@ class MainWindow : public QMainWindow {
 		void setupGui();
 		void customEvent(QEvent *evt);
 		virtual void closeEvent(QCloseEvent *e);
-		virtual void hideEvent (QHideEvent *e);
+		virtual void hideEvent(QHideEvent *e);
 	public slots:
 		void on_Players_customContextMenuRequested(const QPoint &pos);
 		void on_Players_doubleClicked(const QModelIndex &idx);

@@ -52,52 +52,52 @@ LoopPlayer::LoopPlayer() {
 }
 
 void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
-    if (DOUBLE_RAND < g.dPacketLoss)
-    	return;
+	if (DOUBLE_RAND < g.dPacketLoss)
+		return;
 
-    bool restart = (qtLastFetch.elapsed() > 100);
+	bool restart = (qtLastFetch.elapsed() > 100);
 
-    {
-	    QMutexLocker l(&qmLock);
+	{
+		QMutexLocker l(&qmLock);
 
-	    double time = qtTicker.elapsed();
+		double time = qtTicker.elapsed();
 
-	    double r;
-	    if (restart)
-	    	r = 0.0;
-	    else
-	    	r = DOUBLE_RAND * g.dMaxPacketDelay;
+		double r;
+		if (restart)
+			r = 0.0;
+		else
+			r = DOUBLE_RAND * g.dMaxPacketDelay;
 
-	    qmPackets.insert(time + r, Packet(seq, packet));
-    }
-
-    // Restart check
-    if (qtLastFetch.elapsed() > 100) {
-	AudioOutputPtr ao = g.ao;
-	if (ao) {
-	    ao->addFrameToBuffer(this, QByteArray(), 0);
+		qmPackets.insert(time + r, Packet(seq, packet));
 	}
-    }
+
+	// Restart check
+	if (qtLastFetch.elapsed() > 100) {
+		AudioOutputPtr ao = g.ao;
+		if (ao) {
+			ao->addFrameToBuffer(this, QByteArray(), 0);
+		}
+	}
 
 }
 
 void LoopPlayer::fetchFrames() {
-    QMutexLocker l(&qmLock);
+	QMutexLocker l(&qmLock);
 
-    AudioOutputPtr ao = g.ao;
-    if (!ao || qmPackets.isEmpty())
-    	return;
+	AudioOutputPtr ao = g.ao;
+	if (!ao || qmPackets.isEmpty())
+		return;
 
-    double cmp = qtTicker.elapsed();
+	double cmp = qtTicker.elapsed();
 
-    QMultiMap<double, Packet>::iterator i = qmPackets.begin();
+	QMultiMap<double, Packet>::iterator i = qmPackets.begin();
 
-    while(i != qmPackets.end()) {
-	if (i.key() > cmp)
-		break;
-	ao->addFrameToBuffer(this, i.value().second, i.value().first);
-	i = qmPackets.erase(i);
-    }
+	while (i != qmPackets.end()) {
+		if (i.key() > cmp)
+			break;
+		ao->addFrameToBuffer(this, i.value().second, i.value().first);
+		i = qmPackets.erase(i);
+	}
 
-    qtLastFetch.restart();
+	qtLastFetch.restart();
 }
