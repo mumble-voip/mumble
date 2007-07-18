@@ -29,9 +29,7 @@
 */
 
 #include "MainWindow.h"
-#ifdef Q_OS_WIN
 #include "AudioWizard.h"
-#endif
 #include "AudioInput.h"
 #include "ConnectDialog.h"
 #include "Player.h"
@@ -50,6 +48,7 @@
 #include "Overlay.h"
 #include "Global.h"
 #include "Database.h"
+#include "ViewCert.h"
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
@@ -71,8 +70,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
-
-//	ti = new TrayIcon(this);
 }
 
 void MainWindow::createActions() {
@@ -98,6 +95,11 @@ void MainWindow::createActions() {
 	qaServerBanList->setWhatsThis(tr("This lets you edit the server-side IP ban lists."));
 	qaServerBanList->setObjectName(QLatin1String("ServerBanList"));
 	qaServerBanList->setEnabled(false);
+	qaServerInformation=new QAction(tr("&Information"), this);
+	qaServerInformation->setToolTip(tr("Show information about the server connection"));
+	qaServerInformation->setWhatsThis(tr("This will show extended information about the connection to the server."));
+	qaServerInformation->setObjectName(QLatin1String("ServerInformation"));
+	qaServerInformation->setEnabled(false);
 
 	qaPlayerKick=new QAction(tr("&Kick"), this);
 	qaPlayerKick->setObjectName(QLatin1String("PlayerKick"));
@@ -193,12 +195,10 @@ void MainWindow::createActions() {
 	qaConfigDialog->setToolTip(tr("Configure Mumble"));
 	qaConfigDialog->setWhatsThis(tr("Allows you to change most settings for Mumble."));
 
-#ifdef Q_OS_WIN
 	qaAudioWizard=new QAction(tr("&Audio Wizard"), this);
 	qaAudioWizard->setObjectName(QLatin1String("AudioWizard"));
 	qaAudioWizard->setToolTip(tr("Start the audio configuration wizard"));
 	qaAudioWizard->setWhatsThis(tr("This will guide you through the process of configuring your audio hardware."));
-#endif
 
 	qaHelpWhatsThis = new QAction(tr("&What's This?"), this);
 	qaHelpWhatsThis->setObjectName(QLatin1String("HelpWhatsThis"));
@@ -264,6 +264,7 @@ void MainWindow::setupGui()  {
 	qmServer->addAction(qaServerConnect);
 	qmServer->addAction(qaServerDisconnect);
 	qmServer->addAction(qaServerBanList);
+	qmServer->addAction(qaServerInformation);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
 
@@ -482,6 +483,24 @@ void MainWindow::on_ServerBanList_triggered() {
 		banEdit->reject();
 		delete banEdit;
 		banEdit = NULL;
+	}
+}
+
+void MainWindow::on_ServerInformation_triggered() {
+
+	QSslCipher qsc = g.sh->qscCipher;
+
+	QMessageBox qmb(QMessageBox::Information, tr("Mumble"),
+		tr("Server connection ecrypted with %1 bits %2").arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
+
+	qmb.setDefaultButton(QMessageBox::Ok);
+	qmb.setEscapeButton(QMessageBox::Ok);
+
+	QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
+	int res = qmb.exec();
+	if ((res == 0) && (qmb.clickedButton() == qp)) {
+		ViewCert vc(g.sh->qscCert, this);
+		vc.exec();
 	}
 }
 
@@ -906,6 +925,11 @@ void MainWindow::pushLink(bool down) {
 	}
 }
 
+void MainWindow::viewCertificate(bool) {
+	ViewCert vc(g.sh->qscCert, this);
+	vc.exec();
+}
+
 void MainWindow::serverConnected() {
 	g.sId = 0;
 	g.l->clearIgnore();
@@ -913,6 +937,7 @@ void MainWindow::serverConnected() {
 	g.l->setIgnore(Log::OtherSelfMute);
 	g.l->log(Log::ServerConnected, tr("Connected to server."));
 	qaServerDisconnect->setEnabled(true);
+	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
 
 	if (g.s.bMute || g.s.bDeaf) {
@@ -926,6 +951,7 @@ void MainWindow::serverConnected() {
 void MainWindow::serverDisconnected(QString reason) {
 	g.sId = 0;
 	qaServerDisconnect->setEnabled(false);
+	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
 
 	QString uname, pw, host;
@@ -949,8 +975,8 @@ void MainWindow::serverDisconnected(QString reason) {
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
 		g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
-		if (! g.sh->qscCert.isNull()) {
-			QSslCertificate c = g.sh->qscCert;
+		if (! g.sh->qscCert.isEmpty()) {
+			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
 			if (! Database::getDigest(host, port).isNull()) {
 				basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
@@ -961,23 +987,28 @@ void MainWindow::serverDisconnected(QString reason) {
 			foreach(QSslError e, g.sh->qlErrors)
 			qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
 
-			QStringList det;
-			det << tr("<li><b>Common Name:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CommonName));
-			det << tr("<li><b>Organization:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::Organization));
-			det << tr("<li><b>Subunit:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::OrganizationalUnitName));
-			det << tr("<li><b>Country:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::CountryName));
-			det << tr("<li><b>Locality:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::LocalityName));
-			det << tr("<li><b>State:</b> %1</li>").arg(c.subjectInfo(QSslCertificate::StateOrProvinceName));
+			QMessageBox qmb(QMessageBox::Warning, tr("Mumble"),
+				tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
+					"<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
+				).arg(basereason).arg(qsl.join(QString())), QMessageBox::Yes | QMessageBox::No, this);
 
-			if (QMessageBox::warning(this, tr("Mumble"),
-			                         tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
-			                            "<p>The details for this certificate are as follows: %3</p>"
-			                            "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
-			                           ).arg(basereason).arg(qsl.join(QString())).arg(det.join(QString())), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
-				Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
-				qaServerDisconnect->setEnabled(true);
-				g.sh->start(QThread::TimeCriticalPriority);
+			qmb.setDefaultButton(QMessageBox::No);
+			qmb.setEscapeButton(QMessageBox::No);
 
+			QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
+			forever {
+				int res = qmb.exec();
+
+				if ((res == 0) && (qmb.clickedButton() == qp)) {
+					ViewCert vc(g.sh->qscCert, this);
+					vc.exec();
+					continue;
+				} else if (res == QMessageBox::Yes) {
+					Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+					qaServerDisconnect->setEnabled(true);
+					g.sh->start(QThread::TimeCriticalPriority);
+				}
+				break;
 			}
 		}
 	} else {

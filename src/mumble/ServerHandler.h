@@ -58,7 +58,8 @@ class ServerHandler : public QThread {
 
 	public:
 		QList<QSslError> qlErrors;
-		QSslCertificate qscCert;
+		QList<QSslCertificate> qscCert;
+		QSslCipher qscCipher;
 
 		ServerHandler();
 		~ServerHandler();

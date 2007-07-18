@@ -140,7 +140,7 @@ void ServerHandler::run() {
 	qusUdp = NULL;
 
 	qlErrors.clear();
-	qscCert = QSslCertificate();
+	qscCert.clear();
 
 	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
@@ -167,8 +167,8 @@ void ServerHandler::run() {
 }
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
-	qscCert = cConnection->peerCertificate();
-	if (QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, iPort))
+	qscCert = cConnection->peerCertificateChain();
+	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, iPort)))
 		cConnection->proceedAnyway();
 	else
 		qlErrors = errors;
@@ -231,6 +231,9 @@ void ServerHandler::serverConnectionClosed(QString reason) {
 }
 
 void ServerHandler::serverConnectionConnected() {
+	qscCert = cConnection->peerCertificateChain();
+	qscCipher = cConnection->sessionCipher();
+
 	AudioInputPtr ai = g.ai;
 	MessageServerAuthenticate msaMsg;
 	msaMsg.qsUsername = qsUserName;
