@@ -255,7 +255,7 @@ void ConnectDialog::initList() {
 
 	bPublicInit = true;
 
-	qhList->get(QString::fromLatin1("/list.cgi?version=%1").arg(MUMBLE_RELEASE));
+	qhList->get(QString::fromLatin1("/list.cgi?version=%1").arg(QLatin1String(MUMBLE_RELEASE)));
 }
 
 void ConnectDialog::fillList() {

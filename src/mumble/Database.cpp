@@ -86,7 +86,7 @@ Database::Database() {
 const QString Database::getDigest(const QString &hostname, unsigned short port) {
 	QSqlQuery query;
 
-	query.prepare("SELECT digest FROM cert WHERE hostname = ? AND port = ?");
+	query.prepare(QLatin1String("SELECT digest FROM cert WHERE hostname = ? AND port = ?"));
 	query.addBindValue(hostname);;
 	query.addBindValue(port);
 	query.exec();
@@ -98,7 +98,7 @@ const QString Database::getDigest(const QString &hostname, unsigned short port) 
 
 void Database::setDigest(const QString &hostname, unsigned short port, const QString &digest) {
 	QSqlQuery query;
-	query.prepare("REPLACE INTO cert (hostname,port,digest) VALUES (?,?,?)");
+	query.prepare(QLatin1String("REPLACE INTO cert (hostname,port,digest) VALUES (?,?,?)"));
 	query.addBindValue(hostname);
 	query.addBindValue(port);
 	query.addBindValue(digest);
