@@ -38,6 +38,6 @@ win32 {
 unix {
   SOURCES += DBus.cpp
   HEADERS += DBus_real.h
-  CONFIG += qdbus
-  LIBS += -lssl
+  CONFIG += qdbus link_pkgconfig
+  PKGCONFIG += openssl
 }
