@@ -250,9 +250,17 @@ int ServerDB::authenticate(QString &name, const QString &pw) {
 	if (query.next()) {
 		res = -1;
 		QString storedpw = query.value(2).toString();
-		if (! storedpw.isEmpty() && (storedpw == pw)) {
-			name = query.value(1).toString();
-			res = query.value(0).toInt();
+		if (! storedpw.isEmpty()) {
+			QCryptographicHash hash(QCryptographicHash::Sha1);
+			hash.addData(pw.toUtf8());
+			if (storedpw == QString::fromLatin1(hash.result().toHex())) {
+				name = query.value(1).toString();
+				res = query.value(0).toInt();
+			} else if (storedpw == pw) {
+				name = query.value(1).toString();
+				res = query.value(0).toInt();
+				setPW(res, pw);
+			}
 		}
 	}
 	return res;
@@ -261,9 +269,13 @@ int ServerDB::authenticate(QString &name, const QString &pw) {
 void ServerDB::setPW(int id, const QString &pw) {
 	TransactionHolder th;
 
+	QCryptographicHash hash(QCryptographicHash::Sha1);
+	
+	hash.addData(pw.toUtf8());
+
 	QSqlQuery query;
 	query.prepare("UPDATE players SET pw=? WHERE player_id=?");
-	query.addBindValue(pw);
+	query.addBindValue(QString::fromLatin1(hash.result().toHex()));
 	query.addBindValue(id);
 	query.exec();
 }
