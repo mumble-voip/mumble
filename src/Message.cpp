@@ -173,9 +173,6 @@ void Message::saveStream(PacketDataStream &) const {
 void Message::restoreStream(PacketDataStream &) {
 }
 
-MessagePing::MessagePing() {
-}
-
 void MessagePing::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << uiTimestamp;
 }
@@ -204,9 +201,6 @@ void MessageServerAuthenticate::restoreStream(PacketDataStream &qdsIn) {
 }
 
 
-MessageServerReject::MessageServerReject() {
-}
-
 void MessageServerReject::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsReason;
 	qdsOut << static_cast<int>(rtType);
@@ -219,9 +213,6 @@ void MessageServerReject::restoreStream(PacketDataStream &qdsIn) {
 	rtType = static_cast<RejectType>(v);
 }
 
-MessageServerSync::MessageServerSync() {
-}
-
 void MessageServerSync::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iMaxBandwidth;
 	qdsOut << qsWelcomeText;
@@ -230,9 +221,6 @@ void MessageServerSync::saveStream(PacketDataStream &qdsOut) const {
 void MessageServerSync::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iMaxBandwidth;
 	qdsIn >> qsWelcomeText;
-}
-
-MessageServerJoin::MessageServerJoin() {
 }
 
 void MessageServerJoin::saveStream(PacketDataStream &qdsOut) const {
@@ -245,10 +233,6 @@ void MessageServerJoin::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 }
 
-MessageServerBanList::MessageServerBanList() {
-	bQuery = true;
-}
-
 void MessageServerBanList::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << bQuery;
 	qdsOut << qlBans;
@@ -259,18 +243,12 @@ void MessageServerBanList::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qlBans;
 }
 
-MessagePermissionDenied::MessagePermissionDenied() {
-}
-
 void MessagePermissionDenied::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsReason;
 }
 
 void MessagePermissionDenied::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsReason;
-}
-
-MessageSpeex::MessageSpeex() {
 }
 
 void MessageSpeex::saveStream(PacketDataStream &qdsOut) const {
@@ -287,9 +265,6 @@ bool MessageSpeex::isValid() const {
 	return ! qbaSpeexPacket.isEmpty();
 }
 
-MessagePlayerMute::MessagePlayerMute() {
-}
-
 void MessagePlayerMute::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << uiVictim;
 	qdsOut << bMute;
@@ -298,10 +273,6 @@ void MessagePlayerMute::saveStream(PacketDataStream &qdsOut) const {
 void MessagePlayerMute::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> uiVictim;
 	qdsIn >> bMute;
-}
-
-
-MessagePlayerDeaf::MessagePlayerDeaf() {
 }
 
 void MessagePlayerDeaf::saveStream(PacketDataStream &qdsOut) const {
@@ -314,9 +285,6 @@ void MessagePlayerDeaf::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> bDeaf;
 }
 
-MessagePlayerKick::MessagePlayerKick() {
-}
-
 void MessagePlayerKick::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << uiVictim;
 	qdsOut << qsReason;
@@ -325,9 +293,6 @@ void MessagePlayerKick::saveStream(PacketDataStream &qdsOut) const {
 void MessagePlayerKick::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> uiVictim;
 	qdsIn >> qsReason;
-}
-
-MessagePlayerBan::MessagePlayerBan() {
 }
 
 void MessagePlayerBan::saveStream(PacketDataStream &qdsOut) const {
@@ -340,9 +305,6 @@ void MessagePlayerBan::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsReason;
 }
 
-MessagePlayerMove::MessagePlayerMove() {
-}
-
 void MessagePlayerMove::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << uiVictim;
 	qdsOut << iChannelId;
@@ -353,18 +315,12 @@ void MessagePlayerMove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iChannelId;
 }
 
-MessagePlayerRename::MessagePlayerRename() {
-}
-
 void MessagePlayerRename::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qsName;
 }
 
 void MessagePlayerRename::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsName;
-}
-
-MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
 }
 
 void MessagePlayerSelfMuteDeaf::saveStream(PacketDataStream &qdsOut) const {
@@ -375,9 +331,6 @@ void MessagePlayerSelfMuteDeaf::saveStream(PacketDataStream &qdsOut) const {
 void MessagePlayerSelfMuteDeaf::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> bMute;
 	qdsIn >> bDeaf;
-}
-
-MessageChannelAdd::MessageChannelAdd() {
 }
 
 void MessageChannelAdd::saveStream(PacketDataStream &qdsOut) const {
@@ -392,18 +345,12 @@ void MessageChannelAdd::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qsName;
 }
 
-MessageChannelRemove::MessageChannelRemove() {
-}
-
 void MessageChannelRemove::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iId;
 }
 
 void MessageChannelRemove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
-}
-
-MessageChannelLink::MessageChannelLink() {
 }
 
 void MessageChannelLink::saveStream(PacketDataStream &qdsOut) const {
@@ -420,9 +367,6 @@ void MessageChannelLink::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> qlTargets;
 }
 
-MessageChannelMove::MessageChannelMove() {
-}
-
 void MessageChannelMove::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iId;
 	qdsOut << iParent;
@@ -433,9 +377,6 @@ void MessageChannelMove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iParent;
 }
 
-MessageTextMessage::MessageTextMessage() {
-}
-
 void MessageTextMessage::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << uiVictim;
 	qdsOut << qsMessage;
@@ -444,9 +385,6 @@ void MessageTextMessage::saveStream(PacketDataStream &qdsOut) const {
 void MessageTextMessage::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> uiVictim;
 	qdsIn >> qsMessage;
-}
-
-MessageEditACL::MessageEditACL() {
 }
 
 void MessageEditACL::saveStream(PacketDataStream &qdsOut) const {
@@ -471,9 +409,6 @@ void MessageEditACL::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> acls;
 }
 
-MessageQueryUsers::MessageQueryUsers() {
-}
-
 void MessageQueryUsers::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << qlIds;
 	qdsOut << qlNames;
@@ -494,9 +429,6 @@ bool MessageQueryUsers::isValid() const {
 			return false;
 	}
 	return true;
-}
-
-MessageTexture::MessageTexture() {
 }
 
 void MessageTexture::saveStream(PacketDataStream &qdsOut) const {

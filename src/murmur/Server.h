@@ -100,14 +100,12 @@ class Server : public QObject {
 	protected:
 		QQueue<int> qqIds;
 		SslServer *qtsServer;
-		QTimer *qtTimer;
 		QTimer *qtTimeout;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
 		void sslError(const QList<QSslError> &);
 		void message(QByteArray &, Connection *cCon = NULL);
-		void checkCommands();
 		void checkTimeout();
 		void tcpTransmit(QByteArray, unsigned int);
 	public:
@@ -141,7 +139,6 @@ class Server : public QObject {
 
 struct ServerParams {
 	int iPort;
-	int iCommandFrequency;
 	int iTimeout;
 	int iMaxBandwidth;
 	int iMaxUsers;

@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture };
+		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture };
 		unsigned int uiSession;
 
 		Message();
@@ -67,7 +67,6 @@ class MessageSpeex : public Message {
 		unsigned int iSeq;
 		// Flags is in first byte of packet.
 		QByteArray qbaSpeexPacket;
-		MessageSpeex();
 		Message::MessageType messageType() const {
 			return Speex;
 		};
@@ -97,7 +96,6 @@ class MessagePing : public Message {
 		void restoreStream(PacketDataStream &);
 	public:
 		quint64 uiTimestamp;
-		MessagePing();
 		Message::MessageType messageType() const {
 			return Ping;
 		};
@@ -112,7 +110,6 @@ class MessageServerReject : public Message {
 		enum RejectType { None, WrongVersion, InvalidUsername, WrongUserPW, WrongServerPW, UsernameInUse, BandwidthExceeded, ServerFull };
 		QString qsReason;
 		RejectType rtType;
-		MessageServerReject();
 		Message::MessageType messageType() const {
 			return ServerReject;
 		};
@@ -126,7 +123,6 @@ class MessageServerSync : public Message {
 	public:
 		int iMaxBandwidth;
 		QString qsWelcomeText;
-		MessageServerSync();
 		Message::MessageType messageType() const {
 			return ServerSync;
 		};
@@ -140,7 +136,6 @@ class MessageServerJoin : public Message {
 	public:
 		QString qsPlayerName;
 		int iId;
-		MessageServerJoin();
 		Message::MessageType messageType() const {
 			return ServerJoin;
 		};
@@ -162,7 +157,6 @@ class MessagePlayerMute : public Message {
 	public:
 		unsigned int uiVictim;
 		bool bMute;
-		MessagePlayerMute();
 		Message::MessageType messageType() const {
 			return PlayerMute;
 		};
@@ -176,7 +170,6 @@ class MessagePlayerDeaf : public Message {
 	public:
 		unsigned int uiVictim;
 		bool bDeaf;
-		MessagePlayerDeaf();
 		Message::MessageType messageType() const {
 			return PlayerDeaf;
 		};
@@ -190,7 +183,6 @@ class MessagePlayerSelfMuteDeaf : public Message {
 	public:
 		bool bMute;
 		bool bDeaf;
-		MessagePlayerSelfMuteDeaf();
 		Message::MessageType messageType() const {
 			return PlayerSelfMuteDeaf;
 		};
@@ -204,7 +196,6 @@ class MessagePlayerKick : public Message {
 	public:
 		unsigned int  uiVictim;
 		QString qsReason;
-		MessagePlayerKick();
 		Message::MessageType messageType() const {
 			return PlayerKick;
 		};
@@ -218,7 +209,6 @@ class MessagePlayerBan : public Message {
 	public:
 		unsigned int  uiVictim;
 		QString qsReason;
-		MessagePlayerBan();
 		Message::MessageType messageType() const {
 			return PlayerBan;
 		};
@@ -232,7 +222,6 @@ class MessagePlayerMove : public Message {
 	public:
 		unsigned int  uiVictim;
 		int iChannelId;
-		MessagePlayerMove();
 		Message::MessageType messageType() const {
 			return PlayerMove;
 		};
@@ -245,7 +234,6 @@ class MessagePlayerRename : public Message {
 		void restoreStream(PacketDataStream &);
 	public:
 		QString qsName;
-		MessagePlayerRename();
 		Message::MessageType messageType() const {
 			return PlayerRename;
 		};
@@ -260,7 +248,6 @@ class MessageChannelAdd : public Message {
 		int iId;
 		int iParent;
 		QString qsName;
-		MessageChannelAdd();
 		Message::MessageType messageType() const {
 			return ChannelAdd;
 		};
@@ -273,7 +260,6 @@ class MessageChannelRemove : public Message {
 		void restoreStream(PacketDataStream &);
 	public:
 		int iId;
-		MessageChannelRemove();
 		Message::MessageType messageType() const {
 			return ChannelRemove;
 		};
@@ -287,7 +273,6 @@ class MessageChannelMove : public Message {
 	public:
 		int iId;
 		int iParent;
-		MessageChannelMove();
 		Message::MessageType messageType() const {
 			return ChannelMove;
 		};
@@ -305,7 +290,6 @@ class MessageChannelLink : public Message {
 		int iId;
 		LinkType ltType;
 		QList<int> qlTargets;
-		MessageChannelLink();
 		Message::MessageType messageType() const {
 			return ChannelLink;
 		};
@@ -319,7 +303,6 @@ class MessageServerBanList : public Message {
 	public:
 		bool bQuery;
 		QList<QPair<quint32, int> > qlBans;
-		MessageServerBanList();
 		Message::MessageType messageType() const {
 			return ServerBanList;
 		};
@@ -333,7 +316,6 @@ class MessageTextMessage : public Message {
 	public:
 		unsigned int  uiVictim;
 		QString qsMessage;
-		MessageTextMessage();
 		Message::MessageType messageType() const {
 			return TextMessage;
 		};
@@ -346,7 +328,6 @@ class MessagePermissionDenied : public Message {
 		void restoreStream(PacketDataStream &);
 	public:
 		QString qsReason;
-		MessagePermissionDenied();
 		Message::MessageType messageType() const {
 			return PermissionDenied;
 		};
@@ -383,7 +364,6 @@ class MessageEditACL : public Message {
 		bool bInheritACL;
 		QList<GroupStruct> groups;
 		QList<ACLStruct> acls;
-		MessageEditACL();
 		Message::MessageType messageType() const {
 			return EditACL;
 		};
@@ -402,7 +382,6 @@ class MessageQueryUsers : public Message {
 	public:
 		QList<int> qlIds;
 		QList<QString> qlNames;
-		MessageQueryUsers();
 		Message::MessageType messageType() const {
 			return QueryUsers;
 		};
@@ -417,7 +396,6 @@ class MessageTexture : public Message {
 	public:
 		int iPlayerId;
 		QByteArray qbaTexture;
-		MessageTexture();
 		Message::MessageType messageType() const {
 			return PlayerTexture;
 		}

@@ -80,7 +80,6 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 ServerParams::ServerParams() {
 	qsPassword = QString();
 	iPort = 64738;
-	iCommandFrequency = 0;
 	iTimeout = 30;
 	iMaxBandwidth = 10000;
 	iMaxUsers = 1000;
@@ -105,7 +104,6 @@ void ServerParams::read(QString fname) {
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
 	iPort = qs.value("port", iPort).toInt();
-	iCommandFrequency = qs.value("commandtime", iCommandFrequency).toInt();
 	iTimeout = qs.value("timeout", iTimeout).toInt();
 	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = qs.value("users", iMaxUsers).toInt();
@@ -325,11 +323,6 @@ Server::Server(QObject *p) : QObject(p) {
 
 	for (int i=1;i<2000;i++)
 		qqIds.enqueue(i);
-
-	qtTimer = new QTimer(this);
-	connect(qtTimer, SIGNAL(timeout()), this, SLOT(checkCommands()));
-	if (g_sp.iCommandFrequency > 0)
-		qtTimer->start(g_sp.iCommandFrequency * 1000);
 
 	qtTimeout = new QTimer(this);
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
@@ -594,75 +587,6 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 	}
 }
 
-void Server::checkCommands() {
-	static bool warned = false;
-	QList<ServerDB::qpCommand> cmdlist=ServerDB::getCommands();
-	if (cmdlist.count() == 0)
-		return;
-	foreach(ServerDB::qpCommand cmd, cmdlist) {
-		if (! warned) {
-			log(QLatin1String("The commands table is deprecated and will be removed in a later release. Please migrate to DBus."), NULL);
-			warned = true;
-		}
-		QString cmdname = cmd.first;
-		QList<QVariant> argv = cmd.second;
-		if (cmdname == "moveplayer") {
-			Player *p = Player::get(argv[0].toInt());
-			Channel *c = Channel::get(argv[1].toInt());
-
-			if (! p || ! c)
-				continue;
-			playerEnterChannel(p, c);
-			MessagePlayerMove mpm;
-			mpm.uiSession = 0;
-			mpm.uiVictim = p->uiSession;
-			mpm.iChannelId = c->iId;
-			sendAll(&mpm);
-		} else if (cmdname == "rename") {
-			Player *p = Player::get(argv[0].toInt());
-			QString name = argv[1].toString();
-
-			if (! p || name.isEmpty())
-				continue;
-			MessagePlayerRename mpr;
-			mpr.uiSession = p->uiSession;
-			mpr.qsName = name;
-			sendAll(&mpr);
-		} else if (cmdname == "createchannel") {
-			Channel *p = Channel::get(argv[0].toInt());
-			QString name = argv[1].toString();
-
-			if (! p || name.isEmpty())
-				continue;
-
-			Channel *c = ServerDB::addChannel(p, name);
-			ServerDB::updateChannel(c);
-
-			MessageChannelAdd mca;
-			mca.uiSession = 0;
-			mca.qsName = name;
-			mca.iParent = p->iId;
-			mca.iId = c->iId;
-			g_sServer->sendAll(&mca);
-		} else if (cmdname == "setgroup") {
-			Channel *c = Channel::get(argv[0].toInt());
-			QString name = argv[1].toString();
-			QStringList list = argv[2].toString().split(QRegExp("\\D+"), QString::SkipEmptyParts);
-			QList<int> mems;
-			foreach(QString m, list) {
-				mems.append(m.toInt());
-			}
-			Group *g = c->qhGroups.value(name);
-			if (g)
-				delete g;
-			g = new Group(c, name);
-			g->qsAdd = mems.toSet();
-		} else if (cmdname == "quit") {
-			QCoreApplication::instance()->quit();
-		}
-	}
-}
-
 #define MSG_SETUP(st) \
 	Player *pSrcPlayer = g_sServer->qmPlayers[cCon]; \
 	MessagePermissionDenied mpd; \
@@ -709,7 +633,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	pSrcPlayer->qsName = qsUsername;
 
 	if (iVersion != MESSAGE_STREAM_VERSION) {
-		msr.qsReason = "Wrong version of mumble protocol";
+		msr.qsReason = QString("Wrong version of mumble protocol (client: %1, server: %2)").arg(iVersion).arg(MESSAGE_STREAM_VERSION);
 		msr.rtType = MessageServerReject::WrongVersion;
 	} else if (! nameok) {
 		msr.qsReason = "Invalid Username";
@@ -905,6 +829,10 @@ void MessagePermissionDenied::process(Connection *cCon) {
 }
 
 void MessagePlayerRename::process(Connection *cCon) {
+	cCon->disconnect();
+}
+
+void MessageProtocolMismatch::process(Connection *cCon) {
 	cCon->disconnect();
 }
 
