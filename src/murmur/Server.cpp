@@ -832,10 +832,6 @@ void MessagePlayerRename::process(Connection *cCon) {
 	cCon->disconnect();
 }
 
-void MessageProtocolMismatch::process(Connection *cCon) {
-	cCon->disconnect();
-}
-
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
 	uiSession = pSrcPlayer->uiSession;
