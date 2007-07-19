@@ -747,7 +747,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 
 	bool isChannel;
 	int iId = -1;
-	short uiSession = -1;
+	unsigned int uiSession = 0;
 	ds >> isChannel;
 
 	if (isChannel)

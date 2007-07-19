@@ -126,24 +126,30 @@ void Connection::sendMessage(const Message *mMsg) {
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	unsigned char a_ucBuffer[3];
+	unsigned char a_ucBuffer[3 + qbaMsg.size()];
 
 	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
 		return;
 
-	if (qbaMsg.size() > 0xffff) {
+	if (! qtsSocket->isEncrypted())
+		return;
+
+	if (qbaMsg.size() > 0xfffff) {
 		qFatal("Connection: Oversized message (%d bytes)", qbaMsg.size());
 	}
 
 	a_ucBuffer[0]=(qbaMsg.size() >> 16) & 0xff;
 	a_ucBuffer[1]=(qbaMsg.size() >> 8) & 0xff;
 	a_ucBuffer[2]=(qbaMsg.size() & 0xff);
-	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 3);
-	qtsSocket->write(qbaMsg);
+	memcpy(a_ucBuffer + 3, qbaMsg.constData(), qbaMsg.size());
+	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 3 + qbaMsg.size());
 }
 
 void Connection::forceFlush() {
 	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
+		return;
+
+	if (! qtsSocket->isEncrypted())
 		return;
 
 	int nodelay;

@@ -125,10 +125,10 @@ void ServerHandler::udpReady() {
 }
 
 void ServerHandler::sendMessage(Message *mMsg, bool forceTCP) {
-	bool mayUdp = !forceTCP && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping));
+	bool mayUdp = (mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping);
 	mMsg->uiSession = g.uiSession;
 
-	if (mayUdp && ! g.s.bTCPCompat) {
+	if (! forceTCP && mayUdp && ! g.s.bTCPCompat) {
 		QMutexLocker qml(&qmUdp);
 		if (! qusUdp)
 			return;
@@ -192,8 +192,10 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 void ServerHandler::sendPing() {
 	MessagePing mp;
 	mp.uiTimestamp = tTimestamp.elapsed();
+
 	sendMessage(&mp, true);
-	sendMessage(&mp, false);
+	if (! g.s.bTCPCompat)
+		sendMessage(&mp, false);
 }
 
 void ServerHandler::message(QByteArray &qbaMsg) {
