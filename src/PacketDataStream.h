@@ -199,7 +199,7 @@ class PacketDataStream {
 						break;
 					default:
 						ok = false;
-						v = 0;
+						i = 0;
 						return *this;
 				}
 			}
