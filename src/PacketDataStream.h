@@ -78,7 +78,7 @@ class PacketDataStream {
 				ok = false;
 		}
 
-		quint32 next() {
+		quint64 next() {
 			if (offset < maxsize)
 				return data[offset++];
 			else {
@@ -134,7 +134,14 @@ class PacketDataStream {
 			setup(d, msize);
 		};
 
-		PacketDataStream &operator <<(const quint32 i) {
+		PacketDataStream &operator <<(const quint64 value) {
+			quint64 i = value;
+
+			if ((i & 0x8000000000000000LL) && (~i < 0x100000000LL)) {
+				// Sign shortcut
+				append(0xF8);
+				i = ~i;
+			}
 			if (i < 0x80) {
 				// Need top bit clear
 				append(i);
@@ -153,8 +160,20 @@ class PacketDataStream {
 				append((i >> 16) & 0xFF);
 				append((i >> 8) & 0xFF);
 				append(i & 0xFF);
-			} else {
+			} else if (i < 0x100000000LL) {
+				// It's a full 32-bit integer.
 				append(0xF0);
+				append((i >> 24) & 0xFF);
+				append((i >> 16) & 0xFF);
+				append((i >> 8) & 0xFF);
+				append(i & 0xFF);
+			} else {
+				// It's a 64-bit value.
+				append(0xF4);
+				append((i >> 56) & 0xFF);
+				append((i >> 48) & 0xFF);
+				append((i >> 40) & 0xFF);
+				append((i >> 32) & 0xFF);
 				append((i >> 24) & 0xFF);
 				append((i >> 16) & 0xFF);
 				append((i >> 8) & 0xFF);
@@ -163,11 +182,27 @@ class PacketDataStream {
 			return *this;
 		}
 
-		PacketDataStream &operator >>(quint32 &i) {
+		PacketDataStream &operator >>(quint64 &i) {
 			quint32 v = next();
+			bool invert = false;
 			if ((v & 0xF0) == 0xF0) {
-				i=next() << 24 | next() << 16 | next() << 8 | next();
-			} else if ((v & 0xF0) == 0xE0) {
+				switch (v) {
+					case 0xF0:
+						i=next() << 24 | next() << 16 | next() << 8 | next();
+						return *this;
+					case 0xF4:
+						i=next() << 56 | next() << 48 | next() << 40 | next() << 32 | next() << 24 | next() << 16 | next() << 8 | next();
+						return *this;
+					case 0xF8:
+						invert = true;
+						v = next();
+						break;
+					default:
+						ok = false;
+						return *this;
+				}
+			}
+			if ((v & 0xF0) == 0xE0) {
 				i=(v & 0x0F) << 24 | next() << 16 | next() << 8 | next();
 			} else if ((v & 0xE0) == 0xC0) {
 				i=(v & 0x1F) << 16 | next() << 8 | next();
@@ -176,6 +211,8 @@ class PacketDataStream {
 			} else {
 				i=(v & 0x7F);
 			}
+			if (invert)
+				i = ~i;
 			return *this;
 		}
 
@@ -228,10 +265,10 @@ class PacketDataStream {
 
 #define INTMAPOPERATOR(type) \
 		PacketDataStream &operator <<(const type v) { \
-			return *this << static_cast<quint32>(v); \
+			return *this << static_cast<quint64>(v); \
 		} \
 		PacketDataStream &operator >>(type &v) { \
-			quint32 vv; \
+			quint64 vv; \
 			*this >> vv; \
 			v = static_cast<type>(vv); \
 			return *this; \
@@ -239,9 +276,7 @@ class PacketDataStream {
 
 
 		INTMAPOPERATOR(int);
-//		Oh, how horribly this bugs
-//		INTMAPOPERATOR(unsigned int);
-
+		INTMAPOPERATOR(unsigned int);
 		INTMAPOPERATOR(short);
 		INTMAPOPERATOR(unsigned short);
 		INTMAPOPERATOR(char);
