@@ -37,15 +37,18 @@
 #include "Connection.h"
 #include "Global.h"
 #include "Database.h"
+#include "PacketDataStream.h"
 
-ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool udp) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
+ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
-	bUdp = udp;
+	bFlush = flush;
 }
 
 ServerHandler::ServerHandler() {
 	cConnection = NULL;
 	qusUdp = NULL;
+
+	uiTCPPing = uiUDPPing = 0LL;
 
 	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
 	qWarning("OpenSSL Support: %d", QSslSocket::supportsSsl());
@@ -73,74 +76,83 @@ void ServerHandler::customEvent(QEvent *evt) {
 
 	if (cConnection) {
 		if (shme->qbaMsg.size() > 0) {
-			if (shme->bUdp && ! g.s.bTCPCompat) {
-				if (! qusUdp) {
-					if (cConnection->peerAddress().isNull())
-						return;
-					qusUdp = new QUdpSocket(this);
-					qusUdp->bind();
-					connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
-#ifdef Q_OS_WIN
-					int tos = 0xb8;
-					if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos)) != 0) {
-						tos = 0x98;
-						setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos));
-					}
-#endif
-					qhaRemote = cConnection->peerAddress();
-				}
-				qusUdp->writeDatagram(shme->qbaMsg, qhaRemote, iPort);
-			} else {
-				cConnection->sendMessage(shme->qbaMsg);
-				if (shme->bUdp)
-					cConnection->forceFlush();
-			}
-		} else
+			cConnection->sendMessage(shme->qbaMsg);
+			if (shme->bFlush)
+				cConnection->forceFlush();
+		} else {
 			cConnection->disconnect();
+		}
 	}
 }
 
 void ServerHandler::udpReady() {
 	while (qusUdp->hasPendingDatagrams()) {
-		QByteArray qba;
-		qba.resize(qusUdp->pendingDatagramSize());
+		char buffer[65536];
+		quint32 buflen = qusUdp->pendingDatagramSize();
 		QHostAddress senderAddr;
 		quint16 senderPort;
-		qusUdp->readDatagram(qba.data(), qba.size(), &senderAddr, &senderPort);
+		qusUdp->readDatagram(buffer, qMin(65536U, buflen), &senderAddr, &senderPort);
 
 		if (!(senderAddr == qhaRemote) || (senderPort != iPort))
 			continue;
 
-		Message *msg = Message::networkToMessage(qba);
+		PacketDataStream pds(buffer, buflen);
 
-		if (! msg)
-			continue;
-		if ((msg->messageType() != Message::Speex)) {
-			delete msg;
-			continue;
+		quint32 msgType, sPlayerId;
+		pds >> msgType >> sPlayerId;
+
+		if (msgType == Message::Ping) {
+			quint64 t;
+			pds >> t;
+			uiUDPPing = tTimestamp.elapsed() - t;
+		} else if (msgType == Message::Speex) {
+			Player *p = Player::get(sPlayerId);
+			AudioOutputPtr ao = g.ao;
+			if (ao) {
+				if (p) {
+					if (! p->bLocalMute) {
+						unsigned int iSeq;
+						pds >> iSeq;
+						QByteArray qbaSpeexPacket(pds.dataBlock(pds.left()));
+						ao->addFrameToBuffer(p, qbaSpeexPacket, iSeq);
+					}
+				} else {
+					ao->removeBuffer(p);
+				}
+			}
 		}
-		message(qba);
-		delete msg;
 	}
 }
 
 void ServerHandler::sendMessage(Message *mMsg, bool forceTCP) {
-	QByteArray qbaBuffer;
+	bool mayUdp = !forceTCP && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping));
 	mMsg->sPlayerId = g.sId;
-	mMsg->messageToNetwork(qbaBuffer);
-	bool mayUdp = !forceTCP && g.sId && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping));
 
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
-	QApplication::postEvent(this, shme);
+	if (mayUdp && ! g.s.bTCPCompat) {
+		QMutexLocker qml(&qmUdp);
+		if (! qusUdp)
+			return;
+		char buffer[65536];
+		PacketDataStream pds(buffer, 65536);
+		mMsg->messageToNetwork(pds);
+		qusUdp->writeDatagram(buffer, pds.size(), qhaRemote, iPort);
+	} else {
+		QByteArray qbaBuffer;
+		mMsg->messageToNetwork(qbaBuffer);
+
+		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
+		QApplication::postEvent(this, shme);
+	}
 }
 
 void ServerHandler::run() {
 	QSslSocket *qtsSock = new QSslSocket(this);
 	cConnection = new Connection(this, qtsSock);
-	qusUdp = NULL;
 
 	qlErrors.clear();
 	qscCert.clear();
+
+	uiUDPPing = uiTCPPing = 0LL;
 
 	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection, SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
@@ -150,7 +162,7 @@ void ServerHandler::run() {
 
 	QTimer *ticker = new QTimer(this);
 	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
-	ticker->start(10000);
+	ticker->start(5000);
 
 	g.mw->rtLast = MessageServerReject::None;
 
@@ -160,7 +172,10 @@ void ServerHandler::run() {
 	cConnection->disconnect();
 	delete cConnection;
 	cConnection = NULL;
+
 	if (qusUdp) {
+		QMutexLocker qml(&qmUdp);
+
 		delete qusUdp;
 		qusUdp = NULL;
 	}
@@ -176,6 +191,7 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 
 void ServerHandler::sendPing() {
 	MessagePing mp;
+	mp.uiTimestamp = tTimestamp.elapsed();
 	sendMessage(&mp, true);
 	sendMessage(&mp, false);
 }
@@ -186,7 +202,6 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 		return;
 
 	Player *p = Player::get(mMsg->sPlayerId);
-
 	AudioOutputPtr ao = g.ao;
 
 	if (mMsg->messageType() == Message::Speex) {
@@ -203,6 +218,9 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 				ao->removeBuffer(p);
 			}
 		}
+	} else if (mMsg->messageType() == Message::Ping) {
+		MessagePing *mpMsg = static_cast<MessagePing *>(mMsg);
+		uiTCPPing = tTimestamp.elapsed() - mpMsg->uiTimestamp;
 	} else {
 		if (mMsg->messageType() == Message::ServerLeave) {
 			if (ao)
@@ -244,6 +262,23 @@ void ServerHandler::serverConnectionConnected() {
 		msaMsg.iMaxBandwidth = 0;
 
 	cConnection->sendMessage(&msaMsg);
+
+	{
+		QMutexLocker qml(&qmUdp);
+
+		qusUdp = new QUdpSocket(this);
+		qusUdp->bind();
+		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
+#ifdef Q_OS_WIN
+		int tos = 0xb8;
+		if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos)) != 0) {
+			tos = 0x98;
+			setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos));
+		}
+#endif
+		qhaRemote = cConnection->peerAddress();
+	}
+
 	emit connected();
 }
 

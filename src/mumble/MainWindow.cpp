@@ -490,8 +490,10 @@ void MainWindow::on_ServerInformation_triggered() {
 
 	QSslCipher qsc = g.sh->qscCipher;
 
-	QMessageBox qmb(QMessageBox::Information, tr("Mumble"),
-		tr("Server connection ecrypted with %1 bits %2").arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
+	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"),
+		tr("Control channel: %1 ms latency, Encrypted with %3 bit %4<br />"
+		   "Voice channel: %2 ms latency, Unencrypted"
+		).arg(g.sh->uiTCPPing / 1000.0, 0, 'f', 2).arg(g.sh->uiUDPPing / 1000.0, 0, 'f', 2).arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
 
 	qmb.setDefaultButton(QMessageBox::Ok);
 	qmb.setEscapeButton(QMessageBox::Ok);

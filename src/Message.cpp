@@ -57,6 +57,10 @@ void Message::messageToNetwork(PacketDataStream &pds) const {
 
 Message *Message::networkToMessage(QByteArray &qbaIn) {
 	PacketDataStream qdsIn(qbaIn.constData(), qbaIn.size());
+	return networkToMessage(qdsIn);
+}
+
+Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 	Message *mMsg = NULL;
 	unsigned char iMessageType;
 	short sPlayerId;
@@ -148,7 +152,7 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 		} else if (qdsIn.left() != 0) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Long packet", iMessageType, sPlayerId);
+			qWarning("Message: %d[%d] Long packet: %d leftover bytes", iMessageType, sPlayerId, qdsIn.left());
 		} else if (! mMsg->isValid()) {
 			delete mMsg;
 			mMsg = NULL;

@@ -33,14 +33,16 @@
 
 #define SERVERSEND_EVENT 3501
 
+#include "Timer.h"
+
 class Connection;
 class Message;
 
 class ServerHandlerMessageEvent : public QEvent {
 	public:
 		QByteArray qbaMsg;
-		bool bUdp;
-		ServerHandlerMessageEvent(QByteArray &msg, bool udp);
+		bool bFlush;
+		ServerHandlerMessageEvent(QByteArray &msg, bool flush);
 };
 
 class ServerHandler : public QThread {
@@ -55,11 +57,14 @@ class ServerHandler : public QThread {
 
 		QHostAddress qhaRemote;
 		QUdpSocket *qusUdp;
-
+		QMutex qmUdp;
+		Timer tTimestamp;
 	public:
 		QList<QSslError> qlErrors;
 		QList<QSslCertificate> qscCert;
 		QSslCipher qscCipher;
+
+		quint64 uiUDPPing, uiTCPPing;
 
 		ServerHandler();
 		~ServerHandler();

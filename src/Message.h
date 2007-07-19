@@ -55,6 +55,7 @@ class Message {
 		void messageToNetwork(QByteArray &) const;
 		void messageToNetwork(PacketDataStream &) const;
 		static Message *networkToMessage(QByteArray &);
+		static Message *networkToMessage(PacketDataStream &);
 };
 
 class MessageSpeex : public Message {
