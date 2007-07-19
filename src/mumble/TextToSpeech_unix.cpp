@@ -54,7 +54,7 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 void TextToSpeechPrivate::say(QString text) {
 	QTextDocument td;
 	td.setHtml(text);
-	qpFestival.write(QString::fromLatin1("(SayText \"%1\")").arg(td.toPlainText().replace(QLatin1String("\""),QLatin1String("\\\""))).toUtf8());
+	qpFestival.write(QString::fromLatin1("(SayText \"%1\")").arg(td.toPlainText().replace(QLatin1String("\""),QLatin1String("\\\""))).toLatin1());
 }
 
 void TextToSpeechPrivate::setVolume(int) {
