@@ -47,12 +47,17 @@ quint64 Timer::restart() {
 
 #if defined(Q_OS_WIN)
 quint64 Timer::now() {
-	LARGE_INTEGER li, freq;
-	QueryPerformanceCounter(&li);
-	QueryPerformanceFrequency(&freq);
+	static quint64 f = 0LL;
 
+	if (f == 0LL) {
+		LARGE_INTEGER freq;
+		QueryPerformanceFrequency(&freq);
+		f = freq.QuadPart;
+	}
+
+	LARGE_INTEGER li;
+	QueryPerformanceCounter(&li);
 	quint64 e = li.QuadPart;
-	quint64 f = freq.QuadPart;
 
 	return (e * 1000000LL) / f;
 }
