@@ -588,7 +588,7 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 }
 
 #define MSG_SETUP(st) \
-	Player *pSrcPlayer = g_sServer->qmPlayers[cCon]; \
+	Player *pSrcPlayer = g_sServer->qmPlayers.value(cCon); \
 	MessagePermissionDenied mpd; \
 	uiSession = pSrcPlayer->uiSession; \
 	if (pSrcPlayer->sState != st) \
@@ -965,7 +965,6 @@ void MessagePlayerMove::process(Connection *cCon) {
 		PERM_DENIED(pDstPlayer, c, ChanACL::Enter);
 		return;
 	}
-
 
 	g_sServer->sendAll(this);
 	g_sServer->playerEnterChannel(pDstPlayer, c);

@@ -48,7 +48,10 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
-	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
+
+	// With a direct connection, writing to the socket triggers readyRead()...
+	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()), Qt::QueuedConnection);
+
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 	connect(qtsSocket, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(socketSslErrors(const QList<QSslError> &)));
 	qtLastPacket.restart();
@@ -63,6 +66,7 @@ int Connection::activityTime() const {
 
 void Connection::socketRead() {
 	int iAvailable;
+
 	while (1) {
 		iAvailable = qtsSocket->bytesAvailable();
 
