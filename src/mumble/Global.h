@@ -72,7 +72,7 @@ struct Global {
 	LoopMode lmLoopMode;
 	double dPacketLoss;
 	double dMaxPacketDelay;
-	short sId;
+	unsigned int uiSession;
 	int iMaxBandwidth;
 	Global();
 };

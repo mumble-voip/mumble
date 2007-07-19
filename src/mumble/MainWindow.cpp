@@ -393,7 +393,7 @@ void MainWindow::msgBox(QString msg) {
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
-	g.sId = 0;
+	g.uiSession = 0;
 	g.qs->setValue(QLatin1String("mwgeom"), saveGeometry());
 	g.qs->setValue(QLatin1String("mw"), saveState());
 	g.qs->setValue(QLatin1String("mwSplitter"), qsSplit->saveState());
@@ -439,7 +439,7 @@ void MainWindow::on_Players_doubleClicked(const QModelIndex &idx) {
 	if (!c)
 		return;
 	MessagePlayerMove mpm;
-	mpm.sVictim = g.sId;
+	mpm.uiVictim = g.uiSession;
 	mpm.iChannelId = c->iId;
 	g.sh->sendMessage(&mpm);
 }
@@ -534,7 +534,7 @@ void MainWindow::on_PlayerMute_triggered() {
 		return;
 
 	MessagePlayerMute mpmMsg;
-	mpmMsg.sVictim = p->sId;
+	mpmMsg.uiVictim = p->uiSession;
 	mpmMsg.bMute = ! p->bMute;
 	g.sh->sendMessage(&mpmMsg);
 }
@@ -553,7 +553,7 @@ void MainWindow::on_PlayerDeaf_triggered() {
 		return;
 
 	MessagePlayerDeaf mpdMsg;
-	mpdMsg.sVictim = p->sId;
+	mpdMsg.uiVictim = p->uiSession;
 	mpdMsg.bDeaf = ! p->bDeaf;
 	g.sh->sendMessage(&mpdMsg);
 }
@@ -563,7 +563,7 @@ void MainWindow::on_PlayerKick_triggered() {
 	if (!p)
 		return;
 
-	short session = p->sId;
+	short session = p->uiSession;
 
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
@@ -574,7 +574,7 @@ void MainWindow::on_PlayerKick_triggered() {
 
 	if (ok) {
 		MessagePlayerKick mpkMsg;
-		mpkMsg.sVictim=p->sId;
+		mpkMsg.uiVictim=p->uiSession;
 		mpkMsg.qsReason = reason;
 		g.sh->sendMessage(&mpkMsg);
 	}
@@ -585,7 +585,7 @@ void MainWindow::on_PlayerBan_triggered() {
 	if (!p)
 		return;
 
-	short session = p->sId;
+	short session = p->uiSession;
 
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
@@ -595,7 +595,7 @@ void MainWindow::on_PlayerBan_triggered() {
 
 	if (ok) {
 		MessagePlayerBan mpbMsg;
-		mpbMsg.sVictim=p->sId;
+		mpbMsg.uiVictim=p->uiSession;
 		mpbMsg.qsReason = reason;
 		g.sh->sendMessage(&mpbMsg);
 	}
@@ -607,7 +607,7 @@ void MainWindow::on_PlayerTextMessage_triggered() {
 	if (!p)
 		return;
 
-	short session = p->sId;
+	short session = p->uiSession;
 
 	bool ok;
 	QString message = QInputDialog::getText(this, tr("Sending message to %1").arg(p->qsName), tr("Enter message"), QLineEdit::Normal, QString(), &ok);
@@ -617,7 +617,7 @@ void MainWindow::on_PlayerTextMessage_triggered() {
 
 	if (ok) {
 		MessageTextMessage mtxt;
-		mtxt.sVictim = p->sId;
+		mtxt.uiVictim = p->uiSession;
 		mtxt.qsMessage = message;
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(mtxt.qsMessage), tr("Message to %1").arg(p->qsName));
 		g.sh->sendMessage(&mtxt);
@@ -635,12 +635,12 @@ void MainWindow::on_ChannelMenu_aboutToShow() {
 
 	add = remove = acl = link = unlink = unlinkall = false;
 
-	if (g.sId != 0) {
+	if (g.uiSession != 0) {
 		add = true;
 		acl = true;
 
 		Channel *c = pmModel->getChannel(idx);
-		Channel *home = Player::get(g.sId)->cChannel;
+		Channel *home = Player::get(g.uiSession)->cChannel;
 
 		if (c && c->iId != 0)
 			remove = true;
@@ -721,7 +721,7 @@ void MainWindow::on_ChannelACL_triggered() {
 }
 
 void MainWindow::on_ChannelLink_triggered() {
-	Channel *c = Player::get(g.sId)->cChannel;
+	Channel *c = Player::get(g.uiSession)->cChannel;
 	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! l)
 		l = Channel::get(0);
@@ -734,7 +734,7 @@ void MainWindow::on_ChannelLink_triggered() {
 }
 
 void MainWindow::on_ChannelUnlink_triggered() {
-	Channel *c = Player::get(g.sId)->cChannel;
+	Channel *c = Player::get(g.uiSession)->cChannel;
 	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! l)
 		l = Channel::get(0);
@@ -747,7 +747,7 @@ void MainWindow::on_ChannelUnlink_triggered() {
 }
 
 void MainWindow::on_ChannelUnlinkAll_triggered() {
-	Channel *c = Player::get(g.sId)->cChannel;
+	Channel *c = Player::get(g.uiSession)->cChannel;
 
 	MessageChannelLink mcl;
 	mcl.iId = c->iId;
@@ -879,12 +879,12 @@ void MainWindow::pushLink(bool down) {
 	else
 		g.iPushToTalk--;
 
-	if (g.sId == 0)
+	if (g.uiSession == 0)
 		return;
 
 	GlobalShortcut *gs = qobject_cast<GlobalShortcut *>(sender());
 	int idx = gs->data().toInt();
-	Channel *home = Player::get(g.sId)->cChannel;
+	Channel *home = Player::get(g.uiSession)->cChannel;
 
 	Channel *target = NULL;
 	switch (idx) {
@@ -904,7 +904,7 @@ void MainWindow::pushLink(bool down) {
 			return;
 
 		MessagePlayerMove mpm;
-		mpm.sVictim = g.sId;
+		mpm.uiVictim = g.uiSession;
 		mpm.iChannelId = target->iId;
 		g.sh->sendMessage(&mpm);
 		g.l->log(Log::Information, tr("Joining %1.").arg(target->qsName));
@@ -933,7 +933,7 @@ void MainWindow::viewCertificate(bool) {
 }
 
 void MainWindow::serverConnected() {
-	g.sId = 0;
+	g.uiSession = 0;
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::PlayerJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
@@ -951,7 +951,7 @@ void MainWindow::serverConnected() {
 }
 
 void MainWindow::serverDisconnected(QString reason) {
-	g.sId = 0;
+	g.uiSession = 0;
 	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
@@ -1080,19 +1080,19 @@ void MainWindow::customEvent(QEvent *evt) {
 }
 
 void MessageServerJoin::process(Connection *) {
-	Player *p = g.mw->pmModel->addPlayer(sPlayerId, qsPlayerName);
+	Player *p = g.mw->pmModel->addPlayer(uiSession, qsPlayerName);
 	p->iId = iId;
 	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined server: %1.").arg(p->qsName));
 }
 
 #define MSG_INIT \
-	Player *pSrc=Player::get(sPlayerId); \
+	Player *pSrc=Player::get(uiSession); \
 	Q_UNUSED(pSrc);
 
 #define VICTIM_INIT \
-	Player *pDst=Player::get(sVictim); \
+	Player *pDst=Player::get(uiVictim); \
 	 if (! pDst) \
- 		qFatal("MainWindow: Message for nonexistant victim %d.", sVictim);
+ 		qFatal("MainWindow: Message for nonexistant victim %d.", uiVictim);
 
 void MessageServerLeave::process(Connection *) {
 	MSG_INIT;
@@ -1122,9 +1122,9 @@ void MessagePlayerSelfMuteDeaf::process(Connection *) {
 
 	pSrc->setSelfMuteDeaf(bMute, bDeaf);
 
-	if (sPlayerId == g.sId || ! g.sId)
+	if (uiSession == g.uiSession || ! g.uiSession)
 		return;
-	if (pSrc->cChannel != Player::get(g.sId)->cChannel)
+	if (pSrc->cChannel != Player::get(g.uiSession)->cChannel)
 		return;
 
 	QString name = pSrc->qsName;
@@ -1142,16 +1142,16 @@ void MessagePlayerMute::process(Connection *) {
 
 	pDst->setMute(bMute);
 
-	if (!g.sId || pDst->cChannel != Player::get(g.sId)->cChannel)
+	if (!g.uiSession || pDst->cChannel != Player::get(g.uiSession)->cChannel)
 		return;
 
 	QString vic = pDst->qsName;
 	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
 
-	if (sVictim == g.sId)
+	if (uiVictim == g.uiSession)
 		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1.").arg(admin) : MainWindow::tr("You were unmuted by %1.").arg(admin));
 	else
-		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin));
+		g.l->log((uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin));
 }
 
 void MessagePlayerDeaf::process(Connection *) {
@@ -1160,16 +1160,16 @@ void MessagePlayerDeaf::process(Connection *) {
 
 	pDst->setDeaf(bDeaf);
 
-	if (!g.sId || pDst->cChannel != Player::get(g.sId)->cChannel)
+	if (!g.uiSession || pDst->cChannel != Player::get(g.uiSession)->cChannel)
 		return;
 
 	QString vic = pDst->qsName;
 	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
 
-	if (sVictim == g.sId)
+	if (uiVictim == g.uiSession)
 		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
 	else
-		g.l->log((sPlayerId == g.sId) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin));
+		g.l->log((uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin));
 }
 
 void MessagePlayerKick::process(Connection *) {
@@ -1177,24 +1177,24 @@ void MessagePlayerKick::process(Connection *) {
 	VICTIM_INIT;
 	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
 
-	if (sVictim == g.sId) {
+	if (uiVictim == g.uiSession) {
 		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2.").arg(admin).arg(qsReason));
 		g.l->setIgnore(Log::ServerDisconnected, 1);
 	} else {
 		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(qsReason).arg(pDst->qsName));
+		g.l->log((uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(qsReason).arg(pDst->qsName));
 	}
 }
 
 void MessagePlayerBan::process(Connection *) {
 	MSG_INIT;
 	VICTIM_INIT;
-	if (sVictim == g.sId) {
+	if (uiVictim == g.uiSession) {
 		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason));
 		g.l->setIgnore(Log::ServerDisconnected, 1);
 	} else {
 		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((sPlayerId == g.sId) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
+		g.l->log((uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
 	}
 }
 
@@ -1203,15 +1203,15 @@ void MessagePlayerMove::process(Connection *) {
 	VICTIM_INIT;
 
 	bool log = true;
-	if ((sVictim == g.sId) && (sPlayerId == sVictim))
+	if ((uiVictim == g.uiSession) && (uiSession == uiVictim))
 		log = false;
-	if (g.sId == 0)
+	if (g.uiSession == 0)
 		log = false;
 
 	QString pname = pDst->qsName;
 	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
 
-	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
+	if (log && (pDst->cChannel == Player::get(g.uiSession)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
 			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 left channel.").arg(pname));
 		else
@@ -1220,7 +1220,7 @@ void MessagePlayerMove::process(Connection *) {
 
 	g.mw->pmModel->movePlayer(pDst, iChannelId);
 
-	if (log && (pDst->cChannel == Player::get(g.sId)->cChannel)) {
+	if (log && (pDst->cChannel == Player::get(g.uiSession)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
 			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 entered channel.").arg(pname));
 		else
@@ -1288,7 +1288,7 @@ void MessagePermissionDenied::process(Connection *) {
 void MessageServerSync::process(Connection *) {
 	MSG_INIT;
 	g.iMaxBandwidth = iMaxBandwidth;
-	g.sId = sPlayerId;
+	g.uiSession = uiSession;
 	g.l->clearIgnore();
 	g.l->log(Log::Information, qsWelcomeText);
 	g.mw->pmModel->ensureSelfVisible();

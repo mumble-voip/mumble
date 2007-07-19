@@ -32,7 +32,7 @@
 #include "PacketDataStream.h"
 
 Message::Message() {
-	sPlayerId = 0;
+	uiSession = 0;
 }
 
 Message::~Message() {
@@ -42,7 +42,7 @@ void Message::messageToNetwork(QByteArray &qbaOut) const {
 	char buffer[65535];
 	PacketDataStream qdsOut(buffer, 65535);
 	qdsOut << messageType();
-	qdsOut << sPlayerId;
+	qdsOut << uiSession;
 	saveStream(qdsOut);
 
 	qbaOut = QByteArray(buffer, qdsOut.size());
@@ -50,7 +50,7 @@ void Message::messageToNetwork(QByteArray &qbaOut) const {
 
 void Message::messageToNetwork(PacketDataStream &pds) const {
 	pds << messageType();
-	pds << sPlayerId;
+	pds << uiSession;
 	saveStream(pds);
 	pds.truncate();
 }
@@ -63,9 +63,9 @@ Message *Message::networkToMessage(QByteArray &qbaIn) {
 Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 	Message *mMsg = NULL;
 	unsigned char iMessageType;
-	short sPlayerId;
+	short uiSession;
 	qdsIn >> iMessageType;
-	qdsIn >> sPlayerId;
+	qdsIn >> uiSession;
 	switch (iMessageType) {
 		case Speex:
 			mMsg = new MessageSpeex();
@@ -140,23 +140,23 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 			mMsg = new MessageTexture();
 			break;
 		default:
-			qWarning("Message: %d[%d] is unknown type", iMessageType, sPlayerId);
+			qWarning("Message: %d[%d] is unknown type", iMessageType, uiSession);
 	}
 	if (mMsg) {
-		mMsg->sPlayerId=sPlayerId;
+		mMsg->uiSession=uiSession;
 		mMsg->restoreStream(qdsIn);
 		if (! qdsIn.isValid()) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Corrupt or short packet", iMessageType, sPlayerId);
+			qWarning("Message: %d[%d] Corrupt or short packet", iMessageType, uiSession);
 		} else if (qdsIn.left() != 0) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Long packet: %d leftover bytes", iMessageType, sPlayerId, qdsIn.left());
+			qWarning("Message: %d[%d] Long packet: %d leftover bytes", iMessageType, uiSession, qdsIn.left());
 		} else if (! mMsg->isValid()) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Failed to validate", iMessageType, sPlayerId);
+			qWarning("Message: %d[%d] Failed to validate", iMessageType, uiSession);
 		}
 	}
 
@@ -220,7 +220,6 @@ void MessageServerReject::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageServerSync::MessageServerSync() {
-	qsWelcomeText = QString();
 }
 
 void MessageServerSync::saveStream(PacketDataStream &qdsOut) const {
@@ -234,8 +233,6 @@ void MessageServerSync::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageServerJoin::MessageServerJoin() {
-	qsPlayerName = QString();
-	iId = -2;
 }
 
 void MessageServerJoin::saveStream(PacketDataStream &qdsOut) const {
@@ -263,7 +260,6 @@ void MessageServerBanList::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessagePermissionDenied::MessagePermissionDenied() {
-	qsReason = QString();
 }
 
 void MessagePermissionDenied::saveStream(PacketDataStream &qdsOut) const {
@@ -275,8 +271,6 @@ void MessagePermissionDenied::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageSpeex::MessageSpeex() {
-	iSeq = 0;
-	qbaSpeexPacket = QByteArray();
 }
 
 void MessageSpeex::saveStream(PacketDataStream &qdsOut) const {
@@ -294,74 +288,68 @@ bool MessageSpeex::isValid() const {
 }
 
 MessagePlayerMute::MessagePlayerMute() {
-	bMute = false;
 }
 
 void MessagePlayerMute::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << sVictim;
+	qdsOut << uiVictim;
 	qdsOut << bMute;
 }
 
 void MessagePlayerMute::restoreStream(PacketDataStream &qdsIn) {
-	qdsIn >> sVictim;
+	qdsIn >> uiVictim;
 	qdsIn >> bMute;
 }
 
 
 MessagePlayerDeaf::MessagePlayerDeaf() {
-	bDeaf = false;
 }
 
 void MessagePlayerDeaf::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << sVictim;
+	qdsOut << uiVictim;
 	qdsOut << bDeaf;
 }
 
 void MessagePlayerDeaf::restoreStream(PacketDataStream &qdsIn) {
-	qdsIn >> sVictim;
+	qdsIn >> uiVictim;
 	qdsIn >> bDeaf;
 }
 
 MessagePlayerKick::MessagePlayerKick() {
-	qsReason = QString();
 }
 
 void MessagePlayerKick::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << sVictim;
+	qdsOut << uiVictim;
 	qdsOut << qsReason;
 }
 
 void MessagePlayerKick::restoreStream(PacketDataStream &qdsIn) {
-	qdsIn >> sVictim;
+	qdsIn >> uiVictim;
 	qdsIn >> qsReason;
 }
 
 MessagePlayerBan::MessagePlayerBan() {
-	qsReason = QString();
 }
 
 void MessagePlayerBan::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << sVictim;
+	qdsOut << uiVictim;
 	qdsOut << qsReason;
 }
 
 void MessagePlayerBan::restoreStream(PacketDataStream &qdsIn) {
-	qdsIn >> sVictim;
+	qdsIn >> uiVictim;
 	qdsIn >> qsReason;
 }
 
 MessagePlayerMove::MessagePlayerMove() {
-	sVictim = -1;
-	iChannelId = 0;
 }
 
 void MessagePlayerMove::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << sVictim;
+	qdsOut << uiVictim;
 	qdsOut << iChannelId;
 }
 
 void MessagePlayerMove::restoreStream(PacketDataStream &qdsIn) {
-	qdsIn >> sVictim;
+	qdsIn >> uiVictim;
 	qdsIn >> iChannelId;
 }
 
@@ -377,8 +365,6 @@ void MessagePlayerRename::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessagePlayerSelfMuteDeaf::MessagePlayerSelfMuteDeaf() {
-	bMute = false;
-	bDeaf = false;
 }
 
 void MessagePlayerSelfMuteDeaf::saveStream(PacketDataStream &qdsOut) const {
@@ -392,8 +378,6 @@ void MessagePlayerSelfMuteDeaf::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageChannelAdd::MessageChannelAdd() {
-	iId = 0;
-	iParent = -1;
 }
 
 void MessageChannelAdd::saveStream(PacketDataStream &qdsOut) const {
@@ -409,7 +393,6 @@ void MessageChannelAdd::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageChannelRemove::MessageChannelRemove() {
-	iId = 0;
 }
 
 void MessageChannelRemove::saveStream(PacketDataStream &qdsOut) const {
@@ -421,8 +404,6 @@ void MessageChannelRemove::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageChannelLink::MessageChannelLink() {
-	iId = 0;
-	ltType = UnlinkAll;
 }
 
 void MessageChannelLink::saveStream(PacketDataStream &qdsOut) const {
@@ -440,8 +421,6 @@ void MessageChannelLink::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageChannelMove::MessageChannelMove() {
-	iId = 0;
-	iParent = 0;
 }
 
 void MessageChannelMove::saveStream(PacketDataStream &qdsOut) const {
@@ -455,23 +434,19 @@ void MessageChannelMove::restoreStream(PacketDataStream &qdsIn) {
 }
 
 MessageTextMessage::MessageTextMessage() {
-	qsMessage = QString();
 }
 
 void MessageTextMessage::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << sVictim;
+	qdsOut << uiVictim;
 	qdsOut << qsMessage;
 }
 
 void MessageTextMessage::restoreStream(PacketDataStream &qdsIn) {
-	qdsIn >> sVictim;
+	qdsIn >> uiVictim;
 	qdsIn >> qsMessage;
 }
 
 MessageEditACL::MessageEditACL() {
-	bQuery = true;
-	iId = 0;
-	bInheritACL = true;
 }
 
 void MessageEditACL::saveStream(PacketDataStream &qdsOut) const {

@@ -511,7 +511,7 @@ void AudioConfigDialog::updateBitrate() {
 
 	QPalette pal;
 
-	if ((total / 8 > g.iMaxBandwidth) && g.sId) {
+	if ((total / 8 > g.iMaxBandwidth) && g.uiSession) {
 		pal.setColor(qlBitrate->foregroundRole(), Qt::red);
 	}
 

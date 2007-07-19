@@ -44,7 +44,7 @@ class Message {
 		virtual void restoreStream(PacketDataStream &);
 	public:
 		enum MessageType { Speex, ServerAuthenticate, ServerReject, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture };
-		unsigned short sPlayerId;
+		unsigned int uiSession;
 
 		Message();
 		virtual ~Message();
@@ -160,7 +160,7 @@ class MessagePlayerMute : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		short sVictim;
+		unsigned int uiVictim;
 		bool bMute;
 		MessagePlayerMute();
 		Message::MessageType messageType() const {
@@ -174,7 +174,7 @@ class MessagePlayerDeaf : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		short sVictim;
+		unsigned int uiVictim;
 		bool bDeaf;
 		MessagePlayerDeaf();
 		Message::MessageType messageType() const {
@@ -202,7 +202,7 @@ class MessagePlayerKick : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		short sVictim;
+		unsigned int  uiVictim;
 		QString qsReason;
 		MessagePlayerKick();
 		Message::MessageType messageType() const {
@@ -216,7 +216,7 @@ class MessagePlayerBan : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		short sVictim;
+		unsigned int  uiVictim;
 		QString qsReason;
 		MessagePlayerBan();
 		Message::MessageType messageType() const {
@@ -230,7 +230,7 @@ class MessagePlayerMove : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		short sVictim;
+		unsigned int  uiVictim;
 		int iChannelId;
 		MessagePlayerMove();
 		Message::MessageType messageType() const {
@@ -331,7 +331,7 @@ class MessageTextMessage : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		short sVictim;
+		unsigned int  uiVictim;
 		QString qsMessage;
 		MessageTextMessage();
 		Message::MessageType messageType() const {

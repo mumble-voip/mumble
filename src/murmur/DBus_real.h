@@ -39,7 +39,7 @@
 #include "ACL.h"
 
 struct PlayerInfo {
-	short session;
+	unsigned int session;
 	bool mute, deaf, suppressed;
 	bool selfMute, selfDeaf;
 	int channel;
@@ -142,8 +142,8 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void getBans(QList<BanInfo> &bans);
 		void setBans(const QList<BanInfo> &bans, const QDBusMessage &);
 
-		void kickPlayer(short session, const QString &reason, const QDBusMessage &);
-		void getPlayerState(short session, const QDBusMessage &, PlayerInfo &state);
+		void kickPlayer(unsigned int session, const QString &reason, const QDBusMessage &);
+		void getPlayerState(unsigned int session, const QDBusMessage &, PlayerInfo &state);
 		void setPlayerState(const PlayerInfo &state, const QDBusMessage &);
 		void setChannelState(const ChannelInfo &state, const QDBusMessage &);
 

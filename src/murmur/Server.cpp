@@ -168,7 +168,7 @@ void UDPThread::run() {
 	if (setsockopt(qusUdp->socketDescriptor(), SOL_IP, IP_TOS, &val, sizeof(val)))
 		qWarning("Server: Failed to set TOS for UDP Socket");
 #endif
-	connect(this, SIGNAL(tcpTransmit(QByteArray, short)), g_sServer, SLOT(tcpTransmit(QByteArray, short)), Qt::QueuedConnection);
+	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), g_sServer, SLOT(tcpTransmit(QByteArray, unsigned int)), Qt::QueuedConnection);
 
 	QHostAddress senderAddr;
 	quint16 senderPort;
@@ -176,7 +176,7 @@ void UDPThread::run() {
 	char buffer[65535];
 
 	quint32 msgType;
-	int sPlayerId;
+	int uiSession;
 
 	qDebug("Entering UDP event loop");
 
@@ -187,7 +187,7 @@ void UDPThread::run() {
 			len=qusUdp->readDatagram(buffer, 65535, &senderAddr, &senderPort);
 
 			PacketDataStream pds(buffer, len);
-			pds >> msgType >> sPlayerId;
+			pds >> msgType >> uiSession;
 
 			if ((msgType != Message::Speex) && (msgType != Message::Ping))
 				continue;
@@ -196,8 +196,8 @@ void UDPThread::run() {
 
 			Peer p(senderAddr.toIPv4Address(), senderPort);
 
-			if (p != qhPeers.value(sPlayerId)) {
-				Connection *source = g_sServer->qmConnections.value(sPlayerId);
+			if (p != qhPeers.value(uiSession)) {
+				Connection *source = g_sServer->qmConnections.value(uiSession);
 				if (! source || !(source->peerAddress() == senderAddr)) {
 					continue;
 				}
@@ -205,13 +205,13 @@ void UDPThread::run() {
 				rl.unlock();
 				{
 					QWriteLocker wl(&g_sServer->qrwlConnections);
-					if (g_sServer->qmConnections.contains(sPlayerId)) {
-						qhHosts[sPlayerId] = senderAddr;
-						qhPeers[sPlayerId] = p;
+					if (g_sServer->qmConnections.contains(uiSession)) {
+						qhHosts[uiSession] = senderAddr;
+						qhPeers[uiSession] = p;
 					}
 				}
 				rl.relock();
-				if (! g_sServer->qmConnections.contains(sPlayerId)) {
+				if (! g_sServer->qmConnections.contains(uiSession)) {
 					continue;
 				}
 			}
@@ -219,7 +219,7 @@ void UDPThread::run() {
 			if (msgType == Message::Ping)
 				qusUdp->writeDatagram(buffer, len, senderAddr, senderPort);
 			else {
-				processMsg(pds, g_sServer->qmConnections.value(sPlayerId));
+				processMsg(pds, g_sServer->qmConnections.value(uiSession));
 			}
 		}
 	}
@@ -232,15 +232,15 @@ void UDPThread::fakeUdpPacket(Message *msg, Connection *source) {
 	pds.rewind();
 
 	quint32 msgType;
-	int sPlayerId;
+	int uiSession;
 
-	pds >> msgType >> sPlayerId;
+	pds >> msgType >> uiSession;
 
 	QReadLocker rl(&g_sServer->qrwlConnections);
 	processMsg(pds, source);
 }
 
-void UDPThread::sendMessage(short id, const char *data, int len, QByteArray &cache) {
+void UDPThread::sendMessage(unsigned int id, const char *data, int len, QByteArray &cache) {
 	if (qhPeers.contains(id)) {
 		qusUdp->writeDatagram(data, len, qhHosts[id], qhPeers[id].second);
 	} else {
@@ -285,13 +285,13 @@ void UDPThread::processMsg(PacketDataStream &pds, Connection *cCon) {
 	int len = pds.left();
 
 	if (flags & MessageSpeex::LoopBack) {
-		sendMessage(pSrcPlayer->sId, data, len, qba);
+		sendMessage(pSrcPlayer->uiSession, data, len, qba);
 		return;
 	}
 
 	foreach(p, c->qlPlayers) {
 		if (! p->bDeaf && ! p->bSelfDeaf && (p != pSrcPlayer))
-			sendMessage(p->sId, data, len, qba);
+			sendMessage(p->uiSession, data, len, qba);
 	}
 
 	if (! c->qhLinks.isEmpty()) {
@@ -302,7 +302,7 @@ void UDPThread::processMsg(PacketDataStream &pds, Connection *cCon) {
 			if (ChanACL::hasPermission(pSrcPlayer, l, (flags & MessageSpeex::AltSpeak) ? ChanACL::AltSpeak : ChanACL::Speak)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
-						sendMessage(p->sId, data, len, qba);
+						sendMessage(p->uiSession, data, len, qba);
 				}
 			}
 		}
@@ -346,7 +346,7 @@ void Server::log(QString s, Connection *c) {
 		int iid = -1;
 		QString name;
 		if (p) {
-			id = p->sId;
+			id = p->uiSession;
 			iid = p->iId;
 			name = p->qsName;
 		}
@@ -379,7 +379,7 @@ void Server::newClient() {
 
 	Connection *cCon = new Connection(this, sock);
 
-	short id;
+	unsigned int id;
 
 	if (qqIds.isEmpty()) {
 		cCon->disconnect();
@@ -429,7 +429,7 @@ void Server::connectionClosed(QString reason) {
 
 	if (pPlayer->sState == Player::Authenticated) {
 		MessageServerLeave mslMsg;
-		mslMsg.sPlayerId=pPlayer->sId;
+		mslMsg.uiSession=pPlayer->uiSession;
 		sendExcept(&mslMsg, c);
 
 		ServerDB::conLoggedOff(pPlayer);
@@ -438,7 +438,7 @@ void Server::connectionClosed(QString reason) {
 
 	QWriteLocker wl(&qrwlConnections);
 
-	qmConnections.remove(pPlayer->sId);
+	qmConnections.remove(pPlayer->uiSession);
 	qmPlayers.remove(c);
 
 	BandwidthRecord *bw = qmBandwidth.take(c);
@@ -446,10 +446,10 @@ void Server::connectionClosed(QString reason) {
 
 	Player::remove(pPlayer);
 
-	qqIds.enqueue(pPlayer->sId);
+	qqIds.enqueue(pPlayer->uiSession);
 
-	udp->qhHosts.remove(pPlayer->sId);
-	udp->qhPeers.remove(pPlayer->sId);
+	udp->qhHosts.remove(pPlayer->uiSession);
+	udp->qhPeers.remove(pPlayer->uiSession);
 
 	qhUserTextureCache.remove(pPlayer->iId);
 
@@ -491,7 +491,7 @@ void Server::checkTimeout() {
 	c->disconnect();
 }
 
-void Server::tcpTransmit(QByteArray a, short id) {
+void Server::tcpTransmit(QByteArray a, unsigned int id) {
 	Connection *c = qmConnections.value(id);
 	if (c) {
 		c->sendMessage(a);
@@ -499,7 +499,7 @@ void Server::tcpTransmit(QByteArray a, short id) {
 	}
 }
 
-void Server::sendMessage(short id, Message *mMsg) {
+void Server::sendMessage(unsigned int id, Message *mMsg) {
 	Connection *c = qmConnections.value(id);
 	sendMessage(c, mMsg);
 }
@@ -537,8 +537,8 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 		chan->removePlayer(p);
 
 		MessagePlayerMove mpm;
-		mpm.sPlayerId = 0;
-		mpm.sVictim = p->sId;
+		mpm.uiSession = 0;
+		mpm.uiVictim = p->uiSession;
 		mpm.iChannelId = dest->iId;
 		sendAll(&mpm);
 
@@ -546,7 +546,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	}
 
 	MessageChannelRemove mcr;
-	mcr.sPlayerId = src ? src->sId : 0;
+	mcr.uiSession = src ? src->uiSession : 0;
 	mcr.iId = chan->iId;
 	sendAll(&mcr);
 
@@ -586,8 +586,8 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 			p->bSuppressed = ! mayspeak;
 
 			MessagePlayerMute mpm;
-			mpm.sPlayerId = 0;
-			mpm.sVictim = p->sId;
+			mpm.uiSession = 0;
+			mpm.uiVictim = p->uiSession;
 			mpm.bMute = p->bSuppressed;
 			g_sServer->sendAll(&mpm);
 		}
@@ -614,8 +614,8 @@ void Server::checkCommands() {
 				continue;
 			playerEnterChannel(p, c);
 			MessagePlayerMove mpm;
-			mpm.sPlayerId = 0;
-			mpm.sVictim = p->sId;
+			mpm.uiSession = 0;
+			mpm.uiVictim = p->uiSession;
 			mpm.iChannelId = c->iId;
 			sendAll(&mpm);
 		} else if (cmdname == "rename") {
@@ -625,7 +625,7 @@ void Server::checkCommands() {
 			if (! p || name.isEmpty())
 				continue;
 			MessagePlayerRename mpr;
-			mpr.sPlayerId = p->sId;
+			mpr.uiSession = p->uiSession;
 			mpr.qsName = name;
 			sendAll(&mpr);
 		} else if (cmdname == "createchannel") {
@@ -639,7 +639,7 @@ void Server::checkCommands() {
 			ServerDB::updateChannel(c);
 
 			MessageChannelAdd mca;
-			mca.sPlayerId = 0;
+			mca.uiSession = 0;
 			mca.qsName = name;
 			mca.iParent = p->iId;
 			mca.iId = c->iId;
@@ -666,14 +666,14 @@ void Server::checkCommands() {
 #define MSG_SETUP(st) \
 	Player *pSrcPlayer = g_sServer->qmPlayers[cCon]; \
 	MessagePermissionDenied mpd; \
-	sPlayerId = pSrcPlayer->sId; \
+	uiSession = pSrcPlayer->uiSession; \
 	if (pSrcPlayer->sState != st) \
 		return
 
 #define VICTIM_SETUP \
-	Player *pDstPlayer = Player::get(sVictim); \
+	Player *pDstPlayer = Player::get(uiVictim); \
 	Q_UNUSED(pDstPlayer) \
-	Connection *cDst = g_sServer->qmConnections.value(sVictim); \
+	Connection *cDst = g_sServer->qmConnections.value(uiVictim); \
 	Q_UNUSED(cDst)
 
 #define PERM_DENIED(who, where, what) \
@@ -725,7 +725,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	}
 
 	Player *ppOld = Player::match(pSrcPlayer, true);
-	Connection *cOld = ppOld ? g_sServer->qmConnections.value(ppOld->sId) : NULL;
+	Connection *cOld = ppOld ? g_sServer->qmConnections.value(ppOld->uiSession) : NULL;
 
 	// Allow reuse of name from same IP
 	if (ok && ppOld && (pSrcPlayer->iId == -1)) {
@@ -780,7 +780,7 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		chans.insert(c);
 
 		MessageChannelAdd mca;
-		mca.sPlayerId = 0;
+		mca.uiSession = 0;
 		mca.iId = c->iId;
 		mca.iParent = (c->cParent) ? c->cParent->iId : -1;
 		mca.qsName = c->qsName;
@@ -806,13 +806,13 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	MessagePlayerMove mpm;
 
 	pSrcPlayer->sState = Player::Authenticated;
-	msjMsg.sPlayerId = pSrcPlayer->sId;
+	msjMsg.uiSession = pSrcPlayer->uiSession;
 	msjMsg.iId = pSrcPlayer->iId;
 	msjMsg.qsPlayerName = pSrcPlayer->qsName;
 	g_sServer->sendExcept(&msjMsg, cCon);
 
-	mpm.sPlayerId = 0;
-	mpm.sVictim = pSrcPlayer->sId;
+	mpm.uiSession = 0;
+	mpm.uiVictim = pSrcPlayer->uiSession;
 	mpm.iChannelId = pSrcPlayer->cChannel->iId;
 	if (mpm.iChannelId != 0)
 		g_sServer->sendExcept(&mpm, cCon);
@@ -820,41 +820,41 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	foreach(Player *pPlayer, g_sServer->qmPlayers) {
 		if (pPlayer->sState != Player::Authenticated)
 			continue;
-		msjMsg.sPlayerId = pPlayer->sId;
+		msjMsg.uiSession = pPlayer->uiSession;
 		msjMsg.iId = pPlayer->iId;
 		msjMsg.qsPlayerName = pPlayer->qsName;
 		g_sServer->sendMessage(cCon, &msjMsg);
 
 		if (pPlayer->bDeaf) {
 			MessagePlayerDeaf mpdMsg;
-			mpdMsg.sPlayerId = 0;
-			mpdMsg.sVictim = pPlayer->sId;
+			mpdMsg.uiSession = 0;
+			mpdMsg.uiVictim = pPlayer->uiSession;
 			mpdMsg.bDeaf = true;
 			g_sServer->sendMessage(cCon, &mpdMsg);
 		} else if (pPlayer->bMute || pPlayer->bSuppressed) {
 			MessagePlayerMute mpmMsg;
-			mpmMsg.sPlayerId = 0;
-			mpmMsg.sVictim = pPlayer->sId;
+			mpmMsg.uiSession = 0;
+			mpmMsg.uiVictim = pPlayer->uiSession;
 			mpmMsg.bMute = true;
 			g_sServer->sendMessage(cCon, &mpmMsg);
 		}
 		if (pPlayer->bSelfDeaf || pPlayer->bSelfMute) {
 			MessagePlayerSelfMuteDeaf mpsmdMsg;
-			mpsmdMsg.sPlayerId = pPlayer->sId;
+			mpsmdMsg.uiSession = pPlayer->uiSession;
 			mpsmdMsg.bDeaf = pPlayer->bSelfDeaf;
 			mpsmdMsg.bMute = pPlayer->bSelfMute;
 			g_sServer->sendMessage(cCon, &mpsmdMsg);
 		}
 
-		mpm.sPlayerId = 0;
-		mpm.sVictim = pPlayer->sId;
+		mpm.uiSession = 0;
+		mpm.uiVictim = pPlayer->uiSession;
 		mpm.iChannelId = pPlayer->cChannel->iId;
 		g_sServer->sendMessage(cCon, &mpm);
 	}
 
 
 	MessageServerSync mssMsg;
-	mssMsg.sPlayerId = pSrcPlayer->sId;
+	mssMsg.uiSession = pSrcPlayer->uiSession;
 	mssMsg.qsWelcomeText = g_sp.qsWelcomeText;
 	mssMsg.iMaxBandwidth = g_sp.iMaxBandwidth;
 	g_sServer->sendMessage(cCon, &mssMsg);
@@ -873,7 +873,7 @@ void MessageServerBanList::process(Connection *cCon) {
 	}
 	if (bQuery) {
 		MessageServerBanList msbl;
-		msbl.sPlayerId = 0;
+		msbl.uiSession = 0;
 		msbl.bQuery = false;
 		msbl.qlBans = g_sServer->qlBans;
 		g_sServer->sendMessage(cCon, &msbl);
@@ -910,7 +910,7 @@ void MessagePlayerRename::process(Connection *cCon) {
 
 void MessageSpeex::process(Connection *cCon) {
 	MSG_SETUP(Player::Authenticated);
-	sPlayerId = pSrcPlayer->sId;
+	uiSession = pSrcPlayer->uiSession;
 	g_sServer->udp->fakeUdpPacket(this, cCon);
 }
 
@@ -1224,7 +1224,7 @@ void MessageChannelLink::process(Connection *cCon) {
 
 	MessageChannelLink mcl;
 	mcl.iId = iId;
-	mcl.sPlayerId=sPlayerId;
+	mcl.uiSession=uiSession;
 
 	if (newset.count() > oldset.count()) {
 		mcl.ltType = Link;

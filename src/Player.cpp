@@ -31,12 +31,12 @@
 #include "Player.h"
 #include "Channel.h"
 
-QHash<short, Player *> Player::c_qmPlayers;
+QHash<unsigned int, Player *> Player::c_qmPlayers;
 QReadWriteLock Player::c_qrwlPlayers;
 
 Player::Player(QObject *p) : QObject(p) {
 	sState = Player::Connected;
-	sId = 0;
+	uiSession = 0;
 	iId = -1;
 	bMute = bDeaf = false;
 	bSelfMute = bSelfDeaf = false;
@@ -46,18 +46,18 @@ Player::Player(QObject *p) : QObject(p) {
 	cChannel = 0;
 }
 
-Player *Player::get(short sId) {
+Player *Player::get(unsigned int uiSession) {
 	QReadLocker lock(&c_qrwlPlayers);
-	Player *p = c_qmPlayers.value(sId);
+	Player *p = c_qmPlayers.value(uiSession);
 	return p;
 }
 
-Player *Player::add(short sId, QObject *po) {
+Player *Player::add(unsigned int uiSession, QObject *po) {
 	QWriteLocker lock(&c_qrwlPlayers);
 
 	Player *p = new Player(po);
-	p->sId = sId;
-	c_qmPlayers[sId] = p;
+	p->uiSession = uiSession;
+	c_qmPlayers[uiSession] = p;
 	return p;
 }
 
@@ -76,15 +76,15 @@ Player *Player::match(const Player *other, bool matchname) {
 	return NULL;
 }
 
-void Player::remove(short sId) {
+void Player::remove(unsigned int uiSession) {
 	QWriteLocker lock(&c_qrwlPlayers);
-	Player *p = c_qmPlayers.take(sId);
+	Player *p = c_qmPlayers.take(uiSession);
 	if (p && p->cChannel)
 		p->cChannel->removePlayer(p);
 }
 
 void Player::remove(Player *p) {
-	remove(p->sId);
+	remove(p->uiSession);
 }
 
 void Player::setTalking(bool talking, bool altspeech) {

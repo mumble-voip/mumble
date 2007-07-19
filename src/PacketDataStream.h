@@ -138,9 +138,15 @@ class PacketDataStream {
 			quint64 i = value;
 
 			if ((i & 0x8000000000000000LL) && (~i < 0x100000000LL)) {
-				// Sign shortcut
-				append(0xF8);
+				// Signed number.
 				i = ~i;
+				if (i <= 0x3) {
+					// Shortcase for -1 to -4
+					append(0xFC | i);
+					return *this;
+				} else {
+					append(0xF8);
+				}
 			}
 			if (i < 0x80) {
 				// Need top bit clear
@@ -186,7 +192,7 @@ class PacketDataStream {
 			quint32 v = next();
 			bool invert = false;
 			if ((v & 0xF0) == 0xF0) {
-				switch (v) {
+				switch (v & 0xFC) {
 					case 0xF0:
 						i=next() << 24 | next() << 16 | next() << 8 | next();
 						return *this;
@@ -197,6 +203,10 @@ class PacketDataStream {
 						invert = true;
 						v = next();
 						break;
+					case 0xFC:
+						i=v & 0x03;
+						i = ~i;
+						return *this;
 					default:
 						ok = false;
 						i = 0;

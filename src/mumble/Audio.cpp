@@ -40,7 +40,7 @@ LoopPlayer LoopPlayer::lpLoopy;
 
 LoopPlayer::LoopPlayer() {
 	qsName = QLatin1String("Loopy");
-	sId = 0;
+	uiSession = 0;
 	iId = 0;
 	sState = Player::Authenticated;
 	bMute = bDeaf = bSuppressed = false;

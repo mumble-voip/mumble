@@ -104,7 +104,7 @@ class Overlay : public QObject {
 			TextLine(const QString &t, quint32 c, int p = -1, Decoration d = None) : qsText(t), iPlayer(p), uiColor(c), dDecor(d) { };
 		};
 
-		typedef QPair<short, QByteArray> UserTexture;
+		typedef QPair<unsigned int, QByteArray> UserTexture;
 		QByteArray qbaMuted, qbaDeafened;
 		QList<TextLine> qlCurrentTexts;
 		QHash<QString, unsigned char *> qhTextures;

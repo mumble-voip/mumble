@@ -241,21 +241,21 @@ void MurmurDBus::getChannels(QList<ChannelInfo> &a) {
 	}
 }
 
-void MurmurDBus::kickPlayer(short session, const QString &reason, const QDBusMessage &msg) {
+void MurmurDBus::kickPlayer(unsigned int session, const QString &reason, const QDBusMessage &msg) {
 	PLAYER_SETUP;
 	Connection *c = g_sServer->qmConnections.value(session);
 	if (!c)
 		return;
 
 	MessagePlayerKick mpk;
-	mpk.sPlayerId = 0;
-	mpk.sVictim = session;
+	mpk.uiSession = 0;
+	mpk.uiVictim = session;
 	mpk.qsReason=reason;
 	g_sServer->sendAll(&mpk);
 	c->disconnect();
 }
 
-void MurmurDBus::getPlayerState(short session, const QDBusMessage &msg, PlayerInfo &pi) {
+void MurmurDBus::getPlayerState(unsigned int session, const QDBusMessage &msg, PlayerInfo &pi) {
 	PLAYER_SETUP;
 	pi = PlayerInfo(pPlayer);
 }
@@ -278,8 +278,8 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 		pPlayer->bDeaf = deaf;
 		pPlayer->bMute = mute;
 		MessagePlayerDeaf mpd;
-		mpd.sPlayerId = 0;
-		mpd.sVictim=pPlayer->sId;
+		mpd.uiSession = 0;
+		mpd.uiVictim=pPlayer->uiSession;
 		mpd.bDeaf = deaf;
 		g_sServer->sendAll(&mpd);
 		changed = true;
@@ -288,8 +288,8 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 		pPlayer->bMute = mute;
 
 		MessagePlayerMute mpm;
-		mpm.sPlayerId = 0;
-		mpm.sVictim=pPlayer->sId;
+		mpm.uiSession = 0;
+		mpm.uiVictim=pPlayer->uiSession;
 		mpm.bMute=mute;
 		g_sServer->sendAll(&mpm);
 		changed = true;
@@ -298,8 +298,8 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 	if (cChannel->iId != pi.channel) {
 		g_sServer->playerEnterChannel(pPlayer, cChannel);
 		MessagePlayerMove mpm;
-		mpm.sPlayerId = 0;
-		mpm.sVictim = pPlayer->sId;
+		mpm.uiSession = 0;
+		mpm.uiVictim = pPlayer->uiSession;
 		mpm.iChannelId = cChannel->iId;
 		g_sServer->sendAll(&mpm);
 		changed = true;
@@ -317,7 +317,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 	newid = nc->iId;
 
 	MessageChannelAdd mca;
-	mca.sPlayerId = 0;
+	mca.uiSession = 0;
 	mca.qsName = name;
 	mca.iParent = chanparent;
 	mca.iId = nc->iId;
@@ -363,7 +363,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 		ServerDB::updateChannel(cChannel);
 
 		MessageChannelMove mcm;
-		mcm.sPlayerId = 0;
+		mcm.uiSession = 0;
 		mcm.iId = nci.id;
 		mcm.iParent = nci.parent;
 		g_sServer->sendAll(&mcm);
@@ -381,7 +381,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 				ServerDB::removeLink(cChannel, l);
 
 				MessageChannelLink mcl;
-				mcl.sPlayerId = 0;
+				mcl.uiSession = 0;
 				mcl.iId = nci.id;
 				mcl.qlTargets << l->iId;
 				mcl.ltType = MessageChannelLink::Unlink;
@@ -395,7 +395,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 				ServerDB::addLink(cChannel, l);
 
 				MessageChannelLink mcl;
-				mcl.sPlayerId = 0;
+				mcl.uiSession = 0;
 				mcl.iId = nci.id;
 				mcl.qlTargets << l->iId;
 				mcl.ltType = MessageChannelLink::Link;
@@ -570,7 +570,7 @@ void MurmurDBus::setTemporaryGroups(int channel, int playerid, const QStringList
 }
 
 PlayerInfo::PlayerInfo(Player *p) {
-	session = p->sId;
+	session = p->uiSession;
 	mute = p->bMute;
 	deaf = p->bDeaf;
 	suppressed = p->bSuppressed;
@@ -583,7 +583,7 @@ PlayerInfoExtended::PlayerInfoExtended(Player *p) : PlayerInfo(p) {
 	id = p->iId;
 	name = p->qsName;
 
-	Connection *c = g_sServer->qmConnections[p->sId];
+	Connection *c = g_sServer->qmConnections[p->uiSession];
 	BandwidthRecord *bw= g_sServer->qmBandwidth[c];
 	onlinesecs = bw->qtFirst.elapsed() / 1000000LL;
 

@@ -548,7 +548,7 @@ void ServerDB::setLastChannel(const Player *p) {
 		QSqlQuery query;
 		query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
 		query.addBindValue(p->cChannel->iId);
-		query.addBindValue(p->sId);
+		query.addBindValue(p->uiSession);
 		query.exec();
 	}
 }
@@ -580,7 +580,7 @@ void ServerDB::conLoggedOn(const Player *p, const Connection *con) {
 	QSqlQuery query;
 
 	query.prepare("INSERT INTO connections (con_id, player_id, channel_id, player_name, ip, port) VALUES (?,?,?,?,?,?)");
-	query.addBindValue(p->sId);
+	query.addBindValue(p->uiSession);
 	query.addBindValue(p->iId);
 	query.addBindValue(QVariant());
 	query.addBindValue(p->qsName);
@@ -594,7 +594,7 @@ void ServerDB::conLoggedOff(const Player *p) {
 	QSqlQuery query;
 
 	query.prepare("DELETE FROM connections WHERE con_id = ?");
-	query.addBindValue(p->sId);
+	query.addBindValue(p->uiSession);
 	query.exec();
 }
 
@@ -604,7 +604,7 @@ void ServerDB::conChangedChannel(const Player *p) {
 
 	query.prepare("UPDATE connections SET player_name=? WHERE con_id = ?");
 	query.addBindValue(p->qsName);
-	query.addBindValue(p->sId);
+	query.addBindValue(p->uiSession);
 	query.exec();
 }
 
@@ -614,7 +614,7 @@ void ServerDB::conChangedName(const Player *p) {
 
 	query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
 	query.addBindValue(p->cChannel->iId);
-	query.addBindValue(p->sId);
+	query.addBindValue(p->uiSession);
 	query.exec();
 }
 

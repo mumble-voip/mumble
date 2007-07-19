@@ -174,7 +174,7 @@ int AudioInput::getMaxBandwidth() {
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	float fArg;
-	Player *p=Player::get(g.sId);
+	Player *p=Player::get(g.uiSession);
 	short max;
 	double micMax;
 	int i;

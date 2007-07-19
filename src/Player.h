@@ -40,7 +40,7 @@ class Player : public QObject {
 	public:
 		enum State { Connected, Authenticated };
 		State sState;
-		short sId;
+		unsigned int uiSession;
 		int iId;
 		QString qsName;
 		bool bMute, bDeaf, bSuppressed;
@@ -49,14 +49,14 @@ class Player : public QObject {
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
 
-		static QHash<short, Player *> c_qmPlayers;
+		static QHash<unsigned int, Player *> c_qmPlayers;
 		static QReadWriteLock c_qrwlPlayers;
 
 		Player(QObject *p = NULL);
-		static Player *get(short);
-		static Player *add(short, QObject *p = NULL);
+		static Player *get(unsigned int);
+		static Player *add(unsigned int, QObject *p = NULL);
 		static Player *match(const Player *p, bool matchname = false);
-		static void remove(short);
+		static void remove(unsigned int);
 		static void remove(Player *);
 	public slots:
 		void setTalking(bool talking, bool altspeech);

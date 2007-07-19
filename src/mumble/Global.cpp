@@ -37,7 +37,7 @@ Global::Global() {
 	sh = 0;
 	db = 0;
 	p = 0;
-	sId = 0;
+	uiSession = 0;
 	iPushToTalk = 0;
 	bPushToMute = false;
 	bCenterPosition = false;

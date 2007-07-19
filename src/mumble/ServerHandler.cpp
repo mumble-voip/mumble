@@ -98,15 +98,15 @@ void ServerHandler::udpReady() {
 
 		PacketDataStream pds(buffer, buflen);
 
-		quint32 msgType, sPlayerId;
-		pds >> msgType >> sPlayerId;
+		quint32 msgType, uiSession;
+		pds >> msgType >> uiSession;
 
 		if (msgType == Message::Ping) {
 			quint64 t;
 			pds >> t;
 			uiUDPPing = tTimestamp.elapsed() - t;
 		} else if (msgType == Message::Speex) {
-			Player *p = Player::get(sPlayerId);
+			Player *p = Player::get(uiSession);
 			AudioOutputPtr ao = g.ao;
 			if (ao) {
 				if (p) {
@@ -126,7 +126,7 @@ void ServerHandler::udpReady() {
 
 void ServerHandler::sendMessage(Message *mMsg, bool forceTCP) {
 	bool mayUdp = !forceTCP && ((mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping));
-	mMsg->sPlayerId = g.sId;
+	mMsg->uiSession = g.uiSession;
 
 	if (mayUdp && ! g.s.bTCPCompat) {
 		QMutexLocker qml(&qmUdp);
@@ -201,7 +201,7 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 	if (! mMsg)
 		return;
 
-	Player *p = Player::get(mMsg->sPlayerId);
+	Player *p = Player::get(mMsg->uiSession);
 	AudioOutputPtr ao = g.ao;
 
 	if (mMsg->messageType() == Message::Speex) {

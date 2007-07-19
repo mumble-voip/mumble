@@ -313,7 +313,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 					return (p->bTalking) ? (p->bAltSpeak ? qiTalkingAlt : qiTalkingOn) : qiTalkingOff;
 				break;
 			case Qt::FontRole:
-				if ((idx.column() == 0) && (p->sId == g.sId)) {
+				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
 					QFont f = g.mw->font();
 					f.setBold(true);
 					return f;
@@ -451,7 +451,7 @@ void PlayerModel::hidePlayer(Player *p) {
 	item->qlPlayers.removeAll(p);
 	endRemoveRows();
 
-	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+	if (g.uiSession && (p->cChannel == Player::get(g.uiSession)->cChannel))
 		updateOverlay();
 
 	p->cChannel = NULL;
@@ -471,7 +471,7 @@ void PlayerModel::showPlayer(Player *p, Channel *c) {
 	item->insertPlayer(p);
 	endInsertRows();
 
-	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+	if (g.uiSession && (p->cChannel == Player::get(g.uiSession)->cChannel))
 		updateOverlay();
 
 	ensureSelfVisible();
@@ -480,9 +480,9 @@ void PlayerModel::showPlayer(Player *p, Channel *c) {
 void PlayerModel::ensureSelfVisible() {
 	QStack<Channel *> chans;
 
-	if (! g.sId)
+	if (! g.uiSession)
 		return;
-	Channel *c = Player::get(g.sId)->cChannel;
+	Channel *c = Player::get(g.uiSession)->cChannel;
 	while (c) {
 		chans.push(c);
 		c = c->cParent;
@@ -495,12 +495,12 @@ void PlayerModel::ensureSelfVisible() {
 }
 
 void PlayerModel::recheckLinks() {
-	if (! g.sId)
+	if (! g.uiSession)
 		return;
 
 	bool bChanged = false;
 
-	Channel *home = Player::get(g.sId)->cChannel;
+	Channel *home = Player::get(g.uiSession)->cChannel;
 
 	QSet<Channel *> all = home->allLinks();
 
@@ -521,7 +521,7 @@ void PlayerModel::recheckLinks() {
 		updateOverlay();
 }
 
-Player *PlayerModel::addPlayer(short id, QString name) {
+Player *PlayerModel::addPlayer(unsigned int id, QString name) {
 	Player *p = Player::add(id, this);
 	p->qsName = name;
 
@@ -703,7 +703,7 @@ void PlayerModel::playerMuteDeafChanged() {
 	Player *p=static_cast<Player *>(sender());
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
-	if (g.sId && (p->cChannel == Player::get(g.sId)->cChannel))
+	if (g.uiSession && (p->cChannel == Player::get(g.uiSession)->cChannel))
 		updateOverlay();
 }
 
@@ -727,7 +727,7 @@ QMimeData *PlayerModel::mimeData(const QModelIndexList &idxs) const {
 		Channel *c = getChannel(idx);
 		if (p) {
 			ds << false;
-			ds << p->sId;
+			ds << p->uiSession;
 		} else if (c) {
 			ds << true;
 			ds << c->iId;
@@ -747,13 +747,13 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 
 	bool isChannel;
 	int iId = -1;
-	short sId = -1;
+	short uiSession = -1;
 	ds >> isChannel;
 
 	if (isChannel)
 		ds >> iId;
 	else
-		ds >> sId;
+		ds >> uiSession;
 
 	Channel *c;
 	if (! p.isValid()) {
@@ -764,7 +764,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 
 	if (! isChannel) {
 		MessagePlayerMove mpm;
-		mpm.sVictim = sId;
+		mpm.uiVictim = uiSession;
 		mpm.iChannelId = c->iId;
 		g.sh->sendMessage(&mpm);
 	} else {

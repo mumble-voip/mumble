@@ -116,7 +116,7 @@ class PlayerModel : public QAbstractItemModel {
 		QMimeData *mimeData(const QModelIndexList &idx) const;
 		bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
 
-		Player *addPlayer(short id, QString name);
+		Player *addPlayer(unsigned int id, QString name);
 		Player *getPlayer(const QModelIndex &idx) const;
 
 		Channel *addChannel(int id, Channel *p, QString name);

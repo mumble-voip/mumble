@@ -74,12 +74,12 @@ class UDPThread : public QThread {
 		Q_OBJECT;
 	protected:
 		QUdpSocket *qusUdp;
-		QHash<short, Peer> qhPeers;
-		QHash<short, QHostAddress> qhHosts;
+		QHash<unsigned int, Peer> qhPeers;
+		QHash<unsigned int, QHostAddress> qhHosts;
 		void processMsg(PacketDataStream &pds, Connection *cCon);
-		void sendMessage(short id, const char *data, int len, QByteArray &cache);
+		void sendMessage(unsigned int id, const char *data, int len, QByteArray &cache);
 	signals:
-		void tcpTransmit(QByteArray, short id);
+		void tcpTransmit(QByteArray, unsigned int id);
 	public:
 		void fakeUdpPacket(Message *msg, Connection *source);
 		void run();
@@ -109,9 +109,9 @@ class Server : public QObject {
 		void message(QByteArray &, Connection *cCon = NULL);
 		void checkCommands();
 		void checkTimeout();
-		void tcpTransmit(QByteArray, short);
+		void tcpTransmit(QByteArray, unsigned int);
 	public:
-		QHash<short, Connection *> qmConnections;
+		QHash<unsigned int, Connection *> qmConnections;
 		QHash<Connection *, Player *> qmPlayers;
 		QHash<Connection *, BandwidthRecord *> qmBandwidth;
 		QReadWriteLock qrwlConnections;
@@ -126,7 +126,7 @@ class Server : public QObject {
 
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
-		void sendMessage(short, Message *);
+		void sendMessage(unsigned int, Message *);
 		void sendMessage(Connection *, Message *);
 
 		void log(QString s, Connection *c = NULL);
