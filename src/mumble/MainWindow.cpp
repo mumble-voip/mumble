@@ -491,9 +491,9 @@ void MainWindow::on_ServerInformation_triggered() {
 	QSslCipher qsc = g.sh->qscCipher;
 
 	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"),
-		tr("Control channel: %1 ms latency, Encrypted with %3 bit %4<br />"
-		   "Voice channel: %2 ms latency, Unencrypted"
-		).arg(g.sh->uiTCPPing / 1000.0, 0, 'f', 2).arg(g.sh->uiUDPPing / 1000.0, 0, 'f', 2).arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
+	                tr("Control channel: %1 ms latency, Encrypted with %3 bit %4<br />"
+	                   "Voice channel: %2 ms latency, Unencrypted"
+	                  ).arg(g.sh->uiTCPPing / 1000.0, 0, 'f', 2).arg(g.sh->uiUDPPing / 1000.0, 0, 'f', 2).arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
 
 	qmb.setDefaultButton(QMessageBox::Ok);
 	qmb.setEscapeButton(QMessageBox::Ok);
@@ -990,9 +990,9 @@ void MainWindow::serverDisconnected(QString reason) {
 			qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
 
 			QMessageBox qmb(QMessageBox::Warning, tr("Mumble"),
-				tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
-					"<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
-				).arg(basereason).arg(qsl.join(QString())), QMessageBox::Yes | QMessageBox::No, this);
+			                tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
+			                   "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
+			                  ).arg(basereason).arg(qsl.join(QString())), QMessageBox::Yes | QMessageBox::No, this);
 
 			qmb.setDefaultButton(QMessageBox::No);
 			qmb.setEscapeButton(QMessageBox::No);

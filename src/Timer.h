@@ -34,13 +34,13 @@
 // All timer resolutions are in microseconds.
 
 struct Timer {
-	protected:
-		quint64 uiStart;
-		static quint64 now();
-	public:
-		Timer();
-		quint64 elapsed();
-		quint64 restart();
+protected:
+	quint64 uiStart;
+	static quint64 now();
+public:
+	Timer();
+	quint64 elapsed();
+	quint64 restart();
 };
 
 #endif

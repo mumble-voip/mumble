@@ -32,14 +32,14 @@
 #define _VIEWCERT_H
 
 class ViewCert : public QDialog {
-    Q_OBJECT
-    protected:
-    	QList<QSslCertificate> qlCerts;
-    	QListWidget *qlwChain, *qlwCert;
-    protected slots:
-    	void on_Chain_currentRowChanged(int);
-    public:
-    	ViewCert(QList<QSslCertificate> c, QWidget *p);
+		Q_OBJECT
+	protected:
+		QList<QSslCertificate> qlCerts;
+		QListWidget *qlwChain, *qlwCert;
+	protected slots:
+		void on_Chain_currentRowChanged(int);
+	public:
+		ViewCert(QList<QSslCertificate> c, QWidget *p);
 };
 
 #endif

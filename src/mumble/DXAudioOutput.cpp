@@ -475,7 +475,8 @@ void DXAudioOutput::run() {
 	LARGE_INTEGER ticksPerFrame;
 	LARGE_INTEGER ticksNow;
 LARGE_INTEGER ticksNext = {QuadPart:
-	                           0L};
+	                           0L
+	                          };
 
 	bool found;
 	bool alive;

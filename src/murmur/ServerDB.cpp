@@ -270,7 +270,7 @@ void ServerDB::setPW(int id, const QString &pw) {
 	TransactionHolder th;
 
 	QCryptographicHash hash(QCryptographicHash::Sha1);
-	
+
 	hash.addData(pw.toUtf8());
 
 	QSqlQuery query;

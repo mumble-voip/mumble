@@ -47,7 +47,7 @@ ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 	qlwChain->setObjectName(QLatin1String("Chain"));
 
 	foreach(QSslCertificate c, qlCerts)
-		qlwChain->addItem(tr("%1 %2").arg(c.subjectInfo(QSslCertificate::CommonName)).arg(c.subjectInfo(QSslCertificate::Organization)));
+	qlwChain->addItem(tr("%1 %2").arg(c.subjectInfo(QSslCertificate::CommonName)).arg(c.subjectInfo(QSslCertificate::Organization)));
 
 	h->addWidget(qlwChain);
 	qcbChain->setLayout(h);
@@ -80,7 +80,7 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 	QStringList l;
 	const QSslCertificate &c=qlCerts.at(idx);
 	l << tr("Common Name: %1").arg(c.subjectInfo(QSslCertificate::CommonName));
-        l << tr("Organization: %1").arg(c.subjectInfo(QSslCertificate::Organization));
+	l << tr("Organization: %1").arg(c.subjectInfo(QSslCertificate::Organization));
 	l << tr("Subunit: %1").arg(c.subjectInfo(QSslCertificate::OrganizationalUnitName));
 	l << tr("Country: %1").arg(c.subjectInfo(QSslCertificate::CountryName));
 	l << tr("Locality: %1").arg(c.subjectInfo(QSslCertificate::LocalityName));
