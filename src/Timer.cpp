@@ -61,8 +61,8 @@ quint64 Timer::now() {
 quint64 Timer::now() {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
-	quint64 e= tv.sec * 1000000LL;
-	e += tv.usec;
+	quint64 e= tv.tv_sec * 1000000LL;
+	e += tv.tv_usec;
 	return e;
 }
 #else

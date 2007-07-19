@@ -16,7 +16,7 @@ FORMS =
 HEADERS = Server.h ServerDB.h Register.h Cert.h
 SOURCES = murmur.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
-SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp
+SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp
 
 DIST = DBus.h
 

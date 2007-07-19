@@ -135,7 +135,6 @@ void ServerParams::read(QString fname) {
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
 	iSum = 0;
-	qtFirst.start();
 	for (int i=0;i<N_BANDWIDTH_SLOTS;i++)
 		a_iBW[i] = 0;
 }
@@ -145,7 +144,7 @@ void BandwidthRecord::addFrame(int size) {
 	a_iBW[iRecNum] = size;
 	iSum += a_iBW[iRecNum];
 
-	a_qtWhen[iRecNum].start();
+	a_qtWhen[iRecNum].restart();
 
 	iRecNum++;
 	if (iRecNum == N_BANDWIDTH_SLOTS)
@@ -154,8 +153,8 @@ void BandwidthRecord::addFrame(int size) {
 
 int BandwidthRecord::bytesPerSec() {
 	// Multiply by 45; give 10% leniency
-	unsigned int elapsed = a_qtWhen[iRecNum].elapsed();
-	return (iSum * 1000) / elapsed;
+	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
+	return (iSum * 1000000LL) / elapsed;
 }
 
 void UDPThread::run() {

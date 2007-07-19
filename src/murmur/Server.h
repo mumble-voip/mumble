@@ -33,6 +33,7 @@
 
 #include "murmur_pch.h"
 #include "Message.h"
+#include "Timer.h"
 
 class Player;
 class Connection;
@@ -50,9 +51,9 @@ typedef QPair<quint32, quint16> Peer;
 struct BandwidthRecord {
 	int iRecNum;
 	int iSum;
-	QTime qtFirst;
+	Timer qtFirst;
 	unsigned char a_iBW[N_BANDWIDTH_SLOTS];
-	QTime a_qtWhen[N_BANDWIDTH_SLOTS];
+	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
 
 	BandwidthRecord();
 	void addFrame(int size);
