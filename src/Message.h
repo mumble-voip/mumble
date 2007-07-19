@@ -91,7 +91,11 @@ class MessageServerAuthenticate : public Message {
 };
 
 class MessagePing : public Message {
+	protected:
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
 	public:
+		quint64 uiTimestamp;
 		MessagePing();
 		Message::MessageType messageType() const {
 			return Ping;

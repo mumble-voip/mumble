@@ -172,6 +172,14 @@ void Message::restoreStream(PacketDataStream &) {
 MessagePing::MessagePing() {
 }
 
+void MessagePing::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << uiTimestamp;
+}
+
+void MessagePing::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> uiTimestamp;
+}
+
 MessageServerAuthenticate::MessageServerAuthenticate() {
 	iVersion = MESSAGE_STREAM_VERSION;
 	iMaxBandwidth = 100000;
