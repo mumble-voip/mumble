@@ -121,99 +121,74 @@ ServerDB::ServerDB() {
 	QSqlQuery query;
 
 	if (g_sp.qsDBDriver == "QSQLITE") {
-		query.exec("CREATE TABLE players (player_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, pw TEXT)");
-		query.exec("ALTER TABLE players ADD COLUMN lastchannel INTEGER");
-		query.exec("ALTER TABLE players ADD COLUMN texture BLOB");
-		query.exec("CREATE UNIQUE INDEX players_name ON players (name)");
+		query.exec(QString::fromLatin1("CREATE TABLE %1players (player_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, pw TEXT)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("ALTER TABLE %1players ADD COLUMN lastchannel INTEGER").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("ALTER TABLE %1players ADD COLUMN texture BLOB").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE UNIQUE INDEX %1players_name ON %1players (name)").arg(g_sp.qsDBPrefix));
 
-		query.exec("CREATE TABLE player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
-		query.exec("CREATE UNIQUE INDEX player_auth_name ON player_auth(name)");
-		query.exec("CREATE UNIQUE INDEX player_auth_code ON player_auth(authcode)");
+		query.exec(QString::fromLatin1("CREATE TABLE %1player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE UNIQUE INDEX %1player_auth_name ON %1player_auth(name)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE UNIQUE INDEX %1player_auth_code ON %1player_auth(authcode)").arg(g_sp.qsDBPrefix));
 
-		query.exec("CREATE TABLE channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, inheritACL INTEGER)");
-		query.exec("CREATE TRIGGER channels_parent_del AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channels WHERE parent_id = old.channel_id; UPDATE players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;");
+		query.exec(QString::fromLatin1("CREATE TABLE %1channels (channel_id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, inheritACL INTEGER)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE TRIGGER %1channels_parent_del AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1channels WHERE parent_id = old.channel_id; UPDATE %1players SET lastchannel=0 WHERE lastchannel = old.channel_id; END;").arg(g_sp.qsDBPrefix));
 
-		query.exec("CREATE TABLE groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)");
-		query.exec("CREATE UNIQUE INDEX groups_name_channels ON groups(name, channel_id)");
-		query.exec("CREATE TRIGGER groups_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM groups WHERE channel_id = old.channel_id; END;");
+		query.exec(QString::fromLatin1("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(name, channel_id)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE TRIGGER %1groups_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1groups WHERE channel_id = old.channel_id; END;").arg(g_sp.qsDBPrefix));
 
-		query.exec("CREATE TABLE group_members (group_members_id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, player_id INTEGER, addit INTEGER)");
-		query.exec("CREATE TRIGGER groups_members_del_group AFTER DELETE ON groups FOR EACH ROW BEGIN DELETE FROM group_members WHERE group_id = old.group_id; END;");
-		query.exec("CREATE TRIGGER groups_members_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM group_members WHERE player_id = old.player_id; END;");
+		query.exec(QString::fromLatin1("CREATE TABLE %1group_members (group_members_id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, player_id INTEGER, addit INTEGER)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE TRIGGER %1groups_members_del_group AFTER DELETE ON %1groups FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE group_id = old.group_id; END;").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE TRIGGER %1groups_members_del_player AFTER DELETE ON %1players FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE player_id = old.player_id; END;").arg(g_sp.qsDBPrefix));
 
-		bool migrate = false;
+		query.exec(QString::fromLatin1("CREATE TABLE %1acl (acl_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(channel_id, priority)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE TRIGGER %1acl_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1acl WHERE channel_id = old.channel_id; END;").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE TRIGGER %1acl_del_player AFTER DELETE ON %1players FOR EACH ROW BEGIN DELETE FROM %1acl WHERE player_id = old.player_id; END;").arg(g_sp.qsDBPrefix));
 
-		if (query.exec("SELECT COUNT(*) FROM acl WHERE grant=0")) {
-			qWarning("ServerDB: Migrating old ACL table");
-			migrate = true;
-			query.exec("ALTER TABLE acl RENAME TO aclold");
-		}
+		query.exec(QString::fromLatin1("CREATE TABLE %1channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("CREATE TRIGGER %1channel_links_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;").arg(g_sp.qsDBPrefix));
+		query.exec(QString::fromLatin1("DELETE FROM %1channel_links").arg(g_sp.qsDBPrefix));
 
-		query.exec("CREATE TABLE acl (acl_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)");
-		query.exec("CREATE UNIQUE INDEX acl_channel_pri ON acl(channel_id, priority)");
-		query.exec("CREATE TRIGGER acl_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM acl WHERE channel_id = old.channel_id; END;");
-		query.exec("CREATE TRIGGER acl_del_player AFTER DELETE ON players FOR EACH ROW BEGIN DELETE FROM acl WHERE player_id = old.player_id; END;");
-
-		if (migrate) {
-			query.exec("INSERT INTO acl SELECT acl_id,channel_id,priority,player_id,group_name,apply_here,apply_sub,grant,revoke FROM aclold");
-			query.exec("DROP TABLE aclold");
-		}
-
-		/* Deprecated. Support if exists, but don't create in new installations.
-		 *
-				query.exec("CREATE TABLE connections (con_id INTEGER PRIMARY KEY, player_id INTEGER, channel_id INTEGER, player_name TEXT, ip TEXT, port INTEGER)");
-				query.exec("CREATE UNIQUE INDEX connections_player_name ON connections(player_name)");
-		*/
-		query.exec("DELETE FROM connections");
-
-		query.exec("CREATE TABLE channel_links (channel_links_id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, link_id INTEGER)");
-		query.exec("CREATE TRIGGER channel_links_del_channel AFTER DELETE ON channels FOR EACH ROW BEGIN DELETE FROM channel_links WHERE channel_id = old.channel_id OR link_id = old.channel_id; END;");
-		query.exec("DELETE FROM channel_links");
-
-		/* Deprecated
-				query.exec("CREATE TABLE commands (command_id INTEGER PRIMARY KEY AUTOINCREMENT, command TEXT, arg1 TEXT, arg2 TEXT, arg3 TEXT, arg4 TEXT, arg5 TEXT, arg6 TEXT, arg7 TEXT, arg8 TEXT, arg9 TEXT)");
-		*/
-		query.exec("DELETE FROM commands");
-
-		query.exec("CREATE TABLE bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)");
+		query.exec(QString::fromLatin1("CREATE TABLE %1bans (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, base INTEGER, mask INTEGER)").arg(g_sp.qsDBPrefix));
 	}
 
-	query.exec("INSERT INTO channels (channel_id, parent_id, name) VALUES (0, NULL, 'Root')");
-	query.exec("INSERT INTO players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')");
+	query.exec(QString::fromLatin1("INSERT INTO %1channels (channel_id, parent_id, name) VALUES (0, NULL, 'Root')").arg(g_sp.qsDBPrefix));
+	query.exec(QString::fromLatin1("INSERT INTO %1players (player_id, name, email, pw) VALUES (0, 'SuperUser', '', '')").arg(g_sp.qsDBPrefix));
 
 	// Work around BUG in mysql, because apparantly insert with explicit id 0 means "aha, use the auto_increment and make it '1'"
-	query.exec("UPDATE players SET player_id = 0 WHERE name LIKE 'SuperUser'");
-	query.exec("UPDATE channels SET channel_id = 0 WHERE name LIKE 'Root' AND parent_id IS NULL");
+	query.exec(QString::fromLatin1("UPDATE %1players SET player_id = 0 WHERE name LIKE 'SuperUser'").arg(g_sp.qsDBPrefix));
+	query.exec(QString::fromLatin1("UPDATE %1channels SET channel_id = 0 WHERE name LIKE 'Root' AND parent_id IS NULL").arg(g_sp.qsDBPrefix));
 
 	// Update from old method for sqlite. Root is now the only channel with a 'NULL' parent. This allows foreign keys in mysql.
-	query.exec("UPDATE channels SET parent_id = NULL WHERE name LIKE 'Root' AND parent_id = -1");
+	query.exec(QString::fromLatin1("UPDATE %1channels SET parent_id = NULL WHERE name LIKE 'Root' AND parent_id = -1").arg(g_sp.qsDBPrefix));
 
-	query.exec("SELECT COUNT(*) FROM acl");
+	query.exec(QString::fromLatin1("SELECT COUNT(*) FROM %1acl").arg(g_sp.qsDBPrefix));
 	if (query.next()) {
 		int c = query.value(0).toInt();
 		if (c == 0) {
-			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (0, 1, NULL, 'auth', 1, 0, 64, 0)");
-			query.exec("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (0, 2, NULL, 'admin', 1, 1, 1, 0)");
+			query.exec(QString::fromLatin1("INSERT INTO %1acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (0, 1, NULL, 'auth', 1, 0, 64, 0)").arg(g_sp.qsDBPrefix));
+			query.exec(QString::fromLatin1("INSERT INTO %1acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (0, 2, NULL, 'admin', 1, 1, 1, 0)").arg(g_sp.qsDBPrefix));
 		}
 	}
 
-	query.exec("SELECT COUNT(*) FROM groups");
+	query.exec(QString::fromLatin1("SELECT COUNT(*) FROM %1groups").arg(g_sp.qsDBPrefix));
 	if (query.next()) {
 		int c = query.value(0).toInt();
 		if (c == 0) {
-			query.exec("INSERT INTO groups (group_id, name, channel_id, inherit, inheritable) VALUES (0, 'admin', 0, 1, 1)");
-			query.exec("INSERT INTO group_members (group_id, player_id, addit) VALUES (0, 0, 1)");
+			query.exec(QString::fromLatin1("INSERT INTO %1groups (group_id, name, channel_id, inherit, inheritable) VALUES (0, 'admin', 0, 1, 1)").arg(g_sp.qsDBPrefix));
+			query.exec(QString::fromLatin1("INSERT INTO %1group_members (group_id, player_id, addit) VALUES (0, 0, 1)").arg(g_sp.qsDBPrefix));
 		}
 	}
 
-	query.exec("VACUUM");
+	query.exec(QString::fromLatin1("VACUUM"));
 }
 
 bool ServerDB::hasUsers() {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("SELECT count(*) FROM players");
+	query.prepare(QString::fromLatin1("SELECT count(*) FROM %1players").arg(g_sp.qsDBPrefix));
 	query.exec();
 	if (query.next()) {
 		if (query.value(0).toInt() > 0)
@@ -233,7 +208,7 @@ int ServerDB::authenticate(QString &name, const QString &pw) {
 			TransactionHolder th;
 			QSqlQuery query;
 
-			query.prepare("INSERT INTO players (player_id, name) VALUES (?,?)");
+			query.prepare(QString::fromLatin1("INSERT INTO %1players (player_id, name) VALUES (?,?)").arg(g_sp.qsDBPrefix));
 			query.addBindValue(res);
 			query.addBindValue(name);
 			query.exec();
@@ -244,7 +219,7 @@ int ServerDB::authenticate(QString &name, const QString &pw) {
 	TransactionHolder th;
 	QSqlQuery query;
 
-	query.prepare("SELECT player_id,name,pw FROM players WHERE name like ?");
+	query.prepare(QString::fromLatin1("SELECT player_id,name,pw FROM %1players WHERE name like ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(name);
 	query.exec();
 	if (query.next()) {
@@ -274,7 +249,7 @@ void ServerDB::setPW(int id, const QString &pw) {
 	hash.addData(pw.toUtf8());
 
 	QSqlQuery query;
-	query.prepare("UPDATE players SET pw=? WHERE player_id=?");
+	query.prepare(QString::fromLatin1("UPDATE %1players SET pw=? WHERE player_id=?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(QString::fromLatin1(hash.result().toHex()));
 	query.addBindValue(id);
 	query.exec();
@@ -287,7 +262,7 @@ QString ServerDB::getUserName(int id) {
 
 	TransactionHolder th;
 	QSqlQuery query;
-	query.prepare("SELECT name FROM players WHERE player_id = ?");
+	query.prepare(QString::fromLatin1("SELECT name FROM %1players WHERE player_id = ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(id);
 	query.exec();
 	if (query.next()) {
@@ -304,7 +279,7 @@ int ServerDB::getUserID(const QString &name) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("SELECT player_id FROM players WHERE name like ?");
+	query.prepare(QString::fromLatin1("SELECT player_id FROM %1players WHERE name like ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(name);
 	query.exec();
 	if (query.next()) {
@@ -322,7 +297,7 @@ QByteArray ServerDB::getUserTexture(int id) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("SELECT texture FROM players WHERE player_id = ?");
+	query.prepare(QString::fromLatin1("SELECT texture FROM %1players WHERE player_id = ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(id);
 	query.exec();
 	if (query.next()) {
@@ -335,12 +310,12 @@ void ServerDB::addLink(Channel *c, Channel *l) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("INSERT INTO channel_links (channel_id, link_id) VALUES (?,?)");
+	query.prepare(QString::fromLatin1("INSERT INTO %1channel_links (channel_id, link_id) VALUES (?,?)").arg(g_sp.qsDBPrefix));
 	query.addBindValue(c->iId);
 	query.addBindValue(l->iId);
 	query.exec();
 
-	query.prepare("INSERT INTO channel_links (channel_id, link_id) VALUES (?,?)");
+	query.prepare(QString::fromLatin1("INSERT INTO %1channel_links (channel_id, link_id) VALUES (?,?)").arg(g_sp.qsDBPrefix));
 	query.addBindValue(l->iId);
 	query.addBindValue(c->iId);
 	query.exec();
@@ -352,17 +327,17 @@ void ServerDB::removeLink(Channel *c, Channel *l) {
 	QSqlQuery query;
 
 	if (l) {
-		query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
+		query.prepare(QString::fromLatin1("DELETE FROM %1channel_links WHERE channel_id = ? AND link_id = ?").arg(g_sp.qsDBPrefix));
 		query.addBindValue(c->iId);
 		query.addBindValue(l->iId);
 		query.exec();
 
-		query.prepare("DELETE FROM channel_links WHERE channel_id = ? AND link_id = ?");
+		query.prepare(QString::fromLatin1("DELETE FROM %1channel_links WHERE channel_id = ? AND link_id = ?").arg(g_sp.qsDBPrefix));
 		query.addBindValue(l->iId);
 		query.addBindValue(c->iId);
 		query.exec();
 	} else {
-		query.prepare("DELETE FROM channel_links WHERE channel_id = ? OR link_id = ?");
+		query.prepare(QString::fromLatin1("DELETE FROM %1channel_links WHERE channel_id = ? OR link_id = ?").arg(g_sp.qsDBPrefix));
 		query.addBindValue(c->iId);
 		query.addBindValue(c->iId);
 		query.exec();
@@ -373,7 +348,7 @@ Channel *ServerDB::addChannel(Channel *parent, const QString &name) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("INSERT INTO channels (parent_id, name) VALUES (?,?)");
+	query.prepare(QString::fromLatin1("INSERT INTO %1channels (parent_id, name) VALUES (?,?)").arg(g_sp.qsDBPrefix));
 	query.addBindValue(parent->iId);
 	query.addBindValue(name);
 	query.exec();
@@ -385,7 +360,7 @@ void ServerDB::removeChannel(const Channel *c) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	query.prepare("DELETE FROM channels WHERE channel_id = ?");
+	query.prepare(QString::fromLatin1("DELETE FROM %1channels WHERE channel_id = ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(c->iId);
 	query.exec();
 }
@@ -396,22 +371,22 @@ void ServerDB::updateChannel(const Channel *c) {
 	ChanACL *acl;
 
 	QSqlQuery query;
-	query.prepare("UPDATE channels SET parent_id = ?, inheritACL = ? WHERE channel_id = ?");
+	query.prepare(QString::fromLatin1("UPDATE %1channels SET parent_id = ?, inheritACL = ? WHERE channel_id = ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(c->cParent ? c->cParent->iId : QVariant());
 	query.addBindValue(c->bInheritACL ? 1 : 0);
 	query.addBindValue(c->iId);
 	query.exec();
 
-	query.prepare("DELETE FROM groups WHERE channel_id = ?");
+	query.prepare(QString::fromLatin1("DELETE FROM %1groups WHERE channel_id = ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(c->iId);
 	query.exec();
 
-	query.prepare("DELETE FROM acl WHERE channel_id = ?");
+	query.prepare(QString::fromLatin1("DELETE FROM %1acl WHERE channel_id = ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(c->iId);
 	query.exec();
 
 	foreach(g, c->qhGroups) {
-		query.prepare("INSERT INTO groups (name, channel_id, inherit, inheritable) VALUES (?,?,?,?)");
+		query.prepare(QString::fromLatin1("INSERT INTO %1groups (name, channel_id, inherit, inheritable) VALUES (?,?,?,?)").arg(g_sp.qsDBPrefix));
 		query.addBindValue(g->qsName);
 		query.addBindValue(g->c->iId);
 		query.addBindValue(g->bInherit ? 1 : 0);
@@ -422,14 +397,14 @@ void ServerDB::updateChannel(const Channel *c) {
 		int pid;
 
 		foreach(pid, g->qsAdd) {
-			query.prepare("INSERT INTO group_members (group_id, player_id, addit) VALUES (?, ?, ?)");
+			query.prepare(QString::fromLatin1("INSERT INTO %1group_members (group_id, player_id, addit) VALUES (?, ?, ?)").arg(g_sp.qsDBPrefix));
 			query.addBindValue(id);
 			query.addBindValue(pid);
 			query.addBindValue(1);
 			query.exec();
 		}
 		foreach(pid, g->qsRemove) {
-			query.prepare("INSERT INTO group_members (group_id, player_id, addit) VALUES (?, ?, ?)");
+			query.prepare(QString::fromLatin1("INSERT INTO %1group_members (group_id, player_id, addit) VALUES (?, ?, ?)").arg(g_sp.qsDBPrefix));
 			query.addBindValue(id);
 			query.addBindValue(pid);
 			query.addBindValue(0);
@@ -440,7 +415,7 @@ void ServerDB::updateChannel(const Channel *c) {
 	int pri = 5;
 
 	foreach(acl, c->qlACL) {
-		query.prepare("INSERT INTO acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (?,?,?,?,?,?,?,?)");
+		query.prepare(QString::fromLatin1("INSERT INTO %1acl (channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (?,?,?,?,?,?,?,?)").arg(g_sp.qsDBPrefix));
 		query.addBindValue(acl->c->iId);
 		query.addBindValue(pri++);
 
@@ -460,7 +435,7 @@ void ServerDB::readChannelPrivs(Channel *c) {
 	int cid = c->iId;
 
 	QSqlQuery query;
-	query.prepare("SELECT group_id, name, inherit, inheritable FROM groups WHERE channel_id = ?");
+	query.prepare(QString::fromLatin1("SELECT group_id, name, inherit, inheritable FROM %1groups WHERE channel_id = ?").arg(g_sp.qsDBPrefix));
 	query.addBindValue(cid);
 	query.exec();
 	while (query.next()) {
@@ -471,7 +446,7 @@ void ServerDB::readChannelPrivs(Channel *c) {
 		g->bInheritable = query.value(3).toBool();
 
 		QSqlQuery mem;
-		mem.prepare("SELECT player_id, addit FROM group_members WHERE group_id = ?");
+		mem.prepare("SELECT player_id, addit FROM %1group_members WHERE group_id = ?");
 		mem.addBindValue(gid);
 		mem.exec();
 		while (mem.next()) {
@@ -483,7 +458,7 @@ void ServerDB::readChannelPrivs(Channel *c) {
 		}
 	}
 
-	query.prepare("SELECT player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv FROM acl WHERE channel_id = ? ORDER BY priority");
+	query.prepare(QString::fromLatin1("SELECT player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv FROM %1acl WHERE channel_id = ? ORDER BY priority").arg(g_sp.qsDBPrefix));
 	query.addBindValue(cid);
 	query.exec();
 	while (query.next()) {
@@ -511,9 +486,9 @@ void ServerDB::readChannels(Channel *p) {
 	{
 		TransactionHolder th;
 		if (parentid == -1) {
-			query.prepare("SELECT channel_id, name, inheritACL FROM channels WHERE parent_id IS NULL ORDER BY name");
+			query.prepare(QString::fromLatin1("SELECT channel_id, name, inheritACL FROM %1channels WHERE parent_id IS NULL ORDER BY name").arg(g_sp.qsDBPrefix));
 		} else {
-			query.prepare("SELECT channel_id, name, inheritACL FROM channels WHERE parent_id=? ORDER BY name");
+			query.prepare(QString::fromLatin1("SELECT channel_id, name, inheritACL FROM %1channels WHERE parent_id=? ORDER BY name").arg(g_sp.qsDBPrefix));
 			query.addBindValue(parentid);
 		}
 		query.exec();
@@ -533,24 +508,13 @@ void ServerDB::setLastChannel(const Player *p) {
 	if (p->iId < 0)
 		return;
 
-	{
 		TransactionHolder th;
 		QSqlQuery query;
 
-		query.prepare("UPDATE players SET lastchannel=? WHERE player_id = ?");
+		query.prepare(QString::fromLatin1("UPDATE %1players SET lastchannel=? WHERE player_id = ?").arg(g_sp.qsDBPrefix));
 		query.addBindValue(p->cChannel->iId);
 		query.addBindValue(p->iId);
 		query.exec();
-	}
-
-	{
-		TransactionHolder th;
-		QSqlQuery query;
-		query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
-		query.addBindValue(p->cChannel->iId);
-		query.addBindValue(p->uiSession);
-		query.exec();
-	}
 }
 
 int ServerDB::readLastChannel(Player *p) {
@@ -561,7 +525,7 @@ int ServerDB::readLastChannel(Player *p) {
 		TransactionHolder th;
 		QSqlQuery query;
 
-		query.prepare("SELECT lastchannel FROM players WHERE player_id = ?");
+		query.prepare(QString::fromLatin1("SELECT lastchannel FROM %1players WHERE player_id = ?").arg(g_sp.qsDBPrefix));
 		query.addBindValue(p->iId);
 		query.exec();
 
@@ -573,49 +537,6 @@ int ServerDB::readLastChannel(Player *p) {
 		}
 	}
 	return c->iId;
-}
-
-void ServerDB::conLoggedOn(const Player *p, const Connection *con) {
-	TransactionHolder th;
-	QSqlQuery query;
-
-	query.prepare("INSERT INTO connections (con_id, player_id, channel_id, player_name, ip, port) VALUES (?,?,?,?,?,?)");
-	query.addBindValue(p->uiSession);
-	query.addBindValue(p->iId);
-	query.addBindValue(QVariant());
-	query.addBindValue(p->qsName);
-	query.addBindValue(con->peerAddress().toString());
-	query.addBindValue(con->peerPort());
-	query.exec();
-}
-
-void ServerDB::conLoggedOff(const Player *p) {
-	TransactionHolder th;
-	QSqlQuery query;
-
-	query.prepare("DELETE FROM connections WHERE con_id = ?");
-	query.addBindValue(p->uiSession);
-	query.exec();
-}
-
-void ServerDB::conChangedChannel(const Player *p) {
-	TransactionHolder th;
-	QSqlQuery query;
-
-	query.prepare("UPDATE connections SET player_name=? WHERE con_id = ?");
-	query.addBindValue(p->qsName);
-	query.addBindValue(p->uiSession);
-	query.exec();
-}
-
-void ServerDB::conChangedName(const Player *p) {
-	TransactionHolder th;
-	QSqlQuery query;
-
-	query.prepare("UPDATE connections SET channel_id=? WHERE con_id = ?");
-	query.addBindValue(p->cChannel->iId);
-	query.addBindValue(p->uiSession);
-	query.exec();
 }
 
 void ServerDB::dumpChannel(const Channel *c) {
@@ -647,33 +568,12 @@ void ServerDB::dumpChannel(const Channel *c) {
 	}
 }
 
-QList<ServerDB::qpCommand> ServerDB::getCommands() {
-	TransactionHolder th;
-	QList<qpCommand> commands;
-
-	QSqlQuery query;
-	query.prepare("SELECT command,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9 FROM commands ORDER BY command_id");
-	query.exec();
-	while (query.next()) {
-		qpCommand cmd;
-		cmd.first = query.value(0).toString();
-		for (int i=1;i<10;i++)
-			cmd.second.append(query.value(i));
-		commands << cmd;
-	}
-	if (commands.count() != 0) {
-		query.prepare("DELETE FROM commands");
-		query.exec();
-	}
-	return commands;
-}
-
 QList<ServerDB::qpBan> ServerDB::getBans() {
 	TransactionHolder th;
 	QList<qpBan> bans;
 
 	QSqlQuery query;
-	query.prepare("SELECT base,mask FROM bans");
+	query.prepare(QString::fromLatin1("SELECT base,mask FROM %1bans").arg(g_sp.qsDBPrefix));
 	query.exec();
 	while (query.next()) {
 		qpBan ban;
@@ -689,10 +589,10 @@ void ServerDB::setBans(QList<ServerDB::qpBan> bans) {
 	qpBan ban;
 
 	QSqlQuery query;
-	query.prepare("DELETE FROM bans");
+	query.prepare(QString::fromLatin1("DELETE FROM %1bans").arg(g_sp.qsDBPrefix));
 	query.exec();
 	foreach(ban, bans) {
-		query.prepare("INSERT INTO bans (base,mask) VALUES (?,?)");
+		query.prepare(QString::fromLatin1("INSERT INTO %1bans (base,mask) VALUES (?,?)").arg(g_sp.qsDBPrefix));
 		query.addBindValue(ban.first);
 		query.addBindValue(ban.second);
 		query.exec();

@@ -134,6 +134,7 @@ void ServerParams::read(QString fname) {
 	qsDBUserName = qs.value("dbUsername", qsDBUserName).toString();
 	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
+	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
@@ -448,7 +449,6 @@ void Server::connectionClosed(QString reason) {
 		mslMsg.uiSession=pPlayer->uiSession;
 		sendExcept(&mslMsg, c);
 
-		ServerDB::conLoggedOff(pPlayer);
 		dbus->playerDisconnected(pPlayer);
 	}
 
@@ -589,7 +589,6 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 	if (quiet)
 		return;
 
-	ServerDB::conChangedChannel(p);
 	ServerDB::setLastChannel(p);
 	dbus->playerStateChanged(p);
 
@@ -724,7 +723,6 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 		lc = Channel::get(0);
 
 	g_sServer->playerEnterChannel(pSrcPlayer, lc, true);
-	ServerDB::conLoggedOn(pSrcPlayer, cCon);
 
 	QQueue<Channel *> q;
 	QSet<Channel *> chans;

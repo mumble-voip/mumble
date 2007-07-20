@@ -152,6 +152,7 @@ struct ServerParams {
 	QString qsDBUserName;
 	QString qsDBPassword;
 	QString qsDBHostName;
+	QString qsDBPrefix;
 	int iDBPort;
 
 	QString qsDBus;

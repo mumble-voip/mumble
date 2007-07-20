@@ -57,13 +57,8 @@ class ServerDB : public QObject {
 		static QString getUserName(int id);
 		static QByteArray getUserTexture(int id);
 		static void setPW(int id, const QString &pw);
-		static void conChangedName(const Player *p);
-		static void conChangedChannel(const Player *p);
-		static void conLoggedOn(const Player *p, const Connection *con);
-		static void conLoggedOff(const Player *p);
 		static void addLink(Channel *c, Channel *l);
 		static void removeLink(Channel *c, Channel *l);
-		static QList<qpCommand> getCommands();
 		static QList<qpBan> getBans();
 		static void setBans(QList<qpBan> bans);
 };
