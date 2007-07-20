@@ -190,7 +190,6 @@ class PacketDataStream {
 
 		PacketDataStream &operator >>(quint64 &i) {
 			quint32 v = next();
-			bool invert = false;
 			if ((v & 0xF0) == 0xF0) {
 				switch (v & 0xFC) {
 					case 0xF0:
@@ -200,9 +199,9 @@ class PacketDataStream {
 						i=next() << 56 | next() << 48 | next() << 40 | next() << 32 | next() << 24 | next() << 16 | next() << 8 | next();
 						return *this;
 					case 0xF8:
-						invert = true;
-						v = next();
-						break;
+						*this >> i;
+						i = ~i;
+						return *this;
 					case 0xFC:
 						i=v & 0x03;
 						i = ~i;
@@ -222,8 +221,6 @@ class PacketDataStream {
 			} else {
 				i=(v & 0x7F);
 			}
-			if (invert)
-				i = ~i;
 			return *this;
 		}
 

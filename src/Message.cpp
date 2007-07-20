@@ -152,7 +152,7 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 		} else if (qdsIn.left() != 0) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Long packet: %d leftover bytes", iMessageType, uiSession, qdsIn.left());
+			qWarning("Message: %d[%d] Long packet: %d/%d leftover bytes", iMessageType, uiSession, qdsIn.left(), qdsIn.size());
 		} else if (! mMsg->isValid()) {
 			delete mMsg;
 			mMsg = NULL;
