@@ -48,10 +48,7 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
-
-	// With a direct connection, writing to the socket triggers readyRead()...
-	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()), Qt::QueuedConnection);
-
+	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 	connect(qtsSocket, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(socketSslErrors(const QList<QSslError> &)));
 	qtLastPacket.restart();
@@ -65,6 +62,14 @@ int Connection::activityTime() const {
 }
 
 void Connection::socketRead() {
+	// QSslSocket will, during writes, emit readyRead. Meaning we'd reenter from the message handlers.
+	// That is bad, and furthermore the remaining data will be parsed on the next run through, so
+	// there's no need.
+	static int bReentry = false;
+	if (bReentry)
+		return;
+	bReentry = true;
+
 	int iAvailable;
 
 	while (1) {
@@ -72,7 +77,7 @@ void Connection::socketRead() {
 
 		if (iPacketLength == -1) {
 			if (iAvailable < 3)
-				return;
+				break;
 
 			unsigned char a_ucBuffer[3];
 
@@ -87,9 +92,10 @@ void Connection::socketRead() {
 			iPacketLength = -1;
 			qtLastPacket.restart();
 		} else {
-			return;
+			break;
 		}
 	}
+	bReentry = false;
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {

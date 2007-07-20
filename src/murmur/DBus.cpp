@@ -146,7 +146,7 @@ QString MurmurDBus::mapIdToName(int id) {
 		return QString();
 
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-	QDBusReply<QString> reply = remoteApp.call("getUserName",id);
+	QDBusReply<QString> reply = remoteApp.call(QDBus::BlockWithGui, "getUserName",id);
 	if (reply.isValid())
 		return reply.value();
 	else {
@@ -162,7 +162,7 @@ QByteArray MurmurDBus::mapIdToTexture(int id) {
 		return QByteArray();
 
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-	QDBusReply<QByteArray> reply = remoteApp.call("getUserTexture",id);
+	QDBusReply<QByteArray> reply = remoteApp.call(QDBus::BlockWithGui, "getUserTexture",id);
 	if (reply.isValid()) {
 		return reply.value();
 	} else {
@@ -176,7 +176,7 @@ int MurmurDBus::mapNameToId(const QString &name) {
 		return -2;
 
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-	QDBusReply<int> reply = remoteApp.call("getUserId",name);
+	QDBusReply<int> reply = remoteApp.call(QDBus::BlockWithGui, "getUserId",name);
 	if (reply.isValid())
 		return reply.value();
 	else {

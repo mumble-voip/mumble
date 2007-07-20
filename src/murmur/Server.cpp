@@ -311,7 +311,7 @@ void UDPThread::processMsg(PacketDataStream &pds, Connection *cCon) {
 Server::Server(QObject *p) : QObject(p) {
 	qtsServer = new SslServer(this);
 
-	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()));
+	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
 	if (! qtsServer->listen(QHostAddress::Any, g_sp.iPort))
 		qFatal("Server: TCP Listen on port %d failed",g_sp.iPort);
@@ -350,52 +350,56 @@ void Server::log(QString s, Connection *c) {
 }
 
 void Server::newClient() {
-	QSslSocket *sock = qtsServer->nextPendingSSLConnection();
+	forever {
+		QSslSocket *sock = qtsServer->nextPendingSSLConnection();
+		if (! sock)
+			return;
 
-	QHostAddress adr = sock->peerAddress();
-	quint32 base = adr.toIPv4Address();
+		QHostAddress adr = sock->peerAddress();
+		quint32 base = adr.toIPv4Address();
 
-	QPair<quint32,int> ban;
+		QPair<quint32,int> ban;
 
-	foreach(ban, qlBans) {
-		int mask = 32 - ban.second;
-		mask = (1 << mask) - 1;
-		if ((base & ~mask) == (ban.first & ~mask)) {
-			log(QString("Ignoring connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()));
-			sock->disconnectFromHost();
+		foreach(ban, qlBans) {
+			int mask = 32 - ban.second;
+			mask = (1 << mask) - 1;
+			if ((base & ~mask) == (ban.first & ~mask)) {
+				log(QString("Ignoring connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()));
+				sock->disconnectFromHost();
+				return;
+			}
+		}
+
+		sock->setPrivateKey(cert.getKey());
+		sock->setLocalCertificate(cert.getCert());
+
+		Connection *cCon = new Connection(this, sock);
+
+		unsigned int id;
+
+		if (qqIds.isEmpty()) {
+			cCon->disconnect();
 			return;
 		}
+
+		id=qqIds.dequeue();
+
+		Player *pPlayer = Player::add(id);
+		qmPlayers[cCon] = pPlayer;
+		{
+			QWriteLocker wl(&qrwlConnections);
+			qmBandwidth[cCon] = new BandwidthRecord();
+			qmConnections[id] = cCon;
+		}
+
+		connect(cCon, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
+		connect(cCon, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
+		connect(cCon, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
+
+		log(QString("New connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()), cCon);
+
+		sock->startServerEncryption();
 	}
-
-	sock->setPrivateKey(cert.getKey());
-	sock->setLocalCertificate(cert.getCert());
-
-	Connection *cCon = new Connection(this, sock);
-
-	unsigned int id;
-
-	if (qqIds.isEmpty()) {
-		cCon->disconnect();
-		return;
-	}
-
-	id=qqIds.dequeue();
-
-	Player *pPlayer = Player::add(id);
-	qmPlayers[cCon] = pPlayer;
-	{
-		QWriteLocker wl(&qrwlConnections);
-		qmBandwidth[cCon] = new BandwidthRecord();
-		qmConnections[id] = cCon;
-	}
-
-	connect(cCon, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
-	connect(cCon, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
-	connect(cCon, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
-
-	log(QString("New connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()), cCon);
-
-	sock->startServerEncryption();
 }
 
 void Server::sslError(const QList<QSslError> &errors) {
@@ -627,8 +631,16 @@ void MessageServerAuthenticate::process(Connection *cCon) {
 	if (nameok && qsUsername[0] == '#')
 		nameok = false;
 
-	// Fetch ID and stored username
+	// Fetch ID and stored username.
+	// Since this may call DBus, which may recall our dbus messages, this function needs
+	// to support re-entrancy, and also to support the fact that sessions may go away.
 	int id = ServerDB::authenticate(qsUsername, qsPassword);
+
+	// Did the session go away?
+	Player *p = Player::get(uiSession);
+	if (p != pSrcPlayer)
+		return;
+
 	pSrcPlayer->iId = id >= 0 ? id : -1;
 	pSrcPlayer->qsName = qsUsername;
 
@@ -1318,6 +1330,10 @@ void MessageQueryUsers::process(Connection *cCon) {
 			qlNames[i] = g_sServer->qhUserNameCache.value(id);
 		}
 	}
+	// Check if session is alive.
+	if (! Player::get(uiSession))
+		return;
+
 	g_sServer->sendMessage(cCon, this);
 }
 
@@ -1335,6 +1351,11 @@ void MessageTexture::process(Connection *cCon) {
 		}
 		g_sServer->qhUserTextureCache.insert(iPlayerId, qba);
 	}
+
+	// Check if session is alive.
+	if (! Player::get(uiSession))
+		return;
+
 	qbaTexture = g_sServer->qhUserTextureCache.value(iPlayerId);
 	if (! qbaTexture.isEmpty())
 		g_sServer->sendMessage(cCon, this);
