@@ -138,6 +138,7 @@ class Server : public QObject {
 };
 
 struct ServerParams {
+	QHostAddress qhaBind;
 	int iPort;
 	int iTimeout;
 	int iMaxBandwidth;

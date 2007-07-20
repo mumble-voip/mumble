@@ -13,15 +13,15 @@ class TestTimer : public QObject {
 void TestTimer::resolution() {
 	QTime a;
 	Timer t;
-	
+
 	a.restart();
 	t.restart();
-	
+
 	quint64 achange = 0;
 	quint64 tchange = 0;
-	
+
 	quint64 aelapsed = 0, telapsed = 0;
-	
+
 	do {
 		quint64 ae = a.elapsed();
 		quint64 te = t.elapsed();
@@ -29,10 +29,10 @@ void TestTimer::resolution() {
 			achange++;
 		if (te != telapsed)
 			tchange++;
-		
+
 		aelapsed = ae;
 		telapsed = te;
-	
+
 	} while (achange < 10);
 
 	QVERIFY(tchange > (achange * 100));
@@ -50,7 +50,7 @@ void TestTimer::atomicity() {
 	do {
 		ttime += a.restart();
 	} while (t.elapsed() < 10);
-	
+
 	QCOMPARE(ttime, b.elapsed());
 }
 

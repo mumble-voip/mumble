@@ -89,6 +89,7 @@ ServerParams::ServerParams() {
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
 	qsSSLStore = "murmur.pem";
+	qhaBind = QHostAddress(QHostAddress::Any);
 }
 
 void ServerParams::read(QString fname) {
@@ -101,6 +102,24 @@ void ServerParams::read(QString fname) {
 	QSettings qs(fname, QSettings::IniFormat);
 
 	qDebug("Initializing settings from %s", qPrintable(qs.fileName()));
+
+	QString qsHost = qs.value("host", QString()).toString();
+	if (! qsHost.isEmpty()) {
+		if (! qhaBind.setAddress(qsHost)) {
+			QHostInfo hi = QHostInfo::fromName(qsHost);
+			foreach(QHostAddress qha, hi.addresses()) {
+				if (qha.protocol() == QAbstractSocket::IPv4Protocol) {
+					qhaBind = qha;
+					break;
+				}
+			}
+			if ((qhaBind == QHostAddress::Any) || (qhaBind.isNull())) {
+				qFatal("Lookup of bind hostname %s failed", qPrintable(qsHost));
+			}
+
+		}
+		qDebug("Binding to address %s", qPrintable(qhaBind.toString()));
+	}
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
 	iPort = qs.value("port", iPort).toInt();
@@ -158,7 +177,7 @@ int BandwidthRecord::bytesPerSec() {
 void UDPThread::run() {
 	qDebug("Starting UDP Thread");
 	qusUdp = new QUdpSocket();
-	if (! qusUdp->bind(g_sp.iPort))
+	if (! qusUdp->bind(g_sp.qhaBind, g_sp.iPort, QUdpSocket::DontShareAddress))
 		qFatal("Server: UDP Bind to port %d failed",g_sp.iPort);
 
 #ifdef Q_OS_UNIX
@@ -313,7 +332,7 @@ Server::Server(QObject *p) : QObject(p) {
 
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
-	if (! qtsServer->listen(QHostAddress::Any, g_sp.iPort))
+	if (! qtsServer->listen(g_sp.qhaBind, g_sp.iPort))
 		qFatal("Server: TCP Listen on port %d failed",g_sp.iPort);
 
 	udp = new UDPThread();
