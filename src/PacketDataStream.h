@@ -36,12 +36,11 @@
  */
 
 class PacketDataStream {
-	protected:
+	private:
 		unsigned char *data;
 		quint32 maxsize;
 		quint32 offset;
 		bool ok;
-
 	public:
 		quint32 size() const {
 			return offset;
@@ -190,36 +189,36 @@ class PacketDataStream {
 
 		PacketDataStream &operator >>(quint64 &i) {
 			quint32 v = next();
-			if ((v & 0xF0) == 0xF0) {
+
+			if ((v & 0x80) == 0x00) {
+				i=(v & 0x7F);
+			} else if ((v & 0xC0) == 0x80) {
+				i=(v & 0x3F) << 8 | next();
+			} else if ((v & 0xF0) == 0xF0) {
 				switch (v & 0xFC) {
 					case 0xF0:
 						i=next() << 24 | next() << 16 | next() << 8 | next();
-						return *this;
+						break;
 					case 0xF4:
 						i=next() << 56 | next() << 48 | next() << 40 | next() << 32 | next() << 24 | next() << 16 | next() << 8 | next();
-						return *this;
+						break;
 					case 0xF8:
 						*this >> i;
 						i = ~i;
-						return *this;
+						break;
 					case 0xFC:
 						i=v & 0x03;
 						i = ~i;
-						return *this;
+						break;
 					default:
 						ok = false;
 						i = 0;
-						return *this;
+						break;
 				}
-			}
-			if ((v & 0xF0) == 0xE0) {
+			} else if ((v & 0xF0) == 0xE0) {
 				i=(v & 0x0F) << 24 | next() << 16 | next() << 8 | next();
 			} else if ((v & 0xE0) == 0xC0) {
 				i=(v & 0x1F) << 16 | next() << 8 | next();
-			} else if ((v & 0xC0) == 0x80) {
-				i=(v & 0x3F) << 8 | next();
-			} else {
-				i=(v & 0x7F);
 			}
 			return *this;
 		}
