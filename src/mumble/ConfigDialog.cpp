@@ -160,6 +160,9 @@ void ConfigDialog::apply() {
 	g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
 	g.ao->start(QThread::HighPriority);
+
+	// They might have changed their keys.
+	g.iPushToTalk = 0;
 }
 
 void ConfigDialog::accept() {

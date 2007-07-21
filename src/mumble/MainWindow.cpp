@@ -847,7 +847,7 @@ void MainWindow::on_HelpVersionCheck_triggered() {
 void MainWindow::on_PushToTalk_triggered(bool down) {
 	if (down)
 		g.iPushToTalk++;
-	else
+	else if (g.iPushToTalk)
 		g.iPushToTalk--;
 }
 
@@ -858,7 +858,7 @@ void MainWindow::on_PushToMute_triggered(bool down) {
 void MainWindow::on_AltPushToTalk_triggered(bool down) {
 	if (down)
 		g.iPushToTalk++;
-	else
+	else if (g.iPushToTalk)
 		g.iPushToTalk--;
 
 	g.bAltSpeak = down;
@@ -869,14 +869,14 @@ void MainWindow::on_CenterPos_triggered(bool down) {
 
 	if (down)
 		g.iPushToTalk++;
-	else
+	else if (g.iPushToTalk)
 		g.iPushToTalk--;
 }
 
 void MainWindow::pushLink(bool down) {
 	if (down)
 		g.iPushToTalk++;
-	else
+	else if (g.iPushToTalk)
 		g.iPushToTalk--;
 
 	if (g.uiSession == 0)
