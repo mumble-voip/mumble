@@ -93,6 +93,8 @@ int main(int argc, char **argv) {
 	QDir::addSearchPath(QLatin1String("translation"), a.applicationDirPath());
 	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
 
+	qWarning("Locale is %s", qPrintable(QLocale::system().name()));
+
 	QString locale=g.qs->value(QLatin1String("Language"), QLocale::system().name()).toString();
 	QTranslator translator;
 	translator.load(QLatin1String("translation:mumble_") + locale);

@@ -49,6 +49,10 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	}
 	fprintf(fConsole, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")), msg);
 	fflush(fConsole);
+	if (type == QtFatalMsg) {
+		::MessageBoxA(NULL, msg, "Mumble", MB_OK | MB_ICONERROR);
+		exit(0);
+	}
 }
 
 #define ER ExceptionInfo->ExceptionRecord
