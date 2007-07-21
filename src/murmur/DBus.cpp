@@ -187,17 +187,35 @@ int MurmurDBus::mapNameToId(const QString &name) {
 	}
 }
 
-int MurmurDBus::authenticate(const QString &uname, const QString &pw) {
+int MurmurDBus::authenticate(QString &uname, const QString &pw) {
 	if (qsAuthPath.isEmpty())
 		return -2;
 
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-	QDBusReply<int> reply = remoteApp.call(QDBus::BlockWithGui, "authenticate",uname,pw);
-	if (reply.isValid()) {
-		qWarning("Authenticate success for %s: %d", qPrintable(uname),reply.value());
-		return reply.value();
+	QDBusMessage msg = remoteApp.call(QDBus::BlockWithGui, "authenticate",uname,pw);
+	QDBusError err = msg;
+	if (! err.isValid()) {
+		QString newname;
+		int uid = -2;
+		bool ok = true;
+		if (msg.arguments().count() >= 1) {
+			uid = msg.arguments().at(0).toInt(&ok);
+		}
+		if (ok && (msg.arguments().count() >= 2)) {
+			newname = msg.arguments().at(1).toString();
+			if (! newname.isEmpty()) {
+				uname = newname;
+			}
+		}
+		if (ok) {
+			qWarning("Authenticate success for %s: %d", qPrintable(uname),uid);
+			return uid;
+		} else {
+			qWarning("Autenticator failed authenticate for %s: Invalid return type", qPrintable(uname));
+			return -2;
+		}
 	} else {
-		qWarning("Authenticator failed authenticate for %s: %s", qPrintable(uname), qPrintable(reply.error().message()));
+		qWarning("Authenticator failed authenticate for %s: %s", qPrintable(uname), qPrintable(err.message()));
 		qsAuthPath = QString();
 		qsAuthService = QString();
 		return -2;

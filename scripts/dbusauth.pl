@@ -56,7 +56,7 @@ use Image::Magick;
 use Digest::MD5 qw(md5_hex);
 use Net::DBus::Exporter qw(net.sourceforge.mumble.auther);
 use base qw(Net::DBus::Object);
-dbus_method("authenticate", ["string","string"], ["int32"]);
+dbus_method("authenticate", ["string","string"], ["int32","string"]);
 dbus_method("getUserName", ["int32"], ["string"]);
 dbus_method("getUserId", ["string"], ["int32"]);
 dbus_method("getUserTexture", ["int32"], [["array", "byte"]]);
@@ -83,20 +83,21 @@ sub authenticate {
   my $dbh=DBI->connect_cached(@dbhparams);
   if (! $dbh) {
     carp $DBI::errstr;
-    return -2;
+    return -2,'';
   }
   $dbh->do("SET names utf8");
-  my $sth=$dbh->prepare("SELECT user_id, user_password, user_type FROM ${dbprefix}users WHERE username = ?");
+  my $sth=$dbh->prepare("SELECT user_id, user_password, user_type, username FROM ${dbprefix}users WHERE LOWER(username) = LOWER(?)");
   $sth->execute($uname);
   if ((my $r=$sth->fetchrow_hashref())) {
     if ($$r{'user_password'} ne md5_hex($pw)) {
       print "Wrong password for $uname\n";
-      return -1;
+      return -1,'';
     }
     if (($$r{'user_type'} != 0) && ($$r{'user_type'} != 3)) {
-      return -1;
+      return -1,'';
     }
     my $id = $$r{'user_id'} + $id_offset;
+    my $name = $$r{'username'};
     $sth->finish();
 
     my @groups;
@@ -108,10 +109,10 @@ sub authenticate {
     my $response = $object->setTemporaryGroups(0, $id, \@groups);
     Dumper($response);
     print "Authenticated $uname as ID $id with groups ".join(" ",@groups)."\n";
-    return $id;
+    return $id,$name;
   } else {
     print "Unknown user $uname\n";
-    return -2;
+    return -2,'';
   }
 }
 

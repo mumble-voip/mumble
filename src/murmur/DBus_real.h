@@ -123,7 +123,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		int mapNameToId(const QString &name);
 		QString mapIdToName(int id);
 		QByteArray mapIdToTexture(int id);
-		int authenticate(const QString &uname, const QString &pw);
+		int authenticate(QString &uname, const QString &pw);
 	public slots:
 		// Order of paremeters is IMPORTANT, or Qt will barf.
 		// Needs to be:
