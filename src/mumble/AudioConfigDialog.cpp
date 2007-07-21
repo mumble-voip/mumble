@@ -253,7 +253,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qlComplexity, 1, 2);
 
 	qsAmp = new QSlider(Qt::Horizontal);
-	qsAmp->setRange(0, 18000);
+	qsAmp->setRange(0, 19500);
 	qsAmp->setSingleStep(500);
 	qsAmp->setPageStep(2000);
 	qsAmp->setValue(20000 - g.s.iMinLoudness);
