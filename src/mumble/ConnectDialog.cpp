@@ -93,7 +93,7 @@ QWidget *ConnectDialog::createLocal() {
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
 
 	qleName=new QLineEdit();
-	lab=new QLabel(tr("&Name"));
+	lab=new QLabel(tr("&Label"));
 	lab->setBuddy(qleName);
 
 	l->addWidget(lab, 0, 1);
@@ -171,7 +171,7 @@ QWidget *ConnectDialog::createRemote() {
 
 	qtwServers = new QTableWidget(0, 3);
 	QStringList labels;
-	labels << tr("Name");
+	labels << tr("Label");
 	labels << tr("Address");
 	labels << tr("URL");
 	qtwServers->setHorizontalHeaderLabels(labels);
