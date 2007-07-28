@@ -15,7 +15,7 @@ INCLUDEPATH	+= ../../speex/include
 LIBS 		+= -Llib -L.
 RESOURCES	+= mumble.qrc
 
-TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts
+TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts
 
 PRECOMPILED_HEADER = mumble_pch.h
 
