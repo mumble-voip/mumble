@@ -36,7 +36,6 @@
 #include <X11/extensions/Xevie.h>
 
 static GlobalShortcutX *gsx = NULL;
-
 static ConfigWidget *GlobalShortcutXConfigDialogNew() {
 	return new GlobalShortcutXConfig();
 }
@@ -98,17 +97,20 @@ void XInputKeyWidget::setButton(bool last) {
 void XInputKeyWidget::displayKeys() {
 	QStringList sl;
 	foreach(int key, qlButtons) {
-		KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
-		if (ks == NoSymbol) {
-			sl << QLatin1String("0x")+QString::number(key,16);
-		} else {
-			const char *str = XKeysymToString(ks);
-			if (strlen(str) == 0) {
-				sl << QLatin1String("KS0x")+QString::number(ks,16);
+		if (key < 256) {
+			KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
+			if (ks == NoSymbol) {
+				sl << QLatin1String("0x")+QString::number(key,16);
 			} else {
-				sl << QLatin1String(str);
+				const char *str = XKeysymToString(ks);
+				if (strlen(str) == 0) {
+					sl << QLatin1String("KS0x")+QString::number(ks,16);
+				} else {
+					sl << QLatin1String(str);
+				}
 			}
-		}
+		} else
+			sl << QLatin1String("Mouse ")+QString::number(key-256);
 	}
 	setText(sl.join(QLatin1String(" ")));
 }
@@ -208,7 +210,7 @@ GlobalShortcutX::GlobalShortcutX() {
 		return;
 	}
 
-	XevieSelectInput(display, KeyPressMask | KeyReleaseMask);
+	XevieSelectInput(display, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask);
 #endif
 
 	bRunning=true;
@@ -273,13 +275,14 @@ void GlobalShortcutX::remap() {
 }
 
 void GlobalShortcutX::resetMap() {
-	for (int i=0;i<256;i++)
+	bFirstMouseReleased = false;
+	for (int i=0;i<320;i++)
 		touchMap[i]=false;
 }
 
 QList<int> GlobalShortcutX::getCurrentButtons() {
 	QList<int> keys;
-	for (int i=0;i<256;i++)
+	for (int i=0;i<320;i++)
 		if (touchMap[i])
 			keys << i;
 	return keys;
@@ -302,16 +305,31 @@ void GlobalShortcutX::run() {
 				XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
 				switch (evt.type) {
 					case KeyPress:
-					case KeyRelease: {
-							bool down = (evt.type == KeyPress);
+					case KeyRelease:
+					case ButtonPress:
+					case ButtonRelease: {
+							bool down = (evt.type == KeyPress || evt.type == ButtonPress);
+							int evtcode;
+							if (evt.type == KeyPress || evt.type == KeyRelease)
+								evtcode = evt.xkey.keycode;
+							else
+								evtcode = 256 + evt.xbutton.button;
 
-							if (down == activeMap[evt.xkey.keycode])
+							if (down == activeMap[evtcode])
 								break;
-							activeMap[evt.xkey.keycode] = down;
+
+							activeMap[evtcode] = down;
 							if (down)
-								touchMap[evt.xkey.keycode] = true;
-							emit buttonPressed(!down);
-							foreach(Shortcut *s, qmhKeyToShortcut.values(evt.xkey.keycode)) {
+								touchMap[evtcode] = true;
+
+							//Do nothing until we release the mouse button
+							if (bFirstMouseReleased)
+								emit buttonPressed(!down);
+							else
+								if (evt.type == ButtonRelease)
+									bFirstMouseReleased = true;
+
+							foreach(Shortcut *s, qmhKeyToShortcut.values(evtcode)) {
 								if (down) {
 									s->iNumDown++;
 									if (s->iNumDown == s->qlButtons.count()) {

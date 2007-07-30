@@ -74,8 +74,9 @@ class GlobalShortcutX : public QThread {
 		Display *display;
 		int ref;
 		bool bRunning;
-		bool activeMap[256];
-		bool touchMap[256];
+		bool activeMap[320];
+		bool touchMap[320];
+		bool bFirstMouseReleased;
 		QHash<int, GlobalShortcut *> qmShortcuts;
 		QHash<GlobalShortcut *, Shortcut *> qhGlobalToX;
 		bool globalEvent(XEvent *);

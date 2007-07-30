@@ -508,13 +508,13 @@ void ServerDB::setLastChannel(const Player *p) {
 	if (p->iId < 0)
 		return;
 
-		TransactionHolder th;
-		QSqlQuery query;
+	TransactionHolder th;
+	QSqlQuery query;
 
-		query.prepare(QString::fromLatin1("UPDATE %1players SET lastchannel=? WHERE player_id = ?").arg(g_sp.qsDBPrefix));
-		query.addBindValue(p->cChannel->iId);
-		query.addBindValue(p->iId);
-		query.exec();
+	query.prepare(QString::fromLatin1("UPDATE %1players SET lastchannel=? WHERE player_id = ?").arg(g_sp.qsDBPrefix));
+	query.addBindValue(p->cChannel->iId);
+	query.addBindValue(p->iId);
+	query.exec();
 }
 
 int ServerDB::readLastChannel(Player *p) {
