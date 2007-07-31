@@ -40,6 +40,7 @@ class Connection;
 class ServerDB {
 	public:
 		ServerDB();
+		static void setSUPW(int iServNum, const QString &pw);
 };
 
 #endif

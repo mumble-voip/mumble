@@ -105,6 +105,7 @@ class Server : public QThread, public MessageHandler {
 		QQueue<int> qqIds;
 		SslServer *qtsServer;
 		QTimer *qtTimeout;
+		int iServerNum;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
@@ -114,7 +115,14 @@ class Server : public QThread, public MessageHandler {
 		void tcpTransmitData(QByteArray, unsigned int);
 	public:
 		QHash<unsigned int, User *> qhUsers;
+		QHash<unsigned int, Channel *> qhChannels;
 		QReadWriteLock qrwlUsers;
+
+		ChanACL::ACLCache acCache;
+		QMutex qmCache;
+
+		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
+		void clearACLCache();
 
 		QHash<int, QByteArray> qhUserTextureCache;
 		QHash<int, QString> qhUserNameCache;
@@ -130,24 +138,24 @@ class Server : public QThread, public MessageHandler {
 		void log(QString s, Connection *c = NULL);
 
 		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
-		void playerEnterChannel(Player *p, Channel *c, bool quiet = false);
+		void playerEnterChannel(Player *u, Channel *c, bool quiet = false);
 
 		void emitPacket(Message *msg);
 
 		User *getUser(unsigned int);
 
-		Server(QObject *parent = NULL);
+		Server(int snum, QObject *parent = NULL);
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
+		void initialize();
 		typedef QPair<quint32, int> qpBan;
 		int authenticate(QString &name, const QString &pw);
-		bool hasUsers();
 		Channel *addChannel(Channel *c, const QString &name);
 		void removeChannel(const Channel *c);
 		void readChannels(Channel *p = NULL);
 		void updateChannel(const Channel *c);
 		void readChannelPrivs(Channel *c);
-		void setLastChannel(const Player *p);
+		void setLastChannel(const Player *u);
 		int readLastChannel(Player *p);
 		void dumpChannel(const Channel *c);
 		int getUserID(const QString &name);
@@ -156,9 +164,8 @@ class Server : public QThread, public MessageHandler {
 		void setPW(int id, const QString &pw);
 		void addLink(Channel *c, Channel *l);
 		void removeLink(Channel *c, Channel *l);
-		QList<qpBan> getBans();
-		void setBans(QList<qpBan> bans);
-
+		void getBans();
+		void saveBans();
 
 		// From msgHandler. Implementation in Messages.cpp
 		virtual void msgSpeex(Connection *, MessageSpeex *);
@@ -236,7 +243,6 @@ struct ServerParams {
 };
 
 extern ServerParams g_sp;
-extern Server *g_sServer;
 
 #else
 class Server;

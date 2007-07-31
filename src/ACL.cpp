@@ -33,7 +33,7 @@
 #include "Group.h"
 #include "Player.h"
 
-QHash<Channel *, QHash<Player *, ChanACL::Permissions > > ChanACL::c_qhACLCache;
+// QHash<Channel *, QHash<Player *, ChanACL::Permissions > > ChanACL::c_qhACLCache;
 
 ChanACL::ChanACL(Channel *chan) {
 	bApplyHere = true;
@@ -50,7 +50,7 @@ ChanACL::ChanACL(Channel *chan) {
 // and will return false if a user isn't allowed to
 // traverse to the channel. (Need "read" in all preceeding channels)
 
-bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly) {
+bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, ACLCache &cache) {
 	QStack<Channel *> chanstack;
 	Channel *ch;
 	ChanACL *acl;
@@ -59,18 +59,17 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly)
 	if (p->iId == 0)
 		return true;
 
-	Permissions granted;
+	Permissions granted = 0;
 
-	granted=c_qhACLCache[chan][p];
+	QHash<Player *, Permissions> *h = cache.value(chan);
+	if (h)
+		granted = h->value(p);
 	if (granted & Cached) {
 		if ((perm != Speak) && (perm != AltSpeak))
 			return ((granted & (perm | Write)) != None);
 		else
 			return ((granted & perm) != None);
 	}
-
-	if (cacheonly)
-		return false;
 
 	ch = chan;
 	while (ch) {
@@ -115,7 +114,10 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, bool cacheonly)
 		}
 	}
 
-	c_qhACLCache[chan][p] = granted & Cached;
+	if (! cache.contains(chan))
+		cache.insert(chan, new QHash<Player *, Permissions>);
+
+	cache.value(chan)->insert(p, granted | Cached);
 
 	if ((perm != Speak) && (perm != AltSpeak))
 		return ((granted & (perm | Write)) != None);
@@ -218,8 +220,4 @@ QString ChanACL::whatsThis(Perm p) {
 			break;
 	}
 	return QString();
-}
-
-void ChanACL::clearCache() {
-	c_qhACLCache.clear();
 }

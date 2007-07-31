@@ -50,13 +50,16 @@ class ChanACL : public QObject {
 			MakeChannel = 0x40,
 			LinkChannel = 0x80,
 			AltSpeak = 0x100,
-			Cached = 0x80000000,
+			Cached = 0x8000000,
 			All = 0xffff
 		};
 
 		Q_DECLARE_FLAGS(Permissions, Perm)
 
-		static QHash<Channel *, QHash<Player *, Permissions > > c_qhACLCache;
+		typedef QHash<Player *, Permissions> ChanCache;
+		typedef QHash<Channel *, ChanCache * > ACLCache;
+
+//		static QHash<Channel *, QHash<Player *, Permissions > > c_qhACLCache;
 
 		Channel *c;
 		bool bApplyHere;
@@ -68,12 +71,10 @@ class ChanACL : public QObject {
 		Permissions pDeny;
 
 		ChanACL(Channel *c);
-		static bool hasPermission(Player *p, Channel *c, Perm perm, bool cacheonly=false);
+		static bool hasPermission(Player *p, Channel *c, Perm perm, ACLCache &cache);
 		static QString shortName(Perm p);
 		static QString permName(Perm p);
 		static QString whatsThis(Perm p);
-
-		static void clearCache();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ChanACL::Permissions)

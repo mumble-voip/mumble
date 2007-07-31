@@ -153,17 +153,17 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	}
 
 	int lchan = readLastChannel(uSource);
-	Channel *lc = Channel::get(lchan);
+	Channel *lc = qhChannels.value(lchan);
 	if (! lc)
-		lc = Channel::get(0);
-	else if (! ChanACL::hasPermission(uSource, lc, ChanACL::Enter))
-		lc = Channel::get(0);
+		lc = qhChannels.value(0);
+	else if (! hasPermission(uSource, lc, ChanACL::Enter))
+		lc = qhChannels.value(0);
 
 	playerEnterChannel(uSource, lc, true);
 
 	QQueue<Channel *> q;
 	QSet<Channel *> chans;
-	q << Channel::get(0);
+	q << qhChannels.value(0);
 	while (! q.isEmpty()) {
 		c = q.dequeue();
 
@@ -256,8 +256,8 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 void Server::msgServerBanList(Connection *cCon, MessageServerBanList *msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	if (! ChanACL::hasPermission(uSource, Channel::get(0), ChanACL::Write)) {
-		PERM_DENIED(uSource, Channel::get(0), ChanACL::Write);
+	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Write)) {
+		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Write);
 		return;
 	}
 	if (msg->bQuery) {
@@ -268,8 +268,8 @@ void Server::msgServerBanList(Connection *cCon, MessageServerBanList *msg) {
 		sendMessage(cCon, &msbl);
 	} else {
 		qlBans = msg->qlBans;
+		saveBans();
 		log(QString("Updated banlist"), cCon);
-		setBans(msg->qlBans);
 	}
 }
 
@@ -309,7 +309,7 @@ void Server::msgPlayerMute(Connection *cCon, MessagePlayerMute *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
+	if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MuteDeafen);
 		return;
 	}
@@ -339,7 +339,7 @@ void Server::msgPlayerDeaf(Connection *cCon, MessagePlayerDeaf *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
+	if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MuteDeafen);
 		return;
 	}
@@ -366,7 +366,7 @@ void Server::msgPlayerKick(Connection *cCon, MessagePlayerKick *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
+	if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MoveKick);
 		return;
 	}
@@ -383,8 +383,8 @@ void Server::msgPlayerBan(Connection *cCon, MessagePlayerBan *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, Channel::get(0), ChanACL::MoveKick)) {
-		PERM_DENIED(uSource, Channel::get(0), ChanACL::MoveKick);
+	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::MoveKick)) {
+		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::MoveKick);
 		return;
 	}
 
@@ -394,7 +394,7 @@ void Server::msgPlayerBan(Connection *cCon, MessagePlayerBan *msg) {
 	QHostAddress adr = pDstUser->peerAddress();
 	quint32 base = adr.toIPv4Address();
 	qlBans << QPair<quint32,int>(base, 32);
-	setBans(qlBans);
+	saveBans();
 
 	pDstUser->disconnectSocket();
 }
@@ -415,16 +415,16 @@ void Server::msgPlayerMove(Connection *cCon, MessagePlayerMove *msg) {
 	if (! pDstUser)
 		return;
 
-	Channel *c = Channel::get(msg->iChannelId);
+	Channel *c = qhChannels.value(msg->iChannelId);
 	if (!c || (c == pDstUser->cChannel))
 		return;
 
-	if ((uSource != pDstUser) && ! ChanACL::hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
+	if ((uSource != pDstUser) && ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MoveKick);
 		return;
 	}
 
-	if (! ChanACL::hasPermission(uSource, c, ChanACL::MoveKick) && ! ChanACL::hasPermission(pDstUser, c, ChanACL::Enter)) {
+	if (! hasPermission(uSource, c, ChanACL::MoveKick) && ! hasPermission(pDstUser, c, ChanACL::Enter)) {
 		PERM_DENIED(pDstUser, c, ChanACL::Enter);
 		return;
 	}
@@ -437,11 +437,11 @@ void Server::msgPlayerMove(Connection *cCon, MessagePlayerMove *msg) {
 void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	Channel *p = Channel::get(msg->iParent);
+	Channel *p = qhChannels.value(msg->iParent);
 	if (!p)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, p, ChanACL::MakeChannel)) {
+	if (! hasPermission(uSource, p, ChanACL::MakeChannel)) {
 		PERM_DENIED(uSource, p, ChanACL::MakeChannel);
 		return;
 	}
@@ -476,11 +476,11 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 void Server::msgChannelRemove(Connection *cCon, MessageChannelRemove *msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	Channel *c = Channel::get(msg->iId);
+	Channel *c = qhChannels.value(msg->iId);
 	if (!c)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, c, ChanACL::Write) || (msg->iId == 0)) {
+	if (! hasPermission(uSource, c, ChanACL::Write) || (msg->iId == 0)) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
@@ -493,20 +493,20 @@ void Server::msgChannelRemove(Connection *cCon, MessageChannelRemove *msg) {
 void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	Channel *c = Channel::get(msg->iId);
-	Channel *np = Channel::get(msg->iParent);
+	Channel *c = qhChannels.value(msg->iId);
+	Channel *np = qhChannels.value(msg->iParent);
 	if (!c || ! np)
 		return;
 
 	if (np == c->cParent)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, c, ChanACL::Write)) {
+	if (! hasPermission(uSource, c, ChanACL::Write)) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
 
-	if (! ChanACL::hasPermission(uSource, np, ChanACL::MakeChannel)) {
+	if (! hasPermission(uSource, np, ChanACL::MakeChannel)) {
 		PERM_DENIED(uSource, np, ChanACL::MakeChannel);
 		return;
 	}
@@ -531,22 +531,22 @@ void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {
 void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	Channel *c = Channel::get(msg->iId);
+	Channel *c = qhChannels.value(msg->iId);
 	if (!c)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, c, ChanACL::LinkChannel)) {
+	if (! hasPermission(uSource, c, ChanACL::LinkChannel)) {
 		PERM_DENIED(uSource, c, ChanACL::LinkChannel);
 		return;
 	}
 
-	Channel *l = (msg->qlTargets.count() == 1) ? Channel::get(msg->qlTargets[0]) : NULL;
+	Channel *l = (msg->qlTargets.count() == 1) ? qhChannels.value(msg->qlTargets[0]) : NULL;
 
 	switch (msg->ltType) {
 		case MessageChannelLink::Link:
 			if (!l)
 				return;
-			if (! ChanACL::hasPermission(uSource, l, ChanACL::LinkChannel)) {
+			if (! hasPermission(uSource, l, ChanACL::LinkChannel)) {
 				PERM_DENIED(uSource, l, ChanACL::LinkChannel);
 				return;
 			}
@@ -588,14 +588,14 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 			break;
 		case MessageChannelLink::PushLink:
 			foreach(int tid, msg->qlTargets) {
-				l=Channel::get(tid);
-				if (l && ChanACL::hasPermission(uSource, l, ChanACL::LinkChannel))
+				l=qhChannels.value(tid);
+				if (l && hasPermission(uSource, l, ChanACL::LinkChannel))
 					c->playerLink(l, uSource);
 			}
 			break;
 		case MessageChannelLink::PushUnlink:
 			foreach(int tid, msg->qlTargets) {
-				l=Channel::get(tid);
+				l=qhChannels.value(tid);
 				if (l)
 					c->playerUnlink(l, uSource);
 			}
@@ -633,11 +633,11 @@ void Server::msgTextMessage(Connection *cCon, MessageTextMessage *msg) {
 void Server::msgEditACL(Connection *cCon, MessageEditACL *msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	Channel *c = Channel::get(msg->iId);
+	Channel *c = qhChannels.value(msg->iId);
 	if (!c)
 		return;
 
-	if (! ChanACL::hasPermission(uSource, c, ChanACL::Write)) {
+	if (! hasPermission(uSource, c, ChanACL::Write)) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
@@ -739,9 +739,9 @@ void Server::msgEditACL(Connection *cCon, MessageEditACL *msg) {
 			a->pAllow=as.pAllow;
 		}
 
-		ChanACL::clearCache();
+		clearACLCache();
 
-		if (! ChanACL::hasPermission(uSource, c, ChanACL::Write)) {
+		if (! hasPermission(uSource, c, ChanACL::Write)) {
 			a = new ChanACL(c);
 			a->bApplyHere=true;
 			a->bApplySubs=false;
@@ -749,7 +749,7 @@ void Server::msgEditACL(Connection *cCon, MessageEditACL *msg) {
 			a->pDeny=ChanACL::None;
 			a->pAllow=ChanACL::Write | ChanACL::Traverse;
 
-			ChanACL::clearCache();
+			clearACLCache();
 		}
 
 		updateChannel(c);

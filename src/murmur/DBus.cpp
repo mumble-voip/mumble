@@ -233,7 +233,7 @@ int MurmurDBus::authenticate(QString &uname, const QString &pw) {
 #define PLAYER_SETUP PLAYER_SETUP_VAR(session)
 
 #define CHANNEL_SETUP_VAR2(dst,var) \
-  Channel *dst = Channel::get(var); \
+  Channel *dst = server->qhChannels.value(var); \
   if (! dst) { \
     QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id")); \
     return; \
@@ -252,7 +252,7 @@ void MurmurDBus::getPlayers(QList<PlayerInfoExtended> &a) {
 void MurmurDBus::getChannels(QList<ChannelInfo> &a) {
 	a.clear();
 	QQueue<Channel *> q;
-	q << Channel::get(0);
+	q << server->qhChannels.value(0);
 	while (! q.isEmpty()) {
 		Channel *c = q.dequeue();
 		a << ChannelInfo(c);
@@ -519,7 +519,7 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 		a->pAllow = static_cast<ChanACL::Permissions>(ai.allow);
 	}
 
-	ChanACL::clearCache();
+	server->clearACLCache();
 	server->updateChannel(cChannel);
 }
 
@@ -535,7 +535,7 @@ void MurmurDBus::setBans(const QList<BanInfo> &bans, const QDBusMessage &) {
 	server->qlBans.clear();
 	foreach(BanInfo bi, bans)
 	server->qlBans << QPair<quint32,int>(bi.address,bi.bits);
-	server->setBans(server->qlBans);
+	server->saveBans();
 }
 
 void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names) {
@@ -586,7 +586,7 @@ void MurmurDBus::setTemporaryGroups(int channel, int playerid, const QStringList
 		g->qsTemporary.insert(playerid);
 	}
 
-	ChanACL::clearCache();
+	server->clearACLCache();
 }
 
 PlayerInfo::PlayerInfo(Player *p) {

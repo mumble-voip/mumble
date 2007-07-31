@@ -76,7 +76,7 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 	return qlSockets.takeFirst();
 }
 
-User::User(Server *parent, QSslSocket *socket) : Connection(parent, socket), Player() {
+User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 	uiAddress = 0;
 	usPort = 0;
 }
@@ -320,8 +320,10 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 		QSet<Channel *> chans = c->allLinks();
 		chans.remove(c);
 
+		QMutexLocker qml(&qmCache);
+
 		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(u, l, (flags & MessageSpeex::AltSpeak) ? ChanACL::AltSpeak : ChanACL::Speak)) {
+			if (ChanACL::hasPermission(u, l, (flags & MessageSpeex::AltSpeak) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
 						sendMessage(p->uiSession, data, len, qba);
@@ -332,7 +334,11 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 }
 
 
-Server::Server(QObject *p) : QThread(p) {
+Server::Server(int snum, QObject *p) : QThread(p) {
+	iServerNum = snum;
+
+	initialize();
+
 	qtsServer = new SslServer(this);
 
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
@@ -349,7 +355,8 @@ Server::Server(QObject *p) : QThread(p) {
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
 	qtTimeout->start(5500);
 
-	qlBans = getBans();
+	getBans();
+	readChannels();
 }
 
 void Server::log(QString s, Connection *c) {
@@ -445,14 +452,19 @@ void Server::connectionClosed(QString reason) {
 		dbus->playerDisconnected(u);
 	}
 
-	QWriteLocker wl(&qrwlUsers);
+	{
+		QWriteLocker wl(&qrwlUsers);
 
-	qhUsers.remove(u->uiSession);
-	if (u->cChannel)
-		u->cChannel->removePlayer(u);
+		qhUsers.remove(u->uiSession);
+		if (u->cChannel)
+			u->cChannel->removePlayer(u);
+	}
 
 	qqIds.enqueue(u->uiSession);
 	qhUserTextureCache.remove(u->iId);
+
+	if (u->sState == Player::Authenticated)
+		clearACLCache();
 
 	u->deleteLater();
 }
@@ -525,7 +537,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	Player *p;
 
 	if (dest == NULL)
-		dest = Channel::get(chan->cParent->iId);
+		dest = chan->cParent;
 
 	chan->unlink(NULL);
 
@@ -576,7 +588,7 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 	setLastChannel(p);
 	dbus->playerStateChanged(p);
 
-	bool mayspeak = ChanACL::hasPermission(p, c, ChanACL::Speak);
+	bool mayspeak = hasPermission(p, c, ChanACL::Speak);
 	bool sup = p->bSuppressed;
 
 	if (! p->bMute) {
@@ -591,4 +603,17 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 			sendAll(&mpm);
 		}
 	}
+}
+
+bool Server::hasPermission(Player *p, Channel *c, ChanACL::Perm perm) {
+	QMutexLocker qml(&qmCache);
+	return ChanACL::hasPermission(p, c, perm, acCache);
+}
+
+void Server::clearACLCache() {
+	QMutexLocker qml(&qmCache);
+
+	foreach(ChanACL::ChanCache *h, acCache)
+	delete h;
+	acCache.clear();
 }

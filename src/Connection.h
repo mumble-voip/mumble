@@ -42,6 +42,7 @@ class Connection : public QObject {
 		QTime qtLastPacket;
 		int iPacketLength;
 		bool bDisconnectedEmitted;
+		bool bReentry;
 	protected slots:
 		void socketRead();
 		void socketError(QAbstractSocket::SocketError);

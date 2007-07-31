@@ -134,6 +134,7 @@ int main(int argc, char **argv) {
 
 	QString inifile;
 	QString supw;
+	int sunum = 1;
 
 	qInstallMsgHandler(murmurMessageOutput);
 
@@ -146,6 +147,10 @@ int main(int argc, char **argv) {
 		if ((arg == "-supw") && (i+1 < argc)) {
 			i++;
 			supw = argv[i];
+			if (i < argc) {
+				i++;
+				sunum = QString::fromLatin1(argv[i]).toInt();
+			}
 		} else if ((arg == "-ini") && (i+1 < argc)) {
 			i++;
 			inifile=argv[i];
@@ -156,10 +161,10 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-h") || (arg == "--help")) {
 			i++;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
-			       "  -ini <inifile>  Specify ini file to use.\n"
-			       "  -supw <pw>      Set password for 'SuperUser' account.\n"
-			       "  -v              Add verbose output.\n"
-			       "  -fg             Don't detach from console [Linux only].\n"
+			       "  -ini <inifile>   Specify ini file to use.\n"
+			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
+			       "  -v               Add verbose output.\n"
+			       "  -fg              Don't detach from console [Linux only].\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.",argv[0]);
 		} else {
@@ -172,10 +177,8 @@ int main(int argc, char **argv) {
 	cert.initialize();
 
 	if (! supw.isEmpty()) {
-		// FIXME
-
-		// ServerDB::setPW(0, supw);
-		qFatal("Superuser password set");
+		ServerDB::setSUPW(sunum, supw);
+		qFatal("Superuser password set on server %d", sunum);
 	}
 
 	if (detach && ! g_sp.qsLogfile.isEmpty()) {
@@ -219,8 +222,7 @@ int main(int argc, char **argv) {
 	MurmurDBus::registerTypes();
 #endif
 
-	Server s;
-	s.readChannels();
+	Server s(1);
 
 	dbus=new MurmurDBus(a, &s);
 #ifdef Q_OS_UNIX

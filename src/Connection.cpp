@@ -47,6 +47,7 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket->setParent(this);
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
+	bReentry = false;
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
 	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
@@ -65,7 +66,6 @@ void Connection::socketRead() {
 	// QSslSocket will, during writes, emit readyRead. Meaning we'd reenter from the message handlers.
 	// That is bad, and furthermore the remaining data will be parsed on the next run through, so
 	// there's no need.
-	static int bReentry = false;
 	if (bReentry)
 		return;
 	bReentry = true;
