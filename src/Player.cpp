@@ -31,11 +31,11 @@
 #include "Player.h"
 #include "Channel.h"
 
-QHash<unsigned int, Player *> Player::c_qmPlayers;
-QReadWriteLock Player::c_qrwlPlayers;
+QHash<unsigned int, ClientPlayer *> ClientPlayer::c_qmPlayers;
+QReadWriteLock ClientPlayer::c_qrwlPlayers;
 
-Player::Player(QObject *p) : QObject(p) {
-	sState = Player::Connected;
+Player::Player() {
+	sState = ClientPlayer::Connected;
 	uiSession = 0;
 	iId = -1;
 	bMute = bDeaf = false;
@@ -46,25 +46,28 @@ Player::Player(QObject *p) : QObject(p) {
 	cChannel = 0;
 }
 
-Player *Player::get(unsigned int uiSession) {
+ClientPlayer::ClientPlayer(QObject *p) : QObject(p) {
+}
+
+ClientPlayer *ClientPlayer::get(unsigned int uiSession) {
 	QReadLocker lock(&c_qrwlPlayers);
-	Player *p = c_qmPlayers.value(uiSession);
+	ClientPlayer *p = c_qmPlayers.value(uiSession);
 	return p;
 }
 
-Player *Player::add(unsigned int uiSession, QObject *po) {
+ClientPlayer *ClientPlayer::add(unsigned int uiSession, QObject *po) {
 	QWriteLocker lock(&c_qrwlPlayers);
 
-	Player *p = new Player(po);
+	ClientPlayer *p = new ClientPlayer(po);
 	p->uiSession = uiSession;
 	c_qmPlayers[uiSession] = p;
 	return p;
 }
 
-Player *Player::match(const Player *other, bool matchname) {
+ClientPlayer *ClientPlayer::match(const ClientPlayer *other, bool matchname) {
 	QReadLocker lock(&c_qrwlPlayers);
 
-	Player *p;
+	ClientPlayer *p;
 	foreach(p, c_qmPlayers) {
 		if (p == other)
 			continue;
@@ -76,18 +79,18 @@ Player *Player::match(const Player *other, bool matchname) {
 	return NULL;
 }
 
-void Player::remove(unsigned int uiSession) {
+void ClientPlayer::remove(unsigned int uiSession) {
 	QWriteLocker lock(&c_qrwlPlayers);
 	Player *p = c_qmPlayers.take(uiSession);
 	if (p && p->cChannel)
 		p->cChannel->removePlayer(p);
 }
 
-void Player::remove(Player *p) {
+void ClientPlayer::remove(ClientPlayer *p) {
 	remove(p->uiSession);
 }
 
-void Player::setTalking(bool talking, bool altspeech) {
+void ClientPlayer::setTalking(bool talking, bool altspeech) {
 	if ((bTalking == talking) && (bAltSpeak == altspeech))
 		return;
 	bTalking = talking;
@@ -95,7 +98,7 @@ void Player::setTalking(bool talking, bool altspeech) {
 	emit talkingChanged(bTalking);
 }
 
-void Player::setMute(bool mute) {
+void ClientPlayer::setMute(bool mute) {
 	if (bMute == mute)
 		return;
 	bMute = mute;
@@ -104,14 +107,14 @@ void Player::setMute(bool mute) {
 	emit muteDeafChanged();
 }
 
-void Player::setLocalMute(bool mute) {
+void ClientPlayer::setLocalMute(bool mute) {
 	if (bLocalMute == mute)
 		return;
 	bLocalMute = mute;
 	emit muteDeafChanged();
 }
 
-void Player::setDeaf(bool deaf) {
+void ClientPlayer::setDeaf(bool deaf) {
 	if (bDeaf == deaf)
 		return;
 	bDeaf = deaf;
@@ -120,7 +123,7 @@ void Player::setDeaf(bool deaf) {
 	emit muteDeafChanged();
 }
 
-void Player::setSelfMuteDeaf(bool mute, bool deaf) {
+void ClientPlayer::setSelfMuteDeaf(bool mute, bool deaf) {
 	bSelfDeaf = deaf;
 	bSelfMute = mute;
 	emit muteDeafChanged();

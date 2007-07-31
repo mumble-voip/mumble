@@ -184,7 +184,7 @@ ServerDB::ServerDB() {
 	query.exec(QString::fromLatin1("VACUUM"));
 }
 
-bool ServerDB::hasUsers() {
+bool Server::hasUsers() {
 	TransactionHolder th;
 
 	QSqlQuery query;
@@ -200,7 +200,7 @@ bool ServerDB::hasUsers() {
 // -1 Wrong PW
 // -2 Anonymous
 
-int ServerDB::authenticate(QString &name, const QString &pw) {
+int Server::authenticate(QString &name, const QString &pw) {
 
 	int res = dbus->authenticate(name, pw);
 	if (res != -2) {
@@ -241,7 +241,7 @@ int ServerDB::authenticate(QString &name, const QString &pw) {
 	return res;
 }
 
-void ServerDB::setPW(int id, const QString &pw) {
+void Server::setPW(int id, const QString &pw) {
 	TransactionHolder th;
 
 	QCryptographicHash hash(QCryptographicHash::Sha1);
@@ -255,7 +255,7 @@ void ServerDB::setPW(int id, const QString &pw) {
 	query.exec();
 }
 
-QString ServerDB::getUserName(int id) {
+QString Server::getUserName(int id) {
 	QString name = dbus->mapIdToName(id);
 	if (! name.isEmpty())
 		return name;
@@ -271,7 +271,7 @@ QString ServerDB::getUserName(int id) {
 	return name;
 }
 
-int ServerDB::getUserID(const QString &name) {
+int Server::getUserID(const QString &name) {
 	int id = dbus->mapNameToId(name);
 
 	if (id != -2)
@@ -288,7 +288,7 @@ int ServerDB::getUserID(const QString &name) {
 	return id;
 }
 
-QByteArray ServerDB::getUserTexture(int id) {
+QByteArray Server::getUserTexture(int id) {
 	QByteArray qba=dbus->mapIdToTexture(id);
 	if (! qba.isNull()) {
 		return qba;
@@ -306,7 +306,7 @@ QByteArray ServerDB::getUserTexture(int id) {
 	return qba;
 }
 
-void ServerDB::addLink(Channel *c, Channel *l) {
+void Server::addLink(Channel *c, Channel *l) {
 	TransactionHolder th;
 
 	QSqlQuery query;
@@ -321,7 +321,7 @@ void ServerDB::addLink(Channel *c, Channel *l) {
 	query.exec();
 }
 
-void ServerDB::removeLink(Channel *c, Channel *l) {
+void Server::removeLink(Channel *c, Channel *l) {
 	TransactionHolder th;
 
 	QSqlQuery query;
@@ -344,19 +344,19 @@ void ServerDB::removeLink(Channel *c, Channel *l) {
 	}
 }
 
-Channel *ServerDB::addChannel(Channel *parent, const QString &name) {
+Channel *Server::addChannel(Channel *p, const QString &name) {
 	TransactionHolder th;
 
 	QSqlQuery query;
 	query.prepare(QString::fromLatin1("INSERT INTO %1channels (parent_id, name) VALUES (?,?)").arg(g_sp.qsDBPrefix));
-	query.addBindValue(parent->iId);
+	query.addBindValue(p->iId);
 	query.addBindValue(name);
 	query.exec();
 	int id = query.lastInsertId().toInt();
-	return Channel::add(id, name, parent);
+	return Channel::add(id, name, p);
 }
 
-void ServerDB::removeChannel(const Channel *c) {
+void Server::removeChannel(const Channel *c) {
 	TransactionHolder th;
 
 	QSqlQuery query;
@@ -365,7 +365,7 @@ void ServerDB::removeChannel(const Channel *c) {
 	query.exec();
 }
 
-void ServerDB::updateChannel(const Channel *c) {
+void Server::updateChannel(const Channel *c) {
 	TransactionHolder th;
 	Group *g;
 	ChanACL *acl;
@@ -429,7 +429,7 @@ void ServerDB::updateChannel(const Channel *c) {
 	}
 }
 
-void ServerDB::readChannelPrivs(Channel *c) {
+void Server::readChannelPrivs(Channel *c) {
 	TransactionHolder th;
 
 	int cid = c->iId;
@@ -472,7 +472,7 @@ void ServerDB::readChannelPrivs(Channel *c) {
 	}
 }
 
-void ServerDB::readChannels(Channel *p) {
+void Server::readChannels(Channel *p) {
 	QList<Channel *> kids;
 	Channel *c;
 	QSqlQuery query;
@@ -503,7 +503,7 @@ void ServerDB::readChannels(Channel *p) {
 	readChannels(c);
 }
 
-void ServerDB::setLastChannel(const Player *p) {
+void Server::setLastChannel(const Player *p) {
 
 	if (p->iId < 0)
 		return;
@@ -517,7 +517,7 @@ void ServerDB::setLastChannel(const Player *p) {
 	query.exec();
 }
 
-int ServerDB::readLastChannel(Player *p) {
+int Server::readLastChannel(Player *p) {
 
 	Channel *c = Channel::get(0);
 
@@ -539,7 +539,7 @@ int ServerDB::readLastChannel(Player *p) {
 	return c->iId;
 }
 
-void ServerDB::dumpChannel(const Channel *c) {
+void Server::dumpChannel(const Channel *c) {
 	Group *g;
 	ChanACL *acl;
 	int pid;
@@ -568,7 +568,7 @@ void ServerDB::dumpChannel(const Channel *c) {
 	}
 }
 
-QList<ServerDB::qpBan> ServerDB::getBans() {
+QList<Server::qpBan> Server::getBans() {
 	TransactionHolder th;
 	QList<qpBan> bans;
 
@@ -584,7 +584,7 @@ QList<ServerDB::qpBan> ServerDB::getBans() {
 	return bans;
 }
 
-void ServerDB::setBans(QList<ServerDB::qpBan> bans) {
+void Server::setBans(QList<Server::qpBan> bans) {
 	TransactionHolder th;
 	qpBan ban;
 

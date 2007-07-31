@@ -37,6 +37,7 @@
 #include "Channel.h"
 #include "Group.h"
 #include "ACL.h"
+#include "Server.h"
 
 struct PlayerInfo {
 	unsigned int session;
@@ -104,12 +105,13 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		Q_OBJECT
 		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
 	protected:
+		Server *server;
 		QString qsAuthService;
 		QString qsAuthPath;
 	public:
 		QDBusConnection qdbc;
 
-		MurmurDBus(QCoreApplication &application);
+		MurmurDBus(QCoreApplication &application, Server *srv);
 
 		void playerStateChanged(Player *p);
 		void playerConnected(Player *p);

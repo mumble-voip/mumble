@@ -34,9 +34,9 @@
 #include "murmur_pch.h"
 #include "Message.h"
 #include "Timer.h"
+#include "Player.h"
+#include "Connection.h"
 
-class Player;
-class Connection;
 class Channel;
 class PacketDataStream;
 
@@ -69,22 +69,6 @@ class LogEmitter : public QObject {
 		void addLogEntry(const QString &msg);
 };
 
-class UDPThread : public QThread {
-		friend class Server;
-		Q_OBJECT;
-	protected:
-		QUdpSocket *qusUdp;
-		QHash<unsigned int, Peer> qhPeers;
-		QHash<unsigned int, QHostAddress> qhHosts;
-		void processMsg(PacketDataStream &pds, Connection *cCon);
-		void sendMessage(unsigned int id, const char *data, int len, QByteArray &cache);
-	signals:
-		void tcpTransmit(QByteArray, unsigned int id);
-	public:
-		void fakeUdpPacket(Message *msg, Connection *source);
-		void run();
-};
-
 class SslServer : public QTcpServer {
 		Q_OBJECT;
 	protected:
@@ -95,7 +79,27 @@ class SslServer : public QTcpServer {
 		SslServer(QObject *parent = NULL);
 };
 
-class Server : public QObject {
+class Server;
+
+
+// THIS is a no-go. Can't have multiple inheritance with QObjects.
+// Though we don't use any of the signals from "Player"...
+// Fug it.
+
+class User : public Connection, public Player {
+		Q_OBJECT
+	protected:
+		Server *s;
+	public:
+		BandwidthRecord bwr;
+		quint32 uiAddress;
+		quint16 usPort;
+		QHostAddress qha;
+		User(Server *parent, QSslSocket *socket);
+};
+
+
+class Server : public QThread, public MessageHandler {
 		Q_OBJECT;
 	protected:
 		QQueue<int> qqIds;
@@ -107,14 +111,10 @@ class Server : public QObject {
 		void sslError(const QList<QSslError> &);
 		void message(QByteArray &, Connection *cCon = NULL);
 		void checkTimeout();
-		void tcpTransmit(QByteArray, unsigned int);
+		void tcpTransmitData(QByteArray, unsigned int);
 	public:
-		QHash<unsigned int, Connection *> qmConnections;
-		QHash<Connection *, Player *> qmPlayers;
-		QHash<Connection *, BandwidthRecord *> qmBandwidth;
-		QReadWriteLock qrwlConnections;
-
-		UDPThread *udp;
+		QHash<unsigned int, User *> qhUsers;
+		QReadWriteLock qrwlUsers;
 
 		QHash<int, QByteArray> qhUserTextureCache;
 		QHash<int, QString> qhUserNameCache;
@@ -134,7 +134,70 @@ class Server : public QObject {
 
 		void emitPacket(Message *msg);
 
+		User *getUser(unsigned int);
+
 		Server(QObject *parent = NULL);
+
+		// Database / DBus functions. Implementation in ServerDB.cpp
+		typedef QPair<quint32, int> qpBan;
+		int authenticate(QString &name, const QString &pw);
+		bool hasUsers();
+		Channel *addChannel(Channel *c, const QString &name);
+		void removeChannel(const Channel *c);
+		void readChannels(Channel *p = NULL);
+		void updateChannel(const Channel *c);
+		void readChannelPrivs(Channel *c);
+		void setLastChannel(const Player *p);
+		int readLastChannel(Player *p);
+		void dumpChannel(const Channel *c);
+		int getUserID(const QString &name);
+		QString getUserName(int id);
+		QByteArray getUserTexture(int id);
+		void setPW(int id, const QString &pw);
+		void addLink(Channel *c, Channel *l);
+		void removeLink(Channel *c, Channel *l);
+		QList<qpBan> getBans();
+		void setBans(QList<qpBan> bans);
+
+
+		// From msgHandler. Implementation in Messages.cpp
+		virtual void msgSpeex(Connection *, MessageSpeex *);
+		virtual void msgServerAuthenticate(Connection *, MessageServerAuthenticate *);
+		virtual void msgPing(Connection *, MessagePing *);
+		virtual void msgServerReject(Connection *, MessageServerReject *);
+		virtual void msgServerSync(Connection *, MessageServerSync *);
+		virtual void msgServerJoin(Connection *, MessageServerJoin *);
+		virtual void msgServerLeave(Connection *, MessageServerLeave *);
+		virtual void msgPlayerMute(Connection *, MessagePlayerMute *);
+		virtual void msgPlayerDeaf(Connection *, MessagePlayerDeaf *);
+		virtual void msgPlayerSelfMuteDeaf(Connection *, MessagePlayerSelfMuteDeaf *);
+		virtual void msgPlayerKick(Connection *, MessagePlayerKick *);
+		virtual void msgPlayerBan(Connection *, MessagePlayerBan *);
+		virtual void msgPlayerMove(Connection *, MessagePlayerMove *);
+		virtual void msgPlayerRename(Connection *, MessagePlayerRename *);
+		virtual void msgChannelAdd(Connection *, MessageChannelAdd *);
+		virtual void msgChannelRemove(Connection *, MessageChannelRemove *);
+		virtual void msgChannelMove(Connection *, MessageChannelMove *);
+		virtual void msgChannelLink(Connection *, MessageChannelLink *);
+		virtual void msgServerBanList(Connection *, MessageServerBanList *);
+		virtual void msgTextMessage(Connection *, MessageTextMessage *);
+		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);
+		virtual void msgEditACL(Connection *, MessageEditACL *);
+		virtual void msgQueryUsers(Connection *, MessageQueryUsers *);
+		virtual void msgTexture(Connection *, MessageTexture *);
+
+		// UDP Handling
+	protected:
+		QUdpSocket *qusUdp;
+		QHash<unsigned int, Peer> qhPeers;
+		QHash<unsigned int, QHostAddress> qhHosts;
+		void processMsg(PacketDataStream &pds, Connection *cCon);
+		void sendMessage(unsigned int id, const char *data, int len, QByteArray &cache);
+	signals:
+		void tcpTransmit(QByteArray, unsigned int id);
+	public:
+		void fakeUdpPacket(Message *msg, Connection *source);
+		void run();
 };
 
 struct ServerParams {

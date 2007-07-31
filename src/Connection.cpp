@@ -168,7 +168,7 @@ void Connection::forceFlush() {
 	setsockopt(qtsSocket->socketDescriptor(), IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<char *>(&nodelay), sizeof(nodelay));
 }
 
-void Connection::disconnect() {
+void Connection::disconnectSocket() {
 	qtsSocket->disconnectFromHost();
 }
 

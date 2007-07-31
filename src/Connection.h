@@ -58,7 +58,7 @@ class Connection : public QObject {
 		~Connection();
 		void sendMessage(const Message *mMsg);
 		void sendMessage(const QByteArray &qbaMsg);
-		void disconnect();
+		void disconnectSocket();
 		void forceFlush();
 		int activityTime() const;
 

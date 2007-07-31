@@ -37,30 +37,9 @@ class Channel;
 class Player;
 class Connection;
 
-class ServerDB : public QObject {
-		Q_OBJECT
+class ServerDB {
 	public:
-		typedef QPair<QString, QList<QVariant> > qpCommand;
-		typedef QPair<quint32, int> qpBan;
 		ServerDB();
-		static int authenticate(QString &name, const QString &pw);
-		static bool hasUsers();
-		static Channel *addChannel(Channel *c, const QString &name);
-		static void removeChannel(const Channel *c);
-		static void readChannels(Channel *p = NULL);
-		static void updateChannel(const Channel *c);
-		static void readChannelPrivs(Channel *c);
-		static void setLastChannel(const Player *p);
-		static int readLastChannel(Player *p);
-		static void dumpChannel(const Channel *c);
-		static int getUserID(const QString &name);
-		static QString getUserName(int id);
-		static QByteArray getUserTexture(int id);
-		static void setPW(int id, const QString &pw);
-		static void addLink(Channel *c, Channel *l);
-		static void removeLink(Channel *c, Channel *l);
-		static QList<qpBan> getBans();
-		static void setBans(QList<qpBan> bans);
 };
 
 #endif

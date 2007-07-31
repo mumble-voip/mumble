@@ -63,9 +63,8 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 
 void Tray::on_Tray_activated(QSystemTrayIcon::ActivationReason r) {
 	if (r == QSystemTrayIcon::Trigger) {
-		int numclients = g_sServer->qmConnections.count();
 		int port = g_sp.iPort;
-		qsti->showMessage(tr("Murmur"), tr("Server running on port %1 with %2 conencted clients.").arg(port).arg(numclients), QSystemTrayIcon::Information, 5000);
+		qsti->showMessage(tr("Murmur"), tr("Server running on port %1.").arg(port), QSystemTrayIcon::Information, 5000);
 	}
 }
 

@@ -154,7 +154,7 @@ GlobalShortcutWinConfig::GlobalShortcutWinConfig(QWidget *p) : ConfigWidget(p) {
 		qhKeys[gs]=dikw;
 		i++;
 	}
-	
+
 	lab = new QLabel(tr("Double-click an entry to clear the shortcut."));
 	l->addWidget(lab,i+1,0,1,2);
 

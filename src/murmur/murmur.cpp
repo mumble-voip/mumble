@@ -48,7 +48,6 @@
 #include "Register.h"
 #include "Cert.h"
 
-extern Server *g_sServer;
 MurmurDBus *dbus;
 QFile *logfile;
 
@@ -173,7 +172,9 @@ int main(int argc, char **argv) {
 	cert.initialize();
 
 	if (! supw.isEmpty()) {
-		ServerDB::setPW(0, supw);
+		// FIXME
+
+		// ServerDB::setPW(0, supw);
 		qFatal("Superuser password set");
 	}
 
@@ -217,7 +218,11 @@ int main(int argc, char **argv) {
 
 	MurmurDBus::registerTypes();
 #endif
-	dbus=new MurmurDBus(a);
+
+	Server s;
+	s.readChannels();
+
+	dbus=new MurmurDBus(a, &s);
 #ifdef Q_OS_UNIX
 	if (! g_sp.qsDBus.isEmpty()) {
 		QDBusConnection qdbc("mainbus");
@@ -246,11 +251,7 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	db.readChannels();
-
-	Server s;
-	g_sServer = &s;
-	g_sServer->udp->start(QThread::HighestPriority);
+	s.start(QThread::HighestPriority);
 
 	Register r;
 

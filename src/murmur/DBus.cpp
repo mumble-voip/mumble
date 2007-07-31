@@ -138,7 +138,8 @@ void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<QList<BanInfo> >();
 }
 
-MurmurDBus::MurmurDBus(QCoreApplication &app) : QDBusAbstractAdaptor(&app), qdbc(QLatin1String("mainbus")) {
+MurmurDBus::MurmurDBus(QCoreApplication &app, Server *srv) : QDBusAbstractAdaptor(&app), qdbc(QLatin1String("mainbus")) {
+	server = srv;
 }
 
 QString MurmurDBus::mapIdToName(int id) {
@@ -223,7 +224,7 @@ int MurmurDBus::authenticate(QString &uname, const QString &pw) {
 }
 
 #define PLAYER_SETUP_VAR(var) \
-  Player *pPlayer = Player::get(var); \
+  User *pPlayer = server->qhUsers.value(var); \
   if (! pPlayer) { \
     QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.session", "Invalid session id")); \
     return; \
@@ -242,8 +243,9 @@ int MurmurDBus::authenticate(QString &uname, const QString &pw) {
 
 void MurmurDBus::getPlayers(QList<PlayerInfoExtended> &a) {
 	a.clear();
-	foreach(Player *p, g_sServer->qmPlayers) {
-		a << PlayerInfoExtended(p);
+	foreach(Player *p, server->qhUsers) {
+		if (p->sState == Player::Authenticated)
+			a << PlayerInfoExtended(p);
 	}
 }
 
@@ -261,7 +263,7 @@ void MurmurDBus::getChannels(QList<ChannelInfo> &a) {
 
 void MurmurDBus::kickPlayer(unsigned int session, const QString &reason, const QDBusMessage &msg) {
 	PLAYER_SETUP;
-	Connection *c = g_sServer->qmConnections.value(session);
+	Connection *c = server->qhUsers.value(session);
 	if (!c)
 		return;
 
@@ -269,8 +271,8 @@ void MurmurDBus::kickPlayer(unsigned int session, const QString &reason, const Q
 	mpk.uiSession = 0;
 	mpk.uiVictim = session;
 	mpk.qsReason=reason;
-	g_sServer->sendAll(&mpk);
-	c->disconnect();
+	server->sendAll(&mpk);
+	c->disconnectSocket();
 }
 
 void MurmurDBus::getPlayerState(unsigned int session, const QDBusMessage &msg, PlayerInfo &pi) {
@@ -299,7 +301,7 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 		mpd.uiSession = 0;
 		mpd.uiVictim=pPlayer->uiSession;
 		mpd.bDeaf = deaf;
-		g_sServer->sendAll(&mpd);
+		server->sendAll(&mpd);
 		changed = true;
 	} else if ((pi.deaf != deaf) || (pi.mute != mute)) {
 		pPlayer->bDeaf = deaf;
@@ -309,17 +311,17 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 		mpm.uiSession = 0;
 		mpm.uiVictim=pPlayer->uiSession;
 		mpm.bMute=mute;
-		g_sServer->sendAll(&mpm);
+		server->sendAll(&mpm);
 		changed = true;
 	}
 
 	if (cChannel->iId != pi.channel) {
-		g_sServer->playerEnterChannel(pPlayer, cChannel);
+		server->playerEnterChannel(pPlayer, cChannel);
 		MessagePlayerMove mpm;
 		mpm.uiSession = 0;
 		mpm.uiVictim = pPlayer->uiSession;
 		mpm.iChannelId = cChannel->iId;
-		g_sServer->sendAll(&mpm);
+		server->sendAll(&mpm);
 		changed = true;
 	}
 
@@ -330,8 +332,8 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMessage &msg, int &newid) {
 	CHANNEL_SETUP_VAR(chanparent);
 
-	Channel *nc = ServerDB::addChannel(cChannel, name);
-	ServerDB::updateChannel(nc);
+	Channel *nc = server->addChannel(cChannel, name);
+	server->updateChannel(nc);
 	newid = nc->iId;
 
 	MessageChannelAdd mca;
@@ -339,7 +341,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 	mca.qsName = name;
 	mca.iParent = chanparent;
 	mca.iId = nc->iId;
-	g_sServer->sendAll(&mca);
+	server->sendAll(&mca);
 }
 
 void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
@@ -348,7 +350,7 @@ void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 		QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
 		return;
 	}
-	g_sServer->removeChannel(cChannel, NULL);
+	server->removeChannel(cChannel, NULL);
 }
 
 void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg) {
@@ -378,13 +380,13 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 
 		cChannel->cParent->removeChannel(cChannel);
 		cParent->addChannel(cChannel);
-		ServerDB::updateChannel(cChannel);
+		server->updateChannel(cChannel);
 
 		MessageChannelMove mcm;
 		mcm.uiSession = 0;
 		mcm.iId = nci.id;
 		mcm.iParent = nci.parent;
-		g_sServer->sendAll(&mcm);
+		server->sendAll(&mcm);
 
 		changed = true;
 	}
@@ -396,28 +398,28 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 
 		foreach(Channel *l, oldset) {
 			if (! newset.contains(l)) {
-				ServerDB::removeLink(cChannel, l);
+				server->removeLink(cChannel, l);
 
 				MessageChannelLink mcl;
 				mcl.uiSession = 0;
 				mcl.iId = nci.id;
 				mcl.qlTargets << l->iId;
 				mcl.ltType = MessageChannelLink::Unlink;
-				g_sServer->sendAll(&mcl);
+				server->sendAll(&mcl);
 			}
 		}
 
 		// Add
 		foreach(Channel *l, newset) {
 			if (! oldset.contains(l)) {
-				ServerDB::addLink(cChannel, l);
+				server->addLink(cChannel, l);
 
 				MessageChannelLink mcl;
 				mcl.uiSession = 0;
 				mcl.iId = nci.id;
 				mcl.qlTargets << l->iId;
 				mcl.ltType = MessageChannelLink::Link;
-				g_sServer->sendAll(&mcl);
+				server->sendAll(&mcl);
 			}
 		}
 
@@ -518,47 +520,47 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 	}
 
 	ChanACL::clearCache();
-	ServerDB::updateChannel(cChannel);
+	server->updateChannel(cChannel);
 }
 
 void MurmurDBus::getBans(QList<BanInfo> &bi) {
 	bi.clear();
 	QPair<quint32,int> ban;
-	foreach(ban, g_sServer->qlBans) {
+	foreach(ban, server->qlBans) {
 		bi << BanInfo(ban);
 	}
 }
 
 void MurmurDBus::setBans(const QList<BanInfo> &bans, const QDBusMessage &) {
-	g_sServer->qlBans.clear();
+	server->qlBans.clear();
 	foreach(BanInfo bi, bans)
-	g_sServer->qlBans << QPair<quint32,int>(bi.address,bi.bits);
-	ServerDB::setBans(g_sServer->qlBans);
+	server->qlBans << QPair<quint32,int>(bi.address,bi.bits);
+	server->setBans(server->qlBans);
 }
 
 void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names) {
 	names.clear();
 	foreach(int id, ids) {
-		if (! g_sServer->qhUserNameCache.contains(id)) {
-			QString name=ServerDB::getUserName(id);
+		if (! server->qhUserNameCache.contains(id)) {
+			QString name=server->getUserName(id);
 			if (! name.isEmpty()) {
-				g_sServer->qhUserNameCache[id]=name;
+				server->qhUserNameCache[id]=name;
 			}
 		}
-		names << g_sServer->qhUserNameCache.value(id);
+		names << server->qhUserNameCache.value(id);
 	}
 }
 
 void MurmurDBus::getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids) {
 	ids.clear();
 	foreach(QString name, names) {
-		if (! g_sServer->qhUserIDCache.contains(name)) {
-			int id=ServerDB::getUserID(name);
+		if (! server->qhUserIDCache.contains(name)) {
+			int id=server->getUserID(name);
 			if (id != -1) {
-				g_sServer->qhUserIDCache[name]=id;
+				server->qhUserIDCache[name]=id;
 			}
 		}
-		ids << g_sServer->qhUserIDCache.value(name);
+		ids << server->qhUserIDCache.value(name);
 	}
 }
 
@@ -601,8 +603,8 @@ PlayerInfoExtended::PlayerInfoExtended(Player *p) : PlayerInfo(p) {
 	id = p->iId;
 	name = p->qsName;
 
-	Connection *c = g_sServer->qmConnections[p->uiSession];
-	BandwidthRecord *bw= g_sServer->qmBandwidth[c];
+	User *u = static_cast<User *>(p);
+	BandwidthRecord *bw= & u->bwr;
 	onlinesecs = bw->qtFirst.elapsed() / 1000000LL;
 
 	bytespersec = 0;

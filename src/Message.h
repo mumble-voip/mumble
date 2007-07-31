@@ -49,7 +49,7 @@ class Message {
 		Message();
 		virtual ~Message();
 		virtual Message::MessageType messageType() const = 0;
-		virtual void process(Connection *) = 0;
+//		virtual void process(Connection *) = 0;
 		virtual bool isValid() const;
 
 		void messageToNetwork(QByteArray &) const;
@@ -70,7 +70,7 @@ class MessageSpeex : public Message {
 		Message::MessageType messageType() const {
 			return Speex;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 		bool isValid() const;
 };
 
@@ -87,7 +87,7 @@ class MessageServerAuthenticate : public Message {
 		Message::MessageType messageType() const {
 			return ServerAuthenticate;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePing : public Message {
@@ -99,7 +99,7 @@ class MessagePing : public Message {
 		Message::MessageType messageType() const {
 			return Ping;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageServerReject : public Message {
@@ -113,7 +113,7 @@ class MessageServerReject : public Message {
 		Message::MessageType messageType() const {
 			return ServerReject;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageServerSync : public Message {
@@ -126,7 +126,7 @@ class MessageServerSync : public Message {
 		Message::MessageType messageType() const {
 			return ServerSync;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageServerJoin : public Message {
@@ -139,7 +139,7 @@ class MessageServerJoin : public Message {
 		Message::MessageType messageType() const {
 			return ServerJoin;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageServerLeave : public Message {
@@ -147,7 +147,7 @@ class MessageServerLeave : public Message {
 		Message::MessageType messageType() const {
 			return ServerLeave;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePlayerMute : public Message {
@@ -160,7 +160,7 @@ class MessagePlayerMute : public Message {
 		Message::MessageType messageType() const {
 			return PlayerMute;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePlayerDeaf : public Message {
@@ -173,7 +173,7 @@ class MessagePlayerDeaf : public Message {
 		Message::MessageType messageType() const {
 			return PlayerDeaf;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePlayerSelfMuteDeaf : public Message {
@@ -186,7 +186,7 @@ class MessagePlayerSelfMuteDeaf : public Message {
 		Message::MessageType messageType() const {
 			return PlayerSelfMuteDeaf;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePlayerKick : public Message {
@@ -199,7 +199,7 @@ class MessagePlayerKick : public Message {
 		Message::MessageType messageType() const {
 			return PlayerKick;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePlayerBan : public Message {
@@ -212,7 +212,7 @@ class MessagePlayerBan : public Message {
 		Message::MessageType messageType() const {
 			return PlayerBan;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePlayerMove : public Message {
@@ -225,7 +225,7 @@ class MessagePlayerMove : public Message {
 		Message::MessageType messageType() const {
 			return PlayerMove;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePlayerRename : public Message {
@@ -237,7 +237,7 @@ class MessagePlayerRename : public Message {
 		Message::MessageType messageType() const {
 			return PlayerRename;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageChannelAdd : public Message {
@@ -251,7 +251,7 @@ class MessageChannelAdd : public Message {
 		Message::MessageType messageType() const {
 			return ChannelAdd;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageChannelRemove : public Message {
@@ -263,7 +263,7 @@ class MessageChannelRemove : public Message {
 		Message::MessageType messageType() const {
 			return ChannelRemove;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageChannelMove : public Message {
@@ -276,7 +276,7 @@ class MessageChannelMove : public Message {
 		Message::MessageType messageType() const {
 			return ChannelMove;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageChannelLink : public Message {
@@ -293,7 +293,7 @@ class MessageChannelLink : public Message {
 		Message::MessageType messageType() const {
 			return ChannelLink;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageServerBanList : public Message {
@@ -306,7 +306,7 @@ class MessageServerBanList : public Message {
 		Message::MessageType messageType() const {
 			return ServerBanList;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageTextMessage : public Message {
@@ -319,7 +319,7 @@ class MessageTextMessage : public Message {
 		Message::MessageType messageType() const {
 			return TextMessage;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessagePermissionDenied : public Message {
@@ -331,7 +331,7 @@ class MessagePermissionDenied : public Message {
 		Message::MessageType messageType() const {
 			return PermissionDenied;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 class MessageEditACL : public Message {
@@ -367,7 +367,7 @@ class MessageEditACL : public Message {
 		Message::MessageType messageType() const {
 			return EditACL;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 };
 
 PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::GroupStruct &gs);
@@ -385,7 +385,7 @@ class MessageQueryUsers : public Message {
 		Message::MessageType messageType() const {
 			return QueryUsers;
 		};
-		void process(Connection *);
+		//void process(Connection *);
 		bool isValid() const;
 };
 
@@ -399,8 +399,40 @@ class MessageTexture : public Message {
 		Message::MessageType messageType() const {
 			return PlayerTexture;
 		}
-		void process(Connection *);
+		//void process(Connection *);
 };
+
+class MessageHandler {
+	protected:
+		virtual void msgSpeex(Connection *, MessageSpeex *) = 0;
+		virtual void msgServerAuthenticate(Connection *, MessageServerAuthenticate *) = 0;
+		virtual void msgPing(Connection *, MessagePing *) = 0;
+		virtual void msgServerReject(Connection *, MessageServerReject *) = 0;
+		virtual void msgServerSync(Connection *, MessageServerSync *) = 0;
+		virtual void msgServerJoin(Connection *, MessageServerJoin *) = 0;
+		virtual void msgServerLeave(Connection *, MessageServerLeave *) = 0;
+		virtual void msgPlayerMute(Connection *, MessagePlayerMute *) = 0;
+		virtual void msgPlayerDeaf(Connection *, MessagePlayerDeaf *) = 0;
+		virtual void msgPlayerSelfMuteDeaf(Connection *, MessagePlayerSelfMuteDeaf *) = 0;
+		virtual void msgPlayerKick(Connection *, MessagePlayerKick *) = 0;
+		virtual void msgPlayerBan(Connection *, MessagePlayerBan *) = 0;
+		virtual void msgPlayerMove(Connection *, MessagePlayerMove *) = 0;
+		virtual void msgPlayerRename(Connection *, MessagePlayerRename *) = 0;
+		virtual void msgChannelAdd(Connection *, MessageChannelAdd *) = 0;
+		virtual void msgChannelRemove(Connection *, MessageChannelRemove *) = 0;
+		virtual void msgChannelMove(Connection *, MessageChannelMove *) = 0;
+		virtual void msgChannelLink(Connection *, MessageChannelLink *) = 0;
+		virtual void msgServerBanList(Connection *, MessageServerBanList *) = 0;
+		virtual void msgTextMessage(Connection *, MessageTextMessage *) = 0;
+		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *) = 0;
+		virtual void msgEditACL(Connection *, MessageEditACL *) = 0;
+		virtual void msgQueryUsers(Connection *, MessageQueryUsers *) = 0;
+		virtual void msgTexture(Connection *, MessageTexture *) = 0;
+		void dispatch(Connection *, Message *);
+	public:
+		virtual ~MessageHandler() { };
+};
+
 
 #else
 class Message;

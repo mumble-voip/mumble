@@ -35,8 +35,7 @@
 
 class Channel;
 
-class Player : public QObject {
-		Q_OBJECT
+class Player {
 	public:
 		enum State { Connected, Authenticated };
 		State sState;
@@ -49,15 +48,21 @@ class Player : public QObject {
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
 
-		static QHash<unsigned int, Player *> c_qmPlayers;
-		static QReadWriteLock c_qrwlPlayers;
+		Player();
+		virtual ~Player() {};
+};
 
-		Player(QObject *p = NULL);
-		static Player *get(unsigned int);
-		static Player *add(unsigned int, QObject *p = NULL);
-		static Player *match(const Player *p, bool matchname = false);
+class ClientPlayer : public QObject, public Player {
+		Q_OBJECT
+	public:
+		ClientPlayer(QObject *p = NULL);
+		static QHash<unsigned int, ClientPlayer *> c_qmPlayers;
+		static QReadWriteLock c_qrwlPlayers;
+		static ClientPlayer *get(unsigned int);
+		static ClientPlayer *add(unsigned int, QObject *p = NULL);
+		static ClientPlayer *match(const ClientPlayer *p, bool matchname = false);
 		static void remove(unsigned int);
-		static void remove(Player *);
+		static void remove(ClientPlayer *);
 	public slots:
 		void setTalking(bool talking, bool altspeech);
 		void setMute(bool mute);

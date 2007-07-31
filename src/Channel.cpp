@@ -178,7 +178,9 @@ void Channel::removeChannel(Channel *c) {
 void Channel::addPlayer(Player *p) {
 	if (p->cChannel)
 		p->cChannel->removePlayer(p);
-	p->setParent(this);
+	ClientPlayer *cp = dynamic_cast<ClientPlayer *>(p);
+	if (cp)
+		cp->setParent(this);
 	p->cChannel = this;
 	qlPlayers << p;
 }

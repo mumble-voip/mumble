@@ -163,6 +163,85 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 	return mMsg;
 }
 
+void MessageHandler::dispatch(Connection *cCon, Message *msg) {
+	switch (msg->messageType()) {
+		case Message::Speex:
+			msgSpeex(cCon, static_cast<MessageSpeex *>(msg));
+			break;
+		case Message::ServerAuthenticate:
+			msgServerAuthenticate(cCon, static_cast<MessageServerAuthenticate *>(msg));
+			break;
+		case Message::ServerReject:
+			msgServerReject(cCon, static_cast<MessageServerReject *>(msg));
+			break;
+		case Message::ServerSync:
+			msgServerSync(cCon, static_cast<MessageServerSync *>(msg));
+			break;
+		case Message::ServerJoin:
+			msgServerJoin(cCon, static_cast<MessageServerJoin *>(msg));
+			break;
+		case Message::ServerLeave:
+			msgServerLeave(cCon, static_cast<MessageServerLeave *>(msg));
+			break;
+		case Message::ServerBanList:
+			msgServerBanList(cCon, static_cast<MessageServerBanList *>(msg));
+			break;
+		case Message::PlayerMute:
+			msgPlayerMute(cCon, static_cast<MessagePlayerMute *>(msg));
+			break;
+		case Message::PlayerDeaf:
+			msgPlayerDeaf(cCon, static_cast<MessagePlayerDeaf *>(msg));
+			break;
+		case Message::PlayerSelfMuteDeaf:
+			msgPlayerSelfMuteDeaf(cCon, static_cast<MessagePlayerSelfMuteDeaf *>(msg));
+			break;
+		case Message::PlayerKick:
+			msgPlayerKick(cCon, static_cast<MessagePlayerKick *>(msg));
+			break;
+		case Message::PlayerBan:
+			msgPlayerBan(cCon, static_cast<MessagePlayerBan *>(msg));
+			break;
+		case Message::PlayerMove:
+			msgPlayerMove(cCon, static_cast<MessagePlayerMove *>(msg));
+			break;
+		case Message::PlayerRename:
+			msgPlayerRename(cCon, static_cast<MessagePlayerRename *>(msg));
+			break;
+		case Message::ChannelAdd:
+			msgChannelAdd(cCon, static_cast<MessageChannelAdd *>(msg));
+			break;
+		case Message::ChannelRemove:
+			msgChannelRemove(cCon, static_cast<MessageChannelRemove *>(msg));
+			break;
+		case Message::ChannelMove:
+			msgChannelMove(cCon, static_cast<MessageChannelMove *>(msg));
+			break;
+		case Message::ChannelLink:
+			msgChannelLink(cCon, static_cast<MessageChannelLink *>(msg));
+			break;
+		case Message::TextMessage:
+			msgTextMessage(cCon, static_cast<MessageTextMessage *>(msg));
+			break;
+		case Message::PermissionDenied:
+			msgPermissionDenied(cCon, static_cast<MessagePermissionDenied *>(msg));
+			break;
+		case Message::EditACL:
+			msgEditACL(cCon, static_cast<MessageEditACL *>(msg));
+			break;
+		case Message::QueryUsers:
+			msgQueryUsers(cCon, static_cast<MessageQueryUsers *>(msg));
+			break;
+		case Message::Ping:
+			msgPing(cCon, static_cast<MessagePing *>(msg));
+			break;
+		case Message::PlayerTexture:
+			msgTexture(cCon, static_cast<MessageTexture *>(msg));
+			break;
+		default:
+			qFatal("MessageHandler called with unknown message type %d", msg->messageType());
+	}
+}
+
 bool Message::isValid() const {
 	return true;
 }
