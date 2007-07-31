@@ -540,7 +540,7 @@ void MainWindow::on_PlayerMute_triggered() {
 }
 
 void MainWindow::on_PlayerLocalMute_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	if (!p)
 		return;
 
@@ -568,7 +568,7 @@ void MainWindow::on_PlayerKick_triggered() {
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
 
-	p = Player::get(session);
+	p = ClientPlayer::get(session);
 	if (!p)
 		return;
 
@@ -589,7 +589,7 @@ void MainWindow::on_PlayerBan_triggered() {
 
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
-	p = Player::get(session);
+	p = ClientPlayer::get(session);
 	if (!p)
 		return;
 
@@ -611,7 +611,7 @@ void MainWindow::on_PlayerTextMessage_triggered() {
 
 	bool ok;
 	QString message = QInputDialog::getText(this, tr("Sending message to %1").arg(p->qsName), tr("Enter message"), QLineEdit::Normal, QString(), &ok);
-	p = Player::get(session);
+	p = ClientPlayer::get(session);
 	if (!p)
 		return;
 
@@ -640,7 +640,7 @@ void MainWindow::on_ChannelMenu_aboutToShow() {
 		acl = true;
 
 		Channel *c = pmModel->getChannel(idx);
-		Channel *home = Player::get(g.uiSession)->cChannel;
+		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
 
 		if (c && c->iId != 0)
 			remove = true;
@@ -721,7 +721,7 @@ void MainWindow::on_ChannelACL_triggered() {
 }
 
 void MainWindow::on_ChannelLink_triggered() {
-	Channel *c = Player::get(g.uiSession)->cChannel;
+	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
 	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! l)
 		l = Channel::get(0);
@@ -734,7 +734,7 @@ void MainWindow::on_ChannelLink_triggered() {
 }
 
 void MainWindow::on_ChannelUnlink_triggered() {
-	Channel *c = Player::get(g.uiSession)->cChannel;
+	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
 	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! l)
 		l = Channel::get(0);
@@ -747,7 +747,7 @@ void MainWindow::on_ChannelUnlink_triggered() {
 }
 
 void MainWindow::on_ChannelUnlinkAll_triggered() {
-	Channel *c = Player::get(g.uiSession)->cChannel;
+	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
 
 	MessageChannelLink mcl;
 	mcl.iId = c->iId;
@@ -884,7 +884,7 @@ void MainWindow::pushLink(bool down) {
 
 	GlobalShortcut *gs = qobject_cast<GlobalShortcut *>(sender());
 	int idx = gs->data().toInt();
-	Channel *home = Player::get(g.uiSession)->cChannel;
+	Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
 
 	Channel *target = NULL;
 	switch (idx) {
@@ -1074,251 +1074,7 @@ void MainWindow::customEvent(QEvent *evt) {
 
 	Message *mMsg = Message::networkToMessage(shme->qbaMsg);
 	if (mMsg) {
-		mMsg->process(NULL);
+		dispatch(NULL, mMsg);
 		delete mMsg;
 	}
-}
-
-void MessageServerJoin::process(Connection *) {
-	Player *p = g.mw->pmModel->addPlayer(uiSession, qsPlayerName);
-	p->iId = iId;
-	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined server: %1.").arg(p->qsName));
-}
-
-#define MSG_INIT \
-	Player *pSrc=Player::get(uiSession); \
-	Q_UNUSED(pSrc);
-
-#define VICTIM_INIT \
-	Player *pDst=Player::get(uiVictim); \
-	 if (! pDst) \
- 		qFatal("MainWindow: Message for nonexistant victim %d.", uiVictim);
-
-void MessageServerLeave::process(Connection *) {
-	MSG_INIT;
-
-	g.l->log(Log::PlayerLeave, MainWindow::tr("Left server: %1.").arg(pSrc->qsName));
-	g.mw->pmModel->removePlayer(pSrc);
-}
-
-void MessageServerBanList::process(Connection *) {
-	MSG_INIT;
-
-	if (g.mw->banEdit) {
-		g.mw->banEdit->reject();
-		delete g.mw->banEdit;
-		g.mw->banEdit = NULL;
-	}
-	g.mw->banEdit = new BanEditor(this, g.mw);
-	g.mw->banEdit->show();
-
-}
-
-void MessageSpeex::process(Connection *) {
-}
-
-void MessagePlayerSelfMuteDeaf::process(Connection *) {
-	MSG_INIT;
-
-	pSrc->setSelfMuteDeaf(bMute, bDeaf);
-
-	if (uiSession == g.uiSession || ! g.uiSession)
-		return;
-	if (pSrc->cChannel != Player::get(g.uiSession)->cChannel)
-		return;
-
-	QString name = pSrc->qsName;
-	if (bMute && bDeaf)
-		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted and deafened.").arg(name));
-	else if (bMute)
-		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted.").arg(name));
-	else
-		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now unmuted.").arg(name));
-}
-
-void MessagePlayerMute::process(Connection *) {
-	MSG_INIT;
-	VICTIM_INIT;
-
-	pDst->setMute(bMute);
-
-	if (!g.uiSession || pDst->cChannel != Player::get(g.uiSession)->cChannel)
-		return;
-
-	QString vic = pDst->qsName;
-	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
-
-	if (uiVictim == g.uiSession)
-		g.l->log(Log::YouMuted, bMute ? MainWindow::tr("You were muted by %1.").arg(admin) : MainWindow::tr("You were unmuted by %1.").arg(admin));
-	else
-		g.l->log((uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin));
-}
-
-void MessagePlayerDeaf::process(Connection *) {
-	MSG_INIT;
-	VICTIM_INIT;
-
-	pDst->setDeaf(bDeaf);
-
-	if (!g.uiSession || pDst->cChannel != Player::get(g.uiSession)->cChannel)
-		return;
-
-	QString vic = pDst->qsName;
-	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
-
-	if (uiVictim == g.uiSession)
-		g.l->log(Log::YouMuted, bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
-	else
-		g.l->log((uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin));
-}
-
-void MessagePlayerKick::process(Connection *) {
-	MSG_INIT;
-	VICTIM_INIT;
-	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
-
-	if (uiVictim == g.uiSession) {
-		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2.").arg(admin).arg(qsReason));
-		g.l->setIgnore(Log::ServerDisconnected, 1);
-	} else {
-		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(qsReason).arg(pDst->qsName));
-	}
-}
-
-void MessagePlayerBan::process(Connection *) {
-	MSG_INIT;
-	VICTIM_INIT;
-	if (uiVictim == g.uiSession) {
-		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason));
-		g.l->setIgnore(Log::ServerDisconnected, 1);
-	} else {
-		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(qsReason).arg(pDst->qsName));
-	}
-}
-
-void MessagePlayerMove::process(Connection *) {
-	MSG_INIT;
-	VICTIM_INIT;
-
-	bool log = true;
-	if ((uiVictim == g.uiSession) && (uiSession == uiVictim))
-		log = false;
-	if (g.uiSession == 0)
-		log = false;
-
-	QString pname = pDst->qsName;
-	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
-
-	if (log && (pDst->cChannel == Player::get(g.uiSession)->cChannel)) {
-		if (pDst == pSrc || (!pSrc))
-			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 left channel.").arg(pname));
-		else
-			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2.").arg(pname).arg(admin));
-	}
-
-	g.mw->pmModel->movePlayer(pDst, iChannelId);
-
-	if (log && (pDst->cChannel == Player::get(g.uiSession)->cChannel)) {
-		if (pDst == pSrc || (!pSrc))
-			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 entered channel.").arg(pname));
-		else
-			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 moved in by %2.").arg(pname).arg(admin));
-	}
-}
-
-void MessagePlayerRename::process(Connection *) {
-	MSG_INIT;
-	g.mw->pmModel->renamePlayer(pSrc, qsName);
-}
-
-void MessageChannelAdd::process(Connection *) {
-	Channel *p = Channel::get(iParent);
-	if (p)
-		g.mw->pmModel->addChannel(iId, p, qsName);
-}
-
-void MessageChannelRemove::process(Connection *) {
-	Channel *c = Channel::get(iId);
-	if (c)
-		g.mw->pmModel->removeChannel(c);
-}
-
-void MessageChannelMove::process(Connection *) {
-	g.mw->pmModel->moveChannel(Channel::get(iId), iParent);
-}
-
-void MessageChannelLink::process(Connection *) {
-	Channel *c = Channel::get(iId);
-	QList<Channel *> qlChans;
-	foreach(int id, qlTargets) {
-		Channel *l = Channel::get(id);
-		qlChans << l;
-	}
-
-	switch (ltType) {
-		case Link:
-			g.mw->pmModel->linkChannels(c, qlChans);
-			break;
-		case Unlink:
-			g.mw->pmModel->unlinkChannels(c, qlChans);
-			break;
-		case UnlinkAll:
-			g.mw->pmModel->unlinkAll(c);
-			break;
-		default:
-			qFatal("Unknown link message");
-	}
-}
-
-void MessageServerAuthenticate::process(Connection *) {
-}
-
-void MessageServerReject::process(Connection *) {
-	g.mw->rtLast = rtType;
-	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1.").arg(qsReason));
-	g.l->setIgnore(Log::ServerDisconnected, 1);
-}
-
-void MessagePermissionDenied::process(Connection *) {
-	g.l->log(Log::PermissionDenied, MainWindow::tr("Denied: %1.").arg(qsReason));
-}
-
-void MessageServerSync::process(Connection *) {
-	MSG_INIT;
-	g.iMaxBandwidth = iMaxBandwidth;
-	g.uiSession = uiSession;
-	g.l->clearIgnore();
-	g.l->log(Log::Information, qsWelcomeText);
-	g.mw->pmModel->ensureSelfVisible();
-}
-
-void MessageTextMessage::process(Connection *) {
-	MSG_INIT;
-	g.l->log(Log::TextMessage, MainWindow::tr("From %1: %2").arg(pSrc->qsName).arg(qsMessage),
-	         MainWindow::tr("Message from %1").arg(pSrc->qsName));
-}
-
-void MessageEditACL::process(Connection *) {
-	if (g.mw->aclEdit) {
-		g.mw->aclEdit->reject();
-		delete g.mw->aclEdit;
-		g.mw->aclEdit = NULL;
-	}
-	g.mw->aclEdit = new ACLEditor(this, g.mw);
-	g.mw->aclEdit->show();
-}
-
-void MessageQueryUsers::process(Connection *) {
-	if (g.mw->aclEdit)
-		g.mw->aclEdit->returnQuery(this);
-}
-
-void MessagePing::process(Connection *) {
-}
-
-void MessageTexture::process(Connection *) {
-	if (! qbaTexture.isEmpty())
-		g.o->textureResponse(iPlayerId,qbaTexture);
 }

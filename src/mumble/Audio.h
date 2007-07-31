@@ -38,7 +38,7 @@
 
 typedef QPair<QString,QVariant> audioDevice;
 
-class LoopPlayer : public Player {
+class LoopPlayer : public ClientPlayer {
 	protected:
 		typedef QPair<quint32, QByteArray> Packet;
 		QMutex qmLock;

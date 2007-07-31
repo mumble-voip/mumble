@@ -38,7 +38,7 @@
 #include "Overlay.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
-QHash <Player *, ModelItem *> ModelItem::c_qhPlayers;
+QHash <ClientPlayer *, ModelItem *> ModelItem::c_qhPlayers;
 bool ModelItem::bPlayersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
@@ -47,7 +47,7 @@ ModelItem::ModelItem(Channel *c) {
 	c_qhChannels[c] = this;
 }
 
-ModelItem::ModelItem(Player *p) {
+ModelItem::ModelItem(ClientPlayer *p) {
 	this->cChan = NULL;
 	this->pPlayer = p;
 	c_qhPlayers[p] = this;
@@ -95,7 +95,7 @@ bool ModelItem::validRow(int idx) const {
 	return ((idx >= 0) && (idx < (qlPlayers.count() + qlChannels.count())));
 }
 
-Player *ModelItem::playerAt(int idx) const {
+ClientPlayer *ModelItem::playerAt(int idx) const {
 	if (! bPlayersTop)
 		idx -= qlChannels.count();
 	if ((idx>= 0) && (idx < qlPlayers.count()))
@@ -118,7 +118,7 @@ int ModelItem::rowOf(Channel *c) const {
 	return v;
 }
 
-int ModelItem::rowOf(Player *p) const {
+int ModelItem::rowOf(ClientPlayer *p) const {
 	int v = qlPlayers.lastIndexOf(p);
 	if (v != -1)
 		v += (bPlayersTop) ? 0 : qlChannels.count();
@@ -152,9 +152,9 @@ int ModelItem::insertIndex(Channel *c) const {
 	return qls.lastIndexOf(c->qsName) + (bPlayersTop ? qlPlayers.count() : 0);
 }
 
-int ModelItem::insertIndex(Player *p) const {
+int ModelItem::insertIndex(ClientPlayer *p) const {
 	QList<QString> qls;
-	Player *pp;
+	ClientPlayer *pp;
 
 	foreach(pp, qlPlayers)
 	qls << pp->qsName;
@@ -169,7 +169,7 @@ void ModelItem::insertChannel(Channel *c) {
 	qlChannels.insert(idx, c);
 }
 
-void ModelItem::insertPlayer(Player *p) {
+void ModelItem::insertPlayer(ClientPlayer *p) {
 	int idx = insertIndex(p) - (bPlayersTop ? 0 : qlChannels.count());
 	qlPlayers.insert(idx, p);
 }
@@ -225,7 +225,7 @@ QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const 
 	return idx;
 }
 
-QModelIndex PlayerModel::index(Player *p, int column) const {
+QModelIndex PlayerModel::index(ClientPlayer *p, int column) const {
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
 	Q_ASSERT(p);
 	Q_ASSERT(item);
@@ -295,7 +295,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 
 	Channel *c = item->cChan;
-	Player *p = item->pPlayer;
+	ClientPlayer *p = item->pPlayer;
 
 	if (!c && !p)
 		return QVariant();
@@ -438,7 +438,7 @@ void PlayerModel::unbugHide(const QModelIndex &idx) {
 	}
 }
 
-void PlayerModel::hidePlayer(Player *p) {
+void PlayerModel::hidePlayer(ClientPlayer *p) {
 	Channel *c = p->cChannel;
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
 
@@ -451,13 +451,13 @@ void PlayerModel::hidePlayer(Player *p) {
 	item->qlPlayers.removeAll(p);
 	endRemoveRows();
 
-	if (g.uiSession && (p->cChannel == Player::get(g.uiSession)->cChannel))
+	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
 		updateOverlay();
 
 	p->cChannel = NULL;
 }
 
-void PlayerModel::showPlayer(Player *p, Channel *c) {
+void PlayerModel::showPlayer(ClientPlayer *p, Channel *c) {
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
 
 	Q_ASSERT(p);
@@ -471,7 +471,7 @@ void PlayerModel::showPlayer(Player *p, Channel *c) {
 	item->insertPlayer(p);
 	endInsertRows();
 
-	if (g.uiSession && (p->cChannel == Player::get(g.uiSession)->cChannel))
+	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
 		updateOverlay();
 
 	ensureSelfVisible();
@@ -482,7 +482,7 @@ void PlayerModel::ensureSelfVisible() {
 
 	if (! g.uiSession)
 		return;
-	Channel *c = Player::get(g.uiSession)->cChannel;
+	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
 	while (c) {
 		chans.push(c);
 		c = c->cParent;
@@ -500,7 +500,7 @@ void PlayerModel::recheckLinks() {
 
 	bool bChanged = false;
 
-	Channel *home = Player::get(g.uiSession)->cChannel;
+	Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
 
 	QSet<Channel *> all = home->allLinks();
 
@@ -521,8 +521,8 @@ void PlayerModel::recheckLinks() {
 		updateOverlay();
 }
 
-Player *PlayerModel::addPlayer(unsigned int id, QString name) {
-	Player *p = Player::add(id, this);
+ClientPlayer *PlayerModel::addPlayer(unsigned int id, QString name) {
+	ClientPlayer *p = ClientPlayer::add(id, this);
 	p->qsName = name;
 
 	new ModelItem(p);
@@ -535,23 +535,23 @@ Player *PlayerModel::addPlayer(unsigned int id, QString name) {
 	return p;
 }
 
-void PlayerModel::removePlayer(Player *p) {
+void PlayerModel::removePlayer(ClientPlayer *p) {
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
 
 	hidePlayer(p);
 
-	Player::remove(p);
+	ClientPlayer::remove(p);
 	delete p;
 	delete item;
 }
 
-void PlayerModel::movePlayer(Player *p, int id) {
+void PlayerModel::movePlayer(ClientPlayer *p, int id) {
 	Channel *np = Channel::get(id);
 	hidePlayer(p);
 	showPlayer(p, np);
 }
 
-void PlayerModel::renamePlayer(Player *p, QString name) {
+void PlayerModel::renamePlayer(ClientPlayer *p, QString name) {
 	Channel *c = p->cChannel;
 	hidePlayer(p);
 	p->qsName = name;
@@ -606,7 +606,7 @@ Channel *PlayerModel::addChannel(int id, Channel *p, QString name) {
 
 void PlayerModel::removeChannel(Channel *c) {
 	ModelItem *item;
-	Player *pl;
+	ClientPlayer *pl;
 	Channel *subc;
 
 	item=ModelItem::c_qhChannels.value(c);
@@ -661,7 +661,7 @@ void PlayerModel::removeAll() {
 	updateOverlay();
 }
 
-Player *PlayerModel::getPlayer(const QModelIndex &idx) const {
+ClientPlayer *PlayerModel::getPlayer(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return NULL;
 
@@ -693,17 +693,17 @@ Channel *PlayerModel::getSubChannel(Channel *p, int idx) const {
 
 
 void PlayerModel::playerTalkingChanged(bool) {
-	Player *p=static_cast<Player *>(sender());
+	ClientPlayer *p=static_cast<ClientPlayer *>(sender());
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 	updateOverlay();
 }
 
 void PlayerModel::playerMuteDeafChanged() {
-	Player *p=static_cast<Player *>(sender());
+	ClientPlayer *p=static_cast<ClientPlayer *>(sender());
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
-	if (g.uiSession && (p->cChannel == Player::get(g.uiSession)->cChannel))
+	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
 		updateOverlay();
 }
 
@@ -723,7 +723,7 @@ QMimeData *PlayerModel::mimeData(const QModelIndexList &idxs) const {
 	QDataStream ds(&qba, QIODevice::WriteOnly);
 
 	foreach(idx, idxs) {
-		Player *p = getPlayer(idx);
+		ClientPlayer *p = getPlayer(idx);
 		Channel *c = getChannel(idx);
 		if (p) {
 			ds << false;

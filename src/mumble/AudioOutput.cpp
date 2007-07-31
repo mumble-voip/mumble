@@ -92,7 +92,7 @@ AudioOutputPlayer::AudioOutputPlayer(const QString name) : qsName(name) {
 	fPos[0]=fPos[1]=fPos[2]=0.0;
 }
 
-AudioOutputSpeech::AudioOutputSpeech(Player *player) : AudioOutputPlayer(player->qsName) {
+AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player) : AudioOutputPlayer(player->qsName) {
 	p = player;
 
 	dsDecState=speex_decoder_init(&speex_wb_mode);
@@ -236,7 +236,7 @@ void AudioOutput::newPlayer(AudioOutputPlayer *) {
 }
 
 void AudioOutput::wipe() {
-	foreach(const Player *p, qmOutputs.keys())
+	foreach(const ClientPlayer *p, qmOutputs.keys())
 	removeBuffer(p);
 }
 
@@ -248,7 +248,7 @@ void AudioOutput::playSine(float hz, float i, unsigned int frames) {
 	qrwlOutputs.unlock();
 }
 
-void AudioOutput::addFrameToBuffer(Player *player, const QByteArray &qbaPacket, int iSeq) {
+void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPacket, int iSeq) {
 	qrwlOutputs.lockForRead();
 	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(player));
 	if (! aop) {
@@ -264,13 +264,13 @@ void AudioOutput::addFrameToBuffer(Player *player, const QByteArray &qbaPacket, 
 	qrwlOutputs.unlock();
 }
 
-void AudioOutput::removeBuffer(const Player *player) {
+void AudioOutput::removeBuffer(const ClientPlayer *player) {
 	removeBuffer(qmOutputs.value(player));
 }
 
 void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 	QWriteLocker locker(&qrwlOutputs);
-	QMultiHash<const Player *, AudioOutputPlayer *>::iterator i=qmOutputs.begin();
+	QMultiHash<const ClientPlayer *, AudioOutputPlayer *>::iterator i=qmOutputs.begin();
 	while (i != qmOutputs.end()) {
 		if (i.value() == aop) {
 			qmOutputs.erase(i);

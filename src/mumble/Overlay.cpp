@@ -507,7 +507,7 @@ void Overlay::updateOverlay() {
 		return;
 
 	if (g.uiSession) {
-		Channel *home = Player::get(g.uiSession)->cChannel;
+		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
 		foreach(Channel *c, home->allLinks()) {
 			if (home == c)
 				continue;
@@ -539,8 +539,8 @@ void Overlay::updateOverlay() {
 			}
 		}
 
-		foreach(Player *p, Player::get(g.uiSession)->cChannel->qlPlayers) {
-			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == Player::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
+		foreach(Player *p, ClientPlayer::get(g.uiSession)->cChannel->qlPlayers) {
+			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == ClientPlayer::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
 				if (g.s.bOverlayUserTextures && (p->iId >= 0) && (! qhQueried.contains(p->iId))) {
 					qhQueried.insert(p->iId, p->qsName);
 					MessageTexture mt;

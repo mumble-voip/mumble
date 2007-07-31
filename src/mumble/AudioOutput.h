@@ -40,7 +40,7 @@
 #include "Audio.h"
 
 class AudioOutput;
-class Player;
+class ClientPlayer;
 
 typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
@@ -91,12 +91,12 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		static int speexCallback(SpeexBits *bits, void *state, void *data);
 	public:
 		int iMissedFrames;
-		Player *p;
+		ClientPlayer *p;
 
 		virtual bool decodeNextFrame();
 
 		void addFrameToBuffer(const QByteArray &, int iBaseSeq);
-		AudioOutputSpeech(Player * = NULL);
+		AudioOutputSpeech(ClientPlayer * = NULL);
 		~AudioOutputSpeech();
 };
 
@@ -120,7 +120,7 @@ class AudioOutput : public QThread {
 		bool bRunning;
 		int iFrameSize;
 		QReadWriteLock qrwlOutputs;
-		QMultiHash<const Player *, AudioOutputPlayer *> qmOutputs;
+		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;
 		virtual void newPlayer(AudioOutputPlayer *);
 		virtual void removeBuffer(AudioOutputPlayer *);
 		bool mixAudio(short *output);
@@ -129,8 +129,8 @@ class AudioOutput : public QThread {
 
 		AudioOutput();
 		~AudioOutput();
-		void addFrameToBuffer(Player *, const QByteArray &, int iSeq);
-		void removeBuffer(const Player *);
+		void addFrameToBuffer(ClientPlayer *, const QByteArray &, int iSeq);
+		void removeBuffer(const ClientPlayer *);
 		void playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff);
 		void run() = 0;
 };

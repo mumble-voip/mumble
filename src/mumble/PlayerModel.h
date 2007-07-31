@@ -32,6 +32,7 @@
 #define _PLAYERMODEL_H
 
 class Player;
+class ClientPlayer;
 class Channel;
 
 class PlayerDelegate : public QItemDelegate {
@@ -46,32 +47,32 @@ struct ModelItem {
 	friend class PlayerModel;
 
 	Channel *cChan;
-	Player *pPlayer;
+	ClientPlayer *pPlayer;
 	QList<Channel *> qlChannels;
-	QList<Player *> qlPlayers;
+	QList<ClientPlayer *> qlPlayers;
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
-	static QHash <Player *, ModelItem *> c_qhPlayers;
+	static QHash <ClientPlayer *, ModelItem *> c_qhPlayers;
 	static bool bPlayersTop;
 
 	ModelItem(Channel *c);
-	ModelItem(Player *p);
+	ModelItem(ClientPlayer *p);
 	~ModelItem();
 
 	ModelItem *parent() const;
 	ModelItem *child(int idx) const;
 
 	bool validRow(int idx) const;
-	Player *playerAt(int idx) const;
+	ClientPlayer *playerAt(int idx) const;
 	Channel *channelAt(int idx) const;
 	int rowOf(Channel *c) const;
-	int rowOf(Player *p) const;
+	int rowOf(ClientPlayer *p) const;
 	int rowOfSelf() const;
 	int rows() const;
 	int insertIndex(Channel *c) const;
-	int insertIndex(Player *p) const;
+	int insertIndex(ClientPlayer *p) const;
 	void insertChannel(Channel *c);
-	void insertPlayer(Player *p);
+	void insertPlayer(ClientPlayer *p);
 };
 
 class ChannelItem;
@@ -87,12 +88,12 @@ class PlayerModel : public QAbstractItemModel {
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 
-		QModelIndex index(Player *, int column = 0) const;
+		QModelIndex index(ClientPlayer *, int column = 0) const;
 		QModelIndex index(Channel *) const;
 		QModelIndex index(ChannelItem *) const;
 
-		void hidePlayer(Player *p);
-		void showPlayer(Player *p, Channel *c);
+		void hidePlayer(ClientPlayer *p);
+		void showPlayer(ClientPlayer *p, Channel *c);
 
 		void hideChannel(Channel *c);
 		void showChannel(Channel *c, Channel *p);
@@ -116,20 +117,20 @@ class PlayerModel : public QAbstractItemModel {
 		QMimeData *mimeData(const QModelIndexList &idx) const;
 		bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
 
-		Player *addPlayer(unsigned int id, QString name);
-		Player *getPlayer(const QModelIndex &idx) const;
+		ClientPlayer *addPlayer(unsigned int id, QString name);
+		ClientPlayer *getPlayer(const QModelIndex &idx) const;
 
 		Channel *addChannel(int id, Channel *p, QString name);
 		Channel *getChannel(const QModelIndex &idx) const;
 
 		Channel *getSubChannel(Channel *p, int idx) const;
 
-		void renamePlayer(Player *p, QString name);
+		void renamePlayer(ClientPlayer *p, QString name);
 
-		void movePlayer(Player *p, int id);
+		void movePlayer(ClientPlayer *p, int id);
 		void moveChannel(Channel *p, int id);
 
-		void removePlayer(Player *p);
+		void removePlayer(ClientPlayer *p);
 		void removeChannel(Channel *c);
 
 		void linkChannels(Channel *c, QList<Channel *> links);

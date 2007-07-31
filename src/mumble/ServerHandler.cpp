@@ -106,7 +106,7 @@ void ServerHandler::udpReady() {
 			pds >> t;
 			uiUDPPing = tTimestamp.elapsed() - t;
 		} else if (msgType == Message::Speex) {
-			Player *p = Player::get(uiSession);
+			ClientPlayer *p = ClientPlayer::get(uiSession);
 			AudioOutputPtr ao = g.ao;
 			if (ao) {
 				if (p) {
@@ -203,7 +203,7 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 	if (! mMsg)
 		return;
 
-	Player *p = Player::get(mMsg->uiSession);
+	ClientPlayer *p = ClientPlayer::get(mMsg->uiSession);
 	AudioOutputPtr ao = g.ao;
 
 	if (mMsg->messageType() == Message::Speex) {

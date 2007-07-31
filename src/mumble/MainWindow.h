@@ -49,7 +49,7 @@ class MessageBoxEvent : public QEvent {
 		MessageBoxEvent(QString msg);
 };
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow, public MessageHandler {
 		friend class PlayerModel;
 		Q_OBJECT
 	public:
@@ -135,6 +135,32 @@ class MainWindow : public QMainWindow {
 		void viewCertificate(bool);
 	public:
 		MainWindow(QWidget *parent);
+
+		// From msgHandler. Implementation in Messages.cpp
+		virtual void msgSpeex(Connection *, MessageSpeex *);
+		virtual void msgServerAuthenticate(Connection *, MessageServerAuthenticate *);
+		virtual void msgPing(Connection *, MessagePing *);
+		virtual void msgServerReject(Connection *, MessageServerReject *);
+		virtual void msgServerSync(Connection *, MessageServerSync *);
+		virtual void msgServerJoin(Connection *, MessageServerJoin *);
+		virtual void msgServerLeave(Connection *, MessageServerLeave *);
+		virtual void msgPlayerMute(Connection *, MessagePlayerMute *);
+		virtual void msgPlayerDeaf(Connection *, MessagePlayerDeaf *);
+		virtual void msgPlayerSelfMuteDeaf(Connection *, MessagePlayerSelfMuteDeaf *);
+		virtual void msgPlayerKick(Connection *, MessagePlayerKick *);
+		virtual void msgPlayerBan(Connection *, MessagePlayerBan *);
+		virtual void msgPlayerMove(Connection *, MessagePlayerMove *);
+		virtual void msgPlayerRename(Connection *, MessagePlayerRename *);
+		virtual void msgChannelAdd(Connection *, MessageChannelAdd *);
+		virtual void msgChannelRemove(Connection *, MessageChannelRemove *);
+		virtual void msgChannelMove(Connection *, MessageChannelMove *);
+		virtual void msgChannelLink(Connection *, MessageChannelLink *);
+		virtual void msgServerBanList(Connection *, MessageServerBanList *);
+		virtual void msgTextMessage(Connection *, MessageTextMessage *);
+		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);
+		virtual void msgEditACL(Connection *, MessageEditACL *);
+		virtual void msgQueryUsers(Connection *, MessageQueryUsers *);
+		virtual void msgTexture(Connection *, MessageTexture *);
 };
 
 #else
