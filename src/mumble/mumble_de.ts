@@ -1587,7 +1587,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="96"/>
         <source>&amp;Name</source>
-        <translation>&amp;Name</translation>
+        <translation type="obsolete">&amp;Name</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="103"/>
@@ -1642,7 +1642,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="174"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="obsolete">Name</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="175"/>
@@ -1683,6 +1683,16 @@
         <location filename="ConnectDialog.cpp" line="305"/>
         <source>Failed to fetch server list</source>
         <translation>Konnte Serverliste nicht holen</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="96"/>
+        <source>&amp;Label</source>
+        <translation>&amp;Label</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="174"/>
+        <source>Label</source>
+        <translation>Lbel</translation>
     </message>
 </context>
 <context>
@@ -1940,7 +1950,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutWinConfig</name>
     <message>
-        <location filename="GlobalShortcut_win.cpp" line="169"/>
+        <location filename="GlobalShortcut_win.cpp" line="172"/>
         <source>Shortcuts</source>
         <translation>Shortcuts</translation>
     </message>
@@ -1964,31 +1974,36 @@ der möglichen Orte initialisieren.</translation>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
         <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
+    <message>
+        <location filename="GlobalShortcut_win.cpp" line="158"/>
+        <source>Double-click an entry to clear the shortcut.</source>
+        <translation>Auf einen Eintrag doppelklicken, um den Shortcut zu entfernen.</translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutXConfig</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="156"/>
+        <location filename="GlobalShortcut_unix.cpp" line="158"/>
         <source>Shortcuts</source>
         <translation>Shortcuts</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="122"/>
+        <location filename="GlobalShortcut_unix.cpp" line="124"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="124"/>
+        <location filename="GlobalShortcut_unix.cpp" line="126"/>
         <source>Shortcut</source>
         <translation>Shortcut</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="137"/>
+        <location filename="GlobalShortcut_unix.cpp" line="139"/>
         <source>Shortcut bound to %1.</source>
         <translation>Shortcut an %1 gebunden.</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="140"/>
+        <location filename="GlobalShortcut_unix.cpp" line="142"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Double-click to clear.</source>
         <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
@@ -2925,7 +2940,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Abgelehnt: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="134"/>
+        <location filename="main.cpp" line="136"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen zu Mumble.</translation>
     </message>
@@ -3800,7 +3815,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>XInputKeyWidget</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="63"/>
+        <location filename="GlobalShortcut_unix.cpp" line="62"/>
         <source>Press Shortcut</source>
         <translation>Shortcut drücken</translation>
     </message>
