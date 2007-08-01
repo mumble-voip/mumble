@@ -42,3 +42,7 @@ unix {
   CONFIG += qdbus link_pkgconfig
   PKGCONFIG += openssl
 }
+
+macx {
+  CONFIG += x86 ppc
+}

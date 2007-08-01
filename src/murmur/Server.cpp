@@ -193,7 +193,7 @@ void Server::run() {
 
 #ifdef Q_OS_UNIX
 	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
-	if (setsockopt(qusUdp->socketDescriptor(), SOL_IP, IP_TOS, &val, sizeof(val)))
+	if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 		qWarning("Server: Failed to set TOS for UDP Socket");
 #endif
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
