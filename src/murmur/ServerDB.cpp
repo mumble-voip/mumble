@@ -150,9 +150,10 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TABLE %1config (server_id INTEGER, key TEXT, value TEXT)");
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, key)");
 
-			SQLDO("CREATE TABLE %1players (server_id INTEGER, player_id INTEGER, name TEXT, email TEXT, pw TEXT, lastchannel INTEGER, texture BLOB)");
+			SQLDO("CREATE TABLE %1players (server_id INTEGER, player_id INTEGER, name TEXT, email TEXT, pw TEXT, lastchannel INTEGER, texture BLOB, last_active DATE)");
 			SQLDO("CREATE UNIQUE INDEX %1players_name ON %1players (server_id,name)");
 			SQLDO("CREATE TRIGGER %1players_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1players WHERE server_id = old.server_id; END;");
+			SQLDO("CREATE TRIGGER %1players_update_timestamp AFTER UPDATE OF lastchannel ON %1players FOR EACH ROW BEGIN UPDATE %1players SET last_active = datetime('now') WHERE player_id = old.player_id AND server_id = old.server_id; END;");
 
 			SQLDO("CREATE TABLE %1player_auth (player_auth_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, pw TEXT, email TEXT, authcode TEXT)");
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_name ON %1player_auth(name)");
@@ -187,7 +188,7 @@ ServerDB::ServerDB() {
 
 			if (migrate) {
 				qDebug("Migrating from single-server database to multi-server database");
-				SQLDO("INSERT INTO %1players SELECT 1, player_id, name, email, pw, lastchannel, texture FROM playersold");
+				SQLDO("INSERT INTO %1players SELECT 1, player_id, name, email, pw, lastchannel, texture, null FROM playersold");
 				SQLDO("INSERT INTO %1channels SELECT 1, channel_id, parent_id, name, inheritACL FROM channelsold");
 				SQLDO("INSERT INTO %1groups SELECT group_id, 1, name, channel_id, inherit, inheritable FROM groupsold");
 				SQLDO("INSERT INTO %1group_members SELECT group_id, player_id, addit FROM group_membersold");
