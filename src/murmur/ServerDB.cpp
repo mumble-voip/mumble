@@ -42,7 +42,7 @@
 
 #define SQLDO(x) query.exec(QString::fromLatin1(x).arg(Meta::mp.qsDBPrefix))
 #define SQLPREP(x) query.prepare(QString::fromLatin1(x).arg(Meta::mp.qsDBPrefix))
-#define SQLEXEC() if (!query.exec()) qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()))
+#define SQLEXEC() ServerDB::exec(query)
 
 class TransactionHolder {
 	protected:
@@ -66,11 +66,13 @@ class TransactionHolder {
 		}
 };
 
+QSqlDatabase ServerDB::db;
+
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
 		qFatal("Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
-	QSqlDatabase db = QSqlDatabase::addDatabase(Meta::mp.qsDBDriver);
+	db = QSqlDatabase::addDatabase(Meta::mp.qsDBDriver);
 	QStringList datapaths;
 	int i;
 
@@ -209,6 +211,21 @@ ServerDB::ServerDB() {
 		} else {
 			qFatal("SQL Schema is version %d, requires version 1", version);
 		}
+	}
+}
+
+void ServerDB::exec(QSqlQuery &query) {
+	if (!query.exec()) {
+		if (query.lastError().type() == QSqlError::ConnectionError) {
+			db.close();
+			if (! db.open()) {
+				qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db.lastError().text()));
+			}
+			qWarning("Lost connection SQL Database: Reconnected");
+			if (query.exec())
+				return;
+		}
+		qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 	}
 }
 
