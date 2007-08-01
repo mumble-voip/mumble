@@ -763,14 +763,14 @@ void Server::msgQueryUsers(Connection *cCon, MessageQueryUsers *msg) {
 	for (i=0;i<msg->qlIds.count();i++) {
 		QString name = msg->qlNames[i];
 		int id = msg->qlIds[i];
-		if (id == -1) {
+		if (id < 0) {
 			id = qhUserIDCache.value(name);
 			if (! qhUserIDCache.contains(name)) {
 				id = getUserID(name);
-				if (id != -1)
+				if (id >= 0)
 					qhUserIDCache[name] = id;
 			}
-			msg->qlIds[i] = id;
+			msg->qlIds[i] = (id >= 0) ? id : -1;
 		} else {
 			if (! qhUserNameCache.contains(id)) {
 				name = getUserName(id);
