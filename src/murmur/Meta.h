@@ -44,6 +44,10 @@ struct MetaParams {
 	QString qsPassword;
 	QString qsWelcomeText;
 
+	int iBanTries;
+	int iBanTimeframe;
+	int iBanTime;
+
 	QString qsDatabase;
 	QString qsDBDriver;
 	QString qsDBUserName;
@@ -72,12 +76,17 @@ class Meta : public QObject {
 	public:
 		static MetaParams mp;
 		QHash<int, Server *> qhServers;
+		QHash<QHostAddress, QList<Timer> > qhAttempts;
+		QHash<QHostAddress, Timer> qhBans;
 
 		Meta();
 		void bootAll();
 		bool boot(int);
+		bool banCheck(const QHostAddress &);
 		void kill(int);
 };
+
+extern Meta meta;
 
 #else
 class Meta;

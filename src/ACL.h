@@ -56,8 +56,8 @@ class ChanACL : public QObject {
 
 		Q_DECLARE_FLAGS(Permissions, Perm)
 
-		typedef QHash<Player *, Permissions> ChanCache;
-		typedef QHash<Channel *, ChanCache * > ACLCache;
+		typedef QHash<Channel *, Permissions> ChanCache;
+		typedef QHash<Player *, ChanCache * > ACLCache;
 
 //		static QHash<Channel *, QHash<Player *, Permissions > > c_qhACLCache;
 

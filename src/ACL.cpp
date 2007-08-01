@@ -56,14 +56,21 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, ACLCache &cache
 	ChanACL *acl;
 
 	// Superuser
-	if (p->iId == 0)
-		return true;
+	if (p->iId == 0) {
+		switch (perm) {
+			case Speak:
+			case AltSpeak:
+				return false;
+			default:
+				return true;
+		}
+	}
 
 	Permissions granted = 0;
 
-	QHash<Player *, Permissions> *h = cache.value(chan);
+	QHash<Channel *, Permissions> *h = cache.value(p);
 	if (h)
-		granted = h->value(p);
+		granted = h->value(chan);
 	if (granted & Cached) {
 		if ((perm != Speak) && (perm != AltSpeak))
 			return ((granted & (perm | Write)) != None);
@@ -114,10 +121,10 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, ACLCache &cache
 		}
 	}
 
-	if (! cache.contains(chan))
-		cache.insert(chan, new QHash<Player *, Permissions>);
+	if (! cache.contains(p))
+		cache.insert(p, new QHash<Channel *, Permissions>);
 
-	cache.value(chan)->insert(p, granted | Cached);
+	cache.value(p)->insert(chan, granted | Cached);
 
 	if ((perm != Speak) && (perm != AltSpeak))
 		return ((granted & (perm | Write)) != None);

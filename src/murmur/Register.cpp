@@ -40,9 +40,9 @@ void Server::initRegister() {
 		if ((! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && (qurlRegWeb.isValid()) && (qsPassword.isEmpty()))
 			qtTick.start(60000);
 		else
-			qWarning("Registration needs nonempty name, password and url, and the server must not be password protected.");
+			log("Registration needs nonempty name, password and url, and the server must not be password protected.");
 	} else {
-		qWarning("Not registering server as public");
+		log("Not registering server as public");
 	}
 }
 
@@ -113,10 +113,10 @@ void Server::update() {
 
 void Server::done(bool err) {
 	if (err) {
-		qWarning("Regstration failed: %s", qPrintable(http->errorString()));
+		log("Regstration failed: %s", qPrintable(http->errorString()));
 	} else {
 		QByteArray qba = http->readAll();
-		qWarning("Registration: %s", qPrintable(QString(QLatin1String(qba))));
+		log("Registration: %s", qPrintable(QString(QLatin1String(qba))));
 	}
 	abort();
 }

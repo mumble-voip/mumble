@@ -88,9 +88,8 @@ class User : public Connection, public Player {
 		Server *s;
 	public:
 		BandwidthRecord bwr;
-		quint32 uiAddress;
-		quint16 usPort;
 		QHostAddress qha;
+		quint16 usPort;
 		User(Server *parent, QSslSocket *socket);
 };
 
@@ -119,7 +118,6 @@ class Server : public QThread, public MessageHandler {
 		void readParams();
 
 		// Registration, implementation in Register.cpp
-	protected:
 		QTimer qtTick;
 		QHttp *http;
 		void initRegister();
@@ -129,33 +127,30 @@ class Server : public QThread, public MessageHandler {
 		void abort();
 
 		// Certificate stuff, implemented partially in Cert.cpp
-	protected:
+	public:
 		void initializeCert();
 		const QString getDigest() const;
-	protected:
-		QQueue<int> qqIds;
-		SslServer *qtsServer;
-		QTimer *qtTimeout;
-	protected slots:
+
+	public slots:
 		void newClient();
 		void connectionClosed(QString);
 		void sslError(const QList<QSslError> &);
 		void message(QByteArray &, Connection *cCon = NULL);
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
+	signals:
+		void tcpTransmit(QByteArray, unsigned int id);
 	public:
 		int iServerNum;
-
+		QQueue<int> qqIds;
+		SslServer *qtsServer;
+		QTimer *qtTimeout;
+		QUdpSocket *qusUdp;
 		QHash<unsigned int, User *> qhUsers;
 		QHash<unsigned int, Channel *> qhChannels;
 		QReadWriteLock qrwlUsers;
-
 		ChanACL::ACLCache acCache;
 		QMutex qmCache;
-
-		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
-		void clearACLCache();
-
 		MurmurDBus *dbus;
 
 		QHash<int, QByteArray> qhUserTextureCache;
@@ -164,19 +159,25 @@ class Server : public QThread, public MessageHandler {
 
 		QList<QPair<quint32, int> > qlBans;
 
+		void processMsg(PacketDataStream &pds, Connection *cCon);
+		void sendMessage(User *u, const char *data, int len, QByteArray &cache);
+		void fakeUdpPacket(Message *msg, Connection *source);
+		void run();
+
+		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
+		void clearACLCache(Player *p = NULL);
+
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
 		void sendMessage(unsigned int, Message *);
 		void sendMessage(Connection *, Message *);
 
-		void log(QString s, Connection *c = NULL);
+//		void log(QString s, Connection *c = NULL);
+		__attribute__((format(printf, 2, 3))) void log(const char *format, ...);
+		__attribute__((format(printf, 3, 4))) void log(User *u, const char *format, ...);
 
 		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
 		void playerEnterChannel(Player *u, Channel *c, bool quiet = false);
-
-		void emitPacket(Message *msg);
-
-		User *getUser(unsigned int);
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
@@ -203,6 +204,7 @@ class Server : public QThread, public MessageHandler {
 		void saveBans();
 		QVariant getConf(const QString &key, QVariant def);
 		void setConf(const QString &key, const QVariant &value);
+		void dblog(const char *str);
 
 		// From msgHandler. Implementation in Messages.cpp
 		virtual void msgSpeex(Connection *, MessageSpeex *);
@@ -230,18 +232,6 @@ class Server : public QThread, public MessageHandler {
 		virtual void msgQueryUsers(Connection *, MessageQueryUsers *);
 		virtual void msgTexture(Connection *, MessageTexture *);
 
-		// UDP Handling
-	protected:
-		QUdpSocket *qusUdp;
-		QHash<unsigned int, Peer> qhPeers;
-		QHash<unsigned int, QHostAddress> qhHosts;
-		void processMsg(PacketDataStream &pds, Connection *cCon);
-		void sendMessage(unsigned int id, const char *data, int len, QByteArray &cache);
-	signals:
-		void tcpTransmit(QByteArray, unsigned int id);
-	public:
-		void fakeUdpPacket(Message *msg, Connection *source);
-		void run();
 };
 
 

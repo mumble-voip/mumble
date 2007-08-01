@@ -53,7 +53,7 @@
 #define PERM_DENIED(who, where, what) \
 	mpd.qsReason = QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName); \
 	sendMessage(cCon, &mpd); \
-	log(mpd.qsReason, cCon)
+	log(uSource, "%s", qPrintable(mpd.qsReason))
 #define PERM_DENIED_TEXT(text) \
 	mpd.qsReason = text; \
 	sendMessage(cCon, &mpd)
@@ -139,7 +139,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	}
 
 	if (! ok) {
-		log(QString::fromLatin1("Rejected connection: %1").arg(msr.qsReason), cCon);
+		log(uSource, "Rejected connection: %s", qPrintable(msr.qsReason));
 		sendMessage(cCon, &msr);
 		cCon->disconnectSocket();
 		return;
@@ -147,7 +147,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 
 	// Kick ghost
 	if (uOld) {
-		log(QString::fromLatin1("Disconnecting ghost"), uOld);
+		log(uSource, "Disconnecting ghost");
 		uOld->disconnectSocket();
 	}
 
@@ -246,7 +246,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	mssMsg.qsWelcomeText = qsWelcomeText;
 	mssMsg.iMaxBandwidth = iMaxBandwidth;
 	sendMessage(cCon, &mssMsg);
-	log(QString("Authenticated: %1").arg(msg->qsUsername), cCon);
+	log(uSource, "Authenticated");
 
 	dbus->playerConnected(uSource);
 	playerEnterChannel(uSource, lc, false);
@@ -268,7 +268,7 @@ void Server::msgServerBanList(Connection *cCon, MessageServerBanList *msg) {
 	} else {
 		qlBans = msg->qlBans;
 		saveBans();
-		log(QString("Updated banlist"), cCon);
+		log(uSource, "Updated banlist");
 	}
 }
 
@@ -308,7 +308,7 @@ void Server::msgPlayerMute(Connection *cCon, MessagePlayerMute *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
+	if ((pDstUser->iId ==0) || ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MuteDeafen);
 		return;
 	}
@@ -328,7 +328,7 @@ void Server::msgPlayerMute(Connection *cCon, MessagePlayerMute *msg) {
 
 	dbus->playerStateChanged(pDstUser);
 
-	log(QString("Muted %1 (%2)").arg(pDstUser->qsName).arg(msg->bMute), cCon);
+	log(uSource, "Muted %s (%d)", qPrintable(pDstUser->qsName), msg->bMute);
 }
 
 void Server::msgPlayerDeaf(Connection *cCon, MessagePlayerDeaf *msg) {
@@ -338,7 +338,7 @@ void Server::msgPlayerDeaf(Connection *cCon, MessagePlayerDeaf *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
+	if ((pDstUser->iId ==0) || ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MuteDeafen);
 		return;
 	}
@@ -355,7 +355,7 @@ void Server::msgPlayerDeaf(Connection *cCon, MessagePlayerDeaf *msg) {
 
 	dbus->playerStateChanged(pDstUser);
 
-	log(QString("Deafened %1 (%2)").arg(pDstUser->qsName).arg(msg->bDeaf), cCon);
+	log(uSource, "Deafened %s (%d)", qPrintable(pDstUser->qsName),msg->bDeaf);
 }
 
 void Server::msgPlayerKick(Connection *cCon, MessagePlayerKick *msg) {
@@ -365,13 +365,13 @@ void Server::msgPlayerKick(Connection *cCon, MessagePlayerKick *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
+	if ((pDstUser->iId ==0) || ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MoveKick);
 		return;
 	}
 
 	sendAll(msg);
-	log(QString("Kicked %1 (%2)").arg(pDstUser->qsName).arg(msg->qsReason), cCon);
+	log(uSource, "Kicked %s (%s)", qPrintable(pDstUser->qsName), qPrintable(msg->qsReason));
 	pDstUser->disconnectSocket();
 }
 
@@ -382,13 +382,13 @@ void Server::msgPlayerBan(Connection *cCon, MessagePlayerBan *msg) {
 	if (! pDstUser)
 		return;
 
-	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::MoveKick)) {
+	if ((pDstUser->iId ==0) || ! hasPermission(uSource, qhChannels.value(0), ChanACL::MoveKick)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::MoveKick);
 		return;
 	}
 
 	sendAll(msg);
-	log(QString("Kickbanned %1 (%2)").arg(pDstUser->qsName).arg(msg->qsReason), cCon);
+	log(uSource, "Kickbanned %s (%s)", qPrintable(pDstUser->qsName), qPrintable(msg->qsReason));
 
 	QHostAddress adr = pDstUser->peerAddress();
 	quint32 base = adr.toIPv4Address();
@@ -418,7 +418,7 @@ void Server::msgPlayerMove(Connection *cCon, MessagePlayerMove *msg) {
 	if (!c || (c == pDstUser->cChannel))
 		return;
 
-	if ((uSource != pDstUser) && ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
+	if ((uSource != pDstUser) && ((pDstUser->iId ==0) || ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick))) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MoveKick);
 		return;
 	}
@@ -430,7 +430,7 @@ void Server::msgPlayerMove(Connection *cCon, MessagePlayerMove *msg) {
 
 	sendAll(msg);
 	playerEnterChannel(pDstUser, c);
-	log(QString("Moved to %1 (%2)").arg(c->qsName).arg(pDstUser->qsName), cCon);
+	log(uSource, "Moved %s to %s",qPrintable(pDstUser->qsName), qPrintable(c->qsName));
 }
 
 void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
@@ -469,7 +469,7 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 
 	msg->iId = c->iId;
 	sendAll(msg);
-	log(QString("Added channel %1 (%2)").arg(c->qsName).arg(p->qsName), cCon);
+	log(uSource, "Added channel %s (%s)", qPrintable(c->qsName), qPrintable(p->qsName));
 }
 
 void Server::msgChannelRemove(Connection *cCon, MessageChannelRemove *msg) {
@@ -484,7 +484,7 @@ void Server::msgChannelRemove(Connection *cCon, MessageChannelRemove *msg) {
 		return;
 	}
 
-	log(QString("Removed channel %1").arg(c->qsName), cCon);
+	log(uSource, "Removed channel %s",qPrintable(c->qsName));
 
 	removeChannel(c, uSource);
 }
@@ -518,7 +518,7 @@ void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {
 		p = p->cParent;
 	}
 
-	log(QString("Moved channel %1 (%2 -> %3)").arg(c->qsName).arg(c->cParent->qsName).arg(np->qsName), cCon);
+	log(uSource, "Moved channel %s from %s to %s", qPrintable(c->qsName), qPrintable(c->cParent->qsName), qPrintable(np->qsName));
 
 	c->cParent->removeChannel(c);
 	np->addChannel(c);
@@ -570,20 +570,20 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 			c->unlink(NULL);
 			removeLink(c, NULL);
 			dbus->channelStateChanged(c);
-			log(QString("Unlinked all from channel %1").arg(c->qsName), cCon);
+			log(uSource, "Unlinked all from channel %s", qPrintable(c->qsName));
 			sendAll(msg);
 			return;
 		case MessageChannelLink::Link:
 			c->link(l);
 			addLink(c, l);
 			dbus->channelStateChanged(c);
-			log(QString("Linked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
+			log(uSource, "Linked channel %s to %s", qPrintable(c->qsName),qPrintable(l->qsName));
 			break;
 		case MessageChannelLink::Unlink:
 			c->unlink(l);
 			removeLink(c, l);
 			dbus->channelStateChanged(c);
-			log(QString("Unlinked channel %1 and %2").arg(c->qsName).arg(l->qsName), cCon);
+			log(uSource, "Unlinked channel %s from %s", qPrintable(c->qsName), qPrintable(l->qsName));
 			break;
 		case MessageChannelLink::PushLink:
 			foreach(int tid, msg->qlTargets) {
@@ -752,7 +752,7 @@ void Server::msgEditACL(Connection *cCon, MessageEditACL *msg) {
 		}
 
 		updateChannel(c);
-		log(QString("Updated ACL in channel %1(%2)").arg(c->qsName).arg(c->iId), cCon);
+		log(uSource, "Updated ACL in channel %s[%d]", qPrintable(c->qsName), c->iId);
 	}
 }
 

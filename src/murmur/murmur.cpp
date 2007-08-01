@@ -56,6 +56,8 @@ bool detach = true;
 bool detach = false;
 #endif
 
+Meta meta;
+
 LogEmitter le;
 
 static void murmurMessageOutput(QtMsgType type, const char *msg) {
@@ -219,8 +221,6 @@ int main(int argc, char **argv) {
 	MurmurDBus::registerTypes();
 #endif
 
-	Meta m;
-
 #ifdef Q_OS_UNIX
 	if (! Meta::mp.qsDBus.isEmpty()) {
 		QDBusConnection qdbc("mainbus");
@@ -244,13 +244,13 @@ int main(int argc, char **argv) {
 			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
 		}
 		MurmurDBus::qdbc = qdbc;
-		new MetaDBus(&m);
-		qdbc.registerObject("/", &m);
+		new MetaDBus(&meta);
+		qdbc.registerObject("/", &meta);
 		qdbc.registerService("net.sourceforge.mumble.murmur");
 	}
 #endif
 
-	m.bootAll();
+	meta.bootAll();
 
 	res=a.exec();
 

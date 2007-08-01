@@ -35,7 +35,7 @@ Timer::Timer() {
 	uiStart = now();
 }
 
-quint64 Timer::elapsed() {
+quint64 Timer::elapsed() const {
 	return now() - uiStart;
 }
 

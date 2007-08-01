@@ -106,14 +106,10 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 }
 
 void Connection::socketSslErrors(const QList<QSslError> &qlErr) {
-	foreach(QSslError e, qlErr) {
-		qDebug("Ssl Error: %s",qPrintable(e.errorString()));
-	}
 	emit handleSslErrors(qlErr);
 }
 
 void Connection::proceedAnyway() {
-	qDebug("Allowing SSL connection to proceed.");
 	qtsSocket->ignoreSslErrors();
 }
 

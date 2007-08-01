@@ -75,7 +75,6 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 }
 
 User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
-	uiAddress = 0;
 	usPort = 0;
 }
 
@@ -90,9 +89,9 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
 	if (! qtsServer->listen(qhaBind, iPort))
-		qFatal("Server: TCP Listen on port %d failed",iPort);
+		log("Server: TCP Listen on port %d failed",iPort);
 
-	log(QString("Server listening on port %1").arg(iPort));
+	log("Server listening on port %d",iPort);
 
 	for (int i=1;i<5000;i++)
 		qqIds.enqueue(i);
@@ -139,12 +138,12 @@ void Server::readParams() {
 				}
 			}
 			if ((qhaBind == QHostAddress::Any) || (qhaBind.isNull())) {
-				qWarning("Lookup of bind hostname %s failed", qPrintable(qsHost));
+				log("Lookup of bind hostname %s failed", qPrintable(qsHost));
 				qhaBind = Meta::mp.qhaBind;
 			}
 
 		}
-		qDebug("Binding to address %s", qPrintable(qhaBind.toString()));
+		log("Binding to address %s", qPrintable(qhaBind.toString()));
 	}
 
 	qsPassword = getConf("password", qsPassword).toString();
@@ -186,15 +185,15 @@ int BandwidthRecord::bytesPerSec() {
 }
 
 void Server::run() {
-	qDebug("Starting UDP Thread");
+	log("Starting UDP Thread");
 	qusUdp = new QUdpSocket();
 	if (! qusUdp->bind(qhaBind, iPort, QUdpSocket::DontShareAddress))
-		qFatal("Server: UDP Bind to port %d failed",iPort);
+		log("Server: UDP Bind to port %d failed",iPort);
 
 #ifdef Q_OS_UNIX
 	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
 	if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-		qWarning("Server: Failed to set TOS for UDP Socket");
+		log("Server: Failed to set TOS for UDP Socket");
 #endif
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
 
@@ -205,8 +204,6 @@ void Server::run() {
 
 	quint32 msgType;
 	int uiSession;
-
-	qDebug("Entering UDP event loop");
 
 	while (qusUdp->waitForReadyRead(-1)) {
 		QReadLocker rl(&qrwlUsers);
@@ -222,26 +219,17 @@ void Server::run() {
 			if (! pds.isValid())
 				continue;
 
-			Peer p(senderAddr.toIPv4Address(), senderPort);
+			User *u = qhUsers.value(uiSession);
+			if (! u)
+				continue;
 
-			if (p != qhPeers.value(uiSession)) {
-				Connection *source = qhUsers.value(uiSession);
-				if (! source || !(source->peerAddress() == senderAddr)) {
+			if ((senderAddr != u->qha) || (senderPort != u->usPort)) {
+				if (u->usPort != 0)
 					continue;
-				}
-				// At any point after this, the connection might go away WHILE we're processing. That is "bad".
-				rl.unlock();
-				{
-					QWriteLocker wl(&qrwlUsers);
-					if (qhUsers.contains(uiSession)) {
-						qhHosts[uiSession] = senderAddr;
-						qhPeers[uiSession] = p;
-					}
-				}
-				rl.relock();
-				if (! qhUsers.contains(uiSession)) {
+				if (u->peerAddress() != senderAddr)
 					continue;
-				}
+				u->qha = senderAddr;
+				u->usPort = senderPort;
 			}
 
 			if (msgType == Message::Ping)
@@ -268,13 +256,13 @@ void Server::fakeUdpPacket(Message *msg, Connection *source) {
 	processMsg(pds, source);
 }
 
-void Server::sendMessage(unsigned int id, const char *data, int len, QByteArray &cache) {
-	if (qhPeers.contains(id)) {
-		qusUdp->writeDatagram(data, len, qhHosts[id], qhPeers[id].second);
+void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) {
+	if (u->usPort != 0) {
+		qusUdp->writeDatagram(data, len, u->qha, u->usPort);
 	} else {
 		if (cache.isEmpty())
 			cache = QByteArray(data, len);
-		emit tcpTransmit(cache,id);
+		emit tcpTransmit(cache,u->uiSession);
 	}
 }
 
@@ -313,13 +301,13 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 	int len = pds.left();
 
 	if (flags & MessageSpeex::LoopBack) {
-		sendMessage(u->uiSession, data, len, qba);
+		sendMessage(u, data, len, qba);
 		return;
 	}
 
 	foreach(p, c->qlPlayers) {
 		if (! p->bDeaf && ! p->bSelfDeaf && (p != static_cast<Player *>(u)))
-			sendMessage(p->uiSession, data, len, qba);
+			sendMessage(static_cast<User *>(p), data, len, qba);
 	}
 
 	if (! c->qhLinks.isEmpty()) {
@@ -332,29 +320,36 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 			if (ChanACL::hasPermission(u, l, (flags & MessageSpeex::AltSpeak) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
-						sendMessage(p->uiSession, data, len, qba);
+						sendMessage(static_cast<User *>(p), data, len, qba);
 				}
 			}
 		}
 	}
 }
 
+void Server::log(User *u, const char *format, ...) {
+	char buffer[4096];
+	va_list ap;
+	va_start(ap, format);
+	vsnprintf(buffer, 4096, format, ap);
+	va_end(ap);
 
+	char fin[4096];
+	snprintf(fin, 4096, "<%d:%s(%d)> %s", u->uiSession, qPrintable(u->qsName), u->iId, buffer);
 
-void Server::log(QString s, Connection *c) {
-	if (c) {
-		User *u = static_cast<User *>(c);
+	dblog(fin);
+	qWarning("%d => %s", iServerNum, fin);
+}
 
-		int id = 0;
-		int iid = -1;
-		QString name;
-		id = u->uiSession;
-		iid = u->iId;
-		name = u->qsName;
-		qWarning("<%d:%s(%d)> %s", id, qPrintable(name), iid, qPrintable(s));
-	} else {
-		qWarning("%s", qPrintable(s));
-	}
+void Server::log(const char *format, ...) {
+	char buffer[4096];
+	va_list ap;
+	va_start(ap, format);
+	vsnprintf(buffer, 4096, format, ap);
+	va_end(ap);
+
+	dblog(buffer);
+	qWarning("%d => %s", iServerNum, buffer);
 }
 
 void Server::newClient() {
@@ -366,14 +361,22 @@ void Server::newClient() {
 		QHostAddress adr = sock->peerAddress();
 		quint32 base = adr.toIPv4Address();
 
+		if (meta.banCheck(adr)) {
+			log("Ignoring connection: %s:%d (Global ban)",qPrintable(sock->peerAddress().toString()),sock->peerPort());
+			sock->disconnectFromHost();
+			sock->deleteLater();
+			return;
+		}
+
 		QPair<quint32,int> ban;
 
 		foreach(ban, qlBans) {
 			int mask = 32 - ban.second;
 			mask = (1 << mask) - 1;
 			if ((base & ~mask) == (ban.first & ~mask)) {
-				log(QString("Ignoring connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()));
+				log("Ignoring connection: %s:%d",qPrintable(sock->peerAddress().toString()),sock->peerPort());
 				sock->disconnectFromHost();
+				sock->deleteLater();
 				return;
 			}
 		}
@@ -398,7 +401,7 @@ void Server::newClient() {
 		connect(u, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 
-		log(QString("New connection: %1:%2").arg(sock->peerAddress().toString()).arg(sock->peerPort()), u);
+		log(u, "New connection: %s:%d",qPrintable(sock->peerAddress().toString()),sock->peerPort());
 
 		sock->startServerEncryption();
 	}
@@ -424,7 +427,7 @@ void Server::connectionClosed(QString reason) {
 	Connection *c = dynamic_cast<Connection *>(sender());
 	User *u = static_cast<User *>(c);
 
-	log(QString("Connection closed: %1").arg(reason), c);
+	log(u, "Connection closed: %s", qPrintable(reason));
 
 	if (u->sState == Player::Authenticated) {
 		MessageServerLeave mslMsg;
@@ -446,7 +449,7 @@ void Server::connectionClosed(QString reason) {
 	qhUserTextureCache.remove(u->iId);
 
 	if (u->sState == Player::Authenticated)
-		clearACLCache();
+		clearACLCache(u);
 
 	u->deleteLater();
 }
@@ -478,7 +481,7 @@ void Server::checkTimeout() {
 	qrwlUsers.lockForRead();
 	foreach(User *u, qhUsers) {
 		if (u->activityTime() > (iTimeout * 1000)) {
-			log(QLatin1String("Timeout"), u);
+			log(u, "Timeout");
 			qlClose.append(u);
 		}
 	}
@@ -556,6 +559,8 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 }
 
 void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
+	clearACLCache(p);
+
 	if (quiet && (p->cChannel == c))
 		return;
 
@@ -592,10 +597,16 @@ bool Server::hasPermission(Player *p, Channel *c, ChanACL::Perm perm) {
 	return ChanACL::hasPermission(p, c, perm, acCache);
 }
 
-void Server::clearACLCache() {
+void Server::clearACLCache(Player *p) {
 	QMutexLocker qml(&qmCache);
 
-	foreach(ChanACL::ChanCache *h, acCache)
-	delete h;
-	acCache.clear();
+	if (p) {
+		ChanACL::ChanCache *h = acCache.take(p);
+		if (h)
+			delete h;
+	} else {
+		foreach(ChanACL::ChanCache *h, acCache)
+		delete h;
+		acCache.clear();
+	}
 }

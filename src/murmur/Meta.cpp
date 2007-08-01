@@ -47,6 +47,10 @@ MetaParams::MetaParams() {
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
 	qhaBind = QHostAddress(QHostAddress::Any);
+
+	iBanTries = 10;
+	iBanTimeframe = 120;
+	iBanTime = 300;
 }
 
 void MetaParams::read(QString fname) {
@@ -58,7 +62,7 @@ void MetaParams::read(QString fname) {
 	}
 	QSettings qs(fname, QSettings::IniFormat);
 
-	qDebug("Initializing settings from %s", qPrintable(qs.fileName()));
+	qWarning("Initializing settings from %s", qPrintable(qs.fileName()));
 
 	QString qsHost = qs.value("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -75,7 +79,7 @@ void MetaParams::read(QString fname) {
 			}
 
 		}
-		qDebug("Binding to address %s", qPrintable(qhaBind.toString()));
+		qWarning("Binding to address %s", qPrintable(qhaBind.toString()));
 	}
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
@@ -101,6 +105,10 @@ void MetaParams::read(QString fname) {
 	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
 	qsRegHost = qs.value("registerHostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
+
+	iBanTries = qs.value("autobanAttempts", iBanTries).toInt();
+	iBanTimeframe = qs.value("autobanTimeframe", iBanTimeframe).toInt();
+	iBanTime = qs.value("autobanTime", iBanTime).toInt();
 
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();
@@ -136,7 +144,7 @@ void MetaParams::read(QString fname) {
 	if (! key.isEmpty() && qscCert.isNull()) {
 		qscCert = QSslCertificate(key);
 		if (! qscCert.isNull()) {
-			qDebug("Using certificate from key file.");
+			qWarning("Using certificate from key file.");
 		}
 	}
 
@@ -153,11 +161,17 @@ void MetaParams::read(QString fname) {
 		if (! crt.isEmpty() && qskKey.isNull()) {
 			qskKey = QSslKey(crt, alg);
 			if (! qskKey.isNull()) {
-				qDebug("Using key from certificate file.");
+				qWarning("Using key from certificate file.");
 			}
 		}
 		if (qskKey.isNull())
 			qscCert = QSslCertificate();
+	}
+
+	if (qscCert.isNull() || qskKey.isNull()) {
+		if (! key.isEmpty() || ! crt.isEmpty()) {
+			qFatal("Certificate specified, but failed to load.");
+		}
 	}
 }
 
@@ -186,4 +200,28 @@ void Meta::kill(int srvnum) {
 	if (!s)
 		return;
 	delete s;
+}
+
+bool Meta::banCheck(const QHostAddress &addr) {
+	if ((mp.iBanTries == 0) || (mp.iBanTimeframe == 0))
+		return false;
+
+	if (qhBans.contains(addr)) {
+		Timer t = qhBans.value(addr);
+		if (t.elapsed() < (1000000ULL * mp.iBanTime))
+			return true;
+		qhBans.remove(addr);
+	}
+
+	QList<Timer> &ql = qhAttempts[addr];
+
+	ql.append(Timer());
+	while (! ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * mp.iBanTimeframe)))
+		ql.removeFirst();
+
+	if (ql.count() > mp.iBanTries) {
+		qhBans.insert(addr, Timer());
+		return true;
+	}
+	return false;
 }

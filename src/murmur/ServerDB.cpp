@@ -107,7 +107,7 @@ ServerDB::ServerDB() {
 		}
 		if (found) {
 			QFileInfo fi(db.databaseName());
-			qDebug("Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
+			qWarning("Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
 		}
 	} else {
 		db.setDatabaseName(Meta::mp.qsDatabase);
@@ -147,8 +147,13 @@ ServerDB::ServerDB() {
 			}
 			SQLDO("CREATE TABLE %1meta (key TEXT PRIMARY KEY, value TEXT)");
 			SQLDO("CREATE TABLE %1servers (server_id INTEGER PRIMARY KEY AUTOINCREMENT)");
+
+			SQLDO("CREATE TABLE %1log(server_id INTEGER, msg TEXT, msgtime DATE)");
+			SQLDO("CREATE TRIGGER %1log_timestamp AFTER INSERT ON %1log FOR EACH ROW BEGIN UPDATE %1log SET msgtime = datetime('now') WHERE rowid = new.rowid; END;");
+
 			SQLDO("CREATE TABLE %1config (server_id INTEGER, key TEXT, value TEXT)");
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, key)");
+			SQLDO("CREATE TRIGGER %1config_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1config WHERE server_id = old.server_id; END;");
 
 			SQLDO("CREATE TABLE %1players (server_id INTEGER, player_id INTEGER, name TEXT, email TEXT, pw TEXT, lastchannel INTEGER, texture BLOB, last_active DATE)");
 			SQLDO("CREATE UNIQUE INDEX %1players_name ON %1players (server_id,name)");
@@ -187,7 +192,7 @@ ServerDB::ServerDB() {
 			SQLDO("INSERT INTO %1meta (key, value) VALUES('version','1')");
 
 			if (migrate) {
-				qDebug("Migrating from single-server database to multi-server database");
+				qWarning("Migrating from single-server database to multi-server database");
 				SQLDO("INSERT INTO %1players SELECT 1, player_id, name, email, pw, lastchannel, texture, null FROM playersold");
 				SQLDO("INSERT INTO %1channels SELECT 1, channel_id, parent_id, name, inheritACL FROM channelsold");
 				SQLDO("INSERT INTO %1groups SELECT group_id, 1, name, channel_id, inherit, inheritable FROM groupsold");
@@ -570,7 +575,7 @@ void Server::readChannelPrivs(Channel *c) {
 		g->bInheritable = query.value(3).toBool();
 
 		QSqlQuery mem;
-		mem.prepare("SELECT player_id, addit FROM %1group_members WHERE group_id = ?");
+		mem.prepare(QString::fromLatin1("SELECT player_id, addit FROM %1group_members WHERE group_id = ?").arg(Meta::mp.qsDBPrefix));
 		mem.addBindValue(gid);
 		mem.exec();
 		while (mem.next()) {
@@ -752,6 +757,15 @@ QVariant ServerDB::getConf(int server_id, const QString &key, QVariant def) {
 
 void Server::setConf(const QString &key, const QVariant &value) {
 	ServerDB::setConf(iServerNum, key, value);
+}
+
+void Server::dblog(const char *str) {
+	TransactionHolder th;
+	QSqlQuery query;
+	SQLPREP("INSERT INTO %1log (server_id, msg) VALUES(?,?)");
+	query.addBindValue(iServerNum);
+	query.addBindValue(QLatin1String(str));
+	SQLEXEC();
 }
 
 void ServerDB::setConf(int server_id, const QString &key, const QVariant &value) {

@@ -61,14 +61,14 @@ void Server::initializeCert() {
 	if (! crt.isEmpty()) {
 		qscCert = QSslCertificate(crt);
 		if (qscCert.isNull()) {
-			qWarning("Failed to parse certificate.");
+			log("Failed to parse certificate.");
 		}
 	}
 
 	if (! key.isEmpty() && qscCert.isNull()) {
 		qscCert = QSslCertificate(key);
 		if (! qscCert.isNull()) {
-			qDebug("Using certificate from key file.");
+			log("Using certificate from key.");
 		}
 	}
 
@@ -78,14 +78,14 @@ void Server::initializeCert() {
 		if (! key.isEmpty()) {
 			qskKey = QSslKey(key, alg);
 			if (qskKey.isNull()) {
-				qWarning("Failed to parse key file.");
+				log("Failed to parse key.");
 			}
 		}
 
 		if (! crt.isEmpty() && qskKey.isNull()) {
 			qskKey = QSslKey(crt, alg);
 			if (! qskKey.isNull()) {
-				qDebug("Using key from certificate file.");
+				log("Using key from certificate.");
 			}
 		}
 
@@ -93,12 +93,12 @@ void Server::initializeCert() {
 
 	if (qscCert.isNull() || qskKey.isNull()) {
 		if (! key.isEmpty() || ! crt.isEmpty()) {
-			qFatal("Certificate specified, but failed to load.");
+			log("Certificate specified, but failed to load.");
 		}
 		qskKey = Meta::mp.qskKey;
 		qscCert = Meta::mp.qscCert;
 		if (qscCert.isNull() || qskKey.isNull()) {
-			qWarning("Generating new server certificate.");
+			log("Generating new server certificate.");
 
 			BIO *bio_err;
 
@@ -135,7 +135,7 @@ void Server::initializeCert() {
 
 			qscCert = QSslCertificate(crt, QSsl::Der);
 			if (qscCert.isNull())
-				qFatal("Certificate generation failed");
+				log("Certificate generation failed");
 
 			key.resize(i2d_PrivateKey(pkey, NULL));
 			dptr=reinterpret_cast<unsigned char *>(key.data());
@@ -143,7 +143,7 @@ void Server::initializeCert() {
 
 			qskKey = QSslKey(key, QSsl::Rsa, QSsl::Der);
 			if (qskKey.isNull())
-				qFatal("Key generation failed");
+				log("Key generation failed");
 
 			setConf("certificate", qscCert.toPem());
 			setConf("key", qskKey.toPem());

@@ -39,7 +39,7 @@ protected:
 	static quint64 now();
 public:
 	Timer();
-	quint64 elapsed();
+	quint64 elapsed() const;
 	quint64 restart();
 };
 

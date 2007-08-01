@@ -65,8 +65,6 @@ class MurmurDBus : public QObject {
 		};
 };
 
-extern MurmurDBus *dbus;
-
 #else
 class MurmurDBus;
 #endif
