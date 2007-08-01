@@ -41,6 +41,12 @@ class ServerDB {
 	public:
 		ServerDB();
 		static void setSUPW(int iServNum, const QString &pw);
+		static QList<int> getBootServers();
+		static QList<int> getAllServers();
+		static int addServer();
+		static bool serverExists(int num);
+		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());
+		static void setConf(int server_id, const QString &key, const QVariant &value);
 };
 
 #endif

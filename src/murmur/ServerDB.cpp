@@ -34,13 +34,14 @@
 #include "Group.h"
 #include "ACL.h"
 #include "Server.h"
+#include "Meta.h"
 #include "Connection.h"
 #include "DBus.h"
 
 #define SQLDUMP(x) qWarning("%s", qPrintable(x.lastError().text()))
 
-#define SQLDO(x) query.exec(QString::fromLatin1(x).arg(g_sp.qsDBPrefix))
-#define SQLPREP(x) query.prepare(QString::fromLatin1(x).arg(g_sp.qsDBPrefix))
+#define SQLDO(x) query.exec(QString::fromLatin1(x).arg(Meta::mp.qsDBPrefix))
+#define SQLPREP(x) query.prepare(QString::fromLatin1(x).arg(Meta::mp.qsDBPrefix))
 #define SQLEXEC() if (!query.exec()) qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()))
 
 class TransactionHolder {
@@ -66,18 +67,18 @@ class TransactionHolder {
 };
 
 ServerDB::ServerDB() {
-	if (! QSqlDatabase::isDriverAvailable(g_sp.qsDBDriver)) {
-		qFatal("Database driver %s not available", qPrintable(g_sp.qsDBDriver));
+	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
+		qFatal("Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
-	QSqlDatabase db = QSqlDatabase::addDatabase(g_sp.qsDBDriver);
+	QSqlDatabase db = QSqlDatabase::addDatabase(Meta::mp.qsDBDriver);
 	QStringList datapaths;
 	int i;
 
 	bool found = false;
 
-	if (g_sp.qsDBDriver == "QSQLITE") {
-		if (! g_sp.qsDatabase.isEmpty()) {
-			db.setDatabaseName(g_sp.qsDatabase);
+	if (Meta::mp.qsDBDriver == "QSQLITE") {
+		if (! Meta::mp.qsDatabase.isEmpty()) {
+			db.setDatabaseName(Meta::mp.qsDatabase);
 			found = db.open();
 		} else {
 			datapaths << QCoreApplication::instance()->applicationDirPath();
@@ -109,11 +110,11 @@ ServerDB::ServerDB() {
 			qDebug("Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
 		}
 	} else {
-		db.setDatabaseName(g_sp.qsDatabase);
-		db.setHostName(g_sp.qsDBHostName);
-		db.setPort(g_sp.iDBPort);
-		db.setUserName(g_sp.qsDBUserName);
-		db.setPassword(g_sp.qsDBPassword);
+		db.setDatabaseName(Meta::mp.qsDatabase);
+		db.setHostName(Meta::mp.qsDBHostName);
+		db.setPort(Meta::mp.iDBPort);
+		db.setUserName(Meta::mp.qsDBUserName);
+		db.setPassword(Meta::mp.qsDBPassword);
 		found = db.open();
 	}
 
@@ -131,7 +132,7 @@ ServerDB::ServerDB() {
 		version = query.value(0).toInt();
 
 	if (version < 1) {
-		if (g_sp.qsDBDriver == "QSQLITE") {
+		if (Meta::mp.qsDBDriver == "QSQLITE") {
 			bool migrate = false;
 			if (SQLDO("SELECT count(*) FROM players")) {
 				migrate = true;
@@ -728,4 +729,99 @@ void Server::saveBans() {
 		query.addBindValue(ban.second);
 		SQLEXEC();
 	}
+}
+
+QVariant Server::getConf(const QString &key, QVariant def) {
+	return ServerDB::getConf(iServerNum, key, def);
+}
+
+QVariant ServerDB::getConf(int server_id, const QString &key, QVariant def) {
+	TransactionHolder th;
+
+	QSqlQuery query;
+	SQLPREP("SELECT value FROM %1config WHERE server_id = ? AND key = ?");
+	query.addBindValue(server_id);
+	query.addBindValue(key);
+	SQLEXEC();
+	if (query.next()) {
+		return query.value(0);
+	}
+	return def;
+}
+
+void Server::setConf(const QString &key, const QVariant &value) {
+	ServerDB::setConf(iServerNum, key, value);
+}
+
+void ServerDB::setConf(int server_id, const QString &key, const QVariant &value) {
+	TransactionHolder th;
+
+	QSqlQuery query;
+	if (value.isNull()) {
+		SQLPREP("DELETE FROM %1config WHERE server_id = ? AND key = ?");
+		query.addBindValue(server_id);
+		query.addBindValue(key);
+	} else {
+		SQLPREP("REPLACE INTO %1config (server_id, key, value) VALUES (?,?,?)");
+		query.addBindValue(server_id);
+		query.addBindValue(key);
+		query.addBindValue(value.toString());
+	}
+	SQLEXEC();
+}
+
+
+QList<int> ServerDB::getAllServers() {
+	TransactionHolder th;
+	QSqlQuery query;
+	SQLPREP("SELECT server_id FROM %1servers");
+	SQLEXEC();
+
+	QList<int> ql;
+	while (query.next())
+		ql << query.value(0).toInt();
+	return ql;
+}
+
+QList<int> ServerDB::getBootServers() {
+	QList<int> ql = getAllServers();
+
+	TransactionHolder th;
+	QSqlQuery query;
+
+	QList<int> bootlist;
+	foreach(int i, ql) {
+		SQLPREP("SELECT value FROM %1config WHERE server_id = ? AND key = ?");
+		query.addBindValue(i);
+		query.addBindValue(QLatin1String("boot"));
+		SQLEXEC();
+		if (! query.next() || query.value(0).toBool())
+			bootlist << i;
+	}
+	return bootlist;
+}
+
+bool ServerDB::serverExists(int num) {
+	TransactionHolder th;
+	QSqlQuery query;
+	SQLPREP("SELECT server_id FROM %1servers WHERE server_id = ?");
+	query.addBindValue(num);
+	SQLEXEC();
+	if (query.next())
+		return true;
+	return false;
+}
+
+int ServerDB::addServer() {
+	TransactionHolder th;
+	QSqlQuery query;
+	SQLPREP("SELECT MAX(server_id)+1 AS id FROM %1servers");
+	SQLEXEC();
+	int id = 0;
+	if (query.next())
+		id = query.value(0).toInt();
+	SQLPREP("INSERT INTO %1servers (server_id) VALUES (?)");
+	query.addBindValue(id);
+	SQLEXEC();
+	return id;
 }

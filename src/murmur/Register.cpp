@@ -31,15 +31,13 @@
 #include <QtXml>
 
 #include "Server.h"
-#include "Cert.h"
-#include "Register.h"
 
-Register::Register() {
+void Server::initRegister() {
 	http = NULL;
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
 
-	if (! g_sp.qsRegName.isEmpty()) {
-		if ((! g_sp.qsRegName.isEmpty()) && (! g_sp.qsRegPassword.isEmpty()) && (g_sp.qurlRegWeb.isValid()) && (g_sp.qsPassword.isEmpty()))
+	if (! qsRegName.isEmpty()) {
+		if ((! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && (qurlRegWeb.isValid()) && (qsPassword.isEmpty()))
 			qtTick.start(60000);
 		else
 			qWarning("Registration needs nonempty name, password and url, and the server must not be password protected.");
@@ -48,14 +46,14 @@ Register::Register() {
 	}
 }
 
-void Register::abort() {
+void Server::abort() {
 	if (http) {
 		http->deleteLater();
 		http = NULL;
 	}
 }
 
-void Register::update() {
+void Server::update() {
 	abort();
 	qtTick.start(1000 * 60 * 60);
 
@@ -69,37 +67,37 @@ void Register::update() {
 	tag=doc.createElement(QLatin1String("name"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(g_sp.qsRegName);
+	t=doc.createTextNode(qsRegName);
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("host"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(g_sp.qsRegHost);
+	t=doc.createTextNode(qsRegHost);
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("password"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(g_sp.qsRegPassword);
+	t=doc.createTextNode(qsRegPassword);
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("port"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(QString::number(g_sp.iPort));
+	t=doc.createTextNode(QString::number(iPort));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("url"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(g_sp.qurlRegWeb.toString());
+	t=doc.createTextNode(qurlRegWeb.toString());
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("digest"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(cert.getDigest());
+	t=doc.createTextNode(getDigest());
 	tag.appendChild(t);
 
 	http = new QHttp(this);
@@ -113,7 +111,7 @@ void Register::update() {
 	http->request(h, doc.toString().toUtf8());
 }
 
-void Register::done(bool err) {
+void Server::done(bool err) {
 	if (err) {
 		qWarning("Regstration failed: %s", qPrintable(http->errorString()));
 	} else {

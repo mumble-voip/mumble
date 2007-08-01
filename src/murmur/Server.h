@@ -36,6 +36,7 @@
 #include "Timer.h"
 #include "Player.h"
 #include "Connection.h"
+#include "DBus.h"
 
 class Channel;
 class PacketDataStream;
@@ -81,11 +82,6 @@ class SslServer : public QTcpServer {
 
 class Server;
 
-
-// THIS is a no-go. Can't have multiple inheritance with QObjects.
-// Though we don't use any of the signals from "Player"...
-// Fug it.
-
 class User : public Connection, public Player {
 		Q_OBJECT
 	protected:
@@ -101,11 +97,45 @@ class User : public Connection, public Player {
 
 class Server : public QThread, public MessageHandler {
 		Q_OBJECT;
+
+		// Former ServerParams
+	public:
+		QHostAddress qhaBind;
+		int iPort;
+		int iTimeout;
+		int iMaxBandwidth;
+		int iMaxUsers;
+		QString qsPassword;
+		QString qsWelcomeText;
+
+		QString qsRegName;
+		QString qsRegPassword;
+		QString qsRegHost;
+		QUrl qurlRegWeb;
+
+		QSslCertificate qscCert;
+		QSslKey qskKey;
+
+		void readParams();
+
+		// Registration, implementation in Register.cpp
+	protected:
+		QTimer qtTick;
+		QHttp *http;
+		void initRegister();
+	public slots:
+		void done(bool);
+		void update();
+		void abort();
+
+		// Certificate stuff, implemented partially in Cert.cpp
+	protected:
+		void initializeCert();
+		const QString getDigest() const;
 	protected:
 		QQueue<int> qqIds;
 		SslServer *qtsServer;
 		QTimer *qtTimeout;
-		int iServerNum;
 	protected slots:
 		void newClient();
 		void connectionClosed(QString);
@@ -114,6 +144,8 @@ class Server : public QThread, public MessageHandler {
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
 	public:
+		int iServerNum;
+
 		QHash<unsigned int, User *> qhUsers;
 		QHash<unsigned int, Channel *> qhChannels;
 		QReadWriteLock qrwlUsers;
@@ -123,6 +155,8 @@ class Server : public QThread, public MessageHandler {
 
 		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
 		void clearACLCache();
+
+		MurmurDBus *dbus;
 
 		QHash<int, QByteArray> qhUserTextureCache;
 		QHash<int, QString> qhUserNameCache;
@@ -145,6 +179,7 @@ class Server : public QThread, public MessageHandler {
 		User *getUser(unsigned int);
 
 		Server(int snum, QObject *parent = NULL);
+		~Server();
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
@@ -166,6 +201,8 @@ class Server : public QThread, public MessageHandler {
 		void removeLink(Channel *c, Channel *l);
 		void getBans();
 		void saveBans();
+		QVariant getConf(const QString &key, QVariant def);
+		void setConf(const QString &key, const QVariant &value);
 
 		// From msgHandler. Implementation in Messages.cpp
 		virtual void msgSpeex(Connection *, MessageSpeex *);
@@ -207,42 +244,6 @@ class Server : public QThread, public MessageHandler {
 		void run();
 };
 
-struct ServerParams {
-	QHostAddress qhaBind;
-	int iPort;
-	int iTimeout;
-	int iMaxBandwidth;
-	int iMaxUsers;
-	QString qsPassword;
-	QString qsWelcomeText;
-
-	QString qsDatabase;
-
-	QString qsDBDriver;
-	QString qsDBUserName;
-	QString qsDBPassword;
-	QString qsDBHostName;
-	QString qsDBPrefix;
-	int iDBPort;
-
-	QString qsDBus;
-
-	QString qsLogfile;
-
-	QString qsRegName;
-	QString qsRegPassword;
-	QString qsRegHost;
-	QUrl qurlRegWeb;
-
-	QString qsSSLCert;
-	QString qsSSLKey;
-	QString qsSSLStore;
-
-	ServerParams();
-	void read(QString fname = QString("murmur.ini"));
-};
-
-extern ServerParams g_sp;
 
 #else
 class Server;

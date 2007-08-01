@@ -138,7 +138,9 @@ void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<QList<BanInfo> >();
 }
 
-MurmurDBus::MurmurDBus(QCoreApplication &app, Server *srv) : QDBusAbstractAdaptor(&app), qdbc(QLatin1String("mainbus")) {
+QDBusConnection MurmurDBus::qdbc(QLatin1String("mainbus"));
+
+MurmurDBus::MurmurDBus(Server *srv) : QDBusAbstractAdaptor(srv) {
 	server = srv;
 }
 
@@ -226,7 +228,7 @@ int MurmurDBus::authenticate(QString &uname, const QString &pw) {
 #define PLAYER_SETUP_VAR(var) \
   User *pPlayer = server->qhUsers.value(var); \
   if (! pPlayer) { \
-    QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.session", "Invalid session id")); \
+    qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.session", "Invalid session id")); \
     return; \
   }
 
@@ -235,7 +237,7 @@ int MurmurDBus::authenticate(QString &uname, const QString &pw) {
 #define CHANNEL_SETUP_VAR2(dst,var) \
   Channel *dst = server->qhChannels.value(var); \
   if (! dst) { \
-    QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id")); \
+    qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id")); \
     return; \
   }
 
@@ -347,7 +349,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(id);
 	if (!cChannel->cParent) {
-		QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
 		return;
 	}
 	server->removeChannel(cChannel, NULL);
@@ -372,7 +374,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 		Channel *p = cParent;
 		while (p) {
 			if (p == cChannel) {
-				QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Moving channel to subchannel"));
+				qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Moving channel to subchannel"));
 				return;
 			}
 			p = p->cParent;
@@ -538,7 +540,7 @@ void MurmurDBus::setBans(const QList<BanInfo> &bans, const QDBusMessage &) {
 	server->saveBans();
 }
 
-void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names) {
+void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QStringList &names) {
 	names.clear();
 	foreach(int id, ids) {
 		if (! server->qhUserNameCache.contains(id)) {
@@ -551,7 +553,7 @@ void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QLi
 	}
 }
 
-void MurmurDBus::getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids) {
+void MurmurDBus::getPlayerIds(const QStringList &names, const QDBusMessage &, QList<int> &ids) {
 	ids.clear();
 	foreach(QString name, names) {
 		if (! server->qhUserIDCache.contains(name)) {
@@ -675,4 +677,67 @@ void MurmurDBus::channelCreated(Channel *c) {
 
 void MurmurDBus::channelRemoved(Channel *c) {
 	emit channelRemoved(ChannelInfo(c));
+}
+
+
+MetaDBus::MetaDBus(Meta *m) : QDBusAbstractAdaptor(m) {
+	meta = m;
+}
+
+void MetaDBus::started(Server *s) {
+	emit started(s->iServerNum);
+}
+
+void MetaDBus::stopped(Server *s) {
+	emit stopped(s->iServerNum);
+}
+
+void MetaDBus::start(int server_id, const QDBusMessage &msg) {
+	if (meta->qhServers.contains(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server already booted"));
+	} else if (! ServerDB::serverExists(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else if (! meta->boot(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.bootfail", "Booting server failed"));
+	}
+}
+
+void MetaDBus::stop(int server_id, const QDBusMessage &msg) {
+	if (! meta->qhServers.contains(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server not booted"));
+	} else {
+		meta->kill(server_id);
+	}
+}
+
+void MetaDBus::newServer(int &server_id) {
+	server_id = ServerDB::addServer();
+}
+
+void MetaDBus::getBootedServers(QList<int> &server_list) {
+	server_list = meta->qhServers.keys();
+}
+
+void MetaDBus::getAllServers(QList<int> &server_list) {
+	server_list = ServerDB::getAllServers();
+}
+
+void MetaDBus::isBooted(int server_id, bool &booted) {
+	booted = meta->qhServers.contains(server_id);
+}
+
+void MetaDBus::getConf(int server_id, const QString &key, const QDBusMessage &msg, QString &value) {
+	if (! ServerDB::serverExists(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else {
+		value = ServerDB::getConf(server_id, key).toString();
+	}
+}
+
+void MetaDBus::setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &msg) {
+	if (! ServerDB::serverExists(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else {
+		ServerDB::setConf(server_id, key, value);
+	}
 }

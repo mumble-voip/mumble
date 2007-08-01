@@ -28,22 +28,57 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _REGISTER_H
-#define _REGISTER_H
+#ifndef _META_H
+#define _META_H
 
-class Register : public QObject {
-		Q_OBJECT
-	protected:
-		QTimer qtTick;
-		QHttp *http;
-	public slots:
-		void done(bool);
-		void update();
-		void abort();
+#include "murmur_pch.h"
+#include "Timer.h"
+#include "Server.h"
+
+struct MetaParams {
+	QHostAddress qhaBind;
+	int iPort;
+	int iTimeout;
+	int iMaxBandwidth;
+	int iMaxUsers;
+	QString qsPassword;
+	QString qsWelcomeText;
+
+	QString qsDatabase;
+	QString qsDBDriver;
+	QString qsDBUserName;
+	QString qsDBPassword;
+	QString qsDBHostName;
+	QString qsDBPrefix;
+	int iDBPort;
+
+	QString qsDBus;
+	QString qsLogfile;
+
+	QString qsRegName;
+	QString qsRegPassword;
+	QString qsRegHost;
+	QUrl qurlRegWeb;
+
+	QSslCertificate qscCert;
+	QSslKey qskKey;
+
+	MetaParams();
+	void read(QString fname = QString("murmur.ini"));
+};
+
+class Meta : public QObject {
+		Q_OBJECT;
 	public:
-		Register();
+		static MetaParams mp;
+		QHash<int, Server *> qhServers;
+
+		Meta();
+		void bootAll();
+		bool boot(int);
+		void kill(int);
 };
 
 #else
-class Register;
+class Meta;
 #endif

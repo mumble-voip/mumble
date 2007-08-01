@@ -38,7 +38,6 @@
 #include "Server.h"
 #include "DBus.h"
 #include "PacketDataStream.h"
-#include "Cert.h"
 
 #define MSG_SETUP(st) \
 	User *uSource = static_cast<User *>(cCon); \
@@ -100,7 +99,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	} else if (id==-1) {
 		msr.qsReason = "Wrong password for user";
 		msr.rtType = MessageServerReject::WrongUserPW;
-	} else if (id==-2 && ! g_sp.qsPassword.isEmpty() && g_sp.qsPassword != msg->qsPassword) {
+	} else if (id==-2 && ! qsPassword.isEmpty() && qsPassword != msg->qsPassword) {
 		msr.qsReason = "Invalid server password";
 		msr.rtType = MessageServerReject::WrongServerPW;
 	} else {
@@ -127,14 +126,14 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 		}
 	}
 
-	if (msg->iMaxBandwidth > g_sp.iMaxBandwidth) {
-		msr.qsReason = QString::fromLatin1("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(msg->iMaxBandwidth/125.0).arg(g_sp.iMaxBandwidth/125.0);
+	if (msg->iMaxBandwidth > iMaxBandwidth) {
+		msr.qsReason = QString::fromLatin1("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(msg->iMaxBandwidth/125.0).arg(iMaxBandwidth/125.0);
 		msr.rtType = MessageServerReject::BandwidthExceeded;
 		ok = false;
 	}
 
-	if ((id != 0) && (qhUsers.count() > g_sp.iMaxUsers)) {
-		msr.qsReason = QString::fromLatin1("Server is full (max %1 users)").arg(g_sp.iMaxUsers);
+	if ((id != 0) && (qhUsers.count() > iMaxUsers)) {
+		msr.qsReason = QString::fromLatin1("Server is full (max %1 users)").arg(iMaxUsers);
 		msr.rtType = MessageServerReject::ServerFull;
 		ok = false;
 	}
@@ -244,8 +243,8 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 
 	MessageServerSync mssMsg;
 	mssMsg.uiSession = uSource->uiSession;
-	mssMsg.qsWelcomeText = g_sp.qsWelcomeText;
-	mssMsg.iMaxBandwidth = g_sp.iMaxBandwidth;
+	mssMsg.qsWelcomeText = qsWelcomeText;
+	mssMsg.iMaxBandwidth = iMaxBandwidth;
 	sendMessage(cCon, &mssMsg);
 	log(QString("Authenticated: %1").arg(msg->qsUsername), cCon);
 

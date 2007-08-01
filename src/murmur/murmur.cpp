@@ -45,10 +45,8 @@
 #include "Server.h"
 #include "ServerDB.h"
 #include "DBus.h"
-#include "Register.h"
-#include "Cert.h"
+#include "Meta.h"
 
-MurmurDBus *dbus;
 QFile *logfile;
 
 static bool bVerbose = false;
@@ -172,21 +170,20 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	g_sp.read(inifile);
+	Meta::mp.read(inifile);
 	ServerDB db;
-	cert.initialize();
 
 	if (! supw.isEmpty()) {
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);
 	}
 
-	if (detach && ! g_sp.qsLogfile.isEmpty()) {
-		logfile = new QFile(g_sp.qsLogfile);
+	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
+		logfile = new QFile(Meta::mp.qsLogfile);
 		if (! logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete logfile;
 			logfile = NULL;
-			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(g_sp.qsLogfile));
+			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
 			detach = false;
 		} else {
 			logfile->setTextModeEnabled(true);
@@ -222,40 +219,38 @@ int main(int argc, char **argv) {
 	MurmurDBus::registerTypes();
 #endif
 
-	Server s(1);
+	Meta m;
 
-	dbus=new MurmurDBus(a, &s);
 #ifdef Q_OS_UNIX
-	if (! g_sp.qsDBus.isEmpty()) {
+	if (! Meta::mp.qsDBus.isEmpty()) {
 		QDBusConnection qdbc("mainbus");
-		if (g_sp.qsDBus == "session")
+		if (Meta::mp.qsDBus == "session")
 			qdbc = QDBusConnection::sessionBus();
-		else if (g_sp.qsDBus == "system")
+		else if (Meta::mp.qsDBus == "system")
 			qdbc = QDBusConnection::systemBus();
 		else {
 			// QtDBus is not quite finished yet.
 			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-			qdbc = QDBusConnection::connectToBus(g_sp.qsDBus, "mainbus");
+			qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
 			if (! qdbc.isConnected()) {
-				QDBusServer *qdbs = new QDBusServer(g_sp.qsDBus, &a);
+				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
 				qWarning("%s",qPrintable(qdbs->lastError().name()));
 				qWarning("%d",qdbs->isConnected());
 				qWarning("%s",qPrintable(qdbs->address()));
-				qdbc = QDBusConnection::connectToBus(g_sp.qsDBus, "mainbus");
+				qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
 			}
 		}
 		if (! qdbc.isConnected()) {
-			qWarning("Failed to connect to D-Bus %s",qPrintable(g_sp.qsDBus));
+			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
 		}
-		dbus->qdbc = qdbc;
-		qdbc.registerObject("/", &a);
+		MurmurDBus::qdbc = qdbc;
+		new MetaDBus(&m);
+		qdbc.registerObject("/", &m);
 		qdbc.registerService("net.sourceforge.mumble.murmur");
 	}
 #endif
 
-	s.start(QThread::HighestPriority);
-
-	Register r;
+	m.bootAll();
 
 	res=a.exec();
 

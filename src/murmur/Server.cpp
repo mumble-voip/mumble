@@ -38,7 +38,7 @@
 #include "Server.h"
 #include "DBus.h"
 #include "PacketDataStream.h"
-#include "Cert.h"
+#include "Meta.h"
 
 #ifdef Q_OS_UNIX
 #include <sys/types.h>
@@ -47,8 +47,6 @@
 #include <netinet/ip.h>
 #include <errno.h>
 #endif
-
-ServerParams g_sp;
 
 uint qHash(const Peer &p) {
 	return p.first ^ p.second;
@@ -81,33 +79,56 @@ User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 	usPort = 0;
 }
 
-ServerParams::ServerParams() {
-	qsPassword = QString();
-	iPort = 64738;
-	iTimeout = 30;
-	iMaxBandwidth = 10000;
-	iMaxUsers = 1000;
-	qsWelcomeText = QString("Welcome to this server");
-	qsDatabase = QString();
-	iDBPort = 0;
-	qsDBDriver = "QSQLITE";
-	qsLogfile = "murmur.log";
-	qsSSLStore = "murmur.pem";
-	qhaBind = QHostAddress(QHostAddress::Any);
+Server::Server(int snum, QObject *p) : QThread(p) {
+	iServerNum = snum;
+
+	readParams();
+	initialize();
+
+	qtsServer = new SslServer(this);
+
+	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
+
+	if (! qtsServer->listen(qhaBind, iPort))
+		qFatal("Server: TCP Listen on port %d failed",iPort);
+
+	log(QString("Server listening on port %1").arg(iPort));
+
+	for (int i=1;i<5000;i++)
+		qqIds.enqueue(i);
+
+	qtTimeout = new QTimer(this);
+	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
+	qtTimeout->start(5500);
+
+	getBans();
+	readChannels();
+	initRegister();
+	initializeCert();
+
+	dbus = new MurmurDBus(this);
+	MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(iServerNum), this);
 }
 
-void ServerParams::read(QString fname) {
-	if (fname.isEmpty())
-		fname = "murmur.ini";
-	else {
-		if (! QFile(fname).exists())
-			qFatal("Specified ini file %s could not be opened", qPrintable(fname));
-	}
-	QSettings qs(fname, QSettings::IniFormat);
+Server::~Server() {
+	qrwlUsers.lockForWrite();
+	terminate();
+	wait();
+	qrwlUsers.unlock();
+	if (qusUdp)
+		delete qusUdp;
+}
 
-	qDebug("Initializing settings from %s", qPrintable(qs.fileName()));
+void Server::readParams() {
+	qsPassword = Meta::mp.qsPassword;
+	iPort = Meta::mp.iPort + iServerNum - 1;
+	iTimeout = Meta::mp.iTimeout;
+	iMaxBandwidth = Meta::mp.iMaxBandwidth;
+	iMaxUsers = Meta::mp.iMaxUsers;
+	qsWelcomeText = Meta::mp.qsWelcomeText;
+	qhaBind = Meta::mp.qhaBind;
 
-	QString qsHost = qs.value("host", QString()).toString();
+	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
 		if (! qhaBind.setAddress(qsHost)) {
 			QHostInfo hi = QHostInfo::fromName(qsHost);
@@ -118,40 +139,25 @@ void ServerParams::read(QString fname) {
 				}
 			}
 			if ((qhaBind == QHostAddress::Any) || (qhaBind.isNull())) {
-				qFatal("Lookup of bind hostname %s failed", qPrintable(qsHost));
+				qWarning("Lookup of bind hostname %s failed", qPrintable(qsHost));
+				qhaBind = Meta::mp.qhaBind;
 			}
 
 		}
 		qDebug("Binding to address %s", qPrintable(qhaBind.toString()));
 	}
 
-	qsPassword = qs.value("serverpassword", qsPassword).toString();
-	iPort = qs.value("port", iPort).toInt();
-	iTimeout = qs.value("timeout", iTimeout).toInt();
-	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
-	iMaxUsers = qs.value("users", iMaxUsers).toInt();
-	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
+	qsPassword = getConf("password", qsPassword).toString();
+	iPort = getConf("port", iPort).toInt();
+	iTimeout = getConf("timeout", iTimeout).toInt();
+	iMaxBandwidth = getConf("bandwidth", iMaxBandwidth).toInt();
+	iMaxUsers = getConf("users", iMaxUsers).toInt();
+	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
 
-	qsDatabase = qs.value("database", qsDatabase).toString();
-
-	qsDBDriver = qs.value("dbDriver", qsDBDriver).toString();
-	qsDBUserName = qs.value("dbUsername", qsDBUserName).toString();
-	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
-	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
-	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
-	iDBPort = qs.value("dbPort", iDBPort).toInt();
-
-	qsDBus = qs.value("dbus", qsDBus).toString();
-	qsLogfile = qs.value("logfile", qsLogfile).toString();
-
-	qsRegName = qs.value("registerName", qsRegName).toString();
-	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
-	qsRegHost = qs.value("registerHostname", qsRegHost).toString();
-	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
-
-	qsSSLCert = qs.value("sslCert", qsSSLCert).toString();
-	qsSSLKey = qs.value("sslKey", qsSSLKey).toString();
-	qsSSLStore = qs.value("sslStore", qsSSLStore).toString();
+	qsRegName = getConf("registername", qsRegName).toString();
+	qsRegPassword = getConf("registerpassword", qsRegPassword).toString();
+	qsRegHost = getConf("registerhostname", qsRegHost).toString();
+	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
 }
 
 BandwidthRecord::BandwidthRecord() {
@@ -182,8 +188,8 @@ int BandwidthRecord::bytesPerSec() {
 void Server::run() {
 	qDebug("Starting UDP Thread");
 	qusUdp = new QUdpSocket();
-	if (! qusUdp->bind(g_sp.qhaBind, g_sp.iPort, QUdpSocket::DontShareAddress))
-		qFatal("Server: UDP Bind to port %d failed",g_sp.iPort);
+	if (! qusUdp->bind(qhaBind, iPort, QUdpSocket::DontShareAddress))
+		qFatal("Server: UDP Bind to port %d failed",iPort);
 
 #ifdef Q_OS_UNIX
 	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
@@ -293,7 +299,7 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 	for (int i = 0; i < nframes; i++)
 		bw->addFrame(packetsize);
 
-	if (bw->bytesPerSec() > g_sp.iMaxBandwidth) {
+	if (bw->bytesPerSec() > iMaxBandwidth) {
 		// Suppress packet.
 		return;
 	}
@@ -334,30 +340,6 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 }
 
 
-Server::Server(int snum, QObject *p) : QThread(p) {
-	iServerNum = snum;
-
-	initialize();
-
-	qtsServer = new SslServer(this);
-
-	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
-
-	if (! qtsServer->listen(g_sp.qhaBind, g_sp.iPort))
-		qFatal("Server: TCP Listen on port %d failed",g_sp.iPort);
-
-	log(QString("Server listening on port %1").arg(g_sp.iPort));
-
-	for (int i=1;i<5000;i++)
-		qqIds.enqueue(i);
-
-	qtTimeout = new QTimer(this);
-	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
-	qtTimeout->start(5500);
-
-	getBans();
-	readChannels();
-}
 
 void Server::log(QString s, Connection *c) {
 	if (c) {
@@ -396,8 +378,8 @@ void Server::newClient() {
 			}
 		}
 
-		sock->setPrivateKey(cert.getKey());
-		sock->setLocalCertificate(cert.getCert());
+		sock->setPrivateKey(qskKey);
+		sock->setLocalCertificate(qscCert);
 
 		if (qqIds.isEmpty()) {
 			sock->disconnectFromHost();
@@ -495,7 +477,7 @@ void Server::checkTimeout() {
 
 	qrwlUsers.lockForRead();
 	foreach(User *u, qhUsers) {
-		if (u->activityTime() > (g_sp.iTimeout * 1000)) {
+		if (u->activityTime() > (iTimeout * 1000)) {
 			log(QLatin1String("Timeout"), u);
 			qlClose.append(u);
 		}

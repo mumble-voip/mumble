@@ -38,6 +38,7 @@
 #include "Group.h"
 #include "ACL.h"
 #include "Server.h"
+#include "Meta.h"
 
 struct PlayerInfo {
 	unsigned int session;
@@ -109,9 +110,9 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		QString qsAuthService;
 		QString qsAuthPath;
 	public:
-		QDBusConnection qdbc;
+		static QDBusConnection qdbc;
 
-		MurmurDBus(QCoreApplication &application, Server *srv);
+		MurmurDBus(Server *srv);
 
 		void playerStateChanged(Player *p);
 		void playerConnected(Player *p);
@@ -152,8 +153,8 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void removeChannel(int id, const QDBusMessage &);
 		void addChannel(const QString &name, int parent, const QDBusMessage &, int &newid);
 
-		void getPlayerNames(const QList<int> &ids, const QDBusMessage &, QList<QString> &names);
-		void getPlayerIds(const QList<QString> &names, const QDBusMessage &, QList<int> &ids);
+		void getPlayerNames(const QList<int> &ids, const QDBusMessage &, QStringList &names);
+		void getPlayerIds(const QStringList &names, const QDBusMessage &, QList<int> &ids);
 
 		void setAuthenticator(const QDBusObjectPath &path, const QDBusMessage &);
 		void setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &);
@@ -167,8 +168,33 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void channelRemoved(const ChannelInfo &state);
 };
 
-extern MurmurDBus *dbus;
+class MetaDBus : public QDBusAbstractAdaptor {
+		Q_OBJECT
+		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Meta");
+	protected:
+		Meta *meta;
+	public:
+		MetaDBus(Meta *m);
+
+		void started(Server *s);
+		void stopped(Server *s);
+	public slots:
+		void start(int server_id, const QDBusMessage &);
+		void stop(int server_id, const QDBusMessage &);
+		void newServer(int &server_id);
+		void getBootedServers(QList<int> &server_list);
+		void getAllServers(QList<int> &server_list);
+		void isBooted(int server_id, bool &booted);
+		void getConf(int server_id, const QString &key, const QDBusMessage &, QString &value);
+		void setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &);
+	signals:
+		void started(int server_id);
+		void stopped(int server_id);
+};
+
+// extern MurmurDBus *dbus;
 
 #else
 class MurmurDBus;
+class MetaDBus;
 #endif

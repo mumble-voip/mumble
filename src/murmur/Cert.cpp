@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Cert.h"
 #include "Server.h"
+#include "Meta.h"
 
 #include <openssl/pem.h>
 #include <openssl/conf.h>
@@ -52,39 +52,12 @@ int add_ext(X509 * crt, int nid, char *value) {
 	return 1;
 }
 
-Cert cert;
+void Server::initializeCert() {
+	QByteArray crt, key;
 
-Cert::Cert() : QObject() {
-}
+	crt = getConf("certificate", QString()).toByteArray();
+	key = getConf("key", QString()).toByteArray();
 
-void Cert::initialize() {
-	QByteArray crt, key, store;
-
-
-
-	if (! g_sp.qsSSLCert.isEmpty()) {
-		QFile pem(g_sp.qsSSLCert);
-		if (pem.open(QIODevice::ReadOnly)) {
-			crt = pem.readAll();
-			pem.close();
-		} else {
-			qWarning("Failed to read %s", qPrintable(g_sp.qsSSLCert));
-		}
-	}
-	if (! g_sp.qsSSLKey.isEmpty()) {
-		QFile pem(g_sp.qsSSLKey);
-		if (pem.open(QIODevice::ReadOnly)) {
-			key = pem.readAll();
-			pem.close();
-		} else {
-			qWarning("Failed to read %s", qPrintable(g_sp.qsSSLKey));
-		}
-	}
-	QFile pem(g_sp.qsSSLStore);
-	if (pem.open(QIODevice::ReadOnly)) {
-		store = pem.readAll();
-		pem.close();
-	}
 	if (! crt.isEmpty()) {
 		qscCert = QSslCertificate(crt);
 		if (qscCert.isNull()) {
@@ -98,7 +71,6 @@ void Cert::initialize() {
 			qDebug("Using certificate from key file.");
 		}
 	}
-
 
 	if (! qscCert.isNull()) {
 		QSsl::KeyAlgorithm alg = qscCert.publicKey().algorithm();
@@ -123,8 +95,8 @@ void Cert::initialize() {
 		if (! key.isEmpty() || ! crt.isEmpty()) {
 			qFatal("Certificate specified, but failed to load.");
 		}
-		qskKey = QSslKey(store, QSsl::Rsa);
-		qscCert = QSslCertificate(store);
+		qskKey = Meta::mp.qskKey;
+		qscCert = Meta::mp.qscCert;
 		if (qscCert.isNull() || qskKey.isNull()) {
 			qWarning("Generating new server certificate.");
 
@@ -173,13 +145,8 @@ void Cert::initialize() {
 			if (qskKey.isNull())
 				qFatal("Key generation failed");
 
-			QFile pemout(g_sp.qsSSLStore);
-			if (! pemout.open(QIODevice::WriteOnly)) {
-				qFatal("Failed to open keystore %s for writing.", qPrintable(g_sp.qsSSLStore));
-			}
-			pemout.write(qscCert.toPem());
-			pemout.write(qskKey.toPem());
-			pemout.close();
+			setConf("certificate", qscCert.toPem());
+			setConf("key", qskKey.toPem());
 		}
 	}
 
@@ -194,14 +161,6 @@ void Cert::initialize() {
 	QSslSocket::setDefaultCiphers(pref);
 }
 
-const QSslCertificate &Cert::getCert() const {
-	return qscCert;
-}
-
-const QSslKey &Cert::getKey() const {
-	return qskKey;
-}
-
-const QString Cert::getDigest() const {
+const QString Server::getDigest() const {
 	return QString::fromLatin1(qscCert.digest().toHex());
 }
