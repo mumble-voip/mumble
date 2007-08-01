@@ -63,10 +63,6 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 
 static BYTE scratchbuffer[128];
 
-static bool tryRead(VOID *base, SIZE_T len) {
-	return peekProc(base, scratchbuffer, len);
-}
-
 static DWORD peekProc(VOID *base) {
 	DWORD v = 0;
 	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
