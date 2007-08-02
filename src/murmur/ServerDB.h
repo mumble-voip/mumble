@@ -40,6 +40,7 @@ class Connection;
 class ServerDB {
 	public:
 		ServerDB();
+		~ServerDB();
 		static QSqlDatabase db;
 		static void setSUPW(int iServNum, const QString &pw);
 		static QList<int> getBootServers();

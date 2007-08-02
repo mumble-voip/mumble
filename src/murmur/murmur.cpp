@@ -221,38 +221,41 @@ int main(int argc, char **argv) {
 	MurmurDBus::registerTypes();
 #endif
 
-#ifdef Q_OS_UNIX
 	if (! Meta::mp.qsDBus.isEmpty()) {
-		QDBusConnection qdbc("mainbus");
+		qWarning("Oh Happy Day!");
 		if (Meta::mp.qsDBus == "session")
-			qdbc = QDBusConnection::sessionBus();
+			MurmurDBus::qdbc = QDBusConnection::sessionBus();
 		else if (Meta::mp.qsDBus == "system")
-			qdbc = QDBusConnection::systemBus();
+			MurmurDBus::qdbc = QDBusConnection::systemBus();
 		else {
 			// QtDBus is not quite finished yet.
 			qWarning("Warning: Peer-to-peer session support is currently nonworking.");
-			qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
-			if (! qdbc.isConnected()) {
+			MurmurDBus::qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
+			if (! MurmurDBus::qdbc.isConnected()) {
 				QDBusServer *qdbs = new QDBusServer(Meta::mp.qsDBus, &a);
 				qWarning("%s",qPrintable(qdbs->lastError().name()));
 				qWarning("%d",qdbs->isConnected());
 				qWarning("%s",qPrintable(qdbs->address()));
-				qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
+				MurmurDBus::qdbc = QDBusConnection::connectToBus(Meta::mp.qsDBus, "mainbus");
 			}
 		}
-		if (! qdbc.isConnected()) {
+		if (! MurmurDBus::qdbc.isConnected()) {
 			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
 		}
-		MurmurDBus::qdbc = qdbc;
 		new MetaDBus(&meta);
-		qdbc.registerObject("/", &meta);
-		qdbc.registerService("net.sourceforge.mumble.murmur");
 	}
-#endif
+	if (MurmurDBus::qdbc.isConnected()) {
+		MurmurDBus::qdbc.registerObject("/", &meta);
+		MurmurDBus::qdbc.registerService("net.sourceforge.mumble.murmur");
+	}
 
 	meta.bootAll();
 
 	res=a.exec();
+
+	qWarning("Killing running servers");
+
+	meta.killAll();
 
 	qWarning("Shutting down");
 

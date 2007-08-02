@@ -50,19 +50,10 @@ class TransactionHolder {
 	public:
 		TransactionHolder() {
 			QSqlDatabase::database().transaction();
-			bAbort = false;
-		}
-
-		void abort() {
-			bAbort = true;
 		}
 
 		~TransactionHolder() {
-			if (bAbort) {
-				QSqlDatabase::database().rollback();
-			} else {
-				QSqlDatabase::database().commit();
-			}
+			QSqlDatabase::database().commit();
 		}
 };
 
@@ -208,10 +199,15 @@ ServerDB::ServerDB() {
 				SQLDO("DROP TABLE aclold");
 				SQLDO("DROP TABLE bansold");
 			}
+			SQLDO("VACUUM");
 		} else {
 			qFatal("SQL Schema is version %d, requires version 1", version);
 		}
 	}
+}
+
+ServerDB::~ServerDB() {
+	db.close();
 }
 
 void ServerDB::exec(QSqlQuery &query) {
@@ -306,8 +302,6 @@ void Server::initialize() {
 			SQLEXEC();
 		}
 	}
-
-	SQLDO("VACUUM");
 }
 
 // -1 Wrong PW

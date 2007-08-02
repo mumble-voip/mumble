@@ -84,6 +84,7 @@ class Meta : public QObject {
 		bool boot(int);
 		bool banCheck(const QHostAddress &);
 		void kill(int);
+		void killAll();
 };
 
 extern Meta meta;

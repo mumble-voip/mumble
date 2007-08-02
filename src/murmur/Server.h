@@ -88,8 +88,7 @@ class User : public Connection, public Player {
 		Server *s;
 	public:
 		BandwidthRecord bwr;
-		QHostAddress qha;
-		quint16 usPort;
+		struct sockaddr_in saiUdpAddress;
 		User(Server *parent, QSslSocket *socket);
 };
 
@@ -145,7 +144,13 @@ class Server : public QThread, public MessageHandler {
 		QQueue<int> qqIds;
 		SslServer *qtsServer;
 		QTimer *qtTimeout;
-		QUdpSocket *qusUdp;
+
+#ifdef Q_OS_UNIX
+		int sUdpSocket;
+#else
+		SOCKET sUdpSocket;
+#endif
+
 		QHash<unsigned int, User *> qhUsers;
 		QHash<unsigned int, Channel *> qhChannels;
 		QReadWriteLock qrwlUsers;

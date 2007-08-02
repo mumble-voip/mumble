@@ -48,6 +48,10 @@
 #include <errno.h>
 #endif
 
+#ifdef Q_OS_UNIX
+#define INVALID_SOCKET -1
+#endif
+
 uint qHash(const Peer &p) {
 	return p.first ^ p.second;
 }
@@ -75,7 +79,9 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 }
 
 User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
-	usPort = 0;
+	saiUdpAddress.sin_port = 0;
+	saiUdpAddress.sin_addr.s_addr = 0;
+	saiUdpAddress.sin_family = AF_INET;
 }
 
 Server::Server(int snum, QObject *p) : QThread(p) {
@@ -93,6 +99,31 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	log("Server listening on port %d",iPort);
 
+#ifdef Q_OS_UNIX
+	sUdpSocket = ::socket(PF_INET, SOCK_DGRAM, 0);
+#else
+	sUdpSocket = ::WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
+#endif
+	if (sUdpSocket == INVALID_SOCKET) {
+		log("Failed to create UDP Socket");
+	} else {
+		struct sockaddr_in addr;
+		memset(&addr, 0, sizeof(addr));
+		addr.sin_family = AF_INET;
+		addr.sin_port = htons(iPort);
+		addr.sin_addr.s_addr = htonl(qhaBind.toIPv4Address());
+		if (::bind(sUdpSocket, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) == SOCKET_ERROR) {
+			log("Failed to bind UDP Socket to port %d", iPort);
+		}
+	}
+
+#ifdef Q_OS_UNIX
+	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
+	if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+		log("Server: Failed to set TOS for UDP Socket");
+#endif
+	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
+
 	for (int i=1;i<5000;i++)
 		qqIds.enqueue(i);
 
@@ -106,7 +137,8 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	initializeCert();
 
 	dbus = new MurmurDBus(this);
-	MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(iServerNum), this);
+	if (MurmurDBus::qdbc.isConnected())
+		MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(iServerNum), this);
 }
 
 Server::~Server() {
@@ -114,8 +146,8 @@ Server::~Server() {
 	terminate();
 	wait();
 	qrwlUsers.unlock();
-	if (qusUdp)
-		delete qusUdp;
+	closesocket(sUdpSocket);
+	log("Stopped");
 }
 
 void Server::readParams() {
@@ -186,57 +218,54 @@ int BandwidthRecord::bytesPerSec() {
 
 void Server::run() {
 	log("Starting UDP Thread");
-	qusUdp = new QUdpSocket();
-	if (! qusUdp->bind(qhaBind, iPort, QUdpSocket::DontShareAddress))
-		log("Server: UDP Bind to port %d failed",iPort);
 
-#ifdef Q_OS_UNIX
-	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
-	if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-		log("Server: Failed to set TOS for UDP Socket");
-#endif
-	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
-
-	QHostAddress senderAddr;
-	quint16 senderPort;
 	qint32 len;
 	char buffer[65535];
 
 	quint32 msgType;
 	int uiSession;
 
-	while (qusUdp->waitForReadyRead(-1)) {
+	sockaddr_in from;
+	int fromlen;
+
+	forever {
+		fromlen = sizeof(from);
+		len=::recvfrom(sUdpSocket, buffer, 65535, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+
+		if (len == 0) {
+			break;
+		} else if (len == SOCKET_ERROR) {
+			log("Failure during UDP Socket read");
+			break;
+		}
+
 		QReadLocker rl(&qrwlUsers);
-		while (qusUdp->hasPendingDatagrams()) {
 
-			len=qusUdp->readDatagram(buffer, 65535, &senderAddr, &senderPort);
+		PacketDataStream pds(buffer, len);
+		pds >> msgType >> uiSession;
 
-			PacketDataStream pds(buffer, len);
-			pds >> msgType >> uiSession;
+		if ((msgType != Message::Speex) && (msgType != Message::Ping))
+			continue;
+		if (! pds.isValid())
+			continue;
 
-			if ((msgType != Message::Speex) && (msgType != Message::Ping))
+		User *u = qhUsers.value(uiSession);
+		if (! u)
+			continue;
+
+		if ((from.sin_addr.s_addr != u->saiUdpAddress.sin_addr.s_addr) || (from.sin_port != u->saiUdpAddress.sin_port)) {
+			if (u->saiUdpAddress.sin_port != 0)
 				continue;
-			if (! pds.isValid())
+			if (htonl(u->peerAddress().toIPv4Address()) != from.sin_addr.s_addr)
 				continue;
+			u->saiUdpAddress.sin_addr.s_addr = from.sin_addr.s_addr;
+			u->saiUdpAddress.sin_port = from.sin_port;
+		}
 
-			User *u = qhUsers.value(uiSession);
-			if (! u)
-				continue;
-
-			if ((senderAddr != u->qha) || (senderPort != u->usPort)) {
-				if (u->usPort != 0)
-					continue;
-				if (u->peerAddress() != senderAddr)
-					continue;
-				u->qha = senderAddr;
-				u->usPort = senderPort;
-			}
-
-			if (msgType == Message::Ping)
-				qusUdp->writeDatagram(buffer, len, senderAddr, senderPort);
-			else {
-				processMsg(pds, qhUsers.value(uiSession));
-			}
+		if (msgType == Message::Ping)
+			::sendto(sUdpSocket, buffer, len, 0, reinterpret_cast<struct sockaddr *>(&from), sizeof(from));
+		else {
+			processMsg(pds, qhUsers.value(uiSession));
 		}
 	}
 }
@@ -257,8 +286,8 @@ void Server::fakeUdpPacket(Message *msg, Connection *source) {
 }
 
 void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) {
-	if (u->usPort != 0) {
-		qusUdp->writeDatagram(data, len, u->qha, u->usPort);
+	if (u->saiUdpAddress.sin_port != 0) {
+		::sendto(sUdpSocket, data, len, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
 	} else {
 		if (cache.isEmpty())
 			cache = QByteArray(data, len);
