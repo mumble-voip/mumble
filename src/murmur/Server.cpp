@@ -40,18 +40,6 @@
 #include "PacketDataStream.h"
 #include "Meta.h"
 
-#ifdef Q_OS_UNIX
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/ip.h>
-#include <errno.h>
-#endif
-
-#ifdef Q_OS_UNIX
-#define INVALID_SOCKET -1
-#endif
-
 uint qHash(const Peer &p) {
 	return p.first ^ p.second;
 }
@@ -114,14 +102,15 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		addr.sin_addr.s_addr = htonl(qhaBind.toIPv4Address());
 		if (::bind(sUdpSocket, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) == SOCKET_ERROR) {
 			log("Failed to bind UDP Socket to port %d", iPort);
+		} else {
+#ifdef Q_OS_UNIX
+			int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
+			if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+				log("Server: Failed to set TOS for UDP Socket");
+#endif
 		}
 	}
 
-#ifdef Q_OS_UNIX
-	int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
-	if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-		log("Server: Failed to set TOS for UDP Socket");
-#endif
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
 
 	for (int i=1;i<5000;i++)
@@ -146,7 +135,11 @@ Server::~Server() {
 	terminate();
 	wait();
 	qrwlUsers.unlock();
+#ifdef Q_OS_UNIX
+	close(sUdpSocket);
+#else
 	closesocket(sUdpSocket);
+#endif
 	log("Stopped");
 }
 
@@ -211,7 +204,6 @@ void BandwidthRecord::addFrame(int size) {
 }
 
 int BandwidthRecord::bytesPerSec() {
-	// Multiply by 45; give 10% leniency
 	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
 	return (iSum * 1000000LL) / elapsed;
 }
@@ -226,7 +218,11 @@ void Server::run() {
 	int uiSession;
 
 	sockaddr_in from;
+#ifdef Q_OS_UNIX
+	socklen_t fromlen;
+#else
 	int fromlen;
+#endif
 
 	forever {
 		fromlen = sizeof(from);

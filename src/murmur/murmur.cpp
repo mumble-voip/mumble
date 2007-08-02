@@ -31,16 +31,8 @@
 #include "murmur_pch.h"
 
 #ifdef Q_OS_WIN
-#include <windows.h>
 #include "Tray.h"
 #endif
-#ifdef Q_OS_UNIX
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#endif
-
 
 #include "Server.h"
 #include "ServerDB.h"

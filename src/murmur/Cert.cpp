@@ -31,13 +31,6 @@
 #include "Server.h"
 #include "Meta.h"
 
-#include <openssl/pem.h>
-#include <openssl/conf.h>
-#include <openssl/x509v3.h>
-#ifndef OPENSSL_NO_ENGINE
-#include <openssl/engine.h>
-#endif
-
 int add_ext(X509 * crt, int nid, char *value) {
 	X509_EXTENSION *ex;
 	X509V3_CTX ctx;
