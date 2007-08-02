@@ -76,6 +76,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		BanEditor *banEdit;
 
 		MessageServerReject::RejectType rtLast;
+		QString qsDesiredChannel;
 
 		void recheckTTS();
 		void appendLog(QString entry);
@@ -133,6 +134,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		void serverDisconnected(QString reason);
 		void pushLink(bool down);
 		void viewCertificate(bool);
+		void openUrl(const QUrl &url);
 	public:
 		MainWindow(QWidget *parent);
 

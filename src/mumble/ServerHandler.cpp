@@ -80,7 +80,7 @@ void ServerHandler::customEvent(QEvent *evt) {
 			if (shme->bFlush)
 				cConnection->forceFlush();
 		} else {
-			cConnection->disconnect();
+			cConnection->disconnectSocket();
 		}
 	}
 }
@@ -169,7 +169,7 @@ void ServerHandler::run() {
 	exec();
 
 	ticker->stop();
-	cConnection->disconnect();
+	cConnection->disconnectSocket();
 	delete cConnection;
 	cConnection = NULL;
 

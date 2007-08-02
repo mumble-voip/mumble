@@ -37,6 +37,7 @@
 #include "Log.h"
 #include "Plugins.h"
 #include "Global.h"
+#include "DBus.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -56,7 +57,7 @@ int main(int argc, char **argv) {
 	os_init();
 #endif
 
-	QT_REQUIRE_VERSION(argc, argv, "4.2.0");
+	QT_REQUIRE_VERSION(argc, argv, "4.3.0");
 
 	// Initialize application object.
 	QApplication a(argc, argv);
@@ -64,6 +65,21 @@ int main(int argc, char **argv) {
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
+
+#ifdef Q_OS_WIN
+	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
+	// should contain bin\\, and the path to the config is hardcoded as ..\etc
+	_putenv(qPrintable(QString::fromLatin1("PATH=%1\\bin;%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QLatin1String(getenv("PATH")))));
+#endif
+
+	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"));
+	QDBusMessage reply=qdbi.call(QLatin1String("focus"));
+	if (reply.type() == QDBusMessage::ReplyMessage) {
+		if (a.arguments().count() > 1) {
+			qdbi.call(QLatin1String("openUrl"), a.arguments().last());
+		}
+		return 0;
+	}
 
 	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(a.applicationDirPath()));
 	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser))
@@ -133,6 +149,10 @@ int main(int argc, char **argv) {
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
 
+	new MumbleDBus(g.mw);
+	QDBusConnection::sessionBus().registerObject("/", g.mw);
+	QDBusConnection::sessionBus().registerService("net.sourceforge.mumble.mumble");
+
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
 	// Plugins
@@ -146,7 +166,13 @@ int main(int argc, char **argv) {
 	g.ao->start(QThread::HighPriority);
 
 	a.setQuitOnLastWindowClosed(true);
-	g.mw->on_ServerConnect_triggered();
+
+
+	if (a.arguments().count() > 1) {
+		g.mw->openUrl(QUrl(a.arguments().last()));
+	} else {
+		g.mw->on_ServerConnect_triggered();
+	}
 	res=a.exec();
 
 	g.s.save();

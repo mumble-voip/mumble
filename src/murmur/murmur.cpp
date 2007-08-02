@@ -214,7 +214,6 @@ int main(int argc, char **argv) {
 #endif
 
 	if (! Meta::mp.qsDBus.isEmpty()) {
-		qWarning("Oh Happy Day!");
 		if (Meta::mp.qsDBus == "session")
 			MurmurDBus::qdbc = QDBusConnection::sessionBus();
 		else if (Meta::mp.qsDBus == "system")

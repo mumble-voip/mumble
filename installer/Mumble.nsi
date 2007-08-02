@@ -83,14 +83,20 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\Qt4.3.0\lib\QtSql4.dll"
   File "\dev\Qt4.3.0\lib\QtOpenGL4.dll"
   File "\dev\Qt4.3.0\lib\QtXml4.dll"
+  File "\dev\Qt4.3.0\lib\QtDBus4.dll"
   File "\dev\openssl\libeay32.dll"
   File "\dev\openssl\libssl32.dll"
   File /oname=ssleay32.dll "\dev\openssl\libssl32.dll"
-  ;File "\dev\Qt4.3.0\lib\QtDBus4.dll"
-  ;File "\dev\dbus\bin\libdbus-1.dll"
-  ;File "\dev\dbus\bin\libxml2.dll"
-  ;File "..\release\speex.dll"
-  ;File "\mingw\bin\mingwm10.dll"
+  File "\dev\dbus\bin\libdbus-1.dll"
+  File "\dev\dbus\bin\libxml2.dll"
+  File "\dev\dbus\bin\iconv.dll"
+  File "\dev\dbus\bin\zlib1.dll"
+
+  SetOutPath "$INSTDIR\bin"
+  File "\dev\dbus\bin\dbus-daemon.exe"
+  
+  SetOutPath "$INSTDIR\etc"
+  File "\dev\dbus\etc\session.conf"
 
   SetOutPath "$INSTDIR\plugins"
   ;File /oname=bf2.dll "..\plugins\bf2.dll"
@@ -123,6 +129,12 @@ Section "Mumble & Murmur" SecMumble
                  "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "NoRepair" 1
+
+  ;Register URL Handler
+  WriteRegStr HKCR "mumble" "" "URL:Mumble"
+  WriteRegStr HKCR "mumble" "URL Protocol" ""
+  WriteRegStr HKCR "mumble\DefaultIcon" "" "$INSTDIR\mumble.exe"
+  WriteRegStr HKCR "mumble\shell\open\command" "" "$\"$INSTDIR\mumble.exe$\" $\"%1$\""
 
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     
@@ -163,6 +175,12 @@ Section "Uninstall"
   Delete "$INSTDIR\QtXml4.dll"
   Delete "$INSTDIR\libdbus-1.dll"
   Delete "$INSTDIR\libxml2.dll"
+  Delete "$INSTDIR\iconv.dll"
+  Delete "$INSTDIR\zlib1.dll"
+
+  Delete "$INSTDIR\bin\dbus-daemon.exe"
+  Delete "$INSTDIR\etc\session.conf"
+  
   Delete "$INSTDIR\libeay32.dll"
   Delete "$INSTDIR\libssl32.dll"
   Delete "$INSTDIR\ssleay32.dll"
@@ -175,6 +193,8 @@ Section "Uninstall"
   Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\Uninstall.exe"
 
+  RMDir "$INSTDIR\bin"
+  RMDir "$INSTDIR\etc"
   RMDir "$INSTDIR\plugins"
   RMDir "$INSTDIR"
 

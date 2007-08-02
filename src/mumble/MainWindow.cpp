@@ -444,6 +444,39 @@ void MainWindow::on_Players_doubleClicked(const QModelIndex &idx) {
 	g.sh->sendMessage(&mpm);
 }
 
+void MainWindow::openUrl(const QUrl &url) {
+	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString()));
+	if (url.scheme() != QLatin1String("mumble")) {
+		g.l->log(Log::Warning, tr("URL scheme is not 'mumble'"));
+		return;
+	}
+	QString host = url.host();
+	int port = url.port(64738);
+	QString user = url.userName();
+	QString pw = url.password();
+	qsDesiredChannel = url.path();
+
+	if (user.isEmpty()) {
+		bool ok;
+		user = g.qs->value(QLatin1String("defUserName")).toString();
+		user = QInputDialog::getText(this, tr("Connecting to %1").arg(url.toString()), tr("Enter username"), QLineEdit::Normal, user, &ok);
+		if (! ok || user.isEmpty())
+			return;
+
+		g.qs->setValue(QLatin1String("defUserName"), user);
+	}
+
+	if (g.sh && g.sh->isRunning()) {
+		on_ServerDisconnect_triggered();
+		g.sh->wait();
+	}
+
+	rtLast = MessageServerReject::None;
+	qaServerDisconnect->setEnabled(true);
+	g.sh->setConnectionInfo(host, port, user, pw);
+	g.sh->start(QThread::TimeCriticalPriority);
+}
+
 void MainWindow::on_ServerConnect_triggered() {
 	ConnectDialog *cd = new ConnectDialog(this);
 	int res = cd->exec();
@@ -454,6 +487,7 @@ void MainWindow::on_ServerConnect_triggered() {
 	}
 
 	if (res == QDialog::Accepted) {
+		qsDesiredChannel = QString();
 		rtLast = MessageServerReject::None;
 		qaServerDisconnect->setEnabled(true);
 		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);

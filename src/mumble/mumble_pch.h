@@ -1,4 +1,15 @@
-#ifdef WIN32
+#define QT_NO_DEBUG_STREAM
+#define QT_ASCII_CAST_WARNINGS
+#define QT_NO_CAST_TO_ASCII
+#include <QtCore>
+#include <QtDBus>
+#include <QtGui>
+#include <QtNetwork>
+#include <QtOpenGL>
+#include <QtSql>
+#include <QtXml>
+
+#ifdef Q_OS_WIN
 #define _WIN32_IE 0x0600
 #include <windows.h>
 #include <shellapi.h>
@@ -6,18 +17,8 @@
 #define CopyMemory(dst,ptr,len) memcpy(dst,ptr,len)
 #define ZeroMemory(ptr,len) memset(ptr, 0, len)
 #define __cdecl
+typedef WId HWND;
 #endif
-
-#define QT_NO_DEBUG_STREAM
-#define QT_ASCII_CAST_WARNINGS
-#define QT_NO_CAST_TO_ASCII
-#include <QtCore>
-#include <QtGui>
-#include <QtNetwork>
-#include <QtOpenGL>
-#include <QtSql>
-#include <QtXml>
-#include <speex/speex.h>
 
 #include <math.h>
 #include <speex/speex.h>
@@ -149,6 +150,3 @@ struct CloneSpeexPreprocessState {
 };
 
 
-#ifndef WIN32
-typedef WId HWND;
-#endif
