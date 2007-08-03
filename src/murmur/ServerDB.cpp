@@ -38,10 +38,8 @@
 #include "Connection.h"
 #include "DBus.h"
 
-#define SQLDUMP(x) qWarning("%s", qPrintable(x.lastError().text()))
-
-#define SQLDO(x) query.exec(QString::fromLatin1(x).arg(Meta::mp.qsDBPrefix))
-#define SQLPREP(x) query.prepare(QString::fromLatin1(x).arg(Meta::mp.qsDBPrefix))
+#define SQLDO(x) ServerDB::exec(query, QLatin1String(x), false)
+#define SQLPREP(x) ServerDB::prepare(query, QLatin1String(x))
 #define SQLEXEC() ServerDB::exec(query)
 
 class TransactionHolder {
@@ -49,11 +47,11 @@ class TransactionHolder {
 		bool bAbort;
 	public:
 		TransactionHolder() {
-			QSqlDatabase::database().transaction();
+			ServerDB::db.transaction();
 		}
 
 		~TransactionHolder() {
-			QSqlDatabase::database().commit();
+			ServerDB::db.commit();
 		}
 };
 
@@ -120,33 +118,44 @@ ServerDB::ServerDB() {
 
 	int version = 0;
 
-	SQLDO("SELECT value FROM %1meta WHERE key = 'version'");
+	SQLDO("SELECT value FROM %1meta WHERE keystring = 'version'");
 	if (query.next())
 		version = query.value(0).toInt();
 
 	if (version < 1) {
+		if ((Meta::mp.qsDBDriver != "QSQLITE") && (Meta::mp.qsDBDriver != "QMYSQL")) {
+			qFatal("SQL Schema is version %d, requires version 1", version);
+		}
+		bool migrate = false;
+		if (SQLDO("SELECT count(*) FROM players")) {
+			migrate = true;
+			SQLDO("ALTER TABLE players RENAME TO playersold");
+			SQLDO("DROP TABLE player_auth");
+			SQLDO("ALTER TABLE channels RENAME TO channelsold");
+			SQLDO("ALTER TABLE groups RENAME TO groupsold");
+			SQLDO("ALTER TABLE group_members RENAME TO group_membersold");
+			SQLDO("ALTER TABLE acl RENAME TO aclold");
+			SQLDO("DROP TABLE channel_links");
+			SQLDO("ALTER TABLE bans RENAME TO bansold");
+		}
+
 		if (Meta::mp.qsDBDriver == "QSQLITE") {
-			bool migrate = false;
-			if (SQLDO("SELECT count(*) FROM players")) {
-				migrate = true;
-				SQLDO("ALTER TABLE players RENAME TO playersold");
-				SQLDO("DROP TABLE player_auth");
-				SQLDO("ALTER TABLE channels RENAME TO channelsold");
-				SQLDO("ALTER TABLE groups RENAME TO groupsold");
-				SQLDO("ALTER TABLE group_members RENAME TO group_membersold");
-				SQLDO("ALTER TABLE acl RENAME TO aclold");
-				SQLDO("DROP TABLE channel_links");
-				SQLDO("ALTER TABLE bans RENAME TO bansold");
-			}
-			SQLDO("CREATE TABLE %1meta (key TEXT PRIMARY KEY, value TEXT)");
+			SQLDO("CREATE TABLE %1meta (keystring TEXT PRIMARY KEY, value TEXT)");
 			SQLDO("CREATE TABLE %1servers (server_id INTEGER PRIMARY KEY AUTOINCREMENT)");
 
 			SQLDO("CREATE TABLE %1log(server_id INTEGER, msg TEXT, msgtime DATE)");
+			SQLDO("CREATE INDEX %1log_time ON %1log(msgtime)");
 			SQLDO("CREATE TRIGGER %1log_timestamp AFTER INSERT ON %1log FOR EACH ROW BEGIN UPDATE %1log SET msgtime = datetime('now') WHERE rowid = new.rowid; END;");
+			SQLDO("CREATE TRIGGER %1log_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1log WHERE server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1config (server_id INTEGER, key TEXT, value TEXT)");
-			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, key)");
+			SQLDO("CREATE TABLE %1config (server_id INTEGER, keystring TEXT, value TEXT)");
+			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
 			SQLDO("CREATE TRIGGER %1config_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1config WHERE server_id = old.server_id; END;");
+
+			SQLDO("CREATE TABLE %1channels (server_id INTEGER, channel_id INTEGER, parent_id INTEGER, name TEXT, inheritacl INTEGER)");
+			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
+			SQLDO("CREATE TRIGGER %1channels_parent_del AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1channels WHERE parent_id = old.channel_id AND server_id = old.server_id; UPDATE %1players SET lastchannel=0 WHERE lastchannel = old.channel_id AND server_id = old.server_id; END;");
+			SQLDO("CREATE TRIGGER %1channels_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1channels WHERE server_id = old.server_id; END;");
 
 			SQLDO("CREATE TABLE %1players (server_id INTEGER, player_id INTEGER, name TEXT, email TEXT, pw TEXT, lastchannel INTEGER, texture BLOB, last_active DATE)");
 			SQLDO("CREATE UNIQUE INDEX %1players_name ON %1players (server_id,name)");
@@ -157,18 +166,12 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_name ON %1player_auth(name)");
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_code ON %1player_auth(authcode)");
 
-			SQLDO("CREATE TABLE %1channels (server_id INTEGER, channel_id INTEGER, parent_id INTEGER, name TEXT, inheritacl INTEGER)");
-			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
-			SQLDO("CREATE TRIGGER %1channels_parent_del AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1channels WHERE parent_id = old.channel_id AND server_id = old.server_id; UPDATE %1players SET lastchannel=0 WHERE lastchannel = old.channel_id AND server_id = old.server_id; END;");
-			SQLDO("CREATE TRIGGER %1channels_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1channels WHERE server_id = old.server_id; END;");
-
 			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, server_id INTEGER, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)");
 			SQLDO("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(server_id, channel_id, name)");
 			SQLDO("CREATE TRIGGER %1groups_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1groups WHERE channel_id = old.channel_id AND server_id = old.server_id; END;");
 
 			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, player_id INTEGER, addit INTEGER)");
 			SQLDO("CREATE TRIGGER %1groups_members_del_group AFTER DELETE ON %1groups FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE group_id = old.group_id; END;");
-			SQLDO("CREATE TRIGGER %1groups_members_del_player AFTER DELETE ON %1players FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE player_id = old.player_id; END;");
 
 			SQLDO("CREATE TABLE %1acl (server_id INTEGER, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)");
 			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
@@ -180,28 +183,78 @@ ServerDB::ServerDB() {
 			SQLDO("DELETE FROM %1channel_links");
 
 			SQLDO("CREATE TABLE %1bans (server_id INTEGER, base INTEGER, mask INTEGER)");
+			SQLDO("CREATE TRIGGER %1bans_del_server AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1bans WHERE server_id = old.server_id; END;");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
-			SQLDO("INSERT INTO %1meta (key, value) VALUES('version','1')");
+			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','1')");
 
-			if (migrate) {
-				qWarning("Migrating from single-server database to multi-server database");
-				SQLDO("INSERT INTO %1players SELECT 1, player_id, name, email, pw, lastchannel, texture, null FROM playersold");
-				SQLDO("INSERT INTO %1channels SELECT 1, channel_id, parent_id, name, inheritACL FROM channelsold");
-				SQLDO("INSERT INTO %1groups SELECT group_id, 1, name, channel_id, inherit, inheritable FROM groupsold");
-				SQLDO("INSERT INTO %1group_members SELECT group_id, player_id, addit FROM group_membersold");
-				SQLDO("INSERT INTO %1acl SELECT 1, channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv FROM aclold");
-				SQLDO("INSERT INTO %1bans SELECT 1, base, mask FROM bansold");
-				SQLDO("DROP TABLE playersold");
-				SQLDO("DROP TABLE channelsold");
-				SQLDO("DROP TABLE groupsold");
-				SQLDO("DROP TABLE group_membersold");
-				SQLDO("DROP TABLE aclold");
-				SQLDO("DROP TABLE bansold");
-			}
 			SQLDO("VACUUM");
 		} else {
-			qFatal("SQL Schema is version %d, requires version 1", version);
+			SQLDO("CREATE TABLE %1meta(keystring varchar(255) PRIMARY KEY, value varchar(255)) Type=InnoDB");
+			SQLDO("CREATE TABLE %1servers(server_id INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB");
+
+			SQLDO("CREATE TABLE %1log(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE INDEX %1log_time ON %1log(msgtime)");
+			SQLDO("ALTER TABLE %1log ADD CONSTRAINT %1log_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE %1config (server_id INTEGER, keystring varchar(255), value TEXT) Type=InnoDB");
+			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
+			SQLDO("ALTER TABLE %1config ADD CONSTRAINT %1config_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE %1channels (server_id INTEGER, channel_id INTEGER, parent_id INTEGER, name varchar(255), inheritacl INTEGER) Type=InnoDB");
+			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
+			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_parent_del FOREIGN KEY (server_id, parent_id) REFERENCES %1channels(server_id,channel_id) ON DELETE CASCADE");
+			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE %1players (server_id INTEGER, player_id INTEGER, name varchar(255), email varchar(255), pw varchar(128), lastchannel INTEGER, texture LONGBLOB, last_active TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE INDEX %1players_channel ON %1players(server_id, lastchannel)");
+			SQLDO("CREATE UNIQUE INDEX %1players_name ON %1players (server_id,name)");
+			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
+			SQLDO("ALTER TABLE %1players ADD CONSTRAINT %1players_channel_del FOREIGN KEY (server_id,lastchannel) REFERENCES %1channels(server_id,channel_id) ON DELETE SET NULL");
+			SQLDO("ALTER TABLE %1players ADD CONSTRAINT %1players_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE %1player_auth (player_auth_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), pw varchar(128), email varchar(255), authcode varchar(255)) Type=InnoDB");
+			SQLDO("CREATE UNIQUE INDEX %1player_auth_name ON %1player_auth(name)");
+			SQLDO("CREATE UNIQUE INDEX %1player_auth_code ON %1player_auth(authcode)");
+
+			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTO_INCREMENT, server_id INTEGER, name varchar(255), channel_id INTEGER, inherit INTEGER, inheritable INTEGER) Type=InnoDB");
+			SQLDO("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(server_id, channel_id, name)");
+			SQLDO("ALTER TABLE %1groups ADD CONSTRAINT %1groups_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, player_id INTEGER, addit INTEGER) Type=InnoDB");
+			SQLDO("ALTER TABLE %1group_members ADD CONSTRAINT %1group_members_del_group FOREIGN KEY (group_id) REFERENCES %1groups(group_id) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE %1acl (server_id INTEGER, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name varchar(255), apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER) Type=InnoDB");
+			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
+			SQLDO("CREATE INDEX %1acl_player ON %1acl(server_id, player_id)");
+			SQLDO("ALTER TABLE %1acl ADD CONSTRAINT %1acl_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
+			SQLDO("ALTER TABLE %1acl ADD CONSTRAINT %1acl_del_player FOREIGN KEY (server_id, player_id) REFERENCES %1players(server_id, player_id) ON DELETE CASCADE");
+
+			SQLDO("CREATE TABLE %1channel_links (server_id INTEGER, channel_id INTEGER, link_id INTEGER) Type=InnoDB");
+			SQLDO("ALTER TABLE %1channel_links ADD CONSTRAINT %1channel_links_del_channel FOREIGN KEY(server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
+			SQLDO("DELETE FROM %1channel_links");
+
+			SQLDO("CREATE TABLE %1bans (server_id INTEGER, base INTEGER, mask INTEGER) Type=InnoDB");
+			SQLDO("ALTER TABLE %1bans ADD CONSTRAINT %1bans_del_server FOREIGN KEY(server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+
+			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
+			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','1')");
+		}
+
+		if (migrate) {
+			qWarning("Migrating from single-server database to multi-server database");
+			SQLDO("INSERT INTO %1channels SELECT 1, channel_id, parent_id, name, inheritACL FROM channelsold");
+			SQLDO("INSERT INTO %1players SELECT 1, player_id, name, email, pw, lastchannel, texture, null FROM playersold");
+			SQLDO("INSERT INTO %1groups SELECT group_id, 1, name, channel_id, inherit, inheritable FROM groupsold");
+			SQLDO("INSERT INTO %1group_members SELECT group_id, player_id, addit FROM group_membersold");
+			SQLDO("INSERT INTO %1acl SELECT 1, channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv FROM aclold");
+			SQLDO("INSERT INTO %1bans SELECT 1, base, mask FROM bansold");
+			SQLDO("DROP TABLE bansold");
+			SQLDO("DROP TABLE group_membersold");
+			SQLDO("DROP TABLE aclold");
+			SQLDO("DROP TABLE groupsold");
+			SQLDO("DROP TABLE playersold");
+			SQLDO("DROP TABLE channelsold");
 		}
 	}
 }
@@ -210,18 +263,46 @@ ServerDB::~ServerDB() {
 	db.close();
 }
 
-void ServerDB::exec(QSqlQuery &query) {
-	if (!query.exec()) {
-		if (query.lastError().type() == QSqlError::ConnectionError) {
-			db.close();
-			if (! db.open()) {
-				qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db.lastError().text()));
-			}
-			qWarning("Lost connection SQL Database: Reconnected");
-			if (query.exec())
-				return;
+bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
+	if (! db.isValid()) {
+		qWarning("SQL [%s] rejected: Database is gone", qPrintable(str));
+		return false;
+	}
+	if (query.prepare(str.arg(Meta::mp.qsDBPrefix))) {
+		return true;
+	} else {
+		db.close();
+		if (! db.open()) {
+			qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db.lastError().text()));
 		}
-		qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+		if (query.prepare(str.arg(Meta::mp.qsDBPrefix))) {
+			qWarning("SQL Connection lost, reconnection OK");
+			return true;
+		}
+
+		db = QSqlDatabase();
+
+		if (fatal)
+			qFatal("SQL Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
+		else
+			qDebug("SQL Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
+		return false;
+	}
+}
+
+bool ServerDB::exec(QSqlQuery &query, const QString &str, bool fatal) {
+	if (! str.isEmpty())
+		prepare(query, str, fatal);
+	if (query.exec()) {
+		return true;
+	} else {
+		db = QSqlDatabase();
+
+		if (fatal)
+			qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+		else
+			qDebug("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+		return false;
 	}
 }
 
@@ -756,7 +837,7 @@ QVariant ServerDB::getConf(int server_id, const QString &key, QVariant def) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	SQLPREP("SELECT value FROM %1config WHERE server_id = ? AND key = ?");
+	SQLPREP("SELECT value FROM %1config WHERE server_id = ? AND keystring = ?");
 	query.addBindValue(server_id);
 	query.addBindValue(key);
 	SQLEXEC();
@@ -784,11 +865,11 @@ void ServerDB::setConf(int server_id, const QString &key, const QVariant &value)
 
 	QSqlQuery query;
 	if (value.isNull()) {
-		SQLPREP("DELETE FROM %1config WHERE server_id = ? AND key = ?");
+		SQLPREP("DELETE FROM %1config WHERE server_id = ? AND keystring = ?");
 		query.addBindValue(server_id);
 		query.addBindValue(key);
 	} else {
-		SQLPREP("REPLACE INTO %1config (server_id, key, value) VALUES (?,?,?)");
+		SQLPREP("REPLACE INTO %1config (server_id, keystring, value) VALUES (?,?,?)");
 		query.addBindValue(server_id);
 		query.addBindValue(key);
 		query.addBindValue(value.toString());
@@ -817,7 +898,7 @@ QList<int> ServerDB::getBootServers() {
 
 	QList<int> bootlist;
 	foreach(int i, ql) {
-		SQLPREP("SELECT value FROM %1config WHERE server_id = ? AND key = ?");
+		SQLPREP("SELECT value FROM %1config WHERE server_id = ? AND keystring = ?");
 		query.addBindValue(i);
 		query.addBindValue(QLatin1String("boot"));
 		SQLEXEC();

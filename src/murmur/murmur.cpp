@@ -48,7 +48,7 @@ bool detach = true;
 bool detach = false;
 #endif
 
-Meta meta;
+Meta *meta;
 
 LogEmitter le;
 
@@ -167,6 +167,8 @@ int main(int argc, char **argv) {
 	Meta::mp.read(inifile);
 	ServerDB db;
 
+	meta = new Meta();
+
 	if (! supw.isEmpty()) {
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);
@@ -233,25 +235,27 @@ int main(int argc, char **argv) {
 		if (! MurmurDBus::qdbc.isConnected()) {
 			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
 		}
-		new MetaDBus(&meta);
+		new MetaDBus(meta);
 	}
 	if (MurmurDBus::qdbc.isConnected()) {
-		MurmurDBus::qdbc.registerObject("/", &meta);
+		MurmurDBus::qdbc.registerObject("/", meta);
 		MurmurDBus::qdbc.registerService("net.sourceforge.mumble.murmur");
 	}
 
-	meta.bootAll();
+	meta->bootAll();
 
 	res=a.exec();
 
 	qWarning("Killing running servers");
 
-	meta.killAll();
+	meta->killAll();
 
 	qWarning("Shutting down");
 
 	if (logfile)
 		delete logfile;
+
+	delete meta;
 
 	qInstallMsgHandler(NULL);
 

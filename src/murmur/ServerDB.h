@@ -49,7 +49,8 @@ class ServerDB {
 		static bool serverExists(int num);
 		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());
 		static void setConf(int server_id, const QString &key, const QVariant &value);
-		static void exec(QSqlQuery &);
+		static bool prepare(QSqlQuery &, const QString &, bool fatal = true);
+		static bool exec(QSqlQuery &, const QString &str = QString(), bool fatal= true);
 };
 
 #endif

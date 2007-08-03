@@ -87,7 +87,7 @@ class Meta : public QObject {
 		void killAll();
 };
 
-extern Meta meta;
+extern Meta *meta;
 
 #else
 class Meta;

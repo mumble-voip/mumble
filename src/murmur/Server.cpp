@@ -386,7 +386,7 @@ void Server::newClient() {
 		QHostAddress adr = sock->peerAddress();
 		quint32 base = adr.toIPv4Address();
 
-		if (meta.banCheck(adr)) {
+		if (meta->banCheck(adr)) {
 			log("Ignoring connection: %s:%d (Global ban)",qPrintable(sock->peerAddress().toString()),sock->peerPort());
 			sock->disconnectFromHost();
 			sock->deleteLater();

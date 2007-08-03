@@ -42,9 +42,9 @@ void MumbleDBus::openUrl(const QString &url, const QDBusMessage &msg) {
 	valid = valid && (u.scheme() == QLatin1String("mumble"));
 	valid = valid && (! u.host().isEmpty());
 	if (! valid) {
-	    QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.url", "Invalid URL")); \
+		QDBusConnection::sessionBus().send(msg.createErrorReply("net.sourceforge.mumble.Error.url", "Invalid URL"));
 	} else {
-	    g.mw->openUrl(u);
+		g.mw->openUrl(u);
 	}
 }
 
