@@ -158,7 +158,7 @@ ALSAEnumerator::ALSAEnumerator() {
 				if (snd_ctl_pcm_info(ctl,info) == 0) {
 					QString fname=QString::fromLatin1(snd_pcm_info_get_name(info));
 					qhOutput.insert(devname,fname);
-					qhOutput.insert(QString::fromLatin1("plug:")+devname, fname);
+					qhOutput.insert(QString::fromLatin1("plug:\"")+devname+QString::fromLatin1("\""), fname);
 					play = true;
 				}
 
