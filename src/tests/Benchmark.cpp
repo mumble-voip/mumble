@@ -59,10 +59,12 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 
 	struct utsname uts;
 	uname(&uts);
-
+	
 	static int ctr = 1;
 
-	QString name = QString("%1.%2").arg(uts.nodename).arg(ctr++);
+	QString name = QString("%1.%2").arg(uts.nodename).arg(getpid() * 1000 + ctr);
+	
+	ctr++;
 
 	unsigned char buffer[65535];
 	PacketDataStream ods(buffer + 3, 5000);
