@@ -39,6 +39,14 @@ quint64 Timer::elapsed() const {
 	return now() - uiStart;
 }
 
+bool Timer::isElapsed(quint64 us) {
+	if (elapsed() > us) {
+		uiStart += us;
+		return true;
+	}
+	return false;
+}
+
 quint64 Timer::restart() {
 	quint64 n = now();
 	quint64 e = n - uiStart;

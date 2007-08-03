@@ -307,10 +307,8 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 	pds >> seq;
 	pds >> flags;
 
-	int nframes = ((flags >> 4) & 0x03) + 1;
-	int packetsize = (20 + 8 + 3 + pds.left() + nframes - 1) / nframes;
-	for (int i = 0; i < nframes; i++)
-		bw->addFrame(packetsize);
+	int packetsize = 20 + 8 + 3 + pds.left();
+	bw->addFrame(packetsize);
 
 	if (bw->bytesPerSec() > iMaxBandwidth) {
 		// Suppress packet.

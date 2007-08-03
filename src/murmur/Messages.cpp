@@ -69,7 +69,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	MessageServerReject msr;
 	bool ok = false;
 
-	QRegExp re("[\\w\\[\\]\\{\\}\\(\\)\\@\\|]+");
+	QRegExp re("[\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+");
 
 	bool nameok = re.exactMatch(msg->qsUsername);
 	if (nameok && msg->qsUsername[0] == '@')

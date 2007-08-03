@@ -1,0 +1,9 @@
+TEMPLATE	=app
+CONFIG  += qt thread warn_on network qdbus xml qtestlib sql
+QT += qdbus xml sql network
+LANGUAGE	= C++
+TARGET = Benchmark
+SOURCES = Benchmark.cpp Timer.cpp
+HEADERS = Timer.h
+VPATH += ..
+INCLUDEPATH += .. ../murmur ../mumble
