@@ -63,7 +63,7 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 
 void Tray::on_Tray_activated(QSystemTrayIcon::ActivationReason r) {
 	if (r == QSystemTrayIcon::Trigger) {
-		qsti->showMessage(tr("Murmur"), tr("%1 server running.").arg(meta.qhServers.count()), QSystemTrayIcon::Information, 5000);
+		qsti->showMessage(tr("Murmur"), tr("%1 server running.").arg(meta->qhServers.count()), QSystemTrayIcon::Information, 5000);
 	}
 }
 
