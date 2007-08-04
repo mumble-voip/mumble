@@ -140,6 +140,15 @@ ServerDB::ServerDB() {
 		}
 
 		if (Meta::mp.qsDBDriver == "QSQLITE") {
+			SQLDO("DROP TRIGGER IF EXISTS channels_parent_del");
+			SQLDO("DROP TRIGGER IF EXISTS groups_del_channel");
+			SQLDO("DROP TRIGGER IF EXISTS groups_members_del_group");
+			SQLDO("DROP TRIGGER IF EXISTS acl_del_channel");
+			SQLDO("DROP TRIGGER IF EXISTS acl_del_player");
+			SQLDO("DROP TRIGGER IF EXISTS channel_links_del_channel");
+			SQLDO("DROP INDEX IF EXISTS players_name");
+			SQLDO("DROP INDEX IF EXISTS groups_name_channels");
+			SQLDO("DROP INDEX IF EXISTS acl_channel_pri");
 			SQLDO("CREATE TABLE %1meta (keystring TEXT PRIMARY KEY, value TEXT)");
 			SQLDO("CREATE TABLE %1servers (server_id INTEGER PRIMARY KEY AUTOINCREMENT)");
 
@@ -280,11 +289,11 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 			return true;
 		}
 
-		db = QSqlDatabase();
 
-		if (fatal)
+		if (fatal) {
+			db = QSqlDatabase();
 			qFatal("SQL Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
-		else
+		} else
 			qDebug("SQL Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
 		return false;
 	}
@@ -296,11 +305,11 @@ bool ServerDB::exec(QSqlQuery &query, const QString &str, bool fatal) {
 	if (query.exec()) {
 		return true;
 	} else {
-		db = QSqlDatabase();
 
-		if (fatal)
+		if (fatal) {
+			db = QSqlDatabase();
 			qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
-		else
+		} else
 			qDebug("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 		return false;
 	}

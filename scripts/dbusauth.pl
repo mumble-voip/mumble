@@ -42,7 +42,7 @@ our $r = Net::DBus::Reactor->main;
 our $bus = Net::DBus->session();
 
 our $service = $bus->get_service("net.sourceforge.mumble.murmur");
-our $object = $service->get_object("/");
+our $object = $service->get_object("/1");
 
 our $rservice = $bus->export_service("net.sourceforge.mumble.phpbb");
 our $robject = Mumble::Auth->new($rservice);
