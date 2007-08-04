@@ -87,16 +87,34 @@ void ServerHandler::customEvent(QEvent *evt) {
 
 void ServerHandler::udpReady() {
 	while (qusUdp->hasPendingDatagrams()) {
-		char buffer[65536];
+		char encrypted[65536];
+		char buffer[65535];
 		quint32 buflen = qusUdp->pendingDatagramSize();
 		QHostAddress senderAddr;
 		quint16 senderPort;
-		qusUdp->readDatagram(buffer, qMin(65536U, buflen), &senderAddr, &senderPort);
+		qusUdp->readDatagram(encrypted, qMin(65536U, buflen), &senderAddr, &senderPort);
 
 		if (!(senderAddr == qhaRemote) || (senderPort != iPort))
 			continue;
 
-		PacketDataStream pds(buffer, buflen);
+		if (! cConnection)
+			continue;
+
+		if (! cConnection->csCrypt.isValid())
+			continue;
+
+		if (! cConnection->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypted), reinterpret_cast<unsigned char *>(buffer), buflen)) {
+			if (cConnection->csCrypt.tLastGood.elapsed() > 5000000ULL) {
+				if (cConnection->csCrypt.tLastRequest.elapsed() > 5000000ULL) {
+					cConnection->csCrypt.tLastRequest.restart();
+					MessageCryptSync mcs;
+					sendMessage(&mcs);
+				}
+			}
+			continue;
+		}
+
+		PacketDataStream pds(buffer, buflen-4);
 
 		quint32 msgType, uiSession;
 		pds >> msgType >> uiSession;

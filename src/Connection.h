@@ -63,8 +63,8 @@ class Connection : public QObject {
 		void disconnectSocket();
 		void forceFlush();
 		int activityTime() const;
-		
-		CryptState csIn, csOut;
+
+		CryptState csCrypt;
 
 		QList<QSslCertificate> peerCertificateChain() const;
 		QSslCipher sessionCipher() const;

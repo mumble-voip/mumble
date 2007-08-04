@@ -163,6 +163,9 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		virtual void msgEditACL(Connection *, MessageEditACL *);
 		virtual void msgQueryUsers(Connection *, MessageQueryUsers *);
 		virtual void msgTexture(Connection *, MessageTexture *);
+		virtual void msgCryptSetup(Connection *, MessageCryptSetup *);
+		virtual void msgCryptSync(Connection *, MessageCryptSync *);
+
 };
 
 #else

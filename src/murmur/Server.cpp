@@ -68,7 +68,7 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 
 User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 	saiUdpAddress.sin_port = 0;
-	saiUdpAddress.sin_addr.s_addr = 0;
+	saiUdpAddress.sin_addr.s_addr = htonl(socket->peerAddress().toIPv4Address());
 	saiUdpAddress.sin_family = AF_INET;
 }
 
@@ -112,6 +112,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	}
 
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
+	connect(this, SIGNAL(reqSync(unsigned int)), this, SLOT(doSync(unsigned int)));
 
 	for (int i=1;i<5000;i++)
 		qqIds.enqueue(i);
@@ -212,10 +213,11 @@ void Server::run() {
 	log("Starting UDP Thread");
 
 	qint32 len;
+	char encrypted[65535];
 	char buffer[65535];
 
-	quint32 msgType;
-	int uiSession;
+	quint32 msgType = 0;
+	unsigned int uiSession = 0;
 
 	sockaddr_in from;
 #ifdef Q_OS_UNIX
@@ -226,41 +228,69 @@ void Server::run() {
 
 	forever {
 		fromlen = sizeof(from);
-		len=::recvfrom(sUdpSocket, buffer, 65535, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+		len=::recvfrom(sUdpSocket, encrypted, 65535, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 
 		if (len == 0) {
 			break;
 		} else if (len == SOCKET_ERROR) {
 			log("Failure during UDP Socket read");
 			break;
+		} else if (len < 6) {
+			// 4 bytes crypt header + type + session
+			continue;
 		}
 
 		QReadLocker rl(&qrwlUsers);
 
-		PacketDataStream pds(buffer, len);
-		pds >> msgType >> uiSession;
+		quint64 key = (static_cast<unsigned long long>(from.sin_addr.s_addr) << 16) ^ from.sin_port;
+		PacketDataStream pds(buffer, len - 4);
+
+		User *u = qhPeerUsers.value(key);
+		if (u) {
+			if (! checkDecrypt(u, encrypted, buffer, len))
+				continue;
+			pds >> msgType >> uiSession;
+			if (u->uiSession != uiSession)
+				continue;
+		} else {
+			// Unknown peer
+			foreach(User *usr, qhHostUsers.value(from.sin_addr.s_addr)) {
+				pds.rewind();
+				if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypted, buffer, len)) {
+					pds >> msgType >> uiSession;
+					if (usr->uiSession == uiSession) {
+						// Every time we relock, reverify users' existance.
+						// The main thread might delete the user while the lock isn't held.
+						rl.unlock();
+						qrwlUsers.lockForWrite();
+						if (qhUsers.contains(uiSession)) {
+							u = usr;
+							qhHostUsers[from.sin_addr.s_addr].remove(u);
+							qhPeerUsers.insert(key, u);
+							u->saiUdpAddress.sin_port = from.sin_port;
+							qrwlUsers.unlock();
+							rl.relock();
+							if (! qhUsers.contains(uiSession))
+								u = NULL;
+						}
+					}
+
+				}
+			}
+			if (! u)
+				continue;
+			len -= 4;
+		}
 
 		if ((msgType != Message::Speex) && (msgType != Message::Ping))
 			continue;
 		if (! pds.isValid())
 			continue;
 
-		User *u = qhUsers.value(uiSession);
-		if (! u)
-			continue;
-
-		if ((from.sin_addr.s_addr != u->saiUdpAddress.sin_addr.s_addr) || (from.sin_port != u->saiUdpAddress.sin_port)) {
-			if (u->saiUdpAddress.sin_port != 0)
-				continue;
-			if (htonl(u->peerAddress().toIPv4Address()) != from.sin_addr.s_addr)
-				continue;
-			u->saiUdpAddress.sin_addr.s_addr = from.sin_addr.s_addr;
-			u->saiUdpAddress.sin_port = from.sin_port;
-		}
-
-		if (msgType == Message::Ping)
-			::sendto(sUdpSocket, buffer, len, 0, reinterpret_cast<struct sockaddr *>(&from), sizeof(from));
-		else {
+		if (msgType == Message::Ping) {
+			QByteArray qba;
+			sendMessage(u, buffer, len, qba);
+		} else {
 			processMsg(pds, qhUsers.value(uiSession));
 		}
 	}
@@ -281,38 +311,26 @@ void Server::fakeUdpPacket(Message *msg, Connection *source) {
 	processMsg(pds, source);
 }
 
-#include <openssl/aes.h>
+bool Server::checkDecrypt(User *u, const char *encrypted, char *plain, unsigned int len) {
+	if (u->csCrypt.isValid() && u->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypted), reinterpret_cast<unsigned char *>(plain), len))
+		return true;
 
-class AESEncrypt {
-	public:
-		AES_KEY enc;
-		unsigned char iv[AES_BLOCK_SIZE];
-		AESEncrypt();
-		void doEncrypt(const char *data, int len);
-};
-
-AESEncrypt aes;
-
-AESEncrypt::AESEncrypt() {
-	for(int i=0;i<AES_BLOCK_SIZE;i++)
-		iv[i]=i;
-	AES_set_encrypt_key(iv, 128, &enc);
-}
-
-void AESEncrypt::doEncrypt(const char *data, int len) {
-	char buffer[len];
-	iv[0]++;
-	iv[1]++;
-	iv[3]++;
-	iv[2]++;
-	int num = 0;
-	AES_ofb128_encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len, &enc, iv, &num);
+	qWarning("Crypt No Good. And %lld", u->csCrypt.tLastGood.elapsed());
+	qWarning("with a hint of %lld", u->csCrypt.tLastRequest.elapsed());
+	if (u->csCrypt.tLastGood.elapsed() > 5000000ULL) {
+		if (u->csCrypt.tLastRequest.elapsed() > 5000000ULL) {
+			u->csCrypt.tLastRequest.restart();
+			emit reqSync(u->uiSession);
+		}
+	}
+	return false;
 }
 
 void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) {
-	if (u->saiUdpAddress.sin_port != 0) {
-//		aes.doEncrypt(data, len);
-		::sendto(sUdpSocket, data, len, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
+	if ((u->saiUdpAddress.sin_port != 0) && u->csCrypt.isValid()) {
+		char buffer[len+4];
+		u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len);
+		::sendto(sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
 	} else {
 		if (cache.isEmpty())
 			cache = QByteArray(data, len);
@@ -447,6 +465,7 @@ void Server::newClient() {
 		{
 			QWriteLocker wl(&qrwlUsers);
 			qhUsers.insert(u->uiSession, u);
+			qhHostUsers[htonl(sock->peerAddress().toIPv4Address())].insert(u);
 		}
 
 		connect(u, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
@@ -493,6 +512,10 @@ void Server::connectionClosed(QString reason) {
 		QWriteLocker wl(&qrwlUsers);
 
 		qhUsers.remove(u->uiSession);
+		qhHostUsers[u->saiUdpAddress.sin_addr.s_addr].remove(u);
+		quint64 key = (static_cast<unsigned long long>(u->saiUdpAddress.sin_addr.s_addr) << 16) ^ u->saiUdpAddress.sin_port;
+		qhPeerUsers.remove(key);
+
 		if (u->cChannel)
 			u->cChannel->removePlayer(u);
 	}
@@ -547,6 +570,15 @@ void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 	if (c) {
 		c->sendMessage(a);
 		c->forceFlush();
+	}
+}
+
+void Server::doSync(unsigned int id) {
+	User *u = qhUsers.value(id);
+	if (u) {
+		log(u, "Requesting crypt-nonce resync");
+		MessageCryptSync mcs;
+		u->sendMessage(&mcs);
 	}
 }
 

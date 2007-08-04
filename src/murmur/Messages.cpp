@@ -151,6 +151,15 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 		uOld->disconnectSocket();
 	}
 
+	// Setup UDP encryption
+	uSource->csCrypt.genKey();
+	MessageCryptSetup mcs;
+	mcs.uiSession = uSource->uiSession;
+	mcs.qbaKey = QByteArray(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_BLOCK_SIZE);
+	mcs.qbaServerNonce = QByteArray(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE);
+	mcs.qbaClientNonce = QByteArray(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE);
+	sendMessage(cCon, &mcs);
+
 	int lchan = readLastChannel(uSource);
 	Channel *lc = qhChannels.value(lchan);
 	if (! lc)
@@ -293,6 +302,10 @@ void Server::msgPermissionDenied(Connection *cCon, MessagePermissionDenied *) {
 }
 
 void Server::msgPlayerRename(Connection *cCon, MessagePlayerRename *) {
+	cCon->disconnectSocket();
+}
+
+void Server::msgCryptSetup(Connection *cCon, MessageCryptSetup *) {
 	cCon->disconnectSocket();
 }
 
@@ -809,4 +822,17 @@ void Server::msgTexture(Connection *cCon, MessageTexture *msg) {
 	msg->qbaTexture = qhUserTextureCache.value(msg->iPlayerId);
 	if (! msg->qbaTexture.isEmpty())
 		sendMessage(cCon, msg);
+}
+
+void Server::msgCryptSync(Connection *cCon, MessageCryptSync *msg) {
+	MSG_SETUP(Player::Authenticated);
+	if (msg->qbaNonce.isEmpty()) {
+		log(uSource, "Requested crypt-nonce resync");
+		msg->qbaNonce = QByteArray(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE);
+		sendMessage(cCon, msg);
+	} else if (msg->qbaNonce.size() == AES_BLOCK_SIZE) {
+		memcpy(uSource->csCrypt.decrypt_iv, msg->qbaNonce.constData(), AES_BLOCK_SIZE);
+	} else {
+		cCon->disconnectSocket();
+	}
 }

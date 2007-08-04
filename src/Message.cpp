@@ -139,8 +139,14 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 		case PlayerTexture:
 			mMsg = new MessageTexture();
 			break;
+		case CryptSetup:
+			mMsg = new MessageCryptSetup();
+			break;
+		case CryptSync:
+			mMsg = new MessageCryptSync();
+			break;
 		default:
-			qWarning("Message: %d[%d] is unknown type", iMessageType, uiSession);
+			qWarning("Message: Type %d (session %d, size %d) is unknown type", iMessageType, uiSession, qdsIn.capacity());
 	}
 	if (mMsg) {
 		mMsg->uiSession=uiSession;
@@ -148,15 +154,15 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 		if (! qdsIn.isValid()) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Corrupt or short packet", iMessageType, uiSession);
+			qWarning("Message: Type %d (session %d, size %d) corrupt or short packet", iMessageType, uiSession, qdsIn.capacity());
 		} else if (qdsIn.left() != 0) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Long packet: %d/%d leftover bytes", iMessageType, uiSession, qdsIn.left(), qdsIn.size());
+			qWarning("Message: Type %d (session %d) Long packet: %d/%d leftover bytes", iMessageType, uiSession, qdsIn.left(), qdsIn.size());
 		} else if (! mMsg->isValid()) {
 			delete mMsg;
 			mMsg = NULL;
-			qWarning("Message: %d[%d] Failed to validate", iMessageType, uiSession);
+			qWarning("Message: Type %d (session %d, size %d) failed to validate", iMessageType, uiSession, qdsIn.capacity());
 		}
 	}
 
@@ -236,6 +242,12 @@ void MessageHandler::dispatch(Connection *cCon, Message *msg) {
 			break;
 		case Message::PlayerTexture:
 			msgTexture(cCon, static_cast<MessageTexture *>(msg));
+			break;
+		case Message::CryptSetup:
+			msgCryptSetup(cCon, static_cast<MessageCryptSetup *>(msg));
+			break;
+		case Message::CryptSync:
+			msgCryptSync(cCon, static_cast<MessageCryptSync *>(msg));
 			break;
 		default:
 			qFatal("MessageHandler called with unknown message type %d", msg->messageType());
@@ -518,6 +530,33 @@ void MessageTexture::saveStream(PacketDataStream &qdsOut) const {
 void MessageTexture::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iPlayerId;
 	qdsIn >> qbaTexture;
+}
+
+void MessageCryptSetup::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << qbaKey << qbaServerNonce << qbaClientNonce;
+}
+
+void MessageCryptSetup::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> qbaKey >> qbaServerNonce >> qbaClientNonce;
+}
+
+bool MessageCryptSetup::isValid() const {
+	return ((qbaKey.size() == AES_BLOCK_SIZE) &&
+	        (qbaClientNonce.size() == AES_BLOCK_SIZE) &&
+	        (qbaServerNonce.size() == AES_BLOCK_SIZE));
+}
+
+
+void MessageCryptSync::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << qbaNonce;
+}
+
+void MessageCryptSync::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> qbaNonce;
+}
+
+bool MessageCryptSync::isValid() const {
+	return (qbaNonce.isEmpty() || (qbaNonce.size() == AES_BLOCK_SIZE));
 }
 
 PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::GroupStruct &gs) {

@@ -46,6 +46,10 @@ class PacketDataStream {
 			return offset;
 		}
 
+		quint32 capacity() const {
+			return maxsize;
+		}
+
 		bool isValid() const {
 			return ok;
 		}

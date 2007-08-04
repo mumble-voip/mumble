@@ -137,7 +137,9 @@ class Server : public QThread, public MessageHandler {
 		void message(QByteArray &, Connection *cCon = NULL);
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
+		void doSync(unsigned int);
 	signals:
+		void reqSync(unsigned int);
 		void tcpTransmit(QByteArray, unsigned int id);
 	public:
 		int iServerNum;
@@ -152,6 +154,8 @@ class Server : public QThread, public MessageHandler {
 #endif
 
 		QHash<unsigned int, User *> qhUsers;
+		QHash<quint64, User *> qhPeerUsers;
+		QHash<unsigned int, QSet<User *> > qhHostUsers;
 		QHash<unsigned int, Channel *> qhChannels;
 		QReadWriteLock qrwlUsers;
 		ChanACL::ACLCache acCache;
@@ -168,6 +172,8 @@ class Server : public QThread, public MessageHandler {
 		void sendMessage(User *u, const char *data, int len, QByteArray &cache);
 		void fakeUdpPacket(Message *msg, Connection *source);
 		void run();
+
+		bool checkDecrypt(User *u, const char *encrypted, char *plain, unsigned int cryptlen);
 
 		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
 		void clearACLCache(Player *p = NULL);
@@ -236,7 +242,8 @@ class Server : public QThread, public MessageHandler {
 		virtual void msgEditACL(Connection *, MessageEditACL *);
 		virtual void msgQueryUsers(Connection *, MessageQueryUsers *);
 		virtual void msgTexture(Connection *, MessageTexture *);
-
+		virtual void msgCryptSetup(Connection *, MessageCryptSetup *);
+		virtual void msgCryptSync(Connection *, MessageCryptSync *);
 };
 
 

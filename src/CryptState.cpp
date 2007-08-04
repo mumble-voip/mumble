@@ -28,6 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+ * This code implements OCB-AES128.
+ * In the US, OCB is covered by patents. The inventor has given a license
+ * to all programs distributed under the GPL.
+ * Mumble is BSD (revised) licensed, meaning you can use the code in a
+ * closed-source program. If you do, you'll have to either replace
+ * OCB with something else or get yourself a license.
+ */
+
 #include "CryptState.h"
 
 CryptState::CryptState() {
@@ -42,7 +51,8 @@ void CryptState::genKey() {
 	RAND_bytes(raw_key, AES_BLOCK_SIZE);
 	RAND_bytes(encrypt_iv, AES_BLOCK_SIZE);
 	RAND_bytes(decrypt_iv, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, 128, &crypt_key);
+	AES_set_encrypt_key(raw_key, 128, &encrypt_key);
+	AES_set_decrypt_key(raw_key, 128, &decrypt_key);
 	bInit = true;
 }
 
@@ -50,7 +60,8 @@ void CryptState::setKey(const unsigned char *rkey, const unsigned char *eiv, con
 	memcpy(raw_key, rkey, AES_BLOCK_SIZE);
 	memcpy(encrypt_iv, eiv, AES_BLOCK_SIZE);
 	memcpy(decrypt_iv, div, AES_BLOCK_SIZE);
-	AES_set_encrypt_key(raw_key, 128, &crypt_key);
+	AES_set_encrypt_key(raw_key, 128, &encrypt_key);
+	AES_set_decrypt_key(raw_key, 128, &decrypt_key);
 	bInit = true;
 }
 
@@ -59,20 +70,19 @@ void CryptState::setDecryptIV(const unsigned char *iv) {
 }
 
 void CryptState::encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length) {
-	unsigned int crypted_length = plain_length + 4;
-	
+	unsigned char tag[AES_BLOCK_SIZE];
+
 	// First, increase our IV.
-	for(int i=0;i<AES_BLOCK_SIZE;i++)
+	for (int i=0;i<AES_BLOCK_SIZE;i++)
 		if (++encrypt_iv[i])
 			break;
-	
+
+	ocb_encrypt(source, dst+4, plain_length, encrypt_iv, tag);
+
 	dst[0] = encrypt_iv[0];
-	
-	// Checksum (cheeze it)
-	dst[1] = encrypt_iv[1];
-	dst[2] = encrypt_iv[2];
-	dst[3] = encrypt_iv[3];
-	memcpy(dst + 4, source, plain_length);
+	dst[1] = tag[0];
+	dst[2] = tag[1];
+	dst[3] = tag[2];
 }
 
 bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length) {
@@ -80,7 +90,7 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 		return false;
 
 	unsigned int plain_length = crypted_length - 4;
-	
+
 	unsigned char saveiv[AES_BLOCK_SIZE];
 	unsigned char ivbyte = source[0];
 
@@ -89,19 +99,114 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 	if (ivbyte > decrypt_iv[0]) {
 		decrypt_iv[0] = ivbyte;
 	} else if (ivbyte < decrypt_iv[0]) {
-		for(int i=1;i<AES_BLOCK_SIZE;i++)
+		for (int i=1;i<AES_BLOCK_SIZE;i++)
 			if (++decrypt_iv[i])
 				break;
 		decrypt_iv[0] = ivbyte;
 	} else {
 		return false;
 	}
-	if (memcmp(source+1, & decrypt_iv[1], 3) != 0) {
+
+	unsigned char tag[AES_BLOCK_SIZE];
+	ocb_decrypt(source+4, dst, plain_length, decrypt_iv, tag);
+
+	if (memcmp(tag, source+1, 3) != 0) {
 		memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
 		return false;
 	}
-	memcpy(dst, source + 4, plain_length);
 	tLastGood.restart();
 	return true;
 }
 
+static void inline XOR(unsigned char *dst, const unsigned char *a, const unsigned char *b) {
+	for (int i=0;i<AES_BLOCK_SIZE;i++)
+		dst[i] = a[i] ^ b[i];
+}
+
+static void inline S2(unsigned char *block) {
+	unsigned char carry = block[0] >> 7;
+	for (int i=0;i<AES_BLOCK_SIZE-1;i++)
+		block[i] = (block[i] << 1) | (block[i+1] >> 7);
+	block[AES_BLOCK_SIZE-1] = (block[AES_BLOCK_SIZE-1] << 1) ^(carry * 0x87);
+}
+
+static void inline S3(unsigned char *block) {
+	unsigned char carry = block[0] >> 7;
+	for (int i=0;i<AES_BLOCK_SIZE-1;i++)
+		block[i] ^= (block[i] << 1) | (block[i+1] >> 7);
+	block[AES_BLOCK_SIZE-1] ^= (block[AES_BLOCK_SIZE-1] << 1) ^(carry * 0x87);
+}
+
+void CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
+	unsigned char checksum[AES_BLOCK_SIZE];
+	unsigned char delta[AES_BLOCK_SIZE];
+	unsigned char tmp[AES_BLOCK_SIZE];
+	unsigned char pad[AES_BLOCK_SIZE];
+
+	// Initialize
+	AES_encrypt(nonce, delta, &encrypt_key);
+	memset(checksum, 0, AES_BLOCK_SIZE);
+
+	while (len > AES_BLOCK_SIZE) {
+		S2(delta);
+		XOR(tmp, delta, plain);
+		AES_encrypt(tmp, tmp, &encrypt_key);
+		XOR(encrypted, delta, tmp);
+		XOR(checksum, checksum, plain);
+		len -= AES_BLOCK_SIZE;
+		plain += AES_BLOCK_SIZE;
+		encrypted += AES_BLOCK_SIZE;
+	}
+
+	S2(delta);
+	memset(tmp, 0, AES_BLOCK_SIZE);
+	tmp[AES_BLOCK_SIZE - 1] = len * 8;
+	XOR(tmp, tmp, delta);
+	AES_encrypt(tmp, pad, &encrypt_key);
+	memcpy(tmp, plain, len);
+	memcpy(tmp+len, pad+len, AES_BLOCK_SIZE - len);
+	XOR(checksum, checksum, tmp);
+	XOR(tmp, pad, tmp);
+	memcpy(encrypted, tmp, len);
+
+	S3(delta);
+	XOR(tmp, delta, checksum);
+	AES_encrypt(tmp, tag, &encrypt_key);
+}
+
+void CryptState::ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
+	unsigned char checksum[AES_BLOCK_SIZE];
+	unsigned char delta[AES_BLOCK_SIZE];
+	unsigned char tmp[AES_BLOCK_SIZE];
+	unsigned char pad[AES_BLOCK_SIZE];
+
+	// Initialize
+	AES_encrypt(nonce, delta, &encrypt_key);
+	memset(checksum, 0, AES_BLOCK_SIZE);
+
+	while (len > AES_BLOCK_SIZE) {
+		S2(delta);
+		XOR(tmp, delta, encrypted);
+		AES_decrypt(tmp, tmp, &decrypt_key);
+		XOR(plain, delta, tmp);
+		XOR(checksum, checksum, plain);
+		len -= AES_BLOCK_SIZE;
+		plain += AES_BLOCK_SIZE;
+		encrypted += AES_BLOCK_SIZE;
+	}
+
+	S2(delta);
+	memset(tmp, 0, AES_BLOCK_SIZE);
+	tmp[AES_BLOCK_SIZE - 1] = len * 8;
+	XOR(tmp, tmp, delta);
+	AES_encrypt(tmp, pad, &encrypt_key);
+	memset(tmp, 0, AES_BLOCK_SIZE);
+	memcpy(tmp, encrypted, len);
+	XOR(tmp, tmp, pad);
+	XOR(checksum, checksum, tmp);
+	memcpy(plain, tmp, len);
+
+	S3(delta);
+	XOR(tmp, delta, checksum);
+	AES_encrypt(tmp, tag, &encrypt_key);
+}
