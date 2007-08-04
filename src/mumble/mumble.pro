@@ -10,7 +10,7 @@ SOURCES		+=
 HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h DBus.h
 SOURCES		= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp DBus.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
-SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp
+SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 DIST		+= licenses.h mumble.ico firmumble.inc plugins/mumble_plugin.h mumble-overlay mumble.desktop
 INCLUDEPATH	+= ../../speex/include
 LIBS 		+= -Llib -L.
@@ -33,6 +33,8 @@ win32 {
   LIBS	+= -L/dev/SpeechSDK/Lib/i386 -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32
   CONFIG	+= asio
   DEFINES += WIN32
+  INCLUDEPATH	+= /dev/openssl/outinc
+  LIBS += -L/dev/openssl/out -leay32
 }
 
 unix {
@@ -43,7 +45,7 @@ unix {
   QMAKE_CXXFLAGS_RELEASE += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS_DEBUG += -I../../speex/include -I../../speexbuild
   CONFIG += qdbus link_pkgconfig
-  PKGCONFIG += xevie alsa
+  PKGCONFIG += xevie alsa openssl
 }
 
 CONFIG(asio) {

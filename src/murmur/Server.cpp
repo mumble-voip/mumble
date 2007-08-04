@@ -281,8 +281,37 @@ void Server::fakeUdpPacket(Message *msg, Connection *source) {
 	processMsg(pds, source);
 }
 
+#include <openssl/aes.h>
+
+class AESEncrypt {
+	public:
+		AES_KEY enc;
+		unsigned char iv[AES_BLOCK_SIZE];
+		AESEncrypt();
+		void doEncrypt(const char *data, int len);
+};
+
+AESEncrypt aes;
+
+AESEncrypt::AESEncrypt() {
+	for(int i=0;i<AES_BLOCK_SIZE;i++)
+		iv[i]=i;
+	AES_set_encrypt_key(iv, 128, &enc);
+}
+
+void AESEncrypt::doEncrypt(const char *data, int len) {
+	char buffer[len];
+	iv[0]++;
+	iv[1]++;
+	iv[3]++;
+	iv[2]++;
+	int num = 0;
+	AES_ofb128_encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len, &enc, iv, &num);
+}
+
 void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) {
 	if (u->saiUdpAddress.sin_port != 0) {
+//		aes.doEncrypt(data, len);
 		::sendto(sUdpSocket, data, len, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
 	} else {
 		if (cache.isEmpty())

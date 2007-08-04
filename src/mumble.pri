@@ -1,5 +1,5 @@
-VERSION		= 1.0.0
-DIST		= mumble.pro murmur.pro mumble.pri mumble.ico Message.h mumble_plugin.h PacketDataStream.h
+VERSION		= 1.1.0
+DIST		= mumble.pro murmur.pro mumble.pri mumble.ico Message.h mumble_plugin.h PacketDataStream.h CryptState.h
 CONFIG		+= qt thread debug_and_release warn_on precompile_header
 
 QMAKE_CFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare

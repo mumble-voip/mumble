@@ -304,6 +304,8 @@ void Container::go() {
 int main(int argc, char **argv) {
 	QCoreApplication a(argc, argv);
 
+	qWarning("Maximum # sockets is %d", FD_SETSIZE);
+
 	if (argc != 6)
 		qFatal("Invalid # args");
 

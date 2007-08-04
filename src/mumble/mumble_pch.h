@@ -20,6 +20,8 @@
 typedef WId HWND;
 #endif
 
+#include <openssl/aes.h>
+#include <openssl/rand.h>
 #include <math.h>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>

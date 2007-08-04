@@ -1384,147 +1384,147 @@
 <context>
     <name>ChanACL</name>
     <message>
-        <location filename="../ACL.cpp" line="129"/>
+        <location filename="../ACL.cpp" line="138"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="131"/>
+        <location filename="../ACL.cpp" line="140"/>
         <source>T</source>
         <translation>T</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="133"/>
+        <location filename="../ACL.cpp" line="142"/>
         <source>E</source>
         <translation>E</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="135"/>
+        <location filename="../ACL.cpp" line="144"/>
         <source>S</source>
         <translation>S</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="137"/>
+        <location filename="../ACL.cpp" line="146"/>
         <source>A</source>
         <translation>A</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="139"/>
+        <location filename="../ACL.cpp" line="148"/>
         <source>M</source>
         <translation>M</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="141"/>
+        <location filename="../ACL.cpp" line="150"/>
         <source>K</source>
         <translation>K</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="143"/>
+        <location filename="../ACL.cpp" line="152"/>
         <source>C</source>
         <translation>C</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="145"/>
+        <location filename="../ACL.cpp" line="154"/>
         <source>L</source>
         <translation>L</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="155"/>
+        <location filename="../ACL.cpp" line="164"/>
         <source>None</source>
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="157"/>
+        <location filename="../ACL.cpp" line="166"/>
         <source>Write</source>
         <translation>Schreiben</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="159"/>
+        <location filename="../ACL.cpp" line="168"/>
         <source>Traverse</source>
         <translation>Traverse</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="161"/>
+        <location filename="../ACL.cpp" line="170"/>
         <source>Enter</source>
         <translation>Enter</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="163"/>
+        <location filename="../ACL.cpp" line="172"/>
         <source>Speak</source>
         <translation>Sprechen</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="165"/>
+        <location filename="../ACL.cpp" line="174"/>
         <source>AltSpeak</source>
         <translation>AltSpeak</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="167"/>
+        <location filename="../ACL.cpp" line="176"/>
         <source>Mute/Deafen</source>
         <translation>Stumm-/Taubstellen</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="169"/>
+        <location filename="../ACL.cpp" line="178"/>
         <source>Move/Kick</source>
         <translation>Verschieben/Kick</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="171"/>
+        <location filename="../ACL.cpp" line="180"/>
         <source>Make channel</source>
         <translation>Channel erstellen</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="173"/>
+        <location filename="../ACL.cpp" line="182"/>
         <source>Link channel</source>
         <translation>Channel verbinden</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="183"/>
+        <location filename="../ACL.cpp" line="192"/>
         <source>This represents no privileges.</source>
         <translation>Dies repräsentiert keine Privilegien.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="186"/>
+        <location filename="../ACL.cpp" line="195"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
         <translation>Dies repräsentiert vollen Zugriff zum Channel, einschließlich Fähigkeiten Gruppen und ACL-Informationen zu ändern. Dieses Privileg impliziert alle anderen Privilegien.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="190"/>
+        <location filename="../ACL.cpp" line="199"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
         <translation>Dies repräsentiert Rechte um den Channel zu durchlaufen. Wenn ein Benutzer dieses Privileg nicht hat, kann er auf keinen Kanal oder Unterkanal zugreifen, egal welche Rechte er in den Unterkanälen hat.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="193"/>
+        <location filename="../ACL.cpp" line="202"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
         <translation>Dies repräsentiert Rechte um den Channel zu betreten. Hat man eine hierarchische Kanalstruktur, sollte man jedem Traverse geben aber Enter in der Wurzel der Hierarchie einschränken.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="197"/>
+        <location filename="../ACL.cpp" line="206"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
         <translation>Dies repräsentiert das Recht in einem Kanal zu sprechen. Benutzer ohne dieses Privileg werden vom Server unterdrückt (gekennzeichnet als stumm) and können solange nicht sprechen bis es jemand mit entsprechenden Rechten aufhebt.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="201"/>
+        <location filename="../ACL.cpp" line="210"/>
         <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
         <translation>Dies repräsentiert das Recht in einem Kanal mit belegter Sprache zu sprechen. Dies funktioniert genauso wie das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg, betrifft aber Pakete gesprochen mit Alt-Push-To-Talk. Es wird genutzt um Sprache in einer Hierarchie von Kanälen zu verbreiten ohne sie zu verbinden.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="204"/>
+        <location filename="../ACL.cpp" line="213"/>
         <source>This represents the permission to mute and deafen other players. Once muted, a player will stay muted until he is unmuted by another privileged player or reconnects to the server.</source>
         <translation>Dies repräsentiert das Recht andere Spieler stumm- oder taubzustellen. Einmal stummgestellt bleibt ein Spieler stumm bis ein anderer Spieler mit entsprechenden Privilegien dies ändert oder sich neu zum Server verbunden wird.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="209"/>
+        <location filename="../ACL.cpp" line="218"/>
         <source>This represents the permission to move a player to another channel or kick him from the server. To actually move the player, either the moving player must have Move/Kick privileges in the destination channel, or the player must normally be allowed to enter the channel. Players with this privilege can move players into channels the target player normally wouldn&apos;t have permission to enter.</source>
         <translation>Dies repräsentiert das Recht einen Spieler in einen anderen Kanal zu verschieben oder ihn vom Server zu kicken. Um einen Spieler zu verschieben, muss der verschiebende Spieler entweder Verschieben/Kick-Rechte im Zielkanal haben, oder der Spieler muss erlaubt sein, den Kanal zu betreten. Spieler mit diesem Privileg können Spieler in Kanäle verschieben, die normalerweise nicht das Recht haben, diese zu betreten.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="212"/>
+        <location filename="../ACL.cpp" line="221"/>
         <source>This represents the permission to make sub-channels. The player making the sub-channel will be added to the admin group of the sub-channel.</source>
         <translation>Dies repräsentiert das Recht Unterkanäle zu erstellen. Der Spieler der den Unterkanal erstellt, gehört automatisch zur Admingruppe des Kanals.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="216"/>
+        <location filename="../ACL.cpp" line="225"/>
         <source>This represents the permission to link channels. Players in linked channels hear each other, as long as the speaking player has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
         <translation>Dies repräsentiert das Recht Kanäle zu verbinden. Spieler in verbundenen Kanälen können sich gegenseitig hören, solange der sprechende Spieler das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg im Kanal des Hörers hat. Man benötigt Verbindungsprivilegien in beiden Kanälen um eine Verbindung aufzubauen, aber nur einen in beiden um sie aufzuheben.</translation>
     </message>
@@ -2730,27 +2730,27 @@ der möglichen Orte initialisieren.</translation>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="569"/>
+        <location filename="MainWindow.cpp" line="603"/>
         <source>Kicking player %1</source>
         <translation>Kicke Spieler %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="591"/>
+        <location filename="MainWindow.cpp" line="625"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="591"/>
+        <location filename="MainWindow.cpp" line="625"/>
         <source>Banning player %1</source>
         <translation>Banne Spieler %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1067"/>
+        <location filename="MainWindow.cpp" line="1101"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="672"/>
+        <location filename="MainWindow.cpp" line="706"/>
         <source>Channel Name</source>
         <translation>Kanalname</translation>
     </message>
@@ -2760,187 +2760,187 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Sind Sie sicher Kanal %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="769"/>
+        <location filename="MainWindow.cpp" line="803"/>
         <source>Unmuted and undeafened.</source>
         <translation>Stumm- und Taubstellen ausgeschalten.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="771"/>
+        <location filename="MainWindow.cpp" line="805"/>
         <source>Unmuted.</source>
         <translation>Stummstellen aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="773"/>
+        <location filename="MainWindow.cpp" line="807"/>
         <source>Muted.</source>
         <translation>Stumm.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="787"/>
+        <location filename="MainWindow.cpp" line="821"/>
         <source>Muted and deafened.</source>
         <translation>Stumm und taub gestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="789"/>
+        <location filename="MainWindow.cpp" line="823"/>
         <source>Deafened.</source>
         <translation>Taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="791"/>
+        <location filename="MainWindow.cpp" line="825"/>
         <source>Undeafened.</source>
         <translation>Taubstellung aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="840"/>
+        <location filename="MainWindow.cpp" line="874"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="910"/>
+        <location filename="MainWindow.cpp" line="944"/>
         <source>Joining %1.</source>
         <translation>Betrete %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="940"/>
+        <location filename="MainWindow.cpp" line="974"/>
         <source>Connected to server.</source>
         <translation>Mit Server verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1021"/>
+        <location filename="MainWindow.cpp" line="1055"/>
         <source>Server connection failed: %1.</source>
         <translation>Serververbindung fehlgeschlagen: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1023"/>
+        <location filename="MainWindow.cpp" line="1057"/>
         <source>Disconnected from server.</source>
         <translation>Verbindung zum Server abgebrochen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="466"/>
+        <location filename="MainWindow.cpp" line="500"/>
         <source>Reconnecting.</source>
         <translation>Neuverbindung.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1085"/>
+        <location filename="Messages.cpp" line="57"/>
         <source>Joined server: %1.</source>
         <translation>Server beigetreten: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1100"/>
+        <location filename="Messages.cpp" line="72"/>
         <source>Left server: %1.</source>
         <translation>%1 hat den Server verlassen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1132"/>
+        <location filename="Messages.cpp" line="104"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ist jetzt stumm und taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1134"/>
+        <location filename="Messages.cpp" line="106"/>
         <source>%1 is now muted.</source>
         <translation>%1 ist jetzt stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1136"/>
+        <location filename="Messages.cpp" line="108"/>
         <source>%1 is now unmuted.</source>
         <translation>%1 ist jetzt nicht mehr stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1167"/>
+        <location filename="Messages.cpp" line="139"/>
         <source>server</source>
         <translation>Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1152"/>
+        <location filename="Messages.cpp" line="124"/>
         <source>You were muted by %1.</source>
         <translation>Du wurdest von %1 stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1152"/>
+        <location filename="Messages.cpp" line="124"/>
         <source>You were unmuted by %1.</source>
         <translation>Stummstellen wurde von %1 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1154"/>
+        <location filename="Messages.cpp" line="126"/>
         <source>%1 muted by %2.</source>
         <translation>%1 von %2 stummgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1154"/>
+        <location filename="Messages.cpp" line="126"/>
         <source>%1 unmuted by %2.</source>
         <translation>Stummstellung von %1 durch %2 aufgehoben.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1170"/>
+        <location filename="Messages.cpp" line="142"/>
         <source>You were deafened by %1.</source>
         <translation>Du wurdest von %1 taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1170"/>
+        <location filename="Messages.cpp" line="142"/>
         <source>You were undeafened by %1.</source>
         <translation>Taubstellen von %1 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1172"/>
+        <location filename="Messages.cpp" line="144"/>
         <source>%1 deafened by %2.</source>
         <translation>%1 wurde von %2 taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1172"/>
+        <location filename="Messages.cpp" line="144"/>
         <source>%1 undeafened by %2.</source>
         <translation>Taubstellen von %1 durch %2 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1181"/>
+        <location filename="Messages.cpp" line="153"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Du wurdest von %1 vom Server gekickt: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1185"/>
+        <location filename="Messages.cpp" line="157"/>
         <source>%3 was kicked from the server by %1: %2.</source>
         <translation>%3 wurde von %1 vom Server gekickt: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1193"/>
+        <location filename="Messages.cpp" line="165"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
         <translation>Du wurdest von %1 vom Server gekickt und gebannet: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1197"/>
+        <location filename="Messages.cpp" line="169"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
         <translation>%3 wurde von %1 vom Server gekickt und gebannet: %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1216"/>
+        <location filename="Messages.cpp" line="188"/>
         <source>%1 left channel.</source>
         <translation>%1 hat den Kanal verlassen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1218"/>
+        <location filename="Messages.cpp" line="190"/>
         <source>%1 moved out by %2.</source>
         <translation>%1 von %2 rausgeschoben.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1225"/>
+        <location filename="Messages.cpp" line="197"/>
         <source>%1 entered channel.</source>
         <translation>%1 betrat den Kanal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1227"/>
+        <location filename="Messages.cpp" line="199"/>
         <source>%1 moved in by %2.</source>
         <translation>%1 von %2 reingeschoben.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1280"/>
+        <location filename="Messages.cpp" line="252"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serververbindung abgelehnt : %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1285"/>
+        <location filename="Messages.cpp" line="257"/>
         <source>Denied: %1.</source>
         <translation>Abgelehnt: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="136"/>
+        <location filename="main.cpp" line="156"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen zu Mumble.</translation>
     </message>
@@ -3023,7 +3023,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Plugin ausklinken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="694"/>
+        <location filename="MainWindow.cpp" line="728"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sicher %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
@@ -3064,62 +3064,62 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Sende eine Text-Nachricht einem anderen Nutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="613"/>
+        <location filename="MainWindow.cpp" line="647"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="613"/>
+        <location filename="MainWindow.cpp" line="647"/>
         <source>Enter message</source>
         <translation>Nachricht eingeben</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="622"/>
+        <location filename="MainWindow.cpp" line="656"/>
         <source>To %1: %2</source>
         <translation>An %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="622"/>
+        <location filename="MainWindow.cpp" line="656"/>
         <source>Message to %1</source>
         <translation>Nachricht an %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1030"/>
+        <location filename="MainWindow.cpp" line="1064"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1030"/>
+        <location filename="MainWindow.cpp" line="1064"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Sie haben sich mit ungültigem Benutzernamen angemeldet, bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1030"/>
+        <location filename="MainWindow.cpp" line="1064"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Dieser Benutzername ist bereits vergeben, bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1035"/>
+        <location filename="MainWindow.cpp" line="1069"/>
         <source>Wrong password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1035"/>
+        <location filename="MainWindow.cpp" line="1069"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Falsches Passwort für registrierte Benutzer, bitte noch einmal versuchen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1035"/>
+        <location filename="MainWindow.cpp" line="1069"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Falsches Serverpasswort für unregistrierten Benutzer-Account, bitte noch einmal versuchen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1299"/>
+        <location filename="Messages.cpp" line="271"/>
         <source>From %1: %2</source>
         <translation>Von %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1300"/>
+        <location filename="Messages.cpp" line="272"/>
         <source>Message from %1</source>
         <translation>Nachricht von %1</translation>
     </message>
@@ -3144,17 +3144,17 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dies leitet Sie durch den Hardwarekonfigurierungs-Prozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="979"/>
+        <location filename="MainWindow.cpp" line="1013"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL Überprüfung fehlgeschlagen: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="984"/>
+        <location filename="MainWindow.cpp" line="1018"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat eine anderes Zertifikat, als das gespeicherte.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="986"/>
+        <location filename="MainWindow.cpp" line="1020"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Server hat Zertifikat, das Überprüfung nicht standhielt.</translation>
     </message>
@@ -3209,24 +3209,44 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="493"/>
+        <location filename="MainWindow.cpp" line="527"/>
         <source>Mumble Server Information</source>
         <translation>Mumbler Server Informationen</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="496"/>
+        <location filename="MainWindow.cpp" line="530"/>
         <source>Control channel: %1 ms latency, Encrypted with %3 bit %4&lt;br /&gt;Voice channel: %2 ms latency, Unencrypted</source>
         <translation>Kontrollkanal: %1 ms Latenz. Verschlüsselt mit %3 bit %4&lt;br /&gt;Sprachkanal: %2 ms Latenz, unverschlüsselt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1000"/>
+        <location filename="MainWindow.cpp" line="1034"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zeige Zertifikat</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="995"/>
+        <location filename="MainWindow.cpp" line="1029"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Die Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="448"/>
+        <source>Opening URL %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="450"/>
+        <source>URL scheme is not &apos;mumble&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="462"/>
+        <source>Connecting to %1</source>
+        <translation type="unfinished">Verbinde zu %1</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="462"/>
+        <source>Enter username</source>
+        <translation type="unfinished">Benutzernamen eingeben</translation>
     </message>
 </context>
 <context>

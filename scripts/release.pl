@@ -18,6 +18,8 @@ foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro",
   open(F, $pro) or croak "Failed to open $pro";
   print "Processing $pro\n";
   $files{$pro}=1;
+  my $basedir=$pro;
+  $basedir =~ s/[^\/]+\Z//g;
   while(<F>) {
     chomp();
     if (/^\s*(\w+)\s*?[\+\-]{0,1}=\s*(.+)$/) {
@@ -30,9 +32,18 @@ foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro",
         case %filevars {
           foreach my $f (split(/\s+/,$value)) {
             $f =~ s/^.+\///g;
-            foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/", "overlay/", "overlay_gl/") {
-              if (-f "$d$f") {
-                $files{$d.$f}=1;
+            if (-f "${basedir}$f") {
+              $files{$basedir.$f}=1;
+            } else {
+              my $ok = 0;
+              foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/", "overlay/", "overlay_gl/", "speex/libspeex/") {
+                if (-f "$d$f") {
+                  $files{$d.$f}=1;
+                  $ok = 1;
+                }
+              }
+              if (! $ok) {
+                croak "Failed to find $f";
               }
             }
           }

@@ -16,13 +16,13 @@ FORMS =
 HEADERS = Server.h Meta.h DBus.h
 SOURCES = murmur.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp DBus.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
-SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp
+SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 
 DIST = DBus.h ServerDB.h
 
 
 PRECOMPILED_HEADER = murmur_pch.h
-DIST = murmur.pl murmur.ini link.pl dbusauth.pl Commands.txt mysql.sql mysql_upgrade.sql
+DIST = murmur.pl murmur.ini link.pl dbusauth.pl
 
 win32 {
   CONFIG += gui

@@ -13,5 +13,4 @@ unix {
 }
 
 DIST=LICENSE INSTALL README README.Linux CHANGES
-DIST+=overlay.cpp
 

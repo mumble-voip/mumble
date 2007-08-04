@@ -28,50 +28,31 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef _CRYPTSTATE_H
+#define _CRYPTSTATE_H
 
 #include "murmur_pch.h"
-#include "CryptState.h"
+#include "Timer.h"
 
-class Message;
-
-class Connection : public QObject {
-		Q_OBJECT
-	protected:
-		QSslSocket *qtsSocket;
-		QTime qtLastPacket;
-		int iPacketLength;
-		bool bDisconnectedEmitted;
-		bool bReentry;
-	protected slots:
-		void socketRead();
-		void socketError(QAbstractSocket::SocketError);
-		void socketDisconnected();
-		void socketSslErrors(const QList<QSslError> &errors);
-	public slots:
-		void proceedAnyway();
-	signals:
-		void connectionClosed(QString reason);
-		void message(QByteArray &);
-		void handleSslErrors(const QList<QSslError> &);
+class CryptState {
 	public:
-		Connection(QObject *parent, QSslSocket *qtsSocket);
-		~Connection();
-		void sendMessage(const Message *mMsg);
-		void sendMessage(const QByteArray &qbaMsg);
-		void disconnectSocket();
-		void forceFlush();
-		int activityTime() const;
-		
-		CryptState csIn, csOut;
+		unsigned char raw_key[AES_BLOCK_SIZE];
+		unsigned char encrypt_iv[AES_BLOCK_SIZE];
+		unsigned char decrypt_iv[AES_BLOCK_SIZE];
 
-		QList<QSslCertificate> peerCertificateChain() const;
-		QSslCipher sessionCipher() const;
-		QHostAddress peerAddress() const;
-		quint16 peerPort() const;
+		AES_KEY	crypt_key;
+		Timer tLastGood;
+		Timer tLastRequest;
+		bool bInit;
+		CryptState();
+
+		bool isValid() const;
+		void genKey();
+		void setKey(const unsigned char *rkey, const unsigned char *eiv, const unsigned char *div);
+		void setDecryptIV(const unsigned char *iv);
+
+		bool decrypt(const unsigned char *source, unsigned char *dst, unsigned int crypted_length);
+		void encrypt(const unsigned char *source, unsigned char *dst, unsigned int plain_length);
 };
 
-#else
-class Connection;
 #endif

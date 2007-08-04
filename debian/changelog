@@ -1,3 +1,9 @@
+mumble (1.1.0) feisty; urgency=low
+
+  * Multiserver support
+
+ -- Thorvald Natvig <slicer@sourceforge.net>  Sat, 4 Aug Jun 2007 14:49:30 +0200
+
 mumble (1.0.0) feisty; urgency=low
 
   * Bugfix release
