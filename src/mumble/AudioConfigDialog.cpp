@@ -195,7 +195,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	                           "This shows the peak amount of bandwidth sent out from your machine. Audio bitrate "
 	                           "is the maximum bitrate (as we use VBR) for the audio data alone. Position "
 	                           "is the bitrate used for positional information. Overhead is our framing and the "
-	                           "IP packet headers (IP and UDP is 90% of this overhead)."));
+	                           "IP packet headers (IP and UDP is 75% of this overhead)."));
 
 	l = new QLabel(tr("Outgoing Bitrate"));
 	l->setBuddy(qlBitrate);
@@ -486,16 +486,12 @@ void AudioConfigDialog::updateBitrate() {
 	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
 	speex_encoder_destroy(es);
 
-	// 50 packets, in bits, IP + UDP + type/id (Message header) + flags + seq
-	overhead = 50 * 8 * (20 + 8 + 3 + 1 + 2);
+	// 50 packets, in bits, IP + UDP + Crypt + type/id (Message header) + flags + seq
+	overhead = 50 * 8 * (20 + 8 + 4 + 3 + 1 + 2);
 
 	// TCP is 12 more bytes than UDP
 	if (qcbTCP->isChecked())
 		overhead += 50 * 8 * 12;
-
-	// Individual packet sizes
-	if (p > 1)
-		overhead += p * 8 * 50;
 
 	if (g.s.bTransmitPosition)
 		posrate = 12;

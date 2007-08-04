@@ -315,8 +315,6 @@ bool Server::checkDecrypt(User *u, const char *encrypted, char *plain, unsigned 
 	if (u->csCrypt.isValid() && u->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypted), reinterpret_cast<unsigned char *>(plain), len))
 		return true;
 
-	qWarning("Crypt No Good. And %lld", u->csCrypt.tLastGood.elapsed());
-	qWarning("with a hint of %lld", u->csCrypt.tLastRequest.elapsed());
 	if (u->csCrypt.tLastGood.elapsed() > 5000000ULL) {
 		if (u->csCrypt.tLastRequest.elapsed() > 5000000ULL) {
 			u->csCrypt.tLastRequest.restart();
@@ -354,7 +352,8 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 	pds >> seq;
 	pds >> flags;
 
-	int packetsize = 20 + 8 + 3 + pds.left();
+	// IP + UDP + Crypt + Data
+	int packetsize = 20 + 8 + 4 + pds.capacity();
 	bw->addFrame(packetsize);
 
 	if (bw->bytesPerSec() > iMaxBandwidth) {
