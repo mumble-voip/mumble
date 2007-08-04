@@ -156,8 +156,9 @@ QWidget *ConnectDialog::createLocal() {
 	connect(qlwServers, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
 
 	QModelIndex idx = qstmServers->index(g.qs->value(QLatin1String("ServerRow"),-1).toInt(),0);
-	if (idx.isValid())
+	if (idx.isValid()) {
 		qlwServers->setCurrentIndex(idx);
+	}
 
 	w->setLayout(vbl);
 	return w;
@@ -216,12 +217,16 @@ void ConnectDialog::accept() {
 		qsServer = a.at(0);
 		iPort = a.at(1).toInt();
 	} else {
-
-		if (bDirty && qlwServers->currentIndex().isValid()) {
+		if (bDirty) {
 			QSqlRecord r;
 			r = toRecord();
-			qstmServers->setRecord(qlwServers->currentIndex().row(), r);
-			qstmServers->submitAll();
+			if (! r.isEmpty()) {
+				if (qlwServers->currentIndex().row() >= 0)
+					qstmServers->setRecord(qlwServers->currentIndex().row(), r);
+				else
+					qstmServers->insertRecord(-1, r);
+				qstmServers->submitAll();
+			}
 		}
 
 		qsServer = qleServer->text();
@@ -229,7 +234,9 @@ void ConnectDialog::accept() {
 		qsPassword = qlePassword->text();
 		iPort = qlePort->text().toInt();
 
-		g.qs->setValue(QLatin1String("ServerRow"), qlwServers->currentIndex().row());
+		int row = qlwServers->currentIndex().row();
+
+		g.qs->setValue(QLatin1String("ServerRow"), row >= 0 ? row : 0);
 	}
 	QDialog::accept();
 }
@@ -241,11 +248,20 @@ void ConnectDialog::on_Servers_itemDoubleClicked(QTableWidgetItem *) {
 
 QSqlRecord ConnectDialog::toRecord() const {
 	QSqlRecord r = qstmServers->record();
-	r.setValue(QLatin1String("name"), qleName->text());
-	r.setValue(QLatin1String("hostname"), qleServer->text());
-	r.setValue(QLatin1String("username"), qleUsername->text());
-	r.setValue(QLatin1String("password"), qlePassword->text());
-	r.setValue(QLatin1String("port"), qlePort->text().toInt());
+
+	QString name = qleName->text();
+	QString host = qleServer->text();
+	QString user = qleUsername->text();
+	QString pw = qlePassword->text();
+	int port = qlePort->text().toInt();
+
+	if (name.isEmpty() || host.isEmpty() || user.isEmpty() || (port == 0))
+		return r;
+	r.setValue(QLatin1String("name"), name);
+	r.setValue(QLatin1String("hostname"), host);
+	r.setValue(QLatin1String("username"), user);
+	r.setValue(QLatin1String("password"), pw);
+	r.setValue(QLatin1String("port"), port);
 	return r;
 }
 
@@ -337,8 +353,13 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	if (bDirty) {
 		bDirty = false;
 		r = toRecord();
-		qstmServers->setRecord(previndex.row(), r);
-		qstmServers->submitAll();
+		if (! r.isEmpty()) {
+			if (previndex.row() >= 0)
+				qstmServers->setRecord(previndex.row(), r);
+			else
+				qstmServers->insertRecord(-1, r);
+			qstmServers->submitAll();
+		}
 	}
 	if (index.isValid()) {
 		r = qstmServers->record(index.row());
@@ -352,15 +373,33 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 }
 
 void ConnectDialog::on_Add_clicked() {
+	if (bDirty) {
+		bDirty = false;
+		QSqlRecord r = toRecord();
+		if (! r.isEmpty()) {
+			qstmServers->setRecord(qlwServers->currentIndex().row(), r);
+			qstmServers->submitAll();
+		}
+	}
+
+	qleName->setText(tr("-Unnamed entry-"));
+	qleServer->setText(QString());
+	qleUsername->setText(g.qs->value(QLatin1String("defUserName")).toString());
+	qlePassword->setText(QString());
+	qlePort->setText(QLatin1String("64738"));
+
 	bDirty = false;
-	QSqlRecord r = toRecord();
-	qstmServers->insertRecord(-1, r);
-	qstmServers->submitAll();
 }
 
 void ConnectDialog::on_Remove_clicked() {
-	qstmServers->removeRows(qlwServers->currentIndex().row(), 1, QModelIndex());
+	int row = qlwServers->currentIndex().row();
+	if (row < 0)
+		return;
+	if (!qstmServers->removeRows(row, 1, QModelIndex())) {
+		qWarning("Failed row remove: %s", qPrintable(qstmServers->lastError().text()));
+	}
 	qstmServers->submitAll();
+	qstmServers->select();
 }
 
 void ConnectDialog::onDirty(const QString &) {
