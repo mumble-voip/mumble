@@ -157,13 +157,12 @@ int AudioInput::getMaxBandwidth() {
 	audiorate /= 400/g.s.iFramesPerPacket;
 
 	// Overhead
-	audiorate += 20 + 8 + 3 + 2;
-
-	// Subframe lengths
-	if (g.s.iFramesPerPacket > 1)
-		audiorate += g.s.iFramesPerPacket;
+	audiorate += 20 + 8 + 7 + 3;
 
 	if (g.s.bTransmitPosition)
+		audiorate += 12;
+		
+	if (g.s.bTCPCompat)
 		audiorate += 12;
 
 	audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
