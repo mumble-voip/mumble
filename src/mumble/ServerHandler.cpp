@@ -45,7 +45,7 @@ ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool flush
 }
 
 ServerHandler::ServerHandler() {
-	cConnection = NULL;
+	cConnection.reset();
 	qusUdp = NULL;
 
 	uiTCPPing = uiUDPPing = 0LL;
@@ -150,10 +150,14 @@ void ServerHandler::sendMessage(Message *mMsg, bool forceTCP) {
 		QMutexLocker qml(&qmUdp);
 		if (! qusUdp)
 			return;
-		char buffer[65536];
+		if (! cConnection->csCrypt.isValid())
+			return;
+		unsigned char buffer[65536];
+		unsigned char crypto[65540];
 		PacketDataStream pds(buffer, 65536);
 		mMsg->messageToNetwork(pds);
-		qusUdp->writeDatagram(buffer, pds.size(), qhaRemote, iPort);
+		cConnection->csCrypt.encrypt(buffer, crypto, pds.size());
+		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), pds.size() + 4, qhaRemote, iPort);
 	} else {
 		QByteArray qbaBuffer;
 		mMsg->messageToNetwork(qbaBuffer);
@@ -165,7 +169,7 @@ void ServerHandler::sendMessage(Message *mMsg, bool forceTCP) {
 
 void ServerHandler::run() {
 	QSslSocket *qtsSock = new QSslSocket(this);
-	cConnection = new Connection(this, qtsSock);
+	cConnection = ConnectionPtr(new Connection(this, qtsSock));
 
 	qlErrors.clear();
 	qscCert.clear();
@@ -173,9 +177,9 @@ void ServerHandler::run() {
 	uiUDPPing = uiTCPPing = 0LL;
 
 	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
-	connect(cConnection, SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
-	connect(cConnection, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
-	connect(cConnection, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
+	connect(cConnection.get(), SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
+	connect(cConnection.get(), SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
+	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
 	qtsSock->connectToHostEncrypted(qsHostName, iPort);
 
 	QTimer *ticker = new QTimer(this);
@@ -186,17 +190,17 @@ void ServerHandler::run() {
 
 	exec();
 
-	ticker->stop();
-	cConnection->disconnectSocket();
-	delete cConnection;
-	cConnection = NULL;
-
 	if (qusUdp) {
 		QMutexLocker qml(&qmUdp);
 
 		delete qusUdp;
 		qusUdp = NULL;
 	}
+
+	ticker->stop();
+	cConnection->disconnectSocket();
+	cConnection.reset();
+
 }
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {

@@ -45,6 +45,8 @@ class ServerHandlerMessageEvent : public QEvent {
 		ServerHandlerMessageEvent(QByteArray &msg, bool flush);
 };
 
+typedef boost::shared_ptr<Connection> ConnectionPtr;
+
 class ServerHandler : public QThread {
 		Q_OBJECT
 	protected:
@@ -53,7 +55,6 @@ class ServerHandler : public QThread {
 		QString qsPassword;
 		QString qsDigest;
 		int iPort;
-		Connection *cConnection;
 
 		QHostAddress qhaRemote;
 		QUdpSocket *qusUdp;
@@ -63,6 +64,7 @@ class ServerHandler : public QThread {
 		QList<QSslError> qlErrors;
 		QList<QSslCertificate> qscCert;
 		QSslCipher qscCipher;
+		ConnectionPtr cConnection;
 
 		quint64 uiUDPPing, uiTCPPing;
 

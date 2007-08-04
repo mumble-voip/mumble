@@ -317,15 +317,21 @@ void MainWindow::msgTexture(Connection *, MessageTexture *msg) {
 		g.o->textureResponse(msg->iPlayerId,msg->qbaTexture);
 }
 
-void MainWindow::msgCryptSetup(Connection *cCon, MessageCryptSetup *msg) {
-	cCon->csCrypt.setKey(reinterpret_cast<const unsigned char *>(msg->qbaKey.constData()), reinterpret_cast<const unsigned char *>(msg->qbaClientNonce.constData()), reinterpret_cast<const unsigned char *>(msg->qbaServerNonce.constData()));
+void MainWindow::msgCryptSetup(Connection *, MessageCryptSetup *msg) {
+	ConnectionPtr c= g.sh->cConnection;
+	if (! c)
+		return;
+	c->csCrypt.setKey(reinterpret_cast<const unsigned char *>(msg->qbaKey.constData()), reinterpret_cast<const unsigned char *>(msg->qbaClientNonce.constData()), reinterpret_cast<const unsigned char *>(msg->qbaServerNonce.constData()));
 }
 
-void MainWindow::msgCryptSync(Connection *cCon, MessageCryptSync *msg) {
+void MainWindow::msgCryptSync(Connection *, MessageCryptSync *msg) {
+	ConnectionPtr c= g.sh->cConnection;
+	if (! c)
+		return;
 	if (msg->qbaNonce.isEmpty()) {
-		msg->qbaNonce = QByteArray(reinterpret_cast<const char *>(cCon->csCrypt.encrypt_iv), AES_BLOCK_SIZE);
+		msg->qbaNonce = QByteArray(reinterpret_cast<const char *>(c->csCrypt.encrypt_iv), AES_BLOCK_SIZE);
 		g.sh->sendMessage(msg);
 	} else if (msg->qbaNonce.size() == AES_BLOCK_SIZE) {
-		memcpy(cCon->csCrypt.decrypt_iv, msg->qbaNonce.constData(), AES_BLOCK_SIZE);
+		memcpy(c->csCrypt.decrypt_iv, msg->qbaNonce.constData(), AES_BLOCK_SIZE);
 	}
 }
