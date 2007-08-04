@@ -278,8 +278,15 @@ void OverlayConfig::on_SetFont_clicked() {
 	if (ok) {
 		qfFont = qf;
 		qlCurrentFont->setText(qfFont.family());
+		qsMaxHeight->setValue(qfFont.pointSize());
 	}
 }
+
+void OverlayConfig::on_MaxHeight_valueChanged(int v) {
+	qlMaxHeight->setText(QString::fromLatin1("%1%").arg(v/10.0, 0, 'f', 1));
+	qfFont.setPointSize(v);
+}
+
 
 void OverlayConfig::on_Player_clicked() {
 	bool ok;
@@ -324,10 +331,6 @@ void OverlayConfig::on_ChannelTalking_clicked() {
 		qcChannelTalking = QColor::fromRgba(rgb);
 		setColorLabel(qlChannelTalking, qcChannelTalking);
 	}
-}
-
-void OverlayConfig::on_MaxHeight_valueChanged(int v) {
-	qlMaxHeight->setText(QString::fromLatin1("%1%").arg(v/10.0, 0, 'f', 1));
 }
 
 QString OverlayConfig::title() const {
@@ -582,16 +585,18 @@ void Overlay::updateOverlay() {
  */
 
 void Overlay::fixFont() {
-	g.s.qfOverlayFont.setStyleStrategy(QFont::ForceOutline);
+	qfFont = g.s.qfOverlayFont;
+
+	qfFont.setStyleStrategy(QFont::ForceOutline);
 
 	int psize = TEXT_HEIGHT;
 
 	QRectF br;
 
 	do {
-		g.s.qfOverlayFont.setPixelSize(psize--);
+		qfFont.setPixelSize(psize--);
 		QPainterPath qp;
-		qp.addText(0, 0, g.s.qfOverlayFont, QLatin1String("Üy"));
+		qp.addText(0, 0, qfFont, QLatin1String("Üy"));
 		br=qp.boundingRect();
 		qWarning("Overlay: Attempt for pixelsize %d gave actual sizes %f %f", psize+1, br.height(),br.top());
 	} while ((br.height()+2) > TEXT_HEIGHT);
@@ -621,7 +626,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 			QImage qi(td, TEXT_WIDTH, TEXT_HEIGHT, QImage::Format_ARGB32);
 
 			QPainterPath qp;
-			qp.addText(2, fFontBase, g.s.qfOverlayFont, e.qsText);
+			qp.addText(2, fFontBase, qfFont, e.qsText);
 
 			QPainter p(&qi);
 			p.setRenderHint(QPainter::Antialiasing);

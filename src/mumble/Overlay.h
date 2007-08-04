@@ -114,6 +114,7 @@ class Overlay : public QObject {
 		QSet<int> qsForce;
 		QLibrary *qlOverlay;
 		QTimer *qtTimer;
+		QFont qfFont;
 		float fFontBase;
 		SharedMemory sm;
 		void platformInit();
