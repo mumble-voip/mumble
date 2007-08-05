@@ -15,6 +15,7 @@
 #include "PacketDataStream.h"
 #include "Timer.h"
 #include "Message.h"
+#include "CryptState.h"
 
 class Client : public QThread {
 		Q_OBJECT
@@ -23,6 +24,7 @@ class Client : public QThread {
 		bool sender;
 		struct sockaddr_in srv;
 		unsigned int uiSession;
+		CryptState crypt;
 		int rcvd;
 		int socket;
 		int seq;
@@ -32,6 +34,7 @@ class Client : public QThread {
 		int numbytes;
 		QSslSocket *ssl;
 		Client(QObject *parent, QHostAddress srvaddr, unsigned short prt, bool send, bool tcponly);
+		void doUdp(const unsigned char *buffer, int size);
 		~Client();
 	public slots:
 		void readyRead();
@@ -105,8 +108,7 @@ void Client::ping() {
 	ods << uiSession;
 	ods << 123;
 
-	if (udp)
-		::sendto(socket, bp, ods.size(), 0, reinterpret_cast<struct sockaddr *>(&srv), sizeof(srv));
+	doUdp(bp, ods.size());
 
 	int msize = ods.size();
 
@@ -130,22 +132,35 @@ void Client::sendVoice() {
 	ods << uiSession;
 	ods << seq++;
 	ods.append(spx, 100);
-	::sendto(socket, buffer, ods.size(), 0, reinterpret_cast<struct sockaddr *>(&srv), sizeof(srv));
+	doUdp(buffer, ods.size());
 }
+
+void Client::doUdp(const unsigned char *buffer, int size) {
+	if (! udp || ! crypt.isValid())
+		return;
+		
+	unsigned char crypted[size+4];
+	
+	crypt.encrypt(reinterpret_cast<const unsigned char *>(buffer), crypted, size);
+	::sendto(socket, crypted, size+4, 0, reinterpret_cast<struct sockaddr *>(&srv), sizeof(srv));
+}
+
 
 void Client::run() {
 	unsigned char buffer[1000];
 	struct sockaddr_in addr;
 	socklen_t sz;
+	int len;
 
 	if (! udp)
 		return;
 
 	forever {
 		sz = sizeof(addr);
-		if (::recvfrom(socket, reinterpret_cast<char *>(buffer), 1000, 0, reinterpret_cast<struct sockaddr *>(&addr), &sz) <= 0)
+		len = ::recvfrom(socket, reinterpret_cast<char *>(buffer), 1000, 0, reinterpret_cast<struct sockaddr *>(&addr), &sz);
+		if ( len <= 0)
 			break;
-		if (buffer[0] == Message::Speex)
+		if ( len >= 40) 
 			rcvd++;
 	}
 }
@@ -173,7 +188,14 @@ void Client::readyRead() {
 			unsigned int sess;
 			ids >> ptype;
 			ids >> sess;
-			if (ptype == Message::ServerSync) {
+			if (ptype == Message::CryptSetup) {
+				QByteArray key, server, client;
+				ids >> key >> server >> client;
+				crypt.setKey(reinterpret_cast<const unsigned char *>(key.constData()), reinterpret_cast<const unsigned char *>(client.constData()), reinterpret_cast<const unsigned char *>(server.constData()));
+			} else if (ptype == Message::CryptSync) {
+				qWarning("Crypt desync!");
+				QCoreApplication::instance()->quit();
+			}if (ptype == Message::ServerSync) {
 				uiSession = sess;
 			} else if (ptype == Message::Speex) {
 				rcvd++;

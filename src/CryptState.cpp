@@ -118,88 +118,118 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 	return true;
 }
 
-static void inline XOR(unsigned char *dst, const unsigned char *a, const unsigned char *b) {
-	for (int i=0;i<AES_BLOCK_SIZE;i++)
+#if defined(__LP64__)
+
+#define BLOCKSIZE 2
+#define SHIFTBITS 63
+typedef quint64 subblock;
+
+#if __BYTE_ORDER == __BIG_ENDIAN
+#define SWAPPED(x) (x)
+#else
+#ifdef __x86_64__
+#define SWAPPED(x) ({register quint64 __out, __in = (x); __asm__("bswap %q0" : "=r"(__out) : "0"(__in)); __out;})
+#else
+#define SWAPPED(x) qbswap<quint64>(x)
+#endif
+#endif
+#else
+#define BLOCKSIZE 4
+#define SHIFTBITS 31
+typedef quint32 subblock;
+#define SWAPPED(x) htonl(x)
+#endif
+
+typedef subblock keyblock[BLOCKSIZE];
+
+#define HIGHBIT (1<<SHIFTBITS);
+
+
+static void inline XOR(subblock *dst, const subblock *a, const subblock *b) {
+	for (int i=0;i<BLOCKSIZE;i++) {
 		dst[i] = a[i] ^ b[i];
+	}
 }
 
-static void inline S2(unsigned char *block) {
-	unsigned char carry = block[0] >> 7;
-	for (int i=0;i<AES_BLOCK_SIZE-1;i++)
-		block[i] = (block[i] << 1) | (block[i+1] >> 7);
-	block[AES_BLOCK_SIZE-1] = (block[AES_BLOCK_SIZE-1] << 1) ^(carry * 0x87);
+static void inline S2(subblock *block) {
+	subblock carry = SWAPPED(block[0]) >> SHIFTBITS;
+	for (int i=0;i<BLOCKSIZE-1;i++)
+		block[i] = SWAPPED( (SWAPPED(block[i]) << 1) | (SWAPPED(block[i+1]) >> SHIFTBITS));
+	block[BLOCKSIZE-1] = SWAPPED((SWAPPED(block[BLOCKSIZE-1]) << 1) ^ (carry * 0x87));
 }
 
-static void inline S3(unsigned char *block) {
-	unsigned char carry = block[0] >> 7;
-	for (int i=0;i<AES_BLOCK_SIZE-1;i++)
-		block[i] ^= (block[i] << 1) | (block[i+1] >> 7);
-	block[AES_BLOCK_SIZE-1] ^= (block[AES_BLOCK_SIZE-1] << 1) ^(carry * 0x87);
+static void inline S3(subblock *block) {
+	subblock carry = SWAPPED(block[0]) >> SHIFTBITS;
+	for (int i=0;i<BLOCKSIZE-1;i++)
+		block[i] ^= SWAPPED( (SWAPPED(block[i]) << 1) | (SWAPPED(block[i+1]) >> SHIFTBITS));
+	block[BLOCKSIZE-1] ^= SWAPPED((SWAPPED(block[BLOCKSIZE-1]) << 1) ^ (carry * 0x87));
 }
+
+static void inline ZERO(keyblock &block) {
+	for (int i=0;i<BLOCKSIZE;i++)
+		block[i]=0;
+}
+
+#define AESencrypt(src,dst,key) AES_encrypt(reinterpret_cast<const unsigned char *>(src),reinterpret_cast<unsigned char *>(dst), key);
+#define AESdecrypt(src,dst,key) AES_decrypt(reinterpret_cast<const unsigned char *>(src),reinterpret_cast<unsigned char *>(dst), key);
 
 void CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypted, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
-	unsigned char checksum[AES_BLOCK_SIZE];
-	unsigned char delta[AES_BLOCK_SIZE];
-	unsigned char tmp[AES_BLOCK_SIZE];
-	unsigned char pad[AES_BLOCK_SIZE];
+	keyblock checksum, delta, tmp, pad;
 
 	// Initialize
-	AES_encrypt(nonce, delta, &encrypt_key);
-	memset(checksum, 0, AES_BLOCK_SIZE);
-
+	AESencrypt(nonce, delta, &encrypt_key);
+	ZERO(checksum);
+	
 	while (len > AES_BLOCK_SIZE) {
 		S2(delta);
-		XOR(tmp, delta, plain);
-		AES_encrypt(tmp, tmp, &encrypt_key);
-		XOR(encrypted, delta, tmp);
-		XOR(checksum, checksum, plain);
+		XOR(tmp, delta, reinterpret_cast<const subblock *>(plain));
+		AESencrypt(tmp, tmp, &encrypt_key);
+		XOR(reinterpret_cast<subblock *>(encrypted), delta, tmp);
+		XOR(checksum, checksum, reinterpret_cast<const subblock *>(plain));
 		len -= AES_BLOCK_SIZE;
 		plain += AES_BLOCK_SIZE;
 		encrypted += AES_BLOCK_SIZE;
 	}
 
 	S2(delta);
-	memset(tmp, 0, AES_BLOCK_SIZE);
-	tmp[AES_BLOCK_SIZE - 1] = len * 8;
+	ZERO(tmp);
+	tmp[BLOCKSIZE - 1] = SWAPPED(len * 8);
 	XOR(tmp, tmp, delta);
-	AES_encrypt(tmp, pad, &encrypt_key);
+	AESencrypt(tmp, pad, &encrypt_key);
 	memcpy(tmp, plain, len);
-	memcpy(tmp+len, pad+len, AES_BLOCK_SIZE - len);
+	memcpy(reinterpret_cast<unsigned char *>(tmp)+len, reinterpret_cast<const unsigned char *>(pad)+len, AES_BLOCK_SIZE - len);
 	XOR(checksum, checksum, tmp);
 	XOR(tmp, pad, tmp);
 	memcpy(encrypted, tmp, len);
 
 	S3(delta);
 	XOR(tmp, delta, checksum);
-	AES_encrypt(tmp, tag, &encrypt_key);
+	AESencrypt(tmp, tag, &encrypt_key);
 }
 
 void CryptState::ocb_decrypt(const unsigned char *encrypted, unsigned char *plain, unsigned int len, const unsigned char *nonce, unsigned char *tag) {
-	unsigned char checksum[AES_BLOCK_SIZE];
-	unsigned char delta[AES_BLOCK_SIZE];
-	unsigned char tmp[AES_BLOCK_SIZE];
-	unsigned char pad[AES_BLOCK_SIZE];
+	keyblock checksum, delta, tmp, pad;
 
 	// Initialize
-	AES_encrypt(nonce, delta, &encrypt_key);
-	memset(checksum, 0, AES_BLOCK_SIZE);
+	AESencrypt(nonce, delta, &encrypt_key);
+	ZERO(checksum);
 
 	while (len > AES_BLOCK_SIZE) {
 		S2(delta);
-		XOR(tmp, delta, encrypted);
-		AES_decrypt(tmp, tmp, &decrypt_key);
-		XOR(plain, delta, tmp);
-		XOR(checksum, checksum, plain);
+		XOR(tmp, delta, reinterpret_cast<const subblock *>(encrypted));
+		AESdecrypt(tmp, tmp, &decrypt_key);
+		XOR(reinterpret_cast<subblock *>(plain), delta, tmp);
+		XOR(checksum, checksum, reinterpret_cast<const subblock *>(plain));
 		len -= AES_BLOCK_SIZE;
 		plain += AES_BLOCK_SIZE;
 		encrypted += AES_BLOCK_SIZE;
 	}
 
 	S2(delta);
-	memset(tmp, 0, AES_BLOCK_SIZE);
-	tmp[AES_BLOCK_SIZE - 1] = len * 8;
+	ZERO(tmp);
+	tmp[BLOCKSIZE - 1] = SWAPPED(len * 8);
 	XOR(tmp, tmp, delta);
-	AES_encrypt(tmp, pad, &encrypt_key);
+	AESencrypt(tmp, pad, &encrypt_key);
 	memset(tmp, 0, AES_BLOCK_SIZE);
 	memcpy(tmp, encrypted, len);
 	XOR(tmp, tmp, pad);
@@ -208,5 +238,5 @@ void CryptState::ocb_decrypt(const unsigned char *encrypted, unsigned char *plai
 
 	S3(delta);
 	XOR(tmp, delta, checksum);
-	AES_encrypt(tmp, tag, &encrypt_key);
+	AESencrypt(tmp, tag, &encrypt_key);
 }
