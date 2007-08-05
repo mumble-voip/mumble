@@ -458,9 +458,9 @@ void DXAudioOutput::updateListener() {
 }
 
 void DXAudioOutput::removeBuffer(AudioOutputPlayer *aop) {
-	AudioOutput::removeBuffer(aop);
-
 	DXAudioOutputPlayer *dxaop=qhPlayers.take(aop);
+
+	AudioOutput::removeBuffer(aop);
 	if (dxaop)
 		delete dxaop;
 }
