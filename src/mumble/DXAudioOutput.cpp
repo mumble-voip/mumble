@@ -68,7 +68,7 @@ AudioOutput *DXAudioOutputRegistrar::create() {
 typedef QPair<QString, GUID> dsDevice;
 
 static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
-                                const WCHAR* lpszDrvName, void *ctx) {
+                                const WCHAR*, void *ctx) {
 	if (lpGUID) {
 		QList<dsDevice> *l =reinterpret_cast<QList<dsDevice> *>(ctx);
 		*l << dsDevice(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), *lpGUID);
@@ -300,13 +300,13 @@ bool DXAudioOutputPlayer::playFrames() {
 		}
 
 		if (FAILED(hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
-			qFatal("DXAudioOutput: Lock block %d (%d bytes)",block, iByteSize);
+			qFatal("DXAudioOutput: Lock block %u (%d bytes)",block, iByteSize);
 		if (aptr1 && nbytes1)
 			CopyMemory(aptr1, aop->psBuffer, MIN(iByteSize, nbytes1));
 		if (aptr2 && nbytes2)
 			CopyMemory(aptr2, aop->psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
 		if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
-			qFatal("DXAudioOutput: Unlock");
+			qFatal("DXAudioOutput: Unlock %p(%u) %p(%u)",aptr1,nbytes1,aptr2,nbytes2);
 
 		// If we get another while we're working, we're already taking care of it.
 		ResetEvent(hNotificationEvent);
@@ -321,7 +321,7 @@ bool DXAudioOutputPlayer::playFrames() {
 
 	if (! bPlaying) {
 		if (FAILED(hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING)))
-			qFatal("DXAUdioOutputPlayer: Play");
+			qFatal("DXAudioOutputPlayer: Play");
 		bPlaying = true;
 	}
 
@@ -458,15 +458,15 @@ void DXAudioOutput::updateListener() {
 }
 
 void DXAudioOutput::removeBuffer(AudioOutputPlayer *aop) {
+	AudioOutput::removeBuffer(aop);
+
 	DXAudioOutputPlayer *dxaop=qhPlayers.take(aop);
 	if (dxaop)
 		delete dxaop;
-	AudioOutput::removeBuffer(aop);
 }
 
 void DXAudioOutput::run() {
 	DXAudioOutputPlayer *dxaop;
-	AudioOutputPlayer *aop;
 	HANDLE handles[MAXIMUM_WAIT_OBJECTS];
 	DWORD count = 0;
 	DWORD hit;
