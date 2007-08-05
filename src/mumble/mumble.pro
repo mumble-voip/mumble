@@ -39,19 +39,21 @@ win32 {
 }
 
 unix {
+  UNAME=$$system(uname -s)
+
   QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS_RELEASE += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS_DEBUG += -I../../speex/include -I../../speexbuild
   CONFIG += qdbus link_pkgconfig
   PKGCONFIG += openssl
-}
 
-linux {
-  HEADERS += ALSAAudio.h GlobalShortcut_unix.h
-  SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
-  PKGCONFIG += xevie alsa
-  QMAKE_CXXFLAGS += -msse -mmx
+  contains(UNAME, Linux) {
+    HEADERS += ALSAAudio.h GlobalShortcut_unix.h
+    SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
+    PKGCONFIG += xevie alsa
+    QMAKE_CXXFLAGS += -msse -mmx
+  }
 }
 
 macx {
