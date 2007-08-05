@@ -24,7 +24,7 @@ LIBS	+= -lspeex
 
 SUBDIRS	= speex
 
-QMAKE_CXXFLAGS	+= -msse -mmmx -Wall -Wextra
+QMAKE_CXXFLAGS	+= -Wall -Wextra
 
 win32 {
   HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h
@@ -35,17 +35,32 @@ win32 {
   DEFINES += WIN32
   INCLUDEPATH	+= /dev/openssl/outinc
   LIBS += -L/dev/openssl/out -leay32
+  QMAKE_CXXFLAGS += -msse -mmmx
 }
 
 unix {
-  HEADERS	+= ALSAAudio.h GlobalShortcut_unix.h
-  SOURCES	+= ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
   QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS_RELEASE += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS_DEBUG += -I../../speex/include -I../../speexbuild
   CONFIG += qdbus link_pkgconfig
-  PKGCONFIG += xevie alsa openssl
+  PKGCONFIG += openssl
+}
+
+linux {
+  HEADERS += ALSAAudio.h GlobalShortcut_unix.h
+  SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
+  PKGCONFIG += xevie alsa
+  QMAKE_CXXFLAGS += -msse -mmx
+}
+
+macx {
+  CONFIG += x86 ppc
+  LIBS += -framework ApplicationServices
+  QMAKE_LFLAGS += -L../../speexbuild -L/System/Library/Frameworks
+  INCLUDEPATH += /usr/local/include/boost-1_34
+  HEADERS += GlobalShortcut_macx.h
+  SOURCES += TextToSpeech_macx.cpp GlobalShortcut_macx.cpp
 }
 
 CONFIG(asio) {

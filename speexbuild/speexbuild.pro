@@ -8,12 +8,18 @@ VPATH	= ../speex/libspeex
 TARGET = speex
 DEFINES += NDEBUG HAVE_CONFIG_H
 INCLUDEPATH = ../speex/include ../speex/libspeex
+
 win32 {
 	DEFINES+=WIN32 _WINDOWS _USE_SSE VAR_ARRAYS
 	INCLUDEPATH += ../speex/win32
 }
+
 unix {
 	INCLUDEPATH += ../speexbuild
+}
+
+macx {
+  CONFIG += x86 ppc
 }
 
 DIST = config.h speex.def speex/speex_config_types.h
