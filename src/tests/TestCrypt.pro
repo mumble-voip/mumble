@@ -1,0 +1,9 @@
+TEMPLATE	=app
+CONFIG  += qt thread warn_on network qdbus xml qtestlib qsql debug
+QT += qdbus xml sql network
+LANGUAGE	= C++
+TARGET = TestCrypt
+SOURCES = TestCrypt.cpp CryptState.cpp Timer.cpp
+VPATH += ..
+INCLUDEPATH += .. ../murmur ../mumble
+LIBS	+= -lcrypto
