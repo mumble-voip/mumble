@@ -266,7 +266,7 @@ void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
 	pmModel->ensureSelfVisible();
 
 	bool found = false;
-	QStringList qlChans = qsDesiredChannel.split("/");
+	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
 	Channel *chan = Channel::get(0);
 	while (chan && qlChans.count() > 0) {
 		QString str = qlChans.takeFirst().toLower();

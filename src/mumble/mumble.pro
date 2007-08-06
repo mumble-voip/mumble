@@ -40,6 +40,12 @@ win32 {
 
 unix {
   UNAME=$$system(uname -s)
+  ARCH=$$system(uname -p)
+  X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
+
+  !isEmpty(X86ARCH) {
+    QMAKE_CXXFLAGS += -mmmx
+  }
 
   QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
@@ -52,17 +58,16 @@ unix {
     HEADERS += ALSAAudio.h GlobalShortcut_unix.h
     SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
     PKGCONFIG += xevie alsa
-    QMAKE_CXXFLAGS += -msse -mmx
   }
-}
 
-macx {
-  CONFIG += x86 ppc
-  LIBS += -framework ApplicationServices
-  QMAKE_LFLAGS += -L../../speexbuild -L/System/Library/Frameworks
-  INCLUDEPATH += /usr/local/include/boost-1_34
-  HEADERS += GlobalShortcut_macx.h
-  SOURCES += TextToSpeech_macx.cpp GlobalShortcut_macx.cpp
+  macx {
+    CONFIG += x86 ppc
+    LIBS += -framework ApplicationServices
+    QMAKE_LFLAGS += -L../../speexbuild -L/System/Library/Frameworks
+    INCLUDEPATH += /usr/local/include/boost-1_34
+    HEADERS += GlobalShortcut_macx.h
+    SOURCES += TextToSpeech_macx.cpp GlobalShortcut_macx.cpp Overlay_macx.cpp
+  }
 }
 
 CONFIG(asio) {
