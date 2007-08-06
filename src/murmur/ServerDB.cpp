@@ -644,7 +644,7 @@ void Server::updateChannel(const Channel *c) {
 	int pri = 5;
 
 	foreach(acl, c->qlACL) {
-		SQLPREP("INSERT INTO %1acl (server_id, channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (?,?,?,?,?,?,?,?)");
+		SQLPREP("INSERT INTO %1acl (server_id, channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv) VALUES (?,?,?,?,?,?,?,?,?)");
 		query.addBindValue(iServerNum);
 		query.addBindValue(acl->c->iId);
 		query.addBindValue(pri++);
