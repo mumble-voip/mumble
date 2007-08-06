@@ -63,9 +63,10 @@ void MainWindow::msgServerJoin(Connection *, MessageServerJoin *msg) {
 
 #define VICTIM_INIT \
 	ClientPlayer *pDst=ClientPlayer::get(msg->uiVictim); \
-	 if (! pDst) \
+	 if (! pDst) { \
  		qWarning("MainWindow: Message for nonexistant victim %d.", msg->uiVictim); \
-		return;
+		return; \
+	}
 
 void MainWindow::msgServerLeave(Connection *, MessageServerLeave *msg) {
 	MSG_INIT;
@@ -197,8 +198,10 @@ void MainWindow::msgPlayerMove(Connection *, MessagePlayerMove *msg) {
 	}
 
 	Channel *c = Channel::get(msg->iChannelId);
-	if (!c)
+	if (!c) {
+		qWarning("MessagePlayerMove for unknown channel.");
 		c = Channel::get(0);
+	}
 
 	pmModel->movePlayer(pDst, c);
 
