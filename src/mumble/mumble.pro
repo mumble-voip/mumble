@@ -40,12 +40,9 @@ win32 {
 
 unix {
   UNAME=$$system(uname -s)
-  ARCH=$$system(uname -p)
+  ARCH=$$system(uname -m)
   X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
 
-  !isEmpty(X86ARCH) {
-    QMAKE_CXXFLAGS += -mmmx
-  }
 
   QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
@@ -67,6 +64,12 @@ unix {
     INCLUDEPATH += /usr/local/include/boost-1_34
     HEADERS += GlobalShortcut_macx.h
     SOURCES += TextToSpeech_macx.cpp GlobalShortcut_macx.cpp Overlay_macx.cpp
+  }
+
+  !macx {
+    !isEmpty(X86ARCH) {
+      QMAKE_CXXFLAGS += -mmmx
+    }
   }
 }
 
