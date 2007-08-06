@@ -284,6 +284,7 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 		if (! db.open()) {
 			qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db.lastError().text()));
 		}
+		query = QSqlQuery();
 		if (query.prepare(str.arg(Meta::mp.qsDBPrefix))) {
 			qWarning("SQL Connection lost, reconnection OK");
 			return true;

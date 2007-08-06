@@ -48,6 +48,8 @@
 
 #define VICTIM_SETUP \
 	User *pDstUser = qhUsers.value(msg->uiVictim); \
+	if (! pDstUser) \
+		return; \
 	Q_UNUSED(pDstUser)
 
 #define PERM_DENIED(who, where, what) \
@@ -318,9 +320,6 @@ void Server::msgPlayerMute(Connection *cCon, MessagePlayerMute *msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (! pDstUser)
-		return;
-
 	if ((pDstUser->iId ==0) || ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MuteDeafen);
 		return;
@@ -348,9 +347,6 @@ void Server::msgPlayerDeaf(Connection *cCon, MessagePlayerDeaf *msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (! pDstUser)
-		return;
-
 	if ((pDstUser->iId ==0) || ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MuteDeafen);
 		return;
@@ -375,9 +371,6 @@ void Server::msgPlayerKick(Connection *cCon, MessagePlayerKick *msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	if (! pDstUser)
-		return;
-
 	if ((pDstUser->iId ==0) || ! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick)) {
 		PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MoveKick);
 		return;
@@ -391,9 +384,6 @@ void Server::msgPlayerKick(Connection *cCon, MessagePlayerKick *msg) {
 void Server::msgPlayerBan(Connection *cCon, MessagePlayerBan *msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
-
-	if (! pDstUser)
-		return;
 
 	if ((pDstUser->iId ==0) || ! hasPermission(uSource, qhChannels.value(0), ChanACL::MoveKick)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::MoveKick);
@@ -423,9 +413,6 @@ void Server::msgPlayerSelfMuteDeaf(Connection *cCon, MessagePlayerSelfMuteDeaf *
 void Server::msgPlayerMove(Connection *cCon, MessagePlayerMove *msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
-
-	if (! pDstUser)
-		return;
 
 	Channel *c = qhChannels.value(msg->iChannelId);
 	if (!c || (c == pDstUser->cChannel))
