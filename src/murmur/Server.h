@@ -236,6 +236,7 @@ class Server : public QThread, public MessageHandler {
 		virtual void msgChannelRemove(Connection *, MessageChannelRemove *);
 		virtual void msgChannelMove(Connection *, MessageChannelMove *);
 		virtual void msgChannelLink(Connection *, MessageChannelLink *);
+		virtual void msgChannelRename(Connection *, MessageChannelRename *);
 		virtual void msgServerBanList(Connection *, MessageServerBanList *);
 		virtual void msgTextMessage(Connection *, MessageTextMessage *);
 		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);

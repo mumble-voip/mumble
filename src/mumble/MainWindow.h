@@ -62,7 +62,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink;
 		QAction *qaConfigDialog, *qaAudioWizard;
 		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
-		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
+		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelRename, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
 		QSplitter *qsSplit;
 		QSystemTrayIcon *qstiIcon;
 		QTextEdit *qteLog;
@@ -107,6 +107,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		void on_ChannelAdd_triggered();
 		void on_ChannelRemove_triggered();
 		void on_ChannelACL_triggered();
+		void on_ChannelRename_triggered();
 		void on_ChannelLink_triggered();
 		void on_ChannelUnlink_triggered();
 		void on_ChannelUnlinkAll_triggered();
@@ -157,6 +158,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		virtual void msgChannelRemove(Connection *, MessageChannelRemove *);
 		virtual void msgChannelMove(Connection *, MessageChannelMove *);
 		virtual void msgChannelLink(Connection *, MessageChannelLink *);
+		virtual void msgChannelRename(Connection *, MessageChannelRename *);
 		virtual void msgServerBanList(Connection *, MessageServerBanList *);
 		virtual void msgTextMessage(Connection *, MessageTextMessage *);
 		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);

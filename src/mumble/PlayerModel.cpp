@@ -521,7 +521,7 @@ void PlayerModel::recheckLinks() {
 		updateOverlay();
 }
 
-ClientPlayer *PlayerModel::addPlayer(unsigned int id, QString name) {
+ClientPlayer *PlayerModel::addPlayer(unsigned int id, const QString &name) {
 	ClientPlayer *p = ClientPlayer::add(id, this);
 	p->qsName = name;
 
@@ -545,17 +545,23 @@ void PlayerModel::removePlayer(ClientPlayer *p) {
 	delete item;
 }
 
-void PlayerModel::movePlayer(ClientPlayer *p, int id) {
-	Channel *np = Channel::get(id);
+void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
 	hidePlayer(p);
 	showPlayer(p, np);
 }
 
-void PlayerModel::renamePlayer(ClientPlayer *p, QString name) {
+void PlayerModel::renamePlayer(ClientPlayer *p, const QString &name) {
 	Channel *c = p->cChannel;
 	hidePlayer(p);
 	p->qsName = name;
 	showPlayer(p, c);
+}
+
+void PlayerModel::renameChannel(Channel *c, const QString &name) {
+	Channel *pc = c->cParent;
+	hideChannel(c);
+	c->qsName = name;
+	showChannel(c, pc);
 }
 
 void PlayerModel::showChannel(Channel *c, Channel *p) {
@@ -595,7 +601,7 @@ void PlayerModel::hideChannel(Channel *c) {
 	item = ModelItem::c_qhChannels.value(c);
 }
 
-Channel *PlayerModel::addChannel(int id, Channel *p, QString name) {
+Channel *PlayerModel::addChannel(int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name, NULL);
 
 	new ModelItem(c);
@@ -624,10 +630,9 @@ void PlayerModel::removeChannel(Channel *c) {
 	delete c;
 }
 
-void PlayerModel::moveChannel(Channel *c, int id) {
-	Channel *np = Channel::get(id);
+void PlayerModel::moveChannel(Channel *c, Channel *p) {
 	hideChannel(c);
-	showChannel(c, np);
+	showChannel(c, p);
 }
 
 void PlayerModel::linkChannels(Channel *c, QList<Channel *> links) {

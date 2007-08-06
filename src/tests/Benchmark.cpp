@@ -138,9 +138,9 @@ void Client::sendVoice() {
 void Client::doUdp(const unsigned char *buffer, int size) {
 	if (! udp || ! crypt.isValid())
 		return;
-		
+
 	unsigned char crypted[size+4];
-	
+
 	crypt.encrypt(reinterpret_cast<const unsigned char *>(buffer), crypted, size);
 	::sendto(socket, crypted, size+4, 0, reinterpret_cast<struct sockaddr *>(&srv), sizeof(srv));
 }
@@ -158,9 +158,9 @@ void Client::run() {
 	forever {
 		sz = sizeof(addr);
 		len = ::recvfrom(socket, reinterpret_cast<char *>(buffer), 1000, 0, reinterpret_cast<struct sockaddr *>(&addr), &sz);
-		if ( len <= 0)
+		if (len <= 0)
 			break;
-		if ( len >= 40) 
+		if (len >= 40)
 			rcvd++;
 	}
 }
@@ -195,7 +195,8 @@ void Client::readyRead() {
 			} else if (ptype == Message::CryptSync) {
 				qWarning("Crypt desync!");
 				QCoreApplication::instance()->quit();
-			}if (ptype == Message::ServerSync) {
+			}
+			if (ptype == Message::ServerSync) {
 				uiSession = sess;
 			} else if (ptype == Message::Speex) {
 				rcvd++;

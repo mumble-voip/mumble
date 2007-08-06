@@ -161,7 +161,7 @@ int AudioInput::getMaxBandwidth() {
 
 	if (g.s.bTransmitPosition)
 		audiorate += 12;
-		
+
 	if (g.s.bTCPCompat)
 		audiorate += 12;
 

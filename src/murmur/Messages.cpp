@@ -502,6 +502,25 @@ void Server::msgChannelRemove(Connection *cCon, MessageChannelRemove *msg) {
 	removeChannel(c, uSource);
 }
 
+void Server::msgChannelRename(Connection *cCon, MessageChannelRename *msg) {
+	MSG_SETUP(Player::Authenticated);
+	Channel *c = qhChannels.value(msg->iId);
+
+	if (!c)
+		return;
+
+	if (! hasPermission(uSource, c, ChanACL::Write)) {
+		PERM_DENIED(uSource, c, ChanACL::Write);
+		return;
+	}
+
+	log(uSource, "Renamed channel %s to %s", qPrintable(c->qsName), qPrintable(msg->qsName));
+	c->qsName = msg->qsName;
+	updateChannel(c);
+	dbus->channelStateChanged(c);
+	sendAll(msg);
+}
+
 void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {
 	MSG_SETUP(Player::Authenticated);
 

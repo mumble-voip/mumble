@@ -117,18 +117,19 @@ class PlayerModel : public QAbstractItemModel {
 		QMimeData *mimeData(const QModelIndexList &idx) const;
 		bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
 
-		ClientPlayer *addPlayer(unsigned int id, QString name);
+		ClientPlayer *addPlayer(unsigned int id, const QString &name);
 		ClientPlayer *getPlayer(const QModelIndex &idx) const;
 
-		Channel *addChannel(int id, Channel *p, QString name);
+		Channel *addChannel(int id, Channel *p, const QString &name);
 		Channel *getChannel(const QModelIndex &idx) const;
 
 		Channel *getSubChannel(Channel *p, int idx) const;
 
-		void renamePlayer(ClientPlayer *p, QString name);
+		void renamePlayer(ClientPlayer *p, const QString &name);
+		void renameChannel(Channel *c, const QString &name);
 
-		void movePlayer(ClientPlayer *p, int id);
-		void moveChannel(Channel *p, int id);
+		void movePlayer(ClientPlayer *p, Channel *c);
+		void moveChannel(Channel *c, Channel *p);
 
 		void removePlayer(ClientPlayer *p);
 		void removeChannel(Channel *c);

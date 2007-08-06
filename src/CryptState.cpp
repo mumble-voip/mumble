@@ -154,15 +154,15 @@ static void inline XOR(subblock *dst, const subblock *a, const subblock *b) {
 static void inline S2(subblock *block) {
 	subblock carry = SWAPPED(block[0]) >> SHIFTBITS;
 	for (int i=0;i<BLOCKSIZE-1;i++)
-		block[i] = SWAPPED( (SWAPPED(block[i]) << 1) | (SWAPPED(block[i+1]) >> SHIFTBITS));
-	block[BLOCKSIZE-1] = SWAPPED((SWAPPED(block[BLOCKSIZE-1]) << 1) ^ (carry * 0x87));
+		block[i] = SWAPPED((SWAPPED(block[i]) << 1) | (SWAPPED(block[i+1]) >> SHIFTBITS));
+	block[BLOCKSIZE-1] = SWAPPED((SWAPPED(block[BLOCKSIZE-1]) << 1) ^(carry * 0x87));
 }
 
 static void inline S3(subblock *block) {
 	subblock carry = SWAPPED(block[0]) >> SHIFTBITS;
 	for (int i=0;i<BLOCKSIZE-1;i++)
-		block[i] ^= SWAPPED( (SWAPPED(block[i]) << 1) | (SWAPPED(block[i+1]) >> SHIFTBITS));
-	block[BLOCKSIZE-1] ^= SWAPPED((SWAPPED(block[BLOCKSIZE-1]) << 1) ^ (carry * 0x87));
+		block[i] ^= SWAPPED((SWAPPED(block[i]) << 1) | (SWAPPED(block[i+1]) >> SHIFTBITS));
+	block[BLOCKSIZE-1] ^= SWAPPED((SWAPPED(block[BLOCKSIZE-1]) << 1) ^(carry * 0x87));
 }
 
 static void inline ZERO(keyblock &block) {
@@ -179,7 +179,7 @@ void CryptState::ocb_encrypt(const unsigned char *plain, unsigned char *encrypte
 	// Initialize
 	AESencrypt(nonce, delta, &encrypt_key);
 	ZERO(checksum);
-	
+
 	while (len > AES_BLOCK_SIZE) {
 		S2(delta);
 		XOR(tmp, delta, reinterpret_cast<const subblock *>(plain));

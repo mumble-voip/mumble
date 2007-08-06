@@ -141,6 +141,10 @@ void MainWindow::createActions() {
 	qaChannelACL->setObjectName(QLatin1String("ChannelACL"));
 	qaChannelACL->setToolTip(tr("Edit Groups and ACL for channel"));
 	qaChannelACL->setWhatsThis(tr("This opens the Group and ACL dialog for the channel, to control permissions."));
+	qaChannelRename=new QAction(tr("&Rename channel"), this);
+	qaChannelRename->setObjectName(QLatin1String("ChannelRename"));
+	qaChannelRename->setToolTip(tr("Renames the channel"));
+	qaChannelRename->setWhatsThis(tr("This renames a channel."));
 	qaChannelLink=new QAction(tr("&Link"), this);
 	qaChannelLink->setObjectName(QLatin1String("ChannelLink"));
 	qaChannelLink->setToolTip(tr("Link your channel to another channel"));
@@ -278,6 +282,8 @@ void MainWindow::setupGui()  {
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelRemove);
 	qmChannel->addAction(qaChannelACL);
+	qmChannel->addAction(qaChannelRename);
+	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelLink);
 	qmChannel->addAction(qaChannelUnlink);
 	qmChannel->addAction(qaChannelUnlinkAll);
@@ -665,9 +671,9 @@ void MainWindow::on_Quit_triggered() {
 void MainWindow::on_ChannelMenu_aboutToShow() {
 	QModelIndex idx = qtvPlayers->currentIndex();
 
-	bool add, remove, acl, link, unlink, unlinkall;
+	bool add, remove, acl, rename, link, unlink, unlinkall;
 
-	add = remove = acl = link = unlink = unlinkall = false;
+	add = remove = acl = rename = link = unlink = unlinkall = false;
 
 	if (g.uiSession != 0) {
 		add = true;
@@ -676,8 +682,10 @@ void MainWindow::on_ChannelMenu_aboutToShow() {
 		Channel *c = pmModel->getChannel(idx);
 		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
 
-		if (c && c->iId != 0)
+		if (c && c->iId != 0) {
+			rename = true;
 			remove = true;
+		}
 		if (! c)
 			c = Channel::get(0);
 
@@ -694,6 +702,7 @@ void MainWindow::on_ChannelMenu_aboutToShow() {
 	qaChannelAdd->setEnabled(add);
 	qaChannelRemove->setEnabled(remove);
 	qaChannelACL->setEnabled(acl);
+	qaChannelRename->setEnabled(rename);
 	qaChannelLink->setEnabled(link);
 	qaChannelUnlink->setEnabled(unlink);
 	qaChannelUnlinkAll->setEnabled(unlinkall);
@@ -734,6 +743,28 @@ void MainWindow::on_ChannelRemove_triggered() {
 	if (ret == QMessageBox::Yes) {
 		MessageChannelRemove mcr;
 		mcr.iId = c->iId;
+		g.sh->sendMessage(&mcr);
+	}
+}
+
+void MainWindow::on_ChannelRename_triggered() {
+	bool ok;
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! c)
+		return;
+
+	int id = c->iId;
+
+	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, c->qsName, &ok);
+
+	c = Channel::get(id);
+	if (! c)
+		return;
+
+	if (ok) {
+		MessageChannelRename mcr;
+		mcr.iId = id;
+		mcr.qsName = name;
 		g.sh->sendMessage(&mcr);
 	}
 }

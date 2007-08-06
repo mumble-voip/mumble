@@ -64,18 +64,20 @@ void MainWindow::msgServerJoin(Connection *, MessageServerJoin *msg) {
 #define VICTIM_INIT \
 	ClientPlayer *pDst=ClientPlayer::get(msg->uiVictim); \
 	 if (! pDst) \
- 		qFatal("MainWindow: Message for nonexistant victim %d.", msg->uiVictim);
+ 		qWarning("MainWindow: Message for nonexistant victim %d.", msg->uiVictim); \
+		return;
 
 void MainWindow::msgServerLeave(Connection *, MessageServerLeave *msg) {
 	MSG_INIT;
+
+	if (! pSrc)
+		return;
 
 	g.l->log(Log::PlayerLeave, MainWindow::tr("Left server: %1.").arg(pSrc->qsName));
 	pmModel->removePlayer(pSrc);
 }
 
 void MainWindow::msgServerBanList(Connection *, MessageServerBanList *msg) {
-	MSG_INIT;
-
 	if (banEdit) {
 		banEdit->reject();
 		delete banEdit;
@@ -91,6 +93,9 @@ void MainWindow::msgSpeex(Connection *, MessageSpeex *) {
 
 void MainWindow::msgPlayerSelfMuteDeaf(Connection *, MessagePlayerSelfMuteDeaf *msg) {
 	MSG_INIT;
+
+	if (! pSrc)
+		return;
 
 	pSrc->setSelfMuteDeaf(msg->bMute, msg->bDeaf);
 
@@ -161,12 +166,13 @@ void MainWindow::msgPlayerKick(Connection *, MessagePlayerKick *msg) {
 void MainWindow::msgPlayerBan(Connection *, MessagePlayerBan *msg) {
 	MSG_INIT;
 	VICTIM_INIT;
+	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
 	if (msg->uiVictim == g.uiSession) {
-		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(msg->qsReason));
+		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked and banned from the server by %1: %2.").arg(admin).arg(msg->qsReason));
 		g.l->setIgnore(Log::ServerDisconnected, 1);
 	} else {
 		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((msg->uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked and banned from the server by %1: %2.").arg(pSrc->qsName).arg(msg->qsReason).arg(pDst->qsName));
+		g.l->log((msg->uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked and banned from the server by %1: %2.").arg(admin).arg(msg->qsReason).arg(pDst->qsName));
 	}
 }
 
@@ -190,7 +196,11 @@ void MainWindow::msgPlayerMove(Connection *, MessagePlayerMove *msg) {
 			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2.").arg(pname).arg(admin));
 	}
 
-	pmModel->movePlayer(pDst, msg->iChannelId);
+	Channel *c = Channel::get(msg->iChannelId);
+	if (!c)
+		c = Channel::get(0);
+
+	pmModel->movePlayer(pDst, c);
 
 	if (log && (pDst->cChannel == ClientPlayer::get(g.uiSession)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
@@ -202,7 +212,8 @@ void MainWindow::msgPlayerMove(Connection *, MessagePlayerMove *msg) {
 
 void MainWindow::msgPlayerRename(Connection *, MessagePlayerRename *msg) {
 	MSG_INIT;
-	pmModel->renamePlayer(pSrc, msg->qsName);
+	if (pSrc)
+		pmModel->renamePlayer(pSrc, msg->qsName);
 }
 
 void MainWindow::msgChannelAdd(Connection *, MessageChannelAdd *msg) {
@@ -218,15 +229,28 @@ void MainWindow::msgChannelRemove(Connection *, MessageChannelRemove *msg) {
 }
 
 void MainWindow::msgChannelMove(Connection *, MessageChannelMove *msg) {
-	pmModel->moveChannel(Channel::get(msg->iId), msg->iParent);
+	Channel *c = Channel::get(msg->iId);
+	Channel *p = Channel::get(msg->iParent);
+	if (c && p)
+		pmModel->moveChannel(c, p);
+}
+
+void MainWindow::msgChannelRename(Connection *, MessageChannelRename *msg) {
+	Channel *c = Channel::get(msg->iId);
+	if (c && c->cParent)
+		pmModel->renameChannel(c, msg->qsName);
 }
 
 void MainWindow::msgChannelLink(Connection *, MessageChannelLink *msg) {
 	Channel *c = Channel::get(msg->iId);
+	if (!c)
+		return;
+
 	QList<Channel *> qlChans;
 	foreach(int id, msg->qlTargets) {
 		Channel *l = Channel::get(id);
-		qlChans << l;
+		if (l)
+			qlChans << l;
 	}
 
 	switch (msg->ltType) {
@@ -290,6 +314,8 @@ void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
 
 void MainWindow::msgTextMessage(Connection *, MessageTextMessage *msg) {
 	MSG_INIT;
+	if (! pSrc)
+		return;
 	g.l->log(Log::TextMessage, MainWindow::tr("From %1: %2").arg(pSrc->qsName).arg(msg->qsMessage),
 	         MainWindow::tr("Message from %1").arg(pSrc->qsName));
 }

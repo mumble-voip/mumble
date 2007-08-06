@@ -121,6 +121,9 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 		case ChannelLink:
 			mMsg = new MessageChannelLink();
 			break;
+		case ChannelRename:
+			mMsg = new MessageChannelRename();
+			break;
 		case TextMessage:
 			mMsg = new MessageTextMessage();
 			break;
@@ -224,6 +227,9 @@ void MessageHandler::dispatch(Connection *cCon, Message *msg) {
 			break;
 		case Message::ChannelLink:
 			msgChannelLink(cCon, static_cast<MessageChannelLink *>(msg));
+			break;
+		case Message::ChannelRename:
+			msgChannelRename(cCon, static_cast<MessageChannelRename *>(msg));
 			break;
 		case Message::TextMessage:
 			msgTextMessage(cCon, static_cast<MessageTextMessage *>(msg));
@@ -466,6 +472,14 @@ void MessageChannelMove::saveStream(PacketDataStream &qdsOut) const {
 void MessageChannelMove::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iId;
 	qdsIn >> iParent;
+}
+
+void MessageChannelRename::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << iId << qsName;
+}
+
+void MessageChannelRename::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> iId >> qsName;
 }
 
 void MessageTextMessage::saveStream(PacketDataStream &qdsOut) const {
