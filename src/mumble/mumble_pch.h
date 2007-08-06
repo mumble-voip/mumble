@@ -18,6 +18,7 @@
 #define ZeroMemory(ptr,len) memset(ptr, 0, len)
 #define __cdecl
 typedef WId HWND;
+#include <arpa/inet.h>
 #endif
 
 #include <openssl/aes.h>
