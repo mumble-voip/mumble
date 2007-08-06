@@ -613,7 +613,7 @@ void Server::updateChannel(const Channel *c) {
 	SQLEXEC();
 
 	foreach(g, c->qhGroups) {
-		SQLPREP("INSERT INTO %1groups (server_id, channel_id, name, inherit, inheritable) VALUES (?,?,?,?)");
+		SQLPREP("INSERT INTO %1groups (server_id, channel_id, name, inherit, inheritable) VALUES (?,?,?,?,?)");
 		query.addBindValue(iServerNum);
 		query.addBindValue(g->c->iId);
 		query.addBindValue(g->qsName);
