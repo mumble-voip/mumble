@@ -66,9 +66,9 @@ struct Global {
 	QSettings *qs;
 	Overlay *o;
 	int iPushToTalk;
+	int iAltSpeak;
 	bool bPushToMute;
 	bool bCenterPosition;
-	bool bAltSpeak;
 	LoopMode lmLoopMode;
 	double dPacketLoss;
 	double dMaxPacketDelay;

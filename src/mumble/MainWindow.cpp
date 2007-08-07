@@ -921,28 +921,35 @@ void MainWindow::on_PushToMute_triggered(bool down) {
 }
 
 void MainWindow::on_AltPushToTalk_triggered(bool down) {
-	if (down)
+	if (down) {
+		g.iAltSpeak++;
 		g.iPushToTalk++;
-	else if (g.iPushToTalk)
+	} else if (g.iPushToTalk) {
+		g.iAltSpeak--;
 		g.iPushToTalk--;
-
-	g.bAltSpeak = down;
+	}
 }
 
 void MainWindow::on_CenterPos_triggered(bool down) {
 	g.bCenterPosition = down;
 
-	if (down)
+	if (down) {
+		g.iAltSpeak++;
 		g.iPushToTalk++;
-	else if (g.iPushToTalk)
+	} else if (g.iPushToTalk) {
+		g.iAltSpeak--;
 		g.iPushToTalk--;
+	}
 }
 
 void MainWindow::pushLink(bool down) {
-	if (down)
+	if (down) {
+		g.iAltSpeak++;
 		g.iPushToTalk++;
-	else if (g.iPushToTalk)
+	} else if (g.iPushToTalk) {
+		g.iAltSpeak--;
 		g.iPushToTalk--;
+	}
 
 	if (g.uiSession == 0)
 		return;

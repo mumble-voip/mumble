@@ -39,9 +39,9 @@ Global::Global() {
 	p = 0;
 	uiSession = 0;
 	iPushToTalk = 0;
+	iAltSpeak = 0;
 	bPushToMute = false;
 	bCenterPosition = false;
-	bAltSpeak = false;
 	lmLoopMode = None;
 	dPacketLoss = 0;
 	dMaxPacketDelay = 0.0;

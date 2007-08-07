@@ -62,7 +62,7 @@ class MessageSpeex : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		enum { AltSpeak = 0x01, LoopBack = 0x02, EndSpeech = 0x04, FrameCountMask = 0x50 };
+		enum { AltSpeak = 0x01, LoopBack = 0x02, EndSpeech = 0x04, FrameCountMask = 0x30 };
 		unsigned int iSeq;
 		// Flags is in first byte of packet.
 		QByteArray qbaSpeexPacket;

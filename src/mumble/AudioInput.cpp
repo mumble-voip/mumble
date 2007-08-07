@@ -315,7 +315,7 @@ void AudioInput::encodeAudioFrame() {
 	else if (g.s.atTransmit == Settings::PushToTalk)
 		iIsSpeech = 0;
 
-	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0) || g.bAltSpeak;
+	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0) || (g.iAltSpeak > 0);
 
 	if (g.s.bMute || (p && p->bMute) || g.bPushToMute) {
 		iIsSpeech = 0;
@@ -330,7 +330,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	if (p)
-		p->setTalking(iIsSpeech, g.bAltSpeak);
+		p->setTalking(iIsSpeech, (g.iAltSpeak > 0));
 
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;
@@ -382,7 +382,7 @@ void AudioInput::flushCheck() {
 		return;
 
 	unsigned char flags = 0;
-	if (g.bAltSpeak)
+	if (g.iAltSpeak > 0)
 		flags += MessageSpeex::AltSpeak;
 	if (g.lmLoopMode == Global::Server)
 		flags += MessageSpeex::LoopBack;
