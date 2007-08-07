@@ -210,8 +210,6 @@ int BandwidthRecord::bytesPerSec() {
 }
 
 void Server::run() {
-	log("Starting UDP Thread");
-
 	qint32 len;
 	char encrypted[65535];
 	char buffer[65535];
@@ -233,7 +231,6 @@ void Server::run() {
 		if (len == 0) {
 			break;
 		} else if (len == SOCKET_ERROR) {
-			log("Failure during UDP Socket read");
 			break;
 		} else if (len < 6) {
 			// 4 bytes crypt header + type + session

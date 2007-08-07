@@ -293,9 +293,9 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 
 		if (fatal) {
 			db = QSqlDatabase();
-			qFatal("SQL Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
+			qFatal("SQL Prepare Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
 		} else
-			qDebug("SQL Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
+			qDebug("SQL Prepare Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
 		return false;
 	}
 }
@@ -528,7 +528,7 @@ void Server::addLink(Channel *c, Channel *l) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	SQLPREP("INSERT INTO %1channel_links (server_id, channel_id, link_id) VALUES (?,?)");
+	SQLPREP("INSERT INTO %1channel_links (server_id, channel_id, link_id) VALUES (?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	query.addBindValue(l->iId);
@@ -569,12 +569,21 @@ Channel *Server::addChannel(Channel *p, const QString &name) {
 	TransactionHolder th;
 
 	QSqlQuery query;
-	SQLPREP("INSERT INTO %1channels (server_id, parent_id, name) VALUES (?,?,?)");
+
+	SQLPREP("SELECT MAX(channel_id)+1 AS id FROM %1channels WHERE server_id=?");
+	query.addBindValue(iServerNum);
+	SQLEXEC();
+	int id = 0;
+	if (query.next())
+		id = query.value(0).toInt();
+
+
+	SQLPREP("INSERT INTO %1channels (server_id, parent_id, channel_id, name) VALUES (?,?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(p->iId);
+	query.addBindValue(id);
 	query.addBindValue(name);
 	SQLEXEC();
-	int id = query.lastInsertId().toInt();
 	Channel *c = new Channel(id, name, p);
 	qhChannels.insert(id, c);
 	return c;
@@ -726,6 +735,7 @@ void Server::readChannels(Channel *p) {
 			query.addBindValue(parentid);
 		}
 		SQLEXEC();
+
 		while (query.next()) {
 			c = new Channel(query.value(0).toInt(), query.value(1).toString(), p);
 			qhChannels.insert(c->iId, c);
@@ -874,7 +884,7 @@ void ServerDB::setConf(int server_id, const QString &key, const QVariant &value)
 	TransactionHolder th;
 
 	QSqlQuery query;
-	if (value.isNull()) {
+	if (value.isNull() || value.toString().trimmed().isEmpty()) {
 		SQLPREP("DELETE FROM %1config WHERE server_id = ? AND keystring = ?");
 		query.addBindValue(server_id);
 		query.addBindValue(key);
