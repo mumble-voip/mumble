@@ -33,6 +33,7 @@
 #include "ServerHandler.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#include "AudioWizard.h"
 #include "Database.h"
 #include "Log.h"
 #include "Plugins.h"
@@ -167,6 +168,13 @@ int main(int argc, char **argv) {
 
 	a.setQuitOnLastWindowClosed(true);
 
+	if (! g.qs->value("FirstTimeDone", false).toBool()) {
+		g.qs->setValue("FirstTimeDone", true);
+		if (QMessageBox::question(g.mw, MainWindow::tr("Mumble"), MainWindow::tr("This is the first time you're starting Mumble.<br />Would you like to go through the Audio Wizard to configure your soundcard?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
+			AudioWizard aw;
+			aw.exec();
+		}
+	}
 
 	if (a.arguments().count() > 1) {
 		g.mw->openUrl(QUrl(a.arguments().last()));
