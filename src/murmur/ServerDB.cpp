@@ -179,8 +179,9 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(server_id, channel_id, name)");
 			SQLDO("CREATE TRIGGER %1groups_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1groups WHERE channel_id = old.channel_id AND server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, player_id INTEGER, addit INTEGER)");
+			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, server_id INTEGER, player_id INTEGER, addit INTEGER)");
 			SQLDO("CREATE TRIGGER %1groups_members_del_group AFTER DELETE ON %1groups FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE group_id = old.group_id; END;");
+			SQLDO("CREATE TRIGGET %1groups_members_del_player AFTER DELETE on %1players FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE player_id = old.player_id AND server_id = old.server_id; END;");
 
 			SQLDO("CREATE TABLE %1acl (server_id INTEGER, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)");
 			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
@@ -230,8 +231,10 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(server_id, channel_id, name)");
 			SQLDO("ALTER TABLE %1groups ADD CONSTRAINT %1groups_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, player_id INTEGER, addit INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, server_id INTEGER, player_id INTEGER, addit INTEGER) Type=InnoDB");
+			SQLDO("CREATE INDEX %1group_members_players ON %1group_members(server_id, player_id)");
 			SQLDO("ALTER TABLE %1group_members ADD CONSTRAINT %1group_members_del_group FOREIGN KEY (group_id) REFERENCES %1groups(group_id) ON DELETE CASCADE");
+			SQLDO("ALTER TABLE %1group_members ADD CONSTRAINT %1group_members_del_player FOREIGN KEY (server_id, player_id) REFERENCES %1players(server_id,player_id) ON DELETE CASCADE");
 
 			SQLDO("CREATE TABLE %1acl (server_id INTEGER, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name varchar(255), apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER) Type=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
@@ -255,7 +258,7 @@ ServerDB::ServerDB() {
 			SQLDO("INSERT INTO %1channels SELECT 1, channel_id, parent_id, name, inheritACL FROM channelsold");
 			SQLDO("INSERT INTO %1players SELECT 1, player_id, name, email, pw, lastchannel, texture, null FROM playersold");
 			SQLDO("INSERT INTO %1groups SELECT group_id, 1, name, channel_id, inherit, inheritable FROM groupsold");
-			SQLDO("INSERT INTO %1group_members SELECT group_id, player_id, addit FROM group_membersold");
+			SQLDO("INSERT INTO %1group_members SELECT group_id, 1, player_id, addit FROM group_membersold");
 			SQLDO("INSERT INTO %1acl SELECT 1, channel_id, priority, player_id, group_name, apply_here, apply_sub, grantpriv, revokepriv FROM aclold");
 			SQLDO("INSERT INTO %1bans SELECT 1, base, mask FROM bansold");
 			SQLDO("DROP TABLE bansold");
@@ -635,15 +638,17 @@ void Server::updateChannel(const Channel *c) {
 		int pid;
 
 		foreach(pid, g->qsAdd) {
-			SQLPREP("INSERT INTO %1group_members (group_id, player_id, addit) VALUES (?, ?, ?)");
+			SQLPREP("INSERT INTO %1group_members (group_id, server_id, player_id, addit) VALUES (?, ?, ?, ?)");
 			query.addBindValue(id);
+			query.addBindValue(iServerNum);
 			query.addBindValue(pid);
 			query.addBindValue(1);
 			SQLEXEC();
 		}
 		foreach(pid, g->qsRemove) {
-			SQLPREP("INSERT INTO %1group_members (group_id, player_id, addit) VALUES (?, ?, ?)");
+			SQLPREP("INSERT INTO %1group_members (group_id, server_id, player_id, addit) VALUES (?, ?, ?, ?)");
 			query.addBindValue(id);
+			query.addBindValue(iServerNum);
 			query.addBindValue(pid);
 			query.addBindValue(0);
 			SQLEXEC();
