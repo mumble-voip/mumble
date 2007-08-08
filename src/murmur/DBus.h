@@ -186,7 +186,9 @@ class MetaDBus : public QDBusAbstractAdaptor {
 		void getAllServers(QList<int> &server_list);
 		void isBooted(int server_id, bool &booted);
 		void getConf(int server_id, const QString &key, const QDBusMessage &, QString &value);
+		void getAllConf(int server_id, const QDBusMessage &, QMap<QString, QString> &values);
 		void setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &);
+		void setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &);
 	signals:
 		void started(int server_id);
 		void stopped(int server_id);

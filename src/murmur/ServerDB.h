@@ -47,6 +47,7 @@ class ServerDB {
 		static QList<int> getAllServers();
 		static int addServer();
 		static bool serverExists(int num);
+		static QMap<QString, QString> getAllConf(int server_id);
 		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());
 		static void setConf(int server_id, const QString &key, const QVariant &value);
 		static bool prepare(QSqlQuery &, const QString &, bool fatal = true);

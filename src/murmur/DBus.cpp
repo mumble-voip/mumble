@@ -743,3 +743,19 @@ void MetaDBus::setConf(int server_id, const QString &key, const QString &value, 
 		ServerDB::setConf(server_id, key, value);
 	}
 }
+
+void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, QMap<QString, QString> &values) {
+	if (! ServerDB::serverExists(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else {
+		values = ServerDB::getAllConf(server_id);
+	}
+}
+
+void MetaDBus::setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &msg) {
+	if (! ServerDB::serverExists(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else {
+		ServerDB::setSUPW(server_id, pw);
+	}
+}
