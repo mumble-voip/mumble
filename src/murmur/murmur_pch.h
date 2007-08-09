@@ -1,12 +1,12 @@
 #ifndef _MURMUR_PCH_H
 #define _MURMUR_PCH_H
-#include <QtCore>
-#include <QtNetwork>
-#include <QtSql>
-#include <QtXml>
-#include <QtDBus>
+#include <QtCore/QtCore>
+#include <QtNetwork/QtNetwork>
+#include <QtSql/QtSql>
+#include <QtXml/QtXml>
+#include <QtDBus/QtDBus>
 #ifdef Q_OS_WIN
-#include <QtGui>
+#include <QtGui/QtGui>
 #endif
 #include <math.h>
 

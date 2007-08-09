@@ -1,13 +1,13 @@
 #define QT_NO_DEBUG_STREAM
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
-#include <QtCore>
-#include <QtDBus>
-#include <QtGui>
-#include <QtNetwork>
-#include <QtOpenGL>
-#include <QtSql>
-#include <QtXml>
+#include <QtCore/QtCore>
+#include <QtDBus/QtDBus>
+#include <QtGui/QtGui>
+#include <QtNetwork/QtNetwork>
+#include <QtOpenGL/QtOpenGL>
+#include <QtSql/QtSql>
+#include <QtXml/QtXml>
 
 #ifdef Q_OS_WIN
 #define _WIN32_IE 0x0600
