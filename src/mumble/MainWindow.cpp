@@ -245,8 +245,11 @@ void MainWindow::setupGui()  {
 	qtvPlayers->setDropIndicatorShown(true);
 	qtvPlayers->setIndentation(10);
 
-	qteLog = new QTextEdit(this);
+	qteLog = new QTextBrowser(this);
 	qteLog->setReadOnly(true);
+	qteLog->setOpenLinks(false);
+	qteLog->setOpenExternalLinks(false);
+	qteLog->setObjectName(QLatin1String("Log"));
 	qteLog->setToolTip(tr("Log of messages"));
 	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors and information messages all show up here.<br />"
 	                        "To configure exactly which messages show up here, use the <b>Settings</b> command from the menu."));
@@ -1149,4 +1152,8 @@ void MainWindow::customEvent(QEvent *evt) {
 		dispatch(NULL, mMsg);
 		delete mMsg;
 	}
+}
+
+void MainWindow::on_Log_anchorClicked(const QUrl &url) {
+	QDesktopServices::openUrl(url);
 }

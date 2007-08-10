@@ -65,7 +65,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelRename, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
 		QSplitter *qsSplit;
 		QSystemTrayIcon *qstiIcon;
-		QTextEdit *qteLog;
+		QTextBrowser *qteLog;
 		QTreeView *qtvPlayers;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
@@ -131,6 +131,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		void on_CenterPos_triggered(bool);
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
+		void on_Log_anchorClicked(const QUrl &);
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void pushLink(bool down);
