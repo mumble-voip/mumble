@@ -39,6 +39,11 @@ class CryptState {
 		unsigned char raw_key[AES_BLOCK_SIZE];
 		unsigned char encrypt_iv[AES_BLOCK_SIZE];
 		unsigned char decrypt_iv[AES_BLOCK_SIZE];
+		unsigned char decrypt_history[0x100];
+
+		unsigned int stat_good;
+		unsigned int stat_late;
+		unsigned int stat_lost;
 
 		AES_KEY	encrypt_key;
 		AES_KEY decrypt_key;

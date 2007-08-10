@@ -40,7 +40,10 @@
 #include "CryptState.h"
 
 CryptState::CryptState() {
+	for (int i=0;i<0x100;i++)
+		decrypt_history[i] = 0;
 	bInit = false;
+	stat_good=stat_late=stat_lost = 0;
 }
 
 bool CryptState::isValid() const {
@@ -93,27 +96,88 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 
 	unsigned char saveiv[AES_BLOCK_SIZE];
 	unsigned char ivbyte = source[0];
+	bool restore = false;
+	unsigned char tag[AES_BLOCK_SIZE];
+
+	int lost = 0;
+	int late = 0;
 
 	memcpy(saveiv, decrypt_iv, AES_BLOCK_SIZE);
 
-	if (ivbyte > decrypt_iv[0]) {
-		decrypt_iv[0] = ivbyte;
-	} else if (ivbyte < decrypt_iv[0]) {
-		for (int i=1;i<AES_BLOCK_SIZE;i++)
-			if (++decrypt_iv[i])
-				break;
-		decrypt_iv[0] = ivbyte;
+	if (((decrypt_iv[0] + 1) & 0xFF) == ivbyte) {
+		// In order as expected.
+		if (ivbyte > decrypt_iv[0]) {
+			decrypt_iv[0] = ivbyte;
+		} else if (ivbyte < decrypt_iv[0]) {
+			decrypt_iv[0] = ivbyte;
+			for (int i=1;i<AES_BLOCK_SIZE;i++)
+				if (++decrypt_iv[i])
+					break;
+		} else {
+			return false;
+		}
 	} else {
-		return false;
+		// This is either out of order or a repeat.
+
+		int diff = ivbyte - decrypt_iv[0];
+		if (diff > 128)
+			diff = diff-256;
+		else if (diff < -128)
+			diff = diff+256;
+
+//		qWarning("OOO: Got %02x [Current %02x Min %02x Max %02x Diff %2d]", ivbyte, decrypt_iv[0], min, max, diff);
+
+		if ((ivbyte < decrypt_iv[0]) && (diff > -30) && (diff < 0)) {
+			// Late packet, but no wraparound.
+			late = 1;
+			lost = -1;
+			decrypt_iv[0] = ivbyte;
+			restore = true;
+		} else if ((ivbyte > decrypt_iv[0]) && (diff > -30) && (diff < 0)) {
+			// Last was 0x02, here comes 0xff from last round
+			late = 1;
+			lost = -1;
+			decrypt_iv[0] = ivbyte;
+			for (int i=1;i<AES_BLOCK_SIZE;i++)
+				if (decrypt_iv[i]--)
+					break;
+			restore = true;
+		} else if ((ivbyte > decrypt_iv[0]) && (diff > 0)) {
+			// Lost a few packets, but beyond that we're good.
+			lost = ivbyte - decrypt_iv[0] - 1;
+			decrypt_iv[0] = ivbyte;
+		} else if ((ivbyte < decrypt_iv[0]) && (diff > 0)) {
+			// Lost a few packets, and wrapped around
+			lost = 256 - decrypt_iv[0] + ivbyte - 1;
+			decrypt_iv[0] = ivbyte;
+			for (int i=1;i<AES_BLOCK_SIZE;i++)
+				if (++decrypt_iv[i])
+					break;
+		} else {
+			return false;
+		}
+
+		if (decrypt_history[decrypt_iv[0]] == decrypt_iv[1]) {
+			memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
+			return false;
+		}
 	}
 
-	unsigned char tag[AES_BLOCK_SIZE];
 	ocb_decrypt(source+4, dst, plain_length, decrypt_iv, tag);
 
 	if (memcmp(tag, source+1, 3) != 0) {
 		memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
 		return false;
 	}
+	decrypt_history[decrypt_iv[0]] = decrypt_iv[1];
+
+	if (restore)
+		memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
+
+	stat_good++;
+	stat_late += late;
+	stat_lost += lost;
+
 	tLastGood.restart();
 	return true;
 }

@@ -10,8 +10,65 @@ class TestCrypt : public QObject {
 		void testvectors();
 		void authcrypt();
 		void ivrecovery();
+		void reverserecovery();
 		void tamper();
 };
+
+void TestCrypt::reverserecovery() {
+	CryptState enc, dec;
+	enc.genKey();
+
+	// For our testcase, we're going to FORCE iv
+	memset(enc.encrypt_iv, 0x55, AES_BLOCK_SIZE);
+
+	dec.setKey(enc.raw_key, enc.decrypt_iv, enc.encrypt_iv);
+
+	unsigned char secret[10] = "abcdefghi";
+	unsigned char crypted[512][14];
+	unsigned char decr[10];
+
+	memset(crypted, 0, sizeof(crypted));
+
+	// OOO recovery (within 15 packets)
+	/*
+		for(int i=0;i<128;i++) {
+			for(int i=0;i<15;i++)
+				enc.encrypt(secret, crypted[i], 10);
+
+			dec.stat_lost = dec.stat_late = 0;
+			for(unsigned int i=14;i<=15;i--) {
+				QVERIFY(dec.decrypt(crypted[i], decr, 14));
+				QCOMPARE(dec.stat_lost, i);
+				QCOMPARE(dec.stat_late, 14-i);
+			}
+			for(int i=0;i<15;i++)
+				QVERIFY(!dec.decrypt(crypted[i], decr, 14));
+		}
+	*/
+	// OOO recovery up to 30 packets, but NOT beyond
+
+	int i;
+
+	for (i=0;i<128;i++)
+		enc.encrypt(secret, crypted[i], 10);
+
+	for (i=0;i<30;i++)
+		QVERIFY(dec.decrypt(crypted[127-i], decr, 14));
+	for (;i<128;i++)
+		QVERIFY(!dec.decrypt(crypted[127-i], decr, 14));
+	for (i=0;i<30;i++)
+		QVERIFY(!dec.decrypt(crypted[127-i], decr, 14));
+
+
+	// Extensive replay attack test
+	for (i=0;i<512;i++)
+		enc.encrypt(secret, crypted[i], 10);
+
+	for (i=0;i<512;i++)
+		QVERIFY(dec.decrypt(crypted[i], decr, 14));
+	for (i=0;i<512;i++)
+		QVERIFY(!dec.decrypt(crypted[i], decr, 14));
+}
 
 void TestCrypt::ivrecovery() {
 	CryptState enc, dec;
@@ -43,10 +100,13 @@ void TestCrypt::ivrecovery() {
 	QVERIFY(dec.decrypt(crypted, decr, 14));
 
 	// Wraparound.
-	for (int i=0;i<128;i++)
-		enc.encrypt(secret, crypted, 10);
-
-	QVERIFY(dec.decrypt(crypted, decr, 14));
+	for (int i=0;i<128;i++) {
+		dec.stat_lost = 0;
+		for (int j=0;j<15;j++)
+			enc.encrypt(secret, crypted, 10);
+		QVERIFY(dec.decrypt(crypted, decr, 14));
+		QCOMPARE(dec.stat_lost, 14U);
+	}
 
 	QVERIFY(memcmp(enc.encrypt_iv, dec.decrypt_iv, AES_BLOCK_SIZE)==0);
 
