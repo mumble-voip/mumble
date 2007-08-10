@@ -1,6 +1,5 @@
 #! /usr/bin/perl
-# For now, this is a CGI using Perl, as PHP has no SQLite3 support.
-# It's been promised in PHP 5.1, but it's not out of beta yet.
+# For now, this is a CGI using Perl.
 #
 # CGIs actually have an added bonus; with suexec they will run
 # as their own user, meaning the database doesn't have to be 
@@ -103,8 +102,8 @@ if ($forgot) {
      my $id = $$idr{'id'};
      $idh->finish();
 
-     my $ins = $dbh->prepare("INSERT INTO players (player_id, name, email, pw) VALUES (?,?,?,?)");
-     $ins->execute($id, $$r{'name'}, $$r{'email'}, $$r{'pw'});
+     my $ins = $dbh->prepare("INSERT INTO players (server_id, player_id, name, email, pw) VALUES (?,?,?,?,?)");
+     $ins->execute(1, $id, $$r{'name'}, $$r{'email'}, $$r{'pw'});
      $ins->finish();
      print "<h1>Succeeded</h1><p>Thank you for registering.</p>";
    } else {
