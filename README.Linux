@@ -16,8 +16,19 @@ Global Keyboard Events
 ======================
 
 Unlike Windows, there is no easy way to monitor all key and mouse events
-under X11. At the moment, Mumble uses the Xevie extension to accomplish
-this, but unfortunately that extension is disabled by default. To enable it
+under X11.
+
+On Linux, Mumble supports reading the kernel input devices. To use this,
+make sure mumble can open /dev/input/event* for reading. To test it out,
+that should only require:
+  sudo chmod a+r /dev/input/event*
+However, be aware that this will most likely only last until the next reboot
+(at which point devfs is recreated) and you also allow any program run by any
+user to monitor the physical keyboard.
+
+If you're not running Linux (or you're unwilling to compromise keyboard
+security), you can use Xevie under X11 to accomplish the same thing, but
+unfortunately that extension is disabled by default. To enable it
 (and push-to-talk), add the following to your xorg.conf:
 
 Section "Extensions"

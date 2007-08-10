@@ -68,24 +68,28 @@ class GlobalShortcutXConfig : public ConfigWidget {
 		void accept();
 };
 
+#define NUM_BUTTONS 0x2ff
+
 class GlobalShortcutX : public QThread {
 		Q_OBJECT
 	public:
 		Display *display;
 		int ref;
 		bool bRunning;
-		bool activeMap[320];
-		bool touchMap[320];
+		bool activeMap[NUM_BUTTONS];
+		bool touchMap[NUM_BUTTONS];
 		bool bFirstMouseReleased;
 		QHash<int, GlobalShortcut *> qmShortcuts;
 		QHash<GlobalShortcut *, Shortcut *> qhGlobalToX;
+		QList<QFile *> qlInputDevices;
 		bool globalEvent(XEvent *);
 		bool bGrabbing;
 		bool bNeedRemap;
 		void grab();
 		void release();
 		QMultiHash<int, Shortcut *> qmhKeyToShortcut;
-	public:
+		void handleEvent(int evtcode, bool down);
+
 		GlobalShortcutX();
 		~GlobalShortcutX();
 		void run();
@@ -94,6 +98,8 @@ class GlobalShortcutX : public QThread {
 		void add(GlobalShortcut *);
 		void remove(GlobalShortcut *);
 		QList<int> getCurrentButtons();
+	public slots:
+		void inputReadyRead(int);
 	signals:
 		void buttonPressed(bool);
 };

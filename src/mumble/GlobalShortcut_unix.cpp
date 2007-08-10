@@ -35,6 +35,11 @@
 #include <X11/Xlib.h>
 #include <X11/extensions/Xevie.h>
 
+#ifdef Q_OS_LINUX
+#include <linux/input.h>
+#include <fcntl.h>
+#endif
+
 static GlobalShortcutX *gsx = NULL;
 static ConfigWidget *GlobalShortcutXConfigDialogNew() {
 	return new GlobalShortcutXConfig();
@@ -88,6 +93,8 @@ void XInputKeyWidget::mouseDoubleClickEvent(QMouseEvent *) {
 void XInputKeyWidget::setButton(bool last) {
 	qlButtons = gsx->getCurrentButtons();
 	bModified = true;
+	if (qlButtons.isEmpty())
+		return;
 	if (last)
 		clearFocus();
 	else
@@ -97,7 +104,7 @@ void XInputKeyWidget::setButton(bool last) {
 void XInputKeyWidget::displayKeys() {
 	QStringList sl;
 	foreach(int key, qlButtons) {
-		if (key < 256) {
+		if ((key < 0x118) || (key >= 0x128)) {
 			KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
 			if (ks == NoSymbol) {
 				sl << QLatin1String("0x")+QString::number(key,16);
@@ -110,7 +117,7 @@ void XInputKeyWidget::displayKeys() {
 				}
 			}
 		} else
-			sl << QLatin1String("Mouse ")+QString::number(key-256);
+			sl << QLatin1String("Mouse ")+QString::number(key-0x118);
 	}
 	setText(sl.join(QLatin1String(" ")));
 }
@@ -185,6 +192,39 @@ GlobalShortcutX::GlobalShortcutX() {
 	bNeedRemap = true;
 	int min, maj;
 	bRunning=false;
+
+	display = NULL;
+
+#ifdef Q_OS_LINUX
+	QDir d(QLatin1String("/dev/input"), QLatin1String("event*"), 0, QDir::System);
+	foreach(QFileInfo fi, d.entryInfoList()) {
+		QFile *f = new QFile(fi.absoluteFilePath(), this);
+		if (f->open(QIODevice::ReadOnly)) {
+			int fd = f->handle();
+			int version;
+			char name[256];
+			quint32 events = 0;
+			if ((ioctl(fd, EVIOCGVERSION, &version) >= 0) && (ioctl(fd, EVIOCGNAME(sizeof(name)), name)>=0) && (ioctl(fd, EVIOCGBIT(0,31), &events) >= 0) && (events & (1 << EV_KEY))) {
+				name[255]=0;
+				qWarning("GlobalShortcutX: Linux Input v%d.%d.%d: %s", (version >> 16) & 0xFF, (version >> 8) & 0xFF, version & 0xFF, name);
+				fcntl(f->handle(), F_SETFL, O_NONBLOCK);
+				connect(new QSocketNotifier(f->handle(), QSocketNotifier::Read, f), SIGNAL(activated(int)), this, SLOT(inputReadyRead(int)));
+				qlInputDevices << f;
+			} else {
+				delete f;
+			}
+		} else {
+			delete f;
+		}
+	}
+
+	if (qlInputDevices.isEmpty()) {
+		qWarning("GlobalShortcutX: Unable to open any input devices under /dev/input, falling back to XEVIE");
+	} else {
+		return;
+	}
+#endif
+
 	display = XOpenDisplay(NULL);
 
 	if (! display) {
@@ -276,13 +316,13 @@ void GlobalShortcutX::remap() {
 
 void GlobalShortcutX::resetMap() {
 	bFirstMouseReleased = false;
-	for (int i=0;i<320;i++)
+	for (int i=0;i<NUM_BUTTONS;i++)
 		touchMap[i]=false;
 }
 
 QList<int> GlobalShortcutX::getCurrentButtons() {
 	QList<int> keys;
-	for (int i=0;i<320;i++)
+	for (int i=0;i<NUM_BUTTONS;i++)
 		if (touchMap[i])
 			keys << i;
 	return keys;
@@ -292,6 +332,7 @@ void GlobalShortcutX::run() {
 	fd_set in_fds;
 	XEvent evt;
 	struct timeval tv;
+
 	while (bRunning) {
 		if (bNeedRemap)
 			remap();
@@ -313,39 +354,10 @@ void GlobalShortcutX::run() {
 							if (evt.type == KeyPress || evt.type == KeyRelease)
 								evtcode = evt.xkey.keycode;
 							else
-								evtcode = 256 + evt.xbutton.button;
+								evtcode = 0x118 + evt.xbutton.button;
 
-							if (down == activeMap[evtcode])
-								break;
+							handleEvent(evtcode, down);
 
-							activeMap[evtcode] = down;
-							if (down)
-								touchMap[evtcode] = true;
-
-							//Do nothing until we release the mouse button
-							if (bFirstMouseReleased)
-								emit buttonPressed(!down);
-							else
-								if (evt.type == ButtonRelease)
-									bFirstMouseReleased = true;
-
-							foreach(Shortcut *s, qmhKeyToShortcut.values(evtcode)) {
-								if (down) {
-									s->iNumDown++;
-									if (s->iNumDown == s->qlButtons.count()) {
-										s->bActive = true;
-										emit s->gs->triggered(down);
-										emit s->gs->down();
-									}
-								} else {
-									s->iNumDown--;
-									if (s->bActive) {
-										s->bActive = false;
-										emit s->gs->triggered(down);
-										emit s->gs->up();
-									}
-								}
-							}
 						}
 
 						break;
@@ -357,6 +369,62 @@ void GlobalShortcutX::run() {
 	}
 	XevieEnd(display);
 	XCloseDisplay(display);
+}
+
+void GlobalShortcutX::inputReadyRead(int) {
+#ifdef Q_OS_LINUX
+	struct input_event ev;
+
+	if (bNeedRemap)
+		remap();
+
+	QFile *f=qobject_cast<QFile *>(sender()->parent());
+	while (f->read(reinterpret_cast<char *>(&ev), sizeof(ev)) == sizeof(ev)) {
+		if (ev.type != EV_KEY)
+			continue;
+		bool down;
+		switch (ev.value) {
+			case 0:
+				down = false;
+				break;
+			case 1:
+				down = true;
+				break;
+			default:
+				continue;
+		}
+		handleEvent(evtcode, down);
+	}
+#endif
+}
+
+void GlobalShortcutX::handleEvent(int evtcode, bool down) {
+	if (down == activeMap[evtcode])
+		return;
+
+	activeMap[evtcode] = down;
+	if (down)
+		touchMap[evtcode] = true;
+
+	emit buttonPressed(!down);
+
+	foreach(Shortcut *s, qmhKeyToShortcut.values(evtcode)) {
+		if (down) {
+			s->iNumDown++;
+			if (s->iNumDown == s->qlButtons.count()) {
+				s->bActive = true;
+				emit s->gs->triggered(down);
+				emit s->gs->down();
+			}
+		} else {
+			s->iNumDown--;
+			if (s->bActive) {
+				s->bActive = false;
+				emit s->gs->triggered(down);
+				emit s->gs->up();
+			}
+		}
+	}
 }
 
 GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
