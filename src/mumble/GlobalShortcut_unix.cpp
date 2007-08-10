@@ -393,6 +393,7 @@ void GlobalShortcutX::inputReadyRead(int) {
 			default:
 				continue;
 		}
+		int evtcode = ev.code + 8;
 		handleEvent(evtcode, down);
 	}
 #endif
