@@ -59,8 +59,11 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 }
 
 void TextToSpeechPrivate::say(QString text) {
-	if (pVoice)
-		pVoice->Speak((const wchar_t *) text.utf16(), SPF_ASYNC, NULL);
+	if (pVoice) {
+		QTextDocument td;
+		td.setHtml(text);
+		pVoice->Speak((const wchar_t *) td.toPlainText().utf16(), SPF_ASYNC, NULL);
+	}
 }
 
 void TextToSpeechPrivate::setVolume(int volume) {
