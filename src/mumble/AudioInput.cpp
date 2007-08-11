@@ -241,7 +241,7 @@ void AudioInput::encodeAudioFrame() {
 		iArg = lround(floor(20.0 * log10(v)));
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
 
-		iArg = -45;
+		iArg = g.s.iNoiseSuppress;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
 		if (bHasSpeaker) {

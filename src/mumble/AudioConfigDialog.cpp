@@ -40,7 +40,7 @@ static ConfigWidget *AudioConfigDialogNew() {
 static ConfigRegistrar registrar(10, AudioConfigDialogNew);
 
 AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress, *qgbJitter, *qgbLoop;
+	QGroupBox *qgbInterface, *qgbTransmit, *qgbCompress, *qgbProcess,  *qgbJitter, *qgbLoop;
 	QLabel *l;
 	QVBoxLayout *v;
 	QGridLayout *grid;
@@ -53,6 +53,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	qgbCompress=new QGroupBox(tr("Compression"));
 	qgbJitter=new QGroupBox(tr("Jitter Buffer"));
 	qgbLoop=new QGroupBox(tr("Loopback Test"));
+	qgbProcess=new QGroupBox(tr("Audio Processing"));
 
 	grid = new QGridLayout();
 
@@ -252,6 +253,34 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	grid->addWidget(qsComplexity, 1, 1);
 	grid->addWidget(qlComplexity, 1, 2);
 
+	qgbCompress->setLayout(grid);
+
+
+	grid = new QGridLayout();
+
+	qsNoise = new QSlider(Qt::Horizontal);
+	qsNoise->setRange(15, 60);
+	qsNoise->setSingleStep(1);
+	qsNoise->setPageStep(5);
+	qsNoise->setValue(- g.s.iNoiseSuppress);
+	qsNoise->setObjectName(QLatin1String("Noise"));
+
+	l = new QLabel(tr("Noise Suppression"));
+	l->setBuddy(qsNoise);
+
+	qlNoise=new QLabel();
+	qlNoise->setMinimumWidth(30);
+	on_Noise_valueChanged(qsNoise->value());
+
+	qsNoise->setToolTip(tr("Noise suppression"));
+	qsNoise->setWhatsThis(tr("<b>This sets the ammount of noise suppression to apply.</b><br />"
+	                           "The higher this value, the more aggressively stationary noise will be supressed."));
+
+	grid->addWidget(l, 0, 0);
+	grid->addWidget(qsNoise, 0, 1);
+	grid->addWidget(qlNoise, 0, 2);
+
+
 	qsAmp = new QSlider(Qt::Horizontal);
 	qsAmp->setRange(0, 19500);
 	qsAmp->setSingleStep(500);
@@ -278,11 +307,11 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	                        "if you leave it to auto-tune to that level."
 	                    ));
 
-	grid->addWidget(l, 2, 0);
-	grid->addWidget(qsAmp, 2, 1);
-	grid->addWidget(qlAmp, 2, 2);
+	grid->addWidget(l, 1, 0);
+	grid->addWidget(qsAmp, 1, 1);
+	grid->addWidget(qlAmp, 1, 2);
 
-	qgbCompress->setLayout(grid);
+	qgbProcess->setLayout(grid);
 
 
 	grid = new QGridLayout();
@@ -393,6 +422,7 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	v = new QVBoxLayout;
 	v->addWidget(qgbInterface);
 	v->addWidget(qgbTransmit);
+	v->addWidget(qgbProcess);
 	v->addWidget(qgbCompress);
 	v->addWidget(qgbJitter);
 	v->addWidget(qgbLoop);
@@ -416,6 +446,7 @@ QIcon AudioConfigDialog::icon() const {
 
 void AudioConfigDialog::accept() {
 	g.s.iQuality = qsQuality->value();
+	g.s.iNoiseSuppress = - qsNoise->value();
 	g.s.iComplexity = qsComplexity->value();
 	g.s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	g.s.iVoiceHold = qsTransmitHold->value();
@@ -446,6 +477,10 @@ void AudioConfigDialog::on_TransmitHold_valueChanged(int v) {
 void AudioConfigDialog::on_Quality_valueChanged(int v) {
 	qlQuality->setText(QString::number(v));
 	updateBitrate();
+}
+
+void AudioConfigDialog::on_Noise_valueChanged(int v) {
+	qlNoise->setText(tr("-%1 dB").arg(v));
 }
 
 void AudioConfigDialog::on_Complexity_valueChanged(int v) {

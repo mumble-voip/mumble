@@ -44,6 +44,7 @@ Settings::Settings() {
 	iVoiceHold = 200;
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
+	iNoiseSuppress = -30;
 	vsVAD = SignalToNoise;
 	fVADmin = 1.0 / 32.767;
 	fVADmax = 4.0 / 32.767;
@@ -103,6 +104,7 @@ void Settings::load() {
 	vsVAD = static_cast<Settings::VADSource>(g.qs->value(QLatin1String("VAD"), vsVAD).toInt());
 	fVADmin = g.qs->value(QLatin1String("VADmin"), fVADmin).toDouble();
 	fVADmax = g.qs->value(QLatin1String("VADmax"), fVADmax).toDouble();
+	iNoiseSuppress = g.qs->value(QLatin1String("NoiseSuppress"), iNoiseSuppress).toInt();
 	iVoiceHold = g.qs->value(QLatin1String("AudioVoiceHold"), iVoiceHold).toInt();
 	iJitterBufferSize = g.qs->value(QLatin1String("JitterBufferSize2"), iJitterBufferSize).toInt();
 	iFramesPerPacket = g.qs->value(QLatin1String("FramesPerPacket"), iFramesPerPacket).toInt();
@@ -164,6 +166,7 @@ void Settings::save() {
 	g.qs->setValue(QLatin1String("VAD"), vsVAD);
 	g.qs->setValue(QLatin1String("VADmin"), fVADmin);
 	g.qs->setValue(QLatin1String("VADmax"), fVADmax);
+	g.qs->setValue(QLatin1String("NoiseSuppress"), iNoiseSuppress);
 	g.qs->setValue(QLatin1String("JitterBufferSize2"), iJitterBufferSize);
 	g.qs->setValue(QLatin1String("FramesPerPacket"), iFramesPerPacket);
 	g.qs->setValue(QLatin1String("TCPCompat"), bTCPCompat);

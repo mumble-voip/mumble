@@ -40,8 +40,8 @@ class AudioConfigDialog : public ConfigWidget {
 		QComboBox *qcbTransmit;
 		QSlider *qsTransmitHold, *qsFrames;
 		QLabel *qlTransmitHold, *qlFrames;
-		QSlider *qsQuality, *qsComplexity, *qsAmp;
-		QLabel *qlQuality, *qlComplexity, *qlAmp;
+		QSlider *qsQuality, *qsComplexity, *qsAmp, *qsNoise;
+		QLabel *qlQuality, *qlComplexity, *qlAmp, *qlNoise;
 		QSlider *qsJitter;
 		QCheckBox *qcbTCP, *qcbReconnect;
 		QCheckBox *qcbPushClick;
@@ -65,6 +65,7 @@ class AudioConfigDialog : public ConfigWidget {
 		void on_Jitter_valueChanged(int v);
 		void on_PacketDelay_valueChanged(int v);
 		void on_PacketLoss_valueChanged(int v);
+		void on_Noise_valueChanged(int v);
 
 		void on_Transmit_currentIndexChanged(int v);
 		void on_Loopback_currentIndexChanged(int v);
