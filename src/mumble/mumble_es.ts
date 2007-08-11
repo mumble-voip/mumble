@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -1717,12 +1718,12 @@
     <message>
         <location filename="ConnectDialog.cpp" line="96"/>
         <source>&amp;Label</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Etiqueta</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="174"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta</translation>
     </message>
 </context>
 <context>
@@ -2017,7 +2018,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="158"/>
         <source>Double-click an entry to clear the shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>Haga doble click en una entrada para borrar el método abreviado.</translation>
     </message>
 </context>
 <context>
@@ -3251,57 +3252,57 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.cpp" line="98"/>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Información</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="99"/>
         <source>Show information about the server connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra información acerca de la conexión con el servidor</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="100"/>
         <source>This will show extended information about the connection to the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ésto mostrará información extendida acerca de la conexión con el servidor.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="448"/>
         <source>Opening URL %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Abriendo URL %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="450"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>El esquema del URL no es &apos;mumble&apos;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="462"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished">Conectando a %1</translation>
+        <translation>Conectando a %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="462"/>
         <source>Enter username</source>
-        <translation type="unfinished">Introduzca el nombre de usuario</translation>
+        <translation>Introduzca el nombre de usuario</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="527"/>
         <source>Mumble Server Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información del servidor Mumble</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="530"/>
         <source>Control channel: %1 ms latency, Encrypted with %3 bit %4&lt;br /&gt;Voice channel: %2 ms latency, Unencrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de control: latencia %1 ms, Cifrado con %3 bit %4&lt;br /&gt;Canal de voz: latencia %2 ms, Sin cifrar</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1034"/>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ver certificado</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1029"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1.&lt;br /&gt;Los errores especificos con este certificado son: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;¿Desea aceptar este certificado de todos modos?&lt;br /&gt;(También se almacenará para que no se le pregunte ésto de nuevo.)&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3802,97 +3803,97 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="ViewCert.cpp" line="36"/>
         <source>Certificate Chain Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalles de la cadena de certificados</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="42"/>
         <source>Certificate chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena de certificados</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="43"/>
         <source>Certifitcate details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalles del certificado</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="50"/>
         <source>%1 %2</source>
-        <translation type="unfinished">%1 %2</translation>
+        <translation>%1 %2</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="95"/>
         <source>Common Name: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre común: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="96"/>
         <source>Organization: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Organización: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="84"/>
         <source>Subunit: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Subunidad: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="98"/>
         <source>Country: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>País: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="99"/>
         <source>Locality: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Localidad: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="100"/>
         <source>State: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="88"/>
         <source>Valid from: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Válido desde: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="89"/>
         <source>Valid to: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Válido hasta: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="90"/>
         <source>Serial: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de serie: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="91"/>
         <source>Public Key: %1 bits %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave pública: %1 bits %2</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="91"/>
         <source>RSA</source>
-        <translation type="unfinished"></translation>
+        <translation>RSA</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="91"/>
         <source>DSA</source>
-        <translation type="unfinished"></translation>
+        <translation>DSA</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="92"/>
         <source>Digest (MD5): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Huella digital (MD5): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="94"/>
         <source>Issued by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Emitido por:</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="97"/>
         <source>Unit Name: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de unidad: %1</translation>
     </message>
 </context>
 <context>
