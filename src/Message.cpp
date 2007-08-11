@@ -139,6 +139,9 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 		case Ping:
 			mMsg = new MessagePing();
 			break;
+		case PingStats:
+			mMsg = new MessagePingStats();
+			break;
 		case PlayerTexture:
 			mMsg = new MessageTexture();
 			break;
@@ -246,6 +249,9 @@ void MessageHandler::dispatch(Connection *cCon, Message *msg) {
 		case Message::Ping:
 			msgPing(cCon, static_cast<MessagePing *>(msg));
 			break;
+		case Message::PingStats:
+			msgPingStats(cCon, static_cast<MessagePingStats *>(msg));
+			break;
 		case Message::PlayerTexture:
 			msgTexture(cCon, static_cast<MessageTexture *>(msg));
 			break;
@@ -276,6 +282,14 @@ void MessagePing::saveStream(PacketDataStream &qdsOut) const {
 
 void MessagePing::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> uiTimestamp;
+}
+
+void MessagePingStats::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << uiTimestamp << uiGood << uiLate << uiLost << uiResync << dUDPPingAvg << dUDPPingVar << uiUDPPackets << dTCPPingAvg << dTCPPingVar << uiTCPPackets;
+}
+
+void MessagePingStats::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> uiTimestamp >> uiGood >> uiLate >> uiLost >> uiResync >> dUDPPingAvg >> dUDPPingVar >> uiUDPPackets >> dTCPPingAvg >> dTCPPingVar >> uiTCPPackets;
 }
 
 MessageServerAuthenticate::MessageServerAuthenticate() {

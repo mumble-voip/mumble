@@ -48,8 +48,6 @@ ServerHandler::ServerHandler() {
 	cConnection.reset();
 	qusUdp = NULL;
 
-	uiTCPPing = uiUDPPing = 0LL;
-
 	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
 	qWarning("OpenSSL Support: %d", QSslSocket::supportsSsl());
 
@@ -122,7 +120,7 @@ void ServerHandler::udpReady() {
 		if (msgType == Message::Ping) {
 			quint64 t;
 			pds >> t;
-			uiUDPPing = tTimestamp.elapsed() - t;
+			Connection::updatePing(cConnection->dUDPPingAvg, cConnection->dUDPPingVar, cConnection->uiUDPPackets, tTimestamp.elapsed() - t);
 		} else if (msgType == Message::Speex) {
 			ClientPlayer *p = ClientPlayer::get(uiSession);
 			AudioOutputPtr ao = g.ao;
@@ -142,11 +140,11 @@ void ServerHandler::udpReady() {
 	}
 }
 
-void ServerHandler::sendMessage(Message *mMsg, bool forceTCP) {
+void ServerHandler::sendMessage(Message *mMsg) {
 	bool mayUdp = (mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping);
 	mMsg->uiSession = g.uiSession;
 
-	if (! forceTCP && mayUdp && ! g.s.bTCPCompat) {
+	if (mayUdp && ! g.s.bTCPCompat) {
 		QMutexLocker qml(&qmUdp);
 		if (! qusUdp)
 			return;
@@ -174,8 +172,6 @@ void ServerHandler::run() {
 	qlErrors.clear();
 	qscCert.clear();
 
-	uiUDPPing = uiTCPPing = 0LL;
-
 	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
 	connect(cConnection.get(), SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
 	connect(cConnection.get(), SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
@@ -200,7 +196,6 @@ void ServerHandler::run() {
 	ticker->stop();
 	cConnection->disconnectSocket();
 	cConnection.reset();
-
 }
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
@@ -212,12 +207,24 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 }
 
 void ServerHandler::sendPing() {
-	MessagePing mp;
-	mp.uiTimestamp = tTimestamp.elapsed();
+	CryptState &cs = cConnection->csCrypt;
+	MessagePingStats mps;
+	mps.uiTimestamp = tTimestamp.elapsed();
+	mps.uiGood = cs.uiGood;
+	mps.uiLate = cs.uiLate;
+	mps.uiLost = cs.uiLost;
+	mps.uiResync = cs.uiResync;
+	mps.dUDPPingAvg = cConnection->dUDPPingAvg;
+	mps.dUDPPingVar = cConnection->dUDPPingVar;
+	mps.dTCPPingAvg = cConnection->dTCPPingAvg;
+	mps.dTCPPingVar = cConnection->dTCPPingVar;
+	sendMessage(&mps);
 
-	sendMessage(&mp, true);
-	if (! g.s.bTCPCompat)
-		sendMessage(&mp, false);
+	if (! g.s.bTCPCompat) {
+		MessagePing mp;
+		mp.uiTimestamp = mps.uiTimestamp;
+		sendMessage(&mp);
+	}
 }
 
 void ServerHandler::message(QByteArray &qbaMsg) {
@@ -242,9 +249,14 @@ void ServerHandler::message(QByteArray &qbaMsg) {
 				ao->removeBuffer(p);
 			}
 		}
-	} else if (mMsg->messageType() == Message::Ping) {
-		MessagePing *mpMsg = static_cast<MessagePing *>(mMsg);
-		uiTCPPing = tTimestamp.elapsed() - mpMsg->uiTimestamp;
+	} else if (mMsg->messageType() == Message::PingStats) {
+		MessagePingStats *mpsMsg = static_cast<MessagePingStats *>(mMsg);
+		CryptState &cs = cConnection->csCrypt;
+		cs.uiRemoteGood = mpsMsg->uiGood;
+		cs.uiRemoteLate = mpsMsg->uiLate;
+		cs.uiRemoteLost = mpsMsg->uiLost;
+		cs.uiRemoteResync = mpsMsg->uiResync;
+		Connection::updatePing(cConnection->dTCPPingAvg, cConnection->dTCPPingVar, cConnection->uiTCPPackets, tTimestamp.elapsed() - mpsMsg->uiTimestamp);
 	} else {
 		if (mMsg->messageType() == Message::ServerLeave) {
 			if (ao)

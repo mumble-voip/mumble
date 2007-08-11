@@ -343,6 +343,9 @@ void MainWindow::msgQueryUsers(Connection *, MessageQueryUsers *msg) {
 void MainWindow::msgPing(Connection *, MessagePing *) {
 }
 
+void MainWindow::msgPingStats(Connection *, MessagePingStats *) {
+}
+
 void MainWindow::msgTexture(Connection *, MessageTexture *msg) {
 	if (! msg->qbaTexture.isEmpty())
 		g.o->textureResponse(msg->iPlayerId,msg->qbaTexture);
@@ -363,6 +366,7 @@ void MainWindow::msgCryptSync(Connection *, MessageCryptSync *msg) {
 		msg->qbaNonce = QByteArray(reinterpret_cast<const char *>(c->csCrypt.encrypt_iv), AES_BLOCK_SIZE);
 		g.sh->sendMessage(msg);
 	} else if (msg->qbaNonce.size() == AES_BLOCK_SIZE) {
+		c->csCrypt.uiResync++;
 		memcpy(c->csCrypt.decrypt_iv, msg->qbaNonce.constData(), AES_BLOCK_SIZE);
 	}
 }

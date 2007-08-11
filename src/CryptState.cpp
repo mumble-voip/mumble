@@ -43,7 +43,8 @@ CryptState::CryptState() {
 	for (int i=0;i<0x100;i++)
 		decrypt_history[i] = 0;
 	bInit = false;
-	stat_good=stat_late=stat_lost = 0;
+	uiGood=uiLate=uiLost=uiResync=0;
+	uiRemoteGood=uiRemoteLate=uiRemoteLost=uiRemoteResync=0;
 }
 
 bool CryptState::isValid() const {
@@ -174,9 +175,9 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 	if (restore)
 		memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
 
-	stat_good++;
-	stat_late += late;
-	stat_lost += lost;
+	uiGood++;
+	uiLate += late;
+	uiLost += lost;
 
 	tLastGood.restart();
 	return true;

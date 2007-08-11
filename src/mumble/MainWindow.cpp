@@ -530,23 +530,32 @@ void MainWindow::on_ServerBanList_triggered() {
 }
 
 void MainWindow::on_ServerInformation_triggered() {
+	ConnectionPtr c = g.sh->cConnection;
+
+	if (! c)
+		return;
+
+	CryptState &cs = c->csCrypt;
 
 	QSslCipher qsc = g.sh->qscCipher;
 
-	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"),
-	                tr("Control channel: %1 ms latency, Encrypted with %3 bit %4<br />"
-	                   "Voice channel: %2 ms latency, Encrypted with OCB-AES128"
-	                  ).arg(g.sh->uiTCPPing / 1000.0, 0, 'f', 2).arg(g.sh->uiUDPPing / 1000.0, 0, 'f', 2).arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
 
-	qmb.setDefaultButton(QMessageBox::Ok);
-	qmb.setEscapeButton(QMessageBox::Ok);
+	/*FIXME
+		QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"),
+		                tr("Control channel: %1 ms latency, Encrypted with %3 bit %4<br />"
+		                   "Voice channel: %2 ms latency, Encrypted with OCB-AES128"
+		                  ).arg(g.sh->uiTCPPing / 1000.0, 0, 'f', 2).arg(g.sh->uiUDPPing / 1000.0, 0, 'f', 2).arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
 
-	QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
-	int res = qmb.exec();
-	if ((res == 0) && (qmb.clickedButton() == qp)) {
-		ViewCert vc(g.sh->qscCert, this);
-		vc.exec();
-	}
+		qmb.setDefaultButton(QMessageBox::Ok);
+		qmb.setEscapeButton(QMessageBox::Ok);
+
+		QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
+		int res = qmb.exec();
+		if ((res == 0) && (qmb.clickedButton() == qp)) {
+			ViewCert vc(g.sh->qscCert, this);
+			vc.exec();
+		}
+	*/
 }
 
 void MainWindow::on_PlayerMenu_aboutToShow() {

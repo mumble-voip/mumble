@@ -221,6 +221,7 @@ class Server : public QThread, public MessageHandler {
 		virtual void msgSpeex(Connection *, MessageSpeex *);
 		virtual void msgServerAuthenticate(Connection *, MessageServerAuthenticate *);
 		virtual void msgPing(Connection *, MessagePing *);
+		virtual void msgPingStats(Connection *, MessagePingStats *);
 		virtual void msgServerReject(Connection *, MessageServerReject *);
 		virtual void msgServerSync(Connection *, MessageServerSync *);
 		virtual void msgServerJoin(Connection *, MessageServerJoin *);

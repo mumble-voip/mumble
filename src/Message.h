@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync };
+		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync, PingStats };
 		unsigned int uiSession;
 
 		Message();
@@ -95,6 +95,27 @@ class MessagePing : public Message {
 		quint64 uiTimestamp;
 		Message::MessageType messageType() const {
 			return Ping;
+		};
+};
+
+class MessagePingStats : public Message {
+	protected:
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
+	public:
+		quint64 uiTimestamp;
+		quint32 uiGood;
+		quint32 uiLate;
+		quint32 uiLost;
+		quint32 uiResync;
+		double dUDPPingAvg;
+		double dUDPPingVar;
+		quint32 uiUDPPackets;
+		double dTCPPingAvg;
+		double dTCPPingVar;
+		quint32 uiTCPPackets;
+		Message::MessageType messageType() const {
+			return PingStats;
 		};
 };
 
@@ -418,6 +439,7 @@ class MessageHandler {
 		virtual void msgSpeex(Connection *, MessageSpeex *) = 0;
 		virtual void msgServerAuthenticate(Connection *, MessageServerAuthenticate *) = 0;
 		virtual void msgPing(Connection *, MessagePing *) = 0;
+		virtual void msgPingStats(Connection *, MessagePingStats *) = 0;
 		virtual void msgServerReject(Connection *, MessageServerReject *) = 0;
 		virtual void msgServerSync(Connection *, MessageServerSync *) = 0;
 		virtual void msgServerJoin(Connection *, MessageServerJoin *) = 0;

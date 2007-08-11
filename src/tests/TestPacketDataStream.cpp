@@ -13,7 +13,33 @@ class TestPacketDataStream : public QObject {
 		void string();
 		void string_data();
 		void space();
+		void floating();
+		void floating_data();
 };
+
+void TestPacketDataStream::floating_data() {
+	QTest::addColumn<double>("value");
+	for (int i=1;i<256;i++) {
+		double v = 1.0L / (1.0L * i);
+		QTest::newRow("Positive") << v;
+		QTest::newRow("Negative") << -v;
+	}
+}
+
+void TestPacketDataStream::floating() {
+	QFETCH(double, value);
+
+	char buff[256];
+	double d;
+
+	PacketDataStream out(buff, 256);
+	out << value;
+	PacketDataStream in(buff, out.size());
+	in >> d;
+	QCOMPARE(value, d);
+	QVERIFY(in.isValid());
+	QVERIFY(in.left() == 0);
+}
 
 void TestPacketDataStream::integer_data() {
 	QTest::addColumn<quint64>("value");

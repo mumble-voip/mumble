@@ -41,9 +41,15 @@ class CryptState {
 		unsigned char decrypt_iv[AES_BLOCK_SIZE];
 		unsigned char decrypt_history[0x100];
 
-		unsigned int stat_good;
-		unsigned int stat_late;
-		unsigned int stat_lost;
+		unsigned int uiGood;
+		unsigned int uiLate;
+		unsigned int uiLost;
+		unsigned int uiResync;
+
+		unsigned int uiRemoteGood;
+		unsigned int uiRemoteLate;
+		unsigned int uiRemoteLost;
+		unsigned int uiRemoteResync;
 
 		AES_KEY	encrypt_key;
 		AES_KEY decrypt_key;

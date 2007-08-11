@@ -811,6 +811,31 @@ void Server::msgPing(Connection *cCon, MessagePing *msg) {
 	sendMessage(cCon, msg);
 }
 
+void Server::msgPingStats(Connection *cCon, MessagePingStats *msg) {
+	MSG_SETUP(Player::Authenticated);
+	CryptState &cs=uSource->csCrypt;
+	cs.uiRemoteGood = msg->uiGood;
+	cs.uiRemoteLate = msg->uiLate;
+	cs.uiRemoteLost = msg->uiLost;
+	cs.uiRemoteResync = msg->uiResync;
+
+	uSource->dUDPPingAvg = msg->dUDPPingAvg;
+	uSource->dUDPPingVar = msg->dUDPPingVar;
+	uSource->uiUDPPackets = msg->uiUDPPackets;
+	uSource->dTCPPingAvg = msg->dTCPPingAvg;
+	uSource->dTCPPingVar = msg->dTCPPingVar;
+	uSource->uiTCPPackets = msg->uiTCPPackets;
+
+	msg->uiGood = cs.uiGood;
+	msg->uiLate = cs.uiLate;
+	msg->uiLost = cs.uiLost;
+	msg->uiResync = cs.uiResync;
+
+	msg->dUDPPingAvg = msg->dUDPPingVar = msg->dTCPPingAvg = msg->dTCPPingVar = 0.0L;
+	msg->uiUDPPackets = msg->uiTCPPackets = 0;
+	sendMessage(cCon, msg);
+}
+
 void Server::msgTexture(Connection *cCon, MessageTexture *msg) {
 	MSG_SETUP(Player::Authenticated);
 	if (! qhUserTextureCache.contains(msg->iPlayerId)) {
@@ -837,6 +862,7 @@ void Server::msgCryptSync(Connection *cCon, MessageCryptSync *msg) {
 		msg->qbaNonce = QByteArray(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE);
 		sendMessage(cCon, msg);
 	} else if (msg->qbaNonce.size() == AES_BLOCK_SIZE) {
+		uSource->csCrypt.uiResync++;
 		memcpy(uSource->csCrypt.decrypt_iv, msg->qbaNonce.constData(), AES_BLOCK_SIZE);
 	} else {
 		cCon->disconnectSocket();

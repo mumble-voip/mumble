@@ -293,6 +293,24 @@ class PacketDataStream {
 		INTMAPOPERATOR(char);
 		INTMAPOPERATOR(unsigned char);
 
+		union double64u {
+			quint64 ui;
+			double d;
+		};
+
+		PacketDataStream &operator <<(const double v) {
+			double64u u;
+			u.d = v;
+			return *this << u.ui;
+		}
+
+		PacketDataStream &operator >>(double &v) {
+			double64u u;
+			*this >> u.ui;
+			v = u.d;
+			return *this;
+		}
+
 		template <typename T>
 		PacketDataStream &operator <<(const QList<T> &l) {
 			*this << l.size();

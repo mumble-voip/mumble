@@ -48,6 +48,11 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
 	bReentry = false;
+
+	dUDPPingAvg = dUDPPingVar = 0.0L;
+	dTCPPingAvg = dTCPPingVar = 0.0L;
+	uiUDPPackets = uiTCPPackets = 0;
+
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
 	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
@@ -168,6 +173,13 @@ void Connection::disconnectSocket() {
 	qtsSocket->disconnectFromHost();
 }
 
+void Connection::updatePing(double &avg, double &var, quint32 &samples, quint64 usec) {
+	samples++;
+	double x = usec / 1000.0L;
+	double delta = x - avg;
+	avg += delta / (samples * 1.0L);
+	var += delta * (x - avg);
+};
 
 QHostAddress Connection::peerAddress() const {
 	return qtsSocket->peerAddress();

@@ -66,6 +66,15 @@ class Connection : public QObject {
 
 		CryptState csCrypt;
 
+		double dUDPPingAvg;
+		double dUDPPingVar;
+		quint32 uiUDPPackets;
+		double dTCPPingAvg;
+		double dTCPPingVar;
+		quint32 uiTCPPackets;
+
+		static void updatePing(double &avg, double &var, quint32 &samples, quint64 usec);
+
 		QList<QSslCertificate> peerCertificateChain() const;
 		QSslCipher sessionCipher() const;
 		QHostAddress peerAddress() const;

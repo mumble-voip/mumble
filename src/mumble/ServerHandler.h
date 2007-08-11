@@ -66,14 +66,12 @@ class ServerHandler : public QThread {
 		QSslCipher qscCipher;
 		ConnectionPtr cConnection;
 
-		quint64 uiUDPPing, uiTCPPing;
-
 		ServerHandler();
 		~ServerHandler();
 		void setConnectionInfo(const QString &host, int port, const QString &username, const QString &pw);
 		void getConnectionInfo(QString &host, int &port, QString &username, QString &pw);
 		void customEvent(QEvent *evt);
-		void sendMessage(Message *m, bool forceTCP=false);
+		void sendMessage(Message *m);
 		void disconnect();
 		void run();
 	signals:
