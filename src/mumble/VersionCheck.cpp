@@ -51,7 +51,9 @@ VersionCheck::VersionCheck(QObject *p) : QObject(p) {
 		if (a.size() < 1) {
 			qWarning("VersionCheck: suspiciously small binary");
 		} else {
-			quUrl.addQueryItem(QLatin1String("crc"), QString::number(qChecksum(a.data(), a.size()),16));
+			QCryptographicHash qch(QCryptographicHash::Sha1);
+			qch.addData(a);
+			quUrl.addQueryItem(QLatin1String("sha1"), QLatin1String(qch.result().toHex()));
 		}
 	}
 
