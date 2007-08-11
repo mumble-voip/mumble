@@ -40,7 +40,7 @@ ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 	QGroupBox *qcbChain, *qcbDetails;
 
 	qcbChain=new QGroupBox(tr("Certificate chain"));
-	qcbDetails=new QGroupBox(tr("Certifitcate details"));
+	qcbDetails=new QGroupBox(tr("Certificate details"));
 
 	h = new QHBoxLayout();
 	qlwChain = new QListWidget();
