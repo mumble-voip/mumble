@@ -54,16 +54,13 @@ QIcon ConfigWidget::icon() const {
 }
 
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
+	setupUi(this);
+/*
 	setWindowTitle(tr("Mumble Configuration"));
-
 	qlwIcons = new QListWidget();
 	qswPages = new QStackedWidget();
 
 	qlwIcons->setViewMode(QListView::IconMode);
-	qlwIcons->setIconSize(QSize(96, 84));
-	qlwIcons->setMovement(QListView::Static);
-	qlwIcons->setMaximumWidth(128);
-	qlwIcons->setSpacing(12);
 	qlwIcons->setObjectName(QLatin1String("Icons"));
 
 	QPushButton *okButton = new QPushButton(tr("&OK"));
@@ -82,10 +79,6 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	applyButton->setToolTip(tr("Apply changes"));
 	applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
 
-	ConfigWidgetNew cwn;
-	foreach(cwn, *ConfigRegistrar::c_qmNew) {
-		addPage(cwn());
-	}
 
 	QHBoxLayout *buttons = new QHBoxLayout;
 	buttons->addStretch(1);
@@ -110,6 +103,20 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	QMetaObject::connectSlotsByName(this);
 
 	qlwIcons->setCurrentRow(0);
+*/
+	qlwIcons->setIconSize(QSize(96, 84));
+//	qlwIcons->setMovement(QListView::Static);
+//	qlwIcons->setMaximumWidth(128);
+//	qlwIcons->setSpacing(12);
+
+	QWidget *w;
+	while ((w = qswPages->widget(0)))
+		delete w;
+
+	ConfigWidgetNew cwn;
+	foreach(cwn, *ConfigRegistrar::c_qmNew) {
+		addPage(cwn());
+	}
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw) {
@@ -135,11 +142,21 @@ void ConfigDialog::addPage(ConfigWidget *cw) {
 	widgets << cw;
 }
 
-void ConfigDialog::on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
 	if (!current)
 		current = previous;
 
 	qswPages->setCurrentIndex(qlwIcons->row(current));
+}
+
+void ConfigDialog::on_buttonBox_clicked(QAbstractButton *b) {
+	switch (buttonBox->standardButton(b)) {
+		case QDialogButtonBox::Apply:
+			apply();
+			break;
+		default:
+			break;
+	}
 }
 
 void ConfigDialog::apply() {

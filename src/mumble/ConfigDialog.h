@@ -31,6 +31,8 @@
 #ifndef _CONFIGDIALOG_H
 #define _CONFIGDIALOG_H
 
+#include "ui_ConfigDialog.h"
+
 class ConfigWidget : public QWidget {
 		Q_OBJECT
 	public:
@@ -51,17 +53,16 @@ class ConfigRegistrar {
 		ConfigRegistrar(int priority, ConfigWidgetNew n);
 };
 
-class ConfigDialog : public QDialog {
+class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		Q_OBJECT;
 	protected:
 		QList<ConfigWidget *> widgets;
-		QListWidget *qlwIcons;
-		QStackedWidget *qswPages;
 		void addPage(ConfigWidget *aw);
 	public:
 		ConfigDialog(QWidget *p = NULL);
 	public slots:
-		void on_Icons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+		void on_buttonBox_clicked(QAbstractButton *);
 		void apply();
 		void accept();
 };
