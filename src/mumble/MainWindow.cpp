@@ -193,6 +193,12 @@ void MainWindow::createActions() {
 	qaAudioUnlink->setToolTip(tr("Forcibly unlink plugin"));
 	qaAudioUnlink->setWhatsThis(tr("This forces the current plugin to unlink, which is handy if it is reading "
 	                               "completely wrong data."));
+	qaAudioLocalDeafen=new QAction(tr("&Local deafen"), this);
+	qaAudioLocalDeafen->setObjectName(QLatin1String("AudioLocalDeafen"));
+	qaAudioLocalDeafen->setCheckable(true);
+	qaAudioLocalDeafen->setChecked(g.bLocalDeafen);
+	qaAudioLocalDeafen->setToolTip(tr("Silence loudspeakers"));
+	qaAudioLocalDeafen->setWhatsThis(tr("Sets you in local deafen mode, wherein your speakers are silenced but you are still transmitting audio."));
 
 	qaConfigDialog=new QAction(tr("&Settings"), this);
 	qaConfigDialog->setObjectName(QLatin1String("ConfigDialog"));
@@ -300,6 +306,8 @@ void MainWindow::setupGui()  {
 	qmAudio->addAction(qaAudioTTS);
 	qmAudio->addSeparator();
 	qmAudio->addAction(qaAudioStats);
+	qmAudio->addSeparator();
+	qmAudio->addAction(qaAudioLocalDeafen);
 
 	qmConfig->addAction(qaConfigDialog);
 #ifdef Q_OS_WIN
@@ -882,6 +890,14 @@ void MainWindow::on_AudioDeaf_triggered() {
 	mpsmd.bMute = g.s.bMute;
 	mpsmd.bDeaf = g.s.bDeaf;
 	g.sh->sendMessage(&mpsmd);
+}
+
+void MainWindow::on_AudioLocalDeafen_triggered() {
+	g.bLocalDeafen = qaAudioLocalDeafen->isChecked();
+	if (g.bLocalDeafen) {
+		QMessageBox::information(this, tr("Mumble"), tr("You are now in local deafen mode. This mode is not relfected on the server, and you will still be transmitting "
+				"voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers."));
+	}
 }
 
 void MainWindow::on_AudioTextToSpeech_triggered() {

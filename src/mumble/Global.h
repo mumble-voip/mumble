@@ -69,6 +69,7 @@ struct Global {
 	int iAltSpeak;
 	bool bPushToMute;
 	bool bCenterPosition;
+	bool bLocalDeafen;
 	LoopMode lmLoopMode;
 	double dPacketLoss;
 	double dMaxPacketDelay;

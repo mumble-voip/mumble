@@ -214,6 +214,9 @@ bool AudioOutputSpeech::decodeNextFrame() {
 		jitter_buffer_tick(jbJitter);
 	}
 
+	if (g.bLocalDeafen)
+		memset(psBuffer, 0, iFrameSize*2);
+
 	if (p)
 		p->setTalking(alive, ((ucFlags & MessageSpeex::AltSpeak) ? true : false));
 	return alive;
