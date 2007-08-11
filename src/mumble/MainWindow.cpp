@@ -539,13 +539,24 @@ void MainWindow::on_ServerInformation_triggered() {
 
 	QSslCipher qsc = g.sh->qscCipher;
 
+	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 variance)</p>").arg(qsc.usedBits()).arg(qsc.name()).arg(c->dTCPPingAvg, 0, 'f', 2).arg(c->dTCPPingVar / (c->uiTCPPackets - 1),0,'f',2);
+	QString qsVoice, qsCrypt;
+	if (g.s.bTCPCompat) {
+		qsVoice = tr("Voice channel is sent over control channel.");
+	} else {
+		qsVoice = tr("<h2>Voice channel</h2><p>Encrypted with 128 bit OCB-AES128<br />%1 ms average latency (%4 variance)</p>").arg(c->dUDPPingAvg, 0, 'f', 2).arg(c->dUDPPingVar / (c->uiUDPPackets - 1),0,'f',2);
+		qsCrypt = QString::fromLatin1("<h2>%1</h2><table><tr><th></th><th>%2</th><th>%3</th></tr>"
+			     "<tr><th>%4</th><td>%8</td><td>%12</td></tr>"
+			     "<tr><th>%5</th><td>%9</td><td>%13</td></tr>"
+			     "<tr><th>%6</th><td>%10</td><td>%14</td></tr>"
+			     "<tr><th>%7</th><td>%11</td><td>%15</td></tr>"
+			     "</table>")
+			     .arg(tr("UDP Statistics")).arg(tr("To Server")).arg(tr("From Server")).arg(tr("Good")).arg(tr("Late")).arg(tr("Lost")).arg(tr("Resync"))
+			     .arg(cs.uiRemoteGood).arg(cs.uiRemoteLate).arg(cs.uiRemoteLost).arg(cs.uiRemoteResync)
+			     .arg(cs.uiGood).arg(cs.uiLate).arg(cs.uiLost).arg(cs.uiResync);
+	}
 
-	/*FIXME
-		QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"),
-		                tr("Control channel: %1 ms latency, Encrypted with %3 bit %4<br />"
-		                   "Voice channel: %2 ms latency, Encrypted with OCB-AES128"
-		                  ).arg(g.sh->uiTCPPing / 1000.0, 0, 'f', 2).arg(g.sh->uiUDPPing / 1000.0, 0, 'f', 2).arg(qsc.usedBits()).arg(qsc.name()), QMessageBox::Ok, this);
-
+	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsControl + qsVoice + qsCrypt, QMessageBox::Ok, this);
 		qmb.setDefaultButton(QMessageBox::Ok);
 		qmb.setEscapeButton(QMessageBox::Ok);
 
@@ -555,7 +566,6 @@ void MainWindow::on_ServerInformation_triggered() {
 			ViewCert vc(g.sh->qscCert, this);
 			vc.exec();
 		}
-	*/
 }
 
 void MainWindow::on_PlayerMenu_aboutToShow() {
