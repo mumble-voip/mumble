@@ -166,7 +166,7 @@ int main(int argc, char **argv) {
 	g.ao = AudioOutputRegistrar::newFromChoice();
 	g.ao->start(QThread::HighPriority);
 
-	a.setQuitOnLastWindowClosed(true);
+	a.setQuitOnLastWindowClosed(false);
 
 	if (! g.qs->value("FirstTimeDone", false).toBool()) {
 		g.qs->setValue("FirstTimeDone", true);
