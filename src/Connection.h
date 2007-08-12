@@ -38,12 +38,14 @@ class Message;
 
 class Connection : public QObject {
 		Q_OBJECT
+	private:
+		static int iReceiveLevel;
+		static QSet<Connection *> qsReceivers;
 	protected:
 		QSslSocket *qtsSocket;
 		QTime qtLastPacket;
 		int iPacketLength;
 		bool bDisconnectedEmitted;
-		bool bReentry;
 	protected slots:
 		void socketRead();
 		void socketError(QAbstractSocket::SocketError);
@@ -55,6 +57,8 @@ class Connection : public QObject {
 		void connectionClosed(QString reason);
 		void message(QByteArray &);
 		void handleSslErrors(const QList<QSslError> &);
+		
+		void recheckBuffer();
 	public:
 		Connection(QObject *parent, QSslSocket *qtsSocket);
 		~Connection();

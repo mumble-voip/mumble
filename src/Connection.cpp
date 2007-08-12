@@ -42,12 +42,14 @@
 #include <winsock2.h>
 #endif
 
+int Connection::iReceiveLevel = 0;
+QSet<Connection *> Connection::qsReceivers;
+
 Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	qtsSocket->setParent(this);
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
-	bReentry = false;
 
 	dUDPPingAvg = dUDPPingVar = 0.0L;
 	dTCPPingAvg = dTCPPingVar = 0.0L;
@@ -61,6 +63,7 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 }
 
 Connection::~Connection() {
+	qsReceivers.remove(this);
 }
 
 int Connection::activityTime() const {
@@ -69,38 +72,59 @@ int Connection::activityTime() const {
 
 void Connection::socketRead() {
 	// QSslSocket will, during writes, emit readyRead. Meaning we'd reenter from the message handlers.
-	// That is bad, and furthermore the remaining data will be parsed on the next run through, so
-	// there's no need.
-	if (bReentry)
+	// At the same time, DBus connections don't like getting multiple concurrent requests.
+	// So, this is a big workaround to serialize user requests.
+
+	int iPrevLevel = iReceiveLevel;
+	
+	iReceiveLevel = 2;
+	
+	if (iPrevLevel == 2) {
+		// Recursive entry. Put on list and ignore.
+		qsReceivers.insert(this);
 		return;
-	bReentry = true;
+	} else if (iPrevLevel == 1) {
+		// We're iterating from the topmost one.
+		qsReceivers.remove(this);
+	}
 
-	int iAvailable;
+	int iAvailable = qtsSocket->bytesAvailable();
 
-	while (1) {
-		iAvailable = qtsSocket->bytesAvailable();
-
-		if (iPacketLength == -1) {
-			if (iAvailable < 3)
-				break;
-
-			unsigned char a_ucBuffer[3];
-
-			qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
-			iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
-			iAvailable -= 3;
+	if (iPacketLength == -1) {
+		if (iAvailable < 3) {
+			iReceiveLevel = iPrevLevel;
+			return;
 		}
 
-		if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
-			QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
-			emit message(qbaBuffer);
-			iPacketLength = -1;
-			qtLastPacket.restart();
-		} else {
-			break;
+		unsigned char a_ucBuffer[3];
+
+		qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
+		iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
+		iAvailable -= 3;
+	}
+
+	if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
+		QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
+		iPacketLength = -1;
+		qtLastPacket.restart();
+		iAvailable -= iPacketLength;
+		if (iAvailable >= 3)
+			qsReceivers.insert(this);
+
+		emit message(qbaBuffer);
+	}
+	
+	// At this point, the current *this might be destroyed.
+	
+	if (iPrevLevel == 0) {
+		iReceiveLevel = 1;
+		QSet<Connection *>::const_iterator i = qsReceivers.constBegin();
+		while (i != qsReceivers.constEnd()) {
+			(*i)->socketRead();
+			i = qsReceivers.constBegin();
 		}
 	}
-	bReentry = false;
+	iReceiveLevel = iPrevLevel;
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {
