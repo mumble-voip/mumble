@@ -122,6 +122,10 @@ void MainWindow::createActions() {
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));
 
+
+	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
+	qstiIcon->setObjectName(QLatin1String("Icon"));
+	qstiIcon->show();
 }
 
 void MainWindow::setupGui()  {
@@ -162,10 +166,6 @@ void MainWindow::setupGui()  {
 	restoreGeometry(g.qs->value(QLatin1String("mwgeom")).toByteArray());
 	restoreState(g.qs->value(QLatin1String("mw")).toByteArray());
 	qsSplit->restoreState(g.qs->value(QLatin1String("mwSplitter")).toByteArray());
-
-	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
-	qstiIcon->setObjectName(QLatin1String("Icon"));
-	qstiIcon->show();
 }
 
 void MainWindow::msgBox(QString msg) {
@@ -656,7 +656,7 @@ void MainWindow::on_qaAudioLocalDeafen_triggered() {
 	}
 }
 
-void MainWindow::on_qaAudioTextToSpeech_triggered() {
+void MainWindow::on_qaAudioTTS_triggered() {
 	g.s.bTTS = qaAudioTTS->isChecked();
 }
 

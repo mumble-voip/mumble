@@ -193,7 +193,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="qpbUrl" >
+          <widget class="QPushButton" name="qpbURL" >
            <property name="text" >
             <string>&amp;View Webpage</string>
            </property>

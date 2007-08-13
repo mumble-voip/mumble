@@ -15,7 +15,7 @@ DIST		+= licenses.h mumble.ico firmumble.inc plugins/mumble_plugin.h mumble-over
 INCLUDEPATH	+= ../../speex/include
 LIBS 		+= -Llib -L.
 RESOURCES	+= mumble.qrc
-FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui
+FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui
 
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts
 

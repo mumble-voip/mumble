@@ -31,32 +31,22 @@
 #ifndef _BANEDITOR_H
 #define _BANEDITOR_H
 
+#include "ui_BanEditor.h"
 #include "Message.h"
 
-class BanEditor : public QDialog {
+class BanEditor : public QDialog, public Ui::BanEditor {
 		Q_OBJECT;
 	protected:
 		QList<QPair<quint32, int> > qlBans;
-
-		QListWidget *qlwBans;
-
-		QLineEdit *qleIP;
-		QSpinBox *qsbMask;
-
-		QPushButton *qpbAdd;
-		QPushButton *qpbUpdate;
-		QPushButton *qpbRemove;
-
-		void addToolTipsWhatsThis();
 	public:
 		BanEditor(const MessageServerBanList *msbl, QWidget *p = NULL);
 	public slots:
 		void accept();
 	public slots:
-		void on_Bans_currentRowChanged();
-		void on_Add_clicked();
-		void on_Update_clicked();
-		void on_Remove_clicked();
+		void on_qlwBans_currentRowChanged();
+		void on_qpbAdd_clicked();
+		void on_qpbUpdate_clicked();
+		void on_qpbRemove_clicked();
 		void refreshBanList();
 };
 

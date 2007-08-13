@@ -34,69 +34,15 @@
 #include "Global.h"
 
 BanEditor::BanEditor(const MessageServerBanList *msbl, QWidget *p) : QDialog(p) {
-	setWindowTitle(tr("Mumble - Edit Bans"));
+	setupUi(this);
 
-	qlwBans = new QListWidget();
-	qleIP = new QLineEdit(tr("0.0.0.0"));
-	qsbMask = new QSpinBox();
-	qpbAdd = new QPushButton(tr("&Add"));
-	qpbUpdate = new QPushButton(tr("&Update"));
-	qpbRemove = new QPushButton(tr("&Remove"));
-
-	qlwBans->setObjectName(QLatin1String("Bans"));
-
-	qleIP->setObjectName(QLatin1String("IP"));
 	QRegExp rx(QLatin1String("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"));
 	QValidator *validator = new QRegExpValidator(rx, this);
 	qleIP->setValidator(validator);
 
-	qsbMask->setObjectName(QLatin1String("Mask"));
-	qsbMask->setRange(8,32);
-	qsbMask->setValue(24);
-	qpbAdd->setObjectName(QLatin1String("Add"));
-	qpbUpdate->setObjectName(QLatin1String("Update"));
-	qpbRemove->setObjectName(QLatin1String("Remove"));
-
-	QGridLayout *grid = new QGridLayout;
-
-	grid->addWidget(qlwBans,0,0,2,1);
-	grid->addWidget(qleIP,0,1,1,2);
-	grid->addWidget(qsbMask,0,3);
-	grid->addWidget(qpbAdd,1,1);
-	grid->addWidget(qpbUpdate,1,2);
-	grid->addWidget(qpbRemove,1,3);
-
-	QPushButton *okButton = new QPushButton(tr("&OK"));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	okButton->setToolTip(tr("Accept changes"));
-	okButton->setWhatsThis(tr("This button will accept current groups/ACLs and send them to "
-	                          "the server. Note that if you mistakenly remove write permission "
-	                          "from yourself, the server will add it."));
-	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	cancelButton->setToolTip(tr("Reject changes"));
-	cancelButton->setWhatsThis(tr("This button will cancels all changes and closes the dialog without "
-	                              "updating the ACLs or groups on the server."));
-
-	QHBoxLayout *buttons = new QHBoxLayout;
-	buttons->addStretch(1);
-	buttons->addWidget(okButton);
-	buttons->addWidget(cancelButton);
-
-	QVBoxLayout *ml = new QVBoxLayout;
-	ml->addLayout(grid);
-	ml->addSpacing(12);
-	ml->addLayout(buttons);
-	setLayout(ml);
-
 	qlBans = msbl->qlBans;
 	refreshBanList();
 
-	QMetaObject::connectSlotsByName(this);
-	addToolTipsWhatsThis();
-}
-
-void BanEditor::addToolTipsWhatsThis() {
 }
 
 void BanEditor::accept() {
@@ -109,7 +55,7 @@ void BanEditor::accept() {
 	QDialog::accept();
 }
 
-void BanEditor::on_Bans_currentRowChanged() {
+void BanEditor::on_qlwBans_currentRowChanged() {
 	QPair<quint32, int> ban;
 	int idx = qlwBans->currentRow();
 	if (idx < 0)
@@ -121,7 +67,7 @@ void BanEditor::on_Bans_currentRowChanged() {
 	qsbMask->setValue(ban.second);
 }
 
-void BanEditor::on_Add_clicked() {
+void BanEditor::on_qpbAdd_clicked() {
 	QPair<quint32, int> ban;
 	QHostAddress addr;
 
@@ -140,12 +86,12 @@ void BanEditor::on_Add_clicked() {
 	}
 }
 
-void BanEditor::on_Update_clicked() {
-	on_Remove_clicked();
-	on_Add_clicked();
+void BanEditor::on_qpbUpdate_clicked() {
+	on_qpbRemove_clicked();
+	on_qpbAdd_clicked();
 }
 
-void BanEditor::on_Remove_clicked() {
+void BanEditor::on_qpbRemove_clicked() {
 	int idx = qlwBans->currentRow();
 	if (idx >= 0)
 		qlBans.removeAt(idx);

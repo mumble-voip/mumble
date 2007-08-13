@@ -103,7 +103,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaAudioMute_triggered();
 		void on_qaAudioDeaf_triggered();
 		void on_qaAudioLocalDeafen_triggered();
-		void on_qaAudioTextToSpeech_triggered();
+		void on_qaAudioTTS_triggered();
 		void on_qaAudioUnlink_triggered();
 		void on_qaAudioStats_triggered();
 		void on_qaConfigDialog_triggered();
