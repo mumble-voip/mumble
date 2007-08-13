@@ -179,7 +179,7 @@ int main(int argc, char **argv) {
 	if (a.arguments().count() > 1) {
 		g.mw->openUrl(QUrl(a.arguments().last()));
 	} else {
-		g.mw->on_ServerConnect_triggered();
+		g.mw->on_qaServerConnect_triggered();
 	}
 	res=a.exec();
 

@@ -42,6 +42,7 @@ class TextToSpeech;
 class PlayerModel;
 
 #include "Message.h"
+#include "ui_MainWindow.h"
 
 class MessageBoxEvent : public QEvent {
 	public:
@@ -49,24 +50,12 @@ class MessageBoxEvent : public QEvent {
 		MessageBoxEvent(QString msg);
 };
 
-class MainWindow : public QMainWindow, public MessageHandler {
+class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWindow {
 		friend class PlayerModel;
 		Q_OBJECT
 	public:
 		PlayerModel *pmModel;
-		QMenu *qmServer, *qmPlayer, *qmChannel, *qmAudio, *qmConfig, *qmHelp;
-		QAction *qaQuit;
-		QAction *qaServerConnect, *qaServerDisconnect, *qaServerBanList, *qaServerInformation;
-		QAction *qaPlayerKick, *qaPlayerBan, *qaPlayerMute, *qaPlayerDeaf, *qaPlayerLocalMute;
-		QAction *qaPlayerTextMessage;
-		QAction *qaAudioReset, *qaAudioMute, *qaAudioDeaf, *qaAudioTTS, *qaAudioStats, *qaAudioUnlink, *qaAudioLocalDeafen;
-		QAction *qaConfigDialog, *qaAudioWizard;
-		QAction *qaHelpWhatsThis, *qaHelpAbout, *qaHelpAboutSpeex, *qaHelpAboutQt, *qaHelpVersionCheck;
-		QAction *qaChannelAdd, *qaChannelRemove, *qaChannelACL, *qaChannelRename, *qaChannelLink, *qaChannelUnlink, *qaChannelUnlinkAll;
-		QSplitter *qsSplit;
 		QSystemTrayIcon *qstiIcon;
-		QTextBrowser *qteLog;
-		QTreeView *qtvPlayers;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
@@ -89,50 +78,50 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
 	public slots:
-		void on_Players_customContextMenuRequested(const QPoint &pos);
-		void on_Players_doubleClicked(const QModelIndex &idx);
-		void on_ServerConnect_triggered();
-		void on_ServerDisconnect_triggered();
-		void on_ServerBanList_triggered();
-		void on_ServerInformation_triggered();
-		void on_PlayerMenu_aboutToShow();
-		void on_PlayerKick_triggered();
-		void on_PlayerBan_triggered();
-		void on_PlayerMute_triggered();
-		void on_PlayerDeaf_triggered();
-		void on_PlayerLocalMute_triggered();
-		void on_PlayerTextMessage_triggered();
-		void on_ChannelMenu_aboutToShow();
-		void on_ChannelAdd_triggered();
-		void on_ChannelRemove_triggered();
-		void on_ChannelACL_triggered();
-		void on_ChannelRename_triggered();
-		void on_ChannelLink_triggered();
-		void on_ChannelUnlink_triggered();
-		void on_ChannelUnlinkAll_triggered();
-		void on_AudioReset_triggered();
-		void on_AudioMute_triggered();
-		void on_AudioDeaf_triggered();
-		void on_AudioLocalDeafen_triggered();
-		void on_AudioTextToSpeech_triggered();
-		void on_AudioUnlink_triggered();
-		void on_AudioStats_triggered();
-		void on_ConfigDialog_triggered();
-		void on_AudioWizard_triggered();
-		void on_HelpWhatsThis_triggered();
-		void on_HelpAbout_triggered();
-		void on_HelpAboutSpeex_triggered();
-		void on_HelpAboutQt_triggered();
-		void on_HelpVersionCheck_triggered();
-		void on_Quit_triggered();
+		void on_qtvPlayers_customContextMenuRequested(const QPoint &pos);
+		void on_qtvPlayers_doubleClicked(const QModelIndex &idx);
+		void on_qaServerConnect_triggered();
+		void on_qaServerDisconnect_triggered();
+		void on_qaServerBanList_triggered();
+		void on_qaServerInformation_triggered();
+		void on_qmPlayer_aboutToShow();
+		void on_qaPlayerKick_triggered();
+		void on_qaPlayerBan_triggered();
+		void on_qaPlayerMute_triggered();
+		void on_qaPlayerDeaf_triggered();
+		void on_qaPlayerLocalMute_triggered();
+		void on_qaPlayerTextMessage_triggered();
+		void on_qmChannel_aboutToShow();
+		void on_qaChannelAdd_triggered();
+		void on_qaChannelRemove_triggered();
+		void on_qaChannelACL_triggered();
+		void on_qaChannelRename_triggered();
+		void on_qaChannelLink_triggered();
+		void on_qaChannelUnlink_triggered();
+		void on_qaChannelUnlinkAll_triggered();
+		void on_qaAudioReset_triggered();
+		void on_qaAudioMute_triggered();
+		void on_qaAudioDeaf_triggered();
+		void on_qaAudioLocalDeafen_triggered();
+		void on_qaAudioTextToSpeech_triggered();
+		void on_qaAudioUnlink_triggered();
+		void on_qaAudioStats_triggered();
+		void on_qaConfigDialog_triggered();
+		void on_qaAudioWizard_triggered();
+		void on_qaHelpWhatsThis_triggered();
+		void on_qaHelpAbout_triggered();
+		void on_qaHelpAboutSpeex_triggered();
+		void on_qaHelpAboutQt_triggered();
+		void on_qaHelpVersionCheck_triggered();
+		void on_qaQuit_triggered();
+		void on_qteLog_anchorClicked(const QUrl &);
+		void on_qteLog_highlighted(const QUrl & link);
 		void on_PushToTalk_triggered(bool);
 		void on_PushToMute_triggered(bool);
 		void on_AltPushToTalk_triggered(bool);
 		void on_CenterPos_triggered(bool);
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
-		void on_Log_anchorClicked(const QUrl &);
-		void on_Log_highlighted(const QUrl & link);
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void pushLink(bool down);
