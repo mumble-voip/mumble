@@ -152,6 +152,10 @@ void Server::readParams() {
 	iMaxUsers = Meta::mp.iMaxUsers;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
 	qhaBind = Meta::mp.qhaBind;
+	qsRegName = Meta::mp.qsRegName;
+	qsRegPassword = Meta::mp.qsRegPassword;
+	qsRegHost = Meta::mp.qsRegHost;
+	qurlRegWeb = Meta::mp.qurlRegWeb;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
