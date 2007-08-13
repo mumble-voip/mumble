@@ -256,7 +256,6 @@ void MainWindow::setupGui()  {
 	qteLog->setOpenLinks(false);
 	qteLog->setOpenExternalLinks(false);
 	qteLog->setObjectName(QLatin1String("Log"));
-	qteLog->setToolTip(tr("Log of messages"));
 	qteLog->setWhatsThis(tr("This shows all recent activity. Connecting to servers, errors and information messages all show up here.<br />"
 	                        "To configure exactly which messages show up here, use the <b>Settings</b> command from the menu."));
 
@@ -1183,4 +1182,11 @@ void MainWindow::customEvent(QEvent *evt) {
 
 void MainWindow::on_Log_anchorClicked(const QUrl &url) {
 	QDesktopServices::openUrl(url);
+}
+
+void MainWindow::on_Log_highlighted(const QUrl &url) {
+	if (! url.isValid())
+		QToolTip::hideText();
+	else
+		QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
 }

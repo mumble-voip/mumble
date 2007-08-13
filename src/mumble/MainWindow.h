@@ -132,6 +132,7 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 		void on_Log_anchorClicked(const QUrl &);
+		void on_Log_highlighted(const QUrl & link);
 		void serverConnected();
 		void serverDisconnected(QString reason);
 		void pushLink(bool down);
