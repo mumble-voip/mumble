@@ -34,44 +34,13 @@
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
-	QWidget *local = createLocal();
-	QWidget *remote = createRemote();
 
 	qhList = new QHttp(QLatin1String("mumble.hive.no"), 80, this);
 	qhList->setObjectName(QLatin1String("Request"));
 
+	setupUi(this);
+
 	bPublicInit = false;
-
-	QVBoxLayout *vbl = new QVBoxLayout;
-
-	qtwTab = new QTabWidget();
-	qtwTab->addTab(local, tr("&Custom Servers"));
-	qtwTab->addTab(remote, tr("Server &Browser"));
-	qtwTab->setObjectName(QLatin1String("Tab"));
-
-	vbl->addWidget(qtwTab);
-	setLayout(vbl);
-
-	if (qstmServers->rowCount() < 1) {
-		qtwTab->setCurrentIndex(1);
-		initList();
-	}
-
-	QMetaObject::connectSlotsByName(this);
-
-}
-
-QWidget *ConnectDialog::createLocal() {
-	QWidget *w = new QWidget();
-
-	QGridLayout *l=new QGridLayout;
-	QVBoxLayout *vbl = new QVBoxLayout;
-	QHBoxLayout *vbh = new QHBoxLayout();
-	vbl->addLayout(l);
-	vbl->addLayout(vbh);
-
-	QLabel *lab;
-
 	bDirty = false;
 
 	qstmServers = new QSqlTableModel(this);
@@ -82,120 +51,29 @@ QWidget *ConnectDialog::createLocal() {
 	}
 	qstmServers->setEditStrategy(QSqlTableModel::OnManualSubmit);
 
-	qlwServers=new QListView();
-	l->addWidget(qlwServers,0,0,5,1);
 	qlwServers->setModel(qstmServers);
 	qlwServers->setModelColumn(1);
-	qlwServers->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	qlwServers->setObjectName(QLatin1String("List"));
 
 	QItemSelectionModel *selectionModel = qlwServers->selectionModel();
+
 	connect(selectionModel, SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)), this, SLOT(onSelection_Changed(const QModelIndex &, const QModelIndex &)));
-
-	qleName=new QLineEdit();
-	lab=new QLabel(tr("&Label"));
-	lab->setBuddy(qleName);
-
-	l->addWidget(lab, 0, 1);
-	l->addWidget(qleName, 0, 2);
-
-	qleServer=new QLineEdit();
-	lab=new QLabel(tr("A&ddress"));
-	lab->setBuddy(qleServer);
-
-	l->addWidget(lab, 1, 1);
-	l->addWidget(qleServer, 1, 2);
-
-	qlePort=new QLineEdit(QLatin1String("64738"));
-	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
-	lab=new QLabel(tr("&Port"));
-	lab->setBuddy(qlePort);
-
-	l->addWidget(lab, 2, 1);
-	l->addWidget(qlePort, 2, 2);
-
-	qleUsername=new QLineEdit();
-	lab=new QLabel(tr("&Username"));
-	lab->setBuddy(qleUsername);
-
-	l->addWidget(lab, 3, 1);
-	l->addWidget(qleUsername, 3, 2);
-
-	qlePassword=new QLineEdit();
-	qlePassword->setEchoMode(QLineEdit::Password);
-	lab=new QLabel(tr("&Password"));
-	lab->setBuddy(qlePassword);
-
-	l->addWidget(lab, 4, 1);
-	l->addWidget(qlePassword, 4,2);
-
-	QPushButton *okButton = new QPushButton(tr("&Connect"));
-	okButton->setDefault(true);
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-
-	QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-
-	QPushButton *addButton = new QPushButton(tr("&Add"));
-	addButton->setObjectName(QLatin1String("Add"));
-
-	QPushButton *removeButton = new QPushButton(tr("&Remove"));
-	removeButton->setObjectName(QLatin1String("Remove"));
-
-	vbh->addWidget(okButton);
-	vbh->addWidget(cancelButton);
-	vbh->addWidget(addButton);
-	vbh->addWidget(removeButton);
-
 	connect(qleName, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qleServer, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qleUsername, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePassword, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePort, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 
-	connect(qlwServers, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
+	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 
 	QModelIndex idx = qstmServers->index(g.qs->value(QLatin1String("ServerRow"),-1).toInt(),0);
 	if (idx.isValid()) {
 		qlwServers->setCurrentIndex(idx);
 	}
 
-	w->setLayout(vbl);
-	return w;
-}
 
-QWidget *ConnectDialog::createRemote() {
-	QWidget *w=new QWidget();
-	QVBoxLayout *vbl = new QVBoxLayout;
-	QHBoxLayout *vbh = new QHBoxLayout();
-
-
-	qtwServers = new QTableWidget(0, 3);
-	QStringList labels;
-	labels << tr("Label");
-	labels << tr("Address");
-	labels << tr("URL");
-	qtwServers->setHorizontalHeaderLabels(labels);
-	qtwServers->setObjectName(QLatin1String("Servers"));
-
-	QPushButton *connectButton = new QPushButton(tr("&Connect"));
-	connectButton->setDefault(true);
-	connect(connectButton, SIGNAL(clicked()), this, SLOT(accept()));
-
-	QPushButton *copyButton = new QPushButton(tr("C&opy to custom"));
-	copyButton->setObjectName(QLatin1String("Copy"));
-
-	QPushButton *urlButton = new QPushButton(tr("&View Webpage"));
-	urlButton->setObjectName(QLatin1String("URL"));
-
-	vbh->addWidget(connectButton);
-	vbh->addWidget(copyButton);
-	vbh->addWidget(urlButton);
-
-	vbl->addWidget(qtwServers);
-	vbl->addLayout(vbh);
-	w->setLayout(vbl);
-	return w;
+	if (qstmServers->rowCount() < 1) {
+		qtwTab->setCurrentIndex(1);
+	}
 }
 
 void ConnectDialog::accept() {
@@ -241,11 +119,6 @@ void ConnectDialog::accept() {
 	QDialog::accept();
 }
 
-void ConnectDialog::on_Servers_itemDoubleClicked(QTableWidgetItem *) {
-	accept();
-}
-
-
 QSqlRecord ConnectDialog::toRecord() const {
 	QSqlRecord r = qstmServers->record();
 
@@ -290,7 +163,7 @@ void ConnectDialog::fillList() {
 	qtwServers->setSortingEnabled(true);
 }
 
-void ConnectDialog::on_URL_clicked() {
+void ConnectDialog::on_qpbURL_clicked() {
 	int row=qtwServers->currentRow();
 	if (row == -1)
 		return;
@@ -298,7 +171,7 @@ void ConnectDialog::on_URL_clicked() {
 	QDesktopServices::openUrl(QUrl(qtwServers->item(row, 2)->text()));
 }
 
-void ConnectDialog::on_Copy_clicked() {
+void ConnectDialog::on_qpbCopy_clicked() {
 	int row=qtwServers->currentRow();
 	if (row == -1)
 		return;
@@ -313,7 +186,7 @@ void ConnectDialog::on_Copy_clicked() {
 
 	qtwTab->setCurrentIndex(0);
 
-	on_Add_clicked();
+	on_qpbAdd_clicked();
 }
 
 void ConnectDialog::on_Request_done(bool err) {
@@ -372,7 +245,7 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 	}
 }
 
-void ConnectDialog::on_Add_clicked() {
+void ConnectDialog::on_qpbAdd_clicked() {
 	if (bDirty) {
 		bDirty = false;
 		QSqlRecord r = toRecord();
@@ -391,7 +264,7 @@ void ConnectDialog::on_Add_clicked() {
 	bDirty = false;
 }
 
-void ConnectDialog::on_Remove_clicked() {
+void ConnectDialog::on_qpbRemove_clicked() {
 	int row = qlwServers->currentIndex().row();
 	if (row < 0)
 		return;
@@ -406,7 +279,7 @@ void ConnectDialog::onDirty(const QString &) {
 	bDirty = true;
 }
 
-void ConnectDialog::on_Tab_currentChanged(int idx) {
+void ConnectDialog::on_qtwTab_currentChanged(int idx) {
 	if (idx != 1)
 		return;
 

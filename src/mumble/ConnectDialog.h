@@ -31,6 +31,8 @@
 #ifndef _CONNECTDIALOG_H
 #define _CONNECTDIALOG_H
 
+#include "ui_ConnectDialog.h"
+
 struct PublicInfo {
 	QString name;
 	QUrl url;
@@ -38,38 +40,30 @@ struct PublicInfo {
 	int port;
 };
 
-class ConnectDialog : public QDialog {
+class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		Q_OBJECT;
 	protected:
-		QTabWidget *qtwTab;
 		static QList<PublicInfo> qlPublicServers;
 		bool bPublicInit;
 		QSqlTableModel *qstmServers;
-		QListView *qlwServers;
-		QTableWidget *qtwServers;
-		QLineEdit *qleName, *qleServer, *qlePort, *qleUsername, *qlePassword;
-		QCheckBox *qcbUdp;
 		QModelIndex qmiDirty;
 		QSqlRecord toRecord() const;
 		bool bDirty;
-		QWidget *createLocal();
-		QWidget *createRemote();
 		QHttp *qhList;
 
 		void initList();
 		void fillList();
 	public slots:
 		void accept();
-		void on_Add_clicked();
-		void on_Remove_clicked();
+		void on_qpbAdd_clicked();
+		void on_qpbRemove_clicked();
 		void onSelection_Changed(const QModelIndex &n, const QModelIndex &p);
 		void onDirty(const QString &qs = QString());
 
-		void on_Tab_currentChanged(int);
+		void on_qtwTab_currentChanged(int);
 		void on_Request_done(bool);
-		void on_URL_clicked();
-		void on_Copy_clicked();
-		void on_Servers_itemDoubleClicked(QTableWidgetItem *);
+		void on_qpbURL_clicked();
+		void on_qpbCopy_clicked();
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		int iPort;
