@@ -424,14 +424,6 @@ void MainWindow::hideEvent(QHideEvent *e) {
 	QMainWindow::hideEvent(e);
 }
 
-void MainWindow::appendLog(QString entry) {
-	qteLog->append(entry);
-	QTextCursor p=qteLog->textCursor();
-	p.movePosition(QTextCursor::End);
-	qteLog->setTextCursor(p);
-	qteLog->ensureCursorVisible();
-}
-
 void MainWindow::on_Players_customContextMenuRequested(const QPoint &mpos) {
 	QModelIndex idx = qtvPlayers->indexAt(mpos);
 	if (! idx.isValid())

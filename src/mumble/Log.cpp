@@ -219,9 +219,19 @@ void Log::saveSettings() const {
 	}
 }
 
-void Log::log(MsgType t, const QString &console, const QString &terse) {
+/*
+void MainWindow::appendLog(QString entry) {
+	qteLog->append(entry);
+	QTextCursor p=qteLog->textCursor();
+	p.movePosition(QTextCursor::End);
+	qteLog->setTextCursor(p);
+	qteLog->ensureCursorVisible();
+}
+*/
+
+void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	QTime now = QTime::currentTime();
-	MsgSettings *ms=qhSettings.value(t);
+	MsgSettings *ms=qhSettings.value(mt);
 	Q_ASSERT(ms);
 
 	if (ms->iIgnore) {
@@ -229,14 +239,39 @@ void Log::log(MsgType t, const QString &console, const QString &terse) {
 		return;
 	}
 
-	if (ms->bConsole)
-		g.mw->appendLog(tr("[%2] %1").arg(console).arg(now.toString(Qt::LocalDate)));
+	QTextDocument t;
+	t.setUndoRedoEnabled(false);
+	t.setHtml(console);
+	QString plain = t.toPlainText();
+
+	if (ms->bConsole) {
+		QTextCursor tc=g.mw->qteLog->textCursor();
+		tc.movePosition(QTextCursor::End);
+		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
+		        QTextFrameFormat qttf;
+		        qttf.setBorder(1);
+		        qttf.setPadding(2);
+		        qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+		        tc.insertFrame(qttf);
+		        tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
+		} else {
+			tc.insertBlock();
+			tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
+		}
+		tc.movePosition(QTextCursor::End);
+		g.mw->qteLog->setTextCursor(tc);
+		g.mw->qteLog->ensureCursorVisible();
+
+//		g.mw->appendLog(tr("[%2] %1").arg(console).arg(now.toString(Qt::LocalDate)));
+	}
+
 	if (! g.s.bTTS || ! ms->bTTS)
 		return;
 
+
 	/* TTS threshold limiter. */
-	if (console.length() <= g.s.iTTSThreshold)
-		tts->say(console);
+	if (plain.length() <= g.s.iTTSThreshold)
+		tts->say(plain);
 	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
 		tts->say(terse);
 }

@@ -37,7 +37,7 @@ class TextToSpeechPrivate {
 	public:
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
-		void say(QString text);
+		void say(const QString &text);
 		void setVolume(int v);
 };
 
@@ -51,10 +51,8 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 	qpFestival.close();
 }
 
-void TextToSpeechPrivate::say(QString text) {
-	QTextDocument td;
-	td.setHtml(text);
-	qpFestival.write(QString::fromLatin1("(SayText \"%1\")").arg(td.toPlainText().replace(QLatin1String("\""),QLatin1String("\\\""))).toLatin1());
+void TextToSpeechPrivate::say(const QString &text) {
+	qpFestival.write(QString::fromLatin1("(SayText \"%1\")").arg(text.replace(QLatin1String("\""),QLatin1String("\\\""))).toLatin1());
 }
 
 void TextToSpeechPrivate::setVolume(int) {
@@ -69,7 +67,7 @@ TextToSpeech::~TextToSpeech() {
 	delete d;
 }
 
-void TextToSpeech::say(QString text) {
+void TextToSpeech::say(const QString &text) {
 	if (enabled)
 		d->say(text);
 }

@@ -44,7 +44,7 @@ class TextToSpeech : public QObject {
 		~TextToSpeech();
 		bool isEnabled() const;
 	public slots:
-		void say(QString text);
+		void say(const QString &text);
 		void setEnabled(bool ena);
 		void setVolume(int volume);
 	private:

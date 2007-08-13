@@ -41,7 +41,7 @@ class TextToSpeechPrivate {
 		ISpVoice * pVoice;
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
-		void say(QString text);
+		void say(const QString &text);
 		void setVolume(int v);
 };
 
@@ -58,11 +58,9 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 		pVoice->Release();
 }
 
-void TextToSpeechPrivate::say(QString text) {
+void TextToSpeechPrivate::say(const QString &text) {
 	if (pVoice) {
-		QTextDocument td;
-		td.setHtml(text);
-		pVoice->Speak((const wchar_t *) td.toPlainText().utf16(), SPF_ASYNC, NULL);
+		pVoice->Speak((const wchar_t *) text.utf16(), SPF_ASYNC, NULL);
 	}
 }
 
@@ -80,7 +78,7 @@ TextToSpeech::~TextToSpeech() {
 	delete d;
 }
 
-void TextToSpeech::say(QString text) {
+void TextToSpeech::say(const QString &text) {
 	if (enabled)
 		d->say(text);
 }

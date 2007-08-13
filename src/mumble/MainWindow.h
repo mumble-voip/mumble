@@ -79,7 +79,6 @@ class MainWindow : public QMainWindow, public MessageHandler {
 		QString qsDesiredChannel;
 
 		void recheckTTS();
-		void appendLog(QString entry);
 
 		void msgBox(QString msg);
 	protected:

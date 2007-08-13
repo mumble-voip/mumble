@@ -42,7 +42,7 @@ class TextToSpeechPrivate {
 	public:
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
-		void say(QString text);
+		void say(const QString &text);
 		void setVolume(int v);
 };
 
@@ -54,7 +54,7 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 	DisposeSpeechChannel(speechchan);
 }
 
-void TextToSpeechPrivate::say(QString text) {
+void TextToSpeechPrivate::say(const QString &text) {
 	QByteArray ba = text.toUtf8();
 	const char* val = ba.data();
 	SpeakText(speechchan, val, 11);
@@ -72,7 +72,7 @@ TextToSpeech::~TextToSpeech() {
 	delete d;
 }
 
-void TextToSpeech::say(QString text) {
+void TextToSpeech::say(const QString &text) {
 	if (enabled)
 		d->say(text);
 }

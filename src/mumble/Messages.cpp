@@ -319,9 +319,7 @@ void MainWindow::msgTextMessage(Connection *, MessageTextMessage *msg) {
 	MSG_INIT;
 	if (! pSrc)
 		return;
-	QTextDocument td;
-	td.setHtml(msg->qsMessage);
-	g.l->log(Log::TextMessage, MainWindow::tr("From %1: %2").arg(pSrc->qsName).arg(td.toPlainText()),
+	g.l->log(Log::TextMessage, MainWindow::tr("From %1: %2").arg(pSrc->qsName).arg(msg->qsMessage),
 	         MainWindow::tr("Message from %1").arg(pSrc->qsName));
 }
 
