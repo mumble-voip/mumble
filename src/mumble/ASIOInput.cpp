@@ -62,7 +62,7 @@ const QList<audioDevice> ASIOAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
+void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &) {
 	qWarning("ASIOInputRegistrar::setDeviceChoice was called");
 }
 
@@ -202,7 +202,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			maxSize /= divider;
 			prefSize /= divider;
 
-			QString s = tr("%1 (ver %2)").arg(buff).arg(ver);
+			QString s = tr("%1 (ver %2)").arg(QLatin1String(buff)).arg(ver);
 			qlName->setText(s);
 
 			if (bOk)
@@ -234,12 +234,12 @@ void ASIOConfig::on_qpbQuery_clicked() {
 									widget = qlwMic;
 								else if (match && g.s.qlASIOspeaker.contains(v))
 									widget = qlwSpeaker;
-								QListWidgetItem *item = new QListWidgetItem(aci.name, widget);
+								QListWidgetItem *item = new QListWidgetItem(QLatin1String(aci.name), widget);
 								item->setData(Qt::UserRole, static_cast<int>(cnum));
 							}
 							break;
 						default:
-							qWarning("ASIOInput: Channel %d %s (Unusable format %d)", cnum, aci.name,aci.type);
+							qWarning("ASIOInput: Channel %ld %s (Unusable format %ld)", cnum, aci.name,aci.type);
 					}
 				}
 			}
@@ -251,7 +251,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			char err[255];
 			iasio.getErrorMessage(err);
 			SleepEx(10, false);
-			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(err), QMessageBox::Ok, QMessageBox::NoButton);
+			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(QLatin1String(err)), QMessageBox::Ok, QMessageBox::NoButton);
 		}
 		iasio.Release();
 	} else {
@@ -279,7 +279,7 @@ void ASIOConfig::on_qpbConfig_clicked() {
 			char err[255];
 			iasio.getErrorMessage(err);
 			SleepEx(10, false);
-			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(err), QMessageBox::Ok, QMessageBox::NoButton);
+			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(QLatin1String(err)), QMessageBox::Ok, QMessageBox::NoButton);
 		}
 		iasio.Release();
 	} else {
@@ -287,7 +287,7 @@ void ASIOConfig::on_qpbConfig_clicked() {
 	}
 }
 
-void ASIOConfig::on_qcbDevice_activated(int index) {
+void ASIOConfig::on_qcbDevice_activated(int) {
 	clearQuery();
 }
 
@@ -324,7 +324,7 @@ QString ASIOConfig::title() const {
 }
 
 QIcon ASIOConfig::icon() const {
-	return QIcon("skin:config_asio.png");
+	return QIcon(QLatin1String("skin:config_asio.png"));
 }
 
 void ASIOConfig::accept() {
@@ -354,8 +354,8 @@ void ASIOConfig::accept() {
 
 void ASIOConfig::clearQuery() {
 	bOk = false;
-	qlName->setText("");
-	qlBuffers->setText("");
+	qlName->setText(QString());
+	qlBuffers->setText(QString());
 	qlwMic->clear();
 	qlwUnused->clear();
 	qlwSpeaker->clear();
@@ -500,7 +500,7 @@ void ASIOInput::run() {
 	}
 }
 
-ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBool processNow) {
+ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *, long index, ASIOBool) {
 	aiSelf->bufferReady(index);
 	return 0L;
 }
@@ -571,11 +571,11 @@ void ASIOInput::bufferSwitch(long index, ASIOBool processNow) {
 	bufferSwitchTimeInfo(&timeInfo, index, processNow);
 }
 
-void ASIOInput::sampleRateChanged(ASIOSampleRate sRate) {
+void ASIOInput::sampleRateChanged(ASIOSampleRate) {
 	qFatal("ASIOInput: sampleRateChanged");
 }
 
-long ASIOInput::asioMessages(long selector, long value, void* message, double* opt) {
+long ASIOInput::asioMessages(long selector, long value, void*, double*) {
 	long ret = 0;
 	switch (selector) {
 		case kAsioSelectorSupported:

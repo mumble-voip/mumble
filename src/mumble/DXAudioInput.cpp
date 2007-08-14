@@ -57,7 +57,7 @@ AudioInput *DXAudioInputRegistrar::create() {
 typedef QPair<QString, GUID> dsDevice;
 
 static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
-                                const WCHAR* lpszDrvName, void *ctx) {
+                                const WCHAR*, void *ctx) {
 	if (lpGUID) {
 		QList<dsDevice> *l =reinterpret_cast<QList<dsDevice> *>(ctx);
 		*l << dsDevice(QString::fromUtf16(reinterpret_cast<const ushort*>(lpszDesc)), *lpGUID);
@@ -149,7 +149,7 @@ DXAudioInput::DXAudioInput() {
 		qWarning("DXAudioInput: DirectSoundCaptureCreate");
 	else if (FAILED(hr = pDSCapture->CreateCaptureBuffer(&dscbd, &pDSCaptureBuffer, NULL)))
 		qWarning("DXAudioInput: CreateCaptureBuffer");
-	else if (FAILED(hr = pDSCaptureBuffer->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify))))
+	else if (FAILED(hr = pDSCaptureBuffer->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify))))
 		qWarning("DXAudioInput: QueryInterface (Notify)");
 	else if (FAILED(hr = pDSNotify->SetNotificationPositions(NBUFFBLOCKS, aPosNotify)))
 		qWarning("DXAudioInput: SetNotificationPositions");

@@ -47,7 +47,7 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 		default:
 			c='X';
 	}
-	fprintf(fConsole, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")), msg);
+	fprintf(fConsole, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), msg);
 	fflush(fConsole);
 	if (type == QtFatalMsg) {
 		::MessageBoxA(NULL, msg, "Mumble", MB_OK | MB_ICONERROR);

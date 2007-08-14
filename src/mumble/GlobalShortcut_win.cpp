@@ -109,21 +109,21 @@ void DirectInputKeyWidget::displayKeys() {
 	QStringList keys;
 
 	foreach(qpButton button, qlButtons) {
-		QString device=QString::number(button.first.Data1,16) + ":";
-		QString name=QString("Unknown");
+		QString device=QString::number(button.first.Data1,16) + QLatin1String(":");
+		QString name=QLatin1String("Unknown");
 		InputDevice *id = gsw->qhInputDevices[button.first];
 		if (button.first == GUID_SysMouse)
-			device=QString("M:");
+			device=QLatin1String("M:");
 		else if ((button.first == GUID_SysKeyboard) || (button.first.Data1 == 0))
-			device=QString("K:");
+			device=QLatin1String("K:");
 		else if (id)
-			device=id->name+":";
+			device=id->name+QLatin1String(":");
 		if (id) {
 			name=id->qhNames[button.second];
 		}
 		keys << device+name;
 	}
-	setText(keys.join(QString(" + ")));
+	setText(keys.join(QLatin1String(" + ")));
 }
 
 GlobalShortcutWinConfig::GlobalShortcutWinConfig(QWidget *p) : ConfigWidget(p) {
@@ -173,19 +173,19 @@ QString GlobalShortcutWinConfig::title() const {
 }
 
 QIcon GlobalShortcutWinConfig::icon() const {
-	return QIcon("skin:config_shortcuts.png");
+	return QIcon(QLatin1String("skin:config_shortcuts.png"));
 }
 
 void GlobalShortcutWinConfig::accept() {
 	foreach(GlobalShortcut *gs, gsw->qmShortcuts) {
 		DirectInputKeyWidget *dikw = qhKeys[gs];
 		if (dikw->bModified) {
-			QString base=QString("GS%1_").arg(gs->idx);
-			g.qs->setValue(base + QString("num"), dikw->qlButtons.count());
+			QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
+			g.qs->setValue(base + QLatin1String("num"), dikw->qlButtons.count());
 			int i=0;
 			foreach(qpButton button, dikw->qlButtons) {
-				g.qs->setValue(base + QString("%1_GUID").arg(i), QUuid(dikw->qlButtons[i].first).toString());
-				g.qs->setValue(base + QString("%1_Type").arg(i), static_cast<int>(dikw->qlButtons[i].second));
+				g.qs->setValue(base + QString::fromLatin1("%1_GUID").arg(i), QUuid(dikw->qlButtons[i].first).toString());
+				g.qs->setValue(base + QString::fromLatin1("%1_Type").arg(i), static_cast<int>(dikw->qlButtons[i].second));
 				i++;
 			}
 		}
@@ -204,7 +204,7 @@ GlobalShortcutWin::GlobalShortcutWin() {
 
 	pDI = NULL;
 
-	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<VOID**>(&pDI), NULL))) {
+	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), NULL))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
 	}
@@ -306,8 +306,6 @@ void GlobalShortcutWin::remove(GlobalShortcut *gs) {
 }
 
 void GlobalShortcutWin::remap() {
-	HRESULT hr;
-
 	bNeedRemap = false;
 
 	unacquire();
@@ -331,13 +329,13 @@ void GlobalShortcutWin::remap() {
 	qhGlobalToWin.clear();
 
 	foreach(GlobalShortcut *gs, qmShortcuts) {
-		QString base=QString("GS%1_").arg(gs->idx);
+		QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
 		QList<QUuid> guids;
 		QList<DWORD> types;
-		int nbuttons = g.qs->value(base + QString("num"), 0).toInt();
+		int nbuttons = g.qs->value(base + QLatin1String("num"), 0).toInt();
 		for (int i=0;i<nbuttons;i++) {
-			QUuid guid(g.qs->value(base + QString("%1_GUID").arg(i), QUuid(GUID_SysKeyboard).toString()).toString());
-			DWORD type = g.qs->value(base + QString("%1_Type").arg(i), 0xffffffff).toUInt();
+			QUuid guid(g.qs->value(base + QString::fromLatin1("%1_GUID").arg(i), QUuid(GUID_SysKeyboard).toString()).toString());
+			DWORD type = g.qs->value(base + QString::fromLatin1("%1_Type").arg(i), 0xffffffff).toUInt();
 			if (! guid.isNull() && (type != 0xffffffff)) {
 				guids << guid;
 				types << type;

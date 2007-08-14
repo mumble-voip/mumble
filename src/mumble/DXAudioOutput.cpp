@@ -172,7 +172,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
-	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<VOID**>(&pDSNotify))))
+	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify))))
 		qFatal("DXAudioOutputPlayer: QueryInterface (Notify)");
 
 	if (FAILED(hr = pDSNotify->SetNotificationPositions(NBLOCKS, aPosNotify)))
@@ -306,7 +306,7 @@ bool DXAudioOutputPlayer::playFrames() {
 		if (aptr2 && nbytes2)
 			CopyMemory(aptr2, aop->psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
 		if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
-			qFatal("DXAudioOutput: Unlock %p(%u) %p(%u)",aptr1,nbytes1,aptr2,nbytes2);
+			qFatal("DXAudioOutput: Unlock %p(%lu) %p(%lu)",aptr1,nbytes1,aptr2,nbytes2);
 
 		// If we get another while we're working, we're already taking care of it.
 		ResetEvent(hNotificationEvent);
@@ -466,7 +466,7 @@ void DXAudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 }
 
 void DXAudioOutput::run() {
-	DXAudioOutputPlayer *dxaop;
+	DXAudioOutputPlayer *dxaop = NULL;
 	HANDLE handles[MAXIMUM_WAIT_OBJECTS];
 	DWORD count = 0;
 	DWORD hit;
@@ -478,8 +478,8 @@ LARGE_INTEGER ticksNext = {QuadPart:
 	                           0L
 	                          };
 
-	bool found;
-	bool alive;
+	bool found = false;
+	bool alive = false;
 
 	QueryPerformanceFrequency(&ticksPerSecond);
 	ticksPerFrame.QuadPart = ticksPerSecond.QuadPart / 50;
