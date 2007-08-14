@@ -33,7 +33,7 @@
 
 #include "ConfigDialog.h"
 
-#include "Ui_LookConfig.h"
+#include "ui_LookConfig.h"
 
 class LookConfig : public ConfigWidget, Ui::LookConfig {
 		Q_OBJECT

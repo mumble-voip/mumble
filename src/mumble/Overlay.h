@@ -33,7 +33,7 @@
 
 #include "../../overlay/overlay.h"
 #include "ConfigDialog.h"
-#include "Ui_Overlay.h"
+#include "ui_Overlay.h"
 
 class Player;
 

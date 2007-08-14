@@ -32,8 +32,8 @@
 #define _PLUGINS_H
 
 #include "ConfigDialog.h"
+#include "ui_Plugins.h"
 
-#include "Ui_Plugins.h"
 struct PluginInfo;
 
 class PluginConfig : public ConfigWidget, public Ui::PluginConfig {

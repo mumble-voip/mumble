@@ -39,7 +39,7 @@
 class ALSAAudioOutput;
 class ALSAAudioInput;
 
-class ALSAConfig : public ConfigWidget, public Ui::ALSAAudio {
+class ALSAConfig : public ConfigWidget, public Ui::ALSAConfig {
 		Q_OBJECT
 	protected:
 		QComboBox *qcbInputDevice;
@@ -52,7 +52,7 @@ class ALSAConfig : public ConfigWidget, public Ui::ALSAAudio {
 		virtual QIcon icon() const;
 	public slots:
 		void accept();
-		void on_OutputDelay_valueChanged(int v);
+		void on_qsOutputDelay_valueChanged(int v);
 };
 
 class ALSAAudioInput : public AudioInput {

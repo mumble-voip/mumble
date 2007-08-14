@@ -178,13 +178,7 @@ ALSAEnumerator::ALSAEnumerator() {
 }
 
 ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbDevices, *qgbOutput;
-	QGridLayout *grid;
-	QVBoxLayout *v;
-	QLabel *l;
-
-	qcbInputDevice = new QComboBox();
-	qcbOutputDevice = new QComboBox();
+	setupUi(this);
 
 	QList<QString> qlOutputDevs = cards.qhOutput.keys();
 	qSort(qlOutputDevs);
@@ -192,7 +186,6 @@ ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
 	qSort(qlInputDevs);
 
 	bool found;
-
 
 	found = false;
 	foreach(QString dev, qlInputDevs) {
@@ -222,59 +215,9 @@ ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
 		qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
 	}
 
-	qgbDevices = new QGroupBox(tr("Device selection"));
-	grid=new QGridLayout();
-
-	qcbInputDevice->setToolTip(tr("Device to use for microphone"));
-	qcbInputDevice->setWhatsThis(tr("This set which device mumble should use. The <i>default</i> device is whatever you have configured in alsaconfig, the <i>hwplug</i> "
-	                                "devices are specific hardware devices backed by the ALSA mixer and the <i>hw</i> devices are raw hardware access. Unless your soundcard "
-	                                "supports hardware mixing of audio, using the <i>hw</i> device will exclude all other programs from using audio."));
-	qcbOutputDevice->setToolTip(tr("Device to use for speakers/headphones"));
 	qcbOutputDevice->setWhatsThis(qcbInputDevice->whatsThis());
-
-	l = new QLabel(tr("Input"));
-	l->setBuddy(qcbInputDevice);
-	grid->addWidget(l, 0, 0);
-	grid->addWidget(qcbInputDevice, 0, 1);
-
-	l = new QLabel(tr("Output"));
-	l->setBuddy(qcbOutputDevice);
-	grid->addWidget(l, 1, 0);
-	grid->addWidget(qcbOutputDevice, 1, 1);
-
-	qgbDevices->setLayout(grid);
-
-	qgbOutput = new QGroupBox(tr("Output Options"));
-	grid = new QGridLayout();
-
-	qsOutputDelay = new QSlider(Qt::Horizontal);
-	qsOutputDelay->setRange(1, 6);
-
-	qsOutputDelay->setSingleStep(1);
-	qsOutputDelay->setPageStep(2);
 	qsOutputDelay->setValue(g.s.iDXOutputDelay);
-	qsOutputDelay->setObjectName(QLatin1String("OutputDelay"));
-	l = new QLabel(tr("Output Delay"));
-	l->setBuddy(qsOutputDelay);
-	qlOutputDelay=new QLabel();
-	qlOutputDelay->setMinimumWidth(30);
-	on_OutputDelay_valueChanged(qsOutputDelay->value());
-	qsOutputDelay->setToolTip(tr("Amount of data to buffer for ALSA"));
-	qsOutputDelay->setWhatsThis(tr("This sets the amount of data to prebuffer in the output buffer. "
-	                               "Experiment with different values and set it to the lowest which doesn't "
-	                               "cause rapid jitter in the sound."));
-	grid->addWidget(l, 0, 0);
-	grid->addWidget(qsOutputDelay, 0, 1);
-	grid->addWidget(qlOutputDelay, 0, 2);
-
-	qgbOutput->setLayout(grid);
-
-	v = new QVBoxLayout();
-	v->addWidget(qgbDevices);
-	v->addWidget(qgbOutput);
-	v->addStretch(1);
-	setLayout(v);
-	QMetaObject::connectSlotsByName(this);
+	on_qsOutputDelay_valueChanged(qsOutputDelay->value());
 }
 
 QString ALSAConfig::title() const {
@@ -291,7 +234,7 @@ void ALSAConfig::accept() {
 	g.s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 }
 
-void ALSAConfig::on_OutputDelay_valueChanged(int v) {
+void ALSAConfig::on_qsOutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }
 

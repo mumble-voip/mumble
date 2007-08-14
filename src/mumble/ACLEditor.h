@@ -33,7 +33,7 @@
 
 #include "Message.h"
 
-#include "Ui_ACLEditor.h"
+#include "ui_ACLEditor.h"
 
 class ACLEditor : public QDialog, public Ui::ACLEditor {
 		Q_OBJECT;
