@@ -35,16 +35,14 @@
 #include <asiodrvr.h>
 #include "AudioInput.h"
 #include "ConfigDialog.h"
+#include "ui_ASIOInput.h"
 
 typedef QPair<QString, QString> ASIODev;
 
-class ASIOConfig : public ConfigWidget {
+class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 		Q_OBJECT
 	protected:
 		QList<ASIODev> qlDevs;
-		QComboBox *qcbDevice;
-		QLabel *qlName, *qlBuffers;
-		QListWidget *qlwMic, *qlwSpeaker, *qlwUnused;
 		bool bOk;
 	public:
 		ASIOConfig(QWidget *p = NULL);
@@ -53,13 +51,13 @@ class ASIOConfig : public ConfigWidget {
 	public slots:
 		void accept();
 		void clearQuery();
-		void on_Device_activated(int index);
-		void on_Query_clicked();
-		void on_Config_clicked();
-		void on_AddMic_clicked();
-		void on_RemMic_clicked();
-		void on_AddSpeaker_clicked();
-		void on_RemSpeaker_clicked();
+		void on_qcbDevice_activated(int index);
+		void on_qpbQuery_clicked();
+		void on_qpbConfig_clicked();
+		void on_qpbAddMic_clicked();
+		void on_qpbRemMic_clicked();
+		void on_qpbAddSpeaker_clicked();
+		void on_qpbRemSpeaker_clicked();
 };
 
 #define IEEE754_64FLOAT 1

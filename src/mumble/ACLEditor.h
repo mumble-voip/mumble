@@ -33,7 +33,9 @@
 
 #include "Message.h"
 
-class ACLEditor : public QDialog {
+#include "Ui_ACLEditor.h"
+
+class ACLEditor : public QDialog, public Ui::ACLEditor {
 		Q_OBJECT;
 	protected:
 		enum WaitID {
@@ -66,34 +68,8 @@ class ACLEditor : public QDialog {
 
 		QString userName(int id);
 
-		QCheckBox *qcbACLInherit;
-		QPushButton *qpbACLAdd;
-		QPushButton *qpbACLRemove;
-		QPushButton *qpbACLUp;
-		QPushButton *qpbACLDown;
-		QListWidget *qlwACLs;
-		QCheckBox *qcbACLApplyHere;
-		QCheckBox *qcbACLApplySubs;
-		QComboBox *qcbACLGroup;
-		QLineEdit *qleACLUser;
 		QList<QCheckBox *> qlACLAllow;
 		QList<QCheckBox *> qlACLDeny;
-
-		QComboBox *qcbGroupList;
-		QPushButton *qpbGroupRemove;
-		QCheckBox *qcbGroupInherit;
-		QCheckBox *qcbGroupInheritable;
-		QCheckBox *qcbGroupInherited;
-		QListWidget *qlwGroupAdd;
-		QListWidget *qlwGroupRemove;
-		QListWidget *qlwGroupInherit;
-		QLineEdit *qleGroupAdd;
-		QLineEdit *qleGroupRemove;
-		QPushButton *qpbGroupAddAdd;
-		QPushButton *qpbGroupAddRemove;
-		QPushButton *qpbGroupRemoveAdd;
-		QPushButton *qpbGroupRemoveRemove;
-		QPushButton *qpbGroupInheritRemove;
 
 		void addToolTipsWhatsThis();
 	public:
@@ -111,29 +87,27 @@ class ACLEditor : public QDialog {
 		void groupEnableCheck();
 		void ACLEnableCheck();
 
-		void on_ACLList_currentRowChanged();
-		void on_ACLAdd_clicked();
-		void on_ACLRemove_clicked();
-		void on_ACLUp_clicked();
-		void on_ACLDown_clicked();
-		void on_ACLInherit_clicked(bool checked);
-		void on_ACLApplyHere_clicked(bool checked);
-		void on_ACLApplySubs_clicked(bool checked);
-		void on_ACLGroup_activated(const QString &text);
-		void on_ACLUser_editingFinished();
+		void on_qlwACLs_currentRowChanged();
+		void on_qpbACLAdd_clicked();
+		void on_qpbACLRemove_clicked();
+		void on_qpbACLUp_clicked();
+		void on_qpbACLDown_clicked();
+		void on_qcbACLInherit_clicked(bool checked);
+		void on_qcbACLApplyHere_clicked(bool checked);
+		void on_qcbACLApplySubs_clicked(bool checked);
+		void on_qcbACLGroup_activated(const QString &text);
+		void on_qleACLUser_editingFinished();
 		void ACLPermissions_clicked();
 
-		void on_GroupList_activated(const QString &text);
-		void on_GroupRemove_clicked();
-		void on_GroupInherit_clicked(bool checked);
-		void on_GroupInheritable_clicked(bool checked);
-		void on_GroupAddName_editingFinished();
-		void on_GroupAddAdd_clicked();
-		void on_GroupAddRemove_clicked();
-		void on_GroupRemoveName_editingFinished();
-		void on_GroupRemoveAdd_clicked();
-		void on_GroupRemoveRemove_clicked();
-		void on_GroupInheritRemove_clicked();
+		void on_qcbGroupList_activated(const QString &text);
+		void on_qpbGroupRemove_clicked();
+		void on_qcbGroupInherit_clicked(bool checked);
+		void on_qcbGroupInheritable_clicked(bool checked);
+		void on_qpbGroupAddAdd_clicked();
+		void on_qpbGroupAddRemove_clicked();
+		void on_qpbGroupRemoveAdd_clicked();
+		void on_qpbGroupRemoveRemove_clicked();
+		void on_qpbGroupInheritRemove_clicked();
 };
 
 #else

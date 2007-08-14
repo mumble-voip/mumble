@@ -56,58 +56,10 @@ PluginInfo::PluginInfo() {
 }
 
 PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbOptions = new QGroupBox(tr("Options"));
-	QGroupBox *qgbPlugins = new QGroupBox(tr("Plugins"));
-	QVBoxLayout *v;
-	QHBoxLayout *h;
-	QGridLayout *grid;
+	setupUi(this);
 
-	grid=new QGridLayout();
-	qcbTransmit = new QCheckBox(tr("Link to Game and Transmit Position"));
 	qcbTransmit->setChecked(g.s.bTransmitPosition);
-	qcbTransmit->setToolTip(tr("Enable plugins and transmit positional information"));
-	qcbTransmit->setWhatsThis(tr("This enables plugins for supported games to fetch your in-game position "
-	                             "and transmit that with each voice packet. This enables other players to "
-	                             "hear your voice in-game from the direction your character is in relation "
-	                             "to their own."));
-	grid->addWidget(qcbTransmit, 0, 0);
-	qgbOptions->setLayout(grid);
-
-	qlwPlugins = new QListWidget();
 	refillPluginList();
-
-	QPushButton *reloadButton=new QPushButton(tr("&Reload plugins"));
-	reloadButton->setObjectName(QLatin1String("Reload"));
-	reloadButton->setToolTip(tr("Reloads all plugins"));
-	reloadButton->setWhatsThis(tr("This rescans and reloads plugins. Use this if you just added or changed "
-	                              "a plugin to the plugins directory."));
-	QPushButton *aboutButton=new QPushButton(tr("&About"));
-	aboutButton->setObjectName(QLatin1String("About"));
-	aboutButton->setToolTip(tr("Information about plugin"));
-	aboutButton->setWhatsThis(tr("This shows a small information message about the plugin."));
-	QPushButton *configButton=new QPushButton(tr("&Configure"));
-	configButton->setObjectName(QLatin1String("Config"));
-	configButton->setToolTip(tr("Show configuration page of plugin"));
-	configButton->setWhatsThis(tr("This shows the configuration page of the plugin, if any."));
-
-	h = new QHBoxLayout();
-	h->addWidget(reloadButton);
-	h->addStretch(1);
-	h->addWidget(aboutButton);
-	h->addWidget(configButton);
-
-	v = new QVBoxLayout;
-	v->addWidget(qlwPlugins);
-	v->addLayout(h);
-	qgbPlugins->setLayout(v);
-
-	v = new QVBoxLayout;
-	v->addWidget(qgbOptions);
-	v->addWidget(qgbPlugins);
-	v->addStretch(1);
-	setLayout(v);
-
-	QMetaObject::connectSlotsByName(this);
 }
 
 QString PluginConfig::title() const {
@@ -122,7 +74,7 @@ void PluginConfig::accept() {
 	g.s.bTransmitPosition = qcbTransmit->isChecked();
 }
 
-void PluginConfig::on_Config_clicked() {
+void PluginConfig::on_qpbConfig_clicked() {
 	QListWidgetItem *i = qlwPlugins->currentItem();
 	if (!i)
 		return;
@@ -134,7 +86,7 @@ void PluginConfig::on_Config_clicked() {
 		QMessageBox::information(this, tr("Mumble"), tr("Plugin has no configure function."), QMessageBox::Ok, QMessageBox::NoButton);
 }
 
-void PluginConfig::on_About_clicked() {
+void PluginConfig::on_qpbAbout_clicked() {
 	QListWidgetItem *i = qlwPlugins->currentItem();
 	if (!i)
 		return;
@@ -146,7 +98,7 @@ void PluginConfig::on_About_clicked() {
 		QMessageBox::information(this, tr("Mumble"), tr("Plugin has no about function."), QMessageBox::Ok, QMessageBox::NoButton);
 }
 
-void PluginConfig::on_Reload_clicked() {
+void PluginConfig::on_qpbReload_clicked() {
 	g.p->rescanPlugins();
 	refillPluginList();
 }

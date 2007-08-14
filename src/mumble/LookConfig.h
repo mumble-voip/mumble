@@ -33,22 +33,17 @@
 
 #include "ConfigDialog.h"
 
-class LookConfig : public ConfigWidget {
+#include "Ui_LookConfig.h"
+
+class LookConfig : public ConfigWidget, Ui::LookConfig {
 		Q_OBJECT
-	protected:
-		QComboBox *qcbLanguage, *qcbStyle;
-		QLineEdit *qleCSS;
-		QPushButton *qpbCSS;
-		QCheckBox *qcbHorizontal;
-		QCheckBox *qcbExpand;
-		QCheckBox *qcbPlayersTop;
 	public:
 		LookConfig(QWidget *p = NULL);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
 		void accept();
-		void on_SkinFile_clicked(bool);
+		void on_qpbSkinFile_clicked(bool);
 };
 
 #else

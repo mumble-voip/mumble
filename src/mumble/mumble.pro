@@ -15,7 +15,7 @@ DIST		+= licenses.h mumble.ico firmumble.inc plugins/mumble_plugin.h mumble-over
 INCLUDEPATH	+= ../../speex/include
 LIBS 		+= -Llib -L.
 RESOURCES	+= mumble.qrc
-FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui
+FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioConfigDialog.ui
 
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts
 
@@ -37,6 +37,7 @@ win32 {
   INCLUDEPATH	+= /dev/openssl/outinc
   LIBS += -L/dev/openssl/out -leay32
   QMAKE_CXXFLAGS += -msse -mmmx
+  FORMS	+= DXConfigDialog.ui ASIOInput.ui
 }
 
 unix {
@@ -53,6 +54,7 @@ unix {
   PKGCONFIG += openssl
 
   contains(UNAME, Linux) {
+    FORMS   += ALSAAudio.ui
     HEADERS += ALSAAudio.h GlobalShortcut_unix.h
     SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
     PKGCONFIG += xevie alsa

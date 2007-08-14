@@ -33,6 +33,7 @@
 
 #include "../../overlay/overlay.h"
 #include "ConfigDialog.h"
+#include "Ui_Overlay.h"
 
 class Player;
 
@@ -49,26 +50,11 @@ class SharedMemory {
 		void unlock();
 };
 
-class OverlayConfig : public ConfigWidget {
+class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		Q_OBJECT
 	protected:
-		QCheckBox *qcbEnable, *qcbAlwaysSelf;
-		QComboBox *qcbShow;
-		QCheckBox *qcbUserTextures;
-
-		QSlider *qsX, *qsY;
-		QCheckBox *qcbLeft, *qcbRight, *qcbTop, *qcbBottom;
-		QLabel *qlCurrentFont;
-
 		QFont qfFont;
-		QPushButton *qpbSetFont;
-		QSlider *qsMaxHeight;
-		QLabel *qlMaxHeight;
-
 		QColor qcPlayer, qcAltTalking, qcTalking, qcChannel, qcChannelTalking;
-
-		QLabel *qlPlayer, *qlTalking, *qlAltTalking, *qlChannel, *qlChannelTalking;
-		QPushButton *qpbPlayer, *qpbTalking, *qpbAltTalking, *qpbChannel, *qpbChannelTalking;
 
 		static void setColorLabel(QLabel *label, QColor col);
 	public:
@@ -76,13 +62,13 @@ class OverlayConfig : public ConfigWidget {
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void on_MaxHeight_valueChanged(int v);
-		void on_SetFont_clicked();
-		void on_Player_clicked();
-		void on_Talking_clicked();
-		void on_AltTalking_clicked();
-		void on_Channel_clicked();
-		void on_ChannelTalking_clicked();
+		void on_qsMaxHeight_valueChanged(int v);
+		void on_qpbSetFont_clicked();
+		void on_qpbPlayer_clicked();
+		void on_qpbTalking_clicked();
+		void on_qpbAltTalking_clicked();
+		void on_qpbChannel_clicked();
+		void on_qpbChannelTalking_clicked();
 		void accept();
 };
 

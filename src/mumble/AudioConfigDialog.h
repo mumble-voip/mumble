@@ -33,23 +33,10 @@
 
 #include "ConfigDialog.h"
 
-class AudioConfigDialog : public ConfigWidget {
+#include "ui_AudioConfigDialog.h"
+
+class AudioConfigDialog : public ConfigWidget, public Ui::AudioConfigDialog {
 		Q_OBJECT
-	protected:
-		QComboBox *qcbInput, *qcbOutput;
-		QComboBox *qcbTransmit;
-		QSlider *qsTransmitHold, *qsFrames;
-		QLabel *qlTransmitHold, *qlFrames;
-		QSlider *qsQuality, *qsComplexity, *qsAmp, *qsNoise;
-		QLabel *qlQuality, *qlComplexity, *qlAmp, *qlNoise;
-		QSlider *qsJitter;
-		QCheckBox *qcbTCP, *qcbReconnect;
-		QCheckBox *qcbPushClick;
-		QLabel *qlJitter;
-		QLabel *qlBitrate;
-		QComboBox *qcbLoopback;
-		QSlider *qsPacketDelay, *qsPacketLoss;
-		QLabel *qlPacketDelay, *qlPacketLoss;
 	public:
 		AudioConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;
@@ -57,18 +44,17 @@ class AudioConfigDialog : public ConfigWidget {
 	public slots:
 		void accept();
 		void updateBitrate();
-		void on_TransmitHold_valueChanged(int v);
-		void on_Frames_valueChanged(int v);
-		void on_Quality_valueChanged(int v);
-		void on_Complexity_valueChanged(int v);
-		void on_Amp_valueChanged(int v);
-		void on_Jitter_valueChanged(int v);
-		void on_PacketDelay_valueChanged(int v);
-		void on_PacketLoss_valueChanged(int v);
-		void on_Noise_valueChanged(int v);
-
-		void on_Transmit_currentIndexChanged(int v);
-		void on_Loopback_currentIndexChanged(int v);
+		void on_qsTransmitHold_valueChanged(int v);
+		void on_qsFrames_valueChanged(int v);
+		void on_qsQuality_valueChanged(int v);
+		void on_qsComplexity_valueChanged(int v);
+		void on_qsAmp_valueChanged(int v);
+		void on_qsJitter_valueChanged(int v);
+		void on_qsPacketDelay_valueChanged(int v);
+		void on_qsPacketLoss_valueChanged(int v);
+		void on_qsNoise_valueChanged(int v);
+		void on_qcbTransmit_currentIndexChanged(int v);
+		void on_qcbLoopback_currentIndexChanged(int v);
 };
 
 #else

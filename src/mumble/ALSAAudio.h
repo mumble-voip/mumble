@@ -35,10 +35,11 @@
 #include "AudioOutput.h"
 #include <alsa/asoundlib.h>
 
+#include "ui_ALSAAudio.h"
 class ALSAAudioOutput;
 class ALSAAudioInput;
 
-class ALSAConfig : public ConfigWidget {
+class ALSAConfig : public ConfigWidget, public Ui::ALSAAudio {
 		Q_OBJECT
 	protected:
 		QComboBox *qcbInputDevice;

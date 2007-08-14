@@ -34,36 +34,27 @@
 #include <dsound.h>
 
 #include "ConfigDialog.h"
+#include "Ui_DXConfigDialog.h"
 
 typedef QPair<QString, GUID> dsDevice;
 
-class DXConfigDialog : public ConfigWidget {
+class DXConfigDialog : public ConfigWidget, public Ui::DXConfigDialog {
 		Q_OBJECT
 	protected:
 		QList<dsDevice> qlInput;
 		QList<dsDevice> qlOutput;
-
-		QComboBox *qcbInputDevice;
-		QComboBox *qcbOutputDevice;
-		QComboBox *qcbMethod;
-
-		QSlider *qsOutputDelay;
-		QLabel *qlOutputDelay;
-		QSlider *qsMinDistance, *qsMaxDistance, *qsRollOff;
-		QLabel *qlMinDistance, *qlMaxDistance, *qlRollOff;
-		QLabel *qlIntensity;
 	public:
 		DXConfigDialog(QWidget *p = NULL);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
 		void accept();
-		void on_OutputDelay_valueChanged(int v);
-		void on_MinDistance_valueChanged(int v);
-		void on_MaxDistance_valueChanged(int v);
-		void on_RollOff_valueChanged(int v);
+		void on_qsOutputDelay_valueChanged(int v);
+		void on_qsMinDistance_valueChanged(int v);
+		void on_qsMaxDistance_valueChanged(int v);
+		void on_qsRollOff_valueChanged(int v);
 		void updateIntensity();
-		void on_Method_currentIndexChanged(int v);
+		void on_qcbMethod_currentIndexChanged(int v);
 };
 
 #else

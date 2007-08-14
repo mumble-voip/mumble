@@ -190,9 +190,11 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	ModelItem::bPlayersTop = g.s.bPlayerTop;
 
 	miRoot = new ModelItem(Channel::get(0));
+	bDying = false;
 }
 
 PlayerModel::~PlayerModel() {
+	bDying = true;
 	removeAll();
 	Q_ASSERT(ModelItem::c_qhPlayers.count() == 0);
 	Q_ASSERT(ModelItem::c_qhChannels.count() == 1);
@@ -420,6 +422,9 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 }
 
 void PlayerModel::unbugHide(const QModelIndex &idx) {
+	if (bDying)
+		return;
+
 	QAbstractItemView *v=g.mw->qtvPlayers;
 	QItemSelectionModel *sel=v->selectionModel();
 

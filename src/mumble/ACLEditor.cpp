@@ -41,88 +41,12 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	MessageEditACL::ACLStruct *asp;
 	MessageEditACL::GroupStruct *gsp;
 
+	setupUi(this);
+
 	iId = mea->iId;
 	setWindowTitle(tr("Mumble - Edit ACL for %1").arg(Channel::get(iId)->qsName));
 
-	QTabWidget *qtwTab = new QTabWidget(this);
-	QWidget *groupEditor=new QWidget();
-	QWidget *aclEditor=new QWidget();
-
-	QGroupBox *qgbACLs = new QGroupBox(tr("Active ACLs"));
-	QGroupBox *qgbACLapply = new QGroupBox(tr("Context"));
-	QGroupBox *qgbACLugroup = new QGroupBox(tr("User/Group"));
-	QGroupBox *qgbACLpermissions = new QGroupBox(tr("Permissions"));
-
-	QGroupBox *qgbGroups = new QGroupBox(tr("Group"));
-	QGroupBox *qgbGroupMembers = new QGroupBox(tr("Members"));
-
-	qlwACLs = new QListWidget();
-	qlwACLs->setObjectName(QLatin1String("ACLList"));
-	qpbACLAdd=new QPushButton(tr("&Add"));
-	qpbACLAdd->setObjectName(QLatin1String("ACLAdd"));
-	qpbACLAdd->setDefault(false);
-	qpbACLAdd->setAutoDefault(false);
-	qpbACLRemove=new QPushButton(tr("&Remove"));
-	qpbACLRemove->setObjectName(QLatin1String("ACLRemove"));
-	qpbACLRemove->setDefault(false);
-	qpbACLRemove->setAutoDefault(false);
-	qpbACLUp=new QPushButton(tr("&Up"));
-	qpbACLUp->setObjectName(QLatin1String("ACLUp"));
-	qpbACLUp->setDefault(false);
-	qpbACLUp->setAutoDefault(false);
-	qpbACLDown=new QPushButton(tr("&Down"));
-	qpbACLDown->setObjectName(QLatin1String("ACLDown"));
-	qpbACLDown->setDefault(false);
-	qpbACLDown->setAutoDefault(false);
-	qcbACLInherit=new QCheckBox(tr("Inherit ACLs"));
-	qcbACLInherit->setObjectName(QLatin1String("ACLInherit"));
-
-	QHBoxLayout *qhblAclList = new QHBoxLayout;
-	qhblAclList->addWidget(qcbACLInherit);
-	qhblAclList->addStretch(1);
-	qhblAclList->addWidget(qpbACLUp);
-	qhblAclList->addWidget(qpbACLDown);
-	qhblAclList->addWidget(qpbACLAdd);
-	qhblAclList->addWidget(qpbACLRemove);
-
-	QVBoxLayout *qvblAclList = new QVBoxLayout;
-	qvblAclList->addWidget(qlwACLs);
-	qvblAclList->addLayout(qhblAclList);
-
-	qgbACLs->setLayout(qvblAclList);
-
 	QGridLayout *grid = new QGridLayout();
-
-	qcbACLApplyHere=new QCheckBox(tr("Applies to this channel"));
-	qcbACLApplyHere->setObjectName(QLatin1String("ACLApplyHere"));
-	qcbACLApplySubs=new QCheckBox(tr("Applies to sub-channels"));
-	qcbACLApplySubs->setObjectName(QLatin1String("ACLApplySubs"));
-	grid->addWidget(qcbACLApplyHere,0,0);
-	grid->addWidget(qcbACLApplySubs,1,0);
-
-	qgbACLapply->setLayout(grid);
-
-	grid = new QGridLayout();
-
-	qcbACLGroup=new QComboBox();
-	qcbACLGroup->setEditable(true);
-	qcbACLGroup->setObjectName(QLatin1String("ACLGroup"));
-	l=new QLabel(tr("Group"));
-	l->setBuddy(qcbACLGroup);
-	grid->addWidget(qcbACLGroup,0,0);
-	grid->addWidget(l,0,1);
-
-	qleACLUser=new QLineEdit();
-	qleACLUser->setObjectName(QLatin1String("ACLUser"));
-	l=new QLabel(tr("User ID"));
-	l->setBuddy(qleACLUser);
-	grid->addWidget(qleACLUser,1,0);
-	grid->addWidget(l,1,1);
-
-	qgbACLugroup->setLayout(grid);
-
-
-	grid = new QGridLayout();
 
 	l=new QLabel(tr("Deny"));
 	grid->addWidget(l,0,1);
@@ -150,125 +74,6 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	}
 
 	qgbACLpermissions->setLayout(grid);
-
-	grid = new QGridLayout();
-	grid->addWidget(qgbACLs, 0, 0, 1, 2);
-	grid->addWidget(qgbACLapply, 1, 0);
-	grid->addWidget(qgbACLugroup, 2, 0);
-	grid->addWidget(qgbACLpermissions,1, 1, 2, 1);
-	aclEditor->setLayout(grid);
-
-
-	grid = new QGridLayout();
-
-	qcbGroupList=new QComboBox();
-	qcbGroupList->setObjectName(QLatin1String("GroupList"));
-	qcbGroupList->setEditable(true);
-	grid->addWidget(qcbGroupList,0,0);
-	qpbGroupRemove=new QPushButton(tr("Remove"));
-	qpbGroupRemove->setObjectName(QLatin1String("GroupRemove"));
-	qpbGroupRemove->setDefault(false);
-	qpbGroupRemove->setAutoDefault(false);
-	grid->addWidget(qpbGroupRemove,0,1);
-	qcbGroupInherit=new QCheckBox(tr("Inherit"));
-	qcbGroupInherit->setObjectName(QLatin1String("GroupInherit"));
-	grid->addWidget(qcbGroupInherit,0,2);
-	qcbGroupInheritable=new QCheckBox(tr("Inheritable"));
-	qcbGroupInheritable->setObjectName(QLatin1String("GroupInheritable"));
-	grid->addWidget(qcbGroupInheritable,0,3);
-	qcbGroupInherited=new QCheckBox(tr("Inherited"));
-	qcbGroupInherited->setObjectName(QLatin1String("GroupInherited"));
-	qcbGroupInherited->setEnabled(false);
-	grid->addWidget(qcbGroupInherited,0,4);
-
-	qgbGroups->setLayout(grid);
-
-	grid = new QGridLayout();
-
-	qlwGroupAdd = new QListWidget();
-	qlwGroupAdd->setObjectName(QLatin1String("ListGroupAdd"));
-	qlwGroupRemove = new QListWidget();
-	qlwGroupRemove->setObjectName(QLatin1String("ListGroupRemove"));
-	qlwGroupInherit = new QListWidget();
-	qlwGroupInherit->setObjectName(QLatin1String("ListGroupInherit"));
-
-	l = new QLabel(tr("Add"));
-	grid->addWidget(l, 0, 0, 1, 2);
-	l = new QLabel(tr("Remove"));
-	grid->addWidget(l, 0, 2, 1, 2);
-	l = new QLabel(tr("Inherit"));
-	grid->addWidget(l, 0, 4, 1, 2);
-
-	grid->addWidget(qlwGroupAdd, 1, 0, 1, 2);
-	grid->addWidget(qlwGroupRemove, 1, 2, 1, 2);
-	grid->addWidget(qlwGroupInherit, 1, 4, 2, 2);
-
-	qleGroupAdd=new QLineEdit();
-	qleGroupAdd->setObjectName(QLatin1String("GroupAddName"));
-	qleGroupRemove=new QLineEdit();
-	qleGroupRemove->setObjectName(QLatin1String("GroupRemoveName"));
-
-	qpbGroupAddAdd=new QPushButton(tr("Add"));
-	qpbGroupAddAdd->setObjectName(QLatin1String("GroupAddAdd"));
-	qpbGroupAddRemove=new QPushButton(tr("Remove"));
-	qpbGroupAddRemove->setObjectName(QLatin1String("GroupAddRemove"));
-
-	qpbGroupRemoveAdd=new QPushButton(tr("Add"));
-	qpbGroupRemoveAdd->setObjectName(QLatin1String("GroupRemoveAdd"));
-	qpbGroupRemoveRemove=new QPushButton(tr("Remove"));
-	qpbGroupRemoveRemove->setObjectName(QLatin1String("GroupRemoveRemove"));
-
-	qpbGroupInheritRemove=new QPushButton(tr("Add to Remove"));
-	qpbGroupInheritRemove->setObjectName(QLatin1String("GroupInheritRemove"));
-
-	grid->addWidget(qleGroupAdd, 2, 0);
-	grid->addWidget(qpbGroupAddAdd, 2, 1);
-	grid->addWidget(qpbGroupAddRemove, 3, 0, 1, 2);
-
-	grid->addWidget(qleGroupRemove, 2, 2);
-	grid->addWidget(qpbGroupRemoveAdd, 2, 3);
-	grid->addWidget(qpbGroupRemoveRemove, 3, 2, 1, 2);
-
-	grid->addWidget(qpbGroupInheritRemove, 3, 4, 1, 2);
-
-	qgbGroupMembers->setLayout(grid);
-
-	grid = new QGridLayout();
-	grid->addWidget(qgbGroups, 0, 0);
-	grid->addWidget(qgbGroupMembers, 1, 0);
-
-	groupEditor->setLayout(grid);
-
-	qtwTab->addTab(groupEditor, tr("&Groups"));
-	qtwTab->addTab(aclEditor, tr("&ACL"));
-
-	QPushButton *okButton = new QPushButton(tr("&OK"));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	okButton->setDefault(false);
-	okButton->setAutoDefault(false);
-	okButton->setToolTip(tr("Accept changes"));
-	okButton->setWhatsThis(tr("This button will accept current groups/ACLs and send them to "
-	                          "the server. Note that if you mistakenly remove write permission "
-	                          "from yourself, the server will add it."));
-	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	cancelButton->setDefault(false);
-	cancelButton->setAutoDefault(false);
-	cancelButton->setToolTip(tr("Reject changes"));
-	cancelButton->setWhatsThis(tr("This button will cancel all changes and closes the dialog without "
-	                              "updating the ACLs or groups on the server."));
-
-	QHBoxLayout *buttons = new QHBoxLayout;
-	buttons->addStretch(1);
-	buttons->addWidget(okButton);
-	buttons->addWidget(cancelButton);
-
-	QVBoxLayout *ml = new QVBoxLayout;
-	ml->addWidget(qtwTab);
-	ml->addStretch(1);
-	ml->addSpacing(12);
-	ml->addLayout(buttons);
-	setLayout(ml);
 
 	foreach(as, mea->acls) {
 		asp = new MessageEditACL::ACLStruct(as);
@@ -307,11 +112,9 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
 	doneQuery();
 
-	QMetaObject::connectSlotsByName(this);
-
 	refillGroupNames();
 
-	resize(minimumSize());
+//	resize(minimumSize());
 
 	ACLEnableCheck();
 	groupEnableCheck();
@@ -332,47 +135,6 @@ ACLEditor::~ACLEditor() {
 }
 
 void ACLEditor::addToolTipsWhatsThis() {
-	qlwACLs->setToolTip(tr("List of entries"));
-	qlwACLs->setWhatsThis(tr("This shows all the entries active on this channel. Entries inherited from parent channels will be "
-	                         "show in italics."));
-	qcbACLInherit->setToolTip(tr("Inherit ACL of parent?"));
-	qcbACLInherit->setWhatsThis(tr("This sets whether or not the ACL up the chain of parent channels are applied to this object. "
-	                               "Only those entries that are marked in the parent as \"Apply to sub-channels\" will be inherited."));
-	qpbACLAdd->setToolTip(tr("Add new entry"));
-	qpbACLAdd->setWhatsThis(tr("This adds a new entry, initially set with no permissions and applying to all."));
-	qpbACLRemove->setToolTip(tr("Remove entry"));
-	qpbACLRemove->setWhatsThis(tr("This removes the currently selected entry."));
-	qpbACLUp->setToolTip(tr("Move entry up"));
-	qpbACLUp->setWhatsThis(tr("This moves the entry up in the list. As entries are evaluated in order, this may change "
-	                          "the effective permissions of users. You cannot move an entry above an inherited entry, if you "
-	                          "really need that you'll have to duplicate the inherited entry."));
-	qpbACLDown->setToolTip(tr("Move entry down"));
-	qpbACLDown->setWhatsThis(tr("This moves the entry down in the list. As entries are evaluated in order, this may change "
-	                            "the effective permissions of users."));
-	qcbACLApplyHere->setToolTip(tr("Entry should apply to this channel"));
-	qcbACLApplyHere->setWhatsThis(tr("This makes the entry apply to this channel."));
-	qcbACLApplySubs->setToolTip(tr("Entry should apply to sub-channels."));
-	qcbACLApplySubs->setWhatsThis(tr("This makes the entry apply to sub-channels of this channel."));
-	qcbACLGroup->setToolTip(tr("Group this entry applies to"));
-	qcbACLGroup->setWhatsThis(tr("This controls which group of users this entry applies to.<br />Note that the group is evaluated "
-	                             "in the context of the channel the entry is used in. For example, the default ACL on the Root "
-	                             "channel gives <i>Write</i> permission to the <i>admin</i> group. This entry, if inherited by a "
-	                             "channel, will give a user write privileges if he belongs to the <i>admin</i> group in that channel, "
-	                             "even if he doesn't belong to the <i>admin</i> group in the channel where the ACL originated.<br />"
-	                             "If a group name starts with a !, its membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than "
-	                             "the channel the ACL is active in. Order is important; <i>!~in</i> is valid, but <i>~!in</i> is not.<br />"
-	                             "A few special predefined groups are:<br />"
-	                             "<b>all</b> - Everyone will match.<br />"
-	                             "<b>auth</b> - All authenticated users will match.<br />"
-	                             "<b>sub,a,b,c</b> - User currently in a sub-channel minimum <i>a</i> common parents, and between <i>b</i> and <i>c</i> channels down the chain. "
-	                             "See the website for more extensive documentation on this one.<br />"
-	                             "<b>in</b> - Users currently in the channel will match (convenience for <i>sub,0,0,0</i>).<br />"
-	                             "<b>out</b> - Users outside the channel will match (convenience for <i>!sub,0,0,0</i>).<br />"
-	                             "Note that an entry applies to either a user or a group, not both."));
-	qleACLUser->setToolTip(tr("User this entry applies to"));
-	qleACLUser->setWhatsThis(tr("This controls which user this entry applies to. Just type in the user name and hit enter "
-	                            "to query the server for a match."));
-
 	int idx;
 	int p = 0x1;
 	for (idx=0;idx<qlACLAllow.count();idx++) {
@@ -384,26 +146,6 @@ void ACLEditor::addToolTipsWhatsThis() {
 		qlACLDeny[idx]->setWhatsThis(tr("This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(perm).arg(ChanACL::whatsThis(prm)));
 		p = p * 2;
 	}
-
-	qcbGroupList->setToolTip(tr("List of groups"));
-	qcbGroupList->setWhatsThis(tr("This is all the groups currently defined for the channel. To create a new group, just type in the "
-	                              "name and press enter."));
-	qpbGroupRemove->setToolTip(tr("Remove selected group"));
-	qpbGroupRemove->setWhatsThis(tr("This removes the currently selected group. If the group was inherited, it will not be removed "
-	                                "from the list, but all local information about the group will be cleared."));
-	qcbGroupInherit->setToolTip(tr("Inherit group members from parent"));
-	qcbGroupInherit->setWhatsThis(tr("This inherits all the members in the group from the parent, if the group is marked as "
-	                                 "<i>Inheritable</i> in the parent channel."));
-	qcbGroupInheritable->setToolTip(tr("Make group inheritable to sub-channels"));
-	qcbGroupInheritable->setWhatsThis(tr("This makes this group inheritable to sub-channels. If the group is non-inheritable, "
-	                                     "sub-channels are still free to create a new group with the same name."));
-	qcbGroupInherited->setToolTip(tr("Group was inherited from parent channel"));
-	qcbGroupInherited->setWhatsThis(tr("This indicates that the group was inherited from the parent channel. You cannot edit "
-	                                   "this flag, it's just for information."));
-	qleGroupAdd->setToolTip(tr("Add member to group"));
-	qleGroupAdd->setWhatsThis(tr("Type in the name of a player you wish to add to the group and press enter."));
-	qleGroupRemove->setToolTip(tr("Remove member from group"));
-	qleGroupRemove->setWhatsThis(tr("Type in the name of a player you wish to remove from the group and press enter."));
 }
 
 
@@ -772,13 +514,20 @@ void ACLEditor::ACLEnableCheck() {
 			qleACLUser->setText(userName(as->iPlayerId));
 		}
 	}
+	foreach(QAbstractButton *b, qdbbButtons->buttons()) {
+		QPushButton *qpb = qobject_cast<QPushButton *>(b);
+		if (qpb) {
+			qpb->setAutoDefault(false);
+			qpb->setDefault(false);
+		}
+	}
 }
 
-void ACLEditor::on_ACLList_currentRowChanged() {
+void ACLEditor::on_qlwACLs_currentRowChanged() {
 	ACLEnableCheck();
 }
 
-void ACLEditor::on_ACLAdd_clicked() {
+void ACLEditor::on_qpbACLAdd_clicked() {
 	MessageEditACL::ACLStruct *as = new MessageEditACL::ACLStruct;
 	as->bApplyHere = true;
 	as->bApplySubs = true;
@@ -792,7 +541,7 @@ void ACLEditor::on_ACLAdd_clicked() {
 	qlwACLs->setCurrentRow(qlwACLs->count() - 1);
 }
 
-void ACLEditor::on_ACLRemove_clicked() {
+void ACLEditor::on_qpbACLRemove_clicked() {
 	MessageEditACL::ACLStruct *as = currentACL();
 	if (! as || as->bInherited)
 		return;
@@ -801,7 +550,7 @@ void ACLEditor::on_ACLRemove_clicked() {
 	refillACL();
 }
 
-void ACLEditor::on_ACLUp_clicked() {
+void ACLEditor::on_qpbACLUp_clicked() {
 	MessageEditACL::ACLStruct *as = currentACL();
 	if (! as || as->bInherited)
 		return;
@@ -814,7 +563,7 @@ void ACLEditor::on_ACLUp_clicked() {
 	refillACL();
 }
 
-void ACLEditor::on_ACLDown_clicked() {
+void ACLEditor::on_qpbACLDown_clicked() {
 	MessageEditACL::ACLStruct *as = currentACL();
 	if (! as || as->bInherited)
 		return;
@@ -827,11 +576,11 @@ void ACLEditor::on_ACLDown_clicked() {
 	refillACL();
 }
 
-void ACLEditor::on_ACLInherit_clicked(bool) {
+void ACLEditor::on_qcbACLInherit_clicked(bool) {
 	refillACL();
 }
 
-void ACLEditor::on_ACLApplyHere_clicked(bool checked) {
+void ACLEditor::on_qcbACLApplyHere_clicked(bool checked) {
 	MessageEditACL::ACLStruct *as = currentACL();
 	if (! as || as->bInherited)
 		return;
@@ -839,7 +588,7 @@ void ACLEditor::on_ACLApplyHere_clicked(bool checked) {
 	as->bApplyHere = checked;
 }
 
-void ACLEditor::on_ACLApplySubs_clicked(bool checked) {
+void ACLEditor::on_qcbACLApplySubs_clicked(bool checked) {
 	MessageEditACL::ACLStruct *as = currentACL();
 	if (! as || as->bInherited)
 		return;
@@ -847,7 +596,7 @@ void ACLEditor::on_ACLApplySubs_clicked(bool checked) {
 	as->bApplySubs = checked;
 }
 
-void ACLEditor::on_ACLGroup_activated(const QString &text) {
+void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 	MessageEditACL::ACLStruct *as = currentACL();
 	if (! as || as->bInherited)
 		return;
@@ -864,7 +613,7 @@ void ACLEditor::on_ACLGroup_activated(const QString &text) {
 	refillACL();
 }
 
-void ACLEditor::on_ACLUser_editingFinished() {
+void ACLEditor::on_qleACLUser_editingFinished() {
 	QString text = qleACLUser->text();
 
 	MessageEditACL::ACLStruct *as = currentACL();
@@ -916,7 +665,7 @@ void ACLEditor::ACLPermissions_clicked() {
 	as->pDeny=static_cast<ChanACL::Permissions>(d);
 }
 
-void ACLEditor::on_GroupList_activated(const QString &text) {
+void ACLEditor::on_qcbGroupList_activated(const QString &text) {
 	MessageEditACL::GroupStruct *gs = currentGroup();
 	if (text.isEmpty())
 		return;
@@ -937,7 +686,7 @@ void ACLEditor::on_GroupList_activated(const QString &text) {
 	groupEnableCheck();
 }
 
-void ACLEditor::on_GroupRemove_clicked() {
+void ACLEditor::on_qpbGroupRemove_clicked() {
 	MessageEditACL::GroupStruct *gs = currentGroup();
 	if (! gs)
 		return;
@@ -957,7 +706,7 @@ void ACLEditor::on_GroupRemove_clicked() {
 	groupEnableCheck();
 }
 
-void ACLEditor::on_GroupInherit_clicked(bool checked) {
+void ACLEditor::on_qcbGroupInherit_clicked(bool checked) {
 	MessageEditACL::GroupStruct *gs = currentGroup();
 	if (! gs)
 		return;
@@ -965,14 +714,14 @@ void ACLEditor::on_GroupInherit_clicked(bool checked) {
 	groupEnableCheck();
 }
 
-void ACLEditor::on_GroupInheritable_clicked(bool checked) {
+void ACLEditor::on_qcbGroupInheritable_clicked(bool checked) {
 	MessageEditACL::GroupStruct *gs = currentGroup();
 	if (! gs)
 		return;
 	gs->bInheritable = checked;
 }
 
-void ACLEditor::on_GroupAddName_editingFinished() {
+void ACLEditor::on_qpbGroupAddAdd_clicked() {
 	QString text = qleGroupAdd->text();
 
 	MessageEditACL::GroupStruct *gs = currentGroup();
@@ -987,11 +736,7 @@ void ACLEditor::on_GroupAddName_editingFinished() {
 	doneQuery();
 }
 
-void ACLEditor::on_GroupAddAdd_clicked() {
-	on_GroupAddName_editingFinished();
-}
-
-void ACLEditor::on_GroupAddRemove_clicked() {
+void ACLEditor::on_qpbGroupAddRemove_clicked() {
 	MessageEditACL::GroupStruct *gs = currentGroup();
 	if (! gs)
 		return;
@@ -1005,7 +750,7 @@ void ACLEditor::on_GroupAddRemove_clicked() {
 	refillGroupAdd();
 }
 
-void ACLEditor::on_GroupRemoveName_editingFinished() {
+void ACLEditor::on_qpbGroupRemoveAdd_clicked() {
 	QString text = qleGroupRemove->text();
 
 	MessageEditACL::GroupStruct *gs = currentGroup();
@@ -1020,11 +765,7 @@ void ACLEditor::on_GroupRemoveName_editingFinished() {
 	doneQuery();
 }
 
-void ACLEditor::on_GroupRemoveAdd_clicked() {
-	on_GroupRemoveName_editingFinished();
-}
-
-void ACLEditor::on_GroupRemoveRemove_clicked() {
+void ACLEditor::on_qpbGroupRemoveRemove_clicked() {
 	MessageEditACL::GroupStruct *gs = currentGroup();
 	if (! gs)
 		return;
@@ -1038,7 +779,7 @@ void ACLEditor::on_GroupRemoveRemove_clicked() {
 	refillGroupRemove();
 }
 
-void ACLEditor::on_GroupInheritRemove_clicked() {
+void ACLEditor::on_qpbGroupInheritRemove_clicked() {
 	MessageEditACL::GroupStruct *gs = currentGroup();
 	if (! gs)
 		return;

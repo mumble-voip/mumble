@@ -1,0 +1,286 @@
+<ui version="4.0" >
+ <class>DXConfigDialog</class>
+ <widget class="QWidget" name="DXConfigDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>761</width>
+    <height>593</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Device selection</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Input</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QComboBox" name="qcbInputDevice" >
+        <property name="toolTip" >
+         <string>Device to use for microphone</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the input device to use, which is where you have connected the microphone.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Output</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QComboBox" name="qcbOutputDevice" >
+        <property name="toolTip" >
+         <string>Device to use for speakers/headphones</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the output device to use, which is where you have connected your speakers or your headset.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="title" >
+      <string>Output Options</string>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>Output Delay</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="qsOutputDelay" >
+        <property name="toolTip" >
+         <string>Amount of data to buffer for DirectSound</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>6</number>
+        </property>
+        <property name="pageStep" >
+         <number>2</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="qlOutputDelay" >
+        <property name="minimumSize" >
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3" >
+     <property name="title" >
+      <string>Positional Audio</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label_5" >
+        <property name="text" >
+         <string>Method</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qcbMethod</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2" >
+       <widget class="QComboBox" name="qcbMethod" >
+        <property name="toolTip" >
+         <string>3D Sound Algorithm</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets what 3D Sound algorithm to use.&lt;br />&lt;b>None&lt;/b> - Disable 3D Sound (least CPU).&lt;br />&lt;b>Panning&lt;/b> - Just use stereo panning (some CPU).&lt;br />&lt;b>Light/Full HRTF&lt;/b> - Head-Related Transfer Functions enabled. This may use a small amount of CPU.&lt;br />Note that if you have a soundcard with &lt;i>hardware&lt;/i> 3D processing, HRTF processing will be done on the soundcard and will use practically no processing power.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_6" >
+        <property name="text" >
+         <string>MinDistance</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsMinDistance</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QSlider" name="qsMinDistance" >
+        <property name="toolTip" >
+         <string>Minimum distance to player before sound decreases</string>
+        </property>
+        <property name="statusTip" >
+         <string>This sets the minimum distance for sound calculations. The volume of other players' speech will not decrease until they are at least this far away from you.</string>
+        </property>
+        <property name="minimum" >
+         <number>10</number>
+        </property>
+        <property name="maximum" >
+         <number>200</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QLabel" name="qlMinDistance" >
+        <property name="minimumSize" >
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="label_7" >
+        <property name="text" >
+         <string>MaxDistance</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsMaxDistance</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QSlider" name="qsMaxDistance" >
+        <property name="toolTip" >
+         <string>Maximum distance, beyond which sound won't decrease</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the maximum distance for sound calculations. When farther away than this, other players' sound volume will not decrease any more.</string>
+        </property>
+        <property name="minimum" >
+         <number>10</number>
+        </property>
+        <property name="maximum" >
+         <number>1000</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" >
+       <widget class="QLabel" name="qlMaxDistance" >
+        <property name="minimumSize" >
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="label_8" >
+        <property name="text" >
+         <string>RollOff</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsRollOff</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QSlider" name="qsRollOff" >
+        <property name="toolTip" >
+         <string>Factor for sound volume decrease</string>
+        </property>
+        <property name="whatsThis" >
+         <string>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</string>
+        </property>
+        <property name="maximum" >
+         <number>200</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" >
+       <widget class="QLabel" name="qlRollOff" >
+        <property name="minimumSize" >
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="3" >
+       <widget class="QLabel" name="qlIntensity" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

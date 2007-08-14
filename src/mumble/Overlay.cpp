@@ -42,125 +42,24 @@ static ConfigWidget *OverlayConfigDialogNew() {
 static ConfigRegistrar registrar(60, OverlayConfigDialogNew);
 
 OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbOptions = new QGroupBox(tr("Options"));
-	QGroupBox *qgbPosition = new QGroupBox(tr("Position"));
-	QGroupBox *qgbColors = new QGroupBox(tr("Font"));
-	QLabel *lab;
-	QVBoxLayout *v;
-	QGridLayout *grid;
+	setupUi(this);
 
-	grid=new QGridLayout();
-
-	qcbEnable = new QCheckBox(tr("Enable Overlay"));
-	qcbEnable->setObjectName(QLatin1String("Enable"));
-	qcbEnable->setToolTip(tr("Enable overlay."));
-	qcbEnable->setWhatsThis(tr("This sets whether the overlay is enabled or not. This setting is "
-	                           "only checked with D3D9 applications are started, so make sure Mumble "
-	                           "is running and this option is on before you start the application.<br />"
-	                           "Please note that if you start the application after starting Mumble, "
-	                           "or if you disable the overlay while running, there is no safe way "
-	                           "to restart the overlay without also restarting the application."));
 	qcbEnable->setChecked(g.s.bOverlayEnable);
-	grid->addWidget(qcbEnable, 0, 0, 1, 2);
-
-	qcbShow = new QComboBox();
-	qcbShow->addItem(tr("No one"), Settings::Nothing);
-	qcbShow->addItem(tr("Only talking"), Settings::Talking);
-	qcbShow->addItem(tr("Everyone"), Settings::All);
-	qcbShow->setCurrentIndex(g.s.osOverlay);
-	lab = new QLabel(tr("Show"));
-	lab->setBuddy(qcbShow);
-	qcbShow->setToolTip(tr("Who to show on the overlay"));
-	qcbShow->setWhatsThis(tr("<b>This sets who to show in the in-game overlay.</b><br />"
-	                         "If many people are connected to the same channel, the overlay list might be "
-	                         "very long. Use this to shorten it.<br />"
-	                         "<i>No one</i> - Don't show anyone (but leave overlay running).<br />"
-	                         "<i>Only talking</i> - Only show talking people.<br />"
-	                         "<i>Everyone</i> - Show everyone."));
-	grid->addWidget(lab, 1, 0);
-	grid->addWidget(qcbShow, 1, 1, 1, 2);
-
-	qcbAlwaysSelf = new QCheckBox(tr("Always Show Self"));
-	qcbAlwaysSelf->setObjectName(QLatin1String("AlwaysSelf"));
-	qcbAlwaysSelf->setToolTip(tr("Always show yourself on overlay."));
-	qcbAlwaysSelf->setWhatsThis(tr("This sets whether to always show yourself or not. "
-	                               "This setting is useful if you aren't showing everyone in the overlay, "
-	                               "as then you would only see your own status if you were talking, which "
-	                               "wouldn't let you see that you were deafened or muted."));
 	qcbAlwaysSelf->setChecked(g.s.bOverlayAlwaysSelf);
-	grid->addWidget(qcbAlwaysSelf, 2, 0, 1, 2);
-
-	qcbUserTextures = new QCheckBox(tr("Show User Textures"));
-	qcbUserTextures->setObjectName(QLatin1String("UserTextures"));
-	qcbUserTextures->setToolTip(tr("Show User custom textures instead of text on the overlay."));
-	qcbUserTextures->setWhatsThis(tr("This sets whether to download and use custom textures for registered users. "
-	                                 "If disabled, the regular outline text will be used instead."));
 	qcbUserTextures->setChecked(g.s.bOverlayUserTextures);
-	grid->addWidget(qcbUserTextures, 3, 0, 1, 2);
 
+	qcbShow->addItem(tr("Show no one"), Settings::Nothing);
+	qcbShow->addItem(tr("Show only talking"), Settings::Talking);
+	qcbShow->addItem(tr("Show everyone"), Settings::All);
+	qcbShow->setCurrentIndex(g.s.osOverlay);
 
-	qgbOptions->setLayout(grid);
-
-	grid=new QGridLayout();
-
-	qcbLeft = new QCheckBox(tr("Grow Left"));
-	qcbLeft->setObjectName(QLatin1String("Left"));
-	qcbLeft->setToolTip(tr("Let overlay grow to the left"));
-	qcbLeft->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-	                         "you have selected. This allows the overlay to grow to the left if "
-	                         "needed."));
 	qcbLeft->setChecked(g.s.bOverlayLeft);
-	qcbRight = new QCheckBox(tr("Grow Right"));
-	qcbRight->setObjectName(QLatin1String("Right"));
-	qcbRight->setToolTip(tr("Let overlay grow to the Right"));
-	qcbRight->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-	                          "you have selected. This allows the overlay to grow to the Right if "
-	                          "needed."));
 	qcbRight->setChecked(g.s.bOverlayRight);
-	qcbTop = new QCheckBox(tr("Grow Up"));
-	qcbTop->setObjectName(QLatin1String("Top"));
-	qcbTop->setToolTip(tr("Let overlay grow upwards"));
-	qcbTop->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-	                        "you have selected. This allows the overlay to grow to the top if "
-	                        "needed."));
 	qcbTop->setChecked(g.s.bOverlayTop);
-	qcbBottom = new QCheckBox(tr("Grow Down"));
-	qcbBottom->setObjectName(QLatin1String("Bottom"));
-	qcbBottom->setToolTip(tr("Let overlay grow downwards"));
-	qcbBottom->setWhatsThis(tr("The overlay tries to stay as small as possible and at the position "
-	                           "you have selected. This allows the overlay to grow towards the bottom if "
-	                           "needed."));
 	qcbBottom->setChecked(g.s.bOverlayBottom);
 
-	qsX = new QSlider(Qt::Horizontal);
-	qsX->setObjectName(QLatin1String("X"));
-	qsX->setToolTip(tr("X-Position of Overlay"));
-	qsX->setWhatsThis(tr("This sets the relative X position of the overlay."));
-	qsX->setRange(0, 100);
-	qsX->setSingleStep(1);
-	qsX->setPageStep(10);
 	qsX->setValue(qRound64(g.s.fOverlayX * 100));
-
-	qsY = new QSlider(Qt::Vertical);
-	qsY->setObjectName(QLatin1String("Y"));
-	qsY->setToolTip(tr("Y-Position of Overlay"));
-	qsY->setWhatsThis(tr("This sets the relative Y position of the overlay."));
-	qsY->setRange(0, 100);
-	qsY->setSingleStep(1);
-	qsY->setPageStep(10);
 	qsY->setValue(100 - qRound64(g.s.fOverlayY * 100));
-
-	grid->addWidget(qcbLeft, 1, 0);
-	grid->addWidget(qcbTop, 0, 1);
-	grid->addWidget(qcbBottom, 2, 1);
-	grid->addWidget(qcbRight, 1, 2);
-
-	grid->addWidget(qsX, 3, 0, 1, 3);
-	grid->addWidget(qsY, 0, 3, 3, 1);
-
-	qgbPosition->setLayout(grid);
-
-	grid = new QGridLayout();
 
 	qfFont = g.s.qfOverlayFont;
 	qcPlayer = g.s.qcOverlayPlayer;
@@ -169,99 +68,15 @@ OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
 	qcChannel = g.s.qcOverlayChannel;
 	qcChannelTalking = g.s.qcOverlayChannelTalking;
 
-	lab=new QLabel(tr("Current Font"));
-	qlCurrentFont = new QLabel();
 	qlCurrentFont->setText(qfFont.family());
-
-	qpbSetFont = new QPushButton(tr("Set Font"));
-	qpbSetFont->setObjectName(QLatin1String("SetFont"));
-
-	grid->addWidget(lab, 0, 0);
-	grid->addWidget(qlCurrentFont, 0, 1);
-	grid->addWidget(qpbSetFont, 0, 2);
-
-	qsMaxHeight = new QSlider(Qt::Horizontal);
-	qsMaxHeight->setObjectName(QLatin1String("MaxHeight"));
-	qsMaxHeight->setToolTip(tr("Maximum height of names."));
-	qsMaxHeight->setWhatsThis(tr("This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels "
-	                             "tall. Note that the names will not be taller than 60 pixels "
-	                             "no matter what you set here."));
-	qsMaxHeight->setRange(10, 200);
-	qsMaxHeight->setSingleStep(1);
-	qsMaxHeight->setPageStep(10);
 	qsMaxHeight->setValue(qRound64(g.s.fOverlayHeight * 1000));
+	on_qsMaxHeight_valueChanged(qsMaxHeight->value());
 
-	qlMaxHeight=new QLabel();
-	qlMaxHeight->setMinimumHeight(40);
-	on_MaxHeight_valueChanged(qsMaxHeight->value());
-
-	lab = new QLabel(tr("Maximum height"));
-	lab->setBuddy(qsMaxHeight);
-
-	grid->addWidget(lab, 1, 0);
-	grid->addWidget(qsMaxHeight, 1, 1);
-	grid->addWidget(qlMaxHeight, 1, 2);
-
-	qlPlayer = new QLabel();
-	qpbPlayer = new QPushButton(tr("Change"));
-	qpbPlayer->setObjectName(QLatin1String("Player"));
-	lab = new QLabel(tr("Color for players"));
 	setColorLabel(qlPlayer, qcPlayer);
-
-	grid->addWidget(lab, 2, 0);
-	grid->addWidget(qlPlayer, 2, 1);
-	grid->addWidget(qpbPlayer, 2, 2);
-
-	qlTalking = new QLabel();
-	qpbTalking = new QPushButton(tr("Change"));
-	qpbTalking->setObjectName(QLatin1String("Talking"));
-	lab = new QLabel(tr("Color for talking players"));
 	setColorLabel(qlTalking, qcTalking);
-
-	grid->addWidget(lab, 3, 0);
-	grid->addWidget(qlTalking, 3, 1);
-	grid->addWidget(qpbTalking, 3, 2);
-
-	qlAltTalking = new QLabel();
-	qpbAltTalking = new QPushButton(tr("Change"));
-	qpbAltTalking->setObjectName(QLatin1String("AltTalking"));
-	lab = new QLabel(tr("Color for alt-talking players"));
 	setColorLabel(qlAltTalking, qcAltTalking);
-
-	grid->addWidget(lab, 4, 0);
-	grid->addWidget(qlAltTalking, 4, 1);
-	grid->addWidget(qpbAltTalking, 4, 2);
-
-	qlChannel = new QLabel();
-	qpbChannel = new QPushButton(tr("Change"));
-	qpbChannel->setObjectName(QLatin1String("Channel"));
-	lab = new QLabel(tr("Color for Channels"));
 	setColorLabel(qlChannel, qcChannel);
-
-	grid->addWidget(lab, 5, 0);
-	grid->addWidget(qlChannel, 5, 1);
-	grid->addWidget(qpbChannel, 5, 2);
-
-	qlChannelTalking = new QLabel();
-	qpbChannelTalking = new QPushButton(tr("Change"));
-	qpbChannelTalking->setObjectName(QLatin1String("ChannelTalking"));
-	lab = new QLabel(tr("Color for active Channels"));
 	setColorLabel(qlChannelTalking, qcChannelTalking);
-
-	grid->addWidget(lab, 6, 0);
-	grid->addWidget(qlChannelTalking, 6, 1);
-	grid->addWidget(qpbChannelTalking, 6, 2);
-
-	qgbColors->setLayout(grid);
-
-	v = new QVBoxLayout;
-	v->addWidget(qgbOptions);
-	v->addWidget(qgbPosition);
-	v->addWidget(qgbColors);
-	v->addStretch(1);
-	setLayout(v);
-
-	QMetaObject::connectSlotsByName(this);
 }
 
 void OverlayConfig::setColorLabel(QLabel *label, QColor col) {
@@ -272,7 +87,7 @@ void OverlayConfig::setColorLabel(QLabel *label, QColor col) {
 	label->setPalette(palette);
 }
 
-void OverlayConfig::on_SetFont_clicked() {
+void OverlayConfig::on_qpbSetFont_clicked() {
 	bool ok;
 	QFont qf = QFontDialog::getFont(&ok, qfFont, this);
 	if (ok) {
@@ -282,13 +97,13 @@ void OverlayConfig::on_SetFont_clicked() {
 	}
 }
 
-void OverlayConfig::on_MaxHeight_valueChanged(int v) {
+void OverlayConfig::on_qsMaxHeight_valueChanged(int v) {
 	qlMaxHeight->setText(QString::fromLatin1("%1%").arg(v/10.0, 0, 'f', 1));
 	qfFont.setPointSize(v);
 }
 
 
-void OverlayConfig::on_Player_clicked() {
+void OverlayConfig::on_qpbPlayer_clicked() {
 	bool ok;
 	QRgb rgb=QColorDialog::getRgba(qcPlayer.rgba(), &ok, this);
 	if (ok) {
@@ -297,7 +112,7 @@ void OverlayConfig::on_Player_clicked() {
 	}
 }
 
-void OverlayConfig::on_Talking_clicked() {
+void OverlayConfig::on_qpbTalking_clicked() {
 	bool ok;
 	QRgb rgb=QColorDialog::getRgba(qcTalking.rgba(), &ok, this);
 	if (ok) {
@@ -306,7 +121,7 @@ void OverlayConfig::on_Talking_clicked() {
 	}
 }
 
-void OverlayConfig::on_AltTalking_clicked() {
+void OverlayConfig::on_qpbAltTalking_clicked() {
 	bool ok;
 	QRgb rgb=QColorDialog::getRgba(qcAltTalking.rgba(), &ok, this);
 	if (ok) {
@@ -315,7 +130,7 @@ void OverlayConfig::on_AltTalking_clicked() {
 	}
 }
 
-void OverlayConfig::on_Channel_clicked() {
+void OverlayConfig::on_qpbChannel_clicked() {
 	bool ok;
 	QRgb rgb=QColorDialog::getRgba(qcChannel.rgba(), &ok, this);
 	if (ok) {
@@ -324,7 +139,7 @@ void OverlayConfig::on_Channel_clicked() {
 	}
 }
 
-void OverlayConfig::on_ChannelTalking_clicked() {
+void OverlayConfig::on_qpbChannelTalking_clicked() {
 	bool ok;
 	QRgb rgb=QColorDialog::getRgba(qcChannelTalking.rgba(), &ok, this);
 	if (ok) {
@@ -369,7 +184,7 @@ Overlay::Overlay() : QObject() {
 
 #ifdef Q_OS_WIN
 #ifndef QT_NO_DEBUG
-	QString path="../overlay/mumble_ol.dll";
+	QString path=QLatin1String("../overlay/mumble_ol.dll");
 #else
 	QString path=QString("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
 #endif

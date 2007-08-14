@@ -41,18 +41,9 @@ static ConfigWidget *LookConfigNew() {
 static ConfigRegistrar registrar(11, LookConfigNew);
 
 LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
-	QGroupBox *qgbLanguage, *qgbLook;
-	QLabel *l;
-	QVBoxLayout *v;
-	QGridLayout *grid;
 	int i;
+	setupUi(this);
 
-	qgbLanguage=new QGroupBox(tr("Language"));
-	qgbLook=new QGroupBox(tr("Look and Feel"));
-
-	grid = new QGridLayout();
-
-	qcbLanguage = new QComboBox();
 	qcbLanguage->addItem(tr("System default"));
 	QDir d(QLatin1String(":"),QLatin1String("mumble_*.qm"),QDir::Name,QDir::Files);
 	QStringList langs;
@@ -64,19 +55,7 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	i=langs.indexOf(g.qs->value(QLatin1String("Language")).toString());
 	if (i >= 0)
 		qcbLanguage->setCurrentIndex(i+1);
-	l = new QLabel(tr("Language"));
-	l->setBuddy(qcbLanguage);
-	qcbLanguage->setToolTip(tr("Language to use (requires restart)"));
-	qcbLanguage->setWhatsThis(tr("<b>This sets which language Mumble should use.</b><br />You have to restart Mumble to use the new language."));
 
-	grid->addWidget(l,0,0);
-	grid->addWidget(qcbLanguage, 0, 1);
-	qgbLanguage->setLayout(grid);
-
-
-	grid = new QGridLayout();
-
-	qcbStyle = new QComboBox();
 	QStringList styles = QStyleFactory::keys();
 	styles.sort();
 	qcbStyle->addItem(tr("System default"));
@@ -86,56 +65,11 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	i=styles.indexOf(g.qs->value(QLatin1String("Style")).toString());
 	if (i >= 0)
 		qcbStyle->setCurrentIndex(i+1);
-	l = new QLabel(tr("Style"));
-	l->setBuddy(qcbStyle);
-	qcbStyle->setToolTip(tr("Basic widget style"));
-	qcbStyle->setWhatsThis(tr("<b>This sets the basic look and feel to use.</b>"));
-	grid->addWidget(l,0,0);
-	grid->addWidget(qcbStyle, 0, 1, 1, 2);
 
-	qleCSS = new QLineEdit(g.qs->value(QLatin1String("Skin")).toString());
-	l = new QLabel(tr("Skin"));
-	l->setBuddy(qcbLanguage);
-	qpbCSS = new QPushButton(tr("..."));
-	qpbCSS->setObjectName(QLatin1String("SkinFile"));
-	qleCSS->setToolTip(tr("Skin file to use"));
-	qleCSS->setWhatsThis(tr("<b>This sets which skin Mumble should use.</b><br />"
-	                        "The skin is a style file applied on top of the basic widget style. "
-	                        "If there are icons in the same directory as the style sheet, those will replace the default icons."
-	                       ));
-	qpbCSS->setToolTip(qleCSS->toolTip());
-	qpbCSS->setWhatsThis(qleCSS->whatsThis());
-	grid->addWidget(l,1,0);
-	grid->addWidget(qleCSS, 1, 1);
-	grid->addWidget(qpbCSS, 1, 2);
-
-	qcbHorizontal = new QCheckBox(tr("Use Horizontal Splitter"));
+	qleCSS->setText(g.qs->value(QLatin1String("Skin")).toString());
 	qcbHorizontal->setChecked(g.qs->value(QLatin1String("Horizontal"), true).toBool());
-	qcbHorizontal->setToolTip(tr("Use horizontal or vertical splitter for the main window"));
-	qcbHorizontal->setWhatsThis(tr("<b>This sets whether the split in the main window is horizontal (side by side) or vertical (above and below).</b>"));
-	grid->addWidget(qcbHorizontal, 2, 1, 1, 2);
-
-	qcbExpand = new QCheckBox(tr("Expand All Channels"));
-	qcbExpand->setChecked(g.s.bExpandAll);
-	qcbExpand->setToolTip(tr("Expand all channels when connecting"));
-	qcbExpand->setWhatsThis(tr("<b>If set, all channels will be expanded by default when you connect to a server.</b>"));
-	grid->addWidget(qcbExpand, 3, 1, 1, 2);
-
-	qcbPlayersTop = new QCheckBox(tr("Players above Channels"));
-	qcbPlayersTop->setChecked(g.s.bPlayerTop);
-	qcbPlayersTop->setToolTip(tr("List players above subchannels (requires restart)."));
-	qcbPlayersTop->setWhatsThis(tr("<b>If set, players will be shown above subchannels in the channel view.</b><br />A restart of Mumble is required to see the change."));
-	grid->addWidget(qcbPlayersTop, 4, 1, 1, 2);
-
-	qgbLook->setLayout(grid);
-
-	v = new QVBoxLayout;
-	v->addWidget(qgbLanguage);
-	v->addWidget(qgbLook);
-	v->addStretch(1);
-	setLayout(v);
-
-	QMetaObject::connectSlotsByName(this);
+        qcbExpand->setChecked(g.s.bExpandAll);
+        qcbPlayersTop->setChecked(g.s.bPlayerTop);
 }
 
 QString LookConfig::title() const {
@@ -184,7 +118,7 @@ void LookConfig::accept() {
 	g.s.bPlayerTop=qcbPlayersTop->isChecked();
 }
 
-void LookConfig::on_SkinFile_clicked(bool) {
+void LookConfig::on_qpbSkinFile_clicked(bool) {
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), QString(), QLatin1String("*.qss"));
 	if (! file.isEmpty()) {
 		qleCSS->setText(file);

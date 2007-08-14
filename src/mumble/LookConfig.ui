@@ -1,0 +1,151 @@
+<ui version="4.0" >
+ <class>LookConfig</class>
+ <widget class="QWidget" name="LookConfig" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Language</string>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Language</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qcbLanguage</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="qcbLanguage" >
+        <property name="toolTip" >
+         <string>Language to use (requires restart)</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This sets which language Mumble should use.&lt;/b>&lt;br />You have to restart Mumble to use the new language.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="title" >
+      <string>Look and Feel</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Style</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2" >
+       <widget class="QComboBox" name="qcbStyle" >
+        <property name="toolTip" >
+         <string>Basic widget style</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This sets the basic look and feel to use.&lt;/b></string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>Skin</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QPushButton" name="qpbSkinFile" >
+        <property name="text" >
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QCheckBox" name="qcbHorizontal" >
+        <property name="toolTip" >
+         <string>Use horizontal or vertical splitter for the main window</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This sets whether the split in the main window is horizontal (side by side) or vertical (above and below).&lt;/b></string>
+        </property>
+        <property name="text" >
+         <string>Use Horizontal Splitter</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QCheckBox" name="qcbExpand" >
+        <property name="toolTip" >
+         <string>Expand all channels when connecting</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>If set, all channels will be expanded by default when you connect to a server.&lt;/b></string>
+        </property>
+        <property name="text" >
+         <string>Expand All Channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" >
+       <widget class="QCheckBox" name="qcbPlayersTop" >
+        <property name="toolTip" >
+         <string>List players above subchannels (requires restart).</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>If set, players will be shown above subchannels in the channel view.&lt;/b>&lt;br />A restart of Mumble is required to see the change.</string>
+        </property>
+        <property name="text" >
+         <string>Players above Channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="qleCSS" >
+        <property name="toolTip" >
+         <string>Skin file to use</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This sets which skin Mumble should use.&lt;/b>&lt;br />The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

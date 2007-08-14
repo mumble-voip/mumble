@@ -84,10 +84,12 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 	FILETIME ft;
 	HRESULT hr;
 
+	setupUi(this);
+
 	// List of devices known to misbehave or be totally useless
 	QStringList blacklist;
-	blacklist << "{a91eaba1-cf4c-11d3-b96a-00a0c9c7b61a}"; // ASIO DirectX
-	blacklist << "{e3186861-3a74-11d1-aef8-0080ad153287}"; // ASIO Multimedia
+	blacklist << QLatin1String("{a91eaba1-cf4c-11d3-b96a-00a0c9c7b61a}"); // ASIO DirectX
+	blacklist << QLatin1String("{e3186861-3a74-11d1-aef8-0080ad153287}"); // ASIO Multimedia
 
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
@@ -99,7 +101,7 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 				CLSID clsid;
 				if (RegQueryValueEx(hk, L"CLSID", 0, &dtype, reinterpret_cast<BYTE *>(wclsid), &datasize) == ERROR_SUCCESS) {
 					QString qsCls = QString::fromUtf16(reinterpret_cast<ushort *>(wclsid), datasize / 2);
-					if (! blacklist.contains(qsCls.toLatin1()) && ! FAILED(hr =CLSIDFromString(wclsid, &clsid))) {
+					if (! blacklist.contains(qsCls) && ! FAILED(hr =CLSIDFromString(wclsid, &clsid))) {
 						ASIODev ad(name, qsCls);
 						qlDevs << ad;
 					}
@@ -113,15 +115,7 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 
 	bOk = false;
 
-	QGroupBox *qgbDevices, *qgbCapab, *qgbChannels;
-	QGridLayout *grid;
-	QVBoxLayout *v;
-	QHBoxLayout *h;
 	ASIODev ad;
-	QLabel *l;
-
-	qcbDevice = new QComboBox();
-	qcbDevice->setObjectName("Device");
 
 	foreach(ad, qlDevs) {
 		qcbDevice->addItem(ad.first, QVariant(ad.second));
@@ -130,142 +124,15 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 		}
 	}
 
-	qgbDevices=new QGroupBox(tr("Device selection"));
-	qgbCapab = new QGroupBox(tr("Capabilities"));
-	qgbChannels = new QGroupBox(tr("Channels"));
-	qgbChannels->setToolTip(tr("Configure input channels"));
-	qgbChannels->setWhatsThis(tr("This will configure the input channels for ASIO. Make sure you select at least one "
-	                             "channel as microphone and speaker. <i>Microphone</i> should be where your microphone is attached, "
-	                             "and <i>Speaker</i> should be a channel that samples \"What you hear\".<br />"
-	                             "For example, on the Audigy 2 ZS, a good selection for Microphone would be \"Mic L\" while "
-	                             "Speaker should be \"Mix L\" and \"Mix R\""));
-
-	grid=new QGridLayout();
-
-	qcbDevice->setToolTip(tr("Device to use for microphone"));
-	qcbDevice->setWhatsThis(tr("This chooses what device to query. You still need to actually query the device and "
-	                           "select which channels to use."));
-	l = new QLabel(tr("Device"));
-
-	QPushButton *queryButton=new QPushButton(tr("&Query"));
-	queryButton->setObjectName("Query");
-	queryButton->setToolTip(tr("Query selected device"));
-	queryButton->setWhatsThis(tr("This queries the selected device for channels. Be aware that many ASIO drivers are "
-	                             "buggy to the extreme, and querying them might cause a crash of either the application "
-	                             "or the system."));
-
-	QPushButton *configButton=new QPushButton(tr("&Configure"));
-	configButton->setObjectName("Config");
-	configButton->setToolTip(tr("Configure selected device"));
-	configButton->setWhatsThis(tr("This configures the selected device. Be aware that many ASIO drivers are "
-	                              "buggy to the extreme, and querying them might cause a crash of either the application "
-	                              "or the system."));
-
-	grid->addWidget(l, 0, 0);
-	grid->addWidget(qcbDevice, 0, 1);
-	grid->addWidget(queryButton, 0, 2);
-	grid->addWidget(configButton, 0, 3);
-
-	qgbDevices->setLayout(grid);
-
-
-	grid = new QGridLayout();
-
-	qlName=new QLabel();
-	qlBuffers=new QLabel();
-
-	l = new QLabel(tr("Driver name"));
-	l->setBuddy(qlName);
-	grid->addWidget(l, 0, 0);
-	grid->addWidget(qlName, 0, 1);
-
-	l = new QLabel(tr("Buffersize"));
-	l->setBuddy(qlBuffers);
-	grid->addWidget(l, 1, 0);
-	grid->addWidget(qlBuffers, 1, 1);
-
-	grid->setColumnStretch(1, 1);
-
-	qgbCapab->setLayout(grid);
-
-
-	h = new QHBoxLayout;
-
-	v = new QVBoxLayout;
-	qlwMic = new QListWidget();
-	qlwMic->setMinimumWidth(100);
-	qlwMic->setMaximumWidth(100);
-	l = new QLabel(tr("Microphone"));
-	v->addWidget(l);
-	v->addWidget(qlwMic);
-	h->addLayout(v);
-
-	QPushButton *addMicButton=new QPushButton(tr("<-"));
-	addMicButton->setObjectName("AddMic");
-	addMicButton->setMaximumWidth(20);
-	QPushButton *remMicButton=new QPushButton(tr("->"));
-	remMicButton->setObjectName("RemMic");
-	remMicButton->setMaximumWidth(20);
-	v = new QVBoxLayout;
-	v->addStretch(1);
-	v->addWidget(addMicButton);
-	v->addWidget(remMicButton);
-	v->addStretch(1);
-	h->addLayout(v);
-
-	v = new QVBoxLayout;
-	qlwUnused = new QListWidget();
-	qlwUnused->setMinimumWidth(100);
-	qlwUnused->setMaximumWidth(100);
-	l = new QLabel(tr("Unused"));
-	v->addWidget(l);
-	v->addWidget(qlwUnused);
-	h->addLayout(v);
-
-	QPushButton *addSpeakerButton=new QPushButton(tr("->"));
-	addSpeakerButton->setObjectName("AddSpeaker");
-	addSpeakerButton->setMaximumWidth(20);
-	QPushButton *remSpeakerButton=new QPushButton(tr("<-"));
-	remSpeakerButton->setObjectName("RemSpeaker");
-	remSpeakerButton->setMaximumWidth(20);
-	v = new QVBoxLayout;
-	v->addStretch(1);
-	v->addWidget(remSpeakerButton);
-	v->addWidget(addSpeakerButton);
-	v->addStretch(1);
-	h->addLayout(v);
-
-	v = new QVBoxLayout;
-	qlwSpeaker = new QListWidget();
-	qlwSpeaker->setMinimumWidth(100);
-	qlwSpeaker->setMaximumWidth(100);
-	l = new QLabel(tr("Speakers"));
-	v->addWidget(l);
-	v->addWidget(qlwSpeaker);
-	h->addLayout(v);
-
-
-	qgbChannels->setLayout(h);
-
 	if (qlDevs.count() == 0) {
-		queryButton->setEnabled(false);
-		configButton->setEnabled(false);
+		qpbQuery->setEnabled(false);
+		qpbConfig->setEnabled(false);
 	}
-
-	v = new QVBoxLayout();
-	v->addWidget(qgbDevices);
-	v->addWidget(qgbCapab);
-	v->addWidget(qgbChannels);
-	v->addStretch(1);
-
-	setLayout(v);
-
-	QMetaObject::connectSlotsByName(this);
 }
 
 #include "iasiothiscallresolver.h"
 
-void ASIOConfig::on_Query_clicked() {
+void ASIOConfig::on_qpbQuery_clicked() {
 	QString qsCls = qcbDevice->itemData(qcbDevice->currentIndex()).toString();
 	CLSID clsid;
 	IASIO *iorigasio;
@@ -392,7 +259,7 @@ void ASIOConfig::on_Query_clicked() {
 	}
 }
 
-void ASIOConfig::on_Config_clicked() {
+void ASIOConfig::on_qpbConfig_clicked() {
 	QString qsCls = qcbDevice->itemData(qcbDevice->currentIndex()).toString();
 	CLSID clsid;
 	IASIO *iorigasio;
@@ -420,32 +287,32 @@ void ASIOConfig::on_Config_clicked() {
 	}
 }
 
-void ASIOConfig::on_Device_activated(int index) {
+void ASIOConfig::on_qcbDevice_activated(int index) {
 	clearQuery();
 }
 
-void ASIOConfig::on_AddMic_clicked() {
+void ASIOConfig::on_qpbAddMic_clicked() {
 	int row = qlwUnused->currentRow();
 	if (row < 0)
 		return;
 	qlwMic->addItem(qlwUnused->takeItem(row));
 }
 
-void ASIOConfig::on_RemMic_clicked() {
+void ASIOConfig::on_qpbRemMic_clicked() {
 	int row = qlwMic->currentRow();
 	if (row < 0)
 		return;
 	qlwUnused->addItem(qlwMic->takeItem(row));
 }
 
-void ASIOConfig::on_AddSpeaker_clicked() {
+void ASIOConfig::on_qpbAddSpeaker_clicked() {
 	int row = qlwUnused->currentRow();
 	if (row < 0)
 		return;
 	qlwSpeaker->addItem(qlwUnused->takeItem(row));
 }
 
-void ASIOConfig::on_RemSpeaker_clicked() {
+void ASIOConfig::on_qpbRemSpeaker_clicked() {
 	int row = qlwSpeaker->currentRow();
 	if (row < 0)
 		return;

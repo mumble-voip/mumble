@@ -122,7 +122,6 @@ void MainWindow::createActions() {
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));
 
-
 	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 	qstiIcon->show();

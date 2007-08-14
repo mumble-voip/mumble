@@ -101,6 +101,7 @@ class PlayerModel : public QAbstractItemModel {
 		QString stringIndex(const QModelIndex &index) const;
 
 		void unbugHide(const QModelIndex &index);
+		bool bDying;
 	public:
 		PlayerModel(QObject *parent = 0);
 		~PlayerModel();

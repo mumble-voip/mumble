@@ -33,13 +33,12 @@
 
 #include "ConfigDialog.h"
 
+#include "Ui_Plugins.h"
 struct PluginInfo;
 
-class PluginConfig : public ConfigWidget {
+class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		Q_OBJECT
 	protected:
-		QCheckBox *qcbTransmit;
-		QListWidget *qlwPlugins;
 		void refillPluginList();
 		QHash<QListWidgetItem *, PluginInfo *> qhInfos;
 	public:
@@ -48,9 +47,9 @@ class PluginConfig : public ConfigWidget {
 		virtual QIcon icon() const;
 	public slots:
 		void accept();
-		void on_Config_clicked();
-		void on_About_clicked();
-		void on_Reload_clicked();
+		void on_qpbConfig_clicked();
+		void on_qpbAbout_clicked();
+		void on_qpbReload_clicked();
 };
 
 class Plugins : public QObject {
