@@ -41,6 +41,9 @@
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	enum VADSource { Amplitude, SignalToNoise };
+	enum LoopMode { None, Local, Server };
+	enum OverlayShow { Nothing, Talking, All };
+	enum Audio3D { No3D, Panning, Light, Full };
 	AudioTransmit atTransmit;
 
 	bool bTransmitPosition;
@@ -59,26 +62,16 @@ struct Settings {
 
 	int iDXOutputDelay;
 
-#ifdef Q_OS_UNIX
 	QString qsFestival;
 	QString qsALSAInput, qsALSAOutput;
-#endif
-
-#ifdef USE_ASIO
 	QString qsASIOclass;
 	QList<QVariant> qlASIOmic;
 	QList<QVariant> qlASIOspeaker;
-#endif
-
-#ifdef Q_OS_WIN
-	enum Audio3D { None, Panning, Light, Full };
 	Audio3D a3dModel;
 
 	QByteArray qbaDXInput, qbaDXOutput;
 	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
-#endif
 
-	enum OverlayShow { Nothing, Talking, All };
 	bool bOverlayEnable;
 	bool bOverlayUserTextures;
 	OverlayShow osOverlay;
@@ -93,6 +86,26 @@ struct Settings {
 	QColor qcOverlayAltTalking;
 	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
+
+	typedef QMap<int, QList<QVariant > > ShortcutMap;
+	ShortcutMap qmShortcuts;
+
+	enum MessageLog { LogConsole = 0x01, LogTTS = 0x02};
+	QMap<int, quint32> qmMessages;
+
+	QString qsLanguage;
+	QString qsStyle;
+	QString qsSkin;
+	bool bHorizontal;
+	bool bFirstTime;
+	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState;
+
+
+	// Nonsaved
+	bool bLocalDeafen;
+	LoopMode lmLoopMode;
+	double dPacketLoss;
+	double dMaxPacketDelay;
 
 	Settings();
 	void load();

@@ -38,11 +38,12 @@
 class AudioConfigDialog : public ConfigWidget, public Ui::AudioConfigDialog {
 		Q_OBJECT
 	public:
-		AudioConfigDialog(QWidget *p = NULL);
+		AudioConfigDialog(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void save() const;
+		void load(const Settings &r);
 		void updateBitrate();
 		void on_qsTransmitHold_valueChanged(int v);
 		void on_qsFrames_valueChanged(int v);

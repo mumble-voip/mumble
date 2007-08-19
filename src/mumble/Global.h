@@ -54,7 +54,6 @@ class QSettings;
 class Overlay;
 
 struct Global {
-	enum LoopMode { None, Local, Server };
 	MainWindow *mw;
 	Settings s;
 	ServerHandler *sh;
@@ -69,10 +68,6 @@ struct Global {
 	int iAltSpeak;
 	bool bPushToMute;
 	bool bCenterPosition;
-	bool bLocalDeafen;
-	LoopMode lmLoopMode;
-	double dPacketLoss;
-	double dMaxPacketDelay;
 	unsigned int uiSession;
 	int iMaxBandwidth;
 	Global();

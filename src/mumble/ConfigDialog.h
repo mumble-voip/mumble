@@ -32,18 +32,22 @@
 #define _CONFIGDIALOG_H
 
 #include "ui_ConfigDialog.h"
+#include "Settings.h"
 
 class ConfigWidget : public QWidget {
 		Q_OBJECT
 	public:
-		ConfigWidget(QWidget *p = NULL);
+		Settings &s;
+		ConfigWidget(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		virtual void accept() = 0;
+		virtual void accept() const;
+		virtual void save() const = 0;
+		virtual void load(const Settings &r) = 0;
 };
 
-typedef ConfigWidget *(*ConfigWidgetNew)();
+typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);
 
 class ConfigRegistrar {
 		friend class ConfigDialog;
@@ -58,6 +62,7 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 	protected:
 		QList<ConfigWidget *> widgets;
 		void addPage(ConfigWidget *aw);
+		Settings s;
 	public:
 		ConfigDialog(QWidget *p = NULL);
 	public slots:

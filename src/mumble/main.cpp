@@ -88,6 +88,9 @@ int main(int argc, char **argv) {
 	else
 		g.qs = new QSettings();
 
+	// Load preferences
+	g.s.load();
+
 	QString style=g.qs->value(QLatin1String("Style")).toString();
 	if (! style.isEmpty()) {
 		a.setStyle(style);
@@ -129,12 +132,9 @@ int main(int argc, char **argv) {
 	icon.addFile(QLatin1String("skin:mumble.png.0"));
 	a.setWindowIcon(icon);
 
-	// Load preferences
-	g.s.load();
 
 	// Initialize logger
 	g.l = new Log();
-	g.l->loadSettings();
 
 	// Initialize database
 	g.db = new Database();
@@ -168,8 +168,8 @@ int main(int argc, char **argv) {
 
 	a.setQuitOnLastWindowClosed(false);
 
-	if (! g.qs->value("FirstTimeDone", false).toBool()) {
-		g.qs->setValue("FirstTimeDone", true);
+	if (g.s.bFirstTime) {
+		g.s.bFirstTime = false;
 		if (QMessageBox::question(g.mw, MainWindow::tr("Mumble"), MainWindow::tr("This is the first time you're starting Mumble.<br />Would you like to go through the Audio Wizard to configure your soundcard?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
 			AudioWizard aw;
 			aw.exec();
@@ -184,7 +184,6 @@ int main(int argc, char **argv) {
 	res=a.exec();
 
 	g.s.save();
-	g.l->saveSettings();
 
 	g.ao.reset();
 	g.ai.reset();

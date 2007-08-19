@@ -44,11 +44,12 @@ class DXConfigDialog : public ConfigWidget, public Ui::DXConfigDialog {
 		QList<dsDevice> qlInput;
 		QList<dsDevice> qlOutput;
 	public:
-		DXConfigDialog(QWidget *p = NULL);
+		DXConfigDialog(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void save() const;
+		void load(const Settings &r);
 		void on_qsOutputDelay_valueChanged(int v);
 		void on_qsMinDistance_valueChanged(int v);
 		void on_qsMaxDistance_valueChanged(int v);

@@ -66,8 +66,8 @@ void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &) {
 	qWarning("ASIOInputRegistrar::setDeviceChoice was called");
 }
 
-static ConfigWidget *ASIOConfigDialogNew() {
-	return new ASIOConfig();
+static ConfigWidget *ASIOConfigDialogNew(Settings &st) {
+	return new ASIOConfig(st);
 }
 
 static ConfigRegistrar registrar(22, ASIOConfigDialogNew);
@@ -75,7 +75,7 @@ static ConfigRegistrar registrar(22, ASIOConfigDialogNew);
 
 ASIOInput *ASIOInput::aiSelf;
 
-ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
+ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 	HKEY hkDevs;
 	HKEY hk;
 	DWORD idx = 0;
@@ -119,9 +119,6 @@ ASIOConfig::ASIOConfig(QWidget *p) : ConfigWidget(p) {
 
 	foreach(ad, qlDevs) {
 		qcbDevice->addItem(ad.first, QVariant(ad.second));
-		if (ad.second == g.s.qsASIOclass) {
-			qcbDevice->setCurrentIndex(qcbDevice->count() - 1);
-		}
 	}
 
 	if (qlDevs.count() == 0) {
@@ -202,15 +199,15 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			maxSize /= divider;
 			prefSize /= divider;
 
-			QString s = tr("%1 (ver %2)").arg(QLatin1String(buff)).arg(ver);
-			qlName->setText(s);
+			QString str = tr("%1 (ver %2)").arg(QLatin1String(buff)).arg(ver);
+			qlName->setText(str);
 
 			if (bOk)
-				s = tr("%1 ms -> %2 ms (%3 ms resolution) %4Hz").arg(minSize).arg(maxSize).arg(granSize).arg(srate,0,'f',0);
+				str = tr("%1 ms -> %2 ms (%3 ms resolution) %4Hz").arg(minSize).arg(maxSize).arg(granSize).arg(srate,0,'f',0);
 			else
-				s = tr("%1 ms -> %2 ms (%3 ms resolution) %4Hz -- Unusable").arg(minSize).arg(maxSize).arg(granSize).arg(srate,0,'f',0);
+				str = tr("%1 ms -> %2 ms (%3 ms resolution) %4Hz -- Unusable").arg(minSize).arg(maxSize).arg(granSize).arg(srate,0,'f',0);
 
-			qlBuffers->setText(s);
+			qlBuffers->setText(str);
 
 			if (bOk) {
 				long ichannels, ochannels;
@@ -230,9 +227,9 @@ void ASIOConfig::on_qpbQuery_clicked() {
 						case ASIOSTInt16LSB: {
 								QListWidget *widget = qlwUnused;
 								QVariant v = static_cast<int>(cnum);
-								if (match && g.s.qlASIOmic.contains(v))
+								if (match && s.qlASIOmic.contains(v))
 									widget = qlwMic;
-								else if (match && g.s.qlASIOspeaker.contains(v))
+								else if (match && s.qlASIOspeaker.contains(v))
 									widget = qlwSpeaker;
 								QListWidgetItem *item = new QListWidgetItem(QLatin1String(aci.name), widget);
 								item->setData(Qt::UserRole, static_cast<int>(cnum));
@@ -327,11 +324,11 @@ QIcon ASIOConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_asio.png"));
 }
 
-void ASIOConfig::accept() {
+void ASIOConfig::save() const {
 	if (! bOk)
 		return;
 
-	g.s.qsASIOclass = qcbDevice->itemData(qcbDevice->currentIndex()).toString();
+	s.qsASIOclass = qcbDevice->itemData(qcbDevice->currentIndex()).toString();
 
 	QList<QVariant> list;
 
@@ -340,7 +337,7 @@ void ASIOConfig::accept() {
 		list << item->data(Qt::UserRole);
 	}
 
-	g.s.qlASIOmic = list;
+	s.qlASIOmic = list;
 
 	list.clear();
 
@@ -349,7 +346,26 @@ void ASIOConfig::accept() {
 		list << item->data(Qt::UserRole);
 	}
 
-	g.s.qlASIOspeaker = list;
+	s.qlASIOspeaker = list;
+}
+
+void ASIOConfig::load(const Settings &r) {
+	int i = 0;
+	ASIODev ad;
+	foreach(ad, qlDevs) {
+		if (ad.second == r.qsASIOclass) {
+			qcbDevice->setCurrentIndex(i);
+		}
+		i++;
+	}
+	s.qlASIOmic = r.qlASIOmic;
+	s.qlASIOspeaker = r.qlASIOspeaker;
+
+	qlName->setText(QString());
+	qlBuffers->setText(QString());
+	qlwMic->clear();
+	qlwUnused->clear();
+	qlwSpeaker->clear();
 }
 
 void ASIOConfig::clearQuery() {

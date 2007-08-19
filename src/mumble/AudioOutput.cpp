@@ -214,7 +214,7 @@ bool AudioOutputSpeech::decodeNextFrame() {
 		jitter_buffer_tick(jbJitter);
 	}
 
-	if (g.bLocalDeafen)
+	if (g.s.bLocalDeafen)
 		memset(psBuffer, 0, iFrameSize*2);
 
 	if (p)

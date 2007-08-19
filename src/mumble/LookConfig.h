@@ -38,11 +38,13 @@
 class LookConfig : public ConfigWidget, Ui::LookConfig {
 		Q_OBJECT
 	public:
-		LookConfig(QWidget *p = NULL);
+		LookConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void accept() const;
+		void save() const;
+		void load(const Settings &r);
 		void on_qpbSkinFile_clicked(bool);
 };
 

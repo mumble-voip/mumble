@@ -41,13 +41,13 @@
 #include "Log.h"
 #include "Global.h"
 
-static ConfigWidget *LogConfigDialogNew() {
-	return new LogConfig();
+static ConfigWidget *LogConfigDialogNew(Settings &st) {
+	return new LogConfig(st);
 }
 
 static ConfigRegistrar registrar(40, LogConfigDialogNew);
 
-LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
+LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	QGroupBox *qgbMessages = new QGroupBox(tr("Messages"));
 	QLabel *lab;
 
@@ -61,20 +61,17 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
 		QCheckBox *qcb;
 		Log::MsgType t=static_cast<Log::MsgType>(i);
-		MsgSettings *ms=g.l->qhSettings[t];
 		QString name = g.l->msgName(t);
 
 		lab=new QLabel(name);
 		l->addWidget(lab, i+1, 0);
 
 		qcb=new QCheckBox();
-		qcb->setCheckState(ms->bConsole ? Qt::Checked : Qt::Unchecked);
 		qcb->setToolTip(tr("Enable console for %1").arg(name));
 		qlConsole << qcb;
 		l->addWidget(qcb, i+1, 1);
 
 		qcb=new QCheckBox();
-		qcb->setCheckState(ms->bTTS ? Qt::Checked : Qt::Unchecked);
 		qcb->setToolTip(tr("Enable Text-To-Speech for %1").arg(name));
 		qlTTS << qcb;
 		l->addWidget(qcb, i+1, 2);
@@ -91,7 +88,6 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	qsVolume->setRange(0, 100);
 	qsVolume->setSingleStep(5);
 	qsVolume->setPageStep(20);
-	qsVolume->setValue(g.s.iTTSVolume);
 	qsVolume->setObjectName(QLatin1String("Volume"));
 	qsVolume->setToolTip(tr("Volume of Text-To-Speech Engine"));
 	qsVolume->setWhatsThis(tr("<b>This is the volume used for the speech synthesis.</b>"));
@@ -102,7 +98,6 @@ LogConfig::LogConfig(QWidget *p) : ConfigWidget(p) {
 	qsbThreshold = new QSpinBox();
 	qsbThreshold->setRange(0, 5000);
 	qsbThreshold->setSingleStep(10);
-	qsbThreshold->setValue(g.s.iTTSThreshold);
 	qsbThreshold->setObjectName(QLatin1String("Threshold"));
 	qsbThreshold->setToolTip(tr("Message length threshold for Text-To-Speech Engine"));
 	qsbThreshold->setWhatsThis(tr("<b>This is the length threshold used for the Text-To-Speech Engine.</b><br />"
@@ -129,29 +124,36 @@ QIcon LogConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_msgs.png"));
 }
 
-void LogConfig::accept() {
+void LogConfig::load(const Settings &r) {
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
-		Log::MsgType t=static_cast<Log::MsgType>(i);
-		MsgSettings *ms=g.l->qhSettings[t];
-		ms->bConsole = (qlConsole[i]->checkState() == Qt::Checked);
-		ms->bTTS = (qlTTS[i]->checkState() == Qt::Checked);
+		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(i));
+		qlConsole[i]->setCheckState((ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
+		qlTTS[i]->setCheckState((ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
 	}
-	g.s.iTTSVolume=qsVolume->value();
-	g.s.iTTSThreshold=qsbThreshold->value();
-	g.l->tts->setVolume(g.s.iTTSVolume);
+
+	qsVolume->setValue(r.iTTSVolume);
+	qsbThreshold->setValue(r.iTTSThreshold);
 }
 
-MsgSettings::MsgSettings() {
-	bConsole = true;
-	bTTS = true;
-	iIgnore = 0;
+void LogConfig::save() const {
+	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
+		int v = 0;
+		if (qlConsole[i]->checkState() == Qt::Checked)
+			v |= Settings::LogConsole;
+		if (qlTTS[i]->checkState() == Qt::Checked)
+			v |= Settings::LogTTS;
+		s.qmMessages[i] = v;
+	}
+	s.iTTSVolume=qsVolume->value();
+	s.iTTSThreshold=qsbThreshold->value();
+}
+
+void LogConfig::accept() const {
+	g.l->tts->setVolume(s.iTTSVolume);
 }
 
 Log::Log(QObject *p) : QObject(p) {
-	for (int i=firstMsgType;i<=lastMsgType;++i)
-		qhSettings[static_cast<MsgType>(i)]=new MsgSettings();
 	tts=new TextToSpeech(this);
-	loadSettings();
 	tts->setVolume(g.s.iTTSVolume);
 }
 
@@ -182,16 +184,14 @@ QString Log::msgName(MsgType t) const {
 }
 
 void Log::setIgnore(MsgType t, int ignore) {
-	MsgSettings *ms=qhSettings.value(t);
-	Q_ASSERT(ms);
-	ms->iIgnore=ignore;
+	qmIgnore.insert(t, ignore);
 }
 
 void Log::clearIgnore() {
-	foreach(MsgSettings *ms, qhSettings)
-	ms->iIgnore=0;
+	qmIgnore.clear();
 }
 
+/*
 void Log::loadSettings() {
 	for (int i=firstMsgType;i<=lastMsgType;++i) {
 		MsgType t=static_cast<MsgType>(i);
@@ -218,24 +218,15 @@ void Log::saveSettings() const {
 		g.qs->setValue(key, v);
 	}
 }
-
-/*
-void MainWindow::appendLog(QString entry) {
-	qteLog->append(entry);
-	QTextCursor p=qteLog->textCursor();
-	p.movePosition(QTextCursor::End);
-	qteLog->setTextCursor(p);
-	qteLog->ensureCursorVisible();
-}
 */
 
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	QTime now = QTime::currentTime();
-	MsgSettings *ms=qhSettings.value(mt);
-	Q_ASSERT(ms);
 
-	if (ms->iIgnore) {
-		ms->iIgnore--;
+	int ignore = qmIgnore.value(mt);
+	if (ignore) {
+		ignore--;
+		qmIgnore.insert(mt, ignore);
 		return;
 	}
 
@@ -244,7 +235,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	t.setHtml(console);
 	QString plain = t.toPlainText();
 
-	if (ms->bConsole) {
+	quint32 flags = g.s.qmMessages.value(mt);
+
+	if ((flags & Settings::LogConsole)) {
 		QTextCursor tc=g.mw->qteLog->textCursor();
 		tc.movePosition(QTextCursor::End);
 		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
@@ -261,13 +254,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();
-
-//		g.mw->appendLog(tr("[%2] %1").arg(console).arg(now.toString(Qt::LocalDate)));
 	}
 
-	if (! g.s.bTTS || ! ms->bTTS)
+	if (! g.s.bTTS || ! (flags & Settings::LogTTS))
 		return;
-
 
 	/* TTS threshold limiter. */
 	if (plain.length() <= g.s.iTTSThreshold)

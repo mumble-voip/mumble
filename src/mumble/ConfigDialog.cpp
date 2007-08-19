@@ -42,7 +42,7 @@ ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {
 	c_qmNew->insert(priority,n);
 }
 
-ConfigWidget::ConfigWidget(QWidget *p) : QWidget(p) {
+ConfigWidget::ConfigWidget(Settings &st) : s(st) {
 }
 
 QString ConfigWidget::title() const {
@@ -53,61 +53,14 @@ QIcon ConfigWidget::icon() const {
 	return qApp->windowIcon();
 }
 
+void ConfigWidget::accept() const {
+}
+
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
-/*
-	setWindowTitle(tr("Mumble Configuration"));
-	qlwIcons = new QListWidget();
-	qswPages = new QStackedWidget();
-
-	qlwIcons->setViewMode(QListView::IconMode);
-	qlwIcons->setObjectName(QLatin1String("Icons"));
-
-	QPushButton *okButton = new QPushButton(tr("&OK"));
-	okButton->setDefault(true);
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	okButton->setToolTip(tr("Accept changes"));
-	okButton->setWhatsThis(tr("This button will accept current settings and return to the application.<br />"
-	                          "The settings will be stored to disk when you leave the application."));
-	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	cancelButton->setToolTip(tr("Reject changes"));
-	cancelButton->setWhatsThis(tr("This button will reject all changes and return to the application.<br />"
-	                              "The settings will be reset to the previous positions."));
-	QPushButton *applyButton = new QPushButton(tr("&Apply"));
-	connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
-	applyButton->setToolTip(tr("Apply changes"));
-	applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
-
-
-	QHBoxLayout *buttons = new QHBoxLayout;
-	buttons->addStretch(1);
-	buttons->addWidget(applyButton);
-	buttons->addWidget(okButton);
-	buttons->addWidget(cancelButton);
-
-	QVBoxLayout *l = new QVBoxLayout;
-	l->addWidget(qswPages, 1);
-	l->addSpacing(12);
-	l->addLayout(buttons);
-
-
-	QHBoxLayout *top = new QHBoxLayout;
-	top->addWidget(qlwIcons);
-	top->addLayout(l);
-
-	setLayout(top);
-
-	qlwIcons->scrollTo(qlwIcons->currentIndex(), QAbstractItemView::PositionAtTop);
-
-	QMetaObject::connectSlotsByName(this);
-
-	qlwIcons->setCurrentRow(0);
-*/
 	qlwIcons->setIconSize(QSize(96, 84));
-//	qlwIcons->setMovement(QListView::Static);
-//	qlwIcons->setMaximumWidth(128);
-//	qlwIcons->setSpacing(12);
+
+	s = g.s;
 
 	QWidget *w;
 	while ((w = qswPages->widget(0)))
@@ -115,8 +68,33 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	ConfigWidgetNew cwn;
 	foreach(cwn, *ConfigRegistrar::c_qmNew) {
-		addPage(cwn());
+		addPage(cwn(s));
 	}
+
+        QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+        okButton->setToolTip(tr("Accept changes"));
+        okButton->setWhatsThis(tr("This button will accept current settings and return to the application.<br />"
+                                  "The settings will be stored to disk when you leave the application."));
+
+        QPushButton *cancelButton = buttonBox->button(QDialogButtonBox::Cancel);
+        cancelButton->setToolTip(tr("Reject changes"));
+        cancelButton->setWhatsThis(tr("This button will reject all changes and return to the application.<br />"
+                                      "The settings will be reset to the previous positions."));
+
+        QPushButton *applyButton = buttonBox->button(QDialogButtonBox::Apply);
+        applyButton->setToolTip(tr("Apply changes"));
+        applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
+
+        QPushButton *resetButton = buttonBox->button(QDialogButtonBox::Reset);
+        resetButton->setToolTip(tr("Undo changes for current page"));
+        resetButton->setWhatsThis(tr("This button will revert any changes done on the current page to the most recent applied settings."));
+
+        QPushButton *restoreButton = buttonBox->button(QDialogButtonBox::RestoreDefaults);
+        restoreButton->setToolTip(tr("Restore defaults for current page"));
+        restoreButton->setWhatsThis(tr("This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.<br />"
+        			"To restore all settings to their defaults, you will have to use this button on every page."
+  			      ));
+
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw) {
@@ -140,20 +118,38 @@ void ConfigDialog::addPage(ConfigWidget *cw) {
 	i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
 	widgets << cw;
+	cw->load(g.s);
 }
 
 void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
 	if (!current)
 		current = previous;
 
+
 	qswPages->setCurrentIndex(qlwIcons->row(current));
 }
 
 void ConfigDialog::on_buttonBox_clicked(QAbstractButton *b) {
+	ConfigWidget *conf = qobject_cast<ConfigWidget *>(qswPages->currentWidget());
 	switch (buttonBox->standardButton(b)) {
 		case QDialogButtonBox::Apply:
+		{
 			apply();
 			break;
+		}
+		case QDialogButtonBox::RestoreDefaults:
+			{
+			Settings def;
+			if (conf)
+				conf->load(def);
+			break;
+			}
+		case QDialogButtonBox::Reset:
+			{
+			if (conf)
+				conf->load(g.s);
+			break;
+		}
 		default:
 			break;
 	}
@@ -161,7 +157,7 @@ void ConfigDialog::on_buttonBox_clicked(QAbstractButton *b) {
 
 void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, widgets)
-	cw->accept();
+	cw->save();
 
 	boost::weak_ptr<AudioInput> wai(g.ai);
 	boost::weak_ptr<AudioOutput> wao(g.ao);
@@ -172,6 +168,8 @@ void ConfigDialog::apply() {
 	while (! wai.expired() || ! wao.expired()) {
 		// Where is QThread::yield() ?
 	}
+
+	g.s = s;
 
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	g.ai->start(QThread::HighestPriority);

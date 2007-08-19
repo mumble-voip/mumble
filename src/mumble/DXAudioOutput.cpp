@@ -344,7 +344,7 @@ DXAudioOutput::DXAudioOutput() {
 	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
 	dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
 	dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
-	if (g.s.a3dModel != Settings::None)
+	if (g.s.a3dModel != Settings::No3D)
 		dsbdesc.dwFlags |= DSBCAPS_CTRL3D;
 
 	ZeroMemory(&wfxSet, sizeof(wfxSet));
@@ -382,7 +382,7 @@ DXAudioOutput::DXAudioOutput() {
 		qFatal("DXAudioOutput: SetFormat");
 	else if (FAILED(hr = pDSBPrimary->GetFormat(&wfxSet, sizeof(wfxSet), NULL)))
 		qFatal("DXAudioOutput: GetFormat");
-	else if (g.s.a3dModel != Settings::None) {
+	else if (g.s.a3dModel != Settings::No3D) {
 		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener)))) {
 			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
 		} else {

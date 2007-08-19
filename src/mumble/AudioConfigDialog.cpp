@@ -33,16 +33,15 @@
 #include "AudioConfigDialog.h"
 #include "Global.h"
 
-static ConfigWidget *AudioConfigDialogNew() {
-	return new AudioConfigDialog();
+static ConfigWidget *AudioConfigDialogNew(Settings &st) {
+	return new AudioConfigDialog(st);
 }
 
 static ConfigRegistrar registrar(10, AudioConfigDialogNew);
 
-AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
+AudioConfigDialog::AudioConfigDialog(Settings &st) : ConfigWidget(st) {
 	QList<QString> keys;
 	QString key;
-	int i;
 
 	setupUi(this);
 
@@ -50,64 +49,33 @@ AudioConfigDialog::AudioConfigDialog(QWidget *p) : ConfigWidget(p) {
 	foreach(key, keys) {
 		qcbInput->addItem(key);
 	}
-	i=keys.indexOf(AudioInputRegistrar::current);
-	if (i >= 0)
-		qcbInput->setCurrentIndex(i);
 
 	keys=AudioOutputRegistrar::qmNew->keys();
 	foreach(key, keys) {
 		qcbOutput->addItem(key);
 	}
-	i=keys.indexOf(AudioOutputRegistrar::current);
-	if (i >= 0)
-		qcbOutput->setCurrentIndex(i);
 
 	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
-	qcbTransmit->setCurrentIndex(g.s.atTransmit);
 
-	qsTransmitHold->setValue(g.s.iVoiceHold);
-	on_qsTransmitHold_valueChanged(qsTransmitHold->value());
+//	on_qsTransmitHold_valueChanged(qsTransmitHold->value());
+//	on_qsFrames_valueChanged(qsFrames->value());
 
-	qsFrames->setValue(g.s.iFramesPerPacket);
-	on_qsFrames_valueChanged(qsFrames->value());
+//	on_qsQuality_valueChanged(qsQuality->value());
+//	on_qsComplexity_valueChanged(qsComplexity->value());
+//	on_qsNoise_valueChanged(qsNoise->value());
+//	on_qsAmp_valueChanged(qsAmp->value());
+//	on_qsJitter_valueChanged(qsJitter->value());
 
-	qcbPushClick->setChecked(g.s.bPushClick);
-	qcbTCP->setChecked(g.s.bTCPCompat);
-	qcbReconnect->setChecked(g.s.bReconnect);
+	qcbLoopback->addItem(tr("None"), Settings::None);
+	qcbLoopback->addItem(tr("Local"), Settings::Local);
+	qcbLoopback->addItem(tr("Server"), Settings::Server);
 
-	qcbReconnect = new QCheckBox(tr("Automatic Reconnect"));
-	qcbReconnect->setToolTip(tr("Reconnect when disconnected"));
-
-	qsQuality->setValue(g.s.iQuality);
-	on_qsQuality_valueChanged(qsQuality->value());
-
-	qsComplexity->setValue(g.s.iComplexity);
-	on_qsComplexity_valueChanged(qsComplexity->value());
-
-	qsNoise->setValue(- g.s.iNoiseSuppress);
-	on_qsNoise_valueChanged(qsNoise->value());
-
-	qsAmp->setValue(20000 - g.s.iMinLoudness);
-	on_qsAmp_valueChanged(qsAmp->value());
-
-	qsJitter->setValue(g.s.iJitterBufferSize);
-	on_qsJitter_valueChanged(qsJitter->value());
-
-	qcbLoopback->addItem(tr("None"), Global::None);
-	qcbLoopback->addItem(tr("Local"), Global::Local);
-	qcbLoopback->addItem(tr("Server"), Global::Server);
-	qcbLoopback->setCurrentIndex(g.lmLoopMode);
-
-	qsPacketDelay->setValue(static_cast<int>(g.dMaxPacketDelay));
-	on_qsPacketDelay_valueChanged(qsPacketDelay->value());
-
-	qsPacketLoss->setValue(static_cast<int>(g.dPacketLoss * 100.0));
-	on_qsPacketLoss_valueChanged(qsPacketLoss->value());
-
-	on_qcbTransmit_currentIndexChanged(qcbTransmit->currentIndex());
-	on_qcbLoopback_currentIndexChanged(qcbLoopback->currentIndex());
+//	on_qsPacketDelay_valueChanged(qsPacketDelay->value());
+//	on_qsPacketLoss_valueChanged(qsPacketLoss->value());
+//	on_qcbTransmit_currentIndexChanged(qcbTransmit->currentIndex());
+//	on_qcbLoopback_currentIndexChanged(qcbLoopback->currentIndex());
 }
 
 QString AudioConfigDialog::title() const {
@@ -118,23 +86,53 @@ QIcon AudioConfigDialog::icon() const {
 	return QIcon(QLatin1String("skin:config_basic.png"));
 }
 
-void AudioConfigDialog::accept() {
-	g.s.iQuality = qsQuality->value();
-	g.s.iNoiseSuppress = - qsNoise->value();
-	g.s.iComplexity = qsComplexity->value();
-	g.s.iMinLoudness = 18000 - qsAmp->value() + 2000;
-	g.s.iVoiceHold = qsTransmitHold->value();
-	g.s.iFramesPerPacket = qsFrames->value();
-	g.s.bPushClick = qcbPushClick->isChecked();
-	g.s.bTCPCompat = qcbTCP->isChecked();
-	g.s.bReconnect = qcbReconnect->isChecked();
-	g.s.iJitterBufferSize = qsJitter->value();
-	g.s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
-	g.s.qsAudioInput = qcbInput->currentText();
-	g.s.qsAudioOutput = qcbOutput->currentText();
-	g.lmLoopMode = static_cast<Global::LoopMode>(qcbLoopback->currentIndex());
-	g.dMaxPacketDelay = qsPacketDelay->value();
-	g.dPacketLoss = qsPacketLoss->value() / 100.0;
+void AudioConfigDialog::load(const Settings &r) {
+	int i;
+	QList<QString> keys;
+
+	keys=AudioInputRegistrar::qmNew->keys();
+	i=keys.indexOf(AudioInputRegistrar::current);
+	if (i >= 0)
+		qcbInput->setCurrentIndex(i);
+
+	keys=AudioOutputRegistrar::qmNew->keys();
+	i=keys.indexOf(AudioOutputRegistrar::current);
+	if (i >= 0)
+		qcbOutput->setCurrentIndex(i);
+
+	qcbTransmit->setCurrentIndex(r.atTransmit);
+	qsTransmitHold->setValue(r.iVoiceHold);
+	qsFrames->setValue(r.iFramesPerPacket);
+	qcbPushClick->setChecked(r.bPushClick);
+	qcbTCP->setChecked(r.bTCPCompat);
+	qcbReconnect->setChecked(r.bReconnect);
+	qsQuality->setValue(r.iQuality);
+	qsComplexity->setValue(r.iComplexity);
+	qsNoise->setValue(- r.iNoiseSuppress);
+	qsAmp->setValue(20000 - r.iMinLoudness);
+	qsJitter->setValue(r.iJitterBufferSize);
+	qcbLoopback->setCurrentIndex(r.lmLoopMode);
+	qsPacketDelay->setValue(static_cast<int>(r.dMaxPacketDelay));
+	qsPacketLoss->setValue(static_cast<int>(r.dPacketLoss * 100.0));
+}
+
+void AudioConfigDialog::save() const {
+	s.iQuality = qsQuality->value();
+	s.iNoiseSuppress = - qsNoise->value();
+	s.iComplexity = qsComplexity->value();
+	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
+	s.iVoiceHold = qsTransmitHold->value();
+	s.iFramesPerPacket = qsFrames->value();
+	s.bPushClick = qcbPushClick->isChecked();
+	s.bTCPCompat = qcbTCP->isChecked();
+	s.bReconnect = qcbReconnect->isChecked();
+	s.iJitterBufferSize = qsJitter->value();
+	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
+	s.qsAudioInput = qcbInput->currentText();
+	s.qsAudioOutput = qcbOutput->currentText();
+	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
+	s.dMaxPacketDelay = qsPacketDelay->value();
+	s.dPacketLoss = qsPacketLoss->value() / 100.0;
 }
 
 void AudioConfigDialog::on_qsFrames_valueChanged(int v) {

@@ -52,7 +52,7 @@ LoopPlayer::LoopPlayer() {
 }
 
 void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
-	if (DOUBLE_RAND < g.dPacketLoss)
+	if (DOUBLE_RAND < g.s.dPacketLoss)
 		return;
 
 	bool restart = (qtLastFetch.elapsed() > 100);
@@ -66,7 +66,7 @@ void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
 		if (restart)
 			r = 0.0;
 		else
-			r = DOUBLE_RAND * g.dMaxPacketDelay;
+			r = DOUBLE_RAND * g.s.dMaxPacketDelay;
 
 		qmPackets.insert(time + r, Packet(seq, packet));
 	}

@@ -35,49 +35,51 @@
 #include "Message.h"
 #include "ServerHandler.h"
 
-static ConfigWidget *OverlayConfigDialogNew() {
-	return new OverlayConfig();
+static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
+	return new OverlayConfig(st);
 }
 
 static ConfigRegistrar registrar(60, OverlayConfigDialogNew);
 
-OverlayConfig::OverlayConfig(QWidget *p) : ConfigWidget(p) {
+OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	qcbEnable->setChecked(g.s.bOverlayEnable);
-	qcbAlwaysSelf->setChecked(g.s.bOverlayAlwaysSelf);
-	qcbUserTextures->setChecked(g.s.bOverlayUserTextures);
 
 	qcbShow->addItem(tr("Show no one"), Settings::Nothing);
 	qcbShow->addItem(tr("Show only talking"), Settings::Talking);
 	qcbShow->addItem(tr("Show everyone"), Settings::All);
-	qcbShow->setCurrentIndex(g.s.osOverlay);
 
-	qcbLeft->setChecked(g.s.bOverlayLeft);
-	qcbRight->setChecked(g.s.bOverlayRight);
-	qcbTop->setChecked(g.s.bOverlayTop);
-	qcbBottom->setChecked(g.s.bOverlayBottom);
+//	on_qsMaxHeight_valueChanged(qsMaxHeight->value());
+}
 
-	qsX->setValue(qRound64(g.s.fOverlayX * 100));
-	qsY->setValue(100 - qRound64(g.s.fOverlayY * 100));
+void OverlayConfig::load(const Settings &r) {
+	qcbEnable->setChecked(r.bOverlayEnable);
+	qcbAlwaysSelf->setChecked(r.bOverlayAlwaysSelf);
+	qcbUserTextures->setChecked(r.bOverlayUserTextures);
+	qcbShow->setCurrentIndex(r.osOverlay);
 
-	qfFont = g.s.qfOverlayFont;
-	qcPlayer = g.s.qcOverlayPlayer;
-	qcTalking= g.s.qcOverlayTalking;
-	qcAltTalking= g.s.qcOverlayAltTalking;
-	qcChannel = g.s.qcOverlayChannel;
-	qcChannelTalking = g.s.qcOverlayChannelTalking;
+	qcbLeft->setChecked(r.bOverlayLeft);
+	qcbRight->setChecked(r.bOverlayRight);
+	qcbTop->setChecked(r.bOverlayTop);
+	qcbBottom->setChecked(r.bOverlayBottom);
 
+	qsX->setValue(qRound64(r.fOverlayX * 100));
+	qsY->setValue(100 - qRound64(r.fOverlayY * 100));
+	qfFont = r.qfOverlayFont;
+	qcPlayer = r.qcOverlayPlayer;
+	qcTalking= r.qcOverlayTalking;
+	qcAltTalking= r.qcOverlayAltTalking;
+	qcChannel = r.qcOverlayChannel;
+	qcChannelTalking = r.qcOverlayChannelTalking;
 	qlCurrentFont->setText(qfFont.family());
-	qsMaxHeight->setValue(qRound64(g.s.fOverlayHeight * 1000));
-	on_qsMaxHeight_valueChanged(qsMaxHeight->value());
-
+	qsMaxHeight->setValue(qRound64(r.fOverlayHeight * 1000));
 	setColorLabel(qlPlayer, qcPlayer);
 	setColorLabel(qlTalking, qcTalking);
 	setColorLabel(qlAltTalking, qcAltTalking);
 	setColorLabel(qlChannel, qcChannel);
 	setColorLabel(qlChannelTalking, qcChannelTalking);
 }
+
 
 void OverlayConfig::setColorLabel(QLabel *label, QColor col) {
 	label->setText(col.name());
@@ -156,27 +158,29 @@ QIcon OverlayConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_osd.png"));
 }
 
-void OverlayConfig::accept() {
-	g.s.bOverlayEnable = qcbEnable->isChecked();
-	g.s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
-	g.s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
-	g.s.bOverlayUserTextures = qcbUserTextures->isChecked();
-	g.s.fOverlayX = qsX->value() / 100.0;
-	g.s.fOverlayY = 1.0 - qsY->value() / 100.0;
-	g.s.bOverlayLeft = qcbLeft->isChecked();
-	g.s.bOverlayRight = qcbRight->isChecked();
-	g.s.bOverlayTop = qcbTop->isChecked();
-	g.s.bOverlayBottom = qcbBottom->isChecked();
-	g.s.qfOverlayFont = qfFont;
-	g.s.fOverlayHeight = qsMaxHeight->value() / 1000.0;
-	g.s.qcOverlayPlayer = qcPlayer;
-	g.s.qcOverlayTalking = qcTalking;
-	g.s.qcOverlayAltTalking = qcAltTalking;
-	g.s.qcOverlayChannel = qcChannel;
-	g.s.qcOverlayChannelTalking = qcChannelTalking;
+void OverlayConfig::save() const {
+	s.bOverlayEnable = qcbEnable->isChecked();
+	s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
+	s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
+	s.bOverlayUserTextures = qcbUserTextures->isChecked();
+	s.fOverlayX = qsX->value() / 100.0;
+	s.fOverlayY = 1.0 - qsY->value() / 100.0;
+	s.bOverlayLeft = qcbLeft->isChecked();
+	s.bOverlayRight = qcbRight->isChecked();
+	s.bOverlayTop = qcbTop->isChecked();
+	s.bOverlayBottom = qcbBottom->isChecked();
+	s.qfOverlayFont = qfFont;
+	s.fOverlayHeight = qsMaxHeight->value() / 1000.0;
+	s.qcOverlayPlayer = qcPlayer;
+	s.qcOverlayTalking = qcTalking;
+	s.qcOverlayAltTalking = qcAltTalking;
+	s.qcOverlayChannel = qcChannel;
+	s.qcOverlayChannelTalking = qcChannelTalking;
+}
 
+void OverlayConfig::accept() const {
 	g.o->forceSettings();
-	g.o->setActive(g.s.bOverlayEnable);
+	g.o->setActive(s.bOverlayEnable);
 }
 
 Overlay::Overlay() : QObject() {

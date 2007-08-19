@@ -108,9 +108,9 @@ AudioWizard::AudioWizard() {
 
 	sOldSettings = g.s;
 
-	g.lmLoopMode = Global::Local;
-	g.dPacketLoss = 0.0;
-	g.dMaxPacketDelay = 0.0;
+	g.s.lmLoopMode = Settings::Local;
+	g.s.dPacketLoss = 0.0;
+	g.s.dMaxPacketDelay = 0.0;
 
 	g.s.atTransmit = Settings::Continous;
 
@@ -578,7 +578,7 @@ void AudioWizard::reject() {
 			aor->setDeviceChoice(qhOldOutputDevice.value(name));
 	}
 
-	g.lmLoopMode = Global::None;
+	g.s.lmLoopMode = Settings::None;
 	restartAudio();
 
 	QWizard::reject();
@@ -586,7 +586,7 @@ void AudioWizard::reject() {
 
 void AudioWizard::accept() {
 	g.s.atTransmit = sOldSettings.atTransmit;
-	g.lmLoopMode = Global::None;
+	g.s.lmLoopMode = Settings::None;
 	restartAudio();
 	QWizard::accept();
 }

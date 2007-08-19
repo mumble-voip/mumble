@@ -39,8 +39,8 @@
 
 static GlobalShortcutWin *gsw = NULL;
 
-static ConfigWidget *GlobalShortcutWinConfigDialogNew() {
-	return new GlobalShortcutWinConfig();
+static ConfigWidget *GlobalShortcutWinConfigDialogNew(Settings &st) {
+	return new GlobalShortcutWinConfig(st);
 }
 
 static ConfigRegistrar registrar(55, GlobalShortcutWinConfigDialogNew);
@@ -126,7 +126,7 @@ void DirectInputKeyWidget::displayKeys() {
 	setText(keys.join(QLatin1String(" + ")));
 }
 
-GlobalShortcutWinConfig::GlobalShortcutWinConfig(QWidget *p) : ConfigWidget(p) {
+GlobalShortcutWinConfig::GlobalShortcutWinConfig(Settings &st) : ConfigWidget(st) {
 	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
 	QLabel *lab;
 
@@ -176,21 +176,27 @@ QIcon GlobalShortcutWinConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_shortcuts.png"));
 }
 
-void GlobalShortcutWinConfig::accept() {
+void GlobalShortcutWinConfig::load(const Settings &r) {
+}
+
+void GlobalShortcutWinConfig::save() const {
+	Settings::ShortcutMap m;
+
 	foreach(GlobalShortcut *gs, gsw->qmShortcuts) {
 		DirectInputKeyWidget *dikw = qhKeys[gs];
-		if (dikw->bModified) {
-			QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
-			g.qs->setValue(base + QLatin1String("num"), dikw->qlButtons.count());
-			int i=0;
-			foreach(qpButton button, dikw->qlButtons) {
-				g.qs->setValue(base + QString::fromLatin1("%1_GUID").arg(i), QUuid(dikw->qlButtons[i].first).toString());
-				g.qs->setValue(base + QString::fromLatin1("%1_Type").arg(i), static_cast<int>(dikw->qlButtons[i].second));
-				i++;
-			}
+		QList<QVariant> ql;
+		foreach(qpButton button, dikw->qlButtons) {
+			QList<QVariant> sublist;
+			sublist << QUuid(button.first).toString();
+			sublist << static_cast<int>(button.second);
+			ql << sublist;
 		}
+		m.insert(gs->idx, ql);
 	}
+	s.qmShortcuts = m;
+}
 
+void GlobalShortcutWinConfig::accept() const {
 	gsw->remap();
 }
 
@@ -329,14 +335,16 @@ void GlobalShortcutWin::remap() {
 	qhGlobalToWin.clear();
 
 	foreach(GlobalShortcut *gs, qmShortcuts) {
-		QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
+		const QList<QVariant> &ql = g.s.qmShortcuts.value(gs->idx);
 		QList<QUuid> guids;
 		QList<DWORD> types;
-		int nbuttons = g.qs->value(base + QLatin1String("num"), 0).toInt();
-		for (int i=0;i<nbuttons;i++) {
-			QUuid guid(g.qs->value(base + QString::fromLatin1("%1_GUID").arg(i), QUuid(GUID_SysKeyboard).toString()).toString());
-			DWORD type = g.qs->value(base + QString::fromLatin1("%1_Type").arg(i), 0xffffffff).toUInt();
-			if (! guid.isNull() && (type != 0xffffffff)) {
+		foreach(QVariant b, ql) {
+			const QList<QVariant> l = b.toList();
+			if (l.count() != 2)
+				continue;
+			QUuid guid(l.at(0).toString());
+			DWORD type = l.at(1).toUInt();
+			if (! guid.isNull()) {
 				guids << guid;
 				types << type;
 			}

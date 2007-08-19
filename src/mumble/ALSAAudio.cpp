@@ -229,9 +229,9 @@ QIcon ALSAConfig::icon() const {
 }
 
 void ALSAConfig::accept() {
-	g.s.iDXOutputDelay = qsOutputDelay->value();
-	g.s.qsALSAInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
-	g.s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
+	s.iDXOutputDelay = qsOutputDelay->value();
+	s.qsALSAInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
+	s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 }
 
 void ALSAConfig::on_qsOutputDelay_valueChanged(int v) {

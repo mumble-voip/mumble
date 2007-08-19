@@ -29,6 +29,7 @@
 */
 
 #include "Settings.h"
+#include "Log.h"
 #include "Global.h"
 
 Settings::Settings() {
@@ -55,20 +56,19 @@ Settings::Settings() {
 
 	bPlayerTop = false;
 
+	bFirstTime = true;
+	bHorizontal = true;
+
 	iDXOutputDelay = 5;
 
-#ifdef Q_OS_UNIX
 	qsFestival=QLatin1String("/usr/bin/festival --batch --pipe");
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
-#endif
 
-#ifdef Q_OS_WIN
-	a3dModel = None;
+	a3dModel = No3D;
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
 	fDXRollOff = 0.15;
-#endif
 
 	bOverlayEnable = true;
 	bOverlayUserTextures=true;
@@ -87,125 +87,188 @@ Settings::Settings() {
 	qcOverlayAltTalking = QColor(255,128,128,255);
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
+
+	bLocalDeafen = false;
+	lmLoopMode = None;
+	dPacketLoss = 0;
+	dMaxPacketDelay = 0.0;
+
+	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
+		qmMessages.insert(i, Settings::LogConsole | Settings::LogTTS);
 }
+
+#define SAVELOAD(var,name) var = qvariant_cast<typeof(var)>(g.qs->value(QLatin1String(name), var))
+#define LOADENUM(var, name) var = static_cast<typeof(var)>(g.qs->value(QLatin1String(name), var).toInt())
 
 void Settings::load() {
-	bMute = g.qs->value(QLatin1String("AudioMute"), false).toBool();
-	bDeaf = g.qs->value(QLatin1String("AudioDeaf"), false).toBool();
-	bPlayerTop = g.qs->value(QLatin1String("PlayerTop"), bPlayerTop).toBool();
-	bTTS = g.qs->value(QLatin1String("TextToSpeech"), bTTS).toBool();
-	iTTSVolume = g.qs->value(QLatin1String("TTSVolume"), iTTSVolume).toInt();
-	iTTSThreshold = g.qs->value(QLatin1String("TTSThreshold"), iTTSThreshold).toInt();
-	atTransmit = static_cast<Settings::AudioTransmit>(g.qs->value(QLatin1String("AudioTransmit"), atTransmit).toInt());
-	bPushClick = g.qs->value(QLatin1String("PushClick"), bPushClick).toBool();
-	iQuality = g.qs->value(QLatin1String("AudioQuality"), iQuality).toInt();
-	iComplexity = g.qs->value(QLatin1String("AudioComplexity"), iComplexity).toInt();
-	iMinLoudness = g.qs->value(QLatin1String("AudioMinLoudness"), iMinLoudness).toInt();
-	vsVAD = static_cast<Settings::VADSource>(g.qs->value(QLatin1String("VAD"), vsVAD).toInt());
-	fVADmin = g.qs->value(QLatin1String("VADmin"), fVADmin).toDouble();
-	fVADmax = g.qs->value(QLatin1String("VADmax"), fVADmax).toDouble();
-	iNoiseSuppress = g.qs->value(QLatin1String("NoiseSuppress"), iNoiseSuppress).toInt();
-	iVoiceHold = g.qs->value(QLatin1String("AudioVoiceHold"), iVoiceHold).toInt();
-	iJitterBufferSize = g.qs->value(QLatin1String("JitterBufferSize2"), iJitterBufferSize).toInt();
-	iFramesPerPacket = g.qs->value(QLatin1String("FramesPerPacket"), iFramesPerPacket).toInt();
-	bTCPCompat = g.qs->value(QLatin1String("TCPCompat"), bTCPCompat).toBool();
-	bReconnect = g.qs->value(QLatin1String("Reconnect"), bReconnect).toBool();
-	bExpandAll = g.qs->value(QLatin1String("ExpandAll"), bExpandAll).toBool();
-	iDXOutputDelay = g.qs->value(QLatin1String("DXOutputDelay"), iDXOutputDelay).toInt();
-#ifdef Q_OS_UNIX
-	qsFestival = g.qs->value(QLatin1String("Festival"),qsFestival).toString();
-	qsALSAInput = g.qs->value(QLatin1String("ALSAInput"),qsALSAInput).toString();
-	qsALSAOutput = g.qs->value(QLatin1String("ALSAOutput"),qsALSAOutput).toString();
-#endif
-#ifdef USE_ASIO
-	qsASIOclass = g.qs->value(QLatin1String("ASIOclass")).toString();
-	qlASIOmic = g.qs->value(QLatin1String("ASIOmic")).toList();
-	qlASIOspeaker = g.qs->value(QLatin1String("ASIOspeaker")).toList();
-#endif
-#ifdef Q_OS_WIN
-	a3dModel = static_cast<Settings::Audio3D>(g.qs->value(QLatin1String("Audio3D"), a3dModel).toInt());
-	qbaDXInput = g.qs->value(QLatin1String("DXInput")).toByteArray();
-	qbaDXOutput = g.qs->value(QLatin1String("DXOutput")).toByteArray();
-	fDXMinDistance = g.qs->value(QLatin1String("DXMinDistance"), fDXMinDistance).toDouble();
-	fDXMaxDistance = g.qs->value(QLatin1String("DXMaxDistance"), fDXMaxDistance).toDouble();
-	fDXRollOff = g.qs->value(QLatin1String("DXRollOff"), fDXRollOff).toDouble();
-#endif
+	SAVELOAD(bMute, "audio/mute");
+	SAVELOAD(bDeaf, "audio/deaf");
+	LOADENUM(atTransmit, "audio/transmit");
+	SAVELOAD(bPushClick, "audio/pushclick");
+	SAVELOAD(iQuality, "audio/quality");
+	SAVELOAD(iComplexity, "audio/complexity");
+	SAVELOAD(iMinLoudness, "audio/loudness");
+	LOADENUM(vsVAD, "audio/vadsource");
+	SAVELOAD(fVADmin, "audio/vadmin");
+	SAVELOAD(fVADmax, "audio/vadmax");
+	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
+	SAVELOAD(iVoiceHold, "audio/voicehold");
+	SAVELOAD(iDXOutputDelay, "audio/outputdelay");
+	LOADENUM(a3dModel, "audio/3dmode");
+	SAVELOAD(fDXMinDistance, "audio/mindistance");
+	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
+	SAVELOAD(fDXRollOff, "audio/rolloff");
 
-	bOverlayEnable = g.qs->value(QLatin1String("OverlayEnable"),bOverlayEnable).toBool();
-	osOverlay = static_cast<Settings::OverlayShow>(g.qs->value(QLatin1String("OverlayShow"), osOverlay).toInt());
-	bOverlayUserTextures = g.qs->value(QLatin1String("OverlayUserTextures"),bOverlayUserTextures).toBool();
-	bOverlayAlwaysSelf = g.qs->value(QLatin1String("OverlayAlwaysSelf"),bOverlayAlwaysSelf).toBool();
-	fOverlayX = g.qs->value(QLatin1String("OverlayX"),fOverlayX).toDouble();
-	fOverlayY = g.qs->value(QLatin1String("OverlayY"),fOverlayY).toDouble();
-	bTransmitPosition = g.qs->value(QLatin1String("PosTransmit"),bTransmitPosition).toBool();
-	bOverlayTop = g.qs->value(QLatin1String("OverlayTop"),bOverlayTop).toBool();
-	bOverlayBottom = g.qs->value(QLatin1String("OverlayBottom"),bOverlayBottom).toBool();
-	bOverlayLeft = g.qs->value(QLatin1String("OverlayLeft"),bOverlayLeft).toBool();
-	bOverlayRight = g.qs->value(QLatin1String("OverlayRight"),bOverlayRight).toBool();
-	qfOverlayFont = qvariant_cast<QFont>(g.qs->value(QLatin1String("OverlayFont"),qfOverlayFont));
-	fOverlayHeight = g.qs->value(QLatin1String("OverlayHeight"), fOverlayHeight).toDouble();
-	qcOverlayPlayer = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayPlayer"),qcOverlayPlayer));
-	qcOverlayTalking = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayTalking"),qcOverlayTalking));
-	qcOverlayChannel = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayChannel"),qcOverlayChannel));
-	qcOverlayChannelTalking = qvariant_cast<QColor>(g.qs->value(QLatin1String("OverlayChannelTalking"),qcOverlayChannelTalking));
+	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
+	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
+	SAVELOAD(bTCPCompat, "net/tcponly");
+	SAVELOAD(bReconnect, "net/reconnect");
+
+	SAVELOAD(qsASIOclass, "asio/class");
+	SAVELOAD(qlASIOmic, "asio/mic");
+	SAVELOAD(qlASIOspeaker, "asio/speaker");
+
+	SAVELOAD(qsALSAInput, "alsa/input");
+	SAVELOAD(qsALSAOutput, "alsa/output");
+
+	SAVELOAD(qbaDXInput, "directsound/input");
+	SAVELOAD(qbaDXOutput, "directsound/output");
+
+	SAVELOAD(qsFestival, "tts/festival");
+	SAVELOAD(bTTS, "tts/enable");
+	SAVELOAD(iTTSVolume, "tts/volume");
+	SAVELOAD(iTTSThreshold, "tts/threshold");
+
+	SAVELOAD(bOverlayEnable, "overlay/enable");
+	LOADENUM(osOverlay, "overlay/show");
+	SAVELOAD(bOverlayUserTextures, "overlay/usertextures");
+	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
+	SAVELOAD(fOverlayX, "overlay/x");
+	SAVELOAD(fOverlayY, "overlay/y");
+	SAVELOAD(bTransmitPosition, "audio/postransmit");
+	SAVELOAD(bOverlayTop, "overlay/top");
+	SAVELOAD(bOverlayBottom, "overlay/bottom");
+	SAVELOAD(bOverlayLeft, "overlay/left");
+	SAVELOAD(bOverlayRight, "overlay/right");
+	SAVELOAD(qfOverlayFont, "overlay/font");
+	SAVELOAD(fOverlayHeight, "overlay/height");
+	SAVELOAD(qcOverlayPlayer, "overlay/player");
+	SAVELOAD(qcOverlayTalking, "overlay/talking");
+	SAVELOAD(qcOverlayChannel, "overlay/channel");
+	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
+
+	SAVELOAD(qsLanguage, "ui/language");
+	SAVELOAD(qsStyle, "ui/style");
+	SAVELOAD(qsSkin, "ui/skin");
+	SAVELOAD(bHorizontal, "ui/horizontal");
+	SAVELOAD(bExpandAll, "ui/expandall");
+	SAVELOAD(bPlayerTop, "ui/playertop");
+	SAVELOAD(bFirstTime, "ui/firsttime");
+	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
+	SAVELOAD(qbaMainWindowState, "ui/state");
+	SAVELOAD(qbaSplitterState, "ui/splitter");
+
+	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
+	for(int i=0;i<nshorts;i++) {
+		g.qs->setArrayIndex(i);
+		SAVELOAD(qmShortcuts[i], "keys");
+	}
+	g.qs->endArray();
+
+	g.qs->beginReadArray(QLatin1String("messages"));
+	for(QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
+		g.qs->setArrayIndex(it.key());
+		SAVELOAD(qmMessages[it.key()], "log");
+	}
+	g.qs->endArray();
 }
 
+#undef SAVELOAD
+#define SAVELOAD(var,name) if (var != def.var) g.qs->setValue(QLatin1String(name), var); else g.qs->remove(QLatin1String(name))
+
 void Settings::save() {
-	g.qs->setValue(QLatin1String("AudioMute"), g.s.bMute);
-	g.qs->setValue(QLatin1String("AudioDeaf"), g.s.bDeaf);
-	g.qs->setValue(QLatin1String("PlayerTop"), g.s.bPlayerTop);
-	g.qs->setValue(QLatin1String("TextToSpeech"), g.s.bTTS);
-	g.qs->setValue(QLatin1String("TTSVolume"), g.s.iTTSVolume);
-	g.qs->setValue(QLatin1String("TTSThreshold"), g.s.iTTSThreshold);
-	g.qs->setValue(QLatin1String("AudioTransmit"), g.s.atTransmit);
-	g.qs->setValue(QLatin1String("PushClick"), g.s.bPushClick);
-	g.qs->setValue(QLatin1String("AudioQuality"), iQuality);
-	g.qs->setValue(QLatin1String("AudioComplexity"), iComplexity);
-	g.qs->setValue(QLatin1String("AudioMinLoudness"), iMinLoudness);
-	g.qs->setValue(QLatin1String("AudioVoiceHold"), iVoiceHold);
-	g.qs->setValue(QLatin1String("VAD"), vsVAD);
-	g.qs->setValue(QLatin1String("VADmin"), fVADmin);
-	g.qs->setValue(QLatin1String("VADmax"), fVADmax);
-	g.qs->setValue(QLatin1String("NoiseSuppress"), iNoiseSuppress);
-	g.qs->setValue(QLatin1String("JitterBufferSize2"), iJitterBufferSize);
-	g.qs->setValue(QLatin1String("FramesPerPacket"), iFramesPerPacket);
-	g.qs->setValue(QLatin1String("TCPCompat"), bTCPCompat);
-	g.qs->setValue(QLatin1String("Reconnect"), bReconnect);
-	g.qs->setValue(QLatin1String("ExpandAll"), bExpandAll);
-	g.qs->setValue(QLatin1String("DXOutputDelay"), iDXOutputDelay);
-#ifdef Q_OS_UNIX
-	g.qs->setValue(QLatin1String("Festival"), qsFestival);
-	g.qs->setValue(QLatin1String("ALSAInput"), qsALSAInput);
-	g.qs->setValue(QLatin1String("ALSAOutput"), qsALSAOutput);
-#endif
-#ifdef USE_ASIO
-	g.qs->setValue(QLatin1String("ASIOclass"), qsASIOclass);
-	g.qs->setValue(QLatin1String("ASIOmic"), qlASIOmic);
-	g.qs->setValue(QLatin1String("ASIOspeaker"), qlASIOspeaker);
-#endif
-#ifdef Q_OS_WIN
-	g.qs->setValue(QLatin1String("PosTransmit"), g.s.bTransmitPosition);
-	g.qs->setValue(QLatin1String("Audio3D"), g.s.a3dModel);
-	g.qs->setValue(QLatin1String("DXInput"), qbaDXInput);
-	g.qs->setValue(QLatin1String("DXOutput"), qbaDXOutput);
-	g.qs->setValue(QLatin1String("DXMinDistance"), fDXMinDistance);
-	g.qs->setValue(QLatin1String("DXMaxDistance"), fDXMaxDistance);
-	g.qs->setValue(QLatin1String("DXRollOff"), fDXRollOff);
-#endif
-	g.qs->setValue(QLatin1String("OverlayEnable"), bOverlayEnable);
-	g.qs->setValue(QLatin1String("OverlayShow"), osOverlay);
-	g.qs->setValue(QLatin1String("OverlayAlwaysSelf"), bOverlayAlwaysSelf);
-	g.qs->setValue(QLatin1String("OverlayUserTextures"), bOverlayUserTextures);
-	g.qs->setValue(QLatin1String("OverlayX"), fOverlayX);
-	g.qs->setValue(QLatin1String("OverlayY"), fOverlayY);
-	g.qs->setValue(QLatin1String("OverlayTop"), bOverlayTop);
-	g.qs->setValue(QLatin1String("OverlayBottom"), bOverlayBottom);
-	g.qs->setValue(QLatin1String("OverlayLeft"), bOverlayLeft);
-	g.qs->setValue(QLatin1String("OverlayRight"), bOverlayRight);
-	g.qs->setValue(QLatin1String("OverlayFont"), qfOverlayFont);
-	g.qs->setValue(QLatin1String("OverlayHeight"), fOverlayHeight);
-	g.qs->setValue(QLatin1String("OverlayPlayer"), qcOverlayPlayer);
-	g.qs->setValue(QLatin1String("OverlayTalking"), qcOverlayTalking);
-	g.qs->setValue(QLatin1String("OverlayChannel"), qcOverlayChannel);
-	g.qs->setValue(QLatin1String("OverlayChannelTalking"), qcOverlayChannelTalking);
+	Settings def;
+
+	SAVELOAD(bMute, "audio/mute");
+	SAVELOAD(bDeaf, "audio/deaf");
+	SAVELOAD(atTransmit, "audio/transmit");
+	SAVELOAD(bPushClick, "audio/pushclick");
+	SAVELOAD(iQuality, "audio/quality");
+	SAVELOAD(iComplexity, "audio/complexity");
+	SAVELOAD(iMinLoudness, "audio/loudness");
+	SAVELOAD(vsVAD, "audio/vadsource");
+	SAVELOAD(fVADmin, "audio/vadmin");
+	SAVELOAD(fVADmax, "audio/vadmax");
+	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
+	SAVELOAD(iVoiceHold, "audio/voicehold");
+	SAVELOAD(iDXOutputDelay, "audio/outputdelay");
+	SAVELOAD(a3dModel, "audio/3dmode");
+	SAVELOAD(fDXMinDistance, "audio/mindistance");
+	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
+	SAVELOAD(fDXRollOff, "audio/rolloff");
+
+	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
+	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
+	SAVELOAD(bTCPCompat, "net/tcponly");
+	SAVELOAD(bReconnect, "net/reconnect");
+
+	SAVELOAD(qsASIOclass, "asio/class");
+	SAVELOAD(qlASIOmic, "asio/mic");
+	SAVELOAD(qlASIOspeaker, "asio/speaker");
+
+	SAVELOAD(qsALSAInput, "alsa/input");
+	SAVELOAD(qsALSAOutput, "alsa/output");
+
+	SAVELOAD(qbaDXInput, "directsound/input");
+	SAVELOAD(qbaDXOutput, "directsound/output");
+
+	SAVELOAD(qsFestival, "tts/festival");
+	SAVELOAD(bTTS, "tts/enable");
+	SAVELOAD(iTTSVolume, "tts/volume");
+	SAVELOAD(iTTSThreshold, "tts/threshold");
+
+	SAVELOAD(bOverlayEnable, "overlay/enable");
+	SAVELOAD(osOverlay, "overlay/show");
+	SAVELOAD(bOverlayUserTextures, "overlay/usertextures");
+	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
+	SAVELOAD(fOverlayX, "overlay/x");
+	SAVELOAD(fOverlayY, "overlay/y");
+	SAVELOAD(bTransmitPosition, "audio/postransmit");
+	SAVELOAD(bOverlayTop, "overlay/top");
+	SAVELOAD(bOverlayBottom, "overlay/bottom");
+	SAVELOAD(bOverlayLeft, "overlay/left");
+	SAVELOAD(bOverlayRight, "overlay/right");
+	SAVELOAD(qfOverlayFont, "overlay/font");
+	SAVELOAD(fOverlayHeight, "overlay/height");
+	SAVELOAD(qcOverlayPlayer, "overlay/player");
+	SAVELOAD(qcOverlayTalking, "overlay/talking");
+	SAVELOAD(qcOverlayChannel, "overlay/channel");
+	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
+
+	SAVELOAD(qsLanguage, "ui/language");
+	SAVELOAD(qsStyle, "ui/style");
+	SAVELOAD(qsSkin, "ui/skin");
+	SAVELOAD(bHorizontal, "ui/horizontal");
+	SAVELOAD(bExpandAll, "ui/expandall");
+	SAVELOAD(bPlayerTop, "ui/playertop");
+	SAVELOAD(bFirstTime, "ui/firsttime");
+	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
+	SAVELOAD(qbaMainWindowState, "ui/state");
+	SAVELOAD(qbaSplitterState, "ui/splitter");
+
+	g.qs->beginWriteArray(QLatin1String("shortcuts"));
+	int idx = 0;
+	for(ShortcutMap::const_iterator it = qmShortcuts.constBegin(); it != qmShortcuts.constEnd(); ++it) {
+		g.qs->setArrayIndex(it.key());
+		SAVELOAD(qmShortcuts[it.key()], "keys");
+	}
+	g.qs->endArray();
+
+	g.qs->beginWriteArray(QLatin1String("messages"));
+	idx = 0;
+	for(QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
+		g.qs->setArrayIndex(it.key());
+		SAVELOAD(qmMessages[it.key()], "log");
+	}
+	g.qs->endArray();
 }

@@ -86,11 +86,13 @@ class GlobalShortcutWinConfig : public ConfigWidget {
 	protected:
 		QHash<GlobalShortcut *,DirectInputKeyWidget *> qhKeys;
 	public:
-		GlobalShortcutWinConfig(QWidget *p = NULL);
+		GlobalShortcutWinConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void accept() const;
+		void save() const;
+		void load(const Settings &r);
 };
 
 class GlobalShortcutWin : public QObject {

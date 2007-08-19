@@ -384,7 +384,7 @@ void AudioInput::flushCheck() {
 	unsigned char flags = 0;
 	if (g.iAltSpeak > 0)
 		flags += MessageSpeex::AltSpeak;
-	if (g.lmLoopMode == Global::Server)
+	if (g.s.lmLoopMode == Settings::Server)
 		flags += MessageSpeex::LoopBack;
 
 	if (! bPreviousVoice)
@@ -402,7 +402,7 @@ void AudioInput::flushCheck() {
 	msPacket.qbaSpeexPacket = qba;
 	msPacket.iSeq = iFrameCounter;
 
-	if (g.lmLoopMode == Global::Local) {
+	if (g.s.lmLoopMode == Settings::Local) {
 		LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
 	} else if (g.sh) {
 		g.sh->sendMessage(&msPacket);

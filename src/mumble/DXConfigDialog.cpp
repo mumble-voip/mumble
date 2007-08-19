@@ -31,8 +31,8 @@
 #include "DXConfigDialog.h"
 #include "Global.h"
 
-static ConfigWidget *DXConfigDialogNew() {
-	return new DXConfigDialog();
+static ConfigWidget *DXConfigDialogNew(Settings &st) {
+	return new DXConfigDialog(st);
 }
 
 static ConfigRegistrar registrar(20, DXConfigDialogNew);
@@ -48,7 +48,7 @@ static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
 	return(true);
 }
 
-DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
+DXConfigDialog::DXConfigDialog(Settings &st) : ConfigWidget(st) {
 	dsDevice dev;
 	QByteArray a;
 
@@ -63,33 +63,18 @@ DXConfigDialog::DXConfigDialog(QWidget *p) : ConfigWidget(p) {
 	foreach(dev, qlInput) {
 		a = QByteArray(reinterpret_cast<const char *>(&dev.second), sizeof(GUID));
 		qcbInputDevice->addItem(dev.first, a);
-		if (a == g.s.qbaDXInput)
-			qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
 	}
 
 	foreach(dev, qlOutput) {
 		a = QByteArray(reinterpret_cast<const char *>(&dev.second), sizeof(GUID));
 		qcbOutputDevice->addItem(dev.first, a);
-		if (a == g.s.qbaDXOutput)
-			qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
 	}
 
-	qsOutputDelay->setValue(g.s.iDXOutputDelay);
-	on_qsOutputDelay_valueChanged(qsOutputDelay->value());
 
 	qcbMethod->addItem(tr("None"), Settings::None);
 	qcbMethod->addItem(tr("Panning"), Settings::Panning);
 	qcbMethod->addItem(tr("Light HRTF"), Settings::Light);
 	qcbMethod->addItem(tr("Full HRTF"), Settings::Full);
-	qcbMethod->setCurrentIndex(static_cast<int>(g.s.a3dModel));
-
-	qsMinDistance->setValue(lround(g.s.fDXMinDistance * 10));
-	on_qsMinDistance_valueChanged(qsMinDistance->value());
-	qsMaxDistance->setValue(lround(g.s.fDXMaxDistance * 10));
-	on_qsMaxDistance_valueChanged(qsMaxDistance->value());
-	qsRollOff->setValue(lround(g.s.fDXRollOff * 100));
-	on_qsRollOff_valueChanged(qsRollOff->value());
-	on_qcbMethod_currentIndexChanged(qcbMethod->currentIndex());
 }
 
 QString DXConfigDialog::title() const {
@@ -100,15 +85,37 @@ QIcon DXConfigDialog::icon() const {
 	return QIcon(QLatin1String("skin:config_dsound.png"));
 }
 
-void DXConfigDialog::accept() {
-	g.s.iDXOutputDelay = qsOutputDelay->value();
-	g.s.qbaDXInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toByteArray();
-	g.s.qbaDXOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toByteArray();
+void DXConfigDialog::load(const Settings &r) {
+	for(int i=0;i<qcbInputDevice->count();i++) {
+		if (qcbInputDevice->itemData(i).toByteArray() == r.qbaDXInput) {
+			qcbInputDevice->setCurrentIndex(i);
+			break;
+		}
+	}
 
-	g.s.a3dModel = static_cast<Settings::Audio3D>(qcbMethod->currentIndex());
-	g.s.fDXMinDistance = qsMinDistance->value() / 10.0;
-	g.s.fDXMaxDistance = qsMaxDistance->value() / 10.0;
-	g.s.fDXRollOff = qsRollOff->value() / 100.0;
+	for(int i=0;i<qcbOutputDevice->count();i++) {
+		if (qcbOutputDevice->itemData(i).toByteArray() == r.qbaDXOutput) {
+			qcbOutputDevice->setCurrentIndex(i);
+			break;
+		}
+	}
+
+	qsOutputDelay->setValue(r.iDXOutputDelay);
+	qcbMethod->setCurrentIndex(static_cast<int>(r.a3dModel));
+	qsMinDistance->setValue(lround(r.fDXMinDistance * 10));
+	qsMaxDistance->setValue(lround(r.fDXMaxDistance * 10));
+	qsRollOff->setValue(lround(r.fDXRollOff * 100));
+}
+
+void DXConfigDialog::save() const {
+	s.iDXOutputDelay = qsOutputDelay->value();
+	s.qbaDXInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toByteArray();
+	s.qbaDXOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toByteArray();
+
+	s.a3dModel = static_cast<Settings::Audio3D>(qcbMethod->currentIndex());
+	s.fDXMinDistance = qsMinDistance->value() / 10.0;
+	s.fDXMaxDistance = qsMaxDistance->value() / 10.0;
+	s.fDXRollOff = qsRollOff->value() / 100.0;
 }
 
 void DXConfigDialog::on_qsOutputDelay_valueChanged(int v) {

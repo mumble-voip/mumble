@@ -42,11 +42,12 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		void refillPluginList();
 		QHash<QListWidgetItem *, PluginInfo *> qhInfos;
 	public:
-		PluginConfig(QWidget *p = NULL);
+		PluginConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void save() const;
+		void load(const Settings &r);
 		void on_qpbConfig_clicked();
 		void on_qpbAbout_clicked();
 		void on_qpbReload_clicked();

@@ -41,9 +41,5 @@ Global::Global() {
 	iPushToTalk = 0;
 	iAltSpeak = 0;
 	bPushToMute = false;
-	bLocalDeafen = false;
 	bCenterPosition = false;
-	lmLoopMode = None;
-	dPacketLoss = 0;
-	dMaxPacketDelay = 0.0;
 }

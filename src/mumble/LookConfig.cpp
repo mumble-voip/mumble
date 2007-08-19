@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+	/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -34,14 +34,13 @@
 #include "Global.h"
 #include "MainWindow.h"
 
-static ConfigWidget *LookConfigNew() {
-	return new LookConfig();
+static ConfigWidget *LookConfigNew(Settings &st) {
+	return new LookConfig(st);
 }
 
 static ConfigRegistrar registrar(11, LookConfigNew);
 
-LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
-	int i;
+LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
 	qcbLanguage->addItem(tr("System default"));
@@ -52,9 +51,6 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 		langs << cc;
 		qcbLanguage->addItem(cc);
 	}
-	i=langs.indexOf(g.qs->value(QLatin1String("Language")).toString());
-	if (i >= 0)
-		qcbLanguage->setCurrentIndex(i+1);
 
 	QStringList styles = QStyleFactory::keys();
 	styles.sort();
@@ -62,14 +58,6 @@ LookConfig::LookConfig(QWidget *p) : ConfigWidget(p) {
 	foreach(QString key, styles) {
 		qcbStyle->addItem(key);
 	}
-	i=styles.indexOf(g.qs->value(QLatin1String("Style")).toString());
-	if (i >= 0)
-		qcbStyle->setCurrentIndex(i+1);
-
-	qleCSS->setText(g.qs->value(QLatin1String("Skin")).toString());
-	qcbHorizontal->setChecked(g.qs->value(QLatin1String("Horizontal"), true).toBool());
-        qcbExpand->setChecked(g.s.bExpandAll);
-        qcbPlayersTop->setChecked(g.s.bPlayerTop);
 }
 
 QString LookConfig::title() const {
@@ -80,33 +68,63 @@ QIcon LookConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_ui.png"));
 }
 
-void LookConfig::accept() {
+void LookConfig::load(const Settings &r) {
+	qcbLanguage->setCurrentIndex(0);
+	qcbStyle->setCurrentIndex(0);
+
+	for(int i=0;i<qcbLanguage->count();i++) {
+		if (qcbLanguage->itemText(i) == r.qsLanguage) {
+			qcbLanguage->setCurrentIndex(i);
+			break;
+		}
+	}
+	for(int i=0;i<qcbStyle->count();i++) {
+		if (qcbStyle->itemText(i) == r.qsStyle) {
+			qcbStyle->setCurrentIndex(i);
+			break;
+		}
+	}
+	qleCSS->setText(r.qsSkin);
+	qcbHorizontal->setChecked(r.bHorizontal);
+        qcbExpand->setChecked(r.bExpandAll);
+        qcbPlayersTop->setChecked(r.bPlayerTop);
+}
+
+void LookConfig::save() const {
 	if (qcbLanguage->currentIndex() == 0)
-		g.qs->remove(QLatin1String("Language"));
+		s.qsLanguage = QString();
 	else
-		g.qs->setValue(QLatin1String("Language"), qcbLanguage->currentText());
+		s.qsLanguage = qcbLanguage->currentText();
 
 	if (qcbStyle->currentIndex() == 0)
-		g.qs->remove(QLatin1String("Style"));
-	else {
-		g.qs->setValue(QLatin1String("Style"), qcbStyle->currentText());
-		qApp->setStyle(qcbStyle->currentText());
-	}
+		s.qsStyle = QString();
+	else
+		s.qsStyle = qcbStyle->currentText();
 
-	if (qleCSS->text().isEmpty()) {
+	if (qleCSS->text().isEmpty())
+		s.qsSkin = QString();
+	else
+		s.qsSkin = qleCSS->text();
+	s.bHorizontal = qcbHorizontal->isChecked();
+	s.bExpandAll=qcbExpand->isChecked();
+	s.bPlayerTop=qcbPlayersTop->isChecked();
+}
+
+void LookConfig::accept() const {
+	if (! s.qsStyle.isEmpty()) {
+		qApp->setStyle(s.qsStyle);
+	}
+	if (s.qsSkin.isEmpty()) {
 		qApp->setStyleSheet(QString());
-		g.qs->remove(QLatin1String("Skin"));
 	} else {
-		QFile file(qleCSS->text());
+		QFile file(s.qsSkin);
 		file.open(QFile::ReadOnly);
 		QString sheet = QLatin1String(file.readAll());
 		if (! sheet.isEmpty())
 			qApp->setStyleSheet(sheet);
-		g.qs->setValue(QLatin1String("Skin"), qleCSS->text());
 	}
-	g.qs->setValue(QLatin1String("Horizontal"), qcbHorizontal->isChecked());
-	g.s.bExpandAll=qcbExpand->isChecked();
-	if (qcbHorizontal->isChecked()) {
+
+	if (s.bHorizontal) {
 		g.mw->qsSplit->setOrientation(Qt::Horizontal);
 		g.mw->qsSplit->addWidget(g.mw->qteLog);
 		g.mw->qsSplit->addWidget(g.mw->qtvPlayers);
@@ -115,7 +133,6 @@ void LookConfig::accept() {
 		g.mw->qsSplit->addWidget(g.mw->qtvPlayers);
 		g.mw->qsSplit->addWidget(g.mw->qteLog);
 	}
-	g.s.bPlayerTop=qcbPlayersTop->isChecked();
 }
 
 void LookConfig::on_qpbSkinFile_clicked(bool) {

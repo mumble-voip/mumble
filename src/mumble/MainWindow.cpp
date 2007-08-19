@@ -140,7 +140,7 @@ void MainWindow::setupGui()  {
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioTTS->setChecked(g.qs->value(QLatin1String("TextToSpeech"), true).toBool());
-	qaAudioLocalDeafen->setChecked(g.bLocalDeafen);
+	qaAudioLocalDeafen->setChecked(g.s.bLocalDeafen);
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
 
@@ -162,9 +162,11 @@ void MainWindow::setupGui()  {
 
 	setCentralWidget(qsSplit);
 
-	restoreGeometry(g.qs->value(QLatin1String("mwgeom")).toByteArray());
-	restoreState(g.qs->value(QLatin1String("mw")).toByteArray());
-	qsSplit->restoreState(g.qs->value(QLatin1String("mwSplitter")).toByteArray());
+
+
+	restoreGeometry(g.s.qbaMainWindowGeometry);
+	restoreState(g.s.qbaMainWindowState);
+	qsSplit->restoreState(g.s.qbaSplitterState);
 }
 
 void MainWindow::msgBox(QString msg) {
@@ -174,9 +176,9 @@ void MainWindow::msgBox(QString msg) {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 	g.uiSession = 0;
-	g.qs->setValue(QLatin1String("mwgeom"), saveGeometry());
-	g.qs->setValue(QLatin1String("mw"), saveState());
-	g.qs->setValue(QLatin1String("mwSplitter"), qsSplit->saveState());
+	g.s.qbaMainWindowGeometry = saveGeometry();
+	g.s.qbaMainWindowState = saveState();
+	g.s.qbaSplitterState = qsSplit->saveState();
 	QMainWindow::closeEvent(e);
 	qApp->quit();
 }
@@ -648,8 +650,8 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 }
 
 void MainWindow::on_qaAudioLocalDeafen_triggered() {
-	g.bLocalDeafen = qaAudioLocalDeafen->isChecked();
-	if (g.bLocalDeafen) {
+	g.s.bLocalDeafen = qaAudioLocalDeafen->isChecked();
+	if (g.s.bLocalDeafen) {
 		QMessageBox::information(this, tr("Mumble"), tr("You are now in local deafen mode. This mode is not relfected on the server, and you will still be transmitting "
 				"voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers."));
 	}

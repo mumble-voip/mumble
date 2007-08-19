@@ -51,18 +51,13 @@ class LogConfig : public ConfigWidget {
 		QSlider *qsVolume;
 		QSpinBox *qsbThreshold;
 	public:
-		LogConfig(QWidget *p = NULL);
+		LogConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
-};
-
-struct MsgSettings {
-	bool bConsole;
-	bool bTTS;
-	int iIgnore;
-	MsgSettings();
+		void accept() const;
+		virtual void save() const;
+		virtual void load(const Settings &);
 };
 
 class Log : public QObject {
@@ -73,7 +68,7 @@ class Log : public QObject {
 		static const MsgType firstMsgType = DebugInfo;
 		static const MsgType lastMsgType = TextMessage;
 	protected:
-		QHash<MsgType, MsgSettings *> qhSettings;
+		QHash<MsgType, int> qmIgnore;
 		static const char *msgNames[];
 		TextToSpeech *tts;
 	public:
@@ -81,8 +76,10 @@ class Log : public QObject {
 		QString msgName(MsgType t) const;
 		void setIgnore(MsgType t, int ignore = 1 << 30);
 		void clearIgnore();
+/*
 		void loadSettings();
 		void saveSettings() const;
+*/
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString());
 };

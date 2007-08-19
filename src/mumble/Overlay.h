@@ -58,7 +58,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 
 		static void setColorLabel(QLabel *label, QColor col);
 	public:
-		OverlayConfig(QWidget *p = NULL);
+		OverlayConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
@@ -69,7 +69,9 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qpbAltTalking_clicked();
 		void on_qpbChannel_clicked();
 		void on_qpbChannelTalking_clicked();
-		void accept();
+		void accept() const;
+		void save() const;
+		void load(const Settings &r);
 };
 
 

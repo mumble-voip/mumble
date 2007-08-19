@@ -45,11 +45,12 @@ class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 		QList<ASIODev> qlDevs;
 		bool bOk;
 	public:
-		ASIOConfig(QWidget *p = NULL);
+		ASIOConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void save() const;
+		void load(const Settings &r);
 		void clearQuery();
 		void on_qcbDevice_activated(int index);
 		void on_qpbQuery_clicked();

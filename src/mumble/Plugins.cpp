@@ -33,8 +33,8 @@
 #include "../../plugins/mumble_plugin.h"
 #include "Global.h"
 
-static ConfigWidget *PluginConfigDialogNew() {
-	return new PluginConfig();
+static ConfigWidget *PluginConfigDialogNew(Settings &st) {
+	return new PluginConfig(st);
 }
 
 static ConfigRegistrar registrar(50, PluginConfigDialogNew);
@@ -55,10 +55,9 @@ PluginInfo::PluginInfo() {
 	p = NULL;
 }
 
-PluginConfig::PluginConfig(QWidget *p) : ConfigWidget(p) {
+PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	qcbTransmit->setChecked(g.s.bTransmitPosition);
 	refillPluginList();
 }
 
@@ -70,8 +69,12 @@ QIcon PluginConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_plugin.png"));
 }
 
-void PluginConfig::accept() {
-	g.s.bTransmitPosition = qcbTransmit->isChecked();
+void PluginConfig::load(const Settings &r) {
+	qcbTransmit->setChecked(r.bTransmitPosition);
+}
+
+void PluginConfig::save() const {
+	s.bTransmitPosition = qcbTransmit->isChecked();
 }
 
 void PluginConfig::on_qpbConfig_clicked() {
