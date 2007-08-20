@@ -95,6 +95,8 @@ Settings::Settings() {
 
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogTTS);
+
+	iServerRow = -1;
 }
 
 #define SAVELOAD(var,name) var = qvariant_cast<typeof(var)>(g.qs->value(QLatin1String(name), var))
@@ -167,6 +169,8 @@ void Settings::load() {
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
+	SAVELOAD(qsUsername, "ui/username");
+	SAVELOAD(iServerRow, "ui/serverrow");
 
 	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
 	for(int i=0;i<nshorts;i++) {
@@ -255,6 +259,8 @@ void Settings::save() {
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
+	SAVELOAD(qsUsername, "ui/username");
+	SAVELOAD(iServerRow, "ui/serverrow");
 
 	g.qs->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

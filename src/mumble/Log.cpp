@@ -191,35 +191,6 @@ void Log::clearIgnore() {
 	qmIgnore.clear();
 }
 
-/*
-void Log::loadSettings() {
-	for (int i=firstMsgType;i<=lastMsgType;++i) {
-		MsgType t=static_cast<MsgType>(i);
-		MsgSettings *ms=qhSettings[t];
-		QString key=QString::fromLatin1("msg%1").arg(QLatin1String(msgNames[t]));
-		key = key.remove(QRegExp(QLatin1String("[ /\\(\\)-]")));
-		int v = g.qs->value(key,0xff).toInt();
-		ms->bConsole=(v & 0x01);
-		ms->bTTS=(v & 0x02);
-	}
-}
-
-void Log::saveSettings() const {
-	for (int i=firstMsgType;i<=lastMsgType;++i) {
-		MsgType t=static_cast<MsgType>(i);
-		MsgSettings *ms=qhSettings[t];
-		QString key=QString::fromLatin1("msg%1").arg(QLatin1String(msgNames[t]));
-		key = key.remove(QRegExp(QLatin1String("[ /\\(\\)-]")));
-		int v = 0;
-		if (ms->bConsole)
-			v |= 0x01;
-		if (ms->bTTS)
-			v |= 0x02;
-		g.qs->setValue(key, v);
-	}
-}
-*/
-
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	QTime now = QTime::currentTime();
 

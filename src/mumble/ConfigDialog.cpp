@@ -171,6 +171,9 @@ void ConfigDialog::apply() {
 
 	g.s = s;
 
+	foreach(ConfigWidget *cw, widgets)
+		cw->accept();
+
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);

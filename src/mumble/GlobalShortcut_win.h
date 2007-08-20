@@ -75,7 +75,7 @@ class DirectInputKeyWidget : public QLineEdit {
 		QList<qpButton> qlButtons;
 		bool bModified;
 		DirectInputKeyWidget(QWidget *p = NULL);
-		void setShortcut(GlobalShortcut *gs);
+		void setShortcut(const QList<qpButton> &buttons);
 	public slots:
 		void updateKeys(bool last);
 		void displayKeys();

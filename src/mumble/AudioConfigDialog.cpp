@@ -59,23 +59,23 @@ AudioConfigDialog::AudioConfigDialog(Settings &st) : ConfigWidget(st) {
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
 
-//	on_qsTransmitHold_valueChanged(qsTransmitHold->value());
-//	on_qsFrames_valueChanged(qsFrames->value());
 
-//	on_qsQuality_valueChanged(qsQuality->value());
-//	on_qsComplexity_valueChanged(qsComplexity->value());
-//	on_qsNoise_valueChanged(qsNoise->value());
-//	on_qsAmp_valueChanged(qsAmp->value());
-//	on_qsJitter_valueChanged(qsJitter->value());
 
 	qcbLoopback->addItem(tr("None"), Settings::None);
 	qcbLoopback->addItem(tr("Local"), Settings::Local);
 	qcbLoopback->addItem(tr("Server"), Settings::Server);
 
-//	on_qsPacketDelay_valueChanged(qsPacketDelay->value());
-//	on_qsPacketLoss_valueChanged(qsPacketLoss->value());
-//	on_qcbTransmit_currentIndexChanged(qcbTransmit->currentIndex());
-//	on_qcbLoopback_currentIndexChanged(qcbLoopback->currentIndex());
+	on_qsTransmitHold_valueChanged(qsTransmitHold->value());
+	on_qsFrames_valueChanged(qsFrames->value());
+	on_qsQuality_valueChanged(qsQuality->value());
+	on_qsComplexity_valueChanged(qsComplexity->value());
+	on_qsNoise_valueChanged(qsNoise->value());
+	on_qsAmp_valueChanged(qsAmp->value());
+	on_qsJitter_valueChanged(qsJitter->value());
+	on_qsPacketDelay_valueChanged(qsPacketDelay->value());
+	on_qsPacketLoss_valueChanged(qsPacketLoss->value());
+	on_qcbTransmit_currentIndexChanged(qcbTransmit->currentIndex());
+	on_qcbLoopback_currentIndexChanged(qcbLoopback->currentIndex());
 }
 
 QString AudioConfigDialog::title() const {

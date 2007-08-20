@@ -59,12 +59,9 @@ DirectInputKeyWidget::DirectInputKeyWidget(QWidget *p) : QLineEdit(p) {
 	displayKeys();
 }
 
-void DirectInputKeyWidget::setShortcut(GlobalShortcut *gs) {
-	if (gsw->qhGlobalToWin.contains(gs)) {
-		Shortcut *s = gsw->qhGlobalToWin[gs];
-		qlButtons = s->qlButtons;
-		displayKeys();
-	}
+void DirectInputKeyWidget::setShortcut(const QList<qpButton> &buttons) {
+	qlButtons = buttons;
+	displayKeys();
 }
 
 void DirectInputKeyWidget::focusInEvent(QFocusEvent *e) {
@@ -141,7 +138,6 @@ GlobalShortcutWinConfig::GlobalShortcutWinConfig(Settings &st) : ConfigWidget(st
 
 	foreach(GlobalShortcut *gs, gsw->qmShortcuts) {
 		DirectInputKeyWidget *dikw=new DirectInputKeyWidget();
-		dikw->setShortcut(gs);
 
 		lab=new QLabel(gs->name);
 		l->addWidget(lab, i+1, 0);
@@ -177,6 +173,19 @@ QIcon GlobalShortcutWinConfig::icon() const {
 }
 
 void GlobalShortcutWinConfig::load(const Settings &r) {
+	foreach(GlobalShortcut *gs, gsw->qmShortcuts) {
+		DirectInputKeyWidget *dikw = qhKeys.value(gs);
+		QList<qpButton> buttons;
+		foreach(QVariant v, r.qmShortcuts.value(gs->idx)) {
+			const QList<QVariant> &sublist = v.toList();
+			if (sublist.count() == 2) {
+				QUuid uuid(sublist.at(0).toString());
+				int id = sublist.at(1).toInt();
+				buttons << qpButton(uuid, id);
+			}
+		}
+		dikw->setShortcut(buttons);
+	}
 }
 
 void GlobalShortcutWinConfig::save() const {
@@ -189,7 +198,7 @@ void GlobalShortcutWinConfig::save() const {
 			QList<QVariant> sublist;
 			sublist << QUuid(button.first).toString();
 			sublist << static_cast<int>(button.second);
-			ql << sublist;
+			ql << QVariant(sublist);
 		}
 		m.insert(gs->idx, ql);
 	}
@@ -339,7 +348,7 @@ void GlobalShortcutWin::remap() {
 		QList<QUuid> guids;
 		QList<DWORD> types;
 		foreach(QVariant b, ql) {
-			const QList<QVariant> l = b.toList();
+			const QList<QVariant> &l = b.toList();
 			if (l.count() != 2)
 				continue;
 			QUuid guid(l.at(0).toString());

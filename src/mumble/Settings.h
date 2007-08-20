@@ -100,6 +100,8 @@ struct Settings {
 	bool bFirstTime;
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState;
 
+	QString qsUsername;
+	int iServerRow;
 
 	// Nonsaved
 	bool bLocalDeafen;

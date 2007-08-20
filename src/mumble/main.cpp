@@ -91,19 +91,17 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
-	QString style=g.qs->value(QLatin1String("Style")).toString();
-	if (! style.isEmpty()) {
-		a.setStyle(style);
+	if (! g.s.qsStyle.isEmpty()) {
+		a.setStyle(g.s.qsStyle);
 	}
 
 
-	QString skin=g.qs->value(QLatin1String("skin")).toString();
-	if (! skin.isEmpty()) {
-		QFile file(skin);
+	if (! g.s.qsSkin.isEmpty()) {
+		QFile file(g.s.qsSkin);
 		file.open(QFile::ReadOnly);
 		QString styleSheet=QLatin1String(file.readAll());
 		if (! styleSheet.isEmpty()) {
-			QFileInfo fi(skin);
+			QFileInfo fi(g.s.qsSkin);
 			QDir::addSearchPath(QLatin1String("skin"), fi.path());
 			a.setStyleSheet(styleSheet);
 		}
@@ -115,7 +113,8 @@ int main(int argc, char **argv) {
 
 	qWarning("Locale is %s", qPrintable(QLocale::system().name()));
 
-	QString locale=g.qs->value(QLatin1String("Language"), QLocale::system().name()).toString();
+	QString locale = g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage;
+
 	QTranslator translator;
 	translator.load(QLatin1String("translation:mumble_") + locale);
 	a.installTranslator(&translator);

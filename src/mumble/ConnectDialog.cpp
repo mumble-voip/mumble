@@ -65,7 +65,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 
-	QModelIndex idx = qstmServers->index(g.qs->value(QLatin1String("ServerRow"),-1).toInt(),0);
+	QModelIndex idx = qstmServers->index(g.s.iServerRow, 0);
 	if (idx.isValid()) {
 		qlwServers->setCurrentIndex(idx);
 	}
@@ -83,12 +83,11 @@ void ConnectDialog::accept() {
 			return;
 
 		bool ok;
-		QString defUserName = g.qs->value(QLatin1String("defUserName")).toString();
-		defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(qtwServers->item(row, 0)->text()), tr("Enter username"), QLineEdit::Normal, defUserName, &ok);
+		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(qtwServers->item(row, 0)->text()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok);
 		if (! ok)
 			return;
 
-		g.qs->setValue(QLatin1String("defUserName"), defUserName);
+		g.s.qsUsername = defUserName;
 		qsUsername = defUserName;
 		qsPassword = QString();
 		QStringList a = qtwServers->item(row, 1)->text().split(QLatin1Char(':'));
@@ -113,8 +112,7 @@ void ConnectDialog::accept() {
 		iPort = qlePort->text().toInt();
 
 		int row = qlwServers->currentIndex().row();
-
-		g.qs->setValue(QLatin1String("ServerRow"), row >= 0 ? row : 0);
+		g.s.iServerRow = (row >= 0) ? row : 0;
 	}
 	QDialog::accept();
 }
@@ -180,7 +178,7 @@ void ConnectDialog::on_qpbCopy_clicked() {
 
 	qleName->setText(qtwServers->item(row, 0)->text());
 	qleServer->setText(a.at(0));
-	qleUsername->setText(g.qs->value(QLatin1String("defUserName")).toString());
+	qleUsername->setText(g.s.qsUsername);
 	qlePassword->setText(QString());
 	qlePort->setText(a.at(1));
 
@@ -257,7 +255,7 @@ void ConnectDialog::on_qpbAdd_clicked() {
 
 	qleName->setText(tr("-Unnamed entry-"));
 	qleServer->setText(QString());
-	qleUsername->setText(g.qs->value(QLatin1String("defUserName")).toString());
+	qleUsername->setText(g.s.qsUsername);
 	qlePassword->setText(QString());
 	qlePort->setText(QLatin1String("64738"));
 

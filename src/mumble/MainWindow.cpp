@@ -139,7 +139,7 @@ void MainWindow::setupGui()  {
 	qaServerDisconnect->setShortcuts(QKeySequence::Close);
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
-	qaAudioTTS->setChecked(g.qs->value(QLatin1String("TextToSpeech"), true).toBool());
+	qaAudioTTS->setChecked(g.s.bTTS);
 	qaAudioLocalDeafen->setChecked(g.s.bLocalDeafen);
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
@@ -150,7 +150,7 @@ void MainWindow::setupGui()  {
 
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 
-	if (g.qs->value(QLatin1String("Horizontal"), true).toBool()) {
+	if (g.s.bHorizontal) {
 		qsSplit->setOrientation(Qt::Horizontal);
 		qsSplit->addWidget(qteLog);
 		qsSplit->addWidget(qtvPlayers);
@@ -232,12 +232,10 @@ void MainWindow::openUrl(const QUrl &url) {
 
 	if (user.isEmpty()) {
 		bool ok;
-		user = g.qs->value(QLatin1String("defUserName")).toString();
-		user = QInputDialog::getText(this, tr("Connecting to %1").arg(url.toString()), tr("Enter username"), QLineEdit::Normal, user, &ok);
+		user = QInputDialog::getText(this, tr("Connecting to %1").arg(url.toString()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok);
 		if (! ok || user.isEmpty())
 			return;
-
-		g.qs->setValue(QLatin1String("defUserName"), user);
+		g.s.qsUsername = user;
 	}
 
 	if (g.sh && g.sh->isRunning()) {
