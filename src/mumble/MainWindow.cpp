@@ -699,7 +699,7 @@ void MainWindow::on_qaHelpAboutQt_triggered() {
 }
 
 void MainWindow::on_qaHelpVersionCheck_triggered() {
-	new VersionCheck(this);
+	new VersionCheck(false, this);
 }
 
 void MainWindow::on_PushToTalk_triggered(bool down) {

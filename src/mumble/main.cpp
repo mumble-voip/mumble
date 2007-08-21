@@ -39,6 +39,7 @@
 #include "Plugins.h"
 #include "Global.h"
 #include "DBus.h"
+#include "VersionCheck.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -174,6 +175,9 @@ int main(int argc, char **argv) {
 			aw.exec();
 		}
 	}
+
+	if (g.s.bUpdateCheck)
+		new VersionCheck(true, g.mw);
 
 	if (a.arguments().count() > 1) {
 		g.mw->openUrl(QUrl(a.arguments().last()));

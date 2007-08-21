@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>841</width>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -125,6 +125,22 @@
         </property>
         <property name="whatsThis" >
          <string>&lt;b>This sets which skin Mumble should use.&lt;/b>&lt;br />The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3" >
+     <property name="title" >
+      <string>New version check</string>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QCheckBox" name="qcbAutoUpdate" >
+        <property name="text" >
+         <string>Check for updates on startup</string>
         </property>
        </widget>
       </item>

@@ -103,6 +103,8 @@ struct Settings {
 	QString qsUsername;
 	int iServerRow;
 
+	bool bUpdateCheck;
+
 	// Nonsaved
 	bool bLocalDeafen;
 	LoopMode lmLoopMode;

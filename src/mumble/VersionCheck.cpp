@@ -31,15 +31,19 @@
 #include "VersionCheck.h"
 #include "Global.h"
 
-VersionCheck::VersionCheck(QObject *p) : QObject(p) {
+VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
+	bSilent = autocheck;
+
 	qhAgent = new QHttp(this);
 	qhAgent->setObjectName(QLatin1String("Agent"));
 	quUrl.setScheme(QLatin1String("http"));
-	quUrl.setHost(QLatin1String("mumble.sourceforge.net"));
+	quUrl.setHost(QLatin1String("mumble.hive.no"));
 	quUrl.setPath(QLatin1String("/ver.php"));
 	quUrl.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 	quUrl.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
 	quUrl.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
+	if (autocheck)
+		quUrl.addQueryItem(QLatin1String("auto"), QLatin1String("1"));
 
 	QMetaObject::connectSlotsByName(this);
 
@@ -73,7 +77,7 @@ void VersionCheck::on_Agent_requestFinished(int id, bool error) {
 		QByteArray a=qhAgent->readAll();
 		if (a.size() > 0)
 			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), QLatin1String(a), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
-	} else {
+	} else if (bSilent) {
 		QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Mumble failed to retrieve version information from the SourceForge server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
 	}
 	deleteLater();

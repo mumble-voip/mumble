@@ -56,6 +56,8 @@ Settings::Settings() {
 
 	bPlayerTop = false;
 
+	bUpdateCheck = true;
+
 	bFirstTime = true;
 	bHorizontal = true;
 
@@ -171,6 +173,7 @@ void Settings::load() {
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(iServerRow, "ui/serverrow");
+	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 
 	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
 	for(int i=0;i<nshorts;i++) {
@@ -261,6 +264,7 @@ void Settings::save() {
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(iServerRow, "ui/serverrow");
+	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 
 	g.qs->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

@@ -88,6 +88,7 @@ void LookConfig::load(const Settings &r) {
 	qcbHorizontal->setChecked(r.bHorizontal);
         qcbExpand->setChecked(r.bExpandAll);
         qcbPlayersTop->setChecked(r.bPlayerTop);
+        qcbAutoUpdate->setChecked(r.bUpdateCheck);
 }
 
 void LookConfig::save() const {
@@ -108,6 +109,7 @@ void LookConfig::save() const {
 	s.bHorizontal = qcbHorizontal->isChecked();
 	s.bExpandAll=qcbExpand->isChecked();
 	s.bPlayerTop=qcbPlayersTop->isChecked();
+	s.bUpdateCheck=qcbAutoUpdate->isChecked();
 }
 
 void LookConfig::accept() const {

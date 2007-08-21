@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+	/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -37,10 +37,11 @@ class VersionCheck : public QObject {
 		QUrl quUrl;
 		QHttp *qhAgent;
 		int iReqId;
+		bool bSilent;
 	public slots:
 		void on_Agent_requestFinished(int, bool);
 	public:
-		VersionCheck(QObject *parent = NULL);
+		VersionCheck(bool autocheck, QObject *parent = NULL);
 };
 
 #else
