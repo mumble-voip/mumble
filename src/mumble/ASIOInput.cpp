@@ -521,7 +521,9 @@ ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *, long index, ASIOBool) {
 	return 0L;
 }
 
-void ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst) {
+void
+ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst)
+{
 	switch (sampType) {
 		case ASIOSTInt16LSB: {
 				short *buf=static_cast<short *>(src);
@@ -538,7 +540,9 @@ void ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst) {
 	}
 }
 
-void ASIOInput::bufferReady(long buffindex) {
+void
+__attribute__((force_align_arg_pointer))
+ASIOInput::bufferReady(long buffindex) {
 	int c, i;
 
 	// Microphone inputs

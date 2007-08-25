@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
 		if ((arg == "-supw") && (i+1 < argc)) {
 			i++;
 			supw = argv[i];
-			if (i < argc) {
+			if (i+1 < argc) {
 				i++;
 				sunum = QString::fromLatin1(argv[i]).toInt();
 			}

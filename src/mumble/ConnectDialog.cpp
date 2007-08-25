@@ -244,11 +244,16 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 }
 
 void ConnectDialog::on_qpbAdd_clicked() {
+	qWarning("adh");
 	if (bDirty) {
 		bDirty = false;
 		QSqlRecord r = toRecord();
 		if (! r.isEmpty()) {
-			qstmServers->setRecord(qlwServers->currentIndex().row(), r);
+			const QModelIndex &previndex = qlwServers->currentIndex();
+			if (previndex.row() >= 0)
+				qstmServers->setRecord(previndex.row(), r);
+			else
+				qstmServers->insertRecord(-1, r);
 			qstmServers->submitAll();
 		}
 	}
