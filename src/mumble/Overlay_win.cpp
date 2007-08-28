@@ -34,6 +34,7 @@
 #include "Global.h"
 
 typedef void (__cdecl *HooksProc)();
+typedef SharedMem * (__cdecl *GetSharedMemProc)();
 
 
 class SharedMemoryPrivate {
@@ -53,7 +54,9 @@ SharedMemory::~SharedMemory() {
 }
 
 void SharedMemory::resolve(QLibrary *lib) {
-	sm=reinterpret_cast<SharedMem *>(lib->resolve("sm"));
+	GetSharedMemProc gsmp = (GetSharedMemProc)lib->resolve("GetSharedMemory");
+	if (gsmp)
+		sm=gsmp();
 	d->hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
 }
 

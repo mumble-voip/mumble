@@ -44,16 +44,13 @@
 
 using namespace std;
 
-#pragma data_seg(".SHARED")
+static HANDLE hMapObject = NULL;
+static SharedMem *sm;
+static HANDLE hSharedMutex = NULL;
+static HANDLE hHookMutex = NULL;
 
-extern "C" __declspec(dllexport) SharedMem sm = {0, false, false, true, false, 1.0, 0.0, false, true, true, false, 72};
-
-HHOOK hhookCBT = 0, hhookWnd = 0;
-
-bool bChaining = false;
-
-#pragma data_seg()
-#pragma comment(linker, "/section:.SHARED,RWS")
+static HHOOK hhookWnd = 0;
+static bool bChaining = false;
 
 typedef IDirect3D9* (WINAPI *pDirect3DCreate9) (UINT SDKVersion) ;
 
@@ -67,8 +64,6 @@ public:
 	LONG refCount;
 	LONG myRefCount;
 	LONG triggerCount;
-	bool bInitialized;
-	bool bNeedPrep;
 	bool bMyRefs;
 
 	LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
@@ -78,9 +73,7 @@ public:
 	ID3DXSprite*        pTextSprite;
 
 	void cleanState();
-	void initData();
 	void releaseData();
-	void prep();
 	void draw();
 	void postDraw();
 };
@@ -88,60 +81,23 @@ public:
 map<IDirect3DDevice9 *, DevState *> devMap;
 bool bHooked = false;
 HMODULE hSelf = NULL;
-HANDLE hSharedMutex = NULL;
 
 DevState::DevState() {
 	dev = NULL;
-	bInitialized = false;
 	bMyRefs = false;
-	bNeedPrep = false;
 	refCount = 0;
 	myRefCount = 0;
 	triggerCount = 0;
+	pTextSprite = NULL;
 	for(int i = 0;i < NUM_TEXTS;i++)
 		tex[i] = NULL;
 }
 
-void DevState::initData() {
-	ods("Init Data of %p", dev);
-
-	D3DXCreateSprite(dev, &pTextSprite );
-	bNeedPrep = true;
-
-	return;
-}
-
-void DevState::prep() {
-	ods("Preparing....");
-
-	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
-	if (dwWaitResult == WAIT_OBJECT_0) {
-		for(int i=0;i<NUM_TEXTS;i++) {
-		    	if ((sm.texts[i].bUpdated || tex[i] == NULL) && (sm.texts[i].width > 0)) {
-			    	if (tex[i])
-			    		tex[i]->Release();
-				dev->CreateTexture(sm.texts[i].width, TEXT_HEIGHT, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex[i], NULL);
-
-				D3DLOCKED_RECT lr;
-
-				DWORD res=tex[i]->LockRect(0, &lr, NULL, D3DLOCK_DISCARD);
-
-				for(int r=0;r<TEXT_HEIGHT;r++) {
-				    unsigned char *dptr = (unsigned char *) lr.pBits + r * lr.Pitch;
-					memcpy(dptr, sm.texts[i].texture + r * TEXT_WIDTH * 4, sm.texts[i].width * 4);
-				}
-
-				tex[i]->UnlockRect(0);
-				sm.texts[i].bUpdated = false;
-			}
-		}
-		ReleaseMutex(hSharedMutex);
-	}
-}
-
 void DevState::releaseData() {
 	ods("Release Data");
-	pTextSprite->Release();
+	if (pTextSprite)
+		pTextSprite->Release();
+	pTextSprite = NULL;
 
 	for(int i=0;i<NUM_TEXTS;i++)
 		if (tex[i]) {
@@ -163,37 +119,49 @@ void DevState::draw() {
 
 	int y = 0;
 
-	if (sm.fFontSize < 0.01)
-		sm.fFontSize = 0.01;
-	else if (sm.fFontSize > 1.0)
-		sm.fFontSize = 1.0;
+	if (sm->fFontSize < 0.01)
+		sm->fFontSize = 0.01;
+	else if (sm->fFontSize > 1.0)
+		sm->fFontSize = 1.0;
 
-	int iHeight = vp.Height * sm.fFontSize;
+	int iHeight = vp.Height * sm->fFontSize;
 	if (iHeight > TEXT_HEIGHT)
 		iHeight = TEXT_HEIGHT;
 
 	float s = iHeight / 60.0;
 
-	ods("Init: Scale %f. iH %d. Final scale %f", sm.fFontSize, iHeight, s);
+	ods("Init: Scale %f. iH %d. Final scale %f", sm->fFontSize, iHeight, s);
 
 	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		for(int i=0;i<NUM_TEXTS;i++) {
-			if (sm.texts[i].width == 0) {
+			if (sm->texts[i].width == 0) {
 				y += iHeight / 4;
-			} else if (sm.texts[i].width > 0) {
-				IDirect3DTexture9 *t = tex[i];
-				if (tex && (sm.texts[i].bUpdated == false)) {
-					int w = sm.texts[i].width * s;
-					texs.push_back(t);
-					colors.push_back(sm.texts[i].color);
-					widths.push_back(w);
-					yofs.push_back(y);
-					idx++;
-					y += iHeight;
-				} else {
-					bNeedPrep = true;
+			} else if (sm->texts[i].width > 0) {
+				if (!tex[i] || sm->texts[i].bUpdated) {
+					if (tex[i])
+						tex[i]->Release();
+
+					dev->CreateTexture(sm->texts[i].width, TEXT_HEIGHT, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex[i], NULL);
+
+					D3DLOCKED_RECT lr;
+					DWORD res=tex[i]->LockRect(0, &lr, NULL, D3DLOCK_DISCARD);
+
+					for(int r=0;r<TEXT_HEIGHT;r++) {
+					    unsigned char *dptr = (unsigned char *) lr.pBits + r * lr.Pitch;
+						memcpy(dptr, sm->texts[i].texture + r * TEXT_WIDTH * 4, sm->texts[i].width * 4);
+					}
+
+					tex[i]->UnlockRect(0);
+					sm->texts[i].bUpdated = false;
 				}
+				int w = sm->texts[i].width * s;
+				texs.push_back(tex[i]);
+				colors.push_back(sm->texts[i].color);
+				widths.push_back(w);
+				yofs.push_back(y);
+				idx++;
+				y += iHeight;
 			}
 		}
 		ReleaseMutex(hSharedMutex);
@@ -203,11 +171,11 @@ void DevState::draw() {
 		return;
 
 	int height = y;
-	y = vp.Height * sm.fY;
+	y = vp.Height * sm->fY;
 
-	if (sm.bTop) {
+	if (sm->bTop) {
 		y -= height;
-	} else if (sm.bBottom) {
+	} else if (sm->bBottom) {
 	} else {
 		y -= height / 2;
 	}
@@ -225,15 +193,19 @@ void DevState::draw() {
 	    0.0f,            0.0f,            0.0f,            1.0f
 	);
 
+	if (!pTextSprite)
+		D3DXCreateSprite(dev, &pTextSprite );
+
+
 	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
 	for(int i=0;i<idx;i++) {
 		int width = widths[i];
 
-		int x = vp.Width * sm.fX;
+		int x = vp.Width * sm->fX;
 
-		if (sm.bLeft) {
+		if (sm->bLeft) {
 			x -= width;
-		} else if (sm.bRight) {
+		} else if (sm->bRight) {
 		} else {
 			x -= width / 2;
 		}
@@ -244,7 +216,7 @@ void DevState::draw() {
 			x = vp.Width - width - 1;
 
 		D3DXVECTOR3 p(x/s, (y + yofs[i])/s, 1.0);
-		ods("With scale %f this is %f %f from %f", s, p.x, p.y, sm.fFontSize);
+		ods("With scale %f this is %f %f from %f", s, p.x, p.y, sm->fFontSize);
 
 		pTextSprite->SetTransform(&scale);
 		pTextSprite->Draw(texs[i], NULL, NULL, &p, colors[i]);
@@ -284,8 +256,9 @@ void DevState::cleanState() {
 		dev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 }
 
-void __cdecl ods(const char *format, ...) {
-	if (! sm.bDebug)
+static void __cdecl ods(const char *format, ...) {
+
+	if (!sm || ! sm->bDebug)
 		return;
 
 	char	buf[4096], *p = buf;
@@ -388,55 +361,21 @@ void HardHook::restore() {
 	}
 }
 
-HardHook hhCreateDevice;
-HardHook hhBeginScene;
-HardHook hhEndScene;
-HardHook hhReset;
-HardHook hhAddRef;
-HardHook hhRelease;
-HardHook hhPresent;
+static HardHook hhCreateDevice;
+static HardHook hhReset;
+static HardHook hhAddRef;
+static HardHook hhRelease;
+static HardHook hhPresent;
 
-HRESULT __stdcall myBeginScene(IDirect3DDevice9 * idd) {
-	hhBeginScene.restore();
-
+static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion) {
 	DevState *ds = devMap[idd];
-	if (ds && sm.bShow) {
-		ods("myBeginScene");
-	}
-	HRESULT hr=idd->BeginScene();
-	hhBeginScene.inject();
-	checkUnhook(idd);
-	return hr;
-}
-
-HRESULT __stdcall myEndScene(IDirect3DDevice9 * idd) {
-	DevState *ds = devMap[idd];
-	if (ds && sm.bShow) {
-		IDirect3DSurface9 *pTarget = NULL;
-		idd->GetRenderTarget(0, &pTarget);
-		ods("myEndScene %p",pTarget);
-		pTarget->Release();
-	}
-
-	hhEndScene.restore();
-	HRESULT hr=idd->EndScene();
-	hhEndScene.inject();
-	checkUnhook(idd);
-	return hr;
-}
-
-HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion) {
-	DevState *ds = devMap[idd];
-	if (ds && sm.bShow) {
+	if (ds && sm->bShow) {
 		IDirect3DSurface9 *pTarget = NULL;
 		IDirect3DSurface9 *pRenderTarget = NULL;
 		idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
 		idd->GetRenderTarget(0, &pRenderTarget);
 
-		ods("myPresent Back %p RenderT",pTarget,pRenderTarget);
-
-		hhBeginScene.restore();
-		hhEndScene.restore();
+		ods("myPresent Back %p RenderT %p",pTarget,pRenderTarget);
 
 		bool b = ds->bMyRefs;
 		ds->bMyRefs = true;
@@ -449,20 +388,9 @@ HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRect, CON
 		if (pTarget != pRenderTarget)
 			idd->SetRenderTarget(0, pTarget);
 
-		if (sm.bReset) {
-			sm.bReset = false;
-			if (ds->bInitialized) {
-				ds->releaseData();
-				ds->bInitialized = false;
-			}
-		}
-		if (! ds->bInitialized) {
-			ds->initData();
-			ds->bInitialized = true;
-		}
-		if (ds->bNeedPrep) {
-			ds->prep();
-			ds->bNeedPrep = false;
+		if (sm->bReset) {
+			sm->bReset = false;
+			ds->releaseData();
 		}
 
 	  	idd->BeginScene();
@@ -475,9 +403,6 @@ HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRect, CON
 
 		ds->bMyRefs = b;
 
-		hhEndScene.inject();
-		hhBeginScene.inject();
-
 		pRenderTarget->Release();
 		pTarget->Release();
 	}
@@ -488,18 +413,15 @@ HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRect, CON
 	return hr;
 }
 
-HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *param) {
+static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *param) {
 	ods("Chaining Reset");
 
 	DevState *ds = devMap[idd];
 	if (ds) {
-		if (ds->bInitialized) {
-			bool b = ds->bMyRefs;
-			ds->bMyRefs = true;
-			ds->releaseData();
-			ds->bMyRefs = b;
-		}
-		ds->bInitialized = false;
+		bool b = ds->bMyRefs;
+		ds->bMyRefs = true;
+		ds->releaseData();
+		ds->bMyRefs = b;
 	}
 	hhReset.restore();
 	HRESULT hr=idd->Reset(param);
@@ -510,7 +432,7 @@ HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *param) 
 	return hr;
 }
 
-ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
+static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
 	if (ds) {
 		if (ds->bMyRefs)
@@ -528,9 +450,9 @@ ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 
 // The font and such seems to be used through a callback or something, because
 // it generates a reference outside the blocks here. Hence the trigger
-// mechanism.
+// mechanism->
 
-ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
+static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
 	if (ds) {
 		if (ds->bMyRefs) {
@@ -543,13 +465,12 @@ ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 		if (ds->triggerCount && (ds->refCount < ds->triggerCount)) {
 			ods("Trigger release");
 			ds->triggerCount = 0;
-			if (ds->bInitialized) {
-				bool b = ds->bMyRefs;
-				ds->bMyRefs = true;
-				ds->releaseData();
-				ds->bMyRefs = b;
-				ds->bInitialized = false;
-			}
+
+			bool b = ds->bMyRefs;
+			ds->bMyRefs = true;
+			ds->releaseData();
+			ds->bMyRefs = b;
+
 			ds->refCount += ds->myRefCount;
 			ds->myRefCount = 0;
 		}
@@ -567,7 +488,7 @@ ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	return res;
 }
 
-HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
+static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	ods("Chaining CreateDevice");
 
 	hhCreateDevice.restore();
@@ -593,12 +514,6 @@ HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE Dev
 	hhRelease.setupInterface(idd, 2, (voidFunc) myRelease);
 	hhRelease.inject();
 
-	hhBeginScene.setupInterface(idd, 41, (voidFunc) myBeginScene);
-	hhBeginScene.inject();
-
-	hhEndScene.setupInterface(idd, 42, (voidFunc) myEndScene);
-	hhEndScene.inject();
-
 	hhReset.setupInterface(idd, 16, (voidFunc) myReset);
 	hhReset.inject();
 
@@ -610,19 +525,17 @@ HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE Dev
 	return hr;
 }
 
-void HookCreate(IDirect3D9 *pD3D) {
+static void HookCreate(IDirect3D9 *pD3D) {
 	ods("Injecting CreateDevice");
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (wchar_t *) &HookCreate, &hSelf);
 
-	hSharedMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
-
 	hhCreateDevice.setupInterface(pD3D, 16, (voidFunc) myCreateDevice);
 	hhCreateDevice.inject();
 }
 
-void checkHook() {
+static void checkHook() {
 	if (bChaining) {
 		return;
 		ods("Causing a chain");
@@ -653,7 +566,7 @@ void checkHook() {
 	bChaining = false;
 }
 
-LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
+static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 	CWPSTRUCT *s = (CWPSTRUCT *) lParam;
 	if (s) {
 		switch (s->message) {
@@ -673,32 +586,25 @@ LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 }
 
 extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
-	HANDLE hMutex = NULL;
-	hMutex = CreateMutex(NULL, false, L"MumbleHookMutex");
-
-	DWORD dwWaitResult = WaitForSingleObject(hMutex, 1000L);
+	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (sm.bHooked) {
+		if (sm->bHooked) {
 			if (hhookWnd) {
 				UnhookWindowsHookEx(hhookWnd);
 				hhookWnd = NULL;
 			}
-			sm.bHooked = false;
+			sm->bHooked = false;
 		}
-		ReleaseMutex(hMutex);
+		ReleaseMutex(hHookMutex);
 	}
 }
 
-
 extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
-	sm.lastAppAlive = GetTickCount();
+	sm->lastAppAlive = GetTickCount();
 
-	HANDLE hMutex = NULL;
-	hMutex = CreateMutex(NULL, false, L"MumbleHookMutex");
-
-	DWORD dwWaitResult = WaitForSingleObject(hMutex, 1000L);
+	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (! sm.bHooked) {
+		if (! sm->bHooked) {
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &InstallHooks, &hSelf);
 			if (hSelf == NULL) {
 				ods("Failed to find myself");
@@ -707,30 +613,32 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 				if (hhookWnd == NULL)
 					ods("Failed to insert WNDProc hook");
 			}
-			sm.bHooked = true;
+			sm->bHooked = true;
 		}
+		ReleaseMutex(hHookMutex);
 	}
-	ReleaseMutex(hMutex);
 }
 
-void checkUnhook(IDirect3DDevice9 *idd) {
+extern "C" __declspec(dllexport) SharedMem * __cdecl GetSharedMemory() {
+	return sm;
+}
+
+static void checkUnhook(IDirect3DDevice9 *idd) {
 	DWORD now = GetTickCount();
-	if ((now - sm.lastAppAlive) > 30000) {
+	if ((now - sm->lastAppAlive) > 30000) {
 		ods("Application is dead.");
 		RemoveHooks();
 		DevState *ds = devMap[idd];
-		if (ds && ds->bInitialized) {
+		if (ds) {
 			bool b = ds->bMyRefs;
 			ds->bMyRefs = true;
 			ds->releaseData();
 			ds->bMyRefs = b;
-			ds->bInitialized = false;
 		} else {
 			ods("Terminating with leakage.");
 		}
 		hhCreateDevice.restore();
-		hhBeginScene.restore();
-		hhEndScene.restore();
+		hhPresent.restore();
 		hhReset.restore();
 		hhAddRef.restore();
 		hhRelease.restore();
@@ -739,4 +647,68 @@ void checkUnhook(IDirect3DDevice9 *idd) {
 				ds->dev->AddRef();
 		}
 	}
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+	ods("DllMain Reason %d", fdwReason);
+	switch (fdwReason) {
+		case DLL_PROCESS_ATTACH:
+			{
+				hSharedMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
+				hHookMutex = CreateMutex(NULL, false, L"MumbleHookMutex");
+				if ((hSharedMutex == NULL) || (hHookMutex == NULL)) {
+					ods("CreateMutex failed");
+					return FALSE;
+				}
+
+				DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 1000L);
+				if (dwWaitResult != WAIT_OBJECT_0) {
+					ods("WaitForMutex failed");
+					return FALSE;
+				}
+
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem), L"MumbleSharedMemory");
+				if (hMapObject == NULL) {
+					ods("CreateFileMapping failed");
+					ReleaseMutex(hSharedMutex);
+					return FALSE;
+				}
+
+				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
+
+				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_WRITE, 0, 0, 0);
+				if (sm == NULL) {
+					ods("MapViewOfFile Failed");
+					ReleaseMutex(hSharedMutex);
+					return FALSE;
+				}
+				if (bInit) {
+					memset(sm, 0, sizeof(SharedMem));
+					sm->lastAppAlive = 0;
+					sm->bHooked = false;
+					sm->bDebug = false;
+					sm->bShow = true;
+					sm->bReset = false;
+					sm->fX = sm->fY = 1.0;
+					sm->bTop = false;
+					sm->bBottom = true;
+					sm->bLeft = true;
+					sm->bRight = false;
+					sm->fFontSize = 72;
+				}
+				ReleaseMutex(hSharedMutex);
+			}
+			break;
+		case DLL_PROCESS_DETACH:
+			{
+				UnmapViewOfFile(sm);
+				CloseHandle(hMapObject);
+				CloseHandle(hSharedMutex);
+				CloseHandle(hHookMutex);
+			}
+			break;
+		default:
+			break;
+	}
+	return TRUE;
 }
