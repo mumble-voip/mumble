@@ -7,6 +7,7 @@ SetCompressor /SOLID lzma
 ;Include Modern UI
 
   !include "MUI.nsh"
+  !include "Library.nsh"
 
 ;--------------------------------
 ;General
@@ -47,9 +48,12 @@ SetCompressor /SOLID lzma
   !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
 
   !insertmacro MUI_PAGE_INSTFILES
+  !insertmacro MUI_PAGE_FINISH
   
   !insertmacro MUI_UNPAGE_CONFIRM
   !insertmacro MUI_UNPAGE_INSTFILES
+  !insertmacro MUI_UNPAGE_FINISH
+
   
 ;--------------------------------
 ;Languages
@@ -70,9 +74,7 @@ Section "Mumble & Murmur" SecMumble
   File "qt.txt"
   File "..\release\mumble.exe"
   File "..\release\murmur.exe"
-  ; Because it kinda is open, but deleting it first works. Go figure.
-  Delete "$INSTDIR\mumble_ol.dll"
-  File "..\overlay\mumble_ol.dll"
+  !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\overlay\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
   SetOverwrite off
   File "..\scripts\murmur.ini"
   SetOverwrite on
@@ -161,7 +163,7 @@ Section "Uninstall"
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
-  Delete "$INSTDIR\mumble_ol.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"
   ;Delete "$INSTDIR\plugins\bf2.dll"
