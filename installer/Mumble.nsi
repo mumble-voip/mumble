@@ -101,7 +101,7 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\etc\session.conf"
 
   SetOutPath "$INSTDIR\plugins"
-  ;File /oname=bf2.dll "..\plugins\bf2.dll"
+  File /oname=bf2.dll "..\plugins\bf2.dll"
   ;File /oname=wow.dll "..\plugins\wow.dll"
 
   SetOutPath "$INSTDIR"
@@ -166,7 +166,7 @@ Section "Uninstall"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"
-  ;Delete "$INSTDIR\plugins\bf2.dll"
+  Delete "$INSTDIR\plugins\bf2.dll"
   ;Delete "$INSTDIR\plugins\wow.dll"
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
