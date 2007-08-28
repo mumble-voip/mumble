@@ -244,7 +244,6 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 }
 
 void ConnectDialog::on_qpbAdd_clicked() {
-	qWarning("adh");
 	if (bDirty) {
 		bDirty = false;
 		QSqlRecord r = toRecord();

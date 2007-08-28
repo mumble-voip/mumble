@@ -394,20 +394,60 @@ HardHook hhEndScene;
 HardHook hhReset;
 HardHook hhAddRef;
 HardHook hhRelease;
+HardHook hhPresent;
 
 HRESULT __stdcall myBeginScene(IDirect3DDevice9 * idd) {
 	hhBeginScene.restore();
 
 	DevState *ds = devMap[idd];
-	if (ds && sm.bShow && (sm.bReset || ds->bNeedPrep || ! ds->bInitialized)) {
+	if (ds && sm.bShow) {
+		ods("myBeginScene");
+	}
+	HRESULT hr=idd->BeginScene();
+	hhBeginScene.inject();
+	checkUnhook(idd);
+	return hr;
+}
+
+HRESULT __stdcall myEndScene(IDirect3DDevice9 * idd) {
+	DevState *ds = devMap[idd];
+	if (ds && sm.bShow) {
+		IDirect3DSurface9 *pTarget = NULL;
+		idd->GetRenderTarget(0, &pTarget);
+		ods("myEndScene %p",pTarget);
+		pTarget->Release();
+	}
+
+	hhEndScene.restore();
+	HRESULT hr=idd->EndScene();
+	hhEndScene.inject();
+	checkUnhook(idd);
+	return hr;
+}
+
+HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion) {
+	DevState *ds = devMap[idd];
+	if (ds && sm.bShow) {
+		IDirect3DSurface9 *pTarget = NULL;
+		IDirect3DSurface9 *pRenderTarget = NULL;
+		idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
+		idd->GetRenderTarget(0, &pRenderTarget);
+
+		ods("myPresent Back %p RenderT",pTarget,pRenderTarget);
+
+		hhBeginScene.restore();
 		hhEndScene.restore();
 
 		bool b = ds->bMyRefs;
 		ds->bMyRefs = true;
+		ds->triggerCount = ds->refCount / 4;
 
 		IDirect3DStateBlock9* pStateBlock = NULL;
 	  	idd->CreateStateBlock( D3DSBT_ALL, &pStateBlock );
 	  	pStateBlock->Capture();
+
+		if (pTarget != pRenderTarget)
+			idd->SetRenderTarget(0, pTarget);
 
 		if (sm.bReset) {
 			sm.bReset = false;
@@ -425,43 +465,25 @@ HRESULT __stdcall myBeginScene(IDirect3DDevice9 * idd) {
 			ds->bNeedPrep = false;
 		}
 
+	  	idd->BeginScene();
+		ds->cleanState();
+		ds->draw();
+		idd->EndScene();
+
 		pStateBlock->Apply();
 		pStateBlock->Release();
 
 		ds->bMyRefs = b;
 
 		hhEndScene.inject();
+		hhBeginScene.inject();
+
+		pRenderTarget->Release();
+		pTarget->Release();
 	}
-	HRESULT hr=idd->BeginScene();
-	hhBeginScene.inject();
-	checkUnhook(idd);
-	return hr;
-}
-
-HRESULT __stdcall myEndScene(IDirect3DDevice9 * idd) {
-	DevState *ds = devMap[idd];
-	if (ds && sm.bShow) {
-		bool b = ds->bMyRefs;
-		ds->bMyRefs = true;
-		ds->triggerCount = ds->refCount / 4;
-
-		IDirect3DStateBlock9* pStateBlock = NULL;
-	  	idd->CreateStateBlock( D3DSBT_ALL, &pStateBlock );
-	  	pStateBlock->Capture();
-
-		ds->cleanState();
-
-		ds->draw();
-
-		pStateBlock->Apply();
-		pStateBlock->Release();
-
-		ds->bMyRefs = b;
-	}
-
-	hhEndScene.restore();
-	HRESULT hr=idd->EndScene();
-	hhEndScene.inject();
+	hhPresent.restore();
+	HRESULT hr=idd->Present(pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion);
+	hhPresent.inject();
 	checkUnhook(idd);
 	return hr;
 }
@@ -579,6 +601,9 @@ HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE Dev
 
 	hhReset.setupInterface(idd, 16, (voidFunc) myReset);
 	hhReset.inject();
+
+	hhPresent.setupInterface(idd, 17, (voidFunc) myPresent);
+	hhPresent.inject();
 
 	checkUnhook(idd);
 

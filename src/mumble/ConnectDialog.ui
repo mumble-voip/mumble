@@ -1,6 +1,14 @@
 <ui version="4.0" >
  <class>ConnectDialog</class>
  <widget class="QDialog" name="ConnectDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>505</width>
+    <height>296</height>
+   </rect>
+  </property>
   <property name="windowTitle" >
    <string>Mumble Server Connect</string>
   </property>
@@ -216,12 +224,12 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>183</x>
-     <y>687</y>
+     <x>21</x>
+     <y>492</y>
     </hint>
     <hint type="destinationlabel" >
      <x>199</x>
-     <y>735</y>
+     <y>541</y>
     </hint>
    </hints>
   </connection>
@@ -232,12 +240,12 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>433</x>
-     <y>683</y>
+     <x>298</x>
+     <y>492</y>
     </hint>
     <hint type="destinationlabel" >
      <x>444</x>
-     <y>833</y>
+     <y>541</y>
     </hint>
    </hints>
   </connection>
@@ -253,7 +261,23 @@
     </hint>
     <hint type="destinationlabel" >
      <x>323</x>
-     <y>895</y>
+     <y>541</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qlwServers</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>ConnectDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>130</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>133</x>
+     <y>654</y>
     </hint>
    </hints>
   </connection>
