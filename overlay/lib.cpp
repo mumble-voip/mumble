@@ -36,7 +36,6 @@
 #include <ctype.h>
 #include <windows.h>
 #include <d3d9.h>
-#include <d3dx9core.h>
 #include <map>
 #include <vector>
 #include <string>
@@ -57,23 +56,31 @@ typedef IDirect3D9* (WINAPI *pDirect3DCreate9) (UINT SDKVersion) ;
 void checkUnhook(IDirect3DDevice9 *idd = NULL);
 void __cdecl ods(const char *format, ...);
 
+struct D3DTLVERTEX
+{
+	float    x, y, z, rhw; // Position
+	D3DCOLOR color;  // Vertex colour
+	float    tu, tv;  // Texture coordinates
+};
+const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+
 class DevState {
 public:
 	IDirect3DDevice9 *dev;
+	IDirect3DStateBlock9 *pSB;
+
 	LONG initRefCount;
 	LONG refCount;
 	LONG myRefCount;
-	LONG triggerCount;
 	bool bMyRefs;
 
 	LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
 
 	DevState();
 
-	ID3DXSprite*        pTextSprite;
-
-	void cleanState();
+	void createCleanState();
 	void releaseData();
+	void releaseAll();
 	void draw();
 	void postDraw();
 };
@@ -84,26 +91,30 @@ HMODULE hSelf = NULL;
 
 DevState::DevState() {
 	dev = NULL;
+	pSB = NULL;
 	bMyRefs = false;
 	refCount = 0;
 	myRefCount = 0;
-	triggerCount = 0;
-	pTextSprite = NULL;
 	for(int i = 0;i < NUM_TEXTS;i++)
 		tex[i] = NULL;
 }
 
 void DevState::releaseData() {
 	ods("Release Data");
-	if (pTextSprite)
-		pTextSprite->Release();
-	pTextSprite = NULL;
 
 	for(int i=0;i<NUM_TEXTS;i++)
 		if (tex[i]) {
 		    tex[i]->Release();
 		    tex[i] = NULL;
 	       }
+}
+
+void DevState::releaseAll() {
+	ods("Release All");
+	releaseData();
+	if (pSB)
+		pSB->Release();
+	pSB = NULL;
 }
 
 void DevState::draw() {
@@ -125,6 +136,7 @@ void DevState::draw() {
 		sm->fFontSize = 1.0;
 
 	int iHeight = vp.Height * sm->fFontSize;
+
 	if (iHeight > TEXT_HEIGHT)
 		iHeight = TEXT_HEIGHT;
 
@@ -186,18 +198,6 @@ void DevState::draw() {
 	if ((y + height + 1) > vp.Height)
 		y = vp.Height - height - 1;
 
-	D3DXMATRIX scale(
-	    s,               0.0f,            0.0f,            0.0f,
-	    0.0f,            s,               0.0f,            0.0f,
-	    0.0f,            0.0f,            s,               0.0f,
-	    0.0f,            0.0f,            0.0f,            1.0f
-	);
-
-	if (!pTextSprite)
-		D3DXCreateSprite(dev, &pTextSprite );
-
-
-	pTextSprite->Begin( D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE );
 	for(int i=0;i<idx;i++) {
 		int width = widths[i];
 
@@ -215,45 +215,78 @@ void DevState::draw() {
 		if ((x + width + 1) > vp.Width)
 			x = vp.Width - width - 1;
 
-		D3DXVECTOR3 p(x/s, (y + yofs[i])/s, 1.0);
-		ods("With scale %f this is %f %f from %f", s, p.x, p.y, sm->fFontSize);
+		D3DCOLOR color = colors[i];
 
-		pTextSprite->SetTransform(&scale);
-		pTextSprite->Draw(texs[i], NULL, NULL, &p, colors[i]);
+		float left   = (float)x;
+		float top    = (float)y;
+		float right  = left + width;
+		float bottom = top + iHeight;
+
+		const float z = 1.0f;
+		D3DTLVERTEX vertices[4] =
+		{
+			// x, y, z, color, tu, tv
+			{ left,  top,    z, 1, color, 0, 0 },
+			{ right, top,    z, 1, color, 1, 0 },
+			{ right, bottom, z, 1, color, 1, 1 },
+			{ left,  bottom, z, 1, color, 0, 1 }
+		};
+
+		dev->SetTexture(0, texs[i]);
+		dev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(D3DTLVERTEX));
 	}
-	pTextSprite->End();
 }
 
-void DevState::cleanState() {
-		dev->SetVertexShader(NULL);
-		dev->SetPixelShader(NULL);
+void DevState::createCleanState() {
+	bool b = bMyRefs;
+	bMyRefs = true;
 
-		for(int i=0;i<10;i++)
-			dev->SetTexture(i, NULL);
+	if (pSB)
+		pSB->Release();
+	pSB = NULL;
 
-		dev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-		dev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE );
-		dev->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD );
-		dev->SetRenderState(D3DRS_CLIPPING, FALSE);
-		dev->SetRenderState(D3DRS_CLIPPLANEENABLE, 0);
-		dev->SetRenderState(D3DRS_COLORVERTEX, FALSE);
-		dev->SetRenderState(D3DRS_COLORWRITEENABLE, D3DCOLORWRITEENABLE_ALPHA|D3DCOLORWRITEENABLE_BLUE|D3DCOLORWRITEENABLE_GREEN|D3DCOLORWRITEENABLE_RED );
-		dev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-		dev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO );
-		dev->SetRenderState(D3DRS_DITHERENABLE, FALSE);
-		dev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-		dev->SetRenderState(D3DRS_FOGENABLE, FALSE);
-		dev->SetRenderState(D3DRS_LIGHTING, FALSE);
-		dev->SetRenderState(D3DRS_RANGEFOGENABLE, FALSE);
-		dev->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
-		dev->SetRenderState(D3DRS_SEPARATEALPHABLENDENABLE, FALSE );
-		dev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD );
-		dev->SetRenderState(D3DRS_SPECULARENABLE, FALSE);
-		dev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE );
-		dev->SetRenderState(D3DRS_STENCILENABLE, FALSE);
-		dev->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-		dev->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
-		dev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	IDirect3DStateBlock9* pStateBlock = NULL;
+  	dev->CreateStateBlock( D3DSBT_ALL, &pStateBlock );
+  	pStateBlock->Capture();
+
+  	dev->CreateStateBlock( D3DSBT_ALL, &pSB );
+
+	D3DVIEWPORT9 vp;
+	dev->GetViewport(&vp);
+
+	dev->SetVertexShader(NULL);
+	dev->SetPixelShader(NULL);
+	dev->SetFVF(D3DFVF_TLVERTEX);
+
+	dev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	dev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD );
+	dev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 0x16
+	dev->SetRenderState(D3DRS_WRAP0, FALSE); // 0x80
+
+	dev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	dev->SetRenderState(D3DRS_SRCBLEND,  D3DBLEND_SRCALPHA);
+	dev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	dev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE );
+	dev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER );
+
+	dev->SetRenderState(D3DRS_ZENABLE, FALSE);
+	dev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	dev->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
+	dev->SetRenderState(D3DRS_COLORVERTEX, FALSE);
+
+	dev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	dev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	dev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
+	dev->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+	pSB->Capture();
+
+	pStateBlock->Apply();
+	pStateBlock->Release();
+
+	bMyRefs = b;
 }
 
 static void __cdecl ods(const char *format, ...) {
@@ -379,11 +412,12 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRe
 
 		bool b = ds->bMyRefs;
 		ds->bMyRefs = true;
-		ds->triggerCount = ds->refCount / 4;
 
 		IDirect3DStateBlock9* pStateBlock = NULL;
 	  	idd->CreateStateBlock( D3DSBT_ALL, &pStateBlock );
 	  	pStateBlock->Capture();
+
+		ds->pSB->Apply();
 
 		if (pTarget != pRenderTarget)
 			idd->SetRenderTarget(0, pTarget);
@@ -394,7 +428,6 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRe
 		}
 
 	  	idd->BeginScene();
-		ds->cleanState();
 		ds->draw();
 		idd->EndScene();
 
@@ -420,12 +453,14 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 	if (ds) {
 		bool b = ds->bMyRefs;
 		ds->bMyRefs = true;
-		ds->releaseData();
+		ds->releaseAll();
 		ds->bMyRefs = b;
 	}
 	hhReset.restore();
 	HRESULT hr=idd->Reset(param);
 	hhReset.inject();
+
+	ds->createCleanState();
 
 	checkUnhook(idd);
 
@@ -448,10 +483,6 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	return res;
 }
 
-// The font and such seems to be used through a callback or something, because
-// it generates a reference outside the blocks here. Hence the trigger
-// mechanism->
-
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
 	if (ds) {
@@ -462,24 +493,18 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 			ds->refCount--;
 		}
 
-		if (ds->triggerCount && (ds->refCount < ds->triggerCount)) {
-			ods("Trigger release");
-			ds->triggerCount = 0;
-
-			bool b = ds->bMyRefs;
-			ds->bMyRefs = true;
-			ds->releaseData();
-			ds->bMyRefs = b;
-
-			ds->refCount += ds->myRefCount;
-			ds->myRefCount = 0;
-		}
-
 		if (ds->refCount >= 0)
 			return ds->refCount + ds->initRefCount;
 
 		ods("Final release");
+
+		bool b = ds->bMyRefs;
+		ds->bMyRefs = true;
+		ds->releaseAll();
+		ds->bMyRefs = b;
+
 		devMap.erase(idd);
+		delete ds;
 	}
 	ods("Chaining Release");
 	hhRelease.restore();
@@ -490,6 +515,8 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 
 static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	ods("Chaining CreateDevice");
+
+//	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
 
 	hhCreateDevice.restore();
 	HRESULT hr=id3d->CreateDevice(Adapter,DeviceType,hFocusWindow,BehaviorFlags,pPresentationParameters,ppReturnedDeviceInterface);
@@ -519,6 +546,8 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 
 	hhPresent.setupInterface(idd, 17, (voidFunc) myPresent);
 	hhPresent.inject();
+
+	ds->createCleanState();
 
 	checkUnhook(idd);
 
@@ -632,7 +661,7 @@ static void checkUnhook(IDirect3DDevice9 *idd) {
 		if (ds) {
 			bool b = ds->bMyRefs;
 			ds->bMyRefs = true;
-			ds->releaseData();
+			ds->releaseAll();
 			ds->bMyRefs = b;
 		} else {
 			ods("Terminating with leakage.");
@@ -650,7 +679,6 @@ static void checkUnhook(IDirect3DDevice9 *idd) {
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
-	ods("DllMain Reason %d", fdwReason);
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
 			{
