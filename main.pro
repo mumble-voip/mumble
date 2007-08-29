@@ -5,7 +5,7 @@ SUBDIRS += speexbuild
 SUBDIRS += src/mumble src/murmur
 
 win32 {
-  SUBDIRS += plugins
+  SUBDIRS += plugins overlay
 }
 
 unix {

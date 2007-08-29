@@ -28,13 +28,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define UNICODE
 #define _UNICODE
 #define  _WIN32_WINNT 0x0501
 #include <stdio.h>
 #include <stdarg.h>
 #include <ctype.h>
 #include <windows.h>
+#include <math.h>
 #include <d3d9.h>
 #include <map>
 #include <vector>
@@ -53,8 +53,8 @@ static bool bChaining = false;
 
 typedef IDirect3D9* (WINAPI *pDirect3DCreate9) (UINT SDKVersion) ;
 
-void checkUnhook(IDirect3DDevice9 *idd = NULL);
-void __cdecl ods(const char *format, ...);
+static void checkUnhook(IDirect3DDevice9 *idd = NULL);
+static void __cdecl ods(const char *format, ...);
 
 struct D3DTLVERTEX
 {
@@ -128,14 +128,14 @@ void DevState::draw() {
 	vector<int> yofs;
 	vector<DWORD> colors;
 
-	int y = 0;
+	unsigned int y = 0;
 
 	if (sm->fFontSize < 0.01)
 		sm->fFontSize = 0.01;
 	else if (sm->fFontSize > 1.0)
 		sm->fFontSize = 1.0;
 
-	int iHeight = vp.Height * sm->fFontSize;
+	int iHeight = lround(vp.Height * sm->fFontSize);
 
 	if (iHeight > TEXT_HEIGHT)
 		iHeight = TEXT_HEIGHT;
@@ -157,17 +157,17 @@ void DevState::draw() {
 					dev->CreateTexture(sm->texts[i].width, TEXT_HEIGHT, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex[i], NULL);
 
 					D3DLOCKED_RECT lr;
-					DWORD res=tex[i]->LockRect(0, &lr, NULL, D3DLOCK_DISCARD);
+					tex[i]->LockRect(0, &lr, NULL, D3DLOCK_DISCARD);
 
 					for(int r=0;r<TEXT_HEIGHT;r++) {
-					    unsigned char *dptr = (unsigned char *) lr.pBits + r * lr.Pitch;
+					    unsigned char *dptr = reinterpret_cast<unsigned char *>(lr.pBits) + r * lr.Pitch;
 						memcpy(dptr, sm->texts[i].texture + r * TEXT_WIDTH * 4, sm->texts[i].width * 4);
 					}
 
 					tex[i]->UnlockRect(0);
 					sm->texts[i].bUpdated = false;
 				}
-				int w = sm->texts[i].width * s;
+				int w = lround(sm->texts[i].width * s);
 				texs.push_back(tex[i]);
 				colors.push_back(sm->texts[i].color);
 				widths.push_back(w);
@@ -183,7 +183,7 @@ void DevState::draw() {
 		return;
 
 	int height = y;
-	y = vp.Height * sm->fY;
+	y = lround(vp.Height * sm->fY);
 
 	if (sm->bTop) {
 		y -= height;
@@ -201,7 +201,7 @@ void DevState::draw() {
 	for(int i=0;i<idx;i++) {
 		int width = widths[i];
 
-		int x = vp.Width * sm->fX;
+		int x = lround(vp.Width * sm->fX);
 
 		if (sm->bLeft) {
 			x -= width;
@@ -217,8 +217,8 @@ void DevState::draw() {
 
 		D3DCOLOR color = colors[i];
 
-		float left   = (float)x;
-		float top    = (float)y;
+		float left   = x;
+		float top    = y;
 		float right  = left + width;
 		float bottom = top + iHeight;
 
@@ -341,13 +341,13 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 	if (baseptr)
 		return;
 
-	unsigned char *fptr = (unsigned char *) func;
-	unsigned char *nptr = (unsigned char *) replacement;
+	unsigned char *fptr = reinterpret_cast<unsigned char *>(func);
+	unsigned char *nptr = reinterpret_cast<unsigned char *>(replacement);
 
 	ods("Asked to replace %p with %p", func, replacement);
 
 	int offs = nptr - fptr - 5;
-	int *iptr = (int *) &replace[1];
+	int *iptr = reinterpret_cast<int *>(&replace[1]);
 	*iptr = offs;
 	replace[0] = 0xe9;
 
@@ -361,9 +361,9 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 
 void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacement) {
 	ods("Replacing %p function #%ld", unkn, funcoffset);
-	void **ptr = (void **) unkn;
-	ptr = (void **) ptr[0];
-	setup((voidFunc) ptr[funcoffset], replacement);
+	void **ptr = reinterpret_cast<void **>(unkn);
+	ptr = reinterpret_cast<void **>(ptr[0]);
+	setup(reinterpret_cast<voidFunc>(ptr[funcoffset]), replacement);
 }
 
 void HardHook::inject() {
@@ -535,16 +535,16 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 
 	devMap[idd] = ds;
 
-	hhAddRef.setupInterface(idd, 1, (voidFunc) myAddRef);
+	hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
 	hhAddRef.inject();
 
-	hhRelease.setupInterface(idd, 2, (voidFunc) myRelease);
+	hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
 	hhRelease.inject();
 
-	hhReset.setupInterface(idd, 16, (voidFunc) myReset);
+	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
 	hhReset.inject();
 
-	hhPresent.setupInterface(idd, 17, (voidFunc) myPresent);
+	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
 	hhPresent.inject();
 
 	ds->createCleanState();
@@ -558,9 +558,9 @@ static void HookCreate(IDirect3D9 *pD3D) {
 	ods("Injecting CreateDevice");
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (wchar_t *) &HookCreate, &hSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<wchar_t *>(&HookCreate), &hSelf);
 
-	hhCreateDevice.setupInterface(pD3D, 16, (voidFunc) myCreateDevice);
+	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
 	hhCreateDevice.inject();
 }
 
@@ -596,7 +596,7 @@ static void checkHook() {
 }
 
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	CWPSTRUCT *s = (CWPSTRUCT *) lParam;
+	CWPSTRUCT *s = reinterpret_cast<CWPSTRUCT *>(lParam);
 	if (s) {
 		switch (s->message) {
 			case WM_CREATE:
@@ -678,7 +678,7 @@ static void checkUnhook(IDirect3DDevice9 *idd) {
 	}
 }
 
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+extern "C" BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
 			{

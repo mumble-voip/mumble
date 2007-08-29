@@ -187,11 +187,7 @@ Overlay::Overlay() : QObject() {
 	qlOverlay = new QLibrary(this);
 
 #ifdef Q_OS_WIN
-#ifndef QT_NO_DEBUG
-	QString path=QLatin1String("../overlay/mumble_ol.dll");
-#else
-	QString path=QString("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
-#endif
+	QString path=QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
 
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
