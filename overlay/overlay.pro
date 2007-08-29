@@ -3,10 +3,11 @@ CONFIG -= qt
 CONFIG += dll shared debug_and_release warn_on precompile_header
 VERSION =
 TARGET = mumble_ol
-SOURCES = lib.cpp
+SOURCES = lib.cpp d3d9.cpp dsound.cpp openal.cpp
 
-QMAKE_CFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
-QMAKE_CXXFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+LIBS += -ldxguid -luuid -lole32
+
+INCLUDEPATH	+= /dev/dxsdk/Include "/Program Files/OpenAL 1.1 SDK/Include"
 
 CONFIG(debug, debug|release) {
   DESTDIR       = ../debug

@@ -55,6 +55,11 @@ struct SharedMem {
 	bool bTop, bBottom, bLeft, bRight;
 	float fFontSize;
 
+	unsigned int uiAudioTick;
+	float fPos[3];
+	float fFront[3];
+	float fTop[3];
+
 	struct TextEntry texts[NUM_TEXTS];
 };
 

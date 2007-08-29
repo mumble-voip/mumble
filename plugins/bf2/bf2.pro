@@ -1,5 +1,6 @@
 TEMPLATE	= lib
-CONFIG		= gui release warn_on shared
+CONFIG		= debug_and_release dll release warn_on shared
+CONFIG		-= qt gui
 TARGET		= ../bf2
 SOURCES		= bf2.cpp
 
