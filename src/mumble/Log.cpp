@@ -48,76 +48,30 @@ static ConfigWidget *LogConfigDialogNew(Settings &st) {
 static ConfigRegistrar registrar(40, LogConfigDialogNew);
 
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
-	QGroupBox *qgbMessages = new QGroupBox(tr("Messages"));
-	QLabel *lab;
+	setupUi(this);
 
-	QGridLayout *l=new QGridLayout();
+	qtwMessages->header()->setResizeMode(0, QHeaderView::Stretch);
+	qtwMessages->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setResizeMode(2, QHeaderView::ResizeToContents);
 
-	lab=new QLabel(tr("Console"));
-	l->addWidget(lab, 0, 1);
-	lab=new QLabel(tr("TTS"));
-	l->addWidget(lab, 0, 2);
+	QTreeWidgetItem *twi;
+	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
+		Log::MsgType t = static_cast<Log::MsgType>(i);
+		const QString messageName = g.l->msgName(t);
 
-	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
-		QCheckBox *qcb;
-		Log::MsgType t=static_cast<Log::MsgType>(i);
-		QString name = g.l->msgName(t);
-
-		lab=new QLabel(name);
-		l->addWidget(lab, i+1, 0);
-
-		qcb=new QCheckBox();
-		qcb->setToolTip(tr("Enable console for %1").arg(name));
-		qlConsole << qcb;
-		l->addWidget(qcb, i+1, 1);
-
-		qcb=new QCheckBox();
-		qcb->setToolTip(tr("Enable Text-To-Speech for %1").arg(name));
-		qlTTS << qcb;
-		l->addWidget(qcb, i+1, 2);
+		twi = new QTreeWidgetItem(qtwMessages);
+		twi->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
+		twi->setData(0, Qt::UserRole, i);
+		twi->setText(0, messageName);
+		twi->setCheckState(1, Qt::Unchecked);
+		twi->setCheckState(2, Qt::Unchecked);
+		twi->setToolTip(1, tr("Enable console for %1").arg(messageName));
+		twi->setToolTip(2, tr("Enable Text-To-Speech for %1").arg(messageName));
 	}
-
-	qgbMessages->setLayout(l);
-
-	QGroupBox *qgbTTS = new QGroupBox(tr("Text To Speech"));
-	l = new QGridLayout();
-
-	lab=new QLabel(tr("Volume"));
-	l->addWidget(lab,0,0);
-	qsVolume = new QSlider(Qt::Horizontal);
-	qsVolume->setRange(0, 100);
-	qsVolume->setSingleStep(5);
-	qsVolume->setPageStep(20);
-	qsVolume->setObjectName(QLatin1String("Volume"));
-	qsVolume->setToolTip(tr("Volume of Text-To-Speech Engine"));
-	qsVolume->setWhatsThis(tr("<b>This is the volume used for the speech synthesis.</b>"));
-	l->addWidget(qsVolume,0,1);
-
-	lab=new QLabel(tr("Length threshold"));
-	l->addWidget(lab,1,0);
-	qsbThreshold = new QSpinBox();
-	qsbThreshold->setRange(0, 5000);
-	qsbThreshold->setSingleStep(10);
-	qsbThreshold->setObjectName(QLatin1String("Threshold"));
-	qsbThreshold->setToolTip(tr("Message length threshold for Text-To-Speech Engine"));
-	qsbThreshold->setWhatsThis(tr("<b>This is the length threshold used for the Text-To-Speech Engine.</b><br />"
-	                              "Messages longer than this limit will not be read aloud in their full length."));
-	l->addWidget(qsbThreshold,1,1);
-
-	qgbTTS->setLayout(l);
-
-
-	QVBoxLayout *v = new QVBoxLayout;
-	v->addWidget(qgbMessages);
-	v->addWidget(qgbTTS);
-	v->addStretch(1);
-	setLayout(v);
-
-	QMetaObject::connectSlotsByName(this);
 }
 
 QString LogConfig::title() const {
-	return tr("Messages");
+	return windowTitle();
 }
 
 QIcon LogConfig::icon() const {
@@ -125,10 +79,13 @@ QIcon LogConfig::icon() const {
 }
 
 void LogConfig::load(const Settings &r) {
-	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
-		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(i));
-		qlConsole[i]->setCheckState((ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
-		qlTTS[i]->setCheckState((ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
+	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+	foreach(QTreeWidgetItem *i, qlItems) {
+		Log::MsgType mt = static_cast<Log::MsgType>(i->data(0, Qt::UserRole).toInt());
+		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(mt));
+
+		i->setCheckState(1, (ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
+		i->setCheckState(2, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
 	}
 
 	qsVolume->setValue(r.iTTSVolume);
@@ -136,14 +93,18 @@ void LogConfig::load(const Settings &r) {
 }
 
 void LogConfig::save() const {
-	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i) {
+	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+	foreach(QTreeWidgetItem *i, qlItems) {
+		Log::MsgType mt = static_cast<Log::MsgType>(i->data(0, Qt::UserRole).toInt());
+
 		int v = 0;
-		if (qlConsole[i]->checkState() == Qt::Checked)
+		if (i->checkState(1) == Qt::Checked)
 			v |= Settings::LogConsole;
-		if (qlTTS[i]->checkState() == Qt::Checked)
+		if (i->checkState(2) == Qt::Checked)
 			v |= Settings::LogTTS;
-		s.qmMessages[i] = v;
+		s.qmMessages[mt] = v;
 	}
+
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
 }

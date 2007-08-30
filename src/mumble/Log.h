@@ -40,16 +40,12 @@
 #include <QCheckBox>
 
 #include "ConfigDialog.h"
+#include "ui_Log.h"
 
 class TextToSpeech;
 
-class LogConfig : public ConfigWidget {
+class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		Q_OBJECT
-	protected:
-		QList<QCheckBox *> qlConsole;
-		QList<QCheckBox *> qlTTS;
-		QSlider *qsVolume;
-		QSpinBox *qsbThreshold;
 	public:
 		LogConfig(Settings &st);
 		virtual QString title() const;
