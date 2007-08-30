@@ -674,10 +674,8 @@ void MainWindow::on_qaConfigDialog_triggered() {
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {
-#ifdef Q_OS_WIN
 	AudioWizard aw;
 	aw.exec();
-#endif
 }
 
 void MainWindow::on_qaHelpWhatsThis_triggered() {
