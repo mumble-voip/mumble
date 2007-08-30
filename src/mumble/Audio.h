@@ -31,7 +31,6 @@
 #ifndef _AUDIO_H
 #define _AUDIO_H
 
-#include "ConfigDialog.h"
 #include "Player.h"
 
 #define SAMPLE_RATE 16000

@@ -1,28 +1,45 @@
 <ui version="4.0" >
  <class>ConfigDialog</class>
  <widget class="QDialog" name="ConfigDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>758</width>
+    <height>596</height>
+   </rect>
+  </property>
   <property name="windowTitle" >
    <string>Mumble Configuration</string>
   </property>
-  <property name="sizeGripEnabled" >
-   <bool>true</bool>
-  </property>
-  <layout class="QHBoxLayout" >
+  <layout class="QVBoxLayout" >
    <item>
     <layout class="QHBoxLayout" >
      <item>
       <widget class="QListWidget" name="qlwIcons" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Expanding" hsizetype="Maximum" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>128</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="maximumSize" >
         <size>
          <width>128</width>
          <height>16777215</height>
         </size>
        </property>
-       <property name="movement" >
-        <enum>QListView::Static</enum>
-       </property>
-       <property name="spacing" >
-        <number>12</number>
+       <property name="iconSize" >
+        <size>
+         <width>96</width>
+         <height>84</height>
+        </size>
        </property>
        <property name="viewMode" >
         <enum>QListView::IconMode</enum>
@@ -32,9 +49,7 @@
      <item>
       <layout class="QVBoxLayout" >
        <item>
-        <widget class="QStackedWidget" name="qswPages" >
-         <widget class="QWidget" name="page" />
-        </widget>
+        <widget class="QStackedWidget" name="qswPages" />
        </item>
        <item>
         <spacer>
@@ -44,58 +59,87 @@
          <property name="sizeHint" >
           <size>
            <width>20</width>
-           <height>8</height>
+           <height>0</height>
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="QDialogButtonBox" name="buttonBox" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="standardButtons" >
-          <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok|QDialogButtonBox::Reset|QDialogButtonBox::RestoreDefaults</set>
-         </property>
-        </widget>
        </item>
       </layout>
      </item>
     </layout>
    </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QDialogButtonBox" name="pageButtonBox" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons" >
+        <set>QDialogButtonBox::NoButton|QDialogButtonBox::Reset|QDialogButtonBox::RestoreDefaults</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="dialogButtonBox" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons" >
+        <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="mumble.qrc" />
+ </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>dialogButtonBox</sender>
    <signal>accepted()</signal>
    <receiver>ConfigDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>493</x>
-     <y>190</y>
+     <x>167</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>157</x>
-     <y>274</y>
+     <x>191</x>
+     <y>319</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>dialogButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>ConfigDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>561</x>
-     <y>196</y>
+     <x>260</x>
+     <y>356</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>286</x>
-     <y>274</y>
+     <x>284</x>
+     <y>319</y>
     </hint>
    </hints>
   </connection>

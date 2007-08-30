@@ -5,32 +5,38 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>695</height>
+    <width>608</width>
+    <height>632</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <item>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" colspan="2" >
     <widget class="QGroupBox" name="groupBox" >
      <property name="title" >
       <string>Interfaces</string>
      </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
+     <layout class="QHBoxLayout" >
+      <item>
        <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>Input</string>
+         <string>&amp;Input</string>
         </property>
         <property name="buddy" >
          <cstring>qcbInput</cstring>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
+      <item>
        <widget class="QComboBox" name="qcbInput" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip" >
          <string>Input method for audio</string>
         </property>
@@ -39,18 +45,40 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Maximum</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>24</width>
+          <height>16</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>Output</string>
+         <string>&amp;Output</string>
         </property>
         <property name="buddy" >
          <cstring>qcbOutput</cstring>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
+      <item>
        <widget class="QComboBox" name="qcbOutput" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip" >
          <string>Output method for audio</string>
         </property>
@@ -62,7 +90,7 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0" colspan="2" >
     <widget class="QGroupBox" name="groupBox_2" >
      <property name="title" >
       <string>Transmission</string>
@@ -71,7 +99,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="label_3" >
         <property name="text" >
-         <string>Transmit</string>
+         <string>&amp;Transmit</string>
         </property>
         <property name="buddy" >
          <cstring>qcbTransmit</cstring>
@@ -91,7 +119,7 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="label_4" >
         <property name="text" >
-         <string>Voice Hold</string>
+         <string>Voice &amp;Hold</string>
         </property>
         <property name="buddy" >
          <cstring>qsTransmitHold</cstring>
@@ -241,7 +269,7 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="2" column="0" >
     <widget class="QGroupBox" name="groupBox_3" >
      <property name="title" >
       <string>Compression</string>
@@ -250,7 +278,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="label_9" >
         <property name="text" >
-         <string>Quality</string>
+         <string>&amp;Quality</string>
         </property>
         <property name="buddy" >
          <cstring>qsQuality</cstring>
@@ -295,7 +323,7 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="label_10" >
         <property name="text" >
-         <string>Complexity</string>
+         <string>&amp;Complexity</string>
         </property>
         <property name="buddy" >
          <cstring>qsComplexity</cstring>
@@ -340,7 +368,7 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="2" column="1" >
     <widget class="QGroupBox" name="groupBox_4" >
      <property name="title" >
       <string>Audio Processing</string>
@@ -439,7 +467,7 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="3" column="0" colspan="2" >
     <widget class="QGroupBox" name="groupBox_5" >
      <property name="title" >
       <string>Jitter Buffer</string>
@@ -448,7 +476,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="label_17" >
         <property name="text" >
-         <string>Default Jitter Buffer</string>
+         <string>Default &amp;Jitter Buffer</string>
         </property>
         <property name="buddy" >
          <cstring>qsJitter</cstring>
@@ -493,7 +521,7 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="4" column="0" colspan="2" >
     <widget class="QGroupBox" name="groupBox_6" >
      <property name="title" >
       <string>Loopback Test</string>
@@ -586,7 +614,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="label_23" >
         <property name="text" >
-         <string>Loopback</string>
+         <string>&amp;Loopback</string>
         </property>
         <property name="buddy" >
          <cstring>qcbLoopback</cstring>
@@ -606,21 +634,39 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="5" column="1" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" >
       <size>
-       <width>0</width>
-       <height>0</height>
+       <width>16</width>
+       <height>1</height>
       </size>
      </property>
     </spacer>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>qcbInput</tabstop>
+  <tabstop>qcbOutput</tabstop>
+  <tabstop>qcbTransmit</tabstop>
+  <tabstop>qsTransmitHold</tabstop>
+  <tabstop>qsFrames</tabstop>
+  <tabstop>qcbPushClick</tabstop>
+  <tabstop>qcbTCP</tabstop>
+  <tabstop>qcbReconnect</tabstop>
+  <tabstop>qsQuality</tabstop>
+  <tabstop>qsComplexity</tabstop>
+  <tabstop>qsNoise</tabstop>
+  <tabstop>qsAmp</tabstop>
+  <tabstop>qsJitter</tabstop>
+  <tabstop>qcbLoopback</tabstop>
+  <tabstop>qsPacketDelay</tabstop>
+  <tabstop>qsPacketLoss</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

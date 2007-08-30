@@ -39,7 +39,7 @@ class ConfigWidget : public QWidget {
 	public:
 		Settings &s;
 		ConfigWidget(Settings &st);
-		virtual QString title() const;
+		virtual QString title() const = 0;
 		virtual QIcon icon() const;
 	public slots:
 		virtual void accept() const;
@@ -67,7 +67,8 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		ConfigDialog(QWidget *p = NULL);
 	public slots:
 		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-		void on_buttonBox_clicked(QAbstractButton *);
+		void on_pageButtonBox_clicked(QAbstractButton *);
+		void on_dialogButtonBox_clicked(QAbstractButton *);
 		void apply();
 		void accept();
 };
