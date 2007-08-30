@@ -41,8 +41,8 @@
 #endif
 
 static GlobalShortcutX *gsx = NULL;
-static ConfigWidget *GlobalShortcutXConfigDialogNew() {
-	return new GlobalShortcutXConfig();
+static ConfigWidget *GlobalShortcutXConfigDialogNew(Settings &st) {
+	return new GlobalShortcutXConfig(st);
 }
 
 static ConfigRegistrar registrar(55, GlobalShortcutXConfigDialogNew);
@@ -122,7 +122,7 @@ void XInputKeyWidget::displayKeys() {
 	setText(sl.join(QLatin1String(" ")));
 }
 
-GlobalShortcutXConfig::GlobalShortcutXConfig(QWidget *p) : ConfigWidget(p) {
+GlobalShortcutXConfig::GlobalShortcutXConfig(Settings &st) : ConfigWidget(st) {
 	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
 	QLabel *lab;
 
@@ -169,20 +169,28 @@ QIcon GlobalShortcutXConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_shortcuts.png"));
 }
 
-void GlobalShortcutXConfig::accept() {
+void GlobalShortcutXConfig::save() const {
+	Settings::ShortcutMap m;
+	//TODO
+/*
 	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
 		XInputKeyWidget *dikw = qhKeys[gs];
 		if (dikw->bModified) {
 			QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
-			g.qs->setValue(base + QLatin1String("num"), dikw->qlButtons.count());
+			s.qs->setValue(base + QLatin1String("num"), dikw->qlButtons.count());
 			int i=0;
 			foreach(int bt, dikw->qlButtons) {
-				g.qs->setValue(base + QString::fromLatin1("%1_Key").arg(i), bt);
+				s.qs->setValue(base + QString::fromLatin1("%1_Key").arg(i), bt);
 				i++;
 			}
 		}
 	}
-	gsx->bNeedRemap = true;
+	gsx->bNeedRemap = true;*/
+}
+
+
+void GlobalShortcutXConfig::load(const Settings &r) {
+	//TODO
 }
 
 GlobalShortcutX::GlobalShortcutX() {

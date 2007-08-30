@@ -112,8 +112,8 @@ void ALSAAudioOutputRegistrar::setDeviceChoice(const QVariant &choice) {
 	g.s.qsALSAOutput = choice.toString();
 }
 
-static ConfigWidget *ALSAConfigDialogNew() {
-	return new ALSAConfig();
+static ConfigWidget *ALSAConfigDialogNew(Settings &st) {
+	return new ALSAConfig(st);
 }
 
 static ConfigRegistrar registrar(20, ALSAConfigDialogNew);
@@ -177,7 +177,7 @@ ALSAEnumerator::ALSAEnumerator() {
 	}
 }
 
-ALSAConfig::ALSAConfig(QWidget *p) : ConfigWidget(p) {
+ALSAConfig::ALSAConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
 	QList<QString> qlOutputDevs = cards.qhOutput.keys();
@@ -228,10 +228,28 @@ QIcon ALSAConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_dsound.png"));
 }
 
-void ALSAConfig::accept() {
+void ALSAConfig::save() const {
 	s.iDXOutputDelay = qsOutputDelay->value();
 	s.qsALSAInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
 	s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
+}
+
+void ALSAConfig::load(const Settings &r) {
+	for(int i=0;i<qcbInputDevice->count();i++) {
+		if (qcbInputDevice->itemData(i).toString() == r.qsALSAInput) {
+			qcbInputDevice->setCurrentIndex(i);
+			break;
+		}
+	}
+
+	for(int i=0;i<qcbOutputDevice->count();i++) {
+		if (qcbOutputDevice->itemData(i).toString() == r.qsALSAOutput) {
+			qcbOutputDevice->setCurrentIndex(i);
+			break;
+		}
+	}
+
+	qsOutputDelay->setValue(r.iDXOutputDelay);
 }
 
 void ALSAConfig::on_qsOutputDelay_valueChanged(int v) {

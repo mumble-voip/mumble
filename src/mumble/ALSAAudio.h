@@ -41,17 +41,13 @@ class ALSAAudioInput;
 
 class ALSAConfig : public ConfigWidget, public Ui::ALSAConfig {
 		Q_OBJECT
-	protected:
-		QComboBox *qcbInputDevice;
-		QComboBox *qcbOutputDevice;
-		QSlider *qsOutputDelay;
-		QLabel *qlOutputDelay;
 	public:
-		ALSAConfig(QWidget *p = NULL);
+		ALSAConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void save() const;
+		void load(const Settings &r);
 		void on_qsOutputDelay_valueChanged(int v);
 };
 

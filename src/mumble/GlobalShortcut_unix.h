@@ -61,11 +61,12 @@ class GlobalShortcutXConfig : public ConfigWidget {
 	protected:
 		QHash<GlobalShortcut *,XInputKeyWidget *> qhKeys;
 	public:
-		GlobalShortcutXConfig(QWidget *p = NULL);
+		GlobalShortcutXConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept();
+		void save() const;
+		void load(const Settings &r);
 };
 
 #define NUM_BUTTONS 0x2ff
