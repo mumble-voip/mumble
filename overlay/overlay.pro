@@ -3,7 +3,7 @@ CONFIG -= qt
 CONFIG += dll shared debug_and_release warn_on precompile_header
 VERSION =
 TARGET = mumble_ol
-SOURCES = lib.cpp d3d9.cpp dsound.cpp openal.cpp
+SOURCES = lib.cpp d3d9.cpp dsound.cpp openal.cpp opengl.cpp
 
 LIBS += -ldxguid -luuid -lole32
 

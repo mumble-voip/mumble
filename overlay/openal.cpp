@@ -172,8 +172,6 @@ void checkOpenALHook() {
 	bChaining = true;
 
 	HMODULE hAL = GetModuleHandle(L"OpenAL32.DLL");
-	if (hAL == NULL)
-		hAL = GetModuleHandle(L"BF2OpenAL.dll");
 
 	if (hAL != NULL) {
 		if (! bHooked) {

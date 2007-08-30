@@ -270,7 +270,6 @@ static HardHook hhCreateDevice;
 static HardHook hhReset;
 static HardHook hhAddRef;
 static HardHook hhRelease;
-static HardHook hhPresent;
 static HardHook hhSwapPresent;
 
 static void doPresent(IDirect3DDevice9 *idd) {
@@ -328,16 +327,6 @@ static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pS
 	hhSwapPresent.restore();
 	HRESULT hr = ids->Present(pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion,dwFlags);
 	hhSwapPresent.inject();
-	return hr;
-}
-
-static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion) {
-	ods("D3D9: Present");
-//	doPresent(idd);
-
-	hhPresent.restore();
-	HRESULT hr=idd->Present(pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion);
-	hhPresent.inject();
 	return hr;
 }
 
@@ -435,9 +424,6 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 
 	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
 	hhReset.inject();
-
-	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
-	hhPresent.inject();
 
 	IDirect3DSwapChain9 *pSwap = NULL;
 	idd->GetSwapChain(0, &pSwap);

@@ -144,8 +144,9 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 			case WM_GETICON:		// Worked for BF2
 			case WM_NCCREATE:		// Lots of games
 				checkD3D9Hook();
+				checkOpenGLHook();
+				checkOpenALHook();
 				// checkDSHook(s->hwnd);
-				// checkOpenALHook();
 				break;
 			default:
 				break;
