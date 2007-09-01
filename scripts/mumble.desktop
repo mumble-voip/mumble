@@ -1,11 +1,10 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Mumble
 GenericName=Voice Chat
 Comment=A low-latency, high quality voice chat program for gaming
 Exec=mumble
-Icon=/usr/share/pixmaps/mumble.png.1
+Icon=mumble
 Terminal=false
 Type=Application
 StartupNotify=false
-Categories=Network;Chat;Qt
+Categories=Network;Chat;Qt;

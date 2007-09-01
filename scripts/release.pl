@@ -65,7 +65,7 @@ while(<F>) {
 }
 close(F);
 
-foreach my $dir ('debian','speex','speex/include/speex','speex/libspeex') {
+foreach my $dir ('speex','speex/include/speex','speex/libspeex') {
   opendir(D, $dir) or croak "Could not open $dir";
   foreach my $f (grep(! /^\./,readdir(D))) {
     next if ($f =~ /\~$/);
