@@ -195,7 +195,7 @@ void DevState::draw() {
 		D3DCOLOR color = colors[i];
 
 		float left   = x;
-		float top    = y;
+		float top    = y + yofs[i];
 		float right  = left + width;
 		float bottom = top + iHeight;
 

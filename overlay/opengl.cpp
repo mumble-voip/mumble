@@ -119,6 +119,16 @@ Context::Context(HDC hdc) {
 
 	oglBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	oglColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+
+	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
+	if (dwWaitResult != WAIT_OBJECT_0)
+		return;
+
+	for (int i = 0; i < NUM_TEXTS; i++) {
+		sm->texts[i].bUpdated = true;
+	}
+
+	ReleaseMutex(hSharedMutex);
 }
 
 void Context::draw(HDC hdc) {

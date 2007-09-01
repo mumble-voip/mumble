@@ -105,7 +105,7 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	stop = Bp + 0x40;
 	if ((stop < start) || (stop-start >512))
 		stop = start + 512;
-	for (Sp=stop;Sp>=start;Sp-=sizeof(DWORD)) {
+	for (Sp=stop;Sp>=start;Sp-=(sizeof(DWORD)*4)) {
 		DWORD val[4] = {0,0,0,0};
 		DWORD nbytes = sizeof(DWORD)*4;
 		if (ReadProcessMemory(GetCurrentProcess(), reinterpret_cast<const void *>(Sp), &val[0],sizeof(DWORD)*4, &nbytes))
