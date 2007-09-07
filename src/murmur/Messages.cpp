@@ -78,6 +78,8 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 		nameok = false;
 	if (nameok && msg->qsUsername[0] == '#')
 		nameok = false;
+	if (nameok && msg->qsUsername.length() > 512)
+		nameok = false;
 
 	// Fetch ID and stored username.
 	// Since this may call DBus, which may recall our dbus messages, this function needs
