@@ -15,6 +15,7 @@ class TestPacketDataStream : public QObject {
 		void space();
 		void floating();
 		void floating_data();
+		void undersize();
 };
 
 void TestPacketDataStream::floating_data() {
@@ -39,6 +40,24 @@ void TestPacketDataStream::floating() {
 	QCOMPARE(value, d);
 	QVERIFY(in.isValid());
 	QVERIFY(in.left() == 0);
+}
+
+void TestPacketDataStream::undersize() {
+	QByteArray qba(32, 'Z');
+	char buff[256];
+	
+	for(unsigned int i=0;i<32;i++) {
+		PacketDataStream out(buff, i);
+		out << qba;
+		QCOMPARE(33-i, out.undersize());
+		QVERIFY(! out.isValid());
+		QVERIFY(out.left() == 0);
+	}
+	PacketDataStream out(buff, 33);
+	out << qba;
+	QCOMPARE(out.undersize(), 0U);
+	QVERIFY(out.isValid());
+	QVERIFY(out.left() == 0);
 }
 
 void TestPacketDataStream::integer_data() {

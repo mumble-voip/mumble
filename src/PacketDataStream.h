@@ -40,6 +40,7 @@ class PacketDataStream {
 		unsigned char *data;
 		quint32 maxsize;
 		quint32 offset;
+		quint32 overshoot;
 		bool ok;
 	public:
 		quint32 size() const {
@@ -57,12 +58,18 @@ class PacketDataStream {
 		quint32 left() const {
 			return maxsize - offset;
 		}
+		
+		quint32 undersize() const {
+			return overshoot;
+		}
 
 		void append(const quint32 v) {
 			if (offset < maxsize)
 				data[offset++] = v;
-			else
+			else {
 				ok = false;
+				overshoot++;
+			}
 		};
 
 		void append(const char *d, quint32 len) {
@@ -70,6 +77,10 @@ class PacketDataStream {
 				memcpy(& data[offset], d, len);
 				offset += len;
 			} else {
+				int l = left();
+				memset(& data[offset], 0, l);
+				offset += l;
+				overshoot += len - l;
 				ok = false;
 			}
 		}
@@ -121,6 +132,7 @@ class PacketDataStream {
 		void setup(unsigned char *d, int msize) {
 			data = d;
 			offset = 0;
+			overshoot = 0;
 			maxsize = msize;
 			ok = true;
 		}

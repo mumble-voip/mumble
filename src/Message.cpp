@@ -39,13 +39,24 @@ Message::~Message() {
 }
 
 void Message::messageToNetwork(QByteArray &qbaOut) const {
-	char buffer[65535];
-	PacketDataStream qdsOut(buffer, 65535);
+	char buffer[8192];
+	PacketDataStream qdsOut(buffer, 8192);
 	qdsOut << messageType();
 	qdsOut << uiSession;
 	saveStream(qdsOut);
-
-	qbaOut = QByteArray(buffer, qdsOut.size());
+	
+	if (qdsOut.undersize() == 0) {
+		qbaOut = QByteArray(buffer, qdsOut.size());
+		return;
+	}
+	
+	unsigned int size = 8192 + qdsOut.undersize();
+	char b[size];
+	PacketDataStream pdsResized(b, size);
+	pdsResized << messageType();
+	pdsResized << uiSession;
+	saveStream(pdsResized);
+	qbaOut = QByteArray(b, pdsResized.size());
 }
 
 void Message::messageToNetwork(PacketDataStream &pds) const {
