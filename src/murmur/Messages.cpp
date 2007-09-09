@@ -71,7 +71,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	MessageServerReject msr;
 	bool ok = false;
 
-	QRegExp re("[\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+");
+	QRegExp re("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+");
 
 	bool nameok = re.exactMatch(msg->qsUsername);
 	if (nameok && msg->qsUsername[0] == '@')
@@ -447,7 +447,7 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 		return;
 	}
 
-	QRegExp re("[ \\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
+	QRegExp re("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
 
 	if (! re.exactMatch(msg->qsName)) {
 		PERM_DENIED_TEXT("Illegal channel name");
@@ -500,6 +500,19 @@ void Server::msgChannelRename(Connection *cCon, MessageChannelRename *msg) {
 
 	if (! hasPermission(uSource, c, ChanACL::Write)) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
+		return;
+	}
+
+	QRegExp re("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
+
+	if (! re.exactMatch(msg->qsName)) {
+		PERM_DENIED_TEXT("Illegal channel name");
+		return;
+	}
+
+	QRegExp re2("\\w");
+	if (re2.indexIn(msg->qsName) == -1) {
+		PERM_DENIED_TEXT("Must have alphanumeric in name");
 		return;
 	}
 
