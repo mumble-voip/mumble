@@ -77,9 +77,7 @@ Database::Database() {
 	QSqlQuery query;
 	// query.exec("DROP TABLE servers");
 	query.exec(QLatin1String("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"));
-	query.exec(QLatin1String("ALTER TABLE servers ADD COLUMN udp INTEGER DEFAULT 1"));
-
-	query.exec(QLatin1String("CREATE TABLE cert (id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT, port INTEGER, digest TEST)"));
+	query.exec(QLatin1String("CREATE TABLE cert (id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT, port INTEGER, digest TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX cert_host_port ON cert(hostname,port)"));
 }
 

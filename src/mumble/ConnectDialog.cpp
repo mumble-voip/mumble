@@ -174,16 +174,22 @@ void ConnectDialog::on_qpbCopy_clicked() {
 	if (row == -1)
 		return;
 
+	qlwServers->setCurrentIndex(QModelIndex());
+
 	QStringList a = qtwServers->item(row, 1)->text().split(QLatin1Char(':'));
 
 	qleName->setText(qtwServers->item(row, 0)->text());
 	qleServer->setText(a.at(0));
-	qleUsername->setText(g.s.qsUsername);
+	if (g.s.qsUsername.isEmpty())
+		qleUsername->setText(tr("Unknown"));
+	else
+		qleUsername->setText(g.s.qsUsername);
 	qlePassword->setText(QString());
 	qlePort->setText(a.at(1));
 
 	qtwTab->setCurrentIndex(0);
 
+	bDirty = true;
 	on_qpbAdd_clicked();
 }
 
@@ -249,13 +255,16 @@ void ConnectDialog::on_qpbAdd_clicked() {
 		QSqlRecord r = toRecord();
 		if (! r.isEmpty()) {
 			const QModelIndex &previndex = qlwServers->currentIndex();
-			if (previndex.row() >= 0)
+			if (previndex.row() >= 0) {
 				qstmServers->setRecord(previndex.row(), r);
-			else
+			} else {
 				qstmServers->insertRecord(-1, r);
+			}
 			qstmServers->submitAll();
 		}
 	}
+
+	qlwServers->setCurrentIndex(QModelIndex());
 
 	qleName->setText(tr("-Unnamed entry-"));
 	qleServer->setText(QString());
