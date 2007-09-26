@@ -49,6 +49,7 @@
 #include "Global.h"
 #include "Database.h"
 #include "ViewCert.h"
+#include "TextMessage.h"
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
@@ -434,16 +435,20 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 
 	short session = p->uiSession;
 
-	bool ok;
-	QString message = QInputDialog::getText(this, tr("Sending message to %1").arg(p->qsName), tr("Enter message"), QLineEdit::Normal, QString(), &ok);
+	TextMessage tm;
+	tm.setWindowTitle(tr("Sending message to %1").arg(p->qsName));
+	int res = tm.exec();
+
 	p = ClientPlayer::get(session);
 	if (!p)
 		return;
 
-	if (ok) {
+	if (res==QDialog::Accepted) {
 		MessageTextMessage mtxt;
+		mtxt.iChannel = -1;
+		mtxt.bTree = false;
 		mtxt.uiVictim = p->uiSession;
-		mtxt.qsMessage = message;
+		mtxt.qsMessage = tm.message();
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(mtxt.qsMessage), tr("Message to %1").arg(p->qsName));
 		g.sh->sendMessage(&mtxt);
 	}
@@ -603,6 +608,60 @@ void MainWindow::on_qaChannelUnlinkAll_triggered() {
 	mcl.iId = c->iId;
 	mcl.ltType = MessageChannelLink::UnlinkAll;
 	g.sh->sendMessage(&mcl);
+}
+
+void MainWindow::on_qaChannelSendMessage_triggered() {
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+
+	if (!c)
+		return;
+
+	int id = c->iId;
+
+	TextMessage tm;
+	tm.setWindowTitle(tr("Sending message to channel %1").arg(c->qsName));
+	int res = tm.exec();
+
+	c = Channel::get(id);
+	if (!c)
+		return;
+
+	if (res==QDialog::Accepted) {
+		MessageTextMessage mtxt;
+		mtxt.iChannel = id;
+		mtxt.bTree = false;
+		mtxt.uiVictim = 0;
+		mtxt.qsMessage = tm.message();
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(c->qsName).arg(mtxt.qsMessage), tr("Message to %1").arg(c->qsName));
+		g.sh->sendMessage(&mtxt);
+	}
+}
+
+void MainWindow::on_qaChannelSendTreeMessage_triggered() {
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+
+	if (!c)
+		return;
+
+	int id = c->iId;
+
+	TextMessage tm;
+	tm.setWindowTitle(tr("Sending message to channel tree %1").arg(c->qsName));
+	int res = tm.exec();
+
+	c = Channel::get(id);
+	if (!c)
+		return;
+
+	if (res==QDialog::Accepted) {
+		MessageTextMessage mtxt;
+		mtxt.iChannel = id;
+		mtxt.bTree = true;
+		mtxt.uiVictim = 0;
+		mtxt.qsMessage = tm.message();
+		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(mtxt.qsMessage), tr("Message to tree %1").arg(c->qsName));
+		g.sh->sendMessage(&mtxt);
+	}
 }
 
 void MainWindow::on_qaAudioReset_triggered() {

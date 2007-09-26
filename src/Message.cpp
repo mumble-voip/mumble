@@ -44,12 +44,12 @@ void Message::messageToNetwork(QByteArray &qbaOut) const {
 	qdsOut << messageType();
 	qdsOut << uiSession;
 	saveStream(qdsOut);
-	
+
 	if (qdsOut.undersize() == 0) {
 		qbaOut = QByteArray(buffer, qdsOut.size());
 		return;
 	}
-	
+
 	unsigned int size = 8192 + qdsOut.undersize();
 	char b[size];
 	PacketDataStream pdsResized(b, size);
@@ -509,11 +509,15 @@ void MessageChannelRename::restoreStream(PacketDataStream &qdsIn) {
 
 void MessageTextMessage::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << uiVictim;
+	qdsOut << iChannel;
+	qdsOut << bTree;
 	qdsOut << qsMessage;
 }
 
 void MessageTextMessage::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> uiVictim;
+	qdsIn >> iChannel;
+	qdsIn >> bTree;
 	qdsIn >> qsMessage;
 }
 

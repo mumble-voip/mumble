@@ -79,6 +79,9 @@
     <addaction name="qaChannelLink" />
     <addaction name="qaChannelUnlink" />
     <addaction name="qaChannelUnlinkAll" />
+    <addaction name="separator" />
+    <addaction name="qaChannelSendMessage" />
+    <addaction name="qaChannelSendTreeMessage" />
    </widget>
    <widget class="QMenu" name="qmAudio" >
     <property name="title" >
@@ -502,6 +505,28 @@
    </property>
    <property name="whatsThis" >
     <string>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</string>
+   </property>
+  </action>
+  <action name="qaChannelSendMessage" >
+   <property name="text" >
+    <string>Send Messa&amp;ge</string>
+   </property>
+   <property name="toolTip" >
+    <string>Send a Text Message</string>
+   </property>
+   <property name="whatsThis" >
+    <string>Sends a text message to all users in a channel.</string>
+   </property>
+  </action>
+  <action name="qaChannelSendTreeMessage" >
+   <property name="text" >
+    <string>Send &amp;Tree Message</string>
+   </property>
+   <property name="toolTip" >
+    <string>Send message to channel tree.</string>
+   </property>
+   <property name="whatsThis" >
+    <string>This sends a text message to a channel and it's subchannels.</string>
    </property>
   </action>
  </widget>

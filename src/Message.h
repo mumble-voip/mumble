@@ -328,6 +328,8 @@ class MessageTextMessage : public Message {
 		void restoreStream(PacketDataStream &);
 	public:
 		unsigned int  uiVictim;
+		int iChannel;
+		bool bTree;
 		QString qsMessage;
 		Message::MessageType messageType() const {
 			return TextMessage;
