@@ -659,8 +659,48 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 
 void Server::msgTextMessage(Connection *cCon, MessageTextMessage *msg) {
 	MSG_SETUP(Player::Authenticated);
-	VICTIM_SETUP;
-	sendMessage(pDstUser, msg);
+        QMutexLocker qml(&qmCache);
+
+	if (msg->iChannel != -1) {
+		Channel *c = qhChannels.value(msg->iChannel);
+		if (!c)
+			return;
+			
+		if (! ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
+			PERM_DENIED(uSource, c, ChanACL::Speak);
+			return;
+		}
+		
+		QSet<Channel *> chans;
+		QQueue<Channel *> q;
+		q << c;
+		chans.insert(c);
+
+		if (msg->bTree) {
+			while (! q.isEmpty()) {
+				c = q.dequeue();
+				chans.insert(c);
+				foreach(c, c->qlChannels)
+					q.enqueue(c);
+			}
+		}
+		foreach(c, chans) {
+			if (ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
+				foreach(Player *p, c->qlPlayers) {
+					if (p != static_cast<Player *>(uSource))
+						sendMessage(static_cast<User *>(p), msg);
+				}
+			}
+		}
+
+	} else {
+		VICTIM_SETUP;
+		if (! ChanACL::hasPermission(uSource, pDstUser->cChannel, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
+			PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::Speak);
+			return;
+		}
+		sendMessage(pDstUser, msg);
+	}
 }
 
 void Server::msgEditACL(Connection *cCon, MessageEditACL *msg) {

@@ -50,7 +50,7 @@ ChanACL::ChanACL(Channel *chan) {
 // and will return false if a user isn't allowed to
 // traverse to the channel. (Need "read" in all preceeding channels)
 
-bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, ACLCache &cache) {
+bool ChanACL::hasPermission(Player *p, Channel *chan, QFlags<Perm> perm, ACLCache &cache) {
 	QStack<Channel *> chanstack;
 	Channel *ch;
 	ChanACL *acl;
@@ -71,6 +71,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, Perm perm, ACLCache &cache
 	QHash<Channel *, Permissions> *h = cache.value(p);
 	if (h)
 		granted = h->value(chan);
+
 	if (granted & Cached) {
 		if ((perm != Speak) && (perm != AltSpeak))
 			return ((granted & (perm | Write)) != None);
