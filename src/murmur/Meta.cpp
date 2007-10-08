@@ -46,6 +46,7 @@ MetaParams::MetaParams() {
 	iDBPort = 0;
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
+	qsPid = "murmurd.pid";
 	qhaBind = QHostAddress(QHostAddress::Any);
 
 	iBanTries = 10;
@@ -100,6 +101,7 @@ void MetaParams::read(QString fname) {
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
 	qsLogfile = qs.value("logfile", qsLogfile).toString();
+	qsPid = qs.value("pidfile", qsPid).toString();
 
 	qsRegName = qs.value("registerName", qsRegName).toString();
 	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();

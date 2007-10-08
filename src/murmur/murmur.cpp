@@ -196,6 +196,17 @@ int main(int argc, char **argv) {
 		if (fork() != 0) {
 			_exit(0);
 		}
+		
+		QFile pid(Meta::mp.qsPid);
+		if (pid.open(QIODevice::WriteOnly)) {
+			QFileInfo fi(pid);
+			Meta::mp.qsPid = fi.absoluteFilePath();
+		
+			QTextStream out(&pid);
+			out << getpid();
+			pid.close();
+		}
+		
 		chdir("/");
 		int fd;
 
@@ -259,5 +270,9 @@ int main(int argc, char **argv) {
 
 	qInstallMsgHandler(NULL);
 
+#ifdef Q_OS_UNIX
+	QFile pid(Meta::mp.qsPid);
+	pid.remove();
+#endif
 	return res;
 }

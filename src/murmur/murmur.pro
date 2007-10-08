@@ -38,6 +38,7 @@ win32 {
 unix {
   CONFIG += link_pkgconfig
   PKGCONFIG += openssl
+  TARGET = murmurd
 }
 
 macx {

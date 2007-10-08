@@ -58,6 +58,7 @@ struct MetaParams {
 
 	QString qsDBus;
 	QString qsLogfile;
+	QString qsPid;
 
 	QString qsRegName;
 	QString qsRegPassword;
