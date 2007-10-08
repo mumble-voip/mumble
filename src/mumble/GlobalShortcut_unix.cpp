@@ -45,7 +45,7 @@ static ConfigWidget *GlobalShortcutXConfigDialogNew(Settings &st) {
 	return new GlobalShortcutXConfig(st);
 }
 
-static ConfigRegistrar registrar(55, GlobalShortcutXConfigDialogNew);
+static ConfigRegistrar registrar(12, GlobalShortcutXConfigDialogNew);
 
 XInputKeyWidget::XInputKeyWidget(QWidget *p) : QLineEdit(p) {
 	setReadOnly(true);
@@ -54,12 +54,9 @@ XInputKeyWidget::XInputKeyWidget(QWidget *p) : QLineEdit(p) {
 	displayKeys();
 }
 
-void XInputKeyWidget::setShortcut(GlobalShortcut *gs) {
-	if (gsx->qhGlobalToX.contains(gs)) {
-		Shortcut *s = gsx->qhGlobalToX[gs];
-		qlButtons = s->qlButtons;
-		displayKeys();
-	}
+void XInputKeyWidget::setShortcut(QList<int> ql) {
+	qlButtons = ql;
+	displayKeys();
 }
 
 void XInputKeyWidget::focusInEvent(QFocusEvent *e) {
@@ -137,7 +134,6 @@ GlobalShortcutXConfig::GlobalShortcutXConfig(Settings &st) : ConfigWidget(st) {
 
 	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
 		XInputKeyWidget *dikw=new XInputKeyWidget();
-		dikw->setShortcut(gs);
 
 		lab=new QLabel(gs->name);
 		l->addWidget(lab, i+1, 0);
@@ -171,26 +167,34 @@ QIcon GlobalShortcutXConfig::icon() const {
 
 void GlobalShortcutXConfig::save() const {
 	Settings::ShortcutMap m;
-	//TODO
-/*
+	
+	
 	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
 		XInputKeyWidget *dikw = qhKeys[gs];
-		if (dikw->bModified) {
-			QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
-			s.qs->setValue(base + QLatin1String("num"), dikw->qlButtons.count());
-			int i=0;
-			foreach(int bt, dikw->qlButtons) {
-				s.qs->setValue(base + QString::fromLatin1("%1_Key").arg(i), bt);
-				i++;
-			}
+		if (dikw->qlButtons.count() > 0) {
+			QList<QVariant> ql;
+			foreach(int i, dikw->qlButtons)
+				ql << i;
+			m.insert(gs->idx, ql);
 		}
 	}
-	gsx->bNeedRemap = true;*/
+	s.qmShortcuts = m;
 }
 
 
 void GlobalShortcutXConfig::load(const Settings &r) {
-	//TODO
+	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
+		XInputKeyWidget *dikw = qhKeys.value(gs);
+		QList<int> qlb;
+		foreach(QVariant v, r.qmShortcuts.value(gs->idx)) {
+			qlb << v.toInt();
+		}
+		dikw->setShortcut(qlb);
+	}
+}
+
+bool GlobalShortcutXConfig::expert(bool) {
+	return true;
 }
 
 GlobalShortcutX::GlobalShortcutX() {

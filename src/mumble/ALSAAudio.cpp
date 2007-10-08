@@ -252,6 +252,11 @@ void ALSAConfig::load(const Settings &r) {
 	qsOutputDelay->setValue(r.iDXOutputDelay);
 }
 
+bool ALSAConfig::expert(bool b) {
+	qcbOutput->setVisible(b);
+	return true;
+}
+
 void ALSAConfig::on_qsOutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }

@@ -33,6 +33,7 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#include "ConfigDialog.h"
 #include <alsa/asoundlib.h>
 
 #include "ui_ALSAAudio.h"
@@ -48,6 +49,7 @@ class ALSAConfig : public ConfigWidget, public Ui::ALSAConfig {
 	public slots:
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 		void on_qsOutputDelay_valueChanged(int v);
 };
 

@@ -50,7 +50,7 @@ class XInputKeyWidget : public QLineEdit {
 		QList<int> qlButtons;
 		bool bModified;
 		XInputKeyWidget(QWidget *p = NULL);
-		void setShortcut(GlobalShortcut *gs);
+		void setShortcut(QList<int> ql);
 	public slots:
 		void setButton(bool);
 		void displayKeys();
@@ -67,6 +67,7 @@ class GlobalShortcutXConfig : public ConfigWidget {
 	public slots:
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 };
 
 #define NUM_BUTTONS 0x2ff
