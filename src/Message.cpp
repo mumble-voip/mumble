@@ -305,19 +305,16 @@ void MessagePingStats::restoreStream(PacketDataStream &qdsIn) {
 
 MessageServerAuthenticate::MessageServerAuthenticate() {
 	iVersion = MESSAGE_STREAM_VERSION;
-	iMaxBandwidth = 100000;
 }
 
 void MessageServerAuthenticate::saveStream(PacketDataStream &qdsOut) const {
 	qdsOut << iVersion;
-	qdsOut << iMaxBandwidth;
 	qdsOut << qsUsername;
 	qdsOut << qsPassword;
 }
 
 void MessageServerAuthenticate::restoreStream(PacketDataStream &qdsIn) {
 	qdsIn >> iVersion;
-	qdsIn >> iMaxBandwidth;
 	qdsIn >> qsUsername;
 	qdsIn >> qsPassword;
 }

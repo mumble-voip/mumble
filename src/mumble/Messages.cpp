@@ -292,6 +292,19 @@ void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
 	g.l->log(Log::Information, msg->qsWelcomeText);
 	pmModel->ensureSelfVisible();
 
+	AudioInputPtr ai = g.ai;
+	if (ai) {
+		int bw = ai->getMaxBandwidth();
+		if (bw > msg->iMaxBandwidth) {
+			g.l->log(Log::Information, MainWindow::tr("Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.").arg(msg->iMaxBandwidth / 125));
+			ai->setMaxBandwidth(g.iMaxBandwidth);
+		} else {
+			ai->setMaxBandwidth(0);
+		}
+	}
+
+
+
 	bool found = false;
 	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
 	Channel *chan = Channel::get(0);

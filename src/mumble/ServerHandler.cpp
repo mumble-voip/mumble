@@ -288,14 +288,9 @@ void ServerHandler::serverConnectionConnected() {
 	qscCert = cConnection->peerCertificateChain();
 	qscCipher = cConnection->sessionCipher();
 
-	AudioInputPtr ai = g.ai;
 	MessageServerAuthenticate msaMsg;
 	msaMsg.qsUsername = qsUserName;
 	msaMsg.qsPassword = qsPassword;
-	if (ai)
-		msaMsg.iMaxBandwidth = ai->getMaxBandwidth();
-	else
-		msaMsg.iMaxBandwidth = 0;
 
 	cConnection->sendMessage(&msaMsg);
 

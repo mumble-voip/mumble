@@ -31,7 +31,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#define MESSAGE_STREAM_VERSION 3
+#define MESSAGE_STREAM_VERSION 4
 
 #include "ACL.h"
 
@@ -78,7 +78,6 @@ class MessageServerAuthenticate : public Message {
 		void restoreStream(PacketDataStream &);
 	public:
 		int	iVersion;
-		int iMaxBandwidth;
 		QString qsUsername;
 		QString qsPassword;
 		MessageServerAuthenticate();
@@ -124,7 +123,7 @@ class MessageServerReject : public Message {
 		void saveStream(PacketDataStream &) const;
 		void restoreStream(PacketDataStream &);
 	public:
-		enum RejectType { None, WrongVersion, InvalidUsername, WrongUserPW, WrongServerPW, UsernameInUse, BandwidthExceeded, ServerFull };
+		enum RejectType { None, WrongVersion, InvalidUsername, WrongUserPW, WrongServerPW, UsernameInUse, ServerFull };
 		QString qsReason;
 		RejectType rtType;
 		Message::MessageType messageType() const {

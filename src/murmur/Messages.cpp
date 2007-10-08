@@ -130,12 +130,6 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 		}
 	}
 
-	if (msg->iMaxBandwidth > iMaxBandwidth) {
-		msr.qsReason = QString::fromLatin1("Your maximum bandwidth(%1 kbit/s) above server limit (%2 kbit/s)").arg(msg->iMaxBandwidth/125.0).arg(iMaxBandwidth/125.0);
-		msr.rtType = MessageServerReject::BandwidthExceeded;
-		ok = false;
-	}
-
 	if ((id != 0) && (qhUsers.count() > iMaxUsers)) {
 		msr.qsReason = QString::fromLatin1("Server is full (max %1 users)").arg(iMaxUsers);
 		msr.rtType = MessageServerReject::ServerFull;
@@ -665,12 +659,12 @@ void Server::msgTextMessage(Connection *cCon, MessageTextMessage *msg) {
 		Channel *c = qhChannels.value(msg->iChannel);
 		if (!c)
 			return;
-			
+
 		if (! ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
 			PERM_DENIED(uSource, c, ChanACL::Speak);
 			return;
 		}
-		
+
 		QSet<Channel *> chans;
 		QQueue<Channel *> q;
 		q << c;

@@ -95,7 +95,8 @@ class AudioInput : public QThread {
 			return bPreviousVoice;
 		};
 
-		int getMaxBandwidth();
+		static int getMaxBandwidth();
+		void setMaxBandwidth(int bytespersec);
 
 		AudioInput();
 		~AudioInput();

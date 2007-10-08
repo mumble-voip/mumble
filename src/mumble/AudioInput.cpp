@@ -99,13 +99,20 @@ AudioInput::AudioInput() {
 	iSilentFrames = 0;
 	iHoldFrames = 0;
 
-	int iarg=1;
-	speex_encoder_ctl(esEncState,SPEEX_SET_VBR, &iarg);
+	int iArg=1;
+	float fArg=0.0;
+	speex_encoder_ctl(esEncState,SPEEX_SET_VBR, &iArg);
 
-	iarg = 0;
+	iArg = 0;
 
-	speex_encoder_ctl(esEncState,SPEEX_SET_VAD, &iarg);
-	speex_encoder_ctl(esEncState,SPEEX_SET_DTX, &iarg);
+	speex_encoder_ctl(esEncState,SPEEX_SET_VAD, &iArg);
+	speex_encoder_ctl(esEncState,SPEEX_SET_DTX, &iArg);
+
+	fArg = g.s.iQuality;
+	speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
+
+	iArg = g.s.iComplexity;
+	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
 
 	bResetProcessor = true;
 
@@ -123,6 +130,10 @@ AudioInput::AudioInput() {
 
 	iBitrate = 0;
 	dPeakMic = dPeakSignal = dPeakSpeaker = 0.0;
+
+	if (g.uiSession && (getMaxBandwidth() > g.iMaxBandwidth)) {
+		setMaxBandwidth(g.iMaxBandwidth);
+	}
 
 	bRunning = false;
 }
@@ -157,7 +168,7 @@ int AudioInput::getMaxBandwidth() {
 	audiorate /= 400/g.s.iFramesPerPacket;
 
 	// Overhead
-	audiorate += 20 + 8 + 7 + 3;
+	audiorate += 20 + 8 + 4 + 3 + 1 + 2;
 
 	if (g.s.bTransmitPosition)
 		audiorate += 12;
@@ -168,6 +179,43 @@ int AudioInput::getMaxBandwidth() {
 	audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
 
 	return audiorate;
+}
+
+void AudioInput::setMaxBandwidth(int bytespersec) {
+	int audiorate;
+
+	if (bytespersec == 0) {
+		float fArg=g.s.iQuality;
+		speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
+		return;
+	}
+
+	do {
+		float f = 10.0;
+		speex_encoder_ctl(esEncState, SPEEX_GET_VBR_QUALITY, &f);
+		speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &audiorate);
+
+		if (f <= 1.9)
+			return;
+
+		audiorate /= 400/g.s.iFramesPerPacket;
+
+		// Overhead
+		audiorate += 20 + 8 + 4 + 3 + 1 + 2;
+
+		if (g.s.bTransmitPosition)
+			audiorate += 12;
+
+		if (g.s.bTCPCompat)
+			audiorate += 12;
+
+		audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
+
+		if (audiorate > bytespersec) {
+			f -= 1.0;
+			speex_encoder_ctl(esEncState, SPEEX_SET_VBR_QUALITY, &f);
+		}
+	} while (audiorate > bytespersec);
 }
 
 void AudioInput::encodeAudioFrame() {
@@ -258,13 +306,6 @@ void AudioInput::encodeAudioFrame() {
 
 		bResetProcessor = false;
 	}
-
-
-	fArg = g.s.iQuality;
-	speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
-
-	iArg = g.s.iComplexity;
-	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
 
 	int iIsSpeech;
 
