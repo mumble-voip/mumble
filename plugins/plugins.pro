@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = bf2 wow
+SUBDIRS = bf2 wow link

@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <math.h>
+
+#include "../mumble_plugin.h"
+
+struct LinkedMem {
+	DWORD	dwVersion;
+	DWORD	dwTick;
+	float	fPosition[3];
+	float	fFront[3];
+	float	fTop[3];
+};
+
+static void about(HWND h) {
+	::MessageBox(h, L"Reads audio position information from linked game", L"Mumble Link Plugin", MB_OK);
+}
+
+static HANDLE hMapObject = NULL;
+LinkedMem *lm = NULL;
+
+static void unlock() {
+	if (lm) {
+		UnmapViewOfFile(lm);
+		lm = NULL;
+	}
+	if (hMapObject) {
+		CloseHandle(hMapObject);
+		hMapObject = NULL;
+	}
+	return;
+}
+
+static int trylock() {
+	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
+	if (hMapObject == NULL) {
+		return false;
+	}
+
+	lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_WRITE, 0, 0, 0);
+	if (lm == NULL) {
+		CloseHandle(hMapObject);
+		hMapObject = NULL;
+		return false;
+	}
+
+	if (lm->dwVersion == 1) {
+		if ((GetTickCount() - lm->dwTick) < 500)
+			return true;
+	}
+
+	unlock();
+
+	return false;
+}
+
+
+static int fetch(float *pos, float *front, float *top) {
+	if ((GetTickCount() - lm->dwTick) > 500)
+		return false;
+
+	for(int i=0;i<3;i++)
+		pos[i]=lm->fPosition[i];
+	for(int i=0;i<3;i++)
+		front[i]=lm->fFront[i];
+	for(int i=0;i<3;i++)
+		top[i]=lm->fTop[i];
+
+	return true;
+}
+
+static MumblePlugin linkplug = {
+	MUMBLE_PLUGIN_MAGIC,
+	L"Link v1.00",
+	L"Link",
+	about,
+	NULL,
+	trylock,
+	unlock,
+	fetch
+};
+
+extern "C" __declspec(dllexport) __cdecl MumblePlugin *getMumblePlugin() {
+	return &linkplug;
+}
