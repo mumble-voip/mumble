@@ -525,7 +525,7 @@ void AudioWizard::on_OutputDelay_valueChanged(int v) {
 }
 
 void AudioWizard::on_MaxAmp_valueChanged(int v) {
-	g.s.iMinLoudness = qMin(v, 20000);
+	g.s.iMinLoudness = qMin(v, 30000);
 }
 
 void AudioWizard::showPage(int v) {

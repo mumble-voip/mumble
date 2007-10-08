@@ -98,7 +98,7 @@ struct Settings {
 	QString qsSkin;
 	bool bHorizontal;
 	bool bFirstTime;
-	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState;
+	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState, qbaHeaderState;
 
 	QString qsUsername;
 	int iServerRow;

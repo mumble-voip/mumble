@@ -163,11 +163,10 @@ void MainWindow::setupGui()  {
 
 	setCentralWidget(qsSplit);
 
-
-
 	restoreGeometry(g.s.qbaMainWindowGeometry);
 	restoreState(g.s.qbaMainWindowState);
 	qsSplit->restoreState(g.s.qbaSplitterState);
+	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
 }
 
 void MainWindow::msgBox(QString msg) {
@@ -180,6 +179,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.s.qbaMainWindowGeometry = saveGeometry();
 	g.s.qbaMainWindowState = saveState();
 	g.s.qbaSplitterState = qsSplit->saveState();
+	g.s.qbaHeaderState = qtvPlayers->header()->saveState();
 	QMainWindow::closeEvent(e);
 	qApp->quit();
 }
