@@ -38,7 +38,7 @@ static int trylock() {
 		return false;
 	}
 
-	lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_WRITE, 0, 0, 0);
+	lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 	if (lm == NULL) {
 		CloseHandle(hMapObject);
 		hMapObject = NULL;

@@ -219,7 +219,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
-				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_WRITE, 0, 0, 0);
+				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
 					ReleaseMutex(hSharedMutex);
