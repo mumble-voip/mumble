@@ -71,6 +71,7 @@ AudioConfigDialog::AudioConfigDialog(Settings &st) : ConfigWidget(st) {
 	on_qsComplexity_valueChanged(qsComplexity->value());
 	on_qsNoise_valueChanged(qsNoise->value());
 	on_qsAmp_valueChanged(qsAmp->value());
+	on_qsVolume_valueChanged(qsVolume->value());
 	on_qsJitter_valueChanged(qsJitter->value());
 	on_qsPacketDelay_valueChanged(qsPacketDelay->value());
 	on_qsPacketLoss_valueChanged(qsPacketLoss->value());
@@ -110,6 +111,7 @@ void AudioConfigDialog::load(const Settings &r) {
 	qsComplexity->setValue(r.iComplexity);
 	qsNoise->setValue(- r.iNoiseSuppress);
 	qsAmp->setValue(20000 - r.iMinLoudness);
+	qsVolume->setValue(static_cast<int>(r.fVolume * 100.0));
 	qsJitter->setValue(r.iJitterBufferSize);
 	qcbLoopback->setCurrentIndex(r.lmLoopMode);
 	qsPacketDelay->setValue(static_cast<int>(r.dMaxPacketDelay));
@@ -121,6 +123,7 @@ void AudioConfigDialog::save() const {
 	s.iNoiseSuppress = - qsNoise->value();
 	s.iComplexity = qsComplexity->value();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
+	s.fVolume = qsVolume->value() / 100.0;
 	s.iVoiceHold = qsTransmitHold->value();
 	s.iFramesPerPacket = qsFrames->value();
 	s.bPushClick = qcbPushClick->isChecked();
@@ -167,6 +170,10 @@ void AudioConfigDialog::on_qsAmp_valueChanged(int v) {
 
 void AudioConfigDialog::on_qsJitter_valueChanged(int v) {
 	qlJitter->setText(tr("%1 ms").arg(v*20));
+}
+
+void AudioConfigDialog::on_qsVolume_valueChanged(int v) {
+	qlVolume->setText(tr("%1%").arg(v));
 }
 
 void AudioConfigDialog::on_qsPacketDelay_valueChanged(int v) {

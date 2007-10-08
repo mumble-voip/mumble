@@ -140,7 +140,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 
 	ZeroMemory(&dsbd, sizeof(DSBUFFERDESC));
 	dsbd.dwSize          = sizeof(DSBUFFERDESC);
-	dsbd.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2;
+	dsbd.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2|DSBCAPS_CTRLVOLUME;
 	dsbd.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
 	if (dxAudio->p3DListener)
 		dsbd.dwFlags	 |= DSBCAPS_CTRL3D;
@@ -172,6 +172,9 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
+	if (FAILED(hr = pDSBOutput->SetVolume(lround(log10(g.s.fVolume)*5000.0))))
+		qFatal("DXAudioOutputPlayer: Failed to set volume");
+
 	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify))))
 		qFatal("DXAudioOutputPlayer: QueryInterface (Notify)");
 
@@ -185,6 +188,8 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 		pDS3dBuffer->SetMinDistance(g.s.fDXMinDistance, MY_DEFERRED);
 		pDS3dBuffer->SetMaxDistance(g.s.fDXMaxDistance, MY_DEFERRED);
 	}
+
+
 
 	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", qPrintable(aop->qsName), SAMPLE_RATE, dsbd.dwBufferBytes);
 }

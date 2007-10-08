@@ -59,6 +59,7 @@ struct Settings {
 	int iFramesPerPacket;
 	bool bTCPCompat, bReconnect, bExpandAll;
 	QString qsAudioInput, qsAudioOutput;
+	float fVolume;
 
 	int iDXOutputDelay;
 
