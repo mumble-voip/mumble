@@ -45,6 +45,7 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		void accept() const;
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 		void on_qpbSkinFile_clicked(bool);
 };
 

@@ -72,6 +72,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void accept() const;
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 };
 
 

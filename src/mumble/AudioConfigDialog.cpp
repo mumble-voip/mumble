@@ -138,6 +138,24 @@ void AudioConfigDialog::save() const {
 	s.dPacketLoss = qsPacketLoss->value() / 100.0;
 }
 
+bool AudioConfigDialog::expert(bool b) {
+	qgbInterfaces->setVisible(b);
+	qgbLoopback->setVisible(b);
+	qgbOutput->setVisible(b);
+	qgbAudio->setVisible(b);
+	qliComplexity->setVisible(b);
+	qlComplexity->setVisible(b);
+	qsComplexity->setVisible(b);
+	qcbTCP->setVisible(b);
+	qliFrames->setVisible(b);
+	qsFrames->setVisible(b);
+	qlFrames->setVisible(b);
+	qlTransmitHold->setVisible(b);
+	qsTransmitHold->setVisible(b);
+	qliTransmitHold->setVisible(b);
+	return true;
+}
+
 void AudioConfigDialog::on_qsFrames_valueChanged(int v) {
 	qlFrames->setText(tr("%1 ms").arg(v*20));
 	updateBitrate();

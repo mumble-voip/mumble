@@ -43,7 +43,7 @@ static ConfigWidget *GlobalShortcutWinConfigDialogNew(Settings &st) {
 	return new GlobalShortcutWinConfig(st);
 }
 
-static ConfigRegistrar registrar(55, GlobalShortcutWinConfigDialogNew);
+static ConfigRegistrar registrar(12, GlobalShortcutWinConfigDialogNew);
 
 uint qHash(const GUID &a) {
 	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
@@ -207,6 +207,10 @@ void GlobalShortcutWinConfig::save() const {
 
 void GlobalShortcutWinConfig::accept() const {
 	gsw->remap();
+}
+
+bool GlobalShortcutWinConfig::expert(bool) {
+	return true;
 }
 
 GlobalShortcutWin::GlobalShortcutWin() {

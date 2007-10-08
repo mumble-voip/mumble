@@ -118,6 +118,12 @@ void DXConfigDialog::save() const {
 	s.fDXRollOff = qsRollOff->value() / 100.0;
 }
 
+bool DXConfigDialog::expert(bool b) {
+	qgbPositional->setVisible(b);
+	qgbOutput->setVisible(b);
+	return true;
+}
+
 void DXConfigDialog::on_qsOutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }

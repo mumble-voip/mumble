@@ -57,6 +57,8 @@ Settings::Settings() {
 
 	bPlayerTop = false;
 
+	bExpert = false;
+
 	bUpdateCheck = true;
 
 	bFirstTime = true;
@@ -163,6 +165,7 @@ void Settings::load() {
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
 
+	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
@@ -256,6 +259,7 @@ void Settings::save() {
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
 
+	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");

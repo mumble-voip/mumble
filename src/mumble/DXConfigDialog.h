@@ -50,6 +50,7 @@ class DXConfigDialog : public ConfigWidget, public Ui::DXConfigDialog {
 	public slots:
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 		void on_qsOutputDelay_valueChanged(int v);
 		void on_qsMinDistance_valueChanged(int v);
 		void on_qsMaxDistance_valueChanged(int v);

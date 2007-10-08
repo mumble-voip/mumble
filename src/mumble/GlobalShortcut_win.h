@@ -93,6 +93,7 @@ class GlobalShortcutWinConfig : public ConfigWidget {
 		void accept() const;
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 };
 
 class GlobalShortcutWin : public QObject {

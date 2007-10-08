@@ -48,6 +48,7 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 	public slots:
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 		void on_qpbConfig_clicked();
 		void on_qpbAbout_clicked();
 		void on_qpbReload_clicked();

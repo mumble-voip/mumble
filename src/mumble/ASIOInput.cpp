@@ -368,6 +368,10 @@ void ASIOConfig::load(const Settings &r) {
 	qlwSpeaker->clear();
 }
 
+bool ASIOConfig::expert(bool) {
+	return false;
+}
+
 void ASIOConfig::clearQuery() {
 	bOk = false;
 	qlName->setText(QString());

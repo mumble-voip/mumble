@@ -54,6 +54,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		void accept() const;
 		virtual void save() const;
 		virtual void load(const Settings &);
+		virtual bool expert(bool);
 };
 
 class Log : public QObject {

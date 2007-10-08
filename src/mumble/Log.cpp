@@ -113,6 +113,10 @@ void LogConfig::accept() const {
 	g.l->tts->setVolume(s.iTTSVolume);
 }
 
+bool LogConfig::expert(bool) {
+	return false;
+}
+
 Log::Log(QObject *p) : QObject(p) {
 	tts=new TextToSpeech(this);
 	tts->setVolume(g.s.iTTSVolume);

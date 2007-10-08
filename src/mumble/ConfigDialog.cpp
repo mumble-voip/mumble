@@ -60,6 +60,8 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	while ((w = qswPages->widget(0)))
 		delete w;
 
+	qcbExpert->setChecked(g.s.bExpert);
+
 	ConfigWidgetNew cwn;
 	foreach(cwn, *ConfigRegistrar::c_qmNew) {
 		addPage(cwn(s));
@@ -67,6 +69,8 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	if (qlwIcons->count() > 0)
 		qlwIcons->setCurrentItem(qlwIcons->item(0));
+
+	on_qcbExpert_clicked(g.s.bExpert);
 
         QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
         okButton->setToolTip(tr("Accept changes"));
@@ -159,6 +163,17 @@ void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
 	}
 }
 
+void ConfigDialog::on_qcbExpert_clicked(bool b) {
+	int idx = 0;
+	foreach(ConfigWidget *cw, widgets) {
+		bool showit = cw->expert(b);
+		showit = showit || b;
+		QListWidgetItem *qlwi = qlwIcons->item(idx++);
+		if (qlwi)
+			qlwi->setHidden(!showit);
+	}
+}
+
 void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, widgets)
 	cw->save();
@@ -186,6 +201,8 @@ void ConfigDialog::apply() {
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
 	g.iAltSpeak = 0;
+
+	g.s.bExpert = qcbExpert->isChecked();
 }
 
 void ConfigDialog::accept() {

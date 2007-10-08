@@ -46,6 +46,8 @@ struct Settings {
 	enum Audio3D { No3D, Panning, Light, Full };
 	AudioTransmit atTransmit;
 
+	bool bExpert;
+
 	bool bTransmitPosition;
 	bool bPushClick;
 	bool bMute, bDeaf;

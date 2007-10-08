@@ -14,7 +14,7 @@
   </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" colspan="2" >
-    <widget class="QGroupBox" name="groupBox" >
+    <widget class="QGroupBox" name="qgbInterfaces" >
      <property name="title" >
       <string>Interfaces</string>
      </property>
@@ -117,7 +117,7 @@
        </widget>
       </item>
       <item row="1" column="0" >
-       <widget class="QLabel" name="label_4" >
+       <widget class="QLabel" name="qliTransmitHold" >
         <property name="text" >
          <string>Voice &amp;Hold</string>
         </property>
@@ -159,7 +159,7 @@
        </widget>
       </item>
       <item row="2" column="0" >
-       <widget class="QLabel" name="label_5" >
+       <widget class="QLabel" name="qliFrames" >
         <property name="text" >
          <string>Audio per packet</string>
         </property>
@@ -321,7 +321,7 @@
        </widget>
       </item>
       <item row="1" column="0" >
-       <widget class="QLabel" name="label_10" >
+       <widget class="QLabel" name="qliComplexity" >
         <property name="text" >
          <string>&amp;Complexity</string>
         </property>
@@ -369,7 +369,7 @@
     </widget>
    </item>
    <item row="2" column="1" >
-    <widget class="QGroupBox" name="groupBox_4" >
+    <widget class="QGroupBox" name="qgbAudio" >
      <property name="title" >
       <string>Audio Processing</string>
      </property>
@@ -468,7 +468,7 @@
     </widget>
    </item>
    <item row="3" column="0" colspan="2" >
-    <widget class="QGroupBox" name="groupBox_5" >
+    <widget class="QGroupBox" name="qgbOutput" >
      <property name="title" >
       <string>Audio Output</string>
      </property>
@@ -558,7 +558,7 @@
     </widget>
    </item>
    <item row="4" column="0" colspan="2" >
-    <widget class="QGroupBox" name="groupBox_6" >
+    <widget class="QGroupBox" name="qgbLoopback" >
      <property name="title" >
       <string>Loopback Test</string>
      </property>

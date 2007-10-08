@@ -80,6 +80,9 @@ void OverlayConfig::load(const Settings &r) {
 	setColorLabel(qlChannelTalking, qcChannelTalking);
 }
 
+bool OverlayConfig::expert(bool) {
+	return false;
+}
 
 void OverlayConfig::setColorLabel(QLabel *label, QColor col) {
 	label->setText(col.name());

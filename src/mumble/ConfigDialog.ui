@@ -16,35 +16,52 @@
    <item>
     <layout class="QHBoxLayout" >
      <item>
-      <widget class="QListWidget" name="qlwIcons" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Maximum" >
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize" >
-        <size>
-         <width>128</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize" >
-        <size>
-         <width>128</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="iconSize" >
-        <size>
-         <width>96</width>
-         <height>84</height>
-        </size>
-       </property>
-       <property name="viewMode" >
-        <enum>QListView::IconMode</enum>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QListWidget" name="qlwIcons" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Expanding" hsizetype="Maximum" >
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize" >
+          <size>
+           <width>128</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>128</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="iconSize" >
+          <size>
+           <width>96</width>
+           <height>84</height>
+          </size>
+         </property>
+         <property name="viewMode" >
+          <enum>QListView::IconMode</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="qcbExpert" >
+         <property name="toolTip" >
+          <string>Show all configuration items</string>
+         </property>
+         <property name="whatsThis" >
+          <string>&lt;b>This will show all configuration items.&lt;/b>&lt;br />Mumble contains a lot of configuration items that most users won't need to change. Checking this will show all configurable items.</string>
+         </property>
+         <property name="text" >
+          <string>Expert Config</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QVBoxLayout" >

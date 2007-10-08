@@ -77,6 +77,10 @@ void PluginConfig::save() const {
 	s.bTransmitPosition = qcbTransmit->isChecked();
 }
 
+bool PluginConfig::expert(bool) {
+	return false;
+}
+
 void PluginConfig::on_qpbConfig_clicked() {
 	QListWidgetItem *i = qlwPlugins->currentItem();
 	if (!i)

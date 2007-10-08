@@ -137,6 +137,15 @@ void LookConfig::accept() const {
 	}
 }
 
+bool LookConfig::expert(bool b) {
+	qcbExpand->setVisible(b);
+	qcbHorizontal->setVisible(b);
+	qcbPlayersTop->setVisible(b);
+	qcbStyle->setVisible(b);
+	qliStyle->setVisible(b);
+	return true;
+}
+
 void LookConfig::on_qpbSkinFile_clicked(bool) {
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), QString(), QLatin1String("*.qss"));
 	if (! file.isEmpty()) {

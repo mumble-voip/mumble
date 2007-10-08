@@ -44,6 +44,7 @@ class AudioConfigDialog : public ConfigWidget, public Ui::AudioConfigDialog {
 	public slots:
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 		void updateBitrate();
 		void on_qsTransmitHold_valueChanged(int v);
 		void on_qsFrames_valueChanged(int v);

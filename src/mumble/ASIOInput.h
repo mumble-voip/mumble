@@ -51,6 +51,7 @@ class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 	public slots:
 		void save() const;
 		void load(const Settings &r);
+		bool expert(bool);
 		void clearQuery();
 		void on_qcbDevice_activated(int index);
 		void on_qpbQuery_clicked();
