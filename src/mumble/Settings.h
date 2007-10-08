@@ -67,6 +67,7 @@ struct Settings {
 
 	QString qsFestival;
 	QString qsALSAInput, qsALSAOutput;
+	int iPortAudioInput, iPortAudioOutput;
 	QString qsASIOclass;
 	QList<QVariant> qlASIOmic;
 	QList<QVariant> qlASIOspeaker;

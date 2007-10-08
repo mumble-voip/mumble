@@ -70,6 +70,9 @@ Settings::Settings() {
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
+	iPortAudioInput = -1; // default device
+	iPortAudioOutput = -1; // default device
+
 	a3dModel = No3D;
 	fDXMinDistance = 10.0;
 	fDXMaxDistance = 50.0;
@@ -138,6 +141,9 @@ void Settings::load() {
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
+
+	SAVELOAD(iPortAudioInput, "portaudio/input");
+	SAVELOAD(iPortAudioOutput, "portaudio/output");
 
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");
@@ -232,6 +238,9 @@ void Settings::save() {
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
+
+	SAVELOAD(iPortAudioInput, "portaudio/input");
+	SAVELOAD(iPortAudioOutput, "portaudio/output");
 
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");

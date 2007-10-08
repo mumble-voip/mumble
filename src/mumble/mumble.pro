@@ -1,7 +1,7 @@
 include(../mumble.pri)
 
 TEMPLATE	= app
-QT		+= network sql opengl xml qdbus
+QT		+= network sql opengl xml 
 CONFIG		+= qdbus
 TARGET		= mumble
 RC_FILE		= mumble.rc
@@ -13,17 +13,13 @@ HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 DIST		+= licenses.h mumble.ico firmumble.inc plugins/mumble_plugin.h mumble-overlay mumble.desktop
 INCLUDEPATH	+= ../../speex/include
-LIBS 		+= -Llib -L.
+LIBS 		+= -Llib -L. -lspeex
 RESOURCES	+= mumble.qrc
 FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioConfigDialog.ui Log.ui TextMessage.ui
 
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts
 
 PRECOMPILED_HEADER = mumble_pch.h
-
-LIBS	+= -lspeex
-
-SUBDIRS	= speex
 
 QMAKE_CXXFLAGS	+= -Wall -Wextra
 
@@ -45,12 +41,11 @@ unix {
   ARCH=$$system(uname -m)
   X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
 
-
   QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS_RELEASE += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS_DEBUG += -I../../speex/include -I../../speexbuild
-  CONFIG += qdbus link_pkgconfig
+  CONFIG += link_pkgconfig
   PKGCONFIG += openssl
 
   contains(UNAME, Linux) {
@@ -61,7 +56,10 @@ unix {
   }
 
   macx {
-    CONFIG += x86 ppc
+    CONFIG += portaudio
+    release:!debug {
+      CONFIG += x86 ppc
+    }
     LIBS += -framework ApplicationServices
     QMAKE_LFLAGS += -L../../speexbuild -L/System/Library/Frameworks
     INCLUDEPATH += /usr/local/include/boost-1_34
@@ -76,11 +74,18 @@ unix {
   }
 }
 
-CONFIG(asio) {
+asio {
 	DEFINES	+= USE_ASIO
 	INCLUDEPATH += ../../asio/common ../../asio/host ../../asio/host/pc
 	HEADERS += ASIOInput.h
 	SOURCES	+= ASIOInput.cpp
+}
+
+portaudio {
+	PKGCONFIG += portaudio-2.0
+	SOURCES += PAAudio.cpp PAAudioConfig.cpp
+	HEADERS += PAAudio.h PAAudioConfig.h
+	FORMS += PAAudioConfig.ui
 }
 
 QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
