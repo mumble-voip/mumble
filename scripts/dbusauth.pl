@@ -25,12 +25,16 @@ our $id_offset = 100000;
 
 our $avatar_path = "http://xeno.stud.hive.no/phpBB3/download.php?avatar=";
 
+#
 # No user servicable parts below this point.
+#
+
 use DBI;
 use Net::DBus;
 use Data::Dumper;
 use Net::DBus::Reactor;
 use LWP::UserAgent;
+use Carp;
 
 our %texturecache;
 
@@ -38,16 +42,34 @@ our @dbhparams=("dbi:mysql:dbname=${dbname};host=${dbhost}", $dbuser, $dbpass);
 our $agent=new LWP::UserAgent;
 $agent->timeout(5);
 
-our $r = Net::DBus::Reactor->main;
-our $bus = Net::DBus->session();
+our ($bus, $service);
 
-our $service = $bus->get_service("net.sourceforge.mumble.murmur");
+our $r = Net::DBus::Reactor->main;
+eval {
+  $bus = Net::DBus->system();
+  $service = $bus->get_service("net.sourceforge.mumble.murmur");
+};
+
+if (! $service) {
+  eval {
+    $bus = Net::DBus->session();
+    $service = $bus->get_service("net.sourceforge.mumble.murmur");
+  };
+}
+
+die "Murmur service not found" if (! $service);
+
+my $dbh=DBI->connect_cached(@dbhparams);
+if (! $dbh) {
+  die $DBI::errstr;
+}
+
 our $object = $service->get_object("/1");
 
 our $rservice = $bus->export_service("net.sourceforge.mumble.phpbb");
 our $robject = Mumble::Auth->new($rservice);
 
-my $response = $object->setAuthenticator("/authority");
+my $response = $object->setAuthenticator("/authority", 0);
 
 package Mumble::Auth;
 
@@ -56,7 +78,7 @@ use Image::Magick;
 use Digest::MD5 qw(md5_hex);
 use Net::DBus::Exporter qw(net.sourceforge.mumble.auther);
 use base qw(Net::DBus::Object);
-dbus_method("authenticate", ["string","string"], ["int32","string"]);
+dbus_method("authenticate", ["string","string"], ["int32","string",["array","string"]]);
 dbus_method("getUserName", ["int32"], ["string"]);
 dbus_method("getUserId", ["string"], ["int32"]);
 dbus_method("getUserTexture", ["int32"], [["array", "byte"]]);
@@ -83,7 +105,7 @@ sub authenticate {
   my $dbh=DBI->connect_cached(@dbhparams);
   if (! $dbh) {
     carp $DBI::errstr;
-    return -2,'';
+    return -2,'',undef;
   }
   $dbh->do("SET names utf8");
   my $sth=$dbh->prepare("SELECT user_id, user_password, user_type, username FROM ${dbprefix}users WHERE LOWER(username) = LOWER(?)");
@@ -91,10 +113,10 @@ sub authenticate {
   if ((my $r=$sth->fetchrow_hashref())) {
     if ($$r{'user_password'} ne md5_hex($pw)) {
       print "Wrong password for $uname\n";
-      return -1,'';
+      return -1,'',undef;
     }
     if (($$r{'user_type'} != 0) && ($$r{'user_type'} != 3)) {
-      return -1,'';
+      return -1,'',undef;
     }
     my $id = $$r{'user_id'} + $id_offset;
     my $name = $$r{'username'};
@@ -106,13 +128,13 @@ sub authenticate {
     while ((my $g=$sth->fetchrow_hashref())) {
       push @groups, lc $$g{'group_name'};
     }
-    my $response = $object->setTemporaryGroups(0, $id, \@groups);
-    Dumper($response);
+    #my $response = $object->setTemporaryGroups(0, $id, \@groups);
+    #Dumper($response);
     print "Authenticated $uname as ID $id with groups ".join(" ",@groups)."\n";
-    return $id,$name;
+    return $id,$name,\@groups;
   } else {
     print "Unknown user $uname\n";
-    return -2,'';
+    return -2,'',undef;
   }
 }
 

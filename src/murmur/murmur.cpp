@@ -249,8 +249,12 @@ int main(int argc, char **argv) {
 		new MetaDBus(meta);
 	}
 	if (MurmurDBus::qdbc.isConnected()) {
-		MurmurDBus::qdbc.registerObject("/", meta);
-		MurmurDBus::qdbc.registerService("net.sourceforge.mumble.murmur");
+		if (! MurmurDBus::qdbc.registerObject("/", meta) || ! MurmurDBus::qdbc.registerService("net.sourceforge.mumble.murmur")) {
+			QDBusError e=MurmurDBus::qdbc.lastError();
+			qWarning("Failed to register on DBus: %s %s", qPrintable(e.name()), qPrintable(e.message()));
+		} else {
+			qWarning("DBus registration succeeded");
+		}
 	}
 
 	meta->bootAll();

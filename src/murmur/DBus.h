@@ -107,8 +107,10 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
 	protected:
 		Server *server;
+ 		bool bReentrant;
 		QString qsAuthService;
 		QString qsAuthPath;
+		void setTempGroups(const int playerid, Channel *cChannel, const QStringList &groups);
 	public:
 		static QDBusConnection qdbc;
 
@@ -156,7 +158,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void getPlayerNames(const QList<int> &ids, const QDBusMessage &, QStringList &names);
 		void getPlayerIds(const QStringList &names, const QDBusMessage &, QList<int> &ids);
 
-		void setAuthenticator(const QDBusObjectPath &path, const QDBusMessage &);
+		void setAuthenticator(const QDBusObjectPath &path, bool reentrant, const QDBusMessage &);
 		void setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &);
 	signals:
 		void playerStateChanged(const PlayerInfo &state);
