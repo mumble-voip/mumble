@@ -420,6 +420,9 @@
    </property>
   </action>
   <action name="qaAudioLocalDeafen" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
    <property name="text" >
     <string>&amp;Local deafen</string>
    </property>
