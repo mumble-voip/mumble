@@ -225,7 +225,7 @@
              <string>List of entries</string>
             </property>
             <property name="whatsThis" >
-             <string>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.</string>
+             <string>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br />ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</string>
             </property>
            </widget>
           </item>
