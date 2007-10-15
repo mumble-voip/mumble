@@ -127,7 +127,8 @@ OSSEnumerator::OSSEnumerator() {
 	qhInput.insert(QString(), QLatin1String("Default OSS Device"));
 	qhOutput.insert(QString(), QLatin1String("Default OSS Device"));
 	qhDevices.insert(QString(), QLatin1String("/dev/dsp"));
-	
+
+#if (SOUND_VERSION >= 0x040002)	
 	int mixerfd = open("/dev/mixer", O_RDWR, 0);
 	if (mixerfd == -1) {
 		qWarning("OSSEnumerator: Failed to open /dev/mixer");
@@ -165,6 +166,8 @@ OSSEnumerator::OSSEnumerator() {
 		if (ainfo.caps & PCM_CAP_OUTPUT)
 			qhOutput.insert(handle, name);
 	}
+	close(mixerfd);
+#endif
 }
 
 OSSConfig::OSSConfig(Settings &st) : ConfigWidget(st) {
@@ -297,7 +300,7 @@ void OSSInput::run() {
 	}
 	
 	qWarning("OSSInput: Releasing.");
-	ioctl(fd, SNDCTL_DSP_HALT, NULL);
+	ioctl(fd, SNDCTL_DSP_RESET, NULL);
 	close(fd);
 }
 
@@ -379,6 +382,6 @@ void OSSOutput::run() {
 		}
 	}
 	qWarning("OSSOutput: Releasing device");
-	ioctl(fd, SNDCTL_DSP_HALT, NULL);
+	ioctl(fd, SNDCTL_DSP_RESET, NULL);
 	close(fd);
 }
