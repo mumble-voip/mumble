@@ -75,7 +75,7 @@ unix {
 
   oss {
     HEADERS += OSS.h
-    SOURCE += OSS.cpp
+    SOURCES += OSS.cpp
     FORMS += OSS.ui
     INCLUDEPATH += /usr/lib/oss/include
   }

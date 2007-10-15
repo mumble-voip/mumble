@@ -142,6 +142,9 @@ void Settings::load() {
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
 
+	SAVELOAD(qsOSSInput, "oss/input");
+	SAVELOAD(qsOSSOutput, "oss/output");
+
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");
 
@@ -238,6 +241,9 @@ void Settings::save() {
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
+
+	SAVELOAD(qsOSSInput, "oss/input");
+	SAVELOAD(qsOSSOutput, "oss/output");
 
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");
