@@ -31,6 +31,7 @@
 #ifndef _TEXTMESSAGE_H
 #define _TEXTMESSAGE_H
 
+#include "mumble_pch.h"
 #include "ui_TextMessage.h"
 
 class TextMessage : public QDialog, public Ui::TextMessage {

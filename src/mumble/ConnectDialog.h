@@ -31,6 +31,7 @@
 #ifndef _CONNECTDIALOG_H
 #define _CONNECTDIALOG_H
 
+#include "mumble_pch.h"
 #include "ui_ConnectDialog.h"
 
 struct PublicInfo {

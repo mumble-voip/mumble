@@ -31,6 +31,8 @@
 #ifndef _ABOUT_H
 #define _ABOUT_H
 
+#include "mumble_pch.h"
+
 class AboutDialog : public QDialog {
 		Q_OBJECT;
 	public:

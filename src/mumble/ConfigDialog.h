@@ -31,6 +31,7 @@
 #ifndef _CONFIGDIALOG_H
 #define _CONFIGDIALOG_H
 
+#include "mumble_pch.h"
 #include "ui_ConfigDialog.h"
 #include "Settings.h"
 

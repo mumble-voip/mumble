@@ -28,9 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "Overlay.h"
 #include "Player.h"
 #include "Channel.h"
-#include "Overlay.h"
 #include "Global.h"
 #include "Message.h"
 #include "ServerHandler.h"

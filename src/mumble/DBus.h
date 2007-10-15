@@ -31,6 +31,8 @@
 #ifndef _DBUS_H
 #define _DBUS_H
 
+#include "mumble_pch.h"
+
 class MumbleDBus : public QDBusAbstractAdaptor {
 		Q_OBJECT
 		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Mumble");

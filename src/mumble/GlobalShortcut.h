@@ -32,9 +32,7 @@
 #ifndef _GLOBALSHORTCUT_H
 #define _GLOBALSHORTCUT_H
 
-#include <QObject>
-#include <QString>
-#include <QVariant>
+#include "mumble_pch.h"
 
 class GlobalShortcut : public QObject {
 		friend class GlobalShortcutWin;

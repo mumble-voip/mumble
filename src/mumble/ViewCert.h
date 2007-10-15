@@ -31,6 +31,8 @@
 #ifndef _VIEWCERT_H
 #define _VIEWCERT_H
 
+#include "mumble_pch.h"
+
 class ViewCert : public QDialog {
 		Q_OBJECT
 	protected:

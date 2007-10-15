@@ -72,6 +72,13 @@ unix {
       QMAKE_CXXFLAGS += -mmmx
     }
   }
+
+  oss {
+    HEADERS += OSS.h
+    SOURCE += OSS.cpp
+    FORMS += OSS.ui
+    INCLUDEPATH += /usr/lib/oss/include
+  }
 }
 
 asio {

@@ -31,6 +31,7 @@
 #ifndef _BANEDITOR_H
 #define _BANEDITOR_H
 
+#include "mumble_pch.h"
 #include "ui_BanEditor.h"
 #include "Message.h"
 

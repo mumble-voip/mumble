@@ -31,6 +31,8 @@
 #ifndef _VERSIONCHECK_H
 #define _VERSIONCHECK_H
 
+#include "mumble_pch.h"
+
 class VersionCheck : public QObject {
 		Q_OBJECT
 	protected:

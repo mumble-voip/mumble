@@ -31,6 +31,8 @@
 #ifndef _AUDIOSTATS_H
 #define _AUDIOSTATS_H
 
+#include "mumble_pch.h"
+
 class AudioEchoWidget : public QGLWidget {
 		Q_OBJECT
 	public:

@@ -28,17 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QString>
-#include <QList>
-#include <QTime>
-#include <QSettings>
+#include "Log.h"
 #include "TextToSpeech.h"
 #include "MainWindow.h"
-#include "Log.h"
 #include "Global.h"
 
 static ConfigWidget *LogConfigDialogNew(Settings &st) {

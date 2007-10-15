@@ -31,14 +31,7 @@
 #ifndef _LOG_H
 #define _LOG_H
 
-#include <QThread>
-#include <QGroupBox>
-#include <QComboBox>
-#include <QSlider>
-#include <QLabel>
-#include <QHash>
-#include <QCheckBox>
-
+#include "mumble_pch.h"
 #include "ConfigDialog.h"
 #include "ui_Log.h"
 
