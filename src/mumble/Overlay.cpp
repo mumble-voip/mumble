@@ -53,18 +53,18 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 }
 
 void OverlayConfig::load(const Settings &r) {
-	qcbEnable->setChecked(r.bOverlayEnable);
-	qcbAlwaysSelf->setChecked(r.bOverlayAlwaysSelf);
-	qcbUserTextures->setChecked(r.bOverlayUserTextures);
-	qcbShow->setCurrentIndex(r.osOverlay);
+	loadCheckBox(qcbEnable, r.bOverlayEnable);
+	loadCheckBox(qcbAlwaysSelf, r.bOverlayAlwaysSelf);
+	loadCheckBox(qcbUserTextures, r.bOverlayUserTextures);
+	loadComboBox(qcbShow, r.osOverlay);
 
-	qcbLeft->setChecked(r.bOverlayLeft);
-	qcbRight->setChecked(r.bOverlayRight);
-	qcbTop->setChecked(r.bOverlayTop);
-	qcbBottom->setChecked(r.bOverlayBottom);
+	loadCheckBox(qcbLeft, r.bOverlayLeft);
+	loadCheckBox(qcbRight, r.bOverlayRight);
+	loadCheckBox(qcbTop, r.bOverlayTop);
+	loadCheckBox(qcbBottom, r.bOverlayBottom);
 
-	qsX->setValue(qRound64(r.fOverlayX * 100));
-	qsY->setValue(100 - qRound64(r.fOverlayY * 100));
+	loadSlider(qsX, qRound64(r.fOverlayX * 100));
+	loadSlider(qsY, 100 - qRound64(r.fOverlayY * 100));
 	qfFont = r.qfOverlayFont;
 	qcPlayer = r.qcOverlayPlayer;
 	qcTalking= r.qcOverlayTalking;
@@ -72,7 +72,7 @@ void OverlayConfig::load(const Settings &r) {
 	qcChannel = r.qcOverlayChannel;
 	qcChannelTalking = r.qcOverlayChannelTalking;
 	qlCurrentFont->setText(qfFont.family());
-	qsMaxHeight->setValue(qRound64(r.fOverlayHeight * 1000));
+	loadSlider(qsMaxHeight, qRound64(r.fOverlayHeight * 1000));
 	setColorLabel(qlPlayer, qcPlayer);
 	setColorLabel(qlTalking, qcTalking);
 	setColorLabel(qlAltTalking, qcAltTalking);

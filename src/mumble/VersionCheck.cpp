@@ -42,6 +42,9 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
 	quUrl.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 	quUrl.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
 	quUrl.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
+#ifdef Q_OS_WIN
+	quUrl.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
+#endif
 	if (autocheck)
 		quUrl.addQueryItem(QLatin1String("auto"), QLatin1String("1"));
 

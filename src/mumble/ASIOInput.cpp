@@ -354,7 +354,7 @@ void ASIOConfig::load(const Settings &r) {
 	ASIODev ad;
 	foreach(ad, qlDevs) {
 		if (ad.second == r.qsASIOclass) {
-			qcbDevice->setCurrentIndex(i);
+			loadComboBox(qcbDevice, i);
 		}
 		i++;
 	}

@@ -128,7 +128,7 @@ OSSEnumerator::OSSEnumerator() {
 	qhOutput.insert(QString(), QLatin1String("Default OSS Device"));
 	qhDevices.insert(QString(), QLatin1String("/dev/dsp"));
 
-#if (SOUND_VERSION >= 0x040002)	
+#if (SOUND_VERSION >= 0x040002)
 	int mixerfd = open("/dev/mixer", O_RDWR, 0);
 	if (mixerfd == -1) {
 		qWarning("OSSEnumerator: Failed to open /dev/mixer");
@@ -136,12 +136,12 @@ OSSEnumerator::OSSEnumerator() {
 	}
 
 	oss_sysinfo sysinfo;
-	
+
 	if (ioctl(mixerfd, SNDCTL_SYSINFO, &sysinfo) == -1) {
 		qWarning("OSSEnumerator: Failed SNDCTL_SYSINFO");
 		return;
 	}
-	
+
 	for(int i=0;i< sysinfo.numaudios;i++) {
 		oss_audioinfo ainfo;
 		ainfo.dev = i;
@@ -151,16 +151,16 @@ OSSEnumerator::OSSEnumerator() {
 		}
 		qWarning("DeviceNode: %s", ainfo.devnode);
 		qWarning("DeviceName: %s", ainfo.name);
-		
+
 		QString handle = QLatin1String(ainfo.handle);
 		QString name = QLatin1String(ainfo.name);
 		QString device = QLatin1String(ainfo.devnode);
-		
+
 		if (ainfo.caps & PCM_CAP_HIDDEN)
 			continue;
 
 		qhDevices.insert(handle, device);
-		
+
 		if (ainfo.caps & PCM_CAP_INPUT)
 			qhInput.insert(handle, name);
 		if (ainfo.caps & PCM_CAP_OUTPUT)
@@ -220,19 +220,18 @@ void OSSConfig::save() const {
 void OSSConfig::load(const Settings &r) {
 	for(int i=0;i<qcbInputDevice->count();i++) {
 		if (qcbInputDevice->itemData(i).toString() == r.qsOSSInput) {
-			qcbInputDevice->setCurrentIndex(i);
+			loadComboBox(qcbInputDevice, i);
 			break;
 		}
 	}
 
 	for(int i=0;i<qcbOutputDevice->count();i++) {
 		if (qcbOutputDevice->itemData(i).toString() == r.qsOSSOutput) {
-			qcbOutputDevice->setCurrentIndex(i);
+			loadComboBox(qcbOutputDevice, i);
 			break;
 		}
 	}
-
-	qsOutputDelay->setValue(r.iDXOutputDelay);
+	loadSlider(qsOutputDelay, r.iDXOutputDelay);
 }
 
 bool OSSConfig::expert(bool b) {
@@ -261,35 +260,35 @@ void OSSInput::run() {
 		qWarning("OSSInput: Stored device not found, falling back to default");
 		device = cards.qhDevices.value(QString()).toLatin1();
 	}
-	
+
 	int fd = open(device.constData(), O_RDONLY, 0);
 	if (fd == -1) {
 		qWarning("OSSInput: Failed to open %s", device.constData());
 		return;
 	}
-	
+
 	int ival;
-	
+
 	ival = AFMT_S16_NE;
 	if ((ioctl(fd, SNDCTL_DSP_SETFMT, &ival) == -1) || (ival != AFMT_S16_NE)) {
 		qWarning("OSSInput: Failed to set sound format");
 		return;
 	}
-	
+
 	ival = 1;
 	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) || (ival != 1)) {
 		qWarning("OSSInput: Failed to set mono mode");
 		return;
 	}
-	
+
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSInput: Failed to set speed");
 		return;
 	}
-	
+
 	qWarning("OSSInput: Staring audio capture from %s", device.constData());
-	
+
 	while (bRunning) {
 		int l = read(fd, psMic, iFrameSize * 2);
 		if (l != iFrameSize * 2) {
@@ -298,7 +297,7 @@ void OSSInput::run() {
 		}
 		encodeAudioFrame();
 	}
-	
+
 	qWarning("OSSInput: Releasing.");
 	ioctl(fd, SNDCTL_DSP_RESET, NULL);
 	close(fd);
@@ -325,39 +324,39 @@ void OSSOutput::run() {
 		qWarning("OSSOutput: Stored device not found, falling back to default");
 		device = cards.qhDevices.value(QString()).toLatin1();
 	}
-	
+
 	int fd = open(device.constData(), O_WRONLY, 0);
 	if (fd == -1) {
 		qWarning("OSSOutput: Failed to open %s", device.constData());
 		return;
 	}
-	
+
 	int ival;
-	
+
 	ival = (g.s.iDXOutputDelay+1) << 16 | 10;
-	
+
 	if (ioctl(fd, SNDCTL_DSP_SETFRAGMENT, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set fragment");
 	}
-	
+
 	ival = AFMT_S16_NE;
 	if ((ioctl(fd, SNDCTL_DSP_SETFMT, &ival) == -1) || (ival != AFMT_S16_NE)) {
 		qWarning("OSSOutput: Failed to set sound format");
 		return;
 	}
-	
+
 	ival = 1;
 	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) || (ival != 1)) {
 		qWarning("OSSOutput: Failed to set mono mode");
 		return;
 	}
-	
+
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set speed");
 		return;
 	}
-	
+
 	qWarning("OSSOutput: Staring audio playback to %s", device.constData());
 
 	short buffer[iFrameSize] __attribute__((aligned(16)));
@@ -369,7 +368,7 @@ void OSSOutput::run() {
 			qWarning("OSSOutput: Write %d", l);
 			break;
 		}
-/*		
+/*
 		ioctl(fd, SNDCTL_DSP_GETODELAY, &ival);
 		qWarning("Delay %d", ival / 2);
 */

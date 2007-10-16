@@ -80,7 +80,7 @@ void LogConfig::load(const Settings &r) {
 		i->setCheckState(2, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
 	}
 
-	qsVolume->setValue(r.iTTSVolume);
+	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
 }
 

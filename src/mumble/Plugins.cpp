@@ -70,7 +70,7 @@ QIcon PluginConfig::icon() const {
 }
 
 void PluginConfig::load(const Settings &r) {
-	qcbTransmit->setChecked(r.bTransmitPosition);
+	loadCheckBox(qcbTransmit, r.bTransmitPosition);
 }
 
 void PluginConfig::save() const {

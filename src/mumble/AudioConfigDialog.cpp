@@ -94,28 +94,28 @@ void AudioConfigDialog::load(const Settings &r) {
 	keys=AudioInputRegistrar::qmNew->keys();
 	i=keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
-		qcbInput->setCurrentIndex(i);
+		loadComboBox(qcbInput, i);
 
 	keys=AudioOutputRegistrar::qmNew->keys();
 	i=keys.indexOf(AudioOutputRegistrar::current);
 	if (i >= 0)
-		qcbOutput->setCurrentIndex(i);
+		loadComboBox(qcbOutput, i);
 
-	qcbTransmit->setCurrentIndex(r.atTransmit);
-	qsTransmitHold->setValue(r.iVoiceHold);
-	qsFrames->setValue(r.iFramesPerPacket);
-	qcbPushClick->setChecked(r.bPushClick);
-	qcbTCP->setChecked(r.bTCPCompat);
-	qcbReconnect->setChecked(r.bReconnect);
-	qsQuality->setValue(r.iQuality);
-	qsComplexity->setValue(r.iComplexity);
-	qsNoise->setValue(- r.iNoiseSuppress);
-	qsAmp->setValue(20000 - r.iMinLoudness);
-	qsVolume->setValue(static_cast<int>(r.fVolume * 100.0));
-	qsJitter->setValue(r.iJitterBufferSize);
-	qcbLoopback->setCurrentIndex(r.lmLoopMode);
-	qsPacketDelay->setValue(static_cast<int>(r.dMaxPacketDelay));
-	qsPacketLoss->setValue(static_cast<int>(r.dPacketLoss * 100.0));
+	loadComboBox(qcbTransmit, r.atTransmit);
+	loadSlider(qsTransmitHold, r.iVoiceHold);
+	loadSlider(qsFrames, r.iFramesPerPacket);
+	loadCheckBox(qcbPushClick, r.bPushClick);
+	loadCheckBox(qcbTCP, r.bTCPCompat);
+	loadCheckBox(qcbReconnect, r.bReconnect);
+	loadSlider(qsQuality, r.iQuality);
+	loadSlider(qsComplexity, r.iComplexity);
+	loadSlider(qsNoise, - r.iNoiseSuppress);
+	loadSlider(qsAmp, 20000 - r.iMinLoudness);
+	loadSlider(qsVolume, static_cast<int>(r.fVolume * 100.0));
+	loadSlider(qsJitter, r.iJitterBufferSize);
+	loadComboBox(qcbLoopback, r.lmLoopMode);
+	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
+	loadSlider(qsPacketLoss, static_cast<int>(r.dPacketLoss * 100.0));
 }
 
 void AudioConfigDialog::save() const {

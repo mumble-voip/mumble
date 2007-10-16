@@ -51,6 +51,35 @@ QIcon ConfigWidget::icon() const {
 void ConfigWidget::accept() const {
 }
 
+void ConfigWidget::loadSlider(QSlider *s, int v) {
+	if (v != s->value()) {
+		s->setValue(v);
+	} else if (v != s->minimum()) {
+		s->setValue(s->minimum());
+		s->setValue(v);
+	} else {
+		s->setValue(s->maximum());
+		s->setValue(v);
+	}
+}
+
+void ConfigWidget::loadCheckBox(QCheckBox *c, bool v) {
+	c->setChecked(! v);
+	c->setChecked(v);
+}
+
+void ConfigWidget::loadComboBox(QComboBox *c, int v) {
+	if (c->currentIndex() != v) {
+		c->setCurrentIndex(v);
+	} else if (v != 0) {
+		c->setCurrentIndex(0);
+		c->setCurrentIndex(v);
+	} else if (c->count() >= 2) {
+		c->setCurrentIndex(1);
+		c->setCurrentIndex(v);
+	}
+}
+
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 

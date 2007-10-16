@@ -69,26 +69,26 @@ QIcon LookConfig::icon() const {
 }
 
 void LookConfig::load(const Settings &r) {
-	qcbLanguage->setCurrentIndex(0);
-	qcbStyle->setCurrentIndex(0);
+	loadComboBox(qcbLanguage, 0);
+	loadComboBox(qcbStyle, 0);
 
 	for(int i=0;i<qcbLanguage->count();i++) {
 		if (qcbLanguage->itemText(i) == r.qsLanguage) {
-			qcbLanguage->setCurrentIndex(i);
+			loadComboBox(qcbLanguage, i);
 			break;
 		}
 	}
 	for(int i=0;i<qcbStyle->count();i++) {
 		if (qcbStyle->itemText(i) == r.qsStyle) {
-			qcbStyle->setCurrentIndex(i);
+			loadComboBox(qcbStyle, i);
 			break;
 		}
 	}
 	qleCSS->setText(r.qsSkin);
-	qcbHorizontal->setChecked(r.bHorizontal);
-        qcbExpand->setChecked(r.bExpandAll);
-        qcbPlayersTop->setChecked(r.bPlayerTop);
-        qcbAutoUpdate->setChecked(r.bUpdateCheck);
+	loadCheckBox(qcbHorizontal, r.bHorizontal);
+        loadCheckBox(qcbExpand, r.bExpandAll);
+        loadCheckBox(qcbPlayersTop, r.bPlayerTop);
+        loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 }
 
 void LookConfig::save() const {

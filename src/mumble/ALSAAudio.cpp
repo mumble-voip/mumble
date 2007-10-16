@@ -216,8 +216,6 @@ ALSAConfig::ALSAConfig(Settings &st) : ConfigWidget(st) {
 	}
 
 	qcbOutputDevice->setWhatsThis(qcbInputDevice->whatsThis());
-	qsOutputDelay->setValue(g.s.iDXOutputDelay);
-	on_qsOutputDelay_valueChanged(qsOutputDelay->value());
 }
 
 QString ALSAConfig::title() const {
@@ -237,19 +235,18 @@ void ALSAConfig::save() const {
 void ALSAConfig::load(const Settings &r) {
 	for(int i=0;i<qcbInputDevice->count();i++) {
 		if (qcbInputDevice->itemData(i).toString() == r.qsALSAInput) {
-			qcbInputDevice->setCurrentIndex(i);
+			loadComboBox(qcbInputDevice, i);
 			break;
 		}
 	}
 
 	for(int i=0;i<qcbOutputDevice->count();i++) {
 		if (qcbOutputDevice->itemData(i).toString() == r.qsALSAOutput) {
-			qcbOutputDevice->setCurrentIndex(i);
+			loadComboBox(qcbOutputDevice, i);
 			break;
 		}
 	}
-
-	qsOutputDelay->setValue(r.iDXOutputDelay);
+	loadSlider(qsOutputDelay, r.iDXOutputDelay);
 }
 
 bool ALSAConfig::expert(bool b) {
