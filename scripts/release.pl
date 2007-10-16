@@ -94,6 +94,11 @@ foreach my $file ('LICENSE', sort keys %files) {
   print "Adding $file\n";
   open(F, $file) or croak "Missing $file";
   sysread(F, $blob, 1000000000);
+  
+  if ($file eq "src/mumble/Global.h") {
+    $blob =~ s/\#ifndef MUMBLE_VERSION/\#define MUMBLE_VERSION $ver\n\#if 0/;
+  }
+  
   $tar->add_data($dir . $file, $blob);
   my $zipmember=$zip->addString($blob, $dir . $file);
   $zipmember->desiredCompressionMethod( COMPRESSION_DEFLATED );
