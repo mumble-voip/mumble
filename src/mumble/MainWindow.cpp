@@ -478,9 +478,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 		}
 		if (! c)
 			c = Channel::get(0);
-
 		unlinkall = (home->qhLinks.count() > 0);
-
 		if (home != c) {
 			if (c->allLinks().contains(home))
 				unlink = true;
@@ -805,6 +803,8 @@ void MainWindow::pushLink(bool down) {
 		return;
 
 	GlobalShortcut *gs = qobject_cast<GlobalShortcut *>(sender());
+	if (! gs)
+		return;
 	int idx = gs->data().toInt();
 	Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
 

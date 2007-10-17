@@ -391,6 +391,8 @@ void GlobalShortcutX::inputReadyRead(int) {
 		remap();
 
 	QFile *f=qobject_cast<QFile *>(sender()->parent());
+	if (!f)
+		return;
 	while (f->read(reinterpret_cast<char *>(&ev), sizeof(ev)) == sizeof(ev)) {
 		if (ev.type != EV_KEY)
 			continue;

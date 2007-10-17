@@ -180,10 +180,8 @@ class Server : public QThread, public MessageHandler {
 
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
-		void sendMessage(unsigned int, Message *);
 		void sendMessage(Connection *, Message *);
 
-//		void log(QString s, Connection *c = NULL);
 		__attribute__((format(printf, 2, 3))) void log(const char *format, ...);
 		__attribute__((format(printf, 3, 4))) void log(User *u, const char *format, ...);
 

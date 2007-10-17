@@ -494,14 +494,21 @@ void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList<ACLInfo> &acls, Q
 	foreach(name, allnames) {
 		Group *g = cChannel->qhGroups.value(name);
 		Group *pg = p ? Group::getGroup(p, name) : NULL;
-		GroupInfo gi(g);
+		if (!g && ! pg)
+			continue;
+		GroupInfo gi(g ? g : pg);
 		QSet<int> members;
-		if (pg) {
+		if (pg)
 			members = pg->members();
-			gi.inherited = pg->bInheritable;
+		if (g) {
+			gi.add = g->qsAdd.toList();
+			gi.remove = g->qsRemove.toList();
+			gi.inherited = false;
+			members+=g->qsAdd;
+			members-=g->qsRemove;
+		} else {
+			gi.inherited = true;
 		}
-		members+=g->qsAdd;
-		members-=g->qsRemove;
 		gi.members = members.toList();
 		groups << gi;
 	}
@@ -659,8 +666,6 @@ GroupInfo::GroupInfo(Group *g) {
 	name = g->qsName;
 	inherit = g->bInherit;
 	inheritable = g->bInheritable;
-	add = g->qsAdd.toList();
-	remove = g->qsRemove.toList();
 	members.clear();
 }
 

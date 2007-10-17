@@ -489,13 +489,16 @@ void Server::sslError(const QList<QSslError> &errors) {
 		}
 	}
 	if (ok) {
-		Connection *c = dynamic_cast<User *>(sender());
-		c->proceedAnyway();
+		Connection *c = qobject_cast<User *>(sender());
+		if (c)
+			c->proceedAnyway();
 	}
 }
 
 void Server::connectionClosed(QString reason) {
-	Connection *c = dynamic_cast<Connection *>(sender());
+	Connection *c = qobject_cast<Connection *>(sender());
+	if (! c)
+		return;
 	User *u = static_cast<User *>(c);
 
 	log(u, "Connection closed: %s", qPrintable(reason));
@@ -580,11 +583,6 @@ void Server::doSync(unsigned int id) {
 		MessageCryptSync mcs;
 		u->sendMessage(&mcs);
 	}
-}
-
-void Server::sendMessage(unsigned int id, Message *mMsg) {
-	Connection *c = qhUsers.value(id);
-	sendMessage(c, mMsg);
 }
 
 void Server::sendMessage(Connection *c, Message *mMsg) {

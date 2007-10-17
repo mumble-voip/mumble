@@ -342,6 +342,10 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 
 			if ((nelem == 1) && (myctx)) {
 				c = (Context *) malloc(sizeof(Context));
+				if (!c) {
+					ods("malloc failure");
+					return;
+				}
 				c->next = contexts;
 
 				c->glctx = myctx;

@@ -129,6 +129,9 @@ int ModelItem::rowOfSelf() const {
 	ModelItem *p = parent();
 
 	Q_ASSERT(p);
+	
+	if (!p)
+		return 0;
 
 	if (pPlayer)
 		return p->rowOf(pPlayer);
@@ -231,6 +234,8 @@ QModelIndex PlayerModel::index(ClientPlayer *p, int column) const {
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
 	Q_ASSERT(p);
 	Q_ASSERT(item);
+	if (!p || ! item)
+		return QModelIndex();
 	QModelIndex idx=createIndex(item->rowOfSelf(), column, item);
 	return idx;
 }
@@ -239,7 +244,7 @@ QModelIndex PlayerModel::index(Channel *c) const {
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
 	Q_ASSERT(c);
 	Q_ASSERT(item);
-	if (!c || ! c->parent())
+	if (!item || !c || ! c->parent())
 		return QModelIndex();
 	QModelIndex idx=createIndex(item->rowOfSelf(), 0, item);
 	return idx;
@@ -446,6 +451,9 @@ void PlayerModel::unbugHide(const QModelIndex &idx) {
 void PlayerModel::hidePlayer(ClientPlayer *p) {
 	Channel *c = p->cChannel;
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
+	
+	if (! item)
+		return;
 
 	int row = item->rowOf(p);
 
@@ -468,6 +476,9 @@ void PlayerModel::showPlayer(ClientPlayer *p, Channel *c) {
 	Q_ASSERT(p);
 	Q_ASSERT(c);
 	Q_ASSERT(item);
+
+	if (!c || !p || ! item)
+		return;
 
 	int row = item->insertIndex(p);
 
@@ -576,6 +587,9 @@ void PlayerModel::showChannel(Channel *c, Channel *p) {
 	Q_ASSERT(c);
 	Q_ASSERT(item);
 
+	if (!c || !p || ! item)
+		return;
+
 	int row = item->insertIndex(c);
 
 	beginInsertRows(index(p), row, row);
@@ -592,6 +606,9 @@ void PlayerModel::showChannel(Channel *c, Channel *p) {
 void PlayerModel::hideChannel(Channel *c) {
 	Channel *p = c->cParent;
 	ModelItem *item = ModelItem::c_qhChannels.value(p);
+
+	if (! item)
+		return;
 
 	int row = item->rowOf(c);
 
@@ -621,6 +638,8 @@ void PlayerModel::removeChannel(Channel *c) {
 	Channel *subc;
 
 	item=ModelItem::c_qhChannels.value(c);
+	if (! item)
+		return;
 
 	foreach(subc, item->qlChannels)
 	removeChannel(subc);
@@ -696,6 +715,9 @@ Channel *PlayerModel::getChannel(const QModelIndex &idx) const {
 
 Channel *PlayerModel::getSubChannel(Channel *p, int idx) const {
 	ModelItem *item=ModelItem::c_qhChannels.value(p);
+	if (! item)
+		return NULL;
+
 	if (idx < 0 || idx >= item->qlChannels.count())
 		return NULL;
 	return item->qlChannels.at(idx);
@@ -771,6 +793,9 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 	} else {
 		c = getChannel(p);
 	}
+
+	if (! c)
+		return false;
 
 	if (! isChannel) {
 		MessagePlayerMove mpm;

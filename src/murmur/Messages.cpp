@@ -569,6 +569,8 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 
 	Channel *l = (msg->qlTargets.count() == 1) ? qhChannels.value(msg->qlTargets[0]) : NULL;
 
+	QSet<Channel *> oldset = c->qhLinks.keys().toSet();
+
 	switch (msg->ltType) {
 		case MessageChannelLink::Link:
 			if (!l)
@@ -577,43 +579,31 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 				PERM_DENIED(uSource, l, ChanACL::LinkChannel);
 				return;
 			}
-			break;
-		case MessageChannelLink::Unlink:
-			if (!l)
-				return;
-			break;
-		case MessageChannelLink::UnlinkAll:
-			if (msg->qlTargets.count() > 0)
-				return;
-			break;
-		default:
-			if (msg->qlTargets.count() <= 0)
-				return;
-	}
-
-	QSet<Channel *> oldset = c->qhLinks.keys().toSet();
-
-	switch (msg->ltType) {
-		case MessageChannelLink::UnlinkAll:
-			c->unlink(NULL);
-			removeLink(c, NULL);
-			dbus->channelStateChanged(c);
-			log(uSource, "Unlinked all from channel %s", qPrintable(c->qsName));
-			sendAll(msg);
-			return;
-		case MessageChannelLink::Link:
 			c->link(l);
 			addLink(c, l);
 			dbus->channelStateChanged(c);
 			log(uSource, "Linked channel %s to %s", qPrintable(c->qsName),qPrintable(l->qsName));
 			break;
 		case MessageChannelLink::Unlink:
+			if (!l)
+				return;
 			c->unlink(l);
 			removeLink(c, l);
 			dbus->channelStateChanged(c);
 			log(uSource, "Unlinked channel %s from %s", qPrintable(c->qsName), qPrintable(l->qsName));
 			break;
+		case MessageChannelLink::UnlinkAll:
+			if (msg->qlTargets.count() > 0)
+				return;
+			c->unlink(NULL);
+			removeLink(c, NULL);
+			dbus->channelStateChanged(c);
+			log(uSource, "Unlinked all from channel %s", qPrintable(c->qsName));
+			sendAll(msg);
+			return;
 		case MessageChannelLink::PushLink:
+			if (msg->qlTargets.count() <= 0)
+				return;
 			foreach(int tid, msg->qlTargets) {
 				l=qhChannels.value(tid);
 				if (l && hasPermission(uSource, l, ChanACL::LinkChannel))
@@ -621,12 +611,17 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 			}
 			break;
 		case MessageChannelLink::PushUnlink:
+			if (msg->qlTargets.count() <= 0)
+				return;
 			foreach(int tid, msg->qlTargets) {
 				l=qhChannels.value(tid);
 				if (l)
 					c->playerUnlink(l, uSource);
 			}
 			break;
+		default:
+			if (msg->qlTargets.count() <= 0)
+				return;
 	}
 
 	QSet<Channel *> newset = c->qhLinks.keys().toSet();
