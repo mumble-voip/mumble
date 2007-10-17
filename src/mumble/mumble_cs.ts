@@ -451,6 +451,11 @@
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="ALSAAudio.cpp" line="124"/>
+        <source>Default ALSA Card</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ASIOConfig</name>
@@ -3494,7 +3499,7 @@ v žádném z možných míst.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="713"/>
-        <source>You are now in local deafen mode. This mode is not relfected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
+        <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

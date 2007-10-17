@@ -709,7 +709,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 void MainWindow::on_qaAudioLocalDeafen_triggered() {
 	g.s.bLocalDeafen = qaAudioLocalDeafen->isChecked();
 	if (g.s.bLocalDeafen) {
-		QMessageBox::information(this, tr("Mumble"), tr("You are now in local deafen mode. This mode is not relfected on the server, and you will still be transmitting "
+		QMessageBox::information(this, tr("Mumble"), tr("You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting "
 				"voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers."));
 	}
 }

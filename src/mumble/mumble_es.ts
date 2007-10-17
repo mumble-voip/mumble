@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
-<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -466,6 +465,11 @@
         <location filename="ALSAAudio.ui" line="103"/>
         <source>TextLabel</source>
         <translation>EtiquetaDeTexto</translation>
+    </message>
+    <message>
+        <location filename="ALSAAudio.cpp" line="124"/>
+        <source>Default ALSA Card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3646,8 +3650,8 @@ de las ubicaciones posibles.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="713"/>
-        <source>You are now in local deafen mode. This mode is not relfected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
-        <translation>Ahora está en el modo de ensordecimiento local. Este modo no se refleja en el servidor, y aun seguirá transmitiendo su voz al servidor. Este modo sólo debe ser usado si hay varias personas en la misma habitación y una de ellas usa Mumble con altavoces.</translation>
+        <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
+        <translation type="unfinished">Ahora está en el modo de ensordecimiento local. Este modo no se refleja en el servidor, y aun seguirá transmitiendo su voz al servidor. Este modo sólo debe ser usado si hay varias personas en la misma habitación y una de ellas usa Mumble con altavoces.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="139"/>
