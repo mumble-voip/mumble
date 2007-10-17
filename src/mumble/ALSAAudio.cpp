@@ -120,8 +120,8 @@ static ConfigRegistrar registrar(20, ALSAConfigDialogNew);
 
 
 ALSAEnumerator::ALSAEnumerator() {
-	qhInput.insert(QLatin1String("default"), tr("Default ALSA Card"));
-	qhOutput.insert(QLatin1String("default"), tr("Default ALSA Card"));
+	qhInput.insert(QLatin1String("default"), ALSAConfig::tr("Default ALSA Card"));
+	qhOutput.insert(QLatin1String("default"), ALSAConfig::tr("Default ALSA Card"));
 
 	int card=-1;
 	snd_card_next(&card);
