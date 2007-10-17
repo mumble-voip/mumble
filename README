@@ -29,13 +29,13 @@ will rubbing it with paper -- anything that causes signals that are way out
 of the normal range. If this happens, use Audio|Reset (or the bound
 shortcut) to reset it.
 
-Running Murmur
-==============
+Running Murmur on Linux
+=======================
 
-Murmur must be run from the command line, so start a shell (command prompt)
+Murmur should be run from the command line, so start a shell (command prompt)
 and go to wherever you installed Mumble. Run murmur as
 
-murmur [-supw <password>] [-ini <inifile>]
+murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 
 -supw   Set new password for the user SuperUser, which is hardcoded to
         bypass ACLs. Keep this password safe. Until you set a password,
@@ -45,6 +45,18 @@ murmur [-supw <password>] [-ini <inifile>]
 -ini    Use a inifile other than murmur.ini, use this to run several isntances
         of murmur from the same directory. Make sure each instance is using
         a separate database.
+        
+-fg     Run in the foreground, logging to standard output.
+
+-v      More verbose logging.
+
+Running Murmur on Win32
+=======================
+
+Doubleclick the Murmur icon to start murmur. There will be a small icon on your
+taskbar from which you can view the log.
+
+To set the superuser password, run murmur with the parameters '-supw <password>'.
 
 Bandwidth usage
 ===============
