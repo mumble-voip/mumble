@@ -1,4 +1,467 @@
-2007-07-15 [r597-600]  slicer:
+2007-10-19 [r796]  m0ta:
+
+	* german translation updated
+
+2007-10-19 [r795]  slicer:
+
+	* Ubuntu packaging updates
+
+2007-10-18 [r794]  naproxeno:
+
+	* Updated Spanish translation
+
+2007-10-17 [r792-793]  slicer:
+
+	* Fixes from Klocwork analysis (http://www.klocwork.com/)
+
+	* Typo fix
+
+2007-10-17 [r791]  naproxeno:
+
+	* Updated Spanish translation
+
+2007-10-17 [r781-790]  slicer:
+
+	* tr() bug in ALSAEnumerator
+
+	* Support prehistoric OpenSSL
+
+	* Minor text fixes.
+
+	* Language update
+
+	* Ensure labels are updated in config widgets.
+
+	* tarbuilder updates
+
+	* Compile against OSS3 as well
+
+	* OSS4
+
+	* no pch mode for klocwork
+
+	* Updated WhatsThis for ACLEditor.ui
+
+2007-10-13 [r779-780]  slicer:
+
+	* Local Deafen wasn't checkable.
+
+	* Update DBus examples and fix reentrancy bugs
+
+2007-10-09 [r768-778]  slicer:
+
+	* Qt 4.3.2 in installer Fix buglet in bandwidth auto-adjust.
+
+	* Portaudio support by metz
+
+	* Rename murmur to murmurd on Unixes and add a pid file
+
+	* Various compile fixes for Linux
+
+	* Expert config mode
+
+	* Memory map bugfixes
+
+	* Support explicit linked games.
+
+	* Add a volume slider.
+
+	* Save state of playerview. Bump AGC to 30000
+
+	* Autolower bandwidth on connect
+
+	* Add TextMessage to svn.
+
+2007-09-26 [r765-767]  slicer:
+
+	* Fix bugs in ConnectDialog
+
+	* Serverside text-to-channel support
+
+	* Multiline and multichannel messages.
+
+2007-09-09 [r764]  slicer:
+
+	* Allow a few more characters for channel and user names
+
+2007-09-07 [r762-763]  slicer:
+
+	* More gracefully handle oversized outgoing packets from murmur
+
+	* Add username limit of 512 bytes. Bugs reported by Luigi Auriemma
+
+2007-09-01 [r761]  m0ta:
+
+	* new batch of translations
+
+2007-09-01 [r759-760]  slicer:
+
+	* mumble.desktop patch from cesare.tirabassi@gmail.com
+
+	* Fix D3D9 textures stacking. Fix OpenGL grey texture. Fix CrashLog
+	  dumper. (DOH!)
+
+2007-08-30 [r747-758]  slicer:
+
+	* Patch #1785198 by metz - Log.ui -- Logging config looks a lot
+	  better.
+
+	* Patch #1785192 by metz - ConfigDialog fixes
+
+	* Patch #1785183 by metz. Unix client compiles again.
+
+	* Patch #1785183 from metz. Enable AudioWizard on non-win32
+	  platforms.
+
+	* Win32 OpenGL overlay. ETQW :)
+
+	* Modularized win32 overlay. Added preliminary DSound and OpenAL
+	  position grab to the overlay. (Only works with demos so far, no
+	  actual games work).
+
+	* Compile win32 overlay with GCC.
+
+	* Win32 overlay no longer depends on D3DX
+
+	* Re-add bf2 plugin to win32 installer.
+
+	* Use file mapping for shared memory on Win32.
+
+	* Win32 installer asks for reboot if it can't update overlay file.
+
+	* Various bugfixes. Updated overlay to only draw on topmost
+	  surface. Needs testing.
+
+2007-08-25 [r746]  slicer:
+
+	* Bugfixes from public snapshots.
+
+2007-08-21 [r742-745]  slicer:
+
+	* Automatically check version on startup.
+
+	* Re-enable drag&drop.
+
+	* Minor fixes for new config system. Updated installer for Qt 4.3.1
+
+	* Client now has "restore to default" and "restore to last saved"
+	  configuration, and all config is stored in the same way. Only
+	  changed configuration data is stored on disc, meaning if a user
+	  leaves a setting at it's default and the default later changes,
+	  the user will use the new default.
+
+2007-08-16 [r741]  slicer:
+
+	* plugins.pro
+
+2007-08-14 [r721-740]  slicer:
+
+	* Update .uis for Linux
+
+	* Fix warnings on Win32
+
+	* More .ui conversions.
+
+	* BanEditor.ui
+
+	* ConnectDialog.ui
+
+	* Fix meta-registration
+
+	* MainWindow.ui
+
+	* Show URL in tooltip for HTML anchors.
+
+	* Minor fix for TTS on Festival
+
+	* Safe HTML in Log
+
+	* Yet another fix for reentrant SSL messages
+
+	* Manual close of application
+
+	* Experimentation with UI Designer
+
+	* Local deafen
+
+	* Adjust noise suppression level in settings.
+
+	* Use SHA1 for binary checksum for the upgrade check.
+
+	* View extended server connection statistics.
+
+	* Start of proper statistics
+
+	* Strip HTML from incoming TextMessage
+
+	* Certifiticate => Certificate
+
+2007-08-11 [r720]  naproxeno:
+
+	* Updated Spanish translation
+
+2007-08-10 [r713-719]  slicer:
+
+	* Strip HTML from TTS for Win32.
+
+	* Support URLs in the log window.
+
+	* OOO crypt recovery
+
+	* Fix GlobalShortcut_unix
+
+	* Update registration script
+
+	* Support kernel input devices on Linux
+
+	* Update win32 Build Environment to GCC 4.2.1, Qt 4.3.1 and Boost
+	  1.34.1
+
+2007-08-08 [r672-712]  slicer:
+
+	* Fix referential integrity for player group-memberships
+
+	* Add DBus getAllConf() and setSuperUserPassword
+
+	* Ask for AudioWizard config on first start.
+
+	* PushToLink implies AltSpeak
+
+	* Fix a few more SQL problems
+
+	* Yet one more try to get -mmmx out of the mac build
+
+	* Compile fix for 32-bit lenny
+
+	* Another tiny SQL fix
+
+	* Typo which broke the client. Badly.
+
+	* Fix two crashbugs in murmur
+
+	* SQL Fix in ServerDB
+
+	* Rename channel
+
+	* Fix typo in mumble.pro for OSX [dersebi]
+
+	* Add TestCrypt to SVN
+
+	* Minor build fix for regular Linux
+
+	* OSX patches from mit_service
+
+	* Optimized crypto
+
+	* Fix crash from race condition in DXAudioOutput
+
+	* Fix crash from race condition in DXAudioOutput
+
+	* Fixed ConnectDialog to be slightly more sane.
+
+	* Minor bugfixes for DB and DBus layers
+
+	* Updated server info dialog to reflect voice crypt.
+
+	* Use correct frame size for bandwidth calculation
+
+	* Use correct frame size for bandwidth calculation
+
+	* Fix crypt on client.
+
+	* Testing UDP crypt
+
+	* Build updates
+
+	* Link vertical height to font size.
+
+	* Allow multiple tests on same machine
+
+	* Microbenchmark
+
+	* URL path == channel support
+
+	* MySQL schema embedded in murmur. Reconnect to SQL server on
+	  connection lost.
+
+	* plug:"hw instead of plug:hw
+
+	* DBus and URL support for Mumble. Fixed DBus autolaunch for Win32.
+	  It's a hack, but it works.
+
+	* Native UDP for UNIX as well
+
+	* Win32 Murmur DBus
+
+	* SQL reconnect on lost connection
+
+	* Per-server logging
+
+2007-08-01 [r671]  naproxeno:
+
+	* Updated Spanish translation
+
+2007-08-01 [r664-670]  slicer:
+
+	* OSX Patch for murmur from mit_service
+
+	* Timestamp players table
+
+	* Make sure no -2 slips through to Mumble
+
+	* Multiserver support
+
+	* server_id in ServerDB
+
+	* Client compiles again
+
+	* Global-less server. First step of multiserver support. Completely
+	  breaks client
+
+2007-07-30 [r661-662]  slicer:
+
+	* Platform edit
+
+	* mouse shortcut patch from javitonino
+
+2007-07-28 [r659-660]  slicer:
+
+	* Czech translation from David Pravec
+
+	* Name -> Label
+
+2007-07-22 [r652-658]  slicer:
+
+	* Installer fixes for openssl.
+
+	* Increase max settable amplification to 40x
+
+	* Reset PushToTalk when configuring.
+
+	* Make qFatal pop up as ::MessageBox on Win32.
+
+	* Use mingw built openssl -- the precompiled one depended on
+	  nondefault Visual C runtimes.
+
+	* Support fixing case of usernames in DBus auth
+
+	* obsessive PacketDataStream optimization
+
+2007-07-20 [r651]  m0ta:
+
+	* translations
+
+2007-07-20 [r627-650]  slicer:
+
+	* Database cleanups and support for dbPrefix
+
+	* IP Binding for murmur
+
+	* Timer tests
+
+	* Test indenting
+
+	* Unit tests
+
+	* PacketDataStream bug for negative numbers > 32 bit
+
+	* Reentrancy fixes
+
+	* SSL crashfixes, ui session drag-and-drop fix.
+
+	* queued readyRead, fixes a SSL crashbug
+
+	* Small optimization to win32 timer.
+
+	* Deprecation cleanups
+
+	* Deprecation cleanups
+
+	* LARGE_INTEGER fixes for murmur
+
+	* sPlayerId => uiSession
+
+	* More indenting
+
+	* Use new Timer for murmur
+
+	* Ping measurement in Server Information, and optimized
+	  AudioInput->UDP latency.
+
+	* 64-bit message support.
+
+	* 64-bit message support.
+
+	* 64-bit message support.
+
+	* 64-bit message support.
+
+	* Latin1 for Festival
+
+	* Proper certificate viewer.
+
+	* Proper certificate viewer.
+
+2007-07-18 [r626]  m0ta:
+
+	* German translation added.
+
+2007-07-18 [r604-625]  slicer:
+
+	* A few missing QLatin1Strings and also switch to pkgconfig for
+	  ALSA and Xevie
+
+	* Use pkgconfig for openssl link
+
+	* Hashed passwords in murmur database
+
+	* reindenting all the code
+
+	* installer fix for OpenSSL
+
+	* Avoid closing on errors, that happens automatically now
+
+	* Fix for #1755731. The event loop runs while dialogs are open.
+
+	* SSL client support.
+
+	* UTF8 for dbusauth
+
+	* Forgot to add new Cert.h and .cpp
+
+	* Server-side SSL encryption
+
+	* All icons can now be changed in skins.
+
+	* Crashbug in ConnectDialog
+
+	* Some more dbusauth fixes
+
+	* Cached database handle in dbusauth.pl
+
+	* hostname registration
+
+	* overlay debug fixup
+
+	* Fix buglet in PlayerModel
+
+	* Platform-independent qmake pathhandling.
+
+	* Include QT translation
+
+	* Overlay debugging
+
+	* Explicitly link overlay with gcc to avoid libstdc++ dependency
+
+2007-07-15 [r603]  naproxeno:
+
+	* Minor corrections to the Spanish translation
+
+2007-07-15 [r597-602]  slicer:
+
+	* Build fixes for Ubuntu
+
+	* Changelog update
 
 	* Changelog update
 
