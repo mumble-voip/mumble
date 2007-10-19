@@ -90,7 +90,7 @@ install-arch:
 	install ./release/mumble $(CURDIR)/debian/mumble/usr/bin
 	install ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin
 	install ./release/libmumble.so.1.0.0 $(CURDIR)/debian/mumble/usr/lib/
-	install ./release/murmur $(CURDIR)/debian/mumble-server/usr/bin
+	install ./release/murmurd $(CURDIR)/debian/mumble-server/usr/bin
 	
 	# install menu entry
 	install -d $(CURDIR)/debian/mumble/usr/share/applications
