@@ -3075,47 +3075,47 @@ of the possible locations.</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="548"/>
+        <location filename="MainWindow.cpp" line="546"/>
         <source>Channel Name</source>
         <translation>Имя канала</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="527"/>
+        <location filename="MainWindow.cpp" line="525"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Вы уверены, что хотите удалить %1 и все его подканалы?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="678"/>
+        <location filename="MainWindow.cpp" line="676"/>
         <source>Unmuted and undeafened.</source>
         <translation>Онемение и глушение снято.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="680"/>
+        <location filename="MainWindow.cpp" line="678"/>
         <source>Unmuted.</source>
         <translation>Глушение снято.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="682"/>
+        <location filename="MainWindow.cpp" line="680"/>
         <source>Muted.</source>
         <translation>Заглушен.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="696"/>
+        <location filename="MainWindow.cpp" line="694"/>
         <source>Muted and deafened.</source>
         <translation>В онемении и заглушен.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="698"/>
+        <location filename="MainWindow.cpp" line="696"/>
         <source>Deafened.</source>
         <translation>В онемении.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="700"/>
+        <location filename="MainWindow.cpp" line="698"/>
         <source>Undeafened.</source>
         <translation>Онемение снято.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="755"/>
+        <location filename="MainWindow.cpp" line="753"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
@@ -3255,12 +3255,12 @@ of the possible locations.</source>
         <translation>%1 перемещен сюда %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="279"/>
+        <location filename="Messages.cpp" line="291"/>
         <source>Server connection rejected: %1.</source>
         <translation>Попытка подключения отклонена: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="284"/>
+        <location filename="Messages.cpp" line="296"/>
         <source>Denied: %1.</source>
         <translation>Запрещено: %1.</translation>
     </message>
@@ -3300,12 +3300,12 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="635"/>
+        <location filename="MainWindow.cpp" line="633"/>
         <source>To %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="635"/>
+        <location filename="MainWindow.cpp" line="633"/>
         <source>Message to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3340,12 +3340,12 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="335"/>
+        <location filename="Messages.cpp" line="347"/>
         <source>From %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="336"/>
+        <location filename="Messages.cpp" line="348"/>
         <source>Message from %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3485,27 +3485,27 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="622"/>
+        <location filename="MainWindow.cpp" line="620"/>
         <source>Sending message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="649"/>
+        <location filename="MainWindow.cpp" line="647"/>
         <source>Sending message to channel tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="662"/>
+        <location filename="MainWindow.cpp" line="660"/>
         <source>To tree %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="662"/>
+        <location filename="MainWindow.cpp" line="660"/>
         <source>Message to tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="713"/>
+        <location filename="MainWindow.cpp" line="711"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3580,7 +3580,7 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="299"/>
+        <location filename="Messages.cpp" line="311"/>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4004,17 +4004,17 @@ of the possible locations.</source>
 <context>
     <name>PlayerModel</name>
     <message>
-        <location filename="PlayerModel.cpp" line="374"/>
+        <location filename="PlayerModel.cpp" line="379"/>
         <source>Name of player</source>
         <translation>Имя игрока</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="374"/>
+        <location filename="PlayerModel.cpp" line="379"/>
         <source>Name of channel</source>
         <translation>Имя канала</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="376"/>
+        <location filename="PlayerModel.cpp" line="381"/>
         <source>Player flags</source>
         <translation>Флаги игрока</translation>
     </message>
@@ -4024,7 +4024,7 @@ of the possible locations.</source>
         <translation type="obsolete">Этот игрок подключен к серверу. Иконка слева от игрока отображает, разговаривает он сейчас или нет:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt;Говорит&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt;Не говорит</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="389"/>
+        <location filename="PlayerModel.cpp" line="394"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
         <translation>Канал на сервере. Только игроки на одном канале могут слушать друг друга.</translation>
     </message>
@@ -4034,22 +4034,22 @@ of the possible locations.</source>
         <translation type="obsolete">Показывает флаги игрока на сервере,если любой:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Зарегистрированный пользователь&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Заглушенный (собой)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Заглушенный (администратором)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;В онемении (собственном)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;В онемении (администратора)&lt;br /&gt;Пользователь,заглушенный собой, обычно отошел от компьютера, говорит по телефону, или что-то в этом роде.&lt;br /&gt;Игрок, заглушенный администратором, возможно просто отошел, и шум игрока надоедал администратору,и он заглушил его.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="415"/>
+        <location filename="PlayerModel.cpp" line="420"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="417"/>
+        <location filename="PlayerModel.cpp" line="422"/>
         <source>Flags</source>
         <translation>Флаги</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="387"/>
+        <location filename="PlayerModel.cpp" line="392"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="399"/>
+        <location filename="PlayerModel.cpp" line="404"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation type="unfinished"></translation>
     </message>

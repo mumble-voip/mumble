@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -160,7 +161,7 @@
     <message>
         <location filename="ACLEditor.ui" line="228"/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished">Dies zeigt alle aktive Einträge in diesem Kanal an. Von Elternkanälen geerbte Einträge werden kursiv angezeigt.</translation>
+        <translation>Dies zeigt alle aktive Einträge in diesem Kanal an. Von Elternkanälen geerbte Einträge werden kursiv angezeigt.&lt;br /&gt;ACLs werden von oben nach unten ausgewertet, was bedeutet, dass sich die Priorität erhöht, wenn man die Listen abläuft.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="235"/>
@@ -454,7 +455,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="124"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard ALSA-Karten</translation>
     </message>
 </context>
 <context>
@@ -1099,22 +1100,22 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="473"/>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Audioausgabe</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="524"/>
         <source>Volume</source>
-        <translation type="unfinished">Lautstärke</translation>
+        <translation>Lautstärke</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="531"/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärke der ankommenden Sprache</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="534"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies legt die Lautstärke der eingehenden Sprache fest.&lt;/b&gt;&lt;br /&gt;Beachten Sie, dass dies nur genutzt werden kann, um die Lautstärke zu verringern. Eine Verstärkung ist nicht möglich.</translation>
     </message>
 </context>
 <context>
@@ -1774,17 +1775,17 @@
     <message>
         <location filename="ConfigDialog.ui" line="54"/>
         <source>Show all configuration items</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige alle Konfigurationselemente</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui" line="57"/>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies zeigt alle Konfigurationselemente.&lt;/b&gt;&lt;br /&gt;Mumble enthält viele Konfigurationselemente die die meisten Nutzer nicht ändern werden. Dies zu aktivieren zeigt alle konfigurierbaren Elemente an.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui" line="60"/>
         <source>Expert Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Expertenkonfiguration</translation>
     </message>
 </context>
 <context>
@@ -1917,7 +1918,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="184"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekeannt</translation>
     </message>
 </context>
 <context>
@@ -3015,7 +3016,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="548"/>
+        <location filename="MainWindow.cpp" line="546"/>
         <source>Channel Name</source>
         <translation>Kanalname</translation>
     </message>
@@ -3025,37 +3026,37 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Sind Sie sicher Kanal %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="678"/>
+        <location filename="MainWindow.cpp" line="676"/>
         <source>Unmuted and undeafened.</source>
         <translation>Stumm- und Taubstellen ausgeschalten.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="680"/>
+        <location filename="MainWindow.cpp" line="678"/>
         <source>Unmuted.</source>
         <translation>Stummstellen aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="682"/>
+        <location filename="MainWindow.cpp" line="680"/>
         <source>Muted.</source>
         <translation>Stumm.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="696"/>
+        <location filename="MainWindow.cpp" line="694"/>
         <source>Muted and deafened.</source>
         <translation>Stumm und taub gestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="698"/>
+        <location filename="MainWindow.cpp" line="696"/>
         <source>Deafened.</source>
         <translation>Taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="700"/>
+        <location filename="MainWindow.cpp" line="698"/>
         <source>Undeafened.</source>
         <translation>Taubstellung aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="755"/>
+        <location filename="MainWindow.cpp" line="753"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
@@ -3195,12 +3196,12 @@ der möglichen Orte initialisieren.</translation>
         <translation>%1 von %2 reingeschoben.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="279"/>
+        <location filename="Messages.cpp" line="291"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serververbindung abgelehnt : %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="284"/>
+        <location filename="Messages.cpp" line="296"/>
         <source>Denied: %1.</source>
         <translation>Abgelehnt: %1.</translation>
     </message>
@@ -3288,7 +3289,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Plugin ausklinken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="527"/>
+        <location filename="MainWindow.cpp" line="525"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sicher %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
@@ -3339,12 +3340,12 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Nachricht eingeben</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="635"/>
+        <location filename="MainWindow.cpp" line="633"/>
         <source>To %1: %2</source>
         <translation>An %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="635"/>
+        <location filename="MainWindow.cpp" line="633"/>
         <source>Message to %1</source>
         <translation>Nachricht an %1</translation>
     </message>
@@ -3379,12 +3380,12 @@ der möglichen Orte initialisieren.</translation>
         <translation>Falsches Serverpasswort für unregistrierten Benutzer-Account, bitte noch einmal versuchen.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="335"/>
+        <location filename="Messages.cpp" line="347"/>
         <source>From %1: %2</source>
         <translation>Von %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="336"/>
+        <location filename="Messages.cpp" line="348"/>
         <source>Message from %1</source>
         <translation>Nachricht von %1</translation>
     </message>
@@ -3584,9 +3585,9 @@ der möglichen Orte initialisieren.</translation>
         <translation>Resync</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="713"/>
+        <location filename="MainWindow.cpp" line="711"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
-        <translation type="unfinished">Sie befinden sich jetzt im lokalen Taubmodus. Dieser Modus stimmt nicht mit dem des Servers überein und ihre Stimme wird weiterhin zum Server übertragen. Dieser Modus sollte nur genutzt werden, wenn sich mehrere Leute im selben Raum befinden und einer von ihnen benutzt Lautsprecher.</translation>
+        <translation>Sie befinden sich jetzt im lokalen Taubmodus. Dieser Modus stimmt nicht mit dem des Servers überein und ihre Stimme wird weiterhin zum Server übertragen. Dieser Modus sollte nur genutzt werden, wenn sich mehrere Leute im selben Raum befinden und einer von ihnen benutzt Lautsprecher.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="139"/>
@@ -3629,49 +3630,49 @@ der möglichen Orte initialisieren.</translation>
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="622"/>
+        <location filename="MainWindow.cpp" line="620"/>
         <source>Sending message to channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende Nachricht an Kanal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="649"/>
+        <location filename="MainWindow.cpp" line="647"/>
         <source>Sending message to channel tree %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende Nachricht an Kanalbaum %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="662"/>
+        <location filename="MainWindow.cpp" line="660"/>
         <source>To tree %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Baum %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="662"/>
+        <location filename="MainWindow.cpp" line="660"/>
         <source>Message to tree %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachricht an Baum %1</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="521"/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schickt eine Textnachricht an alle Nutzer im Kanal.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="526"/>
         <source>Send &amp;Tree Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende &amp;Baumnachricht</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="529"/>
         <source>Send message to channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende Nachricht an Kanalbaum.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="532"/>
         <source>This sends a text message to a channel and it&apos;s subchannels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies schickt eine Textnachricht an einen Kanal und seine Unterkanäle.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="299"/>
+        <location filename="Messages.cpp" line="311"/>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Bandbreite des Servers ist nur %1 kbit/s. Qualität wird automatisch angepasst.</translation>
     </message>
 </context>
 <context>
@@ -3679,72 +3680,72 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="OSS.cpp" line="207"/>
         <source>OSS</source>
-        <translation type="unfinished"></translation>
+        <translation>OSS</translation>
     </message>
     <message>
         <location filename="OSS.cpp" line="243"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="19"/>
         <source>Device selection</source>
-        <translation type="unfinished">Geräteauswahl</translation>
+        <translation>Geräteauswahl</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="25"/>
         <source>Input</source>
-        <translation type="unfinished">Eingang</translation>
+        <translation>Eingang</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="35"/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikrofongerät</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="38"/>
         <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is whatever you have configured in alsaconfig, the &lt;i&gt;hwplug&lt;/i&gt; devices are specific hardware devices backed by the ALSA mixer and the &lt;i&gt;hw&lt;/i&gt; devices are raw hardware access. Unless your soundcard supports hardware mixing of audio, using the &lt;i&gt;hw&lt;/i&gt; device will exclude all other programs from using audio.</source>
-        <translation type="unfinished">Dies legt fest, welches Gerät Mumble nutzen soll. Das &lt;i&gt;Standard&lt;/i&gt;-Gerät ist durch alsaconfig konfiguriert, die &lt;i&gt;hwplug&lt;/i&gt; Geräte sind spezielle Hardware-Geräte die vom ALSA-Mixer genutzt werden und die &lt;i&gt;hw&lt;/i&gt;-Geräte bieten rohen Hardwarezugriff. Falls ihre Soundkarte Hardware Mixing von Audio nicht unterstützt, wird die Verwendung von &lt;i&gt;hw&lt;/i&gt;-Geräten alle anderen Programme vom Audiozugriff ausschließen.</translation>
+        <translation>Dies legt fest, welches Gerät Mumble nutzen soll. Das &lt;i&gt;Standard&lt;/i&gt;-Gerät ist durch alsaconfig konfiguriert, die &lt;i&gt;hwplug&lt;/i&gt; Geräte sind spezielle Hardware-Geräte die vom ALSA-Mixer genutzt werden und die &lt;i&gt;hw&lt;/i&gt;-Geräte bieten rohen Hardwarezugriff. Falls ihre Soundkarte Hardware Mixing von Audio nicht unterstützt, wird die Verwendung von &lt;i&gt;hw&lt;/i&gt;-Geräten alle anderen Programme vom Audiozugriff ausschließen.</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="45"/>
         <source>Output</source>
-        <translation type="unfinished">Ausgabe</translation>
+        <translation>Ausgabe</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="55"/>
         <source>Device to use for speakers/headphones</source>
-        <translation type="unfinished">Gerät für Lautsprecher/Kopfhörer</translation>
+        <translation>Gerät für Lautsprecher/Kopfhörer</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="65"/>
         <source>Output Options</source>
-        <translation type="unfinished">Ausgabeoptionen</translation>
+        <translation>Ausgabeoptionen</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="71"/>
         <source>Output Delay</source>
-        <translation type="unfinished">Ausgabeverzögerung</translation>
+        <translation>Ausgabeverzögerung</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="81"/>
         <source>Amount of data to buffer for ALSA</source>
-        <translation type="unfinished">Menge an Daten die ALSA puffern soll</translation>
+        <translation>Menge an Daten die ALSA puffern soll</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="84"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies liegt die Menge an Daten fest, die im Ausgabepuffer vorgepuffert werden sollen. Experimentiere mit verschiedenen Werten und setze es auf den niedrigsten Wert, der noch kein schnelles Jitter im Sound verursacht.</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="103"/>
         <source>TextLabel</source>
-        <translation type="unfinished">Textlabel</translation>
+        <translation>Textlabel</translation>
     </message>
 </context>
 <context>
@@ -4029,58 +4030,58 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="PAAudioConfig.cpp" line="56"/>
         <source>PortAudio</source>
-        <translation type="unfinished"></translation>
+        <translation>Portaudio</translation>
     </message>
     <message>
         <location filename="PAAudioConfig.ui" line="16"/>
         <source>Input Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingabegerät</translation>
     </message>
     <message>
         <location filename="PAAudioConfig.ui" line="35"/>
         <source>Output Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgabegerät</translation>
     </message>
 </context>
 <context>
     <name>PlayerModel</name>
     <message>
-        <location filename="PlayerModel.cpp" line="374"/>
+        <location filename="PlayerModel.cpp" line="379"/>
         <source>Name of player</source>
         <translation>Name des Spielers</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="374"/>
+        <location filename="PlayerModel.cpp" line="379"/>
         <source>Name of channel</source>
         <translation>Name des Kanals</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="376"/>
+        <location filename="PlayerModel.cpp" line="381"/>
         <source>Player flags</source>
         <translation>Spielerattribute</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="387"/>
+        <location filename="PlayerModel.cpp" line="392"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation>Dies ist ein mit dem Server verbundener Spieler. Das Icon links vom Spieler zeigt an, ob er spricht oder nicht: &lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt;Sprechend&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot;/&gt; Nicht sprechend</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="389"/>
+        <location filename="PlayerModel.cpp" line="394"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
         <translation>Dies ist ein Kanal auf dem Server. Nur Spieler im selben Kanal können sich gegenseitig hören.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="399"/>
+        <location filename="PlayerModel.cpp" line="404"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>Dies zeigt die Attribute an, die ein Spieler auf dem Server hat:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authentifizierter Benutzer&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Stummgestellt (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Stummgestellt (durch Admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Taubgestellt (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Taubgestellt (durch Admin)&lt;br /&gt;Ein Spieler der sich selbst stummgestellt hat, ist vermutlich weg oder ist am Telefon.&lt;br /&gt;Ein Spieler der durch einen Admin stummgestellt wurde, ist vermutlich auch weg, aber die Geräusche die der Spieler macht, waren genug, dass der Admin ihn stummgestellt hat.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="415"/>
+        <location filename="PlayerModel.cpp" line="420"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="417"/>
+        <location filename="PlayerModel.cpp" line="422"/>
         <source>Flags</source>
         <translation>Attribute</translation>
     </message>
@@ -4206,12 +4207,12 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="TextMessage.ui" line="22"/>
         <source>Message to send</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu sendende Nachricht</translation>
     </message>
     <message>
         <location filename="TextMessage.ui" line="40"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau</translation>
     </message>
 </context>
 <context>
