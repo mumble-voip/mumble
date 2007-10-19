@@ -1,8 +1,14 @@
+mumble (1.1.1) gutsy; urgency=low
+
+  * Bugfixes
+
+ -- Thorvald Natvig <slicer@sourceforge.net>  Sat, 20 Oct 2007 01:00:00 +0200
+
 mumble (1.1.0) gutsy; urgency=low
 
   * Multiserver support
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Sat, 19 Oct 2007 14:15:00 +0200
+ -- Thorvald Natvig <slicer@sourceforge.net>  Fri, 19 Oct 2007 14:15:00 +0200
 
 mumble (1.0.0) feisty; urgency=low
 

@@ -1,4 +1,4 @@
-VERSION		= 1.1.0
+VERSION		= 1.1.1
 DIST		= mumble.pro murmur.pro mumble.pri mumble.ico Message.h mumble_plugin.h PacketDataStream.h CryptState.h Timer.h
 CONFIG		+= qt thread debug_and_release warn_on
 !nopch {
