@@ -30,7 +30,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
-	qmake-qt4 DEFINES+=MUMBLE_VERSION="1.0.0" main.pro
+	qmake-qt4 DEFINES+=MUMBLE_VERSION="1.1.0" main.pro
 
 	touch configure-stamp
 
@@ -89,7 +89,7 @@ install-arch:
 	install -d $(CURDIR)/debian/mumble-server/usr/bin
 	install ./release/mumble $(CURDIR)/debian/mumble/usr/bin
 	install ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin
-	install ./release/libmumble.so.1.0.0 $(CURDIR)/debian/mumble/usr/lib/
+	install ./release/libmumble.so.1.1.0 $(CURDIR)/debian/mumble/usr/lib/
 	install ./release/murmurd $(CURDIR)/debian/mumble-server/usr/bin
 	
 	# install menu entry
