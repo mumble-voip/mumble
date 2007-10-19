@@ -31,13 +31,13 @@ foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro
 }
 
 chdir("src/murmur");
-system("/usr/local/Trolltech/Qt-4.3.0/bin/qmake CONFIG+=static");
+system("/usr/local/Trolltech/Qt-4.3.2/bin/qmake CONFIG+=static");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.3.0/bin/qmake CONFIG+=static");
+system("/usr/local/Trolltech/Qt-4.3.2/bin/qmake CONFIG+=static");
 system("make");
 chdir("../..");
 
-$files{"murmur.x86"}="release/murmur";
+$files{"murmur.x86"}="release/murmurd";
 $files{"LICENSE"}="installer/gpl.txt";
 $files{"README"}="README";
 $files{"CHANGES"}="CHANGES";

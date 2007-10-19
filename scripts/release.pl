@@ -14,7 +14,7 @@ my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'f
 
 system("rm mumble-*");
 
-foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
+foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri", "plugins/plugins.pro", "plugins/wow/wow.pro", "plugins/bf2/bf2.pro", "plugins/link/link.pro") {
   open(F, $pro) or croak "Failed to open $pro";
   print "Processing $pro\n";
   $files{$pro}=1;

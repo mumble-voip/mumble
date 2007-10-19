@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
-<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -3071,7 +3070,7 @@ de las ubicaciones posibles.</translation>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="548"/>
+        <location filename="MainWindow.cpp" line="546"/>
         <source>Channel Name</source>
         <translation>Nombre del canal</translation>
     </message>
@@ -3081,37 +3080,37 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="678"/>
+        <location filename="MainWindow.cpp" line="676"/>
         <source>Unmuted and undeafened.</source>
         <translation>Con voz y escucha.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="680"/>
+        <location filename="MainWindow.cpp" line="678"/>
         <source>Unmuted.</source>
         <translation>Con escucha.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="682"/>
+        <location filename="MainWindow.cpp" line="680"/>
         <source>Muted.</source>
         <translation>Mudo.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="696"/>
+        <location filename="MainWindow.cpp" line="694"/>
         <source>Muted and deafened.</source>
         <translation>Mudo y sordo.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="698"/>
+        <location filename="MainWindow.cpp" line="696"/>
         <source>Deafened.</source>
         <translation>Sordo.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="700"/>
+        <location filename="MainWindow.cpp" line="698"/>
         <source>Undeafened.</source>
         <translation>Con escucha.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="755"/>
+        <location filename="MainWindow.cpp" line="753"/>
         <source>About Qt</source>
         <translation>Acerca de Qt</translation>
     </message>
@@ -3246,12 +3245,12 @@ de las ubicaciones posibles.</translation>
         <translation>%2 trajo a %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="279"/>
+        <location filename="Messages.cpp" line="291"/>
         <source>Server connection rejected: %1.</source>
         <translation>Conexión con el servidor rechazada: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="284"/>
+        <location filename="Messages.cpp" line="296"/>
         <source>Denied: %1.</source>
         <translation>Denegado: %1.</translation>
     </message>
@@ -3359,7 +3358,7 @@ de las ubicaciones posibles.</translation>
         <translation>%2 mudó a %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="527"/>
+        <location filename="MainWindow.cpp" line="525"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -3405,12 +3404,12 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">Introduzca el mensaje</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="635"/>
+        <location filename="MainWindow.cpp" line="633"/>
         <source>To %1: %2</source>
         <translation>A %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="635"/>
+        <location filename="MainWindow.cpp" line="633"/>
         <source>Message to %1</source>
         <translation>Mensaje para %1</translation>
     </message>
@@ -3445,12 +3444,12 @@ de las ubicaciones posibles.</translation>
         <translation>Contraseña del servidor incorrecta para cuenta de usuario no registrada, por favor, inténtelo de nuevo.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="335"/>
+        <location filename="Messages.cpp" line="347"/>
         <source>From %1: %2</source>
         <translation>De %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="336"/>
+        <location filename="Messages.cpp" line="348"/>
         <source>Message from %1</source>
         <translation>Mensaje de %1</translation>
     </message>
@@ -3630,27 +3629,27 @@ de las ubicaciones posibles.</translation>
         <translation>Resincronizaciones</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="622"/>
+        <location filename="MainWindow.cpp" line="620"/>
         <source>Sending message to channel %1</source>
         <translation>Enviando mensaje al canal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="649"/>
+        <location filename="MainWindow.cpp" line="647"/>
         <source>Sending message to channel tree %1</source>
         <translation>Enviando mensaje al árbol de canales %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="662"/>
+        <location filename="MainWindow.cpp" line="660"/>
         <source>To tree %1: %2</source>
         <translation>Al árbol %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="662"/>
+        <location filename="MainWindow.cpp" line="660"/>
         <source>Message to tree %1</source>
         <translation>Mensaje para el árbol %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="713"/>
+        <location filename="MainWindow.cpp" line="711"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation>Ahora está en el modo de ensordecimiento local. Este modo no se refleja en el servidor, y aun seguirá transmitiendo su voz al servidor. Este modo sólo debe ser usado si hay varias personas en la misma habitación y una de ellas usa Mumble con altavoces.</translation>
     </message>
@@ -3725,7 +3724,7 @@ de las ubicaciones posibles.</translation>
         <translation>Envía un mensaje de texto a un canal y todos sus subcanales.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="299"/>
+        <location filename="Messages.cpp" line="311"/>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
         <translation>El ancho de banda máximo del servidor es sólo de %1 kbit/s. Se ha ajustado automáticamente la calidad.</translation>
     </message>
@@ -4170,17 +4169,17 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>PlayerModel</name>
     <message>
-        <location filename="PlayerModel.cpp" line="374"/>
+        <location filename="PlayerModel.cpp" line="379"/>
         <source>Name of player</source>
         <translation>Nombre del jugador</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="374"/>
+        <location filename="PlayerModel.cpp" line="379"/>
         <source>Name of channel</source>
         <translation>Nombre del canal</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="376"/>
+        <location filename="PlayerModel.cpp" line="381"/>
         <source>Player flags</source>
         <translation>Emblemas del jugador</translation>
     </message>
@@ -4190,7 +4189,7 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">Éste es un jugador conectado al servidor. El icono a la izquierda del jugador indica si está hablando o no:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; Hablando&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; Sin hablar</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="389"/>
+        <location filename="PlayerModel.cpp" line="394"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
         <translation>Esto es un canal del servidor. Sólo los jugadores en el mismo canal pueden oirse entre sí.</translation>
     </message>
@@ -4200,32 +4199,22 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">Muestra los emblemas que el jugador tiene en el servidor, si los hubiera:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Usuario autenticado&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Mudo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Mudo (por un administrador)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Sordo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Sordo (por un administrador)&lt;br /&gt;Un jugador enmudecido por sí mismo probablemente sólo está ausente, hablando por teléfono o algo similar.&lt;br /&gt;Un jugador enmudecido por un administrador probablemente está también sólo ausente, y el ruido que estaba haciendo el jugador era lo bastante molesto para que un adminstrador lo haya enmudecido.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="415"/>
+        <location filename="PlayerModel.cpp" line="420"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="417"/>
+        <location filename="PlayerModel.cpp" line="422"/>
         <source>Flags</source>
         <translation>Emblemas</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="392"/>
-        <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;:/talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;:/talking_off.png&quot; /&gt; Not talking</source>
-        <translation type="obsolete">Éste es un jugador conectado al servidor. El icono a la izquierda del jugador indica si está hablando o no:&lt;br /&gt;&lt;img src=&quot;:/talking_on.png&quot; /&gt; Hablando&lt;br /&gt;&lt;img src=&quot;:/talking_off.png&quot; /&gt; Sin hablar</translation>
-    </message>
-    <message>
-        <location filename="PlayerModel.cpp" line="404"/>
-        <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;:/authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;:/muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;:/muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;:/deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;:/deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
-        <translation type="obsolete">Muestra los emblemas que el jugador tiene en el servidor, si los hubiera:&lt;br /&gt;&lt;img src=&quot;:/authenticated.png&quot; /&gt;Usuario autenticado&lt;br /&gt;&lt;img src=&quot;:/muted_self.png&quot; /&gt;Mudo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/muted_server.png&quot; /&gt;Mudo (por un administrador)&lt;br /&gt;&lt;img src=&quot;:/deafened_self.png&quot; /&gt;Sordo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/deafened_server.png&quot; /&gt;Sordo (por un administrador)&lt;br /&gt;Un jugador enmudecido por sí mismo probablemente sólo está ausente, hablando por teléfono o algo similar.&lt;br /&gt;Un jugador enmudecido por un administrador probablemente está también sólo ausente, y el ruido que estaba haciendo el jugador era lo bastante molesto para que un adminstrador lo haya enmudecido.</translation>
-    </message>
-    <message>
-        <location filename="PlayerModel.cpp" line="387"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation>Éste es un jugador conectado al servidor. El icono a la izquierda del jugador indica si está hablando o no:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Hablando&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; No está hablando</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="399"/>
+        <location filename="PlayerModel.cpp" line="404"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>Muestra los emblemas que el jugador tiene en el servidor, si los hubiera:&lt;br /&gt;&lt;img src=&quot;:/authenticated.png&quot; /&gt;Usuario autenticado&lt;br /&gt;&lt;img src=&quot;:/muted_self.png&quot; /&gt;Mudo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/muted_server.png&quot; /&gt;Mudo (por un administrador)&lt;br /&gt;&lt;img src=&quot;:/deafened_self.png&quot; /&gt;Sordo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/deafened_server.png&quot; /&gt;Sordo (por un administrador)&lt;br /&gt;Un jugador enmudecido por sí mismo probablemente sólo está ausente, hablando por teléfono o algo similar.&lt;br /&gt;Un jugador enmudecido por un administrador probablemente está también sólo ausente, y el ruido que estaba haciendo el jugador era lo bastante molesto para que un adminstrador lo haya enmudecido.</translation>
     </message>
