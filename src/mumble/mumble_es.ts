@@ -1470,7 +1470,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="359"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
-        <translation>Ahora debe ajustar los siguientes dos controles deslizantes. Las primeras palabras que diga deberían terminar en el área verde (decididamente es habla). Mientras habla, debería permanecer en la amarilla (podria ser habla) y cuando no esté hablando, todo deberia estar en la roja (decididamente no es habla).</translation>
+        <translation>Ahora debe ajustar los siguientes dos controles deslizantes. Las primeras palabras que diga deberían terminar en el área verde (con certeza es habla). Mientras habla, debería permanecer en la amarilla (podria ser habla) y cuando no esté hablando, todo deberia estar en la roja (con certeza no es habla).</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="382"/>
@@ -2489,7 +2489,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="LookConfig.cpp" line="57"/>
         <source>System default</source>
-        <translation>Predeterminada del sistema</translation>
+        <translation>Predeterminado del sistema</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="35"/>
