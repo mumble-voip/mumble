@@ -181,7 +181,7 @@ ServerDB::ServerDB() {
 
 			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, server_id INTEGER, player_id INTEGER, addit INTEGER)");
 			SQLDO("CREATE TRIGGER %1groups_members_del_group AFTER DELETE ON %1groups FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE group_id = old.group_id; END;");
-			SQLDO("CREATE TRIGGET %1groups_members_del_player AFTER DELETE on %1players FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE player_id = old.player_id AND server_id = old.server_id; END;");
+			SQLDO("CREATE TRIGGER %1groups_members_del_player AFTER DELETE on %1players FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE player_id = old.player_id AND server_id = old.server_id; END;");
 
 			SQLDO("CREATE TABLE %1acl (server_id INTEGER, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)");
 			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
@@ -280,7 +280,13 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 		qWarning("SQL [%s] rejected: Database is gone", qPrintable(str));
 		return false;
 	}
-	if (query.prepare(str.arg(Meta::mp.qsDBPrefix))) {
+	QString q;
+	if (str.contains(QLatin1String("%1")))
+		q = str.arg(Meta::mp.qsDBPrefix);
+	else
+		q = str;
+
+	if (query.prepare(q)) {
 		return true;
 	} else {
 		db.close();
@@ -288,7 +294,7 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 			qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db.lastError().text()));
 		}
 		query = QSqlQuery();
-		if (query.prepare(str.arg(Meta::mp.qsDBPrefix))) {
+		if (query.prepare(q)) {
 			qWarning("SQL Connection lost, reconnection OK");
 			return true;
 		}
