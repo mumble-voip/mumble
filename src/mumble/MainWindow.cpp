@@ -304,7 +304,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 	QSslCipher qsc = g.sh->qscCipher;
 
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 variance)</p>").arg(qsc.usedBits()).arg(qsc.name()).arg(c->dTCPPingAvg, 0, 'f', 2).arg(c->dTCPPingVar / (c->uiTCPPackets - 1),0,'f',2);
-	QString qsVoice, qsCrypt;
+	QString qsVoice, qsCrypt, qsAudio;
 	if (g.s.bTCPCompat) {
 		qsVoice = tr("Voice channel is sent over control channel.");
 	} else {
@@ -319,8 +319,9 @@ void MainWindow::on_qaServerInformation_triggered() {
 			     .arg(cs.uiRemoteGood).arg(cs.uiRemoteLate).arg(cs.uiRemoteLost).arg(cs.uiRemoteResync)
 			     .arg(cs.uiGood).arg(cs.uiLate).arg(cs.uiLost).arg(cs.uiResync);
 	}
+	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s (Quality %3)</p>").arg(g.iMaxBandwidth / 125.0,0,'f',1).arg(g.iAudioBandwidth / 125.0,0,'f',1).arg(g.iAudioQuality);
 
-	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsControl + qsVoice + qsCrypt, QMessageBox::Ok, this);
+	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
 		qmb.setDefaultButton(QMessageBox::Ok);
 		qmb.setEscapeButton(QMessageBox::Ok);
 

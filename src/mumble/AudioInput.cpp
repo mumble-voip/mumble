@@ -134,7 +134,7 @@ AudioInput::AudioInput() {
 	iBitrate = 0;
 	dPeakMic = dPeakSignal = dPeakSpeaker = 0.0;
 
-	if (g.uiSession && (getMaxBandwidth() > g.iMaxBandwidth)) {
+	if (g.uiSession) {
 		setMaxBandwidth(g.iMaxBandwidth);
 	}
 
@@ -188,26 +188,15 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 	int audiorate;
 	int baserate;
 
-	if (bytespersec == 0) {
-		float fArg=g.s.iQuality;
-		speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
-		return;
-	}
-
 	void *es;
 	es = speex_encoder_init(&speex_wb_mode);
 
-	float f = 10.0;
-	speex_encoder_ctl(esEncState, SPEEX_GET_VBR_QUALITY, &f);
-
+	float f = g.s.iQuality;
 
 	do {
-		speex_encoder_ctl(esEncState, SPEEX_SET_VBR_QUALITY, &f);
-		speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &baserate);
+		speex_encoder_ctl(es, SPEEX_SET_VBR_QUALITY, &f);
+		speex_encoder_ctl(es, SPEEX_GET_BITRATE, &baserate);
 		audiorate = baserate;
-
-		if (f <= 1.9)
-			break;
 
 		audiorate /= 400/g.s.iFramesPerPacket;
 
@@ -222,6 +211,9 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 
 		audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
 
+		if (f <= 1.9)
+			break;
+
 		if (audiorate > bytespersec) {
 			f -= 1.0;
 		}
@@ -231,6 +223,9 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 
 	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_QUALITY, &f);
 	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_MAX_BITRATE, &baserate);
+
+	g.iAudioBandwidth = audiorate;
+	g.iAudioQuality = lround(f);
 }
 
 void AudioInput::encodeAudioFrame() {

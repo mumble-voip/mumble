@@ -70,6 +70,8 @@ struct Global {
 	bool bCenterPosition;
 	unsigned int uiSession;
 	int iMaxBandwidth;
+	int iAudioBandwidth;
+	int iAudioQuality;
 	Global();
 };
 

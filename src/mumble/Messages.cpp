@@ -309,10 +309,8 @@ void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
 		int bw = ai->getMaxBandwidth();
 		if (bw > msg->iMaxBandwidth) {
 			g.l->log(Log::Information, MainWindow::tr("Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.").arg(msg->iMaxBandwidth / 125));
-			ai->setMaxBandwidth(g.iMaxBandwidth);
-		} else {
-			ai->setMaxBandwidth(0);
 		}
+		ai->setMaxBandwidth(g.iMaxBandwidth);
 	}
 
 
