@@ -152,10 +152,10 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TABLE %1meta (keystring TEXT PRIMARY KEY, value TEXT)");
 			SQLDO("CREATE TABLE %1servers (server_id INTEGER PRIMARY KEY AUTOINCREMENT)");
 
-			SQLDO("CREATE TABLE %1log(server_id INTEGER, msg TEXT, msgtime DATE)");
-			SQLDO("CREATE INDEX %1log_time ON %1log(msgtime)");
-			SQLDO("CREATE TRIGGER %1log_timestamp AFTER INSERT ON %1log FOR EACH ROW BEGIN UPDATE %1log SET msgtime = datetime('now') WHERE rowid = new.rowid; END;");
-			SQLDO("CREATE TRIGGER %1log_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1log WHERE server_id = old.server_id; END;");
+			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime DATE)");
+			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
+			SQLDO("CREATE TRIGGER %1slog_timestamp AFTER INSERT ON %1slog FOR EACH ROW BEGIN UPDATE %1slog SET msgtime = datetime('now') WHERE rowid = new.rowid; END;");
+			SQLDO("CREATE TRIGGER %1slog_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1slog WHERE server_id = old.server_id; END;");
 
 			SQLDO("CREATE TABLE %1config (server_id INTEGER, keystring TEXT, value TEXT)");
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
@@ -196,16 +196,16 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TRIGGER %1bans_del_server AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1bans WHERE server_id = old.server_id; END;");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
-			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','1')");
+			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','2')");
 
 			SQLDO("VACUUM");
 		} else {
 			SQLDO("CREATE TABLE %1meta(keystring varchar(255) PRIMARY KEY, value varchar(255)) Type=InnoDB");
 			SQLDO("CREATE TABLE %1servers(server_id INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB");
 
-			SQLDO("CREATE TABLE %1log(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
-			SQLDO("CREATE INDEX %1log_time ON %1log(msgtime)");
-			SQLDO("ALTER TABLE %1log ADD CONSTRAINT %1log_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
+			SQLDO("ALTER TABLE %1slog ADD CONSTRAINT %1slog_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
 			SQLDO("CREATE TABLE %1config (server_id INTEGER, keystring varchar(255), value TEXT) Type=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
@@ -250,7 +250,7 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE %1bans ADD CONSTRAINT %1bans_del_server FOREIGN KEY(server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
-			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','1')");
+			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','2')");
 		}
 
 		if (migrate) {
@@ -267,6 +267,16 @@ ServerDB::ServerDB() {
 			SQLDO("DROP TABLE groupsold");
 			SQLDO("DROP TABLE playersold");
 			SQLDO("DROP TABLE channelsold");
+		}
+	} else if (version < 2) {
+		if (Meta::mp.qsDBDriver == "QSQLITE") {
+			SQLDO("ALTER TABLE %1log RENAME TO %1slog");
+			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
+		} else {
+			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
+			SQLDO("ALTER TABLE %1slog ADD CONSTRAINT %1slog_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
 		}
 	}
 }
@@ -900,7 +910,7 @@ void Server::setConf(const QString &key, const QVariant &value) {
 void Server::dblog(const char *str) {
 	TransactionHolder th;
 	QSqlQuery query;
-	SQLPREP("INSERT INTO %1log (server_id, msg) VALUES(?,?)");
+	SQLPREP("INSERT INTO %1slog (server_id, msg) VALUES(?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(QLatin1String(str));
 	SQLEXEC();
