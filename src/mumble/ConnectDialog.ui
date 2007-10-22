@@ -240,7 +240,7 @@
    <hints>
     <hint type="sourcelabel" >
      <x>21</x>
-     <y>492</y>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel" >
      <x>199</x>
@@ -255,8 +255,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>298</x>
-     <y>492</y>
+     <x>248</x>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel" >
      <x>444</x>
@@ -271,12 +271,44 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>130</x>
-     <y>239</y>
+     <x>109</x>
+     <y>196</y>
     </hint>
     <hint type="destinationlabel" >
      <x>133</x>
      <y>654</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qpbBrowserConnect</sender>
+   <signal>clicked()</signal>
+   <receiver>ConnectDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>119</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>117</x>
+     <y>370</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qtwServers</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>ConnectDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>158</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>185</x>
+     <y>436</y>
     </hint>
    </hints>
   </connection>
