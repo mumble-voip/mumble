@@ -43,6 +43,8 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	bPublicInit = false;
 	bDirty = false;
 
+	qtwServers->sortItems(0, Qt::AscendingOrder);
+
 	qstmServers = new QSqlTableModel(this);
 	qstmServers->setTable(QLatin1String("servers"));
 	qstmServers->setSort(1, Qt::AscendingOrder);
@@ -68,29 +70,34 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	QModelIndex idx = qstmServers->index(g.s.iServerRow, 0);
 	if (idx.isValid()) {
 		qlwServers->setCurrentIndex(idx);
+	} else if (qstmServers->rowCount() > 0) {
+		qlwServers->setCurrentIndex(qstmServers->index(0,0));
 	}
 
+	fillList();
+	qtwTab->setCurrentIndex(0);
 
 	if (qstmServers->rowCount() < 1) {
+		on_qpbAdd_clicked();
 		qtwTab->setCurrentIndex(1);
 	}
 }
 
 void ConnectDialog::accept() {
 	if (qtwTab->currentIndex() == 1) {
-		int row = qtwServers->currentRow();
-		if (row == -1)
+		QTreeWidgetItem *item = qtwServers->currentItem();
+		if (! item)
 			return;
 
 		bool ok;
-		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(qtwServers->item(row, 0)->text()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok);
+		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(item->text(0)), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok);
 		if (! ok)
 			return;
 
 		g.s.qsUsername = defUserName;
 		qsUsername = defUserName;
 		qsPassword = QString();
-		QStringList a = qtwServers->item(row, 1)->text().split(QLatin1Char(':'));
+		QStringList a = item->text(1).split(QLatin1Char(':'));
 		qsServer = a.at(0);
 		iPort = a.at(1).toInt();
 	} else {
@@ -126,8 +133,9 @@ QSqlRecord ConnectDialog::toRecord() const {
 	QString pw = qlePassword->text();
 	int port = qlePort->text().toInt();
 
-	if (name.isEmpty() || host.isEmpty() || user.isEmpty() || (port == 0))
-		return r;
+	if (name.isEmpty() || host.isEmpty() || user.isEmpty() || (port == 0)) {
+		return QSqlRecord();
+	}
 	r.setValue(QLatin1String("name"), name);
 	r.setValue(QLatin1String("hostname"), host);
 	r.setValue(QLatin1String("username"), user);
@@ -146,39 +154,34 @@ void ConnectDialog::initList() {
 }
 
 void ConnectDialog::fillList() {
-	for (int i=0;i<qtwServers->rowCount();i++)
-		qtwServers->removeRow(0);
-
-	qtwServers->setSortingEnabled(false);
+	qtwServers->clear();
 
 	foreach(PublicInfo pi, qlPublicServers) {
-		qtwServers->insertRow(0);
-		qtwServers->setItem(0, 0, new QTableWidgetItem(pi.name));
-		qtwServers->setItem(0, 1, new QTableWidgetItem(QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port)));
-		qtwServers->setItem(0, 2, new QTableWidgetItem(pi.url.toString()));
+		QStringList qsl;
+		qsl << pi.name;
+		qsl << QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port);
+		qsl << pi.url.toString();
+		new QTreeWidgetItem(qtwServers,qsl);
 	}
-	qtwServers->resizeColumnsToContents();
-	qtwServers->setSortingEnabled(true);
 }
 
 void ConnectDialog::on_qpbURL_clicked() {
-	int row=qtwServers->currentRow();
-	if (row == -1)
+	QTreeWidgetItem *item = qtwServers->currentItem();
+	if (! item)
 		return;
-
-	QDesktopServices::openUrl(QUrl(qtwServers->item(row, 2)->text()));
+	QDesktopServices::openUrl(QUrl(item->text(2)));
 }
 
 void ConnectDialog::on_qpbCopy_clicked() {
-	int row=qtwServers->currentRow();
-	if (row == -1)
+	QTreeWidgetItem *item = qtwServers->currentItem();
+	if (! item)
 		return;
 
 	qlwServers->setCurrentIndex(QModelIndex());
 
-	QStringList a = qtwServers->item(row, 1)->text().split(QLatin1Char(':'));
+	QStringList a = item->text(1).split(QLatin1Char(':'));
 
-	qleName->setText(qtwServers->item(row, 0)->text());
+	qleName->setText(item->text(0));
 	qleServer->setText(a.at(0));
 	if (g.s.qsUsername.isEmpty())
 		qleUsername->setText(tr("Unknown"));
@@ -261,6 +264,8 @@ void ConnectDialog::on_qpbAdd_clicked() {
 				qstmServers->insertRecord(-1, r);
 			}
 			qstmServers->submitAll();
+		} else {
+			return;
 		}
 	}
 
@@ -295,5 +300,4 @@ void ConnectDialog::on_qtwTab_currentChanged(int idx) {
 		return;
 
 	initList();
-	fillList();
 }

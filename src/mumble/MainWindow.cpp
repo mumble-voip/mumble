@@ -254,6 +254,9 @@ void MainWindow::on_qaServerConnect_triggered() {
 	ConnectDialog *cd = new ConnectDialog(this);
 	int res = cd->exec();
 
+	if (cd->qsServer.isEmpty() || (cd->iPort==0) || cd->qsUsername.isEmpty())
+		res = QDialog::Rejected;
+
 	if (g.sh && g.sh->isRunning() && res == QDialog::Accepted) {
 		on_qaServerDisconnect_triggered();
 		g.sh->wait();

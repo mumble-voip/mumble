@@ -163,7 +163,22 @@
       </attribute>
       <layout class="QVBoxLayout" >
        <item>
-        <widget class="QTableWidget" name="qtwServers" >
+        <widget class="QTreeWidget" name="qtwServers" >
+         <property name="alternatingRowColors" >
+          <bool>true</bool>
+         </property>
+         <property name="rootIsDecorated" >
+          <bool>false</bool>
+         </property>
+         <property name="uniformRowHeights" >
+          <bool>true</bool>
+         </property>
+         <property name="itemsExpandable" >
+          <bool>false</bool>
+         </property>
+         <property name="sortingEnabled" >
+          <bool>true</bool>
+         </property>
          <column>
           <property name="text" >
            <string>Label</string>
@@ -245,22 +260,6 @@
     </hint>
     <hint type="destinationlabel" >
      <x>444</x>
-     <y>541</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>qtwServers</sender>
-   <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>ConnectDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>276</x>
-     <y>246</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>323</x>
      <y>541</y>
     </hint>
    </hints>
