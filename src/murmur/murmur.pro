@@ -19,10 +19,8 @@ HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 
 DIST = DBus.h ServerDB.h
-
-
 PRECOMPILED_HEADER = murmur_pch.h
-DIST = murmur.pl murmur.ini link.pl dbusauth.pl
+DIST += murmur.pl murmur.ini link.pl dbusauth.pl weblist.pl
 
 win32 {
   CONFIG += gui
