@@ -111,10 +111,8 @@ static void resolveSM() {
 __attribute__((format(printf, 1, 2)))
 void ods(const char *format, ...) {
 	if (!bDebug) {
-		if (sm) {
-			if (!sm->bDebug)
-				return;
-		}
+		if (! sm || !sm->bDebug)
+			return;
 	}
 
 	va_list args;
@@ -324,9 +322,20 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 		if (!c) {
 			ods("Current context is: %p", ctx);
 
+			c = (Context *) malloc(sizeof(Context));
+			if (!c) {
+				ods("malloc failure");
+				return;
+			}
+			c->next = contexts;
+			c->glctx = NULL;
+			c->dpy = dpy;
+			c->draw = draw;
+
+			contexts = c;
+
 			int attrib[4] = { GLX_FBCONFIG_ID, -1, 0, 0 };
 			glXQueryContext(dpy, ctx, GLX_FBCONFIG_ID, &attrib[1]);
-
 
 			int screen = -1;
 			glXQueryContext(dpy, ctx, GLX_SCREEN, &screen);
@@ -336,31 +345,23 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 			int nelem = -1;
 			GLXFBConfig *fb = glXChooseFBConfig(dpy, screen, attrib, &nelem);
 			ods("ChooseFB returned %d elems: %p\n", nelem, fb);
+			
+			GLXContext myctx = NULL;
 
-			GLXContext myctx = glXCreateNewContext(dpy, *fb, GLX_RGBA_TYPE, NULL, 1);
-			ods("Got Context %p\n", myctx);
+			if (fb) {
+				GLXContext myctx = glXCreateNewContext(dpy, *fb, GLX_RGBA_TYPE, NULL, 1);
+				ods("Got Context %p\n", myctx);
+				if ((nelem == 1) && (myctx)) {
+					c->glctx = myctx;
+					
+					glXMakeCurrent(dpy, draw, myctx);
 
-			if ((nelem == 1) && (myctx)) {
-				c = (Context *) malloc(sizeof(Context));
-				if (!c) {
-					ods("malloc failure");
-					return;
+					newContext(c);
 				}
-				c->next = contexts;
-
-				c->glctx = myctx;
-				c->dpy = dpy;
-				c->draw = draw;
-
-				contexts = c;
-
-				glXMakeCurrent(dpy, draw, myctx);
-
-				newContext(c);
 			}
 		}
 
-		if (c) {
+		if (c && c->glctx) {
 			glXMakeCurrent(dpy, draw, c->glctx);
 			drawContext(c, dpy, draw);
 			glXMakeCurrent(dpy, draw, ctx);
@@ -408,7 +409,7 @@ void initializeLibrary() {
 	else
 		bDebug = false;
 
-	ods("Library is HOT\n");
+	ods("Mumble overlay library loaded\n");
 	void *dl = dlopen("libdl.so.2", RTLD_LAZY);
 	if (!dl) {
 		ods("Failed to open libdl.so.2\n");
