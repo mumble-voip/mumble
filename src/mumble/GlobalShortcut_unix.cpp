@@ -165,6 +165,11 @@ QIcon GlobalShortcutXConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_shortcuts.png"));
 }
 
+void GlobalShortcutXConfig::accept() const {
+	if (gsx)
+		gsx->bNeedRemap = true;
+}
+
 void GlobalShortcutXConfig::save() const {
 	Settings::ShortcutMap m;
 	
@@ -294,7 +299,7 @@ GlobalShortcutX::~GlobalShortcutX() {
 
 void GlobalShortcutX::remap() {
 	bNeedRemap = false;
-
+	
 	foreach(Shortcut *s, qhGlobalToX) {
 		delete s;
 	}
@@ -302,15 +307,13 @@ void GlobalShortcutX::remap() {
 	qmhKeyToShortcut.clear();
 
 	foreach(GlobalShortcut *gs, qmShortcuts) {
-
-		QString base=QString::fromLatin1("GS%1_").arg(gs->idx);
+		const QList<QVariant> &ql = g.s.qmShortcuts.value(gs->idx);
 		QList<unsigned int> buttons;
-		int nbuttons = g.qs->value(base + QLatin1String("num"), 0).toInt();
-		for (int i=0;i<nbuttons;i++) {
-			unsigned int key = g.qs->value(base + QString::fromLatin1("%1_Key").arg(i), 0xffffffff).toUInt();
-			if (key != 0xffffffff) {
-				buttons << key;
-			}
+		foreach(QVariant v, ql) {
+			bool ok;
+			int val = v.toInt(&ok);
+			if ((val > 0) && ok)
+				buttons << val;
 		}
 		if (buttons.count() > 0) {
 			Shortcut *s = new Shortcut();

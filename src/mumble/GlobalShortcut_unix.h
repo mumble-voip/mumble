@@ -65,6 +65,7 @@ class GlobalShortcutXConfig : public ConfigWidget {
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
+		void accept() const;
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
