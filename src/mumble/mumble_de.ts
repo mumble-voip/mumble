@@ -1816,7 +1816,7 @@
         <translation>&amp;Passwort</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="189"/>
+        <location filename="ConnectDialog.ui" line="204"/>
         <source>&amp;Connect</source>
         <translation>&amp;Verbinden</translation>
     </message>
@@ -1851,42 +1851,42 @@
         <translation type="obsolete">Name</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="174"/>
+        <location filename="ConnectDialog.ui" line="189"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="179"/>
+        <location filename="ConnectDialog.ui" line="194"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="199"/>
+        <location filename="ConnectDialog.ui" line="214"/>
         <source>C&amp;opy to custom</source>
         <translation>Zu Benutzerdefinierten &amp;hinzufügen</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="206"/>
+        <location filename="ConnectDialog.ui" line="221"/>
         <source>&amp;View Webpage</source>
         <translation>&amp;Webseite besuchen</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="86"/>
+        <location filename="ConnectDialog.cpp" line="93"/>
         <source>Connecting to %1</source>
         <translation>Verbinde zu %1</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="86"/>
+        <location filename="ConnectDialog.cpp" line="93"/>
         <source>Enter username</source>
         <translation>Benutzernamen eingeben</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="198"/>
+        <location filename="ConnectDialog.cpp" line="201"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="198"/>
+        <location filename="ConnectDialog.cpp" line="201"/>
         <source>Failed to fetch server list</source>
         <translation>Konnte Serverliste nicht holen</translation>
     </message>
@@ -1896,12 +1896,12 @@
         <translation>&amp;Label</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="169"/>
+        <location filename="ConnectDialog.ui" line="184"/>
         <source>Label</source>
         <translation>Lbel</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="269"/>
+        <location filename="ConnectDialog.cpp" line="274"/>
         <source>-Unnamed entry-</source>
         <translation>Unbenannter Eintrag</translation>
     </message>
@@ -1916,7 +1916,7 @@
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="184"/>
+        <location filename="ConnectDialog.cpp" line="187"/>
         <source>Unknown</source>
         <translation>Unbekeannt</translation>
     </message>
@@ -2180,7 +2180,40 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="69"/>
         <source>Press Shortcut</source>
-        <translation>Shortcut drücken</translation>
+        <translation type="obsolete">Shortcut drücken</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutConfig</name>
+    <message>
+        <location filename="GlobalShortcut.cpp" line="149"/>
+        <source>Shortcuts</source>
+        <translation>Shortcuts</translation>
+    </message>
+    <message>
+        <location filename="GlobalShortcut.cpp" line="113"/>
+        <source>Function</source>
+        <translation>Funktion</translation>
+    </message>
+    <message>
+        <location filename="GlobalShortcut.cpp" line="115"/>
+        <source>Shortcut</source>
+        <translation>Shortcut</translation>
+    </message>
+    <message>
+        <location filename="GlobalShortcut.cpp" line="127"/>
+        <source>Shortcut bound to %1.</source>
+        <translation>Shortcut an %1 gebunden.</translation>
+    </message>
+    <message>
+        <location filename="GlobalShortcut.cpp" line="130"/>
+        <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
+        <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
+    </message>
+    <message>
+        <location filename="GlobalShortcut.cpp" line="135"/>
+        <source>Double-click an entry to clear the shortcut.</source>
+        <translation>Auf einen Eintrag doppelklicken, um den Shortcut zu entfernen.</translation>
     </message>
 </context>
 <context>
@@ -2188,32 +2221,40 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="168"/>
         <source>Shortcuts</source>
-        <translation>Shortcuts</translation>
+        <translation type="obsolete">Shortcuts</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="132"/>
         <source>Function</source>
-        <translation>Funktion</translation>
+        <translation type="obsolete">Funktion</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="134"/>
         <source>Shortcut</source>
-        <translation>Shortcut</translation>
+        <translation type="obsolete">Shortcut</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="146"/>
         <source>Shortcut bound to %1.</source>
-        <translation>Shortcut an %1 gebunden.</translation>
+        <translation type="obsolete">Shortcut an %1 gebunden.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="149"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
-        <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
+        <translation type="obsolete">&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="154"/>
         <source>Double-click an entry to clear the shortcut.</source>
-        <translation>Auf einen Eintrag doppelklicken, um den Shortcut zu entfernen.</translation>
+        <translation type="obsolete">Auf einen Eintrag doppelklicken, um den Shortcut zu entfernen.</translation>
+    </message>
+</context>
+<context>
+    <name>GlobalShortcutX</name>
+    <message>
+        <location filename="GlobalShortcut_unix.cpp" line="302"/>
+        <source>Mouse %1</source>
+        <translation>Maus %1</translation>
     </message>
 </context>
 <context>
@@ -2221,27 +2262,27 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="161"/>
         <source>Shortcuts</source>
-        <translation>Shortcuts</translation>
+        <translation type="obsolete">Shortcuts</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="128"/>
         <source>Function</source>
-        <translation>Funktion</translation>
+        <translation type="obsolete">Funktion</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="130"/>
         <source>Shortcut</source>
-        <translation>Shortcut</translation>
+        <translation type="obsolete">Shortcut</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="142"/>
         <source>Shortcut bound to %1.</source>
-        <translation>Shortcut an %1 gebunden.</translation>
+        <translation type="obsolete">Shortcut an %1 gebunden.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="145"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Double-click to clear.</source>
-        <translation>&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
+        <translation type="obsolete">&lt;b&gt;Der globale Shortcut ist an %1 gebunden&lt;/b&gt;&lt;br /&gt;Dieses Feld anklicken und dann die gewünschte Taste/Button drücken zum neubinden. Doppelklicken zum löschen.</translation>
     </message>
 </context>
 <context>
@@ -2996,17 +3037,17 @@ der möglichen Orte initialisieren.</translation>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="396"/>
+        <location filename="MainWindow.cpp" line="399"/>
         <source>Kicking player %1</source>
         <translation>Kicke Spieler %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="418"/>
+        <location filename="MainWindow.cpp" line="421"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="418"/>
+        <location filename="MainWindow.cpp" line="421"/>
         <source>Banning player %1</source>
         <translation>Banne Spieler %1</translation>
     </message>
@@ -3016,7 +3057,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="547"/>
+        <location filename="MainWindow.cpp" line="550"/>
         <source>Channel Name</source>
         <translation>Kanalname</translation>
     </message>
@@ -3026,62 +3067,62 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Sind Sie sicher Kanal %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="677"/>
+        <location filename="MainWindow.cpp" line="680"/>
         <source>Unmuted and undeafened.</source>
         <translation>Stumm- und Taubstellen ausgeschalten.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="679"/>
+        <location filename="MainWindow.cpp" line="682"/>
         <source>Unmuted.</source>
         <translation>Stummstellen aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="681"/>
+        <location filename="MainWindow.cpp" line="684"/>
         <source>Muted.</source>
         <translation>Stumm.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="695"/>
+        <location filename="MainWindow.cpp" line="698"/>
         <source>Muted and deafened.</source>
         <translation>Stumm und taub gestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="697"/>
+        <location filename="MainWindow.cpp" line="700"/>
         <source>Deafened.</source>
         <translation>Taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="699"/>
+        <location filename="MainWindow.cpp" line="702"/>
         <source>Undeafened.</source>
         <translation>Taubstellung aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="754"/>
+        <location filename="MainWindow.cpp" line="757"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="833"/>
+        <location filename="MainWindow.cpp" line="836"/>
         <source>Joining %1.</source>
         <translation>Betrete %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="863"/>
+        <location filename="MainWindow.cpp" line="866"/>
         <source>Connected to server.</source>
         <translation>Mit Server verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="944"/>
+        <location filename="MainWindow.cpp" line="947"/>
         <source>Server connection failed: %1.</source>
         <translation>Serververbindung fehlgeschlagen: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="946"/>
+        <location filename="MainWindow.cpp" line="949"/>
         <source>Disconnected from server.</source>
         <translation>Verbindung zum Server abgebrochen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="273"/>
+        <location filename="MainWindow.cpp" line="276"/>
         <source>Reconnecting.</source>
         <translation>Neuverbindung.</translation>
     </message>
@@ -3289,7 +3330,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Plugin ausklinken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="526"/>
+        <location filename="MainWindow.cpp" line="529"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sicher %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
@@ -3330,7 +3371,7 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Sende eine Text-Nachricht einem anderen Nutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="440"/>
+        <location filename="MainWindow.cpp" line="443"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
@@ -3340,42 +3381,42 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Nachricht eingeben</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="634"/>
+        <location filename="MainWindow.cpp" line="637"/>
         <source>To %1: %2</source>
         <translation>An %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="634"/>
+        <location filename="MainWindow.cpp" line="637"/>
         <source>Message to %1</source>
         <translation>Nachricht an %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="953"/>
+        <location filename="MainWindow.cpp" line="956"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="953"/>
+        <location filename="MainWindow.cpp" line="956"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Sie haben sich mit ungültigem Benutzernamen angemeldet, bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="953"/>
+        <location filename="MainWindow.cpp" line="956"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Dieser Benutzername ist bereits vergeben, bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="958"/>
+        <location filename="MainWindow.cpp" line="961"/>
         <source>Wrong password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="958"/>
+        <location filename="MainWindow.cpp" line="961"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Falsches Passwort für registrierte Benutzer, bitte noch einmal versuchen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="958"/>
+        <location filename="MainWindow.cpp" line="961"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Falsches Serverpasswort für unregistrierten Benutzer-Account, bitte noch einmal versuchen.</translation>
     </message>
@@ -3410,17 +3451,17 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dies leitet Sie durch den Hardwarekonfigurierungs-Prozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="902"/>
+        <location filename="MainWindow.cpp" line="905"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL Überprüfung fehlgeschlagen: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="907"/>
+        <location filename="MainWindow.cpp" line="910"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat eine anderes Zertifikat, als das gespeicherte.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="909"/>
+        <location filename="MainWindow.cpp" line="912"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Server hat Zertifikat, das Überprüfung nicht standhielt.</translation>
     </message>
@@ -3475,7 +3516,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="327"/>
         <source>Mumble Server Information</source>
         <translation>Mumbler Server Informationen</translation>
     </message>
@@ -3485,12 +3526,12 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Kontrollkanal: %1 ms Latenz. Verschlüsselt mit %3 bit %4&lt;br /&gt;Sprachkanal: %2 ms Latenz, verschlüsselt mit OCB-AES128</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="923"/>
+        <location filename="MainWindow.cpp" line="926"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zeige Zertifikat</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="918"/>
+        <location filename="MainWindow.cpp" line="921"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Die Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
@@ -3535,57 +3576,57 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dies ist das erste Mal, dass Sie Mumble starten.&lt;br /&gt;Wollen Sie den Audio Assistenten starten, um Ihre Soundkarte zu konfigurieren?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="306"/>
+        <location filename="MainWindow.cpp" line="309"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 Bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="309"/>
+        <location filename="MainWindow.cpp" line="312"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Sprachkanal wird über Kontrollkanal gesendet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="311"/>
+        <location filename="MainWindow.cpp" line="314"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Sprachkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit 128 Bit OCB-AES128&lt;br /&gt;%1 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="321"/>
         <source>UDP Statistics</source>
         <translation>UDP Statistiken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="321"/>
         <source>To Server</source>
         <translation>Zum Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="321"/>
         <source>From Server</source>
         <translation>Vom Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="321"/>
         <source>Good</source>
         <translation>Gut</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="321"/>
         <source>Late</source>
         <translation>Spät</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="321"/>
         <source>Lost</source>
         <translation>Verloren</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="321"/>
         <source>Resync</source>
         <translation>Resync</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="712"/>
+        <location filename="MainWindow.cpp" line="715"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation>Sie befinden sich jetzt im lokalen Taubmodus. Dieser Modus stimmt nicht mit dem des Servers überein und ihre Stimme wird weiterhin zum Server übertragen. Dieser Modus sollte nur genutzt werden, wenn sich mehrere Leute im selben Raum befinden und einer von ihnen benutzt Lautsprecher.</translation>
     </message>
@@ -3630,22 +3671,22 @@ der möglichen Orte initialisieren.</translation>
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="621"/>
+        <location filename="MainWindow.cpp" line="624"/>
         <source>Sending message to channel %1</source>
         <translation>Sende Nachricht an Kanal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="648"/>
+        <location filename="MainWindow.cpp" line="651"/>
         <source>Sending message to channel tree %1</source>
         <translation>Sende Nachricht an Kanalbaum %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="661"/>
+        <location filename="MainWindow.cpp" line="664"/>
         <source>To tree %1: %2</source>
         <translation>Von Baum %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="661"/>
+        <location filename="MainWindow.cpp" line="664"/>
         <source>Message to tree %1</source>
         <translation>Nachricht an Baum %1</translation>
     </message>
@@ -3675,7 +3716,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Maximale Bandbreite des Servers ist nur %1 kbit/s. Qualität wird automatisch angepasst.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="325"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Audio Bandbreite&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Aktuell %2 kbit/s (Qualität %3)&lt;/p&gt;</translation>
     </message>
@@ -4208,6 +4249,14 @@ der möglichen Orte initialisieren.</translation>
     </message>
 </context>
 <context>
+    <name>ShortcutKeyWidget</name>
+    <message>
+        <location filename="GlobalShortcut.cpp" line="57"/>
+        <source>Press Shortcut</source>
+        <translation>Shortcut drücken</translation>
+    </message>
+</context>
+<context>
     <name>TextMessage</name>
     <message>
         <location filename="TextMessage.ui" line="22"/>
@@ -4336,7 +4385,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="64"/>
         <source>Press Shortcut</source>
-        <translation>Shortcut drücken</translation>
+        <translation type="obsolete">Shortcut drücken</translation>
     </message>
 </context>
 </TS>
