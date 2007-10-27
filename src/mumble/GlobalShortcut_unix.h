@@ -40,40 +40,9 @@ struct Shortcut {
 	QList<int> qlButtons;
 };
 
-class XInputKeyWidget : public QLineEdit {
-		Q_OBJECT
-	protected:
-		virtual void focusInEvent(QFocusEvent *event);
-		virtual void focusOutEvent(QFocusEvent *event);
-		virtual void mouseDoubleClickEvent(QMouseEvent *e);
-	public:
-		QList<int> qlButtons;
-		bool bModified;
-		XInputKeyWidget(QWidget *p = NULL);
-		void setShortcut(QList<int> ql);
-	public slots:
-		void setButton(bool);
-		void displayKeys();
-};
-
-class GlobalShortcutXConfig : public ConfigWidget {
-		Q_OBJECT
-	protected:
-		QHash<GlobalShortcut *,XInputKeyWidget *> qhKeys;
-	public:
-		GlobalShortcutXConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void accept() const;
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-};
-
 #define NUM_BUTTONS 0x2ff
 
-class GlobalShortcutX : public QThread {
+class GlobalShortcutX : public GlobalShortcutEngine {
 		Q_OBJECT
 	public:
 		Display *display;
@@ -82,12 +51,10 @@ class GlobalShortcutX : public QThread {
 		bool activeMap[NUM_BUTTONS];
 		bool touchMap[NUM_BUTTONS];
 		bool bFirstMouseReleased;
-		QHash<int, GlobalShortcut *> qmShortcuts;
 		QHash<GlobalShortcut *, Shortcut *> qhGlobalToX;
 		QList<QFile *> qlInputDevices;
 		bool globalEvent(XEvent *);
 		bool bGrabbing;
-		bool bNeedRemap;
 		void grab();
 		void release();
 		QMultiHash<int, Shortcut *> qmhKeyToShortcut;
@@ -100,7 +67,8 @@ class GlobalShortcutX : public QThread {
 		void resetMap();
 		void add(GlobalShortcut *);
 		void remove(GlobalShortcut *);
-		QList<int> getCurrentButtons();
+		QList<QVariant> getCurrentButtons();
+		QString buttonName(const QVariant &);
 	public slots:
 		void inputReadyRead(int);
 	signals:

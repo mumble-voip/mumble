@@ -40,170 +40,8 @@
 #include <fcntl.h>
 #endif
 
-static GlobalShortcutX *gsx = NULL;
-static ConfigWidget *GlobalShortcutXConfigDialogNew(Settings &st) {
-	return new GlobalShortcutXConfig(st);
-}
-
-static ConfigRegistrar registrar(12, GlobalShortcutXConfigDialogNew);
-
-XInputKeyWidget::XInputKeyWidget(QWidget *p) : QLineEdit(p) {
-	setReadOnly(true);
-	clearFocus();
-	bModified = false;
-	displayKeys();
-}
-
-void XInputKeyWidget::setShortcut(QList<int> ql) {
-	qlButtons = ql;
-	displayKeys();
-}
-
-void XInputKeyWidget::focusInEvent(QFocusEvent *e) {
-	if (e->reason() == Qt::MouseFocusReason) {
-		setText(tr("Press Shortcut"));
-
-		QPalette pal=parentWidget()->palette();
-		pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
-		setPalette(pal);
-
-		setForegroundRole(QPalette::Button);
-		gsx->resetMap();
-		connect(gsx, SIGNAL(buttonPressed(bool)), this, SLOT(setButton(bool)));
-	}
-}
-
-void XInputKeyWidget::focusOutEvent(QFocusEvent *) {
-	setPalette(parentWidget()->palette());
-	clearFocus();
-	disconnect(gsx, SIGNAL(buttonPressed(bool)), this, SLOT(setButton(bool)));
-	displayKeys();
-}
-
-void XInputKeyWidget::mouseDoubleClickEvent(QMouseEvent *) {
-	bModified = true;
-	qlButtons.clear();
-	clearFocus();
-	displayKeys();
-}
-
-void XInputKeyWidget::setButton(bool last) {
-	qlButtons = gsx->getCurrentButtons();
-	bModified = true;
-	if (qlButtons.isEmpty())
-		return;
-	if (last)
-		clearFocus();
-	else
-		displayKeys();
-}
-
-void XInputKeyWidget::displayKeys() {
-	QStringList sl;
-	foreach(int key, qlButtons) {
-		if ((key < 0x118) || (key >= 0x128)) {
-			KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
-			if (ks == NoSymbol) {
-				sl << QLatin1String("0x")+QString::number(key,16);
-			} else {
-				const char *str = XKeysymToString(ks);
-				if (strlen(str) == 0) {
-					sl << QLatin1String("KS0x")+QString::number(ks,16);
-				} else {
-					sl << QLatin1String(str);
-				}
-			}
-		} else
-			sl << QLatin1String("Mouse ")+QString::number(key-0x118);
-	}
-	setText(sl.join(QLatin1String(" ")));
-}
-
-GlobalShortcutXConfig::GlobalShortcutXConfig(Settings &st) : ConfigWidget(st) {
-	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
-	QLabel *lab;
-
-	QGridLayout *l=new QGridLayout();
-
-	lab=new QLabel(tr("Function"));
-	l->addWidget(lab, 0, 0);
-	lab=new QLabel(tr("Shortcut"));
-	l->addWidget(lab, 0, 1);
-
-	int i=0;
-
-	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
-		XInputKeyWidget *dikw=new XInputKeyWidget();
-
-		lab=new QLabel(gs->name);
-		l->addWidget(lab, i+1, 0);
-		l->addWidget(dikw, i+1, 1);
-
-		dikw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
-		dikw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
-		                      "Click this field and then the desired key combo "
-		                      "to rebind. Double-click to clear.").arg(gs->name));
-		qhKeys[gs]=dikw;
-		i++;
-	}
-
-	qgbShortcuts->setLayout(l);
-
-	QVBoxLayout *v = new QVBoxLayout;
-	v->addWidget(qgbShortcuts);
-	v->addStretch(1);
-	setLayout(v);
-
-	QMetaObject::connectSlotsByName(this);
-}
-
-QString GlobalShortcutXConfig::title() const {
-	return tr("Shortcuts");
-}
-
-QIcon GlobalShortcutXConfig::icon() const {
-	return QIcon(QLatin1String("skin:config_shortcuts.png"));
-}
-
-void GlobalShortcutXConfig::accept() const {
-	if (gsx)
-		gsx->bNeedRemap = true;
-}
-
-void GlobalShortcutXConfig::save() const {
-	Settings::ShortcutMap m;
-	
-	
-	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
-		XInputKeyWidget *dikw = qhKeys[gs];
-		if (dikw->qlButtons.count() > 0) {
-			QList<QVariant> ql;
-			foreach(int i, dikw->qlButtons)
-				ql << i;
-			m.insert(gs->idx, ql);
-		}
-	}
-	s.qmShortcuts = m;
-}
-
-
-void GlobalShortcutXConfig::load(const Settings &r) {
-	foreach(GlobalShortcut *gs, gsx->qmShortcuts) {
-		XInputKeyWidget *dikw = qhKeys.value(gs);
-		QList<int> qlb;
-		foreach(QVariant v, r.qmShortcuts.value(gs->idx)) {
-			qlb << v.toInt();
-		}
-		dikw->setShortcut(qlb);
-	}
-}
-
-bool GlobalShortcutXConfig::expert(bool) {
-	return true;
-}
-
 GlobalShortcutX::GlobalShortcutX() {
-	gsx = this;
+	engine = this;
 	ref = 0;
 	bGrabbing = false;
 	bNeedRemap = true;
@@ -335,8 +173,8 @@ void GlobalShortcutX::resetMap() {
 		touchMap[i]=false;
 }
 
-QList<int> GlobalShortcutX::getCurrentButtons() {
-	QList<int> keys;
+QList<QVariant> GlobalShortcutX::getCurrentButtons() {
+	QList<QVariant> keys;
 	for (int i=0;i<NUM_BUTTONS;i++)
 		if (touchMap[i])
 			keys << i;
@@ -372,9 +210,7 @@ void GlobalShortcutX::run() {
 								evtcode = 0x118 + evt.xbutton.button;
 
 							handleEvent(evtcode, down);
-
 						}
-
 						break;
 					default:
 						qWarning("GlobalShortcutX: EVT %x", evt.type);
@@ -445,9 +281,32 @@ void GlobalShortcutX::handleEvent(int evtcode, bool down) {
 	}
 }
 
+QString GlobalShortcutX::buttonName(const QVariant &v) {
+	bool ok;
+	unsigned int key=v.toUInt(&ok);
+	if (!ok)
+		return QString();
+	if ((key < 0x118) || (key >= 0x128)) {
+		KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
+		if (ks == NoSymbol) {
+			return QLatin1String("0x")+QString::number(key,16);
+		} else {
+			const char *str=XKeysymToString(ks);
+			if (strlen(str) == 0) {
+				return QLatin1String("KS0x")+QString::number(ks, 16);
+			} else {
+				return QLatin1String(str);
+			}
+		}
+	} else {
+		return tr("Mouse %1").arg(key-0x118);
+	}
+}
+
 GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
-	if (! gsx)
-		gsx = new GlobalShortcutX();
+	if (! GlobalShortcutEngine::engine)
+		GlobalShortcutEngine::engine = new GlobalShortcutX();
+	GlobalShortcutX *gsx = static_cast<GlobalShortcutX *>(GlobalShortcutEngine::engine);
 	gsx->ref++;
 	idx = index;
 	name=qsName;
@@ -456,6 +315,8 @@ GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(
 }
 
 GlobalShortcut::~GlobalShortcut() {
+	GlobalShortcutX *gsx = static_cast<GlobalShortcutX *>(GlobalShortcutEngine::engine);
+
 	gsx->remove(this);
 	gsx->ref--;
 	if (gsx->ref == 0) {

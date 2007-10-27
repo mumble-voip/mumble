@@ -99,7 +99,7 @@ class GlobalShortcutConfig : public ConfigWidget {
 		bool expert(bool);
 };
 
-class GlobalShortcutEngine : public QObject {
+class GlobalShortcutEngine : public QThread {
 		Q_OBJECT
 	public:
 		bool bNeedRemap;
@@ -111,6 +111,7 @@ class GlobalShortcutEngine : public QObject {
 		virtual void resetMap() = 0;
 		virtual void remap();
 		virtual QString buttonName(const QVariant &) = 0;
+		virtual void run();
 	signals:
 		void buttonPressed(bool last);
 };

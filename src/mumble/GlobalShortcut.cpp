@@ -83,6 +83,10 @@ void ShortcutKeyWidget::mouseDoubleClickEvent(QMouseEvent *) {
 void ShortcutKeyWidget::updateKeys(bool last) {
 	qlButtons = GlobalShortcutEngine::engine->getCurrentButtons();
 	bModified = true;
+
+	if (qlButtons.isEmpty())
+		return;
+
 	if (last)
 		clearFocus();
 	else
@@ -175,10 +179,13 @@ bool GlobalShortcutConfig::expert(bool) {
 }
 
 
-GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QObject(p) {
+GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 	bNeedRemap = true;
 }
 
 void GlobalShortcutEngine::remap() {
 	bNeedRemap = true;
+}
+
+void GlobalShortcutEngine::run() {
 }
