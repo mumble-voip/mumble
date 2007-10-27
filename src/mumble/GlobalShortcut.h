@@ -33,12 +33,28 @@
 #define _GLOBALSHORTCUT_H
 
 #include "mumble_pch.h"
+#include "ConfigDialog.h"
+
+class ShortcutKeyWidget : public QLineEdit {
+		Q_OBJECT
+	protected:
+		virtual void focusInEvent(QFocusEvent *event);
+		virtual void focusOutEvent(QFocusEvent *event);
+		virtual void mouseDoubleClickEvent(QMouseEvent *e);
+	public:
+		QList<QVariant> qlButtons;
+		bool bModified;
+		ShortcutKeyWidget(QWidget *p = NULL);
+		void setShortcut(const QList<QVariant> &buttons);
+	public slots:
+		void updateKeys(bool last);
+		void displayKeys();
+};
 
 class GlobalShortcut : public QObject {
-		friend class GlobalShortcutWin;
-		friend class GlobalShortcutWinConfig;
 		friend class GlobalShortcutX;
-		friend class GlobalShortcutXConfig;
+		friend class GlobalShortcutWin;
+		friend class GlobalShortcutConfig;
 		Q_OBJECT
 		Q_PROPERTY(QVariant data READ data WRITE setData)
 		Q_PROPERTY(bool active READ active)
@@ -54,6 +70,7 @@ class GlobalShortcut : public QObject {
 	public:
 		GlobalShortcut(QObject *parent, int index, QString qsName);
 		~GlobalShortcut();
+
 		QVariant data() const {
 			return dv;
 		};
@@ -66,6 +83,38 @@ class GlobalShortcut : public QObject {
 	private:
 		Q_DISABLE_COPY(GlobalShortcut)
 };
+
+class GlobalShortcutConfig : public ConfigWidget {
+		Q_OBJECT
+	protected:
+		QHash<GlobalShortcut *, ShortcutKeyWidget *> qhKeys;
+	public:
+		GlobalShortcutConfig(Settings &st);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void accept() const;
+		void save() const;
+		void load(const Settings &r);
+		bool expert(bool);
+};
+
+class GlobalShortcutEngine : public QObject {
+		Q_OBJECT
+	public:
+		bool bNeedRemap;
+		static GlobalShortcutEngine *engine;
+		QHash<int, GlobalShortcut *> qmShortcuts;
+
+		GlobalShortcutEngine(QObject *p = NULL);
+		virtual QList<QVariant> getCurrentButtons() = 0;
+		virtual void resetMap() = 0;
+		virtual void remap();
+		virtual QString buttonName(const QVariant &) = 0;
+	signals:
+		void buttonPressed(bool last);
+};
+
 
 #else
 class GlobalShortcut;

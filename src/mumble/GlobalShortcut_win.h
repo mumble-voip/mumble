@@ -29,7 +29,6 @@
 */
 
 #include "GlobalShortcut.h"
-#include "ConfigDialog.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -65,57 +64,22 @@ struct InputDevice {
 	QSet<DWORD> activeMap;
 };
 
-class DirectInputKeyWidget : public QLineEdit {
-		Q_OBJECT
-	protected:
-		virtual void focusInEvent(QFocusEvent *event);
-		virtual void focusOutEvent(QFocusEvent *event);
-		virtual void mouseDoubleClickEvent(QMouseEvent *e);
-	public:
-		QList<qpButton> qlButtons;
-		bool bModified;
-		DirectInputKeyWidget(QWidget *p = NULL);
-		void setShortcut(const QList<qpButton> &buttons);
-	public slots:
-		void updateKeys(bool last);
-		void displayKeys();
-};
-
-class GlobalShortcutWinConfig : public ConfigWidget {
-		Q_OBJECT
-	protected:
-		QHash<GlobalShortcut *,DirectInputKeyWidget *> qhKeys;
-	public:
-		GlobalShortcutWinConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void accept() const;
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-};
-
-class GlobalShortcutWin : public QObject {
+class GlobalShortcutWin : public GlobalShortcutEngine {
 		Q_OBJECT
 	public:
 		QTimer *timer;
 		int ref;
 
 		LPDIRECTINPUT8 pDI;
-		QHash<int, GlobalShortcut *> qmShortcuts;
 		QHash<GlobalShortcut *, Shortcut *> qhGlobalToWin;
 		QHash<GUID, InputDevice *> qhInputDevices;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
-		bool bNeedRemap;
 		bool bIgnoreActive;
 		int iButtonsDown;
 	public slots:
 		void timeTicked();
-	signals:
-		void buttonPressed(bool last);
 	public:
 		GlobalShortcutWin();
 		~GlobalShortcutWin();
@@ -124,7 +88,8 @@ class GlobalShortcutWin : public QObject {
 		void add(GlobalShortcut *);
 		void remove(GlobalShortcut *);
 		void resetMap();
-		QList<qpButton> getCurrentButtons();
+		QList<QVariant> getCurrentButtons();
+		QString buttonName(const QVariant &);
 };
 
 uint qHash(const GUID &);
