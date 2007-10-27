@@ -978,8 +978,10 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason) {
 	if (! isVisible()) {
 		show();
 		showNormal();
+		activateWindow();
+	} else {
+		hide();
 	}
-	activateWindow();
 }
 
 
