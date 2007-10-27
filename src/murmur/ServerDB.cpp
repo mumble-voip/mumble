@@ -152,22 +152,23 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TABLE %1meta (keystring TEXT PRIMARY KEY, value TEXT)");
 			SQLDO("CREATE TABLE %1servers (server_id INTEGER PRIMARY KEY AUTOINCREMENT)");
 
-			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime DATE)");
+			SQLDO("CREATE TABLE %1slog(server_id INTEGER NOT NULL, msg TEXT, msgtime DATE)");
 			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
 			SQLDO("CREATE TRIGGER %1slog_timestamp AFTER INSERT ON %1slog FOR EACH ROW BEGIN UPDATE %1slog SET msgtime = datetime('now') WHERE rowid = new.rowid; END;");
 			SQLDO("CREATE TRIGGER %1slog_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1slog WHERE server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1config (server_id INTEGER, keystring TEXT, value TEXT)");
+			SQLDO("CREATE TABLE %1config (server_id INTEGER NOT NULL, keystring TEXT, value TEXT)");
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
 			SQLDO("CREATE TRIGGER %1config_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1config WHERE server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1channels (server_id INTEGER, channel_id INTEGER, parent_id INTEGER, name TEXT, inheritacl INTEGER)");
+			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name TEXT, inheritacl INTEGER)");
 			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
 			SQLDO("CREATE TRIGGER %1channels_parent_del AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1channels WHERE parent_id = old.channel_id AND server_id = old.server_id; UPDATE %1players SET lastchannel=0 WHERE lastchannel = old.channel_id AND server_id = old.server_id; END;");
 			SQLDO("CREATE TRIGGER %1channels_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1channels WHERE server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1players (server_id INTEGER, player_id INTEGER, name TEXT, email TEXT, pw TEXT, lastchannel INTEGER, texture BLOB, last_active DATE)");
+			SQLDO("CREATE TABLE %1players (server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, name TEXT NOT NULL, email TEXT, pw TEXT, lastchannel INTEGER, texture BLOB, last_active DATE)");
 			SQLDO("CREATE UNIQUE INDEX %1players_name ON %1players (server_id,name)");
+			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
 			SQLDO("CREATE TRIGGER %1players_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1players WHERE server_id = old.server_id; END;");
 			SQLDO("CREATE TRIGGER %1players_update_timestamp AFTER UPDATE OF lastchannel ON %1players FOR EACH ROW BEGIN UPDATE %1players SET last_active = datetime('now') WHERE player_id = old.player_id AND server_id = old.server_id; END;");
 
@@ -175,24 +176,24 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_name ON %1player_auth(name)");
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_code ON %1player_auth(authcode)");
 
-			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, server_id INTEGER, name TEXT, channel_id INTEGER, inherit INTEGER, inheritable INTEGER)");
+			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTOINCREMENT, server_id INTEGER NOT NULL, name TEXT, channel_id INTEGER NOT NULL, inherit INTEGER, inheritable INTEGER)");
 			SQLDO("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(server_id, channel_id, name)");
 			SQLDO("CREATE TRIGGER %1groups_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1groups WHERE channel_id = old.channel_id AND server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, server_id INTEGER, player_id INTEGER, addit INTEGER)");
+			SQLDO("CREATE TABLE %1group_members (group_id INTEGER NOT NULL, server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, addit INTEGER)");
 			SQLDO("CREATE TRIGGER %1groups_members_del_group AFTER DELETE ON %1groups FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE group_id = old.group_id; END;");
 			SQLDO("CREATE TRIGGER %1groups_members_del_player AFTER DELETE on %1players FOR EACH ROW BEGIN DELETE FROM %1group_members WHERE player_id = old.player_id AND server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1acl (server_id INTEGER, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)");
+			SQLDO("CREATE TABLE %1acl (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, priority INTEGER, player_id INTEGER, group_name TEXT, apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER)");
 			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
 			SQLDO("CREATE TRIGGER %1acl_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1acl WHERE channel_id = old.channel_id AND server_id = old.server_id; END;");
 			SQLDO("CREATE TRIGGER %1acl_del_player AFTER DELETE ON %1players FOR EACH ROW BEGIN DELETE FROM %1acl WHERE player_id = old.player_id AND server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1channel_links (server_id INTEGER, channel_id INTEGER, link_id INTEGER)");
+			SQLDO("CREATE TABLE %1channel_links (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, link_id INTEGER NOT NULL)");
 			SQLDO("CREATE TRIGGER %1channel_links_del_channel AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1channel_links WHERE server_id = old.server_id AND (channel_id = old.channel_id OR link_id = old.channel_id); END;");
 			SQLDO("DELETE FROM %1channel_links");
 
-			SQLDO("CREATE TABLE %1bans (server_id INTEGER, base INTEGER, mask INTEGER)");
+			SQLDO("CREATE TABLE %1bans (server_id INTEGER NOT NULL, base INTEGER, mask INTEGER)");
 			SQLDO("CREATE TRIGGER %1bans_del_server AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1bans WHERE server_id = old.server_id; END;");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
@@ -203,50 +204,49 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TABLE %1meta(keystring varchar(255) PRIMARY KEY, value varchar(255)) Type=InnoDB");
 			SQLDO("CREATE TABLE %1servers(server_id INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB");
 
-			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE TABLE %1slog(server_id INTEGER NOT NULL, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
 			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
 			SQLDO("ALTER TABLE %1slog ADD CONSTRAINT %1slog_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1config (server_id INTEGER, keystring varchar(255), value TEXT) Type=InnoDB");
+			SQLDO("CREATE TABLE %1config (server_id INTEGER NOT NULL, keystring varchar(255), value TEXT) Type=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
 			SQLDO("ALTER TABLE %1config ADD CONSTRAINT %1config_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1channels (server_id INTEGER, channel_id INTEGER, parent_id INTEGER, name varchar(255), inheritacl INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name varchar(255), inheritacl INTEGER) Type=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
 			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_parent_del FOREIGN KEY (server_id, parent_id) REFERENCES %1channels(server_id,channel_id) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1players (server_id INTEGER, player_id INTEGER, name varchar(255), email varchar(255), pw varchar(128), lastchannel INTEGER, texture LONGBLOB, last_active TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE TABLE %1players (server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, name varchar(255), email varchar(255), pw varchar(128), lastchannel INTEGER, texture LONGBLOB, last_active TIMESTAMP) Type=InnoDB");
 			SQLDO("CREATE INDEX %1players_channel ON %1players(server_id, lastchannel)");
 			SQLDO("CREATE UNIQUE INDEX %1players_name ON %1players (server_id,name)");
 			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
-			SQLDO("ALTER TABLE %1players ADD CONSTRAINT %1players_channel_del FOREIGN KEY (server_id,lastchannel) REFERENCES %1channels(server_id,channel_id) ON DELETE SET NULL");
 			SQLDO("ALTER TABLE %1players ADD CONSTRAINT %1players_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
 			SQLDO("CREATE TABLE %1player_auth (player_auth_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), pw varchar(128), email varchar(255), authcode varchar(255)) Type=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_name ON %1player_auth(name)");
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_code ON %1player_auth(authcode)");
 
-			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTO_INCREMENT, server_id INTEGER, name varchar(255), channel_id INTEGER, inherit INTEGER, inheritable INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTO_INCREMENT, server_id INTEGER NOT NULL, name varchar(255), channel_id INTEGER NOT NULL, inherit INTEGER, inheritable INTEGER) Type=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(server_id, channel_id, name)");
 			SQLDO("ALTER TABLE %1groups ADD CONSTRAINT %1groups_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1group_members (group_id INTEGER, server_id INTEGER, player_id INTEGER, addit INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1group_members (group_id INTEGER NOT NULL, server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, addit INTEGER) Type=InnoDB");
 			SQLDO("CREATE INDEX %1group_members_players ON %1group_members(server_id, player_id)");
 			SQLDO("ALTER TABLE %1group_members ADD CONSTRAINT %1group_members_del_group FOREIGN KEY (group_id) REFERENCES %1groups(group_id) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE %1group_members ADD CONSTRAINT %1group_members_del_player FOREIGN KEY (server_id, player_id) REFERENCES %1players(server_id,player_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1acl (server_id INTEGER, channel_id INTEGER, priority INTEGER, player_id INTEGER, group_name varchar(255), apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1acl (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, priority INTEGER, player_id INTEGER, group_name varchar(255), apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER) Type=InnoDB");
 			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
 			SQLDO("CREATE INDEX %1acl_player ON %1acl(server_id, player_id)");
 			SQLDO("ALTER TABLE %1acl ADD CONSTRAINT %1acl_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE %1acl ADD CONSTRAINT %1acl_del_player FOREIGN KEY (server_id, player_id) REFERENCES %1players(server_id, player_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1channel_links (server_id INTEGER, channel_id INTEGER, link_id INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1channel_links (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, link_id INTEGER NOT NULL) Type=InnoDB");
 			SQLDO("ALTER TABLE %1channel_links ADD CONSTRAINT %1channel_links_del_channel FOREIGN KEY(server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
 			SQLDO("DELETE FROM %1channel_links");
 
-			SQLDO("CREATE TABLE %1bans (server_id INTEGER, base INTEGER, mask INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1bans (server_id INTEGER NOT NULL, base INTEGER, mask INTEGER) Type=InnoDB");
 			SQLDO("ALTER TABLE %1bans ADD CONSTRAINT %1bans_del_server FOREIGN KEY(server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
@@ -272,6 +272,7 @@ ServerDB::ServerDB() {
 		if (Meta::mp.qsDBDriver == "QSQLITE") {
 			SQLDO("ALTER TABLE %1log RENAME TO %1slog");
 			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
+			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
 		} else {
 			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
 			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
