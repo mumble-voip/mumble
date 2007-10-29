@@ -41,7 +41,7 @@ class Tray : public QObject {
 		QMenu *qm;
 		QAction *qaQuit;
 		QAction *qaShowLog;
-		QList<QString> qlLog;
+		QStringList qlLog;
 		LogEmitter *le;
 	public slots:
 		void on_Tray_activated(QSystemTrayIcon::ActivationReason);

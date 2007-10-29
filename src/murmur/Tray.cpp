@@ -88,7 +88,7 @@ void Tray::on_ShowLog_triggered() {
 }
 
 void Tray::addLogMessage(const QString &msg) {
-	if (qlLog.count() >= 100)
+	if (qlLog.count() >= 1000)
 		qlLog.removeFirst();
 
 	qlLog.append(msg);

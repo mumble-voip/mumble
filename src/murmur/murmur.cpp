@@ -43,14 +43,16 @@ QFile *logfile;
 
 static bool bVerbose = false;
 #ifdef QT_NO_DEBUG
-bool detach = true;
+static bool detach = true;
 #else
-bool detach = false;
+static bool detach = false;
 #endif
 
 Meta *meta;
 
 LogEmitter le;
+
+QStringList qlErrors;
 
 static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	char c;
@@ -72,23 +74,36 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	QString m= QString::fromLatin1("<%1>%2 %3").arg(QChar::fromLatin1(c)).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(msg);
 
 	if (! logfile || ! logfile->isOpen()) {
+		qlErrors << m;
 #ifdef Q_OS_UNIX
 		fprintf(stderr, "%s\n", qPrintable(m));
 #else
-#ifdef QT_NO_DEBUG
-		::MessageBoxA(NULL, msg, "Murmur", MB_OK | MB_ICONWARNING);
-#else
+#ifndef QT_NO_DEBUG
 		fprintf(stderr, "%s\n", qPrintable(m));
 #endif
 #endif
 	} else {
+		if (! qlErrors.isEmpty()) {
+			foreach(const QString &e, qlErrors) {
+				logfile->write(e.toUtf8());
+				logfile->write("\n");
+			}
+			qlErrors.clear();
+		}
 		logfile->write(m.toUtf8());
 		logfile->write("\n");
 		logfile->flush();
 	}
 	le.addLogEntry(m);
-	if (type == QtFatalMsg)
+	if (type == QtFatalMsg) {
+#ifndef Q_OS_UNIX
+		if (qlErrors.isEmpty())
+			qlErrors << QLatin1String(msg);
+		m = qlErrors.join(QLatin1String("\n"));
+		::MessageBoxA(NULL, qPrintable(m), "Murmur", MB_OK | MB_ICONWARNING);
+#endif
 		exit(0);
+	}
 }
 
 int main(int argc, char **argv) {
@@ -196,17 +211,17 @@ int main(int argc, char **argv) {
 		if (fork() != 0) {
 			_exit(0);
 		}
-		
+
 		QFile pid(Meta::mp.qsPid);
 		if (pid.open(QIODevice::WriteOnly)) {
 			QFileInfo fi(pid);
 			Meta::mp.qsPid = fi.absoluteFilePath();
-		
+
 			QTextStream out(&pid);
 			out << getpid();
 			pid.close();
 		}
-		
+
 		chdir("/");
 		int fd;
 
@@ -267,8 +282,10 @@ int main(int argc, char **argv) {
 
 	qWarning("Shutting down");
 
-	if (logfile)
+	if (logfile) {
 		delete logfile;
+		logfile = NULL;
+	}
 
 	delete meta;
 
