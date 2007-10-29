@@ -762,10 +762,12 @@ void MainWindow::on_qaHelpVersionCheck_triggered() {
 }
 
 void MainWindow::on_PushToTalk_triggered(bool down) {
-	if (down)
+	if (down) {
+		g.uiDoublePush = g.tDoublePush.restart();
 		g.iPushToTalk++;
-	else if (g.iPushToTalk)
+	} else if (g.iPushToTalk) {
 		g.iPushToTalk--;
+	}
 }
 
 void MainWindow::on_PushToMute_triggered(bool down) {

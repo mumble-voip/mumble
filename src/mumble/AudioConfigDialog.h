@@ -56,6 +56,7 @@ class AudioConfigDialog : public ConfigWidget, public Ui::AudioConfigDialog {
 		void on_qsPacketDelay_valueChanged(int v);
 		void on_qsPacketLoss_valueChanged(int v);
 		void on_qsNoise_valueChanged(int v);
+		void on_qsDoublePush_valueChanged(int v);
 		void on_qcbTransmit_currentIndexChanged(int v);
 		void on_qcbLoopback_currentIndexChanged(int v);
 };

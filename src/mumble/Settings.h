@@ -47,6 +47,7 @@ struct Settings {
 	enum OverlayShow { Nothing, Talking, All };
 	enum Audio3D { No3D, Panning, Light, Full };
 	AudioTransmit atTransmit;
+	quint64 uiDoublePush;
 
 	bool bExpert;
 

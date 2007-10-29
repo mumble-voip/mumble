@@ -255,9 +255,14 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	qlBitrate = new QLabel(this);
 	l->addWidget(qlBitrate, 6, 1);
 
+	lab = new QLabel(tr("Doublepush interval"), this);
+	l->addWidget(lab, 7, 0);
+	qlDoublePush = new QLabel(this);
+	l->addWidget(qlDoublePush, 7, 1);
+
 	anwNoise = new AudioNoiseWidget(this);
-	l->addWidget(anwNoise,7,0,1,2);
-	l->setRowStretch(7, 1);
+	l->addWidget(anwNoise,8,0,1,2);
+	l->setRowStretch(8, 1);
 
 	AudioInputPtr ai = g.ai;
 	if (ai && ai->sesEcho) {
@@ -287,11 +292,11 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
 		hbox->addWidget(b);
 
-		l->addLayout(hbox, 8, 0, 1, 2);
+		l->addLayout(hbox, 9, 0, 1, 2);
 
 		aewEcho = new AudioEchoWidget(this);
-		l->addWidget(aewEcho,9,0,1,2);
-		l->setRowStretch(9, 1);
+		l->addWidget(aewEcho,10,0,1,2);
+		l->setRowStretch(10, 1);
 	} else {
 		aewEcho = NULL;
 	}
@@ -413,6 +418,12 @@ void AudioStats::on_Tick_timeout() {
 		f.setBold(bTalking);
 		qlSpeechProb->setFont(f);
 	}
+
+	if (g.uiDoublePush > 1000000)
+		txt = tr(">1000ms");
+	else
+		txt.sprintf("%04llums",g.uiDoublePush / 1000);
+	qlDoublePush->setText(txt);
 
 	anwNoise->update();
 	if (aewEcho)

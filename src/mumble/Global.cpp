@@ -38,6 +38,7 @@ Global::Global() {
 	db = 0;
 	p = 0;
 	uiSession = 0;
+	uiDoublePush = 1000000;
 	iPushToTalk = 0;
 	iAltSpeak = 0;
 	bPushToMute = false;

@@ -366,7 +366,7 @@ void AudioInput::encodeAudioFrame() {
 	else if (g.s.atTransmit == Settings::PushToTalk)
 		iIsSpeech = 0;
 
-	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0) || (g.iAltSpeak > 0);
+	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0) || (g.iAltSpeak > 0) || (g.s.uiDoublePush && ((g.uiDoublePush < g.s.uiDoublePush) || (g.tDoublePush.elapsed() < g.s.uiDoublePush)));
 
 	if (g.s.bMute || (p && p->bMute) || g.bPushToMute) {
 		iIsSpeech = 0;

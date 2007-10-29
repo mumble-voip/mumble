@@ -56,7 +56,7 @@ class AudioNoiseWidget : public QWidget {
 class AudioStats : public QDialog {
 		Q_OBJECT;
 	protected:
-		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate;
+		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate, *qlDoublePush;
 		QMap<QObject *, AudioEchoWidget::Mode> qmEchoMode;
 		AudioNoiseWidget *anwNoise;
 		AudioEchoWidget *aewEcho;

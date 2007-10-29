@@ -57,6 +57,7 @@ Settings::Settings() {
 
 	bPlayerTop = false;
 
+	uiDoublePush = 0;
 	bExpert = false;
 
 	bUpdateCheck = true;
@@ -114,6 +115,7 @@ void Settings::load() {
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
+	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iComplexity, "audio/complexity");
@@ -214,6 +216,7 @@ void Settings::save() {
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
 	SAVELOAD(atTransmit, "audio/transmit");
+	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iComplexity, "audio/complexity");

@@ -32,6 +32,7 @@
 #define _GLOBAL_H
 
 #include "Settings.h"
+#include "Timer.h"
 
 #ifndef MUMBLE_VERSION
 #define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
@@ -65,6 +66,8 @@ struct Global {
 	QSettings *qs;
 	Overlay *o;
 	int iPushToTalk;
+	Timer tDoublePush;
+	quint64 uiDoublePush;
 	int iAltSpeak;
 	bool bPushToMute;
 	bool bCenterPosition;

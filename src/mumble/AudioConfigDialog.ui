@@ -203,7 +203,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1" colspan="2" >
+      <item row="4" column="1" colspan="2" >
        <layout class="QHBoxLayout" >
         <item>
          <widget class="QCheckBox" name="qcbPushClick" >
@@ -246,7 +246,7 @@
         </item>
        </layout>
       </item>
-      <item row="4" column="1" colspan="2" >
+      <item row="5" column="1" colspan="2" >
        <widget class="QLabel" name="qlBitrate" >
         <property name="toolTip" >
          <string>Maximum bandwidth used for sent audio</string>
@@ -259,10 +259,43 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" >
+      <item row="5" column="0" >
        <widget class="QLabel" name="label_6" >
         <property name="text" >
          <string>Outgoing Bitrate</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QSlider" name="qsDoublePush" >
+        <property name="maximum" >
+         <number>1000</number>
+        </property>
+        <property name="singleStep" >
+         <number>10</number>
+        </property>
+        <property name="pageStep" >
+         <number>100</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" >
+       <widget class="QLabel" name="qlDoublePush" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="qliDoublePush" >
+        <property name="text" >
+         <string>DoublePush Time</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsDoublePush</cstring>
         </property>
        </widget>
       </item>
@@ -522,6 +555,9 @@
        <widget class="QLabel" name="label_7" >
         <property name="text" >
          <string>Volume</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsVolume</cstring>
         </property>
        </widget>
       </item>
