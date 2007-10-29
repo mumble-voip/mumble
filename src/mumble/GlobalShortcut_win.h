@@ -35,17 +35,10 @@
 
 typedef QPair<GUID, DWORD> qpButton;
 
-struct Shortcut {
-	GlobalShortcut *gs;
-	bool bActive;
-	int iNumDown;
-	QList<qpButton> qlButtons;
-	QList<bool> qlActive;
-};
-
 struct InputDevice {
 	LPDIRECTINPUTDEVICE8 pDID;
 	GUID guid;
+	QVariant vguid;
 	QString name;
 
 	// dwType to name
@@ -56,9 +49,6 @@ struct InputDevice {
 
 	// Map dwOfs in our structure to dwType
 	QHash<DWORD, DWORD> qhOfsToType;
-
-	// Map dwOfs for this device to possible matching shortcut
-	QMultiHash<DWORD, Shortcut *> qmhOfsToShortcut;
 
 	// Buttons active since last reset
 	QSet<DWORD> activeMap;
@@ -71,24 +61,16 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		int ref;
 
 		LPDIRECTINPUT8 pDI;
-		QHash<GlobalShortcut *, Shortcut *> qhGlobalToWin;
 		QHash<GUID, InputDevice *> qhInputDevices;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
-		bool bIgnoreActive;
-		int iButtonsDown;
 	public slots:
 		void timeTicked();
 	public:
 		GlobalShortcutWin();
 		~GlobalShortcutWin();
 		void unacquire();
-		void remap();
-		void add(GlobalShortcut *);
-		void remove(GlobalShortcut *);
-		void resetMap();
-		QList<QVariant> getCurrentButtons();
 		QString buttonName(const QVariant &);
 };
 

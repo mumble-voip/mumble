@@ -81,7 +81,7 @@ void ShortcutKeyWidget::mouseDoubleClickEvent(QMouseEvent *) {
 }
 
 void ShortcutKeyWidget::updateKeys(bool last) {
-	qlButtons = GlobalShortcutEngine::engine->getCurrentButtons();
+	qlButtons = GlobalShortcutEngine::engine->qlActiveButtons;
 	bModified = true;
 
 	if (qlButtons.isEmpty())
@@ -171,7 +171,7 @@ void GlobalShortcutConfig::save() const {
 }
 
 void GlobalShortcutConfig::accept() const {
-	GlobalShortcutEngine::engine->remap();
+	GlobalShortcutEngine::engine->bNeedRemap = true;
 }
 
 bool GlobalShortcutConfig::expert(bool) {
@@ -184,8 +184,98 @@ GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 }
 
 void GlobalShortcutEngine::remap() {
-	bNeedRemap = true;
+	bNeedRemap = false;
+
+	qlButtonList.clear();
+	qlShortcutList.clear();
+
+	foreach(GlobalShortcut *gs, qmShortcuts) {
+		gs->qlButtons = g.s.qmShortcuts.value(gs->idx);
+
+		gs->iNumUp = gs->qlButtons.count();
+		foreach(const QVariant &button, gs->qlButtons) {
+			int idx = qlButtonList.indexOf(button);
+			if (idx == -1) {
+				qlButtonList << button;
+				qlShortcutList << QList<GlobalShortcut *>();
+				idx = qlButtonList.count() - 1;
+			}
+			qlShortcutList[idx] << gs;
+		}
+	}
 }
 
 void GlobalShortcutEngine::run() {
+}
+
+void GlobalShortcutEngine::resetMap() {
+	tReset.restart();
+	qlActiveButtons.clear();
+}
+
+
+void GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
+	if (tReset.elapsed() > 100000) {
+		if (down) {
+			qlActiveButtons.removeAll(button);
+			qlActiveButtons << button;
+		}
+		emit buttonPressed(! down);
+	}
+
+	int idx = qlButtonList.indexOf(button);
+	if (idx == -1)
+		return;
+
+	foreach(GlobalShortcut *gs, qlShortcutList.at(idx)) {
+		if (down) {
+			gs->iNumUp--;
+			if (gs->iNumUp == 0) {
+				gs->bActive = true;
+				emit gs->triggered(gs->bActive);
+				emit gs->down();
+			} else if (gs->iNumUp < 0) {
+				gs->iNumUp = 0;
+			}
+		} else {
+			gs->iNumUp++;
+			if (gs->iNumUp == 1) {
+				gs->bActive = false;
+				emit gs->triggered(gs->bActive);
+				emit gs->up();
+			} else if (gs->iNumUp > gs->qlButtons.count()) {
+				gs->iNumUp = gs->qlButtons.count();
+			}
+		}
+	}
+}
+
+void GlobalShortcutEngine::add(GlobalShortcut *gs) {
+	if (! GlobalShortcutEngine::engine)
+		GlobalShortcutEngine::engine = GlobalShortcutEngine::platformInit();
+
+	GlobalShortcutEngine::engine->qmShortcuts.insert(gs->idx, gs);
+	GlobalShortcutEngine::engine->bNeedRemap = true;
+}
+
+void GlobalShortcutEngine::remove(GlobalShortcut *gs) {
+	GlobalShortcutEngine *engine = GlobalShortcutEngine::engine;
+	engine->qmShortcuts.remove(gs->idx);
+	engine->bNeedRemap = true;
+	if (engine->qmShortcuts.isEmpty()) {
+		delete engine;
+		GlobalShortcutEngine::engine = NULL;
+	}
+}
+
+GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
+	idx = index;
+	name=qsName;
+	bActive = false;
+	iNumUp = 0;
+	GlobalShortcutEngine::add(this);
+}
+
+GlobalShortcut::~GlobalShortcut() {
+	GlobalShortcutEngine::remove(this);
 }

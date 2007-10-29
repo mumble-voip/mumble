@@ -34,26 +34,10 @@
 
 #include "mumble_pch.h"
 #include "ConfigDialog.h"
-
-class ShortcutKeyWidget : public QLineEdit {
-		Q_OBJECT
-	protected:
-		virtual void focusInEvent(QFocusEvent *event);
-		virtual void focusOutEvent(QFocusEvent *event);
-		virtual void mouseDoubleClickEvent(QMouseEvent *e);
-	public:
-		QList<QVariant> qlButtons;
-		bool bModified;
-		ShortcutKeyWidget(QWidget *p = NULL);
-		void setShortcut(const QList<QVariant> &buttons);
-	public slots:
-		void updateKeys(bool last);
-		void displayKeys();
-};
+#include "Timer.h"
 
 class GlobalShortcut : public QObject {
-		friend class GlobalShortcutX;
-		friend class GlobalShortcutWin;
+		friend class GlobalShortcutEngine;
 		friend class GlobalShortcutConfig;
 		Q_OBJECT
 		Q_PROPERTY(QVariant data READ data WRITE setData)
@@ -62,7 +46,10 @@ class GlobalShortcut : public QObject {
 		QString name;
 		QVariant dv;
 		int idx;
-		bool act;
+
+		bool bActive;
+		int iNumUp;
+		QList<QVariant> qlButtons;
 	signals:
 		void down();
 		void up();
@@ -78,10 +65,26 @@ class GlobalShortcut : public QObject {
 			dv = d;
 		};
 		bool active() const {
-			return act;
+			return bActive;
 		};
 	private:
 		Q_DISABLE_COPY(GlobalShortcut)
+};
+
+class ShortcutKeyWidget : public QLineEdit {
+		Q_OBJECT
+	protected:
+		virtual void focusInEvent(QFocusEvent *event);
+		virtual void focusOutEvent(QFocusEvent *event);
+		virtual void mouseDoubleClickEvent(QMouseEvent *e);
+	public:
+		QList<QVariant> qlButtons;
+		bool bModified;
+		ShortcutKeyWidget(QWidget *p = NULL);
+		void setShortcut(const QList<QVariant> &buttons);
+	public slots:
+		void updateKeys(bool last);
+		void displayKeys();
 };
 
 class GlobalShortcutConfig : public ConfigWidget {
@@ -103,15 +106,26 @@ class GlobalShortcutEngine : public QThread {
 		Q_OBJECT
 	public:
 		bool bNeedRemap;
+		Timer tReset;
+
 		static GlobalShortcutEngine *engine;
+		static GlobalShortcutEngine *platformInit();
+
 		QHash<int, GlobalShortcut *> qmShortcuts;
+		QList<QVariant> qlActiveButtons;
+
+		QList<QVariant> qlButtonList;
+		QList<QList<GlobalShortcut *> > qlShortcutList;
 
 		GlobalShortcutEngine(QObject *p = NULL);
-		virtual QList<QVariant> getCurrentButtons() = 0;
-		virtual void resetMap() = 0;
-		virtual void remap();
+		void resetMap();
+		void remap();
+		void run();
+
+		void handleButton(const QVariant &, bool);
+		static void add(GlobalShortcut *);
+		static void remove(GlobalShortcut *);
 		virtual QString buttonName(const QVariant &) = 0;
-		virtual void run();
 	signals:
 		void buttonPressed(bool last);
 };

@@ -44,6 +44,10 @@ uint qHash(const GUID &a) {
 	return val;
 }
 
+GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
+	return new GlobalShortcutWin();
+}
+
 GlobalShortcutWin::GlobalShortcutWin() {
 	engine = this;
 	ref = 0;
@@ -58,8 +62,6 @@ GlobalShortcutWin::GlobalShortcutWin() {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
 	}
-
-	remap();
 
 	timer->start(20);
 }
@@ -83,6 +85,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	InputDevice *id = new InputDevice;
 	id->name = name;
 	id->guid = pdidi->guidInstance;
+	id->vguid = QVariant(QUuid(id->guid).toString());
 
 	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, NULL)))
 		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
@@ -143,97 +146,22 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	return DIENUM_CONTINUE;
 }
 
-void GlobalShortcutWin::add(GlobalShortcut *gs) {
-	qmShortcuts[gs->idx] = gs;
-	bNeedRemap = true;
-}
-
-void GlobalShortcutWin::remove(GlobalShortcut *gs) {
-	qmShortcuts.remove(gs->idx);
-	bNeedRemap = true;
-}
-
-void GlobalShortcutWin::remap() {
-	bNeedRemap = false;
-
-	unacquire();
-
-	if (qmShortcuts.isEmpty())
-		return;
-
-	foreach(InputDevice *id, qhInputDevices) {
-		if (id->pDID) {
-			id->pDID->Release();
-		}
-		delete(id);
-	}
-	qhInputDevices.clear();
-
-	pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
-
-	foreach(Shortcut *s, qhGlobalToWin) {
-		delete(s);
-	}
-	qhGlobalToWin.clear();
-
-	foreach(GlobalShortcut *gs, qmShortcuts) {
-		const QList<QVariant> &ql = g.s.qmShortcuts.value(gs->idx);
-		QList<QUuid> guids;
-		QList<DWORD> types;
-		foreach(QVariant b, ql) {
-			const QList<QVariant> &l = b.toList();
-			if (l.count() != 2)
-				continue;
-			QUuid guid(l.at(0).toString());
-			DWORD type = l.at(1).toUInt();
-			if (! guid.isNull()) {
-				guids << guid;
-				types << type;
-			}
-		}
-		if (guids.count() > 0) {
-			Shortcut *s = new Shortcut();
-			s->gs = gs;
-			s->bActive = false;
-			s->iNumDown = 0;
-			for (int i=0;i<guids.count();i++) {
-				s->qlButtons << qpButton(guids[i], types[i]);
-				s->qlActive << false;
-				if (qhInputDevices.contains(guids[i])) {
-					InputDevice *id = qhInputDevices[guids[i]];
-					id->qmhOfsToShortcut.insert(id->qhTypeToOfs[types[i]], s);
-				}
-			}
-			qhGlobalToWin[gs] = s;
-		}
-	}
-}
-
 GlobalShortcutWin::~GlobalShortcutWin() {
-	unacquire();
-
 	foreach(InputDevice *id, qhInputDevices) {
 		if (id->pDID) {
+			id->pDID->Unacquire();
 			id->pDID->Release();
 		}
 	}
 	pDI->Release();
 }
 
-void GlobalShortcutWin::unacquire() {
-	foreach(InputDevice *id, qhInputDevices) {
-		if (id->pDID) {
-			id->pDID->Unacquire();
-		}
-	}
-}
-
 void GlobalShortcutWin::timeTicked() {
-	bool pressed = false;
-
 	if (bNeedRemap)
 		remap();
 
+	if (qhInputDevices.isEmpty())
+		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
 
 	foreach(InputDevice *id, qhInputDevices) {
 		DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
@@ -247,77 +175,18 @@ void GlobalShortcutWin::timeTicked() {
 		if (FAILED(hr))
 			continue;
 
+		if (dwItems <= 0)
+			continue;
+
 		for (DWORD j=0; j<dwItems; j++) {
-//			qWarning("%4x %4x", rgdod[j].dwOfs, rgdod[j].dwData);
+			QList<QVariant> ql;
 
-			if (!bIgnoreActive) {
-				if (rgdod[j].dwData & 0x80) {
-					iButtonsDown++;
-					id->activeMap.insert(rgdod[j].dwOfs);
-					pressed = true;
-				} else if (id->activeMap.contains(rgdod[j].dwOfs)) {
-					iButtonsDown--;
-					if (iButtonsDown == 0)
-						pressed = true;
-				}
-			}
-
-			foreach(Shortcut *s, id->qmhOfsToShortcut.values(rgdod[j].dwOfs)) {
-				qpButton button(id->guid, id->qhOfsToType[rgdod[j].dwOfs]);
-				int idx;
-				for (idx=0;idx<s->qlButtons.count();idx++) {
-					if (s->qlButtons[idx] == button) {
-						bool a = (rgdod[j].dwData & 0x80);
-						if (a != s->qlActive[idx]) {
-							s->qlActive[idx] = a;
-							if (!a && s->bActive) {
-								s->iNumDown--;
-								s->bActive = false;
-								emit s->gs->triggered(a);
-								s->gs->act = false;
-								emit s->gs->up();
-							} else if (!a) {
-								s->iNumDown--;
-							} else if (a) {
-								s->iNumDown++;
-								if (s->iNumDown == s->qlActive.count()) {
-									s->bActive = true;
-									emit s->gs->triggered(a);
-									s->gs->act = true;
-									emit s->gs->down();
-								}
-							}
-						}
-					}
-				}
-			}
+			quint32 uiType = id->qhOfsToType.value(rgdod[j].dwOfs);
+			ql << uiType;
+			ql << id->vguid;
+			handleButton(ql, rgdod[j].dwData & 0x80);
 		}
 	}
-
-	if (pressed)
-		emit buttonPressed(iButtonsDown == 0);
-	bIgnoreActive = false;
-}
-
-void GlobalShortcutWin::resetMap() {
-	foreach(InputDevice *id, qhInputDevices) {
-		id->activeMap.clear();
-	}
-	bIgnoreActive = true;
-	iButtonsDown = 0;
-}
-
-QList<QVariant> GlobalShortcutWin::getCurrentButtons() {
-	QList<QVariant> buttons;
-	foreach(InputDevice *id, qhInputDevices) {
-		foreach(DWORD ofs, id->activeMap) {
-			QList<QVariant> sublist;
-			sublist << QUuid(id->guid).toString();
-			sublist << static_cast<unsigned int>(id->qhOfsToType[ofs]);
-			buttons << QVariant(sublist);
-		}
-	}
-	return buttons;
 }
 
 QString GlobalShortcutWin::buttonName(const QVariant &v) {
@@ -327,9 +196,9 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	if (sublist.count() != 2)
 		return QString();
 
-	QUuid guid(sublist.at(0).toString());
 	bool ok = false;
-	DWORD type = sublist.at(1).toUInt(&ok);
+	DWORD type = sublist.at(0).toUInt(&ok);
+	QUuid guid(sublist.at(1).toString());
 
 	if (guid.isNull() || (!ok))
 		return QString();
@@ -347,28 +216,4 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 		name=id->qhNames.value(type);
 	}
 	return device+name;
-}
-
-
-GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
-	if (! GlobalShortcutEngine::engine)
-		GlobalShortcutEngine::engine = new GlobalShortcutWin();
-
-	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
-	gsw->ref++;
-	idx = index;
-	name=qsName;
-	act = false;
-	gsw->add(this);
-}
-
-GlobalShortcut::~GlobalShortcut() {
-	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
-
-	gsw->remove(this);
-	gsw->ref--;
-	if (gsw->ref == 0) {
-		delete gsw;
-		GlobalShortcutEngine::engine = NULL;
-	}
 }
