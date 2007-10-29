@@ -1,4 +1,5 @@
-/* Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
+/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
 
    All rights reserved.
 
