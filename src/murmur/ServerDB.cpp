@@ -270,7 +270,14 @@ ServerDB::ServerDB() {
 		}
 	} else if (version < 2) {
 		if (Meta::mp.qsDBDriver == "QSQLITE") {
+			SQLDO("DROP TRIGGER %1log_timestamp");
+			SQLDO("DROP TRIGGER %1log_server_del");
+
 			SQLDO("ALTER TABLE %1log RENAME TO %1slog");
+
+			SQLDO("CREATE TRIGGER %1slog_timestamp AFTER INSERT ON %1slog FOR EACH ROW BEGIN UPDATE %1slog SET msgtime = datetime('now') WHERE rowid = new.rowid; END;");
+			SQLDO("CREATE TRIGGER %1slog_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1slog WHERE server_id = old.server_id; END;");
+
 			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
 			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
 		} else {
@@ -310,12 +317,11 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 			return true;
 		}
 
-
 		if (fatal) {
 			db = QSqlDatabase();
-			qFatal("SQL Prepare Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
+			qFatal("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
 		} else
-			qDebug("SQL Prepare Error [%s]: %s", qPrintable(str), qPrintable(query.lastError().text()));
+			qDebug("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
 		return false;
 	}
 }
