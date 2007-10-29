@@ -58,7 +58,6 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		Q_OBJECT
 	public:
 		QTimer *timer;
-		int ref;
 
 		LPDIRECTINPUT8 pDI;
 		QHash<GUID, InputDevice *> qhInputDevices;

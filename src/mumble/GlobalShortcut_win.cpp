@@ -49,8 +49,6 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 }
 
 GlobalShortcutWin::GlobalShortcutWin() {
-	engine = this;
-	ref = 0;
 	timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 

@@ -31,46 +31,19 @@
 #include "GlobalShortcut.h"
 #include "ConfigDialog.h"
 
-typedef QPair<int, unsigned int> qpButton;
-
-struct Shortcut {
-	GlobalShortcut *gs;
-	int iNumDown;
-	bool bActive;
-	QList<int> qlButtons;
-};
-
 #define NUM_BUTTONS 0x2ff
 
 class GlobalShortcutX : public GlobalShortcutEngine {
 		Q_OBJECT
 	public:
 		Display *display;
-		int ref;
 		bool bRunning;
-		bool activeMap[NUM_BUTTONS];
-		bool touchMap[NUM_BUTTONS];
-		bool bFirstMouseReleased;
-		QHash<GlobalShortcut *, Shortcut *> qhGlobalToX;
 		QList<QFile *> qlInputDevices;
-		bool globalEvent(XEvent *);
-		bool bGrabbing;
-		void grab();
-		void release();
-		QMultiHash<int, Shortcut *> qmhKeyToShortcut;
-		void handleEvent(int evtcode, bool down);
 
 		GlobalShortcutX();
 		~GlobalShortcutX();
 		void run();
-		void remap();
-		void resetMap();
-		void add(GlobalShortcut *);
-		void remove(GlobalShortcut *);
-		QList<QVariant> getCurrentButtons();
 		QString buttonName(const QVariant &);
 	public slots:
 		void inputReadyRead(int);
-	signals:
-		void buttonPressed(bool);
 };

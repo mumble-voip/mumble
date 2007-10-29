@@ -40,11 +40,11 @@
 #include <fcntl.h>
 #endif
 
+GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
+	return new GlobalShortcutX();
+}
+
 GlobalShortcutX::GlobalShortcutX() {
-	engine = this;
-	ref = 0;
-	bGrabbing = false;
-	bNeedRemap = true;
 	int min, maj;
 	bRunning=false;
 
@@ -112,73 +112,9 @@ GlobalShortcutX::GlobalShortcutX() {
 	start(QThread::TimeCriticalPriority);
 }
 
-void GlobalShortcutX::add(GlobalShortcut *gs) {
-	qmShortcuts[gs->idx] = gs;
-	bNeedRemap=true;
-}
-
-void GlobalShortcutX::remove(GlobalShortcut *gs) {
-	qmShortcuts.remove(gs->idx);
-	bNeedRemap=true;
-}
-
-void GlobalShortcutX::grab() {
-	bGrabbing = true;
-}
-
-void GlobalShortcutX::release() {
-	bGrabbing = false;
-}
-
 GlobalShortcutX::~GlobalShortcutX() {
 	bRunning = false;
 	wait();
-}
-
-void GlobalShortcutX::remap() {
-	bNeedRemap = false;
-	
-	foreach(Shortcut *s, qhGlobalToX) {
-		delete s;
-	}
-	qhGlobalToX.clear();
-	qmhKeyToShortcut.clear();
-
-	foreach(GlobalShortcut *gs, qmShortcuts) {
-		const QList<QVariant> &ql = g.s.qmShortcuts.value(gs->idx);
-		QList<unsigned int> buttons;
-		foreach(QVariant v, ql) {
-			bool ok;
-			int val = v.toInt(&ok);
-			if ((val > 0) && ok)
-				buttons << val;
-		}
-		if (buttons.count() > 0) {
-			Shortcut *s = new Shortcut();
-			s->gs = gs;
-			s->bActive = false;
-			s->iNumDown = 0;
-			for (int i=0;i<buttons.count();i++) {
-				s->qlButtons << buttons[i];
-				qmhKeyToShortcut.insert(buttons[i], s);
-			}
-			qhGlobalToX[gs] = s;
-		}
-	}
-}
-
-void GlobalShortcutX::resetMap() {
-	bFirstMouseReleased = false;
-	for (int i=0;i<NUM_BUTTONS;i++)
-		touchMap[i]=false;
-}
-
-QList<QVariant> GlobalShortcutX::getCurrentButtons() {
-	QList<QVariant> keys;
-	for (int i=0;i<NUM_BUTTONS;i++)
-		if (touchMap[i])
-			keys << i;
-	return keys;
 }
 
 void GlobalShortcutX::run() {
@@ -209,7 +145,7 @@ void GlobalShortcutX::run() {
 							else
 								evtcode = 0x118 + evt.xbutton.button;
 
-							handleEvent(evtcode, down);
+							handleButton(evtcode, down);
 						}
 						break;
 					default:
@@ -247,38 +183,9 @@ void GlobalShortcutX::inputReadyRead(int) {
 				continue;
 		}
 		int evtcode = ev.code + 8;
-		handleEvent(evtcode, down);
+		handleButton(evtcode, down);
 	}
 #endif
-}
-
-void GlobalShortcutX::handleEvent(int evtcode, bool down) {
-	if (down == activeMap[evtcode])
-		return;
-
-	activeMap[evtcode] = down;
-	if (down)
-		touchMap[evtcode] = true;
-
-	emit buttonPressed(!down);
-
-	foreach(Shortcut *s, qmhKeyToShortcut.values(evtcode)) {
-		if (down) {
-			s->iNumDown++;
-			if (s->iNumDown == s->qlButtons.count()) {
-				s->bActive = true;
-				emit s->gs->triggered(down);
-				emit s->gs->down();
-			}
-		} else {
-			s->iNumDown--;
-			if (s->bActive) {
-				s->bActive = false;
-				emit s->gs->triggered(down);
-				emit s->gs->up();
-			}
-		}
-	}
 }
 
 QString GlobalShortcutX::buttonName(const QVariant &v) {
@@ -300,27 +207,5 @@ QString GlobalShortcutX::buttonName(const QVariant &v) {
 		}
 	} else {
 		return tr("Mouse %1").arg(key-0x118);
-	}
-}
-
-GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
-	if (! GlobalShortcutEngine::engine)
-		GlobalShortcutEngine::engine = new GlobalShortcutX();
-	GlobalShortcutX *gsx = static_cast<GlobalShortcutX *>(GlobalShortcutEngine::engine);
-	gsx->ref++;
-	idx = index;
-	name=qsName;
-	act = false;
-	gsx->add(this);
-}
-
-GlobalShortcut::~GlobalShortcut() {
-	GlobalShortcutX *gsx = static_cast<GlobalShortcutX *>(GlobalShortcutEngine::engine);
-
-	gsx->remove(this);
-	gsx->ref--;
-	if (gsx->ref == 0) {
-		delete gsx;
-		gsx = NULL;
 	}
 }
