@@ -180,8 +180,10 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 		mca.iId = c->iId;
 		mca.iParent = (c->cParent) ? c->cParent->iId : -1;
 		mca.qsName = c->qsName;
-		if (c->iId != 0)
-			sendMessage(cCon, &mca);
+		if (c->iId == 0)
+			mca.qsName = qsRegName.isEmpty() ? QLatin1String("Root") : qsRegName;
+
+		sendMessage(cCon, &mca);
 
 		foreach(c, c->qlChannels)
 		q.enqueue(c);
@@ -475,7 +477,7 @@ void Server::msgChannelRemove(Connection *cCon, MessageChannelRemove *msg) {
 	if (!c)
 		return;
 
-	if (! hasPermission(uSource, c, ChanACL::Write) || (msg->iId == 0)) {
+	if (! hasPermission(uSource, c, ChanACL::Write) || (c->iId == 0)) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
@@ -492,7 +494,7 @@ void Server::msgChannelRename(Connection *cCon, MessageChannelRename *msg) {
 	if (!c)
 		return;
 
-	if (! hasPermission(uSource, c, ChanACL::Write)) {
+	if (! hasPermission(uSource, c, ChanACL::Write) || (c->iId == 0)) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
