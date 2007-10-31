@@ -44,137 +44,124 @@ bool ModelItem::bPlayersTop = false;
 ModelItem::ModelItem(Channel *c) {
 	this->cChan = c;
 	this->pPlayer = NULL;
-	c_qhChannels[c] = this;
+	c_qhChannels.insert(c, this);
+	parent = c_qhChannels.value(c->cParent);
 }
 
 ModelItem::ModelItem(ClientPlayer *p) {
 	this->cChan = NULL;
 	this->pPlayer = p;
-	c_qhPlayers[p] = this;
+	c_qhPlayers.insert(p, this);
+	parent = c_qhChannels.value(p->cChannel);
+}
+
+ModelItem::ModelItem(ModelItem *i) {
+	// Create a dummy clone.
+	this->cChan = i->cChan;
+	this->pPlayer = i->pPlayer;
+	this->parent = i->parent;
 }
 
 ModelItem::~ModelItem() {
-	Q_ASSERT(qlPlayers.count() == 0);
-	Q_ASSERT(qlChannels.count() == 0);
+	Q_ASSERT(qlChildren.count() == 0);
 
-	if (cChan)
+	if (cChan && c_qhChannels.value(cChan) == this)
 		c_qhChannels.remove(cChan);
-	if (pPlayer)
+	if (pPlayer && c_qhPlayers.value(pPlayer) == this)
 		c_qhPlayers.remove(pPlayer);
-}
-
-ModelItem *ModelItem::parent() const {
-	Channel *p;
-
-	if (cChan)
-		p = cChan->cParent;
-	else
-		p = pPlayer->cChannel;
-
-	return c_qhChannels.value(p);
 }
 
 ModelItem *ModelItem::child(int idx) const {
 	if (! validRow(idx))
 		return NULL;
 
-	if (! bPlayersTop) {
-		if (idx < qlChannels.count())
-			return c_qhChannels.value(channelAt(idx));
-		else
-			return c_qhPlayers.value(playerAt(idx));
-	} else {
-		if (idx < qlPlayers.count())
-			return c_qhPlayers.value(playerAt(idx));
-		else
-			return c_qhChannels.value(channelAt(idx));
-	}
+	return qlChildren.at(idx);
 }
 
 bool ModelItem::validRow(int idx) const {
-	return ((idx >= 0) && (idx < (qlPlayers.count() + qlChannels.count())));
+	return ((idx >= 0) && (idx < qlChildren.count()));
 }
 
 ClientPlayer *ModelItem::playerAt(int idx) const {
-	if (! bPlayersTop)
-		idx -= qlChannels.count();
-	if ((idx>= 0) && (idx < qlPlayers.count()))
-		return qlPlayers.at(idx);
-	return NULL;
+	if (! validRow(idx))
+		return NULL;
+	return qlChildren.at(idx)->pPlayer;
 }
 
 Channel *ModelItem::channelAt(int idx) const {
-	if (bPlayersTop)
-		idx -= qlPlayers.count();
-	if ((idx>= 0) && (idx < qlChannels.count()))
-		return qlChannels.at(idx);
-	return NULL;
+	if (! validRow(idx))
+		return NULL;
+	return qlChildren.at(idx)->cChan;
 }
 
 int ModelItem::rowOf(Channel *c) const {
-	int v = qlChannels.lastIndexOf(c);
-	if (v != -1)
-		v += (!bPlayersTop) ? 0 : qlPlayers.count();
-	return v;
+	for (int i=0;i<qlChildren.count();i++)
+		if (qlChildren.at(i)->cChan == c)
+			return i;
+	return -1;
 }
 
 int ModelItem::rowOf(ClientPlayer *p) const {
-	int v = qlPlayers.lastIndexOf(p);
-	if (v != -1)
-		v += (bPlayersTop) ? 0 : qlChannels.count();
-	return v;
+	for (int i=0;i<qlChildren.count();i++)
+		if (qlChildren.at(i)->pPlayer == p)
+			return i;
+	return -1;
 }
 
 int ModelItem::rowOfSelf() const {
-	ModelItem *p = parent();
-
-	Q_ASSERT(p);
-	
-	if (!p)
+	// Root?
+	if (! parent)
 		return 0;
 
 	if (pPlayer)
-		return p->rowOf(pPlayer);
+		return parent->rowOf(pPlayer);
 	else
-		return p->rowOf(cChan);
+		return parent->rowOf(cChan);
 }
 
 int ModelItem::rows() const {
-	return qlPlayers.count() + qlChannels.count();
+	return qlChildren.count();
 }
 
 int ModelItem::insertIndex(Channel *c) const {
 	QList<QString> qls;
-	Channel *cp;
+	ModelItem *item;
 
-	foreach(cp, qlChannels)
-	qls << cp->qsName;
+	int ocount = 0;
+
+	foreach(item, qlChildren) {
+		if (item->cChan) {
+			if (item->cChan != c)
+				qls << item->cChan->qsName;
+		}
+		else
+			ocount++;
+	}
 	qls << c->qsName;
 	qSort(qls);
 
-	return qls.lastIndexOf(c->qsName) + (bPlayersTop ? qlPlayers.count() : 0);
+	return qls.indexOf(c->qsName) + (bPlayersTop ? ocount : 0);
 }
 
 int ModelItem::insertIndex(ClientPlayer *p) const {
 	QList<QString> qls;
-	ClientPlayer *pp;
+	ModelItem *item;
 
-	foreach(pp, qlPlayers)
-	qls << pp->qsName;
+	int ocount = 0;
+
+	foreach(item, qlChildren) {
+		if (item->pPlayer) {
+			if (item->pPlayer != p)
+				qls << item->pPlayer->qsName;
+		}
+		else
+			ocount++;
+	}
+
 	qls << p->qsName;
 	qSort(qls);
 
-	return qls.lastIndexOf(p->qsName) + (bPlayersTop ? 0 : qlChannels.count());
-}
-
-void ModelItem::insertChannel(Channel *c) {
-	int idx = insertIndex(c) - (bPlayersTop ? qlPlayers.count() : 0);
-	qlChannels.insert(idx, c);
-}
-
-void ModelItem::insertPlayer(ClientPlayer *p) {
-	int idx = insertIndex(p) - (bPlayersTop ? 0 : qlChannels.count());
-	qlPlayers.insert(idx, p);
+	return qls.indexOf(p->qsName) + (bPlayersTop ? 0 : ocount);
 }
 
 PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
@@ -193,11 +180,9 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	ModelItem::bPlayersTop = g.s.bPlayerTop;
 
 	miRoot = new ModelItem(Channel::get(0));
-	bDying = false;
 }
 
 PlayerModel::~PlayerModel() {
-	bDying = true;
 	removeAll();
 	Q_ASSERT(ModelItem::c_qhPlayers.count() == 0);
 	Q_ASSERT(ModelItem::c_qhChannels.count() == 1);
@@ -217,10 +202,13 @@ QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const 
 	}
 
 	if (! p.isValid()) {
-		item = miRoot;
+		return createIndex(row, column, miRoot);
 	} else {
 		item = static_cast<ModelItem *>(p.internalPointer());
 	}
+
+	if (! item)
+		return idx;
 
 	if (! item->validRow(row))
 		return idx;
@@ -244,10 +232,14 @@ QModelIndex PlayerModel::index(Channel *c) const {
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
 	Q_ASSERT(c);
 	Q_ASSERT(item);
-	if (!item || !c || ! c->parent())
+	if (!item || !c)
 		return QModelIndex();
 	QModelIndex idx=createIndex(item->rowOfSelf(), 0, item);
 	return idx;
+}
+
+QModelIndex PlayerModel::index(ModelItem *item) const {
+	return createIndex(item->rowOfSelf(), 0, item);
 }
 
 QModelIndex PlayerModel::parent(const QModelIndex &idx) const {
@@ -256,16 +248,12 @@ QModelIndex PlayerModel::parent(const QModelIndex &idx) const {
 
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 
-	ModelItem *pitem = item->parent();
-	ModelItem *gpitem = (pitem) ? pitem->parent() : NULL;
+	ModelItem *pitem = (item) ? item->parent : NULL;
 
-	if (! pitem || ! gpitem)
+	if (! pitem)
 		return QModelIndex();
 
-	QModelIndex pidx = createIndex(pitem->rowOfSelf(), 0, pitem);
-
-
-	return pidx;
+	return createIndex(pitem->rowOfSelf(), 0, pitem);
 }
 
 int PlayerModel::rowCount(const QModelIndex &p) const {
@@ -274,9 +262,12 @@ int PlayerModel::rowCount(const QModelIndex &p) const {
 	int val = 0;
 
 	if (!p.isValid())
-		item = miRoot;
+		return 1;
 	else
 		item = static_cast<ModelItem *>(p.internalPointer());
+
+	if (! item)
+		return 0;
 
 	val = item->rows();
 
@@ -426,79 +417,80 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 	return QVariant();
 }
 
-void PlayerModel::unbugHide(const QModelIndex &idx) {
-	if (bDying)
+void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item) {
+	// Here's the idea. We insert the item, update persistent indexes, THEN remove it.
+
+	int oldrow = oldparent->qlChildren.indexOf(item);
+	int newrow = -1;
+
+	if (item->cChan)
+		newrow = newparent->insertIndex(item->cChan);
+	else
+		newrow = newparent->insertIndex(item->pPlayer);
+
+	qWarning("Moving from %d to %d", oldrow, newrow);
+
+	if ((oldparent == newparent) && (newrow == oldrow)) {
+		emit dataChanged(index(item),index(item));
 		return;
+	}
 
-	QAbstractItemView *v=g.mw->qtvPlayers;
-	QItemSelectionModel *sel=v->selectionModel();
+	// Store the index if it's "active".
+	// The selection is stored as "from"-"to" pairs, so if we move up in the same channel,
+	// we'd move only "from" and select half the channel.
 
-	// If we hide the current item and re-show it as a child
-	// an item that is nonexpanded, and then expand
-	// that item, we get "interresting results".
-	//
-	// A permanent fix for this would be to let the private
-	// pointer of the index be a struct with channel/player,
-	// and recalculate the correct (sorted) position for each and
-	// every use.
+        QAbstractItemView *v=g.mw->qtvPlayers;
+        QItemSelectionModel *sel=v->selectionModel();
+        QPersistentModelIndex active;
+        QModelIndex oindex = createIndex(oldrow, 0, item);
+	if (sel->isSelected(oindex) || (oindex == v->currentIndex())) {
+		active = index(item);
+                v->clearSelection();
+                v->setCurrentIndex(QModelIndex());
+        }
 
-	if (sel->isSelected(idx) || (idx == v->currentIndex())) {
-		v->clearSelection();
-		v->setCurrentIndex(QModelIndex());
+	ModelItem *t = new ModelItem(item);
+	oldparent->qlChildren.replace(oldrow, t);
+	changePersistentIndex(oindex, createIndex(oldrow, 0, t));
+
+	if (newparent == oldparent) {
+		// Mangle rows. newrow needs to be pre-remove. oldrow needs to be postremove.
+		if (oldrow >= newrow) {
+			oldrow++;
+		} else {
+			newrow++;
+		}
+	}
+
+	beginInsertRows(index(newparent), newrow, newrow);
+	item->parent = newparent;
+	newparent->qlChildren.insert(newrow, item);
+
+	if (item->cChan) {
+		oldparent->cChan->removeChannel(item->cChan);
+		newparent->cChan->addChannel(item->cChan);
+	} else {
+		newparent->cChan->addPlayer(item->pPlayer);
+	}
+
+	endInsertRows();
+
+	changePersistentIndex(createIndex(oldrow, 0, t), createIndex(newrow, 0, item));
+
+	beginRemoveRows(index(oldparent), oldrow, oldrow);
+	oldparent->qlChildren.removeAt(oldrow);
+	endRemoveRows();
+
+	delete t;
+
+	if (active.isValid()) {
+		sel->select(active, QItemSelectionModel::SelectCurrent);
 	}
 }
 
-void PlayerModel::hidePlayer(ClientPlayer *p) {
-	Channel *c = p->cChannel;
-	ModelItem *item = ModelItem::c_qhChannels.value(c);
-	
-	if (! item)
-		return;
-
-	int row = item->rowOf(p);
-
-	unbugHide(index(p));
-
-	beginRemoveRows(index(c), row, row);
-	c->removePlayer(p);
-	item->qlPlayers.removeAll(p);
-	endRemoveRows();
-
-	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
-		updateOverlay();
-
-	p->cChannel = NULL;
-}
-
-void PlayerModel::showPlayer(ClientPlayer *p, Channel *c) {
-	ModelItem *item = ModelItem::c_qhChannels.value(c);
-
-	Q_ASSERT(p);
-	Q_ASSERT(c);
-	Q_ASSERT(item);
-
-	if (!c || !p || ! item)
-		return;
-
-	int row = item->insertIndex(p);
-
-	beginInsertRows(index(c), row, row);
-	c->addPlayer(p);
-	item->insertPlayer(p);
-	endInsertRows();
-
-	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
-		updateOverlay();
-
-	ensureSelfVisible();
-}
-
-void PlayerModel::ensureSelfVisible() {
+void PlayerModel::expandAll(Channel *c) {
 	QStack<Channel *> chans;
 
-	if (! g.uiSession)
-		return;
-	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
 	while (c) {
 		chans.push(c);
 		c = c->cParent;
@@ -507,7 +499,13 @@ void PlayerModel::ensureSelfVisible() {
 		c = chans.pop();
 		g.mw->qtvPlayers->setExpanded(index(c), true);
 	}
-	recheckLinks();
+}
+
+void PlayerModel::ensureSelfVisible() {
+	if (! g.uiSession)
+		return;
+
+	expandAll(ClientPlayer::get(g.uiSession)->cChannel);
 }
 
 void PlayerModel::recheckLinks() {
@@ -541,20 +539,47 @@ ClientPlayer *PlayerModel::addPlayer(unsigned int id, const QString &name) {
 	ClientPlayer *p = ClientPlayer::add(id, this);
 	p->qsName = name;
 
-	new ModelItem(p);
+	ModelItem *item = new ModelItem(p);
 
 	connect(p, SIGNAL(talkingChanged(bool)), this, SLOT(playerTalkingChanged(bool)));
 	connect(p, SIGNAL(muteDeafChanged()), this, SLOT(playerMuteDeafChanged()));
 
-	showPlayer(p, Channel::get(0));
+	Channel *c = Channel::get(0);
+	ModelItem *citem = ModelItem::c_qhChannels.value(c);
+
+	item->parent = citem;
+
+	int row = citem->insertIndex(p);
+
+	beginInsertRows(index(citem), row, row);
+	citem->qlChildren.insert(row, item);
+	c->addPlayer(p);
+	endInsertRows();
+
+	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+		updateOverlay();
+
+	ensureSelfVisible();
 
 	return p;
 }
 
 void PlayerModel::removePlayer(ClientPlayer *p) {
+	Channel *c = p->cChannel;
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
+	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
-	hidePlayer(p);
+	int row = citem->qlChildren.indexOf(item);
+
+	beginRemoveRows(index(citem), row, row);
+	c->removePlayer(p);
+	citem->qlChildren.removeAt(row);
+	endRemoveRows();
+
+	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+		updateOverlay();
+
+	p->cChannel = NULL;
 
 	ClientPlayer::remove(p);
 	delete p;
@@ -562,92 +587,92 @@ void PlayerModel::removePlayer(ClientPlayer *p) {
 }
 
 void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
-	hidePlayer(p);
-	showPlayer(p, np);
+	ModelItem *opi = ModelItem::c_qhChannels.value(p->cChannel);
+	ModelItem *pi = ModelItem::c_qhChannels.value(np);
+	ModelItem *item = ModelItem::c_qhPlayers.value(p);
+	moveItem(opi, pi, item);
+
+	if (p->uiSession == g.uiSession) {
+		ensureSelfVisible();
+		recheckLinks();
+	}
 }
 
 void PlayerModel::renamePlayer(ClientPlayer *p, const QString &name) {
 	Channel *c = p->cChannel;
-	hidePlayer(p);
 	p->qsName = name;
-	showPlayer(p, c);
+
+	ModelItem *pi = ModelItem::c_qhChannels.value(c);
+	ModelItem *item = ModelItem::c_qhPlayers.value(p);
+	moveItem(pi, pi, item);
 }
 
 void PlayerModel::renameChannel(Channel *c, const QString &name) {
-	Channel *pc = c->cParent;
-	hideChannel(c);
 	c->qsName = name;
-	showChannel(c, pc);
-}
 
-void PlayerModel::showChannel(Channel *c, Channel *p) {
-	ModelItem *item = ModelItem::c_qhChannels.value(p);
+	if (c->iId == 0) {
+		QModelIndex idx = index(c);
+		emit dataChanged(idx, idx);
+	} else {
+		Channel *pc = c->cParent;
+		ModelItem *pi = ModelItem::c_qhChannels.value(pc);
+		ModelItem *item = ModelItem::c_qhChannels.value(c);
 
-	Q_ASSERT(p);
-	Q_ASSERT(c);
-	Q_ASSERT(item);
-
-	if (!c || !p || ! item)
-		return;
-
-	int row = item->insertIndex(c);
-
-	beginInsertRows(index(p), row, row);
-	p->addChannel(c);
-	item->insertChannel(c);
-	endInsertRows();
-
-	if (g.s.bExpandAll)
-		g.mw->qtvPlayers->setExpanded(index(c), true);
-
-	ensureSelfVisible();
-}
-
-void PlayerModel::hideChannel(Channel *c) {
-	Channel *p = c->cParent;
-	ModelItem *item = ModelItem::c_qhChannels.value(p);
-
-	if (! item)
-		return;
-
-	int row = item->rowOf(c);
-
-	unbugHide(index(c));
-
-	beginRemoveRows(index(p), row, row);
-	p->removeChannel(c);
-	item->qlChannels.removeAll(c);
-	qsLinked.remove(c);
-	endRemoveRows();
-
-	item = ModelItem::c_qhChannels.value(c);
+		moveItem(pi, pi, item);
+	}
 }
 
 Channel *PlayerModel::addChannel(int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name, NULL);
 
-	new ModelItem(c);
+	if (! c)
+		return NULL;
 
-	showChannel(c, p);
+	ModelItem *item = new ModelItem(c);
+	ModelItem *citem = ModelItem::c_qhChannels.value(p);
+
+	item->parent = citem;
+
+	int row = citem->insertIndex(c);
+
+	beginInsertRows(index(citem), row, row);
+	p->addChannel(c);
+	citem->qlChildren.insert(row, item);
+	endInsertRows();
+
+	if (g.s.bExpandAll)
+		g.mw->qtvPlayers->setExpanded(index(item), true);
+
 	return c;
 }
 
 void PlayerModel::removeChannel(Channel *c) {
-	ModelItem *item;
-	ClientPlayer *pl;
-	Channel *subc;
+	ModelItem *item, *i;
 
 	item=ModelItem::c_qhChannels.value(c);
-	if (! item)
+
+	foreach(i, item->qlChildren) {
+		if (i->pPlayer)
+			removePlayer(i->pPlayer);
+		else
+			removeChannel(i->cChan);
+	}
+
+	Channel *p = c->cParent;
+
+	if (! p)
 		return;
 
-	foreach(subc, item->qlChannels)
-	removeChannel(subc);
+	ModelItem *citem = ModelItem::c_qhChannels.value(p);
 
-	foreach(pl, item->qlPlayers)
-	removePlayer(pl);
+	int row = citem->rowOf(c);
 
-	hideChannel(c);
+	beginRemoveRows(index(citem), row, row);
+	p->removeChannel(c);
+	citem->qlChildren.removeAt(row);
+	qsLinked.remove(c);
+	endRemoveRows();
+
 	Channel::remove(c);
 
 	delete item;
@@ -655,8 +680,11 @@ void PlayerModel::removeChannel(Channel *c) {
 }
 
 void PlayerModel::moveChannel(Channel *c, Channel *p) {
-	hideChannel(c);
-	showChannel(c, p);
+	ModelItem *opi = ModelItem::c_qhChannels.value(c->cParent);
+	ModelItem *pi = ModelItem::c_qhChannels.value(p);
+	ModelItem *item = ModelItem::c_qhChannels.value(c);
+	moveItem(opi, pi, item);
+	ensureSelfVisible();
 }
 
 void PlayerModel::linkChannels(Channel *c, QList<Channel *> links) {
@@ -678,12 +706,14 @@ void PlayerModel::unlinkAll(Channel *c) {
 
 void PlayerModel::removeAll() {
 	ModelItem *item = miRoot;
+	ModelItem *i;
 
-	while (item->qlChannels.count() > 0)
-		removeChannel(item->qlChannels[0]);
-
-	while (item->qlPlayers.count() > 0)
-		removePlayer(item->qlPlayers[0]);
+	foreach(i, item->qlChildren) {
+		if (i->pPlayer)
+			removePlayer(i->pPlayer);
+		else
+			removeChannel(i->cChan);
+	}
 
 	qsLinked.clear();
 
@@ -718,11 +748,15 @@ Channel *PlayerModel::getSubChannel(Channel *p, int idx) const {
 	if (! item)
 		return NULL;
 
-	if (idx < 0 || idx >= item->qlChannels.count())
-		return NULL;
-	return item->qlChannels.at(idx);
+	foreach(ModelItem *i, item->qlChildren) {
+		if (i->cChan) {
+			if (idx == 0)
+				return i->cChan;
+			idx--;
+		}
+	}
+	return NULL;
 }
-
 
 void PlayerModel::playerTalkingChanged(bool) {
 	ClientPlayer *p=static_cast<ClientPlayer *>(sender());
@@ -796,6 +830,8 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 
 	if (! c)
 		return false;
+
+	expandAll(c);
 
 	if (! isChannel) {
 		MessagePlayerMove mpm;

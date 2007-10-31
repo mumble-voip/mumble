@@ -136,6 +136,8 @@ void MainWindow::setupGui()  {
 	qtvPlayers->setModel(pmModel);
 	qtvPlayers->setItemDelegate(new PlayerDelegate(qtvPlayers));
 
+	qtvPlayers->setRowHidden(0, QModelIndex(), true);
+
 	qaServerConnect->setShortcuts(QKeySequence::Open);
 	qaServerDisconnect->setShortcuts(QKeySequence::Close);
 	qaAudioMute->setChecked(g.s.bMute);
@@ -143,7 +145,6 @@ void MainWindow::setupGui()  {
 	qaAudioTTS->setChecked(g.s.bTTS);
 	qaAudioLocalDeafen->setChecked(g.s.bLocalDeafen);
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
-
 
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
@@ -465,13 +466,14 @@ void MainWindow::on_qaQuit_triggered() {
 void MainWindow::on_qmChannel_aboutToShow() {
 	QModelIndex idx = qtvPlayers->currentIndex();
 
-	bool add, remove, acl, rename, link, unlink, unlinkall;
+	bool add, remove, acl, rename, link, unlink, unlinkall, msg;
 
-	add = remove = acl = rename = link = unlink = unlinkall = false;
+	add = remove = acl = rename = link = unlink = unlinkall = msg = false;
 
 	if (g.uiSession != 0) {
 		add = true;
 		acl = true;
+		msg = true;
 
 		Channel *c = pmModel->getChannel(idx);
 		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
@@ -498,6 +500,8 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	qaChannelLink->setEnabled(link);
 	qaChannelUnlink->setEnabled(unlink);
 	qaChannelUnlinkAll->setEnabled(unlinkall);
+	qaChannelSendMessage->setEnabled(msg);
+	qaChannelSendTreeMessage->setEnabled(msg);
 }
 
 void MainWindow::on_qaChannelAdd_triggered() {
@@ -870,6 +874,9 @@ void MainWindow::serverConnected() {
 	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
 
+	pmModel->renameChannel(Channel::get(0), tr("Root"));
+	qtvPlayers->setRowHidden(0, QModelIndex(), false);
+
 	if (g.s.bMute || g.s.bDeaf) {
 		MessagePlayerSelfMuteDeaf mpsmd;
 		mpsmd.bMute = g.s.bMute;
@@ -901,6 +908,7 @@ void MainWindow::serverDisconnected(QString reason) {
 	}
 
 	pmModel->removeAll();
+	qtvPlayers->setRowHidden(0, QModelIndex(), true);
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)

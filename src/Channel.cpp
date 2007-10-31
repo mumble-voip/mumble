@@ -70,8 +70,11 @@ Channel *Channel::get(int id) {
 Channel *Channel::add(int id, QString name, QObject *po) {
 	QWriteLocker lock(&c_qrwlChannels);
 
+	if (c_qhChannels.contains(id))
+		return NULL;
+
 	Channel *c = new Channel(id,name, po);
-	c_qhChannels[id] = c;
+	c_qhChannels.insert(id, c);
 	return c;
 }
 

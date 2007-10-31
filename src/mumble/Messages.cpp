@@ -220,8 +220,13 @@ void MainWindow::msgPlayerRename(Connection *, MessagePlayerRename *msg) {
 }
 
 void MainWindow::msgChannelAdd(Connection *, MessageChannelAdd *msg) {
-	if (msg->iId == 0)
+	if (msg->qsName.isEmpty())
 		return;
+
+	if (msg->iId == 0) {
+		pmModel->renameChannel(Channel::get(0), msg->qsName);
+		return;
+	}
 
 	Channel *p = Channel::get(msg->iParent);
 	if (p)
@@ -243,6 +248,15 @@ void MainWindow::msgChannelMove(Connection *, MessageChannelMove *msg) {
 
 	Channel *c = Channel::get(msg->iId);
 	Channel *p = Channel::get(msg->iParent);
+	if (!c || !p)
+		return;
+
+	Channel *pp = p;
+	while (pp) {
+		if (pp == c)
+			return;
+		pp = pp->cParent;
+	}
 	if (c && p)
 		pmModel->moveChannel(c, p);
 }

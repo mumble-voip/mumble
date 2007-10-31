@@ -50,8 +50,9 @@ struct ModelItem {
 
 	Channel *cChan;
 	ClientPlayer *pPlayer;
-	QList<Channel *> qlChannels;
-	QList<ClientPlayer *> qlPlayers;
+
+	ModelItem *parent;
+	QList<ModelItem *> qlChildren;
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
 	static QHash <ClientPlayer *, ModelItem *> c_qhPlayers;
@@ -59,9 +60,9 @@ struct ModelItem {
 
 	ModelItem(Channel *c);
 	ModelItem(ClientPlayer *p);
+	ModelItem(ModelItem *);
 	~ModelItem();
 
-	ModelItem *parent() const;
 	ModelItem *child(int idx) const;
 
 	bool validRow(int idx) const;
@@ -73,8 +74,6 @@ struct ModelItem {
 	int rows() const;
 	int insertIndex(Channel *c) const;
 	int insertIndex(ClientPlayer *p) const;
-	void insertChannel(Channel *c);
-	void insertPlayer(ClientPlayer *p);
 };
 
 class ChannelItem;
@@ -92,18 +91,11 @@ class PlayerModel : public QAbstractItemModel {
 
 		QModelIndex index(ClientPlayer *, int column = 0) const;
 		QModelIndex index(Channel *) const;
-		QModelIndex index(ChannelItem *) const;
+		QModelIndex index(ModelItem *) const;
 
-		void hidePlayer(ClientPlayer *p);
-		void showPlayer(ClientPlayer *p, Channel *c);
-
-		void hideChannel(Channel *c);
-		void showChannel(Channel *c, Channel *p);
+		void moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item);
 
 		QString stringIndex(const QModelIndex &index) const;
-
-		void unbugHide(const QModelIndex &index);
-		bool bDying;
 	public:
 		PlayerModel(QObject *parent = 0);
 		~PlayerModel();
@@ -142,6 +134,8 @@ class PlayerModel : public QAbstractItemModel {
 		void unlinkAll(Channel *c);
 
 		void removeAll();
+
+		void expandAll(Channel *c);
 
 		QVariant otherRoles(int column, int role, bool isPlayer) const;
 	public slots:
