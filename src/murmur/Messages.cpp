@@ -158,7 +158,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	mcs.qbaClientNonce = QByteArray(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE);
 	sendMessage(cCon, &mcs);
 
-	int lchan = readLastChannel(uSource);
+	int lchan = readLastChannel(uSource->iId);
 	Channel *lc = qhChannels.value(lchan);
 	if (! lc)
 		lc = qhChannels.value(0);

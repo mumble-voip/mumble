@@ -430,11 +430,14 @@ int Server::authenticate(QString &name, const QString &pw) {
 		if (res != -1) {
 			TransactionHolder th;
 			QSqlQuery query;
+			
+			int lchan=readLastChannel(res);
 
-			SQLPREP("REPLACE INTO %1players (server_id, player_id, name) VALUES (?,?,?)");
+			SQLPREP("REPLACE INTO %1players (server_id, player_id, name, lastchannel) VALUES (?,?,?,?)");
 			query.addBindValue(iServerNum);
 			query.addBindValue(res);
 			query.addBindValue(name);
+			query.addBindValue(lchan);
 			SQLEXEC();
 		}
 		return res;
@@ -792,27 +795,24 @@ void Server::setLastChannel(const Player *p) {
 	SQLEXEC();
 }
 
-int Server::readLastChannel(Player *p) {
+int Server::readLastChannel(int id) {
+	if (id < 0)
+		return 0;
 
-	Channel *c = qhChannels.value(0);
+	TransactionHolder th;
+	QSqlQuery query;
 
-	if (p->iId >= 0) {
-		TransactionHolder th;
-		QSqlQuery query;
+	SQLPREP("SELECT lastchannel FROM %1players WHERE server_id = ? AND player_id = ?");
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	SQLEXEC();
 
-		SQLPREP("SELECT lastchannel FROM %1players WHERE server_id = ? AND player_id = ?");
-		query.addBindValue(iServerNum);
-		query.addBindValue(p->iId);
-		SQLEXEC();
-
-		if (query.next()) {
-			int id = query.value(0).toInt();
-			Channel *chan = qhChannels.value(id);
-			if (chan)
-				c = chan;
-		}
+	if (query.next()) {
+		int cid = query.value(0).toInt();
+		if (qhChannels.contains(cid))
+			return cid;
 	}
-	return c->iId;
+	return 0;
 }
 
 void Server::dumpChannel(const Channel *c) {
