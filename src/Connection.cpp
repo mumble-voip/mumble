@@ -173,7 +173,21 @@ void Connection::sendMessage(const QByteArray &qbaMsg) {
 	a_ucBuffer[1]=(qbaMsg.size() >> 8) & 0xff;
 	a_ucBuffer[2]=(qbaMsg.size() & 0xff);
 	memcpy(a_ucBuffer + 3, qbaMsg.constData(), qbaMsg.size());
+
+	int iPrevLevel = iReceiveLevel;
+	iReceiveLevel = 2;
+
 	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 3 + qbaMsg.size());
+
+	if (iPrevLevel == 0) {
+		iReceiveLevel = 1;
+		QSet<Connection *>::const_iterator i = qsReceivers.constBegin();
+		while (i != qsReceivers.constEnd()) {
+			(*i)->socketRead();
+			i = qsReceivers.constBegin();
+		}
+	}
+	iReceiveLevel = iPrevLevel;
 }
 
 void Connection::forceFlush() {

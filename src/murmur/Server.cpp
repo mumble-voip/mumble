@@ -488,11 +488,14 @@ void Server::sslError(const QList<QSslError> &errors) {
 				ok = false;
 		}
 	}
-	if (ok) {
-		Connection *c = qobject_cast<User *>(sender());
-		if (c)
-			c->proceedAnyway();
-	}
+	Connection *c = qobject_cast<User *>(sender());
+	if (! c)
+		return;
+	
+	if (ok)
+		c->proceedAnyway();
+	else 
+		c->disconnectSocket();
 }
 
 void Server::connectionClosed(QString reason) {
