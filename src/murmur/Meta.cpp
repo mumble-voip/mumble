@@ -41,6 +41,7 @@ MetaParams::MetaParams() {
 	iTimeout = 30;
 	iMaxBandwidth = 10000;
 	iMaxUsers = 1000;
+	iDefaultChan = 0;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 	iDBPort = 0;
@@ -87,6 +88,7 @@ void MetaParams::read(QString fname) {
 	iPort = qs.value("port", iPort).toInt();
 	iTimeout = qs.value("timeout", iTimeout).toInt();
 	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
+	iDefaultChan = qs.value("defaultchannel", iDefaultChan).toInt();
 	iMaxUsers = qs.value("users", iMaxUsers).toInt();
 	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
 

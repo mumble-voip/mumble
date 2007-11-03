@@ -150,6 +150,7 @@ void Server::readParams() {
 	iTimeout = Meta::mp.iTimeout;
 	iMaxBandwidth = Meta::mp.iMaxBandwidth;
 	iMaxUsers = Meta::mp.iMaxUsers;
+	iDefaultChan = Meta::mp.iDefaultChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
 	qhaBind = Meta::mp.qhaBind;
 	qsRegName = Meta::mp.qsRegName;
@@ -181,6 +182,7 @@ void Server::readParams() {
 	iTimeout = getConf("timeout", iTimeout).toInt();
 	iMaxBandwidth = getConf("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = getConf("users", iMaxUsers).toInt();
+	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
 
 	qsRegName = getConf("registername", qsRegName).toString();

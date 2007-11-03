@@ -159,6 +159,8 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	sendMessage(cCon, &mcs);
 
 	int lchan = readLastChannel(uSource->iId);
+	if (lchan == 0)
+		lchan = iDefaultChan;
 	Channel *lc = qhChannels.value(lchan);
 	if (! lc)
 		lc = qhChannels.value(0);
