@@ -1918,7 +1918,7 @@
     <message>
         <location filename="ConnectDialog.ui" line="184"/>
         <source>Label</source>
-        <translation>Lbel</translation>
+        <translation>Label</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="274"/>
@@ -1928,7 +1928,7 @@
     <message>
         <location filename="ConnectDialog.ui" line="13"/>
         <source>Mumble Server Connect</source>
-        <translation type="unfinished">Mumble Server Verbinden</translation>
+        <translation>Mumble Server Verbinden</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="138"/>
@@ -1938,7 +1938,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="187"/>
         <source>Unknown</source>
-        <translation>Unbekeannt</translation>
+        <translation>Unbekannt</translation>
     </message>
 </context>
 <context>
@@ -3538,7 +3538,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="328"/>
         <source>Mumble Server Information</source>
-        <translation>Mumbler Server Informationen</translation>
+        <translation>Mumble Server Informationen</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="536"/>
