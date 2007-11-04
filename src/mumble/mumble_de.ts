@@ -688,7 +688,7 @@
         <translation>Übertragung</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="275"/>
+        <location filename="AudioConfigDialog.ui" line="308"/>
         <source>Compression</source>
         <translation>Kompression</translation>
     </message>
@@ -838,12 +838,12 @@
         <translation type="obsolete">Qualität</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="291"/>
+        <location filename="AudioConfigDialog.ui" line="324"/>
         <source>Quality of compression (peak bandwidth)</source>
         <translation>Qualität der Kompression (Spitzenbandbreite)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="294"/>
+        <location filename="AudioConfigDialog.ui" line="327"/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
         <translation>&lt;b&gt;Dies setzt die Qualität der Kompression.&lt;/b&gt;&lt;br /&gt;Dies bestimmt wieviel Bandbreite Mumble für ausgehendes Audio nutzen darf.</translation>
     </message>
@@ -853,12 +853,12 @@
         <translation type="obsolete">Komplexität</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="336"/>
+        <location filename="AudioConfigDialog.ui" line="369"/>
         <source>Complexity of compression (CPU)</source>
         <translation>Komplexität der Kompression (CPU)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="339"/>
+        <location filename="AudioConfigDialog.ui" line="372"/>
         <source>&lt;b&gt;This sets the complexity of compression.&lt;/b&gt;&lt;br /&gt;This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</source>
         <translation>&lt;b&gt;Dies setzt die Komplexität der Kompression.&lt;/b&gt;&lt;br /&gt;Es bestimmt wieviel CPU-Zeit Mumble nutzen darf um die übertragene Sprachqualität zu steigern. Einstellungen über 5 bringen nur minimale Verbesserungen.</translation>
     </message>
@@ -868,12 +868,12 @@
         <translation type="obsolete">Verstärkung</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="435"/>
+        <location filename="AudioConfigDialog.ui" line="468"/>
         <source>Maximum amplification of input sound</source>
         <translation>Maximale Verstärkung des Eingangssounds</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="438"/>
+        <location filename="AudioConfigDialog.ui" line="471"/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
         <translation>&lt;b&gt;Maximale Verstärkung des Eingangs.&lt;/b&gt;&lt;br /&gt;Mumble normalisiert die Eingangslautstärke vor der Kompression, wobei dies einstellt wie sehr verstärkt werden darf.&lt;br /&gt;Der tatsächliche Level wird kontinuierlich, vom Sprachmuster abhängig, aktualisiert; allerdings nie höher als hier festgelegt.&lt;br /&gt;Wenn die Mikrofonlautstärke in den Audiostatistiken um 100% liegt, sollte man dies auf 2.0 setzen. Für Leute die dies kaum erreichen, muss es deutlich höher angesetzt werden.&lt;br /&gt;Idealerweise sollte es folgendermaßen gesetzt werden: &lt;i&gt;Mikrofon Lautstärke * Verstärkungsfaktor &gt;= 100&lt;/i&gt;, selbst wenn man wirklich leise spricht.&lt;br /&gt;Es ist nicht schädlich dies auf das Maximum zu setzen, aber Mumble wird auch Umgebungsgeräusche aufnehmen.</translation>
     </message>
@@ -893,12 +893,12 @@
         <translation type="obsolete">&lt;b&gt;Dies legt die Standard-Puffergröße für den Jitterpuffer fest&lt;/b&gt;.&lt;br /&gt;Ankommende Audiodaten werden gepuffert und der Jitterpuffer versucht ständig diesen Puffer so schnell wie möglich ans Netzwerk zu übertragen, um die Latenz zu verringern.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="83"/>
+        <location filename="AudioConfigDialog.cpp" line="68"/>
         <source>Basic Audio</source>
         <translation>Grundeinstellungen</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="198"/>
+        <location filename="AudioConfigDialog.cpp" line="195"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -908,12 +908,12 @@
         <translation type="obsolete">%1s</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="248"/>
+        <location filename="AudioConfigDialog.cpp" line="245"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 kbit/2 (Audio %2, Position %4, Overhead %3)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="563"/>
+        <location filename="AudioConfigDialog.ui" line="599"/>
         <source>Loopback Test</source>
         <translation>Loopback Test</translation>
     </message>
@@ -933,17 +933,17 @@
         <translation>&lt;b&gt;Dies aktiviert die Audio Hinweise für Push-To-Talk.&lt;/b&gt;&lt;br /&gt;Wenn dies gesetzt wird, gibt es einen kurzen Piepton wenn Push-To-Talk gedrückt und losgelassen wird.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="64"/>
+        <location filename="AudioConfigDialog.cpp" line="62"/>
         <source>None</source>
         <translation>Keiner</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="65"/>
+        <location filename="AudioConfigDialog.cpp" line="63"/>
         <source>Local</source>
         <translation>Lokal</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="66"/>
+        <location filename="AudioConfigDialog.cpp" line="64"/>
         <source>Server</source>
         <translation>Server</translation>
     </message>
@@ -953,37 +953,37 @@
         <translation type="obsolete">Loopback</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="663"/>
+        <location filename="AudioConfigDialog.ui" line="699"/>
         <source>Desired loopback mode</source>
         <translation>Gewünschter Loopback-Modus</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="666"/>
+        <location filename="AudioConfigDialog.ui" line="702"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
         <translation>&lt;b&gt;Dies aktiviert einen der Loopback Testmodi.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Keiner&lt;/i&gt; - Loopback deaktiviert&lt;br /&gt;&lt;i&gt;Lokal&lt;/i&gt; - Emuliert einen lokalen Server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Fordere Loopback vom Server.&lt;br /&gt;Beachten Sie, dass Sie niemand bei aktiviertem Loopback hören kann. Diese Einstellung wird beim Beenden der Anwendung nicht gespeichert.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="569"/>
+        <location filename="AudioConfigDialog.ui" line="605"/>
         <source>Delay Variance</source>
         <translation>Verzögerungsvarianz</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="579"/>
+        <location filename="AudioConfigDialog.ui" line="615"/>
         <source>Variance in packet latency</source>
         <translation>Varianz der Packetlatenz</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="582"/>
+        <location filename="AudioConfigDialog.ui" line="618"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
         <translation>&lt;b&gt;Dies legt die Varianz der Paketlatenz für den Loopback Test fest&lt;/b&gt;&lt;br /&gt;Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varianz für den Loopback Test festlegen. Falls Sie dies zum Beispiel auf 15ms setzen, wird ein Netzwerk mit 20-35ms oder eines mit 80-95ms Latenz emuliert. Die meisten Netzverbindungen haben eine Varianz von etwa 5ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="608"/>
+        <location filename="AudioConfigDialog.ui" line="644"/>
         <source>Packet Loss</source>
         <translation>Packet Loss</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="618"/>
+        <location filename="AudioConfigDialog.ui" line="654"/>
         <source>Packet loss for loopback mode</source>
         <translation>Packet loss für Loopback Modus</translation>
     </message>
@@ -993,17 +993,17 @@
         <translation type="obsolete">&lt;b&gt;Dies legt den Packet Loss für den Loopback Modus fest.&lt;/b&gt;&lt;br /&gt;Dies ist das Verhältnis an verlorenen Paketen. Es wird fast immer 0%% betragen, es sei den sie haben ein Bandbreitenproblem oder ihr Netzwerk ist nicht korrekt konfiguriert</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="167"/>
+        <location filename="AudioConfigDialog.cpp" line="164"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="202"/>
+        <location filename="AudioConfigDialog.cpp" line="199"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="176"/>
+        <location filename="AudioConfigDialog.cpp" line="173"/>
         <source>-%1 dB</source>
         <translation>-%1 dB</translation>
     </message>
@@ -1033,89 +1033,99 @@
         <translation>Stimme &amp;halten</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="646"/>
+        <location filename="AudioConfigDialog.ui" line="682"/>
         <source>TextLabel</source>
         <translation>Textlabel</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="281"/>
+        <location filename="AudioConfigDialog.ui" line="314"/>
         <source>&amp;Quality</source>
         <translation>&amp;Qualität</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="326"/>
+        <location filename="AudioConfigDialog.ui" line="359"/>
         <source>&amp;Complexity</source>
         <translation>&amp;Komplexität</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="374"/>
+        <location filename="AudioConfigDialog.ui" line="407"/>
         <source>Audio Processing</source>
         <translation>Audioprocessing</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="380"/>
+        <location filename="AudioConfigDialog.ui" line="413"/>
         <source>Noise Suppression</source>
         <translation>Rauschunterdrückung</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="390"/>
+        <location filename="AudioConfigDialog.ui" line="423"/>
         <source>Noise suppression</source>
         <translation>Rauschunterdrückung</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="393"/>
+        <location filename="AudioConfigDialog.ui" line="426"/>
         <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
         <translation>&lt;b&gt;Dies legt die Menge an Rauschunterdrückung fest.&lt;/b&gt;&lt;br /&gt;Je höher dieser Wert ist, desto aggressiver werden stationäre Geräusche unterdrückt.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="425"/>
+        <location filename="AudioConfigDialog.ui" line="458"/>
         <source>Amplification</source>
         <translation>Verstärkung</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="479"/>
+        <location filename="AudioConfigDialog.ui" line="512"/>
         <source>Default &amp;Jitter Buffer</source>
         <translation>Standard &amp;Jitter Puffer</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="489"/>
+        <location filename="AudioConfigDialog.ui" line="522"/>
         <source>Safety margin for jitter buffer</source>
         <translation>Sichere Grenze für Jitterpuffer</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="492"/>
+        <location filename="AudioConfigDialog.ui" line="525"/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
         <translation>&lt;b&gt;Dies legt die minimale Sicherheitsgrenze für den Jitterpuffer fest.&lt;/b&gt;&lt;br /&gt;Jedes eingehende Audio wird gepuffert und der Jitterpuffer versucht den Puffer so klein wie möglich zu halten so dass die Latenz so gering wie möglich sein kann. Dies legt die minimale Puffergröße fest. Falls sich der Anfang eines Satzes kaputt anhört, erhöhen Sie diesen Wert.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="621"/>
+        <location filename="AudioConfigDialog.ui" line="657"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
         <translation>&lt;b&gt;Dies legt den Packet Loss für den Loopback Modus fest.&lt;/b&gt;&lt;br /&gt;Dies ist das Verhältnis an verlorenen Paketen. Außer ihre Ausgangsbandbreite stößt an ihre Grenze oder etwas stimmt nicht mit Ihrer Netzwerkverbindung, so wird dies 0% betragen</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="653"/>
+        <location filename="AudioConfigDialog.ui" line="689"/>
         <source>&amp;Loopback</source>
         <translation>&amp;Loopback</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="473"/>
+        <location filename="AudioConfigDialog.ui" line="506"/>
         <source>Audio Output</source>
         <translation>Audioausgabe</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="524"/>
+        <location filename="AudioConfigDialog.ui" line="557"/>
         <source>Volume</source>
         <translation>Lautstärke</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="531"/>
+        <location filename="AudioConfigDialog.ui" line="567"/>
         <source>Volume of incoming speech</source>
         <translation>Lautstärke der ankommenden Sprache</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="534"/>
+        <location filename="AudioConfigDialog.ui" line="570"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
         <translation>&lt;b&gt;Dies legt die Lautstärke der eingehenden Sprache fest.&lt;/b&gt;&lt;br /&gt;Beachten Sie, dass dies nur genutzt werden kann, um die Lautstärke zu verringern. Eine Verstärkung ist nicht möglich.</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="156"/>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.ui" line="295"/>
+        <source>DoublePush Time</source>
+        <translation>DoublePush Zeit</translation>
     </message>
 </context>
 <context>
@@ -1156,82 +1166,82 @@
         <translation>Audio Bitrate</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="313"/>
+        <location filename="AudioStats.cpp" line="318"/>
         <source>Peak power in last frame</source>
         <translation>Spitzenpower im letzten Frame</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="307"/>
+        <location filename="AudioStats.cpp" line="312"/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Loudness&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
         <translation>Dies zeigt die Spitzenleistung im letzten Frame (20ms) an und ist als Maß äquivalent zu &quot;Input Power&quot;. Stattdessen bitte &lt;b&gt;Lautstärke&lt;/b&gt; nutzen.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="312"/>
+        <location filename="AudioStats.cpp" line="317"/>
         <source>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <translation>Dies zeigt die Spitzenpower im letzten Frame (20ms) des Lautsprechers an. Solange keine Multikanal Sampling Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Hat man solch ein Setup konfiguriert und der Wert ist trotzdem 0 während man Klänge von anderen Programmen abspielt, arbeit das Setup nicht korrekt.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="319"/>
+        <location filename="AudioStats.cpp" line="324"/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echoes.</source>
         <translation>Dies zeigt die Spitzenpower im letzten Frame (20ms) nach dem Processing an. Im Idealfall sollte dies -96 dB betragen, wann man nicht spricht. Die Realität zeigt, dass man in einem Tonstudio etwa -60 dB und zuhause -20 dB erwarten kann. When man spricht, sollte dies auf -5 bis -10 dB ansteigen.&lt;br /&gt;Nutzt man Echoauslöschung und der Wert steigt auf mehr als -15 dB wenn man nicht spricht, sind die Audioeinstellungen nicht korrekt und man stört andere Spieler mit Echos.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="320"/>
+        <location filename="AudioStats.cpp" line="325"/>
         <source>How close the current input level is to ideal</source>
         <translation>Wie nah das aktuelle Eingangssignal zum Idealzustand ist</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="327"/>
+        <location filename="AudioStats.cpp" line="332"/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality</source>
         <translation>Dies zeigt an wie nah die Eingangssignallautstärke am Ideal ist. Um die Mikrofonlautstärke anzupassen, sollte das Programm gestartet werden mit dem die Aufnahmelautstärke angepasst wird.&lt;br /&gt;&lt;b&gt;Nun sollte man, so laut wie es im Spiel vorkommt, sprechen&lt;/b&gt;&lt;br /&gt;Die Lautstärke muss nun so nah wie möglich an die 100% angepasst werden, aber nicht darüber hinaus. Wenn dem so ist, wird es hörbares Clipping geben, was die Soundqualität mindert</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="328"/>
+        <location filename="AudioStats.cpp" line="333"/>
         <source>Signal-To-Noise ratio from the microphone</source>
         <translation>Signal-Geräusch Rate des Mikrofons</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="333"/>
+        <location filename="AudioStats.cpp" line="338"/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
         <translation>Dies ist die Signal-Geräusch-Rate (SNR) des Mikrofons im letzten Frame (20ms). Es zeigt an, um wieviel klarer die Stimme im Vergleich zum Geräusch ist.&lt;br /&gt;Ist der Wert unter 1.0, gibt es mehr Geräusche als Stimme im Signal, weshalb die Qualität reduziert ist.&lt;br /&gt;Es gibt keine Obergrenze, aber ein Wert über 40-50 kann ohne Tonstudio nicht erwartet werden.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="334"/>
+        <location filename="AudioStats.cpp" line="339"/>
         <source>Probability of speech</source>
         <translation>Sprachwahrscheinlichkeit</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="339"/>
+        <location filename="AudioStats.cpp" line="344"/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
         <translation>Dies ist die Wahrscheinlichkeit, dass der letzte Frame (20ms) Sprache und kein Umgebungsgeräusch war.&lt;br /&gt;Die Stimmaktivierungserkennung hängt davon ab, wie es eingestellt ist. Der Trick ist, dass die Mitte eines Satzes immer als Sprache erkannt wird; problematisch sind Pausen zwischen Wörtern und der Anfang des Satzes.&lt;br /&gt;Ist dies fett geschrieben, bedeutet dies, dass Mumble gerade übertragt (wenn man verbunden ist).</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="340"/>
+        <location filename="AudioStats.cpp" line="345"/>
         <source>Bitrate of last frame</source>
         <translation>Bitrate des letzten Frame</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="343"/>
+        <location filename="AudioStats.cpp" line="348"/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
         <translation>Dies ist die Audiobitrate des letzten komprimierten Frame (20ms) und als solche wird es hoch und runter springen während das VBR die Qualität anpasst. Um die Spitzenbitrate einzustellen muss &lt;b&gt;Kompressionsqualität&lt;/b&gt; im Einstellungsdialog angepasst werden.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="345"/>
+        <location filename="AudioStats.cpp" line="350"/>
         <source>Power spectrum of input signal and noise estimate</source>
         <translation>Spektrum des Eingangssignals und Geräuschabschätzung</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="352"/>
+        <location filename="AudioStats.cpp" line="357"/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
         <translation>Dies zeigt das Powerspektrum des Eingangssignals (rote Linie) und die Geräuschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wieviel mehr Signal als Geräusch im Wellenband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Geräuschbedingungen des Mikrofones präzise einstellt. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine ungünstige Geräuschkulisse.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="355"/>
+        <location filename="AudioStats.cpp" line="360"/>
         <source>Weights of the echo canceller</source>
         <translation>Gewichte des Echoauslöschers</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="368"/>
+        <location filename="AudioStats.cpp" line="373"/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
         <translation>Dies zeigt die Gewichte des Echoauslöschers, mit der Zeit auf der Y- und der Frequenz auf der X-Achse.&lt;br /&gt;Idealerweise sollte dies schwarz sein, was kein Echo bedeutet. Normalerweise hat man einen oder mehrere horizontale Streifen von blauer Farbe, die das zeitverzögerte Echo darstellen. Man sollte sehen, wie die Gewichte in Echtzeit aktualisiert werden.&lt;br /&gt;So lange man keine Echoquelle hat, wird man keine nützlichen Daten hier sehen, weshalb man etwas Musik abspielen sollte.&lt;br /&gt;Man kann zwischen Real- und Imaginäranteilen des Frequenzdomänen-Gewischte oder alternativ den berechneten Modulus und Phase auswählen. Am nützlichsten ist hierbei Modulus, was die Amplitude des Echos angibt und anzeigt wieviel vom ausgehenden Signal bei diesem Zeitschritt entfernt wird. Die anderen Ansichten sind nützlich für diejenigen die den Echoauslöschungs-Algorithmus finetunen wollen.&lt;br /&gt;Achtung: Wenn das Gesamtbild im Modulus-Modus massiv fluktuiert, kann der Echoauslöscher keine Korrelation zwischen den beiden Eingangsquellen (Lautsprecher und Mikrofon) herstellen. Entweder hat man eine lange Verzögerung des Echos oder eine der Eingangsquellen sind falsch konfiguriert.</translation>
     </message>
@@ -1241,24 +1251,34 @@
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="269"/>
+        <location filename="AudioStats.cpp" line="274"/>
         <source>Real</source>
         <translation>Real</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="274"/>
+        <location filename="AudioStats.cpp" line="279"/>
         <source>Imaginary</source>
         <translation>Imaginär</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="279"/>
+        <location filename="AudioStats.cpp" line="284"/>
         <source>Modulus</source>
         <translation>Modulus</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="285"/>
+        <location filename="AudioStats.cpp" line="290"/>
         <source>Phase</source>
         <translation>Phase</translation>
+    </message>
+    <message>
+        <location filename="AudioStats.cpp" line="258"/>
+        <source>Doublepush interval</source>
+        <translation>DoublePush Intervall</translation>
+    </message>
+    <message>
+        <location filename="AudioStats.cpp" line="423"/>
+        <source>&gt;1000ms</source>
+        <translation>&gt;1000ms</translation>
     </message>
 </context>
 <context>
@@ -1908,7 +1928,7 @@
     <message>
         <location filename="ConnectDialog.ui" line="13"/>
         <source>Mumble Server Connect</source>
-        <translation>Mumbler Server Verbinden</translation>
+        <translation type="unfinished">Mumble Server Verbinden</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="138"/>
@@ -2252,7 +2272,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="302"/>
+        <location filename="GlobalShortcut_unix.cpp" line="209"/>
         <source>Mouse %1</source>
         <translation>Maus %1</translation>
     </message>
@@ -2607,117 +2627,117 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="59"/>
+        <location filename="MainWindow.cpp" line="877"/>
         <source>Root</source>
         <translation>Wurzel</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="144"/>
+        <location filename="MainWindow.ui" line="150"/>
         <source>&amp;Connect</source>
         <translation>&amp;Verbinden</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="147"/>
+        <location filename="MainWindow.ui" line="153"/>
         <source>Open the server connection dialog</source>
         <translation>Öffne den Serververbindungs-Dialog</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="150"/>
+        <location filename="MainWindow.ui" line="156"/>
         <source>Shows a dialog of registered servers, and also allows quick connect.</source>
         <translation>Zeigt einen Dialog mit registrierten Servern und erlaubt schnelles Verbinden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="158"/>
+        <location filename="MainWindow.ui" line="164"/>
         <source>&amp;Disconnect</source>
         <translation>&amp;Trennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="161"/>
+        <location filename="MainWindow.ui" line="167"/>
         <source>Disconnect from server</source>
         <translation>Vom Server trennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="164"/>
+        <location filename="MainWindow.ui" line="170"/>
         <source>Disconnects you from the server.</source>
         <translation>Vom Server trennen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="172"/>
+        <location filename="MainWindow.ui" line="178"/>
         <source>&amp;Ban lists</source>
         <translation>&amp;Banliste</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="175"/>
+        <location filename="MainWindow.ui" line="181"/>
         <source>Edit ban lists on server</source>
         <translation>Banlisten auf Server editieren</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="178"/>
+        <location filename="MainWindow.ui" line="184"/>
         <source>This lets you edit the server-side IP ban lists.</source>
         <translation>Hierdurch lässt sich die serverseitige IP Banliste editieren.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="197"/>
+        <location filename="MainWindow.ui" line="203"/>
         <source>&amp;Kick</source>
         <translation>&amp;Kick</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="200"/>
+        <location filename="MainWindow.ui" line="206"/>
         <source>Kick player (with reason)</source>
         <translation>Kick Spieler (mit Grund)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="203"/>
+        <location filename="MainWindow.ui" line="209"/>
         <source>Kick selected player off server. You&apos;ll be asked to specify a reason.</source>
         <translation>Den ausgewählten Spieler vom Server kicken. Man wird nach einem Grund gefragt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="222"/>
+        <location filename="MainWindow.ui" line="228"/>
         <source>&amp;Ban</source>
         <translation>&amp;Ban</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="225"/>
+        <location filename="MainWindow.ui" line="231"/>
         <source>Kick and ban player (with reason)</source>
         <translation>Kick und ban Spieler (mit Grund)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="228"/>
+        <location filename="MainWindow.ui" line="234"/>
         <source>Kick and ban selected player from server. You&apos;ll be asked to specify a reason.</source>
         <translation>Den ausgewählten Spieler vom Server kicken und bannen. Man wird nach einem Grund gefragt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="211"/>
+        <location filename="MainWindow.ui" line="217"/>
         <source>&amp;Mute</source>
         <translation>&amp;Stumm</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="214"/>
+        <location filename="MainWindow.ui" line="220"/>
         <source>Mute player</source>
         <translation>Spieler stummstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="217"/>
+        <location filename="MainWindow.ui" line="223"/>
         <source>Mute or unmute player on server. Unmuting a deafened player will also undeafen them.</source>
         <translation>Stummstellen der Spieler auf dem Server an- oder abstellen. Einem taubgestellten Spieler Stummstellen abschalten wird ebenso das Taubstellen abschalten.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="236"/>
+        <location filename="MainWindow.ui" line="242"/>
         <source>&amp;Deafen</source>
         <translation>&amp;Taubstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="239"/>
+        <location filename="MainWindow.ui" line="245"/>
         <source>Deafen player</source>
         <translation>Spieler taubstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="242"/>
+        <location filename="MainWindow.ui" line="248"/>
         <source>Deafen or undeafen player on server. Deafening a player will also mute them.</source>
         <translation>Taubstellen des Spielers auf dem Server an- oder abstellen. Einen Spieler taubstellen wird ihn ebenso stummstellen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="250"/>
+        <location filename="MainWindow.ui" line="256"/>
         <source>&amp;Local Mute</source>
         <translation>&amp;Lokal Stumm</translation>
     </message>
@@ -2727,237 +2747,237 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Spieler lokal stumm oder nicht stummstellen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="272"/>
+        <location filename="MainWindow.ui" line="278"/>
         <source>&amp;Add</source>
         <translation>&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="275"/>
+        <location filename="MainWindow.ui" line="281"/>
         <source>Add new channel</source>
         <translation>Neuen Kanal hinzufügen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="278"/>
+        <location filename="MainWindow.ui" line="284"/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
         <translation>Dies fügt dem aktuell gewählten Kanal einen Unterkanal hinzu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="283"/>
+        <location filename="MainWindow.ui" line="289"/>
         <source>&amp;Remove</source>
         <translation>&amp;Entfernen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="286"/>
+        <location filename="MainWindow.ui" line="292"/>
         <source>Remove channel</source>
         <translation>Kanal entfernen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="289"/>
+        <location filename="MainWindow.ui" line="295"/>
         <source>This removes a channel and all sub-channels.</source>
         <translation>Dies entfernt einen Kanal und all seine Unterkanäle.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="294"/>
+        <location filename="MainWindow.ui" line="300"/>
         <source>&amp;Edit ACL</source>
         <translation>ACL &amp;editieren</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="297"/>
+        <location filename="MainWindow.ui" line="303"/>
         <source>Edit Groups and ACL for channel</source>
         <translation>Gruppen und ACL des Channels editieren</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="300"/>
+        <location filename="MainWindow.ui" line="306"/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
         <translation>Dies öffnet den Gruppen- und ACL-Dialog des Kanals um die Rechte zu kontrollieren.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="316"/>
+        <location filename="MainWindow.ui" line="322"/>
         <source>&amp;Link</source>
         <translation>&amp;Link</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="319"/>
+        <location filename="MainWindow.ui" line="325"/>
         <source>Link your channel to another channel</source>
         <translation>Den Kanal mit einem anderen verbinden</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="322"/>
+        <location filename="MainWindow.ui" line="328"/>
         <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <translation>Dies verbindet den aktuellen Kanal mit dem gewählten. Wenn Spieler Spracherlaubnis im anderen Kanal haben, so können sie sich jetzt gegenseitig hören. Dies ist eine permanente Verbindung die solange bestehen bleibt bis die Verbindung manuell aufgehoben oder der Server neugestart wird.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="413"/>
+        <location filename="MainWindow.ui" line="419"/>
         <source>&amp;Unlink</source>
         <translation>&amp;Unlink</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="330"/>
+        <location filename="MainWindow.ui" line="336"/>
         <source>Unlink your channel from another channel</source>
         <translation>Verbindung des Kanals von anderem Kanal trennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="333"/>
+        <location filename="MainWindow.ui" line="339"/>
         <source>This unlinks your current channel from the selected channel.</source>
         <translation>Dies trennt die Verbindung des aktuellen Kanals vom ausgewählten.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="338"/>
+        <location filename="MainWindow.ui" line="344"/>
         <source>Unlink &amp;All</source>
         <translation>&amp;Alle Verbindungen trennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="341"/>
+        <location filename="MainWindow.ui" line="347"/>
         <source>Unlinks your channel from all linked channels.</source>
         <translation>Trennt alle verbundenen Kanäle.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="344"/>
+        <location filename="MainWindow.ui" line="350"/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
         <translation>Dies trennt die Verbindung des Kanals von allen verbundenen Kanälen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="349"/>
+        <location filename="MainWindow.ui" line="355"/>
         <source>&amp;Reset</source>
         <translation>&amp;Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="352"/>
+        <location filename="MainWindow.ui" line="358"/>
         <source>Reset audio preprocessor</source>
         <translation>Setzt Audio-Präprozessor zurück</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="355"/>
+        <location filename="MainWindow.ui" line="361"/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
         <translation>Setzt den Audio-Präprozessor zurück: unter anderem Geräuschunterdrückung, automatisches Gain und Stimmaktivierungserkennung. Wenn etwas plötzlich die Audioumgebung verschlechtert (z.B. das Mikrofon fallen lassen), kann dies benutzt werden um den Präprozessor sofort neu auszurichten.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="363"/>
+        <location filename="MainWindow.ui" line="369"/>
         <source>&amp;Mute Self</source>
         <translation>Selbst &amp;Stummstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="366"/>
+        <location filename="MainWindow.ui" line="372"/>
         <source>Mute yourself</source>
         <translation>Sich selber stummstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="369"/>
+        <location filename="MainWindow.ui" line="375"/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
         <translation>Stummstellen an/aus.. When stummgestellt, werden keine Daten an den Server gesandt. Stummstellen abschalten führt während des Taubstellens auch zu dessen Deaktivierung.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="377"/>
+        <location filename="MainWindow.ui" line="383"/>
         <source>&amp;Deafen Self</source>
         <translation>Selbst &amp;Taubstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="380"/>
+        <location filename="MainWindow.ui" line="386"/>
         <source>Deafen yourself</source>
         <translation>Sich selbst taubstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="383"/>
+        <location filename="MainWindow.ui" line="389"/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
         <translation>Taubstellen an/aus. When taub, kann man nichts hören. Taubstellen aktiviert auch Stummstellen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="391"/>
+        <location filename="MainWindow.ui" line="397"/>
         <source>&amp;Text-To-Speech</source>
         <translation>&amp;Text-To-Speech</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="394"/>
+        <location filename="MainWindow.ui" line="400"/>
         <source>Toggle Text-To-Speech</source>
         <translation>Text-To-Speech ein-/ausschalten</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="397"/>
+        <location filename="MainWindow.ui" line="403"/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
         <translation>Text-To-Speech-Engine ein oder ausschalten. Nur Nachrichten die im Konfigurationsdialog entsprechend aktiviert sind werden tatsächlich gesprochen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="402"/>
+        <location filename="MainWindow.ui" line="408"/>
         <source>S&amp;tatistics</source>
         <translation>St&amp;atistiken</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="405"/>
+        <location filename="MainWindow.ui" line="411"/>
         <source>Display audio statistics</source>
         <translation>Zeigt Audiostatistiken an</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="408"/>
+        <location filename="MainWindow.ui" line="414"/>
         <source>Pops up a small dialog with information about your current audio input.</source>
         <translation>Zeigt einen kleinen Dialog mit Informationen über den aktuellen Audio Input an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="416"/>
+        <location filename="MainWindow.ui" line="422"/>
         <source>Forcibly unlink plugin</source>
         <translation>Plugin trennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="419"/>
+        <location filename="MainWindow.ui" line="425"/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
         <translation>Dies zwingt das aktuelle Plugin zu trennen, was hilfreich ist, wenn es völlig falsche Daten liest.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="438"/>
+        <location filename="MainWindow.ui" line="444"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="441"/>
+        <location filename="MainWindow.ui" line="447"/>
         <source>Configure Mumble</source>
         <translation>Mumble konfigurieren</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="444"/>
+        <location filename="MainWindow.ui" line="450"/>
         <source>Allows you to change most settings for Mumble.</source>
         <translation>Erlaubt die meisten Einstellungen von Mumble zu ändern.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="460"/>
+        <location filename="MainWindow.ui" line="466"/>
         <source>&amp;What&apos;s This?</source>
         <translation>&amp;Was ist das?</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="463"/>
+        <location filename="MainWindow.ui" line="469"/>
         <source>Enter What&apos;s This? mode</source>
         <translation>Was ist das Modus?-Modus betreten</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="466"/>
+        <location filename="MainWindow.ui" line="472"/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
         <translation>Dies anklicken um den &quot;Was ist das?&quot;-Modus zu aktivieren. Der Cursor wird sich in ein Fragezeichen ändern. Klickt man damit auf irgendeinen Button, Menüeintrag oder ein Gebiet, wird eine kurze Beschreibung ausgegeben.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="471"/>
+        <location filename="MainWindow.ui" line="477"/>
         <source>&amp;About</source>
         <translation>Ü&amp;ber</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="474"/>
+        <location filename="MainWindow.ui" line="480"/>
         <source>Information about Mumble</source>
         <translation>Informationen über Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="477"/>
+        <location filename="MainWindow.ui" line="483"/>
         <source>Shows a small dialog with information and license for Mumble.</source>
         <translation>Zeigt einen kleinen Dialog mit Informationen und Lizenzierung von Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="482"/>
+        <location filename="MainWindow.ui" line="488"/>
         <source>About &amp;Speex</source>
         <translation>Über &amp;Speex</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="485"/>
+        <location filename="MainWindow.ui" line="491"/>
         <source>Information about Speex</source>
         <translation>Informationen über Speex</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="488"/>
+        <location filename="MainWindow.ui" line="494"/>
         <source>Shows a small dialog with information about Speex.</source>
         <translation>Zeigt einen kleinen Dialog mit Informationen über Speex.</translation>
     </message>
@@ -2967,27 +2987,27 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="496"/>
+        <location filename="MainWindow.ui" line="502"/>
         <source>Information about Qt</source>
         <translation>Informationen über Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="499"/>
+        <location filename="MainWindow.ui" line="505"/>
         <source>Shows a small dialog with information about Qt.</source>
         <translation>Zeigt einen kleinen Dialog mit Informationen über Qt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="504"/>
+        <location filename="MainWindow.ui" line="510"/>
         <source>Check for &amp;Updates</source>
         <translation>Nach &amp;Updates suchen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="507"/>
+        <location filename="MainWindow.ui" line="513"/>
         <source>Check for new version of Mumble</source>
         <translation>Nach einer neuen Version von Mumble suchen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="510"/>
+        <location filename="MainWindow.ui" line="516"/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
         <translation>Verbindet sich mit der Mumble Webseite um zu prüfen ob eine neue Version verfügbar ist. In dem Fall wird mit einer passenden Download URL darauf hingewiesen.</translation>
     </message>
@@ -3007,47 +3027,47 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dieser Bereicht zeigt die letzten Nachrichten an. Verbindungen zum Server, Fehler und Informationsnachrichten werden hier angezeigt.&lt;br /&gt;Zur Konfigurierung der Anzeigen, müssen die &lt;b&gt;Einstellungen&lt;/b&gt; im Konfigurationsmenü geändert werden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="50"/>
+        <location filename="MainWindow.ui" line="56"/>
         <source>&amp;Server</source>
         <translation>&amp;Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="61"/>
+        <location filename="MainWindow.ui" line="67"/>
         <source>&amp;Player</source>
         <translation>S&amp;pieler</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="72"/>
+        <location filename="MainWindow.ui" line="78"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="88"/>
+        <location filename="MainWindow.ui" line="94"/>
         <source>&amp;Audio</source>
         <translation>&amp;Audio</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="104"/>
+        <location filename="MainWindow.ui" line="110"/>
         <source>C&amp;onfigure</source>
         <translation>K&amp;onfiguration</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="111"/>
+        <location filename="MainWindow.ui" line="117"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="399"/>
+        <location filename="MainWindow.cpp" line="400"/>
         <source>Kicking player %1</source>
         <translation>Kicke Spieler %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="421"/>
+        <location filename="MainWindow.cpp" line="422"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="421"/>
+        <location filename="MainWindow.cpp" line="422"/>
         <source>Banning player %1</source>
         <translation>Banne Spieler %1</translation>
     </message>
@@ -3057,7 +3077,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="550"/>
+        <location filename="MainWindow.cpp" line="554"/>
         <source>Channel Name</source>
         <translation>Kanalname</translation>
     </message>
@@ -3067,62 +3087,62 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Sind Sie sicher Kanal %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="680"/>
+        <location filename="MainWindow.cpp" line="684"/>
         <source>Unmuted and undeafened.</source>
         <translation>Stumm- und Taubstellen ausgeschalten.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="682"/>
+        <location filename="MainWindow.cpp" line="686"/>
         <source>Unmuted.</source>
         <translation>Stummstellen aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="684"/>
+        <location filename="MainWindow.cpp" line="688"/>
         <source>Muted.</source>
         <translation>Stumm.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="698"/>
+        <location filename="MainWindow.cpp" line="702"/>
         <source>Muted and deafened.</source>
         <translation>Stumm und taub gestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="700"/>
+        <location filename="MainWindow.cpp" line="704"/>
         <source>Deafened.</source>
         <translation>Taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="702"/>
+        <location filename="MainWindow.cpp" line="706"/>
         <source>Undeafened.</source>
         <translation>Taubstellung aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="757"/>
+        <location filename="MainWindow.cpp" line="761"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="836"/>
+        <location filename="MainWindow.cpp" line="842"/>
         <source>Joining %1.</source>
         <translation>Betrete %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="866"/>
+        <location filename="MainWindow.cpp" line="872"/>
         <source>Connected to server.</source>
         <translation>Mit Server verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="947"/>
+        <location filename="MainWindow.cpp" line="957"/>
         <source>Server connection failed: %1.</source>
         <translation>Serververbindung fehlgeschlagen: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="949"/>
+        <location filename="MainWindow.cpp" line="959"/>
         <source>Disconnected from server.</source>
         <translation>Verbindung zum Server abgebrochen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="276"/>
+        <location filename="MainWindow.cpp" line="277"/>
         <source>Reconnecting.</source>
         <translation>Neuverbindung.</translation>
     </message>
@@ -3237,12 +3257,12 @@ der möglichen Orte initialisieren.</translation>
         <translation>%1 von %2 reingeschoben.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="291"/>
+        <location filename="Messages.cpp" line="305"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serververbindung abgelehnt : %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="296"/>
+        <location filename="Messages.cpp" line="310"/>
         <source>Denied: %1.</source>
         <translation>Abgelehnt: %1.</translation>
     </message>
@@ -3330,22 +3350,22 @@ der möglichen Orte initialisieren.</translation>
         <translation>Plugin ausklinken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="529"/>
+        <location filename="MainWindow.cpp" line="533"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sicher %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="130"/>
+        <location filename="MainWindow.ui" line="136"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="133"/>
+        <location filename="MainWindow.ui" line="139"/>
         <source>Closes the program</source>
         <translation>Schließt das Programm</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="136"/>
+        <location filename="MainWindow.ui" line="142"/>
         <source>Exits the application.</source>
         <translation>Beendet die Applikation.</translation>
     </message>
@@ -3356,12 +3376,12 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="515"/>
+        <location filename="MainWindow.ui" line="521"/>
         <source>Send Messa&amp;ge</source>
         <translation>Sende Nachri&amp;cht</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="518"/>
+        <location filename="MainWindow.ui" line="524"/>
         <source>Send a Text Message</source>
         <translation>Sende eine Text-Nachricht</translation>
     </message>
@@ -3371,7 +3391,7 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Sende eine Text-Nachricht einem anderen Nutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="443"/>
+        <location filename="MainWindow.cpp" line="444"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
@@ -3381,87 +3401,87 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Nachricht eingeben</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="637"/>
+        <location filename="MainWindow.cpp" line="641"/>
         <source>To %1: %2</source>
         <translation>An %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="637"/>
+        <location filename="MainWindow.cpp" line="641"/>
         <source>Message to %1</source>
         <translation>Nachricht an %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="956"/>
+        <location filename="MainWindow.cpp" line="966"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="956"/>
+        <location filename="MainWindow.cpp" line="966"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Sie haben sich mit ungültigem Benutzernamen angemeldet, bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="956"/>
+        <location filename="MainWindow.cpp" line="966"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Dieser Benutzername ist bereits vergeben, bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="961"/>
+        <location filename="MainWindow.cpp" line="971"/>
         <source>Wrong password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="961"/>
+        <location filename="MainWindow.cpp" line="971"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Falsches Passwort für registrierte Benutzer, bitte noch einmal versuchen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="961"/>
+        <location filename="MainWindow.cpp" line="971"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Falsches Serverpasswort für unregistrierten Benutzer-Account, bitte noch einmal versuchen.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="345"/>
+        <location filename="Messages.cpp" line="359"/>
         <source>From %1: %2</source>
         <translation>Von %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="346"/>
+        <location filename="Messages.cpp" line="360"/>
         <source>Message from %1</source>
         <translation>Nachricht von %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="449"/>
+        <location filename="MainWindow.ui" line="455"/>
         <source>&amp;Audio Wizard</source>
         <translation>&amp;Audio Assistent</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="267"/>
+        <location filename="MainWindow.ui" line="273"/>
         <source>Sends a text message to another user.</source>
         <translation>Schickt eine Textnachricht einem anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="452"/>
+        <location filename="MainWindow.ui" line="458"/>
         <source>Start the audio configuration wizard</source>
         <translation>Startet den Audiokonfigurations-Assistenten</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="455"/>
+        <location filename="MainWindow.ui" line="461"/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
         <translation>Dies leitet Sie durch den Hardwarekonfigurierungs-Prozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="905"/>
+        <location filename="MainWindow.cpp" line="915"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL Überprüfung fehlgeschlagen: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="910"/>
+        <location filename="MainWindow.cpp" line="920"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat eine anderes Zertifikat, als das gespeicherte.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="912"/>
+        <location filename="MainWindow.cpp" line="922"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Server hat Zertifikat, das Überprüfung nicht standhielt.</translation>
     </message>
@@ -3501,22 +3521,22 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">&lt;p&gt;%1.&lt;br /&gt;Die spezifischen Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Die Details für dieses Zertifikat sind wie folgt: %3&lt;/p&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird außerdem gespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="186"/>
+        <location filename="MainWindow.ui" line="192"/>
         <source>&amp;Information</source>
         <translation>&amp;Information</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="189"/>
+        <location filename="MainWindow.ui" line="195"/>
         <source>Show information about the server connection</source>
         <translation>Zeige Informationen über Serververbindung an</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="192"/>
+        <location filename="MainWindow.ui" line="198"/>
         <source>This will show extended information about the connection to the server.</source>
         <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="327"/>
+        <location filename="MainWindow.cpp" line="328"/>
         <source>Mumble Server Information</source>
         <translation>Mumbler Server Informationen</translation>
     </message>
@@ -3526,32 +3546,32 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Kontrollkanal: %1 ms Latenz. Verschlüsselt mit %3 bit %4&lt;br /&gt;Sprachkanal: %2 ms Latenz, verschlüsselt mit OCB-AES128</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="926"/>
+        <location filename="MainWindow.cpp" line="936"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zeige Zertifikat</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="921"/>
+        <location filename="MainWindow.cpp" line="931"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Die Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="223"/>
+        <location filename="MainWindow.cpp" line="224"/>
         <source>Opening URL %1</source>
         <translation>Öffne URL %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="225"/>
+        <location filename="MainWindow.cpp" line="226"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation>URL-Schema ist nicht &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="236"/>
+        <location filename="MainWindow.cpp" line="237"/>
         <source>Connecting to %1</source>
         <translation>Verbinde zu %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="236"/>
+        <location filename="MainWindow.cpp" line="237"/>
         <source>Enter username</source>
         <translation>Benutzernamen eingeben</translation>
     </message>
@@ -3561,12 +3581,12 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Kanal u&amp;mbenennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="308"/>
+        <location filename="MainWindow.ui" line="314"/>
         <source>Renames the channel</source>
         <translation>Benennt den Kanal um</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="311"/>
+        <location filename="MainWindow.ui" line="317"/>
         <source>This renames a channel.</source>
         <translation>Dies benennt einen Kanal um.</translation>
     </message>
@@ -3576,147 +3596,147 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dies ist das erste Mal, dass Sie Mumble starten.&lt;br /&gt;Wollen Sie den Audio Assistenten starten, um Ihre Soundkarte zu konfigurieren?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="309"/>
+        <location filename="MainWindow.cpp" line="310"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 Bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="312"/>
+        <location filename="MainWindow.cpp" line="313"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Sprachkanal wird über Kontrollkanal gesendet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="314"/>
+        <location filename="MainWindow.cpp" line="315"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Sprachkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit 128 Bit OCB-AES128&lt;br /&gt;%1 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="321"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>UDP Statistics</source>
         <translation>UDP Statistiken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="321"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>To Server</source>
         <translation>Zum Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="321"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>From Server</source>
         <translation>Vom Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="321"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>Good</source>
         <translation>Gut</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="321"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>Late</source>
         <translation>Spät</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="321"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>Lost</source>
         <translation>Verloren</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="321"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>Resync</source>
         <translation>Resync</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="715"/>
+        <location filename="MainWindow.cpp" line="719"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation>Sie befinden sich jetzt im lokalen Taubmodus. Dieser Modus stimmt nicht mit dem des Servers überein und ihre Stimme wird weiterhin zum Server übertragen. Dieser Modus sollte nur genutzt werden, wenn sich mehrere Leute im selben Raum befinden und einer von ihnen benutzt Lautsprecher.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="139"/>
+        <location filename="MainWindow.ui" line="145"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="253"/>
+        <location filename="MainWindow.ui" line="259"/>
         <source>Mute player locally</source>
         <translation>Spieler lokal stummstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="256"/>
+        <location filename="MainWindow.ui" line="262"/>
         <source>Mute or unmute player locally. Use this on other players in the same room.</source>
         <translation>Spieler lokal stummstellen. Benutzen Sie dies wenn sich andere Spieler im selben Raum befinden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="305"/>
+        <location filename="MainWindow.ui" line="311"/>
         <source>&amp;Rename Channel</source>
         <translation>Kanal &amp;umbenennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="427"/>
+        <location filename="MainWindow.ui" line="433"/>
         <source>&amp;Local deafen</source>
         <translation>&amp;Lokal stummstellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="430"/>
+        <location filename="MainWindow.ui" line="436"/>
         <source>Silence loudspeakers</source>
         <translation>Lautsprecher leise stellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="433"/>
+        <location filename="MainWindow.ui" line="439"/>
         <source>Sets you in local deafen mode, wherein your speakers are silenced but you are still transmitting audio.</source>
         <translation>Versetzt Sie in den lokale Taubmodus in welchem Ihre Lautsprecher leise gestellt sind, aber immer noch Audio übertragen wird.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="493"/>
+        <location filename="MainWindow.ui" line="499"/>
         <source>About &amp;Qt</source>
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="624"/>
+        <location filename="MainWindow.cpp" line="628"/>
         <source>Sending message to channel %1</source>
         <translation>Sende Nachricht an Kanal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="651"/>
+        <location filename="MainWindow.cpp" line="655"/>
         <source>Sending message to channel tree %1</source>
         <translation>Sende Nachricht an Kanalbaum %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="664"/>
+        <location filename="MainWindow.cpp" line="668"/>
         <source>To tree %1: %2</source>
         <translation>Von Baum %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="664"/>
+        <location filename="MainWindow.cpp" line="668"/>
         <source>Message to tree %1</source>
         <translation>Nachricht an Baum %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="521"/>
+        <location filename="MainWindow.ui" line="527"/>
         <source>Sends a text message to all users in a channel.</source>
         <translation>Schickt eine Textnachricht an alle Nutzer im Kanal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="526"/>
+        <location filename="MainWindow.ui" line="532"/>
         <source>Send &amp;Tree Message</source>
         <translation>Sende &amp;Baumnachricht</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="529"/>
+        <location filename="MainWindow.ui" line="535"/>
         <source>Send message to channel tree.</source>
         <translation>Sende Nachricht an Kanalbaum.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="532"/>
+        <location filename="MainWindow.ui" line="538"/>
         <source>This sends a text message to a channel and it&apos;s subchannels.</source>
         <translation>Dies schickt eine Textnachricht an einen Kanal und seine Unterkanäle.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="311"/>
+        <location filename="Messages.cpp" line="325"/>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
         <translation>Maximale Bandbreite des Servers ist nur %1 kbit/s. Qualität wird automatisch angepasst.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="325"/>
+        <location filename="MainWindow.cpp" line="326"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Audio Bandbreite&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Aktuell %2 kbit/s (Qualität %3)&lt;/p&gt;</translation>
     </message>
@@ -4092,42 +4112,42 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>PlayerModel</name>
     <message>
-        <location filename="PlayerModel.cpp" line="379"/>
+        <location filename="PlayerModel.cpp" line="370"/>
         <source>Name of player</source>
         <translation>Name des Spielers</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="379"/>
+        <location filename="PlayerModel.cpp" line="370"/>
         <source>Name of channel</source>
         <translation>Name des Kanals</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="381"/>
+        <location filename="PlayerModel.cpp" line="372"/>
         <source>Player flags</source>
         <translation>Spielerattribute</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="392"/>
+        <location filename="PlayerModel.cpp" line="383"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation>Dies ist ein mit dem Server verbundener Spieler. Das Icon links vom Spieler zeigt an, ob er spricht oder nicht: &lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt;Sprechend&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot;/&gt; Nicht sprechend</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="394"/>
+        <location filename="PlayerModel.cpp" line="385"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
         <translation>Dies ist ein Kanal auf dem Server. Nur Spieler im selben Kanal können sich gegenseitig hören.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="404"/>
+        <location filename="PlayerModel.cpp" line="395"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>Dies zeigt die Attribute an, die ein Spieler auf dem Server hat:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authentifizierter Benutzer&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Stummgestellt (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Stummgestellt (durch Admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Taubgestellt (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Taubgestellt (durch Admin)&lt;br /&gt;Ein Spieler der sich selbst stummgestellt hat, ist vermutlich weg oder ist am Telefon.&lt;br /&gt;Ein Spieler der durch einen Admin stummgestellt wurde, ist vermutlich auch weg, aber die Geräusche die der Spieler macht, waren genug, dass der Admin ihn stummgestellt hat.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="420"/>
+        <location filename="PlayerModel.cpp" line="411"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="422"/>
+        <location filename="PlayerModel.cpp" line="413"/>
         <source>Flags</source>
         <translation>Attribute</translation>
     </message>
