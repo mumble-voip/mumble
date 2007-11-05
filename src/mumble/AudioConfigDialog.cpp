@@ -148,12 +148,7 @@ bool AudioConfigDialog::expert(bool b) {
 	qliFrames->setVisible(b);
 	qsFrames->setVisible(b);
 	qlFrames->setVisible(b);
-	qlTransmitHold->setVisible(b);
-	qsTransmitHold->setVisible(b);
-	qliTransmitHold->setVisible(b);
-	qlDoublePush->setVisible(b);
-	qsDoublePush->setVisible(b);
-	qliDoublePush->setVisible(b);
+	qswTransmit->setVisible(b);
 	return true;
 }
 
@@ -258,11 +253,6 @@ void AudioConfigDialog::updateBitrate() {
 }
 
 void AudioConfigDialog::on_qcbTransmit_currentIndexChanged(int v) {
-
-
-	bool cue = false;
-	bool hold = false;
-
 	switch (v) {
 		case 0:
 			qswTransmit->setCurrentWidget(qwContinuous);
@@ -272,7 +262,6 @@ void AudioConfigDialog::on_qcbTransmit_currentIndexChanged(int v) {
 			break;
 		case 2:
 			qswTransmit->setCurrentWidget(qwPTT);
-			cue = true;
 			break;
 	}
 }
