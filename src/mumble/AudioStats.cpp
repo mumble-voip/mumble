@@ -32,6 +32,67 @@
 #include "AudioInput.h"
 #include "Global.h"
 
+AudioBar::AudioBar(QWidget *p) : QWidget(p) {
+	qcBelow = Qt::yellow;
+	qcAbove = Qt::red;
+	qcInside = Qt::green;
+	iMin = 0;
+	iMax = 32768;
+	iBelow = 2000;
+	iAbove = 22000;
+	iValue = 1000;
+	setMinimumSize(100,20);
+}
+
+void AudioBar::paintEvent(QPaintEvent *) {
+	QPainter p(this);
+
+	if (iBelow > iAbove)
+		iBelow = iAbove;
+
+	if (iValue < iMin)
+		iValue = iMin;
+	else if (iValue > iMax)
+		iValue = iMax;
+
+//    p.fillRect(QRect(0,0, 10, 10), Qt::blue);
+
+	double scale = (width() * 1.0) / (iMax - iMin);
+	int h = height();
+
+	p.scale(scale, h);
+
+	p.fillRect(QRect(0,0, 10, 10), Qt::blue);
+
+	if (iValue <= iBelow) {
+		p.fillRect(0, 0, iValue-1, 1, qcBelow);
+		p.fillRect(iValue, 0, iBelow-iValue, 1, qcBelow.darker(300));
+		p.fillRect(iBelow, 0, iAbove-iBelow, 1, qcInside.darker(300));
+		p.fillRect(iAbove, 0, iMax-iAbove, 1, qcAbove.darker(300));
+	} else if (iValue <= iAbove) {
+		p.fillRect(0, 0, iBelow, 1, qcBelow);
+		p.fillRect(iBelow, 0, iValue-iBelow, 1, qcInside);
+		p.fillRect(iValue, 0, iAbove-iValue, 1, qcInside.darker(300));
+		p.fillRect(iAbove, 0, iMax-iAbove, 1, qcAbove.darker(300));
+	} else {
+		p.fillRect(0, 0, iBelow, 1, qcBelow);
+		p.fillRect(iBelow, 0, iAbove-iBelow, 1, qcInside);
+		p.fillRect(iAbove, 0, iValue-iAbove, 1, qcAbove);
+		p.fillRect(iValue, 0, iMax-iValue, 1, qcAbove.darker(300));
+	}
+
+	if ((iPeak >= iMin) && (iPeak <= iMax))  {
+		if (iPeak <= iBelow)
+			p.setPen(qcBelow.lighter(150));
+		else if (iPeak <= iAbove)
+			p.setPen(qcInside.lighter(150));
+		else
+			p.setPen(qcAbove.lighter(150));
+		p.drawLine(iPeak, 0, iPeak, 1);
+	}
+
+}
+
 AudioEchoWidget::AudioEchoWidget(QWidget *p) : QGLWidget(p) {
 	setMinimumSize(100, 60);
 	mode = MODULUS;
@@ -214,168 +275,26 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	setAttribute(Qt::WA_DeleteOnClose, true);
 
-	setWindowTitle(tr("Mumble"));
-
-	QLabel *lab;
-	QGridLayout *l=new QGridLayout;
-	setLayout(l);
-
-	lab = new QLabel(tr("Peak microphone level"), this);
-	l->addWidget(lab, 0, 0);
-	qlMicLevel = new QLabel(this);
-	l->addWidget(qlMicLevel, 0, 1);
-
-	lab = new QLabel(tr("Peak speaker level"), this);
-	l->addWidget(lab, 1, 0);
-	qlSpeakerLevel = new QLabel(this);
-	l->addWidget(qlSpeakerLevel, 1, 1);
-
-	lab = new QLabel(tr("Peak clean level"), this);
-	l->addWidget(lab, 2, 0);
-	qlSignalLevel = new QLabel(this);
-	l->addWidget(qlSignalLevel, 2, 1);
-
-	lab = new QLabel(tr("Microphone loudness"), this);
-	l->addWidget(lab, 3, 0);
-	qlMicVolume = new QLabel(this);
-	l->addWidget(qlMicVolume, 3, 1);
-
-	lab = new QLabel(tr("Mic Signal-To-Noise"), this);
-	l->addWidget(lab, 4, 0);
-	qlMicSNR = new QLabel(this);
-	l->addWidget(qlMicSNR, 4, 1);
-
-	lab = new QLabel(tr("Speech Probability"), this);
-	l->addWidget(lab, 5, 0);
-	qlSpeechProb = new QLabel(this);
-	l->addWidget(qlSpeechProb, 5, 1);
-
-	lab = new QLabel(tr("Audio bitrate"), this);
-	l->addWidget(lab, 6, 0);
-	qlBitrate = new QLabel(this);
-	l->addWidget(qlBitrate, 6, 1);
-
-	lab = new QLabel(tr("Doublepush interval"), this);
-	l->addWidget(lab, 7, 0);
-	qlDoublePush = new QLabel(this);
-	l->addWidget(qlDoublePush, 7, 1);
-
-	anwNoise = new AudioNoiseWidget(this);
-	l->addWidget(anwNoise,8,0,1,2);
-	l->setRowStretch(8, 1);
-
-	AudioInputPtr ai = g.ai;
-	if (ai && ai->sesEcho) {
-
-		QHBoxLayout *hbox = new QHBoxLayout;
-
-		QRadioButton *b;
-
-		b = new QRadioButton(tr("Real"));
-		qmEchoMode[b] = AudioEchoWidget::REAL;
-		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
-		hbox->addWidget(b);
-
-		b = new QRadioButton(tr("Imaginary"));
-		qmEchoMode[b] = AudioEchoWidget::IMAGINARY;
-		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
-		hbox->addWidget(b);
-
-		b = new QRadioButton(tr("Modulus"));
-		b->setChecked(true);
-		qmEchoMode[b] = AudioEchoWidget::MODULUS;
-		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
-		hbox->addWidget(b);
-
-		b = new QRadioButton(tr("Phase"));
-		qmEchoMode[b] = AudioEchoWidget::PHASE;
-		connect(b, SIGNAL(clicked(bool)), this, SLOT(onEchoMode(bool)));
-		hbox->addWidget(b);
-
-		l->addLayout(hbox, 9, 0, 1, 2);
-
-		aewEcho = new AudioEchoWidget(this);
-		l->addWidget(aewEcho,10,0,1,2);
-		l->setRowStretch(10, 1);
-	} else {
-		aewEcho = NULL;
-	}
-
 	qtTick = new QTimer(this);
 	qtTick->setObjectName(QLatin1String("Tick"));
 	qtTick->start(50);
 
-	qlMicLevel->setToolTip(tr("Peak power in last frame"));
-	qlMicLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms), and is the same measurement "
-	                            "as you would usually find displayed as \"input power\". Please disregard this and "
-	                            "look at <b>Loudness</b> instead, which is much more steady and disregards outliers."
-	                           ));
-	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
-	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) of the speakers. Unless you "
-	                                "are using a multi-channel sampling method (such as ASIO) with speaker channels "
-	                                "configured, this will be 0. If you have such a setup configured, and this still "
-	                                "shows 0 while you're playing audio from other programs, your setup is not working."));
-	qlSpeakerLevel->setToolTip(tr("Peak power in last frame"));
-	qlSpeakerLevel->setWhatsThis(tr("This shows the peak power in the last frame (20 ms) after all processing. Ideally, "
-	                                "this should be -96 dB when you're not talking. In reality, a sound studio should see "
-	                                "-60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this "
-	                                "should rise to somewhere between -5 and -10 dB.<br />"
-	                                "If you are using echo cancellation, and this rises to more than -15 dB when you're not "
-	                                "talking, your setup is not working, and you'll annoy other players with echoes."));
-	qlMicVolume->setToolTip(tr("How close the current input level is to ideal"));
-	qlMicVolume->setWhatsThis(tr("This shows how close your current input volume is to the ideal. To adjust your "
-	                             "microphone level, open whatever program you use to adjust the recording volume, "
-	                             "and look at the value here while talking.<br />"
-	                             "<b>Talk loud, as you would when you're upset over getting fragged by a noob.</b><br />"
-	                             "Adjust the volume until this value is close to 100%, but make sure it doesn't go above. "
-	                             "If it does go above, you are likely to get clipping in parts of your speech, which will "
-	                             "degrade sound quality"));
-	qlMicSNR->setToolTip(tr("Signal-To-Noise ratio from the microphone"));
-	qlMicSNR->setWhatsThis(tr("This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). "
-	                          "It shows how much clearer "
-	                          "the voice is compared to the noise.<br />If this value is below 1.0, there's more noise "
-	                          "than voice in the signal, and so quality is reduced.<br />There is no upper limit to this "
-	                          "value, but don't expect to see much above 40-50 without a sound studio."));
-	qlSpeechProb->setToolTip(tr("Probability of speech"));
-	qlSpeechProb->setWhatsThis(tr("This is the probability that the last frame (20 ms) was speech and not environment noise.<br />"
-	                              "Voice activity transmission depends on this being right. The trick with this is that the middle "
-	                              "of a sentence is always detected as speech; the problem is the pauses between words and the "
-	                              "start of speech. It's hard to distinguish a sigh from a word starting with 'h'.<br />"
-	                              "If this is in bold font, it means Mumble is currently transmitting (if you're connected)."));
-	qlBitrate->setToolTip(tr("Bitrate of last frame"));
-	qlBitrate->setWhatsThis(tr("This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down "
-	                           "as the VBR adjusts the quality. To adjust the peak bitrate, adjust <b>Compression Complexity</b> "
-	                           "in the Settings dialog."));
+	setupUi(this);
+	AudioInputPtr ai = g.ai;
 
-	anwNoise->setToolTip(tr("Power spectrum of input signal and noise estimate"));
-	anwNoise->setWhatsThis(tr("This shows the power spectrum of the current input signal (red line) and the current noise estimate "
-	                          "(filled blue).<br />"
-	                          "All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise "
-	                          "is present in each waveband).<br />"
-	                          "This is probably only of interest if you're trying to fine-tune noise conditions on your microphone. "
-	                          "Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than "
-	                          "halfway up on the graph, you have a seriously noisy environment."));
-
-	if (aewEcho) {
-		aewEcho->setToolTip(tr("Weights of the echo canceller"));
-		aewEcho->setWhatsThis(tr("This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.<br />"
-		                         "Ideally, this should be black, indicating no echo exists at all. More commonly, you'll have one or more horizontal stripes "
-		                         "of bluish color representing time delayed echo. You should be able to see the weights updated in real time.<br />"
-		                         "Please note that as long as you have nothing to echo off, you won't see much useful data here. Play some music and "
-		                         "things should stabilize. <br />"
-		                         "You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and "
-		                         "phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the "
-		                         "outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the "
-		                         "echo cancellation algorithms.<br />"
-		                         "Please note: If the entire image fluctuates massively while in modulus mode, "
-		                         "the echo canceller fails to find any correlation whatsoever between the two input "
-		                         "sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong."
-		                        ));
+	if (ai && ai->sesEcho) {
+		qgbEcho->setVisible(true);
+	}  else {
+		qgbEcho->setVisible(false);
 	}
 
-	QMetaObject::connectSlotsByName(this);
 
 	bTalking = false;
+
+	abSpeech->iPeak = -1;
+	abSpeech->qcBelow = Qt::red;
+	abSpeech->qcInside = Qt::yellow;
+	abSpeech->qcAbove = Qt::green;
 
 	on_Tick_timeout();
 }
@@ -425,12 +344,34 @@ void AudioStats::on_Tick_timeout() {
 		txt.sprintf("%04llums",g.uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
+	abSpeech->iBelow = lround(g.s.fVADmin * 32767.0);
+	abSpeech->iAbove = lround(g.s.fVADmax * 32767.0);
+
+	if (g.s.vsVAD == Settings::Amplitude) {
+		abSpeech->iValue = lround(32767 * pow(10.0, (ai->dPeakMic / 20.0)));
+	} else {
+		abSpeech->iValue = lround(ai->dSNR * 1000.0);
+	}
+
+	abSpeech->update();
+
 	anwNoise->update();
 	if (aewEcho)
 		aewEcho->updateGL();
 }
 
-void AudioStats::onEchoMode(bool) {
-	if (aewEcho)
-		aewEcho->mode = qmEchoMode[sender()];
+void AudioStats::on_qrbReal_clicked(bool) {
+	aewEcho->mode = AudioEchoWidget::REAL;
+}
+
+void AudioStats::on_qrbImaginary_clicked(bool) {
+	aewEcho->mode = AudioEchoWidget::IMAGINARY;
+}
+
+void AudioStats::on_qrbModulus_clicked(bool) {
+	aewEcho->mode = AudioEchoWidget::MODULUS;
+}
+
+void AudioStats::on_qrbPhase_clicked(bool) {
+	aewEcho->mode = AudioEchoWidget::PHASE;
 }

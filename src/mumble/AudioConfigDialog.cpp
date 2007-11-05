@@ -88,8 +88,16 @@ void AudioConfigDialog::load(const Settings &r) {
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
+	loadSlider(qsTransmitMin, lround(r.fVADmin * 32767.0));
+	loadSlider(qsTransmitMax, lround(r.fVADmax * 32767.0));
 	loadSlider(qsFrames, r.iFramesPerPacket);
 	loadSlider(qsDoublePush, r.uiDoublePush / 1000);
+
+	if (r.vsVAD == Settings::Amplitude)
+		qrbAmplitude->setChecked(true);
+	else
+		qrbSNR->setChecked(true);
+
 	loadCheckBox(qcbPushClick, r.bPushClick);
 	loadCheckBox(qcbTCP, r.bTCPCompat);
 	loadCheckBox(qcbReconnect, r.bReconnect);
@@ -111,6 +119,9 @@ void AudioConfigDialog::save() const {
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	s.fVolume = qsVolume->value() / 100.0;
 	s.iVoiceHold = qsTransmitHold->value();
+	s.fVADmin = qsTransmitMin->value() / 32767.0;
+	s.fVADmax = qsTransmitMax->value() / 32767.0;
+	s.vsVAD = qrbSNR->isChecked() ? Settings::SignalToNoise : Settings::Amplitude;
 	s.iFramesPerPacket = qsFrames->value();
 	s.uiDoublePush = qsDoublePush->value() * 1000;
 	s.bPushClick = qcbPushClick->isChecked();
@@ -247,21 +258,23 @@ void AudioConfigDialog::updateBitrate() {
 }
 
 void AudioConfigDialog::on_qcbTransmit_currentIndexChanged(int v) {
+
+
 	bool cue = false;
 	bool hold = false;
 
 	switch (v) {
+		case 0:
+			qswTransmit->setCurrentWidget(qwContinuous);
+			break;
 		case 1:
-			hold = true;
+			qswTransmit->setCurrentWidget(qwVAD);
 			break;
 		case 2:
+			qswTransmit->setCurrentWidget(qwPTT);
 			cue = true;
 			break;
 	}
-
-	qcbPushClick->setEnabled(cue);
-	qsTransmitHold->setEnabled(hold);
-	qlTransmitHold->setEnabled(hold);
 }
 
 void AudioConfigDialog::on_qcbLoopback_currentIndexChanged(int v) {

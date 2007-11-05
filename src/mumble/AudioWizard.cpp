@@ -34,67 +34,6 @@
 #include "Global.h"
 #include "Settings.h"
 
-AudioBar::AudioBar(QWidget *p) : QWidget(p) {
-	qcBelow = Qt::yellow;
-	qcAbove = Qt::red;
-	qcInside = Qt::green;
-	iMin = 0;
-	iMax = 32768;
-	iBelow = 2000;
-	iAbove = 22000;
-	iValue = 1000;
-	setMinimumSize(100,20);
-}
-
-void AudioBar::paintEvent(QPaintEvent *) {
-	QPainter p(this);
-
-	if (iBelow > iAbove)
-		iBelow = iAbove;
-
-	if (iValue < iMin)
-		iValue = iMin;
-	else if (iValue > iMax)
-		iValue = iMax;
-
-//    p.fillRect(QRect(0,0, 10, 10), Qt::blue);
-
-	double scale = (width() * 1.0) / (iMax - iMin);
-	int h = height();
-
-	p.scale(scale, h);
-
-	p.fillRect(QRect(0,0, 10, 10), Qt::blue);
-
-	if (iValue <= iBelow) {
-		p.fillRect(0, 0, iValue-1, 1, qcBelow);
-		p.fillRect(iValue, 0, iBelow-iValue, 1, qcBelow.darker(300));
-		p.fillRect(iBelow, 0, iAbove-iBelow, 1, qcInside.darker(300));
-		p.fillRect(iAbove, 0, iMax-iAbove, 1, qcAbove.darker(300));
-	} else if (iValue <= iAbove) {
-		p.fillRect(0, 0, iBelow, 1, qcBelow);
-		p.fillRect(iBelow, 0, iValue-iBelow, 1, qcInside);
-		p.fillRect(iValue, 0, iAbove-iValue, 1, qcInside.darker(300));
-		p.fillRect(iAbove, 0, iMax-iAbove, 1, qcAbove.darker(300));
-	} else {
-		p.fillRect(0, 0, iBelow, 1, qcBelow);
-		p.fillRect(iBelow, 0, iAbove-iBelow, 1, qcInside);
-		p.fillRect(iAbove, 0, iValue-iAbove, 1, qcAbove);
-		p.fillRect(iValue, 0, iMax-iValue, 1, qcAbove.darker(300));
-	}
-
-	if ((iPeak >= iMin) && (iPeak <= iMax))  {
-		if (iPeak <= iBelow)
-			p.setPen(qcBelow.lighter(150));
-		else if (iPeak <= iAbove)
-			p.setPen(qcInside.lighter(150));
-		else
-			p.setPen(qcAbove.lighter(150));
-		p.drawLine(iPeak, 0, iPeak, 1);
-	}
-
-}
-
 AudioWizard::AudioWizard() {
 	bInit = true;
 

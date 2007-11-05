@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>608</width>
-    <height>632</height>
+    <width>510</width>
+    <height>677</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -106,7 +106,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2" >
+      <item row="0" column="1" >
        <widget class="QComboBox" name="qcbTransmit" >
         <property name="toolTip" >
          <string>When to transmit your speech</string>
@@ -116,187 +116,202 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="qliTransmitHold" >
-        <property name="text" >
-         <string>Voice &amp;Hold</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsTransmitHold</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QSlider" name="qsTransmitHold" >
-        <property name="toolTip" >
-         <string>How long to keep transmitting after silence</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This selects how long after a perceived stop in speech transmission should continue.&lt;/b>&lt;br />Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br />Only makes sense when used with Voice Activity transmission.</string>
-        </property>
-        <property name="minimum" >
-         <number>20</number>
-        </property>
-        <property name="maximum" >
-         <number>250</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <widget class="QLabel" name="qlTransmitHold" >
-        <property name="minimumSize" >
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="qliFrames" >
-        <property name="text" >
-         <string>Audio per packet</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsFrames</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QSlider" name="qsFrames" >
-        <property name="toolTip" >
-         <string>How many audio frames to send per packet</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This selects how many audio frames should be put in one packet.&lt;/b>&lt;br />Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</string>
-        </property>
-        <property name="minimum" >
-         <number>1</number>
-        </property>
-        <property name="maximum" >
-         <number>4</number>
-        </property>
-        <property name="pageStep" >
+      <item row="1" column="0" colspan="2" >
+       <widget class="QStackedWidget" name="qswTransmit" >
+        <property name="currentIndex" >
          <number>2</number>
         </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" >
-       <widget class="QLabel" name="qlFrames" >
-        <property name="minimumSize" >
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1" colspan="2" >
-       <layout class="QHBoxLayout" >
-        <item>
-         <widget class="QCheckBox" name="qcbPushClick" >
-          <property name="toolTip" >
-           <string>Audible audio cue when push-to-talk pressed and released</string>
-          </property>
-          <property name="whatsThis" >
-           <string>&lt;b>This enables the audio cues for push to talk.&lt;/b>&lt;br />Setting this will give you a short audio beep when push to talk is pressed and released.</string>
-          </property>
-          <property name="text" >
-           <string>PTT Audio cue</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="qcbTCP" >
-          <property name="toolTip" >
-           <string>Use TCP Compatibility mode</string>
-          </property>
-          <property name="whatsThis" >
-           <string>&lt;b>Enable TCP Compatibility mode&lt;/b>.&lt;br />This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
-          </property>
-          <property name="text" >
-           <string>Use TCP mode</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="qcbReconnect" >
-          <property name="toolTip" >
-           <string>Reconnect when disconnected</string>
-          </property>
-          <property name="whatsThis" >
-           <string>&lt;b>Reconnect when disconnected&lt;/b>.&lt;br />This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</string>
-          </property>
-          <property name="text" >
-           <string>Automatic Reconnect</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="5" column="1" colspan="2" >
-       <widget class="QLabel" name="qlBitrate" >
-        <property name="toolTip" >
-         <string>Maximum bandwidth used for sent audio</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This shows peak outgoing bandwidth used.&lt;/b>&lt;br />This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</string>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" >
-       <widget class="QLabel" name="label_6" >
-        <property name="text" >
-         <string>Outgoing Bitrate</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" >
-       <widget class="QSlider" name="qsDoublePush" >
-        <property name="maximum" >
-         <number>1000</number>
-        </property>
-        <property name="singleStep" >
-         <number>10</number>
-        </property>
-        <property name="pageStep" >
-         <number>100</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2" >
-       <widget class="QLabel" name="qlDoublePush" >
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" >
-       <widget class="QLabel" name="qliDoublePush" >
-        <property name="text" >
-         <string>DoublePush Time</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsDoublePush</cstring>
-        </property>
+        <widget class="QWidget" name="qwPTT" >
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="qliDoublePush" >
+            <property name="text" >
+             <string>DoublePush Time</string>
+            </property>
+            <property name="buddy" >
+             <cstring>qsDoublePush</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QSlider" name="qsDoublePush" >
+            <property name="maximum" >
+             <number>1000</number>
+            </property>
+            <property name="singleStep" >
+             <number>10</number>
+            </property>
+            <property name="pageStep" >
+             <number>100</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" >
+           <widget class="QLabel" name="qlDoublePush" >
+            <property name="text" >
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QCheckBox" name="qcbPushClick" >
+            <property name="toolTip" >
+             <string>Audible audio cue when push-to-talk pressed and released</string>
+            </property>
+            <property name="whatsThis" >
+             <string>&lt;b>This enables the audio cues for push to talk.&lt;/b>&lt;br />Setting this will give you a short audio beep when push to talk is pressed and released.</string>
+            </property>
+            <property name="text" >
+             <string>PTT Audio cue</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="qwVAD" >
+         <layout class="QGridLayout" >
+          <item row="0" column="0" colspan="3" >
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QRadioButton" name="qrbSNR" >
+              <property name="toolTip" >
+               <string>Use SNR based speech detection</string>
+              </property>
+              <property name="whatsThis" >
+               <string>&lt;b>This sets speech detection to use Signal to Noise ratio.&lt;/b>&lt;br />In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</string>
+              </property>
+              <property name="text" >
+               <string>Signal to Noise</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="qrbAmplitude" >
+              <property name="toolTip" >
+               <string>Use Amplitude based speech detection.</string>
+              </property>
+              <property name="whatsThis" >
+               <string>&lt;b>This sets speech detection to use Amplitude.&lt;/b>&lt;br />In this mode, the raw strength of the input signal is used to detect speech.</string>
+              </property>
+              <property name="text" >
+               <string>Amplitude</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="qliTransmitHold" >
+            <property name="text" >
+             <string>Voice &amp;Hold</string>
+            </property>
+            <property name="buddy" >
+             <cstring>qsTransmitHold</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QSlider" name="qsTransmitHold" >
+            <property name="toolTip" >
+             <string>How long to keep transmitting after silence</string>
+            </property>
+            <property name="whatsThis" >
+             <string>&lt;b>This selects how long after a perceived stop in speech transmission should continue.&lt;/b>&lt;br />Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br />Only makes sense when used with Voice Activity transmission.</string>
+            </property>
+            <property name="minimum" >
+             <number>20</number>
+            </property>
+            <property name="maximum" >
+             <number>250</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2" >
+           <widget class="QLabel" name="qlTransmitHold" >
+            <property name="minimumSize" >
+             <size>
+              <width>40</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" >
+           <widget class="QLabel" name="qliTransmitMin" >
+            <property name="text" >
+             <string>Silence Below</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" >
+           <widget class="QSlider" name="qsTransmitMin" >
+            <property name="toolTip" >
+             <string>Signal values below this counts as silence</string>
+            </property>
+            <property name="whatsThis" >
+             <string>&lt;b>This sets the trigger values for voice detection.&lt;/b>&lt;br />Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below "Silence Below" always count as silence. Values above "Speech Above" always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
+            </property>
+            <property name="minimum" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <number>32767</number>
+            </property>
+            <property name="singleStep" >
+             <number>100</number>
+            </property>
+            <property name="pageStep" >
+             <number>1000</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" >
+           <widget class="QLabel" name="qliTransmitMax" >
+            <property name="text" >
+             <string>Speech Above</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1" >
+           <widget class="QSlider" name="qsTransmitMax" >
+            <property name="toolTip" >
+             <string>Signal values above this count as voice</string>
+            </property>
+            <property name="whatsThis" >
+             <string>&lt;b>This sets the trigger values for voice detection.&lt;/b>&lt;br />Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below "Silence Below" always count as silence. Values above "Speech Above" always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
+            </property>
+            <property name="minimum" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <number>32767</number>
+            </property>
+            <property name="singleStep" >
+             <number>100</number>
+            </property>
+            <property name="pageStep" >
+             <number>1000</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="qwContinuous" />
        </widget>
       </item>
      </layout>
@@ -398,10 +413,196 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="qliFrames" >
+        <property name="text" >
+         <string>Audio per packet</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsFrames</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QSlider" name="qsFrames" >
+        <property name="toolTip" >
+         <string>How many audio frames to send per packet</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This selects how many audio frames should be put in one packet.&lt;/b>&lt;br />Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>4</number>
+        </property>
+        <property name="pageStep" >
+         <number>2</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" >
+       <widget class="QLabel" name="qlFrames" >
+        <property name="minimumSize" >
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item row="2" column="1" >
+    <widget class="QGroupBox" name="qgbConnection" >
+     <property name="title" >
+      <string>Connection</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QCheckBox" name="qcbTCP" >
+        <property name="toolTip" >
+         <string>Use TCP Compatibility mode</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>Enable TCP Compatibility mode&lt;/b>.&lt;br />This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
+        </property>
+        <property name="text" >
+         <string>Use TCP mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbReconnect" >
+        <property name="toolTip" >
+         <string>Reconnect when disconnected</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>Reconnect when disconnected&lt;/b>.&lt;br />This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</string>
+        </property>
+        <property name="text" >
+         <string>Automatic Reconnect</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="qlBitrate" >
+        <property name="toolTip" >
+         <string>Maximum bandwidth used for sent audio</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This shows peak outgoing bandwidth used.&lt;/b>&lt;br />This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</string>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QGroupBox" name="qgbOutput" >
+     <property name="title" >
+      <string>Audio Output</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label_17" >
+        <property name="text" >
+         <string>Default &amp;Jitter Buffer</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsJitter</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSlider" name="qsJitter" >
+        <property name="toolTip" >
+         <string>Safety margin for jitter buffer</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This sets the minimum safety margin for the jitter buffer.&lt;/b>&lt;br />All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>5</number>
+        </property>
+        <property name="pageStep" >
+         <number>2</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <widget class="QLabel" name="qlJitter" >
+        <property name="minimumSize" >
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_7" >
+        <property name="text" >
+         <string>Volume</string>
+        </property>
+        <property name="buddy" >
+         <cstring>qsVolume</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QSlider" name="qsVolume" >
+        <property name="toolTip" >
+         <string>Volume of incoming speech</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This adjusts the volume of incoming speech.&lt;/b>&lt;br />Note that this can only be used to decrease the volume. No amplification is possible.</string>
+        </property>
+        <property name="minimum" >
+         <number>10</number>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="value" >
+         <number>100</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QLabel" name="qlVolume" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="1" >
     <widget class="QGroupBox" name="qgbAudio" >
      <property name="title" >
       <string>Audio Processing</string>
@@ -492,99 +693,6 @@
           <height>0</height>
          </size>
         </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2" >
-    <widget class="QGroupBox" name="qgbOutput" >
-     <property name="title" >
-      <string>Audio Output</string>
-     </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label_17" >
-        <property name="text" >
-         <string>Default &amp;Jitter Buffer</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsJitter</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QSlider" name="qsJitter" >
-        <property name="toolTip" >
-         <string>Safety margin for jitter buffer</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This sets the minimum safety margin for the jitter buffer.&lt;/b>&lt;br />All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</string>
-        </property>
-        <property name="minimum" >
-         <number>1</number>
-        </property>
-        <property name="maximum" >
-         <number>5</number>
-        </property>
-        <property name="pageStep" >
-         <number>2</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QLabel" name="qlJitter" >
-        <property name="minimumSize" >
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_7" >
-        <property name="text" >
-         <string>Volume</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsVolume</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QSlider" name="qsVolume" >
-        <property name="toolTip" >
-         <string>Volume of incoming speech</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This adjusts the volume of incoming speech.&lt;/b>&lt;br />Note that this can only be used to decrease the volume. No amplification is possible.</string>
-        </property>
-        <property name="minimum" >
-         <number>10</number>
-        </property>
-        <property name="maximum" >
-         <number>100</number>
-        </property>
-        <property name="value" >
-         <number>100</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <widget class="QLabel" name="qlVolume" >
         <property name="text" >
          <string>TextLabel</string>
         </property>

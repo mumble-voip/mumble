@@ -33,6 +33,18 @@
 
 #include "mumble_pch.h"
 
+class AudioBar : public QWidget {
+		Q_OBJECT
+	protected:
+		void paintEvent(QPaintEvent *event);
+	public:
+		AudioBar(QWidget *parent = NULL);
+		int iMin, iMax;
+		int iBelow, iAbove;
+		int iValue, iPeak;
+		QColor qcBelow, qcInside, qcAbove;
+};
+
 class AudioEchoWidget : public QGLWidget {
 		Q_OBJECT
 	public:
@@ -53,20 +65,21 @@ class AudioNoiseWidget : public QWidget {
 		void paintEvent(QPaintEvent *event);
 };
 
-class AudioStats : public QDialog {
+#include "ui_AudioStats.h"
+
+class AudioStats : public QDialog, public Ui::AudioStats {
 		Q_OBJECT;
 	protected:
-		QLabel *qlMicLevel, *qlSpeakerLevel, *qlSignalLevel, *qlMicVolume, *qlMicSNR, *qlSpeechProb, *qlBitrate, *qlDoublePush;
-		QMap<QObject *, AudioEchoWidget::Mode> qmEchoMode;
-		AudioNoiseWidget *anwNoise;
-		AudioEchoWidget *aewEcho;
 		QTimer *qtTick;
 		bool bTalking;
 	public:
 		AudioStats(QWidget *parent);
 	public slots:
 		void on_Tick_timeout();
-		void onEchoMode(bool);
+		void on_qrbReal_clicked(bool);
+		void on_qrbImaginary_clicked(bool);
+		void on_qrbModulus_clicked(bool);
+		void on_qrbPhase_clicked(bool);
 };
 
 #else

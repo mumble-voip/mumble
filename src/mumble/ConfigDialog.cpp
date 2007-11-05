@@ -63,7 +63,7 @@ void ConfigWidget::loadSlider(QSlider *s, int v) {
 	}
 }
 
-void ConfigWidget::loadCheckBox(QCheckBox *c, bool v) {
+void ConfigWidget::loadCheckBox(QAbstractButton *c, bool v) {
 	c->setChecked(! v);
 	c->setChecked(v);
 }

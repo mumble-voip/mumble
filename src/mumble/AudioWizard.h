@@ -32,18 +32,7 @@
 #define _AUDIOWIZARD_H
 
 #include "Settings.h"
-
-class AudioBar : public QWidget {
-		Q_OBJECT
-	protected:
-		void paintEvent(QPaintEvent *event);
-	public:
-		AudioBar(QWidget *parent = NULL);
-		int iMin, iMax;
-		int iBelow, iAbove;
-		int iValue, iPeak;
-		QColor qcBelow, qcInside, qcAbove;
-};
+#include "AudioStats.h"
 
 class AudioWizard: public QWizard {
 		Q_OBJECT
