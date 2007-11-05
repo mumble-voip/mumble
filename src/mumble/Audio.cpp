@@ -52,8 +52,10 @@ LoopPlayer::LoopPlayer() {
 }
 
 void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
-	if (DOUBLE_RAND < g.s.dPacketLoss)
+	if (DOUBLE_RAND < g.s.dPacketLoss) {
+		qWarning("Drop");
 		return;
+	}
 
 	bool restart = (qtLastFetch.elapsed() > 100);
 

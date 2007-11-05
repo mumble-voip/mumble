@@ -36,12 +36,49 @@ TextMessage::TextMessage(QWidget *p) : QDialog(p) {
 }
 
 void TextMessage::on_qteEdit_textChanged() {
-	QString s = qteEdit->toPlainText();
-	qtbPreview->setHtml(s);
+	qsRep = qteEdit->toPlainText();
+
+	if (! qsRep.contains(QLatin1Char('<')))  {
+		QRegExp qr;
+		qr.setMinimal(true);
+		qr.setPatternSyntax(QRegExp::RegExp2);
+		qr.setCaseSensitivity(Qt::CaseInsensitive);
+
+		qr.setPattern(QLatin1String("[\\r\\n]+"));
+		qsRep.replace(qr, QLatin1String("<br />"));
+
+		qr.setPattern(QLatin1String("\\*(\\w+)\\*"));
+		qsRep.replace(qr, QLatin1String("<b>\\1</b>"));
+
+		qr.setPattern(QLatin1String("\"([^\"]+)\""));
+		qsRep.replace(qr, QLatin1String("\"<i>\\1</i>\""));
+
+		qr.setPattern(QLatin1String("https?://[^ <$]*"));
+		qr.setMinimal(false);
+
+		int idx = 0;
+		do {
+			idx = qr.indexIn(qsRep, idx);
+			if (idx >= 0) {
+				QString url = qr.capturedTexts().at(0);
+				QUrl u(url);
+				if (u.isValid()) {
+				  int len = qr.matchedLength();
+				  QString replacement = QString::fromLatin1("<a href=\"%1\">%1</a>").arg(url);
+				  qsRep.replace(idx, len, replacement);
+				  idx += replacement.length();
+				} else {
+				  idx++;
+			 	}
+			}
+		} while (idx >= 0);
+	}
+
+	qtbPreview->setHtml(qsRep);
 }
 
 QString TextMessage::message() {
-	return qteEdit->toPlainText();
+	return qsRep;
 }
 
 bool TextMessage::eventFilter(QObject *obj, QEvent *evt) {

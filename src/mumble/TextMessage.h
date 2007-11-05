@@ -36,6 +36,8 @@
 
 class TextMessage : public QDialog, public Ui::TextMessage {
 		Q_OBJECT;
+	protected:
+		QString qsRep;
 	public:
 		TextMessage(QWidget *parent = NULL);
 		QString message();

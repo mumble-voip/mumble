@@ -428,8 +428,6 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	else
 		newrow = newparent->insertIndex(item->pPlayer);
 
-	qWarning("Moving from %d to %d", oldrow, newrow);
-
 	if ((oldparent == newparent) && (newrow == oldrow)) {
 		emit dataChanged(index(item),index(item));
 		return;
