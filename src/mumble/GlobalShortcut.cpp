@@ -259,7 +259,6 @@ void GlobalShortcutEngine::add(GlobalShortcut *gs) {
 }
 
 void GlobalShortcutEngine::remove(GlobalShortcut *gs) {
-	GlobalShortcutEngine *engine = GlobalShortcutEngine::engine;
 	engine->qmShortcuts.remove(gs->idx);
 	engine->bNeedRemap = true;
 	if (engine->qmShortcuts.isEmpty()) {

@@ -186,7 +186,7 @@ bool AudioOutputSpeech::decodeNextFrame() {
 		JitterBufferPacket jbp;
 		jbp.data = data;
 
-		if (jitter_buffer_get(jbJitter, &jbp, NULL) == JITTER_BUFFER_OK) {
+		if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, NULL) == JITTER_BUFFER_OK) {
 			ucFlags = jbp.data[0];
 			fPos[0] = fPos[1] = fPos[2] = 0.0;
 			speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);
