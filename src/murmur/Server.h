@@ -207,7 +207,13 @@ class Server : public QThread, public MessageHandler {
 		int getUserID(const QString &name);
 		QString getUserName(int id);
 		QByteArray getUserTexture(int id);
-		void setPW(int id, const QString &pw);
+		int registerPlayer(const QString &name);
+		bool unregisterPlayer(int id);
+		QMap<int, QPair<QString, QString> > getRegisteredPlayers(const QString &filter);
+		bool setPW(int id, const QString &pw);
+		bool setName(int id, const QString &name);
+		bool setEmail(int id, const QString &email);
+		bool getRegistration(int id, QString &name, QString &email);
 		void addLink(Channel *c, Channel *l);
 		void removeLink(Channel *c, Channel *l);
 		void getBans();

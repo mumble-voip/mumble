@@ -102,6 +102,16 @@ struct BanInfo {
 Q_DECLARE_METATYPE(BanInfo);
 Q_DECLARE_METATYPE(QList<BanInfo>);
 
+struct RegisteredPlayer {
+	int id;
+	QString name;
+	QString email;
+	QString pw;
+	RegisteredPlayer();
+};
+Q_DECLARE_METATYPE(RegisteredPlayer);
+Q_DECLARE_METATYPE(QList<RegisteredPlayer>);
+
 class MurmurDBus : public QDBusAbstractAdaptor {
 		Q_OBJECT
 		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
@@ -128,7 +138,16 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		int mapNameToId(const QString &name);
 		QString mapIdToName(int id);
 		QByteArray mapIdToTexture(int id);
+
+		// These map to functions on the authenticator
 		int authenticate(QString &uname, const QString &pw);
+		int dbusRegisterPlayer(const QString &name);
+		int dbusUnregisterPlayer(int id);
+		QMap<int, QPair<QString, QString> > dbusGetRegisteredPlayers(const QString &filter);
+		int dbusGetRegistration(int id, QString &name, QString &email);
+		int dbusSetPW(int id, const QString &pw);
+		int dbusSetEmail(int id, const QString &email);
+		int dbusSetName(int id, const QString &name);
 	public slots:
 		// Order of paremeters is IMPORTANT, or Qt will barf.
 		// Needs to be:
@@ -160,6 +179,16 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 
 		void setAuthenticator(const QDBusObjectPath &path, bool reentrant, const QDBusMessage &);
 		void setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &);
+
+		// These are hybrid methods. Unlike almost all other functions here, they exist only to be called from
+		// DBus -- murmur has no internal use for them.
+		// As such, they are currently implemented in ServerDB.cpp, since they're mostly about persistent databases.
+		void registerPlayer(const QString &name, const QDBusMessage &, int &id);
+		void unregisterPlayer(int id, const QDBusMessage &);
+		void updateRegistration(const RegisteredPlayer &player, const QDBusMessage &);
+		void getRegistration(int id, const QDBusMessage &, RegisteredPlayer &player);
+		void getRegisteredPlayers(const QString &filter, QList<RegisteredPlayer> &players);
+		void verifyPassword(int id, const QString &pw, const QDBusMessage &, bool &ok);
 	signals:
 		void playerStateChanged(const PlayerInfo &state);
 		void playerConnected(const PlayerInfo &state);
@@ -184,6 +213,7 @@ class MetaDBus : public QDBusAbstractAdaptor {
 		void start(int server_id, const QDBusMessage &);
 		void stop(int server_id, const QDBusMessage &);
 		void newServer(int &server_id);
+		void deleteServer(int server_id, const QDBusMessage &);
 		void getBootedServers(QList<int> &server_list);
 		void getAllServers(QList<int> &server_list);
 		void isBooted(int server_id, bool &booted);

@@ -124,6 +124,20 @@ const QDBusArgument & operator >>(const QDBusArgument &a, BanInfo &s) {
 	return a;
 }
 
+QDBusArgument &operator<<(QDBusArgument &a, const RegisteredPlayer &s) {
+	a.beginStructure();
+	a << s.id << s.name << s.email << s.pw;
+	a.endStructure();
+	return a;
+}
+
+const QDBusArgument & operator >>(const QDBusArgument &a, RegisteredPlayer &s) {
+	a.beginStructure();
+	a >> s.id >> s.name >> s.email >> s.pw;
+	a.endStructure();
+	return a;
+}
+
 void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<PlayerInfo>();
 	qDBusRegisterMetaType<PlayerInfoExtended>();
@@ -136,6 +150,8 @@ void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<QList<ACLInfo> >();
 	qDBusRegisterMetaType<BanInfo>();
 	qDBusRegisterMetaType<QList<BanInfo> >();
+	qDBusRegisterMetaType<RegisteredPlayer>();
+	qDBusRegisterMetaType<QList<RegisteredPlayer> >();
 }
 
 QDBusConnection MurmurDBus::qdbc(QLatin1String("mainbus"));
@@ -209,6 +225,104 @@ int MurmurDBus::mapNameToId(const QString &name) {
 		server->log("DBus Authenticator failed getUserId for %s: %s", qPrintable(name), qPrintable(reply.error().message()));
 		qsAuthPath = QString();
 		qsAuthService = QString();
+		return -2;
+	}
+}
+
+int MurmurDBus::dbusRegisterPlayer(const QString &name) {
+	if (qsAuthPath.isEmpty())
+		return -2;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "registerPlayer", name);
+	if (reply.isValid())
+		return reply.value();
+	else {
+		return -2;
+	}
+}
+
+int MurmurDBus::dbusUnregisterPlayer(int id) {
+	if (qsAuthPath.isEmpty())
+		return -2;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "unregisterPlayer", id);
+	if (reply.isValid())
+		return reply.value();
+	else {
+		return -2;
+	}
+}
+
+int MurmurDBus::dbusGetRegistration(int id, QString &name, QString &email) {
+	if (qsAuthPath.isEmpty())
+		return -2;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<RegisteredPlayer> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegistration", id);
+	if (reply.isValid()) {
+		const RegisteredPlayer &r = reply.value();
+		name = r.name;
+		email = r.email;
+		return 1;
+	} else {
+		return -2;
+	}
+}
+
+QMap<int, QPair<QString, QString> > MurmurDBus::dbusGetRegisteredPlayers(const QString &filter) {
+	QMap<int, QPair<QString, QString> > m;
+
+	if (qsAuthPath.isEmpty())
+		return m;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<QList<RegisteredPlayer> > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegisteredPlayers", filter);
+	if (reply.isValid()) {
+		const QList<RegisteredPlayer> &r = reply.value();
+		foreach(const RegisteredPlayer &p, r) {
+			m.insert(p.id, QPair<QString, QString>(p.name, p.email));
+		}
+	}
+	return m;
+}
+
+int MurmurDBus::dbusSetName(int id, const QString &name) {
+	if (qsAuthPath.isEmpty())
+		return -2;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setName",id, name);
+	if (reply.isValid())
+		return reply.value();
+	else {
+		return -2;
+	}
+}
+
+int MurmurDBus::dbusSetEmail(int id, const QString &email) {
+	if (qsAuthPath.isEmpty())
+		return -2;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setEmail",id, email);
+	if (reply.isValid())
+		return reply.value();
+	else {
+		return -2;
+	}
+}
+
+int MurmurDBus::dbusSetPW(int id, const QString &pw) {
+	if (qsAuthPath.isEmpty())
+		return -2;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setPW",id, pw);
+	if (reply.isValid())
+		return reply.value();
+	else {
 		return -2;
 	}
 }
@@ -599,6 +713,92 @@ void MurmurDBus::getPlayerIds(const QStringList &names, const QDBusMessage &, QL
 	}
 }
 
+void MurmurDBus::registerPlayer(const QString &name, const QDBusMessage &msg, int &id) {
+	id = server->registerPlayer(name);
+	if (id < 0) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
+		return;
+	}
+}
+
+void MurmurDBus::unregisterPlayer(int id, const QDBusMessage &msg) {
+	if (! server->unregisterPlayer(id)) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		return;
+	}
+}
+
+void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlayer &player) {
+	QString name, email;
+	if (! server->getRegistration(id, name, email)) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		return;
+	}
+	
+	player.id = id;
+	player.name = name;
+	player.email = email;
+}
+
+void MurmurDBus::updateRegistration(const RegisteredPlayer &player, const QDBusMessage &msg) {
+	QString name, email;
+	if (! server->getRegistration(player.id, name, email)) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		return;
+	}
+
+	if ((! player.name.isEmpty()) && (name != player.name)) {
+		server->qhUserIDCache.remove(name);
+		server->qhUserIDCache.remove(player.name);
+		server->qhUserNameCache.remove(player.id);
+
+		if (! server->setName(player.id, player.name)) {
+			qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
+			return;
+		}
+	}
+
+	if ((! player.email.isEmpty()) && (email != player.email)) {
+		server->setEmail(player.id, player.email);
+	}
+
+	if (! player.pw.isEmpty()) {
+		server->setPW(player.id, player.pw);
+	}
+}
+
+void MurmurDBus::getRegisteredPlayers(const QString &filter, QList<RegisteredPlayer> &players) {
+	players.clear();
+	QMap<int, QPair<QString, QString> > l = server->getRegisteredPlayers(filter);
+	QMap<int, QPair<QString, QString> >::const_iterator i;
+	for(i = l.constBegin(); i != l.constEnd(); ++i) {
+		RegisteredPlayer r;
+		r.id = i.key();
+		r.name = i.value().first;
+		r.email = i.value().second;
+		players << r;
+	}
+}
+
+void MurmurDBus::verifyPassword(int id, const QString &pw, const QDBusMessage &msg, bool &ok ) {
+	QList<int> ids;
+	ids << id;
+	QStringList names;
+	getPlayerNames(ids, msg, names);
+	
+	if ((names.count() != 1) || (names.at(0).isEmpty())) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		return;
+	}
+
+	QString name = names.at(0);
+	int nid = server->authenticate(name, pw);
+	if (nid == id)
+		ok = true;
+	else
+		ok = false;
+}
+
 void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, const QDBusMessage &msg) {
 	qsAuthPath = path.path();
 	qsAuthService = msg.service();
@@ -674,6 +874,10 @@ BanInfo::BanInfo(QPair<quint32,int> b) {
 	bits = b.second;
 }
 
+RegisteredPlayer::RegisteredPlayer() {
+	id = -1;
+}
+
 void MurmurDBus::playerStateChanged(Player *p) {
 	emit playerStateChanged(PlayerInfo(p));
 }
@@ -731,6 +935,16 @@ void MetaDBus::stop(int server_id, const QDBusMessage &msg) {
 
 void MetaDBus::newServer(int &server_id) {
 	server_id = ServerDB::addServer();
+}
+
+void MetaDBus::deleteServer(int server_id, const QDBusMessage &msg) {
+	if (meta->qhServers.contains(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.booted", "Server is running"));
+	} else if (! ServerDB::serverExists(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else {
+		ServerDB::deleteServer(server_id);
+	}
 }
 
 void MetaDBus::getBootedServers(QList<int> &server_list) {

@@ -46,6 +46,7 @@ class ServerDB {
 		static QList<int> getBootServers();
 		static QList<int> getAllServers();
 		static int addServer();
+		static void deleteServer(int server_id);
 		static bool serverExists(int num);
 		static QMap<QString, QString> getAllConf(int server_id);
 		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());

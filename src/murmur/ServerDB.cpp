@@ -421,6 +421,105 @@ void Server::initialize() {
 	}
 }
 
+int Server::registerPlayer(const QString &name) {
+	if (name.isEmpty())
+		return -1;
+		
+	if (getUserID(name) >= 0)
+		return -1;
+
+	int res = dbus->dbusRegisterPlayer(name);
+	if (res != -2) {
+		return res;
+	}
+
+	TransactionHolder th;
+
+	QSqlQuery query;
+
+	SQLPREP("SELECT MAX(player_id)+1 AS id FROM %1players WHERE server_id=?");
+	query.addBindValue(iServerNum);
+	SQLEXEC();
+	int id = 0;
+	if (query.next())
+		id = query.value(0).toInt();
+
+	SQLPREP("INSERT INTO %1players (server_id, player_id, name) VALUES (?,?,?)");
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	query.addBindValue(name);
+	SQLEXEC();
+	return id;
+}
+
+bool Server::unregisterPlayer(int id) {
+	if (id <= 0)
+		return false;
+
+	int res = dbus->dbusUnregisterPlayer(id);
+	if (res >= 0) {
+		return (res > 0);
+	}
+
+	TransactionHolder th;
+
+	QSqlQuery query;
+	SQLPREP("DELETE FROM %1players WHERE server_id = ? AND player_id = ?");
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	SQLEXEC();
+	
+	return true;
+}
+
+QMap<int, QPair<QString, QString> > Server::getRegisteredPlayers(const QString &filter) {
+	QMap<int, QPair<QString, QString> > m;
+	
+	m = dbus->dbusGetRegisteredPlayers(filter);
+
+	TransactionHolder th;
+
+	QSqlQuery query;
+	if (filter.isEmpty()) {
+		SQLPREP("SELECT player_id, name, email FROM %1players WHERE server_id = ?");
+		query.addBindValue(iServerNum);
+	} else {
+		SQLPREP("SELECT player_id, name, email FROM %1players WHERE server_id = ? AND name LIKE ?");
+		query.addBindValue(iServerNum);
+		query.addBindValue(filter);
+	}
+	SQLEXEC();
+
+	while (query.next()) {
+		int id = query.value(0).toInt();
+		QString name = query.value(1).toString();
+		QString email = query.value(2).toString();
+		m.insert(id, QPair<QString,QString>(name,email));
+	}
+	return m;
+}
+
+bool Server::getRegistration(int id, QString &name, QString &email) {
+	int res = dbus->dbusGetRegistration(id, name, email);
+	if (res >= 0)
+		return (res > 0);
+
+
+	TransactionHolder th;
+
+	QSqlQuery query;
+	SQLPREP("SELECT name, email FROM %1players WHERE server_id = ? AND player_id = ?");
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	SQLEXEC();
+	if (query.next()) {
+		name = query.value(0).toString();
+		email = query.value(1).toString();
+		return true;
+	}
+	return false;
+}
+
 // -1 Wrong PW
 // -2 Anonymous
 
@@ -469,19 +568,69 @@ int Server::authenticate(QString &name, const QString &pw) {
 	return res;
 }
 
-void Server::setPW(int id, const QString &pw) {
-	TransactionHolder th;
+bool Server::setPW(int id, const QString &pw) {
+	int res = dbus->dbusSetPW(id, pw);
+	if (res >= 0)
+		return (res > 0);
 
+	TransactionHolder th;
+	
 	QCryptographicHash hash(QCryptographicHash::Sha1);
 
 	hash.addData(pw.toUtf8());
 
 	QSqlQuery query;
 	SQLPREP("UPDATE %1players SET pw=? WHERE server_id = ? AND player_id=?");
-	query.addBindValue(QString::fromLatin1(hash.result().toHex()));
+	query.addBindValue(pw.isEmpty() ? QVariant() : QString::fromLatin1(hash.result().toHex()));
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
+	
+	return true;
+}
+
+bool Server::setEmail(int id, const QString &email) {
+	if (id <= 0)
+		return false;
+
+	int res = dbus->dbusSetEmail(id, email);
+	if (res >= 0)
+		return (res > 0);
+
+	TransactionHolder th;
+
+	QSqlQuery query;
+	SQLPREP("UPDATE %1players SET email=? WHERE server_id = ? AND player_id=?");
+	query.addBindValue(email);
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	SQLEXEC();
+	
+	return true;
+}
+
+bool Server::setName(int id, const QString &name) {
+	if (id <= 0)
+		return false;
+
+	int oid = getUserID(name);
+	if (oid >= 0)
+		return false;
+		
+	int res = dbus->dbusSetName(id, name);
+	if (res == 0)
+		return false;
+
+	TransactionHolder th;
+
+	QSqlQuery query;
+	SQLPREP("UPDATE %1players SET name=? WHERE server_id = ? AND player_id=?");
+	query.addBindValue(name);
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	SQLEXEC();
+	
+	return true;
 }
 
 void ServerDB::setSUPW(int srvnum, const QString &pw) {
@@ -995,4 +1144,12 @@ int ServerDB::addServer() {
 	query.addBindValue(id);
 	SQLEXEC();
 	return id;
+}
+
+void ServerDB::deleteServer(int server_id) {
+	TransactionHolder th;
+	QSqlQuery query;
+	SQLPREP("DELETE FROM %1servers WHERE server_id = ?");
+	query.addBindValue(server_id);
+	SQLEXEC();
 }
