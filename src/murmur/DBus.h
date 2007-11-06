@@ -148,6 +148,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		int dbusSetPW(int id, const QString &pw);
 		int dbusSetEmail(int id, const QString &email);
 		int dbusSetName(int id, const QString &name);
+		int dbusSetTexture(int id, const QByteArray &texture);
 	public slots:
 		// Order of paremeters is IMPORTANT, or Qt will barf.
 		// Needs to be:
@@ -189,6 +190,9 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void getRegistration(int id, const QDBusMessage &, RegisteredPlayer &player);
 		void getRegisteredPlayers(const QString &filter, QList<RegisteredPlayer> &players);
 		void verifyPassword(int id, const QString &pw, const QDBusMessage &, bool &ok);
+		void getTexture(int id, const QDBusMessage &, QByteArray &texture);
+		void setTexture(int id, const QByteArray &, const QDBusMessage &);
+
 	signals:
 		void playerStateChanged(const PlayerInfo &state);
 		void playerConnected(const PlayerInfo &state);

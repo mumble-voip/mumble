@@ -213,6 +213,7 @@ class Server : public QThread, public MessageHandler {
 		bool setPW(int id, const QString &pw);
 		bool setName(int id, const QString &name);
 		bool setEmail(int id, const QString &email);
+		bool setTexture(int id, const QByteArray &texture);
 		bool getRegistration(int id, QString &name, QString &email);
 		void addLink(Channel *c, Channel *l);
 		void removeLink(Channel *c, Channel *l);

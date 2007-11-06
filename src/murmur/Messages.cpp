@@ -889,7 +889,9 @@ void Server::msgTexture(Connection *cCon, MessageTexture *msg) {
 	if (! qhUserTextureCache.contains(msg->iPlayerId)) {
 		QByteArray qba = getUserTexture(msg->iPlayerId);
 		if (! qba.isEmpty()) {
-			qba = qCompress(qba);
+			// Check for uncompressed image
+			if (qba.size() == 600 * 60 * 4)
+				qba = qCompress(qba);
 		}
 		qhUserTextureCache.insert(msg->iPlayerId, qba);
 	}

@@ -327,6 +327,19 @@ int MurmurDBus::dbusSetPW(int id, const QString &pw) {
 	}
 }
 
+int MurmurDBus::dbusSetTexture(int id, const QByteArray &texture) {
+	if (qsAuthPath.isEmpty())
+		return -2;
+
+	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
+	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setTexture",id, texture);
+	if (reply.isValid())
+		return reply.value();
+	else {
+		return -2;
+	}
+}
+
 int MurmurDBus::authenticate(QString &uname, const QString &pw) {
 	if (qsAuthPath.isEmpty())
 		return -2;
@@ -764,6 +777,17 @@ void MurmurDBus::updateRegistration(const RegisteredPlayer &player, const QDBusM
 
 	if (! player.pw.isEmpty()) {
 		server->setPW(player.id, player.pw);
+	}
+}
+
+void MurmurDBus::getTexture(int id, const QDBusMessage &, QByteArray &texture) {
+	texture = server->getUserTexture(id);
+}
+
+void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessage &msg) {
+	if (! server->setTexture(id, texture)) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.texture", "Invalid texture"));
+		return;
 	}
 }
 
