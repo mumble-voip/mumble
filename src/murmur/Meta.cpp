@@ -47,7 +47,6 @@ MetaParams::MetaParams() {
 	iDBPort = 0;
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
-	qsPid = "murmurd.pid";
 	qhaBind = QHostAddress(QHostAddress::Any);
 
 	iBanTries = 10;

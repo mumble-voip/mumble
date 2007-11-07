@@ -16,16 +16,6 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-
-
-CFLAGS = -Wall -g
-
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
-
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
@@ -36,46 +26,24 @@ configure-stamp:
 
 
 #Architecture 
-build: build-arch build-indep
+build: build-stamp
 
-build-arch: build-arch-stamp
-build-arch-stamp: configure-stamp 
-
+build-stamp: configure-stamp 
 	# Add here commands to compile the arch part of the package.
 	$(MAKE) release
-	touch build-arch-stamp
-
-build-indep: build-indep-stamp
-build-indep-stamp: configure-stamp 
-
-	# Add here commands to compile the indep part of the package.
-	#$(MAKE) doc
-	touch build-indep-stamp
+	touch build-stamp
 
 clean:	configure-stamp
 	dh_testdir
 	dh_testroot
-	rm -f build-arch-stamp build-indep-stamp configure-stamp
+	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
-	-$(MAKE) distclean
+	$(MAKE) distclean
 
 	dh_clean 
 
-install: install-indep install-arch
-install-indep:
-	#dh_testdir
-	#dh_testroot
-	#dh_clean -k -i 
-	#dh_installdirs -i
-
-	# Add here commands to install the indep part of the package into
-	# debian/<package>-doc.
-	#INSTALLDOC#
-
-	#dh_install -i
-
-install-arch:
+install: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k -s 
@@ -86,17 +54,32 @@ install-arch:
 	# $(MAKE) install 
 	install -d $(CURDIR)/debian/mumble/usr/bin
 	install -d $(CURDIR)/debian/mumble/usr/lib/mumble
-	install -d $(CURDIR)/debian/mumble-server/usr/bin
 	install ./release/mumble $(CURDIR)/debian/mumble/usr/bin
 	install ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin
 	install ./release/libmumble.so.1.1.1 $(CURDIR)/debian/mumble/usr/lib/
-	install ./release/murmurd $(CURDIR)/debian/mumble-server/usr/bin
-	
+
 	# install menu entry
 	install -d $(CURDIR)/debian/mumble/usr/share/applications
 	install -d $(CURDIR)/debian/mumble/usr/share/pixmaps
-	install ./scripts/mumble.desktop $(CURDIR)/debian/mumble/usr/share/applications
-	install ./icons/mumble.png.1 $(CURDIR)/debian/mumble/usr/share/pixmaps
+	install -m 0644 ./scripts/mumble.desktop $(CURDIR)/debian/mumble/usr/share/applications
+	install -m 0644 ./icons/mumble.png.1 $(CURDIR)/debian/mumble/usr/share/pixmaps/mumble.png
+	install -m 0644 ./icons/mumble.xpm $(CURDIR)/debian/mumble/usr/share/pixmaps
+
+	# install murmur
+	install -d $(CURDIR)/debian/murmur/usr/sbin
+	install -d $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur
+	install -d $(CURDIR)/debian/murmur/etc/dbus-1/system.d
+	install -d $(CURDIR)/debian/murmur/var/lib/murmur
+	install -d $(CURDIR)/debian/murmur/var/run/murmur
+	install -d $(CURDIR)/debian/murmur/var/log/murmur
+	install ./release/murmurd $(CURDIR)/debian/murmur/usr/sbin
+	install -m 0644 ./scripts/murmur.conf $(CURDIR)/debian/murmur/etc/dbus-1/system.d
+	install -m 0644 ./scripts/murmur.ini.system $(CURDIR)/debian/murmur/etc/murmur.ini
+	install -m 0755 ./scripts/murmur.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/register.cgi
+	install -m 0755 ./scripts/weblist.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/list.cgi
+
+	# install init script to current, so dh_installinit finds it
+	install -m 0755 ./scripts/murmur.init $(CURDIR)
 
 	dh_install -s
 # Must not depend on anything. This is to be called by
@@ -108,35 +91,27 @@ binary-common:
 	dh_installchangelogs CHANGES
 	dh_installdocs
 	dh_installexamples
-#	dh_installmenu
-#	dh_installdebconf	
-#	dh_installlogrotate	
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_installinit
-#	dh_installcron
-#	dh_installinfo
+	dh_installmenu
+	dh_installinit
 	dh_installman
 	dh_link
 	dh_strip
 	dh_compress 
 	dh_fixperms
-#	dh_perl
-#	dh_python
+	dh_perl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur
 	dh_makeshlibs
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
-# Build architecture independant packages using the common target.
-binary-indep: build-indep install-indep
-	#$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
 
 # Build architecture dependant packages using the common target.
-binary-arch: build-arch install-arch
+binary-indep:
+
+binary-arch: build install
 	$(MAKE) -f debian/rules DH_OPTIONS=-a binary-common
 
-binary: binary-arch binary-indep
-.PHONY: build clean binary-indep binary-arch binary install install-indep install-arch configure
+binary:	binary-indep binary-arch
+
+.PHONY: build clean binary install configure

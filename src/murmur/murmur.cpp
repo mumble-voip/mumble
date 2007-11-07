@@ -212,14 +212,16 @@ int main(int argc, char **argv) {
 			_exit(0);
 		}
 
-		QFile pid(Meta::mp.qsPid);
-		if (pid.open(QIODevice::WriteOnly)) {
-			QFileInfo fi(pid);
-			Meta::mp.qsPid = fi.absoluteFilePath();
+		if (! Meta::mp.qsPid.isEmpty()) {
+			QFile pid(Meta::mp.qsPid);
+			if (pid.open(QIODevice::WriteOnly)) {
+				QFileInfo fi(pid);
+				Meta::mp.qsPid = fi.absoluteFilePath();
 
-			QTextStream out(&pid);
-			out << getpid();
-			pid.close();
+				QTextStream out(&pid);
+				out << getpid();
+				pid.close();
+			}
 		}
 
 		chdir("/");
@@ -292,8 +294,10 @@ int main(int argc, char **argv) {
 	qInstallMsgHandler(NULL);
 
 #ifdef Q_OS_UNIX
-	QFile pid(Meta::mp.qsPid);
-	pid.remove();
+	if (! Meta::mp.qsPid.isEmpty()) {
+		QFile pid(Meta::mp.qsPid);
+		pid.remove();
+	}
 #endif
 	return res;
 }

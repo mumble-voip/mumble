@@ -1,10 +1,12 @@
-This is mumble, written and maintained by Thorvald Natvig <slicer@sourceforge.net>
-on Thu, 28 Sep 2006 16:31:58 +0200.
+This package was debinaized by Thorvald Natvig <slicer@sourceforge.net>
+on Wed, 07 Oct 2007 14:10:00 +0200.
 
 The original source can always be found at:
-	ftp://ftp.debian.org/dists/unstable/main/source/
+	http://downloads.sourceforge.net/mumble/
 
-Copyright (C) 2005  Thorvald Natvig
+Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
+Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
 
 License:
 
