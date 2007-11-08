@@ -101,11 +101,11 @@ void TestCrypt::ivrecovery() {
 
 	// Wraparound.
 	for (int i=0;i<128;i++) {
-		dec.stat_lost = 0;
+		dec.uiLost = 0;
 		for (int j=0;j<15;j++)
 			enc.encrypt(secret, crypted, 10);
 		QVERIFY(dec.decrypt(crypted, decr, 14));
-		QCOMPARE(dec.stat_lost, 14U);
+		QCOMPARE(dec.uiLost, 14U);
 	}
 
 	QVERIFY(memcmp(enc.encrypt_iv, dec.decrypt_iv, AES_BLOCK_SIZE)==0);
