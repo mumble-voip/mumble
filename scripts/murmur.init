@@ -81,7 +81,7 @@ case "$1" in
 				-- $DAEMON_OPTS
 			case "$?" in
 				0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
-				*) echo "GNOM" && [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+				*) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
 			esac
 			;;
 		*)
