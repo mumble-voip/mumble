@@ -21,9 +21,9 @@ set -e
 
 case "$1" in
     purge)
-    	rm -f /var/log/murmur/murmur.log
-    	rm -f /var/lib/murmur/murmur.sqlite
-    	rm -f /var/run/murmur/murmur.pid
+    	[ -f /var/log/murmur/murmur.log ] && rm -f /var/log/murmur/murmur.log
+    	[ -f /var/lib/murmur/murmur.sqlite ] && rm -f /var/lib/murmur/murmur.sqlite
+    	[ -f /var/run/murmur/murmur.pid ] && rm -f /var/run/murmur/murmur.pid
 	if [ -x "$(command -v deluser)" ]; then
 		deluser --quiet --system Murmur > /dev/null || true
 		deluser --quiet --system --group --only-if-empty Murmur > /dev/null || true

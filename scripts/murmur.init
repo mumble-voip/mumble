@@ -1,20 +1,21 @@
 #! /bin/sh
 #
 ### BEGIN INIT INFO
-# Provides:             sshd
+# Provides:             murmur
 # Required-Start:       $network $local_fs $remote_fs
-# Required-Stop:
+# Required-Stop:	$network $local_fs $remote_fs
+# Should-Start:		$mysql
+# Should-Stop:		$mysql
 # Default-Start:        2 3 4 5
 # Default-Stop:         0 1 6
-# Short-Description:    VoIP Server
+# Short-Description:    Murmur VoIP Server
 ### END INIT INFO
 
-set -e
-
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/sbin/murmurd
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
 NAME=murmur
-DESC=Murmur
+DESC="Murmur VoIP Server"
+PIDFILE=/var/run/murmur/murmur.pid
+DAEMON=/usr/sbin/murmurd
 
 test -x $DAEMON || exit 0
 
@@ -26,71 +27,72 @@ if [ -f /etc/default/murmur ] ; then
 	. /etc/default/murmur
 fi
 
+. /lib/init/vars.sh
 . /lib/lsb/init-functions
 
 case "$1" in
   start)
-  	log_daemon_msg "Starting $DESC" "murmur"
-	echo -n "Starting $DESC: "
+  	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
 	start-stop-daemon --start --quiet \
-		--pidfile /var/run/murmur/$NAME.pid \
+		--pidfile $PIDFILE \
 		--chuid Murmur:Murmur \
 		--exec $DAEMON \
 		-- $DAEMON_OPTS
-	echo "$NAME."
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
 	;;
   stop)
-	echo -n "Stopping $DESC: "
+  	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
 	start-stop-daemon --stop --quiet \
-		--pidfile /var/run/murmur/$NAME.pid \
+		--retry=TERM/30/KILL/5 \
+		--pidfile $PIDFILE \
 		--user Murmur \
 		--exec $DAEMON 
-	echo "$NAME."
+	case "$?" in
+		0|1)	rm -f $PIDFILE
+			[ "$VERBOSE" != no ] && log_end_msg 0 
+			;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
 	;;
-  #reload)
-	#
-	#	If the daemon can reload its config files on the fly
-	#	for example by sending it SIGHUP, do it here.
-	#
-	#	If the daemon responds to changes in its config file
-	#	directly anyway, make this a do-nothing entry.
-	#
-	# echo "Reloading $DESC configuration files."
-	# start-stop-daemon --stop --signal 1 --quiet --pidfile \
-	#	/var/run/$NAME.pid --exec $DAEMON
-  #;;
   force-reload)
-	#
-	#	If the "reload" option is implemented, move the "force-reload"
-	#	option to the "reload" entry above. If not, "force-reload" is
-	#	just the same as "restart" except that it does nothing if the
-	#   daemon isn't already running.
-	# check wether $DAEMON is running. If so, restart
 	start-stop-daemon --stop --test --quiet \
-		--pidfile /var/run/murmur/$NAME.pid \
+		--pidfile $PIDFILE \
 		--user Murmur \
 		--exec $DAEMON \
 	&& $0 restart || exit 0
 	;;
   restart)
-    echo -n "Restarting $DESC: "
+ 	[ "$VERBOSE" != no ] && log_daemon_msg "Restarting $DESC" "$NAME"
 	start-stop-daemon --stop --quiet \
-		--pidfile /var/run/murmur/$NAME.pid \
+		--retry=TERM/30/KILL/5 \
+		--pidfile $PIDFILE \
 		--user Murmur \
 		--exec $DAEMON 
-	sleep 1
-	start-stop-daemon --start --quiet 
-		--pidfile /var/run/murmur/$NAME.pid \
-		--user Murmur \
-		--exec $DAEMON \
-		-- $DAEMON_OPTS
-	echo "$NAME."
+	case "$?" in
+		0|1)
+			rm -f $PIDFILE
+			start-stop-daemon --start --quiet \
+				--pidfile $PIDFILE \
+				--chuid Murmur:Murmur \
+				--exec $DAEMON \
+				-- $DAEMON_OPTS
+			case "$?" in
+				0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+				*) echo "GNOM" && [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+			esac
+			;;
+		*)
+			[ "$VERBOSE" != no ] && log_end_msg 0
+			;;
+	esac
 	;;
   *)
 	N=/etc/init.d/$NAME
-	# echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
 	echo "Usage: $N {start|stop|restart|force-reload}" >&2
-	exit 1
+	exit 3
 	;;
 esac
 

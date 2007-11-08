@@ -13,6 +13,6 @@ Description: Voice chat client
 
 Package: murmur
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103)
 Description: Voice chat server (murmurd)
- Murmur is the server component for Mumble, a low-latency, high quality voice chat program for gaming.
+ Murmur is the VoIP server component for Mumble.

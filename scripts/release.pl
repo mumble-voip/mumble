@@ -6,7 +6,7 @@ use Carp;
 use Switch;
 use Archive::Tar;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
-use Compress::Bzip2;
+use Compress::Zlib;
 
 my %files;
 my $ver;
@@ -65,7 +65,7 @@ while(<F>) {
 }
 close(F);
 
-foreach my $dir ('speex','speex/include/speex','speex/libspeex') {
+foreach my $dir ('speex','speex/include/speex','speex/libspeex','man') {
   opendir(D, $dir) or croak "Could not open $dir";
   foreach my $f (grep(! /^\./,readdir(D))) {
     next if ($f =~ /\~$/);
@@ -106,8 +106,8 @@ foreach my $file ('LICENSE', sort keys %files) {
   close(F);
 }
 
-my $bz=bzopen("mumble-${ver}.tar.bz2", "w");
-$bz->bzwrite($tar->write());
-$bz->bzclose();
+my $gz=gzopen("mumble-${ver}.tar.gz", "w");
+$gz->gzwrite($tar->write());
+$gz->gzclose();
 
 $zip->writeToFileNamed("mumble-${ver}.zip");

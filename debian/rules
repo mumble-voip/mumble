@@ -41,6 +41,10 @@ clean:	configure-stamp
 	# Add here commands to clean up after the build process.
 	$(MAKE) distclean
 
+	# Unfortunately, static libraries are left over after
+	# qmake's makefile is done, as are the translations.
+	rm -rf release debug src/mumble/*.qm
+
 	dh_clean 
 
 install: build
@@ -65,6 +69,11 @@ install: build
 	install -m 0644 ./icons/mumble.png.1 $(CURDIR)/debian/mumble/usr/share/pixmaps/mumble.png
 	install -m 0644 ./icons/mumble.xpm $(CURDIR)/debian/mumble/usr/share/pixmaps
 
+	# And man pages
+	install -d $(CURDIR)/debian/mumble/usr/share/man/man1
+	install -m 0644 ./man/mumble.1 $(CURDIR)/debian/mumble/usr/share/man/man1
+	install -m 0644 ./man/mumble-overlay.1 $(CURDIR)/debian/mumble/usr/share/man/man1
+
 	# install murmur
 	install -d $(CURDIR)/debian/murmur/usr/sbin
 	install -d $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur
@@ -72,14 +81,16 @@ install: build
 	install -d $(CURDIR)/debian/murmur/var/lib/murmur
 	install -d $(CURDIR)/debian/murmur/var/run/murmur
 	install -d $(CURDIR)/debian/murmur/var/log/murmur
+	install -d $(CURDIR)/debian/murmur/usr/share/man/man1
 	install ./release/murmurd $(CURDIR)/debian/murmur/usr/sbin
+	install -m 0644 ./man/murmurd.1 $(CURDIR)/debian/murmur/usr/share/man/man1
 	install -m 0644 ./scripts/murmur.conf $(CURDIR)/debian/murmur/etc/dbus-1/system.d
 	install -m 0644 ./scripts/murmur.ini.system $(CURDIR)/debian/murmur/etc/murmur.ini
 	install -m 0755 ./scripts/murmur.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/register.cgi
 	install -m 0755 ./scripts/weblist.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/list.cgi
 
 	# install init script to current, so dh_installinit finds it
-	install -m 0755 ./scripts/murmur.init $(CURDIR)
+	install -m 0755 ./scripts/murmur.init $(CURDIR)/debian
 
 	dh_install -s
 # Must not depend on anything. This is to be called by

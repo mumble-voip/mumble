@@ -1,0 +1,34 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH mumble-overlay 1 "2007 November 08"
+.SH NAME
+mumble-overlay \- load OpenGL overlay for Mumble.
+.SH SYNOPSIS
+.B mumble-overlay
+.RI "executable"
+.SH DESCRIPTION
+This wrapper will load the OpenGL overlay for Mumble into the application
+of your choice. This allows you to easily see who is talking even in
+fullscreen games and applications.
+.PP
+Nothing will be shown unless you have Mumble running and it is
+currently connected to a server.
+.SH ENVIRONMENT VARIABLES
+.TP
+.B MUMBLE_OVERLAY_DEBUG
+If this environment variable is set, extended debugging will be output to
+standard output. Only usefull for debugging.
+.SH EXAMPLE
+To run glxgears with the mumble-overlay active:
+.IP
+.nf
+mumble-overlay glxgears
+.fi
+.SH NOTES
+This will only work with OpenGL drivers which support the full
+OpenGL and GLX specifications.
+.SH SEE ALSO
+.BR mumble (1),
+.BR murmur (1).
+.br
+.SH AUTHOR
+mumble was written by Thorvald Natvig.

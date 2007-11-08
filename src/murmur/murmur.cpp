@@ -74,10 +74,13 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	QString m= QString::fromLatin1("<%1>%2 %3").arg(QChar::fromLatin1(c)).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(msg);
 
 	if (! logfile || ! logfile->isOpen()) {
-		qlErrors << m;
 #ifdef Q_OS_UNIX
-		fprintf(stderr, "%s\n", qPrintable(m));
+		if (! detach)
+			fprintf(stderr, "%s\n", qPrintable(m));
+		else
+			qlErrors << m;
 #else
+		qlErrors << m;
 #ifndef QT_NO_DEBUG
 		fprintf(stderr, "%s\n", qPrintable(m));
 #endif
@@ -96,10 +99,14 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	}
 	le.addLogEntry(m);
 	if (type == QtFatalMsg) {
-#ifndef Q_OS_UNIX
 		if (qlErrors.isEmpty())
 			qlErrors << QLatin1String(msg);
 		m = qlErrors.join(QLatin1String("\n"));
+#ifdef Q_OS_UNIX
+		if (! detach) {
+			fprintf(stderr, "%s", qPrintable(m));
+		}
+#else
 		::MessageBoxA(NULL, qPrintable(m), "Murmur", MB_OK | MB_ICONWARNING);
 #endif
 		exit(0);

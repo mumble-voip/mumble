@@ -1,0 +1,35 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH murmurd 1 "2007 November 08"
+.SH NAME
+murmurd \- VoIP server.
+.SH SYNOPSIS
+.B murmurd
+.RI [ options ]
+.SH DESCRIPTION
+Murmur is the server component of Mumble, a low-latency, high quality VoIP
+application.
+.SH OPTIONS
+.TP
+.BI \-ini \ "inifile"
+Specify which inifile to use. Without this option, murmur will search for
+a murmur.ini file and will fall back to builtin defaults if one isn't found.
+.TP
+.BI \-fg
+Run in the foreground (do not fork).
+.br
+This is very usefull for debugging.
+.TP
+.BI \-v
+Verbose mode, slightly more information is logged.
+.TP
+.BI \-supw \ "password" \ [ "serverid" ]
+This will forcefully set the SuperUser password for a server. SuperUser is
+a special account (similar to
+.RI root
+) which bypasses all access controls. This command may be used while the
+server is running.
+.SH SEE ALSO
+.BR mumble (1).
+.br
+.SH AUTHOR
+mumble was written by Thorvald Natvig.
