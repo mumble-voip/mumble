@@ -1,0 +1,6 @@
+Tag: lib-not-in-shlibs
+Data: libmumble
+
+Tag: no-shlib-file
+Data: libmumble
+

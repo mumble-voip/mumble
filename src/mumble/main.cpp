@@ -127,9 +127,9 @@ int main(int argc, char **argv) {
 
 	// Set application icon
 	QIcon icon;
-	icon.addFile(QLatin1String("skin:mumble.png.2"));
-	icon.addFile(QLatin1String("skin:mumble.png.1"));
-	icon.addFile(QLatin1String("skin:mumble.png.0"));
+	icon.addFile(QLatin1String("skin:mumble.16x16.png"));
+	icon.addFile(QLatin1String("skin:mumble.32x32.png"));
+	icon.addFile(QLatin1String("skin:mumble.64x64.png"));
 	a.setWindowIcon(icon);
 
 

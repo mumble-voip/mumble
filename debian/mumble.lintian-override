@@ -1,0 +1,5 @@
+mumble: ldconfig-symlink-missing-for-shlib usr/lib/libmumble.so.1 usr/lib/libmumble.so.1.1.1 libmumble.so.1
+mumble: no-shlibs-control-file usr/lib/libmumble.so.1.1.1
+mumble: postinst-must-call-ldconfig usr/lib/libmumble.so.1.1.1
+mumble: postrm-should-call-ldconfig usr/lib/libmumble.so.1.1.1
+mumble: package-name-doesnt-match-sonames libmumble1

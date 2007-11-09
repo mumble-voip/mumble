@@ -13,6 +13,6 @@ Description: Voice chat client
 
 Package: murmur
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103)
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103),  libnet-dbus-perl (>= 0.33.5), libcgi-perl (>= 2.76), libcgi-session-perl (>= 4.20), libnet-dns-perl (>= 0.60), libcompress-zlib-perl (>= 2.005), perlmagick
 Description: Voice chat server (murmurd)
  Murmur is the VoIP server component for Mumble.

@@ -17,9 +17,7 @@ if (open(F, "$home/.dbus.sh")) {
   close(F);
 }
 
-use DBI;
 use Net::DBus;
-use Data::Dumper;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser);
 

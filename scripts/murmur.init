@@ -14,9 +14,11 @@
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 NAME=murmur
 DESC="Murmur VoIP Server"
-PIDFILE=/var/run/murmur/murmur.pid
+PIDDIR=/var/run/murmur
+PIDFILE=$PIDDIR/murmur.pid
 DAEMON=/usr/sbin/murmurd
-
+USER=Murmur
+GROUP=Murmur
 test -x $DAEMON || exit 0
 
 INIFILE=/etc/murmur.ini
@@ -33,9 +35,10 @@ fi
 case "$1" in
   start)
   	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+  	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR
 	start-stop-daemon --start --quiet \
 		--pidfile $PIDFILE \
-		--chuid Murmur:Murmur \
+		--chuid $USER:$GROUP \
 		--exec $DAEMON \
 		-- $DAEMON_OPTS
 	case "$?" in
@@ -48,7 +51,7 @@ case "$1" in
 	start-stop-daemon --stop --quiet \
 		--retry=TERM/30/KILL/5 \
 		--pidfile $PIDFILE \
-		--user Murmur \
+		--user $USER \
 		--exec $DAEMON 
 	case "$?" in
 		0|1)	rm -f $PIDFILE
@@ -60,7 +63,7 @@ case "$1" in
   force-reload)
 	start-stop-daemon --stop --test --quiet \
 		--pidfile $PIDFILE \
-		--user Murmur \
+		--user $USER \
 		--exec $DAEMON \
 	&& $0 restart || exit 0
 	;;
@@ -69,14 +72,15 @@ case "$1" in
 	start-stop-daemon --stop --quiet \
 		--retry=TERM/30/KILL/5 \
 		--pidfile $PIDFILE \
-		--user Murmur \
+		--user $USER \
 		--exec $DAEMON 
 	case "$?" in
 		0|1)
+		  	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR
 			rm -f $PIDFILE
 			start-stop-daemon --start --quiet \
 				--pidfile $PIDFILE \
-				--chuid Murmur:Murmur \
+				--chuid $USER:$GROUP \
 				--exec $DAEMON \
 				-- $DAEMON_OPTS
 			case "$?" in

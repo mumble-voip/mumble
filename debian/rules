@@ -56,41 +56,39 @@ install: build
 	# Add here commands to install the arch part of the package into 
 	# debian/tmp.
 	# $(MAKE) install 
-	install -d $(CURDIR)/debian/mumble/usr/bin
-	install -d $(CURDIR)/debian/mumble/usr/lib/mumble
-	install ./release/mumble $(CURDIR)/debian/mumble/usr/bin
-	install ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin
-	install ./release/libmumble.so.1.1.1 $(CURDIR)/debian/mumble/usr/lib/
+	install -m 0755 -D ./release/mumble $(CURDIR)/debian/mumble/usr/bin/mumble
+	install -m 0755 -D ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin/mumble-overlay
+	install -m 0644 -D ./release/libmumble.so.1.1.1 $(CURDIR)/debian/mumble/usr/lib/libmumble.so.1.1.1
 
-	# install menu entry
-	install -d $(CURDIR)/debian/mumble/usr/share/applications
-	install -d $(CURDIR)/debian/mumble/usr/share/pixmaps
-	install -m 0644 ./scripts/mumble.desktop $(CURDIR)/debian/mumble/usr/share/applications
-	install -m 0644 ./icons/mumble.png.1 $(CURDIR)/debian/mumble/usr/share/pixmaps/mumble.png
-	install -m 0644 ./icons/mumble.xpm $(CURDIR)/debian/mumble/usr/share/pixmaps
+	# install menu entry, both using debian menu and desktoplink
+	install -m 0644 -D ./scripts/mumble.desktop $(CURDIR)/debian/mumble/usr/share/applications/mumble.desktop
+	install -m 0644 -D ./scripts/mumble.gconf.defaults $(CURDIR)/debian/mumble/usr/share/gconf/defaults/10_mumble
+	install -m 0644 -D ./scripts/mumble.protocol $(CURDIR)/debian/mumble/usr/share/services/mumble.protocol
+	install -m 0644 -D ./icons/mumble.16x16.png $(CURDIR)/debian/mumble/usr/share/icons/hicolor/apps/16x16/mumble.png
+	install -m 0644 -D ./icons/mumble.32x32.png $(CURDIR)/debian/mumble/usr/share/icons/hicolor/apps/32x32/mumble.png
+	install -m 0644 -D ./icons/mumble.48x48.png $(CURDIR)/debian/mumble/usr/share/icons/hicolor/apps/48x48/mumble.png
+	install -m 0644 -D ./icons/mumble.64x64.png $(CURDIR)/debian/mumble/usr/share/icons/hicolor/apps/64x64/mumble.png
+	install -m 0644 -D ./icons/mumble.xpm $(CURDIR)/debian/mumble/usr/share/pixmaps/mumble.xpm
 
 	# And man pages
-	install -d $(CURDIR)/debian/mumble/usr/share/man/man1
-	install -m 0644 ./man/mumble.1 $(CURDIR)/debian/mumble/usr/share/man/man1
-	install -m 0644 ./man/mumble-overlay.1 $(CURDIR)/debian/mumble/usr/share/man/man1
+	install -m 0644 -D ./man/mumble.1 $(CURDIR)/debian/mumble/usr/share/man/man1/mumble.1
+	install -m 0644 -D ./man/mumble-overlay.1 $(CURDIR)/debian/mumble/usr/share/man/man1/mumble-overlay.1
 
 	# install murmur
-	install -d $(CURDIR)/debian/murmur/usr/sbin
-	install -d $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur
-	install -d $(CURDIR)/debian/murmur/etc/dbus-1/system.d
 	install -d $(CURDIR)/debian/murmur/var/lib/murmur
 	install -d $(CURDIR)/debian/murmur/var/run/murmur
 	install -d $(CURDIR)/debian/murmur/var/log/murmur
-	install -d $(CURDIR)/debian/murmur/usr/share/man/man1
-	install ./release/murmurd $(CURDIR)/debian/murmur/usr/sbin
-	install -m 0644 ./man/murmurd.1 $(CURDIR)/debian/murmur/usr/share/man/man1
-	install -m 0644 ./scripts/murmur.conf $(CURDIR)/debian/murmur/etc/dbus-1/system.d
-	install -m 0644 ./scripts/murmur.ini.system $(CURDIR)/debian/murmur/etc/murmur.ini
-	install -m 0755 ./scripts/murmur.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/register.cgi
-	install -m 0755 ./scripts/weblist.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/list.cgi
+	install -D -m 0755 ./release/murmurd $(CURDIR)/debian/murmur/usr/sbin/murmurd
+	install -D -m 0644 ./man/murmurd.1 $(CURDIR)/debian/murmur/usr/share/man/man1/murmurd.1
+	install -D -m 0644 ./scripts/murmur.conf $(CURDIR)/debian/murmur/etc/dbus-1/system.d/murmur.conf
+	install -D -m 0644 ./scripts/murmur.ini.system $(CURDIR)/debian/murmur/etc/murmur.ini
+	install -D -m 0755 ./scripts/murmur.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/register.cgi
+	install -D -m 0755 ./scripts/weblist.pl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur/list.cgi
 
-	# install init script to current, so dh_installinit finds it
+	# Add debian files
 	install -m 0755 ./scripts/murmur.init $(CURDIR)/debian
+	install -D -m 0644 ./debian/mumble.lintian-override $(CURDIR)/debian/mumble/usr/share/lintian/overrides/mumble
+	install -D -m 0644 ./debian/mumble.linda-override $(CURDIR)/debian/mumble/usr/share/linda/overrides/mumble
 
 	dh_install -s
 # Must not depend on anything. This is to be called by
@@ -110,7 +108,7 @@ binary-common:
 	dh_compress 
 	dh_fixperms
 	dh_perl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur
-	dh_makeshlibs
+	dh_makeshlibs -Xlibmumble
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol

@@ -1,8 +1,9 @@
-mumble (1.1.1-1) gutsy; urgency=low
+mumble (1.1.1-0ubuntu1) hardy; urgency=low
 
   * Bugfixes
+  * LP #129081: [needs-packaging] Mumble
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Sat, 20 Oct 2007 01:00:00 +0200
+ -- Thorvald Natvig <slicer@sourceforge.net>  Fri, 09 Nov 2007 01:00:00 +0200
 
 mumble (1.1.0) gutsy; urgency=low
 

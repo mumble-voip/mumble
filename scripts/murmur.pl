@@ -45,7 +45,6 @@ use CGI::Session;
 use Net::SMTP;
 use Net::DNS;
 use Net::DBus;
-use Digest::SHA1 qw(sha1_hex);
 use Image::Magick;
 use Compress::Zlib;
 

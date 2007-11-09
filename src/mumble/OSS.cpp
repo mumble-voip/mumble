@@ -149,8 +149,6 @@ OSSEnumerator::OSSEnumerator() {
 			qWarning("OSSEnumerator: SNDCTL_AUDIOINFO failed for device %d", i);
 			continue;
 		}
-		qWarning("DeviceNode: %s", ainfo.devnode);
-		qWarning("DeviceName: %s", ainfo.name);
 
 		QString handle = QLatin1String(ainfo.handle);
 		QString name = QLatin1String(ainfo.name);
