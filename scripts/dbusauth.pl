@@ -18,7 +18,9 @@ our $dbhost="localhost";
 # Assign user id as phpbb3 user_id plus this, to avoid clashing
 # with local murmur users. If you're going to use ONLY external 
 # authentication, you can set this to 1, but there's no real point.
-our $id_offset = 100000;
+# Note that Mumble ignores values above 1000000000 when allocating
+# player IDs on its own, so you probably want to leave this alone.
+our $id_offset = 1000000000;
 
 # Path to phpBB user avatars. If you want to disable avatar support, set
 # this blank. This can be either a directory path or a full URL.

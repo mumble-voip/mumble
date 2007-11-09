@@ -1,28 +1,15 @@
 #! /usr/bin/perl
-# For now, this is a CGI using Perl.
 #
-# CGIs actually have an added bonus; with suexec they will run
-# as their own user, meaning the database doesn't have to be 
-# world-writable.
+# For now, this is a CGI using Perl.
 #
 
 use warnings;
 use strict;
-use CGI;
-use CGI::Carp 'fatalsToBrowser';
-use Net::SMTP;
-use Net::DNS;
-use DBI qw(:sql_types);
-use Digest::SHA1 qw(sha1_hex);
-use Image::Magick;
 
 ## User configurable settings:
 
 # What's the name of this server?
 our $servername = "Mumble & Murmur Test Server";
-
-# Where is the murmur.sqlite database to be found?
-our $dbpath = "murmur.sqlite";
 
 # Who should outgoing authentication emails be from?
 our $emailfrom = "";
@@ -30,7 +17,37 @@ our $emailfrom = "";
 # And what server should be used?
 our $emailserver = "localhost";
 
+# Which server to add to? Unless you have multiple virtual servers,
+# this is always 1
+our $serverid = 1;
+
 ## End of user configurable data
+##
+## Really. You shouldn't touch anything below this point.
+
+# If we're being run as a CGI in suexec, $HOME doesn't exist. Fake it.
+my $home = (getpwuid($<))[7];
+
+# This needs to be done before "use Net::DBus"
+if (open(F, "$home/.dbus.sh")) {
+  while(<F>) {
+    chomp();
+    if ($_ =~ /^(.+?)\='(.+)';$/) {
+      $ENV{$1}=$2;
+    }
+  }
+  close(F);
+}
+
+use CGI;
+use CGI::Carp 'fatalsToBrowser';
+use CGI::Session;
+use Net::SMTP;
+use Net::DNS;
+use Net::DBus;
+use Digest::SHA1 qw(sha1_hex);
+use Image::Magick;
+use Compress::Zlib;
 
 sub randomCode($) {
   my ($length) = @_;
@@ -47,12 +64,40 @@ if ($emailfrom eq "") {
   croak("Missing configuration");
 }
 
-my $dbh = DBI->connect("dbi:SQLite:dbname=${dbpath}", "", "") or croak $DBI::errstr;
 my $showit = 1;
 
+CGI::Session->find( sub { } );
+
 my $q = new CGI();
-print $q->header();
+my $s = new CGI::Session();
+
+$s->expire('+1d');
+
+print $s->header();
 print $q->start_html(-title=>"Registration");
+
+my $bus;
+my $service;
+
+# First try the system bus
+eval {
+  $bus=Net::DBus->system();
+  $service = $bus->get_service("net.sourceforge.mumble.murmur");
+};
+
+# If that failed, the session bus
+if (! $service) {
+  eval {
+    $bus = Net::DBus->session();
+    $service = $bus->get_service("net.sourceforge.mumble.murmur");
+  }
+}
+
+die "Murmur service not found" if (! $service);
+
+# Fetch handle to remote object
+my $object = $service->get_object("/$serverid");
+my $res;
 
 my $auth = $q->param('auth');
 my $name = $q->param('name');
@@ -60,43 +105,39 @@ my $pw = $q->param('pw');
 my $email = $q->param('email');
 my $image = $q->upload('image');
 
-if ($auth) {
-   my $sth = $dbh->prepare("SELECT * FROM player_auth WHERE authcode = ?");
-   $sth->execute($q->param('auth'));
-   if (my $r = $sth->fetchrow_hashref()) {
-     # Find lowest unused ID which isn't a proxy.
-     my $idh = $dbh->prepare("SELECT MAX(player_id)+1 AS id FROM players WHERE player_id < 100000");
-     $idh->execute();
-     my $idr = $idh->fetchrow_hashref();
-     my $id = $$idr{'id'};
-     $idh->finish();
-
-     my $ins = $dbh->prepare("INSERT INTO players (server_id, player_id, name, email, pw) VALUES (?,?,?,?,?)");
-     $ins->execute(1, $id, $$r{'name'}, $$r{'email'}, $$r{'pw'});
-     $ins->finish();
-     print "<h1>Succeeded</h1><p>Thank you for registering.</p>";
-   } else {
-     print "<h1>Tsk tsk</h1><p>Now, that's not a valid auth code, is it?</p>";
-   }
-   $sth->finish();
-   $sth = $dbh->prepare("DELETE FROM player_auth WHERE authcode = ?");
-   $sth->execute($q->param('auth'));
-   $sth->finish();
-   $showit = 0;
+if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
+  $res = $object->getRegisteredPlayers($s->param('name'));
+  if ($#{$res} == 0) {
+    my $aref = $$res[0];
+    if ($email ne $$aref[2]) {
+      $$aref[3] = $s->param('pw');
+      $object->updateRegistration($aref);
+      print "<h1>Updated password</h1><p>Your password has been reset.</p>";
+    } else {
+      print "<h1>Apologies</h1><p>Someone has already registered that name in the meantime.</p>";
+    }
+  } else {
+    $res = $object->registerPlayer($s->param('name'));
+    if (($res != 0) && ($res != "0")) { 
+      my @array = ($res, $s->param('name'), $s->param('email'), $s->param('pw'));
+      $object->updateRegistration(\@array);
+      print "<h1>Succeeded</h1><p>Thank you for registering.</p>";
+    } else {
+      print "<h1>Failed</h1><p>Username rejected by server.</p>";
+    }
+  }
+  $s->clear();
 } elsif (defined($name) && defined($pw) && defined($image)) {
-   my $sth = $dbh->prepare("SELECT * FROM players WHERE name = ? AND pw = ?");
-   $sth->execute($name,$pw);
-   my $r = $sth->fetchrow_hashref();
-   $sth->finish();
-   if (! $r) {
+   my $id = $object->getPlayerIds( [ $name ] );
+   $res = $object->verifyPassword($$id[0], $pw);
+   if (! $res) {
      print "<h1>Tsk tsk</h1><p>Now, that's not a valid user and password, is it?</p>";
    } else {
      my $blob;
      sysread($image,$blob,1000000);
      my $image=Image::Magick->new();
-     $r=$image->BlobToImage($blob);
+     my $r=$image->BlobToImage($blob);
      if (! $r) {
-#       $image->Crop(x => 0, y => 0, width => 600, height => 60);
        $image->Extent(x => 0, y => 0, width => 600, height => 60);
        my $out=$image->ImageToBlob(magick => 'rgba', depth => 8);
        if (length($out) == (600*60*4)) {
@@ -108,12 +149,8 @@ if ($auth) {
            $a[$i*4]=$blue;
            $a[$i*4+2]=$red;
          }
-         $out=pack("C*",@a);   
-         $sth=$dbh->prepare("UPDATE players SET texture=? WHERE name=?");
-         $sth->bind_param(1, $out, SQL_BLOB);
-         $sth->bind_param(2, $name);
-         $sth->execute();
-         $sth->finish();
+         @a=unpack("C*", pack("N", $#a + 1) . compress(pack("C*",@a)));
+         $res = $object->setTexture($$id[0], \@a);
        } else {
          $r=1;
        }
@@ -145,23 +182,22 @@ if ($auth) {
       push @errors, "And how am I supposed to send email there?";
     }
   }
-  
-  my $sth=$dbh->prepare("SELECT name FROM players WHERE name like ?");
-  $sth->execute($name);
-  if (my $r=$sth->fetchrow_hashref()) {
-    push @errors, "Name is already taken";
+
+  $res=$object->getRegisteredPlayers($name);
+  if ( $#{$res} == 0 ) {
+    my $aref = $$res[0];
+    if ($email ne $$aref[2]) {
+      push @errors, "Name is already taken";
+    }
   }
   
   if ($#errors == -1) {
     my $code = randomCode(10);
-    
-    $sth=$dbh->prepare("DELETE FROM player_auth WHERE name like ?");
-    $sth->execute($name);
-    $sth->finish();
-    $sth=$dbh->prepare("INSERT INTO player_auth (name, pw, email, authcode) VALUES (?,?,?,?)");
-    $sth->execute($name, sha1_hex($pw), $email, $code);
-    $sth->finish();
-    $showit = 0;
+
+    $s->param('name', $name);
+    $s->param('pw', $pw);
+    $s->param('email', $email);
+    $s->param('auth', $code);
     
     my $smtp = new Net::SMTP($emailserver);
     $smtp->mail($emailfrom);
@@ -194,6 +230,10 @@ if ($auth) {
 
 if ($showit) {
   print '<h1>Registration form</h1>';
+  print '<p>Fill out your desired username, password and your current email address. A mail will be sent to you ';
+  print 'with an authentication code.</p>';
+  print '<p>If you\'ve forgotten your password, just reregister with the same name and email address. A new ';
+  print 'confirmation email will be sent.</p>';
   print '<p>';
   print $q->start_form(-method=>'POST');
   print "Username ";

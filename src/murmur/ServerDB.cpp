@@ -437,7 +437,7 @@ int Server::registerPlayer(const QString &name) {
 
 	QSqlQuery query;
 
-	SQLPREP("SELECT MAX(player_id)+1 AS id FROM %1players WHERE server_id=?");
+	SQLPREP("SELECT MAX(player_id)+1 AS id FROM %1players WHERE server_id=? AND player_id < 1000000000");
 	query.addBindValue(iServerNum);
 	SQLEXEC();
 	int id = 0;
@@ -637,24 +637,26 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 	if (id <= 0)
 		return false;
 
-	QByteArray tex = qUncompress(texture);
-	if (tex.isEmpty())
+	QByteArray tex;
+	if (texture.size() != 600 * 60 * 4) 
+	 	tex = qUncompress(texture);
+	else
 		tex = texture;
 
 	if (tex.size() != 600 * 60 * 4)
 		return false;
-		
+
 	tex = qCompress(tex);
 
 	int res = dbus->dbusSetTexture(id, tex);
 	if (res >= 0)
 		return (res > 0);
-		
+
 	TransactionHolder th;
 
 	QSqlQuery query;
 	SQLPREP("UPDATE %1players SET texture=? WHERE server_id = ? AND player_id=?");
-	query.addBindValue(tex);
+	query.addBindValue(tex, QSql::Binary | QSql::In);
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
