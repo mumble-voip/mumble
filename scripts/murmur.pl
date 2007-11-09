@@ -47,6 +47,7 @@ use Net::DNS;
 use Net::DBus;
 use Image::Magick;
 use Compress::Zlib;
+use Config::Simple;
 
 sub randomCode($) {
   my ($length) = @_;
@@ -57,10 +58,6 @@ sub randomCode($) {
     $ret .= substr($chars, rand(int(length($chars))), 1);
   }
   return $ret;
-}
-
-if ($emailfrom eq "") {
-  croak("Missing configuration");
 }
 
 my $showit = 1;
@@ -82,6 +79,10 @@ my $service;
 eval {
   $bus=Net::DBus->system();
   $service = $bus->get_service("net.sourceforge.mumble.murmur");
+  
+  my $cfg = new Config::Simple(filename => '/etc/murmur.ini', syntax => 'simple');
+  $servername = $cfg->param("registerName") || $servername;
+  $emailfrom = $cfg->param("emailfrom") || $emailfrom;
 };
 
 # If that failed, the session bus
@@ -93,6 +94,14 @@ if (! $service) {
 }
 
 die "Murmur service not found" if (! $service);
+
+if (! defined($emailfrom) || ($emailfrom eq "")) {
+  croak(qq{Missing configuration. 
+  Please edit either /etc/murmur.ini for systemwide installations,
+  or murmur.pl for a personal one.
+  });
+}
+
 
 # Fetch handle to remote object
 my $object = $service->get_object("/$serverid");

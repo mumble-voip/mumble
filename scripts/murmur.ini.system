@@ -1,15 +1,9 @@
-# Path to database. If blank, will search for
-# murmur.sqlite in default locations.
-database=/var/lib/murmur/murmur.sqlite
-
-# PIDfile to use
-# Leave blank to place pidfile in current directory
-pidfile=/var/run/murmur/murmur.pid
-
-# Murmur defaults to not using D-Bus. If you wish to use dbus, please
-# specify so here.
-#
-dbus=system
+# To enable username registration through
+# http://webserver/cgi-bin/murmur/register.cgi
+# then this value must be set to a valid email
+# and you must be running a SMTP server on this
+# machine.
+#emailfrom = 
 
 # How many login attempts do we tolerate from one IP
 # inside a given timeframe before we ban the connection?
@@ -19,10 +13,6 @@ dbus=system
 #autobanAttempts = 10
 #autobanTimeframe = 120
 #autobanTime = 300
-
-# Murmur default to logging to murmur.log. If you leave this blank,
-# murmur will log to the console (linux) or through message boxes (win32).
-logfile=/var/log/murmur/murmur.log
 
 # The below will be used as defaults for new configured servers.
 # If you're just running one server (the default), it's easier to
@@ -63,3 +53,21 @@ users=100
 # If you have a proper SSL certificate, you can provide the filenames here.
 #sslCert=
 #sslKey=
+
+# Path to database. If blank, will search for
+# murmur.sqlite in default locations.
+database=/var/lib/murmur/murmur.sqlite
+
+# PIDfile to use
+# Leave blank to place pidfile in current directory
+pidfile=/var/run/murmur/murmur.pid
+
+# Murmur defaults to not using D-Bus. If you wish to use dbus, please
+# specify so here.
+#
+dbus=system
+
+# Murmur default to logging to murmur.log. If you leave this blank,
+# murmur will log to the console (linux) or through message boxes (win32).
+logfile=/var/log/murmur/murmur.log
+
