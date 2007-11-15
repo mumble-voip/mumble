@@ -62,7 +62,6 @@ install: build
 
 	# install menu entry, both using debian menu and desktoplink
 	install -m 0644 -D ./scripts/mumble.desktop $(CURDIR)/debian/mumble/usr/share/applications/mumble.desktop
-	install -m 0644 -D ./scripts/mumble.gconf.defaults $(CURDIR)/debian/mumble/usr/share/gconf/defaults/10_mumble
 	install -m 0644 -D ./scripts/mumble.protocol $(CURDIR)/debian/mumble/usr/share/services/mumble.protocol
 	install -m 0644 -D ./icons/mumble.16x16.png $(CURDIR)/debian/mumble/usr/share/icons/hicolor/apps/16x16/mumble.png
 	install -m 0644 -D ./icons/mumble.32x32.png $(CURDIR)/debian/mumble/usr/share/icons/hicolor/apps/32x32/mumble.png
@@ -76,7 +75,6 @@ install: build
 
 	# install murmur
 	install -d $(CURDIR)/debian/murmur/var/lib/murmur
-	install -d $(CURDIR)/debian/murmur/var/run/murmur
 	install -d $(CURDIR)/debian/murmur/var/log/murmur
 	install -D -m 0755 ./release/murmurd $(CURDIR)/debian/murmur/usr/sbin/murmurd
 	install -D -m 0644 ./man/murmurd.1 $(CURDIR)/debian/murmur/usr/share/man/man1/murmurd.1
@@ -87,6 +85,7 @@ install: build
 
 	# Add debian files
 	install -m 0755 ./scripts/murmur.init $(CURDIR)/debian
+	install -m 0644 ./scripts/mumble.gconf-defaults $(CURDIR)/debian
 	install -D -m 0644 ./debian/mumble.lintian-override $(CURDIR)/debian/mumble/usr/share/lintian/overrides/mumble
 	install -D -m 0644 ./debian/mumble.linda-override $(CURDIR)/debian/mumble/usr/share/linda/overrides/mumble
 
@@ -103,6 +102,9 @@ binary-common:
 	dh_installmenu
 	dh_installinit
 	dh_installman
+	dh_gconf
+	dh_icons
+	dh_desktop
 	dh_link
 	dh_strip
 	dh_compress 

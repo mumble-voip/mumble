@@ -1,18 +1,34 @@
 Source: mumble
-Section: universe/comm
+Maintainer: Ubuntu Universe Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Thorvald Natvig <slicer@users.sourceforge.net>
+Section: sound
 Priority: optional
-Maintainer: Thorvald Natvig <slicer@sourceforge.net>
+Homepage: http://mumble.sourceforge.net/
 Build-Depends: debhelper (>= 5.0.0), libqt4-dev (>= 4.3.0), libboost-dev (>= 1.34.1), libasound2-dev (>= 1.0.14), libxevie-dev (>= 1.0.2)
 Standards-Version: 3.7.2.2
 
 Package: mumble
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Voice chat client
+Description: Low latency VoIP client
  Mumble is a low-latency, high quality voice chat program for gaming.
+ It features noise supression, automatic gain control and low latency audio
+ under both ALSA and OSS.
+ Mumble inclues an ingame overlay compatible with most opensource and
+ commercial OpenGL applications.
+ Mumble is just a client and uses a proprietary protocol. You will need
+ a dedicated server to talk to other users. Server functionality is provided
+ by the package "murmur".
 
 Package: murmur
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103),  libnet-dbus-perl (>= 0.33.5), libcgi-perl (>= 2.76), libcgi-session-perl (>= 4.20), libnet-dns-perl (>= 0.60), libcompress-zlib-perl (>= 2.005), perlmagick, libconfig-simple-perl (>= 4.59)
-Description: Voice chat server (murmurd)
+Description: Low laency VoIP server
  Murmur is the VoIP server component for Mumble.
+ Murmur is installed in a systemwide fashion, but can also be run by
+ individual users.
+ Each murmur process supports multiple virtual servers, each with their
+ own userbase and channel list.
+ Administration of murmur is done through D-Bus. Example scripts which
+ register new users and list connected users through a webpage are
+ included.

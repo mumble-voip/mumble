@@ -8,3 +8,4 @@ Terminal=false
 Type=Application
 StartupNotify=false
 Categories=Network;Chat;Qt;
+Version=1.0

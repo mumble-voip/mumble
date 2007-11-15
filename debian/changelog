@@ -1,36 +1,36 @@
 mumble (1.1.1-0ubuntu1) hardy; urgency=low
 
   * Bugfixes
-  * LP #129081: [needs-packaging] Mumble
+  * Packaging for inclusion in universe (LP #129081)
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Fri, 09 Nov 2007 01:00:00 +0200
+ -- Thorvald Natvig <slicer@users.sourceforge.net>  Fri, 09 Nov 2007 01:00:00 +0200
 
 mumble (1.1.0) gutsy; urgency=low
 
   * Multiserver support
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Fri, 19 Oct 2007 14:15:00 +0200
+ -- Thorvald Natvig <slicer@users.sourceforge.net>  Fri, 19 Oct 2007 14:15:00 +0200
 
 mumble (1.0.0) feisty; urgency=low
 
   * Bugfix release
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Tue, 27 Jun 2007 13:35:20 +0200
+ -- Thorvald Natvig <slicer@users.sourceforge.net>  Tue, 27 Jun 2007 13:35:20 +0200
 
 mumble (0.9.5) feisty; urgency=low
 
   * Embedded speex
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Tue, 12 Jun 2007 13:48:10 +0200
+ -- Thorvald Natvig <slicer@users.sourceforge.net>  Tue, 12 Jun 2007 13:48:10 +0200
 
 mumble (0.9.4) edgy; urgency=low
 
   * Global shortcuts working
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Sat, 14 Oct 2006 15:54:32 +0200
+ -- Thorvald Natvig <slicer@users.sourceforge.net>  Sat, 14 Oct 2006 15:54:32 +0200
 
 mumble (0.9.3) dapper; urgency=low
 
   * Initial Release.
 
- -- Thorvald Natvig <slicer@sourceforge.net>  Thu, 28 Sep 2006 16:31:58 +0200
+ -- Thorvald Natvig <slicer@users.sourceforge.net>  Thu, 28 Sep 2006 16:31:58 +0200
