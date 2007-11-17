@@ -526,8 +526,7 @@ ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *, long index, ASIOBool) {
 }
 
 void
-ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst)
-{
+ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst) {
 	switch (sampType) {
 		case ASIOSTInt16LSB: {
 				short *buf=static_cast<short *>(src);

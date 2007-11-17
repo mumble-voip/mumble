@@ -76,9 +76,9 @@ void Connection::socketRead() {
 	// So, this is a big workaround to serialize user requests.
 
 	int iPrevLevel = iReceiveLevel;
-	
+
 	iReceiveLevel = 2;
-	
+
 	if (iPrevLevel == 2) {
 		// Recursive entry. Put on list and ignore.
 		qsReceivers.insert(this);
@@ -113,9 +113,9 @@ void Connection::socketRead() {
 
 		emit message(qbaBuffer);
 	}
-	
+
 	// At this point, the current *this might be destroyed.
-	
+
 	if (iPrevLevel == 0) {
 		iReceiveLevel = 1;
 		QSet<Connection *>::const_iterator i = qsReceivers.constBegin();

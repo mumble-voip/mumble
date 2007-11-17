@@ -47,56 +47,54 @@ typedef boost::weak_ptr<PortAudioSystem> WeakPortAudioSystemPtr;
  * Basically this ensures that the PA lib is initialized and terminated properly and that
  * several threads can open/close streams as they like.
  */
-class PortAudioSystem
-{
-	//! Mutex for serializing self() calls
-	static QMutex qmSystem;
-	
-	//! Our singleton pointer
-	static WeakPortAudioSystemPtr wpaSystem;
+class PortAudioSystem {
+		//! Mutex for serializing self() calls
+		static QMutex qmSystem;
 
-	//! Mutex around PA stream creation/deletion
-	QMutex muStream;
+		//! Our singleton pointer
+		static WeakPortAudioSystemPtr wpaSystem;
 
-	//! Private constructor, we're a singleton
-	PortAudioSystem();
-	
-	//! Fills qhHostApis
-	void enumerateDevices();
-public:
-	class HostApiDevices {
-		public:
-			QString qsHostApiName;
-			QHash<PaDeviceIndex, QString> qhInputs;
-			QHash<PaDeviceIndex, QString> qhOutputs;
-	};
-	/**
-	 * @brief mapping of APIs and inputs/outputs provided by this API
-	 *
-	 * @todo Make this a QStandardItemModel and update dynamically as devices get added/removed
-	 *       (not sure if PortAudio supports this but it really should!).
-	 **/
-	QHash<PaHostApiIndex, HostApiDevices> qhHostApis;
+		//! Mutex around PA stream creation/deletion
+		QMutex muStream;
 
-	/**
-	 * Accessor, keep the pointer around until you don't need it anymore.
-	 * Returned pointers are ref-counted so if nothing keeps a pointer PortAudioSystem
-	 * will get deleted again
-	 **/
-	static PortAudioSystemPtr self();
-	
-	bool initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, bool isInput);
-	bool terminateStream(PaStream *stream);
-	
-	bool startStream(PaStream *stream);
-	bool stopStream(PaStream *stream);
+		//! Private constructor, we're a singleton
+		PortAudioSystem();
 
-	~PortAudioSystem();
+		//! Fills qhHostApis
+		void enumerateDevices();
+	public:
+		class HostApiDevices {
+			public:
+				QString qsHostApiName;
+				QHash<PaDeviceIndex, QString> qhInputs;
+				QHash<PaDeviceIndex, QString> qhOutputs;
+		};
+		/**
+		 * @brief mapping of APIs and inputs/outputs provided by this API
+		 *
+		 * @todo Make this a QStandardItemModel and update dynamically as devices get added/removed
+		 *       (not sure if PortAudio supports this but it really should!).
+		 **/
+		QHash<PaHostApiIndex, HostApiDevices> qhHostApis;
+
+		/**
+		 * Accessor, keep the pointer around until you don't need it anymore.
+		 * Returned pointers are ref-counted so if nothing keeps a pointer PortAudioSystem
+		 * will get deleted again
+		 **/
+		static PortAudioSystemPtr self();
+
+		bool initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, bool isInput);
+		bool terminateStream(PaStream *stream);
+
+		bool startStream(PaStream *stream);
+		bool stopStream(PaStream *stream);
+
+		~PortAudioSystem();
 };
 
 
-class PortAudioInput : public AudioInput
-{
+class PortAudioInput : public AudioInput {
 		Q_OBJECT
 	public:
 		PortAudioInput();
@@ -105,8 +103,7 @@ class PortAudioInput : public AudioInput
 };
 
 
-class PortAudioOutput : public AudioOutput
-{
+class PortAudioOutput : public AudioOutput {
 		Q_OBJECT
 	public:
 		PortAudioOutput();

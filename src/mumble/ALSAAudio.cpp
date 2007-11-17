@@ -77,18 +77,18 @@ AudioInput *ALSAAudioInputRegistrar::create() {
 const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-        QStringList qlInputDevs = cards.qhInput.keys();
-        qSort(qlInputDevs);
+	QStringList qlInputDevs = cards.qhInput.keys();
+	qSort(qlInputDevs);
 
-        if (qlInputDevs.contains(g.s.qsALSAInput)) {   
-                qlInputDevs.removeAll(g.s.qsALSAInput);
-                qlInputDevs.prepend(g.s.qsALSAInput);
-        }
+	if (qlInputDevs.contains(g.s.qsALSAInput)) {
+		qlInputDevs.removeAll(g.s.qsALSAInput);
+		qlInputDevs.prepend(g.s.qsALSAInput);
+	}
 
-        foreach(const QString &dev, qlInputDevs) {
+	foreach(const QString &dev, qlInputDevs) {
 		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhInput[dev]);
-                qlReturn << audioDevice(t, dev);
-        }
+		qlReturn << audioDevice(t, dev);
+	}
 
 	return qlReturn;
 }
@@ -108,18 +108,18 @@ AudioOutput *ALSAAudioOutputRegistrar::create() {
 const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-        QStringList qlOutputDevs = cards.qhOutput.keys();
-        qSort(qlOutputDevs);
+	QStringList qlOutputDevs = cards.qhOutput.keys();
+	qSort(qlOutputDevs);
 
-        if (qlOutputDevs.contains(g.s.qsALSAOutput)) {   
-                qlOutputDevs.removeAll(g.s.qsALSAOutput);
-                qlOutputDevs.prepend(g.s.qsALSAOutput);
-        }
+	if (qlOutputDevs.contains(g.s.qsALSAOutput)) {
+		qlOutputDevs.removeAll(g.s.qsALSAOutput);
+		qlOutputDevs.prepend(g.s.qsALSAOutput);
+	}
 
-        foreach(const QString &dev, qlOutputDevs) {
+	foreach(const QString &dev, qlOutputDevs) {
 		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhInput[dev]);
-                qlReturn << audioDevice(t, dev);
-        }
+		qlReturn << audioDevice(t, dev);
+	}
 
 	return qlReturn;
 }
@@ -249,14 +249,14 @@ void ALSAConfig::save() const {
 }
 
 void ALSAConfig::load(const Settings &r) {
-	for(int i=0;i<qcbInputDevice->count();i++) {
+	for (int i=0;i<qcbInputDevice->count();i++) {
 		if (qcbInputDevice->itemData(i).toString() == r.qsALSAInput) {
 			loadComboBox(qcbInputDevice, i);
 			break;
 		}
 	}
 
-	for(int i=0;i<qcbOutputDevice->count();i++) {
+	for (int i=0;i<qcbOutputDevice->count();i++) {
 		if (qcbOutputDevice->itemData(i).toString() == r.qsALSAOutput) {
 			loadComboBox(qcbOutputDevice, i);
 			break;

@@ -133,8 +133,7 @@ int ModelItem::insertIndex(Channel *c) const {
 		if (item->cChan) {
 			if (item->cChan != c)
 				qls << item->cChan->qsName;
-		}
-		else
+		} else
 			ocount++;
 	}
 	qls << c->qsName;
@@ -153,8 +152,7 @@ int ModelItem::insertIndex(ClientPlayer *p) const {
 		if (item->pPlayer) {
 			if (item->pPlayer != p)
 				qls << item->pPlayer->qsName;
-		}
-		else
+		} else
 			ocount++;
 	}
 
@@ -437,15 +435,15 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	// The selection is stored as "from"-"to" pairs, so if we move up in the same channel,
 	// we'd move only "from" and select half the channel.
 
-        QAbstractItemView *v=g.mw->qtvPlayers;
-        QItemSelectionModel *sel=v->selectionModel();
-        QPersistentModelIndex active;
-        QModelIndex oindex = createIndex(oldrow, 0, item);
+	QAbstractItemView *v=g.mw->qtvPlayers;
+	QItemSelectionModel *sel=v->selectionModel();
+	QPersistentModelIndex active;
+	QModelIndex oindex = createIndex(oldrow, 0, item);
 	if (sel->isSelected(oindex) || (oindex == v->currentIndex())) {
 		active = index(item);
-                v->clearSelection();
-                v->setCurrentIndex(QModelIndex());
-        }
+		v->clearSelection();
+		v->setCurrentIndex(QModelIndex());
+	}
 
 	ModelItem *t = new ModelItem(item);
 	oldparent->qlChildren.replace(oldrow, t);

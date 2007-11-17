@@ -86,14 +86,14 @@ QIcon DXConfigDialog::icon() const {
 }
 
 void DXConfigDialog::load(const Settings &r) {
-	for(int i=0;i<qcbInputDevice->count();i++) {
+	for (int i=0;i<qcbInputDevice->count();i++) {
 		if (qcbInputDevice->itemData(i).toByteArray() == r.qbaDXInput) {
 			qcbInputDevice->setCurrentIndex(i);
 			break;
 		}
 	}
 
-	for(int i=0;i<qcbOutputDevice->count();i++) {
+	for (int i=0;i<qcbOutputDevice->count();i++) {
 		if (qcbOutputDevice->itemData(i).toByteArray() == r.qbaDXOutput) {
 			qcbOutputDevice->setCurrentIndex(i);
 			break;

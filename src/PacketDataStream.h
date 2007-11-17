@@ -58,7 +58,7 @@ class PacketDataStream {
 		quint32 left() const {
 			return maxsize - offset;
 		}
-		
+
 		quint32 undersize() const {
 			return overshoot;
 		}

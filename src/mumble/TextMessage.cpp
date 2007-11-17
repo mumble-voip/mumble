@@ -63,13 +63,13 @@ void TextMessage::on_qteEdit_textChanged() {
 				QString url = qr.capturedTexts().at(0);
 				QUrl u(url);
 				if (u.isValid()) {
-				  int len = qr.matchedLength();
-				  QString replacement = QString::fromLatin1("<a href=\"%1\">%1</a>").arg(url);
-				  qsRep.replace(idx, len, replacement);
-				  idx += replacement.length();
+					int len = qr.matchedLength();
+					QString replacement = QString::fromLatin1("<a href=\"%1\">%1</a>").arg(url);
+					qsRep.replace(idx, len, replacement);
+					idx += replacement.length();
 				} else {
-				  idx++;
-			 	}
+					idx++;
+				}
 			}
 		} while (idx >= 0);
 	}
@@ -85,13 +85,13 @@ bool TextMessage::eventFilter(QObject *obj, QEvent *evt) {
 	if (obj != qteEdit)
 		return false;
 	if (evt->type() == QEvent::KeyPress) {
-	             QKeyEvent *keyEvent = static_cast<QKeyEvent *>(evt);
-	             if (((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return)) &&
-	                 (keyEvent->modifiers() == Qt::NoModifier)) {
-				 accept();
-				 return true;
-	     		}
-     	}
-     	return false;
+		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(evt);
+		if (((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return)) &&
+		        (keyEvent->modifiers() == Qt::NoModifier)) {
+			accept();
+			return true;
+		}
+	}
+	return false;
 }
 

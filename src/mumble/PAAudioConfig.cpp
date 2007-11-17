@@ -75,7 +75,7 @@ void PAAudioConfig::load(const Settings &r) {
 		}
 		++idx;
 	} while (qlwi);
-	
+
 	qlwi = NULL;
 	idx = 0;
 	do {
@@ -101,7 +101,7 @@ void PAAudioConfig::save() const {
 	lwi = (qlSel.isEmpty() ? NULL : qlSel.first());
 	if (lwi)
 		s.iPortAudioOutput = lwi->data(Qt::UserRole).toInt();
-	
+
 	qWarning() << "PAAudioConfig::save(); saved input device index  :" << s.iPortAudioInput;
 	qWarning() << "PAAudioConfig::save(); saved output device index :" << s.iPortAudioOutput;
 }
@@ -115,18 +115,15 @@ void PAAudioConfig::setupDevicesList() {
 
 	QHash<PaHostApiIndex, PortAudioSystem::HostApiDevices>::const_iterator apiIt;
 	QHash<PaHostApiIndex, PortAudioSystem::HostApiDevices>::const_iterator apiItEnd = pSys->qhHostApis.constEnd();
-	for (apiIt = pSys->qhHostApis.constBegin(); apiIt != apiItEnd; ++apiIt)
-	{
+	for (apiIt = pSys->qhHostApis.constBegin(); apiIt != apiItEnd; ++apiIt) {
 		QHash<PaDeviceIndex, QString>::const_iterator devIt;
 		QHash<PaDeviceIndex, QString>::const_iterator devItEnd;
 
 		const PortAudioSystem::HostApiDevices devs = apiIt.value();
-		
-		if (!devs.qhInputs.isEmpty())
-		{
+
+		if (!devs.qhInputs.isEmpty()) {
 			devItEnd = devs.qhInputs.constEnd();
-			for (devIt = devs.qhInputs.constBegin(); devIt != devItEnd; ++devIt)
-			{
+			for (devIt = devs.qhInputs.constBegin(); devIt != devItEnd; ++devIt) {
 				QString devName;
 				// special case default device, there's no real hostapi behind it
 				if (apiIt.key() == -1)
@@ -141,11 +138,9 @@ void PAAudioConfig::setupDevicesList() {
 			}
 		}
 
-		if (!devs.qhOutputs.isEmpty())
-		{
+		if (!devs.qhOutputs.isEmpty()) {
 			devItEnd = devs.qhOutputs.constEnd();
-			for (devIt = devs.qhOutputs.constBegin(); devIt != devItEnd; ++devIt)
-			{
+			for (devIt = devs.qhOutputs.constBegin(); devIt != devItEnd; ++devIt) {
 				QString devName;
 				// special case default device, there's no real hostapi behind it
 				if (apiIt.key() == -1)
@@ -166,7 +161,7 @@ void PAAudioConfig::fixSelection(const QItemSelection &, const QItemSelection &d
 	QItemSelectionModel *selModel = qobject_cast<QItemSelectionModel *>(sender());
 	if (!selModel)
 		return;
-	
+
 	if (selModel->hasSelection())
 		return;
 

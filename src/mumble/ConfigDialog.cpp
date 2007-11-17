@@ -101,29 +101,29 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	on_qcbExpert_clicked(g.s.bExpert);
 
-        QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
-        okButton->setToolTip(tr("Accept changes"));
-        okButton->setWhatsThis(tr("This button will accept current settings and return to the application.<br />"
-                                  "The settings will be stored to disk when you leave the application."));
+	QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
+	okButton->setToolTip(tr("Accept changes"));
+	okButton->setWhatsThis(tr("This button will accept current settings and return to the application.<br />"
+	                          "The settings will be stored to disk when you leave the application."));
 
-        QPushButton *cancelButton = dialogButtonBox->button(QDialogButtonBox::Cancel);
-        cancelButton->setToolTip(tr("Reject changes"));
-        cancelButton->setWhatsThis(tr("This button will reject all changes and return to the application.<br />"
-                                      "The settings will be reset to the previous positions."));
+	QPushButton *cancelButton = dialogButtonBox->button(QDialogButtonBox::Cancel);
+	cancelButton->setToolTip(tr("Reject changes"));
+	cancelButton->setWhatsThis(tr("This button will reject all changes and return to the application.<br />"
+	                              "The settings will be reset to the previous positions."));
 
-        QPushButton *applyButton = dialogButtonBox->button(QDialogButtonBox::Apply);
-        applyButton->setToolTip(tr("Apply changes"));
-        applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
+	QPushButton *applyButton = dialogButtonBox->button(QDialogButtonBox::Apply);
+	applyButton->setToolTip(tr("Apply changes"));
+	applyButton->setWhatsThis(tr("This button will immediately apply all changes."));
 
-        QPushButton *resetButton = pageButtonBox->button(QDialogButtonBox::Reset);
-        resetButton->setToolTip(tr("Undo changes for current page"));
-        resetButton->setWhatsThis(tr("This button will revert any changes done on the current page to the most recent applied settings."));
+	QPushButton *resetButton = pageButtonBox->button(QDialogButtonBox::Reset);
+	resetButton->setToolTip(tr("Undo changes for current page"));
+	resetButton->setWhatsThis(tr("This button will revert any changes done on the current page to the most recent applied settings."));
 
-        QPushButton *restoreButton = pageButtonBox->button(QDialogButtonBox::RestoreDefaults);
-        restoreButton->setToolTip(tr("Restore defaults for current page"));
-        restoreButton->setWhatsThis(tr("This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.<br />"
-        			"To restore all settings to their defaults, you will have to use this button on every page."
-  			      ));
+	QPushButton *restoreButton = pageButtonBox->button(QDialogButtonBox::RestoreDefaults);
+	restoreButton->setToolTip(tr("Restore defaults for current page"));
+	restoreButton->setWhatsThis(tr("This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.<br />"
+	                               "To restore all settings to their defaults, you will have to use this button on every page."
+	                              ));
 
 }
 
@@ -162,19 +162,17 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 	ConfigWidget *conf = qobject_cast<ConfigWidget *>(qswPages->currentWidget());
 	switch (pageButtonBox->standardButton(b)) {
-		case QDialogButtonBox::RestoreDefaults:
-			{
-			Settings def;
-			if (conf)
-				conf->load(def);
-			break;
+		case QDialogButtonBox::RestoreDefaults: {
+				Settings def;
+				if (conf)
+					conf->load(def);
+				break;
 			}
-		case QDialogButtonBox::Reset:
-			{
-			if (conf)
-				conf->load(g.s);
-			break;
-		}
+		case QDialogButtonBox::Reset: {
+				if (conf)
+					conf->load(g.s);
+				break;
+			}
 		default:
 			break;
 	}
@@ -182,11 +180,10 @@ void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 
 void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
 	switch (dialogButtonBox->standardButton(b)) {
-		case QDialogButtonBox::Apply:
-		{
-			apply();
-			break;
-		}
+		case QDialogButtonBox::Apply: {
+				apply();
+				break;
+			}
 		default:
 			break;
 	}
@@ -220,7 +217,7 @@ void ConfigDialog::apply() {
 	g.s = s;
 
 	foreach(ConfigWidget *cw, widgets)
-		cw->accept();
+	cw->accept();
 
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	g.ai->start(QThread::HighestPriority);

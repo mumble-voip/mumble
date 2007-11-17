@@ -493,10 +493,10 @@ void Server::sslError(const QList<QSslError> &errors) {
 	Connection *c = qobject_cast<User *>(sender());
 	if (! c)
 		return;
-	
+
 	if (ok)
 		c->proceedAnyway();
-	else 
+	else
 		c->disconnectSocket();
 }
 

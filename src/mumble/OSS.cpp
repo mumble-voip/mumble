@@ -84,12 +84,12 @@ const QList<audioDevice> OSSInputRegistrar::getDeviceChoices() {
 
 	QStringList qlInputDevs = cards.qhInput.keys();
 	qSort(qlInputDevs);
-	
+
 	if (qlInputDevs.contains(g.s.qsOSSInput)) {
 		qlInputDevs.removeAll(g.s.qsOSSInput);
 		qlInputDevs.prepend(g.s.qsOSSInput);
 	}
-	
+
 	foreach(const QString &dev, qlInputDevs) {
 		qlReturn << audioDevice(cards.qhInput.value(dev), dev);
 	}
@@ -113,12 +113,12 @@ const QList<audioDevice> OSSOutputRegistrar::getDeviceChoices() {
 
 	QStringList qlOutputDevs = cards.qhOutput.keys();
 	qSort(qlOutputDevs);
-	
+
 	if (qlOutputDevs.contains(g.s.qsOSSOutput)) {
 		qlOutputDevs.removeAll(g.s.qsOSSOutput);
 		qlOutputDevs.prepend(g.s.qsOSSOutput);
 	}
-	
+
 	foreach(const QString &dev, qlOutputDevs) {
 		qlReturn << audioDevice(cards.qhOutput.value(dev), dev);
 	}
@@ -156,10 +156,10 @@ OSSEnumerator::OSSEnumerator() {
 		return;
 	}
 
-	for(int i=0;i< sysinfo.numaudios;i++) {
+	for (int i=0;i< sysinfo.numaudios;i++) {
 		oss_audioinfo ainfo;
 		ainfo.dev = i;
-		if(ioctl(mixerfd, SNDCTL_AUDIOINFO, &ainfo) == -1) {
+		if (ioctl(mixerfd, SNDCTL_AUDIOINFO, &ainfo) == -1) {
 			qWarning("OSSEnumerator: SNDCTL_AUDIOINFO failed for device %d", i);
 			continue;
 		}
@@ -230,14 +230,14 @@ void OSSConfig::save() const {
 }
 
 void OSSConfig::load(const Settings &r) {
-	for(int i=0;i<qcbInputDevice->count();i++) {
+	for (int i=0;i<qcbInputDevice->count();i++) {
 		if (qcbInputDevice->itemData(i).toString() == r.qsOSSInput) {
 			loadComboBox(qcbInputDevice, i);
 			break;
 		}
 	}
 
-	for(int i=0;i<qcbOutputDevice->count();i++) {
+	for (int i=0;i<qcbOutputDevice->count();i++) {
 		if (qcbOutputDevice->itemData(i).toString() == r.qsOSSOutput) {
 			loadComboBox(qcbOutputDevice, i);
 			break;
@@ -380,10 +380,10 @@ void OSSOutput::run() {
 			qWarning("OSSOutput: Write %d", l);
 			break;
 		}
-/*
-		ioctl(fd, SNDCTL_DSP_GETODELAY, &ival);
-		qWarning("Delay %d", ival / 2);
-*/
+		/*
+				ioctl(fd, SNDCTL_DSP_GETODELAY, &ival);
+				qWarning("Delay %d", ival / 2);
+		*/
 		if (! stillRun) {
 			while (! mixAudio(buffer) && bRunning)
 				this->usleep(20);

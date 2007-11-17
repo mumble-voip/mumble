@@ -345,7 +345,7 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 			int nelem = -1;
 			GLXFBConfig *fb = glXChooseFBConfig(dpy, screen, attrib, &nelem);
 			ods("ChooseFB returned %d elems: %p\n", nelem, fb);
-			
+
 			GLXContext myctx = NULL;
 
 			if (fb) {
@@ -353,7 +353,7 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 				ods("Got Context %p\n", myctx);
 				if ((nelem == 1) && (myctx)) {
 					c->glctx = myctx;
-					
+
 					glXMakeCurrent(dpy, draw, myctx);
 
 					newContext(c);

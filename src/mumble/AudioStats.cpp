@@ -304,7 +304,7 @@ void AudioStats::on_Tick_timeout() {
 
 	if (ai.get() == NULL || ! ai->sppPreprocess)
 		return;
-		
+
 	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(ai->sppPreprocess);
 	bool nTalking = ai->isTransmitting();
 

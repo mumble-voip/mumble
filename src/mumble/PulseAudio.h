@@ -54,16 +54,16 @@ class PulseAudioInput;
 class PulseAudioOutput;
 
 class PulseAudioSystem : public QThread {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		pa_context *pacContext;
 		pa_stream *pasInput, *pasOutput, *pasSpeaker;
 		pa_mainloop *pam;
 		pa_defer_event *pade;
 		bool bRunning;
-		
+
 		bool bSourceDone, bSinkDone, bServerDone;
-		
+
 		QString qsDefaultInput, qsDefaultOutput;
 
 		int iDelayCache;
@@ -72,14 +72,14 @@ class PulseAudioSystem : public QThread {
 		QHash<QString, QString> qhOutput;
 		QHash<QString, QString> qhEchoMap;
 		QHash<QString, int> qhIndexMap;
-		
+
 		short *psInput;
 		short *psEcho;
 		int iInputIdx;
 		int iEchoIdx;
 		int iEchoSeq;
 		JitterBuffer *jbJitter;
-		
+
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);
 		static void sink_callback(pa_context *c, const pa_sink_info *i, int eol, void *userdata);
@@ -90,7 +90,7 @@ class PulseAudioSystem : public QThread {
 		static void write_callback(pa_stream *s, size_t bytes, void *userdata);
 		void contextCallback(pa_context *c);
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
-		
+
 		void query();
 
 		PulseAudioSystem();
@@ -100,7 +100,7 @@ class PulseAudioSystem : public QThread {
 };
 
 class PulseAudioInput : public AudioInput {
-	friend class PulseAudioSystem;
+		friend class PulseAudioSystem;
 		Q_OBJECT
 	protected:
 		void release();
@@ -111,7 +111,7 @@ class PulseAudioInput : public AudioInput {
 };
 
 class PulseAudioOutput : public AudioOutput {
-	friend class PulseAudioSystem;
+		friend class PulseAudioSystem;
 		Q_OBJECT
 	public:
 		PulseAudioOutput();

@@ -424,7 +424,7 @@ void Server::initialize() {
 int Server::registerPlayer(const QString &name) {
 	if (name.isEmpty())
 		return -1;
-		
+
 	if (getUserID(name) >= 0)
 		return -1;
 
@@ -468,13 +468,13 @@ bool Server::unregisterPlayer(int id) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
-	
+
 	return true;
 }
 
 QMap<int, QPair<QString, QString> > Server::getRegisteredPlayers(const QString &filter) {
 	QMap<int, QPair<QString, QString> > m;
-	
+
 	m = dbus->dbusGetRegisteredPlayers(filter);
 
 	TransactionHolder th;
@@ -529,7 +529,7 @@ int Server::authenticate(QString &name, const QString &pw) {
 		if (res != -1) {
 			TransactionHolder th;
 			QSqlQuery query;
-			
+
 			int lchan=readLastChannel(res);
 
 			SQLPREP("REPLACE INTO %1players (server_id, player_id, name, lastchannel) VALUES (?,?,?,?)");
@@ -574,7 +574,7 @@ bool Server::setPW(int id, const QString &pw) {
 		return (res > 0);
 
 	TransactionHolder th;
-	
+
 	QCryptographicHash hash(QCryptographicHash::Sha1);
 
 	hash.addData(pw.toUtf8());
@@ -585,7 +585,7 @@ bool Server::setPW(int id, const QString &pw) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
-	
+
 	return true;
 }
 
@@ -605,7 +605,7 @@ bool Server::setEmail(int id, const QString &email) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
-	
+
 	return true;
 }
 
@@ -616,7 +616,7 @@ bool Server::setName(int id, const QString &name) {
 	int oid = getUserID(name);
 	if (oid >= 0)
 		return false;
-		
+
 	int res = dbus->dbusSetName(id, name);
 	if (res == 0)
 		return false;
@@ -629,7 +629,7 @@ bool Server::setName(int id, const QString &name) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
-	
+
 	return true;
 }
 
@@ -638,8 +638,8 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 		return false;
 
 	QByteArray tex;
-	if (texture.size() != 600 * 60 * 4) 
-	 	tex = qUncompress(texture);
+	if (texture.size() != 600 * 60 * 4)
+		tex = qUncompress(texture);
 	else
 		tex = texture;
 
@@ -660,7 +660,7 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
-	
+
 	return true;
 }
 

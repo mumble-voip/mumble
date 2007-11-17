@@ -162,7 +162,7 @@ MurmurDBus::MurmurDBus(Server *srv) : QDBusAbstractAdaptor(srv) {
 
 void MurmurDBus::setTempGroups(int playerid, Channel *cChannel, const QStringList &groups) {
 	if (! cChannel)
-		cChannel = server->qhChannels.value(0); 
+		cChannel = server->qhChannels.value(0);
 
 	Group *g;
 	foreach(g, cChannel->qhGroups)
@@ -747,7 +747,7 @@ void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlay
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
-	
+
 	player.id = id;
 	player.name = name;
 	player.email = email;
@@ -795,7 +795,7 @@ void MurmurDBus::getRegisteredPlayers(const QString &filter, QList<RegisteredPla
 	players.clear();
 	QMap<int, QPair<QString, QString> > l = server->getRegisteredPlayers(filter);
 	QMap<int, QPair<QString, QString> >::const_iterator i;
-	for(i = l.constBegin(); i != l.constEnd(); ++i) {
+	for (i = l.constBegin(); i != l.constEnd(); ++i) {
 		RegisteredPlayer r;
 		r.id = i.key();
 		r.name = i.value().first;
@@ -804,12 +804,12 @@ void MurmurDBus::getRegisteredPlayers(const QString &filter, QList<RegisteredPla
 	}
 }
 
-void MurmurDBus::verifyPassword(int id, const QString &pw, const QDBusMessage &msg, bool &ok ) {
+void MurmurDBus::verifyPassword(int id, const QString &pw, const QDBusMessage &msg, bool &ok) {
 	QList<int> ids;
 	ids << id;
 	QStringList names;
 	getPlayerNames(ids, msg, names);
-	
+
 	if ((names.count() != 1) || (names.at(0).isEmpty())) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
@@ -832,7 +832,7 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 
 void MurmurDBus::setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(channel);
-	
+
 	setTempGroups(playerid, cChannel, groups);
 }
 

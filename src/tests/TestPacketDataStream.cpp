@@ -45,8 +45,8 @@ void TestPacketDataStream::floating() {
 void TestPacketDataStream::undersize() {
 	QByteArray qba(32, 'Z');
 	char buff[256];
-	
-	for(unsigned int i=0;i<32;i++) {
+
+	for (unsigned int i=0;i<32;i++) {
 		PacketDataStream out(buff, i);
 		out << qba;
 		QCOMPARE(33-i, out.undersize());

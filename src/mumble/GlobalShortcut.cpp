@@ -126,8 +126,8 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 		skw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
 		skw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
-		                      "Click this field and then the desired key/button combo "
-		                      "to rebind. Double-click to clear.").arg(gs->name));
+		                     "Click this field and then the desired key/button combo "
+		                     "to rebind. Double-click to clear.").arg(gs->name));
 		qhKeys[gs]=skw;
 		i++;
 	}

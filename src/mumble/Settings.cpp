@@ -70,7 +70,7 @@ Settings::Settings() {
 	qsFestival=QLatin1String("/usr/bin/festival --batch --pipe");
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
-	
+
 	bPulseAudioEcho = false;
 
 	iPortAudioInput = -1; // default device
@@ -199,14 +199,14 @@ void Settings::load() {
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 
 	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
-	for(int i=0;i<nshorts;i++) {
+	for (int i=0;i<nshorts;i++) {
 		g.qs->setArrayIndex(i);
 		SAVELOAD(qmShortcuts[i], "keys");
 	}
 	g.qs->endArray();
 
 	g.qs->beginReadArray(QLatin1String("messages"));
-	for(QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
+	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
@@ -305,7 +305,7 @@ void Settings::save() {
 
 	g.qs->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
-	for(ShortcutMap::const_iterator it = qmShortcuts.constBegin(); it != qmShortcuts.constEnd(); ++it) {
+	for (ShortcutMap::const_iterator it = qmShortcuts.constBegin(); it != qmShortcuts.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmShortcuts[it.key()], "keys");
 	}
@@ -313,7 +313,7 @@ void Settings::save() {
 
 	g.qs->beginWriteArray(QLatin1String("messages"));
 	idx = 0;
-	for(QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
+	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}

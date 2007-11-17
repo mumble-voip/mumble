@@ -36,22 +36,20 @@
 // ------------------------------------------------------------------------------------------------
 
 
-class PortAudioInputRegistrar : public AudioInputRegistrar
-{
-public:
-	PortAudioInputRegistrar();
-	virtual AudioInput *create();
-	virtual const QList<audioDevice> getDeviceChoices();
-	virtual void setDeviceChoice(const QVariant &);
+class PortAudioInputRegistrar : public AudioInputRegistrar {
+	public:
+		PortAudioInputRegistrar();
+		virtual AudioInput *create();
+		virtual const QList<audioDevice> getDeviceChoices();
+		virtual void setDeviceChoice(const QVariant &);
 };
 
-class PortAudioOutputRegistrar : public AudioOutputRegistrar
-{
-public:
-	PortAudioOutputRegistrar();
-	virtual AudioOutput *create();
-	virtual const QList<audioDevice> getDeviceChoices();
-	virtual void setDeviceChoice(const QVariant &);
+class PortAudioOutputRegistrar : public AudioOutputRegistrar {
+	public:
+		PortAudioOutputRegistrar();
+		virtual AudioOutput *create();
+		virtual const QList<audioDevice> getDeviceChoices();
+		virtual void setDeviceChoice(const QVariant &);
 };
 
 
@@ -62,19 +60,16 @@ static PortAudioOutputRegistrar sPAOutputRegistrar;
 // ------------------------------------------------------------------------------------------------
 
 
-PortAudioInputRegistrar::PortAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PortAudio"))
-{
+PortAudioInputRegistrar::PortAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PortAudio")) {
 	qWarning() << "PortAudioInputRegistrar::PortAudioInputRegistrar()";
 }
 
-AudioInput *PortAudioInputRegistrar::create()
-{
+AudioInput *PortAudioInputRegistrar::create() {
 	qWarning() << "PortAudioInputRegistrar::create(), creating new audio input";
 	return new PortAudioInput();
 }
 
-const QList<audioDevice> PortAudioInputRegistrar::getDeviceChoices()
-{
+const QList<audioDevice> PortAudioInputRegistrar::getDeviceChoices() {
 	qWarning() << "PortAudioInputRegistrar::getDeviceChoices()";
 	QList<audioDevice> qlReturn;
 
@@ -82,16 +77,14 @@ const QList<audioDevice> PortAudioInputRegistrar::getDeviceChoices()
 
 	QHash<PaHostApiIndex, PortAudioSystem::HostApiDevices>::const_iterator apiIt;
 	QHash<PaHostApiIndex, PortAudioSystem::HostApiDevices>::const_iterator apiItEnd = pSys->qhHostApis.constEnd();
-	for (apiIt = pSys->qhHostApis.constBegin(); apiIt != apiItEnd; ++apiIt)
-	{
+	for (apiIt = pSys->qhHostApis.constBegin(); apiIt != apiItEnd; ++apiIt) {
 		const PortAudioSystem::HostApiDevices devs = apiIt.value();
-		
+
 		QHash<PaDeviceIndex, QString>::const_iterator devIt;
 		QHash<PaDeviceIndex, QString>::const_iterator devItEnd;
-		
+
 		devItEnd = devs.qhInputs.constEnd();
-		for (devIt = devs.qhInputs.constBegin(); devIt != devItEnd; ++devIt)
-		{
+		for (devIt = devs.qhInputs.constBegin(); devIt != devItEnd; ++devIt) {
 			QString devName;
 			devName = QString("%1 (%2)").arg(devIt.value(), devs.qsHostApiName);
 			qlReturn << audioDevice(devName, devIt.key());
@@ -101,8 +94,7 @@ const QList<audioDevice> PortAudioInputRegistrar::getDeviceChoices()
 	return qlReturn;
 }
 
-void PortAudioInputRegistrar::setDeviceChoice(const QVariant &choice)
-{
+void PortAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
 	g.s.iPortAudioInput = choice.toInt();
 }
 
@@ -110,35 +102,30 @@ void PortAudioInputRegistrar::setDeviceChoice(const QVariant &choice)
 // ------------------------------------------------------------------------------------------------
 
 
-PortAudioOutputRegistrar::PortAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PortAudio"))
-{
+PortAudioOutputRegistrar::PortAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PortAudio")) {
 	qWarning() << "PortAudioOutputRegistrar::PortAudioOutputRegistrar()";
 }
 
-AudioOutput *PortAudioOutputRegistrar::create()
-{
+AudioOutput *PortAudioOutputRegistrar::create() {
 	qWarning() << "PortAudioOutputRegistrar::create(), creating new audio output";
 	return new PortAudioOutput();
 }
 
-const QList<audioDevice> PortAudioOutputRegistrar::getDeviceChoices()
-{
+const QList<audioDevice> PortAudioOutputRegistrar::getDeviceChoices() {
 	qWarning() << "PortAudioOutputRegistrar::getDeviceChoices()";
 	QList<audioDevice> qlReturn;
 	PortAudioSystemPtr pSys = PortAudioSystem::self();
 
 	QHash<PaHostApiIndex, PortAudioSystem::HostApiDevices>::const_iterator apiIt;
 	QHash<PaHostApiIndex, PortAudioSystem::HostApiDevices>::const_iterator apiItEnd = pSys->qhHostApis.constEnd();
-	for (apiIt = pSys->qhHostApis.constBegin(); apiIt != apiItEnd; ++apiIt)
-	{
+	for (apiIt = pSys->qhHostApis.constBegin(); apiIt != apiItEnd; ++apiIt) {
 		const PortAudioSystem::HostApiDevices devs = apiIt.value();
-		
+
 		QHash<PaDeviceIndex, QString>::const_iterator devIt;
 		QHash<PaDeviceIndex, QString>::const_iterator devItEnd;
-		
+
 		devItEnd = devs.qhOutputs.constEnd();
-		for (devIt = devs.qhOutputs.constBegin(); devIt != devItEnd; ++devIt)
-		{
+		for (devIt = devs.qhOutputs.constBegin(); devIt != devItEnd; ++devIt) {
 			QString devName;
 			devName = QString("%1 (%2)").arg(devIt.value(), devs.qsHostApiName);
 			qlReturn << audioDevice(devName, devIt.key());
@@ -148,8 +135,7 @@ const QList<audioDevice> PortAudioOutputRegistrar::getDeviceChoices()
 	return qlReturn;
 }
 
-void PortAudioOutputRegistrar::setDeviceChoice(const QVariant &choice)
-{
+void PortAudioOutputRegistrar::setDeviceChoice(const QVariant &choice) {
 	g.s.iPortAudioOutput = choice.toInt();
 }
 
@@ -170,7 +156,7 @@ PortAudioSystem::PortAudioSystem() {
 		return; // will probably make mumble crash but we're lost anyway
 	}
 	qWarning() << "Initialized PortAudio library";
-	
+
 	enumerateDevices(); // fill qhInput and qhOutput
 }
 
@@ -181,8 +167,7 @@ PortAudioSystem::~PortAudioSystem() {
 	if (err != paNoError) {
 		qWarning() << "Could not terminate PortAudio library, error:" << Pa_GetErrorText(err);
 		// returning here makes little sense
-	}
-	else
+	} else
 		qWarning() << "Terminated PortAudio library";
 }
 
@@ -202,7 +187,7 @@ bool PortAudioSystem::initStream(PaStream **stream, PaDeviceIndex devIndex, int 
 	PaError            err;
 	PaStreamParameters streamPar;
 	//qWarning() << "PortAudioSystem::initStream()";
-	
+
 	if (!stream) // null pointer passed
 		return false;
 
@@ -214,30 +199,30 @@ bool PortAudioSystem::initStream(PaStream **stream, PaDeviceIndex devIndex, int 
 	qWarning() << "Will use device" << devId;
 	if (devId == -1)
 		devId = (isInput ? Pa_GetDefaultInputDevice() : Pa_GetDefaultOutputDevice());
-		
+
 	const PaDeviceInfo *devInfo = Pa_GetDeviceInfo(devId);
 	if (!devInfo)
 		return false;
-		
-    streamPar.device                    = devId;
-    streamPar.channelCount              = 1;
-    streamPar.sampleFormat              = paInt16;
-    //TODO: Can I determine this latency from mumble settings?
-    streamPar.suggestedLatency          = (isInput ? devInfo->defaultHighInputLatency : devInfo->defaultHighOutputLatency);
-    streamPar.hostApiSpecificStreamInfo = NULL;
 
-    qWarning() << "suggestedLatency (ms):" << int(streamPar.suggestedLatency * 1000);
-    qWarning() << "frameSize (bytes)    :" << frameSize;
-    qWarning() << "sample rate (bits/s) :" << SAMPLE_RATE;
+	streamPar.device                    = devId;
+	streamPar.channelCount              = 1;
+	streamPar.sampleFormat              = paInt16;
+	//TODO: Can I determine this latency from mumble settings?
+	streamPar.suggestedLatency          = (isInput ? devInfo->defaultHighInputLatency : devInfo->defaultHighOutputLatency);
+	streamPar.hostApiSpecificStreamInfo = NULL;
+
+	qWarning() << "suggestedLatency (ms):" << int(streamPar.suggestedLatency * 1000);
+	qWarning() << "frameSize (bytes)    :" << frameSize;
+	qWarning() << "sample rate (bits/s) :" << SAMPLE_RATE;
 
 	err = Pa_OpenStream(stream,
-						(isInput ? &streamPar : NULL),  // input parameters
-						(isInput ? NULL : &streamPar),  // output parameters
-						SAMPLE_RATE,                    // sample rate (from Audio.h)
-						frameSize,                      // frames per buffer
-						paClipOff|paDitherOff,          // stream flags, do not clip or dither data
-						NULL,                           // callback funtion, UNUSED
-						NULL);                          // callback data, UNUSED
+	                    (isInput ? &streamPar : NULL),  // input parameters
+	                    (isInput ? NULL : &streamPar),  // output parameters
+	                    SAMPLE_RATE,                    // sample rate (from Audio.h)
+	                    frameSize,                      // frames per buffer
+	                    paClipOff|paDitherOff,          // stream flags, do not clip or dither data
+	                    NULL,                           // callback funtion, UNUSED
+	                    NULL);                          // callback data, UNUSED
 	if (err != paNoError) {
 		qCritical() << "Could not open PortAudio stream, error:" << Pa_GetErrorText(err);
 		stream = 0;
@@ -258,7 +243,7 @@ bool PortAudioSystem::terminateStream(PaStream *stream) {
 		return false;
 	}
 
-    err = Pa_CloseStream(stream);
+	err = Pa_CloseStream(stream);
 	if (err != paNoError) {
 		qCritical() << "Could not close PortAudio stream, error:" << Pa_GetErrorText(err);
 		return false;
@@ -271,26 +256,26 @@ bool PortAudioSystem::terminateStream(PaStream *stream) {
 bool PortAudioSystem::startStream(PaStream *stream) {
 	//TODO: check if we need to lock muStream in here, I'd like to avoid this
 	PaError err;
-	
+
 	if (!stream) {
 		qWarning() << "NULL PaStream passed to PortAudioSystem::startStream()";
 		return false;
 	}
-		
+
 	err = Pa_IsStreamStopped(stream);
-    if (err == 0) { // stream running
-    	return true;
-    } else if (err != 1) { // some error, 1 means "stopped"
+	if (err == 0) { // stream running
+		return true;
+	} else if (err != 1) { // some error, 1 means "stopped"
 		qCritical() << "Could not determine status of PortAudio stream, error:" << Pa_GetErrorText(err);
 		return false;
 	}
 
 	err = Pa_StartStream(stream);
-    if (err != paNoError) {
+	if (err != paNoError) {
 		qCritical() << "Could not start PortAudio stream, error:" << Pa_GetErrorText(err);
 		return false;
 	}
-	
+
 	//qWarning() << "PortAudioSystem::startStream(); started stream" << stream;
 	return true;
 }
@@ -298,36 +283,36 @@ bool PortAudioSystem::startStream(PaStream *stream) {
 bool PortAudioSystem::stopStream(PaStream *stream) {
 	//TODO: check if we need to lock muStream in here, I'd like to avoid this
 	PaError err;
-	
+
 	if (!stream) {
 		qWarning() << "NULL PaStream passed to PortAudioSystem::stopStream()";
 		return false;
 	}
-		
+
 	err = Pa_IsStreamStopped(stream);
-    if (err == 1) { // stream already stopped
-    	return true;
-    } else if (err != 0) { // some error, 0 means "running"
+	if (err == 1) { // stream already stopped
+		return true;
+	} else if (err != 0) { // some error, 0 means "running"
 		qCritical() << "Could not determine status of PortAudio stream, error:" << Pa_GetErrorText(err);
 		return false;
 	}
 
-    err = Pa_StopStream(stream);
+	err = Pa_StopStream(stream);
 	if (err != paNoError) {
 		qWarning() << "Could not stop PortAudio stream, error:" << Pa_GetErrorText(err);
 		return false;
 	}
-	
+
 	//qWarning() << "PortAudioSystem::stopStream(); stopped stream" << stream ;
 	return true;
 }
 
 void PortAudioSystem::enumerateDevices() {
-    PaHostApiIndex iApiCnt;      // number of Host-APIs
-    PaHostApiIndex iApiIndex;    // current index of Host-API
-    int            iApiDevIndex; // current Host-API device index (needs mapping to PaDeviceIndex)
-    PaDeviceIndex  iDevIndex;    // current device index (the one we can use later on)
-    const PaDeviceInfo *pDevInfo;
+	PaHostApiIndex iApiCnt;      // number of Host-APIs
+	PaHostApiIndex iApiIndex;    // current index of Host-API
+	int            iApiDevIndex; // current Host-API device index (needs mapping to PaDeviceIndex)
+	PaDeviceIndex  iDevIndex;    // current device index (the one we can use later on)
+	const PaDeviceInfo *pDevInfo;
 
 	HostApiDevices &devs = qhHostApis[-1];
 	// Technically this mapping is wrong
@@ -335,56 +320,50 @@ void PortAudioSystem::enumerateDevices() {
 	devs.qsHostApiName  = QLatin1String("Default Device");
 	devs.qhInputs[-1]   = QLatin1String("Default Input");
 	devs.qhOutputs[-1]  = QLatin1String("Default Output");
-    
-    iApiCnt = Pa_GetHostApiCount();
-    for (iApiIndex = 0; iApiIndex < iApiCnt; iApiIndex++)
-    {
+
+	iApiCnt = Pa_GetHostApiCount();
+	for (iApiIndex = 0; iApiIndex < iApiCnt; iApiIndex++) {
 		const PaHostApiInfo *apiInfo = Pa_GetHostApiInfo(iApiIndex);
 		if (!apiInfo)
 			continue;
-			
+
 		QString qsApiName = QString::fromLocal8Bit(apiInfo->name);
 
-		for (iApiDevIndex = 0; iApiDevIndex < apiInfo->deviceCount; iApiDevIndex++)
-		{
+		for (iApiDevIndex = 0; iApiDevIndex < apiInfo->deviceCount; iApiDevIndex++) {
 			iDevIndex = Pa_HostApiDeviceIndexToDeviceIndex(iApiIndex, iApiDevIndex);
 			pDevInfo = Pa_GetDeviceInfo(iDevIndex);
 			if (!pDevInfo)
 				continue;
 
 			QString qsDevName = QString::fromLocal8Bit(pDevInfo->name);
-			
+
 			//TODO: more extensive test on device capabilities
-			if (pDevInfo->maxInputChannels > 0)
-			{
+			if (pDevInfo->maxInputChannels > 0) {
 				HostApiDevices &devs = qhHostApis[iApiIndex];
 
 				devs.qsHostApiName = qsApiName; // ensure host api has a name
 				devs.qhInputs[iDevIndex] = qsDevName;
 			}
-	
-			if (pDevInfo->maxOutputChannels > 0)
-			{
+
+			if (pDevInfo->maxOutputChannels > 0) {
 				HostApiDevices &devs = qhHostApis[iApiIndex];
 
 				devs.qsHostApiName = qsApiName; // ensure host api has a name
 				devs.qhOutputs[iDevIndex] = qsDevName;
 			}
 		}
-    }
+	}
 }
 
 
 // ------------------------------------------------------------------------------------------------
 
 
-PortAudioInput::PortAudioInput()
-{
+PortAudioInput::PortAudioInput() {
 	qWarning() << "PortAudioInput::PortAudioInput()";
 }
 
-PortAudioInput::~PortAudioInput()
-{
+PortAudioInput::~PortAudioInput() {
 	qWarning() << "PortAudioInput::~PortAudioInput()";
 	// thread should leave event loop soonish
 	bRunning = false;
@@ -392,8 +371,7 @@ PortAudioInput::~PortAudioInput()
 	wait();
 }
 
-void PortAudioInput::run()
-{
+void PortAudioInput::run() {
 	PortAudioSystemPtr  pSys = PortAudioSystem::self();
 	PaStream           *inputStream = 0;
 	PaError             err;
@@ -401,7 +379,7 @@ void PortAudioInput::run()
 	//qWarning() << "PortAudioInput::run() BEGIN ===";
 	if (!pSys->initStream(&inputStream, g.s.iPortAudioInput, iFrameSize, true))
 		return; // PA init or stream opening failed, we will give up
-	
+
 	// depend on the stream having started
 	bRunning = pSys->startStream(inputStream);
 	while (bRunning) {
@@ -446,29 +424,23 @@ void PortAudioOutput::run() {
 	short               outBuffer[iFrameSize];
 	bool                hasMoreToMix    = true;
 	PaError             err             = paNoError;
-	
+
 	if (!pSys->initStream(&outputStream, g.s.iPortAudioOutput, iFrameSize, false))
 		return; // PA initialization or stream opening failed, we will give up
 
 	bRunning = true;
-	while (bRunning)
-	{
+	while (bRunning) {
 		bool nextHasMoreToMix = mixAudio(outBuffer);
-		if (hasMoreToMix)
-		{
-			if (pSys->startStream(outputStream))
-			{
+		if (hasMoreToMix) {
+			if (pSys->startStream(outputStream)) {
 				err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);
 				if (err != paNoError) {
 					qWarning() << "Could not write to PortAudio stream, error:" << Pa_GetErrorText(err);
 					bRunning = false;
 				}
-			}
-			else
+			} else
 				bRunning = false;
-		}
-		else
-		{
+		} else {
 			if (!pSys->stopStream(outputStream))
 				bRunning = false;
 			this->usleep(50 * 1000); // 50ms wait to avoid hogging the cpu too much

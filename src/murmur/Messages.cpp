@@ -652,7 +652,7 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 
 void Server::msgTextMessage(Connection *cCon, MessageTextMessage *msg) {
 	MSG_SETUP(Player::Authenticated);
-        QMutexLocker qml(&qmCache);
+	QMutexLocker qml(&qmCache);
 
 	if (msg->iChannel != -1) {
 		Channel *c = qhChannels.value(msg->iChannel);
@@ -674,7 +674,7 @@ void Server::msgTextMessage(Connection *cCon, MessageTextMessage *msg) {
 				c = q.dequeue();
 				chans.insert(c);
 				foreach(c, c->qlChannels)
-					q.enqueue(c);
+				q.enqueue(c);
 			}
 		}
 		foreach(c, chans) {

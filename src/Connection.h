@@ -57,7 +57,7 @@ class Connection : public QObject {
 		void connectionClosed(QString reason);
 		void message(QByteArray &);
 		void handleSslErrors(const QList<QSslError> &);
-		
+
 		void recheckBuffer();
 	public:
 		Connection(QObject *parent, QSslSocket *qtsSocket);

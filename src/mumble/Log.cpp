@@ -169,12 +169,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		QTextCursor tc=g.mw->qteLog->textCursor();
 		tc.movePosition(QTextCursor::End);
 		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
-		        QTextFrameFormat qttf;
-		        qttf.setBorder(1);
-		        qttf.setPadding(2);
-		        qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
-		        tc.insertFrame(qttf);
-		        tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
+			QTextFrameFormat qttf;
+			qttf.setBorder(1);
+			qttf.setPadding(2);
+			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+			tc.insertFrame(qttf);
+			tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
 		} else {
 			tc.insertBlock();
 			tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
@@ -184,7 +184,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		g.mw->qteLog->ensureCursorVisible();
 	}
 
-	if (! g.s.bTTS || ! (flags & Settings::LogTTS))
+	if (! g.s.bTTS || !(flags & Settings::LogTTS))
 		return;
 
 	/* TTS threshold limiter. */

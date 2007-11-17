@@ -314,27 +314,27 @@ void MainWindow::on_qaServerInformation_triggered() {
 	} else {
 		qsVoice = tr("<h2>Voice channel</h2><p>Encrypted with 128 bit OCB-AES128<br />%1 ms average latency (%4 variance)</p>").arg(c->dUDPPingAvg, 0, 'f', 2).arg(c->dUDPPingVar / (c->uiUDPPackets - 1),0,'f',2);
 		qsCrypt = QString::fromLatin1("<h2>%1</h2><table><tr><th></th><th>%2</th><th>%3</th></tr>"
-			     "<tr><th>%4</th><td>%8</td><td>%12</td></tr>"
-			     "<tr><th>%5</th><td>%9</td><td>%13</td></tr>"
-			     "<tr><th>%6</th><td>%10</td><td>%14</td></tr>"
-			     "<tr><th>%7</th><td>%11</td><td>%15</td></tr>"
-			     "</table>")
-			     .arg(tr("UDP Statistics")).arg(tr("To Server")).arg(tr("From Server")).arg(tr("Good")).arg(tr("Late")).arg(tr("Lost")).arg(tr("Resync"))
-			     .arg(cs.uiRemoteGood).arg(cs.uiRemoteLate).arg(cs.uiRemoteLost).arg(cs.uiRemoteResync)
-			     .arg(cs.uiGood).arg(cs.uiLate).arg(cs.uiLost).arg(cs.uiResync);
+		                              "<tr><th>%4</th><td>%8</td><td>%12</td></tr>"
+		                              "<tr><th>%5</th><td>%9</td><td>%13</td></tr>"
+		                              "<tr><th>%6</th><td>%10</td><td>%14</td></tr>"
+		                              "<tr><th>%7</th><td>%11</td><td>%15</td></tr>"
+		                              "</table>")
+		          .arg(tr("UDP Statistics")).arg(tr("To Server")).arg(tr("From Server")).arg(tr("Good")).arg(tr("Late")).arg(tr("Lost")).arg(tr("Resync"))
+		          .arg(cs.uiRemoteGood).arg(cs.uiRemoteLate).arg(cs.uiRemoteLost).arg(cs.uiRemoteResync)
+		          .arg(cs.uiGood).arg(cs.uiLate).arg(cs.uiLost).arg(cs.uiResync);
 	}
 	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s (Quality %3)</p>").arg(g.iMaxBandwidth / 125.0,0,'f',1).arg(g.iAudioBandwidth / 125.0,0,'f',1).arg(g.iAudioQuality);
 
 	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
-		qmb.setDefaultButton(QMessageBox::Ok);
-		qmb.setEscapeButton(QMessageBox::Ok);
+	qmb.setDefaultButton(QMessageBox::Ok);
+	qmb.setEscapeButton(QMessageBox::Ok);
 
-		QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
-		int res = qmb.exec();
-		if ((res == 0) && (qmb.clickedButton() == qp)) {
-			ViewCert vc(g.sh->qscCert, this);
-			vc.exec();
-		}
+	QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
+	int res = qmb.exec();
+	if ((res == 0) && (qmb.clickedButton() == qp)) {
+		ViewCert vc(g.sh->qscCert, this);
+		vc.exec();
+	}
 }
 
 void MainWindow::on_qmPlayer_aboutToShow() {
@@ -716,7 +716,7 @@ void MainWindow::on_qaAudioLocalDeafen_triggered() {
 	g.s.bLocalDeafen = qaAudioLocalDeafen->isChecked();
 	if (g.s.bLocalDeafen) {
 		QMessageBox::information(this, tr("Mumble"), tr("You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting "
-				"voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers."));
+		                         "voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers."));
 	}
 }
 

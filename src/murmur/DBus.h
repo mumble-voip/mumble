@@ -117,7 +117,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
 	protected:
 		Server *server;
- 		bool bReentrant;
+		bool bReentrant;
 		QString qsAuthService;
 		QString qsAuthPath;
 		void setTempGroups(const int playerid, Channel *cChannel, const QStringList &groups);

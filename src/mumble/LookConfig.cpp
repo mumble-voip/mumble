@@ -1,4 +1,4 @@
-	/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -72,13 +72,13 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbLanguage, 0);
 	loadComboBox(qcbStyle, 0);
 
-	for(int i=0;i<qcbLanguage->count();i++) {
+	for (int i=0;i<qcbLanguage->count();i++) {
 		if (qcbLanguage->itemText(i) == r.qsLanguage) {
 			loadComboBox(qcbLanguage, i);
 			break;
 		}
 	}
-	for(int i=0;i<qcbStyle->count();i++) {
+	for (int i=0;i<qcbStyle->count();i++) {
 		if (qcbStyle->itemText(i) == r.qsStyle) {
 			loadComboBox(qcbStyle, i);
 			break;
@@ -86,9 +86,9 @@ void LookConfig::load(const Settings &r) {
 	}
 	qleCSS->setText(r.qsSkin);
 	loadCheckBox(qcbHorizontal, r.bHorizontal);
-        loadCheckBox(qcbExpand, r.bExpandAll);
-        loadCheckBox(qcbPlayersTop, r.bPlayerTop);
-        loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
+	loadCheckBox(qcbExpand, r.bExpandAll);
+	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
+	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 }
 
 void LookConfig::save() const {

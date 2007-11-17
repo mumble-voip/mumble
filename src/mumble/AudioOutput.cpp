@@ -185,7 +185,7 @@ bool AudioOutputSpeech::decodeNextFrame() {
 		char data[4096];
 		JitterBufferPacket jbp;
 		jbp.data = data;
-		
+
 		spx_int32_t startofs = 0;
 
 		if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
