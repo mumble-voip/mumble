@@ -97,7 +97,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	if (msg->iVersion != MESSAGE_STREAM_VERSION) {
 		msr.qsReason = QString("Wrong version of mumble protocol (client: %1, server: %2)").arg(msg->iVersion).arg(MESSAGE_STREAM_VERSION);
 		msr.rtType = MessageServerReject::WrongVersion;
-	} else if (! nameok) {
+	} else if (! nameok && (uSource->iId == -1)) {
 		msr.qsReason = "Invalid Username";
 		msr.rtType = MessageServerReject::InvalidUsername;
 	} else if (id==-1) {
