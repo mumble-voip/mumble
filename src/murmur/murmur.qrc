@@ -1,7 +1,8 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
- <file alias="mumble.png.0">../../icons/mumble.png.0</file>
- <file alias="mumble.png.1">../../icons/mumble.png.1</file>
- <file alias="mumble.png.2">../../icons/mumble.png.2</file>
+ <file alias="mumble.16x16.png">../../icons/mumble.16x16.png</file>
+ <file alias="mumble.32x32.png">../../icons/mumble.32x32.png</file>
+ <file alias="mumble.48x48.png">../../icons/mumble.48x48.png</file>
+ <file alias="mumble.64x64.png">../../icons/mumble.64x64.png</file>
 </qresource>
 </RCC>

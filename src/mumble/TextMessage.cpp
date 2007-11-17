@@ -53,7 +53,7 @@ void TextMessage::on_qteEdit_textChanged() {
 		qr.setPattern(QLatin1String("\"([^\"]+)\""));
 		qsRep.replace(qr, QLatin1String("\"<i>\\1</i>\""));
 
-		qr.setPattern(QLatin1String("https?://[^ <$]*"));
+		qr.setPattern(QLatin1String("[a-z]+://[^ <$]*"));
 		qr.setMinimal(false);
 
 		int idx = 0;

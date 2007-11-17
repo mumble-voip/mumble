@@ -132,9 +132,9 @@ int main(int argc, char **argv) {
 	a.setQuitOnLastWindowClosed(false);
 
 	QIcon icon;
-	icon.addFile(QLatin1String(":/mumble.png.2"));
-	icon.addFile(QLatin1String(":/mumble.png.1"));
-	icon.addFile(QLatin1String(":/mumble.png.0"));
+	icon.addFile(QLatin1String(":/mumble.16x16.png"));
+	icon.addFile(QLatin1String(":/mumble.32x32.png"));
+	icon.addFile(QLatin1String(":/mumble.64x64.png"));
 	a.setWindowIcon(icon);
 #else
 	QCoreApplication a(argc, argv);

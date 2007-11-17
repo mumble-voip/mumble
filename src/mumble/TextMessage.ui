@@ -41,7 +41,11 @@
      </property>
      <layout class="QVBoxLayout" >
       <item>
-       <widget class="QTextBrowser" name="qtbPreview" />
+       <widget class="QTextBrowser" name="qtbPreview" >
+        <property name="openLinks" >
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
