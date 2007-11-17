@@ -21,8 +21,9 @@ set -e
 case "$1" in
     configure)
     	adduser --system --quiet --group Murmur
+    	chmod 0750 /var/log/murmur
+    	chmod 0750 /var/lib/murmur
     	chown Murmur:Murmur /var/log/murmur
-    	chown Murmur:Murmur /var/run/murmur
     	chown Murmur:Murmur /var/lib/murmur
     ;;
 

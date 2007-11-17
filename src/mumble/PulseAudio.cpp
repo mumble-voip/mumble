@@ -344,7 +344,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	pa_stream_peek(s, &data, &length);
 	const short *buffer = reinterpret_cast<const short *>(data);
 	int samples = length / 2;
-
+	
 	AudioInputPtr ai = g.ai;
 	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(ai.get());
 	if (! pai) {
@@ -365,6 +365,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			int ncopy = MIN(pai->iFrameSize - pas->iInputIdx, samples);
 			memcpy(pas->psInput + pas->iInputIdx, buffer, ncopy * sizeof(short));
 			pas->iInputIdx += ncopy;
+			buffer += ncopy;
 			samples -= ncopy;
 			if (pas->iInputIdx == pai->iFrameSize) {
 				pas->iInputIdx = 0;
@@ -386,6 +387,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			int ncopy = MIN(pai->iFrameSize - pas->iEchoIdx, samples);
 			memcpy(pas->psEcho + pas->iEchoIdx, buffer, ncopy * sizeof(short));
 			pas->iEchoIdx += ncopy;
+			buffer += ncopy;
 			samples -= ncopy;
 			if (pas->iEchoIdx == pai->iFrameSize) {
 				pas->iEchoIdx = 0;

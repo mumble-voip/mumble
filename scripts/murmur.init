@@ -2,8 +2,8 @@
 #
 ### BEGIN INIT INFO
 # Provides:             murmur
-# Required-Start:       $network $local_fs $remote_fs
-# Required-Stop:	$network $local_fs $remote_fs
+# Required-Start:       $network $local_fs $remote_fs dbus
+# Required-Stop:	$network $local_fs $remote_fs dbus
 # Should-Start:		$mysql
 # Should-Stop:		$mysql
 # Default-Start:        2 3 4 5

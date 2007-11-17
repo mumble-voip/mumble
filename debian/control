@@ -4,7 +4,7 @@ XSBC-Original-Maintainer: Thorvald Natvig <slicer@users.sourceforge.net>
 Section: sound
 Priority: optional
 Homepage: http://mumble.sourceforge.net/
-Build-Depends: debhelper (>= 5.0.0), libqt4-dev (>= 4.3.0), libboost-dev (>= 1.34.1), libasound2-dev (>= 1.0.14), libxevie-dev (>= 1.0.2)
+Build-Depends: debhelper (>= 5.0.0), libqt4-dev (>= 4.3.0), libboost-dev (>= 1.34.1), libasound2-dev (>= 1.0.14), libxevie-dev (>= 1.0.2), libpulse-dev (>= 0.9.6)
 Standards-Version: 3.7.2.2
 
 Package: mumble
@@ -23,6 +23,9 @@ Description: Low latency VoIP client
 Package: murmur
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103),  libnet-dbus-perl (>= 0.33.5), libcgi-perl (>= 2.76), libcgi-session-perl (>= 4.20), libnet-dns-perl (>= 0.60), libcompress-zlib-perl (>= 2.005), perlmagick, libconfig-simple-perl (>= 4.59)
+Conflicts: mumble-server
+Replaces: mumble-server
+Provides: mumble-server
 Description: Low latency VoIP server
  Murmur is the VoIP server component for Mumble.
  Murmur is installed in a systemwide fashion, but can also be run by

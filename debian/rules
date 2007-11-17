@@ -1,26 +1,15 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
-# Sample debian/rules that uses debhelper.
-#
-# This file was originally written by Joey Hess and Craig Small.
-# As a special exception, when this file is copied by dh-make into a
-# dh-make output file, you may use that output file without restriction.
-# This special exception was added by Craig Small in version 0.37 of dh-make.
-#
-# Modified to make a template file for a multi-binary package with separated
-# build-arch and build-indep targets  by Bill Allombert 2001
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# This has to be exported to make some magic below work.
 export DH_OPTIONS
 
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	# Add here commands to configure the package.
-	qmake-qt4 DEFINES+=MUMBLE_VERSION="1.1.1" main.pro
+	qmake-qt4 main.pro
 
 	touch configure-stamp
 
@@ -29,7 +18,6 @@ configure-stamp:
 build: build-stamp
 
 build-stamp: configure-stamp 
-	# Add here commands to compile the arch part of the package.
 	$(MAKE) release
 	touch build-stamp
 
@@ -38,7 +26,6 @@ clean:	configure-stamp
 	dh_testroot
 	rm -f build-stamp configure-stamp
 
-	# Add here commands to clean up after the build process.
 	$(MAKE) distclean
 
 	# Unfortunately, static libraries are left over after
@@ -53,9 +40,6 @@ install: build
 	dh_clean -k -s 
 	dh_installdirs -s
 
-	# Add here commands to install the arch part of the package into 
-	# debian/tmp.
-	# $(MAKE) install 
 	install -m 0755 -D ./release/mumble $(CURDIR)/debian/mumble/usr/bin/mumble
 	install -m 0755 -D ./scripts/mumble-overlay $(CURDIR)/debian/mumble/usr/bin/mumble-overlay
 	install -m 0644 -D ./release/libmumble.so.1.1.1 $(CURDIR)/debian/mumble/usr/lib/libmumble.so.1.1.1
@@ -74,8 +58,8 @@ install: build
 	install -m 0644 -D ./man/mumble-overlay.1 $(CURDIR)/debian/mumble/usr/share/man/man1/mumble-overlay.1
 
 	# install murmur
-	install -d $(CURDIR)/debian/murmur/var/lib/murmur
-	install -d $(CURDIR)/debian/murmur/var/log/murmur
+	#install -d -m 0755 $(CURDIR)/debian/murmur/var/lib/murmur
+	#install -d -m 0755 $(CURDIR)/debian/murmur/var/log/murmur
 	install -D -m 0755 ./release/murmurd $(CURDIR)/debian/murmur/usr/sbin/murmurd
 	install -D -m 0644 ./man/murmurd.1 $(CURDIR)/debian/murmur/usr/share/man/man1/murmurd.1
 	install -D -m 0644 ./scripts/murmur.conf $(CURDIR)/debian/murmur/etc/dbus-1/system.d/murmur.conf
@@ -90,9 +74,7 @@ install: build
 	install -D -m 0644 ./debian/mumble.linda-override $(CURDIR)/debian/mumble/usr/share/linda/overrides/mumble
 
 	dh_install -s
-# Must not depend on anything. This is to be called by
-# binary-arch/binary-indep
-# in another 'make' thread.
+
 binary-common:
 	dh_testdir
 	dh_testroot
@@ -117,7 +99,6 @@ binary-common:
 	dh_md5sums
 	dh_builddeb
 
-# Build architecture dependant packages using the common target.
 binary-indep:
 
 binary-arch: build install
