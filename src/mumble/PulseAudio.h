@@ -77,6 +77,8 @@ class PulseAudioSystem : public QThread {
 		short *psEcho;
 		int iInputIdx;
 		int iEchoIdx;
+		int iEchoSeq;
+		JitterBuffer *jbJitter;
 		
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);

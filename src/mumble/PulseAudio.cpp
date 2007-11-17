@@ -73,6 +73,7 @@ PulseAudioSystem::PulseAudioSystem() {
 	
 	psInput = psEcho = NULL;
 	iInputIdx = iEchoIdx = 0;
+	iEchoSeq = 0;
 
 	bRunning = true;
 	
@@ -85,6 +86,10 @@ PulseAudioSystem::PulseAudioSystem() {
 	
 	pade = api->defer_new(api, defer_event_callback, this);
 	api->defer_enable(pade, false);
+	
+	jbJitter = jitter_buffer_init();
+	int margin = 320;
+	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 
 	start(QThread::TimeCriticalPriority);
 }
@@ -92,6 +97,10 @@ PulseAudioSystem::PulseAudioSystem() {
 PulseAudioSystem::~PulseAudioSystem() {
 	pa_mainloop_quit(pam, 0);
 	wait();
+	jitter_buffer_destroy(jbJitter);
+	pa_context_disconnect(pacContext);
+	pa_context_unref(pacContext);
+	pa_mainloop_free(pam);
 }
 
 void PulseAudioSystem::wakeup() {
@@ -276,8 +285,6 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) 
       pa_stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_INTERPOLATE_TIMING);
     }
   }
-
-  qWarning("PulseAudio: EventDone");
 }
 
 void PulseAudioSystem::context_state_callback(pa_context *c, void *userdata) {
@@ -368,7 +375,34 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
       if (pas->iInputIdx == pai->iFrameSize) {
         pas->iInputIdx = 0;
         memcpy(pai->psMic, pas->psInput, pai->iFrameSize * sizeof(short));
+        
+        if (g.s.bPulseAudioEcho) {
+          JitterBufferPacket jbp;
+          jbp.data = reinterpret_cast<char *>(pai->psSpeaker);
+          spx_int32_t startofs = 0;
+          jitter_buffer_get(pas->jbJitter, &jbp, pai->iFrameSize, &startofs);
+          jitter_buffer_update_delay(pas->jbJitter, &jbp, NULL);
+          jitter_buffer_tick(pas->jbJitter);
+        }
         pai->encodeAudioFrame();
+      }
+    }
+  } else if (s == pas->pasSpeaker) {
+    while(samples > 0) {
+      int ncopy = MIN(pai->iFrameSize - pas->iEchoIdx, samples);
+      memcpy(pas->psEcho + pas->iEchoIdx, buffer, ncopy * sizeof(short));
+      pas->iEchoIdx += ncopy;
+      samples -= ncopy;
+      if (pas->iEchoIdx == pai->iFrameSize) {
+        pas->iEchoIdx = 0;
+        
+        JitterBufferPacket jbp;
+        jbp.data = reinterpret_cast<char *>(pas->psEcho);
+        jbp.len = pai->iFrameSize * sizeof(short);
+        jbp.span = pai->iFrameSize;
+        jbp.timestamp = pai->iFrameSize * (++(pas->iEchoSeq));
+        
+        jitter_buffer_put(pas->jbJitter, &jbp);
       }
     }
   }
@@ -441,8 +475,19 @@ AudioInput *PulseAudioInputRegistrar::create() {
 
 const QList<audioDevice> PulseAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
+	
+        QStringList qlInputDevs = pasys.qhInput.keys();
+        qSort(qlInputDevs);
+        
+        if (qlInputDevs.contains(g.s.qsPulseAudioInput)) {
+          qlInputDevs.removeAll(g.s.qsPulseAudioInput);
+          qlInputDevs.prepend(g.s.qsPulseAudioInput);
+        }
+        
+        foreach(const QString &dev, qlInputDevs) {
+          qlReturn << audioDevice(pasys.qhInput.value(dev), dev);
+        }
 
-	qlReturn << audioDevice(PulseAudioConfig::tr("Default device"), QString());
 	return qlReturn;
 }
 
@@ -459,8 +504,19 @@ AudioOutput *PulseAudioOutputRegistrar::create() {
 
 const QList<audioDevice> PulseAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
-	
-	qlReturn << audioDevice(PulseAudioConfig::tr("Default device"), QString());
+
+        QStringList qlOutputDevs = pasys.qhOutput.keys();
+        qSort(qlOutputDevs);
+        
+        if (qlOutputDevs.contains(g.s.qsPulseAudioOutput)) {
+          qlOutputDevs.removeAll(g.s.qsPulseAudioOutput);
+          qlOutputDevs.prepend(g.s.qsPulseAudioOutput);
+        }
+        
+        foreach(const QString &dev, qlOutputDevs) {
+          qlReturn << audioDevice(pasys.qhOutput.value(dev), dev);
+        }
+
 	return qlReturn;
 }
 
@@ -476,19 +532,19 @@ static ConfigRegistrar registrar(22, PulseAudioConfigDialogNew);
 
 PulseAudioConfig::PulseAudioConfig(Settings &st) : ConfigWidget(st) {
         setupUi(this);
-/*
-        QList<QString> qlOutputDevs = cards.qhOutput.keys();
+        
+        QStringList qlOutputDevs = pasys.qhOutput.keys();
         qSort(qlOutputDevs);
-        QList<QString> qlInputDevs = cards.qhInput.keys();
+        QStringList qlInputDevs = pasys.qhInput.keys();
         qSort(qlInputDevs);
+
         foreach(QString dev, qlInputDevs) {
-//                qcbInputDevice->addItem(cards.qhInput.value(dev), dev);
+                qcbInputDevice->addItem(pasys.qhInput.value(dev), dev);
         }
 
         foreach(QString dev, qlOutputDevs) {
-//                qcbOutputDevice->addItem(cards.qhOutput.value(dev), dev);
+                qcbOutputDevice->addItem(pasys.qhOutput.value(dev), dev);
         }
-*/
 }
 
 QString PulseAudioConfig::title() const {

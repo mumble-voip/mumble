@@ -356,13 +356,13 @@ bool AudioSine::decodeNextFrame() {
 		frames--;
 
 		float t = v;
-		v += iFrameSize * inc + 0.5 * dinc * iFrameSize * iFrameSize;
 
 		for (unsigned int i=0;i<iFrameSize;i++) {
 			psBuffer[i]=static_cast<short>(sin(t) * 10000.0);
 			inc+=dinc;
 			t+=inc;
 		}
+		v = t;
 		return true;
 	} else {
 		memset(psBuffer, 0, iFrameSize*2);
