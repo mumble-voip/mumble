@@ -38,7 +38,9 @@
 #include "Log.h"
 #include "Plugins.h"
 #include "Global.h"
+#ifndef Q_OS_MAC
 #include "DBus.h"
+#endif
 #include "VersionCheck.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
@@ -68,6 +70,7 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
+#ifndef Q_OS_MAC
 #ifdef Q_OS_WIN
 	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
 	// should contain bin\\, and the path to the config is hardcoded as ..\etc
@@ -82,6 +85,7 @@ int main(int argc, char **argv) {
 		}
 		return 0;
 	}
+#endif
 
 	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(a.applicationDirPath()));
 	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser))
@@ -150,9 +154,11 @@ int main(int argc, char **argv) {
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
 
+#ifndef Q_OS_MAC
 	new MumbleDBus(g.mw);
 	QDBusConnection::sessionBus().registerObject("/", g.mw);
 	QDBusConnection::sessionBus().registerService("net.sourceforge.mumble.mumble");
+#endif
 
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 

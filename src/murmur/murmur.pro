@@ -39,6 +39,6 @@ unix {
   TARGET = murmurd
 }
 
-macx {
+macx:release:!debug {
   CONFIG += x86 ppc
 }

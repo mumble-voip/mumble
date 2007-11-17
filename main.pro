@@ -8,7 +8,7 @@ win32 {
   SUBDIRS += plugins overlay
 }
 
-unix {
+unix:!macx {
   SUBDIRS += overlay_gl
 }
 
