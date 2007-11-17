@@ -82,11 +82,18 @@ AudioInput *OSSInputRegistrar::create() {
 const QList<audioDevice> OSSInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QHash<QString,QString>::const_iterator i;
-
-	for (i=cards.qhInput.constBegin();i!=cards.qhInput.constEnd();++i) {
-		qlReturn << audioDevice(i.value(), i.key());
+	QStringList qlInputDevs = cards.qhInput.keys();
+	qSort(qlInputDevs);
+	
+	if (qlInputDevs.contains(g.s.qsOSSInput)) {
+		qlInputDevs.removeAll(g.s.qsOSSInput);
+		qlInputDevs.prepend(g.s.qsOSSInput);
 	}
+	
+	foreach(const QString &dev, qlInputDevs) {
+		qlReturn << audioDevice(cards.qhInput.value(dev), dev);
+	}
+
 	return qlReturn;
 }
 
@@ -104,11 +111,18 @@ AudioOutput *OSSOutputRegistrar::create() {
 const QList<audioDevice> OSSOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QHash<QString,QString>::const_iterator i;
-
-	for (i=cards.qhOutput.constBegin();i!=cards.qhOutput.constEnd();++i) {
-		qlReturn << audioDevice(i.value(), i.key());
+	QStringList qlOutputDevs = cards.qhOutput.keys();
+	qSort(qlOutputDevs);
+	
+	if (qlOutputDevs.contains(g.s.qsOSSOutput)) {
+		qlOutputDevs.removeAll(g.s.qsOSSOutput);
+		qlOutputDevs.prepend(g.s.qsOSSOutput);
 	}
+	
+	foreach(const QString &dev, qlOutputDevs) {
+		qlReturn << audioDevice(cards.qhOutput.value(dev), dev);
+	}
+
 	return qlReturn;
 }
 
