@@ -70,6 +70,8 @@ struct Settings {
 
 	QString qsFestival;
 	QString qsALSAInput, qsALSAOutput;
+	QString qsPulseAudioInput, qsPulseAudioOutput;
+	bool bPulseAudioEcho;
 	QString qsOSSInput, qsOSSOutput;
 	int iPortAudioInput, iPortAudioOutput;
 	QString qsASIOclass;

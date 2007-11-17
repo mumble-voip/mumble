@@ -10,20 +10,20 @@
 /* Make use of Blackfin assembly optimizations */
 /* #undef BFIN_ASM */
 
-/* Disable wideband codec */
-/* #undef DISABLE_WIDEBAND */
-
 /* Enable valgrind extra checks */
 /* #undef ENABLE_VALGRIND */
-
-/* Enable support for Epic 4.8 kbps mode */
-/* #undef EPIC_48K */
 
 /* Debug fixed-point implementation */
 /* #undef FIXED_DEBUG */
 
 /* Compile as fixed-point */
 /* #undef FIXED_POINT */
+
+/* Compile as floating-point */
+#define FLOATING_POINT 
+
+/* Define to 1 if you have the <alloca.h> header file. */
+#define HAVE_ALLOCA_H 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
@@ -85,9 +85,6 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION ""
 
-/* Reduce precision to 16 bits (EXPERIMENTAL) */
-/* #undef PRECISION16 */
-
 /* The size of `int', as computed by sizeof. */
 #define SIZEOF_INT 4
 
@@ -98,19 +95,19 @@
 #define SIZEOF_SHORT 2
 
 /* Version extra */
-#define SPEEX_EXTRA_VERSION "-svn"
+#define SPEEX_EXTRA_VERSION "-git"
 
 /* Version major */
 #define SPEEX_MAJOR_VERSION 1
 
 /* Version micro */
-#define SPEEX_MICRO_VERSION 14
+#define SPEEX_MICRO_VERSION 15
 
 /* Version minor */
 #define SPEEX_MINOR_VERSION 1
 
 /* Complete version string */
-#define SPEEX_VERSION "1.2beta2"
+#define SPEEX_VERSION "1.2beta3"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -123,9 +120,6 @@
 
 /* Use C99 variable-size arrays */
 #define VAR_ARRAYS 
-
-/* Enable Vorbis-style psychoacoustics (EXPERIMENTAL) */
-/* #undef VORBIS_PSYCHO */
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */

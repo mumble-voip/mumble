@@ -70,6 +70,8 @@ Settings::Settings() {
 	qsFestival=QLatin1String("/usr/bin/festival --batch --pipe");
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
+	
+	bPulseAudioEcho = false;
 
 	iPortAudioInput = -1; // default device
 	iPortAudioOutput = -1; // default device
@@ -143,6 +145,10 @@ void Settings::load() {
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
+
+	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
+	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
+	SAVELOAD(bPulseAudioEcho, "pulseaudio/echo");
 
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");
@@ -244,6 +250,10 @@ void Settings::save() {
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
+
+	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
+	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
+	SAVELOAD(bPulseAudioEcho, "pulseaudio/echo");
 
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");

@@ -11,7 +11,7 @@ HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioI
 SOURCES		= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp DBus.cpp TextMessage.cpp GlobalShortcut.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
-DIST		+= licenses.h mumble.ico mumble.xpm firmumble.inc plugins/mumble_plugin.h mumble-overlay mumble.desktop mumble.protocol mumble.gconf.defaults murmur_pch.h
+DIST		+= licenses.h mumble.ico mumble.xpm firmumble.inc plugins/mumble_plugin.h mumble-overlay mumble.desktop mumble.protocol mumble.gconf-defaults murmur_pch.h
 INCLUDEPATH	+= ../../speex/include
 LIBS 		+= -Llib -L. -lspeex
 RESOURCES	+= mumble.qrc
@@ -49,7 +49,7 @@ unix {
   PKGCONFIG += openssl
 
   contains(UNAME, Linux) {
-    CONFIG  += oss
+    CONFIG  += oss pulseaudio
     FORMS   += ALSAAudio.ui
     HEADERS += ALSAAudio.h GlobalShortcut_unix.h
     SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
@@ -80,6 +80,13 @@ unix {
     SOURCES += OSS.cpp
     FORMS += OSS.ui
     INCLUDEPATH += /usr/lib/oss/include
+  }
+
+  pulseaudio {
+     HEADERS += PulseAudio.h
+     SOURCES += PulseAudio.cpp
+     FORMS += PulseAudio.ui
+     PKGCONFIG += libpulse
   }
 }
 

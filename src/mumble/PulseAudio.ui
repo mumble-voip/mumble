@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>OSSConfig</class>
- <widget class="QWidget" name="OSSConfig" >
+ <class>PulseAudioConfig</class>
+ <widget class="QWidget" name="PulseAudioConfig" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -22,7 +22,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>Input</string>
+         <string>Input (Microphone)</string>
         </property>
         <property name="buddy" >
          <cstring>qcbInputDevice</cstring>
@@ -35,7 +35,7 @@
          <string>Device to use for microphone</string>
         </property>
         <property name="whatsThis" >
-         <string>This set which device mumble should use. The &lt;i>default&lt;/i> device is your primary sound device.</string>
+         <string>This set which source mumble should use for the microphone. The &lt;i>default&lt;/i> device means to use the PulseAudio defaults.</string>
         </property>
        </widget>
       </item>
@@ -53,6 +53,19 @@
        <widget class="QComboBox" name="qcbOutputDevice" >
         <property name="toolTip" >
          <string>Device to use for speakers/headphones</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QCheckBox" name="qcbEcho" >
+        <property name="toolTip" >
+         <string>Enable echo cancellation</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This enables echo cancellation. Don't enable this unless you are listening on speakers; for headphones it will cause audio degradation.</string>
+        </property>
+        <property name="text" >
+         <string>Use echo cancellation</string>
         </property>
        </widget>
       </item>
@@ -78,7 +91,7 @@
       <item>
        <widget class="QSlider" name="qsOutputDelay" >
         <property name="toolTip" >
-         <string>Amount of data to buffer for OSS</string>
+         <string>Amount of data to buffer for ALSA</string>
         </property>
         <property name="whatsThis" >
          <string>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>

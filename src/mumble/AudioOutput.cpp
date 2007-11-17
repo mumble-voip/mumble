@@ -119,8 +119,8 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player) : AudioOutputPlayer(p
 	iMissCount = 0;
 	iMissedFrames = 0;
 
-	jbJitter = jitter_buffer_init(iFrameSize);
-	int margin = g.s.iJitterBufferSize;
+	jbJitter = jitter_buffer_init();
+	int margin = g.s.iJitterBufferSize * iFrameSize;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 
 	speex_bits_init(&sbBits);
@@ -185,8 +185,10 @@ bool AudioOutputSpeech::decodeNextFrame() {
 		char data[4096];
 		JitterBufferPacket jbp;
 		jbp.data = data;
+		
+		spx_int32_t startofs = 0;
 
-		if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, NULL) == JITTER_BUFFER_OK) {
+		if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
 			ucFlags = jbp.data[0];
 			fPos[0] = fPos[1] = fPos[2] = 0.0;
 			speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);

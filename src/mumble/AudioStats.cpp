@@ -221,7 +221,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	paint.fillRect(rect(), pal.color(QPalette::Background));
 
 	AudioInputPtr ai = g.ai;
-	if (ai.get() == NULL || ! ai->isRunning() || ! ai->sppPreprocess)
+	if (ai.get() == NULL || ! ai->sppPreprocess)
 		return;
 
 	QPolygonF poly;
@@ -302,9 +302,9 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 void AudioStats::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
 
-	if (ai.get() == NULL || ! ai->isRunning() || ! ai->sppPreprocess)
+	if (ai.get() == NULL || ! ai->sppPreprocess)
 		return;
-
+		
 	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(ai->sppPreprocess);
 	bool nTalking = ai->isTransmitting();
 
