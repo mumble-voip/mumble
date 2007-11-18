@@ -45,6 +45,7 @@ MetaParams::MetaParams() {
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 	iDBPort = 0;
+	qsDBusService = "net.sourceforge.mumble.murmur";
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
 	qhaBind = QHostAddress(QHostAddress::Any);
@@ -101,6 +102,7 @@ void MetaParams::read(QString fname) {
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
+	qsDBusService = qs.value("dbusservice", qsDBusService).toString();
 	qsLogfile = qs.value("logfile", qsLogfile).toString();
 	qsPid = qs.value("pidfile", qsPid).toString();
 

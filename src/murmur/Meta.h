@@ -58,6 +58,7 @@ struct MetaParams {
 	int iDBPort;
 
 	QString qsDBus;
+	QString qsDBusService;
 	QString qsLogfile;
 	QString qsPid;
 
