@@ -12,6 +12,9 @@
   <property name="windowTitle" >
    <string>Mumble Configuration</string>
   </property>
+  <property name="sizeGripEnabled" >
+   <bool>true</bool>
+  </property>
   <layout class="QVBoxLayout" >
    <item>
     <layout class="QHBoxLayout" >
@@ -67,19 +70,6 @@
       <layout class="QVBoxLayout" >
        <item>
         <widget class="QStackedWidget" name="qswPages" />
-       </item>
-       <item>
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" >
-          <size>
-           <width>20</width>
-           <height>0</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>

@@ -132,14 +132,17 @@ void ConfigDialog::addPage(ConfigWidget *cw) {
 	
 	QRect ds=dw.availableGeometry(this);
 	QSize ms=cw->minimumSizeHint();
+	cw->resize(ms);
+	cw->setMinimumSize(ms);
 	
 	ms.rwidth() += 128;
 	ms.rheight() += 64;
 	if ((ms.width() > ds.width()) || (ms.height() > ds.height())) {
 		QScrollArea *qsa=new QScrollArea(this);
+		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
 		qswPages->addWidget(qsa);
-		qWarning("Widget %s has size %d %d", qPrintable(cw->title()), ms.width(), ms.height());
+		qWarning("Widget %s has size %d %d (%d %d)", qPrintable(cw->title()), ms.width(), ms.height(),ds.width(), ds.height());
 	} else {
 		qswPages->addWidget(cw);
 	}

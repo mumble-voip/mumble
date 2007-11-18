@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1019</width>
-    <height>647</height>
+    <width>542</width>
+    <height>348</height>
    </rect>
   </property>
   <widget class="QSplitter" name="qsSplit" >
@@ -47,8 +47,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1019</width>
-     <height>24</height>
+     <width>542</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmServer" >

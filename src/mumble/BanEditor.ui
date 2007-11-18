@@ -1,6 +1,14 @@
 <ui version="4.0" >
  <class>BanEditor</class>
  <widget class="QDialog" name="BanEditor" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>357</width>
+    <height>163</height>
+   </rect>
+  </property>
   <property name="windowTitle" >
    <string>Mumble - Edit Bans</string>
   </property>
