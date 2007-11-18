@@ -9,7 +9,7 @@ export DH_OPTIONS
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	qmake-qt4 main.pro
+	qmake-qt4 main.pro DEFINES+=NO_UPDATE_CHECK DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio
 
 	touch configure-stamp
 
