@@ -45,7 +45,15 @@ class ALSAEnumerator {
 		QHash<QString,QString> qhOutput;
 		ALSAEnumerator();
 };
-static ALSAEnumerator cards;
+
+static ALSAEnumerator *cards = NULL;
+
+class ALSAAudioInit : public DeferInit {
+	void initialize() { cards = new ALSAEnumerator(); };
+	void destroy() { delete cards; cards = NULL; };
+};
+
+static ALSAAudioInit aai;
 
 class ALSAAudioInputRegistrar : public AudioInputRegistrar {
 	public:
@@ -77,7 +85,7 @@ AudioInput *ALSAAudioInputRegistrar::create() {
 const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QStringList qlInputDevs = cards.qhInput.keys();
+	QStringList qlInputDevs = cards->qhInput.keys();
 	qSort(qlInputDevs);
 
 	if (qlInputDevs.contains(g.s.qsALSAInput)) {
@@ -86,7 +94,7 @@ const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlInputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhInput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput[dev]);
 		qlReturn << audioDevice(t, dev);
 	}
 
@@ -108,7 +116,7 @@ AudioOutput *ALSAAudioOutputRegistrar::create() {
 const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QStringList qlOutputDevs = cards.qhOutput.keys();
+	QStringList qlOutputDevs = cards->qhOutput.keys();
 	qSort(qlOutputDevs);
 
 	if (qlOutputDevs.contains(g.s.qsALSAOutput)) {
@@ -117,7 +125,7 @@ const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlOutputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhInput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput[dev]);
 		qlReturn << audioDevice(t, dev);
 	}
 
@@ -196,16 +204,16 @@ ALSAEnumerator::ALSAEnumerator() {
 ALSAConfig::ALSAConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	QList<QString> qlOutputDevs = cards.qhOutput.keys();
+	QList<QString> qlOutputDevs = cards->qhOutput.keys();
 	qSort(qlOutputDevs);
-	QList<QString> qlInputDevs = cards.qhInput.keys();
+	QList<QString> qlInputDevs = cards->qhInput.keys();
 	qSort(qlInputDevs);
 
 	bool found;
 
 	found = false;
 	foreach(QString dev, qlInputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhInput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput[dev]);
 		qcbInputDevice->addItem(t, dev);
 		if (dev == g.s.qsALSAInput) {
 			found = true;
@@ -219,7 +227,7 @@ ALSAConfig::ALSAConfig(Settings &st) : ConfigWidget(st) {
 
 	found = false;
 	foreach(QString dev, qlOutputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards.qhOutput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhOutput[dev]);
 		qcbOutputDevice->addItem(t, dev);
 		if (dev == g.s.qsALSAOutput) {
 			found = true;

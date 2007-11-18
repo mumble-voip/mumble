@@ -96,6 +96,8 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
+	DeferInit::run_initializers();
+
 	if (! g.s.qsStyle.isEmpty()) {
 		a.setStyle(g.s.qsStyle);
 	}
@@ -210,6 +212,8 @@ int main(int argc, char **argv) {
 	delete g.o;
 
 	delete g.qs;
+	
+	DeferInit::run_destroyers();
 
 	return res;
 }

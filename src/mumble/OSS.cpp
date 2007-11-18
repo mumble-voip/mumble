@@ -50,7 +50,14 @@ class OSSEnumerator {
 		OSSEnumerator();
 };
 
-static OSSEnumerator cards;
+static OSSEnumerator *cards = NULL;
+
+class OSSInit : public DeferInit {
+	void initialize() { cards = new OSSEnumerator(); };
+	void destroy() { delete cards; cards = NULL; };
+};
+
+static OSSInit ossi;
 
 class OSSInputRegistrar : public AudioInputRegistrar {
 	public:
@@ -82,7 +89,7 @@ AudioInput *OSSInputRegistrar::create() {
 const QList<audioDevice> OSSInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QStringList qlInputDevs = cards.qhInput.keys();
+	QStringList qlInputDevs = cards->qhInput.keys();
 	qSort(qlInputDevs);
 
 	if (qlInputDevs.contains(g.s.qsOSSInput)) {
@@ -91,7 +98,7 @@ const QList<audioDevice> OSSInputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlInputDevs) {
-		qlReturn << audioDevice(cards.qhInput.value(dev), dev);
+		qlReturn << audioDevice(cards->qhInput.value(dev), dev);
 	}
 
 	return qlReturn;
@@ -111,7 +118,7 @@ AudioOutput *OSSOutputRegistrar::create() {
 const QList<audioDevice> OSSOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QStringList qlOutputDevs = cards.qhOutput.keys();
+	QStringList qlOutputDevs = cards->qhOutput.keys();
 	qSort(qlOutputDevs);
 
 	if (qlOutputDevs.contains(g.s.qsOSSOutput)) {
@@ -120,7 +127,7 @@ const QList<audioDevice> OSSOutputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlOutputDevs) {
-		qlReturn << audioDevice(cards.qhOutput.value(dev), dev);
+		qlReturn << audioDevice(cards->qhOutput.value(dev), dev);
 	}
 
 	return qlReturn;
@@ -185,16 +192,16 @@ OSSEnumerator::OSSEnumerator() {
 OSSConfig::OSSConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	QList<QString> qlOutputDevs = cards.qhOutput.keys();
+	QList<QString> qlOutputDevs = cards->qhOutput.keys();
 	qSort(qlOutputDevs);
-	QList<QString> qlInputDevs = cards.qhInput.keys();
+	QList<QString> qlInputDevs = cards->qhInput.keys();
 	qSort(qlInputDevs);
 
 	bool found;
 
 	found = false;
 	foreach(QString dev, qlInputDevs) {
-		qcbInputDevice->addItem(cards.qhInput.value(dev), dev);
+		qcbInputDevice->addItem(cards->qhInput.value(dev), dev);
 		if (dev == g.s.qsOSSInput) {
 			found = true;
 			qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
@@ -203,7 +210,7 @@ OSSConfig::OSSConfig(Settings &st) : ConfigWidget(st) {
 
 	found = false;
 	foreach(QString dev, qlOutputDevs) {
-		qcbOutputDevice->addItem(cards.qhOutput.value(dev), dev);
+		qcbOutputDevice->addItem(cards->qhOutput.value(dev), dev);
 		if (dev == g.s.qsOSSOutput) {
 			found = true;
 			qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
@@ -267,10 +274,10 @@ OSSInput::~OSSInput() {
 void OSSInput::run() {
 	bRunning = true;
 
-	QByteArray device = cards.qhDevices.value(g.s.qsOSSInput).toLatin1();
+	QByteArray device = cards->qhDevices.value(g.s.qsOSSInput).toLatin1();
 	if (device.isEmpty()) {
 		qWarning("OSSInput: Stored device not found, falling back to default");
-		device = cards.qhDevices.value(QString()).toLatin1();
+		device = cards->qhDevices.value(QString()).toLatin1();
 	}
 
 	int fd = open(device.constData(), O_RDONLY, 0);
@@ -331,10 +338,10 @@ OSSOutput::~OSSOutput() {
 void OSSOutput::run() {
 	bRunning = true;
 
-	QByteArray device = cards.qhDevices.value(g.s.qsOSSOutput).toLatin1();
+	QByteArray device = cards->qhDevices.value(g.s.qsOSSOutput).toLatin1();
 	if (device.isEmpty()) {
 		qWarning("OSSOutput: Stored device not found, falling back to default");
-		device = cards.qhDevices.value(QString()).toLatin1();
+		device = cards->qhDevices.value(QString()).toLatin1();
 	}
 
 	int fd = open(device.constData(), O_WRONLY, 0);

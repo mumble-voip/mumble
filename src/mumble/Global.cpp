@@ -44,3 +44,31 @@ Global::Global() {
 	bPushToMute = false;
 	bCenterPosition = false;
 }
+
+QMultiMap<int, DeferInit *> *DeferInit::qmDeferers = NULL;
+
+void DeferInit::add(int priority) {
+	if (qmDeferers == NULL) {
+		qmDeferers = new QMultiMap<int, DeferInit *>();
+	}
+	qmDeferers->insert(priority, this);
+}
+
+DeferInit::~DeferInit() {
+}
+
+void DeferInit::run_initializers() {
+	if (! qmDeferers)
+		return;
+	foreach(DeferInit *d, *qmDeferers) {
+		d->initialize();
+	}
+}
+
+void DeferInit::run_destroyers() {
+	if (! qmDeferers)
+		return;
+	foreach(DeferInit *d, *qmDeferers) {
+		d->destroy();
+	}
+}

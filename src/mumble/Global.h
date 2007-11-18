@@ -84,6 +84,25 @@ struct Global {
 	Global();
 };
 
+// Class to handle ordered initialization of globals.
+// This allows the same link-time magic as used everywhere else
+// for globals that need an init before the GUI starts, but
+// after we reach main().
+
+class DeferInit {
+	protected:
+		static QMultiMap<int, DeferInit *> *qmDeferers;
+		void add(int priority);
+	public:
+		DeferInit(int priority) { add(priority); };
+		DeferInit() { add(0); };
+		virtual ~DeferInit();
+		virtual void initialize() { };
+		virtual void destroy() { };
+		static void run_initializers();
+		static void run_destroyers();
+};
+
 // -Wshadow is bugged. If an inline function of a class uses a variable or
 // parameter named 'g', that will generate a warning even if the class header
 // is included long before this definition.

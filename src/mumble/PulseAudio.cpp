@@ -38,7 +38,7 @@
 #include <errno.h>
 #include <sys/ioctl.h>
 
-static PulseAudioSystem pasys;
+static PulseAudioSystem *pasys = NULL;
 
 static const pa_sample_spec ss = { PA_SAMPLE_S16LE, SAMPLE_RATE, 1 };
 
@@ -67,6 +67,14 @@ class PulseAudioOutputRegistrar : public AudioOutputRegistrar {
 static PulseAudioInputRegistrar airPulseAudio;
 static PulseAudioOutputRegistrar aorPulseAudio;
 
+class PulseAudioInit : public DeferInit {
+	public:
+		void initialize() { pasys = new PulseAudioSystem(); };
+		void destroy() { delete pasys; pasys = NULL; };
+};
+
+static PulseAudioInit pulseinit;
+
 PulseAudioSystem::PulseAudioSystem() {
 	pasInput = pasOutput = pasSpeaker = NULL;
 	iDelayCache = 0;
@@ -90,7 +98,6 @@ PulseAudioSystem::PulseAudioSystem() {
 	jbJitter = jitter_buffer_init();
 	int margin = 320;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
-
 	start(QThread::TimeCriticalPriority);
 }
 
@@ -472,7 +479,7 @@ AudioInput *PulseAudioInputRegistrar::create() {
 const QList<audioDevice> PulseAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QStringList qlInputDevs = pasys.qhInput.keys();
+	QStringList qlInputDevs = pasys->qhInput.keys();
 	qSort(qlInputDevs);
 
 	if (qlInputDevs.contains(g.s.qsPulseAudioInput)) {
@@ -481,7 +488,7 @@ const QList<audioDevice> PulseAudioInputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlInputDevs) {
-		qlReturn << audioDevice(pasys.qhInput.value(dev), dev);
+		qlReturn << audioDevice(pasys->qhInput.value(dev), dev);
 	}
 
 	return qlReturn;
@@ -501,7 +508,7 @@ AudioOutput *PulseAudioOutputRegistrar::create() {
 const QList<audioDevice> PulseAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	QStringList qlOutputDevs = pasys.qhOutput.keys();
+	QStringList qlOutputDevs = pasys->qhOutput.keys();
 	qSort(qlOutputDevs);
 
 	if (qlOutputDevs.contains(g.s.qsPulseAudioOutput)) {
@@ -510,7 +517,7 @@ const QList<audioDevice> PulseAudioOutputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlOutputDevs) {
-		qlReturn << audioDevice(pasys.qhOutput.value(dev), dev);
+		qlReturn << audioDevice(pasys->qhOutput.value(dev), dev);
 	}
 
 	return qlReturn;
@@ -529,17 +536,17 @@ static ConfigRegistrar registrar(22, PulseAudioConfigDialogNew);
 PulseAudioConfig::PulseAudioConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	QStringList qlOutputDevs = pasys.qhOutput.keys();
+	QStringList qlOutputDevs = pasys->qhOutput.keys();
 	qSort(qlOutputDevs);
-	QStringList qlInputDevs = pasys.qhInput.keys();
+	QStringList qlInputDevs = pasys->qhInput.keys();
 	qSort(qlInputDevs);
 
 	foreach(QString dev, qlInputDevs) {
-		qcbInputDevice->addItem(pasys.qhInput.value(dev), dev);
+		qcbInputDevice->addItem(pasys->qhInput.value(dev), dev);
 	}
 
 	foreach(QString dev, qlOutputDevs) {
-		qcbOutputDevice->addItem(pasys.qhOutput.value(dev), dev);
+		qcbOutputDevice->addItem(pasys->qhOutput.value(dev), dev);
 	}
 }
 
@@ -588,20 +595,24 @@ void PulseAudioConfig::on_qsOutputDelay_valueChanged(int v) {
 PulseAudioInput::PulseAudioInput() {
 	bRunning = true;
 	bHasSpeaker = g.s.bPulseAudioEcho;
-	pasys.wakeup();
+	if (pasys)
+		pasys->wakeup();
 };
 
 PulseAudioInput::~PulseAudioInput() {
 	bRunning = false;
-	pasys.wakeup();
+	if (pasys)
+		pasys->wakeup();
 }
 
 PulseAudioOutput::PulseAudioOutput() {
 	bRunning = true;
-	pasys.wakeup();
+	if (pasys)
+		pasys->wakeup();
 }
 
 PulseAudioOutput::~PulseAudioOutput() {
 	bRunning = false;
-	pasys.wakeup();
+	if (pasys)
+		pasys->wakeup();
 }
