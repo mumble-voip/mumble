@@ -60,7 +60,11 @@ Settings::Settings() {
 	uiDoublePush = 0;
 	bExpert = false;
 
+#ifdef NO_UPDATE_CHECK
+	bUpdateCheck = false;
+#else
 	bUpdateCheck = true;
+#endif
 
 	bFirstTime = true;
 	bHorizontal = true;
