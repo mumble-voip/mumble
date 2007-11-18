@@ -58,8 +58,6 @@ install: build
 	install -m 0644 -D ./man/mumble-overlay.1 $(CURDIR)/debian/mumble/usr/share/man/man1/mumble-overlay.1
 
 	# install murmur
-	#install -d -m 0755 $(CURDIR)/debian/murmur/var/lib/murmur
-	#install -d -m 0755 $(CURDIR)/debian/murmur/var/log/murmur
 	install -D -m 0755 ./release/murmurd $(CURDIR)/debian/murmur/usr/sbin/murmurd
 	install -D -m 0644 ./man/murmurd.1 $(CURDIR)/debian/murmur/usr/share/man/man1/murmurd.1
 	install -D -m 0644 ./scripts/murmur.conf $(CURDIR)/debian/murmur/etc/dbus-1/system.d/murmur.conf
