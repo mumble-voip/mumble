@@ -70,8 +70,8 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
 	// pretty early in the sorted map.
 
-	if (qmNew->contains(QLatin1String("DirectSound"))) {
-		current = QLatin1String("DirectSound");
+	if (qmNew->contains(QLatin1String(DEFAULT_SOUNDSYS))) {
+		current = QLatin1String(DEFAULT_SOUNDSYS);
 		return AudioInputPtr(qmNew->value(current)->create());
 	}
 

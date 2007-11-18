@@ -34,13 +34,19 @@
 #include "Settings.h"
 #include "Timer.h"
 
+#define MUMXTEXT(X) #X
+#define MUMTEXT(X) MUMXTEXT(X)
+
 #ifndef MUMBLE_VERSION
 #define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
 #else
-#define MUMXTEXT(X) #X
-#define MUMTEXT(X) MUMXTEXT(X)
 #define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
 #endif
+
+#ifndef DEFAULT_SOUNDSYSTEM
+#define DEFAULT_SOUNDSYSTEM DirectSound
+#endif
+#define DEFAULT_SOUNDSYS MUMTEXT(DEFAULT_SOUNDSYSTEM)
 
 // Global helper class to spread variables around across threads.
 
