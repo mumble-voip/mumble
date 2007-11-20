@@ -34,6 +34,7 @@
 #include <math.h>
 
 #include "AudioOutput.h"
+#include "AudioInput.h"
 #include "Player.h"
 #include "Global.h"
 #include "Message.h"
@@ -245,9 +246,9 @@ void AudioOutput::wipe() {
 	removeBuffer(p);
 }
 
-void AudioOutput::playSine(float hz, float i, unsigned int frames) {
+void AudioOutput::playSine(float hz, float i, unsigned int frames, float volume) {
 	qrwlOutputs.lockForWrite();
-	AudioSine *as = new AudioSine(hz,i,frames);
+	AudioSine *as = new AudioSine(hz,i,frames, volume);
 	qmOutputs.insert(NULL, as);
 	newPlayer(as);
 	qrwlOutputs.unlock();
@@ -331,34 +332,76 @@ bool AudioOutput::mixAudio(short *buffer) {
 
 	qrwlOutputs.unlock();
 
-
 	foreach(aop, qlDel)
 	removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
 }
 
-AudioSine::AudioSine(float hz, float i, unsigned int frm) : AudioOutputPlayer(QLatin1String("Sine")) {
+AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutputPlayer(QLatin1String("Sine")) {
 	v = 0.0;
 	inc = M_PI * hz / 8000.0;
 	dinc = M_PI * i / (8000.0 * 8000.0);
+	volume = vol;
 	frames = frm;
 	iFrameSize = 320;
+	cntr = 0;
 	psBuffer = new short[iFrameSize];
+	fftTable = NULL;
+	tbin = 4;
 }
 
 AudioSine::~AudioSine() {
 	delete [] psBuffer;
+	if (fftTable)
+		spx_fft_destroy(fftTable);
 }
 
 bool AudioSine::decodeNextFrame() {
 	if (frames > 0) {
 		frames--;
 
+		if (inc == 0.0) {
+			if (! fftTable)
+				fftTable = spx_fft_init(iFrameSize);
+			float in[iFrameSize];
+			float out[iFrameSize];
+
+			for(unsigned int i=0;i<iFrameSize;i++)
+				in[i] = 0;
+
+			if (++cntr == 50) {
+				bSearch = true;
+				cntr = 0;
+				tbin *= 2;
+				if (tbin >= 64)
+					tbin = 4;
+			}
+
+			AudioInputPtr ai = g.ai;
+			if (ai && bSearch && ai->iBestBin == tbin) {
+				bSearch = false;
+				g.iAudioPathTime = cntr;
+			}
+
+			in[tbin] = 32768.0 * volume;
+
+			spx_ifft(fftTable, in, out);
+
+			for(unsigned int i=0;i<iFrameSize;i++)
+				psBuffer[i] = lround(out[i]);
+
+			for(unsigned int i=0;i<iFrameSize;i++)
+				psBuffer[i] = lround(32768.0 * volume * sin(M_PI * i * (tbin * 1.0) / (1.0 * iFrameSize)));
+
+
+			return true;
+		}
+
 		float t = v;
 
 		for (unsigned int i=0;i<iFrameSize;i++) {
-			psBuffer[i]=static_cast<short>(sin(t) * 10000.0);
+			psBuffer[i]=static_cast<short>(sin(t) * volume * 32768.0);
 			inc+=dinc;
 			t+=inc;
 		}

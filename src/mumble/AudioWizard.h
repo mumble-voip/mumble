@@ -53,6 +53,8 @@ class AudioWizard: public QWizard {
 		QSlider *qsHoldtime;
 		QLabel *qlHoldtime;
 
+		QLabel *qlAudioPath;
+
 		QWizardPage *introPage();
 		QWizardPage *devicePage();
 		QWizardPage *volumePage();

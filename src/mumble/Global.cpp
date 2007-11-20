@@ -43,6 +43,8 @@ Global::Global() {
 	iAltSpeak = 0;
 	bPushToMute = false;
 	bCenterPosition = false;
+	bEchoTest = false;
+	iAudioPathTime = 0;
 }
 
 QMultiMap<int, DeferInit *> *DeferInit::qmDeferers = NULL;

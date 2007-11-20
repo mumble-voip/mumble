@@ -107,10 +107,15 @@ class AudioSine : public AudioOutputPlayer {
 		float v;
 		float inc;
 		float dinc;
+		float volume;
 		unsigned int frames;
+		unsigned int cntr;
+		unsigned int tbin;
+		bool bSearch;
+		void *fftTable;
 	public:
 		bool decodeNextFrame();
-		AudioSine(float hz, float i, unsigned int frm);
+		AudioSine(float hz, float i, unsigned int frm, float v);
 		~AudioSine();
 };
 
@@ -131,7 +136,7 @@ class AudioOutput : public QThread {
 		~AudioOutput();
 		void addFrameToBuffer(ClientPlayer *, const QByteArray &, int iSeq);
 		void removeBuffer(const ClientPlayer *);
-		void playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff);
+		void playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3);
 		void run() = 0;
 };
 

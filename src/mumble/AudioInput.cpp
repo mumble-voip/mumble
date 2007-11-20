@@ -93,11 +93,14 @@ AudioInput::AudioInput() {
 	esEncState=speex_encoder_init(&speex_wb_mode);
 	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 
+	fftTable = spx_fft_init(iFrameSize);
+
 	iByteSize=iFrameSize * 2;
 
 	iFrameCounter = 0;
 	iSilentFrames = 0;
 	iHoldFrames = 0;
+	iBestBin = 0;
 
 	int iArg=1;
 	float fArg=0.0;
@@ -146,6 +149,7 @@ AudioInput::~AudioInput() {
 	wait();
 	speex_bits_destroy(&sbBits);
 	speex_encoder_destroy(esEncState);
+	spx_fft_destroy(fftTable);
 
 	if (sppPreprocess)
 		speex_preprocess_state_destroy(sppPreprocess);
@@ -269,6 +273,22 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psMic[i]);
 	dPeakMic=20.0*log10((max  * 1.0L) / 32768.0L);
 	micMax = max;
+
+	if (g.bEchoTest) {
+		float in[iFrameSize];
+		float out[iFrameSize];
+		for(i=0;i<iFrameSize;i++)
+			in[i] = psMic[i];
+		spx_fft(fftTable, in, out);
+		double mp = 0.0;
+		for(i=2;i<50;i++) {
+			double power = out[2*i]*out[2*i]+out[2*i-1]*out[2*i-1];
+			if (power > mp) {
+				iBestBin=2*i;
+				mp = power;
+			}
+		}
+	}
 
 	if (bHasSpeaker) {
 		max=1;

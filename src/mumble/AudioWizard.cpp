@@ -56,6 +56,8 @@ AudioWizard::AudioWizard() {
 	iMaxPeak = 0;
 	iTicks = 0;
 
+	g.bEchoTest = true;
+
 	ticker = new QTimer(this);
 	ticker->setObjectName(QLatin1String("Ticker"));
 
@@ -358,7 +360,7 @@ QWizardPage *AudioWizard::deviceTuningPage() {
 	l->setWordWrap(true);
 	grid->addWidget(l, 0, 0, 1, 2);
 
-	l = new QLabel(tr("You should hear a multitone chord. Change the slider below to the lowest value which gives <b>no</b> interruptions or jitter "
+	l = new QLabel(tr("You should hear a single tone that's changing in frequency. Change the slider below to the lowest value which gives <b>no</b> interruptions or jitter "
 	                  "in the sound."));
 	l->setWordWrap(true);
 	grid->addWidget(l, 1, 0, 1, 2);
@@ -380,6 +382,15 @@ QWizardPage *AudioWizard::deviceTuningPage() {
 	                               "cause rapid jitter in the sound."));
 	grid->addWidget(qsOutputDelay, 2, 1);
 	grid->addWidget(qlOutputDelay, 2, 2);
+
+	l = new QLabel(tr("If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path "
+			  "delay in your system; this means the delay from a sample is placed in an outbound buffer until it's found in "
+			  "a matching incoming buffer."));
+	l->setWordWrap(true);
+	grid->addWidget(l, 3, 0, 1, 2);
+
+	qlAudioPath = new QLabel();
+	grid->addWidget(qlAudioPath, 4, 0, 1, 2);
 
 	qwpage->setLayout(grid);
 	return qwpage;
@@ -477,9 +488,10 @@ void AudioWizard::showPage(int v) {
 
 void AudioWizard::playChord() {
 	AudioOutputPtr ao = g.ao;
-	ao->playSine(261.63);
-	ao->playSine(329.63);
-	ao->playSine(392.00);
+	ao->playSine(261.63, 0.0, 0xfffffff, 0.0);
+	ao->playSine(329.63, 0.0, 0xfffffff, 0.0);
+	ao->playSine(392.00, 0.0, 0xfffffff, 0.0);
+	ao->playSine(0.0, 0.0, 0xfffffff, 0.5);
 }
 
 void AudioWizard::restartAudio() {
@@ -518,6 +530,7 @@ void AudioWizard::reject() {
 	}
 
 	g.s.lmLoopMode = Settings::None;
+	g.bEchoTest = false;
 	restartAudio();
 
 	QWizard::reject();
@@ -526,6 +539,7 @@ void AudioWizard::reject() {
 void AudioWizard::accept() {
 	g.s.atTransmit = sOldSettings.atTransmit;
 	g.s.lmLoopMode = Settings::None;
+	g.bEchoTest = false;
 	restartAudio();
 	QWizard::accept();
 }
@@ -560,6 +574,9 @@ void AudioWizard::on_Ticker_timeout() {
 		abVAD->iPeak = -1;
 	}
 	abVAD->update();
+
+	QString txt=tr("Audio path is %1ms long.").arg(g.iAudioPathTime*20);
+	qlAudioPath->setText(txt);
 }
 
 void AudioWizard::on_VADmin_valueChanged(int v) {

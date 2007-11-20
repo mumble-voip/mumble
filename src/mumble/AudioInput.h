@@ -65,6 +65,7 @@ class AudioInput : public QThread {
 		SpeexPreprocessState *sppPreprocess;
 		SpeexEchoState *sesEcho;
 		void *esEncState;
+		void *fftTable;
 
 		short *psMic;
 		short *psSpeaker;
@@ -90,6 +91,8 @@ class AudioInput : public QThread {
 		int iBitrate;
 		double dPeakMic, dPeakSpeaker, dPeakSignal;
 		double dSNR;
+
+		int iBestBin;
 
 		bool isTransmitting() {
 			return bPreviousVoice;
