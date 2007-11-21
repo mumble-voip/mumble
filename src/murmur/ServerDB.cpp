@@ -428,8 +428,11 @@ int Server::registerPlayer(const QString &name) {
 	if (getUserID(name) >= 0)
 		return -1;
 
+	qhUserIDCache.remove(name);
+
 	int res = dbus->dbusRegisterPlayer(name);
 	if (res != -2) {
+		qhUserNameCache.remove(res);
 		return res;
 	}
 
@@ -449,12 +452,20 @@ int Server::registerPlayer(const QString &name) {
 	query.addBindValue(id);
 	query.addBindValue(name);
 	SQLEXEC();
+	qhUserNameCache.remove(id);
 	return id;
 }
 
 bool Server::unregisterPlayer(int id) {
 	if (id <= 0)
 		return false;
+
+	QString oname, email;
+	if (! getRegistration(id, oname, email))
+		return false;
+
+	qhUserIDCache.remove(oname);
+	qhUserNameCache.remove(id);
 
 	int res = dbus->dbusUnregisterPlayer(id);
 	if (res >= 0) {
@@ -503,7 +514,6 @@ bool Server::getRegistration(int id, QString &name, QString &email) {
 	int res = dbus->dbusGetRegistration(id, name, email);
 	if (res >= 0)
 		return (res > 0);
-
 
 	TransactionHolder th;
 
@@ -616,6 +626,14 @@ bool Server::setName(int id, const QString &name) {
 	int oid = getUserID(name);
 	if (oid >= 0)
 		return false;
+
+	QString oname, email;
+	if (! getRegistration(id, oname, email))
+		return false;
+
+	qhUserIDCache.remove(name);
+	qhUserIDCache.remove(oname);
+	qhUserNameCache.remove(id);
 
 	int res = dbus->dbusSetName(id, name);
 	if (res == 0)

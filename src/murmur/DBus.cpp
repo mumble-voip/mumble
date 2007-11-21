@@ -761,10 +761,6 @@ void MurmurDBus::updateRegistration(const RegisteredPlayer &player, const QDBusM
 	}
 
 	if ((! player.name.isEmpty()) && (name != player.name)) {
-		server->qhUserIDCache.remove(name);
-		server->qhUserIDCache.remove(player.name);
-		server->qhUserNameCache.remove(player.id);
-
 		if (! server->setName(player.id, player.name)) {
 			qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
 			return;
