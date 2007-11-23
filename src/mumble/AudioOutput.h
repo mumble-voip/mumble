@@ -122,7 +122,7 @@ class AudioSine : public AudioOutputPlayer {
 class AudioOutput : public QThread {
 		Q_OBJECT
 	protected:
-		bool bRunning;
+		volatile bool bRunning;
 		int iFrameSize;
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;

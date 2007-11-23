@@ -408,6 +408,7 @@ void PortAudioInput::run() {
 
 PortAudioOutput::PortAudioOutput() {
 	qWarning() << "PortAudioOutput::PortAudioOutput()";
+	bRunning = true;
 }
 
 PortAudioOutput::~PortAudioOutput() {
@@ -428,7 +429,6 @@ void PortAudioOutput::run() {
 	if (!pSys->initStream(&outputStream, g.s.iPortAudioOutput, iFrameSize, false))
 		return; // PA initialization or stream opening failed, we will give up
 
-	bRunning = true;
 	while (bRunning) {
 		bool nextHasMoreToMix = mixAudio(outBuffer);
 		if (hasMoreToMix) {

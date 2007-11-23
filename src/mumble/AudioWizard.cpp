@@ -50,6 +50,8 @@ AudioWizard::AudioWizard() {
 	g.s.lmLoopMode = Settings::Local;
 	g.s.dPacketLoss = 0.0;
 	g.s.dMaxPacketDelay = 0.0;
+	g.s.bMute = false;
+	g.s.bDeaf = false;
 
 	g.s.atTransmit = Settings::Continous;
 
@@ -361,7 +363,8 @@ QWizardPage *AudioWizard::deviceTuningPage() {
 	grid->addWidget(l, 0, 0, 1, 2);
 
 	l = new QLabel(tr("You should hear a single tone that's changing in frequency. Change the slider below to the lowest value which gives <b>no</b> interruptions or jitter "
-	                  "in the sound."));
+	                  "in the sound. Please note that local echo is disabled during this test to "
+	                  "improve audio path recognition."));
 	l->setWordWrap(true);
 	grid->addWidget(l, 1, 0, 1, 2);
 
@@ -482,8 +485,12 @@ void AudioWizard::showPage(int v) {
 	AudioOutputPtr ao = g.ao;
 	ao->wipe();
 
-	if (v == 2)
+	if (v == 2) {
+		g.s.bMute = true;
 		playChord();
+	} else {
+		g.s.bMute = false;
+	}
 }
 
 void AudioWizard::playChord() {
@@ -575,7 +582,11 @@ void AudioWizard::on_Ticker_timeout() {
 	}
 	abVAD->update();
 
-	QString txt=tr("Audio path is %1ms long.").arg(g.iAudioPathTime*20);
+	QString txt;
+	if (g.iAudioPathTime) 
+		txt=tr("Audio path is %1ms long.").arg(g.iAudioPathTime*20);
+	else
+		txt=tr("Audio path cannot be determined. Input not recognized.");
 	qlAudioPath->setText(txt);
 }
 

@@ -37,7 +37,7 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		Q_OBJECT
 	public:
 		Display *display;
-		bool bRunning;
+		volatile bool bRunning;
 		QList<QFile *> qlInputDevices;
 
 		GlobalShortcutX();

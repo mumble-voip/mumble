@@ -74,7 +74,7 @@ class AudioInput : public QThread {
 
 		void encodeAudioFrame();
 
-		bool bRunning;
+		volatile bool bRunning;
 		bool bPreviousVoice;
 		bool bHasSpeaker;
 

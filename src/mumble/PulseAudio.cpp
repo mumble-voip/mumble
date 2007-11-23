@@ -83,8 +83,6 @@ PulseAudioSystem::PulseAudioSystem() {
 	iInputIdx = iEchoIdx = 0;
 	iEchoSeq = 0;
 
-	bRunning = true;
-
 	pam = pa_mainloop_new();
 	pa_mainloop_api *api = pa_mainloop_get_api(pam);
 
@@ -95,8 +93,8 @@ PulseAudioSystem::PulseAudioSystem() {
 	pade = api->defer_new(api, defer_event_callback, this);
 	api->defer_enable(pade, false);
 
-	jbJitter = jitter_buffer_init();
 	int margin = 320;
+	jbJitter = jitter_buffer_init(margin);
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 	start(QThread::TimeCriticalPriority);
 }
@@ -381,6 +379,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 				if (g.s.bPulseAudioEcho) {
 					JitterBufferPacket jbp;
 					jbp.data = reinterpret_cast<char *>(pai->psSpeaker);
+					jbp.len = pai->iFrameSize * sizeof(short);
 					spx_int32_t startofs = 0;
 					jitter_buffer_get(pas->jbJitter, &jbp, pai->iFrameSize, &startofs);
 					jitter_buffer_update_delay(pas->jbJitter, &jbp, NULL);

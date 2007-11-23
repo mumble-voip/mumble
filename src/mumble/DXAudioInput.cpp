@@ -166,6 +166,8 @@ DXAudioInput::DXAudioInput() {
 		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. Default device will be used."), QMessageBox::Ok, QMessageBox::NoButton);
 
 	qWarning("DXAudioInput: Initialized");
+
+	bRunning = true;
 }
 
 DXAudioInput::~DXAudioInput() {
@@ -197,8 +199,6 @@ void DXAudioInput::run() {
 
 	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING)))
 		qFatal("DXAudioInput: Start");
-
-	bRunning = true;
 
 	while (bRunning) {
 

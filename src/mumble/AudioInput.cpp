@@ -280,14 +280,24 @@ void AudioInput::encodeAudioFrame() {
 		for(i=0;i<iFrameSize;i++)
 			in[i] = psMic[i];
 		spx_fft(fftTable, in, out);
+		double power[iFrameSize];
 		double mp = 0.0;
-		for(i=2;i<50;i++) {
-			double power = out[2*i]*out[2*i]+out[2*i-1]*out[2*i-1];
-			if (power > mp) {
-				iBestBin=2*i;
-				mp = power;
+		int bin = 0;
+		power[0]=power[1]=0.0;
+		for(i=2;i < iFrameSize / 2;i++) {
+			power[i] = sqrt(out[2*i]*out[2*i]+out[2*i-1]*out[2*i-1]);
+			if (power[i] > mp) {
+				bin = i;
+				mp = power[i];
 			}
 		}
+		for(i=2;i< iFrameSize / 2;i++) {
+			if (power[i] * 2 > mp) {
+				if (i != bin)
+					bin = 0;
+			}
+		}
+		iBestBin = bin * 2;
 	}
 
 	if (bHasSpeaker) {

@@ -263,6 +263,7 @@ void OSSConfig::on_qsOutputDelay_valueChanged(int v) {
 }
 
 OSSInput::OSSInput() {
+	bRunning = true;
 }
 
 OSSInput::~OSSInput() {
@@ -272,8 +273,6 @@ OSSInput::~OSSInput() {
 }
 
 void OSSInput::run() {
-	bRunning = true;
-
 	QByteArray device = cards->qhDevices.value(g.s.qsOSSInput).toLatin1();
 	if (device.isEmpty()) {
 		qWarning("OSSInput: Stored device not found, falling back to default");
@@ -323,6 +322,8 @@ void OSSInput::run() {
 }
 
 OSSOutput::OSSOutput() {
+	bRunning = true;
+
 	qWarning("OSSOutput: Initialized");
 }
 
@@ -336,8 +337,6 @@ OSSOutput::~OSSOutput() {
 }
 
 void OSSOutput::run() {
-	bRunning = true;
-
 	QByteArray device = cards->qhDevices.value(g.s.qsOSSOutput).toLatin1();
 	if (device.isEmpty()) {
 		qWarning("OSSOutput: Stored device not found, falling back to default");

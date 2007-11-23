@@ -460,8 +460,10 @@ ASIOInput::ASIOInput() {
 				asioCallbacks.asioMessage = &asioMessages;
 				asioCallbacks.bufferSwitchTimeInfo = &bufferSwitchTimeInfo;
 
-				if (iasio->createBuffers(abiInfo, idx, 960, &asioCallbacks) == ASE_OK)
+				if (iasio->createBuffers(abiInfo, idx, 960, &asioCallbacks) == ASE_OK) {
+					bRunning = true;
 					return;
+				}
 			}
 		}
 	}
@@ -512,7 +514,6 @@ ASIOInput::~ASIOInput() {
 void ASIOInput::run() {
 	QMutex m;
 	m.lock();
-	bRunning = true;
 	if (iasio) {
 		aiSelf = this;
 		iasio->start();

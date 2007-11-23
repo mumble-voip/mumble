@@ -120,7 +120,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player) : AudioOutputPlayer(p
 	iMissCount = 0;
 	iMissedFrames = 0;
 
-	jbJitter = jitter_buffer_init();
+	jbJitter = jitter_buffer_init(iFrameSize);
 	int margin = g.s.iJitterBufferSize * iFrameSize;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 
@@ -186,6 +186,7 @@ bool AudioOutputSpeech::decodeNextFrame() {
 		char data[4096];
 		JitterBufferPacket jbp;
 		jbp.data = data;
+		jbp.len = 4096;
 
 		spx_int32_t startofs = 0;
 
@@ -349,6 +350,9 @@ AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutp
 	psBuffer = new short[iFrameSize];
 	fftTable = NULL;
 	tbin = 4;
+	
+	if (inc == 0.0)
+		g.iAudioPathTime = 0;
 }
 
 AudioSine::~AudioSine() {

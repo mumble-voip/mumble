@@ -283,6 +283,7 @@ void ALSAConfig::on_qsOutputDelay_valueChanged(int v) {
 }
 
 ALSAAudioInput::ALSAAudioInput() {
+	bRunning = true;
 }
 
 ALSAAudioInput::~ALSAAudioInput() {
@@ -306,7 +307,6 @@ void ALSAAudioInput::run() {
 	unsigned int rrate = SAMPLE_RATE;
 	bool bOk = true;
 
-	bRunning = true;
 	int err = 0;
 
 	qWarning("ALSAAudioInput: Initing audiocapture %s.",device_name.data());
@@ -438,6 +438,7 @@ void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period) {
 
 ALSAAudioOutput::ALSAAudioOutput() {
 	qWarning("ALSAAudioOutput: Initialized");
+	bRunning = true;
 }
 
 ALSAAudioOutput::~ALSAAudioOutput() {
@@ -457,8 +458,6 @@ void ALSAAudioOutput::run() {
 
 	initialize(pcm_handle, iFrameSize);
 
-	bRunning = true;
-
 	if (! pcm_handle)
 		return;
 
@@ -468,10 +467,8 @@ void ALSAAudioOutput::run() {
 	for (int i=0;i<iFrameSize;i++)
 		zerobuff[i]=0;
 
-
 	count = snd_pcm_poll_descriptors_count(pcm_handle);
 	snd_pcm_poll_descriptors(pcm_handle, fds, count);
-
 
 	while (bRunning) {
 		poll(fds, count, 20);
@@ -511,4 +508,5 @@ void ALSAAudioOutput::run() {
 			}
 		}
 	}
+	snd_pcm_close(pcm_handle);
 }
