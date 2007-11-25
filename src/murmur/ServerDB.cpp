@@ -280,7 +280,12 @@ ServerDB::ServerDB() {
 
 			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
 			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
-			
+		} else {
+			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
+			SQLDO("ALTER TABLE %1slog ADD CONSTRAINT %1slog_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
+			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
+
 			SQLDO("ALTER TABLE %1acl CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1bans CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1channel_links CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
@@ -293,11 +298,6 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE %1players CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1servers CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1slog CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
-		} else {
-			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
-			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
-			SQLDO("ALTER TABLE %1slog ADD CONSTRAINT %1slog_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
-			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
 		}
 	}
 }
