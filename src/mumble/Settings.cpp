@@ -137,6 +137,8 @@ void Settings::load() {
 	SAVELOAD(fDXMinDistance, "audio/mindistance");
 	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
 	SAVELOAD(fDXRollOff, "audio/rolloff");
+	SAVELOAD(qsAudioInput, "audio/input");
+	SAVELOAD(qsAudioOutput, "audio/output");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
@@ -242,6 +244,8 @@ void Settings::save() {
 	SAVELOAD(fDXMinDistance, "audio/mindistance");
 	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
 	SAVELOAD(fDXRollOff, "audio/rolloff");
+	SAVELOAD(qsAudioInput, "audio/input");
+	SAVELOAD(qsAudioOutput, "audio/output");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");

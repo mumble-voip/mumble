@@ -57,13 +57,12 @@ AudioOutputRegistrar::~AudioOutputRegistrar() {
 }
 
 AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
-	QSettings qs;
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
-		qs.setValue(QLatin1String("AudioOutputDevice"), choice);
+		g.s.qsAudioOutput = choice;
 		current = choice;
 		return AudioOutputPtr(qmNew->value(choice)->create());
 	}
-	choice = qs.value(QLatin1String("AudioOutputDevice")).toString();
+	choice = g.s.qsAudioOutput;
 	if (qmNew->contains(choice)) {
 		current = choice;
 		return AudioOutputPtr(qmNew->value(choice)->create());
@@ -350,7 +349,7 @@ AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutp
 	psBuffer = new short[iFrameSize];
 	fftTable = NULL;
 	tbin = 4;
-	
+
 	if (inc == 0.0)
 		g.iAudioPathTime = 0;
 }

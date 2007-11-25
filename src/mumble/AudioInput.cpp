@@ -55,13 +55,12 @@ AudioInputRegistrar::~AudioInputRegistrar() {
 }
 
 AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
-	QSettings qs;
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
-		qs.setValue(QLatin1String("AudioInputDevice"), choice);
+		g.s.qsAudioInput = choice;
 		current = choice;
 		return AudioInputPtr(qmNew->value(current)->create());
 	}
-	choice = qs.value(QLatin1String("AudioInputDevice")).toString();
+	choice = g.s.qsAudioInput;
 	if (qmNew->contains(choice)) {
 		current = choice;
 		return AudioInputPtr(qmNew->value(choice)->create());
