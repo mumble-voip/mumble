@@ -90,7 +90,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 #ifdef Q_OS_UNIX
 	sUdpSocket = ::socket(PF_INET, SOCK_DGRAM, 0);
 #else
-	sUdpSocket = ::WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
+	sUdpSocket = ::WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
 #endif
 	if (sUdpSocket == INVALID_SOCKET) {
 		log("Failed to create UDP Socket");
@@ -250,11 +250,13 @@ void Server::run() {
 
 		User *u = qhPeerUsers.value(key);
 		if (u) {
-			if (! checkDecrypt(u, encrypted, buffer, len))
+			if (! checkDecrypt(u, encrypted, buffer, len)) {
 				continue;
+			}
 			pds >> msgType >> uiSession;
-			if (u->uiSession != uiSession)
+			if (u->uiSession != uiSession) {
 				continue;
+			}
 		} else {
 			// Unknown peer
 			foreach(User *usr, qhHostUsers.value(from.sin_addr.s_addr)) {
@@ -280,8 +282,9 @@ void Server::run() {
 
 				}
 			}
-			if (! u)
+			if (! u) {
 				continue;
+			}
 			len -= 4;
 		}
 

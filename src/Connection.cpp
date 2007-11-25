@@ -75,6 +75,7 @@ void Connection::socketRead() {
 	// At the same time, DBus connections don't like getting multiple concurrent requests.
 	// So, this is a big workaround to serialize user requests.
 
+#if (QT_VERSION < 0x040400)
 	int iPrevLevel = iReceiveLevel;
 
 	iReceiveLevel = 2;
@@ -87,12 +88,16 @@ void Connection::socketRead() {
 		// We're iterating from the topmost one.
 		qsReceivers.remove(this);
 	}
+#endif
 
 	int iAvailable = qtsSocket->bytesAvailable();
 
+
 	if (iPacketLength == -1) {
 		if (iAvailable < 3) {
+#if (QT_VERSION < 0x040400)
 			iReceiveLevel = iPrevLevel;
+#endif
 			return;
 		}
 
@@ -114,6 +119,7 @@ void Connection::socketRead() {
 		emit message(qbaBuffer);
 	}
 
+#if (QT_VERSION < 0x040400)
 	// At this point, the current *this might be destroyed.
 
 	if (iPrevLevel == 0) {
@@ -125,6 +131,7 @@ void Connection::socketRead() {
 		}
 	}
 	iReceiveLevel = iPrevLevel;
+#endif
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {
@@ -174,11 +181,14 @@ void Connection::sendMessage(const QByteArray &qbaMsg) {
 	a_ucBuffer[2]=(qbaMsg.size() & 0xff);
 	memcpy(a_ucBuffer + 3, qbaMsg.constData(), qbaMsg.size());
 
+#if (QT_VERSION < 0x040400)
 	int iPrevLevel = iReceiveLevel;
 	iReceiveLevel = 2;
+#endif
 
 	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 3 + qbaMsg.size());
 
+#if (QT_VERSION < 0x040400)
 	if (iPrevLevel == 0) {
 		iReceiveLevel = 1;
 		QSet<Connection *>::const_iterator i = qsReceivers.constBegin();
@@ -188,6 +198,7 @@ void Connection::sendMessage(const QByteArray &qbaMsg) {
 		}
 	}
 	iReceiveLevel = iPrevLevel;
+#endif
 }
 
 void Connection::forceFlush() {
