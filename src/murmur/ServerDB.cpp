@@ -201,52 +201,52 @@ ServerDB::ServerDB() {
 
 			SQLDO("VACUUM");
 		} else {
-			SQLDO("CREATE TABLE %1meta(keystring varchar(255) PRIMARY KEY, value varchar(255)) Type=InnoDB");
-			SQLDO("CREATE TABLE %1servers(server_id INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB");
+			SQLDO("CREATE TABLE %1meta(keystring varchar(255) PRIMARY KEY, value varchar(255)) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+			SQLDO("CREATE TABLE %1servers(server_id INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 
-			SQLDO("CREATE TABLE %1slog(server_id INTEGER NOT NULL, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE TABLE %1slog(server_id INTEGER NOT NULL, msg TEXT, msgtime TIMESTAMP) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
 			SQLDO("ALTER TABLE %1slog ADD CONSTRAINT %1slog_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1config (server_id INTEGER NOT NULL, keystring varchar(255), value TEXT) Type=InnoDB");
+			SQLDO("CREATE TABLE %1config (server_id INTEGER NOT NULL, keystring varchar(255), value TEXT) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
 			SQLDO("ALTER TABLE %1config ADD CONSTRAINT %1config_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name varchar(255), inheritacl INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name varchar(255), inheritacl INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
 			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_parent_del FOREIGN KEY (server_id, parent_id) REFERENCES %1channels(server_id,channel_id) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1players (server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, name varchar(255), email varchar(255), pw varchar(128), lastchannel INTEGER, texture LONGBLOB, last_active TIMESTAMP) Type=InnoDB");
+			SQLDO("CREATE TABLE %1players (server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, name varchar(255), email varchar(255), pw varchar(128), lastchannel INTEGER, texture LONGBLOB, last_active TIMESTAMP) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE INDEX %1players_channel ON %1players(server_id, lastchannel)");
 			SQLDO("CREATE UNIQUE INDEX %1players_name ON %1players (server_id,name)");
 			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
 			SQLDO("ALTER TABLE %1players ADD CONSTRAINT %1players_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1player_auth (player_auth_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), pw varchar(128), email varchar(255), authcode varchar(255)) Type=InnoDB");
+			SQLDO("CREATE TABLE %1player_auth (player_auth_id INTEGER PRIMARY KEY AUTO_INCREMENT, name varchar(255), pw varchar(128), email varchar(255), authcode varchar(255)) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_name ON %1player_auth(name)");
 			SQLDO("CREATE UNIQUE INDEX %1player_auth_code ON %1player_auth(authcode)");
 
-			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTO_INCREMENT, server_id INTEGER NOT NULL, name varchar(255), channel_id INTEGER NOT NULL, inherit INTEGER, inheritable INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1groups (group_id INTEGER PRIMARY KEY AUTO_INCREMENT, server_id INTEGER NOT NULL, name varchar(255), channel_id INTEGER NOT NULL, inherit INTEGER, inheritable INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE UNIQUE INDEX %1groups_name_channels ON %1groups(server_id, channel_id, name)");
 			SQLDO("ALTER TABLE %1groups ADD CONSTRAINT %1groups_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1group_members (group_id INTEGER NOT NULL, server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, addit INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1group_members (group_id INTEGER NOT NULL, server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, addit INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE INDEX %1group_members_players ON %1group_members(server_id, player_id)");
 			SQLDO("ALTER TABLE %1group_members ADD CONSTRAINT %1group_members_del_group FOREIGN KEY (group_id) REFERENCES %1groups(group_id) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE %1group_members ADD CONSTRAINT %1group_members_del_player FOREIGN KEY (server_id, player_id) REFERENCES %1players(server_id,player_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1acl (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, priority INTEGER, player_id INTEGER, group_name varchar(255), apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1acl (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, priority INTEGER, player_id INTEGER, group_name varchar(255), apply_here INTEGER, apply_sub INTEGER, grantpriv INTEGER, revokepriv INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE UNIQUE INDEX %1acl_channel_pri ON %1acl(server_id, channel_id, priority)");
 			SQLDO("CREATE INDEX %1acl_player ON %1acl(server_id, player_id)");
 			SQLDO("ALTER TABLE %1acl ADD CONSTRAINT %1acl_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE %1acl ADD CONSTRAINT %1acl_del_player FOREIGN KEY (server_id, player_id) REFERENCES %1players(server_id, player_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1channel_links (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, link_id INTEGER NOT NULL) Type=InnoDB");
+			SQLDO("CREATE TABLE %1channel_links (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, link_id INTEGER NOT NULL) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1channel_links ADD CONSTRAINT %1channel_links_del_channel FOREIGN KEY(server_id, channel_id) REFERENCES %1channels(server_id, channel_id) ON DELETE CASCADE");
 			SQLDO("DELETE FROM %1channel_links");
 
-			SQLDO("CREATE TABLE %1bans (server_id INTEGER NOT NULL, base INTEGER, mask INTEGER) Type=InnoDB");
+			SQLDO("CREATE TABLE %1bans (server_id INTEGER NOT NULL, base INTEGER, mask INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1bans ADD CONSTRAINT %1bans_del_server FOREIGN KEY(server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
@@ -280,6 +280,19 @@ ServerDB::ServerDB() {
 
 			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
 			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
+			
+			SQLDO("ALTER TABLE %1acl CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1bans CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1channel_links CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1channels CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1config CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1group_members CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1groups CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1meta CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1player_auth CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1players CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1servers CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1slog CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 		} else {
 			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
 			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
