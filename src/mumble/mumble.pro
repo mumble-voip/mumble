@@ -42,8 +42,19 @@ unix {
   ARCH=$$system(uname -m)
   X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
 
-	# Enable mmx/sse optimizations on x86 archs except on mac where these would
-	# break universal build
+  HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulsee)
+  HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
+
+  !isEmpty(HAVE_PULSEAUDIO) {
+    CONFIG += pulseaudio
+  }
+
+  !isEmpty(HAVE_PORTAUDIO) {
+    CONFIG += portaudio
+  }
+
+  # Enable mmx/sse optimizations on x86 archs except on mac where these would
+  # break universal build
   !macx:!isEmpty(X86ARCH) {
 		QMAKE_CXXFLAGS += -mmmx -msse
 	}
@@ -57,18 +68,14 @@ unix {
   PKGCONFIG += openssl
 
   contains(UNAME, Linux) {
-    CONFIG  += oss pulseaudio
+    CONFIG  += oss
     FORMS   += ALSAAudio.ui
     HEADERS += ALSAAudio.h GlobalShortcut_unix.h
     SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
     PKGCONFIG += xevie alsa
-  } else {
-  	# For any other unix we can still hope that PA works
-    CONFIG += portaudio
   }
 
   macx {
-    CONFIG += portaudio
     release:!debug {
       CONFIG += x86 ppc
     }
@@ -94,6 +101,13 @@ unix {
      FORMS += PulseAudio.ui
      PKGCONFIG += libpulse
   }
+
+  portaudio {
+    PKGCONFIG += portaudio-2.0
+    SOURCES += PAAudio.cpp PAAudioConfig.cpp
+    HEADERS += PAAudio.h PAAudioConfig.h
+    FORMS += PAAudioConfig.ui
+  }
 }
 
 asio {
@@ -103,12 +117,6 @@ asio {
 	SOURCES	+= ASIOInput.cpp
 }
 
-portaudio {
-	PKGCONFIG += portaudio-2.0
-	SOURCES += PAAudio.cpp PAAudioConfig.cpp
-	HEADERS += PAAudio.h PAAudioConfig.h
-	FORMS += PAAudioConfig.ui
-}
 
 QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
