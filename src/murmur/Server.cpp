@@ -90,7 +90,17 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 #ifdef Q_OS_UNIX
 	sUdpSocket = ::socket(PF_INET, SOCK_DGRAM, 0);
 #else
+
+#ifndef SIO_UDP_CONNRESET
+#define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR,12)
+#endif
+
 	sUdpSocket = ::WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
+	DWORD dwBytesReturned = 0;
+	BOOL bNewBehaviour = FALSE;
+	if (WSAIoctl(sUdpSocket, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
+		log("Failed to set SIO_UDP_CONNRESET: %d", WSAGetLastError());
+	}
 #endif
 	if (sUdpSocket == INVALID_SOCKET) {
 		log("Failed to create UDP Socket");
