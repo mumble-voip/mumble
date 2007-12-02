@@ -6,4 +6,4 @@ if [ -f /etc/sysconfig/mumble ]; then
   . /etc/sysconfig/mumble
 fi
 
-LD_PRELOAD="${MUMBLE_OVERLAY_PATH}/libmumble.so.1.1.1 ${LD_PRELOAD}" "${@}"
+LD_PRELOAD="${MUMBLE_OVERLAY_PATH}/libmumble.so.1.1.2 ${LD_PRELOAD}" "${@}"
