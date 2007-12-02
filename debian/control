@@ -4,7 +4,7 @@ XSBC-Original-Maintainer: Thorvald Natvig <slicer@users.sourceforge.net>
 Section: sound
 Priority: optional
 Homepage: http://mumble.sourceforge.net/
-Build-Depends: debhelper (>= 5.0.0), libqt4-dev (>= 4.3.0), libboost-dev (>= 1.34.1), libasound2-dev (>= 1.0.14), libxevie-dev (>= 1.0.2), libpulse-dev (>= 0.9.6)
+Build-Depends: debhelper (>= 5), libqt4-dev (>= 4.3.0), libboost-dev (>= 1.34.1), libasound2-dev (>= 1.0.14), libxevie-dev (>= 1.0.2), libpulse-dev (>= 0.9.6)
 Standards-Version: 3.7.2.2
 
 Package: mumble
