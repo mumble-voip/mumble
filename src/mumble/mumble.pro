@@ -42,7 +42,7 @@ unix {
   ARCH=$$system(uname -m)
   X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
 
-  HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulsee)
+  HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
 
   !isEmpty(HAVE_PULSEAUDIO) {
