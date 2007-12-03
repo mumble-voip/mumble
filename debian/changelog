@@ -2,4 +2,4 @@ mumble (1.1.1-0ubuntu1) hardy; urgency=low
 
   * Packaging for inclusion in ubuntu universe (LP: #129081)
 
- -- Thorvald Natvig <slicer@users.sourceforge.net>  Fri, 09 Nov 2007 01:00:00 +0200
+ -- Thorvald Natvig <slicer@users.sourceforge.net>  Mon, 03 Dec 2007 10:40:00 +0200
