@@ -131,13 +131,17 @@ int main(int argc, char **argv) {
 	a.installTranslator(&qttranslator);
 
 
-	// Set application icon
+#ifndef Q_OS_MAC
+	// Set application icon except on MacOSX, where the window-icon
+	// shown in the title-bar usually serves as a draggable version of the
+	// current open document (i.e. you can copy the open document anywhere
+	// simply by dragging this icon).
 	QIcon icon;
 	icon.addFile(QLatin1String("skin:mumble.16x16.png"));
 	icon.addFile(QLatin1String("skin:mumble.32x32.png"));
 	icon.addFile(QLatin1String("skin:mumble.64x64.png"));
 	a.setWindowIcon(icon);
-
+#endif
 
 	// Initialize logger
 	g.l = new Log();
