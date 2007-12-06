@@ -30,7 +30,7 @@
 
 #include "Global.h"
 
-Global g;
+Global *Global::g_global_struct;
 
 Global::Global() {
 	mw = 0;

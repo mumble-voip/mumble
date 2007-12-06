@@ -61,6 +61,7 @@ class QSettings;
 class Overlay;
 
 struct Global {
+	static Global *g_global_struct;
 	MainWindow *mw;
 	Settings s;
 	ServerHandler *sh;
@@ -109,8 +110,7 @@ class DeferInit {
 // parameter named 'g', that will generate a warning even if the class header
 // is included long before this definition.
 
-#define g g_global_struct
-extern Global g_global_struct;
+#define g (*Global::g_global_struct)
 
 #else
 class Settings;

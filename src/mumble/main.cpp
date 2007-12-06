@@ -69,6 +69,8 @@ int main(int argc, char **argv) {
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
+	
+	Global::g_global_struct = new Global();
 
 #ifndef Q_OS_MAC
 #ifdef Q_OS_WIN
