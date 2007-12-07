@@ -76,13 +76,14 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	if (! logfile || ! logfile->isOpen()) {
 #ifdef Q_OS_UNIX
 		if (! detach)
-			fprintf(stderr, "%s\n", qPrintable(m));
+			fprintf(stderr, "%s\n", msg);
 		else
 			qlErrors << m;
 #else
 		qlErrors << m;
 #ifndef QT_NO_DEBUG
-		fprintf(stderr, "%s\n", qPrintable(m));
+		if (detach)
+			fprintf(stderr, "%s\n", qPrintable(m));
 #endif
 #endif
 	} else {
@@ -99,11 +100,12 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	}
 	le.addLogEntry(m);
 	if (type == QtFatalMsg) {
-		if (qlErrors.isEmpty())
-			qlErrors << QLatin1String(msg);
-		m = qlErrors.join(QLatin1String("\n"));
 #ifdef Q_OS_UNIX
-		if (! detach) {
+		if (detach) {
+			if (qlErrors.isEmpty())
+				qlErrors << QLatin1String(msg);
+			qlErrors << QString();
+			m = qlErrors.join(QLatin1String("\n"));
 			fprintf(stderr, "%s", qPrintable(m));
 		}
 #else
@@ -161,6 +163,7 @@ int main(int argc, char **argv) {
 		if ((arg == "-supw") && (i+1 < argc)) {
 			i++;
 			supw = argv[i];
+			detach = false;
 			if (i+1 < argc) {
 				i++;
 				sunum = QString::fromLatin1(argv[i]).toInt();
@@ -173,6 +176,7 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-v")) {
 			bVerbose = true;
 		} else if ((arg == "-h") || (arg == "--help")) {
+			detach = false;
 			i++;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
 			       "  -ini <inifile>   Specify ini file to use.\n"
@@ -182,6 +186,7 @@ int main(int argc, char **argv) {
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.",argv[0]);
 		} else {
+			detach = false;
 			qFatal("Unknown argument %s", argv[i]);
 		}
 	}
