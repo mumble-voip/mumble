@@ -178,6 +178,22 @@ void MetaParams::read(QString fname) {
 			qFatal("Certificate specified, but failed to load.");
 		}
 	}
+	
+	qmConfig.clear();
+	qmConfig.insert(QLatin1String("host"),qhaBind.toString());
+	qmConfig.insert(QLatin1String("password"),qsPassword);
+	qmConfig.insert(QLatin1String("port"),QString::number(iPort));
+	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
+	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));
+	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));
+	qmConfig.insert(QLatin1String("defaultchannel"),QString::number(iDefaultChan));
+	qmConfig.insert(QLatin1String("welcometext"),qsWelcomeText);
+	qmConfig.insert(QLatin1String("registername"),qsRegName);
+	qmConfig.insert(QLatin1String("registerpassword"),qsRegPassword);
+	qmConfig.insert(QLatin1String("registerhostname"),qsRegHost);
+	qmConfig.insert(QLatin1String("registerurl"),qurlRegWeb.toString());
+	qmConfig.insert(QLatin1String("certificate"),qscCert.toPem());
+	qmConfig.insert(QLatin1String("key"),qskKey.toPem());
 }
 
 Meta::Meta() {

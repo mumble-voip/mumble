@@ -69,6 +69,8 @@ struct MetaParams {
 
 	QSslCertificate qscCert;
 	QSslKey qskKey;
+	
+	QMap<QString, QString> qmConfig;
 
 	MetaParams();
 	void read(QString fname = QString("murmur.ini"));

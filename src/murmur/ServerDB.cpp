@@ -1116,7 +1116,7 @@ QMap<QString, QString> ServerDB::getAllConf(int server_id) {
 	SQLPREP("SELECT keystring, value FROM %1config WHERE server_id = ?");
 	query.addBindValue(server_id);
 	SQLEXEC();
-	if (query.next()) {
+	while (query.next()) {
 		map.insert(query.value(0).toString(), query.value(1).toString());
 	}
 	return map;

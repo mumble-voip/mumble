@@ -203,6 +203,9 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void channelRemoved(const ChannelInfo &state);
 };
 
+typedef QMap<QString, QString> ConfigMap;
+Q_DECLARE_METATYPE(ConfigMap);
+
 class MetaDBus : public QDBusAbstractAdaptor {
 		Q_OBJECT
 		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Meta");
@@ -222,13 +225,15 @@ class MetaDBus : public QDBusAbstractAdaptor {
 		void getAllServers(QList<int> &server_list);
 		void isBooted(int server_id, bool &booted);
 		void getConf(int server_id, const QString &key, const QDBusMessage &, QString &value);
-		void getAllConf(int server_id, const QDBusMessage &, QMap<QString, QString> &values);
+		void getAllConf(int server_id, const QDBusMessage &, ConfigMap &values);
+		void getDefaultConf(ConfigMap &values);
 		void setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &);
 		void setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &);
 	signals:
 		void started(int server_id);
 		void stopped(int server_id);
 };
+
 
 // extern MurmurDBus *dbus;
 

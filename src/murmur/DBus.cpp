@@ -152,6 +152,7 @@ void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<QList<BanInfo> >();
 	qDBusRegisterMetaType<RegisteredPlayer>();
 	qDBusRegisterMetaType<QList<RegisteredPlayer> >();
+	qDBusRegisterMetaType<ConfigMap>();
 }
 
 QDBusConnection MurmurDBus::qdbc(QLatin1String("mainbus"));
@@ -878,8 +879,8 @@ ACLInfo::ACLInfo(ChanACL *acl) {
 	inherited = false;
 	playerid = acl->iPlayerId;
 	group = acl->qsGroup;
-	allow = acl->pDeny;
-	deny = acl->pAllow;
+	allow = acl->pAllow;
+	deny = acl->pDeny;
 }
 
 GroupInfo::GroupInfo(Group *g) {
@@ -995,12 +996,16 @@ void MetaDBus::setConf(int server_id, const QString &key, const QString &value, 
 	}
 }
 
-void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, QMap<QString, QString> &values) {
+void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &values) {
 	if (! ServerDB::serverExists(server_id)) {
 		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		values = ServerDB::getAllConf(server_id);
 	}
+}
+
+void MetaDBus::getDefaultConf(ConfigMap &values) {
+	values = Meta::mp.qmConfig;
 }
 
 void MetaDBus::setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &msg) {
