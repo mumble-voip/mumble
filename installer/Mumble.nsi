@@ -67,6 +67,13 @@ Section "Mumble & Murmur" SecMumble
 
   SetOutPath "$INSTDIR"
   
+  FindProcDLL::FindProc "dbus-daemon.exe"
+  
+  IntCmp 0 $R0 NoDBusRunning
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON1 "The DBus daemon used by Mumble is currently running. Terminate the daemon so it can be updated?" IDNO NoDBusRunning
+  KillProcDLL::KillProc "dbus-daemon.exe"
+ NoDBusRunning:
+  
   File /oname=license.txt "gpl.txt"
   File /oname=Readme.txt "..\README"
   File /oname=Changes.txt "..\CHANGES"
@@ -79,13 +86,13 @@ Section "Mumble & Murmur" SecMumble
   File "..\scripts\murmur.ini"
   SetOverwrite on
   File "qos.reg"
-  File "\dev\Qt4.3.2\lib\QtCore4.dll"
-  File "\dev\Qt4.3.2\lib\QtGui4.dll"
-  File "\dev\Qt4.3.2\lib\QtNetwork4.dll"
-  File "\dev\Qt4.3.2\lib\QtSql4.dll"
-  File "\dev\Qt4.3.2\lib\QtOpenGL4.dll"
-  File "\dev\Qt4.3.2\lib\QtXml4.dll"
-  File "\dev\Qt4.3.2\lib\QtDBus4.dll"
+  File "\dev\Qt4.3.3\lib\QtCore4.dll"
+  File "\dev\Qt4.3.3\lib\QtGui4.dll"
+  File "\dev\Qt4.3.3\lib\QtNetwork4.dll"
+  File "\dev\Qt4.3.3\lib\QtSql4.dll"
+  File "\dev\Qt4.3.3\lib\QtOpenGL4.dll"
+  File "\dev\Qt4.3.3\lib\QtXml4.dll"
+  File "\dev\Qt4.3.3\lib\QtDBus4.dll"
   File "\dev\mysql\bin\libmySQL.dll"
   File "\dev\openssl\libeay32.dll"
   File "\dev\openssl\libssl32.dll"
