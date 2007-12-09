@@ -33,7 +33,6 @@ win32 {
   DEFINES += WIN32
   INCLUDEPATH	+= /dev/openssl/outinc
   LIBS += -L/dev/openssl/out -leay32
-  QMAKE_CXXFLAGS += -msse -mmmx
   FORMS	+= DXConfigDialog.ui ASIOInput.ui
 }
 
@@ -56,9 +55,10 @@ unix {
 
   # Enable mmx/sse optimizations on x86 archs except on mac where these would
   # break universal build
-  !macx:!isEmpty(X86ARCH) {
-		QMAKE_CXXFLAGS += -mmmx -msse
-	}
+  # No, we don't, as it breaks packaging policies all over.
+  #!macx:!isEmpty(X86ARCH) {
+  #		QMAKE_CXXFLAGS += -mmmx -msse
+  #	}
 
   QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
