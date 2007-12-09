@@ -44,7 +44,6 @@ install: build
 	# Add debian files
 	install -m 0755 ./scripts/murmur.init $(CURDIR)/debian
 	install -D -m 0644 ./debian/mumble.lintian-override $(CURDIR)/debian/mumble/usr/share/lintian/overrides/mumble
-	install -D -m 0644 ./debian/mumble.linda-override $(CURDIR)/debian/mumble/usr/share/linda/overrides/mumble
 
 	# install mumble files that need to be renamed
 	install -m 0644 -D ./icons/mumble.16x16.png $(CURDIR)/debian/mumble/usr/share/icons/hicolor/apps/16x16/mumble.png
@@ -74,7 +73,7 @@ binary-common:
 	dh_compress 
 	dh_fixperms
 	dh_perl $(CURDIR)/debian/murmur/usr/lib/cgi-bin/murmur
-	dh_makeshlibs -Xlibmumble
+	dh_makeshlibs
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol
