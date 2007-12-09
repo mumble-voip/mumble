@@ -314,7 +314,7 @@ bool AudioOutput::mixAudio(short *buffer) {
 	foreach(aop, qlMix) {
 		__m64 *in=reinterpret_cast<__m64 *>(aop->psBuffer);
 
-		for (int i=0;i<sz/4;i++)
+		for (int i=0;i<sz;i++)
 			out[i]=_mm_adds_pi16(in[i],out[i]);
 	}
 

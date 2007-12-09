@@ -94,10 +94,10 @@ const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlInputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput.value(dev));
 		qlReturn << audioDevice(t, dev);
 	}
-
+	
 	return qlReturn;
 }
 
@@ -125,7 +125,7 @@ const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlOutputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhOutput.value(dev));
 		qlReturn << audioDevice(t, dev);
 	}
 
@@ -213,7 +213,7 @@ ALSAConfig::ALSAConfig(Settings &st) : ConfigWidget(st) {
 
 	found = false;
 	foreach(QString dev, qlInputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput.value(dev));
 		qcbInputDevice->addItem(t, dev);
 		if (dev == g.s.qsALSAInput) {
 			found = true;
@@ -227,7 +227,7 @@ ALSAConfig::ALSAConfig(Settings &st) : ConfigWidget(st) {
 
 	found = false;
 	foreach(QString dev, qlOutputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhOutput[dev]);
+		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhOutput.value(dev));
 		qcbOutputDevice->addItem(t, dev);
 		if (dev == g.s.qsALSAOutput) {
 			found = true;
