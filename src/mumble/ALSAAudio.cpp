@@ -495,7 +495,7 @@ void ALSAAudioOutput::run() {
 				snd_pcm_drain(pcm_handle);
 
 				while (! mixAudio(buffer) && bRunning)
-					this->usleep(20);
+					this->usleep(20 * 1000);
 
 				if (! bRunning)
 					break;

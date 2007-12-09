@@ -77,6 +77,7 @@ static PulseAudioInit pulseinit;
 
 PulseAudioSystem::PulseAudioSystem() {
 	pasInput = pasOutput = pasSpeaker = NULL;
+	bSourceDone=bSinkDone=bServerDone = false;
 	iDelayCache = 0;
 
 	psInput = psEcho = NULL;
@@ -449,6 +450,7 @@ void PulseAudioSystem::query() {
 	pa_operation_unref(pa_context_get_server_info(pacContext, server_callback, this));
 	pa_operation_unref(pa_context_get_sink_info_list(pacContext, sink_callback, this));
 	pa_operation_unref(pa_context_get_source_info_list(pacContext, source_callback, this));
+	wakeup();
 }
 
 void PulseAudioSystem::contextCallback(pa_context *c) {

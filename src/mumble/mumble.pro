@@ -45,12 +45,13 @@ unix {
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
 
-  !isEmpty(HAVE_PULSEAUDIO) {
-    CONFIG += pulseaudio
-  }
-
   !isEmpty(HAVE_PORTAUDIO) {
     CONFIG += portaudio
+  }
+
+  !isEmpty(HAVE_PULSEAUDIO) {
+    CONFIG += pulseaudio
+    CONFIG -= portaudio
   }
 
   # Enable mmx/sse optimizations on x86 archs except on mac where these would
