@@ -19,10 +19,12 @@ PIDFILE=$PIDDIR/murmur.pid
 DAEMON=/usr/sbin/murmurd
 USER=Murmur
 GROUP=Murmur
+
 test -x $DAEMON || exit 0
 
 INIFILE=/etc/murmur.ini
 DAEMON_OPTS="-ini $INIFILE"
+MURMUR_DAEMON_START=1
 
 # Include murmur defaults if available
 if [ -f /etc/default/murmur ] ; then
@@ -34,8 +36,12 @@ fi
 
 case "$1" in
   start)
+  	if [ "$MURMUR_DAEMON_START" != "1" ] ; then
+  		log_warning_msg "Not starting $DESC $NAME, disabled via /etc/default/$NAME"
+  		exit 0
+  	fi
   	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
-  	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR
+	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR
 	start-stop-daemon --start --quiet \
 		--pidfile $PIDFILE \
 		--chuid $USER:$GROUP \
