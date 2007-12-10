@@ -48,6 +48,10 @@ int add_ext(X509 * crt, int nid, char *value) {
 void Server::initializeCert() {
 	QByteArray crt, key;
 
+	if (QSslSocket::supportsSsl()) {
+		qFatal("Qt without SSL Support");
+	}
+
 	crt = getConf("certificate", QString()).toByteArray();
 	key = getConf("key", QString()).toByteArray();
 
