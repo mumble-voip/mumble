@@ -7,8 +7,8 @@
 # The "library" will never be linked to by any application, and mumble-overlay
 # always uses the full path (/usr/lib/libmumble.so.x.y.z), so the symlinks
 # are not necesarry.
-mumble: ldconfig-symlink-missing-for-shlib libmumble.so.*
+mumble: ldconfig-symlink-missing-for-shlib
 
 # qmake sets the soname to libmumble1. Since no application will ever link
 # with this library, that doesn't matter.
-mumble: package-name-doesnt-match-sonames libmumble*
+mumble: package-name-doesnt-match-sonames
