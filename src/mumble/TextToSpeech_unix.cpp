@@ -53,7 +53,9 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 
 void TextToSpeechPrivate::say(const QString &txt) {
 	QString text = txt;
-	qpFestival.write(QString::fromLatin1("(SayText \"%1\")").arg(text.replace(QLatin1String("\""),QLatin1String("\\\""))).toLatin1());
+	if (! g.s.qsFestivalSearch.isEmpty())
+		text.replace(QRegExp(g.s.qsFestivalSearch),g.s.qsFestivalReplace);
+	qpFestival.write(g.s.qsFestivalPattern.arg(text).toUtf8());
 }
 
 void TextToSpeechPrivate::setVolume(int) {

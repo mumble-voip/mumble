@@ -10,6 +10,7 @@ Standards-Version: 3.7.3
 Package: mumble
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: festival (>= 1.4.3)
 Description: Low latency VoIP client
  Mumble is a low-latency, high quality voice chat program for gaming.
  It features noise supression, automatic gain control and low latency audio

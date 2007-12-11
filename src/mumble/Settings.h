@@ -68,7 +68,7 @@ struct Settings {
 
 	int iDXOutputDelay;
 
-	QString qsFestival;
+	QString qsFestival, qsFestivalPattern, qsFestivalSearch, qsFestivalReplace;
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;
 	bool bPulseAudioEcho;

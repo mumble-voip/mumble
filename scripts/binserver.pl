@@ -43,6 +43,7 @@ $files{"README"}="README";
 $files{"CHANGES"}="CHANGES";
 $files{"INSTALL"}="INSTALL";
 $files{"murmur.pl"}="scripts/murmur.pl";
+$files{"weblist.pl"}="scripts/weblist.pl";
 $files{"murmur.ini"}="scripts/murmur.ini";
 
 my $tar = new Archive::Tar();

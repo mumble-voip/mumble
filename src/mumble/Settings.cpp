@@ -71,7 +71,16 @@ Settings::Settings() {
 
 	iDXOutputDelay = 5;
 
+#ifdef TTS_ESPEAK
+	qsFestival=QLatin1String("/usr/bin/espeak");
+	qsFestivalPattern=QLatin1String("%1\n");
+#else
 	qsFestival=QLatin1String("/usr/bin/festival --batch --pipe");
+	qsFestivalPattern=QLatin1String("(SayText \"%1\")");
+	qsFestivalSearch=QLatin1String("\"");
+	qsFestivalReplace=QLatin1String("\\\"");
+#endif
+
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
@@ -166,6 +175,7 @@ void Settings::load() {
 	SAVELOAD(qbaDXOutput, "directsound/output");
 
 	SAVELOAD(qsFestival, "tts/festival");
+	SAVELOAD(qsFestivalPattern, "tts/pattern");
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
@@ -273,6 +283,7 @@ void Settings::save() {
 	SAVELOAD(qbaDXOutput, "directsound/output");
 
 	SAVELOAD(qsFestival, "tts/festival");
+	SAVELOAD(qsFestivalPattern, "tts/pattern");
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
