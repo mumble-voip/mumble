@@ -20,11 +20,11 @@ set -e
 
 case "$1" in
     configure)
-    	adduser --system --quiet --group Murmur
+    	adduser --system --quiet --group murmur
     	chmod 0750 /var/log/murmur
     	chmod 0750 /var/lib/murmur
-    	chown Murmur:Murmur /var/log/murmur
-    	chown Murmur:Murmur /var/lib/murmur
+    	chown murmur:murmur /var/log/murmur
+    	chown murmur:murmur /var/lib/murmur
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

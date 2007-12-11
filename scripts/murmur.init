@@ -17,8 +17,8 @@ DESC="Murmur VoIP Server"
 PIDDIR=/var/run/murmur
 PIDFILE=$PIDDIR/murmur.pid
 DAEMON=/usr/sbin/murmurd
-USER=Murmur
-GROUP=Murmur
+USER=murmur
+GROUP=murmur
 
 test -x $DAEMON || exit 0
 

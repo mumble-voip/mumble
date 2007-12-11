@@ -26,10 +26,10 @@ case "$1" in
     	[ -f /var/run/murmur/murmur.pid ] && rm -f /var/run/murmur/murmur.pid
     	[ -d /var/run/murmur ] && rmdir --ignore-fail-on-non-empty /var/run/murmur
 	if [ -x "$(command -v deluser)" ]; then
-		deluser --quiet --system Murmur > /dev/null || true
-		deluser --quiet --system --group --only-if-empty Murmur > /dev/null || true
+		deluser --quiet --system murmur > /dev/null || true
+		deluser --quiet --system --group --only-if-empty murmur > /dev/null || true
 	else
-		echo >&2 "not removing Murmur system account because deluser command was not found"
+		echo >&2 "not removing 'murmur' system account because deluser command was not found"
 	fi    	
     ;;
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
