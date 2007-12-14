@@ -274,6 +274,8 @@ void MainWindow::on_qaServerConnect_triggered() {
 }
 
 void MainWindow::on_Reconnect_timeout() {
+	if (g.sh->isRunning())
+		return;
 	g.l->log(Log::ServerDisconnected, tr("Reconnecting."));
 	g.sh->start(QThread::TimeCriticalPriority);
 }
@@ -869,7 +871,10 @@ void MainWindow::serverConnected() {
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::PlayerJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
-	g.l->log(Log::ServerConnected, tr("Connected to server."));
+	QString host, uname, pw;
+	int port;
+	g.sh->getConnectionInfo(host, port, uname, pw);
+	g.l->log(Log::ServerConnected, tr("Connected to server %1.").arg(host));
 	qaServerDisconnect->setEnabled(true);
 	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
