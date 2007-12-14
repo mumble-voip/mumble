@@ -1007,7 +1007,7 @@ void MainWindow::customEvent(QEvent *evt) {
 	}
 	if (evt->type() == MB_QEVENT) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
-		QMessageBox::warning(NULL, tr("Mumble"), mbe->msg, QMessageBox::Ok, QMessageBox::NoButton);
+		g.l->log(Log::Warning, mbe->msg);
 		return;
 	}
 	if (evt->type() != SERVERSEND_EVENT)
