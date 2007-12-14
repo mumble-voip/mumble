@@ -38,6 +38,7 @@
 #include "Group.h"
 #include "ACL.h"
 #include "Server.h"
+#include "ServerDB.h"
 #include "Meta.h"
 
 struct PlayerInfo {
@@ -111,6 +112,15 @@ struct RegisteredPlayer {
 };
 Q_DECLARE_METATYPE(RegisteredPlayer);
 Q_DECLARE_METATYPE(QList<RegisteredPlayer>);
+
+struct LogEntry {
+	unsigned int timestamp;
+	QString txt;
+	LogEntry();
+	LogEntry(const ServerDB::LogRecord &);
+};
+Q_DECLARE_METATYPE(LogEntry);
+Q_DECLARE_METATYPE(QList<LogEntry>);
 
 class MurmurDBus : public QDBusAbstractAdaptor {
 		Q_OBJECT
@@ -230,6 +240,7 @@ class MetaDBus : public QDBusAbstractAdaptor {
 		void setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &);
 		void setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &);
 		void rotateLogs(const QDBusMessage &);
+		void getLog(int server_id, int min_seconds, int max_seconds, const QDBusMessage &, QList<LogEntry> &entries);
 		void quit();
 	signals:
 		void started(int server_id);

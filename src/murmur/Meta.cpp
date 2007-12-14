@@ -49,6 +49,8 @@ MetaParams::MetaParams() {
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
 	qhaBind = QHostAddress(QHostAddress::Any);
+	
+	iLogDays = 31;
 
 	iBanTries = 10;
 	iBanTimeframe = 120;
@@ -100,6 +102,8 @@ void MetaParams::read(QString fname) {
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
 	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
+	
+	iLogDays = qs.value("logdays", iLogDays).toInt();
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
 	qsDBusService = qs.value("dbusservice", qsDBusService).toString();

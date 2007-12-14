@@ -38,6 +38,11 @@ bandwidth=10000
 # Maximum number of concurrent clients allowed.
 users=100
 
+# Murmur retains the per-server log entries in an internal database which
+# allows it to be accessed over D-Bus.
+# How many days should such entries be kept?
+#logdays=31
+
 # To enable public registration, the serverpassword must be blank, and this
 # must all be filled out.
 # The password here is used to create a registry for the server name; subsequent

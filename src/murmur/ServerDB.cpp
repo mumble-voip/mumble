@@ -56,6 +56,7 @@ class TransactionHolder {
 };
 
 QSqlDatabase ServerDB::db;
+Timer ServerDB::tLogClean;
 
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
@@ -1129,10 +1130,48 @@ void Server::setConf(const QString &key, const QVariant &value) {
 void Server::dblog(const char *str) {
 	TransactionHolder th;
 	QSqlQuery query;
+	
+	// Once per hour
+	if (Meta::mp.iLogDays > 0) {
+		if (ServerDB::tLogClean.isElapsed(3600ULL * 1000000ULL)) {
+			QString qstr;
+			if (Meta::mp.qsDBDriver == "QSQLITE") {
+				qstr = QString::fromLatin1("msgtime < datetime('now','-%1 days')").arg(Meta::mp.iLogDays);
+			} else {
+				qstr = QString::fromLatin1("msgtime < now() - INTERVAL %1 day").arg(Meta::mp.iLogDays);
+			}
+			ServerDB::prepare(query, QString::fromLatin1("DELETE FROM %1slog WHERE ") + qstr);
+			SQLEXEC();
+		}
+	}
+	
 	SQLPREP("INSERT INTO %1slog (server_id, msg) VALUES(?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(QLatin1String(str));
 	SQLEXEC();
+}
+
+QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int sec_min, unsigned int sec_max) {
+	TransactionHolder th;
+	QSqlQuery query;
+	
+	QString qstr;
+	if (Meta::mp.qsDBDriver == "QSQLITE") {
+		qstr = QString::fromLatin1("msgtime > datetime('now','-%1 seconds') AND msgtime < datetime('now','-%2 seconds')").arg(sec_max).arg(sec_min);
+	} else {
+		qstr = QString::fromLatin1("msgtime > now() - INTERVAL %1 second AND msgtime < now() - INTERVAL %2 second").arg(sec_max).arg(sec_min);
+	}
+	ServerDB::prepare(query, QString::fromLatin1("SELECT msgtime, msg FROM %1slog WHERE server_id = ? AND ") + qstr);
+	query.addBindValue(server_id);
+	SQLEXEC();
+	
+	QList<QPair<unsigned int, QString> > ql;
+	while(query.next()) {
+		QDateTime qdt = query.value(0).toDateTime();
+		QString msg = query.value(1).toString();
+		ql << QPair<unsigned int, QString>(qdt.toTime_t(), msg);
+	}
+	return ql;
 }
 
 void ServerDB::setConf(int server_id, const QString &key, const QVariant &value) {

@@ -138,6 +138,21 @@ const QDBusArgument & operator >>(const QDBusArgument &a, RegisteredPlayer &s) {
 	return a;
 }
 
+
+QDBusArgument &operator<<(QDBusArgument &a, const LogEntry &s) {
+	a.beginStructure();
+	a << s.timestamp << s.txt;
+	a.endStructure();
+	return a;
+}
+
+const QDBusArgument & operator >>(const QDBusArgument &a, LogEntry &s) {
+	a.beginStructure();
+	a >> s.timestamp >> s.txt;
+	a.endStructure();
+	return a;
+}
+
 void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<PlayerInfo>();
 	qDBusRegisterMetaType<PlayerInfoExtended>();
@@ -153,6 +168,8 @@ void MurmurDBus::registerTypes() {
 	qDBusRegisterMetaType<RegisteredPlayer>();
 	qDBusRegisterMetaType<QList<RegisteredPlayer> >();
 	qDBusRegisterMetaType<ConfigMap>();
+	qDBusRegisterMetaType<LogEntry>();
+	qDBusRegisterMetaType<QList<LogEntry> >();
 }
 
 QDBusConnection MurmurDBus::qdbc(QLatin1String("mainbus"));
@@ -899,6 +916,15 @@ RegisteredPlayer::RegisteredPlayer() {
 	id = -1;
 }
 
+LogEntry::LogEntry() {
+	timestamp = 0;
+}
+
+LogEntry::LogEntry(const ServerDB::LogRecord &r) {
+	timestamp = r.first;
+	txt = r.second;
+}
+
 void MurmurDBus::playerStateChanged(Player *p) {
 	emit playerStateChanged(PlayerInfo(p));
 }
@@ -1001,6 +1027,18 @@ void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &val
 		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		values = ServerDB::getAllConf(server_id);
+	}
+}
+
+void MetaDBus::getLog(int server_id, int min_seconds, int max_seconds, const QDBusMessage &msg, QList<LogEntry> &entries) {
+	if (! ServerDB::serverExists(server_id)) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
+	} else {
+		entries.clear();
+		QList<ServerDB::LogRecord> dblog = ServerDB::getLog(server_id, min_seconds, max_seconds);
+		foreach(const ServerDB::LogRecord &e, dblog) {
+			entries << LogEntry(e);
+		}
 	}
 }
 

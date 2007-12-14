@@ -32,6 +32,7 @@
 #define _DATABASE_H
 
 #include "murmur_pch.h"
+#include "Timer.h"
 
 class Channel;
 class Player;
@@ -41,6 +42,8 @@ class ServerDB {
 	public:
 		ServerDB();
 		~ServerDB();
+		typedef QPair<unsigned int, QString> LogRecord;
+		static Timer tLogClean;
 		static QSqlDatabase db;
 		static void setSUPW(int iServNum, const QString &pw);
 		static QList<int> getBootServers();
@@ -51,6 +54,7 @@ class ServerDB {
 		static QMap<QString, QString> getAllConf(int server_id);
 		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());
 		static void setConf(int server_id, const QString &key, const QVariant &value);
+		static QList<LogRecord> getLog(int server_id, unsigned int sec_min, unsigned int sec_max);
 		static bool prepare(QSqlQuery &, const QString &, bool fatal = true);
 		static bool exec(QSqlQuery &, const QString &str = QString(), bool fatal= true);
 };
