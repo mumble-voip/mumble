@@ -34,11 +34,13 @@
 
 void Server::initRegister() {
 	http = NULL;
+	qssReg = NULL;
+
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
 
 	if (! qsRegName.isEmpty()) {
 		if ((! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && (qurlRegWeb.isValid()) && (qsPassword.isEmpty()))
-			qtTick.start(60000);
+			qtTick.start(60 * 10);
 		else
 			log("Registration needs nonempty name, password and url, and the server must not be password protected.");
 	} else {
@@ -48,14 +50,19 @@ void Server::initRegister() {
 
 void Server::abort() {
 	if (http) {
+		http->setSocket(NULL);
 		http->deleteLater();
 		http = NULL;
+	}
+	if (qssReg) {
+		qssReg->deleteLater();
+		qssReg = NULL;
 	}
 }
 
 void Server::update() {
 	abort();
-	qtTick.start(1000 * 60 * 60);
+	qtTick.start(10 * 60 * 60);
 
 	QDomDocument doc;
 	QDomElement root=doc.createElement(QLatin1String("server"));
@@ -100,9 +107,15 @@ void Server::update() {
 	t=doc.createTextNode(getDigest());
 	tag.appendChild(t);
 
-	http = new QHttp(this);
+	qssReg = new QSslSocket(this);
+	qssReg->setLocalCertificate(qscCert);
+	qssReg->setPrivateKey(qskKey);
+	
+	http = new QHttp(QLatin1String("mumble.hive.no"), QHttp::ConnectionModeHttps, 443, this);
+	http->setSocket(qssReg);
+
 	connect(http, SIGNAL(done(bool)), this, SLOT(done(bool)));
-	http->setHost(QLatin1String("mumble.hive.no"), 80);
+	connect(http, SIGNAL(sslErrors ( const QList<QSslError> &)), this, SLOT(regSslError(const QList<QSslError> &)));
 
 	QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/register.cgi"));
 	h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
@@ -112,6 +125,8 @@ void Server::update() {
 }
 
 void Server::done(bool err) {
+	if (! http || ! qssReg)
+		return;
 	if (err) {
 		log("Regstration failed: %s", qPrintable(http->errorString()));
 	} else {
@@ -119,4 +134,9 @@ void Server::done(bool err) {
 		log("Registration: %s", qPrintable(QString(QLatin1String(qba))));
 	}
 	abort();
+}
+
+void Server::regSslError(const QList<QSslError> &errs) {
+	foreach(const QSslError &e, errs)
+		log("Registration: SSL Handshake error: %s", qPrintable(e.errorString()));
 }

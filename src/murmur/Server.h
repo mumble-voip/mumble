@@ -120,8 +120,10 @@ class Server : public QThread, public MessageHandler {
 		// Registration, implementation in Register.cpp
 		QTimer qtTick;
 		QHttp *http;
+		QSslSocket *qssReg;
 		void initRegister();
 	public slots:
+		void regSslError(const QList<QSslError> &);
 		void done(bool);
 		void update();
 		void abort();
