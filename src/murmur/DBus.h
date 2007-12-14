@@ -229,6 +229,8 @@ class MetaDBus : public QDBusAbstractAdaptor {
 		void getDefaultConf(ConfigMap &values);
 		void setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &);
 		void setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &);
+		void rotateLogs(const QDBusMessage &);
+		void quit();
 	signals:
 		void started(int server_id);
 		void stopped(int server_id);

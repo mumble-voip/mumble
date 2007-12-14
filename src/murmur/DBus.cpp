@@ -1015,3 +1015,27 @@ void MetaDBus::setSuperUserPassword(int server_id, const QString &pw, const QDBu
 		ServerDB::setSUPW(server_id, pw);
 	}
 }
+
+extern QFile *qfLog;
+
+void MetaDBus::rotateLogs(const QDBusMessage &msg) {
+	if (! qfLog || ! qfLog->isOpen()) {
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.nolog", "Logfile not in use"));
+	}
+	qWarning("Logfile rotation requested from D-Bus, will reopen %s", qPrintable(Meta::mp.qsLogfile));
+	qfLog->close();
+	qfLog->setFileName(Meta::mp.qsLogfile);
+	if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+		delete qfLog;
+		qfLog = NULL;
+		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.logfail", "Failed to reopen log"));
+	} else {
+		qfLog->setTextModeEnabled(true);
+		qWarning("Log rotated successfully");
+	}                                                                                                                                                        
+}
+
+void MetaDBus::quit() {
+	qWarning("Quit requested from D-Bus");
+	QCoreApplication::instance()->quit();
+}

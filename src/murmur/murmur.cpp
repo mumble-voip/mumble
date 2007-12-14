@@ -39,7 +39,7 @@
 #include "DBus.h"
 #include "Meta.h"
 
-QFile *logfile;
+QFile *qfLog = NULL;
 
 static bool bVerbose = false;
 #ifdef QT_NO_DEBUG
@@ -48,11 +48,11 @@ static bool detach = true;
 static bool detach = false;
 #endif
 
-Meta *meta;
+Meta *meta = NULL;
 
-LogEmitter le;
+static LogEmitter le;
 
-QStringList qlErrors;
+static QStringList qlErrors;
 
 static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	char c;
@@ -73,7 +73,7 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	}
 	QString m= QString::fromLatin1("<%1>%2 %3").arg(QChar::fromLatin1(c)).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(msg);
 
-	if (! logfile || ! logfile->isOpen()) {
+	if (! qfLog || ! qfLog->isOpen()) {
 #ifdef Q_OS_UNIX
 		if (! detach)
 			fprintf(stderr, "%s\n", msg);
@@ -89,14 +89,14 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	} else {
 		if (! qlErrors.isEmpty()) {
 			foreach(const QString &e, qlErrors) {
-				logfile->write(e.toUtf8());
-				logfile->write("\n");
+				qfLog->write(e.toUtf8());
+				qfLog->write("\n");
 			}
 			qlErrors.clear();
 		}
-		logfile->write(m.toUtf8());
-		logfile->write("\n");
-		logfile->flush();
+		qfLog->write(m.toUtf8());
+		qfLog->write("\n");
+		qfLog->flush();
 	}
 	le.addLogEntry(m);
 	if (type == QtFatalMsg) {
@@ -202,14 +202,16 @@ int main(int argc, char **argv) {
 	}
 
 	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
-		logfile = new QFile(Meta::mp.qsLogfile);
-		if (! logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-			delete logfile;
-			logfile = NULL;
+		qfLog = new QFile(Meta::mp.qsLogfile);
+		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+			delete qfLog;
+			qfLog = NULL;
 			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
 			detach = false;
 		} else {
-			logfile->setTextModeEnabled(true);
+			qfLog->setTextModeEnabled(true);
+			QFileInfo qfi(*qfLog);
+			Meta::mp.qsLogfile = qfi.absoluteFilePath();
 		}
 	} else {
 		detach = false;
@@ -296,9 +298,9 @@ int main(int argc, char **argv) {
 
 	qWarning("Shutting down");
 
-	if (logfile) {
-		delete logfile;
-		logfile = NULL;
+	if (qfLog) {
+		delete qfLog;
+		qfLog = NULL;
 	}
 
 	delete meta;
