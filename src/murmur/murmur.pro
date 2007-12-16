@@ -36,6 +36,8 @@ win32 {
 unix {
   CONFIG += link_pkgconfig
   PKGCONFIG += openssl
+  HEADERS += UnixMurmur.h
+  SOURCES += UnixMurmur.cpp
   TARGET = murmurd
 }
 

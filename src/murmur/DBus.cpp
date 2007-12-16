@@ -1059,6 +1059,7 @@ extern QFile *qfLog;
 void MetaDBus::rotateLogs(const QDBusMessage &msg) {
 	if (! qfLog || ! qfLog->isOpen()) {
 		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.nolog", "Logfile not in use"));
+		return;
 	}
 	qWarning("Logfile rotation requested from D-Bus, will reopen %s", qPrintable(Meta::mp.qsLogfile));
 	qfLog->close();

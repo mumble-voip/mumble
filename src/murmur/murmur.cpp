@@ -39,6 +39,10 @@
 #include "DBus.h"
 #include "Meta.h"
 
+#ifdef Q_OS_UNIX
+#include "UnixMurmur.h"
+#endif
+
 QFile *qfLog = NULL;
 
 static bool bVerbose = false;
@@ -140,6 +144,7 @@ int main(int argc, char **argv) {
 	a.setWindowIcon(icon);
 #else
 	QCoreApplication a(argc, argv);
+	UnixMurmur unixhandler;
 #endif
 	a.setApplicationName("Murmur");
 	a.setOrganizationName("Mumble");
