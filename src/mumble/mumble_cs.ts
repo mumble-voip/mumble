@@ -632,8 +632,8 @@
     <name>AboutDialog</name>
     <message>
         <location filename="About.cpp" line="54"/>
-        <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Nástroj pro hlasovou skupinovou komunikaci.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Překlad do češtiny v roce 2007 připravil David Pravec, alekibango@danix.org.&lt;/p&gt;
+        <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2008 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Nástroj pro hlasovou skupinovou komunikaci.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Překlad do češtiny v roce 2007 připravil David Pravec, alekibango@danix.org.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2742,12 +2742,12 @@ v žádném z možných míst.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="165"/>
+        <location filename="main.cpp" line="171"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="877"/>
+        <location filename="MainWindow.cpp" line="882"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -3309,27 +3309,27 @@ v žádném z možných míst.</translation>
         <translation>Alternativní klávesa pro mluvení</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="277"/>
+        <location filename="MainWindow.cpp" line="279"/>
         <source>Reconnecting.</source>
         <translation>Opětovné připojování.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="400"/>
+        <location filename="MainWindow.cpp" line="402"/>
         <source>Kicking player %1</source>
         <translation>Vykopnutí uživaetele %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="422"/>
+        <location filename="MainWindow.cpp" line="424"/>
         <source>Enter reason</source>
         <translation>Zadejte důvod</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="422"/>
+        <location filename="MainWindow.cpp" line="424"/>
         <source>Banning player %1</source>
         <translation>Ban pro uživatele %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="444"/>
+        <location filename="MainWindow.cpp" line="446"/>
         <source>Sending message to %1</source>
         <translation>Posílam zprávu pro %1</translation>
     </message>
@@ -3339,112 +3339,112 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">Zadejte zprávu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="641"/>
+        <location filename="MainWindow.cpp" line="643"/>
         <source>To %1: %2</source>
         <translation>Pro %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="641"/>
+        <location filename="MainWindow.cpp" line="643"/>
         <source>Message to %1</source>
         <translation>Zpráva pro %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="181"/>
+        <location filename="main.cpp" line="187"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="554"/>
+        <location filename="MainWindow.cpp" line="556"/>
         <source>Channel Name</source>
         <translation>Název kanálu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="533"/>
+        <location filename="MainWindow.cpp" line="535"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Opravdu chcete odstranit kanál %1 včetně všech jeho podkanálů?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="684"/>
+        <location filename="MainWindow.cpp" line="686"/>
         <source>Unmuted and undeafened.</source>
         <translation>Opět schopen slyšet a mluvit.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="686"/>
+        <location filename="MainWindow.cpp" line="688"/>
         <source>Unmuted.</source>
         <translation>Opět schopen mluvit.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="688"/>
+        <location filename="MainWindow.cpp" line="690"/>
         <source>Muted.</source>
         <translation>Zakázáno mluvení.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="702"/>
+        <location filename="MainWindow.cpp" line="704"/>
         <source>Muted and deafened.</source>
         <translation>Zakázáno mluvit a poslouchat.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="704"/>
+        <location filename="MainWindow.cpp" line="706"/>
         <source>Deafened.</source>
         <translation>Vypnut poslech.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="706"/>
+        <location filename="MainWindow.cpp" line="708"/>
         <source>Undeafened.</source>
         <translation>Opět schopen slyšet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="761"/>
+        <location filename="MainWindow.cpp" line="763"/>
         <source>About Qt</source>
         <translation>O knihovně Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="842"/>
+        <location filename="MainWindow.cpp" line="844"/>
         <source>Joining %1.</source>
         <translation>Vstupuji do %1.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="872"/>
         <source>Connected to server.</source>
-        <translation>Připojen k serveru.</translation>
+        <translation type="obsolete">Připojen k serveru.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="957"/>
+        <location filename="MainWindow.cpp" line="962"/>
         <source>Server connection failed: %1.</source>
         <translation>Připojování k serveru selhalo: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="966"/>
+        <location filename="MainWindow.cpp" line="971"/>
         <source>Invalid username</source>
         <translation>Špatné jméno uživatele</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="966"/>
+        <location filename="MainWindow.cpp" line="971"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Připojujete se s nesprávným jménem uživatele, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="966"/>
+        <location filename="MainWindow.cpp" line="971"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Toto uživatelské jméno je již používáno, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="971"/>
+        <location filename="MainWindow.cpp" line="976"/>
         <source>Wrong password</source>
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="971"/>
+        <location filename="MainWindow.cpp" line="976"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Špatné heslo registrovaného uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="971"/>
+        <location filename="MainWindow.cpp" line="976"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Špatné heslo serveru pro neregistrované uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="959"/>
+        <location filename="MainWindow.cpp" line="964"/>
         <source>Disconnected from server.</source>
         <translation>Spojení se serverem bylo zrušeno.</translation>
     </message>
@@ -3614,107 +3614,107 @@ v žádném z možných míst.</translation>
         <translation type="unfinished">Zadejte jmého uživatele</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="328"/>
+        <location filename="MainWindow.cpp" line="330"/>
         <source>Mumble Server Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="936"/>
+        <location filename="MainWindow.cpp" line="941"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="915"/>
+        <location filename="MainWindow.cpp" line="920"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="920"/>
+        <location filename="MainWindow.cpp" line="925"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="922"/>
+        <location filename="MainWindow.cpp" line="927"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="931"/>
+        <location filename="MainWindow.cpp" line="936"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="310"/>
+        <location filename="MainWindow.cpp" line="312"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="313"/>
+        <location filename="MainWindow.cpp" line="315"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="315"/>
+        <location filename="MainWindow.cpp" line="317"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>UDP Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>To Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>From Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>Good</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>Late</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>Lost</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>Resync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="628"/>
+        <location filename="MainWindow.cpp" line="630"/>
         <source>Sending message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="655"/>
+        <location filename="MainWindow.cpp" line="657"/>
         <source>Sending message to channel tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="668"/>
+        <location filename="MainWindow.cpp" line="670"/>
         <source>To tree %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="668"/>
+        <location filename="MainWindow.cpp" line="670"/>
         <source>Message to tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="719"/>
+        <location filename="MainWindow.cpp" line="721"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3794,13 +3794,18 @@ v žádném z možných míst.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="181"/>
+        <location filename="main.cpp" line="187"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="328"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="877"/>
+        <source>Connected to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4370,12 +4375,12 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>PulseAudioConfig</name>
     <message>
-        <location filename="PulseAudio.cpp" line="553"/>
+        <location filename="PulseAudio.cpp" line="555"/>
         <source>PulseAudio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PulseAudio.cpp" line="591"/>
+        <location filename="PulseAudio.cpp" line="593"/>
         <source>%1ms</source>
         <translation type="unfinished">%1ms</translation>
     </message>
@@ -4458,12 +4463,12 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="447"/>
+        <location filename="PulseAudio.cpp" line="448"/>
         <source>Default Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PulseAudio.cpp" line="448"/>
+        <location filename="PulseAudio.cpp" line="449"/>
         <source>Default Output</source>
         <translation type="unfinished"></translation>
     </message>
