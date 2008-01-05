@@ -136,7 +136,7 @@ void ConfigDialog::addPage(ConfigWidget *cw) {
 	cw->setMinimumSize(ms);
 	
 	ms.rwidth() += 128;
-	ms.rheight() += 64;
+	ms.rheight() += 192;
 	if ((ms.width() > ds.width()) || (ms.height() > ds.height())) {
 		QScrollArea *qsa=new QScrollArea(this);
 		qsa->setWidgetResizable(true);
