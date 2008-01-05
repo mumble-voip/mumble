@@ -430,7 +430,7 @@ class MessageCryptSync : public Message {
 	public:
 		QByteArray qbaNonce;
 		Message::MessageType messageType() const {
-			return PlayerTexture;
+			return CryptSync;
 		}
 		bool isValid() const;
 };
