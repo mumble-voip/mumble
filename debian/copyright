@@ -4,7 +4,7 @@ on Mon, 03 Dec 2007 10:40:00 +0200.
 The original source can always be found at:
 	http://downloads.sourceforge.net/mumble/
 
-Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
 Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
 Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
 
@@ -31,7 +31,7 @@ Public License can be found in `/usr/share/common-licenses/GPL-2'.
 The source code for Mumble under src/ is licensed under the BSD(revised)
 license:
 
-Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
 Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
 Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
 

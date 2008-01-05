@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2007, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
 
    All rights reserved.
