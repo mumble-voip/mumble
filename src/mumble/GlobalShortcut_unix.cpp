@@ -51,6 +51,8 @@ GlobalShortcutX::GlobalShortcutX() {
 	display = NULL;
 
 #ifdef Q_OS_LINUX
+#define test_bit(bit, array)    (array[bit/8] & (1<<(bit%8)))
+
 	QDir d(QLatin1String("/dev/input"), QLatin1String("event*"), 0, QDir::System);
 	foreach(QFileInfo fi, d.entryInfoList()) {
 		QFile *f = new QFile(fi.absoluteFilePath(), this);
@@ -58,8 +60,9 @@ GlobalShortcutX::GlobalShortcutX() {
 			int fd = f->handle();
 			int version;
 			char name[256];
-			quint32 events = 0;
-			if ((ioctl(fd, EVIOCGVERSION, &version) >= 0) && (ioctl(fd, EVIOCGNAME(sizeof(name)), name)>=0) && (ioctl(fd, EVIOCGBIT(0,31), &events) >= 0) && (events & (1 << EV_KEY))) {
+			uint8_t events[EV_MAX/8 + 1];
+			memset(events, 0, sizeof(events));
+			if ((ioctl(fd, EVIOCGVERSION, &version) >= 0) && (ioctl(fd, EVIOCGNAME(sizeof(name)), name)>=0) && (ioctl(fd, EVIOCGBIT(0,sizeof(events)), &events) >= 0) && test_bit(EV_KEY, events)) {
 				name[255]=0;
 				qWarning("GlobalShortcutX: Linux Input v%d.%d.%d: %s", (version >> 16) & 0xFF, (version >> 8) & 0xFF, version & 0xFF, name);
 				fcntl(f->handle(), F_SETFL, O_NONBLOCK);
