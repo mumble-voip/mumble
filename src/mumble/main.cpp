@@ -42,6 +42,7 @@
 #include "DBus.h"
 #endif
 #include "VersionCheck.h"
+#include "NetworkConfig.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -144,6 +145,9 @@ int main(int argc, char **argv) {
 	icon.addFile(QLatin1String("skin:mumble.64x64.png"));
 	a.setWindowIcon(icon);
 #endif
+
+	// Initialize proxy settings
+	NetworkConfig::SetupProxy();
 
 	// Initialize logger
 	g.l = new Log();

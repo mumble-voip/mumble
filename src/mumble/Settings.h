@@ -62,7 +62,7 @@ struct Settings {
 	VADSource vsVAD;
 	float fVADmin, fVADmax;
 	int iFramesPerPacket;
-	bool bTCPCompat, bReconnect, bExpandAll;
+	bool bExpandAll;
 	QString qsAudioInput, qsAudioOutput;
 	float fVolume;
 
@@ -114,6 +114,13 @@ struct Settings {
 	int iServerRow;
 
 	bool bUpdateCheck;
+
+	// Network settings
+	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };
+	bool bTCPCompat, bReconnect;
+	ProxyType ptProxyType;
+	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
+	unsigned short usProxyPort;
 
 	// Nonsaved
 	bool bLocalDeafen;

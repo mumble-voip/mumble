@@ -50,6 +50,7 @@
 #include "Database.h"
 #include "ViewCert.h"
 #include "TextMessage.h"
+#include "NetworkConfig.h"
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
@@ -311,7 +312,8 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 variance)</p>").arg(qsc.usedBits()).arg(qsc.name()).arg(c->dTCPPingAvg, 0, 'f', 2).arg(c->dTCPPingVar / (c->uiTCPPackets - 1),0,'f',2);
 	QString qsVoice, qsCrypt, qsAudio;
-	if (g.s.bTCPCompat) {
+
+	if (NetworkConfig::TcpModeEnabled()) {
 		qsVoice = tr("Voice channel is sent over control channel.");
 	} else {
 		qsVoice = tr("<h2>Voice channel</h2><p>Encrypted with 128 bit OCB-AES128<br />%1 ms average latency (%4 variance)</p>").arg(c->dUDPPingAvg, 0, 'f', 2).arg(c->dUDPPingVar / (c->uiUDPPackets - 1),0,'f',2);

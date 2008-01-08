@@ -36,6 +36,7 @@
 #include "Plugins.h"
 #include "Message.h"
 #include "Global.h"
+#include "NetworkConfig.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
@@ -179,7 +180,7 @@ int AudioInput::getMaxBandwidth() {
 	if (g.s.bTransmitPosition)
 		audiorate += 12;
 
-	if (g.s.bTCPCompat)
+	if (NetworkConfig::TcpModeEnabled())
 		audiorate += 12;
 
 	audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
@@ -209,7 +210,7 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 		if (g.s.bTransmitPosition)
 			audiorate += 12;
 
-		if (g.s.bTCPCompat)
+		if (NetworkConfig::TcpModeEnabled())
 			audiorate += 12;
 
 		audiorate = (audiorate * 50) / g.s.iFramesPerPacket;

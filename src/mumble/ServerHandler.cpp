@@ -38,6 +38,7 @@
 #include "Global.h"
 #include "Database.h"
 #include "PacketDataStream.h"
+#include "NetworkConfig.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -144,7 +145,7 @@ void ServerHandler::sendMessage(Message *mMsg) {
 	bool mayUdp = (mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping);
 	mMsg->uiSession = g.uiSession;
 
-	if (mayUdp && ! g.s.bTCPCompat) {
+	if (mayUdp && !NetworkConfig::TcpModeEnabled()) {
 		QMutexLocker qml(&qmUdp);
 		if (! qusUdp)
 			return;
@@ -220,7 +221,7 @@ void ServerHandler::sendPing() {
 	mps.dTCPPingVar = cConnection->dTCPPingVar;
 	sendMessage(&mps);
 
-	if (! g.s.bTCPCompat) {
+	if (!NetworkConfig::TcpModeEnabled()) {
 		MessagePing mp;
 		mp.uiTimestamp = mps.uiTimestamp;
 		sendMessage(&mp);

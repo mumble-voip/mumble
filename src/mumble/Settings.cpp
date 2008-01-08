@@ -50,8 +50,6 @@ Settings::Settings() {
 	vsVAD = SignalToNoise;
 	fVADmin = 1.0 / 32.767;
 	fVADmax = 4.0 / 32.767;
-	bTCPCompat = false;
-	bReconnect = true;
 	bExpandAll = true;
 	bPushClick = false;
 
@@ -112,6 +110,12 @@ Settings::Settings() {
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
 
+	// Network settings
+	bTCPCompat = false;
+	bReconnect = true;
+	ptProxyType = NoProxy;
+	usProxyPort = 0;
+
 	bLocalDeafen = false;
 	lmLoopMode = None;
 	dPacketLoss = 0;
@@ -151,8 +155,6 @@ void Settings::load() {
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
-	SAVELOAD(bTCPCompat, "net/tcponly");
-	SAVELOAD(bReconnect, "net/reconnect");
 
 	SAVELOAD(qsASIOclass, "asio/class");
 	SAVELOAD(qlASIOmic, "asio/mic");
@@ -197,6 +199,15 @@ void Settings::load() {
 	SAVELOAD(qcOverlayTalking, "overlay/talking");
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
+
+	// Network settings
+	SAVELOAD(bTCPCompat, "net/tcponly");
+	SAVELOAD(bReconnect, "net/reconnect");
+	LOADENUM(ptProxyType, "net/proxytype");
+	SAVELOAD(qsProxyHost, "net/proxyhost");
+	SAVELOAD(usProxyPort, "net/proxyport");
+	SAVELOAD(qsProxyUsername, "net/proxyusername");
+	SAVELOAD(qsProxyPassword, "net/proxypassword");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
@@ -259,8 +270,6 @@ void Settings::save() {
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
-	SAVELOAD(bTCPCompat, "net/tcponly");
-	SAVELOAD(bReconnect, "net/reconnect");
 
 	SAVELOAD(qsASIOclass, "asio/class");
 	SAVELOAD(qlASIOmic, "asio/mic");
@@ -305,6 +314,15 @@ void Settings::save() {
 	SAVELOAD(qcOverlayTalking, "overlay/talking");
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
+
+	// Network settings
+	SAVELOAD(bTCPCompat, "net/tcponly");
+	SAVELOAD(bReconnect, "net/reconnect");
+	SAVELOAD(ptProxyType, "net/proxytype");
+	SAVELOAD(qsProxyHost, "net/proxyhost");
+	SAVELOAD(usProxyPort, "net/proxyport");
+	SAVELOAD(qsProxyUsername, "net/proxyusername");
+	SAVELOAD(qsProxyPassword, "net/proxypassword");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");

@@ -32,6 +32,7 @@
 #include "AudioOutput.h"
 #include "AudioConfigDialog.h"
 #include "Global.h"
+#include "NetworkConfig.h"
 
 static ConfigWidget *AudioConfigDialogNew(Settings &st) {
 	return new AudioConfigDialog(st);
@@ -99,8 +100,6 @@ void AudioConfigDialog::load(const Settings &r) {
 		qrbSNR->setChecked(true);
 
 	loadCheckBox(qcbPushClick, r.bPushClick);
-	loadCheckBox(qcbTCP, r.bTCPCompat);
-	loadCheckBox(qcbReconnect, r.bReconnect);
 	loadSlider(qsQuality, r.iQuality);
 	loadSlider(qsComplexity, r.iComplexity);
 	loadSlider(qsNoise, - r.iNoiseSuppress);
@@ -125,8 +124,6 @@ void AudioConfigDialog::save() const {
 	s.iFramesPerPacket = qsFrames->value();
 	s.uiDoublePush = qsDoublePush->value() * 1000;
 	s.bPushClick = qcbPushClick->isChecked();
-	s.bTCPCompat = qcbTCP->isChecked();
-	s.bReconnect = qcbReconnect->isChecked();
 	s.iJitterBufferSize = qsJitter->value();
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	s.qsAudioInput = qcbInput->currentText();
@@ -144,7 +141,6 @@ bool AudioConfigDialog::expert(bool b) {
 	qliComplexity->setVisible(b);
 	qlComplexity->setVisible(b);
 	qsComplexity->setVisible(b);
-	qcbTCP->setVisible(b);
 	qliFrames->setVisible(b);
 	qsFrames->setVisible(b);
 	qlFrames->setVisible(b);
@@ -225,7 +221,7 @@ void AudioConfigDialog::updateBitrate() {
 	overhead = 50 * 8 * (20 + 8 + 4 + 3 + 1 + 2);
 
 	// TCP is 12 more bytes than UDP
-	if (qcbTCP->isChecked())
+	if (NetworkConfig::TcpModeEnabled())
 		overhead += 50 * 8 * 12;
 
 	if (g.s.bTransmitPosition)
