@@ -9,6 +9,7 @@ VERSION = 1.1.2
 SOURCES = overlay.c
 LIBS += -lrt -ldl
 QMAKE_CFLAGS += -fvisibility=hidden
+QMAKE_LFLAGS -= -Wl,--no-undefined
 equals(QMAKE_LINK,g++) {
   message(Overriding linker)
   QMAKE_LINK = gcc
