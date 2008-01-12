@@ -12,7 +12,7 @@ INCLUDEPATH	+= ../../speex/include ../../speex/libspeex ../../speexbuild
 LIBS 		+= -lspeex
 RESOURCES	+= mumble.qrc
 FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioConfigDialog.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui
-TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts
+TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts mumble_ja.ts
 PRECOMPILED_HEADER = mumble_pch.h
 
 QMAKE_CXXFLAGS	+= -Wall -Wextra
@@ -128,7 +128,8 @@ copytrans.target = qt_de.qm
 copytrans.commands  = $$QMAKE_COPY $${QT_TRANSDIR}qt_de.qm . &&
 copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_fr.qm . &&
 copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_es.qm . &&
-copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_ru.qm . 
+copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_ru.qm . &&
+copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_ja_jp.qm .
 
 lrel.target = mumble_en.qm
 lrel.commands = lrelease mumble.pro
