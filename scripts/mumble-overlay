@@ -1,6 +1,10 @@
 #! /bin/sh
 
-MUMBLE_OVERLAY_PATH=/usr/lib/
+if [ -d /usr/lib/mumble ]; then
+  MUMBLE_OVERLAY_PATH=/usr/lib/mumble
+else
+  MUMBLE_OVERLAY_PATH=/usr/lib
+fi
 
 if [ -f /etc/sysconfig/mumble ]; then
   . /etc/sysconfig/mumble

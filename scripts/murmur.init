@@ -1,34 +1,34 @@
 #! /bin/sh
 #
 ### BEGIN INIT INFO
-# Provides:             murmur
+# Provides:             mumble-server
 # Required-Start:       $network $local_fs $remote_fs dbus
 # Required-Stop:	$network $local_fs $remote_fs dbus
 # Should-Start:		$mysql
 # Should-Stop:		$mysql
 # Default-Start:        2 3 4 5
 # Default-Stop:         0 1 6
-# Short-Description:    Murmur VoIP Server
+# Short-Description:    Mumble VoIP Server
 ### END INIT INFO
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 NAME=murmur
-DESC="Murmur VoIP Server"
-PIDDIR=/var/run/murmur
-PIDFILE=$PIDDIR/murmur.pid
+DESC="Mumble VoIP Server"
+PIDDIR=/var/run/mumble-server
+PIDFILE=$PIDDIR/mumble-server.pid
 DAEMON=/usr/sbin/murmurd
-USER=murmur
-GROUP=murmur
+USER=mumble-server
+GROUP=mumble-server
 
 test -x $DAEMON || exit 0
 
-INIFILE=/etc/murmur.ini
+INIFILE=/etc/mumble-server.ini
 DAEMON_OPTS="-ini $INIFILE"
 MURMUR_DAEMON_START=1
 
 # Include murmur defaults if available
-if [ -f /etc/default/murmur ] ; then
-	. /etc/default/murmur
+if [ -f /etc/default/mumble-server ] ; then
+	. /etc/default/mumble-server
 fi
 
 . /lib/init/vars.sh

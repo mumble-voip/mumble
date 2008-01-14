@@ -19,14 +19,11 @@ Description: Low latency VoIP client
  commercial OpenGL applications.
  Mumble is just a client and uses a proprietary protocol. You will need
  a dedicated server to talk to other users. Server functionality is provided
- by the package "murmur".
+ by the package "mumble-server".
 
-Package: murmur
+Package: mumble-server
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103),  libnet-dbus-perl (>= 0.33.5), libcgi-perl (>= 2.76), libcgi-session-perl (>= 4.20), libnet-dns-perl (>= 0.60), libcompress-zlib-perl (>= 2.005), perlmagick, libconfig-simple-perl (>= 4.59)
-Conflicts: mumble-server
-Replaces: mumble-server
-Provides: mumble-server
 Description: Low latency VoIP server
  Murmur is the VoIP server component for Mumble.
  Murmur is installed in a systemwide fashion, but can also be run by

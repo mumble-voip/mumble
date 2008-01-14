@@ -20,11 +20,11 @@ set -e
 
 case "$1" in
     configure)
-    	adduser --system --quiet --group murmur
-    	chmod 0750 /var/log/murmur
-    	chmod 0750 /var/lib/murmur
-    	chown murmur:murmur /var/log/murmur
-    	chown murmur:murmur /var/lib/murmur
+    	adduser --system --quiet --group mumble-server
+    	chmod 0750 /var/log/mumble-server
+    	chmod 0750 /var/lib/mumble-server
+    	chown mumble-server:mumble-server /var/log/mumble-server
+    	chown mumble-server:mumble-server /var/lib/mumble-server
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

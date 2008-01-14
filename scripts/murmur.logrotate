@@ -1,0 +1,10 @@
+/var/log/mumble-server/mumble-server.log {
+	weekly
+	rotate 7
+	compress
+	delaycompress
+	missingok
+	postrotate
+		start-stop-daemon --quiet --stop --signal 1 --exec /usr/sbin/murmurd --user mumble-server --pidfile /var/run/mumble-server/mumble-server.pid
+	endscript
+}
