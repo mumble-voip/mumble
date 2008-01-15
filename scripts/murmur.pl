@@ -29,7 +29,7 @@ our $serverid = 1;
 my $home = (getpwuid($<))[7];
 
 # This needs to be done before "use Net::DBus"
-if (open(F, "$home/.dbus.sh")) {
+if (open(F, "$home/murmur/.dbus.sh")) {
   while(<F>) {
     chomp();
     if ($_ =~ /^(.+?)\='(.+)';$/) {
@@ -80,7 +80,7 @@ eval {
   $bus=Net::DBus->system();
   $service = $bus->get_service("net.sourceforge.mumble.murmur");
   
-  my $cfg = new Config::Simple(filename => '/etc/murmur.ini', syntax => 'simple');
+  my $cfg = new Config::Simple(filename => '/etc/mumble-server.ini', syntax => 'simple');
   $servername = $cfg->param("registerName") || $servername;
   $emailfrom = $cfg->param("emailfrom") || $emailfrom;
 };
@@ -97,7 +97,7 @@ die "Murmur service not found" if (! $service);
 
 if (! defined($emailfrom) || ($emailfrom eq "")) {
   croak(qq{Missing configuration. 
-  Please edit either /etc/murmur.ini for systemwide installations,
+  Please edit either /etc/mumble-server.ini for systemwide installations,
   or murmur.pl for a personal one.
   });
 }

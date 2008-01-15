@@ -1,9 +1,12 @@
-#!/bin/sh
+#! /bin/sh
 # postinst script for murmur
 #
 # see: dh_installdeb(1)
 
 set -e
+set -x
+
+. /usr/share/debconf/confmodule
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
@@ -25,6 +28,18 @@ case "$1" in
     	chmod 0750 /var/lib/mumble-server
     	chown mumble-server:mumble-server /var/log/mumble-server
     	chown mumble-server:mumble-server /var/lib/mumble-server
+    	
+    	db_get mumble-server/start_daemon
+    	if [ "$RET" = "true" ]; then
+    		DAEMON_START=1
+    	else
+    		DAEMON_START=0
+    	fi
+    	echo > /etc/default/mumble-server "MURMUR_DAEMON_START=$DAEMON_START"
+    	db_get mumble-server/password
+    	if [ "X$RET" != "X" ]; then
+            start-stop-daemon --start --quiet --chuid mumble-server:mumble-server --exec /usr/sbin/murmurd -- -ini /etc/mumble-server.ini -supw "$RET"
+    	fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

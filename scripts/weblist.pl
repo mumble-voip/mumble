@@ -7,7 +7,7 @@ use strict;
 my $home = (getpwuid($<))[7];
 
 # This needs to be done before "use Net::DBus"
-if (open(F, "$home/.dbus.sh")) {
+if (open(F, "$home/murmur/.dbus.sh")) {
   while(<F>) {
     chomp();
     if ($_ =~ /^(.+?)\='(.+)';$/) {

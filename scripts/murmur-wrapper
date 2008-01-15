@@ -1,0 +1,107 @@
+#! /bin/bash
+
+DIR=$HOME/murmur
+DBUSFILE=$DIR/.dbus.sh
+SYSDIR=/usr/share/doc/mumble-server/
+
+if [ $UID == 0 ] || [ $EUID == 0 ]; then
+  echo "You should never run this script as root. If you want a system-wide install, see "
+  echo "the documentation included with this package."
+  exit
+fi
+
+unset SETPW
+DO_KILL=0
+DO_STATUS=0
+DO_INITONLY=0
+
+while getopts "sid:p:k" flag; do
+  case "$flag" in
+  	"s")
+  		DO_STATUS=1
+  		;;
+  	"i")
+  		DO_INITONLY=1
+  		;;
+  	"d")
+  		DIR=$OPTARG
+  		;;
+  	"p")
+  		SETPW=$OPTARG
+  		;;
+  	"k")
+  		DO_KILL=1
+  		;;
+  	*)
+  		exit
+  		;;
+  esac
+done
+
+if [ $DO_KILL == 1 ]; then
+	if pkill -U $UID -u $EUID -o -x -f "/usr/sbin/murmurd -ini $DIR/murmur.ini"; then
+		echo "Termination signal sent"
+	else
+		echo "Murmur process not found; not terminated"
+	fi
+	exit
+fi
+
+if [ ! -d $DIR ]; then
+  echo "Making $DIR"
+  mkdir -m 0700 $DIR
+fi
+
+cd $DIR
+
+if [ ! -f $DIR/murmur.ini ]; then
+  echo "Creating $DIR/murmur.ini"
+  cp $SYSDIR/murmur.ini $DIR
+elif [ $DO_INITONLY == 1 ]; then
+  echo "$DIR/murmur.ini already exists, initialization failed."
+  exit
+fi
+
+if [ $DO_INITONLY == 1 ]; then
+  echo "Initialization done. Please edit $DIR/murmur.ini"
+  exit
+fi
+
+if [ "X$SETPW" != "X" ]; then
+	echo "Setting superuser password to \"$SETPW\""
+	/usr/sbin/murmurd -ini $DIR/murmur.ini -supw $SETPW
+	exit
+fi
+
+PID=$(pgrep -U $UID -u $EUID -o -x -f "/usr/sbin/murmurd -ini $DIR/murmur.ini")
+
+if [ $DO_STATUS == 1 ]; then
+	if [ "X$PID" != "X" ]; then
+		echo "Murmur is running"
+		exit 1
+	else
+		echo "Murmur is not running"
+		exit 0
+	fi
+fi
+
+if [ "X$PID" != "X" ]; then
+  echo "Murmur is already running."
+  exit
+fi
+
+DBUS_SESSION_BUS_ADDRESS=invalid:/
+[ -f $DBUSFILE ] && . $DBUSFILE
+
+if ! dbus-send --print-reply --dest=org.freedesktop.DBus --type=method_call / org.freedesktop.DBus.GetId 2> /dev/null > /dev/null; then
+  echo "Launching D-Bus session"
+  dbus-launch --sh-syntax > $DBUSFILE
+  . $DBUSFILE
+  if ! dbus-send --print-reply --dest=org.freedesktop.DBus --type=method_call / org.freedesktop.DBus.GetId 2> /dev/null > /dev/null; then
+    echo "Failed to launch session DBUS, bailing out."
+    exit
+  fi
+fi
+
+echo "Starting Murmur"
+/usr/sbin/murmurd -ini $DIR/murmur.ini
