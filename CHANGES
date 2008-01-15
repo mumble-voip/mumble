@@ -1,4 +1,62 @@
-2007-12-02 Revision 876
+2008-01-15 Revision 917-918
+	* Add template and config file for .deb
+	* Final touches for debian package
+	* Extensive updates to ubuntu package (not quite done)
+2008-01-14 Revision 916
+	* Rename ubuntu package from murmur back to mumble-server
+2008-01-12 Revision 914
+	* Work around bug in newer debian
+	* Japanese translation [ikasamah]
+2008-01-08 Revision 913
+	* Proxy support [mkrautz]
+2008-01-07 Revision 912
+	* Modified manpages
+2008-01-06 Revision 911
+	* Change the size parameter for EVIOCGBIT, based on patch by [mkrautz]
+2008-01-05 Revision 907-909
+	* Increase safety size for config widgets
+	* Translation updates
+	* Update copyright for 2008
+	* Fix messageType for CryptSync [Mikkel Krautz]
+2007-12-16 Revision 906
+	* Handle SIGTERM and SIGHUP in Murmur
+2007-12-14 Revision 900-904
+	* Clean SQL log after adjustable interval, fetch logs via DBus
+	* Add rotateLogs and quit methods for DBus
+	* Make ALSA errors logwindow entries instead of popup boxes
+	* Show hostname when connecting.
+	* Revert to seconds instead of centiseconds for registration delays
+	* Use SSL callback to verify bound IP for multihomed machines
+2007-12-11 Revision 897-898
+	* Update lintian override
+	* Support espeak, add festival suggestion for ubuntu
+	* Rename user from Murmur to murmur
+2007-12-10 Revision 894-895
+	* Add murmur.default for init script
+	* Speex benchmark, used to test optimization flags
+	* Early bail for non-SSL
+2007-12-09 Revision 890-892
+	* ALSA labling fix. Softmixer fix.
+	* Standards 3.7.3 for Ubuntu
+	* As it breaks packaging policy for many distros, don't default to
+	  MMX/SSE for Linux
+	* Various UNIX audio fixes
+2007-12-08 Revision 889
+	* Installer now kills dbus-daemon.exe if found.
+2007-12-07 Revision 887
+	* Various dbus fixes
+	* Log -h to stdout for murmurd
+2007-12-06 Revision 885
+	* Patch 1845022 for delayed Global (fixes fonts on X11) [ars3niy]
+	* Patch #1844930 macx: add app icon / remove window icon [metz]
+2007-12-03 Revision 882-883
+	* Use SSE for Speex if compiler flags enabled
+	* Clarify source license in debian/
+	* Language updates
+2007-12-02 Revision 876-880
+	* Build PortAudio and PulseAudio only if pkg-config finds them
+	* Bump version to 1.1.2 (for all but debian/)
+	* Changelog update
 	* Minor Ubuntu fixes
 	* Fix yet another Win32 UDP bug.
 2007-11-25 Revision 872-874
