@@ -1,16 +1,16 @@
-# Debconf translations for mumble-server
-# Copyright (C) 2008 Thorvald Natvig
-# This file is distributed under the same license as the mumble-server package.
-# Thorvald Natvig <slicer@users.sourceforge.net>, 2008.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1.2-0ubuntu1\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: ubuntu-motu@lists.ubuntu.com\n"
-"POT-Creation-Date: 2008-01-12 21:40+0100\n"
-"PO-Revision-Date: 2008-01-12 21:40+0100\n"
-"Last-Translator: Thorvald Natvig <slicer@users.sourceforge.net>\n"
+"POT-Creation-Date: 2008-01-12 22:27+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. Type: password
 #. Description
 #: ../mumble-server.templates:1001
-msgid "Password for SuperUser account?"
+msgid "Password to set on SuperUser account:"
 msgstr ""
 
 #. Type: password
@@ -27,15 +27,27 @@ msgstr ""
 #: ../mumble-server.templates:1001
 msgid ""
 "Murmur has a special account called \"SuperUser\" which bypasses all "
-"privilege checks. If you set a password here, the password for the "
-"\"SuperUser\" account will be updated. If you leave this blank, the password "
-"will not be changed."
+"privilege checks."
+msgstr ""
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid ""
+"If you set a password here, the password for the \"SuperUser\" account will "
+"be updated."
+msgstr ""
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "If you leave this blank, the password will not be changed."
 msgstr ""
 
 #. Type: boolean
 #. Description
 #: ../mumble-server.templates:2001
-msgid "Start mumble-server automatically?"
+msgid "Should mumble-server start automatically?"
 msgstr ""
 
 #. Type: boolean
@@ -43,4 +55,27 @@ msgstr ""
 #: ../mumble-server.templates:2001
 msgid ""
 "Mumble-server (murmurd) can start automatically when the server is booted."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid "Source address for outgoing registration email:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid ""
+"Murmur comes with a web-based registration script, which will send an "
+"authentication code to the user by email before registration can be "
+"completed."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid ""
+"Set this to the email address you wish such authentication emails to come "
+"from. If you set it blank, registration will be disabled."
 msgstr ""

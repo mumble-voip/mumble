@@ -24,7 +24,7 @@ test -x $DAEMON || exit 0
 
 INIFILE=/etc/mumble-server.ini
 DAEMON_OPTS="-ini $INIFILE"
-MURMUR_DAEMON_START=1
+MURMUR_DAEMON_START=0
 
 # Include murmur defaults if available
 if [ -f /etc/default/mumble-server ] ; then

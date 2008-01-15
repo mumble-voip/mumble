@@ -8,7 +8,8 @@ http://localhost/cgi-bin/mumble-server/list.cgi
 and new users can register themselves at
 http://localhost/cgi-bin/mumble-server/register.cgi
 
-These webscripts will only work when mumble-server is running.
+For registration to work, you will need to set an email address to use for
+registraion emails. To set the address, dpkg-reconfigure mumble-server.
 
 Murmur's root user is called SuperUser. To set the password for superuser, 
 simply dpkg-reconfigure mumble-server.

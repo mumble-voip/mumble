@@ -4,7 +4,6 @@
 # see: dh_installdeb(1)
 
 set -e
-set -x
 
 . /usr/share/debconf/confmodule
 
@@ -29,17 +28,49 @@ case "$1" in
     	chown mumble-server:mumble-server /var/log/mumble-server
     	chown mumble-server:mumble-server /var/lib/mumble-server
     	
-    	db_get mumble-server/start_daemon
-    	if [ "$RET" = "true" ]; then
-    		DAEMON_START=1
+    	if [ -f /etc/default/mumble-server ]; then
+	    	db_get mumble-server/start_daemon
+    		if [ "$RET" = "true" ]; then
+    			DAEMON_START=1
+    		else
+    			DAEMON_START=0
+    		fi
+    		if grep -E ^MURMUR_DAEMON_START= /etc/default/mumble-server > /dev/null; then
+		    	perl -pi -w -e "s/^MURMUR_DAEMON_START=.+$/MURMUR_DAEMON_START=$DAEMON_START/g" /etc/default/mumble-server
+		else
+			echo "MURMUR_DAEMON_START=$DAEMON_START" >> /etc/default/mumble-server
+		fi
+	else
+		echo "/etc/default/mumble-server not found, configuration failed" >&2
+	fi
+
+    	if [ -f /etc/mumble-server.ini ]; then
+	    	db_get mumble-server/emailfrom
+	    	if [ "X$RET" != "X" ]; then
+	    		if grep -E '^.*emailfrom[[:space:]]*=' /etc/mumble-server.ini > /dev/null; then
+	    			perl -pi -w -e "BEGIN { \$email = '$RET'; } s/^.*emailfrom\\s*=.*$/emailfrom = \$email/g" /etc/mumble-server.ini
+	    		else
+	    			echo "emailfrom = $RET" >> /etc/mumble-server.ini
+	    			echo "Warning: /etc/mumble-server.ini looks damaged" >&2
+	    		fi
+    		else
+    			perl -pi -w -e "s/^.*emailfrom\\s*=.*$/#emailfrom =/g" /etc/mumble-server.ini
+    		fi
     	else
-    		DAEMON_START=0
+    		echo "/etc/mumble-server.ini not found, configuration failed." >&2
     	fi
-    	echo > /etc/default/mumble-server "MURMUR_DAEMON_START=$DAEMON_START"
+
     	db_get mumble-server/password
     	if [ "X$RET" != "X" ]; then
             start-stop-daemon --start --quiet --chuid mumble-server:mumble-server --exec /usr/sbin/murmurd -- -ini /etc/mumble-server.ini -supw "$RET"
+            if [ $? = 0 ]; then
+            	db_set mumble-server/password ""
+            else
+            	echo "Failed to set SuperUser password." >&2
+            fi
     	fi
+
+    	db_stop
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
