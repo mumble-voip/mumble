@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: ubuntu-motu@lists.ubuntu.com\n"
-"POT-Creation-Date: 2008-01-12 22:27+0100\n"
+"POT-Creation-Date: 2008-01-13 00:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../mumble-server.templates:2001
-msgid "Should mumble-server start automatically?"
+msgid "Autostart mumble-server on server boot?"
 msgstr ""
 
 #. Type: boolean
@@ -60,7 +60,7 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../mumble-server.templates:3001
-msgid "Source address for outgoing registration email:"
+msgid "Email address to send registration emails from:"
 msgstr ""
 
 #. Type: string
