@@ -354,7 +354,7 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 		qaPlayerKick->setEnabled(true);
 		qaPlayerBan->setEnabled(true);
 		qaPlayerMute->setEnabled(true);
-		qaPlayerLocalMute->setEnabled(true);
+		qaPlayerLocalMute->setEnabled(p->uiSession != g.uiSession);
 		qaPlayerDeaf->setEnabled(true);
 		qaPlayerMute->setChecked(p->bMute);
 		qaPlayerLocalMute->setChecked(p->bLocalMute);
