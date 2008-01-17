@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -683,7 +684,7 @@
     <message>
         <location filename="About.cpp" line="54"/>
         <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2008 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Traducción al español por Álvaro M. Recio Pérez&lt;br /&gt;naproxeno@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla por voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2008 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Traducción al español por Álvaro M. Recio Pérez&lt;br /&gt;naproxeno@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla por voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1149,72 +1150,72 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="162"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="129"/>
         <source>DoublePush Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de doble pulsación</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="181"/>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar detección basada en SNR</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="184"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Establece el uso de la relación señal/ruido para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se analiza la entrada en busca de algo que parezca una señal clara, y la clarida de la señal se usa para provocar la detección vocal.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="187"/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"></translation>
+        <translation>Señal/ruido</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="194"/>
         <source>Use Amplitude based speech detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar detección vocal basada en la amplitud.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="197"/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Establece el uso de la amplitud para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se usa la intensidad de la señal de entrada para detectar el habla.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="200"/>
         <source>Amplitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplitud</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="251"/>
         <source>Silence Below</source>
-        <translation type="unfinished"></translation>
+        <translation>Silencio por debajo de</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="258"/>
         <source>Signal values below this counts as silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Los valores de la señal por debajo de éste se consideran como silencio</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="293"/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Establece los valores que provocaran la detección vocal.&lt;/b&gt;&lt;br /&gt;Use ésto junto con la ventana la ventana de estadísticas del audio para ajustar manualmente los valores que provocan la detección del habla. Los valores de entrada por debajo del &quot;Silencio por debajo de&quot; siempre se consideran como silencio. Los valores por encima del &quot;Habla por encima de&quot; siempre se consideran como voz. Los valores intermedios se considerarán como voz si usted ya estaba hablando, pero no provocarán una nueva detección.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="283"/>
         <source>Speech Above</source>
-        <translation type="unfinished"></translation>
+        <translation>Habla por encima de</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="290"/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"></translation>
+        <translation>Los valores de la señal por encima de éste se consideran como voz</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="467"/>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión</translation>
     </message>
 </context>
 <context>
@@ -1287,7 +1288,7 @@
     <message>
         <location filename="AudioStats.ui" line="123"/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation>Tasa Señal/Ruido del micrófono</translation>
+        <translation>Tasa señal/ruido del micrófono</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="126"/>
@@ -1367,92 +1368,92 @@
     <message>
         <location filename="AudioStats.cpp" line="342"/>
         <source>&gt;1000ms</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;1000ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="13"/>
         <source>Audio Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estadísticas del audio</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="21"/>
         <source>Input Levels</source>
-        <translation type="unfinished"></translation>
+        <translation>Niveles de entrada</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="37"/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra la potencia máxima en la última trama (20 ms), y es la misma medida que generalmente encontrará mostrada como &quot;potencia de entrada&quot;. Por favor, no haga caso a ésto y vea &lt;b&gt;Potencia del micrófono&lt;/b&gt; en su lugar, que es mucho más estable e ignora las muestras extremas.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="197"/>
         <source>TextLabel</source>
-        <translation type="unfinished">EtiquetaDeTexto</translation>
+        <translation>EtiquetaDeTexto</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="90"/>
         <source>Signal Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Análisis de la señal</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="96"/>
         <source>Microphone power</source>
-        <translation type="unfinished"></translation>
+        <translation>Potencia del micrófono</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="106"/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra cuán próximo al ideal está su nivel de volumen de entrada actual. Para ajustar su nivel de micrófono, abra el programa que emplea para ajustar el volumen de grabación, y observe el valor de aquí mientras habla.&lt;br /&gt;&lt;b&gt;Hable alto, como lo haría cuando está enfadado por perder ante un novato.&lt;/b&gt;&lt;br /&gt;Ajuste el volumen hasta que este valor esté próximo a 100%, pero asegúrese de que no lo sobrepasa. Si lo sobrepasa, es probable que se produzcan cortes en partes de su habla, lo que degradará la calidad de sonido.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="116"/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished">Relación señal-ruiido</translation>
+        <translation>Relación señal/ruido</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="161"/>
         <source>Configuration feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Retroalimentación de la configuración</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="167"/>
         <source>Current audio bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Velocidad de transmisión del audio actual</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="187"/>
         <source>DoublePush interval</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo de doble pulsación</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="194"/>
         <source>Time between last two PushToTalk presses</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo entre las dos últimas pulsaciones de PresionarParaHablar</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="204"/>
         <source>Speech Detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Detección del habla</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="211"/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"></translation>
+        <translation>Probabilidad actual de detección del habla</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="214"/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Muestra las opciones actuales de detección del habla.&lt;/b&gt;&lt;br /&gt;Puede cambiar las opciones desde el cuadro de diálogo Opciones o desde el Asistente de audio.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="243"/>
         <source>Signal and noise power spectrum</source>
-        <translation type="unfinished"></translation>
+        <translation>Espectro de potencia de la señal y el ruido</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="268"/>
         <source>Echo Analysis</source>
-        <translation type="unfinished"></translation>
+        <translation>Análisis del eco</translation>
     </message>
 </context>
 <context>
@@ -1680,22 +1681,22 @@
     <message>
         <location filename="AudioWizard.cpp" line="367"/>
         <source>You should hear a single tone that&apos;s changing in frequency. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test to improve audio path recognition.</source>
-        <translation type="unfinished"></translation>
+        <translation>Debería oir un solo tono que cambia de frecuencia. Cambie el control deslizante de abajo al valor más bajo que &lt;b&gt;no&lt;/b&gt; produzca interrupciones o fluctuaciones en el sonido. Por favor, fíjese en que el eco local se deshabilita durante esta prueba para mejorar el reconocimiento de la ruta del audio.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="391"/>
         <source>If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path delay in your system; this means the delay from a sample is placed in an outbound buffer until it&apos;s found in a matching incoming buffer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si coloca su micrófono de forma que recoja el sonido de sus altavoces o auriculares, Mumble medirá el retraso total de la ruta de audio en su sistema; esto quiere decir el retraso desde que una muestra se colocada en un búfer de salida hasta que vuelve a ser encuentrada en un búfer entrante.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="587"/>
         <source>Audio path is %1ms long.</source>
-        <translation type="unfinished"></translation>
+        <translation>La longitud de la ruta de audio es de %1ms.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="589"/>
         <source>Audio path cannot be determined. Input not recognized.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede determinar la ruta de audio. No se reconoce la entrada.</translation>
     </message>
 </context>
 <context>
@@ -2417,32 +2418,32 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="149"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">Métodos abreviados</translation>
+        <translation>Métodos abreviados</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="113"/>
         <source>Function</source>
-        <translation type="unfinished">Función</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="115"/>
         <source>Shortcut</source>
-        <translation type="unfinished">Método abreviado</translation>
+        <translation>Método abreviado</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="127"/>
         <source>Shortcut bound to %1.</source>
-        <translation type="unfinished">Método abreviado asignado a %1.</translation>
+        <translation>Método abreviado asignado a %1.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="130"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
-        <translation type="unfinished">&lt;b&gt;Éste es el método abreviado global asociado a %1&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas/botones deseada para volver a asociarlo. Haga doble click para borrar.</translation>
+        <translation>&lt;b&gt;Éste es el método abreviado global asociado a %1&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas/botones deseada para volver a asociarlo. Haga doble click para borrar.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="135"/>
         <source>Double-click an entry to clear the shortcut.</source>
-        <translation type="unfinished">Haga doble click en una entrada para borrar el método abreviado.</translation>
+        <translation>Haga doble click en una entrada para borrar el método abreviado.</translation>
     </message>
 </context>
 <context>
@@ -2483,7 +2484,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="209"/>
         <source>Mouse %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Raton %1</translation>
     </message>
 </context>
 <context>
@@ -3957,12 +3958,12 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.cpp" line="328"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Ancho de banda del audio&lt;/h2&gt;&lt;p&gt;Máximo %1 kbit/s&lt;br /&gt;Actual %2 kbit/s (Calidad %3)&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="877"/>
         <source>Connected to server %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectado al servidor %1.</translation>
     </message>
 </context>
 <context>
@@ -4025,7 +4026,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="OSS.ui" line="81"/>
         <source>Amount of data to buffer for OSS</source>
-        <translation type="unfinished">Cantidad de datos a almacenar en el búfer para ALSA</translation>
+        <translation>Cantidad de datos a almacenar en el búfer para OSS</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="84"/>
@@ -4040,7 +4041,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="OSS.ui" line="38"/>
         <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is your primary sound device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece qué dispositivo deberia usar Mumble. El dispositivo &lt;i&gt;por defecto&lt;/i&gt; es su dispositivo de sonido principal.</translation>
     </message>
 </context>
 <context>
@@ -4581,87 +4582,87 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="PulseAudio.cpp" line="555"/>
         <source>PulseAudio</source>
-        <translation type="unfinished"></translation>
+        <translation>PulseAudio</translation>
     </message>
     <message>
         <location filename="PulseAudio.cpp" line="593"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Formulario</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="19"/>
         <source>Device selection</source>
-        <translation type="unfinished">Selección del dispositivo</translation>
+        <translation>Selección del dispositivo</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="25"/>
         <source>Input (Microphone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada (micrófono)</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="35"/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished">Dispositivo a usar para el micrófono</translation>
+        <translation>Dispositivo a usar para el micrófono</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="38"/>
         <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece qué dispositivo deberia usar Mumble para el micrófono. El dispositivo &lt;i&gt;por defecto&lt;/i&gt; quiere decir usar la opción por defecto de PulseAudio.</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="45"/>
         <source>Output</source>
-        <translation type="unfinished">Salida</translation>
+        <translation>Salida</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="55"/>
         <source>Device to use for speakers/headphones</source>
-        <translation type="unfinished">Dispositivo a usar para los altavoces/auriculares</translation>
+        <translation>Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="62"/>
         <source>Enable echo cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar cancelación de eco</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="65"/>
         <source>This enables echo cancellation. Don&apos;t enable this unless you are listening on speakers; for headphones it will cause audio degradation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita la cancelación de eco. No habilite ésto a menos que esté escuchando mediante de altavoces; causará degradación del audio con auriculares.</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="68"/>
         <source>Use echo cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar cancelación de eco</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="78"/>
         <source>Output Options</source>
-        <translation type="unfinished">Opciones de salida</translation>
+        <translation>Opciones de salida</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="84"/>
         <source>Output Delay</source>
-        <translation type="unfinished">Retraso de salida</translation>
+        <translation>Retraso de salida</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="94"/>
         <source>Amount of data to buffer for ALSA</source>
-        <translation type="unfinished">Cantidad de datos a almacenar en el búfer para ALSA</translation>
+        <translation>Cantidad de datos a almacenar en el búfer para ALSA</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="97"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished">Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="116"/>
         <source>TextLabel</source>
-        <translation type="unfinished">EtiquetaDeTexto</translation>
+        <translation>EtiquetaDeTexto</translation>
     </message>
 </context>
 <context>
@@ -4669,12 +4670,12 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="PulseAudio.cpp" line="448"/>
         <source>Default Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada por defecto</translation>
     </message>
     <message>
         <location filename="PulseAudio.cpp" line="449"/>
         <source>Default Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida por defecto</translation>
     </message>
 </context>
 <context>
@@ -4682,7 +4683,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="57"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished">Presione la tecla de método abreviado</translation>
+        <translation>Presione la tecla de método abreviado</translation>
     </message>
 </context>
 <context>
