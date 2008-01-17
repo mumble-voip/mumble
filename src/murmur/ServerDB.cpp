@@ -992,6 +992,25 @@ void Server::readChannels(Channel *p) {
 	readChannels(c);
 }
 
+void Server::readLinks() {
+	TransactionHolder th;
+	QSqlQuery query;
+	
+	SQLPREP("SELECT channel_id, link_id FROM %1channel_links WHERE server_id = ?");
+	query.addBindValue(iServerNum);
+	SQLEXEC();
+	
+	while (query.next()) {
+		int cid = query.value(0).toInt();
+		int lid = query.value(1).toInt();
+		
+		Channel *c = qhChannels.value(cid);
+		Channel *l = qhChannels.value(lid);
+		if (c && l) 
+			c->link(l);
+	}
+}
+
 void Server::setLastChannel(const Player *p) {
 
 	if (p->iId < 0)

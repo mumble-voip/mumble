@@ -133,6 +133,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	getBans();
 	readChannels();
+	readLinks();
 	initRegister();
 	initializeCert();
 

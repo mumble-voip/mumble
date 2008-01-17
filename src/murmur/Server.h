@@ -201,6 +201,7 @@ class Server : public QThread, public MessageHandler {
 		Channel *addChannel(Channel *c, const QString &name);
 		void removeChannel(const Channel *c);
 		void readChannels(Channel *p = NULL);
+		void readLinks();
 		void updateChannel(const Channel *c);
 		void readChannelPrivs(Channel *c);
 		void setLastChannel(const Player *u);
