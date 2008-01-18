@@ -1155,7 +1155,7 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="129"/>
         <source>DoublePush Time</source>
-        <translation>Tiempo de doble pulsación</translation>
+        <translation>Tiempo para DoblePulsación</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="181"/>
@@ -1413,17 +1413,17 @@
     <message>
         <location filename="AudioStats.ui" line="161"/>
         <source>Configuration feedback</source>
-        <translation>Retroalimentación de la configuración</translation>
+        <translation>Información para la configuración</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="167"/>
         <source>Current audio bitrate</source>
-        <translation>Velocidad de transmisión del audio actual</translation>
+        <translation>Velocidad actual de transmisión del audio</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="187"/>
         <source>DoublePush interval</source>
-        <translation>Intervalo de doble pulsación</translation>
+        <translation>Intervalo de DoblePulsación</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="194"/>
