@@ -1110,17 +1110,17 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="521"/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Búfer de &amp;jitter por defecto</translation>
+        <translation>Búfer de &amp;vibración por defecto</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="531"/>
         <source>Safety margin for jitter buffer</source>
-        <translation>Márgen de seguridad para el búfer de jitter</translation>
+        <translation>Márgen de seguridad para el búfer de vibración</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="534"/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Establece el márgen de seguridad máximo para el búfer de jitter.&lt;/b&gt;&lt;br /&gt;Todo el audio entrante es almacenado en un búfer, y el búfer de jitter trata de forzar continuamente a este búfer al mínimo sostenible por su red, para que la latencia sea tan baja como sea posible. Ésto establece el tamaño mínimo de búfer a usar. Si el comienzo de las frases que oye es muy tembloroso, aumente este valor.</translation>
+        <translation>&lt;b&gt;Establece el márgen de seguridad máximo para el búfer de vibración.&lt;/b&gt;&lt;br /&gt;Todo el audio entrante es almacenado en un búfer, y el búfer de vibración trata de forzar continuamente a este búfer al mínimo sostenible por su red, para que la latencia sea tan baja como sea posible. Ésto establece el tamaño mínimo de búfer a usar. Si el comienzo de las frases que oye es muy tembloroso, aumente este valor.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="566"/>
@@ -1666,7 +1666,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="385"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="473"/>
@@ -2372,7 +2372,7 @@
     <message>
         <location filename="DXConfigDialog.ui" line="78"/>
         <source>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="128"/>
@@ -4031,7 +4031,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="OSS.ui" line="84"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="103"/>
@@ -4657,7 +4657,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="PulseAudio.ui" line="97"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="116"/>
