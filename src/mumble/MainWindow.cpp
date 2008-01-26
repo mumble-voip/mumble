@@ -177,6 +177,18 @@ void MainWindow::msgBox(QString msg) {
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
+	if (g.sh && g.sh->isRunning()) {
+		QMessageBox mb(QMessageBox::Warning, tr("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
+		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
+		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
+		mb.setDefaultButton(qpbMinimize);
+		mb.setEscapeButton(qpbMinimize);
+		mb.exec();
+		if (mb.clickedButton() != qpbClose) {
+			e->accept();
+			return;
+		}
+	}
 	g.uiSession = 0;
 	g.s.qbaMainWindowGeometry = saveGeometry();
 	g.s.qbaMainWindowState = saveState();
