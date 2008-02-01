@@ -35,6 +35,7 @@ license:
 Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
 Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
 Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
+Copyright (C) 2008, Mikkel Krautz <mikkel@krautz.dk>
 
 All rights reserved.
 
@@ -94,5 +95,5 @@ contributors may be used to endorse or promote products derived from
 this software without specific prior written permission.
 
 
-The Debian packaging is (C) 2007, Thorvald Natvig <slicer@sourceforge.net> and
+The Debian packaging is (C) 2008, Thorvald Natvig <slicer@sourceforge.net> and
 is licensed under the GPLv2, see `/usr/share/common-licenses/GPL-2'.

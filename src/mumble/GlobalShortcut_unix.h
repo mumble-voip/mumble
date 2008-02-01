@@ -38,7 +38,7 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 	public:
 		Display *display;
 		volatile bool bRunning;
-		QList<QFile *> qlInputDevices;
+		QMap<QString, QFile *> qmInputDevices;
 
 		GlobalShortcutX();
 		~GlobalShortcutX();
@@ -46,4 +46,5 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		QString buttonName(const QVariant &);
 	public slots:
 		void inputReadyRead(int);
+		void directoryChanged(const QString &);
 };

@@ -51,32 +51,13 @@ GlobalShortcutX::GlobalShortcutX() {
 	display = NULL;
 
 #ifdef Q_OS_LINUX
-#define test_bit(bit, array)    (array[bit/8] & (1<<(bit%8)))
-
-	QDir d(QLatin1String("/dev/input"), QLatin1String("event*"), 0, QDir::System);
-	foreach(QFileInfo fi, d.entryInfoList()) {
-		QFile *f = new QFile(fi.absoluteFilePath(), this);
-		if (f->open(QIODevice::ReadOnly)) {
-			int fd = f->handle();
-			int version;
-			char name[256];
-			uint8_t events[EV_MAX/8 + 1];
-			memset(events, 0, sizeof(events));
-			if ((ioctl(fd, EVIOCGVERSION, &version) >= 0) && (ioctl(fd, EVIOCGNAME(sizeof(name)), name)>=0) && (ioctl(fd, EVIOCGBIT(0,sizeof(events)), &events) >= 0) && test_bit(EV_KEY, events)) {
-				name[255]=0;
-				qWarning("GlobalShortcutX: Linux Input v%d.%d.%d: %s", (version >> 16) & 0xFF, (version >> 8) & 0xFF, version & 0xFF, name);
-				fcntl(f->handle(), F_SETFL, O_NONBLOCK);
-				connect(new QSocketNotifier(f->handle(), QSocketNotifier::Read, f), SIGNAL(activated(int)), this, SLOT(inputReadyRead(int)));
-				qlInputDevices << f;
-			} else {
-				delete f;
-			}
-		} else {
-			delete f;
-		}
-	}
-
-	if (qlInputDevices.isEmpty()) {
+	QString dir = QLatin1String("/dev/input");
+	QFileSystemWatcher *fsw = new QFileSystemWatcher(QStringList(dir), this);
+	connect(fsw, SIGNAL(directoryChanged(const QString &)), this, SLOT(directoryChanged(const QString &)));
+	directoryChanged(dir);
+	
+	if (qmInputDevices.isEmpty()) {
+		delete fsw;
 		qWarning("GlobalShortcutX: Unable to open any input devices under /dev/input, falling back to XEVIE");
 	} else {
 		return;
@@ -171,7 +152,11 @@ void GlobalShortcutX::inputReadyRead(int) {
 	QFile *f=qobject_cast<QFile *>(sender()->parent());
 	if (!f)
 		return;
+		
+	bool found = false;
+	
 	while (f->read(reinterpret_cast<char *>(&ev), sizeof(ev)) == sizeof(ev)) {
+		found = true;
 		if (ev.type != EV_KEY)
 			continue;
 		bool down;
@@ -187,6 +172,49 @@ void GlobalShortcutX::inputReadyRead(int) {
 		}
 		int evtcode = ev.code + 8;
 		handleButton(evtcode, down);
+	}
+	
+	if (! found) {
+		int fd = f->handle();
+		int version = 0;
+		if ((ioctl(fd, EVIOCGVERSION, &version) < 0) || (((version >> 16) & 0xFF) < 1)) {
+			qWarning("GlobalShortcutX: Removing dead input device %s", qPrintable(f->fileName()));
+			qmInputDevices.remove(f->fileName());
+			delete f;
+		}
+	}
+#endif
+}
+
+#define test_bit(bit, array)    (array[bit/8] & (1<<(bit%8)))
+
+void GlobalShortcutX::directoryChanged(const QString &dir) {
+	qWarning("Rescan!");
+#ifdef Q_OS_LINUX
+	QDir d(dir, QLatin1String("event*"), 0, QDir::System);
+	foreach(QFileInfo fi, d.entryInfoList()) {
+		QString path = fi.absoluteFilePath();
+		if (! qmInputDevices.contains(path)) {
+			QFile *f = new QFile(path, this);
+			if (f->open(QIODevice::ReadOnly)) {
+				int fd = f->handle();
+				int version;
+				char name[256];
+				uint8_t events[EV_MAX/8 + 1];
+				memset(events, 0, sizeof(events));
+				if ((ioctl(fd, EVIOCGVERSION, &version) >= 0) && (ioctl(fd, EVIOCGNAME(sizeof(name)), name)>=0) && (ioctl(fd, EVIOCGBIT(0,sizeof(events)), &events) >= 0) && test_bit(EV_KEY, events) && (((version >> 16) & 0xFF) > 0)) {
+					name[255]=0;
+					qWarning("GlobalShortcutX: %s: %s", qPrintable(f->fileName()), name);
+					fcntl(f->handle(), F_SETFL, O_NONBLOCK);
+					connect(new QSocketNotifier(f->handle(), QSocketNotifier::Read, f), SIGNAL(activated(int)), this, SLOT(inputReadyRead(int)));
+					qmInputDevices.insert(f->fileName(), f);
+				} else {
+					delete f;
+				}
+			} else {
+				delete f;
+			}
+		}
 	}
 #endif
 }
