@@ -17,7 +17,7 @@ Description: Low latency VoIP client
  under both ALSA and OSS.
  Mumble inclues an ingame overlay compatible with most opensource and
  commercial OpenGL applications.
- Mumble is just a client and uses a proprietary protocol. You will need
+ Mumble is just a client and uses a non-standard protocol. You will need
  a dedicated server to talk to other users. Server functionality is provided
  by the package "mumble-server".
 
