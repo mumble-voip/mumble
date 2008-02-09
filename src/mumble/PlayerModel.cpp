@@ -316,7 +316,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 			case Qt::FontRole:
 				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
 					QFont f = g.mw->font();
-					f.setBold(true);
+					f.setBold(! f.bold());
 					return f;
 				}
 				break;
@@ -350,6 +350,20 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 					return c->qsName;
 				else
 					return l;
+			case Qt::FontRole:
+				if (g.uiSession) {
+					Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+
+					if ((c == home) || qsLinked.contains(c)) {
+						QFont f = g.mw->font();
+						if (qsLinked.count() > 1)
+							f.setItalic(! f.italic());
+						if (c == home)
+							f.setBold(! f.bold());
+						return f;
+					}
+				}
+				break;
 			default:
 				break;
 		}
@@ -525,6 +539,9 @@ void PlayerModel::recheckLinks() {
 	QSet<Channel *> changed = (all - qsLinked);
 	changed += (qsLinked - all);
 
+	if ((all.count() == 1) || (qsLinked.count() == 1))
+		changed += home;
+
 	qsLinked = all;
 
 	foreach(Channel *c, changed) {
@@ -559,8 +576,6 @@ ClientPlayer *PlayerModel::addPlayer(unsigned int id, const QString &name) {
 
 	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
 		updateOverlay();
-
-	ensureSelfVisible();
 
 	return p;
 }
