@@ -60,6 +60,10 @@ ModelItem::ModelItem(ModelItem *i) {
 	this->cChan = i->cChan;
 	this->pPlayer = i->pPlayer;
 	this->parent = i->parent;
+	if (pPlayer)
+		c_qhPlayers.insert(pPlayer, this);
+	else if (cChan)
+		c_qhChannels.insert(cChan, this);
 }
 
 ModelItem::~ModelItem() {
@@ -195,7 +199,7 @@ QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const 
 	ModelItem *item;
 	QModelIndex idx = QModelIndex();
 
-	if (row == -1) {
+	if ((row < 0) || (column < 0) || (column > 1)) {
 		return QModelIndex();
 	}
 
@@ -264,7 +268,7 @@ int PlayerModel::rowCount(const QModelIndex &p) const {
 	else
 		item = static_cast<ModelItem *>(p.internalPointer());
 
-	if (! item)
+	if (! item || (p.column() != 0))
 		return 0;
 
 	val = item->rows();
@@ -293,8 +297,9 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 	Channel *c = item->cChan;
 	ClientPlayer *p = item->pPlayer;
 
-	if (!c && !p)
+	if (!c && !p) {
 		return QVariant();
+	}
 
 	QVariant v = otherRoles(idx.column(), role, (p != NULL));
 	if (v.isValid())
@@ -343,6 +348,8 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 			case Qt::DisplayRole:
 				if (idx.column() == 0)
 					return c->qsName;
+				else
+					return l;
 			default:
 				break;
 		}
@@ -446,8 +453,6 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	}
 
 	ModelItem *t = new ModelItem(item);
-	oldparent->qlChildren.replace(oldrow, t);
-	changePersistentIndex(oindex, createIndex(oldrow, 0, t));
 
 	if (newparent == oldparent) {
 		// Mangle rows. newrow needs to be pre-remove. oldrow needs to be postremove.
@@ -459,8 +464,8 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	}
 
 	beginInsertRows(index(newparent), newrow, newrow);
-	item->parent = newparent;
-	newparent->qlChildren.insert(newrow, item);
+	t->parent = newparent;
+	newparent->qlChildren.insert(newrow, t);
 
 	if (item->cChan) {
 		oldparent->cChan->removeChannel(item->cChan);
@@ -471,13 +476,13 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 
 	endInsertRows();
 
-	changePersistentIndex(createIndex(oldrow, 0, t), createIndex(newrow, 0, item));
+	changePersistentIndex(createIndex(oldrow, 0, item), createIndex(newrow, 0, t));
 
 	beginRemoveRows(index(oldparent), oldrow, oldrow);
 	oldparent->qlChildren.removeAt(oldrow);
 	endRemoveRows();
 
-	delete t;
+	delete item;
 
 	if (active.isValid()) {
 		sel->select(active, QItemSelectionModel::SelectCurrent);
