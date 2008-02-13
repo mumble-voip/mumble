@@ -31,7 +31,7 @@
 #ifndef _TEXTTOSPEECH_H
 #define _TEXTTOSPEECH_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 
 class TextToSpeechPrivate;
 

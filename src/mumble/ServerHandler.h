@@ -33,7 +33,7 @@
 
 #define SERVERSEND_EVENT 3501
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 #include "Timer.h"
 
 class Connection;

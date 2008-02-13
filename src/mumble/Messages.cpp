@@ -317,6 +317,7 @@ void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
 	g.l->clearIgnore();
 	g.l->log(Log::Information, msg->qsWelcomeText);
 	pmModel->ensureSelfVisible();
+	pmModel->recheckLinks();
 
 	AudioInputPtr ai = g.ai;
 	if (ai) {

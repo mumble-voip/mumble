@@ -128,7 +128,6 @@ AudioInput::AudioInput() {
 	psMic = new short[iFrameSize];
 	psSpeaker = new short[iFrameSize];
 	psClean = new short[iFrameSize];
-	pfY = new int[iFrameSize+1];
 
 	bHasSpeaker = false;
 
@@ -159,7 +158,6 @@ AudioInput::~AudioInput() {
 	delete [] psMic;
 	delete [] psSpeaker;
 	delete [] psClean;
-	delete [] pfY;
 }
 
 int AudioInput::getMaxBandwidth() {
@@ -310,6 +308,8 @@ void AudioInput::encodeAudioFrame() {
 		dPeakSpeaker = 0.0;
 	}
 
+	QMutexLocker l(&qmSpeex);
+
 	if (bResetProcessor) {
 		if (sppPreprocess)
 			speex_preprocess_state_destroy(sppPreprocess);
@@ -335,9 +335,10 @@ void AudioInput::encodeAudioFrame() {
 		if (bHasSpeaker) {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
-			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*20);
+			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*10);
 			iArg = SAMPLE_RATE;
 			speex_echo_ctl(sesEcho, SPEEX_SET_SAMPLING_RATE, &iArg);
+			speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 		}
 
@@ -350,11 +351,11 @@ void AudioInput::encodeAudioFrame() {
 	int iIsSpeech;
 
 	if (bHasSpeaker) {
-		speex_echo_cancel(sesEcho, psMic, psSpeaker, psClean, pfY);
-		iIsSpeech=speex_preprocess(sppPreprocess, psClean, pfY);
+		speex_echo_cancellation(sesEcho, psMic, psSpeaker, psClean);
+		iIsSpeech=speex_preprocess_run(sppPreprocess, psClean);
 		psSource = psClean;
 	} else {
-		iIsSpeech=speex_preprocess(sppPreprocess, psMic, NULL);
+		iIsSpeech=speex_preprocess_run(sppPreprocess, psMic);
 		psSource = psMic;
 	}
 
@@ -364,15 +365,9 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psSource[i]);
 	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
 
-
-	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(sppPreprocess);
-	float Zframe = 0;
-	int freq_start = static_cast<int>(300.0f*2.f*st->ps_size/st->sampling_rate);
-	int freq_end   = static_cast<int>(2000.0f*2.f*st->ps_size/st->sampling_rate);
-	for (int ii=freq_start;ii<freq_end;ii++)
-		Zframe += st->zeta[ii];
-	Zframe /= (freq_end-freq_start);
-	dSNR = Zframe;
+	spx_int32_t snr = 0;
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &snr);
+	dSNR = snr / 100.0;
 
 	double level = (g.s.vsVAD == Settings::SignalToNoise) ? dSNR / 32.767 : micMax / 32767.0;
 

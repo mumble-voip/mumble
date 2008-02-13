@@ -31,7 +31,7 @@
 #ifndef _DATABASE_H
 #define _DATABASE_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 
 class Database : public QObject {
 		Q_OBJECT

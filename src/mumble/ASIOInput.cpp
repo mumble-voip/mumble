@@ -400,13 +400,12 @@ ASIOInput::ASIOInput() {
 	bHasSpeaker = true;
 
 	// Allocate buffers
-	pdInputBuffer = new double[960];
-	pdOutputBuffer = new double[iFrameSize];
-	pdMicDelayLine = new double[MUMBLE_SFP_LENGTH];
-	pdSpeakerDelayLine = new double[MUMBLE_SFP_LENGTH];
+	pdInputBuffer = new float[960];
+	pdOutputBuffer = new float[iFrameSize];
 
-	for (i=0;i<MUMBLE_SFP_LENGTH;i++)
-		pdMicDelayLine[i]=pdSpeakerDelayLine[i] = 0.0;
+	int err = 0;
+	srsResampleMic = speex_resampler_init(1, 48000, 16000, 8, &err);
+	srsResampleSpeaker = speex_resampler_init(1, 48000, 16000, 8, &err);
 
 	// Sanity check things first.
 
@@ -507,8 +506,8 @@ ASIOInput::~ASIOInput() {
 
 	delete [] pdInputBuffer;
 	delete [] pdOutputBuffer;
-	delete [] pdMicDelayLine;
-	delete [] pdSpeakerDelayLine;
+	speex_resampler_destroy(srsResampleMic);
+	speex_resampler_destroy(srsResampleSpeaker);
 }
 
 void ASIOInput::run() {
@@ -527,7 +526,7 @@ ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *, long index, ASIOBool) {
 }
 
 void
-ASIOInput::addBuffer(ASIOSampleType sampType, void *src, double *dst) {
+ASIOInput::addBuffer(ASIOSampleType sampType, void *src, float *dst) {
 	switch (sampType) {
 		case ASIOSTInt16LSB: {
 				short *buf=static_cast<short *>(src);
@@ -550,37 +549,36 @@ ASIOInput::bufferReady(long buffindex) {
 	int c, i;
 
 	// Microphone inputs
-	ZeroMemory(pdInputBuffer, sizeof(double) * 960);
+	ZeroMemory(pdInputBuffer, sizeof(float) * 960);
 	for (c=0;c<iNumMic;c++)
 		addBuffer(aciInfo[c].type, abiInfo[c].buffers[buffindex], pdInputBuffer);
 
-	double mul = 1.0 / (32768.0 * iNumMic);
+	double mul = 1.0 / (iNumMic);
 
-	for (i=0;i<960;i++) {
-		pdInputBuffer[i] *= mul;
-	}
+	spx_uint32_t inlen, outlen;
 
-	decim(pdInputBuffer, pdOutputBuffer, pdMicDelayLine);
+	inlen = 960;
+	outlen = 320;
+	speex_resampler_process_float(srsResampleMic, 0, pdInputBuffer, &inlen, pdOutputBuffer, &outlen);
 
 	for (i=0;i<320;i++)
-		psMic[i] = static_cast<short>(pdOutputBuffer[i] * 32768.0);
+		psMic[i] = static_cast<short>(pdOutputBuffer[i] * mul);
 
 
 	// Speaker inputs
-	ZeroMemory(pdInputBuffer, sizeof(double) * 960);
+	ZeroMemory(pdInputBuffer, sizeof(float) * 960);
 	for (c=0;c<iNumMic;c++)
 		addBuffer(aciInfo[iNumMic+c].type, abiInfo[iNumMic+c].buffers[buffindex], pdInputBuffer);
 
-	mul = 1.0 / (32768.0 * iNumSpeaker);
+	mul = 1.0 / iNumSpeaker;
 
-	for (i=0;i<960;i++) {
-		pdInputBuffer[i] *= mul;
-	}
 
-	decim(pdInputBuffer, pdOutputBuffer, pdSpeakerDelayLine);
+	inlen = 960;
+	outlen = 320;
+	speex_resampler_process_float(srsResampleSpeaker, 0, pdInputBuffer, &inlen, pdOutputBuffer, &outlen);
 
 	for (i=0;i<320;i++)
-		psSpeaker[i] = static_cast<short>(pdOutputBuffer[i] * 32768.0);
+		psSpeaker[i] = static_cast<short>(pdOutputBuffer[i] * mul);
 
 	encodeAudioFrame();
 }
@@ -633,61 +631,4 @@ long ASIOInput::asioMessages(long selector, long value, void*, double*) {
 			break;
 	}
 	return ret;
-}
-
-/****************************************************************************
-*
-* The following subroutine (ASIOInput::decim()) was adopted from decim.c
-* found at dspguru.
-* Original copyright notice as follows:
-*
-* Name: decim.c
-*
-* Synopsis: Decimates a real or complex signal.
-*
-* Description: See decim.h.
-*
-* by Grant R. Griffin
-* Provided by Iowegian's "dspGuru" service (http://www.dspguru.com).
-* Copyright 2001, Iowegian International Corporation (http://www.iowegian.com)
-*
-*                          The Wide Open License (WOL)
-*
-* Permission to use, copy, modify, distribute and sell this software and its
-* documentation for any purpose is hereby granted without fee, provided that
-* the above copyright notice and this license appear in all source copies.
-* THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY OF
-* ANY KIND. See http://www.dspguru.com/wol.htm for more information.
-*
-*****************************************************************************/
-
-
-#define factor_M 3
-#define H_size MUMBLE_SFP_LENGTH
-#define p_H mumble_sfp
-
-void ASIOInput::decim(const double *p_inp, double *p_out, double *p_Z) {
-	int tap;
-	double sum;
-	int num_inp = 960;
-
-	while (num_inp >= factor_M) {
-		/* shift Z delay line up to make room for next samples */
-		for (tap = H_size - 1; tap >= factor_M; tap--) {
-			p_Z[tap] = p_Z[tap - factor_M];
-		}
-
-		/* copy next samples from input buffer to bottom of Z delay line */
-		for (tap = factor_M - 1; tap >= 0; tap--) {
-			p_Z[tap] = *p_inp++;
-		}
-		num_inp -= factor_M;
-
-		/* calculate FIR sum */
-		sum = 0.0;
-		for (tap = 0; tap < H_size; tap++) {
-			sum += p_H[tap] * p_Z[tap];
-		}
-		*p_out++ = sum;     /* store sum and point to next output */
-	}
 }

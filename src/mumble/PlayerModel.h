@@ -31,7 +31,7 @@
 #ifndef _PLAYERMODEL_H
 #define _PLAYERMODEL_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 
 class Player;
 class ClientPlayer;

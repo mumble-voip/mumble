@@ -31,7 +31,7 @@
 #ifndef _LOG_H
 #define _LOG_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 #include "ConfigDialog.h"
 #include "ui_Log.h"
 

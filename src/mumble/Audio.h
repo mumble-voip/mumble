@@ -31,7 +31,7 @@
 #ifndef _AUDIO_H
 #define _AUDIO_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 #include "Player.h"
 
 #define SAMPLE_RATE 16000

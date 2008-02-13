@@ -31,7 +31,7 @@
 #ifndef _DBUS_H
 #define _DBUS_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 
 class MumbleDBus : public QDBusAbstractAdaptor {
 		Q_OBJECT

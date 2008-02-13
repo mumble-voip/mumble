@@ -32,7 +32,7 @@
 #ifndef _GLOBALSHORTCUT_H
 #define _GLOBALSHORTCUT_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 #include "ConfigDialog.h"
 #include "Timer.h"
 

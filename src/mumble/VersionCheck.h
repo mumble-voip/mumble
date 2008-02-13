@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _VERSIONCHECK_H
 #define _VERSIONCHECK_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 
 class VersionCheck : public QObject {
 		Q_OBJECT

@@ -31,7 +31,7 @@
 #ifndef _AUDIOSTATS_H
 #define _AUDIOSTATS_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 
 class AudioBar : public QWidget {
 		Q_OBJECT

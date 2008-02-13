@@ -83,18 +83,17 @@ class ASIOInput : public AudioInput {
 		static void sampleRateChanged(ASIOSampleRate sRate);
 		static long asioMessages(long selector, long value, void* message, double* opt);
 		static void bufferSwitch(long index, ASIOBool processNow);
-		static void addBuffer(long sampType, void *src, double *dst);
+		static void addBuffer(long sampType, void *src, float *dst);
 		static ASIOTime *bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBool processNow);
 
 		void bufferReady(long index);
 		bool initializeDriver();
 
-		double *pdMicDelayLine;
-		double *pdSpeakerDelayLine;
-		double *pdInputBuffer;
-		double *pdOutputBuffer;
+		float *pdInputBuffer;
+		float *pdOutputBuffer;
 
 		QWaitCondition qwDone;
+		SpeexResamplerState *srsResampleMic, *srsResampleSpeaker;
 
 		void decim(const double *output, double *input, double *delayline);
 	public:

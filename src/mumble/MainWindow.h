@@ -31,7 +31,7 @@
 #ifndef _MAINWINDOW_H
 #define _MAINWINDOW_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 
 #define TI_QEVENT (QEvent::User + 938)
 #define MB_QEVENT (QEvent::User + 939)

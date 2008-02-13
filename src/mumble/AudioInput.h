@@ -61,6 +61,7 @@ class AudioInput : public QThread {
 		int	iFrameSize;
 		int iByteSize;
 
+		QMutex qmSpeex;
 		SpeexBits sbBits;
 		SpeexPreprocessState *sppPreprocess;
 		SpeexEchoState *sesEcho;
@@ -70,7 +71,6 @@ class AudioInput : public QThread {
 		short *psMic;
 		short *psSpeaker;
 		short *psClean;
-		int *pfY;
 
 		void encodeAudioFrame();
 

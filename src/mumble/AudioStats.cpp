@@ -31,6 +31,7 @@
 #include "AudioStats.h"
 #include "AudioInput.h"
 #include "Global.h"
+#include "smallft.h"
 
 AudioBar::AudioBar(QWidget *p) : QWidget(p) {
 	qcBelow = Qt::yellow;
@@ -151,55 +152,58 @@ void AudioEchoWidget::paintGL() {
 	if (! ai || ! ai->sesEcho)
 		return;
 
-	CloneSpeexEchoState *st = reinterpret_cast<CloneSpeexEchoState *>(ai->sesEcho);
+	ai->qmSpeex.lock();
 
-	int N = st->window_size;
-	int n = N / 2;
-	int M = st->M;
+	spx_int32_t sz;
+	speex_echo_ctl(ai->sesEcho, SPEEX_ECHO_GET_IMPULSE_RESPONSE_SIZE, &sz);
 
-	double xscale = 1.0 / n;
+	spx_int32_t w[sz];
+	float W[sz];
+	speex_echo_ctl(ai->sesEcho, SPEEX_ECHO_GET_IMPULSE_RESPONSE, w);
+
+	ai->qmSpeex.unlock();
+
+	int N = 160;
+	int n = 2 * N;
+	int M = sz / n;
+	qWarning("%d by %d matrix", M, n);
+
+	int mp = 0;
+	for(int i=0;i<n;i++)
+		if (abs(w[i]) > abs(w[mp]))
+			mp=i;
+
+	qWarning("Peak val %d:%d", mp,w[mp]);
+
+
+	drft_lookup d;
+	mumble_drft_init(&d, n);
+
+	for(int j=0;j<M;j++) {
+		for(int i=0;i<n;i++)
+			W[j*n+i] = w[j*n+i] / (1.f * n);
+		mumble_drft_forward(&d, & W[j*n]);
+	}
+
+	mumble_drft_clear(&d);
+
+	for(int i=1;i<20;i++)
+		qWarning("%2d %7.2f %7.2f %8.2f", i, W[2*i], W[2*i-1], sqrt(W[2*i]*W[2*i]+W[2*i-1]*W[2*i-1]));
+
+	double xscale = 1.0 / N;
 	double yscale = 1.0 / M;
-
 
 	glBegin(GL_QUADS);
 
 	for (int j = 0; j < M; j++) {
-		for (int i=0;i < n; i++) {
+		for (int i=1;i < N; i++) {
 			double xa = i * xscale;
 			double ya = j * yscale;
 
 			double xb = xa + xscale;
 			double yb = ya + yscale;
 
-			float real = 1.0;
-			float imag = 0.0;
-			if (i == 0)
-				real = st->W[j*N];
-			else if (i == n-1)
-				real = st->W[j*N + 2*i];
-			else {
-				real = st->W[j*N + 2*i - 1];
-				imag = st->W[j*N + 2*i];
-			}
-
-			float v = 0.0;
-
-			switch (mode) {
-				case REAL:
-					v = real;
-					break;
-				case IMAGINARY:
-					v = imag;
-					break;
-				case MODULUS:
-					v = sqrt(real*real+imag*imag);
-					break;
-				case PHASE:
-					v = atan2(imag,real)/M_PI;
-					break;
-			}
-
-			mapEchoToColor(v);
+			mapEchoToColor(sqrt(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 32767.f);
 			glVertex2f(xa, ya);
 			glVertex2f(xb, ya);
 			glVertex2f(xb, yb);
@@ -208,6 +212,17 @@ void AudioEchoWidget::paintGL() {
 	}
 
 	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(1.0, 0.0, 1.0);
+	xscale = 1.0 / (2*n);
+	yscale = 1.0 / (200. * 32767.);
+	for(int i=0;i<2*n;i++) {
+		glVertex2f(i*xscale, 0.5 + w[i] * yscale);
+	}
+	qWarning("%f", w[0]*yscale);
+	glEnd();
+
 }
 
 AudioNoiseWidget::AudioNoiseWidget(QWidget *p) : QWidget(p) {
@@ -226,25 +241,41 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	QPolygonF poly;
 
-	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(ai->sppPreprocess);
+	ai->qmSpeex.lock();
+
+	spx_int32_t ps_size = 0;
+	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD_SIZE, &ps_size);
+
+	spx_int32_t noise[ps_size];
+	spx_int32_t ps[ps_size];
+
+	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD, ps);
+	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise);
+
+	ai->qmSpeex.unlock();
+
+	int bps = 0, bn = 0;
+	for(int i=0;i<ps_size;i++) {
+		if (ps[i] > ps[bps])
+			bps = i;
+		if (noise[i] > noise[bn])
+			bn = i;
+	}
+	qWarning("Best noise %d:%d (%d:%d)  -- best power %d:%d",bn,noise[bn], bn*2, noise[bn*2], bps,ps[bps]);
 
 	qreal sx, sy;
 
-	sx = (width() - 1.0f) / (st->ps_size * 1.0f);
+	sx = (width() - 1.0f) / (ps_size * 1.0f);
 	sy = height() - 1;
 
 	poly << QPointF(0.0f, height() - 1);
-#ifdef SPEEX_ANCIENT_PP
-	float fftmul = 1.0 / (st->ps_size * 32768.0);
-#else
 	float fftmul = 1.0 / (32768.0);
-#endif
-	for (int i=0; i < st->ps_size; i++) {
+	for (int i=0; i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrt(st->noise[i]) - 1;
+		yp = sqrt(sqrt(noise[i])) - 1;
 		yp = yp * fftmul;
-		yp = fmin(yp * 30.0, 1.0);
+		yp = fmin(yp * 3000.0, 1.0);
 		yp = (1 - yp) * sy;
 		poly << QPointF(xp, yp);
 	}
@@ -258,12 +289,12 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	poly.clear();
 
-	for (int i=0;i < st->ps_size; i++) {
+	for (int i=0;i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrt(st->ps[i]) - 1;
+		yp = sqrt(sqrt(ps[i])) - 1;
 		yp = yp * fftmul;
-		yp = fmin(yp * 30.0, 1.0);
+		yp = fmin(yp * 3000.0, 1.0);
 		yp = (1 - yp) * sy;
 		poly << QPointF(xp, yp);
 	}
@@ -305,7 +336,6 @@ void AudioStats::on_Tick_timeout() {
 	if (ai.get() == NULL || ! ai->sppPreprocess)
 		return;
 
-	CloneSpeexPreprocessState *st=reinterpret_cast<CloneSpeexPreprocessState *>(ai->sppPreprocess);
 	bool nTalking = ai->isTransmitting();
 
 	QString txt;
@@ -322,7 +352,9 @@ void AudioStats::on_Tick_timeout() {
 	txt.sprintf("%06.3f",ai->dSNR);
 	qlMicSNR->setText(txt);
 
-	txt.sprintf("%03.0f%%",100.0 / st->agc_gain);
+	spx_int32_t v;
+	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &v);
+	txt.sprintf("%03.0f%%",10000.0 / v);
 	qlMicVolume->setText(txt);
 
 	txt.sprintf("%03.0f%%",nTalking ? 100.0 : 0.0);

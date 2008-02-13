@@ -31,7 +31,7 @@
 #ifndef _ACLEDITOR_H
 #define _ACLEDITOR_H
 
-#include "mumble_pch.h"
+#include "mumble_pch.hpp"
 #include "Message.h"
 
 #include "ui_ACLEditor.h"
