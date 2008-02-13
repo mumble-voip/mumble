@@ -305,7 +305,7 @@ bool AudioOutput::mixAudio(short *buffer) {
 	_mm_empty();
 	__m64 *out=reinterpret_cast<__m64 *>(buffer);
 	__m64 zero=_mm_cvtsi32_si64(0);
-	
+
 	int sz = iFrameSize/4;
 
 	for (int i=0;i<sz;i++)
@@ -349,7 +349,6 @@ AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutp
 	iFrameSize = 320;
 	cntr = 0;
 	psBuffer = new short[iFrameSize];
-	fftTable = NULL;
 	tbin = 4;
 
 	if (inc == 0.0)
@@ -358,8 +357,6 @@ AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutp
 
 AudioSine::~AudioSine() {
 	delete [] psBuffer;
-	if (fftTable)
-		spx_fft_destroy(fftTable);
 }
 
 bool AudioSine::decodeNextFrame() {
@@ -367,14 +364,6 @@ bool AudioSine::decodeNextFrame() {
 		frames--;
 
 		if (inc == 0.0) {
-			if (! fftTable)
-				fftTable = spx_fft_init(iFrameSize);
-			float in[iFrameSize];
-			float out[iFrameSize];
-
-			for(unsigned int i=0;i<iFrameSize;i++)
-				in[i] = 0;
-
 			if (++cntr == 50) {
 				bSearch = true;
 				cntr = 0;
@@ -389,16 +378,8 @@ bool AudioSine::decodeNextFrame() {
 				g.iAudioPathTime = cntr;
 			}
 
-			in[tbin] = 32768.0 * volume;
-
-			spx_ifft(fftTable, in, out);
-
-			for(unsigned int i=0;i<iFrameSize;i++)
-				psBuffer[i] = lround(out[i]);
-
 			for(unsigned int i=0;i<iFrameSize;i++)
 				psBuffer[i] = lround(32768.0 * volume * sin(M_PI * i * (tbin * 1.0) / (1.0 * iFrameSize)));
-
 
 			return true;
 		}

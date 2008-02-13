@@ -56,8 +56,6 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	else if (iValue > iMax)
 		iValue = iMax;
 
-//    p.fillRect(QRect(0,0, 10, 10), Qt::blue);
-
 	double scale = (width() * 1.0) / (iMax - iMin);
 	int h = height();
 
@@ -96,7 +94,6 @@ void AudioBar::paintEvent(QPaintEvent *) {
 
 AudioEchoWidget::AudioEchoWidget(QWidget *p) : QGLWidget(p) {
 	setMinimumSize(100, 60);
-	mode = MODULUS;
 }
 
 void AudioEchoWidget::initializeGL() {
@@ -166,15 +163,6 @@ void AudioEchoWidget::paintGL() {
 	int N = 160;
 	int n = 2 * N;
 	int M = sz / n;
-	qWarning("%d by %d matrix", M, n);
-
-	int mp = 0;
-	for(int i=0;i<n;i++)
-		if (abs(w[i]) > abs(w[mp]))
-			mp=i;
-
-	qWarning("Peak val %d:%d", mp,w[mp]);
-
 
 	drft_lookup d;
 	mumble_drft_init(&d, n);
@@ -186,9 +174,6 @@ void AudioEchoWidget::paintGL() {
 	}
 
 	mumble_drft_clear(&d);
-
-	for(int i=1;i<20;i++)
-		qWarning("%2d %7.2f %7.2f %8.2f", i, W[2*i], W[2*i-1], sqrt(W[2*i]*W[2*i]+W[2*i-1]*W[2*i-1]));
 
 	double xscale = 1.0 / N;
 	double yscale = 1.0 / M;
@@ -203,7 +188,7 @@ void AudioEchoWidget::paintGL() {
 			double xb = xa + xscale;
 			double yb = ya + yscale;
 
-			mapEchoToColor(sqrt(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 32767.f);
+			mapEchoToColor(sqrt(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 65536.f);
 			glVertex2f(xa, ya);
 			glVertex2f(xb, ya);
 			glVertex2f(xb, yb);
@@ -220,9 +205,7 @@ void AudioEchoWidget::paintGL() {
 	for(int i=0;i<2*n;i++) {
 		glVertex2f(i*xscale, 0.5 + w[i] * yscale);
 	}
-	qWarning("%f", w[0]*yscale);
 	glEnd();
-
 }
 
 AudioNoiseWidget::AudioNoiseWidget(QWidget *p) : QWidget(p) {
@@ -253,15 +236,6 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise);
 
 	ai->qmSpeex.unlock();
-
-	int bps = 0, bn = 0;
-	for(int i=0;i<ps_size;i++) {
-		if (ps[i] > ps[bps])
-			bps = i;
-		if (noise[i] > noise[bn])
-			bn = i;
-	}
-	qWarning("Best noise %d:%d (%d:%d)  -- best power %d:%d",bn,noise[bn], bn*2, noise[bn*2], bps,ps[bps]);
 
 	qreal sx, sy;
 
@@ -349,7 +323,27 @@ void AudioStats::on_Tick_timeout() {
 	txt.sprintf("%06.2f dB",ai->dPeakSignal);
 	qlSignalLevel->setText(txt);
 
-	txt.sprintf("%06.3f",ai->dSNR);
+	spx_int32_t ps_size = 0;
+	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD_SIZE, &ps_size);
+
+	spx_int32_t noise[ps_size];
+	spx_int32_t ps[ps_size];
+
+	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD, ps);
+	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise);
+
+	double s = 0.0;
+	double n = 0.0;
+
+	int start = (ps_size * 300) / SAMPLE_RATE;
+	int stop = (ps_size * 2000) / SAMPLE_RATE;
+
+	for(int i=start;i<stop;i++) {
+		s += sqrt(ps[i]);
+		n += sqrt(noise[i]);
+	}
+
+	txt.sprintf("%06.3f",s / n);
 	qlMicSNR->setText(txt);
 
 	spx_int32_t v;
@@ -357,7 +351,7 @@ void AudioStats::on_Tick_timeout() {
 	txt.sprintf("%03.0f%%",10000.0 / v);
 	qlMicVolume->setText(txt);
 
-	txt.sprintf("%03.0f%%",nTalking ? 100.0 : 0.0);
+	txt.sprintf("%03.0f%%",ai->fSpeechProb * 100.0);
 	qlSpeechProb->setText(txt);
 
 	txt.sprintf("%04.1f kbit/s",ai->iBitrate / 1000.0);
@@ -382,7 +376,7 @@ void AudioStats::on_Tick_timeout() {
 	if (g.s.vsVAD == Settings::Amplitude) {
 		abSpeech->iValue = lround(32767 * pow(10.0, (ai->dPeakMic / 20.0)));
 	} else {
-		abSpeech->iValue = lround(ai->dSNR * 1000.0);
+		abSpeech->iValue = lround(ai->fSpeechProb * 32767.0);
 	}
 
 	abSpeech->update();
@@ -390,20 +384,4 @@ void AudioStats::on_Tick_timeout() {
 	anwNoise->update();
 	if (aewEcho)
 		aewEcho->updateGL();
-}
-
-void AudioStats::on_qrbReal_clicked(bool) {
-	aewEcho->mode = AudioEchoWidget::REAL;
-}
-
-void AudioStats::on_qrbImaginary_clicked(bool) {
-	aewEcho->mode = AudioEchoWidget::IMAGINARY;
-}
-
-void AudioStats::on_qrbModulus_clicked(bool) {
-	aewEcho->mode = AudioEchoWidget::MODULUS;
-}
-
-void AudioStats::on_qrbPhase_clicked(bool) {
-	aewEcho->mode = AudioEchoWidget::PHASE;
 }

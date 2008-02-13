@@ -32,6 +32,7 @@
 #define _AUDIOINPUT_H
 
 #include "Audio.h"
+#include "smallft.h"
 
 class AudioInput;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
@@ -66,7 +67,7 @@ class AudioInput : public QThread {
 		SpeexPreprocessState *sppPreprocess;
 		SpeexEchoState *sesEcho;
 		void *esEncState;
-		void *fftTable;
+		drft_lookup fftTable;
 
 		short *psMic;
 		short *psSpeaker;
@@ -90,7 +91,7 @@ class AudioInput : public QThread {
 
 		int iBitrate;
 		double dPeakMic, dPeakSpeaker, dPeakSignal;
-		double dSNR;
+		float fSpeechProb;
 
 		int iBestBin;
 

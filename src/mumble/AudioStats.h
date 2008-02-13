@@ -48,8 +48,6 @@ class AudioBar : public QWidget {
 class AudioEchoWidget : public QGLWidget {
 		Q_OBJECT
 	public:
-		enum Mode { REAL, IMAGINARY, MODULUS, PHASE };
-		Mode mode;
 		AudioEchoWidget(QWidget *parent);
 	protected:
 		void initializeGL();
@@ -76,10 +74,6 @@ class AudioStats : public QDialog, public Ui::AudioStats {
 		AudioStats(QWidget *parent);
 	public slots:
 		void on_Tick_timeout();
-		void on_qrbReal_clicked(bool);
-		void on_qrbImaginary_clicked(bool);
-		void on_qrbModulus_clicked(bool);
-		void on_qrbPhase_clicked(bool);
 };
 
 #else

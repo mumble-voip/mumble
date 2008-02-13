@@ -93,7 +93,7 @@ AudioInput::AudioInput() {
 	esEncState=speex_encoder_init(&speex_wb_mode);
 	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 
-	fftTable = spx_fft_init(iFrameSize);
+	mumble_drft_init(&fftTable, iFrameSize);
 
 	iByteSize=iFrameSize * 2;
 
@@ -148,7 +148,7 @@ AudioInput::~AudioInput() {
 	wait();
 	speex_bits_destroy(&sbBits);
 	speex_encoder_destroy(esEncState);
-	spx_fft_destroy(fftTable);
+	mumble_drft_clear(&fftTable);
 
 	if (sppPreprocess)
 		speex_preprocess_state_destroy(sppPreprocess);
@@ -273,17 +273,17 @@ void AudioInput::encodeAudioFrame() {
 	micMax = max;
 
 	if (g.bEchoTest) {
-		float in[iFrameSize];
-		float out[iFrameSize];
+		float fft[iFrameSize];
+		float scale = 1.f / iFrameSize;
 		for(i=0;i<iFrameSize;i++)
-			in[i] = psMic[i];
-		spx_fft(fftTable, in, out);
+			fft[i] = psMic[i] * scale;
+		mumble_drft_forward(&fftTable, fft);
 		double power[iFrameSize];
 		double mp = 0.0;
 		int bin = 0;
 		power[0]=power[1]=0.0;
 		for(i=2;i < iFrameSize / 2;i++) {
-			power[i] = sqrt(out[2*i]*out[2*i]+out[2*i-1]*out[2*i-1]);
+			power[i] = sqrt(fft[2*i]*fft[2*i]+fft[2*i-1]*fft[2*i-1]);
 			if (power[i] > mp) {
 				bin = i;
 				mp = power[i];
@@ -365,11 +365,11 @@ void AudioInput::encodeAudioFrame() {
 			max=abs(psSource[i]);
 	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
 
-	spx_int32_t snr = 0;
-	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &snr);
-	dSNR = snr / 100.0;
+	spx_int32_t prob = 0;
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);
+	fSpeechProb = prob / 100.0;
 
-	double level = (g.s.vsVAD == Settings::SignalToNoise) ? dSNR / 32.767 : micMax / 32767.0;
+	double level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (micMax / 32767.0);
 
 	if (level > g.s.fVADmax)
 		iIsSpeech = 1;

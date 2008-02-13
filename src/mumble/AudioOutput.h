@@ -38,6 +38,7 @@
 // having them use resources while unused.
 
 #include "Audio.h"
+#include "smallft.h"
 
 class AudioOutput;
 class ClientPlayer;
@@ -112,7 +113,6 @@ class AudioSine : public AudioOutputPlayer {
 		unsigned int cntr;
 		unsigned int tbin;
 		bool bSearch;
-		void *fftTable;
 	public:
 		bool decodeNextFrame();
 		AudioSine(float hz, float i, unsigned int frm, float v);

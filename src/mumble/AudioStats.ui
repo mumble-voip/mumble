@@ -269,41 +269,6 @@
      </property>
      <layout class="QVBoxLayout" >
       <item>
-       <layout class="QHBoxLayout" >
-        <item>
-         <widget class="QRadioButton" name="qrbReal" >
-          <property name="text" >
-           <string>Real</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="qrbImaginary" >
-          <property name="text" >
-           <string>Imaginary</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="qrbModulus" >
-          <property name="text" >
-           <string>Modulus</string>
-          </property>
-          <property name="checked" >
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="qrbPhase" >
-          <property name="text" >
-           <string>Phase</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
        <widget class="AudioEchoWidget" native="1" name="aewEcho" >
         <property name="sizePolicy" >
          <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >

@@ -577,13 +577,13 @@ void AudioWizard::on_Ticker_timeout() {
 		abVAD->iValue = iPeak;
 		abVAD->iPeak = iMaxPeak;
 	} else {
-		abVAD->iValue = static_cast<int>(ai->dSNR * 1000.0);
+		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0);
 		abVAD->iPeak = -1;
 	}
 	abVAD->update();
 
 	QString txt;
-	if (g.iAudioPathTime) 
+	if (g.iAudioPathTime)
 		txt=tr("Audio path is %1ms long.").arg(g.iAudioPathTime*20);
 	else
 		txt=tr("Audio path cannot be determined. Input not recognized.");

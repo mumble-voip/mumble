@@ -36,13 +36,4 @@ typedef WId HWND;
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#define FLOATING_POINT
-extern "C" {
-#include "config.h"
-#include "arch.h"
-#include "os_support.h"
-#include "fftwrap.h"
-#include "pseudofloat.h"
-}
-
 #endif
