@@ -32,6 +32,7 @@
 #include "Global.h"
 
 QList<PublicInfo> ConnectDialog::qlPublicServers;
+Timer ConnectDialog::tPublicServers;
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
@@ -42,6 +43,10 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	bPublicInit = false;
 	bDirty = false;
+
+	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
+		qlPublicServers.clear();
+	}
 
 	qtwServers->sortItems(0, Qt::AscendingOrder);
 
@@ -101,18 +106,6 @@ void ConnectDialog::accept() {
 		qsServer = a.at(0);
 		iPort = a.at(1).toInt();
 	} else {
-		if (bDirty) {
-			QSqlRecord r;
-			r = toRecord();
-			if (! r.isEmpty()) {
-				if (qlwServers->currentIndex().row() >= 0)
-					qstmServers->setRecord(qlwServers->currentIndex().row(), r);
-				else
-					qstmServers->insertRecord(-1, r);
-				qstmServers->submitAll();
-			}
-		}
-
 		qsServer = qleServer->text();
 		qsUsername = qleUsername->text();
 		qsPassword = qlePassword->text();
@@ -138,9 +131,9 @@ QSqlRecord ConnectDialog::toRecord() const {
 	}
 	r.setValue(QLatin1String("name"), name);
 	r.setValue(QLatin1String("hostname"), host);
+	r.setValue(QLatin1String("port"), port);
 	r.setValue(QLatin1String("username"), user);
 	r.setValue(QLatin1String("password"), pw);
-	r.setValue(QLatin1String("port"), port);
 	return r;
 }
 
@@ -224,31 +217,25 @@ void ConnectDialog::on_Request_done(bool err) {
 		n = n.nextSibling();
 	}
 
+	tPublicServers.restart();
+
 	fillList();
 }
 
-void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIndex &previndex) {
-	QSqlRecord r;
-
-	if (bDirty) {
-		bDirty = false;
-		r = toRecord();
-		if (! r.isEmpty()) {
-			if (previndex.row() >= 0)
-				qstmServers->setRecord(previndex.row(), r);
-			else
-				qstmServers->insertRecord(-1, r);
-			qstmServers->submitAll();
-		}
-	}
+void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIndex &) {
 	if (index.isValid()) {
-		r = qstmServers->record(index.row());
+		QSqlRecord r = qstmServers->record(index.row());
 		qleName->setText(r.value(QLatin1String("name")).toString());
 		qleServer->setText(r.value(QLatin1String("hostname")).toString());
 		qleUsername->setText(r.value(QLatin1String("username")).toString());
 		qlePassword->setText(r.value(QLatin1String("password")).toString());
 		qlePort->setText(r.value(QLatin1String("port")).toString());
 		bDirty = false;
+		qpbRemove->setEnabled(true);
+		qpbAdd->setEnabled(true);
+		qpbAdd->setText(tr("New"));
+	} else {
+		qpbRemove->setEnabled(false);
 	}
 }
 
@@ -264,6 +251,33 @@ void ConnectDialog::on_qpbAdd_clicked() {
 				qstmServers->insertRecord(-1, r);
 			}
 			qstmServers->submitAll();
+
+			qpbAdd->setText(tr("New"));
+
+			QSqlRecord rec;
+			int nrec = qstmServers->rowCount();
+
+			QStringList qslFields;
+			qslFields << QLatin1String("name");
+			qslFields << QLatin1String("hostname");
+			qslFields << QLatin1String("username");
+			qslFields << QLatin1String("password");
+			qslFields << QLatin1String("port");
+
+			for(int i=0; i < nrec;++i) {
+				rec = qstmServers->record(i);
+				bool match = true;
+				foreach(const QString &s, qslFields) {
+					if (rec.value(s) != r.value(s))
+						match = false;
+				}
+				if (match) {
+					qlwServers->setCurrentIndex(qstmServers->index(i, 0));
+					break;
+				}
+			}
+
+			return;
 		} else {
 			return;
 		}
@@ -277,6 +291,9 @@ void ConnectDialog::on_qpbAdd_clicked() {
 	qlePassword->setText(QString());
 	qlePort->setText(QLatin1String("64738"));
 
+	qpbAdd->setText(tr("Add"));
+	qpbAdd->setEnabled(false);
+
 	bDirty = false;
 }
 
@@ -289,9 +306,30 @@ void ConnectDialog::on_qpbRemove_clicked() {
 	}
 	qstmServers->submitAll();
 	qstmServers->select();
+
+	qlwServers->setCurrentIndex(QModelIndex());
+
+	qleName->setText(tr("-Unnamed entry-"));
+	qleServer->setText(QString());
+	qleUsername->setText(g.s.qsUsername);
+	qlePassword->setText(QString());
+	qlePort->setText(QLatin1String("64738"));
+
+	qpbAdd->setText(tr("Add"));
+	qpbAdd->setEnabled(false);
+
+	bDirty = false;
 }
 
 void ConnectDialog::onDirty(const QString &) {
+	const QModelIndex &previndex = qlwServers->currentIndex();
+
+	QSqlRecord r = toRecord();
+	qpbAdd->setEnabled(! r.isEmpty());
+	if (previndex.row() >= 0)
+		qpbAdd->setText(tr("Update"));
+	else
+		qpbAdd->setText(tr("Add"));
 	bDirty = true;
 }
 

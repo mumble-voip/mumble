@@ -33,6 +33,7 @@
 
 #include "mumble_pch.hpp"
 #include "ui_ConnectDialog.h"
+#include "Timer.h"
 
 struct PublicInfo {
 	QString name;
@@ -45,6 +46,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		Q_OBJECT;
 	protected:
 		static QList<PublicInfo> qlPublicServers;
+		static Timer tPublicServers;
 		bool bPublicInit;
 		QSqlTableModel *qstmServers;
 		QModelIndex qmiDirty;
