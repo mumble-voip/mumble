@@ -613,17 +613,17 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="488"/>
+        <location filename="ASIOInput.cpp" line="487"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="418"/>
+        <location filename="ASIOInput.cpp" line="417"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="488"/>
+        <location filename="ASIOInput.cpp" line="487"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -673,12 +673,12 @@
         <translation>Rozhraní</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="96"/>
+        <location filename="AudioConfigDialog.ui" line="102"/>
         <source>Transmission</source>
         <translation>Přenos</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="323"/>
+        <location filename="AudioConfigDialog.ui" line="329"/>
         <source>Compression</source>
         <translation>Komprese</translation>
     </message>
@@ -688,7 +688,7 @@
         <translation type="obsolete">Zásobník pro potlačení cvakání</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="707"/>
+        <location filename="AudioConfigDialog.ui" line="686"/>
         <source>Loopback Test</source>
         <translation>Testování místním propojením do smyčky</translation>
     </message>
@@ -723,17 +723,17 @@
         <translation>&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="58"/>
+        <location filename="AudioConfigDialog.cpp" line="59"/>
         <source>Continuous</source>
         <translation>Stále</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="59"/>
+        <location filename="AudioConfigDialog.cpp" line="60"/>
         <source>Voice Activity</source>
         <translation>Při hlasové aktivitě</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="60"/>
+        <location filename="AudioConfigDialog.cpp" line="61"/>
         <source>Push To Talk</source>
         <translation>Mluvení pouze na stisk tlačítka</translation>
     </message>
@@ -743,12 +743,12 @@
         <translation type="obsolete">Vysílání</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="112"/>
+        <location filename="AudioConfigDialog.ui" line="118"/>
         <source>When to transmit your speech</source>
         <translation>Kdy vysílat Vaši řeč</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="115"/>
+        <location filename="AudioConfigDialog.ui" line="121"/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
         <translation>Nastaví, kdy bude Vaše řeč přenášena do internetu.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Stále&lt;/i&gt; - neustálé vysílání&lt;br /&gt;&lt;i&gt;Při hlasové aktivitě&lt;/i&gt; - když je detekována hlasová aktivita .&lt;br /&gt;&lt;i&gt;Mluvení na stisk tlačítka&lt;/i&gt; - mluvení je přenášeno, pouze když držíte stisknutou nadefinovanou klávesu pro mluvení.</translation>
     </message>
@@ -758,77 +758,77 @@
         <translation type="obsolete">Max. prodleva mezi větami</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="219"/>
+        <location filename="AudioConfigDialog.ui" line="225"/>
         <source>How long to keep transmitting after silence</source>
         <translation>Jak dlouho se ještě vysílá po ukončení hlasové aktivity</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="222"/>
+        <location filename="AudioConfigDialog.ui" line="228"/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</source>
         <translation>&lt;b&gt;Nastaví, jak dlouho po ukončení hlasových aktivit zůstane vysílání aktivní.&lt;/b&gt;&lt;br /&gt; Nastavte na vyšší hodnotu, pokud je vaše vysílání přerušováno mezi větami (což je vidět i vizuálně na ikonce vedle vašeho jména).&lt;br /&gt;Toto nastavení má smysl pouze pokud je použito vysílání při hlasové aktivitě.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="419"/>
+        <location filename="AudioConfigDialog.ui" line="425"/>
         <source>Audio per packet</source>
         <translation>Audio/blok</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="429"/>
+        <location filename="AudioConfigDialog.ui" line="435"/>
         <source>How many audio frames to send per packet</source>
         <translation>Množství úseků zvuku odeslaných v jednom bloku</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="432"/>
+        <location filename="AudioConfigDialog.ui" line="438"/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
         <translation>&lt;b&gt;Vybere kolik úseků zvuku bude zasíláno v jednom bloku dat.&lt;/b&gt;&lt;br /&gt;Zvětšením této hodnoty se zvětší zpoždění v komunikaci, ale také bude efektivnější využití šířky pásma.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="168"/>
+        <location filename="AudioConfigDialog.ui" line="174"/>
         <source>PTT Audio cue</source>
         <translation>Zvukový signál na počátku a konci vysílání</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="162"/>
+        <location filename="AudioConfigDialog.ui" line="168"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
         <translation>Slyšitelný zvuk signalizující každý začátek a konec vysílání</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="165"/>
+        <location filename="AudioConfigDialog.ui" line="171"/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
         <translation>&lt;b&gt;Zahraje krátký signál, když někdo začíná a končí vysílání.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="479"/>
         <source>Use TCP mode</source>
-        <translation>Použít TCP režim</translation>
+        <translation type="obsolete">Použít TCP režim</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="473"/>
         <source>Use TCP Compatibility mode</source>
-        <translation>Použít TCP režim pro zvýšení kompatibility</translation>
+        <translation type="obsolete">Použít TCP režim pro zvýšení kompatibility</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="476"/>
         <source>&lt;b&gt;Enable TCP Compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Použít TCP režim&lt;/b&gt;&lt;br /&gt;TCP komunikace se serverem zvýší zatížení linky a může způsobit znatelné přestávky v komunikaci, takže by měl být použit pouze pokud výchozí režim (UDP) nemůže fungovat.</translation>
+        <translation type="obsolete">&lt;b&gt;Použít TCP režim&lt;/b&gt;&lt;br /&gt;TCP komunikace se serverem zvýší zatížení linky a může způsobit znatelné přestávky v komunikaci, takže by měl být použit pouze pokud výchozí režim (UDP) nemůže fungovat.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="492"/>
         <source>Automatic Reconnect</source>
-        <translation>Automaticky znovu přihlásit </translation>
+        <translation type="obsolete">Automaticky znovu přihlásit </translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="486"/>
         <source>Reconnect when disconnected</source>
-        <translation>Přihlásit zpátky na server, pokud došlo k výpadku spojení</translation>
+        <translation type="obsolete">Přihlásit zpátky na server, pokud došlo k výpadku spojení</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="489"/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Automatické připojení&lt;/b&gt;.&lt;br /&gt;Pokud se ztratí spojení se serverem,  Mumble se pokusí automaticky spojení obnovit každých 10 sekund.</translation>
+        <translation type="obsolete">&lt;b&gt;Automatické připojení&lt;/b&gt;.&lt;br /&gt;Pokud se ztratí spojení se serverem,  Mumble se pokusí automaticky spojení obnovit každých 10 sekund.</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="499"/>
+        <location filename="AudioConfigDialog.ui" line="475"/>
         <source>Maximum bandwidth used for sent audio</source>
         <translation>Maximální šířka pásma pro zasílané audio</translation>
     </message>
@@ -843,12 +843,12 @@
         <translation type="obsolete">Kvalita</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="339"/>
+        <location filename="AudioConfigDialog.ui" line="345"/>
         <source>Quality of compression (peak bandwidth)</source>
         <translation>Kvalita komprese (maximální šířka pásma)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="342"/>
+        <location filename="AudioConfigDialog.ui" line="348"/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -858,12 +858,12 @@
         <translation type="obsolete">Síla komprese</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="384"/>
+        <location filename="AudioConfigDialog.ui" line="390"/>
         <source>Complexity of compression (CPU)</source>
         <translation>Síla komprese (zvedne zatížení CPU)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="387"/>
+        <location filename="AudioConfigDialog.ui" line="393"/>
         <source>&lt;b&gt;This sets the complexity of compression.&lt;/b&gt;&lt;br /&gt;This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -873,12 +873,12 @@
         <translation type="obsolete">Zesílení</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="669"/>
+        <location filename="AudioConfigDialog.ui" line="555"/>
         <source>Maximum amplification of input sound</source>
         <translation>Maximální zesílení vstupního audio signálu</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="672"/>
+        <location filename="AudioConfigDialog.ui" line="558"/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -893,17 +893,17 @@
         <translation type="obsolete">Kolik dat vložit do zásobníku pro první sadu vysílaných dat</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="62"/>
+        <location filename="AudioConfigDialog.cpp" line="63"/>
         <source>None</source>
         <translation>Žádný</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="63"/>
+        <location filename="AudioConfigDialog.cpp" line="64"/>
         <source>Local</source>
         <translation>Místní</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="64"/>
+        <location filename="AudioConfigDialog.cpp" line="65"/>
         <source>Server</source>
         <translation>Server</translation>
     </message>
@@ -913,67 +913,67 @@
         <translation type="obsolete">Místní smyčka</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="807"/>
+        <location filename="AudioConfigDialog.ui" line="786"/>
         <source>Desired loopback mode</source>
         <translation>Vyžadovaný režim smyčky</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="810"/>
+        <location filename="AudioConfigDialog.ui" line="789"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="713"/>
+        <location filename="AudioConfigDialog.ui" line="692"/>
         <source>Delay Variance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="723"/>
+        <location filename="AudioConfigDialog.ui" line="702"/>
         <source>Variance in packet latency</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="726"/>
+        <location filename="AudioConfigDialog.ui" line="705"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="752"/>
+        <location filename="AudioConfigDialog.ui" line="731"/>
         <source>Packet Loss</source>
         <translation>Ztráta paketů</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="762"/>
+        <location filename="AudioConfigDialog.ui" line="741"/>
         <source>Packet loss for loopback mode</source>
         <translation>Ztráta paketů v režimu místní smyčky</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="68"/>
+        <location filename="AudioConfigDialog.cpp" line="69"/>
         <source>Basic Audio</source>
         <translation>Zvuk</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="201"/>
+        <location filename="AudioConfigDialog.cpp" line="197"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="170"/>
+        <location filename="AudioConfigDialog.cpp" line="166"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="205"/>
+        <location filename="AudioConfigDialog.cpp" line="201"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="251"/>
+        <location filename="AudioConfigDialog.cpp" line="247"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1kbit/s (Audio %2, Pozice %4, režie %3)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="179"/>
+        <location filename="AudioConfigDialog.cpp" line="175"/>
         <source>-%1 dB</source>
         <translation type="unfinished"></translation>
     </message>
@@ -993,173 +993,168 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="102"/>
+        <location filename="AudioConfigDialog.ui" line="108"/>
         <source>&amp;Transmit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="209"/>
+        <location filename="AudioConfigDialog.ui" line="215"/>
         <source>Voice &amp;Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="790"/>
+        <location filename="AudioConfigDialog.ui" line="769"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="502"/>
+        <location filename="AudioConfigDialog.ui" line="478"/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="329"/>
+        <location filename="AudioConfigDialog.ui" line="335"/>
         <source>&amp;Quality</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="374"/>
+        <location filename="AudioConfigDialog.ui" line="380"/>
         <source>&amp;Complexity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="608"/>
+        <location filename="AudioConfigDialog.ui" line="494"/>
         <source>Audio Processing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="614"/>
+        <location filename="AudioConfigDialog.ui" line="500"/>
         <source>Noise Suppression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="624"/>
+        <location filename="AudioConfigDialog.ui" line="510"/>
         <source>Noise suppression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="627"/>
+        <location filename="AudioConfigDialog.ui" line="513"/>
         <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="659"/>
+        <location filename="AudioConfigDialog.ui" line="545"/>
         <source>Amplification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="515"/>
+        <location filename="AudioConfigDialog.ui" line="593"/>
         <source>Audio Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="521"/>
+        <location filename="AudioConfigDialog.ui" line="599"/>
         <source>Default &amp;Jitter Buffer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="531"/>
+        <location filename="AudioConfigDialog.ui" line="609"/>
         <source>Safety margin for jitter buffer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="534"/>
+        <location filename="AudioConfigDialog.ui" line="612"/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="566"/>
+        <location filename="AudioConfigDialog.ui" line="644"/>
         <source>Volume</source>
         <translation type="unfinished">Hlasitost</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="576"/>
+        <location filename="AudioConfigDialog.ui" line="654"/>
         <source>Volume of incoming speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="579"/>
+        <location filename="AudioConfigDialog.ui" line="657"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="765"/>
+        <location filename="AudioConfigDialog.ui" line="744"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="797"/>
+        <location filename="AudioConfigDialog.ui" line="776"/>
         <source>&amp;Loopback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="162"/>
+        <location filename="AudioConfigDialog.cpp" line="158"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="129"/>
+        <location filename="AudioConfigDialog.ui" line="135"/>
         <source>DoublePush Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="181"/>
+        <location filename="AudioConfigDialog.ui" line="187"/>
         <source>Use SNR based speech detection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="184"/>
+        <location filename="AudioConfigDialog.ui" line="190"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="187"/>
+        <location filename="AudioConfigDialog.ui" line="193"/>
         <source>Signal to Noise</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="194"/>
+        <location filename="AudioConfigDialog.ui" line="200"/>
         <source>Use Amplitude based speech detection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="197"/>
+        <location filename="AudioConfigDialog.ui" line="203"/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="200"/>
+        <location filename="AudioConfigDialog.ui" line="206"/>
         <source>Amplitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="251"/>
+        <location filename="AudioConfigDialog.ui" line="257"/>
         <source>Silence Below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="258"/>
+        <location filename="AudioConfigDialog.ui" line="264"/>
         <source>Signal values below this counts as silence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="293"/>
+        <location filename="AudioConfigDialog.ui" line="299"/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="283"/>
+        <location filename="AudioConfigDialog.ui" line="289"/>
         <source>Speech Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="290"/>
+        <location filename="AudioConfigDialog.ui" line="296"/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="467"/>
-        <source>Connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1204,26 +1199,6 @@
         <location filename="AudioStats.cpp" line="253"/>
         <source>Audio bitrate</source>
         <translation type="obsolete">Šířka datového pásma</translation>
-    </message>
-    <message>
-        <location filename="AudioStats.ui" line="276"/>
-        <source>Real</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioStats.ui" line="283"/>
-        <source>Imaginary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioStats.ui" line="290"/>
-        <source>Modulus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioStats.ui" line="300"/>
-        <source>Phase</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="74"/>
@@ -1296,17 +1271,17 @@
         <translation>Ukazuje výkonové spektrum aktuálního vstupu (červená čára) a aktuální odhad šumu (vyplněno modře).&lt;br /&gt;Všechny amplitudy jsou vynásobeny 30x aby byly vidět zajímavé části (jak moc je signál větší než zvuk pro různé frekvence).&lt;br /&gt; To je pravděpodobně zajímavé, pokud zkoušíte vyladit šumové podmínky mikrofonu. V dobrých podmínkách bude dole pouze modrá čára. Pokud dosahuje modrá oblast do poloviny výšky grafu, znamená to, že zvuk je rušen silným šumem.</translation>
     </message>
     <message>
-        <location filename="AudioStats.ui" line="315"/>
+        <location filename="AudioStats.ui" line="280"/>
         <source>Weights of the echo canceller</source>
         <translation>Intenzita snahy o odstranění ozvěny</translation>
     </message>
     <message>
-        <location filename="AudioStats.ui" line="318"/>
+        <location filename="AudioStats.ui" line="283"/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="342"/>
+        <location filename="AudioStats.cpp" line="368"/>
         <source>&gt;1000ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1951,7 +1926,7 @@
         <translation>&amp;Moje servery</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="162"/>
+        <location filename="ConnectDialog.ui" line="165"/>
         <source>Server &amp;Browser</source>
         <translation>Výběr &amp;veřejných serverů</translation>
     </message>
@@ -1981,7 +1956,7 @@
         <translation>&amp;Heslo</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="204"/>
+        <location filename="ConnectDialog.ui" line="207"/>
         <source>&amp;Connect</source>
         <translation>&amp;Připojit</translation>
     </message>
@@ -1996,7 +1971,7 @@
         <translation>Přid&amp;at</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="152"/>
+        <location filename="ConnectDialog.ui" line="155"/>
         <source>&amp;Remove</source>
         <translation>Odst&amp;ranit</translation>
     </message>
@@ -2006,42 +1981,42 @@
         <translation type="obsolete">Jméno</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="189"/>
+        <location filename="ConnectDialog.ui" line="192"/>
         <source>Address</source>
         <translation>Adresa</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="194"/>
+        <location filename="ConnectDialog.ui" line="197"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="214"/>
+        <location filename="ConnectDialog.ui" line="217"/>
         <source>C&amp;opy to custom</source>
         <translation>Zk&amp;opírovat do seznamu mých serverů</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="221"/>
+        <location filename="ConnectDialog.ui" line="224"/>
         <source>&amp;View Webpage</source>
         <translation>Otevřít &amp;Webovou stránku</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="93"/>
+        <location filename="ConnectDialog.cpp" line="98"/>
         <source>Connecting to %1</source>
         <translation>Připojování k %1</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="93"/>
+        <location filename="ConnectDialog.cpp" line="98"/>
         <source>Enter username</source>
         <translation>Zadejte jmého uživatele</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="201"/>
+        <location filename="ConnectDialog.cpp" line="194"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="201"/>
+        <location filename="ConnectDialog.cpp" line="194"/>
         <source>Failed to fetch server list</source>
         <translation>Selhalo stažení seznamu dostupných serverů</translation>
     </message>
@@ -2051,17 +2026,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="184"/>
+        <location filename="ConnectDialog.ui" line="187"/>
         <source>Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="187"/>
+        <location filename="ConnectDialog.cpp" line="180"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="274"/>
+        <location filename="ConnectDialog.cpp" line="312"/>
         <source>-Unnamed entry-</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2073,6 +2048,21 @@
     <message>
         <location filename="ConnectDialog.ui" line="138"/>
         <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="255"/>
+        <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="332"/>
+        <source>Add</source>
+        <translation type="unfinished">Přidat</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="330"/>
+        <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2387,7 +2377,7 @@ v žádném z možných míst.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="209"/>
+        <location filename="GlobalShortcut_unix.cpp" line="240"/>
         <source>Mouse %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2742,12 +2732,12 @@ v žádném z možných míst.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="171"/>
+        <location filename="main.cpp" line="175"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="882"/>
+        <location filename="MainWindow.cpp" line="896"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -3186,7 +3176,7 @@ v žádném z možných míst.</translation>
         <translation>Připojí se k webové stránce Mumble pro zjištění případné dostupnosti novějších verzí a vypíše vhodný odkaz na stažení, pokud je nová verze k dispozici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="132"/>
+        <location filename="MainWindow.cpp" line="133"/>
         <source>Mumble -- %1</source>
         <translation>Mumble =- %1 </translation>
     </message>
@@ -3231,105 +3221,105 @@ v žádném z možných míst.</translation>
         <translation>&amp;Pomoc</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="79"/>
+        <location filename="MainWindow.cpp" line="80"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Mluvení při stisku klávesy</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="82"/>
+        <location filename="MainWindow.cpp" line="83"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
         <translation>Resetovat zvukový procesor</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="85"/>
+        <location filename="MainWindow.cpp" line="86"/>
         <source>Toggle Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Zákázat/povolit si mluvení</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="88"/>
+        <location filename="MainWindow.cpp" line="89"/>
         <source>Toggle Deafen Self</source>
         <comment>Global Shortcut</comment>
         <translation>Poslech zapnout/vypnout</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="91"/>
+        <location filename="MainWindow.cpp" line="92"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
         <translation>Odpojit Plugin</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="94"/>
+        <location filename="MainWindow.cpp" line="95"/>
         <source>Force Center Position</source>
         <comment>Global Shortcut</comment>
         <translation>Vynutit použití střední pozice</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="99"/>
+        <location filename="MainWindow.cpp" line="100"/>
         <source>Chan Parent</source>
         <comment>Global Shortcut</comment>
         <translation>Nadřazený kanál</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="104"/>
+        <location filename="MainWindow.cpp" line="105"/>
         <source>Chan Sub#%1</source>
         <comment>Global Shortcut</comment>
         <translation>Podkanál #%1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="109"/>
+        <location filename="MainWindow.cpp" line="110"/>
         <source>Chan All Subs</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="113"/>
+        <location filename="MainWindow.cpp" line="114"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
         <translation>Zakázat si mluvení při stisku klávesy</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="116"/>
+        <location filename="MainWindow.cpp" line="117"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
         <translation>Vstoupit do kanálu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="119"/>
+        <location filename="MainWindow.cpp" line="120"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
         <translation>Přepnout Overlay</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="123"/>
+        <location filename="MainWindow.cpp" line="124"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Alternativní klávesa pro mluvení</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="279"/>
+        <location filename="MainWindow.cpp" line="292"/>
         <source>Reconnecting.</source>
         <translation>Opětovné připojování.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="402"/>
+        <location filename="MainWindow.cpp" line="416"/>
         <source>Kicking player %1</source>
         <translation>Vykopnutí uživaetele %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="424"/>
+        <location filename="MainWindow.cpp" line="438"/>
         <source>Enter reason</source>
         <translation>Zadejte důvod</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="424"/>
+        <location filename="MainWindow.cpp" line="438"/>
         <source>Banning player %1</source>
         <translation>Ban pro uživatele %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="446"/>
+        <location filename="MainWindow.cpp" line="460"/>
         <source>Sending message to %1</source>
         <translation>Posílam zprávu pro %1</translation>
     </message>
@@ -3339,67 +3329,67 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">Zadejte zprávu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="643"/>
+        <location filename="MainWindow.cpp" line="657"/>
         <source>To %1: %2</source>
         <translation>Pro %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="643"/>
+        <location filename="MainWindow.cpp" line="657"/>
         <source>Message to %1</source>
         <translation>Zpráva pro %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="187"/>
+        <location filename="main.cpp" line="191"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="556"/>
+        <location filename="MainWindow.cpp" line="570"/>
         <source>Channel Name</source>
         <translation>Název kanálu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="535"/>
+        <location filename="MainWindow.cpp" line="549"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Opravdu chcete odstranit kanál %1 včetně všech jeho podkanálů?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="686"/>
+        <location filename="MainWindow.cpp" line="700"/>
         <source>Unmuted and undeafened.</source>
         <translation>Opět schopen slyšet a mluvit.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="688"/>
+        <location filename="MainWindow.cpp" line="702"/>
         <source>Unmuted.</source>
         <translation>Opět schopen mluvit.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="690"/>
+        <location filename="MainWindow.cpp" line="704"/>
         <source>Muted.</source>
         <translation>Zakázáno mluvení.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="704"/>
+        <location filename="MainWindow.cpp" line="718"/>
         <source>Muted and deafened.</source>
         <translation>Zakázáno mluvit a poslouchat.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="706"/>
+        <location filename="MainWindow.cpp" line="720"/>
         <source>Deafened.</source>
         <translation>Vypnut poslech.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="708"/>
+        <location filename="MainWindow.cpp" line="722"/>
         <source>Undeafened.</source>
         <translation>Opět schopen slyšet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="763"/>
+        <location filename="MainWindow.cpp" line="777"/>
         <source>About Qt</source>
         <translation>O knihovně Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="844"/>
+        <location filename="MainWindow.cpp" line="858"/>
         <source>Joining %1.</source>
         <translation>Vstupuji do %1.</translation>
     </message>
@@ -3409,42 +3399,42 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">Připojen k serveru.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="962"/>
+        <location filename="MainWindow.cpp" line="976"/>
         <source>Server connection failed: %1.</source>
         <translation>Připojování k serveru selhalo: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="971"/>
+        <location filename="MainWindow.cpp" line="985"/>
         <source>Invalid username</source>
         <translation>Špatné jméno uživatele</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="971"/>
+        <location filename="MainWindow.cpp" line="985"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Připojujete se s nesprávným jménem uživatele, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="971"/>
+        <location filename="MainWindow.cpp" line="985"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Toto uživatelské jméno je již používáno, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="976"/>
+        <location filename="MainWindow.cpp" line="990"/>
         <source>Wrong password</source>
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="976"/>
+        <location filename="MainWindow.cpp" line="990"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Špatné heslo registrovaného uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="976"/>
+        <location filename="MainWindow.cpp" line="990"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Špatné heslo serveru pro neregistrované uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="964"/>
+        <location filename="MainWindow.cpp" line="978"/>
         <source>Disconnected from server.</source>
         <translation>Spojení se serverem bylo zrušeno.</translation>
     </message>
@@ -3569,12 +3559,12 @@ v žádném z možných míst.</translation>
         <translation>Zakázano: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="359"/>
+        <location filename="Messages.cpp" line="360"/>
         <source>From %1: %2</source>
         <translation>Od %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="360"/>
+        <location filename="Messages.cpp" line="361"/>
         <source>Message from %1</source>
         <translation></translation>
     </message>
@@ -3594,127 +3584,127 @@ v žádném z možných míst.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="224"/>
+        <location filename="MainWindow.cpp" line="237"/>
         <source>Opening URL %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="226"/>
+        <location filename="MainWindow.cpp" line="239"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="237"/>
+        <location filename="MainWindow.cpp" line="250"/>
         <source>Connecting to %1</source>
         <translation type="unfinished">Připojování k %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="237"/>
+        <location filename="MainWindow.cpp" line="250"/>
         <source>Enter username</source>
         <translation type="unfinished">Zadejte jmého uživatele</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="330"/>
+        <location filename="MainWindow.cpp" line="344"/>
         <source>Mumble Server Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="941"/>
+        <location filename="MainWindow.cpp" line="955"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="920"/>
+        <location filename="MainWindow.cpp" line="934"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="925"/>
+        <location filename="MainWindow.cpp" line="939"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="927"/>
+        <location filename="MainWindow.cpp" line="941"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="936"/>
+        <location filename="MainWindow.cpp" line="950"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="312"/>
+        <location filename="MainWindow.cpp" line="325"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="315"/>
+        <location filename="MainWindow.cpp" line="329"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="317"/>
+        <location filename="MainWindow.cpp" line="331"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>UDP Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>To Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>From Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Good</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Late</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Lost</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Resync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="630"/>
+        <location filename="MainWindow.cpp" line="644"/>
         <source>Sending message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="657"/>
+        <location filename="MainWindow.cpp" line="671"/>
         <source>Sending message to channel tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="670"/>
+        <location filename="MainWindow.cpp" line="684"/>
         <source>To tree %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="670"/>
+        <location filename="MainWindow.cpp" line="684"/>
         <source>Message to tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="721"/>
+        <location filename="MainWindow.cpp" line="735"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3789,23 +3779,181 @@ v žádném z možných míst.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="325"/>
+        <location filename="Messages.cpp" line="326"/>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="187"/>
+        <location filename="main.cpp" line="191"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="328"/>
+        <location filename="MainWindow.cpp" line="342"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="877"/>
+        <location filename="MainWindow.cpp" line="891"/>
         <source>Connected to server %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="181"/>
+        <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="182"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="183"/>
+        <source>Minimize</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NetworkConfig</name>
+    <message>
+        <location filename="NetworkConfig.cpp" line="47"/>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="25"/>
+        <source>Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="31"/>
+        <source>Use TCP compatability mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="34"/>
+        <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="37"/>
+        <source>Use TCP mode</source>
+        <translation type="unfinished">Použít TCP režim</translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="44"/>
+        <source>Reconnect when disconnected</source>
+        <translation type="unfinished">Přihlásit zpátky na server, pokud došlo k výpadku spojení</translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="47"/>
+        <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
+        <translation type="unfinished">&lt;b&gt;Automatické připojení&lt;/b&gt;.&lt;br /&gt;Pokud se ztratí spojení se serverem,  Mumble se pokusí automaticky spojení obnovit každých 10 sekund.</translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="50"/>
+        <source>Reconnect automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="66"/>
+        <source>Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="72"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="85"/>
+        <source>Type of proxy to connect through</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="88"/>
+        <source>&lt;b&gt;Type of proxy to connect through&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatability mode, causing all voice data to be sent via the control channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="92"/>
+        <source>Direct connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="97"/>
+        <source>HTTP(S) proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="102"/>
+        <source>SOCKS5 proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="110"/>
+        <source>Hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="126"/>
+        <source>Hostname of the proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="129"/>
+        <source>&lt;b&gt;Hostname of the proxy.&lt;b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="151"/>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="176"/>
+        <source>Port number of the proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="179"/>
+        <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="195"/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="202"/>
+        <source>Username for proxy authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="205"/>
+        <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="212"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="219"/>
+        <source>Password for proxy authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="222"/>
+        <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4206,17 +4354,17 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>PlayerModel</name>
     <message>
-        <location filename="PlayerModel.cpp" line="368"/>
+        <location filename="PlayerModel.cpp" line="389"/>
         <source>Name of player</source>
         <translation>Jméno uživatele</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="368"/>
+        <location filename="PlayerModel.cpp" line="389"/>
         <source>Name of channel</source>
         <translation>Jméno kanálu</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="370"/>
+        <location filename="PlayerModel.cpp" line="391"/>
         <source>Player flags</source>
         <translation>Příznaky uživatele</translation>
     </message>
@@ -4226,7 +4374,7 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Tento uživatel je připojen k serveru. Ikonka nalevo od jména názorně indikuje jeho mluvení: &lt;br /&gt;&lt;img src=&quot;:/talking_on.png&quot; /&gt;Mluví&lt;/br /&gt;&lt;img src=&quot;:/talking_off.png&quot; /&gt; Nemluví</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="383"/>
+        <location filename="PlayerModel.cpp" line="404"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
         <translation>Toto je komunikační kanál na serveru. Pouze učastníci, kteří jsou ve stejném kanálu, se budou navzájem slyšet.</translation>
     </message>
@@ -4236,22 +4384,22 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Zobrazení příznaků uživatele (pokud nějaké má nastaveny):&lt;br /&gt;&lt;img src=&quot;:/authenticated.png&quot; /&gt;Přihlášený uživatel&lt;br /&gt;&lt;img src=&quot;:/muted_self.png&quot; /&gt;Zakázal si mluvení&lt;br /&gt;&lt;img src=&quot;:/muted_server.png&quot; /&gt;Bylo mu zakázáno mluvit&lt;br /&gt;&lt;img src=&quot;:/deafened_self.png&quot; /&gt;Vypnutý poslech&lt;br /&gt;&lt;img src=&quot;:/deafened_server.png&quot; /&gt;Byl mu vypnut poslech&lt;br /&gt;Uživatel, který sám sobě zakázal mluvit nebo poslouchat, je pravděpodobně vzdálen od počítače, nebo zrovna nemá čas na hovory (vaří si kávu)&lt;br /&gt;Uživatel, kterému bylo zakázano mluvit od  administrátora, se pravděpodobně choval nezpůsobně.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="409"/>
+        <location filename="PlayerModel.cpp" line="430"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="411"/>
+        <location filename="PlayerModel.cpp" line="432"/>
         <source>Flags</source>
         <translation>Příznaky</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="381"/>
+        <location filename="PlayerModel.cpp" line="402"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="393"/>
+        <location filename="PlayerModel.cpp" line="414"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation type="unfinished"></translation>
     </message>

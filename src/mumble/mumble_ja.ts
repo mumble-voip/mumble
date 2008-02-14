@@ -623,17 +623,17 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="488"/>
+        <location filename="ASIOInput.cpp" line="487"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="418"/>
+        <location filename="ASIOInput.cpp" line="417"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>ASIOを使用するためには少なくとも1つのマイクと1つのスピーカーを選択しなければなりません。もしマイクサンプリングが必要なだけなら DirectSound を使用してください。</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="488"/>
+        <location filename="ASIOInput.cpp" line="487"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
         <translation>選択されたASIOドライバを開くのに失敗しました。入力は行われません。</translation>
     </message>
@@ -1301,12 +1301,12 @@
         <translation>現在の入力信号(赤線)とノイズ予想(青線)のパワースペクトルを表します。&lt;br /&gt;すべての振幅は判りやすい結果(各周波帯でノイズよりどれくらい多くの信号が存在するか)を提供するために30倍されます。&lt;br /&gt;マイクの雑音状況を改善しようと微調整しているならば、多分に興味深いものとなるでしょう。良好な状態では、一番下に小さく揺れている青線だけがあるべきです。もし青線がグラフの中ほどより上にあるなら、あなたは深刻にノイズの多い環境にあると言えます。</translation>
     </message>
     <message>
-        <location filename="AudioStats.ui" line="315"/>
+        <location filename="AudioStats.ui" line="280"/>
         <source>Weights of the echo canceller</source>
         <translation>エコーキャンセラの重み</translation>
     </message>
     <message>
-        <location filename="AudioStats.ui" line="318"/>
+        <location filename="AudioStats.ui" line="283"/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
         <translation>下に向かっている時間と右に向かっている周波数でエコーキャンセラの重みを表示します。&lt;br /&gt;理想的には、これは反響が全くない事を示す黒でなくてはなりません。普通は、反響が遅れる時間を表す青っぽい色の横縞が一つ以上あるでしょう。あなたは、重みがリアルタイムに更新されるのを見る事ができます。&lt;br /&gt;反響しないものがない限り、ここでは何も有用なデータが得られない事に注意してください。安定した状態で何曲かの音楽を再生してください。&lt;br /&gt;あなたは周波数領域における重みの実数または虚数の部分、もしくは計算された係数と位相の表示を選んで見ることができます。これらで最も役に立つのはおそらく係数です。係数とは反響の大きさであり、送信方向の信号が一定時間毎にどのくらい取り除かれているかを表します。他の表示は主にエコーキャンセラアルゴリズムを調整したい人にとって役に立ちます。&lt;br /&gt;注意： 係数モードの時に全ての表示が大幅に変動する場合、エコーキャンセラは2つの入力源(スピーカーとマイク)の間にどんな相関関係も見出せていません。反響に非常に長い遅れがあるか、入力源のうち1つが誤って設定されているかのどちらかでしょう。</translation>
     </message>
@@ -1318,25 +1318,25 @@
     <message>
         <location filename="AudioStats.ui" line="276"/>
         <source>Real</source>
-        <translation>実数</translation>
+        <translation type="obsolete">実数</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="283"/>
         <source>Imaginary</source>
-        <translation>虚数</translation>
+        <translation type="obsolete">虚数</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="290"/>
         <source>Modulus</source>
-        <translation>係数</translation>
+        <translation type="obsolete">係数</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="300"/>
         <source>Phase</source>
-        <translation>位相</translation>
+        <translation type="obsolete">位相</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="342"/>
+        <location filename="AudioStats.cpp" line="368"/>
         <source>&gt;1000ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1996,7 +1996,7 @@
         <translation>パスワード(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="204"/>
+        <location filename="ConnectDialog.ui" line="207"/>
         <source>&amp;Connect</source>
         <translation>接続(&amp;C)</translation>
     </message>
@@ -2011,7 +2011,7 @@
         <translation>追加(&amp;A)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="152"/>
+        <location filename="ConnectDialog.ui" line="155"/>
         <source>&amp;Remove</source>
         <translation>削除(&amp;R)</translation>
     </message>
@@ -2021,7 +2021,7 @@
         <translation>お気に入りサーバー(&amp;C)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="162"/>
+        <location filename="ConnectDialog.ui" line="165"/>
         <source>Server &amp;Browser</source>
         <translation>サーバーブラウザ(&amp;B)</translation>
     </message>
@@ -2031,42 +2031,42 @@
         <translation type="obsolete">名前</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="189"/>
+        <location filename="ConnectDialog.ui" line="192"/>
         <source>Address</source>
         <translation>アドレス</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="194"/>
+        <location filename="ConnectDialog.ui" line="197"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="214"/>
+        <location filename="ConnectDialog.ui" line="217"/>
         <source>C&amp;opy to custom</source>
         <translation>お気に入りにコピー(&amp;O)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="221"/>
+        <location filename="ConnectDialog.ui" line="224"/>
         <source>&amp;View Webpage</source>
         <translation>ウェブサイトを見る(&amp;V)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="93"/>
+        <location filename="ConnectDialog.cpp" line="98"/>
         <source>Connecting to %1</source>
         <translation>%1に接続中</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="93"/>
+        <location filename="ConnectDialog.cpp" line="98"/>
         <source>Enter username</source>
         <translation>ユーザー名を入力してください</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="201"/>
+        <location filename="ConnectDialog.cpp" line="194"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="201"/>
+        <location filename="ConnectDialog.cpp" line="194"/>
         <source>Failed to fetch server list</source>
         <translation>サーバーリストを取得出来ませんでした</translation>
     </message>
@@ -2076,17 +2076,17 @@
         <translation>ラベル(&amp;L)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="184"/>
+        <location filename="ConnectDialog.ui" line="187"/>
         <source>Label</source>
         <translation>ラベル</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="187"/>
+        <location filename="ConnectDialog.cpp" line="180"/>
         <source>Unknown</source>
         <translation>不明</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="274"/>
+        <location filename="ConnectDialog.cpp" line="312"/>
         <source>-Unnamed entry-</source>
         <translation>-Unnamed entry-</translation>
     </message>
@@ -2099,6 +2099,21 @@
         <location filename="ConnectDialog.ui" line="138"/>
         <source>&amp;Cancel</source>
         <translation>キャンセル(&amp;C)</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="255"/>
+        <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="332"/>
+        <source>Add</source>
+        <translation type="unfinished">追加</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="330"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2413,7 +2428,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="212"/>
+        <location filename="GlobalShortcut_unix.cpp" line="240"/>
         <source>Mouse %1</source>
         <translation type="unfinished">マウス %1</translation>
     </message>
@@ -2763,7 +2778,7 @@ of the possible locations.</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="884"/>
+        <location filename="MainWindow.cpp" line="896"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -3271,17 +3286,17 @@ of the possible locations.</source>
         <translation>Alt発言有効化</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="404"/>
+        <location filename="MainWindow.cpp" line="416"/>
         <source>Kicking player %1</source>
         <translation>プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="426"/>
+        <location filename="MainWindow.cpp" line="438"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="426"/>
+        <location filename="MainWindow.cpp" line="438"/>
         <source>Banning player %1</source>
         <translation>プレイヤー %1 をBANしました</translation>
     </message>
@@ -3291,52 +3306,52 @@ of the possible locations.</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="558"/>
+        <location filename="MainWindow.cpp" line="570"/>
         <source>Channel Name</source>
         <translation>チャンネル名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="537"/>
+        <location filename="MainWindow.cpp" line="549"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>%1 とそのサブチャンネルを全て削除します。よろしいですか？</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="688"/>
+        <location filename="MainWindow.cpp" line="700"/>
         <source>Unmuted and undeafened.</source>
         <translation>発言禁止を解除し、聴取禁止も解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="690"/>
+        <location filename="MainWindow.cpp" line="702"/>
         <source>Unmuted.</source>
         <translation>発言禁止を解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="692"/>
+        <location filename="MainWindow.cpp" line="704"/>
         <source>Muted.</source>
         <translation>発言禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="706"/>
+        <location filename="MainWindow.cpp" line="718"/>
         <source>Muted and deafened.</source>
         <translation>発言禁止と聴取禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="708"/>
+        <location filename="MainWindow.cpp" line="720"/>
         <source>Deafened.</source>
         <translation>聴取禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="710"/>
+        <location filename="MainWindow.cpp" line="722"/>
         <source>Undeafened.</source>
         <translation>聴取禁止を解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="765"/>
+        <location filename="MainWindow.cpp" line="777"/>
         <source>About Qt</source>
         <translation>Qtについて</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="846"/>
+        <location filename="MainWindow.cpp" line="858"/>
         <source>Joining %1.</source>
         <translation>%1 に入る</translation>
     </message>
@@ -3346,17 +3361,17 @@ of the possible locations.</source>
         <translation type="obsolete">サーバーに接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="964"/>
+        <location filename="MainWindow.cpp" line="976"/>
         <source>Server connection failed: %1.</source>
         <translation>サーバーへの接続に失敗しました: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="966"/>
+        <location filename="MainWindow.cpp" line="978"/>
         <source>Disconnected from server.</source>
         <translation>サーバーから切断しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="280"/>
+        <location filename="MainWindow.cpp" line="292"/>
         <source>Reconnecting.</source>
         <translation>再接続中.</translation>
     </message>
@@ -3511,57 +3526,57 @@ of the possible locations.</source>
         <translation>テキストメッセージを送信</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="448"/>
+        <location filename="MainWindow.cpp" line="460"/>
         <source>Sending message to %1</source>
         <translation>%1 にメッセージを送信しています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="645"/>
+        <location filename="MainWindow.cpp" line="657"/>
         <source>To %1: %2</source>
         <translation>%1 宛: %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="645"/>
+        <location filename="MainWindow.cpp" line="657"/>
         <source>Message to %1</source>
         <translation>%1 へのメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="973"/>
+        <location filename="MainWindow.cpp" line="985"/>
         <source>Invalid username</source>
         <translation>不正なユーザー名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="973"/>
+        <location filename="MainWindow.cpp" line="985"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>不正なユーザー名で接続しました。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="973"/>
+        <location filename="MainWindow.cpp" line="985"/>
         <source>That username is already in use, please try another username.</source>
         <translation>そのユーザー名は既に使われています。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="978"/>
+        <location filename="MainWindow.cpp" line="990"/>
         <source>Wrong password</source>
         <translation>誤ったパスワード</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="978"/>
+        <location filename="MainWindow.cpp" line="990"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>登録されたユーザーのパスワードが違います。再度試してください</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="978"/>
+        <location filename="MainWindow.cpp" line="990"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>未登録ユーザーのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="359"/>
+        <location filename="Messages.cpp" line="360"/>
         <source>From %1: %2</source>
         <translation>%1 より: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="360"/>
+        <location filename="Messages.cpp" line="361"/>
         <source>Message from %1</source>
         <translation>%1 からのメッセージ</translation>
     </message>
@@ -3586,17 +3601,17 @@ of the possible locations.</source>
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="922"/>
+        <location filename="MainWindow.cpp" line="934"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL証明のエラー: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="927"/>
+        <location filename="MainWindow.cpp" line="939"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; サーバーは保存されたものと異なった証明書を呈示しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="929"/>
+        <location filename="MainWindow.cpp" line="941"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>サーバーは検証に通らなかった証明書を送信しました。</translation>
     </message>
@@ -3616,112 +3631,112 @@ of the possible locations.</source>
         <translation>サーバーとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="225"/>
+        <location filename="MainWindow.cpp" line="237"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="227"/>
+        <location filename="MainWindow.cpp" line="239"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="238"/>
+        <location filename="MainWindow.cpp" line="250"/>
         <source>Connecting to %1</source>
         <translation>%1 に接続しています</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="238"/>
+        <location filename="MainWindow.cpp" line="250"/>
         <source>Enter username</source>
         <translation>ユーザー名を入力してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="332"/>
+        <location filename="MainWindow.cpp" line="344"/>
         <source>Mumble Server Information</source>
         <translation>Mumble サーバーの情報</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="943"/>
+        <location filename="MainWindow.cpp" line="955"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="938"/>
+        <location filename="MainWindow.cpp" line="950"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;詳細な証明書エラーの内容: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;この証明書を受け入れますか？&lt;br /&gt;(同時に証明書を保存するので、今後この質問は表示されません。)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="313"/>
+        <location filename="MainWindow.cpp" line="325"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="317"/>
+        <location filename="MainWindow.cpp" line="329"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="319"/>
+        <location filename="MainWindow.cpp" line="331"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;音声チャンネル&lt;/h2&gt;&lt;p&gt;128 bit OCB-AES128 で暗号化されています。&lt;br /&gt;平均 %1 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>UDP Statistics</source>
         <translation>UDP統計</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>To Server</source>
         <translation>サーバー宛</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>From Server</source>
         <translation>サーバーから</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Good</source>
         <translation>良好</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Late</source>
         <translation>遅延</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Lost</source>
         <translation>消失</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="338"/>
         <source>Resync</source>
         <translation>最同期</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="632"/>
+        <location filename="MainWindow.cpp" line="644"/>
         <source>Sending message to channel %1</source>
         <translation>チャンネル %1 に送信するメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="659"/>
+        <location filename="MainWindow.cpp" line="671"/>
         <source>Sending message to channel tree %1</source>
         <translation>チャンネルツリー %1 に送信するメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="672"/>
+        <location filename="MainWindow.cpp" line="684"/>
         <source>To tree %1: %2</source>
         <translation>tree %1 宛: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="672"/>
+        <location filename="MainWindow.cpp" line="684"/>
         <source>Message to tree %1</source>
         <translation>tree %1 宛メッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="723"/>
+        <location filename="MainWindow.cpp" line="735"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation>ローカルな聴取禁止モードになりました。このモードはサーバーには反映されません。そしてあなたの声はまだ送信され続けています。このモードは、同じ部屋に数人の人がいて、そのうちの1人がMumbleを大音量のスピーカーで使っているような時だけ使用すればよいでしょう。</translation>
     </message>
@@ -3796,7 +3811,7 @@ of the possible locations.</source>
         <translation>チャンネルとそのサブチャンネルにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="325"/>
+        <location filename="Messages.cpp" line="326"/>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
         <translation>サーバーの最大帯域幅は %1 kbit/s しかありません。品質は自動的に調整されます。</translation>
     </message>
@@ -3806,14 +3821,29 @@ of the possible locations.</source>
         <translation>初めての起動です。&lt;br /&gt;サウンドカードの設定をするために音声ウィザードに移動しますか？</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="330"/>
+        <location filename="MainWindow.cpp" line="342"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;音声帯域幅&lt;/h2&gt;&lt;p&gt;最大値 %1 kbit/s&lt;br /&gt;現在値 %2 kbit/s (品質 %3)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="879"/>
+        <location filename="MainWindow.cpp" line="891"/>
         <source>Connected to server %1.</source>
         <translation>サーバー %1 に接続しました。</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="181"/>
+        <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="182"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="183"/>
+        <source>Minimize</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4376,17 +4406,17 @@ of the possible locations.</source>
 <context>
     <name>PlayerModel</name>
     <message>
-        <location filename="PlayerModel.cpp" line="368"/>
+        <location filename="PlayerModel.cpp" line="389"/>
         <source>Name of player</source>
         <translation>プレイヤーの名前</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="368"/>
+        <location filename="PlayerModel.cpp" line="389"/>
         <source>Name of channel</source>
         <translation>チャンネルの名前</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="370"/>
+        <location filename="PlayerModel.cpp" line="391"/>
         <source>Player flags</source>
         <translation>プレイヤーのフラグ</translation>
     </message>
@@ -4396,7 +4426,7 @@ of the possible locations.</source>
         <translation type="obsolete">サーバーに接続しているプレイヤーです。プレイヤーの左のアイコンはその人が話しているかどうかを示しています:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; 話している&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; 話していない</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="383"/>
+        <location filename="PlayerModel.cpp" line="404"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
         <translation>サーバーにあるチャンネルです。同じチャンネルにいるプレイヤーしかお互いの会話を聞くことはできません。</translation>
     </message>
@@ -4406,22 +4436,22 @@ of the possible locations.</source>
         <translation type="obsolete">サーバー内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;認証されたユーザー&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="409"/>
+        <location filename="PlayerModel.cpp" line="430"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="411"/>
+        <location filename="PlayerModel.cpp" line="432"/>
         <source>Flags</source>
         <translation>フラグ</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="381"/>
+        <location filename="PlayerModel.cpp" line="402"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation>サーバーに接続しているプレイヤーです。プレイヤーの左のアイコンはその人が話しているかどうかを示しています:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; 話している&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; 話していない</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="393"/>
+        <location filename="PlayerModel.cpp" line="414"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>サーバー内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;認証されたユーザー&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
     </message>
