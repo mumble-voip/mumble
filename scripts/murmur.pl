@@ -121,6 +121,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
       $$aref[3] = $s->param('pw');
       $object->updateRegistration($aref);
       print "<h1>Updated password</h1><p>Your password has been reset.</p>";
+      $showit = 0;
     } else {
       print "<h1>Apologies</h1><p>Someone has already registered that name in the meantime.</p>";
     }
@@ -130,6 +131,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
       my @array = ($res, $s->param('name'), $s->param('email'), $s->param('pw'));
       $object->updateRegistration(\@array);
       print "<h1>Succeeded</h1><p>Thank you for registering.</p>";
+      $showit = 0;
     } else {
       print "<h1>Failed</h1><p>Username rejected by server.</p>";
     }
