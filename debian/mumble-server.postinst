@@ -22,12 +22,18 @@ set -e
 
 case "$1" in
     configure)
+    	# Add user and permanent directories
     	adduser --system --quiet --group mumble-server
     	chmod 0750 /var/log/mumble-server
     	chmod 0750 /var/lib/mumble-server
     	chown mumble-server:mumble-server /var/log/mumble-server
     	chown mumble-server:mumble-server /var/lib/mumble-server
     	
+    	# Ensure the file we put in /etc/dbus-1/system.d is loaded
+    	# or murmurd will fail to bind to dbus.
+    	invoke-rc.d --quiet dbus reload
+    	
+	# Update /etc/default file based on config
     	if [ -f /etc/default/mumble-server ]; then
 	    	db_get mumble-server/start_daemon
     		if [ "$RET" = "true" ]; then
@@ -44,6 +50,7 @@ case "$1" in
 		echo "/etc/default/mumble-server not found, configuration failed" >&2
 	fi
 
+	# Update /etc/mumble-server.ini based on config
     	if [ -f /etc/mumble-server.ini ]; then
 	    	db_get mumble-server/emailfrom
 	    	if [ "X$RET" != "X" ]; then
@@ -60,6 +67,9 @@ case "$1" in
     		echo "/etc/mumble-server.ini not found, configuration failed." >&2
     	fi
 
+	# Update SuperUser password based on config.
+	# When set, clear it from config as it can't be queried and the user is
+	# likely to update it outside of deb-conf.
     	db_get mumble-server/password
     	if [ "X$RET" != "X" ]; then
             start-stop-daemon --start --quiet --chuid mumble-server:mumble-server --exec /usr/sbin/murmurd -- -ini /etc/mumble-server.ini -supw "$RET"

@@ -12,10 +12,10 @@
 ### END INIT INFO
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-NAME=murmur
+NAME=mumble-server
 DESC="Mumble VoIP Server"
-PIDDIR=/var/run/mumble-server
-PIDFILE=$PIDDIR/mumble-server.pid
+PIDDIR=/var/run/$NAME
+PIDFILE=$PIDDIR/$NAME.pid
 DAEMON=/usr/sbin/murmurd
 USER=mumble-server
 GROUP=mumble-server
@@ -27,8 +27,8 @@ DAEMON_OPTS="-ini $INIFILE"
 MURMUR_DAEMON_START=0
 
 # Include murmur defaults if available
-if [ -f /etc/default/mumble-server ] ; then
-	. /etc/default/mumble-server
+if [ -f /etc/default/$NAME ] ; then
+	. /etc/default/$NAME
 fi
 
 . /lib/init/vars.sh

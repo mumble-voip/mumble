@@ -167,6 +167,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
         print "<h1>Image failure</h1><p>Failed to convert that to a proper image.</p>";
      } else {
         print "<h1>Succeeded</h1><p>Reconnect to use the new image.</p>";
+        $showit = 0;
      }
    }
 } elsif (defined($name) && defined($pw) && defined($email)) {
@@ -208,6 +209,9 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
     $s->param('auth', $code);
     
     my $smtp = new Net::SMTP($emailserver);
+    if (! $smtp) {
+      croak(qq{Failed to connect to SMTP server "$emailserver". This is most likely a configuration problem.\n});
+    }
     $smtp->mail($emailfrom);
     $smtp->to($email);
     $smtp->data();
@@ -227,6 +231,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
     
     print '<h1>Registration complete</h1><p>Thank you for registering. An email has been sent to you with ';
     print 'an activation code.</p>';
+    $showit = 0;
   } else {
     print '<ul>';
     foreach my $error (@errors) {
