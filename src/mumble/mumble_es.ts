@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -2142,17 +2143,17 @@
     <message>
         <location filename="ConnectDialog.cpp" line="255"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="332"/>
         <source>Add</source>
-        <translation type="unfinished">Agregar</translation>
+        <translation>Agregar</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="330"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar</translation>
     </message>
 </context>
 <context>
@@ -3982,17 +3983,17 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.cpp" line="181"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble está conectado a un servidor actualmente. ¿Desea cerrarlo o minimizarlo?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="182"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="183"/>
         <source>Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimizar</translation>
     </message>
 </context>
 <context>
@@ -4000,142 +4001,142 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="NetworkConfig.cpp" line="47"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Red</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Formulario</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="25"/>
         <source>Connection</source>
-        <translation type="unfinished">Conexión</translation>
+        <translation>Conexión</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="31"/>
         <source>Use TCP compatability mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar modo de compatibilidad TCP</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="34"/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Habilita el modo de Compatibilidad TCP&lt;/b&gt;.&lt;br /&gt;Esto hará que Mumble sólo use TCP cuando se comunique con el servidor. Esto aumentará la sobrecarga y provocará que los paquetes perdidos produzcan notables pausas en la comunicación, así que sólo debería ser usado si no consigue usar la opción por defecto (que emplea UDP para la voz y TCP para el control).</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="37"/>
         <source>Use TCP mode</source>
-        <translation type="unfinished">Usar modo TCP</translation>
+        <translation>Usar modo TCP</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="44"/>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished">Volver a conectar cuando sea desconectado</translation>
+        <translation>Volver a conectar cuando sea desconectado</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="47"/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished">&lt;b&gt;Volver a conectar cuando sea desconectado&lt;/b&gt;.&lt;br /&gt;Hace que Mumble intente volver a conectar automáticamente después de 10 segundos si falla su conexión con el servidor.</translation>
+        <translation>&lt;b&gt;Volver a conectar cuando sea desconectado&lt;/b&gt;.&lt;br /&gt;Hace que Mumble intente volver a conectar automáticamente después de 10 segundos si falla su conexión con el servidor.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="50"/>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectar automáticamente</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="66"/>
         <source>Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxy</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="72"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="85"/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de proxy a través del que conectar</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="88"/>
         <source>&lt;b&gt;Type of proxy to connect through&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatability mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tipo de proxy a través del que  conectar&lt;/b&gt;&lt;br /&gt;Ésto hace que Mumble se conecte a través de un proxy para todas las conexiones salientes. Nota: El uso de túneles proxy fuerza a Mumble al modo de compatibilidad TCP, causando que todos los datos de voz se envíen a través del canal de control.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="92"/>
         <source>Direct connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión directa</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="97"/>
         <source>HTTP(S) proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxy HTTP(S)</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="102"/>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxy SOCKS5</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="110"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del servidor</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="126"/>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del servidor proxy</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="129"/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Nombre del servidor proxy.&lt;b&gt;&lt;br /&gt;Este campo especifica el nombre del servidor proxy a través del que desea construir un túnel para el tráfico de red.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="151"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="176"/>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de puerto del proxy</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="179"/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Número de puerto del proxy.&lt;/b&gt;&lt;br /&gt;Este campo especifica el número de puerto al que el proxy espera las conexiones.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="195"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="202"/>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario para la autenticación con el proxy</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="205"/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Nombre de usuario para la autenticación con el proxy.&lt;/b&gt;&lt;br /&gt;Ésto especifica el nombre de usuario que utilizará para autentificarse con el proxy. En caso de que el proxy no use autenticación, o que desee conectarse anónimamente, sencillamente deje este campo en blanco.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="212"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="219"/>
         <source>Password for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña para la autenticación con el proxy</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="222"/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Contraseña para la autenticación con el proxy.&lt;/b&gt;&lt;br /&gt;Ésto especifica la contraseña que usará para autenticarse con el proxy. En caso de que el proxy no use autenticación, o que desee conectarse anónimamente, sencillamente deje este campo en blanco.</translation>
     </message>
 </context>
 <context>
