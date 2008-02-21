@@ -11,32 +11,6 @@ Copyright (C) 2008, Mikkel Krautz <mikkel@krautz.dk>
 
 License:
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this package; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL-2'.
-
-
-The source code for Mumble under src/ is licensed under the BSD(revised)
-license:
-
-Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
-Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
-Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
-Copyright (C) 2008, Mikkel Krautz <mikkel@krautz.dk>
-
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -63,6 +37,38 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+The file src/CryptState.cpp implements OCB-AES128 (an authenticated-
+encryption algorithm), which is covered by patents in the US. The patent
+holder has written a patent grant for applications licensed under the GNU
+Public License, but has also granted a license for Mumble:
+
+=====================================================================
+Date: Wed, 20 Feb 2008 09:33:40 -0800 (Pacific Standard Time)
+From: Phillip Rogaway <rogaway@cs.ucdavis.edu>
+To: Thorvald Natvig <thorvald@natvig.com>
+Subject: Re: OCB under BSD License?
+
+Hi Thorvald,
+
+Nice to hear from you, and to hear that OCB is in Mumble.
+
+I am in fact planning to greatly broaden the patent grant; I just need to
+check with my attorney to see what's the best way to word it. Thanks for the
+excellent suggestion to include "all programs whose complete source code is
+freely available".  I will make sure to include this setting.  I am actually
+looking to go much further.
+
+Anyway, until I get the wording figured out and on the web
+for a very general patent grant, please consider this email from me as
+explicit permission to include OCB in Mumble and distribute it under under
+BSD (as well as GNU GPL) on a royalty-free basis.
+
+Good luck, and thanks for creating your software.
+
+phil
+=====================================================================
 
 
 The files src/mumble/smallft.cpp and src/mumble/smallft.h are copied from the
@@ -129,4 +135,4 @@ this software without specific prior written permission.
 
 
 The Debian packaging is (C) 2008, Thorvald Natvig <slicer@sourceforge.net> and
-is licensed under the GPLv2, see `/usr/share/common-licenses/GPL-2'.
+is licensed under the BSD license, see `/usr/share/common-licenses/BSD'.

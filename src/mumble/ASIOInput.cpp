@@ -381,10 +381,6 @@ void ASIOConfig::clearQuery() {
 	qlwSpeaker->clear();
 }
 
-
-
-#include "firmumble.inc"
-
 ASIOInput::ASIOInput() {
 	QString qsCls = g.s.qsASIOclass;
 	CLSID clsid;

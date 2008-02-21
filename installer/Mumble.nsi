@@ -104,6 +104,10 @@ Section "Mumble & Murmur" SecMumble
 
   SetOutPath "$INSTDIR\bin"
   File "\dev\dbus\bin\dbus-daemon.exe"
+  File "\dev\dbus\bin\libdbus-1.dll"
+  File "\dev\dbus\bin\libxml2.dll"
+  File "\dev\dbus\bin\iconv.dll"
+  File "\dev\dbus\bin\zlib1.dll"
   
   SetOutPath "$INSTDIR\etc"
   File "\dev\dbus\etc\session.conf"
@@ -131,11 +135,11 @@ Section "Mumble & Murmur" SecMumble
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "Publisher" "Mumble"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
-                 "InstallSource" "http://prdownloads.sourceforge.net/mumble/Mumble-1.1.2.exe?download"
+                 "InstallSource" "http://prdownloads.sourceforge.net/mumble/Mumble-1.1.3.exe?download"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "URLInfoAbout" "http://mumble.sourceforge.net/"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
-                 "DisplayVersion" "1.1.2"
+                 "DisplayVersion" "1.1.3"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
@@ -192,6 +196,10 @@ Section "Uninstall"
   Delete "$INSTDIR\zlib1.dll"
 
   Delete "$INSTDIR\bin\dbus-daemon.exe"
+  Delete "$INSTDIR\bin\libdbus-1.dll"
+  Delete "$INSTDIR\bin\libxml2.dll"
+  Delete "$INSTDIR\bin\iconv.dll"
+  Delete "$INSTDIR\bin\zlib1.dll"
   Delete "$INSTDIR\etc\session.conf"
   
   Delete "$INSTDIR\libeay32.dll"

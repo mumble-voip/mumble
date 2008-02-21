@@ -9,37 +9,50 @@ export DH_OPTIONS
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	qmake-qt4 main.pro DEFINES+=NO_UPDATE_CHECK DEFINES+=DEFAULT_SOUNDSYSTEM=ALSA
+	qmake-qt4 main.pro DEFINES+=NO_UPDATE_CHECK DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio
 
 	touch configure-stamp
 
+build: build-arch
 
-#Architecture 
-build: build-stamp
+build-arch: build-arch-stamp
 
-build-stamp: configure-stamp 
+build-arch-stamp: configure-stamp 
 	$(MAKE) release
-	touch build-stamp
+	touch $@
 
-clean:	configure-stamp
+clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp configure-stamp
+	rm -f build-arch-stamp configure-stamp
 
-	$(MAKE) distclean
+	[ ! -f Makefile ] || $(MAKE) distclean
 
 	# Unfortunately, static libraries are left over after
 	# qmake's makefile is done, as are the translations.
-	rm -rf release debug src/mumble/*.qm
+	[ ! -f src/mumble/mumble_en.qm ] || rm -rf release debug src/mumble/*.qm
 
 	dh_clean 
 
-install: build
+install: install-indep install-arch
+
+install-indep:
 	dh_testdir
 	dh_testroot
-	dh_clean -k
-	dh_installdirs 
-	dh_install 
+	dh_clean -k -i
+	dh_installdirs -i
+	dh_install -s
+
+	# Install and rename web scripts
+	install -D -m 0755 ./scripts/murmur.pl $(CURDIR)/debian/mumble-server-web/usr/lib/cgi-bin/mumble-server/register.cgi
+	install -D -m 0755 ./scripts/weblist.pl $(CURDIR)/debian/mumble-server-web/usr/lib/cgi-bin/mumble-server/list.cgi
+	
+install-arch:
+	dh_testdir
+	dh_testroot
+	dh_clean -k -s
+	dh_installdirs -s
+	dh_install -s
 
 	# Add debian files
 	install -m 0755 ./scripts/murmur.init $(CURDIR)/debian/mumble-server.init
@@ -54,8 +67,6 @@ install: build
 	# install rest of murmur files (rename & permissions)
 	install -D -m 0644 ./scripts/murmur.conf $(CURDIR)/debian/mumble-server/etc/dbus-1/system.d/mumble-server.conf
 	install -D -m 0644 ./scripts/murmur.ini.system $(CURDIR)/debian/mumble-server/etc/mumble-server.ini
-	install -D -m 0755 ./scripts/murmur.pl $(CURDIR)/debian/mumble-server/usr/lib/cgi-bin/mumble-server/register.cgi
-	install -D -m 0755 ./scripts/weblist.pl $(CURDIR)/debian/mumble-server/usr/lib/cgi-bin/mumble-server/list.cgi
 
 binary-common:
 	dh_testdir
@@ -73,18 +84,19 @@ binary-common:
 	dh_strip
 	dh_compress 
 	dh_fixperms
-	dh_perl $(CURDIR)/debian/mumble-server/usr/lib/cgi-bin/mumble-server
+	dh_perl $(CURDIR)/debian/mumble-server-web/usr/lib/cgi-bin/mumble-server
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
 
-binary-indep:
+binary-indep: install-indep
+	$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
 
-binary-arch: build install
-	$(MAKE) -f debian/rules DH_OPTIONS=-a binary-common
+binary-arch: build-arch install-arch
+	$(MAKE) -f debian/rules DH_OPTIONS=-s binary-common
 
 binary:	binary-indep binary-arch
 
-.PHONY: build clean binary install configure
+.PHONY: build clean binary-indep binary-arch binary install install-indep install-arch configure
