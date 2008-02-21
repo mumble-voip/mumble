@@ -131,6 +131,7 @@ int main(int argc, char **argv) {
 		exit(0);
 	}
 #endif
+
 	int res;
 
 #ifdef Q_OS_WIN
@@ -149,6 +150,10 @@ int main(int argc, char **argv) {
 	a.setApplicationName("Murmur");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
+
+#ifdef Q_OS_WIN
+	_putenv(qPrintable(QString::fromLatin1("PATH=%1\\bin;%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QLatin1String(getenv("PATH")))));
+#endif
 
 	argc = a.argc();
 	argv = a.argv();
