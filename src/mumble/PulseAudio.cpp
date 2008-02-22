@@ -88,6 +88,9 @@ PulseAudioSystem::PulseAudioSystem() {
 	pa_mainloop_api *api = pa_mainloop_get_api(pam);
 
 	pacContext = pa_context_new(api, "Mumble");
+	
+	pa_context_set_subscribe_callback(pacContext, subscribe_callback, this);
+	
 	pa_context_set_state_callback(pacContext, context_state_callback, this);
 	pa_context_connect(pacContext, NULL, PA_CONTEXT_NOAUTOSPAWN, NULL);
 
@@ -126,6 +129,7 @@ void PulseAudioSystem::defer_event_callback(pa_mainloop_api *a, pa_defer_event *
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 	pas->eventCallback(a, e);
 }
+
 
 void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) {
 	Q_ASSERT(pade == evt);
@@ -290,6 +294,12 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) 
 void PulseAudioSystem::context_state_callback(pa_context *c, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 	pas->contextCallback(c);
+}
+
+void PulseAudioSystem::subscribe_callback(pa_context *c, pa_subscription_event_type t, unsigned int idx, void *userdata) {
+	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+	qWarning("PulseAudio: Sinks or inputs changed (inserted or removed sound card)");
+	pas->query();
 }
 
 void PulseAudioSystem::sink_callback(pa_context *, const pa_sink_info *i, int eol, void *userdata) {
@@ -457,6 +467,8 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 	Q_ASSERT(c == pacContext);
 	switch (pa_context_get_state(c)) {
 		case PA_CONTEXT_READY:
+			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SOURCE, NULL, this));
+			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SINK, NULL, this));
 			query();
 			break;
 		case PA_CONTEXT_TERMINATED:

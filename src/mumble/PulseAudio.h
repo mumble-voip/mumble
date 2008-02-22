@@ -81,6 +81,7 @@ class PulseAudioSystem : public QThread {
 
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);
+		static void subscribe_callback(pa_context *c, pa_subscription_event_type_t t, uint32_t idx, void *userdata);
 		static void sink_callback(pa_context *c, const pa_sink_info *i, int eol, void *userdata);
 		static void source_callback(pa_context *c, const pa_source_info *i, int eol, void *userdata);
 		static void server_callback(pa_context *c, const pa_server_info *i, void *userdata);
