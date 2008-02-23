@@ -43,13 +43,13 @@ Settings::Settings() {
 	iComplexity = 4;
 	fVolume = 1.0;
 	iMinLoudness = 1000;
-	iVoiceHold = 200;
+	iVoiceHold = 100;
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
 	vsVAD = SignalToNoise;
-	fVADmin = 1.0 / 32.767;
-	fVADmax = 4.0 / 32.767;
+	fVADmin = 0.80;
+	fVADmax = 0.98;
 	bExpandAll = true;
 	bPushClick = false;
 
