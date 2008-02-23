@@ -181,12 +181,12 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) 
 			qWarning("PulseAudio: Stopping output");
 			pa_stream_disconnect(pasOutput);
 		} else if (do_start) {
-			qWarning("PulseAudio: Starting output");
+			qWarning("PulseAudio: Starting output: %s", qPrintable(odev));
 			pa_buffer_attr buff;
-			buff.maxlength = pao->iFrameSize * NBLOCKS;
-			buff.tlength = g.s.iDXOutputDelay * pao->iFrameSize;
+			buff.maxlength = pao->iFrameSize * NBLOCKS * sizeof(short);
+			buff.tlength = g.s.iDXOutputDelay * pao->iFrameSize * sizeof(short);
 			buff.prebuf = buff.tlength;
-			buff.minreq = pao->iFrameSize;
+			buff.minreq = pao->iFrameSize * sizeof(short);
 
 			iDelayCache = g.s.iDXOutputDelay;
 			qsOutputCache = odev;
@@ -233,8 +233,8 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) 
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting input %s",qPrintable(idev));
 			pa_buffer_attr buff;
-			buff.maxlength = pai->iFrameSize * NBLOCKS;
-			buff.fragsize = pai->iFrameSize;
+			buff.maxlength = pai->iFrameSize * NBLOCKS * sizeof(short);
+			buff.fragsize = pai->iFrameSize * sizeof(short);
 
 			qsInputCache = idev;
 
@@ -260,7 +260,6 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) 
 						pasSpeaker = pa_stream_new(pacContext, "Mumble Speakers (Echo)", &ss, NULL);
 						pa_stream_set_state_callback(pasSpeaker, stream_callback, this);
 						pa_stream_set_read_callback(pasSpeaker, read_callback, this);
-
 					}
 				case PA_STREAM_UNCONNECTED:
 					do_start = true;
@@ -279,10 +278,10 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) 
 			qWarning("PulseAudio: Stopping echo");
 			pa_stream_disconnect(pasSpeaker);
 		} else if (do_start) {
-			qWarning("PulseAudio: Starting echo");
+			qWarning("PulseAudio: Starting echo: %s", qPrintable(edev));
 			pa_buffer_attr buff;
-			buff.maxlength = pai->iFrameSize * NBLOCKS;
-			buff.fragsize = pai->iFrameSize;
+			buff.maxlength = pai->iFrameSize * NBLOCKS * sizeof(short);
+			buff.fragsize = pai->iFrameSize * sizeof(short);
 
 			qsEchoCache = edev;
 
@@ -351,6 +350,8 @@ void PulseAudioSystem::stream_callback(pa_stream *s, void *userdata) {
 	}
 	pas->wakeup();
 }
+
+static Timer tix;
 
 void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
@@ -429,9 +430,9 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 
 	AudioOutputPtr ao = g.ao;
 	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(ao.get());
-
+	
 	int samples = bytes / 2;
-
+	
 	if (! pao) {
 		// Transitioning, but most likely transitions back, so just zero.
 		short zero[samples];

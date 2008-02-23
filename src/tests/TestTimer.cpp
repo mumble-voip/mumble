@@ -7,8 +7,21 @@ class TestTimer : public QObject {
 		Q_OBJECT
 	private slots:
 		void resolution();
+		void accuracy();
 		void atomicity();
 };
+
+void TestTimer::accuracy() {
+	QTime a;
+	Timer t;
+	
+	a.restart();
+	t.restart();
+	do {
+	} while(a.elapsed() < 1000);
+	
+	QVERIFY(abs(t.elapsed() / 1000ULL - a.elapsed()) < 10);
+}
 
 void TestTimer::resolution() {
 	QTime a;
