@@ -7,12 +7,16 @@ use Data::Dumper;
 use Date::Parse;
 use Text::Wrap qw(wrap fill);
 
+print "Reading XML...\n";
+
 my $ref = XMLin('-');
 
 my %log;
 my %rev;
 
 $Text::Wrap::columns = 79;
+
+print "Parsing log...\n";
 
 foreach my $entry (@{$$ref{'logentry'}}) {
   my ($ss,$mm,$hh,$day,$month,$year,$zone) = strptime($$entry{'date'});
@@ -27,6 +31,8 @@ foreach my $entry (@{$$ref{'logentry'}}) {
 #  print "$date\n";
 }
 #print Dumper(\%rev);
+
+print "Creating CHANGES...\n";
 
 open(C, ">CHANGES");
 
