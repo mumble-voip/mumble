@@ -351,8 +351,6 @@ void PulseAudioSystem::stream_callback(pa_stream *s, void *userdata) {
 	pas->wakeup();
 }
 
-static Timer tix;
-
 void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
