@@ -1,4 +1,49 @@
-2008-01-15 Revision 917-918
+2008-02-23 Revision 945
+	* Small update to changelog script
+	* Update PulseAudio buffering to use bytes and not shorts
+2008-02-22 Revision 944
+	* Reread list of sinks and outputs when someone adds/removes a audio
+	  card for PulseAudio
+2008-02-21 Revision 942
+	* Add DBus path for Murmur on Win32
+	* Major packaging cleanups. Getting ready for 1.1.3
+2008-02-18 Revision 941
+	* Updated Spanish translation. [Naproxeno]
+2008-02-17 Revision 938-939
+	* Escaping a few - in manpages
+	* Small update to registration script
+	* Minor updates to ubuntu packaging
+2008-02-14 Revision 935-936
+	* Language file sync.
+	* Make "Remove" disabled if there are no entries in the server list.
+	* Refresh public server list every 24 hours.
+	  Change the "Add" button into a context-sensitive
+	  "Update"/"New"/"Add" button.
+2008-02-13 Revision 933
+	* Unembedding of speex FFT functions -- Mumble should now be able to
+	  build with a system-installed Speex >= 1.2.0
+	* Merged most of our speex changes into speex upstream; first patch to
+	  unembed Speex.
+2008-02-09 Revision 931
+	* Improve visibility of linked channel state
+	* Fix "move to parent" bug.
+2008-02-01 Revision 929
+	* s/proprietary/non-standard/
+	* Automatically add/remove /dev/input devices [mkrautz]
+2008-01-26 Revision 928
+	* Ask "Are you sure?" if quitting while connected.
+2008-01-20 Revision 927
+	* Fixed some strings in the Spanish translation [naproxeno]
+2008-01-18 Revision 926
+	* Fixed some strings in the Spanish translation [naproxeno]
+2008-01-17 Revision 924
+	* Updated Spanish translation [naproxeno]
+	* Restore linked state on server restart
+2008-01-16 Revision 922
+	* manpage updates and .config fix from patrick.matthaei@web.de
+	* Disallow local mute of self
+2008-01-15 Revision 917-919
+	* Changelog update
 	* Add template and config file for .deb
 	* Final touches for debian package
 	* Extensive updates to ubuntu package (not quite done)
@@ -687,7 +732,7 @@
 	* Minor typo in translation fixed.
 	* VersionCheck shouldn't bail if it can't read the binary.
 	* German translation provided by Matthias Vogelgesang (m0ta@sf.net)
-	  Spanish translation provided by ¡lvaro M. Recio PÈrez
+	  Spanish translation provided by √Ålvaro M. Recio P√©rez
 	  (naproxeno@sf.net)
 	  Added more strings to be translated based on patch by m0ta.
 	  Made translation files embedded in binary.
