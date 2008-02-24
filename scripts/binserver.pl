@@ -31,9 +31,9 @@ foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro
 }
 
 chdir("src/murmur");
-system("/usr/local/Trolltech/Qt-4.3.3/bin/qmake CONFIG+=static");
+system("/usr/local/Trolltech/Qt-4.3.5-snapshot-20080223/bin/qmake CONFIG+=static");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.3.3/bin/qmake CONFIG+=static");
+system("/usr/local/Trolltech/Qt-4.3.5-snapshot-20080223/bin/qmake CONFIG+=static");
 system("make");
 chdir("../..");
 
