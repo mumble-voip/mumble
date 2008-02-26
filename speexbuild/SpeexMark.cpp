@@ -16,8 +16,10 @@ int main(int argc, char **argv) {
 	
 	QCoreApplication a(argc, argv);
 	
-	QFile f("wb_male.wav");
-	f.open(QIODevice::ReadOnly);
+	QFile f((argc >= 2) ? argv[1] : "wb_male.wav");
+	if (! f.open(QIODevice::ReadOnly)) {
+		qFatal("Failed to open file!");
+	}
 	f.seek(36 + 8);
 	
 	void *enc = speex_encoder_init(&speex_wb_mode);
@@ -28,7 +30,7 @@ int main(int argc, char **argv) {
 	speex_encoder_ctl(enc, SPEEX_SET_VAD, &iarg);
 	speex_encoder_ctl(enc, SPEEX_SET_DTX, &iarg);
 	
-	float farg = 5.0;
+	float farg = 6.0;
 	speex_encoder_ctl(enc, SPEEX_SET_VBR_QUALITY, &farg);
 	speex_encoder_ctl(enc, SPEEX_GET_BITRATE, &iarg);
 	speex_encoder_ctl(enc, SPEEX_SET_VBR_MAX_BITRATE, &iarg);
@@ -39,7 +41,6 @@ int main(int argc, char **argv) {
 	int iFrameSize;
 	speex_encoder_ctl(enc, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 	
-
 	SpeexPreprocessState *spp = speex_preprocess_state_init(iFrameSize, 16000);
 	iarg = 1;
 	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_VAD, &iarg);
@@ -47,11 +48,15 @@ int main(int argc, char **argv) {
 	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_AGC, &iarg);
 	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_DEREVERB, &iarg);
 	
+	SpeexEchoState *ses = speex_echo_state_init(iFrameSize, iFrameSize * 10);
+	iarg = 16000;
+	speex_echo_ctl(ses, SPEEX_SET_SAMPLING_RATE, &iarg);
+	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_ECHO_STATE, ses);
 	
 	QVector<QByteArray> v;
 	while(1) {
 		QByteArray qba = f.read(iFrameSize * 2);
-		if (qba.size() != iFrameSize *2) 
+		if (qba.size() != iFrameSize * 2) 
 			break;
 		v.append(qba);
 	}
@@ -61,6 +66,11 @@ int main(int argc, char **argv) {
 	qWarning("Ready to process %d frames of %d samples", nframes, iFrameSize);
 
 	QVector<short *> sv;
+	
+	short tframe[iFrameSize];
+	for(int i=0;i<iFrameSize;i++)
+		tframe[i] = 0;
+
 	for(int i=0;i<nframes;i++) {
 		sv.append(reinterpret_cast<short *>(v[i].data()));
 	}
@@ -72,10 +82,11 @@ int main(int argc, char **argv) {
 	t.restart();
 	
 	CALLGRIND_START_INSTRUMENTATION;
-	for(int i=0;i<nframes;i++) {
+	for(int i=0;i<nframes-2;i++) {
 		speex_bits_reset(&sb);	
-		speex_preprocess(spp, sv[i], NULL);
-		speex_encode_int(enc, sv[i], &sb);
+		speex_echo_cancellation(ses, sv[i], sv[i+2], tframe);
+		speex_preprocess_run(spp, tframe);
+		speex_encode_int(enc, tframe, &sb);
 	}
 	CALLGRIND_STOP_INSTRUMENTATION;
 	

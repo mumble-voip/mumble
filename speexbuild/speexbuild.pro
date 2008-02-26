@@ -43,3 +43,14 @@ CONFIG(symbols) {
   QMAKE_LFLAGS -= -Wl,-s
   QMAKE_LFLAGS_RELEASE -= -Wl,-s
 }
+
+CONFIG(optgen) {
+  QMAKE_CFLAGS += -O3 -ffast-math -ftree-vectorize -fprofile-generate
+}
+
+CONFIG(optimize) {
+  !exists(release/speex.gcda) {
+     error(You need to run SpeexMark first)
+  }
+  QMAKE_CFLAGS += -O3 -ffast-math -ftree-vectorize -fprofile-use
+}
