@@ -1,0 +1,11 @@
+TEMPLATE	=app
+CONFIG  += qt warn_on release
+QT -= gui
+TARGET = SpeexMark
+SOURCES = SpeexMark.cpp Timer.cpp
+HEADERS = Timer.h
+VPATH += ../src 
+INCLUDEPATH = ../src ../speex/include
+LIBS += -lspeex
+QMAKE_LFLAGS += -L../release
+QMAKE_LFLAGS += -fprofile-generate
