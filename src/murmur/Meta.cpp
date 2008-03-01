@@ -69,14 +69,13 @@ void MetaParams::read(QString fname) {
 
 		QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
 
-		appdir.mkpath(QLatin1String("Mumble"));
 		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
 #else
-		FIX TRICK TO COPY QSETTING PATH!
+		datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
 		datapaths << QDir::homePath();
 		datapaths << QDir::currentPath();
-		datapaths << qApp->applicationDirPath();
+		datapaths << QCoreApplication::instance()->applicationDirPath();
 
 		foreach(const QString &p, datapaths) {
 			QFileInfo fi(p, "murmur.ini");
@@ -87,6 +86,7 @@ void MetaParams::read(QString fname) {
 			}
 		}
 		if (fname.isEmpty()) {
+			QDir::root().mkpath(qdBasePath.absolutePath());
 			qdBasePath = QDir(datapaths.at(0));
 			fname = qdBasePath.absolutePath() + QLatin1String("/murmur.ini");
 		}

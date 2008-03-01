@@ -45,10 +45,9 @@ Database::Database() {
 
 	QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
 
-	appdir.mkpath(QLatin1String("Mumble"));
 	datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
 #else
-	FIX TRICK TO COPY QSETTING PATH!
+	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
 
 	datapaths << QDir::homePath();
@@ -76,6 +75,7 @@ Database::Database() {
 	if (! found) {
 		for (i = 0; (i < datapaths.size()) && ! found; i++) {
 			if (!datapaths[i].isEmpty()) {
+				QDir::root().mkpath(datapaths[i]);
 #ifdef Q_OS_WIN
 				QFile f(datapaths[i] + QLatin1String("/mumble.sqlite"));
 #else
