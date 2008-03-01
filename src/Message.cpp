@@ -30,6 +30,7 @@
 
 #include "Message.h"
 #include "PacketDataStream.h"
+#include "murmur_pch.h"
 
 Message::Message() {
 	uiSession = 0;
@@ -51,7 +52,7 @@ void Message::messageToNetwork(QByteArray &qbaOut) const {
 	}
 
 	unsigned int size = 8192 + qdsOut.undersize();
-	char b[size];
+	STACKVAR(char, b, size);
 	PacketDataStream pdsResized(b, size);
 	pdsResized << messageType();
 	pdsResized << uiSession;

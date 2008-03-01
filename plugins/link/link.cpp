@@ -81,6 +81,6 @@ static MumblePlugin linkplug = {
 	fetch
 };
 
-extern "C" __declspec(dllexport) __cdecl MumblePlugin *getMumblePlugin() {
+extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &linkplug;
 }

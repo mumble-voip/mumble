@@ -28,6 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "Player.h"
 #include "Channel.h"
 #include "ACL.h"
@@ -343,7 +345,7 @@ bool Server::checkDecrypt(User *u, const char *encrypted, char *plain, unsigned 
 
 void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) {
 	if ((u->saiUdpAddress.sin_port != 0) && u->csCrypt.isValid()) {
-		char buffer[len+4];
+		STACKVAR(char, buffer, len+4);
 		u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len);
 		::sendto(sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
 	} else {

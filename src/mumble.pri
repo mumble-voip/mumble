@@ -5,19 +5,28 @@ CONFIG		+= qt thread debug_and_release warn_on
   CONFIG += precompile_header
 }
 
-QMAKE_CFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
-QMAKE_CXXFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+!win32 {
+  QMAKE_CFLAGS		+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+  QMAKE_CXXFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+}
+win32 {
+  QMAKE_CXX = icl
+  QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
+  QMAKE_CXXFLAGS += -Qstd=c++0x -Qrestrict
+  QMAKE_CXXFLAGS_RELEASE += -O3 -QxK -Qip
+  QMAKE_CXXFLAGS_DEBUG += -O2 -QxK -Ob0
+}
 
 INCLUDEPATH	+= $$PWD
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  QMAKE_LFLAGS	+= -L../../debug
+  LIBPATH	+= ../../debug
   DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  QMAKE_LFLAGS	+= -L../../release
+  LIBPATH	+= ../../release
   DESTDIR	= ../../release
 }
 
@@ -25,9 +34,8 @@ CONFIG(release, debug|release) {
 # we need the debug symbols.
 
 CONFIG(symbols) {
-  QMAKE_CFLAGS_RELEASE += -g 
-  QMAKE_CXXFLAGS_RELEASE += -g 
-  QMAKE_LFLAGS += -g
-  QMAKE_LFLAGS_RELEASE -= -Wl,-s
+  QMAKE_CFLAGS_RELEASE += -Zi
+  QMAKE_CXXFLAGS_RELEASE += -Zi
+  QMAKE_LFLAGS += /DEBUG
 }
   

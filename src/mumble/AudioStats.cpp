@@ -154,8 +154,9 @@ void AudioEchoWidget::paintGL() {
 	spx_int32_t sz;
 	speex_echo_ctl(ai->sesEcho, SPEEX_ECHO_GET_IMPULSE_RESPONSE_SIZE, &sz);
 
-	spx_int32_t w[sz];
-	float W[sz];
+	STACKVAR(spx_int32_t, w, sz);
+	STACKVAR(float, W, sz);
+
 	speex_echo_ctl(ai->sesEcho, SPEEX_ECHO_GET_IMPULSE_RESPONSE, w);
 
 	ai->qmSpeex.unlock();
@@ -188,7 +189,7 @@ void AudioEchoWidget::paintGL() {
 			double xb = xa + xscale;
 			double yb = ya + yscale;
 
-			mapEchoToColor(sqrt(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 65536.f);
+			mapEchoToColor(sqrtf(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 65536.f);
 			glVertex2f(xa, ya);
 			glVertex2f(xb, ya);
 			glVertex2f(xb, yb);
@@ -229,8 +230,8 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	spx_int32_t ps_size = 0;
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD_SIZE, &ps_size);
 
-	spx_int32_t noise[ps_size];
-	spx_int32_t ps[ps_size];
+	STACKVAR(spx_int32_t, noise, ps_size);
+	STACKVAR(spx_int32_t, ps, ps_size);
 
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD, ps);
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise);
@@ -247,9 +248,9 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	for (int i=0; i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrt(sqrt(noise[i])) - 1;
+		yp = sqrtf(sqrtf(noise[i])) - 1;
 		yp = yp * fftmul;
-		yp = fmin(yp * 3000.0, 1.0);
+		yp = qMin(yp * 3000.0, 1.0);
 		yp = (1 - yp) * sy;
 		poly << QPointF(xp, yp);
 	}
@@ -266,9 +267,9 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	for (int i=0;i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrt(sqrt(ps[i])) - 1;
+		yp = sqrtf(sqrtf(ps[i])) - 1;
 		yp = yp * fftmul;
-		yp = fmin(yp * 3000.0, 1.0);
+		yp = qMin(yp * 3000.0, 1.0);
 		yp = (1 - yp) * sy;
 		poly << QPointF(xp, yp);
 	}
@@ -326,21 +327,21 @@ void AudioStats::on_Tick_timeout() {
 	spx_int32_t ps_size = 0;
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD_SIZE, &ps_size);
 
-	spx_int32_t noise[ps_size];
-	spx_int32_t ps[ps_size];
+	STACKVAR(spx_int32_t, noise, ps_size);
+	STACKVAR(spx_int32_t, ps, ps_size);
 
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD, ps);
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise);
 
-	double s = 0.0;
-	double n = 0.0;
+	float s = 0.0;
+	float n = 0.0001;
 
 	int start = (ps_size * 300) / SAMPLE_RATE;
 	int stop = (ps_size * 2000) / SAMPLE_RATE;
 
 	for(int i=start;i<stop;i++) {
-		s += sqrt(ps[i]);
-		n += sqrt(noise[i]);
+		s += sqrtf(ps[i]);
+		n += sqrtf(noise[i]);
 	}
 
 	txt.sprintf("%06.3f",s / n);

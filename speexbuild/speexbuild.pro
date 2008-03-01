@@ -11,6 +11,10 @@ INCLUDEPATH = ../speex/include ../speex/libspeex
 
 win32 {
 	DEFINES+=WIN32 _WINDOWS _USE_SSE VAR_ARRAYS
+	QMAKE_CC = icl
+	QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
+	QMAKE_CFLAGS_RELEASE += -O3 -QxK -Qip
+	QMAKE_CFLAGS_DEBUG += -O2 -QxK -Ob0
 	INCLUDEPATH += ../speex/win32
 }
 
@@ -37,11 +41,9 @@ CONFIG(release, debug|release) {
 }
 
 CONFIG(symbols) {
-  QMAKE_CFLAGS_RELEASE += -g 
-  QMAKE_CXXFLAGS_RELEASE += -g
-  QMAKE_LFLAGS += -g
-  QMAKE_LFLAGS -= -Wl,-s
-  QMAKE_LFLAGS_RELEASE -= -Wl,-s
+  QMAKE_CFLAGS_RELEASE += -Zi
+  QMAKE_CXXFLAGS_RELEASE += -Zi
+  QMAKE_LFLAGS += /DEBUG
 }
 
 CONFIG(optgen) {

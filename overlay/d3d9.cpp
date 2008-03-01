@@ -32,6 +32,7 @@
 #include <d3d9.h>
 
 typedef IDirect3D9* (WINAPI *pDirect3DCreate9) (UINT SDKVersion) ;
+typedef HRESULT (WINAPI *pDirect3DCreate9Ex) (UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
 
 struct D3DTLVERTEX
 {
@@ -65,6 +66,7 @@ public:
 static map<IDirect3DDevice9 *, DevState *> devMap;
 static bool bHooked = false;
 static bool bChaining = false;
+static bool bPresenting = false;
 
 DevState::DevState() {
 	dev = NULL;
@@ -267,9 +269,12 @@ void DevState::createCleanState() {
 }
 
 static HardHook hhCreateDevice;
+static HardHook hhCreateDeviceEx;
 static HardHook hhReset;
 static HardHook hhAddRef;
 static HardHook hhRelease;
+static HardHook hhPresent;
+static HardHook hhPresentEx;
 static HardHook hhSwapPresent;
 
 static void doPresent(IDirect3DDevice9 *idd) {
@@ -317,16 +322,31 @@ static void doPresent(IDirect3DDevice9 *idd) {
 static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
 	ods("D3D9: SwapChain Present");
 
-	IDirect3DDevice9 *idd = NULL;
-	ids->GetDevice(&idd);
-	if (idd) {
-		doPresent(idd);
-		idd->Release();
+	if (bPresenting) {
+		ods("D3D9: Not doublepresenting in chain!");
+	}  else {
+		IDirect3DDevice9 *idd = NULL;
+		ids->GetDevice(&idd);
+		if (idd) {
+			doPresent(idd);
+			idd->Release();
+		}
 	}
 
 	hhSwapPresent.restore();
 	HRESULT hr = ids->Present(pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion,dwFlags);
 	hhSwapPresent.inject();
+	return hr;
+}
+
+static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion) {
+	ods("D3D9: Device Present");
+
+	doPresent(idd);
+
+	hhPresent.restore();
+	HRESULT hr = idd->Present(pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion);
+	hhPresent.inject();
 	return hr;
 }
 
@@ -394,6 +414,8 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	return res;
 }
 
+
+
 static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	ods("D3D9: Chaining CreateDevice");
 
@@ -425,6 +447,9 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
 	hhReset.inject();
 
+	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
+	hhPresent.inject();
+
 	IDirect3DSwapChain9 *pSwap = NULL;
 	idd->GetSwapChain(0, &pSwap);
 	if (pSwap) {
@@ -439,15 +464,77 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	return hr;
 }
 
+static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX* pFullscreenDisplayMode, IDirect3DDevice9Ex** ppReturnedDeviceInterface) {
+	ods("D3D9: Chaining CreateDeviceEx");
+
+//	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
+
+	hhCreateDeviceEx.restore();
+	HRESULT hr=id3d->CreateDeviceEx(Adapter,DeviceType,hFocusWindow,BehaviorFlags,pPresentationParameters,pFullscreenDisplayMode,ppReturnedDeviceInterface);
+	hhCreateDeviceEx.inject();
+
+	if (FAILED(hr))
+		return hr;
+
+	IDirect3DDevice9Ex *idd = *ppReturnedDeviceInterface;
+
+	DevState *ds = new DevState;
+	ds->dev = idd;
+
+	idd->AddRef();
+	ds->initRefCount = idd->Release();
+
+	devMap[idd] = ds;
+
+	hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
+	hhAddRef.inject();
+
+	hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
+	hhRelease.inject();
+
+	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
+	hhReset.inject();
+
+	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
+	hhPresent.inject();
+
+	IDirect3DSwapChain9 *pSwap = NULL;
+	idd->GetSwapChain(0, &pSwap);
+	if (pSwap) {
+		hhSwapPresent.setupInterface(pSwap, 3, reinterpret_cast<voidFunc>(mySwapPresent));
+		hhSwapPresent.inject();
+		pSwap->Release();
+	} else {
+		ods("D3D9: Failed to get swapchain for DevEx");
+	}
+
+	ds->createCleanState();
+	return hr;
+}
+
 static void HookCreate(IDirect3D9 *pD3D) {
 	ods("D3D9: Injecting CreateDevice");
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<wchar_t *>(&HookCreate), &hSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
 
 	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
 	hhCreateDevice.inject();
 }
+
+static void HookCreateEx(IDirect3D9Ex *pD3D) {
+	ods("D3D9Ex: Injecting CreateDevice / CreateDeviceEx");
+
+	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
+
+	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
+	hhCreateDevice.inject();
+
+	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
+	hhCreateDeviceEx.inject();
+}
+
 
 void checkD3D9Hook() {
 	if (bChaining) {
@@ -457,20 +544,31 @@ void checkD3D9Hook() {
 
 	bChaining = true;
 
-	HMODULE hD3D = GetModuleHandle(L"D3D9.DLL");
+	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 
 	if (hD3D != NULL) {
 		if (! bHooked) {
-			wchar_t procname[1024];
+			char procname[1024];
 			GetModuleFileName(NULL, procname, 1024);
-			ods("D3D9: CreateWnd in unhooked D3D App %ls", procname);
+			ods("D3D9: CreateWnd in unhooked D3D App %s", procname);
 			bHooked = true;
+
 			pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 			if (d3dc9) {
 				IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
 				if (id3d9) {
 					HookCreate(id3d9);
 					IDirect3D9_Release(id3d9);
+				}
+			}
+
+			pDirect3DCreate9Ex d3dc9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
+			if (d3dc9ex) {
+				IDirect3D9Ex *id3d9ex = NULL;
+				d3dc9ex(D3D_SDK_VERSION, &id3d9ex);
+				if (id3d9ex) {
+					HookCreateEx(id3d9ex);
+					IDirect3D9Ex_Release(id3d9ex);
 				}
 			}
 		}

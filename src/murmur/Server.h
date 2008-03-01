@@ -185,8 +185,14 @@ class Server : public QThread, public MessageHandler {
 		void sendExcept(Message *, Connection *);
 		void sendMessage(Connection *, Message *);
 
-		__attribute__((format(printf, 2, 3))) void log(const char *format, ...);
-		__attribute__((format(printf, 3, 4))) void log(User *u, const char *format, ...);
+#ifndef Q_OS_WIN
+		__attribute__((format(printf, 2, 3)))
+#endif
+		void log(const char *format, ...);
+#ifndef Q_OS_WIN
+		__attribute__((format(printf, 3, 4)))
+#endif
+		void log(User *u, const char *format, ...);
 
 		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
 		void playerEnterChannel(Player *u, Channel *c, bool quiet = false);

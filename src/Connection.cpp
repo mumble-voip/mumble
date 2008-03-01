@@ -38,9 +38,6 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #endif
-#ifdef Q_OS_WIN
-#include <winsock2.h>
-#endif
 
 int Connection::iReceiveLevel = 0;
 QSet<Connection *> Connection::qsReceivers;
@@ -164,7 +161,7 @@ void Connection::sendMessage(const Message *mMsg) {
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	unsigned char a_ucBuffer[3 + qbaMsg.size()];
+	STACKVAR(unsigned char, a_ucBuffer, 3 + qbaMsg.size());
 
 	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
 		return;

@@ -127,8 +127,24 @@ Settings::Settings() {
 	iServerRow = -1;
 }
 
-#define SAVELOAD(var,name) var = qvariant_cast<typeof(var)>(g.qs->value(QLatin1String(name), var))
-#define LOADENUM(var, name) var = static_cast<typeof(var)>(g.qs->value(QLatin1String(name), var).toInt())
+#include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
+
+
+BOOST_TYPEOF_REGISTER_TYPE(Settings::AudioTransmit);
+BOOST_TYPEOF_REGISTER_TYPE(Settings::VADSource);
+BOOST_TYPEOF_REGISTER_TYPE(Settings::LoopMode)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::OverlayShow)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::Audio3D)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
+BOOST_TYPEOF_REGISTER_TYPE(QString)
+BOOST_TYPEOF_REGISTER_TYPE(QByteArray)
+BOOST_TYPEOF_REGISTER_TYPE(QColor)
+BOOST_TYPEOF_REGISTER_TYPE(QVariant)
+BOOST_TYPEOF_REGISTER_TYPE(QFont)
+BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
+
+#define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var))
+#define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var).toInt())
 
 void Settings::load() {
 	SAVELOAD(bMute, "audio/mute");

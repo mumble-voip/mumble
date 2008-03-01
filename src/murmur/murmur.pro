@@ -29,8 +29,9 @@ win32 {
   RESOURCES	+= murmur.qrc
   SOURCES += Tray.cpp
   HEADERS += Tray.h
-  INCLUDEPATH += /dev/openssl/outinc
-  LIBS += -L/dev/openssl/out -leay32
+  INCLUDEPATH += /dev/OpenSSL/include
+  LIBPATH += /dev/OpenSSL/lib
+  LIBS += -llibeay32 -luser32
 }
 
 unix {

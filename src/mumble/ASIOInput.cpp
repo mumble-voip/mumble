@@ -540,7 +540,6 @@ ASIOInput::addBuffer(ASIOSampleType sampType, void *src, float *dst) {
 }
 
 void
-__attribute__((force_align_arg_pointer))
 ASIOInput::bufferReady(long buffindex) {
 	int c, i;
 

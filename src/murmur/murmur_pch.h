@@ -1,5 +1,6 @@
 #ifndef _MURMUR_PCH_H
 #define _MURMUR_PCH_H
+
 #include <QtCore/QtCore>
 #include <QtNetwork/QtNetwork>
 #include <QtSql/QtSql>
@@ -8,6 +9,14 @@
 #ifdef Q_OS_WIN
 #include <QtGui/QtGui>
 #endif
+
+#ifdef Q_OS_WIN
+#include <winsock2.h>
+#include <windows.h>
+#include <shellapi.h>
+#endif
+
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 #include <openssl/aes.h>
@@ -15,9 +24,6 @@
 #include <openssl/pem.h>
 #include <openssl/conf.h>
 #include <openssl/x509v3.h>
-#ifndef OPENSSL_NO_ENGINE
-#include <openssl/engine.h>
-#endif
 
 #ifdef Q_OS_UNIX
 #include <unistd.h>
@@ -34,9 +40,16 @@
 #endif
 
 #ifdef Q_OS_WIN
-#define _WIN32_IE 0x0600
-#include <windows.h>
-#include <shellapi.h>
+#define ALLOCA(x) _alloca(x)
+#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
+#define lround(x) static_cast<long int>((x) + (((x) >= 0.0) ? 0.5 : -0.5))
+#define sqrt(x) ::sqrt(static_cast<double>(x))
+#define sqrtf(x) ::sqrtf(static_cast<float>(x))
+#define snprintf ::_snprintf
+#else
+#include <alloca.h>
+#define ALLOCA(x) alloca(x)
+#define STACKVAR(type, varname, count) type varname[count]
 #endif
 
 #endif

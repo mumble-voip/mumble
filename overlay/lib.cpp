@@ -93,6 +93,9 @@ void HardHook::inject() {
 		VirtualProtect(baseptr, 5, oldProtect, &restoreProtect);
 		FlushInstructionCache(GetCurrentProcess(),baseptr, 5);
 	}
+	for(i=0;i<5;i++)
+		if (baseptr[i] != replace[i])
+			ods("HH: Injection failure at byte %d", i);
 }
 
 void HardHook::restore() {
@@ -109,6 +112,13 @@ void HardHook::restore() {
 	}
 }
 
+void HardHook::print() {
+	ods("HH: %02x %02x %02x %02x %02x => %02x %02x %02x %02x %02x (%02x %02x %02x %02x %02x)",
+		orig[0], orig[1], orig[2], orig[3], orig[4],
+		replace[0], replace[1], replace[2], replace[3], replace[4],
+		baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
+}
+
 void __cdecl ods(const char *format, ...) {
         if (!sm || ! sm->bDebug)
                 return;
@@ -117,8 +127,13 @@ void __cdecl ods(const char *format, ...) {
         va_list args;
 
         va_start(args, format);
-        p += _vsnprintf(p, sizeof buf - 1, format, args);
+        int len = _vsnprintf_s(p, sizeof(buf) - 1, _TRUNCATE, format, args);
         va_end(args);
+
+        if (len <= 0)
+        	return;
+
+        p += len;
 
         while ( p > buf  &&  isspace(p[-1]) )
                 *--p = '\0';
@@ -129,27 +144,34 @@ void __cdecl ods(const char *format, ...) {
 
         OutputDebugStringA(buf);
         FILE *f = fopen("c:\\overlay.log", "a");
-        fprintf(f, "%d %s", GetTickCount(), buf);
-        fclose(f);
+        if (f) {
+			fprintf(f, "%d %s", GetTickCount(), buf);
+			fclose(f);
+		}
 }
 
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	CWPSTRUCT *s = reinterpret_cast<CWPSTRUCT *>(lParam);
-	if (s) {
-		switch (s->message) {
-			case WM_CREATE:
-			case WM_DESTROY:
-			case WM_SETFOCUS:
-			case WM_GETMINMAXINFO:	// For things that link directly
-			case WM_GETICON:		// Worked for BF2
-			case WM_NCCREATE:		// Lots of games
-				checkD3D9Hook();
-				checkOpenGLHook();
-				checkOpenALHook();
-				// checkDSHook(s->hwnd);
-				break;
-			default:
-				break;
+	char procname[1024];
+	GetModuleFileName(NULL, procname, 1024);
+
+	if (strstr(procname, "mumble.exe") == NULL) {
+		CWPSTRUCT *s = reinterpret_cast<CWPSTRUCT *>(lParam);
+		if (s) {
+			switch (s->message) {
+				case WM_CREATE:
+				case WM_DESTROY:
+				case WM_SETFOCUS:
+				case WM_GETMINMAXINFO:	// For things that link directly
+				case WM_GETICON:		// Worked for BF2
+				case WM_NCCREATE:		// Lots of games
+					checkD3D9Hook();
+					checkOpenGLHook();
+					// checkOpenALHook();
+					// checkDSHook(s->hwnd);
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	return CallNextHookEx(hhookWnd, nCode, wParam, lParam);
@@ -175,7 +197,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		if (! sm->bHooked) {
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &InstallHooks, &hSelf);
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) &InstallHooks, &hSelf);
 			if (hSelf == NULL) {
 				ods("Lib: Failed to find myself");
 			} else {
@@ -194,11 +216,19 @@ extern "C" __declspec(dllexport) SharedMem * __cdecl GetSharedMemory() {
 }
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+
+	char procname[1024];
+	GetModuleFileName(NULL, procname, 1024);
+
+//	if ((strstr(procname, "mumble.exe") == NULL) && (strstr(procname, "Text3D.exe") == NULL) && (strstr(procname, "Lesson5.exe") == NULL))
+//		return TRUE;
+
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
 			{
-				hSharedMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
-				hHookMutex = CreateMutex(NULL, false, L"MumbleHookMutex");
+				ods("Lib: ProcAttach: %s", procname);
+				hSharedMutex = CreateMutex(NULL, false, "MumbleSharedMutex");
+				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 				if ((hSharedMutex == NULL) || (hHookMutex == NULL)) {
 					ods("Lib: CreateMutex failed");
 					return FALSE;
@@ -210,7 +240,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 					return FALSE;
 				}
 
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem), L"MumbleSharedMemory");
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem), "MumbleSharedMemory");
 				if (hMapObject == NULL) {
 					ods("Lib: CreateFileMapping failed");
 					ReleaseMutex(hSharedMutex);

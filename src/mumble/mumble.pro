@@ -16,7 +16,9 @@ FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.u
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts mumble_ja.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 
-QMAKE_CXXFLAGS	+= -Wall -Wextra
+!win32 {
+  QMAKE_CXXFLAGS	+= -Wall -Wextra
+}
 
 !macx {
   CONFIG                += qdbus
@@ -28,13 +30,13 @@ win32 {
   RC_FILE	= mumble.rc
   HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h
   SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
-  INCLUDEPATH	+= /dev/dxsdk/Include /dev/SpeechSDK/include /dev/Boost/include/boost-1_34_1
-  LIBS	+= -L/dev/SpeechSDK/Lib/i386 -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32
+  FORMS		+= DXConfigDialog.ui ASIOInput.ui
+  INCLUDEPATH	+= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_34_1
+  LIBS		+= -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
+  LIBPATH	+= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib
   CONFIG	+= asio
-  DEFINES += WIN32
-  INCLUDEPATH	+= /dev/openssl/outinc
-  LIBS += -L/dev/openssl/out -leay32
-  FORMS	+= DXConfigDialog.ui ASIOInput.ui
+  DEFINES	+= WIN32
+  INCLUDEPATH	+= /dev/OpenSSL/include
 }
 
 unix {

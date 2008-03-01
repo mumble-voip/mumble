@@ -15,7 +15,7 @@ static DWORD getProcess(const wchar_t *exename) {
 	pe.dwSize = sizeof(pe);
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap != INVALID_HANDLE_VALUE) {
-		bool ok = Process32First(hSnap, &pe);
+		BOOL ok = Process32First(hSnap, &pe);
 
 		while (ok) {
 			if (wcscmp(pe.szExeFile, exename)==0) {
@@ -31,7 +31,7 @@ static DWORD getProcess(const wchar_t *exename) {
 
 static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
-	bool ok=ReadProcessMemory(h, base, dest, len, &r);
+	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
 	return (ok && (r == len));
 }
 
@@ -43,7 +43,7 @@ static int fetch(float *pos, float *front, float *top) {
 	for(int i=0;i<3;i++)
 		pos[i]=front[i]=top[i]=0.0;
 
-	bool ok = true;
+	BOOL ok = true;
 
 	// Wow stores as
 	// North/South (+ North)
@@ -122,6 +122,6 @@ static MumblePlugin wowplug = {
 	fetch
 };
 
-extern "C" __declspec(dllexport) __cdecl MumblePlugin *getMumblePlugin() {
+extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &wowplug;
 }

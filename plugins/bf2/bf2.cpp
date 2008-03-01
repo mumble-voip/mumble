@@ -20,7 +20,7 @@ static DWORD getProcess(const wchar_t *exename) {
 	pe.dwSize = sizeof(pe);
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap != INVALID_HANDLE_VALUE) {
-		bool ok = Process32First(hSnap, &pe);
+		BOOL ok = Process32First(hSnap, &pe);
 
 		while (ok) {
 			if (wcscmp(pe.szExeFile, exename)==0) {
@@ -40,7 +40,7 @@ static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
 	me.dwSize = sizeof(me);
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
 	if (hSnap != INVALID_HANDLE_VALUE) {
-		bool ok = Module32First(hSnap, &me);
+		BOOL ok = Module32First(hSnap, &me);
 
 		while (ok) {
 			if (wcscmp(me.szModule, modname)==0) {
@@ -57,7 +57,7 @@ static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
 
 static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
-	bool ok=ReadProcessMemory(h, base, dest, len, &r);
+	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
 	return (ok && (r == len));
 }
 
@@ -82,7 +82,7 @@ static bool sane(float *pos, float *vel, float *face, float *top, bool initial =
 	int i;
 	bool ok = true;
 
-	float min = (initial) ? 0.1 : 0.00001;
+	float min = (initial) ? 0.1f : 0.00001f;
 
 	// Sanity check #1: Position should be from -1000 to +1000, and not 0.
 	for(i=0;i<3;i++) {
@@ -203,6 +203,6 @@ static MumblePlugin bf2plug = {
 	fetch
 };
 
-extern "C" __declspec(dllexport) __cdecl MumblePlugin *getMumblePlugin() {
+extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &bf2plug;
 }

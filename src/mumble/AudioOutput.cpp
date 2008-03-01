@@ -28,11 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef __MMX__
-#include <mmintrin.h>
-#endif
-#include <math.h>
-
 #include "AudioOutput.h"
 #include "AudioInput.h"
 #include "Player.h"
@@ -301,7 +296,7 @@ bool AudioOutput::mixAudio(short *buffer) {
 		}
 	}
 
-#ifdef __MMX__
+#if defined(__MMX__) || defined(Q_OS_WIN)
 	_mm_empty();
 	__m64 *out=reinterpret_cast<__m64 *>(buffer);
 	__m64 zero=_mm_cvtsi32_si64(0);

@@ -43,6 +43,8 @@
 #include <string>
 #include "overlay.h"
 
+#define lround(x) static_cast<long int>((x) + (((x) >= 0.0) ? 0.5 : -0.5))
+
 using namespace std;
 
 void __cdecl ods(const char *format, ...);
@@ -58,6 +60,7 @@ struct HardHook {
 	void setupInterface(IUnknown *intf, LONG funcoffset, voidFunc replacement);
 	void inject();
 	void restore();
+	void print();
 };
 
 extern void checkD3D9Hook();
