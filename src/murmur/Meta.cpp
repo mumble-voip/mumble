@@ -49,7 +49,7 @@ MetaParams::MetaParams() {
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
 	qhaBind = QHostAddress(QHostAddress::Any);
-	
+
 	iLogDays = 31;
 
 	iBanTries = 10;
@@ -59,14 +59,49 @@ MetaParams::MetaParams() {
 
 void MetaParams::read(QString fname) {
 	if (fname.isEmpty()) {
-		fname = "murmur.ini";
+		QStringList datapaths;
+
+#ifdef Q_OS_WIN
+		size_t reqSize;
+		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
+		STACKVAR(wchar_t, buff, reqSize+1);
+		_wgetenv_s(&reqSize, buff, reqSize, L"APPDATA");
+
+		QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
+
+		appdir.mkpath(QLatin1String("Mumble"));
+		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
+#else
+		FIX TRICK TO COPY QSETTING PATH!
+#endif
+		datapaths << QDir::homePath();
+		datapaths << QDir::currentPath();
+		datapaths << qApp->applicationDirPath();
+
+		foreach(const QString &p, datapaths) {
+			QFileInfo fi(p, "murmur.ini");
+			if (fi.exists() && fi.isReadable()) {
+				qdBasePath = QDir(p);
+				fname = fi.absoluteFilePath();
+				break;
+			}
+		}
+		if (fname.isEmpty()) {
+			qdBasePath = QDir(datapaths.at(0));
+			fname = qdBasePath.absolutePath() + QLatin1String("/murmur.ini");
+		}
 	} else {
-		if (! QFile(fname).exists())
+		QFile f(fname);
+		if (! f.open(QIODevice::ReadOnly)) {
 			qFatal("Specified ini file %s could not be opened", qPrintable(fname));
+		}
+		qdBasePath = QFileInfo(f).absoluteDir();
+		f.close();
 	}
+	QDir::setCurrent(qdBasePath.absolutePath());
 	QSettings qs(fname, QSettings::IniFormat);
 
-	qWarning("Initializing settings from %s", qPrintable(qs.fileName()));
+	qWarning("Initializing settings from %s (basepath %s)", qPrintable(qs.fileName()), qPrintable(qdBasePath.absolutePath()));
 
 	QString qsHost = qs.value("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -102,7 +137,7 @@ void MetaParams::read(QString fname) {
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
 	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
-	
+
 	iLogDays = qs.value("logdays", iLogDays).toInt();
 
 	qsDBus = qs.value("dbus", qsDBus).toString();
@@ -182,7 +217,7 @@ void MetaParams::read(QString fname) {
 			qFatal("Certificate specified, but failed to load.");
 		}
 	}
-	
+
 	qmConfig.clear();
 	qmConfig.insert(QLatin1String("host"),qhaBind.toString());
 	qmConfig.insert(QLatin1String("password"),qsPassword);

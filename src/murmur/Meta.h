@@ -36,6 +36,8 @@
 #include "Server.h"
 
 struct MetaParams {
+	QDir qdBasePath;
+
 	QHostAddress qhaBind;
 	int iPort;
 	int iTimeout;
@@ -56,7 +58,7 @@ struct MetaParams {
 	QString qsDBHostName;
 	QString qsDBPrefix;
 	int iDBPort;
-	
+
 	int iLogDays;
 
 	QString qsDBus;
@@ -71,7 +73,7 @@ struct MetaParams {
 
 	QSslCertificate qscCert;
 	QSslKey qskKey;
-	
+
 	QMap<QString, QString> qmConfig;
 
 	MetaParams();

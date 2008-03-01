@@ -60,7 +60,7 @@ Timer ServerDB::tLogClean;
 
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
-		qFatal("Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
+		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
 	db = QSqlDatabase::addDatabase(Meta::mp.qsDBDriver);
 	QStringList datapaths;
@@ -73,8 +73,9 @@ ServerDB::ServerDB() {
 			db.setDatabaseName(Meta::mp.qsDatabase);
 			found = db.open();
 		} else {
-			datapaths << QCoreApplication::instance()->applicationDirPath();
+			datapaths << Meta::mp.qdBasePath.absolutePath();
 			datapaths << QDir::currentPath();
+			datapaths << QCoreApplication::instance()->applicationDirPath();
 			datapaths << QDir::homePath();
 
 			for (i = 0; (i < datapaths.size()) && ! found; i++) {
@@ -99,7 +100,9 @@ ServerDB::ServerDB() {
 		}
 		if (found) {
 			QFileInfo fi(db.databaseName());
-			qWarning("Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
+			qWarning("ServerDB: Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
+			if (! fi.isWritable())
+				qFatal("ServerDB: Database is not writeable");
 		}
 	} else {
 		db.setDatabaseName(Meta::mp.qsDatabase);
@@ -995,18 +998,18 @@ void Server::readChannels(Channel *p) {
 void Server::readLinks() {
 	TransactionHolder th;
 	QSqlQuery query;
-	
+
 	SQLPREP("SELECT channel_id, link_id FROM %1channel_links WHERE server_id = ?");
 	query.addBindValue(iServerNum);
 	SQLEXEC();
-	
+
 	while (query.next()) {
 		int cid = query.value(0).toInt();
 		int lid = query.value(1).toInt();
-		
+
 		Channel *c = qhChannels.value(cid);
 		Channel *l = qhChannels.value(lid);
-		if (c && l) 
+		if (c && l)
 			c->link(l);
 	}
 }
@@ -1149,7 +1152,7 @@ void Server::setConf(const QString &key, const QVariant &value) {
 void Server::dblog(const char *str) {
 	TransactionHolder th;
 	QSqlQuery query;
-	
+
 	// Once per hour
 	if (Meta::mp.iLogDays > 0) {
 		if (ServerDB::tLogClean.isElapsed(3600ULL * 1000000ULL)) {
@@ -1163,7 +1166,7 @@ void Server::dblog(const char *str) {
 			SQLEXEC();
 		}
 	}
-	
+
 	SQLPREP("INSERT INTO %1slog (server_id, msg) VALUES(?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(QLatin1String(str));
@@ -1173,7 +1176,7 @@ void Server::dblog(const char *str) {
 QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int sec_min, unsigned int sec_max) {
 	TransactionHolder th;
 	QSqlQuery query;
-	
+
 	QString qstr;
 	if (Meta::mp.qsDBDriver == "QSQLITE") {
 		qstr = QString::fromLatin1("msgtime > datetime('now','-%1 seconds') AND msgtime < datetime('now','-%2 seconds')").arg(sec_max).arg(sec_min);
@@ -1183,7 +1186,7 @@ QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned in
 	ServerDB::prepare(query, QString::fromLatin1("SELECT msgtime, msg FROM %1slog WHERE server_id = ? AND ") + qstr);
 	query.addBindValue(server_id);
 	SQLEXEC();
-	
+
 	QList<QPair<unsigned int, QString> > ql;
 	while(query.next()) {
 		QDateTime qdt = query.value(0).toDateTime();

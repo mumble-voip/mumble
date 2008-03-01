@@ -152,7 +152,16 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain("mumble.sourceforge.net");
 
 #ifdef Q_OS_WIN
-	_putenv(qPrintable(QString::fromLatin1("PATH=%1\\bin;%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QLatin1String(getenv("PATH")))));
+	{
+		size_t reqSize;
+		_wgetenv_s(&reqSize, NULL, 0, L"PATH");
+		STACKVAR(wchar_t, buff, reqSize+1);
+		_wgetenv_s(&reqSize, buff, reqSize, L"PATH");
+		QString path = QString::fromLatin1("%1\\bin;%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
+		STACKVAR(wchar_t, buffout, path.length() + 1);
+		path.toWCharArray(buffout);
+		_wputenv_s(L"PATH", buffout);
+	}
 #endif
 
 	argc = a.argc();

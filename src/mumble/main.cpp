@@ -77,7 +77,17 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_WIN
 	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
 	// should contain bin\\, and the path to the config is hardcoded as ..\etc
-	_putenv(qPrintable(QString::fromLatin1("PATH=%1\\bin;%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QLatin1String(getenv("PATH")))));
+
+	{
+		size_t reqSize;
+		_wgetenv_s(&reqSize, NULL, 0, L"PATH");
+		STACKVAR(wchar_t, buff, reqSize+1);
+		_wgetenv_s(&reqSize, buff, reqSize, L"PATH");
+		QString path = QString::fromLatin1("%1\\bin;%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
+		STACKVAR(wchar_t, buffout, path.length() + 1);
+		path.toWCharArray(buffout);
+		_wputenv_s(L"PATH", buffout);
+	}
 #endif
 
 	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"));
@@ -168,8 +178,8 @@ int main(int argc, char **argv) {
 
 #ifndef Q_OS_MAC
 	new MumbleDBus(g.mw);
-	QDBusConnection::sessionBus().registerObject("/", g.mw);
-	QDBusConnection::sessionBus().registerService("net.sourceforge.mumble.mumble");
+	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), g.mw);
+	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble"));
 #endif
 
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));

@@ -37,10 +37,24 @@ Database::Database() {
 	QStringList datapaths;
 	int i;
 
-	datapaths << qs.value(QLatin1String("InstPath")).toString();
+#ifdef Q_OS_WIN
+	size_t reqSize;
+	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
+	STACKVAR(wchar_t, buff, reqSize+1);
+	_wgetenv_s(&reqSize, buff, reqSize, L"APPDATA");
+
+	QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
+
+	appdir.mkpath(QLatin1String("Mumble"));
+	datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
+#else
+	FIX TRICK TO COPY QSETTING PATH!
+#endif
+
 	datapaths << QDir::homePath();
-	datapaths << qApp->applicationDirPath();
 	datapaths << QDir::currentPath();
+	datapaths << qApp->applicationDirPath();
+	datapaths << qs.value(QLatin1String("InstPath")).toString();
 	bool found = false;
 
 	for (i = 0; (i < datapaths.size()) && ! found; i++) {
@@ -62,7 +76,11 @@ Database::Database() {
 	if (! found) {
 		for (i = 0; (i < datapaths.size()) && ! found; i++) {
 			if (!datapaths[i].isEmpty()) {
+#ifdef Q_OS_WIN
+				QFile f(datapaths[i] + QLatin1String("/mumble.sqlite"));
+#else
 				QFile f(datapaths[i] + QLatin1String("/.mumble.sqlite"));
+#endif
 				db.setDatabaseName(f.fileName());
 				found = db.open();
 			}
