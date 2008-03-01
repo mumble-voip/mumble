@@ -22,12 +22,9 @@ set -e
 case "$1" in
     purge)
     	[ -f /var/log/mumble-server/mumble-server.log ] && rm -f /var/log/mumble-server/mumble-server.log*
-    	[ -f /var/lib/mumble-server/mumble-server.sqlite ] && rm -f /var/lib/mumble-server/mumble-server.sqlite
-    	[ -f /var/run/mumble-server/mumble-server.pid ] && rm -f /var/run/mumble-server/mumble-server.pid
-    	[ -f /etc/default/mumble-server ] && rm -f /etc/default/mumble-server
-    	[ -d /var/run/mumble-server ] && rmdir --ignore-fail-on-non-empty /var/run/mumble-server
+    	[ -d /var/run/mumble-server ] && rm -rf /var/run/mumble-server
 	if [ -x "$(command -v deluser)" ]; then
-		deluser --quiet --system mumble-server > /dev/null || true
+		deluser --quiet --system --remove-home mumble-server > /dev/null || true
 		deluser --quiet --system --group --only-if-empty mumble-server > /dev/null || true
 	else
 		echo >&2 "not removing 'mumble-server' system account because deluser command was not found"
