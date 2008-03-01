@@ -129,12 +129,12 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 void ConfigDialog::addPage(ConfigWidget *cw) {
 	QDesktopWidget dw;
-	
+
 	QRect ds=dw.availableGeometry(this);
 	QSize ms=cw->minimumSizeHint();
 	cw->resize(ms);
 	cw->setMinimumSize(ms);
-	
+
 	ms.rwidth() += 128;
 	ms.rheight() += 192;
 	if ((ms.width() > ds.width()) || (ms.height() > ds.height())) {

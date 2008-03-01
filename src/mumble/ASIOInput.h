@@ -65,13 +65,10 @@ class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 #define IEEE754_64FLOAT 1
 #include "asio.h"
 
-class IASIOThiscallResolver;
-
 class ASIOInput : public AudioInput {
 		Q_OBJECT
 	protected:
-		IASIO *iaOriginal;
-		IASIOThiscallResolver *iasio;
+		IASIO *iasio;
 
 		int iNumMic, iNumSpeaker;
 		ASIOBufferInfo *abiInfo;

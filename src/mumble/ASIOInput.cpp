@@ -127,44 +127,41 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 	}
 }
 
-#include "iasiothiscallresolver.h"
-
 void ASIOConfig::on_qpbQuery_clicked() {
 	QString qsCls = qcbDevice->itemData(qcbDevice->currentIndex()).toString();
 	CLSID clsid;
-	IASIO *iorigasio;
+	IASIO *iasio;
 
 	bool ok = false;
 
 	clearQuery();
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
-	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iorigasio)) == S_OK) {
+	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
-		IASIOThiscallResolver iasio(iorigasio);
-		if (iasio.init(winId())) {
+		if (iasio->init(winId())) {
 			SleepEx(10, false);
 			char buff[512];
 			memset(buff, 0, 512);
 
-			iasio.getDriverName(buff);
+			iasio->getDriverName(buff);
 			SleepEx(10, false);
 
-			long ver = iasio.getDriverVersion();
+			long ver = iasio->getDriverVersion();
 			SleepEx(10, false);
 
 			ASIOSampleRate srate;
-			iasio.getSampleRate(&srate);
+			iasio->getSampleRate(&srate);
 			SleepEx(10, false);
 			if (fabs(srate-48000.0) > 1.0) {
-				iasio.setSampleRate(48000.0);
+				iasio->setSampleRate(48000.0);
 				SleepEx(10, false);
-				iasio.getSampleRate(&srate);
+				iasio->getSampleRate(&srate);
 				SleepEx(10, false);
 			}
 
 			long minSize, maxSize, prefSize, granSize;
-			iasio.getBufferSize(&minSize, &maxSize, &prefSize, &granSize);
+			iasio->getBufferSize(&minSize, &maxSize, &prefSize, &granSize);
 			SleepEx(10, false);
 
 			// We need sample sizes in ms for 2 bytes at 48khz
@@ -211,7 +208,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 
 			if (bOk) {
 				long ichannels, ochannels;
-				iasio.getChannels(&ichannels, &ochannels);
+				iasio->getChannels(&ichannels, &ochannels);
 				SleepEx(10, false);
 				long cnum;
 
@@ -220,7 +217,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 					ASIOChannelInfo aci;
 					aci.channel = cnum;
 					aci.isInput = true;
-					iasio.getChannelInfo(&aci);
+					iasio->getChannelInfo(&aci);
 					SleepEx(10, false);
 					switch (aci.type) {
 						case ASIOSTInt32LSB:
@@ -246,11 +243,11 @@ void ASIOConfig::on_qpbQuery_clicked() {
 		if (! ok) {
 			SleepEx(10, false);
 			char err[255];
-			iasio.getErrorMessage(err);
+			iasio->getErrorMessage(err);
 			SleepEx(10, false);
 			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(QLatin1String(err)), QMessageBox::Ok, QMessageBox::NoButton);
 		}
-		iasio.Release();
+		iasio->Release();
 	} else {
 		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
 	}
@@ -259,26 +256,25 @@ void ASIOConfig::on_qpbQuery_clicked() {
 void ASIOConfig::on_qpbConfig_clicked() {
 	QString qsCls = qcbDevice->itemData(qcbDevice->currentIndex()).toString();
 	CLSID clsid;
-	IASIO *iorigasio;
+	IASIO *iasio;
 
 	bool ok = false;
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
-	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iorigasio)) == S_OK) {
+	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
-		IASIOThiscallResolver iasio(iorigasio);
-		if (iasio.init(winId())) {
+		if (iasio->init(winId())) {
 			SleepEx(10, false);
-			ok = (iasio.controlPanel() == ASE_OK);
+			ok = (iasio->controlPanel() == ASE_OK);
 			SleepEx(10, false);
 		} else {
 			SleepEx(10, false);
 			char err[255];
-			iasio.getErrorMessage(err);
+			iasio->getErrorMessage(err);
 			SleepEx(10, false);
 			QMessageBox::critical(this, tr("Mumble"), tr("ASIO Initialization failed: %1").arg(QLatin1String(err)), QMessageBox::Ok, QMessageBox::NoButton);
 		}
-		iasio.Release();
+		iasio->Release();
 	} else {
 		QMessageBox::critical(this, tr("Mumble"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok, QMessageBox::NoButton);
 	}
@@ -384,9 +380,7 @@ void ASIOConfig::clearQuery() {
 ASIOInput::ASIOInput() {
 	QString qsCls = g.s.qsASIOclass;
 	CLSID clsid;
-	IASIO *iorigasio;
 
-	iorigasio = false;
 	iasio = NULL;
 	abiInfo = NULL;
 	aciInfo = NULL;
@@ -415,8 +409,7 @@ ASIOInput::ASIOInput() {
 	}
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
-	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iaOriginal)) == S_OK) {
-		iasio = new IASIOThiscallResolver(iaOriginal);
+	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		if (iasio->init(NULL)) {
 			ASIOSampleRate srate = 0.0;
 			iasio->getSampleRate(&srate);
@@ -473,11 +466,9 @@ ASIOInput::ASIOInput() {
 	}
 
 	if (iasio) {
-		iaOriginal->Release();
-		delete iasio;
+		iasio->Release();
 
 		iasio = NULL;
-		iaOriginal = NULL;
 	}
 
 	QMessageBox::critical(NULL, tr("Mumble"), tr("Opening selected ASIO device failed. No input will be done."),
@@ -491,8 +482,7 @@ ASIOInput::~ASIOInput() {
 	if (iasio) {
 		iasio->stop();
 		iasio->disposeBuffers();
-		iaOriginal->Release();
-		delete iasio;
+		iasio->Release();
 		iasio = NULL;
 	}
 	if (abiInfo) {
