@@ -23,7 +23,7 @@ set -e
 case "$1" in
     configure)
     	# Add user and permanent directories
-    	adduser --system --quiet --group mumble-server
+    	adduser --system --quiet --home /var/lib/mumble-server --group mumble-server
     	chmod 0750 /var/log/mumble-server
     	chmod 0750 /var/lib/mumble-server
     	chown mumble-server:mumble-server /var/log/mumble-server
