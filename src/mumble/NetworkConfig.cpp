@@ -65,7 +65,7 @@ void NetworkConfig::load(const Settings &r) {
 		port.setNum(r.usProxyPort);
 		qlePort->setText(port);
 	} else
-		qlePort->setText("");
+		qlePort->setText(QString());
 
 	qleUsername->setText(r.qsProxyUsername);
 	qlePassword->setText(r.qsProxyPassword);
@@ -79,7 +79,7 @@ void NetworkConfig::save() const {
 	s.qsProxyHost = qleHostname->text();
 	s.usProxyPort = qlePort->text().toUShort();
 	s.qsProxyUsername = qleUsername->text();
-	s.qsProxyPassword = qlePassword->text();	
+	s.qsProxyPassword = qlePassword->text();
 }
 
 static QNetworkProxy::ProxyType local_to_qt_proxy(Settings::ProxyType pt)
@@ -128,7 +128,7 @@ void NetworkConfig::accept() const {
 
 bool NetworkConfig::expert(bool b) {
 	qcbTcpMode->setVisible(b);
-	qgbProxy->setVisible(b);	
+	qgbProxy->setVisible(b);
 	return true;
 }
 
