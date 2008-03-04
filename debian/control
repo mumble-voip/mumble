@@ -25,7 +25,7 @@ Description: Low latency VoIP client
 
 Package: mumble-server
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103)
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser (>= 3.103)
 Suggests: mumble-server-web (>= ${source:Version})
 Description: Low latency VoIP server
  Murmur is the VoIP server component for Mumble.
