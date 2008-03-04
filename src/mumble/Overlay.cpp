@@ -477,7 +477,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		const TextLine &tl = lines.at(i);
 		TextEntry *te = & sm.sm->texts[i];
 
-		wcscpy(te->text, reinterpret_cast<const wchar_t *>(tl.qsText.left(127).utf16()));
+		tl.qsText.left(127).toWCharArray(te->text);
 		te->color = lines[i].uiColor;
 
 		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].dDecor != tl.dDecor) || (qlCurrentTexts[i].qsText != tl.qsText) || qsForce.contains(tl.iPlayer)) {

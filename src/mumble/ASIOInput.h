@@ -91,8 +91,6 @@ class ASIOInput : public AudioInput {
 
 		QWaitCondition qwDone;
 		SpeexResamplerState *srsResampleMic, *srsResampleSpeaker;
-
-		void decim(const double *output, double *input, double *delayline);
 	public:
 		ASIOInput();
 		~ASIOInput();

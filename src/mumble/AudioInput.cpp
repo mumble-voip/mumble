@@ -227,7 +227,7 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_MAX_BITRATE, &baserate);
 
 	g.iAudioBandwidth = audiorate;
-	g.iAudioQuality = lround(f);
+	g.iAudioQuality = lroundf(f);
 }
 
 void AudioInput::encodeAudioFrame() {
@@ -235,7 +235,7 @@ void AudioInput::encodeAudioFrame() {
 	float fArg;
 	ClientPlayer *p=ClientPlayer::get(g.uiSession);
 	short max;
-	double micMax;
+	float micMax;
 	int i;
 
 	short *psSource;
@@ -246,30 +246,11 @@ void AudioInput::encodeAudioFrame() {
 		return;
 	}
 
-// #define ECHOTEST
-#ifdef ECHOTEST
-
-	static double framhist[10];
-
-	for (int i=0;i<9;i++)
-		framhist[i]=framhist[i+1];
-	framhist[9]=1+(int)(310.0*rand()/(RAND_MAX+1.0));
-
-	// Sine wave test
-	for (i=0;i<iFrameSize;i++) {
-		psMic[i]    += (sin((framhist[0] * M_PI * i) / (iFrameSize * 1.0)) * 4096.0);
-		psSpeaker[i] = (sin((framhist[4] * M_PI * i) / (iFrameSize * 1.0)) * 8192.0);
-//		psSpeaker[i] = psMic[i] * 2;
-//		qWarning("%d %d", i, psMic[i]);
-	}
-#endif
-
-
 	max=1;
 	for (i=0;i<iFrameSize;i++)
 		if (abs(psMic[i]) > max)
 			max=abs(psMic[i]);
-	dPeakMic=20.0*log10((max  * 1.0L) / 32768.0L);
+	dPeakMic=20.0f*log10f((max  * 1.0f) / 32768.0f);
 	micMax = max;
 
 	if (g.bEchoTest) {
@@ -279,7 +260,7 @@ void AudioInput::encodeAudioFrame() {
 		for(i=0;i<iFrameSize;i++)
 			fft[i] = psMic[i] * scale;
 		mumble_drft_forward(&fftTable, fft);
-		double mp = 0.0;
+		float mp = 0.0;
 		int bin = 0;
 		power[0]=power[1]=0.0;
 		for(i=2;i < iFrameSize / 2;i++) {
@@ -303,7 +284,7 @@ void AudioInput::encodeAudioFrame() {
 		for (i=0;i<iFrameSize;i++)
 			if (abs(psSpeaker[i]) > max)
 				max=abs(psSpeaker[i]);
-		dPeakSpeaker=20.0*log10((max  * 1.0L) / 32768.0L);
+		dPeakSpeaker=20.0f*log10f((max  * 1.0f) / 32768.0f);
 	} else {
 		dPeakSpeaker = 0.0;
 	}
@@ -322,11 +303,11 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
 
-		fArg = 30000;
+		fArg = 30000.f;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
 
-		double v = 30000.0 / g.s.iMinLoudness;
-		iArg = lround(floor(20.0 * log10(v)));
+		float v = 30000.0f / g.s.iMinLoudness;
+		iArg = lroundf(floorf(20.0f * log10f(v)));
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
 
 		iArg = g.s.iNoiseSuppress;
@@ -363,13 +344,13 @@ void AudioInput::encodeAudioFrame() {
 	for (i=0;i<iFrameSize;i++)
 		if (abs(psSource[i]) > max)
 			max=abs(psSource[i]);
-	dPeakSignal=20.0*log10((max  * 1.0L) / 32768.0L);
+	dPeakSignal=20.0*log10f((max  * 1.0f) / 32768.0f);
 
 	spx_int32_t prob = 0;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);
 	fSpeechProb = prob / 100.0;
 
-	double level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (micMax / 32767.0);
+	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (micMax / 32767.0f);
 
 	if (level > g.s.fVADmax)
 		iIsSpeech = 1;

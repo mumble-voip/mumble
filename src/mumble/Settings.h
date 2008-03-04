@@ -125,8 +125,8 @@ struct Settings {
 	// Nonsaved
 	bool bLocalDeafen;
 	LoopMode lmLoopMode;
-	double dPacketLoss;
-	double dMaxPacketDelay;
+	float dPacketLoss;
+	float dMaxPacketDelay;
 
 	Settings();
 	void load();

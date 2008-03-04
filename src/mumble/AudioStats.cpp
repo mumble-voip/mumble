@@ -56,7 +56,7 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	else if (iValue > iMax)
 		iValue = iMax;
 
-	double scale = (width() * 1.0) / (iMax - iMin);
+	float scale = (width() * 1.0f) / (iMax - iMin);
 	int h = height();
 
 	p.scale(scale, h);
@@ -176,18 +176,18 @@ void AudioEchoWidget::paintGL() {
 
 	mumble_drft_clear(&d);
 
-	double xscale = 1.0 / N;
-	double yscale = 1.0 / M;
+	float xscale = 1.0f / N;
+	float yscale = 1.0f / M;
 
 	glBegin(GL_QUADS);
 
 	for (int j = 0; j < M; j++) {
 		for (int i=1;i < N; i++) {
-			double xa = i * xscale;
-			double ya = j * yscale;
+			float xa = i * xscale;
+			float ya = j * yscale;
 
-			double xb = xa + xscale;
-			double yb = ya + yscale;
+			float xb = xa + xscale;
+			float yb = ya + yscale;
 
 			mapEchoToColor(sqrtf(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 65536.f);
 			glVertex2f(xa, ya);
@@ -349,13 +349,13 @@ void AudioStats::on_Tick_timeout() {
 
 	spx_int32_t v;
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &v);
-	txt.sprintf("%03.0f%%",10000.0 / v);
+	txt.sprintf("%03.0f%%",10000.0f / v);
 	qlMicVolume->setText(txt);
 
-	txt.sprintf("%03.0f%%",ai->fSpeechProb * 100.0);
+	txt.sprintf("%03.0f%%",ai->fSpeechProb * 100.0f);
 	qlSpeechProb->setText(txt);
 
-	txt.sprintf("%04.1f kbit/s",ai->iBitrate / 1000.0);
+	txt.sprintf("%04.1f kbit/s",ai->iBitrate / 1000.0f);
 	qlBitrate->setText(txt);
 
 	if (nTalking != bTalking) {
@@ -371,13 +371,13 @@ void AudioStats::on_Tick_timeout() {
 		txt.sprintf("%04llums",g.uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
-	abSpeech->iBelow = lround(g.s.fVADmin * 32767.0);
-	abSpeech->iAbove = lround(g.s.fVADmax * 32767.0);
+	abSpeech->iBelow = lroundf(g.s.fVADmin * 32767.0f);
+	abSpeech->iAbove = lroundf(g.s.fVADmax * 32767.0f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-		abSpeech->iValue = lround(32767 * pow(10.0, (ai->dPeakMic / 20.0)));
+		abSpeech->iValue = lroundf(32767.f * powf(10.0f, (ai->dPeakMic / 20.0f)));
 	} else {
-		abSpeech->iValue = lround(ai->fSpeechProb * 32767.0);
+		abSpeech->iValue = lroundf(ai->fSpeechProb * 32767.0f);
 	}
 
 	abSpeech->update();

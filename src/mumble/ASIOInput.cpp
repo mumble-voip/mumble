@@ -538,7 +538,7 @@ ASIOInput::bufferReady(long buffindex) {
 	for (c=0;c<iNumMic;c++)
 		addBuffer(aciInfo[c].type, abiInfo[c].buffers[buffindex], pdInputBuffer);
 
-	double mul = 1.0 / (iNumMic);
+	float mul = 1.0 / (iNumMic);
 
 	spx_uint32_t inlen, outlen;
 

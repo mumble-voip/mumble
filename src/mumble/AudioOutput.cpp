@@ -374,7 +374,7 @@ bool AudioSine::decodeNextFrame() {
 			}
 
 			for(unsigned int i=0;i<iFrameSize;i++)
-				psBuffer[i] = lround(32768.0 * volume * sin(M_PI * i * (tbin * 1.0) / (1.0 * iFrameSize)));
+				psBuffer[i] = lroundf(32768.0f * volume * sinf(M_PI * i * (tbin * 1.0f) / (1.0f * iFrameSize)));
 
 			return true;
 		}
@@ -382,7 +382,7 @@ bool AudioSine::decodeNextFrame() {
 		float t = v;
 
 		for (unsigned int i=0;i<iFrameSize;i++) {
-			psBuffer[i]=static_cast<short>(sin(t) * volume * 32768.0);
+			psBuffer[i]=static_cast<short>(sinf(t) * volume * 32768.0f);
 			inc+=dinc;
 			t+=inc;
 		}

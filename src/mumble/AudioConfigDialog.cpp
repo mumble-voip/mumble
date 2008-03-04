@@ -89,10 +89,10 @@ void AudioConfigDialog::load(const Settings &r) {
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
-	loadSlider(qsTransmitMin, lround(r.fVADmin * 32767.0));
-	loadSlider(qsTransmitMax, lround(r.fVADmax * 32767.0));
+	loadSlider(qsTransmitMin, lroundf(r.fVADmin * 32767.0f));
+	loadSlider(qsTransmitMax, lroundf(r.fVADmax * 32767.0f));
 	loadSlider(qsFrames, r.iFramesPerPacket);
-	loadSlider(qsDoublePush, r.uiDoublePush / 1000);
+	loadSlider(qsDoublePush, r.uiDoublePush / 1000.f);
 
 	if (r.vsVAD == Settings::Amplitude)
 		qrbAmplitude->setChecked(true);
@@ -161,8 +161,8 @@ void AudioConfigDialog::on_qsDoublePush_valueChanged(int v) {
 }
 
 void AudioConfigDialog::on_qsTransmitHold_valueChanged(int v) {
-	double val = v * 20;
-	val = val / 1000.0;
+	float val = v * 20;
+	val = val / 1000.0f;
 	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
 
@@ -181,7 +181,7 @@ void AudioConfigDialog::on_qsComplexity_valueChanged(int v) {
 
 void AudioConfigDialog::on_qsAmp_valueChanged(int v) {
 	v = 18000 - v + 2000;
-	double d = 20000.0/v;
+	float d = 20000.0f/v;
 	qlAmp->setText(QString::fromLatin1("%1").arg(d, 0, 'f', 2));
 }
 

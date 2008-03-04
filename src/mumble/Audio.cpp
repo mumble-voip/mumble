@@ -92,7 +92,7 @@ void LoopPlayer::fetchFrames() {
 
 	double cmp = qtTicker.elapsed();
 
-	QMultiMap<double, Packet>::iterator i = qmPackets.begin();
+	QMultiMap<float, Packet>::iterator i = qmPackets.begin();
 
 	while (i != qmPackets.end()) {
 		if (i.key() > cmp)

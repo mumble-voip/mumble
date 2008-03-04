@@ -100,6 +100,8 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
+  File "\windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91\msvcr90.dll"
+  File "\Program Files\Intel\Compiler\C++\10.1.014\IA32\Bin\libmmd.dll"
 
   SetOutPath "$INSTDIR\bin"
   File "\dev\dbus\bin\dbus-daemon.exe"
@@ -107,6 +109,7 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
+  File "\windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91\msvcr90.dll"
   
   SetOutPath "$INSTDIR\etc"
   File "\dev\dbus\etc\session.conf"

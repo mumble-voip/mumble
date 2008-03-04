@@ -172,7 +172,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
-	if (FAILED(hr = pDSBOutput->SetVolume(lround(log10(g.s.fVolume)*5000.0))))
+	if (FAILED(hr = pDSBOutput->SetVolume(lroundf(log10f(g.s.fVolume)*5000.0f))))
 		qFatal("DXAudioOutputPlayer: Failed to set volume");
 
 	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify))))

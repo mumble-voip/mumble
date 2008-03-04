@@ -556,7 +556,7 @@ void AudioWizard::on_Ticker_timeout() {
 	if (! ai)
 		return;
 
-	int iPeak = static_cast<int>(32767 * pow(10.0, (ai->dPeakMic / 20.0)));
+	int iPeak = static_cast<int>(32767.f * powf(10.0f, (ai->dPeakMic / 20.0f)));
 
 	if (iTicks++ >= 50) {
 		iMaxPeak = 0;
@@ -591,18 +591,18 @@ void AudioWizard::on_Ticker_timeout() {
 }
 
 void AudioWizard::on_VADmin_valueChanged(int v) {
-	g.s.fVADmin = v / 32767.0;
+	g.s.fVADmin = v / 32767.0f;
 }
 
 void AudioWizard::on_VADmax_valueChanged(int v) {
-	g.s.fVADmax = v / 32767.0;
+	g.s.fVADmax = v / 32767.0f;
 }
 
 void AudioWizard::on_Holdtime_valueChanged(int v) {
 	g.s.iVoiceHold = v;
 
-	double val = v * 20;
-	val = val / 1000.0;
+	float val = v * 20;
+	val = val / 1000.0f;
 	qlHoldtime->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
 

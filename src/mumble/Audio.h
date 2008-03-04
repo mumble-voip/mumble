@@ -44,7 +44,7 @@ class LoopPlayer : public ClientPlayer {
 		QMutex qmLock;
 		QTime qtTicker;
 		QTime qtLastFetch;
-		QMultiMap<double, Packet> qmPackets;
+		QMultiMap<float, Packet> qmPackets;
 		LoopPlayer();
 	public:
 		static LoopPlayer lpLoopy;

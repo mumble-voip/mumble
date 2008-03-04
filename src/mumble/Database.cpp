@@ -38,6 +38,10 @@ Database::Database() {
 	int i;
 
 #ifdef Q_OS_WIN
+	// Check if running with local .ini file (Roaming mode)
+	if (g.qs->fileName().endsWith(QLatin1String("mumble.ini"), Qt::CaseInsensitive))
+		datapaths << qApp->applicationDirPath();
+
 	size_t reqSize;
 	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
 	STACKVAR(wchar_t, buff, reqSize+1);

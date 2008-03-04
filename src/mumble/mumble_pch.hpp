@@ -12,8 +12,7 @@
 #include <QtSql/QtSql>
 #include <QtXml/QtXml>
 
-#define _USE_MATH_DEFINES
-#include <math.h>
+
 
 #include <openssl/aes.h>
 #include <openssl/rand.h>
@@ -32,13 +31,13 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #include <shellapi.h>
+#include <mathimf.h>
+#define M_PI 3.14159265358979323846
 #define ALLOCA(x) _alloca(x)
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
-#define lround(x) static_cast<long int>((x) + (((x) >= 0.0) ? 0.5 : -0.5))
-#define sqrt(x) ::sqrt(static_cast<double>(x))
-#define sqrtf(x) ::sqrtf(static_cast<float>(x))
 #else
 #include <alloca.h>
+#include <math.h>
 #define ALLOCA(x) alloca(x)
 #define STACKVAR(type, varname, count) type varname[count]
 #define CopyMemory(dst,ptr,len) memcpy(dst,ptr,len)

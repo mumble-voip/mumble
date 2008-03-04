@@ -102,9 +102,9 @@ void DXConfigDialog::load(const Settings &r) {
 
 	loadSlider(qsOutputDelay, r.iDXOutputDelay);
 	loadComboBox(qcbMethod, static_cast<int>(r.a3dModel));
-	loadSlider(qsMinDistance, lround(r.fDXMinDistance * 10));
-	loadSlider(qsMaxDistance, lround(r.fDXMaxDistance * 10));
-	loadSlider(qsRollOff, lround(r.fDXRollOff * 100));
+	loadSlider(qsMinDistance, lroundf(r.fDXMinDistance * 10));
+	loadSlider(qsMaxDistance, lroundf(r.fDXMaxDistance * 10));
+	loadSlider(qsRollOff, lroundf(r.fDXRollOff * 100));
 }
 
 void DXConfigDialog::save() const {

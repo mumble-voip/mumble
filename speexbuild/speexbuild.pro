@@ -41,9 +41,9 @@ CONFIG(release, debug|release) {
 }
 
 CONFIG(symbols) {
-  QMAKE_CFLAGS_RELEASE += -Zi
-  QMAKE_CXXFLAGS_RELEASE += -Zi
-  QMAKE_LFLAGS += /DEBUG
+  QMAKE_CFLAGS_RELEASE += -GR -Zi -Oy-
+  QMAKE_CXXFLAGS_RELEASE += -GR -Zi -Oy-
+  QMAKE_LFLAGS += -fixed:no -debug
 }
 
 CONFIG(optgen) {
