@@ -100,7 +100,6 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
-  File "\windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91\msvcr90.dll"
   File "\Program Files\Intel\Compiler\C++\10.1.014\IA32\Bin\libmmd.dll"
 
   SetOutPath "$INSTDIR\bin"
@@ -109,7 +108,6 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
-  File "\windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91\msvcr90.dll"
   
   SetOutPath "$INSTDIR\etc"
   File "\dev\dbus\etc\session.conf"
@@ -119,6 +117,15 @@ Section "Mumble & Murmur" SecMumble
   File /oname=link.dll "..\plugins\link.dll"
   ;File /oname=wow.dll "..\plugins\wow.dll"
 
+  GetTempFileName $0
+  Delete "$0"
+  SetOutPath "$0"
+  
+  File "vcredist_x86.exe"
+  ExecWait '"$0\vcredist_x86.exe" /quiet'
+  Delete "$0\vcredist_x86.exe"
+  RMDIR "$0"
+  
   SetOutPath "$INSTDIR"
 
   ;Store installation folder
@@ -196,6 +203,7 @@ Section "Uninstall"
   Delete "$INSTDIR\libxml2.dll"
   Delete "$INSTDIR\iconv.dll"
   Delete "$INSTDIR\zlib1.dll"
+  Delete "$INSTDIR\libmmd.dll"
 
   Delete "$INSTDIR\bin\dbus-daemon.exe"
   Delete "$INSTDIR\bin\libdbus-1.dll"
