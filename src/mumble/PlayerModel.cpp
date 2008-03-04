@@ -75,6 +75,15 @@ ModelItem::~ModelItem() {
 		c_qhPlayers.remove(pPlayer);
 }
 
+void ModelItem::stealChildren(ModelItem *other) {
+	Q_ASSERT(qlChildren.count() == 0);
+	
+	qlChildren = other->qlChildren;
+	other->qlChildren.clear();
+	foreach(ModelItem *mi, qlChildren) 
+		mi->parent = this;
+}
+
 ModelItem *ModelItem::child(int idx) const {
 	if (! validRow(idx))
 		return NULL;
@@ -487,6 +496,8 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	} else {
 		newparent->cChan->addPlayer(item->pPlayer);
 	}
+	
+	t->stealChildren(item);
 
 	endInsertRows();
 
