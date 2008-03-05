@@ -122,7 +122,7 @@ Section "Mumble & Murmur" SecMumble
   SetOutPath "$0"
   
   File "vcredist_x86.exe"
-  ExecWait '"$0\vcredist_x86.exe" /quiet'
+  ExecWait '"$0\vcredist_x86.exe" /q:a'
   Delete "$0\vcredist_x86.exe"
   RMDIR "$0"
   
