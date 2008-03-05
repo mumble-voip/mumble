@@ -195,7 +195,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 }
 
 DXAudioOutputPlayer::~DXAudioOutputPlayer() {
-	qWarning("DXAudioOutputPlayer: %s: Removed", qPrintable(aop->qsName));
+	qWarning("DXAudioOutputPlayer: Removed");
 	if (pDS3dBuffer)
 		pDS3dBuffer->Release();
 	if (pDSNotify)
