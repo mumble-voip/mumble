@@ -39,7 +39,8 @@ Description: Low latency VoIP server
 
 Package: mumble-server-web
 Architecture: all
-Depends: mumble-server (>= ${source:Version}), ${misc:Depends}, ${perl:Depends}, adduser (>= 3.103),  libnet-dbus-perl (>= 0.33.5), libcgi-perl (>= 2.76), libcgi-session-perl (>= 4.20), libnet-dns-perl (>= 0.60), libcompress-zlib-perl (>= 2.005), perlmagick, libconfig-simple-perl (>= 4.59), apache2 | httpd, postfix | mail-transport-agent
+Depends: mumble-server (>= ${source:Version}), ${misc:Depends}, ${perl:Depends}, libnet-dbus-perl (>= 0.33.5), libcgi-perl (>= 2.76), libcgi-session-perl (>= 4.20), libnet-dns-perl (>= 0.60), libcompress-zlib-perl (>= 2.005), perlmagick, libconfig-simple-perl (>= 4.59), apache2 | httpd, postfix | mail-transport-agent
+Replaces: mumble-server (<< 1.1.3)
 Description: Web scripts for mumble-server
  Murmur (in the package mumble-server) is the VoIP server component for
  Mumble. This package contains web scripts for registering users,
