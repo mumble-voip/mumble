@@ -91,6 +91,9 @@ static void resolveOpenGL() {
 }
 
 static void resolveSM() {
+	static bool warned_sm = false;
+   	static bool warned_ver = false;
+
 	int fd = shm_open("/MumbleOverlayMem", O_RDWR, 0600);
 	if (fd >= 0) {
 		sm = (struct SharedMem *)(mmap(NULL, sizeof(struct SharedMem), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0));
@@ -98,12 +101,38 @@ static void resolveSM() {
 			sm = NULL;
 			close(fd);
 		} else {
-			sem = sem_open("/MumbleOverlaySem", 0);
-			if (sem == SEM_FAILED) {
+			if ((sm->version[0] != OVERLAY_VERSION_MAJ) ||
+			    (sm->version[1] != OVERLAY_VERSION_MIN) ||
+			    (sm->version[2] != OVERLAY_VERSION_PATCH)) {
+			    	if (! warned_ver) {
+					fflush(stderr);
+					fprintf(stderr, "MUMBLE OVERLAY:: Version mismatch. Library is %u.%u.%u.%u, application is %u.%u.%u.%u\n",
+						OVERLAY_VERSION_MAJ, OVERLAY_VERSION_MIN, OVERLAY_VERSION_PATCH, OVERLAY_VERSION_SUB,
+						sm->version[0], sm->version[1], sm->version[2], sm->version[3]
+					);
+					fflush(stderr);
+					warned_ver = true;
+			    	}
 				munmap(sm, sizeof(struct SharedMem));
 				sm = NULL;
 				close(fd);
+			} else {
+				sem = sem_open("/MumbleOverlaySem", 0);
+				if (sem == SEM_FAILED) {
+					munmap(sm, sizeof(struct SharedMem));
+					sm = NULL;
+					close(fd);
+				}
 			}
+		}
+	}
+
+	if (sm == NULL) {
+		if (! warned_sm && ! warned_ver) {
+			fflush(stderr);
+			fprintf(stderr, "MUMBLE OVERLAY:: NO CONTACT WITH MUMBLE\n");
+			fflush(stderr);
+			warned_sm = true;
 		}
 	}
 }
@@ -176,11 +205,11 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 	// DEBUG
 	// sm->bDebug = true;
 
-	unsigned int width, height;
+	int width, height;
 	int i;
 
-	glXQueryDrawable(dpy, draw, GLX_WIDTH, &width);
-	glXQueryDrawable(dpy, draw, GLX_HEIGHT, &height);
+	glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
+	glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
 
 	ods("DrawStart: Screen is %d x %d", width, height);
 
@@ -334,7 +363,7 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 
 			contexts = c;
 
-			int attrib[4] = { GLX_FBCONFIG_ID, -1, 0, 0 };
+			int attrib[4] = { GLX_FBCONFIG_ID, -1, None, None };
 			glXQueryContext(dpy, ctx, GLX_FBCONFIG_ID, &attrib[1]);
 
 			int screen = -1;
@@ -345,8 +374,6 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 			int nelem = -1;
 			GLXFBConfig *fb = glXChooseFBConfig(dpy, screen, attrib, &nelem);
 			ods("ChooseFB returned %d elems: %p\n", nelem, fb);
-
-			GLXContext myctx = NULL;
 
 			if (fb) {
 				GLXContext myctx = glXCreateNewContext(dpy, *fb, GLX_RGBA_TYPE, NULL, 1);
@@ -365,12 +392,6 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 			glXMakeCurrent(dpy, draw, c->glctx);
 			drawContext(c, dpy, draw);
 			glXMakeCurrent(dpy, draw, ctx);
-		}
-	} else {
-		static bool warned = false;
-		if (!warned) {
-			ods("MUMBLE OVERLAY:: NO CONTACT WITH MUMBLE\n");
-			warned = true;
 		}
 	}
 	oglXSwapBuffers(dpy, draw);

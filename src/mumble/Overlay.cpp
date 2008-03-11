@@ -214,6 +214,11 @@ Overlay::Overlay() : QObject() {
 		sm.sm->bDebug = false;
 #endif
 
+	sm.sm->version[0] = OVERLAY_VERSION_MAJ;
+	sm.sm->version[1] = OVERLAY_VERSION_MIN;
+	sm.sm->version[2] = OVERLAY_VERSION_PATCH;
+	sm.sm->version[3] = OVERLAY_VERSION_SUB;
+
 	QImage img;
 	img.load(QLatin1String("skin:muted_overlay.png"));
 	qbaMuted = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());

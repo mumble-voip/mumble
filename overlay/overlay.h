@@ -37,6 +37,11 @@
 
 #define TEXTURE_SIZE (TEXT_WIDTH*TEXT_HEIGHT*4)
 
+#define OVERLAY_VERSION_MAJ 1
+#define OVERLAY_VERSION_MIN 1
+#define OVERLAY_VERSION_PATCH 4
+#define OVERLAY_VERSION_SUB 0
+
 struct TextEntry {
 	unsigned int color;
 	wchar_t text[128];
@@ -46,6 +51,7 @@ struct TextEntry {
 };
 
 struct SharedMem {
+	unsigned char version[4];
 	unsigned int lastAppAlive;
 	bool bHooked;
 	bool bDebug;
