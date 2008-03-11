@@ -30,10 +30,11 @@
 
 #include "TextToSpeech.h"
 #include "Global.h"
+#include <libspeechd.h>
 
 class TextToSpeechPrivate {
 	protected:
-		QProcess qpFestival;
+		SPDConnection *spd;
 	public:
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
@@ -42,23 +43,32 @@ class TextToSpeechPrivate {
 };
 
 TextToSpeechPrivate::TextToSpeechPrivate() {
-	qpFestival.start(g.s.qsFestival,QIODevice::ReadWrite);
-	qpFestival.waitForStarted(5000);
+	spd = spd_open("Mumble", NULL, NULL, SPD_MODE_THREADED);
+	if (! spd) {
+		qWarning("TextToSpeech: Failed to contact speech dispatcher.");
+	} else {
+		if (spd_set_punctuation(spd, SPD_PUNCT_NONE) != 0)
+			qWarning("TextToSpech: Failed to set punctuation mode.");
+		if (spd_set_spelling(spd, SPD_SPELL_ON) != 0)
+			qWarning("TextToSpeech: Failed to set spelling mode.");
+	}
 }
 
 TextToSpeechPrivate::~TextToSpeechPrivate() {
-	qpFestival.closeWriteChannel();
-	qpFestival.close();
+	if (spd) {
+		spd_close(spd);
+		spd = NULL;
+	}
 }
 
 void TextToSpeechPrivate::say(const QString &txt) {
-	QString text = txt;
-	if (! g.s.qsFestivalSearch.isEmpty())
-		text.replace(QRegExp(g.s.qsFestivalSearch),g.s.qsFestivalReplace);
-	qpFestival.write(g.s.qsFestivalPattern.arg(text).toUtf8());
+	if (spd)
+		spd_say(spd, SPD_MESSAGE, txt.toUtf8());
 }
 
-void TextToSpeechPrivate::setVolume(int) {
+void TextToSpeechPrivate::setVolume(int vol) {
+	if (spd)
+		spd_set_volume(spd, vol * 2 - 100);
 }
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
