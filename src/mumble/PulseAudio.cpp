@@ -131,7 +131,7 @@ void PulseAudioSystem::defer_event_callback(pa_mainloop_api *a, pa_defer_event *
 }
 
 
-void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *evt) {
+void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	Q_ASSERT(pade == evt);
 	api->defer_enable(pade, false);
 
@@ -295,7 +295,7 @@ void PulseAudioSystem::context_state_callback(pa_context *c, void *userdata) {
 	pas->contextCallback(c);
 }
 
-void PulseAudioSystem::subscribe_callback(pa_context *c, pa_subscription_event_type t, unsigned int idx, void *userdata) {
+void PulseAudioSystem::subscribe_callback(pa_context *, pa_subscription_event_type, unsigned int, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 	qWarning("PulseAudio: Sinks or inputs changed (inserted or removed sound card)");
 	pas->query();

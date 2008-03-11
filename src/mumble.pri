@@ -8,6 +8,7 @@ CONFIG		+= qt thread debug_and_release warn_on
 !win32 {
   QMAKE_CFLAGS		+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
   QMAKE_CXXFLAGS	+= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+  QMAKE_LFLAGS		+= -Wl,--as-needed
 }
 win32 {
   QMAKE_CXX = icl
