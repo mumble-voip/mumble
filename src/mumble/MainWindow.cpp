@@ -125,6 +125,7 @@ void MainWindow::createActions() {
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));
 
 	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
+	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 	qstiIcon->show();
 }
