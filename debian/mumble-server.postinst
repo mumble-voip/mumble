@@ -31,7 +31,9 @@ case "$1" in
     	
     	# Ensure the file we put in /etc/dbus-1/system.d is loaded
     	# or murmurd will fail to bind to dbus.
-    	invoke-rc.d --quiet dbus reload
+    	if [ -f /etc/init.d/dbus ]; then
+    		invoke-rc.d --quiet dbus reload
+    	fi
     	
 	# Update /etc/default file based on config
     	if [ -f /etc/default/mumble-server ]; then
