@@ -5,13 +5,14 @@
 #define QT_NO_CAST_TO_ASCII
 
 #include <QtCore/QtCore>
-#include <QtDBus/QtDBus>
 #include <QtGui/QtGui>
 #include <QtNetwork/QtNetwork>
 #include <QtOpenGL/QtOpenGL>
 #include <QtSql/QtSql>
 #include <QtXml/QtXml>
-
+#ifndef Q_OS_MAC
+ #include <QtDBus/QtDBus>
+#endif
 
 
 #include <openssl/aes.h>
