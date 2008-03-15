@@ -17,7 +17,7 @@ win32 {
   QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
   QMAKE_CXXFLAGS += -Qstd=c++0x -Qrestrict
   QMAKE_CXXFLAGS_RELEASE += -O3 -QxK -Qip -Qipo
-  QMAKE_CXXFLAGS_DEBUG += -O2 -QxK -Ob0
+  QMAKE_CXXFLAGS_DEBUG += -O2 -QxK -Ob0 -RTCs -RTCu -RTCc
   QMAKE_LINK = xilink
 }
 

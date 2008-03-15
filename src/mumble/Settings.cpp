@@ -82,6 +82,7 @@ Settings::Settings() {
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
+	bWASAPIEcho = false;
 	bPulseAudioEcho = false;
 
 	iPortAudioInput = -1; // default device
@@ -175,6 +176,10 @@ void Settings::load() {
 	SAVELOAD(qsASIOclass, "asio/class");
 	SAVELOAD(qlASIOmic, "asio/mic");
 	SAVELOAD(qlASIOspeaker, "asio/speaker");
+
+	SAVELOAD(qsWASAPIInput, "wasapi/input");
+	SAVELOAD(qsWASAPIOutput, "wasapi/output");
+	SAVELOAD(bWASAPIEcho, "wasapi/echo");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
@@ -290,6 +295,10 @@ void Settings::save() {
 	SAVELOAD(qsASIOclass, "asio/class");
 	SAVELOAD(qlASIOmic, "asio/mic");
 	SAVELOAD(qlASIOspeaker, "asio/speaker");
+
+	SAVELOAD(qsWASAPIInput, "wasapi/input");
+	SAVELOAD(qsWASAPIOutput, "wasapi/output");
+	SAVELOAD(bWASAPIEcho, "wasapi/echo");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");

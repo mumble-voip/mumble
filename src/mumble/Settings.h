@@ -79,6 +79,9 @@ struct Settings {
 	QList<QVariant> qlASIOspeaker;
 	Audio3D a3dModel;
 
+	QString qsWASAPIInput, qsWASAPIOutput;
+	bool bWASAPIEcho;
+
 	QByteArray qbaDXInput, qbaDXOutput;
 	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
 

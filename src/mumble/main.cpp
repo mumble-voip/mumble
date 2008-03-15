@@ -115,7 +115,6 @@ int main(int argc, char **argv) {
 		a.setStyle(g.s.qsStyle);
 	}
 
-
 	if (! g.s.qsSkin.isEmpty()) {
 		QFile file(g.s.qsSkin);
 		file.open(QFile::ReadOnly);

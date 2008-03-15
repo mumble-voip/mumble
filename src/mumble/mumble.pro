@@ -28,12 +28,13 @@ PRECOMPILED_HEADER = mumble_pch.hpp
 
 win32 {
   RC_FILE	= mumble.rc
-  HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h
-  SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
-  FORMS		+= DXConfigDialog.ui ASIOInput.ui
+  HEADERS	+= WASAPI.h DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h
+  SOURCES	+= WASAPI.cpp DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp 
+  FORMS		+= WASAPI.ui DXConfigDialog.ui ASIOInput.ui
   INCLUDEPATH	+= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_34_1
   LIBS		+= -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
   LIBPATH	+= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib
+  LIBS		+= -lavrt -delayload:avrt -ldelayimp
   CONFIG	+= asio
   DEFINES	+= WIN32
   INCLUDEPATH	+= /dev/OpenSSL/include

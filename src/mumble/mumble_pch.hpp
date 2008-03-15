@@ -4,6 +4,12 @@
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
 
+#define _MSC_EXTENSIONS
+
+#ifndef _MSC_EXTENSIONS
+#error Snufs
+#endif
+
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #include <QtNetwork/QtNetwork>
