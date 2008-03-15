@@ -99,7 +99,6 @@ PulseAudioSystem::PulseAudioSystem() {
 
 	int margin = 320;
 	jbJitter = jitter_buffer_init(margin);
-	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
 	start(QThread::TimeCriticalPriority);
 }
 
