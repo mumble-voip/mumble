@@ -158,10 +158,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		return;
 	}
 
-	QTextDocument t;
-	t.setUndoRedoEnabled(false);
-	t.setHtml(console);
-	QString plain = t.toPlainText();
+	const QString plain = QTextDocumentFragment::fromHtml(console).toPlainText();
 
 	quint32 flags = g.s.qmMessages.value(mt);
 
@@ -174,11 +171,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 			qttf.setPadding(2);
 			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
 			tc.insertFrame(qttf);
-			tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
-		} else {
+		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
-			tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
 		}
+		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console).arg(now.toString(Qt::LocalDate)));
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();
