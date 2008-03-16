@@ -82,9 +82,12 @@ unix {
   }
 
   macx {
+    TARGET = Mumble
+
     release:!debug {
       CONFIG += x86 ppc
     }
+
     # Common include paths for boost 1.34
     INCLUDEPATH += /usr/local/include/boost-1_34_1/
     INCLUDEPATH += /opt/local/include/boost-1_34_1/
