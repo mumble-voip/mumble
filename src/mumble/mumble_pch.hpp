@@ -30,7 +30,14 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
+#ifdef __GNUC__
+#define BOOST_TYPEOF(expr) __typeof__(expr)
+#define BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP() "mumble_pch.hpp"
+#define BOOST_TYPEOF_REGISTER_TYPE(expr)
+#define BOOST_TYPEOF_REGISTER_TEMPLATE(expra,exprb)
+#else
 #include <boost/typeof/typeof.hpp>
+#endif
 
 #ifdef Q_OS_WIN
 #include <windows.h>
