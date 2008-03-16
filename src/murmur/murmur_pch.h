@@ -30,6 +30,9 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#ifdef __FreeBSD__
+#include <netinet/in_systm.h>
+#endif
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <errno.h>
@@ -44,9 +47,7 @@
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
 #define snprintf ::_snprintf
 #else
-#include <alloca.h>
 #include <math.h>
-#define ALLOCA(x) alloca(x)
 #define STACKVAR(type, varname, count) type varname[count]
 #endif
 
