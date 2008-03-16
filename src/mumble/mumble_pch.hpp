@@ -4,22 +4,19 @@
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
 
+#ifdef _MSC_VER
 #define _MSC_EXTENSIONS
-
-#ifndef _MSC_EXTENSIONS
-#error Snufs
 #endif
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
+#ifndef Q_OS_MAC
+#include <QtDBus/QtDBus>
+#endif
 #include <QtNetwork/QtNetwork>
 #include <QtOpenGL/QtOpenGL>
 #include <QtSql/QtSql>
 #include <QtXml/QtXml>
-#ifndef Q_OS_MAC
- #include <QtDBus/QtDBus>
-#endif
-
 
 #include <openssl/aes.h>
 #include <openssl/rand.h>
