@@ -33,6 +33,9 @@
 #include "licenses.h"
 
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
+
+	setWindowTitle(tr("About Mumble"));
+
 	QTabWidget *qtwTab = new QTabWidget(this);
 	QVBoxLayout *vblMain = new QVBoxLayout(this);
 
@@ -72,6 +75,8 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
 	char *verptr;
 	speex_lib_ctl(SPEEX_LIB_GET_VERSION_STRING, &verptr);
+
+	setWindowTitle(tr("About Speex"));
 
 	QLabel *text=new QLabel();
 	text->setText(tr(
