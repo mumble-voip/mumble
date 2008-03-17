@@ -134,8 +134,22 @@ void os_init() {
 
 
 #ifdef QT_NO_DEBUG
-	fConsole=fopen("Console.txt", "a+");
-	if (fConsole)
+	errno_t res;
+	res=_wfopen_s(&fConsole, L"Console.txt", L"a+");
+	if ((res != 0) || (! fConsole)) {
+		size_t reqSize, bSize;
+		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
+
+		reqSize += strlen("/Mumble/Console.txt");
+		bSize = reqSize;
+
+		STACKVAR(wchar_t, buff, reqSize+1);
+
+		_wgetenv_s(&reqSize, buff, bSize, L"APPDATA");
+		wcscat_s(buff, bSize, L"/Mumble/Console.txt");
+		res = _wfopen_s(&fConsole, buff, L"a+");
+	}
+	if ((res == 0) && fConsole)
 		qInstallMsgHandler(mumbleMessageOutput);
 	SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
 
