@@ -40,7 +40,7 @@ void Server::initRegister() {
 
 	if (! qsRegName.isEmpty()) {
 		if ((! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && (qurlRegWeb.isValid()) && (qsPassword.isEmpty()))
-			qtTick.start(60 * 1000);
+			qtTick.start((60 + (qrand() % 120))* 1000);
 		else
 			log("Registration needs nonempty name, password and url, and the server must not be password protected.");
 	} else {
@@ -62,7 +62,7 @@ void Server::abort() {
 
 void Server::update() {
 	abort();
-	qtTick.start(1000 * 60 * 60);
+	qtTick.start(1000 * (60 * 60 + (qrand() % 300)));
 
 	QDomDocument doc;
 	QDomElement root=doc.createElement(QLatin1String("server"));

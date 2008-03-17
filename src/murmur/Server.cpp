@@ -131,7 +131,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	qtTimeout = new QTimer(this);
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
-	qtTimeout->start(5500);
+	qtTimeout->start(15500);
 
 	getBans();
 	readChannels();
