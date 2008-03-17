@@ -118,12 +118,15 @@ void LookConfig::accept() const {
 	}
 	if (s.qsSkin.isEmpty()) {
 		qApp->setStyleSheet(QString());
+		g.mw->qteLog->document()->setDefaultStyleSheet(QString());
 	} else {
 		QFile file(s.qsSkin);
 		file.open(QFile::ReadOnly);
 		QString sheet = QLatin1String(file.readAll());
-		if (! sheet.isEmpty())
+		if (! sheet.isEmpty()) {
 			qApp->setStyleSheet(sheet);
+			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
+		}
 	}
 
 	if (s.bHorizontal) {

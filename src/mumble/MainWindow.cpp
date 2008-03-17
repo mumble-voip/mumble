@@ -133,6 +133,8 @@ void MainWindow::createActions() {
 void MainWindow::setupGui()  {
 	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 
+	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+
 	pmModel = new PlayerModel(qtvPlayers);
 
 	qtvPlayers->setModel(pmModel);

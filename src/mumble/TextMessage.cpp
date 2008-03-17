@@ -32,6 +32,7 @@
 
 TextMessage::TextMessage(QWidget *p) : QDialog(p) {
 	setupUi(this);
+	qtbPreview->document()->setDefaultStyleSheet(qApp->styleSheet());
 	qteEdit->installEventFilter(this);
 }
 
