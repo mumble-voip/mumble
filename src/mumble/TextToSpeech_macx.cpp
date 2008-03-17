@@ -57,11 +57,12 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 
 void TextToSpeechPrivate::say(const QString &text) {
 	QByteArray ba = text.toUtf8();
-	const char* val = ba.data();
-	SpeakText(speechchan, val, 11);
+	SpeakText(speechchan, ba.constData(), ba.size());
 }
 
-void TextToSpeechPrivate::setVolume(int) {
+void TextToSpeechPrivate::setVolume(int volume) {
+	Fixed val = FixRatio(volume, 100);
+	SetSpeechInfo(speechchan, soVolume, &val);
 }
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
