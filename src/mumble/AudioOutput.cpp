@@ -52,6 +52,9 @@ AudioOutputRegistrar::~AudioOutputRegistrar() {
 }
 
 AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
+	if (! qmNew)
+		return AudioOutputPtr();
+
 	if (!choice.isEmpty() && qmNew->contains(choice)) {
 		g.s.qsAudioOutput = choice;
 		current = choice;

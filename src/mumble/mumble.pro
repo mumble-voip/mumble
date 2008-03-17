@@ -26,18 +26,36 @@ PRECOMPILED_HEADER = mumble_pch.hpp
 
 win32 {
   RC_FILE	= mumble.rc
-  HEADERS	+= WASAPI.h DXAudioInput.h DXAudioOutput.h DXConfigDialog.h GlobalShortcut_win.h
-  SOURCES	+= WASAPI.cpp DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp 
-  FORMS		+= WASAPI.ui DXConfigDialog.ui ASIOInput.ui
+  HEADERS	+= GlobalShortcut_win.h
+  SOURCES	+= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp 
   INCLUDEPATH	+= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_34_1
-  LIBS		+= -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
+  LIBS		+= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
   LIBPATH	+= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib
-  LIBS		+= -lavrt -delayload:avrt -ldelayimp
   DEFINES	+= WIN32
   INCLUDEPATH	+= /dev/OpenSSL/include
   !CONFIG(no-asio) {
     CONFIG	+= asio
   }
+  !CONFIG(no-directsound) {
+    CONFIG	+= directsound
+  }
+  !CONFIG(no-wasapi) {
+    CONFIG	+= wasapi
+  }
+}
+
+directsound {
+  HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h
+  SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp
+  FORMS		+= DXConfigDialog.ui
+  LIBS		+= -ldsound
+}
+
+wasapi {
+  HEADERS	+= WASAPI.h
+  SOURCES	+= WASAPI.cpp
+  FORMS		+= WASAPI.ui
+  LIBS		+= -lavrt -delayload:avrt -ldelayimp
 }
 
 unix {
@@ -104,10 +122,10 @@ unix {
 }
 
 alsa {
+	PKGCONFIG += alsa
 	HEADERS += ALSAAudio.h
 	SOURCES += ALSAAudio.cpp
 	FORMS += ALSAAudio.ui
-	PKGCONFIG += alsa
 }
 
 oss {
@@ -118,24 +136,24 @@ oss {
 }
 
 pulseaudio {
+	PKGCONFIG += libpulse
 	HEADERS += PulseAudio.h
 	SOURCES += PulseAudio.cpp
 	FORMS += PulseAudio.ui
-	PKGCONFIG += libpulse
 }
 
 portaudio {
 	PKGCONFIG += portaudio-2.0
-	SOURCES += PAAudio.cpp PAAudioConfig.cpp
 	HEADERS += PAAudio.h PAAudioConfig.h
+	SOURCES += PAAudio.cpp PAAudioConfig.cpp
 	FORMS += PAAudioConfig.ui
 }
 
 asio {
-	DEFINES	+= USE_ASIO
-	INCLUDEPATH += ../../asio/common ../../asio/host ../../asio/host/pc
 	HEADERS += ASIOInput.h
 	SOURCES	+= ASIOInput.cpp
+	FORMS += ASIOInput.ui
+	INCLUDEPATH += ../../asio/common ../../asio/host ../../asio/host/pc
 }
 
 dbus {
@@ -146,8 +164,8 @@ dbus {
 }
 
 speechd {
-	LIBS += -lspeechd
 	DEFINES += USE_SPEECHD
+	LIBS += -lspeechd
 }
 
 QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/

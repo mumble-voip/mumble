@@ -189,9 +189,11 @@ int main(int argc, char **argv) {
 
 	// And the start the last chosen audio system.
 	g.ai = AudioInputRegistrar::newFromChoice();
-	g.ai->start(QThread::HighestPriority);
+	if (g.ai)
+		g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice();
-	g.ao->start(QThread::HighPriority);
+	if (g.ao)
+		g.ao->start(QThread::HighPriority);
 
 	a.setQuitOnLastWindowClosed(false);
 

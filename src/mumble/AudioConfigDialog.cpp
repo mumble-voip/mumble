@@ -46,14 +46,22 @@ AudioConfigDialog::AudioConfigDialog(Settings &st) : ConfigWidget(st) {
 
 	setupUi(this);
 
-	keys=AudioInputRegistrar::qmNew->keys();
-	foreach(key, keys) {
-		qcbInput->addItem(key);
+	if (AudioInputRegistrar::qmNew) {
+		keys=AudioInputRegistrar::qmNew->keys();
+		foreach(key, keys) {
+			qcbInput->addItem(key);
+		}
+	} else {
+		qcbInput->setEnabled(false);
 	}
 
-	keys=AudioOutputRegistrar::qmNew->keys();
-	foreach(key, keys) {
-		qcbOutput->addItem(key);
+	if (AudioOutputRegistrar::qmNew) {
+		keys=AudioOutputRegistrar::qmNew->keys();
+		foreach(key, keys) {
+			qcbOutput->addItem(key);
+		}
+	} else {
+		qcbOutput->setEnabled(false);
 	}
 
 	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
@@ -77,12 +85,18 @@ void AudioConfigDialog::load(const Settings &r) {
 	int i;
 	QList<QString> keys;
 
-	keys=AudioInputRegistrar::qmNew->keys();
+	if (AudioInputRegistrar::qmNew)
+		keys=AudioInputRegistrar::qmNew->keys();
+	else
+		keys.clear();
 	i=keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbInput, i);
 
-	keys=AudioOutputRegistrar::qmNew->keys();
+	if (AudioOutputRegistrar::qmNew)
+		keys=AudioOutputRegistrar::qmNew->keys();
+	else
+		keys.clear();
 	i=keys.indexOf(AudioOutputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbOutput, i);
