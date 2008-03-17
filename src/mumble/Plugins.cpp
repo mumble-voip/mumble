@@ -33,12 +33,13 @@
 #include "../../plugins/mumble_plugin.h"
 #include "Global.h"
 
+#ifdef Q_OS_WIN
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);
 }
 
 static ConfigRegistrar registrar(50, PluginConfigDialogNew);
-
+#endif
 
 struct PluginInfo {
 	bool locked;
@@ -146,32 +147,37 @@ void Plugins::rescanPlugins() {
 	prevlocked = locked = NULL;
 	bValid = false;
 
+#ifndef PLUGIN_PATH
 #ifdef QT_NO_DEBUG
-	QString path=QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
+	const QString path=QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
 #else
-	QString path=QString::fromLatin1("%1/../plugins").arg(qApp->applicationDirPath());
+	const QString path=QString::fromLatin1("%1/../plugins").arg(qApp->applicationDirPath());
 #endif
-
-	QDir qd(path,QLatin1String("*.dll"), QDir::Name, QDir::Files | QDir::Readable);
+#else
+	const QString path=QLatin1String(MUMTEXT(PLUGIN_PATH));
+#endif
+	QDir qd(path,QString(), QDir::Name, QDir::Files | QDir::Readable);
 	QStringList libs = qd.entryList();
 	foreach(QString libname, libs) {
-		pi = new PluginInfo();
-		pi->filename = QString::fromLatin1("%1/%2").arg(path).arg(libname);
-		pi->lib.setFileName(pi->filename);
-		if (pi->lib.load()) {
-			mumblePluginFunc mpf = (mumblePluginFunc)(pi->lib.resolve("getMumblePlugin"));
-			if (mpf) {
-				pi->p = mpf();
-				if (pi->p) {
-					pi->description=QString::fromUtf16(reinterpret_cast<const ushort *>(pi->p->description));
-					pi->shortname=QString::fromUtf16(reinterpret_cast<const ushort *>(pi->p->shortname));
-					qlPlugins << pi;
-					continue;
+		if (QLibrary::isLibrary(libname)) {
+			pi = new PluginInfo();
+			pi->filename = QString::fromLatin1("%1/%2").arg(path).arg(libname);
+			pi->lib.setFileName(pi->filename);
+			if (pi->lib.load()) {
+				mumblePluginFunc mpf = reinterpret_cast<mumblePluginFunc>(pi->lib.resolve("getMumblePlugin"));
+				if (mpf) {
+					pi->p = mpf();
+					if (pi->p) {
+						pi->description=QString::fromWCharArray(pi->p->description);
+						pi->shortname=QString::fromWCharArray(pi->p->shortname);
+						qlPlugins << pi;
+						continue;
+					}
 				}
+				pi->lib.unload();
 			}
-			pi->lib.unload();
+			delete pi;
 		}
-		delete pi;
 	}
 }
 

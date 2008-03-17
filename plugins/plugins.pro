@@ -1,2 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = bf2 wow link
+
+win32 {
+	SUBDIRS = bf2 wow link
+}

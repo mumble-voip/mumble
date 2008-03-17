@@ -35,8 +35,8 @@
 
 typedef struct _MumblePlugin {
 	unsigned int magic;
-	wchar_t *description;
-	wchar_t *shortname;
+	const wchar_t *description;
+	const wchar_t *shortname;
 	void (__cdecl *about)(HWND);
 	void (__cdecl *config)(HWND);
 	int (__cdecl *trylock)();

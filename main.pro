@@ -1,11 +1,11 @@
 TEMPLATE = subdirs
 CONFIG += debug_and_release
 
-SUBDIRS += speexbuild
+SUBDIRS += speexbuild plugins
 SUBDIRS += src/mumble src/murmur
 
 win32 {
-  SUBDIRS += plugins overlay
+  SUBDIRS += overlay
 }
 
 unix:!macx {
