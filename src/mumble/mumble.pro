@@ -168,6 +168,10 @@ speechd {
 	LIBS += -lspeechd
 }
 
+CONFIG(no-update) {
+	DEFINES += NO_UPDATE_CHECK
+}
+
 QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
