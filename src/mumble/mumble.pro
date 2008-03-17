@@ -20,10 +20,8 @@ PRECOMPILED_HEADER = mumble_pch.hpp
   QMAKE_CXXFLAGS	+= -Wall -Wextra
 }
 
-!macx {
-  CONFIG                += qdbus
-  HEADERS               += DBus.h
-  SOURCES               += DBus.cpp
+!macx:!CONFIG(no-dbus) {
+  CONFIG		+= dbus
 }
 
 win32 {
@@ -35,9 +33,11 @@ win32 {
   LIBS		+= -ldsound -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
   LIBPATH	+= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib
   LIBS		+= -lavrt -delayload:avrt -ldelayimp
-  CONFIG	+= asio
   DEFINES	+= WIN32
   INCLUDEPATH	+= /dev/OpenSSL/include
+  !CONFIG(no-asio) {
+    CONFIG	+= asio
+  }
 }
 
 unix {
@@ -48,21 +48,14 @@ unix {
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
 
-  !isEmpty(HAVE_PORTAUDIO) {
+  !isEmpty(HAVE_PORTAUDIO):!CONFIG(no-portaudio) {
     CONFIG += portaudio
   }
 
-  !isEmpty(HAVE_PULSEAUDIO) {
+  !isEmpty(HAVE_PULSEAUDIO):!CONFIG(no-pulseaudio) {
     CONFIG += pulseaudio
     CONFIG -= portaudio
   }
-
-  # Enable mmx/sse optimizations on x86 archs except on mac where these would
-  # break universal build
-  # No, we don't, as it breaks packaging policies all over.
-  #!macx:!isEmpty(X86ARCH) {
-  #		QMAKE_CXXFLAGS += -mmmx -msse
-  #	}
 
   QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
   QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
@@ -73,12 +66,21 @@ unix {
   PKGCONFIG += openssl
 
   contains(UNAME, Linux) {
-    CONFIG  += oss
-    FORMS   += ALSAAudio.ui
-    HEADERS += ALSAAudio.h GlobalShortcut_unix.h
-    SOURCES += ALSAAudio.cpp GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
-    PKGCONFIG += xevie alsa
-    LIBS    += -lspeechd
+    !CONFIG(no-oss) {
+      CONFIG  += oss
+    }
+
+    !CONFIG(no-alsa) {
+      CONFIG += alsa
+    }
+
+    !CONFIG(no-speechd) {
+      CONFIG += speechd
+    }
+
+    HEADERS += GlobalShortcut_unix.h
+    SOURCES += GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
+    PKGCONFIG += xevie 
   }
 
   macx {
@@ -99,26 +101,34 @@ unix {
     ICON = ../../icons/mumble.icns
   }
 
-  oss {
-    HEADERS += OSS.h
-    SOURCES += OSS.cpp
-    FORMS += OSS.ui
-    INCLUDEPATH += /usr/lib/oss/include
-  }
+}
 
-  pulseaudio {
-     HEADERS += PulseAudio.h
-     SOURCES += PulseAudio.cpp
-     FORMS += PulseAudio.ui
-     PKGCONFIG += libpulse
-  }
+alsa {
+	HEADERS += ALSAAudio.h
+	SOURCES += ALSAAudio.cpp
+	FORMS += ALSAAudio.ui
+	PKGCONFIG += alsa
+}
 
-  portaudio {
-    PKGCONFIG += portaudio-2.0
-    SOURCES += PAAudio.cpp PAAudioConfig.cpp
-    HEADERS += PAAudio.h PAAudioConfig.h
-    FORMS += PAAudioConfig.ui
-  }
+oss {
+	HEADERS += OSS.h
+	SOURCES += OSS.cpp
+	FORMS += OSS.ui
+	INCLUDEPATH += /usr/lib/oss/include
+}
+
+pulseaudio {
+	HEADERS += PulseAudio.h
+	SOURCES += PulseAudio.cpp
+	FORMS += PulseAudio.ui
+	PKGCONFIG += libpulse
+}
+
+portaudio {
+	PKGCONFIG += portaudio-2.0
+	SOURCES += PAAudio.cpp PAAudioConfig.cpp
+	HEADERS += PAAudio.h PAAudioConfig.h
+	FORMS += PAAudioConfig.ui
 }
 
 asio {
@@ -128,6 +138,17 @@ asio {
 	SOURCES	+= ASIOInput.cpp
 }
 
+dbus {
+	CONFIG += qdbus
+	HEADERS += DBus.h
+	SOURCES += DBus.cpp
+        DEFINES += USE_DBUS
+}
+
+speechd {
+	LIBS += -lspeechd
+	DEFINES += USE_SPEECHD
+}
 
 QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})

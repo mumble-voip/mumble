@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 
 	Global::g_global_struct = new Global();
 
-#ifndef Q_OS_MAC
+#ifdef USE_DBUS
 #ifdef Q_OS_WIN
 	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
 	// should contain bin\\, and the path to the config is hardcoded as ..\etc
@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
 
-#ifndef Q_OS_MAC
+#ifdef USE_DBUS
 	new MumbleDBus(g.mw);
 	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), g.mw);
 	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble"));

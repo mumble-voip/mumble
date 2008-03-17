@@ -33,8 +33,10 @@
 #include <libspeechd.h>
 
 class TextToSpeechPrivate {
+#ifdef USE_SPEECHD
 	protected:
 		SPDConnection *spd;
+#endif
 	public:
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
@@ -42,6 +44,7 @@ class TextToSpeechPrivate {
 		void setVolume(int v);
 };
 
+#ifdef USE_SPEECHD
 TextToSpeechPrivate::TextToSpeechPrivate() {
 	spd = spd_open("Mumble", NULL, NULL, SPD_MODE_THREADED);
 	if (! spd) {
@@ -70,6 +73,21 @@ void TextToSpeechPrivate::setVolume(int vol) {
 	if (spd)
 		spd_set_volume(spd, vol * 2 - 100);
 }
+#else
+TextToSpeechPrivate::TextToSpeechPrivate() {
+	qWarning("TextToSpeech: Compiled without support for speech-dispatcher");
+}
+
+TextToSpeechPrivate::~TextToSpeechPrivate() {
+}
+
+void TextToSpeechPrivate::say(const QString &) {
+}
+
+void TextToSpeechPrivate::setVolume(int) {
+}
+#endif
+
 
 TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
 	enabled = true;
