@@ -42,6 +42,12 @@ struct PublicInfo {
 	int port;
 };
 
+class TextSortedItem : public QTreeWidgetItem {
+	public:
+		TextSortedItem(QTreeWidget *, const QStringList &);
+		bool operator< (const QTreeWidgetItem &) const;
+};
+
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		Q_OBJECT;
 	protected:

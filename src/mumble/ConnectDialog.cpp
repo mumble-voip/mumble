@@ -31,6 +31,23 @@
 #include "ConnectDialog.h"
 #include "Global.h"
 
+TextSortedItem::TextSortedItem(QTreeWidget *p, const QStringList &strings) : QTreeWidgetItem(p, strings) {
+}
+
+bool TextSortedItem::operator <(const QTreeWidgetItem &other) const {
+	const QTreeWidget *w = treeWidget();
+
+	int column = w ? w ->sortColumn() : 0;
+
+	QString a = text(column).toLower();
+	QString b = other.text(column).toLower();
+
+	QRegExp re(QLatin1String("[^0-9a-z]"));
+	a.remove(re);
+	b.remove(re);
+	return a < b;
+}
+
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 Timer ConnectDialog::tPublicServers;
 
@@ -154,7 +171,7 @@ void ConnectDialog::fillList() {
 		qsl << pi.name;
 		qsl << QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port);
 		qsl << pi.url.toString();
-		new QTreeWidgetItem(qtwServers,qsl);
+		new TextSortedItem(qtwServers,qsl);
 	}
 }
 
