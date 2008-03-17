@@ -147,7 +147,6 @@ void MainWindow::setupGui()  {
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioTTS->setChecked(g.s.bTTS);
-	qaAudioLocalDeafen->setChecked(g.s.bLocalDeafen);
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
@@ -358,6 +357,23 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 void MainWindow::on_qmPlayer_aboutToShow() {
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	bool self = p && (p->uiSession == g.uiSession);
+
+	qmPlayer->clear();
+
+    qmPlayer->addAction(qaPlayerKick);
+    qmPlayer->addAction(qaPlayerBan);
+    qmPlayer->addAction(qaPlayerMute);
+    qmPlayer->addAction(qaPlayerDeaf);
+    qmPlayer->addAction(qaPlayerLocalMute);
+    qmPlayer->addAction(qaPlayerTextMessage);
+
+	if (self) {
+		qmPlayer->addSeparator();
+		qmPlayer->addAction(qaAudioMute);
+		qmPlayer->addAction(qaAudioDeaf);
+	}
+
 	if (! p) {
 		qaPlayerKick->setEnabled(false);
 		qaPlayerBan->setEnabled(false);
@@ -366,15 +382,16 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 		qaPlayerDeaf->setEnabled(false);
 		qaPlayerTextMessage->setEnabled(false);
 	} else {
-		qaPlayerKick->setEnabled(true);
-		qaPlayerBan->setEnabled(true);
-		qaPlayerMute->setEnabled(true);
-		qaPlayerLocalMute->setEnabled(p->uiSession != g.uiSession);
-		qaPlayerDeaf->setEnabled(true);
-		qaPlayerMute->setChecked(p->bMute);
-		qaPlayerLocalMute->setChecked(p->bLocalMute);
-		qaPlayerDeaf->setChecked(p->bDeaf);
+		qaPlayerKick->setEnabled(! self);
+		qaPlayerBan->setEnabled(! self);
+		qaPlayerMute->setEnabled(! self || p->bMute);
+		qaPlayerDeaf->setEnabled(! self || p->bDeaf);
 		qaPlayerTextMessage->setEnabled(true);
+		qaPlayerLocalMute->setEnabled(! self);
+
+		qaPlayerMute->setChecked(p->bMute);
+		qaPlayerDeaf->setChecked(p->bDeaf);
+		qaPlayerLocalMute->setChecked(p->bLocalMute);
 	}
 }
 
@@ -729,14 +746,6 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	mpsmd.bMute = g.s.bMute;
 	mpsmd.bDeaf = g.s.bDeaf;
 	g.sh->sendMessage(&mpsmd);
-}
-
-void MainWindow::on_qaAudioLocalDeafen_triggered() {
-	g.s.bLocalDeafen = qaAudioLocalDeafen->isChecked();
-	if (g.s.bLocalDeafen) {
-		QMessageBox::information(this, tr("Mumble"), tr("You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting "
-		                         "voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers."));
-	}
 }
 
 void MainWindow::on_qaAudioTTS_triggered() {

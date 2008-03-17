@@ -107,7 +107,6 @@ Settings::Settings() {
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 
-	bLocalDeafen = false;
 	lmLoopMode = None;
 	dPacketLoss = 0;
 	dMaxPacketDelay = 0.0;

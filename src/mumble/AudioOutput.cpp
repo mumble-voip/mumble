@@ -198,7 +198,7 @@ bool AudioOutputSpeech::decodeNextFrame() {
 				if (iMissCount < 5) {
 					speex_decode_int(dsDecState, NULL, psBuffer);
 				} else {
-					memset(psBuffer, 0, iFrameSize*2);
+					memset(psBuffer, 0, iFrameSize*sizeof(short));
 					alive = false;
 				}
 			}
@@ -212,8 +212,8 @@ bool AudioOutputSpeech::decodeNextFrame() {
 		jitter_buffer_tick(jbJitter);
 	}
 
-	if (g.s.bLocalDeafen)
-		memset(psBuffer, 0, iFrameSize*2);
+	if (g.s.fVolume < 0.01)
+		memset(psBuffer, 0, iFrameSize*sizeof(short));
 
 	if (p)
 		p->setTalking(alive, ((ucFlags & MessageSpeex::AltSpeak) ? true : false));

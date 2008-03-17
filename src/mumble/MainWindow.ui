@@ -66,12 +66,6 @@
     <property name="title" >
      <string>&amp;Player</string>
     </property>
-    <addaction name="qaPlayerKick" />
-    <addaction name="qaPlayerBan" />
-    <addaction name="qaPlayerMute" />
-    <addaction name="qaPlayerDeaf" />
-    <addaction name="qaPlayerLocalMute" />
-    <addaction name="qaPlayerTextMessage" />
    </widget>
    <widget class="QMenu" name="qmChannel" >
     <property name="title" >
@@ -102,8 +96,6 @@
     <addaction name="qaAudioTTS" />
     <addaction name="separator" />
     <addaction name="qaAudioStats" />
-    <addaction name="separator" />
-    <addaction name="qaAudioLocalDeafen" />
    </widget>
    <widget class="QMenu" name="qmConfig" >
     <property name="title" >
@@ -423,20 +415,6 @@
    </property>
    <property name="whatsThis" >
     <string>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</string>
-   </property>
-  </action>
-  <action name="qaAudioLocalDeafen" >
-   <property name="checkable" >
-    <bool>true</bool>
-   </property>
-   <property name="text" >
-    <string>&amp;Local deafen</string>
-   </property>
-   <property name="toolTip" >
-    <string>Silence loudspeakers</string>
-   </property>
-   <property name="whatsThis" >
-    <string>Sets you in local deafen mode, wherein your speakers are silenced but you are still transmitting audio.</string>
    </property>
   </action>
   <action name="qaConfigDialog" >

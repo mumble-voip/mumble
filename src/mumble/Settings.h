@@ -125,7 +125,6 @@ struct Settings {
 	unsigned short usProxyPort;
 
 	// Nonsaved
-	bool bLocalDeafen;
 	LoopMode lmLoopMode;
 	float dPacketLoss;
 	float dMaxPacketDelay;
