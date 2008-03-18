@@ -1,5 +1,4 @@
-# Simple project file to build Speex with same compilers
-# as Qt used.
+include(../compiler.pri)
 
 TEMPLATE = lib
 CONFIG -= qt
@@ -12,14 +11,6 @@ INCLUDEPATH = ../speex/include ../speex/libspeex
 win32 {
   INCLUDEPATH += ../speex/win32	
   DEFINES+=WIN32 _WINDOWS _USE_SSE 
-  CONFIG(intelcpp) {
-    DEFINES += VAR_ARRAYS
-    QMAKE_CC = icl
-    QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
-    QMAKE_CFLAGS_RELEASE += -O3 -QxK -Qip -Qipo
-    QMAKE_CFLAGS_DEBUG += -O2 -QxK -Ob0
-    QMAKE_LIB = xilib /nologo
-  }
 }
 
 unix {
@@ -43,20 +34,5 @@ CONFIG(debug, debug|release) {
 CONFIG(release, debug|release) {
   DESTDIR	= ../release
 }
+  
 
-CONFIG(symbols) {
-  QMAKE_CFLAGS_RELEASE += -GR -Zi -Oy-
-  QMAKE_CXXFLAGS_RELEASE += -GR -Zi -Oy-
-  QMAKE_LFLAGS += -fixed:no -debug
-}
-
-CONFIG(optgen) {
-  QMAKE_CFLAGS += -O3 -ffast-math -ftree-vectorize -fprofile-generate
-}
-
-CONFIG(optimize) {
-  !exists(release/speex.gcda) {
-     error(You need to run SpeexMark first)
-  }
-  QMAKE_CFLAGS += -O3 -ffast-math -ftree-vectorize -fprofile-use
-}

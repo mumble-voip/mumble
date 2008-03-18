@@ -201,8 +201,8 @@ void AudioEchoWidget::paintGL() {
 
 	glBegin(GL_LINE_STRIP);
 	glColor3f(1.0, 0.0, 1.0);
-	xscale = 1.0 / (2*n);
-	yscale = 1.0 / (200. * 32767.);
+	xscale = 1.0f / (2*n);
+	yscale = 1.0f / (200.0f * 32767.0f);
 	for(int i=0;i<2*n;i++) {
 		glVertex2f(i*xscale, 0.5 + w[i] * yscale);
 	}
@@ -333,8 +333,8 @@ void AudioStats::on_Tick_timeout() {
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_PSD, ps);
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_NOISE_PSD, noise);
 
-	float s = 0.0;
-	float n = 0.0001;
+	float s = 0.0f;
+	float n = 0.0001f;
 
 	int start = (ps_size * 300) / SAMPLE_RATE;
 	int stop = (ps_size * 2000) / SAMPLE_RATE;

@@ -140,8 +140,8 @@ void Channel::playerUnlink(Channel *l, Player *p) {
 
 	if (qhLinks[l] == 0)
 		qhLinks.remove(l);
-	if (l->qhLinks[this] == 0);
-	l->qhLinks.remove(this);
+	if (l->qhLinks[this] == 0)
+		l->qhLinks.remove(this);
 }
 
 QSet<Channel *> Channel::allLinks() {

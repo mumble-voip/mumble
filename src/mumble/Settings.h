@@ -135,5 +135,5 @@ struct Settings {
 };
 
 #else
-class Settings;
+struct Settings;
 #endif

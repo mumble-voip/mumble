@@ -143,8 +143,9 @@ void __cdecl ods(const char *format, ...) {
         *p   = '\0';
 
         OutputDebugStringA(buf);
-        FILE *f = fopen("c:\\overlay.log", "a");
-        if (f) {
+        FILE *f = NULL;
+        errno_t res = fopen_s(&f, "c:\\overlay.log", "a");
+        if (f && (res == 0)) {
 			fprintf(f, "%d %s", GetTickCount(), buf);
 			fclose(f);
 		}
@@ -215,7 +216,7 @@ extern "C" __declspec(dllexport) SharedMem * __cdecl GetSharedMemory() {
 	return sm;
 }
 
-extern "C" BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 	char procname[1024];
 	GetModuleFileName(NULL, procname, 1024);

@@ -1,3 +1,5 @@
+include (../compiler.pri)
+
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += dll shared debug_and_release warn_on
@@ -7,13 +9,12 @@ SOURCES = lib.cpp d3d9.cpp opengl.cpp
 DIST = overlay.h
 
 DEFINES -= UNICODE
-CONFIG(intelcpp) {
-  message('Using the Intel C++ compiler.')
-  QMAKE_CXX 		= icl
-  QMAKE_CXXFLAGS		+= -Qrestrict 
-  QMAKE_CXXFLAGS_RELEASE	= -O3 -Qip -QxK -MT
-  QMAKE_CXXFLAGS_DEBUG	= -Ob0 -Zi -MTd
-}
+
+QMAKE_CXXFLAGS_RELEASE	-= -MD
+QMAKE_CXXFLAGS_DEBUG	-= -MDd
+
+QMAKE_CXXFLAGS_RELEASE	*= -MT
+QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
 LIBS += -ldxguid -luuid -lole32 -luser32
 LIBPATH += /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86

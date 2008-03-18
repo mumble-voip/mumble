@@ -4,8 +4,10 @@
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
 
-#ifdef __INTEL_COMPILER
+#if defined(__INTEL_COMPILER)
 #define _MSC_EXTENSIONS
+#else if defined(_MSC_VER)
+#define BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
 #endif
 
 #include <QtCore/QtCore>

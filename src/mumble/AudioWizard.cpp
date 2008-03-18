@@ -495,10 +495,10 @@ void AudioWizard::showPage(int v) {
 
 void AudioWizard::playChord() {
 	AudioOutputPtr ao = g.ao;
-	ao->playSine(261.63, 0.0, 0xfffffff, 0.0);
-	ao->playSine(329.63, 0.0, 0xfffffff, 0.0);
-	ao->playSine(392.00, 0.0, 0xfffffff, 0.0);
-	ao->playSine(0.0, 0.0, 0xfffffff, 0.5);
+	ao->playSine(261.63f, 0.0f, 0xfffffff, 0.0f);
+	ao->playSine(329.63f, 0.0f, 0xfffffff, 0.0f);
+	ao->playSine(392.00f, 0.0f, 0xfffffff, 0.0f);
+	ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
 }
 
 void AudioWizard::restartAudio() {

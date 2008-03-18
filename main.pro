@@ -1,9 +1,8 @@
 TEMPLATE = subdirs
-CONFIG += debug_and_release
+CONFIG += ordered debug_and_release
 
 !CONFIG(no-client) {
-  SUBDIRS += speexbuild plugins
-  SUBDIRS += src/mumble
+  SUBDIRS += speexbuild src/mumble plugins
 
   win32 {
     SUBDIRS += overlay

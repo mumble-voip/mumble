@@ -41,15 +41,15 @@ Settings::Settings() {
 	iTTSThreshold = 250;
 	iQuality = 6;
 	iComplexity = 4;
-	fVolume = 1.0;
+	fVolume = 1.0f;
 	iMinLoudness = 1000;
 	iVoiceHold = 100;
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
 	vsVAD = SignalToNoise;
-	fVADmin = 0.80;
-	fVADmax = 0.98;
+	fVADmin = 0.80f;
+	fVADmax = 0.98f;
 	bExpandAll = true;
 	bPushClick = false;
 
@@ -79,22 +79,22 @@ Settings::Settings() {
 	iPortAudioOutput = -1; // default device
 
 	a3dModel = No3D;
-	fDXMinDistance = 10.0;
-	fDXMaxDistance = 50.0;
-	fDXRollOff = 0.15;
+	fDXMinDistance = 10.0f;
+	fDXMaxDistance = 50.0f;
+	fDXRollOff = 0.15f;
 
 	bOverlayEnable = true;
 	bOverlayUserTextures=true;
 	osOverlay = All;
 	bOverlayAlwaysSelf = true;
-	fOverlayX = 1.0;
-	fOverlayY = 0.0;
+	fOverlayX = 1.0f;
+	fOverlayY = 0.0f;
 	bOverlayTop = false;
 	bOverlayBottom = true;
 	bOverlayLeft = true;
 	bOverlayRight = false;
 	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
-	fOverlayHeight = 30.0;
+	fOverlayHeight = 30.0f;
 	qcOverlayPlayer = QColor(255,255,255,128);
 	qcOverlayTalking = QColor(255,255,196,255);
 	qcOverlayAltTalking = QColor(255,128,128,255);
@@ -109,7 +109,7 @@ Settings::Settings() {
 
 	lmLoopMode = None;
 	dPacketLoss = 0;
-	dMaxPacketDelay = 0.0;
+	dMaxPacketDelay = 0.0f;
 
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogTTS);

@@ -103,23 +103,23 @@ void DevState::draw() {
 	int idx = 0;
 
 	vector<LPDIRECT3DTEXTURE9> texs;
-	vector<int> widths;
-	vector<int> yofs;
+	vector<unsigned int> widths;
+	vector<unsigned int> yofs;
 	vector<DWORD> colors;
 
 	unsigned int y = 0;
 
-	if (sm->fFontSize < 0.01)
-		sm->fFontSize = 0.01;
-	else if (sm->fFontSize > 1.0)
-		sm->fFontSize = 1.0;
+	if (sm->fFontSize < 0.01f)
+		sm->fFontSize = 0.01f;
+	else if (sm->fFontSize > 1.0f)
+		sm->fFontSize = 1.0f;
 
 	int iHeight = lround(vp.Height * sm->fFontSize);
 
 	if (iHeight > TEXT_HEIGHT)
 		iHeight = TEXT_HEIGHT;
 
-	float s = iHeight / 60.0;
+	float s = iHeight / 60.0f;
 
 	ods("D3D9: Init: Scale %f. iH %d. Final scale %f", sm->fFontSize, iHeight, s);
 
@@ -146,7 +146,7 @@ void DevState::draw() {
 					tex[i]->UnlockRect(0);
 					sm->texts[i].bUpdated = false;
 				}
-				int w = lround(sm->texts[i].width * s);
+				unsigned int w = lround(sm->texts[i].width * s);
 				texs.push_back(tex[i]);
 				colors.push_back(sm->texts[i].color);
 				widths.push_back(w);
@@ -178,7 +178,7 @@ void DevState::draw() {
 		y = vp.Height - height - 1;
 
 	for(int i=0;i<idx;i++) {
-		int width = widths[i];
+		unsigned int width = widths[i];
 
 		int x = lround(vp.Width * sm->fX);
 
@@ -196,8 +196,8 @@ void DevState::draw() {
 
 		D3DCOLOR color = colors[i];
 
-		float left   = x;
-		float top    = y + yofs[i];
+		float left   = static_cast<float>(x);
+		float top    = static_cast<float>(y + yofs[i]);
 		float right  = left + width;
 		float bottom = top + iHeight;
 

@@ -286,24 +286,24 @@ void Context::draw(HDC hdc) {
 
 		float xm = 0.0;
 		float ym = 0.0;
-		float xmx = (1.0 * widths[i]) / TEXT_WIDTH;
-		float ymx = 1.0;
+		float xmx = (1.0f * widths[i]) / TEXT_WIDTH;
+		float ymx = 1.0f;
 
 		unsigned int c = color[i];
 
 		oglColor4ub((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
 
 
-		oglTranslatef(x, y + yofs[i], 0.0);
+		oglTranslatef(static_cast<float>(x), static_cast<float>(y + yofs[i]), 0.0f);
 		oglBegin(GL_QUADS);
 		oglTexCoord2f(xm, ymx);
-		oglVertex2f(0, iHeight);
+		oglVertex2f(0.0f, static_cast<float>(iHeight));
 		oglTexCoord2f(xm, ym);
-		oglVertex2f(0, 0);
+		oglVertex2f(0.0f, 0.0f);
 		oglTexCoord2f(xmx, ym);
-		oglVertex2f(w, 0);
+		oglVertex2f(static_cast<float>(w), 0.0f);
 		oglTexCoord2f(xmx, ymx);
-		oglVertex2f(w, iHeight);
+		oglVertex2f(static_cast<float>(w), static_cast<float>(iHeight));
 		oglEnd();
 		oglPopMatrix();
 	}

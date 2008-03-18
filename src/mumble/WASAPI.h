@@ -31,12 +31,6 @@
 #ifndef _WASAPI_H
 #define _WASAPI_H
 
-#ifndef _MSC_EXTENSIONS
-#error Waaaah
-#endif
-
-#define _MSC_EXTENSIONS
-
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "ConfigDialog.h"

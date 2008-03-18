@@ -80,7 +80,7 @@ struct ModelItem {
 class ChannelItem;
 
 class PlayerModel : public QAbstractItemModel {
-		friend class ModelItem;
+		friend struct ModelItem;
 		Q_OBJECT
 	protected:
 		QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
