@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -688,7 +689,7 @@
     <message>
         <location filename="About.cpp" line="37"/>
         <source>About Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de Mumble</translation>
     </message>
 </context>
 <context>
@@ -706,7 +707,7 @@
     <message>
         <location filename="About.cpp" line="79"/>
         <source>About Speex</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de Speex</translation>
     </message>
 </context>
 <context>
@@ -3611,7 +3612,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.ui" line="136"/>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished">&amp;Salir</translation>
+        <translation>&amp;Salir de Mumble</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="139"/>
@@ -5002,57 +5003,57 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="WASAPI.cpp" line="216"/>
         <source>WASAPI</source>
-        <translation type="unfinished"></translation>
+        <translation>WASAPI</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Formulario</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="19"/>
         <source>Device selection</source>
-        <translation type="unfinished">Selección del dispositivo</translation>
+        <translation>Selección del dispositivo</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="25"/>
         <source>Input (Microphone)</source>
-        <translation type="unfinished">Entrada (micrófono)</translation>
+        <translation>Entrada (micrófono)</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="35"/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished">Dispositivo a usar para el micrófono</translation>
+        <translation>Dispositivo a usar para el micrófono</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="38"/>
         <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
-        <translation type="unfinished">Establece qué dispositivo deberia usar Mumble para el micrófono. El dispositivo &lt;i&gt;por defecto&lt;/i&gt; quiere decir usar la opción por defecto de PulseAudio.</translation>
+        <translation>Establece qué dispositivo deberia usar Mumble para el micrófono. El dispositivo &lt;i&gt;por defecto&lt;/i&gt; quiere decir usar la opción por defecto de PulseAudio.</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="45"/>
         <source>Output</source>
-        <translation type="unfinished">Salida</translation>
+        <translation>Salida</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="55"/>
         <source>Device to use for speakers/headphones</source>
-        <translation type="unfinished">Dispositivo a usar para los altavoces/auriculares</translation>
+        <translation>Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="62"/>
         <source>Enable echo cancellation</source>
-        <translation type="unfinished">Habilitar cancelación de eco</translation>
+        <translation>Habilitar cancelación de eco</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="65"/>
         <source>This enables echo cancellation. Don&apos;t enable this unless you are listening on speakers; for headphones it will cause audio degradation.</source>
-        <translation type="unfinished">Habilita la cancelación de eco. No habilite ésto a menos que esté escuchando mediante de altavoces; causará degradación del audio con auriculares.</translation>
+        <translation>Habilita la cancelación de eco. No habilite ésto a menos que esté escuchando mediante de altavoces; causará degradación del audio con auriculares.</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="68"/>
         <source>Use echo cancellation</source>
-        <translation type="unfinished">Usar cancelación de eco</translation>
+        <translation>Usar cancelación de eco</translation>
     </message>
 </context>
 <context>
@@ -5060,7 +5061,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="WASAPI.cpp" line="138"/>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo por defecto</translation>
     </message>
 </context>
 <context>
