@@ -235,7 +235,6 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 
 void AudioInput::encodeAudioFrame() {
 	int iArg;
-	float fArg;
 	ClientPlayer *p=ClientPlayer::get(g.uiSession);
 	short max;
 	float micMax;
@@ -306,8 +305,8 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
 
-		fArg = 30000.f;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &fArg);
+		iArg = 30000;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &iArg);
 
 		float v = 30000.0f / g.s.iMinLoudness;
 		iArg = lroundf(floorf(20.0f * log10f(v)));
