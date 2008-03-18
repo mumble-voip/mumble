@@ -4,7 +4,7 @@
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
 
-#ifdef _MSC_VER
+#ifdef __INTEL_COMPILER
 #define _MSC_EXTENSIONS
 #endif
 
@@ -30,7 +30,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
-#ifdef __GNUC__
+#ifdef Q_CC_GNU
 #define BOOST_TYPEOF(expr) __typeof__(expr)
 #define BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP() "mumble_pch.hpp"
 #define BOOST_TYPEOF_REGISTER_TYPE(expr)
@@ -42,7 +42,13 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #include <shellapi.h>
+#ifdef Q_CC_INTEL
 #include <mathimf.h>
+#else
+#include <math.h>
+#define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )
+#define lround(x) ( static_cast<long int>( (x) + ((x) >= 0.0 ? 0.5 : -0.5) ) )
+#endif
 #define M_PI 3.14159265358979323846
 #define ALLOCA(x) _alloca(x)
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))

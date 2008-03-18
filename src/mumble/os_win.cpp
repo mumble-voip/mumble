@@ -31,6 +31,8 @@
 #include <windows.h>
 #include <tlhelp32.h>
 
+#include <intrin.h>
+
 static FILE *fConsole;
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	char c;
@@ -123,11 +125,11 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 }
 
 void os_init() {
-#define cpuid(func,ax,bx,cx,dx) __asm__ __volatile__ ("cpuid": "=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func));
+	int cpuinfo[4];
+	__cpuid(cpuinfo, 1);
+
 #define MMXSSE 0x02800000
-	unsigned int ax, bx, cx, dx;
-	cpuid(1,ax,bx,cx,dx);
-	if ((dx & MMXSSE) != MMXSSE) {
+	if ((cpuinfo[3] & MMXSSE) != MMXSSE) {
 		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}

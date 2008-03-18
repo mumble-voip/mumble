@@ -7,10 +7,13 @@ SOURCES = lib.cpp d3d9.cpp opengl.cpp
 DIST = overlay.h
 
 DEFINES -= UNICODE
-QMAKE_CXX 		= icl
-QMAKE_CXXFLAGS		+= -Qrestrict 
-QMAKE_CXXFLAGS_RELEASE	= -O3 -Qip -QxK -MT
-QMAKE_CXXFLAGS_DEBUG	= -Ob0 -Zi -MTd
+CONFIG(intelcpp) {
+  message('Using the Intel C++ compiler.')
+  QMAKE_CXX 		= icl
+  QMAKE_CXXFLAGS		+= -Qrestrict 
+  QMAKE_CXXFLAGS_RELEASE	= -O3 -Qip -QxK -MT
+  QMAKE_CXXFLAGS_DEBUG	= -Ob0 -Zi -MTd
+}
 
 LIBS += -ldxguid -luuid -lole32 -luser32
 LIBPATH += /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86

@@ -41,7 +41,12 @@
 #endif
 
 #ifdef Q_OS_WIN
+#ifdef Q_CC_INTEL
 #include <mathimf.h>
+#else
+#include <math.h>
+#define lroundf(x) ( static_cast<int>( (x) + ((x) >= 0 ? 0.5 : -0.5) ) )
+#endif
 #define M_PI 3.14159265358979323846
 #define ALLOCA(x) _alloca(x)
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))

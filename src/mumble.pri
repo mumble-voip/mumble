@@ -13,12 +13,17 @@ CONFIG		+= qt thread debug_and_release warn_on
   }
 }
 win32 {
-  QMAKE_CXX = icl
-  QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
-  QMAKE_CXXFLAGS += -Qstd=c++0x -Qrestrict
-  QMAKE_CXXFLAGS_RELEASE += -O3 -QxK -Qip -Qipo
-  QMAKE_CXXFLAGS_DEBUG += -O2 -QxK -Ob0 -RTCs -RTCu -RTCc
-  QMAKE_LINK = xilink
+  CONFIG(intelcpp) {
+    message('Using the Intel C++ compiler.')
+    QMAKE_CXX = icl
+    QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
+    QMAKE_CXXFLAGS += -Qstd=c++0x -Qrestrict
+    QMAKE_CXXFLAGS_RELEASE += -O3 -QxK -Qip -Qipo
+    QMAKE_CXXFLAGS_DEBUG += -O2 -QxK -Ob0 -RTCs -RTCu -RTCc
+    QMAKE_LINK = xilink
+  } else {
+    DEFINES += BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
+  }
 }
 
 INCLUDEPATH	+= $$PWD

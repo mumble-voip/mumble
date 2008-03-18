@@ -10,13 +10,16 @@ DEFINES += NDEBUG HAVE_CONFIG_H
 INCLUDEPATH = ../speex/include ../speex/libspeex
 
 win32 {
-	DEFINES+=WIN32 _WINDOWS _USE_SSE VAR_ARRAYS
-	QMAKE_CC = icl
-	QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
-	QMAKE_CFLAGS_RELEASE += -O3 -QxK -Qip -Qipo
-	QMAKE_CFLAGS_DEBUG += -O2 -QxK -Ob0
-	INCLUDEPATH += ../speex/win32
-	QMAKE_LIB = xilib /nologo 
+  INCLUDEPATH += ../speex/win32	
+  DEFINES+=WIN32 _WINDOWS _USE_SSE 
+  CONFIG(intelcpp) {
+    DEFINES += VAR_ARRAYS
+    QMAKE_CC = icl
+    QMAKE_CFLAGS += -Qstd=c99 -Qrestrict
+    QMAKE_CFLAGS_RELEASE += -O3 -QxK -Qip -Qipo
+    QMAKE_CFLAGS_DEBUG += -O2 -QxK -Ob0
+    QMAKE_LIB = xilib /nologo
+  }
 }
 
 unix {
