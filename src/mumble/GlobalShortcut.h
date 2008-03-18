@@ -120,6 +120,7 @@ class GlobalShortcutEngine : public QThread {
 		GlobalShortcutEngine(QObject *p = NULL);
 		void resetMap();
 		void remap();
+		virtual void needRemap();
 		void run();
 
 		void handleButton(const QVariant &, bool);

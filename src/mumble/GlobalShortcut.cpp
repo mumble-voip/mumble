@@ -172,6 +172,7 @@ void GlobalShortcutConfig::save() const {
 
 void GlobalShortcutConfig::accept() const {
 	GlobalShortcutEngine::engine->bNeedRemap = true;
+	GlobalShortcutEngine::engine->needRemap();
 }
 
 bool GlobalShortcutConfig::expert(bool) {
@@ -181,6 +182,7 @@ bool GlobalShortcutConfig::expert(bool) {
 
 GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 	bNeedRemap = true;
+	needRemap();
 }
 
 void GlobalShortcutEngine::remap() {
@@ -213,6 +215,8 @@ void GlobalShortcutEngine::resetMap() {
 	qlActiveButtons.clear();
 }
 
+void GlobalShortcutEngine::needRemap() {
+}
 
 void GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 	if (tReset.elapsed() > 100000) {
@@ -256,11 +260,13 @@ void GlobalShortcutEngine::add(GlobalShortcut *gs) {
 
 	GlobalShortcutEngine::engine->qmShortcuts.insert(gs->idx, gs);
 	GlobalShortcutEngine::engine->bNeedRemap = true;
+	GlobalShortcutEngine::engine->needRemap();
 }
 
 void GlobalShortcutEngine::remove(GlobalShortcut *gs) {
 	engine->qmShortcuts.remove(gs->idx);
 	engine->bNeedRemap = true;
+	engine->needRemap();
 	if (engine->qmShortcuts.isEmpty()) {
 		delete engine;
 		GlobalShortcutEngine::engine = NULL;

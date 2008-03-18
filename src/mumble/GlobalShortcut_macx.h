@@ -1,4 +1,5 @@
 /* Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2008, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -28,8 +29,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#undef qDebug // breaks the Carbon header below.
+#include <Carbon/Carbon.h>
 #include "GlobalShortcut.h"
-//#include "ConfigDialog.h"
 
 class GlobalShortcutMac : public GlobalShortcutEngine {
 		Q_OBJECT
@@ -38,4 +40,8 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		~GlobalShortcutMac();
 		void run();
 		QString buttonName(const QVariant &);
+		void needRemap();
+		void handleModButton(UInt32 newmask);
+	protected:
+		UInt32 modmask;
 };
