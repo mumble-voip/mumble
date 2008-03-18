@@ -30,7 +30,9 @@
 
 #include "TextToSpeech.h"
 #include "Global.h"
+#ifdef USE_SPEECHD
 #include <libspeechd.h>
+#endif
 
 class TextToSpeechPrivate {
 #ifdef USE_SPEECHD
