@@ -350,7 +350,6 @@ void AudioStats::on_Tick_timeout() {
 	spx_int32_t v;
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &v);
 	float fv = pow(10.0f, (v / 20.0f));
-	qWarning("dB %d %f", v, fv);
 	txt.sprintf("%03.0f%%",100.0f / fv);
 	qlMicVolume->setText(txt);
 

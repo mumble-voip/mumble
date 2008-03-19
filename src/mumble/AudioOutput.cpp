@@ -49,6 +49,7 @@ AudioOutputRegistrar::AudioOutputRegistrar(const QString &n) : name(n) {
 }
 
 AudioOutputRegistrar::~AudioOutputRegistrar() {
+	qmNew->remove(name);
 }
 
 AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {

@@ -44,20 +44,6 @@ win32 {
   }
 }
 
-directsound {
-  HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h
-  SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp
-  FORMS		+= DXConfigDialog.ui
-  LIBS		+= -ldsound
-}
-
-wasapi {
-  HEADERS	+= WASAPI.h
-  SOURCES	+= WASAPI.cpp
-  FORMS		+= WASAPI.ui
-  LIBS		+= -lavrt -delayload:avrt -ldelayimp
-}
-
 unix {
   UNAME=$$system(uname -s)
   ARCH=$$system(uname -m)
@@ -166,6 +152,20 @@ dbus {
 speechd {
 	DEFINES += USE_SPEECHD
 	LIBS += -lspeechd
+}
+
+directsound {
+	HEADERS	+= DXAudioInput.h DXAudioOutput.h DXConfigDialog.h
+	SOURCES	+= DXAudioInput.cpp DXAudioOutput.cpp DXConfigDialog.cpp
+	FORMS	+= DXConfigDialog.ui
+	LIBS	+= -ldsound
+}
+
+wasapi {
+	HEADERS	+= WASAPI.h
+	SOURCES	+= WASAPI.cpp
+	FORMS	+= WASAPI.ui
+	LIBS	+= -ldelayimp -lAVRT -delayload:AVRT.DLL
 }
 
 CONFIG(no-update) {

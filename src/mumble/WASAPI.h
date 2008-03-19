@@ -44,6 +44,8 @@
 #include <functiondiscoverykeys.h>
 #include <propidl.h>
 #include <initguid.h>
+#include <delayimp.h>
+
 
 class WASAPIConfig : public ConfigWidget, public Ui::WASAPIConfig {
 		Q_OBJECT
@@ -66,62 +68,8 @@ class WASAPISystem : public QObject {
 		static const QList<audioDevice> mapToDevice(const QHash<QString, QString>, const QString &);
 };
 
-class WASAPIInput;
-class WASAPIOutput;
-
-/*
-
-class WASAPISystem : public QThread {
-		Q_OBJECT
-	public:
-		pa_context *pacContext;
-		pa_stream *pasInput, *pasOutput, *pasSpeaker;
-		pa_mainloop *pam;
-		pa_defer_event *pade;
-
-		bool bSourceDone, bSinkDone, bServerDone;
-
-		QString qsDefaultInput, qsDefaultOutput;
-
-		int iDelayCache;
-		QString qsOutputCache, qsInputCache, qsEchoCache;
-		QHash<QString, QString> qhInput;
-		QHash<QString, QString> qhOutput;
-		QHash<QString, QString> qhEchoMap;
-		QHash<QString, int> qhIndexMap;
-
-		short *psInput;
-		short *psEcho;
-		int iInputIdx;
-		int iEchoIdx;
-		int iEchoSeq;
-		JitterBuffer *jbJitter;
-
-		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
-		static void context_state_callback(pa_context *c, void *userdata);
-		static void subscribe_callback(pa_context *c, pa_subscription_event_type_t t, uint32_t idx, void *userdata);
-		static void sink_callback(pa_context *c, const pa_sink_info *i, int eol, void *userdata);
-		static void source_callback(pa_context *c, const pa_source_info *i, int eol, void *userdata);
-		static void server_callback(pa_context *c, const pa_server_info *i, void *userdata);
-		static void stream_callback(pa_stream *s, void *userdata);
-		static void read_callback(pa_stream *s, size_t bytes, void *userdata);
-		static void write_callback(pa_stream *s, size_t bytes, void *userdata);
-		void contextCallback(pa_context *c);
-		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
-
-		void query();
-
-		WASAPISystem();
-		~WASAPISystem();
-		void run();
-		void wakeup();
-};
-*/
-
 class WASAPIInput : public AudioInput {
 		Q_OBJECT
-	protected:
-		void release();
 	public:
 		WASAPIInput();
 		~WASAPIInput();
@@ -129,7 +77,6 @@ class WASAPIInput : public AudioInput {
 };
 
 class WASAPIOutput : public AudioOutput {
-		friend class WASAPISystem;
 		Q_OBJECT
 	public:
 		WASAPIOutput();

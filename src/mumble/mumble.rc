@@ -28,7 +28,7 @@ VS_VERSION_INFO VERSIONINFO
 			BLOCK "040904E4"
 			BEGIN
 				VALUE "CompanyName", "Thorvald Natvig"
-				VALUE "FileDescription", "Low-latency VoIP client"
+				VALUE "FileDescription", "Mumble - Low-latency VoIP client"
 				VALUE "FileVersion", "1.1.4"
 				VALUE "ProductVersion", "1.1.4"
 				VALUE "LegalCopyright", "Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>"

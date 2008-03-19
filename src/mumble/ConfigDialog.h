@@ -58,9 +58,11 @@ typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);
 class ConfigRegistrar {
 		friend class ConfigDialog;
 	protected:
+		int iPriority;
 		static QMap<int, ConfigWidgetNew> *c_qmNew;
 	public:
 		ConfigRegistrar(int priority, ConfigWidgetNew n);
+		~ConfigRegistrar();
 };
 
 class ConfigDialog : public QDialog, public Ui::ConfigDialog {

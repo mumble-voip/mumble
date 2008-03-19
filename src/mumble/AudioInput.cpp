@@ -53,6 +53,7 @@ AudioInputRegistrar::AudioInputRegistrar(const QString &n) : name(n) {
 }
 
 AudioInputRegistrar::~AudioInputRegistrar() {
+	qmNew->remove(name);
 }
 
 AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {

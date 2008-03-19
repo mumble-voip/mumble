@@ -58,25 +58,51 @@ static ConfigWidget *WASAPIConfigDialogNew(Settings &st) {
 }
 
 class WASAPIInit : public DeferInit {
+	ConfigRegistrar *confReg;
+	WASAPIInputRegistrar *wirReg;
+	WASAPIOutputRegistrar *worReg;
 	public:
 		void initialize();
 		void destroy();
 };
 
-static ConfigRegistrar registrar(23, WASAPIConfigDialogNew);
-
-static WASAPIInputRegistrar airWASAPI;
-static WASAPIOutputRegistrar aorWASAPI;
 static WASAPIInit wasapiinit;
 
 void WASAPIInit::initialize() {
-	qWarning("Input:");
-	WASAPISystem::getInputDevices();
-	qWarning("Output:");
-	WASAPISystem::getOutputDevices();
+	confReg = NULL;
+	wirReg = NULL;
+	worReg = NULL;
+
+	OSVERSIONINFOEXW ovi;
+	memset(&ovi, 0, sizeof(ovi));
+
+	ovi.dwOSVersionInfoSize=sizeof(ovi);
+	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
+
+	if ((ovi.dwMajorVersion < 6) || (ovi.dwBuildNumber < 6001)) {
+		qWarning("WASAPIInit: Requires Vista SP1");
+		return;
+	}
+
+	HMODULE hLib = LoadLibrary(L"AVRT.DLL");
+	if (hLib == NULL) {
+		qWarning("WASAPIInit: Failed to load avrt.dll");
+		return;
+	}
+	FreeLibrary(hLib);
+
+	confReg = new ConfigRegistrar(23, WASAPIConfigDialogNew);
+	wirReg = new WASAPIInputRegistrar();
+	worReg = new WASAPIOutputRegistrar();
 }
 
 void WASAPIInit::destroy() {
+	if (confReg)
+		delete confReg;
+	if (wirReg)
+		delete wirReg;
+	if (worReg)
+		delete worReg;
 }
 
 
@@ -149,14 +175,10 @@ const QHash<QString, QString> WASAPISystem::getDevices(EDataFlow dataflow) {
 				LPWSTR strid = NULL;
 				pDevice->GetId(&strid);
 
-				qWarning("Dev %ls\n", strid);
-
 				PROPVARIANT varName;
 				PropVariantInit(&varName);
 
 				pStore->GetValue(PKEY_Device_FriendlyName, &varName);
-
-				qWarning("Named %ls\n", varName.pwszVal);
 
 				devices.insert(QString::fromWCharArray(strid), QString::fromWCharArray(varName.pwszVal));
 
@@ -257,6 +279,169 @@ WASAPIInput::~WASAPIInput() {
 }
 
 void WASAPIInput::run() {
+	HRESULT hr;
+	IMMDeviceEnumerator *pEnumerator = NULL;
+	IMMDevice *pDevice = NULL;
+	IAudioClient *pAudioClient = NULL;
+	IAudioCaptureClient *pCaptureClient = NULL;
+	WAVEFORMATEX *pwfx = NULL;
+	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
+	UINT32 bufferFrameCount;
+	REFERENCE_TIME hnsRequestedDuration = 20 * 10000;
+	SpeexResamplerState *srs = NULL;
+	UINT32 numFramesAvailable;
+	UINT32 numFramesLeft;
+	UINT32 packetLength;
+	UINT32 wantLength;
+	HANDLE hEvent;
+	BYTE *pData;
+ 	DWORD flags;
+ 	int err = 0;
+	DWORD gotLength = 0;
+	DWORD dwTaskIndex = 0;
+	HANDLE hMmThread;
+
+	CoInitialize(NULL);
+
+	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+
+	if (! pEnumerator || FAILED(hr)) {
+		qWarning("WASAPIInput: Failed to instatiate enumerator");
+		return;
+	}
+
+	if (! g.s.qsWASAPIInput.isEmpty()) {
+		STACKVAR(wchar_t, devname, g.s.qsWASAPIInput.length());
+		g.s.qsWASAPIInput.toWCharArray(devname);
+		hr = pEnumerator->GetDevice(devname, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to open selected device, falling back to default");
+		}
+	}
+
+	if (! pDevice) {
+		hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eCommunications, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to open input device");
+			pEnumerator->Release();
+			return;
+		}
+	}
+
+	pEnumerator->Release();
+	pEnumerator = NULL;
+
+	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pAudioClient);
+	pDevice->Release();
+	pDevice = NULL;
+
+	if (FAILED(hr)) {
+		qWarning("WASAPIInput: Activate AudioClient failed");
+		return;
+	}
+
+	hr = pAudioClient->GetMixFormat(&pwfx);
+	pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+
+	if ((pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
+		qWarning("WASAPIInput: Subformat is not IEEE Float");
+		CoTaskMemFree(pwfx);
+		pAudioClient->Release();
+		return;
+	}
+
+	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, hnsRequestedDuration, 0, pwfx, NULL);
+	if (FAILED(hr)) {
+		qWarning("WASAPIInput: Initialize failed");
+		CoTaskMemFree(pwfx);
+		pAudioClient->Release();
+		return;
+	}
+
+	hr = pAudioClient->GetBufferSize(&bufferFrameCount);
+	hr = pAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pCaptureClient);
+	if (FAILED(hr)) {
+		qWarning("WASAPIInput: GetService failed");
+		CoTaskMemFree(pwfx);
+		pAudioClient->Release();
+		return;
+	}
+
+	srs = speex_resampler_init(1, pwfx->nSamplesPerSec, 16000, 8, &err);
+
+	wantLength = (iFrameSize * pwfx->nSamplesPerSec) / 16000;
+
+	qWarning("WASAPIInput: %d %d %d", bufferFrameCount, pwfx->nSamplesPerSec, wantLength);
+
+	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+	pAudioClient->SetEventHandle(hEvent);
+	if ((hEvent == NULL) || (FAILED(hr))) {
+		qWarning("WASAPI: Input: Failed to set event");
+	}
+
+
+	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
+	if (hMmThread == NULL) {
+		qWarning("WASAPI: Input: Failed to set Pro Audio thread priority");
+	}
+
+	hr = pAudioClient->Start();
+
+	float mul = 32768.0f / pwfx->nChannels;
+
+	STACKVAR(float, inbuff, wantLength);
+	STACKVAR(float, outbuff, iFrameSize);
+
+	while (bRunning && ! FAILED(hr)) {
+		hr = pCaptureClient->GetNextPacketSize(&packetLength);
+//		qWarning("Avail: %d", packetLength);
+		while (! FAILED(hr) && (packetLength > 0)) {
+			hr = pCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, NULL, NULL);
+			numFramesLeft = numFramesAvailable;
+			if (! FAILED(hr)) {
+				float *inData = reinterpret_cast<float *>(pData);
+				while (numFramesLeft) {
+					float v = 0.0f;
+					for(int i=0;i<pwfx->nChannels;i++) {
+						v+= *inData;
+						++inData;
+					}
+					inbuff[gotLength] = v;
+					++gotLength;
+
+					if (gotLength == wantLength) {
+						spx_uint32_t inlen = wantLength;
+						spx_uint32_t outlen = iFrameSize;
+						speex_resampler_process_float(srs, 0, inbuff, &inlen, outbuff, &outlen);
+						for(int i=0;i<iFrameSize;i++)
+							psMic[i] = static_cast<short>(outbuff[i] * mul);
+
+						encodeAudioFrame();
+						gotLength = 0;
+					}
+					--numFramesLeft;
+				}
+				hr = pCaptureClient->ReleaseBuffer(numFramesAvailable);
+				if (! FAILED(hr)) {
+					hr = pCaptureClient->GetNextPacketSize(&packetLength);
+				}
+			}
+		}
+		if (! FAILED(hr))
+			WaitForSingleObject(hEvent, 2000);
+	}
+
+	pAudioClient->Stop();
+
+	if (hMmThread != NULL)
+		AvRevertMmThreadCharacteristics(hMmThread);
+
+	speex_resampler_destroy(srs);
+	CoTaskMemFree(pwfx);
+	pCaptureClient->Release();
+	pAudioClient->Release();
+
+	CloseHandle(hEvent);
 }
 
 WASAPIOutput::WASAPIOutput() {

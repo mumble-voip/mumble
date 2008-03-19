@@ -38,7 +38,12 @@ QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;
 ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {
 	if (! c_qmNew)
 		c_qmNew = new QMap<int, ConfigWidgetNew>();
+	iPriority = priority;
 	c_qmNew->insert(priority,n);
+}
+
+ConfigRegistrar::~ConfigRegistrar() {
+	c_qmNew->remove(iPriority);
 }
 
 ConfigWidget::ConfigWidget(Settings &st) : s(st) {
