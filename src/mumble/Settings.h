@@ -84,6 +84,13 @@ struct Settings {
 	QByteArray qbaDXInput, qbaDXOutput;
 	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
 
+        bool bPositionalSoundEnable, bPositionalSoundSwap;
+        enum PositionalSoundModels { CONSTANT, LINEAR };
+        PositionalSoundModels ePositionalSoundModel;
+        float fPositionalSoundDistance,
+              fPositionalSoundPreGain, //in dB
+              fPositionalSoundMaxAtt;  //in dB
+
 	bool bOverlayEnable;
 	bool bOverlayUserTextures;
 	OverlayShow osOverlay;

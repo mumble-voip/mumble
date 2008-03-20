@@ -83,6 +83,14 @@ Settings::Settings() {
 	fDXMaxDistance = 50.0f;
 	fDXRollOff = 0.15f;
 
+        bPositionalSoundEnable = true;
+        bPositionalSoundSwap = false;
+        ePositionalSoundModel = CONSTANT;
+        fPositionalSoundDistance= 70;
+        fPositionalSoundPreGain = 0;
+        fPositionalSoundMaxAtt = 10;
+
+
 	bOverlayEnable = true;
 	bOverlayUserTextures=true;
 	osOverlay = All;
@@ -185,6 +193,13 @@ void Settings::load() {
 
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");
+
+        SAVELOAD(bPositionalSoundEnable, "positionalsound/enable");
+        SAVELOAD(bPositionalSoundSwap, "positionalsound/swap");
+        LOADENUM(ePositionalSoundModel, "positionalsound/model");
+        SAVELOAD(fPositionalSoundDistance, "positionalsound/distance");
+        SAVELOAD(fPositionalSoundPreGain, "positionalsound/pregain");
+        SAVELOAD(fPositionalSoundMaxAtt, "positionalsound/maxatt");
 
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
@@ -302,6 +317,13 @@ void Settings::save() {
 
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");
+
+        SAVELOAD(bPositionalSoundEnable, "positionalsound/enable");
+        SAVELOAD(bPositionalSoundSwap, "positionalsound/swap");
+        SAVELOAD(ePositionalSoundModel, "positionalsound/model");
+        SAVELOAD(fPositionalSoundDistance, "positionalsound/distance");
+        SAVELOAD(fPositionalSoundPreGain, "positionalsound/pregain");
+        SAVELOAD(fPositionalSoundMaxAtt, "positionalsound/maxatt");
 
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
