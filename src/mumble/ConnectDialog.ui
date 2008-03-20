@@ -212,6 +212,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="qpbBrowserCancel" >
+           <property name="text" >
+            <string>Cancel</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="qpbCopy" >
            <property name="text" >
             <string>C&amp;opy to custom</string>
@@ -298,6 +305,12 @@
      <y>370</y>
     </hint>
    </hints>
+  </connection>
+  <connection>
+   <sender>qpbBrowserCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>ConnectDialog</receiver>
+   <slot>reject()</slot>
   </connection>
   <connection>
    <sender>qtwServers</sender>
