@@ -6,7 +6,7 @@
 
 #if defined(__INTEL_COMPILER)
 #define _MSC_EXTENSIONS
-#else if defined(_MSC_VER)
+#else
 #define BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
 #endif
 

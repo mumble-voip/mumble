@@ -9,12 +9,19 @@ HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 SOURCES += smallft.cpp
 DIST		+= licenses.h smallft.h mumble.ico mumble.xpm plugins/mumble_plugin.h mumble-overlay mumble.desktop mumble.protocol murmur_pch.h
-INCLUDEPATH	+= ../../speex/include ../../speex/libspeex ../../speexbuild
-LIBS 		+= -lspeex
 RESOURCES	+= mumble.qrc
 FORMS	+= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioConfigDialog.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_id.ts mumble_fr.ts mumble_ru.ts mumble_it.ts mumble_pt.ts mumble_nb.ts mumble_nl.ts mumble_cs.ts mumble_ja.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
+
+CONFIG(no-bundled-speex) {
+  PKGCONFIG	+= speex speexdsp
+}
+  
+!CONFIG(no-bundled-speex) {
+  INCLUDEPATH	+= ../../speex/include ../../speex/libspeex ../../speexbuild
+  LIBS 		+= -lspeex
+}
 
 !win32 {
   QMAKE_CXXFLAGS	+= -Wall -Wextra
@@ -61,10 +68,13 @@ unix {
     CONFIG -= portaudio
   }
 
-  QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
-  QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
-  QMAKE_CXXFLAGS_RELEASE += -I../../speex/include -I../../speexbuild
-  QMAKE_CXXFLAGS_DEBUG += -I../../speex/include -I../../speexbuild
+  !CONFIG(no-bundled-speex) {
+    QMAKE_CFLAGS += -I../../speex/include -I../../speexbuild
+    QMAKE_CXXFLAGS += -I../../speex/include -I../../speexbuild
+    QMAKE_CXXFLAGS_RELEASE += -I../../speex/include -I../../speexbuild
+    QMAKE_CXXFLAGS_DEBUG += -I../../speex/include -I../../speexbuild
+  }
+
   CONFIG += link_pkgconfig
 
   PKGCONFIG += openssl
