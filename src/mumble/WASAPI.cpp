@@ -58,9 +58,9 @@ static ConfigWidget *WASAPIConfigDialogNew(Settings &st) {
 }
 
 class WASAPIInit : public DeferInit {
-	ConfigRegistrar *confReg;
-	WASAPIInputRegistrar *wirReg;
-	WASAPIOutputRegistrar *worReg;
+		ConfigRegistrar *confReg;
+		WASAPIInputRegistrar *wirReg;
+		WASAPIOutputRegistrar *worReg;
 	public:
 		void initialize();
 		void destroy();
@@ -165,7 +165,7 @@ const QHash<QString, QString> WASAPISystem::getDevices(EDataFlow dataflow) {
 
 			UINT ndev = 0;
 			pCollection->GetCount(&ndev);
-			for(unsigned int idx=0;idx<ndev;++idx) {
+			for (unsigned int idx=0;idx<ndev;++idx) {
 				IMMDevice *pDevice = NULL;
 				IPropertyStore *pStore = NULL;
 
@@ -295,8 +295,8 @@ void WASAPIInput::run() {
 	UINT32 wantLength;
 	HANDLE hEvent;
 	BYTE *pData;
- 	DWORD flags;
- 	int err = 0;
+	DWORD flags;
+	int err = 0;
 	DWORD gotLength = 0;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
@@ -402,7 +402,7 @@ void WASAPIInput::run() {
 				float *inData = reinterpret_cast<float *>(pData);
 				while (numFramesLeft) {
 					float v = 0.0f;
-					for(int i=0;i<pwfx->nChannels;i++) {
+					for (int i=0;i<pwfx->nChannels;i++) {
 						v+= *inData;
 						++inData;
 					}
@@ -413,7 +413,7 @@ void WASAPIInput::run() {
 						spx_uint32_t inlen = wantLength;
 						spx_uint32_t outlen = iFrameSize;
 						speex_resampler_process_float(srs, 0, inbuff, &inlen, outbuff, &outlen);
-						for(int i=0;i<iFrameSize;i++)
+						for (int i=0;i<iFrameSize;i++)
 							psMic[i] = static_cast<short>(outbuff[i] * mul);
 
 						encodeAudioFrame();

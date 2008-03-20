@@ -342,89 +342,91 @@ bool AudioOutput::mixAudio(short *buffer) {
 }
 
 bool AudioOutput::mixStereoAudio(short *buffer) {
-  AudioOutputPlayer *aop; 
-  QList<AudioOutputPlayer *> qlMix; 
-  QList<AudioOutputPlayer *> qlDel;
+	AudioOutputPlayer *aop;
+	QList<AudioOutputPlayer *> qlMix;
+	QList<AudioOutputPlayer *> qlDel;
 
-  qrwlOutputs.lockForRead();
-  foreach(aop, qmOutputs) {
-    if (! aop->decodeNextFrame()) {
-      qlDel.append(aop);
-    } else {
-      qlMix.append(aop);
-    }
-  }
+	qrwlOutputs.lockForRead();
+	foreach(aop, qmOutputs) {
+		if (! aop->decodeNextFrame()) {
+			qlDel.append(aop);
+		} else {
+			qlMix.append(aop);
+		}
+	}
 
-  int t[iFrameSize*2];
+	int t[iFrameSize*2];
 
-  for (int i=0;i< (iFrameSize*2);i++) 
-    t[i]=0;
+	for (int i=0;i< (iFrameSize*2);i++)
+		t[i]=0;
 
-  Plugins *p = g.p;
+	Plugins *p = g.p;
 
-  p->fetch(); // Make sure we use the actual position
-  
-  if(p->bValid) { // Use stereo if plugin data is valid 
-    const float left[3] = { // We have an LHS coordinate system 
-      - p->fTop[1]*p->fFront[2] + p->fTop[2]*p->fFront[1],
-      - p->fTop[2]*p->fFront[0] + p->fTop[0]*p->fFront[2], 
-      - p->fTop[0]*p->fFront[1] + p->fTop[1]*p->fFront[0] }; 
-      // This cross-product defines the left/right split plane
+	p->fetch(); // Make sure we use the actual position
 
-												const float left_norm = sqrtf(left[0]*left[0] + left[1]*left[1]+left[2]*left[2]);
-    foreach(aop, qlMix) {
-      float vol_scal = 1.0;
-      float vol_stereo = 0;
+	if (p->bValid) { // Use stereo if plugin data is valid
+		const float left[3] = { // We have an LHS coordinate system
+			- p->fTop[1]*p->fFront[2] + p->fTop[2]*p->fFront[1],
+			- p->fTop[2]*p->fFront[0] + p->fTop[0]*p->fFront[2],
+			- p->fTop[0]*p->fFront[1] + p->fTop[1]*p->fFront[0]
+		};
+		// This cross-product defines the left/right split plane
 
-      // Test if source has valid position data
-      if(aop->fPos[0] != 0.0 or aop->fPos[1] != 0.0 or aop->fPos[2] != 0.0) {
-	const float source_direction[3] = {
-	  aop->fPos[0] - p->fPosition[0],
-	  aop->fPos[1] - p->fPosition[1],
-	  aop->fPos[1] - p->fPosition[1] }; 
-	
-	const float source_direction_norm = sqrtf( 
-	    source_direction[0]*source_direction[0] 
-	    + source_direction[1]*source_direction[1] 
-	    + source_direction[2]*source_direction[2]); 
-	
-	vol_stereo = ( left[0]*source_direction[0] + 
-	    left[1]*source_direction[1] + 
-	    left[2]*source_direction[2]) 
-	  / left_norm / source_direction_norm; 
-	// asin(scalar_product) = angle from center, where 
-	// angle < 0 is right and angle > 0 is left 
+		const float left_norm = sqrtf(left[0]*left[0] + left[1]*left[1]+left[2]*left[2]);
+		foreach(aop, qlMix) {
+			float vol_scal = 1.0;
+			float vol_stereo = 0;
 
-	if(g.s.bPositionalSoundSwap) 
-	  vol_stereo *= (-1); 
+			// Test if source has valid position data
+			if (aop->fPos[0] != 0.0 or aop->fPos[1] != 0.0 or aop->fPos[2] != 0.0) {
+				const float source_direction[3] = {
+					aop->fPos[0] - p->fPosition[0],
+					aop->fPos[1] - p->fPosition[1],
+					aop->fPos[1] - p->fPosition[1]
+				};
 
-	vol_scal= PositionalSound::toRatio(PositionalSound::calcdB(source_direction_norm)); 
-      } 
-      const float vol_left=  vol_scal * (1.0 + vol_stereo); 
-      const float vol_right= vol_scal * (1.0 - vol_stereo); 
-      for (int i=0;i<iFrameSize;i++) { 
-	t[2*i] += (int) (vol_left * aop->psBuffer[i]); 
-	t[2*i+1] += (int) (vol_right *aop->psBuffer[i]); 
-      } 
-    } 
-  } else { // no stereo 
-    foreach(aop, qlMix) { 
-      for (int i=0;i<iFrameSize;i++) { 
-	t[2*i]   += aop->psBuffer[i]; 
-	t[2*i+1] += aop->psBuffer[i]; 
-      } 
-    } 
-  }
-  
-  for (int i=0;i<(iFrameSize*2);i++) 
-    buffer[i]=qMax(-32727,qMin(32767,t[i]));
+				const float source_direction_norm = sqrtf(
+				                                        source_direction[0]*source_direction[0]
+				                                        + source_direction[1]*source_direction[1]
+				                                        + source_direction[2]*source_direction[2]);
 
-  qrwlOutputs.unlock();
+				vol_stereo = (left[0]*source_direction[0] +
+				              left[1]*source_direction[1] +
+				              left[2]*source_direction[2])
+				             / left_norm / source_direction_norm;
+				// asin(scalar_product) = angle from center, where
+				// angle < 0 is right and angle > 0 is left
 
-  foreach(aop, qlDel)
-    removeBuffer(aop);
+				if (g.s.bPositionalSoundSwap)
+					vol_stereo *= (-1);
 
-  return (! qlMix.isEmpty());
+				vol_scal= PositionalSound::toRatio(PositionalSound::calcdB(source_direction_norm));
+			}
+			const float vol_left=  vol_scal * (1.0 + vol_stereo);
+			const float vol_right= vol_scal * (1.0 - vol_stereo);
+			for (int i=0;i<iFrameSize;i++) {
+				t[2*i] += (int)(vol_left * aop->psBuffer[i]);
+				t[2*i+1] += (int)(vol_right *aop->psBuffer[i]);
+			}
+		}
+	} else { // no stereo
+		foreach(aop, qlMix) {
+			for (int i=0;i<iFrameSize;i++) {
+				t[2*i]   += aop->psBuffer[i];
+				t[2*i+1] += aop->psBuffer[i];
+			}
+		}
+	}
+
+	for (int i=0;i<(iFrameSize*2);i++)
+		buffer[i]=qMax(-32727,qMin(32767,t[i]));
+
+	qrwlOutputs.unlock();
+
+	foreach(aop, qlDel)
+	removeBuffer(aop);
+
+	return (! qlMix.isEmpty());
 }
 
 AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutputPlayer(QLatin1String("Sine")) {
@@ -465,7 +467,7 @@ bool AudioSine::decodeNextFrame() {
 				g.iAudioPathTime = cntr;
 			}
 
-			for(unsigned int i=0;i<iFrameSize;i++)
+			for (unsigned int i=0;i<iFrameSize;i++)
 				psBuffer[i] = lroundf(32768.0f * volume * sinf(M_PI * i * (tbin * 1.0f) / (1.0f * iFrameSize)));
 
 			return true;

@@ -82,12 +82,14 @@ void NetworkConfig::save() const {
 	s.qsProxyPassword = qlePassword->text();
 }
 
-static QNetworkProxy::ProxyType local_to_qt_proxy(Settings::ProxyType pt)
-{
+static QNetworkProxy::ProxyType local_to_qt_proxy(Settings::ProxyType pt) {
 	switch (pt) {
-		case Settings::NoProxy:     return QNetworkProxy::NoProxy;
-		case Settings::HttpProxy:   return QNetworkProxy::HttpProxy;
-		case Settings::Socks5Proxy: return QNetworkProxy::Socks5Proxy;
+		case Settings::NoProxy:
+			return QNetworkProxy::NoProxy;
+		case Settings::HttpProxy:
+			return QNetworkProxy::HttpProxy;
+		case Settings::Socks5Proxy:
+			return QNetworkProxy::Socks5Proxy;
 	}
 
 	return QNetworkProxy::NoProxy;
@@ -132,8 +134,7 @@ bool NetworkConfig::expert(bool b) {
 	return true;
 }
 
-void NetworkConfig::on_qcbType_currentIndexChanged(int v)
-{
+void NetworkConfig::on_qcbType_currentIndexChanged(int v) {
 	Settings::ProxyType pt = static_cast<Settings::ProxyType>(v);
 
 	qleHostname->setEnabled(pt != Settings::NoProxy);

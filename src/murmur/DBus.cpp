@@ -1071,7 +1071,7 @@ void MetaDBus::rotateLogs(const QDBusMessage &msg) {
 	} else {
 		qfLog->setTextModeEnabled(true);
 		qWarning("Log rotated successfully");
-	}                                                                                                                                                        
+	}
 }
 
 void MetaDBus::quit() {

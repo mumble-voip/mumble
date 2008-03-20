@@ -38,7 +38,7 @@ class UnixMurmur : public QObject {
 	protected:
 		static int iHupFd[2], iTermFd[2];
 		QSocketNotifier *qsnHup, *qsnTerm;
-		
+
 		static void hupSignalHandler(int);
 		static void termSignalHandler(int);
 	public slots:

@@ -31,7 +31,7 @@
 #include "lib.h"
 #include <dsound.h>
 
-typedef HRESULT (*pDirectSoundCreate8)(LPCGUID lpcGuidDevice, LPDIRECTSOUND8 * ppDS8, LPUNKNOWN pUnkOuter);
+typedef HRESULT(*pDirectSoundCreate8)(LPCGUID lpcGuidDevice, LPDIRECTSOUND8 * ppDS8, LPUNKNOWN pUnkOuter);
 
 static bool bHooked = false;
 static bool bChaining = false;

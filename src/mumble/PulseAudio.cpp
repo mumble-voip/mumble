@@ -69,8 +69,13 @@ static PulseAudioOutputRegistrar aorPulseAudio;
 
 class PulseAudioInit : public DeferInit {
 	public:
-		void initialize() { pasys = new PulseAudioSystem(); };
-		void destroy() { delete pasys; pasys = NULL; };
+		void initialize() {
+			pasys = new PulseAudioSystem();
+		};
+		void destroy() {
+			delete pasys;
+			pasys = NULL;
+		};
 };
 
 static PulseAudioInit pulseinit;
@@ -88,9 +93,9 @@ PulseAudioSystem::PulseAudioSystem() {
 	pa_mainloop_api *api = pa_mainloop_get_api(pam);
 
 	pacContext = pa_context_new(api, "Mumble");
-	
+
 	pa_context_set_subscribe_callback(pacContext, subscribe_callback, this);
-	
+
 	pa_context_set_state_callback(pacContext, context_state_callback, this);
 	pa_context_connect(pacContext, NULL, PA_CONTEXT_NOAUTOSPAWN, NULL);
 
@@ -358,7 +363,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	pa_stream_peek(s, &data, &length);
 	const short *buffer = reinterpret_cast<const short *>(data);
 	int samples = length / 2;
-	
+
 	AudioInputPtr ai = g.ai;
 	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(ai.get());
 	if (! pai) {
@@ -427,9 +432,9 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 
 	AudioOutputPtr ao = g.ao;
 	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(ao.get());
-	
+
 	int samples = bytes / 2;
-	
+
 	if (! pao) {
 		// Transitioning, but most likely transitions back, so just zero.
 		short zero[samples];

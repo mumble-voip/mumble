@@ -31,11 +31,10 @@
 #include "lib.h"
 #include <d3d9.h>
 
-typedef IDirect3D9* (WINAPI *pDirect3DCreate9) (UINT SDKVersion) ;
-typedef HRESULT (WINAPI *pDirect3DCreate9Ex) (UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
+typedef IDirect3D9*(WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
+typedef HRESULT(WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
 
-struct D3DTLVERTEX
-{
+struct D3DTLVERTEX {
 	float    x, y, z, rhw; // Position
 	D3DCOLOR color;  // Vertex colour
 	float    tu, tv;  // Texture coordinates
@@ -43,24 +42,24 @@ struct D3DTLVERTEX
 const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1;
 
 class DevState {
-public:
-	IDirect3DDevice9 *dev;
-	IDirect3DStateBlock9 *pSB;
+	public:
+		IDirect3DDevice9 *dev;
+		IDirect3DStateBlock9 *pSB;
 
-	LONG initRefCount;
-	LONG refCount;
-	LONG myRefCount;
-	bool bMyRefs;
+		LONG initRefCount;
+		LONG refCount;
+		LONG myRefCount;
+		bool bMyRefs;
 
-	LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
+		LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
 
-	DevState();
+		DevState();
 
-	void createCleanState();
-	void releaseData();
-	void releaseAll();
-	void draw();
-	void postDraw();
+		void createCleanState();
+		void releaseData();
+		void releaseAll();
+		void draw();
+		void postDraw();
 };
 
 static map<IDirect3DDevice9 *, DevState *> devMap;
@@ -74,18 +73,18 @@ DevState::DevState() {
 	bMyRefs = false;
 	refCount = 0;
 	myRefCount = 0;
-	for(int i = 0;i < NUM_TEXTS;i++)
+	for (int i = 0;i < NUM_TEXTS;i++)
 		tex[i] = NULL;
 }
 
 void DevState::releaseData() {
 	ods("D3D9: Release Data");
 
-	for(int i=0;i<NUM_TEXTS;i++)
+	for (int i=0;i<NUM_TEXTS;i++)
 		if (tex[i]) {
-		    tex[i]->Release();
-		    tex[i] = NULL;
-	       }
+			tex[i]->Release();
+			tex[i] = NULL;
+		}
 }
 
 void DevState::releaseAll() {
@@ -125,7 +124,7 @@ void DevState::draw() {
 
 	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		for(int i=0;i<NUM_TEXTS;i++) {
+		for (int i=0;i<NUM_TEXTS;i++) {
 			if (sm->texts[i].width == 0) {
 				y += iHeight / 4;
 			} else if (sm->texts[i].width > 0) {
@@ -138,8 +137,8 @@ void DevState::draw() {
 					D3DLOCKED_RECT lr;
 					tex[i]->LockRect(0, &lr, NULL, D3DLOCK_DISCARD);
 
-					for(int r=0;r<TEXT_HEIGHT;r++) {
-					    unsigned char *dptr = reinterpret_cast<unsigned char *>(lr.pBits) + r * lr.Pitch;
+					for (int r=0;r<TEXT_HEIGHT;r++) {
+						unsigned char *dptr = reinterpret_cast<unsigned char *>(lr.pBits) + r * lr.Pitch;
 						memcpy(dptr, sm->texts[i].texture + r * TEXT_WIDTH * 4, sm->texts[i].width * 4);
 					}
 
@@ -177,7 +176,7 @@ void DevState::draw() {
 	if ((y + height + 1) > vp.Height)
 		y = vp.Height - height - 1;
 
-	for(int i=0;i<idx;i++) {
+	for (int i=0;i<idx;i++) {
 		unsigned int width = widths[i];
 
 		int x = lround(vp.Width * sm->fX);
@@ -202,8 +201,7 @@ void DevState::draw() {
 		float bottom = top + iHeight;
 
 		const float z = 1.0f;
-		D3DTLVERTEX vertices[4] =
-		{
+		D3DTLVERTEX vertices[4] = {
 			// x, y, z, color, tu, tv
 			{ left,  top,    z, 1, color, 0, 0 },
 			{ right, top,    z, 1, color, 1, 0 },
@@ -225,10 +223,10 @@ void DevState::createCleanState() {
 	pSB = NULL;
 
 	IDirect3DStateBlock9* pStateBlock = NULL;
-  	dev->CreateStateBlock( D3DSBT_ALL, &pStateBlock );
-  	pStateBlock->Capture();
+	dev->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
+	pStateBlock->Capture();
 
-  	dev->CreateStateBlock( D3DSBT_ALL, &pSB );
+	dev->CreateStateBlock(D3DSBT_ALL, &pSB);
 
 	D3DVIEWPORT9 vp;
 	dev->GetViewport(&vp);
@@ -238,7 +236,7 @@ void DevState::createCleanState() {
 	dev->SetFVF(D3DFVF_TLVERTEX);
 
 	dev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	dev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD );
+	dev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
 	dev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 0x16
 	dev->SetRenderState(D3DRS_WRAP0, FALSE); // 0x80
 
@@ -246,8 +244,8 @@ void DevState::createCleanState() {
 	dev->SetRenderState(D3DRS_SRCBLEND,  D3DBLEND_SRCALPHA);
 	dev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	dev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE );
-	dev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER );
+	dev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	dev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	dev->SetRenderState(D3DRS_ZENABLE, FALSE);
 	dev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -291,8 +289,8 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		ds->bMyRefs = true;
 
 		IDirect3DStateBlock9* pStateBlock = NULL;
-	  	idd->CreateStateBlock( D3DSBT_ALL, &pStateBlock );
-	  	pStateBlock->Capture();
+		idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
+		pStateBlock->Capture();
 
 		ds->pSB->Apply();
 
@@ -304,7 +302,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			ds->releaseData();
 		}
 
-	  	idd->BeginScene();
+		idd->BeginScene();
 		ds->draw();
 		idd->EndScene();
 

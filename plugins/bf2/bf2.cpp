@@ -85,7 +85,7 @@ static bool sane(float *pos, float *vel, float *face, float *top, bool initial =
 	float min = (initial) ? 0.1f : 0.00001f;
 
 	// Sanity check #1: Position should be from -1000 to +1000, and not 0.
-	for(i=0;i<3;i++) {
+	for (i=0;i<3;i++) {
 		ok = ok && (fabs(pos[i]) > min);
 		ok = ok && (fabs(pos[i]) < 1000.0);
 	}
@@ -154,9 +154,9 @@ static int trylock() {
 		float top[3];
 
 		bool ok = peekProc(posptr, pos, 12) &&
-			peekProc(velptr, vel, 12) &&
-			peekProc(faceptr, face, 12) &&
-			peekProc(topptr, top, 12);
+		          peekProc(velptr, vel, 12) &&
+		          peekProc(faceptr, face, 12) &&
+		          peekProc(topptr, top, 12);
 
 		if (ok)
 			ok = sane(pos, vel, face, top, true);
@@ -181,9 +181,9 @@ static int fetch(float *pos, float *front, float *top) {
 	float vel[3];
 	bool ok;
 	ok = peekProc(posptr, pos, 12) &&
-		peekProc(velptr, vel, 12) &&
-		peekProc(faceptr, front, 12) &&
-		peekProc(topptr, top, 12);
+	     peekProc(velptr, vel, 12) &&
+	     peekProc(faceptr, front, 12) &&
+	     peekProc(topptr, top, 12);
 
 	if (ok) {
 		ok = sane(pos, vel, front, top);

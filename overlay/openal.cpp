@@ -50,28 +50,26 @@ static void __cdecl myalListenerfv(ALenum param, ALfloat *values) {
 
 	if (bVideoHooked) {
 		DWORD t = GetTickCount();
-		switch(param) {
-			case AL_POSITION:
-			{
-				uiAudioCount++;
-				sm->uiAudioTick = t;
-				sm->fPos[0] = values[0];
-				sm->fPos[1] = values[1];
-				sm->fPos[2] = values[2];
-				break;
-			}
-			case AL_ORIENTATION:
-			{
-				uiAudioCount++;
-				sm->uiAudioTick = t;
-				sm->fFront[0] = values[0];
-				sm->fFront[1] = values[1];
-				sm->fFront[2] = values[2];
-				sm->fTop[0] = values[3];
-				sm->fTop[1] = values[4];
-				sm->fTop[2] = values[5];
-				break;
-			}
+		switch (param) {
+			case AL_POSITION: {
+					uiAudioCount++;
+					sm->uiAudioTick = t;
+					sm->fPos[0] = values[0];
+					sm->fPos[1] = values[1];
+					sm->fPos[2] = values[2];
+					break;
+				}
+			case AL_ORIENTATION: {
+					uiAudioCount++;
+					sm->uiAudioTick = t;
+					sm->fFront[0] = values[0];
+					sm->fFront[1] = values[1];
+					sm->fFront[2] = values[2];
+					sm->fTop[0] = values[3];
+					sm->fTop[1] = values[4];
+					sm->fTop[2] = values[5];
+					break;
+				}
 			default:
 				break;
 		}
@@ -86,28 +84,26 @@ static void __cdecl myalListeneriv(ALenum param, ALint *values) {
 
 	if (bVideoHooked) {
 		DWORD t = GetTickCount();
-		switch(param) {
-			case AL_POSITION:
-			{
-				uiAudioCount++;
-				sm->uiAudioTick = t;
-				sm->fPos[0] = values[0];
-				sm->fPos[1] = values[1];
-				sm->fPos[2] = values[2];
-				break;
-			}
-			case AL_ORIENTATION:
-			{
-				uiAudioCount++;
-				sm->uiAudioTick = t;
-				sm->fFront[0] = values[0];
-				sm->fFront[1] = values[1];
-				sm->fFront[2] = values[2];
-				sm->fTop[0] = values[3];
-				sm->fTop[1] = values[4];
-				sm->fTop[2] = values[5];
-				break;
-			}
+		switch (param) {
+			case AL_POSITION: {
+					uiAudioCount++;
+					sm->uiAudioTick = t;
+					sm->fPos[0] = values[0];
+					sm->fPos[1] = values[1];
+					sm->fPos[2] = values[2];
+					break;
+				}
+			case AL_ORIENTATION: {
+					uiAudioCount++;
+					sm->uiAudioTick = t;
+					sm->fFront[0] = values[0];
+					sm->fFront[1] = values[1];
+					sm->fFront[2] = values[2];
+					sm->fTop[0] = values[3];
+					sm->fTop[1] = values[4];
+					sm->fTop[2] = values[5];
+					break;
+				}
 			default:
 				break;
 		}
@@ -122,16 +118,15 @@ static void __cdecl myalListener3f(ALenum param, ALfloat v1, ALfloat v2, ALfloat
 
 	if (bVideoHooked) {
 		DWORD t = GetTickCount();
-		switch(param) {
-			case AL_POSITION:
-			{
-				uiAudioCount++;
-				sm->uiAudioTick = t;
-				sm->fPos[0] = v1;
-				sm->fPos[1] = v2;
-				sm->fPos[2] = v3;
-				break;
-			}
+		switch (param) {
+			case AL_POSITION: {
+					uiAudioCount++;
+					sm->uiAudioTick = t;
+					sm->fPos[0] = v1;
+					sm->fPos[1] = v2;
+					sm->fPos[2] = v3;
+					break;
+				}
 			default:
 				break;
 		}
@@ -147,16 +142,15 @@ static void __cdecl myalListener3i(ALenum param, ALint v1, ALint v2, ALint v3) {
 
 	if (bVideoHooked) {
 		DWORD t = GetTickCount();
-		switch(param) {
-			case AL_POSITION:
-			{
-				uiAudioCount++;
-				sm->uiAudioTick = t;
-				sm->fPos[0] = v1;
-				sm->fPos[1] = v2;
-				sm->fPos[2] = v3;
-				break;
-			}
+		switch (param) {
+			case AL_POSITION: {
+					uiAudioCount++;
+					sm->uiAudioTick = t;
+					sm->fPos[0] = v1;
+					sm->fPos[1] = v2;
+					sm->fPos[2] = v3;
+					break;
+				}
 			default:
 				break;
 		}

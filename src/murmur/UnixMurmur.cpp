@@ -44,26 +44,26 @@ UnixMurmur::UnixMurmur() {
 
 	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, iTermFd))
 		qFatal("Couldn't create TERM socketpair");
-		
+
 	qsnHup = new QSocketNotifier(iHupFd[1], QSocketNotifier::Read, this);
 	qsnTerm = new QSocketNotifier(iTermFd[1], QSocketNotifier::Read, this);
-	
+
 	connect(qsnHup, SIGNAL(activated(int)), this, SLOT(handleSigHup()));
 	connect(qsnTerm, SIGNAL(activated(int)), this, SLOT(handleSigTerm()));
-	
+
 	struct sigaction hup, term;
-	
+
 	hup.sa_handler = hupSignalHandler;
 	sigemptyset(&hup.sa_mask);
 	hup.sa_flags = SA_RESTART;
-	
+
 	if (sigaction(SIGHUP, &hup, NULL))
 		qFatal("Failed to install SIGHUP handler");
 
 	term.sa_handler = termSignalHandler;
 	sigemptyset(&term.sa_mask);
 	term.sa_flags = SA_RESTART;
-	
+
 	if (sigaction(SIGTERM, &term, NULL))
 		qFatal("Failed to install SIGTERM handler");
 }
@@ -71,7 +71,7 @@ UnixMurmur::UnixMurmur() {
 UnixMurmur::~UnixMurmur() {
 	delete qsnHup;
 	delete qsnTerm;
-	
+
 	qsnHup = NULL;
 	qsnTerm = NULL;
 
@@ -98,9 +98,9 @@ void UnixMurmur::handleSigHup() {
 	qsnHup->setEnabled(false);
 	char tmp;
 	::read(iHupFd[1], &tmp, sizeof(tmp));
-	
-        if (! qfLog || ! qfLog->isOpen()) {
-        	qWarning("Caught SIGHUP, but logfile not in use");
+
+	if (! qfLog || ! qfLog->isOpen()) {
+		qWarning("Caught SIGHUP, but logfile not in use");
 	} else {
 		qWarning("Caught SIGHUP, will reopen %s", qPrintable(Meta::mp.qsLogfile));
 		qfLog->close();
@@ -120,10 +120,10 @@ void UnixMurmur::handleSigTerm() {
 	qsnTerm->setEnabled(false);
 	char tmp;
 	::read(iTermFd[1], &tmp, sizeof(tmp));
-	
+
 	qWarning("Caught SIGTERM, exiting");
 
 	QCoreApplication::instance()->quit();
-	
+
 	qsnTerm->setEnabled(true);
 }

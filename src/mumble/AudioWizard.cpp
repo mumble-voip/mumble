@@ -387,8 +387,8 @@ QWizardPage *AudioWizard::deviceTuningPage() {
 	grid->addWidget(qlOutputDelay, 2, 2);
 
 	l = new QLabel(tr("If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path "
-			  "delay in your system; this means the delay from a sample is placed in an outbound buffer until it's found in "
-			  "a matching incoming buffer."));
+	                  "delay in your system; this means the delay from a sample is placed in an outbound buffer until it's found in "
+	                  "a matching incoming buffer."));
 	l->setWordWrap(true);
 	grid->addWidget(l, 3, 0, 1, 2);
 

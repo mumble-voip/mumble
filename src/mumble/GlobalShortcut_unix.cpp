@@ -55,7 +55,7 @@ GlobalShortcutX::GlobalShortcutX() {
 	QFileSystemWatcher *fsw = new QFileSystemWatcher(QStringList(dir), this);
 	connect(fsw, SIGNAL(directoryChanged(const QString &)), this, SLOT(directoryChanged(const QString &)));
 	directoryChanged(dir);
-	
+
 	if (qmInputDevices.isEmpty()) {
 		delete fsw;
 		qWarning("GlobalShortcutX: Unable to open any input devices under /dev/input, falling back to XEVIE");
@@ -152,9 +152,9 @@ void GlobalShortcutX::inputReadyRead(int) {
 	QFile *f=qobject_cast<QFile *>(sender()->parent());
 	if (!f)
 		return;
-		
+
 	bool found = false;
-	
+
 	while (f->read(reinterpret_cast<char *>(&ev), sizeof(ev)) == sizeof(ev)) {
 		found = true;
 		if (ev.type != EV_KEY)
@@ -173,7 +173,7 @@ void GlobalShortcutX::inputReadyRead(int) {
 		int evtcode = ev.code + 8;
 		handleButton(evtcode, down);
 	}
-	
+
 	if (! found) {
 		int fd = f->handle();
 		int version = 0;

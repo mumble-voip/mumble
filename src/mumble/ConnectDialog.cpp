@@ -281,7 +281,7 @@ void ConnectDialog::on_qpbAdd_clicked() {
 			qslFields << QLatin1String("password");
 			qslFields << QLatin1String("port");
 
-			for(int i=0; i < nrec;++i) {
+			for (int i=0; i < nrec;++i) {
 				rec = qstmServers->record(i);
 				bool match = true;
 				foreach(const QString &s, qslFields) {

@@ -168,8 +168,8 @@ void AudioEchoWidget::paintGL() {
 	drft_lookup d;
 	mumble_drft_init(&d, n);
 
-	for(int j=0;j<M;j++) {
-		for(int i=0;i<n;i++)
+	for (int j=0;j<M;j++) {
+		for (int i=0;i<n;i++)
 			W[j*n+i] = w[j*n+i] / (1.f * n);
 		mumble_drft_forward(&d, & W[j*n]);
 	}
@@ -203,7 +203,7 @@ void AudioEchoWidget::paintGL() {
 	glColor3f(1.0, 0.0, 1.0);
 	xscale = 1.0f / (2*n);
 	yscale = 1.0f / (200.0f * 32767.0f);
-	for(int i=0;i<2*n;i++) {
+	for (int i=0;i<2*n;i++) {
 		glVertex2f(i*xscale, 0.5 + w[i] * yscale);
 	}
 	glEnd();
@@ -339,7 +339,7 @@ void AudioStats::on_Tick_timeout() {
 	int start = (ps_size * 300) / SAMPLE_RATE;
 	int stop = (ps_size * 2000) / SAMPLE_RATE;
 
-	for(int i=start;i<stop;i++) {
+	for (int i=start;i<stop;i++) {
 		s += sqrtf(ps[i]);
 		n += sqrtf(noise[i]);
 	}

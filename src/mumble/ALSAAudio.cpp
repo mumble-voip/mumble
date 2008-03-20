@@ -49,8 +49,13 @@ class ALSAEnumerator {
 static ALSAEnumerator *cards = NULL;
 
 class ALSAAudioInit : public DeferInit {
-	void initialize() { cards = new ALSAEnumerator(); };
-	void destroy() { delete cards; cards = NULL; };
+		void initialize() {
+			cards = new ALSAEnumerator();
+		};
+		void destroy() {
+			delete cards;
+			cards = NULL;
+		};
 };
 
 static ALSAAudioInit aai;
@@ -97,7 +102,7 @@ const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput.value(dev));
 		qlReturn << audioDevice(t, dev);
 	}
-	
+
 	return qlReturn;
 }
 
@@ -405,7 +410,7 @@ void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period, bool stere
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16_LE));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &rate, NULL));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels(pcm_handle, hw_params, (stereo ? 2 : 1 )));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels(pcm_handle, hw_params, (stereo ? 2 : 1)));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(pcm_handle, hw_params, &buffer_size));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(pcm_handle, hw_params, &period_size, NULL));
 
@@ -502,7 +507,7 @@ void ALSAAudioOutput::run() {
 			if (! stillRun) {
 				snd_pcm_drain(pcm_handle);
 
-				while (! (stereo ? mixStereoAudio(buffer) : mixAudio(buffer)) && bRunning)
+				while (!(stereo ? mixStereoAudio(buffer) : mixAudio(buffer)) && bRunning)
 					this->usleep(20 * 1000);
 
 				if (! bRunning)

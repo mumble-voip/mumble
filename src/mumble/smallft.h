@@ -42,9 +42,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _MUMBLE_SMFT_H_
 
 typedef struct {
-  int n;
-  float *trigcache;
-  int *splitcache;
+	int n;
+	float *trigcache;
+	int *splitcache;
 } drft_lookup;
 
 

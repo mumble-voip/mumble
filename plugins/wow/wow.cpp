@@ -40,7 +40,7 @@ static void about(HWND h) {
 }
 
 static int fetch(float *pos, float *front, float *top) {
-	for(int i=0;i<3;i++)
+	for (int i=0;i<3;i++)
 		pos[i]=front[i]=top[i]=0.0;
 
 	BOOL ok = true;

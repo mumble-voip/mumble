@@ -60,7 +60,7 @@ class WASAPIConfig : public ConfigWidget, public Ui::WASAPIConfig {
 };
 
 class WASAPISystem : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	public:
 		static const QHash<QString, QString> getDevices(EDataFlow dataflow);
 		static const QHash<QString, QString> getInputDevices();

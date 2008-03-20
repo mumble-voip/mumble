@@ -53,8 +53,13 @@ class OSSEnumerator {
 static OSSEnumerator *cards = NULL;
 
 class OSSInit : public DeferInit {
-	void initialize() { cards = new OSSEnumerator(); };
-	void destroy() { delete cards; cards = NULL; };
+		void initialize() {
+			cards = new OSSEnumerator();
+		};
+		void destroy() {
+			delete cards;
+			cards = NULL;
+		};
 };
 
 static OSSInit ossi;

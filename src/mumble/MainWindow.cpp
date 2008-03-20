@@ -363,12 +363,12 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 
 	qmPlayer->clear();
 
-    qmPlayer->addAction(qaPlayerKick);
-    qmPlayer->addAction(qaPlayerBan);
-    qmPlayer->addAction(qaPlayerMute);
-    qmPlayer->addAction(qaPlayerDeaf);
-    qmPlayer->addAction(qaPlayerLocalMute);
-    qmPlayer->addAction(qaPlayerTextMessage);
+	qmPlayer->addAction(qaPlayerKick);
+	qmPlayer->addAction(qaPlayerBan);
+	qmPlayer->addAction(qaPlayerMute);
+	qmPlayer->addAction(qaPlayerDeaf);
+	qmPlayer->addAction(qaPlayerLocalMute);
+	qmPlayer->addAction(qaPlayerTextMessage);
 
 	if (self) {
 		qmPlayer->addSeparator();

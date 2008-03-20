@@ -38,28 +38,27 @@
 #include "ui_PositionalSound.h"
 
 
-class PlotWidget : public QWidget
-{
-  Q_OBJECT
-  protected:
-    const QList<float> &xdata;
-    const QList<float> &ydata;
+class PlotWidget : public QWidget {
+		Q_OBJECT
+	protected:
+		const QList<float> &xdata;
+		const QList<float> &ydata;
 
-    void paintEvent(QPaintEvent*);
+		void paintEvent(QPaintEvent*);
 
-  public:
-    PlotWidget(QWidget *parent, const QList<float> &x, const QList<float> &y);
-    int heightForWidth(int) const;
+	public:
+		PlotWidget(QWidget *parent, const QList<float> &x, const QList<float> &y);
+		int heightForWidth(int) const;
 };
 
-class PositionalSoundConfig : public ConfigWidget, 
-  public Ui::PositionalSoundConfig {
+class PositionalSoundConfig : public ConfigWidget,
+			public Ui::PositionalSoundConfig {
 		Q_OBJECT
-    protected:
-                  QList<float> xdata;
-                  QList<float> ydata;
+	protected:
+		QList<float> xdata;
+		QList<float> ydata;
 
-		  PlotWidget* plot;
+		PlotWidget* plot;
 	public:
 		PositionalSoundConfig(Settings &st);
 		~PositionalSoundConfig();
@@ -79,30 +78,36 @@ class PositionalSoundConfig : public ConfigWidget,
 };
 
 class PositionalSound {
-  public:
-    static inline float todB(const float ratio) { return 20 * log10f(ratio);}
-    static inline float toRatio(const float dB) { return exp10f(dB/20);}
+	public:
+		static inline float todB(const float ratio) {
+			return 20 * log10f(ratio);
+		}
+		static inline float toRatio(const float dB) {
+			return exp10f(dB/20);
+		}
 
-    static inline float ModelConstant(const float pregain) { 
-      return pregain;
-    }
+		static inline float ModelConstant(const float pregain) {
+			return pregain;
+		}
 
-    static inline float ModelLinear(const float pregain, const float maxatt, const float distance, const float d) {
-      const float att = 10 * d/distance;
-
-
-      return pregain - (att < maxatt ? att : maxatt);
-    }
+		static inline float ModelLinear(const float pregain, const float maxatt, const float distance, const float d) {
+			const float att = 10 * d/distance;
 
 
-    static inline float calcdB(const float d) {
-      switch (g.s.ePositionalSoundModel) {
-	case Settings::CONSTANT: return ModelConstant(g.s.fPositionalSoundPreGain);
-	case Settings::LINEAR: return ModelLinear( g.s.fPositionalSoundPreGain, g.s.fPositionalSoundMaxAtt, g.s.fPositionalSoundDistance, d);
-      }
+			return pregain - (att < maxatt ? att : maxatt);
+		}
 
-      return 0;
-    }
+
+		static inline float calcdB(const float d) {
+			switch (g.s.ePositionalSoundModel) {
+				case Settings::CONSTANT:
+					return ModelConstant(g.s.fPositionalSoundPreGain);
+				case Settings::LINEAR:
+					return ModelLinear(g.s.fPositionalSoundPreGain, g.s.fPositionalSoundMaxAtt, g.s.fPositionalSoundDistance, d);
+			}
+
+			return 0;
+		}
 
 
 };

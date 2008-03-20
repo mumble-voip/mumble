@@ -60,11 +60,11 @@ static int fetch(float *pos, float *front, float *top) {
 	if ((GetTickCount() - lm->dwTick) > 500)
 		return false;
 
-	for(int i=0;i<3;i++)
+	for (int i=0;i<3;i++)
 		pos[i]=lm->fPosition[i];
-	for(int i=0;i<3;i++)
+	for (int i=0;i<3;i++)
 		front[i]=lm->fFront[i];
-	for(int i=0;i<3;i++)
+	for (int i=0;i<3;i++)
 		top[i]=lm->fTop[i];
 
 	return true;

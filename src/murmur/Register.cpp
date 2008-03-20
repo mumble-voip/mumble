@@ -110,12 +110,12 @@ void Server::update() {
 	qssReg = new QSslSocket(this);
 	qssReg->setLocalCertificate(qscCert);
 	qssReg->setPrivateKey(qskKey);
-	
+
 	http = new QHttp(QLatin1String("mumble.hive.no"), QHttp::ConnectionModeHttps, 443, this);
 	http->setSocket(qssReg);
 
 	connect(http, SIGNAL(done(bool)), this, SLOT(done(bool)));
-	connect(http, SIGNAL(sslErrors ( const QList<QSslError> &)), this, SLOT(regSslError(const QList<QSslError> &)));
+	connect(http, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(regSslError(const QList<QSslError> &)));
 
 	QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/register.cgi"));
 	h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
@@ -138,5 +138,5 @@ void Server::done(bool err) {
 
 void Server::regSslError(const QList<QSslError> &errs) {
 	foreach(const QSslError &e, errs)
-		log("Registration: SSL Handshake error: %s", qPrintable(e.errorString()));
+	log("Registration: SSL Handshake error: %s", qPrintable(e.errorString()));
 }

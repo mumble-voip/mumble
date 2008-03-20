@@ -77,11 +77,11 @@ ModelItem::~ModelItem() {
 
 void ModelItem::stealChildren(ModelItem *other) {
 	Q_ASSERT(qlChildren.count() == 0);
-	
+
 	qlChildren = other->qlChildren;
 	other->qlChildren.clear();
-	foreach(ModelItem *mi, qlChildren) 
-		mi->parent = this;
+	foreach(ModelItem *mi, qlChildren)
+	mi->parent = this;
 }
 
 ModelItem *ModelItem::child(int idx) const {
@@ -496,7 +496,7 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	} else {
 		newparent->cChan->addPlayer(item->pPlayer);
 	}
-	
+
 	t->stealChildren(item);
 
 	endInsertRows();

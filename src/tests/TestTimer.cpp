@@ -14,12 +14,12 @@ class TestTimer : public QObject {
 void TestTimer::accuracy() {
 	QTime a;
 	Timer t;
-	
+
 	a.restart();
 	t.restart();
 	do {
-	} while(a.elapsed() < 1000);
-	
+	} while (a.elapsed() < 1000);
+
 	QVERIFY(abs(t.elapsed() / 1000ULL - a.elapsed()) < 10);
 }
 

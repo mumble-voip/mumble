@@ -45,7 +45,7 @@ static HHOOK hhookWnd = 0;
 HardHook::HardHook() {
 	int i;
 	baseptr = NULL;
-	for(i=0;i<5;i++)
+	for (i=0;i<5;i++)
 		orig[i]=replace[i]=0;
 }
 
@@ -67,7 +67,7 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 	replace[0] = 0xe9;
 
 	if (VirtualProtect(fptr, 5, PAGE_EXECUTE_READ, &oldProtect)) {
-		for(i=0;i<5;i++)
+		for (i=0;i<5;i++)
 			orig[i]=fptr[i];
 		VirtualProtect(fptr, 5, oldProtect, &restoreProtect);
 		baseptr = fptr;
@@ -88,12 +88,12 @@ void HardHook::inject() {
 	if (! baseptr)
 		return;
 	if (VirtualProtect(baseptr, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for(i=0;i<5;i++)
+		for (i=0;i<5;i++)
 			baseptr[i] = replace[i];
 		VirtualProtect(baseptr, 5, oldProtect, &restoreProtect);
 		FlushInstructionCache(GetCurrentProcess(),baseptr, 5);
 	}
-	for(i=0;i<5;i++)
+	for (i=0;i<5;i++)
 		if (baseptr[i] != replace[i])
 			ods("HH: Injection failure at byte %d", i);
 }
@@ -105,7 +105,7 @@ void HardHook::restore() {
 	if (! baseptr)
 		return;
 	if (VirtualProtect(baseptr, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for(i=0;i<5;i++)
+		for (i=0;i<5;i++)
 			baseptr[i] = orig[i];
 		VirtualProtect(baseptr, 5, oldProtect, &restoreProtect);
 		FlushInstructionCache(GetCurrentProcess(),baseptr, 5);
@@ -114,41 +114,41 @@ void HardHook::restore() {
 
 void HardHook::print() {
 	ods("HH: %02x %02x %02x %02x %02x => %02x %02x %02x %02x %02x (%02x %02x %02x %02x %02x)",
-		orig[0], orig[1], orig[2], orig[3], orig[4],
-		replace[0], replace[1], replace[2], replace[3], replace[4],
-		baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
+	    orig[0], orig[1], orig[2], orig[3], orig[4],
+	    replace[0], replace[1], replace[2], replace[3], replace[4],
+	    baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
 }
 
 void __cdecl ods(const char *format, ...) {
-        if (!sm || ! sm->bDebug)
-                return;
+	if (!sm || ! sm->bDebug)
+		return;
 
-        char    buf[4096], *p = buf;
-        va_list args;
+	char    buf[4096], *p = buf;
+	va_list args;
 
-        va_start(args, format);
-        int len = _vsnprintf_s(p, sizeof(buf) - 1, _TRUNCATE, format, args);
-        va_end(args);
+	va_start(args, format);
+	int len = _vsnprintf_s(p, sizeof(buf) - 1, _TRUNCATE, format, args);
+	va_end(args);
 
-        if (len <= 0)
-        	return;
+	if (len <= 0)
+		return;
 
-        p += len;
+	p += len;
 
-        while ( p > buf  &&  isspace(p[-1]) )
-                *--p = '\0';
+	while (p > buf  &&  isspace(p[-1]))
+		*--p = '\0';
 
-        *p++ = '\r';
-        *p++ = '\n';
-        *p   = '\0';
+	*p++ = '\r';
+	*p++ = '\n';
+	*p   = '\0';
 
-        OutputDebugStringA(buf);
-        FILE *f = NULL;
-        errno_t res = fopen_s(&f, "c:\\overlay.log", "a");
-        if (f && (res == 0)) {
-			fprintf(f, "%d %s", GetTickCount(), buf);
-			fclose(f);
-		}
+	OutputDebugStringA(buf);
+	FILE *f = NULL;
+	errno_t res = fopen_s(&f, "c:\\overlay.log", "a");
+	if (f && (res == 0)) {
+		fprintf(f, "%d %s", GetTickCount(), buf);
+		fclose(f);
+	}
 }
 
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
@@ -225,8 +225,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 //		return TRUE;
 
 	switch (fdwReason) {
-		case DLL_PROCESS_ATTACH:
-			{
+		case DLL_PROCESS_ATTACH: {
 				ods("Lib: ProcAttach: %s", procname);
 				hSharedMutex = CreateMutex(NULL, false, "MumbleSharedMutex");
 				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
@@ -273,8 +272,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				ReleaseMutex(hSharedMutex);
 			}
 			break;
-		case DLL_PROCESS_DETACH:
-			{
+		case DLL_PROCESS_DETACH: {
 				UnmapViewOfFile(sm);
 				CloseHandle(hMapObject);
 				CloseHandle(hSharedMutex);

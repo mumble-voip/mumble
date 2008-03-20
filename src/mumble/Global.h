@@ -97,8 +97,12 @@ class DeferInit {
 		static QMultiMap<int, DeferInit *> *qmDeferers;
 		void add(int priority);
 	public:
-		DeferInit(int priority) { add(priority); };
-		DeferInit() { add(0); };
+		DeferInit(int priority) {
+			add(priority);
+		};
+		DeferInit() {
+			add(0);
+		};
 		virtual ~DeferInit();
 		virtual void initialize() { };
 		virtual void destroy() { };

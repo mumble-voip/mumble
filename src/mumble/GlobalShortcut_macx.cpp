@@ -42,8 +42,7 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 
 static OSStatus MonitorHandler(EventHandlerCallRef caller,
                                EventRef event,
-                               void *udata)
-{
+                               void *udata) {
 	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);
 	OSType type = GetEventClass(event);
 	UInt32 kind = GetEventKind(event);
@@ -64,7 +63,7 @@ static OSStatus MonitorHandler(EventHandlerCallRef caller,
 			                  NULL, sizeof(UInt32), NULL, &ch);
 			gs->handleModButton(ch);
 
-		/* Regular keypresses. */
+			/* Regular keypresses. */
 		} else {
 			GetEventParameter(event, kEventParamKeyCode, typeUInt32,
 			                  NULL, sizeof(UInt32), NULL, &ch);
@@ -73,7 +72,7 @@ static OSStatus MonitorHandler(EventHandlerCallRef caller,
 			gs->handleButton(keycode, down);
 		}
 
-	/* Mouse events */
+		/* Mouse events */
 	} else if (type == kEventClassMouse) {
 		GetEventParameter(event, kEventParamMouseButton, typeMouseButton,
 		                  NULL, sizeof(EventMouseButton), NULL, &mb);
@@ -87,8 +86,7 @@ static OSStatus MonitorHandler(EventHandlerCallRef caller,
 
 static OSStatus CmdHandler(EventHandlerCallRef caller,
                            EventRef event,
-                           void *udata)
-{
+                           void *udata) {
 	OSStatus err;
 	UInt32 klass = GetEventClass(event);
 
@@ -154,7 +152,7 @@ void GlobalShortcutMac::needRemap() {
 void GlobalShortcutMac::handleModButton(UInt32 newmask) {
 	bool down;
 
-	#define MOD_CHANGED(mask, btn) do { \
+#define MOD_CHANGED(mask, btn) do { \
 		if ((newmask & mask) != (modmask & mask)) { \
 			down = newmask & mask; \
 			handleButton(MOD_OFFSET+btn, down); \

@@ -92,7 +92,7 @@ static void resolveOpenGL() {
 
 static void resolveSM() {
 	static bool warned_sm = false;
-   	static bool warned_ver = false;
+	static bool warned_ver = false;
 
 	int fd = shm_open("/MumbleOverlayMem", O_RDWR, 0600);
 	if (fd >= 0) {
@@ -102,17 +102,17 @@ static void resolveSM() {
 			close(fd);
 		} else {
 			if ((sm->version[0] != OVERLAY_VERSION_MAJ) ||
-			    (sm->version[1] != OVERLAY_VERSION_MIN) ||
-			    (sm->version[2] != OVERLAY_VERSION_PATCH)) {
-			    	if (! warned_ver) {
+			        (sm->version[1] != OVERLAY_VERSION_MIN) ||
+			        (sm->version[2] != OVERLAY_VERSION_PATCH)) {
+				if (! warned_ver) {
 					fflush(stderr);
 					fprintf(stderr, "MUMBLE OVERLAY:: Version mismatch. Library is %u.%u.%u.%u, application is %u.%u.%u.%u\n",
-						OVERLAY_VERSION_MAJ, OVERLAY_VERSION_MIN, OVERLAY_VERSION_PATCH, OVERLAY_VERSION_SUB,
-						sm->version[0], sm->version[1], sm->version[2], sm->version[3]
-					);
+					        OVERLAY_VERSION_MAJ, OVERLAY_VERSION_MIN, OVERLAY_VERSION_PATCH, OVERLAY_VERSION_SUB,
+					        sm->version[0], sm->version[1], sm->version[2], sm->version[3]
+					       );
 					fflush(stderr);
 					warned_ver = true;
-			    	}
+				}
 				munmap(sm, sizeof(struct SharedMem));
 				sm = NULL;
 				close(fd);
