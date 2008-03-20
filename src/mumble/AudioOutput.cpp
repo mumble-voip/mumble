@@ -355,7 +355,7 @@ bool AudioOutput::mixStereoAudio(short *buffer) {
 		}
 	}
 
-	int t[iFrameSize*2];
+	STACKVAR(int, t, iFrameSize*2);
 
 	for (int i=0;i< (iFrameSize*2);i++)
 		t[i]=0;
@@ -378,7 +378,7 @@ bool AudioOutput::mixStereoAudio(short *buffer) {
 			float vol_stereo = 0;
 
 			// Test if source has valid position data
-			if (aop->fPos[0] != 0.0 or aop->fPos[1] != 0.0 or aop->fPos[2] != 0.0) {
+			if ((aop->fPos[0] != 0.0) || (aop->fPos[1] != 0.0) || (aop->fPos[2] != 0.0)) {
 				const float source_direction[3] = {
 					aop->fPos[0] - p->fPosition[0],
 					aop->fPos[1] - p->fPosition[1],
