@@ -49,12 +49,13 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	icon->setPixmap(qApp->windowIcon().pixmap(qApp->windowIcon().actualSize(QSize(64,64))));
 
 	QLabel *text=new QLabel(about);
+	text->setOpenExternalLinks(true);
 	text->setText(tr(
-	                  "<h3>Mumble v%1</h3>"
-	                  "<p>Copyright 2005-2008 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
+	                  "<h3>Mumble (%1)</h3>"
+	                  "<p>Copyright %3 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
 	                  "<p><b>A voice-chat utility for gamers</b></p>"
-	                  "<p><tt>http://mumble.sourceforge.net/</tt></p>"
-	              ).arg(QLatin1String(MUMBLE_RELEASE)));
+	                  "<p><tt><a href=\"%2\">%2</a></tt></p>"
+	              ).arg(QLatin1String(MUMBLE_RELEASE)).arg(QLatin1String("http://mumble.sourceforge.net/")).arg(QLatin1String("2005-2008")));
 	QHBoxLayout *qhbl=new QHBoxLayout();
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
@@ -79,14 +80,15 @@ AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("About Speex"));
 
 	QLabel *text=new QLabel();
+	text->setOpenExternalLinks(true);
 	text->setText(tr(
 	                  "<h3>About Speex</h3>"
-	                  "<p><tt>http://www.speex.org/</tt></p>"
+	                  "<p><tt><a href=\"%2\">%2</a></tt></p>"
 	                  "<p>This program uses Speex version %1</p>"
 	                  "<p>Speex is used for echo cancellation, noise<br />"
 	                  "filtering, voice activity detection and speech<br />"
 	                  "compression.</p>"
-	              ).arg(QLatin1String(verptr)));
+	              ).arg(QLatin1String(verptr)).arg(QLatin1String("http://www.speex.org/")));
 
 	QPushButton *okButton = new QPushButton(tr("OK"));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
