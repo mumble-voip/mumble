@@ -375,15 +375,18 @@ void ALSAAudioInput::run() {
 	qWarning("ALSAAudioInput: Releasing ALSA Mic.");
 }
 
-void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period) {
+void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period, bool stereo) {
 	int err = 0;
 	bool bOk = true;
 
 	if (pcm_handle)
 		return;
 
-	short zerobuff[period];
-	for (int i=0;i<period;i++)
+	const int buffsize = period * (stereo ? 2 : 1);
+
+	short zerobuff[buffsize];
+
+	for (int i=0;i<buffsize;i++)
 		zerobuff[i]=0;
 
 	unsigned int rate = SAMPLE_RATE;
@@ -402,7 +405,7 @@ void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period) {
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16_LE));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &rate, NULL));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels(pcm_handle, hw_params, 1));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels(pcm_handle, hw_params, (stereo ? 2 : 1 )));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(pcm_handle, hw_params, &buffer_size));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(pcm_handle, hw_params, &period_size, NULL));
 
@@ -456,15 +459,20 @@ void ALSAAudioOutput::run() {
 	int count;
 	bool stillRun = true;
 
-	initialize(pcm_handle, iFrameSize);
+	const bool stereo = g.s.bPositionalSoundEnable;
+
+	initialize(pcm_handle, iFrameSize, stereo);
 
 	if (! pcm_handle)
 		return;
 
-	short buffer[iFrameSize] __attribute__((aligned(16)));
+	const int buffsize = iFrameSize * (stereo ? 2 : 1);
 
-	short zerobuff[iFrameSize];
-	for (int i=0;i<iFrameSize;i++)
+	short buffer[buffsize] __attribute__((aligned(16)));
+
+	short zerobuff[buffsize];
+
+	for (int i=0;i<buffsize;i++)
 		zerobuff[i]=0;
 
 	count = snd_pcm_poll_descriptors_count(pcm_handle);
@@ -480,7 +488,7 @@ void ALSAAudioOutput::run() {
 		} else if (revents & POLLOUT) {
 			int avail = snd_pcm_avail_update(pcm_handle);
 			while (avail >= iFrameSize) {
-				stillRun = mixAudio(buffer);
+				stillRun = stereo ? mixStereoAudio(buffer) : mixAudio(buffer);
 				int w=snd_pcm_writei(pcm_handle, buffer, iFrameSize);
 				if (w == -EPIPE) {
 					qWarning("ALSAAudioOutput: %s", snd_strerror(w));
@@ -494,7 +502,7 @@ void ALSAAudioOutput::run() {
 			if (! stillRun) {
 				snd_pcm_drain(pcm_handle);
 
-				while (! mixAudio(buffer) && bRunning)
+				while (! (stereo ? mixStereoAudio(buffer) : mixAudio(buffer)) && bRunning)
 					this->usleep(20 * 1000);
 
 				if (! bRunning)
