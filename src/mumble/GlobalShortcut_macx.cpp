@@ -29,16 +29,61 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#undef qDebug // breaks the Carbon header below.
+#include <Carbon/Carbon.h>
+#include <stdlib.h>
+
 #include "GlobalShortcut_macx.h"
+
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
 
-GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
-	return new GlobalShortcutMac();
+
+/*
+ * We use DeferInit in here to pop up a dialog box if their system isn't
+ * properly set up to receieve global keyboard/mouse events.
+ */
+
+void GlobalShortcutMacInit::initialize() {
+   if (!accessibilityApiEnabled())
+      accessibilityDialog();
 }
 
-// ---
+bool GlobalShortcutMacInit::accessibilityApiEnabled() const {
+	return QFile::exists("/private/var/db/.AccessibilityAPIEnabled");
+}
+
+void GlobalShortcutMacInit::openPrefsPane(const QString &) const {
+	system("open /Applications/System\\ Preferences.app/ /System/Library/PreferencePanes/UniversalAccessPref.prefPane/");
+}
+
+void GlobalShortcutMacInit::accessibilityDialog() const {
+	/*
+	 * Note to anyone trying this out without enabling support for assistive devices:
+	 * Modifier keys pass through without problems. The reason we need assistive device support
+	 * is also get mouse or regular key events through. So no, you're not going crazy.
+	 */
+	QMessageBox mb("Mumble",
+	               tr("Mumble has detected that it is unable to receieve Global Shortcut events when it is in the background.<br /><br />"
+	                  "This is because the Universal Access feature called 'Enable access for assistive devices' is currently disabled.<br /><br />"
+	                  "Please <a href=\" \">enable this setting</a> and continue when done."),
+	               QMessageBox::Question, QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton);
+
+	QLabel *label = mb.findChild<QLabel *>(QLatin1String("qt_msgbox_label"));
+	label->setOpenExternalLinks(false);
+	connect(label, SIGNAL(linkActivated(const QString &)), this, SLOT(openPrefsPane(const QString &)));
+
+	mb.exec();
+}
+
+static GlobalShortcutMacInit gsminit;
+
+/* --- */
+
+GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
+   return new GlobalShortcutMac();
+}
 
 static OSStatus MonitorHandler(EventHandlerCallRef caller,
                                EventRef event,
@@ -61,7 +106,8 @@ static OSStatus MonitorHandler(EventHandlerCallRef caller,
 		if (kind == kEventRawKeyModifiersChanged) {
 			GetEventParameter(event, kEventParamKeyModifiers, typeUInt32,
 			                  NULL, sizeof(UInt32), NULL, &ch);
-			gs->handleModButton(ch);
+			keycode = static_cast<unsigned int>(ch);
+			gs->handleModButton(keycode);
 
 			/* Regular keypresses. */
 		} else {
@@ -139,17 +185,11 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	                    this, NULL);
 }
 
-GlobalShortcutMac::~GlobalShortcutMac() {
-}
-
-void GlobalShortcutMac::run() {
-}
-
 void GlobalShortcutMac::needRemap() {
 	remap();
 }
 
-void GlobalShortcutMac::handleModButton(UInt32 newmask) {
+void GlobalShortcutMac::handleModButton(unsigned int newmask) {
 	bool down;
 
 #define MOD_CHANGED(mask, btn) do { \

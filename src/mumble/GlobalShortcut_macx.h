@@ -29,19 +29,27 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#undef qDebug // breaks the Carbon header below.
-#include <Carbon/Carbon.h>
 #include "GlobalShortcut.h"
+#include "Global.h"
+
+class GlobalShortcutMacInit : public QObject, public DeferInit {
+		Q_OBJECT
+	public:
+		void initialize();
+	public slots:
+		void openPrefsPane(const QString &) const;
+	protected:
+		bool accessibilityApiEnabled() const;
+		void accessibilityDialog() const;
+};
 
 class GlobalShortcutMac : public GlobalShortcutEngine {
 		Q_OBJECT
 	public:
 		GlobalShortcutMac();
-		~GlobalShortcutMac();
-		void run();
 		QString buttonName(const QVariant &);
 		void needRemap();
-		void handleModButton(UInt32 newmask);
+		void handleModButton(unsigned int newmask);
 	protected:
-		UInt32 modmask;
+		unsigned int modmask;
 };
