@@ -78,37 +78,11 @@ class PositionalSoundConfig : public ConfigWidget,
 
 class PositionalSound {
 	public:
-		static inline float todB(const float ratio) {
-			return 20 * log10f(ratio);
-		}
-
-		static inline float toRatio(const float dB) {
-			return powf(10, dB/20);
-		}
-
-		static inline float ModelConstant(const float pregain) {
-			return pregain;
-		}
-
-		static inline float ModelLinear(const float pregain, const float maxatt, const float distance, const float d) {
-			const float att = 10 * d/distance;
-
-
-			return pregain - (att < maxatt ? att : maxatt);
-		}
-
-		static inline float calcdB(const float d) {
-			switch (g.s.ePositionalSoundModel) {
-				case Settings::CONSTANT:
-					return ModelConstant(g.s.fPositionalSoundPreGain);
-				case Settings::LINEAR:
-					return ModelLinear(g.s.fPositionalSoundPreGain, g.s.fPositionalSoundMaxAtt, g.s.fPositionalSoundDistance, d);
-			}
-
-			return 0;
-		}
-
-
+		static float todB(float ratio);
+		static float toRatio(float dB);
+		static float ModelConstant(float pregain);
+		static float ModelLinear(float pregain, float maxatt, float distance, float d);
+		static float calcdB(float d);
 };
 
 #else

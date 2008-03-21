@@ -46,8 +46,8 @@
  */
 
 void GlobalShortcutMacInit::initialize() {
-   if (!accessibilityApiEnabled())
-      accessibilityDialog();
+	if (!accessibilityApiEnabled())
+		accessibilityDialog();
 }
 
 bool GlobalShortcutMacInit::accessibilityApiEnabled() const {
@@ -82,7 +82,7 @@ static GlobalShortcutMacInit gsminit;
 /* --- */
 
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
-   return new GlobalShortcutMac();
+	return new GlobalShortcutMac();
 }
 
 static OSStatus MonitorHandler(EventHandlerCallRef caller,

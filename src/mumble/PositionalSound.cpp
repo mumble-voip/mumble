@@ -253,3 +253,32 @@ void PositionalSoundConfig::on_qdsbPreGain_valueChanged(double) {
 void PositionalSoundConfig::on_qdsbMaxAtt_valueChanged(double) {
 	update();
 }
+
+float PositionalSound::todB(float ratio) {
+	return 20.0f * log10f(ratio);
+}
+
+float PositionalSound::toRatio(float dB) {
+	return powf(10.0f, dB / 20.0f);
+}
+
+float PositionalSound::ModelConstant(float pregain) {
+	return pregain;
+}
+
+float PositionalSound::ModelLinear(float pregain, float maxatt, float distance, float d) {
+	float att = 10.0f * d/distance;
+	return pregain - (att < maxatt ? att : maxatt);
+}
+
+float PositionalSound::calcdB(float d) {
+	switch (g.s.ePositionalSoundModel) {
+		case Settings::CONSTANT:
+			return ModelConstant(g.s.fPositionalSoundPreGain);
+		case Settings::LINEAR:
+			return ModelLinear(g.s.fPositionalSoundPreGain, g.s.fPositionalSoundMaxAtt, g.s.fPositionalSoundDistance, d);
+		default:
+			break;
+	}
+	return 0.0f;
+}
