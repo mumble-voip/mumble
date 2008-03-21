@@ -427,6 +427,9 @@
    <property name="whatsThis" >
     <string>Allows you to change most settings for Mumble.</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::PreferencesRole</enum>
+   </property>
   </action>
   <action name="qaAudioWizard" >
    <property name="text" >
@@ -460,6 +463,9 @@
    <property name="whatsThis" >
     <string>Shows a small dialog with information and license for Mumble.</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::AboutRole</enum>
+   </property>
   </action>
   <action name="qaHelpAboutSpeex" >
    <property name="text" >
@@ -471,6 +477,9 @@
    <property name="whatsThis" >
     <string>Shows a small dialog with information about Speex.</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
   </action>
   <action name="qaHelpAboutQt" >
    <property name="text" >
@@ -481,6 +490,9 @@
    </property>
    <property name="whatsThis" >
     <string>Shows a small dialog with information about Qt.</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::AboutQtRole</enum>
    </property>
   </action>
   <action name="qaHelpVersionCheck" >

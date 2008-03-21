@@ -135,6 +135,13 @@ void MainWindow::createActions() {
 void MainWindow::setupGui()  {
 	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 
+#ifdef Q_OS_MAC
+	QMenu *qmWindow = new QMenu(tr("&Window"), this);
+	menubar->insertMenu(qmHelp->menuAction(), qmWindow);
+	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
+	qmWindow->addAction(tr("Close"), this, SLOT(on_qaQuit_triggered()), QKeySequence(tr("Ctrl+W")));
+#endif
+
 	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 
 	pmModel = new PlayerModel(qtvPlayers);
@@ -181,6 +188,7 @@ void MainWindow::msgBox(QString msg) {
 }
 
 void MainWindow::closeEvent(QCloseEvent *e) {
+#ifndef Q_OS_MAC
 	if (g.sh && g.sh->isRunning()) {
 		QMessageBox mb(QMessageBox::Warning, tr("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
@@ -193,6 +201,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 			return;
 		}
 	}
+#endif
 	g.uiSession = 0;
 	g.s.qbaMainWindowGeometry = saveGeometry();
 	g.s.qbaMainWindowState = saveState();
@@ -203,9 +212,11 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 }
 
 void MainWindow::hideEvent(QHideEvent *e) {
+#ifndef Q_OS_MAC
 	if (qstiIcon->isSystemTrayAvailable())
 		qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
 	QMainWindow::hideEvent(e);
+#endif
 }
 
 void MainWindow::on_qtvPlayers_customContextMenuRequested(const QPoint &mpos) {
