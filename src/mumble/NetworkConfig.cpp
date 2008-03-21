@@ -48,8 +48,7 @@ QString NetworkConfig::title() const {
 }
 
 QIcon NetworkConfig::icon() const {
-	// FIXME: We need an icon for this.
-	return QIcon(QLatin1String("skin:config_msgs.png"));
+	return QIcon(QLatin1String("skin:config_network.png"));
 }
 
 void NetworkConfig::load(const Settings &r) {
