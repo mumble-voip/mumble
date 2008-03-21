@@ -37,7 +37,6 @@
 #include "Settings.h"
 #include "ui_PositionalSound.h"
 
-
 class PlotWidget : public QWidget {
 		Q_OBJECT
 	protected:
@@ -82,8 +81,9 @@ class PositionalSound {
 		static inline float todB(const float ratio) {
 			return 20 * log10f(ratio);
 		}
+
 		static inline float toRatio(const float dB) {
-			return exp10f(dB/20);
+			return powf(10, dB/20);
 		}
 
 		static inline float ModelConstant(const float pregain) {
@@ -96,7 +96,6 @@ class PositionalSound {
 
 			return pregain - (att < maxatt ? att : maxatt);
 		}
-
 
 		static inline float calcdB(const float d) {
 			switch (g.s.ePositionalSoundModel) {
