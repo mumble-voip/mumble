@@ -115,7 +115,11 @@ Settings::Settings() {
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 
+#ifdef AUDIO_TEST
+	lmLoopMode = Local;
+#else
 	lmLoopMode = None;
+#endif
 	dPacketLoss = 0;
 	dMaxPacketDelay = 0.0f;
 

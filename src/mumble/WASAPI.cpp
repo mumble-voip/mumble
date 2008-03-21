@@ -276,32 +276,54 @@ WASAPIInput::WASAPIInput() {
 
 WASAPIInput::~WASAPIInput() {
 	bRunning = false;
+	wait();
 }
 
 void WASAPIInput::run() {
 	HRESULT hr;
 	IMMDeviceEnumerator *pEnumerator = NULL;
-	IMMDevice *pDevice = NULL;
-	IAudioClient *pAudioClient = NULL;
-	IAudioCaptureClient *pCaptureClient = NULL;
-	WAVEFORMATEX *pwfx = NULL;
-	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
+	IMMDevice *pMicDevice = NULL;
+	IAudioClient *pMicAudioClient = NULL;
+	IAudioCaptureClient *pMicCaptureClient = NULL;
+	IMMDevice *pEchoDevice = NULL;
+	IAudioClient *pEchoAudioClient = NULL;
+	IAudioCaptureClient *pEchoCaptureClient = NULL;
+	WAVEFORMATEX *micpwfx = NULL, *echopwfx = NULL;
+	WAVEFORMATEXTENSIBLE *micpwfxe = NULL, *echopwfxe = NULL;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME hnsRequestedDuration = 20 * 10000;
-	SpeexResamplerState *srs = NULL;
+	REFERENCE_TIME hnsRequestedDuration = 200 * 10000;
+	SpeexResamplerState *srsMic = NULL, *srsEcho = NULL;
 	UINT32 numFramesAvailable;
 	UINT32 numFramesLeft;
-	UINT32 packetLength;
-	UINT32 wantLength;
+	UINT32 micPacketLength = 0, echoPacketLength = 0;
+	UINT32 micWantLength, echoWantLength;
+	UINT32 allocLength;
+	UINT64 devicePosition;
+	UINT64 qpcPosition;
 	HANDLE hEvent;
 	BYTE *pData;
 	DWORD flags;
 	int err = 0;
-	DWORD gotLength = 0;
+	DWORD micGotLength = 0, echoGotLength = 0;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
+	float *micInputBuffer = NULL, *echoInputBuffer = NULL, *outputBuffer = NULL;
+	float micmul = 0.0f;
+	float echomul = 0.0f;
+	float *tbuff = NULL;
+	JitterBuffer *jbJitter = NULL;
+	int iEchoSeq = 0;
+	spx_int32_t startofs;
+	JitterBufferPacket jbp;
 
 	CoInitialize(NULL);
+
+	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
+	if (hMmThread == NULL) {
+		qWarning("WASAPIInput: Failed to set Pro Audio thread priority");
+	}
 
 	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 
@@ -313,135 +335,300 @@ void WASAPIInput::run() {
 	if (! g.s.qsWASAPIInput.isEmpty()) {
 		STACKVAR(wchar_t, devname, g.s.qsWASAPIInput.length());
 		g.s.qsWASAPIInput.toWCharArray(devname);
-		hr = pEnumerator->GetDevice(devname, &pDevice);
+		hr = pEnumerator->GetDevice(devname, &pMicDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to open selected device, falling back to default");
+			qWarning("WASAPIInput: Failed to open selected input device, falling back to default");
 		}
 	}
 
-	if (! pDevice) {
-		hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eCommunications, &pDevice);
+	if (! pMicDevice) {
+		hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eCommunications, &pMicDevice);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Failed to open input device");
-			pEnumerator->Release();
-			return;
+			goto cleanup;
+		}
+	}
+
+	if (bHasSpeaker) {
+		if (! g.s.qsWASAPIOutput.isEmpty()) {
+			STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length());
+			g.s.qsWASAPIOutput.toWCharArray(devname);
+			hr = pEnumerator->GetDevice(devname, &pEchoDevice);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Failed to open selected echo device, falling back to default");
+			}
+		}
+
+		if (! pEchoDevice) {
+			hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eCommunications, &pEchoDevice);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Failed to open echo device");
+				goto cleanup;
+			}
 		}
 	}
 
 	pEnumerator->Release();
 	pEnumerator = NULL;
 
-	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pAudioClient);
-	pDevice->Release();
-	pDevice = NULL;
-
+	hr = pMicDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pMicAudioClient);
 	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Activate AudioClient failed");
-		return;
+		qWarning("WASAPIInput: Activate Mic AudioClient failed");
+		goto cleanup;
 	}
 
-	hr = pAudioClient->GetMixFormat(&pwfx);
-	pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+	hr = pMicAudioClient->GetMixFormat(&micpwfx);
+	micpwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(micpwfx);
 
-	if ((pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
-		qWarning("WASAPIInput: Subformat is not IEEE Float");
-		CoTaskMemFree(pwfx);
-		pAudioClient->Release();
-		return;
+	if (FAILED(hr) || (micpwfx->wBitsPerSample != (sizeof(float) * 8)) || (micpwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
+		qWarning("WASAPIInput: Mic Subformat is not IEEE Float");
+		goto cleanup;
 	}
 
-	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, hnsRequestedDuration, 0, pwfx, NULL);
+	hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, hnsRequestedDuration, 0, micpwfx, NULL);
 	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Initialize failed");
-		CoTaskMemFree(pwfx);
-		pAudioClient->Release();
-		return;
+		qWarning("WASAPIInput: Mic Initialize failed");
+		goto cleanup;
 	}
 
-	hr = pAudioClient->GetBufferSize(&bufferFrameCount);
-	hr = pAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pCaptureClient);
+	hr = pMicAudioClient->GetBufferSize(&bufferFrameCount);
+	hr = pMicAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pMicCaptureClient);
 	if (FAILED(hr)) {
-		qWarning("WASAPIInput: GetService failed");
-		CoTaskMemFree(pwfx);
-		pAudioClient->Release();
-		return;
+		qWarning("WASAPIInput: Mic GetService failed");
+		goto cleanup;
 	}
 
-	srs = speex_resampler_init(1, pwfx->nSamplesPerSec, 16000, 8, &err);
+	srsMic = speex_resampler_init(1, micpwfx->nSamplesPerSec, 16000, 3, &err);
+	micWantLength = (iFrameSize * micpwfx->nSamplesPerSec) / 16000;
 
-	wantLength = (iFrameSize * pwfx->nSamplesPerSec) / 16000;
-
-	qWarning("WASAPIInput: %d %d %d", bufferFrameCount, pwfx->nSamplesPerSec, wantLength);
-
-	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-	pAudioClient->SetEventHandle(hEvent);
-	if ((hEvent == NULL) || (FAILED(hr))) {
-		qWarning("WASAPI: Input: Failed to set event");
+	pMicAudioClient->SetEventHandle(hEvent);
+	if (FAILED(hr)) {
+		qWarning("WASAPIInput: Failed to set mic event");
+		goto cleanup;
 	}
 
-
-	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
-	if (hMmThread == NULL) {
-		qWarning("WASAPI: Input: Failed to set Pro Audio thread priority");
+	hr = pMicAudioClient->Start();
+	if (FAILED(hr)) {
+		qWarning("WASAPIInput: Failed to start mic");
+		goto cleanup;
 	}
 
-	hr = pAudioClient->Start();
+	micmul = 32768.0f / micpwfx->nChannels;
 
-	float mul = 32768.0f / pwfx->nChannels;
+	micInputBuffer = new float[micWantLength];
 
-	STACKVAR(float, inbuff, wantLength);
-	STACKVAR(float, outbuff, iFrameSize);
+	if (bHasSpeaker) {
+		hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pEchoAudioClient);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Activate Echo AudioClient failed");
+			goto cleanup;
+		}
+
+		hr = pEchoAudioClient->GetMixFormat(&echopwfx);
+		echopwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(echopwfx);
+
+		if (FAILED(hr) || (echopwfx->wBitsPerSample != (sizeof(float) * 8)) || (echopwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
+			qWarning("WASAPIInput: Echo Subformat is not IEEE Float");
+			goto cleanup;
+		}
+
+		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, hnsRequestedDuration, 0, echopwfx, NULL);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Echo Initialize failed");
+			goto cleanup;
+		}
+
+		hr = pEchoAudioClient->GetBufferSize(&bufferFrameCount);
+		hr = pEchoAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pEchoCaptureClient);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Echo GetService failed");
+			goto cleanup;
+		}
+
+		srsEcho = speex_resampler_init(1, echopwfx->nSamplesPerSec, 16000, 3, &err);
+		echoWantLength = (iFrameSize * echopwfx->nSamplesPerSec) / 16000;
+
+		pEchoAudioClient->SetEventHandle(hEvent);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to set echo event");
+			goto cleanup;
+		}
+
+		hr = pEchoAudioClient->Start();
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to start Echo");
+			goto cleanup;
+		}
+
+		echomul = 32768.0f / echopwfx->nChannels;
+		echoInputBuffer = new float[echoWantLength];
+
+		jbJitter = jitter_buffer_init(iFrameSize);
+	}
+
+	outputBuffer = new float[iFrameSize];
+
+	allocLength = (micWantLength / 2) * micpwfx->nChannels;
+	tbuff = new float[allocLength];
 
 	while (bRunning && ! FAILED(hr)) {
-		hr = pCaptureClient->GetNextPacketSize(&packetLength);
-//		qWarning("Avail: %d", packetLength);
-		while (! FAILED(hr) && (packetLength > 0)) {
-			hr = pCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, NULL, NULL);
-			numFramesLeft = numFramesAvailable;
-			if (! FAILED(hr)) {
-				float *inData = reinterpret_cast<float *>(pData);
+		hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
+		if (! FAILED(hr) && bHasSpeaker)
+			hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
+		if (FAILED(hr))
+			goto cleanup;
+
+		while((micPacketLength > 0) || (echoPacketLength > 0)) {
+			if (echoPacketLength > 0) {
+				hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
+				numFramesLeft = numFramesAvailable;
+				if (FAILED(hr))
+					goto cleanup;
+
+				UINT32 nFrames = numFramesAvailable * echopwfx->nChannels;
+				if (nFrames > allocLength) {
+					delete [] tbuff;
+					allocLength = nFrames;
+					tbuff = new float[allocLength];
+				}
+				float *inData = tbuff;
+				memcpy(inData, pData, nFrames * sizeof(float));
+				hr = pEchoCaptureClient->ReleaseBuffer(numFramesAvailable);
+				if (FAILED(hr))
+					goto cleanup;
 				while (numFramesLeft) {
 					float v = 0.0f;
-					for (int i=0;i<pwfx->nChannels;i++) {
+					for (int i=0;i<echopwfx->nChannels;i++) {
 						v+= *inData;
 						++inData;
 					}
-					inbuff[gotLength] = v;
-					++gotLength;
+					echoInputBuffer[echoGotLength] = v;
+					++echoGotLength;
 
-					if (gotLength == wantLength) {
-						spx_uint32_t inlen = wantLength;
+					if (echoGotLength == echoWantLength) {
+						spx_uint32_t inlen = echoWantLength;
 						spx_uint32_t outlen = iFrameSize;
-						speex_resampler_process_float(srs, 0, inbuff, &inlen, outbuff, &outlen);
-						for (int i=0;i<iFrameSize;i++)
-							psMic[i] = static_cast<short>(outbuff[i] * mul);
+						speex_resampler_process_float(srsEcho, 0, echoInputBuffer, &inlen, outputBuffer, &outlen);
 
-						encodeAudioFrame();
-						gotLength = 0;
+						jbp.data = reinterpret_cast<char *>(outputBuffer);
+						jbp.len = iFrameSize * sizeof(float);
+						jbp.span = iFrameSize;
+						jbp.timestamp = iFrameSize * (++iEchoSeq);
+						jbp.sequence = iEchoSeq;
+						jbp.user_data = NULL;
+						jitter_buffer_put(jbJitter, &jbp);
+						echoGotLength = 0;
 					}
 					--numFramesLeft;
 				}
-				hr = pCaptureClient->ReleaseBuffer(numFramesAvailable);
-				if (! FAILED(hr)) {
-					hr = pCaptureClient->GetNextPacketSize(&packetLength);
+			} else if (micPacketLength > 0) {
+				hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
+				numFramesLeft = numFramesAvailable;
+				if (FAILED(hr))
+					goto cleanup;
+
+				UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
+				if (nFrames > allocLength) {
+					delete [] tbuff;
+					allocLength = nFrames;
+					tbuff = new float[allocLength];
+				}
+				float *inData = tbuff;
+				memcpy(inData, pData, nFrames * sizeof(float));
+				hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
+				if (FAILED(hr))
+					goto cleanup;
+				while (numFramesLeft) {
+					float v = 0.0f;
+					for (int i=0;i<micpwfx->nChannels;i++) {
+						v+= *inData;
+						++inData;
+					}
+					micInputBuffer[micGotLength] = v;
+					++micGotLength;
+
+					if (micGotLength == micWantLength) {
+						spx_uint32_t inlen = micWantLength;
+						spx_uint32_t outlen = iFrameSize;
+						speex_resampler_process_float(srsMic, 0, micInputBuffer, &inlen, outputBuffer, &outlen);
+						for (int i=0;i<iFrameSize;i++)
+							psMic[i] = static_cast<short>(outputBuffer[i] * micmul);
+
+						if (bHasSpeaker) {
+							jbp.data = reinterpret_cast<char *>(outputBuffer);
+							jbp.len = iFrameSize * sizeof(float);
+							jbp.span = iFrameSize;
+							jbp.timestamp = 0;
+							jbp.sequence = 0;
+							jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs);
+							jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+							jitter_buffer_tick(jbJitter);
+							for(int i=0;i<iFrameSize;i++)
+								psSpeaker[i] = static_cast<short>(outputBuffer[i] * echomul);
+						}
+
+						encodeAudioFrame();
+						micGotLength = 0;
+					}
+					--numFramesLeft;
 				}
 			}
+			hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
+			if (! FAILED(hr) && bHasSpeaker)
+				hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
 		}
 		if (! FAILED(hr))
 			WaitForSingleObject(hEvent, 2000);
 	}
 
-	pAudioClient->Stop();
+cleanup:
+	if (micpwfx)
+		CoTaskMemFree(micpwfx);
+	if (echopwfx)
+		CoTaskMemFree(echopwfx);
+
+	if (pMicAudioClient) {
+		pMicAudioClient->Stop();
+		pMicAudioClient->Release();
+	}
+	if (pMicCaptureClient)
+		pMicCaptureClient->Release();
+	if (pMicDevice)
+		pMicDevice->Release();
+	if (srsMic)
+		speex_resampler_destroy(srsMic);
+
+	if (pEchoAudioClient) {
+		pEchoAudioClient->Stop();
+		pEchoAudioClient->Release();
+	}
+	if (pEchoCaptureClient)
+		pEchoCaptureClient->Release();
+	if (pEchoDevice)
+		pEchoDevice->Release();
+	if (srsEcho)
+		speex_resampler_destroy(srsEcho);
+
+	if (pEnumerator)
+		pEnumerator->Release();
 
 	if (hMmThread != NULL)
 		AvRevertMmThreadCharacteristics(hMmThread);
 
-	speex_resampler_destroy(srs);
-	CoTaskMemFree(pwfx);
-	pCaptureClient->Release();
-	pAudioClient->Release();
+	if (hEvent != NULL)
+		CloseHandle(hEvent);
 
-	CloseHandle(hEvent);
+	if (jbJitter)
+		jitter_buffer_destroy(jbJitter);
+
+	if (micInputBuffer)
+		delete [] micInputBuffer;
+	if (echoInputBuffer)
+		delete [] echoInputBuffer;
+	if (outputBuffer)
+		delete [] outputBuffer;
+	if (tbuff)
+		delete [] tbuff;
 }
 
 WASAPIOutput::WASAPIOutput() {
@@ -450,7 +637,194 @@ WASAPIOutput::WASAPIOutput() {
 
 WASAPIOutput::~WASAPIOutput() {
 	bRunning = false;
+	wait();
 }
 
 void WASAPIOutput::run() {
+	HRESULT hr;
+	IMMDeviceEnumerator *pEnumerator = NULL;
+	IMMDevice *pDevice = NULL;
+	IAudioClient *pAudioClient = NULL;
+	IAudioRenderClient *pRenderClient = NULL;
+	WAVEFORMATEX *pwfx = NULL;
+	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
+	UINT32 bufferFrameCount;
+	REFERENCE_TIME hnsRequestedDuration = g.s.iDXOutputDelay * 20 * 10000;
+	SpeexResamplerState *srs;
+	UINT32 numFramesAvailable;
+	UINT32 numFramesLeft;
+	UINT32 packetLength = 0;
+	UINT32 wantLength;
+	UINT32 allocLength;
+	UINT64 devicePosition;
+	UINT64 qpcPosition;
+	HANDLE hEvent;
+	BYTE *pData;
+	DWORD flags;
+	int err = 0;
+	DWORD gotLength = 0;
+	DWORD dwTaskIndex = 0;
+	HANDLE hMmThread;
+	float *inputBuffer = NULL, *outputBuffer = NULL;
+	float mul = 0.0f;
+	short *mixBuffer = NULL;
+
+	CoInitialize(NULL);
+
+	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
+	if (hMmThread == NULL) {
+		qWarning("WASAPIOutput: Failed to set Pro Audio thread priority");
+	}
+
+	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+
+	if (! pEnumerator || FAILED(hr)) {
+		qWarning("WASAPIOutput: Failed to instatiate enumerator");
+		return;
+	}
+
+	if (! g.s.qsWASAPIOutput.isEmpty()) {
+		STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length());
+		g.s.qsWASAPIOutput.toWCharArray(devname);
+		hr = pEnumerator->GetDevice(devname, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Failed to open selected input device, falling back to default");
+		}
+	}
+
+	if (! pDevice) {
+		hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eCommunications, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Failed to open output device");
+			goto cleanup;
+		}
+	}
+
+	pEnumerator->Release();
+	pEnumerator = NULL;
+
+	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pAudioClient);
+	if (FAILED(hr)) {
+		qWarning("WASAPIOutput: Activate AudioClient failed");
+		goto cleanup;
+	}
+
+	hr = pAudioClient->GetMixFormat(&pwfx);
+	pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+
+	if (FAILED(hr) || (pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
+		qWarning("WASAPIOutput: Subformat is not IEEE Float");
+		goto cleanup;
+	}
+
+	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, hnsRequestedDuration, 0, pwfx, NULL);
+	if (FAILED(hr)) {
+		qWarning("WASAPIOutput: Initialize failed");
+		goto cleanup;
+	}
+
+	hr = pAudioClient->GetBufferSize(&bufferFrameCount);
+	hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void**)&pRenderClient);
+	if (FAILED(hr)) {
+		qWarning("WASAPIOutput: GetService failed");
+		goto cleanup;
+	}
+
+	srs = speex_resampler_init(1, 16000, pwfx->nSamplesPerSec, 3, &err);
+	wantLength = (iFrameSize * pwfx->nSamplesPerSec) / 16000;
+
+	pAudioClient->SetEventHandle(hEvent);
+	if (FAILED(hr)) {
+		qWarning("WASAPIOutput: Failed to set event");
+		goto cleanup;
+	}
+
+	hr = pAudioClient->Start();
+	if (FAILED(hr)) {
+		qWarning("WASAPIOutput: Failed to start");
+		goto cleanup;
+	}
+
+	mul = 1.0f / 32768.0f;
+
+	inputBuffer = new float[iFrameSize];
+	mixBuffer = new short[iFrameSize];
+	outputBuffer = new float[wantLength];
+
+	while (bRunning && ! FAILED(hr)) {
+		hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
+		if (FAILED(hr))
+			goto cleanup;
+
+		packetLength = bufferFrameCount - numFramesAvailable;
+
+		while(packetLength >= wantLength) {
+			hr = pRenderClient->GetBuffer(wantLength, &pData);
+			if (FAILED(hr))
+				goto cleanup;
+
+			bool mixed = mixAudio(mixBuffer);
+			if (mixed) {
+				for(int i=0;i<iFrameSize;i++)
+					inputBuffer[i] = mixBuffer[i] * mul;
+
+				spx_uint32_t inlen = iFrameSize;
+				spx_uint32_t outlen = wantLength;
+				speex_resampler_process_float(srs, 0, inputBuffer, &inlen, outputBuffer, &outlen);
+
+				float *outData = reinterpret_cast<float *>(pData);
+				for(int i=0;i<wantLength;i++)
+					for(int j=0;j<pwfx->nChannels;j++)
+						outData[i * pwfx->nChannels + j] = outputBuffer[i];
+
+				hr = pRenderClient->ReleaseBuffer(wantLength, 0);
+				if (FAILED(hr))
+					goto cleanup;
+			} else {
+				hr = pRenderClient->ReleaseBuffer(wantLength, AUDCLNT_BUFFERFLAGS_SILENT);
+				if (FAILED(hr))
+					goto cleanup;
+			}
+			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
+			if (FAILED(hr))
+				goto cleanup;
+
+			packetLength = bufferFrameCount - numFramesAvailable;
+		}
+		if (! FAILED(hr))
+			WaitForSingleObject(hEvent, 2000);
+	}
+
+cleanup:
+	if (pwfx)
+		CoTaskMemFree(pwfx);
+
+	if (pAudioClient) {
+		pAudioClient->Stop();
+		pAudioClient->Release();
+	}
+	if (pRenderClient)
+		pRenderClient->Release();
+	if (pDevice)
+		pDevice->Release();
+	if (srs)
+		speex_resampler_destroy(srs);
+
+	if (pEnumerator)
+		pEnumerator->Release();
+
+	if (hMmThread != NULL)
+		AvRevertMmThreadCharacteristics(hMmThread);
+
+	if (hEvent != NULL)
+		CloseHandle(hEvent);
+
+	if (inputBuffer)
+		delete [] inputBuffer;
+	if (mixBuffer)
+		delete [] mixBuffer;
+	if (outputBuffer)
+		delete [] outputBuffer;
 }

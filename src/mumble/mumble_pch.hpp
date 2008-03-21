@@ -52,12 +52,9 @@
 #define lround(x) ( static_cast<long int>( (x) + ((x) >= 0.0 ? 0.5 : -0.5) ) )
 #endif
 #define M_PI 3.14159265358979323846
-#define ALLOCA(x) _alloca(x)
-#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
+#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
 #else
-#include <alloca.h>
 #include <math.h>
-#define ALLOCA(x) alloca(x)
 #define STACKVAR(type, varname, count) type varname[count]
 #define CopyMemory(dst,ptr,len) memcpy(dst,ptr,len)
 #define ZeroMemory(ptr,len) memset(ptr, 0, len)
