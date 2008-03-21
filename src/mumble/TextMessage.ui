@@ -11,6 +11,16 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
+    <widget class="QCheckBox" name="qcbRawMessage" >
+     <property name="text" >
+      <string>Send raw message</string>
+     </property>
+     <property name="toolTip" >
+      <string>Disables html formating</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >

@@ -36,10 +36,19 @@ TextMessage::TextMessage(QWidget *p) : QDialog(p) {
 	qteEdit->installEventFilter(this);
 }
 
+void TextMessage::on_qcbRawMessage_stateChanged(int state) {
+    on_qteEdit_textChanged();
+}
+
 void TextMessage::on_qteEdit_textChanged() {
 	qsRep = qteEdit->toPlainText();
+    
+    if(qcbRawMessage->isChecked())
+    {
+        qsRep = Qt::convertFromPlainText(qsRep);
+    }
 
-	if (! qsRep.contains(QLatin1Char('<')))  {
+	if (! Qt::mightBeRichText(qsRep) && !qcbRawMessage->isChecked())  {
 		QRegExp qr;
 		qr.setMinimal(true);
 		qr.setPatternSyntax(QRegExp::RegExp2);
