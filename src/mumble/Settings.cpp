@@ -67,7 +67,7 @@ Settings::Settings() {
 	bFirstTime = true;
 	bHorizontal = true;
 
-	iDXOutputDelay = 5;
+	iOutputDelay = 5;
 
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
@@ -164,7 +164,7 @@ void Settings::load() {
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
-	SAVELOAD(iDXOutputDelay, "audio/outputdelay");
+	SAVELOAD(iOutputDelay, "audio/outputdelay");
 	LOADENUM(a3dModel, "audio/3dmode");
 	SAVELOAD(fDXMinDistance, "audio/mindistance");
 	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
@@ -288,7 +288,7 @@ void Settings::save() {
 	SAVELOAD(fVADmax, "audio/vadmax");
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
-	SAVELOAD(iDXOutputDelay, "audio/outputdelay");
+	SAVELOAD(iOutputDelay, "audio/outputdelay");
 	SAVELOAD(a3dModel, "audio/3dmode");
 	SAVELOAD(fDXMinDistance, "audio/mindistance");
 	SAVELOAD(fDXMaxDistance, "audio/maxdistance");

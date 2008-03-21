@@ -42,16 +42,13 @@ class PlotWidget : public QWidget {
 	protected:
 		const QList<float> &xdata;
 		const QList<float> &ydata;
-
 		void paintEvent(QPaintEvent*);
-
 	public:
 		PlotWidget(QWidget *parent, const QList<float> &x, const QList<float> &y);
 		int heightForWidth(int) const;
 };
 
-class PositionalSoundConfig : public ConfigWidget,
-			public Ui::PositionalSoundConfig {
+class PositionalSoundConfig : public ConfigWidget, public Ui::PositionalSoundConfig {
 		Q_OBJECT
 	protected:
 		QList<float> xdata;
@@ -67,6 +64,7 @@ class PositionalSoundConfig : public ConfigWidget,
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
+
 		void on_qcbEnable_stateChanged(int);
 		void on_qcbModel_currentIndexChanged(int);
 		void on_qdsbDistance_valueChanged(double);

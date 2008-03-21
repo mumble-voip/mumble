@@ -78,7 +78,7 @@ void PlotWidget::paintEvent(QPaintEvent *) {
 		const int ipos = lround(20 + (wdth-20) * (f-minx) / (maxx-minx));
 
 		painter.drawLine(ipos,hght - 20, ipos, hght -17);
-		painter.drawText(QRect(ipos-20,hght-17,40,17),Qt::AlignCenter,QString::number(roundf(f)));
+		painter.drawText(QRect(ipos-20,hght-17,40,17),Qt::AlignCenter,QString::number(lroundf(f)));
 	}
 
 	ticstep = 1;
@@ -90,7 +90,7 @@ void PlotWidget::paintEvent(QPaintEvent *) {
 		const int ipos = lround((hght-20) *(1 - (f - miny) / (maxy-miny)));
 
 		painter.drawLine(17 ,ipos , 20, ipos);
-		painter.drawText(QRect(0,ipos-10,17,20),Qt::AlignCenter,QString::number(roundf(f)));
+		painter.drawText(QRect(0,ipos-10,17,20),Qt::AlignCenter,QString::number(lroundf(f)));
 	}
 
 	QList<float>::const_iterator xit = xdata.begin();

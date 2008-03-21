@@ -60,54 +60,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="qcbOutput" >
-     <property name="title" >
-      <string>Output Options</string>
-     </property>
-     <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QLabel" name="qliOutputDelay" >
-        <property name="text" >
-         <string>Output Delay</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsOutputDelay</cstring>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QSlider" name="qsOutputDelay" >
-        <property name="toolTip" >
-         <string>Amount of data to buffer for OSS</string>
-        </property>
-        <property name="whatsThis" >
-         <string>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
-        </property>
-        <property name="minimum" >
-         <number>1</number>
-        </property>
-        <property name="maximum" >
-         <number>6</number>
-        </property>
-        <property name="pageStep" >
-         <number>2</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="qlOutputDelay" >
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>

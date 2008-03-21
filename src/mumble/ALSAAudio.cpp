@@ -256,7 +256,7 @@ QIcon ALSAConfig::icon() const {
 }
 
 void ALSAConfig::save() const {
-	s.iDXOutputDelay = qsOutputDelay->value();
+	s.iOutputDelay = qsOutputDelay->value();
 	s.qsALSAInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
 	s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 }
@@ -275,7 +275,7 @@ void ALSAConfig::load(const Settings &r) {
 			break;
 		}
 	}
-	loadSlider(qsOutputDelay, r.iDXOutputDelay);
+	loadSlider(qsOutputDelay, r.iOutputDelay);
 }
 
 bool ALSAConfig::expert(bool b) {
@@ -396,7 +396,7 @@ void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period, bool stere
 
 	unsigned int rate = SAMPLE_RATE;
 	snd_pcm_uframes_t period_size = period;
-	snd_pcm_uframes_t buffer_size = period * (g.s.iDXOutputDelay + 1);
+	snd_pcm_uframes_t buffer_size = period * (g.s.iOutputDelay + 1);
 
 	snd_pcm_hw_params_t *hw_params = NULL;
 	snd_pcm_sw_params_t *sw_params = NULL;
@@ -426,7 +426,7 @@ void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period, bool stere
 
 	// Fill one frame
 	if (bOk && pcm_handle)
-		for (int i = 0; i < g.s.iDXOutputDelay + 1; i++)
+		for (int i = 0; i < g.s.iOutputDelay + 1; i++)
 			snd_pcm_writei(pcm_handle, zerobuff, period);
 
 	if (sw_params)
@@ -498,7 +498,7 @@ void ALSAAudioOutput::run() {
 				if (w == -EPIPE) {
 					qWarning("ALSAAudioOutput: %s", snd_strerror(w));
 					snd_pcm_prepare(pcm_handle);
-					for (int i=0;i<g.s.iDXOutputDelay;i++)
+					for (int i=0;i<g.s.iOutputDelay;i++)
 						snd_pcm_writei(pcm_handle, zerobuff, iFrameSize);
 				}
 				avail = snd_pcm_avail_update(pcm_handle);
@@ -516,7 +516,7 @@ void ALSAAudioOutput::run() {
 				snd_pcm_prepare(pcm_handle);
 
 				// Fill one frame
-				for (int i = 0; i < g.s.iDXOutputDelay; i++)
+				for (int i = 0; i < g.s.iOutputDelay; i++)
 					snd_pcm_writei(pcm_handle, zerobuff, iFrameSize);
 			}
 		}

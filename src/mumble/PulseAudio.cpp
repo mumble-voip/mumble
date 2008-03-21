@@ -170,7 +170,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					do_start = true;
 					break;
 				case PA_STREAM_READY: {
-						if (g.s.iDXOutputDelay != iDelayCache) {
+						if (g.s.iOutputDelay != iDelayCache) {
 							do_stop = true;
 						} else if (odev != qsOutputCache) {
 							do_stop = true;
@@ -188,11 +188,11 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qWarning("PulseAudio: Starting output: %s", qPrintable(odev));
 			pa_buffer_attr buff;
 			buff.maxlength = pao->iFrameSize * NBLOCKS * sizeof(short);
-			buff.tlength = g.s.iDXOutputDelay * pao->iFrameSize * sizeof(short);
+			buff.tlength = g.s.iOutputDelay * pao->iFrameSize * sizeof(short);
 			buff.prebuf = buff.tlength;
 			buff.minreq = pao->iFrameSize * sizeof(short);
 
-			iDelayCache = g.s.iDXOutputDelay;
+			iDelayCache = g.s.iOutputDelay;
 			qsOutputCache = odev;
 
 			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_INTERPOLATE_TIMING, NULL, NULL);
@@ -575,7 +575,7 @@ QIcon PulseAudioConfig::icon() const {
 }
 
 void PulseAudioConfig::save() const {
-	s.iDXOutputDelay = qsOutputDelay->value();
+	s.iOutputDelay = qsOutputDelay->value();
 	s.qsPulseAudioInput =  qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
 	s.qsPulseAudioOutput =  qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 	s.bPulseAudioEcho = qcbEcho->isChecked();
@@ -595,7 +595,7 @@ void PulseAudioConfig::load(const Settings &r) {
 			break;
 		}
 	}
-	loadSlider(qsOutputDelay, r.iDXOutputDelay);
+	loadSlider(qsOutputDelay, r.iOutputDelay);
 	loadCheckBox(qcbEcho, r.bPulseAudioEcho);
 }
 

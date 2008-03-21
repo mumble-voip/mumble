@@ -241,14 +241,14 @@ bool DXAudioOutputPlayer::playFrames() {
 		dwLastPlayPos = 0;
 		dwTotalPlayPos = 0;
 
-		iLastwriteblock = (NBLOCKS - 1 + g.s.iDXOutputDelay) % NBLOCKS;
+		iLastwriteblock = (NBLOCKS - 1 + g.s.iOutputDelay) % NBLOCKS;
 	}
 
 	if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition)))
 		qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
 	playblock = dwWritePosition / iByteSize;
-	nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
+	nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
 
 	for (int block=(iLastwriteblock + 1) % NBLOCKS;alive && (block!=nowriteblock);block=(block + 1) % NBLOCKS) {
 
@@ -269,7 +269,7 @@ bool DXAudioOutputPlayer::playFrames() {
 		iLastwriteblock = block;
 
 		alive = aop->decodeNextFrame();
-//		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iDXOutputDelay);
+//		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iOutputDelay);
 		if (! alive) {
 			iMissingFrames++;
 			// Give 5 seconds grace before killing off buffer, as it seems continously creating and destroying them
@@ -320,7 +320,7 @@ bool DXAudioOutputPlayer::playFrames() {
 			qFatal("DXAudioOutputPlayer: GetCurrentPosition");
 
 		playblock = dwWritePosition / iByteSize;
-		nowriteblock = (playblock + g.s.iDXOutputDelay + 1) % NBLOCKS;
+		nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
 	}
 
 

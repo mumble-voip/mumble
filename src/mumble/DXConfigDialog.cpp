@@ -100,7 +100,6 @@ void DXConfigDialog::load(const Settings &r) {
 		}
 	}
 
-	loadSlider(qsOutputDelay, r.iDXOutputDelay);
 	loadComboBox(qcbMethod, static_cast<int>(r.a3dModel));
 	loadSlider(qsMinDistance, lroundf(r.fDXMinDistance * 10));
 	loadSlider(qsMaxDistance, lroundf(r.fDXMaxDistance * 10));
@@ -108,7 +107,6 @@ void DXConfigDialog::load(const Settings &r) {
 }
 
 void DXConfigDialog::save() const {
-	s.iDXOutputDelay = qsOutputDelay->value();
 	s.qbaDXInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toByteArray();
 	s.qbaDXOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toByteArray();
 
@@ -120,12 +118,7 @@ void DXConfigDialog::save() const {
 
 bool DXConfigDialog::expert(bool b) {
 	qgbPositional->setVisible(b);
-	qgbOutput->setVisible(b);
 	return true;
-}
-
-void DXConfigDialog::on_qsOutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }
 
 void DXConfigDialog::on_qsMinDistance_valueChanged(int v) {

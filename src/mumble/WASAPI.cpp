@@ -265,7 +265,7 @@ void WASAPIConfig::load(const Settings &r) {
 	loadCheckBox(qcbEcho, r.bWASAPIEcho);
 }
 
-bool WASAPIConfig::expert(bool b) {
+bool WASAPIConfig::expert(bool) {
 	return true;
 }
 
@@ -649,20 +649,14 @@ void WASAPIOutput::run() {
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME hnsRequestedDuration = g.s.iDXOutputDelay * 20 * 10000;
+	REFERENCE_TIME hnsRequestedDuration = g.s.iOutputDelay * 20 * 10000;
 	SpeexResamplerState *srs;
 	UINT32 numFramesAvailable;
-	UINT32 numFramesLeft;
 	UINT32 packetLength = 0;
 	UINT32 wantLength;
-	UINT32 allocLength;
-	UINT64 devicePosition;
-	UINT64 qpcPosition;
 	HANDLE hEvent;
 	BYTE *pData;
-	DWORD flags;
 	int err = 0;
-	DWORD gotLength = 0;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
 	float *inputBuffer = NULL, *outputBuffer = NULL;
@@ -775,8 +769,8 @@ void WASAPIOutput::run() {
 				speex_resampler_process_float(srs, 0, inputBuffer, &inlen, outputBuffer, &outlen);
 
 				float *outData = reinterpret_cast<float *>(pData);
-				for(int i=0;i<wantLength;i++)
-					for(int j=0;j<pwfx->nChannels;j++)
+				for(unsigned int i=0;i<wantLength;i++)
+					for(unsigned int j=0;j<pwfx->nChannels;j++)
 						outData[i * pwfx->nChannels + j] = outputBuffer[i];
 
 				hr = pRenderClient->ReleaseBuffer(wantLength, 0);

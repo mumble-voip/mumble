@@ -373,7 +373,7 @@ QWizardPage *AudioWizard::deviceTuningPage() {
 
 	qsOutputDelay->setSingleStep(1);
 	qsOutputDelay->setPageStep(2);
-	qsOutputDelay->setValue(g.s.iDXOutputDelay);
+	qsOutputDelay->setValue(g.s.iOutputDelay);
 	qsOutputDelay->setObjectName(QLatin1String("OutputDelay"));
 
 	qlOutputDelay=new QLabel();
@@ -471,7 +471,7 @@ void AudioWizard::on_OutputDevice_activated(int) {
 
 void AudioWizard::on_OutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1ms").arg(v*20));
-	g.s.iDXOutputDelay = v;
+	g.s.iOutputDelay = v;
 	on_OutputDevice_activated(0);
 	if (! bInit)
 		playChord();

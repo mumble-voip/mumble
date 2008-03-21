@@ -65,8 +65,7 @@ struct Settings {
 	bool bExpandAll;
 	QString qsAudioInput, qsAudioOutput;
 	float fVolume;
-
-	int iDXOutputDelay;
+	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;

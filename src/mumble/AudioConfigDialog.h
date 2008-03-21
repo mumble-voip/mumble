@@ -51,6 +51,7 @@ class AudioConfigDialog : public ConfigWidget, public Ui::AudioConfigDialog {
 		void on_qsQuality_valueChanged(int v);
 		void on_qsComplexity_valueChanged(int v);
 		void on_qsAmp_valueChanged(int v);
+		void on_qsDelay_valueChanged(int v);
 		void on_qsJitter_valueChanged(int v);
 		void on_qsVolume_valueChanged(int v);
 		void on_qsPacketDelay_valueChanged(int v);

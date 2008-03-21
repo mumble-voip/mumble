@@ -223,7 +223,7 @@ OSSConfig::OSSConfig(Settings &st) : ConfigWidget(st) {
 	}
 
 	qcbOutputDevice->setWhatsThis(qcbInputDevice->whatsThis());
-	qsOutputDelay->setValue(g.s.iDXOutputDelay);
+	qsOutputDelay->setValue(g.s.iOutputDelay);
 	on_qsOutputDelay_valueChanged(qsOutputDelay->value());
 }
 
@@ -236,7 +236,7 @@ QIcon OSSConfig::icon() const {
 }
 
 void OSSConfig::save() const {
-	s.iDXOutputDelay = qsOutputDelay->value();
+	s.iOutputDelay = qsOutputDelay->value();
 	s.qsOSSInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
 	s.qsOSSOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 }
@@ -255,7 +255,7 @@ void OSSConfig::load(const Settings &r) {
 			break;
 		}
 	}
-	loadSlider(qsOutputDelay, r.iDXOutputDelay);
+	loadSlider(qsOutputDelay, r.iOutputDelay);
 }
 
 bool OSSConfig::expert(bool b) {
@@ -356,7 +356,7 @@ void OSSOutput::run() {
 
 	int ival;
 
-	ival = (g.s.iDXOutputDelay+1) << 16 | 10;
+	ival = (g.s.iOutputDelay+1) << 16 | 10;
 
 	if (ioctl(fd, SNDCTL_DSP_SETFRAGMENT, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set fragment");

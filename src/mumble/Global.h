@@ -116,6 +116,4 @@ class DeferInit {
 
 #define g (*Global::g_global_struct)
 
-#else
-class Settings;
 #endif

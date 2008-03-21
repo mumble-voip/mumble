@@ -1,14 +1,6 @@
 <ui version="4.0" >
  <class>PositionalSoundConfig</class>
  <widget class="QWidget" name="PositionalSoundConfig" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>589</width>
-    <height>217</height>
-   </rect>
-  </property>
   <property name="windowTitle" >
    <string>Form</string>
   </property>
@@ -136,7 +128,7 @@
       <item row="2" column="1" colspan="3" >
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>dB is short for Dezibel. +0 db = no change, +10 dB = twice as loud as before, -10 dB half as loud as before</string>
+         <string>dB is short for deciBel. +0 db = no change, +10 dB = twice as loud as before, -10 dB half as loud as before</string>
         </property>
         <property name="wordWrap" >
          <bool>true</bool>
@@ -162,86 +154,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>qcbEnable</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>PositionalSoundConfig</receiver>
-   <slot></slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>142</x>
-     <y>48</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>267</x>
-     <y>115</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>qcbModel</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>PositionalSoundConfig</receiver>
-   <slot></slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>199</x>
-     <y>117</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>267</x>
-     <y>115</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>qdsbDistance</sender>
-   <signal>valueChanged(double)</signal>
-   <receiver>PositionalSoundConfig</receiver>
-   <slot></slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>533</x>
-     <y>118</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>311</x>
-     <y>287</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>qdsbMaxAtt</sender>
-   <signal>valueChanged(double)</signal>
-   <receiver>PositionalSoundConfig</receiver>
-   <slot></slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>533</x>
-     <y>151</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>311</x>
-     <y>287</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>qdsbPreGain</sender>
-   <signal>valueChanged(double)</signal>
-   <receiver>PositionalSoundConfig</receiver>
-   <slot></slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>238</x>
-     <y>151</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>311</x>
-     <y>287</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

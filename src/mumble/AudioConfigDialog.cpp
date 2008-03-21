@@ -118,6 +118,7 @@ void AudioConfigDialog::load(const Settings &r) {
 	loadSlider(qsComplexity, r.iComplexity);
 	loadSlider(qsNoise, - r.iNoiseSuppress);
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
+	loadSlider(qsDelay, r.iOutputDelay);
 	loadSlider(qsVolume, static_cast<int>(r.fVolume * 100.0));
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
@@ -130,6 +131,7 @@ void AudioConfigDialog::save() const {
 	s.iNoiseSuppress = - qsNoise->value();
 	s.iComplexity = qsComplexity->value();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
+	s.iOutputDelay = qsDelay->value();
 	s.fVolume = qsVolume->value() / 100.0;
 	s.iVoiceHold = qsTransmitHold->value();
 	s.fVADmin = qsTransmitMin->value() / 32767.0;
@@ -215,6 +217,9 @@ void AudioConfigDialog::on_qsPacketLoss_valueChanged(int v) {
 	qlPacketLoss->setText(tr("%1%").arg(v));
 }
 
+void AudioConfigDialog::on_qsDelay_valueChanged(int v) {
+	qlDelay->setText(tr("%1ms").arg(v*20));
+}
 
 void AudioConfigDialog::updateBitrate() {
 	if (! qsQuality || ! qsFrames || ! qlBitrate)
