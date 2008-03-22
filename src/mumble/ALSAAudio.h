@@ -63,7 +63,6 @@ class ALSAAudioInput : public AudioInput {
 };
 
 class ALSAAudioOutput : public AudioOutput {
-		friend class ALSAOutputPlayer;
 		Q_OBJECT
 	protected:
 		static void initialize(snd_pcm_t * &pcm_handle, int period, bool stereo);
