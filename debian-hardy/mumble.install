@@ -1,0 +1,7 @@
+icons/mumble.xpm /usr/share/pixmaps
+scripts/mumble.desktop /usr/share/applications
+scripts/mumble.protocol /usr/share/services
+release/mumble /usr/bin
+scripts/mumble-overlay /usr/bin
+release/libmumble.so.1.1.3 /usr/lib/mumble
+

@@ -1,0 +1,3 @@
+?package(mumble):needs="X11" section="Applications/Sound" \
+  title="Mumble" command="mumble" \
+  icon="/usr/share/pixmaps/mumble.xpm"

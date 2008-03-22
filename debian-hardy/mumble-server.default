@@ -1,0 +1,2 @@
+# 0 = don't start, 1 = start
+MURMUR_DAEMON_START=0

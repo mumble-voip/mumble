@@ -1,0 +1,37 @@
+--- mumble-1.1.3.orig/src/mumble/PlayerModel.cpp
++++ mumble-1.1.3/src/mumble/PlayerModel.cpp
+@@ -75,6 +75,15 @@
+ 		c_qhPlayers.remove(pPlayer);
+ }
+ 
++void ModelItem::stealChildren(ModelItem *other) {
++	Q_ASSERT(qlChildren.count() == 0);
++
++	qlChildren = other->qlChildren;
++	other->qlChildren.clear();
++	foreach(ModelItem *mi, qlChildren)
++	mi->parent = this;
++}
++
+ ModelItem *ModelItem::child(int idx) const {
+ 	if (! validRow(idx))
+ 		return NULL;
+@@ -488,6 +497,8 @@
+ 		newparent->cChan->addPlayer(item->pPlayer);
+ 	}
+ 
++	t->stealChildren(item);
++
+ 	endInsertRows();
+ 
+ 	changePersistentIndex(createIndex(oldrow, 0, item), createIndex(newrow, 0, t));
+--- mumble-1.1.3.orig/src/mumble/PlayerModel.h
++++ mumble-1.1.3/src/mumble/PlayerModel.h
+@@ -74,6 +74,7 @@
+ 	int rows() const;
+ 	int insertIndex(Channel *c) const;
+ 	int insertIndex(ClientPlayer *p) const;
++	void stealChildren(ModelItem *other);
+ };
+ 
+ class ChannelItem;
