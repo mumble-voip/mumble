@@ -256,7 +256,6 @@ QIcon ALSAConfig::icon() const {
 }
 
 void ALSAConfig::save() const {
-	s.iOutputDelay = qsOutputDelay->value();
 	s.qsALSAInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
 	s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 }
@@ -275,16 +274,10 @@ void ALSAConfig::load(const Settings &r) {
 			break;
 		}
 	}
-	loadSlider(qsOutputDelay, r.iOutputDelay);
 }
 
-bool ALSAConfig::expert(bool b) {
-	qcbOutput->setVisible(b);
+bool ALSAConfig::expert(bool) {
 	return true;
-}
-
-void ALSAConfig::on_qsOutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }
 
 ALSAAudioInput::ALSAAudioInput() {

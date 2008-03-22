@@ -46,7 +46,6 @@ class OSSConfig : public ConfigWidget, public Ui::OSSConfig {
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
-		void on_qsOutputDelay_valueChanged(int v);
 };
 
 class OSSInput : public AudioInput {

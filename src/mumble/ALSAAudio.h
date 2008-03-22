@@ -50,7 +50,6 @@ class ALSAConfig : public ConfigWidget, public Ui::ALSAConfig {
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
-		void on_qsOutputDelay_valueChanged(int v);
 };
 
 class ALSAAudioInput : public AudioInput {

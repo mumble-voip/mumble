@@ -136,7 +136,6 @@ void PulseAudioSystem::defer_event_callback(pa_mainloop_api *a, pa_defer_event *
 
 
 void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
-	Q_ASSERT(pade == evt);
 	api->defer_enable(pade, false);
 
 	if (! bSourceDone || ! bSinkDone || ! bServerDone)
@@ -575,7 +574,6 @@ QIcon PulseAudioConfig::icon() const {
 }
 
 void PulseAudioConfig::save() const {
-	s.iOutputDelay = qsOutputDelay->value();
 	s.qsPulseAudioInput =  qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
 	s.qsPulseAudioOutput =  qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 	s.bPulseAudioEcho = qcbEcho->isChecked();
@@ -595,17 +593,11 @@ void PulseAudioConfig::load(const Settings &r) {
 			break;
 		}
 	}
-	loadSlider(qsOutputDelay, r.iOutputDelay);
 	loadCheckBox(qcbEcho, r.bPulseAudioEcho);
 }
 
-bool PulseAudioConfig::expert(bool b) {
-	qcbOutput->setVisible(b);
+bool PulseAudioConfig::expert(bool) {
 	return true;
-}
-
-void PulseAudioConfig::on_qsOutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }
 
 PulseAudioInput::PulseAudioInput() {

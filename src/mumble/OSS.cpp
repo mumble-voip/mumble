@@ -223,8 +223,6 @@ OSSConfig::OSSConfig(Settings &st) : ConfigWidget(st) {
 	}
 
 	qcbOutputDevice->setWhatsThis(qcbInputDevice->whatsThis());
-	qsOutputDelay->setValue(g.s.iOutputDelay);
-	on_qsOutputDelay_valueChanged(qsOutputDelay->value());
 }
 
 QString OSSConfig::title() const {
@@ -236,7 +234,6 @@ QIcon OSSConfig::icon() const {
 }
 
 void OSSConfig::save() const {
-	s.iOutputDelay = qsOutputDelay->value();
 	s.qsOSSInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
 	s.qsOSSOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
 }
@@ -255,16 +252,10 @@ void OSSConfig::load(const Settings &r) {
 			break;
 		}
 	}
-	loadSlider(qsOutputDelay, r.iOutputDelay);
 }
 
-bool OSSConfig::expert(bool b) {
-	qcbOutput->setVisible(b);
+bool OSSConfig::expert(bool) {
 	return true;
-}
-
-void OSSConfig::on_qsOutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 }
 
 OSSInput::OSSInput() {

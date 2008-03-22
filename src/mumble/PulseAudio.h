@@ -47,7 +47,6 @@ class PulseAudioConfig : public ConfigWidget, public Ui::PulseAudioConfig {
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
-		void on_qsOutputDelay_valueChanged(int v);
 };
 
 class PulseAudioInput;
