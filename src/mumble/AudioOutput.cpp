@@ -239,6 +239,34 @@ AudioOutput::~AudioOutput() {
 	wipe();
 }
 
+// Here's the theory.
+// We support sound "bloom"ing. That is, if sound comes directly from the left, if it is sufficiently
+// close, we'll hear it full intensity from the left side, and "bloom" intensity from the right side.
+//
+// FIXME: Add a barebones minimum volume, and scale all of this according to that.
+
+float AudioOutput::calcGain(float dotproduct, float distance) {
+
+	float dotfactor = (dotproduct + 1.0f) / 2.0f;
+
+	// No distance attenuation
+	if (g.s.fDXRollOff < 0.01f) {
+		return qMin(1.0f, dotfactor + g.s.fAudioBloom);
+	}
+
+	if (distance < g.s.fDXMinDistance) {
+		float bloomfac = g.s.fAudioBloom * (1.0f - distance/g.s.fDXMinDistance);
+
+		return qMin(1.0f, bloomfac + dotfactor);
+	} else {
+		if (distance > g.s.fDXMaxDistance)
+			distance = g.s.fDXMaxDistance;
+		float datt = g.s.fDXMinDistance / (g.s.fDXMinDistance + (distance-g.s.fDXMinDistance)*g.s.fDXRollOff);
+
+		return datt * dotfactor;
+	}
+}
+
 void AudioOutput::newPlayer(AudioOutputPlayer *) {
 }
 
@@ -289,20 +317,6 @@ void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 }
 
 bool AudioOutput::mixAudio(short *buffer) {
-#ifdef AUDIO_TEST
-	float speakerpos[12] = {
-		-1, 0, 0,
-		1, 0, 0,
-		0, 0, 1,
-		0, 1, 0
-	};
-
-	STACKVAR(float, output, 4 * iFrameSize);
-
-	mixSurround(output, speakerpos, 4);
-
-	return false;
-#endif
 	AudioOutputPlayer *aop;
 	QList<AudioOutputPlayer *> qlMix;
 	QList<AudioOutputPlayer *> qlDel;
@@ -355,6 +369,17 @@ bool AudioOutput::mixAudio(short *buffer) {
 	return (! qlMix.isEmpty());
 }
 
+void AudioOutput::normalizeSpeakers(float * speakerpos, int nspeakers) {
+	for(int i=0;i<nspeakers;++i) {
+		float d = sqrtf(speakerpos[3*i+0]*speakerpos[3*i+0] + speakerpos[3*i+1]*speakerpos[3*i+1] + speakerpos[3*i+2]*speakerpos[3*i+2]);
+		if (d > 0.0f) {
+			speakerpos[3*i+0] /= d;
+			speakerpos[3*i+1] /= d;
+			speakerpos[3*i+2] /= d;
+		}
+	}
+}
+
 bool AudioOutput::mixSurround(float * restrict output, float * restrict speakerpos, int nspeakers) {
 	AudioOutputPlayer *aop;
 	QList<AudioOutputPlayer *> qlMix;
@@ -378,6 +403,7 @@ bool AudioOutput::mixSurround(float * restrict output, float * restrict speakerp
 
 	if (! qlMix.isEmpty()) {
 		STACKVAR(float, speaker, nspeakers*3);
+		STACKVAR(bool, dirspeaker, nspeakers);
 		bool validListener = false;
 
 		g.p->fetch();
@@ -394,8 +420,6 @@ bool AudioOutput::mixSurround(float * restrict output, float * restrict speakerp
 			g.p->fPosition[1] = 0.0f;
 			g.p->fPosition[2] = 0.0f;
 #endif
-			qWarning("Pink?");
-
 			if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
 				// Not perpendicular. Ditch Y and point top up.
 				front[1] = 0;
@@ -423,30 +447,34 @@ bool AudioOutput::mixSurround(float * restrict output, float * restrict speakerp
 			// Calculate right vector as front X top
 			float right[3] = {top[1]*front[2] - top[2]*front[1], top[2]*front[0] - top[0]*front[2], top[0]*front[1] - top[1] * front[0] };
 
+/*
 			qWarning("Front: %f %f %f", front[0], front[1], front[2]);
 			qWarning("Top: %f %f %f", top[0], top[1], top[2]);
 			qWarning("Right: %f %f %f", right[0], right[1], right[2]);
-
+*/
 			// Rotate speakers to match orientation
 			for(int i=0;i<nspeakers;++i) {
 				speaker[3*i+0] = speakerpos[3*i+0] * right[0] + speakerpos[3*i+1] * top[0] + speakerpos[3*i+2] * front[0];
 				speaker[3*i+1] = speakerpos[3*i+0] * right[1] + speakerpos[3*i+1] * top[1] + speakerpos[3*i+2] * front[1];
 				speaker[3*i+2] = speakerpos[3*i+0] * right[2] + speakerpos[3*i+1] * top[2] + speakerpos[3*i+2] * front[2];
-/*
-				for(int j=0;j<3;j++)
-					speaker[3*i+j] = speakerpos[3*i+j] * front[j] + speakerpos[3*i+j] * top[j] + speakerpos[3*i+j] * right[j];
-*/
-			}
 
+				if ((speaker[3*i+0] != 0.0f) || (speaker[3*i+1] != 0.0f) || (speaker[3*i+2] != 0.0f)) {
+					dirspeaker[i] = true;
+				} else {
+					dirspeaker[i] = false;
+				}
+			}
 			validListener = true;
 		}
 		foreach(aop, qlMix) {
 			for(int i=0;i<iFrameSize;i++)
 				inbuff[i] = aop->psBuffer[i] * mul;
 
-			aop->fPos[0] = -4.0f;
+#ifdef AUDIO_TEST
+			aop->fPos[0] = 4.0f;
 			aop->fPos[1] = 0.0f;
 			aop->fPos[2] = 0.0f;
+#endif
 
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				float dir[3] = { aop->fPos[0] - g.p->fPosition[0], aop->fPos[1] - g.p->fPosition[1], aop->fPos[2] - g.p->fPosition[2] };
@@ -454,16 +482,16 @@ bool AudioOutput::mixSurround(float * restrict output, float * restrict speakerp
 				dir[0] /= len;
 				dir[1] /= len;
 				dir[2] /= len;
-
+/*
 				qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
 				qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
-
+*/
 				for(int s=0;s<nspeakers;++s) {
-					float dot = dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2];
-					qWarning("%d: Pos %f %f %f : Dot %f Len %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len);
-
-					float str = qMin(dot, 0.2f);
-
+					float dot = dirspeaker[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
+					float str = calcGain(dot, len);
+/*
+					qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
+*/
 					for(int i=0;i<iFrameSize;++i)
 						output[i*nspeakers+s] += inbuff[i] * str;
 				}

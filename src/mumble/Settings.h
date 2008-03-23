@@ -82,6 +82,7 @@ struct Settings {
 
 	QByteArray qbaDXInput, qbaDXOutput;
 	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
+	float fAudioBloom;
 
 	bool bPositionalSoundEnable, bPositionalSoundSwap;
 	enum PositionalSoundModels { CONSTANT, LINEAR };

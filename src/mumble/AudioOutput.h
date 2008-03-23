@@ -131,6 +131,7 @@ class AudioOutput : public QThread {
 		bool mixAudio(short *output);
 		bool mixStereoAudio(short *output);
 		bool mixSurround(float *output, float *speakerpos, int nspeakers);
+		void normalizeSpeakers(float *speakerpos, int nspeakers);
 	public:
 		void wipe();
 
@@ -140,6 +141,7 @@ class AudioOutput : public QThread {
 		void removeBuffer(const ClientPlayer *);
 		void playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3);
 		void run() = 0;
+		static float calcGain(float dotproduct, float distance);
 };
 
 #else

@@ -79,6 +79,7 @@ Settings::Settings() {
 	iPortAudioOutput = -1; // default device
 
 	a3dModel = No3D;
+	fAudioBloom = 0.5f;
 	fDXMinDistance = 10.0f;
 	fDXMaxDistance = 50.0f;
 	fDXRollOff = 0.15f;
@@ -168,6 +169,7 @@ void Settings::load() {
 	LOADENUM(a3dModel, "audio/3dmode");
 	SAVELOAD(fDXMinDistance, "audio/mindistance");
 	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
+	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(fDXRollOff, "audio/rolloff");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
@@ -292,6 +294,7 @@ void Settings::save() {
 	SAVELOAD(a3dModel, "audio/3dmode");
 	SAVELOAD(fDXMinDistance, "audio/mindistance");
 	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
+	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(fDXRollOff, "audio/rolloff");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
