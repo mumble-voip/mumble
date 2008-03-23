@@ -130,6 +130,7 @@ class AudioOutput : public QThread {
 		virtual void removeBuffer(AudioOutputPlayer *);
 		bool mixAudio(short *output);
 		bool mixStereoAudio(short *output);
+		bool mixSurround(float *output, float *speakerpos, int nspeakers);
 	public:
 		void wipe();
 

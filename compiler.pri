@@ -11,8 +11,10 @@ win32 {
 		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict
 		QMAKE_CFLAGS_RELEASE *= -O3 -QxK -Qip -Qipo
 		QMAKE_CXXFLAGS_RELEASE *= -O3 -QxK -Qip -Qipo
-		QMAKE_CFLAGS_DEBUG *= -O2 -QxK -Ob0 -RTCs -RTCu -RTCc
-		QMAKE_CXXFLAGS_DEBUG *= -O2 -QxK -Ob0 -RTCs -RTCu -RTCc
+		QMAKE_CFLAGS_DEBUG *= -O2 -QxK -Ob0 
+		#-RTCs -RTCu -RTCc
+		QMAKE_CXXFLAGS_DEBUG *= -O2 -QxK -Ob0 
+		#-RTCs -RTCu -RTCc
 
 		CONFIG(optgen) {
 			QMAKE_CFLAGS *= -Qprof-gen

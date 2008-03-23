@@ -289,6 +289,20 @@ void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 }
 
 bool AudioOutput::mixAudio(short *buffer) {
+#ifdef AUDIO_TEST
+	float speakerpos[12] = {
+		-1, 0, 0,
+		1, 0, 0,
+		0, 0, 1,
+		0, 1, 0
+	};
+
+	STACKVAR(float, output, 4 * iFrameSize);
+
+	mixSurround(output, speakerpos, 4);
+
+	return false;
+#endif
 	AudioOutputPlayer *aop;
 	QList<AudioOutputPlayer *> qlMix;
 	QList<AudioOutputPlayer *> qlDel;
@@ -332,6 +346,137 @@ bool AudioOutput::mixAudio(short *buffer) {
 	for (int i=0;i<iFrameSize;i++)
 		buffer[i]=qMax(-32727,qMin(32767,t[i]));
 #endif
+
+	qrwlOutputs.unlock();
+
+	foreach(aop, qlDel)
+	removeBuffer(aop);
+
+	return (! qlMix.isEmpty());
+}
+
+bool AudioOutput::mixSurround(float * restrict output, float * restrict speakerpos, int nspeakers) {
+	AudioOutputPlayer *aop;
+	QList<AudioOutputPlayer *> qlMix;
+	QList<AudioOutputPlayer *> qlDel;
+
+	const float mul = 1.0f / 32768.0f;
+
+	memset(output, 0, sizeof(float) * iFrameSize * nspeakers);
+
+	STACKVAR(float, inbuff, iFrameSize);
+
+	qrwlOutputs.lockForRead();
+	foreach(aop, qmOutputs) {
+		if (! aop->decodeNextFrame()) {
+			qlDel.append(aop);
+		} else {
+			qlMix.append(aop);
+		}
+	}
+
+
+	if (! qlMix.isEmpty()) {
+		STACKVAR(float, speaker, nspeakers*3);
+		bool validListener = false;
+
+		g.p->fetch();
+
+#ifndef AUDIO_TEST
+		if (g.p->bValid) {
+			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2]};
+			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2]};
+#else
+		if (true) {
+			float front[3] = { 0.0f, -1.0f, 0.0f };
+			float top[3] = {0.0f, 0.0f, 1.0f };
+			g.p->fPosition[0] = 0.0f;
+			g.p->fPosition[1] = 0.0f;
+			g.p->fPosition[2] = 0.0f;
+#endif
+			qWarning("Pink?");
+
+			if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
+				// Not perpendicular. Ditch Y and point top up.
+				front[1] = 0;
+				top[0] = 0;
+				top[1] = 1;
+				top[2] = 0;
+			}
+
+			// Normalize
+			float flen = sqrtf(front[0]*front[0]+front[1]*front[1]+front[2]*front[2]);
+			float tlen = sqrtf(top[0]*top[0]+top[1]*top[1]+top[2]*top[2]);
+
+			if (flen > 0.0f) {
+				front[0] /= flen;
+				front[1] /= flen;
+				front[2] /= flen;
+			}
+
+			if (tlen > 0.0f) {
+				top[0] /= tlen;
+				top[1] /= tlen;
+				top[2] /= tlen;
+			}
+
+			// Calculate right vector as front X top
+			float right[3] = {top[1]*front[2] - top[2]*front[1], top[2]*front[0] - top[0]*front[2], top[0]*front[1] - top[1] * front[0] };
+
+			qWarning("Front: %f %f %f", front[0], front[1], front[2]);
+			qWarning("Top: %f %f %f", top[0], top[1], top[2]);
+			qWarning("Right: %f %f %f", right[0], right[1], right[2]);
+
+			// Rotate speakers to match orientation
+			for(int i=0;i<nspeakers;++i) {
+				speaker[3*i+0] = speakerpos[3*i+0] * right[0] + speakerpos[3*i+1] * top[0] + speakerpos[3*i+2] * front[0];
+				speaker[3*i+1] = speakerpos[3*i+0] * right[1] + speakerpos[3*i+1] * top[1] + speakerpos[3*i+2] * front[1];
+				speaker[3*i+2] = speakerpos[3*i+0] * right[2] + speakerpos[3*i+1] * top[2] + speakerpos[3*i+2] * front[2];
+/*
+				for(int j=0;j<3;j++)
+					speaker[3*i+j] = speakerpos[3*i+j] * front[j] + speakerpos[3*i+j] * top[j] + speakerpos[3*i+j] * right[j];
+*/
+			}
+
+			validListener = true;
+		}
+		foreach(aop, qlMix) {
+			for(int i=0;i<iFrameSize;i++)
+				inbuff[i] = aop->psBuffer[i] * mul;
+
+			aop->fPos[0] = -4.0f;
+			aop->fPos[1] = 0.0f;
+			aop->fPos[2] = 0.0f;
+
+			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
+				float dir[3] = { aop->fPos[0] - g.p->fPosition[0], aop->fPos[1] - g.p->fPosition[1], aop->fPos[2] - g.p->fPosition[2] };
+				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
+				dir[0] /= len;
+				dir[1] /= len;
+				dir[2] /= len;
+
+				qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
+				qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
+
+				for(int s=0;s<nspeakers;++s) {
+					float dot = dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2];
+					qWarning("%d: Pos %f %f %f : Dot %f Len %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len);
+
+					float str = qMin(dot, 0.2f);
+
+					for(int i=0;i<iFrameSize;++i)
+						output[i*nspeakers+s] += inbuff[i] * str;
+				}
+			} else {
+				for(int i=0;i<iFrameSize;++i)
+					for(int j=0;j<nspeakers;++j)
+						output[i*nspeakers+j] += inbuff[i];
+			}
+		}
+		// Clip
+		for(int i=0;i<iFrameSize*nspeakers;i++)
+			output[i] = output[i] < -1.0f ? -1.0f : ( output[i] > 1.0f ? 1.0f : output[i]);
+	}
 
 	qrwlOutputs.unlock();
 
