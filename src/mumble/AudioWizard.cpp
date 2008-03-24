@@ -34,7 +34,7 @@
 #include "Global.h"
 #include "Settings.h"
 
-AudioWizard::AudioWizard() {
+AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit = true;
 
 	addPage(introPage());
@@ -68,7 +68,12 @@ AudioWizard::AudioWizard() {
 
 	QMetaObject::connectSlotsByName(this);
 	bInit = false;
+
+#ifdef Q_OS_MAC
+	setOption(QWizard::NoCancelButton, false);
+#else
 	resize(700, 500);
+#endif
 	ticker->setSingleShot(false);
 	ticker->start(20);
 }

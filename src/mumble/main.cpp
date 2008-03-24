@@ -200,8 +200,9 @@ int main(int argc, char **argv) {
 	if (g.s.bFirstTime) {
 		g.s.bFirstTime = false;
 		if (QMessageBox::question(g.mw, MainWindow::tr("Mumble"), MainWindow::tr("This is the first time you're starting Mumble.<br />Would you like to go through the Audio Wizard to configure your soundcard?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
-			AudioWizard aw;
-			aw.exec();
+			AudioWizard *aw = new AudioWizard(g.mw);
+			aw->exec();
+			delete aw;
 		}
 	}
 

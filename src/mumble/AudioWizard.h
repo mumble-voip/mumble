@@ -90,7 +90,7 @@ class AudioWizard: public QWizard {
 		void on_SNR_clicked(bool);
 		void showPage(int);
 	public:
-		AudioWizard();
+		AudioWizard(QWidget *parent);
 		void reject();
 		void accept();
 };

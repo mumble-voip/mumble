@@ -780,8 +780,9 @@ void MainWindow::on_qaConfigDialog_triggered() {
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {
-	AudioWizard aw;
-	aw.exec();
+	AudioWizard *aw = new AudioWizard(this);
+	aw->exec();
+	delete aw;
 }
 
 void MainWindow::on_qaHelpWhatsThis_triggered() {
