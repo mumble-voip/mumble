@@ -550,6 +550,8 @@ void AudioWizard::reject() {
 
 void AudioWizard::accept() {
 	g.s.atTransmit = sOldSettings.atTransmit;
+	g.s.bMute = sOldSettings.bMute;
+	g.s.bDeaf = sOldSettings.bDeaf;
 	g.s.lmLoopMode = Settings::None;
 	g.bEchoTest = false;
 	restartAudio();
