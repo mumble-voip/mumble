@@ -37,57 +37,69 @@
 #include "Global.h"
 #include "TextToSpeech.h"
 
-class TextToSpeechPrivate {
-	private:
-		SpeechChannel speechchan;
-	public:
-		TextToSpeechPrivate();
-		~TextToSpeechPrivate();
-		void say(const QString &text);
-		void setVolume(int v);
-};
+static QMutex qmLock;
+static Fixed fVolume;
+static QList<QByteArray> qlMessages;
+static bool bRunning;
+static bool bEnabled;
 
-TextToSpeechPrivate::TextToSpeechPrivate() {
-	NewSpeechChannel(NULL, &speechchan);
+static void process_speech();
+
+static void speech_done_cb(SpeechChannel scChannel, long, void **, unsigned long *, long *) {
+	DisposeSpeechChannel(scChannel);
+
+	if (qlMessages.isEmpty())
+		bRunning = false;
+	else
+		process_speech();
 }
 
-TextToSpeechPrivate::~TextToSpeechPrivate() {
-	DisposeSpeechChannel(speechchan);
+static void process_speech() {
+	SpeechChannel scChannel;
+	QByteArray ba;
+
+	qmLock.lock();
+	ba = qlMessages.takeFirst();
+	qmLock.unlock();
+
+	NewSpeechChannel(NULL, &scChannel);
+	SetSpeechInfo(scChannel, soVolume, &fVolume);
+	SetSpeechInfo(scChannel, soSpeechDoneCallBack, reinterpret_cast<void *>(speech_done_cb));
+	SpeakText(scChannel, ba.constData(), ba.size());
 }
 
-void TextToSpeechPrivate::say(const QString &text) {
-	QByteArray ba = text.toUtf8();
-	SpeakText(speechchan, ba.constData(), ba.size());
-}
-
-void TextToSpeechPrivate::setVolume(int volume) {
-	Fixed val = FixRatio(volume, 100);
-	SetSpeechInfo(speechchan, soVolume, &val);
-}
-
-TextToSpeech::TextToSpeech(QObject *p) : QObject(p) {
-	enabled = true;
-	d = new TextToSpeechPrivate();
+TextToSpeech::TextToSpeech(QObject *) {
+	bEnabled = true;
 }
 
 TextToSpeech::~TextToSpeech() {
-	delete d;
 }
 
 void TextToSpeech::say(const QString &text) {
-	if (enabled)
-		d->say(text);
+	if (!bEnabled)
+		return;
+
+	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
+	Q_ASSERT(codec != NULL);
+
+	qmLock.lock();
+	qlMessages.append(codec->fromUnicode(text));
+	qmLock.unlock();
+
+	if (!bRunning) {
+		process_speech();
+		bRunning = true;
+	}
 }
 
 void TextToSpeech::setEnabled(bool e) {
-	enabled = e;
+	bEnabled = e;
 }
 
 void TextToSpeech::setVolume(int volume) {
-	d->setVolume(volume);
+	fVolume = FixRatio(volume, 100);
 }
 
-
 bool TextToSpeech::isEnabled() const {
-	return enabled;
+	return bEnabled;
 }
