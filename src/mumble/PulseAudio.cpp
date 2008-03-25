@@ -546,7 +546,7 @@ static ConfigWidget *PulseAudioConfigDialogNew(Settings &st) {
 	return new PulseAudioConfig(st);
 }
 
-static ConfigRegistrar registrar(22, PulseAudioConfigDialogNew);
+static ConfigRegistrar registrar(2003, PulseAudioConfigDialogNew);
 
 PulseAudioConfig::PulseAudioConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);

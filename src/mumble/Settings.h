@@ -45,7 +45,6 @@ struct Settings {
 	enum VADSource { Amplitude, SignalToNoise };
 	enum LoopMode { None, Local, Server };
 	enum OverlayShow { Nothing, Talking, All };
-	enum Audio3D { No3D, Panning, Light, Full };
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
 
@@ -69,27 +68,19 @@ struct Settings {
 
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;
-	bool bPulseAudioEcho;
 	QString qsOSSInput, qsOSSOutput;
 	int iPortAudioInput, iPortAudioOutput;
 	QString qsASIOclass;
 	QList<QVariant> qlASIOmic;
 	QList<QVariant> qlASIOspeaker;
-	Audio3D a3dModel;
 
 	QString qsWASAPIInput, qsWASAPIOutput;
-	bool bWASAPIEcho;
 
 	QByteArray qbaDXInput, qbaDXOutput;
-	float fDXMinDistance, fDXMaxDistance, fDXRollOff;
-	float fAudioBloom;
 
-	bool bPositionalSoundEnable, bPositionalSoundSwap;
-	enum PositionalSoundModels { CONSTANT, LINEAR };
-	PositionalSoundModels ePositionalSoundModel;
-	float fPositionalSoundDistance,
-	fPositionalSoundPreGain, //in dB
-	fPositionalSoundMaxAtt;  //in dB
+	bool bEcho;
+	bool bPositionalAudio;
+	float fAudioMinDistance, fAudioMaxDistance, fAudioRollOff, fAudioMinVolume, fAudioBloom;
 
 	bool bOverlayEnable;
 	bool bOverlayUserTextures;
@@ -135,6 +126,9 @@ struct Settings {
 	LoopMode lmLoopMode;
 	float dPacketLoss;
 	float dMaxPacketDelay;
+
+	bool doEcho() const;
+	bool doPositionalAudio() const;
 
 	Settings();
 	void load();

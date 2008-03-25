@@ -34,7 +34,6 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "ConfigDialog.h"
-#include "ui_WASAPI.h"
 #include <mmreg.h>
 #include <strsafe.h>
 #include <mmdeviceapi.h>
@@ -45,19 +44,6 @@
 #include <propidl.h>
 #include <initguid.h>
 #include <delayimp.h>
-
-
-class WASAPIConfig : public ConfigWidget, public Ui::WASAPIConfig {
-		Q_OBJECT
-	public:
-		WASAPIConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-};
 
 class WASAPISystem : public QObject {
 		Q_OBJECT

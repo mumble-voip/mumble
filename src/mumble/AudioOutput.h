@@ -37,7 +37,30 @@
 // AudioOutputPlayer objects; it's better to recreate them than
 // having them use resources while unused.
 
+#ifndef SPEAKER_FRONT_LEFT
+#define SPEAKER_FRONT_LEFT			0x00000001
+#define SPEAKER_FRONT_RIGHT			0x00000002
+#define SPEAKER_FRONT_CENTER		0x00000004
+#define SPEAKER_LOW_FREQUENCY		0x00000008
+#define SPEAKER_BACK_LEFT			0x00000010
+#define SPEAKER_BACK_RIGHT			0x00000020
+#define SPEAKER_FRONT_LEFT_OF_CENTER 0x00000040
+#define SPEAKER_FRONT_RIGHT_OF_CENTER 0x00000080
+#define SPEAKER_BACK_CENTER			0x00000100
+#define SPEAKER_SIDE_LEFT			0x00000200
+#define SPEAKER_SIDE_RIGHT			0x00000400
+#define SPEAKER_TOP_CENTER			0x00000800
+#define SPEAKER_TOP_FRONT_LEFT		0x00001000
+#define SPEAKER_TOP_FRONT_CENTER	0x00002000
+#define SPEAKER_TOP_FRONT_RIGHT		0x00004000
+#define SPEAKER_TOP_BACK_LEFT		0x00008000
+#define SPEAKER_TOP_BACK_CENTER		0x00010000
+#define SPEAKER_TOP_BACK_RIGHT		0x00020000
+#endif
+
+
 #include "Audio.h"
+#include "Settings.h"
 #include "smallft.h"
 
 class AudioOutput;
@@ -57,7 +80,7 @@ class AudioOutputRegistrar {
 		virtual ~AudioOutputRegistrar();
 		virtual AudioOutput *create() = 0;
 		virtual const QList<audioDevice> getDeviceChoices() = 0;
-		virtual void setDeviceChoice(const QVariant &) = 0;
+		virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
 };
 
 class AudioOutputPlayer : public QObject {

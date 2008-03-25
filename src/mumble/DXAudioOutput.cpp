@@ -33,7 +33,6 @@
 #include "Plugins.h"
 #include "Player.h"
 #include "Global.h"
-#include "DXConfigDialog.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
@@ -51,7 +50,7 @@ class DXAudioOutputRegistrar : public AudioOutputRegistrar {
 		DXAudioOutputRegistrar();
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
 
 };
 
@@ -80,7 +79,7 @@ static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
 const QList<audioDevice> DXAudioOutputRegistrar::getDeviceChoices() {
 	QList<dsDevice> qlOutput;
 
-	qlOutput << dsDevice(DXConfigDialog::tr("Default DirectSound Voice Output"), DSDEVID_DefaultVoicePlayback);
+	qlOutput << dsDevice(DXAudioOutput::tr("Default DirectSound Voice Output"), DSDEVID_DefaultVoicePlayback);
 	DirectSoundEnumerate(DSEnumProc, reinterpret_cast<void *>(&qlOutput));
 
 	QList<audioDevice> qlReturn;
@@ -106,8 +105,8 @@ const QList<audioDevice> DXAudioOutputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void DXAudioOutputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qbaDXOutput = choice.toByteArray();
+void DXAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qbaDXOutput = choice.toByteArray();
 }
 
 
@@ -147,18 +146,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 	dsbd.dwBufferBytes = aop->iFrameSize * 2 * NBLOCKS;
 	dsbd.lpwfxFormat     = &wfx;
 	if (dxAudio->p3DListener) {
-		switch (g.s.a3dModel) {
-			case Settings::None:
-			case Settings::Panning:
-				dsbd.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
-				break;
-			case Settings::Light:
-				dsbd.guid3DAlgorithm = DS3DALG_HRTF_LIGHT;
-				break;
-			case Settings::Full:
-				dsbd.guid3DAlgorithm = DS3DALG_HRTF_FULL;
-				break;
-		}
+		dsbd.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
 	}
 
 	// Create the DirectSound buffer
@@ -185,11 +173,9 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 		if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer))))
 			qFatal("DXAudioOutputPlayer: QueryInterface (DirectSound3DBuffer)");
 
-		pDS3dBuffer->SetMinDistance(g.s.fDXMinDistance, MY_DEFERRED);
-		pDS3dBuffer->SetMaxDistance(g.s.fDXMaxDistance, MY_DEFERRED);
+		pDS3dBuffer->SetMinDistance(g.s.fAudioMinDistance, MY_DEFERRED);
+		pDS3dBuffer->SetMaxDistance(g.s.fAudioMaxDistance, MY_DEFERRED);
 	}
-
-
 
 	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", qPrintable(aop->qsName), SAMPLE_RATE, dsbd.dwBufferBytes);
 }
@@ -349,7 +335,7 @@ DXAudioOutput::DXAudioOutput() {
 	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
 	dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
 	dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
-	if (g.s.a3dModel != Settings::No3D)
+	if (g.s.bPositionalAudio)
 		dsbdesc.dwFlags |= DSBCAPS_CTRL3D;
 
 	ZeroMemory(&wfxSet, sizeof(wfxSet));
@@ -387,11 +373,11 @@ DXAudioOutput::DXAudioOutput() {
 		qFatal("DXAudioOutput: SetFormat");
 	else if (FAILED(hr = pDSBPrimary->GetFormat(&wfxSet, sizeof(wfxSet), NULL)))
 		qFatal("DXAudioOutput: GetFormat");
-	else if (g.s.a3dModel != Settings::No3D) {
+	else if (g.s.bPositionalAudio) {
 		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener)))) {
 			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
 		} else {
-			p3DListener->SetRolloffFactor(g.s.fDXRollOff, MY_DEFERRED);
+			p3DListener->SetRolloffFactor(g.s.fAudioRollOff, MY_DEFERRED);
 			p3DListener->SetDopplerFactor(DS3D_MINDOPPLERFACTOR, MY_DEFERRED);
 			p3DListener->CommitDeferredSettings();
 			bOk = true;

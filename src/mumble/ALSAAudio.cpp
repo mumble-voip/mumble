@@ -145,7 +145,7 @@ static ConfigWidget *ALSAConfigDialogNew(Settings &st) {
 	return new ALSAConfig(st);
 }
 
-static ConfigRegistrar registrar(20, ALSAConfigDialogNew);
+static ConfigRegistrar registrar(2001, ALSAConfigDialogNew);
 
 
 ALSAEnumerator::ALSAEnumerator() {

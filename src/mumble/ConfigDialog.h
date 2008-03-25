@@ -38,9 +38,11 @@
 class ConfigWidget : public QWidget {
 		Q_OBJECT
 	protected:
-		static void loadSlider(QSlider *, int);
-		static void loadCheckBox(QAbstractButton *, bool);
-		static void loadComboBox(QComboBox *, int);
+		void loadSlider(QSlider *, int);
+		void loadCheckBox(QAbstractButton *, bool);
+		void loadComboBox(QComboBox *, int);
+	signals:
+		void intSignal(int);
 	public:
 		Settings &s;
 		ConfigWidget(Settings &st);

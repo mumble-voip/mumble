@@ -432,7 +432,7 @@ void AudioWizard::on_InputDevice_activated(int) {
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
 	int idx = qcbInputDevice->currentIndex();
 	if (idx > -1) {
-		air->setDeviceChoice(qcbInputDevice->itemData(idx));
+		air->setDeviceChoice(qcbInputDevice->itemData(idx), g.s);
 	}
 
 	g.ai = AudioInputPtr(air->create());
@@ -467,7 +467,7 @@ void AudioWizard::on_OutputDevice_activated(int) {
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
 	int idx = qcbOutputDevice->currentIndex();
 	if (idx > -1) {
-		aor->setDeviceChoice(qcbOutputDevice->itemData(idx));
+		aor->setDeviceChoice(qcbOutputDevice->itemData(idx), g.s);
 	}
 
 	g.ao = AudioOutputPtr(aor->create());
@@ -532,13 +532,13 @@ void AudioWizard::reject() {
 	foreach(AudioInputRegistrar *air, *AudioInputRegistrar::qmNew) {
 		const QString &name = air->name;
 		if (qhOldInputDevice.contains(name))
-			air->setDeviceChoice(qhOldInputDevice.value(name));
+			air->setDeviceChoice(qhOldInputDevice.value(name), g.s);
 	}
 
 	foreach(AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
 		const QString &name = aor->name;
 		if (qhOldOutputDevice.contains(name))
-			aor->setDeviceChoice(qhOldOutputDevice.value(name));
+			aor->setDeviceChoice(qhOldOutputDevice.value(name), g.s);
 	}
 
 	g.s.lmLoopMode = Settings::None;

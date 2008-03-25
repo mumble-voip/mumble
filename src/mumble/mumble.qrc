@@ -22,6 +22,7 @@
  <file alias="config_plugin.png">../../icons/config_plugin.png</file>
  <file alias="config_asio.png">../../icons/config_asio.png</file>
  <file alias="config_osd.png">../../icons/config_osd.png</file>
+ <file alias="config_network.png">../../icons/config_network.png</file>
  <file alias="config_shortcuts.png">../../icons/config_shortcuts.png</file>
  <file alias="config_ui.png">../../icons/config_ui.png</file>
  <file alias="muted_overlay.png">../../icons/muted_overlay.png</file>

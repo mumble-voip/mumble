@@ -34,7 +34,6 @@
 #include "Global.h"
 #include "Message.h"
 #include "Plugins.h"
-#include "PositionalSound.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -248,23 +247,25 @@ AudioOutput::~AudioOutput() {
 float AudioOutput::calcGain(float dotproduct, float distance) {
 
 	float dotfactor = (dotproduct + 1.0f) / 2.0f;
+	float scaling = (1.0 - g.s.fAudioMinVolume);
+	float att;
+
 
 	// No distance attenuation
-	if (g.s.fDXRollOff < 0.01f) {
-		return qMin(1.0f, dotfactor + g.s.fAudioBloom);
-	}
+	if (g.s.fAudioRollOff < 0.01f) {
+		att = qMin(1.0f, dotfactor + g.s.fAudioBloom);
+	} else if (distance < g.s.fAudioMinDistance) {
+		float bloomfac = g.s.fAudioBloom * (1.0f - distance/g.s.fAudioMinDistance);
 
-	if (distance < g.s.fDXMinDistance) {
-		float bloomfac = g.s.fAudioBloom * (1.0f - distance/g.s.fDXMinDistance);
-
-		return qMin(1.0f, bloomfac + dotfactor);
+		att = qMin(1.0f, bloomfac + dotfactor);
 	} else {
-		if (distance > g.s.fDXMaxDistance)
-			distance = g.s.fDXMaxDistance;
-		float datt = g.s.fDXMinDistance / (g.s.fDXMinDistance + (distance-g.s.fDXMinDistance)*g.s.fDXRollOff);
+		if (distance > g.s.fAudioMaxDistance)
+			distance = g.s.fAudioMaxDistance;
+		float datt = g.s.fAudioMinDistance / (g.s.fAudioMinDistance + (distance-g.s.fAudioMinDistance)*g.s.fAudioRollOff);
 
-		return datt * dotfactor;
+		att = datt * dotfactor;
 	}
+	return g.s.fAudioMinVolume + scaling * att;
 }
 
 void AudioOutput::newPlayer(AudioOutputPlayer *) {
@@ -570,10 +571,7 @@ bool AudioOutput::mixStereoAudio(short *buffer) {
 				// asin(scalar_product) = angle from center, where
 				// angle < 0 is right and angle > 0 is left
 
-				if (g.s.bPositionalSoundSwap)
-					vol_stereo *= (-1);
-
-				vol_scal= PositionalSound::toRatio(PositionalSound::calcdB(source_direction_norm));
+				vol_scal= calcGain(vol_stereo, source_direction_norm);
 			}
 			const float vol_left=  vol_scal * (1.0 + vol_stereo);
 			const float vol_right= vol_scal * (1.0 - vol_stereo);

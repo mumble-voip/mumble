@@ -59,29 +59,30 @@ void ConfigWidget::accept() const {
 void ConfigWidget::loadSlider(QSlider *s, int v) {
 	if (v != s->value()) {
 		s->setValue(v);
-	} else if (v != s->minimum()) {
-		s->setValue(s->minimum());
-		s->setValue(v);
 	} else {
-		s->setValue(s->maximum());
-		s->setValue(v);
+		connect(this, SIGNAL(intSignal(int)), s, SIGNAL(valueChanged(int)));
+		emit intSignal(v);
+		disconnect(SIGNAL(intSignal(int)));
 	}
 }
 
 void ConfigWidget::loadCheckBox(QAbstractButton *c, bool v) {
-	c->setChecked(! v);
-	c->setChecked(v);
+	if (v != c->isChecked()) {
+		c->setChecked(v);
+	} else {
+		connect(this, SIGNAL(intSignal(int)), c, SIGNAL(stateChanged(int)));
+		emit intSignal(v ? 1 : 0);
+		disconnect(SIGNAL(intSignal(int)));
+	}
 }
 
 void ConfigWidget::loadComboBox(QComboBox *c, int v) {
 	if (c->currentIndex() != v) {
 		c->setCurrentIndex(v);
-	} else if (v != 0) {
-		c->setCurrentIndex(0);
-		c->setCurrentIndex(v);
-	} else if (c->count() >= 2) {
-		c->setCurrentIndex(1);
-		c->setCurrentIndex(v);
+	} else {
+		connect(this, SIGNAL(intSignal(int)), c, SIGNAL(currentIndexChanged(int)));
+		emit intSignal(v);
+		disconnect(SIGNAL(intSignal(int)));
 	}
 }
 

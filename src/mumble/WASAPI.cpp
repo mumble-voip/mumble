@@ -42,7 +42,8 @@ class WASAPIInputRegistrar : public AudioInputRegistrar {
 		WASAPIInputRegistrar();
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
+		virtual bool canEcho(const QString &);
 };
 
 class WASAPIOutputRegistrar : public AudioOutputRegistrar {
@@ -50,15 +51,10 @@ class WASAPIOutputRegistrar : public AudioOutputRegistrar {
 		WASAPIOutputRegistrar();
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
 };
 
-static ConfigWidget *WASAPIConfigDialogNew(Settings &st) {
-	return new WASAPIConfig(st);
-}
-
 class WASAPIInit : public DeferInit {
-		ConfigRegistrar *confReg;
 		WASAPIInputRegistrar *wirReg;
 		WASAPIOutputRegistrar *worReg;
 	public:
@@ -69,7 +65,6 @@ class WASAPIInit : public DeferInit {
 static WASAPIInit wasapiinit;
 
 void WASAPIInit::initialize() {
-	confReg = NULL;
 	wirReg = NULL;
 	worReg = NULL;
 
@@ -91,14 +86,11 @@ void WASAPIInit::initialize() {
 	}
 	FreeLibrary(hLib);
 
-	confReg = new ConfigRegistrar(23, WASAPIConfigDialogNew);
 	wirReg = new WASAPIInputRegistrar();
 	worReg = new WASAPIOutputRegistrar();
 }
 
 void WASAPIInit::destroy() {
-	if (confReg)
-		delete confReg;
 	if (wirReg)
 		delete wirReg;
 	if (worReg)
@@ -117,8 +109,12 @@ const QList<audioDevice> WASAPIInputRegistrar::getDeviceChoices() {
 	return WASAPISystem::mapToDevice(WASAPISystem::getInputDevices(), g.s.qsWASAPIOutput);
 }
 
-void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsWASAPIInput = choice.toString();
+void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsWASAPIInput = choice.toString();
+}
+
+bool WASAPIInputRegistrar::canEcho(const QString &outputsys) {
+	return (outputsys == name);
 }
 
 WASAPIOutputRegistrar::WASAPIOutputRegistrar() : AudioOutputRegistrar(QLatin1String("WASAPI")) {
@@ -132,8 +128,8 @@ const QList<audioDevice> WASAPIOutputRegistrar::getDeviceChoices() {
 	return WASAPISystem::mapToDevice(WASAPISystem::getOutputDevices(), g.s.qsWASAPIOutput);
 }
 
-void WASAPIOutputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsWASAPIOutput = choice.toString();
+void WASAPIOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsWASAPIOutput = choice.toString();
 }
 
 const QHash<QString, QString> WASAPISystem::getInputDevices() {
@@ -213,65 +209,9 @@ const QList<audioDevice> WASAPISystem::mapToDevice(const QHash<QString, QString>
 	return qlReturn;
 }
 
-
-WASAPIConfig::WASAPIConfig(Settings &st) : ConfigWidget(st) {
-	setupUi(this);
-
-	const QHash<QString, QString> qhInput = WASAPISystem::getInputDevices();
-	const QHash<QString, QString> qhOutput = WASAPISystem::getOutputDevices();
-
-	QStringList qlOutputDevs = qhOutput.keys();
-	qSort(qlOutputDevs);
-	QStringList qlInputDevs = qhInput.keys();
-	qSort(qlInputDevs);
-
-	foreach(QString dev, qlInputDevs) {
-		qcbInputDevice->addItem(qhInput.value(dev), dev);
-	}
-
-	foreach(QString dev, qlOutputDevs) {
-		qcbOutputDevice->addItem(qhOutput.value(dev), dev);
-	}
-}
-
-QString WASAPIConfig::title() const {
-	return tr("WASAPI");
-}
-
-QIcon WASAPIConfig::icon() const {
-	return QIcon(QLatin1String("skin:config_dsound.png"));
-}
-
-void WASAPIConfig::save() const {
-	s.qsWASAPIInput =  qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
-	s.qsWASAPIOutput =  qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
-	s.bWASAPIEcho = qcbEcho->isChecked();
-}
-
-void WASAPIConfig::load(const Settings &r) {
-	for (int i=0;i<qcbInputDevice->count();i++) {
-		if (qcbInputDevice->itemData(i).toString() == r.qsWASAPIInput) {
-			loadComboBox(qcbInputDevice, i);
-			break;
-		}
-	}
-
-	for (int i=0;i<qcbOutputDevice->count();i++) {
-		if (qcbOutputDevice->itemData(i).toString() == r.qsWASAPIOutput) {
-			loadComboBox(qcbOutputDevice, i);
-			break;
-		}
-	}
-	loadCheckBox(qcbEcho, r.bWASAPIEcho);
-}
-
-bool WASAPIConfig::expert(bool) {
-	return true;
-}
-
 WASAPIInput::WASAPIInput() {
 	bRunning = true;
-	bHasSpeaker = g.s.bWASAPIEcho;
+	bHasSpeaker = (g.s.qsAudioOutput == QLatin1String("WASAPI")) && g.s.bEcho;
 };
 
 WASAPIInput::~WASAPIInput() {
@@ -748,6 +688,8 @@ void WASAPIOutput::run() {
 	outputBuffer = new float[wantLength * pwfx->nChannels];
 	speakerpos = new float[3 * pwfx->nChannels];
 
+	qWarning("WASAPIOutput: ChannelMask %06x", pwfxe->dwChannelMask);
+
 	for(int i=0;i<32;i++) {
 		if (pwfxe->dwChannelMask & (1 << i)) {
 			float *s = &speakerpos[3*ns];
@@ -755,10 +697,74 @@ void WASAPIOutput::run() {
 
 			switch(1<<i) {
 				case SPEAKER_FRONT_LEFT:
-					s[0] = -1.0f;
+					s[0] = -0.5f;
+					s[2] = 1.0f;
 					break;
 				case SPEAKER_FRONT_RIGHT:
+					s[0] = 0.5f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_FRONT_CENTER:
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_LOW_FREQUENCY:
+					break;
+				case SPEAKER_BACK_LEFT:
+					s[0] = -0.5f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_BACK_RIGHT:
+					s[0] = 0.5f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_FRONT_LEFT_OF_CENTER:
+					s[0] = -0.25;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_FRONT_RIGHT_OF_CENTER:
+					s[0] = 0.25;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_BACK_CENTER:
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_SIDE_LEFT:
+					s[0] = -1.0f;
+					break;
+				case SPEAKER_SIDE_RIGHT:
 					s[0] = 1.0f;
+					break;
+				case SPEAKER_TOP_CENTER:
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_FRONT_LEFT:
+					s[0] = -0.5f;
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_FRONT_CENTER:
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_FRONT_RIGHT:
+					s[0] = 0.5f;
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_BACK_LEFT:
+					s[0] = -0.5f;
+					s[1] = 1.0f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_TOP_BACK_CENTER:
+					s[1] = 1.0f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_TOP_BACK_RIGHT:
+					s[0] = 0.5f;
+					s[1] = 1.0f;
+					s[2] = -1.0f;
 					break;
 				default:
 					qWarning("WASAPI: Unknown speaker %d: %08x", ns, 1<<i);

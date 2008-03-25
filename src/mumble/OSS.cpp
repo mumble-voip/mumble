@@ -146,7 +146,7 @@ static ConfigWidget *OSSConfigDialogNew(Settings &st) {
 	return new OSSConfig(st);
 }
 
-static ConfigRegistrar registrar(21, OSSConfigDialogNew);
+static ConfigRegistrar registrar(2004, OSSConfigDialogNew);
 
 
 OSSEnumerator::OSSEnumerator() {

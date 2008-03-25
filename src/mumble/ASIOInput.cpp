@@ -44,7 +44,8 @@ class ASIOAudioInputRegistrar : public AudioInputRegistrar {
 		ASIOAudioInputRegistrar();
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
+		virtual bool canEcho(const QString &);
 
 };
 
@@ -62,15 +63,18 @@ const QList<audioDevice> ASIOAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &) {
-	qWarning("ASIOInputRegistrar::setDeviceChoice was called");
+bool ASIOAudioInputRegistrar::canEcho(const QString &) {
+	return true;
+}
+
+void ASIOAudioInputRegistrar::setDeviceChoice(const QVariant &, Settings &) {
 }
 
 static ConfigWidget *ASIOConfigDialogNew(Settings &st) {
 	return new ASIOConfig(st);
 }
 
-static ConfigRegistrar registrar(22, ASIOConfigDialogNew);
+static ConfigRegistrar registrar(2002, ASIOConfigDialogNew);
 
 
 ASIOInput *ASIOInput::aiSelf;

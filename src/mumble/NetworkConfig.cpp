@@ -37,7 +37,7 @@ static ConfigWidget *NetworkConfigNew(Settings &st) {
 	return new NetworkConfig(st);
 }
 
-static ConfigRegistrar registrar(13, NetworkConfigNew);
+static ConfigRegistrar registrar(1300, NetworkConfigNew);
 
 NetworkConfig::NetworkConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);

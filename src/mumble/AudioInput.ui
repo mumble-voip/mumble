@@ -1,12 +1,12 @@
 <ui version="4.0" >
- <class>AudioConfigDialog</class>
- <widget class="QWidget" name="AudioConfigDialog" >
+ <class>AudioInput</class>
+ <widget class="QWidget" name="AudioInput" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>927</height>
+    <width>304</width>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,21 +16,21 @@
    <item>
     <widget class="QGroupBox" name="qgbInterfaces" >
      <property name="title" >
-      <string>Interfaces</string>
+      <string>Interface</string>
      </property>
-     <layout class="QHBoxLayout" >
-      <item>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
        <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>&amp;Input</string>
+         <string>System</string>
         </property>
         <property name="buddy" >
-         <cstring>qcbInput</cstring>
+         <cstring>qcbSystem</cstring>
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QComboBox" name="qcbInput" >
+      <item row="0" column="1" >
+       <widget class="QComboBox" name="qcbSystem" >
         <property name="sizePolicy" >
          <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
           <horstretch>0</horstretch>
@@ -45,7 +45,7 @@
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="2" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
@@ -61,18 +61,18 @@
         </property>
        </spacer>
       </item>
-      <item>
+      <item row="0" column="3" >
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>&amp;Output</string>
+         <string>Device</string>
         </property>
         <property name="buddy" >
-         <cstring>qcbOutput</cstring>
+         <cstring>qcbDevice</cstring>
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QComboBox" name="qcbOutput" >
+      <item row="0" column="4" >
+       <widget class="QComboBox" name="qcbDevice" >
         <property name="sizePolicy" >
          <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
           <horstretch>0</horstretch>
@@ -84,6 +84,13 @@
         </property>
         <property name="whatsThis" >
          <string>&lt;b>This is the output method to use for audio.&lt;/b>&lt;br />Most likely you want to use DirectSound.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4" >
+       <widget class="QCheckBox" name="qcbEcho" >
+        <property name="text" >
+         <string>Cancel Echo</string>
         </property>
        </widget>
       </item>
@@ -588,251 +595,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="qgbOutput" >
-     <property name="title" >
-      <string>Audio Output</string>
-     </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label_17" >
-        <property name="text" >
-         <string>Default &amp;Jitter Buffer</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsJitter</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QSlider" name="qsJitter" >
-        <property name="toolTip" >
-         <string>Safety margin for jitter buffer</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This sets the minimum safety margin for the jitter buffer.&lt;/b>&lt;br />All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</string>
-        </property>
-        <property name="minimum" >
-         <number>1</number>
-        </property>
-        <property name="maximum" >
-         <number>5</number>
-        </property>
-        <property name="pageStep" >
-         <number>2</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QLabel" name="qlJitter" >
-        <property name="minimumSize" >
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_7" >
-        <property name="text" >
-         <string>Volume</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsVolume</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QSlider" name="qsVolume" >
-        <property name="toolTip" >
-         <string>Volume of incoming speech</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This adjusts the volume of incoming speech.&lt;/b>&lt;br />Note that this can only be used to decrease the volume. No amplification is possible.</string>
-        </property>
-        <property name="minimum" >
-         <number>10</number>
-        </property>
-        <property name="maximum" >
-         <number>100</number>
-        </property>
-        <property name="value" >
-         <number>100</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <widget class="QLabel" name="qlVolume" >
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="label_4" >
-        <property name="text" >
-         <string>Output Delay</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsDelay</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QSlider" name="qsDelay" >
-        <property name="toolTip" >
-         <string>Amount of data to buffer</string>
-        </property>
-        <property name="whatsThis" >
-         <string>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn't cause rapid jitter in the sound.</string>
-        </property>
-        <property name="minimum" >
-         <number>1</number>
-        </property>
-        <property name="maximum" >
-         <number>10</number>
-        </property>
-        <property name="pageStep" >
-         <number>3</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" >
-       <widget class="QLabel" name="qlDelay" >
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="qgbLoopback" >
-     <property name="title" >
-      <string>Loopback Test</string>
-     </property>
-     <layout class="QGridLayout" >
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_19" >
-        <property name="text" >
-         <string>Delay Variance</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsPacketDelay</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QSlider" name="qsPacketDelay" >
-        <property name="toolTip" >
-         <string>Variance in packet latency</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This sets the packet latency variance for loopback testing&lt;/b>&lt;br />Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</string>
-        </property>
-        <property name="maximum" >
-         <number>100</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <widget class="QLabel" name="qlPacketDelay" >
-        <property name="minimumSize" >
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="label_21" >
-        <property name="text" >
-         <string>Packet Loss</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsPacketLoss</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QSlider" name="qsPacketLoss" >
-        <property name="toolTip" >
-         <string>Packet loss for loopback mode</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This sets the packet loss for loopback mode.&lt;/b>&lt;br />This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there's something wrong with your network connection, this will be 0%</string>
-        </property>
-        <property name="maximum" >
-         <number>50</number>
-        </property>
-        <property name="singleStep" >
-         <number>5</number>
-        </property>
-        <property name="pageStep" >
-         <number>20</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" >
-       <widget class="QLabel" name="qlPacketLoss" >
-        <property name="minimumSize" >
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label_23" >
-        <property name="text" >
-         <string>&amp;Loopback</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qcbLoopback</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="2" >
-       <widget class="QComboBox" name="qcbLoopback" >
-        <property name="toolTip" >
-         <string>Desired loopback mode</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This enables one of the loopback testmodes.&lt;/b>&lt;br />&lt;i>None&lt;/i> - Loopback disabled&lt;br />&lt;i>Local&lt;/i> - Emulate a local server.&lt;br />&lt;i>Server&lt;/i> - Request loopback from server.&lt;br />Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -848,20 +610,14 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>qcbInput</tabstop>
-  <tabstop>qcbOutput</tabstop>
+  <tabstop>qcbSystem</tabstop>
+  <tabstop>qcbDevice</tabstop>
   <tabstop>qcbTransmit</tabstop>
   <tabstop>qsQuality</tabstop>
   <tabstop>qsComplexity</tabstop>
   <tabstop>qsFrames</tabstop>
   <tabstop>qsNoise</tabstop>
   <tabstop>qsAmp</tabstop>
-  <tabstop>qsJitter</tabstop>
-  <tabstop>qsVolume</tabstop>
-  <tabstop>qsDelay</tabstop>
-  <tabstop>qcbLoopback</tabstop>
-  <tabstop>qsPacketDelay</tabstop>
-  <tabstop>qsPacketLoss</tabstop>
   <tabstop>qsDoublePush</tabstop>
   <tabstop>qrbSNR</tabstop>
   <tabstop>qrbAmplitude</tabstop>

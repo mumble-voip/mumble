@@ -1,4 +1,5 @@
 /* Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2008, Andreas Messer <andi@bupfen.de>
 
    All rights reserved.
 
@@ -34,13 +35,18 @@
 #include "Global.h"
 #include "NetworkConfig.h"
 
-static ConfigWidget *AudioConfigDialogNew(Settings &st) {
-	return new AudioConfigDialog(st);
+static ConfigWidget *AudioInputDialogNew(Settings &st) {
+	return new AudioInputDialog(st);
 }
 
-static ConfigRegistrar registrar(10, AudioConfigDialogNew);
+static ConfigWidget *AudioOutputDialogNew(Settings &st) {
+	return new AudioOutputDialog(st);
+}
 
-AudioConfigDialog::AudioConfigDialog(Settings &st) : ConfigWidget(st) {
+static ConfigRegistrar iregistrar(1000, AudioInputDialogNew);
+static ConfigRegistrar oregistrar(1010, AudioOutputDialogNew);
+
+AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	QList<QString> keys;
 	QString key;
 
@@ -49,39 +55,26 @@ AudioConfigDialog::AudioConfigDialog(Settings &st) : ConfigWidget(st) {
 	if (AudioInputRegistrar::qmNew) {
 		keys=AudioInputRegistrar::qmNew->keys();
 		foreach(key, keys) {
-			qcbInput->addItem(key);
+			qcbSystem->addItem(key);
 		}
 	} else {
-		qcbInput->setEnabled(false);
-	}
-
-	if (AudioOutputRegistrar::qmNew) {
-		keys=AudioOutputRegistrar::qmNew->keys();
-		foreach(key, keys) {
-			qcbOutput->addItem(key);
-		}
-	} else {
-		qcbOutput->setEnabled(false);
+		qcbSystem->setEnabled(false);
 	}
 
 	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
-
-	qcbLoopback->addItem(tr("None"), Settings::None);
-	qcbLoopback->addItem(tr("Local"), Settings::Local);
-	qcbLoopback->addItem(tr("Server"), Settings::Server);
 }
 
-QString AudioConfigDialog::title() const {
-	return tr("Basic Audio");
+QString AudioInputDialog::title() const {
+	return tr("Audio Input");
 }
 
-QIcon AudioConfigDialog::icon() const {
+QIcon AudioInputDialog::icon() const {
 	return QIcon(QLatin1String("skin:config_basic.png"));
 }
 
-void AudioConfigDialog::load(const Settings &r) {
+void AudioInputDialog::load(const Settings &r) {
 	int i;
 	QList<QString> keys;
 
@@ -91,15 +84,7 @@ void AudioConfigDialog::load(const Settings &r) {
 		keys.clear();
 	i=keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
-		loadComboBox(qcbInput, i);
-
-	if (AudioOutputRegistrar::qmNew)
-		keys=AudioOutputRegistrar::qmNew->keys();
-	else
-		keys.clear();
-	i=keys.indexOf(AudioOutputRegistrar::current);
-	if (i >= 0)
-		loadComboBox(qcbOutput, i);
+		loadComboBox(qcbSystem, i);
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
@@ -118,21 +103,14 @@ void AudioConfigDialog::load(const Settings &r) {
 	loadSlider(qsComplexity, r.iComplexity);
 	loadSlider(qsNoise, - r.iNoiseSuppress);
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
-	loadSlider(qsDelay, r.iOutputDelay);
-	loadSlider(qsVolume, static_cast<int>(r.fVolume * 100.0));
-	loadSlider(qsJitter, r.iJitterBufferSize);
-	loadComboBox(qcbLoopback, r.lmLoopMode);
-	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
-	loadSlider(qsPacketLoss, static_cast<int>(r.dPacketLoss * 100.0));
+	loadCheckBox(qcbEcho, r.bEcho);
 }
 
-void AudioConfigDialog::save() const {
+void AudioInputDialog::save() const {
 	s.iQuality = qsQuality->value();
 	s.iNoiseSuppress = - qsNoise->value();
 	s.iComplexity = qsComplexity->value();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
-	s.iOutputDelay = qsDelay->value();
-	s.fVolume = qsVolume->value() / 100.0;
 	s.iVoiceHold = qsTransmitHold->value();
 	s.fVADmin = qsTransmitMin->value() / 32767.0;
 	s.fVADmax = qsTransmitMax->value() / 32767.0;
@@ -140,19 +118,22 @@ void AudioConfigDialog::save() const {
 	s.iFramesPerPacket = qsFrames->value();
 	s.uiDoublePush = qsDoublePush->value() * 1000;
 	s.bPushClick = qcbPushClick->isChecked();
-	s.iJitterBufferSize = qsJitter->value();
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
-	s.qsAudioInput = qcbInput->currentText();
-	s.qsAudioOutput = qcbOutput->currentText();
-	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
-	s.dMaxPacketDelay = qsPacketDelay->value();
-	s.dPacketLoss = qsPacketLoss->value() / 100.0;
+
+	s.qsAudioInput = qcbSystem->currentText();
+	s.bEcho = qcbEcho->isChecked();
+
+	if (AudioInputRegistrar::qmNew) {
+		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
+		int idx = qcbDevice->currentIndex();
+		if (idx > -1) {
+			air->setDeviceChoice(qcbDevice->itemData(idx), s);
+		}
+	}
 }
 
-bool AudioConfigDialog::expert(bool b) {
+bool AudioInputDialog::expert(bool b) {
 	qgbInterfaces->setVisible(b);
-	qgbLoopback->setVisible(b);
-	qgbOutput->setVisible(b);
 	qgbAudio->setVisible(b);
 	qliComplexity->setVisible(b);
 	qlComplexity->setVisible(b);
@@ -164,64 +145,44 @@ bool AudioConfigDialog::expert(bool b) {
 	return true;
 }
 
-void AudioConfigDialog::on_qsFrames_valueChanged(int v) {
+void AudioInputDialog::on_qsFrames_valueChanged(int v) {
 	qlFrames->setText(tr("%1 ms").arg(v*20));
 	updateBitrate();
 }
 
-void AudioConfigDialog::on_qsDoublePush_valueChanged(int v) {
+void AudioInputDialog::on_qsDoublePush_valueChanged(int v) {
 	if (v == 0)
 		qlDoublePush->setText(tr("Off"));
 	else
 		qlDoublePush->setText(tr("%1 ms").arg(v));
 }
 
-void AudioConfigDialog::on_qsTransmitHold_valueChanged(int v) {
+void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
 	float val = v * 20;
 	val = val / 1000.0f;
 	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
 
-void AudioConfigDialog::on_qsQuality_valueChanged(int v) {
+void AudioInputDialog::on_qsQuality_valueChanged(int v) {
 	qlQuality->setText(QString::number(v));
 	updateBitrate();
 }
 
-void AudioConfigDialog::on_qsNoise_valueChanged(int v) {
+void AudioInputDialog::on_qsNoise_valueChanged(int v) {
 	qlNoise->setText(tr("-%1 dB").arg(v));
 }
 
-void AudioConfigDialog::on_qsComplexity_valueChanged(int v) {
+void AudioInputDialog::on_qsComplexity_valueChanged(int v) {
 	qlComplexity->setText(QString::number(v));
 }
 
-void AudioConfigDialog::on_qsAmp_valueChanged(int v) {
+void AudioInputDialog::on_qsAmp_valueChanged(int v) {
 	v = 18000 - v + 2000;
 	float d = 20000.0f/v;
 	qlAmp->setText(QString::fromLatin1("%1").arg(d, 0, 'f', 2));
 }
 
-void AudioConfigDialog::on_qsJitter_valueChanged(int v) {
-	qlJitter->setText(tr("%1 ms").arg(v*20));
-}
-
-void AudioConfigDialog::on_qsVolume_valueChanged(int v) {
-	qlVolume->setText(tr("%1%").arg(v));
-}
-
-void AudioConfigDialog::on_qsPacketDelay_valueChanged(int v) {
-	qlPacketDelay->setText(tr("%1 ms").arg(v));
-}
-
-void AudioConfigDialog::on_qsPacketLoss_valueChanged(int v) {
-	qlPacketLoss->setText(tr("%1%").arg(v));
-}
-
-void AudioConfigDialog::on_qsDelay_valueChanged(int v) {
-	qlDelay->setText(tr("%1ms").arg(v*20));
-}
-
-void AudioConfigDialog::updateBitrate() {
+void AudioInputDialog::updateBitrate() {
 	if (! qsQuality || ! qsFrames || ! qlBitrate)
 		return;
 	int q = qsQuality->value();
@@ -267,7 +228,7 @@ void AudioConfigDialog::updateBitrate() {
 	qlBitrate->setText(v);
 }
 
-void AudioConfigDialog::on_qcbTransmit_currentIndexChanged(int v) {
+void AudioInputDialog::on_qcbTransmit_currentIndexChanged(int v) {
 	switch (v) {
 		case 0:
 			qswTransmit->setCurrentWidget(qwContinuous);
@@ -281,7 +242,144 @@ void AudioConfigDialog::on_qcbTransmit_currentIndexChanged(int v) {
 	}
 }
 
-void AudioConfigDialog::on_qcbLoopback_currentIndexChanged(int v) {
+void AudioInputDialog::on_qcbSystem_currentIndexChanged(int idx) {
+	qcbDevice->clear();
+
+	QList<audioDevice> ql;
+
+	if (AudioInputRegistrar::qmNew) {
+		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
+		ql = air->getDeviceChoices();
+
+		foreach(audioDevice d, ql) {
+			qcbDevice->addItem(d.first, d.second);
+		}
+		qcbEcho->setEnabled(air->canEcho(s.qsAudioOutput));
+	}
+
+	qcbDevice->setEnabled(ql.count() > 1);
+}
+
+AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
+	QList<QString> keys;
+	QString key;
+
+	setupUi(this);
+
+	if (AudioOutputRegistrar::qmNew) {
+		keys=AudioOutputRegistrar::qmNew->keys();
+		foreach(key, keys) {
+			qcbSystem->addItem(key);
+		}
+	} else {
+		qcbSystem->setEnabled(false);
+	}
+
+	qcbLoopback->addItem(tr("None"), Settings::None);
+	qcbLoopback->addItem(tr("Local"), Settings::Local);
+	qcbLoopback->addItem(tr("Server"), Settings::Server);
+}
+
+QString AudioOutputDialog::title() const {
+	return tr("Audio Output");
+}
+
+QIcon AudioOutputDialog::icon() const {
+	return QIcon(QLatin1String("skin:config_basic.png"));
+}
+
+void AudioOutputDialog::load(const Settings &r) {
+	int i;
+	QList<QString> keys;
+
+	if (AudioOutputRegistrar::qmNew)
+		keys=AudioOutputRegistrar::qmNew->keys();
+	else
+		keys.clear();
+	i=keys.indexOf(AudioOutputRegistrar::current);
+	if (i >= 0)
+		loadComboBox(qcbSystem, i);
+
+	loadSlider(qsDelay, r.iOutputDelay);
+	loadSlider(qsVolume, static_cast<int>(r.fVolume * 100.0));
+	loadSlider(qsJitter, r.iJitterBufferSize);
+	loadComboBox(qcbLoopback, r.lmLoopMode);
+	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
+	loadSlider(qsPacketLoss, static_cast<int>(r.dPacketLoss * 100.0));
+	loadSlider(qsMinDistance, lroundf(r.fAudioMinDistance * 10));
+	loadSlider(qsMaxDistance, lroundf(r.fAudioMaxDistance * 10));
+	loadSlider(qsRollOff, lroundf(r.fAudioRollOff * 100));
+	loadSlider(qsBloom, lround(r.fAudioBloom * 100));
+	loadSlider(qsMinVolume, lround(r.fAudioMinVolume * 100));
+	loadCheckBox(qcbPositional, r.bPositionalAudio);
+}
+
+void AudioOutputDialog::save() const {
+	s.iOutputDelay = qsDelay->value();
+	s.fVolume = qsVolume->value() / 100.0f;
+	s.iJitterBufferSize = qsJitter->value();
+	s.qsAudioOutput = qcbSystem->currentText();
+	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
+	s.dMaxPacketDelay = qsPacketDelay->value();
+	s.dPacketLoss = qsPacketLoss->value() / 100.0f;
+	s.fAudioMinDistance = qsMinDistance->value() / 10.0f;
+	s.fAudioMaxDistance = qsMaxDistance->value() / 10.0f;
+	s.fAudioRollOff = qsRollOff->value() / 100.0f;
+	s.fAudioBloom = qsBloom->value() / 100.0f;
+	s.fAudioMinVolume = qsMinVolume->value() / 100.0f;
+	s.bPositionalAudio = qcbPositional->isChecked();
+
+	if (AudioOutputRegistrar::qmNew) {
+		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
+		int idx = qcbDevice->currentIndex();
+		if (idx > -1) {
+			aor->setDeviceChoice(qcbDevice->itemData(idx), s);
+		}
+	}
+}
+
+bool AudioOutputDialog::expert(bool b) {
+	return b;
+}
+
+void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int idx) {
+	qcbDevice->clear();
+
+	QList<audioDevice> ql;
+
+	if (AudioOutputRegistrar::qmNew) {
+		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
+		ql = aor->getDeviceChoices();
+
+		foreach(audioDevice d, ql) {
+			qcbDevice->addItem(d.first, d.second);
+		}
+	}
+
+	qcbDevice->setEnabled(ql.count() > 1);
+}
+
+void AudioOutputDialog::on_qsJitter_valueChanged(int v) {
+	qlJitter->setText(tr("%1 ms").arg(v*20));
+}
+
+void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
+	qlVolume->setText(tr("%1%").arg(v));
+}
+
+void AudioOutputDialog::on_qsPacketDelay_valueChanged(int v) {
+	qlPacketDelay->setText(tr("%1 ms").arg(v));
+}
+
+void AudioOutputDialog::on_qsPacketLoss_valueChanged(int v) {
+	qlPacketLoss->setText(tr("%1%").arg(v));
+}
+
+void AudioOutputDialog::on_qsDelay_valueChanged(int v) {
+	qlDelay->setText(tr("%1ms").arg(v*20));
+}
+
+void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
 	bool ena = false;
 	if (v == 1)
 		ena = true;
@@ -290,4 +388,32 @@ void AudioConfigDialog::on_qcbLoopback_currentIndexChanged(int v) {
 	qlPacketDelay->setEnabled(ena);
 	qsPacketLoss->setEnabled(ena);
 	qlPacketLoss->setEnabled(ena);
+}
+
+void AudioOutputDialog::on_qsMinDistance_valueChanged(int v) {
+	qlMinDistance->setText(tr("%1m").arg(v/10.0, 0, 'f', 1));
+	if (qsMaxDistance->value() < v)
+		qsMaxDistance->setValue(v);
+}
+
+void AudioOutputDialog::on_qsMaxDistance_valueChanged(int v) {
+	qlMaxDistance->setText(tr("%1m").arg(v/10.0, 0, 'f', 1));
+	if (qsMinDistance->value() > v)
+		qsMinDistance->setValue(v);
+}
+
+void AudioOutputDialog::on_qsRollOff_valueChanged(int v) {
+	qlRollOff->setText(tr("%1").arg(v/100.0, 0, 'f', 2));
+}
+
+void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
+	qlBloom->setText(tr("%1%").arg(v));
+}
+
+void AudioOutputDialog::on_qsMinVolume_valueChanged(int v) {
+	qlMinVolume->setText(tr("%1%").arg(v));
+}
+
+void AudioOutputDialog::on_qcbPositional_stateChanged(int v) {
+	qgbVolume->setEnabled(v);
 }

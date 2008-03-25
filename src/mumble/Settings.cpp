@@ -31,6 +31,7 @@
 #include "Settings.h"
 #include "Log.h"
 #include "Global.h"
+#include "AudioInput.h"
 
 Settings::Settings() {
 	atTransmit = VAD;
@@ -72,25 +73,17 @@ Settings::Settings() {
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
-	bWASAPIEcho = false;
-	bPulseAudioEcho = false;
+	bEcho = false;
 
 	iPortAudioInput = -1; // default device
 	iPortAudioOutput = -1; // default device
 
-	a3dModel = No3D;
+	bPositionalAudio = false;
+	fAudioMinDistance = 10.0f;
+	fAudioMaxDistance = 50.0f;
+	fAudioRollOff = 0.15f;
 	fAudioBloom = 0.5f;
-	fDXMinDistance = 10.0f;
-	fDXMaxDistance = 50.0f;
-	fDXRollOff = 0.15f;
-
-	bPositionalSoundEnable = true;
-	bPositionalSoundSwap = false;
-	ePositionalSoundModel = CONSTANT;
-	fPositionalSoundDistance= 70;
-	fPositionalSoundPreGain = 0;
-	fPositionalSoundMaxAtt = 10;
-
+	fAudioMinVolume = 0.3f;
 
 	bOverlayEnable = true;
 	bOverlayUserTextures=true;
@@ -130,6 +123,24 @@ Settings::Settings() {
 	iServerRow = -1;
 }
 
+bool Settings::doEcho() const {
+	if (! bEcho)
+		return false;
+
+	if (AudioInputRegistrar::qmNew) {
+		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qsAudioInput);
+		if (air) {
+			if (air->canEcho(qsAudioOutput))
+				return true;
+		}
+	}
+	return false;
+}
+
+bool Settings::doPositionalAudio() const {
+	return bPositionalAudio && (fAudioMinVolume != 1.0f);
+}
+
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
 
@@ -137,9 +148,7 @@ BOOST_TYPEOF_REGISTER_TYPE(Settings::AudioTransmit);
 BOOST_TYPEOF_REGISTER_TYPE(Settings::VADSource);
 BOOST_TYPEOF_REGISTER_TYPE(Settings::LoopMode)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::OverlayShow)
-BOOST_TYPEOF_REGISTER_TYPE(Settings::Audio3D)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
-BOOST_TYPEOF_REGISTER_TYPE(Settings::PositionalSoundModels)
 BOOST_TYPEOF_REGISTER_TYPE(QString)
 BOOST_TYPEOF_REGISTER_TYPE(QByteArray)
 BOOST_TYPEOF_REGISTER_TYPE(QColor)
@@ -166,11 +175,13 @@ void Settings::load() {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
-	LOADENUM(a3dModel, "audio/3dmode");
-	SAVELOAD(fDXMinDistance, "audio/mindistance");
-	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
+	SAVELOAD(fAudioMinDistance, "audio/mindistance");
+	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
+	SAVELOAD(fAudioRollOff, "audio/rolloff");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	SAVELOAD(fDXRollOff, "audio/rolloff");
+	SAVELOAD(fAudioMinVolume, "audio/minvolume");
+	SAVELOAD(bEcho, "audio/echo");
+	SAVELOAD(bPositionalAudio, "audio/positional");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 
@@ -183,14 +194,12 @@ void Settings::load() {
 
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
-	SAVELOAD(bWASAPIEcho, "wasapi/echo");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
 
 	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
 	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
-	SAVELOAD(bPulseAudioEcho, "pulseaudio/echo");
 
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");
@@ -200,13 +209,6 @@ void Settings::load() {
 
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");
-
-	SAVELOAD(bPositionalSoundEnable, "positionalsound/enable");
-	SAVELOAD(bPositionalSoundSwap, "positionalsound/swap");
-	LOADENUM(ePositionalSoundModel, "positionalsound/model");
-	SAVELOAD(fPositionalSoundDistance, "positionalsound/distance");
-	SAVELOAD(fPositionalSoundPreGain, "positionalsound/pregain");
-	SAVELOAD(fPositionalSoundMaxAtt, "positionalsound/maxatt");
 
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
@@ -291,11 +293,13 @@ void Settings::save() {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
-	SAVELOAD(a3dModel, "audio/3dmode");
-	SAVELOAD(fDXMinDistance, "audio/mindistance");
-	SAVELOAD(fDXMaxDistance, "audio/maxdistance");
+	SAVELOAD(fAudioMinDistance, "audio/mindistance");
+	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
+	SAVELOAD(fAudioRollOff, "audio/rolloff");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	SAVELOAD(fDXRollOff, "audio/rolloff");
+	SAVELOAD(fAudioMinVolume, "audio/minvolume");
+	SAVELOAD(bEcho, "audio/echo");
+	SAVELOAD(bPositionalAudio, "audio/positional");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 
@@ -308,14 +312,12 @@ void Settings::save() {
 
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
-	SAVELOAD(bWASAPIEcho, "wasapi/echo");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
 
 	SAVELOAD(qsPulseAudioInput, "pulseaudio/input");
 	SAVELOAD(qsPulseAudioOutput, "pulseaudio/output");
-	SAVELOAD(bPulseAudioEcho, "pulseaudio/echo");
 
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");
@@ -325,13 +327,6 @@ void Settings::save() {
 
 	SAVELOAD(qbaDXInput, "directsound/input");
 	SAVELOAD(qbaDXOutput, "directsound/output");
-
-	SAVELOAD(bPositionalSoundEnable, "positionalsound/enable");
-	SAVELOAD(bPositionalSoundSwap, "positionalsound/swap");
-	SAVELOAD(ePositionalSoundModel, "positionalsound/model");
-	SAVELOAD(fPositionalSoundDistance, "positionalsound/distance");
-	SAVELOAD(fPositionalSoundPreGain, "positionalsound/pregain");
-	SAVELOAD(fPositionalSoundMaxAtt, "positionalsound/maxatt");
 
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");

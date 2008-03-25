@@ -37,7 +37,7 @@ static ConfigWidget *PAAudioConfigNew(Settings &st) {
 	return new PAAudioConfig(st);
 }
 
-static ConfigRegistrar registrar(23, PAAudioConfigNew);
+static ConfigRegistrar registrar(2005, PAAudioConfigNew);
 
 PAAudioConfig::PAAudioConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);

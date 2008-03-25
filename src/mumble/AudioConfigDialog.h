@@ -33,12 +33,13 @@
 
 #include "ConfigDialog.h"
 
-#include "ui_AudioConfigDialog.h"
+#include "ui_AudioInput.h"
+#include "ui_AudioOutput.h"
 
-class AudioConfigDialog : public ConfigWidget, public Ui::AudioConfigDialog {
+class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		Q_OBJECT
 	public:
-		AudioConfigDialog(Settings &st);
+		AudioInputDialog(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
@@ -51,17 +52,35 @@ class AudioConfigDialog : public ConfigWidget, public Ui::AudioConfigDialog {
 		void on_qsQuality_valueChanged(int v);
 		void on_qsComplexity_valueChanged(int v);
 		void on_qsAmp_valueChanged(int v);
+		void on_qsDoublePush_valueChanged(int v);
+		void on_qsNoise_valueChanged(int v);
+		void on_qcbTransmit_currentIndexChanged(int v);
+		void on_qcbSystem_currentIndexChanged(int);
+};
+
+class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
+		Q_OBJECT
+	public:
+		AudioOutputDialog(Settings &st);
+		virtual QString title() const;
+		virtual QIcon icon() const;
+	public slots:
+		void save() const;
+		void load(const Settings &r);
+		bool expert(bool);
 		void on_qsDelay_valueChanged(int v);
 		void on_qsJitter_valueChanged(int v);
 		void on_qsVolume_valueChanged(int v);
 		void on_qsPacketDelay_valueChanged(int v);
 		void on_qsPacketLoss_valueChanged(int v);
-		void on_qsNoise_valueChanged(int v);
-		void on_qsDoublePush_valueChanged(int v);
-		void on_qcbTransmit_currentIndexChanged(int v);
 		void on_qcbLoopback_currentIndexChanged(int v);
+		void on_qsMinDistance_valueChanged(int v);
+		void on_qsMaxDistance_valueChanged(int v);
+		void on_qsRollOff_valueChanged(int v);
+		void on_qsBloom_valueChanged(int v);
+		void on_qsMinVolume_valueChanged(int v);
+		void on_qcbSystem_currentIndexChanged(int);
+		void on_qcbPositional_stateChanged(int);
 };
 
-#else
-class AudioConfigDialog;
 #endif

@@ -38,7 +38,7 @@ static ConfigWidget *GlobalShortcutConfigDialogNew(Settings &st) {
 	return new GlobalShortcutConfig(st);
 }
 
-static ConfigRegistrar registrar(12, GlobalShortcutConfigDialogNew);
+static ConfigRegistrar registrar(1200, GlobalShortcutConfigDialogNew);
 
 ShortcutKeyWidget::ShortcutKeyWidget(QWidget *p) : QLineEdit(p) {
 	setReadOnly(true);

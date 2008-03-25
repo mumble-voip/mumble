@@ -30,7 +30,6 @@
 
 #include "DXAudioInput.h"
 #include "Global.h"
-#include "DXConfigDialog.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
@@ -40,7 +39,8 @@ class DXAudioInputRegistrar : public AudioInputRegistrar {
 		DXAudioInputRegistrar();
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
+		virtual bool canEcho(const QString &);
 
 };
 
@@ -69,7 +69,7 @@ static BOOL CALLBACK DSEnumProc(LPGUID lpGUID, const WCHAR* lpszDesc,
 const QList<audioDevice> DXAudioInputRegistrar::getDeviceChoices() {
 	QList<dsDevice> qlInput;
 
-	qlInput << dsDevice(DXConfigDialog::tr("Default DirectSound Voice Input"), DSDEVID_DefaultVoiceCapture);
+	qlInput << dsDevice(DXAudioInput::tr("Default DirectSound Voice Input"), DSDEVID_DefaultVoiceCapture);
 	DirectSoundCaptureEnumerate(DSEnumProc, reinterpret_cast<void *>(&qlInput));
 
 	QList<audioDevice> qlReturn;
@@ -95,8 +95,12 @@ const QList<audioDevice> DXAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void DXAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qbaDXInput = choice.toByteArray();
+void DXAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qbaDXInput = choice.toByteArray();
+}
+
+bool DXAudioInputRegistrar::canEcho(const QString &) {
+	return false;
 }
 
 #define NBUFFBLOCKS 50

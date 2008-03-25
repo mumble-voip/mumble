@@ -39,7 +39,7 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
 
-static ConfigRegistrar registrar(60, OverlayConfigDialogNew);
+static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 
 OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
