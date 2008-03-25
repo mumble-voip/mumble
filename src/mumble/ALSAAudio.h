@@ -36,21 +36,8 @@
 #include "ConfigDialog.h"
 #include <alsa/asoundlib.h>
 
-#include "ui_ALSAAudio.h"
 class ALSAAudioOutput;
 class ALSAAudioInput;
-
-class ALSAConfig : public ConfigWidget, public Ui::ALSAConfig {
-		Q_OBJECT
-	public:
-		ALSAConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-};
 
 class ALSAAudioInput : public AudioInput {
 		Q_OBJECT

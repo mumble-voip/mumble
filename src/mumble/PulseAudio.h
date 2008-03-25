@@ -34,20 +34,7 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "ConfigDialog.h"
-#include "ui_PulseAudio.h"
 #include <pulse/pulseaudio.h>
-
-class PulseAudioConfig : public ConfigWidget, public Ui::PulseAudioConfig {
-		Q_OBJECT
-	public:
-		PulseAudioConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-};
 
 class PulseAudioInput;
 class PulseAudioOutput;

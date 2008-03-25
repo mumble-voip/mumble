@@ -381,7 +381,7 @@ void AudioOutput::normalizeSpeakers(float * speakerpos, int nspeakers) {
 	}
 }
 
-bool AudioOutput::mixSurround(float * restrict output, float * restrict speakerpos, int nspeakers) {
+bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers) {
 	AudioOutputPlayer *aop;
 	QList<AudioOutputPlayer *> qlMix;
 	QList<AudioOutputPlayer *> qlDel;

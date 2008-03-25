@@ -69,7 +69,8 @@ class OSSInputRegistrar : public AudioInputRegistrar {
 		OSSInputRegistrar();
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
+		virtual bool canEcho(const QString &);
 };
 
 
@@ -78,7 +79,7 @@ class OSSOutputRegistrar : public AudioOutputRegistrar {
 		OSSOutputRegistrar();
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
 };
 
 static OSSInputRegistrar airOSS;
@@ -109,8 +110,12 @@ const QList<audioDevice> OSSInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void OSSInputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsOSSInput = choice.toString();
+void OSSInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsOSSInput = choice.toString();
+}
+
+bool OSSInputRegistrar::canEcho(const QString &) {
+	return false;
 }
 
 OSSOutputRegistrar::OSSOutputRegistrar() : AudioOutputRegistrar(QLatin1String("OSS")) {
@@ -138,16 +143,9 @@ const QList<audioDevice> OSSOutputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void OSSOutputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsOSSOutput = choice.toString();
+void OSSOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsOSSOutput = choice.toString();
 }
-
-static ConfigWidget *OSSConfigDialogNew(Settings &st) {
-	return new OSSConfig(st);
-}
-
-static ConfigRegistrar registrar(2004, OSSConfigDialogNew);
-
 
 OSSEnumerator::OSSEnumerator() {
 	qhInput.insert(QString(), QLatin1String("Default OSS Device"));
@@ -192,70 +190,6 @@ OSSEnumerator::OSSEnumerator() {
 	}
 	close(mixerfd);
 #endif
-}
-
-OSSConfig::OSSConfig(Settings &st) : ConfigWidget(st) {
-	setupUi(this);
-
-	QList<QString> qlOutputDevs = cards->qhOutput.keys();
-	qSort(qlOutputDevs);
-	QList<QString> qlInputDevs = cards->qhInput.keys();
-	qSort(qlInputDevs);
-
-	bool found;
-
-	found = false;
-	foreach(QString dev, qlInputDevs) {
-		qcbInputDevice->addItem(cards->qhInput.value(dev), dev);
-		if (dev == g.s.qsOSSInput) {
-			found = true;
-			qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
-		}
-	}
-
-	found = false;
-	foreach(QString dev, qlOutputDevs) {
-		qcbOutputDevice->addItem(cards->qhOutput.value(dev), dev);
-		if (dev == g.s.qsOSSOutput) {
-			found = true;
-			qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
-		}
-	}
-
-	qcbOutputDevice->setWhatsThis(qcbInputDevice->whatsThis());
-}
-
-QString OSSConfig::title() const {
-	return tr("OSS");
-}
-
-QIcon OSSConfig::icon() const {
-	return QIcon(QLatin1String("skin:config_dsound.png"));
-}
-
-void OSSConfig::save() const {
-	s.qsOSSInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
-	s.qsOSSOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
-}
-
-void OSSConfig::load(const Settings &r) {
-	for (int i=0;i<qcbInputDevice->count();i++) {
-		if (qcbInputDevice->itemData(i).toString() == r.qsOSSInput) {
-			loadComboBox(qcbInputDevice, i);
-			break;
-		}
-	}
-
-	for (int i=0;i<qcbOutputDevice->count();i++) {
-		if (qcbOutputDevice->itemData(i).toString() == r.qsOSSOutput) {
-			loadComboBox(qcbOutputDevice, i);
-			break;
-		}
-	}
-}
-
-bool OSSConfig::expert(bool) {
-	return true;
 }
 
 OSSInput::OSSInput() {

@@ -52,7 +52,8 @@ class PulseAudioInputRegistrar : public AudioInputRegistrar {
 		PulseAudioInputRegistrar();
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
+		virtual bool canEcho(const QString &);
 };
 
 
@@ -61,7 +62,7 @@ class PulseAudioOutputRegistrar : public AudioOutputRegistrar {
 		PulseAudioOutputRegistrar();
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
 };
 
 static PulseAudioInputRegistrar airPulseAudio;
@@ -509,8 +510,12 @@ const QList<audioDevice> PulseAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void PulseAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsPulseAudioInput = choice.toString();
+void PulseAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsPulseAudioInput = choice.toString();
+}
+
+bool PulseAudioInputRegistrar::canEcho(const QString &osys) {
+	return (osys == name);
 }
 
 PulseAudioOutputRegistrar::PulseAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PulseAudio")) {
@@ -538,66 +543,8 @@ const QList<audioDevice> PulseAudioOutputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void PulseAudioOutputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsPulseAudioOutput = choice.toString();
-}
-
-static ConfigWidget *PulseAudioConfigDialogNew(Settings &st) {
-	return new PulseAudioConfig(st);
-}
-
-static ConfigRegistrar registrar(2003, PulseAudioConfigDialogNew);
-
-PulseAudioConfig::PulseAudioConfig(Settings &st) : ConfigWidget(st) {
-	setupUi(this);
-
-	QStringList qlOutputDevs = pasys->qhOutput.keys();
-	qSort(qlOutputDevs);
-	QStringList qlInputDevs = pasys->qhInput.keys();
-	qSort(qlInputDevs);
-
-	foreach(QString dev, qlInputDevs) {
-		qcbInputDevice->addItem(pasys->qhInput.value(dev), dev);
-	}
-
-	foreach(QString dev, qlOutputDevs) {
-		qcbOutputDevice->addItem(pasys->qhOutput.value(dev), dev);
-	}
-}
-
-QString PulseAudioConfig::title() const {
-	return tr("PulseAudio");
-}
-
-QIcon PulseAudioConfig::icon() const {
-	return QIcon(QLatin1String("skin:config_dsound.png"));
-}
-
-void PulseAudioConfig::save() const {
-	s.qsPulseAudioInput =  qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
-	s.qsPulseAudioOutput =  qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
-	s.bPulseAudioEcho = qcbEcho->isChecked();
-}
-
-void PulseAudioConfig::load(const Settings &r) {
-	for (int i=0;i<qcbInputDevice->count();i++) {
-		if (qcbInputDevice->itemData(i).toString() == r.qsPulseAudioInput) {
-			loadComboBox(qcbInputDevice, i);
-			break;
-		}
-	}
-
-	for (int i=0;i<qcbOutputDevice->count();i++) {
-		if (qcbOutputDevice->itemData(i).toString() == r.qsPulseAudioOutput) {
-			loadComboBox(qcbOutputDevice, i);
-			break;
-		}
-	}
-	loadCheckBox(qcbEcho, r.bPulseAudioEcho);
-}
-
-bool PulseAudioConfig::expert(bool) {
-	return true;
+void PulseAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsPulseAudioOutput = choice.toString();
 }
 
 PulseAudioInput::PulseAudioInput() {

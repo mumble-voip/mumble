@@ -34,19 +34,6 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "ConfigDialog.h"
-#include "ui_OSS.h"
-
-class OSSConfig : public ConfigWidget, public Ui::OSSConfig {
-		Q_OBJECT
-	public:
-		OSSConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-};
 
 class OSSInput : public AudioInput {
 		Q_OBJECT

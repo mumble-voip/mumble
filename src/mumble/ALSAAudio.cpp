@@ -65,7 +65,8 @@ class ALSAAudioInputRegistrar : public AudioInputRegistrar {
 		ALSAAudioInputRegistrar();
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
+		virtual bool canEcho(const QString &);
 };
 
 
@@ -74,7 +75,7 @@ class ALSAAudioOutputRegistrar : public AudioOutputRegistrar {
 		ALSAAudioOutputRegistrar();
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
-		virtual void setDeviceChoice(const QVariant &);
+		virtual void setDeviceChoice(const QVariant &, Settings &);
 };
 
 static ALSAAudioInputRegistrar airALSA;
@@ -106,10 +107,13 @@ const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void ALSAAudioInputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsALSAInput = choice.toString();
+void ALSAAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsALSAInput = choice.toString();
 }
 
+bool ALSAAudioInputRegistrar::canEcho(const QString &) {
+	return false;
+}
 
 ALSAAudioOutputRegistrar::ALSAAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("ALSA")) {
 }
@@ -137,20 +141,13 @@ const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-void ALSAAudioOutputRegistrar::setDeviceChoice(const QVariant &choice) {
-	g.s.qsALSAOutput = choice.toString();
+void ALSAAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qsALSAOutput = choice.toString();
 }
-
-static ConfigWidget *ALSAConfigDialogNew(Settings &st) {
-	return new ALSAConfig(st);
-}
-
-static ConfigRegistrar registrar(2001, ALSAConfigDialogNew);
-
 
 ALSAEnumerator::ALSAEnumerator() {
-	qhInput.insert(QLatin1String("default"), ALSAConfig::tr("Default ALSA Card"));
-	qhOutput.insert(QLatin1String("default"), ALSAConfig::tr("Default ALSA Card"));
+	qhInput.insert(QLatin1String("default"), ALSAAudioInput::tr("Default ALSA Card"));
+	qhOutput.insert(QLatin1String("default"), ALSAAudioOutput::tr("Default ALSA Card"));
 
 	int card=-1;
 	snd_card_next(&card);
@@ -206,79 +203,6 @@ ALSAEnumerator::ALSAEnumerator() {
 	}
 }
 
-ALSAConfig::ALSAConfig(Settings &st) : ConfigWidget(st) {
-	setupUi(this);
-
-	QList<QString> qlOutputDevs = cards->qhOutput.keys();
-	qSort(qlOutputDevs);
-	QList<QString> qlInputDevs = cards->qhInput.keys();
-	qSort(qlInputDevs);
-
-	bool found;
-
-	found = false;
-	foreach(QString dev, qlInputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhInput.value(dev));
-		qcbInputDevice->addItem(t, dev);
-		if (dev == g.s.qsALSAInput) {
-			found = true;
-			qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
-		}
-	}
-	if (! found) {
-		qcbInputDevice->addItem(g.s.qsALSAInput, g.s.qsALSAInput);
-		qcbInputDevice->setCurrentIndex(qcbInputDevice->count() - 1);
-	}
-
-	found = false;
-	foreach(QString dev, qlOutputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev).arg(cards->qhOutput.value(dev));
-		qcbOutputDevice->addItem(t, dev);
-		if (dev == g.s.qsALSAOutput) {
-			found = true;
-			qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
-		}
-	}
-	if (! found) {
-		qcbOutputDevice->addItem(g.s.qsALSAOutput, g.s.qsALSAOutput);
-		qcbOutputDevice->setCurrentIndex(qcbOutputDevice->count() - 1);
-	}
-
-	qcbOutputDevice->setWhatsThis(qcbInputDevice->whatsThis());
-}
-
-QString ALSAConfig::title() const {
-	return tr("ALSA");
-}
-
-QIcon ALSAConfig::icon() const {
-	return QIcon(QLatin1String("skin:config_dsound.png"));
-}
-
-void ALSAConfig::save() const {
-	s.qsALSAInput = qcbInputDevice->itemData(qcbInputDevice->currentIndex()).toString();
-	s.qsALSAOutput = qcbOutputDevice->itemData(qcbOutputDevice->currentIndex()).toString();
-}
-
-void ALSAConfig::load(const Settings &r) {
-	for (int i=0;i<qcbInputDevice->count();i++) {
-		if (qcbInputDevice->itemData(i).toString() == r.qsALSAInput) {
-			loadComboBox(qcbInputDevice, i);
-			break;
-		}
-	}
-
-	for (int i=0;i<qcbOutputDevice->count();i++) {
-		if (qcbOutputDevice->itemData(i).toString() == r.qsALSAOutput) {
-			loadComboBox(qcbOutputDevice, i);
-			break;
-		}
-	}
-}
-
-bool ALSAConfig::expert(bool) {
-	return true;
-}
 
 ALSAAudioInput::ALSAAudioInput() {
 	bRunning = true;
@@ -457,7 +381,7 @@ void ALSAAudioOutput::run() {
 	int count;
 	bool stillRun = true;
 
-	const bool stereo = g.s.bPositionalSoundEnable;
+	const bool stereo = g.s.doPositionalAudio();
 
 	initialize(pcm_handle, iFrameSize, stereo);
 
