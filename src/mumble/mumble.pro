@@ -65,7 +65,6 @@ unix {
 
   !isEmpty(HAVE_PULSEAUDIO):!CONFIG(no-pulseaudio) {
     CONFIG += pulseaudio
-    CONFIG -= portaudio
   }
 
   !CONFIG(no-bundled-speex) {
@@ -137,9 +136,8 @@ pulseaudio {
 
 portaudio {
 	PKGCONFIG += portaudio-2.0
-	HEADERS += PAAudio.h PAAudioConfig.h
-	SOURCES += PAAudio.cpp PAAudioConfig.cpp
-	FORMS += PAAudioConfig.ui
+	HEADERS += PAAudio.h
+	SOURCES += PAAudio.cpp
 }
 
 asio {

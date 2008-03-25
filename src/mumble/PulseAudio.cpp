@@ -253,9 +253,9 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		bool do_stop = false;
 		bool do_start = false;
 
-		if ((! pai || ! g.s.bPulseAudioEcho) && (est == PA_STREAM_READY)) {
+		if ((! pai || ! g.s.doEcho()) && (est == PA_STREAM_READY)) {
 			do_stop = true;
-		} else if (pai && g.s.bPulseAudioEcho) {
+		} else if (pai && g.s.doEcho()) {
 			switch (est) {
 				case PA_STREAM_TERMINATED: {
 						if (pasSpeaker)
@@ -390,7 +390,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 				pas->iInputIdx = 0;
 				memcpy(pai->psMic, pas->psInput, pai->iFrameSize * sizeof(short));
 
-				if (g.s.bPulseAudioEcho) {
+				if (g.s.doEcho()) {
 					JitterBufferPacket jbp;
 					jbp.data = reinterpret_cast<char *>(pai->psSpeaker);
 					jbp.len = pai->iFrameSize * sizeof(short);
@@ -549,7 +549,7 @@ void PulseAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings
 
 PulseAudioInput::PulseAudioInput() {
 	bRunning = true;
-	bHasSpeaker = g.s.bPulseAudioEcho;
+	bHasSpeaker = g.s.doEcho();
 	if (pasys)
 		pasys->wakeup();
 };

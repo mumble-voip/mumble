@@ -127,13 +127,13 @@ QWizardPage *AudioWizard::devicePage() {
 	grid->addWidget(l, 0, 0, 1, 2);
 
 	qcbInput = new QComboBox();
-	foreach(AudioInputRegistrar *air, *AudioInputRegistrar::qmNew) {
-		qcbInput->addItem(air->name);
-		if (air->name == AudioInputRegistrar::current)
-			qcbInput->setCurrentIndex(qcbInput->count() - 1);
-		QList<audioDevice> ql= air->getDeviceChoices();
-		if (ql.count() > 0)
-			qhOldInputDevice.insert(air->name, ql.at(0).second);
+	if (AudioInputRegistrar::qmNew) {
+		foreach(AudioInputRegistrar *air, *AudioInputRegistrar::qmNew) {
+			qcbInput->addItem(air->name);
+			if (air->name == AudioInputRegistrar::current)
+				qcbInput->setCurrentIndex(qcbInput->count() - 1);
+			QList<audioDevice> ql= air->getDeviceChoices();
+		}
 	}
 
 	l = new QLabel(tr("System"));
@@ -174,13 +174,13 @@ QWizardPage *AudioWizard::devicePage() {
 	grid->addWidget(l, 0, 0, 1, 2);
 
 	qcbOutput = new QComboBox();
-	foreach(AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
-		qcbOutput->addItem(aor->name);
-		if (aor->name == AudioOutputRegistrar::current)
-			qcbOutput->setCurrentIndex(qcbOutput->count() - 1);
-		QList<audioDevice> ql= aor->getDeviceChoices();
-		if (ql.count() > 0)
-			qhOldOutputDevice.insert(aor->name, ql.at(0).second);
+	if (AudioOutputRegistrar::qmNew) {
+		foreach(AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
+			qcbOutput->addItem(aor->name);
+			if (aor->name == AudioOutputRegistrar::current)
+				qcbOutput->setCurrentIndex(qcbOutput->count() - 1);
+			QList<audioDevice> ql= aor->getDeviceChoices();
+		}
 	}
 
 	l = new QLabel(tr("System"));
@@ -407,6 +407,9 @@ QWizardPage *AudioWizard::deviceTuningPage() {
 void AudioWizard::on_Input_activated(int) {
 	qcbInputDevice->clear();
 
+	if (! AudioInputRegistrar::qmNew)
+		return;
+
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
 	QList<audioDevice> ql = air->getDeviceChoices();
 
@@ -421,6 +424,9 @@ void AudioWizard::on_Input_activated(int) {
 
 void AudioWizard::on_InputDevice_activated(int) {
 	if (bInit)
+		return;
+
+	if (! AudioInputRegistrar::qmNew)
 		return;
 
 	boost::weak_ptr<AudioInput> wai(g.ai);
@@ -442,6 +448,9 @@ void AudioWizard::on_InputDevice_activated(int) {
 void AudioWizard::on_Output_activated(int) {
 	qcbOutputDevice->clear();
 
+	if (! AudioOutputRegistrar::qmNew)
+		return;
+
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
 	QList<audioDevice> ql = aor->getDeviceChoices();
 
@@ -456,6 +465,9 @@ void AudioWizard::on_Output_activated(int) {
 
 void AudioWizard::on_OutputDevice_activated(int) {
 	if (bInit)
+		return;
+
+	if (! AudioOutputRegistrar::qmNew)
 		return;
 
 	boost::weak_ptr<AudioOutput> wai(g.ao);
@@ -488,7 +500,8 @@ void AudioWizard::on_MaxAmp_valueChanged(int v) {
 
 void AudioWizard::showPage(int v) {
 	AudioOutputPtr ao = g.ao;
-	ao->wipe();
+	if (ao)
+		ao->wipe();
 
 	if (v == 2) {
 		g.s.bMute = true;
@@ -521,25 +534,15 @@ void AudioWizard::restartAudio() {
 	g.s.qsAudioOutput = qcbOutput->currentText();
 
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
-	g.ai->start(QThread::HighestPriority);
+	if (g.ai)
+		g.ai->start(QThread::HighestPriority);
 	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
-	g.ao->start(QThread::HighPriority);
+	if (g.ao)
+		g.ao->start(QThread::HighPriority);
 }
 
 void AudioWizard::reject() {
 	g.s = sOldSettings;
-
-	foreach(AudioInputRegistrar *air, *AudioInputRegistrar::qmNew) {
-		const QString &name = air->name;
-		if (qhOldInputDevice.contains(name))
-			air->setDeviceChoice(qhOldInputDevice.value(name), g.s);
-	}
-
-	foreach(AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
-		const QString &name = aor->name;
-		if (qhOldOutputDevice.contains(name))
-			aor->setDeviceChoice(qhOldOutputDevice.value(name), g.s);
-	}
 
 	g.s.lmLoopMode = Settings::None;
 	g.bEchoTest = false;
@@ -556,6 +559,14 @@ void AudioWizard::accept() {
 	g.bEchoTest = false;
 	restartAudio();
 	QWizard::accept();
+}
+
+bool AudioWizard::validateCurrentPage() {
+	if (currentId() == 1) {
+		if ((qcbInput->currentIndex() < 0) || (qcbOutput->currentIndex() < 0))
+			return false;
+	}
+	return true;
 }
 
 void AudioWizard::on_Ticker_timeout() {

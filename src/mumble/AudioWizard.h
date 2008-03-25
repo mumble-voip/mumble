@@ -62,8 +62,6 @@ class AudioWizard: public QWizard {
 		QWizardPage *deviceTuningPage();
 		QWizardPage *donePage();
 
-		QHash<QString, QVariant> qhOldInputDevice;
-		QHash<QString, QVariant> qhOldOutputDevice;
 		Settings sOldSettings;
 
 		QTimer *ticker;
@@ -93,6 +91,7 @@ class AudioWizard: public QWizard {
 		AudioWizard(QWidget *parent);
 		void reject();
 		void accept();
+		bool validateCurrentPage();
 };
 
 #endif

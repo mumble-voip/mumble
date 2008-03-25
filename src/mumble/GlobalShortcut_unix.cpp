@@ -189,7 +189,6 @@ void GlobalShortcutX::inputReadyRead(int) {
 #define test_bit(bit, array)    (array[bit/8] & (1<<(bit%8)))
 
 void GlobalShortcutX::directoryChanged(const QString &dir) {
-	qWarning("Rescan!");
 #ifdef Q_OS_LINUX
 	QDir d(dir, QLatin1String("event*"), 0, QDir::System);
 	foreach(QFileInfo fi, d.entryInfoList()) {

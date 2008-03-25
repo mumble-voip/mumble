@@ -47,50 +47,19 @@ typedef boost::weak_ptr<PortAudioSystem> WeakPortAudioSystemPtr;
  * Basically this ensures that the PA lib is initialized and terminated properly and that
  * several threads can open/close streams as they like.
  */
-class PortAudioSystem {
-		//! Mutex for serializing self() calls
-		static QMutex qmSystem;
-
-		//! Our singleton pointer
-		static WeakPortAudioSystemPtr wpaSystem;
-
+class PortAudioSystem : public QObject {
+		Q_OBJECT
+	protected:
 		//! Mutex around PA stream creation/deletion
-		QMutex muStream;
-
-		//! Private constructor, we're a singleton
-		PortAudioSystem();
-
-		//! Fills qhHostApis
-		void enumerateDevices();
+		static QMutex qmStream;
 	public:
-		class HostApiDevices {
-			public:
-				QString qsHostApiName;
-				QHash<PaDeviceIndex, QString> qhInputs;
-				QHash<PaDeviceIndex, QString> qhOutputs;
-		};
-		/**
-		 * @brief mapping of APIs and inputs/outputs provided by this API
-		 *
-		 * @todo Make this a QStandardItemModel and update dynamically as devices get added/removed
-		 *       (not sure if PortAudio supports this but it really should!).
-		 **/
-		QHash<PaHostApiIndex, HostApiDevices> qhHostApis;
+		static bool initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, bool isInput);
+		static bool terminateStream(PaStream *stream);
 
-		/**
-		 * Accessor, keep the pointer around until you don't need it anymore.
-		 * Returned pointers are ref-counted so if nothing keeps a pointer PortAudioSystem
-		 * will get deleted again
-		 **/
-		static PortAudioSystemPtr self();
+		static bool startStream(PaStream *stream);
+		static bool stopStream(PaStream *stream);
 
-		bool initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, bool isInput);
-		bool terminateStream(PaStream *stream);
-
-		bool startStream(PaStream *stream);
-		bool stopStream(PaStream *stream);
-
-		~PortAudioSystem();
+		static const QList<audioDevice> enumerateDevices(bool input, PaDeviceIndex match = -1);
 };
 
 
