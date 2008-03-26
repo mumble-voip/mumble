@@ -21,43 +21,21 @@ static HANDLE hMapObject = NULL;
 LinkedMem *lm = NULL;
 
 static void unlock() {
-	if (lm) {
-		UnmapViewOfFile(lm);
-		lm = NULL;
-	}
-	if (hMapObject) {
-		CloseHandle(hMapObject);
-		hMapObject = NULL;
-	}
+	lm->dwVersion = 0;
 	return;
 }
 
 static int trylock() {
-	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
-	if (hMapObject == NULL) {
-		return false;
-	}
-
-	lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
-	if (lm == NULL) {
-		CloseHandle(hMapObject);
-		hMapObject = NULL;
-		return false;
-	}
-
 	if (lm->dwVersion == 1) {
-		if ((GetTickCount() - lm->dwTick) < 500)
+		if ((GetTickCount() - lm->dwTick) < 5000)
 			return true;
 	}
-
-	unlock();
-
 	return false;
 }
 
 
 static int fetch(float *pos, float *front, float *top) {
-	if ((GetTickCount() - lm->dwTick) > 500)
+	if ((GetTickCount() - lm->dwTick) > 5000)
 		return false;
 
 	for (int i=0;i<3;i++)
@@ -67,6 +45,40 @@ static int fetch(float *pos, float *front, float *top) {
 	for (int i=0;i<3;i++)
 		top[i]=lm->fTop[i];
 
+	return true;
+}
+
+BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
+	bool bCreated = true;
+	switch (fdwReason) {
+		case DLL_PROCESS_ATTACH:
+			hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
+			if (hMapObject == NULL) {
+				bCreated = false;
+				hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
+				if (hMapObject == NULL)
+					return false;
+			}
+			lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+			if (lm == NULL) {
+				CloseHandle(hMapObject);
+				hMapObject = NULL;
+				return false;
+			}
+			if (bCreated)
+				memset(lm, 0, sizeof(LinkedMem));
+			break;
+		case DLL_PROCESS_DETACH:
+			if (lm) {
+				UnmapViewOfFile(lm);
+				lm = NULL;
+			}
+			if (hMapObject) {
+				CloseHandle(hMapObject);
+				hMapObject = NULL;
+			}
+			break;
+	}
 	return true;
 }
 
