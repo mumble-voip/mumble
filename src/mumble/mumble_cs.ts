@@ -366,17 +366,27 @@
 <context>
     <name>ALSAAudioInput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="346"/>
+        <location filename="ALSAAudio.cpp" line="268"/>
         <source>Opening chosen ALSA Input failed: %1</source>
         <translation>Otevírání zvoleného zvukového vstupu selhalo. Nebude tedy snímán zvuk ze žádného mikrofonu,</translation>
+    </message>
+    <message>
+        <location filename="ALSAAudio.cpp" line="149"/>
+        <source>Default ALSA Card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioOutput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="430"/>
+        <location filename="ALSAAudio.cpp" line="355"/>
         <source>Opening chosen ALSA Output failed: %1</source>
         <translation>Otevírání zvukového výstupu selhalo: %1</translation>
+    </message>
+    <message>
+        <location filename="ALSAAudio.cpp" line="150"/>
+        <source>Default ALSA Card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -384,77 +394,62 @@
     <message>
         <location filename="ALSAAudio.ui" line="19"/>
         <source>Device selection</source>
-        <translation>Výběr zařízení</translation>
+        <translation type="obsolete">Výběr zařízení</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="35"/>
         <source>Device to use for microphone</source>
-        <translation>Zařízení, na kterém je mikrofon</translation>
+        <translation type="obsolete">Zařízení, na kterém je mikrofon</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="38"/>
         <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is whatever you have configured in alsaconfig, the &lt;i&gt;hwplug&lt;/i&gt; devices are specific hardware devices backed by the ALSA mixer and the &lt;i&gt;hw&lt;/i&gt; devices are raw hardware access. Unless your soundcard supports hardware mixing of audio, using the &lt;i&gt;hw&lt;/i&gt; device will exclude all other programs from using audio.</source>
-        <translation>Nastavení zařízení pro použití aplikací Mumble. &lt;i&gt;default&lt;/i&gt; (výchozí) je cokoliv je nakonfigurováno pomoci alsaconfigu, &lt;i&gt;hwplug&lt;/i&gt; zařízení jsou specifická zvuková zařízení podporovaná ALSA mixerem a &lt;i&gt;hw&lt;/i&gt; zařízní jsou pro přímý přístup na zařízení. Pokud vaše zvuková karta nepodporuje hw směšování, použití &lt;i&gt;hw&lt;/i&gt; zařázení znemožní ostatním aplikacím používat tento zvukový výstup.</translation>
+        <translation type="obsolete">Nastavení zařízení pro použití aplikací Mumble. &lt;i&gt;default&lt;/i&gt; (výchozí) je cokoliv je nakonfigurováno pomoci alsaconfigu, &lt;i&gt;hwplug&lt;/i&gt; zařízení jsou specifická zvuková zařízení podporovaná ALSA mixerem a &lt;i&gt;hw&lt;/i&gt; zařízní jsou pro přímý přístup na zařízení. Pokud vaše zvuková karta nepodporuje hw směšování, použití &lt;i&gt;hw&lt;/i&gt; zařázení znemožní ostatním aplikacím používat tento zvukový výstup.</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="55"/>
         <source>Device to use for speakers/headphones</source>
-        <translation>Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
+        <translation type="obsolete">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="25"/>
         <source>Input</source>
-        <translation>Vstup</translation>
+        <translation type="obsolete">Vstup</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="45"/>
         <source>Output</source>
-        <translation>Výstup</translation>
+        <translation type="obsolete">Výstup</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="65"/>
         <source>Output Options</source>
-        <translation>Výstupní volby</translation>
+        <translation type="obsolete">Výstupní volby</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="71"/>
         <source>Output Delay</source>
-        <translation>Výstupní opoždění</translation>
+        <translation type="obsolete">Výstupní opoždění</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="81"/>
         <source>Amount of data to buffer for ALSA</source>
-        <translation>Velikost datového zásobníku pro ALSU</translation>
+        <translation type="obsolete">Velikost datového zásobníku pro ALSU</translation>
     </message>
     <message>
         <location filename="ALSAAudio.ui" line="84"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Nastaví velikost dat pro výstupní zásobník. Zkoušejte různé hodnoty a nastavte to na nejmenší hodnotu, která nezpůsobuje rychlé cvakání ve zvuku.</translation>
+        <translation type="obsolete">Nastaví velikost dat pro výstupní zásobník. Zkoušejte různé hodnoty a nastavte to na nejmenší hodnotu, která nezpůsobuje rychlé cvakání ve zvuku.</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="246"/>
         <source>ALSA</source>
-        <translation>ALSA</translation>
+        <translation type="obsolete">ALSA</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="282"/>
         <source>%1ms</source>
-        <translation>%1ms</translation>
-    </message>
-    <message>
-        <location filename="ALSAAudio.ui" line="13"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ALSAAudio.ui" line="103"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ALSAAudio.cpp" line="148"/>
-        <source>Default ALSA Card</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1ms</translation>
     </message>
 </context>
 <context>
@@ -560,37 +555,37 @@
         <translation>Bedničky</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="199"/>
+        <location filename="ASIOInput.cpp" line="203"/>
         <source>%1 (ver %2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="203"/>
+        <location filename="ASIOInput.cpp" line="207"/>
         <source>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="205"/>
+        <location filename="ASIOInput.cpp" line="209"/>
         <source>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz -- Unusable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="279"/>
+        <location filename="ASIOInput.cpp" line="283"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="275"/>
+        <location filename="ASIOInput.cpp" line="279"/>
         <source>ASIO Initialization failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="279"/>
+        <location filename="ASIOInput.cpp" line="283"/>
         <source>Failed to instantiate ASIO driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="316"/>
+        <location filename="ASIOInput.cpp" line="320"/>
         <source>ASIO</source>
         <translation type="unfinished"></translation>
     </message>
@@ -613,17 +608,17 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="474"/>
+        <location filename="ASIOInput.cpp" line="478"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="407"/>
+        <location filename="ASIOInput.cpp" line="411"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="474"/>
+        <location filename="ASIOInput.cpp" line="478"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -633,21 +628,21 @@
     <message>
         <location filename="About.cpp" line="57"/>
         <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2008 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Nástroj pro hlasovou skupinovou komunikaci.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Překlad do češtiny v roce 2007 připravil David Pravec, alekibango@danix.org.&lt;/p&gt;
+        <translation type="obsolete">&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2007 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Nástroj pro hlasovou skupinovou komunikaci.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Překlad do češtiny v roce 2007 připravil David Pravec, alekibango@danix.org.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="About.cpp" line="63"/>
+        <location filename="About.cpp" line="64"/>
         <source>&amp;About Mumble</source>
         <translation>O &amp;aplikaci Mumble</translation>
     </message>
     <message>
-        <location filename="About.cpp" line="64"/>
+        <location filename="About.cpp" line="65"/>
         <source>&amp;License</source>
         <translation>&amp;Licenční ujednání</translation>
     </message>
     <message>
-        <location filename="About.cpp" line="66"/>
+        <location filename="About.cpp" line="67"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -656,22 +651,32 @@
         <source>About Mumble</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="About.cpp" line="58"/>
+        <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutSpeexDialog</name>
     <message>
         <location filename="About.cpp" line="89"/>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;http://www.speex.org/&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;O kodeku Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;http://www.speex.org/&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Tento program používá Speex verze %1&lt;/p&gt;&lt;p&gt;Speex je použit pro omezení ozvěny, pro redukci šumu, &lt;br /&gt;pro detekování hlasové aktivity a pro kompresi řeči&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;h3&gt;O kodeku Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;http://www.speex.org/&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Tento program používá Speex verze %1&lt;/p&gt;&lt;p&gt;Speex je použit pro omezení ozvěny, pro redukci šumu, &lt;br /&gt;pro detekování hlasové aktivity a pro kompresi řeči&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="About.cpp" line="91"/>
+        <location filename="About.cpp" line="93"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="About.cpp" line="79"/>
+        <location filename="About.cpp" line="80"/>
         <source>About Speex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="About.cpp" line="91"/>
+        <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -680,17 +685,17 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="19"/>
         <source>Interfaces</source>
-        <translation>Rozhraní</translation>
+        <translation type="obsolete">Rozhraní</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="102"/>
         <source>Transmission</source>
-        <translation>Přenos</translation>
+        <translation type="obsolete">Přenos</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="329"/>
         <source>Compression</source>
-        <translation>Komprese</translation>
+        <translation type="obsolete">Komprese</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="54"/>
@@ -700,7 +705,7 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="686"/>
         <source>Loopback Test</source>
-        <translation>Testování místním propojením do smyčky</translation>
+        <translation type="obsolete">Testování místním propojením do smyčky</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="68"/>
@@ -710,12 +715,12 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="41"/>
         <source>Input method for audio</source>
-        <translation>Vstupní metoda pro audio</translation>
+        <translation type="obsolete">Vstupní metoda pro audio</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="44"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Toto je vstupní metoda pro zvuk.&lt;/b&gt;&lt;br /&gt;Asi budete chtít použít ALSA nebo  DirectSound.</translation>
+        <translation type="obsolete">&lt;b&gt;Toto je vstupní metoda pro zvuk.&lt;/b&gt;&lt;br /&gt;Asi budete chtít použít ALSA nebo  DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="86"/>
@@ -725,27 +730,27 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="83"/>
         <source>Output method for audio</source>
-        <translation>Výstupní metoda pro zvuk</translation>
+        <translation type="obsolete">Výstupní metoda pro zvuk</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="86"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
+        <translation type="obsolete">&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="59"/>
         <source>Continuous</source>
-        <translation>Stále</translation>
+        <translation type="obsolete">Stále</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="60"/>
         <source>Voice Activity</source>
-        <translation>Při hlasové aktivitě</translation>
+        <translation type="obsolete">Při hlasové aktivitě</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="61"/>
         <source>Push To Talk</source>
-        <translation>Mluvení pouze na stisk tlačítka</translation>
+        <translation type="obsolete">Mluvení pouze na stisk tlačítka</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="105"/>
@@ -755,12 +760,12 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="118"/>
         <source>When to transmit your speech</source>
-        <translation>Kdy vysílat Vaši řeč</translation>
+        <translation type="obsolete">Kdy vysílat Vaši řeč</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="121"/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>Nastaví, kdy bude Vaše řeč přenášena do internetu.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Stále&lt;/i&gt; - neustálé vysílání&lt;br /&gt;&lt;i&gt;Při hlasové aktivitě&lt;/i&gt; - když je detekována hlasová aktivita .&lt;br /&gt;&lt;i&gt;Mluvení na stisk tlačítka&lt;/i&gt; - mluvení je přenášeno, pouze když držíte stisknutou nadefinovanou klávesu pro mluvení.</translation>
+        <translation type="obsolete">Nastaví, kdy bude Vaše řeč přenášena do internetu.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Stále&lt;/i&gt; - neustálé vysílání&lt;br /&gt;&lt;i&gt;Při hlasové aktivitě&lt;/i&gt; - když je detekována hlasová aktivita .&lt;br /&gt;&lt;i&gt;Mluvení na stisk tlačítka&lt;/i&gt; - mluvení je přenášeno, pouze když držíte stisknutou nadefinovanou klávesu pro mluvení.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="123"/>
@@ -770,42 +775,42 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="225"/>
         <source>How long to keep transmitting after silence</source>
-        <translation>Jak dlouho se ještě vysílá po ukončení hlasové aktivity</translation>
+        <translation type="obsolete">Jak dlouho se ještě vysílá po ukončení hlasové aktivity</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="228"/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</source>
-        <translation>&lt;b&gt;Nastaví, jak dlouho po ukončení hlasových aktivit zůstane vysílání aktivní.&lt;/b&gt;&lt;br /&gt; Nastavte na vyšší hodnotu, pokud je vaše vysílání přerušováno mezi větami (což je vidět i vizuálně na ikonce vedle vašeho jména).&lt;br /&gt;Toto nastavení má smysl pouze pokud je použito vysílání při hlasové aktivitě.</translation>
+        <translation type="obsolete">&lt;b&gt;Nastaví, jak dlouho po ukončení hlasových aktivit zůstane vysílání aktivní.&lt;/b&gt;&lt;br /&gt; Nastavte na vyšší hodnotu, pokud je vaše vysílání přerušováno mezi větami (což je vidět i vizuálně na ikonce vedle vašeho jména).&lt;br /&gt;Toto nastavení má smysl pouze pokud je použito vysílání při hlasové aktivitě.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="425"/>
         <source>Audio per packet</source>
-        <translation>Audio/blok</translation>
+        <translation type="obsolete">Audio/blok</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="435"/>
         <source>How many audio frames to send per packet</source>
-        <translation>Množství úseků zvuku odeslaných v jednom bloku</translation>
+        <translation type="obsolete">Množství úseků zvuku odeslaných v jednom bloku</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="438"/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;Vybere kolik úseků zvuku bude zasíláno v jednom bloku dat.&lt;/b&gt;&lt;br /&gt;Zvětšením této hodnoty se zvětší zpoždění v komunikaci, ale také bude efektivnější využití šířky pásma.</translation>
+        <translation type="obsolete">&lt;b&gt;Vybere kolik úseků zvuku bude zasíláno v jednom bloku dat.&lt;/b&gt;&lt;br /&gt;Zvětšením této hodnoty se zvětší zpoždění v komunikaci, ale také bude efektivnější využití šířky pásma.</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="174"/>
         <source>PTT Audio cue</source>
-        <translation>Zvukový signál na počátku a konci vysílání</translation>
+        <translation type="obsolete">Zvukový signál na počátku a konci vysílání</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="168"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
-        <translation>Slyšitelný zvuk signalizující každý začátek a konec vysílání</translation>
+        <translation type="obsolete">Slyšitelný zvuk signalizující každý začátek a konec vysílání</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="171"/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation>&lt;b&gt;Zahraje krátký signál, když někdo začíná a končí vysílání.&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;Zahraje krátký signál, když někdo začíná a končí vysílání.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="479"/>
@@ -840,7 +845,7 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="475"/>
         <source>Maximum bandwidth used for sent audio</source>
-        <translation>Maximální šířka pásma pro zasílané audio</translation>
+        <translation type="obsolete">Maximální šířka pásma pro zasílané audio</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="265"/>
@@ -855,12 +860,7 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="345"/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kvalita komprese (maximální šířka pásma)</translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="348"/>
-        <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Kvalita komprese (maximální šířka pásma)</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="240"/>
@@ -870,12 +870,7 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="390"/>
         <source>Complexity of compression (CPU)</source>
-        <translation>Síla komprese (zvedne zatížení CPU)</translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="393"/>
-        <source>&lt;b&gt;This sets the complexity of compression.&lt;/b&gt;&lt;br /&gt;This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Síla komprese (zvedne zatížení CPU)</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="262"/>
@@ -885,12 +880,7 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="555"/>
         <source>Maximum amplification of input sound</source>
-        <translation>Maximální zesílení vstupního audio signálu</translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="558"/>
-        <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Maximální zesílení vstupního audio signálu</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="297"/>
@@ -905,17 +895,17 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="63"/>
         <source>None</source>
-        <translation>Žádný</translation>
+        <translation type="obsolete">Žádný</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="64"/>
         <source>Local</source>
-        <translation>Místní</translation>
+        <translation type="obsolete">Místní</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="65"/>
         <source>Server</source>
-        <translation>Server</translation>
+        <translation type="obsolete">Server</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="327"/>
@@ -925,246 +915,613 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="786"/>
         <source>Desired loopback mode</source>
-        <translation>Vyžadovaný režim smyčky</translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="789"/>
-        <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="692"/>
-        <source>Delay Variance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="702"/>
-        <source>Variance in packet latency</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="705"/>
-        <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Vyžadovaný režim smyčky</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="731"/>
         <source>Packet Loss</source>
-        <translation>Ztráta paketů</translation>
+        <translation type="obsolete">Ztráta paketů</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="741"/>
         <source>Packet loss for loopback mode</source>
-        <translation>Ztráta paketů v režimu místní smyčky</translation>
+        <translation type="obsolete">Ztráta paketů v režimu místní smyčky</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="69"/>
         <source>Basic Audio</source>
-        <translation>Zvuk</translation>
+        <translation type="obsolete">Zvuk</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="197"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="obsolete">%1 ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="166"/>
         <source>%1 s</source>
-        <translation>%1 s</translation>
+        <translation type="obsolete">%1 s</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="201"/>
         <source>%1%</source>
-        <translation>%1%</translation>
+        <translation type="obsolete">%1%</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="247"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation>%1kbit/s (Audio %2, Pozice %4, režie %3)</translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.cpp" line="175"/>
-        <source>-%1 dB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="13"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="25"/>
-        <source>&amp;Input</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="67"/>
-        <source>&amp;Output</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="108"/>
-        <source>&amp;Transmit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="215"/>
-        <source>Voice &amp;Hold</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="769"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="478"/>
-        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="335"/>
-        <source>&amp;Quality</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="380"/>
-        <source>&amp;Complexity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="494"/>
-        <source>Audio Processing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="500"/>
-        <source>Noise Suppression</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="510"/>
-        <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="513"/>
-        <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="545"/>
-        <source>Amplification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="593"/>
-        <source>Audio Output</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="599"/>
-        <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="609"/>
-        <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioConfigDialog.ui" line="612"/>
-        <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1kbit/s (Audio %2, Pozice %4, režie %3)</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="644"/>
         <source>Volume</source>
-        <translation type="unfinished">Hlasitost</translation>
+        <translation type="obsolete">Hlasitost</translation>
     </message>
+</context>
+<context>
+    <name>AudioInput</name>
     <message>
-        <location filename="AudioConfigDialog.ui" line="654"/>
-        <source>Volume of incoming speech</source>
+        <location filename="AudioInput.ui" line="13"/>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="657"/>
-        <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
+        <location filename="AudioInput.ui" line="19"/>
+        <source>Interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="744"/>
-        <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
+        <location filename="AudioInput.ui" line="25"/>
+        <source>System</source>
+        <translation type="unfinished">Systém</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="41"/>
+        <source>Input method for audio</source>
+        <translation type="unfinished">Vstupní metoda pro audio</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="44"/>
+        <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="776"/>
-        <source>&amp;Loopback</source>
+        <location filename="AudioInput.ui" line="67"/>
+        <source>Device</source>
+        <translation type="unfinished">Zařízení</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="83"/>
+        <source>Output method for audio</source>
+        <translation type="unfinished">Výstupní metoda pro zvuk</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="86"/>
+        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
+        <translation type="unfinished">&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="93"/>
+        <source>Cancel Echo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="158"/>
-        <source>Off</source>
+        <location filename="AudioInput.ui" line="109"/>
+        <source>Transmission</source>
+        <translation type="unfinished">Přenos</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="115"/>
+        <source>&amp;Transmit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="135"/>
+        <location filename="AudioInput.ui" line="125"/>
+        <source>When to transmit your speech</source>
+        <translation type="unfinished">Kdy vysílat Vaši řeč</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="128"/>
+        <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
+        <translation type="unfinished">Nastaví, kdy bude Vaše řeč přenášena do internetu.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Stále&lt;/i&gt; - neustálé vysílání&lt;br /&gt;&lt;i&gt;Při hlasové aktivitě&lt;/i&gt; - když je detekována hlasová aktivita .&lt;br /&gt;&lt;i&gt;Mluvení na stisk tlačítka&lt;/i&gt; - mluvení je přenášeno, pouze když držíte stisknutou nadefinovanou klávesu pro mluvení.</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="142"/>
         <source>DoublePush Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="187"/>
+        <location filename="AudioInput.ui" line="590"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="175"/>
+        <source>Audible audio cue when push-to-talk pressed and released</source>
+        <translation type="unfinished">Slyšitelný zvuk signalizující každý začátek a konec vysílání</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="178"/>
+        <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
+        <translation type="unfinished">&lt;b&gt;Zahraje krátký signál, když někdo začíná a končí vysílání.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="181"/>
+        <source>PTT Audio cue</source>
+        <translation type="unfinished">Zvukový signál na počátku a konci vysílání</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="194"/>
         <source>Use SNR based speech detection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="190"/>
+        <location filename="AudioInput.ui" line="197"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="193"/>
+        <location filename="AudioInput.ui" line="200"/>
         <source>Signal to Noise</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="200"/>
+        <location filename="AudioInput.ui" line="207"/>
         <source>Use Amplitude based speech detection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="203"/>
+        <location filename="AudioInput.ui" line="210"/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="206"/>
+        <location filename="AudioInput.ui" line="213"/>
         <source>Amplitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="257"/>
+        <location filename="AudioInput.ui" line="222"/>
+        <source>Voice &amp;Hold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="232"/>
+        <source>How long to keep transmitting after silence</source>
+        <translation type="unfinished">Jak dlouho se ještě vysílá po ukončení hlasové aktivity</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="235"/>
+        <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</source>
+        <translation type="unfinished">&lt;b&gt;Nastaví, jak dlouho po ukončení hlasových aktivit zůstane vysílání aktivní.&lt;/b&gt;&lt;br /&gt; Nastavte na vyšší hodnotu, pokud je vaše vysílání přerušováno mezi větami (což je vidět i vizuálně na ikonce vedle vašeho jména).&lt;br /&gt;Toto nastavení má smysl pouze pokud je použito vysílání při hlasové aktivitě.</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="264"/>
         <source>Silence Below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="264"/>
+        <location filename="AudioInput.ui" line="271"/>
         <source>Signal values below this counts as silence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="299"/>
+        <location filename="AudioInput.ui" line="306"/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="289"/>
+        <location filename="AudioInput.ui" line="296"/>
         <source>Speech Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.ui" line="296"/>
+        <location filename="AudioInput.ui" line="303"/>
         <source>Signal values above this count as voice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="336"/>
+        <source>Compression</source>
+        <translation type="unfinished">Komprese</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="342"/>
+        <source>&amp;Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="352"/>
+        <source>Quality of compression (peak bandwidth)</source>
+        <translation type="unfinished">Kvalita komprese (maximální šířka pásma)</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="355"/>
+        <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="387"/>
+        <source>&amp;Complexity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="397"/>
+        <source>Complexity of compression (CPU)</source>
+        <translation type="unfinished">Síla komprese (zvedne zatížení CPU)</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="400"/>
+        <source>&lt;b&gt;This sets the complexity of compression.&lt;/b&gt;&lt;br /&gt;This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="432"/>
+        <source>Audio per packet</source>
+        <translation type="unfinished">Audio/blok</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="442"/>
+        <source>How many audio frames to send per packet</source>
+        <translation type="unfinished">Množství úseků zvuku odeslaných v jednom bloku</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="445"/>
+        <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
+        <translation type="unfinished">&lt;b&gt;Vybere kolik úseků zvuku bude zasíláno v jednom bloku dat.&lt;/b&gt;&lt;br /&gt;Zvětšením této hodnoty se zvětší zpoždění v komunikaci, ale také bude efektivnější využití šířky pásma.</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="482"/>
+        <source>Maximum bandwidth used for sent audio</source>
+        <translation type="unfinished">Maximální šířka pásma pro zasílané audio</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="485"/>
+        <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="501"/>
+        <source>Audio Processing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="507"/>
+        <source>Noise Suppression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="517"/>
+        <source>Noise suppression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="520"/>
+        <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="552"/>
+        <source>Amplification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="562"/>
+        <source>Maximum amplification of input sound</source>
+        <translation type="unfinished">Maximální zesílení vstupního audio signálu</translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui" line="565"/>
+        <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AudioInputDialog</name>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="64"/>
+        <source>Continuous</source>
+        <translation type="unfinished">Stále</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="65"/>
+        <source>Voice Activity</source>
+        <translation type="unfinished">Při hlasové aktivitě</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="66"/>
+        <source>Push To Talk</source>
+        <translation type="unfinished">Mluvení pouze na stisk tlačítka</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="70"/>
+        <source>Audio Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="157"/>
+        <source>%1 ms</source>
+        <translation type="unfinished">%1 ms</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="155"/>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="163"/>
+        <source>%1 s</source>
+        <translation type="unfinished">%1 s</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="172"/>
+        <source>-%1 dB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="227"/>
+        <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
+        <translation type="unfinished">%1kbit/s (Audio %2, Pozice %4, režie %3)</translation>
+    </message>
+</context>
+<context>
+    <name>AudioOutput</name>
+    <message>
+        <location filename="AudioOutput.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="19"/>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="25"/>
+        <source>System</source>
+        <translation type="unfinished">Systém</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="41"/>
+        <source>Input method for audio</source>
+        <translation type="unfinished">Vstupní metoda pro audio</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="44"/>
+        <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="67"/>
+        <source>Device</source>
+        <translation type="unfinished">Zařízení</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="83"/>
+        <source>Output method for audio</source>
+        <translation type="unfinished">Výstupní metoda pro zvuk</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="86"/>
+        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
+        <translation type="unfinished">&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="93"/>
+        <source>Positional Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="103"/>
+        <source>Audio Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="109"/>
+        <source>Default &amp;Jitter Buffer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="119"/>
+        <source>Safety margin for jitter buffer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="122"/>
+        <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="531"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="154"/>
+        <source>Volume</source>
+        <translation type="unfinished">Hlasitost</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="164"/>
+        <source>Volume of incoming speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="167"/>
+        <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="193"/>
+        <source>Output Delay</source>
+        <translation type="unfinished">Výstupní opoždění</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="203"/>
+        <source>Amount of data to buffer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="206"/>
+        <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="238"/>
+        <source>Volume attenuation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="244"/>
+        <source>MinDistance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="254"/>
+        <source>Minimum distance to player before sound decreases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="257"/>
+        <source>This sets the minimum distance for sound calculations. The volume of other players&apos; speech will not decrease until they are at least this far away from you.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="286"/>
+        <source>MaxDistance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="296"/>
+        <source>Maximum distance, beyond which sound won&apos;t decrease</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="299"/>
+        <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="328"/>
+        <source>RollOff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="416"/>
+        <source>Factor for sound volume decrease</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="419"/>
+        <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="367"/>
+        <source>Bloom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="406"/>
+        <source>Minimum Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="448"/>
+        <source>Loopback Test</source>
+        <translation type="unfinished">Testování místním propojením do smyčky</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="454"/>
+        <source>Delay Variance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="464"/>
+        <source>Variance in packet latency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="467"/>
+        <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="493"/>
+        <source>Packet Loss</source>
+        <translation type="unfinished">Ztráta paketů</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="503"/>
+        <source>Packet loss for loopback mode</source>
+        <translation type="unfinished">Ztráta paketů v režimu místní smyčky</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="506"/>
+        <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="538"/>
+        <source>&amp;Loopback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="548"/>
+        <source>Desired loopback mode</source>
+        <translation type="unfinished">Vyžadovaný režim smyčky</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="551"/>
+        <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AudioOutputDialog</name>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="278"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="279"/>
+        <source>Local</source>
+        <translation type="unfinished">Místní</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="280"/>
+        <source>Server</source>
+        <translation type="unfinished">Server</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="284"/>
+        <source>Audio Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="371"/>
+        <source>%1 ms</source>
+        <translation type="unfinished">%1 ms</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="414"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1%</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="379"/>
+        <source>%1ms</source>
+        <translation type="unfinished">%1ms</translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="400"/>
+        <source>%1m</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioConfigDialog.cpp" line="406"/>
+        <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1291,7 +1648,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="369"/>
+        <location filename="AudioStats.cpp" line="370"/>
         <source>&gt;1000ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1389,192 +1746,192 @@
         <translation>Průvodce nastavením zvuku</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="78"/>
+        <location filename="AudioWizard.cpp" line="83"/>
         <source>Introduction</source>
         <translation>Úvod</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="79"/>
+        <location filename="AudioWizard.cpp" line="84"/>
         <source>Welcome to the Mumble Audio Wizard</source>
         <translation>Vítejte v průvodci pro nastavení zvuku pro aplikaci Mumble</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="82"/>
+        <location filename="AudioWizard.cpp" line="87"/>
         <source>This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.</source>
         <translation>Toto je průvodce nastavení zvuku pro Mumble. Pomůže vám  správně nastavit vstupní úrovně na zvukové kartě a také vybrat vhodné parametry pro zpracování zvuku v Mumble.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="87"/>
+        <location filename="AudioWizard.cpp" line="92"/>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
         <translation>Prosím všimněte si, že dokud je průvodce aktivní, zvuk bude používán pouze místně, abyste si jej mohli poslechnout - žádné zvuky se nepřenesou na případně připojený server.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="97"/>
+        <location filename="AudioWizard.cpp" line="102"/>
         <source>Finished</source>
         <translation>Dokončeno</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="98"/>
+        <location filename="AudioWizard.cpp" line="103"/>
         <source>Enjoy using Mumble</source>
         <translation>Mumble je připraveno k použití</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="100"/>
+        <location filename="AudioWizard.cpp" line="105"/>
         <source>Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.</source>
         <translation>Blahopřejeme. Nyní si můžete plně užít zvukovou komunikaci s Mumble.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="113"/>
+        <location filename="AudioWizard.cpp" line="118"/>
         <source>Device selection</source>
         <translation>Výběr zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="114"/>
+        <location filename="AudioWizard.cpp" line="119"/>
         <source>Selecting the input and output device to use with Mumble.</source>
         <translation>Vyberte vstupní a výstupní zvukové zařízení pro použití v Mumble.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="117"/>
+        <location filename="AudioWizard.cpp" line="122"/>
         <source>Input device</source>
         <translation>Vstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="120"/>
+        <location filename="AudioWizard.cpp" line="125"/>
         <source>This is the device your microphone is connected to.</source>
         <translation>Zařízení pro zvukový vstup (s mikrofonem).</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="181"/>
+        <location filename="AudioWizard.cpp" line="186"/>
         <source>System</source>
         <translation>Systém</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="137"/>
+        <location filename="AudioWizard.cpp" line="142"/>
         <source>Input method for audio</source>
         <translation>Vstupní metoda pro audio</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="138"/>
+        <location filename="AudioWizard.cpp" line="143"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;To je metoda pro zaznamenávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="197"/>
+        <location filename="AudioWizard.cpp" line="202"/>
         <source>Device</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="153"/>
+        <location filename="AudioWizard.cpp" line="158"/>
         <source>Input device to use</source>
         <translation>Vstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="154"/>
+        <location filename="AudioWizard.cpp" line="159"/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vyberte zvukovou kartu, která bude snímat zvuk.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="164"/>
+        <location filename="AudioWizard.cpp" line="169"/>
         <source>Output device</source>
         <translation>Výstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="167"/>
+        <location filename="AudioWizard.cpp" line="172"/>
         <source>This is the device your speakers or headphones are connected to.</source>
         <translation>Zařízení, ke kterému jsou připojeny sluchátka nebo mikrofon.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="184"/>
+        <location filename="AudioWizard.cpp" line="189"/>
         <source>Output method for audio</source>
         <translation>Výstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="185"/>
+        <location filename="AudioWizard.cpp" line="190"/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="200"/>
+        <location filename="AudioWizard.cpp" line="205"/>
         <source>Output device to use</source>
         <translation>Výstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="201"/>
+        <location filename="AudioWizard.cpp" line="206"/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vyberte zvukovou kartu, která bude přehrávat zvuk.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="223"/>
+        <location filename="AudioWizard.cpp" line="228"/>
         <source>Volume tuning</source>
         <translation>Vyladění hlasitosti</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="224"/>
+        <location filename="AudioWizard.cpp" line="229"/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
         <translation>Nastavení hlasitosti mikrofonu pro optimální hlasitost.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="230"/>
+        <location filename="AudioWizard.cpp" line="235"/>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
         <translation>Otevřete ovládací panel nastavení zvuku a jděte do nastavení záznamu. Ujistěte se, že mikrofon je vybrán jako aktivní vstup a má maximální hlasitost pro záznam. Pokud je k dispozici volba &quot;Microphone boost&quot;, určitě ji zapněte.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="237"/>
+        <location filename="AudioWizard.cpp" line="242"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
         <translation>Mluvte nahlas, jako kdybyste byl podrážděn nebo nadšen. Během mluvení nastavte hlasitost v ovladacim panelu zvuku tak, aby monitorovaný zvuk byl co možná nejvýše v modré a zelené oblastí, ale aby &lt;b&gt;nezasahoval&lt;/b&gt; do oblasti rudé.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="246"/>
+        <location filename="AudioWizard.cpp" line="251"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
         <translation>Nyní se uvolněte a mluvte potichu, jako kdyby byla pozdní noc a nechtěli jste nikoho rušit ve spánku. Nastavte táhlo pod tímto textem tak, aby monitorovaný zvuk byl v zelené oblasti při mluvení, ale aby bezpečně zůstal v modré oblasti, když jste potichu.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="266"/>
+        <location filename="AudioWizard.cpp" line="271"/>
         <source>Voice Activity Detection</source>
         <translation>Detekce hlasové aktivity</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="267"/>
+        <location filename="AudioWizard.cpp" line="272"/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
         <translation>Mumble umí rozpoznávat mluvení a ticho.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="272"/>
+        <location filename="AudioWizard.cpp" line="277"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
         <translation>Toto pomůže aplikaci Mumble rozpoznat, kdy mluvíte. První krok je výběr, podle které hodnoty se má provádět rozpoznání.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="276"/>
+        <location filename="AudioWizard.cpp" line="281"/>
         <source>Raw amplitude from input</source>
         <translation>Hlasitost vstupu</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="280"/>
+        <location filename="AudioWizard.cpp" line="285"/>
         <source>Signal-To-Noise ratio</source>
         <translation>Poměr zvuku k šumu</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="302"/>
+        <location filename="AudioWizard.cpp" line="307"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <translation>Nyní je potřeba nastavit následující dvě hodnoty. Prvních několik vašich slabik by mělo skončit v zelené oblasti (rozpoznáno jako řeč). Pokud mluvíte, měl by monitor zůstávat ve žluté (rozpoznáno jako pravděpopdobná řeč). Když nemluvíte, vše by mělo být v červené oblasti (to dozajista není řeč).</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="325"/>
+        <location filename="AudioWizard.cpp" line="330"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
         <translation>Nakonec je potřeba nastavit čas prodlevy, kdy je po skončení řeči stále ješte mikrofon zapnut a můžete tak během řeči udělat malou pauzu, aniž by byl přenos ukončen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="354"/>
+        <location filename="AudioWizard.cpp" line="359"/>
         <source>Device tuning</source>
         <translation>Vyladění zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="355"/>
+        <location filename="AudioWizard.cpp" line="360"/>
         <source>Changing hardware output delays to their minimum value.</source>
         <translation>Změní výstupní parametry zvuku tak, aby prodleva v komunikaci mohla být minimální.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="361"/>
+        <location filename="AudioWizard.cpp" line="366"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>Aby zpoždění při komunikaci mohlo být minimalizováno, je důležité nastavit výstupní vyrovnávací paměť co nejmenší. Mnohé zvukové karty hlásí, že neumějí používat malé velikosti vyrovnávací paměti, i když to jinak technicky je možné, takže jediná možnost, jak zjistit nejmenší vhodnou hodnotu je pokud a omyl.</translation>
     </message>
@@ -1584,42 +1941,42 @@
         <translation type="obsolete">Nyní byste měli slyšet zvukový akord. Změňte nastavení pod tímto textem na nejmenší hodnotu, která bude fungovat &lt;b&gt;bez&lt;/b&gt; přerušování nebo cvakání ve zvuku.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="382"/>
+        <location filename="AudioWizard.cpp" line="387"/>
         <source>Amount of data to buffer.</source>
         <translation>Velikost zásobníku pro výstup.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="385"/>
+        <location filename="AudioWizard.cpp" line="390"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>To nastaví množství dat, která budou v výstupním zásobníku aplikace, než se pošlou na zvukový výstup. Experimentujte s rozdílnými hodnotami a nastavte si nejmenší hodnotu, která nezpůsobí přerušování nebo cvakání ve zvuku.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="473"/>
+        <location filename="AudioWizard.cpp" line="490"/>
         <source>%1ms</source>
         <translation>%1ms</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="606"/>
+        <location filename="AudioWizard.cpp" line="624"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="367"/>
+        <location filename="AudioWizard.cpp" line="372"/>
         <source>You should hear a single tone that&apos;s changing in frequency. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test to improve audio path recognition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="391"/>
+        <location filename="AudioWizard.cpp" line="396"/>
         <source>If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path delay in your system; this means the delay from a sample is placed in an outbound buffer until it&apos;s found in a matching incoming buffer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="587"/>
+        <location filename="AudioWizard.cpp" line="605"/>
         <source>Audio path is %1ms long.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="589"/>
+        <location filename="AudioWizard.cpp" line="607"/>
         <source>Audio path cannot be determined. Input not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1853,12 +2210,12 @@
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="105"/>
+        <location filename="ConfigDialog.cpp" line="111"/>
         <source>Accept changes</source>
         <translation>Potvrdit změny</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="107"/>
+        <location filename="ConfigDialog.cpp" line="113"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Toto tlačítko potvrdí současné nastavení a navrátí se do aplikace.&lt;br /&gt;Nastavení bude uloženo na disku při ukončení aplikace.</translation>
     </message>
@@ -1868,12 +2225,12 @@
         <translation type="obsolete">&amp;Zrušit</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="110"/>
+        <location filename="ConfigDialog.cpp" line="116"/>
         <source>Reject changes</source>
         <translation>Odmítnout nové změny</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="112"/>
+        <location filename="ConfigDialog.cpp" line="118"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Tímto tlačítkem můžete odmítnout nastavované změny a vrátit se do aplikace.&lt;br /&gt;Nastavení nebude změněno.</translation>
     </message>
@@ -1883,32 +2240,32 @@
         <translation type="obsolete">&amp;Použít</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="115"/>
+        <location filename="ConfigDialog.cpp" line="121"/>
         <source>Apply changes</source>
         <translation>Potvrdit změny</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="116"/>
+        <location filename="ConfigDialog.cpp" line="122"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Toto tlačítko okamžitě provede všechny vybrané změny.</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="119"/>
+        <location filename="ConfigDialog.cpp" line="125"/>
         <source>Undo changes for current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="120"/>
+        <location filename="ConfigDialog.cpp" line="126"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="123"/>
+        <location filename="ConfigDialog.cpp" line="129"/>
         <source>Restore defaults for current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="126"/>
+        <location filename="ConfigDialog.cpp" line="132"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1971,9 +2328,9 @@
         <translation>&amp;Připojit</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="136"/>
+        <location filename="ConnectDialog.ui" line="217"/>
         <source>Cancel</source>
-        <translation type="obsolete">Zrušit</translation>
+        <translation type="unfinished">Zrušit</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="145"/>
@@ -2001,32 +2358,32 @@
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="217"/>
+        <location filename="ConnectDialog.ui" line="224"/>
         <source>C&amp;opy to custom</source>
         <translation>Zk&amp;opírovat do seznamu mých serverů</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="224"/>
+        <location filename="ConnectDialog.ui" line="231"/>
         <source>&amp;View Webpage</source>
         <translation>Otevřít &amp;Webovou stránku</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="98"/>
+        <location filename="ConnectDialog.cpp" line="115"/>
         <source>Connecting to %1</source>
         <translation>Připojování k %1</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="98"/>
+        <location filename="ConnectDialog.cpp" line="115"/>
         <source>Enter username</source>
         <translation>Zadejte jmého uživatele</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="194"/>
+        <location filename="ConnectDialog.cpp" line="211"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="194"/>
+        <location filename="ConnectDialog.cpp" line="211"/>
         <source>Failed to fetch server list</source>
         <translation>Selhalo stažení seznamu dostupných serverů</translation>
     </message>
@@ -2041,12 +2398,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="180"/>
+        <location filename="ConnectDialog.cpp" line="197"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="312"/>
+        <location filename="ConnectDialog.cpp" line="329"/>
         <source>-Unnamed entry-</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2061,17 +2418,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="255"/>
+        <location filename="ConnectDialog.cpp" line="272"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="332"/>
+        <location filename="ConnectDialog.cpp" line="349"/>
         <source>Add</source>
         <translation type="unfinished">Přidat</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="330"/>
+        <location filename="ConnectDialog.cpp" line="347"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2079,37 +2436,47 @@
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DXAudioInput.cpp" line="166"/>
+        <location filename="DXAudioInput.cpp" line="170"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="161"/>
+        <location filename="DXAudioInput.cpp" line="165"/>
         <source>Opening chosen DirectSound Input failed. No microphone capture will be done.</source>
         <translation>Otevírání vybraného vstupu DirectSound selhalo. Nebude prováděn záznam mikrofonu.</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="166"/>
+        <location filename="DXAudioInput.cpp" line="170"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Otevírání vybraného vstupu DirectSound  selhalo. Bude použito výchozí zařízení.</translation>
+    </message>
+    <message>
+        <location filename="DXAudioInput.cpp" line="72"/>
+        <source>Default DirectSound Voice Input</source>
+        <translation type="unfinished">Výchozí DirectSound hlasový vstup</translation>
     </message>
 </context>
 <context>
     <name>DXAudioOutput</name>
     <message>
-        <location filename="DXAudioOutput.cpp" line="409"/>
+        <location filename="DXAudioOutput.cpp" line="395"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="404"/>
+        <location filename="DXAudioOutput.cpp" line="390"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>Otevírání vybraného výstupu DirectSound selhalo. Nebude slyšet žádný zvukový výstup.</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="409"/>
+        <location filename="DXAudioOutput.cpp" line="395"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>Otevírání vybraného výstupu DirectSound  selhalo. Bude použito výchozí zařízení.</translation>
+    </message>
+    <message>
+        <location filename="DXAudioOutput.cpp" line="82"/>
+        <source>Default DirectSound Voice Output</source>
+        <translation type="unfinished">Výchozí DirectSound hlasový výstup</translation>
     </message>
 </context>
 <context>
@@ -2117,198 +2484,83 @@
     <message>
         <location filename="DXConfigDialog.cpp" line="57"/>
         <source>Default DirectSound Voice Input</source>
-        <translation>Výchozí DirectSound hlasový vstup</translation>
+        <translation type="obsolete">Výchozí DirectSound hlasový vstup</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="58"/>
         <source>Default DirectSound Voice Output</source>
-        <translation>Výchozí DirectSound hlasový výstup</translation>
+        <translation type="obsolete">Výchozí DirectSound hlasový výstup</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="19"/>
         <source>Device selection</source>
-        <translation>Výběr zařízení</translation>
+        <translation type="obsolete">Výběr zařízení</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="32"/>
         <source>Device to use for microphone</source>
-        <translation>Zařízení, na kterém je mikrofon</translation>
+        <translation type="obsolete">Zařízení, na kterém je mikrofon</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="35"/>
         <source>This sets the input device to use, which is where you have connected the microphone.</source>
-        <translation>Tohle zařízení bude použito pro zvukový vstup, měl by tam být připojen mikrofon.</translation>
+        <translation type="obsolete">Tohle zařízení bude použito pro zvukový vstup, měl by tam být připojen mikrofon.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="25"/>
         <source>Input</source>
-        <translation>Vstup</translation>
+        <translation type="obsolete">Vstup</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="49"/>
         <source>Device to use for speakers/headphones</source>
-        <translation>Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
+        <translation type="obsolete">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="52"/>
         <source>This sets the output device to use, which is where you have connected your speakers or your headset.</source>
-        <translation>Tohle zařízení bude použito pro zvukový výstup, měly by tam být připojeny bedničky nebo sluchátka.</translation>
+        <translation type="obsolete">Tohle zařízení bude použito pro zvukový výstup, měly by tam být připojeny bedničky nebo sluchátka.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="42"/>
         <source>Output</source>
-        <translation>Výstup</translation>
+        <translation type="obsolete">Výstup</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="62"/>
         <source>Output Options</source>
-        <translation>Výstupní volby</translation>
+        <translation type="obsolete">Výstupní volby</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="68"/>
         <source>Output Delay</source>
-        <translation>Výstupní opoždění</translation>
+        <translation type="obsolete">Výstupní opoždění</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="75"/>
         <source>Amount of data to buffer for DirectSound</source>
-        <translation>Velikost datového zásobníku pro DirectSound</translation>
+        <translation type="obsolete">Velikost datového zásobníku pro DirectSound</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="78"/>
         <source>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Nastaví velikost dat pro výstupní zásobník. Zkoušejte různé hodnoty a nastavte to na nejmenší hodnotu, která nezpůsobuje rychlé cvakání ve zvuku.</translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="113"/>
-        <source>Positional Audio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="74"/>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="75"/>
-        <source>Panning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="76"/>
-        <source>Light HRTF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="77"/>
-        <source>Full HRTF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="129"/>
-        <source>3D Sound Algorithm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="132"/>
-        <source>This sets what 3D Sound algorithm to use.&lt;br /&gt;&lt;b&gt;None&lt;/b&gt; - Disable 3D Sound (least CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Just use stereo panning (some CPU).&lt;br /&gt;&lt;b&gt;Light/Full HRTF&lt;/b&gt; - Head-Related Transfer Functions enabled. This may use a small amount of CPU.&lt;br /&gt;Note that if you have a soundcard with &lt;i&gt;hardware&lt;/i&gt; 3D processing, HRTF processing will be done on the soundcard and will use practically no processing power.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="119"/>
-        <source>Method</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="139"/>
-        <source>MinDistance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="149"/>
-        <source>Minimum distance to player before sound decreases</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="152"/>
-        <source>This sets the minimum distance for sound calculations. The volume of other players&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="181"/>
-        <source>MaxDistance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="191"/>
-        <source>Maximum distance, beyond which sound won&apos;t decrease</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="194"/>
-        <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="223"/>
-        <source>RollOff</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="233"/>
-        <source>Factor for sound volume decrease</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="236"/>
-        <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="81"/>
-        <source>DirectSound</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Nastaví velikost dat pro výstupní zásobník. Zkoušejte různé hodnoty a nastavte to na nejmenší hodnotu, která nezpůsobuje rychlé cvakání ve zvuku.</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="128"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="138"/>
-        <source>%1m</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="146"/>
-        <source>%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.cpp" line="156"/>
-        <source>Players more than %1 meters away have %2% intensity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="13"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DXConfigDialog.ui" line="262"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1ms</translation>
     </message>
 </context>
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="95"/>
+        <location filename="Database.cpp" line="97"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="Database.cpp" line="95"/>
+        <location filename="Database.cpp" line="97"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble nedokazalo inicializovat databázi
@@ -2357,6 +2609,14 @@ v žádném z možných míst.</translation>
     </message>
 </context>
 <context>
+    <name>GlobalShortcutMacInit</name>
+    <message>
+        <location filename="GlobalShortcut_macx.cpp" line="70"/>
+        <source>Mumble has detected that it is unable to receieve Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcutWinConfig</name>
     <message>
         <location filename="GlobalShortcut_win.cpp" line="168"/>
@@ -2387,7 +2647,7 @@ v žádném z možných míst.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="240"/>
+        <location filename="GlobalShortcut_unix.cpp" line="239"/>
         <source>Mouse %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2714,7 +2974,7 @@ v žádném z možných míst.</translation>
         <translation>Rozhraní</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="150"/>
+        <location filename="LookConfig.cpp" line="153"/>
         <source>Choose skin file</source>
         <translation>Vyberte soubor s motivem</translation>
     </message>
@@ -2747,22 +3007,22 @@ v žádném z možných míst.</translation>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="897"/>
+        <location filename="MainWindow.cpp" line="922"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="136"/>
+        <location filename="MainWindow.ui" line="128"/>
         <source>&amp;Quit Mumble</source>
         <translation type="unfinished">&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="139"/>
+        <location filename="MainWindow.ui" line="131"/>
         <source>Closes the program</source>
         <translation>Uzavře aplikaci</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="142"/>
+        <location filename="MainWindow.ui" line="134"/>
         <source>Exits the application.</source>
         <translation>Ukončí aplikaci.</translation>
     </message>
@@ -2773,112 +3033,112 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">Ukončit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="150"/>
+        <location filename="MainWindow.ui" line="142"/>
         <source>&amp;Connect</source>
         <translation>&amp;Připojit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="153"/>
+        <location filename="MainWindow.ui" line="145"/>
         <source>Open the server connection dialog</source>
         <translation>Otevřít dialog nastavení spojení se serverem</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="156"/>
+        <location filename="MainWindow.ui" line="148"/>
         <source>Shows a dialog of registered servers, and also allows quick connect.</source>
         <translation>Ukáže dialog registrovaných serverů a umožňuje tak rychlé a snadné připojení k nim.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="164"/>
+        <location filename="MainWindow.ui" line="156"/>
         <source>&amp;Disconnect</source>
         <translation>&amp;Odpojit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="167"/>
+        <location filename="MainWindow.ui" line="159"/>
         <source>Disconnect from server</source>
         <translation>Odpojit od serveru</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="170"/>
+        <location filename="MainWindow.ui" line="162"/>
         <source>Disconnects you from the server.</source>
         <translation>Odpojí  k serveru otevřená spojení.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="178"/>
+        <location filename="MainWindow.ui" line="170"/>
         <source>&amp;Ban lists</source>
         <translation>Seznam &amp;zákazů</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="181"/>
+        <location filename="MainWindow.ui" line="173"/>
         <source>Edit ban lists on server</source>
         <translation>Upravit seznam banů</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="184"/>
+        <location filename="MainWindow.ui" line="176"/>
         <source>This lets you edit the server-side IP ban lists.</source>
         <translation>Tady můžete upravit seznam banů (zakázaných ip adres) pro server.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="203"/>
+        <location filename="MainWindow.ui" line="195"/>
         <source>&amp;Kick</source>
         <translation>&amp;Vykopnout</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="206"/>
+        <location filename="MainWindow.ui" line="198"/>
         <source>Kick player (with reason)</source>
         <translation>Vykonout uživatele s odůvodněním)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="209"/>
+        <location filename="MainWindow.ui" line="201"/>
         <source>Kick selected player off server. You&apos;ll be asked to specify a reason.</source>
         <translation>Vykopne vybraného uživatele ze serveru. Budete dotázán na důvod.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="228"/>
+        <location filename="MainWindow.ui" line="220"/>
         <source>&amp;Ban</source>
         <translation>Zákaz (&amp;ban)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="231"/>
+        <location filename="MainWindow.ui" line="223"/>
         <source>Kick and ban player (with reason)</source>
         <translation>Vykopnout a zakázat uživatele (s odůvodněním)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="234"/>
+        <location filename="MainWindow.ui" line="226"/>
         <source>Kick and ban selected player from server. You&apos;ll be asked to specify a reason.</source>
         <translation>Vykopne a zakáže vybraného uživatele. Budete požádání o doplnění důvodu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="217"/>
+        <location filename="MainWindow.ui" line="209"/>
         <source>&amp;Mute</source>
         <translation>Vypnout &amp;mluvení</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="220"/>
+        <location filename="MainWindow.ui" line="212"/>
         <source>Mute player</source>
         <translation>Zakázat uživateli mluvit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="223"/>
+        <location filename="MainWindow.ui" line="215"/>
         <source>Mute or unmute player on server. Unmuting a deafened player will also undeafen them.</source>
         <translation>Zakáže vybranému uživateli na serveru schopost mluvit, nebo mu ji opět vrátí. Vrácením práva mluvit uživateli s vypnutým poslechem se mu zároveň zapne poslech.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="242"/>
+        <location filename="MainWindow.ui" line="234"/>
         <source>&amp;Deafen</source>
         <translation>Zakázat &amp;poslouchání</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="245"/>
+        <location filename="MainWindow.ui" line="237"/>
         <source>Deafen player</source>
         <translation>Vypnout poslech uživateli</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="248"/>
+        <location filename="MainWindow.ui" line="240"/>
         <source>Deafen or undeafen player on server. Deafening a player will also mute them.</source>
         <translation>Vypnout/zapnout poslech uživateli.  Vypnutím poslechu se uživateli zároveň zakáže mluvit.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="256"/>
+        <location filename="MainWindow.ui" line="248"/>
         <source>&amp;Local Mute</source>
         <translation>Lokální um&amp;lčení</translation>
     </message>
@@ -2888,252 +3148,252 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">Lokální zákaz/povolení mluvení uživateli. </translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="521"/>
+        <location filename="MainWindow.ui" line="511"/>
         <source>Send Messa&amp;ge</source>
         <translation>&amp;Odeslat zprávu</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="524"/>
+        <location filename="MainWindow.ui" line="514"/>
         <source>Send a Text Message</source>
         <translation>Odeslat textovou zprávu</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="273"/>
+        <location filename="MainWindow.ui" line="265"/>
         <source>Sends a text message to another user.</source>
         <translation>Pošle textovou zprávu jinému uživateli.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="278"/>
+        <location filename="MainWindow.ui" line="270"/>
         <source>&amp;Add</source>
         <translation>&amp;Přidat</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="281"/>
+        <location filename="MainWindow.ui" line="273"/>
         <source>Add new channel</source>
         <translation>Přidat nový kanál</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="284"/>
+        <location filename="MainWindow.ui" line="276"/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
         <translation>Přidá nový kanál do vybraného kanálu. </translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="289"/>
+        <location filename="MainWindow.ui" line="281"/>
         <source>&amp;Remove</source>
         <translation>Odst&amp;ranit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="292"/>
+        <location filename="MainWindow.ui" line="284"/>
         <source>Remove channel</source>
         <translation>Odstranit kanál</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="295"/>
+        <location filename="MainWindow.ui" line="287"/>
         <source>This removes a channel and all sub-channels.</source>
         <translation>Odstraní kanál a všechny jeho podkanály.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="300"/>
+        <location filename="MainWindow.ui" line="292"/>
         <source>&amp;Edit ACL</source>
         <translation>Uprav&amp;it ACL</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="303"/>
+        <location filename="MainWindow.ui" line="295"/>
         <source>Edit Groups and ACL for channel</source>
         <translation>Upravit Skupiny a ACL pro kanál</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="306"/>
+        <location filename="MainWindow.ui" line="298"/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
         <translation>Otevře dialogové okno skupin a ACL daného kanálu. Zde se mohou nastavit oprávnění k určitým operacím.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="322"/>
+        <location filename="MainWindow.ui" line="314"/>
         <source>&amp;Link</source>
         <translation>&amp;Propojit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="325"/>
+        <location filename="MainWindow.ui" line="317"/>
         <source>Link your channel to another channel</source>
         <translation>Propojí současný kanál s kanálem označeným kurzorem</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="328"/>
+        <location filename="MainWindow.ui" line="320"/>
         <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <translation>Propojí současný kanál s vybraným kanálem. Pokud mají povoleno mluvit, uslyší se účastníci navzájem. Toto spojení bude fungovat až do jeho zrušení nebo do restartování serveru. </translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="419"/>
+        <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
         <translation>O&amp;dpojit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="336"/>
+        <location filename="MainWindow.ui" line="328"/>
         <source>Unlink your channel from another channel</source>
         <translation>Zruší propojení současného a zvoleného kanálu</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="339"/>
+        <location filename="MainWindow.ui" line="331"/>
         <source>This unlinks your current channel from the selected channel.</source>
         <translation>Zruší propojení mezi současným a vybraným kanálem.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="344"/>
+        <location filename="MainWindow.ui" line="336"/>
         <source>Unlink &amp;All</source>
         <translation>Odpoj&amp;it vše</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="347"/>
+        <location filename="MainWindow.ui" line="339"/>
         <source>Unlinks your channel from all linked channels.</source>
         <translation>Zruší propojení sučasného kanálu ke všem kanálům s ním spojeným.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="350"/>
+        <location filename="MainWindow.ui" line="342"/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
         <translation>Zruší propojení mezi současným kanálem uživatele a všech kanálů, které jsou s tímto kanálem propojeny. </translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="355"/>
+        <location filename="MainWindow.ui" line="347"/>
         <source>&amp;Reset</source>
         <translation>&amp;Resetovat audio</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="358"/>
+        <location filename="MainWindow.ui" line="350"/>
         <source>Reset audio preprocessor</source>
         <translation>Resetuje zvukový preprocesor</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="361"/>
+        <location filename="MainWindow.ui" line="353"/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
         <translation>Resetuje zvukový preprocesor, včetně rušení šumu, automatické hlasitosti a detekce hlasové aktivity. Pokud se nějak náhle zhorší zvukové prostředí (například při upuštění mikrofonu na stůl) a příčina problémů odezní, jde tak rychle znovunastavit rozumné hodnoty.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="369"/>
+        <location filename="MainWindow.ui" line="361"/>
         <source>&amp;Mute Self</source>
         <translation>Vypnout si &amp;mluvení</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="372"/>
+        <location filename="MainWindow.ui" line="364"/>
         <source>Mute yourself</source>
         <translation>Zakázat si mluvení</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="375"/>
+        <location filename="MainWindow.ui" line="367"/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
         <translation>Zakázat/povolit si mluvení.  Když je zakázáno mluvení, neposílají se na server žádná zvuková data. Povolením mluvení se zároveň zapína poslech.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="383"/>
+        <location filename="MainWindow.ui" line="375"/>
         <source>&amp;Deafen Self</source>
         <translation>Vypnout si &amp;poslech</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="386"/>
+        <location filename="MainWindow.ui" line="378"/>
         <source>Deafen yourself</source>
         <translation>Vypnout si poslech</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="389"/>
+        <location filename="MainWindow.ui" line="381"/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
         <translation>Vypnout si poslech. Tak neuslyšíte komunikaci. Vypnutí poslechu automaticky zároveň zakáže mluvení.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="397"/>
+        <location filename="MainWindow.ui" line="389"/>
         <source>&amp;Text-To-Speech</source>
         <translation>Výstup &amp;textu do hlasové syntézy</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="400"/>
+        <location filename="MainWindow.ui" line="392"/>
         <source>Toggle Text-To-Speech</source>
         <translation>Přepnout výstup textu do hlasové syntézy</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="403"/>
+        <location filename="MainWindow.ui" line="395"/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
         <translation>Povolí nebo zakáže převod textu na počítačem mluvený hlas. Budou přečtena pouze textová hlášení, u kterých je to nastaveno v konfiguračním dialogu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="408"/>
+        <location filename="MainWindow.ui" line="400"/>
         <source>S&amp;tatistics</source>
         <translation>S&amp;tatistika</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="411"/>
+        <location filename="MainWindow.ui" line="403"/>
         <source>Display audio statistics</source>
         <translation>Zobrazí zvukovou statistiku</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="414"/>
+        <location filename="MainWindow.ui" line="406"/>
         <source>Pops up a small dialog with information about your current audio input.</source>
         <translation>Vyskočí malé okénko s informacemi o současném audio vstupu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="422"/>
+        <location filename="MainWindow.ui" line="414"/>
         <source>Forcibly unlink plugin</source>
         <translation>Násilně odstraň plugin</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="425"/>
+        <location filename="MainWindow.ui" line="417"/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
         <translation>Násilně udpojí současný plugin, což může být užitečné, pokud čte a zpracovává úplně chybný data.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="444"/>
+        <location filename="MainWindow.ui" line="422"/>
         <source>&amp;Settings</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="447"/>
+        <location filename="MainWindow.ui" line="425"/>
         <source>Configure Mumble</source>
         <translation>Nastavit Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="450"/>
+        <location filename="MainWindow.ui" line="428"/>
         <source>Allows you to change most settings for Mumble.</source>
         <translation>Nastavení většiny možností.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="455"/>
+        <location filename="MainWindow.ui" line="436"/>
         <source>&amp;Audio Wizard</source>
         <translation>&amp;Zvukový Wizard</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="458"/>
+        <location filename="MainWindow.ui" line="439"/>
         <source>Start the audio configuration wizard</source>
         <translation>Spustí zvukový Wizard pro nastavení</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="461"/>
+        <location filename="MainWindow.ui" line="442"/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
         <translation>Tohle vás provede zkrze proces konfigurace zvukového hardware.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="466"/>
+        <location filename="MainWindow.ui" line="447"/>
         <source>&amp;What&apos;s This?</source>
         <translation>&amp;Co je to?</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="469"/>
+        <location filename="MainWindow.ui" line="450"/>
         <source>Enter What&apos;s This? mode</source>
         <translation>Vstoupí do režimu &quot;co je tohle?&quot;</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="472"/>
+        <location filename="MainWindow.ui" line="453"/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
         <translation>Klikněte pro vsoupení do režimu &quot;Co je tohle?&quot; Váš kurzor se změní na otazník. Jakmile máte tlačítko, výběr menu nebo cokoliv co chcete ukázat.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="477"/>
+        <location filename="MainWindow.ui" line="458"/>
         <source>&amp;About</source>
         <translation>&amp;O aplikaci</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="480"/>
+        <location filename="MainWindow.ui" line="461"/>
         <source>Information about Mumble</source>
         <translation>Informace o Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="483"/>
+        <location filename="MainWindow.ui" line="464"/>
         <source>Shows a small dialog with information and license for Mumble.</source>
         <translation>Ukáže okno s informacemi a licenčním ujednáním pro používání Mumble.
 
@@ -3141,17 +3401,17 @@ v žádném z možných míst.</translation>
 </translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="488"/>
+        <location filename="MainWindow.ui" line="472"/>
         <source>About &amp;Speex</source>
         <translation>O kodeku &amp;Speex</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="491"/>
+        <location filename="MainWindow.ui" line="475"/>
         <source>Information about Speex</source>
         <translation>Informace o kodeku Speex</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="494"/>
+        <location filename="MainWindow.ui" line="478"/>
         <source>Shows a small dialog with information about Speex.</source>
         <translation>Ukáže informace o použitém kodeku Speex.</translation>
     </message>
@@ -3161,32 +3421,32 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">O &amp;knihovně Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="502"/>
+        <location filename="MainWindow.ui" line="489"/>
         <source>Information about Qt</source>
         <translation>Informace o knihovně Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="505"/>
+        <location filename="MainWindow.ui" line="492"/>
         <source>Shows a small dialog with information about Qt.</source>
         <translation>Ukáže dialogové okno s informacemi o knihovně QT.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="510"/>
+        <location filename="MainWindow.ui" line="500"/>
         <source>Check for &amp;Updates</source>
         <translation>Zjistit &amp;dostupnost nové verze</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="513"/>
+        <location filename="MainWindow.ui" line="503"/>
         <source>Check for new version of Mumble</source>
         <translation>Ověřit dostupnost nových verzí aplikace Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="516"/>
+        <location filename="MainWindow.ui" line="506"/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
         <translation>Připojí se k webové stránce Mumble pro zjištění případné dostupnosti novějších verzí a vypíše vhodný odkaz na stažení, pokud je nová verze k dispozici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="134"/>
+        <location filename="MainWindow.cpp" line="136"/>
         <source>Mumble -- %1</source>
         <translation>Mumble =- %1 </translation>
     </message>
@@ -3211,22 +3471,22 @@ v žádném z možných míst.</translation>
         <translation>&amp;Uživatel</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="78"/>
+        <location filename="MainWindow.ui" line="72"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanál</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="94"/>
+        <location filename="MainWindow.ui" line="88"/>
         <source>&amp;Audio</source>
         <translation>&amp;Zvuk</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="110"/>
+        <location filename="MainWindow.ui" line="102"/>
         <source>C&amp;onfigure</source>
         <translation>&amp;Nastavit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="117"/>
+        <location filename="MainWindow.ui" line="109"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoc</translation>
     </message>
@@ -3309,27 +3569,27 @@ v žádném z možných míst.</translation>
         <translation>Alternativní klávesa pro mluvení</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="293"/>
+        <location filename="MainWindow.cpp" line="307"/>
         <source>Reconnecting.</source>
         <translation>Opětovné připojování.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="417"/>
+        <location filename="MainWindow.cpp" line="449"/>
         <source>Kicking player %1</source>
         <translation>Vykopnutí uživaetele %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="439"/>
+        <location filename="MainWindow.cpp" line="471"/>
         <source>Enter reason</source>
         <translation>Zadejte důvod</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="439"/>
+        <location filename="MainWindow.cpp" line="471"/>
         <source>Banning player %1</source>
         <translation>Ban pro uživatele %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="461"/>
+        <location filename="MainWindow.cpp" line="493"/>
         <source>Sending message to %1</source>
         <translation>Posílam zprávu pro %1</translation>
     </message>
@@ -3339,67 +3599,67 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">Zadejte zprávu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="658"/>
+        <location filename="MainWindow.cpp" line="690"/>
         <source>To %1: %2</source>
         <translation>Pro %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="658"/>
+        <location filename="MainWindow.cpp" line="690"/>
         <source>Message to %1</source>
         <translation>Zpráva pro %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="200"/>
+        <location filename="main.cpp" line="202"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="571"/>
+        <location filename="MainWindow.cpp" line="603"/>
         <source>Channel Name</source>
         <translation>Název kanálu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="550"/>
+        <location filename="MainWindow.cpp" line="582"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Opravdu chcete odstranit kanál %1 včetně všech jeho podkanálů?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="701"/>
+        <location filename="MainWindow.cpp" line="733"/>
         <source>Unmuted and undeafened.</source>
         <translation>Opět schopen slyšet a mluvit.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="703"/>
+        <location filename="MainWindow.cpp" line="735"/>
         <source>Unmuted.</source>
         <translation>Opět schopen mluvit.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="705"/>
+        <location filename="MainWindow.cpp" line="737"/>
         <source>Muted.</source>
         <translation>Zakázáno mluvení.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="719"/>
+        <location filename="MainWindow.cpp" line="751"/>
         <source>Muted and deafened.</source>
         <translation>Zakázáno mluvit a poslouchat.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="721"/>
+        <location filename="MainWindow.cpp" line="753"/>
         <source>Deafened.</source>
         <translation>Vypnut poslech.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="723"/>
+        <location filename="MainWindow.cpp" line="755"/>
         <source>Undeafened.</source>
         <translation>Opět schopen slyšet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="778"/>
+        <location filename="MainWindow.cpp" line="803"/>
         <source>About Qt</source>
         <translation>O knihovně Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="859"/>
+        <location filename="MainWindow.cpp" line="884"/>
         <source>Joining %1.</source>
         <translation>Vstupuji do %1.</translation>
     </message>
@@ -3409,42 +3669,42 @@ v žádném z možných míst.</translation>
         <translation type="obsolete">Připojen k serveru.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="977"/>
+        <location filename="MainWindow.cpp" line="1002"/>
         <source>Server connection failed: %1.</source>
         <translation>Připojování k serveru selhalo: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="986"/>
+        <location filename="MainWindow.cpp" line="1011"/>
         <source>Invalid username</source>
         <translation>Špatné jméno uživatele</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="986"/>
+        <location filename="MainWindow.cpp" line="1011"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Připojujete se s nesprávným jménem uživatele, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="986"/>
+        <location filename="MainWindow.cpp" line="1011"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Toto uživatelské jméno je již používáno, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="991"/>
+        <location filename="MainWindow.cpp" line="1016"/>
         <source>Wrong password</source>
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="991"/>
+        <location filename="MainWindow.cpp" line="1016"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Špatné heslo registrovaného uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="991"/>
+        <location filename="MainWindow.cpp" line="1016"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Špatné heslo serveru pro neregistrované uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="979"/>
+        <location filename="MainWindow.cpp" line="1004"/>
         <source>Disconnected from server.</source>
         <translation>Spojení se serverem bylo zrušeno.</translation>
     </message>
@@ -3579,212 +3839,192 @@ v žádném z možných míst.</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="192"/>
+        <location filename="MainWindow.ui" line="184"/>
         <source>&amp;Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="195"/>
+        <location filename="MainWindow.ui" line="187"/>
         <source>Show information about the server connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="198"/>
+        <location filename="MainWindow.ui" line="190"/>
         <source>This will show extended information about the connection to the server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="238"/>
+        <location filename="MainWindow.cpp" line="252"/>
         <source>Opening URL %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="240"/>
+        <location filename="MainWindow.cpp" line="254"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="251"/>
+        <location filename="MainWindow.cpp" line="265"/>
         <source>Connecting to %1</source>
         <translation type="unfinished">Připojování k %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="251"/>
+        <location filename="MainWindow.cpp" line="265"/>
         <source>Enter username</source>
         <translation type="unfinished">Zadejte jmého uživatele</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="345"/>
+        <location filename="MainWindow.cpp" line="359"/>
         <source>Mumble Server Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="956"/>
+        <location filename="MainWindow.cpp" line="981"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="935"/>
+        <location filename="MainWindow.cpp" line="960"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="940"/>
+        <location filename="MainWindow.cpp" line="965"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="942"/>
+        <location filename="MainWindow.cpp" line="967"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="951"/>
+        <location filename="MainWindow.cpp" line="976"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="340"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="330"/>
+        <location filename="MainWindow.cpp" line="344"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="332"/>
+        <location filename="MainWindow.cpp" line="346"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="339"/>
+        <location filename="MainWindow.cpp" line="353"/>
         <source>UDP Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="339"/>
+        <location filename="MainWindow.cpp" line="353"/>
         <source>To Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="339"/>
+        <location filename="MainWindow.cpp" line="353"/>
         <source>From Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="339"/>
+        <location filename="MainWindow.cpp" line="353"/>
         <source>Good</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="339"/>
+        <location filename="MainWindow.cpp" line="353"/>
         <source>Late</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="339"/>
+        <location filename="MainWindow.cpp" line="353"/>
         <source>Lost</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="339"/>
+        <location filename="MainWindow.cpp" line="353"/>
         <source>Resync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="645"/>
+        <location filename="MainWindow.cpp" line="677"/>
         <source>Sending message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="672"/>
+        <location filename="MainWindow.cpp" line="704"/>
         <source>Sending message to channel tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="685"/>
+        <location filename="MainWindow.cpp" line="717"/>
         <source>To tree %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="685"/>
+        <location filename="MainWindow.cpp" line="717"/>
         <source>Message to tree %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="736"/>
-        <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="145"/>
+        <location filename="MainWindow.ui" line="137"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished">Ukončit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="259"/>
+        <location filename="MainWindow.ui" line="251"/>
         <source>Mute player locally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="262"/>
+        <location filename="MainWindow.ui" line="254"/>
         <source>Mute or unmute player locally. Use this on other players in the same room.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="311"/>
+        <location filename="MainWindow.ui" line="303"/>
         <source>&amp;Rename Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="314"/>
+        <location filename="MainWindow.ui" line="306"/>
         <source>Renames the channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="317"/>
+        <location filename="MainWindow.ui" line="309"/>
         <source>This renames a channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="433"/>
-        <source>&amp;Local deafen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="436"/>
-        <source>Silence loudspeakers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="439"/>
-        <source>Sets you in local deafen mode, wherein your speakers are silenced but you are still transmitting audio.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="499"/>
+        <location filename="MainWindow.ui" line="486"/>
         <source>About &amp;Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="527"/>
+        <location filename="MainWindow.ui" line="517"/>
         <source>Sends a text message to all users in a channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="532"/>
+        <location filename="MainWindow.ui" line="522"/>
         <source>Send &amp;Tree Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="535"/>
+        <location filename="MainWindow.ui" line="525"/>
         <source>Send message to channel tree.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="538"/>
+        <location filename="MainWindow.ui" line="528"/>
         <source>This sends a text message to a channel and it&apos;s subchannels.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3794,33 +4034,48 @@ v žádném z možných míst.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="200"/>
+        <location filename="main.cpp" line="202"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="343"/>
+        <location filename="MainWindow.cpp" line="357"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="892"/>
+        <location filename="MainWindow.cpp" line="917"/>
         <source>Connected to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="182"/>
+        <location filename="MainWindow.cpp" line="193"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="183"/>
+        <location filename="MainWindow.cpp" line="194"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="184"/>
+        <location filename="MainWindow.cpp" line="195"/>
         <source>Minimize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="139"/>
+        <source>&amp;Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="141"/>
+        <source>Ctrl+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="142"/>
+        <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3970,34 +4225,24 @@ v žádném z možných míst.</translation>
 <context>
     <name>OSSConfig</name>
     <message>
-        <location filename="OSS.cpp" line="226"/>
-        <source>OSS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="OSS.cpp" line="262"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
-    </message>
-    <message>
-        <location filename="OSS.ui" line="13"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1ms</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="19"/>
         <source>Device selection</source>
-        <translation type="unfinished">Výběr zařízení</translation>
+        <translation type="obsolete">Výběr zařízení</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="25"/>
         <source>Input</source>
-        <translation type="unfinished">Vstup</translation>
+        <translation type="obsolete">Vstup</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="35"/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished">Zařízení, na kterém je mikrofon</translation>
+        <translation type="obsolete">Zařízení, na kterém je mikrofon</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="38"/>
@@ -4007,42 +4252,27 @@ v žádném z možných míst.</translation>
     <message>
         <location filename="OSS.ui" line="45"/>
         <source>Output</source>
-        <translation type="unfinished">Výstup</translation>
+        <translation type="obsolete">Výstup</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="55"/>
         <source>Device to use for speakers/headphones</source>
-        <translation type="unfinished">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
+        <translation type="obsolete">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="65"/>
         <source>Output Options</source>
-        <translation type="unfinished">Výstupní volby</translation>
+        <translation type="obsolete">Výstupní volby</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="71"/>
         <source>Output Delay</source>
-        <translation type="unfinished">Výstupní opoždění</translation>
+        <translation type="obsolete">Výstupní opoždění</translation>
     </message>
     <message>
         <location filename="OSS.ui" line="81"/>
         <source>Amount of data to buffer for OSS</source>
-        <translation type="unfinished">Velikost datového zásobníku pro ALSU</translation>
-    </message>
-    <message>
-        <location filename="OSS.ui" line="84"/>
-        <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="OSS.ui" line="103"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="OSS.ui" line="38"/>
-        <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is your primary sound device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Velikost datového zásobníku pro ALSU</translation>
     </message>
 </context>
 <context>
@@ -4344,24 +4574,6 @@ To může být způsobeno například těmito důvody:
     </message>
 </context>
 <context>
-    <name>PAAudioConfig</name>
-    <message>
-        <location filename="PAAudioConfig.cpp" line="55"/>
-        <source>PortAudio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="PAAudioConfig.ui" line="16"/>
-        <source>Input Device</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="PAAudioConfig.ui" line="35"/>
-        <source>Output Device</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>PlayerModel</name>
     <message>
         <location filename="PlayerModel.cpp" line="398"/>
@@ -4531,102 +4743,65 @@ To může být způsobeno například těmito důvody:
     </message>
 </context>
 <context>
-    <name>PulseAudioConfig</name>
+    <name>PortAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="565"/>
-        <source>PulseAudio</source>
+        <location filename="PAAudio.cpp" line="264"/>
+        <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>PulseAudioConfig</name>
     <message>
         <location filename="PulseAudio.cpp" line="603"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="13"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1ms</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="19"/>
         <source>Device selection</source>
-        <translation type="unfinished">Výběr zařízení</translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="25"/>
-        <source>Input (Microphone)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Výběr zařízení</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="35"/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished">Zařízení, na kterém je mikrofon</translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="38"/>
-        <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Zařízení, na kterém je mikrofon</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="45"/>
         <source>Output</source>
-        <translation type="unfinished">Výstup</translation>
+        <translation type="obsolete">Výstup</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="55"/>
         <source>Device to use for speakers/headphones</source>
-        <translation type="unfinished">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="62"/>
-        <source>Enable echo cancellation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="65"/>
-        <source>This enables echo cancellation. Don&apos;t enable this unless you are listening on speakers; for headphones it will cause audio degradation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="68"/>
-        <source>Use echo cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="78"/>
         <source>Output Options</source>
-        <translation type="unfinished">Výstupní volby</translation>
+        <translation type="obsolete">Výstupní volby</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="84"/>
         <source>Output Delay</source>
-        <translation type="unfinished">Výstupní opoždění</translation>
+        <translation type="obsolete">Výstupní opoždění</translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="94"/>
         <source>Amount of data to buffer for ALSA</source>
-        <translation type="unfinished">Velikost datového zásobníku pro ALSU</translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="97"/>
-        <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="PulseAudio.ui" line="116"/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Velikost datového zásobníku pro ALSU</translation>
     </message>
 </context>
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="456"/>
+        <location filename="PulseAudio.cpp" line="461"/>
         <source>Default Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PulseAudio.cpp" line="457"/>
+        <location filename="PulseAudio.cpp" line="462"/>
         <source>Default Output</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4642,13 +4817,23 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>TextMessage</name>
     <message>
-        <location filename="TextMessage.ui" line="22"/>
+        <location filename="TextMessage.ui" line="32"/>
         <source>Message to send</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TextMessage.ui" line="40"/>
+        <location filename="TextMessage.ui" line="50"/>
         <source>Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TextMessage.ui" line="16"/>
+        <source>Send raw message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TextMessage.ui" line="19"/>
+        <source>Disables html formating</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4766,65 +4951,30 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>WASAPIConfig</name>
     <message>
-        <location filename="WASAPI.cpp" line="216"/>
-        <source>WASAPI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="WASAPI.ui" line="13"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="WASAPI.ui" line="19"/>
         <source>Device selection</source>
-        <translation type="unfinished">Výběr zařízení</translation>
-    </message>
-    <message>
-        <location filename="WASAPI.ui" line="25"/>
-        <source>Input (Microphone)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Výběr zařízení</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="35"/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished">Zařízení, na kterém je mikrofon</translation>
-    </message>
-    <message>
-        <location filename="WASAPI.ui" line="38"/>
-        <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Zařízení, na kterém je mikrofon</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="45"/>
         <source>Output</source>
-        <translation type="unfinished">Výstup</translation>
+        <translation type="obsolete">Výstup</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="55"/>
         <source>Device to use for speakers/headphones</source>
-        <translation type="unfinished">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
-    </message>
-    <message>
-        <location filename="WASAPI.ui" line="62"/>
-        <source>Enable echo cancellation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="WASAPI.ui" line="65"/>
-        <source>This enables echo cancellation. Don&apos;t enable this unless you are listening on speakers; for headphones it will cause audio degradation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="WASAPI.ui" line="68"/>
-        <source>Use echo cancellation</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Zařízení pro zvukový výstup (bedničky nebo sluchátka)</translation>
     </message>
 </context>
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="138"/>
+        <location filename="WASAPI.cpp" line="160"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
