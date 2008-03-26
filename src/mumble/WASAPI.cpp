@@ -211,7 +211,7 @@ const QList<audioDevice> WASAPISystem::mapToDevice(const QHash<QString, QString>
 
 WASAPIInput::WASAPIInput() {
 	bRunning = true;
-	bHasSpeaker = (g.s.qsAudioOutput == QLatin1String("WASAPI")) && g.s.bEcho;
+	bHasSpeaker = g.s.doEcho();
 };
 
 WASAPIInput::~WASAPIInput() {
