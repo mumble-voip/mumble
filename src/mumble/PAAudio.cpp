@@ -54,11 +54,11 @@ class PortAudioOutputRegistrar : public AudioOutputRegistrar {
 class PAInit : public DeferInit {
 	protected:
 		bool bInit;
-                PortAudioInputRegistrar *pairReg;
-                PortAudioOutputRegistrar *paorReg;
-        public:
-                void initialize();
-                void destroy();
+		PortAudioInputRegistrar *pairReg;
+		PortAudioOutputRegistrar *paorReg;
+	public:
+		void initialize();
+		void destroy();
 };
 
 static PAInit spaiInit;
@@ -88,7 +88,7 @@ void PAInit::destroy() {
 		if (err != paNoError) {
 			qWarning("PortAudio: Failed termination: %s", Pa_GetErrorText(err));
 		}
-	}		
+	}
 }
 
 PortAudioInputRegistrar::PortAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PortAudio")) {
@@ -278,13 +278,13 @@ const QList<audioDevice> PortAudioSystem::enumerateDevices(bool input, PaDeviceI
 				continue;
 
 			QString qsDevName = QLatin1String(pDevInfo->name);
-			
+
 			if ((input && (pDevInfo->maxInputChannels > 0)) ||
-			    (!input && (pDevInfo->maxOutputChannels > 0))) 
+			        (!input && (pDevInfo->maxOutputChannels > 0)))
 				adl << audioDevice(qsApiName + QLatin1String(": ") + qsDevName, iDevIndex);
 		}
 	}
-	for(int i=0;i<adl.count();++i) {
+	for (int i=0;i<adl.count();++i) {
 		if (adl.at(i).second == match) {
 			audioDevice ad = adl.takeAt(i);
 			adl.prepend(ad);
@@ -379,7 +379,7 @@ void PortAudioOutput::run() {
 			this->usleep(20 * 1000); // 20ms wait to avoid hogging the cpu too much
 		}
 		hasMoreToMix = nextHasMoreToMix;
-	} 
+	}
 
 	// ignoring return value of terminateStream, we cannot do anything about it anyway
 	PortAudioSystem::terminateStream(outputStream);

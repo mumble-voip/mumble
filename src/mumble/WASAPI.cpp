@@ -418,7 +418,7 @@ void WASAPIInput::run() {
 		if (FAILED(hr))
 			goto cleanup;
 
-		while((micPacketLength > 0) || (echoPacketLength > 0)) {
+		while ((micPacketLength > 0) || (echoPacketLength > 0)) {
 			if (echoPacketLength > 0) {
 				hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
 				numFramesLeft = numFramesAvailable;
@@ -503,7 +503,7 @@ void WASAPIInput::run() {
 							jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs);
 							jitter_buffer_update_delay(jbJitter, &jbp, NULL);
 							jitter_buffer_tick(jbJitter);
-							for(int i=0;i<iFrameSize;i++)
+							for (int i=0;i<iFrameSize;i++)
 								psSpeaker[i] = static_cast<short>(outputBuffer[i] * echomul);
 						}
 
@@ -690,12 +690,12 @@ void WASAPIOutput::run() {
 
 	qWarning("WASAPIOutput: ChannelMask %06x", pwfxe->dwChannelMask);
 
-	for(int i=0;i<32;i++) {
+	for (int i=0;i<32;i++) {
 		if (pwfxe->dwChannelMask & (1 << i)) {
 			float *s = &speakerpos[3*ns];
 			s[0] = s[1] = s[2] = 0.0f;
 
-			switch(1<<i) {
+			switch (1<<i) {
 				case SPEAKER_FRONT_LEFT:
 					s[0] = -0.5f;
 					s[2] = 1.0f;
@@ -783,7 +783,7 @@ void WASAPIOutput::run() {
 
 		packetLength = bufferFrameCount - numFramesAvailable;
 
-		while(packetLength >= wantLength) {
+		while (packetLength >= wantLength) {
 			hr = pRenderClient->GetBuffer(wantLength, &pData);
 			if (FAILED(hr))
 				goto cleanup;

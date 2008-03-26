@@ -371,7 +371,7 @@ bool AudioOutput::mixAudio(short *buffer) {
 }
 
 void AudioOutput::normalizeSpeakers(float * speakerpos, int nspeakers) {
-	for(int i=0;i<nspeakers;++i) {
+	for (int i=0;i<nspeakers;++i) {
 		float d = sqrtf(speakerpos[3*i+0]*speakerpos[3*i+0] + speakerpos[3*i+1]*speakerpos[3*i+1] + speakerpos[3*i+2]*speakerpos[3*i+2]);
 		if (d > 0.0f) {
 			speakerpos[3*i+0] /= d;
@@ -448,13 +448,13 @@ bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers)
 			// Calculate right vector as front X top
 			float right[3] = {top[1]*front[2] - top[2]*front[1], top[2]*front[0] - top[0]*front[2], top[0]*front[1] - top[1] * front[0] };
 
-/*
-			qWarning("Front: %f %f %f", front[0], front[1], front[2]);
-			qWarning("Top: %f %f %f", top[0], top[1], top[2]);
-			qWarning("Right: %f %f %f", right[0], right[1], right[2]);
-*/
+			/*
+						qWarning("Front: %f %f %f", front[0], front[1], front[2]);
+						qWarning("Top: %f %f %f", top[0], top[1], top[2]);
+						qWarning("Right: %f %f %f", right[0], right[1], right[2]);
+			*/
 			// Rotate speakers to match orientation
-			for(int i=0;i<nspeakers;++i) {
+			for (int i=0;i<nspeakers;++i) {
 				speaker[3*i+0] = speakerpos[3*i+0] * right[0] + speakerpos[3*i+1] * top[0] + speakerpos[3*i+2] * front[0];
 				speaker[3*i+1] = speakerpos[3*i+0] * right[1] + speakerpos[3*i+1] * top[1] + speakerpos[3*i+2] * front[1];
 				speaker[3*i+2] = speakerpos[3*i+0] * right[2] + speakerpos[3*i+1] * top[2] + speakerpos[3*i+2] * front[2];
@@ -468,7 +468,7 @@ bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers)
 			validListener = true;
 		}
 		foreach(aop, qlMix) {
-			for(int i=0;i<iFrameSize;i++)
+			for (int i=0;i<iFrameSize;i++)
 				inbuff[i] = aop->psBuffer[i] * mul;
 
 #ifdef AUDIO_TEST
@@ -483,28 +483,28 @@ bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers)
 				dir[0] /= len;
 				dir[1] /= len;
 				dir[2] /= len;
-/*
-				qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
-				qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
-*/
-				for(int s=0;s<nspeakers;++s) {
+				/*
+								qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
+								qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
+				*/
+				for (int s=0;s<nspeakers;++s) {
 					float dot = dirspeaker[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
 					float str = calcGain(dot, len);
-/*
-					qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
-*/
-					for(int i=0;i<iFrameSize;++i)
+					/*
+										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
+					*/
+					for (int i=0;i<iFrameSize;++i)
 						output[i*nspeakers+s] += inbuff[i] * str;
 				}
 			} else {
-				for(int i=0;i<iFrameSize;++i)
-					for(int j=0;j<nspeakers;++j)
+				for (int i=0;i<iFrameSize;++i)
+					for (int j=0;j<nspeakers;++j)
 						output[i*nspeakers+j] += inbuff[i];
 			}
 		}
 		// Clip
-		for(int i=0;i<iFrameSize*nspeakers;i++)
-			output[i] = output[i] < -1.0f ? -1.0f : ( output[i] > 1.0f ? 1.0f : output[i]);
+		for (int i=0;i<iFrameSize*nspeakers;i++)
+			output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
 	}
 
 	qrwlOutputs.unlock();
