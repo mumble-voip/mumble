@@ -37,6 +37,9 @@
 AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit = true;
 
+	setOption(QWizard::NoCancelButton, false);
+	resize(700, 500);
+
 	addPage(introPage());
 	addPage(devicePage());
 	addPage(deviceTuningPage());
@@ -69,11 +72,6 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	QMetaObject::connectSlotsByName(this);
 	bInit = false;
 
-#ifdef Q_OS_MAC
-	setOption(QWizard::NoCancelButton, false);
-#else
-	resize(700, 500);
-#endif
 	ticker->setSingleShot(false);
 	ticker->start(20);
 }
