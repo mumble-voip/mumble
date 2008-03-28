@@ -41,6 +41,7 @@
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"
+#include <stdio.h>
 #endif
 
 #ifdef Q_OS_WIN
@@ -173,6 +174,7 @@ int main(int argc, char **argv) {
 
 	QString inifile;
 	QString supw;
+	bool readPw = false;
 	int sunum = 1;
 
 	qInstallMsgHandler(murmurMessageOutput);
@@ -182,6 +184,7 @@ int main(int argc, char **argv) {
 #endif
 
 	for (int i=1;i<argc;i++) {
+		bool bLast = false;
 		QString arg = QString(argv[i]).toLower();
 		if ((arg == "-supw") && (i+1 < argc)) {
 			i++;
@@ -191,6 +194,17 @@ int main(int argc, char **argv) {
 				i++;
 				sunum = QString::fromLatin1(argv[i]).toInt();
 			}
+			bLast = true;
+#ifdef Q_OS_UNIX
+		} else if ((arg == "-readsupw")) {
+			detach = false;
+			readPw = true;
+			if (i+1 < argc) {
+				i++;
+				sunum = QString::fromLatin1(argv[i]).toInt();
+			}
+			bLast = true;
+#endif
 		} else if ((arg == "-ini") && (i+1 < argc)) {
 			i++;
 			inifile=argv[i];
@@ -204,6 +218,9 @@ int main(int argc, char **argv) {
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
 			       "  -ini <inifile>   Specify ini file to use.\n"
 			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
+#ifdef Q_OS_UNIX
+			       "  -readsupw [srv]  Reads passford for server srv from standard input.\n"
+#endif
 			       "  -v               Add verbose output.\n"
 			       "  -fg              Don't detach from console [Linux only].\n"
 			       "If no inifile is provided, murmur will search for one in \n"
@@ -212,14 +229,38 @@ int main(int argc, char **argv) {
 			detach = false;
 			qFatal("Unknown argument %s", argv[i]);
 		}
+		if (bLast && (i+1 != argc)) {
+			qFatal("Password arguments must be last.");
+		}
 	}
 
 	Meta::mp.read(inifile);
 	ServerDB db;
 
 	meta = new Meta();
+	
+#ifdef Q_OS_UNIX
+	if (readPw) {
+		char password[256];
+		char *p;
+
+		printf("Password: ");
+		fflush(NULL);
+		fgets(password, 255, stdin);
+		p = strchr(password, '\r');
+		if (p)
+			*p = 0;
+		p = strchr(password, '\n');
+		if (p)
+			*p = 0;
+		
+		supw = QLatin1String(password);
+	}
+#endif
 
 	if (! supw.isEmpty()) {
+		if (supw.isEmpty()) 
+			qFatal("Superuser password can not be empty");
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);
 	}
