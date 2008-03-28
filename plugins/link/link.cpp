@@ -23,7 +23,7 @@ static void about(HWND h) {
 }
 
 static HANDLE hMapObject = NULL;
-LinkedMem *lm = NULL;
+static LinkedMem *lm = NULL;
 
 static void unlock() {
 	lm->dwTick = 0;
