@@ -100,7 +100,7 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
-  File "\Program Files\Intel\Compiler\C++\10.1.014\IA32\Bin\libmmd.dll"
+  File "\Program Files\Intel\Compiler\C++\10.1.020\IA32\Bin\libmmd.dll"
 
   SetOutPath "$INSTDIR\bin"
   File "\dev\dbus\bin\dbus-daemon.exe"

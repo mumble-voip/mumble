@@ -14,7 +14,7 @@ static HANDLE hMapObject = NULL;
 LinkedMem *lm = NULL;
 
 void initMumble() {
-	hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
+	hMapObject = OpenFileMappingW(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
 	if (hMapObject == NULL)
 		return;
 
