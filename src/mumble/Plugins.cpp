@@ -157,11 +157,12 @@ void Plugins::rescanPlugins() {
 	const QString path=QLatin1String(MUMTEXT(PLUGIN_PATH));
 #endif
 	QDir qd(path,QString(), QDir::Name, QDir::Files | QDir::Readable);
-	QStringList libs = qd.entryList();
-	foreach(QString libname, libs) {
+	QFileInfoList libs = qd.entryInfoList();
+	foreach(const QFileInfo &libinfo, libs) {
+		QString libname = libinfo.absoluteFilePath();
 		if (QLibrary::isLibrary(libname)) {
 			pi = new PluginInfo();
-			pi->filename = QString::fromLatin1("%1/%2").arg(path).arg(libname);
+			pi->filename = libname;
 			pi->lib.setFileName(pi->filename);
 			if (pi->lib.load()) {
 				mumblePluginFunc mpf = reinterpret_cast<mumblePluginFunc>(pi->lib.resolve("getMumblePlugin"));
@@ -175,6 +176,8 @@ void Plugins::rescanPlugins() {
 					}
 				}
 				pi->lib.unload();
+			} else {
+				qWarning("Plugins: Failed to load %s: %s", qPrintable(pi->filename), qPrintable(pi->lib.errorString()));
 			}
 			delete pi;
 		}
@@ -204,9 +207,7 @@ void Plugins::on_Timer_timeout() {
 	QMutexLocker lock(&qmPlugins);
 
 	if (prevlocked) {
-		g.l->log(Log::Information,
-		         tr("Plugin %1 lost link.").arg(prevlocked->description),
-		         tr("%1 lost link.").arg(prevlocked->shortname));
+		g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname));
 		prevlocked = NULL;
 	}
 
@@ -244,9 +245,8 @@ void Plugins::on_Timer_timeout() {
 
 	foreach(PluginInfo *pi, qlPlugins) {
 		if (pi->p->trylock()) {
-			g.l->log(Log::Information,
-			         tr("Plugin %1 linked.").arg(pi->description),
-			         tr("%1 linked.").arg(pi->shortname));
+			pi->shortname = QString::fromWCharArray(pi->p->shortname);
+			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
 			pi->locked = true;
 			bUnlink = false;
 			locked = pi;

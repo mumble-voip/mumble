@@ -409,18 +409,10 @@ bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers)
 
 		g.p->fetch();
 
-#ifndef AUDIO_TEST
 		if (g.p->bValid) {
 			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2]};
 			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2]};
-#else
-		if (true) {
-			float front[3] = { 0.0f, -1.0f, 0.0f };
-			float top[3] = {0.0f, 0.0f, 1.0f };
-			g.p->fPosition[0] = 0.0f;
-			g.p->fPosition[1] = 0.0f;
-			g.p->fPosition[2] = 0.0f;
-#endif
+
 			if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
 				// Not perpendicular. Ditch Y and point top up.
 				front[1] = 0;

@@ -1,9 +1,13 @@
+#ifndef QT_NO_DEBUG
 #include <stdio.h>
 #include <stdlib.h>
+#endif
 #include <windows.h>
 #include <math.h>
 
 #include "../mumble_plugin.h"
+
+static wchar_t wcPluginName[256];
 
 struct LinkedMem {
 	DWORD	dwVersion;
@@ -11,6 +15,7 @@ struct LinkedMem {
 	float	fPosition[3];
 	float	fFront[3];
 	float	fTop[3];
+	wchar_t	name[256];
 };
 
 static void about(HWND h) {
@@ -21,14 +26,25 @@ static HANDLE hMapObject = NULL;
 LinkedMem *lm = NULL;
 
 static void unlock() {
+	lm->dwTick = 0;
 	lm->dwVersion = 0;
+	lm->name[0] = 0;
+	wcscpy_s(wcPluginName, 256, L"Link");
 	return;
 }
 
 static int trylock() {
 	if (lm->dwVersion == 1) {
-		if ((GetTickCount() - lm->dwTick) < 5000)
+		if ((GetTickCount() - lm->dwTick) < 5000) {
+			if (lm->name[0]) {
+				errno_t err = wcscpy_s(wcPluginName, 256, lm->name);
+				if (err != 0) {
+					wcscpy_s(wcPluginName, 256, L"Link");
+					return false;
+				}
+			}
 			return true;
+		}
 	}
 	return false;
 }
@@ -36,6 +52,9 @@ static int trylock() {
 
 static int fetch(float *pos, float *front, float *top) {
 	if ((GetTickCount() - lm->dwTick) > 5000)
+		return false;
+
+	if (lm->dwVersion != 1)
 		return false;
 
 	for (int i=0;i<3;i++)
@@ -49,13 +68,14 @@ static int fetch(float *pos, float *front, float *top) {
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-	bool bCreated = true;
+	bool bCreated = false;
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
-			hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
+			wcscpy_s(wcPluginName, 256, L"Link");
+			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
 			if (hMapObject == NULL) {
-				bCreated = false;
-				hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
+				bCreated = true;
 				if (hMapObject == NULL)
 					return false;
 			}
@@ -84,8 +104,8 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Link v1.00",
-	L"Link",
+	L"Link v1.0.1",
+	wcPluginName,
 	about,
 	NULL,
 	trylock,

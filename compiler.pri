@@ -7,8 +7,8 @@ win32 {
 		QMAKE_CXX = icl
 		QMAKE_LIB = xilib /nologo
 		QMAKE_LINK = xilink
-		QMAKE_CFLAGS *= -Qstd=c99 -Qrestrict
-		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict
+		QMAKE_CFLAGS *= -Qstd=c99 -Qrestrict -Qvc9
+		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict -Qvc9
 		QMAKE_CFLAGS_RELEASE *= -O3 -QxK -Qip -Qipo
 		QMAKE_CXXFLAGS_RELEASE *= -O3 -QxK -Qip -Qipo
 		QMAKE_CFLAGS_DEBUG *= -O2 -QxK -Ob0 
