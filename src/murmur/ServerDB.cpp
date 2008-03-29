@@ -41,6 +41,7 @@
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), false)
 #define SQLPREP(x) ServerDB::prepare(query, QLatin1String(x))
 #define SQLEXEC() ServerDB::exec(query)
+#define SOFTEXEC() ServerDB::exec(query, QString(), false)
 
 class TransactionHolder {
 	protected:
@@ -885,7 +886,7 @@ void Server::updateChannel(const Channel *c) {
 			query.addBindValue(iServerNum);
 			query.addBindValue(pid);
 			query.addBindValue(1);
-			SQLEXEC();
+			SOFTEXEC();
 		}
 		foreach(pid, g->qsRemove) {
 			SQLPREP("INSERT INTO %1group_members (group_id, server_id, player_id, addit) VALUES (?, ?, ?, ?)");
@@ -893,7 +894,7 @@ void Server::updateChannel(const Channel *c) {
 			query.addBindValue(iServerNum);
 			query.addBindValue(pid);
 			query.addBindValue(0);
-			SQLEXEC();
+			SOFTEXEC();
 		}
 	}
 
@@ -911,7 +912,7 @@ void Server::updateChannel(const Channel *c) {
 		query.addBindValue(acl->bApplySubs ? 1 : 0);
 		query.addBindValue(static_cast<int>(acl->pAllow));
 		query.addBindValue(static_cast<int>(acl->pDeny));
-		SQLEXEC();
+		SOFTEXEC();
 	}
 }
 
@@ -1026,7 +1027,7 @@ void Server::setLastChannel(const Player *p) {
 	query.addBindValue(p->cChannel->iId);
 	query.addBindValue(iServerNum);
 	query.addBindValue(p->iId);
-	SQLEXEC();
+	SOFTEXEC();
 }
 
 int Server::readLastChannel(int id) {
