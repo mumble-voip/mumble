@@ -410,22 +410,19 @@ void AudioInput::encodeAudioFrame() {
 		memset(psMic, 0, iByteSize);
 	}
 
-	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (iFrames == 0)) {
-		g.p->fetch();
-		if (g.p->bValid) {
-			QByteArray q;
-			QDataStream ds(&q, QIODevice::WriteOnly);
-			ds << g.p->fPosition[0];
-			ds << g.p->fPosition[1];
-			ds << g.p->fPosition[2];
+	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (iFrames == 0) && g.p->fetch()) {
+		QByteArray q;
+		QDataStream ds(&q, QIODevice::WriteOnly);
+		ds << g.p->fPosition[0];
+		ds << g.p->fPosition[1];
+		ds << g.p->fPosition[2];
 
-			speex_bits_pack(&sbBits, 13, 5);
-			speex_bits_pack(&sbBits, q.size(), 4);
+		speex_bits_pack(&sbBits, 13, 5);
+		speex_bits_pack(&sbBits, q.size(), 4);
 
-			const unsigned char *d=reinterpret_cast<const unsigned char*>(q.data());
-			for (i=0;i<q.size();i++) {
-				speex_bits_pack(&sbBits, d[i], 8);
-			}
+		const unsigned char *d=reinterpret_cast<const unsigned char*>(q.data());
+		for (i=0;i<q.size();i++) {
+			speex_bits_pack(&sbBits, d[i], 8);
 		}
 	}
 

@@ -110,7 +110,7 @@ Settings::Settings() {
 	usProxyPort = 0;
 
 #ifdef AUDIO_TEST
-	lmLoopMode = Local;
+	lmLoopMode = Server;
 #else
 	lmLoopMode = None;
 #endif

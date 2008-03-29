@@ -286,7 +286,12 @@ bool DXAudioOutputPlayer::playFrames() {
 			} else {
 				if (mode != DS3DMODE_NORMAL)
 					pDS3dBuffer->SetMode(DS3DMODE_NORMAL, dwApply);
+#ifdef AUDIO_TEST
+				pDS3dBuffer->SetPosition(0, 0, 0, dwApply);
+				qWarning("SetPos %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
+#else
 				pDS3dBuffer->SetPosition(aop->fPos[0], aop->fPos[1], aop->fPos[2], dwApply);
+#endif
 			}
 		}
 
@@ -431,7 +436,7 @@ void DXAudioOutput::updateListener() {
 	DS3DLISTENER li;
 	Plugins *p = g.p;
 	li.dwSize=sizeof(li);
-	if (p->bValid && ! g.bCenterPosition && p3DListener) {
+	if (p->fetch() && ! g.bCenterPosition && p3DListener) {
 		// Only set this if we need to. If centerposition is on, or we don't have valid data,
 		// the 3d mode for the buffers will be disabled, so don't bother with updates.
 		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], MY_DEFERRED);
@@ -440,6 +445,9 @@ void DXAudioOutput::updateListener() {
 	}
 	if (FAILED(hr =p3DListener->CommitDeferredSettings()))
 		qWarning("DXAudioOutputPlayer: CommitDeferrredSettings failed 0x%08lx", hr);
+#ifdef AUDIO_TEST
+	qWarning("SetLis %f %f %f", p->fPosition[0], p->fPosition[1], p->fPosition[2]);
+#endif
 
 	/*
 		float a[3], b[3];

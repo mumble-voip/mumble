@@ -71,7 +71,7 @@ class Plugins : public QObject {
 	public slots:
 		void on_Timer_timeout();
 		void rescanPlugins();
-		void fetch();
+		bool fetch();
 };
 
 #else

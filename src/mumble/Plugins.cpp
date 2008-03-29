@@ -184,12 +184,12 @@ void Plugins::rescanPlugins() {
 	}
 }
 
-void Plugins::fetch() {
+bool Plugins::fetch() {
 	QMutexLocker lock(&qmPlugins);
 
 	if (! locked) {
 		bValid = false;
-		return;
+		return bValid;
 	}
 	bool ok=locked->p->fetch(fPosition, fFront, fTop);
 	if (! ok || bUnlink) {
@@ -198,9 +198,10 @@ void Plugins::fetch() {
 		prevlocked = locked;
 		locked = NULL;
 		for (int i=0;i<3;i++)
-			fPosition[i]=fFront[i]=fTop[i]= 0.0;
+			fPosition[i]=fFront[i]=fTop[i]= 0.0f;
 	}
 	bValid = ok;
+	return bValid;
 }
 
 void Plugins::on_Timer_timeout() {
