@@ -30,6 +30,7 @@
 
 #include "About.h"
 #include "Global.h"
+#include "MainWindow.h"
 #include "licenses.h"
 
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
@@ -46,7 +47,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QWidget *about=new QWidget();
 
 	QLabel *icon=new QLabel(about);
-	icon->setPixmap(qApp->windowIcon().pixmap(qApp->windowIcon().actualSize(QSize(64,64))));
+	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(64,64))));
 
 	QLabel *text=new QLabel(about);
 	text->setOpenExternalLinks(true);

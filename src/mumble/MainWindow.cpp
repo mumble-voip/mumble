@@ -57,6 +57,19 @@ MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(M
 }
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
+
+	qiIcon.addFile(QLatin1String("skin:mumble.16x16.png"));
+	qiIcon.addFile(QLatin1String("skin:mumble.32x32.png"));
+	qiIcon.addFile(QLatin1String("skin:mumble.64x64.png"));
+
+	// Set application icon except on MacOSX, where the window-icon
+	// shown in the title-bar usually serves as a draggable version of the
+	// current open document (i.e. you can copy the open document anywhere
+	// simply by dragging this icon).
+#ifndef Q_OS_MAC
+	qApp->setWindowIcon(qiIcon);
+#endif
+
 	Channel::add(0, tr("Root"), NULL);
 
 	aclEdit = NULL;
@@ -124,7 +137,7 @@ void MainWindow::createActions() {
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));
 
-	qstiIcon = new QSystemTrayIcon(qApp->windowIcon(), this);
+	qstiIcon = new QSystemTrayIcon(qiIcon, this);
 	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 #ifndef Q_OS_MAC
