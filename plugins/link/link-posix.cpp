@@ -20,7 +20,7 @@ typedef unsigned long HWND;
 static wchar_t wcPluginName[256];
 
 struct LinkedMem {
-	uint32_t ui32Version;
+	uint32_t uiVersion;
 	uint64_t ui64Tick;
 	float	fPosition[3];
 	float	fFront[3];
@@ -85,9 +85,9 @@ void load_plugin() {
   if (bCreated)
 	  ftruncate(shmfd, sizeof(struct LinkedMem));
 
-  lm = static_cast<struct LinkedMem*>( 
+  lm = static_cast<struct LinkedMem*>(
       mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
-      
+
   if ((lm != lm_invalid) && bCreated)
   	memset(lm, 0, sizeof(struct LinkedMem));
 }

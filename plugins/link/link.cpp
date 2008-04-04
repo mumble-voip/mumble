@@ -10,8 +10,8 @@
 static wchar_t wcPluginName[256];
 
 struct LinkedMem {
-	DWORD	dwVersion;
-	DWORD	dwTick;
+	UINT32  uiVersion;
+	DWORD   dwTick;
 	float	fPosition[3];
 	float	fFront[3];
 	float	fTop[3];
@@ -27,14 +27,14 @@ static LinkedMem *lm = NULL;
 
 static void unlock() {
 	lm->dwTick = 0;
-	lm->dwVersion = 0;
+	lm->uiVersion = 0;
 	lm->name[0] = 0;
 	wcscpy_s(wcPluginName, 256, L"Link");
 	return;
 }
 
 static int trylock() {
-	if (lm->dwVersion == 1) {
+	if (lm->uiVersion == 1) {
 		if ((GetTickCount() - lm->dwTick) < 5000) {
 			if (lm->name[0]) {
 				errno_t err = wcscpy_s(wcPluginName, 256, lm->name);
@@ -54,7 +54,7 @@ static int fetch(float *pos, float *front, float *top) {
 	if ((GetTickCount() - lm->dwTick) > 5000)
 		return false;
 
-	if (lm->dwVersion != 1)
+	if (lm->uiVersion != 1)
 		return false;
 
 	for (int i=0;i<3;i++)
