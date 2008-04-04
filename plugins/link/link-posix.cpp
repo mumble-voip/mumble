@@ -34,14 +34,14 @@ static int shmfd = -1;
 
 static void unlock() {
 	lm->ui64Tick = 0;
-	lm->ui32Version = 0;
+	lm->uiVersion = 0;
 	wcsncpy(wcPluginName, L"Link", 256);
 }
 
 static int trylock() {
 	if (lm == lm_invalid)
 		return false;
-	if (lm->ui32Version == 1) {
+	if (lm->uiVersion == 1) {
 		if ((clock() - lm->ui64Tick) < (CLOCKS_PER_SEC / 2)) {
 			if (lm->name[0]) {
 				wcsncpy(wcPluginName, lm->name, 256);
