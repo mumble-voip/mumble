@@ -1,12 +1,17 @@
-
 #include <QtCore>
+
+static const float tfreq1 = 48000.f;
+static const float tfreq2 = 44100.f;
 
 #ifdef Q_OS_WIN
 #define _WIN32_IE 0x0600
 #include <windows.h>
 #include <shellapi.h>
+#define CALLGRIND_START_INSTRUMENTATION
+#define CALLGRIND_STOP_INSTRUMENTATION
+#define CALLGRIND_ZERO_STATS
 #else
-#define VALGRIND
+#include <valgrind/callgrind.h>
 #endif
 
 #include <math.h>
@@ -15,19 +20,14 @@
 #include <speex/speex_preprocess.h>
 #include <speex/speex_echo.h>
 #include <speex/speex_callbacks.h>
+#include <speex/speex_resampler.h>
 
-
-#ifdef VALGRIND
-#include <valgrind/callgrind.h>
-#endif
 #include "Timer.h"
 
 int main(int argc, char **argv) {
 
-#ifdef VALGRIND
 	CALLGRIND_STOP_INSTRUMENTATION;
 	CALLGRIND_ZERO_STATS;
-#endif
 
 	QCoreApplication a(argc, argv);
 
@@ -55,6 +55,10 @@ int main(int argc, char **argv) {
 
 	int iFrameSize;
 	speex_encoder_ctl(enc, SPEEX_GET_FRAME_SIZE, &iFrameSize);
+	
+	void *dec = speex_decoder_init(&speex_wb_mode);
+	iarg = 1;
+        speex_decoder_ctl(dec, SPEEX_SET_ENH, &iarg);
 
 	SpeexPreprocessState *spp = speex_preprocess_state_init(iFrameSize, 16000);
 	iarg = 1;
@@ -89,7 +93,23 @@ int main(int argc, char **argv) {
 	for(int i=0;i<nframes;i++) {
 		sv.append(reinterpret_cast<short *>(v[i].data()));
 	}
-
+	
+	float oframe[2048];
+	float resampframe[32768];
+	float verifyframe[32768];
+	
+	const float sfraq1 = tfreq1 / 16000.0f;
+	float fOutSize1 = iFrameSize * sfraq1;
+	int iOutSize1 = lroundf(fOutSize1);
+		
+	const float sfraq2 = tfreq2 / 16000.0f;
+	float fOutSize2 = iFrameSize * sfraq2;
+	int iOutSize2 = lroundf(fOutSize2);
+		
+	int err;
+	SpeexResamplerState *srs1 = speex_resampler_init(1, 16000, lroundf(tfreq1), 3, &err);
+	SpeexResamplerState *srs2 = speex_resampler_init(1, 16000, lroundf(tfreq2), 3, &err);
+	
 	SpeexBits sb;
 	speex_bits_init(&sb);
 
@@ -98,31 +118,53 @@ int main(int argc, char **argv) {
              qWarning("Application: Failed to set priority!");
 #endif
 
+	int len;
+	char data[4096];
+	spx_uint32_t inlen;
+	spx_uint32_t outlen;
+
 	Timer t;
 	t.restart();
 
-#ifdef VALGRIND
+	nframes = qMin(nframes, 10);
+	
 	CALLGRIND_START_INSTRUMENTATION;
-#endif
+
 	for(int i=0;i<nframes-2;i++) {
 		speex_bits_reset(&sb);
+
 		speex_echo_cancellation(ses, sv[i], sv[i+2], tframe);
+
 		speex_preprocess_run(spp, tframe);
+
 		speex_encode_int(enc, tframe, &sb);
+		len = speex_bits_nbytes(&sb);
+		speex_bits_write(&sb, data, len);
+
+		speex_bits_read_from(&sb, data, len);
+		speex_decode(dec, &sb, oframe);
+		
+		inlen = iFrameSize;
+		outlen = iOutSize1;
+		speex_resampler_process_float(srs1, 0, oframe, &inlen, resampframe, &outlen);
+
+		inlen = iFrameSize;
+		outlen = iOutSize2;
+		speex_resampler_process_float(srs2, 0, oframe, &inlen, resampframe, &outlen);
+
 	}
-#ifdef VALGRIND
 	CALLGRIND_STOP_INSTRUMENTATION;
-#endif
+
+	quint64 e = t.elapsed();
 
 #ifdef Q_OS_WIN
     if (!SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS))
              qWarning("Application: Failed to reset priority!");
 #endif
 
-	quint64 e = t.elapsed();
-
 	qWarning("Used %llu usec", e);
 	qWarning("%.2f times realtime", (20000ULL * nframes) / (e * 1.0));
+	return 0;
 }
 
 #include "Timer.cpp"

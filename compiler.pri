@@ -36,6 +36,12 @@ win32 {
 }
 
 !win32 {
+	CONFIG(opt-gcc) {
+		QMAKE_CC = /opt/gcc/bin/gcc
+		QMAKE_CXX = /opt/gcc/bin/g++
+		QMAKE_LINK = /opt/gcc/bin/g++
+	}
+
 	QMAKE_CFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
 	QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
 	!macx {
@@ -44,10 +50,18 @@ win32 {
 
 	CONFIG(optgen) {
 		QMAKE_CFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-generate
+		QMAKE_CXXFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-generate
+		QMAKE_LFLAGS *= -fprofile-generate
 	}
 
 	CONFIG(optimize) {
 		QMAKE_CFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-use
+		QMAKE_CXXFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-use
+	}
+
+	CONFIG(symbols) {
+		QMAKE_CFLAGS *= -g
+		QMAKE_CXXFLAGS *= -g
 	}
 }
 
