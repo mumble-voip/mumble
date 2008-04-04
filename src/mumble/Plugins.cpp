@@ -33,13 +33,11 @@
 #include "../../plugins/mumble_plugin.h"
 #include "Global.h"
 
-#ifdef Q_OS_WIN
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);
 }
 
 static ConfigRegistrar registrar(5000, PluginConfigDialogNew);
-#endif
 
 struct PluginInfo {
 	bool locked;
@@ -148,11 +146,7 @@ void Plugins::rescanPlugins() {
 	bValid = false;
 
 #ifndef PLUGIN_PATH
-#ifdef QT_NO_DEBUG
 	const QString path=QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
-#else
-	const QString path=QString::fromLatin1("%1/../plugins").arg(qApp->applicationDirPath());
-#endif
 #else
 	const QString path=QLatin1String(MUMTEXT(PLUGIN_PATH));
 #endif

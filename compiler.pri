@@ -42,8 +42,8 @@ win32 {
 		QMAKE_LINK = /opt/gcc/bin/g++
 	}
 
-	QMAKE_CFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
-	QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+	QMAKE_CFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
+	QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
 	!macx {
 		QMAKE_LFLAGS *= -Wl,--as-needed
 	}
