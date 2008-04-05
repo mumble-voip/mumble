@@ -78,7 +78,6 @@ class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
 		void on_qsMaxDistance_valueChanged(int v);
 		void on_qsRollOff_valueChanged(int v);
 		void on_qsBloom_valueChanged(int v);
-		void on_qsMinVolume_valueChanged(int v);
 		void on_qcbSystem_currentIndexChanged(int);
 		void on_qcbPositional_stateChanged(int);
 };

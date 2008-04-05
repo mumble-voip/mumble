@@ -590,7 +590,6 @@ void WASAPIOutput::run() {
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
 	UINT32 bufferFrameCount;
 	REFERENCE_TIME hnsRequestedDuration = g.s.iOutputDelay * 20 * 10000;
-	SpeexResamplerState *srs;
 	UINT32 numFramesAvailable;
 	UINT32 packetLength = 0;
 	UINT32 wantLength;
@@ -599,10 +598,8 @@ void WASAPIOutput::run() {
 	int err = 0;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
-	float *inputBuffer = NULL, *outputBuffer = NULL;
-	float *speakerpos = NULL;
-	float mul = 0.0f;
 	int ns = 0;
+	unsigned int chanmasks[32];
 
 	CoInitialize(NULL);
 
@@ -649,6 +646,8 @@ void WASAPIOutput::run() {
 	hr = pAudioClient->GetMixFormat(&pwfx);
 	pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
 
+	iMixerFreq = pwfx->nSamplesPerSec;
+
 	if (FAILED(hr) || (pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
 		qWarning("WASAPIOutput: Subformat is not IEEE Float");
 		goto cleanup;
@@ -667,8 +666,7 @@ void WASAPIOutput::run() {
 		goto cleanup;
 	}
 
-	srs = speex_resampler_init(pwfx->nChannels, 16000, pwfx->nSamplesPerSec, 3, &err);
-	wantLength = (iFrameSize * pwfx->nSamplesPerSec) / 16000;
+	wantLength = lroundf(ceilf((iFrameSize * pwfx->nSamplesPerSec) / (SAMPLE_RATE * 1.0f)));
 
 	pAudioClient->SetEventHandle(hEvent);
 	if (FAILED(hr)) {
@@ -682,99 +680,18 @@ void WASAPIOutput::run() {
 		goto cleanup;
 	}
 
-	mul = 1.0f / 32768.0f;
-
-	inputBuffer = new float[iFrameSize * pwfx->nChannels];
-	outputBuffer = new float[wantLength * pwfx->nChannels];
-	speakerpos = new float[3 * pwfx->nChannels];
-
 	qWarning("WASAPIOutput: ChannelMask %06x", pwfxe->dwChannelMask);
 
-	for (int i=0;i<32;i++) {
+	for(int i=0;i<32;i++) {
 		if (pwfxe->dwChannelMask & (1 << i)) {
-			float *s = &speakerpos[3*ns];
-			s[0] = s[1] = s[2] = 0.0f;
-
-			switch (1<<i) {
-				case SPEAKER_FRONT_LEFT:
-					s[0] = -0.5f;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_FRONT_RIGHT:
-					s[0] = 0.5f;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_FRONT_CENTER:
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_LOW_FREQUENCY:
-					break;
-				case SPEAKER_BACK_LEFT:
-					s[0] = -0.5f;
-					s[2] = -1.0f;
-					break;
-				case SPEAKER_BACK_RIGHT:
-					s[0] = 0.5f;
-					s[2] = -1.0f;
-					break;
-				case SPEAKER_FRONT_LEFT_OF_CENTER:
-					s[0] = -0.25;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_FRONT_RIGHT_OF_CENTER:
-					s[0] = 0.25;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_BACK_CENTER:
-					s[2] = -1.0f;
-					break;
-				case SPEAKER_SIDE_LEFT:
-					s[0] = -1.0f;
-					break;
-				case SPEAKER_SIDE_RIGHT:
-					s[0] = 1.0f;
-					break;
-				case SPEAKER_TOP_CENTER:
-					s[1] = 1.0f;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_TOP_FRONT_LEFT:
-					s[0] = -0.5f;
-					s[1] = 1.0f;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_TOP_FRONT_CENTER:
-					s[1] = 1.0f;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_TOP_FRONT_RIGHT:
-					s[0] = 0.5f;
-					s[1] = 1.0f;
-					s[2] = 1.0f;
-					break;
-				case SPEAKER_TOP_BACK_LEFT:
-					s[0] = -0.5f;
-					s[1] = 1.0f;
-					s[2] = -1.0f;
-					break;
-				case SPEAKER_TOP_BACK_CENTER:
-					s[1] = 1.0f;
-					s[2] = -1.0f;
-					break;
-				case SPEAKER_TOP_BACK_RIGHT:
-					s[0] = 0.5f;
-					s[1] = 1.0f;
-					s[2] = -1.0f;
-					break;
-				default:
-					qWarning("WASAPI: Unknown speaker %d: %08x", ns, 1<<i);
-					break;
-			}
-			ns++;
+			chanmasks[ns++] = 1 << i;
 		}
 	}
+	if (ns != pwfx->nChannels) {
+		qWarning("WASAPIOutput: Chanmask bits doesn't match number of channels.");
+	}
 
-	normalizeSpeakers(speakerpos, pwfx->nChannels);
+	initializeMixer(chanmasks, pwfx->nChannels);
 
 	while (bRunning && ! FAILED(hr)) {
 		hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
@@ -788,21 +705,14 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
-			bool mixed = mixSurround(inputBuffer, speakerpos, pwfx->nChannels);
-			if (mixed) {
-				spx_uint32_t inlen = iFrameSize;
-				spx_uint32_t outlen = wantLength;
-				float *outData = reinterpret_cast<float *>(pData);
-				speex_resampler_process_interleaved_float(srs, inputBuffer, &inlen, outData, &outlen);
-
+			bool mixed = mix(reinterpret_cast<float *>(pData), wantLength);
+			if (mixed)
 				hr = pRenderClient->ReleaseBuffer(wantLength, 0);
-				if (FAILED(hr))
-					goto cleanup;
-			} else {
+			else
 				hr = pRenderClient->ReleaseBuffer(wantLength, AUDCLNT_BUFFERFLAGS_SILENT);
-				if (FAILED(hr))
-					goto cleanup;
-			}
+			if (FAILED(hr))
+				goto cleanup;
+
 			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
 			if (FAILED(hr))
 				goto cleanup;
@@ -825,8 +735,6 @@ cleanup:
 		pRenderClient->Release();
 	if (pDevice)
 		pDevice->Release();
-	if (srs)
-		speex_resampler_destroy(srs);
 
 	if (pEnumerator)
 		pEnumerator->Release();
@@ -836,11 +744,4 @@ cleanup:
 
 	if (hEvent != NULL)
 		CloseHandle(hEvent);
-
-	if (inputBuffer)
-		delete [] inputBuffer;
-	if (speakerpos)
-		delete [] speakerpos;
-	if (outputBuffer)
-		delete [] outputBuffer;
 }

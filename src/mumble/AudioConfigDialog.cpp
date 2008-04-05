@@ -310,7 +310,7 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadSlider(qsMaxDistance, lroundf(r.fAudioMaxDistance * 10));
 	loadSlider(qsRollOff, lroundf(r.fAudioRollOff * 100));
 	loadSlider(qsBloom, lround(r.fAudioBloom * 100));
-	loadSlider(qsMinVolume, lround(r.fAudioMinVolume * 100));
+	loadCheckBox(qcbHeadphones, r.bPositionalHeadphone);
 	loadCheckBox(qcbPositional, r.bPositionalAudio);
 }
 
@@ -326,8 +326,8 @@ void AudioOutputDialog::save() const {
 	s.fAudioMaxDistance = qsMaxDistance->value() / 10.0f;
 	s.fAudioRollOff = qsRollOff->value() / 100.0f;
 	s.fAudioBloom = qsBloom->value() / 100.0f;
-	s.fAudioMinVolume = qsMinVolume->value() / 100.0f;
 	s.bPositionalAudio = qcbPositional->isChecked();
+	s.bPositionalHeadphone = qcbHeadphones->isChecked();
 
 	if (AudioOutputRegistrar::qmNew) {
 		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
@@ -408,10 +408,6 @@ void AudioOutputDialog::on_qsRollOff_valueChanged(int v) {
 
 void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
 	qlBloom->setText(tr("%1%").arg(v));
-}
-
-void AudioOutputDialog::on_qsMinVolume_valueChanged(int v) {
-	qlMinVolume->setText(tr("%1%").arg(v));
 }
 
 void AudioOutputDialog::on_qcbPositional_stateChanged(int v) {

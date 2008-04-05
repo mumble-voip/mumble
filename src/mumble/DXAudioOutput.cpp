@@ -119,7 +119,7 @@ DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, AudioOutputPlayer *a
 	pDSNotify = NULL;
 	pDS3dBuffer = NULL;
 
-	iByteSize = aop->iFrameSize * 2;
+	iByteSize = 320 * sizeof(short);
 
 	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 }
@@ -143,7 +143,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 	dsbd.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
 	if (dxAudio->p3DListener)
 		dsbd.dwFlags	 |= DSBCAPS_CTRL3D;
-	dsbd.dwBufferBytes = aop->iFrameSize * 2 * NBLOCKS;
+	dsbd.dwBufferBytes = 320 * sizeof(short) * NBLOCKS;
 	dsbd.lpwfxFormat     = &wfx;
 	if (dxAudio->p3DListener) {
 		dsbd.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
@@ -156,7 +156,7 @@ void DXAudioOutputPlayer::setupAudioDevice() {
 	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
 
 	for (int i=0;i<NBLOCKS;i++) {
-		aPosNotify[i].dwOffset = aop->iFrameSize * 2 * i;
+		aPosNotify[i].dwOffset = 320 * sizeof(short) * i;
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
@@ -236,6 +236,8 @@ bool DXAudioOutputPlayer::playFrames() {
 	playblock = dwWritePosition / iByteSize;
 	nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
 
+	STACKVAR(short, psBuffer, 320);
+
 	for (int block=(iLastwriteblock + 1) % NBLOCKS;alive && (block!=nowriteblock);block=(block + 1) % NBLOCKS) {
 
 		// Apparantly, even high end cards can sometimes move the play cursor BACKWARDS in 3D mode.
@@ -254,7 +256,10 @@ bool DXAudioOutputPlayer::playFrames() {
 
 		iLastwriteblock = block;
 
-		alive = aop->decodeNextFrame();
+		alive = aop->needSamples(320);
+		for(int i=0;i<320;i++)
+			psBuffer[i] = static_cast<short>(aop->pfBuffer[i]);
+
 //		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iOutputDelay);
 		if (! alive) {
 			iMissingFrames++;
@@ -298,9 +303,9 @@ bool DXAudioOutputPlayer::playFrames() {
 		if (FAILED(hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
 			qFatal("DXAudioOutput: Lock block %u (%d bytes)",block, iByteSize);
 		if (aptr1 && nbytes1)
-			CopyMemory(aptr1, aop->psBuffer, MIN(iByteSize, nbytes1));
+			CopyMemory(aptr1, psBuffer, MIN(iByteSize, nbytes1));
 		if (aptr2 && nbytes2)
-			CopyMemory(aptr2, aop->psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
+			CopyMemory(aptr2, psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
 		if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
 			qFatal("DXAudioOutput: Unlock %p(%lu) %p(%lu)",aptr1,nbytes1,aptr2,nbytes2);
 

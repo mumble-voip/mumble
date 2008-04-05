@@ -79,11 +79,11 @@ Settings::Settings() {
 	iPortAudioOutput = -1; // default device
 
 	bPositionalAudio = false;
+	bPositionalHeadphone = false;
 	fAudioMinDistance = 10.0f;
 	fAudioMaxDistance = 50.0f;
 	fAudioRollOff = 0.15f;
 	fAudioBloom = 0.5f;
-	fAudioMinVolume = 0.3f;
 
 	bOverlayEnable = true;
 	bOverlayUserTextures=true;
@@ -110,7 +110,7 @@ Settings::Settings() {
 	usProxyPort = 0;
 
 #ifdef AUDIO_TEST
-	lmLoopMode = Server;
+	lmLoopMode = Local;
 #else
 	lmLoopMode = None;
 #endif
@@ -138,7 +138,7 @@ bool Settings::doEcho() const {
 }
 
 bool Settings::doPositionalAudio() const {
-	return bPositionalAudio && (fAudioMinVolume != 1.0f);
+	return bPositionalAudio;
 }
 
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
@@ -179,9 +179,9 @@ void Settings::load() {
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioRollOff, "audio/rolloff");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	SAVELOAD(fAudioMinVolume, "audio/minvolume");
 	SAVELOAD(bEcho, "audio/echo");
 	SAVELOAD(bPositionalAudio, "audio/positional");
+	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 
@@ -297,9 +297,9 @@ void Settings::save() {
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioRollOff, "audio/rolloff");
 	SAVELOAD(fAudioBloom, "audio/bloom");
-	SAVELOAD(fAudioMinVolume, "audio/minvolume");
 	SAVELOAD(bEcho, "audio/echo");
 	SAVELOAD(bPositionalAudio, "audio/positional");
+	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 

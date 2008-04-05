@@ -86,28 +86,35 @@ class AudioOutputRegistrar {
 class AudioOutputPlayer : public QObject {
 		friend class AudioOutput;
 		Q_OBJECT
+	protected:
+		unsigned int iBufferSize;
+		void resizeBuffer(unsigned int newsize);
 	public:
 		AudioOutputPlayer(const QString name);
+		~AudioOutputPlayer();
 		const QString qsName;
-		unsigned int iFrameSize;
-		short *psBuffer;
+		float *pfBuffer;
 		float fPos[3];
-		virtual bool decodeNextFrame() = 0;
+		virtual bool needSamples(int snum) = 0;
 };
 
 class AudioOutputSpeech : public AudioOutputPlayer {
 		friend class AudioOutput;
 		Q_OBJECT
 	protected:
+		unsigned int iBufferOffset;
+		unsigned int iBufferFilled;
+		unsigned int iOutputSize;
+		unsigned int iLastConsume;
+		int iFrameSize;
+		bool bLastAlive;
+
+		SpeexResamplerState *srs;
 
 		SpeexBits sbBits;
-		int iFrameCounter;
 		QMutex qmJitter;
 		JitterBuffer *jbJitter;
 		void *dsDecState;
-
-		bool bSpeech;
-
 		int iMissCount;
 
 		unsigned char ucFlags;
@@ -117,13 +124,12 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		int iMissedFrames;
 		ClientPlayer *p;
 
-		virtual bool decodeNextFrame();
+		virtual bool needSamples(int snum);
 
 		void addFrameToBuffer(const QByteArray &, int iBaseSeq);
-		AudioOutputSpeech(ClientPlayer * = NULL);
+		AudioOutputSpeech(ClientPlayer *, unsigned int freq);
 		~AudioOutputSpeech();
 };
-
 
 class AudioSine : public AudioOutputPlayer {
 		Q_OBJECT
@@ -137,24 +143,29 @@ class AudioSine : public AudioOutputPlayer {
 		unsigned int tbin;
 		bool bSearch;
 	public:
-		bool decodeNextFrame();
-		AudioSine(float hz, float i, unsigned int frm, float v);
+		virtual bool needSamples(int snum);
+		AudioSine(float hz, float i, unsigned int frm, float v, unsigned int freq);
 		~AudioSine();
 };
 
 class AudioOutput : public QThread {
 		Q_OBJECT
+	private:
+		int iChannels;
+		float *fSpeakers;
+		float *fSpeakerVolume;
+		bool *bSpeakerPositional;
 	protected:
 		volatile bool bRunning;
 		int iFrameSize;
+		int iMixerFreq;
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;
+
 		virtual void newPlayer(AudioOutputPlayer *);
 		virtual void removeBuffer(AudioOutputPlayer *);
-		bool mixAudio(short *output);
-		bool mixStereoAudio(short *output);
-		bool mixSurround(float *output, float *speakerpos, int nspeakers);
-		void normalizeSpeakers(float *speakerpos, int nspeakers);
+		void initializeMixer(unsigned int *chanmasks, unsigned int nchannels);
+		bool mix(float *output, unsigned int nsamp);
 	public:
 		void wipe();
 

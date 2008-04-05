@@ -87,20 +87,46 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 }
 
 AudioOutputPlayer::AudioOutputPlayer(const QString name) : qsName(name) {
-	iFrameSize = 0;
-	psBuffer = NULL;
+	iBufferSize = 0;
+	pfBuffer = NULL;
 	fPos[0]=fPos[1]=fPos[2]=0.0;
 }
 
-AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player) : AudioOutputPlayer(player->qsName) {
+AudioOutputPlayer::~AudioOutputPlayer() {
+	if (pfBuffer)
+		delete [] pfBuffer;
+}
+
+void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
+	if (newsize > iBufferSize) {
+		float *n = new float[newsize];
+		if (pfBuffer) {
+			memcpy(n, pfBuffer, sizeof(float) * iBufferSize);
+			delete [] pfBuffer;
+		}
+		pfBuffer = n;
+		iBufferSize = newsize;
+	}
+}
+
+AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : AudioOutputPlayer(player->qsName) {
 	p = player;
 
 	dsDecState=speex_decoder_init(&speex_wb_mode);
 
 	int iArg=1;
+	int err;
 
 	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
 	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
+
+	qWarning("Resampling from %d to %d", 16000, freq);
+	srs = speex_resampler_init(1, 16000, freq, 3, &err);
+
+	iOutputSize = lroundf(ceilf((iFrameSize * freq) / (16000 * 1.0f)));
+
+	iBufferOffset = iBufferFilled = iLastConsume = 0;
+	bLastAlive = true;
 
 	SpeexCallback sc;
 	sc.callback_id = 1;
@@ -109,13 +135,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player) : AudioOutputPlayer(p
 
 	speex_decoder_ctl(dsDecState, SPEEX_SET_USER_HANDLER, &sc);
 
-	iFrameCounter = 0;
-
-	psBuffer = new short[iFrameSize];
-	bSpeech = false;
-
-	for (unsigned int i=0;i<iFrameSize;i++)
-		psBuffer[i]=0;
 	iMissCount = 0;
 	iMissedFrames = 0;
 
@@ -130,8 +149,6 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 	speex_decoder_destroy(dsDecState);
 	jitter_buffer_destroy(jbJitter);
 	speex_bits_destroy(&sbBits);
-
-	delete [] psBuffer;
 }
 
 int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *, void *data) {
@@ -171,58 +188,75 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, int iSeq) 
 	jitter_buffer_put(jbJitter, &jbp);
 }
 
-bool AudioOutputSpeech::decodeNextFrame() {
-	bool alive = true;
+bool AudioOutputSpeech::needSamples(int snum) {
+	for(int i=iLastConsume;i<iBufferFilled;++i)
+		pfBuffer[i-iLastConsume]=pfBuffer[i];
+	iBufferFilled -= iLastConsume;
 
-	if (p == &LoopPlayer::lpLoopy)
-		LoopPlayer::lpLoopy.fetchFrames();
+	iLastConsume = snum;
 
-	if (speex_decode_int(dsDecState, &sbBits, psBuffer) == 0) {
-		jitter_buffer_tick(jbJitter);
-	} else {
-		QMutexLocker lock(&qmJitter);
+	if (iBufferFilled >= snum)
+		return bLastAlive;
 
-		char data[4096];
-		JitterBufferPacket jbp;
-		jbp.data = data;
-		jbp.len = 4096;
+	STACKVAR(float, fOut, iFrameSize);
 
-		spx_int32_t startofs = 0;
+	while (iBufferFilled < snum) {
+		resizeBuffer(iBufferFilled + iOutputSize);
 
-		if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
-			ucFlags = jbp.data[0];
-			fPos[0] = fPos[1] = fPos[2] = 0.0;
-			speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);
-			speex_decode_int(dsDecState, &sbBits, psBuffer);
+		if (p == &LoopPlayer::lpLoopy)
+			LoopPlayer::lpLoopy.fetchFrames();
+
+
+		if (speex_decode(dsDecState, &sbBits, fOut) == 0) {
+			jitter_buffer_tick(jbJitter);
+			bLastAlive = true;
 		} else {
-			if (ucFlags & MessageSpeex::EndSpeech) {
-				memset(psBuffer, 0, iFrameSize*2);
-				alive = false;
+			QMutexLocker lock(&qmJitter);
+
+			char data[4096];
+			JitterBufferPacket jbp;
+			jbp.data = data;
+			jbp.len = 4096;
+
+			spx_int32_t startofs = 0;
+
+			if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
+				ucFlags = jbp.data[0];
+				fPos[0] = fPos[1] = fPos[2] = 0.0;
+				speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);
+				speex_decode(dsDecState, &sbBits, fOut);
+				bLastAlive = true;
 			} else {
-				iMissCount++;
-				if (iMissCount < 5) {
-					speex_decode_int(dsDecState, NULL, psBuffer);
+				if (ucFlags & MessageSpeex::EndSpeech) {
+					memset(fOut, 0, sizeof(float) * iFrameSize);
+					bLastAlive = false;
 				} else {
-					memset(psBuffer, 0, iFrameSize*sizeof(short));
-					alive = false;
+					iMissCount++;
+					if (iMissCount < 5) {
+						speex_decode(dsDecState, NULL, fOut);
+					} else {
+						memset(fOut, 0, sizeof(float) * iFrameSize);
+						bLastAlive = false;
+					}
 				}
 			}
+
+			int activity;
+			speex_decoder_ctl(dsDecState, SPEEX_GET_ACTIVITY, &activity);
+			if (activity < 30)
+				jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+
+			jitter_buffer_tick(jbJitter);
 		}
-
-		int activity;
-		speex_decoder_ctl(dsDecState, SPEEX_GET_ACTIVITY, &activity);
-		if (activity < 30)
-			jitter_buffer_update_delay(jbJitter, &jbp, NULL);
-
-		jitter_buffer_tick(jbJitter);
+		spx_uint32_t inlen = iFrameSize;
+		spx_uint32_t outlen = iOutputSize;
+		speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+		iBufferFilled += outlen;
 	}
 
-	if (g.s.fVolume < 0.01)
-		memset(psBuffer, 0, iFrameSize*sizeof(short));
-
 	if (p)
-		p->setTalking(alive, ((ucFlags & MessageSpeex::AltSpeak) ? true : false));
-	return alive;
+		p->setTalking(bLastAlive, ((ucFlags & MessageSpeex::AltSpeak) ? true : false));
+	return bLastAlive;
 }
 
 AudioOutput::AudioOutput() {
@@ -230,24 +264,35 @@ AudioOutput::AudioOutput() {
 	speex_decoder_ctl(ds, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 	speex_decoder_destroy(ds);
 	bRunning = false;
+
+	iChannels = 0;
+	fSpeakers = NULL;
+	fSpeakerVolume = NULL;
+	bSpeakerPositional = NULL;
+
+	iMixerFreq = 16000;
 }
 
 AudioOutput::~AudioOutput() {
 	bRunning = false;
 	wait();
 	wipe();
+
+	if (fSpeakers)
+		delete [] fSpeakers;
+	if (fSpeakerVolume)
+		delete [] fSpeakerVolume;
+	if (bSpeakerPositional)
+		delete [] bSpeakerPositional;
 }
 
 // Here's the theory.
 // We support sound "bloom"ing. That is, if sound comes directly from the left, if it is sufficiently
 // close, we'll hear it full intensity from the left side, and "bloom" intensity from the right side.
-//
-// FIXME: Add a barebones minimum volume, and scale all of this according to that.
 
 float AudioOutput::calcGain(float dotproduct, float distance) {
 
 	float dotfactor = (dotproduct + 1.0f) / 2.0f;
-	float scaling = (1.0 - g.s.fAudioMinVolume);
 	float att;
 
 
@@ -265,7 +310,7 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 
 		att = datt * dotfactor;
 	}
-	return g.s.fAudioMinVolume + scaling * att;
+	return att;
 }
 
 void AudioOutput::newPlayer(AudioOutputPlayer *) {
@@ -278,7 +323,7 @@ void AudioOutput::wipe() {
 
 void AudioOutput::playSine(float hz, float i, unsigned int frames, float volume) {
 	qrwlOutputs.lockForWrite();
-	AudioSine *as = new AudioSine(hz,i,frames, volume);
+	AudioSine *as = new AudioSine(hz,i,frames, volume, iMixerFreq);
 	qmOutputs.insert(NULL, as);
 	newPlayer(as);
 	qrwlOutputs.unlock();
@@ -290,7 +335,7 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 	if (! aop) {
 		qrwlOutputs.unlock();
 		qrwlOutputs.lockForWrite();
-		aop = new AudioOutputSpeech(player);
+		aop = new AudioOutputSpeech(player, iMixerFreq);
 		qmOutputs.replace(player,aop);
 		newPlayer(aop);
 	}
@@ -317,99 +362,145 @@ void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 	}
 }
 
-bool AudioOutput::mixAudio(short *buffer) {
+void AudioOutput::initializeMixer(unsigned int *chanmasks, unsigned int nchannels) {
+	iChannels = nchannels;
+
+	fSpeakers = new float[iChannels * 3];
+	bSpeakerPositional = new bool[iChannels];
+	fSpeakerVolume = new float[iChannels];
+
+	memset(fSpeakers, 0, sizeof(float) * iChannels * 3);
+	memset(bSpeakerPositional, 0, sizeof(bool) * iChannels);
+
+	for(int i=0;i<iChannels;++i)
+		fSpeakerVolume[i] = 1.0f;
+
+	if (g.s.bPositionalAudio && (iChannels > 1)) {
+		for(int i=0;i<iChannels;i++) {
+			float *s = &fSpeakers[3*i];
+			bSpeakerPositional[i] = true;
+
+			switch (chanmasks[i]) {
+				case SPEAKER_FRONT_LEFT:
+					s[0] = -0.5f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_FRONT_RIGHT:
+					s[0] = 0.5f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_FRONT_CENTER:
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_LOW_FREQUENCY:
+					break;
+				case SPEAKER_BACK_LEFT:
+					s[0] = -0.5f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_BACK_RIGHT:
+					s[0] = 0.5f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_FRONT_LEFT_OF_CENTER:
+					s[0] = -0.25;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_FRONT_RIGHT_OF_CENTER:
+					s[0] = 0.25;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_BACK_CENTER:
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_SIDE_LEFT:
+					s[0] = -1.0f;
+					break;
+				case SPEAKER_SIDE_RIGHT:
+					s[0] = 1.0f;
+					break;
+				case SPEAKER_TOP_CENTER:
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_FRONT_LEFT:
+					s[0] = -0.5f;
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_FRONT_CENTER:
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_FRONT_RIGHT:
+					s[0] = 0.5f;
+					s[1] = 1.0f;
+					s[2] = 1.0f;
+					break;
+				case SPEAKER_TOP_BACK_LEFT:
+					s[0] = -0.5f;
+					s[1] = 1.0f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_TOP_BACK_CENTER:
+					s[1] = 1.0f;
+					s[2] = -1.0f;
+					break;
+				case SPEAKER_TOP_BACK_RIGHT:
+					s[0] = 0.5f;
+					s[1] = 1.0f;
+					s[2] = -1.0f;
+					break;
+				default:
+					bSpeakerPositional[i] = false;
+					fSpeakerVolume[i] = 0.0f;
+					qWarning("AudioOutput: Unknown speaker %d: %08x", i, chanmasks[i]);
+					break;
+			}
+			if (g.s.bPositionalHeadphone) {
+				s[1] = 0.0f;
+				s[2] = 0.0f;
+				if (s[0] == 0.0f)
+					fSpeakerVolume[i] = 0.0f;
+			}
+		}
+		for(int i=0;i<iChannels;i++) {
+			float d = sqrtf(fSpeakers[3*i+0]*fSpeakers[3*i+0] + fSpeakers[3*i+1]*fSpeakers[3*i+1] + fSpeakers[3*i+2]*fSpeakers[3*i+2]);
+			if (d > 0.0f) {
+				fSpeakers[3*i+0] /= d;
+				fSpeakers[3*i+1] /= d;
+				fSpeakers[3*i+2] /= d;
+			}
+		}
+	}
+}
+
+bool AudioOutput::mix(float *output, unsigned int nsamp) {
 	AudioOutputPlayer *aop;
 	QList<AudioOutputPlayer *> qlMix;
 	QList<AudioOutputPlayer *> qlDel;
 
+	memset(output, 0, sizeof(float) * nsamp * iChannels);
+
+	if (g.s.fVolume < 0.01)
+		return false;
+
+	const float mul = g.s.fVolume / 32768.0f;
+
 	qrwlOutputs.lockForRead();
 	foreach(aop, qmOutputs) {
-		if (! aop->decodeNextFrame()) {
+		if (! aop->needSamples(nsamp)) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);
 		}
 	}
-
-#if defined(__MMX__) || defined(Q_OS_WIN)
-	_mm_empty();
-	__m64 *out=reinterpret_cast<__m64 *>(buffer);
-	__m64 zero=_mm_cvtsi32_si64(0);
-
-	int sz = iFrameSize/4;
-
-	for (int i=0;i<sz;i++)
-		out[i]=zero;
-
-	foreach(aop, qlMix) {
-		__m64 *in=reinterpret_cast<__m64 *>(aop->psBuffer);
-
-		for (int i=0;i<sz;i++)
-			out[i]=_mm_adds_pi16(in[i],out[i]);
-	}
-
-	_mm_empty();
-#else
-	int t[iFrameSize];
-	for (int i=0;i<iFrameSize;i++)
-		t[i]=0;
-
-	foreach(aop, qlMix)
-	for (int i=0;i<iFrameSize;i++)
-		t[i] += aop->psBuffer[i];
-
-	for (int i=0;i<iFrameSize;i++)
-		buffer[i]=qMax(-32727,qMin(32767,t[i]));
-#endif
-
-	qrwlOutputs.unlock();
-
-	foreach(aop, qlDel)
-	removeBuffer(aop);
-
-	return (! qlMix.isEmpty());
-}
-
-void AudioOutput::normalizeSpeakers(float * speakerpos, int nspeakers) {
-	for (int i=0;i<nspeakers;++i) {
-		float d = sqrtf(speakerpos[3*i+0]*speakerpos[3*i+0] + speakerpos[3*i+1]*speakerpos[3*i+1] + speakerpos[3*i+2]*speakerpos[3*i+2]);
-		if (d > 0.0f) {
-			speakerpos[3*i+0] /= d;
-			speakerpos[3*i+1] /= d;
-			speakerpos[3*i+2] /= d;
-		}
-	}
-}
-
-bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers) {
-	AudioOutputPlayer *aop;
-	QList<AudioOutputPlayer *> qlMix;
-	QList<AudioOutputPlayer *> qlDel;
-
-	const float mul = 1.0f / 32768.0f;
-
-	memset(output, 0, sizeof(float) * iFrameSize * nspeakers);
-
-	STACKVAR(float, inbuff, iFrameSize);
-
-	qrwlOutputs.lockForRead();
-	foreach(aop, qmOutputs) {
-		if (! aop->decodeNextFrame()) {
-			qlDel.append(aop);
-		} else {
-			qlMix.append(aop);
-		}
-	}
-
 
 	if (! qlMix.isEmpty()) {
-		STACKVAR(float, speaker, nspeakers*3);
-		STACKVAR(bool, dirspeaker, nspeakers);
+		STACKVAR(float, speaker, iChannels*3);
 		bool validListener = false;
 
-		g.p->fetch();
-
-		if (g.p->bValid) {
+		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()) {
 			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2]};
 			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2]};
 
@@ -446,22 +537,14 @@ bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers)
 						qWarning("Right: %f %f %f", right[0], right[1], right[2]);
 			*/
 			// Rotate speakers to match orientation
-			for (int i=0;i<nspeakers;++i) {
-				speaker[3*i+0] = speakerpos[3*i+0] * right[0] + speakerpos[3*i+1] * top[0] + speakerpos[3*i+2] * front[0];
-				speaker[3*i+1] = speakerpos[3*i+0] * right[1] + speakerpos[3*i+1] * top[1] + speakerpos[3*i+2] * front[1];
-				speaker[3*i+2] = speakerpos[3*i+0] * right[2] + speakerpos[3*i+1] * top[2] + speakerpos[3*i+2] * front[2];
-
-				if ((speaker[3*i+0] != 0.0f) || (speaker[3*i+1] != 0.0f) || (speaker[3*i+2] != 0.0f)) {
-					dirspeaker[i] = true;
-				} else {
-					dirspeaker[i] = false;
-				}
+			for (int i=0;i<iChannels;++i) {
+				speaker[3*i+0] = fSpeakers[3*i+0] * right[0] + fSpeakers[3*i+1] * top[0] + fSpeakers[3*i+2] * front[0];
+				speaker[3*i+1] = fSpeakers[3*i+0] * right[1] + fSpeakers[3*i+1] * top[1] + fSpeakers[3*i+2] * front[1];
+				speaker[3*i+2] = fSpeakers[3*i+0] * right[2] + fSpeakers[3*i+1] * top[2] + fSpeakers[3*i+2] * front[2];
 			}
 			validListener = true;
 		}
 		foreach(aop, qlMix) {
-			for (int i=0;i<iFrameSize;i++)
-				inbuff[i] = aop->psBuffer[i] * mul;
 
 #ifdef AUDIO_TEST
 			aop->fPos[0] = 4.0f;
@@ -479,128 +562,42 @@ bool AudioOutput::mixSurround(float * output, float * speakerpos, int nspeakers)
 								qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
 								qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
 				*/
-				for (int s=0;s<nspeakers;++s) {
-					float dot = dirspeaker[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
-					float str = calcGain(dot, len);
+				for (int s=0;s<iChannels;++s) {
+					float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
+					float str = mul * calcGain(dot, len) * fSpeakerVolume[s];
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
-					for (int i=0;i<iFrameSize;++i)
-						output[i*nspeakers+s] += inbuff[i] * str;
+					for (int i=0;i<nsamp;++i)
+						output[i*iChannels+s] += aop->pfBuffer[i] * str;
 				}
 			} else {
-				for (int i=0;i<iFrameSize;++i)
-					for (int j=0;j<nspeakers;++j)
-						output[i*nspeakers+j] += inbuff[i];
+				for (int i=0;i<nsamp;++i)
+					for (int j=0;j<iChannels;++j)
+						output[i*iChannels+j] += aop->pfBuffer[i] * fSpeakerVolume[j] * mul;
 			}
 		}
 		// Clip
-		for (int i=0;i<iFrameSize*nspeakers;i++)
+		for (int i=0;i<iFrameSize*iChannels;i++)
 			output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
 	}
 
 	qrwlOutputs.unlock();
 
 	foreach(aop, qlDel)
-	removeBuffer(aop);
+		removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
 }
 
-bool AudioOutput::mixStereoAudio(short *buffer) {
-	AudioOutputPlayer *aop;
-	QList<AudioOutputPlayer *> qlMix;
-	QList<AudioOutputPlayer *> qlDel;
-
-	qrwlOutputs.lockForRead();
-	foreach(aop, qmOutputs) {
-		if (! aop->decodeNextFrame()) {
-			qlDel.append(aop);
-		} else {
-			qlMix.append(aop);
-		}
-	}
-
-	STACKVAR(int, t, iFrameSize*2);
-
-	for (int i=0;i< (iFrameSize*2);i++)
-		t[i]=0;
-
-	Plugins *p = g.p;
-
-	p->fetch(); // Make sure we use the actual position
-
-	if (p->bValid) { // Use stereo if plugin data is valid
-		const float left[3] = { // We have an LHS coordinate system
-			- p->fTop[1]*p->fFront[2] + p->fTop[2]*p->fFront[1],
-			- p->fTop[2]*p->fFront[0] + p->fTop[0]*p->fFront[2],
-			- p->fTop[0]*p->fFront[1] + p->fTop[1]*p->fFront[0]
-		};
-		// This cross-product defines the left/right split plane
-
-		const float left_norm = sqrtf(left[0]*left[0] + left[1]*left[1]+left[2]*left[2]);
-		foreach(aop, qlMix) {
-			float vol_scal = 1.0;
-			float vol_stereo = 0;
-
-			// Test if source has valid position data
-			if ((aop->fPos[0] != 0.0) || (aop->fPos[1] != 0.0) || (aop->fPos[2] != 0.0)) {
-				const float source_direction[3] = {
-					aop->fPos[0] - p->fPosition[0],
-					aop->fPos[1] - p->fPosition[1],
-					aop->fPos[1] - p->fPosition[1]
-				};
-
-				const float source_direction_norm = sqrtf(
-				                                        source_direction[0]*source_direction[0]
-				                                        + source_direction[1]*source_direction[1]
-				                                        + source_direction[2]*source_direction[2]);
-
-				vol_stereo = (left[0]*source_direction[0] +
-				              left[1]*source_direction[1] +
-				              left[2]*source_direction[2])
-				             / left_norm / source_direction_norm;
-				// asin(scalar_product) = angle from center, where
-				// angle < 0 is right and angle > 0 is left
-
-				vol_scal= calcGain(vol_stereo, source_direction_norm);
-			}
-			const float vol_left=  vol_scal * (1.0 + vol_stereo);
-			const float vol_right= vol_scal * (1.0 - vol_stereo);
-			for (int i=0;i<iFrameSize;i++) {
-				t[2*i] += (int)(vol_left * aop->psBuffer[i]);
-				t[2*i+1] += (int)(vol_right *aop->psBuffer[i]);
-			}
-		}
-	} else { // no stereo
-		foreach(aop, qlMix) {
-			for (int i=0;i<iFrameSize;i++) {
-				t[2*i]   += aop->psBuffer[i];
-				t[2*i+1] += aop->psBuffer[i];
-			}
-		}
-	}
-
-	for (int i=0;i<(iFrameSize*2);i++)
-		buffer[i]=qMax(-32727,qMin(32767,t[i]));
-
-	qrwlOutputs.unlock();
-
-	foreach(aop, qlDel)
-	removeBuffer(aop);
-
-	return (! qlMix.isEmpty());
-}
-
-AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutputPlayer(QLatin1String("Sine")) {
+AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol, unsigned int freq) : AudioOutputPlayer(QLatin1String("Sine")) {
+	float hfreq = freq / 2.0f;
 	v = 0.0;
-	inc = M_PI * hz / 8000.0;
-	dinc = M_PI * i / (8000.0 * 8000.0);
-	volume = vol;
+	inc = M_PI * hz / hfreq;
+	dinc = M_PI * i / (hfreq * hfreq);
+	volume = vol * 32768.f;
 	frames = frm;
-	iFrameSize = 320;
 	cntr = 0;
-	psBuffer = new short[iFrameSize];
 	tbin = 4;
 
 	if (inc == 0.0)
@@ -608,12 +605,13 @@ AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol) : AudioOutp
 }
 
 AudioSine::~AudioSine() {
-	delete [] psBuffer;
 }
 
-bool AudioSine::decodeNextFrame() {
+bool AudioSine::needSamples(int snum) {
 	if (frames > 0) {
 		frames--;
+
+		resizeBuffer(snum);
 
 		if (inc == 0.0) {
 			if (++cntr == 50) {
@@ -630,23 +628,24 @@ bool AudioSine::decodeNextFrame() {
 				g.iAudioPathTime = cntr;
 			}
 
-			for (unsigned int i=0;i<iFrameSize;i++)
-				psBuffer[i] = lroundf(32768.0f * volume * sinf(M_PI * i * (tbin * 1.0f) / (1.0f * iFrameSize)));
+			// FIXME: Not * snum, * something else
+			for (unsigned int i=0;i<snum;i++)
+				pfBuffer[i] = volume * sinf(M_PI * i * (tbin * 1.0f) / (1.0f * snum));
 
 			return true;
 		}
 
 		float t = v;
 
-		for (unsigned int i=0;i<iFrameSize;i++) {
-			psBuffer[i]=static_cast<short>(sinf(t) * volume * 32768.0f);
+		for (unsigned int i=0;i<snum;i++) {
+			pfBuffer[i]=sinf(t) * volume;
 			inc+=dinc;
 			t+=inc;
 		}
 		v = t;
 		return true;
 	} else {
-		memset(psBuffer, 0, iFrameSize*2);
+		memset(pfBuffer, 0, sizeof(float) * snum);
 		return false;
 	}
 }
