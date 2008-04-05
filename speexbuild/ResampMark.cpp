@@ -2,6 +2,7 @@
 
 static const float tfreq1 = 48000.f;
 static const float tfreq2 = 44100.f;
+static const int qual = 3;
 #define SM_VERIFY
 // #define EXACT
 
@@ -21,6 +22,28 @@ static const float tfreq2 = 44100.f;
 
 #include "Timer.h"
 
+template<class T>
+static inline void veccomp(const QVector<T> &a, const QVector<T> &b, const char *n) {
+	if (a.size() != b.size()) {
+		qFatal("%s: %d <=> %d", n, a.size(), b.size());
+	}
+	for(int i=0;i<a.size();++i) {
+#ifdef EXACT
+
+		if (a[i] != b[i]) {
+#else
+		union { T tv; uint32_t uv; } v1, v2;
+		v1.uv = v2.uv = 0;
+		v1.tv = a[i];
+		v2.tv = b[i];
+		if (fabsf(a[i] - b[i]) > 2) {
+			qWarning("%08x %08x %08x", v1.uv, v2.uv, v1.uv ^ v2.uv);
+#endif
+			qFatal("%s: Offset %d: %.10g <=> %.10g", n, i, static_cast<double>(a[i]), static_cast<double>(b[i]));
+		}
+	}
+}
+
 int main(int argc, char **argv) {
 
 	CALLGRIND_STOP_INSTRUMENTATION;
@@ -34,17 +57,18 @@ int main(int argc, char **argv) {
 	}
 	f.seek(36 + 8);
 
-#ifdef SM_OUTPUT
 	QFile o("output.raw");
-	if (! o.open(QIODevice::WriteOnly))
-		qFatal("Failed to open output!");
-#endif
-#ifdef SM_VERIFY
+	if (!(RUNNING_ON_VALGRIND))
+		if (! o.open(QIODevice::WriteOnly))
+			qFatal("Failed to open output!");
+
 	QFile vf((argc >= 3) ? argv[2] : "verify.raw");
 	if (! vf.open(QIODevice::ReadOnly)) {
 		qWarning("Failed to open validate file!");
 	}
-#endif
+	
+	QDataStream out(&o);
+	QDataStream verify(&vf);
 
 	const int iFrameSize = 320;
 
@@ -61,25 +85,13 @@ int main(int argc, char **argv) {
 
 	qWarning("Ready to process %d frames of %d samples", nframes, iFrameSize);
 
-	QVector<float *> sv;
+	QVector<short *> qvInShort;
+	QVector<float *> qvIn;
+	QVector<float *> qvDirect;
+	QVector<float *> qvInterpolate;
+	QVector<float *> qvInterpolateMC;
+	QVector<short *> qvInterpolateShort;
 
-
-
-	short tframe[2048];
-	for(int i=0;i<iFrameSize;i++)
-		tframe[i] = 0;
-
-	for(int i=0;i<nframes;i++) {
-		float *f = new float[iFrameSize];
-		short *s = reinterpret_cast<short *>(v[i].data());
-		for(int j=0;j<iFrameSize;j++)
-			f[j]=s[j];
-		sv.append(f);
-	}
-	
-	float resampframe[32768];
-	float verifyframe[32768];
-	
 	const float sfraq1 = tfreq1 / 16000.0f;
 	float fOutSize1 = iFrameSize * sfraq1;
 	int iOutSize1 = lroundf(fOutSize1);
@@ -87,10 +99,36 @@ int main(int argc, char **argv) {
 	const float sfraq2 = tfreq2 / 16000.0f;
 	float fOutSize2 = iFrameSize * sfraq2;
 	int iOutSize2 = lroundf(fOutSize2);
+	
+	if (RUNNING_ON_VALGRIND)
+		nframes = qMin(nframes, 10);
+
+	QVector<float> fInput(nframes * iFrameSize);
+	QVector<float> fDirect(nframes * iOutSize1);
+	QVector<float> fInterpolate(nframes * iOutSize2);
+	QVector<float> fInterpolateMC(nframes * iOutSize2);
+	QVector<short> sInterpolate(nframes * iOutSize2);
 		
+	for(int i=0;i<nframes;i++) {
+		short *s = reinterpret_cast<short *>(v[i].data());
+		float *f = fInput.data() + i * iFrameSize;
+
+		for(int j=0;j<iFrameSize;j++)
+			f[j]=s[j]+20;
+
+		qvInShort.append(s);
+		qvIn.append(f);
+		qvDirect.append(fDirect.data() + i * iOutSize1);
+		qvInterpolate.append(fInterpolate.data() + i * iOutSize2);
+		qvInterpolateMC.append(fInterpolateMC.data() + i * iOutSize2);
+		qvInterpolateShort.append(sInterpolate.data() + i * iOutSize2);
+	}
+	
 	int err;
-	SpeexResamplerState *srs1 = speex_resampler_init(1, 16000, lroundf(tfreq1), 3, &err);
-	SpeexResamplerState *srs2 = speex_resampler_init(1, 16000, lroundf(tfreq2), 3, &err);
+	SpeexResamplerState *srs1 = speex_resampler_init(1, 16000, lroundf(tfreq1), qual, &err);
+	SpeexResamplerState *srs2 = speex_resampler_init(1, 16000, lroundf(tfreq2), qual, &err);
+	SpeexResamplerState *srs2i = speex_resampler_init(1, 16000, lroundf(tfreq2), qual, &err);
+	SpeexResamplerState *srss = speex_resampler_init(3, 16000, lroundf(tfreq2), qual, &err);
 	
 #ifdef Q_OS_WIN
     if (!SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS))
@@ -104,28 +142,24 @@ int main(int argc, char **argv) {
 	Timer t;
 	quint64 e;
 
-	if (RUNNING_ON_VALGRIND) {
-		nframes = qMin(nframes, 10);
-	} else {
+	if (! RUNNING_ON_VALGRIND) {
 		t.restart();
-		for(int j=0;j<100;j++) {
-			for(int i=0;i<100;i++) {
-				float *in = sv[i];
+		for(int j=0;j<10;j++) {
+			for(int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize1;
-				speex_resampler_process_float(srs1, 0, in, &inlen, resampframe, &outlen);
+				speex_resampler_process_float(srs1, 0, qvIn[i], &inlen, qvDirect[i], &outlen);
 			}
 		}
 		e = t.elapsed();
 		qWarning("Direct:      %10llu usec", e);
 
 		t.restart();
-		for(int j=0;j<100;j++) {
-			for(int i=0;i<100;i++) {
-				float *in = sv[i];
+		for(int j=0;j<10;j++) {
+			for(int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize2;
-				speex_resampler_process_float(srs2, 0, in, &inlen, resampframe, &outlen);
+				speex_resampler_process_float(srs2, 0, qvIn[i], &inlen, qvInterpolate[i], &outlen);
 			}
 		}
 		e = t.elapsed();
@@ -138,59 +172,22 @@ int main(int argc, char **argv) {
 	CALLGRIND_START_INSTRUMENTATION;
 
 	for(int i=0;i<nframes;i++) {
-		float *in = sv[i];
-		
 		inlen = iFrameSize;
 		outlen = iOutSize1;
-		speex_resampler_process_float(srs1, 0, in, &inlen, resampframe, &outlen);
+		speex_resampler_process_float(srs1, 0, qvIn[i], &inlen, qvDirect[i], &outlen);
 
-		if (! RUNNING_ON_VALGRIND) {
-#ifdef SM_OUTPUT
-			o.write(reinterpret_cast<const char *>(resampframe), outlen * sizeof(float));
-#endif
-#ifdef SM_VERIFY
-			if (vf.read(reinterpret_cast<char *>(verifyframe), outlen * sizeof(float)) == outlen * sizeof(float)) {
-				for(int j=0;j<outlen;j++)
-#ifdef EXACT
-					if (verifyframe[j] != resampframe[j])
-#else
-					if (fabs(verifyframe[j]-resampframe[j]) > fabs(verifyframe[j])*0.2f)
-#endif
-						qFatal("Frame %d, Pos %d: SRS1 %.10g <=> %.10g", i, j, verifyframe[j], resampframe[j]);
-			}
-#endif
-		}
-		
 		inlen = iFrameSize;
 		outlen = iOutSize2;
-		speex_resampler_process_float(srs2, 0, in, &inlen, resampframe, &outlen);
+		speex_resampler_process_float(srs2, 0, qvIn[i], &inlen, qvInterpolate[i], &outlen);
 
-		if (! RUNNING_ON_VALGRIND) {
-#ifdef SM_OUTPUT
-		o.write(reinterpret_cast<const char *>(resampframe), outlen * sizeof(float));
-#endif
-
-#ifdef SM_VERIFY
-		if (vf.read(reinterpret_cast<char *>(verifyframe), outlen * sizeof(float)) == outlen * sizeof(float))
-			for(int j=0;j<outlen;j++)
-#ifdef EXACT
-				if (verifyframe[j] != resampframe[j])
-#else
-				if (fabs(verifyframe[j]-resampframe[j]) > fabs(verifyframe[j])*0.2f)
-#endif
-					qFatal("Frame %d, Pos %d: SRS2 %.10g <=> %.10g", i, j, verifyframe[j], resampframe[j]);
-#endif
-
-#ifdef SM_VERIFY
-		if ((inlen != iFrameSize) || (outlen != iOutSize2)) 
-			qWarning("%d!=%d %d!=%d (%f)", inlen, iFrameSize, outlen, iOutSize2, fOutSize2);
-		} else {
-    			qWarning("%d / %d", i, nframes);
-		}
-#endif
+		inlen = iFrameSize;
+		outlen = iOutSize2;
+		speex_resampler_process_int(srs2i, 0, qvInShort[i], &inlen, qvInterpolateShort[i], &outlen);
+		
+		inlen = iFrameSize / 4;
+		outlen = iOutSize2 / 4;
+		speex_resampler_process_interleaved_float(srss, qvIn[i], &inlen, qvInterpolateMC[i], &outlen);
 	}
-	CALLGRIND_STOP_INSTRUMENTATION;
-
 	e = t.elapsed();
 
 #ifdef Q_OS_WIN
@@ -198,8 +195,56 @@ int main(int argc, char **argv) {
              qWarning("Application: Failed to reset priority!");
 #endif
 
+	const int freq[10] = { 22050, 32000, 11025, 16000, 48000, 41000, 8000, 96000, 11025, 16000 };
+	
+	QVector<float> fMagic;
+	
+	for(int f=0;f<10;f++) {
+		float fbuff[32767];
+		speex_resampler_set_rate(srs1, 16000, freq[f]);
+		for(int q = 0;q < 10;q++) {
+			speex_resampler_set_quality(srs1, (3*q) % 7);
+			inlen = iFrameSize;
+			outlen = 32767;
+			speex_resampler_process_float(srs1, 0, qvIn[(f*10+q) % nframes], &inlen, fbuff, &outlen);
+			for(int j=0;j<outlen;j++)
+				fMagic.append(fbuff[j]);
+		}
+		inlen = iFrameSize;
+		outlen = 32767;
+		speex_resampler_process_float(srs1, 0, NULL, &inlen, fbuff, &outlen);
+		for(int j=0;j<outlen;j++)
+			fMagic.append(fbuff[j]);
+	}
+
+
+	CALLGRIND_STOP_INSTRUMENTATION;
+
 	qWarning("Used %llu usec", e);
 	qWarning("%.2f times realtime", (20000ULL * nframes) / (e * 1.0));
+
+	if (! RUNNING_ON_VALGRIND) {
+			QVector<float> vDirect;
+			QVector<float> vInterpolate;
+			QVector<short> vsInterpolate;
+			QVector<float> vMagic;
+			QVector<float> vInterpolateMC;
+
+			out << fDirect << fInterpolate << sInterpolate << fMagic << fInterpolateMC;
+			
+			if (vf.isOpen()) {
+				verify >> vDirect >> vInterpolate >> vsInterpolate >> vMagic >> vInterpolateMC;
+				
+				veccomp(vDirect, fDirect, "SRS1");
+				veccomp(vInterpolate, fInterpolate, "SRS2");
+				veccomp(vsInterpolate, sInterpolate, "SRS2i");
+				veccomp(vMagic, fMagic, "Magic");
+				veccomp(vInterpolateMC, fInterpolateMC, "MC");
+			} else {
+				qWarning("No verification!");
+			}
+	}
+
 	return 0;
 }
 
