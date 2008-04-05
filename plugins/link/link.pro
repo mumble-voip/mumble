@@ -10,8 +10,11 @@ win32 {
 	LIBS		+= -luser32
 }
 
-!win32 {
+unix {
 	SOURCES		= link-posix.cpp
-	LIBS		+= -lrt
+
+        !macx {
+		LIBS          += -lrt
+	}
 }
 

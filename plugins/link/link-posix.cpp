@@ -7,33 +7,39 @@ typedef unsigned long HWND;
 #include <stdint.h>
 #include <wchar.h>
 
-#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <sys/mman.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <time.h>
 
-
 static wchar_t wcPluginName[256];
 
 struct LinkedMem {
 	uint32_t uiVersion;
-	uint64_t ui64Tick;
+	uint32_t ui32Tick;
 	float	fPosition[3];
 	float	fFront[3];
 	float	fTop[3];
 	wchar_t	name[256];
 };
 
+static const int32_t GetTickCount() {
+	struct timeval tv;
+	gettimeofday(&tv,NULL);
+
+	return tv.tv_usec / 1000 + tv.tv_sec * 1000;
+}
+
 static struct LinkedMem * const lm_invalid = reinterpret_cast<struct LinkedMem *>(-1);
 static struct LinkedMem *lm = lm_invalid;
 static int shmfd = -1;
 
 static void unlock() {
-	lm->ui64Tick = 0;
+	lm->ui32Tick = 0;
 	lm->uiVersion = 0;
 	wcsncpy(wcPluginName, L"Link", 256);
 }
@@ -41,8 +47,9 @@ static void unlock() {
 static int trylock() {
 	if (lm == lm_invalid)
 		return false;
+
 	if (lm->uiVersion == 1) {
-		if ((clock() - lm->ui64Tick) < (CLOCKS_PER_SEC / 2)) {
+		if ((GetTickCount() - lm->ui32Tick) < 5000) {
 			if (lm->name[0]) {
 				wcsncpy(wcPluginName, lm->name, 256);
 			}
@@ -54,7 +61,7 @@ static int trylock() {
 
 
 static int fetch(float *pos, float *front, float *top) {
-	if ((clock() - lm->ui64Tick) > (CLOCKS_PER_SEC / 2))
+	if ((GetTickCount() - lm->ui32Tick) > 5000)
 		return false;
 
 	for (int i=0;i<3;i++)
@@ -68,7 +75,7 @@ static int fetch(float *pos, float *front, float *top) {
 }
 
 __attribute__((constructor))
-void load_plugin() {
+static void load_plugin() {
   bool bCreated = false;
 
   shmfd = shm_open("/MumbleLink", O_RDWR, S_IRUSR | S_IWUSR);
@@ -93,7 +100,7 @@ void load_plugin() {
 }
 
 __attribute__((destructor))
-void unload_plugin() {
+static void unload_plugin() {
     if(lm != lm_invalid)
       munmap(lm, sizeof(struct LinkedMem));
 
@@ -102,7 +109,6 @@ void unload_plugin() {
 
     shm_unlink("/MumbleLink");
 }
-
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
@@ -114,7 +120,6 @@ static MumblePlugin linkplug = {
 	unlock,
 	fetch
 };
-
 
 extern "C" __attribute__((visibility("default"))) MumblePlugin *getMumblePlugin() {
 	return &linkplug;
