@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -388,7 +389,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="149"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished">Tarjeta ALSA por defecto</translation>
+        <translation>Tarjeta ALSA por defecto</translation>
     </message>
 </context>
 <context>
@@ -401,7 +402,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="150"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished">Tarjeta ALSA por defecto</translation>
+        <translation>Tarjeta ALSA por defecto</translation>
     </message>
 </context>
 <context>
@@ -703,7 +704,7 @@
     <message>
         <location filename="About.cpp" line="58"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla por voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -726,7 +727,7 @@
     <message>
         <location filename="About.cpp" line="91"/>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Acerca de Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Este programa usa Speex versión %1&lt;/p&gt;&lt;p&gt;Speex se usa para cancelación de eco, filtrado de&lt;br /&gt;ruido, detección de actividad vocal y compresión del&lt;br /&gt;habla.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1252,257 +1253,257 @@
     <message>
         <location filename="AudioInput.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Formulario</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="19"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="25"/>
         <source>System</source>
-        <translation type="unfinished">Sistema</translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="41"/>
         <source>Input method for audio</source>
-        <translation type="unfinished">Método de entrada para el audio</translation>
+        <translation>Método de entrada para el audio</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="44"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;Éste es el método de entrada a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
+        <translation>&lt;b&gt;Éste es el método de entrada a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="67"/>
         <source>Device</source>
-        <translation type="unfinished">Dispositivo</translation>
+        <translation>Dispositivo</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="83"/>
         <source>Output method for audio</source>
-        <translation type="unfinished">Método de salida para el audio</translation>
+        <translation>Método de salida para el audio</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;Éste es el método de salida a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente quiera utilizar DirectSound.</translation>
+        <translation>&lt;b&gt;Éste es el método de salida a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="93"/>
         <source>Cancel Echo</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelación de eco</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="109"/>
         <source>Transmission</source>
-        <translation type="unfinished">Transmisión</translation>
+        <translation>Transmisión</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="115"/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished">&amp;Transmitir</translation>
+        <translation>&amp;Transmitir</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="125"/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished">Cuándo transmitir su habla</translation>
+        <translation>Cuándo transmitir su habla</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="128"/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished">&lt;b&gt;Establece cuándo debería transmitirse el habla.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Contínuo&lt;/i&gt; - Todo el tiempo&lt;br /&gt;&lt;i&gt;Actividad Vocal&lt;/i&gt; - Cuando está hablando claramente.&lt;br /&gt;&lt;i&gt;Presionar Para Hablar&lt;/i&gt; - Cuando presiona la tecla establecida en &lt;i&gt;Métodos abreviados&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Establece cuándo debería transmitirse el habla.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Contínuo&lt;/i&gt; - Todo el tiempo&lt;br /&gt;&lt;i&gt;Actividad Vocal&lt;/i&gt; - Cuando está hablando claramente.&lt;br /&gt;&lt;i&gt;Presionar Para Hablar&lt;/i&gt; - Cuando presiona la tecla establecida en &lt;i&gt;Métodos abreviados&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="142"/>
         <source>DoublePush Time</source>
-        <translation type="unfinished">Tiempo para DoblePulsación</translation>
+        <translation>Tiempo para DoblePulsación</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="590"/>
         <source>TextLabel</source>
-        <translation type="unfinished">EtiquetaDeTexto</translation>
+        <translation>EtiquetaDeTexto</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="175"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
-        <translation type="unfinished">Indicación de audio sonora cuando se presione o suelte presionar-para-hablar (PTT)</translation>
+        <translation>Indicación de audio sonora cuando se presione o suelte presionar-para-hablar (PTT)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="178"/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation type="unfinished">&lt;b&gt;Habilita las indicaciones de audio para presionar para hablar.&lt;/b&gt;&lt;br /&gt;Si se activa, se produciran pitidos cortos de audio cuando se presione o suelte presionar para hablar.</translation>
+        <translation>&lt;b&gt;Habilita las indicaciones de audio para presionar para hablar.&lt;/b&gt;&lt;br /&gt;Si se activa, se produciran pitidos cortos de audio cuando se presione o suelte presionar para hablar.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="181"/>
         <source>PTT Audio cue</source>
-        <translation type="unfinished">Indicación de audio PTT</translation>
+        <translation>Indicación de audio PTT</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="194"/>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished">Usar detección basada en SNR</translation>
+        <translation>Usar detección basada en SNR</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="197"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished">&lt;b&gt;Establece el uso de la relación señal/ruido para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se analiza la entrada en busca de algo que parezca una señal clara, y la clarida de la señal se usa para provocar la detección vocal.</translation>
+        <translation>&lt;b&gt;Establece el uso de la relación señal/ruido para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se analiza la entrada en busca de algo que parezca una señal clara, y la clarida de la señal se usa para provocar la detección vocal.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="200"/>
         <source>Signal to Noise</source>
-        <translation type="unfinished">Señal/ruido</translation>
+        <translation>Señal/ruido</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="207"/>
         <source>Use Amplitude based speech detection.</source>
-        <translation type="unfinished">Usar detección vocal basada en la amplitud.</translation>
+        <translation>Usar detección vocal basada en la amplitud.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="210"/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished">&lt;b&gt;Establece el uso de la amplitud para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se usa la intensidad de la señal de entrada para detectar el habla.</translation>
+        <translation>&lt;b&gt;Establece el uso de la amplitud para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se usa la intensidad de la señal de entrada para detectar el habla.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="213"/>
         <source>Amplitude</source>
-        <translation type="unfinished">Amplitud</translation>
+        <translation>Amplitud</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="222"/>
         <source>Voice &amp;Hold</source>
-        <translation type="unfinished">&amp;Persistencia de la voz</translation>
+        <translation>&amp;Persistencia de la voz</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="232"/>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished">Cuánto tiempo continuar transmitiendo tras un silencio</translation>
+        <translation>Cuánto tiempo continuar transmitiendo tras un silencio</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="235"/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</source>
-        <translation type="unfinished">&lt;b&gt;Selecciona cuánto tiempo debería continuar la transmisión tras una detección percibida en el habla.&lt;/b&gt;Auméntelo si su voz es interrumpida mientras habla (observable por un icono de voz parpadeando rápidamente junto a su nombre).&lt;br /&gt;Sólo tiene sentido cuando se usa con la transmisión por Actividad Vocal.</translation>
+        <translation>&lt;b&gt;Selecciona cuánto tiempo debería continuar la transmisión tras una detección percibida en el habla.&lt;/b&gt;Auméntelo si su voz es interrumpida mientras habla (observable por un icono de voz parpadeando rápidamente junto a su nombre).&lt;br /&gt;Sólo tiene sentido cuando se usa con la transmisión por Actividad Vocal.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="264"/>
         <source>Silence Below</source>
-        <translation type="unfinished">Silencio por debajo de</translation>
+        <translation>Silencio por debajo de</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="271"/>
         <source>Signal values below this counts as silence</source>
-        <translation type="unfinished">Los valores de la señal por debajo de éste se consideran como silencio</translation>
+        <translation>Los valores de la señal por debajo de éste se consideran como silencio</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="306"/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished">&lt;b&gt;Establece los valores que provocaran la detección vocal.&lt;/b&gt;&lt;br /&gt;Use ésto junto con la ventana la ventana de estadísticas del audio para ajustar manualmente los valores que provocan la detección del habla. Los valores de entrada por debajo del &quot;Silencio por debajo de&quot; siempre se consideran como silencio. Los valores por encima del &quot;Habla por encima de&quot; siempre se consideran como voz. Los valores intermedios se considerarán como voz si usted ya estaba hablando, pero no provocarán una nueva detección.</translation>
+        <translation>&lt;b&gt;Establece los valores que provocaran la detección vocal.&lt;/b&gt;&lt;br /&gt;Use ésto junto con la ventana la ventana de estadísticas del audio para ajustar manualmente los valores que provocan la detección del habla. Los valores de entrada por debajo del &quot;Silencio por debajo de&quot; siempre se consideran como silencio. Los valores por encima del &quot;Habla por encima de&quot; siempre se consideran como voz. Los valores intermedios se considerarán como voz si usted ya estaba hablando, pero no provocarán una nueva detección.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="296"/>
         <source>Speech Above</source>
-        <translation type="unfinished">Habla por encima de</translation>
+        <translation>Habla por encima de</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="303"/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished">Los valores de la señal por encima de éste se consideran como voz</translation>
+        <translation>Los valores de la señal por encima de éste se consideran como voz</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="336"/>
         <source>Compression</source>
-        <translation type="unfinished">Compresión</translation>
+        <translation>Compresión</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="342"/>
         <source>&amp;Quality</source>
-        <translation type="unfinished">&amp;Calidad</translation>
+        <translation>&amp;Calidad</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="352"/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">Calidad de la compresión (ancho de banda máximo)</translation>
+        <translation>Calidad de la compresión (ancho de banda máximo)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="355"/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished">&lt;b&gt;Establece la calidad de compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánto ancho de banda se le permite usar a Mumble para el audio saliente.</translation>
+        <translation>&lt;b&gt;Establece la calidad de compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánto ancho de banda se le permite usar a Mumble para el audio saliente.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="387"/>
         <source>&amp;Complexity</source>
-        <translation type="unfinished">C&amp;omplejidad</translation>
+        <translation>C&amp;omplejidad</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="397"/>
         <source>Complexity of compression (CPU)</source>
-        <translation type="unfinished">Complejidad de la compresión (CPU)</translation>
+        <translation>Complejidad de la compresión (CPU)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="400"/>
         <source>&lt;b&gt;This sets the complexity of compression.&lt;/b&gt;&lt;br /&gt;This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</source>
-        <translation type="unfinished">&lt;b&gt;Establece la complejidad de la compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánta CPU se le permite usar a Mumble para incrementer la calidad de la voz transmitida. Valores por encima de 5 proporcionan sólo una ganancia marginal.</translation>
+        <translation>&lt;b&gt;Establece la complejidad de la compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánta CPU se le permite usar a Mumble para incrementer la calidad de la voz transmitida. Valores por encima de 5 proporcionan sólo una ganancia marginal.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="432"/>
         <source>Audio per packet</source>
-        <translation type="unfinished">Audio por paquete</translation>
+        <translation>Audio por paquete</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="442"/>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished">Cuántas tramas de audio enviar por paquete</translation>
+        <translation>Cuántas tramas de audio enviar por paquete</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="445"/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished">&lt;b&gt;Selecciona cuántas tramas de audio deberían insertarse en un paquete.&lt;/b&gt;&lt;br /&gt;Aumentar esto incrementará la latencia de su voz, pero también reducirá los requisitos de ancho de banda.</translation>
+        <translation>&lt;b&gt;Selecciona cuántas tramas de audio deberían insertarse en un paquete.&lt;/b&gt;&lt;br /&gt;Aumentar esto incrementará la latencia de su voz, pero también reducirá los requisitos de ancho de banda.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="482"/>
         <source>Maximum bandwidth used for sent audio</source>
-        <translation type="unfinished">Ancho de banda máximo usado para el audio enviado</translation>
+        <translation>Ancho de banda máximo usado para el audio enviado</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="485"/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished">&lt;b&gt;Muestra el ancho de banda máximo empleado.&lt;/b&gt;&lt;br /&gt;Esto muestra la cantidad máxima de ancho de banda enviado desde su máquina. Velocidad de transmisión del audio es la velocidad de transmisión máxima (ya que se usa VBR) únicamente para los datos de audio. Posición es la velocidad de transmisión usada para información posicional. Sobrecarga son las cabeceras de nuestras tramas y de los paquetes IP (IP y UDP son el 75% de esta sobrecarga).</translation>
+        <translation>&lt;b&gt;Muestra el ancho de banda máximo empleado.&lt;/b&gt;&lt;br /&gt;Esto muestra la cantidad máxima de ancho de banda enviado desde su máquina. Velocidad de transmisión del audio es la velocidad de transmisión máxima (ya que se usa VBR) únicamente para los datos de audio. Posición es la velocidad de transmisión usada para información posicional. Sobrecarga son las cabeceras de nuestras tramas y de los paquetes IP (IP y UDP son el 75% de esta sobrecarga).</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="501"/>
         <source>Audio Processing</source>
-        <translation type="unfinished">Procesamiento del audio</translation>
+        <translation>Procesamiento del audio</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="507"/>
         <source>Noise Suppression</source>
-        <translation type="unfinished">Supresión de ruido</translation>
+        <translation>Supresión de ruido</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="517"/>
         <source>Noise suppression</source>
-        <translation type="unfinished">Supresión de ruido</translation>
+        <translation>Supresión de ruido</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="520"/>
         <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
-        <translation type="unfinished">&lt;b&gt;Establece la cantidad de supresión de ruido a aplicar.&lt;b&gt;&lt;br /&gt;Cuanto más alto sea este valor, mas agresivamente se suprimirá el ruido estacionario.</translation>
+        <translation>&lt;b&gt;Establece la cantidad de supresión de ruido a aplicar.&lt;b&gt;&lt;br /&gt;Cuanto más alto sea este valor, mas agresivamente se suprimirá el ruido estacionario.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="552"/>
         <source>Amplification</source>
-        <translation type="unfinished">Amplificación</translation>
+        <translation>Amplificación</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="562"/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">Amplificación máxima del sonido de entrada</translation>
+        <translation>Amplificación máxima del sonido de entrada</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="565"/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished">&lt;b&gt;Amplificación máxima de la entrada.&lt;/b&gt;&lt;br /&gt;Mumble normaliza el volumen de entrada antes de la compresión, y esto establece cuánto se le permite amplificar.&lt;br /&gt;El nivel real se actualiza continuamente basado en su patrón de habla actual, pero nunca sobrepasará el nivel especificado aquí.&lt;br /&gt;Si el nivel de &lt;i&gt;Volumen del Micrófono&lt;/i&gt; de las estadísticas de audio ronda el 100%, probablemente desee establecer esto alrededor de 2.0, pero si, como la mayoría de la gente, no consigue alcanzar 100%, establezca esto a algo mucho mayor.&lt;br /&gt;Idealmente, fíjelo de tal forma que &lt;i&gt;Volumen del Micrófono * Factor de Amplificación &gt;= 100&lt;/i&gt;, incluso cuando hable realmente bajo.&lt;br /&gt;&lt;br /&gt;Fíjese en que no es perjudicial establecer esto al máximo, pero Mumble comenzará a captar otras conversaciones si lo deja autoajustarse a ese nivel.</translation>
+        <translation>&lt;b&gt;Amplificación máxima de la entrada.&lt;/b&gt;&lt;br /&gt;Mumble normaliza el volumen de entrada antes de la compresión, y esto establece cuánto se le permite amplificar.&lt;br /&gt;El nivel real se actualiza continuamente basado en su patrón de habla actual, pero nunca sobrepasará el nivel especificado aquí.&lt;br /&gt;Si el nivel de &lt;i&gt;Volumen del Micrófono&lt;/i&gt; de las estadísticas de audio ronda el 100%, probablemente desee establecer esto alrededor de 2.0, pero si, como la mayoría de la gente, no consigue alcanzar 100%, establezca esto a algo mucho mayor.&lt;br /&gt;Idealmente, fíjelo de tal forma que &lt;i&gt;Volumen del Micrófono * Factor de Amplificación &gt;= 100&lt;/i&gt;, incluso cuando hable realmente bajo.&lt;br /&gt;&lt;br /&gt;Fíjese en que no es perjudicial establecer esto al máximo, pero Mumble comenzará a captar otras conversaciones si lo deja autoajustarse a ese nivel.</translation>
     </message>
 </context>
 <context>
@@ -1510,47 +1511,47 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="64"/>
         <source>Continuous</source>
-        <translation type="unfinished">Contínuo</translation>
+        <translation>Contínuo</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="65"/>
         <source>Voice Activity</source>
-        <translation type="unfinished">Actividad Vocal</translation>
+        <translation>Actividad Vocal</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="66"/>
         <source>Push To Talk</source>
-        <translation type="unfinished">Presionar Para Hablar</translation>
+        <translation>Presionar Para Hablar</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="70"/>
         <source>Audio Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada de audio</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="157"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="155"/>
         <source>Off</source>
-        <translation type="unfinished">Desconectado</translation>
+        <translation>Desconectado</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="163"/>
         <source>%1 s</source>
-        <translation type="unfinished">%1 s</translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="172"/>
         <source>-%1 dB</source>
-        <translation type="unfinished">-%1 dB</translation>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="227"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1kbit/s (Audio %2, Posición %4, Sobrecarga %3)</translation>
+        <translation>%1kbit/s (Audio %2, Posición %4, Sobrecarga %3)</translation>
     </message>
 </context>
 <context>
@@ -1558,212 +1559,212 @@
     <message>
         <location filename="AudioOutput.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Formulario</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="19"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="25"/>
         <source>System</source>
-        <translation type="unfinished">Sistema</translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="41"/>
         <source>Input method for audio</source>
-        <translation type="unfinished">Método de entrada para el audio</translation>
+        <translation>Método de entrada para el audio</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="44"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;Éste es el método de entrada a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
+        <translation>&lt;b&gt;Éste es el método de entrada a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="67"/>
         <source>Device</source>
-        <translation type="unfinished">Dispositivo</translation>
+        <translation>Dispositivo</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="83"/>
         <source>Output method for audio</source>
-        <translation type="unfinished">Método de salida para el audio</translation>
+        <translation>Método de salida para el audio</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="86"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;Éste es el método de salida a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente quiera utilizar DirectSound.</translation>
+        <translation>&lt;b&gt;Éste es el método de salida a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="93"/>
         <source>Positional Audio</source>
-        <translation type="unfinished">Audio posicional</translation>
+        <translation>Audio posicional</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="103"/>
         <source>Audio Output</source>
-        <translation type="unfinished">Salida de audio</translation>
+        <translation>Salida de audio</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="109"/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished">Búfer de &amp;vibración por defecto</translation>
+        <translation>Búfer de &amp;vibración por defecto</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="119"/>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished">Márgen de seguridad para el búfer de vibración</translation>
+        <translation>Márgen de seguridad para el búfer de vibración</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="122"/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished">&lt;b&gt;Establece el márgen de seguridad máximo para el búfer de vibración.&lt;/b&gt;&lt;br /&gt;Todo el audio entrante es almacenado en un búfer, y el búfer de vibración trata de forzar continuamente a este búfer al mínimo sostenible por su red, para que la latencia sea tan baja como sea posible. Ésto establece el tamaño mínimo de búfer a usar. Si el comienzo de las frases que oye es muy tembloroso, aumente este valor.</translation>
+        <translation>&lt;b&gt;Establece el márgen de seguridad máximo para el búfer de vibración.&lt;/b&gt;&lt;br /&gt;Todo el audio entrante es almacenado en un búfer, y el búfer de vibración trata de forzar continuamente a este búfer al mínimo sostenible por su red, para que la latencia sea tan baja como sea posible. Ésto establece el tamaño mínimo de búfer a usar. Si el comienzo de las frases que oye es muy tembloroso, aumente este valor.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="531"/>
         <source>TextLabel</source>
-        <translation type="unfinished">EtiquetaDeTexto</translation>
+        <translation>EtiquetaDeTexto</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="154"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volúmen</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="164"/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished">Volúmen del habla entrante</translation>
+        <translation>Volúmen del habla entrante</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="167"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
-        <translation type="unfinished">&lt;b&gt;Ajusta el volúmen del habla entrante.&lt;/b&gt;&lt;br /&gt;Fíjese en que sólo se puede usar para disminuir el volúmen. No es posible la amplificación.</translation>
+        <translation>&lt;b&gt;Ajusta el volúmen del habla entrante.&lt;/b&gt;&lt;br /&gt;Fíjese en que sólo se puede usar para disminuir el volúmen. No es posible la amplificación.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="193"/>
         <source>Output Delay</source>
-        <translation type="unfinished">Retraso de salida</translation>
+        <translation>Retraso de salida</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="203"/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Cantidad de datos a almacenar</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="206"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="238"/>
         <source>Volume attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuación del volúmen</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="244"/>
         <source>MinDistance</source>
-        <translation type="unfinished">Distancia mínima</translation>
+        <translation>Distancia mínima</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="254"/>
         <source>Minimum distance to player before sound decreases</source>
-        <translation type="unfinished">Distancia mínima al jugador antes de que el sonido disminuya</translation>
+        <translation>Distancia mínima al jugador antes de que el sonido disminuya</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="257"/>
         <source>This sets the minimum distance for sound calculations. The volume of other players&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished">Establece la distancia mínima para cálculos de sonido. El volumen del habla de otros jugadores no disminuirá hasta que estén al menos a esta distancia de ti.</translation>
+        <translation>Establece la distancia mínima para cálculos de sonido. El volumen del habla de otros jugadores no disminuirá hasta que estén al menos a esta distancia de ti.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="286"/>
         <source>MaxDistance</source>
-        <translation type="unfinished">Distancia máxima</translation>
+        <translation>Distancia máxima</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="296"/>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
-        <translation type="unfinished">Distancia máxima, más allá de la cual el sonido no disminuirá</translation>
+        <translation>Distancia máxima, más allá de la cual el sonido no disminuirá</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="299"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
-        <translation type="unfinished">Establece la distancia máxima para cálculos de sonido. Cuando estén más lejos que esto, el volumen del sonido de otros jugadores no disminuirá más.</translation>
+        <translation>Establece la distancia máxima para cálculos de sonido. Cuando estén más lejos que esto, el volumen del sonido de otros jugadores no disminuirá más.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="328"/>
         <source>RollOff</source>
-        <translation type="unfinished">Atenuación</translation>
+        <translation>Atenuación</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="416"/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished">Factor para la disminución del volumen del sonido</translation>
+        <translation>Factor para la disminución del volumen del sonido</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="419"/>
         <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
-        <translation type="unfinished">Cuán rápido debería disminuir el volumen del sonido cuando pase más allá de la distancia mínima. Lo normal (1.0) es que el volumen del sonido disminuya la mitad cada vez que la distancia se doble. Aumentar este valor quiere decir que el volumen disminuye más rápidamente, mientras que reducirlo quiere decir que disminuye más lentamente.</translation>
+        <translation>Cuán rápido debería disminuir el volumen del sonido cuando pase más allá de la distancia mínima. Lo normal (1.0) es que el volumen del sonido disminuya la mitad cada vez que la distancia se doble. Aumentar este valor quiere decir que el volumen disminuye más rápidamente, mientras que reducirlo quiere decir que disminuye más lentamente.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="367"/>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloom</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="406"/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volúmen mínimo</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="448"/>
         <source>Loopback Test</source>
-        <translation type="unfinished">Prueba de bucle de retorno</translation>
+        <translation>Prueba de bucle de retorno</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="454"/>
         <source>Delay Variance</source>
-        <translation type="unfinished">Varianza del retraso</translation>
+        <translation>Varianza del retraso</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="464"/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished">Varianza de la latencia de los paquetes</translation>
+        <translation>Varianza de la latencia de los paquetes</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="467"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
-        <translation type="unfinished">&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15ms, se emulará una red con 20-35ms de latencia de ping u 80-95ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms</translation>
+        <translation>&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15ms, se emulará una red con 20-35ms de latencia de ping u 80-95ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="493"/>
         <source>Packet Loss</source>
-        <translation type="unfinished">Pérdida de paquetes</translation>
+        <translation>Pérdida de paquetes</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="503"/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished">Pérdida de paquetes para el modo de bucle de retorno</translation>
+        <translation>Pérdida de paquetes para el modo de bucle de retorno</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="506"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation type="unfinished">&lt;b&gt;Establece la pérdida de paquetes para el modo de bucle de retorno.&lt;/b&gt;&lt;br /&gt;Ésta será la tasa de paquetes perdidos. A menos que su ancho de banda de salida haya alcanzado el máximo o haya algún problema con su conexión, ésta será siempre 0%</translation>
+        <translation>&lt;b&gt;Establece la pérdida de paquetes para el modo de bucle de retorno.&lt;/b&gt;&lt;br /&gt;Ésta será la tasa de paquetes perdidos. A menos que su ancho de banda de salida haya alcanzado el máximo o haya algún problema con su conexión, ésta será siempre 0%</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="538"/>
         <source>&amp;Loopback</source>
-        <translation type="unfinished">&amp;Bucle de retorno</translation>
+        <translation>&amp;Bucle de retorno</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="548"/>
         <source>Desired loopback mode</source>
-        <translation type="unfinished">Modo de bucle de retorno deseado</translation>
+        <translation>Modo de bucle de retorno deseado</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="551"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished">&lt;b&gt;Activa uno de los modos de prueba de bucle de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ninguno&lt;/i&gt; - Bucle de retorno desactivado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula un servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Solicita un bucle de retorno desde el servidor.&lt;br /&gt;Por favor, fíjese en que cuando está activado el modo de bucle de retorno, ningún otro jugador oirá su voz. Esta opción no se guarda al salir de la aplicación.</translation>
+        <translation>&lt;b&gt;Activa uno de los modos de prueba de bucle de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ninguno&lt;/i&gt; - Bucle de retorno desactivado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula un servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Solicita un bucle de retorno desde el servidor.&lt;br /&gt;Por favor, fíjese en que cuando está activado el modo de bucle de retorno, ningún otro jugador oirá su voz. Esta opción no se guarda al salir de la aplicación.</translation>
     </message>
 </context>
 <context>
@@ -1771,47 +1772,47 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="278"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="279"/>
         <source>Local</source>
-        <translation type="unfinished">Local</translation>
+        <translation>Local</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="280"/>
         <source>Server</source>
-        <translation type="unfinished">Servidor</translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="284"/>
         <source>Audio Output</source>
-        <translation type="unfinished">Salida de audio</translation>
+        <translation>Salida de audio</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="371"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="414"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="379"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="400"/>
         <source>%1m</source>
-        <translation type="unfinished">%1m</translation>
+        <translation>%1m</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="406"/>
         <source>%1</source>
-        <translation type="unfinished">%1</translation>
+        <translation>%1</translation>
     </message>
 </context>
 <context>
@@ -2639,7 +2640,7 @@
     <message>
         <location filename="ConnectDialog.ui" line="217"/>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="145"/>
@@ -2777,7 +2778,7 @@
     <message>
         <location filename="DXAudioInput.cpp" line="72"/>
         <source>Default DirectSound Voice Input</source>
-        <translation type="unfinished">Entrada de voz DirectSound por defecto</translation>
+        <translation>Entrada de voz DirectSound por defecto</translation>
     </message>
 </context>
 <context>
@@ -2805,7 +2806,7 @@
     <message>
         <location filename="DXAudioOutput.cpp" line="82"/>
         <source>Default DirectSound Voice Output</source>
-        <translation type="unfinished">Salida de voz DirectSound por defecto</translation>
+        <translation>Salida de voz DirectSound por defecto</translation>
     </message>
 </context>
 <context>
@@ -3072,7 +3073,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="GlobalShortcut_macx.cpp" line="70"/>
         <source>Mumble has detected that it is unable to receieve Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble ha detectado que es incapaz de recibir eventos de los Métodos Abreviados Globales cuando se ejecuta en segundo plano.&lt;br /&gt;&lt;br /&gt;Esto ocurre porque la característica de Acceso Universal llamada &apos;Habilitar acceso para dispositivos de asistencia&apos; actualmente está deshabilitada.&lt;br /&gt;&lt;br /&gt;Por favor &lt;a href=&quot; &quot;&gt;habilite esta opción&lt;/a&gt; y continúe cuando lo haya hecho.</translation>
     </message>
 </context>
 <context>
@@ -4607,17 +4608,17 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.cpp" line="139"/>
         <source>&amp;Window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ventana</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="141"/>
         <source>Ctrl+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="142"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+W</translation>
     </message>
 </context>
 <context>
@@ -5379,7 +5380,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="PAAudio.cpp" line="264"/>
         <source>Default Device</source>
-        <translation type="unfinished">Dispositivo por defecto</translation>
+        <translation>Dispositivo por defecto</translation>
     </message>
 </context>
 <context>
@@ -5506,12 +5507,12 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="TextMessage.ui" line="16"/>
         <source>Send raw message</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar mensaje en bruto</translation>
     </message>
     <message>
         <location filename="TextMessage.ui" line="19"/>
         <source>Disables html formating</source>
-        <translation type="unfinished"></translation>
+        <translation>Deshabilita el formato html</translation>
     </message>
 </context>
 <context>
