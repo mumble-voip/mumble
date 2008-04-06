@@ -120,7 +120,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
 	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 
-	qWarning("Resampling from %d to %d", 16000, freq);
 	srs = speex_resampler_init(1, 16000, freq, 3, &err);
 
 	iOutputSize = lroundf(ceilf((iFrameSize * freq) / (16000 * 1.0f)));
@@ -362,9 +361,7 @@ void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 	}
 }
 
-void AudioOutput::initializeMixer(unsigned int *chanmasks, unsigned int nchannels) {
-	iChannels = nchannels;
-
+void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
 	fSpeakers = new float[iChannels * 3];
 	bSpeakerPositional = new bool[iChannels];
 	fSpeakerVolume = new float[iChannels];

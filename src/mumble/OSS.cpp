@@ -307,12 +307,21 @@ void OSSOutput::run() {
 
 	qWarning("OSSOutput: Staring audio playback to %s", device.constData());
 
+	float mbuffer[iFrameSize];
 	short buffer[iFrameSize] __attribute__((aligned(16)));
+	
+	iMixerFreq = SAMPLE_RATE;
+	iChannels = 1;
+	unsigned int chanmasks = SPEAKER_FRONT_LEFT;
+	
+	initializeMixer(&chanmasks);
 
 	while (bRunning) {
-		bool stillRun = mixAudio(buffer);
-		int l = write(fd, buffer, iFrameSize * 2);
-		if (l != iFrameSize * 2) {
+		bool stillRun = mix(mbuffer, iFrameSize);
+		for(int j=0;j<iFrameSize;j++)
+			buffer[j] = static_cast<short>(mbuffer[j] * 32767.f);
+		int l = write(fd, buffer, iFrameSize * sizeof(short));
+		if (l != iFrameSize * sizeof(short)) {
 			qWarning("OSSOutput: Write %d", l);
 			break;
 		}
@@ -321,8 +330,8 @@ void OSSOutput::run() {
 				qWarning("Delay %d", ival / 2);
 		*/
 		if (! stillRun) {
-			while (! mixAudio(buffer) && bRunning)
-				this->usleep(20);
+			while (! mix(mbuffer, iFrameSize) && bRunning)
+				this->msleep(20);
 
 			if (! bRunning)
 				break;

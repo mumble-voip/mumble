@@ -218,18 +218,18 @@ ALSAAudioInput::~ALSAAudioInput() {
 
 void ALSAAudioInput::run() {
 	int readblapp;
-
-
+	
 	QByteArray device_name = g.s.qsALSAInput.toLatin1();
 	snd_pcm_hw_params_t *hw_params = NULL;
 	snd_pcm_t *capture_handle = NULL;
-	snd_pcm_uframes_t wantPeriod = iFrameSize;
-	snd_pcm_uframes_t wantBuff = wantPeriod * 4;
+
 
 	unsigned int rrate = SAMPLE_RATE;
 	bool bOk = true;
 
 	int err = 0;
+	
+	unsigned int iChannels;
 
 	qWarning("ALSAAudioInput: Initing audiocapture %s.",device_name.data());
 
@@ -238,13 +238,24 @@ void ALSAAudioInput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params_any(capture_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(capture_handle, hw_params, SND_PCM_FORMAT_S16_LE));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels(capture_handle, hw_params, 1));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_min(capture_handle, hw_params, &rrate, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(capture_handle, hw_params, &iChannels));
+
+	SpeexResamplerState *srs = NULL;
+	if (rrate != SAMPLE_RATE) {
+		srs = speex_resampler_init(1, rrate, SAMPLE_RATE, 3, &err);
+	}
+
+	unsigned int iInSize = (iFrameSize * rrate) / SAMPLE_RATE;
+
+	snd_pcm_uframes_t wantPeriod = iInSize;
+	snd_pcm_uframes_t wantBuff = wantPeriod * 8;
+
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &wantPeriod, NULL));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, &wantBuff));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_min(capture_handle, hw_params, &wantBuff));
 	ALSA_ERRBAIL(snd_pcm_hw_params(capture_handle, hw_params));
 
-	qWarning("ALSAAudioInput: Actual buffer %ld samples [%ld(%d) per period]",wantBuff,wantPeriod,iFrameSize);
+	qWarning("ALSAAudioInput: Actual buffer %d hz, %d channel %ld samples [%ld(%d) per period]",rrate,iChannels,wantBuff,wantPeriod,iInSize);
 
 #ifdef ALSA_VERBOSE
 	snd_output_t *log;
@@ -268,6 +279,8 @@ void ALSAAudioInput::run() {
 		g.mw->msgBox(tr("Opening chosen ALSA Input failed: %1").arg(QLatin1String(snd_strerror(err))));
 		return;
 	}
+	
+	short inbuff[iInSize * iChannels];
 
 	while (bRunning) {
 #ifdef ALSA_VERBOSE
@@ -276,7 +289,7 @@ void ALSAAudioInput::run() {
 		snd_pcm_status_dump(status, log);
 		snd_pcm_status_free(status);
 #endif
-		readblapp = snd_pcm_readi(capture_handle, psMic, iFrameSize);
+		readblapp = snd_pcm_readi(capture_handle, (srs || (iChannels>1)) ? inbuff : psMic, iInSize);
 		if (readblapp == -ESTRPIPE) {
 			// suspend event - what to do?
 			qWarning("ALSAAudioInput: %s", snd_strerror(readblapp));
@@ -286,7 +299,20 @@ void ALSAAudioInput::run() {
 		} else if (readblapp < 0) {
 			err = snd_pcm_prepare(capture_handle);
 			qWarning("ALSAAudioInput: %s: %s", snd_strerror(readblapp), snd_strerror(err));
-		} else if (iFrameSize == readblapp) {
+		} else if (iInSize == readblapp) {
+			if (iChannels > 1) {
+				for(int i=0;i<iInSize;++i) {
+					int sum = 0;
+					for(int j=0;j<iChannels;++j)
+						sum += inbuff[i*iChannels+j];
+					inbuff[i] = sum / iChannels;
+				}
+			}
+			if (srs) {
+				spx_uint32_t inlen = iInSize;
+				spx_uint32_t outlen = iFrameSize;
+				speex_resampler_process_int(srs, 0, inbuff, &inlen, psMic, &outlen);
+			}
 			encodeAudioFrame();
 		}
 	}
@@ -295,70 +321,6 @@ void ALSAAudioInput::run() {
 	snd_pcm_close(capture_handle);
 
 	qWarning("ALSAAudioInput: Releasing ALSA Mic.");
-}
-
-void ALSAAudioOutput::initialize(snd_pcm_t * &pcm_handle, int period, bool stereo) {
-	int err = 0;
-	bool bOk = true;
-
-	if (pcm_handle)
-		return;
-
-	const int buffsize = period * (stereo ? 2 : 1);
-
-	short zerobuff[buffsize];
-
-	for (int i=0;i<buffsize;i++)
-		zerobuff[i]=0;
-
-	unsigned int rate = SAMPLE_RATE;
-	snd_pcm_uframes_t period_size = period;
-	snd_pcm_uframes_t buffer_size = period * (g.s.iOutputDelay + 1);
-
-	snd_pcm_hw_params_t *hw_params = NULL;
-	snd_pcm_sw_params_t *sw_params = NULL;
-	QByteArray device_name = g.s.qsALSAOutput.toLatin1();
-
-	ALSA_ERRBAIL(snd_pcm_open(&pcm_handle, device_name.data(), SND_PCM_STREAM_PLAYBACK, 0));
-	ALSA_ERRBAIL(snd_pcm_hw_params_malloc(&hw_params));
-	ALSA_ERRBAIL(snd_pcm_sw_params_malloc(&sw_params));
-
-	ALSA_ERRBAIL(snd_pcm_hw_params_any(pcm_handle, hw_params));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16_LE));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &rate, NULL));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels(pcm_handle, hw_params, (stereo ? 2 : 1)));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(pcm_handle, hw_params, &buffer_size));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(pcm_handle, hw_params, &period_size, NULL));
-
-	ALSA_ERRBAIL(snd_pcm_hw_params(pcm_handle, hw_params));
-
-	ALSA_ERRBAIL(snd_pcm_sw_params_current(pcm_handle, sw_params));
-	ALSA_ERRBAIL(snd_pcm_sw_params_set_start_threshold(pcm_handle, sw_params, 0));
-	ALSA_ERRBAIL(snd_pcm_sw_params_set_avail_min(pcm_handle, sw_params, period_size));
-
-	ALSA_ERRBAIL(snd_pcm_sw_params(pcm_handle, sw_params));
-
-	ALSA_ERRBAIL(snd_pcm_prepare(pcm_handle));
-
-	// Fill one frame
-	if (bOk && pcm_handle)
-		for (int i = 0; i < g.s.iOutputDelay + 1; i++)
-			snd_pcm_writei(pcm_handle, zerobuff, period);
-
-	if (sw_params)
-		snd_pcm_sw_params_free(sw_params);
-	if (hw_params)
-		snd_pcm_hw_params_free(hw_params);
-
-	if (! bOk) {
-		g.mw->msgBox(tr("Opening chosen ALSA Output failed: %1").arg(QLatin1String(snd_strerror(err))));
-		if (pcm_handle) {
-			snd_pcm_close(pcm_handle);
-			pcm_handle = NULL;
-		}
-		return;
-	}
 }
 
 ALSAAudioOutput::ALSAAudioOutput() {
@@ -380,22 +342,89 @@ void ALSAAudioOutput::run() {
 	struct pollfd fds[16];
 	int count;
 	bool stillRun = true;
+	int err = 0;
+	bool bOk = true;
 
-	const bool stereo = g.s.doPositionalAudio();
+	iMixerFreq = SAMPLE_RATE;
+	iChannels = g.s.doPositionalAudio() ? 2 : 1;
 
-	initialize(pcm_handle, iFrameSize, stereo);
+	snd_pcm_hw_params_t *hw_params = NULL;
+	snd_pcm_sw_params_t *sw_params = NULL;
+	QByteArray device_name = g.s.qsALSAOutput.toLatin1();
 
-	if (! pcm_handle)
-		return;
+	ALSA_ERRBAIL(snd_pcm_open(&pcm_handle, device_name.data(), SND_PCM_STREAM_PLAYBACK, 0));
+	ALSA_ERRBAIL(snd_pcm_hw_params_malloc(&hw_params));
+	ALSA_ERRBAIL(snd_pcm_sw_params_malloc(&sw_params));
 
-	const int buffsize = iFrameSize * (stereo ? 2 : 1);
+	ALSA_ERRBAIL(snd_pcm_hw_params_any(pcm_handle, hw_params));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16_LE));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_min(pcm_handle, hw_params, &iMixerFreq, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_min(pcm_handle, hw_params, &iChannels));
 
-	short buffer[buffsize] __attribute__((aligned(16)));
+	unsigned int iOutputSize = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
+
+	snd_pcm_uframes_t period_size = iOutputSize;
+	snd_pcm_uframes_t buffer_size = iOutputSize * (g.s.iOutputDelay + 1);
+
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(pcm_handle, hw_params, &period_size, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_min(pcm_handle, hw_params, &buffer_size));
+
+	ALSA_ERRBAIL(snd_pcm_hw_params(pcm_handle, hw_params));
+	ALSA_ERRBAIL(snd_pcm_hw_params_current(pcm_handle, hw_params));
+	
+	ALSA_ERRBAIL(snd_pcm_sw_params_current(pcm_handle, sw_params));
+	ALSA_ERRBAIL(snd_pcm_sw_params_set_start_threshold(pcm_handle, sw_params, 0));
+	ALSA_ERRBAIL(snd_pcm_sw_params_set_avail_min(pcm_handle, sw_params, period_size));
+
+	ALSA_ERRBAIL(snd_pcm_sw_params(pcm_handle, sw_params));
+
+	ALSA_ERRBAIL(snd_pcm_prepare(pcm_handle));
+
+	const unsigned int buffsize = period_size * iChannels;
 
 	short zerobuff[buffsize];
+	short outbuff[buffsize];
+	float mixbuff[buffsize];
 
-	for (int i=0;i<buffsize;i++)
+	for (unsigned int i=0;i<buffsize;i++)
 		zerobuff[i]=0;
+
+	// Fill one frame
+	if (bOk && pcm_handle)
+		for (int i = 0; i < g.s.iOutputDelay + 1; i++)
+			snd_pcm_writei(pcm_handle, zerobuff, period_size);
+
+	if (sw_params)
+		snd_pcm_sw_params_free(sw_params);
+	if (hw_params)
+		snd_pcm_hw_params_free(hw_params);
+
+	if (! bOk) {
+		g.mw->msgBox(tr("Opening chosen ALSA Output failed: %1").arg(QLatin1String(snd_strerror(err))));
+		if (pcm_handle) {
+			snd_pcm_close(pcm_handle);
+			pcm_handle = NULL;
+		}
+		return;
+	}
+	
+	const unsigned int chanmasks[] = {
+		SPEAKER_FRONT_LEFT,
+		SPEAKER_FRONT_RIGHT,
+		SPEAKER_FRONT_CENTER,
+		SPEAKER_LOW_FREQUENCY,
+		SPEAKER_BACK_LEFT,
+		SPEAKER_BACK_RIGHT,
+		SPEAKER_SIDE_LEFT,
+		SPEAKER_SIDE_RIGHT,
+		SPEAKER_BACK_CENTER
+	};
+	
+	// FIXME: This will crash with >7 channels!
+	
+	qWarning("ALSAAudioOutput: Initializing %d channel, %d hz mixer", iChannels, iMixerFreq);
+	initializeMixer(chanmasks);
 
 	count = snd_pcm_poll_descriptors_count(pcm_handle);
 	snd_pcm_poll_descriptors(pcm_handle, fds, count);
@@ -408,33 +437,40 @@ void ALSAAudioOutput::run() {
 		if (revents & POLLERR) {
 			snd_pcm_prepare(pcm_handle);
 		} else if (revents & POLLOUT) {
-			int avail = snd_pcm_avail_update(pcm_handle);
+			unsigned int avail = snd_pcm_avail_update(pcm_handle);
 			while (avail >= iFrameSize) {
-				stillRun = stereo ? mixStereoAudio(buffer) : mixAudio(buffer);
-				int w=snd_pcm_writei(pcm_handle, buffer, iFrameSize);
+				stillRun = mix(mixbuff, period_size);
+				for(int j=0;j<period_size*iChannels;++j)
+					outbuff[j] = static_cast<short>(mixbuff[j] * 32767.f);
+				int w=snd_pcm_writei(pcm_handle, outbuff, period_size);
 				if (w == -EPIPE) {
 					qWarning("ALSAAudioOutput: %s", snd_strerror(w));
 					snd_pcm_prepare(pcm_handle);
 					for (int i=0;i<g.s.iOutputDelay;i++)
-						snd_pcm_writei(pcm_handle, zerobuff, iFrameSize);
+						snd_pcm_writei(pcm_handle, zerobuff, period_size);
 				}
 				avail = snd_pcm_avail_update(pcm_handle);
 			}
 
 			if (! stillRun) {
 				snd_pcm_drain(pcm_handle);
-
-				while (!(stereo ? mixStereoAudio(buffer) : mixAudio(buffer)) && bRunning)
-					this->usleep(20 * 1000);
+				
+				while (bRunning && !mix(mixbuff, period_size))
+					this->msleep(20);
 
 				if (! bRunning)
 					break;
+					
+				for(int j=0;j<period_size;++j)
+					outbuff[j] = static_cast<short>(mixbuff[j] * 32767.f);
 
 				snd_pcm_prepare(pcm_handle);
 
 				// Fill one frame
-				for (int i = 0; i < g.s.iOutputDelay; i++)
-					snd_pcm_writei(pcm_handle, zerobuff, iFrameSize);
+				for (int i = 0; i < g.s.iOutputDelay-1; i++)
+					snd_pcm_writei(pcm_handle, zerobuff, period_size);
+
+				snd_pcm_writei(pcm_handle, outbuff, period_size);
 			}
 		}
 	}

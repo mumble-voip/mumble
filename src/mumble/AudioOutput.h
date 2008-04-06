@@ -151,7 +151,6 @@ class AudioSine : public AudioOutputPlayer {
 class AudioOutput : public QThread {
 		Q_OBJECT
 	private:
-		unsigned int iChannels;
 		float *fSpeakers;
 		float *fSpeakerVolume;
 		bool *bSpeakerPositional;
@@ -159,12 +158,13 @@ class AudioOutput : public QThread {
 		volatile bool bRunning;
 		unsigned int iFrameSize;
 		unsigned int iMixerFreq;
+		unsigned int iChannels;
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;
 
 		virtual void newPlayer(AudioOutputPlayer *);
 		virtual void removeBuffer(AudioOutputPlayer *);
-		void initializeMixer(unsigned int *chanmasks, unsigned int nchannels);
+		void initializeMixer(const unsigned int *chanmasks);
 		bool mix(float *output, unsigned int nsamp);
 	public:
 		void wipe();

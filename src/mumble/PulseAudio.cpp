@@ -444,11 +444,14 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		return;
 	}
 
+	float mixbuffer[pao->iFrameSize];
 	short buffer[pao->iFrameSize] __attribute__((aligned(16)));
 
 	while (samples >= 0) {
 		samples -= pao->iFrameSize;
-		pao->mixAudio(buffer);
+		pao->mix(mixbuffer, pao->iFrameSize);
+		for(int j=0;j<pao->iFrameSize;++j)
+			buffer[j] = static_cast<short>(mixbuffer[j] * 32768.f);
 		pa_stream_write(s, buffer, pao->iFrameSize * sizeof(short), NULL, 0, PA_SEEK_RELATIVE);
 	}
 }
@@ -561,6 +564,10 @@ PulseAudioInput::~PulseAudioInput() {
 }
 
 PulseAudioOutput::PulseAudioOutput() {
+	const unsigned int cmask = SPEAKER_FRONT_LEFT;
+	iChannels = 1;
+	iMixerFreq = SAMPLE_RATE;
+	initializeMixer(&cmask);
 	bRunning = true;
 	if (pasys)
 		pasys->wakeup();

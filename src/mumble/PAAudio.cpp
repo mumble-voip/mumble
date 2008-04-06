@@ -355,6 +355,7 @@ PortAudioOutput::~PortAudioOutput() {
 //TODO: redo this without busy waiting if possible
 void PortAudioOutput::run() {
 	PaStream           *outputStream    = 0;
+	float		    mixBuffer[iFrameSize];
 	short               outBuffer[iFrameSize];
 	bool                hasMoreToMix    = true;
 	PaError             err             = paNoError;
@@ -362,9 +363,17 @@ void PortAudioOutput::run() {
 	if (!PortAudioSystem::initStream(&outputStream, g.s.iPortAudioOutput, iFrameSize, false))
 		return; // PA initialization or stream opening failed, we will give up
 
+	const unsigned int cmask = SPEAKER_FRONT_LEFT;
+	iChannels = 1;
+	iMixerFreq = SAMPLE_RATE;
+	
+	initializeMixer(&cmask);
+
 	while (bRunning) {
-		bool nextHasMoreToMix = mixAudio(outBuffer);
+		bool nextHasMoreToMix = mix(mixBuffer, iFrameSize);
 		if (hasMoreToMix) {
+			for(int j=0;j<iFrameSize;++j)
+				outBuffer[j] = static_cast<short>(mixBuffer[j] * 32768.f);
 			if (PortAudioSystem::startStream(outputStream)) {
 				err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);
 				if (err != paNoError) {
@@ -376,7 +385,7 @@ void PortAudioOutput::run() {
 		} else {
 			if (!PortAudioSystem::stopStream(outputStream))
 				bRunning = false;
-			this->usleep(20 * 1000); // 20ms wait to avoid hogging the cpu too much
+			this->msleep(20); // 20ms wait to avoid hogging the cpu too much
 		}
 		hasMoreToMix = nextHasMoreToMix;
 	}

@@ -41,8 +41,6 @@ class ALSAAudioInput;
 
 class ALSAAudioInput : public AudioInput {
 		Q_OBJECT
-	protected:
-		void release();
 	public:
 		ALSAAudioInput();
 		~ALSAAudioInput();
@@ -52,7 +50,6 @@ class ALSAAudioInput : public AudioInput {
 class ALSAAudioOutput : public AudioOutput {
 		Q_OBJECT
 	protected:
-		static void initialize(snd_pcm_t * &pcm_handle, int period, bool stereo);
 	public:
 		ALSAAudioOutput();
 		~ALSAAudioOutput();
