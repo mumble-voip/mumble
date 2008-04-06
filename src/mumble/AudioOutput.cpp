@@ -120,7 +120,8 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
 	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 
-	srs = speex_resampler_init(1, 16000, freq, 3, &err);
+	if (freq != SAMPLE_RATE)
+		srs = speex_resampler_init(1, 16000, freq, 3, &err);
 
 	iOutputSize = lroundf(ceilf((iFrameSize * freq) / (16000 * 1.0f)));
 
@@ -197,20 +198,25 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 	if (iBufferFilled >= snum)
 		return bLastAlive;
 
+	float *pOut;
 	STACKVAR(float, fOut, iFrameSize);
+
 
 	while (iBufferFilled < snum) {
 		resizeBuffer(iBufferFilled + iOutputSize);
+
+		pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
 
 		if (p == &LoopPlayer::lpLoopy)
 			LoopPlayer::lpLoopy.fetchFrames();
 
 
-		if (speex_decode(dsDecState, &sbBits, fOut) == 0) {
+		if (speex_decode(dsDecState, &sbBits, pOut) == 0) {
 			jitter_buffer_tick(jbJitter);
 			bLastAlive = true;
 		} else {
 			QMutexLocker lock(&qmJitter);
+
 
 			char data[4096];
 			JitterBufferPacket jbp;
@@ -223,18 +229,18 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				ucFlags = jbp.data[0];
 				fPos[0] = fPos[1] = fPos[2] = 0.0;
 				speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);
-				speex_decode(dsDecState, &sbBits, fOut);
+				speex_decode(dsDecState, &sbBits, pOut);
 				bLastAlive = true;
 			} else {
 				if (ucFlags & MessageSpeex::EndSpeech) {
-					memset(fOut, 0, sizeof(float) * iFrameSize);
+					memset(pOut, 0, sizeof(float) * iFrameSize);
 					bLastAlive = false;
 				} else {
 					iMissCount++;
 					if (iMissCount < 5) {
-						speex_decode(dsDecState, NULL, fOut);
+						speex_decode(dsDecState, NULL, pOut);
 					} else {
-						memset(fOut, 0, sizeof(float) * iFrameSize);
+						memset(pOut, 0, sizeof(float) * iFrameSize);
 						bLastAlive = false;
 					}
 				}
@@ -249,7 +255,8 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		}
 		spx_uint32_t inlen = iFrameSize;
 		spx_uint32_t outlen = iOutputSize;
-		speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+		if (srs)
+			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
 		iBufferFilled += outlen;
 	}
 
@@ -270,6 +277,7 @@ AudioOutput::AudioOutput() {
 	bSpeakerPositional = NULL;
 
 	iMixerFreq = 16000;
+	eSampleFormat = SampleFloat;
 }
 
 AudioOutput::~AudioOutput() {
@@ -472,12 +480,11 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
 	}
 }
 
-bool AudioOutput::mix(float *output, unsigned int nsamp) {
+bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	AudioOutputPlayer *aop;
 	QList<AudioOutputPlayer *> qlMix;
 	QList<AudioOutputPlayer *> qlDel;
 
-	memset(output, 0, sizeof(float) * nsamp * iChannels);
 
 	if (g.s.fVolume < 0.01)
 		return false;
@@ -495,7 +502,12 @@ bool AudioOutput::mix(float *output, unsigned int nsamp) {
 
 	if (! qlMix.isEmpty()) {
 		STACKVAR(float, speaker, iChannels*3);
+
+		STACKVAR(float, fOutput, iChannels * nsamp);
+		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
 		bool validListener = false;
+
+		memset(output, 0, sizeof(float) * nsamp * iChannels);
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()) {
 			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2]};
@@ -575,8 +587,12 @@ bool AudioOutput::mix(float *output, unsigned int nsamp) {
 			}
 		}
 		// Clip
-		for (unsigned int i=0;i<iFrameSize*iChannels;i++)
-			output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
+		if (eSampleFormat == SampleFloat)
+			for (unsigned int i=0;i<nsamp*iChannels;i++)
+				output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
+		else
+			for(unsigned int i=0;i<nsamp*iChannels;i++)
+				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
 	}
 
 	qrwlOutputs.unlock();

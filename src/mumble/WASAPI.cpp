@@ -691,7 +691,8 @@ void WASAPIOutput::run() {
 		qWarning("WASAPIOutput: Chanmask bits doesn't match number of channels.");
 	}
 
-	initializeMixer(chanmasks, pwfx->nChannels);
+	iChannels = pwfx->nChannels;
+	initializeMixer(chanmasks);
 
 	while (bRunning && ! FAILED(hr)) {
 		hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);

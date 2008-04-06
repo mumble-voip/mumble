@@ -58,7 +58,6 @@
 #define SPEAKER_TOP_BACK_RIGHT		0x00020000
 #endif
 
-
 #include "Audio.h"
 #include "Settings.h"
 #include "smallft.h"
@@ -155,6 +154,7 @@ class AudioOutput : public QThread {
 		float *fSpeakerVolume;
 		bool *bSpeakerPositional;
 	protected:
+		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;
 		unsigned int iFrameSize;
 		unsigned int iMixerFreq;
@@ -165,7 +165,7 @@ class AudioOutput : public QThread {
 		virtual void newPlayer(AudioOutputPlayer *);
 		virtual void removeBuffer(AudioOutputPlayer *);
 		void initializeMixer(const unsigned int *chanmasks);
-		bool mix(float *output, unsigned int nsamp);
+		bool mix(void *output, unsigned int nsamp);
 	public:
 		void wipe();
 
