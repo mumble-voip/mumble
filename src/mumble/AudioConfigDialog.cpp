@@ -91,7 +91,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsTransmitMin, lroundf(r.fVADmin * 32767.0f));
 	loadSlider(qsTransmitMax, lroundf(r.fVADmax * 32767.0f));
 	loadSlider(qsFrames, r.iFramesPerPacket);
-	loadSlider(qsDoublePush, r.uiDoublePush / 1000.f);
+	loadSlider(qsDoublePush, lroundf(r.uiDoublePush / 1000.f));
 
 	if (r.vsVAD == Settings::Amplitude)
 		qrbAmplitude->setChecked(true);
@@ -242,7 +242,7 @@ void AudioInputDialog::on_qcbTransmit_currentIndexChanged(int v) {
 	}
 }
 
-void AudioInputDialog::on_qcbSystem_currentIndexChanged(int idx) {
+void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 	qcbDevice->clear();
 
 	QList<audioDevice> ql;
@@ -342,7 +342,7 @@ bool AudioOutputDialog::expert(bool b) {
 	return b;
 }
 
-void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int idx) {
+void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 	qcbDevice->clear();
 
 	QList<audioDevice> ql;

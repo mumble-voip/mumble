@@ -95,7 +95,7 @@ class AudioOutputPlayer : public QObject {
 		const QString qsName;
 		float *pfBuffer;
 		float fPos[3];
-		virtual bool needSamples(int snum) = 0;
+		virtual bool needSamples(unsigned int snum) = 0;
 };
 
 class AudioOutputSpeech : public AudioOutputPlayer {
@@ -106,7 +106,7 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		unsigned int iBufferFilled;
 		unsigned int iOutputSize;
 		unsigned int iLastConsume;
-		int iFrameSize;
+		unsigned int iFrameSize;
 		bool bLastAlive;
 
 		SpeexResamplerState *srs;
@@ -124,9 +124,9 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		int iMissedFrames;
 		ClientPlayer *p;
 
-		virtual bool needSamples(int snum);
+		virtual bool needSamples(unsigned int snum);
 
-		void addFrameToBuffer(const QByteArray &, int iBaseSeq);
+		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
 		AudioOutputSpeech(ClientPlayer *, unsigned int freq);
 		~AudioOutputSpeech();
 };
@@ -143,7 +143,7 @@ class AudioSine : public AudioOutputPlayer {
 		unsigned int tbin;
 		bool bSearch;
 	public:
-		virtual bool needSamples(int snum);
+		virtual bool needSamples(unsigned int snum);
 		AudioSine(float hz, float i, unsigned int frm, float v, unsigned int freq);
 		~AudioSine();
 };
@@ -151,14 +151,14 @@ class AudioSine : public AudioOutputPlayer {
 class AudioOutput : public QThread {
 		Q_OBJECT
 	private:
-		int iChannels;
+		unsigned int iChannels;
 		float *fSpeakers;
 		float *fSpeakerVolume;
 		bool *bSpeakerPositional;
 	protected:
 		volatile bool bRunning;
-		int iFrameSize;
-		int iMixerFreq;
+		unsigned int iFrameSize;
+		unsigned int iMixerFreq;
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;
 
@@ -171,7 +171,7 @@ class AudioOutput : public QThread {
 
 		AudioOutput();
 		~AudioOutput();
-		void addFrameToBuffer(ClientPlayer *, const QByteArray &, int iSeq);
+		void addFrameToBuffer(ClientPlayer *, const QByteArray &, unsigned int iSeq);
 		void removeBuffer(const ClientPlayer *);
 		void playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3);
 		void run() = 0;

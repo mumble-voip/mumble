@@ -36,7 +36,7 @@ TextMessage::TextMessage(QWidget *p) : QDialog(p) {
 	qteEdit->installEventFilter(this);
 }
 
-void TextMessage::on_qcbRawMessage_stateChanged(int state) {
+void TextMessage::on_qcbRawMessage_stateChanged(int) {
 	on_qteEdit_textChanged();
 }
 

@@ -170,7 +170,7 @@ int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *, void *data) {
 	return 0;
 }
 
-void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, int iSeq) {
+void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned int iSeq) {
 	QMutexLocker lock(&qmJitter);
 
 	if (qbaPacket.size() < 1)
@@ -188,8 +188,8 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, int iSeq) 
 	jitter_buffer_put(jbJitter, &jbp);
 }
 
-bool AudioOutputSpeech::needSamples(int snum) {
-	for(int i=iLastConsume;i<iBufferFilled;++i)
+bool AudioOutputSpeech::needSamples(unsigned int snum) {
+	for(unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];
 	iBufferFilled -= iLastConsume;
 
@@ -329,7 +329,7 @@ void AudioOutput::playSine(float hz, float i, unsigned int frames, float volume)
 	qrwlOutputs.unlock();
 }
 
-void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPacket, int iSeq) {
+void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPacket, unsigned int iSeq) {
 	qrwlOutputs.lockForRead();
 	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(player));
 	if (! aop) {
@@ -372,11 +372,11 @@ void AudioOutput::initializeMixer(unsigned int *chanmasks, unsigned int nchannel
 	memset(fSpeakers, 0, sizeof(float) * iChannels * 3);
 	memset(bSpeakerPositional, 0, sizeof(bool) * iChannels);
 
-	for(int i=0;i<iChannels;++i)
+	for(unsigned int i=0;i<iChannels;++i)
 		fSpeakerVolume[i] = 1.0f;
 
 	if (g.s.bPositionalAudio && (iChannels > 1)) {
-		for(int i=0;i<iChannels;i++) {
+		for(unsigned int i=0;i<iChannels;i++) {
 			float *s = &fSpeakers[3*i];
 			bSpeakerPositional[i] = true;
 
@@ -464,7 +464,7 @@ void AudioOutput::initializeMixer(unsigned int *chanmasks, unsigned int nchannel
 					fSpeakerVolume[i] = 0.0f;
 			}
 		}
-		for(int i=0;i<iChannels;i++) {
+		for(unsigned int i=0;i<iChannels;i++) {
 			float d = sqrtf(fSpeakers[3*i+0]*fSpeakers[3*i+0] + fSpeakers[3*i+1]*fSpeakers[3*i+1] + fSpeakers[3*i+2]*fSpeakers[3*i+2]);
 			if (d > 0.0f) {
 				fSpeakers[3*i+0] /= d;
@@ -537,7 +537,7 @@ bool AudioOutput::mix(float *output, unsigned int nsamp) {
 						qWarning("Right: %f %f %f", right[0], right[1], right[2]);
 			*/
 			// Rotate speakers to match orientation
-			for (int i=0;i<iChannels;++i) {
+			for (unsigned int i=0;i<iChannels;++i) {
 				speaker[3*i+0] = fSpeakers[3*i+0] * right[0] + fSpeakers[3*i+1] * top[0] + fSpeakers[3*i+2] * front[0];
 				speaker[3*i+1] = fSpeakers[3*i+0] * right[1] + fSpeakers[3*i+1] * top[1] + fSpeakers[3*i+2] * front[1];
 				speaker[3*i+2] = fSpeakers[3*i+0] * right[2] + fSpeakers[3*i+1] * top[2] + fSpeakers[3*i+2] * front[2];
@@ -562,23 +562,23 @@ bool AudioOutput::mix(float *output, unsigned int nsamp) {
 								qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
 								qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
 				*/
-				for (int s=0;s<iChannels;++s) {
+				for (unsigned int s=0;s<iChannels;++s) {
 					float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
 					float str = mul * calcGain(dot, len) * fSpeakerVolume[s];
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
-					for (int i=0;i<nsamp;++i)
+					for (unsigned int i=0;i<nsamp;++i)
 						output[i*iChannels+s] += aop->pfBuffer[i] * str;
 				}
 			} else {
-				for (int i=0;i<nsamp;++i)
-					for (int j=0;j<iChannels;++j)
+				for (unsigned int i=0;i<nsamp;++i)
+					for (unsigned int j=0;j<iChannels;++j)
 						output[i*iChannels+j] += aop->pfBuffer[i] * fSpeakerVolume[j] * mul;
 			}
 		}
 		// Clip
-		for (int i=0;i<iFrameSize*iChannels;i++)
+		for (unsigned int i=0;i<iFrameSize*iChannels;i++)
 			output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
 	}
 
@@ -607,7 +607,7 @@ AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol, unsigned in
 AudioSine::~AudioSine() {
 }
 
-bool AudioSine::needSamples(int snum) {
+bool AudioSine::needSamples(unsigned int snum) {
 	if (frames > 0) {
 		frames--;
 

@@ -95,7 +95,7 @@ class AudioInput : public QThread {
 		float dPeakMic, dPeakSpeaker, dPeakSignal;
 		float fSpeechProb;
 
-		int iBestBin;
+		unsigned int iBestBin;
 
 		bool isTransmitting() {
 			return bPreviousVoice;

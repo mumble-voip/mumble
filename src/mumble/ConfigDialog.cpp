@@ -56,11 +56,11 @@ QIcon ConfigWidget::icon() const {
 void ConfigWidget::accept() const {
 }
 
-void ConfigWidget::loadSlider(QSlider *s, int v) {
-	if (v != s->value()) {
-		s->setValue(v);
+void ConfigWidget::loadSlider(QSlider *slider, int v) {
+	if (v != slider->value()) {
+		slider->setValue(v);
 	} else {
-		connect(this, SIGNAL(intSignal(int)), s, SIGNAL(valueChanged(int)));
+		connect(this, SIGNAL(intSignal(int)), slider, SIGNAL(valueChanged(int)));
 		emit intSignal(v);
 		disconnect(SIGNAL(intSignal(int)));
 	}
