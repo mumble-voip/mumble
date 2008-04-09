@@ -122,6 +122,8 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 
 	if (freq != SAMPLE_RATE)
 		srs = speex_resampler_init(1, 16000, freq, 3, &err);
+	else
+		srs = NULL;
 
 	iOutputSize = lroundf(ceilf((iFrameSize * freq) / (16000 * 1.0f)));
 
