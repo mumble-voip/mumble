@@ -391,7 +391,7 @@ ASIOInput::ASIOInput() {
 
 	int i, idx;
 
-	bHasSpeaker = true;
+	iEchoChannels = 1;
 
 	// Allocate buffers
 	pdInputBuffer = new float[960];

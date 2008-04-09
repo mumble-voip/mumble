@@ -127,7 +127,7 @@ DXAudioInput::DXAudioInput() {
 	ZeroMemory(&dscbd, sizeof(dscbd));
 	dscbd.dwSize = sizeof(dscbd);
 
-	dscbd.dwBufferBytes = dwBufferSize = iByteSize * NBUFFBLOCKS;
+	dscbd.dwBufferBytes = dwBufferSize = iFrameSize * sizeof(short) * NBUFFBLOCKS;
 	dscbd.lpwfxFormat = &wfx;
 
 	wfx.nChannels = 1;
@@ -137,7 +137,7 @@ DXAudioInput::DXAudioInput() {
 	wfx.wBitsPerSample = 16;
 
 	for (int i = 0; i < NBUFFBLOCKS; i++) {
-		aPosNotify[i].dwOffset = (iByteSize * (i+1)) -1;
+		aPosNotify[i].dwOffset = (iFrameSize * sizeof(short) * (i+1)) -1;
 		aPosNotify[i].hEventNotify = hNotificationEvent;
 	}
 
@@ -214,13 +214,13 @@ void DXAudioInput::run() {
 			else
 				dwReadyBytes = dwReadPosition - dwLastReadPos;
 
-			if (static_cast<int>(dwReadyBytes) < iByteSize) {
+			if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
 				WaitForSingleObject(hNotificationEvent, INFINITE);
 			}
-		} while (static_cast<int>(dwReadyBytes) < iByteSize);
+		} while (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize);
 
-		if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
-			qFatal("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, iByteSize);
+		if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, sizeof(short) * iFrameSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
+			qFatal("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, sizeof(short) * iFrameSize);
 
 		if (aptr1 && nbytes1)
 			CopyMemory(psMic, aptr1, nbytes1);
@@ -231,7 +231,7 @@ void DXAudioInput::run() {
 		if (FAILED(hr = pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
 			qFatal("DXAudioInput: Unlock");
 
-		dwLastReadPos = (dwLastReadPos + iByteSize) % dwBufferSize;
+		dwLastReadPos = (dwLastReadPos + sizeof(short) * iFrameSize) % dwBufferSize;
 
 		encodeAudioFrame();
 	}

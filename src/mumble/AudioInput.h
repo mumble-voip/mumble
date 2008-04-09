@@ -60,14 +60,24 @@ class AudioInput : public QThread {
 		friend class AudioStats;
 		friend class FMODSystem;
 		Q_OBJECT
+	private:
+		SpeexResamplerState *srsMic, *srsEcho;
+		JitterBuffer *jb;
+		unsigned int iJitterSeq;
+		unsigned int iMicFilled, iEchoFilled;
 	protected:
+		enum { SampleShort, SampleFloat } eSampleFormat;
+		unsigned int iMicChannels, iEchoChannels;
+		unsigned int iMicFreq, iEchoFreq;
+		unsigned int iMicLength, iEchoLength;
+
 		int	iFrameSize;
-		int iByteSize;
 
 		QMutex qmSpeex;
 		SpeexBits sbBits;
 		SpeexPreprocessState *sppPreprocess;
 		SpeexEchoState *sesEcho;
+
 		void *esEncState;
 		drft_lookup fftTable;
 
@@ -75,11 +85,16 @@ class AudioInput : public QThread {
 		short *psSpeaker;
 		short *psClean;
 
+		float *pfMicInput;
+		float *pfEchoInput;
+		float *pfOutput;
+
 		void encodeAudioFrame();
+		void addMic(const void *data, unsigned int nsamp);
+		void addEcho(const void *data, unsigned int nsamp);
 
 		volatile bool bRunning;
 		bool bPreviousVoice;
-		bool bHasSpeaker;
 
 		int iFrameCounter;
 		int iSilentFrames;
@@ -88,6 +103,8 @@ class AudioInput : public QThread {
 		int iFrames;
 
 		void flushCheck();
+
+		void initializeMixer();
 	public:
 		bool bResetProcessor;
 

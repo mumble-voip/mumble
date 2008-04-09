@@ -99,8 +99,6 @@ AudioInput::AudioInput() {
 
 	mumble_drft_init(&fftTable, iFrameSize);
 
-	iByteSize=iFrameSize * 2;
-
 	iFrameCounter = 0;
 	iSilentFrames = 0;
 	iHoldFrames = 0;
@@ -128,14 +126,22 @@ AudioInput::AudioInput() {
 
 	sppPreprocess = NULL;
 	sesEcho = NULL;
+	srsMic = srsEcho = NULL;
+	jb = jitter_buffer_init(10);
+	iJitterSeq = 1;
 
 	psMic = new short[iFrameSize];
 	psSpeaker = new short[iFrameSize];
 	psClean = new short[iFrameSize];
 
-	bHasSpeaker = false;
+	iEchoChannels = iMicChannels = 0;
+	iEchoFreq = iMicFreq = SAMPLE_RATE;
+	iEchoFilled = iMicFilled = 0;
+	eSampleFormat = SampleFloat;
 
 	bPreviousVoice = false;
+
+	pfMicInput = pfEchoInput = pfOutput = NULL;
 
 	iBitrate = 0;
 	dPeakMic = dPeakSignal = dPeakSpeaker = 0.0;
@@ -145,6 +151,7 @@ AudioInput::AudioInput() {
 	}
 
 	bRunning = false;
+
 }
 
 AudioInput::~AudioInput() {
@@ -159,9 +166,128 @@ AudioInput::~AudioInput() {
 	if (sesEcho)
 		speex_echo_state_destroy(sesEcho);
 
+	if (srsMic)
+		speex_resampler_destroy(srsMic);
+	if (srsEcho)
+		speex_resampler_destroy(srsEcho);
+
 	delete [] psMic;
 	delete [] psSpeaker;
 	delete [] psClean;
+
+	if (pfMicInput)
+		delete [] pfMicInput;
+	if (pfEchoInput)
+		delete [] pfEchoInput;
+	if (pfOutput)
+		delete [] pfOutput;
+}
+
+void AudioInput::initializeMixer() {
+	int err;
+
+	if (iMicFreq != SAMPLE_RATE)
+		srsMic = speex_resampler_init(1, iMicFreq, SAMPLE_RATE, 3, &err);
+
+	iMicLength = (iFrameSize * iMicFreq) / SAMPLE_RATE;
+
+	pfMicInput = new float[iMicLength];
+	pfOutput = new float[iFrameSize];
+
+	if (iEchoChannels > 0) {
+		if (iEchoFreq != SAMPLE_RATE)
+			srsEcho = speex_resampler_init(1, iEchoFreq, SAMPLE_RATE, 3, &err);
+		iEchoLength = (iFrameSize * iEchoFreq) / SAMPLE_RATE;
+		pfEchoInput = new float[iEchoLength];
+	}
+	qWarning("AudioInput: Initialized mixer for %d channel %d hz mic and %d channel %d hz echo", iMicChannels, iMicFreq, iEchoChannels, iEchoFreq);
+}
+
+void AudioInput::addMic(const void *data, unsigned int nsamp) {
+	const float *fin = reinterpret_cast<const float *>(data);
+	const short *sin = reinterpret_cast<const short *>(data);
+
+	const float mul = 32768.f / iMicChannels;
+
+	for(int i=0;i<nsamp;++i) {
+		float v = 0.0f;
+		if (eSampleFormat == SampleFloat)
+			for(int j=0;j<iMicChannels;++j)
+				v += fin[i*iMicChannels+j];
+		else
+			for(int j=0;j<iMicChannels;++j)
+				v += sin[i*iMicChannels+j] * (1.0f / 32768.f);
+		pfMicInput[iMicFilled++] = v;
+		if (iMicFilled == iMicLength) {
+			iMicFilled = 0;
+
+			float *ptr = srsMic ? pfOutput : pfMicInput;
+			if (srsMic) {
+				spx_uint32_t inlen = iMicLength;
+				spx_uint32_t outlen = iFrameSize;
+				speex_resampler_process_float(srsMic, 0, pfMicInput, &inlen, pfOutput, &outlen);
+			}
+			for(int j=0;j<iFrameSize;++j)
+				psMic[j] = static_cast<short>(ptr[j] * mul);
+
+			if (iEchoChannels > 0) {
+				JitterBufferPacket jbp;
+				jbp.data = reinterpret_cast<char *>(psSpeaker);
+				jbp.len = iFrameSize * sizeof(short);
+				jbp.timestamp = 0;
+				jbp.span = 0;
+				jbp.sequence = 0;
+				jbp.user_data = 0;
+
+				spx_int32_t offs;
+
+				jitter_buffer_get(jb, &jbp, 10, &offs);
+				jitter_buffer_tick(jb);
+			}
+			encodeAudioFrame();
+		}
+	}
+}
+
+void AudioInput::addEcho(const void *data, unsigned int nsamp) {
+	const float *fin = reinterpret_cast<const float *>(data);
+	const short *sin = reinterpret_cast<const short *>(data);
+
+	const float mul = 32768.f / iEchoChannels;
+
+	for(int i=0;i<nsamp;++i) {
+		float v = 0.0f;
+		if (eSampleFormat == SampleFloat)
+			for(int j=0;j<iEchoChannels;++j)
+				v += fin[i*iEchoChannels+j];
+		else
+			for(int j=0;j<iEchoChannels;++j)
+				v += sin[i*iEchoChannels+j] * (1.0f / 32768.f);
+		pfEchoInput[iEchoFilled++] = v;
+		if (iEchoFilled == iEchoLength) {
+			iEchoFilled = 0;
+
+			STACKVAR(short, outbuff, iFrameSize);
+			float *ptr = srsEcho ? pfOutput : pfEchoInput;
+			if (srsEcho) {
+				spx_uint32_t inlen = iEchoLength;
+				spx_uint32_t outlen = iFrameSize;
+				speex_resampler_process_float(srsEcho, 0, pfEchoInput, &inlen, pfOutput, &outlen);
+			}
+			for(int j=0;j<iFrameSize;++j)
+				outbuff[j] = static_cast<short>(ptr[j] * mul);
+
+			JitterBufferPacket jbp;
+			jbp.data = reinterpret_cast<char *>(outbuff);
+			jbp.len = iFrameSize * sizeof(short);
+			jbp.timestamp = ++iJitterSeq * 10;
+			jbp.span = 10;
+			jbp.sequence = iJitterSeq;
+			jbp.user_data = 0;
+
+			jitter_buffer_put(jb, &jbp);
+		}
+	}
 }
 
 int AudioInput::getMaxBandwidth() {
@@ -282,7 +408,7 @@ void AudioInput::encodeAudioFrame() {
 		iBestBin = bin * 2;
 	}
 
-	if (bHasSpeaker) {
+	if (iEchoChannels > 0) {
 		max=1;
 		for (i=0;i<iFrameSize;i++)
 			if (abs(psSpeaker[i]) > max)
@@ -316,13 +442,15 @@ void AudioInput::encodeAudioFrame() {
 		iArg = g.s.iNoiseSuppress;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
-		if (bHasSpeaker) {
+		if (iEchoChannels > 0) {
 			if (sesEcho)
 				speex_echo_state_destroy(sesEcho);
 			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*10);
 			iArg = SAMPLE_RATE;
 			speex_echo_ctl(sesEcho, SPEEX_SET_SAMPLING_RATE, &iArg);
 			speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
+
+			jitter_buffer_reset(jb);
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 		}
 
@@ -334,7 +462,7 @@ void AudioInput::encodeAudioFrame() {
 
 	int iIsSpeech;
 
-	if (bHasSpeaker) {
+	if (iEchoChannels > 0) {
 		speex_echo_cancellation(sesEcho, psMic, psSpeaker, psClean);
 		iIsSpeech=speex_preprocess_run(sppPreprocess, psClean);
 		psSource = psClean;
@@ -407,7 +535,7 @@ void AudioInput::encodeAudioFrame() {
 	bPreviousVoice = iIsSpeech;
 
 	if (! iIsSpeech) {
-		memset(psMic, 0, iByteSize);
+		memset(psMic, 0, sizeof(short) * iFrameSize);
 	}
 
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (iFrames == 0) && g.p->fetch()) {

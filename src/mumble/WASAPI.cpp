@@ -211,7 +211,6 @@ const QList<audioDevice> WASAPISystem::mapToDevice(const QHash<QString, QString>
 
 WASAPIInput::WASAPIInput() {
 	bRunning = true;
-	bHasSpeaker = g.s.doEcho();
 };
 
 WASAPIInput::~WASAPIInput() {
@@ -232,11 +231,9 @@ void WASAPIInput::run() {
 	WAVEFORMATEXTENSIBLE *micpwfxe = NULL, *echopwfxe = NULL;
 	UINT32 bufferFrameCount;
 	REFERENCE_TIME hnsRequestedDuration = 200 * 10000;
-	SpeexResamplerState *srsMic = NULL, *srsEcho = NULL;
 	UINT32 numFramesAvailable;
 	UINT32 numFramesLeft;
 	UINT32 micPacketLength = 0, echoPacketLength = 0;
-	UINT32 micWantLength, echoWantLength;
 	UINT32 allocLength;
 	UINT64 devicePosition;
 	UINT64 qpcPosition;
@@ -247,14 +244,8 @@ void WASAPIInput::run() {
 	DWORD micGotLength = 0, echoGotLength = 0;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
-	float *micInputBuffer = NULL, *echoInputBuffer = NULL, *outputBuffer = NULL;
-	float micmul = 0.0f;
-	float echomul = 0.0f;
 	float *tbuff = NULL;
-	JitterBuffer *jbJitter = NULL;
-	int iEchoSeq = 0;
 	spx_int32_t startofs;
-	JitterBufferPacket jbp;
 
 	CoInitialize(NULL);
 
@@ -289,7 +280,7 @@ void WASAPIInput::run() {
 		}
 	}
 
-	if (bHasSpeaker) {
+	if (g.s.doEcho()) {
 		if (! g.s.qsWASAPIOutput.isEmpty()) {
 			STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length());
 			g.s.qsWASAPIOutput.toWCharArray(devname);
@@ -338,9 +329,6 @@ void WASAPIInput::run() {
 		goto cleanup;
 	}
 
-	srsMic = speex_resampler_init(1, micpwfx->nSamplesPerSec, 16000, 3, &err);
-	micWantLength = (iFrameSize * micpwfx->nSamplesPerSec) / 16000;
-
 	pMicAudioClient->SetEventHandle(hEvent);
 	if (FAILED(hr)) {
 		qWarning("WASAPIInput: Failed to set mic event");
@@ -353,11 +341,10 @@ void WASAPIInput::run() {
 		goto cleanup;
 	}
 
-	micmul = 32768.0f / micpwfx->nChannels;
+	iMicChannels = micpwfx->nChannels;
+	iMicFreq = micpwfx->nSamplesPerSec;
 
-	micInputBuffer = new float[micWantLength];
-
-	if (bHasSpeaker) {
+	if (g.s.doEcho()) {
 		hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pEchoAudioClient);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Activate Echo AudioClient failed");
@@ -385,9 +372,6 @@ void WASAPIInput::run() {
 			goto cleanup;
 		}
 
-		srsEcho = speex_resampler_init(1, echopwfx->nSamplesPerSec, 16000, 3, &err);
-		echoWantLength = (iFrameSize * echopwfx->nSamplesPerSec) / 16000;
-
 		pEchoAudioClient->SetEventHandle(hEvent);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Failed to set echo event");
@@ -400,20 +384,18 @@ void WASAPIInput::run() {
 			goto cleanup;
 		}
 
-		echomul = 32768.0f / echopwfx->nChannels;
-		echoInputBuffer = new float[echoWantLength];
-
-		jbJitter = jitter_buffer_init(iFrameSize);
+		iEchoChannels = echopwfx->nChannels;
+		iEchoFreq = echopwfx->nSamplesPerSec;
 	}
 
-	outputBuffer = new float[iFrameSize];
+	initializeMixer();
 
-	allocLength = (micWantLength / 2) * micpwfx->nChannels;
+	allocLength = (iMicLength / 2) * micpwfx->nChannels;
 	tbuff = new float[allocLength];
 
 	while (bRunning && ! FAILED(hr)) {
 		hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
-		if (! FAILED(hr) && bHasSpeaker)
+		if (! FAILED(hr) && iEchoChannels)
 			hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
 		if (FAILED(hr))
 			goto cleanup;
@@ -431,36 +413,11 @@ void WASAPIInput::run() {
 					allocLength = nFrames;
 					tbuff = new float[allocLength];
 				}
-				float *inData = tbuff;
-				memcpy(inData, pData, nFrames * sizeof(float));
+				memcpy(tbuff, pData, nFrames * sizeof(float));
 				hr = pEchoCaptureClient->ReleaseBuffer(numFramesAvailable);
 				if (FAILED(hr))
 					goto cleanup;
-				while (numFramesLeft) {
-					float v = 0.0f;
-					for (int i=0;i<echopwfx->nChannels;i++) {
-						v+= *inData;
-						++inData;
-					}
-					echoInputBuffer[echoGotLength] = v;
-					++echoGotLength;
-
-					if (echoGotLength == echoWantLength) {
-						spx_uint32_t inlen = echoWantLength;
-						spx_uint32_t outlen = iFrameSize;
-						speex_resampler_process_float(srsEcho, 0, echoInputBuffer, &inlen, outputBuffer, &outlen);
-
-						jbp.data = reinterpret_cast<char *>(outputBuffer);
-						jbp.len = iFrameSize * sizeof(float);
-						jbp.span = iFrameSize;
-						jbp.timestamp = iFrameSize * (++iEchoSeq);
-						jbp.sequence = iEchoSeq;
-						jbp.user_data = NULL;
-						jitter_buffer_put(jbJitter, &jbp);
-						echoGotLength = 0;
-					}
-					--numFramesLeft;
-				}
+				addEcho(tbuff, numFramesAvailable);
 			} else if (micPacketLength > 0) {
 				hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
 				numFramesLeft = numFramesAvailable;
@@ -473,48 +430,14 @@ void WASAPIInput::run() {
 					allocLength = nFrames;
 					tbuff = new float[allocLength];
 				}
-				float *inData = tbuff;
-				memcpy(inData, pData, nFrames * sizeof(float));
+				memcpy(tbuff, pData, nFrames * sizeof(float));
 				hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
 				if (FAILED(hr))
 					goto cleanup;
-				while (numFramesLeft) {
-					float v = 0.0f;
-					for (int i=0;i<micpwfx->nChannels;i++) {
-						v+= *inData;
-						++inData;
-					}
-					micInputBuffer[micGotLength] = v;
-					++micGotLength;
-
-					if (micGotLength == micWantLength) {
-						spx_uint32_t inlen = micWantLength;
-						spx_uint32_t outlen = iFrameSize;
-						speex_resampler_process_float(srsMic, 0, micInputBuffer, &inlen, outputBuffer, &outlen);
-						for (int i=0;i<iFrameSize;i++)
-							psMic[i] = static_cast<short>(outputBuffer[i] * micmul);
-
-						if (bHasSpeaker) {
-							jbp.data = reinterpret_cast<char *>(outputBuffer);
-							jbp.len = iFrameSize * sizeof(float);
-							jbp.span = iFrameSize;
-							jbp.timestamp = 0;
-							jbp.sequence = 0;
-							jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs);
-							jitter_buffer_update_delay(jbJitter, &jbp, NULL);
-							jitter_buffer_tick(jbJitter);
-							for (int i=0;i<iFrameSize;i++)
-								psSpeaker[i] = static_cast<short>(outputBuffer[i] * echomul);
-						}
-
-						encodeAudioFrame();
-						micGotLength = 0;
-					}
-					--numFramesLeft;
-				}
+				addMic(tbuff, numFramesAvailable);
 			}
 			hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
-			if (! FAILED(hr) && bHasSpeaker)
+			if (! FAILED(hr) && iEchoChannels)
 				hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
 		}
 		if (! FAILED(hr))
@@ -535,8 +458,6 @@ cleanup:
 		pMicCaptureClient->Release();
 	if (pMicDevice)
 		pMicDevice->Release();
-	if (srsMic)
-		speex_resampler_destroy(srsMic);
 
 	if (pEchoAudioClient) {
 		pEchoAudioClient->Stop();
@@ -546,8 +467,6 @@ cleanup:
 		pEchoCaptureClient->Release();
 	if (pEchoDevice)
 		pEchoDevice->Release();
-	if (srsEcho)
-		speex_resampler_destroy(srsEcho);
 
 	if (pEnumerator)
 		pEnumerator->Release();
@@ -558,15 +477,6 @@ cleanup:
 	if (hEvent != NULL)
 		CloseHandle(hEvent);
 
-	if (jbJitter)
-		jitter_buffer_destroy(jbJitter);
-
-	if (micInputBuffer)
-		delete [] micInputBuffer;
-	if (echoInputBuffer)
-		delete [] echoInputBuffer;
-	if (outputBuffer)
-		delete [] outputBuffer;
 	if (tbuff)
 		delete [] tbuff;
 }
