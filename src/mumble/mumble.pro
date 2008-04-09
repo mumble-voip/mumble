@@ -53,8 +53,6 @@ win32 {
 
 unix {
   UNAME=$$system(uname -s)
-  ARCH=$$system(uname -m)
-  X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
 
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
@@ -99,10 +97,6 @@ unix {
   macx {
     TARGET = Mumble
 
-    release:!debug {
-      CONFIG += x86 ppc
-    }
-
     # Common include paths for boost 1.34
     INCLUDEPATH += /usr/local/include/boost-1_34_1/
     INCLUDEPATH += /opt/local/include/boost-1_34_1/
@@ -110,10 +104,9 @@ unix {
     SOURCES += TextToSpeech_macx.cpp 
     SOURCES += Overlay_macx.cpp
     SOURCES += GlobalShortcut_macx.cpp
-    
+
     ICON = ../../icons/mumble.icns
   }
-
 }
 
 alsa {
@@ -151,7 +144,7 @@ dbus {
 	CONFIG += qdbus
 	HEADERS += DBus.h
 	SOURCES += DBus.cpp
-        DEFINES += USE_DBUS
+	DEFINES += USE_DBUS
 }
 
 speechd {

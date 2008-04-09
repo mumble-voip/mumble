@@ -33,6 +33,7 @@
 #include <Carbon/Carbon.h>
 #include <stdlib.h>
 
+#undef check
 #include "GlobalShortcut_macx.h"
 
 

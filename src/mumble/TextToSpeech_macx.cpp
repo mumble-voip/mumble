@@ -34,6 +34,7 @@
 #undef qDebug
 #include "ApplicationServices/ApplicationServices.h"
 
+#undef check
 #include "Global.h"
 #include "TextToSpeech.h"
 

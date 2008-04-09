@@ -19,10 +19,6 @@ unix {
 	INCLUDEPATH += ../speexbuild
 }
 
-macx {
-  CONFIG += x86 ppc
-}
-
 DIST = config.h speex.def speex/speex_config_types.h
 
 DEF_FILE = speex.def

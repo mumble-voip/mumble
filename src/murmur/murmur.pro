@@ -41,7 +41,3 @@ unix {
   SOURCES += UnixMurmur.cpp
   TARGET = murmurd
 }
-
-macx:release:!debug {
-  CONFIG += x86 ppc
-}
