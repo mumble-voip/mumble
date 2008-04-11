@@ -568,7 +568,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			aop->fPos[2] = 0.0f;
 #endif
 
-			const float * restrict pfBuffer = aop->pfBuffer;
+			const float * RESTRICT pfBuffer = aop->pfBuffer;
 
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				float dir[3] = { aop->fPos[0] - g.p->fPosition[0], aop->fPos[1] - g.p->fPosition[1], aop->fPos[2] - g.p->fPosition[2] };
@@ -583,7 +583,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				for (unsigned int s=0;s<nchan;++s) {
 					const float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
 					const float str = svol[s] * calcGain(dot, len);
-					float * restrict o = output + s;
+					float * RESTRICT o = output + s;
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
@@ -593,7 +593,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			} else {
 				for (unsigned int s=0;s<nchan;++s) {
 					const float str = svol[s];
-					float * restrict o = output + s;
+					float * RESTRICT o = output + s;
 					for (unsigned int i=0;i<nsamp;++i)
 						o[i*nchan] += pfBuffer[i] * str;
 				}

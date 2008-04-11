@@ -185,24 +185,26 @@ AudioInput::~AudioInput() {
 
 
 #define IN_MIXER_FLOAT(channels) \
-static void inMixerFloat##channels ( float * restrict buffer, const void * restrict i, unsigned int nsamp, unsigned int N) { \
-  const float * restrict input = reinterpret_cast<const float *>(i); \
+static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
+  const float * RESTRICT input = reinterpret_cast<const float *>(ipt); \
   register const float m = 1.0f / channels; \
-  for(int i=0;i<nsamp;++i) {\
+  Q_UNUSED(N); \
+  for(unsigned int i=0;i<nsamp;++i) {\
 	  register float v= 0.0f; \
-	  for(int j=0;j<channels;++j) \
+	  for(unsigned int j=0;j<channels;++j) \
 	  	v += input[i*channels+j]; \
 	  buffer[i] = v * m; \
   } \
 }
 
 #define IN_MIXER_SHORT(channels) \
-static void inMixerShort##channels ( float * restrict buffer, const void * restrict i, unsigned int nsamp, unsigned int N) { \
-  const short * restrict input = reinterpret_cast<const short *>(i); \
+static void inMixerShort##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
+  const short * RESTRICT input = reinterpret_cast<const short *>(ipt); \
   register const float m = 1.0f / (32768.f * channels); \
-  for(int i=0;i<nsamp;++i) {\
+  Q_UNUSED(N); \
+  for(unsigned int i=0;i<nsamp;++i) {\
 	  register float v= 0.0f; \
-	  for(int j=0;j<channels;++j) \
+	  for(unsigned int j=0;j<channels;++j) \
 	  	v += input[i*channels+j]; \
 	  buffer[i] = v * m; \
   } \
@@ -538,7 +540,7 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
 
 		iArg = 30000;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_LEVEL, &iArg);
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
 
 		float v = 30000.0f / g.s.iMinLoudness;
 		iArg = lroundf(floorf(20.0f * log10f(v)));

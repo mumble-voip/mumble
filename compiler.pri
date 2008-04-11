@@ -1,6 +1,7 @@
 CONFIG *= warn_on
 
 win32 {
+	DEFINES *= RESTRICT=restrict
 	CONFIG(intelcpp) {
 		DEFINES *= VAR_ARRAYS
 		QMAKE_CC = icl
@@ -33,9 +34,8 @@ win32 {
 		QMAKE_LFLAGS *= -fixed:no -debug
 	}
 	
-}
-
-!win32 {
+} else {
+	DEFINES *= RESTRICT=__restrict__
 	CONFIG(opt-gcc) {
 		QMAKE_CC = /opt/gcc/bin/gcc
 		QMAKE_CXX = /opt/gcc/bin/g++

@@ -21,4 +21,3 @@ CONFIG += ordered debug_and_release
 }
 
 DIST=LICENSE INSTALL README README.Linux CHANGES
-

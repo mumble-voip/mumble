@@ -552,7 +552,7 @@ void PulseAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings
 
 PulseAudioInput::PulseAudioInput() {
 	bRunning = true;
-	bHasSpeaker = g.s.doEcho();
+	iEchoChannels = g.s.doEcho() ? 1 : 0;
 	if (pasys)
 		pasys->wakeup();
 };
