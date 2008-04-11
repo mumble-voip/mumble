@@ -113,9 +113,9 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\etc\session.conf"
 
   SetOutPath "$INSTDIR\plugins"
-  File /oname=bf2.dll "..\plugins\bf2.dll"
-  File /oname=link.dll "..\plugins\link.dll"
-  ;File /oname=wow.dll "..\plugins\wow.dll"
+  File /oname=bf2.dll "..\release\plugins\bf2.dll"
+  File /oname=link.dll "..\release\plugins\link.dll"
+  ;File /oname=wow.dll "..\release\plugins\wow.dll"
 
   GetTempFileName $0
   Delete "$0"

@@ -1,4 +1,4 @@
-include(../../compiler.pri)
+include(../plugins.pri)
 TEMPLATE	= lib
 CONFIG		+= dll release warn_on shared
 CONFIG		-= qt

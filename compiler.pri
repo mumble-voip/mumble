@@ -1,8 +1,8 @@
 CONFIG *= warn_on
 
 win32 {
-	DEFINES *= RESTRICT=restrict
 	CONFIG(intelcpp) {
+		DEFINES *= RESTRICT=restrict
 		DEFINES *= VAR_ARRAYS
 		QMAKE_CC = icl
 		QMAKE_CXX = icl
@@ -26,6 +26,8 @@ win32 {
 			QMAKE_CFLAGS *= -Qprof-use
 			QMAKE_CXXFLAGS *= -Qprof-use
 		}
+	} else {
+		DEFINES *= RESTRICT=
 	}
 
 	CONFIG(symbols) {

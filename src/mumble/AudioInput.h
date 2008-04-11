@@ -62,7 +62,7 @@ class AudioInput : public QThread {
 		Q_OBJECT
 	protected:
 		typedef enum { SampleShort, SampleFloat } SampleFormat;
-		typedef void (*inMixerFunc)(float * restrict, const void * restrict, unsigned int, unsigned int);
+		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int);
 	private:
 		SpeexResamplerState *srsMic, *srsEcho;
 		JitterBuffer *jb;
