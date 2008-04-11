@@ -60,13 +60,18 @@ class AudioInput : public QThread {
 		friend class AudioStats;
 		friend class FMODSystem;
 		Q_OBJECT
+	protected:
+		typedef void (*inMixerFunc)(float * restrict, const void * restrict, unsigned int, unsigned int);
 	private:
 		SpeexResamplerState *srsMic, *srsEcho;
 		JitterBuffer *jb;
 		unsigned int iJitterSeq;
 		unsigned int iMicFilled, iEchoFilled;
+		inMixerFunc imfMic, imfEcho;
+		inMixerFunc chooseMixer(const unsigned int nchan);
 	protected:
 		enum { SampleShort, SampleFloat } eSampleFormat;
+
 		unsigned int iMicChannels, iEchoChannels;
 		unsigned int iMicFreq, iEchoFreq;
 		unsigned int iMicLength, iEchoLength;

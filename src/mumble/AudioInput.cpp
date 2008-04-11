@@ -183,6 +183,117 @@ AudioInput::~AudioInput() {
 		delete [] pfOutput;
 }
 
+
+#define IN_MIXER_FLOAT(channels) \
+static void inMixerFloat##channels ( float * restrict buffer, const void * restrict i, unsigned int nsamp, unsigned int N) { \
+  const float * restrict input = reinterpret_cast<const float *>(i); \
+  register const float m = 1.0f / channels; \
+  for(int i=0;i<nsamp;++i) {\
+	  register float v= 0.0f; \
+	  for(int j=0;j<channels;++j) \
+	  	v += input[i*channels+j]; \
+	  buffer[i] = v * m; \
+  } \
+}
+
+#define IN_MIXER_SHORT(channels) \
+static void inMixerShort##channels ( float * restrict buffer, const void * restrict i, unsigned int nsamp, unsigned int N) { \
+  const short * restrict input = reinterpret_cast<const short *>(i); \
+  register const float m = 1.0f / (32768.f * channels); \
+  for(int i=0;i<nsamp;++i) {\
+	  register float v= 0.0f; \
+	  for(int j=0;j<channels;++j) \
+	  	v += input[i*channels+j]; \
+	  buffer[i] = v * m; \
+  } \
+}
+
+IN_MIXER_FLOAT(1)
+IN_MIXER_FLOAT(2)
+IN_MIXER_FLOAT(3)
+IN_MIXER_FLOAT(4)
+IN_MIXER_FLOAT(5)
+IN_MIXER_FLOAT(6)
+IN_MIXER_FLOAT(7)
+IN_MIXER_FLOAT(8)
+IN_MIXER_FLOAT(N)
+
+IN_MIXER_SHORT(1)
+IN_MIXER_SHORT(2)
+IN_MIXER_SHORT(3)
+IN_MIXER_SHORT(4)
+IN_MIXER_SHORT(5)
+IN_MIXER_SHORT(6)
+IN_MIXER_SHORT(7)
+IN_MIXER_SHORT(8)
+IN_MIXER_SHORT(N)
+
+AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan) {
+	inMixerFunc r = NULL;
+	if (eSampleFormat == SampleFloat) {
+		switch(nchan) {
+			case 1:
+				r = inMixerFloat1;
+				break;
+			case 2:
+				r = inMixerFloat2;
+				break;
+			case 3:
+				r = inMixerFloat3;
+				break;
+			case 4:
+				r = inMixerFloat4;
+				break;
+			case 5:
+				r = inMixerFloat5;
+				break;
+			case 6:
+				r = inMixerFloat6;
+				break;
+			case 7:
+				r = inMixerFloat7;
+				break;
+			case 8:
+				r = inMixerFloat8;
+				break;
+			default:
+				r = inMixerFloatN;
+				break;
+		}
+	} else {
+		switch(nchan) {
+			case 1:
+				r = inMixerShort1;
+				break;
+			case 2:
+				r = inMixerShort2;
+				break;
+			case 3:
+				r = inMixerShort3;
+				break;
+			case 4:
+				r = inMixerShort4;
+				break;
+			case 5:
+				r = inMixerShort5;
+				break;
+			case 6:
+				r = inMixerShort6;
+				break;
+			case 7:
+				r = inMixerShort7;
+				break;
+			case 8:
+				r = inMixerShort8;
+				break;
+			default:
+				r = inMixerShortN;
+				break;
+		}
+	}
+	return r;
+}
+
 void AudioInput::initializeMixer() {
 	int err;
 
@@ -200,24 +311,22 @@ void AudioInput::initializeMixer() {
 		iEchoLength = (iFrameSize * iEchoFreq) / SAMPLE_RATE;
 		pfEchoInput = new float[iEchoLength];
 	}
+
+	imfMic = chooseMixer(iMicChannels);
+	imfEcho = chooseMixer(iEchoChannels);
+
 	qWarning("AudioInput: Initialized mixer for %d channel %d hz mic and %d channel %d hz echo", iMicChannels, iMicFreq, iEchoChannels, iEchoFreq);
 }
 
 void AudioInput::addMic(const void *data, unsigned int nsamp) {
-	const float *fin = reinterpret_cast<const float *>(data);
-	const short *sin = reinterpret_cast<const short *>(data);
+	while (nsamp > 0) {
+		unsigned int left = qMin(nsamp, iMicLength - iMicFilled);
 
-	const float mul = 32768.f / iMicChannels;
+		imfMic(pfMicInput + iMicFilled, data, left, iMicChannels);
 
-	for(int i=0;i<nsamp;++i) {
-		float v = 0.0f;
-		if (eSampleFormat == SampleFloat)
-			for(int j=0;j<iMicChannels;++j)
-				v += fin[i*iMicChannels+j];
-		else
-			for(int j=0;j<iMicChannels;++j)
-				v += sin[i*iMicChannels+j] * (1.0f / 32768.f);
-		pfMicInput[iMicFilled++] = v;
+		iMicFilled += left;
+		nsamp -= left;
+
 		if (iMicFilled == iMicLength) {
 			iMicFilled = 0;
 
@@ -227,6 +336,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 				spx_uint32_t outlen = iFrameSize;
 				speex_resampler_process_float(srsMic, 0, pfMicInput, &inlen, pfOutput, &outlen);
 			}
+			const float mul = 32768.f;
 			for(int j=0;j<iFrameSize;++j)
 				psMic[j] = static_cast<short>(ptr[j] * mul);
 
@@ -250,20 +360,14 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 }
 
 void AudioInput::addEcho(const void *data, unsigned int nsamp) {
-	const float *fin = reinterpret_cast<const float *>(data);
-	const short *sin = reinterpret_cast<const short *>(data);
+	while (nsamp > 0) {
+		unsigned int left = qMin(nsamp, iEchoLength - iEchoFilled);
 
-	const float mul = 32768.f / iEchoChannels;
+		imfEcho(pfEchoInput + iEchoFilled, data, left, iEchoChannels);
 
-	for(int i=0;i<nsamp;++i) {
-		float v = 0.0f;
-		if (eSampleFormat == SampleFloat)
-			for(int j=0;j<iEchoChannels;++j)
-				v += fin[i*iEchoChannels+j];
-		else
-			for(int j=0;j<iEchoChannels;++j)
-				v += sin[i*iEchoChannels+j] * (1.0f / 32768.f);
-		pfEchoInput[iEchoFilled++] = v;
+		iEchoFilled += left;
+		nsamp -= left;
+
 		if (iEchoFilled == iEchoLength) {
 			iEchoFilled = 0;
 
@@ -274,6 +378,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 				spx_uint32_t outlen = iFrameSize;
 				speex_resampler_process_float(srsEcho, 0, pfEchoInput, &inlen, pfOutput, &outlen);
 			}
+			const float mul = 32768.f;
 			for(int j=0;j<iFrameSize;++j)
 				outbuff[j] = static_cast<short>(ptr[j] * mul);
 

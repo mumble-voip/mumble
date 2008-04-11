@@ -492,6 +492,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		return false;
 
 	const float mul = g.s.fVolume / 32768.0f;
+	const unsigned int nchan = iChannels;
 
 	qrwlOutputs.lockForRead();
 	foreach(aop, qmOutputs) {
@@ -504,12 +505,16 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 	if (! qlMix.isEmpty()) {
 		STACKVAR(float, speaker, iChannels*3);
+		STACKVAR(float, svol, iChannels);
 
 		STACKVAR(float, fOutput, iChannels * nsamp);
 		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
 		bool validListener = false;
 
 		memset(output, 0, sizeof(float) * nsamp * iChannels);
+
+		for(int i=0;i<iChannels;++i)
+			svol[i] = mul * fSpeakerVolume[i];
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()) {
 			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2]};
@@ -563,6 +568,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			aop->fPos[2] = 0.0f;
 #endif
 
+			const float * restrict pfBuffer = aop->pfBuffer;
+
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				float dir[3] = { aop->fPos[0] - g.p->fPosition[0], aop->fPos[1] - g.p->fPosition[1], aop->fPos[2] - g.p->fPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
@@ -573,28 +580,34 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 								qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
 								qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
 				*/
-				for (unsigned int s=0;s<iChannels;++s) {
-					float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
-					float str = mul * calcGain(dot, len) * fSpeakerVolume[s];
+				for (unsigned int s=0;s<nchan;++s) {
+					const float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
+					const float str = svol[s] * calcGain(dot, len);
+					float * restrict o = output + s;
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
 					for (unsigned int i=0;i<nsamp;++i)
-						output[i*iChannels+s] += aop->pfBuffer[i] * str;
+						o[i*nchan] += pfBuffer[i] * str;
 				}
 			} else {
-				for (unsigned int i=0;i<nsamp;++i)
-					for (unsigned int j=0;j<iChannels;++j)
-						output[i*iChannels+j] += aop->pfBuffer[i] * fSpeakerVolume[j] * mul;
+				for (unsigned int s=0;s<nchan;++s) {
+					const float str = svol[s];
+					float * restrict o = output + s;
+					for (unsigned int i=0;i<nsamp;++i)
+						o[i*nchan] += pfBuffer[i] * str;
+				}
 			}
 		}
 		// Clip
-		if (eSampleFormat == SampleFloat)
-			for (unsigned int i=0;i<nsamp*iChannels;i++)
-				output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
-		else
-			for(unsigned int i=0;i<nsamp*iChannels;i++)
-				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
+		if (qlMix.count() > 1) {
+			if (eSampleFormat == SampleFloat)
+				for (unsigned int i=0;i<nsamp*iChannels;i++)
+					output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
+			else
+				for(unsigned int i=0;i<nsamp*iChannels;i++)
+					reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
+		}
 	}
 
 	qrwlOutputs.unlock();
