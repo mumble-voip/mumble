@@ -159,6 +159,7 @@ class AudioOutput : public QThread {
 		unsigned int iFrameSize;
 		unsigned int iMixerFreq;
 		unsigned int iChannels;
+		unsigned int iSampleSize;
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;
 

@@ -423,7 +423,6 @@ void Overlay::fixFont() {
 		QPainterPath qp;
 		qp.addText(0, 0, qfFont, QLatin1String("Üy"));
 		br=qp.boundingRect();
-		qWarning("Overlay: Attempt for pixelsize %d gave actual sizes %f %f", psize+1, br.height(),br.top());
 	} while ((br.height()+2) > TEXT_HEIGHT);
 
 	fFontBase = fabs(br.top());

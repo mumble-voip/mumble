@@ -280,6 +280,7 @@ AudioOutput::AudioOutput() {
 
 	iMixerFreq = 16000;
 	eSampleFormat = SampleFloat;
+	iSampleSize = 0;
 }
 
 AudioOutput::~AudioOutput() {
@@ -372,6 +373,13 @@ void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 }
 
 void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
+	if (fSpeakers)
+		delete fSpeakers;
+	if (bSpeakerPositional)
+		delete bSpeakerPositional;
+	if (fSpeakerVolume)
+		delete fSpeakerVolume;
+
 	fSpeakers = new float[iChannels * 3];
 	bSpeakerPositional = new bool[iChannels];
 	fSpeakerVolume = new float[iChannels];
@@ -480,6 +488,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
 			}
 		}
 	}
+	iSampleSize = iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short));
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 }
 

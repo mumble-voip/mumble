@@ -137,7 +137,8 @@ AudioInput::AudioInput() {
 	iEchoChannels = iMicChannels = 0;
 	iEchoFreq = iMicFreq = SAMPLE_RATE;
 	iEchoFilled = iMicFilled = 0;
-	eSampleFormat = SampleFloat;
+	eMicFormat = eEchoFormat = SampleFloat;
+	iMicSampleSize = iEchoSampleSize = 0;
 
 	bPreviousVoice = false;
 
@@ -230,9 +231,9 @@ IN_MIXER_SHORT(7)
 IN_MIXER_SHORT(8)
 IN_MIXER_SHORT(N)
 
-AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan) {
+AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf) {
 	inMixerFunc r = NULL;
-	if (eSampleFormat == SampleFloat) {
+	if (sf == SampleFloat) {
 		switch(nchan) {
 			case 1:
 				r = inMixerFloat1;
@@ -298,6 +299,17 @@ AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan) {
 
 void AudioInput::initializeMixer() {
 	int err;
+	
+	if (srsMic) 
+		speex_resampler_destroy(srsMic);
+	if (srsEcho) 
+		speex_resampler_destroy(srsEcho);
+	if (pfMicInput)
+		delete [] pfMicInput;
+	if (pfEchoInput)
+		delete [] pfEchoInput;
+	if (pfOutput)
+		delete [] pfOutput;
 
 	if (iMicFreq != SAMPLE_RATE)
 		srsMic = speex_resampler_init(1, iMicFreq, SAMPLE_RATE, 3, &err);
@@ -312,10 +324,18 @@ void AudioInput::initializeMixer() {
 			srsEcho = speex_resampler_init(1, iEchoFreq, SAMPLE_RATE, 3, &err);
 		iEchoLength = (iFrameSize * iEchoFreq) / SAMPLE_RATE;
 		pfEchoInput = new float[iEchoLength];
+	} else {
+		srsEcho = NULL;
+		pfEchoInput = NULL;
 	}
 
-	imfMic = chooseMixer(iMicChannels);
-	imfEcho = chooseMixer(iEchoChannels);
+	imfMic = chooseMixer(iMicChannels, eMicFormat);
+	imfEcho = chooseMixer(iEchoChannels, eEchoFormat);
+	
+	iMicSampleSize = iMicChannels * ((eMicFormat == SampleFloat) ? sizeof(float) : sizeof(short));
+	iEchoSampleSize = iEchoChannels * ((eEchoFormat == SampleFloat) ? sizeof(float) : sizeof(short));
+
+	bResetProcessor = true;
 
 	qWarning("AudioInput: Initialized mixer for %d channel %d hz mic and %d channel %d hz echo", iMicChannels, iMicFreq, iEchoChannels, iEchoFreq);
 }
@@ -330,7 +350,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 		nsamp -= left;
 		
 		if (nsamp > 0) {
-			if (eSampleFormat == SampleFloat)
+			if (eMicFormat == SampleFloat)
 				data = reinterpret_cast<const float *>(data) + left * iMicChannels;
 			else
 				data = reinterpret_cast<const short *>(data) + left * iMicChannels;
@@ -378,7 +398,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 		nsamp -= left;
 
 		if (nsamp > 0) {
-			if (eSampleFormat == SampleFloat)
+			if (eEchoFormat == SampleFloat)
 				data = reinterpret_cast<const float *>(data) + left * iEchoChannels;
 			else
 				data = reinterpret_cast<const short *>(data) + left * iEchoChannels;
@@ -544,6 +564,8 @@ void AudioInput::encodeAudioFrame() {
 	if (bResetProcessor) {
 		if (sppPreprocess)
 			speex_preprocess_state_destroy(sppPreprocess);
+		if (sesEcho)
+			speex_echo_state_destroy(sesEcho);
 
 		sppPreprocess = speex_preprocess_state_init(iFrameSize, SAMPLE_RATE);
 
@@ -564,8 +586,6 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
 		if (iEchoChannels > 0) {
-			if (sesEcho)
-				speex_echo_state_destroy(sesEcho);
 			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*10);
 			iArg = SAMPLE_RATE;
 			speex_echo_ctl(sesEcho, SPEEX_SET_SAMPLING_RATE, &iArg);
@@ -573,6 +593,8 @@ void AudioInput::encodeAudioFrame() {
 
 			jitter_buffer_reset(jb);
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
+		} else {
+			sesEcho = NULL;
 		}
 
 		iFrames = 0;
@@ -583,7 +605,7 @@ void AudioInput::encodeAudioFrame() {
 
 	int iIsSpeech;
 
-	if (iEchoChannels > 0) {
+	if (sesEcho) {
 		speex_echo_cancellation(sesEcho, psMic, psSpeaker, psClean);
 		iIsSpeech=speex_preprocess_run(sppPreprocess, psClean);
 		psSource = psClean;

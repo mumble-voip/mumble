@@ -62,6 +62,7 @@ unix {
   }
 
   !isEmpty(HAVE_PULSEAUDIO):!CONFIG(no-pulseaudio) {
+    CONFIG -= portaudio
     CONFIG += pulseaudio
   }
 

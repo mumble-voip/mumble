@@ -366,7 +366,6 @@ void PortAudioOutput::run() {
 	const unsigned int cmask = SPEAKER_FRONT_LEFT;
 	iChannels = 1;
 	iMixerFreq = SAMPLE_RATE;
-	
 	initializeMixer(&cmask);
 
 	while (bRunning) {

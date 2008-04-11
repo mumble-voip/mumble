@@ -239,7 +239,7 @@ void OSSInput::run() {
 	
 	qWarning("OSSInput: Staring audio capture from %s", device.constData());
 
-	eSampleFormat = SampleShort;
+	eMicFormat = SampleShort;
 	initializeMixer();
 	
 	short buffer[iMicLength];

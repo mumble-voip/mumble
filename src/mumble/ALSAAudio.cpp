@@ -281,9 +281,9 @@ void ALSAAudioInput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &iMicFreq, NULL));
 	
 	if (iformat == SND_PCM_FORMAT_S16)
-		eSampleFormat = SampleShort;
+		eMicFormat = SampleShort;
 	else
-		eSampleFormat = SampleFloat;
+		eMicFormat = SampleFloat;
 
 	initializeMixer();
 
