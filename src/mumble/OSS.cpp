@@ -224,26 +224,33 @@ void OSSInput::run() {
 	}
 
 	ival = 1;
-	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) || (ival != 1)) {
+	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1)) {
 		qWarning("OSSInput: Failed to set mono mode");
 		return;
 	}
+	iMicChannels = ival;
 
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSInput: Failed to set speed");
 		return;
 	}
-
+	iMicFreq = ival;
+	
 	qWarning("OSSInput: Staring audio capture from %s", device.constData());
 
+	eSampleFormat = SampleShort;
+	initializeMixer();
+	
+	short buffer[iMicLength];
+
 	while (bRunning) {
-		int l = read(fd, psMic, iFrameSize * 2);
-		if (l != iFrameSize * 2) {
+		int l = read(fd, buffer, iMicLength * iMicChannels * sizeof(short));
+		if (l != iMicLength * iMicChannels * sizeof(short)) {
 			qWarning("OSSInput: Read %d", l);
 			break;
 		}
-		encodeAudioFrame();
+		addMic(buffer, iMicLength);
 	}
 
 	qWarning("OSSInput: Releasing.");
@@ -280,8 +287,8 @@ void OSSOutput::run() {
 	}
 
 	int ival;
-
-	ival = (g.s.iOutputDelay+1) << 16 | 10;
+	
+	ival = (g.s.iOutputDelay+1) << 16 | 11;
 
 	if (ioctl(fd, SNDCTL_DSP_SETFRAGMENT, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set fragment");
@@ -292,49 +299,63 @@ void OSSOutput::run() {
 		qWarning("OSSOutput: Failed to set sound format");
 		return;
 	}
+	
+	iChannels = 0;
 
-	ival = 1;
-	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) || (ival != 1)) {
-		qWarning("OSSOutput: Failed to set mono mode");
+	if (g.s.doPositionalAudio())
+		iChannels = 2;
+	else
+		iChannels = 1;
+
+	ival = iChannels;
+	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) && (ival == iChannels)) {
+		qWarning("OSSOutput: Failed to set channels");
 		return;
 	}
-
+	iChannels = ival;
+	
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set speed");
 		return;
 	}
+	iMixerFreq = ival;
 
+        const unsigned int chanmasks[32] = {
+                SPEAKER_FRONT_LEFT,
+                SPEAKER_FRONT_RIGHT,
+                SPEAKER_FRONT_CENTER,
+                SPEAKER_LOW_FREQUENCY,
+                SPEAKER_BACK_LEFT,
+                SPEAKER_BACK_RIGHT,
+                SPEAKER_SIDE_LEFT,
+                SPEAKER_SIDE_RIGHT,
+                SPEAKER_BACK_CENTER
+        };
+        
+        eSampleFormat = SampleShort;
+        
+        initializeMixer(chanmasks);
+        
+        int iOutputBlock = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
+	
 	qWarning("OSSOutput: Staring audio playback to %s", device.constData());
 
-	float mbuffer[iFrameSize];
-	short buffer[iFrameSize] __attribute__((aligned(16)));
-	
-	iMixerFreq = SAMPLE_RATE;
-	iChannels = 1;
-	unsigned int chanmasks = SPEAKER_FRONT_LEFT;
-	
-	initializeMixer(&chanmasks);
+	const unsigned int blocklen = iOutputBlock * iChannels * sizeof(short);
+	short mbuffer[iOutputBlock * iChannels];
 
 	while (bRunning) {
-		bool stillRun = mix(mbuffer, iFrameSize);
-		for(int j=0;j<iFrameSize;j++)
-			buffer[j] = static_cast<short>(mbuffer[j] * 32767.f);
-		int l = write(fd, buffer, iFrameSize * sizeof(short));
-		if (l != iFrameSize * sizeof(short)) {
-			qWarning("OSSOutput: Write %d", l);
-			break;
-		}
-		/*
-				ioctl(fd, SNDCTL_DSP_GETODELAY, &ival);
-				qWarning("Delay %d", ival / 2);
-		*/
-		if (! stillRun) {
-			while (! mix(mbuffer, iFrameSize) && bRunning)
-				this->msleep(20);
-
-			if (! bRunning)
+		bool stillRun = mix(mbuffer, iOutputBlock);
+		if (stillRun) {
+			int l = write(fd, mbuffer, blocklen);
+			if (l != blocklen) {
+				qWarning("OSSOutput: Write %d != %d", l, blocklen);
 				break;
+			}
+		} else {
+			while (! mix(mbuffer, iOutputBlock) && bRunning)
+				this->msleep(20);
+			write(fd, mbuffer, blocklen);
 		}
 	}
 	qWarning("OSSOutput: Releasing device");

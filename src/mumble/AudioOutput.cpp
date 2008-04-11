@@ -480,6 +480,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
 			}
 		}
 	}
+	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
