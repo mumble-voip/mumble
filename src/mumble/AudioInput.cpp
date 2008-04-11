@@ -323,11 +323,18 @@ void AudioInput::initializeMixer() {
 void AudioInput::addMic(const void *data, unsigned int nsamp) {
 	while (nsamp > 0) {
 		unsigned int left = qMin(nsamp, iMicLength - iMicFilled);
-
+		
 		imfMic(pfMicInput + iMicFilled, data, left, iMicChannels);
-
+		
 		iMicFilled += left;
 		nsamp -= left;
+		
+		if (nsamp > 0) {
+			if (eSampleFormat == SampleFloat)
+				data = reinterpret_cast<const float *>(data) + left * iMicChannels;
+			else
+				data = reinterpret_cast<const short *>(data) + left * iMicChannels;
+		}
 
 		if (iMicFilled == iMicLength) {
 			iMicFilled = 0;
@@ -369,6 +376,13 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 		iEchoFilled += left;
 		nsamp -= left;
+
+		if (nsamp > 0) {
+			if (eSampleFormat == SampleFloat)
+				data = reinterpret_cast<const float *>(data) + left * iEchoChannels;
+			else
+				data = reinterpret_cast<const short *>(data) + left * iEchoChannels;
+		}
 
 		if (iEchoFilled == iEchoLength) {
 			iEchoFilled = 0;

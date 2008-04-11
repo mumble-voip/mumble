@@ -607,6 +607,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			else
 				for(unsigned int i=0;i<nsamp*iChannels;i++)
 					reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
+		} else if (eSampleFormat == SampleShort) {
+			for(unsigned int i=0;i<nsamp*iChannels;i++)
+				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * output[i]);
 		}
 	}
 
