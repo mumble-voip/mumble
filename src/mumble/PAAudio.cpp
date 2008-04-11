@@ -371,7 +371,7 @@ void PortAudioOutput::run() {
 	while (bRunning) {
 		bool nextHasMoreToMix = mix(mixBuffer, iFrameSize);
 		if (hasMoreToMix) {
-			for(int j=0;j<iFrameSize;++j)
+			for (int j=0;j<iFrameSize;++j)
 				outBuffer[j] = static_cast<short>(mixBuffer[j] * 32768.f);
 			if (PortAudioSystem::startStream(outputStream)) {
 				err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);

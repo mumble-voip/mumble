@@ -238,7 +238,7 @@ int main(int argc, char **argv) {
 	ServerDB db;
 
 	meta = new Meta();
-	
+
 #ifdef Q_OS_UNIX
 	if (readPw) {
 		char password[256];
@@ -253,13 +253,13 @@ int main(int argc, char **argv) {
 		p = strchr(password, '\n');
 		if (p)
 			*p = 0;
-		
+
 		supw = QLatin1String(password);
 	}
 #endif
 
 	if (! supw.isEmpty()) {
-		if (supw.isEmpty()) 
+		if (supw.isEmpty())
 			qFatal("Superuser password can not be empty");
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);

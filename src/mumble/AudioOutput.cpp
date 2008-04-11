@@ -121,11 +121,11 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 
 	if (freq != SAMPLE_RATE)
-		srs = speex_resampler_init(1, 16000, freq, 3, &err);
+		srs = speex_resampler_init(1, SAMPLE_RATE, freq, 3, &err);
 	else
 		srs = NULL;
 
-	iOutputSize = lroundf(ceilf((iFrameSize * freq) / (16000 * 1.0f)));
+	iOutputSize = lroundf(ceilf((iFrameSize * freq) / (SAMPLE_RATE * 1.0f)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;
@@ -191,7 +191,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 }
 
 bool AudioOutputSpeech::needSamples(unsigned int snum) {
-	for(unsigned int i=iLastConsume;i<iBufferFilled;++i)
+	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];
 	iBufferFilled -= iLastConsume;
 
@@ -278,7 +278,7 @@ AudioOutput::AudioOutput() {
 	fSpeakerVolume = NULL;
 	bSpeakerPositional = NULL;
 
-	iMixerFreq = 16000;
+	iMixerFreq = SAMPLE_RATE;
 	eSampleFormat = SampleFloat;
 	iSampleSize = 0;
 }
@@ -387,11 +387,11 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
 	memset(fSpeakers, 0, sizeof(float) * iChannels * 3);
 	memset(bSpeakerPositional, 0, sizeof(bool) * iChannels);
 
-	for(unsigned int i=0;i<iChannels;++i)
+	for (unsigned int i=0;i<iChannels;++i)
 		fSpeakerVolume[i] = 1.0f;
 
 	if (g.s.bPositionalAudio && (iChannels > 1)) {
-		for(unsigned int i=0;i<iChannels;i++) {
+		for (unsigned int i=0;i<iChannels;i++) {
 			float *s = &fSpeakers[3*i];
 			bSpeakerPositional[i] = true;
 
@@ -479,7 +479,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
 					fSpeakerVolume[i] = 0.0f;
 			}
 		}
-		for(unsigned int i=0;i<iChannels;i++) {
+		for (unsigned int i=0;i<iChannels;i++) {
 			float d = sqrtf(fSpeakers[3*i+0]*fSpeakers[3*i+0] + fSpeakers[3*i+1]*fSpeakers[3*i+1] + fSpeakers[3*i+2]*fSpeakers[3*i+2]);
 			if (d > 0.0f) {
 				fSpeakers[3*i+0] /= d;
@@ -523,7 +523,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 		memset(output, 0, sizeof(float) * nsamp * iChannels);
 
-		for(int i=0;i<iChannels;++i)
+		for (int i=0;i<iChannels;++i)
 			svol[i] = mul * fSpeakerVolume[i];
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()) {
@@ -615,10 +615,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				for (unsigned int i=0;i<nsamp*iChannels;i++)
 					output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
 			else
-				for(unsigned int i=0;i<nsamp*iChannels;i++)
+				for (unsigned int i=0;i<nsamp*iChannels;i++)
 					reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
 		} else if (eSampleFormat == SampleShort) {
-			for(unsigned int i=0;i<nsamp*iChannels;i++)
+			for (unsigned int i=0;i<nsamp*iChannels;i++)
 				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * output[i]);
 		}
 	}
@@ -626,7 +626,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	qrwlOutputs.unlock();
 
 	foreach(aop, qlDel)
-		removeBuffer(aop);
+	removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
 }

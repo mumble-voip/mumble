@@ -236,12 +236,12 @@ void OSSInput::run() {
 		return;
 	}
 	iMicFreq = ival;
-	
+
 	qWarning("OSSInput: Staring audio capture from %s", device.constData());
 
 	eMicFormat = SampleShort;
 	initializeMixer();
-	
+
 	short buffer[iMicLength];
 
 	while (bRunning) {
@@ -287,7 +287,7 @@ void OSSOutput::run() {
 	}
 
 	int ival;
-	
+
 	ival = (g.s.iOutputDelay+1) << 16 | 11;
 
 	if (ioctl(fd, SNDCTL_DSP_SETFRAGMENT, &ival) == -1) {
@@ -299,7 +299,7 @@ void OSSOutput::run() {
 		qWarning("OSSOutput: Failed to set sound format");
 		return;
 	}
-	
+
 	iChannels = 0;
 
 	if (g.s.doPositionalAudio())
@@ -313,7 +313,7 @@ void OSSOutput::run() {
 		return;
 	}
 	iChannels = ival;
-	
+
 	ival = SAMPLE_RATE;
 	if (ioctl(fd, SNDCTL_DSP_SPEED, &ival) == -1) {
 		qWarning("OSSOutput: Failed to set speed");
@@ -321,24 +321,24 @@ void OSSOutput::run() {
 	}
 	iMixerFreq = ival;
 
-        const unsigned int chanmasks[32] = {
-                SPEAKER_FRONT_LEFT,
-                SPEAKER_FRONT_RIGHT,
-                SPEAKER_FRONT_CENTER,
-                SPEAKER_LOW_FREQUENCY,
-                SPEAKER_BACK_LEFT,
-                SPEAKER_BACK_RIGHT,
-                SPEAKER_SIDE_LEFT,
-                SPEAKER_SIDE_RIGHT,
-                SPEAKER_BACK_CENTER
-        };
-        
-        eSampleFormat = SampleShort;
-        
-        initializeMixer(chanmasks);
-        
-        int iOutputBlock = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
-	
+	const unsigned int chanmasks[32] = {
+		SPEAKER_FRONT_LEFT,
+		SPEAKER_FRONT_RIGHT,
+		SPEAKER_FRONT_CENTER,
+		SPEAKER_LOW_FREQUENCY,
+		SPEAKER_BACK_LEFT,
+		SPEAKER_BACK_RIGHT,
+		SPEAKER_SIDE_LEFT,
+		SPEAKER_SIDE_RIGHT,
+		SPEAKER_BACK_CENTER
+	};
+
+	eSampleFormat = SampleShort;
+
+	initializeMixer(chanmasks);
+
+	int iOutputBlock = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
+
 	qWarning("OSSOutput: Staring audio playback to %s", device.constData());
 
 	const unsigned int blocklen = iOutputBlock * iChannels * sizeof(short);

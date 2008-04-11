@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
 	if (lm == NULL)
 		qFatal("No Link!");
 
-	while(true) {
+	while (true) {
 		qWarning("Tick!");
 		updateMumble();
 		Sleep(100);

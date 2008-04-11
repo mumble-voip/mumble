@@ -257,7 +257,7 @@ bool DXAudioOutputPlayer::playFrames() {
 		iLastwriteblock = block;
 
 		alive = aop->needSamples(320);
-		for(int i=0;i<320;i++)
+		for (int i=0;i<320;i++)
 			psBuffer[i] = static_cast<short>(aop->pfBuffer[i]);
 
 //		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iOutputDelay);

@@ -76,38 +76,38 @@ static int fetch(float *pos, float *front, float *top) {
 
 __attribute__((constructor))
 static void load_plugin() {
-  bool bCreated = false;
+	bool bCreated = false;
 
-  shmfd = shm_open("/MumbleLink", O_RDWR, S_IRUSR | S_IWUSR);
-  if (shmfd < 0) {
-  	bCreated = true;
-        shmfd = shm_open("/MumbleLink", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
-  }
+	shmfd = shm_open("/MumbleLink", O_RDWR, S_IRUSR | S_IWUSR);
+	if (shmfd < 0) {
+		bCreated = true;
+		shmfd = shm_open("/MumbleLink", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+	}
 
-  if(shmfd < 0) {
-    fprintf(stderr,"Mumble Link plugin: error creating shared memory\n");
-    return;
-  }
+	if (shmfd < 0) {
+		fprintf(stderr,"Mumble Link plugin: error creating shared memory\n");
+		return;
+	}
 
-  if (bCreated)
-	  ftruncate(shmfd, sizeof(struct LinkedMem));
+	if (bCreated)
+		ftruncate(shmfd, sizeof(struct LinkedMem));
 
-  lm = static_cast<struct LinkedMem*>(
-      mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
+	lm = static_cast<struct LinkedMem*>(
+	         mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
 
-  if ((lm != lm_invalid) && bCreated)
-  	memset(lm, 0, sizeof(struct LinkedMem));
+	if ((lm != lm_invalid) && bCreated)
+		memset(lm, 0, sizeof(struct LinkedMem));
 }
 
 __attribute__((destructor))
 static void unload_plugin() {
-    if(lm != lm_invalid)
-      munmap(lm, sizeof(struct LinkedMem));
+	if (lm != lm_invalid)
+		munmap(lm, sizeof(struct LinkedMem));
 
-    if(shmfd > -1)
-      close(shmfd);
+	if (shmfd > -1)
+		close(shmfd);
 
-    shm_unlink("/MumbleLink");
+	shm_unlink("/MumbleLink");
 }
 
 static MumblePlugin linkplug = {

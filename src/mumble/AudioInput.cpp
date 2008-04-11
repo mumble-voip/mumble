@@ -234,7 +234,7 @@ IN_MIXER_SHORT(N)
 AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf) {
 	inMixerFunc r = NULL;
 	if (sf == SampleFloat) {
-		switch(nchan) {
+		switch (nchan) {
 			case 1:
 				r = inMixerFloat1;
 				break;
@@ -264,7 +264,7 @@ AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, Sample
 				break;
 		}
 	} else {
-		switch(nchan) {
+		switch (nchan) {
 			case 1:
 				r = inMixerShort1;
 				break;
@@ -299,10 +299,10 @@ AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, Sample
 
 void AudioInput::initializeMixer() {
 	int err;
-	
-	if (srsMic) 
+
+	if (srsMic)
 		speex_resampler_destroy(srsMic);
-	if (srsEcho) 
+	if (srsEcho)
 		speex_resampler_destroy(srsEcho);
 	if (pfMicInput)
 		delete [] pfMicInput;
@@ -331,7 +331,7 @@ void AudioInput::initializeMixer() {
 
 	imfMic = chooseMixer(iMicChannels, eMicFormat);
 	imfEcho = chooseMixer(iEchoChannels, eEchoFormat);
-	
+
 	iMicSampleSize = iMicChannels * ((eMicFormat == SampleFloat) ? sizeof(float) : sizeof(short));
 	iEchoSampleSize = iEchoChannels * ((eEchoFormat == SampleFloat) ? sizeof(float) : sizeof(short));
 
@@ -343,12 +343,12 @@ void AudioInput::initializeMixer() {
 void AudioInput::addMic(const void *data, unsigned int nsamp) {
 	while (nsamp > 0) {
 		unsigned int left = qMin(nsamp, iMicLength - iMicFilled);
-		
+
 		imfMic(pfMicInput + iMicFilled, data, left, iMicChannels);
-		
+
 		iMicFilled += left;
 		nsamp -= left;
-		
+
 		if (nsamp > 0) {
 			if (eMicFormat == SampleFloat)
 				data = reinterpret_cast<const float *>(data) + left * iMicChannels;
@@ -366,7 +366,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 				speex_resampler_process_float(srsMic, 0, pfMicInput, &inlen, pfOutput, &outlen);
 			}
 			const float mul = 32768.f;
-			for(int j=0;j<iFrameSize;++j)
+			for (int j=0;j<iFrameSize;++j)
 				psMic[j] = static_cast<short>(ptr[j] * mul);
 
 			if (iEchoChannels > 0) {
@@ -415,7 +415,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 				speex_resampler_process_float(srsEcho, 0, pfEchoInput, &inlen, pfOutput, &outlen);
 			}
 			const float mul = 32768.f;
-			for(int j=0;j<iFrameSize;++j)
+			for (int j=0;j<iFrameSize;++j)
 				outbuff[j] = static_cast<short>(ptr[j] * mul);
 
 			JitterBufferPacket jbp;

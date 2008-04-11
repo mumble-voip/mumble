@@ -306,7 +306,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * ((pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short));
 			buff.maxlength = iBlockLen * NBLOCKS;
 			buff.fragsize = iBlockLen;
-			
+
 			qsEchoCache = edev;
 
 			pa_stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_INTERPOLATE_TIMING);
@@ -332,7 +332,7 @@ void PulseAudioSystem::sink_callback(pa_context *, const pa_sink_info *i, int eo
 		pas->wakeup();
 		return;
 	}
-	
+
 	const QString name = QLatin1String(i->name);
 
 	pas->qhIndexMap.insert(name, i->index);
@@ -348,7 +348,7 @@ void PulseAudioSystem::source_callback(pa_context *, const pa_source_info *i, in
 		pas->wakeup();
 		return;
 	}
-	
+
 	const QString name = QLatin1String(i->name);
 
 	pas->qhIndexMap.insert(name, i->index);
@@ -419,7 +419,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			else
 				pai->eEchoFormat = AudioInput::SampleShort;
 			pai->initializeMixer();
-  	        }
+		}
 		pai->addEcho(data, length / pai->iEchoSampleSize);
 	}
 
@@ -447,8 +447,8 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	const pa_sample_spec *pss = pa_stream_get_sample_spec(s);
 	const pa_channel_map *pcm = pa_stream_get_channel_map(pas->pasOutput);
 	if (!pa_sample_spec_equal(pss, &pao->pss) || !pa_channel_map_equal(pcm, &pao->pcm)) {
-	    	pao->pss = *pss;
-	    	pao->pcm = *pcm;
+		pao->pss = *pss;
+		pao->pcm = *pcm;
 		if (pss->format == PA_SAMPLE_FLOAT32NE)
 			pao->eSampleFormat = AudioOutput::SampleFloat;
 		else
@@ -456,46 +456,46 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pao->iMixerFreq = pss->rate;
 		pao->iChannels = pss->channels;
 		unsigned int chanmasks[pss->channels];
-		for(int i=0;i<pss->channels;++i) {
+		for (int i=0;i<pss->channels;++i) {
 			unsigned int cm = 0;
-			switch(pcm->map[i]) {
+			switch (pcm->map[i]) {
 				case PA_CHANNEL_POSITION_LEFT:
 					cm = SPEAKER_FRONT_LEFT;
-										break;
-									case PA_CHANNEL_POSITION_RIGHT:
-										cm = SPEAKER_FRONT_RIGHT;
-										break;
-									case PA_CHANNEL_POSITION_CENTER:
-										cm = SPEAKER_FRONT_CENTER;
-										break;
-									case PA_CHANNEL_POSITION_REAR_LEFT:
-										cm = SPEAKER_BACK_LEFT;
-										break;
-									case PA_CHANNEL_POSITION_REAR_RIGHT:
-										cm = SPEAKER_BACK_RIGHT;
-										break;
-									case PA_CHANNEL_POSITION_REAR_CENTER:
-										cm = SPEAKER_BACK_CENTER;
-										break;
-									case PA_CHANNEL_POSITION_LFE:
-										cm = SPEAKER_LOW_FREQUENCY;
-										break;
-									case PA_CHANNEL_POSITION_SIDE_LEFT:
-										cm = SPEAKER_SIDE_LEFT;
-										break;
-									case PA_CHANNEL_POSITION_SIDE_RIGHT:
-										cm = SPEAKER_SIDE_RIGHT;
-										break;
-									case PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER:
-										cm = SPEAKER_FRONT_LEFT_OF_CENTER;
-										break;
-									case PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER:
-										cm = SPEAKER_FRONT_RIGHT_OF_CENTER;
-										break;
-									default:
-										cm = 0;
-										break;
-								}
+					break;
+				case PA_CHANNEL_POSITION_RIGHT:
+					cm = SPEAKER_FRONT_RIGHT;
+					break;
+				case PA_CHANNEL_POSITION_CENTER:
+					cm = SPEAKER_FRONT_CENTER;
+					break;
+				case PA_CHANNEL_POSITION_REAR_LEFT:
+					cm = SPEAKER_BACK_LEFT;
+					break;
+				case PA_CHANNEL_POSITION_REAR_RIGHT:
+					cm = SPEAKER_BACK_RIGHT;
+					break;
+				case PA_CHANNEL_POSITION_REAR_CENTER:
+					cm = SPEAKER_BACK_CENTER;
+					break;
+				case PA_CHANNEL_POSITION_LFE:
+					cm = SPEAKER_LOW_FREQUENCY;
+					break;
+				case PA_CHANNEL_POSITION_SIDE_LEFT:
+					cm = SPEAKER_SIDE_LEFT;
+					break;
+				case PA_CHANNEL_POSITION_SIDE_RIGHT:
+					cm = SPEAKER_SIDE_RIGHT;
+					break;
+				case PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER:
+					cm = SPEAKER_FRONT_LEFT_OF_CENTER;
+					break;
+				case PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER:
+					cm = SPEAKER_FRONT_RIGHT_OF_CENTER;
+					break;
+				default:
+					cm = 0;
+					break;
+			}
 			chanmasks[i] = cm;
 		}
 		pao->initializeMixer(chanmasks);

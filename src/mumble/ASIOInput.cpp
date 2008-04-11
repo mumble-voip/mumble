@@ -398,8 +398,8 @@ ASIOInput::ASIOInput() {
 	pdOutputBuffer = new float[iFrameSize];
 
 	int err = 0;
-	srsResampleMic = speex_resampler_init(1, 48000, 16000, 3, &err);
-	srsResampleSpeaker = speex_resampler_init(1, 48000, 16000, 3, &err);
+	srsResampleMic = speex_resampler_init(1, 48000, SAMPLE_RATE, 3, &err);
+	srsResampleSpeaker = speex_resampler_init(1, 48000, SAMPLE_RATE, 3, &err);
 
 	// Sanity check things first.
 
