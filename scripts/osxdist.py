@@ -127,6 +127,16 @@ class AppBundle(object):
 			b = os.path.basename(rsrc)
 			shutil.copy(rsrc, os.path.join(rsrcpath, b))
 
+	def copy_plugins(self):
+		'''
+			Copy over any built Mumble plugins.
+		'''
+		print ' * Copying plugins'
+		dst = os.path.join(self.bundle, 'Contents', 'Plugins')
+		if os.path.exists(dst):
+			shutil.rmtree(dst)
+		shutil.copytree('release/plugins/', dst)
+
 	def setup_plist(self):
 		'''
 			Modify our bundle's Info.plist to make it ready for release.
@@ -254,6 +264,7 @@ if __name__ == '__main__':
 	a = AppBundle('release/Mumble.app', ver)
 	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns'])
+	a.copy_plugins()
 	a.setup_plist()
 	a.done()
 
