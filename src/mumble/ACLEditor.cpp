@@ -75,6 +75,17 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 
 	qgbACLpermissions->setLayout(grid);
 
+	MessageEditACL::ACLStruct *def = new MessageEditACL::ACLStruct();
+	def->bApplyHere = true;
+	def->bApplySubs = true;
+	def->bInherited = true;
+	def->iPlayerId = -1;
+	def->qsGroup = QLatin1String("all");
+	def->pAllow = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::AltSpeak;
+	def->pDeny = 0;
+
+	acls << def;
+
 	foreach(as, mea->acls) {
 		asp = new MessageEditACL::ACLStruct(as);
 		acls << asp;
@@ -84,7 +95,7 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 		groups << gsp;
 	}
 
-	numInheritACL = 0;
+	numInheritACL = -1;
 
 	bInheritACL = mea->bInheritACL;
 	qcbACLInherit->setChecked(bInheritACL);
@@ -113,8 +124,6 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	doneQuery();
 
 	refillGroupNames();
-
-//	resize(minimumSize());
 
 	ACLEnableCheck();
 	groupEnableCheck();
@@ -280,10 +289,14 @@ void ACLEditor::refillACL() {
 	bool previnh = bInheritACL;
 	bInheritACL = qcbACLInherit->isChecked();
 
-
 	qlwACLs->clear();
+
+	bool first = true;
+
 	foreach(as, acls) {
-		if (! bInheritACL && as->bInherited)
+		if (first)
+			first = false;
+		else if (! bInheritACL && as->bInherited)
 			continue;
 		QString text;
 		if (as->iPlayerId == -1)
@@ -297,7 +310,7 @@ void ACLEditor::refillACL() {
 			item->setFont(f);
 		}
 	}
-	if (bInheritACL && ! previnh)
+	if (bInheritACL && ! previnh && (idx != 0))
 		idx += numInheritACL;
 	if (! bInheritACL && previnh)
 		idx -= numInheritACL;
@@ -341,7 +354,7 @@ MessageEditACL::GroupStruct *ACLEditor::currentGroup() {
 
 MessageEditACL::ACLStruct *ACLEditor::currentACL() {
 	int idx = qlwACLs->currentRow();
-	if (idx == -1)
+	if (idx < 0)
 		return NULL;
 
 	if (! bInheritACL)
