@@ -328,29 +328,7 @@ void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
 		ai->setMaxBandwidth(g.iMaxBandwidth);
 	}
 
-
-
-	bool found = false;
-	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
-	Channel *chan = Channel::get(0);
-	while (chan && qlChans.count() > 0) {
-		QString str = qlChans.takeFirst().toLower();
-		if (str.isEmpty())
-			continue;
-		foreach(Channel *c, chan->qlChannels) {
-			if (c->qsName.toLower() == str) {
-				found = true;
-				chan = c;
-				break;
-			}
-		}
-	}
-	if (found && (chan != ClientPlayer::get(g.uiSession)->cChannel)) {
-		MessagePlayerMove mpm;
-		mpm.uiVictim = g.uiSession;
-		mpm.iChannelId = chan->iId;
-		g.sh->sendMessage(&mpm);
-	}
+	findDesiredChannel();
 }
 
 void MainWindow::msgTextMessage(Connection *, MessageTextMessage *msg) {

@@ -131,6 +131,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void pushLink(bool down);
 		void viewCertificate(bool);
 		void openUrl(const QUrl &url);
+		void findDesiredChannel();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

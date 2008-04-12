@@ -278,6 +278,20 @@ void MainWindow::openUrl(const QUrl &url) {
 	QString pw = url.password();
 	qsDesiredChannel = url.path();
 
+	Database::fuzzyMatch(user, pw, host, port);
+
+	if (g.sh && g.sh->isRunning()) {
+		QString oHost, oUser, oPw;
+		int oport;
+		g.sh->getConnectionInfo(oHost, oport, oUser, oPw);
+
+		if ((user.isEmpty() || (user == oUser)) &&
+			(host.isEmpty() || ((host == oHost) && (port == oport)))) {
+				findDesiredChannel();
+				return;
+		}
+	}
+
 	if (user.isEmpty()) {
 		bool ok;
 		user = QInputDialog::getText(this, tr("Connecting to %1").arg(url.toString()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok);
@@ -295,6 +309,36 @@ void MainWindow::openUrl(const QUrl &url) {
 	qaServerDisconnect->setEnabled(true);
 	g.sh->setConnectionInfo(host, port, user, pw);
 	g.sh->start(QThread::TimeCriticalPriority);
+}
+
+void MainWindow::findDesiredChannel() {
+	bool found = false;
+	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
+	Channel *chan = Channel::get(0);
+	QString str = QString();
+	while (chan && qlChans.count() > 0) {
+		QString elem = qlChans.takeFirst().toLower();
+		if (elem.isEmpty())
+			continue;
+		if (str.isNull())
+			str = elem;
+		else
+			str = str + QLatin1String("/") + elem;
+		foreach(Channel *c, chan->qlChannels) {
+			if (c->qsName.toLower() == str) {
+				str = QString();
+				found = true;
+				chan = c;
+				break;
+			}
+		}
+	}
+	if (found && (chan != ClientPlayer::get(g.uiSession)->cChannel)) {
+		MessagePlayerMove mpm;
+		mpm.uiVictim = g.uiSession;
+		mpm.iChannelId = chan->iId;
+		g.sh->sendMessage(&mpm);
+	}
 }
 
 void MainWindow::on_qaServerConnect_triggered() {

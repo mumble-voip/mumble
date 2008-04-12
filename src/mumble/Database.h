@@ -39,6 +39,7 @@ class Database : public QObject {
 		Database();
 		static const QString getDigest(const QString &hostname, unsigned short port);
 		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
+		static bool fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port);
 };
 
 #else
