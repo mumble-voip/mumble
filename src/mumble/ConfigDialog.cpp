@@ -97,13 +97,11 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	qcbExpert->setChecked(g.s.bExpert);
 
+	unsigned int idx = 0;
 	ConfigWidgetNew cwn;
 	foreach(cwn, *ConfigRegistrar::c_qmNew) {
-		addPage(cwn(s));
+		addPage(cwn(s), ++idx);
 	}
-
-	if (qlwIcons->count() > 0)
-		qlwIcons->setCurrentItem(qlwIcons->item(0));
 
 	on_qcbExpert_clicked(g.s.bExpert);
 
@@ -133,32 +131,36 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 }
 
-void ConfigDialog::addPage(ConfigWidget *cw) {
+void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	QDesktopWidget dw;
 
-	QRect ds=dw.availableGeometry(this);
+	int width = INT_MAX, height = INT_MAX;
+
+
+	for(int i=0;i<dw.numScreens();++i) {
+		QRect ds=dw.availableGeometry(i);
+		if (ds.isValid()) {
+			width = qMin(width, ds.width());
+			height = qMin(height, ds.height());
+		}
+	}
+
 	QSize ms=cw->minimumSizeHint();
 	cw->resize(ms);
 	cw->setMinimumSize(ms);
 
 	ms.rwidth() += 128;
 	ms.rheight() += 192;
-	if ((ms.width() > ds.width()) || (ms.height() > ds.height())) {
+	if ((ms.width() > width) || (ms.height() > height)) {
 		QScrollArea *qsa=new QScrollArea(this);
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
 		qswPages->addWidget(qsa);
-		qWarning("Widget %s has size %d %d (%d %d)", qPrintable(cw->title()), ms.width(), ms.height(),ds.width(), ds.height());
+		qWarning("Widget %s has size %d %d (%d %d)", qPrintable(cw->title()), ms.width(), ms.height(), width, height);
 	} else {
 		qswPages->addWidget(cw);
 	}
-	QListWidgetItem *i = new QListWidgetItem(qlwIcons);
-	i->setIcon(cw->icon());
-	i->setText(cw->title());
-	i->setTextAlignment(Qt::AlignHCenter);
-	i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
-	widgets << cw;
+	qmWidgets.insert(idx, cw);
 	cw->load(g.s);
 }
 
@@ -166,8 +168,11 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 	if (!current)
 		current = previous;
 
-	if (current)
-		qswPages->setCurrentIndex(qlwIcons->row(current));
+	if (current) {
+		ConfigWidget *cw = qhWidgets.value(current);
+		if (cw)
+			qswPages->setCurrentWidget(cw);
+	}
 }
 
 void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
@@ -201,18 +206,34 @@ void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
 }
 
 void ConfigDialog::on_qcbExpert_clicked(bool b) {
-	int idx = 0;
-	foreach(ConfigWidget *cw, widgets) {
+	ConfigWidget *ccw = qhWidgets.value(qlwIcons->currentItem());
+	int ridx = -1;
+	int row = -1;
+	qhWidgets.clear();
+	qlwIcons->clear();
+	foreach(ConfigWidget *cw, qmWidgets) {
 		bool showit = cw->expert(b);
-		showit = showit || b;
-		QListWidgetItem *qlwi = qlwIcons->item(idx++);
-		if (qlwi)
-			qlwi->setHidden(!showit);
+		if (showit || b)  {
+			++row;
+
+			QListWidgetItem *i = new QListWidgetItem(qlwIcons);
+			i->setIcon(cw->icon());
+			i->setText(cw->title());
+			i->setTextAlignment(Qt::AlignHCenter);
+			i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+			qhWidgets.insert(i, cw);
+
+			if (cw == ccw)
+				ridx = row;
+		}
 	}
+	if (qlwIcons->count() > 0)
+		qlwIcons->setCurrentRow(ridx >= 0 ? ridx : 0);
 }
 
 void ConfigDialog::apply() {
-	foreach(ConfigWidget *cw, widgets)
+	foreach(ConfigWidget *cw, qmWidgets)
 	cw->save();
 
 	boost::weak_ptr<AudioInput> wai(g.ai);
@@ -227,7 +248,7 @@ void ConfigDialog::apply() {
 
 	g.s = s;
 
-	foreach(ConfigWidget *cw, widgets)
+	foreach(ConfigWidget *cw, qmWidgets)
 	cw->accept();
 
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);

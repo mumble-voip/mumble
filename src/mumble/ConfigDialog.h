@@ -70,8 +70,9 @@ class ConfigRegistrar {
 class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		Q_OBJECT;
 	protected:
-		QList<ConfigWidget *> widgets;
-		void addPage(ConfigWidget *aw);
+		QHash<QListWidgetItem *, ConfigWidget *> qhWidgets;
+		QMap<unsigned int, ConfigWidget *> qmWidgets;
+		void addPage(ConfigWidget *aw, unsigned int idx);
 		Settings s;
 	public:
 		ConfigDialog(QWidget *p = NULL);
