@@ -53,6 +53,7 @@ struct ModelItem {
 
 	ModelItem *parent;
 	QList<ModelItem *> qlChildren;
+	int iPlayers;
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
 	static QHash <ClientPlayer *, ModelItem *> c_qhPlayers;
@@ -137,6 +138,7 @@ class PlayerModel : public QAbstractItemModel {
 		void removeAll();
 
 		void expandAll(Channel *c);
+		void collapseEmpty(Channel *c);
 
 		QVariant otherRoles(int column, int role, bool isPlayer) const;
 	public slots:

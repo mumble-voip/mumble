@@ -45,6 +45,7 @@ struct Settings {
 	enum VADSource { Amplitude, SignalToNoise };
 	enum LoopMode { None, Local, Server };
 	enum OverlayShow { Nothing, Talking, All };
+	enum ChannelExpand { NoChannels, ChannelsWithPlayers, AllChannels };
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
 
@@ -61,7 +62,7 @@ struct Settings {
 	VADSource vsVAD;
 	float fVADmin, fVADmax;
 	int iFramesPerPacket;
-	bool bExpandAll;
+	ChannelExpand ceExpand;
 	QString qsAudioInput, qsAudioOutput;
 	float fVolume;
 	int iOutputDelay;

@@ -51,7 +51,7 @@ Settings::Settings() {
 	vsVAD = SignalToNoise;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
-	bExpandAll = true;
+	ceExpand = ChannelsWithPlayers;
 	bPushClick = false;
 
 	bPlayerTop = false;
@@ -149,6 +149,7 @@ BOOST_TYPEOF_REGISTER_TYPE(Settings::VADSource);
 BOOST_TYPEOF_REGISTER_TYPE(Settings::LoopMode)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::OverlayShow)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelExpand)
 BOOST_TYPEOF_REGISTER_TYPE(QString)
 BOOST_TYPEOF_REGISTER_TYPE(QByteArray)
 BOOST_TYPEOF_REGISTER_TYPE(QColor)
@@ -246,7 +247,7 @@ void Settings::load() {
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
 	SAVELOAD(bHorizontal, "ui/horizontal");
-	SAVELOAD(bExpandAll, "ui/expandall");
+	LOADENUM(ceExpand, "ui/expand");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
@@ -364,7 +365,7 @@ void Settings::save() {
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
 	SAVELOAD(bHorizontal, "ui/horizontal");
-	SAVELOAD(bExpandAll, "ui/expandall");
+	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");

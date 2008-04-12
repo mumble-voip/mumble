@@ -133,6 +133,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void openUrl(const QUrl &url);
 	public:
 		MainWindow(QWidget *parent);
+		~MainWindow();
 
 		// From msgHandler. Implementation in Messages.cpp
 		virtual void msgSpeex(Connection *, MessageSpeex *);

@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>334</width>
-    <height>348</height>
+    <width>566</width>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -55,7 +55,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2" >
+      <item row="0" column="1" colspan="3" >
        <widget class="QComboBox" name="qcbStyle" >
         <property name="toolTip" >
          <string>Basic widget style</string>
@@ -72,14 +72,41 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2" >
+      <item row="1" column="1" colspan="2" >
+       <widget class="QLineEdit" name="qleCSS" >
+        <property name="toolTip" >
+         <string>Skin file to use</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This sets which skin Mumble should use.&lt;/b>&lt;br />The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" >
        <widget class="QPushButton" name="qpbSkinFile" >
         <property name="text" >
          <string>...</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
+      <item row="2" column="0" >
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Expand</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="3" >
+       <widget class="QComboBox" name="qcbExpand" >
+        <property name="toolTip" >
+         <string>When to automatically expand channels</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets which channels to automatically expand. &lt;i>None&lt;/i> and &lt;i>All&lt;/i> will expand no or all channels, while &lt;i>Only with players&lt;/i> will expand and collapse channels as players join and leave them.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
        <widget class="QCheckBox" name="qcbHorizontal" >
         <property name="toolTip" >
          <string>Use horizontal or vertical splitter for the main window</string>
@@ -92,20 +119,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1" >
-       <widget class="QCheckBox" name="qcbExpand" >
-        <property name="toolTip" >
-         <string>Expand all channels when connecting</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>If set, all channels will be expanded by default when you connect to a server.&lt;/b></string>
-        </property>
-        <property name="text" >
-         <string>Expand All Channels</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1" >
+      <item row="3" column="2" colspan="2" >
        <widget class="QCheckBox" name="qcbPlayersTop" >
         <property name="toolTip" >
          <string>List players above subchannels (requires restart).</string>
@@ -115,16 +129,6 @@
         </property>
         <property name="text" >
          <string>Players above Channels</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QLineEdit" name="qleCSS" >
-        <property name="toolTip" >
-         <string>Skin file to use</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This sets which skin Mumble should use.&lt;/b>&lt;br />The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</string>
         </property>
        </widget>
       </item>

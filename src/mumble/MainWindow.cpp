@@ -195,6 +195,11 @@ void MainWindow::setupGui()  {
 	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
 }
 
+MainWindow::~MainWindow() {
+	delete pmModel;
+	delete qtvPlayers;
+}
+
 void MainWindow::msgBox(QString msg) {
 	MessageBoxEvent *mbe=new MessageBoxEvent(msg);
 	QApplication::postEvent(this, mbe);

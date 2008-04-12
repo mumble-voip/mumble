@@ -58,6 +58,9 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	foreach(QString key, styles) {
 		qcbStyle->addItem(key);
 	}
+	qcbExpand->addItem(tr("None"), Settings::NoChannels);
+	qcbExpand->addItem(tr("Only with players"), Settings::ChannelsWithPlayers);
+	qcbExpand->addItem(tr("All"), Settings::AllChannels);
 }
 
 QString LookConfig::title() const {
@@ -86,7 +89,7 @@ void LookConfig::load(const Settings &r) {
 	}
 	qleCSS->setText(r.qsSkin);
 	loadCheckBox(qcbHorizontal, r.bHorizontal);
-	loadCheckBox(qcbExpand, r.bExpandAll);
+	loadComboBox(qcbExpand, r.ceExpand);
 	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 }
@@ -107,7 +110,7 @@ void LookConfig::save() const {
 	else
 		s.qsSkin = qleCSS->text();
 	s.bHorizontal = qcbHorizontal->isChecked();
-	s.bExpandAll=qcbExpand->isChecked();
+	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.bPlayerTop=qcbPlayersTop->isChecked();
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
 }

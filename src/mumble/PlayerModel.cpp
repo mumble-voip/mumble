@@ -46,6 +46,7 @@ ModelItem::ModelItem(Channel *c) {
 	this->pPlayer = NULL;
 	c_qhChannels.insert(c, this);
 	parent = c_qhChannels.value(c->cParent);
+	iPlayers = 0;
 }
 
 ModelItem::ModelItem(ClientPlayer *p) {
@@ -53,6 +54,7 @@ ModelItem::ModelItem(ClientPlayer *p) {
 	this->pPlayer = p;
 	c_qhPlayers.insert(p, this);
 	parent = c_qhChannels.value(p->cChannel);
+	iPlayers = 0;
 }
 
 ModelItem::ModelItem(ModelItem *i) {
@@ -82,6 +84,8 @@ void ModelItem::stealChildren(ModelItem *other) {
 	other->qlChildren.clear();
 	foreach(ModelItem *mi, qlChildren)
 	mi->parent = this;
+	iPlayers = other->iPlayers;
+	other->iPlayers = 0;
 }
 
 ModelItem *ModelItem::child(int idx) const {
@@ -527,6 +531,17 @@ void PlayerModel::expandAll(Channel *c) {
 	}
 }
 
+void PlayerModel::collapseEmpty(Channel *c) {
+	while (c) {
+		ModelItem *mi = ModelItem::c_qhChannels.value(c);
+		if (mi->iPlayers == 0)
+			g.mw->qtvPlayers->setExpanded(index(c), false);
+		else
+			break;
+		c = c->cParent;
+	}
+}
+
 void PlayerModel::ensureSelfVisible() {
 	if (! g.uiSession)
 		return;
@@ -585,6 +600,8 @@ ClientPlayer *PlayerModel::addPlayer(unsigned int id, const QString &name) {
 	c->addPlayer(p);
 	endInsertRows();
 
+	citem->iPlayers++;
+
 	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
 		updateOverlay();
 
@@ -611,10 +628,19 @@ void PlayerModel::removePlayer(ClientPlayer *p) {
 	ClientPlayer::remove(p);
 	delete p;
 	delete item;
+
+	while (citem) {
+		citem->iPlayers--;
+		citem = citem->parent;
+	}
+
+	if (g.s.ceExpand == Settings::ChannelsWithPlayers)
+		collapseEmpty(c);
 }
 
 void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
-	ModelItem *opi = ModelItem::c_qhChannels.value(p->cChannel);
+	Channel *oc = p->cChannel;
+	ModelItem *opi = ModelItem::c_qhChannels.value(oc);
 	ModelItem *pi = ModelItem::c_qhChannels.value(np);
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
 	moveItem(opi, pi, item);
@@ -622,6 +648,20 @@ void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
 	if (p->uiSession == g.uiSession) {
 		ensureSelfVisible();
 		recheckLinks();
+	}
+
+	while (opi) {
+		opi->iPlayers--;
+		opi = opi->parent;
+	}
+	while (pi) {
+		pi->iPlayers++;
+		pi = pi->parent;
+	}
+
+	if (g.s.ceExpand == Settings::ChannelsWithPlayers) {
+		expandAll(np);
+		collapseEmpty(oc);
 	}
 }
 
@@ -667,7 +707,7 @@ Channel *PlayerModel::addChannel(int id, Channel *p, const QString &name) {
 	citem->qlChildren.insert(row, item);
 	endInsertRows();
 
-	if (g.s.bExpandAll)
+	if (g.s.ceExpand == Settings::AllChannels)
 		g.mw->qtvPlayers->setExpanded(index(item), true);
 
 	return c;
