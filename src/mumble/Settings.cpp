@@ -44,7 +44,7 @@ Settings::Settings() {
 	iComplexity = 4;
 	fVolume = 1.0f;
 	iMinLoudness = 1000;
-	iVoiceHold = 100;
+	iVoiceHold = 50;
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
