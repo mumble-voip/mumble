@@ -11,13 +11,13 @@ place offering Mumble is likely to contain trojans or viruses.
 Pre-requisites
 ==============
 
-Mumble and murmur depends on Qt version 4.2.0 or above; either the opensource
+Mumble and murmur depends on Qt version 4.3.0 or above; either the opensource
 or commercial versions will do.
 Please see http://www.trolltech.com/qt/ for more information. As we use the Qt
 build system, it's important that you have a fully functional Qt installation.
 
 The mumble build uses pre-comiled headers. If you use GCC, make sure it's at
-least version 3.4.
+least version 3.4, and preferably 4.2 or newer.
 
 Mumble needs the Boost C++ library. http://www.boost.org
 
@@ -26,14 +26,6 @@ reflect where your installed versions of dependant libraries are.
 
 Windows pre-requisites
 ======================
-
-Mumble needs the ASIO SDK to compile ASIO support. If you don't have
-the SDK, remove the line that says CONFIG+=asio in mumble.pro
-
-Mumble also needs the DirectX 9.0 SDK, and the Microsoft Speech SDK 5.1.
-
-The windows build has only been done with MinGW. If you have success with other
-build environments, please let us know.
 
 Detailed build instructions are available at
 http://mumble.sourceforge.net/BuildingWindows and it is highly recommended
@@ -45,14 +37,14 @@ Linux pre-requisites
 Mumble needs libasound2 (the ALSA developer libraries) as well as the developer
 libraries for Xevie.
 
-The Linux version of the client is developed on Ubuntu 6.10. It may work on
+The Linux version of the client is developed on Ubuntu 7.10. It may work on
 other updated distributions. The server should work on any modern UNIX-based
 distribution and on Windows.
 
 Building Mumble and Murmur
 ==========================
 
-To build mumble, type
+To build mumble and murmur, type
 qmake main.pro
 make
 
@@ -62,9 +54,8 @@ use for libraries.
 Building only Murmur
 ====================
 
-To build murmur, type
-cd src/murmur
-qmake murmur.pro
+To build only murmur, type
+qmake main.pro CONFIG+=no-client
 make
 
 To enable user registration, copy scripts/murmur.pl to murmur.cgi and put it
