@@ -31,6 +31,9 @@
 #include "Global.h"
 #include "MainWindow.h"
 #include "DBus.h"
+#include "ServerHandler.h"
+#include "Channel.h"
+#include "../Player.h"
 
 
 MumbleDBus::MumbleDBus(QObject *mw) : QDBusAbstractAdaptor(mw) {
@@ -45,6 +48,30 @@ void MumbleDBus::openUrl(const QString &url, const QDBusMessage &msg) {
 	} else {
 		g.mw->openUrl(u);
 	}
+}
+
+void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
+	if (!g.sh || !g.sh->isRunning() || ! g.uiSession) {
+		QDBusConnection::sessionBus().send(msg.createErrorReply(QLatin1String("net.sourceforge.mumble.Error.connection"), QLatin1String("Not connected")));
+		return;
+	}
+	QString host, user, pw;
+	int port;
+	QUrl u;
+
+	g.sh->getConnectionInfo(host, port, user, pw);
+	u.setScheme(QLatin1String("mumble"));
+	u.setHost(host);
+	u.setPort(port);
+	u.setUserName(user);
+	QStringList path;
+	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
+	while (c->cParent) {
+		path.prepend(c->qsName);
+		c = c->cParent;
+	}
+	u.setPath(path.join(QLatin1String("/")));
+	QDBusConnection::sessionBus().send(msg.createReply(u.toString()));
 }
 
 void MumbleDBus::focus() {

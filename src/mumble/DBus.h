@@ -40,6 +40,7 @@ class MumbleDBus : public QDBusAbstractAdaptor {
 		MumbleDBus(QObject *parent);
 	public slots:
 		void openUrl(const QString &url, const QDBusMessage &);
+		void getCurrentUrl(const QDBusMessage &);
 		void focus();
 };
 
