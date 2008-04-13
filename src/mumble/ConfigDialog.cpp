@@ -137,7 +137,7 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	int width = INT_MAX, height = INT_MAX;
 
 
-	for(int i=0;i<dw.numScreens();++i) {
+	for (int i=0;i<dw.numScreens();++i) {
 		QRect ds=dw.availableGeometry(i);
 		if (ds.isValid()) {
 			width = qMin(width, ds.width());

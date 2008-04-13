@@ -146,11 +146,11 @@ void Plugins::rescanPlugins() {
 	bValid = false;
 
 #ifndef PLUGIN_PATH
- #ifndef Q_OS_MAC
+#ifndef Q_OS_MAC
 	const QString path=QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
- #else
+#else
 	const QString path=QString::fromLatin1("%1/../Plugins").arg(qApp->applicationDirPath());
- #endif
+#endif
 #else
 	const QString path=QLatin1String(MUMTEXT(PLUGIN_PATH));
 #endif

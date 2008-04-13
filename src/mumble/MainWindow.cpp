@@ -304,9 +304,9 @@ void MainWindow::openUrl(const QUrl &url) {
 		g.sh->getConnectionInfo(oHost, oport, oUser, oPw);
 
 		if ((user.isEmpty() || (user == oUser)) &&
-			(host.isEmpty() || ((host == oHost) && (port == oport)))) {
-				findDesiredChannel();
-				return;
+		        (host.isEmpty() || ((host == oHost) && (port == oport)))) {
+			findDesiredChannel();
+			return;
 		}
 	}
 
@@ -620,17 +620,17 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	QModelIndex idx = qtvPlayers->currentIndex();
 
 	qmChannel->clear();
-    qmChannel->addAction(qaChannelAdd);
-    qmChannel->addAction(qaChannelRemove);
-    qmChannel->addAction(qaChannelACL);
-    qmChannel->addAction(qaChannelRename);
-    qmChannel->addSeparator();
-    qmChannel->addAction(qaChannelLink);
-    qmChannel->addAction(qaChannelUnlink);
-    qmChannel->addAction(qaChannelUnlinkAll);
-    qmChannel->addSeparator();
-    qmChannel->addAction(qaChannelSendMessage);
-    qmChannel->addAction(qaChannelSendTreeMessage);
+	qmChannel->addAction(qaChannelAdd);
+	qmChannel->addAction(qaChannelRemove);
+	qmChannel->addAction(qaChannelACL);
+	qmChannel->addAction(qaChannelRename);
+	qmChannel->addSeparator();
+	qmChannel->addAction(qaChannelLink);
+	qmChannel->addAction(qaChannelUnlink);
+	qmChannel->addAction(qaChannelUnlinkAll);
+	qmChannel->addSeparator();
+	qmChannel->addAction(qaChannelSendMessage);
+	qmChannel->addAction(qaChannelSendTreeMessage);
 
 	if (g.s.bMinimalView) {
 		qmChannel->addSeparator();
