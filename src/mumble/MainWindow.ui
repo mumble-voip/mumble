@@ -71,17 +71,6 @@
     <property name="title" >
      <string>&amp;Channel</string>
     </property>
-    <addaction name="qaChannelAdd" />
-    <addaction name="qaChannelRemove" />
-    <addaction name="qaChannelACL" />
-    <addaction name="qaChannelRename" />
-    <addaction name="separator" />
-    <addaction name="qaChannelLink" />
-    <addaction name="qaChannelUnlink" />
-    <addaction name="qaChannelUnlinkAll" />
-    <addaction name="separator" />
-    <addaction name="qaChannelSendMessage" />
-    <addaction name="qaChannelSendTreeMessage" />
    </widget>
    <widget class="QMenu" name="qmAudio" >
     <property name="title" >
@@ -103,6 +92,8 @@
     </property>
     <addaction name="qaConfigDialog" />
     <addaction name="qaAudioWizard" />
+    <addaction name="separator" />
+    <addaction name="qaConfigMinimal" />
    </widget>
    <widget class="QMenu" name="qmHelp" >
     <property name="title" >
@@ -526,6 +517,20 @@
    </property>
    <property name="whatsThis" >
     <string>This sends a text message to a channel and it's subchannels.</string>
+   </property>
+  </action>
+  <action name="qaConfigMinimal" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>&amp;Minimal View</string>
+   </property>
+   <property name="toolTip" >
+    <string>Toggle minimal window modes</string>
+   </property>
+   <property name="whatsThis" >
+    <string>This will toggle minimal mode, where the log window and menu is hidden.</string>
    </property>
   </action>
  </widget>

@@ -51,7 +51,6 @@ Settings::Settings() {
 	vsVAD = SignalToNoise;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
-	ceExpand = ChannelsWithPlayers;
 	bPushClick = false;
 
 	bPlayerTop = false;
@@ -67,6 +66,8 @@ Settings::Settings() {
 
 	bFirstTime = true;
 	bHorizontal = true;
+	ceExpand = ChannelsWithPlayers;
+	bMinimalView = false;
 
 	iOutputDelay = 5;
 
@@ -248,6 +249,7 @@ void Settings::load() {
 	SAVELOAD(qsSkin, "ui/skin");
 	SAVELOAD(bHorizontal, "ui/horizontal");
 	LOADENUM(ceExpand, "ui/expand");
+	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
@@ -366,6 +368,7 @@ void Settings::save() {
 	SAVELOAD(qsSkin, "ui/skin");
 	SAVELOAD(bHorizontal, "ui/horizontal");
 	SAVELOAD(ceExpand, "ui/expand");
+	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");

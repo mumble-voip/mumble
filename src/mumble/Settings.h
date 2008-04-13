@@ -62,7 +62,6 @@ struct Settings {
 	VADSource vsVAD;
 	float fVADmin, fVADmax;
 	int iFramesPerPacket;
-	ChannelExpand ceExpand;
 	QString qsAudioInput, qsAudioOutput;
 	float fVolume;
 	int iOutputDelay;
@@ -111,6 +110,8 @@ struct Settings {
 	bool bHorizontal;
 	bool bFirstTime;
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState, qbaHeaderState;
+	ChannelExpand ceExpand;
+	bool bMinimalView;
 
 	QString qsUsername;
 	int iServerRow;

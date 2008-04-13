@@ -74,6 +74,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	aclEdit = NULL;
 	banEdit = NULL;
+	bNoHide = false;
 
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
@@ -137,6 +138,9 @@ void MainWindow::createActions() {
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));
 
+	gsMinimal=new GlobalShortcut(this, idx++, tr("Toggle Minimal", "Global Shortcut"));
+	gsMinimal->setObjectName(QLatin1String("ToggleMinimal"));
+
 	qstiIcon = new QSystemTrayIcon(qiIcon, this);
 	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
@@ -171,11 +175,13 @@ void MainWindow::setupGui()  {
 	qaAudioTTS->setChecked(g.s.bTTS);
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
+	qaConfigMinimal->setChecked(g.s.bMinimalView);
+
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
 	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
-
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
+	connect(gsMinimal, SIGNAL(down()), qaConfigMinimal, SLOT(trigger()));
 
 	if (g.s.bHorizontal) {
 		qsSplit->setOrientation(Qt::Horizontal);
@@ -193,6 +199,16 @@ void MainWindow::setupGui()  {
 	restoreState(g.s.qbaMainWindowState);
 	qsSplit->restoreState(g.s.qbaSplitterState);
 	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
+
+	qmAll = new QMenu(tr("Mumble"), this);
+	qmAll->addMenu(qmServer);
+	qmAll->addMenu(qmPlayer);
+	qmAll->addMenu(qmChannel);
+	qmAll->addMenu(qmAudio);
+	qmAll->addMenu(qmConfig);
+	qmAll->addMenu(qmHelp);
+
+	setupView();
 }
 
 MainWindow::~MainWindow() {
@@ -223,15 +239,17 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.uiSession = 0;
 	g.s.qbaMainWindowGeometry = saveGeometry();
 	g.s.qbaMainWindowState = saveState();
-	g.s.qbaSplitterState = qsSplit->saveState();
-	g.s.qbaHeaderState = qtvPlayers->header()->saveState();
+	if (! g.s.bMinimalView) {
+		g.s.qbaSplitterState = qsSplit->saveState();
+		g.s.qbaHeaderState = qtvPlayers->header()->saveState();
+	}
 	QMainWindow::closeEvent(e);
 	qApp->quit();
 }
 
 void MainWindow::hideEvent(QHideEvent *e) {
 #ifndef Q_OS_MAC
-	if (qstiIcon->isSystemTrayAvailable())
+	if (!bNoHide && qstiIcon->isSystemTrayAvailable())
 		qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
 	QMainWindow::hideEvent(e);
 #endif
@@ -341,6 +359,25 @@ void MainWindow::findDesiredChannel() {
 	}
 }
 
+void MainWindow::setupView() {
+	bool showit = ! g.s.bMinimalView;
+
+	bNoHide = true;
+
+	Qt::WindowFlags f = windowFlags();
+	if (showit)
+		f = 0;
+	else
+		f = Qt::CustomizeWindowHint;
+	setWindowFlags(f);
+	show();
+	qtvPlayers->header()->setVisible(showit);
+	menuBar()->setVisible(showit);
+	qteLog->setVisible(showit);
+
+	bNoHide = false;
+}
+
 void MainWindow::on_qaServerConnect_triggered() {
 	ConnectDialog *cd = new ConnectDialog(this);
 	int res = cd->exec();
@@ -447,6 +484,11 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 		qmPlayer->addSeparator();
 		qmPlayer->addAction(qaAudioMute);
 		qmPlayer->addAction(qaAudioDeaf);
+	}
+
+	if (g.s.bMinimalView) {
+		qmPlayer->addSeparator();
+		qmPlayer->addMenu(qmAll);
 	}
 
 	if (! p) {
@@ -577,8 +619,25 @@ void MainWindow::on_qaQuit_triggered() {
 void MainWindow::on_qmChannel_aboutToShow() {
 	QModelIndex idx = qtvPlayers->currentIndex();
 
-	bool add, remove, acl, rename, link, unlink, unlinkall, msg;
+	qmChannel->clear();
+    qmChannel->addAction(qaChannelAdd);
+    qmChannel->addAction(qaChannelRemove);
+    qmChannel->addAction(qaChannelACL);
+    qmChannel->addAction(qaChannelRename);
+    qmChannel->addSeparator();
+    qmChannel->addAction(qaChannelLink);
+    qmChannel->addAction(qaChannelUnlink);
+    qmChannel->addAction(qaChannelUnlinkAll);
+    qmChannel->addSeparator();
+    qmChannel->addAction(qaChannelSendMessage);
+    qmChannel->addAction(qaChannelSendTreeMessage);
 
+	if (g.s.bMinimalView) {
+		qmChannel->addSeparator();
+		qmChannel->addMenu(qmAll);
+	}
+
+	bool add, remove, acl, rename, link, unlink, unlinkall, msg;
 	add = remove = acl = rename = link = unlink = unlinkall = msg = false;
 
 	if (g.uiSession != 0) {
@@ -839,6 +898,11 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 void MainWindow::on_qaConfigDialog_triggered() {
 	ConfigDialog dlg;
 	dlg.exec();
+}
+
+void MainWindow::on_qaConfigMinimal_triggered() {
+	g.s.bMinimalView = qaConfigMinimal->isChecked();
+	setupView();
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {

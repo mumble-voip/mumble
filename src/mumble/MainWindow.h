@@ -63,6 +63,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
 		GlobalShortcut *gsAltTalk;
+		GlobalShortcut *gsMinimal;
+
+		QMenu *qmAll;
 
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
@@ -78,6 +81,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt);
+		void findDesiredChannel();
+		void setupView();
+		bool bNoHide;
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
 	public slots:
@@ -111,6 +117,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaAudioUnlink_triggered();
 		void on_qaAudioStats_triggered();
 		void on_qaConfigDialog_triggered();
+		void on_qaConfigMinimal_triggered();
 		void on_qaAudioWizard_triggered();
 		void on_qaHelpWhatsThis_triggered();
 		void on_qaHelpAbout_triggered();
@@ -131,7 +138,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void pushLink(bool down);
 		void viewCertificate(bool);
 		void openUrl(const QUrl &url);
-		void findDesiredChannel();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();
