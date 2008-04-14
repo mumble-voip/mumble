@@ -278,7 +278,7 @@ AudioOutput::AudioOutput() {
 	fSpeakerVolume = NULL;
 	bSpeakerPositional = NULL;
 
-	iMixerFreq = SAMPLE_RATE;
+	iMixerFreq = 0;
 	eSampleFormat = SampleFloat;
 	iSampleSize = 0;
 }
@@ -331,12 +331,23 @@ void AudioOutput::wipe() {
 	removeBuffer(p);
 }
 
-void AudioOutput::playSine(float hz, float i, unsigned int frames, float volume) {
+const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
+	if ((iChannels > 0) && fSpeakers) {
+		speakers = iChannels;
+		return fSpeakers;
+	}
+	return NULL;
+}
+
+AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float volume) {
+	while ((iMixerFreq == 0) && isRunning()) {}
+
 	qrwlOutputs.lockForWrite();
 	AudioSine *as = new AudioSine(hz,i,frames, volume, iMixerFreq);
 	qmOutputs.insert(NULL, as);
 	newPlayer(as);
 	qrwlOutputs.unlock();
+	return as;
 }
 
 void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPacket, unsigned int iSeq) {
@@ -344,6 +355,9 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(player));
 	if (! aop) {
 		qrwlOutputs.unlock();
+
+		while ((iMixerFreq == 0) && isRunning()) {}
+
 		qrwlOutputs.lockForWrite();
 		aop = new AudioOutputSpeech(player, iMixerFreq);
 		qmOutputs.replace(player,aop);
@@ -372,7 +386,7 @@ void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 	}
 }
 
-void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
+void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadphone) {
 	if (fSpeakers)
 		delete fSpeakers;
 	if (bSpeakerPositional)
@@ -472,7 +486,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks) {
 					qWarning("AudioOutput: Unknown speaker %d: %08x", i, chanmasks[i]);
 					break;
 			}
-			if (g.s.bPositionalHeadphone) {
+			if (g.s.bPositionalHeadphone || forceheadphone) {
 				s[1] = 0.0f;
 				s[2] = 0.0f;
 				if (s[0] == 0.0f)
@@ -527,8 +541,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			svol[i] = mul * fSpeakerVolume[i];
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()) {
-			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2]};
-			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2]};
+			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2] };
+			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2] };
 
 			if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
 				// Not perpendicular. Ditch Y and point top up.

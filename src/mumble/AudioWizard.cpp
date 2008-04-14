@@ -30,7 +30,6 @@
 
 #include "AudioWizard.h"
 #include "AudioInput.h"
-#include "AudioOutput.h"
 #include "Global.h"
 #include "Settings.h"
 
@@ -40,12 +39,13 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	setOption(QWizard::NoCancelButton, false);
 	resize(700, 500);
 
-	addPage(introPage());
-	addPage(devicePage());
-	addPage(deviceTuningPage());
-	addPage(volumePage());
-	addPage(triggerPage());
-	addPage(donePage());
+	addPage(qwpIntro = introPage());
+	addPage(qwpDevice = devicePage());
+	addPage(qwpDeviceTuning = deviceTuningPage());
+	addPage(qwpVolume = volumePage());
+	addPage(qwpTrigger = triggerPage());
+	addPage(qwpPositional = positionalPage());
+	addPage(qwpDone = donePage());
 	setWindowTitle(tr("Audio Tuning Wizard"));
 
 	sOldSettings = g.s;
@@ -74,6 +74,21 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	ticker->setSingleShot(false);
 	ticker->start(20);
+}
+
+bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
+	if ((evt->type() == QEvent::MouseButtonPress) ||
+	    (evt->type() == QEvent::MouseMove)) {
+		QMouseEvent *qme = dynamic_cast<QMouseEvent *>(evt);
+		if (qme) {
+			if (qme->buttons() & Qt::LeftButton) {
+				QPointF qpf = qgvView->mapToScene(qme->pos());
+				fX = qpf.x();
+				fY = qpf.y();
+			}
+		}
+	}
+	return QWizard::eventFilter(obj, evt);
 }
 
 QWizardPage *AudioWizard::introPage() {
@@ -160,6 +175,13 @@ QWizardPage *AudioWizard::devicePage() {
 	grid->addWidget(l, 2, 0);
 	grid->addWidget(qcbInputDevice, 2, 1);
 
+	qcbEcho = new QCheckBox(tr("Use echo cancellation"));
+	qcbEcho->setToolTip(tr("Cancel echo from headset or speakers."));
+	qcbEcho->setWhatsThis(tr("This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets."));
+	qcbEcho->setObjectName(QLatin1String("Echo"));
+	qcbEcho->setChecked(g.s.bEcho);
+	grid->addWidget(qcbEcho, 3, 1);
+
 	qgbInput->setLayout(grid);
 
 
@@ -207,6 +229,13 @@ QWizardPage *AudioWizard::devicePage() {
 	grid->addWidget(l, 2, 0);
 	grid->addWidget(qcbOutputDevice, 2, 1);
 
+	qcbPositional = new QCheckBox(tr("Enable positional audio"));
+	qcbPositional->setToolTip(tr("Allows positioning of sound."));
+	qcbPositional->setWhatsThis(tr("This allows Mumble to use positional audio to place voices."));
+	qcbPositional->setObjectName(QLatin1String("Positional"));
+	qcbPositional->setChecked(g.s.bPositionalAudio);
+	grid->addWidget(qcbPositional, 3, 1);
+
 	qgbOutput->setLayout(grid);
 
 	QVBoxLayout *v=new QVBoxLayout;
@@ -217,6 +246,59 @@ QWizardPage *AudioWizard::devicePage() {
 
 	on_Input_activated(qcbInput->currentIndex());
 	on_Output_activated(qcbOutput->currentIndex());
+
+	return qwpage;
+}
+
+QWizardPage *AudioWizard::positionalPage() {
+	QWizardPage *qwpage = new QWizardPage;
+	qwpage->setTitle(tr("Positional Audio"));
+	qwpage->setSubTitle(tr("Adjusting attenuation of positional audio."));
+
+	QVBoxLayout *v = new QVBoxLayout();
+	QLabel *l;
+
+	l = new QLabel(tr("Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the "
+					  "volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker "
+					  "configuration being correct in your operating system, so a test is done here."));
+	l->setWordWrap(true);
+	v->addWidget(l);
+	l = new QLabel(tr("The graph below shows the position of <font color=\"red\">you</font>, the <font color=\"yellow\">speakers</font> and a <font color=\"green\">moving sound source</font> as if seen from above. You should hear the audio move between the channels."));
+	l->setWordWrap(true);
+	v->addWidget(l);
+
+	QHBoxLayout *h = new QHBoxLayout();
+
+	QVBoxLayout *subv = new QVBoxLayout();
+
+	qcbHeadphone = new QCheckBox(tr("Use headphones"));
+	qcbHeadphone->setToolTip(tr("Use headphones instead of speakers."));
+	qcbHeadphone->setWhatsThis(tr("This ignores the OS speaker configuration and configures the positioning for headphones instead."));
+	qcbHeadphone->setObjectName(QLatin1String("Headphone"));
+	qcbHeadphone->setChecked(g.s.bPositionalHeadphone);
+	subv->addWidget(qcbHeadphone);
+
+
+	fAngle = 0.0f;
+	fX = fY = 0.0f;
+	qgsScene = NULL;
+	qgiSource = NULL;
+	asSource = NULL;
+	qgvView = new QGraphicsView();
+	qgvView->scale(1.0f, -1.0f);
+	subv->addWidget(qgvView);
+	qgvView->viewport()->installEventFilter(this);
+
+	h->addLayout(subv);
+
+	subv = new QVBoxLayout();
+
+	h->addLayout(subv);
+
+	v->addLayout(h);
+
+	qwpage->setLayout(v);
+
 
 	return qwpage;
 }
@@ -439,6 +521,8 @@ void AudioWizard::on_InputDevice_activated(int) {
 		air->setDeviceChoice(qcbInputDevice->itemData(idx), g.s);
 	}
 
+	qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+
 	g.ai = AudioInputPtr(air->create());
 	g.ai->start(QThread::HighestPriority);
 }
@@ -480,6 +564,9 @@ void AudioWizard::on_OutputDevice_activated(int) {
 		aor->setDeviceChoice(qcbOutputDevice->itemData(idx), g.s);
 	}
 
+	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
+	qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+
 	g.ao = AudioOutputPtr(aor->create());
 	g.ao->start(QThread::HighPriority);
 }
@@ -488,8 +575,10 @@ void AudioWizard::on_OutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 	g.s.iOutputDelay = v;
 	on_OutputDevice_activated(0);
-	if (! bInit)
-		playChord();
+	if (! bInit) {
+		AudioOutputPtr ao = g.ao;
+		ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
+	}
 }
 
 void AudioWizard::on_MaxAmp_valueChanged(int v) {
@@ -500,26 +589,46 @@ void AudioWizard::showPage(int v) {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
+	asSource = NULL;
+
+	g.s.bMute = false;
+	g.bPosTest = false;
 
 	if (v == 2) {
 		g.s.bMute = true;
+		ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
+	} else if (v == 5) {
+		fX = fY = 0.0f;
+		g.s.bMute = true;
+		g.bPosTest = true;
+		if (qgsScene) {
+			delete qgsScene;
+			qgiSource = NULL;
+			qgsScene = NULL;
+		}
 		playChord();
-	} else {
-		g.s.bMute = false;
 	}
+}
+
+int AudioWizard::nextId() const {
+	int next = QWizard::nextId();
+	if (currentPage() == qwpTrigger && ! g.s.bPositionalAudio)
+		next++;
+	return next;
 }
 
 void AudioWizard::playChord() {
 	AudioOutputPtr ao = g.ao;
-	ao->playSine(261.63f, 0.0f, 0xfffffff, 0.0f);
-	ao->playSine(329.63f, 0.0f, 0xfffffff, 0.0f);
-	ao->playSine(392.00f, 0.0f, 0xfffffff, 0.0f);
-	ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
+	if (! ao || asSource)
+		return;
+	asSource = ao->playSine(100.0f, 0.0001f, 0xfffffff, 0.5f);
 }
 
 void AudioWizard::restartAudio() {
 	boost::weak_ptr<AudioInput> wai(g.ai);
 	boost::weak_ptr<AudioOutput> wao(g.ao);
+
+	asSource = NULL;
 
 	g.ai.reset();
 	g.ao.reset();
@@ -537,6 +646,15 @@ void AudioWizard::restartAudio() {
 	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
 	if (g.ao)
 		g.ao->start(QThread::HighPriority);
+
+	if (qgsScene) {
+		delete qgsScene;
+		qgiSource = NULL;
+		qgsScene = NULL;
+	}
+
+	if (currentPage() == qwpPositional)
+		playChord();
 }
 
 void AudioWizard::reject() {
@@ -555,6 +673,7 @@ void AudioWizard::accept() {
 	g.s.bDeaf = sOldSettings.bDeaf;
 	g.s.lmLoopMode = Settings::None;
 	g.bEchoTest = false;
+	g.bPosTest = false;
 	restartAudio();
 	QWizard::accept();
 }
@@ -569,7 +688,8 @@ bool AudioWizard::validateCurrentPage() {
 
 void AudioWizard::on_Ticker_timeout() {
 	AudioInputPtr ai = g.ai;
-	if (! ai)
+	AudioOutputPtr ao = g.ao;
+	if (! ai || ! ao)
 		return;
 
 	int iPeak = static_cast<int>(32767.f * powf(10.0f, (ai->dPeakMic / 20.0f)));
@@ -604,6 +724,40 @@ void AudioWizard::on_Ticker_timeout() {
 	else
 		txt=tr("Audio path cannot be determined. Input not recognized.");
 	qlAudioPath->setText(txt);
+
+	if (! qgsScene) {
+		unsigned int nspeaker = 0;
+		const float *spos = ao->getSpeakerPos(nspeaker);
+		if ((nspeaker > 0) && spos) {
+			qgsScene = new QGraphicsScene(QRectF(-4.0f, -4.0f, 8.0f, 8.0f), this);
+			qgsScene->addEllipse(QRectF(-0.12f, -0.12f, 0.24f, 0.24f), QPen(Qt::black), QBrush(Qt::darkRed));
+			for(unsigned int i=0;i<nspeaker;++i) {
+				if ((spos[3*i] != 0.0f) || (spos[3*i+1] != 0.0f) || (spos[3*i+2] != 0.0f))
+					qgsScene->addEllipse(QRectF(spos[3*i] - 0.1f, spos[3*i+2] - 0.1f, 0.2f, 0.2f), QPen(Qt::black), QBrush(Qt::yellow));
+			}
+			qgiSource = qgsScene->addEllipse(QRectF(-.15f, -.15f, 0.3f, 0.3f), QPen(Qt::black), QBrush(Qt::green));
+			qgvView->setScene(qgsScene);
+			qgvView->fitInView(-4.0f, -4.0f, 8.0f, 8.0f, Qt::KeepAspectRatio);
+
+			qWarning("It's at %f %f", qgiSource->x(), qgiSource->y());
+		}
+	} else if (currentPage() == qwpPositional) {
+		float x, y;
+		if ((fX == 0.0f) && (fY == 0.0f)) {
+			fAngle += 0.05;
+
+			x = sin(fAngle) * 2.0f;
+			y = cos(fAngle) * 2.0f;
+		} else {
+			x = fX;
+			y = fY;
+		}
+
+		qgiSource->setPos(x, y);
+		asSource->fPos[0] = x;
+		asSource->fPos[1] = 0;
+		asSource->fPos[2] = y;
+	}
 }
 
 void AudioWizard::on_VADmin_valueChanged(int v) {
@@ -630,4 +784,19 @@ void AudioWizard::on_SNR_clicked(bool on) {
 void AudioWizard::on_Amplitude_clicked(bool on) {
 	if (on)
 		g.s.vsVAD = Settings::Amplitude;
+}
+
+void AudioWizard::on_Echo_clicked(bool on) {
+	g.s.bEcho = on;
+	restartAudio();
+}
+
+void AudioWizard::on_Headphone_clicked(bool on) {
+	g.s.bPositionalHeadphone = on;
+	restartAudio();
+}
+
+void AudioWizard::on_Positional_clicked(bool on) {
+	g.s.bPositionalAudio = on;
+	restartAudio();
 }

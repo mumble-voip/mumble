@@ -79,6 +79,7 @@ struct Global {
 	bool bPushToMute;
 	bool bCenterPosition;
 	bool bEchoTest;
+	bool bPosTest;
 	int iAudioPathTime;
 	unsigned int uiSession;
 	int iMaxBandwidth;

@@ -165,7 +165,7 @@ class AudioOutput : public QThread {
 
 		virtual void newPlayer(AudioOutputPlayer *);
 		virtual void removeBuffer(AudioOutputPlayer *);
-		void initializeMixer(const unsigned int *chanmasks);
+		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
 		bool mix(void *output, unsigned int nsamp);
 	public:
 		void wipe();
@@ -174,8 +174,9 @@ class AudioOutput : public QThread {
 		~AudioOutput();
 		void addFrameToBuffer(ClientPlayer *, const QByteArray &, unsigned int iSeq);
 		void removeBuffer(const ClientPlayer *);
-		void playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3);
+		AudioSine *playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3);
 		void run() = 0;
+		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);
 };
 

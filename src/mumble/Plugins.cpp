@@ -183,6 +183,18 @@ void Plugins::rescanPlugins() {
 }
 
 bool Plugins::fetch() {
+	if (g.bPosTest) {
+		fPosition[0] = fPosition[1] = fPosition[2] = 0.0f;
+		fFront[0] = 0.0f;
+		fFront[1] = 0.0f;
+		fFront[2] = 1.0f;
+		fTop[0] = 0.0f;
+		fTop[1] = 1.0f;
+		fTop[2] = 0.0f;
+		bValid = true;
+		return true;
+	}
+
 	QMutexLocker lock(&qmPlugins);
 
 	if (! locked) {

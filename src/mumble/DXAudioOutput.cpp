@@ -335,6 +335,8 @@ DXAudioOutput::DXAudioOutput() {
 	DSBUFFERDESC        dsbdesc;
 	WAVEFORMATEX wfx;
 	WAVEFORMATEX wfxSet;
+	int ns = 0;
+	unsigned int chanmasks[32];
 
 	pDS = NULL;
 
@@ -407,6 +409,56 @@ DXAudioOutput::DXAudioOutput() {
 	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
 	if (p3DListener)
 		qWarning("DXAudioOutput: 3D mode active");
+
+	DWORD dwSpeakerConfig;
+	pDS->GetSpeakerConfig(&dwSpeakerConfig);
+
+	DWORD dwMask = 0;
+	bool bHead = false;
+
+	switch (DSSPEAKER_CONFIG(dwSpeakerConfig)) {
+		case DSSPEAKER_HEADPHONE:
+			dwMask = KSAUDIO_SPEAKER_STEREO;
+			bHead = true;
+			break;
+		case DSSPEAKER_MONO:
+			dwMask = KSAUDIO_SPEAKER_MONO;
+			break;
+		case DSSPEAKER_QUAD:
+			dwMask = KSAUDIO_SPEAKER_QUAD;
+			break;
+		case DSSPEAKER_STEREO:
+			dwMask = KSAUDIO_SPEAKER_STEREO;
+			break;
+		case DSSPEAKER_SURROUND:
+			dwMask = KSAUDIO_SPEAKER_SURROUND;
+			break;
+		case DSSPEAKER_5POINT1:
+			dwMask = KSAUDIO_SPEAKER_5POINT1;
+			break;
+		case DSSPEAKER_7POINT1:
+			dwMask = KSAUDIO_SPEAKER_7POINT1;
+			break;
+		case DSSPEAKER_7POINT1_SURROUND:
+			dwMask = KSAUDIO_SPEAKER_7POINT1_SURROUND;
+			break;
+		case DSSPEAKER_5POINT1_SURROUND:
+			dwMask = KSAUDIO_SPEAKER_5POINT1_SURROUND;
+			break;
+		default:
+			dwMask = 0;
+			break;
+	}
+
+	for (int i=0;i<32;i++) {
+		if (dwMask & (1 << i)) {
+			chanmasks[ns++] = 1 << i;
+		}
+	}
+
+	iMixerFreq = SAMPLE_RATE;
+	iChannels = ns;
+	initializeMixer(chanmasks, bHead);
 
 	bRunning = true;
 }

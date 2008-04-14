@@ -32,7 +32,10 @@
 #define _DXAUDIOOUTPUT_H
 
 #include "AudioOutput.h"
+#define DIRECTSOUND_VERSION 0x1000
 #include <dsound.h>
+#include <ks.h>
+#include <ksmedia.h>
 
 class DXAudioOutput;
 

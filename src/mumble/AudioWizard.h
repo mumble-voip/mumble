@@ -33,12 +33,15 @@
 
 #include "Settings.h"
 #include "AudioStats.h"
+#include "AudioOutput.h"
 
 class AudioWizard: public QWizard {
 		Q_OBJECT
 	protected:
 		QComboBox *qcbInput, *qcbInputDevice;
 		QComboBox *qcbOutput, *qcbOutputDevice;
+		QCheckBox *qcbEcho;
+		QCheckBox *qcbPositional;
 
 		QSlider *qsOutputDelay;
 		QLabel *qlOutputDelay;
@@ -55,11 +58,22 @@ class AudioWizard: public QWizard {
 
 		QLabel *qlAudioPath;
 
+		QGraphicsView *qgvView;
+		QGraphicsScene *qgsScene;
+		QGraphicsItem *qgiSource;
+		QCheckBox *qcbHeadphone;
+		AudioSine *asSource;
+		float fAngle;
+		float fX, fY;
+
+		QWizardPage *qwpIntro, *qwpDevice, *qwpVolume, *qwpTrigger, *qwpDeviceTuning, *qwpPositional, *qwpDone;
+
 		QWizardPage *introPage();
 		QWizardPage *devicePage();
 		QWizardPage *volumePage();
 		QWizardPage *triggerPage();
 		QWizardPage *deviceTuningPage();
+		QWizardPage *positionalPage();
 		QWizardPage *donePage();
 
 		Settings sOldSettings;
@@ -73,6 +87,8 @@ class AudioWizard: public QWizard {
 
 		void restartAudio();
 		void playChord();
+
+		bool eventFilter(QObject *, QEvent *);
 	public slots:
 		void on_Input_activated(int);
 		void on_InputDevice_activated(int);
@@ -86,12 +102,16 @@ class AudioWizard: public QWizard {
 		void on_Holdtime_valueChanged(int);
 		void on_Amplitude_clicked(bool);
 		void on_SNR_clicked(bool);
+		void on_Echo_clicked(bool);
+		void on_Headphone_clicked(bool);
+		void on_Positional_clicked(bool);
 		void showPage(int);
 	public:
 		AudioWizard(QWidget *parent);
 		void reject();
 		void accept();
 		bool validateCurrentPage();
+		virtual int nextId () const;
 };
 
 #endif
