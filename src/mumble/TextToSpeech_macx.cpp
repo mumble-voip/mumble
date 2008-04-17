@@ -46,7 +46,7 @@ static bool bEnabled;
 
 static void process_speech();
 
-static void speech_done_cb(SpeechChannel scChannel, long, void **, unsigned long *, long *) {
+static void speech_done_cb(SpeechChannel scChannel, long) {
 	DisposeSpeechChannel(scChannel);
 
 	if (qlMessages.isEmpty())
