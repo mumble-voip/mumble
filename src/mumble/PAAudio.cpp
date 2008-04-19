@@ -126,10 +126,11 @@ void PortAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 }
 
 
-bool PortAudioSystem::initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, bool isInput) {
+bool PortAudioSystem::initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, int *chans, bool isInput) {
 	QMutexLocker lock(&qmStream);
 	PaError            err;
 	PaStreamParameters streamPar;
+	int nchans = 1;
 
 	if (!stream) // null pointer passed
 		return false;
@@ -146,6 +147,7 @@ bool PortAudioSystem::initStream(PaStream **stream, PaDeviceIndex devIndex, int 
 		qWarning("PortAudioSystem: Failed to find information about device %d", devIndex);
 		return false;
 	}
+
 	const PaHostApiInfo *apiInfo = Pa_GetHostApiInfo(devInfo->hostApi);
 	if (!apiInfo) {
 		qWarning("PortAudioSystem: Failed to find information about API %d (dev %d)", devInfo->hostApi, devIndex);
@@ -154,14 +156,23 @@ bool PortAudioSystem::initStream(PaStream **stream, PaDeviceIndex devIndex, int 
 
 	qWarning("PortAudioSystem: Will use device %d: %s %s",devIndex, apiInfo->name, devInfo->name);
 
+	if (!isInput) {
+		if (g.s.doPositionalAudio() && devInfo->maxOutputChannels > 1)
+			nchans = 2;
+	}
+
+	if (chans)
+		*chans = nchans;
+
 	streamPar.device                    = devIndex;
-	streamPar.channelCount              = 1;
+	streamPar.channelCount              = nchans;
 	streamPar.sampleFormat              = paInt16;
 	//TODO: Can I determine this latency from mumble settings?
 	streamPar.suggestedLatency          = (isInput ? devInfo->defaultLowInputLatency : devInfo->defaultLowOutputLatency);
 	streamPar.hostApiSpecificStreamInfo = NULL;
 
 	qWarning("suggestedLatency : %6d ms",int(streamPar.suggestedLatency * 1000));
+	qWarning("channels:        : %6d", nchans);
 	qWarning("frameSize        : %6d bytes", frameSize);
 	qWarning("sample rate      : %6d samples/sec", SAMPLE_RATE);
 
@@ -313,8 +324,10 @@ void PortAudioInput::run() {
 	PaError             err;
 
 	//qWarning() << "PortAudioInput::run() BEGIN ===";
-	if (!PortAudioSystem::initStream(&inputStream, g.s.iPortAudioInput, iFrameSize, true))
+	if (!PortAudioSystem::initStream(&inputStream, g.s.iPortAudioInput, iFrameSize, NULL, true))
 		return; // PA init or stream opening failed, we will give up
+
+	eMicFormat = SampleShort;
 
 	// depend on the stream having started
 	bRunning = PortAudioSystem::startStream(inputStream);
@@ -354,25 +367,29 @@ PortAudioOutput::~PortAudioOutput() {
 
 //TODO: redo this without busy waiting if possible
 void PortAudioOutput::run() {
-	PaStream           *outputStream    = 0;
-	float		    mixBuffer[iFrameSize];
-	short               outBuffer[iFrameSize];
+	PaStream            *outputStream   = 0;
 	bool                hasMoreToMix    = true;
 	PaError             err             = paNoError;
+	int                 chans           = 0;
 
-	if (!PortAudioSystem::initStream(&outputStream, g.s.iPortAudioOutput, iFrameSize, false))
+	if (!PortAudioSystem::initStream(&outputStream, g.s.iPortAudioOutput, iFrameSize, &chans, false))
 		return; // PA initialization or stream opening failed, we will give up
 
-	const unsigned int cmask = SPEAKER_FRONT_LEFT;
-	iChannels = 1;
+	const unsigned int cmask[2] = {
+		SPEAKER_FRONT_LEFT,
+		SPEAKER_FRONT_RIGHT
+	};
+
+	iChannels = chans;
 	iMixerFreq = SAMPLE_RATE;
-	initializeMixer(&cmask);
+	eSampleFormat = SampleShort;
+	initializeMixer(cmask);
+
+	short outBuffer[iFrameSize * iChannels];
 
 	while (bRunning) {
-		bool nextHasMoreToMix = mix(mixBuffer, iFrameSize);
+		bool nextHasMoreToMix = mix(outBuffer, iFrameSize);
 		if (hasMoreToMix) {
-			for (int j=0;j<iFrameSize;++j)
-				outBuffer[j] = static_cast<short>(mixBuffer[j] * 32768.f);
 			if (PortAudioSystem::startStream(outputStream)) {
 				err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);
 				if (err != paNoError) {

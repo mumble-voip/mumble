@@ -53,7 +53,7 @@ class PortAudioSystem : public QObject {
 		//! Mutex around PA stream creation/deletion
 		static QMutex qmStream;
 	public:
-		static bool initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, bool isInput);
+		static bool initStream(PaStream **stream, PaDeviceIndex devIndex, int frameSize, int *chans, bool isInput);
 		static bool terminateStream(PaStream *stream);
 
 		static bool startStream(PaStream *stream);
