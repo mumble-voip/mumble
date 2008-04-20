@@ -156,9 +156,10 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
 		qswPages->addWidget(qsa);
-		qWarning("Widget %s has size %d %d (%d %d)", qPrintable(cw->title()), ms.width(), ms.height(), width, height);
+		qhPages.insert(cw, qsa);
 	} else {
 		qswPages->addWidget(cw);
+		qhPages.insert(cw, cw);
 	}
 	qmWidgets.insert(idx, cw);
 	cw->load(g.s);
@@ -169,9 +170,9 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 		current = previous;
 
 	if (current) {
-		ConfigWidget *cw = qhWidgets.value(current);
-		if (cw)
-			qswPages->setCurrentWidget(cw);
+		QWidget *w = qhPages.value(qhWidgets.value(current));
+		if (w)
+			qswPages->setCurrentWidget(w);
 	}
 }
 

@@ -71,6 +71,7 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		Q_OBJECT;
 	protected:
 		QHash<QListWidgetItem *, ConfigWidget *> qhWidgets;
+		QHash<ConfigWidget *, QWidget *> qhPages;
 		QMap<unsigned int, ConfigWidget *> qmWidgets;
 		void addPage(ConfigWidget *aw, unsigned int idx);
 		Settings s;
