@@ -296,8 +296,6 @@ void MainWindow::openUrl(const QUrl &url) {
 	QString pw = url.password();
 	qsDesiredChannel = url.path();
 
-	Database::fuzzyMatch(user, pw, host, port);
-
 	if (g.sh && g.sh->isRunning()) {
 		QString oHost, oUser, oPw;
 		int oport;
@@ -309,6 +307,8 @@ void MainWindow::openUrl(const QUrl &url) {
 			return;
 		}
 	}
+
+	Database::fuzzyMatch(user, pw, host, port);
 
 	if (user.isEmpty()) {
 		bool ok;
