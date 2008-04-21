@@ -77,7 +77,7 @@ package Mumble::Auth;
 
 use Data::Dumper;
 use Image::Magick;
-use Digest::MD5 qw(md5_hex);
+use Digest::MD5 qw(md5);
 use Net::DBus::Exporter qw(net.sourceforge.mumble.auther);
 use base qw(Net::DBus::Object);
 dbus_method("authenticate", ["string","string"], ["int32","string",["array","string"]]);
@@ -91,6 +91,48 @@ sub new {
   my $self = $class->SUPER::new($service, "/authority");
   bless $self, $class;
   return $self;
+}
+
+sub hash {
+  my $self = shift;
+  my $pw = shift;
+  my $hash = shift;
+  my $itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  my @itoa64 = split(//,$itoa64);
+  my $count_log2 = index($itoa64, substr($hash,3,1));
+  my $count = 1 << $count_log2;
+  my $salt = substr($hash, 4, 8);
+  
+  my $nhash = $salt;
+
+  do {
+    $nhash = md5($nhash . $pw);
+  } while ($count--);
+
+  my $output = substr($hash, 0, 12);
+
+  my $i = 0;
+  my @input = split(//,$nhash);
+  while ($i < 16) {
+    my $value;
+    $value = ord($input[$i++]);
+    $output .= $itoa64[$value & 0x3f];
+    if ($i < 16) {
+      $value |= ord($input[$i]) << 8;
+    }
+    $output .= $itoa64[($value >> 6) & 0x3f];
+    last if ($i++ >= 16);
+
+    if ($i < 16) {
+      $value |= ord($input[$i]) << 16;
+    }
+    $output .= $itoa64[($value >> 12) & 0x3f];
+
+    last if ($i++ >= 16);
+    $output .= $itoa64[($value >> 18) & 0x3f];
+  };
+  
+  return $output;
 }
 
 # Possible responses are:
@@ -113,7 +155,7 @@ sub authenticate {
   my $sth=$dbh->prepare("SELECT user_id, user_password, user_type, username FROM ${dbprefix}users WHERE LOWER(username) = LOWER(?)");
   $sth->execute($uname);
   if ((my $r=$sth->fetchrow_hashref())) {
-    if ($$r{'user_password'} ne md5_hex($pw)) {
+    if ($$r{'user_password'} ne $self->hash($pw,$$r{'user_password'})) {
       print "Wrong password for $uname\n";
       return -1,'',undef;
     }
