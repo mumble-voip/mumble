@@ -30,6 +30,7 @@
 
 #include "DXAudioInput.h"
 #include "Global.h"
+#include "MainWindow.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
@@ -162,12 +163,12 @@ DXAudioInput::DXAudioInput() {
 
 
 	if (! bOk) {
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. No microphone capture will be done."), QMessageBox::Ok, QMessageBox::NoButton);
+		g.mw->msgBox(tr("Opening chosen DirectSound Input device failed. No microphone capture will be done."));
 		return;
 	}
 
 	if (failed)
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Opening chosen DirectSound Input failed. Default device will be used."), QMessageBox::Ok, QMessageBox::NoButton);
+		g.mw->msgBox(tr("Opening chosen DirectSound Input failed. Default device will be used."));
 
 	qWarning("DXAudioInput: Initialized");
 
@@ -201,40 +202,58 @@ void DXAudioInput::run() {
 	if (! bOk)
 		return;
 
-	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING)))
-		qFatal("DXAudioInput: Start");
+	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING))) {
+		qWarning("DXAudioInput: Start failed");
+	} else {
+		while (bRunning) {
+			do {
+				if (FAILED(hr = pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition))) {
+					qWarning("DXAudioInput: GetCurrentPosition");
+					bRunning = false;
+					break;
+				}
+				if (dwReadPosition < dwLastReadPos)
+					dwReadyBytes = (dwBufferSize - dwLastReadPos) + dwReadPosition;
+				else
+					dwReadyBytes = dwReadPosition - dwLastReadPos;
 
-	while (bRunning) {
+				if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
+					WaitForSingleObject(hNotificationEvent, 100);
+				}
+			} while (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize);
 
-		do {
-			if (FAILED(hr = pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition)))
-				qFatal("DXAudioInput: GetCurrentPosition");
-			if (dwReadPosition < dwLastReadPos)
-				dwReadyBytes = (dwBufferSize - dwLastReadPos) + dwReadPosition;
-			else
-				dwReadyBytes = dwReadPosition - dwLastReadPos;
+			// Desynchonized?
+			if (dwReadyBytes > (dwBufferSize / 2)) {
+				qWarning("DXAudioInput: Lost synchronization");
+				dwLastReadPos = dwReadPosition;
+			} else if (bRunning) {
+				if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, sizeof(short) * iFrameSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
+					qWarning("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, sizeof(short) * iFrameSize);
+					bRunning = false;
+					break;
+				}
 
-			if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
-				WaitForSingleObject(hNotificationEvent, INFINITE);
+				if (aptr1 && nbytes1)
+					CopyMemory(psMic, aptr1, nbytes1);
+
+				if (aptr2 && nbytes2)
+					CopyMemory(psMic+nbytes1/2, aptr2, nbytes2);
+
+				if (FAILED(hr = pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
+					qWarning("DXAudioInput: Unlock");
+					bRunning = false;
+					break;
+				}
+
+				dwLastReadPos = (dwLastReadPos + sizeof(short) * iFrameSize) % dwBufferSize;
+
+				encodeAudioFrame();
 			}
-		} while (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize);
-
-		if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, sizeof(short) * iFrameSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0)))
-			qFatal("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, sizeof(short) * iFrameSize);
-
-		if (aptr1 && nbytes1)
-			CopyMemory(psMic, aptr1, nbytes1);
-
-		if (aptr2 && nbytes2)
-			CopyMemory(psMic+nbytes1/2, aptr2, nbytes2);
-
-		if (FAILED(hr = pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2)))
-			qFatal("DXAudioInput: Unlock");
-
-		dwLastReadPos = (dwLastReadPos + sizeof(short) * iFrameSize) % dwBufferSize;
-
-		encodeAudioFrame();
+		}
+		if (! FAILED(hr))
+			pDSCaptureBuffer->Stop();
 	}
-
-	pDSCaptureBuffer->Stop();
+	if (FAILED(hr)) {
+		g.mw->msgBox(tr("Lost DirectSound input device."));
+	}
 }

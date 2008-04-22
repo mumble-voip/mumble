@@ -87,6 +87,11 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
+
+	// Fix context of all actions.
+	QList<QAction *> qla = findChildren<QAction *>();
+	foreach(QAction *a, qla)
+		a->setShortcutContext(Qt::ApplicationShortcut);
 }
 
 void MainWindow::createActions() {

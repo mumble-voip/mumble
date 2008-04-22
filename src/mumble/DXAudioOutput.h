@@ -60,7 +60,7 @@ class DXAudioOutputPlayer {
 
 		unsigned int iByteSize;
 		int iMissingFrames;
-		void setupAudioDevice();
+		bool setupAudioDevice();
 	public:
 		DXAudioOutputPlayer(DXAudioOutput *, AudioOutputPlayer *);
 		~DXAudioOutputPlayer();
@@ -83,7 +83,6 @@ class DXAudioOutput : public AudioOutput {
 		virtual void removeBuffer(AudioOutputPlayer *);
 		void updateListener();
 
-		bool bRebuild;
 		bool bOk;
 	public:
 		DXAudioOutput();
