@@ -386,6 +386,17 @@ void PortAudioOutput::run() {
 	initializeMixer(cmask);
 
 	short outBuffer[iFrameSize * iChannels];
+	memset(outBuffer, 0, sizeof(short) * iFrameSize * iChannels);
+
+	// Get rid of crackling noise when starting the stream.
+	if (PortAudioSystem::startStream(outputStream)) {
+		err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);
+		if (err != paNoError) {
+			qWarning("PortAudioOutput: Could not write to PortAudio stream, error: %s", Pa_GetErrorText(err));
+			bRunning = false;
+		}
+	} else
+		bRunning = false;
 
 	while (bRunning) {
 		bool nextHasMoreToMix = mix(outBuffer, iFrameSize);
