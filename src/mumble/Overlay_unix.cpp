@@ -46,6 +46,8 @@
 
 class SharedMemoryPrivate {
 	public:
+		char semname[256];
+		char memname[256];
 		int fd;
 		sem_t *sem;
 };
@@ -55,6 +57,8 @@ SharedMemory::SharedMemory() {
 	d->fd = -1;
 	d->sem = NULL;
 	sm = NULL;
+	snprintf(d->semname, 256, "/MumbleOverlaySem.%d", getuid());
+	snprintf(d->memname, 256, "/MumbleOverlayMem.%d", getuid());
 }
 
 SharedMemory::~SharedMemory() {
@@ -63,19 +67,19 @@ SharedMemory::~SharedMemory() {
 
 	if (d->sem != 0) {
 		sem_close(d->sem);
-		sem_unlink("/MumbleOverlaySem");
+		sem_unlink(d->semname);
 	}
 
 	if (d->fd >= 0) {
 		close(d->fd);
-		shm_unlink("/MumbleOverlayMem");
+		shm_unlink(d->memname);
 	}
 	delete d;
 	d = NULL;
 }
 
 void SharedMemory::resolve(QLibrary *) {
-	d->fd = shm_open("/MumbleOverlayMem", O_RDWR|O_CREAT, 0600);
+	d->fd = shm_open(d->memname, O_RDWR|O_CREAT, 0600);
 	if (d->fd >= 0) {
 		ftruncate(d->fd, sizeof(SharedMem));
 		sm = static_cast<SharedMem *>(mmap(NULL, sizeof(SharedMem), PROT_READ|PROT_WRITE, MAP_SHARED, d->fd, 0));
@@ -85,7 +89,7 @@ void SharedMemory::resolve(QLibrary *) {
 	}  else {
 		qWarning("SharedMemory: Failed to open: %s", strerror(errno));
 	}
-	d->sem = sem_open("/MumbleOverlaySem", O_CREAT, 0600, 1);
+	d->sem = sem_open(d->semname, O_CREAT, 0600, 1);
 	if (d->sem == SEM_FAILED) {
 		qWarning("SharedMemory: Failed to create semaphore: %s",strerror(errno));
 		d->sem = NULL;

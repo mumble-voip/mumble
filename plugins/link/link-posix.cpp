@@ -17,6 +17,7 @@ typedef unsigned long HWND;
 #include <time.h>
 
 static wchar_t wcPluginName[256];
+static char memname[256];
 
 struct LinkedMem {
 	uint32_t uiVersion;
@@ -77,11 +78,13 @@ static int fetch(float *pos, float *front, float *top) {
 __attribute__((constructor))
 static void load_plugin() {
 	bool bCreated = false;
+	
+	snprintf(memname, 256, "/MumbleLink.%d", getuid());
 
-	shmfd = shm_open("/MumbleLink", O_RDWR, S_IRUSR | S_IWUSR);
+	shmfd = shm_open(memname, O_RDWR, S_IRUSR | S_IWUSR);
 	if (shmfd < 0) {
 		bCreated = true;
-		shmfd = shm_open("/MumbleLink", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+		shmfd = shm_open(memname, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
 	}
 
 	if (shmfd < 0) {
@@ -107,7 +110,7 @@ static void unload_plugin() {
 	if (shmfd > -1)
 		close(shmfd);
 
-	shm_unlink("/MumbleLink");
+	shm_unlink(memname);
 }
 
 static MumblePlugin linkplug = {

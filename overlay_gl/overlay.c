@@ -93,8 +93,13 @@ static void resolveOpenGL() {
 static void resolveSM() {
 	static bool warned_sm = false;
 	static bool warned_ver = false;
+	
+	char memname[256];
+	char semname[256];
+	snprintf(memname, 256, "/MumbleOverlayMem.%d", getuid());
+	snprintf(semname, 256, "/MumbleOverlaySem.%d", getuid());
 
-	int fd = shm_open("/MumbleOverlayMem", O_RDWR, 0600);
+	int fd = shm_open(memname, O_RDWR, 0600);
 	if (fd >= 0) {
 		sm = (struct SharedMem *)(mmap(NULL, sizeof(struct SharedMem), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0));
 		if (sm == (void *)(-1)) {
@@ -117,7 +122,7 @@ static void resolveSM() {
 				sm = NULL;
 				close(fd);
 			} else {
-				sem = sem_open("/MumbleOverlaySem", 0);
+				sem = sem_open(semname, 0);
 				if (sem == SEM_FAILED) {
 					munmap(sm, sizeof(struct SharedMem));
 					sm = NULL;
@@ -138,7 +143,7 @@ static void resolveSM() {
 }
 
 __attribute__((format(printf, 1, 2)))
-void ods(const char *format, ...) {
+static void ods(const char *format, ...) {
 	if (!bDebug) {
 		if (! sm || !sm->bDebug)
 			return;
@@ -421,7 +426,7 @@ __GLXextFuncPtr glXGetProcAddressARB(const GLubyte * func) {
 }
 
 __attribute__((constructor))
-void initializeLibrary() {
+static void initializeLibrary() {
 	if (odlsym)
 		return;
 
