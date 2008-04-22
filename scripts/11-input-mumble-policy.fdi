@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<deviceinfo version="0.2">
+  <device>
+    <match key="info.capabilities" contains="input">
+      <append key="info.capabilities" type="strlist">access_control</append>
+      <merge key="access_control.type" type="string">sound</merge>
+      <merge key="access_control.file" type="copy_property">linux.device_file</merge>
+    </match>
+  </device>
+</deviceinfo>
