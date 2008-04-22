@@ -233,7 +233,7 @@ ALSAAudioInput::~ALSAAudioInput() {
 	wait();
 }
 
-#define ALSA_ERRBAIL(x) if (!bOk) {} else if ((err=(x)) != 0) bOk = false
+#define ALSA_ERRBAIL(x) if (!bOk) {} else if ((err=(x)) != 0) { bOk = false; qWarning("ALSAAudio: %s: %s", #x, snd_strerror(err));}
 
 void ALSAAudioInput::run() {
 	int readblapp;
@@ -262,7 +262,7 @@ void ALSAAudioInput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params_any(capture_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format_mask(capture_handle, hw_params, formats));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_min(capture_handle, hw_params, &rrate, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(capture_handle, hw_params, &iChannels));
 
 	snd_pcm_uframes_t wantPeriod = (rrate * iFrameSize) / SAMPLE_RATE;
@@ -271,7 +271,7 @@ void ALSAAudioInput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &wantPeriod, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, &wantBuff));
 	ALSA_ERRBAIL(snd_pcm_hw_params(capture_handle, hw_params));
-
+	
 	qWarning("ALSAAudioInput: Actual buffer %d hz, %d channel %ld samples [%ld per period]",rrate,iChannels,wantBuff,wantPeriod);
 
 	snd_pcm_format_t iformat;
