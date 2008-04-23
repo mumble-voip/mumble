@@ -241,7 +241,6 @@ void ALSAAudioInput::run() {
 	QByteArray device_name = g.s.qsALSAInput.toLatin1();
 	snd_pcm_hw_params_t *hw_params = NULL;
 	snd_pcm_t *capture_handle = NULL;
-	snd_pcm_format_mask_t *formats = NULL;
 
 	unsigned int rrate = SAMPLE_RATE;
 	bool bOk = true;
@@ -252,16 +251,12 @@ void ALSAAudioInput::run() {
 
 	qWarning("ALSAAudioInput: Initing audiocapture %s.",device_name.data());
 
-	snd_pcm_format_mask_alloca(&formats);
 	snd_pcm_hw_params_alloca(&hw_params);
-
-	snd_pcm_format_mask_set(formats, SND_PCM_FORMAT_S16);
-	snd_pcm_format_mask_set(formats, SND_PCM_FORMAT_FLOAT);
 
 	ALSA_ERRBAIL(snd_pcm_open(&capture_handle, device_name.data(), SND_PCM_STREAM_CAPTURE, 0));
 	ALSA_ERRBAIL(snd_pcm_hw_params_any(capture_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_format_mask(capture_handle, hw_params, formats));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(capture_handle, hw_params, (snd_pcm_hw_params_test_format(capture_handle, hw_params, SND_PCM_FORMAT_FLOAT) == 0) ? SND_PCM_FORMAT_FLOAT : SND_PCM_FORMAT_S16));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(capture_handle, hw_params, &iChannels));
 
@@ -363,15 +358,10 @@ void ALSAAudioOutput::run() {
 
 	snd_pcm_hw_params_t *hw_params = NULL;
 	snd_pcm_sw_params_t *sw_params = NULL;
-	snd_pcm_format_mask_t *formats = NULL;
 	QByteArray device_name = g.s.qsALSAOutput.toLatin1();
 
-	snd_pcm_format_mask_alloca(&formats);
 	snd_pcm_hw_params_alloca(&hw_params);
 	snd_pcm_sw_params_alloca(&sw_params);
-
-	snd_pcm_format_mask_set(formats, SND_PCM_FORMAT_S16);
-	snd_pcm_format_mask_set(formats, SND_PCM_FORMAT_FLOAT);
 
 	ALSA_ERRBAIL(snd_pcm_open(&pcm_handle, device_name.data(), SND_PCM_STREAM_PLAYBACK, 0));
 	ALSA_ERRBAIL(snd_pcm_hw_params_any(pcm_handle, hw_params));
@@ -388,7 +378,7 @@ void ALSAAudioOutput::run() {
 	}
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_format_mask(pcm_handle, hw_params, formats));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, (snd_pcm_hw_params_test_format(pcm_handle, hw_params, SND_PCM_FORMAT_FLOAT) == 0) ? SND_PCM_FORMAT_FLOAT : SND_PCM_FORMAT_S16));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_min(pcm_handle, hw_params, &iMixerFreq, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(pcm_handle, hw_params, &iChannels));
 
