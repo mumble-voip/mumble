@@ -47,6 +47,7 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 GlobalShortcutX::GlobalShortcutX() {
 	int min, maj;
 	bRunning=false;
+	bXevie = false;
 
 	display = NULL;
 
@@ -76,21 +77,22 @@ GlobalShortcutX::GlobalShortcutX() {
 
 	if (! XevieQueryVersion(display, &maj, &min)) {
 		qWarning("GlobalShortcutX: XEVIE extension not found. Enable it in xorg.conf");
-		return;
-	}
-
-	qWarning("GlobalShortcutX: XEVIE %d.%d", maj, min);
-
-	// Here's the thing. If we're debugging, it doesn't do to have the xevie application hang.
+	} else {
+		qWarning("GlobalShortcutX: XEVIE %d.%d", maj, min);
 
 #ifdef QT_NO_DEBUG
-	if (! XevieStart(display)) {
-		qWarning("GlobalShortcutX: Another client is already using XEVIE");
-		return;
-	}
-
-	XevieSelectInput(display, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask);
+		if (! XevieStart(display)) {
+			qWarning("GlobalShortcutX: Another client is already using XEVIE");
+		} else {
+			XevieSelectInput(display, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask);
+			bXevie = true;
+		}
 #endif
+	}
+	
+	if (! bXevie) {
+		qWarning("GlobalShortcutX: No XEVIE support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
+	}
 
 	bRunning=true;
 	start(QThread::TimeCriticalPriority);
@@ -106,39 +108,86 @@ void GlobalShortcutX::run() {
 	XEvent evt;
 	struct timeval tv;
 
-	while (bRunning) {
-		if (bNeedRemap)
-			remap();
-		FD_ZERO(&in_fds);
-		FD_SET(ConnectionNumber(display), &in_fds);
-		tv.tv_sec = 0;
-		tv.tv_usec = 100000;
-		if (select(ConnectionNumber(display)+1, &in_fds, NULL, NULL, &tv)) {
-			while (XPending(display)) {
-				XNextEvent(display, &evt);
-				XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
-				switch (evt.type) {
-					case KeyPress:
-					case KeyRelease:
-					case ButtonPress:
-					case ButtonRelease: {
-							bool down = (evt.type == KeyPress || evt.type == ButtonPress);
-							int evtcode;
-							if (evt.type == KeyPress || evt.type == KeyRelease)
-								evtcode = evt.xkey.keycode;
-							else
-								evtcode = 0x118 + evt.xbutton.button;
+	if (bXevie) {
+		while (bRunning) {
+			if (bNeedRemap)
+				remap();
+			FD_ZERO(&in_fds);
+			FD_SET(ConnectionNumber(display), &in_fds);
+			tv.tv_sec = 0;
+			tv.tv_usec = 100000;
+			if (select(ConnectionNumber(display)+1, &in_fds, NULL, NULL, &tv)) {
+				while (XPending(display)) {
+					XNextEvent(display, &evt);
+					XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
+					switch (evt.type) {
+						case KeyPress:
+						case KeyRelease:
+						case ButtonPress:
+						case ButtonRelease: {
+								bool down = (evt.type == KeyPress || evt.type == ButtonPress);
+								int evtcode;
+								if (evt.type == KeyPress || evt.type == KeyRelease)
+									evtcode = evt.xkey.keycode;
+								else
+									evtcode = 0x118 + evt.xbutton.button;
+									
+								handleButton(evtcode, down);
+							}
+							break;
+						default:
+							qWarning("GlobalShortcutX: EVT %x", evt.type);
+					}
+				}
+			}
+		}
+		XevieEnd(display);
+	} else {
+		Window root = XDefaultRootWindow(display);
+		Window root_ret, child_ret;
+		int root_x, root_y;
+		int win_x, win_y;
+		unsigned int mask[2];
+		int idx = 0;
+		int next = 0;
+		char keys[2][32];
+		
+		memset(keys[0], 0, 32);
+		memset(keys[1], 0, 32);
+		mask[0] = mask[1] = 0;
 
-							handleButton(evtcode, down);
-						}
-						break;
-					default:
-						qWarning("GlobalShortcutX: EVT %x", evt.type);
+		while (bRunning) {
+			if (bNeedRemap)
+				remap();
+
+			msleep(10);
+				
+			idx = next;
+			next = idx ^ 1;
+			if (! XQueryPointer(display, root, &root_ret, &child_ret, &root_x, &root_y, &win_x, &win_y, &mask[next]) ||
+			    ! XQueryKeymap(display, keys[next])) {
+			    qWarning("GlobalShortcutX: Lost connection");
+			    bRunning = false;
+			} else {
+				for(int i=0;i<256;++i) {
+					int index = i / 8;
+					int mask = 1 << (i % 8);
+					bool oldstate = (keys[idx][index] & mask) != 0;
+					bool newstate = (keys[next][index] & mask) != 0;
+					if (oldstate != newstate) {
+						handleButton(i, newstate);
+					}
+				}
+				for(int i=8;i<=12;++i) {
+					bool oldstate = (mask[idx] & (1 << i)) != 0;
+					bool newstate = (mask[next] & (1 << i)) != 0;
+					if (oldstate != newstate) {
+						handleButton(0x110 + i, newstate);
+					}
 				}
 			}
 		}
 	}
-	XevieEnd(display);
 	XCloseDisplay(display);
 }
 

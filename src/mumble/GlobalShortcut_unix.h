@@ -38,6 +38,7 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 	public:
 		Display *display;
 		volatile bool bRunning;
+		bool bXevie;
 		QMap<QString, QFile *> qmInputDevices;
 
 		GlobalShortcutX();
