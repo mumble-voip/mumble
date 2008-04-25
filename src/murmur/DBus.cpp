@@ -1019,6 +1019,9 @@ void MetaDBus::setConf(int server_id, const QString &key, const QString &value, 
 		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		ServerDB::setConf(server_id, key, value);
+		Server *s = meta->qhServers.value(server_id);
+		if (s)
+			s->setLiveConf(key, value);
 	}
 }
 

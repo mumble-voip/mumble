@@ -204,6 +204,32 @@ void Server::readParams() {
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
 }
 
+void Server::setLiveConf(const QString &key, const QString &value) {
+	QString v = value.trimmed().isEmpty() ? QString() : value;
+	int i = v.toInt();
+	if (key == "password")
+		qsPassword = !v.isNull() ? v : Meta::mp.qsPassword;
+	else if (key == "timeout")
+		iTimeout = i ? i : Meta::mp.iTimeout;
+	else if (key == "bandwidth")
+		iMaxBandwidth = i ? i : Meta::mp.iMaxBandwidth;
+	else if (key == "users")
+		iMaxUsers = i ? i : Meta::mp.iMaxUsers;
+	else if (key == "defaultchannel")
+		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
+	else if (key == "welcometext")
+		qsWelcomeText = !v.isNull() ? v : Meta::mp.qsWelcomeText;
+	else if (key == "registername")
+		qsRegName = !v.isNull() ? v : Meta::mp.qsRegName;
+	else if (key == "registerpassword")
+		qsRegPassword = !v.isNull() ? v : Meta::mp.qsRegPassword;
+	else if (key == "registerhostname")
+		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
+	else if (key == "registerurl")
+		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
+}
+
+
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
 	iSum = 0;

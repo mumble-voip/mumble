@@ -185,6 +185,8 @@ class Server : public QThread, public MessageHandler {
 		void sendExcept(Message *, Connection *);
 		void sendMessage(Connection *, Message *);
 
+		void setLiveConf(const QString &key, const QString &value);
+
 #ifndef Q_OS_WIN
 		__attribute__((format(printf, 2, 3)))
 #endif
