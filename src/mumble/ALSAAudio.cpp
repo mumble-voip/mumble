@@ -256,7 +256,7 @@ void ALSAAudioInput::run() {
 	ALSA_ERRBAIL(snd_pcm_open(&capture_handle, device_name.data(), SND_PCM_STREAM_CAPTURE, 0));
 	ALSA_ERRBAIL(snd_pcm_hw_params_any(capture_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(capture_handle, hw_params, (snd_pcm_hw_params_test_format(capture_handle, hw_params, SND_PCM_FORMAT_FLOAT) == 0) ? SND_PCM_FORMAT_FLOAT : SND_PCM_FORMAT_S16));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(capture_handle, hw_params, SND_PCM_FORMAT_S16));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &rrate, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(capture_handle, hw_params, &iChannels));
 
@@ -269,17 +269,10 @@ void ALSAAudioInput::run() {
 	
 	qWarning("ALSAAudioInput: Actual buffer %d hz, %d channel %ld samples [%ld per period]",rrate,iChannels,wantBuff,wantPeriod);
 
-	snd_pcm_format_t iformat;
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(capture_handle, hw_params));
-	ALSA_ERRBAIL(snd_pcm_hw_params_get_format(hw_params, &iformat));
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_channels(hw_params, &iMicChannels));
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &iMicFreq, NULL));
-
-	if (iformat == SND_PCM_FORMAT_S16)
-		eMicFormat = SampleShort;
-	else
-		eMicFormat = SampleFloat;
-
+	eMicFormat = SampleShort;
 	initializeMixer();
 
 #ifdef ALSA_VERBOSE
@@ -378,7 +371,7 @@ void ALSAAudioOutput::run() {
 	}
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, (snd_pcm_hw_params_test_format(pcm_handle, hw_params, SND_PCM_FORMAT_FLOAT) == 0) ? SND_PCM_FORMAT_FLOAT : SND_PCM_FORMAT_S16));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_min(pcm_handle, hw_params, &iMixerFreq, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(pcm_handle, hw_params, &iChannels));
 
@@ -435,16 +428,10 @@ void ALSAAudioOutput::run() {
 		SPEAKER_BACK_CENTER
 	};
 
-	snd_pcm_format_t iformat;
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(pcm_handle, hw_params));
-	ALSA_ERRBAIL(snd_pcm_hw_params_get_format(hw_params, &iformat));
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_channels(hw_params, &iChannels));
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &iMixerFreq, NULL));
-
-	if (iformat == SND_PCM_FORMAT_S16)
-		eSampleFormat = SampleShort;
-	else
-		eSampleFormat = SampleFloat;
+	eSampleFormat = SampleShort;
 
 	qWarning("ALSAAudioOutput: Initializing %d channel, %d hz mixer", iChannels, iMixerFreq);
 	initializeMixer(chanmasks);

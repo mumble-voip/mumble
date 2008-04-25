@@ -21,7 +21,7 @@ static char memname[256];
 
 struct LinkedMem {
 	uint32_t uiVersion;
-	uint32_t ui32Tick;
+	uint32_t ui32count;
 	float	fPosition[3];
 	float	fFront[3];
 	float	fTop[3];
@@ -39,8 +39,11 @@ static struct LinkedMem * const lm_invalid = reinterpret_cast<struct LinkedMem *
 static struct LinkedMem *lm = lm_invalid;
 static int shmfd = -1;
 
+static uint32_t last_tick = 0;
+static uint32_t last_count = 0;
+
 static void unlock() {
-	lm->ui32Tick = 0;
+	lm->ui32count = last_count = 0;
 	lm->uiVersion = 0;
 	wcsncpy(wcPluginName, L"Link", 256);
 }
@@ -50,7 +53,10 @@ static int trylock() {
 		return false;
 
 	if (lm->uiVersion == 1) {
-		if ((GetTickCount() - lm->ui32Tick) < 5000) {
+		if (lm->ui32count != last_count) {
+			last_tick = GetTickCount();
+			last_count = lm->ui32count;
+
 			if (lm->name[0]) {
 				wcsncpy(wcPluginName, lm->name, 256);
 			}
@@ -62,7 +68,10 @@ static int trylock() {
 
 
 static int fetch(float *pos, float *front, float *top) {
-	if ((GetTickCount() - lm->ui32Tick) > 5000)
+    	if(lm->ui32count != last_count) {
+	    last_tick = GetTickCount();
+	    last_count = lm->ui32count;
+	} else if ((GetTickCount() - last_tick) > 5000)
 		return false;
 
 	for (int i=0;i<3;i++)
