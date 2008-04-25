@@ -130,6 +130,8 @@
 #define _USE_SSE
 #endif
 
+#define EXPORT
+
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */
 
