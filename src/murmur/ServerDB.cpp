@@ -842,6 +842,7 @@ void Server::removeChannel(const Channel *c) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	SQLEXEC();
+	qhChannels.remove(c->iId);
 }
 
 void Server::updateChannel(const Channel *c) {
