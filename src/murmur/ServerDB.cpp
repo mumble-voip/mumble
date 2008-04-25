@@ -44,14 +44,16 @@
 #define SOFTEXEC() ServerDB::exec(query, QString(), false)
 
 class TransactionHolder {
-	protected:
-		bool bAbort;
 	public:
+		QSqlQuery *qsqQuery;
 		TransactionHolder() {
 			ServerDB::db.transaction();
+			qsqQuery = new QSqlQuery();
 		}
 
 		~TransactionHolder() {
+			qsqQuery->clear();
+			delete qsqQuery;
 			ServerDB::db.commit();
 		}
 };
@@ -305,6 +307,7 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE %1slog CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 		}
 	}
+	query.clear();
 }
 
 ServerDB::~ServerDB() {
@@ -437,6 +440,7 @@ void Server::initialize() {
 			SQLEXEC();
 		}
 	}
+	query.clear();
 }
 
 int Server::registerPlayer(const QString &name) {
@@ -456,7 +460,7 @@ int Server::registerPlayer(const QString &name) {
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("SELECT MAX(player_id)+1 AS id FROM %1players WHERE server_id=? AND player_id < 1000000000");
 	query.addBindValue(iServerNum);
@@ -492,7 +496,7 @@ bool Server::unregisterPlayer(int id) {
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("DELETE FROM %1players WHERE server_id = ? AND player_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
@@ -508,7 +512,7 @@ QMap<int, QPair<QString, QString> > Server::getRegisteredPlayers(const QString &
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	if (filter.isEmpty()) {
 		SQLPREP("SELECT player_id, name, email FROM %1players WHERE server_id = ?");
 		query.addBindValue(iServerNum);
@@ -535,7 +539,7 @@ bool Server::getRegistration(int id, QString &name, QString &email) {
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT name, email FROM %1players WHERE server_id = ? AND player_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
@@ -556,7 +560,7 @@ int Server::authenticate(QString &name, const QString &pw) {
 	if (res != -2) {
 		if (res != -1) {
 			TransactionHolder th;
-			QSqlQuery query;
+			QSqlQuery &query = *th.qsqQuery;
 
 			int lchan=readLastChannel(res);
 
@@ -571,7 +575,7 @@ int Server::authenticate(QString &name, const QString &pw) {
 	}
 
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("SELECT player_id,name,pw FROM %1players WHERE server_id = ? AND name like ?");
 	query.addBindValue(iServerNum);
@@ -607,7 +611,7 @@ bool Server::setPW(int id, const QString &pw) {
 
 	hash.addData(pw.toUtf8());
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("UPDATE %1players SET pw=? WHERE server_id = ? AND player_id=?");
 	query.addBindValue(pw.isEmpty() ? QVariant() : QString::fromLatin1(hash.result().toHex()));
 	query.addBindValue(iServerNum);
@@ -627,7 +631,7 @@ bool Server::setEmail(int id, const QString &email) {
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("UPDATE %1players SET email=? WHERE server_id = ? AND player_id=?");
 	query.addBindValue(email);
 	query.addBindValue(iServerNum);
@@ -659,7 +663,7 @@ bool Server::setName(int id, const QString &name) {
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("UPDATE %1players SET name=? WHERE server_id = ? AND player_id=?");
 	query.addBindValue(name);
 	query.addBindValue(iServerNum);
@@ -690,7 +694,7 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("UPDATE %1players SET texture=? WHERE server_id = ? AND player_id=?");
 	query.addBindValue(tex, QSql::Binary | QSql::In);
 	query.addBindValue(iServerNum);
@@ -707,7 +711,7 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 
 	hash.addData(pw.toUtf8());
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("UPDATE %1players SET pw=? WHERE server_id = ? AND player_id=?");
 	query.addBindValue(QString::fromLatin1(hash.result().toHex()));
 	query.addBindValue(srvnum);
@@ -721,7 +725,7 @@ QString Server::getUserName(int id) {
 		return name;
 
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT name FROM %1players WHERE server_id = ? AND player_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
@@ -739,7 +743,7 @@ int Server::getUserID(const QString &name) {
 		return id;
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT player_id FROM %1players WHERE server_id = ? AND name like ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(name);
@@ -758,7 +762,7 @@ QByteArray Server::getUserTexture(int id) {
 
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT texture FROM %1players WHERE server_id = ? AND player_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
@@ -772,7 +776,7 @@ QByteArray Server::getUserTexture(int id) {
 void Server::addLink(Channel *c, Channel *l) {
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("INSERT INTO %1channel_links (server_id, channel_id, link_id) VALUES (?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
@@ -788,7 +792,7 @@ void Server::addLink(Channel *c, Channel *l) {
 void Server::removeLink(Channel *c, Channel *l) {
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	if (l) {
 		SQLPREP("DELETE FROM %1channel_links WHERE server_id = ? AND channel_id = ? AND link_id = ?");
@@ -813,7 +817,7 @@ void Server::removeLink(Channel *c, Channel *l) {
 Channel *Server::addChannel(Channel *p, const QString &name) {
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("SELECT MAX(channel_id)+1 AS id FROM %1channels WHERE server_id=?");
 	query.addBindValue(iServerNum);
@@ -837,7 +841,7 @@ Channel *Server::addChannel(Channel *p, const QString &name) {
 void Server::removeChannel(const Channel *c) {
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("DELETE FROM %1channels WHERE server_id = ? AND channel_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
@@ -850,7 +854,7 @@ void Server::updateChannel(const Channel *c) {
 	Group *g;
 	ChanACL *acl;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("UPDATE %1channels SET name = ?, parent_id = ?, inheritacl = ? WHERE server_id = ? AND channel_id = ?");
 	query.addBindValue(c->qsName);
 	query.addBindValue(c->cParent ? c->cParent->iId : QVariant());
@@ -922,7 +926,7 @@ void Server::readChannelPrivs(Channel *c) {
 
 	int cid = c->iId;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT group_id, name, inherit, inheritable FROM %1groups WHERE server_id = ? AND channel_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(cid);
@@ -992,6 +996,8 @@ void Server::readChannels(Channel *p) {
 			kids << c;
 		}
 	}
+	
+	query.clear();
 
 	foreach(c, kids)
 	readChannels(c);
@@ -999,7 +1005,7 @@ void Server::readChannels(Channel *p) {
 
 void Server::readLinks() {
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("SELECT channel_id, link_id FROM %1channel_links WHERE server_id = ?");
 	query.addBindValue(iServerNum);
@@ -1022,7 +1028,7 @@ void Server::setLastChannel(const Player *p) {
 		return;
 
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("UPDATE %1players SET lastchannel=? WHERE server_id = ? AND player_id = ?");
 	query.addBindValue(p->cChannel->iId);
@@ -1036,7 +1042,7 @@ int Server::readLastChannel(int id) {
 		return 0;
 
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("SELECT lastchannel FROM %1players WHERE server_id = ? AND player_id = ?");
 	query.addBindValue(iServerNum);
@@ -1085,7 +1091,7 @@ void Server::getBans() {
 
 	qlBans.clear();
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT base,mask FROM %1bans WHERE server_id = ?");
 	query.addBindValue(iServerNum);
 	SQLEXEC();
@@ -1101,7 +1107,7 @@ void Server::saveBans() {
 	TransactionHolder th;
 	qpBan ban;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("DELETE FROM %1bans WHERE server_id = ? ");
 	query.addBindValue(iServerNum);
 	SQLEXEC();
@@ -1121,7 +1127,7 @@ QVariant Server::getConf(const QString &key, QVariant def) {
 QVariant ServerDB::getConf(int server_id, const QString &key, QVariant def) {
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT value FROM %1config WHERE server_id = ? AND keystring = ?");
 	query.addBindValue(server_id);
 	query.addBindValue(key);
@@ -1137,7 +1143,7 @@ QMap<QString, QString> ServerDB::getAllConf(int server_id) {
 
 	QMap<QString, QString> map;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT keystring, value FROM %1config WHERE server_id = ?");
 	query.addBindValue(server_id);
 	SQLEXEC();
@@ -1153,7 +1159,7 @@ void Server::setConf(const QString &key, const QVariant &value) {
 
 void Server::dblog(const char *str) {
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	// Once per hour
 	if (Meta::mp.iLogDays > 0) {
@@ -1177,7 +1183,7 @@ void Server::dblog(const char *str) {
 
 QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int sec_min, unsigned int sec_max) {
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	QString qstr;
 	if (Meta::mp.qsDBDriver == "QSQLITE") {
@@ -1201,7 +1207,7 @@ QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned in
 void ServerDB::setConf(int server_id, const QString &key, const QVariant &value) {
 	TransactionHolder th;
 
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	if (value.isNull() || value.toString().trimmed().isEmpty()) {
 		SQLPREP("DELETE FROM %1config WHERE server_id = ? AND keystring = ?");
 		query.addBindValue(server_id);
@@ -1218,7 +1224,7 @@ void ServerDB::setConf(int server_id, const QString &key, const QVariant &value)
 
 QList<int> ServerDB::getAllServers() {
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT server_id FROM %1servers");
 	SQLEXEC();
 
@@ -1232,7 +1238,7 @@ QList<int> ServerDB::getBootServers() {
 	QList<int> ql = getAllServers();
 
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 
 	QList<int> bootlist;
 	foreach(int i, ql) {
@@ -1248,7 +1254,7 @@ QList<int> ServerDB::getBootServers() {
 
 bool ServerDB::serverExists(int num) {
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT server_id FROM %1servers WHERE server_id = ?");
 	query.addBindValue(num);
 	SQLEXEC();
@@ -1259,7 +1265,7 @@ bool ServerDB::serverExists(int num) {
 
 int ServerDB::addServer() {
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT MAX(server_id)+1 AS id FROM %1servers");
 	SQLEXEC();
 	int id = 0;
@@ -1273,7 +1279,7 @@ int ServerDB::addServer() {
 
 void ServerDB::deleteServer(int server_id) {
 	TransactionHolder th;
-	QSqlQuery query;
+	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("DELETE FROM %1servers WHERE server_id = ?");
 	query.addBindValue(server_id);
 	SQLEXEC();
