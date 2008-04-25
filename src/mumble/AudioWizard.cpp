@@ -78,7 +78,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
 	if ((evt->type() == QEvent::MouseButtonPress) ||
-	    (evt->type() == QEvent::MouseMove)) {
+	        (evt->type() == QEvent::MouseMove)) {
 		QMouseEvent *qme = dynamic_cast<QMouseEvent *>(evt);
 		if (qme) {
 			if (qme->buttons() & Qt::LeftButton) {
@@ -259,8 +259,8 @@ QWizardPage *AudioWizard::positionalPage() {
 	QLabel *l;
 
 	l = new QLabel(tr("Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the "
-					  "volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker "
-					  "configuration being correct in your operating system, so a test is done here."));
+	                  "volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker "
+	                  "configuration being correct in your operating system, so a test is done here."));
 	l->setWordWrap(true);
 	v->addWidget(l);
 	l = new QLabel(tr("The graph below shows the position of <font color=\"red\">you</font>, the <font color=\"yellow\">speakers</font> and a <font color=\"green\">moving sound source</font> as if seen from above. You should hear the audio move between the channels."));
@@ -731,7 +731,7 @@ void AudioWizard::on_Ticker_timeout() {
 		if ((nspeaker > 0) && spos) {
 			qgsScene = new QGraphicsScene(QRectF(-4.0f, -4.0f, 8.0f, 8.0f), this);
 			qgsScene->addEllipse(QRectF(-0.12f, -0.12f, 0.24f, 0.24f), QPen(Qt::black), QBrush(Qt::darkRed));
-			for(unsigned int i=0;i<nspeaker;++i) {
+			for (unsigned int i=0;i<nspeaker;++i) {
 				if ((spos[3*i] != 0.0f) || (spos[3*i+1] != 0.0f) || (spos[3*i+2] != 0.0f))
 					qgsScene->addEllipse(QRectF(spos[3*i] - 0.1f, spos[3*i+2] - 0.1f, 0.2f, 0.2f), QPen(Qt::black), QBrush(Qt::yellow));
 			}

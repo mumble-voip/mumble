@@ -89,7 +89,7 @@ GlobalShortcutX::GlobalShortcutX() {
 		}
 #endif
 	}
-	
+
 	if (! bXevie) {
 		qWarning("GlobalShortcutX: No XEVIE support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
 	}
@@ -131,7 +131,7 @@ void GlobalShortcutX::run() {
 									evtcode = evt.xkey.keycode;
 								else
 									evtcode = 0x118 + evt.xbutton.button;
-									
+
 								handleButton(evtcode, down);
 							}
 							break;
@@ -151,7 +151,7 @@ void GlobalShortcutX::run() {
 		int idx = 0;
 		int next = 0;
 		char keys[2][32];
-		
+
 		memset(keys[0], 0, 32);
 		memset(keys[1], 0, 32);
 		mask[0] = mask[1] = 0;
@@ -161,15 +161,15 @@ void GlobalShortcutX::run() {
 				remap();
 
 			msleep(10);
-				
+
 			idx = next;
 			next = idx ^ 1;
 			if (! XQueryPointer(display, root, &root_ret, &child_ret, &root_x, &root_y, &win_x, &win_y, &mask[next]) ||
-			    ! XQueryKeymap(display, keys[next])) {
-			    qWarning("GlobalShortcutX: Lost connection");
-			    bRunning = false;
+			        ! XQueryKeymap(display, keys[next])) {
+				qWarning("GlobalShortcutX: Lost connection");
+				bRunning = false;
 			} else {
-				for(int i=0;i<256;++i) {
+				for (int i=0;i<256;++i) {
 					int index = i / 8;
 					int mask = 1 << (i % 8);
 					bool oldstate = (keys[idx][index] & mask) != 0;
@@ -178,7 +178,7 @@ void GlobalShortcutX::run() {
 						handleButton(i, newstate);
 					}
 				}
-				for(int i=8;i<=12;++i) {
+				for (int i=8;i<=12;++i) {
 					bool oldstate = (mask[idx] & (1 << i)) != 0;
 					bool newstate = (mask[next] & (1 << i)) != 0;
 					if (oldstate != newstate) {

@@ -266,7 +266,7 @@ void ALSAAudioInput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &wantPeriod, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, &wantBuff));
 	ALSA_ERRBAIL(snd_pcm_hw_params(capture_handle, hw_params));
-	
+
 	qWarning("ALSAAudioInput: Actual buffer %d hz, %d channel %ld samples [%ld per period]",rrate,iChannels,wantBuff,wantPeriod);
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(capture_handle, hw_params));

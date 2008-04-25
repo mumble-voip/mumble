@@ -91,7 +91,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
-		a->setShortcutContext(Qt::ApplicationShortcut);
+	a->setShortcutContext(Qt::ApplicationShortcut);
 }
 
 void MainWindow::createActions() {

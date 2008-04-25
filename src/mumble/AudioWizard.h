@@ -111,7 +111,7 @@ class AudioWizard: public QWizard {
 		void reject();
 		void accept();
 		bool validateCurrentPage();
-		virtual int nextId () const;
+		virtual int nextId() const;
 };
 
 #endif

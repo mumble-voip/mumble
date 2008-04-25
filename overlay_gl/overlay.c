@@ -93,7 +93,7 @@ static void resolveOpenGL() {
 static void resolveSM() {
 	static bool warned_sm = false;
 	static bool warned_ver = false;
-	
+
 	char memname[256];
 	char semname[256];
 	snprintf(memname, 256, "/MumbleOverlayMem.%d", getuid());

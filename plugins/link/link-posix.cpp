@@ -68,9 +68,9 @@ static int trylock() {
 
 
 static int fetch(float *pos, float *front, float *top) {
-    	if(lm->ui32count != last_count) {
-	    last_tick = GetTickCount();
-	    last_count = lm->ui32count;
+	if (lm->ui32count != last_count) {
+		last_tick = GetTickCount();
+		last_count = lm->ui32count;
 	} else if ((GetTickCount() - last_tick) > 5000)
 		return false;
 
@@ -87,7 +87,7 @@ static int fetch(float *pos, float *front, float *top) {
 __attribute__((constructor))
 static void load_plugin() {
 	bool bCreated = false;
-	
+
 	snprintf(memname, 256, "/MumbleLink.%d", getuid());
 
 	shmfd = shm_open(memname, O_RDWR, S_IRUSR | S_IWUSR);

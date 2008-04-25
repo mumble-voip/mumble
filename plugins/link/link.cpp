@@ -56,9 +56,9 @@ static int trylock() {
 
 
 static int fetch(float *pos, float *front, float *top) {
-	if(lm->dwcount != last_count) {
-	    last_count = lm->dwcount;
-	    last_tick = GetTickCount();
+	if (lm->dwcount != last_count) {
+		last_count = lm->dwcount;
+		last_tick = GetTickCount();
 	} else 	if ((GetTickCount() - last_tick) > 5000)
 		return false;
 
