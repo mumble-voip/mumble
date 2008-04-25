@@ -47,25 +47,25 @@ class TransactionHolder {
 	public:
 		QSqlQuery *qsqQuery;
 		TransactionHolder() {
-			ServerDB::db.transaction();
+			ServerDB::db->transaction();
 			qsqQuery = new QSqlQuery();
 		}
 
 		~TransactionHolder() {
 			qsqQuery->clear();
 			delete qsqQuery;
-			ServerDB::db.commit();
+			ServerDB::db->commit();
 		}
 };
 
-QSqlDatabase ServerDB::db;
+QSqlDatabase *ServerDB::db;
 Timer ServerDB::tLogClean;
 
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
-	db = QSqlDatabase::addDatabase(Meta::mp.qsDBDriver);
+	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
 	QStringList datapaths;
 	int i;
 
@@ -73,8 +73,8 @@ ServerDB::ServerDB() {
 
 	if (Meta::mp.qsDBDriver == "QSQLITE") {
 		if (! Meta::mp.qsDatabase.isEmpty()) {
-			db.setDatabaseName(Meta::mp.qsDatabase);
-			found = db.open();
+			db->setDatabaseName(Meta::mp.qsDatabase);
+			found = db->open();
 		} else {
 			datapaths << Meta::mp.qdBasePath.absolutePath();
 			datapaths << QDir::currentPath();
@@ -85,8 +85,8 @@ ServerDB::ServerDB() {
 				if (!datapaths[i].isEmpty()) {
 					QFile f(datapaths[i] + "/murmur.sqlite");
 					if (f.exists()) {
-						db.setDatabaseName(f.fileName());
-						found = db.open();
+						db->setDatabaseName(f.fileName());
+						found = db->open();
 					}
 				}
 			}
@@ -95,29 +95,29 @@ ServerDB::ServerDB() {
 				for (i = 0; (i < datapaths.size()) && ! found; i++) {
 					if (!datapaths[i].isEmpty()) {
 						QFile f(datapaths[i] + "/murmur.sqlite");
-						db.setDatabaseName(f.fileName());
-						found = db.open();
+						db->setDatabaseName(f.fileName());
+						found = db->open();
 					}
 				}
 			}
 		}
 		if (found) {
-			QFileInfo fi(db.databaseName());
+			QFileInfo fi(db->databaseName());
 			qWarning("ServerDB: Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
 			if (! fi.isWritable())
 				qFatal("ServerDB: Database is not writeable");
 		}
 	} else {
-		db.setDatabaseName(Meta::mp.qsDatabase);
-		db.setHostName(Meta::mp.qsDBHostName);
-		db.setPort(Meta::mp.iDBPort);
-		db.setUserName(Meta::mp.qsDBUserName);
-		db.setPassword(Meta::mp.qsDBPassword);
-		found = db.open();
+		db->setDatabaseName(Meta::mp.qsDatabase);
+		db->setHostName(Meta::mp.qsDBHostName);
+		db->setPort(Meta::mp.iDBPort);
+		db->setUserName(Meta::mp.qsDBUserName);
+		db->setPassword(Meta::mp.qsDBPassword);
+		found = db->open();
 	}
 
 	if (! found) {
-		QSqlError e = db.lastError();
+		QSqlError e = db->lastError();
 		qFatal("ServerDB: Failed initialization: %s",qPrintable(e.text()));
 	}
 
@@ -311,11 +311,13 @@ ServerDB::ServerDB() {
 }
 
 ServerDB::~ServerDB() {
-	db.close();
+	db->close();
+	delete db;
+	db = NULL;
 }
 
 bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
-	if (! db.isValid()) {
+	if (! db->isValid()) {
 		qWarning("SQL [%s] rejected: Database is gone", qPrintable(str));
 		return false;
 	}
@@ -328,9 +330,9 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 	if (query.prepare(q)) {
 		return true;
 	} else {
-		db.close();
-		if (! db.open()) {
-			qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db.lastError().text()));
+		db->close();
+		if (! db->open()) {
+			qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db->lastError().text()));
 		}
 		query = QSqlQuery();
 		if (query.prepare(q)) {
@@ -339,7 +341,7 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 		}
 
 		if (fatal) {
-			db = QSqlDatabase();
+			*db = QSqlDatabase();
 			qFatal("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
 		} else
 			qDebug("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
@@ -355,7 +357,7 @@ bool ServerDB::exec(QSqlQuery &query, const QString &str, bool fatal) {
 	} else {
 
 		if (fatal) {
-			db = QSqlDatabase();
+			*db = QSqlDatabase();
 			qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 		} else
 			qDebug("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));

@@ -44,7 +44,7 @@ class ServerDB {
 		~ServerDB();
 		typedef QPair<unsigned int, QString> LogRecord;
 		static Timer tLogClean;
-		static QSqlDatabase db;
+		static QSqlDatabase *db;
 		static void setSUPW(int iServNum, const QString &pw);
 		static QList<int> getBootServers();
 		static QList<int> getAllServers();
