@@ -445,7 +445,7 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 		return;
 	}
 
-	QRegExp re("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
+	QRegExp re("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
 
 	if (! re.exactMatch(msg->qsName)) {
 		PERM_DENIED_TEXT("Illegal channel name");
