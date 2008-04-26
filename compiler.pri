@@ -51,14 +51,14 @@ win32 {
 	}
 
 	CONFIG(optgen) {
-		QMAKE_CFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-generate
-		QMAKE_CXXFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-generate
+		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
+		QMAKE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
 		QMAKE_LFLAGS *= -fprofile-generate
 	}
 
 	CONFIG(optimize) {
-		QMAKE_CFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-use
-		QMAKE_CXXFLAGS *= -O3 -ffast-math -ftree-vectorize -fprofile-use
+		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
+		QMAKE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 	}
 
 	CONFIG(symbols) {

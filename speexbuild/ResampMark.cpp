@@ -3,6 +3,7 @@
 static const float tfreq1 = 48000.f;
 static const float tfreq2 = 44100.f;
 static const int qual = 3;
+static const int loops = 100 / qual;
 #define SM_VERIFY
 // #define EXACT
 
@@ -14,11 +15,15 @@ static const int qual = 3;
 #define CALLGRIND_STOP_INSTRUMENTATION
 #define CALLGRIND_ZERO_STATS
 #else
+#include <sched.h>
+#include <sys/mman.h>
 #include <valgrind/callgrind.h>
 #endif
 
 #include <math.h>
 #include <speex/speex_resampler.h>
+
+
 
 #include "Timer.h"
 
@@ -143,8 +148,26 @@ int main(int argc, char **argv) {
 	quint64 e;
 
 	if (! RUNNING_ON_VALGRIND) {
+#ifndef Q_OS_WIN
+		struct sched_param sp;
+		sp.sched_priority = sched_get_priority_max(SCHED_FIFO);
+		
+		cpu_set_t cpuset;
+		CPU_ZERO(&cpuset);
+		CPU_SET(0, &cpuset);
+
+		if (sched_setscheduler(getpid(), SCHED_FIFO, &sp) != 0)
+			qWarning("No realtime.");
+		if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
+			qWarning("No mlock.");
+		if (sched_setaffinity(0, sizeof(cpuset), &cpuset) != 0)
+			qWarning("No affinity");
+	
+		sched_yield();
+#endif
+	
 		t.restart();
-		for(int j=0;j<10;j++) {
+		for(int j=0;j<loops;j++) {
 			for(int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize1;
@@ -155,7 +178,7 @@ int main(int argc, char **argv) {
 		qWarning("Direct:      %10llu usec", e);
 
 		t.restart();
-		for(int j=0;j<10;j++) {
+		for(int j=0;j<loops;j++) {
 			for(int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize2;

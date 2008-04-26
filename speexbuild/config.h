@@ -130,6 +130,10 @@
 #define _USE_SSE
 #endif
 
+#ifdef __SSE2__
+#define _USE_SSE2
+#endif
+
 #define EXPORT
 
 /* Define to empty if `const' does not conform to ANSI C. */
