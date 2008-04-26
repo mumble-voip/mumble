@@ -1,5 +1,6 @@
 /* Copyright (C) 2005-2008, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
+   Copyright (C) 2008, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -32,31 +33,44 @@
 /* need the undef or else the include would not work
  it would help to include the header before QT, but that might mess with QT */
 #undef qDebug
-#include "ApplicationServices/ApplicationServices.h"
+#include <Carbon/Carbon.h>
 
 #undef check
 #include "Global.h"
 #include "TextToSpeech.h"
 
-static QMutex qmLock;
-static Fixed fVolume;
-static QList<QByteArray> qlMessages;
-static bool bRunning;
-static bool bEnabled;
+class TextToSpeechPrivate {
+	public:
+		SpeechChannel scChannel;
+		QMutex qmLock;
+		Fixed fVolume;
+		QList<QByteArray> qlMessages;
+		bool bRunning;
 
-static void process_speech();
+		TextToSpeechPrivate();
+		void ProcessSpeech();
+		void say(const QString &text);
+		void setVolume(int v);
+};
 
-static void speech_done_cb(SpeechChannel scChannel, long) {
-	DisposeSpeechChannel(scChannel);
+static void speech_done_cb(SpeechChannel scChannel, void *udata) {
+	TextToSpeechPrivate *tts = reinterpret_cast<TextToSpeechPrivate *>(udata);
 
-	if (qlMessages.isEmpty())
-		bRunning = false;
+	Q_ASSERT(scChannel == tts->scChannel);
+
+	DisposeSpeechChannel(tts->scChannel);
+
+	if (tts->qlMessages.isEmpty())
+		tts->bRunning = false;
 	else
-		process_speech();
+		tts->ProcessSpeech();
 }
 
-static void process_speech() {
-	SpeechChannel scChannel;
+TextToSpeechPrivate::TextToSpeechPrivate() {
+	bRunning = false;
+}
+
+void TextToSpeechPrivate::ProcessSpeech() {
 	QByteArray ba;
 
 	qmLock.lock();
@@ -65,21 +79,12 @@ static void process_speech() {
 
 	NewSpeechChannel(NULL, &scChannel);
 	SetSpeechInfo(scChannel, soVolume, &fVolume);
+	SetSpeechInfo(scChannel, soRefCon, this);
 	SetSpeechInfo(scChannel, soSpeechDoneCallBack, reinterpret_cast<void *>(speech_done_cb));
 	SpeakText(scChannel, ba.constData(), ba.size());
 }
 
-TextToSpeech::TextToSpeech(QObject *) {
-	bEnabled = true;
-}
-
-TextToSpeech::~TextToSpeech() {
-}
-
-void TextToSpeech::say(const QString &text) {
-	if (!bEnabled)
-		return;
-
+void TextToSpeechPrivate::say(const QString &text) {
 	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
 	Q_ASSERT(codec != NULL);
 
@@ -88,19 +93,61 @@ void TextToSpeech::say(const QString &text) {
 	qmLock.unlock();
 
 	if (!bRunning) {
-		process_speech();
+		ProcessSpeech();
 		bRunning = true;
 	}
 }
 
-void TextToSpeech::setEnabled(bool e) {
-	bEnabled = e;
-}
-
-void TextToSpeech::setVolume(int volume) {
+void TextToSpeechPrivate::setVolume(int volume) {
 	fVolume = FixRatio(volume, 100);
 }
 
+TextToSpeech::TextToSpeech(QObject *) {
+	SInt32 MacVersion;
+
+	enabled = true;
+	d = NULL;
+
+	/* Determine which release of OS X we're running on. Tiger has a buggy implementation, and
+	 * therefore we'll just disable ourselves when we're running on that.
+	 *
+	 * What it comes down to, is that calling DisposeSpeechChannel() on Tiger will crash in certain
+	 * situations.
+	 *
+	 * For more information, see this thread on Apple's speech mailing list:
+	 * http://lists.apple.com/archives/speech-dev/2005/Aug/msg00000.html
+	 */
+
+	if (Gestalt(gestaltSystemVersion, &MacVersion) != noErr) {
+		return;
+	}
+
+	if ((MacVersion & 0xfff0) == 0x1040) {
+		qWarning("Mac OS X 10.4 (Tiger) detected. Disabling Text-to-Speech because of a buggy implementation in 10.4.");
+		return;
+	}
+
+	d = new TextToSpeechPrivate();
+}
+
+TextToSpeech::~TextToSpeech() {
+	delete d;
+}
+
+void TextToSpeech::say(const QString &text) {
+	if (d && enabled)
+		d->say(text);
+}
+
+void TextToSpeech::setEnabled(bool e) {
+	enabled = e;
+}
+
+void TextToSpeech::setVolume(int volume) {
+	if (d && enabled)
+		d->setVolume(volume);
+}
+
 bool TextToSpeech::isEnabled() const {
-	return bEnabled;
+	return enabled;
 }
