@@ -65,8 +65,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		GlobalShortcut *gsAltTalk;
 		GlobalShortcut *gsMinimal;
 
-		QMenu *qmAll;
-
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
 

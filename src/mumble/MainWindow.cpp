@@ -205,14 +205,6 @@ void MainWindow::setupGui()  {
 	qsSplit->restoreState(g.s.qbaSplitterState);
 	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
 
-	qmAll = new QMenu(tr("Mumble"), this);
-	qmAll->addMenu(qmServer);
-	qmAll->addMenu(qmPlayer);
-	qmAll->addMenu(qmChannel);
-	qmAll->addMenu(qmAudio);
-	qmAll->addMenu(qmConfig);
-	qmAll->addMenu(qmHelp);
-
 	setupView();
 }
 
@@ -493,7 +485,10 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 
 	if (g.s.bMinimalView) {
 		qmPlayer->addSeparator();
-		qmPlayer->addMenu(qmAll);
+		qmPlayer->addMenu(qmServer);
+		qmPlayer->addMenu(qmAudio);
+		qmPlayer->addMenu(qmConfig);
+		qmPlayer->addMenu(qmHelp);
 	}
 
 	if (! p) {
@@ -639,7 +634,10 @@ void MainWindow::on_qmChannel_aboutToShow() {
 
 	if (g.s.bMinimalView) {
 		qmChannel->addSeparator();
-		qmChannel->addMenu(qmAll);
+		qmChannel->addMenu(qmServer);
+		qmChannel->addMenu(qmAudio);
+		qmChannel->addMenu(qmConfig);
+		qmChannel->addMenu(qmHelp);
 	}
 
 	bool add, remove, acl, rename, link, unlink, unlinkall, msg;
