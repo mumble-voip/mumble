@@ -11,7 +11,7 @@ include /usr/share/quilt/quilt.make
 configure: configure-stamp
 configure-stamp: $(QUILT_STAMPFN)
 	dh_testdir
-	qmake-qt4 main.pro DEFINES+=NO_UPDATE_CHECK DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio
+	qmake-qt4 main.pro CONFIG+=release DEFINES+=NO_UPDATE_CHECK DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio DEFINES+=PLUGIN_PATH=/usr/lib/mumble
 
 	touch configure-stamp
 
@@ -43,7 +43,7 @@ install-indep:
 	dh_testroot
 	dh_clean -k -i
 	dh_installdirs -i
-	dh_install -s
+	dh_install -i
 
 	# Install and rename web scripts
 	install -D -m 0755 ./scripts/murmur.pl $(CURDIR)/debian/mumble-server-web/usr/lib/cgi-bin/mumble-server/register.cgi

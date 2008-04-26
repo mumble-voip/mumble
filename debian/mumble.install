@@ -5,3 +5,4 @@ release/mumble /usr/bin
 scripts/mumble-overlay /usr/bin
 scripts/11-input-mumble-policy.fdi /usr/share/hal/fdi/policy/10osvendor
 release/libmumble.so.1* /usr/lib/mumble
+release/plugins/liblink.so /usr/lib/mumble
