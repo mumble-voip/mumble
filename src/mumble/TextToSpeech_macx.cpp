@@ -103,8 +103,6 @@ void TextToSpeechPrivate::setVolume(int volume) {
 }
 
 TextToSpeech::TextToSpeech(QObject *) {
-	SInt32 MacVersion;
-
 	enabled = true;
 	d = NULL;
 
