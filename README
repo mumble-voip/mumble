@@ -18,12 +18,17 @@ Note that when we say Win32, we mean Windows XP or newer.
 Running Mumble
 ==============
 
-After installation, you should have a new Mumble folder in your Start Menu,
-from which you can start Mumble. You need a server to connect to, either
-create your own or join a friend's.
+On Windows, after installation, you should have a new Mumble folder in your
+Start Menu, from which you can start Mumble.
 
-Running Murmur on Linux
-=======================
+On Mac OS X, drag the Mumble application into your Applications folder. You
+should then able to run it from there.
+
+Once Mumble is launched, you need a server to connect to. Either create your
+own or join a friend's.
+
+Running Murmur on Unix-like systems
+===================================
 
 Murmur should be run from the command line, so start a shell (command prompt)
 and go to wherever you installed Mumble. Run murmur as
@@ -42,6 +47,21 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 -fg     Run in the foreground, logging to standard output.
 
 -v      More verbose logging.
+
+Running Murmur on Mac OS X
+==========================
+
+On Mac OS X, Murmur is available inside your Mumble application bundle. If you
+copied the Mumble program into your Applications directory, you should be able
+to run it by executing:
+
+ /Applications/Mumble.app/Contents/MacOS/murmurd -v -fg
+
+in a Terminal. For more information, please see the 'Running Murmur on Unix-
+like sytems' above.
+
+Example configuration files and other scripts can be found inside the Murmur
+directory of the Mumble installation disk image.
 
 Running Murmur on Win32
 =======================

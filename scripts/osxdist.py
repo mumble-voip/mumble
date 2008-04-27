@@ -71,10 +71,24 @@ class AppBundle(object):
 				ret.append(g.groups()[0])
 		return ret
 
-	def handle_libs(self, macho=None):
+	def handle_libs(self):
 		'''
 			Copy non-system libraries that we depend on into our bundle, and fix linker
 			paths so they are relative to our bundle.
+		'''
+		print ' * Taking care of libraries'
+
+		# Does our fwpath exist?
+		fwpath = os.path.join(os.path.abspath(self.bundle), 'Contents', 'Frameworks')
+		if not os.path.exists(fwpath):
+			os.mkdir(fwpath)
+
+		self.handle_binary_libs()
+		self.handle_binary_libs(os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'murmurd'))
+
+	def handle_binary_libs(self, macho=None):
+		'''
+			Fix up dylib depends for a specific binary.
 		'''
 		# Does our fwpath exist?
 		fwpath = os.path.join(os.path.abspath(self.bundle), 'Contents', 'Frameworks')
@@ -82,11 +96,11 @@ class AppBundle(object):
 			os.mkdir(fwpath)
 
 		if macho is None:
-			print ' * Taking care of libraries'
-			libs = self.get_binary_libs(self.binary)
+			macho = os.path.abspath(self.binary)
 		else:
-			libs = self.get_binary_libs(macho)
+			macho = os.path.abspath(macho)
 
+		libs = self.get_binary_libs(macho)
 		for lib in libs:
 
 			if os.path.isfile(lib) and not self.is_universal_binary(lib):
@@ -103,17 +117,29 @@ class AppBundle(object):
 			else:
 				baselib = os.path.basename(lib)
 				dst = os.path.join(fwpath, baselib)
-				# Main executable
-				if not macho:
+				self.change_lib_reference(macho, lib, baselib)
+
+				# If we were run on an executable
+				if not macho or macho.find(fwpath) == -1:
 					if dst == lib:
 						continue
 					if not os.path.exists(dst):
 						shutil.copy(lib, dst)
-					self.change_lib_reference(self.binary, lib, baselib)
-					self.handle_libs(dst)
-				# Dylib
-				else:
-					self.change_lib_reference(macho, lib, baselib)
+					self.handle_binary_libs(dst)
+
+	def copy_murmur(self):
+		'''
+			Copy the murmurd binary into our Mumble app bundle
+		'''
+		print ' * Copying murmurd binary'
+		src = os.path.join(self.bundle, '..', 'murmurd.app', 'Contents', 'MacOS', 'murmurd')
+		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmurd')
+
+		# Is it universal?
+		if not self.is_universal_binary(src):
+			raise self.UniversalBinaryException("Murmur executable is not an Universal Binary. Aborting.")
+
+		shutil.copy(src, dst)
 
 	def copy_resources(self, rsrcs):
 		'''
@@ -143,17 +169,15 @@ class AppBundle(object):
 		'''
 		p = self.infoplist
 		p['CFBundleGetInfoString'] = 'An open source, low-latency, high quality voice chat software primarily intended for use while gaming.'
-		# Not strictly needed - but an easy way to quicly find out where
-		# Mumble stores its configuration files, etc.
 		p['CFBundleIdentifier'] = 'net.sourceforge.mumble'
 		p['CFBundleVersion'] = self.version
-		p['CFBundleURLTypes'] = [{
+#		p['CFBundleURLTypes'] = [{
 			# This breaks because OS X doesn't allow us to use the
 			# app icon for a protocol:
 			#'CFBundleURLIconFile': 'mumble.icns',
-			'CFBundleURLName': 'Mumble Server URL',
-			'CFBundleURLSchemes': ['mumble'],
-		}]
+#			'CFBundleURLName': 'Mumble Server URL',
+#			'CFBundleURLSchemes': ['mumble'],
+#		}]
 		p['NSHumanReadableCopyright'] = 'Copyright (c) 2005-2008 Thorvald Natvig <slicer@users.sourceforge.net>'
 		plistlib.writePlist(p, self.infopath)
 
@@ -259,6 +283,7 @@ if __name__ == '__main__':
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
+	a.copy_murmur()
 	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns'])
 	a.copy_plugins()
@@ -269,10 +294,18 @@ if __name__ == '__main__':
 	d = DiskImage(dmgfn, dmgtitle)
 	d.copy('release/Mumble.app')
 	d.copy('README', '/ReadMe.txt')
+	d.copy('CHANGES', '/Changes.txt')
 	d.copy('installer/DS_Store', '/.DS_Store')
 	d.symlink('/Applications/', 'Applications')
 	d.mkdir('Licenses')
 	d.copy('installer/gpl.txt', '/Licenses/GPL.txt')
 	d.copy('installer/qt.txt', '/Licenses/Qt.txt')
 	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
+	d.mkdir('Murmur')
+	d.copy('scripts/murmur.ini', '/Murmur/')
+	d.copy('scripts/murmur.ini.system', '/Murmur/')
+	d.copy('scripts/murmur.conf', '/Murmur/')
+	d.copy('scripts/dbusauth.pl', '/Murmur/')
+	d.copy('scripts/murmur.pl', '/Murmur/')
+	d.copy('scripts/weblist.pl', '/Murmur/')
 	d.create()
