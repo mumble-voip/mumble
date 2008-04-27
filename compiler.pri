@@ -39,9 +39,9 @@ win32 {
 } else {
 	DEFINES *= RESTRICT=__restrict__
 	CONFIG(opt-gcc) {
-#		QMAKE_CC = /opt/gcc/bin/gcc
-#		QMAKE_CXX = /opt/gcc/bin/g++
-#		QMAKE_LINK = /opt/gcc/bin/g++
+		QMAKE_CC = /opt/gcc/bin/gcc
+		QMAKE_CXX = /opt/gcc/bin/g++
+		QMAKE_LINK = /opt/gcc/bin/g++
 	}
 
 	QMAKE_CFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
