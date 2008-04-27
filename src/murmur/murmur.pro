@@ -11,7 +11,6 @@ QT -= gui
 TARGET = murmur
 DBFILE  = murmur.db
 LANGUAGE	= C++
-RC_FILE = murmur.rc
 FORMS = 
 HEADERS = Server.h Meta.h DBus.h
 SOURCES = murmur.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp DBus.cpp
@@ -23,6 +22,7 @@ PRECOMPILED_HEADER = murmur_pch.h
 DIST += murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-wrapper
 
 win32 {
+  RC_FILE = murmur.rc
   CONFIG += gui
   QT += gui
   LIBS	+= -lws2_32
