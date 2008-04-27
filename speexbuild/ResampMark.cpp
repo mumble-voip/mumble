@@ -2,7 +2,7 @@
 
 static const float tfreq1 = 48000.f;
 static const float tfreq2 = 44100.f;
-static const int qual = 3;
+static const int qual = 5;
 static const int loops = 100 / qual;
 #define SM_VERIFY
 // #define EXACT
@@ -28,11 +28,17 @@ static const int loops = 100 / qual;
 #include "Timer.h"
 
 template<class T>
-static inline void veccomp(const QVector<T> &a, const QVector<T> &b, const char *n) {
+static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const char *n) {
+	long double rms = 0.0;
+	long double gdiff = 0.0;
 	if (a.size() != b.size()) {
 		qFatal("%s: %d <=> %d", n, a.size(), b.size());
 	}
 	for(int i=0;i<a.size();++i) {
+		double diff = fabs(a[i] - b[i]);
+		rms += diff * diff;
+		if (diff > gdiff)
+			gdiff = diff;
 #ifdef EXACT
 
 		if (a[i] != b[i]) {
@@ -41,12 +47,14 @@ static inline void veccomp(const QVector<T> &a, const QVector<T> &b, const char 
 		v1.uv = v2.uv = 0;
 		v1.tv = a[i];
 		v2.tv = b[i];
-		if (fabsf(a[i] - b[i]) > 2) {
+		if (fabsf(a[i] - b[i]) > 1) {
 			qWarning("%08x %08x %08x", v1.uv, v2.uv, v1.uv ^ v2.uv);
 #endif
 			qFatal("%s: Offset %d: %.10g <=> %.10g", n, i, static_cast<double>(a[i]), static_cast<double>(b[i]));
 		}
 	}
+	return gdiff;
+	return sqrt(rms / a.size());
 }
 
 int main(int argc, char **argv) {
@@ -258,11 +266,13 @@ int main(int argc, char **argv) {
 			if (vf.isOpen()) {
 				verify >> vDirect >> vInterpolate >> vsInterpolate >> vMagic >> vInterpolateMC;
 				
-				veccomp(vDirect, fDirect, "SRS1");
-				veccomp(vInterpolate, fInterpolate, "SRS2");
+				double rmsd = veccomp(vDirect, fDirect, "SRS1");
+				double rmsi = veccomp(vInterpolate, fInterpolate, "SRS2");
 				veccomp(vsInterpolate, sInterpolate, "SRS2i");
 				veccomp(vMagic, fMagic, "Magic");
 				veccomp(vInterpolateMC, fInterpolateMC, "MC");
+				qWarning("Direct: %g", rmsd);
+				qWarning("Interp: %g", rmsi);
 			} else {
 				qWarning("No verification!");
 			}
