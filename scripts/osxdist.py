@@ -235,9 +235,6 @@ class DiskImage(object):
 		           '-volname', self.volname,
 		           self.filename])
 		retval = p.wait()
-		print ' * Converting diskimage to \'internet enabled\''
-		p = Popen(['hdiutil', 'internet-enable', self.filename])
-		retval = p.wait()
 		print ' * Removing temporary directory.'
 		shutil.rmtree(self.tmp)
 		print ' * Done!'
