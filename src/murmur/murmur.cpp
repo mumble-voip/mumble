@@ -222,7 +222,7 @@ int main(int argc, char **argv) {
 			       "  -readsupw [srv]  Reads passford for server srv from standard input.\n"
 #endif
 			       "  -v               Add verbose output.\n"
-			       "  -fg              Don't detach from console [Linux only].\n"
+			       "  -fg              Don't detach from console [Unix-like systems only].\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.",argv[0]);
 		} else {
