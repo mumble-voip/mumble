@@ -219,7 +219,7 @@ int main(int argc, char **argv) {
 			       "  -ini <inifile>   Specify ini file to use.\n"
 			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
-			       "  -readsupw [srv]  Reads passford for server srv from standard input.\n"
+			       "  -readsupw [srv]  Reads password for server srv from standard input.\n"
 #endif
 			       "  -v               Add verbose output.\n"
 			       "  -fg              Don't detach from console [Unix-like systems only].\n"
