@@ -2,8 +2,9 @@
 
 static const float tfreq1 = 48000.f;
 static const float tfreq2 = 44100.f;
-static const int qual = 5;
+static const int qual = 3;
 static const int loops = 100 / qual;
+// static const int loops = 1;
 #define SM_VERIFY
 // #define EXACT
 
@@ -104,6 +105,8 @@ int main(int argc, char **argv) {
 	QVector<float *> qvInterpolate;
 	QVector<float *> qvInterpolateMC;
 	QVector<short *> qvInterpolateShort;
+	QVector<float *> qv8;
+	QVector<float *> qv96;
 
 	const float sfraq1 = tfreq1 / 16000.0f;
 	float fOutSize1 = iFrameSize * sfraq1;
@@ -113,6 +116,9 @@ int main(int argc, char **argv) {
 	float fOutSize2 = iFrameSize * sfraq2;
 	int iOutSize2 = lroundf(fOutSize2);
 	
+	int iOutSize8 = iFrameSize / 2;
+	int iOutSize96 = iFrameSize * 6;
+	
 	if (RUNNING_ON_VALGRIND)
 		nframes = qMin(nframes, 10);
 
@@ -121,6 +127,8 @@ int main(int argc, char **argv) {
 	QVector<float> fInterpolate(nframes * iOutSize2);
 	QVector<float> fInterpolateMC(nframes * iOutSize2);
 	QVector<short> sInterpolate(nframes * iOutSize2);
+	QVector<float> f96(nframes * iOutSize96);
+	QVector<float> f8(nframes *iOutSize8);
 		
 	for(int i=0;i<nframes;i++) {
 		short *s = reinterpret_cast<short *>(v[i].data());
@@ -135,6 +143,8 @@ int main(int argc, char **argv) {
 		qvInterpolate.append(fInterpolate.data() + i * iOutSize2);
 		qvInterpolateMC.append(fInterpolateMC.data() + i * iOutSize2);
 		qvInterpolateShort.append(sInterpolate.data() + i * iOutSize2);
+		qv8.append(f8.data() + i * iOutSize8);
+		qv96.append(f96.data() + i * iOutSize96);
 	}
 	
 	int err;
@@ -142,6 +152,11 @@ int main(int argc, char **argv) {
 	SpeexResamplerState *srs2 = speex_resampler_init(1, 16000, lroundf(tfreq2), qual, &err);
 	SpeexResamplerState *srs2i = speex_resampler_init(1, 16000, lroundf(tfreq2), qual, &err);
 	SpeexResamplerState *srss = speex_resampler_init(3, 16000, lroundf(tfreq2), qual, &err);
+	
+	SpeexResamplerState *srsto96 = speex_resampler_init(1, 16000, 96000, 5, &err);
+	SpeexResamplerState *srs8to96 = speex_resampler_init(1, 8000, 96000, qual, &err);
+	SpeexResamplerState *srs96to8 = speex_resampler_init(1, 96000, 8000, qual, &err);
+	
 	
 #ifdef Q_OS_WIN
     if (!SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS))
@@ -154,6 +169,7 @@ int main(int argc, char **argv) {
 
 	Timer t;
 	quint64 e;
+
 
 	if (! RUNNING_ON_VALGRIND) {
 #ifndef Q_OS_WIN
@@ -173,6 +189,12 @@ int main(int argc, char **argv) {
 	
 		sched_yield();
 #endif
+
+		for(int i=0;i<nframes;++i) {
+			inlen = iFrameSize;
+			outlen = iOutSize96;
+			speex_resampler_process_float(srsto96, 0, qvIn[i], &inlen, qv96[i], &outlen);
+		}
 	
 		t.restart();
 		for(int j=0;j<loops;j++) {
@@ -195,8 +217,32 @@ int main(int argc, char **argv) {
 		}
 		e = t.elapsed();
 		qWarning("Interpolate: %10llu usec", e);
-		speex_resampler_reset_mem(srs1);
-		speex_resampler_reset_mem(srs2);
+
+		t.restart();
+		for(int j=0;j<loops;j++) {
+			for(int i=0;i<nframes;i++) {
+				inlen = iOutSize96;
+				outlen = iOutSize8;
+				speex_resampler_process_float(srs96to8, 0, qv96[i], &inlen, qv8[i], &outlen);
+			}
+		}
+		e = t.elapsed();
+		qWarning("96 => 8:     %10llu usec", e);
+
+		t.restart();
+		for(int j=0;j<loops;j++) {
+			for(int i=0;i<nframes;i++) {
+				inlen = iOutSize8;
+				outlen = iOutSize96;
+				speex_resampler_process_float(srs8to96, 0, qv8[i], &inlen, qv96[i], &outlen);
+			}
+		}
+		e = t.elapsed();
+		qWarning("8 => 96:     %10llu usec", e);
+
+
+               speex_resampler_reset_mem(srs1);
+               speex_resampler_reset_mem(srs2);
 	}
 	
 	t.restart();
@@ -220,13 +266,13 @@ int main(int argc, char **argv) {
 		speex_resampler_process_interleaved_float(srss, qvIn[i], &inlen, qvInterpolateMC[i], &outlen);
 	}
 	e = t.elapsed();
-
+	
 #ifdef Q_OS_WIN
     if (!SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS))
              qWarning("Application: Failed to reset priority!");
 #endif
 
-	const int freq[10] = { 22050, 32000, 11025, 16000, 48000, 41000, 8000, 96000, 11025, 16000 };
+	const int freq[10] = { 22050, 32000, 11025, 16000, 48000, 41000, 8000, 96000, 11025, 1600 };
 	
 	QVector<float> fMagic;
 	
@@ -237,6 +283,25 @@ int main(int argc, char **argv) {
 			speex_resampler_set_quality(srs1, (3*q) % 7);
 			inlen = iFrameSize;
 			outlen = 32767;
+			speex_resampler_process_float(srs1, 0, qvIn[(f*10+q) % nframes], &inlen, fbuff, &outlen);
+			for(int j=0;j<outlen;j++)
+				fMagic.append(fbuff[j]);
+		}
+		inlen = iFrameSize;
+		outlen = 32767;
+		speex_resampler_process_float(srs1, 0, NULL, &inlen, fbuff, &outlen);
+		for(int j=0;j<outlen;j++)
+			fMagic.append(fbuff[j]);
+	}
+
+	// Cropped magic test
+	for(int f=0;f<10;f++) {
+		float fbuff[32767];
+		speex_resampler_set_rate(srs1, 16000, freq[f]);
+		for(int q = 0;q < 10;q++) {
+			speex_resampler_set_quality(srs1, (3*q) % 7);
+			inlen = iFrameSize;
+			outlen = 16;
 			speex_resampler_process_float(srs1, 0, qvIn[(f*10+q) % nframes], &inlen, fbuff, &outlen);
 			for(int j=0;j<outlen;j++)
 				fMagic.append(fbuff[j]);
