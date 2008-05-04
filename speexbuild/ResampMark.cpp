@@ -3,7 +3,7 @@
 static const float tfreq1 = 48000.f;
 static const float tfreq2 = 44100.f;
 static const int qual = 3;
-static const int loops = 100 / qual;
+static const int loops = 200 / qual;
 // static const int loops = 1;
 #define SM_VERIFY
 // #define EXACT
@@ -24,6 +24,7 @@ static const int loops = 100 / qual;
 #include <math.h>
 #include <speex/speex_resampler.h>
 
+#include <emmintrin.h>
 
 
 #include "Timer.h"
@@ -56,6 +57,27 @@ static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const cha
 	}
 	return gdiff;
 	return sqrt(rms / a.size());
+}
+
+template<class T>
+QPair<T, T> confint(const QVector<T> &vecin) {
+  long double avg = 0.0;
+  long double stddev = 0.0;
+  QVector<T> vec = vecin;
+  qSort(vec.begin(), vec.end());
+  for(int i=0;i<vec.count() / 20;++i) {
+  	vec.pop_front();
+  	vec.pop_back();
+  }
+  
+  foreach(T v, vec)
+  	avg += v;
+  avg /= vec.count();
+  
+  foreach(T v, vec)
+  	stddev += (v-avg)*(v-avg);
+  stddev = sqrtl(stddev / vec.count());
+  return QPair<T,T>(static_cast<T>(avg), static_cast<T>(1.96 * stddev));
 }
 
 int main(int argc, char **argv) {
@@ -129,7 +151,7 @@ int main(int argc, char **argv) {
 	QVector<short> sInterpolate(nframes * iOutSize2);
 	QVector<float> f96(nframes * iOutSize96);
 	QVector<float> f8(nframes *iOutSize8);
-		
+	
 	for(int i=0;i<nframes;i++) {
 		short *s = reinterpret_cast<short *>(v[i].data());
 		float *f = fInput.data() + i * iFrameSize;
@@ -169,8 +191,11 @@ int main(int argc, char **argv) {
 
 	Timer t;
 	quint64 e;
-
-
+	
+	qWarning("F T %p %p %p", qvIn[0], qvDirect[0], &e);
+	unsigned long long ptr = &e;
+	alloca(0x1000 - (e & 0xfff));
+	
 	if (! RUNNING_ON_VALGRIND) {
 #ifndef Q_OS_WIN
 		struct sched_param sp;
@@ -178,7 +203,7 @@ int main(int argc, char **argv) {
 		
 		cpu_set_t cpuset;
 		CPU_ZERO(&cpuset);
-		CPU_SET(0, &cpuset);
+		CPU_SET(1, &cpuset);
 
 		if (sched_setscheduler(getpid(), SCHED_FIFO, &sp) != 0)
 			qWarning("No realtime.");
@@ -195,51 +220,67 @@ int main(int argc, char **argv) {
 			outlen = iOutSize96;
 			speex_resampler_process_float(srsto96, 0, qvIn[i], &inlen, qv96[i], &outlen);
 		}
+		
+		QVector<unsigned long long> qvTimes;
+		QPair<unsigned long long, unsigned long long> ci;
 	
-		t.restart();
 		for(int j=0;j<loops;j++) {
+			t.restart();
 			for(int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize1;
 				speex_resampler_process_float(srs1, 0, qvIn[i], &inlen, qvDirect[i], &outlen);
 			}
+			e = t.elapsed();
+			qvTimes.append(e);
+			sched_yield();
 		}
-		e = t.elapsed();
-		qWarning("Direct:      %10llu usec", e);
+		ci = confint(qvTimes);
+		qWarning("Direct:      %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count(), qvTimes.count());
+		
+		qvTimes.clear();
 
-		t.restart();
 		for(int j=0;j<loops;j++) {
+			t.restart();
 			for(int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize2;
 				speex_resampler_process_float(srs2, 0, qvIn[i], &inlen, qvInterpolate[i], &outlen);
 			}
+			e = t.elapsed();
+			qvTimes.append(e);
 		}
-		e = t.elapsed();
-		qWarning("Interpolate: %10llu usec", e);
+		ci = confint(qvTimes);
+		qWarning("Interpolate: %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count());
 
-		t.restart();
+		qvTimes.clear();
 		for(int j=0;j<loops;j++) {
+			t.restart();
 			for(int i=0;i<nframes;i++) {
 				inlen = iOutSize96;
 				outlen = iOutSize8;
 				speex_resampler_process_float(srs96to8, 0, qv96[i], &inlen, qv8[i], &outlen);
 			}
+			e = t.elapsed();
+			qvTimes.append(e);
 		}
-		e = t.elapsed();
-		qWarning("96 => 8:     %10llu usec", e);
+		ci = confint(qvTimes);
+		qWarning("96 => 8:     %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count());
 
+		qvTimes.clear();
 		t.restart();
 		for(int j=0;j<loops;j++) {
+			t.restart();
 			for(int i=0;i<nframes;i++) {
 				inlen = iOutSize8;
 				outlen = iOutSize96;
 				speex_resampler_process_float(srs8to96, 0, qv8[i], &inlen, qv96[i], &outlen);
 			}
+			e = t.elapsed();
+			qvTimes.append(e);
 		}
-		e = t.elapsed();
-		qWarning("8 => 96:     %10llu usec", e);
-
+		ci = confint(qvTimes);
+		qWarning("8 => 96:     %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count());
 
                speex_resampler_reset_mem(srs1);
                speex_resampler_reset_mem(srs2);
