@@ -71,6 +71,12 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
+#ifdef Q_OS_MAC
+	// Avoid auto-loading system Qt plugins. This could potentially make
+	// us load two different Qt libraries into our process. Not good.
+	a.setLibraryPaths(QStringList());
+#endif
+
 	Global::g_global_struct = new Global();
 
 #ifdef USE_DBUS
