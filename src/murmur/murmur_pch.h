@@ -1,6 +1,10 @@
 #ifndef _MURMUR_PCH_H
 #define _MURMUR_PCH_H
 
+#if defined(__INTEL_COMPILER)
+#include <mathimf.h>
+#endif
+
 #include <QtCore/QtCore>
 #include <QtNetwork/QtNetwork>
 #include <QtSql/QtSql>
@@ -41,9 +45,7 @@
 #endif
 
 #ifdef Q_OS_WIN
-#ifdef Q_CC_INTEL
-#include <mathimf.h>
-#else
+#ifndef Q_CC_INTEL
 #include <math.h>
 #define lroundf(x) ( static_cast<int>( (x) + ((x) >= 0 ? 0.5 : -0.5) ) )
 #endif

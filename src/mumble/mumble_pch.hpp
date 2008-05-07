@@ -6,6 +6,7 @@
 
 #if defined(__INTEL_COMPILER)
 #define _MSC_EXTENSIONS
+#include <mathimf.h>
 #else
 #define BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
 #endif
@@ -44,9 +45,7 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #include <shellapi.h>
-#ifdef Q_CC_INTEL
-#include <mathimf.h>
-#else
+#ifndef Q_CC_INTEL
 #include <math.h>
 #define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )
 #define lround(x) ( static_cast<long int>( (x) + ((x) >= 0.0 ? 0.5 : -0.5) ) )

@@ -3,7 +3,7 @@
 static const float tfreq1 = 48000.f;
 static const float tfreq2 = 44100.f;
 static const int qual = 3;
-static const int loops = 200 / qual;
+static const int loops = 2000 / qual;
 // static const int loops = 1;
 #define SM_VERIFY
 // #define EXACT
@@ -12,9 +12,11 @@ static const int loops = 200 / qual;
 #define _WIN32_IE 0x0600
 #include <windows.h>
 #include <shellapi.h>
+#include <mathimf.h>
 #define CALLGRIND_START_INSTRUMENTATION
 #define CALLGRIND_STOP_INSTRUMENTATION
 #define CALLGRIND_ZERO_STATS
+#define RUNNING_ON_VALGRIND 0
 #else
 #include <sched.h>
 #include <sys/mman.h>
@@ -45,7 +47,7 @@ static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const cha
 
 		if (a[i] != b[i]) {
 #else
-		union { T tv; uint32_t uv; } v1, v2;
+		union { T tv; quint32 uv; } v1, v2;
 		v1.uv = v2.uv = 0;
 		v1.tv = a[i];
 		v2.tv = b[i];
@@ -69,11 +71,11 @@ QPair<T, T> confint(const QVector<T> &vecin) {
   	vec.pop_front();
   	vec.pop_back();
   }
-  
+
   foreach(T v, vec)
   	avg += v;
   avg /= vec.count();
-  
+
   foreach(T v, vec)
   	stddev += (v-avg)*(v-avg);
   stddev = sqrtl(stddev / vec.count());
@@ -102,7 +104,7 @@ int main(int argc, char **argv) {
 	if (! vf.open(QIODevice::ReadOnly)) {
 		qWarning("Failed to open validate file!");
 	}
-	
+
 	QDataStream out(&o);
 	QDataStream verify(&vf);
 
@@ -117,7 +119,7 @@ int main(int argc, char **argv) {
 	}
 
 	int nframes = v.size();
-	
+
 
 	qWarning("Ready to process %d frames of %d samples", nframes, iFrameSize);
 
@@ -133,14 +135,14 @@ int main(int argc, char **argv) {
 	const float sfraq1 = tfreq1 / 16000.0f;
 	float fOutSize1 = iFrameSize * sfraq1;
 	int iOutSize1 = lroundf(fOutSize1);
-		
+
 	const float sfraq2 = tfreq2 / 16000.0f;
 	float fOutSize2 = iFrameSize * sfraq2;
 	int iOutSize2 = lroundf(fOutSize2);
-	
+
 	int iOutSize8 = iFrameSize / 2;
 	int iOutSize96 = iFrameSize * 6;
-	
+
 	if (RUNNING_ON_VALGRIND)
 		nframes = qMin(nframes, 10);
 
@@ -151,7 +153,7 @@ int main(int argc, char **argv) {
 	QVector<short> sInterpolate(nframes * iOutSize2);
 	QVector<float> f96(nframes * iOutSize96);
 	QVector<float> f8(nframes *iOutSize8);
-	
+
 	for(int i=0;i<nframes;i++) {
 		short *s = reinterpret_cast<short *>(v[i].data());
 		float *f = fInput.data() + i * iFrameSize;
@@ -168,18 +170,18 @@ int main(int argc, char **argv) {
 		qv8.append(f8.data() + i * iOutSize8);
 		qv96.append(f96.data() + i * iOutSize96);
 	}
-	
+
 	int err;
 	SpeexResamplerState *srs1 = speex_resampler_init(1, 16000, lroundf(tfreq1), qual, &err);
 	SpeexResamplerState *srs2 = speex_resampler_init(1, 16000, lroundf(tfreq2), qual, &err);
 	SpeexResamplerState *srs2i = speex_resampler_init(1, 16000, lroundf(tfreq2), qual, &err);
 	SpeexResamplerState *srss = speex_resampler_init(3, 16000, lroundf(tfreq2), qual, &err);
-	
+
 	SpeexResamplerState *srsto96 = speex_resampler_init(1, 16000, 96000, 5, &err);
 	SpeexResamplerState *srs8to96 = speex_resampler_init(1, 8000, 96000, qual, &err);
 	SpeexResamplerState *srs96to8 = speex_resampler_init(1, 96000, 8000, qual, &err);
-	
-	
+
+
 #ifdef Q_OS_WIN
     if (!SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS))
              qWarning("Application: Failed to set priority!");
@@ -191,16 +193,12 @@ int main(int argc, char **argv) {
 
 	Timer t;
 	quint64 e;
-	
-	qWarning("F T %p %p %p", qvIn[0], qvDirect[0], &e);
-	unsigned long long ptr = &e;
-	alloca(0x1000 - (e & 0xfff));
-	
+
 	if (! RUNNING_ON_VALGRIND) {
 #ifndef Q_OS_WIN
 		struct sched_param sp;
 		sp.sched_priority = sched_get_priority_max(SCHED_FIFO);
-		
+
 		cpu_set_t cpuset;
 		CPU_ZERO(&cpuset);
 		CPU_SET(1, &cpuset);
@@ -211,7 +209,7 @@ int main(int argc, char **argv) {
 			qWarning("No mlock.");
 		if (sched_setaffinity(0, sizeof(cpuset), &cpuset) != 0)
 			qWarning("No affinity");
-	
+
 		sched_yield();
 #endif
 
@@ -220,10 +218,10 @@ int main(int argc, char **argv) {
 			outlen = iOutSize96;
 			speex_resampler_process_float(srsto96, 0, qvIn[i], &inlen, qv96[i], &outlen);
 		}
-		
+
 		QVector<unsigned long long> qvTimes;
 		QPair<unsigned long long, unsigned long long> ci;
-	
+
 		for(int j=0;j<loops;j++) {
 			t.restart();
 			for(int i=0;i<nframes;i++) {
@@ -233,7 +231,6 @@ int main(int argc, char **argv) {
 			}
 			e = t.elapsed();
 			qvTimes.append(e);
-			sched_yield();
 		}
 		ci = confint(qvTimes);
 		qWarning("Direct:      %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count(), qvTimes.count());
@@ -285,7 +282,7 @@ int main(int argc, char **argv) {
                speex_resampler_reset_mem(srs1);
                speex_resampler_reset_mem(srs2);
 	}
-	
+
 	t.restart();
 	CALLGRIND_START_INSTRUMENTATION;
 
@@ -301,22 +298,22 @@ int main(int argc, char **argv) {
 		inlen = iFrameSize;
 		outlen = iOutSize2;
 		speex_resampler_process_int(srs2i, 0, qvInShort[i], &inlen, qvInterpolateShort[i], &outlen);
-		
+
 		inlen = iFrameSize / 4;
 		outlen = iOutSize2 / 4;
 		speex_resampler_process_interleaved_float(srss, qvIn[i], &inlen, qvInterpolateMC[i], &outlen);
 	}
 	e = t.elapsed();
-	
+
 #ifdef Q_OS_WIN
     if (!SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS))
              qWarning("Application: Failed to reset priority!");
 #endif
 
 	const int freq[10] = { 22050, 32000, 11025, 16000, 48000, 41000, 8000, 96000, 11025, 1600 };
-	
+
 	QVector<float> fMagic;
-	
+
 	for(int f=0;f<10;f++) {
 		float fbuff[32767];
 		speex_resampler_set_rate(srs1, 16000, freq[f]);
@@ -368,10 +365,10 @@ int main(int argc, char **argv) {
 			QVector<float> vInterpolateMC;
 
 			out << fDirect << fInterpolate << sInterpolate << fMagic << fInterpolateMC;
-			
+
 			if (vf.isOpen()) {
 				verify >> vDirect >> vInterpolate >> vsInterpolate >> vMagic >> vInterpolateMC;
-				
+
 				double rmsd = veccomp(vDirect, fDirect, "SRS1");
 				double rmsi = veccomp(vInterpolate, fInterpolate, "SRS2");
 				veccomp(vsInterpolate, sInterpolate, "SRS2i");
