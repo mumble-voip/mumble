@@ -68,7 +68,7 @@ class PulseAudioInit : public DeferInit {
 			pasys = new PulseAudioSystem();
 			pasys->qmWait.lock();
 			pasys->start(QThread::TimeCriticalPriority);
-			pasys->qwcWait.wait(&pasys->qmWait);
+			pasys->qwcWait.wait(&pasys->qmWait, 1000);
 			if (pasys->bPulseIsGood) {
 				airPulseAudio = new PulseAudioInputRegistrar();
 				aorPulseAudio = new PulseAudioOutputRegistrar();

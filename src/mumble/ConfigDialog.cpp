@@ -134,14 +134,14 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	QDesktopWidget dw;
 
-	int width = INT_MAX, height = INT_MAX;
+	int w = INT_MAX, h = INT_MAX;
 
 
 	for (int i=0;i<dw.numScreens();++i) {
 		QRect ds=dw.availableGeometry(i);
 		if (ds.isValid()) {
-			width = qMin(width, ds.width());
-			height = qMin(height, ds.height());
+			w = qMin(w, ds.width());
+			h = qMin(h, ds.height());
 		}
 	}
 
@@ -151,7 +151,7 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 
 	ms.rwidth() += 128;
 	ms.rheight() += 192;
-	if ((ms.width() > width) || (ms.height() > height)) {
+	if ((ms.width() > w) || (ms.height() > h)) {
 		QScrollArea *qsa=new QScrollArea(this);
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);

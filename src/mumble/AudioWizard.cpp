@@ -744,21 +744,21 @@ void AudioWizard::on_Ticker_timeout() {
 			qWarning("It's at %f %f", qgiSource->x(), qgiSource->y());
 		}
 	} else if (currentPage() == qwpPositional) {
-		float x, y;
+		float xp, yp;
 		if ((fX == 0.0f) && (fY == 0.0f)) {
 			fAngle += 0.05;
 
-			x = sin(fAngle) * 2.0f;
-			y = cos(fAngle) * 2.0f;
+			xp = sin(fAngle) * 2.0f;
+			yp = cos(fAngle) * 2.0f;
 		} else {
-			x = fX;
-			y = fY;
+			xp = fX;
+			yp = fY;
 		}
 
-		qgiSource->setPos(x, y);
-		asSource->fPos[0] = x;
+		qgiSource->setPos(xp, yp);
+		asSource->fPos[0] = xp;
 		asSource->fPos[1] = 0;
-		asSource->fPos[2] = y;
+		asSource->fPos[2] = yp;
 	}
 }
 
