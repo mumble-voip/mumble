@@ -46,7 +46,7 @@
 QMap<QString, AudioInputRegistrar *> *AudioInputRegistrar::qmNew;
 QString AudioInputRegistrar::current = QString();
 
-AudioInputRegistrar::AudioInputRegistrar(const QString &n) : name(n) {
+AudioInputRegistrar::AudioInputRegistrar(const QString &n, int p) : name(n), priority(p) {
 	if (! qmNew)
 		qmNew = new QMap<QString, AudioInputRegistrar *>();
 	qmNew->insert(name,this);
@@ -71,19 +71,13 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 		return AudioInputPtr(qmNew->value(choice)->create());
 	}
 
-	// Try a sensible default. For example, ASIO is NOT a sensible default, but it's
-	// pretty early in the sorted map.
-
-	if (qmNew->contains(QLatin1String(DEFAULT_SOUNDSYS))) {
-		current = QLatin1String(DEFAULT_SOUNDSYS);
-		return AudioInputPtr(qmNew->value(current)->create());
-	}
-
-	QMapIterator<QString, AudioInputRegistrar *> i(*qmNew);
-	if (i.hasNext()) {
-		i.next();
-		current = i.key();
-		return AudioInputPtr(i.value()->create());
+	AudioInputRegistrar *r = NULL;
+	foreach(AudioInputRegistrar *air, *qmNew)
+		if (!r || (air->priority > r->priority))
+			r = air;
+	if (r) {
+		current = r->name;
+		return AudioInputPtr(r->create());
 	}
 	return AudioInputPtr();
 }

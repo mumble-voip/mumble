@@ -46,8 +46,12 @@ class PulseAudioSystem : public QThread {
 		pa_stream *pasInput, *pasOutput, *pasSpeaker;
 		pa_mainloop *pam;
 		pa_defer_event *pade;
+		
+		QMutex qmWait;
+		QWaitCondition qwcWait;
 
 		bool bSourceDone, bSinkDone, bServerDone;
+		bool bPulseIsGood;
 
 		QString qsDefaultInput, qsDefaultOutput;
 

@@ -45,8 +45,9 @@ class AudioInputRegistrar {
 		static AudioInputPtr newFromChoice(QString choice = QString());
 
 		const QString name;
+		int priority;
 
-		AudioInputRegistrar(const QString &n);
+		AudioInputRegistrar(const QString &n, int priority = 0);
 		virtual ~AudioInputRegistrar();
 		virtual AudioInput *create() = 0;
 		virtual const QList<audioDevice> getDeviceChoices() = 0;

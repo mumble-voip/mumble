@@ -34,9 +34,6 @@
 #include "MainWindow.h"
 #include "Timer.h"
 
-#define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
-#define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
-
 class WASAPIInputRegistrar : public AudioInputRegistrar {
 	public:
 		WASAPIInputRegistrar();
@@ -98,7 +95,7 @@ void WASAPIInit::destroy() {
 }
 
 
-WASAPIInputRegistrar::WASAPIInputRegistrar() : AudioInputRegistrar(QLatin1String("WASAPI")) {
+WASAPIInputRegistrar::WASAPIInputRegistrar() : AudioInputRegistrar(QLatin1String("WASAPI"), 10) {
 }
 
 AudioInput *WASAPIInputRegistrar::create() {
@@ -117,7 +114,7 @@ bool WASAPIInputRegistrar::canEcho(const QString &outputsys) {
 	return (outputsys == name);
 }
 
-WASAPIOutputRegistrar::WASAPIOutputRegistrar() : AudioOutputRegistrar(QLatin1String("WASAPI")) {
+WASAPIOutputRegistrar::WASAPIOutputRegistrar() : AudioOutputRegistrar(QLatin1String("WASAPI"), 10) {
 }
 
 AudioOutput *WASAPIOutputRegistrar::create() {

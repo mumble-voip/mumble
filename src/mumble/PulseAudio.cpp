@@ -42,9 +42,6 @@ static PulseAudioSystem *pasys = NULL;
 
 #define NBLOCKS 8
 
-#define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
-#define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
-
 class PulseAudioInputRegistrar : public AudioInputRegistrar {
 	public:
 		PulseAudioInputRegistrar();
@@ -63,15 +60,29 @@ class PulseAudioOutputRegistrar : public AudioOutputRegistrar {
 		virtual void setDeviceChoice(const QVariant &, Settings &);
 };
 
-static PulseAudioInputRegistrar airPulseAudio;
-static PulseAudioOutputRegistrar aorPulseAudio;
-
 class PulseAudioInit : public DeferInit {
 	public:
+		PulseAudioInputRegistrar *airPulseAudio;
+		PulseAudioOutputRegistrar *aorPulseAudio;
 		void initialize() {
 			pasys = new PulseAudioSystem();
+			pasys->qmWait.lock();
+			pasys->start(QThread::TimeCriticalPriority);
+			pasys->qwcWait.wait(&pasys->qmWait);
+			if (pasys->bPulseIsGood) {
+				airPulseAudio = new PulseAudioInputRegistrar();
+				aorPulseAudio = new PulseAudioOutputRegistrar();
+			} else {
+				airPulseAudio = NULL;
+				aorPulseAudio = NULL;
+			}
+			qWarning("Pulse Done! %d", pasys->bPulseIsGood);
 		};
 		void destroy() {
+			if (airPulseAudio)
+				delete airPulseAudio;
+			if (aorPulseAudio)
+				delete aorPulseAudio;
 			delete pasys;
 			pasys = NULL;
 		};
@@ -84,6 +95,7 @@ PulseAudioSystem::PulseAudioSystem() {
 	bSourceDone=bSinkDone=bServerDone = false;
 	iDelayCache = 0;
 	bPositionalCache = false;
+	bPulseIsGood = false;
 
 	pam = pa_mainloop_new();
 	pa_mainloop_api *api = pa_mainloop_get_api(pam);
@@ -97,8 +109,6 @@ PulseAudioSystem::PulseAudioSystem() {
 
 	pade = api->defer_new(api, defer_event_callback, this);
 	api->defer_enable(pade, false);
-
-	start(QThread::TimeCriticalPriority);
 }
 
 PulseAudioSystem::~PulseAudioSystem() {
@@ -116,6 +126,9 @@ void PulseAudioSystem::wakeup() {
 }
 
 void PulseAudioSystem::run() {
+	// Make sure we don't exit too early.
+	qmWait.lock();
+	qmWait.unlock();
 	int rv;
 	pa_mainloop_run(pam, &rv);
 	if (rv != 0)
@@ -527,6 +540,7 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 	Q_ASSERT(c == pacContext);
 	switch (pa_context_get_state(c)) {
 		case PA_CONTEXT_READY:
+			bPulseIsGood = true;
 			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SOURCE, NULL, this));
 			pa_operation_unref(pa_context_subscribe(pacContext, PA_SUBSCRIPTION_MASK_SINK, NULL, this));
 			query();
@@ -540,9 +554,10 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 		default:
 			break;
 	}
+	qwcWait.wakeAll();
 }
 
-PulseAudioInputRegistrar::PulseAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PulseAudio")) {
+PulseAudioInputRegistrar::PulseAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PulseAudio"), 10) {
 }
 
 AudioInput *PulseAudioInputRegistrar::create() {
@@ -575,7 +590,7 @@ bool PulseAudioInputRegistrar::canEcho(const QString &osys) {
 	return (osys == name);
 }
 
-PulseAudioOutputRegistrar::PulseAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PulseAudio")) {
+PulseAudioOutputRegistrar::PulseAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("PulseAudio"), 10) {
 }
 
 AudioOutput *PulseAudioOutputRegistrar::create() {
