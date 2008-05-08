@@ -408,6 +408,17 @@ void MainWindow::setupView() {
 
 	bNoHide = true;
 
+	if (! showit)
+		g.s.qbaMainWindowState = saveState();
+
+	qdwLog->setVisible(showit);
+
+	if (showit) {
+		restoreState(g.s.qbaMainWindowState);
+		qdwLog->setVisible(showit);
+	}
+
+
 	Qt::WindowFlags f = windowFlags();
 	if (showit)
 		f = 0;
@@ -417,7 +428,7 @@ void MainWindow::setupView() {
 	show();
 	qtvPlayers->header()->setVisible(showit);
 	menuBar()->setVisible(showit);
-	qdwLog->setVisible(showit);
+
 
 	bNoHide = false;
 }
