@@ -188,21 +188,10 @@ void MainWindow::setupGui()  {
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down()), qaConfigMinimal, SLOT(trigger()));
 
-	if (g.s.bHorizontal) {
-		qsSplit->setOrientation(Qt::Horizontal);
-		qsSplit->addWidget(qteLog);
-		qsSplit->addWidget(qtvPlayers);
-	} else {
-		qsSplit->setOrientation(Qt::Vertical);
-		qsSplit->addWidget(qtvPlayers);
-		qsSplit->addWidget(qteLog);
-	}
-
-	setCentralWidget(qsSplit);
+	centralWidget()->hide();
 
 	restoreGeometry(g.s.qbaMainWindowGeometry);
 	restoreState(g.s.qbaMainWindowState);
-	qsSplit->restoreState(g.s.qbaSplitterState);
 	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
 
 	setupView();
@@ -237,7 +226,6 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.s.qbaMainWindowGeometry = saveGeometry();
 	g.s.qbaMainWindowState = saveState();
 	if (! g.s.bMinimalView) {
-		g.s.qbaSplitterState = qsSplit->saveState();
 		g.s.qbaHeaderState = qtvPlayers->header()->saveState();
 	}
 	QMainWindow::closeEvent(e);

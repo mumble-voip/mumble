@@ -107,7 +107,6 @@ struct Settings {
 	QString qsLanguage;
 	QString qsStyle;
 	QString qsSkin;
-	bool bHorizontal;
 	bool bFirstTime;
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState, qbaHeaderState;
 	ChannelExpand ceExpand;

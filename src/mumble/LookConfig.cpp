@@ -88,7 +88,6 @@ void LookConfig::load(const Settings &r) {
 		}
 	}
 	qleCSS->setText(r.qsSkin);
-	loadCheckBox(qcbHorizontal, r.bHorizontal);
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
@@ -109,7 +108,6 @@ void LookConfig::save() const {
 		s.qsSkin = QString();
 	else
 		s.qsSkin = qleCSS->text();
-	s.bHorizontal = qcbHorizontal->isChecked();
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.bPlayerTop=qcbPlayersTop->isChecked();
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
@@ -131,21 +129,10 @@ void LookConfig::accept() const {
 			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
 		}
 	}
-
-	if (s.bHorizontal) {
-		g.mw->qsSplit->setOrientation(Qt::Horizontal);
-		g.mw->qsSplit->addWidget(g.mw->qteLog);
-		g.mw->qsSplit->addWidget(g.mw->qtvPlayers);
-	} else {
-		g.mw->qsSplit->setOrientation(Qt::Vertical);
-		g.mw->qsSplit->addWidget(g.mw->qtvPlayers);
-		g.mw->qsSplit->addWidget(g.mw->qteLog);
-	}
 }
 
 bool LookConfig::expert(bool b) {
 	qcbExpand->setVisible(b);
-	qcbHorizontal->setVisible(b);
 	qcbPlayersTop->setVisible(b);
 	qcbStyle->setVisible(b);
 	qliStyle->setVisible(b);

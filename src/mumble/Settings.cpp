@@ -65,7 +65,6 @@ Settings::Settings() {
 #endif
 
 	bFirstTime = true;
-	bHorizontal = true;
 	ceExpand = ChannelsWithPlayers;
 	bMinimalView = false;
 
@@ -247,7 +246,6 @@ void Settings::load() {
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
-	SAVELOAD(bHorizontal, "ui/horizontal");
 	LOADENUM(ceExpand, "ui/expand");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
@@ -366,7 +364,6 @@ void Settings::save() {
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
-	SAVELOAD(bHorizontal, "ui/horizontal");
 	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
