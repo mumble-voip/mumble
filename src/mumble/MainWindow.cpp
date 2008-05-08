@@ -156,6 +156,7 @@ void MainWindow::createActions() {
 
 void MainWindow::setupGui()  {
 	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
+	setCentralWidget(qtvPlayers);
 
 #ifdef Q_OS_MAC
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
@@ -188,7 +189,9 @@ void MainWindow::setupGui()  {
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down()), qaConfigMinimal, SLOT(trigger()));
 
-	centralWidget()->hide();
+//	qdwPlayers->setTitleBarWidget(new QWidget());
+
+//	centralWidget()->hide();
 
 	restoreGeometry(g.s.qbaMainWindowGeometry);
 	restoreState(g.s.qbaMainWindowState);
@@ -358,7 +361,7 @@ void MainWindow::setupView() {
 	show();
 	qtvPlayers->header()->setVisible(showit);
 	menuBar()->setVisible(showit);
-	qteLog->setVisible(showit);
+	qdwLog->setVisible(showit);
 
 	bNoHide = false;
 }

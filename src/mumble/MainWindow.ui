@@ -12,16 +12,34 @@
   <property name="dockOptions" >
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>76</x>
-     <y>29</y>
-     <width>648</width>
-     <height>549</height>
-    </rect>
-   </property>
-  </widget>
+    <widget class="QTreeView" name="qtvPlayers" >
+     <property name="geometry" >
+      <rect>
+       <x>120</x>
+       <y>-10</y>
+       <width>228</width>
+       <height>319</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy" >
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="acceptDrops" >
+      <bool>true</bool>
+     </property>
+     <property name="dragEnabled" >
+      <bool>true</bool>
+     </property>
+     <property name="indentation" >
+      <number>10</number>
+     </property>
+     <property name="rootIsDecorated" >
+      <bool>false</bool>
+     </property>
+     <property name="uniformRowHeights" >
+      <bool>true</bool>
+     </property>
+    </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
@@ -128,53 +146,6 @@
       <bool>false</bool>
      </property>
    </widget>
-  </widget>
-  <widget class="QDockWidget" name="qdwPlayers" >
-   <property name="windowTitle" >
-    <string>Players and Channels</string>
-   </property>
-   <property name="geometry" >
-    <rect>
-     <x>339</x>
-     <y>29</y>
-     <width>332</width>
-     <height>406</height>
-    </rect>
-   </property>
-   <property name="features" >
-    <set>QDockWidget::DockWidgetMovable</set>
-   </property>
-   <attribute name="dockWidgetArea" >
-    <number>2</number>
-   </attribute>
-    <widget class="QTreeView" name="qtvPlayers" >
-     <property name="geometry" >
-      <rect>
-       <x>120</x>
-       <y>-10</y>
-       <width>228</width>
-       <height>319</height>
-      </rect>
-     </property>
-     <property name="contextMenuPolicy" >
-      <enum>Qt::CustomContextMenu</enum>
-     </property>
-     <property name="acceptDrops" >
-      <bool>true</bool>
-     </property>
-     <property name="dragEnabled" >
-      <bool>true</bool>
-     </property>
-     <property name="indentation" >
-      <number>10</number>
-     </property>
-     <property name="rootIsDecorated" >
-      <bool>false</bool>
-     </property>
-     <property name="uniformRowHeights" >
-      <bool>true</bool>
-     </property>
-    </widget>
   </widget>
   <action name="qaQuit" >
    <property name="text" >
