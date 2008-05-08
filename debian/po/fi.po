@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: mumble\n"
+"Report-Msgid-Bugs-To: ubuntu-motu@lists.ubuntu.com\n"
+"POT-Creation-Date: 2008-01-13 00:25+0100\n"
+"PO-Revision-Date: 2008-04-27 22:03+0200\n"
+"Last-Translator: Esko Arajärvi <edu@iki.fi>\n"
+"Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-Country: FINLAND\n"
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "Password to set on SuperUser account:"
+msgstr "SuperUser-tunnuksen salasana:"
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "Murmur has a special account called \"SuperUser\" which bypasses all privilege checks."
+msgstr "Murmurissa on erityistunnus nimeltä ”SuperUser”, joka ohittaa kaikki oikeustarkistukset."
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "If you set a password here, the password for the \"SuperUser\" account will be updated."
+msgstr "Jos tähän syötetään salasana, tunnuksen SuperUser salasana päivitetään."
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "If you leave this blank, the password will not be changed."
+msgstr "Jos kenttä jätetään tyhjäksi, salasanaa ei vaihdeta."
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:2001
+msgid "Autostart mumble-server on server boot?"
+msgstr "Tulisiko mumble-server käynnistää automaattisesti?"
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:2001
+msgid "Mumble-server (murmurd) can start automatically when the server is booted."
+msgstr "Mumble-palvelin (murmurd) voidaan käynnistää automaattisesti, kun palvelin käynnistetään."
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid "Email address to send registration emails from:"
+msgstr "Sähköpostiosoite, josta rekisteröintiviestit lähetetään:"
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid "Murmur comes with a web-based registration script, which will send an authentication code to the user by email before registration can be completed."
+msgstr "Murmur sisältää verkkopohjaisen rekisteröintijärjestelmän, joka lähettää käyttäjälle sähköpostilla tunnistautumiskoodin ennen kuin rekisteröinti voidaan saattaa loppuun."
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid "Set this to the email address you wish such authentication emails to come from. If you set it blank, registration will be disabled."
+msgstr "Syötä tähän sähköpostiosoite, josta tunnuskoodiviestien halutaan tulevan. Jos tämä jätetään tyhjäksi, rekisteröintijärjestelmä poistetaan käytöstä."
+
