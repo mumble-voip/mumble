@@ -9,9 +9,6 @@
     <height>435</height>
    </rect>
   </property>
-  <property name="dockOptions" >
-   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
-  </property>
     <widget class="QTreeView" name="qtvPlayers" >
      <property name="geometry" >
       <rect>

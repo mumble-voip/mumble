@@ -52,6 +52,22 @@ class MessageBoxEvent : public QEvent {
 		MessageBoxEvent(QString msg);
 };
 
+class LogTitleBar : public QWidget {
+	Q_OBJECT
+	protected:
+		QTimer *qtTick;
+		int size;
+		int newsize;
+	public:
+		LogTitleBar();
+		QSize sizeHint() const;
+		QSize minimumSizeHint() const;
+	public slots:
+		void tick();
+	protected:
+		bool eventFilter(QObject *, QEvent *);
+};
+
 class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWindow {
 		friend class PlayerModel;
 		Q_OBJECT
@@ -64,6 +80,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
 		GlobalShortcut *gsAltTalk;
 		GlobalShortcut *gsMinimal;
+		LogTitleBar *ltbDockTitle;
 
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;

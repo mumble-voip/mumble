@@ -56,6 +56,58 @@ MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(M
 	msg = m;
 }
 
+LogTitleBar::LogTitleBar() {
+	qtTick = new QTimer(this);
+	qtTick->setSingleShot(true);
+	connect(qtTick, SIGNAL(timeout()), this, SLOT(tick()));
+	size = newsize = 1;
+}
+
+QSize LogTitleBar::sizeHint() const {
+	return minimumSizeHint();
+}
+
+QSize LogTitleBar::minimumSizeHint() const {
+	return QSize(size,size);
+}
+
+bool LogTitleBar::eventFilter(QObject *obj, QEvent *evt) {
+	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
+
+	switch(evt->type()) {
+		case QEvent::Leave:
+		case QEvent::Enter:
+		case QEvent::MouseMove:
+		case QEvent::MouseButtonRelease:
+			{
+				newsize = 0;
+				QPoint p = qdw->mapFromGlobal(QCursor::pos());
+				if ((p.x() >= 0) && (p.x() < qdw->width())  && (p.y() >= 0) && (p.y() < 15))
+						newsize = 15;
+				if (newsize > 0 && !qtTick->isActive())
+					qtTick->start(500);
+				else if ((newsize == size) && qtTick->isActive())
+					qtTick->stop();
+				else if (newsize == 0)
+					tick();
+			}
+		default:
+			break;
+	}
+
+	return false;
+}
+
+void LogTitleBar::tick() {
+	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
+
+	if (newsize == size)
+		return;
+
+	size = newsize;
+	qdw->setTitleBarWidget(this);
+}
+
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qiIcon.addFile(QLatin1String("skin:mumble.16x16.png"));
@@ -189,9 +241,13 @@ void MainWindow::setupGui()  {
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down()), qaConfigMinimal, SLOT(trigger()));
 
-//	qdwPlayers->setTitleBarWidget(new QWidget());
+	ltbDockTitle = new LogTitleBar();
+	qdwLog->setTitleBarWidget(ltbDockTitle);
 
-//	centralWidget()->hide();
+	foreach(QWidget *w, qdwLog->findChildren<QWidget *>()) {
+		w->installEventFilter(ltbDockTitle);
+		w->setMouseTracking(true);
+	}
 
 	restoreGeometry(g.s.qbaMainWindowGeometry);
 	restoreState(g.s.qbaMainWindowState);
