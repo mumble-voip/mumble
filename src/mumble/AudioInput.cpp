@@ -73,8 +73,8 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 
 	AudioInputRegistrar *r = NULL;
 	foreach(AudioInputRegistrar *air, *qmNew)
-		if (!r || (air->priority > r->priority))
-			r = air;
+	if (!r || (air->priority > r->priority))
+		r = air;
 	if (r) {
 		current = r->name;
 		return AudioInputPtr(r->create());

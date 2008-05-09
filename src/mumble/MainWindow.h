@@ -53,7 +53,7 @@ class MessageBoxEvent : public QEvent {
 };
 
 class LogTitleBar : public QWidget {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QTimer *qtTick;
 		int size;

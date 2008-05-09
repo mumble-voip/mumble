@@ -998,7 +998,7 @@ void Server::readChannels(Channel *p) {
 			kids << c;
 		}
 	}
-	
+
 	query.clear();
 
 	foreach(c, kids)

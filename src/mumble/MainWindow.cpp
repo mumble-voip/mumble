@@ -74,16 +74,15 @@ QSize LogTitleBar::minimumSizeHint() const {
 bool LogTitleBar::eventFilter(QObject *, QEvent *evt) {
 	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
 
-	switch(evt->type()) {
+	switch (evt->type()) {
 		case QEvent::Leave:
 		case QEvent::Enter:
 		case QEvent::MouseMove:
-		case QEvent::MouseButtonRelease:
-			{
+		case QEvent::MouseButtonRelease: {
 				newsize = 0;
 				QPoint p = qdw->mapFromGlobal(QCursor::pos());
 				if ((p.x() >= 0) && (p.x() < qdw->width())  && (p.y() >= 0) && (p.y() < 15))
-						newsize = 15;
+					newsize = 15;
 				if (newsize > 0 && !qtTick->isActive())
 					qtTick->start(500);
 				else if ((newsize == size) && qtTick->isActive())

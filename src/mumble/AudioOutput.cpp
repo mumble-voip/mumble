@@ -70,8 +70,8 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 
 	AudioOutputRegistrar *r = NULL;
 	foreach(AudioOutputRegistrar *aor, *qmNew)
-		if (!r || (aor->priority > r->priority))
-			r = aor;
+	if (!r || (aor->priority > r->priority))
+		r = aor;
 	if (r) {
 		current = r->name;
 		return AudioOutputPtr(r->create());
