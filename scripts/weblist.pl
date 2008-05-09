@@ -1,4 +1,4 @@
-#! /usr/bin/perl 
+#! /usr/bin/perl
 
 use warnings;
 use strict;
@@ -65,7 +65,7 @@ foreach my $server (@{$servers}) {
     my $name = $c[1];
     $channels{$id}=$name;
   }
-  
+
   # Then, get and print the players
   my $players = $servobj->getPlayers();
   foreach my $p (@{$players}) {

@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the mumble package.
 # Patrick Matthäi <patrick.matthaei@web.de>, 2008.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.3\n"
-"Report-Msgid-Bugs-To: patrick.matthaei@web.de\n"
-"POT-Creation-Date: 2008-03-19 22:34+0100\n"
+"Report-Msgid-Bugs-To: ubuntu-motu@lists.ubuntu.com\n"
+"POT-Creation-Date: 2008-01-13 00:25+0100\n"
 "PO-Revision-Date: 2008-03-19 22:34+0100\n"
 "Last-Translator: Patrick Matthäi <patrick.matthaei@web.de>\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +26,9 @@ msgstr "Passwort für den SuperUser Benutzer:"
 msgid ""
 "Murmur has a special account called \"SuperUser\" which bypasses all "
 "privilege checks."
-msgstr "Murmur hat einen administrativen Benutzer, der \"SuperUser\" heisst, "
-"der alle administrativen Privilegien besitzt."
+msgstr ""
+"Murmur hat einen administrativen Benutzer, der \"SuperUser\" heisst, der "
+"alle administrativen Privilegien besitzt."
 
 #. Type: password
 #. Description
@@ -36,7 +36,8 @@ msgstr "Murmur hat einen administrativen Benutzer, der \"SuperUser\" heisst, "
 msgid ""
 "If you set a password here, the password for the \"SuperUser\" account will "
 "be updated."
-msgstr "Wenn du ein Passwort nun setzt, wird das Passwort für den \"SuperUser\" "
+msgstr ""
+"Wenn du ein Passwort nun setzt, wird das Passwort für den \"SuperUser\" "
 "Benutzer neu gesetzt."
 
 #. Type: password
@@ -56,8 +57,9 @@ msgstr "Mumble-server beim Booten automatisch starten?"
 #: ../mumble-server.templates:2001
 msgid ""
 "Mumble-server (murmurd) can start automatically when the server is booted."
-msgstr "Mumble-server (murmurd) kann automatisch gestartet werden, wenn der "
-"Server neu gestartet wird."
+msgstr ""
+"Mumble-server (murmurd) kann automatisch gestartet werden, wenn der Server "
+"neu gestartet wird."
 
 #. Type: string
 #. Description
@@ -72,7 +74,8 @@ msgid ""
 "Murmur comes with a web-based registration script, which will send an "
 "authentication code to the user by email before registration can be "
 "completed."
-msgstr "Murmur enthält ein webbasiertes Regiestrierungsskript, welches einen "
+msgstr ""
+"Murmur enthält ein webbasiertes Regiestrierungsskript, welches einen "
 "Authentifizierungscode an den Benutzer über eine E-Mail sendet, damit die "
 "Registrierung abgeschlossen werden kann."
 
@@ -82,6 +85,7 @@ msgstr "Murmur enthält ein webbasiertes Regiestrierungsskript, welches einen "
 msgid ""
 "Set this to the email address you wish such authentication emails to come "
 "from. If you set it blank, registration will be disabled."
-msgstr "Setze dieses Feld zu der E-Mail Adresse von der die Authentifizierungs "
-"E-Mails kommen sollen. Wenn du das Feld leer lässt, wird die Registrierung "
+msgstr ""
+"Setze dieses Feld zu der E-Mail Adresse von der die Authentifizierungs E-"
+"Mails kommen sollen. Wenn du das Feld leer lässt, wird die Registrierung "
 "deaktiviert."

@@ -1,9 +1,9 @@
 include(../mumble.pri)
 
 TEMPLATE	= app
-QT		+= network sql opengl xml 
+QT		+= network sql opengl xml
 TARGET		= mumble
-HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h 
+HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h
 SOURCES		= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
@@ -17,7 +17,7 @@ PRECOMPILED_HEADER = mumble_pch.hpp
 CONFIG(no-bundled-speex) {
   PKGCONFIG	+= speex speexdsp
 }
-  
+
 !CONFIG(no-bundled-speex) {
   INCLUDEPATH	+= ../../speex/include ../../speex/libspeex ../../speexbuild
   LIBS 		+= -lspeex
@@ -34,7 +34,7 @@ CONFIG(no-bundled-speex) {
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	+= GlobalShortcut_win.h
-  SOURCES	+= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp 
+  SOURCES	+= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
   INCLUDEPATH	+= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_34_1
   LIBS		+= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
   LIBPATH	+= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib
@@ -92,7 +92,7 @@ unix {
 
     HEADERS += GlobalShortcut_unix.h
     SOURCES += GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
-    PKGCONFIG += xevie 
+    PKGCONFIG += xevie
   }
 
   macx {
@@ -102,7 +102,7 @@ unix {
     INCLUDEPATH += /usr/local/include/boost-1_34_1/
     INCLUDEPATH += /opt/local/include/boost-1_34_1/
     HEADERS += GlobalShortcut_macx.h
-    SOURCES += TextToSpeech_macx.cpp 
+    SOURCES += TextToSpeech_macx.cpp
     SOURCES += Overlay_macx.cpp
     SOURCES += GlobalShortcut_macx.cpp
 

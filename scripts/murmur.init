@@ -58,10 +58,10 @@ case "$1" in
 		--retry=TERM/30/KILL/5 \
 		--pidfile $PIDFILE \
 		--user $USER \
-		--exec $DAEMON 
+		--exec $DAEMON
 	case "$?" in
 		0|1)	rm -f $PIDFILE
-			[ "$VERBOSE" != no ] && log_end_msg 0 
+			[ "$VERBOSE" != no ] && log_end_msg 0
 			;;
 		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
 	esac
@@ -79,7 +79,7 @@ case "$1" in
 		--retry=TERM/30/KILL/5 \
 		--pidfile $PIDFILE \
 		--user $USER \
-		--exec $DAEMON 
+		--exec $DAEMON
 	case "$?" in
 		0|1)
 		  	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR

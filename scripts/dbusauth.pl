@@ -1,4 +1,4 @@
-#! /usr/bin/perl 
+#! /usr/bin/perl
 
 # This is a small example script of how to set up murmur to authenticate through
 # phpBB3. To use it, you'll have to have started murmur with DBus, and use the
@@ -16,7 +16,7 @@ our $dbprefix="phpbb_";
 our $dbhost="localhost";
 
 # Assign user id as phpbb3 user_id plus this, to avoid clashing
-# with local murmur users. If you're going to use ONLY external 
+# with local murmur users. If you're going to use ONLY external
 # authentication, you can set this to 1, but there's no real point.
 # Note that Mumble ignores values above 1000000000 when allocating
 # player IDs on its own, so you probably want to leave this alone.
@@ -102,7 +102,7 @@ sub hash {
   my $count_log2 = index($itoa64, substr($hash,3,1));
   my $count = 1 << $count_log2;
   my $salt = substr($hash, 4, 8);
-  
+
   my $nhash = $salt;
 
   do {
@@ -131,7 +131,7 @@ sub hash {
     last if ($i++ >= 16);
     $output .= $itoa64[($value >> 18) & 0x3f];
   };
-  
+
   return $output;
 }
 
@@ -145,7 +145,7 @@ sub authenticate {
   my $self = shift;
   my $uname = shift;
   my $pw = shift;
-  
+
   my $dbh=DBI->connect_cached(@dbhparams);
   if (! $dbh) {
     carp $DBI::errstr;
@@ -253,7 +253,7 @@ sub getUserTexture {
     if (exists $texturecache{$file}) {
       return $texturecache{$file};
     }
-    
+
     my $response = $agent->get((($type == 1) ? $avatar_path : '') . $file);
     if (! $response->is_success) {
       print "Request for texture $uid :: Fetch failed: ". $response->status_line . "\n";

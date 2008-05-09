@@ -7,7 +7,7 @@ use DBI;
 use XML::LibXML;
 
 # BF2 Link Script
-# 
+#
 # Links murmur to one or more BF2 servers, see the wiki for details.
 #
 
@@ -61,7 +61,7 @@ while((my $r=$sth->fetchrow_hashref())) {
   my $name = lc $$r{'player_name'};
   $conid{$name} = $$r{'con_id'};
   $conplayerid{$name} = $$r{'player_id'};
-  $conchannel{$name} = $$r{'channel_id'};  
+  $conchannel{$name} = $$r{'channel_id'};
 }
 $sth->finish();
 $dbh->commit();
@@ -94,7 +94,7 @@ foreach my $context ($doc->findnodes('qstat/server')) {
 
   my $t1map = $rule{'team_t0'};
   my $t2map = $rule{'team_t1'};
-  
+
   if (! $t1map || ! $t2map) {
      print "$servname: Failed to find team mapping";
      next;
@@ -109,7 +109,7 @@ foreach my $context ($doc->findnodes('qstat/server')) {
 
   my $team1 = findchannel($chan, "Team 1");
   my $team2 = findchannel($chan, "Team 2");
-  
+
   if ($team1 == -1) {
     print "$servname: Missing Team 1 channel -- creating\n";
     $sth->execute("createchannel", $chan, "Team 1", undef);
@@ -122,9 +122,9 @@ foreach my $context ($doc->findnodes('qstat/server')) {
     next;
   }
 
-  my $missing = 0; 
+  my $missing = 0;
   my @subchans;
- 
+
   foreach my $cname (1 .. 9, "Unassigned") {
     my $id;
     $id=findchannel($team1, $cname);
@@ -145,7 +145,7 @@ foreach my $context ($doc->findnodes('qstat/server')) {
     print "$servname: Created missing squad channels\n";
     next;
   }
-  
+
   foreach my $w ($chan,$team1,$team2,@subchans) {
     $watched{$w} = 1;
   }
@@ -162,9 +162,9 @@ foreach my $context ($doc->findnodes('qstat/server')) {
     my $chan = $conchannel{$name};
     my $pchan = $chanparent{$chan};
     my $id = $conplayerid{$name};
-    
+
     $checked{$name} = 1;
-    
+
     my $wchan;
     if ($team eq $t1map) {
       $wchan = $team1;
@@ -172,7 +172,7 @@ foreach my $context ($doc->findnodes('qstat/server')) {
       $wchan = $team2;
     }
     next if (! $wchan);
-    
+
     if (($wchan != $chan) && ($wchan != $pchan)) {
       $sth->execute("moveplayer", $conid, findchannel($wchan, "Unassigned"), undef);
     }

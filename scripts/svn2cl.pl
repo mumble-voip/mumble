@@ -45,7 +45,7 @@ foreach my $date (reverse sort keys %log) {
      print C "-$maxrev";
    }
    print C "\n";
-   
+
    my $laststr = "";
    foreach my $entry (@{$log{$date}}) {
      my $str = $$entry{'msg'};
@@ -56,7 +56,7 @@ foreach my $date (reverse sort keys %log) {
 #     $str =~ s/\n/\n\t  /g;
      next if ($str eq $laststr);
      $laststr = $str;
-     
+
      my $html = $str;
      $html =~ s/\n/<br \/>/g;
      if ($$entry{'author'} ne "slicer") {

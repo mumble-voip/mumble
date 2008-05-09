@@ -59,7 +59,7 @@ qmake main.pro CONFIG+=no-client
 make
 
 To enable user registration, copy scripts/murmur.pl to murmur.cgi and put it
-somewhere accessible by your webserver. Make sure your webserver is 
+somewhere accessible by your webserver. Make sure your webserver is
 configured to execute it as a CGI, and make sure you edit it to reflect
 the configuration parameters. Note that the user the CGI will run as needs
 write permissions to both the database file and the directory the database

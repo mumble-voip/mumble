@@ -71,7 +71,7 @@ QSize LogTitleBar::minimumSizeHint() const {
 	return QSize(size,size);
 }
 
-bool LogTitleBar::eventFilter(QObject *obj, QEvent *evt) {
+bool LogTitleBar::eventFilter(QObject *, QEvent *evt) {
 	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
 
 	switch(evt->type()) {

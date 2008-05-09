@@ -53,7 +53,7 @@ sub randomCode($) {
   my ($length) = @_;
   my $ret;
   my $chars="0123456789abcdefghjiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
- 
+
   for(my $i=0;$i<$length;$i++) {
     $ret .= substr($chars, rand(int(length($chars))), 1);
   }
@@ -79,7 +79,7 @@ my $service;
 eval {
   $bus=Net::DBus->system();
   $service = $bus->get_service("net.sourceforge.mumble.murmur");
-  
+
   my $cfg = new Config::Simple(filename => '/etc/mumble-server.ini', syntax => 'simple');
   $servername = $cfg->param("registerName") || $servername;
   $emailfrom = $cfg->param("emailfrom") || $emailfrom;
@@ -96,7 +96,7 @@ if (! $service) {
 die "Murmur service not found" if (! $service);
 
 if (! defined($emailfrom) || ($emailfrom eq "")) {
-  croak(qq{Missing configuration. 
+  croak(qq{Missing configuration.
   Please edit either /etc/mumble-server.ini for systemwide installations,
   or murmur.pl for a personal one.
   });
@@ -127,7 +127,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
     }
   } else {
     $res = $object->registerPlayer($s->param('name'));
-    if (($res != 0) && ($res != "0")) { 
+    if (($res != 0) && ($res != "0")) {
       my @array = ($res, $s->param('name'), $s->param('email'), $s->param('pw'));
       $object->updateRegistration(\@array);
       print "<h1>Succeeded</h1><p>Thank you for registering.</p>";
@@ -184,11 +184,11 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
   if ($name !~ /^[0-9a-zA-Z\(\)\[\]\-\_]+$/) {
     push @errors, "Username contains illegal characters.";
   }
-  
+
   if ($email !~ /^[0-9a-zA-Z\.\-\_]+\@(.+)$/) {
     push @errors, "That doesn't even look like an email adddress.";
   } else {
-    my @mx = mx($1); 
+    my @mx = mx($1);
     if ($#mx == -1) {
       push @errors, "And how am I supposed to send email there?";
     }
@@ -201,7 +201,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
       push @errors, "Name is already taken";
     }
   }
-  
+
   if ($#errors == -1) {
     my $code = randomCode(10);
 
@@ -209,7 +209,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
     $s->param('pw', $pw);
     $s->param('email', $email);
     $s->param('auth', $code);
-    
+
     my $smtp = new Net::SMTP($emailserver);
     if (! $smtp) {
       croak(qq{Failed to connect to SMTP server "$emailserver". This is most likely a configuration problem.\n});
@@ -230,7 +230,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
     $smtp->datasend("\n\n");
     $smtp->datasend("If you have no idea what this is about, just disregard this message.");
     $smtp->dataend();
-    
+
     print '<h1>Registration complete</h1><p>Thank you for registering. An email has been sent to you with ';
     print 'an activation code.</p>';
     $showit = 0;
@@ -241,7 +241,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
     }
     print '</ul>';
   }
-} 
+}
 
 if ($showit) {
   print '<h1>Registration form</h1>';

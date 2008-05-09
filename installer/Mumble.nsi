@@ -18,7 +18,7 @@ SetCompressor /SOLID lzma
 
   ;Default installation folder
   InstallDir "$PROGRAMFILES\Mumble"
-  
+
   ;Get installation folder from registry if available
   InstallDirRegKey HKCU "Software\Mumble" ""
 
@@ -41,23 +41,23 @@ SetCompressor /SOLID lzma
   !insertmacro MUI_PAGE_DIRECTORY
 
   ;Start Menu Folder Page Configuration
-  !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU" 
-  !define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Mumble" 
+  !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
+  !define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Mumble"
   !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
-  
+
   !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
 
   !insertmacro MUI_PAGE_INSTFILES
   !insertmacro MUI_PAGE_FINISH
-  
+
   !insertmacro MUI_UNPAGE_CONFIRM
   !insertmacro MUI_UNPAGE_INSTFILES
   !insertmacro MUI_UNPAGE_FINISH
 
-  
+
 ;--------------------------------
 ;Languages
- 
+
   !insertmacro MUI_LANGUAGE "English"
 
 ;--------------------------------
@@ -66,14 +66,14 @@ SetCompressor /SOLID lzma
 Section "Mumble & Murmur" SecMumble
 
   SetOutPath "$INSTDIR"
-  
+
   FindProcDLL::FindProc "dbus-daemon.exe"
-  
+
   IntCmp 0 $R0 NoDBusRunning
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON1 "The DBus daemon used by Mumble is currently running. Terminate the daemon so it can be updated?" IDNO NoDBusRunning
   KillProcDLL::KillProc "dbus-daemon.exe"
  NoDBusRunning:
-  
+
   File /oname=license.txt "gpl.txt"
   File /oname=Readme.txt "..\README"
   File /oname=Changes.txt "..\CHANGES"
@@ -108,7 +108,7 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
-  
+
   SetOutPath "$INSTDIR\etc"
   File "\dev\dbus\etc\session.conf"
 
@@ -120,18 +120,18 @@ Section "Mumble & Murmur" SecMumble
   GetTempFileName $0
   Delete "$0"
   SetOutPath "$0"
-  
+
   File "vcredist_x86.exe"
   ExecWait '"$0\vcredist_x86.exe" /q:a'
   Delete "$0\vcredist_x86.exe"
   RMDIR "$0"
-  
+
   SetOutPath "$INSTDIR"
 
   ;Store installation folder
   WriteRegStr HKCU "Software\Mumble" "" $INSTDIR
   WriteRegStr HKCU "Software\Mumble\Mumble" "InstPath" $INSTDIR
-  
+
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 
@@ -161,7 +161,7 @@ Section "Mumble & Murmur" SecMumble
   WriteRegStr HKCR "mumble\shell\open\command" "" "$\"$INSTDIR\mumble.exe$\" $\"%1$\""
 
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-    
+
     ;Create shortcuts
     CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble.lnk" "$INSTDIR\mumble.exe"
@@ -171,7 +171,7 @@ Section "Mumble & Murmur" SecMumble
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\QT License.lnk" "$INSTDIR\qt.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Speex License.lnk" "$INSTDIR\speex.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-  
+
   !insertmacro MUI_STARTMENU_WRITE_END
 
 SectionEnd
@@ -211,7 +211,7 @@ Section "Uninstall"
   Delete "$INSTDIR\bin\iconv.dll"
   Delete "$INSTDIR\bin\zlib1.dll"
   Delete "$INSTDIR\etc\session.conf"
-  
+
   Delete "$INSTDIR\libeay32.dll"
   Delete "$INSTDIR\libssl32.dll"
   Delete "$INSTDIR\ssleay32.dll"
@@ -230,7 +230,7 @@ Section "Uninstall"
   RMDir "$INSTDIR"
 
   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
-    
+
   Delete "$SMPROGRAMS\$MUI_TEMP\Uninstall.lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\Mumble.lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\Murmur.lnk"
@@ -238,17 +238,17 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\$MUI_TEMP\Mumble License.lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\QT License.lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\Speex License.lnk"
-  
+
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
- 
+
   startMenuDeleteLoop:
 	ClearErrors
     RMDir $MUI_TEMP
     GetFullPathName $MUI_TEMP "$MUI_TEMP\.."
-    
+
     IfErrors startMenuDeleteLoopDone
-  
+
     StrCmp $MUI_TEMP $SMPROGRAMS startMenuDeleteLoopDone startMenuDeleteLoop
   startMenuDeleteLoopDone:
 

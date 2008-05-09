@@ -43,7 +43,7 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 -ini    Use a inifile other than murmur.ini, use this to run several isntances
         of murmur from the same directory. Make sure each instance is using
         a separate database.
-        
+
 -fg     Run in the foreground, logging to standard output.
 
 -v      More verbose logging.

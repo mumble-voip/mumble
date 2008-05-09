@@ -11,7 +11,7 @@ include /usr/share/quilt/quilt.make
 configure: configure-stamp
 configure-stamp: $(QUILT_STAMPFN)
 	dh_testdir
-	qmake-qt4 main.pro CONFIG+=release DEFINES+=NO_UPDATE_CHECK DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio DEFINES+=PLUGIN_PATH=/usr/lib/mumble
+	qmake-qt4 main.pro CONFIG+=release DEFINES+=NO_UPDATE_CHECK DEFINES+=PLUGIN_PATH=/usr/lib/mumble
 
 	touch configure-stamp
 
@@ -19,7 +19,7 @@ build: build-arch
 
 build-arch: build-arch-stamp
 
-build-arch-stamp: configure-stamp 
+build-arch-stamp: configure-stamp
 	$(MAKE) release
 	touch $@
 
@@ -34,7 +34,7 @@ clean:	unpatch
 	# qmake's makefile is done, as are the translations.
 	[ ! -f src/mumble/mumble_en.qm ] || rm -rf release debug src/mumble/*.qm
 
-	dh_clean 
+	dh_clean
 
 install: install-indep install-arch
 
@@ -84,7 +84,7 @@ binary-common:
 	dh_icons
 	dh_desktop
 	dh_strip
-	dh_compress 
+	dh_compress
 	dh_fixperms
 	dh_perl $(CURDIR)/debian/mumble-server-web/usr/lib/cgi-bin/mumble-server
 	dh_installdeb
