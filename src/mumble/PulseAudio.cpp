@@ -552,7 +552,7 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 			qWarning("PulseAudio: Connection failure: %s", pa_strerror(pa_context_errno(c)));
 			break;
 		default:
-			break;
+			return;
 	}
 	qwcWait.wakeAll();
 }
