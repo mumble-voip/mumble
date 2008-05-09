@@ -1,4 +1,291 @@
-2008-02-23 Revision 945
+2008-05-09 Revision 1142-1146
+	* Static build with Qt 4.4
+	* Indenting
+	* AGC tests
+	* Only enable ASIO devices are found.
+	* Renamed murmur-wrapper to murmur-user-wrapper
+	* Debian packaging fixes
+2008-05-08 Revision 1135-1140
+	* Sync debian/po translations from debian's pkg-voip team
+	* Compiler warning cleanups
+	* PulseAudio detection (sort of), and sound system priority
+	* Save dock state when switching to/from minimal mode.
+	* Timed drag-grab for the log.
+	* Make the player model the central widget.
+	* Drop the splitter and make the log and playermodel dock widgets.
+2008-05-07 Revision 1131-1133
+	* Workaround for the, now as of Qt 4.4.0 yet worse, QWizard bug.
+	  [mkrautz]
+	* Fix automatic version parsing in OS X distribution scripts.
+	  [mkrautz]
+	* Update Win32 for Qt 4.4.0
+	* Avoid loading system Qt plugins on Mac OS X. [mkrautz]
+2008-05-05 Revision 1130
+	* Translation sync
+2008-05-04 Revision 1129
+2008-04-29 Revision 1127
+	* Hah. Correct 'passford' typo in Murmur usage output. [mkrautz]
+2008-04-28 Revision 1126
+	* Linux only -> Unix-like systems only [mkrautz]
+2008-04-27 Revision 1119-1124
+	* Oops. Remove MacVersion variable from TextToSpeech_macx.cpp as well.
+	  [mkrautz]
+	* Use qMacVersion() instead of Gestalt() in TextToSpeech_macx.cpp.
+	  [mkrautz]
+	* Distribute Murmur on Mac OS X. Update dist scripts and README to
+	  reflect that. [mkrautz]
+	* Move RC_FILE into win32 conditional in murmur.pro. [mkrautz]
+	* Don't use internet enabled disk images for OSX distribution.
+	  [mkrautz]
+	* Yet more resampler fixes
+2008-04-26 Revision 1114-1117
+	* Fixed regexp bug in channel name matching
+	* Update to resampler test
+	* Refactor MacOS X TTS engine and disable it when running on 10.4
+	  (Tiger). Thanks to Christoph Pirkl for tracking down the bug.
+	  [mkrautz]
+	* Move menus up one level when in minimal mode
+	* Debian/Ubuntu packaging updates
+2008-04-25 Revision 1107-1112
+	* Remove static reference to database
+	* Explicitly clear SQL queries
+	* Fix crashbug when reconnecting to removed channel
+	* Support live changing non-critical murmur parameters
+	* Indenting
+	* Patch 1950979: Repair broken ALSA, Changes to Plugins [derandi]
+	* Update for Speex visibility
+2008-04-23 Revision 1104-1105
+	* Add VersionCheck QueryItem for OS X. [mkrautz]
+	* Polled X input support, for OSes that lack both xevie and inputdev
+	* Dumbing down the ALSA a bit
+2008-04-22 Revision 1098-1102
+	* PortAudio: Get rid of crackling noise when opening output streams.
+	  [mkrautz]
+	* Mention that we also run on OS X in the README. [mkrautz]
+	* Add UID to shared memory and semaphore names on *nix, to allow
+	  multiple users at the same time.
+	* Add HAL policy to give access to /dev/input
+	* Add more debugging info to ALSA, stop using advanced functionality
+	* Gracefully handle lost directsound devices.
+	  Ensure shortcuts work in the application context and not just the
+	  mainwindow context.
+2008-04-21 Revision 1095-1096
+	* Disable the overlay ConfigWidget on OS X - we have no overlay
+	  implementation yet, so showing the widget just confuses people.
+	  [mkrautz]
+	* Add libspeechd dependency for debian
+	* Update DBus Auth for phpBB3 release
+2008-04-20 Revision 1093
+	* Fix missing pages with resized config widgets.
+	* Delay database matching for URLs to better work with "already
+	  connected" URLs.
+2008-04-19 Revision 1092
+	* Stereo support for PortAudio. [mkrautz]
+2008-04-17 Revision 1090
+	* Prefer ~/Library/Preferences to ~/.config/ on OSX for Mumrur as
+	  well. [mkrautz]
+	* TextToSpeechMac: Fix the parameters for our SpeechDone callback. I
+	  confused it with another function.
+	  This doesn't change any code, as we were only using the first
+	  parameter anyway. [mkrautz]
+2008-04-14 Revision 1089
+	* Wizard for positional audio.
+2008-04-13 Revision 1085-1087
+	* Patch #1940944: getCurrentUrl DBus method [inequation]
+	* Updated README and INSTALL
+	* Minimal mode.
+2008-04-12 Revision 1079-1083
+	* Distribute plugins on OSX. [mkrautz]
+	* Show defaults in ACL Editor
+	* Make URL handler not reconnect if same server, and fetch username
+	  and pw from the server database.
+	* Expand channels with players.
+	* Update default voice hold to 1 second.
+	* Make ConfigWidget depend on smallest screen in multiscreen setup,
+	  and fix the non-expert mode icons having spaces between them.
+2008-04-11 Revision 1070-1077
+	* Path fixes for installer.
+	* Indenting
+	* Use slightly more sane resampler for ASIO.
+	* Multichannel pulseaudio
+	* OSS fixes
+	* Fix multichannel ALSA
+	* nix compile fixes
+	* Input/Output mixer speedups.
+2008-04-09 Revision 1067-1068
+	* Make sure srs is set to NULL if we're not doing resampling.
+	  [mkrautz]
+	* OSX build system updates. Add dist scripts. [mkrautz]
+	* Moved resampler for input.
+2008-04-06 Revision 1064-1065
+	* Add float->short conversion to the mixer. Hope it works.
+	* Bring *nix audio backends in sync with new mixer
+	* Fix a few compiler warnings
+2008-04-05 Revision 1060-1062
+	* Patch 1934642: A few linkplug fixes [derandi]
+	* Make the surround mixer include a resampler and default to floats.
+	  This breaks all *nix audio targets.
+	* Forgot plugins.pri and updates to the resampler test
+	* Updated Spanish translation [Naproxeno]
+2008-04-04 Revision 1056-1058
+	* Don't break Win32 API for link plugin -- there's no need.
+	* Patch 1931477: Linux port of Link Plugin, Minor changes to [derandi]
+	* Work on the speex resampler
+2008-04-03 Revision 1054
+	* Prettify Mumble icon on Mac OS X (mumble.icns) [mkrautz]
+	* Fix about dialog icon on Mac OS X [mkrautz]
+2008-04-01 Revision 1053
+	* Patch 1930045: Man page spelling error [mark7]
+2008-03-29 Revision 1051
+	* Explicitly fetch plugin position from both input and output.
+	* Fix bug if users are deleted while an admin has the ACL dialog open,
+	  then applies
+2008-03-28 Revision 1046-1049
+	* Patch 1927186: Reorder some function calls in the AudioWizard
+	* Fixed installer and use explicit widechar in TestLink.cpp
+	* Plugin updates.
+	* Support setting supw from standard input
+2008-03-26 Revision 1042-1044
+	* Minor update to WASAPI
+	* Fix for logic of Link plugin.
+	* Translation source updates
+	* Indenting
+2008-03-25 Revision 1039-1040
+	* Make Linux soundsystems use new config
+	* Remove config for OSS, ALSA, PulseAudio and PortAudio
+	* Refactor "Basic Audio" config dialog, and remove most of the
+	  system-specific audio configs.
+2008-03-24 Revision 1036-1037
+	* Bug 1923716: mute -> audio assistant -> bug
+	* Patch 1923982: Always unmask the NoCancelButton flag in the
+	  AudioWizard [mkrautz]
+	* Patch 1923965: TextToSpeech OSX Update [mkrautz]
+2008-03-23 Revision 1034
+	* Seemingly working surround mixer for WASAPI. Though it only knows
+	  about the "left" and "right" speaker for now.
+	* Infacy of surround mixer
+2008-03-22 Revision 1030-1032
+	* Patch 1922968: Remove old reference to ALSAOutputPlayer in
+	  ALSAAudio.h [mkrautz]
+	* Updates Ubuntu packaging
+	* Bump version to 1.1.4
+	* Fix iOutputDelay on *nix
+2008-03-21 Revision 1021-1028
+	* Rename iDXOutputDelay to iOutputDelay and move it to the general
+	  config pane.
+	* Patch 1922328: More OSX UI cleanups [mkrautz]
+	* WASAPI Input and Output
+	* Add an icon for the network config
+	* Minor cleanup of PositionalSound and some indenting fixes
+	* Patch 1921066: Option to disable html messages [arrai]
+	* Patch 1921277: Use powf instead of exp10f in PositionalSound.h
+	  [mkrautz]
+	* Patch 1920346: Disable QSysTrayIcon on OSX - use the dock instead
+	  [mkrautz]
+	* Patch 1919733: Update for GlobalShortcutMac [mkrautz]
+2008-03-20 Revision 1010-1019
+	* Make the stereo-enabled output compile on Win32 as well.
+	* Indenting run
+	* Patch 1920119: ALSA Stereo [derandi]
+	* Patch 1920117: Stereo Mixing [derandi]
+	* Patch 1920115: Positional Sound Widget + Volume Models [derandi]
+	* Patch #1920346 Disable QSysTrayIcon on OSX - use the dock instead
+	  [mkrautz]
+	* Patch #1920332 Add a cancel button to Server Browser of the Connect
+	  Dialog [mkrautz]
+	* Patch #1920239 Prefer /home/xeno/Library/Preferences/Mumble on OSX
+	  [mkrautz]
+	* Patch #1919466 About Dialog cleanups [mkrautz]
+	* Support system-installed speex (if it's 1.2b4 or newer)
+2008-03-19 Revision 1009
+	* WASAPI Input
+2008-03-18 Revision 1002-1007
+	* Updated Spanish translation. [naproxeno]
+	* Update to patched speex API.
+	* Move compiler settings to compiler.pri
+	  Fix a lot of warnings with msvc
+	* Path #1916131 Compilation Fixes for Visual C++ 2008 [dark-storm]
+	* Add VersionInfo to the .rc files.
+	* Patch #1917558 Implement GlobalShortcut for OSX [mkrautz]
+	* Patch to fix no-speechd [l-n]
+2008-03-17 Revision 989-1000
+	* Spread registrations out a bit in time
+	* Add no-client and no-server for qmake.
+	* Open Console.txt in User directory if current directory is not
+	  writeable.
+	* Patch #1916734 Fix TTS on OS X and add volume capability [mkrautz]
+	* Make Win32 audio modules optional. Don't crash if no modules are
+	  enabled/working.
+	* Add Deafen/Mute self to the player menu if self is selected, and
+	  remove "Local Deafen" (can be done by setting output volume to 0%).
+	* Support skinning of the style sheet of the log window.
+	* Sort server browser based on alphanumeric only (ignore whitespace
+	  and punctuation)
+	* Remove lefotver festival settings
+	* Updated license script
+	* Language update and new french translations [jerhum]
+	* Initial support for plugins on non-win32, but disable GUI for now
+	  [Ludwig Nussel <ludwig.nussel@suse.de>]
+	* Make all audio modules for Unix optional, as well as dbus and
+	  speechd (CONFIG+=no-whatver)
+2008-03-16 Revision 982-987
+	* Don't use boost typeof for GCC [Ludwig Nussel
+	  <ludwig.nussel@suse.de>]
+	* Make murmur compile on freebsd [vader42]
+	* Quit => Quit Mumble
+	* Patch #1914863 Override TARGET for better OSX integration [mkrautz]
+	* Patch #1915779 Add window titles to Mumble's about dialogs [mkrautz]
+	* Remove the empty line at the beginning of the log view and speed it
+	  up a bit. Based on patch #1915590 [mkrautz]
+	* Patch #1915523 enable _MSC_EXT only for MSVC [mkrautz]
+2008-03-15 Revision 978-980
+	* Only reload dbus if installed for postinst
+	* Basic WASAPI querying.
+	* Patches #1914820: OSX patches (from bug #1914742) [mkrautz]
+	* Minor pulseaudio cleanup
+2008-03-11 Revision 973-976
+	* Fix compile warning in PulseAudio, add --as-needed to linker
+	* Add version checking to overlay
+	* Use speech-dispatcher for TTS on *nix
+	* Add replaces: for mumble-server-web
+	* Add tooltip to systray icon so settings are saved by OS.
+2008-03-05 Revision 971
+	* Fix vcredist options.
+	* Fix reference-to-just-deleted in DirectX output.
+2008-03-04 Revision 966-969
+	* Fix for bug #1904336 -- renaming channels could crash the clients
+	* Use new murmur icon
+	* More compilation and installation tunings for Win32.
+	* Directory cleanup when purging package
+	* Use floats instead of doubles where it makes sense.
+2008-03-02 Revision 965
+	* Remove ASCII warning
+2008-03-01 Revision 958-963
+	* More directory fixes
+	* Patch: #1902036 small fix to make mac version compile [mit_service]
+	* Default databases to ~/.config/Mumble on Linux
+	* Make Vista-friendly paths for sqlite databases.
+	* MSVC doesn't need the thiscallresolver.
+	* Fix home directory for mumble-server
+	* Compile Win32 with Visual Studio + Intel C Compiler
+2008-02-29 Revision 957
+	* Test 16x16 icons/murmur.ico for review by slicer. Will make proper
+	  32x32 and 64x64 if OK. [cybknight]
+2008-02-28 Revision 956
+	* Add SpeexMark.pro again
+2008-02-26 Revision 955
+	* Support profile-optimized libspeex. Slim gain so far, waiting to
+	  test on Core2
+2008-02-24 Revision 953
+	* Compat 6 for debian
+	* Build static binaries with a qt snapshot to fix library loading
+2008-02-23 Revision 945-951
+	* Made VAD defaults more sane
+	* Clean up
+	* Fix dates in changelog
+	* Make mumble-server suggest mumble-server-web
+	* Minor textchanges in changelog
+	* Changelog update
 	* Small update to changelog script
 	* Update PulseAudio buffering to use bytes and not shorts
 2008-02-22 Revision 944
