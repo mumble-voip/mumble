@@ -85,16 +85,13 @@ void Connection::socketRead() {
 		// We're iterating from the topmost one.
 		qsReceivers.remove(this);
 	}
-#endif
 
 	int iAvailable = qtsSocket->bytesAvailable();
 
 
 	if (iPacketLength == -1) {
 		if (iAvailable < 3) {
-#if (QT_VERSION < 0x040400)
 			iReceiveLevel = iPrevLevel;
-#endif
 			return;
 		}
 
@@ -116,7 +113,6 @@ void Connection::socketRead() {
 		emit message(qbaBuffer);
 	}
 
-#if (QT_VERSION < 0x040400)
 	// At this point, the current *this might be destroyed.
 
 	if (iPrevLevel == 0) {
@@ -128,6 +124,30 @@ void Connection::socketRead() {
 		}
 	}
 	iReceiveLevel = iPrevLevel;
+#else
+	while (true) {
+		int iAvailable = qtsSocket->bytesAvailable();
+		if (iPacketLength == -1) {
+			if (iAvailable < 3)
+				return;
+
+			unsigned char a_ucBuffer[3];
+
+			qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
+			iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
+			iAvailable -= 3;
+		}
+
+		if ((iPacketLength == -1) || (iAvailable < iPacketLength))
+			return;
+
+		QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
+		iPacketLength = -1;
+		qtLastPacket.restart();
+		iAvailable -= iPacketLength;
+
+		emit message(qbaBuffer);
+	}
 #endif
 }
 
