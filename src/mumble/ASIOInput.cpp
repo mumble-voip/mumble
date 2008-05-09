@@ -49,9 +49,6 @@ class ASIOAudioInputRegistrar : public AudioInputRegistrar {
 
 };
 
-// Static singleton
-static ASIOAudioInputRegistrar airASIO;
-
 ASIOAudioInputRegistrar::ASIOAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ASIO")) {
 }
 
@@ -74,8 +71,71 @@ static ConfigWidget *ASIOConfigDialogNew(Settings &st) {
 	return new ASIOConfig(st);
 }
 
-static ConfigRegistrar registrar(2002, ASIOConfigDialogNew);
+class ASIOInit : public DeferInit {
+		ASIOAudioInputRegistrar *airASIO;
+		ConfigRegistrar *crASIO;
+	public:
+		void initialize();
+		void destroy();
+};
 
+void ASIOInit::initialize() {
+	HKEY hkDevs;
+	HKEY hk;
+	DWORD idx = 0;
+	WCHAR keyname[255];
+	DWORD keynamelen = 255;
+	FILETIME ft;
+	HRESULT hr;
+
+		airASIO = NULL;
+		crASIO = NULL;
+
+		bool bFound = false;
+
+		// List of devices known to misbehave or be totally useless
+		QStringList blacklist;
+		blacklist << QLatin1String("{a91eaba1-cf4c-11d3-b96a-00a0c9c7b61a}"); // ASIO DirectX
+		blacklist << QLatin1String("{e3186861-3a74-11d1-aef8-0080ad153287}"); // ASIO Multimedia
+		blacklist << QLatin1String("{232685c6-6548-49d8-846d-4141a3ef7560}"); // ASIO4ALL
+
+	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
+		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
+			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
+			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
+				DWORD dtype = REG_SZ;
+				WCHAR wclsid[255];
+				DWORD datasize = 255;
+				CLSID clsid;
+				if (RegQueryValueEx(hk, L"CLSID", 0, &dtype, reinterpret_cast<BYTE *>(wclsid), &datasize) == ERROR_SUCCESS) {
+					if (datasize > 76)
+						datasize = 76;
+					QString qsCls = QString::fromUtf16(reinterpret_cast<ushort *>(wclsid), datasize / 2).toLower().trimmed();
+					if (! blacklist.contains(qsCls.toLower()) && ! FAILED(hr =CLSIDFromString(wclsid, &clsid))) {
+						bFound = true;
+					}
+				}
+				RegCloseKey(hk);
+			}
+			keynamelen = 255;
+		}
+		RegCloseKey(hkDevs);
+	}
+
+	if (bFound) {
+		airASIO = new ASIOAudioInputRegistrar();
+		crASIO = new ConfigRegistrar(2002, ASIOConfigDialogNew);
+	}
+}
+
+void ASIOInit::destroy() {
+	if (airASIO)
+		delete airASIO;
+	if (crASIO)
+		delete crASIO;
+}
+
+static class ASIOInit asioinit;
 
 ASIOInput *ASIOInput::aiSelf;
 
@@ -94,6 +154,7 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 	QStringList blacklist;
 	blacklist << QLatin1String("{a91eaba1-cf4c-11d3-b96a-00a0c9c7b61a}"); // ASIO DirectX
 	blacklist << QLatin1String("{e3186861-3a74-11d1-aef8-0080ad153287}"); // ASIO Multimedia
+		blacklist << QLatin1String("{232685c6-6548-49d8-846d-4141a3ef7560}"); // ASIO4ALL
 
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
@@ -104,7 +165,9 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 				DWORD datasize = 255;
 				CLSID clsid;
 				if (RegQueryValueEx(hk, L"CLSID", 0, &dtype, reinterpret_cast<BYTE *>(wclsid), &datasize) == ERROR_SUCCESS) {
-					QString qsCls = QString::fromUtf16(reinterpret_cast<ushort *>(wclsid), datasize / 2);
+					if (datasize > 76)
+						datasize = 76;
+					QString qsCls = QString::fromUtf16(reinterpret_cast<ushort *>(wclsid), datasize / 2).toLower().trimmed();
 					if (! blacklist.contains(qsCls) && ! FAILED(hr =CLSIDFromString(wclsid, &clsid))) {
 						ASIODev ad(name, qsCls);
 						qlDevs << ad;
