@@ -75,6 +75,7 @@ binary-common:
 	dh_testroot
 	dh_installchangelogs CHANGES
 	dh_installdocs
+	dh_installexamples
 	dh_installmenu
 	dh_installinit
 	dh_installman

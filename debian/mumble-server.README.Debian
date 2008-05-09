@@ -1,6 +1,6 @@
 
 This package includes a system-wide installation of murmurd. If you want a
-personal server running on your own user account, use the murmur-wrapper
+personal server running on your own user account, use the murmur-user-wrapper
 script.
 
 If you have apache running, you can install the mumble-server-web package and

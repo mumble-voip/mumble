@@ -2,7 +2,7 @@
 
 DIR=$HOME/murmur
 DBUSFILE=$DIR/.dbus.sh
-SYSDIR=/usr/share/doc/mumble-server/
+SYSDIR=/usr/share/doc/mumble-server/examples
 
 if [ $UID == 0 ] || [ $EUID == 0 ]; then
   echo "You should never run this script as root. If you want a system-wide install, see "
@@ -56,7 +56,14 @@ cd $DIR
 
 if [ ! -f $DIR/murmur.ini ]; then
   echo "Creating $DIR/murmur.ini"
-  cp $SYSDIR/murmur.ini $DIR
+  if [ -f $SYSDIR/murmur.ini ]; then
+    cp $SYSDIR/murmur.ini $DIR
+  elif [ -f $SYSDIR/murmur.ini.gz ]; then
+    gzip -cd $SYSDIR/murmur.ini.gz > $DIR/murmur.ini
+  else
+    echo "Could not find template for murmur.ini in $SYSDIR."
+    exit
+  fi
 elif [ $DO_INITONLY == 1 ]; then
   echo "$DIR/murmur.ini already exists, initialization failed."
   exit

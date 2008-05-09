@@ -1,2 +1,2 @@
 release/murmurd /usr/sbin
-scripts/murmur-wrapper /usr/bin
+scripts/murmur-user-wrapper /usr/bin

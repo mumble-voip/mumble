@@ -1,8 +1,8 @@
-.TH murmur\-wrapper 1 "2008 Januar 07"
+.TH murmur\-user\-wrapper 1 "2008 May 09"
 .SH NAME
-murmur\-wrapper \- User wrapper for murmurd.
+murmur\-user\-wrapper \- User wrapper for murmurd.
 .SH SYNOPSIS
-.B murmur\-wrapper
+.B murmur\-user\-wrapper
 .RI [ options ]
 .SH DESCRIPTION
 Murmur is the server component of Mumble, a low\-latency, high quality VoIP
@@ -29,7 +29,7 @@ restrictions.
 .SH NOTES
 To create your own private server, you first want to run
 .IP
-murmur\-wrapper \-i
+murmur\-user\-wrapper \-i
 .LP
 Then edit ~/murmur/murmur.ini to set the various configuration settings. The
 most important is probably the port; unless you're the only murmur process
@@ -38,13 +38,13 @@ running on this server, you'll need to change it.
 When you're happy with your settings, you need to set the password for
 SuperUser, which is your administrator account.
 .IP
-murmur\-wrapper \-p 
+murmur\-user\-wrapper \-p 
 .I "<password>"
 .LP
 
 Once this is done, simply run
 .IP
-murmur\-wrapper
+murmur\-user\-wrapper
 .LP
 to start the server.
 .SH SEE ALSO

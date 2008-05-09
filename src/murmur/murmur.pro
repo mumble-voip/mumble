@@ -19,7 +19,7 @@ SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.c
 
 DIST = DBus.h ServerDB.h murmur.ico
 PRECOMPILED_HEADER = murmur_pch.h
-DIST += murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-wrapper
+DIST += murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-user-wrapper
 
 win32 {
   RC_FILE = murmur.rc

@@ -99,7 +99,7 @@ void ALSAInit::destroy() {
 		delete cards;
 }
 
-ALSAAudioInputRegistrar::ALSAAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ALSA")) {
+ALSAAudioInputRegistrar::ALSAAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ALSA"),5) {
 }
 
 AudioInput *ALSAAudioInputRegistrar::create() {
@@ -133,7 +133,7 @@ bool ALSAAudioInputRegistrar::canEcho(const QString &) {
 	return false;
 }
 
-ALSAAudioOutputRegistrar::ALSAAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("ALSA")) {
+ALSAAudioOutputRegistrar::ALSAAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("ALSA"), 5) {
 }
 
 AudioOutput *ALSAAudioOutputRegistrar::create() {
