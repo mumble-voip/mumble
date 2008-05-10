@@ -70,8 +70,8 @@ ModelItem::ModelItem(ModelItem *i) {
 
 	iPlayers = i->iPlayers;
 
-	foreach(ModelItem *child, i->qlChildren) {
-		ModelItem *ni = new ModelItem(child);
+	foreach(ModelItem *c, i->qlChildren) {
+		ModelItem *ni = new ModelItem(c);
 		ni->parent = this;
 		qlChildren << ni;
 	}
@@ -509,6 +509,21 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	}
 
 	endInsertRows();
+
+	QStack<ModelItem *> qsOld, qsNew;
+	qsOld << item;
+	qsNew << t;
+	while (! qsOld.isEmpty()) {
+		ModelItem *o = qsOld.pop();
+		ModelItem *n = qsNew.pop();
+
+		Q_ASSERT(o->qlChildren.count() == n->qlChildren.count());
+		for(int i=0;i<n->qlChildren.count();++i) {
+			qsOld << o->qlChildren.at(i);
+			qsNew << n->qlChildren.at(i);
+			changePersistentIndex(createIndex(i, 0, o->qlChildren.at(i)), createIndex(i, 0, n->qlChildren.at(i)));
+		}
+	}
 
 	changePersistentIndex(createIndex(oldrow, 0, item), createIndex(newrow, 0, t));
 
