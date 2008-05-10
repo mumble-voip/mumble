@@ -166,13 +166,16 @@ void ConnectDialog::initList() {
 void ConnectDialog::fillList() {
 	qtwServers->clear();
 
+	QList<QTreeWidgetItem *> ql;
+
 	foreach(PublicInfo pi, qlPublicServers) {
 		QStringList qsl;
 		qsl << pi.name;
 		qsl << QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port);
 		qsl << pi.url.toString();
-		new TextSortedItem(qtwServers,qsl);
+		ql << new TextSortedItem(NULL,qsl);
 	}
+	qtwServers->addTopLevelItems(ql);
 }
 
 void ConnectDialog::on_qpbURL_clicked() {

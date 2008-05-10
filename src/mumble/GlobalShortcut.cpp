@@ -105,6 +105,7 @@ void ShortcutKeyWidget::displayKeys() {
 }
 
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
+	setObjectName(QLatin1String("GlobalShortcutConfig"));
 	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
 	QLabel *lab;
 
