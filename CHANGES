@@ -1,4 +1,15 @@
-2008-05-09 Revision 1142-1146
+2008-05-10 Revision 1151-1155
+	* Another translation sync from debian's pkg-voip team
+	* Update persistent indexes for children in PlayerModel
+	* Fix crash when moving populated channels to parents.
+	* Avoid crash when no audio systems worked
+	* Try to speed up filling the public server list on X11.
+	  Set a name on the GlobalShortcutConfig for skinning.
+	* Fix crashbug when %APPDATA% is unset for some reason.
+2008-05-09 Revision 1142-1149
+	* PulseAudio detection should be slightly more stable.
+	* Cure for Qt 4.4 SSL slowness.
+	* Changelog update
 	* Static build with Qt 4.4
 	* Indenting
 	* AGC tests
