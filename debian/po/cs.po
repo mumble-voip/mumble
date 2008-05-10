@@ -1,0 +1,87 @@
+# Czech translation of mumble debconf messages.
+# Copyright (C) 2008
+# This file is distributed under the same license as the mumble package.
+# Miroslav Kure <kurem@debian.cz>, 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mumble\n"
+"Report-Msgid-Bugs-To: ubuntu-motu@lists.ubuntu.com\n"
+"POT-Creation-Date: 2008-01-13 00:25+0100\n"
+"PO-Revision-Date: 2008-05-09 14:19+0200\n"
+"Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "Password to set on SuperUser account:"
+msgstr "Heslo pro účet SuperUser:"
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid ""
+"Murmur has a special account called \"SuperUser\" which bypasses all "
+"privilege checks."
+msgstr ""
+"Murmur má speciální účet nazvaný „SuperUser“, který obchází veškeré "
+"bezpečnostní kontroly."
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid ""
+"If you set a password here, the password for the \"SuperUser\" account will "
+"be updated."
+msgstr "Zadáte-li zde něco, heslo účtu „SuperUser“ se aktualizuje."
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "If you leave this blank, the password will not be changed."
+msgstr "Ponecháte-li prázdné, heslo se nezmění."
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:2001
+msgid "Autostart mumble-server on server boot?"
+msgstr "Spouštět mumble-server automaticky při zavádění systému?"
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:2001
+msgid ""
+"Mumble-server (murmurd) can start automatically when the server is booted."
+msgstr ""
+"Mumble-server (murmurd) se může spouštět automaticky při zavádění systému."
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid "Email address to send registration emails from:"
+msgstr "Emailová adresa, ze které se mají posílat registrační emaily:"
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid ""
+"Murmur comes with a web-based registration script, which will send an "
+"authentication code to the user by email before registration can be "
+"completed."
+msgstr ""
+"Murmur obsahuje webový registrační skript, který před dokončením registrace "
+"zašle uživateli emailem autentizační kód."
+
+#. Type: string
+#. Description
+#: ../mumble-server.templates:3001
+msgid ""
+"Set this to the email address you wish such authentication emails to come "
+"from. If you set it blank, registration will be disabled."
+msgstr ""
+"Zadejte zde emailovou adresu, ze které mají tyto autentizační emaily "
+"přicházet. Ponecháte-li prázdné, registrace bude zakázána."
