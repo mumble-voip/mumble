@@ -58,14 +58,23 @@ ModelItem::ModelItem(ClientPlayer *p) {
 }
 
 ModelItem::ModelItem(ModelItem *i) {
-	// Create a dummy clone.
+	// Create a full clone
 	this->cChan = i->cChan;
 	this->pPlayer = i->pPlayer;
 	this->parent = i->parent;
+
 	if (pPlayer)
 		c_qhPlayers.insert(pPlayer, this);
 	else if (cChan)
 		c_qhChannels.insert(cChan, this);
+
+	iPlayers = i->iPlayers;
+
+	foreach(ModelItem *child, i->qlChildren) {
+		ModelItem *ni = new ModelItem(child);
+		ni->parent = this;
+		qlChildren << ni;
+	}
 }
 
 ModelItem::~ModelItem() {
@@ -77,15 +86,13 @@ ModelItem::~ModelItem() {
 		c_qhPlayers.remove(pPlayer);
 }
 
-void ModelItem::stealChildren(ModelItem *other) {
-	Q_ASSERT(qlChildren.count() == 0);
-
-	qlChildren = other->qlChildren;
-	other->qlChildren.clear();
-	foreach(ModelItem *mi, qlChildren)
-	mi->parent = this;
-	iPlayers = other->iPlayers;
-	other->iPlayers = 0;
+void ModelItem::wipe() {
+	foreach(ModelItem *i, qlChildren) {
+		i->wipe();
+		delete i;
+	}
+	qlChildren.clear();
+	iPlayers = 0;
 }
 
 ModelItem *ModelItem::child(int idx) const {
@@ -501,8 +508,6 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 		newparent->cChan->addPlayer(item->pPlayer);
 	}
 
-	t->stealChildren(item);
-
 	endInsertRows();
 
 	changePersistentIndex(createIndex(oldrow, 0, item), createIndex(newrow, 0, t));
@@ -511,6 +516,7 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	oldparent->qlChildren.removeAt(oldrow);
 	endRemoveRows();
 
+	item->wipe();
 	delete item;
 
 	if (active.isValid()) {

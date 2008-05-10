@@ -75,7 +75,7 @@ struct ModelItem {
 	int rows() const;
 	int insertIndex(Channel *c) const;
 	int insertIndex(ClientPlayer *p) const;
-	void stealChildren(ModelItem *other);
+	void wipe();
 };
 
 class ChannelItem;
