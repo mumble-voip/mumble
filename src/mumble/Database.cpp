@@ -44,12 +44,14 @@ Database::Database() {
 
 	size_t reqSize;
 	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-	STACKVAR(wchar_t, buff, reqSize+1);
-	_wgetenv_s(&reqSize, buff, reqSize, L"APPDATA");
+	if (reqSize > 0) {
+		STACKVAR(wchar_t, buff, reqSize+1);
+		_wgetenv_s(&reqSize, buff, reqSize, L"APPDATA");
 
-	QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
+		QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
 
-	datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
+		datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
+	}
 #elif defined(Q_OS_MAC)
 	datapaths << QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/");
 #else

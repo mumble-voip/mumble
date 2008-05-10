@@ -81,6 +81,10 @@ Section "Mumble & Murmur" SecMumble
   File "qt.txt"
   File "..\release\mumble.exe"
   File "..\release\murmur.exe"
+!ifdef SNAPSHOT
+  File "..\release\mumble.pdb"
+  File "..\release\murmur.pdb"
+!endif
   !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
   SetOverwrite off
   File "..\scripts\murmur.ini"
