@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -1768,27 +1769,27 @@
     <message>
         <location filename="AudioOutput.ui" line="377"/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor de aumento del volumen del sonido</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="380"/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Cuánto debería aumentar el sonido para fuentes que están muy cerca?</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="406"/>
         <source>Connected &quot;speakers&quot; are actually headphones.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los &quot;altavoces&quot; conectados son en realidad auriculares.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="409"/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar esto indica que no tiene altavoces conectados, sólo auriculares. Esto es importante, ya que generalmente los altavoces están situados delante de usted, mientras que los auriculares están directamente a su izquierda/derecha.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="412"/>
         <source>Headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Auriculares</translation>
     </message>
 </context>
 <context>
@@ -2322,67 +2323,67 @@
     <message>
         <location filename="AudioWizard.cpp" line="178"/>
         <source>Use echo cancellation</source>
-        <translation type="unfinished">Usar cancelación de eco</translation>
+        <translation>Usar cancelación de eco</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="179"/>
         <source>Cancel echo from headset or speakers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar el eco de los auriculares o altavoces.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="180"/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto habilita la cancelación de eco del audio saliente, que beneficia a altavoces y auriculares.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="232"/>
         <source>Enable positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar audio posicional</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="233"/>
         <source>Allows positioning of sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita el posicionamiento del sonido.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="234"/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite a Mumble usar audio posicional para situar las voces.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="255"/>
         <source>Positional Audio</source>
-        <translation type="unfinished">Audio posicional</translation>
+        <translation>Audio posicional</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="256"/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustando la atenuación del audio posicional.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="263"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble soporta audio posicional para algunos juegos, y posicionará la voz de otros jugadores en relación a su posición en el juego. Dependiendo de su posición, el volúmen de la voz cambiará entre los altavoces para simular la dirección y la distancia a la que están los otros jugadores. Tal posicionamiento depende de que la configuración de los altavoces sea correcta en su sistema operativo, por tanto se hará una prueba aquí.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="266"/>
         <source>The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>El gráfico de abajo muestra &lt;font color=&quot;red&quot;&gt;su&lt;/font&gt; posición, los &lt;font color=&quot;yellow&quot;&gt;altavoces&lt;/font&gt; y una &lt;font color=&quot;green&quot;&gt;fuente de sonido móvil&lt;/font&gt; vistas desde arriba. Debería oir el audio moverse entre los canales.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="274"/>
         <source>Use headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar auriculares</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="275"/>
         <source>Use headphones instead of speakers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar auriculares en vez de altavoces.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="276"/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto hace que se ignore la configuración de altavoces del SO y configura el posicionamiento para auriculares en su lugar.</translation>
     </message>
 </context>
 <context>
@@ -2872,12 +2873,12 @@
     <message>
         <location filename="DXAudioInput.cpp" line="166"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falló la apertura del dispositivo DirectSound elegido. No se realizará ninguna captura del micrófono.</translation>
     </message>
     <message>
         <location filename="DXAudioInput.cpp" line="257"/>
         <source>Lost DirectSound input device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de entrada DirectSound perdido.</translation>
     </message>
 </context>
 <context>
@@ -2910,7 +2911,7 @@
     <message>
         <location filename="DXAudioOutput.cpp" line="613"/>
         <source>Lost DirectSound output device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de salida DirectSound perdido.</translation>
     </message>
 </context>
 <context>
@@ -3580,32 +3581,32 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="LookConfig.cpp" line="61"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="62"/>
         <source>Only with players</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólo con jugadores</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="63"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="95"/>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>Expandir</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="102"/>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuándo expandir automáticamente los canales</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="105"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with players&lt;/i&gt; will expand and collapse channels as players join and leave them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece qué canales expandir automáticamente. &lt;i&gt;Ninguno&lt;/i&gt; no expandirá ningún canal, &lt;i&gt;Todos&lt;/i&gt; expandirá todos los canales y &lt;i&gt;Sólo con jugadores&lt;/i&gt; expandirá y contraerá los canales según se unan o los abandonen los jugadores.</translation>
     </message>
 </context>
 <context>
@@ -4758,22 +4759,22 @@ de las ubicaciones posibles.</translation>
         <location filename="MainWindow.cpp" line="146"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conmutar mínimo</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="527"/>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista &amp;mínima</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="530"/>
         <source>Toggle minimal window modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Conmutar los modos de ventana mínima</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="533"/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto conmutará el modo mínimo, en el que la ventana de sucesos y el menú están ocultos.</translation>
     </message>
 </context>
 <context>
