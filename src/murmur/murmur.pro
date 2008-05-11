@@ -6,7 +6,7 @@ CONFIG(static) {
 	QMAKE_LFLAGS += -static
 }
 CONFIG	-= gui
-QT += network sql xml qdbus
+QT += network sql xml
 QT -= gui
 TARGET = murmur
 DBFILE  = murmur.db

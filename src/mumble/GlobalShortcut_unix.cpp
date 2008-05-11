@@ -33,7 +33,9 @@
 #include <QX11Info>
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#ifdef USE_XEVIE
 #include <X11/extensions/Xevie.h>
+#endif
 
 #ifdef Q_OS_LINUX
 #include <linux/input.h>
@@ -75,6 +77,7 @@ GlobalShortcutX::GlobalShortcutX() {
 	maj = 1;
 	min = 1;
 
+#ifdef USE_XEVIE
 	if (! XevieQueryVersion(display, &maj, &min)) {
 		qWarning("GlobalShortcutX: XEVIE extension not found. Enable it in xorg.conf");
 	} else {
@@ -89,7 +92,9 @@ GlobalShortcutX::GlobalShortcutX() {
 		}
 #endif
 	}
-
+#else
+	qWarning("GlobalShortcutX: Not compiled with XEVIE support.");
+#endif
 	if (! bXevie) {
 		qWarning("GlobalShortcutX: No XEVIE support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
 	}
@@ -109,6 +114,7 @@ void GlobalShortcutX::run() {
 	struct timeval tv;
 
 	if (bXevie) {
+#ifdef USE_XEVIE
 		while (bRunning) {
 			if (bNeedRemap)
 				remap();
@@ -142,6 +148,7 @@ void GlobalShortcutX::run() {
 			}
 		}
 		XevieEnd(display);
+#endif
 	} else {
 		Window root = XDefaultRootWindow(display);
 		Window root_ret, child_ret;
