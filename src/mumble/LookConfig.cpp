@@ -133,6 +133,7 @@ void LookConfig::accept() const {
 
 bool LookConfig::expert(bool b) {
 	qcbExpand->setVisible(b);
+	qliExpand->setVisible(b);
 	qcbPlayersTop->setVisible(b);
 	qcbStyle->setVisible(b);
 	qliStyle->setVisible(b);

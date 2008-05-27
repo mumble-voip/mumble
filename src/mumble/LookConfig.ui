@@ -90,7 +90,7 @@
        </widget>
       </item>
       <item row="2" column="0" >
-       <widget class="QLabel" name="label_2" >
+       <widget class="QLabel" name="qliExpand" >
         <property name="text" >
          <string>Expand</string>
         </property>
