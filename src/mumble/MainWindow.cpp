@@ -197,6 +197,12 @@ void MainWindow::createActions() {
 	gsMinimal=new GlobalShortcut(this, idx++, tr("Toggle Minimal", "Global Shortcut"));
 	gsMinimal->setObjectName(QLatin1String("ToggleMinimal"));
 
+	gsVolumeUp=new GlobalShortcut(this, idx++, tr("Volume Up (+10%)", "Global Shortcut"));
+	gsVolumeUp->setObjectName(QLatin1String("VolumeUp"));
+
+	gsVolumeDown=new GlobalShortcut(this, idx++, tr("Volume Down (-10%)", "Global Shortcut"));
+	gsVolumeDown->setObjectName(QLatin1String("VolumeDown"));
+
 	qstiIcon = new QSystemTrayIcon(qiIcon, this);
 	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
@@ -1025,6 +1031,22 @@ void MainWindow::on_CenterPos_triggered(bool down) {
 	} else if (g.iPushToTalk) {
 		g.iAltSpeak--;
 		g.iPushToTalk--;
+	}
+}
+
+void MainWindow::on_VolumeUp_triggered(bool down) {
+	if (down) {
+		float v = floorf(g.s.fVolume * 10.0);
+		if (v < 10.0)
+			g.s.fVolume = ++v / 10.0;
+	}
+}
+
+void MainWindow::on_VolumeDown_triggered(bool down) {
+	if (down) {
+		float v = ceilf(g.s.fVolume * 10.0);
+		if (v > 0.0)
+			g.s.fVolume = --v / 10.0;
 	}
 }
 

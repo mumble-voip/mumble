@@ -167,7 +167,7 @@
          <string>&lt;b>This adjusts the volume of incoming speech.&lt;/b>&lt;br />Note that this can only be used to decrease the volume. No amplification is possible.</string>
         </property>
         <property name="minimum" >
-         <number>10</number>
+         <number>0</number>
         </property>
         <property name="maximum" >
          <number>100</number>

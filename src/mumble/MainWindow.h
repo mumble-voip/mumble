@@ -78,8 +78,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
-		GlobalShortcut *gsAltTalk;
-		GlobalShortcut *gsMinimal;
+		GlobalShortcut *gsAltTalk, *gsMinimal, *gsVolumeUp, *gsVolumeDown;
 		LogTitleBar *ltbDockTitle;
 
 		ACLEditor *aclEdit;
@@ -146,6 +145,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_PushToMute_triggered(bool);
 		void on_AltPushToTalk_triggered(bool);
 		void on_CenterPos_triggered(bool);
+		void on_VolumeUp_triggered(bool);
+		void on_VolumeDown_triggered(bool);
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 		void serverConnected();
