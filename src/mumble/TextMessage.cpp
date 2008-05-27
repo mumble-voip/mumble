@@ -34,6 +34,7 @@ TextMessage::TextMessage(QWidget *p) : QDialog(p) {
 	setupUi(this);
 	qtbPreview->document()->setDefaultStyleSheet(qApp->styleSheet());
 	qteEdit->installEventFilter(this);
+	qteEdit->setFocus();
 }
 
 void TextMessage::on_qcbRawMessage_stateChanged(int) {
