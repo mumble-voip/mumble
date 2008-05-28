@@ -47,6 +47,7 @@ class Player {
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
+		QString getFlagsString() const;
 
 		Player();
 		virtual ~Player() {};

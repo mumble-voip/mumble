@@ -321,7 +321,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 		return QVariant();
 	}
 
-	QVariant v = otherRoles(idx.column(), role, (p != NULL));
+	QVariant v = otherRoles(idx, role);
 	if (v.isValid())
 		return v;
 
@@ -401,14 +401,20 @@ Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const {
 	return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
 }
 
-QVariant PlayerModel::otherRoles(int section, int role, bool isPlayer) const {
+QVariant PlayerModel::otherRoles(const QModelIndex &idx, int role) const {
+	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
+	ClientPlayer *p = item->pPlayer;
+	Channel *c = item->cChan;
+	int section = idx.column();
+	bool isPlayer = p != NULL;
+
 	switch (role) {
 		case Qt::ToolTipRole:
 			switch (section) {
 				case 0:
-					return isPlayer ? tr("Name of player") : tr("Name of channel");
+					return isPlayer ? p->qsName : c->qsName;
 				case 1:
-					return isPlayer ? tr("Player flags") : QVariant();
+					return isPlayer ? p->getFlagsString() : QVariant();
 			}
 			break;
 		case Qt::WhatsThisRole:

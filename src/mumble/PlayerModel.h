@@ -140,7 +140,7 @@ class PlayerModel : public QAbstractItemModel {
 		void expandAll(Channel *c);
 		void collapseEmpty(Channel *c);
 
-		QVariant otherRoles(int column, int role, bool isPlayer) const;
+		QVariant otherRoles(const QModelIndex &idx, int role) const;
 	public slots:
 		void playerTalkingChanged(bool talking);
 		void playerMuteDeafChanged();

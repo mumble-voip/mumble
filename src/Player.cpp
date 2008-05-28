@@ -35,7 +35,7 @@ QHash<unsigned int, ClientPlayer *> ClientPlayer::c_qmPlayers;
 QReadWriteLock ClientPlayer::c_qrwlPlayers;
 
 Player::Player() {
-	sState = ClientPlayer::Connected;
+	sState = Player::Connected;
 	uiSession = 0;
 	iId = -1;
 	bMute = bDeaf = false;
@@ -44,6 +44,25 @@ Player::Player() {
 	bLocalMute = false;
 	bSuppressed = false;
 	cChannel = 0;
+}
+
+QString Player::getFlagsString() const {
+	QStringList flags;
+
+	if (iId >= 0)
+		flags << "Authenticated";
+	if (bMute)
+		flags << "Muted (server)";
+	if (bDeaf)
+		flags << "Deafened (server)";
+	if (bLocalMute)
+		flags << "Local Mute";
+	if (bSelfMute)
+		flags << "Muted (self)";
+	if (bSelfDeaf)
+		flags << "Deafened (self)";
+
+	return flags.join(", ");
 }
 
 ClientPlayer::ClientPlayer(QObject *p) : QObject(p) {
