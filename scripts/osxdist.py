@@ -171,13 +171,13 @@ class AppBundle(object):
 		p['CFBundleGetInfoString'] = 'An open source, low-latency, high quality voice chat software primarily intended for use while gaming.'
 		p['CFBundleIdentifier'] = 'net.sourceforge.mumble'
 		p['CFBundleVersion'] = self.version
-#		p['CFBundleURLTypes'] = [{
+		p['CFBundleURLTypes'] = [{
 			# This breaks because OS X doesn't allow us to use the
 			# app icon for a protocol:
 			#'CFBundleURLIconFile': 'mumble.icns',
-#			'CFBundleURLName': 'Mumble Server URL',
-#			'CFBundleURLSchemes': ['mumble'],
-#		}]
+			'CFBundleURLName': 'Mumble Server URL',
+			'CFBundleURLSchemes': ['mumble'],
+		}]
 		p['NSHumanReadableCopyright'] = 'Copyright (c) 2005-2008 Thorvald Natvig <slicer@users.sourceforge.net>'
 		plistlib.writePlist(p, self.infopath)
 

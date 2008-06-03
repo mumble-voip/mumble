@@ -111,6 +111,7 @@ unix {
     SOURCES += TextToSpeech_macx.cpp
     SOURCES += Overlay_macx.cpp
     SOURCES += GlobalShortcut_macx.cpp
+    SOURCES += os_macx.cpp
 
     ICON = ../../icons/mumble.icns
   }

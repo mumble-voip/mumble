@@ -53,12 +53,12 @@ void throw_exception(std::exception const &) {
 #endif
 
 extern void os_init();
+extern char *os_url;
 
 int main(int argc, char **argv) {
-	// Check for SSE and MMX, but only in the windows binaries
-
 	int res;
-#ifdef Q_OS_WIN
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	os_init();
 #endif
 
@@ -166,6 +166,13 @@ int main(int argc, char **argv) {
 	g.o = new Overlay();
 	g.o->setActive(g.s.bOverlayEnable);
 
+	// Process any waiting events before initializing our MainWindow.
+	// The mumble:// URL support for Mac OS X happens through AppleEvents,
+	// so we need to loop a little before we begin.  If we were launched
+	// through a URL, this should call a platform specific callback
+	// (in os_macx.cpp) and point the `os_url' global to a valid URL.
+	a.processEvents();	
+
 	// Main Window
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
@@ -206,9 +213,14 @@ int main(int argc, char **argv) {
 
 	if (a.arguments().count() > 1) {
 		g.mw->openUrl(QUrl(a.arguments().last()));
+#ifdef Q_OS_MAC
+	} else if (os_url) {
+		g.mw->openUrl(QUrl(QString(os_url)));
+#endif
 	} else {
 		g.mw->on_qaServerConnect_triggered();
 	}
+
 	res=a.exec();
 
 	g.s.save();
