@@ -13,9 +13,7 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
-#ifndef Q_OS_MAC
 #include <QtDBus/QtDBus>
-#endif
 #include <QtNetwork/QtNetwork>
 #include <QtOpenGL/QtOpenGL>
 #include <QtSql/QtSql>

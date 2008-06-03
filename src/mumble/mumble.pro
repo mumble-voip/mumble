@@ -27,7 +27,7 @@ CONFIG(no-bundled-speex) {
   QMAKE_CXXFLAGS	+= -Wall -Wextra
 }
 
-!macx:!CONFIG(no-dbus) {
+!CONFIG(no-dbus) {
   CONFIG		+= dbus
 }
 

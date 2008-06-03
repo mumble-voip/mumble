@@ -38,9 +38,7 @@
 #include "Log.h"
 #include "Plugins.h"
 #include "Global.h"
-#ifndef Q_OS_MAC
 #include "DBus.h"
-#endif
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
 
