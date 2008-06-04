@@ -38,7 +38,9 @@
 #include "Log.h"
 #include "Plugins.h"
 #include "Global.h"
+#ifdef USE_DBUS
 #include "DBus.h"
+#endif
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
 
