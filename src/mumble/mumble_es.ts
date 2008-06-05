@@ -4074,7 +4074,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.cpp" line="859"/>
         <source>Unmuted.</source>
-        <translation>Con escucha.</translation>
+        <translation>Con voz.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="861"/>
