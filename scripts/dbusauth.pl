@@ -247,21 +247,22 @@ sub getUserTexture {
     my $file = $$r{'user_avatar'};
     my $type = $$r{'user_avatar_type'};
     if (($type != 1) && ($type != 2)) {
-      print "Request for texture $uid :: not uploaded texture\n";
+      print "Request for texture $uid :: not uploaded texture ($type)\n";
       return \@a;
     }
     if (exists $texturecache{$file}) {
       return $texturecache{$file};
     }
 
-    my $response = $agent->get((($type == 1) ? $avatar_path : '') . $file);
+    my $url = (($type == 1) ? $avatar_path : '') . $file;
+    my $response = $agent->get($url);
     if (! $response->is_success) {
-      print "Request for texture $uid :: Fetch failed: ". $response->status_line . "\n";
+      print "Request for texture $uid :: Fetch $url failed: ". $response->status_line . "\n";
     } else {
       my $image = new Image::Magick();
       my $r = $image->BlobToImage($response->content);
       if ($r) {
-        print "Request for texture $uid :: Image load failed: $r\n";
+        print "Request for texture $uid :: Image $url load failed: $r\n";
       } else {
         $image->Extent(x => 0, y => 0, width => 600, height => 60);
         my $out=$image->ImageToBlob(magick => 'rgba', depth => 8);
@@ -275,7 +276,7 @@ sub getUserTexture {
             $a[$i*4]=$blue;
             $a[$i*4+2]=$red;
           }
-          print "Request for texture $uid :: Success\n";
+          print "Request for texture $uid :: $url :: Success\n";
         }
       }
     }
