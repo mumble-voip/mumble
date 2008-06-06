@@ -136,6 +136,8 @@
 
 #define EXPORT
 
+#define USE_SMALLFT
+
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */
 
