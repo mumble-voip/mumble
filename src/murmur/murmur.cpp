@@ -319,9 +319,8 @@ int main(int argc, char **argv) {
 		dup2(fd, 2);
 		close(fd);
 	}
-
-	MurmurDBus::registerTypes();
 #endif
+	MurmurDBus::registerTypes();
 
 	if (! Meta::mp.qsDBus.isEmpty()) {
 		if (Meta::mp.qsDBus == "session")
