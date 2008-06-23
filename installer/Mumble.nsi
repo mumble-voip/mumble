@@ -20,7 +20,7 @@ SetCompressor /SOLID lzma
   InstallDir "$PROGRAMFILES\Mumble"
 
   ;Get installation folder from registry if available
-  InstallDirRegKey HKCU "Software\Mumble" ""
+  InstallDirRegKey HKLM "Software\Mumble" ""
 
 ;--------------------------------
 ;Variables
@@ -41,7 +41,7 @@ SetCompressor /SOLID lzma
   !insertmacro MUI_PAGE_DIRECTORY
 
   ;Start Menu Folder Page Configuration
-  !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
+  !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKLM"
   !define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Mumble"
   !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
 
@@ -64,6 +64,7 @@ SetCompressor /SOLID lzma
 ;Installer Sections
 
 Section "Mumble & Murmur" SecMumble
+  SetShellVarContext all
 
   SetOutPath "$INSTDIR"
 
@@ -133,8 +134,8 @@ Section "Mumble & Murmur" SecMumble
   SetOutPath "$INSTDIR"
 
   ;Store installation folder
-  WriteRegStr HKCU "Software\Mumble" "" $INSTDIR
-  WriteRegStr HKCU "Software\Mumble\Mumble" "InstPath" $INSTDIR
+  WriteRegStr HKLM "Software\Mumble" "" $INSTDIR
+  WriteRegStr HKLM "Software\Mumble\Mumble" "InstPath" $INSTDIR
 
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -174,7 +175,7 @@ Section "Mumble & Murmur" SecMumble
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble License.lnk" "$INSTDIR\license.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\QT License.lnk" "$INSTDIR\qt.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Speex License.lnk" "$INSTDIR\speex.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall Mumble.lnk" "$INSTDIR\Uninstall.exe"
 
   !insertmacro MUI_STARTMENU_WRITE_END
 
@@ -184,8 +185,7 @@ SectionEnd
 ;Uninstaller Section
 
 Section "Uninstall"
-
-  ;ADD YOUR OWN FILES HERE...
+  SetShellVarContext all
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
@@ -256,7 +256,7 @@ Section "Uninstall"
     StrCmp $MUI_TEMP $SMPROGRAMS startMenuDeleteLoopDone startMenuDeleteLoop
   startMenuDeleteLoopDone:
 
-  DeleteRegKey /ifempty HKCU "Software\Mumble"
-  DeleteRegKey HKCU "Software\Mumble\Mumble\InstPath"
+  DeleteRegKey /ifempty HKLM "Software\Mumble"
+  DeleteRegKey HKLM "Software\Mumble\Mumble\InstPath"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble"
 SectionEnd
