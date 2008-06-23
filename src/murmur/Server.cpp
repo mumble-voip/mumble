@@ -256,8 +256,8 @@ int BandwidthRecord::bytesPerSec() {
 
 void Server::run() {
 	qint32 len;
-	char encrypted[65535];
-	char buffer[65535];
+	char encrypted[65536];
+	char buffer[65536];
 
 	quint32 msgType = 0;
 	unsigned int uiSession = 0;
