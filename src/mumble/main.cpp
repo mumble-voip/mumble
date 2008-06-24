@@ -54,6 +54,7 @@ void throw_exception(std::exception const &) {
 
 extern void os_init();
 extern char *os_url;
+extern char *os_lang;
 
 int main(int argc, char **argv) {
 	int res;
@@ -138,9 +139,18 @@ int main(int argc, char **argv) {
 	QDir::addSearchPath(QLatin1String("translation"), a.applicationDirPath());
 	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
 
-	qWarning("Locale is %s", qPrintable(QLocale::system().name()));
+	QString qsSystemLocale = QLocale::system().name();
 
-	QString locale = g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage;
+#ifdef Q_OS_MAC
+	if (os_lang) {
+		qWarning("Using Mac OS X system langauge as locale name");
+		qsSystemLocale = QString(os_lang);
+	}
+#endif
+
+	qWarning("Locale is %s", qPrintable(qsSystemLocale));
+
+	QString locale = g.s.qsLanguage.isEmpty() ? qsSystemLocale : g.s.qsLanguage;
 
 	QTranslator translator;
 	translator.load(QLatin1String("translation:mumble_") + locale);

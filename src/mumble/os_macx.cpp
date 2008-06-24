@@ -39,6 +39,7 @@
 #include "Global.h"
 
 char *os_url = NULL;
+char *os_lang = NULL;
 static FILE *fConsole = NULL;
 
 static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, long) {
@@ -102,6 +103,20 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	}
 }
 
+void query_language() {
+	CFPropertyListRef cfaLangs;
+	CFStringRef cfsLang;
+	static char lang[16];
+
+	cfaLangs = CFPreferencesCopyAppValue(CFSTR("AppleLanguages"), kCFPreferencesCurrentApplication);
+	cfsLang = (CFStringRef) CFArrayGetValueAtIndex((CFArrayRef)cfaLangs, 0);
+
+	if (! CFStringGetCString(cfsLang, lang, 16, kCFStringEncodingUTF8))
+		return;
+
+	os_lang = lang;
+}
+
 void os_init() {
 	const char *home = getenv("HOME");
 	const char *path = "/Library/Preferences/Mumble/";
@@ -120,6 +135,11 @@ void os_init() {
 		if (fConsole)
 			qInstallMsgHandler(mumbleMessageOutput);
 	}
+
+	/* Query for language setting. OS X's LANG environment variable is determined from the region selected
+	 * in SystemPrefs -> International -> Formats -> Region instead of the system language. We override this
+	 * by always using the system langauge, to get rid of all sorts of nasty langauge inconsistencies. */
+	query_language();
 
 	/* Install Apple Event handler for GURL events. This intercepts any URLs set in Mumble's Info.plist. */
 	AEInstallEventHandler(kInternetEventClass, kAEGetURL, NewAEEventHandlerUPP(urlCallback), 0, false);
