@@ -335,7 +335,7 @@ void PortAudioInput::run() {
 		err = Pa_ReadStream(inputStream, psMic, iFrameSize);
 		if (err == paNoError) {
 			encodeAudioFrame();
-		} else if (err == paInputOverflow) {
+		} else if (err == paInputOverflowed) {
 			qWarning("PortAudioInput: Overflow on PortAudio input-stream, we lost incoming data!");
 		} else { // other error, aborg
 			qWarning("PortAudioInput: Could not read from PortAudio stream, error %s", Pa_GetErrorText(err));
@@ -368,9 +368,9 @@ PortAudioOutput::~PortAudioOutput() {
 //TODO: redo this without busy waiting if possible
 void PortAudioOutput::run() {
 	PaStream            *outputStream   = 0;
-	bool                hasMoreToMix    = true;
 	PaError             err             = paNoError;
 	int                 chans           = 0;
+	bool                zero            = true;
 
 	if (!PortAudioSystem::initStream(&outputStream, g.s.iPortAudioOutput, iFrameSize, &chans, false))
 		return; // PA initialization or stream opening failed, we will give up
@@ -386,38 +386,38 @@ void PortAudioOutput::run() {
 	initializeMixer(cmask);
 
 	short outBuffer[iFrameSize * iChannels];
-	memset(outBuffer, 0, sizeof(short) * iFrameSize * iChannels);
-
-	// Get rid of crackling noise when starting the stream.
-	if (PortAudioSystem::startStream(outputStream)) {
-		err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);
-		if (err != paNoError) {
-			qWarning("PortAudioOutput: Could not write to PortAudio stream, error: %s", Pa_GetErrorText(err));
-			bRunning = false;
-		}
-	} else
-		bRunning = false;
 
 	while (bRunning) {
-		bool nextHasMoreToMix = mix(outBuffer, iFrameSize);
-		if (hasMoreToMix) {
-			if (PortAudioSystem::startStream(outputStream)) {
-				err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);
-				if (err != paNoError) {
-					qWarning("PortAudioOutput: Could not write to PortAudio stream, error %s", Pa_GetErrorText(err));
-					bRunning = false;
-				}
-			} else
+		bool avail = true;
+
+		if (zero)
+			memset(outBuffer, 0, sizeof(short) * iFrameSize * iChannels);
+		else
+			avail = mix(outBuffer, iFrameSize);
+
+		if (avail) {
+			if (! PortAudioSystem::startStream(outputStream)) {
 				bRunning = false;
+				break;
+			}
+			err = Pa_WriteStream(outputStream, outBuffer, iFrameSize);
+			if (err == paOutputUnderflowed) {
+				qWarning("PortAudioOutput: Output underflowed. Attempting graceful recovery.");
+				zero = true;
+				continue;
+			} else if (err != paNoError) {
+				qWarning("PortAudioOutput: Could not write to PortAudio stream, error %s", Pa_GetErrorText(err));
+				bRunning = false;
+			}
 		} else {
-			if (!PortAudioSystem::stopStream(outputStream))
+			if (! PortAudioSystem::stopStream(outputStream))
 				bRunning = false;
-			this->msleep(20); // 20ms wait to avoid hogging the cpu too much
+			this->msleep(20);
 		}
-		hasMoreToMix = nextHasMoreToMix;
+
+		zero = false;
 	}
 
-	// ignoring return value of terminateStream, we cannot do anything about it anyway
 	PortAudioSystem::terminateStream(outputStream);
-	outputStream = 0; // just for gdb sessions
+	outputStream = NULL; // just for gdb sessions
 }
