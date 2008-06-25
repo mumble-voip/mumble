@@ -124,6 +124,11 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	}
 }
 
+#ifdef USE_ICE
+void IceStart();
+void IceStop();
+#endif
+
 int main(int argc, char **argv) {
 	// Check for SSE and MMX, but only in the windows binaries
 #ifdef Q_OS_WIN
@@ -355,7 +360,15 @@ int main(int argc, char **argv) {
 
 	meta->bootAll();
 
+#ifdef USE_ICE
+	IceStart();
+#endif
+	
 	res=a.exec();
+	
+#ifdef USE_ICE
+	IceStop();
+#endif
 
 	qWarning("Killing running servers");
 

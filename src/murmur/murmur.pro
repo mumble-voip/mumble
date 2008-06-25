@@ -19,7 +19,7 @@ SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.c
 
 DIST = DBus.h ServerDB.h murmur.ico
 PRECOMPILED_HEADER = murmur_pch.h
-DIST += murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-user-wrapper
+DIST += murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-user-wrapper Murmur.ice
 
 win32 {
   RC_FILE = murmur.rc
@@ -40,4 +40,16 @@ unix {
   HEADERS += UnixMurmur.h
   SOURCES += UnixMurmur.cpp
   TARGET = murmurd
+}
+
+ice {
+	slice.target = Murmur.cpp
+	slice.commands = slice2cpp --impl Murmur.ice
+	slice.depends = Murmur.ice
+	QMAKE_EXTRA_TARGETS += slice
+
+	SOURCES += Murmur.cpp MurmurIce.cpp
+	HEADERS += MurmurIce.h
+	LIBS += -lIce
+	DEFINES += USE_ICE
 }
