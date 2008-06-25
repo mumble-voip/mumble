@@ -61,6 +61,10 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbExpand->addItem(tr("None"), Settings::NoChannels);
 	qcbExpand->addItem(tr("Only with players"), Settings::ChannelsWithPlayers);
 	qcbExpand->addItem(tr("All"), Settings::AllChannels);
+	
+	qcbChannelDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
+	qcbChannelDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
+	qcbChannelDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
 }
 
 QString LookConfig::title() const {
@@ -74,6 +78,7 @@ QIcon LookConfig::icon() const {
 void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbLanguage, 0);
 	loadComboBox(qcbStyle, 0);
+	loadComboBox(qcbChannelDrag, 0);
 
 	for (int i=0;i<qcbLanguage->count();i++) {
 		if (qcbLanguage->itemText(i) == r.qsLanguage) {
@@ -87,8 +92,10 @@ void LookConfig::load(const Settings &r) {
 			break;
 		}
 	}
+
 	qleCSS->setText(r.qsSkin);
 	loadComboBox(qcbExpand, r.ceExpand);
+	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
 	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 }
@@ -109,6 +116,7 @@ void LookConfig::save() const {
 	else
 		s.qsSkin = qleCSS->text();
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
+	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
 	s.bPlayerTop=qcbPlayersTop->isChecked();
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
 }

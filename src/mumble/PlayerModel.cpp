@@ -36,6 +36,7 @@
 #include "Player.h"
 #include "Global.h"
 #include "Overlay.h"
+#include "Log.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientPlayer *, ModelItem *> ModelItem::c_qhPlayers;
@@ -716,6 +717,7 @@ void PlayerModel::renameChannel(Channel *c, const QString &name) {
 	}
 }
 
+
 Channel *PlayerModel::addChannel(int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name, NULL);
 
@@ -933,6 +935,24 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 		mpm.iChannelId = c->iId;
 		g.sh->sendMessage(&mpm);
 	} else {
+		int ret;
+		switch(g.s.ceChannelDrag){
+			case Settings::Ask:
+				ret=QMessageBox::question(g.mw, tr("Mumble"), tr("Are you sure you want to drag this channel?"), QMessageBox::Yes, QMessageBox::No);
+
+				if (ret == QMessageBox::No)
+					return false;
+				break;
+			case Settings::DoNothing:
+				g.l->log(Log::Information, MainWindow::tr("You have Channel Dragging set to \"Do Nothing\" so the channel wasn't moved."));
+				return false;
+				break;
+			case Settings::Move:
+				break;
+			default:
+				g.l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in PlayerModel::dropMimeData."));
+				break;
+		}
 		MessageChannelMove mcm;
 		mcm.iId = iId;
 		mcm.iParent = c->iId;

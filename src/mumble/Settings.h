@@ -46,6 +46,7 @@ struct Settings {
 	enum LoopMode { None, Local, Server };
 	enum OverlayShow { Nothing, Talking, All };
 	enum ChannelExpand { NoChannels, ChannelsWithPlayers, AllChannels };
+	enum ChannelDrag { Ask, DoNothing, Move };
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
 
@@ -110,6 +111,7 @@ struct Settings {
 	bool bFirstTime;
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState, qbaHeaderState;
 	ChannelExpand ceExpand;
+	ChannelDrag ceChannelDrag;
 	bool bMinimalView;
 
 	QString qsUsername;

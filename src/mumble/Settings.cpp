@@ -66,6 +66,7 @@ Settings::Settings() {
 
 	bFirstTime = true;
 	ceExpand = ChannelsWithPlayers;
+	ceChannelDrag = Ask;
 	bMinimalView = false;
 
 	iOutputDelay = 5;
@@ -150,6 +151,7 @@ BOOST_TYPEOF_REGISTER_TYPE(Settings::LoopMode)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::OverlayShow)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelExpand)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelDrag)
 BOOST_TYPEOF_REGISTER_TYPE(QString)
 BOOST_TYPEOF_REGISTER_TYPE(QByteArray)
 BOOST_TYPEOF_REGISTER_TYPE(QColor)
@@ -247,6 +249,7 @@ void Settings::load() {
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
 	LOADENUM(ceExpand, "ui/expand");
+	LOADENUM(ceChannelDrag, "ui/drag");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
@@ -365,6 +368,7 @@ void Settings::save() {
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
 	SAVELOAD(ceExpand, "ui/expand");
+	SAVELOAD(ceChannelDrag, "ui/drag");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
