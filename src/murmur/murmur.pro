@@ -13,7 +13,7 @@ DBFILE  = murmur.db
 LANGUAGE	= C++
 FORMS =
 HEADERS = Server.h Meta.h DBus.h
-SOURCES = murmur.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp DBus.cpp
+SOURCES = murmur.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp DBus.cpp RPC.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 

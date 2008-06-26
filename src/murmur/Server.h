@@ -94,8 +94,14 @@ class User : public Connection, public Player {
 		User(Server *parent, QSslSocket *socket);
 };
 
+class DBus;
+namespace Murmur {
+	class ServerI;
+};
 
 class Server : public QThread, public MessageHandler {
+		friend class DBus;
+		friend class Murmur::ServerI;
 		Q_OBJECT;
 
 		// Former ServerParams
@@ -198,12 +204,24 @@ class Server : public QThread, public MessageHandler {
 #endif
 		void log(User *u, const char *format, ...);
 
-		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
+		void removeChannel(Channel *c, Player *src = NULL, Channel *dest = NULL);
 		void playerEnterChannel(Player *u, Channel *c, bool quiet = false);
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
 
+		// RPC functions. Implementation in RPC.cpp
+	signals:		
+		void playerStateChanged(const Player *);
+		void playerConnected(const Player *);
+		void playerDisconnected(const Player *);
+		void channelStateChanged(const Channel *);
+		void channelCreated(const Channel *);
+		void channelRemoved(const Channel *);
+	public:
+		void setPlayerState(Player *p, Channel *parent, bool deaf, bool mute, bool suppressed);
+		bool setChannelState(Channel *c, Channel *parent, const QSet<Channel *> &links);
+		
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
 		typedef QPair<quint32, int> qpBan;

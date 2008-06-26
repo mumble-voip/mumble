@@ -92,6 +92,7 @@ module Murmur
 	exception InvalidServerException extends MurmurException {};
 	exception ServerBootedException extends MurmurException {};
 	exception ServerFailureException extends MurmurException {};
+	exception InvalidPlayerException extends MurmurException {};
 
 	interface Server {
 		bool isRunning();
@@ -134,7 +135,7 @@ module Murmur
 		void updateregistration(RegisteredPlayer registration);
 		RegisteredPlayer getRegistration(int playerid);
 		RegisteredPlayerList getRegisteredPlayers(string filter);
-		bool verifyPassword(int playerid, string pw);
+		int verifyPassword(string playerid, string pw);
 		Texture getTexture(int playerid);
 		void setTexture(int playerid, Texture tex);
 	};

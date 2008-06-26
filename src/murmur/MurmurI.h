@@ -103,7 +103,7 @@ public:
     virtual ::Murmur::RegisteredPlayerList getRegisteredPlayers(const ::std::string&,
                                                                 const Ice::Current&);
 
-    virtual bool verifyPassword(::Ice::Int,
+    virtual int verifyPassword(const ::std::string&,
                                 const ::std::string&,
                                 const Ice::Current&);
 
