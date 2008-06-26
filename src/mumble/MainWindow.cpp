@@ -112,12 +112,13 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIcon.addFile(QLatin1String("skin:mumble.16x16.png"));
 	qiIcon.addFile(QLatin1String("skin:mumble.32x32.png"));
 	qiIcon.addFile(QLatin1String("skin:mumble.64x64.png"));
-
+#ifdef Q_OS_MAC
+	qiIcon.addFile(QLatin1String("skin:mumble.osx.png"));
+#else
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
 	// current open document (i.e. you can copy the open document anywhere
 	// simply by dragging this icon).
-#ifndef Q_OS_MAC
 	qApp->setWindowIcon(qiIcon);
 #endif
 
