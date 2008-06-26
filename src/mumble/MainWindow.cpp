@@ -676,7 +676,7 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 }
 
 void MainWindow::on_qaQuit_triggered() {
-	qApp->closeAllWindows();
+	this->close();
 }
 
 void MainWindow::on_qmChannel_aboutToShow() {
