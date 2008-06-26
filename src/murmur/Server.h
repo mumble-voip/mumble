@@ -58,7 +58,9 @@ struct BandwidthRecord {
 
 	BandwidthRecord();
 	void addFrame(int size);
-	int bytesPerSec();
+	int bytesPerSec() const;
+	int onlineSeconds() const;
+	int bandwidth() const;
 };
 
 class LogEmitter : public QObject {

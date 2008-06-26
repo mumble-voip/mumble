@@ -864,22 +864,9 @@ PlayerInfoExtended::PlayerInfoExtended(Player *p) : PlayerInfo(p) {
 	id = p->iId;
 	name = p->qsName;
 
-	User *u = static_cast<User *>(p);
-	BandwidthRecord *bw= & u->bwr;
-	onlinesecs = bw->qtFirst.elapsed() / 1000000LL;
-
-	bytespersec = 0;
-
-	int sincelast = bw->a_qtWhen[bw->iRecNum].elapsed() / 20000LL;
-	int todo = N_BANDWIDTH_SLOTS - sincelast;
-	if (todo < 0)
-		return;
-
-	int sum = 0;
-	for (int i=0;i<todo;i++) {
-		sum += bw->a_iBW[(bw->iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS];
-	}
-	bytespersec= (sum * 50) / sincelast;
+	const User *u = static_cast<User *>(p);
+	onlinesecs = u->bwr.onlineSeconds();
+	bytespersec = u->bwr.bandwidth();
 }
 
 ChannelInfo::ChannelInfo(Channel *c) {

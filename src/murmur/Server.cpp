@@ -74,6 +74,7 @@ User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 	saiUdpAddress.sin_family = AF_INET;
 }
 
+
 Server::Server(int snum, QObject *p) : QThread(p) {
 	iServerNum = snum;
 
@@ -249,9 +250,25 @@ void BandwidthRecord::addFrame(int size) {
 		iRecNum = 0;
 }
 
-int BandwidthRecord::bytesPerSec() {
+int BandwidthRecord::bytesPerSec() const {
 	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
 	return (iSum * 1000000LL) / elapsed;
+}
+
+int BandwidthRecord::onlineSeconds() const {
+	return qtFirst.elapsed() / 1000000LL;
+}
+
+int BandwidthRecord::bandwidth() const {
+	int sincelast = a_qtWhen[iRecNum].elapsed() / 20000LL;
+	int todo = N_BANDWIDTH_SLOTS - sincelast;
+	if (todo < 0)
+		return 0;
+		
+	int sum = 0;
+	for(int i=0;i<todo;i++)
+		sum += a_iBW[(iRecNum+N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS];
+	return (sum*50)/sincelast;
 }
 
 void Server::run() {

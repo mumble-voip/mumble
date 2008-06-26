@@ -44,7 +44,7 @@ unix {
 
 ice {
 	slice.target = Murmur.cpp
-	slice.commands = slice2cpp --impl Murmur.ice
+	slice.commands = slice2cpp Murmur.ice
 	slice.depends = Murmur.ice
 	QMAKE_EXTRA_TARGETS += slice
 
