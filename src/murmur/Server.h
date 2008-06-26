@@ -219,7 +219,7 @@ class Server : public QThread, public MessageHandler {
 		void channelCreated(const Channel *);
 		void channelRemoved(const Channel *);
 	public:
-		void setPlayerState(Player *p, Channel *parent, bool deaf, bool mute, bool suppressed);
+		void setPlayerState(Player *p, Channel *parent, bool mute, bool deaf, bool suppressed);
 		bool setChannelState(Channel *c, Channel *parent, const QSet<Channel *> &links);
 		
 		// Database / DBus functions. Implementation in ServerDB.cpp

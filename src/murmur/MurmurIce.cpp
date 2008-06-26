@@ -73,6 +73,8 @@ class ServerLocator : public virtual Ice::ServantLocator {
 };
 
 MurmurIce::MurmurIce() {
+	count = 0;
+
 	communicator = Ice::initialize();
 	Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapterWithEndpoints("Murmur", "tcp -h 127.0.0.1 -p 10000");
 	MetaPtr m = new MetaI;

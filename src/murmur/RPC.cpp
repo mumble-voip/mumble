@@ -30,7 +30,7 @@
 
 #include "Server.h"
 
-void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool deaf, bool mute, bool suppressed) {
+void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed) {
 	bool changed = false;
 	
 	if (deaf)
