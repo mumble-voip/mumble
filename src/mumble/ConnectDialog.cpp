@@ -30,6 +30,7 @@
 
 #include "ConnectDialog.h"
 #include "Global.h"
+#include "ServerHandler.h"
 
 TextSortedItem::TextSortedItem(QTreeWidget *p, const QStringList &strings) : QTreeWidgetItem(p, strings) {
 }
@@ -302,14 +303,25 @@ void ConnectDialog::on_qpbAdd_clicked() {
 			return;
 		}
 	}
-
+	
 	qlwServers->setCurrentIndex(QModelIndex());
-
+	
+	QString host, user, pw;
+	int port = 64378;
+	
+	if (g.sh && g.sh->isRunning()) {
+		g.sh->getConnectionInfo(host, port, user, pw);
+	}
+	else {
+		user = g.s.qsUsername;
+		pw = QString();
+		host = QLatin1String("host");
+	}
 	qleName->setText(tr("-Unnamed entry-"));
-	qleServer->setText(QString());
-	qleUsername->setText(g.s.qsUsername);
-	qlePassword->setText(QString());
-	qlePort->setText(QLatin1String("64738"));
+	qleServer->setText(host);
+	qleUsername->setText(user);
+	qlePassword->setText(pw);
+	qlePort->setText(QString::number(port));
 
 	qpbAdd->setText(tr("Add"));
 	qpbAdd->setEnabled(false);
