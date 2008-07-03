@@ -658,10 +658,9 @@ AudioSine::~AudioSine() {
 }
 
 bool AudioSine::needSamples(unsigned int snum) {
+	resizeBuffer(snum);
 	if (frames > 0) {
 		frames--;
-
-		resizeBuffer(snum);
 
 		if (inc == 0.0) {
 			if (++cntr == 50) {
