@@ -55,6 +55,11 @@ ice {
 
 	SOURCES += Murmur.cpp MurmurIce.cpp
 	HEADERS += MurmurIce.h
-	LIBS += -lIce
+	LIBS += -lIce -lIceUtil
 	DEFINES += USE_ICE
+	
+	win32 {
+		INCLUDEPATH += /dev/Ice/include
+		LIBPATH += /dev/Ice/lib
+	}
 }

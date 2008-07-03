@@ -32,7 +32,7 @@
 
 void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed) {
 	bool changed = false;
-	
+
 	if (deaf)
 		mute = true;
 	if (! mute)
@@ -132,4 +132,6 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QSet<Cha
 
 	if (changed)
 		emit channelStateChanged(cChannel);
+
+	return true;
 }

@@ -105,6 +105,9 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
+  File "\dev\Ice\bin\ice33.dll"
+  File "\dev\Ice\bin\iceutil33.dll"
+  File "\dev\Ice\bin\bzip2.dll"
   File "\Program Files (x86)\Intel\Compiler\C++\10.1.021\IA32\Bin\libmmd.dll"
 
   SetOutPath "$INSTDIR\bin"
@@ -215,6 +218,10 @@ Section "Uninstall"
   Delete "$INSTDIR\bin\iconv.dll"
   Delete "$INSTDIR\bin\zlib1.dll"
   Delete "$INSTDIR\etc\session.conf"
+
+  Delete "$INSTDIR\ice33.dll"
+  Delete "$INSTDIR\iceutil33.dll"
+  Delete "$INSTDIR\bzip2.dll"
 
   Delete "$INSTDIR\libeay32.dll"
   Delete "$INSTDIR\libssl32.dll"
