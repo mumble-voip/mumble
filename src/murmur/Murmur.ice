@@ -95,58 +95,58 @@ module Murmur
 	exception InvalidPlayerException extends MurmurException {};
 
 	interface Server {
-		bool isRunning();
-		void start() throws ServerBootedException;
+		idempotent bool isRunning();
+		void start() throws ServerBootedException, ServerFailureException;
 		void stop() throws ServerBootedException;
 		void delete() throws ServerBootedException;
-		int id();
+		idempotent int id();
 
-		string getConf(string key);
-		ConfigMap getAllConf();
-		void setConf(string key, string value);
-		void setSuperuserPasssword(string pw);
-		LogList getLog(int min, int max);
+		idempotent string getConf(string key);
+		idempotent ConfigMap getAllConf();
+		idempotent void setConf(string key, string value);
+		idempotent void setSuperuserPasssword(string pw);
+		idempotent LogList getLog(int min, int max);
 
-		PlayerMap getPlayers();
-		ChannelMap getChannels();
-		Tree getTree();
+		idempotent PlayerMap getPlayers() throws ServerBootedException;
+		idempotent ChannelMap getChannels() throws ServerBootedException;
+		idempotent Tree getTree() throws ServerBootedException;
 
-		BanList getBans();
-		void setBans(BanList bans);
+		idempotent BanList getBans() throws ServerBootedException;
+		idempotent void setBans(BanList bans) throws ServerBootedException;
 
-		void kickPlayer(int session, string reason) throws InvalidSessionException;
-		Player getState(int session) throws InvalidSessionException;
-		void setState(Player state) throws InvalidSessionException;
+		void kickPlayer(int session, string reason) throws ServerBootedException, InvalidSessionException;
+		idempotent Player getState(int session) throws ServerBootedException, InvalidSessionException;
+		idempotent void setState(Player state) throws ServerBootedException, InvalidSessionException, InvalidChannelException;
 		
-		Channel getChannelState(int channelid) throws InvalidChannelException;
-		void setChannelState(Channel state) throws InvalidChannelException;
+		idempotent Channel getChannelState(int channelid) throws ServerBootedException, InvalidChannelException;
+		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException;
 
-		void removeChannel(int channelid) throws InvalidChannelException;
-		int addChannel(string name, int parent) throws InvalidChannelException;
+		void removeChannel(int channelid) throws ServerBootedException, InvalidChannelException;
+		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException;
 
-		void getACL(int channelid, out ACLList acls, out GroupList groups, out bool inherit) throws InvalidChannelException;
-		void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws InvalidChannelException;
+		idempotent void getACL(int channelid, out ACLList acls, out GroupList groups, out bool inherit) throws ServerBootedException, InvalidChannelException;
+		idempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException;
 
-		NameMap getPlayerNames(IdList ids);
-		IdMap getPlayerIds(NameList names);
+		idempotent NameMap getPlayerNames(IdList ids) throws ServerBootedException;
+		idempotent IdMap getPlayerIds(NameList names) throws ServerBootedException;
 
-		int registerPlayer(string name);
-		void unregisterPlayer(int playerid);
-		void updateregistration(RegisteredPlayer registration);
-		RegisteredPlayer getRegistration(int playerid);
-		RegisteredPlayerList getRegisteredPlayers(string filter);
-		int verifyPassword(string playerid, string pw);
-		Texture getTexture(int playerid);
-		void setTexture(int playerid, Texture tex);
+		int registerPlayer(string name) throws ServerBootedException;
+		void unregisterPlayer(int playerid) throws ServerBootedException, InvalidPlayerException;
+		idempotent void updateregistration(RegisteredPlayer registration) throws ServerBootedException, InvalidPlayerException;
+		idempotent RegisteredPlayer getRegistration(int playerid) throws ServerBootedException, InvalidPlayerException;
+		idempotent RegisteredPlayerList getRegisteredPlayers(string filter) throws ServerBootedException;
+		idempotent int verifyPassword(string playerid, string pw) throws ServerBootedException;
+		idempotent Texture getTexture(int playerid) throws ServerBootedException, InvalidPlayerException;
+		idempotent void setTexture(int playerid, Texture tex) throws ServerBootedException, InvalidPlayerException;
 	};
 
 	sequence<Server *> ServerList;
 
 	interface Meta {
-		Server *getServer(int id) throws InvalidServerException;
+		idempotent Server *getServer(int id) throws InvalidServerException;
 		Server *newServer();
-		ServerList getBootedServers();
-		ServerList getAllServers();
-		ConfigMap getDefaultConf();
+		idempotent ServerList getBootedServers();
+		idempotent ServerList getAllServers();
+		idempotent ConfigMap getDefaultConf();
 	};
 };
