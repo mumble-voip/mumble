@@ -61,7 +61,8 @@ void IceStart() {
 }
 
 void IceStop() {
-	delete mi;
+	if (mi)
+		delete mi;
 	mi = NULL;
 }
 
@@ -74,22 +75,36 @@ class ServerLocator : public virtual Ice::ServantLocator {
 
 MurmurIce::MurmurIce() {
 	count = 0;
+	
+	if (meta->mp.qsIceEndpoint.isEmpty())
+		return;
+		
+	try {
+		communicator = Ice::initialize();
+		Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
+		MetaPtr m = new MetaI;
+		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));
+		adapter->addServantLocator(new ServerLocator(), "s");
+	
+		iopServer = new ServerI;
 
-	communicator = Ice::initialize();
-	Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapterWithEndpoints("Murmur", "tcp -h 127.0.0.1 -p 10000");
-	MetaPtr m = new MetaI;
-	adapter->add(m, communicator->stringToIdentity("Meta"));
-	adapter->addServantLocator(new ServerLocator(), "s");
-
-	iopServer = new ServerI;
-
-	adapter->activate();
-	qWarning("MurmurIce: Running");
+		adapter->activate();
+		foreach(const Ice::EndpointPtr ep, mprx->ice_getEndpoints()) {
+			qWarning("MurmurIce: Endpoint \"%s\" running", qPrintable(QString::fromStdString(ep->toString())));
+		}
+	} catch (Ice::Exception &e) {
+		qWarning("MurmurIce: Initialization failed: %s", qPrintable(QString::fromStdString(e.ice_name())));
+	}
 }
 
 MurmurIce::~MurmurIce() {
-	communicator->waitForShutdown();
-	communicator->destroy();
+	if (communicator) {
+		communicator->shutdown();
+		communicator->waitForShutdown();
+		communicator->destroy();
+		communicator=NULL;
+		qWarning("MurmurIce: Shutdown complete");
+	}
 	iopServer = NULL;
 }
 
@@ -202,6 +217,7 @@ static void banToBan(const QPair<quint32,int> b, Murmur::Ban &mb) {
 
 void ServerI::ice_ping(const Ice::Current &current) const {
 	NEED_SERVER_EXISTS;
+	qWarning("Ping?");
 }
 
 bool ServerI::isRunning(const Ice::Current& current) {

@@ -72,6 +72,13 @@ pidfile=/var/run/mumble-server/mumble-server.pid
 #
 dbus=system
 
+# If you want to use ZeroC ICE to communicate with Murmur, you need
+# to specify the endpoint to use. Since there is no authentication
+# with ICE, you should only use it if you trust all the users who have
+# shell access to your machine.
+# Please see the ICE documentation on how to specify endpoints.
+#ice="tcp -h 127.0.0.1 -p 10000"
+
 # Murmur default to logging to murmur.log. If you leave this blank,
 # murmur will log to the console (linux) or through message boxes (win32).
 logfile=/var/log/mumble-server/mumble-server.log

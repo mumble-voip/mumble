@@ -358,23 +358,24 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	meta->bootAll();
-
 #ifdef USE_ICE
 	IceStart();
 #endif
-	
+
+	meta->bootAll();
+
 	res=a.exec();
 	
-#ifdef USE_ICE
-	IceStop();
-#endif
 
 	qWarning("Killing running servers");
 
 	meta->killAll();
 
 	qWarning("Shutting down");
+
+#ifdef USE_ICE
+	IceStop();
+#endif
 
 	if (qfLog) {
 		delete qfLog;
