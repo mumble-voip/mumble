@@ -77,7 +77,7 @@ dbus=system
 # with ICE, you should only use it if you trust all the users who have
 # shell access to your machine.
 # Please see the ICE documentation on how to specify endpoints.
-#ice="tcp -h 127.0.0.1 -p 10000"
+ice="tcp -h 127.0.0.1 -p 49152"
 
 # Murmur default to logging to murmur.log. If you leave this blank,
 # murmur will log to the console (linux) or through message boxes (win32).
