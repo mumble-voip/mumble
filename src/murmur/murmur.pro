@@ -13,13 +13,17 @@ DBFILE  = murmur.db
 LANGUAGE	= C++
 FORMS =
 HEADERS = Server.h Meta.h DBus.h
-SOURCES = murmur.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp DBus.cpp RPC.cpp
+SOURCES = main.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp DBus.cpp RPC.cpp
 HEADERS	+= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES += ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 
 DIST = DBus.h ServerDB.h murmur.ico
 PRECOMPILED_HEADER = murmur_pch.h
 DIST += murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-user-wrapper Murmur.ice
+
+!CONFIG(no-ice) {
+	CONFIG += ice
+}
 
 win32 {
   RC_FILE = murmur.rc
@@ -47,6 +51,7 @@ ice {
 	slice.commands = slice2cpp Murmur.ice
 	slice.depends = Murmur.ice
 	QMAKE_EXTRA_TARGETS += slice
+	PRE_TARGETDEPS += Murmur.cpp
 
 	SOURCES += Murmur.cpp MurmurIce.cpp
 	HEADERS += MurmurIce.h

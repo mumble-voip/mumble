@@ -87,7 +87,7 @@ my $dir="mumble-$ver/";
 my $zipdir = $zip->addDirectory($dir);
 
 foreach my $file ('LICENSE', sort keys %files) {
-  if ($file =~ /\.qm$/) {
+  if (($file =~ /\.qm$/) || ($file =~ /\/Murmur\.(h|cpp)/)) {
     print "Skipping $file\n";
     next;
   }

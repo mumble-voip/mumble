@@ -46,7 +46,7 @@ class MurmurLocker {
 		MurmurLocker() {
 			mi->qmEvent.lock();
 			mi->count++;
-			qApp->postEvent(mi, new QEvent(static_cast<QEvent::Type>(ICE_QEVENT)));
+			QCoreApplication::instance()->postEvent(mi, new QEvent(static_cast<QEvent::Type>(ICE_QEVENT)));
 			mi->qwcEvent.wait(& mi->qmEvent);
 		};
 
