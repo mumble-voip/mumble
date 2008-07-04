@@ -62,4 +62,9 @@ ice {
 		INCLUDEPATH += /dev/Ice/include
 		LIBPATH += /dev/Ice/lib
 	}
+
+	macx {
+		INCLUDEPATH += /opt/mumble/ice-3.3.0/include/
+		LIBPATH += /opt/mumble/ice-3.3.0/lib/
+	}
 }
