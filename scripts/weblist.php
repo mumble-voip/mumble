@@ -8,7 +8,7 @@
 Ice_loadProfile();
 
 try {
-  $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 49152");
+  $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
   $meta = $base->ice_checkedCast("::Murmur::Meta");
 
   $servers = $meta->getBootedServers();
@@ -20,10 +20,10 @@ try {
     }
     echo "<h1>SERVER #" . $s->id() . " " .$name ."</h1>\n";
     echo "<table><tr><th>Name</th><th>Channel</th></tr>\n";
-    
+
     $channels = $s->getChannels();
     $players = $s->getPlayers();
-    
+
     foreach($players as $id => $state) {
       $chan = $channels[$state->channel];
       echo "<tr><td>".$state->name."</td><td>".$chan->name."</td></tr>\n";
