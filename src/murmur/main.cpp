@@ -182,6 +182,7 @@ int main(int argc, char **argv) {
 	QString inifile;
 	QString supw;
 	bool readPw = false;
+	bool wipeSsl = false;
 	int sunum = 1;
 
 	qInstallMsgHandler(murmurMessageOutput);
@@ -215,6 +216,8 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-ini") && (i+1 < argc)) {
 			i++;
 			inifile=argv[i];
+		} else if ((arg == "-wipessl")) {
+			wipeSsl = true;
 		} else if ((arg == "-fg")) {
 			detach = false;
 		} else if ((arg == "-v")) {
@@ -230,6 +233,7 @@ int main(int argc, char **argv) {
 #endif
 			       "  -v               Add verbose output.\n"
 			       "  -fg              Don't detach from console [Unix-like systems only].\n"
+			       "  -wipessl         Remove SSL certificates from database.\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.",argv[0]);
 		} else {
@@ -270,6 +274,15 @@ int main(int argc, char **argv) {
 			qFatal("Superuser password can not be empty");
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);
+	}
+	
+	if (wipeSsl) {
+		qWarning("Removing all per-server SSL certificates from the database.");
+		foreach(int sid, ServerDB::getAllServers()) {
+			ServerDB::setConf(sid, "key");
+			ServerDB::setConf(sid, "certificate");
+			ServerDB::setConf(sid, "passphrase");
+		}
 	}
 
 	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {

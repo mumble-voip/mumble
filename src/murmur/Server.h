@@ -122,6 +122,7 @@ class Server : public QThread, public MessageHandler {
 
 		QSslCertificate qscCert;
 		QSslKey qskKey;
+		QByteArray qbaPassPhrase;
 
 		void readParams();
 

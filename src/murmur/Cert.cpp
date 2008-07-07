@@ -46,7 +46,7 @@ int add_ext(X509 * crt, int nid, char *value) {
 }
 
 void Server::initializeCert() {
-	QByteArray crt, key;
+	QByteArray crt, key, pass;
 
 	if (! QSslSocket::supportsSsl()) {
 		qFatal("Qt without SSL Support");
@@ -54,6 +54,7 @@ void Server::initializeCert() {
 
 	crt = getConf("certificate", QString()).toByteArray();
 	key = getConf("key", QString()).toByteArray();
+	pass = getConf("passphrase", QByteArray()).toByteArray();
 
 	if (! crt.isEmpty()) {
 		qscCert = QSslCertificate(crt);
@@ -76,14 +77,14 @@ void Server::initializeCert() {
 		QSsl::KeyAlgorithm alg = qscCert.publicKey().algorithm();
 
 		if (! key.isEmpty()) {
-			qskKey = QSslKey(key, alg);
+			qskKey = QSslKey(key, alg, QSsl::Pem, QSsl::PrivateKey, pass);
 			if (qskKey.isNull()) {
 				log("Failed to parse key.");
 			}
 		}
 
 		if (! crt.isEmpty() && qskKey.isNull()) {
-			qskKey = QSslKey(crt, alg);
+			qskKey = QSslKey(crt, alg, QSsl::Pem, QSsl::PrivateKey, pass);
 			if (! qskKey.isNull()) {
 				log("Using key from certificate.");
 			}

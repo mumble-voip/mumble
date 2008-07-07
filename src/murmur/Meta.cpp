@@ -161,6 +161,8 @@ void MetaParams::read(QString fname) {
 
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();
+	
+	qbaPassPhrase = qs.value("sslPassPhrase").toByteArray();
 
 	QByteArray crt, key;
 
@@ -201,14 +203,14 @@ void MetaParams::read(QString fname) {
 		QSsl::KeyAlgorithm alg = qscCert.publicKey().algorithm();
 
 		if (! key.isEmpty()) {
-			qskKey = QSslKey(key, alg);
+			qskKey = QSslKey(key, alg, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
 			if (qskKey.isNull()) {
 				qWarning("Failed to parse key file.");
 			}
 		}
 
 		if (! crt.isEmpty() && qskKey.isNull()) {
-			qskKey = QSslKey(crt, alg);
+			qskKey = QSslKey(crt, alg, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
 			if (! qskKey.isNull()) {
 				qWarning("Using key from certificate file.");
 			}
