@@ -88,7 +88,7 @@ Section "Mumble & Murmur" SecMumble
 !endif
   !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
   SetOverwrite off
-  File "..\scripts\murmur.ini"
+  File /oname=murmur.ini "..\scripts\murmur.ini.win32"
   SetOverwrite on
   File "qos.reg"
   File "\dev\Qt4.4.0\lib\QtCore4.dll"
