@@ -1,0 +1,87 @@
+# Path to database. If blank, will search for
+# murmur.sqlite in default locations.
+database=
+
+# If you wish to use something other than SQLite, you'll need to set the name
+# of the database above, and also uncomment the below.
+#
+#dbDriver=QMYSQL
+#dbUsername=
+#dbPassword=
+#dbHost=
+#dbPort=
+#dbPrefix=murmur_
+
+# Murmur defaults to not using D-Bus. If you wish to use dbus, please
+# specify so here.
+#
+#dbus=session
+
+# Alternate service name. Only use if you are running distinct
+# murmurd processes connected to the same dbus daemon.
+#dbusservice=net.sourceforge.mumble.murmur
+
+# If you want to use ZeroC ICE to communicate with Murmur, you need
+# to specify the endpoint to use. Since there is no authentication
+# with ICE, you should only use it if you trust all the users who have
+# shell access to your machine.
+# Please see the ICE documentation on how to specify endpoints.
+ice="tcp -h 127.0.0.1 -p 6502"
+
+# How many login attempts do we tolerate from one IP
+# inside a given timeframe before we ban the connection?
+# Note that this is global (shared between all virtual servers), and that
+# it counts both successfull and unsuccessfull connection attempts.
+# Set either Attempts or Timeframe to 0 to disable.
+#autobanAttempts = 10
+#autobanTimeframe = 120
+#autobanTime = 300
+
+# Murmur default to logging to murmur.log. If you leave this blank,
+# murmur will log to the console (linux) or through message boxes (win32).
+#logfile=murmur.log
+
+# The below will be used as defaults for new configured servers.
+# If you're just running one server (the default), it's easier to
+# configure it here than through DBus/SQL.
+#
+# Welcome message sent to users
+welcometext="<br />Welcome to this server running <b>Murmur</b> on Mac OS X.<br />Enjoy your stay!<br />"
+
+# Port to bind TCP and UDP sockets to
+port=64738
+
+# Specific IP or hostname to bind to.
+# If this is left blank (default), murmur will bind to all available addresses.
+#host=
+
+# Password to join server
+serverpassword=
+
+# Maximum bandwidth (in bytes per second) clients are allowed
+# send speech at.
+bandwidth=100000
+
+# Maximum number of concurrent clients allowed.
+users=100
+
+# Murmur retains the per-server log entries in an internal database which
+# allows it to be accessed over D-Bus.
+# How many days should such entries be kept?
+#logdays=31
+
+# To enable public registration, the serverpassword must be blank, and this
+# must all be filled out.
+# The password here is used to create a registry for the server name; subsequent
+# updates will need the same password. Don't loose your password.
+# The URL is your own website, and only set the registerHostname for static IP
+# addresses.
+#
+#registerName=Mumble Server
+#registerPassword=secret
+#registerUrl=http://mumble.sourceforge.net/
+#registerHostname=
+
+# If you have a proper SSL certificate, you can provide the filenames here.
+#sslCert=
+#sslKey=

@@ -293,6 +293,7 @@ if __name__ == '__main__':
 	# Prepare diskimage
 	d = DiskImage(dmgfn, dmgtitle)
 	d.copy('release/Mumble.app')
+	d.copy('scripts/murmur.ini.osx', '/Mumble.app/Contents/MacOS/murmur.ini')
 	d.copy('README', '/ReadMe.txt')
 	d.copy('CHANGES', '/Changes.txt')
 	d.copy('installer/DS_Store', '/.DS_Store')
@@ -302,8 +303,7 @@ if __name__ == '__main__':
 	d.copy('installer/qt.txt', '/Licenses/Qt.txt')
 	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
 	d.mkdir('Murmur')
-	d.copy('scripts/murmur.ini', '/Murmur/')
-	d.copy('scripts/murmur.ini.system', '/Murmur/')
+	d.copy('scripts/murmur.ini.osx', '/Murmur/murmur.ini')
 	d.copy('scripts/murmur.conf', '/Murmur/')
 	d.copy('scripts/dbusauth.pl', '/Murmur/')
 	d.copy('scripts/murmur.pl', '/Murmur/')

@@ -60,6 +60,9 @@ to run it by executing:
 in a Terminal. For more information, please see the 'Running Murmur on Unix-
 like sytems' above.
 
+To easily override the default Murmur configuration, a murmur.ini file can be placed in
+your user's 'Library/Preferences/Mumble/' directory.
+
 Example configuration files and other scripts can be found inside the Murmur
 directory of the Mumble installation disk image.
 
