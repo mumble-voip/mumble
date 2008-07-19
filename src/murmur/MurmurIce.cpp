@@ -75,17 +75,17 @@ class ServerLocator : public virtual Ice::ServantLocator {
 
 MurmurIce::MurmurIce() {
 	count = 0;
-	
+
 	if (meta->mp.qsIceEndpoint.isEmpty())
 		return;
-		
+
 	try {
 		communicator = Ice::initialize();
 		Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
 		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));
 		adapter->addServantLocator(new ServerLocator(), "s");
-	
+
 		iopServer = new ServerI;
 
 		adapter->activate();
@@ -403,14 +403,14 @@ void ServerI::setState(const ::Murmur::Player& state, const Ice::Current& curren
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL_VAR(channel, state.channel);
-	
+
 	server->setPlayerState(user, channel, state.mute, state.deaf, state.suppressed);
 }
 
 ::Murmur::Channel ServerI::getChannelState(int channelid, const Ice::Current& current) {
 	NEED_SERVER;
 	NEED_CHANNEL;
-	
+
 	::Murmur::Channel mc;
 	channelToChannel(channel, mc);
 	return mc;
@@ -422,7 +422,7 @@ void ServerI::setChannelState(const ::Murmur::Channel& state, const Ice::Current
 	NEED_CHANNEL;
 	::Channel *np;
 	NEED_CHANNEL_VAR(np, state.parent);
-	
+
 	QSet< ::Channel *> newset;
 	foreach(int linkid, state.links) {
 		::Channel *cLink;
@@ -437,37 +437,37 @@ void ServerI::setChannelState(const ::Murmur::Channel& state, const Ice::Current
 void ServerI::removeChannel(int channelid, const Ice::Current& current) {
 	NEED_SERVER;
 	NEED_CHANNEL;
-	server->removeChannel(channel);
+	server->removeChannel(channel, NULL);
 }
 
 int ServerI::addChannel(const string& name, int parent, const Ice::Current& current) {
 	NEED_SERVER;
 	::Channel *p, *nc;
 	NEED_CHANNEL_VAR(p, parent);
-	
+
 	QString qsName = QString::fromStdString(name);
-	
+
 	nc = server->addChannel(p, qsName);
 	server->updateChannel(nc);
 	int newid = nc->iId;
-	
+
 	MessageChannelAdd mca;
 	mca.uiSession = 0;
 	mca.qsName = qsName;
 	mca.iParent = parent;
 	mca.iId = newid;
 	server->sendAll(&mca);
-	
+
 	return newid;
 }
 
 void ServerI::getACL(int channelid, ::Murmur::ACLList& acls, ::Murmur::GroupList& groups, bool& inherit, const Ice::Current& current) {
 	NEED_SERVER;
 	NEED_CHANNEL;
-	
+
 	acls.clear();
 	groups.clear();
-	
+
 	QStack< ::Channel *> chans;
 	::Channel *p;
 	ChanACL *acl;
@@ -479,9 +479,9 @@ void ServerI::getACL(int channelid, ::Murmur::ACLList& acls, ::Murmur::GroupList
 		else
 			p = NULL;
 	}
-	
+
 	inherit = channel->bInheritACL;
-	
+
 	while (! chans.isEmpty()) {
 		p = chans.pop();
 		foreach(acl, p->qlACL) {
@@ -494,7 +494,7 @@ void ServerI::getACL(int channelid, ::Murmur::ACLList& acls, ::Murmur::GroupList
 			}
 		}
 	}
-	
+
 	p = channel->cParent;
 	const QSet<QString> allnames = ::Group::groupNames(channel);
 	foreach(const QString &name, allnames) {
@@ -524,10 +524,10 @@ void ServerI::getACL(int channelid, ::Murmur::ACLList& acls, ::Murmur::GroupList
 void ServerI::setACL(int channelid, const ::Murmur::ACLList& acls, const ::Murmur::GroupList& groups, bool inherit, const Ice::Current& current) {
 	NEED_SERVER;
 	NEED_CHANNEL;
-	
+
 	::Group *g;
 	ChanACL *acl;
-	
+
 	QHash<QString, QSet<int> > hOldTemp;
 	foreach(g, channel->qhGroups) {
 		hOldTemp.insert(g->qsName, g->qsTemporary);
@@ -535,10 +535,10 @@ void ServerI::setACL(int channelid, const ::Murmur::ACLList& acls, const ::Murmu
 	}
 	foreach(acl, channel->qlACL)
 		delete acl;
-		
+
 	channel->qhGroups.clear();
 	channel->qlACL.clear();
-	
+
 	channel->bInheritACL = inherit;
 	foreach(const ::Murmur::Group &gi, groups) {
 		QString name = QString::fromStdString(gi.name);
@@ -607,11 +607,11 @@ void ServerI::unregisterPlayer(int playerid, const Ice::Current& current) {
 
 void ServerI::updateregistration(const ::Murmur::RegisteredPlayer& registration, const Ice::Current& current) {
 	NEED_SERVER;
-	
+
 	QString name, email;
 	if (! server->getRegistration(registration.playerid, name, email))
 		throw InvalidPlayerException();
-	
+
 	QString newname = QString::fromStdString(registration.name);
 	QString newemail = QString::fromStdString(registration.email);
 	QString newpw = QString::fromStdString(registration.pw);
@@ -619,21 +619,21 @@ void ServerI::updateregistration(const ::Murmur::RegisteredPlayer& registration,
 	if ((! newname.isEmpty()) && (newname != name))
 		if (! server->setName(registration.playerid, newname))
 			throw InvalidPlayerException();
-	
+
 	if ((! newemail.isEmpty()) && (newemail != email))
 		server->setEmail(registration.playerid, newemail);
-		
+
 	if ((! newpw.isEmpty()))
 		server->setPW(registration.playerid, newpw);
 }
 
 ::Murmur::RegisteredPlayer ServerI::getRegistration(int playerid, const Ice::Current& current) {
 	NEED_SERVER;
-	
+
 	QString name, email;
 	if (! server->getRegistration(playerid, name, email))
 		throw InvalidPlayerException();
-		
+
 	::Murmur::RegisteredPlayer reg;
 	reg.playerid = playerid;
 	reg.name = name.toStdString();
@@ -645,7 +645,7 @@ void ServerI::updateregistration(const ::Murmur::RegisteredPlayer& registration,
 	NEED_SERVER;
 	Murmur::RegisteredPlayerList rpl;
 	Murmur::RegisteredPlayer reg;
-	
+
 	const QMap<int, QPair<QString, QString> > l = server->getRegisteredPlayers(QString::fromStdString(filter));
 	QMap<int, QPair<QString, QString > >::const_iterator i;
 	for(i = l.constBegin(); i != l.constEnd(); ++i) {
@@ -654,7 +654,7 @@ void ServerI::updateregistration(const ::Murmur::RegisteredPlayer& registration,
 		reg.email = i.value().second.toStdString();
 		rpl.push_back(reg);
 	}
-	
+
 	return rpl;
 }
 
@@ -667,13 +667,13 @@ int ServerI::verifyPassword(const string &name, const string& pw, const Ice::Cur
 ::Murmur::Texture ServerI::getTexture(int playerid, const Ice::Current& current) {
 	NEED_SERVER;
 	const QByteArray &qba = server->getUserTexture(playerid);
-	
+
 	::Murmur::Texture tex;
 	tex.resize(qba.size());
 	const char *ptr = qba.constData();
 	for(int i=0;i<qba.size();++i)
 		tex[i] = ptr[i];
-	
+
 	return tex;
 }
 

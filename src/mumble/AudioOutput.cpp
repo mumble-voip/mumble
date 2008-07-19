@@ -344,7 +344,7 @@ AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float v
 }
 
 void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPacket, unsigned int iSeq) {
-	if (iChannels == 0) 
+	if (iChannels == 0)
 		return;
 	qrwlOutputs.lockForRead();
 	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(player));

@@ -205,14 +205,14 @@ class Server : public QThread, public MessageHandler {
 #endif
 		void log(User *u, const char *format, ...);
 
-		void removeChannel(Channel *c, Player *src = NULL, Channel *dest = NULL);
+		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
 		void playerEnterChannel(Player *u, Channel *c, bool quiet = false);
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
 
 		// RPC functions. Implementation in RPC.cpp
-	signals:		
+	signals:
 		void playerStateChanged(const Player *);
 		void playerConnected(const Player *);
 		void playerDisconnected(const Player *);
@@ -222,7 +222,7 @@ class Server : public QThread, public MessageHandler {
 	public:
 		void setPlayerState(Player *p, Channel *parent, bool mute, bool deaf, bool suppressed);
 		bool setChannelState(Channel *c, Channel *parent, const QSet<Channel *> &links);
-		
+
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
 		typedef QPair<quint32, int> qpBan;

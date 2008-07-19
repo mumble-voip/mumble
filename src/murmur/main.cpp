@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);
 	}
-	
+
 	if (wipeSsl) {
 		qWarning("Removing all per-server SSL certificates from the database.");
 		foreach(int sid, ServerDB::getAllServers()) {
@@ -378,7 +378,7 @@ int main(int argc, char **argv) {
 	meta->bootAll();
 
 	res=a.exec();
-	
+
 
 	qWarning("Killing running servers");
 

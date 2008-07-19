@@ -59,7 +59,7 @@ ModelItem::ModelItem(ClientPlayer *p) {
 }
 
 ModelItem::ModelItem(ModelItem *i) {
-	// Create a full clone
+	// Create a shallow clone
 	this->cChan = i->cChan;
 	this->pPlayer = i->pPlayer;
 	this->parent = i->parent;
@@ -70,12 +70,6 @@ ModelItem::ModelItem(ModelItem *i) {
 		c_qhChannels.insert(cChan, this);
 
 	iPlayers = i->iPlayers;
-
-	foreach(ModelItem *c, i->qlChildren) {
-		ModelItem *ni = new ModelItem(c);
-		ni->parent = this;
-		qlChildren << ni;
-	}
 }
 
 ModelItem::~ModelItem() {
@@ -463,7 +457,32 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 	return QVariant();
 }
 
-void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item) {
+void PlayerModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to) {
+	if (old->qlChildren.isEmpty())
+		return;
+
+	beginInsertRows(index(item), 0, old->qlChildren.count());
+
+	for(int i=0;i<old->qlChildren.count();++i) {
+		ModelItem *o = old->qlChildren.at(i);
+		ModelItem *mi = new ModelItem(o);
+		mi->parent = item;
+
+		item->qlChildren << mi;
+
+		from << createIndex(i, 0, o);
+		from << createIndex(i, 1, o);
+		to << createIndex(i, 0, mi);
+		to << createIndex(i, 1, mi);
+	}
+
+	endInsertRows();
+
+	for(int i=0;i<old->qlChildren.count();++i)
+		recursiveClone(old->qlChildren.at(i), item->qlChildren.at(i), from, to);
+}
+
+ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item) {
 	// Here's the idea. We insert the item, update persistent indexes, THEN remove it.
 
 	int oldrow = oldparent->qlChildren.indexOf(item);
@@ -476,14 +495,17 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 
 	if ((oldparent == newparent) && (newrow == oldrow)) {
 		emit dataChanged(index(item),index(item));
-		return;
+		return item;
 	}
+
+	// Shallow clone
+	ModelItem *t = new ModelItem(item);
 
 	// Store the index if it's "active".
 	// The selection is stored as "from"-"to" pairs, so if we move up in the same channel,
 	// we'd move only "from" and select half the channel.
 
-	QAbstractItemView *v=g.mw->qtvPlayers;
+	QTreeView *v=g.mw->qtvPlayers;
 	QItemSelectionModel *sel=v->selectionModel();
 	QPersistentModelIndex active;
 	QModelIndex oindex = createIndex(oldrow, 0, item);
@@ -493,7 +515,6 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 		v->setCurrentIndex(QModelIndex());
 	}
 
-	ModelItem *t = new ModelItem(item);
 
 	if (newparent == oldparent) {
 		// Mangle rows. newrow needs to be pre-remove. oldrow needs to be postremove.
@@ -517,22 +538,15 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 
 	endInsertRows();
 
-	QStack<ModelItem *> qsOld, qsNew;
-	qsOld << item;
-	qsNew << t;
-	while (! qsOld.isEmpty()) {
-		ModelItem *o = qsOld.pop();
-		ModelItem *n = qsNew.pop();
+	QModelIndexList from, to;
+	from << createIndex(oldrow, 0, item);
+	from << createIndex(oldrow, 1, item);
+	to << createIndex(newrow, 0, t);
+	to << createIndex(newrow, 1, t);
 
-		Q_ASSERT(o->qlChildren.count() == n->qlChildren.count());
-		for(int i=0;i<n->qlChildren.count();++i) {
-			qsOld << o->qlChildren.at(i);
-			qsNew << n->qlChildren.at(i);
-			changePersistentIndex(createIndex(i, 0, o->qlChildren.at(i)), createIndex(i, 0, n->qlChildren.at(i)));
-		}
-	}
+	recursiveClone(item, t, from, to);
 
-	changePersistentIndex(createIndex(oldrow, 0, item), createIndex(newrow, 0, t));
+	changePersistentIndexList(from, to);
 
 	beginRemoveRows(index(oldparent), oldrow, oldrow);
 	oldparent->qlChildren.removeAt(oldrow);
@@ -544,6 +558,7 @@ void PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem
 	if (active.isValid()) {
 		sel->select(active, QItemSelectionModel::SelectCurrent);
 	}
+	return t;
 }
 
 void PlayerModel::expandAll(Channel *c) {
@@ -628,7 +643,10 @@ ClientPlayer *PlayerModel::addPlayer(unsigned int id, const QString &name) {
 	c->addPlayer(p);
 	endInsertRows();
 
-	citem->iPlayers++;
+	while (citem) {
+		citem->iPlayers++;
+		citem = citem->parent;
+	}
 
 	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
 		updateOverlay();
@@ -671,7 +689,8 @@ void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
 	ModelItem *opi = ModelItem::c_qhChannels.value(oc);
 	ModelItem *pi = ModelItem::c_qhChannels.value(np);
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
-	moveItem(opi, pi, item);
+
+	item = moveItem(opi, pi, item);
 
 	if (p->uiSession == g.uiSession) {
 		ensureSelfVisible();
@@ -776,11 +795,26 @@ void PlayerModel::removeChannel(Channel *c) {
 }
 
 void PlayerModel::moveChannel(Channel *c, Channel *p) {
+	Channel *oc = c->cParent;
 	ModelItem *opi = ModelItem::c_qhChannels.value(c->cParent);
 	ModelItem *pi = ModelItem::c_qhChannels.value(p);
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
-	moveItem(opi, pi, item);
+	item = moveItem(opi, pi, item);
+
+	while (opi) {
+		opi->iPlayers -= item->iPlayers;
+		opi = opi->parent;
+	}
+	while (pi) {
+		pi->iPlayers += item->iPlayers;
+		pi = pi->parent;
+	}
+
 	ensureSelfVisible();
+
+	if (g.s.ceExpand == Settings::ChannelsWithPlayers) {
+		collapseEmpty(oc);
+	}
 }
 
 void PlayerModel::linkChannels(Channel *c, QList<Channel *> links) {

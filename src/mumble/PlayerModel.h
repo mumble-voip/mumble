@@ -95,7 +95,8 @@ class PlayerModel : public QAbstractItemModel {
 		QModelIndex index(Channel *) const;
 		QModelIndex index(ModelItem *) const;
 
-		void moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item);
+		void recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to);
+		ModelItem *moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item);
 
 		QString stringIndex(const QModelIndex &index) const;
 	public:
