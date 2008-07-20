@@ -64,6 +64,8 @@ class Channel : public QObject {
 		Channel(int id, QString name, QObject *p = NULL);
 		~Channel();
 
+		static bool validateName(const QString &qsName);
+
 		static Channel *get(int);
 		static Channel *add(int, QString, QObject *p = NULL);
 		static void remove(Channel *);
