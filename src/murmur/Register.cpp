@@ -128,7 +128,7 @@ void Server::done(bool err) {
 	if (! http || ! qssReg)
 		return;
 	if (err) {
-		log("Regstration failed: %s", qPrintable(http->errorString()));
+		log("Registration failed: %s", qPrintable(http->errorString()));
 	} else {
 		QByteArray qba = http->readAll();
 		log("Registration: %s", qPrintable(QString(QLatin1String(qba))));
