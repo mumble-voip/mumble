@@ -523,7 +523,7 @@ void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
 		return;
 	}
-	server->removeChannel(cChannel);
+	server->removeChannel(cChannel, NULL);
 }
 
 void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg) {
