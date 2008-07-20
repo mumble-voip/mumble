@@ -76,7 +76,6 @@ class PulseAudioInit : public DeferInit {
 				airPulseAudio = NULL;
 				aorPulseAudio = NULL;
 			}
-			qWarning("Pulse Done! %d", pasys->bPulseIsGood);
 		};
 		void destroy() {
 			if (airPulseAudio)
