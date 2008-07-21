@@ -100,7 +100,6 @@ void AudioInputDialog::load(const Settings &r) {
 
 	loadCheckBox(qcbPushClick, r.bPushClick);
 	loadSlider(qsQuality, r.iQuality);
-	loadSlider(qsComplexity, r.iComplexity);
 	loadSlider(qsNoise, - r.iNoiseSuppress);
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
 	loadCheckBox(qcbEcho, r.bEcho);
@@ -109,7 +108,6 @@ void AudioInputDialog::load(const Settings &r) {
 void AudioInputDialog::save() const {
 	s.iQuality = qsQuality->value();
 	s.iNoiseSuppress = - qsNoise->value();
-	s.iComplexity = qsComplexity->value();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	s.iVoiceHold = qsTransmitHold->value();
 	s.fVADmin = qsTransmitMin->value() / 32767.0;
@@ -135,9 +133,6 @@ void AudioInputDialog::save() const {
 bool AudioInputDialog::expert(bool b) {
 	qgbInterfaces->setVisible(b);
 	qgbAudio->setVisible(b);
-	qliComplexity->setVisible(b);
-	qlComplexity->setVisible(b);
-	qsComplexity->setVisible(b);
 	qliFrames->setVisible(b);
 	qsFrames->setVisible(b);
 	qlFrames->setVisible(b);
@@ -170,10 +165,6 @@ void AudioInputDialog::on_qsQuality_valueChanged(int v) {
 
 void AudioInputDialog::on_qsNoise_valueChanged(int v) {
 	qlNoise->setText(tr("-%1 dB").arg(v));
-}
-
-void AudioInputDialog::on_qsComplexity_valueChanged(int v) {
-	qlComplexity->setText(QString::number(v));
 }
 
 void AudioInputDialog::on_qsAmp_valueChanged(int v) {

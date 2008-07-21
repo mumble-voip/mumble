@@ -58,7 +58,7 @@ struct Settings {
 	bool bTTS;
 	bool bPlayerTop;
 	int iTTSVolume, iTTSThreshold;
-	int iQuality, iComplexity, iMinLoudness, iVoiceHold, iJitterBufferSize;
+	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
 	VADSource vsVAD;
 	float fVADmin, fVADmax;

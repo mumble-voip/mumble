@@ -113,7 +113,7 @@ AudioInput::AudioInput() {
 	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_MAX_BITRATE, &iArg);
 
 
-	iArg = g.s.iComplexity;
+	iArg = 5;
 	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
 
 	bResetProcessor = true;

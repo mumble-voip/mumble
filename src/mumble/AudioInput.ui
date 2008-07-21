@@ -346,7 +346,7 @@
            <x>0</x>
            <y>0</y>
            <width>266</width>
-           <height>113</height>
+           <height>117</height>
           </rect>
          </property>
         </widget>
@@ -380,13 +380,16 @@
          <string>&lt;b>This sets the quality of compression.&lt;/b>&lt;br />This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
         </property>
         <property name="minimum" >
-         <number>2</number>
+         <number>1</number>
         </property>
         <property name="maximum" >
          <number>10</number>
         </property>
         <property name="pageStep" >
          <number>2</number>
+        </property>
+        <property name="value" >
+         <number>5</number>
         </property>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
@@ -407,51 +410,6 @@
        </widget>
       </item>
       <item row="1" column="0" >
-       <widget class="QLabel" name="qliComplexity" >
-        <property name="text" >
-         <string>&amp;Complexity</string>
-        </property>
-        <property name="buddy" >
-         <cstring>qsComplexity</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QSlider" name="qsComplexity" >
-        <property name="toolTip" >
-         <string>Complexity of compression (CPU)</string>
-        </property>
-        <property name="whatsThis" >
-         <string>&lt;b>This sets the complexity of compression.&lt;/b>&lt;br />This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</string>
-        </property>
-        <property name="minimum" >
-         <number>4</number>
-        </property>
-        <property name="maximum" >
-         <number>10</number>
-        </property>
-        <property name="pageStep" >
-         <number>2</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <widget class="QLabel" name="qlComplexity" >
-        <property name="minimumSize" >
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
        <widget class="QLabel" name="qliFrames" >
         <property name="text" >
          <string>Audio per packet</string>
@@ -461,7 +419,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
+      <item row="1" column="1" >
        <widget class="QSlider" name="qsFrames" >
         <property name="toolTip" >
          <string>How many audio frames to send per packet</string>
@@ -483,7 +441,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2" >
+      <item row="1" column="2" >
        <widget class="QLabel" name="qlFrames" >
         <property name="minimumSize" >
          <size>
@@ -496,7 +454,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="3" >
+      <item row="2" column="0" colspan="3" >
        <widget class="QLabel" name="qlBitrate" >
         <property name="font" >
          <font>
@@ -647,7 +605,6 @@
   <tabstop>qsTransmitMin</tabstop>
   <tabstop>qsTransmitMax</tabstop>
   <tabstop>qsQuality</tabstop>
-  <tabstop>qsComplexity</tabstop>
   <tabstop>qsFrames</tabstop>
   <tabstop>qsNoise</tabstop>
   <tabstop>qsAmp</tabstop>

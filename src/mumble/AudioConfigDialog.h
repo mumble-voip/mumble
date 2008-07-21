@@ -50,7 +50,6 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		void on_qsTransmitHold_valueChanged(int v);
 		void on_qsFrames_valueChanged(int v);
 		void on_qsQuality_valueChanged(int v);
-		void on_qsComplexity_valueChanged(int v);
 		void on_qsAmp_valueChanged(int v);
 		void on_qsDoublePush_valueChanged(int v);
 		void on_qsNoise_valueChanged(int v);

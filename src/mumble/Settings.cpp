@@ -41,7 +41,6 @@ Settings::Settings() {
 	iTTSVolume = 75;
 	iTTSThreshold = 250;
 	iQuality = 6;
-	iComplexity = 4;
 	fVolume = 1.0f;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
@@ -169,7 +168,6 @@ void Settings::load() {
 	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
 	SAVELOAD(iQuality, "audio/quality");
-	SAVELOAD(iComplexity, "audio/complexity");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
 	LOADENUM(vsVAD, "audio/vadsource");
@@ -288,7 +286,6 @@ void Settings::save() {
 	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
 	SAVELOAD(iQuality, "audio/quality");
-	SAVELOAD(iComplexity, "audio/complexity");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
 	SAVELOAD(vsVAD, "audio/vadsource");
