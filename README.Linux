@@ -15,9 +15,6 @@ simply typing:
 Global Keyboard Events
 ======================
 
-Unlike Windows, there is no easy way to monitor all key and mouse events
-under X11.
-
 On Linux, Mumble supports reading the kernel input devices. To use this,
 make sure mumble can open /dev/input/event* for reading. To test it out,
 that should only require:
@@ -26,17 +23,5 @@ However, be aware that this will most likely only last until the next reboot
 (at which point devfs is recreated) and you also allow any program run by any
 user to monitor the physical keyboard.
 
-If you're not running Linux (or you're unwilling to compromise keyboard
-security), you can use Xevie under X11 to accomplish the same thing, but
-unfortunately that extension is disabled by default. To enable it
-(and push-to-talk), add the following to your xorg.conf:
-
-Section "Extensions"
-	Option "XEVIE" "Enable"
-EndSection
-
-Without Xevie, we would have to either:
- a) [Normal events] Accept shortcuts only when Mumble was the active
-    application, making it useless for gaming.
- b) [XGrabKey] Accept only key-down of specific combinations, so that you
-    could bind Ctrl-S to "toggle send speech". No binding of keyup in normal X11.
+Without this, Mumble will continously poll the mouse and keyboard state for
+changes, which will use a tiny bit of processing power.
