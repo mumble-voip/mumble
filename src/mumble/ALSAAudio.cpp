@@ -369,7 +369,7 @@ void ALSAAudioOutput::run() {
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_min(pcm_handle, hw_params, &iMixerFreq, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &iMixerFreq, NULL));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(pcm_handle, hw_params, &iChannels));
 
 	unsigned int iOutputSize = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
