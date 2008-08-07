@@ -37,53 +37,8 @@
 #include <ks.h>
 #include <ksmedia.h>
 
-class DXAudioOutput;
-
-class DXAudioOutputPlayer {
-		friend class DXAudioOutput;
-	protected:
-		LPDIRECTSOUNDBUFFER       pDSBOutput;
-		LPDIRECTSOUNDNOTIFY8       pDSNotify;
-		HANDLE               hNotificationEvent;
-		LPDIRECTSOUND3DBUFFER8     pDS3dBuffer;
-
-		DWORD	dwBufferSize;
-		DWORD	dwLastWritePos;
-		DWORD	dwLastPlayPos;
-		DWORD	dwTotalPlayPos;
-		int iLastwriteblock;
-
-		DXAudioOutput *dxAudio;
-		AudioOutputPlayer *aop;
-
-		bool bPlaying;
-
-		unsigned int iByteSize;
-		int iMissingFrames;
-		bool setupAudioDevice();
-	public:
-		DXAudioOutputPlayer(DXAudioOutput *, AudioOutputPlayer *);
-		~DXAudioOutputPlayer();
-		bool playFrames();
-};
-
-
 class DXAudioOutput : public AudioOutput {
-		friend class DXAudioOutputPlayer;
 		Q_OBJECT
-	protected:
-		LPDIRECTSOUND8             pDS;
-		LPDIRECTSOUNDBUFFER       pDSBPrimary;
-		LPDIRECTSOUND3DLISTENER8   p3DListener;
-		HANDLE               hNotificationEvent;
-
-		QHash<AudioOutputPlayer *, DXAudioOutputPlayer *> qhPlayers;
-
-		virtual void newPlayer(AudioOutputPlayer *);
-		virtual void removeBuffer(AudioOutputPlayer *);
-		void updateListener();
-
-		bool bOk;
 	public:
 		DXAudioOutput();
 		~DXAudioOutput();

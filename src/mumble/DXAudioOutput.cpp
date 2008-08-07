@@ -109,107 +109,9 @@ void DXAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s
 	s.qbaDXOutput = choice.toByteArray();
 }
 
-
-DXAudioOutputPlayer::DXAudioOutputPlayer(DXAudioOutput *ao, AudioOutputPlayer *aopl) {
-	bPlaying = false;
-	dxAudio = ao;
-	aop=aopl;
-
-	pDSBOutput = NULL;
-	pDSNotify = NULL;
-	pDS3dBuffer = NULL;
-
-	iByteSize = 320 * sizeof(short);
-
-	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-}
-
-bool DXAudioOutputPlayer::setupAudioDevice() {
-	DSBUFFERDESC dsbd;
-	WAVEFORMATEX wfx;
-	HRESULT hr;
-
-	ZeroMemory(&wfx, sizeof(wfx));
-	wfx.wFormatTag = WAVE_FORMAT_PCM;
-	wfx.nChannels = 1;
-	wfx.nBlockAlign = 2;
-	wfx.nSamplesPerSec = SAMPLE_RATE;
-	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
-	wfx.wBitsPerSample = 16;
-
-	ZeroMemory(&dsbd, sizeof(DSBUFFERDESC));
-	dsbd.dwSize          = sizeof(DSBUFFERDESC);
-	dsbd.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2|DSBCAPS_CTRLVOLUME;
-	dsbd.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
-	if (dxAudio->p3DListener)
-		dsbd.dwFlags	 |= DSBCAPS_CTRL3D;
-	dsbd.dwBufferBytes = 320 * sizeof(short) * NBLOCKS;
-	dsbd.lpwfxFormat     = &wfx;
-	if (dxAudio->p3DListener) {
-		dsbd.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
-	}
-
-	// Create the DirectSound buffer
-	if (FAILED(hr = dxAudio->pDS->CreateSoundBuffer(&dsbd, &pDSBOutput, NULL))) {
-		qWarning("DXAudioOutputPlayer: CreateSoundBuffer (Secondary): 0x%08lx", hr);
-		return false;
-	}
-
-	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
-
-	for (int i=0;i<NBLOCKS;i++) {
-		aPosNotify[i].dwOffset = 320 * sizeof(short) * i;
-		aPosNotify[i].hEventNotify = hNotificationEvent;
-	}
-
-	if (FAILED(hr = pDSBOutput->SetVolume(lroundf(log10f(g.s.fVolume)*5000.0f)))) {
-		qWarning("DXAudioOutputPlayer: Failed to set volume");
-		return false;
-	}
-
-	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify)))) {
-		qWarning("DXAudioOutputPlayer: QueryInterface (Notify)");
-		return false;
-	}
-
-	if (FAILED(hr = pDSNotify->SetNotificationPositions(NBLOCKS, aPosNotify))) {
-		qWarning("DXAudioOutputPlayer: SetNotificationPositions");
-		return false;
-	}
-
-	if (dxAudio->p3DListener) {
-		if (FAILED(pDSBOutput->QueryInterface(IID_IDirectSound3DBuffer8, reinterpret_cast<void **>(&pDS3dBuffer)))) {
-			qWarning("DXAudioOutputPlayer: QueryInterface (DirectSound3DBuffer)");
-			return false;
-		}
-		pDS3dBuffer->SetMinDistance(g.s.fAudioMinDistance, MY_DEFERRED);
-		pDS3dBuffer->SetMaxDistance(g.s.fAudioMaxDistance, MY_DEFERRED);
-	}
-	qWarning("DXAudioOutputPlayer: %s: New %dHz output buffer of %ld bytes", qPrintable(aop->qsName), SAMPLE_RATE, dsbd.dwBufferBytes);
-	return true;
-}
-
-DXAudioOutputPlayer::~DXAudioOutputPlayer() {
-	qWarning("DXAudioOutputPlayer: Removed");
-	if (pDS3dBuffer)
-		pDS3dBuffer->Release();
-	if (pDSNotify)
-		pDSNotify->Release();
-	if (pDSBOutput) {
-		pDSBOutput->Stop();
-		pDSBOutput->Release();
-	}
-	CloseHandle(hNotificationEvent);
-}
-
+/*
 bool DXAudioOutputPlayer::playFrames() {
-	int playblock;
-	int nowriteblock;
-	DWORD dwPlayPosition, dwWritePosition;
 	HRESULT             hr;
-
-	LPVOID aptr1, aptr2;
-	DWORD nbytes1, nbytes2;
 
 	bool alive = true;
 
@@ -221,31 +123,6 @@ bool DXAudioOutputPlayer::playFrames() {
 			return false;
 		}
 
-		if (FAILED(hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER))) {
-			qWarning("DXAudioOutputPlayer: Initial Lock");
-			dxAudio->bOk = false;
-			return false;
-		}
-
-		dwBufferSize = nbytes1 + nbytes2;
-		if (aptr1)
-			ZeroMemory(aptr1, nbytes1);
-		if (aptr2)
-			ZeroMemory(aptr2, nbytes2);
-
-		if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
-			qWarning("DXAudioOutputPlayer: Initial Unlock");
-			dxAudio->bOk = false;
-			return false;
-		}
-
-		dwApply = DS3D_IMMEDIATE;
-
-		dwLastWritePos = 0;
-		dwLastPlayPos = 0;
-		dwTotalPlayPos = 0;
-
-		iLastwriteblock = (NBLOCKS - 1 + g.s.iOutputDelay) % NBLOCKS;
 	}
 
 	if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
@@ -361,45 +238,69 @@ bool DXAudioOutputPlayer::playFrames() {
 
 	return true;
 }
-
+*/
 
 DXAudioOutput::DXAudioOutput() {
+	bRunning = true;
+}
+
+DXAudioOutput::~DXAudioOutput() {
+	bRunning = false;
+	wait();
+}
+
+void DXAudioOutput::run() {
 	HRESULT hr;
 	DSBUFFERDESC        dsbdesc;
-	WAVEFORMATEX wfx;
-	WAVEFORMATEX wfxSet;
+	WAVEFORMATEXTENSIBLE wfx;
+	WAVEFORMATEXTENSIBLE wfxSet;
 	int ns = 0;
 	unsigned int chanmasks[32];
 
-	pDS = NULL;
+	LPDIRECTSOUND8             pDS = NULL;
+	LPDIRECTSOUNDBUFFER       pDSBPrimary = NULL;
+	LPDIRECTSOUNDBUFFER       pDSBOutput = NULL;
+	LPDIRECTSOUNDNOTIFY8       pDSNotify = NULL;
+	HANDLE               hNotificationEvent = NULL;
+	LPDIRECTSOUND3DBUFFER8     pDS3dBuffer = NULL;
+
+	DWORD	dwBufferSize;
+	DWORD	dwLastWritePos;
+	DWORD	dwLastPlayPos;
+	DWORD	dwTotalPlayPos;
+	int iLastwriteblock;
+	LPVOID aptr1, aptr2;
+	DWORD nbytes1, nbytes2;
+
+	int playblock;
+	int nowriteblock;
+	DWORD dwPlayPosition, dwWritePosition;
+
+
+	bool bPlaying;
+
+	unsigned int iByteSize;
+	int iMissingFrames;
+
+
+	bool bOk;
+	DWORD dwSpeakerConfig;
 
 	bool failed = false;
 
 	bOk = false;
+	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
+	DWORD dwMask = 0;
+	bool bHead = false;
+
+	DWORD count = 0;
+	DWORD hit;
+
+	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
 	dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
 	dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
-	if (g.s.bPositionalAudio)
-		dsbdesc.dwFlags |= DSBCAPS_CTRL3D;
-
-	ZeroMemory(&wfxSet, sizeof(wfxSet));
-	wfxSet.wFormatTag = WAVE_FORMAT_PCM;
-
-	ZeroMemory(&wfx, sizeof(wfx));
-	wfx.wFormatTag = WAVE_FORMAT_PCM;
-
-	wfx.nChannels = 1;
-	wfx.nSamplesPerSec = SAMPLE_RATE;
-	wfx.nBlockAlign = 2;
-	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
-	wfx.wBitsPerSample = 16;
-
-	pDS = NULL;
-	pDSBPrimary = NULL;
-	p3DListener = NULL;
-
-	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 	if (! g.s.qbaDXOutput.isEmpty()) {
 		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXOutput.data());
@@ -408,46 +309,19 @@ DXAudioOutput::DXAudioOutput() {
 		}
 	}
 
-	if (! pDS && FAILED(hr = DirectSoundCreate8(&DSDEVID_DefaultVoicePlayback, &pDS, NULL)))
+	if (! pDS && FAILED(hr = DirectSoundCreate8(&DSDEVID_DefaultVoicePlayback, &pDS, NULL))) {
 		qWarning("DXAudioOutput: DirectSoundCreate");
-	else if (FAILED(hr = pDS->SetCooperativeLevel(g.mw->winId(), DSSCL_PRIORITY)))
+		goto cleanup;
+	} else if (FAILED(hr = pDS->SetCooperativeLevel(g.mw->winId(), DSSCL_PRIORITY))) {
 		qWarning("DXAudioOutput: SetCooperativeLevel");
-	else if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBPrimary, NULL)))
+		goto cleanup;
+	} else if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBPrimary, NULL))) {
 		qWarning("DXAudioOutput: CreateSoundBuffer (Primary) : 0x%08lx", hr);
-	else if (FAILED(hr = pDSBPrimary->SetFormat(&wfx)))
-		qWarning("DXAudioOutput: SetFormat");
-	else if (FAILED(hr = pDSBPrimary->GetFormat(&wfxSet, sizeof(wfxSet), NULL)))
-		qWarning("DXAudioOutput: GetFormat");
-	else if (g.s.bPositionalAudio) {
-		if (FAILED(hr = pDSBPrimary->QueryInterface(IID_IDirectSound3DListener8, reinterpret_cast<void **>(&p3DListener)))) {
-			qWarning("DXAudioOutput: QueryInterface (DirectSound3DListener8): 0x%08lx",hr);
-		} else {
-			p3DListener->SetRolloffFactor(g.s.fAudioRollOff, MY_DEFERRED);
-			p3DListener->SetDopplerFactor(DS3D_MINDOPPLERFACTOR, MY_DEFERRED);
-			p3DListener->CommitDeferredSettings();
-			bOk = true;
-		}
-	} else {
-		bOk = true;
+		goto cleanup;
 	}
 
-	if (! bOk) {
-		g.mw->msgBox(tr("Opening chosen DirectSound Output failed. No audio will be heard."));
-		return;
-	}
-
-	if (failed)
-		g.mw->msgBox(tr("Opening chosen DirectSound Output failed. Default device will be used."));
-
-	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.nSamplesPerSec,wfxSet.nChannels,wfxSet.wBitsPerSample);
-	if (p3DListener)
-		qWarning("DXAudioOutput: 3D mode active");
-
-	DWORD dwSpeakerConfig;
 	pDS->GetSpeakerConfig(&dwSpeakerConfig);
 
-	DWORD dwMask = 0;
-	bool bHead = false;
 
 	switch (DSSPEAKER_CONFIG(dwSpeakerConfig)) {
 		case DSSPEAKER_HEADPHONE:
@@ -483,6 +357,9 @@ DXAudioOutput::DXAudioOutput() {
 			break;
 	}
 
+	if (! g.s.doPositionalAudio())
+		dwMask = KSAUDIO_SPEAKER_MONO;
+
 	for (int i=0;i<32;i++) {
 		if (dwMask & (1 << i)) {
 			chanmasks[ns++] = 1 << i;
@@ -491,126 +368,176 @@ DXAudioOutput::DXAudioOutput() {
 
 	iMixerFreq = SAMPLE_RATE;
 	iChannels = ns;
+	eSampleFormat = SampleShort;
+
+	iByteSize = iFrameSize * sizeof(short) * ns;
+
+	ZeroMemory(&wfxSet, sizeof(wfxSet));
+	wfxSet.Format.wFormatTag = WAVE_FORMAT_PCM;
+
+	ZeroMemory(&wfx, sizeof(wfx));
+	wfx.Format.wFormatTag = WAVE_FORMAT_PCM;
+	wfx.Format.nChannels = qMax(ns, 1);
+	wfx.Format.nSamplesPerSec = SAMPLE_RATE;
+	wfx.Format.nBlockAlign = sizeof(short) * wfx.Format.nChannels;
+	wfx.Format.nAvgBytesPerSec = wfx.Format.nSamplesPerSec * wfx.Format.nBlockAlign;
+	wfx.Format.wBitsPerSample = 16;
+
+	if (FAILED(hr = pDSBPrimary->SetFormat(reinterpret_cast<WAVEFORMATEX *>(&wfx)))) {
+		qWarning("DXAudioOutput: SetFormat");
+		goto cleanup;
+	}
+	if (FAILED(hr = pDSBPrimary->GetFormat(reinterpret_cast<WAVEFORMATEX *>(&wfxSet), sizeof(wfxSet), NULL))) {
+		qWarning("DXAudioOutput: GetFormat");
+		goto cleanup;
+	}
+
+	qWarning("DXAudioOutput: Primary buffer of %ld Hz, %d channels, %d bits",wfxSet.Format.nSamplesPerSec,wfxSet.Format.nChannels,wfxSet.Format.wBitsPerSample);
+
+	ZeroMemory(&wfx, sizeof(wfx));
+	wfx.Format.wFormatTag = WAVE_FORMAT_EXTENSIBLE;
+	wfx.Format.nChannels = ns;
+	wfx.Format.nSamplesPerSec = SAMPLE_RATE;
+	wfx.Format.nBlockAlign = sizeof(short) * wfx.Format.nChannels;
+	wfx.Format.nAvgBytesPerSec = wfx.Format.nSamplesPerSec * wfx.Format.nBlockAlign;
+	wfx.Format.wBitsPerSample = 16;
+	wfx.Format.cbSize = 32;
+	wfx.Samples.wValidBitsPerSample = wfx.Format.wBitsPerSample;
+	wfx.dwChannelMask = dwMask;
+	wfx.SubFormat = KSDATAFORMAT_SUBTYPE_PCM;
+
+	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
+	dsbdesc.dwSize          = sizeof(DSBUFFERDESC);
+	dsbdesc.dwFlags         = DSBCAPS_GLOBALFOCUS|DSBCAPS_GETCURRENTPOSITION2;
+	dsbdesc.dwFlags	 |= DSBCAPS_CTRLPOSITIONNOTIFY;
+	dsbdesc.dwBufferBytes = wfx.Format.nChannels * iFrameSize * sizeof(short) * NBLOCKS;
+	dsbdesc.lpwfxFormat     = reinterpret_cast<WAVEFORMATEX *>(&wfx);
+
+	if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBOutput, NULL))) {
+		qWarning("DXAudioOutputPlayer: CreateSoundBuffer (Secondary): 0x%08lx", hr);
+		goto cleanup;
+	}
+
+
+	for (int i=0;i<NBLOCKS;i++) {
+		aPosNotify[i].dwOffset = iByteSize * i;
+		aPosNotify[i].hEventNotify = hNotificationEvent;
+	}
+
+	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify)))) {
+		qWarning("DXAudioOutputPlayer: QueryInterface (Notify)");
+		goto cleanup;
+	}
+
+	if (FAILED(hr = pDSNotify->SetNotificationPositions(NBLOCKS, aPosNotify))) {
+		qWarning("DXAudioOutputPlayer: SetNotificationPositions");
+		goto cleanup;
+	}
+
+	qWarning("DXAudioOutputPlayer: New %dHz output buffer of %ld bytes", SAMPLE_RATE, dsbdesc.dwBufferBytes);
+
+	if (failed)
+		g.mw->msgBox(tr("Opening chosen DirectSound Output failed. Default device will be used."));
+
 	initializeMixer(chanmasks, bHead);
 
-	bRunning = true;
-}
+	if (FAILED(hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER))) {
+		qWarning("DXAudioOutputPlayer: Initial Lock");
+		goto cleanup;
+	}
 
-DXAudioOutput::~DXAudioOutput() {
-	bRunning = false;
-	wipe();
-	SetEvent(hNotificationEvent);
-	wait();
+	dwBufferSize = nbytes1 + nbytes2;
+	if (aptr1)
+		ZeroMemory(aptr1, nbytes1);
+	if (aptr2)
+		ZeroMemory(aptr2, nbytes2);
 
-	if (p3DListener)
-		p3DListener->Release();
+	if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
+		qWarning("DXAudioOutputPlayer: Initial Unlock");
+		goto cleanup;
+	}
+
+	if (FAILED(hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING))) {
+		qWarning("DXAudioOutputPlayer: Play");
+		goto cleanup;
+	}
+
+	dwLastWritePos = 0;
+	dwLastPlayPos = 0;
+	dwTotalPlayPos = 0;
+
+	iLastwriteblock = (NBLOCKS - 1 + g.s.iOutputDelay) % NBLOCKS;
+
+	bOk = true;
+
+	while (bRunning && ! FAILED(hr)) {
+		if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
+			qWarning("DXAudioOutputPlayer: GetCurrentPosition");
+			break;
+		}
+
+		playblock = dwWritePosition / iByteSize;
+		nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
+
+		for (int block=(iLastwriteblock + 1) % NBLOCKS;(!FAILED(hr)) && (block!=nowriteblock);block=(block + 1) % NBLOCKS) {
+			iLastwriteblock = block;
+
+			if (FAILED(hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
+				qWarning("DXAudioOutput: Lock block %u (%d bytes)",block, iByteSize);
+				break;
+			}
+			if (aptr2 || nbytes2) {
+				qWarning("DXAudioOutput: Split buffer");
+				break;
+			}
+			if (!aptr1 || ! nbytes1) {
+				qWarning("DXAudioOutput: Zerolock");
+				break;
+			}
+			if (! mix(reinterpret_cast<short *>(aptr1), iFrameSize))
+				ZeroMemory(aptr1, iByteSize);
+
+			if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
+				qWarning("DXAudioOutput: Unlock %p(%lu) %p(%lu)",aptr1,nbytes1,aptr2,nbytes2);
+				break;
+			}
+
+			// If we get another while we're working, we're already taking care of it.
+			ResetEvent(hNotificationEvent);
+
+			if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
+				qWarning("DXAudioOutputPlayer: GetCurrentPosition");
+				break;
+			}
+
+			playblock = dwWritePosition / iByteSize;
+			nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
+		}
+		if (! FAILED(hr))
+			WaitForSingleObject(hNotificationEvent, 2000);
+	}
+
+
+	if (FAILED(hr)) {
+		g.mw->msgBox(tr("Lost DirectSound output device."));
+	}
+cleanup:
+	if (! bOk) {
+		g.mw->msgBox(tr("Opening chosen DirectSound Output failed. No audio will be heard."));
+		return;
+	}
+
+	if (pDSNotify)
+		pDSNotify->Release();
+	if (pDSBOutput) {
+		pDSBOutput->Stop();
+		pDSBOutput->Release();
+	}
 	if (pDSBPrimary)
 		pDSBPrimary->Release();
 	if (pDS)
 		pDS->Release();
-	CloseHandle(hNotificationEvent);
-}
-
-void DXAudioOutput::newPlayer(AudioOutputPlayer *aop) {
-	DXAudioOutputPlayer *dxaop = new DXAudioOutputPlayer(this, aop);
-	SetEvent(dxaop->hNotificationEvent);
-
-	qhPlayers[aop] = dxaop;
-}
-
-void DXAudioOutput::updateListener() {
-	if (! p3DListener)
-		return;
-
-	HRESULT hr;
-	DS3DLISTENER li;
-	Plugins *p = g.p;
-	li.dwSize=sizeof(li);
-	if (p->fetch() && ! g.bCenterPosition && p3DListener) {
-		// Only set this if we need to. If centerposition is on, or we don't have valid data,
-		// the 3d mode for the buffers will be disabled, so don't bother with updates.
-		p3DListener->SetPosition(p->fPosition[0], p->fPosition[1], p->fPosition[2], MY_DEFERRED);
-		p3DListener->SetOrientation(p->fFront[0], p->fFront[1], p->fFront[2],
-		                            p->fTop[0], p->fTop[1], p->fTop[2], MY_DEFERRED);
-	}
-	if (FAILED(hr =p3DListener->CommitDeferredSettings()))
-		qWarning("DXAudioOutputPlayer: CommitDeferrredSettings failed 0x%08lx", hr);
-#ifdef AUDIO_TEST
-	qWarning("SetLis %f %f %f", p->fPosition[0], p->fPosition[1], p->fPosition[2]);
-#endif
-
-	/*
-		float a[3], b[3];
-		p3DListener->GetOrientation((D3DVECTOR *) a, (D3DVECTOR *) b);
-		qWarning("%f %f %f -- %f %f %f", a[0], a[1], a[2], b[0], b[1], b[2]);
-	*/
-}
-
-void DXAudioOutput::removeBuffer(AudioOutputPlayer *aop) {
-	DXAudioOutputPlayer *dxaop=qhPlayers.take(aop);
-
-	AudioOutput::removeBuffer(aop);
-	if (dxaop)
-		delete dxaop;
-}
-
-void DXAudioOutput::run() {
-	DXAudioOutputPlayer *dxaop = NULL;
-	HANDLE handles[MAXIMUM_WAIT_OBJECTS];
-	DWORD count = 0;
-	DWORD hit;
-
-	LARGE_INTEGER ticksPerSecond;
-	LARGE_INTEGER ticksPerFrame;
-	LARGE_INTEGER ticksNow;
-	LARGE_INTEGER ticksNext;
-	ticksNext.QuadPart = 0LL;
-
-	bool found = false;
-	bool alive = false;
-
-	QueryPerformanceFrequency(&ticksPerSecond);
-	ticksPerFrame.QuadPart = ticksPerSecond.QuadPart / 50;
-
-	while (bRunning && bOk) {
-		bOk = true;
-
-		count = 0;
-
-		qrwlOutputs.lockForRead();
-		foreach(dxaop, qhPlayers) {
-			handles[count++] = dxaop->hNotificationEvent;
-		}
-		handles[count++] = hNotificationEvent;
-		qrwlOutputs.unlock();
-
-		hit = WaitForMultipleObjects(count, handles, false, 20);
-
-		found = false;
-
-		QueryPerformanceCounter(&ticksNow);
-		if (ticksNow.QuadPart > ticksNext.QuadPart) {
-			ticksNext.QuadPart = ticksNow.QuadPart + ticksPerFrame.QuadPart;
-			updateListener();
-		}
-
-		qrwlOutputs.lockForRead();
-		if (hit >= WAIT_OBJECT_0 && hit < WAIT_OBJECT_0 + count - 1) {
-			foreach(dxaop, qhPlayers) {
-				if (handles[hit - WAIT_OBJECT_0] == dxaop->hNotificationEvent) {
-					found = true;
-					alive = dxaop->playFrames();
-					break;
-				}
-			}
-		}
-		qrwlOutputs.unlock();
-
-		if (found && ! alive)
-			removeBuffer(dxaop->aop);
-	}
-	if (! bOk) {
-		g.mw->msgBox(tr("Lost DirectSound output device."));
-	}
+	if (hNotificationEvent != NULL)
+		CloseHandle(hNotificationEvent);
 }
 
