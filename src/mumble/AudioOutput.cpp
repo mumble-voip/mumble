@@ -316,12 +316,9 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 	return att;
 }
 
-void AudioOutput::newPlayer(AudioOutputPlayer *) {
-}
-
 void AudioOutput::wipe() {
-	foreach(const ClientPlayer *p, qmOutputs.keys())
-	removeBuffer(p);
+	foreach(AudioOutputPlayer *aop, qmOutputs)
+		removeBuffer(aop);
 }
 
 const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
@@ -338,7 +335,6 @@ AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float v
 	qrwlOutputs.lockForWrite();
 	AudioSine *as = new AudioSine(hz,i,frames, volume, iMixerFreq);
 	qmOutputs.insert(NULL, as);
-	newPlayer(as);
 	qrwlOutputs.unlock();
 	return as;
 }
@@ -356,7 +352,6 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 		qrwlOutputs.lockForWrite();
 		aop = new AudioOutputSpeech(player, iMixerFreq);
 		qmOutputs.replace(player,aop);
-		newPlayer(aop);
 	}
 
 	aop->addFrameToBuffer(qbaPacket, iSeq);
@@ -370,14 +365,13 @@ void AudioOutput::removeBuffer(const ClientPlayer *player) {
 
 void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 	QWriteLocker locker(&qrwlOutputs);
-	QMultiHash<const ClientPlayer *, AudioOutputPlayer *>::iterator i=qmOutputs.begin();
-	while (i != qmOutputs.end()) {
+	QMultiHash<const ClientPlayer *, AudioOutputPlayer *>::iterator i;
+	for(i=qmOutputs.begin(); i != qmOutputs.end(); ++i) {
 		if (i.value() == aop) {
 			qmOutputs.erase(i);
 			delete aop;
 			break;
 		}
-		++i;
 	}
 }
 

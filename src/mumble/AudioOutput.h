@@ -164,7 +164,6 @@ class AudioOutput : public QThread {
 		QReadWriteLock qrwlOutputs;
 		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;
 
-		virtual void newPlayer(AudioOutputPlayer *);
 		virtual void removeBuffer(AudioOutputPlayer *);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
 		bool mix(void *output, unsigned int nsamp);
