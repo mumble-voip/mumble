@@ -421,7 +421,7 @@ void Server::msgPlayerMove(Connection *cCon, MessagePlayerMove *msg) {
 
 	sendAll(msg);
 	playerEnterChannel(pDstUser, c);
-	log(uSource, "Moved %s to %s",qPrintable(pDstUser->qsName), qPrintable(c->qsName));
+	log(uSource, "Moved %s to %s (%d)",qPrintable(pDstUser->qsName), qPrintable(c->qsName), c->iId);
 }
 
 void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
