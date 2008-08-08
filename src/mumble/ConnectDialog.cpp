@@ -307,7 +307,7 @@ void ConnectDialog::on_qpbAdd_clicked() {
 	qlwServers->setCurrentIndex(QModelIndex());
 	
 	QString host, user, pw;
-	int port = 64378;
+	int port = 64738;
 	
 	if (g.sh && g.sh->isRunning()) {
 		g.sh->getConnectionInfo(host, port, user, pw);
