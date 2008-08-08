@@ -101,6 +101,7 @@ struct Settings {
 
 	typedef QMap<int, QList<QVariant > > ShortcutMap;
 	ShortcutMap qmShortcuts;
+	QMap<int, bool> qmShortcutSuppress;
 
 	enum MessageLog { LogConsole = 0x01, LogTTS = 0x02};
 	QMap<int, quint32> qmMessages;

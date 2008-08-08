@@ -61,9 +61,13 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 
 		LPDIRECTINPUT8 pDI;
 		QHash<GUID, InputDevice *> qhInputDevices;
+		HHOOK hhMouse, hhKeyboard;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
+		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
+		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
+		virtual bool canSuppress();
 	public slots:
 		void timeTicked();
 	public:

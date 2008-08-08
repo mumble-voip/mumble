@@ -263,6 +263,7 @@ void Settings::load() {
 	for (int i=0;i<nshorts;i++) {
 		g.qs->setArrayIndex(i);
 		SAVELOAD(qmShortcuts[i], "keys");
+		SAVELOAD(qmShortcutSuppress[i], "suppress");
 	}
 	g.qs->endArray();
 
@@ -382,6 +383,7 @@ void Settings::save() {
 	for (ShortcutMap::const_iterator it = qmShortcuts.constBegin(); it != qmShortcuts.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmShortcuts[it.key()], "keys");
+		SAVELOAD(qmShortcutSuppress[it.key()], "suppress");
 	}
 	g.qs->endArray();
 

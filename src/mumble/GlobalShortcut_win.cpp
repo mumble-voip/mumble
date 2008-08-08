@@ -61,13 +61,84 @@ GlobalShortcutWin::GlobalShortcutWin() {
 		return;
 	}
 
+	HMODULE hSelf;
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
+	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
+	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+
 	timer->start(20);
 }
+
+GlobalShortcutWin::~GlobalShortcutWin() {
+	UnhookWindowsHookEx(hhKeyboard);
+	UnhookWindowsHookEx(hhMouse);
+	foreach(InputDevice *id, qhInputDevices) {
+		if (id->pDID) {
+			id->pDID->Unacquire();
+			id->pDID->Release();
+		}
+	}
+	pDI->Release();
+}
+
+LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARAM lParam) {
+	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
+	KBDLLHOOKSTRUCT *key=reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
+	if (nCode >= 0) {
+		QList<QVariant> ql;
+		ql << static_cast<unsigned int>((key->scanCode << 8) | 0x4);
+		ql << QVariant(QUuid(GUID_SysKeyboard));
+		if (gsw->handleButton(ql, ! (key->flags & LLKHF_UP)))
+			return 1;
+	}
+	return CallNextHookEx(gsw->hhKeyboard, nCode, wParam, lParam);
+}
+
+LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM lParam) {
+	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
+	MSLLHOOKSTRUCT *mouse=reinterpret_cast<MSLLHOOKSTRUCT *>(lParam);
+	if (nCode >= 0) {
+		bool down = false;
+		unsigned int btn = 0;
+		switch (wParam) {
+			case WM_LBUTTONDOWN:
+				down = true;
+			case WM_LBUTTONUP:
+				btn = 3;
+				break;
+			case WM_RBUTTONDOWN:
+				down = true;
+			case WM_RBUTTONUP:
+				btn = 4;
+				break;
+			case WM_MBUTTONDOWN:
+				down = true;
+			case WM_MBUTTONUP:
+				btn = 5;
+				break;
+			case WM_XBUTTONDOWN:
+				down = true;
+			case WM_XBUTTONUP:
+				btn = 5 + (mouse->mouseData >> 16);
+			default:
+				break;
+		}
+		if (btn) {
+			QList<QVariant> ql;
+			ql << static_cast<unsigned int>((btn << 8) | 0x4);
+			ql << QVariant(QUuid(GUID_SysMouse));
+			if (gsw->handleButton(ql, down))
+				return 1;
+		}
+	}
+	return CallNextHookEx(gsw->hhMouse, nCode, wParam, lParam);
+}
+
+
 
 BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
 	InputDevice *id=static_cast<InputDevice *>(pvRef);
 	QString name = QString::fromUtf16(reinterpret_cast<const ushort *>(lpddoi->tszName));
-//	qWarning("%08lx %08lx %s",lpddoi->dwOfs,lpddoi->dwType, qPrintable(name));
 	id->qhNames[lpddoi->dwType] = name;
 
 	return DIENUM_CONTINUE;
@@ -113,7 +184,6 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 			rgodf[i].dwType = dwType;
 			id->qhOfsToType[dwOfs] = dwType;
 			id->qhTypeToOfs[dwType] = dwOfs;
-//			qWarning("%4x %4x %s", dwType, dwOfs, qPrintable(id->qhNames[dwType]));
 		}
 
 		if (FAILED(hr = id->pDID->SetCooperativeLevel(g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
@@ -142,16 +212,6 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	}
 
 	return DIENUM_CONTINUE;
-}
-
-GlobalShortcutWin::~GlobalShortcutWin() {
-	foreach(InputDevice *id, qhInputDevices) {
-		if (id->pDID) {
-			id->pDID->Unacquire();
-			id->pDID->Release();
-		}
-	}
-	pDI->Release();
 }
 
 void GlobalShortcutWin::timeTicked() {
@@ -214,4 +274,8 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 		name=id->qhNames.value(type);
 	}
 	return device+name;
+}
+
+bool GlobalShortcutWin::canSuppress() {
+	return true;
 }

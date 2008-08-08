@@ -50,6 +50,7 @@ class GlobalShortcut : public QObject {
 		bool bActive;
 		int iNumUp;
 		QList<QVariant> qlButtons;
+		bool bSuppress;
 	signals:
 		void down();
 		void up();
@@ -91,6 +92,7 @@ class GlobalShortcutConfig : public ConfigWidget {
 		Q_OBJECT
 	protected:
 		QHash<GlobalShortcut *, ShortcutKeyWidget *> qhKeys;
+		QHash<GlobalShortcut *, QCheckBox *> qhSuppress;
 	public:
 		GlobalShortcutConfig(Settings &st);
 		virtual QString title() const;
@@ -113,6 +115,8 @@ class GlobalShortcutEngine : public QThread {
 
 		QHash<int, GlobalShortcut *> qmShortcuts;
 		QList<QVariant> qlActiveButtons;
+		QList<QVariant> qlDownButtons;
+		QList<QVariant> qlSuppressed;
 
 		QList<QVariant> qlButtonList;
 		QList<QList<GlobalShortcut *> > qlShortcutList;
@@ -123,10 +127,11 @@ class GlobalShortcutEngine : public QThread {
 		virtual void needRemap();
 		void run();
 
-		void handleButton(const QVariant &, bool);
+		bool handleButton(const QVariant &, bool);
 		static void add(GlobalShortcut *);
 		static void remove(GlobalShortcut *);
 		virtual QString buttonName(const QVariant &) = 0;
+		virtual bool canSuppress();
 	signals:
 		void buttonPressed(bool last);
 };

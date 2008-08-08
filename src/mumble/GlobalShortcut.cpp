@@ -111,25 +111,42 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 	QGridLayout *l=new QGridLayout();
 
+	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();
+
 	lab=new QLabel(tr("Function"));
 	l->addWidget(lab, 0, 0);
 	lab=new QLabel(tr("Shortcut"));
 	l->addWidget(lab, 0, 1);
+	lab=new QLabel(tr("Suppress"));
+	lab->setVisible(canSuppress);
+	l->addWidget(lab, 0, 2);
+
 
 	int i=0;
 
+
 	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
 		ShortcutKeyWidget *skw=new ShortcutKeyWidget();
-
+		QCheckBox *qcb = new QCheckBox();
 		lab=new QLabel(gs->name);
+
 		l->addWidget(lab, i+1, 0);
 		l->addWidget(skw, i+1, 1);
+		l->addWidget(qcb, i+1, 2);
 
 		skw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
 		skw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
 		                     "Click this field and then the desired key/button combo "
 		                     "to rebind. Double-click to clear.").arg(gs->name));
 		qhKeys[gs]=skw;
+
+		qcb->setToolTip(tr("Suppress keys from other applications"));
+		qcb->setWhatsThis(tr("<b>This hides the button presses from other applications.</b><br />"
+							"Enabling this will hide the button (or the last button of a multi-button combo) "
+							"from other applications. Note that not all buttons can be suppressed."));
+		qcb->setVisible(canSuppress);
+		qhSuppress[gs]=qcb;
+
 		i++;
 	}
 
@@ -158,17 +175,23 @@ void GlobalShortcutConfig::load(const Settings &r) {
 	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
 		ShortcutKeyWidget *dikw = qhKeys.value(gs);
 		dikw->setShortcut(r.qmShortcuts.value(gs->idx));
+		QCheckBox *qcb = qhSuppress.value(gs);
+		qcb->setChecked(r.qmShortcutSuppress.value(gs->idx));
 	}
 }
 
 void GlobalShortcutConfig::save() const {
 	Settings::ShortcutMap m;
+	QMap<int, bool> sup;
 
 	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
 		ShortcutKeyWidget *dikw = qhKeys[gs];
 		m.insert(gs->idx, dikw->qlButtons);
+		QCheckBox *qcb = qhSuppress.value(gs);
+		sup.insert(gs->idx, qcb->isChecked());
 	}
 	s.qmShortcuts = m;
+	s.qmShortcutSuppress = sup;
 }
 
 void GlobalShortcutConfig::accept() const {
@@ -191,9 +214,11 @@ void GlobalShortcutEngine::remap() {
 
 	qlButtonList.clear();
 	qlShortcutList.clear();
+	qlDownButtons.clear();
 
 	foreach(GlobalShortcut *gs, qmShortcuts) {
 		gs->qlButtons = g.s.qmShortcuts.value(gs->idx);
+		gs->bSuppress = g.s.qmShortcutSuppress.value(gs->idx);
 
 		gs->iNumUp = gs->qlButtons.count();
 		foreach(const QVariant &button, gs->qlButtons) {
@@ -211,6 +236,10 @@ void GlobalShortcutEngine::remap() {
 void GlobalShortcutEngine::run() {
 }
 
+bool GlobalShortcutEngine::canSuppress() {
+	return false;
+}
+
 void GlobalShortcutEngine::resetMap() {
 	tReset.restart();
 	qlActiveButtons.clear();
@@ -219,7 +248,15 @@ void GlobalShortcutEngine::resetMap() {
 void GlobalShortcutEngine::needRemap() {
 }
 
-void GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
+bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
+	bool already = qlDownButtons.contains(button);
+	if (already == down)
+		return qlSuppressed.contains(button);
+	if (down)
+		qlDownButtons << button;
+	else
+		qlDownButtons.removeAll(button);
+
 	if (tReset.elapsed() > 100000) {
 		if (down) {
 			qlActiveButtons.removeAll(button);
@@ -230,12 +267,18 @@ void GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 
 	int idx = qlButtonList.indexOf(button);
 	if (idx == -1)
-		return;
+		return false;
+
+	bool suppress = false;
 
 	foreach(GlobalShortcut *gs, qlShortcutList.at(idx)) {
 		if (down) {
 			gs->iNumUp--;
 			if (gs->iNumUp == 0) {
+				if (gs->bSuppress) {
+					suppress = true;
+					qlSuppressed << button;
+				}
 				gs->bActive = true;
 				emit gs->triggered(gs->bActive);
 				emit gs->down();
@@ -243,6 +286,10 @@ void GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 				gs->iNumUp = 0;
 			}
 		} else {
+			if (qlSuppressed.contains(button)) {
+				suppress = true;
+				qlSuppressed.removeAll(button);
+			}
 			gs->iNumUp++;
 			if (gs->iNumUp == 1) {
 				gs->bActive = false;
@@ -253,6 +300,7 @@ void GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 			}
 		}
 	}
+	return suppress;
 }
 
 void GlobalShortcutEngine::add(GlobalShortcut *gs) {
