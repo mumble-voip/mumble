@@ -75,7 +75,6 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 	ods << Message::ServerAuthenticate;
 	ods << 0;
 	ods << MESSAGE_STREAM_VERSION;
-	ods << 100;
 	ods << name;
 	ods << QString();
 
