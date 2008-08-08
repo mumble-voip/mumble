@@ -117,7 +117,7 @@ class AudioInput : public QThread {
 		bool bResetProcessor;
 
 		int iBitrate;
-		float dPeakMic, dPeakSpeaker, dPeakSignal;
+		float dPeakMic, dPeakSpeaker, dPeakSignal, dMaxMic;
 		float fSpeechProb;
 
 		unsigned int iBestBin;

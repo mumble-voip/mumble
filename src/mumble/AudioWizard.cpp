@@ -694,7 +694,8 @@ void AudioWizard::on_Ticker_timeout() {
 	if (! ai || ! ao)
 		return;
 
-	int iPeak = static_cast<int>(32767.f * powf(10.0f, (ai->dPeakMic / 20.0f)));
+	int iPeak = static_cast<int>(ai->dMaxMic);
+	qWarning("Peak is %d", iPeak);
 
 	if (iTicks++ >= 50) {
 		iMaxPeak = 0;
@@ -712,11 +713,9 @@ void AudioWizard::on_Ticker_timeout() {
 	abVAD->iAbove = qsMaxVAD->value();
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-		abVAD->iValue = iPeak;
-		abVAD->iPeak = iMaxPeak;
+		abVAD->iValue = lroundf((32767.f/96.0f) * (96.0f + ai->dPeakSignal));
 	} else {
 		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0);
-		abVAD->iPeak = -1;
 	}
 	abVAD->update();
 

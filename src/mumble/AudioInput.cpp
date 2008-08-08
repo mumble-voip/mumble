@@ -498,9 +498,9 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	ClientPlayer *p=ClientPlayer::get(g.uiSession);
-	short max;
-	float micMax;
 	int i;
+	float sum;
+	short max;
 
 	short *psSource;
 
@@ -510,12 +510,17 @@ void AudioInput::encodeAudioFrame() {
 		return;
 	}
 
-	max=1;
+	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
-		if (abs(psMic[i]) > max)
-			max=abs(psMic[i]);
-	dPeakMic=20.0f*log10f((max  * 1.0f) / 32768.0f);
-	micMax = max;
+		sum += psMic[i] * psMic[i];
+	dPeakMic=20.0f*log10f(sqrtf(sum / iFrameSize) / 32768.0f);
+	if (dPeakMic < -96.0f)
+		dPeakMic = -96.0f;
+
+	max = 1;
+	for(i=0;i<iFrameSize;i++)
+		max = abs(psMic[i]) > max ? abs(psMic[i]) : max;
+	dMaxMic = max;
 
 	if (g.bEchoTest) {
 		STACKVAR(float, fft, iFrameSize);
@@ -544,11 +549,12 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	if (iEchoChannels > 0) {
-		max=1;
+		sum=1.0f;
 		for (i=0;i<iFrameSize;i++)
-			if (abs(psSpeaker[i]) > max)
-				max=abs(psSpeaker[i]);
-		dPeakSpeaker=20.0f*log10f((max  * 1.0f) / 32768.0f);
+			sum += psSpeaker[i] * psSpeaker[i];
+		dPeakSpeaker=20.0f*log10f(sqrtf(sum / iFrameSize) / 32768.0f);
+		if (dPeakSpeaker < -96.0f)
+			dPeakSpeaker = -96.0f;
 	} else {
 		dPeakSpeaker = 0.0;
 	}
@@ -608,17 +614,19 @@ void AudioInput::encodeAudioFrame() {
 		psSource = psMic;
 	}
 
-	max=1;
+	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
-		if (abs(psSource[i]) > max)
-			max=abs(psSource[i]);
-	dPeakSignal=20.0*log10f((max  * 1.0f) / 32768.0f);
+		sum += psSource[i] * psSource[i];
+	float micLevel = sqrtf(sum / iFrameSize);
+	dPeakSignal=20.0f*log10f(micLevel / 32768.0f);
+	if (dPeakSignal < -96.0f)
+		dPeakSignal = -96.0f;
 
 	spx_int32_t prob = 0;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);
 	fSpeechProb = prob / 100.0;
 
-	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (micMax / 32767.0f);
+	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (micLevel / 32767.0f);
 
 	if (level > g.s.fVADmax)
 		iIsSpeech = 1;
