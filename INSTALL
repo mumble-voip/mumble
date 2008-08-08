@@ -21,6 +21,8 @@ least version 3.4, and preferably 4.2 or newer.
 
 Mumble needs the Boost C++ library. http://www.boost.org
 
+You need ZeroC ICE. http://www.zeroc.com
+
 You may need to adjust the paths in mumble.pro, murmur.pro and mumble.pri to
 reflect where your installed versions of dependant libraries are.
 
@@ -34,10 +36,11 @@ to follow them to the letter.
 Linux pre-requisites
 ====================
 
-Mumble needs libasound2 (the ALSA developer libraries) as well as the developer
-libraries for Xevie.
+Mumble needs the developer libraries for the sound backend you want to use
+(ALSA, OSS or PulseAudio), as well as the developer libraries for Xevie, 
+speech-dispatcher and dbus.
 
-The Linux version of the client is developed on Ubuntu 7.10. It may work on
+The Linux version of the client is developed on Ubuntu 8.04. It may work on
 other updated distributions. The server should work on any modern UNIX-based
 distribution and on Windows.
 
@@ -46,17 +49,18 @@ Building Mumble and Murmur
 
 To build mumble and murmur, type
 qmake main.pro
-make
+make release
 
 You may need to edit src/mumble/mumble.pro to reflect the installation paths you
 use for libraries.
+After building, the binaries will be in the release/ directory.
 
 Building only Murmur
 ====================
 
 To build only murmur, type
 qmake main.pro CONFIG+=no-client
-make
+make release
 
 To enable user registration, copy scripts/murmur.pl to murmur.cgi and put it
 somewhere accessible by your webserver. Make sure your webserver is
