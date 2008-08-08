@@ -63,14 +63,25 @@ void ShortcutKeyWidget::focusInEvent(QFocusEvent *e) {
 		setForegroundRole(QPalette::Button);
 		GlobalShortcutEngine::engine->resetMap();
 		connect(GlobalShortcutEngine::engine, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
+		installEventFilter(this);
 	}
 }
 
-void ShortcutKeyWidget::focusOutEvent(QFocusEvent *) {
+void ShortcutKeyWidget::focusOutEvent(QFocusEvent *e) {
+	if ((e->reason() == Qt::TabFocusReason) || (e->reason() == Qt::BacktabFocusReason))
+		return;
+
 	setPalette(parentWidget()->palette());
 	clearFocus();
 	disconnect(GlobalShortcutEngine::engine, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
 	displayKeys();
+	removeEventFilter(this);
+}
+
+bool ShortcutKeyWidget::eventFilter(QObject *, QEvent *event) {
+	if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::MouseButtonPress))
+		return true;
+	return false;
 }
 
 void ShortcutKeyWidget::mouseDoubleClickEvent(QMouseEvent *) {

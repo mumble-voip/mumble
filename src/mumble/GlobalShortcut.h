@@ -78,6 +78,7 @@ class ShortcutKeyWidget : public QLineEdit {
 		virtual void focusInEvent(QFocusEvent *event);
 		virtual void focusOutEvent(QFocusEvent *event);
 		virtual void mouseDoubleClickEvent(QMouseEvent *e);
+		virtual bool eventFilter(QObject *, QEvent *);
 	public:
 		QList<QVariant> qlButtons;
 		bool bModified;
