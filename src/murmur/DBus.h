@@ -240,7 +240,7 @@ class MetaDBus : public QDBusAbstractAdaptor {
 		void setConf(int server_id, const QString &key, const QString &value, const QDBusMessage &);
 		void setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &);
 		void rotateLogs(const QDBusMessage &);
-		void getLog(int server_id, int min_seconds, int max_seconds, const QDBusMessage &, QList<LogEntry> &entries);
+		void getLog(int server_id, int min_offset, int max_offset, const QDBusMessage &, QList<LogEntry> &entries);
 		void quit();
 	signals:
 		void started(int server_id);

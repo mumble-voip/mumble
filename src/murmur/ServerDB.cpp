@@ -1186,18 +1186,14 @@ void Server::dblog(const char *str) {
 	SQLEXEC();
 }
 
-QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int sec_min, unsigned int sec_max) {
+QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int offs_min, unsigned int offs_max) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	QString qstr;
-	if (Meta::mp.qsDBDriver == "QSQLITE") {
-		qstr = QString::fromLatin1("msgtime > datetime('now','-%1 seconds') AND msgtime < datetime('now','-%2 seconds')").arg(sec_max).arg(sec_min);
-	} else {
-		qstr = QString::fromLatin1("msgtime > now() - INTERVAL %1 second AND msgtime < now() - INTERVAL %2 second").arg(sec_max).arg(sec_min);
-	}
-	ServerDB::prepare(query, QString::fromLatin1("SELECT msgtime, msg FROM %1slog WHERE server_id = ? AND ") + qstr);
+	SQLPREP("SELECT msgtime, msg FROM %1slog WHERE server_id = ? ORDER BY msgtime DESC LIMIT ?, ?");
 	query.addBindValue(server_id);
+	query.addBindValue(offs_min);
+	query.addBindValue(offs_max);
 	SQLEXEC();
 
 	QList<QPair<unsigned int, QString> > ql;

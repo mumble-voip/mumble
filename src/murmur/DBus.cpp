@@ -1020,12 +1020,12 @@ void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &val
 	}
 }
 
-void MetaDBus::getLog(int server_id, int min_seconds, int max_seconds, const QDBusMessage &msg, QList<LogEntry> &entries) {
+void MetaDBus::getLog(int server_id, int min_offset, int max_offset, const QDBusMessage &msg, QList<LogEntry> &entries) {
 	if (! ServerDB::serverExists(server_id)) {
 		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		entries.clear();
-		QList<ServerDB::LogRecord> dblog = ServerDB::getLog(server_id, min_seconds, max_seconds);
+		QList<ServerDB::LogRecord> dblog = ServerDB::getLog(server_id, min_offset, max_offset);
 		foreach(const ServerDB::LogRecord &e, dblog) {
 			entries << LogEntry(e);
 		}
