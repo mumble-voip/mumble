@@ -626,7 +626,7 @@ void AudioInput::encodeAudioFrame() {
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);
 	fSpeechProb = prob / 100.0;
 
-	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (micLevel / 32767.0f);
+	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (1.0f + dPeakSignal / 96.0f);
 
 	if (level > g.s.fVADmax)
 		iIsSpeech = 1;

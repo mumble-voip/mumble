@@ -91,48 +91,43 @@ Section "Mumble & Murmur" SecMumble
   File /oname=murmur.ini "..\scripts\murmur.ini.win32"
   SetOverwrite on
   File "qos.reg"
-  File "\dev\Qt4.4.0\lib\QtCore4.dll"
-  File "\dev\Qt4.4.0\lib\QtGui4.dll"
-  File "\dev\Qt4.4.0\lib\QtNetwork4.dll"
-  File "\dev\Qt4.4.0\lib\QtSql4.dll"
-  File "\dev\Qt4.4.0\lib\QtOpenGL4.dll"
-  File "\dev\Qt4.4.0\lib\QtXml4.dll"
-  File "\dev\Qt4.4.0\lib\QtDBus4.dll"
+
+  File "\dev\Qt4.4.1\lib\QtCore4.dll"
+  File "\dev\Qt4.4.1\lib\QtGui4.dll"
+  File "\dev\Qt4.4.1\lib\QtNetwork4.dll"
+  File "\dev\Qt4.4.1\lib\QtSql4.dll"
+  File "\dev\Qt4.4.1\lib\QtOpenGL4.dll"
+  File "\dev\Qt4.4.1\lib\QtXml4.dll"
+  File "\dev\Qt4.4.1\lib\QtDBus4.dll"
+
   File "\dev\MySQL\lib\opt\libmysql.dll"
+
   File "\dev\OpenSSL\bin\libeay32.dll"
   File "\dev\OpenSSL\bin\ssleay32.dll"
+
   File "\dev\dbus\bin\dbus-1.dll"
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
+  File "\dev\dbus\bin\dbus-daemon.exe"
+  File "\dev\dbus\etc\session.conf"
+
   File "\dev\Ice\bin\ice33.dll"
   File "\dev\Ice\bin\iceutil33.dll"
   File "\dev\Ice\bin\bzip2.dll"
-  File "\Program Files (x86)\Intel\Compiler\C++\10.1.021\IA32\Bin\libmmd.dll"
 
-  SetOutPath "$INSTDIR\bin"
-  File "\dev\dbus\bin\dbus-daemon.exe"
-  File "\dev\dbus\bin\dbus-1.dll"
-  File "\dev\dbus\bin\libxml2.dll"
-  File "\dev\dbus\bin\iconv.dll"
-  File "\dev\dbus\bin\zlib1.dll"
+  File "\Program Files (x86)\Intel\Compiler\C++\10.1.022\IA32\Bin\libmmd.dll"
 
-  SetOutPath "$INSTDIR\etc"
-  File "\dev\dbus\etc\session.conf"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
+  
 
   SetOutPath "$INSTDIR\plugins"
   File /oname=bf2.dll "..\release\plugins\bf2.dll"
   File /oname=link.dll "..\release\plugins\link.dll"
   ;File /oname=wow.dll "..\release\plugins\wow.dll"
-
-  GetTempFileName $0
-  Delete "$0"
-  SetOutPath "$0"
-
-  File "vcredist_x86.exe"
-  ExecWait '"$0\vcredist_x86.exe" /q:a'
-  Delete "$0\vcredist_x86.exe"
-  RMDIR "$0"
 
   SetOutPath "$INSTDIR"
 
@@ -192,12 +187,15 @@ Section "Uninstall"
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
+  Delete "$INSTDIR\mumble.pdb"
+  Delete "$INSTDIR\murmur.pdb"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"
   Delete "$INSTDIR\plugins\bf2.dll"
   Delete "$INSTDIR\plugins\link.dll"
   ;Delete "$INSTDIR\plugins\wow.dll"
+
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
   Delete "$INSTDIR\QtNetwork4.dll"
@@ -205,29 +203,30 @@ Section "Uninstall"
   Delete "$INSTDIR\QtOpenGL4.dll"
   Delete "$INSTDIR\QtDBus4.dll"
   Delete "$INSTDIR\QtXml4.dll"
+
   Delete "$INSTDIR\libmySQL.dll"
-  Delete "$INSTDIR\libdbus-1.dll"
+
+  Delete "$INSTDIR\dbus-1.dll"
   Delete "$INSTDIR\libxml2.dll"
   Delete "$INSTDIR\iconv.dll"
   Delete "$INSTDIR\zlib1.dll"
-  Delete "$INSTDIR\libmmd.dll"
+  Delete "$INSTDIR\dbus-daemon.exe"
+  Delete "$INSTDIR\session.conf"
 
-  Delete "$INSTDIR\bin\dbus-daemon.exe"
-  Delete "$INSTDIR\bin\libdbus-1.dll"
-  Delete "$INSTDIR\bin\libxml2.dll"
-  Delete "$INSTDIR\bin\iconv.dll"
-  Delete "$INSTDIR\bin\zlib1.dll"
-  Delete "$INSTDIR\etc\session.conf"
+  Delete "$INSTDIR\libmmd.dll"
 
   Delete "$INSTDIR\ice33.dll"
   Delete "$INSTDIR\iceutil33.dll"
   Delete "$INSTDIR\bzip2.dll"
 
   Delete "$INSTDIR\libeay32.dll"
-  Delete "$INSTDIR\libssl32.dll"
   Delete "$INSTDIR\ssleay32.dll"
-  ;Delete "$INSTDIR\speex.dll"
-  ;Delete "$INSTDIR\mingwm10.dll"
+
+  Delete "$INSTDIR\Microsoft.VC90.CRT.manifest"
+  Delete "$INSTDIR\msvcm90.dll"
+  Delete "$INSTDIR\msvcp90.dll"
+  Delete "$INSTDIR\msvcr90.dll"
+
   Delete "$INSTDIR\Changes.txt"
   Delete "$INSTDIR\qt.txt"
   Delete "$INSTDIR\speex.txt"

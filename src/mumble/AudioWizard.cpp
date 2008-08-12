@@ -695,7 +695,6 @@ void AudioWizard::on_Ticker_timeout() {
 		return;
 
 	int iPeak = static_cast<int>(ai->dMaxMic);
-	qWarning("Peak is %d", iPeak);
 
 	if (iTicks++ >= 50) {
 		iMaxPeak = 0;
@@ -739,8 +738,6 @@ void AudioWizard::on_Ticker_timeout() {
 			qgiSource = qgsScene->addEllipse(QRectF(-.15f, -.15f, 0.3f, 0.3f), QPen(Qt::black), QBrush(Qt::green));
 			qgvView->setScene(qgsScene);
 			qgvView->fitInView(-4.0f, -4.0f, 8.0f, 8.0f, Qt::KeepAspectRatio);
-
-			qWarning("It's at %f %f", qgiSource->x(), qgiSource->y());
 		}
 	} else if (currentPage() == qwpPositional) {
 		float xp, yp;

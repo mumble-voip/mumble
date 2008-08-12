@@ -35,7 +35,7 @@ win32 {
   RC_FILE	= mumble.rc
   HEADERS	+= GlobalShortcut_win.h
   SOURCES	+= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
-  INCLUDEPATH	+= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_34_1
+  INCLUDEPATH	+= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_35
   LIBS		+= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
   LIBPATH	+= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib
   DEFINES	+= WIN32
