@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
 		if (reqSize > 0) {
 			STACKVAR(wchar_t, buff, reqSize+1);
 			_wgetenv_s(&reqSize, buff, reqSize, L"PATH");
-			QString path = QString::fromLatin1("%1\\bin;%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
+			QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
 			STACKVAR(wchar_t, buffout, path.length() + 1);
 			path.toWCharArray(buffout);
 			_wputenv_s(L"PATH", buffout);
@@ -181,7 +181,7 @@ int main(int argc, char **argv) {
 	// so we need to loop a little before we begin.  If we were launched
 	// through a URL, this should call a platform specific callback
 	// (in os_macx.cpp) and point the `os_url' global to a valid URL.
-	a.processEvents();	
+	a.processEvents();
 
 	// Main Window
 	g.mw=new MainWindow(NULL);
