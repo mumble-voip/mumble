@@ -39,16 +39,16 @@
 #define ICE_QEVENT (QEvent::User + 959)
 
 class MurmurIce : public QObject {
-  friend class MurmurLocker;
-  Q_OBJECT;
-  protected:
-    int count;
-    QMutex qmEvent;
-    QWaitCondition qwcEvent;
-    Ice::CommunicatorPtr communicator;
-    void customEvent(QEvent *evt);
-  public:
-    MurmurIce();
-    ~MurmurIce();
+		friend class MurmurLocker;
+		Q_OBJECT;
+	protected:
+		int count;
+		QMutex qmEvent;
+		QWaitCondition qwcEvent;
+		Ice::CommunicatorPtr communicator;
+		void customEvent(QEvent *evt);
+	public:
+		MurmurIce();
+		~MurmurIce();
 };
 #endif

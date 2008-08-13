@@ -534,7 +534,7 @@ void ServerI::setACL(int channelid, const ::Murmur::ACLList& acls, const ::Murmu
 		delete g;
 	}
 	foreach(acl, channel->qlACL)
-		delete acl;
+	delete acl;
 
 	channel->qhGroups.clear();
 	channel->qlACL.clear();
@@ -648,7 +648,7 @@ void ServerI::updateregistration(const ::Murmur::RegisteredPlayer& registration,
 
 	const QMap<int, QPair<QString, QString> > l = server->getRegisteredPlayers(QString::fromStdString(filter));
 	QMap<int, QPair<QString, QString > >::const_iterator i;
-	for(i = l.constBegin(); i != l.constEnd(); ++i) {
+	for (i = l.constBegin(); i != l.constEnd(); ++i) {
 		reg.playerid = i.key();
 		reg.name = i.value().first.toStdString();
 		reg.email = i.value().second.toStdString();
@@ -671,7 +671,7 @@ int ServerI::verifyPassword(const string &name, const string& pw, const Ice::Cur
 	::Murmur::Texture tex;
 	tex.resize(qba.size());
 	const char *ptr = qba.constData();
-	for(int i=0;i<qba.size();++i)
+	for (int i=0;i<qba.size();++i)
 		tex[i] = ptr[i];
 
 	return tex;
@@ -681,7 +681,7 @@ void ServerI::setTexture(int playerid, const ::Murmur::Texture& tex, const Ice::
 	NEED_SERVER;
 	QByteArray qba(tex.size(), 0);
 	char *ptr = qba.data();
-	for(unsigned int i=0;i<tex.size();++i)
+	for (unsigned int i=0;i<tex.size();++i)
 		ptr[i] = tex[i];
 	if (! server->setTexture(playerid, qba))
 		throw InvalidPlayerException();

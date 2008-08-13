@@ -45,7 +45,7 @@ static FILE *fConsole = NULL;
 static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, long) {
 	OSErr err;
 	DescType type;
- 	Size dataSize, size; 
+	Size dataSize, size;
 	static char url[1024];
 
 	err = AESizeOfParam(ae, keyDirectObject, &type, &dataSize);
@@ -56,7 +56,7 @@ static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, long) {
 	if (dataSize > 1023)
 		dataSize = 1023;
 
-	err = AEGetParamPtr(ae, keyDirectObject, typeChar, &type, url, dataSize, &size); 
+	err = AEGetParamPtr(ae, keyDirectObject, typeChar, &type, url, dataSize, &size);
 	if (err != noErr)
 		return err;
 
@@ -89,7 +89,7 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 			c='X';
 	}
 
-	#define LOG(f, msg) fprintf(f, "<%c>%s %s\n", c, \
+#define LOG(f, msg) fprintf(f, "<%c>%s %s\n", c, \
 		qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), msg)
 
 	LOG(stderr, msg);

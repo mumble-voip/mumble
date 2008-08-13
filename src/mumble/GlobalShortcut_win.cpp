@@ -88,7 +88,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		QList<QVariant> ql;
 		ql << static_cast<unsigned int>((key->scanCode << 8) | 0x4);
 		ql << QVariant(QUuid(GUID_SysKeyboard));
-		if (gsw->handleButton(ql, ! (key->flags & LLKHF_UP)))
+		if (gsw->handleButton(ql, !(key->flags & LLKHF_UP)))
 			return 1;
 	}
 	return CallNextHookEx(gsw->hhKeyboard, nCode, wParam, lParam);

@@ -517,7 +517,7 @@ void AudioInput::encodeAudioFrame() {
 		dPeakMic = -96.0f;
 
 	max = 1;
-	for(i=0;i<iFrameSize;i++)
+	for (i=0;i<iFrameSize;i++)
 		max = static_cast<short>(abs(psMic[i]) > max ? abs(psMic[i]) : max);
 	dMaxMic = max;
 

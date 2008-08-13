@@ -303,16 +303,15 @@ void ConnectDialog::on_qpbAdd_clicked() {
 			return;
 		}
 	}
-	
+
 	qlwServers->setCurrentIndex(QModelIndex());
-	
+
 	QString host, user, pw;
 	unsigned short port = 64738;
-	
+
 	if (g.sh && g.sh->isRunning()) {
 		g.sh->getConnectionInfo(host, port, user, pw);
-	}
-	else {
+	} else {
 		user = g.s.qsUsername;
 		pw = QString();
 		host = QLatin1String("host");

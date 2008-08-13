@@ -161,7 +161,7 @@ void MetaParams::read(QString fname) {
 
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();
-	
+
 	qbaPassPhrase = qs.value("sslPassPhrase").toByteArray();
 
 	QByteArray crt, key;

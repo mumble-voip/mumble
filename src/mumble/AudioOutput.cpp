@@ -318,7 +318,7 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 
 void AudioOutput::wipe() {
 	foreach(AudioOutputPlayer *aop, qmOutputs)
-		removeBuffer(aop);
+	removeBuffer(aop);
 }
 
 const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
@@ -366,7 +366,7 @@ void AudioOutput::removeBuffer(const ClientPlayer *player) {
 void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
 	QWriteLocker locker(&qrwlOutputs);
 	QMultiHash<const ClientPlayer *, AudioOutputPlayer *>::iterator i;
-	for(i=qmOutputs.begin(); i != qmOutputs.end(); ++i) {
+	for (i=qmOutputs.begin(); i != qmOutputs.end(); ++i) {
 		if (i.value() == aop) {
 			qmOutputs.erase(i);
 			delete aop;

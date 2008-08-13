@@ -463,7 +463,7 @@ void PlayerModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelIn
 
 	beginInsertRows(index(item), 0, old->qlChildren.count());
 
-	for(int i=0;i<old->qlChildren.count();++i) {
+	for (int i=0;i<old->qlChildren.count();++i) {
 		ModelItem *o = old->qlChildren.at(i);
 		ModelItem *mi = new ModelItem(o);
 		mi->parent = item;
@@ -478,7 +478,7 @@ void PlayerModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelIn
 
 	endInsertRows();
 
-	for(int i=0;i<old->qlChildren.count();++i)
+	for (int i=0;i<old->qlChildren.count();++i)
 		recursiveClone(old->qlChildren.at(i), item->qlChildren.at(i), from, to);
 }
 
@@ -970,7 +970,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 		g.sh->sendMessage(&mpm);
 	} else {
 		int ret;
-		switch(g.s.ceChannelDrag){
+		switch (g.s.ceChannelDrag) {
 			case Settings::Ask:
 				ret=QMessageBox::question(g.mw, tr("Mumble"), tr("Are you sure you want to drag this channel?"), QMessageBox::Yes, QMessageBox::No);
 

@@ -153,8 +153,8 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 		qcb->setToolTip(tr("Suppress keys from other applications"));
 		qcb->setWhatsThis(tr("<b>This hides the button presses from other applications.</b><br />"
-							"Enabling this will hide the button (or the last button of a multi-button combo) "
-							"from other applications. Note that not all buttons can be suppressed."));
+		                     "Enabling this will hide the button (or the last button of a multi-button combo) "
+		                     "from other applications. Note that not all buttons can be suppressed."));
 		qcb->setVisible(canSuppress);
 		qhSuppress[gs]=qcb;
 

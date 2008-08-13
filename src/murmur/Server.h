@@ -96,7 +96,7 @@ class User : public Connection, public Player {
 
 class DBus;
 namespace Murmur {
-	class ServerI;
+class ServerI;
 };
 
 class Server : public QThread, public MessageHandler {

@@ -61,7 +61,7 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbExpand->addItem(tr("None"), Settings::NoChannels);
 	qcbExpand->addItem(tr("Only with players"), Settings::ChannelsWithPlayers);
 	qcbExpand->addItem(tr("All"), Settings::AllChannels);
-	
+
 	qcbChannelDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
 	qcbChannelDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
 	qcbChannelDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);

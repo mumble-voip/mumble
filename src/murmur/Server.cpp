@@ -264,9 +264,9 @@ int BandwidthRecord::bandwidth() const {
 	int todo = N_BANDWIDTH_SLOTS - sincelast;
 	if (todo < 0)
 		return 0;
-		
+
 	int sum = 0;
-	for(int i=0;i<todo;i++)
+	for (int i=0;i<todo;i++)
 		sum += a_iBW[(iRecNum+N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS];
 	return (sum*50)/sincelast;
 }
