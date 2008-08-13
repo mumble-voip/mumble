@@ -9,41 +9,33 @@
     <height>435</height>
    </rect>
   </property>
-    <widget class="QTreeView" name="qtvPlayers" >
-     <property name="geometry" >
-      <rect>
-       <x>120</x>
-       <y>-10</y>
-       <width>228</width>
-       <height>319</height>
-      </rect>
-     </property>
-     <property name="contextMenuPolicy" >
-      <enum>Qt::CustomContextMenu</enum>
-     </property>
-     <property name="acceptDrops" >
-      <bool>true</bool>
-     </property>
-     <property name="dragEnabled" >
-      <bool>true</bool>
-     </property>
-     <property name="indentation" >
-      <number>10</number>
-     </property>
-     <property name="rootIsDecorated" >
-      <bool>false</bool>
-     </property>
-     <property name="uniformRowHeights" >
-      <bool>true</bool>
-     </property>
-    </widget>
+  <widget class="QTreeView" name="qtvPlayers" >
+   <property name="contextMenuPolicy" >
+    <enum>Qt::CustomContextMenu</enum>
+   </property>
+   <property name="acceptDrops" >
+    <bool>true</bool>
+   </property>
+   <property name="dragEnabled" >
+    <bool>true</bool>
+   </property>
+   <property name="indentation" >
+    <number>10</number>
+   </property>
+   <property name="rootIsDecorated" >
+    <bool>false</bool>
+   </property>
+   <property name="uniformRowHeights" >
+    <bool>true</bool>
+   </property>
+  </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>29</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmServer" >
@@ -110,38 +102,25 @@
    <addaction name="qmHelp" />
   </widget>
   <widget class="QDockWidget" name="qdwLog" >
-   <property name="windowTitle" >
-    <string>Log</string>
-   </property>
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>29</y>
-     <width>333</width>
-     <height>406</height>
-    </rect>
-   </property>
    <property name="features" >
     <set>QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Log</string>
    </property>
    <attribute name="dockWidgetArea" >
     <number>1</number>
    </attribute>
-    <widget class="QTextBrowser" name="qteLog" >
-     <property name="geometry" >
-      <rect>
-       <x>30</x>
-       <y>-40</y>
-       <width>228</width>
-       <height>319</height>
-      </rect>
-     </property>
-     <property name="whatsThis" >
-      <string>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br />To configure exactly which messages show up here, use the &lt;b>Settings&lt;/b> command from the menu.</string>
-     </property>
-     <property name="openLinks" >
-      <bool>false</bool>
-     </property>
+   <widget class="QTextBrowser" name="qteLog" >
+    <property name="contextMenuPolicy" >
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="whatsThis" >
+     <string>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br />To configure exactly which messages show up here, use the &lt;b>Settings&lt;/b> command from the menu.</string>
+    </property>
+    <property name="openLinks" >
+     <bool>false</bool>
+    </property>
    </widget>
   </widget>
   <action name="qaQuit" >

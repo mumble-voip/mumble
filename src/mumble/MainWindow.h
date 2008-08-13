@@ -139,6 +139,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaHelpAboutQt_triggered();
 		void on_qaHelpVersionCheck_triggered();
 		void on_qaQuit_triggered();
+		void on_qteLog_customContextMenuRequested(const QPoint &pos);
 		void on_qteLog_anchorClicked(const QUrl &);
 		void on_qteLog_highlighted(const QUrl & link);
 		void on_PushToTalk_triggered(bool);

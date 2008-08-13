@@ -334,6 +334,14 @@ void MainWindow::on_qtvPlayers_doubleClicked(const QModelIndex &idx) {
 	g.sh->sendMessage(&mpm);
 }
 
+void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
+	QMenu *menu = qteLog->createStandardContextMenu(mpos);
+	menu->addSeparator();
+	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
+	menu->exec(qteLog->mapToGlobal(mpos));
+	delete menu;
+}
+
 void MainWindow::openUrl(const QUrl &url) {
 	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString()));
 	if (url.scheme() != QLatin1String("mumble")) {
