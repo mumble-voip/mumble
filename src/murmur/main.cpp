@@ -377,13 +377,7 @@ int main(int argc, char **argv) {
 
 	meta->bootAll();
 
-	QList<QSslCertificate> certs = QSslSocket::systemCaCertificates();
-	foreach(const QSslCertificate &c, certs) {
-		qWarning("Cert %s", qPrintable(c.subjectInfo(QSslCertificate::Organization)));
-	}
-
 	res=a.exec();
-
 
 	qWarning("Killing running servers");
 
