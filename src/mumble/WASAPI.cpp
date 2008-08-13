@@ -103,7 +103,7 @@ AudioInput *WASAPIInputRegistrar::create() {
 }
 
 const QList<audioDevice> WASAPIInputRegistrar::getDeviceChoices() {
-	return WASAPISystem::mapToDevice(WASAPISystem::getInputDevices(), g.s.qsWASAPIOutput);
+	return WASAPISystem::mapToDevice(WASAPISystem::getInputDevices(), g.s.qsWASAPIInput);
 }
 
 void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
