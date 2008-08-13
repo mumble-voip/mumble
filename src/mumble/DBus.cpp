@@ -56,7 +56,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 		return;
 	}
 	QString host, user, pw;
-	int port;
+	unsigned short port;
 	QUrl u;
 
 	g.sh->getConnectionInfo(host, port, user, pw);

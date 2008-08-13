@@ -65,8 +65,8 @@ void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbTop, r.bOverlayTop);
 	loadCheckBox(qcbBottom, r.bOverlayBottom);
 
-	loadSlider(qsX, qRound64(r.fOverlayX * 100));
-	loadSlider(qsY, 100 - qRound64(r.fOverlayY * 100));
+	loadSlider(qsX, static_cast<int>(lroundf(r.fOverlayX * 100.0f)));
+	loadSlider(qsY, 100 - static_cast<int>(lroundf(r.fOverlayY * 100.0f)));
 	qfFont = r.qfOverlayFont;
 	qcPlayer = r.qcOverlayPlayer;
 	qcTalking= r.qcOverlayTalking;
@@ -74,7 +74,7 @@ void OverlayConfig::load(const Settings &r) {
 	qcChannel = r.qcOverlayChannel;
 	qcChannelTalking = r.qcOverlayChannelTalking;
 	qlCurrentFont->setText(qfFont.family());
-	loadSlider(qsMaxHeight, qRound64(r.fOverlayHeight * 1000));
+	loadSlider(qsMaxHeight, static_cast<int>(lroundf(r.fOverlayHeight * 1000.0f)));
 	setColorLabel(qlPlayer, qcPlayer);
 	setColorLabel(qlTalking, qcTalking);
 	setColorLabel(qlAltTalking, qcAltTalking);
@@ -168,14 +168,14 @@ void OverlayConfig::save() const {
 	s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
 	s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
 	s.bOverlayUserTextures = qcbUserTextures->isChecked();
-	s.fOverlayX = qsX->value() / 100.0;
-	s.fOverlayY = 1.0 - qsY->value() / 100.0;
+	s.fOverlayX = static_cast<float>(qsX->value()) / 100.0f;
+	s.fOverlayY = 1.0f - static_cast<float>(qsY->value()) / 100.0f;
 	s.bOverlayLeft = qcbLeft->isChecked();
 	s.bOverlayRight = qcbRight->isChecked();
 	s.bOverlayTop = qcbTop->isChecked();
 	s.bOverlayBottom = qcbBottom->isChecked();
 	s.qfOverlayFont = qfFont;
-	s.fOverlayHeight = qsMaxHeight->value() / 1000.0;
+	s.fOverlayHeight = static_cast<float>(qsMaxHeight->value()) / 1000.0f;
 	s.qcOverlayPlayer = qcPlayer;
 	s.qcOverlayTalking = qcTalking;
 	s.qcOverlayAltTalking = qcAltTalking;
@@ -427,7 +427,7 @@ void Overlay::fixFont() {
 		br=qp.boundingRect();
 	} while ((br.height()+2) > TEXT_HEIGHT);
 
-	fFontBase = fabs(br.top());
+	fFontBase = static_cast<float>(fabs(br.top()));
 
 	clearCache();
 
@@ -467,9 +467,8 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 			p.setPen(Qt::NoPen);
 			p.drawPath(qp);
 
-
 			qhTextures[e.qsText] = td;
-			qhWidths[e.qsText] = qMin(static_cast<int>(qp.boundingRect().width())+6, TEXT_WIDTH);
+			qhWidths[e.qsText] = qMin(static_cast<short>(qp.boundingRect().width()+6), static_cast<short>(TEXT_WIDTH));
 		}
 	}
 
@@ -532,7 +531,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 				if (tl.dDecor != None)
 					width += TEXT_HEIGHT;
 
-				te->width = width;
+				te->width = static_cast<short>(width);
 				te->bUpdated = true;
 			}
 			qsForce.remove(tl.iPlayer);

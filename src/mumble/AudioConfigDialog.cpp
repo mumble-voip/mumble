@@ -91,7 +91,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsTransmitMin, lroundf(r.fVADmin * 32767.0f));
 	loadSlider(qsTransmitMax, lroundf(r.fVADmax * 32767.0f));
 	loadSlider(qsFrames, r.iFramesPerPacket);
-	loadSlider(qsDoublePush, lroundf(r.uiDoublePush / 1000.f));
+	loadSlider(qsDoublePush, lround(static_cast<double>(r.uiDoublePush) / 1000.f));
 
 	if (r.vsVAD == Settings::Amplitude)
 		qrbAmplitude->setChecked(true);
@@ -110,8 +110,8 @@ void AudioInputDialog::save() const {
 	s.iNoiseSuppress = - qsNoise->value();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	s.iVoiceHold = qsTransmitHold->value();
-	s.fVADmin = qsTransmitMin->value() / 32767.0;
-	s.fVADmax = qsTransmitMax->value() / 32767.0;
+	s.fVADmin = static_cast<float>(qsTransmitMin->value()) / 32767.0f;
+	s.fVADmax = static_cast<float>(qsTransmitMax->value()) / 32767.0f;
 	s.vsVAD = qrbSNR->isChecked() ? Settings::SignalToNoise : Settings::Amplitude;
 	s.iFramesPerPacket = qsFrames->value();
 	s.uiDoublePush = qsDoublePush->value() * 1000;
@@ -153,7 +153,7 @@ void AudioInputDialog::on_qsDoublePush_valueChanged(int v) {
 }
 
 void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
-	float val = v * 20;
+	float val = static_cast<float>(v * 20);
 	val = val / 1000.0f;
 	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
@@ -169,7 +169,7 @@ void AudioInputDialog::on_qsNoise_valueChanged(int v) {
 
 void AudioInputDialog::on_qsAmp_valueChanged(int v) {
 	v = 18000 - v + 2000;
-	float d = 20000.0f/v;
+	float d = 20000.0f/static_cast<float>(v);
 	qlAmp->setText(QString::fromLatin1("%1").arg(d, 0, 'f', 2));
 }
 
@@ -180,7 +180,7 @@ void AudioInputDialog::updateBitrate() {
 	int p = qsFrames->value();
 
 	int audiorate, overhead, posrate;
-	float f = q;
+	float f = static_cast<float>(q);
 	void *es;
 
 	es = speex_encoder_init(&speex_wb_mode);
@@ -307,16 +307,16 @@ void AudioOutputDialog::load(const Settings &r) {
 
 void AudioOutputDialog::save() const {
 	s.iOutputDelay = qsDelay->value();
-	s.fVolume = qsVolume->value() / 100.0f;
+	s.fVolume = static_cast<float>(qsVolume->value()) / 100.0f;
 	s.iJitterBufferSize = qsJitter->value();
 	s.qsAudioOutput = qcbSystem->currentText();
 	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
-	s.dMaxPacketDelay = qsPacketDelay->value();
-	s.dPacketLoss = qsPacketLoss->value() / 100.0f;
-	s.fAudioMinDistance = qsMinDistance->value() / 10.0f;
-	s.fAudioMaxDistance = qsMaxDistance->value() / 10.0f;
-	s.fAudioRollOff = qsRollOff->value() / 100.0f;
-	s.fAudioBloom = qsBloom->value() / 100.0f;
+	s.dMaxPacketDelay = static_cast<float>(qsPacketDelay->value());
+	s.dPacketLoss = static_cast<float>(qsPacketLoss->value()) / 100.0f;
+	s.fAudioMinDistance = static_cast<float>(qsMinDistance->value()) / 10.0f;
+	s.fAudioMaxDistance = static_cast<float>(qsMaxDistance->value()) / 10.0f;
+	s.fAudioRollOff = static_cast<float>(qsRollOff->value()) / 100.0f;
+	s.fAudioBloom = static_cast<float>(qsBloom->value()) / 100.0f;
 	s.bPositionalAudio = qcbPositional->isChecked();
 	s.bPositionalHeadphone = qcbHeadphones->isChecked();
 

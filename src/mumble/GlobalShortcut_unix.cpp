@@ -178,9 +178,9 @@ void GlobalShortcutX::run() {
 			} else {
 				for (int i=0;i<256;++i) {
 					int index = i / 8;
-					int mask = 1 << (i % 8);
-					bool oldstate = (keys[idx][index] & mask) != 0;
-					bool newstate = (keys[next][index] & mask) != 0;
+					int keymask = 1 << (i % 8);
+					bool oldstate = (keys[idx][index] & keymask) != 0;
+					bool newstate = (keys[next][index] & keymask) != 0;
 					if (oldstate != newstate) {
 						handleButton(i, newstate);
 					}
@@ -280,7 +280,7 @@ QString GlobalShortcutX::buttonName(const QVariant &v) {
 	if (!ok)
 		return QString();
 	if ((key < 0x118) || (key >= 0x128)) {
-		KeySym ks=XKeycodeToKeysym(QX11Info::display(), key, 0);
+		KeySym ks=XKeycodeToKeysym(QX11Info::display(), static_cast<KeyCode>(key), 0);
 		if (ks == NoSymbol) {
 			return QLatin1String("0x")+QString::number(key,16);
 		} else {

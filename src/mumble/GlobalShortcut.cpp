@@ -78,8 +78,8 @@ void ShortcutKeyWidget::focusOutEvent(QFocusEvent *e) {
 	removeEventFilter(this);
 }
 
-bool ShortcutKeyWidget::eventFilter(QObject *, QEvent *event) {
-	if ((event->type() == QEvent::KeyPress) || (event->type() == QEvent::MouseButtonPress))
+bool ShortcutKeyWidget::eventFilter(QObject *, QEvent *evt) {
+	if ((evt->type() == QEvent::KeyPress) || (evt->type() == QEvent::MouseButtonPress))
 		return true;
 	return false;
 }

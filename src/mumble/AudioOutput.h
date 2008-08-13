@@ -174,7 +174,7 @@ class AudioOutput : public QThread {
 		~AudioOutput();
 		void addFrameToBuffer(ClientPlayer *, const QByteArray &, unsigned int iSeq);
 		void removeBuffer(const ClientPlayer *);
-		AudioSine *playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3);
+		AudioSine *playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3f);
 		void run() = 0;
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);

@@ -118,7 +118,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 	else
 		srs = NULL;
 
-	iOutputSize = lroundf(ceilf((iFrameSize * freq) / (SAMPLE_RATE * 1.0f)));
+	iOutputSize = lroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;
@@ -155,7 +155,7 @@ int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *, void *data) {
 	unsigned char *ptr = reinterpret_cast<unsigned char *>(qba.data());
 
 	for (int i=0;i<len;i++)
-		ptr[i]=speex_bits_unpack_unsigned(bits, 8);
+		ptr[i]=static_cast<unsigned char>(speex_bits_unpack_unsigned(bits, 8));
 	QDataStream ds(qba);
 	ds >> aos->fPos[0];
 	ds >> aos->fPos[1];
@@ -526,7 +526,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 		memset(output, 0, sizeof(float) * nsamp * iChannels);
 
-		for (int i=0;i<iChannels;++i)
+		for (unsigned int i=0;i<iChannels;++i)
 			svol[i] = mul * fSpeakerVolume[i];
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch()) {
@@ -635,10 +635,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 }
 
 AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol, unsigned int freq) : AudioOutputPlayer(QLatin1String("Sine")) {
-	float hfreq = freq / 2.0f;
+	float hfreq = static_cast<float>(freq) / 2.0f;
 	v = 0.0;
-	inc = M_PI * hz / hfreq;
-	dinc = M_PI * i / (hfreq * hfreq);
+	inc = static_cast<float>(M_PI * hz / hfreq);
+	dinc = static_cast<float>(M_PI * i / (hfreq * hfreq));
 	volume = vol * 32768.f;
 	frames = frm;
 	cntr = 0;
@@ -672,8 +672,9 @@ bool AudioSine::needSamples(unsigned int snum) {
 			}
 
 			// FIXME: Not * snum, * something else
+			const float m = static_cast<float>(M_PI * static_cast<float>(tbin) / static_cast<float>(snum));
 			for (unsigned int i=0;i<snum;i++)
-				pfBuffer[i] = volume * sinf(M_PI * i * (tbin * 1.0f) / (1.0f * snum));
+				pfBuffer[i] = volume * sinf(m * static_cast<float>(i));
 
 			return true;
 		}

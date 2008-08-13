@@ -85,10 +85,10 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
-	if (! qtsServer->listen(qhaBind, iPort))
-		log("Server: TCP Listen on port %d failed",iPort);
+	if (! qtsServer->listen(qhaBind, usPort))
+		log("Server: TCP Listen on port %d failed",usPort);
 
-	log("Server listening on port %d",iPort);
+	log("Server listening on port %d",usPort);
 
 #ifdef Q_OS_UNIX
 	sUdpSocket = ::socket(PF_INET, SOCK_DGRAM, 0);
@@ -111,10 +111,10 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		struct sockaddr_in addr;
 		memset(&addr, 0, sizeof(addr));
 		addr.sin_family = AF_INET;
-		addr.sin_port = htons(iPort);
+		addr.sin_port = htons(usPort);
 		addr.sin_addr.s_addr = htonl(qhaBind.toIPv4Address());
 		if (::bind(sUdpSocket, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) == SOCKET_ERROR) {
-			log("Failed to bind UDP Socket to port %d", iPort);
+			log("Failed to bind UDP Socket to port %d", usPort);
 		} else {
 #ifdef Q_OS_UNIX
 			int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
@@ -160,7 +160,7 @@ Server::~Server() {
 
 void Server::readParams() {
 	qsPassword = Meta::mp.qsPassword;
-	iPort = Meta::mp.iPort + iServerNum - 1;
+	usPort = static_cast<unsigned short>(Meta::mp.usPort + iServerNum - 1);
 	iTimeout = Meta::mp.iTimeout;
 	iMaxBandwidth = Meta::mp.iMaxBandwidth;
 	iMaxUsers = Meta::mp.iMaxUsers;
@@ -192,7 +192,7 @@ void Server::readParams() {
 	}
 
 	qsPassword = getConf("password", qsPassword).toString();
-	iPort = getConf("port", iPort).toInt();
+	usPort = static_cast<unsigned short>(getConf("port", usPort).toUInt());
 	iTimeout = getConf("timeout", iTimeout).toInt();
 	iMaxBandwidth = getConf("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = getConf("users", iMaxUsers).toInt();
@@ -240,7 +240,7 @@ BandwidthRecord::BandwidthRecord() {
 
 void BandwidthRecord::addFrame(int size) {
 	iSum -= a_iBW[iRecNum];
-	a_iBW[iRecNum] = size;
+	a_iBW[iRecNum] = static_cast<unsigned char>(size);
 	iSum += a_iBW[iRecNum];
 
 	a_qtWhen[iRecNum].restart();
@@ -252,15 +252,15 @@ void BandwidthRecord::addFrame(int size) {
 
 int BandwidthRecord::bytesPerSec() const {
 	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
-	return (iSum * 1000000LL) / elapsed;
+	return static_cast<int>((iSum * 1000000LL) / elapsed);
 }
 
 int BandwidthRecord::onlineSeconds() const {
-	return qtFirst.elapsed() / 1000000LL;
+	return static_cast<int>(qtFirst.elapsed() / 1000000LL);
 }
 
 int BandwidthRecord::bandwidth() const {
-	int sincelast = a_qtWhen[iRecNum].elapsed() / 20000LL;
+	int sincelast = static_cast<int>(a_qtWhen[iRecNum].elapsed() / 20000LL);
 	int todo = N_BANDWIDTH_SLOTS - sincelast;
 	if (todo < 0)
 		return 0;

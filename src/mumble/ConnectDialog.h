@@ -39,7 +39,7 @@ struct PublicInfo {
 	QString name;
 	QUrl url;
 	QString ip;
-	int port;
+	unsigned short port;
 };
 
 class TextSortedItem : public QTreeWidgetItem {
@@ -75,7 +75,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qpbCopy_clicked();
 	public:
 		QString qsServer, qsUsername, qsPassword;
-		int iPort;
+		unsigned short usPort;
 		ConnectDialog(QWidget *parent);
 };
 

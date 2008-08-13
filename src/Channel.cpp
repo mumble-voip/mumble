@@ -63,7 +63,7 @@ Channel::~Channel() {
 }
 
 bool Channel::validateName(const QString &qsName) {
-	QRegExp re("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
+	QRegExp re(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 	return re.exactMatch(qsName);
 }
 

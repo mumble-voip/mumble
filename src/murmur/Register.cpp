@@ -92,7 +92,7 @@ void Server::update() {
 	tag=doc.createElement(QLatin1String("port"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(QString::number(iPort));
+	t=doc.createTextNode(QString::number(usPort));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("url"));

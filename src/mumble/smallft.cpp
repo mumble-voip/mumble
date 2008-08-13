@@ -80,7 +80,7 @@ L107:
 	if (nl!=1)goto L104;
 	ifac[0]=n;
 	ifac[1]=nf;
-	argh=tpi/n;
+	argh=tpi/static_cast<float>(n);
 	is=0;
 	nfm1=nf-1;
 	l1=1;
@@ -97,7 +97,7 @@ L107:
 		for (j=0;j<ipm;j++) {
 			ld+=l1;
 			i=is;
-			argld=ld*argh;
+			argld=static_cast<float>(ld)*argh;
 			fi=0.f;
 			for (ii=2;ii<ido;ii+=2) {
 				fi+=1.f;
@@ -285,7 +285,7 @@ static void dradfg(int ido,int ip,int l1,int idl1,float *cc,float *c1,
 	float dcp,arg,dsp,ar1h,ar2h;
 	int idp2,ipp2;
 
-	arg=tpi/(ip * 1.f);
+	arg=tpi/static_cast<float>(ip);
 	dcp=cosf(arg);
 	dsp=sinf(arg);
 	ipph=(ip+1)>>1;
@@ -855,7 +855,7 @@ static void dradbg(int ido,int ip,int l1,int idl1,float *cc,float *c1,
 
 	t10=ip*ido;
 	t0=l1*ido;
-	arg=tpi/(ip * 1.f);
+	arg=tpi/static_cast<float>(ip);
 	dcp=cosf(arg);
 	dsp=sinf(arg);
 	nbd=(ido-1)>>1;

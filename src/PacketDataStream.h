@@ -63,9 +63,12 @@ class PacketDataStream {
 			return overshoot;
 		}
 
-		void append(const quint32 v) {
+		void append(const quint64 v) {
+#ifndef QT_NO_DEBUG
+			Q_ASSERT(v <= 0xff);
+#endif
 			if (offset < maxsize)
-				data[offset++] = v;
+				data[offset++] = static_cast<unsigned char>(v);
 			else {
 				ok = false;
 				overshoot++;
@@ -204,7 +207,7 @@ class PacketDataStream {
 		}
 
 		PacketDataStream &operator >>(quint64 &i) {
-			quint32 v = next();
+			quint64 v = next();
 
 			if ((v & 0x80) == 0x00) {
 				i=(v & 0x7F);

@@ -33,7 +33,7 @@ foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro
 chdir("src/murmur");
 system("/usr/local/Trolltech/Qt-4.4.0/bin/qmake CONFIG+=static");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.4.0/bin/qmake CONFIG+=static");
+system("/usr/local/Trolltech/Qt-4.4.0/bin/qmake CONFIG+=static CONFIG+=no-ice");
 system("make");
 chdir("../..");
 system("strip release/murmurd");

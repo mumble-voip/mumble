@@ -28,7 +28,7 @@ struct LinkedMem {
 	wchar_t	name[256];
 };
 
-static const int32_t GetTickCount() {
+static int32_t GetTickCount() {
 	struct timeval tv;
 	gettimeofday(&tv,NULL);
 

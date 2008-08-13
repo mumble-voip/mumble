@@ -107,7 +107,7 @@ class Server : public QThread, public MessageHandler {
 		// Former ServerParams
 	public:
 		QHostAddress qhaBind;
-		int iPort;
+		unsigned short usPort;
 		int iTimeout;
 		int iMaxBandwidth;
 		int iMaxUsers;

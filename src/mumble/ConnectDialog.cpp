@@ -122,12 +122,12 @@ void ConnectDialog::accept() {
 		qsPassword = QString();
 		QStringList a = item->text(1).split(QLatin1Char(':'));
 		qsServer = a.at(0);
-		iPort = a.at(1).toInt();
+		usPort = a.at(1).toUShort();
 	} else {
 		qsServer = qleServer->text();
 		qsUsername = qleUsername->text();
 		qsPassword = qlePassword->text();
-		iPort = qlePort->text().toInt();
+		usPort = qlePort->text().toUShort();
 
 		int row = qlwServers->currentIndex().row();
 		g.s.iServerRow = (row >= 0) ? row : 0;
@@ -231,7 +231,7 @@ void ConnectDialog::on_Request_done(bool err) {
 				pi.name = e.attribute(QLatin1String("name"));
 				pi.url = e.attribute(QLatin1String("url"));
 				pi.ip = e.attribute(QLatin1String("ip"));
-				pi.port = e.attribute(QLatin1String("port")).toInt();
+				pi.port = e.attribute(QLatin1String("port")).toUShort();
 				qlPublicServers << pi;
 			}
 		}
@@ -307,7 +307,7 @@ void ConnectDialog::on_qpbAdd_clicked() {
 	qlwServers->setCurrentIndex(QModelIndex());
 	
 	QString host, user, pw;
-	int port = 64738;
+	unsigned short port = 64738;
 	
 	if (g.sh && g.sh->isRunning()) {
 		g.sh->getConnectionInfo(host, port, user, pw);

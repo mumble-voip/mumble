@@ -126,7 +126,7 @@ void Connection::socketRead() {
 	iReceiveLevel = iPrevLevel;
 #else
 	while (true) {
-		int iAvailable = qtsSocket->bytesAvailable();
+		qint64 iAvailable = qtsSocket->bytesAvailable();
 		if (iPacketLength == -1) {
 			if (iAvailable < 3)
 				return;
@@ -193,9 +193,9 @@ void Connection::sendMessage(const QByteArray &qbaMsg) {
 		qFatal("Connection: Oversized message (%d bytes)", qbaMsg.size());
 	}
 
-	a_ucBuffer[0]=(qbaMsg.size() >> 16) & 0xff;
-	a_ucBuffer[1]=(qbaMsg.size() >> 8) & 0xff;
-	a_ucBuffer[2]=(qbaMsg.size() & 0xff);
+	a_ucBuffer[0]=static_cast<unsigned char>((qbaMsg.size() >> 16) & 0xff);
+	a_ucBuffer[1]=static_cast<unsigned char>((qbaMsg.size() >> 8) & 0xff);
+	a_ucBuffer[2]=static_cast<unsigned char>(qbaMsg.size() & 0xff);
 	memcpy(a_ucBuffer + 3, qbaMsg.constData(), qbaMsg.size());
 
 #if (QT_VERSION < 0x040400)
@@ -241,9 +241,9 @@ void Connection::disconnectSocket() {
 
 void Connection::updatePing(double &avg, double &var, quint32 &samples, quint64 usec) {
 	samples++;
-	double x = usec / 1000.0L;
+	double x = static_cast<double>(usec) / 1000.0;
 	double delta = x - avg;
-	avg += delta / (samples * 1.0L);
+	avg += delta / static_cast<double>(samples);
 	var += delta * (x - avg);
 };
 

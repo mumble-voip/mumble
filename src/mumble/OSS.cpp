@@ -245,8 +245,9 @@ void OSSInput::run() {
 	short buffer[iMicLength];
 
 	while (bRunning) {
-		int l = read(fd, buffer, iMicLength * iMicChannels * sizeof(short));
-		if (l != iMicLength * iMicChannels * sizeof(short)) {
+		int len = iMicLength * iMicChannels * sizeof(short);
+		ssize_t l = read(fd, buffer, len);
+		if (l != len) {
 			qWarning("OSSInput: Read %d", l);
 			break;
 		}
@@ -308,7 +309,7 @@ void OSSOutput::run() {
 		iChannels = 1;
 
 	ival = iChannels;
-	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) && (ival == iChannels)) {
+	if ((ioctl(fd, SNDCTL_DSP_CHANNELS, &ival) == -1) && (ival == static_cast<int>(iChannels))) {
 		qWarning("OSSOutput: Failed to set channels");
 		return;
 	}
@@ -341,7 +342,7 @@ void OSSOutput::run() {
 
 	qWarning("OSSOutput: Staring audio playback to %s", device.constData());
 
-	const unsigned int blocklen = iOutputBlock * iChannels * sizeof(short);
+	const int blocklen = iOutputBlock * iChannels * sizeof(short);
 	short mbuffer[iOutputBlock * iChannels];
 
 	while (bRunning) {

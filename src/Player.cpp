@@ -50,28 +50,28 @@ QString Player::getFlagsString() const {
 	QStringList flags;
 
 	if (iId >= 0)
-		flags << "Authenticated";
+		flags << ClientPlayer::tr("Authenticated");
 	if (bMute)
-		flags << "Muted (server)";
+		flags << ClientPlayer::tr("Muted (server)");
 	if (bDeaf)
-		flags << "Deafened (server)";
+		flags << ClientPlayer::tr("Deafened (server)");
 	if (bLocalMute)
-		flags << "Local Mute";
+		flags << ClientPlayer::tr("Local Mute");
 	if (bSelfMute)
-		flags << "Muted (self)";
+		flags << ClientPlayer::tr("Muted (self)");
 	if (bSelfDeaf)
-		flags << "Deafened (self)";
+		flags << ClientPlayer::tr("Deafened (self)");
 
-	return flags.join(", ");
+	return flags.join(QLatin1String(", "));
 }
 
 bool Player::validateName(const QString &qsName) {
-	QRegExp re("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+");
+	QRegExp re(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 
 	bool nameok = re.exactMatch(qsName);
-	if (nameok && qsName[0] == '@')
+	if (nameok && qsName[0] == QLatin1Char('@'))
 		nameok = false;
-	if (nameok && qsName[0] == '#')
+	if (nameok && qsName[0] == QLatin1Char('#'))
 		nameok = false;
 	if (nameok && qsName.length() > 512)
 		nameok = false;

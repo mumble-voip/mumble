@@ -56,7 +56,7 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	else if (iValue > iMax)
 		iValue = iMax;
 
-	float scale = (width() * 1.0f) / (iMax - iMin);
+	float scale = static_cast<float>(width()) / static_cast<float>(iMax - iMin);
 	int h = height();
 
 	p.scale(scale, h);
@@ -116,24 +116,24 @@ void AudioEchoWidget::resizeGL(int w, int h) {
 }
 
 static inline void mapEchoToColor(float echo) {
-	bool neg = (echo < 0);
-	echo = fabs(echo);
+	bool neg = (echo < 0.0f);
+	echo = fabsf(echo);
 
 	float a, b, c;
 
-	if (echo > 1.0) {
-		echo = 1.0;
-		c = 0.5;
+	if (echo > 1.0f) {
+		echo = 1.0f;
+		c = 0.5f;
 	} else {
-		c = 0.0;
+		c = 0.0f;
 	}
 
-	if (echo < 0.5) {
-		a = echo * 2;
+	if (echo < 0.5f) {
+		a = echo * 2.0f;
 		b = 0;
 	} else {
 		a = 1;
-		b = (echo - 0.5) * 2;
+		b = (echo - 0.5f) * 2.0f;
 	}
 
 	if (neg)
@@ -170,21 +170,21 @@ void AudioEchoWidget::paintGL() {
 
 	for (int j=0;j<M;j++) {
 		for (int i=0;i<n;i++)
-			W[j*n+i] = w[j*n+i] / (1.f * n);
+			W[j*n+i] = static_cast<float>(w[j*n+i]) / static_cast<float>(n);
 		mumble_drft_forward(&d, & W[j*n]);
 	}
 
 	mumble_drft_clear(&d);
 
-	float xscale = 1.0f / N;
-	float yscale = 1.0f / M;
+	float xscale = 1.0f / static_cast<float>(N);
+	float yscale = 1.0f / static_cast<float>(M);
 
 	glBegin(GL_QUADS);
 
 	for (int j = 0; j < M; j++) {
 		for (int i=1;i < N; i++) {
-			float xa = i * xscale;
-			float ya = j * yscale;
+			float xa = static_cast<float>(i) * xscale;
+			float ya = static_cast<float>(j) * yscale;
 
 			float xb = xa + xscale;
 			float yb = ya + yscale;
@@ -200,11 +200,11 @@ void AudioEchoWidget::paintGL() {
 	glEnd();
 
 	glBegin(GL_LINE_STRIP);
-	glColor3f(1.0, 0.0, 1.0);
-	xscale = 1.0f / (2*n);
+	glColor3f(1.0f, 0.0f, 1.0f);
+	xscale = 1.0f / (2.0f*static_cast<float>(n));
 	yscale = 1.0f / (200.0f * 32767.0f);
 	for (int i=0;i<2*n;i++) {
-		glVertex2f(i*xscale, 0.5 + w[i] * yscale);
+		glVertex2f(static_cast<float>(i)*xscale, 0.5f + static_cast<float>(w[i]) * yscale);
 	}
 	glEnd();
 }
@@ -240,17 +240,17 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 
 	qreal sx, sy;
 
-	sx = (width() - 1.0f) / (ps_size * 1.0f);
-	sy = height() - 1;
+	sx = (static_cast<float>(width()) - 1.0f) / static_cast<float>(ps_size);
+	sy = static_cast<float>(height()) - 1.0f;
 
 	poly << QPointF(0.0f, height() - 1);
 	float fftmul = 1.0 / (32768.0);
 	for (int i=0; i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrtf(sqrtf(noise[i])) - 1;
+		yp = sqrtf(sqrtf(static_cast<float>(noise[i]))) - 1.0f;
 		yp = yp * fftmul;
-		yp = qMin(yp * 3000.0, 1.0);
+		yp = qMin(yp * 3000.0f, 1.0);
 		yp = (1 - yp) * sy;
 		poly << QPointF(xp, yp);
 	}
@@ -267,7 +267,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 	for (int i=0;i < ps_size; i++) {
 		qreal xp, yp;
 		xp = i * sx;
-		yp = sqrtf(sqrtf(ps[i])) - 1;
+		yp = sqrtf(sqrtf(static_cast<float>(ps[i]))) - 1.0f;
 		yp = yp * fftmul;
 		yp = qMin(yp * 3000.0, 1.0);
 		yp = (1 - yp) * sy;
@@ -340,8 +340,8 @@ void AudioStats::on_Tick_timeout() {
 	int stop = (ps_size * 2000) / SAMPLE_RATE;
 
 	for (int i=start;i<stop;i++) {
-		s += sqrtf(ps[i]);
-		n += sqrtf(noise[i]);
+		s += sqrtf(static_cast<float>(ps[i]));
+		n += sqrtf(static_cast<float>(noise[i]));
 	}
 
 	txt.sprintf("%06.3f",s / n);
@@ -349,14 +349,14 @@ void AudioStats::on_Tick_timeout() {
 
 	spx_int32_t v;
 	speex_preprocess_ctl(ai->sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &v);
-	float fv = pow(10.0f, (v / 20.0f));
+	float fv = powf(10.0f, (static_cast<float>(v) / 20.0f));
 	txt.sprintf("%03.0f%%",100.0f / fv);
 	qlMicVolume->setText(txt);
 
 	txt.sprintf("%03.0f%%",ai->fSpeechProb * 100.0f);
 	qlSpeechProb->setText(txt);
 
-	txt.sprintf("%04.1f kbit/s",ai->iBitrate / 1000.0f);
+	txt.sprintf("%04.1f kbit/s",static_cast<float>(ai->iBitrate) / 1000.0f);
 	qlBitrate->setText(txt);
 
 	if (nTalking != bTalking) {

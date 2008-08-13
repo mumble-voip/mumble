@@ -88,12 +88,12 @@ void ServerHandler::udpReady() {
 	while (qusUdp->hasPendingDatagrams()) {
 		char encrypted[65536];
 		char buffer[65535];
-		quint32 buflen = qusUdp->pendingDatagramSize();
+		unsigned int buflen = static_cast<unsigned int>(qusUdp->pendingDatagramSize());
 		QHostAddress senderAddr;
 		quint16 senderPort;
 		qusUdp->readDatagram(encrypted, qMin(65536U, buflen), &senderAddr, &senderPort);
 
-		if (!(senderAddr == qhaRemote) || (senderPort != iPort))
+		if (!(senderAddr == qhaRemote) || (senderPort != usPort))
 			continue;
 
 		if (! cConnection)
@@ -156,7 +156,7 @@ void ServerHandler::sendMessage(Message *mMsg) {
 		PacketDataStream pds(buffer, 65536);
 		mMsg->messageToNetwork(pds);
 		cConnection->csCrypt.encrypt(buffer, crypto, pds.size());
-		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), pds.size() + 4, qhaRemote, iPort);
+		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), pds.size() + 4, qhaRemote, usPort);
 	} else {
 		QByteArray qbaBuffer;
 		mMsg->messageToNetwork(qbaBuffer);
@@ -177,7 +177,7 @@ void ServerHandler::run() {
 	connect(cConnection.get(), SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
 	connect(cConnection.get(), SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
 	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
-	qtsSock->connectToHostEncrypted(qsHostName, iPort);
+	qtsSock->connectToHostEncrypted(qsHostName, usPort);
 
 	QTimer *ticker = new QTimer(this);
 	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
@@ -201,7 +201,7 @@ void ServerHandler::run() {
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 	qscCert = cConnection->peerCertificateChain();
-	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, iPort)))
+	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, usPort)))
 		cConnection->proceedAnyway();
 	else
 		qlErrors = errors;
@@ -314,16 +314,16 @@ void ServerHandler::serverConnectionConnected() {
 	emit connected();
 }
 
-void ServerHandler::setConnectionInfo(const QString &host, int port, const QString &username, const QString &pw) {
+void ServerHandler::setConnectionInfo(const QString &host, unsigned short port, const QString &username, const QString &pw) {
 	qsHostName = host;
-	iPort = port;
+	usPort = port;
 	qsUserName = username;
 	qsPassword = pw;
 }
 
-void ServerHandler::getConnectionInfo(QString &host, int &port, QString &username, QString &pw) {
+void ServerHandler::getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw) {
 	host = qsHostName;
-	port = iPort;
+	port = usPort;
 	username = qsUserName;
 	pw = qsPassword;
 }

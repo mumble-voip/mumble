@@ -107,11 +107,10 @@ AudioInput::AudioInput() {
 	speex_encoder_ctl(esEncState,SPEEX_SET_VAD, &iArg);
 	speex_encoder_ctl(esEncState,SPEEX_SET_DTX, &iArg);
 
-	fArg = g.s.iQuality;
+	fArg = static_cast<float>(g.s.iQuality);
 	speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
-	speex_encoder_ctl(esEncState,SPEEX_GET_BITRATE,&iArg);
+	speex_encoder_ctl(esEncState,SPEEX_GET_BITRATE, &iArg);
 	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_MAX_BITRATE, &iArg);
-
 
 	iArg = 5;
 	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
@@ -182,7 +181,7 @@ AudioInput::~AudioInput() {
 #define IN_MIXER_FLOAT(channels) \
 static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
   const float * RESTRICT input = reinterpret_cast<const float *>(ipt); \
-  register const float m = 1.0f / channels; \
+  register const float m = 1.0f / static_cast<float>(channels); \
   Q_UNUSED(N); \
   for(unsigned int i=0;i<nsamp;++i) {\
 	  register float v= 0.0f; \
@@ -195,12 +194,12 @@ static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTR
 #define IN_MIXER_SHORT(channels) \
 static void inMixerShort##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \
   const short * RESTRICT input = reinterpret_cast<const short *>(ipt); \
-  register const float m = 1.0f / (32768.f * channels); \
+  register const float m = 1.0f / (32768.f * static_cast<float>(channels)); \
   Q_UNUSED(N); \
   for(unsigned int i=0;i<nsamp;++i) {\
 	  register float v= 0.0f; \
 	  for(unsigned int j=0;j<channels;++j) \
-	  	v += input[i*channels+j]; \
+	  	v += static_cast<float>(input[i*channels+j]); \
 	  buffer[i] = v * m; \
   } \
 }
@@ -417,7 +416,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 			jbp.len = iFrameSize * sizeof(short);
 			jbp.timestamp = ++iJitterSeq * 10;
 			jbp.span = 10;
-			jbp.sequence = iJitterSeq;
+			jbp.sequence = static_cast<unsigned short>(iJitterSeq);
 			jbp.user_data = 0;
 
 			jitter_buffer_put(jb, &jbp);
@@ -429,7 +428,7 @@ int AudioInput::getMaxBandwidth() {
 	int audiorate;
 
 	void *es;
-	float f = g.s.iQuality;
+	float f = static_cast<float>(g.s.iQuality);
 	es = speex_encoder_init(&speex_wb_mode);
 	speex_encoder_ctl(es,SPEEX_SET_VBR_QUALITY, &f);
 	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
@@ -458,7 +457,7 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 	void *es;
 	es = speex_encoder_init(&speex_wb_mode);
 
-	float f = g.s.iQuality;
+	float f = static_cast<float>(g.s.iQuality);
 
 	do {
 		speex_encoder_ctl(es, SPEEX_SET_VBR_QUALITY, &f);
@@ -482,7 +481,7 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 			break;
 
 		if (audiorate > bytespersec) {
-			f -= 1.0;
+			f -= 1.0f;
 		}
 	} while (audiorate > bytespersec);
 
@@ -512,26 +511,26 @@ void AudioInput::encodeAudioFrame() {
 
 	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
-		sum += psMic[i] * psMic[i];
-	dPeakMic=20.0f*log10f(sqrtf(sum / iFrameSize) / 32768.0f);
+		sum += static_cast<float>(psMic[i] * psMic[i]);
+	dPeakMic=20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f);
 	if (dPeakMic < -96.0f)
 		dPeakMic = -96.0f;
 
 	max = 1;
 	for(i=0;i<iFrameSize;i++)
-		max = abs(psMic[i]) > max ? abs(psMic[i]) : max;
+		max = static_cast<short>(abs(psMic[i]) > max ? abs(psMic[i]) : max);
 	dMaxMic = max;
 
 	if (g.bEchoTest) {
 		STACKVAR(float, fft, iFrameSize);
 		STACKVAR(float, power, iFrameSize);
-		float scale = 1.f / iFrameSize;
+		float scale = 1.f / static_cast<float>(iFrameSize);
 		for (i=0;i<iFrameSize;i++)
-			fft[i] = psMic[i] * scale;
+			fft[i] = static_cast<float>(psMic[i]) * scale;
 		mumble_drft_forward(&fftTable, fft);
-		float mp = 0.0;
+		float mp = 0.0f;
 		int bin = 0;
-		power[0]=power[1]=0.0;
+		power[0]=power[1]=0.0f;
 		for (i=2;i < iFrameSize / 2;i++) {
 			power[i] = sqrtf(fft[2*i]*fft[2*i]+fft[2*i-1]*fft[2*i-1]);
 			if (power[i] > mp) {
@@ -551,8 +550,8 @@ void AudioInput::encodeAudioFrame() {
 	if (iEchoChannels > 0) {
 		sum=1.0f;
 		for (i=0;i<iFrameSize;i++)
-			sum += psSpeaker[i] * psSpeaker[i];
-		dPeakSpeaker=20.0f*log10f(sqrtf(sum / iFrameSize) / 32768.0f);
+			sum += static_cast<float>(psSpeaker[i] * psSpeaker[i]);
+		dPeakSpeaker=20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f);
 		if (dPeakSpeaker < -96.0f)
 			dPeakSpeaker = -96.0f;
 	} else {
@@ -578,7 +577,7 @@ void AudioInput::encodeAudioFrame() {
 		iArg = 30000;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
 
-		float v = 30000.0f / g.s.iMinLoudness;
+		float v = 30000.0f / static_cast<float>(g.s.iMinLoudness);
 		iArg = lroundf(floorf(20.0f * log10f(v)));
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
 
@@ -616,15 +615,15 @@ void AudioInput::encodeAudioFrame() {
 
 	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
-		sum += psSource[i] * psSource[i];
-	float micLevel = sqrtf(sum / iFrameSize);
+		sum += static_cast<float>(psSource[i] * psSource[i]);
+	float micLevel = sqrtf(sum / static_cast<float>(iFrameSize));
 	dPeakSignal=20.0f*log10f(micLevel / 32768.0f);
 	if (dPeakSignal < -96.0f)
 		dPeakSignal = -96.0f;
 
 	spx_int32_t prob = 0;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);
-	fSpeechProb = prob / 100.0;
+	fSpeechProb = static_cast<float>(prob) / 100.0f;
 
 	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (1.0f + dPeakSignal / 96.0f);
 
@@ -668,9 +667,9 @@ void AudioInput::encodeAudioFrame() {
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;
 		if (iIsSpeech && ! bPreviousVoice && ao)
-			ao->playSine(400,1200,5);
+			ao->playSine(400.0f,1200.0f,5);
 		else if (ao && !iIsSpeech && bPreviousVoice && ao)
-			ao->playSine(620,-1200,5);
+			ao->playSine(620.0f,-1200.0f,5);
 	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
@@ -711,7 +710,7 @@ void AudioInput::flushCheck() {
 	if (bPreviousVoice && iFrames < g.s.iFramesPerPacket)
 		return;
 
-	unsigned char flags = 0;
+	int flags = 0;
 	if (g.iAltSpeak > 0)
 		flags += MessageSpeex::AltSpeak;
 	if (g.s.lmLoopMode == Settings::Server)
@@ -724,7 +723,7 @@ void AudioInput::flushCheck() {
 
 	int len = speex_bits_nbytes(&sbBits);
 	QByteArray qba(len + 1, 0);
-	qba[0] = flags;
+	qba[0] = static_cast<unsigned char>(flags);
 
 	speex_bits_write(&sbBits, qba.data() + 1, len);
 

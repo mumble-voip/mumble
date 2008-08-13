@@ -341,14 +341,14 @@ void MainWindow::openUrl(const QUrl &url) {
 		return;
 	}
 	QString host = url.host();
-	int port = url.port(64738);
+	unsigned short port = static_cast<unsigned short>(url.port(64738));
 	QString user = url.userName();
 	QString pw = url.password();
 	qsDesiredChannel = url.path();
 
 	if (g.sh && g.sh->isRunning()) {
 		QString oHost, oUser, oPw;
-		int oport;
+		unsigned short oport;
 		g.sh->getConnectionInfo(oHost, oport, oUser, oPw);
 
 		if ((user.isEmpty() || (user == oUser)) &&
@@ -443,7 +443,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 	ConnectDialog *cd = new ConnectDialog(this);
 	int res = cd->exec();
 
-	if (cd->qsServer.isEmpty() || (cd->iPort==0) || cd->qsUsername.isEmpty())
+	if (cd->qsServer.isEmpty() || (cd->usPort==0) || cd->qsUsername.isEmpty())
 		res = QDialog::Rejected;
 
 	if (g.sh && g.sh->isRunning() && res == QDialog::Accepted) {
@@ -455,7 +455,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 		qsDesiredChannel = QString();
 		rtLast = MessageServerReject::None;
 		qaServerDisconnect->setEnabled(true);
-		g.sh->setConnectionInfo(cd->qsServer, cd->iPort, cd->qsUsername, cd->qsPassword);
+		g.sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
 	}
 	delete cd;
@@ -611,7 +611,7 @@ void MainWindow::on_qaPlayerKick_triggered() {
 	if (!p)
 		return;
 
-	short session = p->uiSession;
+	unsigned int session = p->uiSession;
 
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
@@ -633,7 +633,7 @@ void MainWindow::on_qaPlayerBan_triggered() {
 	if (!p)
 		return;
 
-	short session = p->uiSession;
+	unsigned int session = p->uiSession;
 
 	bool ok;
 	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
@@ -655,7 +655,7 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 	if (!p)
 		return;
 
-	short session = p->uiSession;
+	unsigned int session = p->uiSession;
 
 	TextMessage tm;
 	tm.setWindowTitle(tr("Sending message to %1").arg(p->qsName));
@@ -1037,17 +1037,17 @@ void MainWindow::on_CenterPos_triggered(bool down) {
 
 void MainWindow::on_VolumeUp_triggered(bool down) {
 	if (down) {
-		float v = floorf(g.s.fVolume * 10.0);
-		if (v < 10.0)
-			g.s.fVolume = ++v / 10.0;
+		float v = floorf(g.s.fVolume * 10.0f);
+		if (v < 10.0f)
+			g.s.fVolume = ++v / 10.0f;
 	}
 }
 
 void MainWindow::on_VolumeDown_triggered(bool down) {
 	if (down) {
-		float v = ceilf(g.s.fVolume * 10.0);
-		if (v > 0.0)
-			g.s.fVolume = --v / 10.0;
+		float v = ceilf(g.s.fVolume * 10.0f);
+		if (v > 0.0f)
+			g.s.fVolume = --v / 10.0f;
 	}
 }
 
@@ -1121,7 +1121,7 @@ void MainWindow::serverConnected() {
 	g.l->setIgnore(Log::PlayerJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
 	QString host, uname, pw;
-	int port;
+	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
 	g.l->log(Log::ServerConnected, tr("Connected to server %1.").arg(host));
 	qaServerDisconnect->setEnabled(true);
@@ -1146,7 +1146,7 @@ void MainWindow::serverDisconnected(QString reason) {
 	qaServerBanList->setEnabled(false);
 
 	QString uname, pw, host;
-	int port;
+	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
 
 	if (aclEdit) {

@@ -85,8 +85,8 @@ bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
 		if (qme) {
 			if (qme->buttons() & Qt::LeftButton) {
 				QPointF qpf = qgvView->mapToScene(qme->pos());
-				fX = qpf.x();
-				fY = qpf.y();
+				fX = static_cast<float>(qpf.x());
+				fY = static_cast<float>(qpf.y());
 			}
 		}
 	}
@@ -613,10 +613,10 @@ void AudioWizard::showPage(int v) {
 }
 
 int AudioWizard::nextId() const {
-	int next = QWizard::nextId();
+	int nextid = QWizard::nextId();
 	if (currentPage() == qwpTrigger && ! g.s.bPositionalAudio)
-		next++;
-	return next;
+		nextid++;
+	return nextid;
 }
 
 void AudioWizard::playChord() {
@@ -742,10 +742,10 @@ void AudioWizard::on_Ticker_timeout() {
 	} else if (currentPage() == qwpPositional) {
 		float xp, yp;
 		if ((fX == 0.0f) && (fY == 0.0f)) {
-			fAngle += 0.05;
+			fAngle += 0.05f;
 
-			xp = sin(fAngle) * 2.0f;
-			yp = cos(fAngle) * 2.0f;
+			xp = sinf(fAngle) * 2.0f;
+			yp = cosf(fAngle) * 2.0f;
 		} else {
 			xp = fX;
 			yp = fY;
@@ -759,17 +759,17 @@ void AudioWizard::on_Ticker_timeout() {
 }
 
 void AudioWizard::on_VADmin_valueChanged(int v) {
-	g.s.fVADmin = v / 32767.0f;
+	g.s.fVADmin = static_cast<float>(v) / 32767.0f;
 }
 
 void AudioWizard::on_VADmax_valueChanged(int v) {
-	g.s.fVADmax = v / 32767.0f;
+	g.s.fVADmax = static_cast<float>(v) / 32767.0f;
 }
 
 void AudioWizard::on_Holdtime_valueChanged(int v) {
 	g.s.iVoiceHold = v;
 
-	float val = v * 20;
+	float val = static_cast<float>(v) * 20.0f;
 	val = val / 1000.0f;
 	qlHoldtime->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }

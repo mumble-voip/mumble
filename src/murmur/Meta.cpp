@@ -37,7 +37,7 @@ MetaParams Meta::mp;
 
 MetaParams::MetaParams() {
 	qsPassword = QString();
-	iPort = 64738;
+	usPort = 64738;
 	iTimeout = 30;
 	iMaxBandwidth = 10000;
 	iMaxUsers = 1000;
@@ -126,7 +126,7 @@ void MetaParams::read(QString fname) {
 	}
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
-	iPort = qs.value("port", iPort).toInt();
+	usPort = static_cast<unsigned short>(qs.value("port", usPort).toUInt());
 	iTimeout = qs.value("timeout", iTimeout).toInt();
 	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
 	iDefaultChan = qs.value("defaultchannel", iDefaultChan).toInt();
@@ -228,7 +228,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.clear();
 	qmConfig.insert(QLatin1String("host"),qhaBind.toString());
 	qmConfig.insert(QLatin1String("password"),qsPassword);
-	qmConfig.insert(QLatin1String("port"),QString::number(iPort));
+	qmConfig.insert(QLatin1String("port"),QString::number(usPort));
 	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
 	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));
 	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));

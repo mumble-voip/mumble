@@ -39,7 +39,7 @@ struct MetaParams {
 	QDir qdBasePath;
 
 	QHostAddress qhaBind;
-	int iPort;
+	unsigned short usPort;
 	int iTimeout;
 	int iMaxBandwidth;
 	int iMaxUsers;
