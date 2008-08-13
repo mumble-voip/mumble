@@ -124,8 +124,9 @@ void GlobalShortcutX::run() {
 			tv.tv_usec = 100000;
 			if (select(ConnectionNumber(display)+1, &in_fds, NULL, NULL, &tv)) {
 				while (XPending(display)) {
+					bool suppress = false;
 					XNextEvent(display, &evt);
-					XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
+					
 					switch (evt.type) {
 						case KeyPress:
 						case KeyRelease:
@@ -138,12 +139,14 @@ void GlobalShortcutX::run() {
 								else
 									evtcode = 0x118 + evt.xbutton.button;
 
-								handleButton(evtcode, down);
+								suppress = handleButton(evtcode, down);
 							}
 							break;
 						default:
 							qWarning("GlobalShortcutX: EVT %x", evt.type);
 					}
+					if (! suppress)
+						XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
 				}
 			}
 		}
