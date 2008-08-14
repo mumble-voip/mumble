@@ -108,6 +108,10 @@ GlobalShortcutX::~GlobalShortcutX() {
 	wait();
 }
 
+bool GlobalShortcutX::canSuppress() {
+	return bXevie;
+}
+
 void GlobalShortcutX::run() {
 	fd_set in_fds;
 	XEvent evt;

@@ -335,7 +335,11 @@ void MainWindow::on_qtvPlayers_doubleClicked(const QModelIndex &idx) {
 }
 
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
+#if QT_VERSION >= 0x040400
 	QMenu *menu = qteLog->createStandardContextMenu(mpos);
+#else
+	QMenu *menu = qteLog->createStandardContextMenu();
+#endif
 	menu->addSeparator();
 	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
 	menu->exec(qteLog->mapToGlobal(mpos));

@@ -45,6 +45,7 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		~GlobalShortcutX();
 		void run();
 		QString buttonName(const QVariant &);
+		virtual bool canSuppress();
 	public slots:
 		void inputReadyRead(int);
 		void directoryChanged(const QString &);
