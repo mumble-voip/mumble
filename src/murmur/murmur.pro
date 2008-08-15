@@ -55,7 +55,7 @@ ice {
 
 	SOURCES += Murmur.cpp MurmurIce.cpp
 	HEADERS += MurmurIce.h
-	win32:debug {
+	win32:CONFIG(debug, debug|release) {
 		LIBS += -lIceD -lIceUtilD
 	} else {
 		LIBS += -lIce -lIceUtil
