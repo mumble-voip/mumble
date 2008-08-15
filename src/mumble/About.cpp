@@ -34,17 +34,16 @@
 #include "licenses.h"
 
 AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
-
 	setWindowTitle(tr("About Mumble"));
 
 	QTabWidget *qtwTab = new QTabWidget(this);
 	QVBoxLayout *vblMain = new QVBoxLayout(this);
 
-	QTextEdit *qteLicense=new QTextEdit();
+	QTextEdit *qteLicense=new QTextEdit(qtwTab);
 	qteLicense->setReadOnly(true);
 	qteLicense->setPlainText(QLatin1String(licenseMumble));
 
-	QWidget *about=new QWidget();
+	QWidget *about=new QWidget(qtwTab);
 
 	QLabel *icon=new QLabel(about);
 	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(128,128))));
@@ -57,21 +56,18 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	                  "<p><b>A voice-chat utility for gamers</b></p>"
 	                  "<p><tt><a href=\"%2\">%2</a></tt></p>"
 	              ).arg(QLatin1String(MUMBLE_RELEASE)).arg(QLatin1String("http://mumble.sourceforge.net/")).arg(QLatin1String("2005-2008")));
-	QHBoxLayout *qhbl=new QHBoxLayout();
+	QHBoxLayout *qhbl=new QHBoxLayout(about);
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
-	about->setLayout(qhbl);
 
 	qtwTab->addTab(about, tr("&About Mumble"));
 	qtwTab->addTab(qteLicense, tr("&License"));
 
-	QPushButton *okButton = new QPushButton(tr("OK"));
+	QPushButton *okButton = new QPushButton(tr("OK"), this);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
 	vblMain->addWidget(qtwTab);
 	vblMain->addWidget(okButton);
-
-	setLayout(vblMain);
 }
 
 AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
@@ -80,7 +76,7 @@ AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
 
 	setWindowTitle(tr("About Speex"));
 
-	QLabel *text=new QLabel();
+	QLabel *text=new QLabel(this);
 	text->setOpenExternalLinks(true);
 	text->setText(tr(
 	                  "<h3>About Speex</h3>"
@@ -91,14 +87,13 @@ AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
 	                  "compression.</p>"
 	              ).arg(QLatin1String(verptr)).arg(QLatin1String("http://www.speex.org/")));
 
-	QPushButton *okButton = new QPushButton(tr("OK"));
+	QPushButton *okButton = new QPushButton(tr("OK"), this);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-	QVBoxLayout *vblMain = new QVBoxLayout();
+	QVBoxLayout *vblMain = new QVBoxLayout(this);
 	QHBoxLayout *qhbl=new QHBoxLayout();
 	qhbl->addWidget(text);
 
 	vblMain->addLayout(qhbl);
 	vblMain->addWidget(okButton);
-	setLayout(vblMain);
 }

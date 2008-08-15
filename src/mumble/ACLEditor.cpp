@@ -46,11 +46,11 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	iId = mea->iId;
 	setWindowTitle(tr("Mumble - Edit ACL for %1").arg(Channel::get(iId)->qsName));
 
-	QGridLayout *grid = new QGridLayout();
+	QGridLayout *grid = new QGridLayout(qgbACLpermissions);
 
-	l=new QLabel(tr("Deny"));
+	l=new QLabel(tr("Deny"), qgbACLpermissions);
 	grid->addWidget(l,0,1);
-	l=new QLabel(tr("Allow"));
+	l=new QLabel(tr("Allow"), qgbACLpermissions);
 	grid->addWidget(l,0,2);
 
 	int perm=1;
@@ -58,13 +58,13 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	QString name;
 	while (!(name = ChanACL::permName(static_cast<ChanACL::Perm>(perm))).isEmpty()) {
 		QCheckBox *qcb;
-		l = new QLabel(name);
+		l = new QLabel(name, qgbACLpermissions);
 		grid->addWidget(l,idx,0);
-		qcb=new QCheckBox();
+		qcb=new QCheckBox(qgbACLpermissions);
 		connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
 		grid->addWidget(qcb,idx,1);
 		qlACLDeny << qcb;
-		qcb=new QCheckBox();
+		qcb=new QCheckBox(qgbACLpermissions);
 		connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
 		grid->addWidget(qcb,idx,2);
 		qlACLAllow << qcb;
@@ -72,8 +72,6 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 		idx++;
 		perm = perm * 2;
 	}
-
-	qgbACLpermissions->setLayout(grid);
 
 	MessageEditACL::ACLStruct *def = new MessageEditACL::ACLStruct();
 	def->bApplyHere = true;

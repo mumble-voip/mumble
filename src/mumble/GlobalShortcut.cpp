@@ -117,18 +117,18 @@ void ShortcutKeyWidget::displayKeys() {
 
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	setObjectName(QLatin1String("GlobalShortcutConfig"));
-	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"));
+	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"), this);
 	QLabel *lab;
 
-	QGridLayout *l=new QGridLayout();
+	QGridLayout *l=new QGridLayout(qgbShortcuts);
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();
 
-	lab=new QLabel(tr("Function"));
+	lab=new QLabel(tr("Function"), this);
 	l->addWidget(lab, 0, 0);
-	lab=new QLabel(tr("Shortcut"));
+	lab=new QLabel(tr("Shortcut"), this);
 	l->addWidget(lab, 0, 1);
-	lab=new QLabel(tr("Suppress"));
+	lab=new QLabel(tr("Suppress"), this);
 	lab->setVisible(canSuppress);
 	l->addWidget(lab, 0, 2);
 
@@ -137,9 +137,9 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 
 	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
-		ShortcutKeyWidget *skw=new ShortcutKeyWidget();
-		QCheckBox *qcb = new QCheckBox();
-		lab=new QLabel(gs->name);
+		ShortcutKeyWidget *skw=new ShortcutKeyWidget(qgbShortcuts);
+		QCheckBox *qcb = new QCheckBox(qgbShortcuts);
+		lab=new QLabel(gs->name, qgbShortcuts);
 
 		l->addWidget(lab, i+1, 0);
 		l->addWidget(skw, i+1, 1);
@@ -161,15 +161,12 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 		i++;
 	}
 
-	lab = new QLabel(tr("Double-click an entry to clear the shortcut."));
+	lab = new QLabel(tr("Double-click an entry to clear the shortcut."), qgbShortcuts);
 	l->addWidget(lab,i+1,0,1,2);
 
-	qgbShortcuts->setLayout(l);
-
-	QVBoxLayout *v = new QVBoxLayout;
+	QVBoxLayout *v = new QVBoxLayout(this);
 	v->addWidget(qgbShortcuts);
 	v->addStretch(1);
-	setLayout(v);
 
 	QMetaObject::connectSlotsByName(this);
 }

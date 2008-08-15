@@ -46,12 +46,9 @@ static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-
 	qcbShow->addItem(tr("Show no one"), Settings::Nothing);
 	qcbShow->addItem(tr("Show only talking"), Settings::Talking);
 	qcbShow->addItem(tr("Show everyone"), Settings::All);
-
-//	on_qsMaxHeight_valueChanged(qsMaxHeight->value());
 }
 
 void OverlayConfig::load(const Settings &r) {

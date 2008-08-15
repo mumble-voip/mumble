@@ -100,6 +100,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	unsigned int idx = 0;
 	ConfigWidgetNew cwn;
 	foreach(cwn, *ConfigRegistrar::c_qmNew) {
+		QMessageBox::warning(NULL, tr("bLIPP"), tr("blopp"));
 		addPage(cwn(s), ++idx);
 	}
 
@@ -135,6 +136,8 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	QDesktopWidget dw;
 
 	int w = INT_MAX, h = INT_MAX;
+
+	qWarning("Adding %s", qPrintable(cw->windowTitle()));
 
 
 	for (int i=0;i<dw.numScreens();++i) {

@@ -39,32 +39,26 @@ ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 	QVBoxLayout *v;
 	QGroupBox *qcbChain, *qcbDetails;
 
-	qcbChain=new QGroupBox(tr("Certificate chain"));
-	qcbDetails=new QGroupBox(tr("Certificate details"));
-
-	h = new QHBoxLayout();
-	qlwChain = new QListWidget();
+	qcbChain=new QGroupBox(tr("Certificate chain"), this);
+	h = new QHBoxLayout(qcbChain);
+	qlwChain = new QListWidget(qcbChain);
 	qlwChain->setObjectName(QLatin1String("Chain"));
 
 	foreach(QSslCertificate c, qlCerts)
 	qlwChain->addItem(tr("%1 %2").arg(c.subjectInfo(QSslCertificate::CommonName)).arg(c.subjectInfo(QSslCertificate::Organization)));
-
 	h->addWidget(qlwChain);
-	qcbChain->setLayout(h);
 
-	h = new QHBoxLayout();
-	qlwCert = new QListWidget();
+	qcbDetails=new QGroupBox(tr("Certificate details"), this);
+	h = new QHBoxLayout(qcbDetails);
+	qlwCert = new QListWidget(qcbDetails);
 	h->addWidget(qlwCert);
-	qcbDetails->setLayout(h);
 
-	QDialogButtonBox *qdbb = new QDialogButtonBox(QDialogButtonBox::Ok);
+	QDialogButtonBox *qdbb = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, this);
 
-	v = new QVBoxLayout();
+	v = new QVBoxLayout(this);
 	v->addWidget(qcbChain);
 	v->addWidget(qcbDetails);
 	v->addWidget(qdbb);
-
-	setLayout(v);
 
 	QMetaObject::connectSlotsByName(this);
 	connect(qdbb, SIGNAL(accepted()), this, SLOT(accept()));
