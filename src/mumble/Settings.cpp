@@ -89,14 +89,18 @@ Settings::Settings() {
 	bOverlayUserTextures=true;
 	osOverlay = All;
 	bOverlayAlwaysSelf = true;
-	fOverlayX = 1.0f;
+	fOverlayX = 0.8f;
 	fOverlayY = 0.0f;
 	bOverlayTop = false;
 	bOverlayBottom = true;
 	bOverlayLeft = true;
 	bOverlayRight = false;
+#ifdef Q_OS_WIN
+	qfOverlayFont = QFont(QLatin1String("Comic Sans MS"), 20);
+#else
 	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
-	fOverlayHeight = 30.0f;
+#endif
+	fOverlayHeight = .03f;
 	qcOverlayPlayer = QColor(255,255,255,128);
 	qcOverlayTalking = QColor(255,255,196,255);
 	qcOverlayAltTalking = QColor(255,128,128,255);
@@ -119,6 +123,9 @@ Settings::Settings() {
 
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogTTS);
+
+	qmMessages[Log::DebugInfo] = Settings::LogConsole;
+	qmMessages[Log::Information] = Settings::LogConsole;
 
 	iServerRow = -1;
 }
