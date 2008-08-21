@@ -3,12 +3,12 @@
 
 TEMPLATE = lib
 CONFIG -= qt
-CONFIG += debug_and_release
+CONFIG *= debug_and_release
 TARGET = mumble
 VERSION = 1.1.5
 SOURCES = overlay.c
-LIBS += -lrt -ldl
-QMAKE_CFLAGS += -fvisibility=hidden
+LIBS *= -lrt -ldl
+QMAKE_CFLAGS *= -fvisibility=hidden
 QMAKE_LFLAGS -= -Wl,--no-undefined
 equals(QMAKE_LINK,g++) {
   message(Overriding linker)

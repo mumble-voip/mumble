@@ -38,7 +38,7 @@ if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
 chdir("src/murmur");
 system("/usr/local/Trolltech/Qt-4.4.1/bin/qmake CONFIG+=static");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.4.1/bin/qmake CONFIG+=static CONFIG+=no-ice");
+system("/usr/local/Trolltech/Qt-4.4.1/bin/qmake CONFIG+=static");
 system("make");
 chdir("../..");
 system("strip release/murmurd");

@@ -22,7 +22,7 @@ foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro",
   $basedir =~ s/[^\/]+\Z//g;
   while(<F>) {
     chomp();
-    if (/^\s*(\w+)\s*?[\+\-]{0,1}=\s*(.+)$/) {
+    if (/^\s*(\w+)\s*?[\+\-\*]{0,1}=\s*(.+)$/) {
       my ($var,$value)=(lc $1,$2);
       switch ($var) {
         case "version" {
