@@ -1,6 +1,7 @@
 CONFIG *= warn_on
 
 win32 {
+	INCLUDEPATH *= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_36
 	CONFIG(intelcpp) {
 		DEFINES *= RESTRICT=restrict
 		DEFINES *= VAR_ARRAYS
@@ -68,6 +69,10 @@ win32 {
 }
 
 macx {
+	# Common include paths for boost 1.34
+	INCLUDEPATH *= /usr/local/include/boost-1_34_1/
+	INCLUDEPATH *= /opt/local/include/boost-1_34_1/
+
 	ARCH=$$system(uname -m) 
 	X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
 
