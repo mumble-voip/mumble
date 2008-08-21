@@ -50,6 +50,12 @@ Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 }
 
 Channel::~Channel() {
+	if (cParent)
+		cParent->removeChannel(this);
+		
+	foreach(Channel *c, qlChannels)
+		delete c;
+
 	foreach(ChanACL *acl, qlACL)
 	delete acl;
 	foreach(Group *g, qhGroups)
@@ -58,7 +64,6 @@ Channel::~Channel() {
 	unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
-	Q_ASSERT(qlPlayers.count() == 0);
 	Q_ASSERT(children().count() == 0);
 }
 

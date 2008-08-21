@@ -996,6 +996,8 @@ void Server::readChannels(Channel *p) {
 
 		while (query.next()) {
 			c = new Channel(query.value(0).toInt(), query.value(1).toString(), p);
+			if (! p)
+				c->setParent(this);
 			qhChannels.insert(c->iId, c);
 			c->bInheritACL = query.value(2).toBool();
 			kids << c;

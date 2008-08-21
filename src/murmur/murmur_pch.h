@@ -58,4 +58,11 @@
 #define STACKVAR(type, varname, count) type varname[count]
 #endif
 
+#ifdef USE_ICE
+#include <boost/function.hpp>
+#include <boost/bind.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
+#endif
+
 #endif

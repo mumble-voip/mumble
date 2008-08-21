@@ -94,7 +94,7 @@ module Murmur
 	exception ServerFailureException extends MurmurException {};
 	exception InvalidPlayerException extends MurmurException {};
 
-	interface Server {
+	["amd"] interface Server {
 		idempotent bool isRunning();
 		void start() throws ServerBootedException, ServerFailureException;
 		void stop() throws ServerBootedException;
@@ -142,7 +142,7 @@ module Murmur
 
 	sequence<Server *> ServerList;
 
-	interface Meta {
+	["amd"] interface Meta {
 		idempotent Server *getServer(int id) throws InvalidServerException;
 		Server *newServer();
 		idempotent ServerList getBootedServers();

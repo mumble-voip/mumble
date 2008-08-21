@@ -19,7 +19,7 @@ SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.c
 
 DIST = DBus.h ServerDB.h murmur.ico
 PRECOMPILED_HEADER = murmur_pch.h
-DIST *= murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-user-wrapper Murmur.ice
+DIST *= murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-user-wrapper Murmur.ice MurmurIceWrapper.cpp
 
 !CONFIG(no-ice) {
 	CONFIG *= ice
