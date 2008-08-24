@@ -110,6 +110,7 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
   File "\dev\dbus\bin\dbus-daemon.exe"
+  File "\dev\dbus\bin\dbus-send.exe"
   File "\dev\dbus\etc\session.conf"
 
   File "\dev\Ice\bin\ice33.dll"
@@ -211,6 +212,7 @@ Section "Uninstall"
   Delete "$INSTDIR\iconv.dll"
   Delete "$INSTDIR\zlib1.dll"
   Delete "$INSTDIR\dbus-daemon.exe"
+  Delete "$INSTDIR\dbus-send.exe"
   Delete "$INSTDIR\session.conf"
 
   Delete "$INSTDIR\libmmd.dll"
