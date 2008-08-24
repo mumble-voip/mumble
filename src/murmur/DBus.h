@@ -197,6 +197,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void registerPlayer(const QString &name, const QDBusMessage &, int &id);
 		void unregisterPlayer(int id, const QDBusMessage &);
 		void updateRegistration(const RegisteredPlayer &player, const QDBusMessage &);
+		void setRegistration(int id, const QString &name, const QString &email, const QString &pw, const QDBusMessage &);
 		void getRegistration(int id, const QDBusMessage &, RegisteredPlayer &player);
 		void getRegisteredPlayers(const QString &filter, QList<RegisteredPlayer> &players);
 		void verifyPassword(int id, const QString &pw, const QDBusMessage &, bool &ok);

@@ -771,6 +771,15 @@ void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlay
 	player.email = email;
 }
 
+void MurmurDBus::setRegistration(int id, const QString &name, const QString &email, const QString &pw, const QDBusMessage &msg) {
+	RegisteredPlayer player;
+	player.id = id;
+	player.name = name;
+	player.email = email;
+	player.pw = pw;
+	updateRegistration(player, msg);
+}
+
 void MurmurDBus::updateRegistration(const RegisteredPlayer &player, const QDBusMessage &msg) {
 	QString name, email;
 	if (! server->getRegistration(player.id, name, email)) {
