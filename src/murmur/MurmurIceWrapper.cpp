@@ -18,7 +18,7 @@ void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::I
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_id, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,  const ::std::wstring& p1, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_getConf, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
@@ -26,11 +26,11 @@ void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPt
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_getAllConf, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,  const ::std::string& p1,  const ::std::string& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,  const ::std::wstring& p1,  const ::std::wstring& p2, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_setConf, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::setSuperuserPasssword_async(const ::Murmur::AMD_Server_setSuperuserPassswordPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::setSuperuserPasssword_async(const ::Murmur::AMD_Server_setSuperuserPassswordPtr &cb,  const ::std::wstring& p1, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_setSuperuserPasssword, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
@@ -58,7 +58,7 @@ void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_setBans, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::kickPlayer_async(const ::Murmur::AMD_Server_kickPlayerPtr &cb,  ::Ice::Int p1,  const ::std::string& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::kickPlayer_async(const ::Murmur::AMD_Server_kickPlayerPtr &cb,  ::Ice::Int p1,  const ::std::wstring& p2, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_kickPlayer, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
@@ -82,7 +82,7 @@ void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeCha
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_removeChannel, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPtr &cb,  const ::std::string& p1,  ::Ice::Int p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPtr &cb,  const ::std::wstring& p1,  ::Ice::Int p2, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_addChannel, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
@@ -102,7 +102,7 @@ void ::Murmur::ServerI::getPlayerIds_async(const ::Murmur::AMD_Server_getPlayerI
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_getPlayerIds, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::registerPlayer_async(const ::Murmur::AMD_Server_registerPlayerPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::registerPlayer_async(const ::Murmur::AMD_Server_registerPlayerPtr &cb,  const ::std::wstring& p1, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_registerPlayer, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
@@ -118,11 +118,11 @@ void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegi
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_getRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::getRegisteredPlayers_async(const ::Murmur::AMD_Server_getRegisteredPlayersPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::getRegisteredPlayers_async(const ::Murmur::AMD_Server_getRegisteredPlayersPtr &cb,  const ::std::wstring& p1, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_getRegisteredPlayers, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPasswordPtr &cb,  const ::std::string& p1,  const ::std::string& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPasswordPtr &cb,  const ::std::wstring& p1,  const ::std::wstring& p2, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_verifyPassword, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
