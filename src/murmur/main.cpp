@@ -224,8 +224,10 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-v")) {
 			bVerbose = true;
 		} else if ((arg == "-version") || (arg == "--version")) {
+			detach = false;
 			qFatal("%s -- %s", argv[0], MUMBLE_RELEASE);
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
+			detach = false;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
 			       "  -ini <inifile>   Specify ini file to use.\n"
 			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
@@ -239,9 +241,11 @@ int main(int argc, char **argv) {
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", argv[0]);
 		} else {
+			detach = false;
 			qFatal("Unknown argument %s", argv[i]);
 		}
 		if (bLast && (i+1 != argc)) {
+			detach = false;
 			qFatal("Password arguments must be last.");
 		}
 	}
