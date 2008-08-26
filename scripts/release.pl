@@ -95,7 +95,7 @@ foreach my $file ('LICENSE', sort keys %files) {
   open(F, $file) or croak "Missing $file";
   sysread(F, $blob, 1000000000);
 
-  if ($file eq "src/mumble/Global.h") {
+  if ($file eq "src/Version.h") {
     $blob =~ s/\#ifndef MUMBLE_VERSION/\#define MUMBLE_VERSION $ver\n\#if 0/;
   }
 

@@ -38,6 +38,7 @@
 #include "ServerDB.h"
 #include "DBus.h"
 #include "Meta.h"
+#include "Version.h"
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"
@@ -222,9 +223,9 @@ int main(int argc, char **argv) {
 			detach = false;
 		} else if ((arg == "-v")) {
 			bVerbose = true;
-		} else if ((arg == "-h") || (arg == "--help")) {
-			detach = false;
-			i++;
+		} else if ((arg == "-version") || (arg == "--version")) {
+			qFatal("%s -- %s", argv[0], MUMBLE_RELEASE);
+		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
 			       "  -ini <inifile>   Specify ini file to use.\n"
 			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
@@ -234,10 +235,10 @@ int main(int argc, char **argv) {
 			       "  -v               Add verbose output.\n"
 			       "  -fg              Don't detach from console [Unix-like systems only].\n"
 			       "  -wipessl         Remove SSL certificates from database.\n"
+			       "  -version         Show version information.\n"
 			       "If no inifile is provided, murmur will search for one in \n"
-			       "default locations.",argv[0]);
+			       "default locations.", argv[0]);
 		} else {
-			detach = false;
 			qFatal("Unknown argument %s", argv[i]);
 		}
 		if (bLast && (i+1 != argc)) {
