@@ -143,10 +143,13 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	dbus = new MurmurDBus(this);
 	if (MurmurDBus::qdbc.isConnected())
 		MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(iServerNum), this);
+
+	bRunning = true;
 }
 
 Server::~Server() {
 	qrwlUsers.lockForWrite();
+	bRunning = false;
 	terminate();
 	wait();
 	qrwlUsers.unlock();
@@ -286,7 +289,26 @@ void Server::run() {
 	int fromlen;
 #endif
 
-	forever {
+	while (bRunning) {
+#ifdef Q_OS_DARWIN
+		/*
+		 * Pthreads on Darwin suck.  They won't allow us to shut down the
+		 * server thread while we're in the recvfrom() syscall.
+		 *
+		 * We use this little hack to loop through our outer loop once in
+		 * a while to determine if we should still be running.
+		 */
+		static struct pollfd fds = { sUdpSocket, POLLIN, 0 };
+		int ret = poll(&fds, 1, 1000);
+
+		if (ret == 0) {
+			continue;
+		} else if (ret == -1) {
+			qWarning("poll() failed: %s", strerror(errno));
+			break;
+		}
+#endif
+
 		fromlen = sizeof(from);
 		len=::recvfrom(sUdpSocket, encrypted, 65535, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 

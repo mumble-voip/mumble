@@ -42,6 +42,9 @@
 #include <errno.h>
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
+#ifdef Q_OS_DARWIN
+#include <poll.h>
+#endif
 #endif
 
 #ifdef Q_OS_WIN

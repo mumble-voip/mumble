@@ -104,6 +104,9 @@ class Server : public QThread, public MessageHandler {
 		friend class Murmur::ServerI;
 		Q_OBJECT;
 
+	protected:
+		bool bRunning;
+
 		// Former ServerParams
 	public:
 		QHostAddress qhaBind;
