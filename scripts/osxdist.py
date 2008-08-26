@@ -132,7 +132,7 @@ class AppBundle(object):
 			Copy the murmurd binary into our Mumble app bundle
 		'''
 		print ' * Copying murmurd binary'
-		src = os.path.join(self.bundle, '..', 'murmurd.app', 'Contents', 'MacOS', 'murmurd')
+		src = os.path.join(self.bundle, '..', 'murmurd')
 		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmurd')
 
 		# Is it universal?

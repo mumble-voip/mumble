@@ -46,6 +46,10 @@ unix {
   TARGET = murmurd
 }
 
+macx {
+  CONFIG -= app_bundle
+}
+
 ice {
 	slice.target = Murmur.cpp
 	slice.commands = slice2cpp Murmur.ice
