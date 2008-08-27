@@ -30,6 +30,7 @@
 
 #include "Tray.h"
 #include "Server.h"
+#include "Version.h"
 
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	le = logger;
@@ -78,6 +79,7 @@ void Tray::on_ShowLog_triggered() {
 	mw->setAttribute(Qt::WA_DeleteOnClose);
 	QTextBrowser *tb = new QTextBrowser();
 	mw->setCentralWidget(tb);
+	mw->setWindowTitle(QString::fromLatin1("Murmur -- %1").arg(MUMBLE_RELEASE));
 
 	connect(le, SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
 
