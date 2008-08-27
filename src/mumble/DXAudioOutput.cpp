@@ -262,7 +262,6 @@ void DXAudioOutput::run() {
 	LPDIRECTSOUNDBUFFER       pDSBOutput = NULL;
 	LPDIRECTSOUNDNOTIFY8       pDSNotify = NULL;
 	HANDLE               hNotificationEvent = NULL;
-	LPDIRECTSOUND3DBUFFER8     pDS3dBuffer = NULL;
 
 	DWORD	dwBufferSize;
 	DWORD	dwLastWritePos;
@@ -276,12 +275,7 @@ void DXAudioOutput::run() {
 	int nowriteblock;
 	DWORD dwPlayPosition, dwWritePosition;
 
-
-	bool bPlaying;
-
 	unsigned int iByteSize;
-	int iMissingFrames;
-
 
 	bool bOk;
 	DWORD dwSpeakerConfig;
@@ -292,9 +286,6 @@ void DXAudioOutput::run() {
 	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
 	DWORD dwMask = 0;
 	bool bHead = false;
-
-	DWORD count = 0;
-	DWORD hit;
 
 	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 

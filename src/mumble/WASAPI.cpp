@@ -237,12 +237,9 @@ void WASAPIInput::run() {
 	HANDLE hEvent;
 	BYTE *pData;
 	DWORD flags;
-	int err = 0;
-	DWORD micGotLength = 0, echoGotLength = 0;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
 	float *tbuff = NULL;
-	spx_int32_t startofs;
 
 	CoInitialize(NULL);
 
@@ -502,7 +499,6 @@ void WASAPIOutput::run() {
 	UINT32 wantLength;
 	HANDLE hEvent;
 	BYTE *pData;
-	int err = 0;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
 	int ns = 0;
