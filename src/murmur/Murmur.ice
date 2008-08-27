@@ -1,4 +1,3 @@
-["cpp:type:wstring"]
 module Murmur
 {
 	struct Player {

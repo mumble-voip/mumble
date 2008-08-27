@@ -48,7 +48,15 @@ class IceEvent : public QEvent {
                                                 IceEvent(boost::function<void ()> f) : QEvent(static_cast<QEvent::Type>(ICE_QEVENT)), func(f) {};
                                                                 void execute() { func(); };
                                                                 };
-                                                                
+
+static inline QString fromStdUtf8String(const ::std::string &str) {
+	return QString::fromUtf8(str.data(), str.length());
+}
+
+static inline ::std::string toStdUtf8String(const QString &str) {
+	const QByteArray &qba = str.toUtf8();
+	return ::std::string(qba.constData(), qba.length());
+}
 
 void IceStart() {
 	mi = new MurmurIce();
@@ -84,10 +92,10 @@ MurmurIce::MurmurIce() {
 
 		adapter->activate();
 		foreach(const Ice::EndpointPtr ep, mprx->ice_getEndpoints()) {
-			qWarning("MurmurIce: Endpoint \"%s\" running", qPrintable(QString::fromStdString(ep->toString())));
+			qWarning("MurmurIce: Endpoint \"%s\" running", qPrintable(fromStdUtf8String(ep->toString())));
 		}
 	} catch (Ice::Exception &e) {
-		qWarning("MurmurIce: Initialization failed: %s", qPrintable(QString::fromStdString(e.ice_name())));
+		qWarning("MurmurIce: Initialization failed: %s", qPrintable(fromStdUtf8String(e.ice_name())));
 	}
 }
 
@@ -116,20 +124,20 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
-	ident.name = QString::number(id).toStdString();
+	ident.name = toStdUtf8String(QString::number(id));
 
 	return ServerPrx::uncheckedCast(adapter->createProxy(ident));
 }
 
 static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
 	le.timestamp = r.first;
-	le.txt = r.second.toStdWString();
+	le.txt = toStdUtf8String(r.second);
 }
 
 static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.session = p->uiSession;
 	mp.playerid = p->iId;
-	mp.name = p->qsName.toStdWString();
+	mp.name = toStdUtf8String(p->qsName);
 	mp.mute = p->bMute;
 	mp.deaf = p->bDeaf;
 	mp.suppressed = p->bSuppressed;
@@ -144,7 +152,7 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 
 static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.id = c->iId;
-	mc.name = c->qsName.toStdWString();
+	mc.name = toStdUtf8String(c->qsName);
 	mc.parent = c->cParent ? c->cParent->iId : -1;
 	mc.links.clear();
 	foreach(::Channel *chn, c->qsPermLinks)
@@ -156,13 +164,13 @@ static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
 	ma.applySubs = acl->bApplySubs;
 	ma.inherited = false;
 	ma.playerid = acl->iPlayerId;
-	ma.group = acl->qsGroup.toStdWString();
+	ma.group = toStdUtf8String(acl->qsGroup);
 	ma.allow = acl->pAllow;
 	ma.deny = acl->pDeny;
 }
 
 static void groupToGroup(const ::Group *g, Murmur::Group &mg) {
-	mg.name = g->qsName.toStdWString();
+	mg.name = toStdUtf8String(g->qsName);
 	mg.inherit = g->bInherit;
 	mg.inheritable = g->bInheritable;
 	mg.add.clear();
@@ -212,7 +220,7 @@ static void banToBan(const QPair<quint32,int> b, Murmur::Ban &mb) {
 
 void ServerI::ice_ping(const Ice::Current &current) const {
 	// This is executed in the ice thread.
-	int server_id = QString::fromStdString(current.id.name).toInt();
+	int server_id = fromStdUtf8String(current.id.name).toInt();
 	if (! ServerDB::serverExists(server_id))
 		throw ::Ice::ObjectNotExistException(__FILE__, __LINE__);
 }
@@ -253,9 +261,9 @@ static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {
 	cb->ice_response(server_id);
 }
 
-static void impl_Server_getConf(const ::Murmur::AMD_Server_getConfPtr cb, int server_id,  const ::std::wstring& key) {
+static void impl_Server_getConf(const ::Murmur::AMD_Server_getConfPtr cb, int server_id,  const ::std::string& key) {
 	NEED_SERVER_EXISTS;
-	cb->ice_response(ServerDB::getConf(server_id, QString::fromStdWString(key)).toString().toStdWString());
+	cb->ice_response(toStdUtf8String(ServerDB::getConf(server_id, fromStdUtf8String(key)).toString()));
 }
 
 static void impl_Server_getAllConf(const ::Murmur::AMD_Server_getAllConfPtr cb, int server_id) {
@@ -266,24 +274,24 @@ static void impl_Server_getAllConf(const ::Murmur::AMD_Server_getAllConfPtr cb, 
 	QMap<QString, QString> values = ServerDB::getAllConf(server_id);
 	QMap<QString, QString>::const_iterator i;
 	for (i=values.constBegin();i != values.constEnd(); ++i) {
-		cm[i.key().toStdWString()] = i.value().toStdWString();
+		cm[toStdUtf8String(i.key())] = toStdUtf8String(i.value());
 	}
 	cb->ice_response(cm);
 }
 
-static void impl_Server_setConf(const ::Murmur::AMD_Server_setConfPtr cb, int server_id,  const ::std::wstring& key,  const ::std::wstring& value) {
+static void impl_Server_setConf(const ::Murmur::AMD_Server_setConfPtr cb, int server_id,  const ::std::string& key,  const ::std::string& value) {
 	NEED_SERVER_EXISTS;
-	QString k=QString::fromStdWString(key);
-	QString v=QString::fromStdWString(value);
+	QString k=fromStdUtf8String(key);
+	QString v=fromStdUtf8String(value);
 	ServerDB::setConf(server_id, k, v);
 	if (server)
 		server->setLiveConf(k, v);
 	cb->ice_response();
 }
 
-static void impl_Server_setSuperuserPasssword(const ::Murmur::AMD_Server_setSuperuserPassswordPtr cb, int server_id,  const ::std::wstring& pw) {
+static void impl_Server_setSuperuserPasssword(const ::Murmur::AMD_Server_setSuperuserPassswordPtr cb, int server_id,  const ::std::string& pw) {
 	NEED_SERVER_EXISTS;
-	ServerDB::setSUPW(server_id, QString::fromStdWString(pw));
+	ServerDB::setSUPW(server_id, fromStdUtf8String(pw));
 	cb->ice_response();
 }
 
@@ -382,14 +390,14 @@ static void impl_Server_setBans(const ::Murmur::AMD_Server_setBansPtr cb, int se
 	cb->ice_response();
 }
 
-static void impl_Server_kickPlayer(const ::Murmur::AMD_Server_kickPlayerPtr cb, int server_id,  ::Ice::Int session,  const ::std::wstring& reason) {
+static void impl_Server_kickPlayer(const ::Murmur::AMD_Server_kickPlayerPtr cb, int server_id,  ::Ice::Int session,  const ::std::string& reason) {
 	NEED_SERVER;
 	NEED_PLAYER;
 
 	MessagePlayerKick mpk;
 	mpk.uiSession = 0;
 	mpk.uiVictim = session;
-	mpk.qsReason = QString::fromStdWString(reason);
+	mpk.qsReason = fromStdUtf8String(reason);
 	server->sendAll(&mpk);
 	user->disconnectSocket();
 	cb->ice_response();
@@ -451,12 +459,12 @@ static void impl_Server_removeChannel(const ::Murmur::AMD_Server_removeChannelPt
 	cb->ice_response();
 }
 
-static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, int server_id,  const ::std::wstring& name,  ::Ice::Int parent) {
+static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, int server_id,  const ::std::string& name,  ::Ice::Int parent) {
 	NEED_SERVER;
 	::Channel *p, *nc;
 	NEED_CHANNEL_VAR(p, parent);
 
-	QString qsName = QString::fromStdWString(name);
+	QString qsName = fromStdUtf8String(name);
 
 	nc = server->addChannel(p, qsName);
 	server->updateChannel(nc);
@@ -553,7 +561,7 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 
 	channel->bInheritACL = inherit;
 	foreach(const ::Murmur::Group &gi, groups) {
-		QString name = QString::fromStdWString(gi.name);
+		QString name = fromStdUtf8String(gi.name);
 		g = new ::Group(channel, name);
 		g->bInherit = gi.inherit;
 		g->bInheritable = gi.inheritable;
@@ -566,7 +574,7 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 		acl->bApplyHere = ai.applyHere;
 		acl->bApplySubs = ai.applySubs;
 		acl->iPlayerId = ai.playerid;
-		acl->qsGroup = QString::fromStdWString(ai.group);
+		acl->qsGroup = fromStdUtf8String(ai.group);
 		acl->pDeny = static_cast<ChanACL::Permissions>(ai.deny);
 		acl->pAllow = static_cast<ChanACL::Permissions>(ai.allow);
 	}
@@ -584,7 +592,7 @@ static void impl_Server_getPlayerNames(const ::Murmur::AMD_Server_getPlayerNames
 			if (! name.isEmpty())
 				server->qhUserNameCache.insert(playerid, name);
 		}
-		nm[playerid] = server->qhUserNameCache.value(playerid).toStdWString();
+		nm[playerid] = toStdUtf8String(server->qhUserNameCache.value(playerid));
 	}
 	cb->ice_response(nm);
 }
@@ -592,8 +600,8 @@ static void impl_Server_getPlayerNames(const ::Murmur::AMD_Server_getPlayerNames
 static void impl_Server_getPlayerIds(const ::Murmur::AMD_Server_getPlayerIdsPtr cb, int server_id,  const ::Murmur::NameList& names) {
 	NEED_SERVER;
 	::Murmur::IdMap im;
-	foreach(const wstring &n, names) {
-		QString name = QString::fromStdWString(n);
+	foreach(const string &n, names) {
+		QString name = fromStdUtf8String(n);
 		if (! server->qhUserIDCache.contains(name)) {
 			int playerid = server->getUserID(name);
 			if (playerid != -1)
@@ -604,9 +612,9 @@ static void impl_Server_getPlayerIds(const ::Murmur::AMD_Server_getPlayerIdsPtr 
 	cb->ice_response(im);
 }
 
-static void impl_Server_registerPlayer(const ::Murmur::AMD_Server_registerPlayerPtr cb, int server_id,  const ::std::wstring& name) {
+static void impl_Server_registerPlayer(const ::Murmur::AMD_Server_registerPlayerPtr cb, int server_id,  const ::std::string& name) {
 	NEED_SERVER;
-	int playerid = server->registerPlayer(QString::fromStdWString(name));
+	int playerid = server->registerPlayer(fromStdUtf8String(name));
 	if (playerid < 0)
 		cb->ice_exception(InvalidPlayerException());
 	else
@@ -630,9 +638,9 @@ static void impl_Server_updateregistration(const ::Murmur::AMD_Server_updateregi
 		return;
 	}
 
-	QString newname = QString::fromStdWString(registration.name);
-	QString newemail = QString::fromStdWString(registration.email);
-	QString newpw = QString::fromStdWString(registration.pw);
+	QString newname = fromStdUtf8String(registration.name);
+	QString newemail = fromStdUtf8String(registration.email);
+	QString newpw = fromStdUtf8String(registration.pw);
 
 	if ((! newname.isEmpty()) && (newname != name))
 		if (! server->setName(registration.playerid, newname)) {
@@ -660,32 +668,32 @@ static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrati
 
 	::Murmur::RegisteredPlayer reg;
 	reg.playerid = playerid;
-	reg.name = name.toStdWString();
-	reg.email = email.toStdWString();
+	reg.name = toStdUtf8String(name);
+	reg.email = toStdUtf8String(email);
 	cb->ice_response(reg);
 }
 
-static void impl_Server_getRegisteredPlayers(const ::Murmur::AMD_Server_getRegisteredPlayersPtr cb, int server_id,  const ::std::wstring& filter) {
+static void impl_Server_getRegisteredPlayers(const ::Murmur::AMD_Server_getRegisteredPlayersPtr cb, int server_id,  const ::std::string& filter) {
 	NEED_SERVER;
 	Murmur::RegisteredPlayerList rpl;
 	Murmur::RegisteredPlayer reg;
 
-	const QMap<int, QPair<QString, QString> > l = server->getRegisteredPlayers(QString::fromStdWString(filter));
+	const QMap<int, QPair<QString, QString> > l = server->getRegisteredPlayers(fromStdUtf8String(filter));
 	QMap<int, QPair<QString, QString > >::const_iterator i;
 	for (i = l.constBegin(); i != l.constEnd(); ++i) {
 		reg.playerid = i.key();
-		reg.name = i.value().first.toStdWString();
-		reg.email = i.value().second.toStdWString();
+		reg.name = toStdUtf8String(i.value().first);
+		reg.email = toStdUtf8String(i.value().second);
 		rpl.push_back(reg);
 	}
 
 	cb->ice_response(rpl);
 }
 
-static void impl_Server_verifyPassword(const ::Murmur::AMD_Server_verifyPasswordPtr cb, int server_id,  const ::std::wstring& name,  const ::std::wstring& pw) {
+static void impl_Server_verifyPassword(const ::Murmur::AMD_Server_verifyPasswordPtr cb, int server_id,  const ::std::string& name,  const ::std::string& pw) {
 	NEED_SERVER;
-	QString uname = QString::fromStdWString(name);
-	cb->ice_response(server->authenticate(uname, QString::fromStdWString(pw)));
+	QString uname = fromStdUtf8String(name);
+	cb->ice_response(server->authenticate(uname, fromStdUtf8String(pw)));
 }
 
 static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, int server_id,  ::Ice::Int playerid) {
@@ -737,7 +745,7 @@ static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr 
 	::Murmur::ConfigMap cm;
 	QMap<QString, QString>::const_iterator i;
 	for (i=meta->mp.qmConfig.constBegin();i != meta->mp.qmConfig.constEnd(); ++i) {
-		cm[i.key().toStdWString()] = i.value().toStdWString();
+		cm[toStdUtf8String(i.key())] = toStdUtf8String(i.value());
 	}
 	cb->ice_response(cm);
 }

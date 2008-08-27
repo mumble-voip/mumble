@@ -26,19 +26,19 @@ public:
                           const Ice::Current&);
 
     virtual void getConf_async(const ::Murmur::AMD_Server_getConfPtr&,
-                               const ::std::wstring&,
+                               const ::std::string&,
                                const Ice::Current&);
 
     virtual void getAllConf_async(const ::Murmur::AMD_Server_getAllConfPtr&,
                                   const Ice::Current&);
 
     virtual void setConf_async(const ::Murmur::AMD_Server_setConfPtr&,
-                               const ::std::wstring&,
-                               const ::std::wstring&,
+                               const ::std::string&,
+                               const ::std::string&,
                                const Ice::Current&);
 
     virtual void setSuperuserPasssword_async(const ::Murmur::AMD_Server_setSuperuserPassswordPtr&,
-                                             const ::std::wstring&,
+                                             const ::std::string&,
                                              const Ice::Current&);
 
     virtual void getLog_async(const ::Murmur::AMD_Server_getLogPtr&,
@@ -64,7 +64,7 @@ public:
 
     virtual void kickPlayer_async(const ::Murmur::AMD_Server_kickPlayerPtr&,
                                   ::Ice::Int,
-                                  const ::std::wstring&,
+                                  const ::std::string&,
                                   const Ice::Current&);
 
     virtual void getState_async(const ::Murmur::AMD_Server_getStatePtr&,
@@ -88,7 +88,7 @@ public:
                                      const Ice::Current&);
 
     virtual void addChannel_async(const ::Murmur::AMD_Server_addChannelPtr&,
-                                  const ::std::wstring&,
+                                  const ::std::string&,
                                   ::Ice::Int,
                                   const Ice::Current&);
 
@@ -112,7 +112,7 @@ public:
                                     const Ice::Current&);
 
     virtual void registerPlayer_async(const ::Murmur::AMD_Server_registerPlayerPtr&,
-                                      const ::std::wstring&,
+                                      const ::std::string&,
                                       const Ice::Current&);
 
     virtual void unregisterPlayer_async(const ::Murmur::AMD_Server_unregisterPlayerPtr&,
@@ -128,12 +128,12 @@ public:
                                        const Ice::Current&);
 
     virtual void getRegisteredPlayers_async(const ::Murmur::AMD_Server_getRegisteredPlayersPtr&,
-                                            const ::std::wstring&,
+                                            const ::std::string&,
                                             const Ice::Current&);
 
     virtual void verifyPassword_async(const ::Murmur::AMD_Server_verifyPasswordPtr&,
-                                      const ::std::wstring&,
-                                      const ::std::wstring&,
+                                      const ::std::string&,
+                                      const ::std::string&,
                                       const Ice::Current&);
 
     virtual void getTexture_async(const ::Murmur::AMD_Server_getTexturePtr&,
