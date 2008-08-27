@@ -30,6 +30,7 @@
 
 #include "VersionCheck.h"
 #include "Global.h"
+#include "MainWindow.h"
 
 VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
 	bSilent = autocheck;
@@ -81,9 +82,9 @@ void VersionCheck::on_Agent_requestFinished(int id, bool error) {
 	if ((head.statusCode() == 200) && !error) {
 		QByteArray a=qhAgent->readAll();
 		if (a.size() > 0)
-			QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), QLatin1String(a), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
+			g.mw->msgBox(QLatin1String(a));
 	} else if (bSilent) {
-		QMessageBox::information(static_cast<QWidget *>(parent()), tr("Mumble"), tr("Mumble failed to retrieve version information from the SourceForge server."), QMessageBox::Ok| QMessageBox::Default| QMessageBox::Escape, QMessageBox::NoButton);
+		g.mw->msgBox(tr("Mumble failed to retrieve version information from the SourceForge server."));
 	}
 	deleteLater();
 }

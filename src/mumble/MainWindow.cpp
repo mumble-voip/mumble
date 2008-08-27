@@ -1267,7 +1267,7 @@ void MainWindow::customEvent(QEvent *evt) {
 	}
 	if (evt->type() == MB_QEVENT) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
-		g.l->log(Log::Warning, mbe->msg);
+		g.l->log(Log::Information, mbe->msg);
 		return;
 	}
 	if (evt->type() != SERVERSEND_EVENT)
