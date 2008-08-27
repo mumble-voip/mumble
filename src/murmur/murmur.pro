@@ -17,7 +17,7 @@ SOURCES = main.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Me
 HEADERS	*= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp
 
-DIST = DBus.h ServerDB.h murmur.ico
+DIST = DBus.h ServerDB.h murmur.ico Murmur.ice
 PRECOMPILED_HEADER = murmur_pch.h
 DIST *= murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.logrotate link.pl dbusauth.pl weblist.pl murmur-user-wrapper Murmur.ice MurmurIceWrapper.cpp
 
