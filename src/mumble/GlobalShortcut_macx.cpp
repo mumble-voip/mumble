@@ -153,7 +153,7 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 		kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
 #endif
 	if (! kbdLayout)
-		qWarning("GlobalShortcutMac: No keyboard layout mapping availble. Unable to preform key translation.");
+		qWarning("GlobalShortcutMac: No keyboard layout mapping available. Unable to perform key translation.");
 
 	start(QThread::TimeCriticalPriority);
 }

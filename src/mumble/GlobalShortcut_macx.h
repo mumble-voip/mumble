@@ -50,20 +50,23 @@ class GlobalShortcutMacInit : public QObject, public DeferInit {
 
 class GlobalShortcutMac : public GlobalShortcutEngine {
 		Q_OBJECT
+
 	public:
 		GlobalShortcutMac();
 		~GlobalShortcutMac();
-		QString translateMouseButton(const unsigned int keycode) const;
-		QString translateModifierKey(const unsigned int keycode) const;
-		QString translateKeyName(const unsigned int keycode) const;
 		QString buttonName(const QVariant &);
 		void needRemap();
 		bool handleModButton(CGEventFlags newmask);
-		void run();
 		virtual bool canSuppress();
+
 	protected:
 		CFRunLoopRef loop;
 		CFMachPortRef port;
 		CGEventFlags modmask;
 		UCKeyboardLayout *kbdLayout;
+
+		void run();
+		QString translateMouseButton(const unsigned int keycode) const;
+		QString translateModifierKey(const unsigned int keycode) const;
+		QString translateKeyName(const unsigned int keycode) const;
 };
