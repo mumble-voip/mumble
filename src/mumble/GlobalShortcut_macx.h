@@ -29,6 +29,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#undef qDebug
+#include <Carbon/Carbon.h>
+#include <stdlib.h>
+#undef check
+
 #include "GlobalShortcut.h"
 #include "Global.h"
 
@@ -47,9 +52,18 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		Q_OBJECT
 	public:
 		GlobalShortcutMac();
+		~GlobalShortcutMac();
+		QString translateMouseButton(const unsigned int keycode) const;
+		QString translateModifierKey(const unsigned int keycode) const;
+		QString translateKeyName(const unsigned int keycode) const;
 		QString buttonName(const QVariant &);
 		void needRemap();
-		void handleModButton(unsigned int newmask);
+		bool handleModButton(CGEventFlags newmask);
+		void run();
+		virtual bool canSuppress();
 	protected:
-		unsigned int modmask;
+		CFRunLoopRef loop;
+		CFMachPortRef port;
+		CGEventFlags modmask;
+		UCKeyboardLayout *kbdLayout;
 };

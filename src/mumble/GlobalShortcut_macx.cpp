@@ -29,17 +29,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#undef qDebug // breaks the Carbon header below.
-#include <Carbon/Carbon.h>
-#include <stdlib.h>
-
-#undef check
 #include "GlobalShortcut_macx.h"
-
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
-
 
 /*
  * We use DeferInit in here to pop up a dialog box if their system isn't
@@ -60,11 +53,6 @@ void GlobalShortcutMacInit::openPrefsPane(const QString &) const {
 }
 
 void GlobalShortcutMacInit::accessibilityDialog() const {
-	/*
-	 * Note to anyone trying this out without enabling support for assistive devices:
-	 * Modifier keys pass through without problems. The reason we need assistive device support
-	 * is also get mouse or regular key events through. So no, you're not going crazy.
-	 */
 	QMessageBox mb("Mumble",
 	               tr("Mumble has detected that it is unable to receieve Global Shortcut events when it is in the background.<br /><br />"
 	                  "This is because the Universal Access feature called 'Enable access for assistive devices' is currently disabled.<br /><br />"
@@ -86,140 +74,204 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutMac();
 }
 
-static OSStatus MonitorHandler(EventHandlerCallRef caller,
-                               EventRef event,
-                               void *udata) {
-	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);
-	OSType type = GetEventClass(event);
-	UInt32 kind = GetEventKind(event);
+CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
+                             CGEventRef event, void *udata)
+{
+	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);	
 	unsigned int keycode;
-	EventMouseButton mb;
-	UInt32 ch;
-	bool down;
+	bool suppress = false;
+	bool down = false;
 
-	Q_UNUSED(caller);
-	Q_ASSERT(udata != NULL);
+	switch (type) {
+		case kCGEventLeftMouseDown:
+		case kCGEventRightMouseDown:
+		case kCGEventOtherMouseDown:
+			down = true;
+		case kCGEventLeftMouseUp:
+		case kCGEventRightMouseUp:
+		case kCGEventOtherMouseUp:
+			keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGMouseEventButtonNumber));
+			suppress = gs->handleButton(MOUSE_OFFSET+keycode, down);
+			/* Suppressing "the" mouse button is probably not a good idea :-) */
+			if (keycode == 0)
+				suppress = false;
+			break;
 
-	/* Keyboard events */
-	if (type == kEventClassKeyboard) {
+		case kCGEventKeyDown:
+			down = true;
+		case kCGEventKeyUp:
+			int64_t repeat = CGEventGetIntegerValueField(event, kCGKeyboardEventAutorepeat);
+			if (! repeat) {
+				keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode));
+				suppress = gs->handleButton(keycode, down);
+			}
+			break;
 
-		/* Modifiers are special, of course. */
-		if (kind == kEventRawKeyModifiersChanged) {
-			GetEventParameter(event, kEventParamKeyModifiers, typeUInt32,
-			                  NULL, sizeof(UInt32), NULL, &ch);
-			keycode = static_cast<unsigned int>(ch);
-			gs->handleModButton(keycode);
-
-			/* Regular keypresses. */
-		} else {
-			GetEventParameter(event, kEventParamKeyCode, typeUInt32,
-			                  NULL, sizeof(UInt32), NULL, &ch);
-			keycode = static_cast<unsigned int>(ch);
-			down = (kind == kEventRawKeyDown);
-			gs->handleButton(keycode, down);
-		}
-
-		/* Mouse events */
-	} else if (type == kEventClassMouse) {
-		GetEventParameter(event, kEventParamMouseButton, typeMouseButton,
-		                  NULL, sizeof(EventMouseButton), NULL, &mb);
-		keycode = static_cast<unsigned int>(mb);
-		down = (kind == kEventMouseDown);
-		gs->handleButton(MOUSE_OFFSET+keycode, down);
+		case kCGEventFlagsChanged:
+			suppress = gs->handleModButton(CGEventGetFlags(event));
+			break;
 	}
 
-	return eventNotHandledErr;
-}
-
-static OSStatus CmdHandler(EventHandlerCallRef caller,
-                           EventRef event,
-                           void *udata) {
-	OSStatus err;
-	UInt32 klass = GetEventClass(event);
-
-	Q_ASSERT(udata != NULL);
-
-	if (klass != kEventClassCommand) {
-		err = MonitorHandler(caller, event, udata);
-		if (err)
-			return err;
-	}
-
-	return eventNotHandledErr;
+	return suppress ? NULL : event;
 }
 
 GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 
-	static const EventTypeSpec kEvents[] = {
-		{ kEventClassCommand,   kEventCommandUpdateStatus },
-		{ kEventClassKeyboard,  kEventRawKeyDown },
-		{ kEventClassKeyboard,  kEventRawKeyUp },
-		{ kEventClassKeyboard,  kEventRawKeyModifiersChanged },
-		{ kEventClassMouse,     kEventMouseDown },
-		{ kEventClassMouse,     kEventMouseUp },
-	};
+	static const CGEventType evmask = CGEventMaskBit(kCGEventLeftMouseDown) |
+	                                  CGEventMaskBit(kCGEventLeftMouseUp) |
+	                                  CGEventMaskBit(kCGEventRightMouseDown) |
+	                                  CGEventMaskBit(kCGEventRightMouseUp) |
+	                                  CGEventMaskBit(kCGEventOtherMouseDown) |
+	                                  CGEventMaskBit(kCGEventOtherMouseUp) |
+	                                  CGEventMaskBit(kCGEventKeyDown) |
+	                                  CGEventMaskBit(kCGEventKeyUp) |
+	                                  CGEventMaskBit(kCGEventFlagsChanged);
 
-	static const EventTypeSpec kCmdEvents[] = {
-		{ kEventClassCommand,   kEventCommandProcess },
-		{ kEventClassKeyboard,  kEventRawKeyDown },
-		{ kEventClassKeyboard,  kEventRawKeyUp },
-		{ kEventClassKeyboard,  kEventRawKeyModifiersChanged },
-		{ kEventClassMouse,     kEventMouseDown },
-		{ kEventClassMouse,     kEventMouseUp },
-	};
+	port = CGEventTapCreate(kCGSessionEventTap,
+	                        kCGHeadInsertEventTap,
+	                        0, evmask, EventTapCallback,
+	                        this);
 
-	/*
-	 * The CmdHandler handles events when the program is in the foreground.
-	 * In a usual Carbon application, this would handle all sorts of internal
-	 * events related to the program.
-	 */
-	InstallApplicationEventHandler(CmdHandler, GetEventTypeCount(kCmdEvents),
-	                               kCmdEvents, this, NULL);
+	if (! port) {
+		qWarning("GlobalShortcutMac: Unable to create EventTap. Global Shortcuts will not be available.");
+		return;
+	}
 
-	/*
-	 * The MonitorHandler handles events when the program is in the background.
-	 * This makes it possible for us to receive keystrokes even when Mumble isn't
-	 * the foremost program.
-	 */
-	InstallEventHandler(GetEventMonitorTarget(), MonitorHandler,
-	                    GetEventTypeCount(kEvents), kEvents,
-	                    this, NULL);
+	kbdLayout = NULL;
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
+	TISInputSourceRef inputSource = TISCopyCurrentKeyboardInputSource();
+	if (inputSource) {
+		CFDataRef data = static_cast<CFDataRef>(TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData));
+		if (data)
+			kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
+	}
+#else
+	SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript); 
+	SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys); 
+	Handle handle = GetResource('uchr', lastKeyLayoutID);
+	if (handle)
+		kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
+#endif
+	if (! kbdLayout)
+		qWarning("GlobalShortcutMac: No keyboard layout mapping availble. Unable to preform key translation.");
+
+	start(QThread::TimeCriticalPriority);
+}
+
+GlobalShortcutMac::~GlobalShortcutMac() {
+	CFRunLoopStop(loop);
+	loop = NULL;
+	wait();
+}
+
+void GlobalShortcutMac::run() {
+	loop = CFRunLoopGetCurrent();
+	CFRunLoopSourceRef src = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, port, 0);
+	CFRunLoopAddSource(loop, src, kCFRunLoopCommonModes);
+	CFRunLoopRun();
 }
 
 void GlobalShortcutMac::needRemap() {
 	remap();
 }
 
-void GlobalShortcutMac::handleModButton(unsigned int newmask) {
+bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 	bool down;
+	bool suppress = false;
 
-#define MOD_CHANGED(mask, btn) do { \
-		if ((newmask & mask) != (modmask & mask)) { \
-			down = newmask & mask; \
-			handleButton(MOD_OFFSET+btn, down); \
-		}} while (0)
+	#define MOD_CHANGED(mask, btn) do { \
+	    if ((newmask & mask) != (modmask & mask)) { \
+	        down = newmask & mask; \
+	        suppress = handleButton(MOD_OFFSET+btn, down); \
+	        modmask = newmask; \
+	        return suppress; \
+	    }} while (0)
 
-	MOD_CHANGED(cmdKey, 0);
-	MOD_CHANGED(shiftKey, 1);
-	MOD_CHANGED(alphaLock, 2);
-	MOD_CHANGED(optionKey, 3);
-	MOD_CHANGED(controlKey, 4);
-	MOD_CHANGED(kEventKeyModifierNumLockMask, 5);
-	MOD_CHANGED(kEventKeyModifierFnMask, 6);
+	MOD_CHANGED(kCGEventFlagMaskAlphaShift, 0);
+	MOD_CHANGED(kCGEventFlagMaskShift, 1);
+	MOD_CHANGED(kCGEventFlagMaskControl, 2);
+	MOD_CHANGED(kCGEventFlagMaskAlternate, 3);
+	MOD_CHANGED(kCGEventFlagMaskCommand, 4);
+	MOD_CHANGED(kCGEventFlagMaskHelp, 5);
+	MOD_CHANGED(kCGEventFlagMaskSecondaryFn, 6);
+	MOD_CHANGED(kCGEventFlagMaskNumericPad, 7);
+}
 
-	modmask = newmask;
+QString GlobalShortcutMac::translateMouseButton(const unsigned int keycode) const {
+	return QString("Mouse Button %1").arg(keycode-MOUSE_OFFSET+1);
+}
+
+QString GlobalShortcutMac::translateModifierKey(const unsigned int keycode) const {
+	unsigned int key = keycode - MOD_OFFSET;
+	switch (key) {
+		case 0: return QString("Caps Lock");
+		case 1: return QString("Shift");
+		case 2: return QString("Control");
+		case 3: return QString("Alt/Option");
+		case 4: return QString("Command");
+		case 5: return QString("Help");
+		case 6: return QString("Fn");
+		case 7: return QString("Num Lock");
+	}
+	return QString("Modifier %1").arg(key);
+}
+
+QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
+	UInt32 junk = 0;
+	UniCharCount len = 64;
+	UniChar unicodeString[len];
+
+	if (! kbdLayout)
+		return QString();
+
+	OSStatus err = UCKeyTranslate(kbdLayout, static_cast<UInt16>(keycode),
+	                                kUCKeyActionDisplay, 0, LMGetKbdType(),
+	                                kUCKeyTranslateNoDeadKeysBit, &junk,
+	                                len, &len, unicodeString);
+	if (err != noErr)
+		return QString();
+
+	if (len == 1) {
+		switch (unicodeString[0]) {
+			case '\t':   return QString("Tab");
+			case '\r':   return QString("Enter");
+			case '\b':   return QString("Backspace");
+			case '\e':   return QString("Escape"); 
+			case ' ':    return QString("Space");
+			case 28:     return QString("Left");
+			case 29:     return QString("Right");
+			case 30:     return QString("Up");
+			case 31:     return QString("Down");
+		}
+
+		if (unicodeString[0] < ' ') {
+			qWarning("GlobalShortcutMac: Unknown translation for keycode %u: %u", keycode, unicodeString[0]);
+			return QString();
+		}
+	}
+
+	return QString(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
 }
 
 QString GlobalShortcutMac::buttonName(const QVariant &v) {
 	bool ok;
-	unsigned int key=v.toUInt(&ok);
+	unsigned int key = v.toUInt(&ok);
 	if (!ok)
 		return QString();
 
 	if (key >= MOUSE_OFFSET)
-		return QString("MOUSE_%1").arg(key-MOUSE_OFFSET);
+		return translateMouseButton(key);
 	else if (key >= MOD_OFFSET)
-		return QString("MOD_%1").arg(key-MOD_OFFSET);
-	else
-		return QString("KEY_%1").arg(key);
+		return translateModifierKey(key);
+	else {
+		QString str = translateKeyName(key);
+		if (!str.isEmpty())
+			return str;
+	}
+
+	return QString("Keycode %1").arg(key);
+}
+
+bool GlobalShortcutMac::canSuppress() {
+	return true;
 }
