@@ -98,8 +98,6 @@ unix {
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
   }
 
-
-
   macx {
     TARGET = Mumble
 

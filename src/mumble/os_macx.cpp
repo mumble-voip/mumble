@@ -119,18 +119,15 @@ void query_language() {
 
 void os_init() {
 	const char *home = getenv("HOME");
-	const char *path = "/Library/Preferences/Mumble/";
-	const char *fn = "Console.txt";
+	const char *path = "/Library/Logs/Mumble.log";
 
 	/* Console.txt logging. */
 	if (home) {
-		size_t len = strlen(home) + strlen(path) + strlen(fn) + 1;
+		size_t len = strlen(home) + strlen(path) + 1;
 		STACKVAR(char, buff, len);
 		memset(buff, 0, len);
 		strcat(buff, home);
 		strcat(buff, path);
-		mkdir(buff, 0700);
-		strcat(buff, fn);
 		fConsole = fopen(buff, "a+");
 		if (fConsole)
 			qInstallMsgHandler(mumbleMessageOutput);
