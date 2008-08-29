@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>Mumble</string>
+	<key>CFBundleGetInfoString</key>
+	<string>An open source, low-latency, high quality voice chat software primarily intended for use while gaming.</string>
+	<key>CFBundleIconFile</key>
+	<string>mumble.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.mumble</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Mumble Server URL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mumble</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1.1.5</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright (c) 2005-2008 Thorvald Natvig &lt;slicer@users.sourceforge.net&gt;</string>
+</dict>
+</plist>

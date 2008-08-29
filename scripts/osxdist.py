@@ -3,9 +3,8 @@
 #
 # Simple Mac OS X Application Bundler for Mumble
 #
-# Loosely based on original bash-version by
-# Sebastian Schlingmann (based, again, on a OSX
-# application bundler by Thomas Keller).
+# Loosely based on original bash-version by Sebastian Schlingmann (based, again, on a OSX application bundler 
+# by Thomas Keller).
 #
 
 import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime
@@ -103,17 +102,15 @@ class AppBundle(object):
 		libs = self.get_binary_libs(macho)
 		for lib in libs:
 
-			if os.path.isfile(lib) and not self.is_universal_binary(lib):
+			if os.path.isfile(lib) and self.universal and not self.is_universal_binary(lib):
 				raise self.UniversalBinaryException("Library '%s' is not an Universal Binary. Aborting." % lib)
 
 			if self.is_system_lib(lib):
 				continue
 
-			# At the moment, the only real framework Mumble uses, that isn't
-			# already distributed with Mac OS X, is Qt. And simply copying the
-			# Qt dylibs work just fine. This allows us to get rid of all of that
-			# framework madness in this script (for now, at least... hopefully
-			# forever! :-))
+			# At the moment, the only real framework Mumble uses, that isn't already distributed with Mac OS 
+			# X, is Qt. And simply copying the Qt dylibs work just fine. This allows us to get rid of all of 
+			# that framework madness in this script (for now, at least... hopefully forever! :-))
 			else:
 				baselib = os.path.basename(lib)
 				dst = os.path.join(fwpath, baselib)
@@ -136,7 +133,7 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmurd')
 
 		# Is it universal?
-		if not self.is_universal_binary(src):
+		if self.universal and not self.is_universal_binary(src):
 			raise self.UniversalBinaryException("Murmur executable is not an Universal Binary. Aborting.")
 
 		shutil.copy(src, dst)
@@ -163,37 +160,30 @@ class AppBundle(object):
 			shutil.rmtree(dst)
 		shutil.copytree('release/plugins/', dst)
 
-	def setup_plist(self):
+	def update_plist(self):
 		'''
 			Modify our bundle's Info.plist to make it ready for release.
 		'''
-		p = self.infoplist
-		p['CFBundleGetInfoString'] = 'An open source, low-latency, high quality voice chat software primarily intended for use while gaming.'
-		p['CFBundleIdentifier'] = 'net.sourceforge.mumble'
-		p['CFBundleVersion'] = self.version
-		p['CFBundleURLTypes'] = [{
-			# This breaks because OS X doesn't allow us to use the
-			# app icon for a protocol:
-			#'CFBundleURLIconFile': 'mumble.icns',
-			'CFBundleURLName': 'Mumble Server URL',
-			'CFBundleURLSchemes': ['mumble'],
-		}]
-		p['NSHumanReadableCopyright'] = 'Copyright (c) 2005-2008 Thorvald Natvig <slicer@users.sourceforge.net>'
-		plistlib.writePlist(p, self.infopath)
+		if self.version is not None:
+			print ' * Changing version in Info.plist'
+			p = self.infoplist
+			p['CFBundleVersion'] = self.version
+			plistlib.writePlist(p, self.infopath)
 
 	def done(self):
 		print ' * Done!'
 		print ''
 
-	def __init__(self, bundle, version):
+	def __init__(self, bundle, version=None):
 		self.bundle = bundle
+		self.version = version
 		self.infopath = os.path.join(os.path.abspath(bundle), 'Contents', 'Info.plist')
 		self.infoplist = plistlib.readPlist(self.infopath)
 		self.binary = os.path.join(os.path.abspath(bundle), 'Contents', 'MacOS', self.infoplist['CFBundleExecutable'])
-		if not self.is_universal_binary(self.binary):
-			raise self.UniversalBinaryException("Main application executable is not an Universal Binary. Aborting.")
-		self.version = version
-		print ' * Perparing AppBundle'
+		self.universal = self.is_universal_binary(self.binary)
+		print ' * Preparing AppBundle'
+		if not self.universal:
+			print ' * Main executable not universal. Disabling universal binary checks.'
 
 
 class DiskImage(object):
@@ -278,7 +268,7 @@ if __name__ == '__main__':
 		n = datetime.datetime.now()
 		d = n.strftime('%F-%H%M')
 		ver = 'Snapshot %s' % d
-		dmgfn = 'release/Mumble-Snapshot-%s.dmg' % d 
+		dmgfn = 'release/Mumble-Snapshot-%s.dmg' % d
 		dmgtitle = 'Mumble Snapshot (%s)' %d
 
 	# Do the finishing touches to our Application bundle before release
@@ -287,7 +277,7 @@ if __name__ == '__main__':
 	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns'])
 	a.copy_plugins()
-	a.setup_plist()
+	a.update_plist()
 	a.done()
 
 	# Prepare diskimage
