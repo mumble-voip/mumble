@@ -267,7 +267,10 @@ void ConnectDialog::on_qpbAdd_clicked() {
 		if (! r.isEmpty()) {
 			const QModelIndex &previndex = qlwServers->currentIndex();
 			if (previndex.row() >= 0) {
-				qstmServers->setRecord(previndex.row(), r);
+				// FIXME: setRecord is bugged in 4.4.1
+				// qstmServers->setRecord(previndex.row(), r);
+				qstmServers->removeRows(previndex.row(), 1, QModelIndex());
+				qstmServers->insertRecord(-1, r);
 			} else {
 				qstmServers->insertRecord(-1, r);
 			}
