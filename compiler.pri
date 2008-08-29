@@ -73,29 +73,36 @@ macx {
 	INCLUDEPATH *= /usr/local/include/boost-1_34_1/
 	INCLUDEPATH *= /opt/local/include/boost-1_34_1/
 
-	ARCH=$$system(uname -m) 
-	X86ARCH=$$find(ARCH, i[3456]86) $$find(ARCH, x86_64)
+	CONFIG(cocoa) {
+		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
+		QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
 
-	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4
-	QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.4u.sdk
-
-	CONFIG(debug, debug|release) {
-		CONFIG += no-universal
-	}
-
-	CONFIG(no-universal) {
-		!isEmpty(X86ARCH) {
-			QMAKE_CFLAGS += -mmmx -msse
-			QMAKE_CXXFLAGS += -mmmx -msse
-		}
+		CONFIG += x86_64
+		QMAKE_CFLAGS += -mmmx -msse
+		QMAKE_CXXFLAGS += -mmmx -msse
 	} else {
-		CONFIG += x86 ppc
+		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4
+		QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.4u.sdk
 
-		# Precompiled headers are broken when using Makefiles.
-		!macx-xcode {
-			CONFIG += no-pch
+		CONFIG(debug, debug|release) {
+			CONFIG += no-universal
 		}
-	}
+
+		CONFIG(no-universal) {
+			ARCH=$$system(uname -m)
+			contains(ARCH, 'i386') {
+				QMAKE_CFLAGS += -mmmx -msse
+				QMAKE_CXXFLAGS += -mmmx -msse
+			}
+		} else {
+			CONFIG += x86 ppc
+
+			# Precompiled headers are broken when using Makefiles.
+			!macx-xcode {
+				CONFIG += no-pch
+			}
+		}
+	}	
 }
 
 CONFIG(no-pch) {
