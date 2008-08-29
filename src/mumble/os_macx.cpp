@@ -42,7 +42,7 @@ char *os_url = NULL;
 char *os_lang = NULL;
 static FILE *fConsole = NULL;
 
-static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, long) {
+static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, void *) {
 	OSErr err;
 	DescType type;
 	Size dataSize, size;
