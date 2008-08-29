@@ -37,6 +37,7 @@ SharedMem *sm;
 HANDLE hSharedMutex = NULL;
 HMODULE hSelf = NULL;
 
+int iShouldPatch = 0;
 bool bVideoHooked = false;
 unsigned int uiAudioCount = 0;
 
@@ -151,11 +152,48 @@ void __cdecl ods(const char *format, ...) {
 	}
 }
 
-static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	char procname[1024];
-	GetModuleFileName(NULL, procname, 1024);
+static const char *blacklist[] = {
+	"mumble.exe",
+	"iexplore.exe",
+	"ieuser.exe",
+	"vlc.exe",
+	"dbgview.exe",
+	"opera.exe",
+	NULL
+};
 
-	if (strstr(procname, "mumble.exe") == NULL) {
+static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
+	char procname[1024+64];
+	HANDLE h;
+
+	if (iShouldPatch == 0) {
+		iShouldPatch = 1;
+
+		GetModuleFileName(NULL, procname, 1024);
+
+		char *p = strrchr(procname, '\\');
+
+		if (p) {
+			int i =0;
+			while(blacklist[i]) {
+				if (_stricmp(p+1,blacklist[i])==0) {
+					ods("Process %s is blacklisted", procname);
+					iShouldPatch = -1;
+				}
+				i++;
+			}
+			strcpy_s(p+1, 64, "nooverlay");
+
+			h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+			if (h != INVALID_HANDLE_VALUE) {
+				CloseHandle(h);
+				ods("Overlay disable %s found", procname);
+				iShouldPatch = -1;
+			}
+		}
+	}
+
+	if (iShouldPatch > 0) {
 		CWPSTRUCT *s = reinterpret_cast<CWPSTRUCT *>(lParam);
 		if (s) {
 			switch (s->message) {
