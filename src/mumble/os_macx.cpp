@@ -42,7 +42,13 @@ char *os_url = NULL;
 char *os_lang = NULL;
 static FILE *fConsole = NULL;
 
-static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, void *) {
+#ifdef __x86_64__
+#define SCREWAPPLE  void *
+#else
+#define SCREWAPPLE  long
+#endif
+
+static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, SCREWAPPLE) {
 	OSErr err;
 	DescType type;
 	Size dataSize, size;
