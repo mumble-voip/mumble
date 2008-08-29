@@ -69,9 +69,7 @@ win32 {
 }
 
 macx {
-	# Common include paths for boost 1.34
-	INCLUDEPATH *= /usr/local/include/boost-1_34_1/
-	INCLUDEPATH *= /opt/local/include/boost-1_34_1/
+	INCLUDEPATH *= /opt/mumble/boost
 
 	CONFIG(cocoa) {
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
