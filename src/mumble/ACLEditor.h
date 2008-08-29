@@ -73,6 +73,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		QList<QCheckBox *> qlACLDeny;
 
 		void addToolTipsWhatsThis();
+
+		void showEvent(QShowEvent *);
 	public:
 		ACLEditor(const MessageEditACL *mea, QWidget *p = NULL);
 		~ACLEditor();

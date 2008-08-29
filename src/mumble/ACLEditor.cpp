@@ -141,6 +141,11 @@ ACLEditor::~ACLEditor() {
 	}
 }
 
+void ACLEditor::showEvent(QShowEvent *evt) {
+	ACLEnableCheck();
+	QDialog::showEvent(evt);
+}
+
 void ACLEditor::addToolTipsWhatsThis() {
 	int idx;
 	int p = 0x1;
