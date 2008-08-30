@@ -539,6 +539,7 @@ void Server::newClient() {
 
 		if (qqIds.isEmpty()) {
 			sock->disconnectFromHost();
+			sock->deleteLater();
 			return;
 		}
 
@@ -624,12 +625,6 @@ void Server::message(QByteArray &qbaMsg, Connection *cCon) {
 	}
 	Message *mMsg = Message::networkToMessage(qbaMsg);
 
-	// Just leftovers from the buffer and we just kicked
-	// the user off.
-	// FIXME :: We don't have anything like this now.
-	//if (cCon->isDeleted())
-	//	return;
-
 	if (mMsg) {
 		dispatch(cCon, mMsg);
 		delete mMsg;
@@ -651,7 +646,7 @@ void Server::checkTimeout() {
 	}
 	qrwlUsers.unlock();
 	foreach(User *u, qlClose)
-	u->disconnectSocket();
+	u->disconnectSocket(true);
 }
 
 void Server::tcpTransmitData(QByteArray a, unsigned int id) {

@@ -235,8 +235,11 @@ void Connection::forceFlush() {
 	setsockopt(qtsSocket->socketDescriptor(), IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<char *>(&nodelay), sizeof(nodelay));
 }
 
-void Connection::disconnectSocket() {
-	qtsSocket->disconnectFromHost();
+void Connection::disconnectSocket(bool force) {
+	if (force)
+		qtsSocket->abort();
+	else
+		qtsSocket->disconnectFromHost();
 }
 
 void Connection::updatePing(double &avg, double &var, quint32 &samples, quint64 usec) {
