@@ -194,7 +194,7 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 	}
 
 	if (iShouldPatch > 0) {
-		CWPSTRUCT *s = reinterpret_cast<CWPSTRUCT *>(lParam);
+/*		CWPSTRUCT *s = reinterpret_cast<CWPSTRUCT *>(lParam);
 		if (s) {
 			switch (s->message) {
 				case WM_CREATE:
@@ -203,8 +203,10 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 				case WM_GETMINMAXINFO:	// For things that link directly
 				case WM_GETICON:		// Worked for BF2
 				case WM_NCCREATE:		// Lots of games
+	*/
 					checkD3D9Hook();
 					checkOpenGLHook();
+/*
 					// checkOpenALHook();
 					// checkDSHook(s->hwnd);
 					break;
@@ -212,6 +214,7 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 					break;
 			}
 		}
+*/
 	}
 	return CallNextHookEx(hhookWnd, nCode, wParam, lParam);
 }
@@ -240,7 +243,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 			if (hSelf == NULL) {
 				ods("Lib: Failed to find myself");
 			} else {
-				hhookWnd = SetWindowsHookEx(WH_CALLWNDPROC,CallWndProc,hSelf,0);
+				hhookWnd = SetWindowsHookEx(WH_CBT, CallWndProc, hSelf, 0);
 				if (hhookWnd == NULL)
 					ods("Lib: Failed to insert WNDProc hook");
 			}
@@ -259,12 +262,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	char procname[1024];
 	GetModuleFileName(NULL, procname, 1024);
 
-//	if ((strstr(procname, "mumble.exe") == NULL) && (strstr(procname, "Text3D.exe") == NULL) && (strstr(procname, "Lesson5.exe") == NULL))
-//		return TRUE;
-
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH: {
-				ods("Lib: ProcAttach: %s", procname);
 				hSharedMutex = CreateMutex(NULL, false, "MumbleSharedMutex");
 				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 				if ((hSharedMutex == NULL) || (hHookMutex == NULL)) {
@@ -308,6 +307,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					sm->fFontSize = 72;
 				}
 				ReleaseMutex(hSharedMutex);
+				ods("Lib: ProcAttach: %s", procname);
 			}
 			break;
 		case DLL_PROCESS_DETACH: {
