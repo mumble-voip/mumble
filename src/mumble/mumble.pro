@@ -102,6 +102,7 @@ unix {
     TARGET = Mumble
     ICON = ../../icons/mumble.icns
     QMAKE_INFO_PLIST = mumble.plist
+    QMAKE_PKGINFO_TYPEINFO = MBLE
 
     HEADERS *= GlobalShortcut_macx.h
     SOURCES *= TextToSpeech_macx.cpp
