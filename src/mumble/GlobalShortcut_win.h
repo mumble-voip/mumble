@@ -68,6 +68,7 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
 		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
 		virtual bool canSuppress();
+		void run();
 	public slots:
 		void timeTicked();
 	public:

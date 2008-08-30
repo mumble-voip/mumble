@@ -61,17 +61,13 @@ GlobalShortcutWin::GlobalShortcutWin() {
 		return;
 	}
 
-	HMODULE hSelf;
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
-	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
-	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
-
 	timer->start(20);
+	start(QThread::TimeCriticalPriority);
 }
 
 GlobalShortcutWin::~GlobalShortcutWin() {
-	UnhookWindowsHookEx(hhKeyboard);
-	UnhookWindowsHookEx(hhMouse);
+	quit();
+	wait();
 	foreach(InputDevice *id, qhInputDevices) {
 		if (id->pDID) {
 			id->pDID->Unacquire();
@@ -79,6 +75,18 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 		}
 	}
 	pDI->Release();
+}
+
+void GlobalShortcutWin::run() {
+	HMODULE hSelf;
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
+	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
+	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+
+	exec();
+
+	UnhookWindowsHookEx(hhKeyboard);
+	UnhookWindowsHookEx(hhMouse);
 }
 
 LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARAM lParam) {
