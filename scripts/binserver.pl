@@ -6,6 +6,7 @@ use Carp;
 use Switch;
 use Archive::Tar;
 use Compress::Bzip2;
+use LWP::UserAgent;
 
 my %files;
 my $ver;
@@ -79,3 +80,7 @@ my $bz=bzopen("murmur-static_x86-${ver}.tar.bz2", "w");
 $bz->bzwrite($tar->write());
 $bz->bzclose();
 system("/usr/bin/scp","murmur-static_x86-${ver}.tar.bz2", "xeno\@mix.hive.no:WEB/mumble.hive.no/snapshot/");
+
+my $ua = new LWP::UserAgent;
+my $response = $ua->get('http://mumble.info/snapshot.cgi');
+print $response->content;
