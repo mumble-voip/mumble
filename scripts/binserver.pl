@@ -50,7 +50,10 @@ $files{"README"}="README";
 $files{"CHANGES"}="CHANGES";
 $files{"murmur.pl"}="scripts/murmur.pl";
 $files{"weblist.pl"}="scripts/weblist.pl";
+$files{"icedemo.php"}="scripts/icedemo.php";
+$files{"weblist.php"}="scripts/weblist.php";
 $files{"murmur.ini"}="scripts/murmur.ini";
+$files{"Murmur.ice"}="src/murmur/Murmur.ice";
 
 my $tar = new Archive::Tar();
 my $blob;
