@@ -40,6 +40,7 @@ class ALSAEnumerator {
 	public:
 		QHash<QString,QString> qhInput;
 		QHash<QString,QString> qhOutput;
+		static QString getHint(void *hint, const char *id);
 		ALSAEnumerator();
 };
 
@@ -164,59 +165,68 @@ void ALSAAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 }
 
 ALSAEnumerator::ALSAEnumerator() {
+	void **hints = NULL;
+	void **hint;
+	snd_config_t *basic = NULL;
+	int r;
+	
+	snd_config_update();
+	r = snd_config_search(snd_config, "defaults.namehint.extended", &basic);
+	if ((r==0) && basic) {
+		if (snd_config_set_ascii(basic, "on"))
+			qWarning("ALSAEnumerator: Failed to set namehint");
+	} else {
+		qWarning("ALSAEnumerator: Namehint not found");
+	}
+
 	qhInput.insert(QLatin1String("default"), ALSAAudioInput::tr("Default ALSA Card"));
 	qhOutput.insert(QLatin1String("default"), ALSAAudioOutput::tr("Default ALSA Card"));
+	
+	r = snd_device_name_hint(-1, "pcm", &hints);
 
-	int card=-1;
-	snd_card_next(&card);
-	while (card != -1) {
-		char *name;
-		snd_ctl_t *ctl=NULL;
-		snd_card_get_longname(card, &name);
-		QByteArray dev=QString::fromLatin1("hw:%1").arg(card).toUtf8();
-		if (snd_ctl_open(&ctl, dev.data(), SND_CTL_READONLY) >= 0) {
-			snd_pcm_info_t *info = NULL;
-			snd_pcm_info_malloc(&info);
+	if (r || ! hints) {
+		qWarning("ALSAEnumerator: snd_device_name_hint: %d", r);
+	} else {
+		hint = hints;
+		while (*hint) {
+			const QString name = getHint(*hint, "NAME");
+			const QString ioid = getHint(*hint, "IOID");
+			QString desc = getHint(*hint, "DESC");
+			
+			desc.replace(QLatin1Char('\n'), QLatin1Char(' '));
+			
+			
+			// ALSA, in it's infinite wisdom, claims "dmix" is an input/output device.
+			// Since there seems to be no way to fetch the ctl interface for a matching device string
+			// without actually opening it, we'll simply have to start guessing.
+			
+			bool caninput = (ioid.isNull() || (ioid.compare(QLatin1String("Input"), Qt::CaseInsensitive)==0));
+			bool canoutput = (ioid.isNull() || (ioid.compare(QLatin1String("Output"), Qt::CaseInsensitive)==0));
+			
+			if (name.startsWith(QLatin1String("dmix:")))
+				caninput = false;
+			else if (name.startsWith(QLatin1String("dsnoop:")))
+				canoutput = false;
+			
+			if (caninput)
+				qhInput.insert(name, desc);
+			if (canoutput)
+				qhOutput.insert(name, desc);
 
-			char *cname = NULL;
-			snd_card_get_name(card, &cname);
-
-			int device = -1;
-			snd_ctl_pcm_next_device(ctl, &device);
-
-			bool play = false;
-			bool cap = false;
-
-			while (device != -1) {
-				QString devname=QString::fromLatin1("hw:%1,%2").arg(card).arg(device);
-				snd_pcm_info_set_device(info, device);
-				snd_pcm_info_set_stream(info, SND_PCM_STREAM_CAPTURE);
-				if (snd_ctl_pcm_info(ctl,info) == 0) {
-					QString fname=QString::fromLatin1(snd_pcm_info_get_name(info));
-					qhInput.insert(devname,fname);
-					cap = true;
-				}
-
-				snd_pcm_info_set_stream(info, SND_PCM_STREAM_PLAYBACK);
-				if (snd_ctl_pcm_info(ctl,info) == 0) {
-					QString fname=QString::fromLatin1(snd_pcm_info_get_name(info));
-					qhOutput.insert(devname,fname);
-					play = true;
-				}
-
-				snd_ctl_pcm_next_device(ctl, &device);
-			}
-			if (play) {
-				qhOutput.insert(QString::fromLatin1("dmix:CARD=%1").arg(card),QLatin1String(cname));
-			}
-			if (cap) {
-				qhInput.insert(QString::fromLatin1("dsnoop:CARD=%1").arg(card),QLatin1String(cname));
-			}
-			snd_pcm_info_free(info);
-			snd_ctl_close(ctl);
+			++hint;
 		}
-		snd_card_next(&card);
+		snd_device_name_free_hint(hints);
 	}
+}
+
+QString ALSAEnumerator::getHint(void *hint, const char *id) {
+	QString s;
+	char *value = snd_device_name_get_hint(hint, id);
+	if (value) {
+		s = QLatin1String(value);
+		free(value);
+	}
+	return s;
 }
 
 
