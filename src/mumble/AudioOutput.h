@@ -94,6 +94,7 @@ class AudioOutputPlayer : public QObject {
 		~AudioOutputPlayer();
 		const QString qsName;
 		float *pfBuffer;
+		float *pfVolume;
 		float fPos[3];
 		virtual bool needSamples(unsigned int snum) = 0;
 };

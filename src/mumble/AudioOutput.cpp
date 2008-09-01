@@ -82,12 +82,15 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 AudioOutputPlayer::AudioOutputPlayer(const QString name) : qsName(name) {
 	iBufferSize = 0;
 	pfBuffer = NULL;
+	pfVolume = NULL;
 	fPos[0]=fPos[1]=fPos[2]=0.0;
 }
 
 AudioOutputPlayer::~AudioOutputPlayer() {
 	if (pfBuffer)
 		delete [] pfBuffer;
+	if (pfVolume)
+		delete [] pfVolume;
 }
 
 void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
@@ -593,15 +596,23 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 								qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
 								qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
 				*/
+				if (! aop->pfVolume) {
+					aop->pfVolume = new float[nchan];
+					for(unsigned int s=0;s<nchan;++s)
+						aop->pfVolume[s] = -1.0;
+				}
 				for (unsigned int s=0;s<nchan;++s) {
 					const float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
 					const float str = svol[s] * calcGain(dot, len);
 					float * RESTRICT o = output + s;
+					const float old = (aop->pfVolume[s] >= 0.0) ? aop->pfVolume[s] : str;
+					const float inc = (str - old) / static_cast<float>(nsamp);
+					aop->pfVolume[s] = str;
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
 					for (unsigned int i=0;i<nsamp;++i)
-						o[i*nchan] += pfBuffer[i] * str;
+						o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
 				}
 			} else {
 				for (unsigned int s=0;s<nchan;++s) {
