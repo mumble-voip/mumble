@@ -650,8 +650,8 @@ void AudioInput::encodeAudioFrame() {
 	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0) || (g.iAltSpeak > 0);
 
 	if (
-		((g.s.lmLoopMode != Settings::Local) && (g.s.bMute || (p && p->bMute)))
-		|| g.bPushToMute) {
+	    ((g.s.lmLoopMode != Settings::Local) && (g.s.bMute || (p && p->bMute)))
+	    || g.bPushToMute) {
 		iIsSpeech = 0;
 	}
 

@@ -42,12 +42,14 @@ static MurmurIce *mi = NULL;
 static Ice::ObjectPtr iopServer;
 
 class IceEvent : public QEvent {
-        protected:
-                        boost::function<void ()> func;
-                                public:
-                                                IceEvent(boost::function<void ()> f) : QEvent(static_cast<QEvent::Type>(ICE_QEVENT)), func(f) {};
-                                                                void execute() { func(); };
-                                                                };
+	protected:
+		boost::function<void ()> func;
+	public:
+		IceEvent(boost::function<void ()> f) : QEvent(static_cast<QEvent::Type>(ICE_QEVENT)), func(f) {};
+		void execute() {
+			func();
+		};
+};
 
 static inline QString fromStdUtf8String(const ::std::string &str) {
 	return QString::fromUtf8(str.data(), str.length());
@@ -248,7 +250,7 @@ static void impl_Server_stop(const ::Murmur::AMD_Server_stopPtr cb, int server_i
 
 static void impl_Server_delete(const ::Murmur::AMD_Server_deletePtr cb, int server_id) {
 	NEED_SERVER_EXISTS;
-	if (server){
+	if (server) {
 		cb->ice_exception(ServerBootedException());
 		return;
 	}
@@ -653,7 +655,7 @@ static void impl_Server_updateregistration(const ::Murmur::AMD_Server_updateregi
 
 	if ((! newpw.isEmpty()))
 		server->setPW(registration.playerid, newpw);
-		
+
 	cb->ice_response();
 }
 
@@ -737,11 +739,11 @@ static void impl_Meta_getAllServers(const ::Murmur::AMD_Meta_getAllServersPtr cb
 	::Murmur::ServerList sl;
 
 	foreach(int id, ServerDB::getAllServers())
-		sl.push_back(idToProxy(id, adapter));
+	sl.push_back(idToProxy(id, adapter));
 	cb->ice_response(sl);
 }
 
-static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr cb, const Ice::ObjectAdapterPtr ) {
+static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr cb, const Ice::ObjectAdapterPtr) {
 	::Murmur::ConfigMap cm;
 	QMap<QString, QString>::const_iterator i;
 	for (i=meta->mp.qmConfig.constBegin();i != meta->mp.qmConfig.constEnd(); ++i) {
@@ -754,7 +756,7 @@ static void impl_Meta_getBootedServers(const ::Murmur::AMD_Meta_getBootedServers
 	::Murmur::ServerList sl;
 
 	foreach(int id, meta->qhServers.keys())
-		sl.push_back(idToProxy(id, adapter));
+	sl.push_back(idToProxy(id, adapter));
 	cb->ice_response(sl);
 }
 

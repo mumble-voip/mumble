@@ -52,9 +52,9 @@ Channel::Channel(int id, QString name, QObject *p) : QObject(p) {
 Channel::~Channel() {
 	if (cParent)
 		cParent->removeChannel(this);
-		
+
 	foreach(Channel *c, qlChannels)
-		delete c;
+	delete c;
 
 	foreach(ChanACL *acl, qlACL)
 	delete acl;

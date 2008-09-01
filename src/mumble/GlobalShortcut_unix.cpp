@@ -130,7 +130,7 @@ void GlobalShortcutX::run() {
 				while (XPending(display)) {
 					bool suppress = false;
 					XNextEvent(display, &evt);
-					
+
 					switch (evt.type) {
 						case KeyPress:
 						case KeyRelease:

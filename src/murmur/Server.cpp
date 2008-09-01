@@ -298,7 +298,9 @@ void Server::run() {
 		 * We use this little hack to loop through our outer loop once in
 		 * a while to determine if we should still be running.
 		 */
-		static struct pollfd fds = { sUdpSocket, POLLIN, 0 };
+		static struct pollfd fds = {
+			sUdpSocket, POLLIN, 0
+		};
 		int ret = poll(&fds, 1, 1000);
 
 		if (ret == 0) {

@@ -75,9 +75,8 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 }
 
 CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
-                             CGEventRef event, void *udata)
-{
-	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);	
+                            CGEventRef event, void *udata) {
+	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);
 	unsigned int keycode;
 	bool suppress = false;
 	bool down = false;
@@ -146,8 +145,8 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 			kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
 	}
 #else
-	SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript); 
-	SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys); 
+	SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript);
+	SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys);
 	Handle handle = GetResource('uchr', lastKeyLayoutID);
 	if (handle)
 		kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
@@ -179,7 +178,7 @@ bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 	bool down;
 	bool suppress = false;
 
-	#define MOD_CHANGED(mask, btn) do { \
+#define MOD_CHANGED(mask, btn) do { \
 	    if ((newmask & mask) != (modmask & mask)) { \
 	        down = newmask & mask; \
 	        suppress = handleButton(MOD_OFFSET+btn, down); \
@@ -204,14 +203,22 @@ QString GlobalShortcutMac::translateMouseButton(const unsigned int keycode) cons
 QString GlobalShortcutMac::translateModifierKey(const unsigned int keycode) const {
 	unsigned int key = keycode - MOD_OFFSET;
 	switch (key) {
-		case 0: return QString("Caps Lock");
-		case 1: return QString("Shift");
-		case 2: return QString("Control");
-		case 3: return QString("Alt/Option");
-		case 4: return QString("Command");
-		case 5: return QString("Help");
-		case 6: return QString("Fn");
-		case 7: return QString("Num Lock");
+		case 0:
+			return QString("Caps Lock");
+		case 1:
+			return QString("Shift");
+		case 2:
+			return QString("Control");
+		case 3:
+			return QString("Alt/Option");
+		case 4:
+			return QString("Command");
+		case 5:
+			return QString("Help");
+		case 6:
+			return QString("Fn");
+		case 7:
+			return QString("Num Lock");
 	}
 	return QString("Modifier %1").arg(key);
 }
@@ -225,23 +232,32 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 		return QString();
 
 	OSStatus err = UCKeyTranslate(kbdLayout, static_cast<UInt16>(keycode),
-	                                kUCKeyActionDisplay, 0, LMGetKbdType(),
-	                                kUCKeyTranslateNoDeadKeysBit, &junk,
-	                                len, &len, unicodeString);
+	                              kUCKeyActionDisplay, 0, LMGetKbdType(),
+	                              kUCKeyTranslateNoDeadKeysBit, &junk,
+	                              len, &len, unicodeString);
 	if (err != noErr)
 		return QString();
 
 	if (len == 1) {
 		switch (unicodeString[0]) {
-			case '\t':   return QString("Tab");
-			case '\r':   return QString("Enter");
-			case '\b':   return QString("Backspace");
-			case '\e':   return QString("Escape"); 
-			case ' ':    return QString("Space");
-			case 28:     return QString("Left");
-			case 29:     return QString("Right");
-			case 30:     return QString("Up");
-			case 31:     return QString("Down");
+			case '\t':
+				return QString("Tab");
+			case '\r':
+				return QString("Enter");
+			case '\b':
+				return QString("Backspace");
+			case '\e':
+				return QString("Escape");
+			case ' ':
+				return QString("Space");
+			case 28:
+				return QString("Left");
+			case 29:
+				return QString("Right");
+			case 30:
+				return QString("Up");
+			case 31:
+				return QString("Down");
 		}
 
 		if (unicodeString[0] < ' ') {

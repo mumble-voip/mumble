@@ -169,7 +169,7 @@ ALSAEnumerator::ALSAEnumerator() {
 	void **hint;
 	snd_config_t *basic = NULL;
 	int r;
-	
+
 	snd_config_update();
 	r = snd_config_search(snd_config, "defaults.namehint.extended", &basic);
 	if ((r==0) && basic) {
@@ -181,7 +181,7 @@ ALSAEnumerator::ALSAEnumerator() {
 
 	qhInput.insert(QLatin1String("default"), ALSAAudioInput::tr("Default ALSA Card"));
 	qhOutput.insert(QLatin1String("default"), ALSAAudioOutput::tr("Default ALSA Card"));
-	
+
 	r = snd_device_name_hint(-1, "pcm", &hints);
 
 	if (r || ! hints) {
@@ -192,22 +192,22 @@ ALSAEnumerator::ALSAEnumerator() {
 			const QString name = getHint(*hint, "NAME");
 			const QString ioid = getHint(*hint, "IOID");
 			QString desc = getHint(*hint, "DESC");
-			
+
 			desc.replace(QLatin1Char('\n'), QLatin1Char(' '));
-			
-			
+
+
 			// ALSA, in it's infinite wisdom, claims "dmix" is an input/output device.
 			// Since there seems to be no way to fetch the ctl interface for a matching device string
 			// without actually opening it, we'll simply have to start guessing.
-			
+
 			bool caninput = (ioid.isNull() || (ioid.compare(QLatin1String("Input"), Qt::CaseInsensitive)==0));
 			bool canoutput = (ioid.isNull() || (ioid.compare(QLatin1String("Output"), Qt::CaseInsensitive)==0));
-			
+
 			if (name.startsWith(QLatin1String("dmix:")))
 				caninput = false;
 			else if (name.startsWith(QLatin1String("dsnoop:")))
 				canoutput = false;
-			
+
 			if (caninput)
 				qhInput.insert(name, desc);
 			if (canoutput)

@@ -598,7 +598,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				*/
 				if (! aop->pfVolume) {
 					aop->pfVolume = new float[nchan];
-					for(unsigned int s=0;s<nchan;++s)
+					for (unsigned int s=0;s<nchan;++s)
 						aop->pfVolume[s] = -1.0;
 				}
 				for (unsigned int s=0;s<nchan;++s) {
