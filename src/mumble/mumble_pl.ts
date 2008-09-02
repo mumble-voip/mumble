@@ -1197,7 +1197,7 @@
     <message>
         <location filename="AudioInput.ui" line="93"/>
         <source>Cancel Echo</source>
-        <translation>Wycisz Echo</translation>
+        <translation>Wycisz echo</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="109"/>
@@ -1232,7 +1232,7 @@
     <message>
         <location filename="AudioInput.ui" line="183"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
-        <translation>Odtwarzaj dźwięk gdy wciskasz guzik do mówienia</translation>
+        <translation>Odtwarzaj dźwięk, gdy wciskasz guzik do mówienia</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="186"/>
@@ -1242,7 +1242,7 @@
     <message>
         <location filename="AudioInput.ui" line="189"/>
         <source>PTT Audio cue</source>
-        <translation>Odtwarzaj dźwięk gdy wciskasz guzik do mówienia</translation>
+        <translation>Odtwarzaj dźwięk, gdy wciskasz guzik do mówienia</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="210"/>
@@ -1939,7 +1939,7 @@
     <message>
         <location filename="AudioStats.ui" line="167"/>
         <source>Current audio bitrate</source>
-        <translation>Bitrate Audio</translation>
+        <translation>Bitrate audio</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="187"/>
@@ -3846,7 +3846,7 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="MainWindow.ui" line="417"/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation>Ta opcja wymusza odłączenie bierzącej wtyczki, przydatne jeśli wysyła ona złe dane.</translation>
+        <translation>Ta opcja wymusza odłączenie bieżącej wtyczki, przydatne jeśli wysyła ona złe dane.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="422"/>
@@ -4749,13 +4749,13 @@ w żadnej z podanych lokacji.</translation>
         <location filename="MainWindow.ui" line="325"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished">&amp;Wyłącz wtyczki</translation>
+        <translation type="unfinished">&amp;Odłącz</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
         <comment>Plugin</comment>
-        <translation type="unfinished">&amp;Wyłącz wtyczki</translation>
+        <translation type="unfinished">&amp;Wyłącz wtyczkę</translation>
     </message>
 </context>
 <context>
