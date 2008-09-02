@@ -136,7 +136,6 @@ int main(int argc, char **argv) {
 	}
 
 	QDir::addSearchPath(QLatin1String("skin"),QLatin1String(":/"));
-	QDir::addSearchPath(QLatin1String("translation"), a.applicationDirPath());
 	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
 
 	QString qsSystemLocale = QLocale::system().name();
@@ -153,12 +152,16 @@ int main(int argc, char **argv) {
 	QString locale = g.s.qsLanguage.isEmpty() ? qsSystemLocale : g.s.qsLanguage;
 
 	QTranslator translator;
-	translator.load(QLatin1String("translation:mumble_") + locale);
-	a.installTranslator(&translator);
+	if (translator.load(QLatin1String("translation:mumble_") + locale))
+		a.installTranslator(&translator);
+
+	QTranslator loctranslator;
+	if (translator.load(QLatin1String("mumble_") + locale, a.applicationDirPath()))
+		a.installTranslator(&translator);
 
 	QTranslator qttranslator;
-	qttranslator.load(QLatin1String("translation:qt_") + locale);
-	a.installTranslator(&qttranslator);
+	if (qttranslator.load(QLatin1String("translation:qt_") + locale))
+		a.installTranslator(&qttranslator);
 
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
