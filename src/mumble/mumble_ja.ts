@@ -373,12 +373,12 @@
     <message>
         <location filename="ALSAAudio.cpp" line="301"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>選択されたALSA入力のオープンに失敗しました: %1</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="182"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished">デフォルトALSAカード</translation>
+        <translation>デフォルトALSAカード</translation>
     </message>
 </context>
 <context>
@@ -386,12 +386,12 @@
     <message>
         <location filename="ALSAAudio.cpp" line="418"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>選択されたALSA出力のオープンに失敗しました: %1</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="183"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished">デフォルトALSAカード</translation>
+        <translation>デフォルトALSAカード</translation>
     </message>
 </context>
 <context>
@@ -674,7 +674,7 @@
     <message>
         <location filename="About.cpp" line="37"/>
         <source>About Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumbleについて</translation>
     </message>
     <message>
         <location filename="About.cpp" line="58"/>
@@ -697,7 +697,7 @@
     <message>
         <location filename="About.cpp" line="77"/>
         <source>About Speex</source>
-        <translation type="unfinished"></translation>
+        <translation>Speexについて</translation>
     </message>
     <message>
         <location filename="About.cpp" line="88"/>
@@ -830,7 +830,7 @@
     <message>
         <location filename="AudioConfigDialog.ui" line="476"/>
         <source>&lt;b&gt;Enable TCP Compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="obsolete">&lt;b&gt;TCP互換モードを有効にします。&lt;/b&gt;.&lt;br /&gt;この設定をするとMumbleがサーバーとの通信にTCPのみを使用するようになります。この設定は通信のオーバーヘッドを増大させ、通信時に目立って音声が途切れる原因になりえますので、デフォルトの設定(音声:UDP 操作:TCP)が使用できない場合だけ使用するのが良いでしょう。</translation>
+        <translation type="obsolete">&lt;b&gt;TCP互換モードを有効にします。&lt;/b&gt;.&lt;br /&gt;この設定をするとMumbleがサーバーとの通信にTCPのみを使用するようになります。この設定は通信のオーバーヘッドを増大させ、通信時に音声が途切れる原因になるので、デフォルトの設定(音声:UDP 操作:TCP)が使用できない場合だけ使用するのが良いでしょう。</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.ui" line="492"/>
@@ -1203,182 +1203,182 @@
     <message>
         <location filename="AudioInput.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">フォーム</translation>
+        <translation>フォーム</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="19"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>インターフェース</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="25"/>
         <source>System</source>
-        <translation type="unfinished">システム</translation>
+        <translation>システム</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="41"/>
         <source>Input method for audio</source>
-        <translation type="unfinished">音声入力方法</translation>
+        <translation>音声入力方法</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="44"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;音声の入力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
+        <translation>&lt;b&gt;音声の入力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="67"/>
         <source>Device</source>
-        <translation type="unfinished">デバイス</translation>
+        <translation>デバイス</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="83"/>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>音声出力方法</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
+        <translation>&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="93"/>
         <source>Cancel Echo</source>
-        <translation type="unfinished"></translation>
+        <translation>エコーキャンセル</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="109"/>
         <source>Transmission</source>
-        <translation type="unfinished">伝送方式</translation>
+        <translation>伝送方式</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="115"/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished">送信(&amp;T)</translation>
+        <translation>送信(&amp;T)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="125"/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished">発言を送信するタイミング</translation>
+        <translation>発言を送信するタイミング</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="128"/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished">&lt;b&gt;発言を送信するタイミングを設定します。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;常に有効&lt;/i&gt; - 常時音声入力を受け付けます&lt;br /&gt;&lt;i&gt;声で有効化&lt;/i&gt; - はっきりとしゃべっている時に受け付けます。&lt;br /&gt;&lt;i&gt;キー押下で有効化&lt;/i&gt; - &lt;i&gt;ショートカットキー&lt;/i&gt;で設定したキーを押している間音声入力を受け付けます。</translation>
+        <translation>&lt;b&gt;発言を送信するタイミングを設定します。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;常に有効&lt;/i&gt; - 常時音声入力を受け付けます&lt;br /&gt;&lt;i&gt;声で有効化&lt;/i&gt; - はっきりとしゃべっている時に受け付けます。&lt;br /&gt;&lt;i&gt;キー押下で有効化&lt;/i&gt; - &lt;i&gt;ショートカットキー&lt;/i&gt;で設定したキーを押している間音声入力を受け付けます。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="150"/>
         <source>DoublePush Time</source>
-        <translation type="unfinished">二重押し時間</translation>
+        <translation>二重押し時間</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="573"/>
         <source>TextLabel</source>
-        <translation type="unfinished">テキストラベル</translation>
+        <translation>テキストラベル</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="183"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
-        <translation type="unfinished">&quot;キー押下で有効化&quot;設定の時、ショートカットキーが押されるのと離されるタイミングで音による通知を行います。</translation>
+        <translation>&quot;キー押下で有効化&quot;設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="186"/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;キー押下で有効化の際に通知を行います&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、ショートカットキーが押されたり離されたりするタイミング短いビープ音を鳴らします。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="189"/>
         <source>PTT Audio cue</source>
-        <translation type="unfinished">キー押下を音で通知</translation>
+        <translation>キー押下を音で通知</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="210"/>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished">S/N比に基づく発言認識を使用</translation>
+        <translation>S/N比に基づく発言認識を使用</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="213"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished">&lt;b&gt;発言認識にS/N比を使うかどうかを決定します。&lt;/b&gt;&lt;br /&gt;このモードでは、ノイズ無しに近い状態に比較して入力が解析され、その明瞭度が発言の検出に使用されます。</translation>
+        <translation>&lt;b&gt;発言認識にS/N比を使うかどうかを決定します。&lt;/b&gt;&lt;br /&gt;このモードでは、ノイズ無しに近い状態に比較して入力が解析され、その明瞭度が発言の検出に使用されます。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="216"/>
         <source>Signal to Noise</source>
-        <translation type="unfinished">S/N比</translation>
+        <translation>S/N比</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="223"/>
         <source>Use Amplitude based speech detection.</source>
-        <translation type="unfinished">信号の強さに基づく発言認識を使用</translation>
+        <translation>信号の強さに基づく発言認識を使用</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="226"/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished">&lt;b&gt;発言認識に信号の強さを使用するかを設定します。&lt;/b&gt;このモードにすると、入力信号そのものの強さが発言の検出に使用されます。</translation>
+        <translation>&lt;b&gt;発言認識に信号の強さを使用するかを設定します。&lt;/b&gt;このモードにすると、入力信号そのものの強さが発言の検出に使用されます。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="229"/>
         <source>Amplitude</source>
-        <translation type="unfinished">信号の強さ</translation>
+        <translation>信号の強さ</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="238"/>
         <source>Voice &amp;Hold</source>
-        <translation type="unfinished">送信継続時間(&amp;H)</translation>
+        <translation>送信継続時間(&amp;H)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="248"/>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished">音声が無くなった後、どれくらい送信を続けるか</translation>
+        <translation>音声が無くなった後、どれくらい送信を続けるか</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="251"/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</source>
-        <translation type="unfinished">&lt;b&gt;音声が無くなった後、送信がどれくらい続くかを選択します。&lt;/b&gt;&lt;br /&gt;あなたが話している時(名前の後ろで点滅しているアイコンで確認できます)に音声が途切れてしまうようならば、この設定をより高くしてください。&lt;br /&gt;この設定は&quot;声で有効化&quot;の場合のみ効果があります。</translation>
+        <translation>&lt;b&gt;音声が無くなった後、送信がどれくらい続くかを選択します。&lt;/b&gt;&lt;br /&gt;あなたが話している時(名前の後ろで点滅しているアイコンで確認できます)に音声が途切れてしまうようならば、この設定をより高くしてください。&lt;br /&gt;この設定は&quot;声で有効化&quot;の場合のみ効果があります。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="280"/>
         <source>Silence Below</source>
-        <translation type="unfinished">沈黙しきい値</translation>
+        <translation>非発言のしきい値</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="287"/>
         <source>Signal values below this counts as silence</source>
-        <translation type="unfinished">沈黙と判定される信号値のしきい値</translation>
+        <translation>発言していないと判定される信号値のしきい値</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="322"/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished">&lt;b&gt;声を検出するための基準値を設定します。&lt;/b&gt;手動で調整するためには音声統計ウインドウを一緒にご利用ください。&quot;沈黙しきい値&quot;以下の値は常に発言していない状態と見なされ、&quot;発言しきい値&quot;より上の値は発言と見なされます。中間の値は既に話し中であれば発言と判断されますが、新たな発言であると判断する材料にはなりません。</translation>
+        <translation>&lt;b&gt;声を検出するための基準値を設定します。&lt;/b&gt;手動で調整するためには音声統計ウインドウを一緒にご利用ください。&quot;非発言しきい値&quot;以下の値は常に発言していない状態と見なされ、&quot;発言しきい値&quot;より上の値は発言と見なされます。これらの間の値は既に話し中であれば発言と判断されますが、新たな発言であると判断する材料にはなりません。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="312"/>
         <source>Speech Above</source>
-        <translation type="unfinished">発言しきい値</translation>
+        <translation>発言しきい値</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="319"/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished">発言と判定される信号値のしきい値</translation>
+        <translation>発言と判定される信号値のしきい値</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="361"/>
         <source>Compression</source>
-        <translation type="unfinished">圧縮</translation>
+        <translation>圧縮</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="367"/>
         <source>&amp;Quality</source>
-        <translation type="unfinished">音質(&amp;Q)</translation>
+        <translation>音質(&amp;Q)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="377"/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">圧縮品質(ピーク帯域幅)</translation>
+        <translation>圧縮品質(ピーク帯域幅)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="380"/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished">&lt;b&gt;圧縮品質を設定します。&lt;/b&gt;&lt;br /&gt;送出される音声のためにどれくらいの帯域幅を使えるか決定します。</translation>
+        <translation>&lt;b&gt;圧縮品質を設定します。&lt;/b&gt;&lt;br /&gt;送出される音声のためにどれくらいの帯域幅を使えるか決定します。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="387"/>
@@ -1398,62 +1398,62 @@
     <message>
         <location filename="AudioInput.ui" line="415"/>
         <source>Audio per packet</source>
-        <translation type="unfinished">パケットあたりの音声長</translation>
+        <translation>パケットあたりの音声長</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="425"/>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished">送信1パケットに含む音声フレームの長さ</translation>
+        <translation>送信1パケットに含む音声フレームの長さ</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="428"/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished">&lt;b&gt;送信1パケットに含む音声フレームの長さを選択します。&lt;/b&gt;&lt;br /&gt;これを大きくするとあなたの音声の遅延が大きくなりますが、必要とするネットワーク帯域幅は下がります。</translation>
+        <translation>&lt;b&gt;送信1パケットに含む音声フレームの長さを選択します。&lt;/b&gt;&lt;br /&gt;これを大きくするとあなたの音声の遅延が大きくなりますが、必要とするネットワーク帯域幅は下がります。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="465"/>
         <source>Maximum bandwidth used for sent audio</source>
-        <translation type="unfinished">音声の送信に使用するネットワーク帯域幅のピーク値</translation>
+        <translation>音声の送信に使用するネットワーク帯域幅のピーク値</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="468"/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished">&lt;b&gt;音声の送信に使用される帯域幅の最大値を示します。&lt;/b&gt;&lt;br /&gt;これは、あなたのPCから送出される帯域の最も大きな値を表示しています。Audioビットレートは音声データ単体の最大ビットレート(VBR使用時)を表します。 Positionは位置情報のために使用されるビットレート表し、Overheadは独自のフレーミングとIPパケットヘッダ(IP と UDP はこのOverheadの90%)を表しています。</translation>
+        <translation>&lt;b&gt;音声の送信に使用される帯域幅の最大値を示します。&lt;/b&gt;&lt;br /&gt;これは、あなたのPCから送出される帯域の最も大きな値を表示しています。Audioビットレートは音声データ単体の最大ビットレート(VBR使用時)を表します。 Positionは位置情報のために使用されるビットレート表し、Overheadは独自のフレーミングとIPパケットヘッダ(IP と UDP はこのOverheadの90%)を表しています。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="484"/>
         <source>Audio Processing</source>
-        <translation type="unfinished">音声処理</translation>
+        <translation>音声処理</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="490"/>
         <source>Noise Suppression</source>
-        <translation type="unfinished">ノイズ抑制</translation>
+        <translation>ノイズ抑制</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="500"/>
         <source>Noise suppression</source>
-        <translation type="unfinished">ノイズ抑制</translation>
+        <translation>ノイズ抑制</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="503"/>
         <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
-        <translation type="unfinished">&lt;b&gt;ノイズ抑制の量を設定します。&lt;/b&gt;&lt;br /&gt;値を大きくすると、より積極的に定常ノイズを抑制しようとします。</translation>
+        <translation>&lt;b&gt;ノイズ抑制の量を設定します。&lt;/b&gt;&lt;br /&gt;値を大きくすると、より積極的に定常ノイズを抑制しようとします。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="535"/>
         <source>Amplification</source>
-        <translation type="unfinished">音量の増幅</translation>
+        <translation>音量の増幅</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="545"/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">音声入力の最大増幅量</translation>
+        <translation>音声入力の最大増幅量</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="548"/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished">&lt;b&gt;音声入力の最大増幅量です。&lt;/b&gt;&lt;br /&gt;Mumbleは圧縮を行う前に入力量を正常化します。この設定は、どれくらい音量を増幅させるかを決定します。&lt;br /&gt;実際の音量はその時の発言パターンによって変化しますが、ここで指定された音量を上回ることはありません。&lt;br /&gt;音声統計で&lt;i&gt;マイクの音量&lt;/i&gt;レベルが常に100%近くに達しているなら、この値を2.0くらいにしたくなるかも知れません。しかし、(大部分の人がそうだと思いますが)100%に届かないなら、この値をより高くしてください。&lt;br /&gt;あなたが非常に穏やかに話している時に&lt;i&gt;マイク音量 * 増幅値 &gt;= 100&lt;/i&gt; となるのが理想的です。&lt;br /&gt;&lt;br /&gt;この値を最大にすることに実害はありませんが、だからといって適当に最大値に合わせてしまうと他の会話まで拾ってしまうので気をつけてください。</translation>
+        <translation>&lt;b&gt;音声入力の最大増幅量です。&lt;/b&gt;&lt;br /&gt;Mumbleは圧縮を行う前に入力量を正常化します。この設定は、どれくらい音量を増幅させるかを決定します。&lt;br /&gt;実際の音量はその時の発言パターンによって変化しますが、ここで指定された音量を上回ることはありません。&lt;br /&gt;音声統計で&lt;i&gt;マイクの音量&lt;/i&gt;レベルが常に100%近くに達しているなら、この値を2.0くらいにしたくなるかも知れません。しかし、(大部分の人がそうだと思いますが)100%に届かないなら、この値をより高くしてください。&lt;br /&gt;あなたが非常に穏やかに話している時に&lt;i&gt;マイク音量 * 増幅値 &gt;= 100&lt;/i&gt; となるのが理想的です。&lt;br /&gt;&lt;br /&gt;この値を最大にすることに実害はありませんが、だからといって適当に最大値に合わせてしまうと他の会話まで拾ってしまうので気をつけてください。</translation>
     </message>
 </context>
 <context>
@@ -1461,47 +1461,47 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="64"/>
         <source>Continuous</source>
-        <translation type="unfinished">常に有効</translation>
+        <translation>常に有効</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="65"/>
         <source>Voice Activity</source>
-        <translation type="unfinished">声で有効化</translation>
+        <translation>声で有効化</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="66"/>
         <source>Push To Talk</source>
-        <translation type="unfinished">キー押下で有効化</translation>
+        <translation>キー押下で有効化</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="70"/>
         <source>Audio Input</source>
-        <translation type="unfinished"></translation>
+        <translation>音声入力</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="152"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="150"/>
         <source>Off</source>
-        <translation type="unfinished">オフ</translation>
+        <translation>オフ</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="158"/>
         <source>%1 s</source>
-        <translation type="unfinished">%1 s</translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="167"/>
         <source>-%1 dB</source>
-        <translation type="unfinished"></translation>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="218"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1kbit/s (Audio %2, Position %4, Overhead %3)</translation>
+        <translation>%1kbit/s (Audio %2, Position %4, Overhead %3)</translation>
     </message>
 </context>
 <context>
@@ -1509,232 +1509,232 @@
     <message>
         <location filename="AudioOutput.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">フォーム</translation>
+        <translation>フォーム</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="19"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>インターフェース</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="25"/>
         <source>System</source>
-        <translation type="unfinished">システム</translation>
+        <translation>システム</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="41"/>
         <source>Input method for audio</source>
-        <translation type="unfinished">音声入力方法</translation>
+        <translation>音声入力方法</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="44"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;音声の入力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
+        <translation>&lt;b&gt;音声の入力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="67"/>
         <source>Device</source>
-        <translation type="unfinished">デバイス</translation>
+        <translation>デバイス</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="83"/>
         <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>音声の出力方法</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="86"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
+        <translation>&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="93"/>
         <source>Positional Audio</source>
-        <translation type="unfinished">位置オーディオ</translation>
+        <translation>位置音響</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="103"/>
         <source>Audio Output</source>
-        <translation type="unfinished">音声出力</translation>
+        <translation>音声出力</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="109"/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished">ジッタバッファのデフォルト(&amp;J)</translation>
+        <translation>ジッタバッファのデフォルト(&amp;J)</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="119"/>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished">ジッタバッファの安全マージン</translation>
+        <translation>ジッタバッファの安全マージン</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="122"/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished">&lt;b&gt;ジッタバッファのための最小の安全マージンを設定します。&lt;/b&gt;&lt;br /&gt;全ての受信音声は一時保存されます。ジッタバッファは、現在のネットワークの状態に合わせて一時保存の領域を小さくしようとし続けるので、レイテンシーは可能な限り小さくなります。この設定は、使用する最小のバッファサイズを決定します。聞こえてくる会話の出だしが不安定なら、この値を増やしてください。</translation>
+        <translation>&lt;b&gt;ジッタバッファのための最小の安全マージンを設定します。&lt;/b&gt;&lt;br /&gt;全ての受信音声は一時保存されます。ジッタバッファは、現在のネットワークの状態に合わせて一時保存の領域を小さくしようとし続けるので、レイテンシーは可能な限り小さくなります。この設定は、使用する最小のバッファサイズを決定します。聞こえてくる会話の出だしが不安定なら、この値を増やしてください。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="505"/>
         <source>TextLabel</source>
-        <translation type="unfinished">テキストラベル</translation>
+        <translation>テキストラベル</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="154"/>
         <source>Volume</source>
-        <translation type="unfinished">音量</translation>
+        <translation>音量</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="164"/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished">受信音声の音量</translation>
+        <translation>受信音声の音量</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="167"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
-        <translation type="unfinished">&lt;b&gt;受信する音声の音量を調整します。&lt;/b&gt;&lt;br /&gt;ここでは、音量を下げる事のみが可能です。増やす事は出来ません。</translation>
+        <translation>&lt;b&gt;受信する音声の音量を調整します。&lt;/b&gt;&lt;br /&gt;ここでは、音量を下げる事のみが可能です。増やす事は出来ません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="193"/>
         <source>Output Delay</source>
-        <translation type="unfinished">出力猶予</translation>
+        <translation>出力猶予</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="203"/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>バッファデータ量</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="206"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished">出力バッファにおけるプリバッファの量を設定します。いろいろな値で試してみて、急に不安定にならない一番小さな値に設定してください。</translation>
+        <translation>出力バッファにおけるプリバッファの量を設定します。いろいろな値で試してみて、急に不安定にならない一番小さな値に設定してください。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="238"/>
         <source>Volume attenuation</source>
-        <translation type="unfinished"></translation>
+        <translation>ボリューム減衰</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="244"/>
         <source>MinDistance</source>
-        <translation type="unfinished">最小距離</translation>
+        <translation>最小距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="254"/>
         <source>Minimum distance to player before sound decreases</source>
-        <translation type="unfinished">音が小さくなる前のプレイヤーへの最小距離</translation>
+        <translation>音が小さくなる前のプレイヤーへの最小距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="257"/>
         <source>This sets the minimum distance for sound calculations. The volume of other players&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished">サウンドの計算に使う最小距離を設定します。少なくともこの距離だけ離れていれば、他のプレイヤーの音声は減衰しません。</translation>
+        <translation>サウンドの計算に使う最小距離を設定します。少なくともこの距離だけ離れていれば、他のプレイヤーの音声は減衰しません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="286"/>
         <source>MaxDistance</source>
-        <translation type="unfinished">最大距離</translation>
+        <translation>最大距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="296"/>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
-        <translation type="unfinished">音が小さくならない最大距離</translation>
+        <translation>音が小さくならない最大距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="299"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
-        <translation type="unfinished">サウンドの計算に使う最大距離を設定します。これよりも遠くなると、他のプレイヤーの音声はこれ以上減衰しなくなります。</translation>
+        <translation>サウンドの計算に使う最大距離を設定します。これよりも遠くなると、他のプレイヤーの音声はこれ以上減衰しなくなります。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="328"/>
         <source>RollOff</source>
-        <translation type="unfinished">ロールオフ</translation>
+        <translation>ロールオフ</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="338"/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished">サウンド減衰の要因</translation>
+        <translation>ボリューム減少の割合</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="341"/>
         <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
-        <translation type="unfinished">最小距離を超えた時、音量がどのくらい落ちるかについての値です。普通(1.0)の設定では距離が2倍になるたびに音量は半分になります。これを大きくすると音量の落ち込みが速くなり、小さくすると音量の落ち込みは遅くなります。</translation>
+        <translation>最小距離を超えた時、音量がどのくらい落ちるかについての値です。普通(1.0)の設定では距離が2倍になるたびに音量は半分になります。これを大きくすると音量の落ち込みが速くなり、小さくすると音量の落ち込みは遅くなります。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="367"/>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translation>ブルーム</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="422"/>
         <source>Loopback Test</source>
-        <translation type="unfinished">ループバックテスト</translation>
+        <translation>ループバックテスト</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="428"/>
         <source>Delay Variance</source>
-        <translation type="unfinished">レイテンシー調整</translation>
+        <translation>レイテンシー調整</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="438"/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished">パケットレイテンシーの変動値</translation>
+        <translation>パケットレイテンシーの変動値</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="441"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
-        <translation type="unfinished">&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります。</translation>
+        <translation>&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="467"/>
         <source>Packet Loss</source>
-        <translation type="unfinished">パケットロス</translation>
+        <translation>パケットロス</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="477"/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished">ループバックモードでのパケットロス</translation>
+        <translation>ループバックモードでのパケットロス</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="480"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation type="unfinished">&lt;b&gt;ループバックモードでのパケットロスを設定します。&lt;/b&gt;&lt;br /&gt;これはパケットロスの割合です。送信方向の帯域幅のピークに達するか、ネットワーク接続に問題がない限り、これは0%のはずです。</translation>
+        <translation>&lt;b&gt;ループバックモードでのパケットロスを設定します。&lt;/b&gt;&lt;br /&gt;これはパケットロスの割合です。送信方向の帯域幅のピークに達するか、ネットワーク接続に問題がない限り、これは0%のはずです。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="512"/>
         <source>&amp;Loopback</source>
-        <translation type="unfinished">ループバック(&amp;L)</translation>
+        <translation>ループバック(&amp;L)</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="522"/>
         <source>Desired loopback mode</source>
-        <translation type="unfinished">使用したいループバックモード</translation>
+        <translation>使用したいループバックモード</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="525"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバーをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバー&lt;/i&gt; - サーバーにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
+        <translation>&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバーをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバー&lt;/i&gt; - サーバーにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="377"/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"></translation>
+        <translation>ボリューム増加の割合</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="380"/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"></translation>
+        <translation>入力ソースの近さによってどのくらいボリュームを上げるか</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="406"/>
         <source>Connected &quot;speakers&quot; are actually headphones.</source>
-        <translation type="unfinished"></translation>
+        <translation>接続している &quot;出力機器&quot; はヘッドホンです。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="409"/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"></translation>
+        <translation>スピーカーを接続しておらず、ヘッドホンだけであることを確認してください。ヘッドホンはあなたからまっすぐ右と左に位置しているのに対し、スピーカーは一般的にあなたの正面に位置しているため、これは重要になります。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="412"/>
         <source>Headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘッドホン</translation>
     </message>
 </context>
 <context>
@@ -1742,47 +1742,47 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="269"/>
         <source>None</source>
-        <translation type="unfinished">なし</translation>
+        <translation>なし</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="270"/>
         <source>Local</source>
-        <translation type="unfinished">ローカル</translation>
+        <translation>ローカル</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="271"/>
         <source>Server</source>
-        <translation type="unfinished">サーバー</translation>
+        <translation>サーバー</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="275"/>
         <source>Audio Output</source>
-        <translation type="unfinished">音声出力</translation>
+        <translation>音声出力</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="362"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="401"/>
         <source>%1%</source>
-        <translation type="unfinished"></translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="370"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="391"/>
         <source>%1m</source>
-        <translation type="unfinished">%1м</translation>
+        <translation>%1m</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="397"/>
         <source>%1</source>
-        <translation type="unfinished">%1</translation>
+        <translation>%1</translation>
     </message>
 </context>
 <context>
@@ -1930,7 +1930,7 @@
     <message>
         <location filename="AudioStats.cpp" line="370"/>
         <source>&gt;1000ms</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;1000ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="13"/>
@@ -2228,12 +2228,12 @@
     <message>
         <location filename="AudioWizard.cpp" line="547"/>
         <source>%1ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="744"/>
         <source>%1 s</source>
-        <translation type="unfinished">%1 s</translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="425"/>
@@ -2258,67 +2258,67 @@
     <message>
         <location filename="AudioWizard.cpp" line="177"/>
         <source>Use echo cancellation</source>
-        <translation type="unfinished">エコーキャンセルを使う</translation>
+        <translation>エコーキャンセルを使う</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="178"/>
         <source>Cancel echo from headset or speakers.</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘッドセットやスピーカーからのエコーをキャンセルします。</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="179"/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished"></translation>
+        <translation>出力音声のエコーキャンセルを有効にします。スピーカーとヘッドセットの両方に対して有効です。</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="227"/>
         <source>Enable positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>位置音響を有効にする</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="228"/>
         <source>Allows positioning of sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>音声の位置</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="229"/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"></translation>
+        <translation>声の位置を定めるために位置音響を使えるようにします。</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="246"/>
         <source>Positional Audio</source>
-        <translation type="unfinished">位置オーディオ</translation>
+        <translation>位置音響</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="247"/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>位置音響の減衰効果を調整します</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="254"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumbleは、いくつかのゲームにおいてゲーム内での他プレイヤーの位置に対応した位置音響をサポートします。他プレイヤーの位置によって、方向と距離をシミュレートして音量が変化します。このシミュレーションはお使いのオペレーティング・システムでスピーカーが正しく設定されていることが前提となります。そのテストはここで行うことが出来ます。</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="257"/>
         <source>The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>このグラフはこれらの位置を表しています: &lt;font color=&quot;red&quot;&gt;あなた&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;スピーカー&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;移動する音の発生源&lt;/font&gt; 上からに見えるようなら、チャンネルの間に移動して聞くのがよいでしょう。</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="261"/>
         <source>Use headphones</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘッドホンを使う</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="262"/>
         <source>Use headphones instead of speakers.</source>
-        <translation type="unfinished"></translation>
+        <translation>スピーカーの代わりにヘッドホンを使う</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="263"/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>OSのスピーカー構成を無視して、代わりにヘッドホン用の位置設定を使用します。</translation>
     </message>
 </context>
 <context>
@@ -2376,7 +2376,7 @@
     <message>
         <location filename="BanEditor.ui" line="48"/>
         <source>0.0.0.0</source>
-        <translation type="unfinished"></translation>
+        <translation>0.0.0.0</translation>
     </message>
     <message>
         <location filename="BanEditor.ui" line="28"/>
@@ -2542,32 +2542,32 @@
     <message>
         <location filename="../Player.cpp" line="53"/>
         <source>Authenticated</source>
-        <translation type="unfinished"></translation>
+        <translation>認証済み</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="55"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>発言禁止 (server)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="57"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>聴取禁止 (server)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="59"/>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>ローカルでの発言禁止</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="61"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>発言禁止(セルフ)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="63"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>聴取禁止(セルフ)</translation>
     </message>
 </context>
 <context>
@@ -2693,7 +2693,7 @@
     <message>
         <location filename="ConnectDialog.ui" line="217"/>
         <source>Cancel</source>
-        <translation type="unfinished">キャンセル</translation>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="145"/>
@@ -2753,7 +2753,7 @@
     <message>
         <location filename="ConnectDialog.cpp" line="215"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="215"/>
@@ -2793,17 +2793,17 @@
     <message>
         <location filename="ConnectDialog.cpp" line="279"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>新規</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="366"/>
         <source>Add</source>
-        <translation type="unfinished">追加</translation>
+        <translation>追加</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="364"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>更新</translation>
     </message>
 </context>
 <context>
@@ -2826,17 +2826,17 @@
     <message>
         <location filename="DXAudioInput.cpp" line="73"/>
         <source>Default DirectSound Voice Input</source>
-        <translation type="unfinished">デフォルトのDirectSound音声入力</translation>
+        <translation>デフォルトのDirectSound音声入力</translation>
     </message>
     <message>
         <location filename="DXAudioInput.cpp" line="166"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation type="unfinished"></translation>
+        <translation>DirectSound入力デバイスのオープンに失敗しました。 マイクの取得ができませんでした。</translation>
     </message>
     <message>
         <location filename="DXAudioInput.cpp" line="257"/>
         <source>Lost DirectSound input device.</source>
-        <translation type="unfinished"></translation>
+        <translation>DirectSound入力デバイスを失いました</translation>
     </message>
 </context>
 <context>
@@ -2859,12 +2859,12 @@
     <message>
         <location filename="DXAudioOutput.cpp" line="82"/>
         <source>Default DirectSound Voice Output</source>
-        <translation type="unfinished">デフォルトのDirectSound音声出力</translation>
+        <translation>デフォルトのDirectSound音声出力</translation>
     </message>
     <message>
         <location filename="DXAudioOutput.cpp" line="513"/>
         <source>Lost DirectSound output device.</source>
-        <translation type="unfinished"></translation>
+        <translation>DirectSound出力デバイスを失いました</translation>
     </message>
 </context>
 <context>
@@ -2937,7 +2937,7 @@
     <message>
         <location filename="DXConfigDialog.ui" line="113"/>
         <source>Positional Audio</source>
-        <translation type="obsolete">位置オーディオ</translation>
+        <translation type="obsolete">位置音響</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.cpp" line="74"/>
@@ -3012,7 +3012,7 @@
     <message>
         <location filename="DXConfigDialog.ui" line="233"/>
         <source>Factor for sound volume decrease</source>
-        <translation type="obsolete">サウンド減衰の要因</translation>
+        <translation type="obsolete">ボリューム減少の割合</translation>
     </message>
     <message>
         <location filename="DXConfigDialog.ui" line="236"/>
@@ -3084,27 +3084,27 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="175"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">ショートカット</translation>
+        <translation>ショートカット</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="127"/>
         <source>Function</source>
-        <translation type="unfinished">機能</translation>
+        <translation>機能</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="129"/>
         <source>Shortcut</source>
-        <translation type="unfinished">ショートカット</translation>
+        <translation>ショートカット</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="148"/>
         <source>Shortcut bound to %1.</source>
-        <translation type="unfinished">%1 に登録されているショートカット</translation>
+        <translation>%1 に登録されているショートカット</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="151"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
-        <translation type="unfinished">&lt;b&gt;%1 に登録するショートカットキーです。&lt;/b&gt;&lt;br /&gt;このフィールドをクリックして希望のキー/ボタンの組み合わせを押すと登録できます。ダブルクリックで削除します。</translation>
+        <translation>&lt;b&gt;%1 に登録するショートカットキーです。&lt;/b&gt;&lt;br /&gt;このフィールドをクリックして希望のキー/ボタンの組み合わせを押すと登録できます。ダブルクリックで削除します。</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="164"/>
@@ -3114,17 +3114,17 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="131"/>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation>抑制</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="154"/>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"></translation>
+        <translation>他のアプリケーションのキーを抑制します</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="157"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;他のアプリケーションで押されたボタンを隠します.&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、他のアプリケーションで押されたボタン(または、複数ボタンの組み合わせの最後のもの)を隠します. 全てのボタンを抑制できるわけではないことにご注意ください。</translation>
     </message>
 </context>
 <context>
@@ -3132,7 +3132,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_macx.cpp" line="59"/>
         <source>Mumble has detected that it is unable to receieve Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation type="unfinished"></translation>
+        <translation>バックグラウンドでグローバルなショートカットイベントが発生し、受け入れることができませんでした。&lt;br /&gt;&lt;br /&gt;&apos;補助デバイスへのアクセス&apos; のようなユニバーサルアクセス機能が無効になっているのが原因です。&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;この設定を有効にして&lt;/a&gt; その後、再び設定してください。 </translation>
     </message>
 </context>
 <context>
@@ -3168,7 +3168,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="302"/>
         <source>Mouse %1</source>
-        <translation type="unfinished">マウス %1</translation>
+        <translation>マウス %1</translation>
     </message>
 </context>
 <context>
@@ -3510,62 +3510,62 @@ of the possible locations.</source>
     <message>
         <location filename="LookConfig.cpp" line="61"/>
         <source>None</source>
-        <translation type="unfinished">なし</translation>
+        <translation>なし</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="62"/>
         <source>Only with players</source>
-        <translation type="unfinished"></translation>
+        <translation>人が居るチャンネルのみ</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="63"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>全て</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="95"/>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>展開</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="102"/>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"></translation>
+        <translation>自動的にチャンネルを展開する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="105"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with players&lt;/i&gt; will expand and collapse channels as players join and leave them.</source>
-        <translation type="unfinished"></translation>
+        <translation>どのチャンネルを自動的に展開するかを決定します。 &lt;i&gt;なし&lt;/i&gt; と &lt;i&gt;全て&lt;/i&gt; は全てのチャンネルを展開する/しない設定にします。&lt;i&gt;人が居るチャンネルのみ&lt;/i&gt; はプレイヤーの入室状況に応じて展開と折りたたみが変わります。</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="65"/>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>確認する</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="66"/>
         <source>Do Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>何もしない</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="67"/>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>移動する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="125"/>
         <source>Channel Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルのドラッグ操作</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="132"/>
         <source>This changes the behaviour when moving channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルを動かすときのふるまいを変更します。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="135"/>
         <source>This sets the behaviour of channel drags, it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルを動かすときのふるまいを変更します。これを設定すると誤ってチャンネルをドラッグしてしまうのを防ぐことができます。 &lt;i&gt;チャンネルを移動&lt;/i&gt; 確認なしにチャンネルを動かします。 &lt;i&gt;何もしない&lt;/i&gt; 何も行わず、エラーメッセージを表示します。 &lt;i&gt;確認する&lt;/i&gt; 確認メッセージボックスを出してから動かします。</translation>
     </message>
 </context>
 <context>
@@ -4296,7 +4296,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.ui" line="128"/>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished">終了(&amp;Q)</translation>
+        <translation>終了(&amp;Q)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="131"/>
@@ -4326,7 +4326,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.cpp" line="890"/>
         <source>To %1: %2</source>
-        <translation>%1 宛: %s</translation>
+        <translation>%1 宛: %2</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="890"/>
@@ -4386,7 +4386,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.ui" line="439"/>
         <source>Start the audio configuration wizard</source>
-        <translation>音声の設定ウィザードを開始します</translation>
+        <translation>音声の設定ウィザードを開始します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="442"/>
@@ -4396,17 +4396,17 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.cpp" line="1181"/>
         <source>SSL Verification failed: %1</source>
-        <translation>SSL証明のエラー: %1</translation>
+        <translation>SSL検証エラー: %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1186"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;警告:&lt;/b&gt; サーバーは保存されたものと異なった証明書を呈示しました。</translation>
+        <translation>&lt;b&gt;警告:&lt;/b&gt; 送信された証明書は保存されたものとは異なっています。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1188"/>
         <source>Sever presented a certificate which failed verification.</source>
-        <translation>サーバーは検証に通らなかった証明書を送信しました。</translation>
+        <translation>送信された証明書の検証に失敗しました。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="184"/>
@@ -4431,7 +4431,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.cpp" line="352"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>URLスキームは &apos;mumble&apos; ではありません</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="377"/>
@@ -4466,7 +4466,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.cpp" line="516"/>
         <source>Voice channel is sent over control channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="518"/>
@@ -4536,7 +4536,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.ui" line="137"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="251"/>
@@ -4626,85 +4626,85 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.cpp" line="278"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバーに接続中です。接続を閉じるか最小化するかを選択してください。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="279"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>閉じる</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="280"/>
         <source>Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>最小化</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="220"/>
         <source>&amp;Window</source>
-        <translation type="unfinished"></translation>
+        <translation>ウインドウ(&amp;W)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="222"/>
         <source>Ctrl+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="223"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+W</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="198"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>小型切り替え</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="536"/>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation>小さく表示(&amp;M)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="539"/>
         <source>Toggle minimal window modes</source>
-        <translation type="unfinished"></translation>
+        <translation>小型ウインドウモードの切り替え</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="542"/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"></translation>
+        <translation>ログウインドウとメニューを省いた小型ウインドウの切り替えをします。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="201"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>音量を上げる(+10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="204"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>音量を下げる(-10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="344"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>クリア</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="109"/>
         <source>Log</source>
-        <translation type="unfinished"></translation>
+        <translation>ログ</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="981"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルをドラッグしたときに &quot;何もしない&quot; ようにします; チャンネルが移動しなくなります。</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
-        <translation type="unfinished"></translation>
+        <translation>不明なチャンネルドラッグモード, PlayerModel::dropMimeData</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="325"/>
@@ -4724,142 +4724,142 @@ of the possible locations.</source>
     <message>
         <location filename="NetworkConfig.cpp" line="47"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>ネットワーク</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">フォーム</translation>
+        <translation>フォーム</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="25"/>
         <source>Connection</source>
-        <translation type="unfinished">接続</translation>
+        <translation>接続</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="31"/>
         <source>Use TCP compatability mode</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP互換モードを使用します</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="34"/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;TCP互換モードを有効にします。&lt;/b&gt;.&lt;br /&gt;この設定をするとMumbleがサーバーとの通信にTCPのみを使用するようになります。この設定は通信のオーバーヘッドを増大させ、通信時に音声が途切れる原因になるので、デフォルトの設定(音声:UDP 操作:TCP)が使用できない場合だけ使用するのが良いでしょう。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="37"/>
         <source>Use TCP mode</source>
-        <translation type="unfinished">TCPモードを使用する</translation>
+        <translation>TCPモードを使用する</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="44"/>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished">切断時に再接続を試みます</translation>
+        <translation>切断時に再接続を試みます</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="47"/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished">&lt;b&gt;切断時に再接続を試みます。&lt;/b&gt;&lt;br /&gt;この設定をすると、サーバーへの接続が失敗した際、10秒後に再接続を行います。</translation>
+        <translation>&lt;b&gt;切断時に再接続を試みます。&lt;/b&gt;&lt;br /&gt;この設定をすると、サーバーへの接続が失敗した際、10秒後に再接続を行います。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="50"/>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>自動再接続</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="66"/>
         <source>Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>プロキシ</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="72"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>タイプ</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="85"/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"></translation>
+        <translation>プロキシの接続タイプ</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="88"/>
         <source>&lt;b&gt;Type of proxy to connect through&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatability mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;プロキシの接続タイプ&lt;/b&gt;&lt;br /&gt;プロキシを通して外向きの接続を行うようにします。 注意: プロキシ接続をする場合、強制的にTCP互換モードに変更されます。 全ての音声データは管理チャンネルを通して送信されるようになります。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="92"/>
         <source>Direct connection</source>
-        <translation type="unfinished"></translation>
+        <translation>直接接続</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="97"/>
         <source>HTTP(S) proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP(S) プロキシ</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="102"/>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>SOCKS5 プロキシ</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="110"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>ホスト名</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="126"/>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>プロキシのホスト名</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="129"/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;プロキシサーバのホスト名&lt;b&gt;&lt;br /&gt;あなたが使用したいプロキシサーバのホスト名を指定します。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="151"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>ポート</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="176"/>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>プロキシのポート番号</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="179"/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;プロキシのポート番号&lt;/b&gt;&lt;br /&gt;プロキシへの接続に使うポート番号を指定します。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="195"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザー名</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="202"/>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>プロキシ認証のユーザー名</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="205"/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;プロキシ認証のユーザー名&lt;/b&gt;&lt;br /&gt;プロキシサーバの認証に使用するユーザー名を指定します。プロキシサーバが認証を行わなない場合や、匿名で接続する場合はこのフィールドを空にしてください。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="212"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>パスワード</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="219"/>
         <source>Password for proxy authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>プロキシ認証のパスワード</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="222"/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;プロキシ認証のパスワード&lt;/b&gt;&lt;br /&gt;プロキシサーバの認証に使うパスワードを指定します。プロキシサーバが認証を行わない場合や、匿名で接続する場合はこのフィールドを空にしてください。</translation>
     </message>
 </context>
 <context>
@@ -4943,7 +4943,7 @@ of the possible locations.</source>
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the August 2006 updated version of DX9.0c</source>
-        <translation type="obsolete">オーバーレイライブラリの読み込みに失敗しました。 原因は次のどれかです:
+        <translation type="obsolete">オーバーレイライブラリの読み込みに失敗しました。 原因は次のうちのどれかです:
 - ライブラリ (mumble_ol.dll) が起動していたMumbleのディレクトリに存在しなかった
 - WinXP SP2 以前のOSを使っている
 - 2006年8月にアップデートされたバージョンの DX9.0x を使っていない</translation>
@@ -4954,7 +4954,7 @@ of the possible locations.</source>
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>オーバーレイライブラリの読み込みに失敗しました。 原因は次のどれかです:
+        <translation>オーバーレイライブラリの読み込みに失敗しました。 原因は次のうちのどれかです:
 - ライブラリ (mumble_ol.dll) が起動していたMumbleのディレクトリに存在しなかった
 - WinXP SP2 以前のOSを使っている
 - 2007年6月にアップデートされたバージョンの DX9.0x を使っていない</translation>
@@ -5230,7 +5230,7 @@ of the possible locations.</source>
     <message>
         <location filename="Overlay.ui" line="86"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが上方向に伸びることを許可します。</translation>
+        <translation>オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが上方向に伸びます。</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="125"/>
@@ -5240,12 +5240,12 @@ of the possible locations.</source>
     <message>
         <location filename="Overlay.ui" line="128"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが右に伸びることを許可します。</translation>
+        <translation>オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが右方向に伸びます。</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="141"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが下方向に伸びることを許可します。</translation>
+        <translation>オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが下方向に伸びます。</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="321"/>
@@ -5326,12 +5326,12 @@ of the possible locations.</source>
     <message>
         <location filename="PlayerModel.cpp" line="975"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="975"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"></translation>
+        <translation>本当にこのチャンネルをドラッグしますか？</translation>
     </message>
 </context>
 <context>
@@ -5455,7 +5455,7 @@ of the possible locations.</source>
     <message>
         <location filename="PAAudio.cpp" line="275"/>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation>デフォルトデバイス</translation>
     </message>
 </context>
 <context>
@@ -5493,7 +5493,7 @@ of the possible locations.</source>
     <message>
         <location filename="PulseAudio.ui" line="38"/>
         <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
-        <translation type="obsolete">Mumbleがマイクのためにどのソースを使用するか設定します。&lt;i&gt;デフォルト&lt;/i&gt; デバイスは PulseAudio のデフォルトです。 </translation>
+        <translation type="obsolete">どのソースをマイクに使用するか設定します。&lt;i&gt;デフォルト&lt;/i&gt; デバイスは PulseAudio のデフォルトです。 </translation>
     </message>
     <message>
         <location filename="PulseAudio.ui" line="45"/>
@@ -5582,12 +5582,12 @@ of the possible locations.</source>
     <message>
         <location filename="TextMessage.ui" line="16"/>
         <source>Send raw message</source>
-        <translation type="unfinished"></translation>
+        <translation>生のメッセージを送信する</translation>
     </message>
     <message>
         <location filename="TextMessage.ui" line="19"/>
         <source>Disables html formating</source>
-        <translation type="unfinished"></translation>
+        <translation>htmlフォーマットを無効にする</translation>
     </message>
 </context>
 <context>
@@ -5600,7 +5600,7 @@ of the possible locations.</source>
     <message>
         <location filename="VersionCheck.cpp" line="87"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation>Mumble は SourceForgeサーバーからのバージョン情報の取得に失敗しました。</translation>
+        <translation>SourceForgeサーバーからのバージョン情報の取得に失敗しました。</translation>
     </message>
 </context>
 <context>
@@ -5608,7 +5608,7 @@ of the possible locations.</source>
     <message>
         <location filename="ViewCert.cpp" line="36"/>
         <source>Certificate Chain Details</source>
-        <translation>証明書の階層の詳細</translation>
+        <translation>証明書階層の詳細</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="42"/>
@@ -5633,27 +5633,27 @@ of the possible locations.</source>
     <message>
         <location filename="ViewCert.cpp" line="90"/>
         <source>Organization: %1</source>
-        <translation>組織(O)</translation>
+        <translation>組織(O): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="78"/>
         <source>Subunit: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>部門(OU): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="92"/>
         <source>Country: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>国(C): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="93"/>
         <source>Locality: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>地域(L): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="94"/>
         <source>State: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>地方(ST): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="82"/>
@@ -5673,7 +5673,7 @@ of the possible locations.</source>
     <message>
         <location filename="ViewCert.cpp" line="85"/>
         <source>Public Key: %1 bits %2</source>
-        <translation type="unfinished"></translation>
+        <translation>公開鍵: %1 ビット %2</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="85"/>
@@ -5688,17 +5688,17 @@ of the possible locations.</source>
     <message>
         <location filename="ViewCert.cpp" line="86"/>
         <source>Digest (MD5): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ダイジェスト(MD5): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="88"/>
         <source>Issued by:</source>
-        <translation type="unfinished">発行者</translation>
+        <translation>発行者:</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="91"/>
         <source>Unit Name: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>部門名: %1</translation>
     </message>
 </context>
 <context>
@@ -5721,7 +5721,7 @@ of the possible locations.</source>
     <message>
         <location filename="WASAPI.ui" line="38"/>
         <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
-        <translation type="obsolete">Mumbleがマイクのためにどのソースを使用するか設定します。&lt;i&gt;デフォルト&lt;/i&gt; デバイスは PulseAudio のデフォルトです。 </translation>
+        <translation type="obsolete">どのソースをマイクに使用するか設定します。&lt;i&gt;デフォルト&lt;/i&gt; デバイスは PulseAudio のデフォルトです。 </translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="45"/>
@@ -5741,7 +5741,7 @@ of the possible locations.</source>
     <message>
         <location filename="WASAPI.ui" line="65"/>
         <source>This enables echo cancellation. Don&apos;t enable this unless you are listening on speakers; for headphones it will cause audio degradation.</source>
-        <translation type="obsolete">エコーキャンセルを有効にします。スピーカーで聞いていない限りこれを有効にしないでください; ヘッドホンでは音質劣化の原因となります。</translation>
+        <translation type="obsolete">エコーキャンセルを有効にします。スピーカーを使っている場合のみこれを有効にしてください; ヘッドホンでは音質劣化の原因となります。</translation>
     </message>
     <message>
         <location filename="WASAPI.ui" line="68"/>
@@ -5754,7 +5754,7 @@ of the possible locations.</source>
     <message>
         <location filename="WASAPI.cpp" line="157"/>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation>デフォルトデバイス</translation>
     </message>
 </context>
 <context>
