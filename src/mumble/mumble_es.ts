@@ -3684,7 +3684,7 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="196"/>
+        <location filename="main.cpp" line="199"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>
@@ -3871,7 +3871,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
-        <translation>&amp;Desvincular</translation>
+        <translation type="obsolete">&amp;Desvincular</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="328"/>
@@ -4124,7 +4124,7 @@ de las ubicaciones posibles.</translation>
         <translation>Prohibiendo al jugador %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4783,7 +4783,7 @@ de las ubicaciones posibles.</translation>
         <translation>El ancho de banda máximo del servidor es sólo de %1 kbit/s. Se ha ajustado automáticamente la calidad.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Ésta es la primera vez que inicia Mumble.&lt;br /&gt;¿Le gustaría ejecutar el Asistente de audio para configurar su tarjeta de sonido?</translation>
     </message>
@@ -4879,6 +4879,18 @@ de las ubicaciones posibles.</translation>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="325"/>
+        <source>&amp;Unlink</source>
+        <comment>Channel</comment>
+        <translation type="unfinished">&amp;Desvincular</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="411"/>
+        <source>&amp;Unlink</source>
+        <comment>Plugin</comment>
+        <translation type="unfinished">&amp;Desvincular</translation>
     </message>
 </context>
 <context>

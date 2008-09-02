@@ -3412,7 +3412,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
-        <translation>&amp;Разорвать связь</translation>
+        <translation type="obsolete">&amp;Разорвать связь</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="328"/>
@@ -3754,7 +3754,7 @@ of the possible locations.</source>
         <translation>Бан игрока %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -3949,7 +3949,7 @@ of the possible locations.</source>
         <translation>Запрещено: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="196"/>
+        <location filename="main.cpp" line="199"/>
         <source>Welcome to Mumble.</source>
         <translation>Добро пожаловать в Mumble.</translation>
     </message>
@@ -4249,7 +4249,7 @@ of the possible locations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4345,6 +4345,18 @@ of the possible locations.</source>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="325"/>
+        <source>&amp;Unlink</source>
+        <comment>Channel</comment>
+        <translation type="unfinished">&amp;Разорвать связь</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="411"/>
+        <source>&amp;Unlink</source>
+        <comment>Plugin</comment>
+        <translation type="unfinished">&amp;Разорвать связь</translation>
     </message>
 </context>
 <context>

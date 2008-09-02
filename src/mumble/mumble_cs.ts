@@ -3195,7 +3195,7 @@ v žádném z možných míst.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="196"/>
+        <location filename="main.cpp" line="199"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
@@ -3418,7 +3418,7 @@ v žádném z možných míst.</translation>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
-        <translation>O&amp;dpojit</translation>
+        <translation type="obsolete">O&amp;dpojit</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="328"/>
@@ -3802,7 +3802,7 @@ v žádném z možných míst.</translation>
         <translation>Zpráva pro %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4227,7 +4227,7 @@ v žádném z možných míst.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4323,6 +4323,18 @@ v žádném z možných míst.</translation>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="325"/>
+        <source>&amp;Unlink</source>
+        <comment>Channel</comment>
+        <translation type="unfinished">O&amp;dpojit</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="411"/>
+        <source>&amp;Unlink</source>
+        <comment>Plugin</comment>
+        <translation type="unfinished">O&amp;dpojit</translation>
     </message>
 </context>
 <context>

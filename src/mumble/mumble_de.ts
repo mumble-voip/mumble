@@ -3741,7 +3741,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
-        <translation>&amp;Unlink</translation>
+        <translation type="obsolete">&amp;Unlink</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="328"/>
@@ -4004,7 +4004,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Banne Spieler %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4199,7 +4199,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Abgelehnt: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="196"/>
+        <location filename="main.cpp" line="199"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen zu Mumble.</translation>
     </message>
@@ -4513,7 +4513,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Dies benennt einen Kanal um.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Dies ist das erste Mal, dass Sie Mumble starten.&lt;br /&gt;Wollen Sie den Audio Assistenten starten, um Ihre Soundkarte zu konfigurieren?</translation>
     </message>
@@ -4749,6 +4749,18 @@ der möglichen Orte initialisieren.</translation>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="325"/>
+        <source>&amp;Unlink</source>
+        <comment>Channel</comment>
+        <translation type="unfinished">&amp;Unlink</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="411"/>
+        <source>&amp;Unlink</source>
+        <comment>Plugin</comment>
+        <translation type="unfinished">&amp;Unlink</translation>
     </message>
 </context>
 <context>

@@ -3736,7 +3736,7 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
-        <translation>&amp;Wyłącz wtyczki</translation>
+        <translation type="obsolete">&amp;Wyłącz wtyczki</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="328"/>
@@ -3999,7 +3999,7 @@ w żadnej z podanych lokacji.</translation>
         <translation>Banowanie gracza %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4194,7 +4194,7 @@ w żadnej z podanych lokacji.</translation>
         <translation>Zabroniono: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="196"/>
+        <location filename="main.cpp" line="199"/>
         <source>Welcome to Mumble.</source>
         <translation>Witamy w Mumble!</translation>
     </message>
@@ -4508,7 +4508,7 @@ w żadnej z podanych lokacji.</translation>
         <translation>Zmienia nazwę kanału.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Program Mumble został uruchomiony po raz pierwszy.&lt;br /&gt; Czy chcesz uruchomić Kreatora Audio, aby skonfigurować dźwięk?</translation>
     </message>
@@ -4744,6 +4744,18 @@ w żadnej z podanych lokacji.</translation>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation type="unfinished">Nieznany tryb Przeciągania Kanału w PlayerModel::dropMimeData.</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="325"/>
+        <source>&amp;Unlink</source>
+        <comment>Channel</comment>
+        <translation type="unfinished">&amp;Wyłącz wtyczki</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="411"/>
+        <source>&amp;Unlink</source>
+        <comment>Plugin</comment>
+        <translation type="unfinished">&amp;Wyłącz wtyczki</translation>
     </message>
 </context>
 <context>

@@ -3753,7 +3753,7 @@ of the possible locations.</source>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
-        <translation>リンク解除(&amp;U)</translation>
+        <translation type="obsolete">リンク解除(&amp;U)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="328"/>
@@ -4094,7 +4094,7 @@ of the possible locations.</source>
         <translation>プレイヤー %1 をBANしました</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4289,7 +4289,7 @@ of the possible locations.</source>
         <translation>拒否されました: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="196"/>
+        <location filename="main.cpp" line="199"/>
         <source>Welcome to Mumble.</source>
         <translation>Mumbleへようこそ</translation>
     </message>
@@ -4609,7 +4609,7 @@ of the possible locations.</source>
         <translation>サーバーの最大帯域幅は %1 kbit/s しかありません。品質は自動的に調整されます。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="214"/>
+        <location filename="main.cpp" line="217"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>初めての起動です。&lt;br /&gt;サウンドカードの設定をするために音声ウィザードに移動しますか？</translation>
     </message>
@@ -4705,6 +4705,18 @@ of the possible locations.</source>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="325"/>
+        <source>&amp;Unlink</source>
+        <comment>Channel</comment>
+        <translation type="unfinished">リンク解除(&amp;U)</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="411"/>
+        <source>&amp;Unlink</source>
+        <comment>Plugin</comment>
+        <translation type="unfinished">リンク解除(&amp;U)</translation>
     </message>
 </context>
 <context>
