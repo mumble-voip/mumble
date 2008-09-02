@@ -322,7 +322,7 @@
   </action>
   <action name="qaChannelUnlink" >
    <property name="text" >
-    <string>&amp;Unlink</string>
+    <string comment="Channel" >&amp;Unlink</string>
    </property>
    <property name="toolTip" >
     <string>Unlink your channel from another channel</string>
@@ -408,7 +408,7 @@
   </action>
   <action name="qaAudioUnlink" >
    <property name="text" >
-    <string>&amp;Unlink</string>
+    <string comment="Plugin" >&amp;Unlink</string>
    </property>
    <property name="toolTip" >
     <string>Forcibly unlink plugin</string>
