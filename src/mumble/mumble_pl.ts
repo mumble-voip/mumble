@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="pl">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -285,7 +286,7 @@
     <message>
         <location filename="ACLEditor.ui" line="93"/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished">Grupa została przejęta z kanału źródła</translation>
+        <translation>Grupa została przejęta z kanału źródła</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="96"/>
@@ -1815,32 +1816,32 @@
     <message>
         <location filename="../Player.cpp" line="53"/>
         <source>Authenticated</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweryfikowany</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="55"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyciszony mikrofon (przez server)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="57"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyciszone słuchawki i mikrofon (przez server)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="59"/>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalne wyciszenie</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="61"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyciszony mikrofon (przez siebie)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="63"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyciszone słuchawki i mikrofon (przez siebie)</translation>
     </message>
 </context>
 <context>
@@ -2150,7 +2151,7 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="131"/>
         <source>Suppress</source>
-        <translation type="unfinished">Zarezerwuj</translation>
+        <translation>Zarezerwuj</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="154"/>
@@ -2160,7 +2161,7 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="157"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished">&lt;b&gt;Ta opcja ukrywa wciśnięcia przycisków przed innymi aplikacjami.&lt;/b&gt;&lt;br /&gt; Włączając tę opcję ukrywasz przycisk przed inną aplikacjją (lub ostatni z kombinacji multi-przycisków). Nie wszystkie przyciski da się tak ukryć.</translation>
+        <translation>&lt;b&gt;Ta opcja ukrywa wciśnięcia przycisków przed innymi aplikacjami.&lt;/b&gt;&lt;br /&gt; Włączając tę opcję ukrywasz przycisk przed inną aplikacjją (lub ostatni z kombinacji multi-przycisków). Nie wszystkie przyciski da się tak ukryć.</translation>
     </message>
 </context>
 <context>
@@ -2485,32 +2486,32 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="LookConfig.cpp" line="65"/>
         <source>Ask</source>
-        <translation type="unfinished">Pytaj</translation>
+        <translation>Pytaj</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="66"/>
         <source>Do Nothing</source>
-        <translation type="unfinished">Nic nie rób</translation>
+        <translation>Nic nie rób</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="67"/>
         <source>Move</source>
-        <translation type="unfinished">Przenieś</translation>
+        <translation>Przenieś</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="125"/>
         <source>Channel Dragging</source>
-        <translation type="unfinished">Przeciąganie kanałów</translation>
+        <translation>Przeciąganie kanałów</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="132"/>
         <source>This changes the behaviour when moving channels.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="135"/>
         <source>This sets the behaviour of channel drags, it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2858,7 +2859,7 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="MainWindow.ui" line="478"/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation type="unfinished">Pokazuje małe okno z informacjami na temat Speex</translation>
+        <translation>Pokazuje małe okno z informacjami na temat Speex</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="489"/>
@@ -3583,40 +3584,40 @@ w żadnej z podanych lokacji.</translation>
         <location filename="MainWindow.cpp" line="201"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Głośność w górę (+10%)</translation>
+        <translation>Głośność w górę (+10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="204"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Głośność w dół (-10%)</translation>
+        <translation>Głośność w dół (-10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="344"/>
         <source>Clear</source>
-        <translation type="unfinished">Wyczyść</translation>
+        <translation>Wyczyść</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="981"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished">Przeciąganie Kanału masz ustatwione na &quot;Nie rób nic&quot; dlatego nie zostałeś przeniesiony.</translation>
+        <translation>Przeciąganie Kanału masz ustatwione na &quot;Nie rób nic&quot; dlatego nie zostałeś przeniesiony.</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
-        <translation type="unfinished">Nieznany tryb Przeciągania Kanału w PlayerModel::dropMimeData.</translation>
+        <translation>Nieznany tryb Przeciągania Kanału w PlayerModel::dropMimeData.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="325"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished">&amp;Odłącz</translation>
+        <translation>&amp;Odłącz</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
         <comment>Plugin</comment>
-        <translation type="unfinished">&amp;Wyłącz wtyczkę</translation>
+        <translation>&amp;Wyłącz wtyczkę</translation>
     </message>
 </context>
 <context>
@@ -4049,12 +4050,12 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="PlayerModel.cpp" line="975"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="975"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy jesteś pewien, że chcesz przeciągnąć ten kanał?</translation>
     </message>
 </context>
 <context>
