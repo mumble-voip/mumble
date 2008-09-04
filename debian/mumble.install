@@ -1,8 +1,0 @@
-icons/mumble.xpm /usr/share/pixmaps
-scripts/mumble.desktop /usr/share/applications
-scripts/mumble.protocol /usr/share/services
-release/mumble /usr/bin
-scripts/mumble-overlay /usr/bin
-scripts/11-input-mumble-policy.fdi /usr/share/hal/fdi/policy/10osvendor
-release/libmumble.so.1* /usr/lib/mumble
-release/plugins/liblink.so /usr/lib/mumble
