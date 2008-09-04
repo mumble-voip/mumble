@@ -1,5 +1,17 @@
 include(../compiler.pri)
 
+!exists(../speex/COPYING) {
+	message("The speex/ directory was not found. You need to do one of the following:")
+	message("")
+	message("Option 1: Use Speex Git:")
+	message("git clone http://git.xiph.org/speex.git")
+	message("")
+	message("Option 2: Use system speex (only if it's a bleeding edge version):")
+	message("qmake CONFIG+=no-bundled-speex -recursive")
+	message("")
+	error("Aborting configuration")
+}
+
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += staticlib debug_and_release
