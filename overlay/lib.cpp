@@ -194,27 +194,8 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 	}
 
 	if (iShouldPatch > 0) {
-		/*		CWPSTRUCT *s = reinterpret_cast<CWPSTRUCT *>(lParam);
-				if (s) {
-					switch (s->message) {
-						case WM_CREATE:
-						case WM_DESTROY:
-						case WM_SETFOCUS:
-						case WM_GETMINMAXINFO:	// For things that link directly
-						case WM_GETICON:		// Worked for BF2
-						case WM_NCCREATE:		// Lots of games
-			*/
 		checkD3D9Hook();
 		checkOpenGLHook();
-		/*
-							// checkOpenALHook();
-							// checkDSHook(s->hwnd);
-							break;
-						default:
-							break;
-					}
-				}
-		*/
 	}
 	return CallNextHookEx(hhookWnd, nCode, wParam, lParam);
 }

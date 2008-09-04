@@ -64,9 +64,7 @@ struct HardHook {
 };
 
 extern void checkD3D9Hook();
-extern void checkOpenALHook();
 extern void checkOpenGLHook();
-extern void checkDSHook(HWND hwnd);
 
 extern SharedMem *sm;
 extern HANDLE hSharedMutex;
