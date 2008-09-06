@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="pl">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -2445,12 +2446,12 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="LookConfig.ui" line="145"/>
         <source>New version check</source>
-        <translation>Sprzwdzenie nowej wersji</translation>
+        <translation type="unfinished">Aktualizacje programu</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="151"/>
         <source>Check for updates on startup</source>
-        <translation>Sprawdzaj aktualizacje przy starcie</translation>
+        <translation type="unfinished">Sprawdzaj czy istnieje nowsza wersja Mumble przy starcie</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="61"/>
@@ -3134,7 +3135,7 @@ w żadnej z podanych lokacji.</translation>
         <location filename="MainWindow.cpp" line="151"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Push-To-Talk</translation>
+        <translation type="unfinished">Push-to-Talk</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="154"/>
