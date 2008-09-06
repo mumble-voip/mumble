@@ -1,4 +1,224 @@
-2008-05-10 Revision 1151-1155
+2008-09-06 Revision 1287
+	* Fix minor typo in GlobalShortcutMac
+	* Updated German translation [m0ta]
+2008-09-04 Revision 1281-1285
+	* Add warning to user if speex hasn't been checked out.
+	* Remove unused FMODAudio
+	* Remove outdated link.pl (which hasn't worked for several releases)
+	* Remove unused DSound/OpenAL hooks from overlay source
+	* Remove debian/ and debian-hardy/ from SVN as debian builds are
+	  maintained in the official debian SVN.
+	* Updated french translation [jerhum]
+2008-09-03 Revision 1280
+	* Final version of polish translation
+2008-09-02 Revision 1272-1278
+	* Updated Japanese translation [ikasamah]
+	* Updated Spanish translation [naproxeno]
+	* Remove obsolete translations from polish file
+	* Updated polish translation [sumowski]
+	* Updated language files to match new context
+	* Add context to text "Unlink" for translators (Channel or Plugin?)
+	* Polish translation [sumowski]
+	* Work around bug in QDir::addSearchPath() and QTranslator::load()
+2008-09-01 Revision 1269-1270
+	* Updated language source files
+	* Indenting
+	* Silky smooth positional audio mixer.
+2008-08-31 Revision 1265-1267
+	* Include all necesarry files to compile in .tar.gz
+	* Distribute Murmur.ice and php scripts with static binary
+	* Update binary snapshot to update front page
+	* Switch to name hints for iterating PCM devices on ALSA.
+2008-08-30 Revision 1261-1263
+	* Be slightly more forecefull when disconnecting timed out clients
+	* Use 'MBLE' process signature on OSX for easier identification.
+	  [mkrautz]
+	* Try using the CBT hook to avoid IE slowdowns. Might be games that
+	  aren't catched by this one, though :(
+	* Use a separate message loop for the lowlevel input hooks on Win32.
+	  (Fixes bug #2083383)
+2008-08-29 Revision 1253-1259
+	* Overlay blacklist and "override" added (put a file named "nooverlay"
+	  next to the executable to disable it).
+	* Fix urlCallback prototype on non-x86-64. Sigh. [mkrautz]
+	* More general Boost include path on OSX. [mkrautz]
+	* Work around Qt 4.4.1 "feature" of default buttons.
+	* Support for building against Cocoa Qt4 in compiler.pri
+	  (CONFIG+=cocoa) [mkrautz]
+	* Bundle Info.plist for Mumble AppBundle instead of generating it
+	  on-the-fly. [mkrautz]
+	* Work around setRecord() being broken in Qt 4.4.1
+	* Fixes for x86_64 Cocoa version of Qt4. [mkrautz]
+2008-08-28 Revision 1250-1251
+	* GlobalShortcutMac cleanups. [mkrautz]
+	* Use ~/Library/Logs/Mumble.log for our log on Mac OS X. [mkrautz]
+	* Convert GlobalShortcut on OSX to use the Quartz Event Tap API. Fixes
+	  bug #1929509. Enables key suppression and proper key names in the
+	  config dialog. [mkrautz]
+2008-08-27 Revision 1245-1248
+	* Distrubute Murmur.ice with .tar.gz
+	* Holding VersionCheck::on_Agent_requestFinished with a messagebox
+	  means we'll get a second finish event when the connection is closed,
+	  which goes through before we've finished the first. Switch to msgBox
+	* Under win32, ICE has wstring as wchar_t, Qt as unsigned short, so
+	  we're switching to utf8
+	* Small cleanup of Win32 output modules.
+	* Show version in title of Win32 Murmur log window. [mkrautz]
+2008-08-26 Revision 1241-1243
+	* Repair broken Murmur output formatting introduced by --version
+	  change. [mkrautz]
+	* Do not output an AppBundle for Murmur on OSX. [mkrautz]
+	* Add version parameter to commandline Murmur. [mkrautz]
+	* Fix server thread termination on Darwin/OSX. Murmur will now
+	  properly shut down when receiving a SIGTERM. [mkrautz]
+2008-08-25 Revision 1239
+	* Full fledged ICE/PHP example
+	* Make ICE unicode safe (switch to utf16 strings)
+2008-08-24 Revision 1237
+	* Package dbus-send on Win32 installs.
+	* Add DBus setRegistration call
+2008-08-21 Revision 1233-1235
+	* Use unfiltered input for "amplitude" VAD.
+	* Move boost path to compiler.pri and use Boost 1.36 on Win32.
+	* Switch to using event-based async ICE functions; Meta::start is now
+	  safe to use.
+	  Fix a memory leak when stopping a virtual server.
+	* Statically compiled and linked ICE for static server.
+2008-08-18 Revision 1232
+	* Update defaults slightly.
+2008-08-17 Revision 1231
+	* Allow AudioWizard audio loopback to work even if we're muted on the
+	  server.
+2008-08-15 Revision 1228-1229
+	* Remove a bit of debugging that snuck into the last update.
+	* Qt 4.4.1 develops a few visual quirks if you reparent GUI elements
+	  during their creation, so switch to explicitly setting the parent.
+	* Fix ICE link bug on Win32.
+2008-08-14 Revision 1227
+	* Add suppression for XEvie and fix Qt4.4ism for context menu
+2008-08-13 Revision 1220-1225
+	* Update static packaging script
+	* Remove some SSL debugging
+	* Possible support for key suppression with XEvie, but untested as
+	  Xevie itself is broken on i386
+	* Add a "clear" to the context menu of the log window.
+	* Remember correct input device for WASAPI.
+	* Indenting
+	* Use explicit static_cast<> instead of implicit conversions for
+	  float<->int etc
+2008-08-12 Revision 1218
+	* No longer need bin/ in path for Win32.
+	* Fix voice activation buglet.
+	  Updated Win32 build environment for VS2008 SP1 and Qt 4.4.1.
+2008-08-08 Revision 1211-1216
+	* Make it slightly easier to use TAB and other UI changing characters
+	  as shortcut keys.
+	* Update Benchmark.cpp to use current Auth message. [mkrautz]
+	* Wrong default port in ConnectDialog
+	* Update installation instructions slightly.
+	* Suppress shortcuts from other applications.
+	* Use frame power instead of peak sample for "amplitude" VAD. Also use
+	  post-filtering signal instead of raw.
+	* DBus/ICE getLog now uses limit offset instead of seconds
+2008-08-07 Revision 1208-1209
+	* Log channel id when a player moves
+	* Bit more cleanup of AudioOutput.
+	* Use softmixer for DirectSound.
+2008-07-31 Revision 1207
+	* Patch #2031394: Call set_rate_near() instead of set_rate_min() in
+	  ALSA Output. [derandi] [mkrautz]
+2008-07-21 Revision 1204-1205
+	* CIA bot on #mumble
+	* Update documentation.
+	* For those crazy enough to want it, we actually support quality 1
+	  now.
+2008-07-20 Revision 1200-1202
+	* Remove some debugging output from PulseAudio
+	* Fix typo in registration
+	* Consolidate player/channel name validation into validateName()
+	  functions.
+	  Fix bug that allowed users to rename channels to otherwise invalid
+	  channel names.
+	  The registerPlayer() function now correctly validates its name
+	  before performing its actions. [mkrautz]
+	* Call correct removeChannel method for DBus as well. [mkrautz]
+2008-07-19 Revision 1199
+	* Fix compile bug with ICE.
+	  Attempt to fix PlayerModel bugs.
+2008-07-10 Revision 1198
+	* Default to ICE for Murmur on OS X as well. [mkrautz]
+2008-07-09 Revision 1197
+	* Default to ICE for Win32 murmur
+2008-07-07 Revision 1195
+	* SSL PassPhrase
+	* Taborder in AudioInput
+2008-07-04 Revision 1193
+	* Intel C++ release build with ICE breaks with inlining.
+	* Ice for Mac OS X. [mkrautz]
+2008-07-03 Revision 1187-1191
+	* ICE for Win32
+	* Include weblist.php using ICE
+	* Update slice definition with idempotent and exceptions
+	* Allow specification of ICE endpoint
+	* Possible fix for PTT cue crash
+	* ICE fixes for Ubuntu
+2008-06-27 Revision 1186
+	* Patch 2003574: Cannot save current connection [prosper_spurius]
+2008-06-26 Revision 1181-1184
+	* Fix locking bug with ICE
+	* Complete basic implementation for ICE
+	* Add a new icon for the Mac OS X port. Contributed by Karsten Bruns.
+	  [mkrautz]
+	* Patch #2002867: Patch for Bug: 1986292 Tray Icon disappears on
+	  minimize [prosper_spurius]
+	* More ICE
+2008-06-25 Revision 1179
+	* Patch #1998399: Patch for Feature Request 1934842 Channel Locking
+	  [prosper_spurius]
+	* Framework for ICE in Murmur
+2008-06-24 Revision 1177
+	* Use OS X system langauge instead of locale data for translation
+	  determination. (Fixes bug #1952855: Mac: Mumble uses wrong language
+	  setting) [mkrautz]
+	* Better XRUN handling in PortAudio. (Fixes bug #1993878: (OSX) No
+	  Audio from other after some time) [mkrautz]
+2008-06-23 Revision 1175
+	* Install for all users, not current user.
+	* Align crypt buffers
+2008-06-12 Revision 1174
+	* Add DBus types on Win32 too.
+2008-06-08 Revision 1173
+	* Add _cs translation to qrc file
+2008-06-06 Revision 1170-1171
+	* Support speex.git master
+	* Remove external speex SVN
+	* Add logging to phpBB auth script
+2008-06-05 Revision 1169
+	* Fixed some strings in the Spanish translation [Naproxeno]
+2008-06-04 Revision 1168
+	* Make sure Mumble will even build with CONFIG=no-dbus. [mkrautz]
+2008-06-03 Revision 1166
+	* Remove unconditional DBus disablement on OS X. Qt can load libdbus
+	  at runetime now, yay! [mkrautz]
+	* Enable proper mumble:// protocol support on OS X. Likewise for
+	  Console.txt logging. [mkrautz]
+2008-05-28 Revision 1165
+	* More useful PlayerModel tooltips (feature request #1942941:
+	  Additional tooltips) [mkrautz]
+2008-05-27 Revision 1162-1163
+	* Hide 'Expand'-label in LookConfig for non-expert mode. [mkrautz]
+	* Explicitly focus the text input field of the text message dialog.
+	  Win32 doesn't do this by default. [mkrautz]
+	* Implement volume shortcuts (for feature request #1954994: volume
+	  keybind) [mkrautz]
+2008-05-17 Revision 1161
+	* Updated translation [m0ta]
+2008-05-11 Revision 1158-1159
+	* Updated Spanish translation [Naproxeno]
+	* Version bump
+	* Make XEvie optional
+2008-05-10 Revision 1151-1156
+	* Changelog update
 	* Another translation sync from debian's pkg-voip team
 	* Update persistent indexes for children in PlayerModel
 	* Fix crash when moving populated channels to parents.
