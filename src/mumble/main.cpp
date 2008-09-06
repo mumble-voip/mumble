@@ -156,8 +156,8 @@ int main(int argc, char **argv) {
 		a.installTranslator(&translator);
 
 	QTranslator loctranslator;
-	if (translator.load(QLatin1String("mumble_") + locale, a.applicationDirPath()))
-		a.installTranslator(&translator);
+	if (loctranslator.load(QLatin1String("mumble_") + locale, a.applicationDirPath()))
+		a.installTranslator(&loctranslator);
 
 	QTranslator qttranslator;
 	if (qttranslator.load(QLatin1String("translation:qt_") + locale))
