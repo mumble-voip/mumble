@@ -299,5 +299,6 @@ if __name__ == '__main__':
 	d.copy('scripts/murmur.pl', '/Murmur/')
 	d.copy('scripts/weblist.pl', '/Murmur/')
 	d.copy('scripts/weblist.php', '/Murmur/')
+	d.copy('scripts/icedemo.php', '/Murmur/')
 	d.copy('scripts/php.ini', '/Murmur/')
 	d.create()
