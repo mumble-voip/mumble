@@ -54,7 +54,7 @@ void GlobalShortcutMacInit::openPrefsPane(const QString &) const {
 
 void GlobalShortcutMacInit::accessibilityDialog() const {
 	QMessageBox mb("Mumble",
-	               tr("Mumble has detected that it is unable to receieve Global Shortcut events when it is in the background.<br /><br />"
+	               tr("Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.<br /><br />"
 	                  "This is because the Universal Access feature called 'Enable access for assistive devices' is currently disabled.<br /><br />"
 	                  "Please <a href=\" \">enable this setting</a> and continue when done."),
 	               QMessageBox::Question, QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton);

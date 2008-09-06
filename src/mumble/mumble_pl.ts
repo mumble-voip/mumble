@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="pl">
-<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -2168,8 +2167,8 @@ w żadnej z podanych lokacji.</translation>
     <name>GlobalShortcutMacInit</name>
     <message>
         <location filename="GlobalShortcut_macx.cpp" line="59"/>
-        <source>Mumble has detected that it is unable to receieve Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation>Mumble nie może odbierać Globalnych Skrótów kiedy jest uruchomiony w tle.&lt;br /&gt;&lt;br /&gt;</translation>
+        <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
+        <translation type="unfinished">Mumble nie może odbierać Globalnych Skrótów kiedy jest uruchomiony w tle.&lt;br /&gt;&lt;br /&gt;</translation>
     </message>
 </context>
 <context>
