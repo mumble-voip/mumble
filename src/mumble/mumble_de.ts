@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -2511,32 +2512,32 @@
     <message>
         <location filename="../Player.cpp" line="53"/>
         <source>Authenticated</source>
-        <translation type="unfinished"></translation>
+        <translation>Authentifiziert</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="55"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stumm (Server)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="57"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Taub (Server)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="59"/>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokal Stumm</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="61"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Stumm (selbst)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="63"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Taub (selbst)</translation>
     </message>
 </context>
 <context>
@@ -3097,17 +3098,17 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="131"/>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterdrücken</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="154"/>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterdrücke Tasten anderer Anwendungen</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="157"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies unterdrückt Buttondrücke von anderen Anwendungen.&lt;/b&gt;&lt;br /&gt;Durch Aktivierung wird der Button (oder der letzte Button eines Multibutton Combo) anderer Anwendungen unterdrückt. Es können aber nicht alle Buttons unterdrückt werden.</translation>
     </message>
 </context>
 <context>
@@ -3528,32 +3529,32 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="LookConfig.cpp" line="65"/>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Frage Nach</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="66"/>
         <source>Do Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Tue Nichts</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="67"/>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewegen</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="125"/>
         <source>Channel Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal Ziehen</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="132"/>
         <source>This changes the behaviour when moving channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ändert das Verhalten, wenn Kanäle bewegt werden.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="135"/>
         <source>This sets the behaviour of channel drags, it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies legt das Verhalten vom Kanal ziehen fest, um unabsichtliches Ziehen zu verhindern.&lt;i&gt;Bewege Kanal&lt;/i&gt; bewegt den Kanal ohne nachzufragen.&lt;i&gt;Tue Nichts&lt;/i&gt; tut nichts und zeigt eine Fehlermeldung an.&lt;i&gt;Frage nach&lt;/i&gt; zeigt ein Nachrichtenfenster an, mit dem das Ziehen bestätigt werden kann.</translation>
     </message>
 </context>
 <context>
@@ -4727,40 +4728,40 @@ der möglichen Orte initialisieren.</translation>
         <location filename="MainWindow.cpp" line="201"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lauter (+10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="204"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leiser (-10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="344"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="981"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal Ziehen wurde auf &quot;Nichts tun&quot; gesetzt, der Kanal wurde nicht bewegt.</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="987"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannter Kanalzieh-Modus in PlayerModel:dropMimeData.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="325"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished">&amp;Unlink</translation>
+        <translation>&amp;Unlink</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
         <comment>Plugin</comment>
-        <translation type="unfinished">&amp;Unlink</translation>
+        <translation>&amp;Unlink</translation>
     </message>
 </context>
 <context>
@@ -5319,12 +5320,12 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="PlayerModel.cpp" line="975"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="975"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind Sie sicher den Kanal zu ziehen?</translation>
     </message>
 </context>
 <context>
