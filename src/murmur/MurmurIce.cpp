@@ -441,6 +441,8 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 	::Channel *np;
 	NEED_CHANNEL_VAR(np, state.parent);
 
+	QString qsName = fromStdUtf8String(state.name);
+
 	QSet< ::Channel *> newset;
 	foreach(int linkid, state.links) {
 		::Channel *cLink;
@@ -448,7 +450,7 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 		newset << cLink;
 	}
 
-	if (! server->setChannelState(channel, np, newset))
+	if (! server->setChannelState(channel, np, qsName, newset))
 		cb->ice_exception(::Murmur::InvalidChannelException());
 	else
 		cb->ice_response();

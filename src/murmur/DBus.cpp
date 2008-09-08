@@ -526,6 +526,11 @@ void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 	server->removeChannel(cChannel, NULL);
 }
 
+void MurmurDBus::getChannelState(const int id, const QDBusMessage &msg, ChannelInfo &state) {
+	CHANNEL_SETUP_VAR(id);
+	state = ChannelInfo(cChannel);
+}
+
 void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(nci.id);
 	ChannelInfo ci(cChannel);
@@ -533,11 +538,23 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 	CHANNEL_SETUP_VAR2(cParent, nci.parent);
 
 	bool changed = false;
+	bool update = false;
 
 	QSet<Channel *> newset;
 	foreach(int id, nci.links) {
 		CHANNEL_SETUP_VAR2(cLink, id);
 		newset << cLink;
+	}
+
+	if (cChannel->qsName != nci.name) {
+		cChannel->qsName = nci.name;
+		MessageChannelRename mcr;
+		mcr.uiSession = 0;
+		mcr.iId = cChannel->iId;
+		mcr.qsName = nci.name;
+		server->sendAll(&mcr);
+		update = true;
+		changed = true;
 	}
 
 	if ((cParent != cChannel) && (cParent != cChannel->cParent)) {
@@ -553,7 +570,6 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 
 		cChannel->cParent->removeChannel(cChannel);
 		cParent->addChannel(cChannel);
-		server->updateChannel(cChannel);
 
 		MessageChannelMove mcm;
 		mcm.uiSession = 0;
@@ -561,6 +577,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 		mcm.iParent = nci.parent;
 		server->sendAll(&mcm);
 
+		update = true;
 		changed = true;
 	}
 
@@ -599,6 +616,8 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 		changed = true;
 	}
 
+	if (update)
+		server->updateChannel(cChannel);
 	if (changed)
 		emit channelStateChanged(ChannelInfo(cChannel));
 }

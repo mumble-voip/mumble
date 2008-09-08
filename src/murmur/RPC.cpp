@@ -72,8 +72,20 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 	emit playerStateChanged(pPlayer);
 }
 
-bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QSet<Channel *> &links) {
+bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links) {
 	bool changed = false;
+	bool update = false;
+
+	if (cChannel->qsName != qsName) {
+		cChannel->qsName = qsName;
+		MessageChannelRename mcr;
+		mcr.uiSession = 0;
+		mcr.iId = cChannel->iId;
+		mcr.qsName = cChannel->qsName;
+		sendAll(&mcr);
+		update = true;
+		changed = true;
+	}
 
 	if ((cParent != cChannel) && (cParent != cChannel->cParent)) {
 		Channel *p = cParent;
@@ -85,7 +97,6 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QSet<Cha
 
 		cChannel->cParent->removeChannel(cChannel);
 		cParent->addChannel(cChannel);
-		updateChannel(cChannel);
 
 		MessageChannelMove mcm;
 		mcm.uiSession = 0;
@@ -93,6 +104,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QSet<Cha
 		mcm.iParent = cParent->iId;
 		sendAll(&mcm);
 
+		update = true;
 		changed = true;
 	}
 
@@ -130,6 +142,8 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QSet<Cha
 		changed = true;
 	}
 
+	if (update)
+		updateChannel(cChannel);
 	if (changed)
 		emit channelStateChanged(cChannel);
 
