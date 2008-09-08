@@ -119,7 +119,7 @@ Section "Mumble & Murmur" SecMumble
 
   File "\Program Files (x86)\Intel\Compiler\C++\10.1.022\IA32\Bin\libmmd.dll"
 
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest"
+  File "Microsoft.VC90.CRT.manifest"
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
