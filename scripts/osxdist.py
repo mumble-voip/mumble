@@ -301,4 +301,5 @@ if __name__ == '__main__':
 	d.copy('scripts/weblist.php', '/Murmur/')
 	d.copy('scripts/icedemo.php', '/Murmur/')
 	d.copy('scripts/php.ini', '/Murmur/')
+	d.copy('src/murmur/Murmur.ice', '/Murmur/')
 	d.create()
