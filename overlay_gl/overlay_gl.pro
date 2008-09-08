@@ -5,7 +5,7 @@ TEMPLATE = lib
 CONFIG -= qt
 CONFIG *= debug_and_release
 TARGET = mumble
-VERSION = 1.1.5
+VERSION = 1.1.6
 SOURCES = overlay.c
 LIBS *= -lrt -ldl
 QMAKE_CFLAGS *= -fvisibility=hidden
