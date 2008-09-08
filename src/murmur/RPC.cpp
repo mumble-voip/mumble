@@ -74,7 +74,7 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 
 bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links) {
 	bool changed = false;
-	bool update = false;
+	bool updated = false;
 
 	if (cChannel->qsName != qsName) {
 		cChannel->qsName = qsName;
@@ -83,7 +83,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		mcr.iId = cChannel->iId;
 		mcr.qsName = cChannel->qsName;
 		sendAll(&mcr);
-		update = true;
+		updated = true;
 		changed = true;
 	}
 
@@ -104,7 +104,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		mcm.iParent = cParent->iId;
 		sendAll(&mcm);
 
-		update = true;
+		updated = true;
 		changed = true;
 	}
 
@@ -142,10 +142,45 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		changed = true;
 	}
 
-	if (update)
+	if (updated)
 		updateChannel(cChannel);
 	if (changed)
 		emit channelStateChanged(cChannel);
 
 	return true;
+}
+
+void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const QString &text) {
+	MessageTextMessage mtm;
+	mtm.uiSession = 0;
+	mtm.qsMessage = text;
+	if (pPlayer) {
+		mtm.uiVictim = pPlayer->uiSession;
+		mtm.iChannel = -1;
+		mtm.bTree = false;
+		sendMessage(pPlayer, &mtm);
+	} else {
+		mtm.uiVictim = 0;
+		mtm.iChannel = cChannel->iId;
+		mtm.bTree = tree;
+		
+		QSet<Channel *> chans;
+		QQueue<Channel *> q;
+		q << cChannel;
+		chans.insert(cChannel);
+		Channel *c;
+		
+		if (tree) {
+			while(! q.isEmpty()) {
+				c = q.dequeue();
+				chans.insert(c);
+				foreach(c, c->qlChannels)
+					q.enqueue(c);
+			}
+		}
+		foreach(c, chans) {
+			foreach(Player *p, c->qlPlayers)
+				sendMessage(static_cast<User *>(p), &mtm);
+		} 
+	}
 }

@@ -502,6 +502,18 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 		emit playerStateChanged(PlayerInfo(pPlayer));
 }
 
+void MurmurDBus::sendMessage(unsigned int session, const QString &text, const QDBusMessage &msg) {
+	PLAYER_SETUP;
+	
+	server->sendTextMessage(NULL, pPlayer, false, text);
+}
+
+void MurmurDBus::sendMessageChannel(int id, bool tree, const QString &text, const QDBusMessage &msg) {
+	CHANNEL_SETUP_VAR(id);
+	
+	server->sendTextMessage(cChannel, NULL, tree, text);
+}
+
 void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMessage &msg, int &newid) {
 	CHANNEL_SETUP_VAR(chanparent);
 
@@ -526,7 +538,7 @@ void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 	server->removeChannel(cChannel, NULL);
 }
 
-void MurmurDBus::getChannelState(const int id, const QDBusMessage &msg, ChannelInfo &state) {
+void MurmurDBus::getChannelState(int id, const QDBusMessage &msg, ChannelInfo &state) {
 	CHANNEL_SETUP_VAR(id);
 	state = ChannelInfo(cChannel);
 }

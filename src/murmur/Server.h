@@ -225,6 +225,7 @@ class Server : public QThread, public MessageHandler {
 	public:
 		void setPlayerState(Player *p, Channel *parent, bool mute, bool deaf, bool suppressed);
 		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links);
+		void sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const QString &text);
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();

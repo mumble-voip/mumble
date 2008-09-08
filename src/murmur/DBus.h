@@ -180,11 +180,13 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void kickPlayer(unsigned int session, const QString &reason, const QDBusMessage &);
 		void getPlayerState(unsigned int session, const QDBusMessage &, PlayerInfo &state);
 		void setPlayerState(const PlayerInfo &state, const QDBusMessage &);
-		void getChannelState(const int id, const QDBusMessage &, ChannelInfo &state);
-		void setChannelState(const ChannelInfo &state, const QDBusMessage &);
+		void sendMessage(unsigned int session, const QString &text, const QDBusMessage &);
 
+		void getChannelState(int id, const QDBusMessage &, ChannelInfo &state);
+		void setChannelState(const ChannelInfo &state, const QDBusMessage &);
 		void removeChannel(int id, const QDBusMessage &);
 		void addChannel(const QString &name, int parent, const QDBusMessage &, int &newid);
+		void sendMessageChannel(int id, bool tree, const QString &text, const QDBusMessage &);
 
 		void getPlayerNames(const QList<int> &ids, const QDBusMessage &, QStringList &names);
 		void getPlayerIds(const QStringList &names, const QDBusMessage &, QList<int> &ids);

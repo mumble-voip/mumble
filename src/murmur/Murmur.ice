@@ -117,12 +117,13 @@ module Murmur
 		void kickPlayer(int session, string reason) throws ServerBootedException, InvalidSessionException;
 		idempotent Player getState(int session) throws ServerBootedException, InvalidSessionException;
 		idempotent void setState(Player state) throws ServerBootedException, InvalidSessionException, InvalidChannelException;
+		void sendMessage(int session, string text) throws ServerBootedException, InvalidSessionException;
 		
 		idempotent Channel getChannelState(int channelid) throws ServerBootedException, InvalidChannelException;
 		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException;
-
 		void removeChannel(int channelid) throws ServerBootedException, InvalidChannelException;
 		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException;
+		void sendMessageChannel(int channelid, bool tree, string text) throws ServerBootedException, InvalidChannelException;
 
 		idempotent void getACL(int channelid, out ACLList acls, out GroupList groups, out bool inherit) throws ServerBootedException, InvalidChannelException;
 		idempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException;

@@ -65,6 +65,11 @@ class ServerI : virtual public Server {
 		                              const ::std::string&,
 		                              const Ice::Current&);
 
+		virtual void sendMessage_async(const ::Murmur::AMD_Server_sendMessagePtr&,
+		                              ::Ice::Int,
+		                              const ::std::string&,
+		                              const Ice::Current&);
+
 		virtual void getState_async(const ::Murmur::AMD_Server_getStatePtr&,
 		                            ::Ice::Int,
 		                            const Ice::Current&);
@@ -89,6 +94,12 @@ class ServerI : virtual public Server {
 		                              const ::std::string&,
 		                              ::Ice::Int,
 		                              const Ice::Current&);
+
+		virtual void sendMessageChannel_async(const ::Murmur::AMD_Server_sendMessageChannelPtr&,
+		                                 ::Ice::Int,
+		                                 bool,
+		                                 const ::std::string&,
+		                                 const Ice::Current&);
 
 		virtual void getACL_async(const ::Murmur::AMD_Server_getACLPtr&,
 		                          ::Ice::Int,
