@@ -175,6 +175,9 @@ class MetaI : virtual public Meta {
 
 		virtual void getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultConfPtr&,
 		                                  const Ice::Current&);
+		                                  
+		virtual void getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr&,
+						  const Ice::Current&);
 };
 
 }

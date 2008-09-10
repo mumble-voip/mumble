@@ -162,3 +162,7 @@ void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultCo
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Meta_getDefaultConf, cb, current.adapter));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &cb, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Meta_getVersion, cb, current.adapter));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};

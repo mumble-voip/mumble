@@ -3,6 +3,7 @@ include(../compiler.pri)
 VERSION		= 1.1.6
 DIST		= mumble.pro murmur.pro mumble.pri mumble.ico Message.h mumble_plugin.h PacketDataStream.h CryptState.h Timer.h Version.h
 CONFIG		+= qt thread debug_and_release warn_on
+DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
 
 INCLUDEPATH	+= $$PWD
 

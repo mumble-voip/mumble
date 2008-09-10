@@ -778,4 +778,11 @@ static void impl_Meta_getBootedServers(const ::Murmur::AMD_Meta_getBootedServers
 	cb->ice_response(sl);
 }
 
+static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, const Ice::ObjectAdapterPtr) {
+	int major, minor, patch;
+	QString txt;
+	::Meta::getVersion(major, minor, patch, txt);
+	cb->ice_response(major, minor, patch, toStdUtf8String(txt));
+}
+
 #include "MurmurIceWrapper.cpp"

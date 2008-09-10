@@ -96,6 +96,7 @@ class Meta : public QObject {
 		bool banCheck(const QHostAddress &);
 		void kill(int);
 		void killAll();
+		static void getVersion(int &major, int &minor, int &patch, QString &string);
 };
 
 extern Meta *meta;

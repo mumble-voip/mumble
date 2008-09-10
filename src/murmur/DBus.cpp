@@ -1108,3 +1108,7 @@ void MetaDBus::quit() {
 	qWarning("Quit requested from D-Bus");
 	QCoreApplication::instance()->quit();
 }
+
+void MetaDBus::getVersion(int &major, int &minor, int &patch, QString &text) {
+	Meta::getVersion(major, minor, patch, text);
+}

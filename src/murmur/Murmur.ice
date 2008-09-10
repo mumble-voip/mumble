@@ -149,5 +149,6 @@ module Murmur
 		idempotent ServerList getBootedServers();
 		idempotent ServerList getAllServers();
 		idempotent ConfigMap getDefaultConf();
+		idempotent void getVersion(out int major, out int minor, out int patch, out string text);
 	};
 };
