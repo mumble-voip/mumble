@@ -98,6 +98,8 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
 	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
+	loadCheckBox(qcbAlwaysOnTop, r.bAlwaysOnTop);
+	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 }
 
 void LookConfig::save() const {
@@ -119,6 +121,8 @@ void LookConfig::save() const {
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
 	s.bPlayerTop=qcbPlayersTop->isChecked();
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
+	s.bAlwaysOnTop = qcbAlwaysOnTop->isChecked();
+	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 }
 
 void LookConfig::accept() const {
@@ -137,6 +141,7 @@ void LookConfig::accept() const {
 			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
 		}
 	}
+	g.mw->setOnTop(s.bAlwaysOnTop);
 }
 
 bool LookConfig::expert(bool b) {

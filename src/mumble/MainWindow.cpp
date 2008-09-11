@@ -144,6 +144,22 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
 	a->setShortcutContext(Qt::ApplicationShortcut);
+
+	setOnTop(g.s.bAlwaysOnTop);
+}
+
+void MainWindow::setOnTop(bool top) {
+	Qt::WindowFlags wf = windowFlags();
+	if (wf.testFlag(Qt::WindowStaysOnTopHint) != top) {
+		if (top)
+			wf |= Qt::WindowStaysOnTopHint;
+		else
+			wf &= ~Qt::WindowStaysOnTopHint;
+		bNoHide = true;
+		setWindowFlags(wf);
+		show();
+		bNoHide = false;
+	}
 }
 
 void MainWindow::createActions() {
@@ -274,7 +290,7 @@ void MainWindow::msgBox(QString msg) {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 #ifndef Q_OS_MAC
-	if (g.sh && g.sh->isRunning()) {
+	if (g.sh && g.sh->isRunning() && g.s.bAskOnQuit) {
 		QMessageBox mb(QMessageBox::Warning, tr("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
@@ -975,8 +991,9 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
-	ConfigDialog dlg;
-	dlg.exec();
+	ConfigDialog *dlg= new ConfigDialog(this);
+	dlg->exec();
+	delete dlg;
 }
 
 void MainWindow::on_qaConfigMinimal_triggered() {

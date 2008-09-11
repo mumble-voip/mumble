@@ -136,6 +136,32 @@
         </property>
        </widget>
       </item>
+      <item row="7" column="1" colspan="3" >
+       <widget class="QCheckBox" name="qcbAskOnQuit" >
+        <property name="toolTip" >
+         <string>Ask whether to close or minimize when quitting Mumble.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>If set, will verify you want to quit if connected.&lt;b></string>
+        </property>
+        <property name="text" >
+         <string>Ask on quit while connected</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1" colspan="3" >
+       <widget class="QCheckBox" name="qcbAlwaysOnTop" >
+        <property name="toolTip" >
+         <string>Make the Mumble window appear on top of other windows.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This makes the Mumble window a topmost window.&lt;/b></string>
+        </property>
+        <property name="text" >
+         <string>Always On Top</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

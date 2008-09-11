@@ -90,6 +90,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void recheckTTS();
 
 		void msgBox(QString msg);
+
+		void setOnTop(bool top);
 	protected:
 		QTimer *qtReconnect;
 		void createActions();

@@ -114,6 +114,8 @@ struct Settings {
 	ChannelExpand ceExpand;
 	ChannelDrag ceChannelDrag;
 	bool bMinimalView;
+	bool bAlwaysOnTop;
+	bool bAskOnQuit;
 
 	QString qsUsername;
 	int iServerRow;

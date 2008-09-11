@@ -67,6 +67,8 @@ Settings::Settings() {
 	ceExpand = ChannelsWithPlayers;
 	ceChannelDrag = Ask;
 	bMinimalView = false;
+	bAlwaysOnTop = false;
+	bAskOnQuit = true;
 
 	iOutputDelay = 5;
 
@@ -255,6 +257,8 @@ void Settings::load() {
 	SAVELOAD(qsSkin, "ui/skin");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
+	SAVELOAD(bAlwaysOnTop, "ui/alwaysontop");
+	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
@@ -374,6 +378,8 @@ void Settings::save() {
 	SAVELOAD(qsSkin, "ui/skin");
 	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(ceChannelDrag, "ui/drag");
+	SAVELOAD(bAlwaysOnTop, "ui/alwaysontop");
+	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bPlayerTop, "ui/playertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
