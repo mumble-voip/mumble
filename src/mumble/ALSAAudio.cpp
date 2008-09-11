@@ -217,7 +217,7 @@ ALSAEnumerator::ALSAEnumerator() {
 		}
 		snd_device_name_free_hint(hints);
 	}
-	
+
 	snd_config_update_free_global();
 	snd_config_update();
 }

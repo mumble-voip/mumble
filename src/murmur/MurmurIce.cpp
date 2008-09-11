@@ -408,7 +408,7 @@ static void impl_Server_kickPlayer(const ::Murmur::AMD_Server_kickPlayerPtr cb, 
 static void impl_Server_sendMessage(const ::Murmur::AMD_Server_sendMessagePtr cb, int server_id, ::Ice::Int session, const ::std::string &text) {
 	NEED_SERVER;
 	NEED_PLAYER;
-	
+
 	server->sendTextMessage(NULL, user, false, fromStdUtf8String(text));
 	cb->ice_response();
 }
@@ -436,7 +436,7 @@ static void impl_Server_setState(const ::Murmur::AMD_Server_setStatePtr cb, int 
 static void impl_Server_sendMessageChannel(const ::Murmur::AMD_Server_sendMessageChannelPtr cb, int server_id, ::Ice::Int channelid, bool tree, const ::std::string &text) {
 	NEED_SERVER;
 	NEED_CHANNEL;
-	
+
 	server->sendTextMessage(channel, NULL, tree, fromStdUtf8String(text));
 	cb->ice_response();
 }

@@ -504,13 +504,13 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 
 void MurmurDBus::sendMessage(unsigned int session, const QString &text, const QDBusMessage &msg) {
 	PLAYER_SETUP;
-	
+
 	server->sendTextMessage(NULL, pPlayer, false, text);
 }
 
 void MurmurDBus::sendMessageChannel(int id, bool tree, const QString &text, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(id);
-	
+
 	server->sendTextMessage(cChannel, NULL, tree, text);
 }
 

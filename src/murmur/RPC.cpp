@@ -164,25 +164,25 @@ void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const 
 		mtm.uiVictim = 0;
 		mtm.iChannel = cChannel->iId;
 		mtm.bTree = tree;
-		
+
 		QSet<Channel *> chans;
 		QQueue<Channel *> q;
 		q << cChannel;
 		chans.insert(cChannel);
 		Channel *c;
-		
+
 		if (tree) {
-			while(! q.isEmpty()) {
+			while (! q.isEmpty()) {
 				c = q.dequeue();
 				chans.insert(c);
 				foreach(c, c->qlChannels)
-					q.enqueue(c);
+				q.enqueue(c);
 			}
 		}
 		foreach(c, chans) {
 			foreach(Player *p, c->qlPlayers)
-				sendMessage(static_cast<User *>(p), &mtm);
-		} 
+			sendMessage(static_cast<User *>(p), &mtm);
+		}
 	}
 }
 

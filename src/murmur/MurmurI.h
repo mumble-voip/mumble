@@ -66,9 +66,9 @@ class ServerI : virtual public Server {
 		                              const Ice::Current&);
 
 		virtual void sendMessage_async(const ::Murmur::AMD_Server_sendMessagePtr&,
-		                              ::Ice::Int,
-		                              const ::std::string&,
-		                              const Ice::Current&);
+		                               ::Ice::Int,
+		                               const ::std::string&,
+		                               const Ice::Current&);
 
 		virtual void getState_async(const ::Murmur::AMD_Server_getStatePtr&,
 		                            ::Ice::Int,
@@ -96,10 +96,10 @@ class ServerI : virtual public Server {
 		                              const Ice::Current&);
 
 		virtual void sendMessageChannel_async(const ::Murmur::AMD_Server_sendMessageChannelPtr&,
-		                                 ::Ice::Int,
-		                                 bool,
-		                                 const ::std::string&,
-		                                 const Ice::Current&);
+		                                      ::Ice::Int,
+		                                      bool,
+		                                      const ::std::string&,
+		                                      const Ice::Current&);
 
 		virtual void getACL_async(const ::Murmur::AMD_Server_getACLPtr&,
 		                          ::Ice::Int,
@@ -175,9 +175,9 @@ class MetaI : virtual public Meta {
 
 		virtual void getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultConfPtr&,
 		                                  const Ice::Current&);
-		                                  
+
 		virtual void getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr&,
-						  const Ice::Current&);
+		                              const Ice::Current&);
 };
 
 }
