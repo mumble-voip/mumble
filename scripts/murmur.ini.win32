@@ -11,6 +11,7 @@ database=
 #dbHost=
 #dbPort=
 #dbPrefix=murmur_
+#dbOpts=
 
 # Murmur defaults to not using D-Bus. If you wish to use dbus, please
 # specify so here.

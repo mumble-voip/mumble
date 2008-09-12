@@ -113,6 +113,7 @@ ServerDB::ServerDB() {
 		db->setPort(Meta::mp.iDBPort);
 		db->setUserName(Meta::mp.qsDBUserName);
 		db->setPassword(Meta::mp.qsDBPassword);
+		db->setConnectOptions(Meta::mp.qsDBOpts);
 		found = db->open();
 	}
 

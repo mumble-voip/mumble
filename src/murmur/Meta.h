@@ -57,6 +57,7 @@ struct MetaParams {
 	QString qsDBPassword;
 	QString qsDBHostName;
 	QString qsDBPrefix;
+	QString qsDBOpts;
 	int iDBPort;
 
 	int iLogDays;

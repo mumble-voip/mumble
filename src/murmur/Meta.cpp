@@ -140,8 +140,10 @@ void MetaParams::read(QString fname) {
 	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
 	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
-	qsIceEndpoint = qs.value("ice", qsIceEndpoint).toString();
+	qsDBOpts = qs.value("dbOpts", qsDBOpts).toString();
 	iDBPort = qs.value("dbPort", iDBPort).toInt();
+
+	qsIceEndpoint = qs.value("ice", qsIceEndpoint).toString();
 
 	iLogDays = qs.value("logdays", iLogDays).toInt();
 
