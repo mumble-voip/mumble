@@ -194,7 +194,7 @@ static int fetch(float *pos, float *front, float *top) {
 
 static MumblePlugin bf2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Battlefield 2 v1.03",
+	L"Battlefield 2 v1.41",
 	L"Battlefield 2",
 	about,
 	NULL,
