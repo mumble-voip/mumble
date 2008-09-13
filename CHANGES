@@ -1,4 +1,31 @@
-2008-09-06 Revision 1287
+2008-09-12 Revision 1308
+	* Add dbOpts setting. Allows users to specify custom connect options
+	  for their QSqlDatabase. [mkrautz]
+2008-09-11 Revision 1304-1306
+	* Language updates
+	* Indenting
+	* Implement "Always on top" and "Ask on Quit".
+	* Include stereo decorrelatation in speex builds.
+2008-09-10 Revision 1302
+	* Patch #2104222: Workaround for buggy Alsa lib 1.0.17a [derandi]
+	* getVersion() for DBus/ICE
+2008-09-08 Revision 1296-1300
+	* Distribute Murmur.ice along with the other Murmur-related files on
+	  OS X. [mkrautz]
+	* sendMessage and sendMessageChannel for ICE/DBus
+	* Version bump
+	* Distribute fake manifest for VCR90.
+	* Support source-less text messages.
+	* Make setChannelState() rename channels for DBus and Ice. Add
+	  getChannelState() to DBus. (Fixes bug #2098835) [mkrautz]
+2008-09-06 Revision 1287-1294
+	* Add mumble.icns to mumble.qrc. [mkrautz]
+	* Add mumble.plist to DIST. [mkrautz]
+	* Polish
+	* Fix translation loader.
+	* Remove link.pl from distribution list
+	* Changelog update
+	* Add icedemo.php to OSX dist scripts. [mkrautz]
 	* Fix minor typo in GlobalShortcutMac
 	* Updated German translation [m0ta]
 2008-09-04 Revision 1281-1285
