@@ -2505,7 +2505,7 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="LookConfig.ui" line="132"/>
         <source>This changes the behaviour when moving channels.</source>
-        <translation></translation>
+        <translation>Ta opcja zmienia zachowanie kiedy przenosisz kanał.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="135"/>
@@ -2515,32 +2515,32 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="LookConfig.ui" line="142"/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pyta o minimalizację / zamknięcie programu.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="145"/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Jeśli ta opcja jest zaznaczona to zobaczysz komunikat czy rzeczywiście chcesz zamknąć Mumble, gdy jesteś połączony z serwerem.&lt;b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="148"/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostrzegaj przed zamknięciem programu (gdy jesteś połączony z serwerem)</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="155"/>
         <source>Make the Mumble window appear on top of other windows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Okno Mumble wyświetlane zawsze na wierzchu</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="158"/>
         <source>&lt;b&gt;This makes the Mumble window a topmost window.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Sprawia, że okno Mumble jest zawsze na pierwszym planie.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="161"/>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawsze na wierzchu</translation>
     </message>
 </context>
 <context>
