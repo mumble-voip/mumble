@@ -51,6 +51,7 @@ SetCompressor /SOLID lzma
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro MUI_UNPAGE_CONFIRM
+  !insertmacro MUI_UNPAGE_COMPONENTS
   !insertmacro MUI_UNPAGE_INSTFILES
   !insertmacro MUI_UNPAGE_FINISH
 
@@ -183,7 +184,8 @@ SectionEnd
 ;--------------------------------
 ;Uninstaller Section
 
-Section "Uninstall"
+Section "Uninstall" SectionUninstBase
+  SectionIn RO
   SetShellVarContext all
 
   Delete "$INSTDIR\mumble.exe"
@@ -225,9 +227,9 @@ Section "Uninstall"
   Delete "$INSTDIR\ssleay32.dll"
 
   Delete "$INSTDIR\Microsoft.VC90.CRT.manifest"
-  Delete "$INSTDIR\msvcm90.dll"
-  Delete "$INSTDIR\msvcp90.dll"
-  Delete "$INSTDIR\msvcr90.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\msvcm90.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\msvcp90.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\msvcr90.dll"
 
   Delete "$INSTDIR\Changes.txt"
   Delete "$INSTDIR\qt.txt"
@@ -264,7 +266,40 @@ Section "Uninstall"
     StrCmp $MUI_TEMP $SMPROGRAMS startMenuDeleteLoopDone startMenuDeleteLoop
   startMenuDeleteLoopDone:
 
-  DeleteRegKey /ifempty HKLM "Software\Mumble"
   DeleteRegKey HKLM "Software\Mumble\Mumble\InstPath"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble"
+  DeleteRegKey /ifempty HKLM "Software\Mumble"
 SectionEnd
+
+Section /o "un.Preferences and Databases" SectionUninstAll
+  SetShellVarContext all
+
+  RMDir /r /REBOOTOK "$INSTDIR"
+
+  DeleteRegKey HKLM "Software\Mumble"
+
+  StrCpy $0 0
+  registryDeleteLoop:
+    EnumRegKey $1 HKU "" $0
+    StrCmp $1 "" registryDeleteLoopDone
+    IntOp $0 $0 + 1
+    StrCpy $2 "$1\Software\Mumble"
+    DeleteRegKey HKU $2
+    
+    StrCpy $2 "$1\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
+    ReadRegStr $3 HKU $2 "AppData"
+    StrCmp $3 "" registryDeleteLoop
+    StrCpy $4 "$3\Mumble"
+    RMDir /r /REBOOTOK $4
+    
+    goto registryDeleteLoop
+  registryDeleteLoopDone:
+SectionEnd
+
+LangString DESC_SectionUninstBase ${LANG_ENGLISH} "Uninstall Mumble and Murmur programs"
+LangString DESC_SectionUninstAll ${LANG_ENGLISH} "Uninstall all traces of Mumble and Murmur, including preferences and databases."
+
+!insertmacro MUI_UNFUNCTION_DESCRIPTION_BEGIN
+  !insertmacro MUI_DESCRIPTION_TEXT ${SectionUninstBase} $(DESC_SectionUninstBase)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SectionUninstAll} $(DESC_SectionUninstAll)
+!insertmacro MUI_UNFUNCTION_DESCRIPTION_END
