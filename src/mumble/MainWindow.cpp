@@ -223,6 +223,10 @@ void MainWindow::createActions() {
 	qstiIcon = new QSystemTrayIcon(qiIcon, this);
 	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
+
+	qmTray = new QMenu(this);
+	qmTray->addAction(tr("&Quit"), this, SLOT(on_qaQuit_triggered()));
+	qstiIcon->setContextMenu(qmTray);
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -1267,13 +1271,15 @@ void MainWindow::serverDisconnected(QString reason) {
 	}
 }
 
-void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason) {
-	if (! isVisible()) {
-		show();
-		showNormal();
-		activateWindow();
-	} else {
-		hide();
+void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
+	if (reason == QSystemTrayIcon::Trigger) {
+		if (! isVisible()) {
+			show();
+			showNormal();
+			activateWindow();
+		} else {
+			hide();
+		}
 	}
 }
 

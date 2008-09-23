@@ -74,6 +74,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 	public:
 		PlayerModel *pmModel;
 		QSystemTrayIcon *qstiIcon;
+		QMenu *qmTray;
 		QIcon qiIcon;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
