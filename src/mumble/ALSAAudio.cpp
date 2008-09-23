@@ -165,6 +165,10 @@ void ALSAAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 }
 
 ALSAEnumerator::ALSAEnumerator() {
+	qhInput.insert(QLatin1String("default"), ALSAAudioInput::tr("Default ALSA Card"));
+	qhOutput.insert(QLatin1String("default"), ALSAAudioOutput::tr("Default ALSA Card"));
+
+#if SND_LIB_VERSION >= 0x01000e
 	void **hints = NULL;
 	void **hint;
 	snd_config_t *basic = NULL;
@@ -178,9 +182,6 @@ ALSAEnumerator::ALSAEnumerator() {
 	} else {
 		qWarning("ALSAEnumerator: Namehint not found");
 	}
-
-	qhInput.insert(QLatin1String("default"), ALSAAudioInput::tr("Default ALSA Card"));
-	qhOutput.insert(QLatin1String("default"), ALSAAudioOutput::tr("Default ALSA Card"));
 
 	r = snd_device_name_hint(-1, "pcm", &hints);
 
@@ -220,15 +221,69 @@ ALSAEnumerator::ALSAEnumerator() {
 
 	snd_config_update_free_global();
 	snd_config_update();
+#else
+	int card=-1;
+	snd_card_next(&card);
+	while (card != -1) {
+		char *name;
+		snd_ctl_t *ctl=NULL;
+		snd_card_get_longname(card, &name);
+		QByteArray dev=QString::fromLatin1("hw:%1").arg(card).toUtf8();
+		if (snd_ctl_open(&ctl, dev.data(), SND_CTL_READONLY) >= 0) {
+			snd_pcm_info_t *info = NULL;
+			snd_pcm_info_malloc(&info);
+
+			char *cname = NULL;
+			snd_card_get_name(card, &cname);
+
+			int device = -1;
+			snd_ctl_pcm_next_device(ctl, &device);
+
+			bool play = false;
+			bool cap = false;
+
+			while (device != -1) {
+				QString devname=QString::fromLatin1("hw:%1,%2").arg(card).arg(device);
+				snd_pcm_info_set_device(info, device);
+				snd_pcm_info_set_stream(info, SND_PCM_STREAM_CAPTURE);
+				if (snd_ctl_pcm_info(ctl,info) == 0) {
+					QString fname=QString::fromLatin1(snd_pcm_info_get_name(info));
+					qhInput.insert(devname,fname);
+					cap = true;
+				}
+
+				snd_pcm_info_set_stream(info, SND_PCM_STREAM_PLAYBACK);
+				if (snd_ctl_pcm_info(ctl,info) == 0) {
+					QString fname=QString::fromLatin1(snd_pcm_info_get_name(info));
+					qhOutput.insert(devname,fname);
+					play = true;
+				}
+
+				snd_ctl_pcm_next_device(ctl, &device);
+			}
+			if (play) {
+				qhOutput.insert(QString::fromLatin1("dmix:CARD=%1").arg(card),QLatin1String(cname));
+			}
+			if (cap) {
+				qhInput.insert(QString::fromLatin1("dsnoop:CARD=%1").arg(card),QLatin1String(cname));
+			}
+			snd_pcm_info_free(info);
+			snd_ctl_close(ctl);
+		}
+		snd_card_next(&card);
+	}
+#endif
 }
 
 QString ALSAEnumerator::getHint(void *hint, const char *id) {
 	QString s;
+#if SND_LIB_VERSION >= 0x01000e
 	char *value = snd_device_name_get_hint(hint, id);
 	if (value) {
 		s = QLatin1String(value);
 		free(value);
 	}
+#endif
 	return s;
 }
 
