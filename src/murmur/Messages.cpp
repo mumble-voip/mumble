@@ -447,6 +447,13 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 		return;
 	}
 
+	foreach(Channel *sibling, p->qlChannels) {
+		if (sibling->qsName == msg->qsName) {
+			PERM_DENIED_TEXT("Duplicate channel name");
+			return;
+		}
+	}
+
 	Channel *c = addChannel(p, msg->qsName);
 	if (uSource->iId >= 0) {
 		Group *g = new Group(c, "admin");
@@ -501,6 +508,13 @@ void Server::msgChannelRename(Connection *cCon, MessageChannelRename *msg) {
 		return;
 	}
 
+	foreach(Channel *sibling, c->cParent->qlChannels) {
+		if (sibling->qsName == msg->qsName) {
+			PERM_DENIED_TEXT("Duplicate channel name");
+			return;
+		}
+	}
+
 	log(uSource, "Renamed channel %s to %s", qPrintable(c->qsName), qPrintable(msg->qsName));
 	c->qsName = msg->qsName;
 	updateChannel(c);
@@ -527,6 +541,13 @@ void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {
 	if (! hasPermission(uSource, np, ChanACL::MakeChannel)) {
 		PERM_DENIED(uSource, np, ChanACL::MakeChannel);
 		return;
+	}
+
+	foreach(Channel *sibling, np->qlChannels) {
+		if (sibling->qsName == c->qsName) {
+			PERM_DENIED_TEXT("Duplicate channel name");
+			return;
+		}
 	}
 
 	// Can't move to a subchannel of itself
