@@ -250,6 +250,7 @@ class Server : public QThread, public MessageHandler {
 		bool setName(int id, const QString &name);
 		bool setEmail(int id, const QString &email);
 		bool setTexture(int id, const QByteArray &texture);
+		bool isPlayerId(int id);
 		bool getRegistration(int id, QString &name, QString &email);
 		void addLink(Channel *c, Channel *l);
 		void removeLink(Channel *c, Channel *l);

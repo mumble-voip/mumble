@@ -834,11 +834,19 @@ void MurmurDBus::updateRegistration(const RegisteredPlayer &player, const QDBusM
 	}
 }
 
-void MurmurDBus::getTexture(int id, const QDBusMessage &, QByteArray &texture) {
+void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture) {
+	if (! server->isPlayerId(id)) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		return;
+	}
 	texture = server->getUserTexture(id);
 }
 
 void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessage &msg) {
+	if (! server->isPlayerId(id)) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
+		return;
+	}
 	if (! server->setTexture(id, texture)) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.texture", "Invalid texture"));
 		return;

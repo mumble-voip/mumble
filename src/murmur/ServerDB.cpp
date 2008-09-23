@@ -538,6 +538,25 @@ QMap<int, QPair<QString, QString> > Server::getRegisteredPlayers(const QString &
 	return m;
 }
 
+bool Server::isPlayerId(int id) {
+	QString name, email;
+	int res = dbus->dbusGetRegistration(id, name, email);
+	if (res >= 0)
+		return (res > 0);
+	
+	TransactionHolder th;
+	
+	QSqlQuery &query = *th.qsqQuery;
+	SQLPREP("SELECT player_id FROM %1players WHERE server_id = ? AND player_id = ?");
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	SQLEXEC();
+	if (query.next()) {
+		return true;
+	}
+	return false;
+}
+
 bool Server::getRegistration(int id, QString &name, QString &email) {
 	int res = dbus->dbusGetRegistration(id, name, email);
 	if (res >= 0)

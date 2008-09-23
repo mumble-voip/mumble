@@ -93,6 +93,7 @@ module Murmur
 	exception ServerBootedException extends MurmurException {};
 	exception ServerFailureException extends MurmurException {};
 	exception InvalidPlayerException extends MurmurException {};
+	exception InvalidTextureException extends MurmurException {};
 
 	["amd"] interface Server {
 		idempotent bool isRunning();
@@ -138,7 +139,7 @@ module Murmur
 		idempotent RegisteredPlayerList getRegisteredPlayers(string filter) throws ServerBootedException;
 		idempotent int verifyPassword(string playerid, string pw) throws ServerBootedException;
 		idempotent Texture getTexture(int playerid) throws ServerBootedException, InvalidPlayerException;
-		idempotent void setTexture(int playerid, Texture tex) throws ServerBootedException, InvalidPlayerException;
+		idempotent void setTexture(int playerid, Texture tex) throws ServerBootedException, InvalidPlayerException, InvalidTextureException;
 	};
 
 	sequence<Server *> ServerList;
