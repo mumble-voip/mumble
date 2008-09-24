@@ -93,13 +93,13 @@ Section "Mumble & Murmur" SecMumble
   SetOverwrite on
   File "qos.reg"
 
-  File "\dev\Qt4.4.1\lib\QtCore4.dll"
-  File "\dev\Qt4.4.1\lib\QtGui4.dll"
-  File "\dev\Qt4.4.1\lib\QtNetwork4.dll"
-  File "\dev\Qt4.4.1\lib\QtSql4.dll"
-  File "\dev\Qt4.4.1\lib\QtOpenGL4.dll"
-  File "\dev\Qt4.4.1\lib\QtXml4.dll"
-  File "\dev\Qt4.4.1\lib\QtDBus4.dll"
+  File "\dev\Qt4.4.2\lib\QtCore4.dll"
+  File "\dev\Qt4.4.2\lib\QtGui4.dll"
+  File "\dev\Qt4.4.2\lib\QtNetwork4.dll"
+  File "\dev\Qt4.4.2\lib\QtSql4.dll"
+  File "\dev\Qt4.4.2\lib\QtOpenGL4.dll"
+  File "\dev\Qt4.4.2\lib\QtXml4.dll"
+  File "\dev\Qt4.4.2\lib\QtDBus4.dll"
 
   File "\dev\MySQL\lib\opt\libmysql.dll"
 
