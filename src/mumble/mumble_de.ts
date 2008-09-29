@@ -165,7 +165,7 @@
     <message>
         <location filename="ACLEditor.ui" line="235"/>
         <source>Inherit ACL of parent?</source>
-        <translation>ACL von Eltenr erben?</translation>
+        <translation>ACL von Eltern erben?</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="238"/>
@@ -200,7 +200,7 @@
     <message>
         <location filename="ACLEditor.ui" line="251"/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Dies schiebt den Eintrag in der Liste nach oben. Da Einträge nach der Reihenfolge ausgewertet werden, könnte dies die Rechte der Nutzer betreffen. Man kann keinen Eintrag über einen geerbten Eintrag verschieben, sollte dies gewünscht sein, muss der Eintrag dupliziert werden.</translation>
+        <translation>Dies schiebt den Eintrag in der Liste nach oben. Da Einträge nach der Reihenfolge ausgewertet werden, könnte dies die Rechte der Benutzer betreffen. Man kann keinen Eintrag über einen geerbten Eintrag verschieben, sollte dies gewünscht sein, muss der Eintrag dupliziert werden.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="264"/>
@@ -210,7 +210,7 @@
     <message>
         <location filename="ACLEditor.ui" line="267"/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Dies schiebt den Eintrag in der Liste nach unten. Da Einträge der Reihe nach ausgewertet werden, könnte dies die Rechte der Nutzer beeinträchtigen.</translation>
+        <translation>Dies schiebt den Eintrag in der Liste nach unten. Da Einträge der Reihe nach ausgewertet werden, könnte dies die Rechte der Benutzer beeinträchtigen.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="321"/>
@@ -240,7 +240,7 @@
     <message>
         <location filename="ACLEditor.ui" line="376"/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a !, its membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Dies kontrolliert welche Gruppe von Nutzern dieser Eintrag betrifft.&lt;br /&gt;Die Gruppen werden im Kontext des Kanals ausgewertet in dem sich der Eintrag befindet. Zum Beispiel gibt der Standard ACL in den Wurzelkanälen &lt;i&gt;Schreib&lt;/i&gt;-Rechte der &lt;i&gt;Admin&lt;/i&gt;-Gruppe. Dieser Eintrag gibt den Nutzern - wenn von einem Kanal geerbt - Schreibrecht, wenn er zur Gruppe der &lt;i&gt;Admin&lt;/i&gt;s in diesem Kanal gehört, selbst wenn er nicht zu der &lt;i&gt;Admin&lt;/i&gt;-Gruppe gehört woher der ACL eigentlich stammt.&lt;br /&gt;Beginnt ein Gruppenname mit einem &quot;!&quot;, wird die Mitgliedschaft negiert und wenn es mit einem &quot;~&quot; beginnt, wird es in dem Kanal ausgewertet in dem die ACL definiert wurde. Die Reihenfolge ist wichtig; &lt;i&gt;!~in&lt;/i&gt; ist gültig, &lt;i&gt;~!in&lt;/i&gt; jedoch nicht. Einige wenige spezielle vordefinierte Gruppen sind: &lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Jeder trifft zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle authentifizierten Nutzer treffen zu.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Nutzer im Channel treffen zu.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Nutzer außerhalb des Kanals treffen zu.&lt;br /&gt;Ein Eintrag trifft dabei entweder auf einen Nutzer oder eine Gruppe zu, nicht auf beide.</translation>
+        <translation>Dies steuert welche Gruppe von Beutzern dieser Eintrag betrifft.&lt;br /&gt;Die Gruppen werden im Kontext des Kanals ausgewertet in dem sich der Eintrag befindet. Zum Beispiel gibt der Standard ACL in den Wurzelkanälen &lt;i&gt;Schreib&lt;/i&gt;-Rechte der &lt;i&gt;Admin&lt;/i&gt;-Gruppe. Dieser Eintrag gibt den Benutzern - wenn von einem Kanal geerbt - Schreibrecht, wenn er zur Gruppe der &lt;i&gt;Admin&lt;/i&gt;s in diesem Kanal gehört, selbst wenn er nicht zu der &lt;i&gt;Admin&lt;/i&gt;-Gruppe gehört woher der ACL eigentlich stammt.&lt;br /&gt;Beginnt ein Gruppenname mit einem &quot;!&quot;, wird die Mitgliedschaft negiert und wenn es mit einem &quot;~&quot; beginnt, wird es in dem Kanal ausgewertet in dem die ACL definiert wurde. Die Reihenfolge ist wichtig; &lt;i&gt;!~in&lt;/i&gt; ist gültig, &lt;i&gt;~!in&lt;/i&gt; jedoch nicht. Einige wenige spezielle vordefinierte Gruppen sind: &lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Jeder trifft zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle authentifizierten Benutzer treffen zu.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Benutzer im Channel treffen zu.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Benutzer außerhalb des Kanals treffen zu.&lt;br /&gt;Ein Eintrag trifft dabei entweder auf einen Benutzer oder eine Gruppe zu, nicht auf beide.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="396"/>
@@ -250,7 +250,7 @@
     <message>
         <location filename="ACLEditor.ui" line="399"/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Dies kontrolliert welchen User dieser Eintrag betrifft. Namen eingeben und Enter drücken um den Server abzufragen.</translation>
+        <translation>Dies steuert welchen User dieser Eintrag betrifft. Namen eingeben und Enter drücken um den Server abzufragen.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="155"/>
@@ -2619,7 +2619,7 @@
     <message>
         <location filename="ConfigDialog.ui" line="60"/>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
-        <translation>&lt;b&gt;Dies zeigt alle Konfigurationselemente.&lt;/b&gt;&lt;br /&gt;Mumble enthält viele Konfigurationselemente die die meisten Nutzer nicht ändern werden. Dies zu aktivieren zeigt alle konfigurierbaren Elemente an.</translation>
+        <translation>&lt;b&gt;Dies zeigt alle Konfigurationselemente.&lt;/b&gt;&lt;br /&gt;Mumble enthält viele Konfigurationselemente die die meisten Benutzer nicht ändern werden. Dies zu aktivieren zeigt alle konfigurierbaren Elemente an.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui" line="63"/>
@@ -3751,7 +3751,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.ui" line="298"/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation>Dies öffnet den Gruppen- und ACL-Dialog des Kanals um die Rechte zu kontrollieren.</translation>
+        <translation>Dies öffnet den Gruppen- und ACL-Dialog des Kanals um die Rechte einzustellen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="314"/>
@@ -3856,7 +3856,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.ui" line="395"/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Text-To-Speech-Engine ein oder ausschalten. Nur Nachrichten die im Konfigurationsdialog entsprechend aktiviert sind werden tatsächlich gesprochen.</translation>
+        <translation>Text-To-Speech-Engine ein- oder ausschalten. Nur Nachrichten die im Konfigurationsdialog entsprechend aktiviert sind werden tatsächlich gesprochen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="400"/>
@@ -4051,7 +4051,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="949"/>
         <source>Unmuted and undeafened.</source>
-        <translation>Stumm- und Taubstellen ausgeschalten.</translation>
+        <translation>Stumm- und Taubstellen ausgeschaltet.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="951"/>
@@ -4191,12 +4191,12 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Messages.cpp" line="172"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Du wurdest von %1 vom Server gekickt und gebannet: %2.</translation>
+        <translation>Du wurdest von %1 vom Server gekickt und gebannt: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="176"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 wurde von %1 vom Server gekickt und gebannet: %2.</translation>
+        <translation>%3 wurde von %1 vom Server gekickt und gebannt: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="195"/>
@@ -4206,7 +4206,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Messages.cpp" line="197"/>
         <source>%1 moved out by %2.</source>
-        <translation>%1 von %2 rausgeschoben.</translation>
+        <translation>%1 wurde von %2 rausgeschoben.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="210"/>
@@ -4216,7 +4216,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Messages.cpp" line="212"/>
         <source>%1 moved in by %2.</source>
-        <translation>%1 von %2 reingeschoben.</translation>
+        <translation>%1 wurde von %2 reingeschoben.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="305"/>
@@ -4350,7 +4350,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.cpp" line="215"/>
         <source>Send a text message to another user.</source>
-        <translation type="obsolete">Sende eine Text-Nachricht einem anderen Nutzer.</translation>
+        <translation type="obsolete">Sende eine Text-Nachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="689"/>
@@ -4415,7 +4415,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.ui" line="265"/>
         <source>Sends a text message to another user.</source>
-        <translation>Schickt eine Textnachricht einem anderen Benutzer.</translation>
+        <translation>Schickt eine Textnachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="439"/>
@@ -4665,7 +4665,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="MainWindow.ui" line="517"/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation>Schickt eine Textnachricht an alle Nutzer im Kanal.</translation>
+        <translation>Schickt eine Textnachricht an alle Benutzer im Kanal.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="522"/>
@@ -4731,7 +4731,7 @@ der möglichen Orte initialisieren.</translation>
         <location filename="MainWindow.cpp" line="214"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation>Zwischen Minimal umschalten</translation>
+        <translation>Minimalansicht umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="536"/>
@@ -4824,7 +4824,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="NetworkConfig.ui" line="34"/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;TCP-Kompatibilitätsmodus aktivieren&lt;/b&gt;. &lt;br /&gt;Dies lässt Mumble nur TCP zu Kommunikation mit dem Server nutzen. Es wird den Overhead erhöhen und bei verlorenen Paketen hörbare Pausen produzieren. Es wird nur empfohlen wenn die Standardeinstellungen nicht funktioniert.</translation>
+        <translation>&lt;b&gt;TCP-Kompatibilitätsmodus aktivieren&lt;/b&gt;. &lt;br /&gt;Dies lässt Mumble nur TCP zu Kommunikation mit dem Server nutzen. Es wird den Overhead erhöhen und bei verlorenen Paketen hörbare Pausen produzieren. Er wird nur empfohlen wenn die Standardeinstellungen nicht funktioniert.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="37"/>
@@ -5124,7 +5124,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="Overlay.ui" line="64"/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Dies legt fest ob Benutzertexturen von registrierten Nutzern heruntergeladen und benutz werden sollen. Wenn deaktiviert, wird normaler Text angezeigt.</translation>
+        <translation>Dies legt fest ob Benutzertexturen von registrierten Benutzern heruntergeladen und benutz werden sollen. Wenn deaktiviert, wird normaler Text angezeigt.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="118"/>
