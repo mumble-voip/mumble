@@ -250,7 +250,7 @@ void AudioNoiseWidget::paintEvent(QPaintEvent *) {
 		xp = i * sx;
 		yp = sqrtf(sqrtf(static_cast<float>(noise[i]))) - 1.0f;
 		yp = yp * fftmul;
-		yp = qMin(yp * 3000.0f, 1.0);
+		yp = qMin<qreal>(yp * 3000.0f, 1.0f);
 		yp = (1 - yp) * sy;
 		poly << QPointF(xp, yp);
 	}
