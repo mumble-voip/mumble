@@ -24,7 +24,7 @@ INCLUDEPATH = ../speex/include ../speex/libspeex
 
 win32 {
   INCLUDEPATH += ../speex/win32	
-  DEFINES+=WIN32 _WINDOWS _USE_SSE 
+  DEFINES+=WIN32 _WINDOWS _USE_SSE _USE_MATH_DEFINES
 }
 
 unix {
