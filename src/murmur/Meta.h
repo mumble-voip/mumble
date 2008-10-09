@@ -84,7 +84,9 @@ struct MetaParams {
 };
 
 class Meta : public QObject {
+	private:
 		Q_OBJECT;
+		Q_DISABLE_COPY(Meta);
 	public:
 		static MetaParams mp;
 		QHash<int, Server *> qhServers;

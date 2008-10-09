@@ -48,6 +48,9 @@ class QSettings;
 class Overlay;
 
 struct Global {
+private:
+	Q_DISABLE_COPY(Global)
+public:
 	static Global *g_global_struct;
 	MainWindow *mw;
 	Settings s;
@@ -81,6 +84,8 @@ struct Global {
 // after we reach main().
 
 class DeferInit {
+	private:
+		Q_DISABLE_COPY(DeferInit)
 	protected:
 		static QMultiMap<int, DeferInit *> *qmDeferers;
 		void add(int priority);

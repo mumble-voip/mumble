@@ -38,7 +38,9 @@
 #include "ui_PositionalSound.h"
 
 class PlotWidget : public QWidget {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PlotWidget)
 	protected:
 		const QList<float> &xdata;
 		const QList<float> &ydata;
@@ -49,7 +51,9 @@ class PlotWidget : public QWidget {
 };
 
 class PositionalSoundConfig : public ConfigWidget, public Ui::PositionalSoundConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PositionalSoundConfig)
 	protected:
 		QList<float> xdata;
 		QList<float> ydata;

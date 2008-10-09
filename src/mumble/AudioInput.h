@@ -39,6 +39,8 @@ class AudioInput;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
 
 class AudioInputRegistrar {
+	private:
+		Q_DISABLE_COPY(AudioInputRegistrar)
 	public:
 		static QMap<QString, AudioInputRegistrar *> *qmNew;
 		static QString current;
@@ -60,7 +62,9 @@ class AudioInput : public QThread {
 		friend class AudioEchoWidget;
 		friend class AudioStats;
 		friend class FMODSystem;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioInput)
 	protected:
 		typedef enum { SampleShort, SampleFloat } SampleFormat;
 		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int);

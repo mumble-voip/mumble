@@ -38,7 +38,9 @@ class Group;
 class ChanACL;
 
 class Channel : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(Channel)
 	private:
 		QSet<Channel *> qsUnseen;
 	public:

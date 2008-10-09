@@ -53,7 +53,9 @@ class MessageBoxEvent : public QEvent {
 };
 
 class LogTitleBar : public QWidget {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(LogTitleBar)
 	protected:
 		QTimer *qtTick;
 		int size;
@@ -70,7 +72,9 @@ class LogTitleBar : public QWidget {
 
 class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWindow {
 		friend class PlayerModel;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(MainWindow)
 	public:
 		PlayerModel *pmModel;
 		QSystemTrayIcon *qstiIcon;

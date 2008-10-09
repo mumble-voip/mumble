@@ -39,6 +39,8 @@
 typedef QPair<QString,QVariant> audioDevice;
 
 class LoopPlayer : public ClientPlayer {
+	private:
+		Q_DISABLE_COPY(LoopPlayer)
 	protected:
 		typedef QPair<quint32, QByteArray> Packet;
 		QMutex qmLock;

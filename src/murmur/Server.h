@@ -64,7 +64,9 @@ struct BandwidthRecord {
 };
 
 class LogEmitter : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(LogEmitter)
 	signals:
 		void newLogEntry(const QString &msg);
 	public:
@@ -73,7 +75,9 @@ class LogEmitter : public QObject {
 };
 
 class SslServer : public QTcpServer {
+	private:
 		Q_OBJECT;
+		Q_DISABLE_COPY(SslServer)
 	protected:
 		QList<QSslSocket *> qlSockets;
 		void incomingConnection(int);
@@ -85,7 +89,9 @@ class SslServer : public QTcpServer {
 class Server;
 
 class User : public Connection, public Player {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(User)
 	protected:
 		Server *s;
 	public:
@@ -102,8 +108,9 @@ class ServerI;
 class Server : public QThread, public MessageHandler {
 		friend class DBus;
 		friend class Murmur::ServerI;
+	private:
 		Q_OBJECT;
-
+		Q_DISABLE_COPY(Server);
 	protected:
 		bool bRunning;
 

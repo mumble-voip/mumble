@@ -37,7 +37,9 @@
 struct PluginInfo;
 
 class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PluginConfig)
 	protected:
 		void refillPluginList();
 		QHash<QListWidgetItem *, PluginInfo *> qhInfos;
@@ -56,7 +58,9 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 
 class Plugins : public QObject {
 		friend class PluginConfig;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(Plugins)
 	protected:
 		QMutex qmPlugins;
 		QList<PluginInfo *> qlPlugins;

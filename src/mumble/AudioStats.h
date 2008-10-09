@@ -34,7 +34,9 @@
 #include "mumble_pch.hpp"
 
 class AudioBar : public QWidget {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioBar)
 	protected:
 		void paintEvent(QPaintEvent *event);
 	public:
@@ -46,7 +48,9 @@ class AudioBar : public QWidget {
 };
 
 class AudioEchoWidget : public QGLWidget {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioEchoWidget)
 	public:
 		AudioEchoWidget(QWidget *parent);
 	protected:
@@ -56,7 +60,9 @@ class AudioEchoWidget : public QGLWidget {
 };
 
 class AudioNoiseWidget : public QWidget {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioNoiseWidget)
 	public:
 		AudioNoiseWidget(QWidget *parent);
 	protected slots:
@@ -66,7 +72,9 @@ class AudioNoiseWidget : public QWidget {
 #include "ui_AudioStats.h"
 
 class AudioStats : public QDialog, public Ui::AudioStats {
-		Q_OBJECT;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(AudioStats)
 	protected:
 		QTimer *qtTick;
 		bool bTalking;

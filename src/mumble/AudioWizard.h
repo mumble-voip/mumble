@@ -36,7 +36,9 @@
 #include "AudioOutput.h"
 
 class AudioWizard: public QWizard {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioWizard)
 	protected:
 		QComboBox *qcbInput, *qcbInputDevice;
 		QComboBox *qcbOutput, *qcbOutputDevice;

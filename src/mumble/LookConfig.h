@@ -36,7 +36,9 @@
 #include "ui_LookConfig.h"
 
 class LookConfig : public ConfigWidget, Ui::LookConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(LookConfig)
 	public:
 		LookConfig(Settings &st);
 		virtual QString title() const;

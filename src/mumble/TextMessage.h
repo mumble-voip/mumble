@@ -35,7 +35,9 @@
 #include "ui_TextMessage.h"
 
 class TextMessage : public QDialog, public Ui::TextMessage {
-		Q_OBJECT;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(TextMessage)
 	protected:
 		QString qsRep;
 	public:

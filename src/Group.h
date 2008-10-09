@@ -37,6 +37,8 @@ class Channel;
 class Player;
 
 class Group {
+	private:
+		Q_DISABLE_COPY(Group)
 	public:
 		Channel *c;
 		QString qsName;

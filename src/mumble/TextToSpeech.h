@@ -37,7 +37,9 @@ class TextToSpeechPrivate;
 
 class TextToSpeech : public QObject {
 		friend class TextToSpeechPrivate;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(TextToSpeech)
 		Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
 	protected:
 		bool enabled;

@@ -38,7 +38,9 @@ class ClientPlayer;
 class Channel;
 
 class PlayerDelegate : public QItemDelegate {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PlayerDelegate)
 	public:
 		PlayerDelegate(QObject *parent = NULL);
 		QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
@@ -48,6 +50,9 @@ class PlayerDelegate : public QItemDelegate {
 struct ModelItem {
 	friend class PlayerModel;
 
+	private:
+		Q_DISABLE_COPY(ModelItem);
+	public:
 	Channel *cChan;
 	ClientPlayer *pPlayer;
 
@@ -78,11 +83,11 @@ struct ModelItem {
 	void wipe();
 };
 
-class ChannelItem;
-
 class PlayerModel : public QAbstractItemModel {
 		friend struct ModelItem;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PlayerModel)
 	protected:
 		QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
 		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal;

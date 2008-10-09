@@ -55,7 +55,9 @@ struct InputDevice {
 };
 
 class GlobalShortcutWin : public GlobalShortcutEngine {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(GlobalShortcutWin)
 	public:
 		QTimer *timer;
 

@@ -40,7 +40,9 @@
 typedef QPair<QString, QString> ASIODev;
 
 class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ASIOConfig)
 	protected:
 		QList<ASIODev> qlDevs;
 		bool bOk;
@@ -66,7 +68,9 @@ class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 #include "asio.h"
 
 class ASIOInput : public AudioInput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ASIOInput)
 	protected:
 		IASIO *iasio;
 
@@ -97,6 +101,4 @@ class ASIOInput : public AudioInput {
 		void run();
 };
 
-#else
-class DXAudioInput;
 #endif

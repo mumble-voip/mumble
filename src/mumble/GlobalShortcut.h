@@ -39,9 +39,11 @@
 class GlobalShortcut : public QObject {
 		friend class GlobalShortcutEngine;
 		friend class GlobalShortcutConfig;
+	private:
 		Q_OBJECT
 		Q_PROPERTY(QVariant data READ data WRITE setData)
 		Q_PROPERTY(bool active READ active)
+		Q_DISABLE_COPY(GlobalShortcut)
 	protected:
 		QString name;
 		QVariant dv;
@@ -68,12 +70,12 @@ class GlobalShortcut : public QObject {
 		bool active() const {
 			return bActive;
 		};
-	private:
-		Q_DISABLE_COPY(GlobalShortcut)
 };
 
 class ShortcutKeyWidget : public QLineEdit {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ShortcutKeyWidget)
 	protected:
 		virtual void focusInEvent(QFocusEvent *event);
 		virtual void focusOutEvent(QFocusEvent *event);
@@ -90,7 +92,9 @@ class ShortcutKeyWidget : public QLineEdit {
 };
 
 class GlobalShortcutConfig : public ConfigWidget {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(GlobalShortcutConfig)
 	protected:
 		QHash<GlobalShortcut *, ShortcutKeyWidget *> qhKeys;
 		QHash<GlobalShortcut *, QCheckBox *> qhSuppress;
@@ -106,7 +110,9 @@ class GlobalShortcutConfig : public ConfigWidget {
 };
 
 class GlobalShortcutEngine : public QThread {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(GlobalShortcutEngine)
 	public:
 		bool bNeedRemap;
 		Timer tReset;

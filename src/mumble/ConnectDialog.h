@@ -49,7 +49,9 @@ class TextSortedItem : public QTreeWidgetItem {
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
-		Q_OBJECT;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ConnectDialog)
 	protected:
 		static QList<PublicInfo> qlPublicServers;
 		static Timer tPublicServers;

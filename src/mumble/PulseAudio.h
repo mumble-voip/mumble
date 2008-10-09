@@ -40,7 +40,9 @@ class PulseAudioInput;
 class PulseAudioOutput;
 
 class PulseAudioSystem : public QThread {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PulseAudioSystem)
 	public:
 		pa_context *pacContext;
 		pa_stream *pasInput, *pasOutput, *pasSpeaker;
@@ -86,7 +88,9 @@ class PulseAudioSystem : public QThread {
 
 class PulseAudioInput : public AudioInput {
 		friend class PulseAudioSystem;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PulseAudioInput)
 	protected:
 		pa_sample_spec pssMic, pssEcho;
 	public:
@@ -97,7 +101,9 @@ class PulseAudioInput : public AudioInput {
 
 class PulseAudioOutput : public AudioOutput {
 		friend class PulseAudioSystem;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PulseAudioOutput)
 	protected:
 		pa_sample_spec pss;
 		pa_channel_map pcm;

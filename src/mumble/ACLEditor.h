@@ -37,7 +37,9 @@
 #include "ui_ACLEditor.h"
 
 class ACLEditor : public QDialog, public Ui::ACLEditor {
-		Q_OBJECT;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ACLEditor)
 	protected:
 		enum WaitID {
 			GroupAdd, GroupRemove, GroupInherit, ACLList

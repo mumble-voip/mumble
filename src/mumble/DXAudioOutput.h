@@ -38,7 +38,9 @@
 #include <ksmedia.h>
 
 class DXAudioOutput : public AudioOutput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(DXAudioOutput)
 	public:
 		DXAudioOutput();
 		~DXAudioOutput();

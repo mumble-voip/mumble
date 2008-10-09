@@ -39,6 +39,8 @@ class Player;
 
 class SharedMemoryPrivate;
 class SharedMemory {
+	private:
+		Q_DISABLE_COPY(SharedMemory)
 	protected:
 		SharedMemoryPrivate *d;
 	public:
@@ -51,7 +53,9 @@ class SharedMemory {
 };
 
 class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(OverlayConfig)
 	protected:
 		QFont qfFont;
 		QColor qcPlayer, qcAltTalking, qcTalking, qcChannel, qcChannelTalking;
@@ -79,7 +83,9 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 class OverlayPrivate;
 class Overlay : public QObject {
 		friend class OverlayConfig;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(Overlay)
 	protected:
 		OverlayPrivate *d;
 

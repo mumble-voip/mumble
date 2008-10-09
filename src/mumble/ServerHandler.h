@@ -49,7 +49,9 @@ class ServerHandlerMessageEvent : public QEvent {
 typedef boost::shared_ptr<Connection> ConnectionPtr;
 
 class ServerHandler : public QThread {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ServerHandler)
 	protected:
 		QString qsHostName;
 		QString qsUserName;

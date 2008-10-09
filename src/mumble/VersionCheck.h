@@ -34,7 +34,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mumble_pch.hpp"
 
 class VersionCheck : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(VersionCheck)
 	protected:
 		QUrl quUrl;
 		QHttp *qhAgent;

@@ -38,7 +38,9 @@
 class TextToSpeech;
 
 class LogConfig : public ConfigWidget, public Ui::LogConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(LogConfig)
 	public:
 		LogConfig(Settings &st);
 		virtual QString title() const;
@@ -52,7 +54,9 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 
 class Log : public QObject {
 		friend class LogConfig;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(Log)
 	public:
 		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, PlayerJoin, PlayerLeave, YouKicked, PlayerKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage };
 		static const MsgType firstMsgType = DebugInfo;

@@ -123,8 +123,10 @@ Q_DECLARE_METATYPE(LogEntry);
 Q_DECLARE_METATYPE(QList<LogEntry>);
 
 class MurmurDBus : public QDBusAbstractAdaptor {
+	private:
 		Q_OBJECT
-		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur");
+		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Murmur")
+		Q_DISABLE_COPY(MurmurDBus)
 	protected:
 		Server *server;
 		bool bReentrant;
@@ -221,8 +223,10 @@ typedef QMap<QString, QString> ConfigMap;
 Q_DECLARE_METATYPE(ConfigMap);
 
 class MetaDBus : public QDBusAbstractAdaptor {
+	private:
 		Q_OBJECT
-		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Meta");
+		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Meta")
+		Q_DISABLE_COPY(MetaDBus)
 	protected:
 		Meta *meta;
 	public:

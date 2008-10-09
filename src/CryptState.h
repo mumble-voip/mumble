@@ -35,6 +35,8 @@
 #include "Timer.h"
 
 class CryptState {
+	private:
+		Q_DISABLE_COPY(CryptState)
 	public:
 		unsigned char raw_key[AES_BLOCK_SIZE];
 		unsigned char encrypt_iv[AES_BLOCK_SIZE];

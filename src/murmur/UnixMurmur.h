@@ -35,6 +35,7 @@
 
 class UnixMurmur : public QObject {
 		Q_OBJECT
+		Q_DISABLE_COPY(UnixMurmur)
 	protected:
 		static int iHupFd[2], iTermFd[2];
 		QSocketNotifier *qsnHup, *qsnTerm;

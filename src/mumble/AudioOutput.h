@@ -68,6 +68,8 @@ class ClientPlayer;
 typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
 class AudioOutputRegistrar {
+	private:
+		Q_DISABLE_COPY(AudioOutputRegistrar)
 	public:
 		static QMap<QString, AudioOutputRegistrar *> *qmNew;
 		static QString current;
@@ -85,7 +87,9 @@ class AudioOutputRegistrar {
 
 class AudioOutputPlayer : public QObject {
 		friend class AudioOutput;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioOutputPlayer)
 	protected:
 		unsigned int iBufferSize;
 		void resizeBuffer(unsigned int newsize);
@@ -101,7 +105,9 @@ class AudioOutputPlayer : public QObject {
 
 class AudioOutputSpeech : public AudioOutputPlayer {
 		friend class AudioOutput;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioOutputSpeech)
 	protected:
 		unsigned int iBufferOffset;
 		unsigned int iBufferFilled;
@@ -133,7 +139,9 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 };
 
 class AudioSine : public AudioOutputPlayer {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioSine)
 	protected:
 		float v;
 		float inc;
@@ -150,7 +158,9 @@ class AudioSine : public AudioOutputPlayer {
 };
 
 class AudioOutput : public QThread {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioOutput)
 	private:
 		float *fSpeakers;
 		float *fSpeakerVolume;

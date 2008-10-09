@@ -38,7 +38,9 @@
 #include "Global.h"
 
 class GlobalShortcutMacInit : public QObject, public DeferInit {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(GlobalShortcutMacInit)
 	public:
 		void initialize();
 	public slots:
@@ -49,8 +51,9 @@ class GlobalShortcutMacInit : public QObject, public DeferInit {
 };
 
 class GlobalShortcutMac : public GlobalShortcutEngine {
+	private:
 		Q_OBJECT
-
+		Q_DISABLE_COPY(GlobalShortcutMac)
 	public:
 		GlobalShortcutMac();
 		~GlobalShortcutMac();

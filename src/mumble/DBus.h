@@ -34,8 +34,10 @@
 #include "mumble_pch.hpp"
 
 class MumbleDBus : public QDBusAbstractAdaptor {
+	private:
 		Q_OBJECT
-		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Mumble");
+		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Mumble")
+		Q_DISABLE_COPY(MumbleDBus)
 	public:
 		MumbleDBus(QObject *parent);
 	public slots:

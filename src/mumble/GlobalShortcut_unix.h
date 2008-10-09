@@ -34,7 +34,9 @@
 #define NUM_BUTTONS 0x2ff
 
 class GlobalShortcutX : public GlobalShortcutEngine {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(GlobalShortcutX)
 	public:
 		Display *display;
 		volatile bool bRunning;

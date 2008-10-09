@@ -36,7 +36,9 @@
 #include "ui_PAAudioConfig.h"
 
 class PAAudioConfig : public ConfigWidget, public Ui::PAAudioConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PAAudioConfig)
 	public:
 		PAAudioConfig(Settings &s);
 		QString title() const;

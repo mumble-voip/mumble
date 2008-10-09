@@ -37,7 +37,9 @@
 class Message;
 
 class Connection : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(Connection)
 	private:
 		static int iReceiveLevel;
 		static QSet<Connection *> qsReceivers;

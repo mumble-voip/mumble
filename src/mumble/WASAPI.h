@@ -46,7 +46,9 @@
 #include <delayimp.h>
 
 class WASAPISystem : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(WASAPISystem)
 	public:
 		static const QHash<QString, QString> getDevices(EDataFlow dataflow);
 		static const QHash<QString, QString> getInputDevices();
@@ -55,7 +57,9 @@ class WASAPISystem : public QObject {
 };
 
 class WASAPIInput : public AudioInput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(WASAPIInput)
 	public:
 		WASAPIInput();
 		~WASAPIInput();
@@ -63,7 +67,9 @@ class WASAPIInput : public AudioInput {
 };
 
 class WASAPIOutput : public AudioOutput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(WASAPIOutput)
 	public:
 		WASAPIOutput();
 		~WASAPIOutput();

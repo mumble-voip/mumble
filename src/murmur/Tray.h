@@ -35,7 +35,9 @@
 #include "Server.h"
 
 class Tray : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(Tray);
 	protected:
 		QSystemTrayIcon *qsti;
 		QMenu *qm;

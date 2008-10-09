@@ -34,7 +34,9 @@
 #include "mumble_pch.hpp"
 
 class ViewCert : public QDialog {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ViewCert)
 	protected:
 		QList<QSslCertificate> qlCerts;
 		QListWidget *qlwChain, *qlwCert;

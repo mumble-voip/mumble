@@ -48,7 +48,9 @@ typedef boost::weak_ptr<PortAudioSystem> WeakPortAudioSystemPtr;
  * several threads can open/close streams as they like.
  */
 class PortAudioSystem : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PortAudioSystem)
 	protected:
 		//! Mutex around PA stream creation/deletion
 		static QMutex qmStream;
@@ -64,7 +66,9 @@ class PortAudioSystem : public QObject {
 
 
 class PortAudioInput : public AudioInput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PortAudioInput)
 	public:
 		PortAudioInput();
 		~PortAudioInput();
@@ -73,7 +77,9 @@ class PortAudioInput : public AudioInput {
 
 
 class PortAudioOutput : public AudioOutput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(PortAudioOutput)
 	public:
 		PortAudioOutput();
 		~PortAudioOutput();

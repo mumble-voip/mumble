@@ -36,7 +36,9 @@
 #include "ui_NetworkConfig.h"
 
 class NetworkConfig : public ConfigWidget, Ui::NetworkConfig {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(NetworkConfig)
 	public:
 		NetworkConfig(Settings &st);
 		virtual QString title() const;

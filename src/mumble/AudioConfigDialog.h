@@ -37,7 +37,9 @@
 #include "ui_AudioOutput.h"
 
 class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioInputDialog)
 	public:
 		AudioInputDialog(Settings &st);
 		virtual QString title() const;
@@ -58,7 +60,9 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 };
 
 class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(AudioOutputDialog)
 	public:
 		AudioOutputDialog(Settings &st);
 		virtual QString title() const;

@@ -34,7 +34,9 @@
 #include "mumble_pch.hpp"
 
 class Database : public QObject {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(Database)
 	public:
 		Database();
 		static const QString getDigest(const QString &hostname, unsigned short port);

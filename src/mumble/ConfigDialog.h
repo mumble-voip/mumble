@@ -36,7 +36,9 @@
 #include "Settings.h"
 
 class ConfigWidget : public QWidget {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ConfigWidget)
 	protected:
 		void loadSlider(QSlider *, int);
 		void loadCheckBox(QAbstractButton *, bool);
@@ -59,6 +61,8 @@ typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);
 
 class ConfigRegistrar {
 		friend class ConfigDialog;
+	private:
+		Q_DISABLE_COPY(ConfigRegistrar)
 	protected:
 		int iPriority;
 		static QMap<int, ConfigWidgetNew> *c_qmNew;
@@ -68,7 +72,9 @@ class ConfigRegistrar {
 };
 
 class ConfigDialog : public QDialog, public Ui::ConfigDialog {
-		Q_OBJECT;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ConfigDialog)
 	protected:
 		QHash<QListWidgetItem *, ConfigWidget *> qhWidgets;
 		QHash<ConfigWidget *, QWidget *> qhPages;

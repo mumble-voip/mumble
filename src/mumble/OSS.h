@@ -36,7 +36,9 @@
 #include "ConfigDialog.h"
 
 class OSSInput : public AudioInput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(OSSInput)
 	protected:
 		void release();
 	public:
@@ -47,7 +49,9 @@ class OSSInput : public AudioInput {
 
 class OSSOutput : public AudioOutput {
 		friend class OSSPlayer;
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(OSSOutput)
 	public:
 		OSSOutput();
 		~OSSOutput();

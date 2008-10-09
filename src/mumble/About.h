@@ -34,13 +34,17 @@
 #include "mumble_pch.hpp"
 
 class AboutDialog : public QDialog {
-		Q_OBJECT;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(AboutDialog)
 	public:
 		AboutDialog(QWidget *parent);
 };
 
 class AboutSpeexDialog : public QDialog {
-		Q_OBJECT;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(AboutSpeexDialog)
 	public:
 		AboutSpeexDialog(QWidget *parent);
 };

@@ -36,6 +36,8 @@
 class Channel;
 
 class Player {
+	private:
+		Q_DISABLE_COPY(Player)
 	public:
 		enum State { Connected, Authenticated };
 		State sState;
@@ -55,7 +57,9 @@ class Player {
 };
 
 class ClientPlayer : public QObject, public Player {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ClientPlayer)
 	public:
 		ClientPlayer(QObject *p = NULL);
 		static QHash<unsigned int, ClientPlayer *> c_qmPlayers;

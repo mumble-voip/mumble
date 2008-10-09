@@ -36,7 +36,9 @@
 #include "Message.h"
 
 class BanEditor : public QDialog, public Ui::BanEditor {
+	private:
 		Q_OBJECT;
+		Q_DISABLE_COPY(BanEditor)
 	protected:
 		QList<QPair<quint32, int> > qlBans;
 	public:

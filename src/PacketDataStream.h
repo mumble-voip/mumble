@@ -37,6 +37,8 @@
 
 class PacketDataStream {
 	private:
+		Q_DISABLE_COPY(PacketDataStream)
+	private:
 		unsigned char *data;
 		quint32 maxsize;
 		quint32 offset;

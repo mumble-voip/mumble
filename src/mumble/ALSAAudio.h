@@ -40,7 +40,9 @@ class ALSAAudioOutput;
 class ALSAAudioInput;
 
 class ALSAAudioInput : public AudioInput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ALSAAudioInput)
 	public:
 		ALSAAudioInput();
 		~ALSAAudioInput();
@@ -48,7 +50,9 @@ class ALSAAudioInput : public AudioInput {
 };
 
 class ALSAAudioOutput : public AudioOutput {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(ALSAAudioOutput)
 	protected:
 	public:
 		ALSAAudioOutput();
