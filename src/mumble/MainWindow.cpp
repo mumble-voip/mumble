@@ -60,7 +60,7 @@ LogTitleBar::LogTitleBar() {
 	qtTick = new QTimer(this);
 	qtTick->setSingleShot(true);
 	connect(qtTick, SIGNAL(timeout()), this, SLOT(tick()));
-	size = newsize = 1;
+	size = newsize = 0;
 }
 
 QSize LogTitleBar::sizeHint() const {
