@@ -49,25 +49,50 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 }
 
 GlobalShortcutWin::GlobalShortcutWin() {
-	timer = new QTimer(this);
-	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
-
-	HRESULT hr;
-
 	pDI = NULL;
+	moveToThread(this);
+	start(QThread::LowestPriority);
+}
+
+GlobalShortcutWin::~GlobalShortcutWin() {
+	quit();
+	wait();
+}
+
+void GlobalShortcutWin::run() {
+	HMODULE hSelf;
+	HRESULT hr;
+	QTimer *timer;
 
 	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), NULL))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
 	}
 
-	timer->start(20);
-	start(QThread::TimeCriticalPriority);
-}
+	/*
+	 * Wait for MainWindow's constructor to finish before we enumerate DirectInput devices.
+	 * We need to do this because adding a new device requires a Window handle. (SetCooperativeLevel())
+	 */
+	while (! g.mw)
+		this->msleep(20);
 
-GlobalShortcutWin::~GlobalShortcutWin() {
-	quit();
-	wait();
+	pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
+
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
+	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
+	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
+	timer->start(20);
+
+	setPriority(QThread::TimeCriticalPriority);
+
+	exec();
+
+	UnhookWindowsHookEx(hhKeyboard);
+	UnhookWindowsHookEx(hhMouse);
+
 	foreach(InputDevice *id, qhInputDevices) {
 		if (id->pDID) {
 			id->pDID->Unacquire();
@@ -75,18 +100,6 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 		}
 	}
 	pDI->Release();
-}
-
-void GlobalShortcutWin::run() {
-	HMODULE hSelf;
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
-	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
-	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
-
-	exec();
-
-	UnhookWindowsHookEx(hhKeyboard);
-	UnhookWindowsHookEx(hhMouse);
 }
 
 LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARAM lParam) {
@@ -141,8 +154,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 	}
 	return CallNextHookEx(gsw->hhMouse, nCode, wParam, lParam);
 }
-
-
 
 BOOL CALLBACK GlobalShortcutWin::EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
 	InputDevice *id=static_cast<InputDevice *>(pvRef);
@@ -225,12 +236,6 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 void GlobalShortcutWin::timeTicked() {
 	if (bNeedRemap)
 		remap();
-
-	if (qhInputDevices.isEmpty()) {
-		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
-		moveToThread(this);
-		return;
-	}
 
 	foreach(InputDevice *id, qhInputDevices) {
 		DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
