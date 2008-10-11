@@ -226,8 +226,11 @@ void GlobalShortcutWin::timeTicked() {
 	if (bNeedRemap)
 		remap();
 
-	if (qhInputDevices.isEmpty())
+	if (qhInputDevices.isEmpty()) {
 		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
+		moveToThread(this);
+		return;
+	}
 
 	foreach(InputDevice *id, qhInputDevices) {
 		DIDEVICEOBJECTDATA rgdod[DX_SAMPLE_BUFFER_SIZE];
