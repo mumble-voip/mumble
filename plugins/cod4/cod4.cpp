@@ -44,6 +44,8 @@ static void about(HWND h) {
 
 static int fetch(float *pos, float *front, float *top) {
 	float viewHor, viewVer;
+	char state;
+
 	for (int i=0;i<3;i++)
 		pos[i]=front[i]=top[i]=0.0;
 
@@ -59,7 +61,24 @@ static int fetch(float *pos, float *front, float *top) {
 			0x0032AFF0		float	Y-Coordinate
 			0x0032AF3C		float	Horizontal view (degrees)
 			0x0032AF38		float	Vertical view (degrees)
+
+			0x0074E380		byte	Magical state value
 	*/
+	ok = peekProc((BYTE *) 0x0074E380, &state, 1); // Magical state value
+	if (! ok)
+		return false;
+	/*
+		state value is:
+		0		while not in game
+		4		while playing
+		8		while spectating
+
+		This value is used for disabling pa for spectators
+		or people not on a server.
+	*/
+	if (state != 4)
+		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
+	
 	ok = peekProc((BYTE *) 0x0072AFD0, pos+2, 4) &&	//Z
 		 peekProc((BYTE *) 0x0072AFE0, pos, 4) &&	//X
 		 peekProc((BYTE *) 0x0072AFF0, pos+1, 4) && //Y
