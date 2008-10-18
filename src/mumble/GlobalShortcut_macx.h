@@ -42,6 +42,7 @@ class GlobalShortcutMacInit : public QObject, public DeferInit {
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcutMacInit)
 	public:
+		GlobalShortcutMacInit();
 		void initialize();
 	public slots:
 		void openPrefsPane(const QString &) const;

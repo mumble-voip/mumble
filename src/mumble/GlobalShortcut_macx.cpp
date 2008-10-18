@@ -39,6 +39,9 @@
  * properly set up to receieve global keyboard/mouse events.
  */
 
+GlobalShortcutMacInit::GlobalShortcutMacInit() : QObject(NULL) {
+}
+
 void GlobalShortcutMacInit::initialize() {
 	if (!accessibilityApiEnabled())
 		accessibilityDialog();
