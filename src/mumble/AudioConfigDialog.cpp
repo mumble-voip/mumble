@@ -46,9 +46,20 @@ static ConfigWidget *AudioOutputDialogNew(Settings &st) {
 static ConfigRegistrar iregistrar(1000, AudioInputDialogNew);
 static ConfigRegistrar oregistrar(1010, AudioOutputDialogNew);
 
+void AudioInputDialog::hideEvent(QHideEvent *event) {
+	qtTick->stop();
+}
+
+void AudioInputDialog::showEvent(QShowEvent *event) {
+	qtTick->start(20);
+}
+
 AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	QList<QString> keys;
 	QString key;
+
+	qtTick = new QTimer(this);
+	qtTick->setObjectName(QLatin1String("Tick"));
 
 	setupUi(this);
 
@@ -64,6 +75,12 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
+	
+	abSpeech->qcBelow = Qt::red;
+	abSpeech->qcInside = Qt::yellow;
+	abSpeech->qcAbove = Qt::green;
+    
+	on_Tick_timeout();
 }
 
 QString AudioInputDialog::title() const {
@@ -249,6 +266,23 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 	}
 
 	qcbDevice->setEnabled(ql.count() > 1);
+}
+
+void AudioInputDialog::on_Tick_timeout() {
+	AudioInputPtr ai = g.ai;
+
+	if (ai.get() == NULL || ! ai->sppPreprocess)
+		return;
+
+	abSpeech->iBelow = qsTransmitMin->value();
+	abSpeech->iAbove = qsTransmitMax->value();
+
+	if (qrbAmplitude->isChecked()) {
+		abSpeech->iValue = lroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
+	} else {
+		abSpeech->iValue = lroundf(ai->fSpeechProb * 32767.0f);
+	}
+	abSpeech->update();
 }
 
 AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {

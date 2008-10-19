@@ -274,14 +274,30 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0" >
+          <item row="2" column="1" >
+           <widget class="AudioBar" native="1" name="abSpeech" >
+            <property name="toolTip" >
+             <string>Current speech detection chance</string>
+            </property>
+            <property name="whatsThis" >
+             <string>&lt;b>This shows the current speech detection settings.&lt;/b>&lt;br />You can change the settings from the Settings dialog or from the Audio Wizard.</string>
+            </property>
+            <property name="maximumSize" >
+             <size>
+              <width>16777215</width>
+              <height>10</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" >
            <widget class="QLabel" name="qliTransmitMin" >
             <property name="text" >
              <string>Silence Below</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1" >
+          <item row="3" column="1" >
            <widget class="QSlider" name="qsTransmitMin" >
             <property name="toolTip" >
              <string>Signal values below this counts as silence</string>
@@ -306,14 +322,14 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0" >
+          <item row="4" column="0" >
            <widget class="QLabel" name="qliTransmitMax" >
             <property name="text" >
              <string>Speech Above</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1" >
+          <item row="4" column="1" >
            <widget class="QSlider" name="qsTransmitMax" >
             <property name="toolTip" >
              <string>Signal values above this count as voice</string>
@@ -592,6 +608,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AudioBar</class>
+   <extends>QWidget</extends>
+   <header>AudioStats.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>qcbSystem</tabstop>
   <tabstop>qcbDevice</tabstop>

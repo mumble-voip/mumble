@@ -61,6 +61,7 @@ class AudioInput : public QThread {
 		friend class AudioNoiseWidget;
 		friend class AudioEchoWidget;
 		friend class AudioStats;
+		friend class AudioInputDialog;
 		friend class FMODSystem;
 	private:
 		Q_OBJECT

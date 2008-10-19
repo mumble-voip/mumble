@@ -40,6 +40,10 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioInputDialog)
+	protected:
+		QTimer *qtTick;
+		void hideEvent(QHideEvent *event);
+		void showEvent(QShowEvent *event);
 	public:
 		AudioInputDialog(Settings &st);
 		virtual QString title() const;
@@ -57,6 +61,7 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		void on_qsNoise_valueChanged(int v);
 		void on_qcbTransmit_currentIndexChanged(int v);
 		void on_qcbSystem_currentIndexChanged(int);
+		void on_Tick_timeout();
 };
 
 class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
