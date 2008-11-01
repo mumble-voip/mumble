@@ -119,6 +119,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsQuality, r.iQuality);
 	loadSlider(qsNoise, - r.iNoiseSuppress);
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
+	loadSlider(qsIdle, r.iIdleTime);
 	loadCheckBox(qcbEcho, r.bEcho);
 }
 
@@ -134,6 +135,7 @@ void AudioInputDialog::save() const {
 	s.uiDoublePush = qsDoublePush->value() * 1000;
 	s.bPushClick = qcbPushClick->isChecked();
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
+	s.iIdleTime = qsIdle->value();
 
 	s.qsAudioInput = qcbSystem->currentText();
 	s.bEcho = qcbEcho->isChecked();
@@ -154,6 +156,9 @@ bool AudioInputDialog::expert(bool b) {
 	qsFrames->setVisible(b);
 	qlFrames->setVisible(b);
 	qswTransmit->setVisible(b);
+	qliIdle->setVisible(b);
+	qsIdle->setVisible(b);
+	qlIdle->setVisible(b);
 	return true;
 }
 
@@ -188,6 +193,13 @@ void AudioInputDialog::on_qsAmp_valueChanged(int v) {
 	v = 18000 - v + 2000;
 	float d = 20000.0f/static_cast<float>(v);
 	qlAmp->setText(QString::fromLatin1("%1").arg(d, 0, 'f', 2));
+}
+
+void AudioInputDialog::on_qsIdle_valueChanged(int v) {
+	if (v > 0)
+		qlIdle->setText(tr("%1 min").arg(v / 60));
+	else
+		qlIdle->setText(tr("Off"));
 }
 
 void AudioInputDialog::updateBitrate() {

@@ -146,6 +146,7 @@ AudioInput::AudioInput() {
 
 	bRunning = false;
 
+	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 }
 
 AudioInput::~AudioInput() {
@@ -675,10 +676,16 @@ void AudioInput::encodeAudioFrame() {
 	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
+		if (g.s.iIdleTime && ! g.s.bMute && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {
+			emit doMute();
+			tIdle.restart();
+		}
 		return;
 	}
 
 	bPreviousVoice = iIsSpeech;
+
+	tIdle.restart();
 
 	if (! iIsSpeech) {
 		memset(psMic, 0, sizeof(short) * iFrameSize);

@@ -33,6 +33,7 @@
 
 #include "Audio.h"
 #include "Settings.h"
+#include "Timer.h"
 #include "smallft.h"
 
 class AudioInput;
@@ -102,6 +103,8 @@ class AudioInput : public QThread {
 		float *pfEchoInput;
 		float *pfOutput;
 
+		Timer tIdle;
+
 		void encodeAudioFrame();
 		void addMic(const void *data, unsigned int nsamp);
 		void addEcho(const void *data, unsigned int nsamp);
@@ -118,6 +121,8 @@ class AudioInput : public QThread {
 		void flushCheck();
 
 		void initializeMixer();
+	signals:
+		void doMute();
 	public:
 		bool bResetProcessor;
 

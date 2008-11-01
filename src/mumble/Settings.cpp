@@ -47,6 +47,7 @@ Settings::Settings() {
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
+	iIdleTime = 1800;
 	vsVAD = SignalToNoise;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
@@ -185,6 +186,7 @@ void Settings::load() {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+	SAVELOAD(iIdleTime, "audio/idletime");
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioRollOff, "audio/rolloff");
@@ -306,6 +308,7 @@ void Settings::save() {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+	SAVELOAD(iIdleTime, "audio/idletime");
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioRollOff, "audio/rolloff");

@@ -60,6 +60,7 @@ struct Settings {
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
+	int iIdleTime;
 	VADSource vsVAD;
 	float fVADmin, fVADmax;
 	int iFramesPerPacket;
