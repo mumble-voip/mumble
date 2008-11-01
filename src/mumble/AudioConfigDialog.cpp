@@ -46,11 +46,11 @@ static ConfigWidget *AudioOutputDialogNew(Settings &st) {
 static ConfigRegistrar iregistrar(1000, AudioInputDialogNew);
 static ConfigRegistrar oregistrar(1010, AudioOutputDialogNew);
 
-void AudioInputDialog::hideEvent(QHideEvent *event) {
+void AudioInputDialog::hideEvent(QHideEvent *) {
 	qtTick->stop();
 }
 
-void AudioInputDialog::showEvent(QShowEvent *event) {
+void AudioInputDialog::showEvent(QShowEvent *) {
 	qtTick->start(20);
 }
 
@@ -75,11 +75,11 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
-	
+
 	abSpeech->qcBelow = Qt::red;
 	abSpeech->qcInside = Qt::yellow;
 	abSpeech->qcAbove = Qt::green;
-    
+
 	on_Tick_timeout();
 }
 
@@ -389,6 +389,13 @@ void AudioOutputDialog::on_qsJitter_valueChanged(int v) {
 }
 
 void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
+	QPalette pal;
+
+	if (v > 100) {
+		pal.setColor(qlVolume->foregroundRole(), Qt::red);
+	}
+	qlVolume->setPalette(pal);
+
 	qlVolume->setText(tr("%1%").arg(v));
 }
 

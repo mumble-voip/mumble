@@ -624,17 +624,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			}
 		}
 		// Clip
-		if (qlMix.count() > 1) {
-			if (eSampleFormat == SampleFloat)
-				for (unsigned int i=0;i<nsamp*iChannels;i++)
-					output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
-			else
-				for (unsigned int i=0;i<nsamp*iChannels;i++)
-					reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
-		} else if (eSampleFormat == SampleShort) {
+		if (eSampleFormat == SampleFloat)
 			for (unsigned int i=0;i<nsamp*iChannels;i++)
-				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * output[i]);
-		}
+				output[i] = output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i]);
+		else
+			for (unsigned int i=0;i<nsamp*iChannels;i++)
+				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
 	}
 
 	qrwlOutputs.unlock();
