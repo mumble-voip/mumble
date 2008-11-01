@@ -148,20 +148,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setOnTop(g.s.bAlwaysOnTop);
 }
 
-void MainWindow::setOnTop(bool top) {
-	Qt::WindowFlags wf = windowFlags();
-	if (wf.testFlag(Qt::WindowStaysOnTopHint) != top) {
-		if (top)
-			wf |= Qt::WindowStaysOnTopHint;
-		else
-			wf &= ~Qt::WindowStaysOnTopHint;
-		bNoHide = true;
-		setWindowFlags(wf);
-		show();
-		bNoHide = false;
-	}
-}
-
 void MainWindow::createActions() {
 	int idx = 1;
 	gsPushTalk=new GlobalShortcut(this, idx++, tr("Push-to-Talk", "Global Shortcut"));
@@ -441,6 +427,20 @@ void MainWindow::findDesiredChannel() {
 	}
 }
 
+void MainWindow::setOnTop(bool top) {
+	Qt::WindowFlags wf = windowFlags();
+	if (wf.testFlag(Qt::WindowStaysOnTopHint) != top) {
+		if (top)
+			wf |= Qt::WindowStaysOnTopHint;
+		else
+			wf &= ~Qt::WindowStaysOnTopHint;
+		bNoHide = true;
+		setWindowFlags(wf);
+		show();
+		bNoHide = false;
+	}
+}
+
 void MainWindow::setupView() {
 	bool showit = ! g.s.bMinimalView;
 
@@ -456,17 +456,18 @@ void MainWindow::setupView() {
 		qdwLog->setVisible(showit);
 	}
 
-
 	Qt::WindowFlags f = windowFlags();
 	if (showit)
 		f = 0;
 	else
 		f = Qt::CustomizeWindowHint;
+	if (g.s.bAlwaysOnTop)
+		f |= Qt::WindowStaysOnTopHint;
+
 	setWindowFlags(f);
 	show();
 	qtvPlayers->header()->setVisible(showit);
 	menuBar()->setVisible(showit);
-
 
 	bNoHide = false;
 }
