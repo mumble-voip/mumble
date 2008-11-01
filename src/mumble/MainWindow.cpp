@@ -108,7 +108,10 @@ void LogTitleBar::tick() {
 }
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
-
+	qiIconMute.addFile(QLatin1String("skin:muted_self.png"));
+	qiIconMute.addFile(QLatin1String("skin:muted_overlay.png"));
+	qiIconDeaf.addFile(QLatin1String("skin:deafened_self.png"));
+	qiIconDeaf.addFile(QLatin1String("skin:deafened_overlay.png"));
 	qiIcon.addFile(QLatin1String("skin:mumble.16x16.png"));
 	qiIcon.addFile(QLatin1String("skin:mumble.32x32.png"));
 	qiIcon.addFile(QLatin1String("skin:mumble.64x64.png"));
@@ -321,6 +324,18 @@ void MainWindow::on_qtvPlayers_customContextMenuRequested(const QPoint &mpos) {
 		qmPlayer->popup(qtvPlayers->mapToGlobal(mpos), qaPlayerMute);
 	} else {
 		qmChannel->popup(qtvPlayers->mapToGlobal(mpos), qaChannelACL);
+	}
+}
+
+void MainWindow::updateTrayIcon() {
+	ClientPlayer *p=ClientPlayer::get(g.uiSession);
+
+	if (g.s.bDeaf || (p && p->bDeaf)) {
+		qstiIcon->setIcon(qiIconDeaf);
+	} else if (g.s.bMute || (p && p->bMute)) {
+		qstiIcon->setIcon(qiIconMute);
+	} else {
+		qstiIcon->setIcon(qiIcon);
 	}
 }
 
@@ -962,6 +977,8 @@ void MainWindow::on_qaAudioMute_triggered() {
 	mpsmd.bMute = g.s.bMute;
 	mpsmd.bDeaf = g.s.bDeaf;
 	g.sh->sendMessage(&mpsmd);
+
+	updateTrayIcon();
 }
 
 void MainWindow::on_qaAudioDeaf_triggered() {
@@ -980,6 +997,8 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	mpsmd.bMute = g.s.bMute;
 	mpsmd.bDeaf = g.s.bDeaf;
 	g.sh->sendMessage(&mpsmd);
+
+	updateTrayIcon();
 }
 
 void MainWindow::on_qaAudioTTS_triggered() {

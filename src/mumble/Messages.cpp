@@ -126,10 +126,12 @@ void MainWindow::msgPlayerMute(Connection *, MessagePlayerMute *msg) {
 	QString vic = pDst->qsName;
 	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
 
-	if (msg->uiVictim == g.uiSession)
+	if (msg->uiVictim == g.uiSession) {
 		g.l->log(Log::YouMuted, msg->bMute ? MainWindow::tr("You were muted by %1.").arg(admin) : MainWindow::tr("You were unmuted by %1.").arg(admin));
-	else
+		updateTrayIcon();
+	} else {
 		g.l->log((msg->uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, msg->bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin));
+	}
 }
 
 void MainWindow::msgPlayerDeaf(Connection *, MessagePlayerDeaf *msg) {
@@ -144,10 +146,12 @@ void MainWindow::msgPlayerDeaf(Connection *, MessagePlayerDeaf *msg) {
 	QString vic = pDst->qsName;
 	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
 
-	if (msg->uiVictim == g.uiSession)
+	if (msg->uiVictim == g.uiSession) {
 		g.l->log(Log::YouMuted, msg->bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
-	else
+		updateTrayIcon();
+	} else {
 		g.l->log((msg->uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, msg->bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin));
+	}
 }
 
 void MainWindow::msgPlayerKick(Connection *, MessagePlayerKick *msg) {

@@ -79,7 +79,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		PlayerModel *pmModel;
 		QSystemTrayIcon *qstiIcon;
 		QMenu *qmTray;
-		QIcon qiIcon;
+		QIcon qiIcon, qiIconMute, qiIconDeaf;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
@@ -93,10 +93,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QString qsDesiredChannel;
 
 		void recheckTTS();
-
 		void msgBox(QString msg);
-
 		void setOnTop(bool top);
+		void updateTrayIcon();
 	protected:
 		QTimer *qtReconnect;
 		void createActions();
