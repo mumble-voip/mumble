@@ -1197,6 +1197,7 @@ void MainWindow::serverDisconnected(QString reason) {
 	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
+	updateTrayIcon();
 
 	QString uname, pw, host;
 	unsigned short port;
