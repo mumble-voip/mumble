@@ -338,11 +338,11 @@ void AudioOutputDialog::load(const Settings &r) {
 		loadComboBox(qcbSystem, i);
 
 	loadSlider(qsDelay, r.iOutputDelay);
-	loadSlider(qsVolume, static_cast<int>(r.fVolume * 100.0));
+	loadSlider(qsVolume, static_cast<int>(lroundf(r.fVolume * 100.0)));
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
-	loadSlider(qsPacketLoss, static_cast<int>(r.dPacketLoss * 100.0));
+	loadSlider(qsPacketLoss, static_cast<int>(lroundf(r.dPacketLoss * 100.0)));
 	loadSlider(qsMinDistance, lroundf(r.fAudioMinDistance * 10));
 	loadSlider(qsMaxDistance, lroundf(r.fAudioMaxDistance * 10));
 	loadSlider(qsRollOff, lroundf(r.fAudioRollOff * 100));
