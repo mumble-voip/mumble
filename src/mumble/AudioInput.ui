@@ -530,7 +530,7 @@
          <string>Noise suppression</string>
         </property>
         <property name="whatsThis" >
-         <string>&lt;b>This sets the ammount of noise suppression to apply.&lt;/b>&lt;br />The higher this value, the more aggressively stationary noise will be supressed.</string>
+         <string>&lt;b>This sets the amount of noise suppression to apply.&lt;/b>&lt;br />The higher this value, the more aggressively stationary noise will be supressed.</string>
         </property>
         <property name="minimum" >
          <number>15</number>
