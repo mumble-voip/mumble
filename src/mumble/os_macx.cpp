@@ -71,7 +71,7 @@ static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, SCREWAPPLE) {
 	 * of if we were already running beforehand.
 	 */
 	if (g.mw)
-		g.mw->openUrl(QUrl(QString(url)));
+		g.mw->openUrl(QUrl::fromEncoded(QByteArray(url)));
 	else
 		os_url = url;
 

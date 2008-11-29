@@ -40,7 +40,7 @@ MumbleDBus::MumbleDBus(QObject *mw) : QDBusAbstractAdaptor(mw) {
 }
 
 void MumbleDBus::openUrl(const QString &url, const QDBusMessage &msg) {
-	QUrl u(url);
+	QUrl u = QUrl::fromEncoded(url.toLatin1());
 	bool valid = u.isValid();
 	valid = valid && (u.scheme() == QLatin1String("mumble"));
 	if (! valid) {
@@ -71,7 +71,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 		c = c->cParent;
 	}
 	u.setPath(path.join(QLatin1String("/")));
-	QDBusConnection::sessionBus().send(msg.createReply(u.toString()));
+	QDBusConnection::sessionBus().send(msg.createReply(QString::fromLatin1(u.toEncoded())));
 }
 
 void MumbleDBus::focus() {

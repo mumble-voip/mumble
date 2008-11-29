@@ -225,10 +225,10 @@ int main(int argc, char **argv) {
 		new VersionCheck(true, g.mw);
 
 	if (a.arguments().count() > 1) {
-		g.mw->openUrl(QUrl(a.arguments().last()));
+		g.mw->openUrl(QUrl::fromEncoded(a.arguments().last().toLatin1()));
 #ifdef Q_OS_MAC
 	} else if (os_url) {
-		g.mw->openUrl(QUrl(QString(os_url)));
+		g.mw->openUrl(QUrl::fromEncoded(QByteArray(os_url)));
 #endif
 	} else {
 		g.mw->on_qaServerConnect_triggered();
