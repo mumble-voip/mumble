@@ -130,6 +130,10 @@ Section "Mumble & Murmur" SecMumble
   File /oname=bf2.dll "..\release\plugins\bf2.dll"
   File /oname=link.dll "..\release\plugins\link.dll"
   ;File /oname=wow.dll "..\release\plugins\wow.dll"
+  File /oname=cod2.dll "..\release\plugins\cod2.dll"
+  File /oname=cod4.dll "..\release\plugins\cod4.dll"
+  File /oname=cod5.dll "..\release\plugins\cod5.dll"
+  File /oname=wolfet.dll "..\release\plugins\wolfet.dll"
 
   SetOutPath "$INSTDIR"
 
@@ -198,6 +202,10 @@ Section "Uninstall" SectionUninstBase
   Delete "$INSTDIR\plugins\bf2.dll"
   Delete "$INSTDIR\plugins\link.dll"
   ;Delete "$INSTDIR\plugins\wow.dll"
+  Delete "$INSTDIR\plugins\cod2.dll"
+  Delete "$INSTDIR\plugins\cod4.dll"
+  Delete "$INSTDIR\plugins\cod5.dll"
+  Delete "$INSTDIR\plugins\wolfet.dll"
 
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
