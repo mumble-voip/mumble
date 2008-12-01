@@ -515,6 +515,7 @@ ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Mod
 		v->setCurrentIndex(QModelIndex());
 	}
 
+	bool expanded = v->isExpanded(index(item));
 
 	if (newparent == oldparent) {
 		// Mangle rows. newrow needs to be pre-remove. oldrow needs to be postremove.
@@ -538,6 +539,7 @@ ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Mod
 
 	endInsertRows();
 
+
 	QModelIndexList from, to;
 	from << createIndex(oldrow, 0, item);
 	from << createIndex(oldrow, 1, item);
@@ -558,6 +560,8 @@ ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Mod
 	if (active.isValid()) {
 		sel->select(active, QItemSelectionModel::SelectCurrent);
 	}
+	if (expanded)
+		v->expand(index(t));
 	return t;
 }
 
