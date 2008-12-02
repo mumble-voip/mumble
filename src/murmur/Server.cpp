@@ -276,7 +276,12 @@ int BandwidthRecord::bandwidth() const {
 
 void Server::run() {
 	qint32 len;
+#if defined(__LP64__)
+	char encbuff[65536+8];
+	char *encrypted = encbuff + 4;
+#else
 	char encrypted[65536];
+#endif
 	char buffer[65536];
 
 	quint32 msgType = 0;
@@ -412,7 +417,12 @@ bool Server::checkDecrypt(User *u, const char *encrypted, char *plain, unsigned 
 
 void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) {
 	if ((u->saiUdpAddress.sin_port != 0) && u->csCrypt.isValid()) {
+#if defined(__LP64__)
+		STACKVAR(char, ebuffer, len+4+16);
+		char *buffer = reinterpret_cast<char *>(((reinterpret_cast<quint64>(ebuffer) + 8) & ~7) + 4);
+#else
 		STACKVAR(char, buffer, len+4);
+#endif
 		u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len);
 		::sendto(sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
 	} else {
