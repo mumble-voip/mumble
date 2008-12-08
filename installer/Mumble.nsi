@@ -135,6 +135,11 @@ Section "Mumble & Murmur" SecMumble
   File /oname=cod5.dll "..\release\plugins\cod5.dll"
   File /oname=wolfet.dll "..\release\plugins\wolfet.dll"
 
+  File "Microsoft.VC90.CRT.manifest"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
+
   SetOutPath "$INSTDIR"
 
   ;Store installation folder
@@ -206,6 +211,11 @@ Section "Uninstall" SectionUninstBase
   Delete "$INSTDIR\plugins\cod4.dll"
   Delete "$INSTDIR\plugins\cod5.dll"
   Delete "$INSTDIR\plugins\wolfet.dll"
+
+  Delete "$INSTDIR\plugins\Microsoft.VC90.CRT.manifest"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\plugins\msvcm90.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\plugins\msvcp90.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\plugins\msvcr90.dll"
 
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
