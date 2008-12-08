@@ -590,9 +590,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				float dir[3] = { aop->fPos[0] - g.p->fPosition[0], aop->fPos[1] - g.p->fPosition[1], aop->fPos[2] - g.p->fPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
-				dir[0] /= len;
-				dir[1] /= len;
-				dir[2] /= len;
+				if(len > 0.0f)
+				{
+					dir[0] /= len;
+					dir[1] /= len;
+					dir[2] /= len;
+				}
 				/*
 								qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
 								qWarning("Voice dir: %f %f %f", dir[0], dir[1], dir[2]);
