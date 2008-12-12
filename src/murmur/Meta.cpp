@@ -51,6 +51,8 @@ MetaParams::MetaParams() {
 	qhaBind = QHostAddress(QHostAddress::Any);
 
 	iLogDays = 31;
+	
+	iObfuscate = 0;
 
 	iBanTries = 10;
 	iBanTimeframe = 120;
@@ -160,6 +162,12 @@ void MetaParams::read(QString fname) {
 	iBanTries = qs.value("autobanAttempts", iBanTries).toInt();
 	iBanTimeframe = qs.value("autobanTimeframe", iBanTimeframe).toInt();
 	iBanTime = qs.value("autobanTime", iBanTime).toInt();
+	
+	bool bObfuscate = qs.value("obfuscate", false).toBool();
+	if (bObfuscate) {
+		qWarning("IP address obfuscation enabled.");
+		iObfuscate = qrand();
+	}
 
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();
@@ -242,6 +250,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("registerurl"),qurlRegWeb.toString());
 	qmConfig.insert(QLatin1String("certificate"),qscCert.toPem());
 	qmConfig.insert(QLatin1String("key"),qskKey.toPem());
+	qmConfig.insert(QLatin1String("obfuscate"),bObfuscate ? QLatin1String("true") : QLatin1String("false"));
 }
 
 Meta::Meta() {

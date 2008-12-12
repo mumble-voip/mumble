@@ -61,6 +61,8 @@ struct MetaParams {
 	int iDBPort;
 
 	int iLogDays;
+	
+	int iObfuscate;
 
 	QString qsDBus;
 	QString qsDBusService;

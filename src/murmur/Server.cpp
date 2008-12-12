@@ -153,10 +153,11 @@ Server::~Server() {
 	terminate();
 	wait();
 	qrwlUsers.unlock();
+	if (sUdpSocket != INVALID_SOCKET)
 #ifdef Q_OS_UNIX
-	close(sUdpSocket);
+		close(sUdpSocket);
 #else
-	closesocket(sUdpSocket);
+		closesocket(sUdpSocket);
 #endif
 	log("Stopped");
 }
@@ -293,6 +294,9 @@ void Server::run() {
 #else
 	int fromlen;
 #endif
+
+	if (sUdpSocket == INVALID_SOCKET)
+		return;
 
 	while (bRunning) {
 #ifdef Q_OS_DARWIN
@@ -527,7 +531,7 @@ void Server::newClient() {
 		quint32 base = adr.toIPv4Address();
 
 		if (meta->banCheck(adr)) {
-			log("Ignoring connection: %s:%d (Global ban)",qPrintable(sock->peerAddress().toString()),sock->peerPort());
+			log("Ignoring connection: %s:%d (Global ban)",qPrintable(addressToString(sock->peerAddress())),sock->peerPort());
 			sock->disconnectFromHost();
 			sock->deleteLater();
 			return;
@@ -539,7 +543,7 @@ void Server::newClient() {
 			int mask = 32 - ban.second;
 			mask = (1 << mask) - 1;
 			if ((base & ~mask) == (ban.first & ~mask)) {
-				log("Ignoring connection: %s:%d",qPrintable(sock->peerAddress().toString()),sock->peerPort());
+				log("Ignoring connection: %s:%d",qPrintable(addressToString(sock->peerAddress())),sock->peerPort());
 				sock->disconnectFromHost();
 				sock->deleteLater();
 				return;
@@ -568,7 +572,7 @@ void Server::newClient() {
 		connect(u, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 
-		log(u, "New connection: %s:%d",qPrintable(sock->peerAddress().toString()),sock->peerPort());
+		log(u, "New connection: %s:%d",qPrintable(addressToString(sock->peerAddress())),sock->peerPort());
 
 		sock->startServerEncryption();
 	}
@@ -784,4 +788,14 @@ void Server::clearACLCache(Player *p) {
 		delete h;
 		acCache.clear();
 	}
+}
+
+QString Server::addressToString(const QHostAddress &adr) {
+	if (Meta::mp.iObfuscate == 0)
+		return adr.toString();
+	
+	quint32 num = adr.toIPv4Address() ^ Meta::mp.iObfuscate;
+	
+	QHostAddress n(num);
+	return n.toString();
 }

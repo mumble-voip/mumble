@@ -205,6 +205,8 @@ class Server : public QThread, public MessageHandler {
 		void sendMessage(Connection *, Message *);
 
 		void setLiveConf(const QString &key, const QString &value);
+		
+		QString addressToString(const QHostAddress &);
 
 #ifndef Q_OS_WIN
 		__attribute__((format(printf, 2, 3)))
