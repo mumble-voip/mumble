@@ -46,6 +46,7 @@ class Log;
 class Plugins;
 class QSettings;
 class Overlay;
+class LCD;
 
 struct Global {
 private:
@@ -62,6 +63,7 @@ public:
 	Plugins *p;
 	QSettings *qs;
 	Overlay *o;
+	LCD *lcd;
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;

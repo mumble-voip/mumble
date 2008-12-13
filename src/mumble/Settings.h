@@ -47,6 +47,7 @@ struct Settings {
 	enum OverlayShow { Nothing, Talking, All };
 	enum ChannelExpand { NoChannels, ChannelsWithPlayers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
+	enum LCDView { PlayerView };
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
 
@@ -99,6 +100,14 @@ struct Settings {
 	QColor qcOverlayAltTalking;
 	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
+
+	bool bLCDEnable;
+	LCDView lvView;
+	bool bLCDPlayerViewSelf;
+	int iLCDPlayerViewMinColWidth;
+	int iLCDPlayerViewSplitterPadding;
+	int iLCDPlayerViewSplitterWidth;
+	QStringList qslLCDEnabledDevices;
 
 	typedef QMap<int, QList<QVariant > > ShortcutMap;
 	ShortcutMap qmShortcuts;

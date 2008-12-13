@@ -38,6 +38,7 @@
 #include "Log.h"
 #include "Plugins.h"
 #include "Global.h"
+#include "LCD.h"
 #ifdef USE_DBUS
 #include "DBus.h"
 #endif
@@ -178,6 +179,9 @@ int main(int argc, char **argv) {
 
 	g.o = new Overlay();
 	g.o->setActive(g.s.bOverlayEnable);
+
+	g.lcd = new LCD();
+	g.lcd->setEnabled(g.s.bLCDEnable);
 
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,

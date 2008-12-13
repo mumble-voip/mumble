@@ -83,9 +83,11 @@ Section "Mumble & Murmur" SecMumble
   File "qt.txt"
   File "..\release\mumble.exe"
   File "..\release\murmur.exe"
+  File "..\release\mumble-g15-helper.exe"
 !ifdef SNAPSHOT
   File "..\release\mumble.pdb"
   File "..\release\murmur.pdb"
+  File "..\release\mumble-g15-helper.pdb"
 !endif
   !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
   SetOverwrite off
@@ -199,8 +201,10 @@ Section "Uninstall" SectionUninstBase
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
+  Delete "$INSTDIR\mumble-g15-helper.exe"
   Delete "$INSTDIR\mumble.pdb"
   Delete "$INSTDIR\murmur.pdb"
+  Delete "$INSTDIR\mumble-g15-helper.pdb"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"

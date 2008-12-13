@@ -36,6 +36,7 @@
 #include "Player.h"
 #include "Global.h"
 #include "Overlay.h"
+#include "LCD.h"
 #include "Log.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
@@ -1002,6 +1003,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 
 void PlayerModel::updateOverlay() const {
 	g.o->updateOverlay();
+	g.lcd->updatePlayerView();
 }
 
 PlayerDelegate::PlayerDelegate(QObject *p) : QItemDelegate(p) {

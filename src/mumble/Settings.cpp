@@ -110,6 +110,13 @@ Settings::Settings() {
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
 
+	bLCDEnable = false;
+	lvView = PlayerView;
+	iLCDPlayerViewMinColWidth = 50;
+	iLCDPlayerViewSplitterPadding = 2;
+	iLCDPlayerViewSplitterWidth = 1;
+	bLCDPlayerViewSelf = true;
+
 	// Network settings
 	bTCPCompat = false;
 	bReconnect = true;
@@ -272,6 +279,13 @@ void Settings::load() {
 	SAVELOAD(iServerRow, "ui/serverrow");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 
+	SAVELOAD(bLCDEnable, "lcd/enable");
+	LOADENUM(lvView, "lcd/currentview");
+	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
+	SAVELOAD(iLCDPlayerViewSplitterPadding, "lcd/playerview/splitterpadding");
+	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
+	SAVELOAD(bLCDPlayerViewSelf, "lcd/playerview/showself");
+
 	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0;i<nshorts;i++) {
 		g.qs->setArrayIndex(i);
@@ -284,6 +298,14 @@ void Settings::load() {
 	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
+	}
+	g.qs->endArray();
+
+	qslLCDEnabledDevices.clear();
+	int ndevs = g.qs->beginReadArray(QLatin1String("lcd/enableddevices"));
+	for (int i=0;i<ndevs;i++) {
+		g.qs->setArrayIndex(i);
+		qslLCDEnabledDevices << g.qs->value(QLatin1String("name")).toString();
 	}
 	g.qs->endArray();
 }
@@ -394,8 +416,14 @@ void Settings::save() {
 	SAVELOAD(iServerRow, "ui/serverrow");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 
+	SAVELOAD(bLCDEnable, "lcd/enable");
+	SAVELOAD(lvView, "lcd/currentview");
+	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
+	SAVELOAD(iLCDPlayerViewSplitterPadding, "lcd/playerview/splitterpadding");
+	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
+	SAVELOAD(bLCDPlayerViewSelf, "lcd/playerview/showself");
+
 	g.qs->beginWriteArray(QLatin1String("shortcuts"));
-	int idx = 0;
 	for (ShortcutMap::const_iterator it = qmShortcuts.constBegin(); it != qmShortcuts.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmShortcuts[it.key()], "keys");
@@ -404,10 +432,16 @@ void Settings::save() {
 	g.qs->endArray();
 
 	g.qs->beginWriteArray(QLatin1String("messages"));
-	idx = 0;
 	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
+	}
+	g.qs->endArray();
+
+	g.qs->beginWriteArray(QLatin1String("lcd/enableddevices"));
+	for (int i=0; i<qslLCDEnabledDevices.size(); i++) {
+		g.qs->setArrayIndex(i);
+		g.qs->setValue(QLatin1String("name"), qslLCDEnabledDevices.at(0));
 	}
 	g.qs->endArray();
 }
