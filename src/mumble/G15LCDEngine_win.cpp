@@ -65,7 +65,7 @@ G15LCDEngineWin::G15LCDEngineWin() : LCDEngine() {
 	                        1, G15_MAX_FBMEM, G15_MAX_FBMEM,
 	                        NMPWAIT_NOWAIT, NULL);
 	if (hPipe == INVALID_HANDLE_VALUE) {
-		qWarning("G15LCDEngine_win: Unable to create pipe.");
+		qWarning("G15LCDEngine_win: Unable to create pipe. %08x", GetLastError());
 		return;
 	}
 

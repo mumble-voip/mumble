@@ -42,8 +42,8 @@
 #include "lglcd.h"
 
 static HANDLE hPipe = INVALID_HANDLE_VALUE;
-static lgLcdConnectContext conn;
-static lgLcdDeviceDesc dev[G15_MAX_DEV];
+static lgLcdConnectContextEx conn;
+static lgLcdDeviceDescEx dev[G15_MAX_DEV];
 static lgLcdOpenContext ctx[G15_MAX_DEV];
 static lgLcdBitmap160x43x1 bitmap;
 static FILE *fLogFile = NULL;
@@ -107,12 +107,12 @@ BOOL detectLCDManager(void) {
 	DWORD dwErr = 0;
 	BOOL bRet = TRUE;
 
-	memset(&conn, 0, sizeof(lgLcdConnectContext));
+	memset(&conn, 0, sizeof(conn));
 	conn.appFriendlyName = G15_WIDGET_NAME;
 
 	if (lgLcdInit() != ERROR_SUCCESS)
 		bRet = FALSE;
-	if (lgLcdConnect(&conn) != ERROR_SUCCESS)
+	if (lgLcdConnectEx(&conn) != ERROR_SUCCESS)
 		bRet = FALSE;
 	if (lgLcdDeInit() != ERROR_SUCCESS)
 		bRet = FALSE;
@@ -170,8 +170,7 @@ int main(int argc, char *argv[]) {
 	conn.appFriendlyName = G15_WIDGET_NAME;
 	conn.isAutostartable = FALSE;
 	conn.isPersistent = FALSE;
-	conn.onConfigure.configCallback = NULL;
-	conn.onConfigure.configContext = NULL;
+	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_CAN_RUN_ON_MULTIPLE_DEVICES;
 	conn.connection = LGLCD_INVALID_CONNECTION;
 
 	/*
@@ -181,7 +180,7 @@ int main(int argc, char *argv[]) {
 	if (dwErr != ERROR_SUCCESS)
 		die(G15_ERR_INIT, "Unable to initialize Logitech LCD library. (Error: %i)", dwErr);
 
-	dwErr = lgLcdConnect(&conn);
+	dwErr = lgLcdConnectEx(&conn);
 	if (dwErr != ERROR_SUCCESS)
 		die(G15_ERR_CONNECT, "Unable to connect to Logitech LCD manager. (Error: %i)", dwErr);
 
@@ -189,29 +188,28 @@ int main(int argc, char *argv[]) {
 	 * Enumerate devices.
 	 */
 	for (i = 0; i < G15_MAX_DEV; i++) {
-		dwErr = lgLcdEnumerate(conn.connection, i, &dev[i]);
+		dwErr = lgLcdEnumerateEx(conn.connection, i, &dev[i]);
 		if (dwErr != ERROR_SUCCESS)
 			break;
-		warn("Found device #%i. (%ix%i, %ibpp, %i buttons)", i, dev[i].Width, dev[i].Height, dev[i].Bpp, dev[i].NumSoftButtons);
-		++ndev;
+		warn("Found device #%i %ls (%02x). (%ix%i, %ibpp, %i buttons)", i, dev[i].deviceDisplayName, dev[i].deviceFamilyId, dev[i].Width, dev[i].Height, dev[i].Bpp, dev[i].NumSoftButtons);
+
+		ctx[ndev].connection = conn.connection;
+		ctx[ndev].index = i;
+		ctx[ndev].onSoftbuttonsChanged.softbuttonsChangedCallback = NULL;
+		ctx[ndev].onSoftbuttonsChanged.softbuttonsChangedContext = NULL;
+		ctx[ndev].device = LGLCD_INVALID_DEVICE;
+
+		dwErr = lgLcdOpen(&ctx[ndev]);
+		if (dwErr != ERROR_SUCCESS)
+			warn("Unable to open device %d. (Error: %i)", i, dwErr);
+		else
+			++ndev;
 	}
+
+	if (ndev == 0)
+			die(G15_ERR_OPEN, "Unable to open devices");
 
 	warn("Total devices in this session: %i.", ndev);
-
-	/*
-	 * Open devices.
-	 */
-	for (i = 0; i < ndev; i++) {
-		ctx[i].connection = conn.connection;
-		ctx[i].index = i;
-		ctx[i].onSoftbuttonsChanged.softbuttonsChangedCallback = NULL;
-		ctx[i].onSoftbuttonsChanged.softbuttonsChangedContext = NULL;
-		ctx[i].device = LGLCD_INVALID_DEVICE;
-
-		dwErr = lgLcdOpen(&ctx[0]);
-		if (dwErr != ERROR_SUCCESS)
-			die(G15_ERR_OPEN, "Unable to open device. (Error: %i)", dwErr);
-	}
 
 	/*
 	 * Diplay buffer format.
