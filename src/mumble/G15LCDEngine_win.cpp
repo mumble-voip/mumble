@@ -52,7 +52,7 @@ G15LCDEngineWin::G15LCDEngineWin() : LCDEngine() {
 	 * Call our helper to detect whether any Logitech Gamepanel devices
 	 * are available on the system.
 	 */
-	qpHelper->start(qsHelperExecutable, QStringList("/detect"));
+	qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/detect")));
 	qpHelper->waitForFinished();
 	if (qpHelper->exitCode() != 0) {
 		qWarning("G15LCDEngine_win: Logitech LCD Manager not detected.");
