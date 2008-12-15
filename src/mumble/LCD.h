@@ -48,9 +48,7 @@ class LCDConfig : public ConfigWidget, public Ui::LCDConfig {
 		virtual QIcon icon() const;
 	public slots:
 		void on_qsMinColWidth_valueChanged(int v);
-		void on_qsSplitterPadding_valueChanged(int v);
 		void on_qsSplitterWidth_valueChanged(int v);
-		void on_qcbCurrentView_currentIndexChanged(int v);
 		void accept() const;
 		void save() const;
 		void load(const Settings &r);
@@ -99,16 +97,20 @@ class LCD : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(LCD)
 	protected:
-		QFont qfNormal;
+		QFont qfNormal, qfBold, qfItalic, qfItalicBold;
 		int iFontHeight;
+		int iFrameIndex;
 		QHash<QSize, unsigned char *> qhImageBuffers;
 		QHash<QSize, QImage *> qhImages;
 		void initBuffers();
 		void destroyBuffers();
+		QImage qiLogo;
+		QTimer *qtTimer;
+	public slots:
+		void tick();
 	public:
 		LCD();
 		~LCD();
-		void setEnabled(bool e);
 		void updatePlayerView();
 };
 

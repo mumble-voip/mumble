@@ -10,7 +10,7 @@ TARGET = mumble-g15-helper
 SOURCES = g15helper.c
 HEADERS = g15helper.h
 RC_FILE = g15helper.rc
-LIBS *= -llgLcd -ladvapi32 -lshell32
+LIBS *= -llgLcd -ladvapi32 -lshell32 -luser32
 LIBPATH *= /dev/G15SDK/SDK/Libs/x86
 INCLUDEPATH *= /dev/G15SDK/SDK/Src
 

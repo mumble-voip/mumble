@@ -41,123 +41,83 @@
 #include "g15helper.h"
 #include "lglcd.h"
 
-static HANDLE hPipe = INVALID_HANDLE_VALUE;
-static lgLcdConnectContextEx conn;
-static lgLcdDeviceDescEx dev[G15_MAX_DEV];
-static lgLcdOpenContext ctx[G15_MAX_DEV];
-static lgLcdBitmap160x43x1 bitmap;
-static FILE *fLogFile = NULL;
-static int ndev = 0;
-
-#define FMT "[%d/%m/%Y %X] "
-#define PRINTF_ERR                                    \
-	{                                                 \
-		errno_t err;                                  \
-		struct tm now;                                \
-		__time64_t ltime;                             \
-		char timestamp[32];                           \
-		va_list args;                                 \
-		_time64(&ltime);                              \
-		err = _localtime64_s(&now, &ltime);           \
-		ZeroMemory(timestamp, 32);                    \
-		if (err == 0)                                 \
-			strftime(timestamp, 31, FMT, &now);       \
-		va_start(args, fmt);                          \
-		fprintf_s(stderr, timestamp);                 \
-		vfprintf(stderr, fmt, args);                  \
-		fprintf_s(stderr, "\n");                      \
-		fflush(stderr);                               \
-		if (fLogFile) {                               \
-			fprintf_s(fLogFile, timestamp);           \
-			vfprintf(fLogFile, fmt, args);            \
-			fprintf_s(fLogFile, "\n");                \
-			fflush(fLogFile);                         \
-		}                                             \
-		va_end(args);                                 \
-	}
-
-void __cdecl warn(const char *fmt, ...) {
-	PRINTF_ERR;
+static void __cdecl ods(const char *fmt, va_list args) {
+		char buffer[2048];
+		_vsnprintf_s(buffer, 2048, _TRUNCATE, fmt, args);
+		OutputDebugStringA(buffer);
 }
 
-void __cdecl die(int err, const char *fmt, ...) {
-	PRINTF_ERR;
+static void __cdecl warn(const char *fmt, ...) {
+	va_list args;
+	va_start(args, fmt);
+	ods(fmt, args);
+	va_end(args);
+}
+
+static void __cdecl die(int err, const char *fmt, ...) {
+	va_list args;
+	va_start(args, fmt);
+	ods(fmt, args);
+	va_end(args);
 	exit(err);
 }
 
-void setupLogFile(void) {
-	wchar_t *buff = NULL;
-	errno_t res;
-	res = _wfopen_s(&fLogFile, L"G15HelperLog.txt", L"a+");
-	if ((res != 0) || (! fLogFile)) {
-		size_t reqSize, bSize;
-		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-		if (reqSize > 0) {
-			reqSize += strlen(L"/Mumble/G15HelperLog.txt");
-			bSize = reqSize;
-			buff = _alloca(reqSize+1);
-			wcscat_s(buff, bSize, L"/Mumble/G15HelperLog.txt");
-			res = _wfopen_s(&fLogFile, buff, L"a+");
-		}
-	}
-	warn("Opened log file.");
-}
-
-BOOL detectLCDManager(void) {
+static BOOL detectLCDManager(void) {
+	lgLcdConnectContextEx conn;
 	DWORD dwErr = 0;
 	BOOL bRet = TRUE;
 
 	memset(&conn, 0, sizeof(conn));
 	conn.appFriendlyName = G15_WIDGET_NAME;
+	conn.isAutostartable = FALSE;
+	conn.isPersistent = FALSE;
+	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_CAN_RUN_ON_MULTIPLE_DEVICES;
+	conn.connection = LGLCD_INVALID_CONNECTION;
 
-	if (lgLcdInit() != ERROR_SUCCESS)
+	if (lgLcdInit() != ERROR_SUCCESS) {
 		bRet = FALSE;
-	if (lgLcdConnectEx(&conn) != ERROR_SUCCESS)
-		bRet = FALSE;
-	if (lgLcdDeInit() != ERROR_SUCCESS)
-		bRet = FALSE;
+	} else {
+		if (lgLcdConnectEx(&conn) != ERROR_SUCCESS) {
+			bRet = FALSE;
+		} else {
+			if (lgLcdDisconnect(conn.connection) != ERROR_SUCCESS) {
+				bRet = FALSE;
+			}
+		}
+		if (lgLcdDeInit() != ERROR_SUCCESS)
+			bRet = FALSE;
+	}
 
 	return bRet;
 }
 
-int main(int argc, char *argv[]) {
-	DWORD dwErr, dwMode;
-	LPWSTR *cmdLine = NULL;
+int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+	DWORD dwErr;
 	BOOL bErr;
 	int i;
+	HANDLE hStdin, hStdout;
+	DWORD dwLen;
+	lgLcdConnectContextEx conn;
+	lgLcdDeviceDescEx dev[G15_MAX_DEV];
+	lgLcdOpenContext ctx[G15_MAX_DEV];
+	lgLcdBitmap160x43x1 bitmap;
+	int ndev = 0;
 
-	/*
-	 * If passed the '/detect' parameter, figure out whether the Logitech
-	 * LCD manager is running on the system.
-	 */
-	cmdLine = CommandLineToArgvW(GetCommandLineW(), &argc);
-	if (argc > 1 && cmdLine != NULL) {
-		if (!wcscmp(cmdLine[1], L"/detect")) {
-			return (detectLCDManager() != TRUE);
-		}
+	if (lpCmdLine && (strcmp(lpCmdLine, "/detect") == 0)) {
+		warn("Detect mode!");
+		return (detectLCDManager() != TRUE);
+	} else if (! lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
+		MessageBox(NULL, L"This program is run by Mumble, and should not be started separately.", L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
+		return 0;
 	}
 
-#ifdef USE_LOGFILE
-	setupLogFile();
-#endif
+	hStdin = GetStdHandle(STD_INPUT_HANDLE);
+    if (hStdin == INVALID_HANDLE_VALUE)
+        die(G15_ERR_PIPESTATE, "Failed to get standard input");
 
-	/*
-	 * Set up IPC pipe.
-	 */
-	bErr = WaitNamedPipe(G15_PIPE_NAME, 2000);
-	if (bErr == FALSE)
-		die(G15_ERR_WAITPIPE, "WaitNamedPipe() failed.");
-
-	hPipe = CreateFile(G15_PIPE_NAME,
-	                   GENERIC_READ | FILE_WRITE_ATTRIBUTES,
-	                   0, NULL, OPEN_EXISTING, 0, NULL);
-	if (hPipe == INVALID_HANDLE_VALUE)
-		die(G15_ERR_CREATEFILE, "CreateFile failed.");
-
-	dwMode = PIPE_READMODE_MESSAGE | PIPE_WAIT;
-	bErr = SetNamedPipeHandleState(hPipe, &dwMode, NULL, NULL);
-	if (bErr == FALSE)
-		die(G15_ERR_PIPESTATE, "SetNamedPipeHandleState failed.");
+	hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hStdout == INVALID_HANDLE_VALUE)
+        die(G15_ERR_PIPESTATE, "Failed to get standard output");
 
 	/*
 	 * Clear and set up initial structures.
@@ -184,6 +144,8 @@ int main(int argc, char *argv[]) {
 	if (dwErr != ERROR_SUCCESS)
 		die(G15_ERR_CONNECT, "Unable to connect to Logitech LCD manager. (Error: %i)", dwErr);
 
+	WriteFile(hStdout, "OK", 2, &dwLen, NULL);
+
 	/*
 	 * Enumerate devices.
 	 */
@@ -202,8 +164,9 @@ int main(int argc, char *argv[]) {
 		dwErr = lgLcdOpen(&ctx[ndev]);
 		if (dwErr != ERROR_SUCCESS)
 			warn("Unable to open device %d. (Error: %i)", i, dwErr);
-		else
+		else {
 			++ndev;
+		}
 	}
 
 	if (ndev == 0)
@@ -231,18 +194,32 @@ int main(int argc, char *argv[]) {
 	 */
 	while (1) {
 		DWORD dwRead;
+		DWORD dwTotRead = 0;
+		BYTE bPriority;
 
-		dwErr = WaitForSingleObject(hPipe, 2000);
+		dwErr = WaitForSingleObject(hStdin, 2000);
 		if (dwErr != WAIT_OBJECT_0) {
 			die(0, "Unable to wait for object.");
 		}
 
-		bErr = ReadFile(hPipe, bitmap.pixels, G15_MAX_FBMEM, &dwRead, NULL);
-		if (bErr == FALSE || dwRead != G15_MAX_FBMEM)
-			die(G15_ERR_READFILE, "Error while reading framebuffer.");
+		bErr = ReadFile(hStdin, &bPriority, 1, &dwRead, NULL);
+		if ((bErr == FALSE) || (dwRead != 1))
+			die(G15_ERR_READFILE, "Error while reading priority.");
+
+		do {
+			dwErr = WaitForSingleObject(hStdin, 2000);
+			if (dwErr != WAIT_OBJECT_0) {
+				die(0, "Unable to wait for object.");
+			}
+			bErr = ReadFile(hStdin, bitmap.pixels + dwTotRead, G15_MAX_FBMEM - dwTotRead, &dwRead, NULL);
+			warn("Read %d", dwRead);
+			if (bErr == FALSE || dwRead == 0)
+				die(G15_ERR_READFILE, "Error while reading framebuffer. %d %x",dwRead,GetLastError());
+			dwTotRead += dwRead;
+		} while (dwTotRead < G15_MAX_FBMEM);
 
 		for (i = 0; i < ndev; i++) {
-			dwErr = lgLcdUpdateBitmap(ctx[i].device, (const lgLcdBitmapHeader *) &bitmap, LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
+			dwErr = lgLcdUpdateBitmap(ctx[i].device, (const lgLcdBitmapHeader *) &bitmap, bPriority ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
 			if (dwErr != ERROR_SUCCESS)
 				warn("Unable to update bitmap for device #%i successfully. (Error: %i)", i, dwErr);
 		}
@@ -274,13 +251,8 @@ int main(int argc, char *argv[]) {
 	/*
 	 * Close pipe handle.
 	 */
-	CloseHandle(hPipe);
 
 	warn("Terminated successfully.");
 
 	return 0;
-}
-
-int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	return main(0, NULL);
 }

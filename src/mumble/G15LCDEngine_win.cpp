@@ -59,16 +59,6 @@ G15LCDEngineWin::G15LCDEngineWin() : LCDEngine() {
 		return;
 	}
 
-	hPipe = CreateNamedPipe(G15_PIPE_NAME,
-	                        PIPE_ACCESS_OUTBOUND,
-	                        PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
-	                        1, G15_MAX_FBMEM, G15_MAX_FBMEM,
-	                        NMPWAIT_NOWAIT, NULL);
-	if (hPipe == INVALID_HANDLE_VALUE) {
-		qWarning("G15LCDEngine_win: Unable to create pipe. %08x", GetLastError());
-		return;
-	}
-
 	qlDevices << new G15LCDDeviceWin(this);
 
 	QMetaObject::connectSlotsByName(this);
@@ -76,9 +66,6 @@ G15LCDEngineWin::G15LCDEngineWin() : LCDEngine() {
 
 G15LCDEngineWin::~G15LCDEngineWin() {
 	setProcessStatus(false);
-	FlushFileBuffers(hPipe);
-	DisconnectNamedPipe(hPipe);
-	CloseHandle(hPipe);
 }
 
 QList<LCDDevice *> G15LCDEngineWin::devices() const {
@@ -94,23 +81,14 @@ void G15LCDEngineWin::setProcessStatus(bool run) {
 
 	if (run && !bRunning) {
 		bRunning = true;
-		qpHelper->start(qsHelperExecutable);
+		qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/mumble")));
 		if (qpHelper->state() == QProcess::NotRunning) {
 			qWarning("G15LCDEngine_win: Unable to launch G15 helper.");
 			bRunning = false;
 			return;
 		}
-		bErr = ConnectNamedPipe(hPipe, NULL);
-		if (! bErr && GetLastError() != ERROR_PIPE_CONNECTED) {
-			qWarning("G15LCDEngine_win: ConnectNamedPipe() failed.");
-			qpHelper->kill();
-			bRunning = false;
-		}
 	} else if (!run && bRunning) {
 		bRunning = false;
-		bErr = DisconnectNamedPipe(hPipe);
-		if (! bErr)
-			qWarning("G15LCDEngine_win: DisconnectNamedPipe() failed. 0x%x", GetLastError());
 		qpHelper->kill();
 		qpHelper->waitForFinished();
 	}
@@ -123,9 +101,9 @@ void G15LCDEngineWin::on_Helper_finished(int exitCode, QProcess::ExitStatus stat
 
 	if (status == QProcess::CrashExit) {
 		qWarning("G15LCDEngine_win: Helper process crashed. Restarting.");
-		qpHelper->start(qsHelperExecutable);
+		qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/mumble")));
 	} else if (status == QProcess::NormalExit && exitCode != 0) {
-		qWarning("G15LCDEngine_win: Helper process exitted. Exit code was: `%i'. Not attempting recovery.", exitCode);
+		qWarning("G15LCDEngine_win: Helper process exited. Exit code was: `%i'. Not attempting recovery.", exitCode);
 		bUnavailable = true;
 	}
 }
@@ -135,12 +113,9 @@ bool G15LCDEngineWin::framebufferReady() const {
 }
 
 void G15LCDEngineWin::submitFrame(unsigned char *buf, size_t len) {
-	DWORD dwWritten;
-	BOOL bErr;
-
-	bErr = WriteFile(hPipe, buf, len, &dwWritten, NULL);
-	if (! bErr)
-		qWarning("G15LCDEngine_win: WriteFailed() for hPipe failed.");
+	char pri = 0;
+	if ((qpHelper->write(&pri, 1) != 1) || (qpHelper->write(reinterpret_cast<char *>(buf), len) != len))
+		qWarning("G15LCDEngine_win: failed to write");
 }
 
 /* -- */

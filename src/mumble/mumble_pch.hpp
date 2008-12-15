@@ -33,6 +33,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
+#include <boost/bind.hpp>
 #ifdef Q_CC_GNU
 #define BOOST_TYPEOF(expr) __typeof__(expr)
 #define BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP() "mumble_pch.hpp"

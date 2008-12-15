@@ -48,7 +48,6 @@ class G15LCDEngineWin : public LCDEngine {
 		bool bRunning;
 		QProcess *qpHelper;
 		QString qsHelperExecutable;
-		HANDLE hPipe;
 		bool framebufferReady() const;
 		void submitFrame(uchar *buf, size_t len);
 		void setProcessStatus(bool run);

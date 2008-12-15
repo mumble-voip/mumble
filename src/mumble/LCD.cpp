@@ -125,8 +125,6 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 		qtwi->setCheckState(3, Qt::Unchecked);
 		qtwi->setToolTip(3, tr("Enable this device"));
 	}
-
-	qcbCurrentView->addItem(tr("Player View"), Settings::PlayerView);
 }
 
 bool LCDConfig::expert(bool) {
@@ -142,89 +140,80 @@ QIcon LCDConfig::icon() const {
 }
 
 void LCDConfig::load(const Settings &r) {
-	loadCheckBox(qcbEnable, r.bLCDEnable);
-
 	QList<QTreeWidgetItem *> qlItems = qtwDevices->findItems(QString(), Qt::MatchContains);
 	foreach(QTreeWidgetItem *qtwi, qlItems) {
 		QString qsName = qtwi->text(0);
-		bool enabled = r.qslLCDEnabledDevices.contains(qsName);
+		bool enabled = r.qmLCDDevices.contains(qsName) ? r.qmLCDDevices.value(qsName) : true;
 		qtwi->setCheckState(3, enabled ? Qt::Checked : Qt::Unchecked);
 	}
 
-	loadComboBox(qcbCurrentView, r.lvView);
-	loadCheckBox(qcbAlwaysSelf, r.bLCDPlayerViewSelf);
 	loadSlider(qsMinColWidth, r.iLCDPlayerViewMinColWidth);
-	loadSlider(qsSplitterPadding, r.iLCDPlayerViewSplitterPadding);
 	loadSlider(qsSplitterWidth, r.iLCDPlayerViewSplitterWidth);
 }
 
 void LCDConfig::save() const {
-	s.bLCDEnable = qcbEnable->isChecked();
-
-	s.qslLCDEnabledDevices.clear();
 	QList<QTreeWidgetItem *> qlItems = qtwDevices->findItems(QString(), Qt::MatchContains);
 
 	foreach(QTreeWidgetItem *qtwi, qlItems) {
 		QString qsName = qtwi->text(0);
-		if (qtwi->checkState(3) == Qt::Checked)
-			s.qslLCDEnabledDevices << qsName;
+		s.qmLCDDevices.insert(qsName, qtwi->checkState(3) == Qt::Checked);
 	}
 
-	s.lvView = static_cast<Settings::LCDView>(qcbCurrentView->currentIndex());
-	s.bLCDPlayerViewSelf = qcbAlwaysSelf->isChecked();
 	s.iLCDPlayerViewMinColWidth = qsMinColWidth->value();
-	s.iLCDPlayerViewSplitterPadding = qsSplitterPadding->value();
 	s.iLCDPlayerViewSplitterWidth = qsSplitterWidth->value();
 }
 
 void LCDConfig::accept() const {
-	g.lcd->setEnabled(s.bLCDEnable);
-
 	foreach (LCDDevice *d, devmgr.qlDevices) {
-		bool enabled = s.qslLCDEnabledDevices.contains(d->name());
+		bool enabled = s.qmLCDDevices.value(d->name());
 		d->setEnabled(enabled);
 	}
+	g.lcd->updatePlayerView();
 }
 
 void LCDConfig::on_qsMinColWidth_valueChanged(int v) {
 	qlMinColWidth->setText(QString::number(v));
 }
 
-void LCDConfig::on_qsSplitterPadding_valueChanged(int v) {
-	qlSplitterPadding->setText(QString::number(v));
-}
-
 void LCDConfig::on_qsSplitterWidth_valueChanged(int v) {
 	qlSplitterWidth->setText(QString::number(v));
-}
-
-void LCDConfig::on_qcbCurrentView_currentIndexChanged(int v) {
-	switch (v) {
-		case Settings::PlayerView:
-			qswView->setCurrentWidget(qwPlayerView);
-			break;
-	}
 }
 
 /* --- */
 
 LCD::LCD() : QObject() {
 	qfNormal = QFont(QString::fromLatin1("Arial"), 7);
-	QFontMetrics qfm(qfNormal);
-	iFontHeight = qfm.height();
+	qfBold = qfNormal;
+	qfBold.setBold(true);
+	qfItalic = qfNormal;
+	qfItalic.setItalic(true);
+	qfItalicBold = qfBold;
+	qfItalic.setItalic(true);
 
-	setEnabled(g.s.bLCDEnable);
+	QFontMetrics qfm(qfNormal);
+
+	// Font metrics are broken, and unfortunately means we loose a lot of font space.
+//	iFontHeight = qfm.height();
+	iFontHeight = 10;
+
+	initBuffers();
+
+	iFrameIndex = 0;
+
+	qtTimer = new QTimer(this);
+	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
+
 	foreach (LCDDevice *d, devmgr.qlDevices) {
-		bool enabled = g.s.qslLCDEnabledDevices.contains(d->name());
+		bool enabled = g.s.qmLCDDevices.contains(d->name()) ? g.s.qmLCDDevices.value(d->name()) : true;
 		d->setEnabled(enabled);
 	}
+	qiLogo = QImage(QLatin1String("skin:mumble.48x48.png")).convertToFormat(QImage::Format_MonoLSB);
+	updatePlayerView();
 }
 
-void LCD::setEnabled(bool e) {
-	if (e)
-		initBuffers();
-	else
-		destroyBuffers();
+void LCD::tick() {
+	iFrameIndex ++;
+	updatePlayerView();
 }
 
 void LCD::initBuffers() {
@@ -248,74 +237,133 @@ void LCD::destroyBuffers() {
 	qhImageBuffers.clear();
 }
 
-void LCD::updatePlayerView() {
+static bool playerSort(const Player *a, const Player *b) {
+	return a->qsName < b->qsName;
+}
 
-	if (!g.s.bLCDEnable || g.uiSession == 0)
+static bool channelSort(const Channel *home, const Channel *a, const Channel *b) {
+	if ((a == home) && (a != b))
+		return true;
+	else if ((b == home) && (a != b))
+		return false;
+	return a->qsName < b->qsName;
+}
+
+struct ListEntry {
+	QString qsString;
+	bool bBold;
+	bool bItalic;
+	ListEntry(const QString &qs, bool bB, bool bI) : qsString(qs), bBold(bB), bItalic(bI) {};
+};
+
+void LCD::updatePlayerView() {
+	if (qhImages.count() == 0)
 		return;
 
 	QStringList qslTalking;
-	Player *me = ClientPlayer::get(g.uiSession);
-	Channel *home = me->cChannel;
-	foreach (Channel *c, home->allLinks()) {
-		foreach (Player *p, c->qlPlayers) {
-			if (p == me && !g.s.bLCDPlayerViewSelf)
-				continue;
-			if (p->bTalking)
-				qslTalking << p->qsName;
-		}
-	}
-	qSort(qslTalking);
+	Player *me = g.uiSession ? ClientPlayer::get(g.uiSession) : NULL;
+	Channel *home = me ? me->cChannel : NULL;
 
-	foreach (QSize size, qhImages.keys()) {
-		QImage *img = qhImages[size];
-		if (img == NULL)
-			continue;
-
+	foreach (const QSize &size, qhImages.keys()) {
+		QImage *img = qhImages.value(size);
 		QPainter painter(img);
-
-		img->fill(Qt::color0);
-
-		if (! qslTalking.size())
-			continue;
-
 		painter.setRenderHints(0, true);
 		painter.setPen(Qt::color1);
 		painter.setFont(qfNormal);
 
+		img->fill(Qt::color0);
+
+		if (! me) {
+			painter.drawImage(0,0,qiLogo);
+			painter.drawText(60,20, tr("Not connected"));
+			continue;
+		}
+
+		QList<Channel *> qlLinks = home->allLinks().toList();
+
+		qSort(qlLinks.begin(), qlLinks.end(), boost::bind(channelSort, home, _1, _2));
+
 		const int iWidth = size.width();
 		const int iHeight = size.height();
-		const int iNumTalking = qslTalking.size();
 		const int iPlayersPerColumn = iHeight / iFontHeight;
-		const int iSplitterPadding = g.s.iLCDPlayerViewSplitterPadding;
 		const int iSplitterWidth = g.s.iLCDPlayerViewSplitterWidth;
 
-		int iColumns = iNumTalking / iPlayersPerColumn + !!(iNumTalking % iPlayersPerColumn);
+		QList<struct ListEntry> entries;
+		QList<struct ListEntry> talking;
+
+		int iCount = 0;
+
+		foreach(Channel *c, qlLinks) {
+			QList<Player *> players = c->qlPlayers;
+			qSort(players.begin(), players.end(), playerSort);
+			if ((players.count() > 0) && (((iCount+1) % iPlayersPerColumn) == 0)) {
+				entries << ListEntry(QString(), false, false);
+				iCount++;
+			}
+			entries << ListEntry(QString::fromLatin1("[%1]").arg(c->qsName), false, false);
+			iCount++;
+
+			foreach(const Player *p, players) {
+				entries << ListEntry(p->qsName, p->bTalking, false);
+				iCount++;
+				if (p->bTalking) {
+					talking << ListEntry(p->qsName, true, (c != home));
+				}
+			}
+		}
+
+		const int iPlayerColumns = (iCount + iPlayersPerColumn - 1) / iPlayersPerColumn;
+
+		int iColumns = iPlayerColumns;
 		int iColumnWidth;
 
 		while (iColumns >= 1) {
-			iColumnWidth = (iWidth - (iColumns-1)*((2*iSplitterPadding) + iSplitterWidth)) / iColumns;
+			iColumnWidth = (iWidth - (iColumns-1)*iSplitterWidth) / iColumns;
 			if (iColumnWidth >= g.s.iLCDPlayerViewMinColWidth)
 				break;
 			--iColumns;
 		}
 
+		if (iColumns == iPlayerColumns) {
+			talking = entries;
+			if (qtTimer->isActive())
+				qtTimer->stop();
+		} else {
+			if (! qtTimer->isActive())
+				qtTimer->start(2000);
+			while (talking.count() % iPlayersPerColumn) {
+				talking << ListEntry(QString(), false, false);
+			}
+			int iSkipped = (iPlayerColumns - iColumns + talking.count() / iPlayersPerColumn);
+			for(int i=(iFrameIndex % (iSkipped+1))*iPlayersPerColumn;i<entries.count();i++)
+				talking << entries.at(i);
+		}
+
 		QRect bound;
 		int row = 0, col = 0;
-		foreach (QString qsName, qslTalking) {
-			if (row >= iPlayersPerColumn) {
-				row = 0;
-				++col;
-			}
-			if (col >= iColumns)
-				break;
-			else if (col > 0) {
-				int x = col * (iColumnWidth + (iSplitterPadding * 2 + iSplitterWidth))  - iSplitterPadding - iSplitterWidth;
-				painter.fillRect(QRect(x, 0, iSplitterWidth, iHeight), Qt::color1);
-			}
 
-			painter.drawText(QRect(col * (iColumnWidth  + iSplitterPadding * 2 + iSplitterWidth),
-			                       row * iFontHeight, iColumnWidth, iFontHeight), Qt::AlignLeft, qsName);
-			++row;
+
+		foreach(const ListEntry &le, talking) {
+				if (row >= iPlayersPerColumn) {
+					row = 0;
+					++col;
+				}
+				if (col > iColumns)
+					break;
+
+				if (! le.qsString.isEmpty()) {
+					if (le.bBold && le.bItalic)
+						painter.setFont(qfItalicBold);
+					else if (le.bBold)
+						painter.setFont(qfBold);
+					else if (le.bItalic)
+						painter.setFont(qfItalic);
+					else
+						painter.setFont(qfNormal);
+					painter.drawText(QRect(col * (iColumnWidth  + iSplitterWidth),
+										   row * iFontHeight, iColumnWidth, iFontHeight+2), Qt::AlignLeft, le.qsString);
+				}
+				++row;
 		}
 	}
 
