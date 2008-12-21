@@ -49,7 +49,13 @@ LCDEngineRegistrar::~LCDEngineRegistrar() {
 	qlInitializers->removeAll(n);
 }
 
+static ConfigWidget *LCDConfigDialogNew(Settings &st) {
+	return new LCDConfig(st);
+}
+
 class LCDDeviceManager : public DeferInit {
+	protected:
+		ConfigRegistrar *crLCD;
 	public:
 		QList<LCDEngine *> qlEngines;
 		QList<LCDDevice *> qlDevices;
@@ -57,10 +63,6 @@ class LCDDeviceManager : public DeferInit {
 		void destroy();
 };
 
-#ifdef NO_LCD
-void LCDDeviceManager::initialize() {}
-void LCDDeviceManager::destroy() {}
-#else
 void LCDDeviceManager::initialize() {
 	foreach (LCDEngineNew engine, *LCDEngineRegistrar::qlInitializers) {
 		LCDEngine *e = engine();
@@ -70,6 +72,11 @@ void LCDDeviceManager::initialize() {
 			qlDevices << d;
 		}
 	}
+	if (qlDevices.count() > 0) {
+		crLCD = new ConfigRegistrar(5900, LCDConfigDialogNew);
+	} else {
+		crLCD = NULL;
+	}
 }
 
 void LCDDeviceManager::destroy() {
@@ -77,26 +84,17 @@ void LCDDeviceManager::destroy() {
 	foreach (LCDEngine *e, qlEngines) {
 		delete e;
 	}
+	if (crLCD)
+		delete crLCD;
 }
-#endif
 
 static LCDDeviceManager devmgr;
 
 /* --- */
 
-static ConfigWidget *LCDConfigDialogNew(Settings &st) {
-	return new LCDConfig(st);
-}
-
-static ConfigRegistrar registrar(5900, LCDConfigDialogNew);
 
 LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
-
-	qtwDevices->header()->setResizeMode(0, QHeaderView::Stretch);
-	qtwDevices->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-	qtwDevices->header()->setResizeMode(2, QHeaderView::ResizeToContents);
-	qtwDevices->header()->setResizeMode(3, QHeaderView::ResizeToContents);
 
 	QTreeWidgetItem *qtwi;
 	foreach (LCDDevice *d, devmgr.qlDevices) {
@@ -263,6 +261,7 @@ void LCD::updatePlayerView() {
 	QStringList qslTalking;
 	Player *me = g.uiSession ? ClientPlayer::get(g.uiSession) : NULL;
 	Channel *home = me ? me->cChannel : NULL;
+	bool alert = false;
 
 	foreach (const QSize &size, qhImages.keys()) {
 		QImage *img = qhImages.value(size);
@@ -307,6 +306,7 @@ void LCD::updatePlayerView() {
 				entries << ListEntry(p->qsName, p->bTalking, false);
 				iCount++;
 				if (p->bTalking) {
+					alert = true;
 					talking << ListEntry(p->qsName, true, (c != home));
 				}
 			}
@@ -373,7 +373,7 @@ void LCD::updatePlayerView() {
 			QImage *img = qhImages[d->size()];
 			if (! img)
 				continue;
-			d->blitImage(img);
+			d->blitImage(img, alert);
 		} else if (type == LCDDevice::CharacterLCD) {
 			/* TODO. */
 			qWarning("LCD: Unable to draw to Character LCD.");

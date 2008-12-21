@@ -62,38 +62,10 @@ static void __cdecl die(int err, const char *fmt, ...) {
 	exit(err);
 }
 
-static BOOL detectLCDManager(void) {
-	lgLcdConnectContextEx conn;
-	DWORD dwErr = 0;
-	BOOL bRet = TRUE;
-
-	memset(&conn, 0, sizeof(conn));
-	conn.appFriendlyName = G15_WIDGET_NAME;
-	conn.isAutostartable = FALSE;
-	conn.isPersistent = FALSE;
-	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_CAN_RUN_ON_MULTIPLE_DEVICES;
-	conn.connection = LGLCD_INVALID_CONNECTION;
-
-	if (lgLcdInit() != ERROR_SUCCESS) {
-		bRet = FALSE;
-	} else {
-		if (lgLcdConnectEx(&conn) != ERROR_SUCCESS) {
-			bRet = FALSE;
-		} else {
-			if (lgLcdDisconnect(conn.connection) != ERROR_SUCCESS) {
-				bRet = FALSE;
-			}
-		}
-		if (lgLcdDeInit() != ERROR_SUCCESS)
-			bRet = FALSE;
-	}
-
-	return bRet;
-}
-
 int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	DWORD dwErr;
 	BOOL bErr;
+	BOOL bDetect = FALSE;
 	int i;
 	HANDLE hStdin, hStdout;
 	DWORD dwLen;
@@ -103,9 +75,11 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	lgLcdBitmap160x43x1 bitmap;
 	int ndev = 0;
 
+	warn("Args: %s", lpCmdLine);
+
 	if (lpCmdLine && (strcmp(lpCmdLine, "/detect") == 0)) {
 		warn("Detect mode!");
-		return (detectLCDManager() != TRUE);
+		bDetect = TRUE;
 	} else if (! lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
 		MessageBox(NULL, L"This program is run by Mumble, and should not be started separately.", L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
 		return 0;
@@ -144,8 +118,6 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	if (dwErr != ERROR_SUCCESS)
 		die(G15_ERR_CONNECT, "Unable to connect to Logitech LCD manager. (Error: %i)", dwErr);
 
-	WriteFile(hStdout, "OK", 2, &dwLen, NULL);
-
 	/*
 	 * Enumerate devices.
 	 */
@@ -161,13 +133,22 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		ctx[ndev].onSoftbuttonsChanged.softbuttonsChangedContext = NULL;
 		ctx[ndev].device = LGLCD_INVALID_DEVICE;
 
-		dwErr = lgLcdOpen(&ctx[ndev]);
-		if (dwErr != ERROR_SUCCESS)
-			warn("Unable to open device %d. (Error: %i)", i, dwErr);
-		else {
+		if (bDetect) {
+			wprintf(L"%ls\n", dev[i].deviceDisplayName);
 			++ndev;
+		} else {
+			dwErr = lgLcdOpen(&ctx[ndev]);
+			if (dwErr != ERROR_SUCCESS)
+				warn("Unable to open device %d. (Error: %i)", i, dwErr);
+			else {
+				warn("Opened device %d",i);
+				++ndev;
+			}
 		}
 	}
+
+	if (bDetect)
+		return (ndev == 0);
 
 	if (ndev == 0)
 			die(G15_ERR_OPEN, "Unable to open devices");

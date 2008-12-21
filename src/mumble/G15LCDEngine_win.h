@@ -49,7 +49,7 @@ class G15LCDEngineWin : public LCDEngine {
 		QProcess *qpHelper;
 		QString qsHelperExecutable;
 		bool framebufferReady() const;
-		void submitFrame(uchar *buf, size_t len);
+		void submitFrame(bool alert, uchar *buf, size_t len);
 		void setProcessStatus(bool run);
 	public:
 		G15LCDEngineWin();
@@ -68,7 +68,7 @@ class G15LCDDeviceWin : public LCDDevice {
 		~G15LCDDeviceWin();
 		bool enabled();
 		void setEnabled(bool e);
-		void blitImage(QImage *img);
+		void blitImage(QImage *img, bool alert);
 		QString name() const;
 		Type type() const;
 		QSize size() const;

@@ -74,7 +74,7 @@ class LCDDevice {
 		virtual ~LCDDevice();
 		virtual bool enabled() = 0;
 		virtual void setEnabled(bool e) = 0;
-		virtual void blitImage(QImage *img) = 0;
+		virtual void blitImage(QImage *img, bool alert = false) = 0;
 		virtual QString name() const = 0;
 		virtual Type type() const = 0;
 		virtual QSize size() const = 0;

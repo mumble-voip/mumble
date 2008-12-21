@@ -82,7 +82,7 @@ void G15LCDEngineWin::setProcessStatus(bool run) {
 	if (run && !bRunning) {
 		bRunning = true;
 		qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/mumble")));
-		if (qpHelper->state() == QProcess::NotRunning) {
+		if (! qpHelper->waitForStarted(2000)) {
 			qWarning("G15LCDEngine_win: Unable to launch G15 helper.");
 			bRunning = false;
 			return;
@@ -112,8 +112,8 @@ bool G15LCDEngineWin::framebufferReady() const {
 	return !bUnavailable;
 }
 
-void G15LCDEngineWin::submitFrame(unsigned char *buf, size_t len) {
-	char pri = 0;
+void G15LCDEngineWin::submitFrame(bool alert, unsigned char *buf, size_t len) {
+	char pri = alert ? 1 : 0;
 	if ((qpHelper->write(&pri, 1) != 1) || (qpHelper->write(reinterpret_cast<char *>(buf), len) != len))
 		qWarning("G15LCDEngine_win: failed to write");
 }
@@ -136,7 +136,7 @@ void G15LCDDeviceWin::setEnabled(bool b) {
 	bEnabled = b;
 }
 
-void G15LCDDeviceWin::blitImage(QImage *img) {
+void G15LCDDeviceWin::blitImage(QImage *img, bool alert) {
 	Q_ASSERT(img);
 	int len = G15_MAX_FBMEM_BITS;
 	uchar *tmp = img->bits();
@@ -176,7 +176,7 @@ void G15LCDDeviceWin::blitImage(QImage *img) {
 		buf[idx+0] = tmp[i] & 0x01 ? 0xff : 0x00;
 	}
 
-	engine->submitFrame(buf, G15_MAX_FBMEM);
+	engine->submitFrame(alert, buf, G15_MAX_FBMEM);
 }
 
 QString G15LCDDeviceWin::name() const {
