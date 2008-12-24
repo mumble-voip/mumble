@@ -64,12 +64,14 @@ class LCDDeviceManager : public DeferInit {
 };
 
 void LCDDeviceManager::initialize() {
-	foreach (LCDEngineNew engine, *LCDEngineRegistrar::qlInitializers) {
-		LCDEngine *e = engine();
-		qlEngines.append(e);
+	if (LCDEngineRegistrar::qlInitializers) {
+		foreach (LCDEngineNew engine, *LCDEngineRegistrar::qlInitializers) {
+			LCDEngine *e = engine();
+			qlEngines.append(e);
 
-		foreach(LCDDevice *d, e->devices()) {
-			qlDevices << d;
+			foreach(LCDDevice *d, e->devices()) {
+				qlDevices << d;
+			}
 		}
 	}
 	if (qlDevices.count() > 0) {
