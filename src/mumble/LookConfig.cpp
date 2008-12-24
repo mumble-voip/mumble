@@ -100,6 +100,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 	loadCheckBox(qcbAlwaysOnTop, r.bAlwaysOnTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
+	loadCheckBox(qcbHideTray, r.bHideTray);
 }
 
 void LookConfig::save() const {
@@ -123,6 +124,7 @@ void LookConfig::save() const {
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
 	s.bAlwaysOnTop = qcbAlwaysOnTop->isChecked();
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
+	s.bHideTray = qcbHideTray->isChecked();
 }
 
 void LookConfig::accept() const {

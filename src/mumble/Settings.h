@@ -121,6 +121,7 @@ struct Settings {
 	bool bMinimalView;
 	bool bAlwaysOnTop;
 	bool bAskOnQuit;
+	bool bHideTray;
 
 	QString qsUsername;
 	int iServerRow;
