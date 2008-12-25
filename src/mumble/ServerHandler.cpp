@@ -79,7 +79,7 @@ void ServerHandler::customEvent(QEvent *evt) {
 			if (shme->bFlush)
 				cConnection->forceFlush();
 		} else {
-			cConnection->disconnectSocket();
+			exit(0);
 		}
 	}
 }
