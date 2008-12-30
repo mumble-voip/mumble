@@ -194,6 +194,9 @@ void ServerHandler::run() {
 		qusUdp = NULL;
 	}
 
+	if (qtsSock->state() == QAbstractSocket::ConnectedState)
+		serverConnectionClosed(QString());
+
 	ticker->stop();
 	cConnection->disconnectSocket();
 	cConnection.reset();
