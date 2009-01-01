@@ -27,4 +27,5 @@ CONFIG(release, debug|release) {
 
 CONFIG(debug, debug|release) {
   DESTDIR       = ../release
+  DEFINES	*= DEBUG
 }

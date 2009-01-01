@@ -179,7 +179,6 @@ Context::Context(HDC hdc) {
 }
 
 void Context::draw(HDC hdc) {
-	bVideoHooked = true;
 	sm->bHooked = true;
 
 	// DEBUG
@@ -370,49 +369,43 @@ void checkOpenGLHook() {
 
 	if (hGL != NULL) {
 		if (! bHooked) {
-			char procname[1024];
-			GetModuleFileName(NULL, procname, 1024);
-			ods("OpenGL: CreateWnd in unhooked OpenGL App %s", procname);
+			ods("OpenGL: Unhooked OpenGL App");
 			bHooked = true;
 
-			if (strstr(procname, "mumble.exe") != NULL) {
-				ods("OpenGL: Ignoring mumble.exe");
+			INJECT(wglSwapBuffers);
+			// INJECT(wglSwapLayerBuffers);
+
+			GLDEF(wglCreateContext);
+			GLDEF(glGenTextures);
+			GLDEF(glEnable);
+			GLDEF(glDisable);
+			GLDEF(glBlendFunc);
+			GLDEF(glColorMaterial);
+			GLDEF(glViewport);
+			GLDEF(glMatrixMode);
+			GLDEF(glLoadIdentity);
+			GLDEF(glOrtho);
+			GLDEF(glBindTexture);
+			GLDEF(glPushMatrix);
+			GLDEF(glColor4ub);
+			GLDEF(glTranslatef);
+			GLDEF(glBegin);
+			GLDEF(glEnd);
+			GLDEF(glTexCoord2f);
+			GLDEF(glVertex2f);
+			GLDEF(glPopMatrix);
+			GLDEF(glTexParameteri);
+			GLDEF(glTexImage2D);
+			GLDEF(wglMakeCurrent);
+			GLDEF(wglGetCurrentContext);
+			GLDEF(wglGetCurrentDC);
+
+			hGL = GetModuleHandle("GDI32.DLL");
+			if (hGL) {
+				// INJECT(SwapBuffers);
+				GLDEF(GetDeviceCaps);
 			} else {
-				INJECT(wglSwapBuffers);
-				// INJECT(wglSwapLayerBuffers);
-
-				GLDEF(wglCreateContext);
-				GLDEF(glGenTextures);
-				GLDEF(glEnable);
-				GLDEF(glDisable);
-				GLDEF(glBlendFunc);
-				GLDEF(glColorMaterial);
-				GLDEF(glViewport);
-				GLDEF(glMatrixMode);
-				GLDEF(glLoadIdentity);
-				GLDEF(glOrtho);
-				GLDEF(glBindTexture);
-				GLDEF(glPushMatrix);
-				GLDEF(glColor4ub);
-				GLDEF(glTranslatef);
-				GLDEF(glBegin);
-				GLDEF(glEnd);
-				GLDEF(glTexCoord2f);
-				GLDEF(glVertex2f);
-				GLDEF(glPopMatrix);
-				GLDEF(glTexParameteri);
-				GLDEF(glTexImage2D);
-				GLDEF(wglMakeCurrent);
-				GLDEF(wglGetCurrentContext);
-				GLDEF(wglGetCurrentDC);
-
-				hGL = GetModuleHandle("GDI32.DLL");
-				if (hGL) {
-					// INJECT(SwapBuffers);
-					GLDEF(GetDeviceCaps);
-				} else {
-					ods("OpenGL: Failed to find GDI32");
-				}
+				ods("OpenGL: Failed to find GDI32");
 			}
 		}
 	}

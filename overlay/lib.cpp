@@ -32,16 +32,13 @@
 
 static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
+static HHOOK hhookWnd = 0;
 
 SharedMem *sm;
 HANDLE hSharedMutex = NULL;
 HMODULE hSelf = NULL;
 
-int iShouldPatch = 0;
-bool bVideoHooked = false;
-unsigned int uiAudioCount = 0;
-
-static HHOOK hhookWnd = 0;
+static HardHook hhLoad;
 
 HardHook::HardHook() {
 	int i;
@@ -121,8 +118,10 @@ void HardHook::print() {
 }
 
 void __cdecl ods(const char *format, ...) {
+#ifndef DEBUG
 	if (!sm || ! sm->bDebug)
 		return;
+#endif
 
 	char    buf[4096], *p = buf;
 	va_list args;
@@ -144,16 +143,9 @@ void __cdecl ods(const char *format, ...) {
 	*p   = '\0';
 
 	OutputDebugStringA(buf);
-	FILE *f = NULL;
-	errno_t res = fopen_s(&f, "c:\\overlay.log", "a");
-	if (f && (res == 0)) {
-		fprintf(f, "%d %s", GetTickCount(), buf);
-		fclose(f);
-	}
 }
 
 static const char *blacklist[] = {
-	"mumble.exe",
 	"iexplore.exe",
 	"ieuser.exe",
 	"vlc.exe",
@@ -162,41 +154,19 @@ static const char *blacklist[] = {
 	NULL
 };
 
+static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
+	hhLoad.restore();
+	HMODULE h = LoadLibraryA(lpFileName);
+	ods("Library %s loaded to %p", lpFileName, h);
+
+	checkD3D9Hook();
+	checkOpenGLHook();
+
+	hhLoad.inject();
+	return h;
+}
+
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	char procname[1024+64];
-	HANDLE h;
-
-	if (iShouldPatch == 0) {
-		iShouldPatch = 1;
-
-		GetModuleFileName(NULL, procname, 1024);
-
-		char *p = strrchr(procname, '\\');
-
-		if (p) {
-			int i =0;
-			while (blacklist[i]) {
-				if (_stricmp(p+1,blacklist[i])==0) {
-					ods("Process %s is blacklisted", procname);
-					iShouldPatch = -1;
-				}
-				i++;
-			}
-			strcpy_s(p+1, 64, "nooverlay");
-
-			h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-			if (h != INVALID_HANDLE_VALUE) {
-				CloseHandle(h);
-				ods("Overlay disable %s found", procname);
-				iShouldPatch = -1;
-			}
-		}
-	}
-
-	if (iShouldPatch > 0) {
-		checkD3D9Hook();
-		checkOpenGLHook();
-	}
 	return CallNextHookEx(hhookWnd, nCode, wParam, lParam);
 }
 
@@ -228,6 +198,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 				if (hhookWnd == NULL)
 					ods("Lib: Failed to insert WNDProc hook");
 			}
+
 			sm->bHooked = true;
 		}
 		ReleaseMutex(hHookMutex);
@@ -240,29 +211,54 @@ extern "C" __declspec(dllexport) SharedMem * __cdecl GetSharedMemory() {
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
-	char procname[1024];
+	char procname[1024+64];
 	GetModuleFileName(NULL, procname, 1024);
+	BOOL bMumble = FALSE;
 
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH: {
+				ods("Lib: ProcAttach: %s", procname);
+				char *p = strrchr(procname, '\\');
+
+				if (p) {
+					if (_stricmp(p+1, "mumble.exe")==0)
+						bMumble = TRUE;
+					int i =0;
+					while (blacklist[i]) {
+						if (_stricmp(p+1,blacklist[i])==0) {
+							ods("Process %s is blacklisted", procname);
+							return TRUE;
+						}
+						i++;
+					}
+					strcpy_s(p+1, 64, "nooverlay");
+
+					HANDLE h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+					if (h != INVALID_HANDLE_VALUE) {
+						CloseHandle(h);
+						ods("Overlay disable %s found", procname);
+						return TRUE;
+					}
+				}
+
 				hSharedMutex = CreateMutex(NULL, false, "MumbleSharedMutex");
 				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 				if ((hSharedMutex == NULL) || (hHookMutex == NULL)) {
 					ods("Lib: CreateMutex failed");
-					return FALSE;
+					return TRUE;
 				}
 
 				DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 1000L);
 				if (dwWaitResult != WAIT_OBJECT_0) {
 					ods("Lib: WaitForMutex failed");
-					return FALSE;
+					return TRUE;
 				}
 
 				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem), "MumbleSharedMemory");
 				if (hMapObject == NULL) {
 					ods("Lib: CreateFileMapping failed");
 					ReleaseMutex(hSharedMutex);
-					return FALSE;
+					return TRUE;
 				}
 
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
@@ -271,7 +267,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
 					ReleaseMutex(hSharedMutex);
-					return FALSE;
+					return TRUE;
 				}
 				if (bInit) {
 					memset(sm, 0, sizeof(SharedMem));
@@ -288,14 +284,30 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					sm->fFontSize = 72;
 				}
 				ReleaseMutex(hSharedMutex);
-				ods("Lib: ProcAttach: %s", procname);
+
+				if (! bMumble) {
+					HMODULE hKern = GetModuleHandle("kernel32.dll");
+					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
+					hhLoad.inject();
+					CloseHandle(hKern);
+
+					checkD3D9Hook();
+					checkOpenGLHook();
+					ods("Injected");
+				}
 			}
 			break;
 		case DLL_PROCESS_DETACH: {
-				UnmapViewOfFile(sm);
-				CloseHandle(hMapObject);
-				CloseHandle(hSharedMutex);
-				CloseHandle(hHookMutex);
+				ods("Lib: ProcDetach: %s", procname);
+				hhLoad.restore();
+				if (sm)
+					UnmapViewOfFile(sm);
+				if (hMapObject)
+					CloseHandle(hMapObject);
+				if (hSharedMutex)
+					CloseHandle(hSharedMutex);
+				if (hHookMutex)
+					CloseHandle(hHookMutex);
 			}
 			break;
 		default:

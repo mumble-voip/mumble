@@ -313,7 +313,6 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		pRenderTarget->Release();
 		pTarget->Release();
-		bVideoHooked = true;
 	}
 }
 
