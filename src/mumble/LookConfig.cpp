@@ -101,6 +101,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbAlwaysOnTop, r.bAlwaysOnTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbHideTray, r.bHideTray);
+	loadCheckBox(qcbExpert, r.bExpert);
 }
 
 void LookConfig::save() const {
@@ -125,6 +126,7 @@ void LookConfig::save() const {
 	s.bAlwaysOnTop = qcbAlwaysOnTop->isChecked();
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bHideTray = qcbHideTray->isChecked();
+	s.bExpert = qcbExpert->isChecked();
 }
 
 void LookConfig::accept() const {
@@ -159,5 +161,17 @@ void LookConfig::on_qpbSkinFile_clicked(bool) {
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), QString(), QLatin1String("*.qss"));
 	if (! file.isEmpty()) {
 		qleCSS->setText(file);
+	}
+}
+
+void LookConfig::on_qcbExpert_clicked(bool b) {
+	QWidget *p = parentWidget();
+	while (p) {
+		ConfigDialog *cd = qobject_cast<ConfigDialog *>(p);
+		if (cd) {
+			cd->updateExpert(b);
+			return;
+		}
+		p = p->parentWidget();
 	}
 }

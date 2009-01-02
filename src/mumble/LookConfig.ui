@@ -12,7 +12,7 @@
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
     <widget class="QGroupBox" name="groupBox" >
      <property name="title" >
@@ -47,7 +47,24 @@
      <property name="title" >
       <string>Look and Feel</string>
      </property>
-     <layout class="QGridLayout" >
+     <layout class="QGridLayout" name="gridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="qliChannelDrag" >
+        <property name="text" >
+         <string>Channel Dragging</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2" >
+       <widget class="QComboBox" name="qcbChannelDrag" >
+        <property name="toolTip" >
+         <string>This changes the behaviour when moving channels.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the behaviour of channel drags, it can be used to prevent accidental dragging. &lt;i>Move Channel&lt;/i> moves the channel without prompting. &lt;i>Do Nothing&lt;/i> does nothing and prints an error message. &lt;i>Ask&lt;/i> uses a message box to confirm if you really wanted to move the channel.</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0" >
        <widget class="QLabel" name="qliStyle" >
         <property name="text" >
@@ -55,7 +72,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1" colspan="3" >
+      <item row="1" column="1" colspan="2" >
        <widget class="QComboBox" name="qcbStyle" >
         <property name="toolTip" >
          <string>Basic widget style</string>
@@ -65,14 +82,14 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0" >
+      <item row="2" column="0" >
        <widget class="QLabel" name="label_3" >
         <property name="text" >
          <string>Skin</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="1" colspan="2" >
+      <item row="2" column="1" >
        <widget class="QLineEdit" name="qleCSS" >
         <property name="toolTip" >
          <string>Skin file to use</string>
@@ -82,21 +99,21 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="3" >
+      <item row="2" column="2" >
        <widget class="QPushButton" name="qpbSkinFile" >
         <property name="text" >
          <string>...</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="0" >
+      <item row="3" column="0" >
        <widget class="QLabel" name="qliExpand" >
         <property name="text" >
          <string>Expand</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="1" colspan="3" >
+      <item row="3" column="1" colspan="2" >
        <widget class="QComboBox" name="qcbExpand" >
         <property name="toolTip" >
          <string>When to automatically expand channels</string>
@@ -106,7 +123,7 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1" colspan="3" >
+      <item row="4" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbPlayersTop" >
         <property name="toolTip" >
          <string>List players above subchannels (requires restart).</string>
@@ -119,24 +136,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="qliChannelDrag" >
-        <property name="text" >
-         <string>Channel Dragging</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="3" >
-       <widget class="QComboBox" name="qcbChannelDrag" >
-        <property name="toolTip" >
-         <string>This changes the behaviour when moving channels.</string>
-        </property>
-        <property name="whatsThis" >
-         <string>This sets the behaviour of channel drags, it can be used to prevent accidental dragging. &lt;i>Move Channel&lt;/i> moves the channel without prompting. &lt;i>Do Nothing&lt;/i> does nothing and prints an error message. &lt;i>Ask&lt;/i> uses a message box to confirm if you really wanted to move the channel.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1" colspan="3" >
+      <item row="5" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbAskOnQuit" >
         <property name="toolTip" >
          <string>Ask whether to close or minimize when quitting Mumble.</string>
@@ -149,7 +149,20 @@
         </property>
        </widget>
       </item>
-      <item row="10" column="1" colspan="3" >
+      <item row="6" column="1" colspan="2" >
+       <widget class="QCheckBox" name="qcbHideTray" >
+        <property name="toolTip" >
+         <string>Hide the main Mumble window in the tray when it is minimized.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray.  Otherwise, it will be minimized as a window normally would.&lt;/b></string>
+        </property>
+        <property name="text" >
+         <string>Hide in tray when minimized</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbAlwaysOnTop" >
         <property name="toolTip" >
          <string>Make the Mumble window appear on top of other windows.</string>
@@ -162,16 +175,16 @@
         </property>
        </widget>
       </item>
-      <item row="9" column="1" colspan="3" >
-       <widget class="QCheckBox" name="qcbHideTray" >
+      <item row="8" column="1" colspan="2" >
+       <widget class="QCheckBox" name="qcbExpert" >
         <property name="toolTip" >
-         <string>Hide the main Mumble window in the tray when it is minimized.</string>
+         <string>Show all configuration items</string>
         </property>
         <property name="whatsThis" >
-         <string>&lt;b>If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray.  Otherwise, it will be minimized as a window normally would.&lt;/b></string>
+         <string>&lt;b>This will show all configuration items.&lt;/b>&lt;br />Mumble contains a lot of configuration items that most users won't need to change. Checking this will show all configurable items.</string>
         </property>
         <property name="text" >
-         <string>Hide in tray when minimized</string>
+         <string>Expert Config</string>
         </property>
        </widget>
       </item>

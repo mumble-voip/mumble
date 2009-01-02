@@ -84,10 +84,9 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 	public:
 		ConfigDialog(QWidget *p = NULL);
 	public slots:
-		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 		void on_pageButtonBox_clicked(QAbstractButton *);
 		void on_dialogButtonBox_clicked(QAbstractButton *);
-		void on_qcbExpert_clicked(bool);
+		void updateExpert(bool);
 		void apply();
 		void accept();
 };
