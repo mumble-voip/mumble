@@ -110,9 +110,6 @@ DXAudioInput::DXAudioInput() {
 	HRESULT       hr;
 	WAVEFORMATEX  wfx;
 	DSCBUFFERDESC dscbd;
-	DSBPOSITIONNOTIFY    aPosNotify[ NBUFFBLOCKS ];
-
-	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 	pDSCapture = NULL;
 	pDSCaptureBuffer = NULL;
@@ -137,11 +134,6 @@ DXAudioInput::DXAudioInput() {
 	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
 	wfx.wBitsPerSample = 16;
 
-	for (int i = 0; i < NBUFFBLOCKS; i++) {
-		aPosNotify[i].dwOffset = (iFrameSize * sizeof(short) * (i+1)) -1;
-		aPosNotify[i].hEventNotify = hNotificationEvent;
-	}
-
 	// Create IDirectSoundCapture using the preferred capture device
 	if (! g.s.qbaDXInput.isEmpty()) {
 		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXInput.data());
@@ -156,8 +148,6 @@ DXAudioInput::DXAudioInput() {
 		qWarning("DXAudioInput: CreateCaptureBuffer");
 	else if (FAILED(hr = pDSCaptureBuffer->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify))))
 		qWarning("DXAudioInput: QueryInterface (Notify)");
-	else if (FAILED(hr = pDSNotify->SetNotificationPositions(NBUFFBLOCKS, aPosNotify)))
-		qWarning("DXAudioInput: SetNotificationPositions");
 	else
 		bOk = true;
 
@@ -185,8 +175,6 @@ DXAudioInput::~DXAudioInput() {
 		pDSCaptureBuffer->Release();
 	if (pDSCapture)
 		pDSCapture->Release();
-
-	CloseHandle(hNotificationEvent);
 }
 
 void DXAudioInput::run() {
@@ -202,10 +190,19 @@ void DXAudioInput::run() {
 	if (! bOk)
 		return;
 
+	float safety = 2.0f;
+	bool didsleep = false;
+	bool firstsleep = false;
+
+	Timer t;
+
 	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING))) {
 		qWarning("DXAudioInput: Start failed");
 	} else {
 		while (bRunning) {
+			firstsleep = true;
+			didsleep = false;
+
 			do {
 				if (FAILED(hr = pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition))) {
 					qWarning("DXAudioInput: GetCurrentPosition");
@@ -218,7 +215,20 @@ void DXAudioInput::run() {
 					dwReadyBytes = dwReadPosition - dwLastReadPos;
 
 				if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
-					WaitForSingleObject(hNotificationEvent, 100);
+					double msecleft = 20.0 - (dwReadyBytes * 20.0) / (sizeof(short) * iFrameSize);
+					Timer t;
+
+					if (didsleep)
+						safety *= 1.1;
+					else if (firstsleep)
+						safety *= 0.998;
+
+					int msec = static_cast<int>(msecleft + (firstsleep ? safety : 0.0));
+
+					msleep(msec);
+
+					didsleep = true;
+					firstsleep = false;
 				}
 			} while (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize);
 

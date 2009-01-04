@@ -43,7 +43,6 @@ class DXAudioInput : public AudioInput {
 		LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
 		LPDIRECTSOUNDNOTIFY8       pDSNotify;
 
-		HANDLE hNotificationEvent;
 		DWORD dwBufferSize;
 		bool bOk;
 	public:

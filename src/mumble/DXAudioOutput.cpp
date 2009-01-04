@@ -109,137 +109,6 @@ void DXAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s
 	s.qbaDXOutput = choice.toByteArray();
 }
 
-/*
-bool DXAudioOutputPlayer::playFrames() {
-	HRESULT             hr;
-
-	bool alive = true;
-
-	DWORD dwApply = MY_DEFERRED;
-
-	if (! pDSBOutput) {
-		if (! setupAudioDevice()) {
-			dxAudio->bOk = false;
-			return false;
-		}
-
-	}
-
-	if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
-		qWarning("DXAudioOutputPlayer: GetCurrentPosition");
-		dxAudio->bOk = false;
-		return false;
-	}
-
-	playblock = dwWritePosition / iByteSize;
-	nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
-
-	STACKVAR(short, psBuffer, 320);
-
-	for (int block=(iLastwriteblock + 1) % NBLOCKS;alive && (block!=nowriteblock);block=(block + 1) % NBLOCKS) {
-
-		// Apparantly, even high end cards can sometimes move the play cursor BACKWARDS in 3D mode.
-		// If that happens, let's just say we're in synch.
-
-		bool broken = false;
-		for (int i=0;i<10;i++)
-			if ((nowriteblock + i)%NBLOCKS == iLastwriteblock)
-				broken = true;
-
-		if (broken) {
-			qWarning("DXAudioOutputPlayer: Playbackwards");
-			iLastwriteblock = (nowriteblock + NBLOCKS - 1) % NBLOCKS;
-			break;
-		}
-
-		iLastwriteblock = block;
-
-		alive = aop->needSamples(320);
-		for (int i=0;i<320;i++)
-			psBuffer[i] = static_cast<short>(aop->pfBuffer[i]);
-
-//		qWarning("Block %02d/%02d nowrite %02d, last %02d (Pos %08d / %08d, Del %d)", block, NBLOCKS, nowriteblock, iLastwriteblock, dwPlayPosition, dwWritePosition,g.s.iOutputDelay);
-		if (! alive) {
-			iMissingFrames++;
-			// Give 5 seconds grace before killing off buffer, as it seems continously creating and destroying them
-			// taxes cheap soundcards more then it should.
-			if (iMissingFrames > 250) {
-				pDSBOutput->Stop();
-				bPlaying = false;
-				return false;
-			}
-		} else {
-			iMissingFrames = 0;
-		}
-
-		if (pDS3dBuffer) {
-			bool center = g.bCenterPosition;
-			DWORD mode;
-
-			pDS3dBuffer->GetMode(&mode);
-			if (! center) {
-				if ((fabs(aop->fPos[0]) < 0.1) && (fabs(aop->fPos[1]) < 0.1) && (fabs(aop->fPos[2]) < 0.1))
-					center = true;
-				else if (! g.p->bValid)
-					center = true;
-			}
-			if (center) {
-				if (mode != DS3DMODE_DISABLE)
-					pDS3dBuffer->SetMode(DS3DMODE_DISABLE, dwApply);
-			} else {
-				if (mode != DS3DMODE_NORMAL)
-					pDS3dBuffer->SetMode(DS3DMODE_NORMAL, dwApply);
-#ifdef AUDIO_TEST
-				pDS3dBuffer->SetPosition(0, 0, 0, dwApply);
-				qWarning("SetPos %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
-#else
-				pDS3dBuffer->SetPosition(aop->fPos[0], aop->fPos[1], aop->fPos[2], dwApply);
-#endif
-			}
-		}
-
-		if (FAILED(hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
-			qWarning("DXAudioOutput: Lock block %u (%d bytes)",block, iByteSize);
-			dxAudio->bOk = false;
-			return false;
-		}
-		if (aptr1 && nbytes1)
-			CopyMemory(aptr1, psBuffer, MIN(iByteSize, nbytes1));
-		if (aptr2 && nbytes2)
-			CopyMemory(aptr2, psBuffer+(nbytes1/2), MIN(iByteSize-nbytes1, nbytes2));
-		if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
-			qWarning("DXAudioOutput: Unlock %p(%lu) %p(%lu)",aptr1,nbytes1,aptr2,nbytes2);
-			dxAudio->bOk = false;
-			return false;
-		}
-
-		// If we get another while we're working, we're already taking care of it.
-		ResetEvent(hNotificationEvent);
-
-		if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
-			qWarning("DXAudioOutputPlayer: GetCurrentPosition");
-			dxAudio->bOk = false;
-			return false;
-		}
-
-		playblock = dwWritePosition / iByteSize;
-		nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
-	}
-
-
-	if (! bPlaying) {
-		if (FAILED(hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING))) {
-			qWarning("DXAudioOutputPlayer: Play");
-			dxAudio->bOk = false;
-			return false;
-		}
-		bPlaying = true;
-	}
-
-	return true;
-}
-*/
-
 DXAudioOutput::DXAudioOutput() {
 	bRunning = true;
 }
@@ -261,7 +130,6 @@ void DXAudioOutput::run() {
 	LPDIRECTSOUNDBUFFER       pDSBPrimary = NULL;
 	LPDIRECTSOUNDBUFFER       pDSBOutput = NULL;
 	LPDIRECTSOUNDNOTIFY8       pDSNotify = NULL;
-	HANDLE               hNotificationEvent = NULL;
 
 	DWORD	dwBufferSize;
 	DWORD	dwLastWritePos;
@@ -283,11 +151,8 @@ void DXAudioOutput::run() {
 	bool failed = false;
 
 	bOk = false;
-	DSBPOSITIONNOTIFY    aPosNotify[NBLOCKS];
 	DWORD dwMask = 0;
 	bool bHead = false;
-
-	hNotificationEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
 	dsbdesc.dwSize  = sizeof(DSBUFFERDESC);
@@ -410,18 +275,8 @@ void DXAudioOutput::run() {
 	}
 
 
-	for (int i=0;i<NBLOCKS;i++) {
-		aPosNotify[i].dwOffset = iByteSize * i;
-		aPosNotify[i].hEventNotify = hNotificationEvent;
-	}
-
 	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify)))) {
 		qWarning("DXAudioOutputPlayer: QueryInterface (Notify)");
-		goto cleanup;
-	}
-
-	if (FAILED(hr = pDSNotify->SetNotificationPositions(NBLOCKS, aPosNotify))) {
-		qWarning("DXAudioOutputPlayer: SetNotificationPositions");
 		goto cleanup;
 	}
 
@@ -461,6 +316,10 @@ void DXAudioOutput::run() {
 
 	bOk = true;
 
+	float safety = 2.0f;
+	bool didsleep = false;
+	bool firstsleep = false;
+
 	while (bRunning && ! FAILED(hr)) {
 		if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
 			qWarning("DXAudioOutputPlayer: GetCurrentPosition");
@@ -493,9 +352,6 @@ void DXAudioOutput::run() {
 				break;
 			}
 
-			// If we get another while we're working, we're already taking care of it.
-			ResetEvent(hNotificationEvent);
-
 			if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
 				qWarning("DXAudioOutputPlayer: GetCurrentPosition");
 				break;
@@ -505,9 +361,8 @@ void DXAudioOutput::run() {
 			nowriteblock = (playblock + g.s.iOutputDelay + 1) % NBLOCKS;
 		}
 		if (! FAILED(hr))
-			WaitForSingleObject(hNotificationEvent, 2000);
+			msleep(19);
 	}
-
 
 	if (FAILED(hr)) {
 		g.mw->msgBox(tr("Lost DirectSound output device."));
@@ -528,7 +383,5 @@ cleanup:
 		pDSBPrimary->Release();
 	if (pDS)
 		pDS->Release();
-	if (hNotificationEvent != NULL)
-		CloseHandle(hNotificationEvent);
 }
 
