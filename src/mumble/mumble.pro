@@ -195,15 +195,19 @@ CONFIG(no-update) {
 	DEFINES *= NO_UPDATE_CHECK
 }
 
-QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
-QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
+!CONFIG(no-embed-qt-translations) {
+	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
+	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja_jp.qm
+	QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja_jp.qm
 
-copytrans.output = ${QMAKE_FILE_NAME}
-copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
-copytrans.input = QT_TRANSLATION_FILES
-copytrans.CONFIG *= no_link target_predeps
+	copytrans.output = ${QMAKE_FILE_NAME}
+	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
+	copytrans.input = QT_TRANSLATION_FILES
+	copytrans.CONFIG *= no_link target_predeps
+	
+	RESOURCES *= mumble_qt.qrc
+}
 
 lrel.output = ${QMAKE_FILE_BASE}.qm
 lrel.commands = lrelease -compress -nounfinished -removeidentical ${QMAKE_FILE_NAME} 

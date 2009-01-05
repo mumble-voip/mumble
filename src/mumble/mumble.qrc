@@ -37,11 +37,5 @@
  <file>mumble_ja.qm</file>
  <file>mumble_cs.qm</file>
  <file>mumble_pl.qm</file>
- <file>qt_de.qm</file>
- <file>qt_es.qm</file>
- <file>qt_fr.qm</file>
- <file>qt_ru.qm</file>
- <file>qt_pl.qm</file>
- <file>qt_ja_jp.qm</file>
 </qresource>
 </RCC>

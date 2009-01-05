@@ -161,7 +161,9 @@ int main(int argc, char **argv) {
 		a.installTranslator(&loctranslator);
 
 	QTranslator qttranslator;
-	if (qttranslator.load(QLatin1String("translation:qt_") + locale))
+	if (qttranslator.load(QLibraryInfo::location(QLibraryInfo::TranslationsPath) + QLatin1String("/qt_") + locale))
+		a.installTranslator(&qttranslator);
+	else if (qttranslator.load(QLatin1String("translation:qt_") + locale))
 		a.installTranslator(&qttranslator);
 
 	// Initialize proxy settings
