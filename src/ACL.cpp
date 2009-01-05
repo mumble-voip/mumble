@@ -164,7 +164,7 @@ QString ChanACL::permName(Perm p) {
 		case None:
 			return tr("None");
 		case Write:
-			return tr("Write");
+			return tr("Write/Admin");
 		case Traverse:
 			return tr("Traverse");
 		case Enter:
