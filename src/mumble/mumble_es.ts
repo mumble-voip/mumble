@@ -381,12 +381,12 @@
 <context>
     <name>ALSAAudioInput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="359"/>
+        <location filename="ALSAAudio.cpp" line="371"/>
         <source>Opening chosen ALSA Input failed: %1</source>
         <translation>Falló la apertura de la entrada ALSA elegida: %1</translation>
     </message>
     <message>
-        <location filename="ALSAAudio.cpp" line="168"/>
+        <location filename="ALSAAudio.cpp" line="180"/>
         <source>Default ALSA Card</source>
         <translation>Tarjeta ALSA por defecto</translation>
     </message>
@@ -394,12 +394,12 @@
 <context>
     <name>ALSAAudioOutput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="476"/>
+        <location filename="ALSAAudio.cpp" line="488"/>
         <source>Opening chosen ALSA Output failed: %1</source>
         <translation>Falló la apertura de la salida ALSA elegida: %1</translation>
     </message>
     <message>
-        <location filename="ALSAAudio.cpp" line="169"/>
+        <location filename="ALSAAudio.cpp" line="181"/>
         <source>Default ALSA Card</source>
         <translation>Tarjeta ALSA por defecto</translation>
     </message>
@@ -2533,7 +2533,7 @@
     <message>
         <location filename="../ACL.cpp" line="167"/>
         <source>Write</source>
-        <translation>Escritura</translation>
+        <translation type="obsolete">Escritura</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="169"/>
@@ -2630,6 +2630,11 @@
         <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
         <translation>Representa el permiso de hablar en un canal con habla marcada. Funciona exactamente como el privilegio &lt;i&gt;hablar&lt;/i&gt;, pero se aplica a paquetes hablados con PresionarParaHablarAlt pulsado. Se usa para transmitir a una jerarquía de canales sin vincular.</translation>
     </message>
+    <message>
+        <location filename="../ACL.cpp" line="167"/>
+        <source>Write ACL</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientPlayer</name>
@@ -2677,12 +2682,12 @@
         <translation type="obsolete">&amp;Aceptar</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="109"/>
+        <location filename="ConfigDialog.cpp" line="107"/>
         <source>Accept changes</source>
         <translation>Aceptar cambios</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="111"/>
+        <location filename="ConfigDialog.cpp" line="109"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Este botón aceptará las opciones actuales y volverá a la aplicación.&lt;br /&gt;Las opciones se almacenarán en el disco cuando salga de la aplicación.</translation>
     </message>
@@ -2692,12 +2697,12 @@
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="114"/>
+        <location filename="ConfigDialog.cpp" line="112"/>
         <source>Reject changes</source>
         <translation>Rechazar cambios</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="116"/>
+        <location filename="ConfigDialog.cpp" line="114"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Este botón rechazará todos los cambios y volverá a la aplicación.&lt;br /&gt;Las opciones se restaurarán a las posiciones previas.</translation>
     </message>
@@ -2707,49 +2712,54 @@
         <translation type="obsolete">&amp;Aplicar</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="119"/>
+        <location filename="ConfigDialog.cpp" line="117"/>
         <source>Apply changes</source>
         <translation>Aplicar cambios</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="120"/>
+        <location filename="ConfigDialog.cpp" line="118"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Este botón aplicará inmediatamente todos los cambios.</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="123"/>
+        <location filename="ConfigDialog.cpp" line="121"/>
         <source>Undo changes for current page</source>
         <translation>Deshace los cambios en la página actual</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="124"/>
+        <location filename="ConfigDialog.cpp" line="122"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>Este botón revertirá cualquier cambio hecho en la página actual a las opciones aplicadas mas recientemente.</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="127"/>
+        <location filename="ConfigDialog.cpp" line="125"/>
         <source>Restore defaults for current page</source>
         <translation>Restaura las opciones por defecto en la página actual</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="130"/>
+        <location filename="ConfigDialog.cpp" line="128"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation>Este boton restaurará sólo las opciones en la página actual a sus valores por defecto. No se cambiarán otras páginas.&lt;br /&gt;Para restaurar todas las opciones a sus valores por defecto, tendrá que usar este botón en cada página.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui" line="57"/>
         <source>Show all configuration items</source>
-        <translation>Muestra todos las opciones de configuración</translation>
+        <translation type="obsolete">Muestra todos las opciones de configuración</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui" line="60"/>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
-        <translation>&lt;b&gt;Muestra todos las opciones de configuración.&lt;/b&gt;&lt;br /&gt;Mumble contiene muchas opciones de configuración que la mayoría de usuarios no necesitarán cambiar. Marcar ésto mostrará todas las opciones configurables.</translation>
+        <translation type="obsolete">&lt;b&gt;Muestra todos las opciones de configuración.&lt;/b&gt;&lt;br /&gt;Mumble contiene muchas opciones de configuración que la mayoría de usuarios no necesitarán cambiar. Marcar ésto mostrará todas las opciones configurables.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui" line="63"/>
         <source>Expert Config</source>
-        <translation>Configuración experta</translation>
+        <translation type="obsolete">Configuración experta</translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog.ui" line="29"/>
+        <source>Tab 1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2918,7 +2928,7 @@
         <translation type="obsolete">Falló la apertura del dispositivo DirectSound elegido. Usando los valores por defecto.</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="171"/>
+        <location filename="DXAudioInput.cpp" line="161"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Falló la apertura del dispositivo DirectSound elegido. Se usará el dispositivo por defecto.</translation>
     </message>
@@ -2928,12 +2938,12 @@
         <translation>Entrada de voz DirectSound por defecto</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="166"/>
+        <location filename="DXAudioInput.cpp" line="156"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation>Falló la apertura del dispositivo DirectSound elegido. No se realizará ninguna captura del micrófono.</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="257"/>
+        <location filename="DXAudioInput.cpp" line="267"/>
         <source>Lost DirectSound input device.</source>
         <translation>Dispositivo de entrada DirectSound perdido.</translation>
     </message>
@@ -2946,12 +2956,12 @@
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="517"/>
+        <location filename="DXAudioOutput.cpp" line="372"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation type="unfinished">Falló la apertura del dispositivo DirectSound elegido. Usando los valores por defecto.</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="431"/>
+        <location filename="DXAudioOutput.cpp" line="286"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>Falló la apertura del dispositivo DirectSound elegido. Se usará el dispositivo por defecto.</translation>
     </message>
@@ -2961,7 +2971,7 @@
         <translation>Salida de voz DirectSound por defecto</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="513"/>
+        <location filename="DXAudioOutput.cpp" line="368"/>
         <source>Lost DirectSound output device.</source>
         <translation>Dispositivo de salida DirectSound perdido.</translation>
     </message>
@@ -3318,6 +3328,127 @@ de las ubicaciones posibles.</translation>
     </message>
 </context>
 <context>
+    <name>LCD</name>
+    <message>
+        <location filename="LCD.cpp" line="279"/>
+        <source>Not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LCDConfig</name>
+    <message>
+        <location filename="LCD.cpp" line="113"/>
+        <source>Graphic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.cpp" line="115"/>
+        <source>Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.cpp" line="126"/>
+        <source>Enable this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.cpp" line="135"/>
+        <source>LCD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished">Formulario</translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="25"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display and the LCD type. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Type:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Mumble supports two different types of LCD devices. A Graphic LCD allows Mumble to draw each individual pixel of the display, whereas a Character LCD only allows Mumble to show characters. Some features are only available to Graphic LCDs.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Size:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;This field describes the size of an LCD device. The size is given in either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Enabled:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; font-weight:600; font-style:italic;&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:normal;&quot;&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="41"/>
+        <source>Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="57"/>
+        <source>Name</source>
+        <translation type="unfinished">Nombre</translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="62"/>
+        <source>Type</source>
+        <translation type="unfinished">Tipo</translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="67"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="72"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="89"/>
+        <source>Views</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="95"/>
+        <source>Minimum Column Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="102"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This option decides the minimum width a column in the Player View.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;If too many people are speaking at once, the Player View will split itself into columns.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;You can use this option to pick a compromise between number of players shown on the&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;LCD, and width of player names.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="160"/>
+        <source>TextLabel</source>
+        <translation type="unfinished">EtiquetaDeTexto</translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="133"/>
+        <source>Splitter Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LCD.ui" line="140"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This setting decides the width of column splitter.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Log</name>
     <message>
         <location filename="Log.cpp" line="233"/>
@@ -3526,27 +3657,27 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">&lt;b&gt;Establece qué idioma debería usar mumble&lt;/b&gt;&lt;br /&gt;Tendrá que reiniciar Mumble para usar el nuevo idioma.</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="54"/>
+        <location filename="LookConfig.ui" line="71"/>
         <source>Style</source>
         <translation>Estilo</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="61"/>
+        <location filename="LookConfig.ui" line="78"/>
         <source>Basic widget style</source>
         <translation>Estilo básico de los controles</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="64"/>
+        <location filename="LookConfig.ui" line="81"/>
         <source>&lt;b&gt;This sets the basic look and feel to use.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Establece la apariecia básica a usar.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="71"/>
+        <location filename="LookConfig.ui" line="88"/>
         <source>Skin</source>
         <translation>Carátula</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="78"/>
+        <location filename="LookConfig.ui" line="95"/>
         <source>Skin file to use</source>
         <translation>Archivo de carátula a usar</translation>
     </message>
@@ -3576,12 +3707,12 @@ de las ubicaciones posibles.</translation>
         <translation>Interfaz de usuario</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="88"/>
+        <location filename="LookConfig.ui" line="105"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="157"/>
+        <location filename="LookConfig.cpp" line="161"/>
         <source>Choose skin file</source>
         <translation>Elija el archivo de carátula</translation>
     </message>
@@ -3591,7 +3722,7 @@ de las ubicaciones posibles.</translation>
         <translation>&lt;b&gt;Establece qué idioma debería usar mumble.&lt;/b&gt;&lt;br /&gt;Tendrá que reiniciar Mumble para usar el nuevo idioma.</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="115"/>
+        <location filename="LookConfig.ui" line="132"/>
         <source>&lt;b&gt;If set, players will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
         <translation>&lt;b&gt;Si se marca, los jugadores se mostrarán encima de los subcanales en la vista del canal.&lt;/b&gt;&lt;br /&gt;Se requiere reiniciar Mumble para ver el cambio.</translation>
     </message>
@@ -3611,17 +3742,17 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">&lt;b&gt;Si se marca, por defecto se expandirán todos los canales al conectarse a un servidor.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="118"/>
+        <location filename="LookConfig.ui" line="135"/>
         <source>Players above Channels</source>
         <translation>Jugadores encima de los canales</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="112"/>
+        <location filename="LookConfig.ui" line="129"/>
         <source>List players above subchannels (requires restart).</source>
         <translation>Listar los jugadores encima de los subcanales (requiere reiniciar).</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="81"/>
+        <location filename="LookConfig.ui" line="98"/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
         <translation>&lt;b&gt;Establece qué carátula debería usar Mumble.&lt;/b&gt;&lt;br /&gt;La carátula es un archivo de estilo aplicado sobre el estilo de control básico. Si hay iconos en el mismo directorio que la hoja de estilo, éstos reemplazarán los iconos por defecto.</translation>
     </message>
@@ -3631,12 +3762,12 @@ de las ubicaciones posibles.</translation>
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="171"/>
+        <location filename="LookConfig.ui" line="197"/>
         <source>New version check</source>
         <translation>Comprobación de nueva versión</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="177"/>
+        <location filename="LookConfig.ui" line="203"/>
         <source>Check for updates on startup</source>
         <translation>Busca actualizaciones al inicio</translation>
     </message>
@@ -3656,17 +3787,17 @@ de las ubicaciones posibles.</translation>
         <translation>Todos</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="95"/>
+        <location filename="LookConfig.ui" line="112"/>
         <source>Expand</source>
         <translation>Expandir</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="102"/>
+        <location filename="LookConfig.ui" line="119"/>
         <source>When to automatically expand channels</source>
         <translation>Cuándo expandir automáticamente los canales</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="105"/>
+        <location filename="LookConfig.ui" line="122"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with players&lt;/i&gt; will expand and collapse channels as players join and leave them.</source>
         <translation>Establece qué canales expandir automáticamente. &lt;i&gt;Ninguno&lt;/i&gt; no expandirá ningún canal, &lt;i&gt;Todos&lt;/i&gt; expandirá todos los canales y &lt;i&gt;Sólo con jugadores&lt;/i&gt; expandirá y contraerá los canales según se unan o los abandonen los jugadores.</translation>
     </message>
@@ -3686,17 +3817,17 @@ de las ubicaciones posibles.</translation>
         <translation>Mover</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="125"/>
+        <location filename="LookConfig.ui" line="54"/>
         <source>Channel Dragging</source>
         <translation>Arrastre de canales</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="132"/>
+        <location filename="LookConfig.ui" line="61"/>
         <source>This changes the behaviour when moving channels.</source>
         <translation>Cambia el comportamiento al mover canales.</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="135"/>
+        <location filename="LookConfig.ui" line="64"/>
         <source>This sets the behaviour of channel drags, it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <translation>Establece la conducta del arrastre de canales, puede ser usada para prevenir arrastres accidentales. &lt;i&gt;Mover canal&lt;/i&gt; mueve el canal sin avisar. &lt;i&gt;No hacer nada&lt;/i&gt; no hace nada y muestra un mensaje de error. &lt;i&gt;Preguntar&lt;/i&gt; usa un cuadro de mensajes para confirmar si usted realmente deseaba mover el canal.</translation>
     </message>
@@ -3716,25 +3847,50 @@ de las ubicaciones posibles.</translation>
         <translation>Preguntar al salir mientras esté conectado</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="155"/>
+        <location filename="LookConfig.ui" line="168"/>
         <source>Make the Mumble window appear on top of other windows.</source>
         <translation>Hacer que la ventana de Mumble aparezca siempre por encima de las otras ventanas.</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="158"/>
+        <location filename="LookConfig.ui" line="171"/>
         <source>&lt;b&gt;This makes the Mumble window a topmost window.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Hace que la ventana de Mumble se mantenga sobre las demás.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="161"/>
+        <location filename="LookConfig.ui" line="174"/>
         <source>Always On Top</source>
         <translation>Siempre visible</translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="158"/>
+        <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray.  Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="161"/>
+        <source>Hide in tray when minimized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="181"/>
+        <source>Show all configuration items</source>
+        <translation type="unfinished">Muestra todos las opciones de configuración</translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="184"/>
+        <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
+        <translation type="unfinished">&lt;b&gt;Muestra todos las opciones de configuración.&lt;/b&gt;&lt;br /&gt;Mumble contiene muchas opciones de configuración que la mayoría de usuarios no necesitarán cambiar. Marcar ésto mostrará todas las opciones configurables.</translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="187"/>
+        <source>Expert Config</source>
+        <translation type="unfinished">Configuración experta</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="199"/>
+        <location filename="main.cpp" line="204"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>
@@ -4174,7 +4330,7 @@ de las ubicaciones posibles.</translation>
         <translation>Prohibiendo al jugador %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="217"/>
+        <location filename="main.cpp" line="222"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4833,7 +4989,7 @@ de las ubicaciones posibles.</translation>
         <translation>El ancho de banda máximo del servidor es sólo de %1 kbit/s. Se ha ajustado automáticamente la calidad.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="217"/>
+        <location filename="main.cpp" line="222"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Ésta es la primera vez que inicia Mumble.&lt;br /&gt;¿Le gustaría ejecutar el Asistente de audio para configurar su tarjeta de sonido?</translation>
     </message>
@@ -4921,12 +5077,12 @@ de las ubicaciones posibles.</translation>
         <translation>Registro</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="981"/>
+        <location filename="PlayerModel.cpp" line="986"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Ha establecido el arrastre de canales a &quot;No hacer nada&quot; así que el canal no se movió.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="987"/>
+        <location filename="PlayerModel.cpp" line="992"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation>Modo de arrastre de canales desconocido en PlayerModel::dropMimeData.</translation>
     </message>
@@ -5557,7 +5713,7 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">Éste es un jugador conectado al servidor. El icono a la izquierda del jugador indica si está hablando o no:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; Hablando&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; Sin hablar</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="425"/>
+        <location filename="PlayerModel.cpp" line="426"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
         <translation>Esto es un canal del servidor. Sólo los jugadores en el mismo canal pueden oirse entre sí.</translation>
     </message>
@@ -5567,32 +5723,32 @@ de las ubicaciones posibles.</translation>
         <translation type="obsolete">Muestra los emblemas que el jugador tiene en el servidor, si los hubiera:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Usuario autenticado&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Mudo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Mudo (por un administrador)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Sordo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Sordo (por un administrador)&lt;br /&gt;Un jugador enmudecido por sí mismo probablemente sólo está ausente, hablando por teléfono o algo similar.&lt;br /&gt;Un jugador enmudecido por un administrador probablemente está también sólo ausente, y el ruido que estaba haciendo el jugador era lo bastante molesto para que un adminstrador lo haya enmudecido.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="451"/>
+        <location filename="PlayerModel.cpp" line="452"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="453"/>
+        <location filename="PlayerModel.cpp" line="454"/>
         <source>Flags</source>
         <translation>Emblemas</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="423"/>
+        <location filename="PlayerModel.cpp" line="424"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation>Éste es un jugador conectado al servidor. El icono a la izquierda del jugador indica si está hablando o no:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Hablando&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; No está hablando</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="435"/>
+        <location filename="PlayerModel.cpp" line="436"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>Muestra los emblemas que el jugador tiene en el servidor, si los hubiera:&lt;br /&gt;&lt;img src=&quot;:/authenticated.png&quot; /&gt;Usuario autenticado&lt;br /&gt;&lt;img src=&quot;:/muted_self.png&quot; /&gt;Mudo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/muted_server.png&quot; /&gt;Mudo (por un administrador)&lt;br /&gt;&lt;img src=&quot;:/deafened_self.png&quot; /&gt;Sordo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/deafened_server.png&quot; /&gt;Sordo (por un administrador)&lt;br /&gt;Un jugador enmudecido por sí mismo probablemente sólo está ausente, hablando por teléfono o algo similar.&lt;br /&gt;Un jugador enmudecido por un administrador probablemente está también sólo ausente, y el ruido que estaba haciendo el jugador era lo bastante molesto para que un adminstrador lo haya enmudecido.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="975"/>
+        <location filename="PlayerModel.cpp" line="980"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="975"/>
+        <location filename="PlayerModel.cpp" line="980"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>¿Está seguro de que desea arrastrar este canal?</translation>
     </message>
