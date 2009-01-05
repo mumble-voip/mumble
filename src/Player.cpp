@@ -65,20 +65,6 @@ QString Player::getFlagsString() const {
 	return flags.join(QLatin1String(", "));
 }
 
-bool Player::validateName(const QString &qsName) {
-	QRegExp re(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
-
-	bool nameok = re.exactMatch(qsName);
-	if (nameok && qsName[0] == QLatin1Char('@'))
-		nameok = false;
-	if (nameok && qsName[0] == QLatin1Char('#'))
-		nameok = false;
-	if (nameok && qsName.length() > 512)
-		nameok = false;
-
-	return nameok;
-}
-
 ClientPlayer::ClientPlayer(QObject *p) : QObject(p) {
 }
 

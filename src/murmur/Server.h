@@ -129,6 +129,9 @@ class Server : public QThread, public MessageHandler {
 		QString qsRegPassword;
 		QString qsRegHost;
 		QUrl qurlRegWeb;
+		
+		QRegExp qrPlayerName;
+		QRegExp qrChannelName;
 
 		QSslCertificate qscCert;
 		QSslKey qskKey;
@@ -194,6 +197,9 @@ class Server : public QThread, public MessageHandler {
 		void sendMessage(User *u, const char *data, int len, QByteArray &cache);
 		void fakeUdpPacket(Message *msg, Connection *source);
 		void run();
+		
+		bool validateChannelName(const QString &name);
+		bool validatePlayerName(const QString &name);
 
 		bool checkDecrypt(User *u, const char *encrypted, char *plain, unsigned int cryptlen);
 

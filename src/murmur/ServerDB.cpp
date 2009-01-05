@@ -450,7 +450,7 @@ int Server::registerPlayer(const QString &name) {
 	if (name.isEmpty())
 		return -1;
 
-	if (! Player::validateName(name))
+	if (! validatePlayerName(name))
 		return -1;
 
 	if (getUserID(name) >= 0)

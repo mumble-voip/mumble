@@ -175,6 +175,8 @@ void Server::readParams() {
 	qsRegPassword = Meta::mp.qsRegPassword;
 	qsRegHost = Meta::mp.qsRegHost;
 	qurlRegWeb = Meta::mp.qurlRegWeb;
+	qrPlayerName = Meta::mp.qrPlayerName;
+	qrChannelName = Meta::mp.qrChannelName;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -207,6 +209,9 @@ void Server::readParams() {
 	qsRegPassword = getConf("registerpassword", qsRegPassword).toString();
 	qsRegHost = getConf("registerhostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
+	
+	qrPlayerName=QRegExp(getConf("playername", qrPlayerName.pattern()).toString());
+	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
 }
 
 void Server::setLiveConf(const QString &key, const QString &value) {
@@ -798,4 +803,12 @@ QString Server::addressToString(const QHostAddress &adr) {
 	
 	QHostAddress n(num);
 	return n.toString();
+}
+
+bool Server::validatePlayerName(const QString &name) {
+	return (qrPlayerName.exactMatch(name) && (name.length() <= 512));
+}
+
+bool Server::validateChannelName(const QString &name) {
+	return (qrChannelName.exactMatch(name) && (name.length() <= 512));
 }

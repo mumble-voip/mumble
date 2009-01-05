@@ -67,11 +67,6 @@ Channel::~Channel() {
 	Q_ASSERT(children().count() == 0);
 }
 
-bool Channel::validateName(const QString &qsName) {
-	QRegExp re(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
-	return re.exactMatch(qsName);
-}
-
 Channel *Channel::get(int id) {
 	QReadLocker lock(&c_qrwlChannels);
 	return c_qhChannels.value(id);

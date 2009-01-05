@@ -70,7 +70,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 
 	MessageServerReject msr;
 	bool ok = false;
-	bool nameok = Player::validateName(msg->qsUsername);
+	bool nameok = validatePlayerName(msg->qsUsername);
 
 	// Fetch ID and stored username.
 	// Since this may call DBus, which may recall our dbus messages, this function needs
@@ -436,7 +436,7 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 		return;
 	}
 
-	if (! Channel::validateName(msg->qsName)) {
+	if (! validateChannelName(msg->qsName)) {
 		PERM_DENIED_TEXT("Illegal channel name");
 		return;
 	}
@@ -497,7 +497,7 @@ void Server::msgChannelRename(Connection *cCon, MessageChannelRename *msg) {
 		return;
 	}
 
-	if (! Channel::validateName(msg->qsName)) {
+	if (! validateChannelName(msg->qsName)) {
 		PERM_DENIED_TEXT("Illegal channel name");
 		return;
 	}

@@ -50,7 +50,6 @@ class Player {
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
 		QString getFlagsString() const;
-		static bool validateName(const QString &qsName);
 
 		Player();
 		virtual ~Player() {};
