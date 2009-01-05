@@ -1091,7 +1091,7 @@ void MainWindow::on_CenterPos_triggered(bool down) {
 void MainWindow::on_VolumeUp_triggered(bool down) {
 	if (down) {
 		float v = floorf(g.s.fVolume * 10.0f);
-		if (v < 10.0f)
+		if (v < 20.0f)
 			g.s.fVolume = ++v / 10.0f;
 	}
 }
