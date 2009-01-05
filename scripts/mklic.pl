@@ -23,6 +23,6 @@ sub spitout($$) {
 
 open(F, "> ../src/mumble/licenses.h");
 
-print F spitout("licenseMumble", "../installer/gpl.txt");
+print F spitout("licenseMumble", "../LICENSE");
 
 close(F);
