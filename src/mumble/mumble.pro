@@ -198,21 +198,16 @@ CONFIG(no-update) {
 QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-copytrans.target = qt_de.qm
-copytrans.commands  = $$QMAKE_COPY $${QT_TRANSDIR}qt_de.qm . &&
-copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_fr.qm . &&
-copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_es.qm . &&
-copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_ru.qm . &&
-copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_pl.qm . &&
-copytrans.commands += $$QMAKE_COPY $${QT_TRANSDIR}qt_ja_jp.qm .
+QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja_jp.qm
 
-lrel.target = mumble_en.qm
-lrel.commands = lrelease mumble.pro
-lrel.depends = mumble_en.ts
+copytrans.output = ${QMAKE_FILE_NAME}
+copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
+copytrans.input = QT_TRANSLATION_FILES
+copytrans.CONFIG *= no_link target_predeps
 
-lupd.target = mumble_en.ts
-lupd.commands = lupdate mumble.pro
+lrel.output = ${QMAKE_FILE_BASE}.qm
+lrel.commands = lrelease -compress -nounfinished -removeidentical ${QMAKE_FILE_NAME} 
+lrel.input = TRANSLATIONS
+lrel.CONFIG *= no_link target_predeps
 
-QMAKE_EXTRA_TARGETS *= lrel lupd copytrans
-
-PRE_TARGETDEPS = mumble_en.qm qt_de.qm
+QMAKE_EXTRA_COMPILERS += copytrans lrel
