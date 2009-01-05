@@ -129,7 +129,7 @@ class Server : public QThread, public MessageHandler {
 		QString qsRegPassword;
 		QString qsRegHost;
 		QUrl qurlRegWeb;
-		
+
 		QRegExp qrPlayerName;
 		QRegExp qrChannelName;
 
@@ -197,7 +197,7 @@ class Server : public QThread, public MessageHandler {
 		void sendMessage(User *u, const char *data, int len, QByteArray &cache);
 		void fakeUdpPacket(Message *msg, Connection *source);
 		void run();
-		
+
 		bool validateChannelName(const QString &name);
 		bool validatePlayerName(const QString &name);
 
@@ -211,7 +211,7 @@ class Server : public QThread, public MessageHandler {
 		void sendMessage(Connection *, Message *);
 
 		void setLiveConf(const QString &key, const QString &value);
-		
+
 		QString addressToString(const QHostAddress &);
 
 #ifndef Q_OS_WIN

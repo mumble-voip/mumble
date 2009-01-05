@@ -50,9 +50,9 @@ class PlayerDelegate : public QItemDelegate {
 struct ModelItem {
 	friend class PlayerModel;
 
-	private:
-		Q_DISABLE_COPY(ModelItem);
-	public:
+private:
+	Q_DISABLE_COPY(ModelItem);
+public:
 	Channel *cChan;
 	ClientPlayer *pPlayer;
 

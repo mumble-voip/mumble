@@ -718,12 +718,12 @@ static void impl_Server_verifyPassword(const ::Murmur::AMD_Server_verifyPassword
 
 static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, int server_id,  ::Ice::Int playerid) {
 	NEED_SERVER;
-	
+
 	if (! server->isPlayerId(playerid)) {
 		cb->ice_exception(InvalidPlayerException());
 		return;
 	}
-	
+
 	const QByteArray &qba = server->getUserTexture(playerid);
 
 	::Murmur::Texture tex;
@@ -742,7 +742,7 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 		cb->ice_exception(InvalidPlayerException());
 		return;
 	}
-	
+
 	QByteArray qba(tex.size(), 0);
 	char *ptr = qba.data();
 	for (unsigned int i=0;i<tex.size();++i)

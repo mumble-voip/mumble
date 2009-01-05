@@ -209,7 +209,7 @@ void Server::readParams() {
 	qsRegPassword = getConf("registerpassword", qsRegPassword).toString();
 	qsRegHost = getConf("registerhostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
-	
+
 	qrPlayerName=QRegExp(getConf("playername", qrPlayerName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
 }
@@ -798,9 +798,9 @@ void Server::clearACLCache(Player *p) {
 QString Server::addressToString(const QHostAddress &adr) {
 	if (Meta::mp.iObfuscate == 0)
 		return adr.toString();
-	
+
 	quint32 num = adr.toIPv4Address() ^ Meta::mp.iObfuscate;
-	
+
 	QHostAddress n(num);
 	return n.toString();
 }

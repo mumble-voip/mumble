@@ -430,7 +430,7 @@ void Settings::save() {
 	g.qs->beginGroup(QLatin1String("lcd/devices"));
 	foreach(const QString &d, qmLCDDevices.keys()) {
 		bool v = qmLCDDevices.value(d);
-		if(!v)
+		if (!v)
 			g.qs->setValue(d, v);
 		else
 			g.qs->remove(d);

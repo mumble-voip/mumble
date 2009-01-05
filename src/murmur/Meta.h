@@ -61,7 +61,7 @@ struct MetaParams {
 	int iDBPort;
 
 	int iLogDays;
-	
+
 	int iObfuscate;
 
 	QString qsDBus;
@@ -74,7 +74,7 @@ struct MetaParams {
 	QString qsRegPassword;
 	QString qsRegHost;
 	QUrl qurlRegWeb;
-	
+
 	QRegExp qrPlayerName;
 	QRegExp qrChannelName;
 

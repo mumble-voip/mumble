@@ -65,7 +65,7 @@ class LCDDeviceManager : public DeferInit {
 
 void LCDDeviceManager::initialize() {
 	if (LCDEngineRegistrar::qlInitializers) {
-		foreach (LCDEngineNew engine, *LCDEngineRegistrar::qlInitializers) {
+		foreach(LCDEngineNew engine, *LCDEngineRegistrar::qlInitializers) {
 			LCDEngine *e = engine();
 			qlEngines.append(e);
 
@@ -83,7 +83,7 @@ void LCDDeviceManager::initialize() {
 
 void LCDDeviceManager::destroy() {
 	qlDevices.clear();
-	foreach (LCDEngine *e, qlEngines) {
+	foreach(LCDEngine *e, qlEngines) {
 		delete e;
 	}
 	if (crLCD)
@@ -99,7 +99,7 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
 	QTreeWidgetItem *qtwi;
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	foreach(LCDDevice *d, devmgr.qlDevices) {
 		qtwi = new QTreeWidgetItem(qtwDevices);
 
 		qtwi->setFlags(Qt::ItemIsEnabled |Qt::ItemIsUserCheckable);
@@ -164,7 +164,7 @@ void LCDConfig::save() const {
 }
 
 void LCDConfig::accept() const {
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	foreach(LCDDevice *d, devmgr.qlDevices) {
 		bool enabled = s.qmLCDDevices.value(d->name());
 		d->setEnabled(enabled);
 	}
@@ -203,7 +203,7 @@ LCD::LCD() : QObject() {
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
 
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	foreach(LCDDevice *d, devmgr.qlDevices) {
 		bool enabled = g.s.qmLCDDevices.contains(d->name()) ? g.s.qmLCDDevices.value(d->name()) : true;
 		d->setEnabled(enabled);
 	}
@@ -217,23 +217,23 @@ void LCD::tick() {
 }
 
 void LCD::initBuffers() {
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	foreach(LCDDevice *d, devmgr.qlDevices) {
 		QSize size = d->size();
 		if (! qhImageBuffers.contains(size)) {
 			size_t buflen = (size.width() * size.height()) / 8;
 			qhImageBuffers[size] = new unsigned char[buflen];
 			qhImages[size] = new QImage(qhImageBuffers[size], size.width(), size.height(), QImage::Format_MonoLSB);
-		 }
+		}
 	}
 }
 
 void LCD::destroyBuffers() {
-	foreach (QImage *img, qhImages)
-		delete img;
+	foreach(QImage *img, qhImages)
+	delete img;
 	qhImages.clear();
 
 	foreach(unsigned char *buf, qhImageBuffers)
-		delete buf;
+	delete buf;
 	qhImageBuffers.clear();
 }
 
@@ -265,7 +265,7 @@ void LCD::updatePlayerView() {
 	Channel *home = me ? me->cChannel : NULL;
 	bool alert = false;
 
-	foreach (const QSize &size, qhImages.keys()) {
+	foreach(const QSize &size, qhImages.keys()) {
 		QImage *img = qhImages.value(size);
 		QPainter painter(img);
 		painter.setRenderHints(0, true);
@@ -337,7 +337,7 @@ void LCD::updatePlayerView() {
 				talking << ListEntry(QString(), false, false);
 			}
 			int iSkipped = (iPlayerColumns - iColumns + talking.count() / iPlayersPerColumn);
-			for(int i=(iFrameIndex % (iSkipped+1))*iPlayersPerColumn;i<entries.count();i++)
+			for (int i=(iFrameIndex % (iSkipped+1))*iPlayersPerColumn;i<entries.count();i++)
 				talking << entries.at(i);
 		}
 
@@ -346,30 +346,30 @@ void LCD::updatePlayerView() {
 
 
 		foreach(const ListEntry &le, talking) {
-				if (row >= iPlayersPerColumn) {
-					row = 0;
-					++col;
-				}
-				if (col > iColumns)
-					break;
+			if (row >= iPlayersPerColumn) {
+				row = 0;
+				++col;
+			}
+			if (col > iColumns)
+				break;
 
-				if (! le.qsString.isEmpty()) {
-					if (le.bBold && le.bItalic)
-						painter.setFont(qfItalicBold);
-					else if (le.bBold)
-						painter.setFont(qfBold);
-					else if (le.bItalic)
-						painter.setFont(qfItalic);
-					else
-						painter.setFont(qfNormal);
-					painter.drawText(QRect(col * (iColumnWidth  + iSplitterWidth),
-										   row * iFontHeight, iColumnWidth, iFontHeight+2), Qt::AlignLeft, le.qsString);
-				}
-				++row;
+			if (! le.qsString.isEmpty()) {
+				if (le.bBold && le.bItalic)
+					painter.setFont(qfItalicBold);
+				else if (le.bBold)
+					painter.setFont(qfBold);
+				else if (le.bItalic)
+					painter.setFont(qfItalic);
+				else
+					painter.setFont(qfNormal);
+				painter.drawText(QRect(col * (iColumnWidth  + iSplitterWidth),
+				                       row * iFontHeight, iColumnWidth, iFontHeight+2), Qt::AlignLeft, le.qsString);
+			}
+			++row;
 		}
 	}
 
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	foreach(LCDDevice *d, devmgr.qlDevices) {
 		LCDDevice::Type type = d->type();
 		if (type == LCDDevice::GraphicLCD) {
 			QImage *img = qhImages[d->size()];

@@ -543,9 +543,9 @@ bool Server::isPlayerId(int id) {
 	int res = dbus->dbusGetRegistration(id, name, email);
 	if (res >= 0)
 		return (res > 0);
-	
+
 	TransactionHolder th;
-	
+
 	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("SELECT player_id FROM %1players WHERE server_id = ? AND player_id = ?");
 	query.addBindValue(iServerNum);

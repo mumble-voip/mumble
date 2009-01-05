@@ -1,4 +1,4 @@
-#define _USE_MATH_DEFINES 
+#define _USE_MATH_DEFINES
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,18 +78,18 @@ static int fetch(float *pos, float *front, float *top) {
 	*/
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
-	
+
 	ok = peekProc((BYTE *) 0x0072AFD0, pos+2, 4) &&	//Z
-		 peekProc((BYTE *) 0x0072AFE0, pos, 4) &&	//X
-		 peekProc((BYTE *) 0x0072AFF0, pos+1, 4) && //Y
-		 peekProc((BYTE *) 0x0072AF3C, &viewHor, 4) && //Hor
-		 peekProc((BYTE *) 0x0072AF38, &viewVer, 4); //Ver
+	     peekProc((BYTE *) 0x0072AFE0, pos, 4) &&	//X
+	     peekProc((BYTE *) 0x0072AFF0, pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x0072AF3C, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x0072AF38, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
 
 	// Scale Coordinates
-	/* 
+	/*
 	   Z-Value is increasing when heading north
 				  decreasing when heading south
 	   X-Value is increasing when heading west

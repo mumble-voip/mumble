@@ -533,7 +533,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			svol[i] = mul * fSpeakerVolume[i];
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() &&
-			(g.p->fPosition[0] != 0 || g.p->fPosition[1] != 0 || g.p->fPosition[2] != 0)) {
+		        (g.p->fPosition[0] != 0 || g.p->fPosition[1] != 0 || g.p->fPosition[2] != 0)) {
 			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2] };
 			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2] };
 
@@ -590,8 +590,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				float dir[3] = { aop->fPos[0] - g.p->fPosition[0], aop->fPos[1] - g.p->fPosition[1], aop->fPos[2] - g.p->fPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
-				if(len > 0.0f)
-				{
+				if (len > 0.0f) {
 					dir[0] /= len;
 					dir[1] /= len;
 					dir[2] /= len;

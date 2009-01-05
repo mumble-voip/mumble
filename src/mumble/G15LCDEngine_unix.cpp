@@ -80,12 +80,12 @@ void G15LCDDeviceUnix::setEnabled(bool b) {
 
 void G15LCDDeviceUnix::blitImage(QImage *img, bool alert) {
 	Q_ASSERT(img != NULL);
-	
+
 	const unsigned int len = 6880;
 	uchar buf[len];
 	uchar *tmp = img->bits();
-	
-	for(unsigned int i = 0; i < len / 8; ++i) {
+
+	for (unsigned int i = 0; i < len / 8; ++i) {
 		unsigned int idx = i*8;
 		buf[idx+7] = tmp[i] & 0x80 ? 1 : 0;
 		buf[idx+6] = tmp[i] & 0x40 ? 1 : 0;
@@ -96,7 +96,7 @@ void G15LCDDeviceUnix::blitImage(QImage *img, bool alert) {
 		buf[idx+1] = tmp[i] & 0x02 ? 1 : 0;
 		buf[idx+0] = tmp[i] & 0x01 ? 1 : 0;
 	}
-	
+
 	int ret = g15_send(engine->sock, reinterpret_cast<char *>(buf), len);
 	if (ret < 0)
 		qWarning("G15LCDDeviceUnix: Unable to g15_send().");

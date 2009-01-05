@@ -1,4 +1,4 @@
-#define _USE_MATH_DEFINES 
+#define _USE_MATH_DEFINES
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,15 +71,15 @@ static int fetch(float *pos, float *front, float *top) {
 		return true; // If this magic value is !=32 we are spectating, so switch off PA
 
 	ok = peekProc((BYTE *) 0x013F79CC, pos+1, 4) &&	//Y
-		 peekProc((BYTE *) 0x013E8CF4, pos, 4) &&	//X
-		 peekProc((BYTE *) 0x013E8CF8, pos+2, 4) && //Z
-		 peekProc((BYTE *) 0x013F9E20, &viewHor, 4) && //Hor
-		 peekProc((BYTE *) 0x013F9E1C, &viewVer, 4); //Ver
+	     peekProc((BYTE *) 0x013E8CF4, pos, 4) &&	//X
+	     peekProc((BYTE *) 0x013E8CF8, pos+2, 4) && //Z
+	     peekProc((BYTE *) 0x013F9E20, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x013F9E1C, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
 
-	/* 
+	/*
 	   Z-Value is increasing when heading north
 				  decreasing when heading south
 	   X-Value is increasing when heading east

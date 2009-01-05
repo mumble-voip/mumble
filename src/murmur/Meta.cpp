@@ -51,13 +51,13 @@ MetaParams::MetaParams() {
 	qhaBind = QHostAddress(QHostAddress::Any);
 
 	iLogDays = 31;
-	
+
 	iObfuscate = 0;
 
 	iBanTries = 10;
 	iBanTimeframe = 120;
 	iBanTime = 300;
-	
+
 	qrPlayerName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 }
@@ -165,10 +165,10 @@ void MetaParams::read(QString fname) {
 	iBanTries = qs.value("autobanAttempts", iBanTries).toInt();
 	iBanTimeframe = qs.value("autobanTimeframe", iBanTimeframe).toInt();
 	iBanTime = qs.value("autobanTime", iBanTime).toInt();
-	
+
 	qrPlayerName = QRegExp(qs.value("playername", qrPlayerName.pattern()).toString());
 	qrChannelName = QRegExp(qs.value("channelname", qrChannelName.pattern()).toString());
-	
+
 	bool bObfuscate = qs.value("obfuscate", false).toBool();
 	if (bObfuscate) {
 		qWarning("IP address obfuscation enabled.");

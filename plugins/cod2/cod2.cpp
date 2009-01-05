@@ -1,4 +1,4 @@
-#define _USE_MATH_DEFINES 
+#define _USE_MATH_DEFINES
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,16 +71,16 @@ static int fetch(float *pos, float *front, float *top) {
 		return true; // If this magic value is 4 we are spectating, so switch of PA
 
 	ok = peekProc((BYTE *) 0x01516608, pos+2, 4) &&	//Z
-		 peekProc((BYTE *) 0x0151660C, pos, 4) &&	//X
-		 peekProc((BYTE *) 0x01516610, pos+1, 4) && //Y
-		 peekProc((BYTE *) 0x0151A114, &viewHor, 4) && //Hor
-		 peekProc((BYTE *) 0x0151A110, &viewVer, 4); //Ver
+	     peekProc((BYTE *) 0x0151660C, pos, 4) &&	//X
+	     peekProc((BYTE *) 0x01516610, pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x0151A114, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x0151A110, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
 
 	// Scale Coordinates
-	/* 
+	/*
 	   Z-Value is increasing when heading north
 				  decreasing when heading south
 	   X-Value is increasing when heading west
