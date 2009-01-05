@@ -44,6 +44,10 @@ SetCompressor /SOLID lzma
   !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKLM"
   !define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Mumble"
   !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
+  
+  !define MUI_FINISHPAGE_SHOWREADME
+  !define MUI_FINISHPAGE_SHOWREADME_TEXT "Create Desktop Shortcut"
+  !define MUI_FINISHPAGE_SHOWREADME_FUNCTION Desktop_Shortcut
 
   !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
 
@@ -60,6 +64,12 @@ SetCompressor /SOLID lzma
 ;Languages
 
   !insertmacro MUI_LANGUAGE "English"
+
+
+Function Desktop_Shortcut
+  SetOutPath "$INSTDIR"
+  CreateShortCut "$DESKTOP\Mumble.lnk" "$INSTDIR\mumble.exe"
+FunctionEnd
 
 ;--------------------------------
 ;Installer Sections
@@ -199,6 +209,8 @@ Section "Uninstall" SectionUninstBase
   SectionIn RO
   SetShellVarContext all
 
+  KillProcDLL::KillProc "dbus-daemon.exe"
+
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
   Delete "$INSTDIR\mumble-g15-helper.exe"
@@ -264,6 +276,8 @@ Section "Uninstall" SectionUninstBase
   RMDir "$INSTDIR\etc"
   RMDir "$INSTDIR\plugins"
   RMDir "$INSTDIR"
+
+  Delete "$DESKTOP\Mumble.lnk"
 
   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
 
