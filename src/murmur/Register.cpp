@@ -106,6 +106,18 @@ void Server::update() {
 
 	t=doc.createTextNode(getDigest());
 	tag.appendChild(t);
+	
+	tag=doc.createElement(QLatin1String("users"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(QString::number(qhUsers.count()));
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("channels"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(QString::number(qhChannels.count()));
+	tag.appendChild(t);
 
 	qssReg = new QSslSocket(this);
 	qssReg->setLocalCertificate(qscCert);
