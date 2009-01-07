@@ -161,7 +161,7 @@ void ConnectDialog::initList() {
 
 	bPublicInit = true;
 
-	qhList->get(QString::fromLatin1("/list.cgi?version=%1").arg(QLatin1String(MUMBLE_RELEASE)));
+	qhList->get(QString::fromLatin1("/list.cgi?qcompress=1&version=%1").arg(QLatin1String(MUMBLE_RELEASE)));
 }
 
 void ConnectDialog::fillList() {
@@ -217,7 +217,7 @@ void ConnectDialog::on_Request_done(bool err) {
 	}
 
 	QDomDocument doc;
-	doc.setContent(qhList->readAll());
+	doc.setContent(qUncompress(qhList->readAll()));
 
 	qlPublicServers.clear();
 
