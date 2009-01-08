@@ -31,6 +31,7 @@
 #include <QtXml>
 
 #include "Server.h"
+#include "Version.h"
 
 void Server::initRegister() {
 	http = NULL;
@@ -117,6 +118,50 @@ void Server::update() {
 	root.appendChild(tag);
 
 	t=doc.createTextNode(QString::number(qhChannels.count()));
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("version"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("release"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(QLatin1String(MUMBLE_RELEASE));
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("os"));
+	root.appendChild(tag);
+
+#if defined(Q_WS_WIN)
+	t=doc.createTextNode(QLatin1String("Win"));
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("osver"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(QString::number(QSysInfo::WindowsVersion));
+	tag.appendChild(t);
+#elif defined(Q_WS_MAC)
+	t=doc.createTextNode(QLatin1String("OSX"));
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("osver"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(QString::number(QSysInfo::MacintoshVersion));
+	tag.appendChild(t);
+#else
+	t=doc.createTextNode(QLatin1String("X11"));
+	tag.appendChild(t);
+#endif	
+
+	tag=doc.createElement(QLatin1String("qt"));
+	root.appendChild(tag);
+
+	t=doc.createTextNode(qVersion());
 	tag.appendChild(t);
 
 	qssReg = new QSslSocket(this);
