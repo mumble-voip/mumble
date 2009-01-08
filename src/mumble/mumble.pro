@@ -117,30 +117,35 @@ unix {
 }
 
 alsa {
+	DEFINES *= USE_ALSA
 	PKGCONFIG *= alsa
 	HEADERS *= ALSAAudio.h
 	SOURCES *= ALSAAudio.cpp
 }
 
 oss {
+	DEFINES *= USE_OSS
 	HEADERS *= OSS.h
 	SOURCES *= OSS.cpp
 	INCLUDEPATH *= /usr/lib/oss/include
 }
 
 pulseaudio {
+	DEFINES *= USE_PULSEAUDIO
 	PKGCONFIG *= libpulse
 	HEADERS *= PulseAudio.h
 	SOURCES *= PulseAudio.cpp
 }
 
 portaudio {
+	DEFINES *= USE_PORTAUDIO
 	PKGCONFIG *= portaudio-2.0
 	HEADERS *= PAAudio.h
 	SOURCES *= PAAudio.cpp
 }
 
 asio {
+	DEFINES *= USE_ASIO
 	HEADERS *= ASIOInput.h
 	SOURCES	*= ASIOInput.cpp
 	FORMS *= ASIOInput.ui
@@ -148,10 +153,10 @@ asio {
 }
 
 dbus {
+	DEFINES *= USE_DBUS
 	CONFIG *= qdbus
 	HEADERS *= DBus.h
 	SOURCES *= DBus.cpp
-	DEFINES *= USE_DBUS
 }
 
 speechd {
@@ -165,18 +170,21 @@ xevie {
 }
 
 directsound {
-	HEADERS	*= DXAudioInput.h DXAudioOutput.h
-	SOURCES	*= DXAudioInput.cpp DXAudioOutput.cpp
+	DEFINES *= USE_DIRECTSOUND
+	HEADERS	*= DirectSound.h
+	SOURCES	*= DirectSound.cpp
 	LIBS	*= -ldsound
 }
 
 wasapi {
+	DEFINES *= USE_WASAPI
 	HEADERS	*= WASAPI.h
 	SOURCES	*= WASAPI.cpp
 	LIBS	*= -ldelayimp -lAVRT -delayload:AVRT.DLL
 }
 
 g15 {
+	DEFINES *= USE_G15
 	win32 {
 		SOURCES *= G15LCDEngine_win.cpp
 		HEADERS *= G15LCDEngine_win.h ../../g15helper/g15helper.h

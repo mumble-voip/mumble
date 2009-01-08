@@ -68,9 +68,8 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 		foreach(key, keys) {
 			qcbSystem->addItem(key);
 		}
-	} else {
-		qcbSystem->setEnabled(false);
 	}
+	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
 	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
@@ -308,9 +307,8 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 		foreach(key, keys) {
 			qcbSystem->addItem(key);
 		}
-	} else {
-		qcbSystem->setEnabled(false);
 	}
+	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
 	qcbLoopback->addItem(tr("None"), Settings::None);
 	qcbLoopback->addItem(tr("Local"), Settings::Local);

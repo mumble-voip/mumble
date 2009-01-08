@@ -28,11 +28,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DXAUDIOOUTPUT_H
-#define _DXAUDIOOUTPUT_H
+#ifndef _DIRECTSOUND_H
+#define _DIRECTSOUND_H
 
+#include "AudioInput.h"
 #include "AudioOutput.h"
 #define DIRECTSOUND_VERSION 0x1000
+
 #include <dsound.h>
 #include <ks.h>
 #include <ksmedia.h>
@@ -47,6 +49,24 @@ class DXAudioOutput : public AudioOutput {
 		void run();
 };
 
+class DXAudioInput : public AudioInput {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(DXAudioInput)
+	protected:
+		LPDIRECTSOUNDCAPTURE8      pDSCapture;
+		LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
+		LPDIRECTSOUNDNOTIFY8       pDSNotify;
+
+		DWORD dwBufferSize;
+		bool bOk;
+	public:
+		DXAudioInput();
+		~DXAudioInput();
+		void run();
+};
+
 #else
 class DXAudioOutput;
+class DXAudioInput;
 #endif

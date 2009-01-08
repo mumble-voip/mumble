@@ -28,7 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "DXAudioOutput.h"
+#include "DirectSound.h"
 #include "MainWindow.h"
 #include "Plugins.h"
 #include "Player.h"
@@ -54,8 +54,56 @@ class DXAudioOutputRegistrar : public AudioOutputRegistrar {
 
 };
 
-// Static singleton
-static DXAudioOutputRegistrar airDX;
+class DXAudioInputRegistrar : public AudioInputRegistrar {
+	public:
+		DXAudioInputRegistrar();
+		virtual AudioInput *create();
+		virtual const QList<audioDevice> getDeviceChoices();
+		virtual void setDeviceChoice(const QVariant &, Settings &);
+		virtual bool canEcho(const QString &);
+
+};
+
+class DirectSoundInit : public DeferInit {
+		DXAudioInputRegistrar *airReg;
+		DXAudioOutputRegistrar *aorReg;
+	public:
+		void initialize();
+		void destroy();
+};
+
+static DirectSoundInit dsinit;
+
+void DirectSoundInit::initialize() {
+	airReg = NULL;
+	aorReg = NULL;
+
+	OSVERSIONINFOEXW ovi;
+	memset(&ovi, 0, sizeof(ovi));
+
+	ovi.dwOSVersionInfoSize=sizeof(ovi);
+	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
+
+	if ((ovi.dwMajorVersion > 6) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
+		HMODULE hLib = LoadLibrary(L"AVRT.DLL");
+		if (hLib != NULL) {
+			FreeLibrary(hLib);
+			qWarning("DirectSound: Disabled as WASAPI is available");
+			return;
+		}
+	}
+
+	airReg = new DXAudioInputRegistrar();
+	aorReg = new DXAudioOutputRegistrar();
+}
+
+void DirectSoundInit::destroy() {
+	if (airReg)
+		delete airReg;
+	if (aorReg)
+		delete aorReg;
+}
+
 
 DXAudioOutputRegistrar::DXAudioOutputRegistrar() : AudioOutputRegistrar(QLatin1String("DirectSound")) {
 }
@@ -107,6 +155,50 @@ const QList<audioDevice> DXAudioOutputRegistrar::getDeviceChoices() {
 
 void DXAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
 	s.qbaDXOutput = choice.toByteArray();
+}
+
+DXAudioInputRegistrar::DXAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("DirectSound")) {
+}
+
+AudioInput *DXAudioInputRegistrar::create() {
+	return new DXAudioInput();
+}
+
+const QList<audioDevice> DXAudioInputRegistrar::getDeviceChoices() {
+	QList<dsDevice> qlInput;
+
+	qlInput << dsDevice(DXAudioInput::tr("Default DirectSound Voice Input"), DSDEVID_DefaultVoiceCapture);
+	DirectSoundCaptureEnumerate(DSEnumProc, reinterpret_cast<void *>(&qlInput));
+
+	QList<audioDevice> qlReturn;
+
+	const GUID *lpguid = NULL;
+
+	if (! g.s.qbaDXInput.isEmpty()) {
+		lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXInput.data());
+	} else {
+		lpguid = &DSDEVID_DefaultVoiceCapture;
+	}
+
+	foreach(dsDevice d, qlInput) {
+		if (d.second == *lpguid) {
+			qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+		}
+	}
+	foreach(dsDevice d, qlInput) {
+		if (d.second != *lpguid) {
+			qlReturn << audioDevice(d.first, QByteArray(reinterpret_cast<const char *>(&d.second), sizeof(GUID)));
+		}
+	}
+	return qlReturn;
+}
+
+void DXAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
+	s.qbaDXInput = choice.toByteArray();
+}
+
+bool DXAudioInputRegistrar::canEcho(const QString &) {
+	return false;
 }
 
 DXAudioOutput::DXAudioOutput() {
@@ -316,10 +408,6 @@ void DXAudioOutput::run() {
 
 	bOk = true;
 
-	float safety = 2.0f;
-	bool didsleep = false;
-	bool firstsleep = false;
-
 	while (bRunning && ! FAILED(hr)) {
 		if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
 			qWarning("DXAudioOutputPlayer: GetCurrentPosition");
@@ -385,3 +473,166 @@ cleanup:
 		pDS->Release();
 }
 
+#define NBUFFBLOCKS 50
+
+DXAudioInput::DXAudioInput() {
+	HRESULT       hr;
+	WAVEFORMATEX  wfx;
+	DSCBUFFERDESC dscbd;
+
+	pDSCapture = NULL;
+	pDSCaptureBuffer = NULL;
+	pDSNotify = NULL;
+
+	bOk = false;
+
+	bool failed = false;
+
+	ZeroMemory(&wfx, sizeof(wfx));
+	wfx.wFormatTag = WAVE_FORMAT_PCM;
+
+	ZeroMemory(&dscbd, sizeof(dscbd));
+	dscbd.dwSize = sizeof(dscbd);
+
+	dscbd.dwBufferBytes = dwBufferSize = iFrameSize * sizeof(short) * NBUFFBLOCKS;
+	dscbd.lpwfxFormat = &wfx;
+
+	wfx.nChannels = 1;
+	wfx.nSamplesPerSec = SAMPLE_RATE;
+	wfx.nBlockAlign = 2;
+	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+	wfx.wBitsPerSample = 16;
+
+	// Create IDirectSoundCapture using the preferred capture device
+	if (! g.s.qbaDXInput.isEmpty()) {
+		LPGUID lpguid = reinterpret_cast<LPGUID>(g.s.qbaDXInput.data());
+		if (FAILED(hr = DirectSoundCaptureCreate8(lpguid, &pDSCapture, NULL))) {
+			failed = true;
+		}
+	}
+
+	if (! pDSCapture && FAILED(hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &pDSCapture, NULL)))
+		qWarning("DXAudioInput: DirectSoundCaptureCreate");
+	else if (FAILED(hr = pDSCapture->CreateCaptureBuffer(&dscbd, &pDSCaptureBuffer, NULL)))
+		qWarning("DXAudioInput: CreateCaptureBuffer");
+	else if (FAILED(hr = pDSCaptureBuffer->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify))))
+		qWarning("DXAudioInput: QueryInterface (Notify)");
+	else
+		bOk = true;
+
+
+	if (! bOk) {
+		g.mw->msgBox(tr("Opening chosen DirectSound Input device failed. No microphone capture will be done."));
+		return;
+	}
+
+	if (failed)
+		g.mw->msgBox(tr("Opening chosen DirectSound Input failed. Default device will be used."));
+
+	qWarning("DXAudioInput: Initialized");
+
+	bRunning = true;
+}
+
+DXAudioInput::~DXAudioInput() {
+	bRunning = false;
+	wait();
+
+	if (pDSNotify)
+		pDSNotify->Release();
+	if (pDSCaptureBuffer)
+		pDSCaptureBuffer->Release();
+	if (pDSCapture)
+		pDSCapture->Release();
+}
+
+void DXAudioInput::run() {
+	HRESULT       hr;
+	DWORD dwReadyBytes;
+	DWORD dwLastReadPos = 0;
+	DWORD dwReadPosition;
+	DWORD dwCapturePosition;
+
+	LPVOID aptr1, aptr2;
+	DWORD nbytes1, nbytes2;
+
+	if (! bOk)
+		return;
+
+	float safety = 2.0f;
+	bool didsleep = false;
+	bool firstsleep = false;
+
+	Timer t;
+
+	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING))) {
+		qWarning("DXAudioInput: Start failed");
+	} else {
+		while (bRunning) {
+			firstsleep = true;
+			didsleep = false;
+
+			do {
+				if (FAILED(hr = pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition))) {
+					qWarning("DXAudioInput: GetCurrentPosition");
+					bRunning = false;
+					break;
+				}
+				if (dwReadPosition < dwLastReadPos)
+					dwReadyBytes = (dwBufferSize - dwLastReadPos) + dwReadPosition;
+				else
+					dwReadyBytes = dwReadPosition - dwLastReadPos;
+
+				if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
+					double msecleft = 20.0 - (dwReadyBytes * 20.0) / (sizeof(short) * iFrameSize);
+					Timer t;
+
+					if (didsleep)
+						safety *= 1.1f;
+					else if (firstsleep)
+						safety *= 0.998f;
+
+					int msec = static_cast<int>(msecleft + (firstsleep ? safety : 0.0));
+
+					msleep(msec);
+
+					didsleep = true;
+					firstsleep = false;
+				}
+			} while (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize);
+
+			// Desynchonized?
+			if (dwReadyBytes > (dwBufferSize / 2)) {
+				qWarning("DXAudioInput: Lost synchronization");
+				dwLastReadPos = dwReadPosition;
+			} else if (bRunning) {
+				if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, sizeof(short) * iFrameSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
+					qWarning("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, sizeof(short) * iFrameSize);
+					bRunning = false;
+					break;
+				}
+
+				if (aptr1 && nbytes1)
+					CopyMemory(psMic, aptr1, nbytes1);
+
+				if (aptr2 && nbytes2)
+					CopyMemory(psMic+nbytes1/2, aptr2, nbytes2);
+
+				if (FAILED(hr = pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
+					qWarning("DXAudioInput: Unlock");
+					bRunning = false;
+					break;
+				}
+
+				dwLastReadPos = (dwLastReadPos + sizeof(short) * iFrameSize) % dwBufferSize;
+
+				encodeAudioFrame();
+			}
+		}
+		if (! FAILED(hr))
+			pDSCaptureBuffer->Stop();
+	}
+	if (FAILED(hr)) {
+		g.mw->msgBox(tr("Lost DirectSound input device."));
+	}
+}
