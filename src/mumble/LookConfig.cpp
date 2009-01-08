@@ -97,7 +97,6 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
 	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
-	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 	loadCheckBox(qcbAlwaysOnTop, r.bAlwaysOnTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbHideTray, r.bHideTray);
@@ -122,7 +121,6 @@ void LookConfig::save() const {
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
 	s.bPlayerTop=qcbPlayersTop->isChecked();
-	s.bUpdateCheck=qcbAutoUpdate->isChecked();
 	s.bAlwaysOnTop = qcbAlwaysOnTop->isChecked();
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bHideTray = qcbHideTray->isChecked();

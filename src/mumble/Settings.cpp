@@ -71,6 +71,7 @@ Settings::Settings() {
 	bAlwaysOnTop = false;
 	bAskOnQuit = true;
 	bHideTray = true;
+	bUsage = true;
 
 	iOutputDelay = 5;
 
@@ -276,6 +277,7 @@ void Settings::load() {
 	SAVELOAD(iServerRow, "ui/serverrow");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
+	SAVELOAD(bUsage, "ui/usage");
 
 	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
 	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
@@ -408,6 +410,7 @@ void Settings::save() {
 	SAVELOAD(iServerRow, "ui/serverrow");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
+	SAVELOAD(bUsage, "ui/usage");
 
 	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
 	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");

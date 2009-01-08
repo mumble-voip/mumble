@@ -44,6 +44,7 @@ class TextToSpeech;
 class PlayerModel;
 
 #include "Message.h"
+#include "Usage.h"
 #include "ui_MainWindow.h"
 
 class MessageBoxEvent : public QEvent {
@@ -97,6 +98,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void updateTrayIcon();
 	protected:
+		Usage uUsage;
 		QTimer *qtReconnect;
 		void createActions();
 		void setupGui();

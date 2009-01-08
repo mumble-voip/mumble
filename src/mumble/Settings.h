@@ -122,6 +122,7 @@ struct Settings {
 	bool bAlwaysOnTop;
 	bool bAskOnQuit;
 	bool bHideTray;
+	bool bUsage;
 
 	QString qsUsername;
 	int iServerRow;

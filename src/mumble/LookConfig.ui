@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>566</width>
-    <height>526</height>
+    <width>311</width>
+    <height>353</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -185,22 +185,6 @@
         </property>
         <property name="text" >
          <string>Expert Config</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_3" >
-     <property name="title" >
-      <string>New version check</string>
-     </property>
-     <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QCheckBox" name="qcbAutoUpdate" >
-        <property name="text" >
-         <string>Check for updates on startup</string>
         </property>
        </widget>
       </item>
