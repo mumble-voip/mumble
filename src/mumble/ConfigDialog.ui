@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>523</height>
+    <width>449</width>
+    <height>108</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -20,9 +20,6 @@
     <widget class="QTabWidget" name="qtwWidgets" >
      <property name="currentIndex" >
       <number>0</number>
-     </property>
-     <property name="usesScrollButtons" >
-      <bool>false</bool>
      </property>
      <widget class="QWidget" name="tab_3" >
       <attribute name="title" >
