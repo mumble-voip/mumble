@@ -107,7 +107,7 @@ void Server::update() {
 
 	t=doc.createTextNode(getDigest());
 	tag.appendChild(t);
-	
+
 	tag=doc.createElement(QLatin1String("users"));
 	root.appendChild(tag);
 
@@ -142,7 +142,7 @@ void Server::update() {
 	tag=doc.createElement(QLatin1String("osver"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(QString::number(QSysInfo::WindowsVersion));
+	t=doc.createTextNode(QString::number(QSysInfo::WindowsVersion, 16));
 	tag.appendChild(t);
 #elif defined(Q_WS_MAC)
 	t=doc.createTextNode(QLatin1String("OSX"));
@@ -151,12 +151,12 @@ void Server::update() {
 	tag=doc.createElement(QLatin1String("osver"));
 	root.appendChild(tag);
 
-	t=doc.createTextNode(QString::number(QSysInfo::MacintoshVersion));
+	t=doc.createTextNode(QString::number(QSysInfo::MacintoshVersion, 16));
 	tag.appendChild(t);
 #else
 	t=doc.createTextNode(QLatin1String("X11"));
 	tag.appendChild(t);
-#endif	
+#endif
 
 	tag=doc.createElement(QLatin1String("qt"));
 	root.appendChild(tag);
