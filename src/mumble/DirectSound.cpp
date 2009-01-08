@@ -78,6 +78,7 @@ void DirectSoundInit::initialize() {
 	airReg = NULL;
 	aorReg = NULL;
 
+#ifdef USE_WASAPI
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));
 
@@ -92,6 +93,7 @@ void DirectSoundInit::initialize() {
 			return;
 		}
 	}
+#endif
 
 	airReg = new DXAudioInputRegistrar();
 	aorReg = new DXAudioOutputRegistrar();

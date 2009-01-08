@@ -125,6 +125,8 @@ void ASIOInit::initialize() {
 	if (bFound) {
 		airASIO = new ASIOAudioInputRegistrar();
 		crASIO = new ConfigRegistrar(2002, ASIOConfigDialogNew);
+	} else {
+		qWarning("ASIO: No valid devices found, disabling");
 	}
 }
 
