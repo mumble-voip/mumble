@@ -70,7 +70,7 @@ unix {
     CONFIG *= pulseaudio
   }
 
-  !isEmpty(HAVE_XEVIE):!CONFIG(no-xevie) {
+  !isEmpty(HAVE_XEVIE):!CONFIG(no-xevie):x11 {
     CONFIG *= xevie
   }
 
@@ -182,13 +182,11 @@ g15 {
 		HEADERS *= G15LCDEngine_win.h ../../g15helper/g15helper.h
 	}
 
-	unix {
+	unix:!macx {
 		SOURCES *= G15LCDEngine_unix.cpp
 		HEADERS *= G15LCDEngine_unix.h
 		LIBS *= -lg15daemon_client
 	}
-} else {
-	DEFINES *= NO_G15
 }
 
 CONFIG(no-update) {
