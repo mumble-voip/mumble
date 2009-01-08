@@ -31,6 +31,8 @@
 #ifndef _USAGE_H
 #define _USAGE_H
 
+#include "mumble_pch.hpp"
+
 class Usage : public QObject {
 	Q_OBJECT
 	protected:
