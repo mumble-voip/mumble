@@ -1,12 +1,13 @@
 ; Mumble Installer Script for NSIS
 
+XPStyle on
 SetCompressor /SOLID lzma
-; !packhdr "$%TEMP%\exehead.tmp" '"..\..\vc\upx125w\upx.exe" "-9" "$%TEMP%\exehead.tmp"'
 
 ;--------------------------------
 ;Include Modern UI
 
-  !include "MUI.nsh"
+  !include "MUI2.nsh"
+  !include "LogicLib.nsh"
   !include "Library.nsh"
 
 ;--------------------------------
@@ -37,7 +38,7 @@ SetCompressor /SOLID lzma
 ;Pages
 
   !insertmacro MUI_PAGE_LICENSE "gpl.txt"
-;  !insertmacro MUI_PAGE_COMPONENTS
+Page custom PageReinstall PageLeaveReinstall
   !insertmacro MUI_PAGE_DIRECTORY
 
   ;Start Menu Folder Page Configuration
@@ -48,6 +49,9 @@ SetCompressor /SOLID lzma
   !define MUI_FINISHPAGE_SHOWREADME
   !define MUI_FINISHPAGE_SHOWREADME_TEXT "Create Desktop Shortcut"
   !define MUI_FINISHPAGE_SHOWREADME_FUNCTION Desktop_Shortcut
+
+  !define MUI_FINISHPAGE_LINK "Donate to the Mumble project"
+  !define MUI_FINISHPAGE_LINK_LOCATION "https://sourceforge.net/project/project_donations.php?group_id=147372"
 
   !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
 
@@ -339,3 +343,53 @@ LangString DESC_SectionUninstAll ${LANG_ENGLISH} "Uninstall all traces of Mumble
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionUninstBase} $(DESC_SectionUninstBase)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionUninstAll} $(DESC_SectionUninstAll)
 !insertmacro MUI_UNFUNCTION_DESCRIPTION_END
+
+Function PageReinstall
+  ReadRegStr $R0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" "UninstallString"
+
+  ${If} $R0 == ""
+    Abort
+  ${EndIf}
+
+  !insertmacro MUI_HEADER_TEXT "Already Installed" "Choose how you want to install Mumble."
+
+  nsDialogs::Create 1018
+  Pop $R4
+
+  ${NSD_CreateLabel} 0 0 100% 24u "Mumble is already installed. It's recommended that you uninstall the current version before installing. Select the operation you want to perform and click Next to continue."
+  Pop $R1
+
+  ${NSD_CreateRadioButton} 30u 50u -30u 8u "Uninstall before installing"
+  Pop $R2
+
+  ${NSD_CreateRadioButton} 30u 70u -30u 8u "Do not uninstall"
+  Pop $R3
+
+  SendMessage $R2 ${BM_SETCHECK} ${BST_CHECKED} 0
+
+  ${NSD_SetFocus} $R2
+
+  nsDialogs::Show
+FunctionEnd
+
+Function PageLeaveReinstall
+
+  ${NSD_GetState} $R2 $R1
+  StrCmp $R1 "1" reinst_uninstall reinst_done
+
+reinst_uninstall:
+  HideWindow
+  ClearErrors
+  ExecWait '$R0 _?=$INSTDIR'
+  IfErrors no_remove_uninstaller
+  IfFileExists "$INSTDIR\mumble.exe" no_remove_uninstaller
+  Delete $R0
+  RMDir $INSTDIR
+  ; Just in case they already messed it up once.
+  RMDir /r "$INSTDIR\bin"
+  RMDir /r "$INSTDIR\etc"
+no_remove_uninstaller:
+  BringToFront
+reinst_done:
+
+FunctionEnd
