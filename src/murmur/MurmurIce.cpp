@@ -97,7 +97,7 @@ MurmurIce::MurmurIce() {
 			qWarning("MurmurIce: Endpoint \"%s\" running", qPrintable(fromStdUtf8String(ep->toString())));
 		}
 	} catch (Ice::Exception &e) {
-		qWarning("MurmurIce: Initialization failed: %s", qPrintable(fromStdUtf8String(e.ice_name())));
+		qCritical("MurmurIce: Initialization failed: %s", qPrintable(fromStdUtf8String(e.ice_name())));
 	}
 }
 

@@ -121,7 +121,7 @@ void UnixMurmur::handleSigTerm() {
 	char tmp;
 	::read(iTermFd[1], &tmp, sizeof(tmp));
 
-	qWarning("Caught SIGTERM, exiting");
+	qCritical("Caught SIGTERM, exiting");
 
 	QCoreApplication::instance()->quit();
 

@@ -188,7 +188,7 @@ void MetaParams::read(QString fname) {
 			crt = pem.readAll();
 			pem.close();
 		} else {
-			qWarning("Failed to read %s", qPrintable(qsSSLCert));
+			qCritical("Failed to read %s", qPrintable(qsSSLCert));
 		}
 	}
 	if (! qsSSLKey.isEmpty()) {
@@ -197,14 +197,14 @@ void MetaParams::read(QString fname) {
 			key = pem.readAll();
 			pem.close();
 		} else {
-			qWarning("Failed to read %s", qPrintable(qsSSLKey));
+			qCritical("Failed to read %s", qPrintable(qsSSLKey));
 		}
 	}
 
 	if (! crt.isEmpty()) {
 		qscCert = QSslCertificate(crt);
 		if (qscCert.isNull()) {
-			qWarning("Failed to parse certificate.");
+			qCritical("Failed to parse certificate.");
 		}
 	}
 
@@ -221,7 +221,7 @@ void MetaParams::read(QString fname) {
 		if (! key.isEmpty()) {
 			qskKey = QSslKey(key, alg, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
 			if (qskKey.isNull()) {
-				qWarning("Failed to parse key file.");
+				qCritical("Failed to parse key file.");
 			}
 		}
 

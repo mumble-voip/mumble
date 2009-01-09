@@ -75,6 +75,9 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 		case QtWarningMsg:
 			c='W';
 			break;
+		case QtCriticalMsg:
+			c='C';
+			break;
 		case QtFatalMsg:
 			c='F';
 			break;
@@ -385,7 +388,7 @@ int main(int argc, char **argv) {
 #endif
 
 	meta->bootAll();
-
+	
 	res=a.exec();
 
 	qWarning("Killing running servers");

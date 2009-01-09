@@ -1113,7 +1113,7 @@ void MetaDBus::rotateLogs(const QDBusMessage &msg) {
 }
 
 void MetaDBus::quit() {
-	qWarning("Quit requested from D-Bus");
+	qCritical("Quit requested from D-Bus");
 	QCoreApplication::instance()->quit();
 }
 

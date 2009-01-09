@@ -320,7 +320,7 @@ void Server::run() {
 		if (ret == 0) {
 			continue;
 		} else if (ret == -1) {
-			qWarning("poll() failed: %s", strerror(errno));
+			qCritical("poll() failed: %s", strerror(errno));
 			break;
 		}
 #endif
