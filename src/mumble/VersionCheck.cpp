@@ -47,7 +47,11 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
 	quUrl.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
 #elif defined(Q_OS_MAC)
 	quUrl.addQueryItem(QLatin1String("os"), QLatin1String("MacOSX"));
+#else
+	quUrl.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
 #endif
+	if (! g.s.bUsage)
+		quUrl.addQueryItem(QLatin1String("nousage"), QLatin1String("1"));
 	if (autocheck)
 		quUrl.addQueryItem(QLatin1String("auto"), QLatin1String("1"));
 
