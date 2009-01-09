@@ -14,6 +14,11 @@ FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.u
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_tr.ts mumble_fr.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 
+isEmpty(QMAKE_LRELEASE) {
+  QMAKE_QMAKE_BASE = $$basename(QMAKE_QMAKE)
+  QMAKE_LRELEASE = $$dirname(QMAKE_QMAKE)/$$replace(QMAKE_QMAKE_BASE,qmake,lrelease)
+}
+
 CONFIG(no-bundled-speex) {
   PKGCONFIG	*= speex speexdsp
 }
@@ -216,7 +221,7 @@ CONFIG(no-update) {
 }
 
 lrel.output = ${QMAKE_FILE_BASE}.qm
-lrel.commands = lrelease -compress -nounfinished -removeidentical ${QMAKE_FILE_NAME} 
+lrel.commands = $${QMAKE_LRELEASE} -compress -nounfinished -removeidentical ${QMAKE_FILE_NAME} 
 lrel.input = TRANSLATIONS
 lrel.CONFIG *= no_link target_predeps
 
