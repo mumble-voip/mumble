@@ -70,6 +70,9 @@ class GlobalShortcut : public QObject {
 		bool active() const {
 			return bActive;
 		};
+		int id() const {
+			return idx;
+		};
 };
 
 class ShortcutKeyWidget : public QLineEdit {
@@ -89,6 +92,8 @@ class ShortcutKeyWidget : public QLineEdit {
 	public slots:
 		void updateKeys(bool last);
 		void displayKeys();
+	signals:
+		void keySet(bool);
 };
 
 class GlobalShortcutConfig : public ConfigWidget {

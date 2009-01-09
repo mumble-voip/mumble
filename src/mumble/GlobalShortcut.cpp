@@ -113,6 +113,7 @@ void ShortcutKeyWidget::displayKeys() {
 			keys << id;
 	}
 	setText(keys.join(QLatin1String(" + ")));
+	emit keySet(keys.count() > 0);
 }
 
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {

@@ -32,6 +32,20 @@
 #include "AudioInput.h"
 #include "Global.h"
 #include "Settings.h"
+#include "MainWindow.h"
+
+CompletablePage::CompletablePage(QWizard *p) : QWizardPage(p) {
+	bComplete = true;
+}
+
+void CompletablePage::setComplete(bool b) {
+	bComplete = b;
+	emit completeChanged();
+}
+
+bool CompletablePage::isComplete() const {
+	return bComplete;
+}
 
 AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit = true;
@@ -50,6 +64,8 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	addPage(qwpDone = donePage());
 	setWindowTitle(tr("Audio Tuning Wizard"));
 
+	updateTriggerWidgets(qrPTT->isChecked());
+
 	sOldSettings = g.s;
 
 	g.s.lmLoopMode = Settings::Local;
@@ -59,6 +75,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	g.s.bDeaf = false;
 
 	g.s.atTransmit = Settings::Continous;
+	bTransmitChanged = false;
 
 	iMaxPeak = 0;
 	iTicks = 0;
@@ -93,8 +110,8 @@ bool AudioWizard::eventFilter(QObject *obj, QEvent *evt) {
 	return QWizard::eventFilter(obj, evt);
 }
 
-QWizardPage *AudioWizard::introPage() {
-	QWizardPage *qwpage = new QWizardPage(this);
+CompletablePage *AudioWizard::introPage() {
+	CompletablePage *qwpage = new CompletablePage(this);
 	qwpage->setTitle(tr("Introduction"));
 	qwpage->setSubTitle(tr("Welcome to the Mumble Audio Wizard"));
 	QVBoxLayout *v=new QVBoxLayout(qwpage);
@@ -111,8 +128,8 @@ QWizardPage *AudioWizard::introPage() {
 	return qwpage;
 }
 
-QWizardPage *AudioWizard::donePage() {
-	QWizardPage *qwpage = new QWizardPage(this);
+CompletablePage *AudioWizard::donePage() {
+	CompletablePage *qwpage = new CompletablePage(this);
 	qwpage->setTitle(tr("Finished"));
 	qwpage->setSubTitle(tr("Enjoy using Mumble"));
 	QVBoxLayout *v=new QVBoxLayout(qwpage);
@@ -123,8 +140,8 @@ QWizardPage *AudioWizard::donePage() {
 	return qwpage;
 }
 
-QWizardPage *AudioWizard::devicePage() {
-	QWizardPage *qwpage = new QWizardPage(this);
+CompletablePage *AudioWizard::devicePage() {
+	CompletablePage *qwpage = new CompletablePage(this);
 	QLabel *l;
 	QGridLayout *grid;
 
@@ -241,8 +258,8 @@ QWizardPage *AudioWizard::devicePage() {
 	return qwpage;
 }
 
-QWizardPage *AudioWizard::positionalPage() {
-	QWizardPage *qwpage = new QWizardPage(this);
+CompletablePage *AudioWizard::positionalPage() {
+	CompletablePage *qwpage = new CompletablePage(this);
 	qwpage->setTitle(tr("Positional Audio"));
 	qwpage->setSubTitle(tr("Adjusting attenuation of positional audio."));
 
@@ -280,8 +297,8 @@ QWizardPage *AudioWizard::positionalPage() {
 	return qwpage;
 }
 
-QWizardPage *AudioWizard::volumePage() {
-	QWizardPage *qwpage = new QWizardPage(this);
+CompletablePage *AudioWizard::volumePage() {
+	CompletablePage *qwpage = new CompletablePage(this);
 	qwpage->setTitle(tr("Volume tuning"));
 	qwpage->setSubTitle(tr("Tuning microphone hardware volume to optimal settings."));
 
@@ -321,34 +338,53 @@ QWizardPage *AudioWizard::volumePage() {
 	return qwpage;
 }
 
-QWizardPage *AudioWizard::triggerPage() {
-	QWizardPage *qwpage = new QWizardPage(this);
+CompletablePage *AudioWizard::triggerPage() {
+	CompletablePage *qwpage = new CompletablePage(this);
 	qwpage->setTitle(tr("Voice Activity Detection"));
 	qwpage->setSubTitle(tr("Letting Mumble figure out when you're talking and when you're silent."));
 
-	QVBoxLayout *v = new QVBoxLayout(qwpage);
+	QHBoxLayout *h;
+	QVBoxLayout *v;
+
+	v= new QVBoxLayout(qwpage);
 	QLabel *l;
 
 	l = new QLabel(tr("This will help Mumble figure out when you are talking. The first step is selecting which data value to use."), qwpage);
 	l->setWordWrap(true);
 	v->addWidget(l);
 
-	qrAmplitude = new QRadioButton(tr("Raw amplitude from input"), qwpage);
-	qrAmplitude->setObjectName(QLatin1String("Amplitude"));
-	v->addWidget(qrAmplitude);
+	h = new QHBoxLayout;
+
+	qrPTT = new QRadioButton(tr("Push To Talk:"), qwpage);
+	qrPTT->setObjectName(QLatin1String("PTT"));
+	h->addWidget(qrPTT);
+
+	skwPTT = new ShortcutKeyWidget(qwpage);
+	skwPTT->setObjectName(QLatin1String("PTTKey"));
+	skwPTT->setShortcut(g.s.qmShortcuts.value(g.mw->gsPushTalk->id()));
+	h->addWidget(skwPTT);
+
+	v->addLayout(h);
 
 	qrSNR = new QRadioButton(tr("Signal-To-Noise ratio"), qwpage);
 	qrSNR->setObjectName(QLatin1String("SNR"));
 	v->addWidget(qrSNR);
 
-	switch (g.s.vsVAD) {
-		case Settings::Amplitude:
-			qrAmplitude->setChecked(true);
-			break;
-		case Settings::SignalToNoise:
-			qrSNR->setChecked(true);
-			break;
-	}
+	qrAmplitude = new QRadioButton(tr("Raw amplitude from input"), qwpage);
+	qrAmplitude->setObjectName(QLatin1String("Amplitude"));
+	v->addWidget(qrAmplitude);
+
+	if (g.s.atTransmit == Settings::PushToTalk)
+		qrPTT->setChecked(true);
+	else if (g.s.vsVAD == Settings::Amplitude)
+		qrAmplitude->setChecked(true);
+	else
+		qrSNR->setChecked(true);
+
+	qwVAD = new QWidget(qwpage);
+	v->addWidget(qwVAD);
+
+	v = new QVBoxLayout(qwVAD);
 
 	abVAD = new AudioBar(qwpage);
 	abVAD->qcBelow = Qt::red;
@@ -386,7 +422,7 @@ QWizardPage *AudioWizard::triggerPage() {
 	l->setWordWrap(true);
 	v->addWidget(l);
 
-	QHBoxLayout *h = new QHBoxLayout;
+	h = new QHBoxLayout;
 
 	qsHoldtime = new QSlider(Qt::Horizontal, qwpage);
 	qsHoldtime->setRange(20, 250);
@@ -407,8 +443,8 @@ QWizardPage *AudioWizard::triggerPage() {
 	return qwpage;
 }
 
-QWizardPage *AudioWizard::deviceTuningPage() {
-	QWizardPage *qwpage = new QWizardPage(this);
+CompletablePage *AudioWizard::deviceTuningPage() {
+	CompletablePage *qwpage = new CompletablePage(this);
 	qwpage->setTitle(tr("Device tuning"));
 	qwpage->setSubTitle(tr("Changing hardware output delays to their minimum value."));
 
@@ -640,12 +676,21 @@ void AudioWizard::reject() {
 }
 
 void AudioWizard::accept() {
-	g.s.atTransmit = sOldSettings.atTransmit;
+	if (! bTransmitChanged)
+		g.s.atTransmit = sOldSettings.atTransmit;
+	else if (qrPTT->isChecked())
+		g.s.atTransmit = Settings::PushToTalk;
+	else
+		g.s.atTransmit = Settings::VAD;
+
 	g.s.bMute = sOldSettings.bMute;
 	g.s.bDeaf = sOldSettings.bDeaf;
 	g.s.lmLoopMode = Settings::None;
+	g.s.qmShortcuts.insert(g.mw->gsPushTalk->id(), skwPTT->qlButtons);
 	g.bEchoTest = false;
 	g.bPosTest = false;
+	GlobalShortcutEngine::engine->bNeedRemap = true;
+	GlobalShortcutEngine::engine->needRemap();
 	restartAudio();
 	QWizard::accept();
 }
@@ -745,13 +790,35 @@ void AudioWizard::on_Holdtime_valueChanged(int v) {
 }
 
 void AudioWizard::on_SNR_clicked(bool on) {
-	if (on)
+	if (on) {
 		g.s.vsVAD = Settings::SignalToNoise;
+		updateTriggerWidgets(false);
+		bTransmitChanged = true;
+	}
 }
 
 void AudioWizard::on_Amplitude_clicked(bool on) {
-	if (on)
+	if (on) {
 		g.s.vsVAD = Settings::Amplitude;
+		updateTriggerWidgets(false);
+		bTransmitChanged = true;
+	}
+}
+
+void AudioWizard::on_PTT_clicked(bool on) {
+	if (on) {
+		updateTriggerWidgets(true);
+		bTransmitChanged = true;
+	}
+}
+
+void AudioWizard::on_PTTKey_keySet(bool valid) {
+	if (valid)
+		qrPTT->setChecked(true);
+	else if (qrPTT->isChecked())
+		qrSNR->setChecked(true);
+	updateTriggerWidgets(valid);
+	bTransmitChanged = true;
 }
 
 void AudioWizard::on_Echo_clicked(bool on) {
@@ -767,4 +834,9 @@ void AudioWizard::on_Headphone_clicked(bool on) {
 void AudioWizard::on_Positional_clicked(bool on) {
 	g.s.bPositionalAudio = on;
 	restartAudio();
+}
+
+void AudioWizard::updateTriggerWidgets(bool ptt) {
+	qwVAD->setEnabled(!ptt);
+	qwpTrigger->setComplete(!ptt || (skwPTT->qlButtons.count() > 0));
 }

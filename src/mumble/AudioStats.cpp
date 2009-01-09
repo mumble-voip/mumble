@@ -48,6 +48,16 @@ AudioBar::AudioBar(QWidget *p) : QWidget(p) {
 void AudioBar::paintEvent(QPaintEvent *) {
 	QPainter p(this);
 
+	if (isEnabled()) {
+		qcBelow.setAlphaF(1.0f);
+		qcAbove.setAlphaF(1.0f);
+		qcInside.setAlphaF(1.0f);
+	} else {
+		qcBelow.setAlphaF(0.5f);
+		qcAbove.setAlphaF(0.5f);
+		qcInside.setAlphaF(0.5f);
+	}
+
 	if (iBelow > iAbove)
 		iBelow = iAbove;
 

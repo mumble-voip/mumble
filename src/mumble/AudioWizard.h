@@ -34,6 +34,16 @@
 #include "Settings.h"
 #include "AudioStats.h"
 #include "AudioOutput.h"
+#include "GlobalShortcut.h"
+
+class CompletablePage : public QWizardPage {
+	protected:
+		bool bComplete;
+	public:
+		CompletablePage(QWizard *p = NULL);
+		void setComplete(bool);
+		bool isComplete() const;
+};
 
 class AudioWizard: public QWizard {
 	private:
@@ -51,9 +61,12 @@ class AudioWizard: public QWizard {
 		AudioBar *abAmplify;
 		QSlider *qsMaxAmp;
 
+		QWidget *qwVAD;
 		AudioBar *abVAD;
-		QRadioButton *qrAmplitude, *qrSNR;
+		QRadioButton *qrAmplitude, *qrSNR, *qrPTT;
 		QSlider *qsMinVAD, *qsMaxVAD;
+		ShortcutKeyWidget *skwPTT;
+		bool bTransmitChanged;
 
 		QSlider *qsHoldtime;
 		QLabel *qlHoldtime;
@@ -68,15 +81,15 @@ class AudioWizard: public QWizard {
 		float fAngle;
 		float fX, fY;
 
-		QWizardPage *qwpIntro, *qwpDevice, *qwpVolume, *qwpTrigger, *qwpDeviceTuning, *qwpPositional, *qwpDone;
+		CompletablePage *qwpIntro, *qwpDevice, *qwpVolume, *qwpTrigger, *qwpDeviceTuning, *qwpPositional, *qwpDone;
 
-		QWizardPage *introPage();
-		QWizardPage *devicePage();
-		QWizardPage *volumePage();
-		QWizardPage *triggerPage();
-		QWizardPage *deviceTuningPage();
-		QWizardPage *positionalPage();
-		QWizardPage *donePage();
+		CompletablePage *introPage();
+		CompletablePage *devicePage();
+		CompletablePage *volumePage();
+		CompletablePage *triggerPage();
+		CompletablePage *deviceTuningPage();
+		CompletablePage *positionalPage();
+		CompletablePage *donePage();
 
 		Settings sOldSettings;
 
@@ -104,10 +117,13 @@ class AudioWizard: public QWizard {
 		void on_Holdtime_valueChanged(int);
 		void on_Amplitude_clicked(bool);
 		void on_SNR_clicked(bool);
+		void on_PTT_clicked(bool);
 		void on_Echo_clicked(bool);
 		void on_Headphone_clicked(bool);
 		void on_Positional_clicked(bool);
+		void on_PTTKey_keySet(bool);
 		void showPage(int);
+		void updateTriggerWidgets(bool);
 	public:
 		AudioWizard(QWidget *parent);
 		void reject();
