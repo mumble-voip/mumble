@@ -137,7 +137,7 @@ module Murmur
 		idempotent void updateregistration(RegisteredPlayer registration) throws ServerBootedException, InvalidPlayerException;
 		idempotent RegisteredPlayer getRegistration(int playerid) throws ServerBootedException, InvalidPlayerException;
 		idempotent RegisteredPlayerList getRegisteredPlayers(string filter) throws ServerBootedException;
-		idempotent int verifyPassword(string playerid, string pw) throws ServerBootedException;
+		idempotent int verifyPassword(string name, string pw) throws ServerBootedException;
 		idempotent Texture getTexture(int playerid) throws ServerBootedException, InvalidPlayerException;
 		idempotent void setTexture(int playerid, Texture tex) throws ServerBootedException, InvalidPlayerException, InvalidTextureException;
 	};
