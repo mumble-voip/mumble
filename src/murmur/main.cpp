@@ -295,8 +295,12 @@ int main(int argc, char **argv) {
 		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete qfLog;
 			qfLog = NULL;
+#ifdef Q_OS_UNIX
+			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",qPrintable(Meta::mp.qsLogfile));
+#else
 			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
 			detach = false;
+#endif
 		} else {
 			qfLog->setTextModeEnabled(true);
 			QFileInfo qfi(*qfLog);
