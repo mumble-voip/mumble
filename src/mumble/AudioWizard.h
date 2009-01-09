@@ -37,6 +37,7 @@
 #include "GlobalShortcut.h"
 
 class CompletablePage : public QWizardPage {
+		Q_OBJECT
 	protected:
 		bool bComplete;
 	public:
@@ -80,6 +81,8 @@ class AudioWizard: public QWizard {
 		AudioSine *asSource;
 		float fAngle;
 		float fX, fY;
+
+		QCheckBox *qcbUsage;
 
 		CompletablePage *qwpIntro, *qwpDevice, *qwpVolume, *qwpTrigger, *qwpDeviceTuning, *qwpPositional, *qwpDone;
 

@@ -40,7 +40,7 @@ Usage::Usage(QObject *parent) : QObject(parent) {
 }
 
 void Usage::registerUsage() {
-	if (! g.s.bUsage)
+	if (! g.s.bUsage || g.s.bFirstTime)
 		return;
 
 	QDomDocument doc;
@@ -50,28 +50,51 @@ void Usage::registerUsage() {
 	QDomElement tag;
 	QDomText t;
 
+	QString machash;
+
+	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
+		if (! qni.isValid())
+			continue;
+		if (! (qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
+			continue;
+		if (qni.hardwareAddress().isEmpty())
+			continue;
+
+		bool found = false;
+		foreach(const QNetworkAddressEntry &qnae, qni.addressEntries()) {
+			const QHostAddress &qha = qnae.ip();
+			if (qha.protocol() ==  QAbstractSocket::IPv4Protocol) {
+				found = true;
+			}
+		}
+		if (found) {
+			machash = QString::fromAscii(QCryptographicHash::hash(qni.hardwareAddress().toAscii(), QCryptographicHash::Sha1).toHex());
+		}
+	}
+
+	tag=doc.createElement(QLatin1String("machash"));
+	root.appendChild(tag);
+	t=doc.createTextNode(machash);
+	tag.appendChild(t);
+
 	tag=doc.createElement(QLatin1String("version"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("release"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QLatin1String(MUMBLE_RELEASE));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("os"));
 	root.appendChild(tag);
-
 #if defined(Q_WS_WIN)
 	t=doc.createTextNode(QLatin1String("Win"));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("osver"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QString::number(QSysInfo::WindowsVersion, 16));
 	tag.appendChild(t);
 #elif defined(Q_WS_MAC)
@@ -80,7 +103,6 @@ void Usage::registerUsage() {
 
 	tag=doc.createElement(QLatin1String("osver"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QString::number(QSysInfo::MacintoshVersion, 16));
 	tag.appendChild(t);
 #else
@@ -88,28 +110,38 @@ void Usage::registerUsage() {
 	tag.appendChild(t);
 #endif
 
+	bool bIs64;
+#if defined(Q_WS_WIN)
+	BOOL bIsWow64 = FALSE;
+	IsWow64Process(GetCurrentProcess(), &bIsWow64);
+	bIs64 = bIsWow64;
+#else
+	bIs64 = (QSysInfo::WordSize == 64);
+#endif
+
+	tag=doc.createElement(QLatin1String("is64bit"));
+	root.appendChild(tag);
+	t=doc.createTextNode(QString::number(bIs64 ? 1 : 0));
+	tag.appendChild(t);
+
 	tag=doc.createElement(QLatin1String("qt"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QLatin1String(qVersion()));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("in"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(g.s.qsAudioInput);
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("out"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(g.s.qsAudioOutput);
 	tag.appendChild(t);
 
 	qhHttp.setHost(QLatin1String("mumble.hive.no"), 80);
 
 	QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/usage.cgi"));
-//	h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
 	h.setValue(QLatin1String("Host"), QLatin1String("mumble.hive.no"));
 	h.setContentType(QLatin1String("text/xml"));
 	qhHttp.request(h, doc.toString().toUtf8());

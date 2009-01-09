@@ -71,7 +71,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	g.s.lmLoopMode = Settings::Local;
 	g.s.dPacketLoss = 0.0;
 	g.s.dMaxPacketDelay = 0.0;
-	g.s.bMute = false;
+	g.s.bMute = true;
 	g.s.bDeaf = false;
 
 	g.s.atTransmit = Settings::Continous;
@@ -133,9 +133,21 @@ CompletablePage *AudioWizard::donePage() {
 	qwpage->setTitle(tr("Finished"));
 	qwpage->setSubTitle(tr("Enjoy using Mumble"));
 	QVBoxLayout *v=new QVBoxLayout(qwpage);
+
 	QLabel *label=new QLabel(tr("Congratulations. You should now be ready to enjoy a richer sound experience with Mumble."), qwpage);
 	label->setWordWrap(true);
 	v->addWidget(label);
+
+	label=new QLabel(tr("Mumble is under continous development, and the development teams wants to focus on features "
+						"that benefit the most users. To this end, Mumble supports submitting anonymous statistics "
+						"about your configuration to the developers, which are essential for future development, and also "
+						"make sure the features you use aren't deprecated."));
+	label->setWordWrap(true);
+	v->addWidget(label);
+
+	qcbUsage = new QCheckBox(tr("Submit anonymous statistics to the Mumble project"));
+	qcbUsage->setChecked(g.s.bUsage);
+	v->addWidget(qcbUsage);
 
 	return qwpage;
 }
@@ -593,19 +605,24 @@ void AudioWizard::on_MaxAmp_valueChanged(int v) {
 	g.s.iMinLoudness = qMin(v, 30000);
 }
 
-void AudioWizard::showPage(int v) {
+void AudioWizard::showPage(int) {
+	CompletablePage *cp = qobject_cast<CompletablePage *>(currentPage());
+
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
 	asSource = NULL;
 
-	g.s.bMute = false;
 	g.bPosTest = false;
 
-	if (v == 2) {
+	if (cp == qwpIntro) {
+		g.s.bMute = true;
+	} else if (cp == qwpDone) {
+		g.s.bMute = true;
+	} else if (cp == qwpDeviceTuning) {
 		g.s.bMute = true;
 		ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
-	} else if (v == 5) {
+	} else if (cp == qwpPositional) {
 		fX = fY = 0.0f;
 		g.s.bMute = true;
 		g.bPosTest = true;
@@ -615,6 +632,8 @@ void AudioWizard::showPage(int v) {
 			qgsScene = NULL;
 		}
 		playChord();
+	} else {
+		g.s.bMute = false;
 	}
 }
 
@@ -687,6 +706,7 @@ void AudioWizard::accept() {
 	g.s.bDeaf = sOldSettings.bDeaf;
 	g.s.lmLoopMode = Settings::None;
 	g.s.qmShortcuts.insert(g.mw->gsPushTalk->id(), skwPTT->qlButtons);
+	g.s.bUsage = qcbUsage->isChecked();
 	g.bEchoTest = false;
 	g.bPosTest = false;
 	GlobalShortcutEngine::engine->bNeedRemap = true;
