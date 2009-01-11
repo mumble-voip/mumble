@@ -1204,7 +1204,7 @@ void Server::dblog(const char *str) {
 
 	SQLPREP("INSERT INTO %1slog (server_id, msg) VALUES(?,?)");
 	query.addBindValue(iServerNum);
-	query.addBindValue(QLatin1String(str));
+	query.addBindValue(str);
 	SQLEXEC();
 }
 
