@@ -33,6 +33,7 @@
 #include "Usage.h"
 #include "Version.h"
 #include "Global.h"
+#include "OSInfo.h"
 
 Usage::Usage(QObject *parent) : QObject(parent) {
 	// Wait 10 minutes (so we know they're actually using this), then...
@@ -49,85 +50,8 @@ void Usage::registerUsage() {
 
 	QDomElement tag;
 	QDomText t;
-
-	QString machash;
-
-	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
-		if (! qni.isValid())
-			continue;
-		if (! (qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
-			continue;
-		if (qni.hardwareAddress().isEmpty())
-			continue;
-
-		bool found = false;
-		foreach(const QNetworkAddressEntry &qnae, qni.addressEntries()) {
-			const QHostAddress &qha = qnae.ip();
-			if (qha.protocol() ==  QAbstractSocket::IPv4Protocol) {
-				found = true;
-			}
-		}
-		if (found) {
-			machash = QString::fromAscii(QCryptographicHash::hash(qni.hardwareAddress().toAscii(), QCryptographicHash::Sha1).toHex());
-		}
-	}
-
-	tag=doc.createElement(QLatin1String("machash"));
-	root.appendChild(tag);
-	t=doc.createTextNode(machash);
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("version"));
-	root.appendChild(tag);
-	t=doc.createTextNode(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("release"));
-	root.appendChild(tag);
-	t=doc.createTextNode(QLatin1String(MUMBLE_RELEASE));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("os"));
-	root.appendChild(tag);
-#if defined(Q_WS_WIN)
-	t=doc.createTextNode(QLatin1String("Win"));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("osver"));
-	root.appendChild(tag);
-	t=doc.createTextNode(QString::number(QSysInfo::WindowsVersion, 16));
-	tag.appendChild(t);
-#elif defined(Q_WS_MAC)
-	t=doc.createTextNode(QLatin1String("OSX"));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("osver"));
-	root.appendChild(tag);
-	t=doc.createTextNode(QString::number(QSysInfo::MacintoshVersion, 16));
-	tag.appendChild(t);
-#else
-	t=doc.createTextNode(QLatin1String("X11"));
-	tag.appendChild(t);
-#endif
-
-	bool bIs64;
-#if defined(Q_WS_WIN)
-	BOOL bIsWow64 = FALSE;
-	IsWow64Process(GetCurrentProcess(), &bIsWow64);
-	bIs64 = bIsWow64;
-#else
-	bIs64 = (QSysInfo::WordSize == 64);
-#endif
-
-	tag=doc.createElement(QLatin1String("is64bit"));
-	root.appendChild(tag);
-	t=doc.createTextNode(QString::number(bIs64 ? 1 : 0));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("qt"));
-	root.appendChild(tag);
-	t=doc.createTextNode(QLatin1String(qVersion()));
-	tag.appendChild(t);
+	
+	OSInfo::fillXml(doc, root);
 
 	tag=doc.createElement(QLatin1String("in"));
 	root.appendChild(tag);

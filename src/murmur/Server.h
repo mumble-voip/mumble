@@ -137,6 +137,8 @@ class Server : public QThread, public MessageHandler {
 		QSslKey qskKey;
 		QByteArray qbaPassPhrase;
 
+		bool bValid;
+
 		void readParams();
 
 		// Registration, implementation in Register.cpp

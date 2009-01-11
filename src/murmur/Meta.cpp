@@ -32,6 +32,7 @@
 #include "Server.h"
 #include "Meta.h"
 #include "DBus.h"
+#include "OSInfo.h"
 
 MetaParams Meta::mp;
 
@@ -262,6 +263,8 @@ void MetaParams::read(QString fname) {
 }
 
 Meta::Meta() {
+	qsOS = OSInfo::getOS();
+	qsOSVersion = OSInfo::getOSVersion();
 }
 
 void Meta::bootAll() {
@@ -276,7 +279,8 @@ bool Meta::boot(int srvnum) {
 	if (! ServerDB::serverExists(srvnum))
 		return false;
 	Server *s = new Server(srvnum, this);
-	s->start(QThread::HighestPriority);
+	if (s->bValid)
+		s->start(QThread::HighestPriority);
 	qhServers.insert(srvnum, s);
 	return true;
 }

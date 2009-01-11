@@ -75,7 +75,7 @@ class WASAPIInputRegistrar : public AudioInputRegistrar {
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &);
+		virtual bool canEcho(const QString &) const;
 };
 
 class WASAPIOutputRegistrar : public AudioOutputRegistrar {
@@ -146,7 +146,7 @@ void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) 
 	s.qsWASAPIInput = choice.toString();
 }
 
-bool WASAPIInputRegistrar::canEcho(const QString &outputsys) {
+bool WASAPIInputRegistrar::canEcho(const QString &outputsys) const {
 	return (outputsys == name);
 }
 

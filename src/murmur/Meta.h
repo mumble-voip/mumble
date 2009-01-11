@@ -97,6 +97,7 @@ class Meta : public QObject {
 		QHash<int, Server *> qhServers;
 		QHash<QHostAddress, QList<Timer> > qhAttempts;
 		QHash<QHostAddress, Timer> qhBans;
+		QString qsOS, qsOSVersion;
 
 		Meta();
 		void bootAll();

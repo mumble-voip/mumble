@@ -32,6 +32,7 @@
 
 #include "Server.h"
 #include "Version.h"
+#include "OSInfo.h"
 
 void Server::initRegister() {
 	http = NULL;
@@ -68,100 +69,50 @@ void Server::update() {
 	QDomDocument doc;
 	QDomElement root=doc.createElement(QLatin1String("server"));
 	doc.appendChild(root);
+	
+	OSInfo::fillXml(doc, root, meta->qsOS, meta->qsOSVersion, qhaBind);
 
 	QDomElement tag;
 	QDomText t;
 
 	tag=doc.createElement(QLatin1String("name"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(qsRegName);
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("host"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(qsRegHost);
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("password"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(qsRegPassword);
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("port"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QString::number(usPort));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("url"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(qurlRegWeb.toString());
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("digest"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(getDigest());
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("users"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QString::number(qhUsers.count()));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("channels"));
 	root.appendChild(tag);
-
 	t=doc.createTextNode(QString::number(qhChannels.count()));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("version"));
-	root.appendChild(tag);
-
-	t=doc.createTextNode(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("release"));
-	root.appendChild(tag);
-
-	t=doc.createTextNode(QLatin1String(MUMBLE_RELEASE));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("os"));
-	root.appendChild(tag);
-
-#if defined(Q_WS_WIN)
-	t=doc.createTextNode(QLatin1String("Win"));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("osver"));
-	root.appendChild(tag);
-
-	t=doc.createTextNode(QString::number(QSysInfo::WindowsVersion, 16));
-	tag.appendChild(t);
-#elif defined(Q_WS_MAC)
-	t=doc.createTextNode(QLatin1String("OSX"));
-	tag.appendChild(t);
-
-	tag=doc.createElement(QLatin1String("osver"));
-	root.appendChild(tag);
-
-	t=doc.createTextNode(QString::number(QSysInfo::MacintoshVersion, 16));
-	tag.appendChild(t);
-#else
-	t=doc.createTextNode(QLatin1String("X11"));
-	tag.appendChild(t);
-#endif
-
-	tag=doc.createElement(QLatin1String("qt"));
-	root.appendChild(tag);
-
-	t=doc.createTextNode(qVersion());
 	tag.appendChild(t);
 
 	qssReg = new QSslSocket(this);

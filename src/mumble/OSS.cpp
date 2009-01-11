@@ -70,7 +70,7 @@ class OSSInputRegistrar : public AudioInputRegistrar {
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &);
+		virtual bool canEcho(const QString &) const;
 };
 
 
@@ -114,7 +114,7 @@ void OSSInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
 	s.qsOSSInput = choice.toString();
 }
 
-bool OSSInputRegistrar::canEcho(const QString &) {
+bool OSSInputRegistrar::canEcho(const QString &) const {
 	return false;
 }
 

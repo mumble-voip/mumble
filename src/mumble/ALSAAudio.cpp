@@ -52,7 +52,7 @@ class ALSAAudioInputRegistrar : public AudioInputRegistrar {
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &);
+		virtual bool canEcho(const QString &) const;
 };
 
 
@@ -136,7 +136,7 @@ void ALSAAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &
 	s.qsALSAInput = choice.toString();
 }
 
-bool ALSAAudioInputRegistrar::canEcho(const QString &) {
+bool ALSAAudioInputRegistrar::canEcho(const QString &) const {
 	return false;
 }
 

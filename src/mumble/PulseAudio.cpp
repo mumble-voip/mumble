@@ -48,7 +48,7 @@ class PulseAudioInputRegistrar : public AudioInputRegistrar {
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &);
+		virtual bool canEcho(const QString &) const;
 };
 
 
@@ -585,7 +585,7 @@ void PulseAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 	s.qsPulseAudioInput = choice.toString();
 }
 
-bool PulseAudioInputRegistrar::canEcho(const QString &osys) {
+bool PulseAudioInputRegistrar::canEcho(const QString &osys) const {
 	return (osys == name);
 }
 

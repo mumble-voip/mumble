@@ -45,7 +45,7 @@ class ASIOAudioInputRegistrar : public AudioInputRegistrar {
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &);
+		virtual bool canEcho(const QString &) const;
 
 };
 
@@ -60,7 +60,7 @@ const QList<audioDevice> ASIOAudioInputRegistrar::getDeviceChoices() {
 	return qlReturn;
 }
 
-bool ASIOAudioInputRegistrar::canEcho(const QString &) {
+bool ASIOAudioInputRegistrar::canEcho(const QString &) const {
 	return true;
 }
 

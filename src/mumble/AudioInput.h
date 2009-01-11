@@ -55,7 +55,7 @@ class AudioInputRegistrar {
 		virtual AudioInput *create() = 0;
 		virtual const QList<audioDevice> getDeviceChoices() = 0;
 		virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
-		virtual bool canEcho(const QString &outputsys) = 0;
+		virtual bool canEcho(const QString &outputsys) const = 0;
 };
 
 class AudioInput : public QThread {

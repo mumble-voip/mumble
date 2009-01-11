@@ -76,6 +76,7 @@ User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 
 
 Server::Server(int snum, QObject *p) : QThread(p) {
+	bValid = true;
 	iServerNum = snum;
 
 	readParams();
@@ -85,42 +86,47 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
-	if (! qtsServer->listen(qhaBind, usPort))
+	if (! qtsServer->listen(qhaBind, usPort)) {
 		log("Server: TCP Listen on port %d failed",usPort);
+		bValid = false;
+	} else {
+		log("Server listening on port %d",usPort);
+	}
 
-	log("Server listening on port %d",usPort);
+	sUdpSocket = INVALID_SOCKET;
 
+	if (bValid) {
 #ifdef Q_OS_UNIX
-	sUdpSocket = ::socket(PF_INET, SOCK_DGRAM, 0);
+		sUdpSocket = ::socket(PF_INET, SOCK_DGRAM, 0);
 #else
-
 #ifndef SIO_UDP_CONNRESET
 #define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR,12)
 #endif
-
-	sUdpSocket = ::WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
-	DWORD dwBytesReturned = 0;
-	BOOL bNewBehaviour = FALSE;
-	if (WSAIoctl(sUdpSocket, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
-		log("Failed to set SIO_UDP_CONNRESET: %d", WSAGetLastError());
-	}
+		sUdpSocket = ::WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
+		DWORD dwBytesReturned = 0;
+		BOOL bNewBehaviour = FALSE;
+		if (WSAIoctl(sUdpSocket, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
+			log("Failed to set SIO_UDP_CONNRESET: %d", WSAGetLastError());
+		}
 #endif
-	if (sUdpSocket == INVALID_SOCKET) {
-		log("Failed to create UDP Socket");
-	} else {
-		struct sockaddr_in addr;
-		memset(&addr, 0, sizeof(addr));
-		addr.sin_family = AF_INET;
-		addr.sin_port = htons(usPort);
-		addr.sin_addr.s_addr = htonl(qhaBind.toIPv4Address());
-		if (::bind(sUdpSocket, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) == SOCKET_ERROR) {
-			log("Failed to bind UDP Socket to port %d", usPort);
+		if (sUdpSocket == INVALID_SOCKET) {
+			log("Failed to create UDP Socket");
+			bValid = false;
 		} else {
+			struct sockaddr_in addr;
+			memset(&addr, 0, sizeof(addr));
+			addr.sin_family = AF_INET;
+			addr.sin_port = htons(usPort);
+			addr.sin_addr.s_addr = htonl(qhaBind.toIPv4Address());
+			if (::bind(sUdpSocket, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) == SOCKET_ERROR) {
+				log("Failed to bind UDP Socket to port %d", usPort);
+			} else {
 #ifdef Q_OS_UNIX
-			int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
-			if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-				log("Server: Failed to set TOS for UDP Socket");
+				int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
+				if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+					log("Server: Failed to set TOS for UDP Socket");
 #endif
+			}
 		}
 	}
 
@@ -137,8 +143,10 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	getBans();
 	readChannels();
 	readLinks();
-	initRegister();
 	initializeCert();
+
+	if (bValid)
+		initRegister();
 
 	dbus = new MurmurDBus(this);
 	if (MurmurDBus::qdbc.isConnected())

@@ -40,7 +40,7 @@ class PortAudioInputRegistrar : public AudioInputRegistrar {
 		virtual AudioInput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
-		virtual bool canEcho(const QString &);
+		virtual bool canEcho(const QString &) const;
 };
 
 class PortAudioOutputRegistrar : public AudioOutputRegistrar {
@@ -106,7 +106,7 @@ void PortAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &
 	s.iPortAudioInput = choice.toInt();
 }
 
-bool PortAudioInputRegistrar::canEcho(const QString &) {
+bool PortAudioInputRegistrar::canEcho(const QString &) const {
 	return false;
 }
 
