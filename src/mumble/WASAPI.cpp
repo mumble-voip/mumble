@@ -613,6 +613,7 @@ void WASAPIOutput::run() {
 	int ns = 0;
 	unsigned int chanmasks[32];
 	QMap<DWORD, float> qmVolumes;
+	bool lastspoke = false;
 
 	CoInitialize(NULL);
 
@@ -704,8 +705,6 @@ void WASAPIOutput::run() {
 
 	iChannels = pwfx->nChannels;
 	initializeMixer(chanmasks);
-
-	bool lastspoke = false;
 
 	while (bRunning && ! FAILED(hr)) {
 		hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);

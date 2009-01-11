@@ -49,6 +49,9 @@ Page custom PageReinstall PageLeaveReinstall
   !define MUI_FINISHPAGE_SHOWREADME
   !define MUI_FINISHPAGE_SHOWREADME_TEXT "Create Desktop Shortcut"
   !define MUI_FINISHPAGE_SHOWREADME_FUNCTION Desktop_Shortcut
+  
+  !define MUI_FINISHPAGE_RUN $INSTDIR\mumble.exe
+  !define MUI_FINISHPAGE_RUN_TEXT "Start Mumble"
 
   !define MUI_FINISHPAGE_LINK "Donate to the Mumble project"
   !define MUI_FINISHPAGE_LINK_LOCATION "https://sourceforge.net/project/project_donations.php?group_id=147372"
