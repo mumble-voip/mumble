@@ -42,6 +42,7 @@ Settings::Settings() {
 	iTTSThreshold = 250;
 	iQuality = 6;
 	fVolume = 1.0f;
+	fOtherVolume = 0.5f;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
@@ -185,6 +186,7 @@ void Settings::load() {
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
+	SAVELOAD(fOtherVolume, "audio/othervolume");
 	LOADENUM(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
@@ -318,6 +320,7 @@ void Settings::save() {
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
+	SAVELOAD(fOtherVolume, "audio/othervolume");
 	SAVELOAD(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");

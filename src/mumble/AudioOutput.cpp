@@ -79,6 +79,10 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	return AudioOutputPtr();
 }
 
+bool AudioOutputRegistrar::canMuteOthers() const {
+	return false;
+}
+
 AudioOutputPlayer::AudioOutputPlayer(const QString name) : qsName(name) {
 	iBufferSize = 0;
 	pfBuffer = NULL;

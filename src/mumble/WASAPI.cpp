@@ -34,6 +34,41 @@
 #include "MainWindow.h"
 #include "Timer.h"
 
+// Note that these interfaces are incomplete. They're not published, so I
+// have no idea what they're actually called or what the methods are
+// supposed to be named.
+
+MIDL_INTERFACE("33969B1D-D06F-4281-B837-7EAAFD21A9C0")
+IRemoteAudioSession : public IUnknown
+{
+	virtual HRESULT STDMETHODCALLTYPE _a() = 0;
+	virtual HRESULT STDMETHODCALLTYPE _b() = 0; // 0x10
+	virtual HRESULT STDMETHODCALLTYPE _c() = 0;
+	virtual HRESULT STDMETHODCALLTYPE _d() = 0;
+	virtual HRESULT STDMETHODCALLTYPE _e() = 0;
+	virtual HRESULT STDMETHODCALLTYPE _f() = 0; // 0x20
+	virtual HRESULT STDMETHODCALLTYPE _g() = 0;
+	virtual HRESULT STDMETHODCALLTYPE _h() = 0;
+	virtual HRESULT STDMETHODCALLTYPE _i() = 0;
+	virtual HRESULT STDMETHODCALLTYPE _j() = 0; // 0x30
+	virtual HRESULT STDMETHODCALLTYPE _k() = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetProcessId(DWORD *) = 0;
+};
+
+// No idea what it's REFIID actually is.
+MIDL_INTERFACE("94BE9D30-53AC-4802-829C-F13E5AD34776")
+IAudioQuerier : public IUnknown
+{
+	virtual HRESULT STDMETHODCALLTYPE GetNumSessions(DWORD *) = 0;
+	virtual HRESULT STDMETHODCALLTYPE QuerySession(DWORD, IUnknown **) = 0;
+};
+
+MIDL_INTERFACE("94BE9D30-53AC-4802-829C-F13E5AD34775")
+IAudioSessionQuery : public IUnknown
+{
+	virtual HRESULT STDMETHODCALLTYPE GetQueryInterface(IAudioQuerier **) = 0;
+};
+
 class WASAPIInputRegistrar : public AudioInputRegistrar {
 	public:
 		WASAPIInputRegistrar();
@@ -49,6 +84,7 @@ class WASAPIOutputRegistrar : public AudioOutputRegistrar {
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
+		bool canMuteOthers() const;
 };
 
 class WASAPIInit : public DeferInit {
@@ -127,6 +163,10 @@ const QList<audioDevice> WASAPIOutputRegistrar::getDeviceChoices() {
 
 void WASAPIOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
 	s.qsWASAPIOutput = choice.toString();
+}
+
+bool WASAPIOutputRegistrar::canMuteOthers() const {
+	return true;
 }
 
 const QHash<QString, QString> WASAPISystem::getInputDevices() {
@@ -484,6 +524,75 @@ WASAPIOutput::~WASAPIOutput() {
 	wait();
 }
 
+void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
+	IAudioSessionManager *pAudioSessionManager = NULL;
+	IAudioSessionQuery *pMysticQuery = NULL;
+	IAudioQuerier *pAudioQuerier = NULL;
+	DWORD max = 0;
+	HRESULT hr;
+	DWORD dwMumble = GetCurrentProcessId();
+
+	if (talking) {
+		qmVolumes.clear();
+		if (qFuzzyCompare(g.s.fOtherVolume, 1.0f))
+			return;
+	} else if (qmVolumes.isEmpty()) {
+		return;
+	}
+
+	;
+	if (SUCCEEDED(hr = pDevice->Activate(__uuidof(IAudioSessionManager), CLSCTX_ALL, NULL, (void **) &pAudioSessionManager))) {
+		if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(__uuidof(IAudioSessionQuery), (void **) &pMysticQuery))) {
+			if (SUCCEEDED(hr = pMysticQuery->GetQueryInterface(&pAudioQuerier))) {
+				if (SUCCEEDED(hr = pAudioQuerier->GetNumSessions(&max))) {
+					for(int i=0;i<max;++i) {
+						IUnknown *pUnknown = NULL;
+						if (SUCCEEDED(hr = pAudioQuerier->QuerySession(i, &pUnknown))) {
+							IRemoteAudioSession *prem = NULL;
+							if (SUCCEEDED(hr = pUnknown->QueryInterface(__uuidof(IRemoteAudioSession), (void **) &prem))) {
+								DWORD pid = 0;
+								if (SUCCEEDED(hr = prem->GetProcessId(&pid)) && pid && (pid != dwMumble)) {
+									ISimpleAudioVolume *isav = NULL;
+									if (SUCCEEDED(hr = prem->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &isav))) {
+										if (talking) {
+											BOOL bMute = TRUE;
+											if (SUCCEEDED(hr = isav->GetMute(&bMute)) && ! bMute) {
+												float fVolume = 1.0f;
+												if (SUCCEEDED(hr = isav->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
+													float fSetVolume = fVolume * g.s.fOtherVolume;
+													if (SUCCEEDED(hr = isav->SetMasterVolume(fSetVolume, NULL))) {
+														hr = isav->GetMasterVolume(&fSetVolume);
+														qmVolumes.insert(pid, VolumePair(fVolume,fSetVolume));
+													}
+												}
+											}
+										} else {
+											VolumePair vp = qmVolumes.value(pid);
+											if (vp.first) {
+												float fVolume = 1.0f;
+												hr = isav->GetMasterVolume(&fVolume);
+												if (qFuzzyCompare(fVolume, vp.second)) {
+													isav->SetMasterVolume(vp.first, NULL);
+												}
+											}
+										}
+										isav->Release();
+									}
+								}
+								prem->Release();
+							}
+							pUnknown->Release();
+						}
+					}
+				}
+				pAudioQuerier->Release();
+			}
+			pMysticQuery->Release();
+		}
+		pAudioSessionManager->Release();
+	}
+}
+
 void WASAPIOutput::run() {
 	HRESULT hr;
 	IMMDeviceEnumerator *pEnumerator = NULL;
@@ -503,6 +612,7 @@ void WASAPIOutput::run() {
 	HANDLE hMmThread;
 	int ns = 0;
 	unsigned int chanmasks[32];
+	QMap<DWORD, float> qmVolumes;
 
 	CoInitialize(NULL);
 
@@ -595,6 +705,8 @@ void WASAPIOutput::run() {
 	iChannels = pwfx->nChannels;
 	initializeMixer(chanmasks);
 
+	bool lastspoke = false;
+
 	while (bRunning && ! FAILED(hr)) {
 		hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
 		if (FAILED(hr))
@@ -615,6 +727,11 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
+			if (lastspoke != mixed) {
+				lastspoke = mixed;
+				setVolumes(pDevice, mixed);
+			}
+
 			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
 			if (FAILED(hr))
 				goto cleanup;
@@ -628,6 +745,8 @@ void WASAPIOutput::run() {
 cleanup:
 	if (pwfx)
 		CoTaskMemFree(pwfx);
+
+	setVolumes(pDevice, false);
 
 	if (pAudioClient) {
 		pAudioClient->Stop();

@@ -44,6 +44,7 @@
 #include <propidl.h>
 #include <initguid.h>
 #include <delayimp.h>
+#include <Audiopolicy.h>
 
 class WASAPISystem : public QObject {
 	private:
@@ -70,6 +71,10 @@ class WASAPIOutput : public AudioOutput {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(WASAPIOutput)
+	protected:
+		typedef QPair<float, float> VolumePair;
+		QMap<DWORD, VolumePair> qmVolumes;
+		void setVolumes(IMMDevice *, bool talking);
 	public:
 		WASAPIOutput();
 		~WASAPIOutput();

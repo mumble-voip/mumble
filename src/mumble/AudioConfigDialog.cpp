@@ -337,6 +337,7 @@ void AudioOutputDialog::load(const Settings &r) {
 
 	loadSlider(qsDelay, r.iOutputDelay);
 	loadSlider(qsVolume, static_cast<int>(lroundf(r.fVolume * 100.0)));
+	loadSlider(qsOtherVolume, static_cast<int>(lroundf(r.fOtherVolume * 100.0)));
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
@@ -352,6 +353,7 @@ void AudioOutputDialog::load(const Settings &r) {
 void AudioOutputDialog::save() const {
 	s.iOutputDelay = qsDelay->value();
 	s.fVolume = static_cast<float>(qsVolume->value()) / 100.0f;
+	s.fOtherVolume = static_cast<float>(qsOtherVolume->value()) / 100.0f;
 	s.iJitterBufferSize = qsJitter->value();
 	s.qsAudioOutput = qcbSystem->currentText();
 	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
@@ -363,6 +365,7 @@ void AudioOutputDialog::save() const {
 	s.fAudioBloom = static_cast<float>(qsBloom->value()) / 100.0f;
 	s.bPositionalAudio = qcbPositional->isChecked();
 	s.bPositionalHeadphone = qcbHeadphones->isChecked();
+
 
 	if (AudioOutputRegistrar::qmNew) {
 		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
@@ -389,6 +392,9 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		foreach(audioDevice d, ql) {
 			qcbDevice->addItem(d.first, d.second);
 		}
+		bool canmute = aor->canMuteOthers();
+		qsOtherVolume->setEnabled(canmute);
+		qlOtherVolume->setEnabled(canmute);
 	}
 
 	qcbDevice->setEnabled(ql.count() > 1);
@@ -407,6 +413,10 @@ void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
 	qlVolume->setPalette(pal);
 
 	qlVolume->setText(tr("%1%").arg(v));
+}
+
+void AudioOutputDialog::on_qsOtherVolume_valueChanged(int v) {
+	qlOtherVolume->setText(tr("%1%").arg(v));
 }
 
 void AudioOutputDialog::on_qsPacketDelay_valueChanged(int v) {

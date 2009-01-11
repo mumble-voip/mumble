@@ -80,6 +80,7 @@ class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
 		void on_qsDelay_valueChanged(int v);
 		void on_qsJitter_valueChanged(int v);
 		void on_qsVolume_valueChanged(int v);
+		void on_qsOtherVolume_valueChanged(int v);
 		void on_qsPacketDelay_valueChanged(int v);
 		void on_qsPacketLoss_valueChanged(int v);
 		void on_qcbLoopback_currentIndexChanged(int v);

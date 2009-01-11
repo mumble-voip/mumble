@@ -66,6 +66,7 @@ struct Settings {
 	int iFramesPerPacket;
 	QString qsAudioInput, qsAudioOutput;
 	float fVolume;
+	float fOtherVolume;
 	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;
