@@ -1458,32 +1458,32 @@
     <message>
         <location filename="AudioInput.ui" line="270"/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">現在の発言検出見込み</translation>
+        <translation>現在の発言検出見込み</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="273"/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished">&lt;b&gt;現在の発言検出設定を表します。&lt;/b&gt;&lt;br /&gt;設定ダイアログか音声ウィザードから設定を変更することができます。</translation>
+        <translation>&lt;b&gt;現在の発言検出設定を表します。&lt;/b&gt;&lt;br /&gt;設定ダイアログか音声ウィザードから設定を変更することができます。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="349"/>
         <source>Idle AutoMute</source>
-        <translation type="unfinished"></translation>
+        <translation>自動ミュートまでの待ち時間</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="356"/>
         <source>How long to remain idle before auto-mute.</source>
-        <translation type="unfinished"></translation>
+        <translation>自動ミュートまで必要なアイドル時間</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="359"/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted.</source>
-        <translation type="unfinished"></translation>
+        <translation>アイドリング時間を設定します。指定時間のあいだ、サーバーへ何の音声も送信されなかった場合、ミュートになります。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="533"/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ノイズ抑制の量を設定します。&lt;/b&gt;&lt;br /&gt;値を大きくすると、より積極的に定常ノイズを抑制しようとします。</translation>
     </message>
 </context>
 <context>
@@ -1536,7 +1536,7 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="199"/>
         <source>%1 min</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 min</translation>
     </message>
 </context>
 <context>
@@ -1624,7 +1624,7 @@
     <message>
         <location filename="AudioOutput.ui" line="167"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished">&lt;b&gt;受信する音声の音量を調整します。&lt;/b&gt;&lt;br /&gt;ここでは、音量を下げる事のみが可能です。増やす事は出来ません。</translation>
+        <translation>&lt;b&gt;受信する音声の音量を調整します。&lt;/b&gt;&lt;br /&gt;ここでは、音量を下げる事のみが可能です。増やす事は出来ません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="210"/>
@@ -1774,17 +1774,17 @@
     <message>
         <location filename="AudioOutput.ui" line="193"/>
         <source>Other Applications</source>
-        <translation type="unfinished"></translation>
+        <translation>他のアプリケーション</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="249"/>
         <source>Volume of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>発言中の他のアプリケーションの音量</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="252"/>
         <source>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;発言中における他のアプリケーションの音量減少&lt;/b&gt;&lt;br /&gt;Mumbleは音声受信中に他のアプリケーションの音量を下げるのを手助けします。ここでは、あなたが話している間の他アプリケーションの音量比率を設定します。</translation>
     </message>
 </context>
 <context>
@@ -2373,17 +2373,17 @@
     <message>
         <location filename="AudioWizard.cpp" line="144"/>
         <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumbleは現在開発中であり、開発チームはより多くのユーザーの利益となる機能に注力したいと考えています。そのため、匿名で設定に関する統計を送信する機能を追加しました。これらの統計情報は主に将来の開発のために使用されるか、特定の機能が使用されていないかどうかを確認するために使用されます。</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="148"/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumbleプロジェクトに匿名で統計を送信する</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="370"/>
         <source>Push To Talk:</source>
-        <translation type="unfinished"></translation>
+        <translation>キー押下で有効化:</translation>
     </message>
 </context>
 <context>
@@ -2509,7 +2509,7 @@
     <message>
         <location filename="../ACL.cpp" line="167"/>
         <source>Write</source>
-        <translation type="obsolete">書き込み</translation>
+        <translation type="obsolete">ACLの更新</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="169"/>
@@ -2564,12 +2564,12 @@
     <message>
         <location filename="../ACL.cpp" line="200"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>チャンネル間を移動する権限を表します。あるユーザーがこの権限を与えられなかったら、サブチャンネルの権限に関わらず、どんな方法でもこのチャンネルおよびサブチャンネルにアクセス出来なくなります。</translation>
+        <translation>チャンネル間を移動する権限を表します。あるユーザーがこの権限を与えられない場合、サブチャンネルの権限に関わらず、どんな方法でもこのチャンネルおよびサブチャンネルにアクセス出来なくなります。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="203"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation>チャンネルに参加する権限を表します。階層的なチャンネル構造があるなら、全ての人にチャンネルアクセスを与えたくなるかもしれませんが、階層の最下部で参加を制限するかもしれません。</translation>
+        <translation>チャンネルに参加する権限を表します。階層的なチャンネル構造がある場合、全ての人にチャンネルアクセスを与えたくなるかもしれませんが、階層の最下部で参加が制限されるかもしれません。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="207"/>
@@ -2589,7 +2589,7 @@
     <message>
         <location filename="../ACL.cpp" line="219"/>
         <source>This represents the permission to move a player to another channel or kick him from the server. To actually move the player, either the moving player must have Move/Kick privileges in the destination channel, or the player must normally be allowed to enter the channel. Players with this privilege can move players into channels the target player normally wouldn&apos;t have permission to enter.</source>
-        <translation>他の人を別のチャンネルに移動させたり、サーバーからキックしたりする権限を表します。実際にプレイヤーを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、プレイヤーが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のプレイヤーが通常参加を許可されていないチャンネルに動かすことができます。</translation>
+        <translation>他の人を別のチャンネルに移動させたり、サーバーからキックしたりする権限を表します。実際にプレイヤーを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、プレイヤーが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のプレイヤーが通常参加を許可されていないチャンネルに移動させることができます。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="222"/>
@@ -2604,7 +2604,7 @@
     <message>
         <location filename="../ACL.cpp" line="167"/>
         <source>Write ACL</source>
-        <translation type="unfinished"></translation>
+        <translation>ACLの上書き</translation>
     </message>
 </context>
 <context>
@@ -2730,7 +2730,7 @@
     <message>
         <location filename="ConfigDialog.ui" line="26"/>
         <source>Tab 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab 1</translation>
     </message>
 </context>
 <context>
@@ -3207,7 +3207,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_macx.cpp" line="62"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation type="unfinished">バックグラウンドでグローバルなショートカットイベントが発生し、受け入れることができませんでした。&lt;br /&gt;&lt;br /&gt;&apos;補助デバイスへのアクセス&apos; のようなユニバーサルアクセス機能が無効になっているのが原因です。&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;この設定を有効にして&lt;/a&gt; その後、再び設定してください。 </translation>
+        <translation>バックグラウンドでグローバルなショートカットイベントが発生し、受け入れることができませんでした。&lt;br /&gt;&lt;br /&gt;&apos;補助デバイスへのアクセス&apos; のようなユニバーサルアクセス機能が無効になっているのが原因です。&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;この設定を有効にして&lt;/a&gt; その後、再び設定してください。 </translation>
     </message>
 </context>
 <context>
@@ -3279,7 +3279,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="279"/>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>接続されていません</translation>
     </message>
 </context>
 <context>
@@ -3297,17 +3297,17 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="126"/>
         <source>Enable this device</source>
-        <translation type="unfinished"></translation>
+        <translation>このデバイスを有効にする</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="135"/>
         <source>LCD</source>
-        <translation type="unfinished"></translation>
+        <translation>LCD</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">フォーム</translation>
+        <translation>フォーム</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="25"/>
@@ -3330,27 +3330,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LCD.ui" line="41"/>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイス</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="57"/>
         <source>Name</source>
-        <translation type="unfinished">名前</translation>
+        <translation>名前</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="62"/>
         <source>Type</source>
-        <translation type="unfinished">タイプ</translation>
+        <translation>タイプ</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="67"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>サイズ</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="72"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>有効</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="89"/>
@@ -3360,7 +3360,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LCD.ui" line="95"/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"></translation>
+        <translation>列の最少幅</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="102"/>
@@ -3378,12 +3378,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LCD.ui" line="160"/>
         <source>TextLabel</source>
-        <translation type="unfinished">テキストラベル</translation>
+        <translation>テキストラベル</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="133"/>
         <source>Splitter Width</source>
-        <translation type="unfinished"></translation>
+        <translation>分割線の幅</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="140"/>
@@ -3766,62 +3766,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="142"/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>終了時に最小化するか閉じるかを確認します</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="145"/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;これがセットされている場合、接続中に終了するかを確認します。&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="148"/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"></translation>
+        <translation>接続中の終了は確認する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="168"/>
         <source>Make the Mumble window appear on top of other windows.</source>
-        <translation type="unfinished"></translation>
+        <translation>最前面に表示する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="171"/>
         <source>&lt;b&gt;This makes the Mumble window a topmost window.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Mumbleのウインドウを最前面に表示します。&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="174"/>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>常に前面に表示</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="158"/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray.  Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;これがセットされていた場合、最小化されたMumbleのメインウインドウは非表示になり、タスクトレイからのみアクセスできるようになります。これがセットされていない場合、ウインドウは普通に最小化します。&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="161"/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"></translation>
+        <translation>最小化時、タスクトレイに格納する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="181"/>
         <source>Show all configuration items</source>
-        <translation type="unfinished">全ての設定項目を表示</translation>
+        <translation>全ての設定項目を表示</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="184"/>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
-        <translation type="unfinished">&lt;b&gt;全ての設定項目を表示します。&lt;/b&gt;&lt;br /&gt;Mumbleは大部分のユーザーが変更する必要のない設定項目を多く含んでいます。ここにチェックを入れると全ての設定項目を表示します。</translation>
+        <translation>&lt;b&gt;全ての設定項目を表示します。&lt;/b&gt;&lt;br /&gt;Mumbleは大部分のユーザーが変更する必要のない設定項目を多く含んでいます。ここにチェックを入れると全ての設定項目を表示します。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="187"/>
         <source>Expert Config</source>
-        <translation type="unfinished">上級者向け設定</translation>
+        <translation>上級者向け設定</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="155"/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation type="unfinished"></translation>
+        <translation>最小化されている時にメインウインドウをタスクトレイに格納します</translation>
     </message>
 </context>
 <context>
@@ -4966,24 +4966,24 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.ui" line="325"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished">リンク解除(&amp;U)</translation>
+        <translation>リンク解除(&amp;U)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
         <comment>Plugin</comment>
-        <translation type="unfinished">リンク解除(&amp;U)</translation>
+        <translation>リンク解除(&amp;U)</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="340"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">サーバー</translation>
+        <translation>サーバー</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="217"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>終了(&amp;Q)</translation>
     </message>
 </context>
 <context>
@@ -5136,22 +5136,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="247"/>
         <source>Check for updates on startup</source>
-        <translation type="unfinished">起動時に更新をチェックする</translation>
+        <translation>起動時に更新をチェックする</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="254"/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumbleプロジェクトに匿名で統計を送信する</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="257"/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus it&apos;s development where it&apos;s needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;匿名で統計を送信します。&lt;/b&gt;&lt;br /&gt;Mumbleは小さなチームで開発を行っているためもっとも必要な機能に絞って開発をしなければなりません。統計情報の送信はプロジェクトがどこに注力して開発すれば良いかを決定するための指針になります。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="260"/>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>匿名で利用状況の統計を送信する</translation>
     </message>
 </context>
 <context>
