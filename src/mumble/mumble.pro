@@ -221,7 +221,7 @@ CONFIG(no-update) {
 }
 
 lrel.output = ${QMAKE_FILE_BASE}.qm
-lrel.commands = $${QMAKE_LRELEASE} -compress -nounfinished -removeidentical ${QMAKE_FILE_NAME} 
+lrel.commands = $${QMAKE_LRELEASE} -compress -nounfinished ${QMAKE_FILE_NAME} 
 lrel.input = TRANSLATIONS
 lrel.CONFIG *= no_link target_predeps
 
