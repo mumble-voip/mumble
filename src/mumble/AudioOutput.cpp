@@ -536,8 +536,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		for (unsigned int i=0;i<iChannels;++i)
 			svol[i] = mul * fSpeakerVolume[i];
 
-		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() &&
-		        (g.p->fPosition[0] != 0 || g.p->fPosition[1] != 0 || g.p->fPosition[2] != 0)) {
+		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() && (g.bPosTest || g.p->fPosition[0] != 0 || g.p->fPosition[1] != 0 || g.p->fPosition[2] != 0)) {
 			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2] };
 			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2] };
 
@@ -582,13 +581,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			validListener = true;
 		}
 		foreach(aop, qlMix) {
-
-#ifdef AUDIO_TEST
-			aop->fPos[0] = 4.0f;
-			aop->fPos[1] = 0.0f;
-			aop->fPos[2] = 0.0f;
-#endif
-
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
