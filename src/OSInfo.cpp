@@ -41,11 +41,11 @@ QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
 			continue;
 		if (! (qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
 			continue;
-                if (qni.flags() & QNetworkInterface::IsLoopBack)
+        if (qni.flags() & QNetworkInterface::IsLoopBack)
 			continue;
 		if (qni.hardwareAddress().isEmpty())
 			continue;
-			
+
 		foreach(const QNetworkAddressEntry &qnae, qni.addressEntries()) {
 			const QHostAddress &qha = qnae.ip();
 			if (((qhaBind == QHostAddress::Any) && (qha.protocol() ==  QAbstractSocket::IPv4Protocol)) || (qha == qhaBind)) {
@@ -68,7 +68,15 @@ QString OSInfo::getOS() {
 
 QString OSInfo::getOSVersion() {
 #if defined(Q_WS_WIN)
-	return QString::number(QSysInfo::WindowsVersion, 16);
+	OSVERSIONINFOEXW ovi;
+	memset(&ovi, 0, sizeof(ovi));
+
+	ovi.dwOSVersionInfoSize=sizeof(ovi);
+	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
+
+	QString os;
+	os.sprintf("%d.%d.%d.%d", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber, (ovi.wProductType == VER_NT_WORKSTATION) ? 1 : 0);
+	return os;
 #elif defined(Q_OS_MAC)
 	return QString::number(QSysInfo::MacintoshVersion, 16);
 #else
@@ -97,7 +105,7 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	QDomElement tag;
 	QDomText t;
         bool bIs64;
-	
+
         tag=doc.createElement(QLatin1String("machash"));
         root.appendChild(tag);
 	t=doc.createTextNode(OSInfo::getMacHash(qhaBind));
