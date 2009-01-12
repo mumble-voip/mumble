@@ -36,12 +36,10 @@ if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
   $ver=sprintf("%04d-%02d-%02d-%02d%02d",$year+1900,$mon+1,$mday,$hour,$min);
 }
 
-chdir("src/murmur");
-system("/usr/local/Trolltech/Qt-4.4.1/bin/qmake CONFIG+=static");
+system("/usr/local/Trolltech/Qt-4.4.3/bin/qmake CONFIG+=static CONFIG+=no-client");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.4.1/bin/qmake CONFIG+=static");
+system("/usr/local/Trolltech/Qt-4.4.3/bin/qmake CONFIG+=static CONFIG+=no-client");
 system("make");
-chdir("../..");
 system("strip release/murmurd");
 
 $files{"murmur.x86"}="release/murmurd";
@@ -83,7 +81,4 @@ my $bz=bzopen("murmur-static_x86-${ver}.tar.bz2", "w");
 $bz->bzwrite($tar->write());
 $bz->bzclose();
 system("/usr/bin/scp","murmur-static_x86-${ver}.tar.bz2", "xeno\@mix.hive.no:WEB/mumble.hive.no/snapshot/");
-
-my $ua = new LWP::UserAgent;
-my $response = $ua->get('http://mumble.info/snapshot.cgi');
-print $response->content;
+system("/usr/bin/ssh","xeno\@mix.hive.no","/home/xeno/WEB/mumble.hive.no/snapshot.cgi");
