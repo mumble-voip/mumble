@@ -38,9 +38,9 @@ Linux pre-requisites
 
 Mumble needs the developer libraries for the sound backend you want to use
 (ALSA, OSS or PulseAudio), as well as the developer libraries for Xevie, 
-speech-dispatcher and dbus.
+speech-dispatcher, dbus and g15-daemon.
 
-The Linux version of the client is developed on Ubuntu 8.04. It may work on
+The Linux version of the client is developed on Ubuntu 8.10. It may work on
 other updated distributions. The server should work on any modern UNIX-based
 distribution and on Windows.
 
@@ -55,12 +55,76 @@ You may need to edit src/mumble/mumble.pro to reflect the installation paths you
 use for libraries.
 After building, the binaries will be in the release/ directory.
 
-Building only Murmur
-====================
+The qmake step supports a number of configurations options. To enable an
+option, simply add CONFIG+=<option> to the end. If you want to change these
+after your initial setup, you'll also need to pass -recursive.
+So, to build without the server and without ASIO, the above line would be
 
-To build only murmur, type
-qmake main.pro CONFIG+=no-client
-make release
+qmake main.pro CONFIG+=no-server CONFIG+=no-asio -recursive
+
+CONFIG+=no-client
+ Don't build the client (mumble)
+
+CONFIG+=no-server
+ Don't build the server (murmur)
+
+CONFIG+=no-bundled-speex
+ Don't use the included version of Speex, but look for one on the system.
+ Note that this requires your system-installed Speex to be at least version
+ 1.2.0.
+
+CONFIG+=optimize
+ Build a heavily optimized version, specific to the machine it's being
+ compiled on.
+
+CONFIG+=no-dbus (Mumble)
+ Don't include DBus support on Mumble. This has no effect on Murmur, which
+ requires DBus to work.
+
+CONFIG+=no-g15 (Mumble)
+ Don't include support for the G15 keyboard (and compatible devices).
+
+CONFIG+=no-asio (Mumble, Win32)
+ Don't build support for ASIO audio input.
+
+CONFIG+=no-directsound (Mumble, Win32)
+ Don't build support for DirectSound.
+
+CONFIG+=no-wasapi (Mumble, Win32)
+ Don't build support for WASAPI.
+
+CONFIG+=no-portaudio (Mumble, Unix, OSX)
+ Don't build support for PortAudio.
+
+CONFIG+=no-pulseaudio (Mumble, Unix)
+ Don't build support for PulseAudio.
+
+CONFIG+=no-xevie (Mumble, Unix)
+ Don't build support for XEvIE. Without this, you can't suppress hotkeys.
+
+CONFIG+=no-oss (Mumble, Linux)
+ Don't build support for OSS. Mumble supports OSS4 if you have the correct
+ header files.
+
+CONFIG+=no-alsa (Mumble, Linux)
+ Don't build support for ALSA.
+
+CONFIG+=no-speechd (Mumble, Linux)
+ Don't build support for Speech Dispatcher.
+
+CONFIG+=no-update (Mumble)
+ Default disable the checking of new versions. (For distributions)
+
+CONFIG+=no-embed-qt-translations (Mumble)
+ Don't embed the translations for Qt, load them from the system. (For
+ distributions).
+
+CONFIG+=no-ice (Murmur)
+ Don't build support for Ice RPC.
+
+
+User Registrations
+==================
 
 To enable user registration, copy scripts/murmur.pl to murmur.cgi and put it
 somewhere accessible by your webserver. Make sure your webserver is
