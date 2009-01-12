@@ -48,7 +48,7 @@ Settings::Settings() {
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
-	iIdleTime = 1800;
+	iIdleTime = 0;
 	vsVAD = SignalToNoise;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
