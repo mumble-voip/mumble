@@ -555,37 +555,37 @@
         <translation>Bedničky</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="266"/>
+        <location filename="ASIOInput.cpp" line="268"/>
         <source>%1 (ver %2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="270"/>
+        <location filename="ASIOInput.cpp" line="272"/>
         <source>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="272"/>
+        <location filename="ASIOInput.cpp" line="274"/>
         <source>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz -- Unusable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="346"/>
+        <location filename="ASIOInput.cpp" line="348"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="342"/>
+        <location filename="ASIOInput.cpp" line="344"/>
         <source>ASIO Initialization failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="346"/>
+        <location filename="ASIOInput.cpp" line="348"/>
         <source>Failed to instantiate ASIO driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="383"/>
+        <location filename="ASIOInput.cpp" line="385"/>
         <source>ASIO</source>
         <translation type="unfinished"></translation>
     </message>
@@ -608,17 +608,17 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="541"/>
+        <location filename="ASIOInput.cpp" line="543"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="474"/>
+        <location filename="ASIOInput.cpp" line="476"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="541"/>
+        <location filename="ASIOInput.cpp" line="543"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1234,52 +1234,52 @@
 <context>
     <name>AudioInputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="75"/>
+        <location filename="AudioConfigDialog.cpp" line="74"/>
         <source>Continuous</source>
         <translation type="unfinished">Stále</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="76"/>
+        <location filename="AudioConfigDialog.cpp" line="75"/>
         <source>Voice Activity</source>
         <translation type="unfinished">Při hlasové aktivitě</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="77"/>
+        <location filename="AudioConfigDialog.cpp" line="76"/>
         <source>Push To Talk</source>
         <translation type="unfinished">Mluvení pouze na stisk tlačítka</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="87"/>
+        <location filename="AudioConfigDialog.cpp" line="86"/>
         <source>Audio Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="174"/>
+        <location filename="AudioConfigDialog.cpp" line="173"/>
         <source>%1 ms</source>
         <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="202"/>
+        <location filename="AudioConfigDialog.cpp" line="201"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="180"/>
+        <location filename="AudioConfigDialog.cpp" line="179"/>
         <source>%1 s</source>
         <translation type="unfinished">%1 s</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="189"/>
+        <location filename="AudioConfigDialog.cpp" line="188"/>
         <source>-%1 dB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="247"/>
+        <location filename="AudioConfigDialog.cpp" line="246"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation type="unfinished">%1kbit/s (Audio %2, Pozice %4, režie %3)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="200"/>
+        <location filename="AudioConfigDialog.cpp" line="199"/>
         <source>%1 min</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1352,7 +1352,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="505"/>
+        <location filename="AudioOutput.ui" line="553"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1372,195 +1372,210 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="193"/>
+        <location filename="AudioOutput.ui" line="210"/>
         <source>Output Delay</source>
         <translation type="unfinished">Výstupní opoždění</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="203"/>
+        <location filename="AudioOutput.ui" line="220"/>
         <source>Amount of data to buffer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="206"/>
+        <location filename="AudioOutput.ui" line="223"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="238"/>
+        <location filename="AudioOutput.ui" line="286"/>
         <source>Volume attenuation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="244"/>
+        <location filename="AudioOutput.ui" line="292"/>
         <source>MinDistance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="254"/>
+        <location filename="AudioOutput.ui" line="302"/>
         <source>Minimum distance to player before sound decreases</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="257"/>
+        <location filename="AudioOutput.ui" line="305"/>
         <source>This sets the minimum distance for sound calculations. The volume of other players&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="286"/>
+        <location filename="AudioOutput.ui" line="334"/>
         <source>MaxDistance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="296"/>
+        <location filename="AudioOutput.ui" line="344"/>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="299"/>
+        <location filename="AudioOutput.ui" line="347"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="328"/>
+        <location filename="AudioOutput.ui" line="376"/>
         <source>RollOff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="338"/>
+        <location filename="AudioOutput.ui" line="386"/>
         <source>Factor for sound volume decrease</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="341"/>
+        <location filename="AudioOutput.ui" line="389"/>
         <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="367"/>
+        <location filename="AudioOutput.ui" line="415"/>
         <source>Bloom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="422"/>
+        <location filename="AudioOutput.ui" line="470"/>
         <source>Loopback Test</source>
         <translation type="unfinished">Testování místním propojením do smyčky</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="428"/>
+        <location filename="AudioOutput.ui" line="476"/>
         <source>Delay Variance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="438"/>
+        <location filename="AudioOutput.ui" line="486"/>
         <source>Variance in packet latency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="441"/>
+        <location filename="AudioOutput.ui" line="489"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="467"/>
+        <location filename="AudioOutput.ui" line="515"/>
         <source>Packet Loss</source>
         <translation type="unfinished">Ztráta paketů</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="477"/>
+        <location filename="AudioOutput.ui" line="525"/>
         <source>Packet loss for loopback mode</source>
         <translation type="unfinished">Ztráta paketů v režimu místní smyčky</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="480"/>
+        <location filename="AudioOutput.ui" line="528"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="512"/>
+        <location filename="AudioOutput.ui" line="560"/>
         <source>&amp;Loopback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="522"/>
+        <location filename="AudioOutput.ui" line="570"/>
         <source>Desired loopback mode</source>
         <translation type="unfinished">Vyžadovaný režim smyčky</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="525"/>
+        <location filename="AudioOutput.ui" line="573"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="377"/>
+        <location filename="AudioOutput.ui" line="425"/>
         <source>Factor for sound volume increase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="380"/>
+        <location filename="AudioOutput.ui" line="428"/>
         <source>How much should sound volume increase for sources that are really close?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="406"/>
+        <location filename="AudioOutput.ui" line="454"/>
         <source>Connected &quot;speakers&quot; are actually headphones.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="409"/>
+        <location filename="AudioOutput.ui" line="457"/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="412"/>
+        <location filename="AudioOutput.ui" line="460"/>
         <source>Headphones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="193"/>
+        <source>Other Applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="249"/>
+        <source>Volume of other applications during speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="252"/>
+        <source>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="315"/>
+        <location filename="AudioConfigDialog.cpp" line="313"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="316"/>
+        <location filename="AudioConfigDialog.cpp" line="314"/>
         <source>Local</source>
         <translation type="unfinished">Místní</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="317"/>
+        <location filename="AudioConfigDialog.cpp" line="315"/>
         <source>Server</source>
         <translation type="unfinished">Server</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="321"/>
+        <location filename="AudioConfigDialog.cpp" line="319"/>
         <source>Audio Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="415"/>
+        <location filename="AudioConfigDialog.cpp" line="423"/>
         <source>%1 ms</source>
         <translation type="unfinished">%1 ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="454"/>
+        <location filename="AudioConfigDialog.cpp" line="462"/>
         <source>%1%</source>
         <translation type="unfinished">%1%</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="423"/>
+        <location filename="AudioConfigDialog.cpp" line="431"/>
         <source>%1ms</source>
         <translation type="unfinished">%1ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="444"/>
+        <location filename="AudioConfigDialog.cpp" line="452"/>
         <source>%1m</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="450"/>
+        <location filename="AudioConfigDialog.cpp" line="458"/>
         <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1688,7 +1703,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="370"/>
+        <location filename="AudioStats.cpp" line="380"/>
         <source>&gt;1000ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1781,197 +1796,197 @@
 <context>
     <name>AudioWizard</name>
     <message>
-        <location filename="AudioWizard.cpp" line="51"/>
+        <location filename="AudioWizard.cpp" line="65"/>
         <source>Audio Tuning Wizard</source>
         <translation>Průvodce nastavením zvuku</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="98"/>
+        <location filename="AudioWizard.cpp" line="115"/>
         <source>Introduction</source>
         <translation>Úvod</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="99"/>
+        <location filename="AudioWizard.cpp" line="116"/>
         <source>Welcome to the Mumble Audio Wizard</source>
         <translation>Vítejte v průvodci pro nastavení zvuku pro aplikaci Mumble</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="102"/>
+        <location filename="AudioWizard.cpp" line="119"/>
         <source>This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.</source>
         <translation>Toto je průvodce nastavení zvuku pro Mumble. Pomůže vám  správně nastavit vstupní úrovně na zvukové kartě a také vybrat vhodné parametry pro zpracování zvuku v Mumble.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="107"/>
+        <location filename="AudioWizard.cpp" line="124"/>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
         <translation>Prosím všimněte si, že dokud je průvodce aktivní, zvuk bude používán pouze místně, abyste si jej mohli poslechnout - žádné zvuky se nepřenesou na případně připojený server.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="116"/>
+        <location filename="AudioWizard.cpp" line="133"/>
         <source>Finished</source>
         <translation>Dokončeno</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="117"/>
+        <location filename="AudioWizard.cpp" line="134"/>
         <source>Enjoy using Mumble</source>
         <translation>Mumble je připraveno k použití</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="119"/>
+        <location filename="AudioWizard.cpp" line="137"/>
         <source>Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.</source>
         <translation>Blahopřejeme. Nyní si můžete plně užít zvukovou komunikaci s Mumble.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="131"/>
+        <location filename="AudioWizard.cpp" line="160"/>
         <source>Device selection</source>
         <translation>Výběr zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="132"/>
+        <location filename="AudioWizard.cpp" line="161"/>
         <source>Selecting the input and output device to use with Mumble.</source>
         <translation>Vyberte vstupní a výstupní zvukové zařízení pro použití v Mumble.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="134"/>
+        <location filename="AudioWizard.cpp" line="163"/>
         <source>Input device</source>
         <translation>Vstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="137"/>
+        <location filename="AudioWizard.cpp" line="166"/>
         <source>This is the device your microphone is connected to.</source>
         <translation>Zařízení pro zvukový vstup (s mikrofonem).</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="201"/>
+        <location filename="AudioWizard.cpp" line="230"/>
         <source>System</source>
         <translation>Systém</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="154"/>
+        <location filename="AudioWizard.cpp" line="183"/>
         <source>Input method for audio</source>
         <translation>Vstupní metoda pro audio</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="155"/>
+        <location filename="AudioWizard.cpp" line="184"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;To je metoda pro zaznamenávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="217"/>
+        <location filename="AudioWizard.cpp" line="246"/>
         <source>Device</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="170"/>
+        <location filename="AudioWizard.cpp" line="199"/>
         <source>Input device to use</source>
         <translation>Vstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="171"/>
+        <location filename="AudioWizard.cpp" line="200"/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vyberte zvukovou kartu, která bude snímat zvuk.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="184"/>
+        <location filename="AudioWizard.cpp" line="213"/>
         <source>Output device</source>
         <translation>Výstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="187"/>
+        <location filename="AudioWizard.cpp" line="216"/>
         <source>This is the device your speakers or headphones are connected to.</source>
         <translation>Zařízení, ke kterému jsou připojeny sluchátka nebo mikrofon.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="204"/>
+        <location filename="AudioWizard.cpp" line="233"/>
         <source>Output method for audio</source>
         <translation>Výstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="205"/>
+        <location filename="AudioWizard.cpp" line="234"/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="220"/>
+        <location filename="AudioWizard.cpp" line="249"/>
         <source>Output device to use</source>
         <translation>Výstupní zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="221"/>
+        <location filename="AudioWizard.cpp" line="250"/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vyberte zvukovou kartu, která bude přehrávat zvuk.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="285"/>
+        <location filename="AudioWizard.cpp" line="314"/>
         <source>Volume tuning</source>
         <translation>Vyladění hlasitosti</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="286"/>
+        <location filename="AudioWizard.cpp" line="315"/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
         <translation>Nastavení hlasitosti mikrofonu pro optimální hlasitost.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="292"/>
+        <location filename="AudioWizard.cpp" line="321"/>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
         <translation>Otevřete ovládací panel nastavení zvuku a jděte do nastavení záznamu. Ujistěte se, že mikrofon je vybrán jako aktivní vstup a má maximální hlasitost pro záznam. Pokud je k dispozici volba &quot;Microphone boost&quot;, určitě ji zapněte.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="299"/>
+        <location filename="AudioWizard.cpp" line="328"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
         <translation>Mluvte nahlas, jako kdybyste byl podrážděn nebo nadšen. Během mluvení nastavte hlasitost v ovladacim panelu zvuku tak, aby monitorovaný zvuk byl co možná nejvýše v modré a zelené oblastí, ale aby &lt;b&gt;nezasahoval&lt;/b&gt; do oblasti rudé.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="308"/>
+        <location filename="AudioWizard.cpp" line="337"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
         <translation>Nyní se uvolněte a mluvte potichu, jako kdyby byla pozdní noc a nechtěli jste nikoho rušit ve spánku. Nastavte táhlo pod tímto textem tak, aby monitorovaný zvuk byl v zelené oblasti při mluvení, ale aby bezpečně zůstal v modré oblasti, když jste potichu.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="326"/>
+        <location filename="AudioWizard.cpp" line="355"/>
         <source>Voice Activity Detection</source>
         <translation>Detekce hlasové aktivity</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="327"/>
+        <location filename="AudioWizard.cpp" line="356"/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
         <translation>Mumble umí rozpoznávat mluvení a ticho.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="332"/>
+        <location filename="AudioWizard.cpp" line="364"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
         <translation>Toto pomůže aplikaci Mumble rozpoznat, kdy mluvíte. První krok je výběr, podle které hodnoty se má provádět rozpoznání.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="336"/>
+        <location filename="AudioWizard.cpp" line="385"/>
         <source>Raw amplitude from input</source>
         <translation>Hlasitost vstupu</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="340"/>
+        <location filename="AudioWizard.cpp" line="381"/>
         <source>Signal-To-Noise ratio</source>
         <translation>Poměr zvuku k šumu</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="362"/>
+        <location filename="AudioWizard.cpp" line="410"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <translation>Nyní je potřeba nastavit následující dvě hodnoty. Prvních několik vašich slabik by mělo skončit v zelené oblasti (rozpoznáno jako řeč). Pokud mluvíte, měl by monitor zůstávat ve žluté (rozpoznáno jako pravděpopdobná řeč). Když nemluvíte, vše by mělo být v červené oblasti (to dozajista není řeč).</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="385"/>
+        <location filename="AudioWizard.cpp" line="433"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
         <translation>Nakonec je potřeba nastavit čas prodlevy, kdy je po skončení řeči stále ješte mikrofon zapnut a můžete tak během řeči udělat malou pauzu, aniž by byl přenos ukončen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="412"/>
+        <location filename="AudioWizard.cpp" line="460"/>
         <source>Device tuning</source>
         <translation>Vyladění zařízení</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="413"/>
+        <location filename="AudioWizard.cpp" line="461"/>
         <source>Changing hardware output delays to their minimum value.</source>
         <translation>Změní výstupní parametry zvuku tak, aby prodleva v komunikaci mohla být minimální.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="419"/>
+        <location filename="AudioWizard.cpp" line="467"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>Aby zpoždění při komunikaci mohlo být minimalizováno, je důležité nastavit výstupní vyrovnávací paměť co nejmenší. Mnohé zvukové karty hlásí, že neumějí používat malé velikosti vyrovnávací paměti, i když to jinak technicky je možné, takže jediná možnost, jak zjistit nejmenší vhodnou hodnotu je pokud a omyl.</translation>
     </message>
@@ -1981,108 +1996,123 @@
         <translation type="obsolete">Nyní byste měli slyšet zvukový akord. Změňte nastavení pod tímto textem na nejmenší hodnotu, která bude fungovat &lt;b&gt;bez&lt;/b&gt; přerušování nebo cvakání ve zvuku.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="440"/>
+        <location filename="AudioWizard.cpp" line="488"/>
         <source>Amount of data to buffer.</source>
         <translation>Velikost zásobníku pro výstup.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="443"/>
+        <location filename="AudioWizard.cpp" line="491"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>To nastaví množství dat, která budou v výstupním zásobníku aplikace, než se pošlou na zvukový výstup. Experimentujte s rozdílnými hodnotami a nastavte si nejmenší hodnotu, která nezpůsobí přerušování nebo cvakání ve zvuku.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="547"/>
+        <location filename="AudioWizard.cpp" line="595"/>
         <source>%1ms</source>
         <translation>%1ms</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="744"/>
+        <location filename="AudioWizard.cpp" line="809"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="425"/>
+        <location filename="AudioWizard.cpp" line="473"/>
         <source>You should hear a single tone that&apos;s changing in frequency. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test to improve audio path recognition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="449"/>
+        <location filename="AudioWizard.cpp" line="497"/>
         <source>If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path delay in your system; this means the delay from a sample is placed in an outbound buffer until it&apos;s found in a matching incoming buffer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="693"/>
+        <location filename="AudioWizard.cpp" line="758"/>
         <source>Audio path is %1ms long.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="695"/>
+        <location filename="AudioWizard.cpp" line="760"/>
         <source>Audio path cannot be determined. Input not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="177"/>
+        <location filename="AudioWizard.cpp" line="206"/>
         <source>Use echo cancellation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="178"/>
+        <location filename="AudioWizard.cpp" line="207"/>
         <source>Cancel echo from headset or speakers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="179"/>
+        <location filename="AudioWizard.cpp" line="208"/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="227"/>
+        <location filename="AudioWizard.cpp" line="256"/>
         <source>Enable positional audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="228"/>
+        <location filename="AudioWizard.cpp" line="257"/>
         <source>Allows positioning of sound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="229"/>
+        <location filename="AudioWizard.cpp" line="258"/>
         <source>This allows Mumble to use positional audio to place voices.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="246"/>
+        <location filename="AudioWizard.cpp" line="275"/>
         <source>Positional Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="247"/>
+        <location filename="AudioWizard.cpp" line="276"/>
         <source>Adjusting attenuation of positional audio.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="254"/>
+        <location filename="AudioWizard.cpp" line="283"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="257"/>
+        <location filename="AudioWizard.cpp" line="286"/>
         <source>The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="261"/>
+        <location filename="AudioWizard.cpp" line="290"/>
         <source>Use headphones</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="262"/>
+        <location filename="AudioWizard.cpp" line="291"/>
         <source>Use headphones instead of speakers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="263"/>
+        <location filename="AudioWizard.cpp" line="292"/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.cpp" line="144"/>
+        <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.cpp" line="148"/>
+        <source>Submit anonymous statistics to the Mumble project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.cpp" line="370"/>
+        <source>Push To Talk:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2413,7 +2443,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog.ui" line="29"/>
+        <location filename="ConfigDialog.ui" line="26"/>
         <source>Tab 1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2579,22 +2609,22 @@
         <translation type="obsolete">Otevírání vybraného vstupu DirectSound selhalo. Nebude prováděn záznam mikrofonu.</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="161"/>
+        <location filename="DirectSound.cpp" line="532"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Otevírání vybraného vstupu DirectSound  selhalo. Bude použito výchozí zařízení.</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="73"/>
+        <location filename="DirectSound.cpp" line="172"/>
         <source>Default DirectSound Voice Input</source>
         <translation type="unfinished">Výchozí DirectSound hlasový vstup</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="156"/>
+        <location filename="DirectSound.cpp" line="527"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="267"/>
+        <location filename="DirectSound.cpp" line="638"/>
         <source>Lost DirectSound input device.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2607,22 +2637,22 @@
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="372"/>
+        <location filename="DirectSound.cpp" line="462"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>Otevírání vybraného výstupu DirectSound selhalo. Nebude slyšet žádný zvukový výstup.</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="286"/>
+        <location filename="DirectSound.cpp" line="380"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>Otevírání vybraného výstupu DirectSound  selhalo. Bude použito výchozí zařízení.</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="82"/>
+        <location filename="DirectSound.cpp" line="132"/>
         <source>Default DirectSound Voice Output</source>
         <translation type="unfinished">Výchozí DirectSound hlasový výstup</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="368"/>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Lost DirectSound output device.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2726,47 +2756,47 @@ v žádném z možných míst.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="175"/>
+        <location filename="GlobalShortcut.cpp" line="176"/>
         <source>Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="127"/>
+        <location filename="GlobalShortcut.cpp" line="128"/>
         <source>Function</source>
         <translation type="unfinished">Funkce</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="129"/>
+        <location filename="GlobalShortcut.cpp" line="130"/>
         <source>Shortcut</source>
         <translation type="unfinished">Zkratka</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="148"/>
+        <location filename="GlobalShortcut.cpp" line="149"/>
         <source>Shortcut bound to %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="151"/>
+        <location filename="GlobalShortcut.cpp" line="152"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
         <translation type="unfinished">&lt;b&gt;Toto je globální klávesová zkratka přiřazena k &apos;%1&apos;&lt;/br&gt;Klikněte na toto políčko a pak zmáčkněte klávesu/tlačítko pro změnu. Dvojité kliknutí zruší přiřazení.</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="164"/>
+        <location filename="GlobalShortcut.cpp" line="165"/>
         <source>Double-click an entry to clear the shortcut.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="131"/>
+        <location filename="GlobalShortcut.cpp" line="132"/>
         <source>Suppress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="154"/>
+        <location filename="GlobalShortcut.cpp" line="155"/>
         <source>Suppress keys from other applications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="157"/>
+        <location filename="GlobalShortcut.cpp" line="158"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3253,7 +3283,7 @@ p, li { white-space: pre-wrap; }
         <translation>Rozhraní</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="161"/>
+        <location filename="LookConfig.cpp" line="159"/>
         <source>Choose skin file</source>
         <translation>Vyberte soubor s motivem</translation>
     </message>
@@ -3265,16 +3295,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="LookConfig.ui" line="197"/>
-        <source>New version check</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="LookConfig.ui" line="203"/>
-        <source>Check for updates on startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3390,6 +3410,11 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="187"/>
         <source>Expert Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="155"/>
+        <source>Hide the main Mumble window in the tray when it is minimized.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4003,7 +4028,7 @@ p, li { white-space: pre-wrap; }
         <translation>Zpráva pro %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="222"/>
+        <location filename="main.cpp" line="221"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4428,7 +4453,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="222"/>
+        <location filename="main.cpp" line="221"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4689,6 +4714,31 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="222"/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="241"/>
+        <source>Mumble services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="247"/>
+        <source>Check for updates on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="254"/>
+        <source>Submit anonymous statistics to the Mumble project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="257"/>
+        <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus it&apos;s development where it&apos;s needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="260"/>
+        <source>Submit anonymous statistics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5315,7 +5365,7 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="87"/>
+        <location filename="VersionCheck.cpp" line="91"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
         <translation>Mumble nedokázalo získat informace o aktuálních verzích ze serveru SourceForge.</translation>
     </message>
@@ -5444,7 +5494,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="157"/>
+        <location filename="WASAPI.cpp" line="197"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>

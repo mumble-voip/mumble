@@ -580,37 +580,37 @@
         <translation>スピーカー</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="266"/>
+        <location filename="ASIOInput.cpp" line="268"/>
         <source>%1 (ver %2)</source>
         <translation>%1 (ver %2)</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="270"/>
+        <location filename="ASIOInput.cpp" line="272"/>
         <source>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz</source>
         <translation>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="272"/>
+        <location filename="ASIOInput.cpp" line="274"/>
         <source>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz -- Unusable</source>
         <translation>%1 ms -&gt; %2 ms (%3 ms resolution) %4Hz -- 未使用</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="346"/>
+        <location filename="ASIOInput.cpp" line="348"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="342"/>
+        <location filename="ASIOInput.cpp" line="344"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIOの初期化に失敗しました: %1</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="346"/>
+        <location filename="ASIOInput.cpp" line="348"/>
         <source>Failed to instantiate ASIO driver</source>
         <translation>ASIOドライバのインスタンス化に失敗しました。</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="383"/>
+        <location filename="ASIOInput.cpp" line="385"/>
         <source>ASIO</source>
         <translation>ASIO</translation>
     </message>
@@ -633,17 +633,17 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="541"/>
+        <location filename="ASIOInput.cpp" line="543"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="474"/>
+        <location filename="ASIOInput.cpp" line="476"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>ASIOを使用するためには少なくとも1つのマイクと1つのスピーカーを選択しなければなりません。もしマイクサンプリングが必要なだけなら DirectSound を使用してください。</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="541"/>
+        <location filename="ASIOInput.cpp" line="543"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
         <translation>選択されたASIOドライバを開くのに失敗しました。入力は行われません。</translation>
     </message>
@@ -1489,52 +1489,52 @@
 <context>
     <name>AudioInputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="75"/>
+        <location filename="AudioConfigDialog.cpp" line="74"/>
         <source>Continuous</source>
         <translation>常に有効</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="76"/>
+        <location filename="AudioConfigDialog.cpp" line="75"/>
         <source>Voice Activity</source>
         <translation>声で有効化</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="77"/>
+        <location filename="AudioConfigDialog.cpp" line="76"/>
         <source>Push To Talk</source>
         <translation>キー押下で有効化</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="87"/>
+        <location filename="AudioConfigDialog.cpp" line="86"/>
         <source>Audio Input</source>
         <translation>音声入力</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="174"/>
+        <location filename="AudioConfigDialog.cpp" line="173"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="202"/>
+        <location filename="AudioConfigDialog.cpp" line="201"/>
         <source>Off</source>
         <translation>オフ</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="180"/>
+        <location filename="AudioConfigDialog.cpp" line="179"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="189"/>
+        <location filename="AudioConfigDialog.cpp" line="188"/>
         <source>-%1 dB</source>
         <translation>-%1 dB</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="247"/>
+        <location filename="AudioConfigDialog.cpp" line="246"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1kbit/s (Audio %2, Position %4, Overhead %3)</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="200"/>
+        <location filename="AudioConfigDialog.cpp" line="199"/>
         <source>%1 min</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1607,7 +1607,7 @@
         <translation>&lt;b&gt;ジッタバッファのための最小の安全マージンを設定します。&lt;/b&gt;&lt;br /&gt;全ての受信音声は一時保存されます。ジッタバッファは、現在のネットワークの状態に合わせて一時保存の領域を小さくしようとし続けるので、レイテンシーは可能な限り小さくなります。この設定は、使用する最小のバッファサイズを決定します。聞こえてくる会話の出だしが不安定なら、この値を増やしてください。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="505"/>
+        <location filename="AudioOutput.ui" line="553"/>
         <source>TextLabel</source>
         <translation>テキストラベル</translation>
     </message>
@@ -1627,195 +1627,210 @@
         <translation type="unfinished">&lt;b&gt;受信する音声の音量を調整します。&lt;/b&gt;&lt;br /&gt;ここでは、音量を下げる事のみが可能です。増やす事は出来ません。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="193"/>
+        <location filename="AudioOutput.ui" line="210"/>
         <source>Output Delay</source>
         <translation>出力猶予</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="203"/>
+        <location filename="AudioOutput.ui" line="220"/>
         <source>Amount of data to buffer</source>
         <translation>バッファデータ量</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="206"/>
+        <location filename="AudioOutput.ui" line="223"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>出力バッファにおけるプリバッファの量を設定します。いろいろな値で試してみて、急に不安定にならない一番小さな値に設定してください。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="238"/>
+        <location filename="AudioOutput.ui" line="286"/>
         <source>Volume attenuation</source>
         <translation>ボリューム減衰</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="244"/>
+        <location filename="AudioOutput.ui" line="292"/>
         <source>MinDistance</source>
         <translation>最小距離</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="254"/>
+        <location filename="AudioOutput.ui" line="302"/>
         <source>Minimum distance to player before sound decreases</source>
         <translation>音が小さくなる前のプレイヤーへの最小距離</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="257"/>
+        <location filename="AudioOutput.ui" line="305"/>
         <source>This sets the minimum distance for sound calculations. The volume of other players&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>サウンドの計算に使う最小距離を設定します。少なくともこの距離だけ離れていれば、他のプレイヤーの音声は減衰しません。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="286"/>
+        <location filename="AudioOutput.ui" line="334"/>
         <source>MaxDistance</source>
         <translation>最大距離</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="296"/>
+        <location filename="AudioOutput.ui" line="344"/>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
         <translation>音が小さくならない最大距離</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="299"/>
+        <location filename="AudioOutput.ui" line="347"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
         <translation>サウンドの計算に使う最大距離を設定します。これよりも遠くなると、他のプレイヤーの音声はこれ以上減衰しなくなります。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="328"/>
+        <location filename="AudioOutput.ui" line="376"/>
         <source>RollOff</source>
         <translation>ロールオフ</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="338"/>
+        <location filename="AudioOutput.ui" line="386"/>
         <source>Factor for sound volume decrease</source>
         <translation>ボリューム減少の割合</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="341"/>
+        <location filename="AudioOutput.ui" line="389"/>
         <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
         <translation>最小距離を超えた時、音量がどのくらい落ちるかについての値です。普通(1.0)の設定では距離が2倍になるたびに音量は半分になります。これを大きくすると音量の落ち込みが速くなり、小さくすると音量の落ち込みは遅くなります。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="367"/>
+        <location filename="AudioOutput.ui" line="415"/>
         <source>Bloom</source>
         <translation>ブルーム</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="422"/>
+        <location filename="AudioOutput.ui" line="470"/>
         <source>Loopback Test</source>
         <translation>ループバックテスト</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="428"/>
+        <location filename="AudioOutput.ui" line="476"/>
         <source>Delay Variance</source>
         <translation>レイテンシー調整</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="438"/>
+        <location filename="AudioOutput.ui" line="486"/>
         <source>Variance in packet latency</source>
         <translation>パケットレイテンシーの変動値</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="441"/>
+        <location filename="AudioOutput.ui" line="489"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
         <translation>&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="467"/>
+        <location filename="AudioOutput.ui" line="515"/>
         <source>Packet Loss</source>
         <translation>パケットロス</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="477"/>
+        <location filename="AudioOutput.ui" line="525"/>
         <source>Packet loss for loopback mode</source>
         <translation>ループバックモードでのパケットロス</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="480"/>
+        <location filename="AudioOutput.ui" line="528"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
         <translation>&lt;b&gt;ループバックモードでのパケットロスを設定します。&lt;/b&gt;&lt;br /&gt;これはパケットロスの割合です。送信方向の帯域幅のピークに達するか、ネットワーク接続に問題がない限り、これは0%のはずです。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="512"/>
+        <location filename="AudioOutput.ui" line="560"/>
         <source>&amp;Loopback</source>
         <translation>ループバック(&amp;L)</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="522"/>
+        <location filename="AudioOutput.ui" line="570"/>
         <source>Desired loopback mode</source>
         <translation>使用したいループバックモード</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="525"/>
+        <location filename="AudioOutput.ui" line="573"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
         <translation>&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバーをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバー&lt;/i&gt; - サーバーにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="377"/>
+        <location filename="AudioOutput.ui" line="425"/>
         <source>Factor for sound volume increase</source>
         <translation>ボリューム増加の割合</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="380"/>
+        <location filename="AudioOutput.ui" line="428"/>
         <source>How much should sound volume increase for sources that are really close?</source>
         <translation>入力ソースの近さによってどのくらいボリュームを上げるか</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="406"/>
+        <location filename="AudioOutput.ui" line="454"/>
         <source>Connected &quot;speakers&quot; are actually headphones.</source>
         <translation>接続している &quot;出力機器&quot; はヘッドホンです。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="409"/>
+        <location filename="AudioOutput.ui" line="457"/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
         <translation>スピーカーを接続しておらず、ヘッドホンだけであることを確認してください。ヘッドホンはあなたからまっすぐ右と左に位置しているのに対し、スピーカーは一般的にあなたの正面に位置しているため、これは重要になります。</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="412"/>
+        <location filename="AudioOutput.ui" line="460"/>
         <source>Headphones</source>
         <translation>ヘッドホン</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="193"/>
+        <source>Other Applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="249"/>
+        <source>Volume of other applications during speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="252"/>
+        <source>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="315"/>
+        <location filename="AudioConfigDialog.cpp" line="313"/>
         <source>None</source>
         <translation>なし</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="316"/>
+        <location filename="AudioConfigDialog.cpp" line="314"/>
         <source>Local</source>
         <translation>ローカル</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="317"/>
+        <location filename="AudioConfigDialog.cpp" line="315"/>
         <source>Server</source>
         <translation>サーバー</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="321"/>
+        <location filename="AudioConfigDialog.cpp" line="319"/>
         <source>Audio Output</source>
         <translation>音声出力</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="415"/>
+        <location filename="AudioConfigDialog.cpp" line="423"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="454"/>
+        <location filename="AudioConfigDialog.cpp" line="462"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="423"/>
+        <location filename="AudioConfigDialog.cpp" line="431"/>
         <source>%1ms</source>
         <translation>%1ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="444"/>
+        <location filename="AudioConfigDialog.cpp" line="452"/>
         <source>%1m</source>
         <translation>%1m</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="450"/>
+        <location filename="AudioConfigDialog.cpp" line="458"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
@@ -1963,7 +1978,7 @@
         <translation type="obsolete">位相</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="370"/>
+        <location filename="AudioStats.cpp" line="380"/>
         <source>&gt;1000ms</source>
         <translation>&gt;1000ms</translation>
     </message>
@@ -2056,304 +2071,319 @@
 <context>
     <name>AudioWizard</name>
     <message>
-        <location filename="AudioWizard.cpp" line="51"/>
+        <location filename="AudioWizard.cpp" line="65"/>
         <source>Audio Tuning Wizard</source>
         <translation>音声調整ウィザード</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="98"/>
+        <location filename="AudioWizard.cpp" line="115"/>
         <source>Introduction</source>
         <translation>イントロダクション</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="99"/>
+        <location filename="AudioWizard.cpp" line="116"/>
         <source>Welcome to the Mumble Audio Wizard</source>
         <translation>Mumble 音声ウィザードへようこそ</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="102"/>
+        <location filename="AudioWizard.cpp" line="119"/>
         <source>This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.</source>
         <translation>これはMumbleの音声を調整するためのウィザードです。サウンドカードの入力レベルとMumbleでの音声処理のパラメータを正しく設定するお手伝いをします。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="107"/>
+        <location filename="AudioWizard.cpp" line="124"/>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
         <translation>ウィザードが動作中の間、音声はあなたが聞けるようPC上だけで完結し、サーバーには送信されませんのでご注意ください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="116"/>
+        <location filename="AudioWizard.cpp" line="133"/>
         <source>Finished</source>
         <translation>完了</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="117"/>
+        <location filename="AudioWizard.cpp" line="134"/>
         <source>Enjoy using Mumble</source>
         <translation>Mumbleをお楽しみください</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="119"/>
+        <location filename="AudioWizard.cpp" line="137"/>
         <source>Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.</source>
         <translation>おめでとうございます！Mumbleでリッチなサウンド体験をする準備が整いました。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="131"/>
+        <location filename="AudioWizard.cpp" line="160"/>
         <source>Device selection</source>
         <translation>デバイス選択</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="132"/>
+        <location filename="AudioWizard.cpp" line="161"/>
         <source>Selecting the input and output device to use with Mumble.</source>
         <translation>Mumbleで使用する入力および出力のデバイスを選択します。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="134"/>
+        <location filename="AudioWizard.cpp" line="163"/>
         <source>Input device</source>
         <translation>入力デバイス</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="137"/>
+        <location filename="AudioWizard.cpp" line="166"/>
         <source>This is the device your microphone is connected to.</source>
         <translation>あなたが接続しているデバイスです。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="201"/>
+        <location filename="AudioWizard.cpp" line="230"/>
         <source>System</source>
         <translation>システム</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="154"/>
+        <location filename="AudioWizard.cpp" line="183"/>
         <source>Input method for audio</source>
         <translation>音声入力方法</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="155"/>
+        <location filename="AudioWizard.cpp" line="184"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;音声の入力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="217"/>
+        <location filename="AudioWizard.cpp" line="246"/>
         <source>Device</source>
         <translation>デバイス</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="170"/>
+        <location filename="AudioWizard.cpp" line="199"/>
         <source>Input device to use</source>
         <translation>入力に使用するデバイス</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="171"/>
+        <location filename="AudioWizard.cpp" line="200"/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
         <translation>&lt;b&gt;音声の入力にどのサウンドカードを使用するか選択してください。&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="184"/>
+        <location filename="AudioWizard.cpp" line="213"/>
         <source>Output device</source>
         <translation>出力デバイス</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="187"/>
+        <location filename="AudioWizard.cpp" line="216"/>
         <source>This is the device your speakers or headphones are connected to.</source>
         <translation>あなたのスピーカ(もしくはヘッドホン)が接続しているデバイスです。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="204"/>
+        <location filename="AudioWizard.cpp" line="233"/>
         <source>Output method for audio</source>
         <translation>音声の出力方法</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="205"/>
+        <location filename="AudioWizard.cpp" line="234"/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="220"/>
+        <location filename="AudioWizard.cpp" line="249"/>
         <source>Output device to use</source>
         <translation>出力に使用するデバイス</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="221"/>
+        <location filename="AudioWizard.cpp" line="250"/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
         <translation>&lt;b&gt;音声の出力にどのサウンドカードを使用するか選択してください。&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="285"/>
+        <location filename="AudioWizard.cpp" line="314"/>
         <source>Volume tuning</source>
         <translation>音量調整</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="286"/>
+        <location filename="AudioWizard.cpp" line="315"/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
         <translation>マイクの音量を最適な設定になるよう調整します。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="292"/>
+        <location filename="AudioWizard.cpp" line="321"/>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
         <translation>ボリュームコントロールパネルを開き、録音設定画面に移動しましょう。そして、マイクが選択されていて、音量が最大になっている事を確認してください。もし&quot;マイクブースト&quot;を有効にするオプションがあるなら、それもチェックされているか確認してください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="299"/>
+        <location filename="AudioWizard.cpp" line="328"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
         <translation>イライラしていたり、興奮していたりする時のように大声で話してみてください。話している間、下にあるバーが青と緑の区域のなるべく赤に近い場所に留まるまでサウンドコントロールパネルの音量を下げてください。(赤い区域には&lt;b&gt;入らない&lt;/b&gt;ようにしましょう)</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="308"/>
+        <location filename="AudioWizard.cpp" line="337"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
         <translation>次に、誰も起こさないようにしている夜中のようにそっと話してみましょう。話している間、バーが緑にかかり、静かにしている時は青に留まるように下のスライダーを調整してください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="326"/>
+        <location filename="AudioWizard.cpp" line="355"/>
         <source>Voice Activity Detection</source>
         <translation>発声の検出</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="327"/>
+        <location filename="AudioWizard.cpp" line="356"/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
         <translation>話している状態と静かにしている状態をMumbleに判別させます。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="332"/>
+        <location filename="AudioWizard.cpp" line="364"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
         <translation>あなたがいつ話しているのかをMumbleに判別させるお手伝いをします。まず最初に、どのデータの値を使うかの選択を行います。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="336"/>
+        <location filename="AudioWizard.cpp" line="385"/>
         <source>Raw amplitude from input</source>
         <translation>音声信号の大きさ</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="340"/>
+        <location filename="AudioWizard.cpp" line="381"/>
         <source>Signal-To-Noise ratio</source>
         <translation>信号対雑音比(S/N比)</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="362"/>
+        <location filename="AudioWizard.cpp" line="410"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <translation>次に、以下の2つのスライダーを調節しましょう。最初の発声は緑(確実に発言と判定)になると良いでしょう。話している最中は黄色(発言だろうと判定)の中に収まり、話していない時はすべて赤(発言ではないと判定)に入っているようにしてください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="385"/>
+        <location filename="AudioWizard.cpp" line="433"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
         <translation>最後に、猶予時間を調整しましょう。発言以外のものを検出する許容量が上がり、話が途切れずに送信を続けることができるでしょう。これにより、話の間に小休止を入れることができるようになります。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="412"/>
+        <location filename="AudioWizard.cpp" line="460"/>
         <source>Device tuning</source>
         <translation>デバイス調整</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="413"/>
+        <location filename="AudioWizard.cpp" line="461"/>
         <source>Changing hardware output delays to their minimum value.</source>
         <translation>ハードウェアの出力遅延が最小値になるように変更します。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="419"/>
+        <location filename="AudioWizard.cpp" line="467"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>遅延を最小限に保つためには、サウンドカード上で音声のバッファを出来るだけ小さくすることが重要です。しかし、多くのサウンドカードが要求してくるバッファは、実際に動作可能な大きさよりかなり小さなものです。結局、この値を設定するにはいろいろ試してみるほかありません。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="440"/>
+        <location filename="AudioWizard.cpp" line="488"/>
         <source>Amount of data to buffer.</source>
         <translation>バッファデータの量</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="443"/>
+        <location filename="AudioWizard.cpp" line="491"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>出力バッファにおけるプリバッファの量を設定します。いろいろな値で試してみて、急に不安定にならない一番小さな値に設定してください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="547"/>
+        <location filename="AudioWizard.cpp" line="595"/>
         <source>%1ms</source>
         <translation>%1ms</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="744"/>
+        <location filename="AudioWizard.cpp" line="809"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="425"/>
+        <location filename="AudioWizard.cpp" line="473"/>
         <source>You should hear a single tone that&apos;s changing in frequency. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test to improve audio path recognition.</source>
         <translation>周波数が変わる1つの音色が聞こえますでしょうか。音が途切れたり不安定に&lt;b&gt;ならない&lt;/b&gt;一番小さな値まで下のスライダーを動かしてください。なお、音声経路の認識率を向上するため、このテストの間ローカルエコーは使えなくなっている事をお忘れなく。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="449"/>
+        <location filename="AudioWizard.cpp" line="497"/>
         <source>If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path delay in your system; this means the delay from a sample is placed in an outbound buffer until it&apos;s found in a matching incoming buffer.</source>
         <translation>スピーカーやヘッドセットの出力をマイクが拾ってしまうような配置にしている場合、あなたのシステムで音声経路の遅延が起きていると判断されるでしょう; つまり、対応する受信バッファ内に含まれるまでサンプルが送信バッファに放置されて、遅延をもたらします。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="693"/>
+        <location filename="AudioWizard.cpp" line="758"/>
         <source>Audio path is %1ms long.</source>
         <translation>音声経路は %1ms の長さ</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="695"/>
+        <location filename="AudioWizard.cpp" line="760"/>
         <source>Audio path cannot be determined. Input not recognized.</source>
         <translation>音声経路が決定できません。入力が不明です。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="177"/>
+        <location filename="AudioWizard.cpp" line="206"/>
         <source>Use echo cancellation</source>
         <translation>エコーキャンセルを使う</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="178"/>
+        <location filename="AudioWizard.cpp" line="207"/>
         <source>Cancel echo from headset or speakers.</source>
         <translation>ヘッドセットやスピーカーからのエコーをキャンセルします。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="179"/>
+        <location filename="AudioWizard.cpp" line="208"/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
         <translation>出力音声のエコーキャンセルを有効にします。スピーカーとヘッドセットの両方に対して有効です。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="227"/>
+        <location filename="AudioWizard.cpp" line="256"/>
         <source>Enable positional audio</source>
         <translation>位置音響を有効にする</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="228"/>
+        <location filename="AudioWizard.cpp" line="257"/>
         <source>Allows positioning of sound.</source>
         <translation>音声の位置</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="229"/>
+        <location filename="AudioWizard.cpp" line="258"/>
         <source>This allows Mumble to use positional audio to place voices.</source>
         <translation>声の位置を定めるために位置音響を使えるようにします。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="246"/>
+        <location filename="AudioWizard.cpp" line="275"/>
         <source>Positional Audio</source>
         <translation>位置音響</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="247"/>
+        <location filename="AudioWizard.cpp" line="276"/>
         <source>Adjusting attenuation of positional audio.</source>
         <translation>位置音響の減衰効果を調整します</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="254"/>
+        <location filename="AudioWizard.cpp" line="283"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
         <translation>Mumbleは、いくつかのゲームにおいてゲーム内での他プレイヤーの位置に対応した位置音響をサポートします。他プレイヤーの位置によって、方向と距離をシミュレートして音量が変化します。このシミュレーションはお使いのオペレーティング・システムでスピーカーが正しく設定されていることが前提となります。そのテストはここで行うことが出来ます。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="257"/>
+        <location filename="AudioWizard.cpp" line="286"/>
         <source>The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.</source>
         <translation>このグラフはこれらの位置を表しています: &lt;font color=&quot;red&quot;&gt;あなた&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;スピーカー&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;移動する音の発生源&lt;/font&gt; 上からに見えるようなら、チャンネルの間に移動して聞くのがよいでしょう。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="261"/>
+        <location filename="AudioWizard.cpp" line="290"/>
         <source>Use headphones</source>
         <translation>ヘッドホンを使う</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="262"/>
+        <location filename="AudioWizard.cpp" line="291"/>
         <source>Use headphones instead of speakers.</source>
         <translation>スピーカーの代わりにヘッドホンを使う</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="263"/>
+        <location filename="AudioWizard.cpp" line="292"/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
         <translation>OSのスピーカー構成を無視して、代わりにヘッドホン用の位置設定を使用します。</translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.cpp" line="144"/>
+        <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.cpp" line="148"/>
+        <source>Submit anonymous statistics to the Mumble project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.cpp" line="370"/>
+        <source>Push To Talk:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2698,7 +2728,7 @@
         <translation type="obsolete">上級者向け設定</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.ui" line="29"/>
+        <location filename="ConfigDialog.ui" line="26"/>
         <source>Tab 1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2864,22 +2894,22 @@
         <translation type="obsolete">選択されたDirectSound Inputのオープンに失敗しました。マイクからの入力は行われません。</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="161"/>
+        <location filename="DirectSound.cpp" line="532"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>選択されたDirectSound Inputのオープンに失敗しました。デフォルトのデバイスが使用されます。</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="73"/>
+        <location filename="DirectSound.cpp" line="172"/>
         <source>Default DirectSound Voice Input</source>
         <translation>デフォルトのDirectSound音声入力</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="156"/>
+        <location filename="DirectSound.cpp" line="527"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation>DirectSound入力デバイスのオープンに失敗しました。 マイクの取得ができませんでした。</translation>
     </message>
     <message>
-        <location filename="DXAudioInput.cpp" line="267"/>
+        <location filename="DirectSound.cpp" line="638"/>
         <source>Lost DirectSound input device.</source>
         <translation>DirectSound入力デバイスを失いました</translation>
     </message>
@@ -2892,22 +2922,22 @@
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="372"/>
+        <location filename="DirectSound.cpp" line="462"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>選択されたDirectSound出力のオープンに失敗しました。音声は出力されません。</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="286"/>
+        <location filename="DirectSound.cpp" line="380"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>選択されたDirectSound出力のオープンに失敗しました。音声は出力されません。</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="82"/>
+        <location filename="DirectSound.cpp" line="132"/>
         <source>Default DirectSound Voice Output</source>
         <translation>デフォルトのDirectSound音声出力</translation>
     </message>
     <message>
-        <location filename="DXAudioOutput.cpp" line="368"/>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Lost DirectSound output device.</source>
         <translation>DirectSound出力デバイスを失いました</translation>
     </message>
@@ -3127,47 +3157,47 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="175"/>
+        <location filename="GlobalShortcut.cpp" line="176"/>
         <source>Shortcuts</source>
         <translation>ショートカット</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="127"/>
+        <location filename="GlobalShortcut.cpp" line="128"/>
         <source>Function</source>
         <translation>機能</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="129"/>
+        <location filename="GlobalShortcut.cpp" line="130"/>
         <source>Shortcut</source>
         <translation>ショートカット</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="148"/>
+        <location filename="GlobalShortcut.cpp" line="149"/>
         <source>Shortcut bound to %1.</source>
         <translation>%1 に登録されているショートカット</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="151"/>
+        <location filename="GlobalShortcut.cpp" line="152"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
         <translation>&lt;b&gt;%1 に登録するショートカットキーです。&lt;/b&gt;&lt;br /&gt;このフィールドをクリックして希望のキー/ボタンの組み合わせを押すと登録できます。ダブルクリックで削除します。</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="164"/>
+        <location filename="GlobalShortcut.cpp" line="165"/>
         <source>Double-click an entry to clear the shortcut.</source>
         <translation>項目をダブルクリックするとショートカットを削除します。</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="131"/>
+        <location filename="GlobalShortcut.cpp" line="132"/>
         <source>Suppress</source>
         <translation>抑制</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="154"/>
+        <location filename="GlobalShortcut.cpp" line="155"/>
         <source>Suppress keys from other applications</source>
         <translation>他のアプリケーションのキーを抑制します</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="157"/>
+        <location filename="GlobalShortcut.cpp" line="158"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
         <translation>&lt;b&gt;他のアプリケーションで押されたボタンを隠します.&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、他のアプリケーションで押されたボタン(または、複数ボタンの組み合わせの最後のもの)を隠します. 全てのボタンを抑制できるわけではないことにご注意ください。</translation>
     </message>
@@ -3619,7 +3649,7 @@ p, li { white-space: pre-wrap; }
         <translation>インターフェース</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="161"/>
+        <location filename="LookConfig.cpp" line="159"/>
         <source>Choose skin file</source>
         <translation>スキンファイルを選択</translation>
     </message>
@@ -3666,12 +3696,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="197"/>
         <source>New version check</source>
-        <translation>新しいバージョンをチェック</translation>
+        <translation type="obsolete">新しいバージョンをチェック</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="203"/>
         <source>Check for updates on startup</source>
-        <translation>起動時に更新をチェックする</translation>
+        <translation type="obsolete">起動時に更新をチェックする</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="61"/>
@@ -3787,6 +3817,11 @@ p, li { white-space: pre-wrap; }
         <location filename="LookConfig.ui" line="187"/>
         <source>Expert Config</source>
         <translation type="unfinished">上級者向け設定</translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="155"/>
+        <source>Hide the main Mumble window in the tray when it is minimized.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4315,7 +4350,7 @@ p, li { white-space: pre-wrap; }
         <translation>プレイヤー %1 をBANしました</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="222"/>
+        <location filename="main.cpp" line="221"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4830,7 +4865,7 @@ p, li { white-space: pre-wrap; }
         <translation>サーバーの最大帯域幅は %1 kbit/s しかありません。品質は自動的に調整されます。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="222"/>
+        <location filename="main.cpp" line="221"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>初めての起動です。&lt;br /&gt;サウンドカードの設定をするために音声ウィザードに移動しますか？</translation>
     </message>
@@ -5092,6 +5127,31 @@ p, li { white-space: pre-wrap; }
         <location filename="NetworkConfig.ui" line="222"/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
         <translation>&lt;b&gt;プロキシ認証のパスワード&lt;/b&gt;&lt;br /&gt;プロキシサーバの認証に使うパスワードを指定します。プロキシサーバが認証を行わない場合や、匿名で接続する場合はこのフィールドを空にしてください。</translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="241"/>
+        <source>Mumble services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="247"/>
+        <source>Check for updates on startup</source>
+        <translation type="unfinished">起動時に更新をチェックする</translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="254"/>
+        <source>Submit anonymous statistics to the Mumble project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="257"/>
+        <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus it&apos;s development where it&apos;s needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="260"/>
+        <source>Submit anonymous statistics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5830,7 +5890,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="87"/>
+        <location filename="VersionCheck.cpp" line="91"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
         <translation>SourceForgeサーバーからのバージョン情報の取得に失敗しました。</translation>
     </message>
@@ -5984,7 +6044,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="157"/>
+        <location filename="WASAPI.cpp" line="197"/>
         <source>Default Device</source>
         <translation>デフォルトデバイス</translation>
     </message>
