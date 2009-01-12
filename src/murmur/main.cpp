@@ -164,7 +164,7 @@ int main(int argc, char **argv) {
 	a.setApplicationName("Murmur");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
-	
+
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
@@ -246,12 +246,11 @@ int main(int argc, char **argv) {
 			       "  -version         Show version information.\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", argv[0]);
-		} else if (arg == "-descriptors") {
 #ifdef Q_OS_UNIX
+		} else if (arg == "-descriptors") {
 			QAbstractEventDispatcher *ed = QAbstractEventDispatcher::instance();
-			if (QLatin1String(ed->metaObject()->className()) != QLatin1String("QEventDispatcherGlib")) 
+			if (QLatin1String(ed->metaObject()->className()) != QLatin1String("QEventDispatcherGlib"))
 				qWarning("Not running with glib. While you may be able to open more descriptors, sockets above %d will not work", FD_SETSIZE);
-#endif
 			qWarning("Running descriptor test.");
 			int count;
 			QList<QFile *> ql;
@@ -261,11 +260,14 @@ int main(int argc, char **argv) {
 					ql << qf;
 				else
 					break;
+				if ((count & 511) == 0)
+					qWarning("%d descriptors...", count);
 			}
 			foreach(QFile *qf, ql)
 				delete qf;
 			ql.clear();
 			qFatal("Managed to open %d descriptors", count);
+#endif
 		} else {
 			detach = false;
 			qFatal("Unknown argument %s", argv[i]);
@@ -411,7 +413,7 @@ int main(int argc, char **argv) {
 #endif
 
 	meta->bootAll();
-	
+
 	res=a.exec();
 
 	qWarning("Killing running servers");
