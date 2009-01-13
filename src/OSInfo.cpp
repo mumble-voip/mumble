@@ -35,6 +35,12 @@
 #include <sys/utsname.h>
 #endif
 
+#ifdef Q_WS_MAC
+#include <mach-o/arch.h>
+#undef qDebug
+#include <CoreServices/CoreServices.h>
+#endif
+
 QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
 	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
 		if (! qni.isValid())
@@ -78,7 +84,22 @@ QString OSInfo::getOSVersion() {
 	os.sprintf("%d.%d.%d.%d", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber, (ovi.wProductType == VER_NT_WORKSTATION) ? 1 : 0);
 	return os;
 #elif defined(Q_OS_MAC)
-	return QString::number(QSysInfo::MacintoshVersion, 16);
+	SInt32 major, minor, bugfix;
+	OSErr err = Gestalt(gestaltSystemVersionMajor, &major);
+	if (err == noErr)
+		err = Gestalt(gestaltSystemVersionMinor, &minor);
+	if (err == noErr)
+		err = Gestalt(gestaltSystemVersionBugFix, &bugfix);
+	if (err != noErr)
+		return QString::number(QSysInfo::MacintoshVersion, 16);
+
+	const NXArchInfo *local = NXGetLocalArchInfo();
+	const NXArchInfo *ai = local ? NXGetArchInfoFromCpuType(local->cputype, CPU_SUBTYPE_MULTIPLE) : NULL;
+	const char *arch = ai ? ai->name : "unknown";
+
+	QString os;
+	os.sprintf("%i.%i.%i (%s)", major, minor, bugfix, arch);
+	return os;
 #else
 #ifdef Q_OS_LINUX
 	QProcess qp;
