@@ -12,12 +12,12 @@ win32 {
 		QMAKE_CFLAGS *= -Qstd=c99 -Qrestrict -Qvc9
 		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict -Qvc9
 		# Disable IPO and -GL due to bugs in Intel C++ 11.0
-		QMAKE_CFLAGS_RELEASE *= -O3 -QxK -Ob0
+		QMAKE_CFLAGS_RELEASE *= -O3 -Ob0
 		QMAKE_CFLAGS_RELEASE -= -GL
-		QMAKE_CXXFLAGS_RELEASE *= -O3 -QxK -Ob0
+		QMAKE_CXXFLAGS_RELEASE *= -O3 -Ob0
 		QMAKE_CXXFLAGS_RELEASE -= -GL
-		QMAKE_CFLAGS_DEBUG *= -O2 -QxK -Ob0 
-		QMAKE_CXXFLAGS_DEBUG *= -O2 -QxK -Ob0 
+		QMAKE_CFLAGS_DEBUG *= -O2 -Ob0 
+		QMAKE_CXXFLAGS_DEBUG *= -O2 -Ob0 
 
 		CONFIG(optgen) {
 			QMAKE_CFLAGS *= -Qprof-gen
