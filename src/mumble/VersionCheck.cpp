@@ -55,6 +55,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
 	if (autocheck)
 		quUrl.addQueryItem(QLatin1String("auto"), QLatin1String("1"));
 
+	quUrl.addQueryItem(QLatin1String("locale"), g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage);
 	QMetaObject::connectSlotsByName(this);
 
 	QFile f(qApp->applicationFilePath());
@@ -86,7 +87,7 @@ void VersionCheck::on_Agent_requestFinished(int id, bool error) {
 	if ((head.statusCode() == 200) && !error) {
 		QByteArray a=qhAgent->readAll();
 		if (a.size() > 0)
-			g.mw->msgBox(QLatin1String(a));
+			g.mw->msgBox(QString::fromUtf8(a));
 	} else if (bSilent) {
 		g.mw->msgBox(tr("Mumble failed to retrieve version information from the SourceForge server."));
 	}
