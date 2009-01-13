@@ -117,6 +117,90 @@ void HardHook::print() {
 	    baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
 }
 
+FakeInterface::FakeInterface(IUnknown *orig, int entries) {
+	this->pOriginal = orig;
+	pAssembly = VirtualAlloc(NULL, entries * 256, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	unsigned char *f = (unsigned char *) pAssembly;
+	vtbl = new void *[entries];
+
+	pNew = (IUnknown *) &vtbl;
+
+	ods("Allocated %p for %d", f, entries);
+	for(int i=0;i<entries;i++) {
+		DWORD offset = i * 4;
+		vtbl[i] = f;
+
+		f[0] = 0x8b; // mov eax, [esp+4]
+		f[1] = 0x44;
+		f[2] = 0xe4;
+		f[3] = 0x04;
+		f+=4;
+
+		f[0] = 0x83; // sub eax, 4
+		f[1] = 0xc0;
+		f[2] = 0x04;
+		f+=3;
+
+		f[0] = 0x8b; // mov eax, [eax]
+		f[1] = 0x00;
+		f+=2;
+
+		f[0] = 0x89; // mov [esp+4], eax
+		f[1] = 0x44;
+		f[2] = 0xe4;
+		f[3] = 0x04;
+		f+=4;
+
+		f[0] = 0x8b; // mov eax, [eax]
+		f[1] = 0x00;
+		f+=2;
+
+		f[0] = 0x8b; // mov eax, [eax + offset]
+		f[1] = 0x80;
+		f[2] = ((offset >> 0) & 0xFF);
+		f[3] = ((offset >> 8) & 0xFF);
+		f[4] = ((offset >> 16) & 0xFF);
+		f[5] = ((offset >> 24) & 0xFF);
+		f+=6;
+
+		f[0] = 0xff; // jmp eax
+		f[1] = 0xe0;
+		f+=2;
+	}
+}
+
+FakeInterface::~FakeInterface() {
+	VirtualFree((void *) pAssembly, 0, MEM_RELEASE);
+	delete [] vtbl;
+}
+
+void FakeInterface::replace(LONG offset, voidMemberFunc replacement) {
+	void *p = NULL;
+	_asm {
+		mov eax, replacement
+		mov p, eax
+	}
+	ods("That gave %p", p);
+	vtbl[offset] = p;
+}
+
+CRITICAL_SECTION Mutex::cs;
+
+void Mutex::init() {
+	InitializeCriticalSection(&cs);
+}
+
+Mutex::Mutex() {
+	if (! TryEnterCriticalSection(&cs)) {
+		ods("CritFail");
+		EnterCriticalSection(&cs);
+	}
+}
+
+Mutex::~Mutex() {
+	LeaveCriticalSection(&cs);
+}
+
 void __cdecl ods(const char *format, ...) {
 #ifndef DEBUG
 	if (!sm || ! sm->bDebug)
@@ -217,6 +301,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH: {
+				Mutex::init();
 				ods("Lib: ProcAttach: %s", procname);
 				char *p = strrchr(procname, '\\');
 

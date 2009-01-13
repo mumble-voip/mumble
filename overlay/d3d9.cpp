@@ -277,6 +277,7 @@ static HardHook hhSwapPresent;
 
 static void doPresent(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
+
 	if (ds && sm->bShow) {
 		IDirect3DSurface9 *pTarget = NULL;
 		IDirect3DSurface9 *pRenderTarget = NULL;
@@ -313,6 +314,8 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		pRenderTarget->Release();
 		pTarget->Release();
+
+		ods("Finished ref is %d", ds->myRefCount);
 	}
 }
 
@@ -366,23 +369,26 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 }
 
 static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
+	Mutex m;
 	DevState *ds = devMap[idd];
 	if (ds) {
-		if (ds->bMyRefs)
+		if (ds->bMyRefs) {
 			ds->myRefCount++;
-		else
+		} else
 			ds->refCount++;
 		return ds->refCount + ds->initRefCount;
 	}
-	ods("D3D9: Unknown device, chaining AddRef");
 	hhAddRef.restore();
 	LONG res = idd->AddRef();
 	hhAddRef.inject();
+	ods("D3D9: Chaining AddRef: %d", res);
 	return res;
 }
 
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
+	Mutex m;
 	DevState *ds = devMap[idd];
+
 	if (ds) {
 		if (ds->bMyRefs) {
 			ds->myRefCount--;
@@ -394,27 +400,47 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 		if (ds->refCount >= 0)
 			return ds->refCount + ds->initRefCount;
 
-		ods("D3D9: Final release");
+		ods("D3D9: Final release. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
 
 		bool b = ds->bMyRefs;
 		ds->bMyRefs = true;
 		ds->releaseAll();
 		ds->bMyRefs = b;
 
+		ods("D3D9: Final release, MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
+
+		if (ds->myRefCount != 0) {
+			// Someone did some multithread magic during present or somesuch.
+			// Let's fake it.
+			hhRelease.restore();
+			hhAddRef.restore();
+
+			while(ds->myRefCount > 0) {
+				idd->AddRef();
+				ds->myRefCount--;
+			}
+			while(ds->myRefCount < 0) {
+				idd->Release();
+				ds->myRefCount++;
+			}
+
+			hhRelease.inject();
+			hhAddRef.inject();
+		}
+
 		devMap.erase(idd);
 		delete ds;
 	}
-	ods("D3D9: Chaining Release");
 	hhRelease.restore();
 	LONG res = idd->Release();
 	hhRelease.inject();
+	ods("D3D9: Chaining Release: %d", res);
 	return res;
 }
 
-
-
 static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	ods("D3D9: Chaining CreateDevice");
+	Mutex m;
 
 //	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
 
@@ -462,6 +488,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 }
 
 static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX* pFullscreenDisplayMode, IDirect3DDevice9Ex** ppReturnedDeviceInterface) {
+	Mutex m;
 	ods("D3D9: Chaining CreateDeviceEx");
 
 //	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
@@ -531,7 +558,6 @@ static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 	hhCreateDeviceEx.inject();
 }
-
 
 void checkD3D9Hook() {
 	if (bChaining) {

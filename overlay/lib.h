@@ -63,6 +63,27 @@ struct HardHook {
 	void print();
 };
 
+
+struct FakeInterface {
+	typedef ULONG (FakeInterface::* voidMemberFunc)();
+	void **vtbl;
+	IUnknown *pOriginal;
+	IUnknown *pNew;
+	void *pAssembly;
+	FakeInterface(IUnknown *orig, int entries);
+	~FakeInterface();
+	void replace(LONG funcoffset, voidMemberFunc replacement);
+};
+
+class Mutex {
+	protected:
+		static CRITICAL_SECTION cs;
+	public:
+		static void init();
+		Mutex();
+		~Mutex();
+};
+
 extern void checkD3D9Hook();
 extern void checkOpenGLHook();
 
