@@ -58,6 +58,9 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qhList->setObjectName(QLatin1String("Request"));
 
 	setupUi(this);
+#ifdef Q_OS_MAC
+	setWindowFlags(Qt::Sheet);
+#endif
 
 	bPublicInit = false;
 	bDirty = false;

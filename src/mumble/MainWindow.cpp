@@ -1267,16 +1267,22 @@ void MainWindow::serverDisconnected(QString reason) {
 			g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
 
+
+		Qt::WindowFlags wf = 0;
+#ifdef Q_OS_MAC
+		wf = Qt::Sheet;
+#endif
+
 		switch (rtLast) {
 			case MessageServerReject::InvalidUsername:
 			case MessageServerReject::UsernameInUse:
 				matched = true;
-				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MessageServerReject::InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok);
+				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MessageServerReject::InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok, wf);
 				break;
 			case MessageServerReject::WrongUserPW:
 			case MessageServerReject::WrongServerPW:
 				matched = true;
-				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MessageServerReject::WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok);
+				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MessageServerReject::WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok, wf);
 				break;
 			default:
 				break;
