@@ -216,6 +216,7 @@ void MainWindow::createActions() {
 	qmTray = new QMenu(this);
 	qmTray->addAction(tr("&Quit"), this, SLOT(on_qaQuit_triggered()));
 	qstiIcon->setContextMenu(qmTray);
+	updateTrayIcon();
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
