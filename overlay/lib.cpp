@@ -37,6 +37,7 @@ static HHOOK hhookWnd = 0;
 SharedMem *sm;
 HANDLE hSharedMutex = NULL;
 HMODULE hSelf = NULL;
+BOOL bMumble = FALSE;
 
 static HardHook hhLoad;
 
@@ -297,7 +298,6 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 	char procname[1024+64];
 	GetModuleFileName(NULL, procname, 1024);
-	BOOL bMumble = FALSE;
 
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH: {
@@ -376,7 +376,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					hhLoad.inject();
 					CloseHandle(hKern);
 
-					checkD3D9Hook();
+					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
+					// checkD3D9Hook();
 					checkOpenGLHook();
 					ods("Injected");
 				}
@@ -393,6 +394,15 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					CloseHandle(hSharedMutex);
 				if (hHookMutex)
 					CloseHandle(hHookMutex);
+			}
+			break;
+		case DLL_THREAD_ATTACH: {
+				static bool bTriedHook = false;
+				if (! bTriedHook && ! bMumble) {
+					bTriedHook = true;
+					checkD3D9Hook();
+					checkOpenGLHook();
+				}
 			}
 			break;
 		default:

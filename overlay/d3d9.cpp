@@ -49,7 +49,7 @@ class DevState {
 		LONG initRefCount;
 		LONG refCount;
 		LONG myRefCount;
-		bool bMyRefs;
+		DWORD dwMyThread;
 
 		LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
 
@@ -70,7 +70,7 @@ static bool bPresenting = false;
 DevState::DevState() {
 	dev = NULL;
 	pSB = NULL;
-	bMyRefs = false;
+	dwMyThread = 0;
 	refCount = 0;
 	myRefCount = 0;
 	for (int i = 0;i < NUM_TEXTS;i++)
@@ -215,8 +215,11 @@ void DevState::draw() {
 }
 
 void DevState::createCleanState() {
-	bool b = bMyRefs;
-	bMyRefs = true;
+	DWORD dwOldThread = dwMyThread;
+	if (dwOldThread) {
+		ods("CreateCleanState from other thread.");
+	}
+	dwMyThread = GetCurrentThreadId();
 
 	if (pSB)
 		pSB->Release();
@@ -263,7 +266,7 @@ void DevState::createCleanState() {
 	pStateBlock->Apply();
 	pStateBlock->Release();
 
-	bMyRefs = b;
+	dwMyThread = dwOldThread;
 }
 
 static HardHook hhCreateDevice;
@@ -279,6 +282,11 @@ static void doPresent(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
 
 	if (ds && sm->bShow) {
+		DWORD dwOldThread = ds->dwMyThread;
+		if (dwOldThread)
+			ods("doPresent from other thread");
+		ds->dwMyThread = GetCurrentThreadId();
+
 		IDirect3DSurface9 *pTarget = NULL;
 		IDirect3DSurface9 *pRenderTarget = NULL;
 		idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
@@ -286,8 +294,6 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		ods("D3D9: doPresent Back %p RenderT %p",pTarget,pRenderTarget);
 
-		bool b = ds->bMyRefs;
-		ds->bMyRefs = true;
 
 		IDirect3DStateBlock9* pStateBlock = NULL;
 		idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
@@ -310,12 +316,11 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		pStateBlock->Apply();
 		pStateBlock->Release();
 
-		ds->bMyRefs = b;
-
 		pRenderTarget->Release();
 		pTarget->Release();
 
-		ods("Finished ref is %d", ds->myRefCount);
+		ods("Finished ref is %d %d", ds->myRefCount, ds->refCount);
+		ds->dwMyThread = dwOldThread;
 	}
 }
 
@@ -355,10 +360,13 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 
 	DevState *ds = devMap[idd];
 	if (ds) {
-		bool b = ds->bMyRefs;
-		ds->bMyRefs = true;
+		DWORD dwOldThread = ds->dwMyThread;
+		if (dwOldThread)
+			ods("myReset from other thread");
+		ds->dwMyThread = GetCurrentThreadId();
+
 		ds->releaseAll();
-		ds->bMyRefs = b;
+		ds->dwMyThread = dwOldThread;
 	}
 	hhReset.restore();
 	HRESULT hr=idd->Reset(param);
@@ -372,7 +380,7 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
 	DevState *ds = devMap[idd];
 	if (ds) {
-		if (ds->bMyRefs) {
+		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount++;
 		} else
 			ds->refCount++;
@@ -390,7 +398,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
 
 	if (ds) {
-		if (ds->bMyRefs) {
+		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount--;
 			return ds->refCount + ds->initRefCount;
 		} else {
@@ -402,10 +410,14 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 
 		ods("D3D9: Final release. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
 
-		bool b = ds->bMyRefs;
-		ds->bMyRefs = true;
+		DWORD dwOldThread = ds->dwMyThread;
+		if (dwOldThread)
+			ods("finalRelease from other thread");
+		ds->dwMyThread = GetCurrentThreadId();
+
 		ds->releaseAll();
-		ds->bMyRefs = b;
+
+		ds->dwMyThread = dwOldThread;
 
 		ods("D3D9: Final release, MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
 
@@ -452,6 +464,29 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 		return hr;
 
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
+	IDirect3DSwapChain9 *pSwap = NULL;
+
+	// Get real interface, please.
+	bool bfound;
+	do {
+		bfound = false;
+		idd->GetSwapChain(0, &pSwap);
+		if (pSwap) {
+			IDirect3DDevice9 *idorig = NULL;
+			if (SUCCEEDED(pSwap->GetDevice(&idorig))) {
+				if (idorig != idd) {
+					ods("Prepatched device, using original. %p => %p", idorig, idd);
+					if (idd != *ppReturnedDeviceInterface)
+						idd->Release();
+					idd = idorig;
+					bfound = true;
+				} else {
+					idorig->Release();
+				}
+			}
+			pSwap->Release();
+		}
+	} while (bfound);
 
 	DevState *ds = new DevState;
 	ds->dev = idd;
@@ -473,7 +508,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
 	hhPresent.inject();
 
-	IDirect3DSwapChain9 *pSwap = NULL;
+	pSwap = NULL;
 	idd->GetSwapChain(0, &pSwap);
 	if (pSwap) {
 		hhSwapPresent.setupInterface(pSwap, 3, reinterpret_cast<voidFunc>(mySwapPresent));
