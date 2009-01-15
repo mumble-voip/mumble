@@ -193,7 +193,6 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 				die(0, "Unable to wait for object.");
 			}
 			bErr = ReadFile(hStdin, bitmap.pixels + dwTotRead, G15_MAX_FBMEM - dwTotRead, &dwRead, NULL);
-			warn("Read %d", dwRead);
 			if (bErr == FALSE || dwRead == 0)
 				die(G15_ERR_READFILE, "Error while reading framebuffer. %d %x",dwRead,GetLastError());
 			dwTotRead += dwRead;
