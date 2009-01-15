@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -646,7 +647,6 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="" line="6422637"/>
         <source>&lt;h3&gt;Mumble v1.0.0&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Deutsche Übersetzung von Matthias Vogelgesang&lt;br /&gt; m0ta@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Voicechat-Programm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
@@ -1417,32 +1417,32 @@
     <message>
         <location filename="AudioInput.ui" line="270"/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">Aktuelle Spracherkennungswahrscheinlichkeit</translation>
+        <translation>Aktuelle Spracherkennungswahrscheinlichkeit</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="273"/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished">&lt;b&gt;Dies zeigt die aktuellen Spracherkennungs-Einstellungen an.&lt;/b&gt;&lt;br /&gt;Die Einstellung können im Einstellungsdialog oder dem Audio-Assistenten geändert werden.</translation>
+        <translation>&lt;b&gt;Dies zeigt die aktuellen Spracherkennungs-Einstellungen an.&lt;/b&gt;&lt;br /&gt;Die Einstellung können im Einstellungsdialog oder dem Audio-Assistenten geändert werden.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="349"/>
         <source>Idle AutoMute</source>
-        <translation type="unfinished"></translation>
+        <translation>Idle AutoMute</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="356"/>
         <source>How long to remain idle before auto-mute.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wie lange untätig bleiben, bis auto-mute aktiviert wird.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="359"/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies setzt den Idle-Timer. Der Timer läuft ohne ein Geräusch an den Server zu senden ab, wenn man gemutet ist.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="533"/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies legt die Menge an Rauschunterdrückung fest.&lt;/b&gt;&lt;br /&gt;Je höher der Wert, desto aggressiver will stationäres Rauschen unterdrückt.</translation>
     </message>
 </context>
 <context>
@@ -1495,7 +1495,7 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="199"/>
         <source>%1 min</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 min</translation>
     </message>
 </context>
 <context>
@@ -1583,7 +1583,7 @@
     <message>
         <location filename="AudioOutput.ui" line="167"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished">&lt;b&gt;Dies legt die Lautstärke der eingehenden Sprache fest.&lt;/b&gt;&lt;br /&gt;Beachten Sie, dass dies nur genutzt werden kann, um die Lautstärke zu verringern. Eine Verstärkung ist nicht möglich.</translation>
+        <translation>&lt;b&gt;Dies legt die Lautstärke der eingehenden Sprache fest.&lt;/b&gt;&lt;br /&gt;Beachten Sie, dass bei einem Wert über 100% die Geräusche verzerrt werden.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="210"/>
@@ -1733,17 +1733,17 @@
     <message>
         <location filename="AudioOutput.ui" line="193"/>
         <source>Other Applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Andere Anwendungen</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="249"/>
         <source>Volume of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärke der anderen Anwendungen während des Sprechens</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="252"/>
         <source>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Reduziere Lautstärke anderer Anwendungen während des Sprechens.&lt;/b&gt;&lt;br /&gt;Mumble unterstützt die Reduzierung der Lautstärke anderer Anwendungen während des Sprechens. Dies legt die relative Lautstärke anderer Anwendungen fest, wenn andere sprechen.</translation>
     </message>
 </context>
 <context>
@@ -2342,17 +2342,17 @@
     <message>
         <location filename="AudioWizard.cpp" line="144"/>
         <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble ist in ständiger Entwicklung und das Entwicklungsteam will sich auf die Features konzentrieren, die den meisten Benutzern nützen. Dazu unterstützt Mumble das Absenden anonymer Statistiken über die Konfiguration. Diese Statistiken sind essentiell für die weitere Entwicklung und stellen sicher, dass die benutzten Features nicht abgestellt werden.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="148"/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende anonyme Statistiken an das Mumble Projekt</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="370"/>
         <source>Push To Talk:</source>
-        <translation type="unfinished"></translation>
+        <translation>Push-To-Talk:</translation>
     </message>
 </context>
 <context>
@@ -2573,7 +2573,7 @@
     <message>
         <location filename="../ACL.cpp" line="167"/>
         <source>Write ACL</source>
-        <translation type="unfinished"></translation>
+        <translation>Schreibe ACL</translation>
     </message>
 </context>
 <context>
@@ -2699,7 +2699,7 @@
     <message>
         <location filename="ConfigDialog.ui" line="26"/>
         <source>Tab 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab 1</translation>
     </message>
 </context>
 <context>
@@ -2863,7 +2863,6 @@
         <translation type="obsolete">Öffnen des DirectSound Eingangsgerätes gescheitert. Es wird kein Mikrofonsound aufgenommen.</translation>
     </message>
     <message>
-        <location filename="" line="6422637"/>
         <source>Opening chosen DirectSound Input failed. Using defaults.</source>
         <translation type="obsolete">Öffnen des DirectSound Eingangsgerätes gescheitert. Standardeinstellungen werden benutzt.</translation>
     </message>
@@ -2901,7 +2900,6 @@
         <translation>Öffnen des DirectSound Ausgabegerätes gescheitert. Es kann nichts gehört werden.</translation>
     </message>
     <message>
-        <location filename="" line="6422637"/>
         <source>Opening chosen DirectSound Output failed. Using defaults.</source>
         <translation type="obsolete">Öffnen des DirectSound Ausgabegerätes gescheitert. Standardeinstellungen werden benutzt.</translation>
     </message>
@@ -3079,7 +3077,6 @@
         <translation type="obsolete">DirectSound</translation>
     </message>
     <message>
-        <location filename="" line="6422637"/>
         <source>%1 ms</source>
         <translation type="obsolete">%1 ms</translation>
     </message>
@@ -3190,7 +3187,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_macx.cpp" line="62"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation type="unfinished">Mumble hat festgestellt, dass es keine Globalen Shortcut Ereignisse erhalten kann, wenn es im Hintergrund läuft.&lt;br /&gt;&lt;br /&gt;Dies wird durch die Deaktivierung des Universal Access Features &quot;Enable access for assitive devices&quot; verursacht.&lt;br /&gt;&lt;br /&gt;Bitte &lt;a href=&quot;&quot;&gt;aktivieren sie die Einstellung&lt;/a&gt; und fahren fort.</translation>
+        <translation>Mumble hat festgestellt, dass es keine Globalen Shortcut Ereignisse erhalten kann, wenn es im Hintergrund läuft.&lt;br /&gt;&lt;br /&gt;Dies wird durch die Deaktivierung des Universal Access Features &quot;Enable access for assitive devices&quot; verursacht.&lt;br /&gt;&lt;br /&gt;Bitte &lt;a href=&quot;&quot;&gt;aktivieren sie die Einstellung&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -3267,7 +3264,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="LCD.cpp" line="279"/>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht verbunden</translation>
     </message>
 </context>
 <context>
@@ -3275,27 +3272,27 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="LCD.cpp" line="113"/>
         <source>Graphic</source>
-        <translation type="unfinished"></translation>
+        <translation>Grafik</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="115"/>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="126"/>
         <source>Enable this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Gerät aktivieren</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="135"/>
         <source>LCD</source>
-        <translation type="unfinished"></translation>
+        <translation>LCD</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="25"/>
@@ -3313,42 +3310,42 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Enabled:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; font-weight:600; font-style:italic;&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:normal;&quot;&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Dies ist die Liste der verfügbaren LCD-Geräte des Systems. Es listet die Geräte mit Namen auf und enthält außerdem die Größe des Displays und den LCD-Typ. Mumble unterstützt die zeitgleiche Ausgabe auf mehrere LCD-Geräte.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Type:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Mumble unterstützt zwei verschiedene LCD-Geräte Typen. Ein Grafik-LCD erlaubt Mumble einzelne Pixel zu zeichen, während ein Zeichen-LCD nur das Anzeigen von Zeichen erlaubt. Einige Features sind nur mit einem Grafik-LCD möglich.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Size:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Dieses Feld beschreibt die Größe des LCD-Geräts. Die Größe ist entweder in Pixeln (für Grafik-LCDs) oder in Zeichen (für Zeichen-LCDs) angegeben.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Enabled:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; font-weight:600; font-style:italic;&quot;&gt;&lt;span style=&quot; font-weight:400; font-style:normal;&quot;&gt;Dies entscheiden ob Mumble auf ein bestimmtes LCD zeichnen soll.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="41"/>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="57"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="62"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="67"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="72"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="89"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Sichten</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="95"/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimale Spaltenbreite</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="102"/>
@@ -3361,17 +3358,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;If too many people are speaking at once, the Player View will split itself into columns.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;You can use this option to pick a compromise between number of players shown on the&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;LCD, and width of player names.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Diese Option legt die minimale Breite einer Spalte in der Spieleransicht fest.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Wenn zu viele Leute gleichzeitig sprechen, wird die Spieleransicht sich selbst in Spalten aufteilen.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Mit dieser Option kann ein Kompromiss zwischen der angezeigten Anzahl auf dem&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;LCD und der Spielerbreite geschlossen werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="160"/>
         <source>TextLabel</source>
-        <translation type="unfinished">Textlabel</translation>
+        <translation>Textlabel</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="133"/>
         <source>Splitter Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Splitterbreite</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="140"/>
@@ -3380,7 +3377,7 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This setting decides the width of column splitter.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Diese Einstellung legt die Breite des Spalten-Splitters fest.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3754,62 +3751,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="142"/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Frage, ob das Mumblefenster geschlossen oder minimiert werden soll, wenn Mumble beendet wird.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="145"/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Wenn gesetzt, wird gefragt ob beendet werden soll, wenn noch verbunden ist.&lt;b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="148"/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Frage nach Beenden während Verbindung</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="168"/>
         <source>Make the Mumble window appear on top of other windows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lasse das Mumblefenster über allen anderen Fenstern erscheinen.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="171"/>
         <source>&lt;b&gt;This makes the Mumble window a topmost window.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dies lässt das Mumblefenster das oberste Fenster sein.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="174"/>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Immer oben</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="158"/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray.  Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Wenn gesetzt, wird das Mumblefenster beim Minimieren versteckt und kann nur vom Tray kontrolliert werden. Anderenfalls wird es wie üblich minimiert.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="161"/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstecke im Tray wenn minimiert</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="181"/>
         <source>Show all configuration items</source>
-        <translation type="unfinished">Zeige alle Konfigurationselemente</translation>
+        <translation>Zeige alle Konfigurationselemente</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="184"/>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
-        <translation type="unfinished">&lt;b&gt;Dies zeigt alle Konfigurationselemente.&lt;/b&gt;&lt;br /&gt;Mumble enthält viele Konfigurationselemente die die meisten Benutzer nicht ändern werden. Dies zu aktivieren zeigt alle konfigurierbaren Elemente an.</translation>
+        <translation>&lt;b&gt;Dies zeigt alle Konfigurationselemente.&lt;/b&gt;&lt;br /&gt;Mumble enthält viele Konfigurationselemente die die meisten Benutzer nicht ändern werden. Dieses zu setzen zeigt alle konfigurierbaren Elemente an.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="187"/>
         <source>Expert Config</source>
-        <translation type="unfinished">Expertenkonfiguration</translation>
+        <translation>Expertenkonfiguration</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="155"/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstecke das Mumblefenster im Tray, wenn es minimiert ist.</translation>
     </message>
 </context>
 <context>
@@ -4270,7 +4267,6 @@ p, li { white-space: pre-wrap; }
         <translation>Kanalname</translation>
     </message>
     <message>
-        <location filename="" line="6422637"/>
         <source>Are you sure you want to delete %1 and all it&apos;s subchannels?</source>
         <translation type="obsolete">Sind Sie sicher Kanal %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
@@ -5022,12 +5018,12 @@ p, li { white-space: pre-wrap; }
         <location filename="Messages.cpp" line="340"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">Server</translation>
+        <translation>Server</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="217"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Beenden</translation>
     </message>
 </context>
 <context>
@@ -5175,27 +5171,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="241"/>
         <source>Mumble services</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble Dienste</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="247"/>
         <source>Check for updates on startup</source>
-        <translation type="unfinished">Prüfe nach Updates bei Start</translation>
+        <translation>Prüfe bei Start ob neue Updates vorhanden sind</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="254"/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende anonyme Statistiken an das Mumble Projekt</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="257"/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus it&apos;s development where it&apos;s needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Sende anonyme Statistiken.&lt;/b&gt;&lt;br /&gt;Mumble hat ein kleines Entwicklungsteam und als solches muss es sich auf die Entwicklungen konzentrieren, die am meisten benötigt werden. Durch das Versenden von Statistiken helfen Sie dem Projekt festzustellen, wohin die Entwicklung führen soll.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="260"/>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende anonyme Statistiken</translation>
     </message>
 </context>
 <context>
