@@ -85,6 +85,7 @@ class WASAPIOutputRegistrar : public AudioOutputRegistrar {
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
 		bool canMuteOthers() const;
+		bool usesOutputDelay() const;
 };
 
 class WASAPIInit : public DeferInit {
@@ -167,6 +168,10 @@ void WASAPIOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s)
 
 bool WASAPIOutputRegistrar::canMuteOthers() const {
 	return true;
+}
+
+bool WASAPIOutputRegistrar::usesOutputDelay() const {
+	return false;
 }
 
 const QHash<QString, QString> WASAPISystem::getInputDevices() {
@@ -602,7 +607,7 @@ void WASAPIOutput::run() {
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME hnsRequestedDuration = g.s.iOutputDelay * 20 * 10000;
+	REFERENCE_TIME hnsRequestedDuration = 20 * 10000;
 	UINT32 numFramesAvailable;
 	UINT32 packetLength = 0;
 	UINT32 wantLength;

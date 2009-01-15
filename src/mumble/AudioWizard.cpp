@@ -221,8 +221,10 @@ CompletablePage *AudioWizard::devicePage() {
 	if (AudioOutputRegistrar::qmNew) {
 		foreach(AudioOutputRegistrar *aor, *AudioOutputRegistrar::qmNew) {
 			qcbOutput->addItem(aor->name);
-			if (aor->name == AudioOutputRegistrar::current)
+			if (aor->name == AudioOutputRegistrar::current) {
 				qcbOutput->setCurrentIndex(qcbOutput->count() - 1);
+				bDelay = aor->usesOutputDelay();
+			}
 			QList<audioDevice> ql= aor->getDeviceChoices();
 		}
 	}
@@ -582,6 +584,7 @@ void AudioWizard::on_OutputDevice_activated(int) {
 	int idx = qcbOutputDevice->currentIndex();
 	if (idx > -1) {
 		aor->setDeviceChoice(qcbOutputDevice->itemData(idx), g.s);
+		bDelay = aor->usesOutputDelay();
 	}
 
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
@@ -638,8 +641,12 @@ void AudioWizard::showPage(int) {
 }
 
 int AudioWizard::nextId() const {
+	AudioOutputPtr ao = g.ao;
+
 	int nextid = QWizard::nextId();
 	if (currentPage() == qwpTrigger && ! g.s.bPositionalAudio)
+		nextid++;
+	else if ((currentPage() == qwpDevice) && ! bDelay)
 		nextid++;
 	return nextid;
 }

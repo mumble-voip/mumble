@@ -100,6 +100,8 @@ class AudioWizard: public QWizard {
 
 		bool bInit;
 
+		bool bDelay;
+
 		int iMaxPeak;
 		int iTicks;
 
