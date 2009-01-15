@@ -155,7 +155,7 @@
          <string>Hide the main Mumble window in the tray when it is minimized.</string>
         </property>
         <property name="whatsThis" >
-         <string>&lt;b>If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray.  Otherwise, it will be minimized as a window normally would.&lt;/b></string>
+         <string>&lt;b>If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b></string>
         </property>
         <property name="text" >
          <string>Hide in tray when minimized</string>
