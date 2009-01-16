@@ -396,7 +396,6 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		qsOtherVolume->setEnabled(canmute);
 		qlOtherVolume->setEnabled(canmute);
 
-		qWarning("ASKING");
 		bool usesdelay = aor->usesOutputDelay();
 		qsDelay->setEnabled(usesdelay);
 		qlDelay->setEnabled(usesdelay);
