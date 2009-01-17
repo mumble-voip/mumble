@@ -112,7 +112,7 @@ GLDEF(HDC, wglGetCurrentDC, (void));
 GLDEF(int, GetDeviceCaps, (HDC, int));
 
 #define INJDEF(ret, name, arg) GLDEF(ret, name, arg); static HardHook hh##name
-#define INJECT(name) { o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name)); if (o##name) { hh##name.setup(reinterpret_cast<voidFunc>(o##name), reinterpret_cast<voidFunc>(my##name)); hh##name.inject(); } else { ods("OpenGL: No GetProc for %s", #name);} }
+#define INJECT(name) { o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name)); if (o##name) { hh##name.setup(reinterpret_cast<voidFunc>(o##name), reinterpret_cast<voidFunc>(my##name)); o##name = (t##name) hh##name.call; } else { ods("OpenGL: No GetProc for %s", #name);} }
 
 INJDEF(BOOL, wglSwapLayerBuffers, (HDC, UINT));
 INJDEF(BOOL, wglSwapBuffers, (HDC));
@@ -308,7 +308,6 @@ void Context::draw(HDC hdc) {
 	}
 }
 
-
 static map<HDC, Context *> contexts;
 
 static void doSwap(HDC hdc) {
@@ -369,7 +368,9 @@ void checkOpenGLHook() {
 
 	if (hGL != NULL) {
 		if (! bHooked) {
-			ods("OpenGL: Unhooked OpenGL App");
+			char procname[1024];
+			GetModuleFileName(NULL, procname, 1024);
+			ods("OpenGL: Unhooked OpenGL App %s", procname);
 			bHooked = true;
 
 			INJECT(wglSwapBuffers);

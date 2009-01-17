@@ -38,14 +38,123 @@ SharedMem *sm;
 HANDLE hSharedMutex = NULL;
 HMODULE hSelf = NULL;
 BOOL bMumble = FALSE;
+BOOL bDebug = FALSE;
 
 static HardHook hhLoad;
+void *HardHook::pCode = NULL;
+unsigned int HardHook::uiCode = 0;
 
 HardHook::HardHook() {
 	int i;
 	baseptr = NULL;
-	for (i=0;i<5;i++)
+	for (i=0;i<6;i++)
 		orig[i]=replace[i]=0;
+}
+
+unsigned int modrmbytes(unsigned char a, unsigned char b) {
+	unsigned char lower = (a & 0x0f);
+	if (a >= 0xc0) {
+		return 0;
+	} else if (a >= 0x80) {
+		if ((lower == 4 ) || (lower == 12))
+			return 5;
+		else
+			return 4;
+	} else if (a >= 0x40) {
+		if ((lower == 4 ) || (lower == 12))
+			return 2;
+		else
+			return 1;
+
+	} else {
+		if ((lower == 4) || (lower == 12)) {
+			if ((b & 0x07) == 0x05)
+				return 5;
+			else
+				return 1;
+		} else if ((lower == 5) || (lower == 13))
+			return 4;
+		return 0;
+	}
+}
+
+void *HardHook::cloneCode(void **porig) {
+	unsigned char *o = (unsigned char *) *porig;
+	unsigned char *n = (unsigned char *) pCode;
+	n += uiCode;
+	unsigned int idx = 0;
+
+	if (! pCode || uiCode > 4000) {
+		uiCode = 0;
+		pCode = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	}
+
+	while (*o == 0xe9) {
+		int *iptr = reinterpret_cast<int *>(o+1);
+		o += *iptr + 5;
+
+		ods("Chaining from %p to %p", *porig, o);
+		*porig = o;
+	}
+
+	do {
+		unsigned char opcode = o[idx];
+		unsigned char a = o[idx+1];
+		unsigned char b = o[idx+2];
+		unsigned int extra = 0;
+
+		n[idx] = opcode;
+		idx++;
+
+		switch (opcode) {
+			case 0x50: // PUSH
+			case 0x51:
+			case 0x52:
+			case 0x53:
+			case 0x54:
+			case 0x55:
+			case 0x56:
+			case 0x57:
+			case 0x58: // POP
+			case 0x59:
+			case 0x5a:
+			case 0x5b:
+			case 0x5c:
+			case 0x5d:
+			case 0x5e:
+			case 0x5f:
+				break;
+			case 0x81: // CMP immediate
+				extra = modrmbytes(a,b) + 5;
+				break;
+			case 0x83:	// CMP
+				extra = modrmbytes(a,b) + 2;
+				break;
+			case 0x8b:	// MOV
+				extra = modrmbytes(a,b) + 1;
+				break;
+			default:
+				fods("Unknown opcode %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
+				return NULL;
+				break;
+		}
+		for(unsigned int i=0;i<extra;++i)
+			n[idx+i] = o[idx+i];
+		idx += extra;
+
+	} while (idx < 6);
+
+	n[idx++] = 0xe9;
+	int offs = o - n - 5;
+
+	int *iptr = reinterpret_cast<int *>(&n[idx]);
+	*iptr = offs;
+	idx += 4;
+
+	uiCode += idx;
+	FlushInstructionCache(GetCurrentProcess(), n, idx);
+
+	return n;
 }
 
 void HardHook::setup(voidFunc func, voidFunc replacement) {
@@ -60,16 +169,30 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 
 	ods("HH: Asked to replace %p with %p", func, replacement);
 
-	int offs = nptr - fptr - 5;
-	int *iptr = reinterpret_cast<int *>(&replace[1]);
-	*iptr = offs;
-	replace[0] = 0xe9;
+	if (VirtualProtect(fptr, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+		call = (voidFunc) cloneCode((void **) &fptr);
 
-	if (VirtualProtect(fptr, 5, PAGE_EXECUTE_READ, &oldProtect)) {
-		for (i=0;i<5;i++)
+		if (call) {
+			bTrampoline = true;
+		} else {
+			bTrampoline = false;
+			call = func;
+		}
+
+		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
+		*iptr = nptr;
+		replace[0] = 0x68;
+		replace[5] = 0xc3;
+
+		for (i=0;i<6;i++)
 			orig[i]=fptr[i];
-		VirtualProtect(fptr, 5, oldProtect, &restoreProtect);
+
 		baseptr = fptr;
+		inject(true);
+
+		VirtualProtect(fptr, 16, oldProtect, &restoreProtect);
+	} else {
+		ods("Failed initial vprotect");
 	}
 }
 
@@ -80,34 +203,40 @@ void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacem
 	setup(reinterpret_cast<voidFunc>(ptr[funcoffset]), replacement);
 }
 
-void HardHook::inject() {
+void HardHook::inject(bool force) {
 	DWORD oldProtect, restoreProtect;
 	int i;
 
 	if (! baseptr)
 		return;
-	if (VirtualProtect(baseptr, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for (i=0;i<5;i++)
+	if (! force && bTrampoline)
+		return;
+
+	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
+		for (i=0;i<6;i++)
 			baseptr[i] = replace[i];
-		VirtualProtect(baseptr, 5, oldProtect, &restoreProtect);
-		FlushInstructionCache(GetCurrentProcess(),baseptr, 5);
+		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
+		FlushInstructionCache(GetCurrentProcess(),baseptr, 6);
 	}
-	for (i=0;i<5;i++)
+	for (i=0;i<6;i++)
 		if (baseptr[i] != replace[i])
 			ods("HH: Injection failure at byte %d", i);
 }
 
-void HardHook::restore() {
+void HardHook::restore(bool force) {
 	DWORD oldProtect, restoreProtect;
 	int i;
 
 	if (! baseptr)
 		return;
-	if (VirtualProtect(baseptr, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for (i=0;i<5;i++)
+	if (! force && bTrampoline)
+		return;
+
+	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
+		for (i=0;i<6;i++)
 			baseptr[i] = orig[i];
-		VirtualProtect(baseptr, 5, oldProtect, &restoreProtect);
-		FlushInstructionCache(GetCurrentProcess(),baseptr, 5);
+		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
+		FlushInstructionCache(GetCurrentProcess(),baseptr, 6);
 	}
 }
 
@@ -202,12 +331,34 @@ Mutex::~Mutex() {
 	LeaveCriticalSection(&cs);
 }
 
+void __cdecl fods(const char *format, ...) {
+	char    buf[4096], *p = buf;
+	va_list args;
+
+	va_start(args, format);
+	int len = _vsnprintf_s(p, sizeof(buf) - 1, _TRUNCATE, format, args);
+	va_end(args);
+
+	if (len <= 0)
+		return;
+
+	p += len;
+
+	while (p > buf  &&  isspace(p[-1]))
+		*--p = '\0';
+
+	*p++ = '\r';
+	*p++ = '\n';
+	*p   = '\0';
+
+	OutputDebugStringA(buf);
+}
+
 void __cdecl ods(const char *format, ...) {
 #ifndef DEBUG
-	if (!sm || ! sm->bDebug)
+	if (!bDebug && (!sm || ! sm->bDebug))
 		return;
 #endif
-
 	char    buf[4096], *p = buf;
 	va_list args;
 
@@ -239,13 +390,18 @@ static const char *blacklist[] = {
 	NULL
 };
 
+typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
+	LoadLibraryAType oLoadLibrary = (LoadLibraryAType) hhLoad.call;
 	hhLoad.restore();
-	HMODULE h = LoadLibraryA(lpFileName);
+
+	HMODULE h = oLoadLibrary(lpFileName);
 	ods("Library %s loaded to %p", lpFileName, h);
 
-	checkD3D9Hook();
-	checkOpenGLHook();
+	if (! bMumble) {
+		checkD3D9Hook();
+		checkOpenGLHook();
+	}
 
 	hhLoad.inject();
 	return h;
@@ -321,8 +477,17 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					HANDLE h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
-						ods("Overlay disable %s found", procname);
+						fods("Overlay disable %s found", procname);
 						return TRUE;
+					}
+
+					strcpy_s(p+1, 64, "debugoverlay");
+
+					h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+					if (h != INVALID_HANDLE_VALUE) {
+						CloseHandle(h);
+						fods("Overlay debug %s found", procname);
+						bDebug = TRUE;
 					}
 				}
 
@@ -371,10 +536,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				ReleaseMutex(hSharedMutex);
 
 				if (! bMumble) {
-					HMODULE hKern = GetModuleHandle("kernel32.dll");
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
-					hhLoad.inject();
-					CloseHandle(hKern);
 
 					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
 					// checkD3D9Hook();
@@ -385,7 +547,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 			break;
 		case DLL_PROCESS_DETACH: {
 				ods("Lib: ProcDetach: %s", procname);
-				hhLoad.restore();
+				hhLoad.restore(true);
 				if (sm)
 					UnmapViewOfFile(sm);
 				if (hMapObject)

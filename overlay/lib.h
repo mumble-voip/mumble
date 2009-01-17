@@ -47,19 +47,27 @@
 
 using namespace std;
 
+void __cdecl fods(const char *format, ...);
 void __cdecl ods(const char *format, ...);
 
 typedef void *(*voidFunc)();
 
 struct HardHook {
 	unsigned char *baseptr;
-	unsigned char orig[5];
-	unsigned char replace[5];
+	unsigned char orig[6];
+	unsigned char replace[6];
+	bool bTrampoline;
+	voidFunc call;
+
+	static void *pCode;
+	static unsigned int uiCode;
+
 	HardHook();
+	void *cloneCode(void **orig);
 	void setup(voidFunc func, voidFunc replacement);
 	void setupInterface(IUnknown *intf, LONG funcoffset, voidFunc replacement);
-	void inject();
-	void restore();
+	void inject(bool force = false);
+	void restore(bool force = false);
 	void print();
 };
 
