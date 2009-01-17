@@ -370,7 +370,7 @@ void checkOpenGLHook() {
 		if (! bHooked) {
 			char procname[1024];
 			GetModuleFileName(NULL, procname, 1024);
-			ods("OpenGL: Unhooked OpenGL App %s", procname);
+			fods("OpenGL: Unhooked OpenGL App %s", procname);
 			bHooked = true;
 
 			INJECT(wglSwapBuffers);
