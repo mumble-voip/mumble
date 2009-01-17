@@ -39,13 +39,13 @@
 
 #define OVERLAY_VERSION_MAJ 1
 #define OVERLAY_VERSION_MIN 1
-#define OVERLAY_VERSION_PATCH 4
+#define OVERLAY_VERSION_PATCH 7
 #define OVERLAY_VERSION_SUB 0
 
 struct TextEntry {
 	unsigned int color;
 	wchar_t text[128];
-	bool bUpdated;
+	unsigned int uiCounter;
 	short width;
 	unsigned char texture[TEXTURE_SIZE];
 };

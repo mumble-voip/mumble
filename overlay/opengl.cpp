@@ -124,6 +124,7 @@ static bool bChaining = false;
 struct Context {
 	HGLRC ctx;
 	GLuint textures[NUM_TEXTS];
+	unsigned int uiCounter[NUM_TEXTS];
 	Context(HDC hdc);
 	void draw(HDC hdc);
 };
@@ -171,9 +172,8 @@ Context::Context(HDC hdc) {
 	if (dwWaitResult != WAIT_OBJECT_0)
 		return;
 
-	for (int i = 0; i < NUM_TEXTS; i++) {
-		sm->texts[i].bUpdated = true;
-	}
+	for(int i=0;i<NUM_TEXTS;++i)
+		uiCounter[i] = 0;
 
 	ReleaseMutex(hSharedMutex);
 }
@@ -227,7 +227,7 @@ void Context::draw(HDC hdc) {
 		if (sm->texts[i].width == 0) {
 			y += iHeight / 4;
 		} else if (sm->texts[i].width > 0) {
-			if (sm->texts[i].bUpdated) {
+			if (sm->texts[i].uiCounter != uiCounter[i]) {
 				ods("OpenGL: Updating %d %d texture", sm->texts[i].width, TEXT_HEIGHT);
 				oglBindTexture(GL_TEXTURE_2D, textures[i]);
 				oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -235,7 +235,7 @@ void Context::draw(HDC hdc) {
 				oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 				oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 				oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[i].texture);
-				sm->texts[i].bUpdated = false;
+				uiCounter[i] = sm->texts[i].uiCounter;
 			}
 			texs[idx] = textures[i];
 			widths[idx] = sm->texts[i].width;

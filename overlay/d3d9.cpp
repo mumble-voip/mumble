@@ -54,6 +54,7 @@ class DevState {
 		DWORD dwMyThread;
 
 		LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
+		unsigned int uiCounter[NUM_TEXTS];
 
 		DevState();
 
@@ -130,7 +131,7 @@ void DevState::draw() {
 			if (sm->texts[i].width == 0) {
 				y += iHeight / 4;
 			} else if (sm->texts[i].width > 0) {
-				if (!tex[i] || sm->texts[i].bUpdated) {
+				if (!tex[i] || (sm->texts[i].uiCounter != uiCounter[i])) {
 					if (tex[i])
 						tex[i]->Release();
 
@@ -145,7 +146,7 @@ void DevState::draw() {
 					}
 
 					tex[i]->UnlockRect(0);
-					sm->texts[i].bUpdated = false;
+					uiCounter[i] = sm->texts[i].uiCounter;
 				}
 				unsigned int w = lround(sm->texts[i].width * s);
 				texs.push_back(tex[i]);

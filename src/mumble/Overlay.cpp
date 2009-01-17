@@ -529,7 +529,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 					width += TEXT_HEIGHT;
 
 				te->width = static_cast<short>(width);
-				te->bUpdated = true;
+				te->uiCounter++;
 			}
 			qsForce.remove(tl.iPlayer);
 		}
