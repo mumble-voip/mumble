@@ -35,7 +35,7 @@
 
 typedef void (__cdecl *HooksProc)();
 typedef SharedMem * (__cdecl *GetSharedMemProc)();
-
+typedef void (__cdecl *PrepProc)();
 
 class SharedMemoryPrivate {
 	public:
@@ -58,6 +58,11 @@ void SharedMemory::resolve(QLibrary *lib) {
 	if (gsmp)
 		sm=gsmp();
 	d->hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
+
+	PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
+	qWarning("PP is %p", pp);
+	if (pp)
+		pp();
 }
 
 bool SharedMemory::tryLock() {

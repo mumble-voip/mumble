@@ -37,8 +37,8 @@ static HHOOK hhookWnd = 0;
 SharedMem *sm;
 HANDLE hSharedMutex = NULL;
 HMODULE hSelf = NULL;
-BOOL bMumble = FALSE;
-BOOL bDebug = FALSE;
+static BOOL bMumble = FALSE;
+static BOOL bDebug = FALSE;
 
 static HardHook hhLoad;
 void *HardHook::pCode = NULL;
@@ -51,7 +51,7 @@ HardHook::HardHook() {
 		orig[i]=replace[i]=0;
 }
 
-unsigned int modrmbytes(unsigned char a, unsigned char b) {
+static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 	unsigned char lower = (a & 0x0f);
 	if (a >= 0xc0) {
 		return 0;
@@ -79,15 +79,15 @@ unsigned int modrmbytes(unsigned char a, unsigned char b) {
 }
 
 void *HardHook::cloneCode(void **porig) {
-	unsigned char *o = (unsigned char *) *porig;
-	unsigned char *n = (unsigned char *) pCode;
-	n += uiCode;
-	unsigned int idx = 0;
-
 	if (! pCode || uiCode > 4000) {
 		uiCode = 0;
 		pCode = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 	}
+
+	unsigned char *o = (unsigned char *) *porig;
+	unsigned char *n = (unsigned char *) pCode;
+	n += uiCode;
+	unsigned int idx = 0;
 
 	while (*o == 0xe9) {
 		int *iptr = reinterpret_cast<int *>(o+1);
@@ -354,6 +354,7 @@ void __cdecl fods(const char *format, ...) {
 	OutputDebugStringA(buf);
 }
 
+
 void __cdecl ods(const char *format, ...) {
 #ifndef DEBUG
 	if (!bDebug && (!sm || ! sm->bDebug))
@@ -504,7 +505,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					return TRUE;
 				}
 
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem), "MumbleSharedMemory");
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem) + sizeof(Direct3D9Data), "MumbleSharedMemory");
 				if (hMapObject == NULL) {
 					ods("Lib: CreateFileMapping failed");
 					ReleaseMutex(hSharedMutex);
@@ -514,13 +515,17 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
 				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+
+				unsigned char *raw = (unsigned char *) sm;
+				d3dd = (Direct3D9Data *) (raw + sizeof(SharedMem));
+
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
 					ReleaseMutex(hSharedMutex);
 					return TRUE;
 				}
 				if (bInit) {
-					memset(sm, 0, sizeof(SharedMem));
+					memset(sm, 0, sizeof(SharedMem) + sizeof(Direct3D9Data));
 					sm->lastAppAlive = 0;
 					sm->bHooked = false;
 					sm->bDebug = false;
@@ -539,7 +544,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
 
 					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
-					// checkD3D9Hook();
+					checkD3D9Hook(true);
 					checkOpenGLHook();
 					ods("Injected");
 				}

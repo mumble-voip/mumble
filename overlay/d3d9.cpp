@@ -31,6 +31,8 @@
 #include "lib.h"
 #include <d3d9.h>
 
+Direct3D9Data *d3dd;
+
 typedef IDirect3D9*(WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
 typedef HRESULT(WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
 
@@ -561,11 +563,13 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 	return hr;
 }
 
+static void HookCreateRaw(voidFunc vfCreate) {
+	ods("D3D9: Injecting CreateDevice Raw");
+	hhCreateDevice.setup(vfCreate, reinterpret_cast<voidFunc>(myCreateDevice));
+}
+
 static void HookCreate(IDirect3D9 *pD3D) {
 	ods("D3D9: Injecting CreateDevice");
-
-	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
 
 	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
 }
@@ -573,14 +577,11 @@ static void HookCreate(IDirect3D9 *pD3D) {
 static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	ods("D3D9Ex: Injecting CreateDevice / CreateDeviceEx");
 
-	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
-
 	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
 	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
-void checkD3D9Hook() {
+void checkD3D9Hook(bool preonly) {
 	if (bChaining) {
 		return;
 		ods("D3D9: Causing a chain");
@@ -592,31 +593,87 @@ void checkD3D9Hook() {
 
 	if (hD3D != NULL) {
 		if (! bHooked) {
-			char procname[1024];
-			GetModuleFileName(NULL, procname, 1024);
+			char procname[2048];
+			GetModuleFileName(NULL, procname, 2048);
 			fods("D3D9: CreateWnd in unhooked D3D App %s", procname);
 			bHooked = true;
 
-			pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
-			if (d3dc9) {
-				IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
-				if (id3d9) {
-					HookCreate(id3d9);
-					IDirect3D9_Release(id3d9);
-				}
-			}
+			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
 
-			pDirect3DCreate9Ex d3dc9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
-			if (d3dc9ex) {
-				IDirect3D9Ex *id3d9ex = NULL;
-				d3dc9ex(D3D_SDK_VERSION, &id3d9ex);
-				if (id3d9ex) {
-					HookCreateEx(id3d9ex);
-					IDirect3D9Ex_Release(id3d9ex);
+			// Can we use the prepatch data?
+			GetModuleFileName(hD3D, procname, 2048);
+			if (_stricmp(d3dd->cFileName, procname) == 0) {
+				unsigned char *raw = (unsigned char *) hD3D;
+				HookCreateRaw((voidFunc) (raw + d3dd->iOffsetCreate));
+			} else if (! preonly) {
+				fods("D3D9 Interface changed, can't rawpatch");
+				pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
+				ods("Got %p", d3dc9);
+				if (d3dc9) {
+					IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
+					if (id3d9) {
+						HookCreate(id3d9);
+						id3d9->Release();
+					} else {
+						ods("Failed Direct3DCreate9");
+					}
+				} else {
+					ods("D3D Library without Direct3DCreate9?");
 				}
+			} else {
+				bHooked = false;
 			}
 		}
 	}
 
 	bChaining = false;
+}
+
+extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
+	ods("Preparing static data for D3D9 Injection");
+
+	char buffb[2048];
+
+	HMODULE hD3D = LoadLibrary("D3D9.DLL");
+	HMODULE hRef;
+
+	if (hD3D != NULL) {
+		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
+		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
+		if (! d3dc9) {
+			ods("D3D9 Library without Direct3DCreate9");
+		} else {
+			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (const char *) d3dc9, &hRef)) {
+				ods("Failed to get module for D3D9");
+			} else {
+				GetModuleFileName(hRef, buffb, 2048);
+				if (_stricmp(d3dd->cFileName, buffb) != 0) {
+					ods("Direct3DCreate9 is not in D3D9 library");
+				} else {
+					IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
+					if (id3d9) {
+						void ***vtbl = (void ***) id3d9;
+						void *pCreate = (*vtbl)[16];
+
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pCreate, &hRef)) {
+							ods("Failed to get module for CreateDevice");
+						} else {
+							GetModuleFileName(hRef, buffb, 2048);
+							if (_stricmp(d3dd->cFileName, buffb) != 0) {
+								ods("CreateDevice is not in D3D9 library");
+							} else {
+								unsigned char *b = (unsigned char *) pCreate;
+								unsigned char *a = (unsigned char *) hD3D;
+								d3dd->iOffsetCreate = b-a;
+								ods("Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dc9, pCreate, d3dd->iOffsetCreate);
+							}
+						}
+						id3d9->Release();
+					}
+				}
+			}
+		}
+		FreeLibrary(hD3D);
+	}
 }

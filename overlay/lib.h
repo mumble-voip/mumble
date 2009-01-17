@@ -71,6 +71,10 @@ struct HardHook {
 	void print();
 };
 
+struct Direct3D9Data {
+	char cFileName[2048];
+	int iOffsetCreate;
+};
 
 struct FakeInterface {
 	typedef ULONG (FakeInterface::* voidMemberFunc)();
@@ -92,10 +96,11 @@ class Mutex {
 		~Mutex();
 };
 
-extern void checkD3D9Hook();
+extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();
 
 extern SharedMem *sm;
+extern Direct3D9Data *d3dd;
 extern HANDLE hSharedMutex;
 extern HMODULE hSelf;
 extern unsigned int uiAudioCount;
