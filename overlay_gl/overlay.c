@@ -70,6 +70,7 @@ typedef struct _Context {
 	GLXDrawable draw;
 	GLXContext glctx;
 	GLuint textures[NUM_TEXTS];
+	unsigned int uiCounter[NUM_TEXTS];
 } Context;
 
 static Context *contexts = NULL;
@@ -162,9 +163,9 @@ static void newContext(Context * ctx) {
 
 	if (sm) {
 		sm->bHooked = true;
-		for (i = 0; i < NUM_TEXTS; i++)
-			sm->texts[i].bUpdated = true;
 	}
+	for (i = 0; i < NUM_TEXTS; i++)
+		ctx->uiCounter[i] = 0;
 
 	glGenTextures(NUM_TEXTS, ctx->textures);
 
@@ -251,7 +252,7 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 		if (sm->texts[i].width == 0) {
 			y += iHeight / 4;
 		} else if (sm->texts[i].width > 0) {
-			if (sm->texts[i].bUpdated) {
+			if (sm->texts[i].uiCounter != ctx->uiCounter[i]) {
 				ods("Updating %d %d texture", sm->texts[i].width, TEXT_HEIGHT);
 				glBindTexture(GL_TEXTURE_2D, ctx->textures[i]);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -259,7 +260,7 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[i].texture);
-				sm->texts[i].bUpdated = false;
+				ctx->uiCounter[i] = sm->texts[i].uiCounter;
 			}
 			texs[idx] = ctx->textures[i];
 			widths[idx] = sm->texts[i].width;
