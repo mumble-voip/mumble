@@ -77,10 +77,6 @@
     <property name="title" >
      <string>C&amp;onfigure</string>
     </property>
-    <addaction name="qaConfigDialog" />
-    <addaction name="qaAudioWizard" />
-    <addaction name="separator" />
-    <addaction name="qaConfigMinimal" />
    </widget>
    <widget class="QMenu" name="qmHelp" >
     <property name="title" >
@@ -542,9 +538,18 @@
     <string>This will toggle minimal mode, where the log window and menu is hidden.</string>
    </property>
   </action>
-  <action name="qaHideFrame" >
+  <action name="qaConfigHideFrame" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
    <property name="text" >
     <string>Hide Frame</string>
+   </property>
+   <property name="toolTip" >
+    <string>Toggle showing frame on minimal window</string>
+   </property>
+   <property name="whatsThis" >
+    <string>This will toggle whether the minimal window should have a frame for moving and resizing.</string>
    </property>
   </action>
  </widget>

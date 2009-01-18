@@ -250,8 +250,7 @@ void MainWindow::setupGui()  {
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
 	qaConfigMinimal->setChecked(g.s.bMinimalView);
-	qaHideFrame->setCheckable(true);
-	qaHideFrame->setChecked(g.s.bHideFrame);
+	qaConfigHideFrame->setChecked(g.s.bHideFrame);
 
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
@@ -758,7 +757,7 @@ void MainWindow::on_qmConfig_aboutToShow() {
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
 	if (g.s.bMinimalView)
-		qmConfig->addAction(qaHideFrame);
+		qmConfig->addAction(qaConfigHideFrame);
 }
 
 void MainWindow::on_qmChannel_aboutToShow() {
@@ -1058,8 +1057,8 @@ void MainWindow::on_qaConfigMinimal_triggered() {
 	setupView();
 }
 
-void MainWindow::on_qaHideFrame_triggered() {
-	g.s.bHideFrame = qaHideFrame->isChecked();
+void MainWindow::on_qaConfigHideFrame_triggered() {
+	g.s.bHideFrame = qaConfigHideFrame->isChecked();
 	setupView(false);
 }
 

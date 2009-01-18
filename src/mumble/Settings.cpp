@@ -69,6 +69,7 @@ Settings::Settings() {
 	ceExpand = ChannelsWithPlayers;
 	ceChannelDrag = Ask;
 	bMinimalView = false;
+	bHideFrame = false;
 	bAlwaysOnTop = false;
 	bAskOnQuit = true;
 	bHideTray = true;
