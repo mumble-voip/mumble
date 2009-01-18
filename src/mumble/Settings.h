@@ -116,10 +116,11 @@ struct Settings {
 	QString qsStyle;
 	QString qsSkin;
 	bool bFirstTime;
-	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaSplitterState, qbaHeaderState;
+	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaSplitterState, qbaHeaderState;
 	ChannelExpand ceExpand;
 	ChannelDrag ceChannelDrag;
 	bool bMinimalView;
+	bool bHideFrame;
 	bool bAlwaysOnTop;
 	bool bAskOnQuit;
 	bool bHideTray;

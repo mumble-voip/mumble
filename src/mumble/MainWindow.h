@@ -104,7 +104,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setupGui();
 		void customEvent(QEvent *evt);
 		void findDesiredChannel();
-		void setupView();
+		void setupView(bool toggle_minimize = true);
 		bool bNoHide;
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
@@ -139,6 +139,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaAudioUnlink_triggered();
 		void on_qaAudioStats_triggered();
 		void on_qaConfigDialog_triggered();
+		void on_qaHideFrame_triggered();
+		void on_qmConfig_aboutToShow();
 		void on_qaConfigMinimal_triggered();
 		void on_qaAudioWizard_triggered();
 		void on_qaHelpWhatsThis_triggered();

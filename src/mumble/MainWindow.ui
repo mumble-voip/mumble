@@ -542,6 +542,11 @@
     <string>This will toggle minimal mode, where the log window and menu is hidden.</string>
    </property>
   </action>
+  <action name="qaHideFrame" >
+   <property name="text" >
+    <string>Hide Frame</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -250,6 +250,8 @@ void MainWindow::setupGui()  {
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
 	qaConfigMinimal->setChecked(g.s.bMinimalView);
+	qaHideFrame->setCheckable(true);
+	qaHideFrame->setChecked(g.s.bHideFrame);
 
 	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
 	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
@@ -265,7 +267,10 @@ void MainWindow::setupGui()  {
 		w->setMouseTracking(true);
 	}
 
-	restoreGeometry(g.s.qbaMainWindowGeometry);
+	if(g.s.bMinimalView)
+		restoreGeometry(g.s.qbaMainWindowGeometry);
+	else
+		restoreGeometry(g.s.qbaMinimalViewGeometry);
 	restoreState(g.s.qbaMainWindowState);
 	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
 
@@ -298,9 +303,13 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	}
 #endif
 	g.uiSession = 0;
-	g.s.qbaMainWindowGeometry = saveGeometry();
+
 	g.s.qbaMainWindowState = saveState();
-	if (! g.s.bMinimalView) {
+	if(g.s.bMinimalView) {
+		g.s.qbaMinimalViewGeometry = saveGeometry();
+	}
+	else {
+		g.s.qbaMainWindowGeometry = saveGeometry();
 		g.s.qbaHeaderState = qtvPlayers->header()->saveState();
 	}
 	QMainWindow::closeEvent(e);
@@ -457,35 +466,48 @@ void MainWindow::setOnTop(bool top) {
 	}
 }
 
-void MainWindow::setupView() {
+void MainWindow::setupView(bool toggle_minimize) {
 	bool showit = ! g.s.bMinimalView;
 
 	bNoHide = true;
 
-	if (! showit)
-		g.s.qbaMainWindowState = saveState();
-
-	qdwLog->setVisible(showit);
-
-	if (showit) {
-		restoreState(g.s.qbaMainWindowState);
+	if (toggle_minimize) {
+		if (! showit) {
+			g.s.qbaMainWindowGeometry = saveGeometry();
+			g.s.qbaMainWindowState = saveState();
+		}
+		else {
+			g.s.qbaMinimalViewGeometry = saveGeometry();
+			restoreState(g.s.qbaMainWindowState);
+		}
 		qdwLog->setVisible(showit);
 	}
 
 	Qt::WindowFlags f = windowFlags();
 	if (showit)
-		f = 0;
-	else
+		f = Qt::Widget;
+	else if (g.s.bHideFrame)
 		f = Qt::CustomizeWindowHint;
+	else
+		f = Qt::Tool;
+
 	if (g.s.bAlwaysOnTop)
 		f |= Qt::WindowStaysOnTopHint;
 
 	setWindowFlags(f);
-	show();
-	qtvPlayers->header()->setVisible(showit);
-	menuBar()->setVisible(showit);
 
+	if (toggle_minimize) {
+		qtvPlayers->header()->setVisible(showit);
+		menuBar()->setVisible(showit);
+
+		if (! showit)
+			restoreGeometry(g.s.qbaMinimalViewGeometry);
+		else
+			restoreGeometry(g.s.qbaMainWindowGeometry);
+	}
+	show();
 	bNoHide = false;
+
 }
 
 void MainWindow::on_qaServerConnect_triggered() {
@@ -727,6 +749,16 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 
 void MainWindow::on_qaQuit_triggered() {
 	this->close();
+}
+
+void MainWindow::on_qmConfig_aboutToShow() {
+	qmConfig->clear();
+	qmConfig->addAction(qaConfigDialog);
+	qmConfig->addAction(qaAudioWizard);
+	qmConfig->addSeparator();
+	qmConfig->addAction(qaConfigMinimal);
+	if (g.s.bMinimalView)
+		qmConfig->addAction(qaHideFrame);
 }
 
 void MainWindow::on_qmChannel_aboutToShow() {
@@ -1024,6 +1056,11 @@ void MainWindow::on_qaConfigDialog_triggered() {
 void MainWindow::on_qaConfigMinimal_triggered() {
 	g.s.bMinimalView = qaConfigMinimal->isChecked();
 	setupView();
+}
+
+void MainWindow::on_qaHideFrame_triggered() {
+	g.s.bHideFrame = qaHideFrame->isChecked();
+	setupView(false);
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {
