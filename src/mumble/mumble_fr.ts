@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="fr">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -607,17 +608,17 @@
     <message>
         <location filename="ASIOInput.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui" line="116"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui" line="129"/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &lt;i&gt;What you hear&lt;/i&gt;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &lt;i&gt;Mic L&lt;/i&gt; while Speaker should be &lt;i&gt;Mix L&lt;/i&gt; and &lt;i&gt;Mix R&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Configure les canaux d&apos;entrée ASIO. Vérifiez que vous avez choisi au moins un canal pour le microphone et les haut-parleur. &lt;i&gt;Microphone&lt;/i&gt; devrait être l&apos;emplacement de votre microphone, et &lt;i&gt;Speaker&lt;/i&gt; devrait être être le canal &lt;i&gt;What you hear&lt;/i&gt;.&lt;br /&gt; Par exemple, sur la carte Audigy 2 ZS, une bonne sélection pour le micro serait &lt;i&gt;Mic L&lt;/i&gt; tandis que les Haut-Parleurs seraient &lt;i&gt;Mix L&lt;/i&gt; et &lt;i&gt;Mix R&lt;/i&gt;.</translation>
     </message>
 </context>
 <context>
@@ -922,7 +923,6 @@
         <translation type="obsolete">%1 ms</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>%1s</source>
         <translation type="obsolete">%1s</translation>
     </message>
@@ -1102,7 +1102,7 @@
     <message>
         <location filename="AudioInput.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="19"/>
@@ -1157,12 +1157,12 @@
     <message>
         <location filename="AudioInput.ui" line="125"/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished">Quand transmettre votre voix</translation>
+        <translation>Quand transmettre votre voix</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="128"/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished">&lt;b&gt;Détermine quand transmettre votre voix.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continu&lt;/i&gt; - en continu&lt;br /&gt;&lt;i&gt;Activité Vocale&lt;/i&gt; - Quand vous parlez clairement.&lt;br /&gt;&lt;i&gt;Poussez pour parler&lt;/i&gt; - Quand vous pressez la touche choisie ci-dessous &lt;i&gt;Raccourcis&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Détermine quand transmettre votre voix.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continu&lt;/i&gt; - en continu&lt;br /&gt;&lt;i&gt;Activité Vocale&lt;/i&gt; - Quand vous parlez clairement.&lt;br /&gt;&lt;i&gt;Poussez pour parler&lt;/i&gt; - Quand vous pressez la touche choisie ci-dessous &lt;i&gt;Raccourcis&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="142"/>
@@ -1172,7 +1172,7 @@
     <message>
         <location filename="AudioInput.ui" line="603"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="175"/>
@@ -1197,7 +1197,7 @@
     <message>
         <location filename="AudioInput.ui" line="197"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished">&lt;b&gt;Ceci défiinit la détection de parole à utiliser pour le taux de signal/bruit.&lt;/b&gt;&lt;br /&gt;Dans ce mode, l&apos;entrée est analysé pour quelque chose ressemblant à un signal clair, et que la clarté du signal est utilisé pour déclencher la parole de détection.</translation>
+        <translation>&lt;b&gt;Ceci défiinit la détection de parole à utiliser pour le taux de signal/bruit.&lt;/b&gt;&lt;br /&gt;Dans ce mode, l&apos;entrée est analysé pour quelque chose ressemblant à un signal clair, et que la clarté du signal soit utilisé pour déclencher la parole de détection.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="200"/>
@@ -1317,7 +1317,7 @@
     <message>
         <location filename="AudioInput.ui" line="498"/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished">&lt;b&gt;Montre la bande passante maximale utilisée.&lt;/b&gt;&lt;br /&gt;Montre la bande maximale passante maximale utilisée par votre machine. Le débit binaire audio est le débit binaire maximum ( puisqu&apos;un débit binaire variable est utilisé ) pour les données seules. La position est le débit binaire utilisé pour les informations de position. L&apos;entête contient le système de frames et les entêtes des paquets IP. (75%?).</translation>
+        <translation>&lt;b&gt;Montre la bande passante maximale utilisée.&lt;/b&gt;&lt;br /&gt;Montre la bande maximale passante maximale utilisée par votre machine. Le débit binaire audio est le débit binaire maximum ( puisqu&apos;un débit binaire variable est utilisé ) pour les données seules. La position est le débit binaire utilisé pour les informations de position. L&apos;entête contient le système de frames et les entêtes des paquets IP. (IP ET UPD est de 75% de l&apos;entête).</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="514"/>
@@ -1352,37 +1352,37 @@
     <message>
         <location filename="AudioInput.ui" line="578"/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished">&lt;b&gt;Amplification de l&apos;entrée maximum.&lt;/b&gt;&lt;br /&gt;Mumble normalise le son de l&apos;entrée avant de le compresser, et l&apos;amplifie aussi fort qu&apos;il en est autorisé.&lt;br /&gt;Le niveau actuel est continuellement mis à jour selon votre modèle de parole actuel, mais il ne dépassera jamais le niveau spécifié ici.&lt;br /&gt;Si le &lt;i&gt;Volume du microphone&lt;/li&gt; des statistiques audio tourne autour de 100%, vous voudrez probablement le mettre à 2.0 ou quelque chose comme ça, mais si, comme la plupart des gens, vous n&apos;arrivez pas à atteindre 100%, définissez quelque chose de beaucoup plus haut.&lt;br /&gt;Idéallement, définissez le de manière à ce que &lt;i&gt;Volume du microphone * Facteur d&apos;amplification &gt;= 100&lt;/i&gt;, même si vous parlez vraiment doucement.&lt;br /&gt;&lt;br /&gt;Il est à noter que mettre cette option au maximum ne causera aucun dégât, mais que Mumble risque d&apos;entendre d&apos;autres conversations, si vous laissez à ce niveau.</translation>
+        <translation>&lt;b&gt;Amplification de l&apos;entrée maximum.&lt;/b&gt;&lt;br /&gt;Mumble normalise le son de l&apos;entrée avant de le compresser, et l&apos;amplifie aussi fort qu&apos;il en est autorisé.&lt;br /&gt;Le niveau actuel est continuellement mis à jour selon votre modèle de parole actuel, mais il ne dépassera jamais le niveau spécifié ici.&lt;br /&gt;Si le &lt;i&gt;Volume du microphone&lt;/li&gt; des statistiques audio tourne autour de 100%, vous voudrez probablement le mettre à 2.0 ou quelque chose comme ça, mais si, comme la plupart des gens, vous n&apos;arrivez pas à atteindre 100%, définissez quelque chose de beaucoup plus haut.&lt;br /&gt;Idéallement, définissez le de manière à ce que &lt;i&gt;Volume du microphone * Facteur d&apos;amplification &gt;= 100&lt;/i&gt;, même si vous parlez vraiment doucement.&lt;br /&gt;&lt;br /&gt;Il est à noter que mettre cette option au maximum ne causera aucun dégât, mais que Mumble risque d&apos;entendre d&apos;autres conversations, si vous laissez à ce niveau.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="270"/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">Détection de parole actuelle</translation>
+        <translation>Détection de parole actuelle</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="273"/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished">&lt;b&gt;Ceci affiche le niveau actuel des paramètres de détection de parole.&lt;/b&gt;&lt;br /&gt;Vous pouvez changer ses paramètres depuis les paramètres ou l&apos;assistant audio.</translation>
+        <translation>&lt;b&gt;Ceci affiche le niveau actuel des paramètres de détection de parole.&lt;/b&gt;&lt;br /&gt;Vous pouvez changer ses paramètres depuis les paramètres ou l&apos;assistant audio.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="349"/>
         <source>Idle AutoMute</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-absence (devenir muet)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="356"/>
         <source>How long to remain idle before auto-mute.</source>
-        <translation type="unfinished"></translation>
+        <translation>Combien de temps avant l&apos;absence automatique.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="359"/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci règle les paramètres d&apos;absence. Si pendant cette durée il n&apos;y a eut aucun envoi audio vers le serveur. Vous deviendrez muet.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="533"/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Cela fixe le niveau de suppression de bruit à appliquer.&lt;/b&gt;&lt;br /&gt;Plus cette valeur est haute, plus il y aura de suppression de bruit.</translation>
     </message>
 </context>
 <context>
@@ -1435,7 +1435,7 @@
     <message>
         <location filename="AudioConfigDialog.cpp" line="199"/>
         <source>%1 min</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 min</translation>
     </message>
 </context>
 <context>
@@ -1443,7 +1443,7 @@
     <message>
         <location filename="AudioOutput.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="19"/>
@@ -1508,7 +1508,7 @@
     <message>
         <location filename="AudioOutput.ui" line="553"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="154"/>
@@ -1523,7 +1523,7 @@
     <message>
         <location filename="AudioOutput.ui" line="167"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished">&lt;b&gt;Ceci ajuste le volume entrant de parole.&lt;/b&gt;&lt;br /&gt;Notez que cela ne peut être utilisée pour diminuer le volume. Pas d&apos;amplification possible.</translation>
+        <translation>&lt;b&gt;Ceci ajuste le volume entrant de parole.&lt;/b&gt;&lt;br /&gt;Notez que si vous augmentez ceci au-delà de 100%, le son sera déformé.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="210"/>
@@ -1578,17 +1578,17 @@
     <message>
         <location filename="AudioOutput.ui" line="376"/>
         <source>RollOff</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuation</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="386"/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished">Facteur de diminution du volume sonore</translation>
+        <translation>Facteur de diminution du volume sonore</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="389"/>
         <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
-        <translation type="unfinished">À quelle vitesse le volume sonore devrait descendre en dépassant la distance minimale. Normalement ( 1.0 ), le son diminue de moitié à chaque fois que la distance double. Augmenter cette valeur signifie que le son descend plus vite, tandis que la diminuer signifie que le son diminue plus lentement.</translation>
+        <translation>À quelle vitesse le volume sonore devrait descendre en dépassant la distance minimale. Normalement ( 1.0 ), le son diminue de moitié à chaque fois que la distance double. Augmenter cette valeur signifie que le son descend plus vite, tandis que la diminuer signifie que le son diminue plus lentement.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="415"/>
@@ -1603,12 +1603,12 @@
     <message>
         <location filename="AudioOutput.ui" line="476"/>
         <source>Delay Variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Délai de variance</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="486"/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"></translation>
+        <translation>Variance de la latence des paquets</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="489"/>
@@ -1648,7 +1648,7 @@
     <message>
         <location filename="AudioOutput.ui" line="425"/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"></translation>
+        <translation>Facteur de diminution du volume sonore</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="428"/>
@@ -1673,17 +1673,17 @@
     <message>
         <location filename="AudioOutput.ui" line="193"/>
         <source>Other Applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Autres applications</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="249"/>
         <source>Volume of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Le volume pour les autres applications pendant la conversation</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="252"/>
         <source>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Baisser le volume des autres applications pendant la conversation.&lt;/b&gt;&lt;br /&gt;Ceci permet de baisser le volume des autres applications pedant que vous discutez sur Mumble.</translation>
     </message>
 </context>
 <context>
@@ -1884,7 +1884,7 @@
     <message>
         <location filename="AudioStats.ui" line="21"/>
         <source>Input Levels</source>
-        <translation type="unfinished"></translation>
+        <translation>Niveaux d&apos;entrées</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="37"/>
@@ -1894,7 +1894,7 @@
     <message>
         <location filename="AudioStats.ui" line="197"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="90"/>
@@ -2192,7 +2192,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="758"/>
         <source>Audio path is %1ms long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le chemin audio est de %1ms.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="760"/>
@@ -2212,7 +2212,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="208"/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished">Ceci active l&apos;annulation d&apos;écho de la sortie audio, which helps both on speakers and on headsets.</translation>
+        <translation>Ceci active l&apos;annulation d&apos;écho de la sortie audio, ce qui contribue à la fois sur la parole et les écouteurs.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="256"/>
@@ -2222,12 +2222,12 @@
     <message>
         <location filename="AudioWizard.cpp" line="257"/>
         <source>Allows positioning of sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Autoriser la position audio.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="258"/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci autorise Mumble à utiliser la postion audio.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="275"/>
@@ -2237,12 +2237,12 @@
     <message>
         <location filename="AudioWizard.cpp" line="276"/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuster l&apos;attenuation de la position audio.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="283"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble supporte la position audio pour quelques jeux, et et la position de la voix des autres joueurs par rapport à leur position dans le jeu. Selon leur position, le volume de la voix sera modifiée entre les intervenants afin de simuler la direction et la distance à laquelle l&apos;autre joueur se trouve. Cette position dépend de votre bonne configuration des haut-parleurs au niveau de votre système d&apos;exploitation, donc un test est fait ici.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="286"/>
@@ -2262,7 +2262,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="292"/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci ignore la configuration des haut parleurs du système d&apos;exploitation et configure la position pour les écouteurs à la place.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="144"/>
@@ -2272,12 +2272,12 @@
     <message>
         <location filename="AudioWizard.cpp" line="148"/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Soumettre les statistiques au projet Mumble (anonyme)</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="370"/>
         <source>Push To Talk:</source>
-        <translation type="unfinished"></translation>
+        <translation>Appuyez pour parler:</translation>
     </message>
 </context>
 <context>
@@ -2498,7 +2498,7 @@
     <message>
         <location filename="../ACL.cpp" line="167"/>
         <source>Write ACL</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecrire LCA</translation>
     </message>
 </context>
 <context>
@@ -2511,27 +2511,27 @@
     <message>
         <location filename="../Player.cpp" line="55"/>
         <source>Muted (server)</source>
-        <translation type="unfinished">Muet (serveur)</translation>
+        <translation>Muet (serveur)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="57"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sourd (server)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="59"/>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation>Muet (local)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="61"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Devenir muet(te)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="63"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation>Devenir sourd</translation>
     </message>
 </context>
 <context>
@@ -2619,7 +2619,7 @@
     <message>
         <location filename="ConfigDialog.ui" line="26"/>
         <source>Tab 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Onglet 1</translation>
     </message>
 </context>
 <context>
@@ -2727,12 +2727,12 @@
     <message>
         <location filename="ConnectDialog.ui" line="40"/>
         <source>&amp;Label</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Label</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="187"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Label</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="201"/>
@@ -2790,17 +2790,17 @@
     <message>
         <location filename="DirectSound.cpp" line="172"/>
         <source>Default DirectSound Voice Input</source>
-        <translation type="unfinished">Entrée Voix par défaut</translation>
+        <translation>Entrée Voix par défaut</translation>
     </message>
     <message>
         <location filename="DirectSound.cpp" line="527"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouverture de l&apos;entrée son choisie impossible. Aucune capture son depuis le microphone sera faite.</translation>
     </message>
     <message>
         <location filename="DirectSound.cpp" line="638"/>
         <source>Lost DirectSound input device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Périphérique d&apos;entrée son perdu.</translation>
     </message>
 </context>
 <context>
@@ -2823,12 +2823,12 @@
     <message>
         <location filename="DirectSound.cpp" line="132"/>
         <source>Default DirectSound Voice Output</source>
-        <translation type="unfinished">Sortie Voix par défaut</translation>
+        <translation>Sortie Voix par défaut</translation>
     </message>
     <message>
         <location filename="DirectSound.cpp" line="458"/>
         <source>Lost DirectSound output device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Périphérique de sortie perdu.</translation>
     </message>
 </context>
 <context>
@@ -3061,12 +3061,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="132"/>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="155"/>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer les touches pour les autres applications</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="158"/>
@@ -3151,7 +3151,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="279"/>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Non connecté</translation>
     </message>
 </context>
 <context>
@@ -3159,7 +3159,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="113"/>
         <source>Graphic</source>
-        <translation type="unfinished"></translation>
+        <translation>Graphique</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="115"/>
@@ -3169,17 +3169,17 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="126"/>
         <source>Enable this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Activé ce périphérique</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="135"/>
         <source>LCD</source>
-        <translation type="unfinished"></translation>
+        <translation>LCD</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="25"/>
@@ -3202,37 +3202,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LCD.ui" line="41"/>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Périphériques</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="57"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="62"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="67"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="72"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Activé</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="89"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Vues</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="95"/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille minimale des colonnes</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="102"/>
@@ -3250,7 +3250,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LCD.ui" line="160"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="133"/>
@@ -3295,7 +3295,6 @@ p, li { white-space: pre-wrap; }
         <translation>Serveur Connecté</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Server Deconnected</source>
         <translation type="obsolete">Serveur Déconnecté</translation>
     </message>
@@ -3566,7 +3565,6 @@ p, li { white-space: pre-wrap; }
         <translation>Liste les joueurs au dessus des sous-salons ( nécessite un redémarrage ).</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;b&gt;If set, players will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of mumble is required to see the change.</source>
         <translation type="obsolete">&lt;b&gt;Si définis, les joueurs seront montrés au dessus des sous-cannaux dans la vue des cannaux.&lt;/b&gt;&lt;br /&gt;Un redémarrage de mumble est nécessaire pour que ce changement fasse effet.</translation>
     </message>
@@ -3578,7 +3576,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="197"/>
@@ -3668,7 +3666,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="168"/>
         <source>Make the Mumble window appear on top of other windows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permettre à Mumble d&apos;apparaitre au dessus des autres fenêtres.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="171"/>
@@ -3678,7 +3676,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="174"/>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Toujours au dessus</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="158"/>
@@ -3688,12 +3686,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="161"/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"></translation>
+        <translation>Caché dans la barre des tâches quand il est réduit</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="181"/>
         <source>Show all configuration items</source>
-        <translation type="unfinished">Afficher tout les outils de configuration</translation>
+        <translation>Afficher tout les outils de configuration</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="184"/>
@@ -3703,12 +3701,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="187"/>
         <source>Expert Config</source>
-        <translation type="unfinished">Configuration avancée</translation>
+        <translation>Configuration avancée</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="155"/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation type="unfinished"></translation>
+        <translation>Caché la fenêtre principale de Mumble dans la barre des taches quand il est réduit.</translation>
     </message>
 </context>
 <context>
@@ -4468,7 +4466,6 @@ p, li { white-space: pre-wrap; }
         <translation>Envoyer un message textuel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send a text message to another user.</source>
         <translation type="obsolete">Envoyer un message textuel à un autre utilisateur.</translation>
     </message>
@@ -4822,13 +4819,13 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="206"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Augmenter volume (+10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="209"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Baisser le volume (-10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="365"/>
@@ -4854,24 +4851,24 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.ui" line="325"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished">&amp;Délier</translation>
+        <translation>&amp;Délier</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="411"/>
         <source>&amp;Unlink</source>
         <comment>Plugin</comment>
-        <translation type="unfinished">&amp;Délier</translation>
+        <translation>&amp;Délier</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="340"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">Serveur</translation>
+        <translation>Serveur</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="217"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quitter</translation>
     </message>
 </context>
 <context>
@@ -4884,7 +4881,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="25"/>
@@ -4929,7 +4926,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="72"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="85"/>
@@ -5019,17 +5016,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="241"/>
         <source>Mumble services</source>
-        <translation type="unfinished"></translation>
+        <translation>Services de Mumble</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="247"/>
         <source>Check for updates on startup</source>
-        <translation type="unfinished">Vérifier les mises a jour au démarrage</translation>
+        <translation>Vérifier les mises a jour au démarrage</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="254"/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"></translation>
+        <translation>Soumettre des statistique anonyme au projet Mumble</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="257"/>
@@ -5039,7 +5036,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="260"/>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer des statistiques anonymes</translation>
     </message>
 </context>
 <context>
@@ -5118,7 +5115,6 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
@@ -5305,17 +5301,14 @@ p, li { white-space: pre-wrap; }
         <translation>Définir la police</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Maximum width of names.</source>
         <translation type="obsolete">Largeur marximum des noms.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than its height, and so on.</source>
         <translation type="obsolete">Affecte la largeur maximum des noms affichés relativement à leur hauteur. Si vous mettez cette valeur à 100%, aucune ligne de texte ne sera plus large que haute. A 500%, aucune ligne ne sera 5 fois plus grande que sa hauteur, et ainsi de suite.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Maximum width</source>
         <translation type="obsolete">Largeur maximum</translation>
     </message>
@@ -5402,7 +5395,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Overlay.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="86"/>
@@ -5427,7 +5420,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Overlay.ui" line="321"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>TextLabel</translation>
     </message>
 </context>
 <context>
@@ -5586,7 +5579,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Plugins.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
 </context>
 <context>
@@ -5780,7 +5773,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ViewCert.cpp" line="89"/>
         <source>Common Name: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom courant: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="90"/>
@@ -5800,7 +5793,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ViewCert.cpp" line="93"/>
         <source>Locality: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Localité: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="94"/>
@@ -5820,7 +5813,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ViewCert.cpp" line="84"/>
         <source>Serial: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial: %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="85"/>
@@ -5840,7 +5833,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ViewCert.cpp" line="86"/>
         <source>Digest (MD5): %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Digest (MD5): %1</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="88"/>
@@ -5850,7 +5843,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ViewCert.cpp" line="91"/>
         <source>Unit Name: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;unité: %1</translation>
     </message>
 </context>
 <context>
