@@ -60,7 +60,6 @@ void SharedMemory::resolve(QLibrary *lib) {
 	d->hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
 
 	PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
-	qWarning("PP is %p", pp);
 	if (pp)
 		pp();
 }

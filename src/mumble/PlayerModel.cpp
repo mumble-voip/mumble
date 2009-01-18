@@ -594,7 +594,7 @@ void PlayerModel::ensureSelfVisible() {
 	if (! g.uiSession)
 		return;
 
-	expandAll(ClientPlayer::get(g.uiSession)->cChannel);
+	g.mw->qtvPlayers->scrollTo(index(ClientPlayer::get(g.uiSession)));
 }
 
 void PlayerModel::recheckLinks() {
