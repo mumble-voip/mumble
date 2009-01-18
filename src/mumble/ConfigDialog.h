@@ -83,6 +83,7 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		Settings s;
 	public:
 		ConfigDialog(QWidget *p = NULL);
+		~ConfigDialog();
 	public slots:
 		void on_pageButtonBox_clicked(QAbstractButton *);
 		void on_dialogButtonBox_clicked(QAbstractButton *);

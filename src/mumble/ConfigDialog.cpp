@@ -148,7 +148,7 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	ms.rwidth() += 128;
 	ms.rheight() += 192;
 	if ((ms.width() > w) || (ms.height() > h)) {
-		QScrollArea *qsa=new QScrollArea(this);
+		QScrollArea *qsa=new QScrollArea();
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
 		qhPages.insert(cw, qsa);
@@ -157,6 +157,11 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	}
 	qmWidgets.insert(idx, cw);
 	cw->load(g.s);
+}
+
+ConfigDialog::~ConfigDialog() {
+	foreach(QWidget *qw, qhPages)
+		delete qw;
 }
 
 void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
