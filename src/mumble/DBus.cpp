@@ -78,3 +78,21 @@ void MumbleDBus::focus() {
 	g.mw->show();
 	g.mw->activateWindow();
 }
+
+void MumbleDBus::setSelfMuted(bool mute) {
+	g.mw->qaAudioMute->setChecked(!mute);
+	g.mw->qaAudioMute->trigger();
+}
+
+void MumbleDBus::setSelfDeaf(bool deafen) {
+	g.mw->qaAudioDeaf->setChecked(!deafen);
+	g.mw->qaAudioDeaf->trigger();
+}
+
+bool MumbleDBus::isSelfMuted() {
+	return g.s.bMute;
+}
+
+bool MumbleDBus::isSelfDeaf() {
+	return g.s.bDeaf;
+}

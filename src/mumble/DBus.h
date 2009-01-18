@@ -38,12 +38,18 @@ class MumbleDBus : public QDBusAbstractAdaptor {
 		Q_OBJECT
 		Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Mumble")
 		Q_DISABLE_COPY(MumbleDBus)
+                Q_PROPERTY(bool mute READ isSelfMuted WRITE setSelfMuted)
+                Q_PROPERTY(bool deaf READ isSelfDeaf WRITE setSelfDeaf)
 	public:
 		MumbleDBus(QObject *parent);
 	public slots:
 		void openUrl(const QString &url, const QDBusMessage &);
 		void getCurrentUrl(const QDBusMessage &);
 		void focus();
+               void setSelfMuted(bool mute);
+               void setSelfDeaf(bool deafen);
+               bool isSelfMuted();
+               bool isSelfDeaf();
 };
 
 #else
