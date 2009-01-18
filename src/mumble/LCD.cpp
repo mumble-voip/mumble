@@ -183,10 +183,11 @@ void LCDConfig::on_qsSplitterWidth_valueChanged(int v) {
 
 LCD::LCD() : QObject() {
 	qfNormal = QFont(QString::fromLatin1("Arial"), 7);
-	qfBold = qfNormal;
-	qfBold.setBold(true);
 	qfItalic = qfNormal;
 	qfItalic.setItalic(true);
+
+	qfBold = qfNormal;
+	qfBold.setWeight(QFont::Black);
 	qfItalicBold = qfBold;
 	qfItalic.setItalic(true);
 
@@ -256,6 +257,10 @@ struct ListEntry {
 	ListEntry(const QString &qs, bool bB, bool bI) : qsString(qs), bBold(bB), bItalic(bI) {};
 };
 
+static bool entriesSort(const ListEntry &a, const ListEntry &b) {
+	return a.qsString < b.qsString;
+}
+
 void LCD::updatePlayerView() {
 	if (qhImages.count() == 0)
 		return;
@@ -275,46 +280,95 @@ void LCD::updatePlayerView() {
 		img->fill(Qt::color0);
 
 		if (! me) {
+			qmNew.clear();
+			qmOld.clear();
+			qmSpeaking.clear();
+			qmNameCache.clear();
 			painter.drawImage(0,0,qiLogo);
 			painter.drawText(60,20, tr("Not connected"));
 			continue;
 		}
 
-		QList<Channel *> qlLinks = home->allLinks().toList();
+		foreach(Player *p, me->cChannel->qlPlayers) {
+			if (! qmNew.contains(p->uiSession)) {
+				qmNew.insert(p->uiSession, Timer());
+				qmNameCache.insert(p->uiSession, p->qsName);
+				qmOld.remove(p->uiSession);
+			}
+		}
 
-		qSort(qlLinks.begin(), qlLinks.end(), boost::bind(channelSort, home, _1, _2));
+		foreach(unsigned int session, qmNew.keys()) {
+			Player *p = ClientPlayer::get(session);
+			if (!p || (p->cChannel != me->cChannel)) {
+				qmNew.remove(session);
+				qmOld.insert(session, Timer());
+			}
+		}
+
+		QMap<unsigned int, Timer> old;
+
+		foreach(unsigned int session, qmOld.keys()) {
+			Timer t = qmOld.value(session);
+			if (t.elapsed() > 3000000) {
+				qmNameCache.remove(session);
+			} else {
+				old.insert(session, qmOld.value(session));
+			}
+		}
+		qmOld = old;
+
+		QList<struct ListEntry> entries;
+		entries << ListEntry(QString::fromLatin1("[%1]").arg(me->cChannel->qsName), false, false);
+
+		bool hasnew = false;
+
+		QMap<unsigned int, Timer> speaking;
+
+		foreach(Channel *c, home->allLinks()) {
+			foreach(Player *p, c->qlPlayers) {
+				bool bTalk = p->bTalking;
+				if (bTalk) {
+					speaking.insert(p->uiSession, Timer());
+				} else if (qmSpeaking.contains(p->uiSession)) {
+					Timer t = qmSpeaking.value(p->uiSession);
+					if (t.elapsed() > 1000000)
+						qmSpeaking.remove(p->uiSession);
+					else {
+						speaking.insert(p->uiSession, t);
+						bTalk = true;
+					}
+				}
+				if (bTalk) {
+					alert = true;
+					entries << ListEntry(p->qsName, true, (p->cChannel != me->cChannel));
+				} else if (c == me->cChannel) {
+					if (qmNew.value(p->uiSession).elapsed() < 3000000) {
+						entries << ListEntry(QLatin1String("+") + p->qsName, false, false);
+						hasnew = true;
+					}
+				}
+			}
+		}
+		qmSpeaking = speaking;
+
+		foreach(unsigned int session, qmOld.keys()) {
+			entries << ListEntry(QLatin1String("-") + qmNameCache.value(session), false, false);
+		}
+
+		if (! qmOld.isEmpty() || hasnew || ! qmSpeaking.isEmpty())
+			qtTimer->start(500);
+		else
+			qtTimer->stop();
+
+		qSort(++ entries.begin(), entries.end(), entriesSort);
 
 		const int iWidth = size.width();
 		const int iHeight = size.height();
 		const int iPlayersPerColumn = iHeight / iFontHeight;
 		const int iSplitterWidth = g.s.iLCDPlayerViewSplitterWidth;
-
-		QList<struct ListEntry> entries;
-		QList<struct ListEntry> talking;
-
 		int iCount = 0;
 
-		foreach(Channel *c, qlLinks) {
-			QList<Player *> players = c->qlPlayers;
-			qSort(players.begin(), players.end(), playerSort);
-			if ((players.count() > 0) && (((iCount+1) % iPlayersPerColumn) == 0)) {
-				entries << ListEntry(QString(), false, false);
-				iCount++;
-			}
-			entries << ListEntry(QString::fromLatin1("[%1]").arg(c->qsName), false, false);
-			iCount++;
-
-			foreach(const Player *p, players) {
-				entries << ListEntry(p->qsName, p->bTalking, false);
-				iCount++;
-				if (p->bTalking) {
-					alert = true;
-					talking << ListEntry(p->qsName, true, (c != home));
-				}
-			}
-		}
-
-		const int iPlayerColumns = (iCount + iPlayersPerColumn - 1) / iPlayersPerColumn;
+		const int iPlayerColumns = (entries.count() + iPlayersPerColumn - 1) / iPlayersPerColumn;
 
 		int iColumns = iPlayerColumns;
 		int iColumnWidth;
@@ -326,26 +380,11 @@ void LCD::updatePlayerView() {
 			--iColumns;
 		}
 
-		if (iColumns == iPlayerColumns) {
-			talking = entries;
-			if (qtTimer->isActive())
-				qtTimer->stop();
-		} else {
-			if (! qtTimer->isActive())
-				qtTimer->start(2000);
-			while (talking.count() % iPlayersPerColumn) {
-				talking << ListEntry(QString(), false, false);
-			}
-			int iSkipped = (iPlayerColumns - iColumns + talking.count() / iPlayersPerColumn);
-			for (int i=(iFrameIndex % (iSkipped+1))*iPlayersPerColumn;i<entries.count();i++)
-				talking << entries.at(i);
-		}
-
 		QRect bound;
 		int row = 0, col = 0;
 
 
-		foreach(const ListEntry &le, talking) {
+		foreach(const ListEntry &le, entries) {
 			if (row >= iPlayersPerColumn) {
 				row = 0;
 				++col;
@@ -385,6 +424,10 @@ void LCD::updatePlayerView() {
 
 LCD::~LCD() {
 	destroyBuffers();
+}
+
+bool LCD::hasDevices() {
+	return (! devmgr.qlDevices.isEmpty());
 }
 
 /* --- */

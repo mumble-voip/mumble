@@ -34,6 +34,7 @@
 #include "Version.h"
 #include "Global.h"
 #include "OSInfo.h"
+#include "LCD.h"
 
 Usage::Usage(QObject *parent) : QObject(parent) {
 	// Wait 10 minutes (so we know they're actually using this), then...
@@ -50,7 +51,7 @@ void Usage::registerUsage() {
 
 	QDomElement tag;
 	QDomText t;
-	
+
 	OSInfo::fillXml(doc, root);
 
 	tag=doc.createElement(QLatin1String("in"));
@@ -61,6 +62,11 @@ void Usage::registerUsage() {
 	tag=doc.createElement(QLatin1String("out"));
 	root.appendChild(tag);
 	t=doc.createTextNode(g.s.qsAudioOutput);
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("lcd"));
+	root.appendChild(tag);
+    t=doc.createTextNode(QString::number(g.lcd->hasDevices() ? 1 : 0));
 	tag.appendChild(t);
 
 	qhHttp.setHost(QLatin1String("mumble.hive.no"), 80);

@@ -33,6 +33,7 @@
 #define _LCD_H
 
 #include "ConfigDialog.h"
+#include "Timer.h"
 #include "ui_LCD.h"
 
 class Player;
@@ -92,12 +93,16 @@ class LCDEngineRegistrar {
 };
 
 class LCD : public QObject {
-		friend class G15LCDConfig;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(LCD)
 	protected:
 		QFont qfNormal, qfBold, qfItalic, qfItalicBold;
+		QMap<unsigned int, Timer> qmSpeaking;
+		QMap<unsigned int, Timer> qmNew;
+		QMap<unsigned int, Timer> qmOld;
+		QMap<unsigned int, QString> qmNameCache;
+
 		int iFontHeight;
 		int iFrameIndex;
 		QHash<QSize, unsigned char *> qhImageBuffers;
@@ -112,6 +117,7 @@ class LCD : public QObject {
 		LCD();
 		~LCD();
 		void updatePlayerView();
+		bool hasDevices();
 };
 
 uint qHash(const QSize &size);

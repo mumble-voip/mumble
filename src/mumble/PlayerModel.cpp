@@ -671,9 +671,6 @@ void PlayerModel::removePlayer(ClientPlayer *p) {
 	citem->qlChildren.removeAt(row);
 	endRemoveRows();
 
-	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
-		updateOverlay();
-
 	p->cChannel = NULL;
 
 	ClientPlayer::remove(p);
@@ -687,6 +684,9 @@ void PlayerModel::removePlayer(ClientPlayer *p) {
 
 	if (g.s.ceExpand == Settings::ChannelsWithPlayers)
 		collapseEmpty(c);
+
+	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+		updateOverlay();
 }
 
 void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
@@ -715,6 +715,12 @@ void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
 		expandAll(np);
 		collapseEmpty(oc);
 	}
+
+	if (g.uiSession) {
+		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+		if (home==np || home == oc)
+			updateOverlay();
+	}
 }
 
 void PlayerModel::renamePlayer(ClientPlayer *p, const QString &name) {
@@ -724,6 +730,9 @@ void PlayerModel::renamePlayer(ClientPlayer *p, const QString &name) {
 	ModelItem *pi = ModelItem::c_qhChannels.value(c);
 	ModelItem *item = ModelItem::c_qhPlayers.value(p);
 	moveItem(pi, pi, item);
+
+	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+		updateOverlay();
 }
 
 void PlayerModel::renameChannel(Channel *c, const QString &name) {
