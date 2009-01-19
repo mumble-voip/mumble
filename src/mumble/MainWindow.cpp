@@ -478,7 +478,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 		} else {
 			g.s.qbaMinimalViewGeometry = saveGeometry();
 		}
-		qdwLog->setVisible(showit);
 	}
 
 	Qt::WindowFlags f = windowFlags();
@@ -494,10 +493,11 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	setWindowFlags(f);
 
-	if (toggle_minimize) {
-		qtvPlayers->header()->setVisible(showit);
-		menuBar()->setVisible(showit);
+	qdwLog->setVisible(showit);
+	qtvPlayers->header()->setVisible(showit);
+	menuBar()->setVisible(showit);
 
+	if (toggle_minimize) {
 		if (! showit && ! g.s.qbaMinimalViewGeometry.isNull()) 
 			restoreGeometry(g.s.qbaMinimalViewGeometry);
 		else if (showit && ! g.s.qbaMainWindowGeometry.isNull()) 
