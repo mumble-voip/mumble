@@ -265,15 +265,16 @@ void MainWindow::setupGui()  {
 		w->installEventFilter(ltbDockTitle);
 		w->setMouseTracking(true);
 	}
-
-	if(g.s.bMinimalView)
-		restoreGeometry(g.s.qbaMainWindowGeometry);
-	else
+	
+	if(g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull()) 
 		restoreGeometry(g.s.qbaMinimalViewGeometry);
+	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowGeometry.isNull()) 
+		restoreGeometry(g.s.qbaMainWindowGeometry);
+
 	restoreState(g.s.qbaMainWindowState);
 	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
 
-	setupView();
+	setupView(false);
 }
 
 MainWindow::~MainWindow() {
@@ -306,8 +307,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.s.qbaMainWindowState = saveState();
 	if(g.s.bMinimalView) {
 		g.s.qbaMinimalViewGeometry = saveGeometry();
-	}
-	else {
+	} else {
 		g.s.qbaMainWindowGeometry = saveGeometry();
 		g.s.qbaHeaderState = qtvPlayers->header()->saveState();
 	}
@@ -469,24 +469,23 @@ void MainWindow::setupView(bool toggle_minimize) {
 	bool showit = ! g.s.bMinimalView;
 
 	bNoHide = true;
+	QRect geom = frameGeometry();
 
 	if (toggle_minimize) {
 		if (! showit) {
 			g.s.qbaMainWindowGeometry = saveGeometry();
-			g.s.qbaMainWindowState = saveState();
-		}
-		else {
+			g.s.qbaHeaderState = qtvPlayers->header()->saveState();
+		} else {
 			g.s.qbaMinimalViewGeometry = saveGeometry();
-			restoreState(g.s.qbaMainWindowState);
 		}
 		qdwLog->setVisible(showit);
 	}
 
 	Qt::WindowFlags f = windowFlags();
 	if (showit)
-		f = Qt::Widget;
+		f = Qt::Window;
 	else if (g.s.bHideFrame)
-		f = Qt::CustomizeWindowHint;
+		f = Qt::Window | Qt::FramelessWindowHint;
 	else
 		f = Qt::Tool;
 
@@ -499,12 +498,19 @@ void MainWindow::setupView(bool toggle_minimize) {
 		qtvPlayers->header()->setVisible(showit);
 		menuBar()->setVisible(showit);
 
-		if (! showit)
+		if (! showit && ! g.s.qbaMinimalViewGeometry.isNull()) 
 			restoreGeometry(g.s.qbaMinimalViewGeometry);
-		else
+		else if (showit && ! g.s.qbaMainWindowGeometry.isNull()) 
 			restoreGeometry(g.s.qbaMainWindowGeometry);
+	} else {
+		QRect newgeom = frameGeometry();
+		resize(geometry().width()-newgeom.width()+geom.width(),
+			geometry().height()-newgeom.height()+geom.height());
+		move(geom.x(), geom.y());
 	}
+
 	show();
+	activateWindow();
 	bNoHide = false;
 
 }
