@@ -74,6 +74,7 @@ class ALSAInit : public DeferInit {
 };
 
 static ALSAInit aiInit;
+QMutex qmALSA;
 
 void ALSAInit::initialize() {
 	pairALSA = NULL;
@@ -92,6 +93,7 @@ void ALSAInit::initialize() {
 }
 
 void ALSAInit::destroy() {
+	QMutexLocker qml(&qmALSA);
 	if (pairALSA)
 		delete pairALSA;
 	if (paorALSA)
@@ -177,6 +179,8 @@ void ALSAAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings 
 }
 
 ALSAEnumerator::ALSAEnumerator() {
+	QMutexLocker qml(&qmALSA);
+
 	qhInput.insert(QLatin1String("default"), ALSAAudioInput::tr("Default ALSA Card"));
 	qhOutput.insert(QLatin1String("default"), ALSAAudioOutput::tr("Default ALSA Card"));
 
@@ -313,6 +317,7 @@ ALSAAudioInput::~ALSAAudioInput() {
 #define ALSA_ERRBAIL(x) if (!bOk) {} else if ((err=(x)) != 0) { bOk = false; qWarning("ALSAAudio: %s: %s", #x, snd_strerror(err));}
 
 void ALSAAudioInput::run() {
+	QMutexLocker qml(&qmALSA);
 	int readblapp;
 
 	QByteArray device_name = g.s.qsALSAInput.toLatin1();
@@ -373,6 +378,8 @@ void ALSAAudioInput::run() {
 	}
 
 	char inbuff[wantPeriod * iChannels * sizeof(float)];
+	
+	qml.unlock();
 
 	while (bRunning) {
 #ifdef ALSA_VERBOSE
@@ -417,6 +424,7 @@ ALSAAudioOutput::~ALSAAudioOutput() {
 }
 
 void ALSAAudioOutput::run() {
+	QMutexLocker qml(&qmALSA);
 	snd_pcm_t *pcm_handle = NULL;
 	struct pollfd fds[16];
 	int count;
@@ -515,6 +523,8 @@ void ALSAAudioOutput::run() {
 
 	count = snd_pcm_poll_descriptors_count(pcm_handle);
 	snd_pcm_poll_descriptors(pcm_handle, fds, count);
+	
+	qml.unlock();
 
 	while (bRunning) {
 		poll(fds, count, 20);
