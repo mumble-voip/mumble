@@ -371,12 +371,12 @@
 <context>
     <name>ALSAAudioInput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="371"/>
+        <location filename="ALSAAudio.cpp" line="376"/>
         <source>Opening chosen ALSA Input failed: %1</source>
         <translation>選択されたALSA入力のオープンに失敗しました: %1</translation>
     </message>
     <message>
-        <location filename="ALSAAudio.cpp" line="180"/>
+        <location filename="ALSAAudio.cpp" line="184"/>
         <source>Default ALSA Card</source>
         <translation>デフォルトALSAカード</translation>
     </message>
@@ -384,12 +384,12 @@
 <context>
     <name>ALSAAudioOutput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="488"/>
+        <location filename="ALSAAudio.cpp" line="496"/>
         <source>Opening chosen ALSA Output failed: %1</source>
         <translation>選択されたALSA出力のオープンに失敗しました: %1</translation>
     </message>
     <message>
-        <location filename="ALSAAudio.cpp" line="181"/>
+        <location filename="ALSAAudio.cpp" line="185"/>
         <source>Default ALSA Card</source>
         <translation>デフォルトALSAカード</translation>
     </message>
@@ -1810,27 +1810,27 @@
         <translation>音声出力</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="423"/>
+        <location filename="AudioConfigDialog.cpp" line="427"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="462"/>
+        <location filename="AudioConfigDialog.cpp" line="466"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="431"/>
+        <location filename="AudioConfigDialog.cpp" line="435"/>
         <source>%1ms</source>
         <translation>%1ms</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="452"/>
+        <location filename="AudioConfigDialog.cpp" line="456"/>
         <source>%1m</source>
         <translation>%1m</translation>
     </message>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="458"/>
+        <location filename="AudioConfigDialog.cpp" line="462"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
@@ -2131,7 +2131,7 @@
         <translation>あなたが接続しているデバイスです。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="230"/>
+        <location filename="AudioWizard.cpp" line="232"/>
         <source>System</source>
         <translation>システム</translation>
     </message>
@@ -2146,7 +2146,7 @@
         <translation>&lt;b&gt;音声の入力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="246"/>
+        <location filename="AudioWizard.cpp" line="248"/>
         <source>Device</source>
         <translation>デバイス</translation>
     </message>
@@ -2171,137 +2171,137 @@
         <translation>あなたのスピーカ(もしくはヘッドホン)が接続しているデバイスです。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="233"/>
+        <location filename="AudioWizard.cpp" line="235"/>
         <source>Output method for audio</source>
         <translation>音声の出力方法</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="234"/>
+        <location filename="AudioWizard.cpp" line="236"/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="249"/>
+        <location filename="AudioWizard.cpp" line="251"/>
         <source>Output device to use</source>
         <translation>出力に使用するデバイス</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="250"/>
+        <location filename="AudioWizard.cpp" line="252"/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
         <translation>&lt;b&gt;音声の出力にどのサウンドカードを使用するか選択してください。&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="314"/>
+        <location filename="AudioWizard.cpp" line="316"/>
         <source>Volume tuning</source>
         <translation>音量調整</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="315"/>
+        <location filename="AudioWizard.cpp" line="317"/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
         <translation>マイクの音量を最適な設定になるよう調整します。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="321"/>
+        <location filename="AudioWizard.cpp" line="323"/>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
         <translation>ボリュームコントロールパネルを開き、録音設定画面に移動しましょう。そして、マイクが選択されていて、音量が最大になっている事を確認してください。もし&quot;マイクブースト&quot;を有効にするオプションがあるなら、それもチェックされているか確認してください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="328"/>
+        <location filename="AudioWizard.cpp" line="330"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
         <translation>イライラしていたり、興奮していたりする時のように大声で話してみてください。話している間、下にあるバーが青と緑の区域のなるべく赤に近い場所に留まるまでサウンドコントロールパネルの音量を下げてください。(赤い区域には&lt;b&gt;入らない&lt;/b&gt;ようにしましょう)</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="337"/>
+        <location filename="AudioWizard.cpp" line="339"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
         <translation>次に、誰も起こさないようにしている夜中のようにそっと話してみましょう。話している間、バーが緑にかかり、静かにしている時は青に留まるように下のスライダーを調整してください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="355"/>
+        <location filename="AudioWizard.cpp" line="357"/>
         <source>Voice Activity Detection</source>
         <translation>発声の検出</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="356"/>
+        <location filename="AudioWizard.cpp" line="358"/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
         <translation>話している状態と静かにしている状態をMumbleに判別させます。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="364"/>
+        <location filename="AudioWizard.cpp" line="366"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
         <translation>あなたがいつ話しているのかをMumbleに判別させるお手伝いをします。まず最初に、どのデータの値を使うかの選択を行います。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="385"/>
+        <location filename="AudioWizard.cpp" line="387"/>
         <source>Raw amplitude from input</source>
         <translation>音声信号の大きさ</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="381"/>
+        <location filename="AudioWizard.cpp" line="383"/>
         <source>Signal-To-Noise ratio</source>
         <translation>信号対雑音比(S/N比)</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="410"/>
+        <location filename="AudioWizard.cpp" line="412"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <translation>次に、以下の2つのスライダーを調節しましょう。最初の発声は緑(確実に発言と判定)になると良いでしょう。話している最中は黄色(発言だろうと判定)の中に収まり、話していない時はすべて赤(発言ではないと判定)に入っているようにしてください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="433"/>
+        <location filename="AudioWizard.cpp" line="435"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
         <translation>最後に、猶予時間を調整しましょう。発言以外のものを検出する許容量が上がり、話が途切れずに送信を続けることができるでしょう。これにより、話の間に小休止を入れることができるようになります。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="460"/>
+        <location filename="AudioWizard.cpp" line="462"/>
         <source>Device tuning</source>
         <translation>デバイス調整</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="461"/>
+        <location filename="AudioWizard.cpp" line="463"/>
         <source>Changing hardware output delays to their minimum value.</source>
         <translation>ハードウェアの出力遅延が最小値になるように変更します。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="467"/>
+        <location filename="AudioWizard.cpp" line="469"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>遅延を最小限に保つためには、サウンドカード上で音声のバッファを出来るだけ小さくすることが重要です。しかし、多くのサウンドカードが要求してくるバッファは、実際に動作可能な大きさよりかなり小さなものです。結局、この値を設定するにはいろいろ試してみるほかありません。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="488"/>
+        <location filename="AudioWizard.cpp" line="490"/>
         <source>Amount of data to buffer.</source>
         <translation>バッファデータの量</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="491"/>
+        <location filename="AudioWizard.cpp" line="493"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>出力バッファにおけるプリバッファの量を設定します。いろいろな値で試してみて、急に不安定にならない一番小さな値に設定してください。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="595"/>
+        <location filename="AudioWizard.cpp" line="598"/>
         <source>%1ms</source>
         <translation>%1ms</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="809"/>
+        <location filename="AudioWizard.cpp" line="816"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="473"/>
+        <location filename="AudioWizard.cpp" line="475"/>
         <source>You should hear a single tone that&apos;s changing in frequency. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test to improve audio path recognition.</source>
         <translation>周波数が変わる1つの音色が聞こえますでしょうか。音が途切れたり不安定に&lt;b&gt;ならない&lt;/b&gt;一番小さな値まで下のスライダーを動かしてください。なお、音声経路の認識率を向上するため、このテストの間ローカルエコーは使えなくなっている事をお忘れなく。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="497"/>
+        <location filename="AudioWizard.cpp" line="499"/>
         <source>If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path delay in your system; this means the delay from a sample is placed in an outbound buffer until it&apos;s found in a matching incoming buffer.</source>
         <translation>スピーカーやヘッドセットの出力をマイクが拾ってしまうような配置にしている場合、あなたのシステムで音声経路の遅延が起きていると判断されるでしょう; つまり、対応する受信バッファ内に含まれるまでサンプルが送信バッファに放置されて、遅延をもたらします。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="758"/>
+        <location filename="AudioWizard.cpp" line="765"/>
         <source>Audio path is %1ms long.</source>
         <translation>音声経路は %1ms の長さ</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="760"/>
+        <location filename="AudioWizard.cpp" line="767"/>
         <source>Audio path cannot be determined. Input not recognized.</source>
         <translation>音声経路が決定できません。入力が不明です。</translation>
     </message>
@@ -2321,52 +2321,52 @@
         <translation>出力音声のエコーキャンセルを有効にします。スピーカーとヘッドセットの両方に対して有効です。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="256"/>
+        <location filename="AudioWizard.cpp" line="258"/>
         <source>Enable positional audio</source>
         <translation>位置音響を有効にする</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="257"/>
+        <location filename="AudioWizard.cpp" line="259"/>
         <source>Allows positioning of sound.</source>
         <translation>音声の位置</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="258"/>
+        <location filename="AudioWizard.cpp" line="260"/>
         <source>This allows Mumble to use positional audio to place voices.</source>
         <translation>声の位置を定めるために位置音響を使えるようにします。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="275"/>
+        <location filename="AudioWizard.cpp" line="277"/>
         <source>Positional Audio</source>
         <translation>位置音響</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="276"/>
+        <location filename="AudioWizard.cpp" line="278"/>
         <source>Adjusting attenuation of positional audio.</source>
         <translation>位置音響の減衰効果を調整します</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="283"/>
+        <location filename="AudioWizard.cpp" line="285"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
         <translation>Mumbleは、いくつかのゲームにおいてゲーム内での他プレイヤーの位置に対応した位置音響をサポートします。他プレイヤーの位置によって、方向と距離をシミュレートして音量が変化します。このシミュレーションはお使いのオペレーティング・システムでスピーカーが正しく設定されていることが前提となります。そのテストはここで行うことが出来ます。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="286"/>
+        <location filename="AudioWizard.cpp" line="288"/>
         <source>The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.</source>
         <translation>このグラフはこれらの位置を表しています: &lt;font color=&quot;red&quot;&gt;あなた&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;スピーカー&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;移動する音の発生源&lt;/font&gt; 上からに見えるようなら、チャンネルの間に移動して聞くのがよいでしょう。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="290"/>
+        <location filename="AudioWizard.cpp" line="292"/>
         <source>Use headphones</source>
         <translation>ヘッドホンを使う</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="291"/>
+        <location filename="AudioWizard.cpp" line="293"/>
         <source>Use headphones instead of speakers.</source>
         <translation>スピーカーの代わりにヘッドホンを使う</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="292"/>
+        <location filename="AudioWizard.cpp" line="294"/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
         <translation>OSのスピーカー構成を無視して、代わりにヘッドホン用の位置設定を使用します。</translation>
     </message>
@@ -2381,7 +2381,7 @@
         <translation>Mumbleプロジェクトに匿名で統計を送信する</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="370"/>
+        <location filename="AudioWizard.cpp" line="372"/>
         <source>Push To Talk:</source>
         <translation>キー押下で有効化:</translation>
     </message>
@@ -2816,22 +2816,22 @@
         <translation>ウェブサイトを見る(&amp;V)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="116"/>
+        <location filename="ConnectDialog.cpp" line="119"/>
         <source>Connecting to %1</source>
         <translation>%1に接続中</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="116"/>
+        <location filename="ConnectDialog.cpp" line="119"/>
         <source>Enter username</source>
         <translation>ユーザー名を入力してください</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="215"/>
+        <location filename="ConnectDialog.cpp" line="218"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="215"/>
+        <location filename="ConnectDialog.cpp" line="218"/>
         <source>Failed to fetch server list</source>
         <translation>サーバーリストを取得出来ませんでした</translation>
     </message>
@@ -2846,12 +2846,12 @@
         <translation>ラベル</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="201"/>
+        <location filename="ConnectDialog.cpp" line="204"/>
         <source>Unknown</source>
         <translation>不明</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="346"/>
+        <location filename="ConnectDialog.cpp" line="349"/>
         <source>-Unnamed entry-</source>
         <translation>-Unnamed entry-</translation>
     </message>
@@ -2866,17 +2866,17 @@
         <translation>キャンセル(&amp;C)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="279"/>
+        <location filename="ConnectDialog.cpp" line="282"/>
         <source>New</source>
         <translation>新規</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="366"/>
+        <location filename="ConnectDialog.cpp" line="369"/>
         <source>Add</source>
         <translation>追加</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="364"/>
+        <location filename="ConnectDialog.cpp" line="367"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
@@ -3241,7 +3241,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="302"/>
+        <location filename="GlobalShortcut_unix.cpp" line="319"/>
         <source>Mouse %1</source>
         <translation>マウス %1</translation>
     </message>
@@ -3277,7 +3277,7 @@ of the possible locations.</source>
 <context>
     <name>LCD</name>
     <message>
-        <location filename="LCD.cpp" line="279"/>
+        <location filename="LCD.cpp" line="288"/>
         <source>Not connected</source>
         <translation>接続されていません</translation>
     </message>
@@ -3795,8 +3795,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="LookConfig.ui" line="158"/>
-        <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray.  Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;これがセットされていた場合、最小化されたMumbleのメインウインドウは非表示になり、タスクトレイからのみアクセスできるようになります。これがセットされていない場合、ウインドウは普通に最小化します。&lt;/b&gt;</translation>
+        <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
+        <translation type="unfinished">&lt;b&gt;これがセットされていた場合、最小化されたMumbleのメインウインドウは非表示になり、タスクトレイからのみアクセスできるようになります。これがセットされていない場合、ウインドウは普通に最小化します。&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="161"/>
@@ -3827,117 +3827,117 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="1184"/>
+        <location filename="MainWindow.cpp" line="1227"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="142"/>
+        <location filename="MainWindow.ui" line="138"/>
         <source>&amp;Connect</source>
         <translation>接続(&amp;C)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="145"/>
+        <location filename="MainWindow.ui" line="141"/>
         <source>Open the server connection dialog</source>
         <translation>サーバー接続ダイアログを開く</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="148"/>
+        <location filename="MainWindow.ui" line="144"/>
         <source>Shows a dialog of registered servers, and also allows quick connect.</source>
         <translation>登録されたサーバーのダイアログを開きます。クイック接続もできるようになります。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="156"/>
+        <location filename="MainWindow.ui" line="152"/>
         <source>&amp;Disconnect</source>
         <translation>切断(&amp;D)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="159"/>
+        <location filename="MainWindow.ui" line="155"/>
         <source>Disconnect from server</source>
         <translation>サーバーから切断</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="162"/>
+        <location filename="MainWindow.ui" line="158"/>
         <source>Disconnects you from the server.</source>
         <translation>サーバーから切断します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="170"/>
+        <location filename="MainWindow.ui" line="166"/>
         <source>&amp;Ban lists</source>
         <translation>&amp;BAN一覧</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="173"/>
+        <location filename="MainWindow.ui" line="169"/>
         <source>Edit ban lists on server</source>
         <translation>サーバーのBAN一覧を編集</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="176"/>
+        <location filename="MainWindow.ui" line="172"/>
         <source>This lets you edit the server-side IP ban lists.</source>
         <translation>サーバー側の禁止IPリストを編集します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="195"/>
+        <location filename="MainWindow.ui" line="191"/>
         <source>&amp;Kick</source>
         <translation>キック(&amp;K)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="198"/>
+        <location filename="MainWindow.ui" line="194"/>
         <source>Kick player (with reason)</source>
         <translation>プレイヤーをキック(理由付き)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="201"/>
+        <location filename="MainWindow.ui" line="197"/>
         <source>Kick selected player off server. You&apos;ll be asked to specify a reason.</source>
         <translation>選択されたプレイヤーをサーバーから追い出します。あなたは、理由を尋ねられるでしょう。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="220"/>
+        <location filename="MainWindow.ui" line="216"/>
         <source>&amp;Ban</source>
         <translation>&amp;BAN</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="223"/>
+        <location filename="MainWindow.ui" line="219"/>
         <source>Kick and ban player (with reason)</source>
         <translation>キックしてBAN(理由付き)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="226"/>
+        <location filename="MainWindow.ui" line="222"/>
         <source>Kick and ban selected player from server. You&apos;ll be asked to specify a reason.</source>
         <translation>選択されたプレイヤーをサーバーからキックしてBANします。あなたは、理由を尋ねられるでしょう。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="209"/>
+        <location filename="MainWindow.ui" line="205"/>
         <source>&amp;Mute</source>
         <translation>発言禁止(&amp;M)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="212"/>
+        <location filename="MainWindow.ui" line="208"/>
         <source>Mute player</source>
         <translation>プレイヤーを発言禁止にする</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="215"/>
+        <location filename="MainWindow.ui" line="211"/>
         <source>Mute or unmute player on server. Unmuting a deafened player will also undeafen them.</source>
         <translation>サーバーにいるプレイヤーを発言禁止にしたり、解除したりします。聴取禁止になっているプレイヤーに対して発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="234"/>
+        <location filename="MainWindow.ui" line="230"/>
         <source>&amp;Deafen</source>
         <translation>聴取禁止(&amp;D)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="237"/>
+        <location filename="MainWindow.ui" line="233"/>
         <source>Deafen player</source>
         <translation>プレイヤーを聴取禁止にする</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="240"/>
+        <location filename="MainWindow.ui" line="236"/>
         <source>Deafen or undeafen player on server. Deafening a player will also mute them.</source>
         <translation>サーバーにいるプレイヤーを聴取禁止にしたり、解除したりします。聴取禁止にすると発言も禁止にします。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="248"/>
+        <location filename="MainWindow.ui" line="244"/>
         <source>&amp;Local Mute</source>
         <translation>ローカルで発言禁止(&amp;L)</translation>
     </message>
@@ -3947,62 +3947,62 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">ローカルで発言禁止にしたり解除したりします。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="270"/>
+        <location filename="MainWindow.ui" line="266"/>
         <source>&amp;Add</source>
         <translation>追加(&amp;A)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="273"/>
+        <location filename="MainWindow.ui" line="269"/>
         <source>Add new channel</source>
         <translation>新しいチャンネルを追加</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="276"/>
+        <location filename="MainWindow.ui" line="272"/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
         <translation>現在選択されているチャンネルに新たなサブチャンネルを追加します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="281"/>
+        <location filename="MainWindow.ui" line="277"/>
         <source>&amp;Remove</source>
         <translation>削除(&amp;R)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="284"/>
+        <location filename="MainWindow.ui" line="280"/>
         <source>Remove channel</source>
         <translation>チャンネルを削除</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="287"/>
+        <location filename="MainWindow.ui" line="283"/>
         <source>This removes a channel and all sub-channels.</source>
         <translation>チャンネルと全てのサブチャンネルを削除します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="292"/>
+        <location filename="MainWindow.ui" line="288"/>
         <source>&amp;Edit ACL</source>
         <translation>ACLを編集(&amp;E)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="295"/>
+        <location filename="MainWindow.ui" line="291"/>
         <source>Edit Groups and ACL for channel</source>
         <translation>チャンネルのグループとACLを編集</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="298"/>
+        <location filename="MainWindow.ui" line="294"/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
         <translation>権限を管理するため、チャンネルのグループとACLダイアログを開きます。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="314"/>
+        <location filename="MainWindow.ui" line="310"/>
         <source>&amp;Link</source>
         <translation>リンク(&amp;L)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="317"/>
+        <location filename="MainWindow.ui" line="313"/>
         <source>Link your channel to another channel</source>
         <translation>あなたのいるチャンネルを他のチャンネルとリンクします。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="320"/>
+        <location filename="MainWindow.ui" line="316"/>
         <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <translation>あなたのいるチャンネルを選択されたチャンネルとリンクします。他方のチャンネルで発言する権限を持っていたら、プレイヤーはお互いを聞くことができます。これは恒久的なリンクであり、手動でリンクを解除されるかサーバーがリスタートするまで続きます。push-to-linkのショートカットを見てください。</translation>
     </message>
@@ -4012,172 +4012,172 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">リンク解除(&amp;U)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="328"/>
+        <location filename="MainWindow.ui" line="324"/>
         <source>Unlink your channel from another channel</source>
         <translation>他のチャンネルとのリンクを解除します</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="331"/>
+        <location filename="MainWindow.ui" line="327"/>
         <source>This unlinks your current channel from the selected channel.</source>
         <translation>選択されたチャンネルとあなたのいるチャンネルのリンクを解除します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="336"/>
+        <location filename="MainWindow.ui" line="332"/>
         <source>Unlink &amp;All</source>
         <translation>全てのリンクを解除(&amp;A)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="339"/>
+        <location filename="MainWindow.ui" line="335"/>
         <source>Unlinks your channel from all linked channels.</source>
         <translation>他のチャンネルとのリンクを全て解除します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="342"/>
+        <location filename="MainWindow.ui" line="338"/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
         <translation>全てのリンクされたチャンネルとあなたのいるチャンネル(選択されたものではありません)のリンクを解除します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="347"/>
+        <location filename="MainWindow.ui" line="343"/>
         <source>&amp;Reset</source>
         <translation>リセット(&amp;R)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="350"/>
+        <location filename="MainWindow.ui" line="346"/>
         <source>Reset audio preprocessor</source>
         <translation>音声プリプロセッサをリセット</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="353"/>
+        <location filename="MainWindow.ui" line="349"/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
         <translation>ノイズキャンセルや音声増幅や音声有効化の検出といった音声の前処理をリセットします。何かが起こって一時的に音声の環境が悪化するとき(マイクを落とした時など)、プリプロセッサの対応を待つのを避けるため、これを使ってください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="361"/>
+        <location filename="MainWindow.ui" line="357"/>
         <source>&amp;Mute Self</source>
         <translation>自分を発言禁止(&amp;M)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="364"/>
+        <location filename="MainWindow.ui" line="360"/>
         <source>Mute yourself</source>
         <translation>あなた自身を発言禁止にします</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="367"/>
+        <location filename="MainWindow.ui" line="363"/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
         <translation>あなた自身を発言禁止にしたり、解除したりします。発言禁止のとき、サーバーに何もデータを送りません。聴取禁止の時に発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="375"/>
+        <location filename="MainWindow.ui" line="371"/>
         <source>&amp;Deafen Self</source>
         <translation>自分を聴取禁止(&amp;D)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="378"/>
+        <location filename="MainWindow.ui" line="374"/>
         <source>Deafen yourself</source>
         <translation>あなた自身を聴取禁止にします</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="381"/>
+        <location filename="MainWindow.ui" line="377"/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
         <translation>あなた自身を聴取禁止にしたり、解除したりします。あなたは何も聞くことができません。聴取禁止にすると発言も禁止にします。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="389"/>
+        <location filename="MainWindow.ui" line="385"/>
         <source>&amp;Text-To-Speech</source>
         <translation>テキスト読み上げ(&amp;T)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="392"/>
+        <location filename="MainWindow.ui" line="388"/>
         <source>Toggle Text-To-Speech</source>
         <translation>テキスト読み上げの切り替え</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="395"/>
+        <location filename="MainWindow.ui" line="391"/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
         <translation>テキスト読み上げエンジンを有効にするかどうか。設定ダイアログにてテキスト読み上げが有効になっているメッセージのみ読み上げられます。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="400"/>
+        <location filename="MainWindow.ui" line="396"/>
         <source>S&amp;tatistics</source>
         <translation>統計(&amp;T)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="403"/>
+        <location filename="MainWindow.ui" line="399"/>
         <source>Display audio statistics</source>
         <translation>音声統計を表示</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="406"/>
+        <location filename="MainWindow.ui" line="402"/>
         <source>Pops up a small dialog with information about your current audio input.</source>
         <translation>現在の音声入力の情報を表示する小さなダイアログがポップアップします。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="414"/>
+        <location filename="MainWindow.ui" line="410"/>
         <source>Forcibly unlink plugin</source>
         <translation>強制的にプラグインを外す</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="417"/>
+        <location filename="MainWindow.ui" line="413"/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
         <translation>現在のプラグインを強制的に外します。完全におかしなデータを読み込んでいるときに便利でしょう。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="422"/>
+        <location filename="MainWindow.ui" line="418"/>
         <source>&amp;Settings</source>
         <translation>設定(&amp;S)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="425"/>
+        <location filename="MainWindow.ui" line="421"/>
         <source>Configure Mumble</source>
         <translation>Mumbleを設定</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="428"/>
+        <location filename="MainWindow.ui" line="424"/>
         <source>Allows you to change most settings for Mumble.</source>
         <translation>Mumbleのいろいろな設定をします</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="447"/>
+        <location filename="MainWindow.ui" line="443"/>
         <source>&amp;What&apos;s This?</source>
         <translation>&amp;What&apos;s This?</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="450"/>
+        <location filename="MainWindow.ui" line="446"/>
         <source>Enter What&apos;s This? mode</source>
         <translation>What&apos;s This?モードに移行します</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="453"/>
+        <location filename="MainWindow.ui" line="449"/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
         <translation>クリックして&quot;What&apos;s This?&quot;モードに入ります。マウスカーソルはクエスチョンマークになって、何かボタンを押すと、選択されたメニューやエリアが何をするかの説明を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="458"/>
+        <location filename="MainWindow.ui" line="454"/>
         <source>&amp;About</source>
         <translation>Mumbleについて(&amp;A)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="461"/>
+        <location filename="MainWindow.ui" line="457"/>
         <source>Information about Mumble</source>
         <translation>Mumbleについての情報</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="464"/>
+        <location filename="MainWindow.ui" line="460"/>
         <source>Shows a small dialog with information and license for Mumble.</source>
         <translation>Mumbleの情報やライセンスについての小さなダイアログを表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="472"/>
+        <location filename="MainWindow.ui" line="468"/>
         <source>About &amp;Speex</source>
         <translation>&amp;Speexについて</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="475"/>
+        <location filename="MainWindow.ui" line="471"/>
         <source>Information about Speex</source>
         <translation>Speexに関する情報</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="478"/>
+        <location filename="MainWindow.ui" line="474"/>
         <source>Shows a small dialog with information about Speex.</source>
         <translation>Speexに関する情報のための小さなダイアログを表示します。</translation>
     </message>
@@ -4187,32 +4187,32 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Qtについて(&amp;A)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="489"/>
+        <location filename="MainWindow.ui" line="485"/>
         <source>Information about Qt</source>
         <translation>Qtについての情報</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="492"/>
+        <location filename="MainWindow.ui" line="488"/>
         <source>Shows a small dialog with information about Qt.</source>
         <translation>Qtに関する情報のための小さなダイアログを表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="500"/>
+        <location filename="MainWindow.ui" line="496"/>
         <source>Check for &amp;Updates</source>
         <translation>更新を確認(&amp;U)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="503"/>
+        <location filename="MainWindow.ui" line="499"/>
         <source>Check for new version of Mumble</source>
         <translation>Mumbleの新しいバージョンがあるか確認します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="506"/>
+        <location filename="MainWindow.ui" line="502"/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="225"/>
+        <location filename="MainWindow.cpp" line="226"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4222,7 +4222,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">メッセージのログ</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="119"/>
+        <location filename="MainWindow.ui" line="115"/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
         <translation>最近の動作を全て表示します。サーバーへの接続、エラーや情報メッセージは全てここに表示されます。&lt;br /&gt;ここにどのメッセージを表示するかを指定するには、メニューから&lt;b&gt;設定&lt;/b&gt;コマンドを選んでください。</translation>
     </message>
@@ -4252,7 +4252,7 @@ p, li { white-space: pre-wrap; }
         <translation>設定(&amp;O)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="87"/>
+        <location filename="MainWindow.ui" line="83"/>
         <source>&amp;Help</source>
         <translation>ヘルプ(&amp;H)</translation>
     </message>
@@ -4335,17 +4335,17 @@ p, li { white-space: pre-wrap; }
         <translation>Alt発言有効化</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="665"/>
+        <location filename="MainWindow.cpp" line="693"/>
         <source>Kicking player %1</source>
         <translation>プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="687"/>
+        <location filename="MainWindow.cpp" line="715"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="687"/>
+        <location filename="MainWindow.cpp" line="715"/>
         <source>Banning player %1</source>
         <translation>プレイヤー %1 をBANしました</translation>
     </message>
@@ -4355,52 +4355,52 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="839"/>
+        <location filename="MainWindow.cpp" line="877"/>
         <source>Channel Name</source>
         <translation>チャンネル名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="818"/>
+        <location filename="MainWindow.cpp" line="856"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>%1 とそのサブチャンネルを全て削除します。よろしいですか？</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="969"/>
+        <location filename="MainWindow.cpp" line="1007"/>
         <source>Unmuted and undeafened.</source>
         <translation>発言禁止を解除し、聴取禁止も解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="971"/>
+        <location filename="MainWindow.cpp" line="1009"/>
         <source>Unmuted.</source>
         <translation>発言禁止を解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="973"/>
+        <location filename="MainWindow.cpp" line="1011"/>
         <source>Muted.</source>
         <translation>発言禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="989"/>
+        <location filename="MainWindow.cpp" line="1027"/>
         <source>Muted and deafened.</source>
         <translation>発言禁止と聴取禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="991"/>
+        <location filename="MainWindow.cpp" line="1029"/>
         <source>Deafened.</source>
         <translation>聴取禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="993"/>
+        <location filename="MainWindow.cpp" line="1031"/>
         <source>Undeafened.</source>
         <translation>聴取禁止を解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1049"/>
+        <location filename="MainWindow.cpp" line="1092"/>
         <source>About Qt</source>
         <translation>Qtについて</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1146"/>
+        <location filename="MainWindow.cpp" line="1189"/>
         <source>Joining %1.</source>
         <translation>%1 に入る</translation>
     </message>
@@ -4410,17 +4410,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">サーバーに接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1265"/>
+        <location filename="MainWindow.cpp" line="1308"/>
         <source>Server connection failed: %1.</source>
         <translation>サーバーへの接続に失敗しました: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1267"/>
+        <location filename="MainWindow.cpp" line="1310"/>
         <source>Disconnected from server.</source>
         <translation>サーバーから切断しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="515"/>
+        <location filename="MainWindow.cpp" line="543"/>
         <source>Reconnecting.</source>
         <translation>再接続中.</translation>
     </message>
@@ -4550,72 +4550,72 @@ p, li { white-space: pre-wrap; }
         <translation>Mumbleへようこそ</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="128"/>
+        <location filename="MainWindow.ui" line="124"/>
         <source>&amp;Quit Mumble</source>
         <translation>終了(&amp;Q)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="131"/>
+        <location filename="MainWindow.ui" line="127"/>
         <source>Closes the program</source>
         <translation>プログラムを終了</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="134"/>
+        <location filename="MainWindow.ui" line="130"/>
         <source>Exits the application.</source>
         <translation>アプリケーションを終了</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="511"/>
+        <location filename="MainWindow.ui" line="507"/>
         <source>Send Messa&amp;ge</source>
         <translation>メッセージを送信(&amp;G)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="514"/>
+        <location filename="MainWindow.ui" line="510"/>
         <source>Send a Text Message</source>
         <translation>テキストメッセージを送信</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="709"/>
+        <location filename="MainWindow.cpp" line="737"/>
         <source>Sending message to %1</source>
         <translation>%1 にメッセージを送信しています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="926"/>
+        <location filename="MainWindow.cpp" line="964"/>
         <source>To %1: %2</source>
         <translation>%1 宛: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="926"/>
+        <location filename="MainWindow.cpp" line="964"/>
         <source>Message to %1</source>
         <translation>%1 へのメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1274"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>Invalid username</source>
         <translation>不正なユーザー名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1274"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>不正なユーザー名で接続しました。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1274"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>That username is already in use, please try another username.</source>
         <translation>そのユーザー名は既に使われています。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1279"/>
+        <location filename="MainWindow.cpp" line="1328"/>
         <source>Wrong password</source>
         <translation>誤ったパスワード</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1279"/>
+        <location filename="MainWindow.cpp" line="1328"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>登録されたユーザーのパスワードが違います。再度試してください</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1279"/>
+        <location filename="MainWindow.cpp" line="1328"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>未登録ユーザーのパスワードが違います。再度試してください。</translation>
     </message>
@@ -4630,157 +4630,157 @@ p, li { white-space: pre-wrap; }
         <translation>%1 からのメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="436"/>
+        <location filename="MainWindow.ui" line="432"/>
         <source>&amp;Audio Wizard</source>
         <translation>音声ウィザード(&amp;A)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="265"/>
+        <location filename="MainWindow.ui" line="261"/>
         <source>Sends a text message to another user.</source>
         <translation>他のユーザーにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="439"/>
+        <location filename="MainWindow.ui" line="435"/>
         <source>Start the audio configuration wizard</source>
         <translation>音声の設定ウィザードを開始します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="442"/>
+        <location filename="MainWindow.ui" line="438"/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1223"/>
+        <location filename="MainWindow.cpp" line="1266"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1228"/>
+        <location filename="MainWindow.cpp" line="1271"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 送信された証明書は保存されたものとは異なっています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1230"/>
+        <location filename="MainWindow.cpp" line="1273"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>送信された証明書の検証に失敗しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="184"/>
+        <location filename="MainWindow.ui" line="180"/>
         <source>&amp;Information</source>
         <translation>情報(&amp;I)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="187"/>
+        <location filename="MainWindow.ui" line="183"/>
         <source>Show information about the server connection</source>
         <translation>サーバーとの接続についての情報を表示</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="190"/>
+        <location filename="MainWindow.ui" line="186"/>
         <source>This will show extended information about the connection to the server.</source>
         <translation>サーバーとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="371"/>
+        <location filename="MainWindow.cpp" line="380"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="373"/>
+        <location filename="MainWindow.cpp" line="382"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation>URLスキームは &apos;mumble&apos; ではありません</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="398"/>
+        <location filename="MainWindow.cpp" line="407"/>
         <source>Connecting to %1</source>
         <translation>%1 に接続しています</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="398"/>
+        <location filename="MainWindow.cpp" line="407"/>
         <source>Enter username</source>
         <translation>ユーザー名を入力してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="567"/>
+        <location filename="MainWindow.cpp" line="595"/>
         <source>Mumble Server Information</source>
         <translation>Mumble サーバーの情報</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1244"/>
+        <location filename="MainWindow.cpp" line="1287"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1239"/>
+        <location filename="MainWindow.cpp" line="1282"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;詳細な証明書エラーの内容: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;この証明書を受け入れますか？&lt;br /&gt;(同時に証明書を保存するので、今後この質問は表示されません。)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="548"/>
+        <location filename="MainWindow.cpp" line="576"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="552"/>
+        <location filename="MainWindow.cpp" line="580"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="554"/>
+        <location filename="MainWindow.cpp" line="582"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 variance)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;音声チャンネル&lt;/h2&gt;&lt;p&gt;128 bit OCB-AES128 で暗号化されています。&lt;br /&gt;平均 %1 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>UDP Statistics</source>
         <translation>UDP統計</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>To Server</source>
         <translation>サーバー宛</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>From Server</source>
         <translation>サーバーから</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>Good</source>
         <translation>良好</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>Late</source>
         <translation>遅延</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>Lost</source>
         <translation>消失</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>Resync</source>
         <translation>最同期</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="913"/>
+        <location filename="MainWindow.cpp" line="951"/>
         <source>Sending message to channel %1</source>
         <translation>チャンネル %1 に送信するメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="940"/>
+        <location filename="MainWindow.cpp" line="978"/>
         <source>Sending message to channel tree %1</source>
         <translation>チャンネルツリー %1 に送信するメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="953"/>
+        <location filename="MainWindow.cpp" line="991"/>
         <source>To tree %1: %2</source>
         <translation>tree %1 宛: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="953"/>
+        <location filename="MainWindow.cpp" line="991"/>
         <source>Message to tree %1</source>
         <translation>tree %1 宛メッセージ</translation>
     </message>
@@ -4790,32 +4790,32 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">ローカルな聴取禁止モードになりました。このモードはサーバーには反映されません。そしてあなたの声はまだ送信され続けています。このモードは、同じ部屋に数人の人がいて、そのうちの1人がMumbleを大音量のスピーカーで使っているような時だけ使用すればよいでしょう。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="137"/>
+        <location filename="MainWindow.ui" line="133"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="251"/>
+        <location filename="MainWindow.ui" line="247"/>
         <source>Mute player locally</source>
         <translation>ローカルでプレイヤーを発言禁止にする</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="254"/>
+        <location filename="MainWindow.ui" line="250"/>
         <source>Mute or unmute player locally. Use this on other players in the same room.</source>
         <translation>ローカルでプレイヤーを発言禁止にします。同じ部屋にいるプレイヤーに使ってください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="303"/>
+        <location filename="MainWindow.ui" line="299"/>
         <source>&amp;Rename Channel</source>
         <translation>チャンネル名を変更(&amp;R)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="306"/>
+        <location filename="MainWindow.ui" line="302"/>
         <source>Renames the channel</source>
         <translation>チャンネル名を変更します</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="309"/>
+        <location filename="MainWindow.ui" line="305"/>
         <source>This renames a channel.</source>
         <translation>チャンネルの名前を変更します。</translation>
     </message>
@@ -4835,27 +4835,27 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">ローカルな聴取禁止モードに設定します。あなたのスピーカーは音を出しませんが、送信はなお続いています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="486"/>
+        <location filename="MainWindow.ui" line="482"/>
         <source>About &amp;Qt</source>
         <translation>&amp;Qtについて</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="517"/>
+        <location filename="MainWindow.ui" line="513"/>
         <source>Sends a text message to all users in a channel.</source>
         <translation>チャンネル内の全てのユーザーにテキストメッセージを送信します</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="522"/>
+        <location filename="MainWindow.ui" line="518"/>
         <source>Send &amp;Tree Message</source>
         <translation>ツリーにメッセージを送信(&amp;T)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="525"/>
+        <location filename="MainWindow.ui" line="521"/>
         <source>Send message to channel tree.</source>
         <translation>チャンネルツリーにメッセージを送信します</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="528"/>
+        <location filename="MainWindow.ui" line="524"/>
         <source>This sends a text message to a channel and it&apos;s subchannels.</source>
         <translation>チャンネルとそのサブチャンネルにテキストメッセージを送信します。</translation>
     </message>
@@ -4870,42 +4870,42 @@ p, li { white-space: pre-wrap; }
         <translation>初めての起動です。&lt;br /&gt;サウンドカードの設定をするために音声ウィザードに移動しますか？</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="565"/>
+        <location filename="MainWindow.cpp" line="593"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s (Quality %3)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;音声帯域幅&lt;/h2&gt;&lt;p&gt;最大値 %1 kbit/s&lt;br /&gt;現在値 %2 kbit/s (品質 %3)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1179"/>
+        <location filename="MainWindow.cpp" line="1222"/>
         <source>Connected to server %1.</source>
         <translation>サーバー %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="287"/>
+        <location filename="MainWindow.cpp" line="293"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>サーバーに接続中です。接続を閉じるか最小化するかを選択してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="288"/>
+        <location filename="MainWindow.cpp" line="294"/>
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="289"/>
+        <location filename="MainWindow.cpp" line="295"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="229"/>
+        <location filename="MainWindow.cpp" line="230"/>
         <source>&amp;Window</source>
         <translation>ウインドウ(&amp;W)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="231"/>
+        <location filename="MainWindow.cpp" line="232"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="232"/>
+        <location filename="MainWindow.cpp" line="233"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
@@ -4916,17 +4916,17 @@ p, li { white-space: pre-wrap; }
         <translation>小型切り替え</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="536"/>
+        <location filename="MainWindow.ui" line="532"/>
         <source>&amp;Minimal View</source>
         <translation>小さく表示(&amp;M)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="539"/>
+        <location filename="MainWindow.ui" line="535"/>
         <source>Toggle minimal window modes</source>
         <translation>小型ウインドウモードの切り替え</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="542"/>
+        <location filename="MainWindow.ui" line="538"/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
         <translation>ログウインドウとメニューを省いた小型ウインドウの切り替えをします。</translation>
     </message>
@@ -4943,33 +4943,33 @@ p, li { white-space: pre-wrap; }
         <translation>音量を下げる(-10%)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="365"/>
+        <location filename="MainWindow.cpp" line="374"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="109"/>
+        <location filename="MainWindow.ui" line="105"/>
         <source>Log</source>
         <translation>ログ</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="986"/>
+        <location filename="PlayerModel.cpp" line="995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>チャンネルをドラッグしたときに &quot;何もしない&quot; ようにします; チャンネルが移動しなくなります。</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="992"/>
+        <location filename="PlayerModel.cpp" line="1001"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
         <translation>不明なチャンネルドラッグモード, PlayerModel::dropMimeData</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="325"/>
+        <location filename="MainWindow.ui" line="321"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
         <translation>リンク解除(&amp;U)</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="411"/>
+        <location filename="MainWindow.ui" line="407"/>
         <source>&amp;Unlink</source>
         <comment>Plugin</comment>
         <translation>リンク解除(&amp;U)</translation>
@@ -4984,6 +4984,21 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="217"/>
         <source>&amp;Quit</source>
         <translation>終了(&amp;Q)</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="546"/>
+        <source>Hide Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="549"/>
+        <source>Toggle showing frame on minimal window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.ui" line="552"/>
+        <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5616,12 +5631,12 @@ p, li { white-space: pre-wrap; }
         <translation>サーバー内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;認証されたユーザー&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="980"/>
+        <location filename="PlayerModel.cpp" line="989"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="980"/>
+        <location filename="PlayerModel.cpp" line="989"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>本当にこのチャンネルをドラッグしますか？</translation>
     </message>
@@ -5890,7 +5905,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="91"/>
+        <location filename="VersionCheck.cpp" line="92"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
         <translation>SourceForgeサーバーからのバージョン情報の取得に失敗しました。</translation>
     </message>
@@ -6044,7 +6059,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="197"/>
+        <location filename="WASAPI.cpp" line="202"/>
         <source>Default Device</source>
         <translation>デフォルトデバイス</translation>
     </message>
