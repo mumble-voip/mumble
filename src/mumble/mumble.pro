@@ -75,7 +75,7 @@ unix {
     CONFIG *= pulseaudio
   }
 
-  !isEmpty(HAVE_XEVIE):!CONFIG(no-xevie):x11 {
+  !isEmpty(HAVE_XEVIE):!CONFIG(no-xevie):!macx {
     CONFIG *= xevie
   }
 

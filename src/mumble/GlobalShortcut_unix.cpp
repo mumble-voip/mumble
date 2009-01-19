@@ -59,9 +59,13 @@ GlobalShortcutX::GlobalShortcutX() {
 	connect(fsw, SIGNAL(directoryChanged(const QString &)), this, SLOT(directoryChanged(const QString &)));
 	directoryChanged(dir);
 
-	if (qmInputDevices.isEmpty()) {
+	if (qsKeyboards.isEmpty()) {
+		foreach(QFile *f, qmInputDevices)
+			delete f;
+		qmInputDevices.clear();
+
 		delete fsw;
-		qWarning("GlobalShortcutX: Unable to open any input devices under /dev/input, falling back to XEVIE");
+		qWarning("GlobalShortcutX: Unable to open any keyboard input devices under /dev/input, falling back to XEVIE");
 	} else {
 		return;
 	}
@@ -243,6 +247,7 @@ void GlobalShortcutX::inputReadyRead(int) {
 		if ((ioctl(fd, EVIOCGVERSION, &version) < 0) || (((version >> 16) & 0xFF) < 1)) {
 			qWarning("GlobalShortcutX: Removing dead input device %s", qPrintable(f->fileName()));
 			qmInputDevices.remove(f->fileName());
+			qsKeyboards.remove(f->fileName());
 			delete f;
 		}
 	}
@@ -267,9 +272,21 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 				if ((ioctl(fd, EVIOCGVERSION, &version) >= 0) && (ioctl(fd, EVIOCGNAME(sizeof(name)), name)>=0) && (ioctl(fd, EVIOCGBIT(0,sizeof(events)), &events) >= 0) && test_bit(EV_KEY, events) && (((version >> 16) & 0xFF) > 0)) {
 					name[255]=0;
 					qWarning("GlobalShortcutX: %s: %s", qPrintable(f->fileName()), name);
-					fcntl(f->handle(), F_SETFL, O_NONBLOCK);
-					connect(new QSocketNotifier(f->handle(), QSocketNotifier::Read, f), SIGNAL(activated(int)), this, SLOT(inputReadyRead(int)));
-					qmInputDevices.insert(f->fileName(), f);
+					// Is it grabbed by someone else?
+					if ((ioctl(fd, EVIOCGRAB, 1) < 0)) {
+						qWarning("GlobalShortcutX: Device exclusively grabbed by someone else (X11 using exclusive-mode evdev?)");
+						delete f;
+					} else {
+						ioctl(fd, EVIOCGRAB, 0);
+						uint8_t keys[KEY_CNT/8 + 1];
+						if ((ioctl(fd, EVIOCGBIT(EV_KEY, sizeof(keys)), &keys) >= 0) && test_bit(KEY_SPACE, keys))
+							qsKeyboards.insert(f->fileName());
+
+						fcntl(f->handle(), F_SETFL, O_NONBLOCK);
+						connect(new QSocketNotifier(f->handle(), QSocketNotifier::Read, f), SIGNAL(activated(int)), this, SLOT(inputReadyRead(int)));
+												
+						qmInputDevices.insert(f->fileName(), f);
+					}
 				} else {
 					delete f;
 				}

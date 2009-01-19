@@ -41,6 +41,7 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		Display *display;
 		volatile bool bRunning;
 		bool bXevie;
+		QSet<QString> qsKeyboards;
 		QMap<QString, QFile *> qmInputDevices;
 
 		GlobalShortcutX();
