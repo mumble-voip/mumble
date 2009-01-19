@@ -1027,7 +1027,7 @@ void Server::readChannels(Channel *p) {
 	query.clear();
 
 	foreach(c, kids)
-	readChannels(c);
+		readChannels(c);
 }
 
 void Server::readLinks() {
@@ -1097,9 +1097,9 @@ void Server::dumpChannel(const Channel *c) {
 	foreach(g, c->qhGroups) {
 		qWarning("Group %s (Inh %d  Able %d)", qPrintable(g->qsName), g->bInherit, g->bInheritable);
 		foreach(pid, g->qsAdd)
-		qWarning("Add %d", pid);
+			qWarning("Add %d", pid);
 		foreach(pid, g->qsRemove)
-		qWarning("Remove %d", pid);
+			qWarning("Remove %d", pid);
 	}
 	foreach(acl, c->qlACL) {
 		int allow = static_cast<int>(acl->pAllow);

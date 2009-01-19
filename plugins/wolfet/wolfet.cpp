@@ -97,7 +97,7 @@ static int fetch(float *pos, float *front, float *top) {
 				   -90 when looking up
 				   +90 when looking down
 	   Increasing when looking down.
-	   
+
 	   Horizontal is 90 when facing north
 					  0 when facing east
 					-90 when facing south

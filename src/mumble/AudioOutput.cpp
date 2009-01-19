@@ -70,8 +70,8 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 
 	AudioOutputRegistrar *r = NULL;
 	foreach(AudioOutputRegistrar *aor, *qmNew)
-	if (!r || (aor->priority > r->priority))
-		r = aor;
+		if (!r || (aor->priority > r->priority))
+			r = aor;
 	if (r) {
 		current = r->name;
 		return AudioOutputPtr(r->create());
@@ -329,7 +329,7 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 
 void AudioOutput::wipe() {
 	foreach(AudioOutputPlayer *aop, qmOutputs)
-	removeBuffer(aop);
+		removeBuffer(aop);
 }
 
 const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
@@ -638,7 +638,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	qrwlOutputs.unlock();
 
 	foreach(aop, qlDel)
-	removeBuffer(aop);
+		removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
 }

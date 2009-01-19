@@ -39,6 +39,6 @@ class OSInfo {
 		static QString getOS();
 		static QString getOSVersion();
 		static void fillXml(QDomDocument &doc, QDomElement &root, const QString &os = OSInfo::getOS(), const QString &osver = OSInfo::getOSVersion(), const QHostAddress & = QHostAddress(QHostAddress::Any));
-};		
+};
 
 #endif

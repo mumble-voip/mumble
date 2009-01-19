@@ -146,7 +146,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
-	a->setShortcutContext(Qt::ApplicationShortcut);
+		a->setShortcutContext(Qt::ApplicationShortcut);
 
 	setOnTop(g.s.bAlwaysOnTop);
 }
@@ -265,10 +265,10 @@ void MainWindow::setupGui()  {
 		w->installEventFilter(ltbDockTitle);
 		w->setMouseTracking(true);
 	}
-	
-	if(g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull()) 
+
+	if (g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull())
 		restoreGeometry(g.s.qbaMinimalViewGeometry);
-	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowGeometry.isNull()) 
+	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowGeometry.isNull())
 		restoreGeometry(g.s.qbaMainWindowGeometry);
 
 	restoreState(g.s.qbaMainWindowState);
@@ -305,7 +305,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.uiSession = 0;
 
 	g.s.qbaMainWindowState = saveState();
-	if(g.s.bMinimalView) {
+	if (g.s.bMinimalView) {
 		g.s.qbaMinimalViewGeometry = saveGeometry();
 	} else {
 		g.s.qbaMainWindowGeometry = saveGeometry();
@@ -498,14 +498,14 @@ void MainWindow::setupView(bool toggle_minimize) {
 	menuBar()->setVisible(showit);
 
 	if (toggle_minimize) {
-		if (! showit && ! g.s.qbaMinimalViewGeometry.isNull()) 
+		if (! showit && ! g.s.qbaMinimalViewGeometry.isNull())
 			restoreGeometry(g.s.qbaMinimalViewGeometry);
-		else if (showit && ! g.s.qbaMainWindowGeometry.isNull()) 
+		else if (showit && ! g.s.qbaMainWindowGeometry.isNull())
 			restoreGeometry(g.s.qbaMainWindowGeometry);
 	} else {
 		QRect newgeom = frameGeometry();
 		resize(geometry().width()-newgeom.width()+geom.width(),
-			geometry().height()-newgeom.height()+geom.height());
+		       geometry().height()-newgeom.height()+geom.height());
 		move(geom.x(), geom.y());
 	}
 
@@ -1196,7 +1196,7 @@ void MainWindow::pushLink(bool down) {
 			mcl.ltType = MessageChannelLink::PushUnlink;
 		if (idx == 10) {
 			foreach(Channel *l, home->qlChannels)
-			mcl.qlTargets << l->iId;
+				mcl.qlTargets << l->iId;
 		} else if (target) {
 			mcl.qlTargets << target->iId;
 		}
@@ -1263,7 +1263,7 @@ void MainWindow::serverDisconnected(QString reason) {
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
-		g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
+			g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
 		if (! g.sh->qscCert.isEmpty()) {
 			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
@@ -1274,7 +1274,7 @@ void MainWindow::serverDisconnected(QString reason) {
 			}
 			QStringList qsl;
 			foreach(QSslError e, g.sh->qlErrors)
-			qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
+				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
 
 			QMessageBox qmb(QMessageBox::Warning, tr("Mumble"),
 			                tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"

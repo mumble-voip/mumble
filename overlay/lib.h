@@ -77,7 +77,7 @@ struct Direct3D9Data {
 };
 
 struct FakeInterface {
-	typedef ULONG (FakeInterface::* voidMemberFunc)();
+	typedef ULONG(FakeInterface::* voidMemberFunc)();
 	void **vtbl;
 	IUnknown *pOriginal;
 	IUnknown *pNew;

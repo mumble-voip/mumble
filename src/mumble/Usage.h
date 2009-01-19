@@ -34,7 +34,7 @@
 #include "mumble_pch.hpp"
 
 class Usage : public QObject {
-	Q_OBJECT
+		Q_OBJECT
 	protected:
 		QHttp qhHttp;
 	public:

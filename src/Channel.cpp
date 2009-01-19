@@ -54,14 +54,14 @@ Channel::~Channel() {
 		cParent->removeChannel(this);
 
 	foreach(Channel *c, qlChannels)
-	delete c;
+		delete c;
 
 	foreach(ChanACL *acl, qlACL)
-	delete acl;
+		delete acl;
 	foreach(Group *g, qhGroups)
-	delete g;
+		delete g;
 	foreach(Channel *l, qhLinks.keys())
-	unlink(l);
+		unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
 	Q_ASSERT(children().count() == 0);
@@ -118,7 +118,7 @@ void Channel::unlink(Channel *l) {
 		}
 	} else {
 		foreach(Channel *c, qhLinks.keys())
-		unlink(c);
+			unlink(c);
 	}
 }
 

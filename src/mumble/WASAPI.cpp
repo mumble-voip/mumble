@@ -39,8 +39,8 @@
 // supposed to be named.
 
 MIDL_INTERFACE("33969B1D-D06F-4281-B837-7EAAFD21A9C0")
-IRemoteAudioSession : public IUnknown
-{
+IRemoteAudioSession :
+public IUnknown {
 	virtual HRESULT STDMETHODCALLTYPE _a() = 0;
 	virtual HRESULT STDMETHODCALLTYPE _b() = 0; // 0x10
 	virtual HRESULT STDMETHODCALLTYPE _c() = 0;
@@ -57,15 +57,15 @@ IRemoteAudioSession : public IUnknown
 
 // No idea what it's REFIID actually is.
 MIDL_INTERFACE("94BE9D30-53AC-4802-829C-F13E5AD34776")
-IAudioQuerier : public IUnknown
-{
+IAudioQuerier :
+public IUnknown {
 	virtual HRESULT STDMETHODCALLTYPE GetNumSessions(DWORD *) = 0;
 	virtual HRESULT STDMETHODCALLTYPE QuerySession(DWORD, IUnknown **) = 0;
 };
 
 MIDL_INTERFACE("94BE9D30-53AC-4802-829C-F13E5AD34775")
-IAudioSessionQuery : public IUnknown
-{
+IAudioSessionQuery :
+public IUnknown {
 	virtual HRESULT STDMETHODCALLTYPE GetQueryInterface(IAudioQuerier **) = 0;
 };
 
@@ -550,7 +550,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 		if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(__uuidof(IAudioSessionQuery), (void **) &pMysticQuery))) {
 			if (SUCCEEDED(hr = pMysticQuery->GetQueryInterface(&pAudioQuerier))) {
 				if (SUCCEEDED(hr = pAudioQuerier->GetNumSessions(&max))) {
-					for(int i=0;i<max;++i) {
+					for (int i=0;i<max;++i) {
 						IUnknown *pUnknown = NULL;
 						if (SUCCEEDED(hr = pAudioQuerier->QuerySession(i, &pUnknown))) {
 							IRemoteAudioSession *prem = NULL;

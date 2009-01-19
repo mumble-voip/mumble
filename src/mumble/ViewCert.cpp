@@ -45,7 +45,7 @@ ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 	qlwChain->setObjectName(QLatin1String("Chain"));
 
 	foreach(QSslCertificate c, qlCerts)
-	qlwChain->addItem(tr("%1 %2").arg(c.subjectInfo(QSslCertificate::CommonName)).arg(c.subjectInfo(QSslCertificate::Organization)));
+		qlwChain->addItem(tr("%1 %2").arg(c.subjectInfo(QSslCertificate::CommonName)).arg(c.subjectInfo(QSslCertificate::Organization)));
 	h->addWidget(qlwChain);
 
 	qcbDetails=new QGroupBox(tr("Certificate details"), this);

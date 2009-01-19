@@ -66,7 +66,7 @@ void Usage::registerUsage() {
 
 	tag=doc.createElement(QLatin1String("lcd"));
 	root.appendChild(tag);
-    t=doc.createTextNode(QString::number(g.lcd->hasDevices() ? 1 : 0));
+	t=doc.createTextNode(QString::number(g.lcd->hasDevices() ? 1 : 0));
 	tag.appendChild(t);
 
 	qhHttp.setHost(QLatin1String("mumble.hive.no"), 80);

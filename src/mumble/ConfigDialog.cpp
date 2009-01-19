@@ -215,7 +215,7 @@ void ConfigDialog::updateExpert(bool b) {
 
 void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, qmWidgets)
-	cw->save();
+		cw->save();
 
 	boost::weak_ptr<AudioInput> wai(g.ai);
 	boost::weak_ptr<AudioOutput> wao(g.ao);
@@ -230,7 +230,7 @@ void ConfigDialog::apply() {
 	g.s = s;
 
 	foreach(ConfigWidget *cw, qmWidgets)
-	cw->accept();
+		cw->accept();
 
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	if (g.ai)

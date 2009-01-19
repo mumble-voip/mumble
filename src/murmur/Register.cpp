@@ -69,7 +69,7 @@ void Server::update() {
 	QDomDocument doc;
 	QDomElement root=doc.createElement(QLatin1String("server"));
 	doc.appendChild(root);
-	
+
 	OSInfo::fillXml(doc, root, meta->qsOS, meta->qsOSVersion, qhaBind);
 
 	QDomElement tag;
@@ -146,5 +146,5 @@ void Server::done(bool err) {
 
 void Server::regSslError(const QList<QSslError> &errs) {
 	foreach(const QSslError &e, errs)
-	log("Registration: SSL Handshake error: %s", qPrintable(e.errorString()));
+		log("Registration: SSL Handshake error: %s", qPrintable(e.errorString()));
 }

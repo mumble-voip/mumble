@@ -833,13 +833,13 @@ void PlayerModel::moveChannel(Channel *c, Channel *p) {
 
 void PlayerModel::linkChannels(Channel *c, QList<Channel *> links) {
 	foreach(Channel *l, links)
-	c->link(l);
+		c->link(l);
 	recheckLinks();
 }
 
 void PlayerModel::unlinkChannels(Channel *c, QList<Channel *> links) {
 	foreach(Channel *l, links)
-	c->unlink(l);
+		c->unlink(l);
 	recheckLinks();
 }
 

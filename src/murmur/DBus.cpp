@@ -184,7 +184,7 @@ void MurmurDBus::setTempGroups(int playerid, Channel *cChannel, const QStringLis
 
 	Group *g;
 	foreach(g, cChannel->qhGroups)
-	g->qsTemporary.remove(playerid);
+		g->qsTemporary.remove(playerid);
 
 	QString gname;
 	foreach(gname, groups) {
@@ -430,7 +430,7 @@ void MurmurDBus::getChannels(QList<ChannelInfo> &a) {
 		Channel *c = q.dequeue();
 		a << ChannelInfo(c);
 		foreach(c, c->qlChannels)
-		q.enqueue(c);
+			q.enqueue(c);
 	}
 }
 
@@ -705,7 +705,7 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 		delete g;
 	}
 	foreach(a, cChannel->qlACL)
-	delete a;
+		delete a;
 	cChannel->qhGroups.clear();
 	cChannel->qlACL.clear();
 
@@ -745,7 +745,7 @@ void MurmurDBus::getBans(QList<BanInfo> &bi) {
 void MurmurDBus::setBans(const QList<BanInfo> &bans, const QDBusMessage &) {
 	server->qlBans.clear();
 	foreach(BanInfo bi, bans)
-	server->qlBans << QPair<quint32,int>(bi.address,bi.bits);
+		server->qlBans << QPair<quint32,int>(bi.address,bi.bits);
 	server->saveBans();
 }
 
@@ -922,7 +922,7 @@ ChannelInfo::ChannelInfo(Channel *c) {
 	name = c->qsName;
 	parent = c->cParent ? c->cParent->iId : -1;
 	foreach(Channel *chn, c->qsPermLinks)
-	links << chn->iId;
+		links << chn->iId;
 }
 
 ACLInfo::ACLInfo(ChanACL *acl) {

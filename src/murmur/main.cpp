@@ -254,7 +254,7 @@ int main(int argc, char **argv) {
 			qWarning("Running descriptor test.");
 			int count;
 			QList<QFile *> ql;
-			for(count=0;count < 524288; ++count) {
+			for (count=0;count < 524288; ++count) {
 				QFile *qf = new QFile(a.applicationFilePath());
 				if (qf->open(QIODevice::ReadOnly))
 					ql << qf;

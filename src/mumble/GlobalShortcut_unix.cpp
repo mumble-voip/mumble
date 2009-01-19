@@ -284,7 +284,7 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 
 						fcntl(f->handle(), F_SETFL, O_NONBLOCK);
 						connect(new QSocketNotifier(f->handle(), QSocketNotifier::Read, f), SIGNAL(activated(int)), this, SLOT(inputReadyRead(int)));
-												
+
 						qmInputDevices.insert(f->fileName(), f);
 					}
 				} else {

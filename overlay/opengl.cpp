@@ -172,7 +172,7 @@ Context::Context(HDC hdc) {
 	if (dwWaitResult != WAIT_OBJECT_0)
 		return;
 
-	for(int i=0;i<NUM_TEXTS;++i)
+	for (int i=0;i<NUM_TEXTS;++i)
 		uiCounter[i] = 0;
 
 	ReleaseMutex(hSharedMutex);

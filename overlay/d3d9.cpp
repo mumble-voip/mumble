@@ -328,7 +328,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 }
 
 
-typedef HRESULT (__stdcall *SwapPresentType)(IDirect3DSwapChain9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
+typedef HRESULT(__stdcall *SwapPresentType)(IDirect3DSwapChain9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
 static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
 	ods("D3D9: SwapChain Present");
 
@@ -606,7 +606,7 @@ void checkD3D9Hook(bool preonly) {
 			GetModuleFileName(hD3D, procname, 2048);
 			if (_stricmp(d3dd->cFileName, procname) == 0) {
 				unsigned char *raw = (unsigned char *) hD3D;
-				HookCreateRaw((voidFunc) (raw + d3dd->iOffsetCreate));
+				HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
 			} else if (! preonly) {
 				fods("D3D9 Interface changed, can't rawpatch");
 				pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));

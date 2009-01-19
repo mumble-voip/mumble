@@ -260,7 +260,7 @@ void Container::tick() {
 		forceping = false;
 
 		foreach(Client *c, clients)
-		c->ping();
+			c->ping();
 
 		if (live) {
 
@@ -308,7 +308,7 @@ void Container::tick() {
 			quint64 elapsed = tickSpawn.elapsed();
 			qWarning("Spawning took %lld ms (%lld us per client)", elapsed / 1000ULL, elapsed / (nsend+nudp+ntcp));
 			foreach(Client *c, clients)
-			c->rcvd = 0;
+				c->rcvd = 0;
 			sent = 0;
 			forceping = true;
 			qtTick.start(10);
@@ -318,7 +318,7 @@ void Container::tick() {
 
 void Container::go() {
 	foreach(Client *c, clients)
-	c->start();
+		c->start();
 	qtTick.start(10);
 	tickGo.restart();
 }

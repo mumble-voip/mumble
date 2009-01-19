@@ -675,7 +675,7 @@ void Server::checkTimeout() {
 	}
 	qrwlUsers.unlock();
 	foreach(User *u, qlClose)
-	u->disconnectSocket(true);
+		u->disconnectSocket(true);
 }
 
 void Server::tcpTransmitData(QByteArray a, unsigned int id) {
@@ -705,8 +705,8 @@ void Server::sendAll(Message *mMsg) {
 
 void Server::sendExcept(Message *mMsg, Connection *cCon) {
 	foreach(User *u, qhUsers)
-	if ((static_cast<Connection *>(u) != cCon) && (u->sState == Player::Authenticated))
-		u->sendMessage(mMsg);
+		if ((static_cast<Connection *>(u) != cCon) && (u->sState == Player::Authenticated))
+			u->sendMessage(mMsg);
 }
 
 void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
@@ -798,7 +798,7 @@ void Server::clearACLCache(Player *p) {
 			delete h;
 	} else {
 		foreach(ChanACL::ChanCache *h, acCache)
-		delete h;
+			delete h;
 		acCache.clear();
 	}
 }

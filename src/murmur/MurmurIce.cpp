@@ -158,7 +158,7 @@ static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.parent = c->cParent ? c->cParent->iId : -1;
 	mc.links.clear();
 	foreach(::Channel *chn, c->qsPermLinks)
-	mc.links.push_back(chn->iId);
+		mc.links.push_back(chn->iId);
 }
 
 static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
@@ -574,7 +574,7 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 		delete g;
 	}
 	foreach(acl, channel->qlACL)
-	delete acl;
+		delete acl;
 
 	channel->qhGroups.clear();
 	channel->qlACL.clear();
@@ -769,7 +769,7 @@ static void impl_Meta_getAllServers(const ::Murmur::AMD_Meta_getAllServersPtr cb
 	::Murmur::ServerList sl;
 
 	foreach(int id, ServerDB::getAllServers())
-	sl.push_back(idToProxy(id, adapter));
+		sl.push_back(idToProxy(id, adapter));
 	cb->ice_response(sl);
 }
 
@@ -786,7 +786,7 @@ static void impl_Meta_getBootedServers(const ::Murmur::AMD_Meta_getBootedServers
 	::Murmur::ServerList sl;
 
 	foreach(int id, meta->qhServers.keys())
-	sl.push_back(idToProxy(id, adapter));
+		sl.push_back(idToProxy(id, adapter));
 	cb->ice_response(sl);
 }
 

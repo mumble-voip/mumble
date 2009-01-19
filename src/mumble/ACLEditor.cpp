@@ -107,11 +107,11 @@ ACLEditor::ACLEditor(const MessageEditACL *mea, QWidget *p) : QDialog(p) {
 	foreach(gsp, groups) {
 		int id;
 		foreach(id, gsp->qsAdd)
-		addQuery(GroupAdd, id);
+			addQuery(GroupAdd, id);
 		foreach(id, gsp->qsRemove)
-		addQuery(GroupRemove, id);
+			addQuery(GroupRemove, id);
 		foreach(id, gsp->qsInheritedMembers)
-		addQuery(GroupInherit, id);
+			addQuery(GroupInherit, id);
 	}
 
 	refill(GroupAdd);
@@ -521,7 +521,7 @@ void ACLEditor::ACLEnableCheck() {
 		qcbACLGroup->addItem(QLatin1String("~sub"));
 		qcbACLGroup->addItem(QLatin1String("~out"));
 		foreach(gs, groups)
-		qcbACLGroup->addItem(gs->qsName);
+			qcbACLGroup->addItem(gs->qsName);
 		if (as->iPlayerId == -1) {
 			qleACLUser->setText(QString());
 			qcbACLGroup->addItem(as->qsGroup);

@@ -64,9 +64,9 @@ QSet<int> Group::members() {
 	while (! s.isEmpty()) {
 		g = s.pop();
 		foreach(i, g->qsAdd)
-		m.insert(i);
+			m.insert(i);
 		foreach(i, g->qsRemove)
-		m.remove(i);
+			m.remove(i);
 	}
 
 	return m;

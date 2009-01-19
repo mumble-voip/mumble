@@ -433,7 +433,7 @@ void Overlay::fixFont() {
 
 void Overlay::clearCache() {
 	foreach(unsigned char *ptr, qhTextures)
-	delete [] ptr;
+		delete [] ptr;
 
 	qhTextures.clear();
 	qhWidths.clear();

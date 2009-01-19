@@ -179,7 +179,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 		sendMessage(cCon, &mca);
 
 		foreach(c, c->qlChannels)
-		q.enqueue(c);
+			q.enqueue(c);
 	}
 
 	foreach(c, chans) {
@@ -188,7 +188,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 			mcl.iId = c->iId;
 			mcl.ltType = MessageChannelLink::Link;
 			foreach(Channel *l, c->qhLinks.keys())
-			mcl.qlTargets << l->iId;
+				mcl.qlTargets << l->iId;
 			sendMessage(cCon, &mcl);
 		}
 	}
@@ -654,7 +654,7 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 		changed = oldset - newset;
 	}
 	foreach(l, changed)
-	mcl.qlTargets << l->iId;
+		mcl.qlTargets << l->iId;
 	sendAll(&mcl);
 }
 
@@ -682,7 +682,7 @@ void Server::msgTextMessage(Connection *cCon, MessageTextMessage *msg) {
 				c = q.dequeue();
 				chans.insert(c);
 				foreach(c, c->qlChannels)
-				q.enqueue(c);
+					q.enqueue(c);
 			}
 		}
 		foreach(c, chans) {
@@ -787,7 +787,7 @@ void Server::msgEditACL(Connection *cCon, MessageEditACL *msg) {
 		}
 
 		foreach(a, c->qlACL)
-		delete a;
+			delete a;
 
 		c->qhGroups.clear();
 		c->qlACL.clear();

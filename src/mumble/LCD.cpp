@@ -230,11 +230,11 @@ void LCD::initBuffers() {
 
 void LCD::destroyBuffers() {
 	foreach(QImage *img, qhImages)
-	delete img;
+		delete img;
 	qhImages.clear();
 
 	foreach(unsigned char *buf, qhImageBuffers)
-	delete buf;
+		delete buf;
 	qhImageBuffers.clear();
 }
 

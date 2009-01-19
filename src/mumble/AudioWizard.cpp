@@ -139,9 +139,9 @@ CompletablePage *AudioWizard::donePage() {
 	v->addWidget(label);
 
 	label=new QLabel(tr("Mumble is under continuous development, and the development team wants to focus on the features "
-						"that benefit the most users. To this end, Mumble supports submitting anonymous statistics "
-						"about your configuration to the developers. These statistcs are essential for future development, and also "
-						"make sure the features you use aren't deprecated."));
+	                    "that benefit the most users. To this end, Mumble supports submitting anonymous statistics "
+	                    "about your configuration to the developers. These statistcs are essential for future development, and also "
+	                    "make sure the features you use aren't deprecated."));
 	label->setWordWrap(true);
 	v->addWidget(label);
 

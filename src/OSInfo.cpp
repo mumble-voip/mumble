@@ -45,9 +45,9 @@ QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
 	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
 		if (! qni.isValid())
 			continue;
-		if (! (qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
+		if (!(qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
 			continue;
-        if (qni.flags() & QNetworkInterface::IsLoopBack)
+		if (qni.flags() & QNetworkInterface::IsLoopBack)
 			continue;
 		if (qni.hardwareAddress().isEmpty())
 			continue;
@@ -125,10 +125,10 @@ QString OSInfo::getOSVersion() {
 void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, const QString &osver, const QHostAddress &qhaBind) {
 	QDomElement tag;
 	QDomText t;
-        bool bIs64;
+	bool bIs64;
 
-        tag=doc.createElement(QLatin1String("machash"));
-        root.appendChild(tag);
+	tag=doc.createElement(QLatin1String("machash"));
+	root.appendChild(tag);
 	t=doc.createTextNode(OSInfo::getMacHash(qhaBind));
 	tag.appendChild(t);
 
@@ -158,15 +158,15 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	tag.appendChild(t);
 
 #if defined(Q_WS_WIN)
-        BOOL bIsWow64 = FALSE;
-        IsWow64Process(GetCurrentProcess(), &bIsWow64);
-        bIs64 = bIsWow64;
+	BOOL bIsWow64 = FALSE;
+	IsWow64Process(GetCurrentProcess(), &bIsWow64);
+	bIs64 = bIsWow64;
 #else
-        bIs64 = (QSysInfo::WordSize == 64);
+	bIs64 = (QSysInfo::WordSize == 64);
 #endif
-        tag=doc.createElement(QLatin1String("is64bit"));
-        root.appendChild(tag);
-        t=doc.createTextNode(QString::number(bIs64 ? 1 : 0));
-        tag.appendChild(t);
+	tag=doc.createElement(QLatin1String("is64bit"));
+	root.appendChild(tag);
+	t=doc.createTextNode(QString::number(bIs64 ? 1 : 0));
+	tag.appendChild(t);
 
 }

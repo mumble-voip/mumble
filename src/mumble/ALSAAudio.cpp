@@ -378,7 +378,7 @@ void ALSAAudioInput::run() {
 	}
 
 	char inbuff[wantPeriod * iChannels * sizeof(float)];
-	
+
 	qml.unlock();
 
 	while (bRunning) {
@@ -523,7 +523,7 @@ void ALSAAudioOutput::run() {
 
 	count = snd_pcm_poll_descriptors_count(pcm_handle);
 	snd_pcm_poll_descriptors(pcm_handle, fds, count);
-	
+
 	qml.unlock();
 
 	while (bRunning) {

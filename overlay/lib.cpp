@@ -56,12 +56,12 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 	if (a >= 0xc0) {
 		return 0;
 	} else if (a >= 0x80) {
-		if ((lower == 4 ) || (lower == 12))
+		if ((lower == 4) || (lower == 12))
 			return 5;
 		else
 			return 4;
 	} else if (a >= 0x40) {
-		if ((lower == 4 ) || (lower == 12))
+		if ((lower == 4) || (lower == 12))
 			return 2;
 		else
 			return 1;
@@ -138,7 +138,7 @@ void *HardHook::cloneCode(void **porig) {
 				return NULL;
 				break;
 		}
-		for(unsigned int i=0;i<extra;++i)
+		for (unsigned int i=0;i<extra;++i)
 			n[idx+i] = o[idx+i];
 		idx += extra;
 
@@ -256,7 +256,7 @@ FakeInterface::FakeInterface(IUnknown *orig, int entries) {
 	pNew = (IUnknown *) &vtbl;
 
 	ods("Allocated %p for %d", f, entries);
-	for(int i=0;i<entries;i++) {
+	for (int i=0;i<entries;i++) {
 		DWORD offset = i * 4;
 		vtbl[i] = f;
 
@@ -517,7 +517,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 
 				unsigned char *raw = (unsigned char *) sm;
-				d3dd = (Direct3D9Data *) (raw + sizeof(SharedMem));
+				d3dd = (Direct3D9Data *)(raw + sizeof(SharedMem));
 
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
