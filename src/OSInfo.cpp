@@ -108,14 +108,14 @@ QString OSInfo::getOSVersion() {
 	args << QLatin1String("-d");
 	qp.start(QLatin1String("lsb_release"), args);
 	if (qp.waitForFinished(5000)) {
-		QString os = qp.readAll();
+		QString os = QString::fromUtf8(qp.readAll());
 		return os.trimmed();
 	}
 #endif
 	struct utsname un;
 	if (uname(&un) == 0) {
 		QString os;
-		os.sprintf("\"%s\" \"%s\" \"%s\" \"%s\"", un.sysname, un.release, un.version, un.machine);
+		os.sprintf("%s %s", un.sysname, un.release);
 		return os;
 	}
 	return QString();
@@ -154,7 +154,7 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 
 	tag=doc.createElement(QLatin1String("qt"));
 	root.appendChild(tag);
-	t=doc.createTextNode(qVersion());
+	t=doc.createTextNode(QString::fromLatin1(qVersion()));
 	tag.appendChild(t);
 
 #if defined(Q_WS_WIN)
