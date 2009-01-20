@@ -278,7 +278,7 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 						delete f;
 					} else {
 						ioctl(fd, EVIOCGRAB, 0);
-						uint8_t keys[KEY_CNT/8 + 1];
+						uint8_t keys[KEY_MAX/8 + 1];
 						if ((ioctl(fd, EVIOCGBIT(EV_KEY, sizeof(keys)), &keys) >= 0) && test_bit(KEY_SPACE, keys))
 							qsKeyboards.insert(f->fileName());
 
