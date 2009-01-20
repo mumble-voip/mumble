@@ -397,8 +397,8 @@ int main(int argc, char **argv) {
 		if (! MurmurDBus::qdbc.isConnected()) {
 			qWarning("Failed to connect to D-Bus %s",qPrintable(Meta::mp.qsDBus));
 		}
-		new MetaDBus(meta);
 	}
+	meta->dbus = new MetaDBus(meta);
 	if (MurmurDBus::qdbc.isConnected()) {
 		if (! MurmurDBus::qdbc.registerObject("/", meta) || ! MurmurDBus::qdbc.registerService(Meta::mp.qsDBusService)) {
 			QDBusError e=MurmurDBus::qdbc.lastError();

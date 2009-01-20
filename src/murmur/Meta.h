@@ -34,6 +34,7 @@
 #include "murmur_pch.h"
 #include "Timer.h"
 #include "Server.h"
+#include "DBus.h"
 
 struct MetaParams {
 	QDir qdBasePath;
@@ -98,6 +99,7 @@ class Meta : public QObject {
 		QHash<QHostAddress, QList<Timer> > qhAttempts;
 		QHash<QHostAddress, Timer> qhBans;
 		QString qsOS, qsOSVersion;
+		MetaDBus *dbus;
 
 		Meta();
 		void bootAll();
