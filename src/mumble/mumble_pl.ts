@@ -3147,7 +3147,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="496"/>
         <source>Check for &amp;Updates</source>
-        <translation>Sprawdź &amp;aktualizację</translation>
+        <translation>Sprawdź dostępność &amp;aktualizacji</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="499"/>
