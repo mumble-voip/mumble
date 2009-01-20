@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="pl">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -1907,12 +1908,12 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
     <message>
         <location filename="../Player.cpp" line="55"/>
         <source>Muted (server)</source>
-        <translation>Wyciszony mikrofon (przez server)</translation>
+        <translation>Wyciszony mikrofon (przez serwer)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="57"/>
         <source>Deafened (server)</source>
-        <translation>Wyciszone słuchawki i mikrofon (przez server)</translation>
+        <translation>Wyciszone słuchawki (przez serwer)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="59"/>
@@ -1922,12 +1923,12 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
     <message>
         <location filename="../Player.cpp" line="61"/>
         <source>Muted (self)</source>
-        <translation>Wyciszony mikrofon (przez siebie)</translation>
+        <translation>Wyciszony mikrofon (przez użytkownika)</translation>
     </message>
     <message>
         <location filename="../Player.cpp" line="63"/>
         <source>Deafened (self)</source>
-        <translation>Wyciszone słuchawki i mikrofon (przez siebie)</translation>
+        <translation>Wyciszone słuchawki (przez użytkownika)</translation>
     </message>
 </context>
 <context>
@@ -2758,7 +2759,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="158"/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;b&gt;Jeśli zaznaczone, minimalizacja głównego okna Mumble sprawi, że okno zostanie ukryte a dostęp do niego będzie dostępny tylko po przez ikonę w zasobniku systemowym. Jeśli opcja ta jest niezaznaczona, minimalizacja Mumble ukryje okno w normalny sposób (na pasku zadań).&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Jeśli zaznaczone, minimalizacja głównego okna Mumble sprawi, że okno zostanie ukryte a dostęp do niego będzie dostępny tylko po przez ikonę w zasobniku systemowym. Jeśli opcja ta jest niezaznaczona, minimalizacja Mumble ukryje okno w normalny sposób (na pasku zadań).&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="161"/>
@@ -3444,7 +3445,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <location filename="MainWindow.cpp" line="181"/>
         <source>Chan Sub#%1</source>
         <comment>Global Shortcut</comment>
-        <translation>Pod-Kanał # &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Pod-Kanał # %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="186"/>
@@ -3580,7 +3581,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.ui" line="435"/>
         <source>Start the audio configuration wizard</source>
-        <translation>Rozpocznij konfigurację Kreatora Audio</translation>
+        <translation>Rozpocznij konfiguracjęprogramu Mumble</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="438"/>
@@ -3635,7 +3636,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="380"/>
         <source>Opening URL %1</source>
-        <translation>Otwieranie URL &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Otwieranie adresu &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="382"/>
@@ -3665,7 +3666,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="main.cpp" line="221"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation>Program Mumble został uruchomiony po raz pierwszy.&lt;br /&gt; Czy chcesz uruchomić Kreatora Audio, aby skonfigurować dźwięk?</translation>
+        <translation>Program Mumble został uruchomiony po raz pierwszy na tym komputerze.&lt;br /&gt; Czy chcesz uruchomić kreator dźwięku, aby skonfigurować podstawowe ustawienia aplikacji?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="576"/>
@@ -3802,7 +3803,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. 
 
-Chcesz Zakończyć czy Minimalizować program?</translation>
+Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="294"/>
@@ -3908,17 +3909,17 @@ Chcesz Zakończyć czy Minimalizować program?</translation>
     <message>
         <location filename="MainWindow.ui" line="546"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj ramkę</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="549"/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"></translation>
+        <translation>Uaktywnia obramowanie okna w trybie minimalnym</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="552"/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uaktywnia obramowanie okna w trybie minimalnym dzięki czemu można przenosić i zmieniać rozmiar okna.</translation>
     </message>
 </context>
 <context>
@@ -4362,19 +4363,19 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
     <message>
         <location filename="PlayerModel.cpp" line="436"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
-        <translation>To są atrybuty jakie użytkownik ma na serwerze:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Zarejestrowany użytkownik&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Wyciszony mikrofon (przez użytkownika)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Wyciszony mikrofon (przez administratora)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Wyciszone słuchawki i mikrofon (przez użytkownika)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Wyciszone słuchawki i mikrofon (przez administratora)&lt;br /&gt;
+        <translation>To są atrybuty jakie użytkownik ma na serwerze:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Zarejestrowany użytkownik&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Wyciszony mikrofon (przez użytkownika)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Wyciszony mikrofon (przez administratora)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Wyciszone słuchawki (przez użytkownika)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Wyciszone słuchawki (przez administratora)&lt;br /&gt;
 Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora prawdopodobnie jest po prostu z dala od komputera lub denerwował innych i został wyciszony.
 </translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="452"/>
         <source>Name</source>
-        <translation>Nazwa</translation>
+        <translation>Kanał(y)</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="454"/>
         <source>Flags</source>
-        <translation>Atrybut</translation>
+        <translation>Atrybut(y)</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="989"/>
