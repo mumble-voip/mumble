@@ -39,8 +39,14 @@ win32 {
 }
 
 unix {
+  UNAME=$$system(uname -s)
   CONFIG *= link_pkgconfig
-  PKGCONFIG *= openssl
+  
+  contains(UNAME, FreeBSD) {
+    LIBS *= -lcrypto
+  } else {
+    PKGCONFIG *= openssl
+  }
   HEADERS *= UnixMurmur.h
   SOURCES *= UnixMurmur.cpp
   TARGET = murmurd
