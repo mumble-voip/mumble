@@ -70,10 +70,8 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	HANDLE hStdin, hStdout;
 	DWORD dwLen;
 	lgLcdConnectContextEx conn;
-	lgLcdDeviceDescEx dev[G15_MAX_DEV];
-	lgLcdOpenContext ctx[G15_MAX_DEV];
+	lgLcdOpenByTypeContext ctx;
 	lgLcdBitmap160x43x1 bitmap;
-	int ndev = 0;
 
 	warn("Args: %s", lpCmdLine);
 
@@ -96,15 +94,14 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	/*
 	 * Clear and set up initial structures.
 	 */
-	memset(&conn, 0, sizeof(lgLcdConnectContext));
-	memset(&dev, 0, G15_MAX_DEV * sizeof(lgLcdDeviceDesc));
-	memset(&ctx, 0, G15_MAX_DEV * sizeof(lgLcdOpenContext));
-	memset(&bitmap, 0, sizeof(lgLcdBitmap160x43x1));
+	ZeroMemory(&conn, sizeof(conn));
+	ZeroMemory(&ctx, sizeof(ctx));
+	ZeroMemory(&bitmap, sizeof(bitmap));
 
 	conn.appFriendlyName = G15_WIDGET_NAME;
 	conn.isAutostartable = FALSE;
 	conn.isPersistent = FALSE;
-	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_CAN_RUN_ON_MULTIPLE_DEVICES;
+	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_BW;
 	conn.connection = LGLCD_INVALID_CONNECTION;
 
 	/*
@@ -118,57 +115,23 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	if (dwErr != ERROR_SUCCESS)
 		die(G15_ERR_CONNECT, "Unable to connect to Logitech LCD manager. (Error: %i)", dwErr);
 
-	/*
-	 * Enumerate devices.
-	 */
-	for (i = 0; i < G15_MAX_DEV; i++) {
-		dwErr = lgLcdEnumerateEx(conn.connection, i, &dev[i]);
-		if (dwErr != ERROR_SUCCESS)
-			break;
-		warn("Found device #%i %ls (%02x). (%ix%i, %ibpp, %i buttons)", i, dev[i].deviceDisplayName, dev[i].deviceFamilyId, dev[i].Width, dev[i].Height, dev[i].Bpp, dev[i].NumSoftButtons);
+	ctx.connection = conn.connection;
+	ctx.device = LGLCD_INVALID_DEVICE;
+	ctx.deviceType =LGLCD_DEVICE_BW;
 
-		ctx[ndev].connection = conn.connection;
-		ctx[ndev].index = i;
-		ctx[ndev].onSoftbuttonsChanged.softbuttonsChangedCallback = NULL;
-		ctx[ndev].onSoftbuttonsChanged.softbuttonsChangedContext = NULL;
-		ctx[ndev].device = LGLCD_INVALID_DEVICE;
+	dwErr = lgLcdOpenByType(&ctx);
 
-		if (bDetect) {
-			wprintf(L"%ls\n", dev[i].deviceDisplayName);
-			++ndev;
-		} else {
-			dwErr = lgLcdOpen(&ctx[ndev]);
-			if (dwErr != ERROR_SUCCESS)
-				warn("Unable to open device %d. (Error: %i)", i, dwErr);
-			else {
-				warn("Opened device %d",i);
-				++ndev;
-			}
-		}
-	}
+	warn("That returned %d %d", dwErr, ERROR_SUCCESS);
 
 	if (bDetect)
-		return (ndev == 0);
-
-	if (ndev == 0)
-			die(G15_ERR_OPEN, "Unable to open devices");
-
-	warn("Total devices in this session: %i.", ndev);
+		return (dwErr != ERROR_SUCCESS);
+	else if (dwErr != ERROR_SUCCESS)
+			die(G15_ERR_OPEN, "Unable to open device. (Error: %i)", dwErr);
 
 	/*
 	 * Diplay buffer format.
 	 */
 	bitmap.hdr.Format = LGLCD_BMP_FORMAT_160x43x1;
-
-	/*
-	 * Submit an empty frame (to make our device show up in the G15
-	 * LCD menu).
-	 */
-	for (i = 0; i < ndev; i++) {
-		dwErr = lgLcdUpdateBitmap(ctx[i].device, (const lgLcdBitmapHeader *) &bitmap, LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
-		if (dwErr != ERROR_SUCCESS)
-			warn("Unable to submit empty frame to device #%i. (Error: %i)", i, dwErr);
-	}
 
 	/*
 	 * Main drawing loop.
@@ -198,21 +161,17 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			dwTotRead += dwRead;
 		} while (dwTotRead < G15_MAX_FBMEM);
 
-		for (i = 0; i < ndev; i++) {
-			dwErr = lgLcdUpdateBitmap(ctx[i].device, (const lgLcdBitmapHeader *) &bitmap, bPriority ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
-			if (dwErr != ERROR_SUCCESS)
-				warn("Unable to update bitmap for device #%i successfully. (Error: %i)", i, dwErr);
-		}
+		dwErr = lgLcdUpdateBitmap(ctx.device, (const lgLcdBitmapHeader *) &bitmap, bPriority ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
+		if (dwErr != ERROR_SUCCESS)
+			warn("Unable to update bitmap for device #%i successfully. (Error: %i)", i, dwErr);
 	}
 
 	/*
 	 * Close device connections.
 	 */
-	for (i = 0; i < G15_MAX_DEV; i++) {
-		dwErr = lgLcdClose(ctx[i].device);
-		if (dwErr != ERROR_SUCCESS)
-			die(G15_ERR_CLOSE, "Unable to close LCD device. (Error: %i)", dwErr);
-	}
+	dwErr = lgLcdClose(ctx.device);
+	if (dwErr != ERROR_SUCCESS)
+		die(G15_ERR_CLOSE, "Unable to close LCD device. (Error: %i)", dwErr);
 
 	/*
 	 * Disconnect from LCD monitor.
