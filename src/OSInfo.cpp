@@ -108,8 +108,10 @@ QString OSInfo::getOSVersion() {
 	args << QLatin1String("-d");
 	qp.start(QLatin1String("lsb_release"), args);
 	if (qp.waitForFinished(5000)) {
-		QString os = QString::fromUtf8(qp.readAll());
-		return os.trimmed();
+		QString os = QString::fromUtf8(qp.readAll()).simplified();
+		if (os.startsWith(QLatin1Char('"')) && os.endsWith(QLatin1Char('"')))
+			os = os.mid(1, os.length() - 2).trimmed();
+		return os;
 	}
 #endif
 	struct utsname un;
