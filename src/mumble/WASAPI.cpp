@@ -607,7 +607,8 @@ void WASAPIOutput::run() {
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME hnsRequestedDuration = 20 * 10000;
+	REFERENCE_TIME hnsRequestedDuration = g.s.iOutputDelay * 20 * 10000;
+	REFERENCE_TIME def, min;
 	UINT32 numFramesAvailable;
 	UINT32 packetLength = 0;
 	UINT32 wantLength;
@@ -671,6 +672,13 @@ void WASAPIOutput::run() {
 		qWarning("WASAPIOutput: Subformat is not IEEE Float");
 		goto cleanup;
 	}
+
+	pAudioClient->GetDevicePeriod(&def, &min);
+	qWarning("WASAPIOutput: Periods %lld %lld", def / 10, min / 10);
+	if (def < min)
+		def = min;
+	if (hnsRequestedDuration < (2 * def))
+		hnsRequestedDuration = 2 * def;
 
 	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, hnsRequestedDuration, 0, pwfx, NULL);
 	if (FAILED(hr)) {
