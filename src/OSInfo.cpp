@@ -42,15 +42,25 @@
 #endif
 
 QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
+	QString second, third;
 	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
 		if (! qni.isValid())
-			continue;
-		if (!(qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
 			continue;
 		if (qni.flags() & QNetworkInterface::IsLoopBack)
 			continue;
 		if (qni.hardwareAddress().isEmpty())
 			continue;
+			
+		QString hash = QString::fromAscii(QCryptographicHash::hash(qni.hardwareAddress().toAscii(), QCryptographicHash::Sha1).toHex());
+		
+		if (third.isEmpty())
+			third = hash;
+
+		if (!(qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
+			continue;
+			
+		if (second.isEmpty())
+			second = hash;
 
 		foreach(const QNetworkAddressEntry &qnae, qni.addressEntries()) {
 			const QHostAddress &qha = qnae.ip();
@@ -59,6 +69,10 @@ QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
 			}
 		}
 	}
+	if (! second.isEmpty())
+		return second;
+	if (! third.isEmpty())
+		return third;
 	return QString();
 }
 
