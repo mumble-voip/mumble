@@ -83,6 +83,7 @@ CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
 	unsigned int keycode;
 	bool suppress = false;
 	bool down = false;
+	int64_t repeat = 0;
 
 	switch (type) {
 		case kCGEventLeftMouseDown:
@@ -102,7 +103,7 @@ CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
 		case kCGEventKeyDown:
 			down = true;
 		case kCGEventKeyUp:
-			int64_t repeat = CGEventGetIntegerValueField(event, kCGKeyboardEventAutorepeat);
+			repeat = CGEventGetIntegerValueField(event, kCGKeyboardEventAutorepeat);
 			if (! repeat) {
 				keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode));
 				suppress = gs->handleButton(keycode, down);

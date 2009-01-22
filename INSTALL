@@ -33,6 +33,13 @@ Detailed build instructions are available at
 http://mumble.sourceforge.net/BuildingWindows and it is highly recommended
 to follow them to the letter.
 
+Mac OS X pre-requisites
+=======================
+
+Detailed build instructions are available at
+http://mumble.sourceforge.net/BuildingMacOSX and it is highly recommended
+to follow them to the letter.
+
 Linux pre-requisites
 ====================
 
@@ -63,10 +70,10 @@ So, to build without the server and without ASIO, the above line would be
 qmake main.pro CONFIG+=no-server CONFIG+=no-asio -recursive
 
 CONFIG+=no-client
- Don't build the client (mumble)
+ Don't build the client (Mumble)
 
 CONFIG+=no-server
- Don't build the server (murmur)
+ Don't build the server (Murmur)
 
 CONFIG+=no-bundled-speex
  Don't use the included version of Speex, but look for one on the system.
@@ -76,6 +83,10 @@ CONFIG+=no-bundled-speex
 CONFIG+=optimize
  Build a heavily optimized version, specific to the machine it's being
  compiled on.
+
+CONFIG+=no-gcc42 (OSX)
+ Do not build with GCC 4.2 specific optimizations (MMX/SSE/SSE2 for
+ Universal Binaries), even though GCC 4.2 is availble on the system.
 
 CONFIG+=no-dbus (Mumble)
  Don't include DBus support on Mumble. This has no effect on Murmur, which

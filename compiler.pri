@@ -87,13 +87,7 @@ macx {
 			CONFIG += no-universal
 		}
 
-		CONFIG(no-universal) {
-			ARCH=$$system(uname -m)
-			contains(ARCH, 'i386') {
-				QMAKE_CFLAGS += -mmmx -msse
-				QMAKE_CXXFLAGS += -mmmx -msse
-			}
-		} else {
+		!CONFIG(no-universal) {
 			CONFIG += x86 ppc
 
 			# Precompiled headers are broken when using Makefiles.
@@ -101,7 +95,22 @@ macx {
 				CONFIG += no-pch
 			}
 		}
-	}	
+
+		ARCH=$$system(uname -m)
+		GCC42=$$system(readlink /usr/bin/gcc | grep "gcc-4.[2-9][.0-9]*")
+		!isEmpty(GCC42):!CONFIG(no-gcc42) {
+			QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
+			contains(ARCH, 'i386') {
+				QMAKE_CFLAGS += -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+				QMAKE_CXXFLAGS += -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+			}
+		} else {
+			CONFIG(no-universal):contains(ARCH, 'i386') {
+				QMAKE_CFLAGS += -mmmx -msse -msse2
+				QMAKE_CXXFLAGS += -mmmx -msse -msse2
+			}
+		}
+	}
 }
 
 CONFIG(no-pch) {
