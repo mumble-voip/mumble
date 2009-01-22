@@ -148,7 +148,7 @@ if (defined($s->param('auth')) && ($auth eq $s->param('auth'))) {
      my $image=Image::Magick->new();
      my $r=$image->BlobToImage($blob);
      if (! $r) {
-       $image->Extent(x => 0, y => 0, width => 600, height => 60);
+       $image->Extent(x => 0, y => 0, width => 600, height => 60, background => "transparent");
        my $out=$image->ImageToBlob(magick => 'rgba', depth => 8);
        if (length($out) == (600*60*4)) {
          # We need BGRA, AKA ARGB inverse
