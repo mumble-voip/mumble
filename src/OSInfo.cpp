@@ -42,7 +42,7 @@
 #endif
 
 QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
-	QString second, third;
+	QString first, second, third;
 	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
 		if (! qni.isValid())
 			continue;
@@ -53,22 +53,25 @@ QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
 			
 		QString hash = QString::fromAscii(QCryptographicHash::hash(qni.hardwareAddress().toAscii(), QCryptographicHash::Sha1).toHex());
 		
-		if (third.isEmpty())
+		if (third.isEmpty() || third > hash)
 			third = hash;
 
 		if (!(qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
 			continue;
 			
-		if (second.isEmpty())
+		if (second.isEmpty() || second > hash)
 			second = hash;
 
 		foreach(const QNetworkAddressEntry &qnae, qni.addressEntries()) {
 			const QHostAddress &qha = qnae.ip();
 			if (((qhaBind == QHostAddress::Any) && (qha.protocol() ==  QAbstractSocket::IPv4Protocol)) || (qha == qhaBind)) {
-				return QString::fromAscii(QCryptographicHash::hash(qni.hardwareAddress().toAscii(), QCryptographicHash::Sha1).toHex());
+				if (first.isEmpty() || first > hash)
+					first = hash;
 			}
 		}
 	}
+	if (! first.isEmpty())
+		return first;
 	if (! second.isEmpty())
 		return second;
 	if (! third.isEmpty())
