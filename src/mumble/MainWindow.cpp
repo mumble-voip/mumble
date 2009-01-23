@@ -480,13 +480,13 @@ void MainWindow::setupView(bool toggle_minimize) {
 		}
 	}
 
-	Qt::WindowFlags f = windowFlags();
-	if (showit)
-		f = Qt::Window;
-	else if (g.s.bHideFrame)
+	Qt::WindowFlags f = Qt::Window;
+	if (!showit && g.s.bHideFrame)
 		f = Qt::Window | Qt::FramelessWindowHint;
-	else
+#ifndef Q_OS_MAC
+	else if (!showit)
 		f = Qt::Tool;
+#endif
 
 	if (g.s.bAlwaysOnTop)
 		f |= Qt::WindowStaysOnTopHint;
@@ -758,11 +758,9 @@ void MainWindow::on_qaQuit_triggered() {
 
 void MainWindow::on_qmConfig_aboutToShow() {
 	// Don't remove the config, as that messes up OSX.
-	QList<QAction *> ql = qmConfig->actions();
-	while (ql.count() > 1) {
-		QAction *a = ql.takeLast();
-		qmConfig->removeAction(a);
-	}
+	foreach(QAction *a, qmConfig->actions())
+		if (a != qaConfigDialog)
+			qmConfig->removeAction(a);
 	qmConfig->addAction(qaAudioWizard);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
