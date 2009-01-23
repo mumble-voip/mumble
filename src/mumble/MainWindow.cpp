@@ -757,8 +757,12 @@ void MainWindow::on_qaQuit_triggered() {
 }
 
 void MainWindow::on_qmConfig_aboutToShow() {
-	qmConfig->clear();
-	qmConfig->addAction(qaConfigDialog);
+	// Don't remove the config, as that messes up OSX.
+	QList<QAction *> ql = qmConfig->actions();
+	while (ql.count() > 1) {
+		QAction *a = ql.takeLast();
+		qmConfig->removeAction(a);
+	}
 	qmConfig->addAction(qaAudioWizard);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
