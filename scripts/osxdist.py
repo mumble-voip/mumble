@@ -289,7 +289,7 @@ if __name__ == '__main__':
 	d.copy('installer/DS_Store', '/.DS_Store')
 	d.symlink('/Applications/', 'Applications')
 	d.mkdir('Licenses')
-	d.copy('installer/gpl.txt', '/Licenses/GPL.txt')
+	d.copy('LICENSE', '/Licenses/Mumble.txt')
 	d.copy('installer/qt.txt', '/Licenses/Qt.txt')
 	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
 	d.mkdir('Murmur')
