@@ -8,13 +8,33 @@ use Archive::Tar;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use Compress::Zlib;
 
+sub adddir($$) {
+  my ($dir, $ref) = @_;
+  $dir =~ s/^\.\///;
+  my $base = $dir;
+  $base =~ s/^.+\/([^\/]+)$/$1/;
+  if (-f "$dir/$base.pro") {
+    push @{$ref}, "$dir/$base.pro";
+  }
+  opendir(DIR, $dir);
+  foreach my $e (grep { ! /^\./ } readdir(DIR)) {
+    if (-d "$dir/$e") {
+      adddir("$dir/$e", $ref);
+    }
+  }
+}
+
 my %files;
 my $ver;
 my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1, 'precompiled_header' => 1, 'translations' => 1);
 
 system("rm mumble-*");
 
-foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri", "plugins/plugins.pro", "plugins/wow/wow.pro", "plugins/bf2/bf2.pro", "plugins/link/link.pro") {
+
+my @pro = ("main.pro", "src/mumble.pri");
+adddir(".", \@pro);
+
+foreach my $pro (@pro) {
   open(F, $pro) or croak "Failed to open $pro";
   print "Processing $pro\n";
   $files{$pro}=1;
@@ -36,7 +56,7 @@ foreach my $pro ("main.pro", "overlay/overlay.pro", "overlay_gl/overlay_gl.pro",
               $files{$basedir.$f}=1;
             } else {
               my $ok = 0;
-              foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/", "overlay/", "overlay_gl/", "speex/libspeex/") {
+              foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/", "overlay/", "overlay_gl/", "speex/libspeex/", "g15helper/") {
                 if (-f "$d$f") {
                   $files{$d.$f}=1;
                   $ok = 1;

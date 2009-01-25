@@ -216,6 +216,8 @@ CONFIG(no-update) {
 	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
 	copytrans.input = QT_TRANSLATION_FILES
 	copytrans.CONFIG *= no_link target_predeps
+
+	QMAKE_EXTRA_COMPILERS *= copytrans
 	
 	RESOURCES *= mumble_qt.qrc
 }
@@ -225,4 +227,4 @@ lrel.commands = $${QMAKE_LRELEASE} ${QMAKE_FILE_NAME}
 lrel.input = TRANSLATIONS
 lrel.CONFIG *= no_link target_predeps
 
-QMAKE_EXTRA_COMPILERS += copytrans lrel
+QMAKE_EXTRA_COMPILERS *= lrel
