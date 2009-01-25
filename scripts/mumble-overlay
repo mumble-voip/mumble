@@ -1,13 +1,80 @@
-#! /bin/sh
+#!/bin/bash
 
-if [ -d /usr/lib/mumble ]; then
-  MUMBLE_OVERLAY_PATH=/usr/lib/mumble
-else
-  MUMBLE_OVERLAY_PATH=/usr/lib
+if [ -z "$1" -o "$1" = '--help' ]; then
+	echo "USAGE: $0 <program> [args...]"
+	exit 1
 fi
+
+if [ -d /usr/lib64 ]; then
+  libdir_64=/usr/lib64
+  if [ -d "$libdir_64/mumble" ]; then
+    libdir_64="$libdir_64/mumble";
+  fi
+fi
+if [ -d /usr/lib32 ]; then
+  libdir_32=/usr/lib32
+  if [ -d "$libdir_32/mumble" ]; then
+    libdir_32="$libdir_32/mumble";
+  fi
+fi
+if [ -z "$libdir_32" -o -z "$libdir_64" ]; then
+  tlibdir=/usr/lib
+  if [ -d "$tlibdir/mumble" ]; then
+    tlibdir="$tlibdir/mumble"
+  fi
+  if [ -f "$tlibdir/libmumble.so.1" ]; then
+    case $(file -L "$tlibdir/libmumble.so.1") in
+      *64-bit*)	libdir_64=$tlibdir ;;
+      *32-bit*) libdir_32=$tlibdir ;;
+    esac
+  fi
+fi
+
+MUMBLE_OVERLAY_PATH_32=$libdir_32
+MUMBLE_OVERLAY_PATH_64=$libdir_64
 
 if [ -f /etc/sysconfig/mumble ]; then
   . /etc/sysconfig/mumble
 fi
 
-LD_PRELOAD="${MUMBLE_OVERLAY_PATH}/libmumble.so.1 ${LD_PRELOAD}" "${@}"
+binary="$1"
+if [ "${binary/\/}" = "$binary" ]; then
+  binary=$(which "$binary")
+fi
+if [ ! -x "$binary" ]; then
+  echo "$1 not found" >&2
+  exit 1
+fi
+
+is64=no
+is32=no
+
+case $(file -L "$binary") in
+	*64-bit*) 
+		if [ ! -f "${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1" ]; then
+			echo "64-bit libmumble.so.1 not found in ${MUMBLE_OVERLAY_PATH_64}" >&2
+			exit 1
+		fi
+		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1"
+		;;
+	*32-bit*)
+		if [ ! -f "${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1" ]; then
+			echo "32-bit libmumble.so.1 not found in ${MUMBLE_OVERLAY_PATH_32}" >&2
+			exit 1
+		fi
+		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1"
+		;;
+	*)
+		if [ -f "${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1" ]; then
+			MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1"
+		fi
+		if [ -f "${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1" ]; then
+			MUMBLE_PRELOAD="${MUMBLE_PRELOAD} ${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1"
+		fi
+		if [ -z "${MUMBLE_PRELOAD}" ]; then
+			echo "Neither 32-bit or 64-bit libmumble.so.1 found"
+			exit 1
+		fi
+esac
+
+LD_PRELOAD="${MUMBLE_PRELOAD} ${LD_PRELOAD}" "${@}"
