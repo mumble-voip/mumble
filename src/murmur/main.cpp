@@ -412,6 +412,7 @@ int main(int argc, char **argv) {
 	IceStart();
 #endif
 
+	meta->getOSInfo();
 	meta->bootAll();
 
 	res=a.exec();

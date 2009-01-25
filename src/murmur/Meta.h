@@ -107,6 +107,7 @@ class Meta : public QObject {
 		bool banCheck(const QHostAddress &);
 		void kill(int);
 		void killAll();
+		void getOSInfo();
 		static void getVersion(int &major, int &minor, int &patch, QString &string);
 };
 

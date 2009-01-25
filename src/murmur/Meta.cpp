@@ -263,9 +263,12 @@ void MetaParams::read(QString fname) {
 }
 
 Meta::Meta() {
+	dbus = NULL;
+}
+
+void Meta::getOSInfo() {
 	qsOS = OSInfo::getOS();
 	qsOSVersion = OSInfo::getOSVersion();
-	dbus = NULL;
 }
 
 void Meta::bootAll() {
