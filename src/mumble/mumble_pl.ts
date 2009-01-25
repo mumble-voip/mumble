@@ -306,7 +306,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="47"/>
         <source>Mumble - Edit ACL for %1</source>
-        <translation>Mumble - edytuj ACL dla &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Mumble - edytuj ACL dla %1</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="13"/>
@@ -1382,7 +1382,7 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
     <message>
         <location filename="AudioWizard.cpp" line="65"/>
         <source>Audio Tuning Wizard</source>
-        <translation>Kreator dźwięku</translation>
+        <translation>Kreator ustawień dźwięku</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="115"/>
@@ -1392,7 +1392,7 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
     <message>
         <location filename="AudioWizard.cpp" line="116"/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Witamy w kreatorze dźwięku Mumble!</translation>
+        <translation>Witamy w kreatorze ustawień dźwięku Mumble!</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="119"/>
@@ -3147,7 +3147,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="496"/>
         <source>Check for &amp;Updates</source>
-        <translation>Sprawdź dostępność &amp;aktualizacji</translation>
+        <translation>Sprawdź dostępność &amp;aktualizacji...</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="499"/>
@@ -3571,7 +3571,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.ui" line="432"/>
         <source>&amp;Audio Wizard</source>
-        <translation>&amp;Kreator dźwięku</translation>
+        <translation>&amp;Kreator ustawień dźwięku</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="261"/>
@@ -3666,7 +3666,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="main.cpp" line="221"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation>Program Mumble został uruchomiony po raz pierwszy na tym komputerze.&lt;br /&gt; Czy chcesz uruchomić kreator dźwięku, aby skonfigurować podstawowe ustawienia aplikacji?</translation>
+        <translation>Program Mumble został uruchomiony po raz pierwszy na tym komputerze.&lt;br /&gt; Czy chcesz uruchomić kreator ustawień dźwięku, aby skonfigurować podstawowe opcje aplikacji?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="576"/>
