@@ -79,6 +79,8 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	abSpeech->qcInside = Qt::yellow;
 	abSpeech->qcAbove = Qt::green;
 
+	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
+
 	on_Tick_timeout();
 }
 
@@ -270,9 +272,14 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
 		ql = air->getDeviceChoices();
 
+		int idx = 0;
+
 		foreach(audioDevice d, ql) {
 			qcbDevice->addItem(d.first, d.second);
+			qcbDevice->setItemData(idx, d.first, Qt::ToolTipRole);
+			++idx;
 		}
+
 		qcbEcho->setEnabled(air->canEcho(s.qsAudioOutput));
 	}
 
@@ -313,6 +320,8 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	qcbLoopback->addItem(tr("None"), Settings::None);
 	qcbLoopback->addItem(tr("Local"), Settings::Local);
 	qcbLoopback->addItem(tr("Server"), Settings::Server);
+
+	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 }
 
 QString AudioOutputDialog::title() const {
@@ -389,8 +398,12 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbSystem->currentText());
 		ql = aor->getDeviceChoices();
 
+		int idx = 0;
+
 		foreach(audioDevice d, ql) {
 			qcbDevice->addItem(d.first, d.second);
+			qcbDevice->setItemData(idx, d.first, Qt::ToolTipRole);
+			++idx;
 		}
 		bool canmute = aor->canMuteOthers();
 		qsOtherVolume->setEnabled(canmute);

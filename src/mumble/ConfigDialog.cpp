@@ -126,6 +126,9 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	restoreButton->setWhatsThis(tr("This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.<br />"
 	                               "To restore all settings to their defaults, you will have to use this button on every page."
 	                              ));
+
+	if (! g.s.qbaConfigGeometry.isEmpty())
+		restoreGeometry(g.s.qbaConfigGeometry);
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
@@ -246,5 +249,6 @@ void ConfigDialog::apply() {
 
 void ConfigDialog::accept() {
 	apply();
+	g.s.qbaConfigGeometry=saveGeometry();
 	QDialog::accept();
 }
