@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="es">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -3919,7 +3920,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="158"/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;b&gt;Si se marca, minimizar la ventana principal de Mumble hará que se oculte y sólo sea accesible desde el área de notificación. De lo contrario, será minimizada como lo haría normalmente una ventana.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Si se marca, minimizar la ventana principal de Mumble hará que se oculte y sólo sea accesible desde el área de notificación. De lo contrario, será minimizada como lo haría normalmente una ventana.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="161"/>
@@ -4237,7 +4238,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="410"/>
         <source>Forcibly unlink plugin</source>
-        <translation type="unfinished">Desvincular complemento forzosamente</translation>
+        <translation>Desvincular complemento forzosamente</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="413"/>
@@ -5172,17 +5173,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="546"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar marco</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="549"/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"></translation>
+        <translation>Conmuta entre mostrar o no el marco de la ventana mínima</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="552"/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto determina si la ventana mínima tiene un marco para ser movida o cambiada de tamaño.</translation>
     </message>
 </context>
 <context>
