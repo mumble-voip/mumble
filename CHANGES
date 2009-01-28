@@ -1,3 +1,267 @@
+2009-01-28 Revision 1482
+	* Indenting fixes
+2009-01-27 Revision 1481
+	* Updated Spanish translation [naproxeno]
+2009-01-26 Revision 1480
+	* Debian Bug#513119: murmur-user-wrapper: confused about dbus. Patch
+	  by janbraun@gmx.net
+2009-01-25 Revision 1475-1478
+	* Polish translation hotfix [sumowski]
+	* Delay fetching OSInfo, as QProcess doesn't deal well with
+	  fork/detach
+	* Update distribution scripts
+	* Add elide mode for the audio devices, and store configdialog
+	  geometry.
+	* Updated mumble-overlay to support biarch systems, based on patch by
+	  ludwig.nussel@suse.de
+2009-01-23 Revision 1472-1473
+	* Include Mumble's LICENSE file instead of the GPL in the Mumble disk
+	  image. [mkrautz]
+	* Dont use tool windows on OSX
+	* Preserve config menu settings entry.
+2009-01-22 Revision 1468-1470
+	* Transparent background for extended images in the murmur.cgi
+	* More consistently pick the same interface
+	* If we don't find an active IPv4 interface, pick any other
+	* Allow the i386-part of OSX Universal Binaries to be built with
+	  MMX/SSE/SSE2 optimizations. [mkrautz]
+2009-01-20 Revision 1460-1466
+	* On FreeBSD, just link -lcrypto directly
+	* Patch #2524995: DBus started/stopped signals [julian7]
+	* Older input.h doesn't have KEY_CNT
+	* Polish hotfix [sumowski]
+	* Updated polish translation [sumowski]
+	* Attempted workaround for screeching.
+	* Strip " from lsb_release
+	* Update to support G15 SDK 3.01
+2009-01-19 Revision 1453-1458
+	* Language update
+	* Indenting update
+	* Use just parts of uname() for OS info
+	* Don't use /dev/input devices that are grabbed, and don't use
+	  /dev/input at all unless we find a keyboard
+	* Fix of the fix of the fix for the frameless mode
+	* ALSA Locking
+	* Stop frameless window from creeping around. [dd0t]
+2009-01-18 Revision 1445-1451
+	* Patch #2518154: French translation update [jerhum]
+	* Minor cleanup of the noframe patch.
+	* Patch #2516734: Independent geometry for Mumbles' Minimal View
+	  [dd0t]
+	* Brutally simplified LCD overlay.
+	* Qt 4.4.3 for Win32.
+	* Fix for QScrollArea in ConfigDialog.
+	* Remove debug output from Overlay_win
+	  Use QTreeView::scrollTo() for the playerview.
+	* Patch #2516400: Self Mute/Deaf via DBus for Mumble client [dd0t]
+2009-01-17 Revision 1440-1443
+	* Multiapp overlay for *nix
+	* Support simultaneous overlay in multiple applications.
+	* Prefetch offset for createdevice.
+	* Always show that we attached to OpenGL in the debug log.
+	* Trampoline-based, chaining, push/ret calling overlay.
+2009-01-16 Revision 1438
+	* Remove a debug string from AudioOutputDialog
+	* Lrelease seems to merge a few contexts, so turn nounfinished and
+	  compress off.
+2009-01-15 Revision 1431-1436
+	* WASAPI doesn't need output delay, or so it seems.
+	* Add a outputdelay config for AudioOutputRegistrar
+	* Stop g15helper from spamming debug log.
+	* German translation [m0ta]
+	* polish_for_1.1.7_release_update_v50-FINAL.tar [sumowski]
+	* Typo fix.
+	* Thread-safe AddRef/Release for overlay.
+	  Delayed-insertion D3D9 hook, work around bug in SupCom.
+2009-01-14 Revision 1430
+	* Updated Spanish translation. [Naproxeno]
+2009-01-13 Revision 1424-1428
+	* Locale-aware version queries.
+	* Fix bug where muted trayicon wasn't shown on startup.
+	* Apparantly -arch:SSE (SSE1) and -QxK (SSE1) at the same time becomes
+	  SSE2. This compiler is quite buggy.
+	* Fix exit crash of overlay.
+	  Also include interface replacement code. Not used yet though, it
+	  would fail if the game did device->GetSwapChain->GetDevice, unless
+	  we patch all of those as well.
+	* Use sheets for ConnectDialog-related dialogs on OS X. [mkrautz]
+	* Prettify OSX OSInfo and include architecture. [mkrautz]
+2009-01-12 Revision 1412-1422
+	* Fix positional test in Audio Wizard.
+	* Default IdleAudioMute to off.
+	* Update murmur-static script
+	* Qt 4.3 doesn't have -removeidentical for lrelease
+	* Updated polish translation [sumowski]
+	* Descriptor test only works on *nix.
+	* Add a descriptor test
+	* Updated Japanese translation [ikasamah]
+	* Fix editor oops in Register.cpp
+	* Updated installation documentation
+	* Language file updates
+	* Report true Windows version.
+2009-01-11 Revision 1408-1410
+	* Make canEcho const, unify XML for OS info and don't start UDP thread
+	  if the socket failed
+	* Default Console.txt path to %APPDATA%, and add a "Run Mumble" to the
+	  installer.
+	* Use UTF-8 for CStrings too, fixes a Mojibake
+	* When using WASAPI, decrease the volume of other applications during
+	  speech.
+2009-01-09 Revision 1399-1406
+	* Fix string playerid ->  string name
+	* Explicitly use UTF8 for all output from murmur.
+	* Spelling fix for wizard.
+	* Workaround for distros that rename qmake and lrelease without
+	  providing mkspect pointers
+	* Add the Linux OS for the VersionCheck. oops :)
+	* Mute loopback in wizard during welcome and finish pages.
+	  Add question about statistics to the end of the audio wizard.
+	* PTT in audio wizard.
+	* Use qCritical where it makes sense.
+	* On Unix, detach even if logfile fails
+2009-01-08 Revision 1388-1397
+	* If Mumble is already installed, call the uninstaller.
+	* Ok, only disable DirectSound if we actually compiled with WASAPI (it
+	  is optional, after all).
+	  Add a diagnostic output from ASIO when no devices are found.
+	* Merge DirectSound code into single file, and disable DirectSound if
+	  WASAPI is found.
+	* Fix universal build on Mac OS X (and other non-pch targets).
+	  [mkrautz]
+	* Only enable XEvie when building against an X11 version of Qt.
+	  Disable g15daemon support on Mac OS X. [mkrautz]
+	* Anonymous statistics.
+	* Enable tab scrolling to save a bit of space in the config dialog.
+	* Anonymous statistics.
+	* Register Win32 version in hex.
+	* Include version and OS with global server registration
+	* Readd the untranslated English as a selectable language.
+2009-01-07 Revision 1385-1386
+	* qCompress global server list.
+	* Register current # of users and channels on global server list
+	* Whitelist the global serverlist callback from the reconnect tempbans
+2009-01-05 Revision 1372-1383
+	* Intel C++ 11.0 compiles -Qipo into buggy code, so turn that off.
+	* Translation file updates
+	* Indenting update
+	* Write/Admin -> Write ACL
+	* Update copyright for 2009
+	* Add desktop shortcut on Win32.
+	* Allow global volume shortcuts to increase the volume up to 200%.
+	  [mkrautz]
+	* Allow channel/player regexp to be changed
+	* Rename "Write" to "Write/Admin" in the UI so people stop thinking
+	  it's for message writing.
+	* CONFIG+=no-embed-qt-translations to load translations from Qt from
+	  the system installed directory.
+	* Remove a few missing translations
+	* -jX safe make targets for translations
+	* Build updates for newer boost and C++ compiler.
+2009-01-04 Revision 1371
+	* Experimental notify-less DirectSound, using estimated positions.
+2009-01-02 Revision 1370
+	* Tab-based config widget.
+2009-01-01 Revision 1369
+	* Update Win32 Overlay to inject LoadLibraryA. With the CBT hook, this
+	  should hopefully be enough.
+2008-12-30 Revision 1368
+	* Fix for the regression introduced by the hanged connect fix.
+2008-12-25 Revision 1366
+	* Fix G15 on Linux
+	* Avoid stuck ServerHandler when server is unreachable.
+2008-12-24 Revision 1362-1364
+	* Patch #2463387: Add configuration option for hiding main window to
+	  tray [mokomull]
+	* Patch #2462928: Reload ALSA device list when settings dialog is
+	  opened [mokomull]
+	* Patch #2457331: Make murmur use its own icon [dd0t]
+	* Fix for crash with no LCD devices present.
+2008-12-21 Revision 1361
+	* Don't show LCD Config if no devices are detected.
+	  Also minor cleanups of G15 helper.
+2008-12-15 Revision 1360
+	* Update G15 helper to use standard input/output
+	  Show all players/linked channels.
+	  Fudge the font metrics.
+2008-12-13 Revision 1356-1358
+	* Fix some Boost/Qt stuff for icl for the G15 code.
+	* The G15 library doesn't handle multiple devices.
+	* Add g15helper.ico. [mkrautz]
+	* LCD Support [mkrautz]
+2008-12-12 Revision 1354
+	* Add LCD config dialog icon. [mkrautz]
+	* If the UDP socket failed. don't close it. Also, enable obfuscate
+	  parameter.
+2008-12-08 Revision 1352
+	* Add MSVCRT to the plugins directory as well.
+	* Patch #2393239: PA div by zero fix (/ bf2 plugin fix) [dd0t]
+2008-12-02 Revision 1351
+	* Fix unaligned access issue on picky 64-bit platforms (such as IA64)
+2008-12-01 Revision 1348-1349
+	* Keep expanded state of items when moved.
+	* Updated translation sources
+	* Updated polish translation [sumowski]
+2008-11-29 Revision 1345-1346
+	* Treat incoming and outgoing mumble:// URLs as URL encoded. [mkrautz]
+	* Fix typo in "What's This" for Noise Supression. Fixes bug #2238867.
+	  [mkrautz]
+	* Add all the new positioaln audio plugins to the installer. Fixes bug
+	  #2294035. [mkrautz]
+2008-11-28 Revision 1340-1343
+	* Patch #2293077: Tray icon update on disconnect [dd0t] [mkrautz]
+	* Patch #2293288: Disable PA when position is reported as (0,0,0)
+	  [dd0t] [mkrautz]
+	* Patch #2301216: Positional audio for Call of Duty 5 [dd0t] [mkrautz]
+	* Patch #2338606: Positional audio for Wolfenstein:ET [dd0t] [mkrautz]
+	* Fix rounding issues in AudioConfigDialog. Fixes bug #2293514; Based
+	  on patch #2293714 by dd0t. [mkrautz]
+2008-11-01 Revision 1336-1338
+	* Change tray icon when muted/deafened.
+	* Idle timer in client to auto-mute.
+	* Fix so you can use minimal view and AlwaysOnTop at the same time.
+	* Allow boosting volume to 200% (with warning about it's quality).
+2008-10-22 Revision 1334
+	* Patch #2183224: Call of Duty 2 positional audio [dd0t]
+2008-10-19 Revision 1333
+	* Patch #2178031: AudioBar in config dialog [mystic_sam]
+2008-10-18 Revision 1330-1331
+	* Make GlobalShortcutMac build again. [mkrautz]
+	* Sanity checking for CoD4 plugin [dd0t] [mkrautz]
+	* Fix version number in BF2 plugin about dialog. [mkrautz]
+2008-10-11 Revision 1327-1328
+	* Make sure LogTitleBar is properly hidden when launching Mumble.
+	  [mkrautz]
+	* Initialize DirectInput in the same thread as we are polling it in.
+	  [mkrautz]
+	* Move DirectInput handling to the same thread as the Win32 input
+	  hooks. Fixes GlobalShortcut signal delivery. [mkrautz]
+2008-10-09 Revision 1326
+	* Add Q_DISABLE_COPY to most classes
+2008-10-08 Revision 1324
+	* Add _USE_MATH_DEFINES to the .pro for Win32 so M_PI is defined,
+	  instead of locally changing the file. Oops.
+	* Patch #2151618: Positional audio for Call of Duty 4 [dd0t]
+2008-09-30 Revision 1323
+	* Compile on platforms where qreal is float
+2008-09-29 Revision 1322
+	* Patch #2133288: Correction in mumble_de.ts [entitaet]
+2008-09-26 Revision 1320
+	* Updated Spanish translation [naproxeno]
+2008-09-24 Revision 1319
+	* Distribute Qt 4.4.2 for Win32.
+2008-09-23 Revision 1314-1317
+	* Deny duplicate channel names
+	* Check valid player ID on texture get/set
+	* Remove C++ flags from CFLAGS [l-n]
+	* Patch #2122639: fix build with older alsa [l-n]
+	* Patch #2119472: tray icon exit menu entry on right klick
+	  [jakobdettner]
+2008-09-13 Revision 1309-1312
+	* Updated Polish translation [sumowski]
+	* Bump BF2 plugin version.
+	* Add uninstaller section for configuration settings and databases.
+	* Version bump
+	* Changelog update
 2008-09-12 Revision 1308
 	* Add dbOpts setting. Allows users to specify custom connect options
 	  for their QSqlDatabase. [mkrautz]
