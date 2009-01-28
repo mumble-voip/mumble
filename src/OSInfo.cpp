@@ -50,15 +50,15 @@ QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
 			continue;
 		if (qni.hardwareAddress().isEmpty())
 			continue;
-			
+
 		QString hash = QString::fromAscii(QCryptographicHash::hash(qni.hardwareAddress().toAscii(), QCryptographicHash::Sha1).toHex());
-		
+
 		if (third.isEmpty() || third > hash)
 			third = hash;
 
 		if (!(qni.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning)))
 			continue;
-			
+
 		if (second.isEmpty() || second > hash)
 			second = hash;
 
