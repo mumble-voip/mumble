@@ -34,6 +34,11 @@ SetCompressor /SOLID lzma
 
   !define MUI_ABORTWARNING
 
+  ;Remember the installer language
+  !define MUI_LANGDLL_REGISTRY_ROOT "HKLM" 
+  !define MUI_LANGDLL_REGISTRY_KEY "Software\Mumble" 
+  !define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
+
 ;--------------------------------
 ;Pages
 
@@ -47,13 +52,13 @@ Page custom PageReinstall PageLeaveReinstall
   !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
   
   !define MUI_FINISHPAGE_SHOWREADME
-  !define MUI_FINISHPAGE_SHOWREADME_TEXT "Create Desktop Shortcut"
+  !define MUI_FINISHPAGE_SHOWREADME_TEXT $(MUMBLE_CREATE_SHORTCUT)
   !define MUI_FINISHPAGE_SHOWREADME_FUNCTION Desktop_Shortcut
   
   !define MUI_FINISHPAGE_RUN $INSTDIR\mumble.exe
   !define MUI_FINISHPAGE_RUN_TEXT "Start Mumble"
 
-  !define MUI_FINISHPAGE_LINK "Donate to the Mumble project"
+  !define MUI_FINISHPAGE_LINK $(MUMBLE_DONATE)
   !define MUI_FINISHPAGE_LINK_LOCATION "https://sourceforge.net/project/project_donations.php?group_id=147372"
 
   !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
@@ -71,7 +76,12 @@ Page custom PageReinstall PageLeaveReinstall
 ;Languages
 
   !insertmacro MUI_LANGUAGE "English"
-
+  !insertmacro MUI_LANGUAGE "Norwegian"
+  
+  !include "MumbleNorwegian.nsh"
+  !include "MumbleEnglish.nsh"
+  
+  !insertmacro MUI_RESERVEFILE_LANGDLL
 
 Function Desktop_Shortcut
   SetOutPath "$INSTDIR"
@@ -89,7 +99,7 @@ Section "Mumble & Murmur" SecMumble
   FindProcDLL::FindProc "dbus-daemon.exe"
 
   IntCmp 0 $R0 NoDBusRunning
-  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON1 "The DBus daemon used by Mumble is currently running. Terminate the daemon so it can be updated?" IDNO NoDBusRunning
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON1 $(MUMBLE_TERMINATE_DBUS) IDNO NoDBusRunning
   KillProcDLL::KillProc "dbus-daemon.exe"
  NoDBusRunning:
 
@@ -199,11 +209,11 @@ Section "Mumble & Murmur" SecMumble
     CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble.lnk" "$INSTDIR\mumble.exe"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Murmur.lnk" "$INSTDIR\murmur.exe"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble Readme.lnk" "$INSTDIR\Readme.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble License.lnk" "$INSTDIR\license.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\QT License.lnk" "$INSTDIR\qt.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Speex License.lnk" "$INSTDIR\speex.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall Mumble.lnk" "$INSTDIR\Uninstall.exe"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_README_LNK).lnk" "$INSTDIR\Readme.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_LICENSE_LNK).lnk" "$INSTDIR\license.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_QT_LNK).lnk" "$INSTDIR\qt.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_SPEEX_LNK).lnk" "$INSTDIR\speex.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_UNINSTALL_LNK).lnk" "$INSTDIR\Uninstall.exe"
 
   !insertmacro MUI_STARTMENU_WRITE_END
 
@@ -212,7 +222,7 @@ SectionEnd
 ;--------------------------------
 ;Uninstaller Section
 
-Section "Uninstall" SectionUninstBase
+Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   SectionIn RO
   SetShellVarContext all
 
@@ -288,13 +298,13 @@ Section "Uninstall" SectionUninstBase
 
   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
 
-  Delete "$SMPROGRAMS\$MUI_TEMP\Uninstall.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_UNINSTALL_LNK).lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\Mumble.lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\Murmur.lnk"
-  Delete "$SMPROGRAMS\$MUI_TEMP\Mumble Readme.lnk"
-  Delete "$SMPROGRAMS\$MUI_TEMP\Mumble License.lnk"
-  Delete "$SMPROGRAMS\$MUI_TEMP\QT License.lnk"
-  Delete "$SMPROGRAMS\$MUI_TEMP\Speex License.lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_README_LNK).lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_LICENSE_LNK).lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_QT_LNK).lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_SPEEX_LNK).lnk"
 
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
@@ -314,7 +324,7 @@ Section "Uninstall" SectionUninstBase
   DeleteRegKey /ifempty HKLM "Software\Mumble"
 SectionEnd
 
-Section /o "un.Preferences and Databases" SectionUninstAll
+Section /o "un.$(MUMBLE_UNSEC_ALL)" SectionUninstAll
   SetShellVarContext all
 
   RMDir /r /REBOOTOK "$INSTDIR"
@@ -339,9 +349,6 @@ Section /o "un.Preferences and Databases" SectionUninstAll
   registryDeleteLoopDone:
 SectionEnd
 
-LangString DESC_SectionUninstBase ${LANG_ENGLISH} "Uninstall Mumble and Murmur programs"
-LangString DESC_SectionUninstAll ${LANG_ENGLISH} "Uninstall all traces of Mumble and Murmur, including preferences and databases."
-
 !insertmacro MUI_UNFUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionUninstBase} $(DESC_SectionUninstBase)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionUninstAll} $(DESC_SectionUninstAll)
@@ -354,18 +361,18 @@ Function PageReinstall
     Abort
   ${EndIf}
 
-  !insertmacro MUI_HEADER_TEXT "Already Installed" "Choose how you want to install Mumble."
+  !insertmacro MUI_HEADER_TEXT $(MUMBLE_ALREADY_INSTALLED_HEAD) $(MUMBLE_ALREADY_INSTALLED_SUBTEXT)
 
   nsDialogs::Create 1018
   Pop $R4
 
-  ${NSD_CreateLabel} 0 0 100% 24u "Mumble is already installed. It's recommended that you uninstall the current version before installing. Select the operation you want to perform and click Next to continue."
+  ${NSD_CreateLabel} 0 0 100% 24u $(MUMBLE_ALREADY_INSTALLED)
   Pop $R1
 
-  ${NSD_CreateRadioButton} 30u 50u -30u 8u "Uninstall before installing"
+  ${NSD_CreateRadioButton} 30u 50u -30u 8u $(MUMBLE_UNINSTALL)
   Pop $R2
 
-  ${NSD_CreateRadioButton} 30u 70u -30u 8u "Do not uninstall"
+  ${NSD_CreateRadioButton} 30u 70u -30u 8u $(MUMBLE_NO_UNINSTALL)
   Pop $R3
 
   SendMessage $R2 ${BM_SETCHECK} ${BST_CHECKED} 0
@@ -395,4 +402,12 @@ no_remove_uninstaller:
   BringToFront
 reinst_done:
 
+FunctionEnd
+
+Function .onInit
+  !insertmacro MUI_LANGDLL_DISPLAY
+FunctionEnd
+
+Function un.onInit
+  !insertmacro MUI_UNGETLANGUAGE
 FunctionEnd
