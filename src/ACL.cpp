@@ -33,8 +33,6 @@
 #include "Group.h"
 #include "Player.h"
 
-// QHash<Channel *, QHash<Player *, ChanACL::Permissions > > ChanACL::c_qhACLCache;
-
 ChanACL::ChanACL(Channel *chan) {
 	bApplyHere = true;
 	bApplySubs = true;

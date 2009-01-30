@@ -193,8 +193,6 @@ LCD::LCD() : QObject() {
 
 	QFontMetrics qfm(qfNormal);
 
-	// Font metrics are broken, and unfortunately means we loose a lot of font space.
-//	iFontHeight = qfm.height();
 	iFontHeight = 10;
 
 	initBuffers();

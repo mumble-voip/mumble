@@ -61,8 +61,6 @@ class ChanACL : public QObject {
 		typedef QHash<Channel *, Permissions> ChanCache;
 		typedef QHash<Player *, ChanCache * > ACLCache;
 
-//		static QHash<Channel *, QHash<Player *, Permissions > > c_qhACLCache;
-
 		Channel *c;
 		bool bApplyHere;
 		bool bApplySubs;

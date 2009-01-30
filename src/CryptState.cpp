@@ -126,8 +126,6 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 		else if (diff < -128)
 			diff = diff+256;
 
-//		qWarning("OOO: Got %02x [Current %02x Min %02x Max %02x Diff %2d]", ivbyte, decrypt_iv[0], min, max, diff);
-
 		if ((ivbyte < decrypt_iv[0]) && (diff > -30) && (diff < 0)) {
 			// Late packet, but no wraparound.
 			late = 1;
