@@ -76,12 +76,14 @@ Page custom PageReinstall PageLeaveReinstall
 ;Languages
 
   !insertmacro MUI_LANGUAGE "English"
-  !insertmacro MUI_LANGUAGE "Norwegian"
   !insertmacro MUI_LANGUAGE "German"
+  !insertmacro MUI_LANGUAGE "Norwegian"
+  !insertmacro MUI_LANGUAGE "Polish"
   
-  !include "MumbleNorwegian.nsh"
   !include "MumbleEnglish.nsh"
   !include "MumbleGerman.nsh"
+  !include "MumbleNorwegian.nsh"
+  !include "MumblePolish.nsh"
   
   !insertmacro MUI_RESERVEFILE_LANGDLL
 
@@ -98,11 +100,11 @@ Section "Mumble & Murmur" SecMumble
 
   SetOutPath "$INSTDIR"
 
-  FindProcDLL::FindProc "dbus-daemon.exe"
+  FindProcUnicode::FindProc "dbus-daemon.exe"
 
   IntCmp 0 $R0 NoDBusRunning
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON1 $(MUMBLE_TERMINATE_DBUS) IDNO NoDBusRunning
-  KillProcDLL::KillProc "dbus-daemon.exe"
+  FindProcUnicode::KillProc "dbus-daemon.exe"
  NoDBusRunning:
 
   File /oname=license.txt "gpl.txt"
@@ -228,7 +230,7 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   SectionIn RO
   SetShellVarContext all
 
-  KillProcDLL::KillProc "dbus-daemon.exe"
+  FindProcUnicode::KillProc "dbus-daemon.exe"
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
