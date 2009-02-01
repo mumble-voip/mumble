@@ -245,6 +245,10 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
+	else if (key == "playername")
+		qrPlayerName=!v.isNull() ? QRegExp(v) : Meta::mp.qrPlayerName;
+	else if (key == "channelname")
+		qrChannelName=!v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
 }
 
 
