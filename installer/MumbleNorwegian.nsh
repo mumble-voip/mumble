@@ -3,6 +3,7 @@
 LangString MUMBLE_CREATE_SHORTCUT ${LANG_NORWEGIAN} "Lag snarvei på skrivebordet"
 LangString MUMBLE_DONATE ${LANG_NORWEGIAN} "Doner til Mumble"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_NORWEGIAN} "DBus demonen som Mumble bruker kjører for øyeblikket. Avslutte demonen så den kan oppdateres?"
+LangString MUMBLE_NO_SSE ${LANG_NORWEGIAN} "Mumble krever SSE, en prosessorutvidelse som bare finnes på Intel Pentium III, AMD Athlon XP og nyerer prosessorer. SSE er ikke støttet av din prosessor, og det er usannsynlig at Mumble vil fungere. Ønsker du fortsatt å installerer Mumble?"
 
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_NORWEGIAN} "Mumble Lesmeg"

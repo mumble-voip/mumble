@@ -86,6 +86,9 @@ Page custom PageReinstall PageLeaveReinstall
   !include "MumblePolish.nsh"
   
   !insertmacro MUI_RESERVEFILE_LANGDLL
+  
+  ReserveFile "${NSISDIR}\Plugins\FindProcUnicode.dll"
+  ReserveFile "${NSISDIR}\Plugins\CPUFeatures.dll"
 
 Function Desktop_Shortcut
   SetOutPath "$INSTDIR"
@@ -409,6 +412,13 @@ reinst_done:
 FunctionEnd
 
 Function .onInit
+  Push $R0
+  CPUFeatures::hasSSE
+  Pop $0
+  StrCmp $0 "1" hasSSE 0
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_SSE) IDYES hasSSE
+  Abort
+ hasSSE:
   !insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
 

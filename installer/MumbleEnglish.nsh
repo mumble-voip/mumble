@@ -3,6 +3,7 @@
 LangString MUMBLE_CREATE_SHORTCUT ${LANG_ENGLISH} "Create Desktop Shortcut"
 LangString MUMBLE_DONATE ${LANG_ENGLISH} "Donate to the Mumble project"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_ENGLISH} "The DBus daemon used by Mumble is currently running. Terminate the daemon so it can be updated?"
+LangString MUMBLE_NO_SSE ${LANG_ENGLISH} "Mumble requires SSE, which is a feature only found on the Intel Pentium III, AMD Athlon XP or newer processors. SSE was not detected on your processor, and Mumble is unlikely to work. Do you still wish to install Mumble?"
 
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_ENGLISH} "Mumble Readme"

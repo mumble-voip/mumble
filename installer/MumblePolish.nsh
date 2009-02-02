@@ -5,6 +5,7 @@
 LangString MUMBLE_CREATE_SHORTCUT ${LANG_POLISH} "Utwórz skrót na pulpicie"
 LangString MUMBLE_DONATE ${LANG_POLISH} "Wesprzyj projekt Mumble"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_POLISH} "Proces DBus jest w tej chwili uruchomiony. Czy chcesz zakończyć działanie procesu, aby dokonać aktualizacji?"
+LangString MUMBLE_NO_SSE ${LANG_POLISH} "Mumble requires SSE, which is a feature only found on the Intel Pentium III, AMD Athlon XP or newer processors. SSE was not detected on your processor, and Mumble is unlikely to work. Do you still wish to install Mumble?"
 
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_POLISH} "Plik Czytaj To"
