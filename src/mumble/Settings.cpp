@@ -136,6 +136,7 @@ Settings::Settings() {
 
 	qmMessages[Log::DebugInfo] = Settings::LogConsole;
 	qmMessages[Log::Information] = Settings::LogConsole;
+	qmMessages[Log::ScriptError] = Settings::LogConsole;
 
 	iServerRow = -1;
 }

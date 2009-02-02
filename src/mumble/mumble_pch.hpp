@@ -20,6 +20,7 @@
 #include <QtOpenGL/QtOpenGL>
 #include <QtSql/QtSql>
 #include <QtXml/QtXml>
+#include <QtScript/QtScript>
 
 #include <openssl/aes.h>
 #include <openssl/rand.h>

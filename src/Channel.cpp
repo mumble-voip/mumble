@@ -64,7 +64,7 @@ Channel::~Channel() {
 		unlink(l);
 
 	Q_ASSERT(qlChannels.count() == 0);
-	Q_ASSERT(children().count() == 0);
+	Q_ASSERT(qlPlayers.count() == 0);
 }
 
 Channel *Channel::get(int id) {

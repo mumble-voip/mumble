@@ -133,7 +133,8 @@ const char *Log::msgNames[] = {
 	QT_TR_NOOP("Player Joined Channel"),
 	QT_TR_NOOP("Player Left Channel"),
 	QT_TR_NOOP("Permission Denied"),
-	QT_TR_NOOP("Text Message")
+	QT_TR_NOOP("Text Message"),
+	QT_TR_NOOP("Script Errors")
 };
 
 QString Log::msgName(MsgType t) const {
