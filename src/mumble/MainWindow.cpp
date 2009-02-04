@@ -230,7 +230,6 @@ void MainWindow::setupGui()  {
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
 	menubar->insertMenu(qmHelp->menuAction(), qmWindow);
 	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
-	qmWindow->addAction(tr("Close"), this, SLOT(on_qaQuit_triggered()), QKeySequence(tr("Ctrl+W")));
 #endif
 
 	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
