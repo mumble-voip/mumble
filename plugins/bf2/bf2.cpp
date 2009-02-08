@@ -84,10 +84,10 @@ static bool sane(float *pos, float *vel, float *face, float *top, bool initial =
 
 	float min = (initial) ? 0.1f : 0.00001f;
 
-	// Sanity check #1: Position should be from -1000 to +1000, and not 0.
+	// Sanity check #1: Position should be from -2000 to +2000, and not 0.
 	for (i=0;i<3;i++) {
 		ok = ok && (fabs(pos[i]) > min);
-		ok = ok && (fabs(pos[i]) < 1000.0);
+		ok = ok && (fabs(pos[i]) < 2000.0);
 	}
 	if (! ok) {
 		return false;
