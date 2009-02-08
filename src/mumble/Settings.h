@@ -84,7 +84,7 @@ struct Settings {
 	bool bEcho;
 	bool bPositionalAudio;
 	bool bPositionalHeadphone;
-	float fAudioMinDistance, fAudioMaxDistance, fAudioRollOff, fAudioBloom;
+	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;
 
 	bool bOverlayEnable;
 	bool bOverlayUserTextures;

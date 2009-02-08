@@ -311,7 +311,7 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 
 
 	// No distance attenuation
-	if (g.s.fAudioRollOff < 0.01f) {
+	if (g.s.fAudioMaxDistVolume > 0.99f) {
 		att = qMin(1.0f, dotfactor + g.s.fAudioBloom);
 	} else if (distance < g.s.fAudioMinDistance) {
 		float bloomfac = g.s.fAudioBloom * (1.0f - distance/g.s.fAudioMinDistance);
@@ -320,7 +320,7 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 	} else {
 		if (distance > g.s.fAudioMaxDistance)
 			distance = g.s.fAudioMaxDistance;
-		float datt = g.s.fAudioMinDistance / (g.s.fAudioMinDistance + (distance-g.s.fAudioMinDistance)*g.s.fAudioRollOff);
+		float datt = 1.0f - (distance-g.s.fAudioMinDistance) / (g.s.fAudioMaxDistance - g.s.fAudioMinDistance) * (1.0f - g.s.fAudioMaxDistVolume);
 
 		att = datt * dotfactor;
 	}
@@ -614,8 +614,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					/*
 										qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
 					*/
-					for (unsigned int i=0;i<nsamp;++i)
-						o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
+					if ((old >= 0.00000001f) || (str >= 0.00000001f))
+						for (unsigned int i=0;i<nsamp;++i)
+							o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
 				}
 			} else {
 				for (unsigned int s=0;s<nchan;++s) {

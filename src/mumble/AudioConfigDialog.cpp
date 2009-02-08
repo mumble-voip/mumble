@@ -353,7 +353,7 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadSlider(qsPacketLoss, static_cast<int>(lroundf(r.dPacketLoss * 100.0)));
 	loadSlider(qsMinDistance, lroundf(r.fAudioMinDistance * 10));
 	loadSlider(qsMaxDistance, lroundf(r.fAudioMaxDistance * 10));
-	loadSlider(qsRollOff, lroundf(r.fAudioRollOff * 100));
+	loadSlider(qsMaxDistVolume, lroundf(r.fAudioMaxDistVolume * 100));
 	loadSlider(qsBloom, lround(r.fAudioBloom * 100));
 	loadCheckBox(qcbHeadphones, r.bPositionalHeadphone);
 	loadCheckBox(qcbPositional, r.bPositionalAudio);
@@ -370,7 +370,7 @@ void AudioOutputDialog::save() const {
 	s.dPacketLoss = static_cast<float>(qsPacketLoss->value()) / 100.0f;
 	s.fAudioMinDistance = static_cast<float>(qsMinDistance->value()) / 10.0f;
 	s.fAudioMaxDistance = static_cast<float>(qsMaxDistance->value()) / 10.0f;
-	s.fAudioRollOff = static_cast<float>(qsRollOff->value()) / 100.0f;
+	s.fAudioMaxDistVolume = static_cast<float>(qsMaxDistVolume->value()) / 100.0f;
 	s.fAudioBloom = static_cast<float>(qsBloom->value()) / 100.0f;
 	s.bPositionalAudio = qcbPositional->isChecked();
 	s.bPositionalHeadphone = qcbHeadphones->isChecked();
@@ -471,12 +471,12 @@ void AudioOutputDialog::on_qsMaxDistance_valueChanged(int v) {
 		qsMinDistance->setValue(v);
 }
 
-void AudioOutputDialog::on_qsRollOff_valueChanged(int v) {
-	qlRollOff->setText(tr("%1").arg(v/100.0, 0, 'f', 2));
+void AudioOutputDialog::on_qsMaxDistVolume_valueChanged(int v) {
+	qlMaxDistVolume->setText(tr("%1%").arg(v));
 }
 
 void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
-	qlBloom->setText(tr("%1%").arg(v));
+	qlBloom->setText(tr("%1%").arg(v+100));
 }
 
 void AudioOutputDialog::on_qcbPositional_stateChanged(int v) {

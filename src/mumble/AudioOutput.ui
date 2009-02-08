@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>504</height>
+    <width>435</width>
+    <height>602</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -279,18 +279,31 @@
      <property name="title" >
       <string>Volume attenuation</string>
      </property>
-     <layout class="QGridLayout" >
-      <item row="1" column="0" >
+     <layout class="QGridLayout" name="gridLayout_2" >
+      <item row="0" column="3" colspan="3" >
+       <widget class="QCheckBox" name="qcbHeadphones" >
+        <property name="toolTip" >
+         <string>Connected "speakers" are actually headphones.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>Checking this indicates that you don't have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</string>
+        </property>
+        <property name="text" >
+         <string>Headphones</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
        <widget class="QLabel" name="label_10" >
         <property name="text" >
-         <string>MinDistance</string>
+         <string>Minimum Distance</string>
         </property>
         <property name="buddy" >
          <cstring>qsMinDistance</cstring>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
+      <item row="1" column="3" >
        <widget class="QSlider" name="qsMinDistance" >
         <property name="toolTip" >
          <string>Minimum distance to player before sound decreases</string>
@@ -309,7 +322,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2" >
+      <item row="1" column="5" >
        <widget class="QLabel" name="qlMinDistance" >
         <property name="minimumSize" >
          <size>
@@ -322,17 +335,17 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" >
+      <item row="3" column="1" >
        <widget class="QLabel" name="label_8" >
         <property name="text" >
-         <string>MaxDistance</string>
+         <string>Maximum Distance</string>
         </property>
         <property name="buddy" >
          <cstring>qsMaxDistance</cstring>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
+      <item row="3" column="3" >
        <widget class="QSlider" name="qsMaxDistance" >
         <property name="toolTip" >
          <string>Maximum distance, beyond which sound won't decrease</string>
@@ -351,7 +364,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2" >
+      <item row="3" column="5" >
        <widget class="QLabel" name="qlMaxDistance" >
         <property name="minimumSize" >
          <size>
@@ -364,34 +377,34 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" >
+      <item row="4" column="1" >
        <widget class="QLabel" name="label_9" >
         <property name="text" >
-         <string>RollOff</string>
+         <string>Minimum Volume</string>
         </property>
         <property name="buddy" >
-         <cstring>qsRollOff</cstring>
+         <cstring>qsMaxDistVolume</cstring>
         </property>
        </widget>
       </item>
-      <item row="3" column="1" >
-       <widget class="QSlider" name="qsRollOff" >
+      <item row="4" column="3" >
+       <widget class="QSlider" name="qsMaxDistVolume" >
         <property name="toolTip" >
          <string>Factor for sound volume decrease</string>
         </property>
         <property name="whatsThis" >
-         <string>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</string>
+         <string>What should the volume be at the maximum distance?</string>
         </property>
         <property name="maximum" >
-         <number>200</number>
+         <number>100</number>
         </property>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
-      <item row="3" column="2" >
-       <widget class="QLabel" name="qlRollOff" >
+      <item row="4" column="5" >
+       <widget class="QLabel" name="qlMaxDistVolume" >
         <property name="minimumSize" >
          <size>
           <width>40</width>
@@ -403,33 +416,17 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" >
+      <item row="2" column="1" >
        <widget class="QLabel" name="label_11" >
         <property name="text" >
          <string>Bloom</string>
         </property>
         <property name="buddy" >
-         <cstring>qsRollOff</cstring>
+         <cstring>qsMaxDistVolume</cstring>
         </property>
        </widget>
       </item>
-      <item row="4" column="1" >
-       <widget class="QSlider" name="qsBloom" >
-        <property name="toolTip" >
-         <string>Factor for sound volume increase</string>
-        </property>
-        <property name="whatsThis" >
-         <string>How much should sound volume increase for sources that are really close?</string>
-        </property>
-        <property name="maximum" >
-         <number>100</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2" >
+      <item row="2" column="5" >
        <widget class="QLabel" name="qlBloom" >
         <property name="minimumSize" >
          <size>
@@ -442,16 +439,22 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2" >
-       <widget class="QCheckBox" name="qcbHeadphones" >
+      <item row="2" column="3" >
+       <widget class="QSlider" name="qsBloom" >
         <property name="toolTip" >
-         <string>Connected "speakers" are actually headphones.</string>
+         <string>Factor for sound volume increase</string>
         </property>
         <property name="whatsThis" >
-         <string>Checking this indicates that you don't have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</string>
+         <string>How much should sound volume increase for sources that are really close?</string>
         </property>
-        <property name="text" >
-         <string>Headphones</string>
+        <property name="minimum" >
+         <number>0</number>
+        </property>
+        <property name="maximum" >
+         <number>75</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>

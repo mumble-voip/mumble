@@ -87,9 +87,9 @@ Settings::Settings() {
 
 	bPositionalAudio = false;
 	bPositionalHeadphone = false;
-	fAudioMinDistance = 10.0f;
-	fAudioMaxDistance = 50.0f;
-	fAudioRollOff = 0.15f;
+	fAudioMinDistance = 1.0f;
+	fAudioMaxDistance = 15.0f;
+	fAudioMaxDistVolume = 0.15f;
 	fAudioBloom = 0.5f;
 
 	bOverlayEnable = true;
@@ -198,7 +198,7 @@ void Settings::load() {
 	SAVELOAD(iIdleTime, "audio/idletime");
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
-	SAVELOAD(fAudioRollOff, "audio/rolloff");
+	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
 	SAVELOAD(bPositionalAudio, "audio/positional");
@@ -335,7 +335,7 @@ void Settings::save() {
 	SAVELOAD(iIdleTime, "audio/idletime");
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
-	SAVELOAD(fAudioRollOff, "audio/rolloff");
+	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
 	SAVELOAD(bPositionalAudio, "audio/positional");
