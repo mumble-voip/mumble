@@ -64,9 +64,7 @@ class ScriptPlayer : public QObject, protected QScriptable {
 		void setChannel(const QScriptValue &);
 		void sendMessage(const QString &);
 	signals:
-		void muted(bool);
-		void deafened(bool);
-		void moved(int);
+		void moved();
 };
 
 class ScriptChannel : public QObject, protected QScriptable {
@@ -90,7 +88,7 @@ class ScriptChannel : public QObject, protected QScriptable {
 		QScriptValue getChildren() const;
 		void sendMessage(const QString &, bool);
 	signals:
-		void moved(int);
+		void moved();
 };
 
 class ScriptServer : public QObject, protected QScriptable {
@@ -111,7 +109,7 @@ class ScriptServer : public QObject, protected QScriptable {
 		void newPlayer(QScriptValue);
 		void newChannel(QScriptValue);
 		void connected();
-		void disconnected();
+		void disconnected(QString reason);
 };
 
 class MumbleScript : public QObject {
@@ -132,14 +130,15 @@ class MumbleScript : public QObject {
 		void evaluate(const QString &code);
 
 		void addPlayer(ClientPlayer *p);
+		void movePlayer(ClientPlayer *p);
 		void addChannel(Channel *c);
+		void moveChannel(Channel *c);
+		void connected();
 	public slots:
 		void playerDeleted(QObject *);
 		void channelDeleted(QObject *);
 		void errorHandler(const QScriptValue &);
 };
-
-// TODO: Redefine print()
 
 class MumbleScripts : public QObject {
 	friend class MumbleScript;
@@ -152,7 +151,10 @@ class MumbleScripts : public QObject {
 		~MumbleScripts();
 		void createEvaluate(const QString &code);
 		void addPlayer(ClientPlayer *p);
+		void movePlayer(ClientPlayer *p);
 		void addChannel(Channel *c);
+		void moveChannel(Channel *c);
+		void connected();
 };
 
 #endif

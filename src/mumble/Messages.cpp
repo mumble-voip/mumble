@@ -55,7 +55,6 @@ void MainWindow::msgServerJoin(Connection *, MessageServerJoin *msg) {
 	ClientPlayer *p = pmModel->addPlayer(msg->uiSession, msg->qsPlayerName);
 	p->iId = msg->iId;
 	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined server: %1.").arg(p->qsName));
-	g.ms->addPlayer(p);
 }
 
 #define MSG_INIT \
@@ -236,7 +235,6 @@ void MainWindow::msgChannelAdd(Connection *, MessageChannelAdd *msg) {
 	Channel *p = Channel::get(msg->iParent);
 	if (p) {
 		Channel *c = pmModel->addChannel(msg->iId, p, msg->qsName);
-		g.ms->addChannel(p);
 	}
 }
 

@@ -215,31 +215,7 @@ int main(int argc, char **argv) {
 	if (g.ao)
 		g.ao->start(QThread::HighPriority);
 
-	g.ms = new MumbleScripts(NULL);
-
 	a.setQuitOnLastWindowClosed(false);
-
-	g.ms->createEvaluate(QLatin1String(""
-		"var fun = function (v) {"
-		"	print(v);"
-		"	print(v.name);"
-		"	print(v.id);"
-		"	print(v.session);"
-		"	v.id = 12345;"
-		"	print(v.id);"
-		"	print(\"Tadah\");"
-		"	print(server.tull);"
-		"	server.tull = 3;"
-		"	print(server.tull);"
-		"	print(v.channel.id);"
-		"	print(server.root);"
-		"	print(server.root.children);"
-		"	v.channel = server.root;"
-		"	v.channel = \"Hei\";"
-		"};"
-		"server.newPlayer.connect(fun);"
-		"print(1+2);"
-));
 
 	if (g.s.bFirstTime) {
 		if (QMessageBox::question(g.mw, MainWindow::tr("Mumble"), MainWindow::tr("This is the first time you're starting Mumble.<br />Would you like to go through the Audio Wizard to configure your soundcard?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
@@ -271,8 +247,6 @@ int main(int argc, char **argv) {
 	g.ai.reset();
 
 	g.sh->disconnect();
-
-	delete g.ms;
 
 	// This causes QT to complain. Fatally. It's either a bug in
 	// my code or the QT code.

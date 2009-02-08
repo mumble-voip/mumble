@@ -31,6 +31,7 @@
 #include "MumbleScript.h"
 #include "Global.h"
 #include "Log.h"
+#include "ServerHandler.h"
 
 ScriptPlayer::ScriptPlayer(ClientPlayer *p) : QObject(p) {
 }
@@ -174,6 +175,8 @@ QScriptValue ScriptServer::getRoot() const {
 }
 
 QScriptValue ScriptServer::loadUi(const QString &name) {
+	QUiLoader *ui = new QUiLoader();
+
 	qWarning() << "ScriptServer::loadUi" << name;
 	return QScriptValue();
 }
@@ -206,6 +209,8 @@ MumbleScript::MumbleScript(MumbleScripts *p) : QObject(p) {
 	qseEngine->globalObject().setProperty(QLatin1String("print"), qseEngine->newFunction(mumbleScriptPrint), QScriptValue::ReadOnly | QScriptValue::Undeletable);
 
 	connect(qseEngine, SIGNAL(signalHandlerException (const QScriptValue &)), this, SLOT(errorHandler(const QScriptValue &)));
+
+	connect(g.sh, SIGNAL(disconnected(QString)), ssServer, SIGNAL(disconnected(QString)));
 }
 
 MumbleScript::~MumbleScript() {
@@ -235,11 +240,21 @@ void MumbleScript::addPlayer(ClientPlayer *p) {
 	emit ssServer->newPlayer(qseEngine->newQObject(sp, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject));
 }
 
+void MumbleScript::movePlayer(ClientPlayer *p) {
+	ScriptPlayer *sp = qmPlayers.value(p);
+	emit sp->moved();
+}
+
 void MumbleScript::addChannel(Channel *c) {
 	connect(c, SIGNAL(destroyed(QObject *)), this, SLOT(channelDeleted(QObject *)));
 	ScriptChannel *sc = new ScriptChannel(c);
 	qmChannels.insert(c, sc);
 	emit ssServer->newChannel(qseEngine->newQObject(sc, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject));
+}
+
+void MumbleScript::moveChannel(Channel *c) {
+	ScriptChannel *sc = qmChannels.value(c);
+	emit sc->moved();
 }
 
 void MumbleScript::playerDeleted(QObject *obj) {
@@ -250,6 +265,10 @@ void MumbleScript::playerDeleted(QObject *obj) {
 void MumbleScript::channelDeleted(QObject *obj) {
 	Channel *c=qobject_cast<Channel *>(obj);
 	qmChannels.remove(c);
+}
+
+void MumbleScript::connected() {
+	emit ssServer->connected();
 }
 
 MumbleScripts::MumbleScripts(QObject *p) : QObject(p) {
@@ -271,7 +290,22 @@ void MumbleScripts::addPlayer(ClientPlayer *p) {
 		ms->addPlayer(p);
 }
 
+void MumbleScripts::movePlayer(ClientPlayer *p) {
+	foreach(MumbleScript *ms, qlScripts)
+		ms->movePlayer(p);
+}
+
 void MumbleScripts::addChannel(Channel *c) {
 	foreach(MumbleScript *ms, qlScripts)
 		ms->addChannel(c);
+}
+
+void MumbleScripts::moveChannel(Channel *c) {
+	foreach(MumbleScript *ms, qlScripts)
+		ms->moveChannel(c);
+}
+
+void MumbleScripts::connected() {
+	foreach(MumbleScript *ms, qlScripts)
+		ms->connected();
 }

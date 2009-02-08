@@ -34,7 +34,6 @@
 #include "Settings.h"
 #include "Timer.h"
 #include "Version.h"
-#include "MumbleScript.h"
 
 // Global helper class to spread variables around across threads.
 
@@ -65,7 +64,6 @@ public:
 	QSettings *qs;
 	Overlay *o;
 	LCD *lcd;
-	MumbleScripts *ms;
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;
