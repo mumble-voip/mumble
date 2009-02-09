@@ -78,7 +78,7 @@ class AudioWizard: public QWizard {
 		QGraphicsScene *qgsScene;
 		QGraphicsItem *qgiSource;
 		QCheckBox *qcbHeadphone;
-		AudioSine *asSource;
+		AudioOutputSample *aosSource;
 		float fAngle;
 		float fX, fY;
 

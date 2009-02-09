@@ -113,6 +113,88 @@ void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
 	}
 }
 
+AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigned int freq) : AudioOutputPlayer(filename) {
+	dsDecState=speex_decoder_init(&speex_wb_mode);
+
+	int iArg=1;
+	int err;
+
+	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
+	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
+
+	if (freq != SAMPLE_RATE)
+		srs = speex_resampler_init(1, SAMPLE_RATE, freq, 3, &err);
+	else
+		srs = NULL;
+
+	iOutputSize = lroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
+
+	iBufferOffset = iBufferFilled = iLastConsume = 0;
+
+	bLoop = false;
+
+	QFile f(filename);
+	if (! f.open(QIODevice::ReadOnly)) {
+		speex_bits_init(&sbBits);
+		return;
+	}
+
+	qbaSample = f.readAll();
+	f.close();
+
+	speex_bits_set_bit_buffer(&sbBits, reinterpret_cast<void *>(const_cast<char *>(qbaSample.constData())), qbaSample.length());
+	speex_bits_rewind(&sbBits);
+
+	bLoop = loop;
+}
+
+AudioOutputSample::~AudioOutputSample() {
+	speex_decoder_destroy(dsDecState);
+	speex_bits_destroy(&sbBits);
+}
+
+bool AudioOutputSample::needSamples(unsigned int snum) {
+	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
+		pfBuffer[i-iLastConsume]=pfBuffer[i];
+	iBufferFilled -= iLastConsume;
+
+	iLastConsume = snum;
+
+	if (iBufferFilled >= snum)
+		return bLastAlive;
+
+	float *pOut;
+	STACKVAR(float, fOut, iFrameSize);
+
+	while (iBufferFilled < snum) {
+		resizeBuffer(iBufferFilled + iOutputSize);
+
+		pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
+
+		speex_bits_advance(&sbBits, speex_bits_remaining(&sbBits) & 7);
+
+		if ((speex_bits_remaining(&sbBits) == 0) && bLoop)
+			speex_bits_rewind(&sbBits);
+
+		if (speex_decode(dsDecState, &sbBits, pOut) != 0) {
+			memset(pOut, 0, sizeof(float) * iFrameSize);
+			if (! bLastAlive)
+				return false;
+			bLastAlive = false;
+		} else {
+			bLastAlive = true;
+		}
+
+		spx_uint32_t inlen = iFrameSize;
+		spx_uint32_t outlen = iOutputSize;
+		if (srs)
+			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+		iBufferFilled += outlen;
+	}
+
+	return true;
+}
+
 AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : AudioOutputPlayer(player->qsName) {
 	p = player;
 
@@ -271,6 +353,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 	return bLastAlive;
 }
 
+
 AudioOutput::AudioOutput() {
 	void *ds=speex_decoder_init(&speex_wb_mode);
 	speex_decoder_ctl(ds, SPEEX_GET_FRAME_SIZE, &iFrameSize);
@@ -348,6 +431,17 @@ AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float v
 	qmOutputs.insert(NULL, as);
 	qrwlOutputs.unlock();
 	return as;
+}
+
+AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
+	while ((iMixerFreq == 0) && isRunning()) {}
+
+	qrwlOutputs.lockForWrite();
+	AudioOutputSample *aos = new AudioOutputSample(filename, loop, iMixerFreq);
+	qmOutputs.insert(NULL, aos);
+	qrwlOutputs.unlock();
+	return aos;
+
 }
 
 void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPacket, unsigned int iSeq) {

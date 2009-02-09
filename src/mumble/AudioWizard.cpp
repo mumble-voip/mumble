@@ -301,7 +301,7 @@ CompletablePage *AudioWizard::positionalPage() {
 	fX = fY = 0.0f;
 	qgsScene = NULL;
 	qgiSource = NULL;
-	asSource = NULL;
+	aosSource = NULL;
 	qgvView = new QGraphicsView(qwpage);
 	qgvView->scale(1.0f, -1.0f);
 	qgvView->viewport()->installEventFilter(this);
@@ -614,7 +614,7 @@ void AudioWizard::showPage(int) {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
-	asSource = NULL;
+	aosSource = NULL;
 
 	g.bPosTest = false;
 
@@ -624,7 +624,7 @@ void AudioWizard::showPage(int) {
 		g.s.bMute = true;
 	} else if (cp == qwpDeviceTuning) {
 		g.s.bMute = true;
-		ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
+		playChord();
 	} else if (cp == qwpPositional) {
 		fX = fY = 0.0f;
 		g.s.bMute = true;
@@ -653,16 +653,16 @@ int AudioWizard::nextId() const {
 
 void AudioWizard::playChord() {
 	AudioOutputPtr ao = g.ao;
-	if (! ao || asSource)
+	if (! ao || aosSource)
 		return;
-	asSource = ao->playSine(100.0f, 0.0001f, 0xfffffff, 0.5f);
+	aosSource = ao->playSample(QLatin1String("skin:wb_male.spx"), true);
 }
 
 void AudioWizard::restartAudio() {
 	boost::weak_ptr<AudioInput> wai(g.ai);
 	boost::weak_ptr<AudioOutput> wao(g.ao);
 
-	asSource = NULL;
+	aosSource = NULL;
 
 	g.ai.reset();
 	g.ao.reset();
@@ -794,9 +794,9 @@ void AudioWizard::on_Ticker_timeout() {
 		}
 
 		qgiSource->setPos(xp, yp);
-		asSource->fPos[0] = xp;
-		asSource->fPos[1] = 0;
-		asSource->fPos[2] = yp;
+		aosSource->fPos[0] = xp;
+		aosSource->fPos[1] = 0;
+		aosSource->fPos[2] = yp;
 	}
 }
 

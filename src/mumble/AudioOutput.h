@@ -140,6 +140,29 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		~AudioOutputSpeech();
 };
 
+class AudioOutputSample : public AudioOutputPlayer {
+	friend class AudioOutput;
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(AudioOutputSample)
+	protected:
+		unsigned int iBufferOffset;
+		unsigned int iBufferFilled;
+		unsigned int iOutputSize;
+		unsigned int iLastConsume;
+		unsigned int iFrameSize;
+		QByteArray qbaSample;
+		SpeexBits sbBits;
+		void *dsDecState;
+		SpeexResamplerState *srs;
+		bool bLastAlive;
+		bool bLoop;
+	public:
+		virtual bool needSamples(unsigned int snum);
+		AudioOutputSample(const QString &filename, bool repeat, unsigned int freq);
+		~AudioOutputSample();
+};
+
 class AudioSine : public AudioOutputPlayer {
 	private:
 		Q_OBJECT
@@ -188,6 +211,7 @@ class AudioOutput : public QThread {
 		void addFrameToBuffer(ClientPlayer *, const QByteArray &, unsigned int iSeq);
 		void removeBuffer(const ClientPlayer *);
 		AudioSine *playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3f);
+		AudioOutputSample *playSample(const QString &filename, bool loop);
 		void run() = 0;
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);
