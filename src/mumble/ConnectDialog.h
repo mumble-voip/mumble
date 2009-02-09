@@ -64,6 +64,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		void initList();
 		void fillList();
+		void fillEmpty();
 	public slots:
 		void accept();
 		void on_qpbAdd_clicked();

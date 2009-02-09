@@ -31,6 +31,7 @@
 #include "ConnectDialog.h"
 #include "Global.h"
 #include "ServerHandler.h"
+#include "Channel.h"
 
 TextSortedItem::TextSortedItem(QTreeWidget *p, const QStringList &strings) : QTreeWidgetItem(p, strings) {
 }
@@ -93,11 +94,15 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 
-	QModelIndex idx = qstmServers->index(g.s.iServerRow, 0);
-	if (idx.isValid()) {
-		qlwServers->setCurrentIndex(idx);
-	} else if (qstmServers->rowCount() > 0) {
-		qlwServers->setCurrentIndex(qstmServers->index(0,0));
+	if (g.sh && g.sh->isRunning()) {
+		fillEmpty();
+	} else {
+		QModelIndex idx = qstmServers->index(g.s.iServerRow, 0);
+		if (idx.isValid()) {
+			qlwServers->setCurrentIndex(idx);
+		} else if (qstmServers->rowCount() > 0) {
+			qlwServers->setCurrentIndex(qstmServers->index(0,0));
+		}
 	}
 
 	fillList();
@@ -310,28 +315,41 @@ void ConnectDialog::on_qpbAdd_clicked() {
 		}
 	}
 
+	fillEmpty();
+}
+
+void ConnectDialog::fillEmpty() {
 	qlwServers->setCurrentIndex(QModelIndex());
 
 	QString host, user, pw;
+	QString name = tr("-Unnamed entry-");
 	unsigned short port = 64738;
+	bool ready = false;
 
 	if (g.sh && g.sh->isRunning()) {
 		g.sh->getConnectionInfo(host, port, user, pw);
+		Channel *c = Channel::get(0);
+		if (c) {
+			if (c->qsName != QLatin1String("Root")) {
+				name = c->qsName;
+				ready = true;
+			}
+		}
 	} else {
 		user = g.s.qsUsername;
 		pw = QString();
 		host = QLatin1String("host");
 	}
-	qleName->setText(tr("-Unnamed entry-"));
+	qleName->setText(name);
 	qleServer->setText(host);
 	qleUsername->setText(user);
 	qlePassword->setText(pw);
 	qlePort->setText(QString::number(port));
 
 	qpbAdd->setText(tr("Add"));
-	qpbAdd->setEnabled(false);
+	qpbAdd->setEnabled(ready);
 
-	bDirty = false;
+	bDirty = ready;
 }
 
 void ConnectDialog::on_qpbRemove_clicked() {
@@ -344,18 +362,7 @@ void ConnectDialog::on_qpbRemove_clicked() {
 	qstmServers->submitAll();
 	qstmServers->select();
 
-	qlwServers->setCurrentIndex(QModelIndex());
-
-	qleName->setText(tr("-Unnamed entry-"));
-	qleServer->setText(QString());
-	qleUsername->setText(g.s.qsUsername);
-	qlePassword->setText(QString());
-	qlePort->setText(QLatin1String("64738"));
-
-	qpbAdd->setText(tr("Add"));
-	qpbAdd->setEnabled(false);
-
-	bDirty = false;
+	fillEmpty();
 }
 
 void ConnectDialog::onDirty(const QString &) {
