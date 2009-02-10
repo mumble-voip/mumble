@@ -180,9 +180,6 @@ class Server : public QThread, public MessageHandler {
 		QReadWriteLock qrwlUsers;
 		ChanACL::ACLCache acCache;
 		QMutex qmCache;
-#ifdef USE_DBUS
-		MurmurDBus *dbus;
-#endif
 		QHash<int, QByteArray> qhUserTextureCache;
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;

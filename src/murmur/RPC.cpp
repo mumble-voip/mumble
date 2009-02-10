@@ -213,6 +213,11 @@ void Server::connectListener(QObject *obj) {
 	connect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));
 }
 
+void Meta::connectListener(QObject *obj) {
+	connect(this, SIGNAL(started(Server *)), obj, SLOT(started(Server *)));
+	connect(this, SIGNAL(stopped(Server *)), obj, SLOT(stopped(Server *)));
+}
+
 void Meta::getVersion(int &major, int &minor, int &patch, QString &string) {
 	string = QLatin1String(MUMBLE_RELEASE);
 	major = minor = patch = 0;

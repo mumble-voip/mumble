@@ -263,9 +263,6 @@ void MetaParams::read(QString fname) {
 }
 
 Meta::Meta() {
-#ifdef USE_DBUS
-	dbus = NULL;
-#endif
 }
 
 void Meta::getOSInfo() {

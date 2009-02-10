@@ -148,12 +148,6 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	if (bValid)
 		initRegister();
 
-#ifdef USE_DBUS
-	dbus = new MurmurDBus(this);
-	if (MurmurDBus::qdbc.isConnected())
-		MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(iServerNum), this);
-#endif
-
 	bRunning = true;
 }
 

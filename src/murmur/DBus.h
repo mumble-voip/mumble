@@ -230,6 +230,7 @@ class MetaDBus : public QDBusAbstractAdaptor {
 	public:
 		MetaDBus(Meta *m);
 
+	public slots:
 		void started(Server *s);
 		void stopped(Server *s);
 	public slots:

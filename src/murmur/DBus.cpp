@@ -959,9 +959,14 @@ void MurmurDBus::channelRemoved(const Channel *c) {
 
 MetaDBus::MetaDBus(Meta *m) : QDBusAbstractAdaptor(m) {
 	meta = m;
+	m->connectListener(this);
 }
 
 void MetaDBus::started(Server *s) {
+       new MurmurDBus(s);
+       if (MurmurDBus::qdbc.isConnected())
+       	MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(s->iServerNum), s);
+                               
 	emit started(s->iServerNum);
 }
 

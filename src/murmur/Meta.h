@@ -99,9 +99,6 @@ class Meta : public QObject {
 		QHash<QHostAddress, QList<Timer> > qhAttempts;
 		QHash<QHostAddress, Timer> qhBans;
 		QString qsOS, qsOSVersion;
-#ifdef USE_DBUS
-		MetaDBus *dbus;
-#endif
 
 		Meta();
 		void bootAll();
@@ -110,6 +107,7 @@ class Meta : public QObject {
 		void kill(int);
 		void killAll();
 		void getOSInfo();
+		void connectListener(QObject *);
 		static void getVersion(int &major, int &minor, int &patch, QString &string);
 	signals:
 		void started(Server *);
