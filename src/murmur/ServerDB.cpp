@@ -586,7 +586,7 @@ bool Server::getRegistration(int id, QString &name, QString &email) {
 
 int Server::authenticate(QString &name, const QString &pw) {
 	int res = -2;
-	
+
 	emit authenticateSig(res, name, pw);
 
 	if (res != -2) {
@@ -634,7 +634,7 @@ int Server::authenticate(QString &name, const QString &pw) {
 
 bool Server::setPW(int id, const QString &pw) {
 	int res = -2;
-	
+
 	emit setPwSig(res, id, pw);
 	if (res >= 0)
 		return (res > 0);
@@ -658,7 +658,7 @@ bool Server::setPW(int id, const QString &pw) {
 bool Server::setEmail(int id, const QString &email) {
 	if (id <= 0)
 		return false;
-	
+
 	int res = -2;
 	emit setEmailSig(res, id, email);
 

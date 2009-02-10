@@ -65,29 +65,29 @@ static void about(HWND h) {
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
-		top[0] = 0.0f;
-		top[1] = 0.0f;
-		top[2] = 0.0f;
+	top[0] = 0.0f;
+	top[1] = 0.0f;
+	top[2] = 0.0f;
 
-		float h = rot[0];
-		float v = rot[1];
+	float h = rot[0];
+	float v = rot[1];
 
-		if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
-			return false;
+	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
+		return false;
 
-		h *= static_cast<float>(M_PI / 180.0f);
-		v *= static_cast<float>(M_PI / 180.0f);
+	h *= static_cast<float>(M_PI / 180.0f);
+	v *= static_cast<float>(M_PI / 180.0f);
 
-		// Seems L4D is in inches. INCHES?!?
-		opos[0] = pos[0] / 39.37f;
-		opos[1] = pos[2] / 39.37f;
-		opos[2] = pos[1] / 39.37f;
+	// Seems L4D is in inches. INCHES?!?
+	opos[0] = pos[0] / 39.37f;
+	opos[1] = pos[2] / 39.37f;
+	opos[2] = pos[1] / 39.37f;
 
-		front[0] = cos(v);
-		front[1] = 0.0f;
-		front[2] = sin(v);
+	front[0] = cos(v);
+	front[1] = 0.0f;
+	front[2] = sin(v);
 
-		return true;
+	return true;
 }
 
 static int trylock() {
@@ -115,7 +115,7 @@ static int trylock() {
 	float opos[3], top[3], front[3];
 
 	bool ok = peekProc(posptr, pos, 12) &&
-			  peekProc(rotptr, rot, 12);
+	          peekProc(rotptr, rot, 12);
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);

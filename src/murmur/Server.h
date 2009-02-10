@@ -221,7 +221,7 @@ class Server : public QThread, public MessageHandler {
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
-		
+
 		// RPC functions. Implementation in RPC.cpp
 		void connectAuthenticator(QObject *p);
 		void disconnectAuthenticator(QObject *p);
@@ -239,7 +239,7 @@ class Server : public QThread, public MessageHandler {
 		void idToNameSig(QString &, int);
 		void nameToIdSig(int &, const QString &);
 		void idToTextureSig(QByteArray &, int);
-	
+
 		void playerStateChanged(const Player *);
 		void playerConnected(const Player *);
 		void playerDisconnected(const Player *);

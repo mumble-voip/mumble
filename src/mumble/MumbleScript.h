@@ -41,15 +41,15 @@ class MumbleScript;
 class MumbleScripts;
 
 class ScriptPlayer : public QObject, protected QScriptable {
-	friend class MumbleScript;
-	Q_OBJECT
-	Q_DISABLE_COPY(ScriptPlayer)
-	Q_PROPERTY(QString name READ getName)
-	Q_PROPERTY(unsigned int session READ getSession)
-	Q_PROPERTY(int id READ getId)
-	Q_PROPERTY(QScriptValue channel READ getChannel WRITE setChannel)
-	Q_PROPERTY(bool mute READ isMute WRITE setMute)
-	Q_PROPERTY(bool deaf READ isDeaf WRITE setDeaf)
+		friend class MumbleScript;
+		Q_OBJECT
+		Q_DISABLE_COPY(ScriptPlayer)
+		Q_PROPERTY(QString name READ getName)
+		Q_PROPERTY(unsigned int session READ getSession)
+		Q_PROPERTY(int id READ getId)
+		Q_PROPERTY(QScriptValue channel READ getChannel WRITE setChannel)
+		Q_PROPERTY(bool mute READ isMute WRITE setMute)
+		Q_PROPERTY(bool deaf READ isDeaf WRITE setDeaf)
 	public:
 		ScriptPlayer(ClientPlayer *p);
 		QString getName() const;
@@ -68,14 +68,14 @@ class ScriptPlayer : public QObject, protected QScriptable {
 };
 
 class ScriptChannel : public QObject, protected QScriptable {
-	friend class MumbleScript;
-	Q_OBJECT
-	Q_DISABLE_COPY(ScriptChannel)
-	Q_PROPERTY(QString name READ getName WRITE setName)
-	Q_PROPERTY(int id READ getId)
-	Q_PROPERTY(int parent READ getParent WRITE setParent)
-	Q_PROPERTY(QScriptValue children READ getChildren)
-	Q_PROPERTY(QScriptValue players READ getPlayers)
+		friend class MumbleScript;
+		Q_OBJECT
+		Q_DISABLE_COPY(ScriptChannel)
+		Q_PROPERTY(QString name READ getName WRITE setName)
+		Q_PROPERTY(int id READ getId)
+		Q_PROPERTY(int parent READ getParent WRITE setParent)
+		Q_PROPERTY(QScriptValue children READ getChildren)
+		Q_PROPERTY(QScriptValue players READ getPlayers)
 	public:
 		ScriptChannel(Channel *c);
 		QString getName() const;
@@ -92,13 +92,13 @@ class ScriptChannel : public QObject, protected QScriptable {
 };
 
 class ScriptServer : public QObject, protected QScriptable {
-	friend class MumbleScript;
-	Q_OBJECT
-	Q_DISABLE_COPY(ScriptServer)
-	Q_PROPERTY(QScriptValue playerContextMenu)
-	Q_PROPERTY(QScriptValue channelContextMenu)
-	Q_PROPERTY(QScriptValue msgHandler)
-	Q_PROPERTY(QScriptValue root READ getRoot)
+		friend class MumbleScript;
+		Q_OBJECT
+		Q_DISABLE_COPY(ScriptServer)
+		Q_PROPERTY(QScriptValue playerContextMenu)
+		Q_PROPERTY(QScriptValue channelContextMenu)
+		Q_PROPERTY(QScriptValue msgHandler)
+		Q_PROPERTY(QScriptValue root READ getRoot)
 	public:
 		ScriptServer(QObject *p);
 		QScriptValue getRoot() const;
@@ -113,8 +113,8 @@ class ScriptServer : public QObject, protected QScriptable {
 };
 
 class MumbleScript : public QObject {
-	Q_OBJECT
-	Q_DISABLE_COPY(MumbleScript)
+		Q_OBJECT
+		Q_DISABLE_COPY(MumbleScript)
 	public:
 		QScriptEngine *qseEngine;
 		ScriptServer *ssServer;
@@ -141,9 +141,9 @@ class MumbleScript : public QObject {
 };
 
 class MumbleScripts : public QObject {
-	friend class MumbleScript;
-	Q_OBJECT
-	Q_DISABLE_COPY(MumbleScripts)
+		friend class MumbleScript;
+		Q_OBJECT
+		Q_DISABLE_COPY(MumbleScripts)
 	protected:
 		QList<MumbleScript *> qlScripts;
 	public:

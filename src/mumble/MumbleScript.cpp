@@ -186,18 +186,18 @@ void ScriptServer::sendMsg(const QString &keyword, const QStringList &args) {
 }
 
 QScriptValue mumbleScriptPrint(QScriptContext *context, QScriptEngine *engine) {
-    QString result;
+	QString result;
 
-     for (int i = 0; i < context->argumentCount(); ++i) {
-         if (i > 0)
-             result.append(QLatin1String(" "));
-         result.append(context->argument(i).toString());
-     }
+	for (int i = 0; i < context->argumentCount(); ++i) {
+		if (i > 0)
+			result.append(QLatin1String(" "));
+		result.append(context->argument(i).toString());
+	}
 
 	qWarning() << result;
-     g.l->log(Log::ScriptError, result, MumbleScript::tr("Script Print"));
+	g.l->log(Log::ScriptError, result, MumbleScript::tr("Script Print"));
 
-     return engine->undefinedValue();
+	return engine->undefinedValue();
 }
 
 MumbleScript::MumbleScript(MumbleScripts *p) : QObject(p) {
@@ -208,7 +208,7 @@ MumbleScript::MumbleScript(MumbleScripts *p) : QObject(p) {
 	qseEngine->globalObject().setProperty(QLatin1String("server"), qseEngine->newQObject(ssServer, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject), QScriptValue::ReadOnly | QScriptValue::Undeletable);
 	qseEngine->globalObject().setProperty(QLatin1String("print"), qseEngine->newFunction(mumbleScriptPrint), QScriptValue::ReadOnly | QScriptValue::Undeletable);
 
-	connect(qseEngine, SIGNAL(signalHandlerException (const QScriptValue &)), this, SLOT(errorHandler(const QScriptValue &)));
+	connect(qseEngine, SIGNAL(signalHandlerException(const QScriptValue &)), this, SLOT(errorHandler(const QScriptValue &)));
 
 	connect(g.sh, SIGNAL(disconnected(QString)), ssServer, SIGNAL(disconnected(QString)));
 }

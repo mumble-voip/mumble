@@ -42,9 +42,9 @@
 #include "lglcd.h"
 
 static void __cdecl ods(const char *fmt, va_list args) {
-		char buffer[2048];
-		_vsnprintf_s(buffer, 2048, _TRUNCATE, fmt, args);
-		OutputDebugStringA(buffer);
+	char buffer[2048];
+	_vsnprintf_s(buffer, 2048, _TRUNCATE, fmt, args);
+	OutputDebugStringA(buffer);
 }
 
 static void __cdecl warn(const char *fmt, ...) {
@@ -84,12 +84,12 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	}
 
 	hStdin = GetStdHandle(STD_INPUT_HANDLE);
-    if (hStdin == INVALID_HANDLE_VALUE)
-        die(G15_ERR_PIPESTATE, "Failed to get standard input");
+	if (hStdin == INVALID_HANDLE_VALUE)
+		die(G15_ERR_PIPESTATE, "Failed to get standard input");
 
 	hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (hStdout == INVALID_HANDLE_VALUE)
-        die(G15_ERR_PIPESTATE, "Failed to get standard output");
+	if (hStdout == INVALID_HANDLE_VALUE)
+		die(G15_ERR_PIPESTATE, "Failed to get standard output");
 
 	/*
 	 * Clear and set up initial structures.
@@ -126,7 +126,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	if (bDetect)
 		return (dwErr != ERROR_SUCCESS);
 	else if (dwErr != ERROR_SUCCESS)
-			die(G15_ERR_OPEN, "Unable to open device. (Error: %i)", dwErr);
+		die(G15_ERR_OPEN, "Unable to open device. (Error: %i)", dwErr);
 
 	/*
 	 * Diplay buffer format.

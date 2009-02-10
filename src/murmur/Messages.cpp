@@ -397,7 +397,7 @@ void Server::msgPlayerSelfMuteDeaf(Connection *cCon, MessagePlayerSelfMuteDeaf *
 	uSource->bSelfMute = msg->bMute;
 	uSource->bSelfDeaf = msg->bDeaf;
 	sendAll(msg);
-	
+
 	emit playerStateChanged(uSource);
 }
 

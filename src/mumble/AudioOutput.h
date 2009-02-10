@@ -141,7 +141,7 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 };
 
 class AudioOutputSample : public AudioOutputPlayer {
-	friend class AudioOutput;
+		friend class AudioOutput;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutputSample)

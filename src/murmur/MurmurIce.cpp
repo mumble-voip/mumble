@@ -47,7 +47,7 @@ static MurmurIce *mi = NULL;
 static Ice::ObjectPtr iopServer;
 
 class IceEvent : public QEvent {
-	Q_DISABLE_COPY(IceEvent);
+		Q_DISABLE_COPY(IceEvent);
 	protected:
 		boost::function<void ()> func;
 	public:
@@ -127,7 +127,7 @@ void MurmurIce::customEvent(QEvent *evt) {
 
 void MurmurIce::serverDeleted(QObject *o) {
 	::Server *s = qobject_cast< ::Server *>(o);
-	if (s) 
+	if (s)
 		qmCallbacks.remove(s->iServerNum);
 }
 

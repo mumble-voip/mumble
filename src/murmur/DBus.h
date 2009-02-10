@@ -153,7 +153,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void nameToIdSlot(int &res, const QString &name);
 		void idToNameSlot(QString &res, int id);
 		void idToTextureSlot(QByteArray &res, int id);
-	
+
 		// These use private types, so won't be converted to DBus
 		void playerStateChanged(const Player *p);
 		void playerConnected(const Player *p);
