@@ -18,6 +18,14 @@ void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::I
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_id, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallbackPtr &cb,  const ::Murmur::ServerCallbackPrx& p1, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_addCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
+void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCallbackPtr &cb,  const ::Murmur::ServerCallbackPrx& p1, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_removeCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
 void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_getConf, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);

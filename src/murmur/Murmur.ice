@@ -185,6 +185,21 @@ module Murmur
 	exception InvalidPlayerException extends MurmurException {};
 	/** This is thrown when you try to set an invalid texture. */
 	exception InvalidTextureException extends MurmurException {};
+	/** This is thrown when you supply an invalid callback. */
+	exception InvalidCallbackException extends MurmurException {};
+
+	/** Callback interface for servers. You can supply an implementation of this to receive notification
+	 *  messages from the server.
+	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
+	 */
+	["ami"] interface ServerCallback {
+		idempotent void newPlayer(Player p);
+		idempotent void changedPlayer(Player p);
+		idempotent void deletedPlayer(Player p);
+		idempotent void newChannel(Channel c);
+		idempotent void changedChannel(Channel c);
+		idempotent void deletedChannel(Channel c);
+	};
 
 	/** Per-server interface. This includes all methods for configuring and altering
          * the state of a single virtual server. You can retrieve a pointer to this interface
@@ -211,6 +226,18 @@ module Murmur
 		 * @return Unique server id.
 		 */
 		idempotent int id();
+
+		/** Add a callback.
+		 *
+		 * @param cb Callback interface which receives messages.
+		 */
+		void addCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException;
+
+		/** Remove a callback.
+		 *
+		 * @param cb Callback interface to be removed.
+		 */
+		void removeCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException;
 
 		/** Retrieve configuration item.
 		 * @param key Configuration key.

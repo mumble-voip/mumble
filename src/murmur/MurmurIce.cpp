@@ -42,6 +42,7 @@ static MurmurIce *mi = NULL;
 static Ice::ObjectPtr iopServer;
 
 class IceEvent : public QEvent {
+	Q_DISABLE_COPY(IceEvent);
 	protected:
 		boost::function<void ()> func;
 	public:
@@ -117,6 +118,12 @@ void MurmurIce::customEvent(QEvent *evt) {
 		IceEvent *ie = static_cast<IceEvent *>(evt);
 		ie->execute();
 	}
+}
+
+void MurmurIce::serverDeleted(QObject *o) {
+	::Server *s = qobject_cast< ::Server *>(o);
+	if (s) 
+		qmCallbacks.remove(s->iServerNum);
 }
 
 Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &) {
@@ -256,6 +263,16 @@ static void impl_Server_delete(const ::Murmur::AMD_Server_deletePtr cb, int serv
 	}
 	ServerDB::deleteServer(server_id);
 	cb->ice_response();
+}
+
+static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
+	NEED_SERVER;
+	mi->qmCallbacks[server_id].append(cbptr);
+}
+
+static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
+	NEED_SERVER;
+	mi->qmCallbacks[server_id].removeAll(cbptr);
 }
 
 static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {
