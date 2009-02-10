@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifdef USE_ICE
 #ifndef _MURMURICE_H
 #define _MURMURICE_H
 
@@ -55,4 +56,5 @@ class MurmurIce : public QObject {
 	public slots:
 		void serverDeleted(QObject *);
 };
+#endif
 #endif

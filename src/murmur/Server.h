@@ -100,14 +100,7 @@ class User : public Connection, public Player {
 		User(Server *parent, QSslSocket *socket);
 };
 
-class DBus;
-namespace Murmur {
-class ServerI;
-};
-
 class Server : public QThread, public MessageHandler {
-		friend class DBus;
-		friend class Murmur::ServerI;
 	private:
 		Q_OBJECT;
 		Q_DISABLE_COPY(Server);
@@ -187,8 +180,9 @@ class Server : public QThread, public MessageHandler {
 		QReadWriteLock qrwlUsers;
 		ChanACL::ACLCache acCache;
 		QMutex qmCache;
+#ifdef USE_DBUS
 		MurmurDBus *dbus;
-
+#endif
 		QHash<int, QByteArray> qhUserTextureCache;
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;
@@ -230,9 +224,25 @@ class Server : public QThread, public MessageHandler {
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
-
+		
 		// RPC functions. Implementation in RPC.cpp
+		void connectAuthenticator(QObject *p);
+		void disconnectAuthenticator(QObject *p);
+		void connectListener(QObject *p);
 	signals:
+		void registerPlayerSig(int &, const QString &);
+		void unregisterPlayerSig(int &, int);
+		void getRegisteredPlayersSig(const QString &, QMap<int, QPair<QString, QString> > &);
+		void getRegistrationSig(int &, int, QString &, QString &);
+		void authenticateSig(int &, QString &, const QString &);
+		void setPwSig(int &, int, const QString &);
+		void setEmailSig(int &, int, const QString &);
+		void setNameSig(int &, int, const QString &);
+		void setTextureSig(int &, int, const QByteArray &);
+		void idToNameSig(QString &, int);
+		void nameToIdSig(int &, const QString &);
+		void idToTextureSig(QByteArray &, int);
+	
 		void playerStateChanged(const Player *);
 		void playerConnected(const Player *);
 		void playerDisconnected(const Player *);

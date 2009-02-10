@@ -29,6 +29,9 @@
 */
 
 #include "Server.h"
+#include "Player.h"
+#include "Channel.h"
+#include "Meta.h"
 #include "Version.h"
 
 void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed) {
@@ -184,6 +187,30 @@ void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const 
 				sendMessage(static_cast<User *>(p), &mtm);
 		}
 	}
+}
+
+void Server::connectAuthenticator(QObject *obj) {
+	connect(this, SIGNAL(registerPlayerSig(int &, const QString &)), obj, SLOT(registerPlayerSlot(int &, const QString &)));
+	connect(this, SIGNAL(unregisterPlayerSig(int &, int)), obj, SLOT(unregisterPlayerSlot(int &, int)));
+	connect(this, SIGNAL(getRegisteredPlayersSig(const QString &, QMap<int, QPair<QString, QString> > &)), obj, SLOT(getRegisteredPlayersSlot(const QString &, QMap<int, QPair<QString, QString> > &)));
+	connect(this, SIGNAL(getRegistrationSig(int &, int, QString &, QString &)), obj, SLOT(getRegistrationSlot(int &, int, QString &, QString &)));
+	connect(this, SIGNAL(authenticateSig(int &, QString &, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QString &)));
+	connect(this, SIGNAL(setPwSig(int &, int, const QString &)), obj, SLOT(setPwSlot(int &, int, const QString &)));
+	connect(this, SIGNAL(setEmailSig(int &, int, const QString &)), obj, SLOT(setEmailSlot(int &, int, const QString &)));
+	connect(this, SIGNAL(setNameSig(int &, int, const QString &)), obj, SLOT(setNameSlot(int &, int, const QString &)));
+	connect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj, SLOT(setTextureSlot(int &, int, const QByteArray &)));
+	connect(this, SIGNAL(idToNameSig(QString &, int)), obj, SLOT(idToNameSlot(QString &, int)));
+	connect(this, SIGNAL(nameToIdSig(int &, const QString &)), obj, SLOT(nameToIdSlot(int &, const QString &)));
+	connect(this, SIGNAL(idToTextureSig(QByteArray &, int)), obj, SLOT(idToTextureSlot(QByteArray &, int)));
+}
+
+void Server::connectListener(QObject *obj) {
+	connect(this, SIGNAL(playerStateChanged(const Player *)), obj, SLOT(playerStateChanged(const Player *)));
+	connect(this, SIGNAL(playerConnected(const Player *)), obj, SLOT(playerConnected(const Player *)));
+	connect(this, SIGNAL(playerDisconnected(const Player *)), obj, SLOT(playerDisconnected(const Player *)));
+	connect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));
+	connect(this, SIGNAL(channelCreated(const Channel *)), obj, SLOT(channelCreated(const Channel *)));
+	connect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));
 }
 
 void Meta::getVersion(int &major, int &minor, int &patch, QString &string) {

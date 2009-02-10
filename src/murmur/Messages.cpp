@@ -250,7 +250,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 	sendMessage(cCon, &mssMsg);
 	log(uSource, "Authenticated");
 
-	dbus->playerConnected(uSource);
+	emit playerConnected(uSource);
 	playerEnterChannel(uSource, lc, false);
 }
 
@@ -329,9 +329,8 @@ void Server::msgPlayerMute(Connection *cCon, MessagePlayerMute *msg) {
 		pDstUser->bDeaf = false;
 	}
 
-	dbus->playerStateChanged(pDstUser);
-
 	log(uSource, "Muted %s (%d)", qPrintable(pDstUser->qsName), msg->bMute);
+	emit playerStateChanged(pDstUser);
 }
 
 void Server::msgPlayerDeaf(Connection *cCon, MessagePlayerDeaf *msg) {
@@ -353,9 +352,9 @@ void Server::msgPlayerDeaf(Connection *cCon, MessagePlayerDeaf *msg) {
 		pDstUser->bMute = true;
 	}
 
-	dbus->playerStateChanged(pDstUser);
-
 	log(uSource, "Deafened %s (%d)", qPrintable(pDstUser->qsName),msg->bDeaf);
+
+	emit playerStateChanged(pDstUser);
 }
 
 void Server::msgPlayerKick(Connection *cCon, MessagePlayerKick *msg) {
@@ -398,7 +397,8 @@ void Server::msgPlayerSelfMuteDeaf(Connection *cCon, MessagePlayerSelfMuteDeaf *
 	uSource->bSelfMute = msg->bMute;
 	uSource->bSelfDeaf = msg->bDeaf;
 	sendAll(msg);
-	dbus->playerStateChanged(uSource);
+	
+	emit playerStateChanged(uSource);
 }
 
 void Server::msgPlayerMove(Connection *cCon, MessagePlayerMove *msg) {
@@ -461,11 +461,11 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 	}
 	updateChannel(c);
 
-	dbus->channelCreated(c);
-
 	msg->iId = c->iId;
 	sendAll(msg);
 	log(uSource, "Added channel %s (%s)", qPrintable(c->qsName), qPrintable(p->qsName));
+
+	emit channelCreated(c);
 }
 
 void Server::msgChannelRemove(Connection *cCon, MessageChannelRemove *msg) {
@@ -518,8 +518,9 @@ void Server::msgChannelRename(Connection *cCon, MessageChannelRename *msg) {
 	log(uSource, "Renamed channel %s to %s", qPrintable(c->qsName), qPrintable(msg->qsName));
 	c->qsName = msg->qsName;
 	updateChannel(c);
-	dbus->channelStateChanged(c);
 	sendAll(msg);
+
+	emit channelStateChanged(c);
 }
 
 void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {
@@ -563,8 +564,9 @@ void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {
 	c->cParent->removeChannel(c);
 	np->addChannel(c);
 	updateChannel(c);
-	dbus->channelStateChanged(c);
 	sendAll(msg);
+
+	emit channelStateChanged(c);
 }
 
 void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
@@ -593,25 +595,25 @@ void Server::msgChannelLink(Connection *cCon, MessageChannelLink *msg) {
 			}
 			c->link(l);
 			addLink(c, l);
-			dbus->channelStateChanged(c);
 			log(uSource, "Linked channel %s to %s", qPrintable(c->qsName),qPrintable(l->qsName));
+			emit channelStateChanged(c);
 			break;
 		case MessageChannelLink::Unlink:
 			if (!l)
 				return;
 			c->unlink(l);
 			removeLink(c, l);
-			dbus->channelStateChanged(c);
 			log(uSource, "Unlinked channel %s from %s", qPrintable(c->qsName), qPrintable(l->qsName));
+			emit channelStateChanged(c);
 			break;
 		case MessageChannelLink::UnlinkAll:
 			if (msg->qlTargets.count() > 0)
 				return;
 			c->unlink(NULL);
 			removeLink(c, NULL);
-			dbus->channelStateChanged(c);
 			log(uSource, "Unlinked all from channel %s", qPrintable(c->qsName));
 			sendAll(msg);
+			emit channelStateChanged(c);
 			return;
 		case MessageChannelLink::PushLink:
 			if (msg->qlTargets.count() <= 0)

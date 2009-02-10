@@ -31,6 +31,7 @@
 #include <QtXml>
 
 #include "Server.h"
+#include "Meta.h"
 #include "Version.h"
 #include "OSInfo.h"
 

@@ -32,6 +32,11 @@
 #include <Ice/Ice.h>
 #include <IceUtil/IceUtil.h>
 #include "Meta.h"
+#include "Server.h"
+#include "ServerDB.h"
+#include "Player.h"
+#include "Channel.h"
+#include "Group.h"
 #include "MurmurIce.h"
 #include "MurmurI.h"
 

@@ -375,6 +375,8 @@ int main(int argc, char **argv) {
 		close(fd);
 	}
 #endif
+
+#ifdef USE_DBUS
 	MurmurDBus::registerTypes();
 
 	if (! Meta::mp.qsDBus.isEmpty()) {
@@ -407,6 +409,7 @@ int main(int argc, char **argv) {
 			qWarning("DBus registration succeeded");
 		}
 	}
+#endif
 
 #ifdef USE_ICE
 	IceStart();

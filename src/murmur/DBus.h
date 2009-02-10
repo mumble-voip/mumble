@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifdef USE_DBUS
 #ifndef _DBUS_H
 #define _DBUS_H
 
@@ -47,7 +48,7 @@ struct PlayerInfo {
 	bool selfMute, selfDeaf;
 	int channel;
 	PlayerInfo() { };
-	PlayerInfo(Player *);
+	PlayerInfo(const Player *);
 };
 Q_DECLARE_METATYPE(PlayerInfo);
 
@@ -57,7 +58,7 @@ struct PlayerInfoExtended : public PlayerInfo {
 	int onlinesecs;
 	int bytespersec;
 	PlayerInfoExtended() {};
-	PlayerInfoExtended(Player *);
+	PlayerInfoExtended(const Player *);
 };
 Q_DECLARE_METATYPE(PlayerInfoExtended);
 Q_DECLARE_METATYPE(QList<PlayerInfoExtended>);
@@ -68,7 +69,7 @@ struct ChannelInfo {
 	int parent;
 	QList<int> links;
 	ChannelInfo() { };
-	ChannelInfo(Channel *c);
+	ChannelInfo(const Channel *c);
 };
 Q_DECLARE_METATYPE(ChannelInfo);
 Q_DECLARE_METATYPE(QList<ChannelInfo>);
@@ -78,7 +79,7 @@ struct GroupInfo {
 	bool inherited, inherit, inheritable;
 	QList<int> add, remove, members;
 	GroupInfo() { };
-	GroupInfo(Group *g);
+	GroupInfo(const Group *g);
 };
 Q_DECLARE_METATYPE(GroupInfo);
 Q_DECLARE_METATYPE(QList<GroupInfo>);
@@ -89,7 +90,7 @@ struct ACLInfo {
 	QString group;
 	unsigned int allow, deny;
 	ACLInfo() { };
-	ACLInfo(ChanACL *acl);
+	ACLInfo(const ChanACL *acl);
 };
 Q_DECLARE_METATYPE(ACLInfo);
 Q_DECLARE_METATYPE(QList<ACLInfo>);
@@ -137,30 +138,31 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		static QDBusConnection qdbc;
 
 		MurmurDBus(Server *srv);
-
-		void playerStateChanged(Player *p);
-		void playerConnected(Player *p);
-		void playerDisconnected(Player *p);
-
-		void channelStateChanged(Channel *c);
-		void channelCreated(Channel *c);
-		void channelRemoved(Channel *c);
 		static void registerTypes();
+	public slots:
+		// These have the result ref as the first parameter, so won't be converted to DBus
+		void authenticateSlot(int &res, QString &uname, const QString &pw);
+		void registerPlayerSlot(int &res, const QString &name);
+		void unregisterPlayerSlot(int &res, int id);
+		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QPair<QString, QString> > &res);
+		void getRegistrationSlot(int &res, int id, QString &name, QString &email);
+		void setPwSlot(int &res, int id, const QString &pw);
+		void setEmailSlot(int &res, int id, const QString &email);
+		void setNameSlot(int &res, int id, const QString &name);
+		void setTextureSlot(int &res, int id, const QByteArray &texture);
+		void nameToIdSlot(int &res, const QString &name);
+		void idToNameSlot(QString &res, int id);
+		void idToTextureSlot(QByteArray &res, int id);
+	
+		// These use private types, so won't be converted to DBus
+		void playerStateChanged(const Player *p);
+		void playerConnected(const Player *p);
+		void playerDisconnected(const Player *p);
 
-		int mapNameToId(const QString &name);
-		QString mapIdToName(int id);
-		QByteArray mapIdToTexture(int id);
+		void channelStateChanged(const Channel *c);
+		void channelCreated(const Channel *c);
+		void channelRemoved(const Channel *c);
 
-		// These map to functions on the authenticator
-		int authenticate(QString &uname, const QString &pw);
-		int dbusRegisterPlayer(const QString &name);
-		int dbusUnregisterPlayer(int id);
-		QMap<int, QPair<QString, QString> > dbusGetRegisteredPlayers(const QString &filter);
-		int dbusGetRegistration(int id, QString &name, QString &email);
-		int dbusSetPW(int id, const QString &pw);
-		int dbusSetEmail(int id, const QString &email);
-		int dbusSetName(int id, const QString &name);
-		int dbusSetTexture(int id, const QByteArray &texture);
 	public slots:
 		// Order of paremeters is IMPORTANT, or Qt will barf.
 		// Needs to be:
@@ -196,9 +198,6 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void setAuthenticator(const QDBusObjectPath &path, bool reentrant, const QDBusMessage &);
 		void setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &);
 
-		// These are hybrid methods. Unlike almost all other functions here, they exist only to be called from
-		// DBus -- murmur has no internal use for them.
-		// As such, they are currently implemented in ServerDB.cpp, since they're mostly about persistent databases.
 		void registerPlayer(const QString &name, const QDBusMessage &, int &id);
 		void unregisterPlayer(int id, const QDBusMessage &);
 		void updateRegistration(const RegisteredPlayer &player, const QDBusMessage &);
@@ -208,7 +207,6 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void verifyPassword(int id, const QString &pw, const QDBusMessage &, bool &ok);
 		void getTexture(int id, const QDBusMessage &, QByteArray &texture);
 		void setTexture(int id, const QByteArray &, const QDBusMessage &);
-
 	signals:
 		void playerStateChanged(const PlayerInfo &state);
 		void playerConnected(const PlayerInfo &state);
@@ -262,4 +260,5 @@ class MetaDBus : public QDBusAbstractAdaptor {
 #else
 class MurmurDBus;
 class MetaDBus;
+#endif
 #endif

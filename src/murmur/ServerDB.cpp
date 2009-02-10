@@ -458,7 +458,8 @@ int Server::registerPlayer(const QString &name) {
 
 	qhUserIDCache.remove(name);
 
-	int res = dbus->dbusRegisterPlayer(name);
+	int res = -2;
+	emit registerPlayerSig(res, name);
 	if (res != -2) {
 		qhUserNameCache.remove(res);
 		return res;
@@ -495,7 +496,8 @@ bool Server::unregisterPlayer(int id) {
 	qhUserIDCache.remove(oname);
 	qhUserNameCache.remove(id);
 
-	int res = dbus->dbusUnregisterPlayer(id);
+	int res = -2;
+	emit unregisterPlayerSig(res, id);
 	if (res >= 0) {
 		return (res > 0);
 	}
@@ -514,7 +516,7 @@ bool Server::unregisterPlayer(int id) {
 QMap<int, QPair<QString, QString> > Server::getRegisteredPlayers(const QString &filter) {
 	QMap<int, QPair<QString, QString> > m;
 
-	m = dbus->dbusGetRegisteredPlayers(filter);
+	emit getRegisteredPlayersSig(filter, m);
 
 	TransactionHolder th;
 
@@ -540,7 +542,8 @@ QMap<int, QPair<QString, QString> > Server::getRegisteredPlayers(const QString &
 
 bool Server::isPlayerId(int id) {
 	QString name, email;
-	int res = dbus->dbusGetRegistration(id, name, email);
+	int res = -2;
+	emit getRegistrationSig(res, id, name, email);
 	if (res >= 0)
 		return (res > 0);
 
@@ -558,7 +561,8 @@ bool Server::isPlayerId(int id) {
 }
 
 bool Server::getRegistration(int id, QString &name, QString &email) {
-	int res = dbus->dbusGetRegistration(id, name, email);
+	int res = -2;
+	emit getRegistrationSig(res, id, name, email);
 	if (res >= 0)
 		return (res > 0);
 
@@ -581,7 +585,10 @@ bool Server::getRegistration(int id, QString &name, QString &email) {
 // -2 Anonymous
 
 int Server::authenticate(QString &name, const QString &pw) {
-	int res = dbus->authenticate(name, pw);
+	int res = -2;
+	
+	emit authenticateSig(res, name, pw);
+
 	if (res != -2) {
 		if (res != -1) {
 			TransactionHolder th;
@@ -626,7 +633,9 @@ int Server::authenticate(QString &name, const QString &pw) {
 }
 
 bool Server::setPW(int id, const QString &pw) {
-	int res = dbus->dbusSetPW(id, pw);
+	int res = -2;
+	
+	emit setPwSig(res, id, pw);
 	if (res >= 0)
 		return (res > 0);
 
@@ -649,8 +658,10 @@ bool Server::setPW(int id, const QString &pw) {
 bool Server::setEmail(int id, const QString &email) {
 	if (id <= 0)
 		return false;
+	
+	int res = -2;
+	emit setEmailSig(res, id, email);
 
-	int res = dbus->dbusSetEmail(id, email);
 	if (res >= 0)
 		return (res > 0);
 
@@ -682,7 +693,8 @@ bool Server::setName(int id, const QString &name) {
 	qhUserIDCache.remove(oname);
 	qhUserNameCache.remove(id);
 
-	int res = dbus->dbusSetName(id, name);
+	int res = -2;
+	emit setNameSig(res, id, name);
 	if (res == 0)
 		return false;
 
@@ -713,7 +725,8 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 
 	tex = qCompress(tex);
 
-	int res = dbus->dbusSetTexture(id, tex);
+	int res = -2;
+	emit setTextureSig(res, id, tex);
 	if (res >= 0)
 		return (res > 0);
 
@@ -745,7 +758,8 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 }
 
 QString Server::getUserName(int id) {
-	QString name = dbus->mapIdToName(id);
+	QString name;
+	emit idToNameSig(name, id);
 	if (! name.isEmpty())
 		return name;
 
@@ -762,8 +776,8 @@ QString Server::getUserName(int id) {
 }
 
 int Server::getUserID(const QString &name) {
-	int id = dbus->mapNameToId(name);
-
+	int id = -2;
+	emit nameToIdSig(id, name);
 	if (id != -2)
 		return id;
 	TransactionHolder th;
@@ -780,7 +794,8 @@ int Server::getUserID(const QString &name) {
 }
 
 QByteArray Server::getUserTexture(int id) {
-	QByteArray qba=dbus->mapIdToTexture(id);
+	QByteArray qba;
+	emit idToTextureSig(qba, id);
 	if (! qba.isNull()) {
 		return qba;
 	}

@@ -1,7 +1,7 @@
 include(../mumble.pri)
 
 TEMPLATE	=app
-CONFIG  *= network qdbus
+CONFIG  *= network
 CONFIG(static) {
 	QMAKE_LFLAGS *= -static
 }
@@ -12,8 +12,8 @@ TARGET = murmur
 DBFILE  = murmur.db
 LANGUAGE	= C++
 FORMS =
-HEADERS = Server.h Meta.h DBus.h
-SOURCES = main.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp DBus.cpp RPC.cpp
+HEADERS = Server.h Meta.h
+SOURCES = main.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp RPC.cpp
 HEADERS	*= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
 SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp
 
@@ -24,6 +24,11 @@ DIST *= murmur.pl murmur.ini murmur.ini.system murmur.init murmur.conf murmur.lo
 !CONFIG(no-ice) {
 	CONFIG *= ice
 }
+
+!CONFIG(no-dbus) {
+	CONFIG *= dbus
+}
+
 
 win32 {
   RC_FILE = murmur.rc
@@ -54,6 +59,13 @@ unix {
 
 macx {
   CONFIG -= app_bundle
+}
+
+dbus {
+	DEFINES *= USE_DBUS
+	CONFIG *= qdbus
+	HEADERS *= DBus.h
+	SOURCES *= DBus.cpp
 }
 
 ice {

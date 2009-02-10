@@ -263,7 +263,9 @@ void MetaParams::read(QString fname) {
 }
 
 Meta::Meta() {
+#ifdef USE_DBUS
 	dbus = NULL;
+#endif
 }
 
 void Meta::getOSInfo() {
@@ -286,7 +288,7 @@ bool Meta::boot(int srvnum) {
 	if (s->bValid)
 		s->start(QThread::HighestPriority);
 	qhServers.insert(srvnum, s);
-	dbus->started(s);
+	emit started(s);
 	return true;
 }
 
@@ -294,14 +296,14 @@ void Meta::kill(int srvnum) {
 	Server *s = qhServers.take(srvnum);
 	if (!s)
 		return;
+	emit stopped(s);
 	delete s;
-	dbus->stopped(s);
 }
 
 void Meta::killAll() {
 	foreach(Server *s, qhServers) {
+		emit stopped(s);
 		delete s;
-		dbus->stopped(s);
 	}
 	qhServers.clear();
 }

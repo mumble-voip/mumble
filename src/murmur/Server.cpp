@@ -148,9 +148,11 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	if (bValid)
 		initRegister();
 
+#ifdef USE_DBUS
 	dbus = new MurmurDBus(this);
 	if (MurmurDBus::qdbc.isConnected())
 		MurmurDBus::qdbc.registerObject(QString::fromLatin1("/%1").arg(iServerNum), this);
+#endif
 
 	bRunning = true;
 }
@@ -628,7 +630,7 @@ void Server::connectionClosed(QString reason) {
 		mslMsg.uiSession=u->uiSession;
 		sendExcept(&mslMsg, c);
 
-		dbus->playerDisconnected(u);
+		emit playerDisconnected(u);
 	}
 
 	{
@@ -744,7 +746,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	sendAll(&mcr);
 
 	removeChannel(chan);
-	dbus->channelRemoved(chan);
+	emit channelRemoved(chan);
 
 	if (chan->cParent) {
 		QWriteLocker wl(&qrwlUsers);
@@ -769,7 +771,6 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 		return;
 
 	setLastChannel(p);
-	dbus->playerStateChanged(p);
 
 	bool mayspeak = hasPermission(p, c, ChanACL::Speak);
 	bool sup = p->bSuppressed;
@@ -786,6 +787,7 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 			sendAll(&mpm);
 		}
 	}
+	emit playerStateChanged(p);
 }
 
 bool Server::hasPermission(Player *p, Channel *c, ChanACL::Perm perm) {
