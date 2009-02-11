@@ -76,6 +76,61 @@ void IceStop() {
 	mi = NULL;
 }
 
+static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
+	le.timestamp = r.first;
+	le.txt = toStdUtf8String(r.second);
+}
+
+static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
+	mp.session = p->uiSession;
+	mp.playerid = p->iId;
+	mp.name = toStdUtf8String(p->qsName);
+	mp.mute = p->bMute;
+	mp.deaf = p->bDeaf;
+	mp.suppressed = p->bSuppressed;
+	mp.selfMute = p->bSelfMute;
+	mp.selfDeaf = p->bSelfDeaf;
+	mp.channel = p->cChannel->iId;
+
+	const User *u=static_cast<const User *>(p);
+	mp.onlinesecs = u->bwr.onlineSeconds();
+	mp.bytespersec = u->bwr.bandwidth();
+}
+
+static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
+	mc.id = c->iId;
+	mc.name = toStdUtf8String(c->qsName);
+	mc.parent = c->cParent ? c->cParent->iId : -1;
+	mc.links.clear();
+	foreach(::Channel *chn, c->qsPermLinks)
+		mc.links.push_back(chn->iId);
+}
+
+static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
+	ma.applyHere = acl->bApplyHere;
+	ma.applySubs = acl->bApplySubs;
+	ma.inherited = false;
+	ma.playerid = acl->iPlayerId;
+	ma.group = toStdUtf8String(acl->qsGroup);
+	ma.allow = acl->pAllow;
+	ma.deny = acl->pDeny;
+}
+
+static void groupToGroup(const ::Group *g, Murmur::Group &mg) {
+	mg.name = toStdUtf8String(g->qsName);
+	mg.inherit = g->bInherit;
+	mg.inheritable = g->bInheritable;
+	mg.add.clear();
+	mg.remove.clear();
+	mg.members.clear();
+}
+
+static void banToBan(const QPair<quint32,int> b, Murmur::Ban &mb) {
+	mb.address = b.first;
+	mb.bits = b.second;
+}
+
+
 class ServerLocator : public virtual Ice::ServantLocator {
 	public:
 		virtual Ice::ObjectPtr locate(const Ice::Current &, Ice::LocalObjectPtr &);
@@ -132,6 +187,11 @@ void MurmurIce::badMetaProxy(const ::Murmur::MetaCallbackPrx &prx) {
 	qCritical("Registered Ice MetaCallback %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
 }
 
+void MurmurIce::badServerProxy(const ::Murmur::ServerCallbackPrx &prx, int id) {
+	qmServerCallbacks[id].removeAll(prx);
+	qCritical("Registered Ice ServerCallback %s on server %d failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), id);
+}
+
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
@@ -142,6 +202,10 @@ static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 
 void MurmurIce::started(::Server *s) {
 	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
+
+	if (qmList.isEmpty())
+		return;
+
 	foreach(::Murmur::MetaCallbackPrx prx, qmList) {
 		try {
 			prx->started(idToProxy(s->iServerNum, adapter));
@@ -155,6 +219,10 @@ void MurmurIce::stopped(::Server *s) {
 	qmServerCallbacks.remove(s->iServerNum);
 
 	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
+
+	if (qmList.isEmpty())
+		return;
+
 	foreach(::Murmur::MetaCallbackPrx prx, qmList) {
 		try {
 			prx->stopped(idToProxy(s->iServerNum, adapter));
@@ -164,64 +232,130 @@ void MurmurIce::stopped(::Server *s) {
 	}
 }
 
+void MurmurIce::playerConnected(const ::Player *p) {
+	::Server *s = qobject_cast< ::Server *> ( sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+	
+	if (qmList.isEmpty())
+		return;
+		
+	::Murmur::Player mp;
+	playerToPlayer(p, mp);
+
+	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+		try {
+			prx->playerConnected(mp);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
+void MurmurIce::playerDisconnected(const ::Player *p) {
+	::Server *s = qobject_cast< ::Server *> ( sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+	
+	if (qmList.isEmpty())
+		return;
+		
+	::Murmur::Player mp;
+	playerToPlayer(p, mp);
+
+	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+		try {
+			prx->playerDisconnected(mp);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
+void MurmurIce::playerStateChanged(const ::Player *p) {
+	::Server *s = qobject_cast< ::Server *> ( sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+	
+	if (qmList.isEmpty())
+		return;
+		
+	::Murmur::Player mp;
+	playerToPlayer(p, mp);
+
+	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+		try {
+			prx->playerStateChanged(mp);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
+void MurmurIce::channelCreated(const ::Channel *c) {
+	::Server *s = qobject_cast< ::Server *> ( sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+	
+	if (qmList.isEmpty())
+		return;
+		
+	::Murmur::Channel mc;
+	channelToChannel(c, mc);
+
+	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+		try {
+			prx->channelCreated(mc);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
+void MurmurIce::channelRemoved(const ::Channel *c) {
+	::Server *s = qobject_cast< ::Server *> ( sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+	
+	if (qmList.isEmpty())
+		return;
+		
+	::Murmur::Channel mc;
+	channelToChannel(c, mc);
+
+	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+		try {
+			prx->channelRemoved(mc);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
+void MurmurIce::channelStateChanged(const ::Channel *c) {
+	::Server *s = qobject_cast< ::Server *> ( sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+	
+	if (qmList.isEmpty())
+		return;
+		
+	::Murmur::Channel mc;
+	channelToChannel(c, mc);
+
+	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+		try {
+			prx->channelStateChanged(mc);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
 Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &) {
 	return iopServer;
 }
 
-
-static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
-	le.timestamp = r.first;
-	le.txt = toStdUtf8String(r.second);
-}
-
-static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
-	mp.session = p->uiSession;
-	mp.playerid = p->iId;
-	mp.name = toStdUtf8String(p->qsName);
-	mp.mute = p->bMute;
-	mp.deaf = p->bDeaf;
-	mp.suppressed = p->bSuppressed;
-	mp.selfMute = p->bSelfMute;
-	mp.selfDeaf = p->bSelfDeaf;
-	mp.channel = p->cChannel->iId;
-
-	const User *u=static_cast<const User *>(p);
-	mp.onlinesecs = u->bwr.onlineSeconds();
-	mp.bytespersec = u->bwr.bandwidth();
-}
-
-static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
-	mc.id = c->iId;
-	mc.name = toStdUtf8String(c->qsName);
-	mc.parent = c->cParent ? c->cParent->iId : -1;
-	mc.links.clear();
-	foreach(::Channel *chn, c->qsPermLinks)
-		mc.links.push_back(chn->iId);
-}
-
-static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
-	ma.applyHere = acl->bApplyHere;
-	ma.applySubs = acl->bApplySubs;
-	ma.inherited = false;
-	ma.playerid = acl->iPlayerId;
-	ma.group = toStdUtf8String(acl->qsGroup);
-	ma.allow = acl->pAllow;
-	ma.deny = acl->pDeny;
-}
-
-static void groupToGroup(const ::Group *g, Murmur::Group &mg) {
-	mg.name = toStdUtf8String(g->qsName);
-	mg.inherit = g->bInherit;
-	mg.inheritable = g->bInheritable;
-	mg.add.clear();
-	mg.remove.clear();
-	mg.members.clear();
-}
-
-static void banToBan(const QPair<quint32,int> b, Murmur::Ban &mb) {
-	mb.address = b.first;
-	mb.bits = b.second;
-}
 
 #define FIND_SERVER \
 	::Server *server = meta->qhServers.value(server_id);
@@ -298,14 +432,33 @@ static void impl_Server_delete(const ::Murmur::AMD_Server_deletePtr cb, int serv
 
 static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
-	mi->qmServerCallbacks[server_id].append(cbptr);
-	cb->ice_response();
+	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
+
+	try {
+		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::checkedCast(cbptr->ice_oneway());
+		if (qmList.isEmpty()) 
+			server->connectListener(mi);
+		if (! qmList.contains(oneway)) 
+			qmList.append(oneway);
+		cb->ice_response();
+	} catch (...) {
+		cb->ice_exception(InvalidCallbackException());
+	}
 }
 
 static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
-	mi->qmServerCallbacks[server_id].removeAll(cbptr);
-	cb->ice_response();
+	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
+
+	try {
+		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::uncheckedCast(cbptr->ice_oneway());
+		qmList.removeAll(oneway);
+		if (qmList.isEmpty()) 
+			server->disconnectListener(mi);
+		cb->ice_response();
+	} catch (...) {
+		cb->ice_exception(InvalidCallbackException());
+	}
 }
 
 static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {
@@ -860,7 +1013,7 @@ static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr &cb, con
 
 static void impl_Meta_removeCallback(const Murmur::AMD_Meta_removeCallbackPtr &cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
 	try {
-		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::checkedCast(cbptr->ice_oneway());
+		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::uncheckedCast(cbptr->ice_oneway());
 		mi->qmMetaCallbacks.removeAll(oneway);
 		cb->ice_response();
 	} catch (...) {

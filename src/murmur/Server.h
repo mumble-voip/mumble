@@ -226,6 +226,7 @@ class Server : public QThread, public MessageHandler {
 		void connectAuthenticator(QObject *p);
 		void disconnectAuthenticator(QObject *p);
 		void connectListener(QObject *p);
+		void disconnectListener(QObject *p);
 	signals:
 		void registerPlayerSig(int &, const QString &);
 		void unregisterPlayerSig(int &, int);

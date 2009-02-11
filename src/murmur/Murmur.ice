@@ -191,14 +191,39 @@ module Murmur
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
+	 *  Please note that all callbacks are done asynchronously; murmur does not wait for the callback to
+	 *  complete before continuing processing.
+	 *  Note that callbacks are removed when a server is stopped, so you should have a callback for
+	 *  [MetaCallback::started] which calls [Server::addCallback].
+	 *  @see MetaCallback
+	 *  @see Server::addCallback
 	 */
-	["ami"] interface ServerCallback {
-		idempotent void newPlayer(Player p);
-		idempotent void changedPlayer(Player p);
-		idempotent void deletedPlayer(Player p);
-		idempotent void newChannel(Channel c);
-		idempotent void changedChannel(Channel c);
-		idempotent void deletedChannel(Channel c);
+	interface ServerCallback {
+		/** Called when a player connects to the server. 
+		 *  @param state State of connected player.
+		 */ 
+		idempotent void playerConnected(Player state);
+		/** Called when a player disconnects from the server. The player has already been removed, so you can no longer use methods like [Server::getState]
+		 *  to retrieve the player's state.
+		 *  @param state State of disconnected player.
+		 */ 
+		idempotent void playerDisconnected(Player state);
+		/** Called when a player state changes. This is called if the player moves, is renamed, is muted, deafened etc.
+		 *  @param state New state of player.
+		 */ 
+		idempotent void playerStateChanged(Player state);
+		/** Called when a new channel is created. 
+		 *  @param state State of new channel.
+		 */ 
+		idempotent void channelCreated(Channel state);
+		/** Called when a channel is removed. The channel has already been removed, you can no longer use methods like [Server::getChannelState]
+		 *  @param state State of removed channel.
+		 */ 
+		idempotent void channelRemoved(Channel state);
+		/** Called when a new channel state changes. This is called if the channel is moved, renamed or if new links are added.
+		 *  @param state New state of channel.
+		 */ 
+		idempotent void channelStateChanged(Channel state);
 	};
 
 
@@ -228,15 +253,17 @@ module Murmur
 		 */
 		idempotent int id();
 
-		/** Add a callback.
+		/** Add a callback. The callback will receive notifications about changes to players and channels.
 		 *
-		 * @param cb Callback interface which receives messages.
+		 * @param cb Callback interface which will receive notifications.
+		 * @see removeCallback
 		 */
 		void addCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException;
 
 		/** Remove a callback.
 		 *
 		 * @param cb Callback interface to be removed.
+		 * @see addCallback
 		 */
 		void removeCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException;
 
@@ -438,10 +465,24 @@ module Murmur
 
 	/** Callback interface for Meta. You can supply an implementation of this to recieve notifications
 	 *  when servers are stopped or started.
+	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
+	 *  Please note that all callbacks are done asynchronously; murmur does not wait for the callback to
+	 *  complete before continuing processing.
+	 *  @see ServerCallback
+	 *  @see Meta::addCallback
 	 */
 	interface MetaCallback {
-		void started(Server *s);
-		void stopped(Server *s);
+		/** Called when a server is started. The server is up and running when this event is sent, so all methods that 
+		 *  need a running server will work.
+		 *  @param srv Interface for started server.
+		 */
+		void started(Server *srv);
+
+		/** Called when a server is stopped. The server is already stopped when this event is sent, so no methods that
+		 *  need a running server will work.
+		 *  @param srv Interface for started server.
+		 */
+		void stopped(Server *srv);
 	};
 
 	sequence<Server *> ServerList;
@@ -487,9 +528,9 @@ module Murmur
 		 */
 		idempotent void getVersion(out int major, out int minor, out int patch, out string text);
 
-		/** Add a callback.
+		/** Add a callback. The callback will receive notifications when servers are started or stopped.
 		 *
-		 * @param cb Callback interface which receives messages.
+		 * @param cb Callback interface which will receive notifications.
 		 */
 		void addCallback(MetaCallback *cb) throws InvalidCallbackException;
 

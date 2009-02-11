@@ -52,6 +52,7 @@ class MurmurIce : public QObject {
 		Ice::ObjectAdapterPtr adapter;
 		void customEvent(QEvent *evt);
 		void badMetaProxy(const ::Murmur::MetaCallbackPrx &prx);
+		void badServerProxy(const ::Murmur::ServerCallbackPrx &prx, int id);
 	public:
 		QList< ::Murmur::MetaCallbackPrx> qmMetaCallbacks;
 		QMap<int, QList< ::Murmur::ServerCallbackPrx> > qmServerCallbacks;
@@ -60,6 +61,29 @@ class MurmurIce : public QObject {
 	public slots:
 		void started(Server *);
 		void stopped(Server *);
+
+/*
+		void authenticateSlot(int &res, QString &uname, const QString &pw);
+		void registerPlayerSlot(int &res, const QString &name);
+		void unregisterPlayerSlot(int &res, int id);
+		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QPair<QString, QString> > &res);
+		void getRegistrationSlot(int &res, int id, QString &name, QString &email);
+		void setPwSlot(int &res, int id, const QString &pw);
+		void setEmailSlot(int &res, int id, const QString &email);
+		void setNameSlot(int &res, int id, const QString &name);
+		void setTextureSlot(int &res, int id, const QByteArray &texture);
+		void nameToIdSlot(int &res, const QString &name);
+		void idToNameSlot(QString &res, int id);
+		void idToTextureSlot(QByteArray &res, int id);
+*/
+
+		void playerStateChanged(const Player *p);
+		void playerConnected(const Player *p);
+		void playerDisconnected(const Player *p);
+
+		void channelStateChanged(const Channel *c);
+		void channelCreated(const Channel *c);
+		void channelRemoved(const Channel *c);
 };
 #endif
 #endif

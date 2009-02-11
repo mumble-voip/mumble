@@ -213,6 +213,15 @@ void Server::connectListener(QObject *obj) {
 	connect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));
 }
 
+void Server::disconnectListener(QObject *obj) {
+	disconnect(this, SIGNAL(playerStateChanged(const Player *)), obj, SLOT(playerStateChanged(const Player *)));
+	disconnect(this, SIGNAL(playerConnected(const Player *)), obj, SLOT(playerConnected(const Player *)));
+	disconnect(this, SIGNAL(playerDisconnected(const Player *)), obj, SLOT(playerDisconnected(const Player *)));
+	disconnect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));
+	disconnect(this, SIGNAL(channelCreated(const Channel *)), obj, SLOT(channelCreated(const Channel *)));
+	disconnect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));
+}
+
 void Meta::connectListener(QObject *obj) {
 	connect(this, SIGNAL(started(Server *)), obj, SLOT(started(Server *)));
 	connect(this, SIGNAL(stopped(Server *)), obj, SLOT(stopped(Server *)));
