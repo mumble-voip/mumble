@@ -181,6 +181,10 @@ class MetaI : virtual public Meta {
 
 		virtual void getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr&,
 		                              const Ice::Current&);
+
+
+		virtual void addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr&, const ::Murmur::MetaCallbackPrx&, const ::Ice::Current& = ::Ice::Current());
+		virtual void removeCallback_async(const ::Murmur::AMD_Meta_removeCallbackPtr&, const ::Murmur::MetaCallbackPrx&, const ::Ice::Current& = ::Ice::Current());
 };
 
 }

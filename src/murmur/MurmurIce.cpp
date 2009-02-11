@@ -91,7 +91,7 @@ MurmurIce::MurmurIce() {
 
 	try {
 		communicator = Ice::initialize();
-		Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
+		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
 		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));
 		adapter->addServantLocator(new ServerLocator(), "s");
@@ -102,6 +102,8 @@ MurmurIce::MurmurIce() {
 		foreach(const Ice::EndpointPtr ep, mprx->ice_getEndpoints()) {
 			qWarning("MurmurIce: Endpoint \"%s\" running", qPrintable(fromStdUtf8String(ep->toString())));
 		}
+		
+		meta->connectListener(this);
 	} catch (Ice::Exception &e) {
 		qCritical("MurmurIce: Initialization failed: %s", qPrintable(fromStdUtf8String(e.ice_name())));
 	}
@@ -125,14 +127,9 @@ void MurmurIce::customEvent(QEvent *evt) {
 	}
 }
 
-void MurmurIce::serverDeleted(QObject *o) {
-	::Server *s = qobject_cast< ::Server *>(o);
-	if (s)
-		qmCallbacks.remove(s->iServerNum);
-}
-
-Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &) {
-	return iopServer;
+void MurmurIce::badMetaProxy(const ::Murmur::MetaCallbackPrx &prx) {
+	qmMetaCallbacks.removeAll(prx);
+	qCritical("Registered Ice MetaCallback %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
 }
 
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
@@ -142,6 +139,35 @@ static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 
 	return ServerPrx::uncheckedCast(adapter->createProxy(ident));
 }
+
+void MurmurIce::started(::Server *s) {
+	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
+	foreach(::Murmur::MetaCallbackPrx prx, qmList) {
+		try {
+			prx->started(idToProxy(s->iServerNum, adapter));
+		} catch (...) {
+			badMetaProxy(prx);
+		}
+	}
+}
+
+void MurmurIce::stopped(::Server *s) {
+	qmServerCallbacks.remove(s->iServerNum);
+
+	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
+	foreach(::Murmur::MetaCallbackPrx prx, qmList) {
+		try {
+			prx->stopped(idToProxy(s->iServerNum, adapter));
+		} catch (...) {
+			badMetaProxy(prx);
+		}
+	}
+}
+
+Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &) {
+	return iopServer;
+}
+
 
 static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
 	le.timestamp = r.first;
@@ -272,12 +298,14 @@ static void impl_Server_delete(const ::Murmur::AMD_Server_deletePtr cb, int serv
 
 static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
-	mi->qmCallbacks[server_id].append(cbptr);
+	mi->qmServerCallbacks[server_id].append(cbptr);
+	cb->ice_response();
 }
 
 static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
-	mi->qmCallbacks[server_id].removeAll(cbptr);
+	mi->qmServerCallbacks[server_id].removeAll(cbptr);
+	cb->ice_response();
 }
 
 static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {
@@ -817,6 +845,27 @@ static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, cons
 	QString txt;
 	::Meta::getVersion(major, minor, patch, txt);
 	cb->ice_response(major, minor, patch, toStdUtf8String(txt));
+}
+
+static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr &cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
+	try {
+		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::checkedCast(cbptr->ice_oneway());
+		if (! mi->qmMetaCallbacks.contains(oneway))
+			mi->qmMetaCallbacks.append(oneway);
+		cb->ice_response();
+	} catch (...) {
+		cb->ice_exception(InvalidCallbackException());
+	}
+}
+
+static void impl_Meta_removeCallback(const Murmur::AMD_Meta_removeCallbackPtr &cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
+	try {
+		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::checkedCast(cbptr->ice_oneway());
+		mi->qmMetaCallbacks.removeAll(oneway);
+		cb->ice_response();
+	} catch (...) {
+		cb->ice_exception(InvalidCallbackException());
+	}
 }
 
 #include "MurmurIceWrapper.cpp"

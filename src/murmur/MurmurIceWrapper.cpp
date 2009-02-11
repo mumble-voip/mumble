@@ -174,3 +174,11 @@ void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &c
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Meta_getVersion, cb, current.adapter));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr &cb,  const ::Murmur::MetaCallbackPrx& p1, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Meta_addCallback, cb, current.adapter, p1));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
+void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallbackPtr &cb,  const ::Murmur::MetaCallbackPrx& p1, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Meta_removeCallback, cb, current.adapter, p1));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};

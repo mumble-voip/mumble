@@ -37,6 +37,7 @@
 #include <Ice/Ice.h>
 #include <IceUtil/IceUtil.h>
 #include "MurmurI.h"
+#include "Server.h"
 
 #define ICE_QEVENT (QEvent::User + 959)
 
@@ -48,13 +49,17 @@ class MurmurIce : public QObject {
 		QMutex qmEvent;
 		QWaitCondition qwcEvent;
 		Ice::CommunicatorPtr communicator;
+		Ice::ObjectAdapterPtr adapter;
 		void customEvent(QEvent *evt);
+		void badMetaProxy(const ::Murmur::MetaCallbackPrx &prx);
 	public:
-		QMap<int, QList< ::Murmur::ServerCallbackPrx> > qmCallbacks;
+		QList< ::Murmur::MetaCallbackPrx> qmMetaCallbacks;
+		QMap<int, QList< ::Murmur::ServerCallbackPrx> > qmServerCallbacks;
 		MurmurIce();
 		~MurmurIce();
 	public slots:
-		void serverDeleted(QObject *);
+		void started(Server *);
+		void stopped(Server *);
 };
 #endif
 #endif

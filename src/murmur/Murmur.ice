@@ -201,6 +201,7 @@ module Murmur
 		idempotent void deletedChannel(Channel c);
 	};
 
+
 	/** Per-server interface. This includes all methods for configuring and altering
          * the state of a single virtual server. You can retrieve a pointer to this interface
          * from one of the methods in [Meta].
@@ -435,6 +436,14 @@ module Murmur
 		idempotent void setTexture(int playerid, Texture tex) throws ServerBootedException, InvalidPlayerException, InvalidTextureException;
 	};
 
+	/** Callback interface for Meta. You can supply an implementation of this to recieve notifications
+	 *  when servers are stopped or started.
+	 */
+	interface MetaCallback {
+		void started(Server *s);
+		void stopped(Server *s);
+	};
+
 	sequence<Server *> ServerList;
 
 	/** This is the meta interface. It is primarily used for retrieving the [Server] interfaces for each individual server.
@@ -477,5 +486,17 @@ module Murmur
 		 *   may be simply the compile date or the SVN revision. This is usually the text you want to present to users.
 		 */
 		idempotent void getVersion(out int major, out int minor, out int patch, out string text);
+
+		/** Add a callback.
+		 *
+		 * @param cb Callback interface which receives messages.
+		 */
+		void addCallback(MetaCallback *cb) throws InvalidCallbackException;
+
+		/** Remove a callback.
+		 *
+		 * @param cb Callback interface to be removed.
+		 */
+		void removeCallback(MetaCallback *cb) throws InvalidCallbackException;
 	};
 };
