@@ -401,11 +401,18 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 
 		att = qMin(1.0f, bloomfac + dotfactor);
 	} else {
-		if (distance > g.s.fAudioMaxDistance)
-			distance = g.s.fAudioMaxDistance;
+		float datt;
 
-		float drel = (distance-g.s.fAudioMinDistance) / (g.s.fAudioMaxDistance - g.s.fAudioMinDistance);
-		float datt = powf(10.0f, log10f(g.s.fAudioMaxDistVolume) * drel);
+		if (distance >= g.s.fAudioMaxDistance) {
+			datt = g.s.fAudioMaxDistVolume;
+		} else {
+			float mvol = g.s.fAudioMaxDistVolume;
+			if (mvol < 0.01f)
+				mvol = 0.01f;
+
+			float drel = (distance-g.s.fAudioMinDistance) / (g.s.fAudioMaxDistance - g.s.fAudioMinDistance);
+			datt = powf(10.0f, log10f(mvol) * drel);
+		}
 
 		att = datt * dotfactor;
 	}

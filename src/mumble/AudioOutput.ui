@@ -277,7 +277,7 @@
       <bool>true</bool>
      </property>
      <property name="title" >
-      <string>Volume attenuation</string>
+      <string>Positional Audio</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2" >
       <item row="0" column="3" colspan="3" >
@@ -309,6 +309,9 @@
          <string>Minimum distance to player before sound decreases</string>
         </property>
         <property name="statusTip" >
+         <string/>
+        </property>
+        <property name="whatsThis" >
          <string>This sets the minimum distance for sound calculations. The volume of other players' speech will not decrease until they are at least this far away from you.</string>
         </property>
         <property name="minimum" >
