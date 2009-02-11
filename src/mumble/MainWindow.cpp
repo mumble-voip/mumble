@@ -277,6 +277,7 @@ void MainWindow::setupGui()  {
 }
 
 MainWindow::~MainWindow() {
+	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvPlayers;
 }
