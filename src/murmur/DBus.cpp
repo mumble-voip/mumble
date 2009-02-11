@@ -176,7 +176,6 @@ QDBusConnection MurmurDBus::qdbc(QLatin1String("mainbus"));
 
 MurmurDBus::MurmurDBus(Server *srv) : QDBusAbstractAdaptor(srv) {
 	server = srv;
-	srv->connectAuthenticator(this);
 	srv->connectListener(this);
 }
 
@@ -202,6 +201,12 @@ void MurmurDBus::setTempGroups(int playerid, Channel *cChannel, const QStringLis
 		server->clearACLCache(p);
 }
 
+void MurmurDBus::removeAuthenticator() {
+	server->connectAuthenticator(this);
+	qsAuthPath = QString();
+	qsAuthService = QString();
+}
+
 
 void MurmurDBus::idToNameSlot(QString &name, int id) {
 	if (qsAuthPath.isEmpty())
@@ -213,8 +218,7 @@ void MurmurDBus::idToNameSlot(QString &name, int id) {
 		name = reply.value();
 	else {
 		server->log("DBus Authenticator failed getUserName for %d: %s", id, qPrintable(reply.error().message()));
-		qsAuthPath = QString();
-		qsAuthService = QString();
+		removeAuthenticator();
 	}
 }
 
@@ -239,8 +243,7 @@ void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
 		id = reply.value();
 	else {
 		server->log("DBus Authenticator failed getUserId for %s: %s", qPrintable(name), qPrintable(reply.error().message()));
-		qsAuthPath = QString();
-		qsAuthService = QString();
+		removeAuthenticator();
 	}
 }
 
@@ -363,8 +366,7 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
 		}
 	} else {
 		server->log("DBus Authenticator failed authenticate for %s: %s", qPrintable(uname), qPrintable(err.message()));
-		qsAuthPath = QString();
-		qsAuthService = QString();
+		removeAuthenticator();
 	}
 }
 
@@ -858,6 +860,9 @@ void MurmurDBus::verifyPassword(int id, const QString &pw, const QDBusMessage &m
 }
 
 void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, const QDBusMessage &msg) {
+	if (! qsAuthPath.isNull() || ! qsAuthService.isNull())
+		removeAuthenticator();
+	server->connectAuthenticator(this);
 	qsAuthPath = path.path();
 	qsAuthService = msg.service();
 	bReentrant = reentrant;
