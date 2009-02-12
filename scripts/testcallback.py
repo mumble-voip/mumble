@@ -48,8 +48,6 @@ class Client(Ice.Application):
         global serverR
 
         meta = Murmur.MetaPrx.checkedCast(self.communicator().stringToProxy('Meta:tcp -h 127.0.0.1 -p 49152'))
-            
-        server = meta.getServer(1)
 
         adapter = self.communicator().createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1 -p 49153")
 
@@ -62,8 +60,8 @@ class Client(Ice.Application):
 
         meta.addCallback(metaR)
         
-        server.stop()
-        server.start()
+        for server in meta.getBootedServers():
+          server.addCallback(serverR)
         
         print 'Ready to go';
 
