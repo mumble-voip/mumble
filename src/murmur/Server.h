@@ -247,6 +247,8 @@ class Server : public QThread, public MessageHandler {
 		void channelStateChanged(const Channel *);
 		void channelCreated(const Channel *);
 		void channelRemoved(const Channel *);
+		
+		void contextAction(const Player *, const QString &, unsigned int, int);
 	public:
 		void setPlayerState(Player *p, Channel *parent, bool mute, bool deaf, bool suppressed);
 		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links);
@@ -314,6 +316,8 @@ class Server : public QThread, public MessageHandler {
 		virtual void msgTexture(Connection *, MessageTexture *);
 		virtual void msgCryptSetup(Connection *, MessageCryptSetup *);
 		virtual void msgCryptSync(Connection *, MessageCryptSync *);
+                virtual void msgContextAddAction(Connection *, MessageContextAddAction *);
+		virtual void msgContextAction(Connection *, MessageContextAction *);
 };
 
 

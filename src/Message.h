@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync, PingStats };
+		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync, PingStats, ContextAction, ContextAddAction };
 		unsigned int uiSession;
 
 		Message();
@@ -435,6 +435,35 @@ class MessageCryptSync : public Message {
 		bool isValid() const;
 };
 
+class MessageContextAddAction : public Message {
+	protected:
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
+	public:
+		enum Context { CtxServer = 0x01, CtxChannel = 0x02, CtxPlayer = 0x04 };
+		QString qsAction;
+		QString qsText;
+		Context ctx;
+		Message::MessageType messageType() const {
+			return ContextAddAction;
+		}
+		bool isValid() const;
+};
+
+class MessageContextAction : public Message {
+	protected:
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
+	public:
+		QString qsAction;
+		unsigned int uiVictim;
+		int iChannel;
+		Message::MessageType messageType() const {
+			return ContextAction;
+		}
+		bool isValid() const;
+};
+
 class MessageHandler {
 	protected:
 		virtual void msgSpeex(Connection *, MessageSpeex *) = 0;
@@ -465,6 +494,8 @@ class MessageHandler {
 		virtual void msgTexture(Connection *, MessageTexture *) = 0;
 		virtual void msgCryptSetup(Connection *, MessageCryptSetup *) = 0;
 		virtual void msgCryptSync(Connection *, MessageCryptSync *) = 0;
+		virtual void msgContextAddAction(Connection *, MessageContextAddAction *) = 0;
+		virtual void msgContextAction(Connection *, MessageContextAction *) = 0;
 		void dispatch(Connection *, Message *);
 	public:
 		virtual ~MessageHandler() { };

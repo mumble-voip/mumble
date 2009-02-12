@@ -56,6 +56,7 @@ class MurmurIce : public QObject {
 	public:
 		QList< ::Murmur::MetaCallbackPrx> qmMetaCallbacks;
 		QMap<int, QList< ::Murmur::ServerCallbackPrx> > qmServerCallbacks;
+		QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > qmServerContextCallbacks;
 		MurmurIce();
 		~MurmurIce();
 	public slots:
@@ -84,6 +85,8 @@ class MurmurIce : public QObject {
 		void channelStateChanged(const Channel *c);
 		void channelCreated(const Channel *c);
 		void channelRemoved(const Channel *c);
+
+		void contextAction(const Player *, const QString &, unsigned int, int);
 };
 #endif
 #endif

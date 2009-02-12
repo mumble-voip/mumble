@@ -183,13 +183,13 @@ void MurmurIce::customEvent(QEvent *evt) {
 }
 
 void MurmurIce::badMetaProxy(const ::Murmur::MetaCallbackPrx &prx) {
-	qmMetaCallbacks.removeAll(prx);
 	qCritical("Registered Ice MetaCallback %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
+	qmMetaCallbacks.removeAll(prx);
 }
 
 void MurmurIce::badServerProxy(const ::Murmur::ServerCallbackPrx &prx, int id) {
-	qmServerCallbacks[id].removeAll(prx);
 	qCritical("Registered Ice ServerCallback %s on server %d failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), id);
+	qmServerCallbacks[id].removeAll(prx);
 }
 
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
@@ -201,12 +201,15 @@ static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 }
 
 void MurmurIce::started(::Server *s) {
+	s->connectListener(mi);
+	connect(s, SIGNAL(contextAction(const Player *, const QString &, unsigned int, int)), this, SLOT(contextAction(const Player *, const QString &, unsigned int, int)));
+
 	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
 
 	if (qmList.isEmpty())
 		return;
 
-	foreach(::Murmur::MetaCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::MetaCallbackPrx &prx, qmList) {
 		try {
 			prx->started(idToProxy(s->iServerNum, adapter));
 		} catch (...) {
@@ -223,7 +226,7 @@ void MurmurIce::stopped(::Server *s) {
 	if (qmList.isEmpty())
 		return;
 
-	foreach(::Murmur::MetaCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::MetaCallbackPrx &prx, qmList) {
 		try {
 			prx->stopped(idToProxy(s->iServerNum, adapter));
 		} catch (...) {
@@ -243,7 +246,7 @@ void MurmurIce::playerConnected(const ::Player *p) {
 	::Murmur::Player mp;
 	playerToPlayer(p, mp);
 
-	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
 			prx->playerConnected(mp);
 		} catch (...) {
@@ -254,6 +257,8 @@ void MurmurIce::playerConnected(const ::Player *p) {
 
 void MurmurIce::playerDisconnected(const ::Player *p) {
 	::Server *s = qobject_cast< ::Server *> ( sender());
+	
+	mi->qmServerContextCallbacks[s->iServerNum].remove(p->uiSession);
 
 	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
 	
@@ -263,7 +268,7 @@ void MurmurIce::playerDisconnected(const ::Player *p) {
 	::Murmur::Player mp;
 	playerToPlayer(p, mp);
 
-	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
 			prx->playerDisconnected(mp);
 		} catch (...) {
@@ -283,7 +288,7 @@ void MurmurIce::playerStateChanged(const ::Player *p) {
 	::Murmur::Player mp;
 	playerToPlayer(p, mp);
 
-	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
 			prx->playerStateChanged(mp);
 		} catch (...) {
@@ -303,7 +308,7 @@ void MurmurIce::channelCreated(const ::Channel *c) {
 	::Murmur::Channel mc;
 	channelToChannel(c, mc);
 
-	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
 			prx->channelCreated(mc);
 		} catch (...) {
@@ -323,7 +328,7 @@ void MurmurIce::channelRemoved(const ::Channel *c) {
 	::Murmur::Channel mc;
 	channelToChannel(c, mc);
 
-	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
 			prx->channelRemoved(mc);
 		} catch (...) {
@@ -343,7 +348,7 @@ void MurmurIce::channelStateChanged(const ::Channel *c) {
 	::Murmur::Channel mc;
 	channelToChannel(c, mc);
 
-	foreach(::Murmur::ServerCallbackPrx prx, qmList) {
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
 			prx->channelStateChanged(mc);
 		} catch (...) {
@@ -352,10 +357,37 @@ void MurmurIce::channelStateChanged(const ::Channel *c) {
 	}
 }
 
+void MurmurIce::contextAction(const ::Player *pSrc, const QString &action, unsigned int session, int iChannel) {
+	::Server *s = qobject_cast< ::Server *> ( sender());
+	
+	QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > &qmAll = mi->qmServerContextCallbacks;
+	if (! qmAll.contains(s->iServerNum))
+		return;
+	
+	QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > &qmServer = qmAll[s->iServerNum];
+	if (! qmServer.contains(pSrc->uiSession))
+		return;
+	
+	QMap<QString, ::Murmur::ServerContextCallbackPrx> &qmPlayer = qmServer[pSrc->uiSession];
+	if (! qmPlayer.contains(action))
+		return;
+		
+	const ::Murmur::ServerContextCallbackPrx &prx = qmPlayer[action];
+	
+	::Murmur::Player mp;
+	playerToPlayer(pSrc, mp);
+	
+	try {
+		prx->contextAction(toStdUtf8String(action), mp, session, iChannel);
+	} catch (...) {
+		qCritical("Registered Ice ServerContextCallback %s on server %d, session %d, action %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), s->iServerNum, pSrc->uiSession, qPrintable(action));
+		qmPlayer.remove(action);
+	}
+}
+
 Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &) {
 	return iopServer;
 }
-
 
 #define FIND_SERVER \
 	::Server *server = meta->qhServers.value(server_id);
@@ -436,8 +468,6 @@ static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr &cb,
 
 	try {
 		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::checkedCast(cbptr->ice_oneway());
-		if (qmList.isEmpty()) 
-			server->connectListener(mi);
 		if (! qmList.contains(oneway)) 
 			qmList.append(oneway);
 		cb->ice_response();
@@ -453,8 +483,6 @@ static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPt
 	try {
 		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::uncheckedCast(cbptr->ice_oneway());
 		qmList.removeAll(oneway);
-		if (qmList.isEmpty()) 
-			server->disconnectListener(mi);
 		cb->ice_response();
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
@@ -614,6 +642,54 @@ static void impl_Server_sendMessage(const ::Murmur::AMD_Server_sendMessagePtr cb
 
 	server->sendTextMessage(NULL, user, false, fromStdUtf8String(text));
 	cb->ice_response();
+}
+
+static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCallbackPtr &cb, int server_id, ::Ice::Int session, const ::std::string& action, const ::std::string& text, const ::Murmur::ServerContextCallbackPrx& cbptr, int ctx) {
+	NEED_SERVER;
+	NEED_PLAYER;
+	
+	QMap<QString, ::Murmur::ServerContextCallbackPrx> & qmPrx = mi->qmServerContextCallbacks[server_id][session];
+	
+	if (! (ctx & (MessageContextAddAction::CtxServer | MessageContextAddAction::CtxChannel | MessageContextAddAction::CtxPlayer))) {
+		cb->ice_exception(InvalidCallbackException());
+		return;
+	}
+
+	try {
+		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::checkedCast(cbptr->ice_oneway());
+		qmPrx.insert(fromStdUtf8String(action), oneway);
+		cb->ice_response();
+	} catch (...) {
+		cb->ice_exception(InvalidCallbackException());
+		return;
+	}
+	
+	MessageContextAddAction mcaa;
+	mcaa.uiSession = 0;
+	mcaa.qsAction = fromStdUtf8String(action);
+	mcaa.qsText = fromStdUtf8String(text);
+	mcaa.ctx = static_cast<MessageContextAddAction::Context>(ctx);
+	server->sendMessage(user, &mcaa);
+}
+
+static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeContextCallbackPtr &cb, int server_id, const Murmur::ServerContextCallbackPrx& cbptr) {
+	NEED_SERVER;
+
+	QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > & qmPrx = mi->qmServerContextCallbacks[server_id];
+
+	try {
+		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::uncheckedCast(cbptr->ice_oneway());
+		
+		foreach(int session, qmPrx.keys()) {
+			QMap<QString, ::Murmur::ServerContextCallbackPrx> qm = qmPrx[session];
+			foreach(const QString &act, qm.keys(oneway))
+				qm.remove(act);
+		}
+
+		cb->ice_response();
+	} catch (...) {
+		cb->ice_exception(InvalidCallbackException());
+	}
 }
 
 static void impl_Server_getState(const ::Murmur::AMD_Server_getStatePtr cb, int server_id,  ::Ice::Int session) {

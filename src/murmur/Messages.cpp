@@ -928,3 +928,16 @@ void Server::msgCryptSync(Connection *cCon, MessageCryptSync *msg) {
 		cCon->disconnectSocket();
 	}
 }
+
+void Server::msgContextAddAction(Connection *cCon, MessageContextAddAction *) {
+	cCon->disconnectSocket();
+}
+
+void Server::msgContextAction(Connection *cCon, MessageContextAction *msg) {
+	MSG_SETUP(Player::Authenticated);
+	if ((msg->uiVictim > 0) && ! qhUsers.contains(msg->uiVictim))
+		return;
+	if ((msg->iChannel >= 0) && ! qhChannels.contains(msg->iChannel))
+		return;
+	emit contextAction(uSource, msg->qsAction, msg->uiVictim, msg->iChannel);
+}

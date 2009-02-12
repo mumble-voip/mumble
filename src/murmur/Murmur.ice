@@ -226,6 +226,27 @@ module Murmur
 		idempotent void channelStateChanged(Channel state);
 	};
 
+	/** Context for actions in the Server menu. */
+	const int ContextServer = 0x01;
+	/** Context for actions in the Channel menu. */
+	const int ContextChannel = 0x02;
+	/** Context for actions in the Player menu. */
+	const int ContextPlayer = 0x04;
+
+	/** Callback interface for context actions. You need to supply one of these for [Server::addContext]. 
+	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
+	 *  Please note that all callbacks are done asynchronously; murmur does not wait for the callback to
+	 *  complete before continuing processing.
+	 */
+	interface ServerContextCallback {
+		/** Called when a context action is performed.
+		 *  @param action Action to be performed.
+		 *  @param user User which initiated the action.
+		 *  @param session If nonzero, session of target player.
+		 *  @param channelid If nonzero, session of target channel.
+		 */
+		idempotent void contextAction(string action, Player user, int session, int channelid);
+	};
 
 	/** Per-server interface. This includes all methods for configuring and altering
          * the state of a single virtual server. You can retrieve a pointer to this interface
@@ -351,6 +372,24 @@ module Murmur
 		 * @see sendMessageChannel
 		 */
 		void sendMessage(int session, string text) throws ServerBootedException, InvalidSessionException;
+
+		/** Add a context callback. This is done per player, and will add a context menu action for the player.
+		 *
+		 * @param session Session of user which should receive context entry.
+		 * @param action Action string, a unique name to associate with the action.
+		 * @param text Name of action shown to user.
+		 * @param cb Callback interface which will receive notifications.
+		 * @param ctx Context this should be used in. Needs to be one or a combination of [ContextServer], [ContextChannel] and [ContextPlayer].
+		 * @see removeContextCallback
+		 */
+		void addContextCallback(int session, string action, string text, ServerContextCallback *cb, int ctx) throws ServerBootedException, InvalidCallbackException;
+
+		/** Remove a callback.
+		 *
+		 * @param cb Callback interface to be removed. This callback will be removed from all from all players.
+		 * @see addContextCallback
+		 */
+		void removeContextCallback(ServerContextCallback *cb) throws ServerBootedException, InvalidCallbackException;
 		
 		/** Get state of single channel.
 		 * @param channelid ID of Channel. See [Channel::id].

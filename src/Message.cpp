@@ -163,6 +163,12 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 		case CryptSync:
 			mMsg = new MessageCryptSync();
 			break;
+		case ContextAction:
+			mMsg = new MessageContextAction();
+			break;
+		case ContextAddAction:
+			mMsg = new MessageContextAddAction();
+			break;
 		default:
 			qWarning("Message: Type %d (session %d, size %d) is unknown type", iMessageType, uiSession, qdsIn.capacity());
 	}
@@ -272,6 +278,12 @@ void MessageHandler::dispatch(Connection *cCon, Message *msg) {
 			break;
 		case Message::CryptSync:
 			msgCryptSync(cCon, static_cast<MessageCryptSync *>(msg));
+			break;
+		case Message::ContextAction:
+			msgContextAction(cCon, static_cast<MessageContextAction *>(msg));
+			break;
+		case Message::ContextAddAction:
+			msgContextAddAction(cCon, static_cast<MessageContextAddAction *>(msg));
 			break;
 		default:
 			qFatal("MessageHandler called with unknown message type %d", msg->messageType());
@@ -598,6 +610,40 @@ void MessageCryptSync::restoreStream(PacketDataStream &qdsIn) {
 
 bool MessageCryptSync::isValid() const {
 	return (qbaNonce.isEmpty() || (qbaNonce.size() == AES_BLOCK_SIZE));
+}
+
+void MessageContextAddAction::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << qsAction;
+	qdsOut << qsText;
+	qdsOut << static_cast<int>(ctx);
+}
+
+void MessageContextAddAction::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> qsAction;
+	qdsIn >> qsText;
+	int c;
+	qdsIn >> c;
+	ctx = static_cast<Context>(c);
+}
+
+bool MessageContextAddAction::isValid() const {
+	return (! qsAction.isEmpty() && (ctx & (CtxServer | CtxPlayer | CtxChannel)));
+}
+
+void MessageContextAction::saveStream(PacketDataStream &qdsOut) const {
+	qdsOut << qsAction;
+	qdsOut << uiVictim;
+	qdsOut << iChannel;
+}
+
+void MessageContextAction::restoreStream(PacketDataStream &qdsIn) {
+	qdsIn >> qsAction;
+	qdsIn >> uiVictim;
+	qdsIn >> iChannel;
+}
+
+bool MessageContextAction::isValid() const {
+	return (! qsAction.isEmpty());
 }
 
 PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::GroupStruct &gs) {
