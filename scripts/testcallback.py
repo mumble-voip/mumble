@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
+# -*- coding: utf-8
+import Ice, sys
 
-import sys, Ice
-
-Ice.loadSlice('Murmur.ice')
+Ice.loadSlice('Murmur.ice') 
 import Murmur
 
 class MetaCallbackI(Murmur.MetaCallback):
@@ -43,42 +43,32 @@ class ServerCallbackI(Murmur.ServerCallback):
       print "stateChanged"
       print c
 
-class Client(Ice.Application):
-    def run(self, args):
-        global serverR
+if __name__ == "__main__":
+    print "Creating callbacks...",
+    ice = Ice.initialize(sys.argv)
+    
+    meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'))
 
-        meta = Murmur.MetaPrx.checkedCast(self.communicator().stringToProxy('Meta:tcp -h 127.0.0.1 -p 49152'))
+    adapter = ice.createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1 -p 6503")
 
-        adapter = self.communicator().createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1 -p 49153")
+    adapter.add(MetaCallbackI(), ice.stringToIdentity("metaCallbackReceiver"))
+    adapter.add(ServerCallbackI(), ice.stringToIdentity("serverCallbackReceiver"))
+    adapter.activate()
 
-        adapter.add(MetaCallbackI(), self.communicator().stringToIdentity("metaCallbackReceiver"))
-        adapter.add(ServerCallbackI(), self.communicator().stringToIdentity("serverCallbackReceiver"))
-        adapter.activate()
+    metaR = Murmur.MetaCallbackPrx.uncheckedCast(adapter.createProxy(ice.stringToIdentity("metaCallbackReceiver")))
+    serverR = Murmur.ServerCallbackPrx.uncheckedCast(adapter.createProxy(ice.stringToIdentity("serverCallbackReceiver")))
+    
+    meta.addCallback(metaR)
+    
+    for server in meta.getBootedServers():
+      server.addCallback(serverR)
+    print "Done"
+    print 'Script running (press CTRL-C to abort)';
+    try:
+        ice.waitForShutdown()
+    except KeyboardInterrupt:
+        print 'CTRL-C caught, aborting'
 
-        metaR = Murmur.MetaCallbackPrx.uncheckedCast(adapter.createProxy(self.communicator().stringToIdentity("metaCallbackReceiver")))
-        serverR = Murmur.ServerCallbackPrx.uncheckedCast(adapter.createProxy(self.communicator().stringToIdentity("serverCallbackReceiver")))
-
-        meta.addCallback(metaR)
-        
-        for server in meta.getBootedServers():
-          server.addCallback(serverR)
-        
-        print 'Ready to go';
-
-        c = None
-        while c != 'x':
-            try:
-                c = raw_input("==> ")
-                if c == 'x':
-                    pass # Nothing to do
-            except EOFError:
-                break
-            except KeyboardInterrupt:
-                break
-
-        meta.removeCallback(metaR)
-
-        return 0
-
-app = Client()
-sys.exit(app.main(sys.argv))
+    meta.removeCallback(metaR)
+    ice.shutdown()
+    print "Goodbye"
