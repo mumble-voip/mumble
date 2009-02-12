@@ -42,12 +42,6 @@
     <property name="title" >
      <string>&amp;Server</string>
     </property>
-    <addaction name="qaServerConnect" />
-    <addaction name="qaServerDisconnect" />
-    <addaction name="qaServerBanList" />
-    <addaction name="qaServerInformation" />
-    <addaction name="separator" />
-    <addaction name="qaQuit" />
    </widget>
    <widget class="QMenu" name="qmPlayer" >
     <property name="title" >

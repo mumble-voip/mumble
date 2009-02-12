@@ -233,9 +233,8 @@ void MainWindow::msgChannelAdd(Connection *, MessageChannelAdd *msg) {
 	}
 
 	Channel *p = Channel::get(msg->iParent);
-	if (p) {
-		Channel *c = pmModel->addChannel(msg->iId, p, msg->qsName);
-	}
+	if (p)
+		pmModel->addChannel(msg->iId, p, msg->qsName);
 }
 
 void MainWindow::msgChannelRemove(Connection *, MessageChannelRemove *msg) {
@@ -387,4 +386,19 @@ void MainWindow::msgCryptSync(Connection *, MessageCryptSync *msg) {
 		c->csCrypt.uiResync++;
 		memcpy(c->csCrypt.decrypt_iv, msg->qbaNonce.constData(), AES_BLOCK_SIZE);
 	}
+}
+
+void MainWindow::msgContextAction(Connection *, MessageContextAction *) {
+}
+
+void MainWindow::msgContextAddAction(Connection *, MessageContextAddAction *msg) {
+	QAction *a = new QAction(msg->qsText, g.mw);
+	a->setData(msg->qsAction);
+	connect(a, SIGNAL(triggered()), this, SLOT(context_triggered()));
+	if (msg->ctx & MessageContextAddAction::CtxServer)
+		qlServerActions.append(a);
+	if (msg->ctx & MessageContextAddAction::CtxPlayer)
+		qlPlayerActions.append(a);
+	if (msg->ctx & MessageContextAddAction::CtxChannel)
+		qlChannelActions.append(a);
 }

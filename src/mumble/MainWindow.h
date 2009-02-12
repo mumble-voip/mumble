@@ -100,6 +100,11 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 	protected:
 		Usage uUsage;
 		QTimer *qtReconnect;
+
+		QList<QAction *> qlServerActions;
+		QList<QAction *> qlChannelActions;
+		QList<QAction *> qlPlayerActions;
+
 		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt);
@@ -111,6 +116,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 	public slots:
 		void on_qtvPlayers_customContextMenuRequested(const QPoint &pos);
 		void on_qtvPlayers_doubleClicked(const QModelIndex &idx);
+		void on_qmServer_aboutToShow();
 		void on_qaServerConnect_triggered();
 		void on_qaServerDisconnect_triggered();
 		void on_qaServerBanList_triggered();
@@ -165,6 +171,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void pushLink(bool down);
 		void viewCertificate(bool);
 		void openUrl(const QUrl &url);
+		void context_triggered();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();
@@ -198,7 +205,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void msgTexture(Connection *, MessageTexture *);
 		virtual void msgCryptSetup(Connection *, MessageCryptSetup *);
 		virtual void msgCryptSync(Connection *, MessageCryptSync *);
-
+		virtual void msgContextAddAction(Connection *, MessageContextAddAction *);
+		virtual void msgContextAction(Connection *, MessageContextAction *);
 };
 
 #else

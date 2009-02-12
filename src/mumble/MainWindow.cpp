@@ -544,6 +544,23 @@ void MainWindow::on_Reconnect_timeout() {
 	g.sh->start(QThread::TimeCriticalPriority);
 }
 
+void MainWindow::on_qmServer_aboutToShow() {
+	qmServer->clear();
+	qmServer->addAction(qaServerConnect);
+	qmServer->addAction(qaServerDisconnect);
+	qmServer->addAction(qaServerBanList);
+	qmServer->addAction(qaServerInformation);
+	qmServer->addSeparator();
+	qmServer->addAction(qaQuit);
+
+	if (! qlServerActions.isEmpty()) {
+		qmServer->addSeparator();
+		foreach(QAction *a, qlServerActions)
+			qmServer->addAction(a);
+	}
+}
+
+
 void MainWindow::on_qaServerDisconnect_triggered() {
 	if (qtReconnect->isActive())
 		qtReconnect->stop();
@@ -629,6 +646,12 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 		qmPlayer->addMenu(qmAudio);
 		qmPlayer->addMenu(qmConfig);
 		qmPlayer->addMenu(qmHelp);
+	}
+
+	if (! qlPlayerActions.isEmpty()) {
+		qmPlayer->addSeparator();
+		foreach(QAction *a, qlPlayerActions)
+			qmPlayer->addAction(a);
 	}
 
 	if (! p) {
@@ -790,6 +813,12 @@ void MainWindow::on_qmChannel_aboutToShow() {
 		qmChannel->addMenu(qmAudio);
 		qmChannel->addMenu(qmConfig);
 		qmChannel->addMenu(qmHelp);
+	}
+
+	if (! qlChannelActions.isEmpty()) {
+		qmChannel->addSeparator();
+		foreach(QAction *a, qlChannelActions)
+			qmChannel->addAction(a);
 	}
 
 	bool add, remove, acl, rename, link, unlink, unlinkall, msg;
@@ -1260,6 +1289,18 @@ void MainWindow::serverDisconnected(QString reason) {
 		banEdit = NULL;
 	}
 
+	QSet<QAction *> qs;
+	qs += qlServerActions.toSet();
+	qs += qlChannelActions.toSet();
+	qs += qlPlayerActions.toSet();
+
+	foreach(QAction *a, qs)
+		delete a;
+
+	qlServerActions.clear();
+	qlChannelActions.clear();
+	qlPlayerActions.clear();
+
 	pmModel->removeAll();
 	qtvPlayers->setRowHidden(0, QModelIndex(), true);
 
@@ -1386,4 +1427,19 @@ void MainWindow::on_qteLog_highlighted(const QUrl &url) {
 		QToolTip::hideText();
 	else
 		QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
+}
+
+void MainWindow::context_triggered() {
+	QAction *a = qobject_cast<QAction *>(sender());
+
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+
+	MessageContextAction mca;
+	mca.uiSession = g.uiSession;
+	mca.qsAction = a->data().toString();
+	mca.uiVictim = p ? p->uiSession : 0;
+	mca.iChannel = c ? c->iId : -1;
+
+	g.sh->sendMessage(&mca);
 }
