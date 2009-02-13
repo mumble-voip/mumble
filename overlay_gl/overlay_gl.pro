@@ -1,4 +1,4 @@
-# Simple project file to build Speex with same compilers
+# Simple project file to build overlay with same compilers
 # as Qt used.
 
 TEMPLATE = lib
