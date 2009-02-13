@@ -4,12 +4,12 @@
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG *= debug_and_release
-TARGET = mumble
+TARGET = mumble$(TARGET_ADD)
 VERSION = 1.1.8
 SOURCES = overlay.c
 LIBS *= -lrt -ldl
-QMAKE_CFLAGS *= -fvisibility=hidden
-QMAKE_LFLAGS -= -Wl,--no-undefined
+QMAKE_CFLAGS *= -fvisibility=hidden $(CFLAGS_ADD)
+QMAKE_LFLAGS -= -Wl,--no-undefined $(LFLAGS_ADD)
 equals(QMAKE_LINK,g++) {
   message(Overriding linker)
   QMAKE_LINK = gcc
@@ -17,9 +17,9 @@ equals(QMAKE_LINK,g++) {
 }
 
 CONFIG(debug, debug|release) {
-  DESTDIR       = ../debug
+  DESTDIR       = ../debug$(DESTDIR_ADD)
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR       = ../release
+  DESTDIR       = ../release$(DESTDIR_ADD)
 }
