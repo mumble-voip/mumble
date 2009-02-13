@@ -112,12 +112,6 @@ AudioInput *ALSAAudioInputRegistrar::create() {
 const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
 
-	// Refresh the list of cards each time it is requested
-	if (cards) {
-		delete cards;
-		cards = new ALSAEnumerator();
-	}
-
 	QStringList qlInputDevs = cards->qhInput.keys();
 	qSort(qlInputDevs);
 
@@ -151,12 +145,6 @@ AudioOutput *ALSAAudioOutputRegistrar::create() {
 
 const QList<audioDevice> ALSAAudioOutputRegistrar::getDeviceChoices() {
 	QList<audioDevice> qlReturn;
-
-	// Refresh the list of cards each time it is requested
-	if (cards) {
-		delete cards;
-		cards = new ALSAEnumerator();
-	}
 
 	QStringList qlOutputDevs = cards->qhOutput.keys();
 	qSort(qlOutputDevs);
