@@ -253,7 +253,7 @@ module Murmur
          * from one of the methods in [Meta].
          **/
 	["amd"] interface Server {
-		/** Is the server currently running (accepting players)?
+		/** Shows if the server currently running (accepting players).
 		 *
 		 * @return Run-state of server.
 		 */
