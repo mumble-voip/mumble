@@ -147,6 +147,11 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
 		a->setShortcutContext(Qt::ApplicationShortcut);
+		
+	on_qmServer_aboutToShow();
+	on_qmChannel_aboutToShow();
+	on_qmPlayer_aboutToShow();
+	on_qmConfig_aboutToShow();
 
 	setOnTop(g.s.bAlwaysOnTop);
 }
