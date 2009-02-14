@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de">
+<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -75,7 +76,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="51"/>
         <source>Deny</source>
-        <translation>Ablehnen</translation>
+        <translation>Verweigern</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="53"/>
@@ -155,12 +156,12 @@
     <message>
         <location filename="ACLEditor.ui" line="225"/>
         <source>List of entries</source>
-        <translation>Liste mit Einträgen</translation>
+        <translation>Liste von Einträgen</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="228"/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Dies zeigt alle aktive Einträge in diesem Kanal an. Von Elternkanälen geerbte Einträge werden kursiv angezeigt.&lt;br /&gt;ACLs werden von oben nach unten ausgewertet, was bedeutet, dass sich die Priorität erhöht, wenn man die Listen abläuft.</translation>
+        <translation>Dies zeigt alle aktive Einträge in diesem Kanal an. Von Elternkanälen geerbte Einträge werden kursiv angezeigt.&lt;br /&gt;ACLs werden von oben nach unten ausgewertet. Das bedeutet, dass sich die Priorität nach unten hin erhöht.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="235"/>
@@ -170,7 +171,7 @@
     <message>
         <location filename="ACLEditor.ui" line="238"/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Dies legt fest ob ACL am Anfang der Kette von Elternkanälen dieses Objekt betrifft. Nur solche Einträge die in den Eltern als &quot;Betrifft Unterkanäle&quot; markiert sind, werden beerbt.</translation>
+        <translation>Dies legt fest ob ACL am Anfang der Kette von Elternkanälen dieses Objekt betrifft. Nur solche Einträge, die in den Eltern als &quot;Betrifft Unterkanäle&quot; markiert sind, werden geerbt.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="280"/>
@@ -195,47 +196,47 @@
     <message>
         <location filename="ACLEditor.ui" line="248"/>
         <source>Move entry up</source>
-        <translation>Eintrag nach oben</translation>
+        <translation>Eintrag nach oben verschieben</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="251"/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Dies schiebt den Eintrag in der Liste nach oben. Da Einträge nach der Reihenfolge ausgewertet werden, könnte dies die Rechte der Benutzer betreffen. Man kann keinen Eintrag über einen geerbten Eintrag verschieben, sollte dies gewünscht sein, muss der Eintrag dupliziert werden.</translation>
+        <translation>Dies verschiebt den Eintrag in der Liste nach oben. Da Einträge nach ihrer Reihenfolge ausgewertet werden, könnte dies die effektiven Rechte der Benutzer ändern. Man kann keinen Eintrag über einen geerbten Eintrag verschieben. Sollte dies jedoch ausdrücklich gewünscht sein, so muss der Eintrag dupliziert werden.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="264"/>
         <source>Move entry down</source>
-        <translation>Eintrag nach unten</translation>
+        <translation>Eintrag nach unten verschieben</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="267"/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Dies schiebt den Eintrag in der Liste nach unten. Da Einträge der Reihe nach ausgewertet werden, könnte dies die Rechte der Benutzer beeinträchtigen.</translation>
+        <translation>Dies verschiebt den Eintrag in der Liste nach unten. Da Einträge nach ihrer Reihenfolge ausgewertet werden, könnte dies die effektiven Rechte der Benutzer ändern.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="321"/>
         <source>Entry should apply to this channel</source>
-        <translation>Eintrag sollte auf diesen Kanal angewandt sein</translation>
+        <translation>Eintrag soll für diesen Kanal gelten</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="324"/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Dies übernimmt den Eintrag auf den Kanal.</translation>
+        <translation>Dies lässt den Eintrag für diesen Kanal gelten.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="334"/>
         <source>Entry should apply to sub-channels.</source>
-        <translation>Eintrag sollte Unterkanäle betreffen.</translation>
+        <translation>Eintrag soll für Unterkanäle gelten.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="337"/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Dies lässt den Eintrag Unterkanäle des Kanals betreffen.</translation>
+        <translation>Dies lässt den Eintrag für Unterkanäle gelten.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="373"/>
         <source>Group this entry applies to</source>
-        <translation>Gruppe auf den dieser Eintrag angewandt wird</translation>
+        <translation>Gruppe, für die dieser Eintrag gilt</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="376"/>
@@ -245,12 +246,12 @@
     <message>
         <location filename="ACLEditor.ui" line="396"/>
         <source>User this entry applies to</source>
-        <translation>Benutzer auf den der Eintrag angewandt wird</translation>
+        <translation>Benutzer, für den der Eintrag gilt</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="399"/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Dies steuert welchen User dieser Eintrag betrifft. Namen eingeben und Enter drücken um den Server abzufragen.</translation>
+        <translation>Dies steuert welchen Benutzer dieser Eintrag betrifft. Benutzernamen eingeben und Enter drücken um die Existenz des Accounts auf dem Server zu prüfen.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="155"/>
@@ -265,12 +266,12 @@
     <message>
         <location filename="ACLEditor.cpp" line="157"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dies gibt %1 Privileg. Wenn ein Privileg erlaubt und ablehnt, wird es abgelehnt.&lt;br /&gt;%2</translation>
+        <translation>Dies gibt das %1 Privileg. Wenn ein Privileg sowohl vorhanden als auch genommen ist, so wird es genommen.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="158"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dies hebt das %1-Privileg auf. Wenn ein Privileg erlaubt und ablehnt, so wird es abgelehnt.&lt;br /&gt;%2</translation>
+        <translation>Dies nimmt das %1 Privileg. Wenn ein Privileg sowohl vorhanden als auch genommen ist, so wird es genommen.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="35"/>
@@ -280,7 +281,7 @@
     <message>
         <location filename="ACLEditor.ui" line="38"/>
         <source>This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>Dies sind alle aktuell zum Kanal festgelegten Gruppen. Um eine Gruppe zu erstellen, den Namen eingeben und Enter drücken.</translation>
+        <translation>Dies sind alle aktuell im Kanal definierten Gruppen. Um eine neue Gruppe zu erstellen, den Namen eingeben und Enter drücken.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="48"/>
@@ -290,7 +291,7 @@
     <message>
         <location filename="ACLEditor.ui" line="51"/>
         <source>This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>Dies entfernt die gewählte Gruppe. Wenn eine Gruppe geerbt wurde, wird sie nicht von der Liste entfernt aber alle lokalen Informationen über die Gruppe werden gelöscht.</translation>
+        <translation>Dies entfernt die momentan ausgewählte Gruppe. Wenn die Gruppe geerbt wurde wird sie nicht von der Liste entfernt, aber alle lokalen Informationen über diese Gruppe werden gelöscht.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="64"/>
@@ -300,17 +301,17 @@
     <message>
         <location filename="ACLEditor.ui" line="67"/>
         <source>This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>Dies erbt alle Mitglieder in der Gruppe von den Eltern, wenn die Gruppe als &lt;i&gt;Vererbbar&lt;/i&gt; im Elternkanal markiert ist.</translation>
+        <translation>Dies erbt alle Mitglieder der Elterngruppe, wenn die Gruppe als &lt;i&gt;Vererbbar&lt;/i&gt; im Elternkanal markiert ist.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="77"/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Gruppe zu Unterkanal vererbbar machen</translation>
+        <translation>Gruppe zu Unterkanälen vererbbar machen</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="80"/>
         <source>This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>Dies macht die Gruppe zu Unterkanälen vererbbar. Ist die Gruppe nicht-vererbbar, können Unterkanäle Gruppen mit demselben Namen erstellen.</translation>
+        <translation>Dies macht die Gruppe zu Unterkanälen vererbbar. Ist die Gruppe nicht vererbbar können Unterkanäle Gruppen mit demselben Namen erstellen.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="93"/>
@@ -320,7 +321,7 @@
     <message>
         <location filename="ACLEditor.ui" line="96"/>
         <source>This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>Dies zeigt an, dass die Gruppe vom Elternkanal geerbt wurde. Die Attribute dienen nur zu Informationszwecken und können nicht bearbeitet werden.</translation>
+        <translation>Dies zeigt an, dass die Gruppe vom Elternkanal geerbt wurde. Dieses Attribut dient nur zur Information und kann nicht bearbeitet werden.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="175"/>
@@ -355,12 +356,12 @@
     <message>
         <location filename="ACLEditor.ui" line="178"/>
         <source>Type in the name of a player you wish to add to the group and click Add.</source>
-        <translation>Namen des Spielers eingeben, der zur Gruppe hinzugefügt werden soll.</translation>
+        <translation>Namen des Benutzers, der zur Gruppe hinzugefügt werden soll, hier eingeben und Hinzufügen drücken.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="188"/>
         <source>Type in the name of a player you wish to remove from the group and click Add.</source>
-        <translation>Namen des Players eingeben, der aus der Gruppe entfernt werden soll.</translation>
+        <translation>Namen des Benutzers, der aus der Gruppe entfernt werden soll, hier eingeben und Entfernen drücken.</translation>
     </message>
 </context>
 <context>
@@ -646,7 +647,6 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;h3&gt;Mumble v1.0.0&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h3&gt;Mumble v0.9.4&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Deutsche Übersetzung von Matthias Vogelgesang&lt;br /&gt; m0ta@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Voicechat-Programm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
@@ -2863,7 +2863,6 @@
         <translation type="obsolete">Öffnen des DirectSound Eingangsgerätes gescheitert. Es wird kein Mikrofonsound aufgenommen.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Opening chosen DirectSound Input failed. Using defaults.</source>
         <translation type="obsolete">Öffnen des DirectSound Eingangsgerätes gescheitert. Standardeinstellungen werden benutzt.</translation>
     </message>
@@ -2901,7 +2900,6 @@
         <translation>Öffnen des DirectSound Ausgabegerätes gescheitert. Es kann nichts gehört werden.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Opening chosen DirectSound Output failed. Using defaults.</source>
         <translation type="obsolete">Öffnen des DirectSound Ausgabegerätes gescheitert. Standardeinstellungen werden benutzt.</translation>
     </message>
@@ -3079,7 +3077,6 @@
         <translation type="obsolete">DirectSound</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>%1 ms</source>
         <translation type="obsolete">%1 ms</translation>
     </message>
@@ -3784,7 +3781,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="158"/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;b&gt;Wenn gesetzt, wird das Mumblefenster beim Minimieren versteckt und kann nur vom Tray kontrolliert werden. Anderenfalls wird es wie üblich minimiert.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Wenn gesetzt, wird das Haupt Mumblefenster in den Infobereich minimiert. Anderenfalls wird es wie üblich minimiert.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="161"/>
@@ -4270,7 +4267,6 @@ p, li { white-space: pre-wrap; }
         <translation>Kanalname</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Are you sure you want to delete %1 and all it&apos;s subchannels?</source>
         <translation type="obsolete">Sind Sie sicher Kanal %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
@@ -5032,17 +5028,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="546"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster Verstecken</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="549"/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzeige des Ramhens im Minimal Modus wechseln</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="552"/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies wechselt ob das Minimal-Fenster einen Rahmen zum verschieben und vergrößern hat oder nicht.</translation>
     </message>
 </context>
 <context>
