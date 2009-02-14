@@ -128,8 +128,13 @@ QString OSInfo::getOSVersion() {
 		QString os = QString::fromUtf8(qp.readAll()).simplified();
 		if (os.startsWith(QLatin1Char('"')) && os.endsWith(QLatin1Char('"')))
 			os = os.mid(1, os.length() - 2).trimmed();
-		return os;
+		if (! os.isEmpty())
+			return os;
 	}
+	qWarning("OSInfo: Failed to execute lsb_release");
+	qp.terminate();
+	if (! qp.waitForFinished(1000))
+		qp.kill();
 #endif
 	struct utsname un;
 	if (uname(&un) == 0) {
