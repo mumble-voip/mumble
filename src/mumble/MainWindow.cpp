@@ -147,7 +147,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
 		a->setShortcutContext(Qt::ApplicationShortcut);
-		
+
 	on_qmServer_aboutToShow();
 	on_qmChannel_aboutToShow();
 	on_qmPlayer_aboutToShow();
@@ -332,6 +332,8 @@ void MainWindow::on_qtvPlayers_customContextMenuRequested(const QPoint &mpos) {
 	QModelIndex idx = qtvPlayers->indexAt(mpos);
 	if (! idx.isValid())
 		idx = qtvPlayers->currentIndex();
+	else
+		qtvPlayers->setCurrentIndex(idx);
 	Player *p = pmModel->getPlayer(idx);
 
 	if (p) {
