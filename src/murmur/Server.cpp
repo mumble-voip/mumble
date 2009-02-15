@@ -242,7 +242,7 @@ void Server::readParams() {
 			log("Failed to read resource file %s", qPrintable(qsResource));
 		}
 	}
-	
+
 	if (! qbaResource.isEmpty()) {
 		if (QResource::registerResource(reinterpret_cast<const unsigned char *>(qbaResource.constData()), QString::fromLatin1("/%1").arg(iServerNum))) {
 			QResource::unregisterResource(reinterpret_cast<const unsigned char *>(qbaResource.constData()), QString::fromLatin1("/%1").arg(iServerNum));
