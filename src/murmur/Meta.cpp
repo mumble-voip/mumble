@@ -282,8 +282,6 @@ bool Meta::boot(int srvnum) {
 	if (! ServerDB::serverExists(srvnum))
 		return false;
 	Server *s = new Server(srvnum, this);
-	if (s->bValid)
-		s->start(QThread::HighestPriority);
 	qhServers.insert(srvnum, s);
 	emit started(s);
 	return true;

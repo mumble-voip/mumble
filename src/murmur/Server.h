@@ -106,6 +106,9 @@ class Server : public QThread, public MessageHandler {
 		Q_DISABLE_COPY(Server);
 	protected:
 		bool bRunning;
+		
+		void startThread();
+		void stopThread();
 
 		// Former ServerParams
 	public:

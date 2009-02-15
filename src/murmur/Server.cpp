@@ -138,7 +138,6 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	qtTimeout = new QTimer(this);
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
-	qtTimeout->start(15500);
 
 	getBans();
 	readChannels();
@@ -147,16 +146,30 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	if (bValid)
 		initRegister();
+}
 
-	bRunning = true;
+void Server::startThread() {
+	if (! isRunning()) {
+		bRunning = true;
+		start(QThread::HighestPriority);
+	}
+	if (! qtTimeout->isActive())
+		qtTimeout->start(15500);
+}
+
+void Server::stopThread() {
+	bRunning = false;
+	if (isRunning()) {
+		qrwlUsers.lockForWrite();
+		terminate();
+		wait();
+		qrwlUsers.unlock();
+	}
+	qtTimeout->stop();
 }
 
 Server::~Server() {
-	qrwlUsers.lockForWrite();
-	bRunning = false;
-	terminate();
-	wait();
-	qrwlUsers.unlock();
+	stopThread();
 	if (sUdpSocket != INVALID_SOCKET)
 #ifdef Q_OS_UNIX
 		close(sUdpSocket);
@@ -573,6 +586,9 @@ void Server::newClient() {
 			return;
 		}
 
+		if (qhUsers.isEmpty())
+			startThread();
+
 		User *u = new User(this, sock);
 		u->uiSession = qqIds.dequeue();
 
@@ -627,7 +643,7 @@ void Server::connectionClosed(QString reason) {
 
 		emit playerDisconnected(u);
 	}
-
+	
 	{
 		QWriteLocker wl(&qrwlUsers);
 
@@ -647,6 +663,9 @@ void Server::connectionClosed(QString reason) {
 		clearACLCache(u);
 
 	u->deleteLater();
+	
+	if (qhUsers.isEmpty())
+		stopThread();
 }
 
 void Server::message(QByteArray &qbaMsg, Connection *cCon) {
