@@ -243,6 +243,13 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 		sendMessage(cCon, &mpm);
 	}
 
+	if (! qbaResource.isEmpty()) {
+		MessageResource mr;
+		mr.uiSession = uSource->uiSession;
+		mr.qbaResourceData = qbaResource;
+		sendMessage(cCon, &mr);
+	}
+
 	MessageServerSync mssMsg;
 	mssMsg.uiSession = uSource->uiSession;
 	mssMsg.qsWelcomeText = qsWelcomeText;
@@ -940,4 +947,8 @@ void Server::msgContextAction(Connection *cCon, MessageContextAction *msg) {
 	if ((msg->iChannel >= 0) && ! qhChannels.contains(msg->iChannel))
 		return;
 	emit contextAction(uSource, msg->qsAction, msg->uiVictim, msg->iChannel);
+}
+
+void Server::msgResource(Connection *cCon, MessageResource *) {
+	cCon->disconnectSocket();
 }

@@ -82,6 +82,8 @@ struct MetaParams {
 	QSslCertificate qscCert;
 	QSslKey qskKey;
 	QByteArray qbaPassPhrase;
+	
+	QByteArray qbaResource;
 
 	QMap<QString, QString> qmConfig;
 

@@ -132,6 +132,8 @@ class Server : public QThread, public MessageHandler {
 		QSslCertificate qscCert;
 		QSslKey qskKey;
 		QByteArray qbaPassPhrase;
+		
+		QByteArray qbaResource;
 
 		bool bValid;
 
@@ -321,6 +323,7 @@ class Server : public QThread, public MessageHandler {
 		virtual void msgCryptSync(Connection *, MessageCryptSync *);
                 virtual void msgContextAddAction(Connection *, MessageContextAddAction *);
 		virtual void msgContextAction(Connection *, MessageContextAction *);
+		virtual void msgResource(Connection *, MessageResource *);
 };
 
 
