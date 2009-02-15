@@ -402,3 +402,16 @@ void MainWindow::msgContextAddAction(Connection *, MessageContextAddAction *msg)
 	if (msg->ctx & MessageContextAddAction::CtxChannel)
 		qlChannelActions.append(a);
 }
+
+void MainWindow::msgResource(Connection *, MessageResource *msg) {
+	if (qbaResource.isEmpty()) {
+		qbaResource = msg->qbaResourceData;
+		if (! QResource::registerResource(reinterpret_cast<const unsigned char *>(qbaResource.constData()), QLatin1String("/resource"))) {
+			g.l->log(Log::Information, MainWindow::tr("Ignored invalid server resources."));
+		} else {
+			qWarning("Server resources registered.");
+		}
+	} else {
+		qWarning("Multiple server resources.");
+	}
+}
