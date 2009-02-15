@@ -163,6 +163,7 @@ Server::~Server() {
 #else
 		closesocket(sUdpSocket);
 #endif
+	clearACLCache();
 	log("Stopped");
 }
 
