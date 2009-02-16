@@ -1,0 +1,55 @@
+option optimize_for = SPEED;
+
+message Authenticate {
+	required sint32 version = 1;
+	required string name = 2;
+	optional string pw = 3;
+}
+
+message SomethingElse {
+	required sint32 thingy = 1;
+}
+
+message Universal {
+	extensions 5 to max;
+	required uint32 session = 1;
+	optional Authenticate authenticate = 2;
+	optional SomethingElse somethingelse = 3;
+}
+
+extend Universal {
+	optional Authenticate extauth = 5;
+	optional SomethingElse extelse = 6;
+}
+
+message LongUniversal {
+	required uint32 session = 1;
+	optional Authenticate authenticate = 2;
+	optional SomethingElse somethingelse = 3;
+	optional Authenticate a = 4;
+	optional Authenticate b = 5;
+	optional Authenticate c = 6;
+	optional Authenticate d = 7;
+	optional Authenticate e = 8;
+	optional Authenticate f = 9;
+	optional Authenticate g = 10;
+	optional Authenticate h = 11;
+	optional Authenticate i = 12;
+	optional Authenticate j = 13;
+	optional Authenticate k = 14;
+	optional Authenticate l = 15;
+	optional Authenticate m = 16;
+	optional Authenticate n = 17;
+	optional Authenticate o = 18;
+	optional Authenticate p = 19;
+	optional Authenticate q = 20;
+	optional Authenticate r = 21;
+	optional Authenticate s = 22;
+	optional Authenticate t = 23;
+	optional Authenticate u = 24;
+	optional Authenticate v = 25;
+	optional Authenticate w = 26;
+	optional Authenticate x = 27;
+	optional Authenticate y = 28;
+	optional Authenticate z = 29;
+}
