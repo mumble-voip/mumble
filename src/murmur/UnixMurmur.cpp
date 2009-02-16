@@ -30,8 +30,70 @@
 
 #include <signal.h>
 
+#include "murmur_pch.h"
 #include "UnixMurmur.h"
 #include "Meta.h"
+
+QMutex *LimitTest::qm;
+QWaitCondition *LimitTest::qw;
+
+LimitTest::LimitTest() : QThread() {
+}
+
+void LimitTest::run() {
+	qm->lock();
+	qw->wait(qm);
+	qm->unlock();
+}
+
+void LimitTest::testLimits(QCoreApplication &a) {
+	QAbstractEventDispatcher *ed = QAbstractEventDispatcher::instance();
+	if (QLatin1String(ed->metaObject()->className()) != QLatin1String("QEventDispatcherGlib"))
+		qWarning("Not running with glib. While you may be able to open more descriptors, sockets above %d will not work", FD_SETSIZE);
+	qWarning("Running descriptor test.");
+	int count;
+	QList<QFile *> ql;
+	for (count=0;count < 524288; ++count) {
+		QFile *qf = new QFile(a.applicationFilePath());
+		if (qf->open(QIODevice::ReadOnly))
+			ql << qf;
+		else
+			break;
+		if ((count & 511) == 0)
+			qWarning("%d descriptors...", count);
+	}
+	foreach(QFile *qf, ql)
+		delete qf;
+	ql.clear();
+	qCritical("Managed to open %d descriptors", count);
+	
+	qm = new QMutex();
+	qw = new QWaitCondition();
+	
+	int fdcount = count / 2;
+	
+	QList<QThread *> qtl;
+	for (count=0;count < fdcount; ++count) {
+		QThread *t = new LimitTest();
+		qtl << t;
+		t->start();
+		if (! t->isRunning())
+			break;
+		if ((count & 511) == 0)
+			qWarning("%d threads...", count);
+	}
+	sleep(1);
+	qm->lock();
+	qw->wakeAll();
+	qm->unlock();
+	foreach(QThread *qt, qtl) {
+		if (! qt->wait(1000)) {
+			qWarning("Thread failed to terminate...");
+			qt->terminate();
+		}
+	}
+	qFatal("Managed to spawn %d threads", count);
+}
 
 extern QFile *qfLog;
 

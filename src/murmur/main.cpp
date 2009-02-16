@@ -247,26 +247,8 @@ int main(int argc, char **argv) {
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", argv[0]);
 #ifdef Q_OS_UNIX
-		} else if (arg == "-descriptors") {
-			QAbstractEventDispatcher *ed = QAbstractEventDispatcher::instance();
-			if (QLatin1String(ed->metaObject()->className()) != QLatin1String("QEventDispatcherGlib"))
-				qWarning("Not running with glib. While you may be able to open more descriptors, sockets above %d will not work", FD_SETSIZE);
-			qWarning("Running descriptor test.");
-			int count;
-			QList<QFile *> ql;
-			for (count=0;count < 524288; ++count) {
-				QFile *qf = new QFile(a.applicationFilePath());
-				if (qf->open(QIODevice::ReadOnly))
-					ql << qf;
-				else
-					break;
-				if ((count & 511) == 0)
-					qWarning("%d descriptors...", count);
-			}
-			foreach(QFile *qf, ql)
-				delete qf;
-			ql.clear();
-			qFatal("Managed to open %d descriptors", count);
+		} else if (arg == "-limits") {
+			LimitTest::testLimits(a);
 #endif
 		} else {
 			detach = false;
