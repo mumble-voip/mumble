@@ -64,6 +64,7 @@ public:
 	QSettings *qs;
 	Overlay *o;
 	LCD *lcd;
+	QNetworkAccessManager *nam;
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;

@@ -190,3 +190,39 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
 		tts->say(terse);
 }
+
+LogDocument::LogDocument(QObject *p) : QTextDocument(p) {
+}
+
+QVariant LogDocument::loadResource(int type, const QUrl &url) {
+		if ((type != QTextDocument::ImageResource))
+			return QLatin1String("No external resources allowed.");
+
+		QImage qi(0, 0, QImage::Format_Mono);
+
+		addResource(type, url, qi);
+
+		if (! url.isValid() || url.isRelative())
+			return qi;
+
+		if ((url.scheme() != QLatin1String("http")) && (url.scheme() != QLatin1String("https")))
+			return qi;
+
+		qWarning() << "LogDocument::loadResource " << url.toString();
+
+		QNetworkRequest req(url);
+		QNetworkReply *rep = g.nam->get(req);
+		connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+		return qi;
+}
+
+void LogDocument::finished() {
+		QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+
+		if (rep->error() == QNetworkReply::NoError) {
+			QVariant qv = rep->readAll();
+			addResource(QTextDocument::ImageResource, rep->request().url(), qv);
+			g.mw->qteLog->setDocument(this);
+		}
+		rep->deleteLater();
+}

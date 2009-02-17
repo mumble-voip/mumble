@@ -35,8 +35,6 @@
 
 class Usage : public QObject {
 		Q_OBJECT
-	protected:
-		QHttp qhHttp;
 	public:
 		Usage(QObject *p = NULL);
 	public slots:

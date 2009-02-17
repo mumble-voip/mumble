@@ -38,12 +38,9 @@ class VersionCheck : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(VersionCheck)
 	protected:
-		QUrl quUrl;
-		QHttp *qhAgent;
-		int iReqId;
 		bool bSilent;
 	public slots:
-		void on_Agent_requestFinished(int, bool);
+		void finished();
 	public:
 		VersionCheck(bool autocheck, QObject *parent = NULL);
 };

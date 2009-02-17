@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync, PingStats, ContextAction, ContextAddAction, Resource };
+		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync, PingStats, ContextAction, ContextAddAction };
 		unsigned int uiSession;
 
 		Message();
@@ -464,18 +464,6 @@ class MessageContextAction : public Message {
 		bool isValid() const;
 };
 
-class MessageResource : public Message {
-	protected:
-		void saveStream(PacketDataStream &) const;
-		void restoreStream(PacketDataStream &);
-	public:
-		QByteArray qbaResourceData;
-		Message::MessageType messageType() const {
-			return Resource;
-		}
-		bool isValid() const;
-};
-
 class MessageHandler {
 	protected:
 		virtual void msgSpeex(Connection *, MessageSpeex *) = 0;
@@ -508,7 +496,6 @@ class MessageHandler {
 		virtual void msgCryptSync(Connection *, MessageCryptSync *) = 0;
 		virtual void msgContextAddAction(Connection *, MessageContextAddAction *) = 0;
 		virtual void msgContextAction(Connection *, MessageContextAction *) = 0;
-		virtual void msgResource(Connection *, MessageResource *) = 0;
 		void dispatch(Connection *, Message *);
 	public:
 		virtual ~MessageHandler() { };

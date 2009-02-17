@@ -176,17 +176,6 @@ void MetaParams::read(QString fname) {
 		iObfuscate = qrand();
 	}
 
-	QString qsResource = qs.value("resourcefile").toString();
-	if (! qsResource.isEmpty()) {
-		QFile qfRes(qsResource);
-		if (qfRes.open(QIODevice::ReadOnly)) {
-			qbaResource = qfRes.readAll();
-			qfRes.close();
-		} else {
-			qCritical("Failed to read resource file %s", qPrintable(qsResource));
-		}
-	}
-
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();
 
@@ -271,7 +260,6 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("obfuscate"),bObfuscate ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("playername"),qrPlayerName.pattern());
 	qmConfig.insert(QLatin1String("channelname"),qrChannelName.pattern());
-	qmConfig.insert(QLatin1String("resourcefile"),qsResource);
 }
 
 Meta::Meta() {

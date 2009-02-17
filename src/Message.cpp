@@ -169,9 +169,6 @@ Message *Message::networkToMessage(PacketDataStream &qdsIn) {
 		case ContextAddAction:
 			mMsg = new MessageContextAddAction();
 			break;
-		case Resource:
-			mMsg = new MessageResource();
-			break;
 		default:
 			qWarning("Message: Type %d (session %d, size %d) is unknown type", iMessageType, uiSession, qdsIn.capacity());
 	}
@@ -287,9 +284,6 @@ void MessageHandler::dispatch(Connection *cCon, Message *msg) {
 			break;
 		case Message::ContextAddAction:
 			msgContextAddAction(cCon, static_cast<MessageContextAddAction *>(msg));
-			break;
-		case Message::Resource:
-			msgResource(cCon, static_cast<MessageResource *>(msg));
 			break;
 		default:
 			qFatal("MessageHandler called with unknown message type %d", msg->messageType());
@@ -650,18 +644,6 @@ void MessageContextAction::restoreStream(PacketDataStream &qdsIn) {
 
 bool MessageContextAction::isValid() const {
 	return (! qsAction.isEmpty());
-}
-
-void MessageResource::saveStream(PacketDataStream &qdsOut) const {
-	qdsOut << qbaResourceData;
-}
-
-void MessageResource::restoreStream(PacketDataStream &qdsIn) {
-	qdsIn >> qbaResourceData;
-}
-
-bool MessageResource::isValid() const {
-	return (! qbaResourceData.isEmpty());
 }
 
 PacketDataStream & operator<< (PacketDataStream & out, const MessageEditACL::GroupStruct &gs) {

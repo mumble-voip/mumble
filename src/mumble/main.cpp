@@ -184,6 +184,8 @@ int main(int argc, char **argv) {
 
 	g.lcd = new LCD();
 
+	g.nam = new QNetworkAccessManager();
+
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,
 	// so we need to loop a little before we begin.  If we were launched
@@ -247,14 +249,15 @@ int main(int argc, char **argv) {
 	g.ai.reset();
 
 	g.sh->disconnect();
-
-	// This causes QT to complain. Fatally. It's either a bug in
-	// my code or the QT code.
-	// delete g.sh;
+	delete g.sh;
 	delete g.mw;
+
+	delete g.nam;
+	delete g.lcd;
 
 	delete g.db;
 	delete g.l;
+
 
 	delete g.o;
 

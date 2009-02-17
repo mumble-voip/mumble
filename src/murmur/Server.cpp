@@ -230,28 +230,6 @@ void Server::readParams() {
 
 	qrPlayerName=QRegExp(getConf("playername", qrPlayerName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
-
-	qbaResource = Meta::mp.qbaResource;
-	QString qsResource = getConf("resourcefile", QString()).toString();
-	if (! qsResource.isEmpty()) {
-		QFile qfRes(qsResource);
-		if (qfRes.open(QIODevice::ReadOnly)) {
-			qbaResource = qfRes.readAll();
-			qfRes.close();
-		} else {
-			log("Failed to read resource file %s", qPrintable(qsResource));
-		}
-	}
-
-	if (! qbaResource.isEmpty()) {
-		if (QResource::registerResource(reinterpret_cast<const unsigned char *>(qbaResource.constData()), QString::fromLatin1("/%1").arg(iServerNum))) {
-			QResource::unregisterResource(reinterpret_cast<const unsigned char *>(qbaResource.constData()), QString::fromLatin1("/%1").arg(iServerNum));
-			log("Resources loaded");
-		} else {
-			log("Invalid resource data");
-			qbaResource = QByteArray();
-		}
-	}
 }
 
 void Server::setLiveConf(const QString &key, const QString &value) {

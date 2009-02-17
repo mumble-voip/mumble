@@ -105,8 +105,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QList<QAction *> qlChannelActions;
 		QList<QAction *> qlPlayerActions;
 
-		QByteArray qbaResource;
-
 		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt);
@@ -209,7 +207,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void msgCryptSync(Connection *, MessageCryptSync *);
 		virtual void msgContextAddAction(Connection *, MessageContextAddAction *);
 		virtual void msgContextAction(Connection *, MessageContextAction *);
-		virtual void msgResource(Connection *, MessageResource *);
 };
 
 #else

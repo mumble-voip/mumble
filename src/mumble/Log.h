@@ -74,6 +74,18 @@ class Log : public QObject {
 		void log(MsgType t, const QString &console, const QString &terse=QString());
 };
 
+class LogDocument : public QTextDocument {
+		Q_OBJECT
+		public:
+			QVariant qvVariant;
+			int iType;
+			QUrl quUrl;
+			LogDocument(QObject *p);
+			QVariant loadResource(int, const QUrl &);
+		public slots:
+			void finished();
+};
+
 #else
 class Log;
 #endif

@@ -237,6 +237,9 @@ void MainWindow::setupGui()  {
 	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
 #endif
 
+	LogDocument *ld = new LogDocument(qteLog);
+	qteLog->setDocument(ld);
+
 	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 
 	pmModel = new PlayerModel(qtvPlayers);
@@ -282,12 +285,6 @@ void MainWindow::setupGui()  {
 }
 
 MainWindow::~MainWindow() {
-	if (! qbaResource.isEmpty()) {
-		if (! QResource::unregisterResource(reinterpret_cast<const unsigned char *>(qbaResource.constData()), QLatin1String("/resource")))
-			qFatal("Failed to unregister server resources");
-		qbaResource = QByteArray();
-	}
-
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvPlayers;
@@ -1313,12 +1310,6 @@ void MainWindow::serverDisconnected(QString reason) {
 	qlServerActions.clear();
 	qlChannelActions.clear();
 	qlPlayerActions.clear();
-
-	if (! qbaResource.isEmpty()) {
-		if (! QResource::unregisterResource(reinterpret_cast<const unsigned char *>(qbaResource.constData()), QLatin1String("/resource")))
-			qFatal("Failed to unregister server resources");
-		qbaResource = QByteArray();
-	}
 
 	pmModel->removeAll();
 	qtvPlayers->setRowHidden(0, QModelIndex(), true);

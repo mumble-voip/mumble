@@ -35,28 +35,24 @@
 VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
 	bSilent = autocheck;
 
-	qhAgent = new QHttp(this);
-	qhAgent->setObjectName(QLatin1String("Agent"));
-	quUrl.setScheme(QLatin1String("http"));
-	quUrl.setHost(QLatin1String("mumble.hive.no"));
-	quUrl.setPath(QLatin1String("/ver.php"));
-	quUrl.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
-	quUrl.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
-	quUrl.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
+	QUrl url(QLatin1String("http://mumble.hive.no/ver.php"));
+
+	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
+	url.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
+	url.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
 #if defined(Q_OS_WIN)
-	quUrl.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
+	url.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
 #elif defined(Q_OS_MAC)
-	quUrl.addQueryItem(QLatin1String("os"), QLatin1String("MacOSX"));
+	url.addQueryItem(QLatin1String("os"), QLatin1String("MacOSX"));
 #else
-	quUrl.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
+	url.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
 #endif
 	if (! g.s.bUsage)
-		quUrl.addQueryItem(QLatin1String("nousage"), QLatin1String("1"));
+		url.addQueryItem(QLatin1String("nousage"), QLatin1String("1"));
 	if (autocheck)
-		quUrl.addQueryItem(QLatin1String("auto"), QLatin1String("1"));
+		url.addQueryItem(QLatin1String("auto"), QLatin1String("1"));
 
-	quUrl.addQueryItem(QLatin1String("locale"), g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage);
-	QMetaObject::connectSlotsByName(this);
+	url.addQueryItem(QLatin1String("locale"), g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage);
 
 	QFile f(qApp->applicationFilePath());
 	if (! f.open(QIODevice::ReadOnly)) {
@@ -68,28 +64,26 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
 		} else {
 			QCryptographicHash qch(QCryptographicHash::Sha1);
 			qch.addData(a);
-			quUrl.addQueryItem(QLatin1String("sha1"), QLatin1String(qch.result().toHex()));
+			url.addQueryItem(QLatin1String("sha1"), QLatin1String(qch.result().toHex()));
 		}
 	}
 
-	QHttpRequestHeader req(QLatin1String("GET"), quUrl.toString(QUrl::RemoveScheme|QUrl::RemoveAuthority));
-	req.setValue(QLatin1String("Host"), quUrl.host());
-
-	qhAgent->setHost(quUrl.host());
-	iReqId=qhAgent->request(req);
+	QNetworkRequest req(url);
+	QNetworkReply *rep = g.nam->get(req);
+	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
-void VersionCheck::on_Agent_requestFinished(int id, bool error) {
-	if (id != iReqId)
-		return;
+void VersionCheck::finished() {
+	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 
-	QHttpResponseHeader head = qhAgent->lastResponse();
-	if ((head.statusCode() == 200) && !error) {
-		QByteArray a=qhAgent->readAll();
-		if (a.size() > 0)
+	if (rep->error() == QNetworkReply::NoError) {
+		const QByteArray &a=rep->readAll();
+		if (! a.isEmpty())
 			g.mw->msgBox(QString::fromUtf8(a));
 	} else if (bSilent) {
 		g.mw->msgBox(tr("Mumble failed to retrieve version information from the SourceForge server."));
 	}
+
+	rep->deleteLater();
 	deleteLater();
 }
