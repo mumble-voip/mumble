@@ -305,12 +305,12 @@ int BandwidthRecord::bandwidth() const {
 void Server::run() {
 	qint32 len;
 #if defined(__LP64__)
-	char encbuff[65536+8];
+	char encbuff[512+8];
 	char *encrypted = encbuff + 4;
 #else
-	char encrypted[65536];
+	char encrypted[512];
 #endif
-	char buffer[65536];
+	char buffer[512];
 
 	quint32 msgType = 0;
 	unsigned int uiSession = 0;
@@ -348,7 +348,7 @@ void Server::run() {
 #endif
 
 		fromlen = sizeof(from);
-		len=::recvfrom(sUdpSocket, encrypted, 65535, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+		len=::recvfrom(sUdpSocket, encrypted, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 
 		if (len == 0) {
 			break;
@@ -356,6 +356,8 @@ void Server::run() {
 			break;
 		} else if (len < 6) {
 			// 4 bytes crypt header + type + session
+			continue;
+		} else if (len > 512) {
 			continue;
 		}
 
@@ -419,9 +421,12 @@ void Server::run() {
 }
 
 void Server::fakeUdpPacket(Message *msg, Connection *source) {
-	char buffer[65535];
-	PacketDataStream pds(buffer, 65535);
+	char buffer[512];
+	PacketDataStream pds(buffer, 512);
 	msg->messageToNetwork(pds);
+	if (! pds.isValid())
+		return;
+
 	pds.rewind();
 
 	quint32 msgType;
