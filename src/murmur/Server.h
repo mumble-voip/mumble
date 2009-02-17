@@ -210,14 +210,8 @@ class Server : public QThread, public MessageHandler {
 
 		QString addressToString(const QHostAddress &);
 
-#ifndef Q_OS_WIN
-		__attribute__((format(printf, 2, 3)))
-#endif
-		void log(const char *format, ...);
-#ifndef Q_OS_WIN
-		__attribute__((format(printf, 3, 4)))
-#endif
-		void log(User *u, const char *format, ...);
+		void log(const QString &);
+		void log(User *u, const QString &);
 
 		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
 		void playerEnterChannel(Player *u, Channel *c, bool quiet = false);
@@ -288,7 +282,7 @@ class Server : public QThread, public MessageHandler {
 		void saveBans();
 		QVariant getConf(const QString &key, QVariant def);
 		void setConf(const QString &key, const QVariant &value);
-		void dblog(const char *str);
+		void dblog(const QString &str);
 
 		// From msgHandler. Implementation in Messages.cpp
 		virtual void msgSpeex(Connection *, MessageSpeex *);

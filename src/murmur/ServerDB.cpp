@@ -1199,7 +1199,7 @@ void Server::setConf(const QString &key, const QVariant &value) {
 	ServerDB::setConf(iServerNum, key, value);
 }
 
-void Server::dblog(const char *str) {
+void Server::dblog(const QString &str) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 

@@ -217,7 +217,7 @@ void MurmurDBus::idToNameSlot(QString &name, int id) {
 	if (reply.isValid())
 		name = reply.value();
 	else {
-		server->log("DBus Authenticator failed getUserName for %d: %s", id, qPrintable(reply.error().message()));
+		server->log(QString("DBus Authenticator failed getUserName for %1: %2").arg(id).arg(reply.error().message()));
 		removeAuthenticator();
 	}
 }
@@ -242,7 +242,7 @@ void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
 	if (reply.isValid())
 		id = reply.value();
 	else {
-		server->log("DBus Authenticator failed getUserId for %s: %s", qPrintable(name), qPrintable(reply.error().message()));
+		server->log(QString("DBus Authenticator failed getUserId for %1: %2").arg(name).arg(reply.error().message()));
 		removeAuthenticator();
 	}
 }
@@ -359,13 +359,13 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
 			setTempGroups(uid, NULL, msg.arguments().at(2).toStringList());
 		}
 		if (ok) {
-			server->log("DBus Authenticate success for %s: %d", qPrintable(uname),uid);
+			server->log(QString("DBus Authenticate success for %1: %2").arg(uname).arg(uid));
 			res = uid;
 		} else {
-			server->log("DBus Autenticator failed authenticate for %s: Invalid return type", qPrintable(uname));
+			server->log(QString("DBus Autenticator failed authenticate for %1: Invalid return type").arg(uname));
 		}
 	} else {
-		server->log("DBus Authenticator failed authenticate for %s: %s", qPrintable(uname), qPrintable(err.message()));
+		server->log(QString("DBus Authenticator failed authenticate for %1: %2").arg(uname).arg(err.message()));
 		removeAuthenticator();
 	}
 }
@@ -866,7 +866,7 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 	qsAuthPath = path.path();
 	qsAuthService = msg.service();
 	bReentrant = reentrant;
-	server->log("DBus Authenticator set to %s %s (%d)",qPrintable(qsAuthService),qPrintable(qsAuthPath), reentrant);
+	server->log(QString("DBus Authenticator set to %1 %2 (%3)").arg(qsAuthService).arg(qsAuthPath).arg(reentrant));
 }
 
 void MurmurDBus::setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &msg) {

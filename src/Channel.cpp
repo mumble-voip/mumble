@@ -203,3 +203,7 @@ void Channel::removePlayer(Player *p) {
 
 	qlPlayers.removeAll(p);
 }
+
+Channel::operator const QString() const {
+	return QString("%1[%2:%3]").arg(qsName).arg(iId).arg(cParent ? cParent->iId : -1);
+}

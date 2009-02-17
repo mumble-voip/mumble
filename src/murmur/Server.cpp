@@ -87,10 +87,10 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
 	if (! qtsServer->listen(qhaBind, usPort)) {
-		log("Server: TCP Listen on port %d failed",usPort);
+		log(QString("Server: TCP Listen on port %1 failed").arg(usPort));
 		bValid = false;
 	} else {
-		log("Server listening on port %d",usPort);
+		log(QString("Server listening on port %1").arg(usPort));
 	}
 
 	sUdpSocket = INVALID_SOCKET;
@@ -106,7 +106,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		DWORD dwBytesReturned = 0;
 		BOOL bNewBehaviour = FALSE;
 		if (WSAIoctl(sUdpSocket, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
-			log("Failed to set SIO_UDP_CONNRESET: %d", WSAGetLastError());
+			log(QString("Failed to set SIO_UDP_CONNRESET: %1").arg(WSAGetLastError());
 		}
 #endif
 		if (sUdpSocket == INVALID_SOCKET) {
@@ -119,7 +119,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 			addr.sin_port = htons(usPort);
 			addr.sin_addr.s_addr = htonl(qhaBind.toIPv4Address());
 			if (::bind(sUdpSocket, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) == SOCKET_ERROR) {
-				log("Failed to bind UDP Socket to port %d", usPort);
+				log(QString("Failed to bind UDP Socket to port %1").arg(usPort));
 			} else {
 #ifdef Q_OS_UNIX
 				int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
@@ -207,12 +207,12 @@ void Server::readParams() {
 				}
 			}
 			if ((qhaBind == QHostAddress::Any) || (qhaBind.isNull())) {
-				log("Lookup of bind hostname %s failed", qPrintable(qsHost));
+				log(QString("Lookup of bind hostname %1 failed").arg(qsHost));
 				qhaBind = Meta::mp.qhaBind;
 			}
 
 		}
-		log("Binding to address %s", qPrintable(qhaBind.toString()));
+		log(QString("Binding to address %1").arg(qhaBind.toString()));
 	}
 
 	qsPassword = getConf("password", qsPassword).toString();
@@ -528,29 +528,14 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 	}
 }
 
-void Server::log(User *u, const char *format, ...) {
-	char buffer[4096];
-	va_list ap;
-	va_start(ap, format);
-	vsnprintf(buffer, 4096, format, ap);
-	va_end(ap);
-
-	char fin[4096];
-	snprintf(fin, 4096, "<%d:%s(%d)> %s", u->uiSession, qPrintable(u->qsName), u->iId, buffer);
-
-	dblog(fin);
-	qWarning("%d => %s", iServerNum, fin);
+void Server::log(User *u, const QString &str) {
+	QString msg = QString("<%1:%2(%3)> %4").arg(u->uiSession).arg(u->qsName).arg(u->iId).arg(str);
+	log(msg);
 }
 
-void Server::log(const char *format, ...) {
-	char buffer[4096];
-	va_list ap;
-	va_start(ap, format);
-	vsnprintf(buffer, 4096, format, ap);
-	va_end(ap);
-
-	dblog(buffer);
-	qWarning("%d => %s", iServerNum, buffer);
+void Server::log(const QString &msg) {
+	dblog(msg);
+	qWarning("%d => %s", iServerNum, msg.toUtf8().constData());
 }
 
 void Server::newClient() {
@@ -563,7 +548,7 @@ void Server::newClient() {
 		quint32 base = adr.toIPv4Address();
 
 		if (meta->banCheck(adr)) {
-			log("Ignoring connection: %s:%d (Global ban)",qPrintable(addressToString(sock->peerAddress())),sock->peerPort());
+			log(QString("Ignoring connection: %1:%2 (Global ban)").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
 			sock->disconnectFromHost();
 			sock->deleteLater();
 			return;
@@ -575,7 +560,7 @@ void Server::newClient() {
 			int mask = 32 - ban.second;
 			mask = (1 << mask) - 1;
 			if ((base & ~mask) == (ban.first & ~mask)) {
-				log("Ignoring connection: %s:%d",qPrintable(addressToString(sock->peerAddress())),sock->peerPort());
+				log(QString("Ignoring connection: %1:%2 (Server ban)").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
 				sock->disconnectFromHost();
 				sock->deleteLater();
 				return;
@@ -607,7 +592,7 @@ void Server::newClient() {
 		connect(u, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 
-		log(u, "New connection: %s:%d",qPrintable(addressToString(sock->peerAddress())),sock->peerPort());
+		log(u, QString("New connection: %1:%2").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
 
 		sock->startServerEncryption();
 	}
@@ -639,7 +624,7 @@ void Server::connectionClosed(QString reason) {
 		return;
 	User *u = static_cast<User *>(c);
 
-	log(u, "Connection closed: %s", qPrintable(reason));
+	log(u, QString("Connection closed: %1").arg(reason));
 
 	if (u->sState == Player::Authenticated) {
 		MessageServerLeave mslMsg;

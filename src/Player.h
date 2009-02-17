@@ -53,6 +53,8 @@ class Player {
 
 		Player();
 		virtual ~Player() {};
+		
+		operator const QString() const;
 };
 
 class ClientPlayer : public QObject, public Player {

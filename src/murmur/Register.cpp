@@ -137,15 +137,15 @@ void Server::done(bool err) {
 	if (! http || ! qssReg)
 		return;
 	if (err) {
-		log("Registration failed: %s", qPrintable(http->errorString()));
+		log(QString("Registration failed: %1").arg(http->errorString()));
 	} else {
 		QByteArray qba = http->readAll();
-		log("Registration: %s", qPrintable(QString(QLatin1String(qba))));
+		log(QString("Registration: %1").arg(QLatin1String(qba)));
 	}
 	abort();
 }
 
 void Server::regSslError(const QList<QSslError> &errs) {
 	foreach(const QSslError &e, errs)
-		log("Registration: SSL Handshake error: %s", qPrintable(e.errorString()));
+		log(QString("Registration: SSL Handshake error: %1").arg(e.errorString()));
 }
