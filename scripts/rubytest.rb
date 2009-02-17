@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+# Download Murmur.ice from 
+# http://mumble.svn.sourceforge.net/viewvc/mumble/trunk/src/murmur/Murmur.ice?view=log
+# and run 'slice2rb Murmur.ice'. slice2rb is part of ICE.
+# This will generate the necessary 'Murmur.rb' file which needs to be included:
+
+require 'Murmur.rb'
+
+status = 0
+ic = nil
+begin 
+  ic = Ice::initialize(ARGV)
+  base = ic.stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502")
+  meta = Murmur::MetaPrx::checkedCast(base)
+
+  unless meta
+    rais "invalid proxy"
+  end
+
+  # All commands are documented here:
+  # http://mumble.sourceforge.net/slice/?title=slice
+
+  servers = meta.getBootedServers
+  puts "Server version:", meta.getVersion[3]
+
+  servers.each do |server|
+    puts ""
+    puts "Server name:"+server.getConf('registername') 
+
+    channels = server.getChannels
+    players = server.getPlayers
+
+    players.each do |id,player|
+      channel = channels[player.channel]
+      puts player.name+" in "+channel.name
+    end
+
+  end
+
+rescue
+  puts $!
+  puts $!.backtrace.join("\n")
+  status = 1
+end
+
+if ic 
+  # Clean up 
+  begin 
+    ic.destroy() 
+  rescue 
+    puts $! 
+    puts $!.backtrace.join("\n") 
+    status = 1 
+  end 
+end 
+
+exit(status) 
