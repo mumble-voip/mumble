@@ -83,7 +83,7 @@ class Channel : public QObject {
 		void playerUnlink(Channel *c, Player *p);
 
 		QSet<Channel *> allLinks();
-		
+
 		operator const QString() const;
 };
 

@@ -107,7 +107,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		BOOL bNewBehaviour = FALSE;
 		if (WSAIoctl(sUdpSocket, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
 			log(QString("Failed to set SIO_UDP_CONNRESET: %1").arg(WSAGetLastError());
-		}
+		    }
 #endif
 		if (sUdpSocket == INVALID_SOCKET) {
 			log("Failed to create UDP Socket");

@@ -66,12 +66,12 @@ void LimitTest::testLimits(QCoreApplication &a) {
 		delete qf;
 	ql.clear();
 	qCritical("Managed to open %d descriptors", count);
-	
+
 	qm = new QMutex();
 	qw = new QWaitCondition();
-	
+
 	int fdcount = count / 2;
-	
+
 	QList<QThread *> qtl;
 	for (count=0;count < fdcount; ++count) {
 		QThread *t = new LimitTest();

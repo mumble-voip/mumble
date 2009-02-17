@@ -53,7 +53,7 @@ class Player {
 
 		Player();
 		virtual ~Player() {};
-		
+
 		operator const QString() const;
 };
 

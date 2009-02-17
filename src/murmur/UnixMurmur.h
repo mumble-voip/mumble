@@ -34,8 +34,8 @@
 #include "murmur_pch.h"
 
 class LimitTest : public QThread {
-	Q_OBJECT
-	Q_DISABLE_COPY(LimitTest)
+		Q_OBJECT
+		Q_DISABLE_COPY(LimitTest)
 	protected:
 		static QMutex *qm;
 		static QWaitCondition *qw;
