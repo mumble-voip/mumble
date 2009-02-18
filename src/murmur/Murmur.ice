@@ -158,6 +158,7 @@ module Murmur
 	sequence<RegisteredPlayer> RegisteredPlayerList;
 	sequence<byte> Texture;
 	dictionary<string, string> ConfigMap;
+	sequence<string> GroupNameList;
 
 	/** Player and subchannel state. Read-only.
          **/
@@ -248,6 +249,109 @@ module Murmur
 		idempotent void contextAction(string action, Player user, int session, int channelid);
 	};
 
+	/** Callback interface for server authentication. You need to supply one of these for [Server::setAuthenticator].
+	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
+	 *  Please note that unlike [ServerCallback] and [ServerContextCallback], these methods are called
+	 *  synchronously. If the response lags, the entire murmur server will lag.
+	 *  Also note that, as the method calls are synchronous, calling a function from [Server] or [Meta] will
+	 *  deadlock the server.
+	 */
+	interface ServerAuthenticator {
+		/** Called to authenticate a player. If you do not know the playername in question, always return -2 from this
+		 *  method to fall through to normal database authentication.
+		 *  Note that if authentication succeeds, murmur will create a record of the player in it's database, reserving
+		 *  the playername and id so it cannot be used for normal database authentication.
+		 *
+		 *  @param name Playername to authenticate.
+		 *  @param pw Password to authenticate with.
+		 *  @param newname Set this to change the playername from the supplied one.
+		 *  @param groups List of groups on the root channel that the player will be added to for the duration of the connection.
+		 *  @return PlayerID of authenticated player, -1 for authentication failures and -2 for unknown player (fallthrough).
+		 */
+		idempotent int authenticate(string name, string pw, out string newname, out GroupNameList groups);
+
+		/** Map a name to a player id.
+		 *  @param name Playername to map.
+		 *  @return Player id or -2 for unknown name.
+		 */
+		idempotent int nameToId(string name);
+
+		/** Map a player to a Player id.
+		 *  @param id Player id to map.
+		 *  @return Name of player or empty string for unknown id.
+		 */
+		idempotent string idToName(int id);
+
+		/** Map a player to a custom Texture.
+		 *  @param id Player id to map.
+		 *  @return User texture or an empty texture for unknwon players or players without textures.
+		 */
+		idempotent Texture idToTexture(int id);
+	};
+
+	/** Callback interface for server authentication and registration. This allows you to support both authentication
+	 *  and account updating.
+	 *  You do not need to implement this if all you want is authentication, you only need this if other scripts
+	 *  connected to the same server calls e.g. [Server::setTexture].
+	 *  Almost all of these methods all fall through, meaning murmur should continue the operation against its
+	 *  own database.
+	 */
+	interface ServerUpdatingAuthenticator extends ServerAuthenticator {
+		/** Register a new player.
+		 *  @param name Playername to register.
+		 *  @return Player id of new player, -1 for registration failure, or -2 to fall through.
+		 */
+		int registerPlayer(string name);
+
+		/** Unregister a player.
+		 *  @param id Playerid to unregister.
+		 *  @return 1 for successfull unregistration, 0 for unsuccessfull unregistration, -1 to fall through.
+		 */
+		int unregisterPlayer(int id);
+
+		/** Get a list of registered players matching filter.
+		 *  @param filter Substring playernames must contain. If empty, return all registered players.
+		 *  @return List of matching registered players.
+		 */
+		idempotent RegisteredPlayerList getRegisteredPlayers(string filter);
+
+		/** Get single player registration.
+		 *  @param id Playerid of registered player.
+		 *  @param name Name of registered player.
+		 *  @param email Email address of registered player.
+		 *  @return 1 for successfull fetch, 0 for unsuccessfull fetch, -1 to fall through.
+		 */
+		idempotent int getRegistration(int id, out string name, out string email);
+
+		/** Set password of player registration.
+		 *  @param id Playerid of registered player.
+		 *  @param pw New password.
+		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
+		 */
+		idempotent int setPassword(int id, string pw);
+
+		/** Set Email address of player registration.
+		 *  @param id Playerid of registered player.
+		 *  @param pw email New Email address.
+		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
+		 */
+		idempotent int setEmail(int id, string email);
+
+		/** Set playername of player registration.
+		 *  @param id Playerid of registered player.
+		 *  @param name New Playername.
+		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
+		 */
+		idempotent int setName(int id, string name);
+
+		/** Set texture of player registration.
+		 *  @param id Playerid of registered player.
+		 *  @param tex New texture.
+		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
+		 */
+		idempotent int setTexture(int id, Texture tex);
+	};
+
 	/** Per-server interface. This includes all methods for configuring and altering
          * the state of a single virtual server. You can retrieve a pointer to this interface
          * from one of the methods in [Meta].
@@ -287,6 +391,13 @@ module Murmur
 		 * @see addCallback
 		 */
 		void removeCallback(ServerCallback *cb) throws ServerBootedException, InvalidCallbackException;
+
+		/** Set external authenticator. If set, all authentications from clients are forwarded to this
+		 *  proxy.
+		 *
+		 * @param auth Authenticator object to perform subsequent authentications.
+		 */
+		void setAuthenticator(ServerAuthenticator *auth) throws ServerBootedException, InvalidCallbackException;
 
 		/** Retrieve configuration item.
 		 * @param key Configuration key.

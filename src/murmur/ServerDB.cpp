@@ -462,21 +462,26 @@ int Server::registerPlayer(const QString &name) {
 	emit registerPlayerSig(res, name);
 	if (res != -2) {
 		qhUserNameCache.remove(res);
-		return res;
 	}
+	if (res == -1)
+		return res;
 
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
-
-	SQLPREP("SELECT MAX(player_id)+1 AS id FROM %1players WHERE server_id=? AND player_id < 1000000000");
-	query.addBindValue(iServerNum);
-	SQLEXEC();
 	int id = 0;
-	if (query.next())
-		id = query.value(0).toInt();
 
-	SQLPREP("INSERT INTO %1players (server_id, player_id, name) VALUES (?,?,?)");
+	if (res < 0) {
+		SQLPREP("SELECT MAX(player_id)+1 AS id FROM %1players WHERE server_id=? AND player_id < 1000000000");
+		query.addBindValue(iServerNum);
+		SQLEXEC();
+		if (query.next())
+			id = query.value(0).toInt();
+	} else {
+		id = res;
+	}
+
+	SQLPREP("REPLACE INTO %1players (server_id, player_id, name) VALUES (?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	query.addBindValue(name);
@@ -498,8 +503,8 @@ bool Server::unregisterPlayer(int id) {
 
 	int res = -2;
 	emit unregisterPlayerSig(res, id);
-	if (res >= 0) {
-		return (res > 0);
+	if (res == 0) {
+		return false;
 	}
 
 	TransactionHolder th;

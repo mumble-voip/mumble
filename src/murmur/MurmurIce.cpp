@@ -192,6 +192,14 @@ void MurmurIce::badServerProxy(const ::Murmur::ServerCallbackPrx &prx, int id) {
 	qmServerCallbacks[id].removeAll(prx);
 }
 
+void MurmurIce::badAuthenticator(::Server *server) {
+	server->disconnectAuthenticator(this);
+	const ::Murmur::ServerAuthenticatorPrx &prx = qmServerAuthenticator.value(server->iServerNum);
+	qCritical("Registered Ice Authenticator %s on server %d failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), server->iServerNum);
+	qmServerAuthenticator.remove(server->iServerNum);
+	qmServerUpdatingAuthenticator.remove(server->iServerNum);
+}
+
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
@@ -220,6 +228,8 @@ void MurmurIce::started(::Server *s) {
 
 void MurmurIce::stopped(::Server *s) {
 	qmServerCallbacks.remove(s->iServerNum);
+	qmServerAuthenticator.remove(s->iServerNum);
+	qmServerUpdatingAuthenticator.remove(s->iServerNum);
 
 	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
 
@@ -385,6 +395,192 @@ void MurmurIce::contextAction(const ::Player *pSrc, const QString &action, unsig
 	}
 }
 
+void MurmurIce::idToNameSlot(QString &name, int id) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	try {
+		name = fromStdUtf8String(prx->idToName(id));
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+void MurmurIce::idToTextureSlot(QByteArray &qba, int id) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	try {
+		const ::Murmur::Texture &tex = prx->idToTexture(id);
+
+		qba.resize(tex.size());
+		char *ptr = qba.data();
+		for (unsigned int i=0;i<tex.size();++i)
+			ptr[i] = tex[i];
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
+void MurmurIce::nameToIdSlot(int &id, const QString &name) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	try {
+		id = prx->nameToId(toStdUtf8String(name));
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
+void MurmurIce::authenticateSlot(int &res, QString &uname, const QString &pw) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	::std::string newname;
+	::Murmur::GroupNameList groups;
+	try {
+		res = prx->authenticate(toStdUtf8String(uname), toStdUtf8String(pw), newname, groups);
+	} catch (...) {
+		badAuthenticator(server);
+	}
+	if (res >= 0) {
+		if (newname.length() > 0)
+			uname = fromStdUtf8String(newname);
+		QStringList qsl;
+		foreach(const ::std::string &str, groups) {
+			qsl << fromStdUtf8String(str);
+		}
+		if (! qsl.isEmpty())
+			server->setTempGroups(res, NULL, qsl);
+	}
+}
+
+void MurmurIce::registerPlayerSlot(int &res, const QString &name) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+	try {
+		res = prx->registerPlayer(toStdUtf8String(name));
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
+void MurmurIce::unregisterPlayerSlot(int &res, int id) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+	try {
+		res = prx->unregisterPlayer(id);
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
+void MurmurIce::getRegistrationSlot(int &res, int id, QString &name, QString &email) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+
+	::std::string rname;
+	::std::string remail;
+	try {
+		res = prx->getRegistration(id, rname, remail);
+	} catch (...) {
+		badAuthenticator(server);
+		return;
+	}
+
+	if (res >= 0) {
+		name = fromStdUtf8String(rname);
+		email = fromStdUtf8String(remail);
+	}
+}
+
+void  MurmurIce::getRegisteredPlayersSlot(const QString &filter, QMap<int, QPair<QString, QString> > &m) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+
+	::Murmur::RegisteredPlayerList lst;
+
+	try {
+		lst = prx->getRegisteredPlayers(toStdUtf8String(filter));
+	} catch (...) {
+		badAuthenticator(server);
+		return;
+	}
+	foreach(const ::Murmur::RegisteredPlayer &p, lst)
+		m.insert(p.playerid, QPair<QString, QString>(fromStdUtf8String(p.name),fromStdUtf8String(p.email)));
+}
+
+void MurmurIce::setNameSlot(int &res, int id, const QString &name) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+	try {
+		res = prx->setName(id, toStdUtf8String(name));
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
+void MurmurIce::setEmailSlot(int &res, int id, const QString &email) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+	try {
+		res = prx->setEmail(id, toStdUtf8String(email));
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
+void MurmurIce::setPwSlot(int &res, int id, const QString &pw) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+	try {
+		res = prx->setPassword(id, toStdUtf8String(pw));
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
+void MurmurIce::setTextureSlot(int &res, int id, const QByteArray &texture) {
+	::Server *server = qobject_cast< ::Server *> (sender());
+
+	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	if (! prx)
+		return;
+
+	::Murmur::Texture tex;
+	tex.resize(texture.size());
+	const char *ptr = texture.constData();
+	for (int i=0;i<texture.size();++i)
+		tex[i] = ptr[i];
+
+	try {
+		res = prx->setTexture(id, tex);
+	} catch (...) {
+		badAuthenticator(server);
+	}
+}
+
 Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &) {
 	return iopServer;
 }
@@ -487,6 +683,31 @@ static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPt
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
 	}
+}
+
+static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthenticatorPtr& cb, int server_id, const ::Murmur::ServerAuthenticatorPrx& aptr) {
+	NEED_SERVER;
+
+	if (mi->qmServerAuthenticator[server_id])
+		server->disconnectAuthenticator(mi);
+
+	try {
+		const ::Murmur::ServerUpdatingAuthenticatorPrx uprx = ::Murmur::ServerUpdatingAuthenticatorPrx::checkedCast(aptr);
+
+		mi->qmServerAuthenticator[server_id] = aptr;
+		if (uprx)
+			mi->qmServerUpdatingAuthenticator[server_id] = uprx;
+	} catch (...) {
+		cb->ice_exception(InvalidCallbackException());
+		return;
+	}
+
+	if (aptr)
+		server->connectAuthenticator(mi);
+
+	cb->ice_response();
+
+	server->log(QString("Registered Ice Authenticator %1").arg(QString::fromStdString(mi->communicator->proxyToString(aptr))));
 }
 
 static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {

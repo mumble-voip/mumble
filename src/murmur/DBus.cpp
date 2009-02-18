@@ -179,39 +179,14 @@ MurmurDBus::MurmurDBus(Server *srv) : QDBusAbstractAdaptor(srv) {
 	srv->connectListener(this);
 }
 
-void MurmurDBus::setTempGroups(int playerid, Channel *cChannel, const QStringList &groups) {
-	if (! cChannel)
-		cChannel = server->qhChannels.value(0);
-
-	Group *g;
-	foreach(g, cChannel->qhGroups)
-		g->qsTemporary.remove(playerid);
-
-	QString gname;
-	foreach(gname, groups) {
-		g = cChannel->qhGroups.value(gname);
-		if (! g) {
-			g = new Group(cChannel, gname);
-		}
-		g->qsTemporary.insert(playerid);
-	}
-
-	Player *p = server->qhUsers.value(playerid);
-	if (p)
-		server->clearACLCache(p);
-}
-
 void MurmurDBus::removeAuthenticator() {
-	server->connectAuthenticator(this);
+	server->disconnectAuthenticator(this);
 	qsAuthPath = QString();
 	qsAuthService = QString();
 }
 
 
 void MurmurDBus::idToNameSlot(QString &name, int id) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<QString> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getUserName",id);
 	if (reply.isValid())
@@ -223,9 +198,6 @@ void MurmurDBus::idToNameSlot(QString &name, int id) {
 }
 
 void MurmurDBus::idToTextureSlot(QByteArray &qba, int id) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<QByteArray> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getUserTexture",id);
 	if (reply.isValid()) {
@@ -234,9 +206,6 @@ void MurmurDBus::idToTextureSlot(QByteArray &qba, int id) {
 }
 
 void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getUserId",name);
 	if (reply.isValid())
@@ -248,9 +217,6 @@ void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
 }
 
 void MurmurDBus::registerPlayerSlot(int &res, const QString &name) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "registerPlayer", name);
 	if (reply.isValid())
@@ -258,9 +224,6 @@ void MurmurDBus::registerPlayerSlot(int &res, const QString &name) {
 }
 
 void MurmurDBus::unregisterPlayerSlot(int &res, int id) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "unregisterPlayer", id);
 	if (reply.isValid())
@@ -268,9 +231,6 @@ void MurmurDBus::unregisterPlayerSlot(int &res, int id) {
 }
 
 void MurmurDBus::getRegistrationSlot(int &res, int id, QString &name, QString &email) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<RegisteredPlayer> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegistration", id);
 	if (reply.isValid()) {
@@ -282,9 +242,6 @@ void MurmurDBus::getRegistrationSlot(int &res, int id, QString &name, QString &e
 }
 
 void  MurmurDBus::getRegisteredPlayersSlot(const QString &filter, QMap<int, QPair<QString, QString> > &m) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<QList<RegisteredPlayer> > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegisteredPlayers", filter);
 	if (reply.isValid()) {
@@ -296,9 +253,6 @@ void  MurmurDBus::getRegisteredPlayersSlot(const QString &filter, QMap<int, QPai
 }
 
 void MurmurDBus::setNameSlot(int &res, int id, const QString &name) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setName",id, name);
 	if (reply.isValid())
@@ -306,9 +260,6 @@ void MurmurDBus::setNameSlot(int &res, int id, const QString &name) {
 }
 
 void MurmurDBus::setEmailSlot(int &res, int id, const QString &email) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setEmail",id, email);
 	if (reply.isValid())
@@ -316,9 +267,6 @@ void MurmurDBus::setEmailSlot(int &res, int id, const QString &email) {
 }
 
 void MurmurDBus::setPwSlot(int &res, int id, const QString &pw) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setPW",id, pw);
 	if (reply.isValid())
@@ -326,9 +274,6 @@ void MurmurDBus::setPwSlot(int &res, int id, const QString &pw) {
 }
 
 void MurmurDBus::setTextureSlot(int &res, int id, const QByteArray &texture) {
-	if (qsAuthPath.isEmpty())
-		return;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setTexture",id, texture);
 	if (reply.isValid())
@@ -336,9 +281,6 @@ void MurmurDBus::setTextureSlot(int &res, int id, const QByteArray &texture) {
 }
 
 void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
-	if (qsAuthPath.isEmpty())
-		return ;
-
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusMessage msg = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "authenticate",uname,pw);
 	QDBusError err = msg;
@@ -356,7 +298,7 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
 			}
 		}
 		if (ok && (msg.arguments().count() >= 3)) {
-			setTempGroups(uid, NULL, msg.arguments().at(2).toStringList());
+			server->setTempGroups(uid, NULL, msg.arguments().at(2).toStringList());
 		}
 		if (ok) {
 			server->log(QString("DBus Authenticate success for %1: %2").arg(uname).arg(uid));
@@ -872,7 +814,7 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 void MurmurDBus::setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(channel);
 
-	setTempGroups(playerid, cChannel, groups);
+	server->setTempGroups(playerid, cChannel, groups);
 }
 
 PlayerInfo::PlayerInfo(const Player *p) {

@@ -133,7 +133,6 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		bool bReentrant;
 		QString qsAuthService;
 		QString qsAuthPath;
-		void setTempGroups(const int playerid, Channel *cChannel, const QStringList &groups);
 		void removeAuthenticator();
 	public:
 		static QDBusConnection qdbc;

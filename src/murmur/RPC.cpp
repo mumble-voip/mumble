@@ -189,6 +189,29 @@ void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const 
 	}
 }
 
+void Server::setTempGroups(int playerid, Channel *cChannel, const QStringList &groups) {
+	if (! cChannel)
+		cChannel = qhChannels.value(0);
+
+	Group *g;
+	foreach(g, cChannel->qhGroups)
+		g->qsTemporary.remove(playerid);
+
+	QString gname;
+	foreach(gname, groups) {
+		g = cChannel->qhGroups.value(gname);
+		if (! g) {
+			g = new Group(cChannel, gname);
+		}
+		g->qsTemporary.insert(playerid);
+	}
+
+	Player *p = qhUsers.value(playerid);
+	if (p)
+		clearACLCache(p);
+}
+
+
 void Server::connectAuthenticator(QObject *obj) {
 	connect(this, SIGNAL(registerPlayerSig(int &, const QString &)), obj, SLOT(registerPlayerSlot(int &, const QString &)));
 	connect(this, SIGNAL(unregisterPlayerSig(int &, int)), obj, SLOT(unregisterPlayerSlot(int &, int)));
@@ -202,6 +225,21 @@ void Server::connectAuthenticator(QObject *obj) {
 	connect(this, SIGNAL(idToNameSig(QString &, int)), obj, SLOT(idToNameSlot(QString &, int)));
 	connect(this, SIGNAL(nameToIdSig(int &, const QString &)), obj, SLOT(nameToIdSlot(int &, const QString &)));
 	connect(this, SIGNAL(idToTextureSig(QByteArray &, int)), obj, SLOT(idToTextureSlot(QByteArray &, int)));
+}
+
+void Server::disconnectAuthenticator(QObject *obj) {
+	disconnect(this, SIGNAL(registerPlayerSig(int &, const QString &)), obj, SLOT(registerPlayerSlot(int &, const QString &)));
+	disconnect(this, SIGNAL(unregisterPlayerSig(int &, int)), obj, SLOT(unregisterPlayerSlot(int &, int)));
+	disconnect(this, SIGNAL(getRegisteredPlayersSig(const QString &, QMap<int, QPair<QString, QString> > &)), obj, SLOT(getRegisteredPlayersSlot(const QString &, QMap<int, QPair<QString, QString> > &)));
+	disconnect(this, SIGNAL(getRegistrationSig(int &, int, QString &, QString &)), obj, SLOT(getRegistrationSlot(int &, int, QString &, QString &)));
+	disconnect(this, SIGNAL(authenticateSig(int &, QString &, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QString &)));
+	disconnect(this, SIGNAL(setPwSig(int &, int, const QString &)), obj, SLOT(setPwSlot(int &, int, const QString &)));
+	disconnect(this, SIGNAL(setEmailSig(int &, int, const QString &)), obj, SLOT(setEmailSlot(int &, int, const QString &)));
+	disconnect(this, SIGNAL(setNameSig(int &, int, const QString &)), obj, SLOT(setNameSlot(int &, int, const QString &)));
+	disconnect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj, SLOT(setTextureSlot(int &, int, const QByteArray &)));
+	disconnect(this, SIGNAL(idToNameSig(QString &, int)), obj, SLOT(idToNameSlot(QString &, int)));
+	disconnect(this, SIGNAL(nameToIdSig(int &, const QString &)), obj, SLOT(nameToIdSlot(int &, const QString &)));
+	disconnect(this, SIGNAL(idToTextureSig(QByteArray &, int)), obj, SLOT(idToTextureSlot(QByteArray &, int)));
 }
 
 void Server::connectListener(QObject *obj) {

@@ -23,6 +23,8 @@ class ServerI : virtual public Server {
 		virtual void addCallback_async(const ::Murmur::AMD_Server_addCallbackPtr&, const ::Murmur::ServerCallbackPrx&, const ::Ice::Current&);
 		virtual void removeCallback_async(const ::Murmur::AMD_Server_removeCallbackPtr&, const ::Murmur::ServerCallbackPrx&, const ::Ice::Current&);
 
+		virtual void setAuthenticator_async(const ::Murmur::AMD_Server_setAuthenticatorPtr&, const ::Murmur::ServerAuthenticatorPrx&, const ::Ice::Current&);
+
 		virtual void id_async(const ::Murmur::AMD_Server_idPtr&,
 		                      const Ice::Current&);
 

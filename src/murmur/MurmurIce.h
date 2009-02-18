@@ -48,35 +48,36 @@ class MurmurIce : public QObject {
 		int count;
 		QMutex qmEvent;
 		QWaitCondition qwcEvent;
-		Ice::CommunicatorPtr communicator;
-		Ice::ObjectAdapterPtr adapter;
 		void customEvent(QEvent *evt);
 		void badMetaProxy(const ::Murmur::MetaCallbackPrx &prx);
 		void badServerProxy(const ::Murmur::ServerCallbackPrx &prx, int id);
+		void badAuthenticator(Server *);
 	public:
+		Ice::CommunicatorPtr communicator;
+		Ice::ObjectAdapterPtr adapter;
 		QList< ::Murmur::MetaCallbackPrx> qmMetaCallbacks;
 		QMap<int, QList< ::Murmur::ServerCallbackPrx> > qmServerCallbacks;
 		QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > qmServerContextCallbacks;
+		QMap<int, ::Murmur::ServerAuthenticatorPrx> qmServerAuthenticator;
+		QMap<int, ::Murmur::ServerUpdatingAuthenticatorPrx> qmServerUpdatingAuthenticator;
 		MurmurIce();
 		~MurmurIce();
 	public slots:
 		void started(Server *);
 		void stopped(Server *);
 
-		/*
-				void authenticateSlot(int &res, QString &uname, const QString &pw);
-				void registerPlayerSlot(int &res, const QString &name);
-				void unregisterPlayerSlot(int &res, int id);
-				void getRegisteredPlayersSlot(const QString &filter, QMap<int, QPair<QString, QString> > &res);
-				void getRegistrationSlot(int &res, int id, QString &name, QString &email);
-				void setPwSlot(int &res, int id, const QString &pw);
-				void setEmailSlot(int &res, int id, const QString &email);
-				void setNameSlot(int &res, int id, const QString &name);
-				void setTextureSlot(int &res, int id, const QByteArray &texture);
-				void nameToIdSlot(int &res, const QString &name);
-				void idToNameSlot(QString &res, int id);
-				void idToTextureSlot(QByteArray &res, int id);
-		*/
+		void authenticateSlot(int &res, QString &uname, const QString &pw);
+		void registerPlayerSlot(int &res, const QString &name);
+		void unregisterPlayerSlot(int &res, int id);
+		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QPair<QString, QString> > &res);
+		void getRegistrationSlot(int &res, int id, QString &name, QString &email);
+		void setPwSlot(int &res, int id, const QString &pw);
+		void setEmailSlot(int &res, int id, const QString &email);
+		void setNameSlot(int &res, int id, const QString &name);
+		void setTextureSlot(int &res, int id, const QByteArray &texture);
+		void nameToIdSlot(int &res, const QString &name);
+		void idToNameSlot(QString &res, int id);
+		void idToTextureSlot(QByteArray &res, int id);
 
 		void playerStateChanged(const Player *p);
 		void playerConnected(const Player *p);

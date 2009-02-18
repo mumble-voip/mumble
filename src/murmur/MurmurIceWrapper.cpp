@@ -26,6 +26,10 @@ void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCa
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_removeCallback, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAuthenticatorPtr &cb,  const ::Murmur::ServerAuthenticatorPrx& p1, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_setAuthenticator, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
 void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_getConf, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);

@@ -224,6 +224,7 @@ class Server : public QThread, public MessageHandler {
 		void disconnectAuthenticator(QObject *p);
 		void connectListener(QObject *p);
 		void disconnectListener(QObject *p);
+		void setTempGroups(const int playerid, Channel *cChannel, const QStringList &groups);
 	signals:
 		void registerPlayerSig(int &, const QString &);
 		void unregisterPlayerSig(int &, int);
