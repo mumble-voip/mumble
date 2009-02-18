@@ -658,7 +658,7 @@ static void impl_Server_delete(const ::Murmur::AMD_Server_deletePtr cb, int serv
 	cb->ice_response();
 }
 
-static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
+static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
 	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
 
@@ -672,7 +672,7 @@ static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr &cb,
 	}
 }
 
-static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPtr &cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
+static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPtr cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
 	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
 
@@ -865,7 +865,14 @@ static void impl_Server_sendMessage(const ::Murmur::AMD_Server_sendMessagePtr cb
 	cb->ice_response();
 }
 
-static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCallbackPtr &cb, int server_id, ::Ice::Int session, const ::std::string& action, const ::std::string& text, const ::Murmur::ServerContextCallbackPrx& cbptr, int ctx) {
+static void impl_Server_hasPermission(const ::Murmur::AMD_Server_hasPermissionPtr cb, int server_id, ::Ice::Int session, ::Ice::Int channelid, ::Ice::Int perm) {
+	NEED_SERVER;
+	NEED_PLAYER;
+	NEED_CHANNEL;
+	cb->ice_response(server->hasPermission(user, channel, static_cast<ChanACL::Perm>(perm)));
+}
+
+static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCallbackPtr cb, int server_id, ::Ice::Int session, const ::std::string& action, const ::std::string& text, const ::Murmur::ServerContextCallbackPrx& cbptr, int ctx) {
 	NEED_SERVER;
 	NEED_PLAYER;
 
@@ -893,7 +900,7 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 	server->sendMessage(user, &mcaa);
 }
 
-static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeContextCallbackPtr &cb, int server_id, const Murmur::ServerContextCallbackPrx& cbptr) {
+static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeContextCallbackPtr cb, int server_id, const Murmur::ServerContextCallbackPrx& cbptr) {
 	NEED_SERVER;
 
 	QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > & qmPrx = mi->qmServerContextCallbacks[server_id];
@@ -1297,7 +1304,7 @@ static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, cons
 	cb->ice_response(major, minor, patch, toStdUtf8String(txt));
 }
 
-static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr &cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
+static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
 	try {
 		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::checkedCast(cbptr->ice_oneway());
 		if (! mi->qmMetaCallbacks.contains(oneway))
@@ -1308,7 +1315,7 @@ static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr &cb, con
 	}
 }
 
-static void impl_Meta_removeCallback(const Murmur::AMD_Meta_removeCallbackPtr &cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
+static void impl_Meta_removeCallback(const Murmur::AMD_Meta_removeCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
 	try {
 		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::uncheckedCast(cbptr->ice_oneway());
 		mi->qmMetaCallbacks.removeAll(oneway);

@@ -484,6 +484,14 @@ module Murmur
 		 */
 		void sendMessage(int session, string text) throws ServerBootedException, InvalidSessionException;
 
+		/** Check if player is permitted to perform action.
+		 * @param session Connection ID of player. See [Player::session].
+		 * @param channelid ID of Channel. See [Channel::id].
+		 * @param perm Permission bits to check.
+		 * @return true if any of the permissions in perm were set for the user.
+		 */
+		bool hasPermission(int session, int channelid, int perm) throws ServerBootedException, InvalidSessionException, InvalidChannelException;
+
 		/** Add a context callback. This is done per player, and will add a context menu action for the player.
 		 *
 		 * @param session Session of user which should receive context entry.

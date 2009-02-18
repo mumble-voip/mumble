@@ -75,6 +75,8 @@ class ServerI : virtual public Server {
 		                               const ::std::string&,
 		                               const Ice::Current&);
 
+		virtual void hasPermission_async(const ::Murmur::AMD_Server_hasPermissionPtr&, ::Ice::Int, ::Ice::Int, ::Ice::Int, const ::Ice::Current&);
+
 		virtual void addContextCallback_async(const ::Murmur::AMD_Server_addContextCallbackPtr&, ::Ice::Int, const ::std::string&, const ::std::string&, const ::Murmur::ServerContextCallbackPrx&, int, const ::Ice::Current&);
 		virtual void removeContextCallback_async(const ::Murmur::AMD_Server_removeContextCallbackPtr&, const ::Murmur::ServerContextCallbackPrx&, const ::Ice::Current&);
 

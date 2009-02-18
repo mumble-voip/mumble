@@ -86,6 +86,10 @@ void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessage
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_sendMessage, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermissionPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  ::Ice::Int p3, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_hasPermission, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
 void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addContextCallbackPtr &cb,  ::Ice::Int p1,  const ::std::string& p2,  const ::std::string& p3,  const ::Murmur::ServerContextCallbackPrx& p4,  ::Ice::Int p5, const ::Ice::Current &current) {
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_addContextCallback, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4, p5));
 	QCoreApplication::instance()->postEvent(mi, ie);
