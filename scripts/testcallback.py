@@ -23,6 +23,8 @@ class ServerCallbackI(Murmur.ServerCallback):
       print "connected"
       print p
       self.server.addContextCallback(p.session, "flubber", "Power up the T", self.contextR, Murmur.ContextChannel | Murmur.ContextPlayer)
+      if (self.server.hasPermission(p.session, 0, Murmur.PermissionWrite)):
+        print "Is a global admin"
 
     def playerDisconnected(self, p, current=None):
       print "disconnected"
@@ -66,7 +68,7 @@ if __name__ == "__main__":
     print "Creating callbacks...",
     ice = Ice.initialize(sys.argv)
     
-    meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy('Meta:tcp -h 127.0.0.1 -p 49152'))
+    meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'))
 
     adapter = ice.createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1")
 
