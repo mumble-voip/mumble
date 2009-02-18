@@ -33,6 +33,7 @@
 #include "MainWindow.h"
 #include "Global.h"
 
+
 static ConfigWidget *LogConfigDialogNew(Settings &st) {
 	return new LogConfig(st);
 }
@@ -45,6 +46,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->header()->setResizeMode(0, QHeaderView::Stretch);
 	qtwMessages->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(2, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setResizeMode(3, QHeaderView::ResizeToContents);
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
@@ -57,8 +59,10 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setText(0, messageName);
 		twi->setCheckState(1, Qt::Unchecked);
 		twi->setCheckState(2, Qt::Unchecked);
+		twi->setCheckState(3, Qt::Unchecked);
 		twi->setToolTip(1, tr("Enable console for %1").arg(messageName));
 		twi->setToolTip(2, tr("Enable Text-To-Speech for %1").arg(messageName));
+		twi->setToolTip(3, tr("Enable ballon tool-tip for %1").arg(messageName));
 	}
 }
 
@@ -78,6 +82,7 @@ void LogConfig::load(const Settings &r) {
 
 		i->setCheckState(1, (ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
 		i->setCheckState(2, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
+		i->setCheckState(3, (ml & Settings::LogBalloon) ? Qt::Checked : Qt::Unchecked);
 	}
 
 	loadSlider(qsVolume, r.iTTSVolume);
@@ -94,6 +99,8 @@ void LogConfig::save() const {
 			v |= Settings::LogConsole;
 		if (i->checkState(2) == Qt::Checked)
 			v |= Settings::LogTTS;
+		if (i->checkState(3) == Qt::Checked)
+			v |= Settings::LogBalloon;
 		s.qmMessages[mt] = v;
 	}
 
@@ -181,6 +188,87 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		g.mw->qteLog->ensureCursorVisible();
 	}
 
+	if ((flags & Settings::LogBalloon) &&
+			g.mw->hasFocus()!=true)
+	{
+			// TODO: mumble should declare its own icons for the most of its notification events ;)
+		const char			*msgIcon;
+		
+		switch(mt)
+		{
+			case DebugInfo:
+			case CriticalError:
+				msgIcon="gtk-dialog-error";
+				break;
+				
+			case Warning:
+				msgIcon="gtk-dialog-warning";
+				break;
+
+			case TextMessage:
+				msgIcon="gtk-edit";
+				break;
+				
+			default:
+				msgIcon="gtk-dialog-info";
+				break;
+		}
+
+			// DBUS signature for org.freedesktop.Notifications.Notify is:
+			// UINT32 org.freedesktop.Notifications.Notify(STRING app_name, UINT32 replaces_id, STRING app_icon, STRING summary,
+			//                                             STRING body, ARRAY actions, DICT hints, INT32 expire_timeout);
+		QDBusMessage				notifyMessage=QDBusMessage::createMethodCall(
+														QString::fromLatin1("org.freedesktop.Notifications"),
+														QString::fromLatin1("/org/freedesktop/Notifications"),
+														QString::fromLatin1("org.freedesktop.Notifications"),
+														QString::fromLatin1("Notify") );
+		QList<QVariant> args;
+
+		args.append( "mumble" ); // app_name
+		args.append( ((uint)0) ); // replaces_id
+		args.append( msgIcon ); // app_icon
+		args.append( msgName(mt) ); // summary
+		args.append( console ); // body
+		args.append( QStringList () ); // actions
+		args.append( QVariantMap() ); // hints - unused atm
+		args.append( ((int)-1) ); // expire timout
+
+		notifyMessage.setArguments( args );
+
+			// Get response and check if dbus call succeeded ...
+		QDBusMessage		response=QDBusConnection::sessionBus().call(notifyMessage);
+		
+		if(response.type()!=QDBusMessage::ReplyMessage ||
+			response.arguments().at(0).toUInt()==0)
+		{
+				// ... otherwise fall back to QTs own balloon tool-tip functions
+				// if available and accessible
+			if (g.mw->qstiIcon &&
+					QSystemTrayIcon::isSystemTrayAvailable() &&
+					QSystemTrayIcon::supportsMessages()) {
+				QSystemTrayIcon::MessageIcon msgIcon;
+				
+				switch(mt)
+				{
+					case DebugInfo:
+					case CriticalError:
+						msgIcon=QSystemTrayIcon::Critical;
+						break;
+						
+					case Warning:
+						msgIcon=QSystemTrayIcon::Warning;
+						break;
+						
+					default:
+						msgIcon=QSystemTrayIcon::Information;
+						break;
+				}
+				
+				g.mw->qstiIcon->showMessage(msgName(mt), console, msgIcon);
+			}
+		}
+	}
+	
 	if (! g.s.bTTS || !(flags & Settings::LogTTS))
 		return;
 

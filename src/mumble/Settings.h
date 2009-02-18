@@ -109,7 +109,7 @@ struct Settings {
 	ShortcutMap qmShortcuts;
 	QMap<int, bool> qmShortcutSuppress;
 
-	enum MessageLog { LogConsole = 0x01, LogTTS = 0x02};
+	enum MessageLog { LogConsole = 0x01, LogTTS = 0x02, LogBalloon = 0x04};
 	QMap<int, quint32> qmMessages;
 
 	QString qsLanguage;
