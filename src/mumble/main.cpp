@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"));
+	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 	QDBusMessage reply=qdbi.call(QLatin1String("focus"));
 	if (reply.type() == QDBusMessage::ReplyMessage) {
 		if (a.arguments().count() > 1) {
