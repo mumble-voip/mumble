@@ -19,6 +19,10 @@ isEmpty(QMAKE_LRELEASE) {
   QMAKE_LRELEASE = $$dirname(QMAKE_QMAKE)/$$replace(QMAKE_QMAKE_BASE,qmake,lrelease)
 }
 
+unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
+  CONFIG	*= no-bundled-speex
+}
+
 CONFIG(no-bundled-speex) {
   PKGCONFIG	*= speex speexdsp
 }
