@@ -188,82 +188,75 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		g.mw->qteLog->ensureCursorVisible();
 	}
 
-	if ((flags & Settings::LogBalloon) && ! (g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))  {
+	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))  {
 		QString qsIcon;
-		switch(mt)
-		{
+		switch (mt) {
 			case DebugInfo:
 			case CriticalError:
 				qsIcon=QLatin1String("gtk-dialog-error");
 				break;
-				
 			case Warning:
 				qsIcon=QLatin1String("gtk-dialog-warning");
 				break;
-
 			case TextMessage:
 				qsIcon=QLatin1String("gtk-edit");
 				break;
-				
 			default:
 				qsIcon=QLatin1String("gtk-dialog-info");
 				break;
 		}
 
+		QDBusMessage response;
 		QVariantMap hints;
 		hints.insert(QLatin1String("desktop-entry"), QLatin1String("mumble"));
 
-		QList<QVariant> args;
-		args.append( QLatin1String("mumble") ); 
-		args.append( 0U );
-		args.append( QString() );
-		args.append( QLatin1String("mumble") );
-		args.append( msgName(mt) );
-		args.append( console ); 
-		args.append( QStringList () );
-		args.append( hints );
-		args.append( 5000 ); 
-		
-		QDBusMessage response;
-		
+
 		{
 			QDBusInterface kde(QLatin1String("org.kde.VisualNotifications"), QLatin1String("/VisualNotifications"), QLatin1String("org.kde.VisualNotifications"));
-			if (kde.isValid())
+			if (kde.isValid()) {
+				QList<QVariant> args;
+				args.append(QLatin1String("mumble"));
+				args.append(0U);
+				args.append(QString());
+				args.append(QLatin1String("mumble"));
+				args.append(msgName(mt));
+				args.append(console);
+				args.append(QStringList());
+				args.append(hints);
+				args.append(5000);
+
 				response = kde.callWithArgumentList(QDBus::AutoDetect, QLatin1String("Notify"), args);
+			}
 		}
 
-		if(response.type()!=QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt()==0) {
+		if (response.type()!=QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt()==0) {
 			QDBusInterface gnome(QLatin1String("org.freedesktop.Notifications"), QLatin1String("/org/freedesktop/Notifications"), QLatin1String("org.freedesktop.Notifications"));
 			if (gnome.isValid())
 				response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), 0U, qsIcon, msgName(mt), console, QStringList(), hints, -1);
 		}
 
-		if(response.type()!=QDBusMessage::ReplyMessage || response.arguments().isEmpty() || response.arguments().at(0).toUInt()==0)
-		{
+		if (response.type()!=QDBusMessage::ReplyMessage || response.arguments().isEmpty() || response.arguments().at(0).toUInt()==0) {
 			if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
 				QSystemTrayIcon::MessageIcon msgIcon;
-				
-				switch(mt)
-				{
+
+				switch (mt) {
 					case DebugInfo:
 					case CriticalError:
 						msgIcon=QSystemTrayIcon::Critical;
 						break;
-						
 					case Warning:
 						msgIcon=QSystemTrayIcon::Warning;
 						break;
-						
 					default:
 						msgIcon=QSystemTrayIcon::Information;
 						break;
 				}
-				
+
 				g.mw->qstiIcon->showMessage(msgName(mt), console, msgIcon);
 			}
 		}
 	}
-	
+
 	if (! g.s.bTTS || !(flags & Settings::LogTTS))
 		return;
 
