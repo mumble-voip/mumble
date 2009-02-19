@@ -65,10 +65,6 @@ static void about(HWND h) {
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
-	top[0] = 0.0f;
-	top[1] = 0.0f;
-	top[2] = 0.0f;
-
 	float h = rot[0];
 	float v = rot[1];
 
@@ -83,15 +79,24 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	opos[1] = pos[2] / 39.37f;
 	opos[2] = pos[1] / 39.37f;
 
-	front[0] = cos(v);
-	front[1] = 0.0f;
-	front[2] = sin(v);
+	front[0] = cos(v) * cos(h);
+	front[1] = -sin(h);
+	front[2] = sin(v) * cos(h);
 
+	h -= static_cast<float>(M_PI / 2.0f);
+
+	top[0] = cos(v) * cos(h);
+	top[1] = -sin(h);
+	top[2] = sin(v) * cos(h);
+/*
+	printf("Poll\n");
+	printf("%f %f %f : %f %f\n",pos[0],pos[1],pos[2], rot[0], rot[1]);
+	printf("%f %f %f :: %.2f %.2f %.2f :: %.2f %.2f %.2f\n", opos[0], opos[1], opos[2], front[0], front[1], front[2], top[0], top[1], top[2]);
+*/
 	return true;
 }
 
 static int trylock() {
-
 	h = NULL;
 	posptr = rotptr = NULL;
 
@@ -140,7 +145,7 @@ static int fetch(float *pos, float *front, float *top) {
 	     peekProc(rotptr, rot, 12);
 
 	if (ok)
-		return calcout(ipos, rot, pos, top, front);
+		return calcout(ipos, rot, pos, front, top);
 
 	return false;
 }
