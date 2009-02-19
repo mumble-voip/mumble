@@ -188,64 +188,59 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		g.mw->qteLog->ensureCursorVisible();
 	}
 
-	if ((flags & Settings::LogBalloon) &&
-			g.mw->hasFocus()!=true)
-	{
-			// TODO: mumble should declare its own icons for the most of its notification events ;)
-		const char			*msgIcon;
-		
+	if ((flags & Settings::LogBalloon) && ! (g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))  {
+		QString qsIcon;
 		switch(mt)
 		{
 			case DebugInfo:
 			case CriticalError:
-				msgIcon="gtk-dialog-error";
+				qsIcon=QLatin1String("gtk-dialog-error");
 				break;
 				
 			case Warning:
-				msgIcon="gtk-dialog-warning";
+				qsIcon=QLatin1String("gtk-dialog-warning");
 				break;
 
 			case TextMessage:
-				msgIcon="gtk-edit";
+				qsIcon=QLatin1String("gtk-edit");
 				break;
 				
 			default:
-				msgIcon="gtk-dialog-info";
+				qsIcon=QLatin1String("gtk-dialog-info");
 				break;
 		}
 
-			// DBUS signature for org.freedesktop.Notifications.Notify is:
-			// UINT32 org.freedesktop.Notifications.Notify(STRING app_name, UINT32 replaces_id, STRING app_icon, STRING summary,
-			//                                             STRING body, ARRAY actions, DICT hints, INT32 expire_timeout);
-		QDBusMessage				notifyMessage=QDBusMessage::createMethodCall(
-														QString::fromLatin1("org.freedesktop.Notifications"),
-														QString::fromLatin1("/org/freedesktop/Notifications"),
-														QString::fromLatin1("org.freedesktop.Notifications"),
-														QString::fromLatin1("Notify") );
+		QVariantMap hints;
+		hints.insert(QLatin1String("desktop-entry"), QLatin1String("mumble"));
+
 		QList<QVariant> args;
-
-		args.append( "mumble" ); // app_name
-		args.append( ((uint)0) ); // replaces_id
-		args.append( msgIcon ); // app_icon
-		args.append( msgName(mt) ); // summary
-		args.append( console ); // body
-		args.append( QStringList () ); // actions
-		args.append( QVariantMap() ); // hints - unused atm
-		args.append( ((int)-1) ); // expire timout
-
-		notifyMessage.setArguments( args );
-
-			// Get response and check if dbus call succeeded ...
-		QDBusMessage		response=QDBusConnection::sessionBus().call(notifyMessage);
+		args.append( QLatin1String("mumble") ); 
+		args.append( 0U );
+		args.append( QString() );
+		args.append( QLatin1String("mumble") );
+		args.append( msgName(mt) );
+		args.append( console ); 
+		args.append( QStringList () );
+		args.append( hints );
+		args.append( 5000 ); 
 		
-		if(response.type()!=QDBusMessage::ReplyMessage ||
-			response.arguments().at(0).toUInt()==0)
+		QDBusMessage response;
+		
 		{
-				// ... otherwise fall back to QTs own balloon tool-tip functions
-				// if available and accessible
-			if (g.mw->qstiIcon &&
-					QSystemTrayIcon::isSystemTrayAvailable() &&
-					QSystemTrayIcon::supportsMessages()) {
+			QDBusInterface kde(QLatin1String("org.kde.VisualNotifications"), QLatin1String("/VisualNotifications"), QLatin1String("org.kde.VisualNotifications"));
+			if (kde.isValid())
+				response = kde.callWithArgumentList(QDBus::AutoDetect, QLatin1String("Notify"), args);
+		}
+
+		if(response.type()!=QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt()==0) {
+			QDBusInterface gnome(QLatin1String("org.freedesktop.Notifications"), QLatin1String("/org/freedesktop/Notifications"), QLatin1String("org.freedesktop.Notifications"));
+			if (gnome.isValid())
+				response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), 0U, qsIcon, msgName(mt), console, QStringList(), hints, -1);
+		}
+
+		if(response.type()!=QDBusMessage::ReplyMessage || response.arguments().isEmpty() || response.arguments().at(0).toUInt()==0)
+		{
+			if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
 				QSystemTrayIcon::MessageIcon msgIcon;
 				
 				switch(mt)

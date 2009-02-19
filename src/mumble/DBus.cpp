@@ -76,6 +76,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 
 void MumbleDBus::focus() {
 	g.mw->show();
+	g.mw->raise();
 	g.mw->activateWindow();
 }
 

@@ -132,11 +132,10 @@ Settings::Settings() {
 	dMaxPacketDelay = 0.0f;
 
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
-		qmMessages.insert(i, Settings::LogConsole | Settings::LogTTS);
+		qmMessages.insert(i, Settings::LogConsole | Settings::LogTTS | Settings::LogBalloon);
 
 	qmMessages[Log::DebugInfo] = Settings::LogConsole;
 	qmMessages[Log::Information] = Settings::LogConsole;
-	qmMessages[Log::ScriptError] = Settings::LogConsole;
 
 	iServerRow = -1;
 }
