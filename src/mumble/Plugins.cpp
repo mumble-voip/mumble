@@ -215,6 +215,8 @@ bool Plugins::fetch() {
 }
 
 void Plugins::on_Timer_timeout() {
+	fetch();
+
 	QMutexLocker lock(&qmPlugins);
 
 	if (prevlocked) {
