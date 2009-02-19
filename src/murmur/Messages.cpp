@@ -713,7 +713,7 @@ void Server::msgEditACL(Connection *cCon, MessageEditACL *msg) {
 	if (!c)
 		return;
 
-	if (! hasPermission(uSource, c, ChanACL::Write)) {
+	if (! hasPermission(uSource, c, ChanACL::Write) && !(c->cParent && hasPermission(uSource, c->cParent, ChanACL::Write))) {
 		PERM_DENIED(uSource, c, ChanACL::Write);
 		return;
 	}
