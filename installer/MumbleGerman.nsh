@@ -18,7 +18,7 @@ LangString DESC_SectionUninstBase ${LANG_GERMAN} "Mumble und Murmur deinstallier
 LangString DESC_SectionUninstAll ${LANG_GERMAN} "Alles von Mumble und Murmur deinstallieren, einschließlich der Einstellungen und Datenbanken."
 
 ; Already installed
-LangString MUMBLE_ALREADY_INSTALLED ${LANG_GERMAN} "Mumble ist bereits installiert. Es wird empfohlen die aktuelle Version zu deinstallieren. Wählen Sie die auszuführende Aktion aus und klicken Sie auf Weiter um fortzufahren."
+LangString MUMBLE_ALREADY_INSTALLED ${LANG_GERMAN} "Mumble ist bereits installiert. Es wird empfohlen die aktuelle Version zunächst zu deinstallieren. Wählen Sie die auszuführende Aktion aus und klicken Sie auf Weiter um fortzufahren."
 LangString MUMBLE_ALREADY_INSTALLED_HEAD ${LANG_GERMAN} "Bereits installiert"
 LangString MUMBLE_ALREADY_INSTALLED_SUBTEXT ${LANG_GERMAN} "Wählen Sie, wie Sie Mumble installieren möchten."
 LangString MUMBLE_UNINSTALL ${LANG_GERMAN} "Vor der Installation deinstallieren"
