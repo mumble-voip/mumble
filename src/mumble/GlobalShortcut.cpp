@@ -47,13 +47,16 @@ ShortcutKeyWidget::ShortcutKeyWidget(QWidget *p) : QLineEdit(p) {
 	displayKeys();
 }
 
+QList<QVariant> ShortcutKeyWidget::getShortcut() const {
+	return qlButtons;
+}
+
 void ShortcutKeyWidget::setShortcut(const QList<QVariant> &buttons) {
 	qlButtons = buttons;
 	displayKeys();
 }
 
-void ShortcutKeyWidget::focusInEvent(QFocusEvent *e) {
-	if (e->reason() == Qt::MouseFocusReason) {
+void ShortcutKeyWidget::focusInEvent(QFocusEvent *) {
 		setText(tr("Press Shortcut"));
 
 		QPalette pal=parentWidget()->palette();
@@ -64,7 +67,6 @@ void ShortcutKeyWidget::focusInEvent(QFocusEvent *e) {
 		GlobalShortcutEngine::engine->resetMap();
 		connect(GlobalShortcutEngine::engine, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
 		installEventFilter(this);
-	}
 }
 
 void ShortcutKeyWidget::focusOutEvent(QFocusEvent *e) {
@@ -116,60 +118,99 @@ void ShortcutKeyWidget::displayKeys() {
 	emit keySet(keys.count() > 0);
 }
 
-GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
-	setObjectName(QLatin1String("GlobalShortcutConfig"));
-	QGroupBox *qgbShortcuts = new QGroupBox(tr("Shortcuts"), this);
-	QLabel *lab;
+ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
+	int idx = 0;
 
-	QGridLayout *l=new QGridLayout(qgbShortcuts);
+	insertItem(idx, tr("Unassigned"));
+	setItemData(idx, -1);
+
+	idx++;
+
+	bool expert = true;
+	while (p) {
+		GlobalShortcutConfig *gsc = qobject_cast<GlobalShortcutConfig *>(p);
+		if (gsc) {
+			expert = gsc->bExpert;
+			break;
+		}
+		p = p->parentWidget();
+	}
+	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
+		if (expert || ! gs->bExpert) {
+			insertItem(idx, gs->name);
+			setItemData(idx, gs->idx);
+			idx++;
+		}
+	}
+}
+
+void ShortcutActionWidget::setIndex(int idx) {
+	setCurrentIndex(findData(idx));
+}
+
+int ShortcutActionWidget::index() const {
+	return itemData(currentIndex()).toInt();
+}
+
+ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
+    QItemEditorFactory *factory = new QItemEditorFactory;
+    QItemEditorCreatorBase *shortcutCreator = new QStandardItemEditorCreator<ShortcutKeyWidget>();
+    QItemEditorCreatorBase *indexCreator = new QStandardItemEditorCreator<ShortcutActionWidget>();
+
+    factory->registerEditor(QVariant::List, shortcutCreator);
+    factory->registerEditor(QVariant::Int, indexCreator);
+	setItemEditorFactory(factory);
+}
+
+QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) const {
+	if (item.type() == QVariant::List)
+		return GlobalShortcutEngine::buttonText(item.toList());
+	else if (item.type() == QVariant::Int) {
+		GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(item.toInt());
+		if (gs)
+			return gs->name;
+		else
+			return tr("Unassigned");
+	}
+
+	return QStyledItemDelegate::displayText(item,loc);
+}
+
+GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
+	setupUi(this);
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();
 
-	lab=new QLabel(tr("Function"), this);
-	l->addWidget(lab, 0, 0);
-	lab=new QLabel(tr("Shortcut"), this);
-	l->addWidget(lab, 0, 1);
-	lab=new QLabel(tr("Suppress"), this);
-	lab->setVisible(canSuppress);
-	l->addWidget(lab, 0, 2);
+	qtwShortcuts->setColumnCount(canSuppress ? 3 : 2);
+	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
+}
 
+void GlobalShortcutConfig::on_qpbAdd_clicked(bool) {
+	Shortcut s;
+	s.iIndex = -1;
+	s.bSuppress = false;
+	qlShortcuts << s;
+	reload();
+}
 
-	int i=0;
+void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
+	QTreeWidgetItem *qtwi = qtwShortcuts->currentItem();
+	if (! qtwi)
+		return;
+	qlShortcuts.removeAt(qtwShortcuts->indexOfTopLevelItem(qtwi));
+	delete qtwi;
+}
 
+void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
+	qpbRemove->setEnabled(item ? true : false);
+}
 
-	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
-		ShortcutKeyWidget *skw=new ShortcutKeyWidget(qgbShortcuts);
-		QCheckBox *qcb = new QCheckBox(qgbShortcuts);
-		lab=new QLabel(gs->name, qgbShortcuts);
-
-		l->addWidget(lab, i+1, 0);
-		l->addWidget(skw, i+1, 1);
-		l->addWidget(qcb, i+1, 2);
-
-		skw->setToolTip(tr("Shortcut bound to %1.").arg(gs->name));
-		skw->setWhatsThis(tr("<b>This is the global shortcut bound to %1</b><br />"
-		                     "Click this field and then the desired key/button combo "
-		                     "to rebind. Double-click to clear.").arg(gs->name));
-		qhKeys[gs]=skw;
-
-		qcb->setToolTip(tr("Suppress keys from other applications"));
-		qcb->setWhatsThis(tr("<b>This hides the button presses from other applications.</b><br />"
-		                     "Enabling this will hide the button (or the last button of a multi-button combo) "
-		                     "from other applications. Note that not all buttons can be suppressed."));
-		qcb->setVisible(canSuppress);
-		qhSuppress[gs]=qcb;
-
-		i++;
-	}
-
-	lab = new QLabel(tr("Double-click an entry to clear the shortcut."), qgbShortcuts);
-	l->addWidget(lab,i+1,0,1,2);
-
-	QVBoxLayout *v = new QVBoxLayout(this);
-	v->addWidget(qgbShortcuts);
-	v->addStretch(1);
-
-	QMetaObject::connectSlotsByName(this);
+void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, int column) {
+	int idx = qtwShortcuts->indexOfTopLevelItem(item);
+	Shortcut &s = qlShortcuts[idx];
+	s.iIndex = item->data(0, Qt::DisplayRole).toInt();
+	s.qlButtons = item->data(1, Qt::DisplayRole).toList();
+	s.bSuppress = item->checkState(2) == Qt::Checked;
 }
 
 QString GlobalShortcutConfig::title() const {
@@ -181,26 +222,52 @@ QIcon GlobalShortcutConfig::icon() const {
 }
 
 void GlobalShortcutConfig::load(const Settings &r) {
-	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
-		ShortcutKeyWidget *dikw = qhKeys.value(gs);
-		dikw->setShortcut(r.qmShortcuts.value(gs->idx));
-		QCheckBox *qcb = qhSuppress.value(gs);
-		qcb->setChecked(r.qmShortcutSuppress.value(gs->idx));
-	}
+	qlShortcuts = r.qlShortcuts;
+	bExpert = r.bExpert;
+	reload();
 }
 
 void GlobalShortcutConfig::save() const {
-	Settings::ShortcutMap m;
-	QMap<int, bool> sup;
+	s.qlShortcuts = qlShortcuts;
+}
 
-	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
-		ShortcutKeyWidget *dikw = qhKeys[gs];
-		m.insert(gs->idx, dikw->qlButtons);
-		QCheckBox *qcb = qhSuppress.value(gs);
-		sup.insert(gs->idx, qcb->isChecked());
+QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &s) const {
+		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setData(0, Qt::DisplayRole, s.iIndex);
+		item->setData(1, Qt::DisplayRole, s.qlButtons);
+		item->setCheckState(2, s.bSuppress ? Qt::Checked : Qt::Unchecked);
+		item->setFlags(item->flags() | Qt::ItemIsEditable);
+
+		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(s.iIndex);
+
+		if (gs) {
+			item->setData(0, Qt::ToolTipRole, gs->qsToolTip);
+			item->setData(0, Qt::WhatsThisRole, gs->qsWhatsThis);
+		}
+
+		item->setData(1, Qt::ToolTipRole, tr("Shortcut button combination."));
+		item->setData(1, Qt::WhatsThisRole, tr("<b>This is the global shortcut key combination.</b><br />"
+		                     "Double-click this field and then the desired key/button combo "
+		                     "to rebind."));
+
+		item->setData(2, Qt::ToolTipRole, tr("Suppress keys from other applications"));
+		item->setData(2, Qt::WhatsThisRole, tr("<b>This hides the button presses from other applications.</b><br />"
+		                     "Enabling this will hide the button (or the last button of a multi-button combo) "
+		                     "from other applications. Note that not all buttons can be suppressed."));
+
+		return item;
+}
+
+void GlobalShortcutConfig::reload() {
+	qStableSort(qlShortcuts);
+	qtwShortcuts->clear();
+	foreach(const Shortcut &s, qlShortcuts) {
+		QTreeWidgetItem *item = itemForShortcut(s);
+		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(s.iIndex);
+		qtwShortcuts->addTopLevelItem(item);
+		if (gs && gs->bExpert && ! bExpert)
+			item->setHidden(true);
 	}
-	s.qmShortcuts = m;
-	s.qmShortcutSuppress = sup;
 }
 
 void GlobalShortcutConfig::accept() const {
@@ -208,7 +275,9 @@ void GlobalShortcutConfig::accept() const {
 	GlobalShortcutEngine::engine->needRemap();
 }
 
-bool GlobalShortcutConfig::expert(bool) {
+bool GlobalShortcutConfig::expert(bool exp) {
+	bExpert = exp;
+	reload();
 	return true;
 }
 
@@ -221,23 +290,34 @@ GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 void GlobalShortcutEngine::remap() {
 	bNeedRemap = false;
 
+	QSet<ShortcutKey *> qs;
+	foreach(const QList<ShortcutKey*> &ql, qlShortcutList)
+		qs += ql.toSet();
+
+	foreach(ShortcutKey *sk, qs)
+		delete sk;
+
 	qlButtonList.clear();
 	qlShortcutList.clear();
 	qlDownButtons.clear();
 
-	foreach(GlobalShortcut *gs, qmShortcuts) {
-		gs->qlButtons = g.s.qmShortcuts.value(gs->idx);
-		gs->bSuppress = g.s.qmShortcutSuppress.value(gs->idx);
+	foreach(const Shortcut &sc, g.s.qlShortcuts) {
+		GlobalShortcut *gs = qmShortcuts.value(sc.iIndex);
+		if (gs && ! sc.qlButtons.isEmpty()) {
+			ShortcutKey *sk = new ShortcutKey;
+			sk->s = sc;
+			sk->iNumUp = sc.qlButtons.count();
+			sk->gs = gs;
 
-		gs->iNumUp = gs->qlButtons.count();
-		foreach(const QVariant &button, gs->qlButtons) {
-			int idx = qlButtonList.indexOf(button);
-			if (idx == -1) {
-				qlButtonList << button;
-				qlShortcutList << QList<GlobalShortcut *>();
-				idx = qlButtonList.count() - 1;
+			foreach(const QVariant &button, sc.qlButtons) {
+				int idx = qlButtonList.indexOf(button);
+				if (idx == -1) {
+					qlButtonList << button;
+					qlShortcutList << QList<ShortcutKey *>();
+					idx = qlButtonList.count() - 1;
+				}
+				qlShortcutList[idx] << sk;
 			}
-			qlShortcutList[idx] << gs;
 		}
 	}
 }
@@ -280,32 +360,38 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 
 	bool suppress = false;
 
-	foreach(GlobalShortcut *gs, qlShortcutList.at(idx)) {
+	foreach(ShortcutKey *sk, qlShortcutList.at(idx)) {
 		if (down) {
-			gs->iNumUp--;
-			if (gs->iNumUp == 0) {
-				if (gs->bSuppress) {
+			sk->iNumUp--;
+			if (sk->iNumUp == 0) {
+				GlobalShortcut *gs = sk->gs;
+				if (sk->s.bSuppress) {
 					suppress = true;
 					qlSuppressed << button;
 				}
-				gs->bActive = true;
-				emit gs->triggered(gs->bActive);
-				emit gs->down();
-			} else if (gs->iNumUp < 0) {
-				gs->iNumUp = 0;
+				if (! gs->bActive) {
+					gs->bActive = true;
+					emit gs->triggered(sk->gs->bActive);
+					emit gs->down();
+				}
+			} else if (sk->iNumUp < 0) {
+				sk->iNumUp = 0;
 			}
 		} else {
 			if (qlSuppressed.contains(button)) {
 				suppress = true;
 				qlSuppressed.removeAll(button);
 			}
-			gs->iNumUp++;
-			if (gs->iNumUp == 1) {
-				gs->bActive = false;
-				emit gs->triggered(gs->bActive);
-				emit gs->up();
-			} else if (gs->iNumUp > gs->qlButtons.count()) {
-				gs->iNumUp = gs->qlButtons.count();
+			sk->iNumUp++;
+			if (sk->iNumUp == 1) {
+				GlobalShortcut *gs = sk->gs;
+				if (gs->bActive) {
+					gs->bActive = false;
+					emit gs->triggered(sk->gs->bActive);
+					emit gs->up();
+				}
+			} else if (sk->iNumUp > sk->s.qlButtons.count()) {
+				sk->iNumUp = sk->s.qlButtons.count();
 			}
 		}
 	}
@@ -331,11 +417,22 @@ void GlobalShortcutEngine::remove(GlobalShortcut *gs) {
 	}
 }
 
-GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName) : QObject(p) {
+QString GlobalShortcutEngine::buttonText(const QList<QVariant> &list) {
+	QStringList keys;
+
+	foreach(QVariant button, list) {
+		QString id = GlobalShortcutEngine::engine->buttonName(button);
+		if (! id.isEmpty())
+			keys << id;
+	}
+	return keys.join(QLatin1String(" + "));
+}
+
+GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, bool expert) : QObject(p) {
 	idx = index;
 	name=qsName;
+	bExpert = expert;
 	bActive = false;
-	iNumUp = 0;
 	GlobalShortcutEngine::add(this);
 }
 

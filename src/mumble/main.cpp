@@ -238,7 +238,9 @@ int main(int argc, char **argv) {
 		g.mw->openUrl(QUrl::fromEncoded(QByteArray(os_url)));
 #endif
 	} else {
-		g.mw->on_qaServerConnect_triggered();
+		g.mw->on_qaConfigDialog_triggered();
+		g.mw->on_qaQuit_triggered();
+//		g.mw->on_qaServerConnect_triggered();
 	}
 
 	res=a.exec();

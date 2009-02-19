@@ -158,17 +158,24 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 void MainWindow::createActions() {
 	int idx = 1;
-	gsPushTalk=new GlobalShortcut(this, idx++, tr("Push-to-Talk", "Global Shortcut"));
+	gsPushTalk=new GlobalShortcut(this, idx++, tr("Push-to-Talk", "Global Shortcut"), false);
 	gsPushTalk->setObjectName(QLatin1String("PushToTalk"));
+	gsPushTalk->qsToolTip = tr("Push and hold this button to send voice.", "Global Shortcut");
+	gsPushTalk->qsWhatsThis = tr("This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.", "Global Shortcut");
+
 
 	gsResetAudio=new GlobalShortcut(this, idx++, tr("Reset Audio Processor", "Global Shortcut"));
 	gsResetAudio->setObjectName(QLatin1String("ResetAudio"));
 
-	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Toggle Mute Self", "Global Shortcut"));
+	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Toggle Mute Self", "Global Shortcut"), false);
 	gsMuteSelf->setObjectName(QLatin1String("MuteSelf"));
+	gsMuteSelf->qsToolTip = tr("Toggle self-mute status.", "Global Shortcut");
+	gsMuteSelf->qsWhatsThis = tr("This will toggle your muted status. If you toggle this off, you will also disable self-deafen.", "Global Shortcut");
 
-	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Toggle Deafen Self", "Global Shortcut"));
+	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Toggle Deafen Self", "Global Shortcut"), false);
 	gsDeafSelf->setObjectName(QLatin1String("DeafSelf"));
+	gsDeafSelf->qsToolTip = tr("Toggle self-deafen status.", "Global Shortcut");
+	gsDeafSelf->qsWhatsThis = tr("This will toggle your deafen status. If you toggle this on, you will also enable self-mute.", "Global Shortcut");
 
 	gsUnlink=new GlobalShortcut(this, idx++, tr("Unlink Plugin", "Global Shortcut"));
 	gsUnlink->setObjectName(QLatin1String("UnlinkPlugin"));
@@ -179,17 +186,17 @@ void MainWindow::createActions() {
 	GlobalShortcut *gs;
 
 	gs = new GlobalShortcut(this, idx++, tr("Chan Parent", "Global Shortcut"));
-	gs->setData(0);
+	gs->data = 0;
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
 	for (int i = 1; i< 10;i++) {
 		gs = new GlobalShortcut(this, idx++, tr("Chan Sub#%1", "Global Shortcut").arg(i));
-		gs->setData(i);
+		gs->data = i;
 		connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 	}
 
 	gs = new GlobalShortcut(this, idx++, tr("Chan All Subs", "Global Shortcut"));
-	gs->setData(10);
+	gs->data = 10;
 	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
 
 	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
@@ -198,8 +205,10 @@ void MainWindow::createActions() {
 	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
 	gsMetaChannel->setObjectName(QLatin1String("MetaChannel"));
 
-	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"));
+	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
+	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
+	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the ingame overlay between showing everybody, just the players who are talking, and nobody.", "Global Shortcut");
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
@@ -1203,7 +1212,7 @@ void MainWindow::pushLink(bool down) {
 	GlobalShortcut *gs = qobject_cast<GlobalShortcut *>(sender());
 	if (! gs)
 		return;
-	int idx = gs->data().toInt();
+	int idx = gs->data.toInt();
 	Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
 
 	Channel *target = NULL;

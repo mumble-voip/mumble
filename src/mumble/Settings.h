@@ -40,6 +40,13 @@
 // latter lives in a separate thread and so cannot touch the
 // GUI.
 
+struct Shortcut {
+	int iIndex;
+	QList<QVariant> qlButtons;
+	bool bSuppress;
+	bool operator <(const Shortcut &) const;
+};
+
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	enum VADSource { Amplitude, SignalToNoise };
@@ -105,9 +112,7 @@ struct Settings {
 	int iLCDPlayerViewSplitterWidth;
 	QMap<QString, bool> qmLCDDevices;
 
-	typedef QMap<int, QList<QVariant > > ShortcutMap;
-	ShortcutMap qmShortcuts;
-	QMap<int, bool> qmShortcutSuppress;
+	QList<Shortcut> qlShortcuts;
 
 	enum MessageLog { LogConsole = 0x01, LogTTS = 0x02, LogBalloon = 0x04};
 	QMap<int, quint32> qmMessages;

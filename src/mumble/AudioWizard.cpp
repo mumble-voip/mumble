@@ -375,7 +375,12 @@ CompletablePage *AudioWizard::triggerPage() {
 
 	skwPTT = new ShortcutKeyWidget(qwpage);
 	skwPTT->setObjectName(QLatin1String("PTTKey"));
-	skwPTT->setShortcut(g.s.qmShortcuts.value(g.mw->gsPushTalk->id()));
+	foreach(const Shortcut &s, g.s.qlShortcuts) {
+		if (s.iIndex == g.mw->gsPushTalk->idx) {
+			skwPTT->setShortcut(s.qlButtons);
+			break;
+		}
+	}
 	h->addWidget(skwPTT);
 
 	v->addLayout(h);
@@ -712,7 +717,30 @@ void AudioWizard::accept() {
 	g.s.bMute = sOldSettings.bMute;
 	g.s.bDeaf = sOldSettings.bDeaf;
 	g.s.lmLoopMode = Settings::None;
-	g.s.qmShortcuts.insert(g.mw->gsPushTalk->id(), skwPTT->qlButtons);
+
+	const QList<QVariant> &buttons = skwPTT->getShortcut();
+	QList<Shortcut> ql;
+	bool found = false;
+	foreach(Shortcut s, g.s.qlShortcuts) {
+		if (s.iIndex == g.mw->gsPushTalk->idx) {
+			if (buttons.isEmpty())
+				continue;
+			else if (! found) {
+				s.qlButtons = buttons;
+				found = true;
+			}
+		}
+		ql << s;
+	}
+	if (! found && ! buttons.isEmpty()) {
+		Shortcut s;
+		s.iIndex = g.mw->gsPushTalk->idx;
+		s.bSuppress = false;
+		s.qlButtons = buttons;
+		ql << s;
+	}
+	g.s.qlShortcuts = ql;
+
 	g.s.bUsage = qcbUsage->isChecked();
 	g.bEchoTest = false;
 	g.bPosTest = false;

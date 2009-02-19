@@ -33,6 +33,10 @@
 #include "Global.h"
 #include "AudioInput.h"
 
+bool Shortcut::operator <(const Shortcut &other) const {
+	return (iIndex < other.iIndex);
+}
+
 Settings::Settings() {
 	atTransmit = VAD;
 	bTransmitPosition = false;
@@ -291,8 +295,15 @@ void Settings::load() {
 	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0;i<nshorts;i++) {
 		g.qs->setArrayIndex(i);
-		SAVELOAD(qmShortcuts[i], "keys");
-		SAVELOAD(qmShortcutSuppress[i], "suppress");
+		Shortcut s;
+
+		s.iIndex = -2;
+
+		SAVELOAD(s.iIndex, "index");
+		SAVELOAD(s.qlButtons, "keys");
+		SAVELOAD(s.bSuppress, "suppress");
+		if (s.iIndex >= -1)
+			qlShortcuts << s;
 	}
 	g.qs->endArray();
 
@@ -426,10 +437,12 @@ void Settings::save() {
 	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
 
 	g.qs->beginWriteArray(QLatin1String("shortcuts"));
-	for (ShortcutMap::const_iterator it = qmShortcuts.constBegin(); it != qmShortcuts.constEnd(); ++it) {
-		g.qs->setArrayIndex(it.key());
-		SAVELOAD(qmShortcuts[it.key()], "keys");
-		SAVELOAD(qmShortcutSuppress[it.key()], "suppress");
+	int idx = 0;
+	foreach(const Shortcut &s, qlShortcuts) {
+		g.qs->setArrayIndex(idx++);
+		g.qs->setValue(QLatin1String("index"), s.iIndex);
+		g.qs->setValue(QLatin1String("keys"), s.qlButtons);
+		g.qs->setValue(QLatin1String("suppress"), s.bSuppress);
 	}
 	g.qs->endArray();
 
