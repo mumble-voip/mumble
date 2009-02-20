@@ -75,16 +75,22 @@ Page custom PageReinstall PageLeaveReinstall
 ;--------------------------------
 ;Languages
 
+; Hack to get components language for uninstaller
+  !define MUI_COMPONENTSPAGE
+
   !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "French"
   !insertmacro MUI_LANGUAGE "German"
+  !insertmacro MUI_LANGUAGE "Japanese"
   !insertmacro MUI_LANGUAGE "Norwegian"
   !insertmacro MUI_LANGUAGE "Polish"
   !insertmacro MUI_LANGUAGE "Spanish"
   
+  
   !include "MumbleEnglish.nsh"
   !include "MumbleFrench.nsh"
   !include "MumbleGerman.nsh"
+  !include "MumbleJapanese.nsh"
   !include "MumbleNorwegian.nsh"
   !include "MumblePolish.nsh"
   !include "MumbleSpanish.nsh"
