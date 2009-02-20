@@ -650,9 +650,9 @@ module Murmur
 	["amd"] interface Meta {
 		/** Fetch interface to specific server.
 		 * @param id Server ID. See [Server::getId].
-		 * @return Interface for specified server.
+		 * @return Interface for specified server, or a null proxy if id is invalid.
 		 */
-		idempotent Server *getServer(int id) throws InvalidServerException;
+		idempotent Server *getServer(int id);
 
 		/** Create a new server. Call [Server::getId] on the returned interface to find it's ID.
 		 * @return Interface for new server.
