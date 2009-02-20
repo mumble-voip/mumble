@@ -151,7 +151,8 @@ class AudioOutputSample : public AudioOutputPlayer {
 		unsigned int iOutputSize;
 		unsigned int iLastConsume;
 		unsigned int iFrameSize;
-		QByteArray qbaSample;
+		unsigned int iPacketIndex;
+		QList<QByteArray> qlPackets;
 		SpeexBits sbBits;
 		void *dsDecState;
 		SpeexResamplerState *srs;

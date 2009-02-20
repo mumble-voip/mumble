@@ -133,17 +133,82 @@ AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigne
 
 	bLoop = false;
 
+	iPacketIndex = -1;
+
+	speex_bits_init(&sbBits);
+
 	QFile f(filename);
 	if (! f.open(QIODevice::ReadOnly)) {
-		speex_bits_init(&sbBits);
+		qWarning("AudioOutputSample: Failed to open %s for reading", qPrintable(filename));
 		return;
 	}
 
-	qbaSample = f.readAll();
+	QByteArray qbaSample = f.readAll();
 	f.close();
 
-	speex_bits_set_bit_buffer(&sbBits, reinterpret_cast<void *>(const_cast<char *>(qbaSample.constData())), qbaSample.length());
-	speex_bits_rewind(&sbBits);
+	if (qbaSample.startsWith(QString::fromLatin1("OggS").toUtf8())) {
+		ogg_sync_state sync;
+		ogg_page page;
+		ogg_packet packet;
+		ogg_stream_state stream;
+		bool stream_init = false;
+		bool eos = false;
+		int speex_serialno = -1;
+		int packetno = -1;
+		bool header_ok = false;
+		int nframes = -1;
+		int extra_headers = 0;
+
+		ogg_sync_init(&sync);
+		char *data = ogg_sync_buffer(&sync, qbaSample.length());
+		memcpy(data, qbaSample.constData(), qbaSample.length());
+		ogg_sync_wrote(&sync, qbaSample.length());
+
+		while(ogg_sync_pageout(&sync, &page)==1) {
+			if (! stream_init)  {
+				ogg_stream_init(&stream, ogg_page_serialno(&page));
+				stream_init = true;
+			} else if (ogg_page_serialno(&page) != stream.serialno) {
+				ogg_stream_reset_serialno(&stream, ogg_page_serialno(&page));
+			}
+			ogg_stream_pagein(&stream, &page);
+			while(! eos && ogg_stream_packetout(&stream, &packet) == 1) {
+				if (packet.bytes >= 5 && memcmp(packet.packet, "Speex", 5)==0) {
+					speex_serialno = stream.serialno;
+				}
+				if (speex_serialno == -1 || stream.serialno != speex_serialno)
+					break;
+
+				++packetno;
+
+				if (packetno == 0) {
+					SpeexHeader *header = speex_packet_to_header(reinterpret_cast<char *>(packet.packet), packet.bytes);
+
+					if (header && header->speex_version_id == 1 && header->rate == 16000 && header->nb_channels == 1) {
+						header_ok = true;
+						extra_headers = header->extra_headers;
+						nframes = header->frames_per_packet;
+					} else {
+						break;
+					}
+				} else if (packetno <= 1 + extra_headers) {
+				} else {
+					if (packet.e_o_s)
+						eos = true;
+					qlPackets << QByteArray(reinterpret_cast<const char *>(packet.packet), packet.bytes);
+				}
+			}
+		}
+		ogg_sync_clear(&sync);
+		if (stream_init)
+			ogg_stream_clear(&stream);
+
+		if (! header_ok) {
+			qWarning("AudioOutputSample: %s contained invalid data", qPrintable(filename));
+		}
+	} else {
+		qWarning("AudioOutputSample: %s is not an ogg file", qPrintable(filename));
+	}
 
 	bLoop = loop;
 }
@@ -166,23 +231,32 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	float *pOut;
 	STACKVAR(float, fOut, iFrameSize);
 
+
 	while (iBufferFilled < snum) {
 		resizeBuffer(iBufferFilled + iOutputSize);
 
 		pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
 
-		speex_bits_advance(&sbBits, speex_bits_remaining(&sbBits) & 7);
+		if (speex_bits_remaining(&sbBits) < 43) {
+			++iPacketIndex;
+			if (iPacketIndex >= qlPackets.count()) {
+				if (qlPackets.isEmpty() || !bLoop) {
+					memset(pfBuffer + iBufferFilled, 0, sizeof(float) * (snum-iBufferFilled));
+					return false;
+				} else {
+					iPacketIndex = 0;
+				}
+			}
 
-		if ((speex_bits_remaining(&sbBits) == 0) && bLoop)
+			const QByteArray &qba = qlPackets[iPacketIndex];
+
+			speex_bits_set_bit_buffer(&sbBits, reinterpret_cast<void *>(const_cast<char *>(qba.constData())), qba.length());
 			speex_bits_rewind(&sbBits);
+		}
 
 		if (speex_decode(dsDecState, &sbBits, pOut) != 0) {
-			memset(pOut, 0, sizeof(float) * iFrameSize);
-			if (! bLastAlive)
-				return false;
-			bLastAlive = false;
-		} else {
-			bLastAlive = true;
+			memset(pfBuffer + iBufferFilled, 0, sizeof(float) * (snum-iBufferFilled));
+			return false;
 		}
 
 		spx_uint32_t inlen = iFrameSize;

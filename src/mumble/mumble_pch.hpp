@@ -30,6 +30,8 @@
 #include <speex/speex_echo.h>
 #include <speex/speex_callbacks.h>
 #include <speex/speex_resampler.h>
+#include <speex/speex_header.h>
+#include <ogg/ogg.h>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>

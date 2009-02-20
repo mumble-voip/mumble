@@ -48,10 +48,10 @@ win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
-  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32
-  LIBPATH	*= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib
+  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg
+  LIBPATH	*= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib /dev/libogg/lib
   DEFINES	*= WIN32
-  INCLUDEPATH	*= /dev/OpenSSL/include
+  INCLUDEPATH	*= /dev/OpenSSL/include /dev/libogg/include
   !CONFIG(no-asio) {
     CONFIG	*= asio
   }
@@ -92,7 +92,7 @@ unix {
 
   CONFIG *= link_pkgconfig
 
-  PKGCONFIG *= openssl
+  PKGCONFIG *= openssl ogg
 
   contains(UNAME, Linux) {
     !CONFIG(no-oss) {
