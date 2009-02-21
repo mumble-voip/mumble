@@ -47,7 +47,7 @@ static int fetch(float *pos, float *front, float *top) {
 	char state;
 
 	for (int i=0;i<3;i++)
-		pos[i]=front[i]=top[i]=0.0;
+		pos[i]=front[i]=top[i]=0.0f;
 
 	bool ok;
 
@@ -56,11 +56,11 @@ static int fetch(float *pos, float *front, float *top) {
 
 			Address			Type	Description
 			===================================
-			0x0032AFD0		float	Z-Coordinate
-			0x0032AFE0		float	X-Coordinate
-			0x0032AFF0		float	Y-Coordinate
-			0x0032AF3C		float	Horizontal view (degrees)
-			0x0032AF38		float	Vertical view (degrees)
+			0x0072AFD0		float	Z-Coordinate
+			0x0072AFE0		float	X-Coordinate
+			0x0072AFF0		float	Y-Coordinate
+			0x0072AF3C		float	Horizontal view (degrees)
+			0x0072AF38		float	Vertical view (degrees)
 
 			0x0074E380		byte	Magical state value
 	*/
@@ -99,11 +99,9 @@ static int fetch(float *pos, float *front, float *top) {
 	   40 units = 1 meter (not confirmed)
 	*/
 	for (int i=0;i<3;i++)
-		pos[i]/=40; // Scale to meters
-	pos[0]*=(-1); // Convert right to left handed
+		pos[i]/=40.0f; // Scale to meters
+	pos[0]*=(-1.0f); // Convert right to left handed
 
-	// Fake top vector
-	top[2] = -1; // Head movement is in front vector
 	// Calculate view unit vector
 	/*
 	   Vertical view 0° when centered
@@ -117,8 +115,8 @@ static int fetch(float *pos, float *front, float *top) {
 				   270° when facing East
 	   Increasing when turning left.
 	*/
-	viewVer *= (float)M_PI/180;
-	viewHor *= (float)M_PI/180;
+	viewVer *= static_cast<float>(M_PI / 180.0f);
+	viewHor *= static_cast<float>(M_PI / 180.0f);
 
 	front[0] = -sin(viewHor) * cos(viewVer);
 	front[1] = -sin(viewVer);

@@ -47,7 +47,7 @@ static int fetch(float *pos, float *front, float *top) {
 	char state;
 
 	for (int i=0;i<3;i++)
-		pos[i]=front[i]=top[i]=0.0;
+		pos[i]=front[i]=top[i]=0.0f;
 
 	bool ok;
 
@@ -89,8 +89,6 @@ static int fetch(float *pos, float *front, float *top) {
 	   1 unit = 1 meter (not confirmed)
 	*/
 
-	// Fake top vector
-	top[2] = -1; // Head movement is in front vector
 	// Calculate view unit vector
 	/*
 	   Vertical view 0 when centered
@@ -104,8 +102,8 @@ static int fetch(float *pos, float *front, float *top) {
 					+/-180 when facing west
 	   Increasing when turning left.
 	*/
-	viewVer *= (float)M_PI/180;
-	viewHor *= (float)M_PI/180;
+	viewVer *= static_cast<float>(M_PI / 180.0f);
+	viewHor *= static_cast<float>(M_PI / 180.0f);
 
 	front[0] = cos(viewVer) * cos(viewHor);
 	front[1] = -sin(viewVer);
