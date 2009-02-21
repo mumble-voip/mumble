@@ -5,5 +5,5 @@ SUBDIRS = link
 DIST = plugins.pri
 
 win32 {
-	SUBDIRS += bf2 cod2 cod4 cod5 l4d wolfet wow
+	SUBDIRS += bf2 cod2 cod4 cod5 l4d tf2 wolfet wow
 }
