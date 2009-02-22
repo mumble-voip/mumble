@@ -576,7 +576,7 @@ module Murmur
 		 * @param name Name of player to register.
 		 * @return The ID of the player. See [RegisteredPlayer::playerid].
 		 */
-		int registerPlayer(string name) throws ServerBootedException;
+		int registerPlayer(string name) throws ServerBootedException, InvalidPlayerException;
 		
 		/** Remove a player registration.
 		 * @param playerid ID of registered player. See [RegisteredPlayer::playerid].
