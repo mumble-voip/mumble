@@ -31,6 +31,7 @@
 #include "Server.h"
 #include "Player.h"
 #include "Channel.h"
+#include "Group.h"
 #include "Meta.h"
 #include "Version.h"
 
