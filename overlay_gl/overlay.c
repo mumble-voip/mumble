@@ -29,10 +29,13 @@
 */
 
 #define GLX_GLXEXT_LEGACY
+#define GL_GLEXT_PROTOTYPES
 #define _GNU_SOURCE
 #include <GL/glx.h>
 #include <GL/gl.h>
+#include <GL/glext.h>
 #include <dlfcn.h>
+#include <link.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -53,8 +56,6 @@ typedef unsigned char bool;
 
 #include "../overlay/overlay.h"
 
-void *__libc_dlsym(void *, const char *);
-
 // Prototypes
 static void resolveSM();
 static void ods(const char *format, ...);
@@ -71,7 +72,20 @@ typedef struct _Context {
 	GLXContext glctx;
 	GLuint textures[NUM_TEXTS];
 	unsigned int uiCounter[NUM_TEXTS];
+	GLuint vs, fs, p;
 } Context;
+
+static const char vshader[] = "" 
+"void main() {"
+"gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
+"gl_TexCoord[0] = gl_MultiTexCoord0;"
+"}";
+
+static const char fshader[] = "" 
+"uniform sampler2D tex;"
+"void main() {" 
+"gl_FragColor = texture2D(tex, gl_TexCoord[0].st);"
+"}";
 
 static Context *contexts = NULL;
 
@@ -169,54 +183,31 @@ static void newContext(Context * ctx) {
 
 	glGenTextures(NUM_TEXTS, ctx->textures);
 
-	// Here we go. From the top. Where is glResetState?
-	glDisable(GL_ALPHA_TEST);
-	glDisable(GL_AUTO_NORMAL);
-	glEnable(GL_BLEND);
-	// Skip clip planes, there are thousands of them.
-	glDisable(GL_COLOR_LOGIC_OP);
-	glEnable(GL_COLOR_MATERIAL);
-	glDisable(GL_COLOR_TABLE);
-	glDisable(GL_CONVOLUTION_1D);
-	glDisable(GL_CONVOLUTION_2D);
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_DITHER);
-	glDisable(GL_FOG);
-	glDisable(GL_HISTOGRAM);
-	glDisable(GL_INDEX_LOGIC_OP);
-	glDisable(GL_LIGHTING);
-	// Skip line smmooth
-	// Skip map
-	glDisable(GL_MINMAX);
-	// Skip polygon offset
-	glDisable(GL_SEPARABLE_2D);
-	glDisable(GL_SCISSOR_TEST);
-	glDisable(GL_STENCIL_TEST);
-	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_TEXTURE_GEN_Q);
-	glDisable(GL_TEXTURE_GEN_R);
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_GEN_T);
-
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-
-
+	const char *vsource = vshader;
+	const char *fsource = fshader;
+	char buffer[8192];
+	GLint l;
+	ctx->vs = glCreateShader(GL_VERTEX_SHADER);
+	ctx->fs = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(ctx->vs, 1, &vsource, NULL);
+	glShaderSource(ctx->fs, 1, &fsource, NULL);
+	glCompileShader(ctx->vs);
+	glCompileShader(ctx->fs);
+	glGetShaderInfoLog(ctx->vs, 8192, &l, buffer);
+	ods("VERTEX: %s", buffer);
+	glGetShaderInfoLog(ctx->fs, 8192, &l, buffer);
+	ods("FRAGMENT: %s", buffer);
+	ctx->p = glCreateProgram();
+	glAttachShader(ctx->p, ctx->vs);
+	glAttachShader(ctx->p, ctx->fs);
+	glLinkProgram(ctx->p);
 }
 
-static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
-	sm->bHooked = true;
-
+static void drawOverlay(Context *ctx, int width, int height) {
 	// DEBUG
 	// sm->bDebug = true;
 
-	int width, height;
 	int i;
-
-	glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
-	glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
-
 	ods("DrawStart: Screen is %d x %d", width, height);
 
 	if (sm->fFontSize < 0.01)
@@ -237,17 +228,11 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 	int yofs[NUM_TEXTS];
 	unsigned int color[NUM_TEXTS];
 
-	if (sem_trywait(sem) != 0)
+	if (sem_trywait(sem) != 0) {
+		ods("Fail lock");
 		return;
-
-	glViewport(0, 0, width, height);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0, width, height, 0, -100.0, 100.0);
-
-	glMatrixMode(GL_MODELVIEW);
-
+	}
+		
 	for (i = 0; i < NUM_TEXTS; i++) {
 		if (sm->texts[i].width == 0) {
 			y += iHeight / 4;
@@ -255,6 +240,7 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 			if (sm->texts[i].uiCounter != ctx->uiCounter[i]) {
 				ods("Updating %d %d texture", sm->texts[i].width, TEXT_HEIGHT);
 				glBindTexture(GL_TEXTURE_2D, ctx->textures[i]);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -271,7 +257,6 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 		}
 	}
 	sem_post(sem);
-
 	int h = y;
 	y = (int)(height * sm->fY);
 
@@ -286,7 +271,6 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 		y = 1;
 	if ((y + h + 1) > height)
 		y = height - h - 1;
-
 
 	for (i = 0; i < idx; i++) {
 		int w = (int)(widths[i] * s);
@@ -305,8 +289,8 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 
 		ods("Drawing text at %d %d  %d %d", x, y + yofs[i], w, iHeight);
 		glBindTexture(GL_TEXTURE_2D, texs[i]);
+
 		glPushMatrix();
-		glLoadIdentity();
 
 		double xm = 0.0;
 		double ym = 0.0;
@@ -317,23 +301,141 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 
 		glColor4ub((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
 
-
 		glTranslatef(x, y + yofs[i], 0.0);
-		glBegin(GL_QUADS);
-		glTexCoord2f(xm, ymx);
-		glVertex2f(0, iHeight);
-		glTexCoord2f(xm, ym);
-		glVertex2f(0, 0);
-		glTexCoord2f(xmx, ym);
-		glVertex2f(w, 0);
-		glTexCoord2f(xmx, ymx);
-		glVertex2f(w, iHeight);
-		glEnd();
+
+		GLint vertex[] = {0, iHeight, 0, 0, w, 0, w, iHeight };
+		GLfloat tex[] = {xm, ymx, xm, ym, xmx, ym, xmx, ymx};
+		glVertexPointer(2, GL_INT, 0, vertex);
+		glTexCoordPointer(2, GL_FLOAT, 0, tex);
+		glDrawArrays(GL_QUADS, 0, 4);
+
 		glPopMatrix();
 	}
 }
 
-// static map<GLXContext, GLContext *> contexts;
+static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
+	GLint program;
+	GLint viewport[4];
+	int width, height;
+	int i;
+
+	sm->bHooked = true;
+
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glPushClientAttrib(GL_ALL_ATTRIB_BITS);
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glGetIntegerv(GL_CURRENT_PROGRAM, &program);
+
+	glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
+	glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
+	
+	glViewport(0, 0, width, height);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, width, height, 0, -100.0, 100.0);
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
+	glMatrixMode(GL_TEXTURE);
+	glPushMatrix();
+	glLoadIdentity();
+	
+
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_AUTO_NORMAL);
+	// Skip clip planes, there are thousands of them.
+	glDisable(GL_COLOR_LOGIC_OP);
+	glDisable(GL_COLOR_TABLE);
+	glDisable(GL_CONVOLUTION_1D);
+	glDisable(GL_CONVOLUTION_2D);
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DITHER);
+	glDisable(GL_FOG);
+	glDisable(GL_HISTOGRAM);
+	glDisable(GL_INDEX_LOGIC_OP);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_NORMALIZE);
+	// Skip line smmooth
+	// Skip map
+	glDisable(GL_MINMAX);
+	// Skip polygon offset
+	glDisable(GL_SEPARABLE_2D);
+	glDisable(GL_SCISSOR_TEST);
+	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_TEXTURE_GEN_Q);
+	glDisable(GL_TEXTURE_GEN_R);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
+	
+	glRenderMode(GL_RENDER);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_INDEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_EDGE_FLAG_ARRAY);
+	
+	glPixelStorei(GL_UNPACK_SWAP_BYTES, 0);
+	glPixelStorei(GL_UNPACK_LSB_FIRST, 0);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
+	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	
+	GLint texunits = 1;
+	
+	glGetIntegerv(GL_MAX_TEXTURE_UNITS, &texunits);
+	
+	for(i=texunits-1;i>=0;--i) {
+		glActiveTexture(GL_TEXTURE0 + i);
+		glDisable(GL_TEXTURE_1D);
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_TEXTURE_3D);
+	}
+	
+	glDisable(GL_TEXTURE_CUBE_MAP);
+	glDisable(GL_VERTEX_PROGRAM_ARB);
+	glDisable(GL_FRAGMENT_PROGRAM_ARB);
+	
+	glUseProgram(ctx->p);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_TEXTURE_2D);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	glMatrixMode(GL_MODELVIEW);
+	
+	GLint uni = glGetUniformLocation(ctx->p, "tex");
+	glUniform1i(uni, 0);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	drawOverlay(ctx, width, height);
+
+	glMatrixMode(GL_TEXTURE);
+	glPopMatrix();
+	
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+
+	glPopClientAttrib();
+	glPopAttrib();
+	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
+	glUseProgram(program);
+}
 
 __attribute__((visibility("default")))
 void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
@@ -368,37 +470,11 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 			c->draw = draw;
 
 			contexts = c;
-
-			int attrib[4] = { GLX_FBCONFIG_ID, -1, None, None };
-			glXQueryContext(dpy, ctx, GLX_FBCONFIG_ID, &attrib[1]);
-
-			int screen = -1;
-			glXQueryContext(dpy, ctx, GLX_SCREEN, &screen);
-
-			ods("Query Context: xid %d screen %d\n", attrib[1], screen);
-
-			int nelem = -1;
-			GLXFBConfig *fb = glXChooseFBConfig(dpy, screen, attrib, &nelem);
-			ods("ChooseFB returned %d elems: %p\n", nelem, fb);
-
-			if (fb) {
-				GLXContext myctx = glXCreateNewContext(dpy, *fb, GLX_RGBA_TYPE, NULL, 1);
-				ods("Got Context %p\n", myctx);
-				if ((nelem == 1) && (myctx)) {
-					c->glctx = myctx;
-
-					glXMakeCurrent(dpy, draw, myctx);
-
-					newContext(c);
-				}
-			}
+			
+			newContext(c);
 		}
 
-		if (c && c->glctx) {
-			glXMakeCurrent(dpy, draw, c->glctx);
-			drawContext(c, dpy, draw);
-			glXMakeCurrent(dpy, draw, ctx);
-		}
+		drawContext(c, dpy, draw);
 	}
 	oglXSwapBuffers(dpy, draw);
 }
@@ -441,7 +517,36 @@ static void initializeLibrary() {
 	if (!dl) {
 		ods("Failed to open libdl.so.2\n");
 	} else {
-		odlsym = (__typeof__(&dlsym)) __libc_dlsym(dl, "dlsym");
+		int i;
+		struct link_map *lm = (struct link_map *) dl;
+		int nchains = 0;
+		ElfW(Sym) *symtab = NULL;
+		const char *strtab = NULL;
+
+		ElfW(Dyn) *dyn = lm->l_ld;
+		
+		while (dyn->d_tag) {
+			switch(dyn->d_tag) {
+				case DT_HASH:
+					nchains = *(int *) (dyn->d_un.d_ptr + 4);
+					break;
+				case DT_STRTAB:
+					strtab = (const char *) dyn->d_un.d_ptr;
+					break;
+				case DT_SYMTAB:
+					symtab = (ElfW(Sym) *) dyn->d_un.d_ptr;
+					break;
+			}
+			dyn ++;
+		}
+		ods("Iterating dlsym table %p %p %d", symtab, strtab, nchains);
+		for(i=0;i<nchains;++i) {
+			if (ELF32_ST_TYPE(symtab[i].st_info) != STT_FUNC)
+				continue;
+			if (strcmp(strtab+symtab[i].st_name, "dlsym") == 0)
+				odlsym = lm->l_addr + symtab[i].st_value;
+		}
+		ods("Original dlsym at %p", odlsym);
 	}
 }
 
@@ -453,7 +558,7 @@ void *dlsym(void *handle, const char *name) {
 
 	void *symbol;
 
-	ods("Request for symbol %s (%p)\n", name, odlsym);
+	ods("Request for symbol %s (%p:%p)\n", name, handle, odlsym);
 
 	if (strcmp(name, "glXSwapBuffers") == 0) {
 		OGRAB(glXSwapBuffers);
@@ -461,6 +566,8 @@ void *dlsym(void *handle, const char *name) {
 		OGRAB(glXGetProcAddress);
 	} else if (strcmp(name, "glXGetProcAddressARB") == 0) {
 		OGRAB(glXGetProcAddressARB);
+	} else if (strcmp(name, "dlsym") == 0) {
+		return (void *) dlsym;
 	} else {
 		symbol = odlsym(handle, name);
 	}
