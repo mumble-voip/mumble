@@ -42,11 +42,6 @@
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"
-#include <stdio.h>
-#endif
-
-#ifdef Q_OS_WIN
-#include <intrin.h>
 #endif
 
 QFile *qfLog = NULL;

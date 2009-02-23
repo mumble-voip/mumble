@@ -1,6 +1,7 @@
 #ifndef _MURMUR_PCH_H
 #define _MURMUR_PCH_H
 
+#define _USE_MATH_DEFINES
 #if defined(__INTEL_COMPILER)
 #include <mathimf.h>
 #endif
@@ -9,17 +10,17 @@
 #include <QtNetwork/QtNetwork>
 #include <QtSql/QtSql>
 #include <QtXml/QtXml>
+#ifdef USE_DBUS
 #include <QtDBus/QtDBus>
-#ifdef Q_OS_WIN
-#include <QtGui/QtGui>
 #endif
 
 #ifdef Q_OS_WIN
+#include <QtGui/QtGui>
 #include <winsock2.h>
 #include <windows.h>
 #include <shellapi.h>
+#include <intrin.h>
 #endif
-
 
 #include <openssl/aes.h>
 #include <openssl/rand.h>
@@ -28,6 +29,8 @@
 #include <openssl/x509v3.h>
 
 #ifdef Q_OS_UNIX
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -40,6 +43,7 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <errno.h>
+#include <signal.h>
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 #ifdef Q_OS_DARWIN
@@ -47,18 +51,21 @@
 #endif
 #endif
 
-#ifdef Q_OS_WIN
-#ifndef Q_CC_INTEL
+#if !defined (Q_CC_INTEL) && !defined (Q_OS_WIN)
 #include <math.h>
-#define lroundf(x) ( static_cast<int>( (x) + ((x) >= 0 ? 0.5 : -0.5) ) )
 #endif
-#define M_PI 3.14159265358979323846
+#if defined (Q_OS_WIN) && (defined (Q_CC_INTEL) || defined (Q_CC_MSVC))
+#define lroundf(x) ( static_cast<int>( (x) + ((x) >= 0 ? 0.5 : -0.5) ) )
 #define ALLOCA(x) _alloca(x)
-#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
 #define snprintf ::_snprintf
 #else
-#include <math.h>
+#include <alloca.h>
+#define ALLOCA(x) alloca(x)
+#endif
+#if defined (Q_CC_GNU) || (defined (Q_CC_INTEL) && !defined (Q_OS_WIN))
 #define STACKVAR(type, varname, count) type varname[count]
+#else
+#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
 #endif
 
 #ifdef USE_ICE

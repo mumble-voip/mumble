@@ -28,8 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtXml>
-
 #include "Server.h"
 #include "Meta.h"
 #include "Version.h"

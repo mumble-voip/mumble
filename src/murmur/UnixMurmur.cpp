@@ -28,8 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <signal.h>
-
 #include "murmur_pch.h"
 #include "UnixMurmur.h"
 #include "Meta.h"
