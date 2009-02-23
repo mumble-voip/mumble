@@ -38,10 +38,10 @@
 
 QList<LCDEngineNew> *LCDEngineRegistrar::qlInitializers;
 
-LCDEngineRegistrar::LCDEngineRegistrar(LCDEngineNew n) {
+LCDEngineRegistrar::LCDEngineRegistrar(LCDEngineNew cons) {
 	if (! qlInitializers)
 		qlInitializers = new QList<LCDEngineNew>();
-	this->n = n;
+	n = cons;
 	qlInitializers->append(n);
 }
 
@@ -117,8 +117,8 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 		qtwi->setText(1, qsType);
 		qtwi->setToolTip(1, qsType);
 
-		QSize size = d->size();
-		QString qsSize = QString::fromLatin1("%1x%2").arg(size.width()).arg(size.height());
+		QSize lcdsize = d->size();
+		QString qsSize = QString::fromLatin1("%1x%2").arg(lcdsize.width()).arg(lcdsize.height());
 		qtwi->setText(2, qsSize);
 		qtwi->setToolTip(2, qsSize);
 
@@ -234,18 +234,6 @@ void LCD::destroyBuffers() {
 	foreach(unsigned char *buf, qhImageBuffers)
 		delete buf;
 	qhImageBuffers.clear();
-}
-
-static bool playerSort(const Player *a, const Player *b) {
-	return a->qsName < b->qsName;
-}
-
-static bool channelSort(const Channel *home, const Channel *a, const Channel *b) {
-	if ((a == home) && (a != b))
-		return true;
-	else if ((b == home) && (a != b))
-		return false;
-	return a->qsName < b->qsName;
 }
 
 struct ListEntry {
@@ -364,12 +352,10 @@ void LCD::updatePlayerView() {
 		const int iHeight = size.height();
 		const int iPlayersPerColumn = iHeight / iFontHeight;
 		const int iSplitterWidth = g.s.iLCDPlayerViewSplitterWidth;
-		int iCount = 0;
-
 		const int iPlayerColumns = (entries.count() + iPlayersPerColumn - 1) / iPlayersPerColumn;
 
 		int iColumns = iPlayerColumns;
-		int iColumnWidth;
+		int iColumnWidth = 1;
 
 		while (iColumns >= 1) {
 			iColumnWidth = (iWidth - (iColumns-1)*iSplitterWidth) / iColumns;

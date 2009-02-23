@@ -66,7 +66,7 @@ QString Player::getFlagsString() const {
 }
 
 Player::operator const QString() const {
-	return QString("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
+	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
 }
 
 ClientPlayer::ClientPlayer(QObject *p) : QObject(p) {

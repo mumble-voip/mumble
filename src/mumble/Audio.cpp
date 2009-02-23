@@ -70,7 +70,7 @@ void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
 		else
 			r = DOUBLE_RAND * g.s.dMaxPacketDelay;
 
-		qmPackets.insert(time + static_cast<float>(r), Packet(seq, packet));
+		qmPackets.insert(static_cast<float>(time + r), Packet(seq, packet));
 	}
 
 	// Restart check

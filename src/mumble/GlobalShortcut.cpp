@@ -139,6 +139,10 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
 		if (expert || ! gs->bExpert) {
 			insertItem(idx, gs->name);
 			setItemData(idx, gs->idx);
+			if (! gs->qsToolTip.isEmpty())
+				setItemData(idx, gs->qsToolTip, Qt::ToolTipRole);
+			if (! gs->qsWhatsThis.isEmpty())
+				setItemData(idx, gs->qsWhatsThis, Qt::WhatsThisRole);
 			idx++;
 		}
 	}
@@ -186,10 +190,10 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 }
 
 void GlobalShortcutConfig::on_qpbAdd_clicked(bool) {
-	Shortcut s;
-	s.iIndex = -1;
-	s.bSuppress = false;
-	qlShortcuts << s;
+	Shortcut sc;
+	sc.iIndex = -1;
+	sc.bSuppress = false;
+	qlShortcuts << sc;
 	reload();
 }
 
@@ -205,12 +209,12 @@ void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *i
 	qpbRemove->setEnabled(item ? true : false);
 }
 
-void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, int column) {
+void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, int) {
 	int idx = qtwShortcuts->indexOfTopLevelItem(item);
-	Shortcut &s = qlShortcuts[idx];
-	s.iIndex = item->data(0, Qt::DisplayRole).toInt();
-	s.qlButtons = item->data(1, Qt::DisplayRole).toList();
-	s.bSuppress = item->checkState(2) == Qt::Checked;
+	Shortcut &sc = qlShortcuts[idx];
+	sc.iIndex = item->data(0, Qt::DisplayRole).toInt();
+	sc.qlButtons = item->data(1, Qt::DisplayRole).toList();
+	sc.bSuppress = item->checkState(2) == Qt::Checked;
 }
 
 QString GlobalShortcutConfig::title() const {
@@ -231,18 +235,20 @@ void GlobalShortcutConfig::save() const {
 	s.qlShortcuts = qlShortcuts;
 }
 
-QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &s) const {
+QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const {
 		QTreeWidgetItem *item = new QTreeWidgetItem();
-		item->setData(0, Qt::DisplayRole, s.iIndex);
-		item->setData(1, Qt::DisplayRole, s.qlButtons);
-		item->setCheckState(2, s.bSuppress ? Qt::Checked : Qt::Unchecked);
+		item->setData(0, Qt::DisplayRole, sc.iIndex);
+		item->setData(1, Qt::DisplayRole, sc.qlButtons);
+		item->setCheckState(2, sc.bSuppress ? Qt::Checked : Qt::Unchecked);
 		item->setFlags(item->flags() | Qt::ItemIsEditable);
 
-		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(s.iIndex);
+		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 
 		if (gs) {
-			item->setData(0, Qt::ToolTipRole, gs->qsToolTip);
-			item->setData(0, Qt::WhatsThisRole, gs->qsWhatsThis);
+			if (! gs->qsToolTip.isEmpty())
+				item->setData(0, Qt::ToolTipRole, gs->qsToolTip);
+			if (! gs->qsWhatsThis.isEmpty())
+				item->setData(0, Qt::WhatsThisRole, gs->qsWhatsThis);
 		}
 
 		item->setData(1, Qt::ToolTipRole, tr("Shortcut button combination."));
@@ -261,9 +267,9 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &s) const 
 void GlobalShortcutConfig::reload() {
 	qStableSort(qlShortcuts);
 	qtwShortcuts->clear();
-	foreach(const Shortcut &s, qlShortcuts) {
-		QTreeWidgetItem *item = itemForShortcut(s);
-		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(s.iIndex);
+	foreach(const Shortcut &sc, qlShortcuts) {
+		QTreeWidgetItem *item = itemForShortcut(sc);
+		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 		qtwShortcuts->addTopLevelItem(item);
 		if (gs && gs->bExpert && ! bExpert)
 			item->setHidden(true);

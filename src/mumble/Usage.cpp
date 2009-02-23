@@ -36,7 +36,7 @@
 #include "OSInfo.h"
 #include "LCD.h"
 
-Usage::Usage(QObject *parent) : QObject(parent) {
+Usage::Usage(QObject *p) : QObject(p) {
 	// Wait 10 minutes (so we know they're actually using this), then...
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(registerUsage()));
 }

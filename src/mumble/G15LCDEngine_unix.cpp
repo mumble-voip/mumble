@@ -78,7 +78,7 @@ void G15LCDDeviceUnix::setEnabled(bool b) {
 	bEnabled = b;
 }
 
-void G15LCDDeviceUnix::blitImage(QImage *img, bool alert) {
+void G15LCDDeviceUnix::blitImage(QImage *img, bool) {
 	Q_ASSERT(img != NULL);
 
 	const unsigned int len = 6880;
