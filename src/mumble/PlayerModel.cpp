@@ -204,6 +204,7 @@ PlayerModel::~PlayerModel() {
 	removeAll();
 	Q_ASSERT(ModelItem::c_qhPlayers.count() == 0);
 	Q_ASSERT(ModelItem::c_qhChannels.count() == 1);
+	delete miRoot;
 }
 
 

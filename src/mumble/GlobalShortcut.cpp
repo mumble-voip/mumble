@@ -166,6 +166,11 @@ ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 	setItemEditorFactory(factory);
 }
 
+ShortcutDelegate::~ShortcutDelegate() {
+	delete itemEditorFactory();
+	setItemEditorFactory(NULL);
+}
+
 QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) const {
 	if (item.type() == QVariant::List)
 		return GlobalShortcutEngine::buttonText(item.toList());
@@ -291,6 +296,15 @@ bool GlobalShortcutConfig::expert(bool exp) {
 GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 	bNeedRemap = true;
 	needRemap();
+}
+
+GlobalShortcutEngine::~GlobalShortcutEngine() {
+	QSet<ShortcutKey *> qs;
+	foreach(const QList<ShortcutKey*> &ql, qlShortcutList)
+		qs += ql.toSet();
+
+	foreach(ShortcutKey *sk, qs)
+		delete sk;
 }
 
 void GlobalShortcutEngine::remap() {

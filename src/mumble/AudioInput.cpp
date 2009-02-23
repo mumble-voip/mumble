@@ -155,6 +155,7 @@ AudioInput::~AudioInput() {
 	speex_bits_destroy(&sbBits);
 	speex_encoder_destroy(esEncState);
 	mumble_drft_clear(&fftTable);
+	jitter_buffer_destroy(jb);
 
 	if (sppPreprocess)
 		speex_preprocess_state_destroy(sppPreprocess);

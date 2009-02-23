@@ -104,6 +104,7 @@ class ShortcutDelegate : public QStyledItemDelegate {
 		Q_DISABLE_COPY(ShortcutDelegate)
 	public:
 		ShortcutDelegate(QObject *);
+		~ShortcutDelegate();
 		QString displayText(const QVariant &, const QLocale &) const;
 };
 
@@ -158,6 +159,7 @@ class GlobalShortcutEngine : public QThread {
 		QList<QList<ShortcutKey *> > qlShortcutList;
 
 		GlobalShortcutEngine(QObject *p = NULL);
+		~GlobalShortcutEngine();
 		void resetMap();
 		void remap();
 		virtual void needRemap();

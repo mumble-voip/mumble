@@ -297,6 +297,7 @@ MainWindow::~MainWindow() {
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvPlayers;
+	delete Channel::get(0);
 }
 
 void MainWindow::msgBox(QString msg) {

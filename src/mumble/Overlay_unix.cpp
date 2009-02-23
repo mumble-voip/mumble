@@ -118,11 +118,8 @@ void SharedMemory::unlock() {
 		sem_post(d->sem);
 }
 
-class OverlayPrivate {
-};
-
 void Overlay::platformInit() {
-	d = new OverlayPrivate();
+	d = NULL;
 }
 
 void Overlay::setActive(bool) {
