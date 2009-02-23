@@ -69,22 +69,26 @@ typedef struct _Context {
 	struct _Context *next;
 	Display *dpy;
 	GLXDrawable draw;
-	GLXContext glctx;
+
+	bool bValid;
+	bool bGlx;
+
 	GLuint textures[NUM_TEXTS];
 	unsigned int uiCounter[NUM_TEXTS];
-	GLuint vs, fs, p;
+	GLuint uiProgram;
 } Context;
 
 static const char vshader[] = "" 
 "void main() {"
 "gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
 "gl_TexCoord[0] = gl_MultiTexCoord0;"
+"gl_Color = gl_Color;"
 "}";
 
 static const char fshader[] = "" 
 "uniform sampler2D tex;"
 "void main() {" 
-"gl_FragColor = texture2D(tex, gl_TexCoord[0].st);"
+"gl_FragColor = gl_Color * texture2D(tex, gl_TexCoord[0].st);"
 "}";
 
 static Context *contexts = NULL;
@@ -183,24 +187,26 @@ static void newContext(Context * ctx) {
 
 	glGenTextures(NUM_TEXTS, ctx->textures);
 
+	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));
+	
 	const char *vsource = vshader;
 	const char *fsource = fshader;
 	char buffer[8192];
 	GLint l;
-	ctx->vs = glCreateShader(GL_VERTEX_SHADER);
-	ctx->fs = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(ctx->vs, 1, &vsource, NULL);
-	glShaderSource(ctx->fs, 1, &fsource, NULL);
-	glCompileShader(ctx->vs);
-	glCompileShader(ctx->fs);
-	glGetShaderInfoLog(ctx->vs, 8192, &l, buffer);
+	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
+	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(vs, 1, &vsource, NULL);
+	glShaderSource(fs, 1, &fsource, NULL);
+	glCompileShader(vs);
+	glCompileShader(fs);
+	glGetShaderInfoLog(vs, 8192, &l, buffer);
 	ods("VERTEX: %s", buffer);
-	glGetShaderInfoLog(ctx->fs, 8192, &l, buffer);
+	glGetShaderInfoLog(fs, 8192, &l, buffer);
 	ods("FRAGMENT: %s", buffer);
-	ctx->p = glCreateProgram();
-	glAttachShader(ctx->p, ctx->vs);
-	glAttachShader(ctx->p, ctx->fs);
-	glLinkProgram(ctx->p);
+	ctx->uiProgram = glCreateProgram();
+	glAttachShader(ctx->uiProgram, vs);
+	glAttachShader(ctx->uiProgram, fs);
+	glLinkProgram(ctx->uiProgram);
 }
 
 static void drawOverlay(Context *ctx, int width, int height) {
@@ -313,22 +319,16 @@ static void drawOverlay(Context *ctx, int width, int height) {
 	}
 }
 
-static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
+static void drawContext(Context * ctx, int width, int height) {
 	GLint program;
 	GLint viewport[4];
-	int width, height;
 	int i;
-
-	sm->bHooked = true;
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glPushClientAttrib(GL_ALL_ATTRIB_BITS);
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	glGetIntegerv(GL_CURRENT_PROGRAM, &program);
 
-	glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
-	glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
-	
 	glViewport(0, 0, width, height);
 
 	glMatrixMode(GL_PROJECTION);
@@ -403,7 +403,7 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 	glDisable(GL_VERTEX_PROGRAM_ARB);
 	glDisable(GL_FRAGMENT_PROGRAM_ARB);
 	
-	glUseProgram(ctx->p);
+	glUseProgram(ctx->uiProgram);
 
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_TEXTURE_2D);
@@ -414,7 +414,7 @@ static void drawContext(Context * ctx, Display * dpy, GLXDrawable draw) {
 
 	glMatrixMode(GL_MODELVIEW);
 	
-	GLint uni = glGetUniformLocation(ctx->p, "tex");
+	GLint uni = glGetUniformLocation(ctx->uiProgram, "tex");
 	glUniform1i(uni, 0);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -447,6 +447,7 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 	}
 
 	if (sm) {
+		sm->bHooked = true;
 		GLXContext ctx = glXGetCurrentContext();
 
 		Context *c = contexts;
@@ -465,16 +466,37 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 				return;
 			}
 			c->next = contexts;
-			c->glctx = NULL;
 			c->dpy = dpy;
 			c->draw = draw;
 
+			c->bGlx = false;
+			c->bValid = false;
+
+			int major, minor;
+			if (glXQueryVersion(dpy, &major, &minor)) {
+				ods("GLX version %d.%d", major, minor);
+				c->bValid = true;
+				if ((major > 1) || (major==1 && minor >= 3))
+					c->bGlx = true;
+			} 
 			contexts = c;
-			
 			newContext(c);
 		}
 
-		drawContext(c, dpy, draw);
+		if (c->bValid) {
+			GLuint width, height;
+			if (c->bGlx) {
+				glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
+				glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
+			} else {
+				GLint viewport[4];
+				glGetIntegerv(GL_VIEWPORT, viewport);
+				width = viewport[2];
+				height = viewport[3];
+			}
+
+			drawContext(c, width, height);
+		}
 	}
 	oglXSwapBuffers(dpy, draw);
 }
