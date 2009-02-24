@@ -119,6 +119,7 @@ bool LogConfig::expert(bool) {
 Log::Log(QObject *p) : QObject(p) {
 	tts=new TextToSpeech(this);
 	tts->setVolume(g.s.iTTSVolume);
+	uiLastId = 0;
 }
 
 const char *Log::msgNames[] = {
@@ -216,7 +217,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 			if (kde.isValid()) {
 				QList<QVariant> args;
 				args.append(QLatin1String("mumble"));
-				args.append(0U);
+				args.append(uiLastId);
 				args.append(QString());
 				args.append(QLatin1String("mumble"));
 				args.append(msgName(mt));
@@ -232,10 +233,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		if (response.type()!=QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt()==0) {
 			QDBusInterface gnome(QLatin1String("org.freedesktop.Notifications"), QLatin1String("/org/freedesktop/Notifications"), QLatin1String("org.freedesktop.Notifications"));
 			if (gnome.isValid())
-				response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), 0U, qsIcon, msgName(mt), console, QStringList(), hints, -1);
+				response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), uiLastId, qsIcon, msgName(mt), console, QStringList(), hints, -1);
 		}
-
-		if (response.type()!=QDBusMessage::ReplyMessage || response.arguments().isEmpty() || response.arguments().at(0).toUInt()==0) {
+		
+		if (response.type()==QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
+			uiLastId = response.arguments().at(0).toUInt();
+		} else {
 			if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
 				QSystemTrayIcon::MessageIcon msgIcon;
 

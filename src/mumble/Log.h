@@ -65,6 +65,7 @@ class Log : public QObject {
 		QHash<MsgType, int> qmIgnore;
 		static const char *msgNames[];
 		TextToSpeech *tts;
+		unsigned int uiLastId;
 	public:
 		Log(QObject *p = NULL);
 		QString msgName(MsgType t) const;
