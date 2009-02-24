@@ -91,6 +91,8 @@ static const char fshader[] = ""
 "gl_FragColor = gl_Color * texture2D(tex, gl_TexCoord[0].st);"
 "}";
 
+const GLfloat fBorder[] = {0.125f, 0.250f, 0.5f, 0.75f};
+
 static Context *contexts = NULL;
 
 #define FDEF(name) static __typeof__(&name) o##name = NULL
@@ -182,10 +184,10 @@ static void newContext(Context * ctx) {
 	if (sm) {
 		sm->bHooked = true;
 	}
-	for (i = 0; i < NUM_TEXTS; i++)
+	for (i = 0; i < NUM_TEXTS; i++) {
 		ctx->uiCounter[i] = 0;
-
-	glGenTextures(NUM_TEXTS, ctx->textures);
+		ctx->textures[i] = -1;
+	}
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
@@ -229,10 +231,8 @@ static void drawOverlay(Context *ctx, int width, int height) {
 	int y = 0;
 	int idx = 0;
 
-	int texs[NUM_TEXTS];
-	int widths[NUM_TEXTS];
+	int indexes[NUM_TEXTS];
 	int yofs[NUM_TEXTS];
-	unsigned int color[NUM_TEXTS];
 
 	if (sem_trywait(sem) != 0) {
 		ods("Fail lock");
@@ -243,26 +243,13 @@ static void drawOverlay(Context *ctx, int width, int height) {
 		if (sm->texts[i].width == 0) {
 			y += iHeight / 4;
 		} else if (sm->texts[i].width > 0) {
-			if (sm->texts[i].uiCounter != ctx->uiCounter[i]) {
-				ods("Updating %d %d texture", sm->texts[i].width, TEXT_HEIGHT);
-				glBindTexture(GL_TEXTURE_2D, ctx->textures[i]);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[i].texture);
-				ctx->uiCounter[i] = sm->texts[i].uiCounter;
-			}
-			texs[idx] = ctx->textures[i];
-			widths[idx] = sm->texts[i].width;
-			color[idx] = sm->texts[i].color;
+			indexes[idx] = i;
 			yofs[idx] = y;
 			y += iHeight;
 			idx++;
 		}
 	}
-	sem_post(sem);
+
 	int h = y;
 	y = (int)(height * sm->fY);
 
@@ -279,7 +266,8 @@ static void drawOverlay(Context *ctx, int width, int height) {
 		y = height - h - 1;
 
 	for (i = 0; i < idx; i++) {
-		int w = (int)(widths[i] * s);
+		int index = indexes[i];
+		int w = (int)(sm->texts[index].width * s);
 		int x = (int)(width * sm->fX);
 		if (sm->bLeft) {
 			x -= w;
@@ -292,18 +280,50 @@ static void drawOverlay(Context *ctx, int width, int height) {
 			x = 1;
 		if ((x + w + 1) > width)
 			x = width - w - 1;
+			
+		bool regen = false;
+
+		if ((ctx->textures[index] == -1) || (! glIsTexture(ctx->textures[index]))) {
+			if (ctx->textures[index] != -1) 
+				ods("Lost texture");
+			regen = true;
+		} else {
+			glBindTexture(GL_TEXTURE_2D, ctx->textures[index]);
+			GLfloat bordercolor[4];
+			glGetTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bordercolor);
+			if (bordercolor[0] != fBorder[0] || bordercolor[1] != fBorder[1] || bordercolor[2] != fBorder[2] || bordercolor[3] != fBorder[3]) {
+				ods("Texture hijacked");
+				regen = true;
+			}
+		}
+		if (regen) {
+			ctx->uiCounter[index] = 0;
+			glGenTextures(1, &ctx->textures[index]);
+			glBindTexture(GL_TEXTURE_2D, ctx->textures[index]);
+			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, fBorder);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+
+		if (sm->texts[index].uiCounter != ctx->uiCounter[index]) {
+			ods("Updating %d %d texture", sm->texts[index].width, TEXT_HEIGHT);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[index].texture);
+			ctx->uiCounter[index] = sm->texts[index].uiCounter;
+		}
 
 		ods("Drawing text at %d %d  %d %d", x, y + yofs[i], w, iHeight);
-		glBindTexture(GL_TEXTURE_2D, texs[i]);
 
 		glPushMatrix();
 
 		double xm = 0.0;
 		double ym = 0.0;
-		double xmx = (1.0 * widths[i]) / TEXT_WIDTH;
+		double xmx = (1.0 * sm->texts[index].width) / TEXT_WIDTH;
 		double ymx = 1.0;
 
-		unsigned int c = color[i];
+		unsigned int c = sm->texts[index].color;
 
 		glColor4ub((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
 
@@ -317,6 +337,7 @@ static void drawOverlay(Context *ctx, int width, int height) {
 
 		glPopMatrix();
 	}
+	sem_post(sem);
 }
 
 static void drawContext(Context * ctx, int width, int height) {
