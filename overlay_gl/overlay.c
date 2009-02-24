@@ -82,7 +82,7 @@ static const char vshader[] = ""
 "void main() {"
 "gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
 "gl_TexCoord[0] = gl_MultiTexCoord0;"
-"gl_Color = gl_Color;"
+"gl_FrontColor = gl_Color;"
 "}";
 
 static const char fshader[] = "" 
