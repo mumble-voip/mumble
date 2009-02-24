@@ -604,7 +604,7 @@ module Murmur
 		/** Verify the password of a player. You can use this to verify a player's credentials.
 		 * @param name Player name. See [RegisteredPlayer::name].
 		 * @param pw Player password.
-		 * @return Player ID of registered player (See [RegisteredPlayer::playerid]), or -1 if the name or password was invalid. 
+		 * @return Player ID of registered player (See [RegisteredPlayer::playerid]), -1 for failed authentication or -2 for unknown usernames.
 		 */
 		idempotent int verifyPassword(string name, string pw) throws ServerBootedException;
 
