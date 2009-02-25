@@ -28,7 +28,7 @@
       <item>
        <widget class="QCheckBox" name="qcbTcpMode" >
         <property name="toolTip" >
-         <string>Use TCP compatability mode</string>
+         <string>Use TCP compatibility mode</string>
         </property>
         <property name="whatsThis" >
          <string>&lt;b>Enable TCP compatibility mode&lt;/b>.&lt;br />This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
@@ -85,7 +85,7 @@
          <string>Type of proxy to connect through</string>
         </property>
         <property name="whatsThis" >
-         <string>&lt;b>Type of proxy to connect through&lt;/b>&lt;br />This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatability mode, causing all voice data to be sent via the control channel.</string>
+         <string>&lt;b>Type of proxy to connect through&lt;/b>&lt;br />This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</string>
         </property>
         <item>
          <property name="text" >
