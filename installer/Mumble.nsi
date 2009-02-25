@@ -9,6 +9,7 @@ SetCompressor /SOLID lzma
   !include "MUI2.nsh"
   !include "LogicLib.nsh"
   !include "Library.nsh"
+  !include "WinVer.nsh"
 
 ;--------------------------------
 ;General
@@ -28,6 +29,10 @@ SetCompressor /SOLID lzma
 
   Var MUI_TEMP
   Var STARTMENU_FOLDER
+  
+  InstType "$(INSTALL_FULL)"
+  InstType "$(INSTALL_CLIENT)"
+  InstType "$(INSTALL_SERVER)"
 
 ;--------------------------------
 ;Interface Settings
@@ -39,13 +44,6 @@ SetCompressor /SOLID lzma
   !define MUI_LANGDLL_REGISTRY_KEY "Software\Mumble" 
   !define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
 
-;--------------------------------
-;Pages
-
-  !insertmacro MUI_PAGE_LICENSE "gpl.txt"
-Page custom PageReinstall PageLeaveReinstall
-  !insertmacro MUI_PAGE_DIRECTORY
-
   ;Start Menu Folder Page Configuration
   !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKLM"
   !define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Mumble"
@@ -56,14 +54,24 @@ Page custom PageReinstall PageLeaveReinstall
   !define MUI_FINISHPAGE_SHOWREADME_FUNCTION Desktop_Shortcut
   
   !define MUI_FINISHPAGE_RUN $INSTDIR\mumble.exe
-  !define MUI_FINISHPAGE_RUN_TEXT "Start Mumble"
+  !define MUI_FINISHPAGE_RUN_TEXT $(MUMBLE_START)
+  !define MUI_FINISHPAGE_RUN_FUNCTION Run_Mumble
 
   !define MUI_FINISHPAGE_LINK $(MUMBLE_DONATE)
   !define MUI_FINISHPAGE_LINK_LOCATION "https://sourceforge.net/project/project_donations.php?group_id=147372"
 
-  !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
+;--------------------------------
+;Pages
 
+  !insertmacro MUI_PAGE_LICENSE "gpl.txt"
+Page custom PageReinstall PageLeaveReinstall
+  !insertmacro MUI_PAGE_COMPONENTS
+  !insertmacro MUI_PAGE_DIRECTORY
+
+  !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
   !insertmacro MUI_PAGE_INSTFILES
+
+  !define MUI_PAGE_CUSTOMFUNCTION_SHOW Finish_Show
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro MUI_UNPAGE_CONFIRM
@@ -74,9 +82,6 @@ Page custom PageReinstall PageLeaveReinstall
 
 ;--------------------------------
 ;Languages
-
-; Hack to get components language for uninstaller
-  !define MUI_COMPONENTSPAGE
 
   !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "French"
@@ -100,15 +105,10 @@ Page custom PageReinstall PageLeaveReinstall
   ReserveFile "${NSISDIR}\Plugins\FindProcUnicode.dll"
   ReserveFile "${NSISDIR}\Plugins\CPUFeatures.dll"
 
-Function Desktop_Shortcut
-  SetOutPath "$INSTDIR"
-  CreateShortCut "$DESKTOP\Mumble.lnk" "$INSTDIR\mumble.exe"
-FunctionEnd
-
 ;--------------------------------
 ;Installer Sections
 
-Section "Mumble & Murmur" SecMumble
+Section "" SectionCommon
   SetShellVarContext all
 
   SetOutPath "$INSTDIR"
@@ -125,20 +125,6 @@ Section "Mumble & Murmur" SecMumble
   File /oname=Changes.txt "..\CHANGES"
   File "speex.txt"
   File "qt.txt"
-  File "..\release\mumble.exe"
-  File "..\release\murmur.exe"
-  File "..\release\mumble-g15-helper.exe"
-!ifdef SNAPSHOT
-  File "..\release\mumble.pdb"
-  File "..\release\murmur.pdb"
-  File "..\release\mumble-g15-helper.pdb"
-!endif
-  !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
-  SetOverwrite off
-  File /oname=murmur.ini "..\scripts\murmur.ini.win32"
-  SetOverwrite on
-  File "qos.reg"
-  File "..\src\murmur\Murmur.ice"
 
   File "\dev\Qt4.5.0\lib\QtCore4.dll"
   File "\dev\Qt4.5.0\lib\QtGui4.dll"
@@ -148,22 +134,17 @@ Section "Mumble & Murmur" SecMumble
   File "\dev\Qt4.5.0\lib\QtXml4.dll"
   File "\dev\Qt4.5.0\lib\QtDBus4.dll"
 
-  File "\dev\MySQL\lib\opt\libmysql.dll"
-
   File "\dev\OpenSSL\bin\libeay32.dll"
   File "\dev\OpenSSL\bin\ssleay32.dll"
+
+  File "\dev\MySQL\lib\opt\libmysql.dll"
 
   File "\dev\dbus\bin\dbus-1.dll"
   File "\dev\dbus\bin\libxml2.dll"
   File "\dev\dbus\bin\iconv.dll"
   File "\dev\dbus\bin\zlib1.dll"
   File "\dev\dbus\bin\dbus-daemon.exe"
-  File "\dev\dbus\bin\dbus-send.exe"
   File "\dev\dbus\etc\session.conf"
-
-  File "\dev\Ice\bin\ice33.dll"
-  File "\dev\Ice\bin\iceutil33.dll"
-  File "\dev\Ice\bin\bzip2.dll"
 
   File "\Program Files (x86)\Intel\Compiler\11.0\066\cpp\Bin\ia32\libmmd.dll"
 
@@ -171,25 +152,6 @@ Section "Mumble & Murmur" SecMumble
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
-  
-
-  SetOutPath "$INSTDIR\plugins"
-  File /oname=bf2.dll "..\release\plugins\bf2.dll"
-  File /oname=link.dll "..\release\plugins\link.dll"
-  File /oname=l4d.dll "..\release\plugins\l4d.dll"
-  ;File /oname=wow.dll "..\release\plugins\wow.dll"
-  File /oname=tf2.dll "..\release\plugins\tf2.dll"
-  File /oname=cod2.dll "..\release\plugins\cod2.dll"
-  File /oname=cod4.dll "..\release\plugins\cod4.dll"
-  File /oname=cod5.dll "..\release\plugins\cod5.dll"
-  File /oname=wolfet.dll "..\release\plugins\wolfet.dll"
-
-  File "Microsoft.VC90.CRT.manifest"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
-
-  SetOutPath "$INSTDIR"
 
   ;Store installation folder
   WriteRegStr HKLM "Software\Mumble" "" $INSTDIR
@@ -217,6 +179,46 @@ Section "Mumble & Murmur" SecMumble
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "NoRepair" 1
 
+  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+
+    ;Create shortcuts
+    CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_README_LNK).lnk" "$INSTDIR\Readme.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_LICENSE_LNK).lnk" "$INSTDIR\license.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_QT_LNK).lnk" "$INSTDIR\qt.txt"
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_UNINSTALL_LNK).lnk" "$INSTDIR\Uninstall.exe"
+
+  !insertmacro MUI_STARTMENU_WRITE_END
+SectionEnd
+
+Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
+  SectionIn 1 2
+  SetShellVarContext all
+
+  SetOutPath "$INSTDIR"
+
+  File "..\release\mumble.exe"
+  File "..\release\mumble-g15-helper.exe"
+  !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
+
+  SetOutPath "$INSTDIR\plugins"
+  File /oname=bf2.dll "..\release\plugins\bf2.dll"
+  File /oname=link.dll "..\release\plugins\link.dll"
+  File /oname=l4d.dll "..\release\plugins\l4d.dll"
+  ;File /oname=wow.dll "..\release\plugins\wow.dll"
+  File /oname=tf2.dll "..\release\plugins\tf2.dll"
+  File /oname=cod2.dll "..\release\plugins\cod2.dll"
+  File /oname=cod4.dll "..\release\plugins\cod4.dll"
+  File /oname=cod5.dll "..\release\plugins\cod5.dll"
+  File /oname=wolfet.dll "..\release\plugins\wolfet.dll"
+
+  File "Microsoft.VC90.CRT.manifest"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
+  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
+
+  SetOutPath "$INSTDIR"
+
   ;Register URL Handler
   WriteRegStr HKCR "mumble" "" "URL:Mumble"
   WriteRegStr HKCR "mumble" "URL Protocol" ""
@@ -224,20 +226,54 @@ Section "Mumble & Murmur" SecMumble
   WriteRegStr HKCR "mumble\shell\open\command" "" "$\"$INSTDIR\mumble.exe$\" $\"%1$\""
 
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-
     ;Create shortcuts
-    CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Mumble.lnk" "$INSTDIR\mumble.exe"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Murmur.lnk" "$INSTDIR\murmur.exe"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_README_LNK).lnk" "$INSTDIR\Readme.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_LICENSE_LNK).lnk" "$INSTDIR\license.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_QT_LNK).lnk" "$INSTDIR\qt.txt"
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_SPEEX_LNK).lnk" "$INSTDIR\speex.txt"
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_UNINSTALL_LNK).lnk" "$INSTDIR\Uninstall.exe"
-
   !insertmacro MUI_STARTMENU_WRITE_END
 
 SectionEnd
+
+Section /o "$(MUMBLE_SEC_MURMUR)" SectionMurmur
+  SectionIn 1 3
+  SetShellVarContext all
+
+  SetOutPath "$INSTDIR"
+
+  File "..\release\murmur.exe"
+
+  SetOverwrite off
+  File /oname=murmur.ini "..\scripts\murmur.ini.win32"
+  SetOverwrite on
+  File "..\src\murmur\Murmur.ice"
+
+  File "\dev\dbus\bin\dbus-send.exe"
+
+  File "\dev\Ice\bin\ice33.dll"
+  File "\dev\Ice\bin\iceutil33.dll"
+  File "\dev\Ice\bin\bzip2.dll"
+
+  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+    ;Create shortcuts
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Murmur.lnk" "$INSTDIR\murmur.exe"
+  !insertmacro MUI_STARTMENU_WRITE_END
+
+SectionEnd
+
+Section /o "$(MUMBLE_SEC_DEBUG)" SectionDebug
+  SetShellVarContext all
+
+  SetOutPath "$INSTDIR"
+
+  File "..\release\mumble.pdb"
+  File "..\release\murmur.pdb"
+  File "..\release\mumble-g15-helper.pdb"
+SectionEnd
+
+!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+  !insertmacro MUI_DESCRIPTION_TEXT ${SectionMumble} $(DESC_SectionMumble)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SectionMurmur} $(DESC_SectionMurmur)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SectionDebug} $(DESC_SectionDebug)
+!insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
 ;Uninstaller Section
@@ -261,7 +297,7 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   Delete "$INSTDIR\plugins\link.dll"
   Delete "$INSTDIR\plugins\l4d.dll"
   ;Delete "$INSTDIR\plugins\wow.dll"
-  Delete "$INSTDIR\plugins\tf2.exe"
+  Delete "$INSTDIR\plugins\tf2.dll"
   Delete "$INSTDIR\plugins\cod2.dll"
   Delete "$INSTDIR\plugins\cod4.dll"
   Delete "$INSTDIR\plugins\cod5.dll"
@@ -319,6 +355,7 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   RMDir "$INSTDIR"
 
   Delete "$DESKTOP\Mumble.lnk"
+  Delete "$DESKTOP\Murmur.lnk"
 
   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
 
@@ -342,6 +379,8 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
 
     StrCmp $MUI_TEMP $SMPROGRAMS startMenuDeleteLoopDone startMenuDeleteLoop
   startMenuDeleteLoopDone:
+
+  DeleteRegKey HKCR "mumble"
 
   DeleteRegKey HKLM "Software\Mumble\Mumble\InstPath"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble"
@@ -432,13 +471,37 @@ Function .onInit
   Push $R0
   CPUFeatures::hasSSE
   Pop $0
-  StrCmp $0 "1" hasSSE 0
-  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_SSE) IDYES hasSSE
-  Abort
- hasSSE:
+  ${IfNot} $0 == "1"
+    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_SSE) IDYES +1
+    Abort
+  ${EndIf}
+  ${IfNot} ${AtLeastWinXP}
+    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_XP) IDYES +1
+    Abort
+  ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
 
 Function un.onInit
   !insertmacro MUI_UNGETLANGUAGE
+FunctionEnd
+
+Function Desktop_Shortcut
+  ${If} ${SectionIsSelected} ${SectionMumble}
+    SetOutPath "$INSTDIR"
+    CreateShortCut "$DESKTOP\Mumble.lnk" "$INSTDIR\mumble.exe"
+  ${EndIf}
+FunctionEnd
+
+Function Run_Mumble
+  ${If} ${SectionIsSelected} ${SectionMumble}
+    Exec "$INSTDIR\mumble.exe"
+  ${EndIf}
+FunctionEnd
+
+Function Finish_Show
+  ${IfNot} ${SectionIsSelected} ${SectionMumble}
+	ShowWindow $mui.Finishpage.Run ${SW_HIDE}
+	ShowWindow $mui.Finishpage.ShowReadme ${SW_HIDE}
+  ${EndIf}
 FunctionEnd

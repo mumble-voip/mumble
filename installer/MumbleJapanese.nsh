@@ -4,6 +4,21 @@ LangString MUMBLE_CREATE_SHORTCUT ${LANG_JAPANESE} "デスクトップへショ�
 LangString MUMBLE_DONATE ${LANG_JAPANESE} "Mumble project に寄付する"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_JAPANESE} "Mumble で使われている DBus daemon が起動中です。アップデートのために DBus daemon を停止させますか？"
 LangString MUMBLE_NO_SSE ${LANG_JAPANESE} "Mumble の実行には SSE が必要です。Intel Pentium III、AMD Athlon XP、またはそれより新しいプロセッサである必要があります。SSE はあなたのプロセッサで検出されませんでした。Mumble は正常に動作しないかもしれません。 あなたはそれでも Mumble をインストールしますか？"
+LangString MUMBLE_NO_XP ${LANG_JAPANESE} "Mumble will only work on Windows XP SP2 or newer. An older and incompatible operating system was detected, and Mumble is unlikely to work. Do you still wish to install Mumble?"
+LangString MUMBLE_START ${LANG_JAPANESE} "Start Mumble"
+
+; Install types
+LangString INSTALL_FULL ${LANG_JAPANESE} "Full"
+LangString INSTALL_CLIENT ${LANG_JAPANESE} "Client only"
+LangString INSTALL_SERVER ${LANG_JAPANESE} "Server only"
+
+; Install sections
+LangString MUMBLE_SEC_MUMBLE ${LANG_JAPANESE} "Mumble (client)"
+LangString MUMBLE_SEC_MURMUR ${LANG_JAPANESE} "Murmur (server)"
+LangString MUMBLE_SEC_DEBUG ${LANG_JAPANESE} "Debug files"
+LangString DESC_SectionMumble ${LANG_JAPANESE} "The Mumble client, which you will need to connect to a server."
+LangString DESC_SectionMurmur ${LANG_JAPANESE} "The server for Mumble. Includes everything needed to run your own server."
+LangString DESC_SectionDebug ${LANG_JAPANESE} "Symbol files for Mumble and Murmur. Only needed for debugging."
 
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_JAPANESE} "Mumble Readme"

@@ -4,6 +4,21 @@ LangString MUMBLE_CREATE_SHORTCUT ${LANG_NORWEGIAN} "Lag snarvei på skrivebordet
 LangString MUMBLE_DONATE ${LANG_NORWEGIAN} "Doner til Mumble"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_NORWEGIAN} "DBus demonen som Mumble bruker kjører for øyeblikket. Avslutte demonen så den kan oppdateres?"
 LangString MUMBLE_NO_SSE ${LANG_NORWEGIAN} "Mumble krever SSE, en prosessorutvidelse som bare finnes på Intel Pentium III, AMD Athlon XP og nyerer prosessorer. SSE er ikke støttet av din prosessor, og det er usannsynlig at Mumble vil fungere. Ønsker du fortsatt å installerer Mumble?"
+LangString MUMBLE_NO_XP ${LANG_NORWEGIAN} "Mumble krever Windows XP SP2 eller nyere. Du bruker et eldre og inkompatibelt operativsystem, og det er usannsynlig at Mumble vil fungere. Ønsker du fortsatt å installerer Mumble?"
+LangString MUMBLE_START ${LANG_NORWEGIAN} "Start Mumble"
+
+; Install types
+LangString INSTALL_FULL ${LANG_NORWEGIAN} "Full"
+LangString INSTALL_CLIENT ${LANG_NORWEGIAN} "Bare klient"
+LangString INSTALL_SERVER ${LANG_NORWEGIAN} "Bare server"
+
+; Install sections
+LangString MUMBLE_SEC_MUMBLE ${LANG_NORWEGIAN} "Mumble (klient)"
+LangString MUMBLE_SEC_MURMUR ${LANG_NORWEGIAN} "Murmur (server)"
+LangString MUMBLE_SEC_DEBUG ${LANG_NORWEGIAN} "Filer for feilsøking"
+LangString DESC_SectionMumble ${LANG_NORWEGIAN} "Klienten for Mumble, som du trenger for å koble deg til en server."
+LangString DESC_SectionMurmur ${LANG_NORWEGIAN} "Serveren for Mumble. Inkluderer alt som trengs for å kjøre din egen server."
+LangString DESC_SectionDebug ${LANG_NORWEGIAN} "Symbolfiler for Mumble og Murmur. Trengs bare for debugging."
 
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_NORWEGIAN} "Mumble Lesmeg"
