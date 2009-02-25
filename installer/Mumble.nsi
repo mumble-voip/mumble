@@ -282,7 +282,10 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   SectionIn RO
   SetShellVarContext all
 
-  FindProcUnicode::KillProc "dbus-daemon.exe"
+  FindProcUnicode::KillProc "$INSTDIR\mumble.exe"
+  FindProcUnicode::KillProc "$INSTDIR\murmur.exe"
+  FindProcUnicode::KillProc "$INSTDIR\mumble-g15-helper.exe"
+  FindProcUnicode::KillProc "$INSTDIR\dbus-daemon.exe"
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\murmur.exe"
