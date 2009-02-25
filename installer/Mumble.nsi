@@ -138,6 +138,7 @@ Section "Mumble & Murmur" SecMumble
   File /oname=murmur.ini "..\scripts\murmur.ini.win32"
   SetOverwrite on
   File "qos.reg"
+  File "..\src\murmur\Murmur.ice"
 
   File "\dev\Qt4.5.0\lib\QtCore4.dll"
   File "\dev\Qt4.5.0\lib\QtGui4.dll"
@@ -265,6 +266,8 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   Delete "$INSTDIR\plugins\cod4.dll"
   Delete "$INSTDIR\plugins\cod5.dll"
   Delete "$INSTDIR\plugins\wolfet.dll"
+  
+  Delete "$INSTDIR\Murmur.ice"
 
   Delete "$INSTDIR\plugins\Microsoft.VC90.CRT.manifest"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\plugins\msvcm90.dll"
