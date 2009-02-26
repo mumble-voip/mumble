@@ -126,6 +126,8 @@ UnixMurmur::UnixMurmur() {
 
 	if (sigaction(SIGTERM, &term, NULL))
 		qFatal("Failed to install SIGTERM handler");
+
+	umask(S_IRWXO);
 }
 
 UnixMurmur::~UnixMurmur() {
@@ -202,12 +204,14 @@ void UnixMurmur::setuid() {
 		} else {
 			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
 		}
+	} else if (geteuid() == 0) {
+		qCritical("WARNING: You are running murmurd as root, without setting a uname in the ini file. This might be a security risk.");
 	}
 }
 
 void UnixMurmur::initialcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE, CAP_SETUID };
+	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE, CAP_SETUID, CAP_SETGID };
 
 	if (geteuid() != 0)
 		return;
@@ -219,8 +223,6 @@ void UnixMurmur::initialcap() {
 	cap_set_flag(c, CAP_PERMITTED, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
 	if (cap_set_proc(c) != 0) {
 		qCritical("Failed to set initial capabilities");
-	} else {
-		qWarning("Successfully dropped initial capabilities");
 	}
 #endif
 }

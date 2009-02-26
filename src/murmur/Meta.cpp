@@ -180,6 +180,7 @@ void MetaParams::read(QString fname) {
 		if (uiUid == 0) {
 			qFatal("Cannot find username %s", qPrintable(uname));
 		}
+		endpwent();
 	}
 #endif
 
