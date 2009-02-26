@@ -58,6 +58,10 @@ class UnixMurmur : public QObject {
 		void handleSigHup();
 		void handleSigTerm();
 	public:
+		void setuid();
+		void initialcap();
+		void finalcap();
+
 		UnixMurmur();
 		~UnixMurmur();
 };

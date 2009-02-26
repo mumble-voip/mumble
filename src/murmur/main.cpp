@@ -155,6 +155,7 @@ int main(int argc, char **argv) {
 #else
 	QCoreApplication a(argc, argv);
 	UnixMurmur unixhandler;
+	unixhandler.initialcap();
 #endif
 	a.setApplicationName("Murmur");
 	a.setOrganizationName("Mumble");
@@ -256,6 +257,10 @@ int main(int argc, char **argv) {
 	}
 
 	Meta::mp.read(inifile);
+
+#ifdef Q_OS_UNIX
+	unixhandler.setuid();
+#endif
 	ServerDB db;
 
 	meta = new Meta();
@@ -297,6 +302,10 @@ int main(int argc, char **argv) {
 
 	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
 		qfLog = new QFile(Meta::mp.qsLogfile);
+#ifdef Q_OS_UNIX
+		if (Meta::mp.uiUid != 0)
+			setresuid(Meta::mp.uiUid,0,0);
+#endif
 		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete qfLog;
 			qfLog = NULL;
@@ -311,6 +320,10 @@ int main(int argc, char **argv) {
 			QFileInfo qfi(*qfLog);
 			Meta::mp.qsLogfile = qfi.absoluteFilePath();
 		}
+#ifdef Q_OS_UNIX
+		if (Meta::mp.uiUid != 0)
+			setresuid(Meta::mp.uiUid,Meta::mp.uiUid,0);
+#endif
 	} else {
 		detach = false;
 	}
@@ -351,6 +364,7 @@ int main(int argc, char **argv) {
 		dup2(fd, 2);
 		close(fd);
 	}
+	unixhandler.finalcap();
 #endif
 
 #ifdef USE_DBUS

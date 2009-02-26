@@ -58,6 +58,8 @@ MetaParams::MetaParams() {
 	iBanTries = 10;
 	iBanTimeframe = 120;
 	iBanTime = 300;
+	
+	uiUid = uiGid = 0;
 
 	qrPlayerName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
@@ -166,6 +168,20 @@ void MetaParams::read(QString fname) {
 	iBanTries = qs.value("autobanAttempts", iBanTries).toInt();
 	iBanTimeframe = qs.value("autobanTimeframe", iBanTimeframe).toInt();
 	iBanTime = qs.value("autobanTime", iBanTime).toInt();
+	
+#ifdef Q_OS_UNIX
+	const QString uname = qs.value("uname").toString();
+	if (! uname.isEmpty() && (geteuid() == 0)) {
+		struct passwd *pw = getpwnam(qPrintable(uname));
+		if (pw) {
+			uiUid = pw->pw_uid;
+			uiGid = pw->pw_gid;
+		}
+		if (uiUid == 0) {
+			qFatal("Cannot find username %s", qPrintable(uname));
+		}
+	}
+#endif
 
 	qrPlayerName = QRegExp(qs.value("playername", qrPlayerName.pattern()).toString());
 	qrChannelName = QRegExp(qs.value("channelname", qrChannelName.pattern()).toString());

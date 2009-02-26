@@ -46,6 +46,9 @@ win32 {
 unix {
   UNAME=$$system(uname -s)
   CONFIG *= link_pkgconfig
+  contains(UNAME, Linux) {
+    LIBS *= -lcap
+  }
   
   contains(UNAME, FreeBSD) {
     LIBS *= -lcrypto

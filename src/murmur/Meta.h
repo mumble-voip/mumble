@@ -84,6 +84,8 @@ struct MetaParams {
 	QByteArray qbaPassPhrase;
 
 	QMap<QString, QString> qmConfig;
+	
+	unsigned int uiUid, uiGid;
 
 	MetaParams();
 	void read(QString fname = QString("murmur.ini"));

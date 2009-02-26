@@ -37,6 +37,12 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#ifdef Q_OS_LINUX
+#include <sys/capability.h>
+#endif
+#include <sys/time.h>
+#include <sys/resource.h>
+#include <pwd.h>
 #ifdef __FreeBSD__
 #include <netinet/in_systm.h>
 #endif

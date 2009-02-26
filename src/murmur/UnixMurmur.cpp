@@ -165,7 +165,12 @@ void UnixMurmur::handleSigHup() {
 		qWarning("Caught SIGHUP, will reopen %s", qPrintable(Meta::mp.qsLogfile));
 		qfLog->close();
 		qfLog->setFileName(Meta::mp.qsLogfile);
-		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+		if (Meta::mp.uiUid != 0)
+			setresuid(0,0,0);
+		bool result = qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+		if (Meta::mp.uiUid != 0)
+			setresuid(Meta::mp.uiUid, Meta::mp.uiUid, 0);
+		if (! result) {
 			delete qfLog;
 			qfLog = NULL;
 		} else {
@@ -186,4 +191,55 @@ void UnixMurmur::handleSigTerm() {
 	QCoreApplication::instance()->quit();
 
 	qsnTerm->setEnabled(true);
+}
+
+void UnixMurmur::setuid() {
+	if (Meta::mp.uiUid != 0) {
+		if (setregid(Meta::mp.uiGid, Meta::mp.uiGid) != 0)
+			qCritical("Failed to switch to gid %d", Meta::mp.uiGid);
+		if (setresuid(Meta::mp.uiUid, Meta::mp.uiUid, 0) != 0) {
+			qFatal("Failed to become uid %d", Meta::mp.uiUid);
+		} else {
+			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
+		}
+	}
+}
+
+void UnixMurmur::initialcap() {
+#ifdef Q_OS_LINUX
+	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE, CAP_SETUID };
+
+	if (geteuid() != 0)
+		return;
+		
+	cap_t c = cap_init();
+	cap_clear(c);
+	cap_set_flag(c, CAP_EFFECTIVE, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
+	cap_set_flag(c, CAP_INHERITABLE, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
+	cap_set_flag(c, CAP_PERMITTED, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
+	if (cap_set_proc(c) != 0) {
+		qCritical("Failed to set initial capabilities");
+	} else {
+		qWarning("Successfully dropped initial capabilities");
+	}
+#endif
+}
+
+void UnixMurmur::finalcap() {
+#ifdef Q_OS_LINUX
+	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE, CAP_SETUID };
+
+	if (Meta::mp.uiUid == 0)
+		return;
+
+	cap_t c = cap_init();
+	cap_clear(c);
+	cap_set_flag(c, CAP_EFFECTIVE, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
+	cap_set_flag(c, CAP_PERMITTED, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
+	if (cap_set_proc(c) != 0) {
+		qCritical("Failed to set final capabilities");
+	} else {
+		qWarning("Successfully dropped capabilities");
+	}
+#endif
 }
