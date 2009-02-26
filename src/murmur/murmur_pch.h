@@ -39,6 +39,7 @@
 #include <sys/socket.h>
 #ifdef Q_OS_LINUX
 #include <sys/capability.h>
+#include <sys/prctl.h>
 #endif
 #include <sys/time.h>
 #include <sys/resource.h>

@@ -244,6 +244,8 @@ int main(int argc, char **argv) {
 			       "default locations.", argv[0]);
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
+			unixhandler.setuid();
+			unixhandler.finalcap();
 			LimitTest::testLimits(a);
 #endif
 		} else {
@@ -302,10 +304,6 @@ int main(int argc, char **argv) {
 
 	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
 		qfLog = new QFile(Meta::mp.qsLogfile);
-#ifdef Q_OS_UNIX
-		if (Meta::mp.uiUid != 0)
-			setresuid(Meta::mp.uiUid,0,0);
-#endif
 		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete qfLog;
 			qfLog = NULL;
@@ -320,10 +318,6 @@ int main(int argc, char **argv) {
 			QFileInfo qfi(*qfLog);
 			Meta::mp.qsLogfile = qfi.absoluteFilePath();
 		}
-#ifdef Q_OS_UNIX
-		if (Meta::mp.uiUid != 0)
-			setresuid(Meta::mp.uiUid,Meta::mp.uiUid,0);
-#endif
 	} else {
 		detach = false;
 	}

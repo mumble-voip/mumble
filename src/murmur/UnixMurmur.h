@@ -38,9 +38,10 @@ class LimitTest : public QThread {
 		Q_DISABLE_COPY(LimitTest)
 	protected:
 		static QMutex *qm;
-		static QWaitCondition *qw;
+		static QWaitCondition *qw, *qstartw;
 		LimitTest();
 	public:
+		int tid;
 		void run();
 		static void testLimits(QCoreApplication &);
 };
@@ -49,6 +50,7 @@ class UnixMurmur : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(UnixMurmur)
 	protected:
+		bool bRoot;
 		static int iHupFd[2], iTermFd[2];
 		QSocketNotifier *qsnHup, *qsnTerm;
 

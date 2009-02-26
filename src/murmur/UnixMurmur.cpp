@@ -34,12 +34,15 @@
 
 QMutex *LimitTest::qm;
 QWaitCondition *LimitTest::qw;
+QWaitCondition *LimitTest::qstartw;
 
 LimitTest::LimitTest() : QThread() {
 }
 
 void LimitTest::run() {
 	qm->lock();
+	qstartw->wakeAll();
+
 	qw->wait(qm);
 	qm->unlock();
 }
@@ -54,10 +57,10 @@ void LimitTest::testLimits(QCoreApplication &a) {
 	for (count=0;count < 524288; ++count) {
 		QFile *qf = new QFile(a.applicationFilePath());
 		if (qf->open(QIODevice::ReadOnly))
-			ql << qf;
+			ql.prepend(qf);
 		else
 			break;
-		if ((count & 511) == 0)
+		if ((count & 1023) == 0)
 			qWarning("%d descriptors...", count);
 	}
 	foreach(QFile *qf, ql)
@@ -67,26 +70,34 @@ void LimitTest::testLimits(QCoreApplication &a) {
 
 	qm = new QMutex();
 	qw = new QWaitCondition();
+	qstartw = new QWaitCondition();
 
-	int fdcount = count / 2;
+	int fdcount = count / 8;
+	if (sizeof(void *) < 8)
+		if (fdcount > 1024)
+			fdcount = 1024;
 
-	QList<QThread *> qtl;
+	QList<LimitTest *> qtl;
 	for (count=0;count < fdcount; ++count) {
-		QThread *t = new LimitTest();
+		LimitTest *t = new LimitTest();
+		t->tid = count;
 		qtl << t;
+		qm->lock();
 		t->start();
+		qstartw->wait(qm);
+		qm->unlock();
 		if (! t->isRunning())
 			break;
 		if ((count & 511) == 0)
 			qWarning("%d threads...", count);
 	}
-	sleep(1);
 	qm->lock();
 	qw->wakeAll();
 	qm->unlock();
-	foreach(QThread *qt, qtl) {
+
+	foreach(LimitTest *qt, qtl) {
 		if (! qt->wait(1000)) {
-			qWarning("Thread failed to terminate...");
+			qWarning("Thread %d failed to terminate...", qt->tid);
 			qt->terminate();
 		}
 	}
@@ -99,6 +110,11 @@ int UnixMurmur::iHupFd[2];
 int UnixMurmur::iTermFd[2];
 
 UnixMurmur::UnixMurmur() {
+	bRoot = true;
+	
+	if (geteuid() != 0 && getuid() != 0) {
+		bRoot = false;
+	}
 	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, iHupFd))
 		qFatal("Couldn't create HUP socketpair");
 
@@ -167,11 +183,7 @@ void UnixMurmur::handleSigHup() {
 		qWarning("Caught SIGHUP, will reopen %s", qPrintable(Meta::mp.qsLogfile));
 		qfLog->close();
 		qfLog->setFileName(Meta::mp.qsLogfile);
-		if (Meta::mp.uiUid != 0)
-			setresuid(0,0,0);
 		bool result = qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
-		if (Meta::mp.uiUid != 0)
-			setresuid(Meta::mp.uiUid, Meta::mp.uiUid, 0);
 		if (! result) {
 			delete qfLog;
 			qfLog = NULL;
@@ -203,45 +215,66 @@ void UnixMurmur::setuid() {
 			qFatal("Failed to become uid %d", Meta::mp.uiUid);
 		} else {
 			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
+			initialcap();
 		}
-	} else if (geteuid() == 0) {
+	}
+#ifndef Q_OS_LINUX
+	else if (bRoot) {
 		qCritical("WARNING: You are running murmurd as root, without setting a uname in the ini file. This might be a security risk.");
 	}
+#endif
 }
 
 void UnixMurmur::initialcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE, CAP_SETUID, CAP_SETGID };
-
-	if (geteuid() != 0)
+	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE, CAP_SYS_RESOURCE, CAP_SETUID, CAP_SETGID };
+	
+	if (! bRoot)
 		return;
+		
+	int ncap = sizeof(caps)/sizeof(cap_value_t);
 		
 	cap_t c = cap_init();
 	cap_clear(c);
-	cap_set_flag(c, CAP_EFFECTIVE, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
-	cap_set_flag(c, CAP_INHERITABLE, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
-	cap_set_flag(c, CAP_PERMITTED, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
+	cap_set_flag(c, CAP_EFFECTIVE, ncap, caps, CAP_SET);
+	cap_set_flag(c, CAP_INHERITABLE, ncap, caps, CAP_SET);
+	cap_set_flag(c, CAP_PERMITTED, ncap, caps, CAP_SET);
 	if (cap_set_proc(c) != 0) {
 		qCritical("Failed to set initial capabilities");
+	} else {
+		prctl(PR_SET_KEEPCAPS, 1, 0, 0, 0);
 	}
+	cap_free(c);
 #endif
 }
 
 void UnixMurmur::finalcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE, CAP_SETUID };
+	cap_value_t caps[] = {CAP_DAC_OVERRIDE, CAP_SYS_NICE };
 
-	if (Meta::mp.uiUid == 0)
+	if (! bRoot)
 		return;
+
+	struct rlimit r;
+	getrlimit(RLIMIT_NOFILE, &r);
+	if (r.rlim_cur < 65536) {
+		r.rlim_max = (r.rlim_max > 65536) ? r.rlim_max : 65536;
+		r.rlim_cur = r.rlim_max;
+		qWarning("Increasing descriptor limit to %d.", static_cast<int>(r.rlim_cur));
+		setrlimit(RLIMIT_NOFILE, &r);
+	}
+
+	int ncap = sizeof(caps)/sizeof(cap_value_t);
 
 	cap_t c = cap_init();
 	cap_clear(c);
-	cap_set_flag(c, CAP_EFFECTIVE, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
-	cap_set_flag(c, CAP_PERMITTED, sizeof(caps)/sizeof(cap_value_t), caps, CAP_SET);
+	cap_set_flag(c, CAP_EFFECTIVE, ncap, caps, CAP_SET);
+	cap_set_flag(c, CAP_PERMITTED, ncap, caps, CAP_SET);
 	if (cap_set_proc(c) != 0) {
 		qCritical("Failed to set final capabilities");
 	} else {
 		qWarning("Successfully dropped capabilities");
 	}
+	cap_free(c);
 #endif
 }
