@@ -3,7 +3,7 @@
 LangString MUMBLE_CREATE_SHORTCUT ${LANG_GERMAN} "Desktop Verknüpfung erstellen"
 LangString MUMBLE_DONATE ${LANG_GERMAN} "Spende an das Mumble Projekt"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_GERMAN} "Momentan läuft der von Mumble verwendete DBus Daemon. Soll er beendet werden, damit er aktualisiert werden kann?"
-LangString MUMBLE_NO_SSE ${LANG_GERMAN} "Mumble benötigt SSE, ein Feature was nur auf Intel Pentium III, AMD Athlon XP und neueren Prozessoren zu finden ist. Da keine SSE Unterstützung gefunden wurde wird Mumble wahrscheinlich nicht funktionieren. Möchtest du Mumble trotzdem installieren?"
+LangString MUMBLE_NO_SSE ${LANG_GERMAN} "Mumble benötigt SSE, ein Feature was nur auf Intel Pentium III, AMD Athlon XP und neueren Prozessoren zu finden ist. Da keine SSE Unterstützung gefunden wurde wird Mumble wahrscheinlich nicht funktionieren. Möchten Sie Mumble trotzdem installieren?"
 LangString MUMBLE_NO_XP ${LANG_GERMAN} "Mumble will only work on Windows XP SP2 or newer. An older and incompatible operating system was detected, and Mumble is unlikely to work. Do you still wish to install Mumble?"
 LangString MUMBLE_START ${LANG_GERMAN} "Start Mumble"
 
@@ -15,17 +15,17 @@ LangString MUMBLE_SPEEX_LNK ${LANG_GERMAN} "Speex Lizenz"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_GERMAN} "Mumble Deinstallieren"
 
 ; Install types
-LangString INSTALL_FULL ${LANG_GERMAN} "Full"
-LangString INSTALL_CLIENT ${LANG_GERMAN} "Client only"
-LangString INSTALL_SERVER ${LANG_GERMAN} "Server only"
+LangString INSTALL_FULL ${LANG_GERMAN} "Vollständig"
+LangString INSTALL_CLIENT ${LANG_GERMAN} "Nur Client (Nutzerprogramm)"
+LangString INSTALL_SERVER ${LANG_GERMAN} "Nur Server"
 
 ; Install sections
-LangString MUMBLE_SEC_MUMBLE ${LANG_GERMAN} "Mumble (client)"
-LangString MUMBLE_SEC_MURMUR ${LANG_GERMAN} "Murmur (server)"
-LangString MUMBLE_SEC_DEBUG ${LANG_GERMAN} "Debug files"
-LangString DESC_SectionMumble ${LANG_GERMAN} "The Mumble client, which you will need to connect to a server."
-LangString DESC_SectionMurmur ${LANG_GERMAN} "The server for Mumble. Includes everything needed to run your own server."
-LangString DESC_SectionDebug ${LANG_GERMAN} "Symbol files for Mumble and Murmur. Only needed for debugging."
+LangString MUMBLE_SEC_MUMBLE ${LANG_GERMAN} "Mumble (Client)"
+LangString MUMBLE_SEC_MURMUR ${LANG_GERMAN} "Murmur (Server)"
+LangString MUMBLE_SEC_DEBUG ${LANG_GERMAN} "Debug Dateien"
+LangString DESC_SectionMumble ${LANG_GERMAN} "Der Mumble Client, welchen Sie zum Verbinden mit einem Server benötigen."
+LangString DESC_SectionMurmur ${LANG_GERMAN} "Der Server für Mumble. Beinhaltet alles, was Sie zum starten ihres eigenen Servers benötigen."
+LangString DESC_SectionDebug ${LANG_GERMAN} "Symbol Dateien für Mumble und Murmur. Nur fürs Debuggen benötigt."
 
 
 ; Uninstall sections
