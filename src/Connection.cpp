@@ -84,10 +84,13 @@ void Connection::setToS() {
 	dwFlow = 0;
 	if (! QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), NULL, QOSTrafficTypeAudioVideo, QOS_NON_ADAPTIVE_FLOW, &dwFlow))
 		qWarning("Connection: Failed to add flow to QOS");
-#else if defined(Q_OS_UNIX)
+#elif defined(Q_OS_UNIX)
 	int val = 0xa0;
-	if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-		log("Server: Failed to set TOS for TCP Socket");
+	if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+		int val = 0x60;
+		if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val))) 
+			qWarning("Connection: Failed to set TOS for TCP Socket");
+	}
 #endif
 }
 

@@ -123,8 +123,11 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 			} else {
 #ifdef Q_OS_UNIX
 				int val = 0xe0;
-				if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-					log("Server: Failed to set TOS for UDP Socket");
+				if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+					int val = 0x80;
+					if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val))) 
+						log("Server: Failed to set TOS for UDP Socket");
+				}
 #endif
 			}
 		}

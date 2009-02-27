@@ -345,7 +345,7 @@ void ServerHandler::serverConnectionConnected() {
 #if defined(Q_OS_UNIX)
 		int val = 0xe0;
 		if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-			log("Server: Failed to set TOS for UDP Socket");
+			qWarning("ServerHandler: Failed to set TOS for UDP Socket");
 #elif defined(Q_OS_WIN)
 		if (hQoS != NULL) {
 			struct sockaddr_in addr;
@@ -356,7 +356,7 @@ void ServerHandler::serverConnectionConnected() {
 
 			dwFlowUDP = 0;
 			if (! QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast<sockaddr *>(&addr), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlowUDP))
-				qWarning("Failed to add UDP to QOS");
+				qWarning("ServerHandler: Failed to add UDP to QOS");
 		}
 #endif
 	}
