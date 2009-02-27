@@ -4,8 +4,8 @@ LangString MUMBLE_CREATE_SHORTCUT ${LANG_GERMAN} "Desktop Verknüpfung erstellen
 LangString MUMBLE_DONATE ${LANG_GERMAN} "Spende an das Mumble Projekt"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_GERMAN} "Momentan läuft der von Mumble verwendete DBus Daemon. Soll er beendet werden, damit er aktualisiert werden kann?"
 LangString MUMBLE_NO_SSE ${LANG_GERMAN} "Mumble benötigt SSE, ein Feature was nur auf Intel Pentium III, AMD Athlon XP und neueren Prozessoren zu finden ist. Da keine SSE Unterstützung gefunden wurde wird Mumble wahrscheinlich nicht funktionieren. Möchten Sie Mumble trotzdem installieren?"
-LangString MUMBLE_NO_XP ${LANG_GERMAN} "Mumble will only work on Windows XP SP2 or newer. An older and incompatible operating system was detected, and Mumble is unlikely to work. Do you still wish to install Mumble?"
-LangString MUMBLE_START ${LANG_GERMAN} "Start Mumble"
+LangString MUMBLE_NO_XP ${LANG_GERMAN} "Mumble läuft nur auf Windows XP SP2 oder einer neueren Version. Ein älteres und inkompatibles Betriebssystem wurde gefunden, deshalb wird Mumble wahrscheinlich nicht funktionieren. Möchten Sie Mumble trotzdem installieren?"
+LangString MUMBLE_START ${LANG_GERMAN} "Mumble starten"
 
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_GERMAN} "Mumble Liesmich"
