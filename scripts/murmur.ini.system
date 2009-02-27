@@ -82,3 +82,7 @@ ice="tcp -h 127.0.0.1 -p 6502"
 # Murmur default to logging to murmur.log. If you leave this blank,
 # murmur will log to the console (linux) or through message boxes (win32).
 logfile=/var/log/mumble-server/mumble-server.log
+
+# Murmur will, if started as root, drop the capabilities it doesn't require
+# and switch to this username.
+uname=mumble-server
