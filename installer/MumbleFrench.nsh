@@ -5,21 +5,21 @@ LangString MUMBLE_CREATE_SHORTCUT ${LANG_FRENCH} "Créer un raccourci bureau"
 LangString MUMBLE_DONATE ${LANG_FRENCH} "Faire un don pour le projet Mumble"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_FRENCH} "Le démon DBus utilisé par Mumble est en cours d'utilisation. Terminer le processus démon pour procéder à la mise à jour?"
 LangString MUMBLE_NO_SSE ${LANG_FRENCH} "Mumble a besoin des instructions SSE, fonctionnalité uniquement présente sur les Intel Pentium III, AMD Athlon XP ou processeurs plus récent. Les instructions SSE n'ont pas été détecté sur votre processeur, Mumble risque de ne pas fonctionner correctement. Désirez-vous quand de même poursuivre l'installation?"
-LangString MUMBLE_NO_XP ${LANG_FRENCH} "Mumble will only work on Windows XP SP2 or newer. An older and incompatible operating system was detected, and Mumble is unlikely to work. Do you still wish to install Mumble?"
-LangString MUMBLE_START ${LANG_FRENCH} "Start Mumble"
+LangString MUMBLE_NO_XP ${LANG_FRENCH} "Mumble fonctionne seulement avec Windows XP SP2 ou plus récent. Un système d'exploitation plus ancien et incompatible a été détecté, Mumble risque donc de ne pas fonctionner. Désirez-vous quand même installer Mumble?"
+LangString MUMBLE_START ${LANG_FRENCH} "Démarrer Mumble"
 
 ; Install types
-LangString INSTALL_FULL ${LANG_FRENCH} "Full"
-LangString INSTALL_CLIENT ${LANG_FRENCH} "Client only"
-LangString INSTALL_SERVER ${LANG_FRENCH} "Server only"
+LangString INSTALL_FULL ${LANG_FRENCH} "Complète"
+LangString INSTALL_CLIENT ${LANG_FRENCH} "Client seulement"
+LangString INSTALL_SERVER ${LANG_FRENCH} "Server seulement"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_FRENCH} "Mumble (client)"
 LangString MUMBLE_SEC_MURMUR ${LANG_FRENCH} "Murmur (server)"
-LangString MUMBLE_SEC_DEBUG ${LANG_FRENCH} "Debug files"
-LangString DESC_SectionMumble ${LANG_FRENCH} "The Mumble client, which you will need to connect to a server."
-LangString DESC_SectionMurmur ${LANG_FRENCH} "The server for Mumble. Includes everything needed to run your own server."
-LangString DESC_SectionDebug ${LANG_FRENCH} "Symbol files for Mumble and Murmur. Only needed for debugging."
+LangString MUMBLE_SEC_DEBUG ${LANG_FRENCH} "Fichier Debug"
+LangString DESC_SectionMumble ${LANG_FRENCH} "Le client Mumble, nécessaire pour vous connecter à un serveur."
+LangString DESC_SectionMurmur ${LANG_FRENCH} "Le serveur pour Mumble. Inclus tout ce dont vous avez besoin pour installer votre propre serveur."
+LangString DESC_SectionDebug ${LANG_FRENCH} "Fichier de symboles Mumble and Murmur. Nécessaire seulement pour debugger."
 
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_FRENCH} "Fichier README Mumble"
