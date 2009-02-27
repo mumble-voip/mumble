@@ -226,12 +226,12 @@
     <message>
         <location filename="ACLEditor.cpp" line="155"/>
         <source>Allow %1</source>
-        <translation>Zezwól &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Zezwól %1</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="156"/>
         <source>Deny %1</source>
-        <translation>Zabroń &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Zabroń %1</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="157"/>
@@ -306,7 +306,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="47"/>
         <source>Mumble - Edit ACL for %1</source>
-        <translation>Mumble - edytuj ACL dla %1</translation>
+        <translation>Mumble - edycja ACL dla %1</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="13"/>
@@ -329,7 +329,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="376"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Otwieranie wybranego wejścia ALSA nie powiodło się: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Otwieranie wybranego wejścia ALSA nie powiodło się: %1</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="184"/>
@@ -342,7 +342,7 @@
     <message>
         <location filename="ALSAAudio.cpp" line="496"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Otwieranie wybranego wyjścia ALSA nie powiodło się: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Otwieranie wybranego wyjścia ALSA nie powiodło się: %1</translation>
     </message>
     <message>
         <location filename="ALSAAudio.cpp" line="185"/>
@@ -465,7 +465,7 @@
     <message>
         <location filename="ASIOInput.cpp" line="344"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation>Inizjalizacja ASIO nie powiodła się: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Inizjalizacja ASIO nie powiodła się: %1</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="348"/>
@@ -3203,7 +3203,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="693"/>
         <source>Kicking player %1</source>
-        <translation>Wykopywanie użytkownika &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Wykopywanie użytkownika %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="715"/>
@@ -3213,7 +3213,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="715"/>
         <source>Banning player %1</source>
-        <translation>Banowanie użytkownika &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Banowanie użytkownika %1</translation>
     </message>
     <message>
         <location filename="main.cpp" line="221"/>
@@ -3283,27 +3283,27 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="Messages.cpp" line="57"/>
         <source>Joined server: %1.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; dołączył do serwera.</translation>
+        <translation>%1 dołączył do serwera.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="77"/>
         <source>Left server: %1.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; opuścił serwer.</translation>
+        <translation>%1 opuścił serwer.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="110"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; ma teraz wyciszone słuchawki i mikrofon.</translation>
+        <translation>%1 ma teraz wyciszone słuchawki i mikrofon.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="112"/>
         <source>%1 is now muted.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; ma teraz wyciszony mikrofon.</translation>
+        <translation>%1 ma teraz wyciszony mikrofon.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="114"/>
         <source>%1 is now unmuted.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; nie ma już wyciszonego mikrofonu.</translation>
+        <translation>%1 nie ma już wyciszonego mikrofonu.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="147"/>
@@ -3313,92 +3313,92 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="Messages.cpp" line="130"/>
         <source>You were muted by %1.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; wyciszył twój mikrofon.</translation>
+        <translation>%1 wyciszył twój mikrofon.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="130"/>
         <source>You were unmuted by %1.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; wyłączył wyciszenie mikrofonu.</translation>
+        <translation>%1 wyłączył wyciszenie mikrofonu.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="133"/>
         <source>%1 muted by %2.</source>
-        <translation>&lt;b&gt;%2&lt;/b&gt; wyciszył mikrofon &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>%2 wyciszył mikrofon %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="133"/>
         <source>%1 unmuted by %2.</source>
-        <translation>&lt;b&gt;%2&lt;/b&gt; wyłączył wyciszenie mikrofonu &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>%2 wyłączył wyciszenie mikrofonu %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="150"/>
         <source>You were deafened by %1.</source>
-        <translation>Twoje słuchawki i mikrofon zostały wyciszone przez: &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>Twoje słuchawki i mikrofon zostały wyciszone przez: %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="150"/>
         <source>You were undeafened by %1.</source>
-        <translation>Twoje słuchawki i mikrofon nie są już wyciszone: &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>Twoje słuchawki i mikrofon nie są już wyciszone: %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="153"/>
         <source>%1 deafened by %2.</source>
-        <translation>Słuchawki i mikrofon &lt;b&gt;%1&lt;/b&gt; zostały wyciszone przez &lt;b&gt;%2&lt;/b&gt;.</translation>
+        <translation>Słuchawki i mikrofon %1 zostały wyciszone przez %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="153"/>
         <source>%1 undeafened by %2.</source>
-        <translation>&lt;b&gt;%2&lt;/b&gt; wyłączył wyciszenie słuchawek &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>%2 wyłączył wyciszenie słuchawek %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="163"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>Zostałeś wykopany z serwera przez &lt;b&gt;%1&lt;/b&gt;. Z powodu: &lt;b&gt;%2&lt;/b&gt;.</translation>
+        <translation>Zostałeś wykopany z serwera przez %1. Z powodu: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="167"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>&lt;b&gt;%3&lt;/b&gt; został wykopany z serwera przez &lt;b&gt;%1&lt;/b&gt;. Z powodu: &lt;b&gt;%2&lt;/b&gt;.</translation>
+        <translation>%3 został wykopany z serwera przez %1. Z powodu: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="176"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Dostałeś bana od &lt;b&gt;%1&lt;/b&gt; z powodu &lt;b&gt;%2&lt;/b&gt;.</translation>
+        <translation>Dostałeś bana od %1 z powodu %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="180"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>&lt;b&gt;%3&lt;/b&gt; dostał bana od &lt;b&gt;%1&lt;/b&gt; z powodu: &lt;b&gt;%2&lt;/b&gt;.</translation>
+        <translation>%3 dostał bana od %1 z powodu: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="199"/>
         <source>%1 left channel.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; opuścił kanał.</translation>
+        <translation>%1 opuścił kanał.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="201"/>
         <source>%1 moved out by %2.</source>
-        <translation>&lt;b&gt;%2&lt;/b&gt; przeniósł &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>%2 przeniósł %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="214"/>
         <source>%1 entered channel.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; wszedł na kanał.</translation>
+        <translation>%1 wszedł na kanał.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="216"/>
         <source>%1 moved in by %2.</source>
-        <translation>&lt;b&gt;%2&lt;/b&gt; przeniósł &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>%2 przeniósł %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="309"/>
         <source>Server connection rejected: %1.</source>
-        <translation>Połączenie odrzucone: &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>Połączenie odrzucone: %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="314"/>
         <source>Denied: %1.</source>
-        <translation>Zabroniono: &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>Zabroniono: %1.</translation>
     </message>
     <message>
         <location filename="main.cpp" line="204"/>
@@ -3486,7 +3486,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="856"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>Czy jesteś pewien, że chcesz usunąć &lt;b&gt;%1&lt;/b&gt; oraz wszystkie pod-kanały?</translation>
+        <translation>Czy jesteś pewien, że chcesz usunąć %1 oraz wszystkie pod-kanały?</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="124"/>
@@ -3521,12 +3521,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="964"/>
         <source>To %1: %2</source>
-        <translation>Do &lt;b&gt;%1&lt;/b&gt;: %2</translation>
+        <translation>Do %1: %2</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="964"/>
         <source>Message to %1</source>
-        <translation>Wiadomość do &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Wiadomość do %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1323"/>
@@ -3561,12 +3561,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="Messages.cpp" line="341"/>
         <source>From %1: %2</source>
-        <translation>Od &lt;b&gt;%1&lt;/b&gt;: %2</translation>
+        <translation>Od %1: %2</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="342"/>
         <source>Message from %1</source>
-        <translation>Wiadomość od &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Wiadomość od %1</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="432"/>
@@ -3591,7 +3591,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="1266"/>
         <source>SSL Verification failed: %1</source>
-        <translation>Weryfikacja SSL nie powiodła się: &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Weryfikacja SSL nie powiodła się: %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1271"/>
@@ -3636,7 +3636,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="380"/>
         <source>Opening URL %1</source>
-        <translation>Otwieranie adresu &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Otwieranie adresu %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="382"/>
@@ -3646,7 +3646,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="407"/>
         <source>Connecting to %1</source>
-        <translation>Łączenie z &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Łączenie z %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="407"/>
@@ -3756,12 +3756,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="991"/>
         <source>To tree %1: %2</source>
-        <translation>Do kanału &lt;b&gt;%1&lt;/b&gt;: &lt;b&gt;%2&lt;/b&gt;</translation>
+        <translation>Do kanału %1: %2</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="991"/>
         <source>Message to tree %1</source>
-        <translation>Wyślij do kanału &lt;b&gt;%1&lt;/b&gt;</translation>
+        <translation>Wyślij do kanału %1</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="513"/>
@@ -3796,7 +3796,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="1222"/>
         <source>Connected to server %1.</source>
-        <translation>Połączony z serwerem &lt;b&gt;%1&lt;/b&gt;.</translation>
+        <translation>Połączony z serwerem %1.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="293"/>
@@ -4486,12 +4486,12 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="Plugins.cpp" line="221"/>
         <source>%1 lost link.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; utracił połączenie.</translation>
+        <translation>%1 utracił połączenie.</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="260"/>
         <source>%1 linked.</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; połączony.</translation>
+        <translation>%1 połączony.</translation>
     </message>
 </context>
 <context>
