@@ -42,7 +42,10 @@
 #include "Overlay.h"
 #include "Global.h"
 
-
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1050
+ #undef SEM_FAILED
+ #define SEM_FAILED ((sem_t *)-1)
+#endif
 
 class SharedMemoryPrivate {
 	public:
@@ -98,6 +101,20 @@ void SharedMemory::resolve(QLibrary *) {
 
 bool SharedMemory::tryLock() {
 	if (d->sem) {
+#ifdef Q_OS_MACX
+		#define SLEEP_NSEC 10000000
+		#define SLICE_NSEC (SLEEP_NSEC/5)
+		int ret;
+		long remain = SLEEP_NSEC;
+		struct timespec r, s = { 0, SLICE_NSEC };
+		while (remain > 0) {
+			if ((ret = sem_trywait(d->sem)) == 0)
+				break;
+			nanosleep(&s, &r);
+			remain -= (SLICE_NSEC - r.tv_nsec);
+		}
+		return (ret == 0);
+#else
 		struct timeval tv;
 		gettimeofday(&tv, NULL);
 		tv.tv_usec += 50000;
@@ -109,6 +126,7 @@ bool SharedMemory::tryLock() {
 		ts.tv_sec = tv.tv_sec;
 		ts.tv_nsec = tv.tv_usec * 1000;
 		return (sem_timedwait(d->sem, &ts) == 0);
+#endif
 	}
 	return false;
 }

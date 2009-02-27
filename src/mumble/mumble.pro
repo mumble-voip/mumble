@@ -120,10 +120,7 @@ unix {
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
     HEADERS *= GlobalShortcut_macx.h
-    SOURCES *= TextToSpeech_macx.cpp
-    SOURCES *= Overlay_macx.cpp
-    SOURCES *= GlobalShortcut_macx.cpp
-    SOURCES *= os_macx.cpp
+    SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
   }
 }
 

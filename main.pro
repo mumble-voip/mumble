@@ -20,6 +20,10 @@ CONFIG *= ordered debug_and_release
   unix:!macx {
     SUBDIRS *= overlay_gl
   }
+
+  macx {
+    SUBDIRS *= overlay_macx
+  }
 }
 
 !CONFIG(no-server) {
