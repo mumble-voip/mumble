@@ -49,6 +49,8 @@ win32 {
   HEADERS	*= GlobalShortcut_win.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg
+  LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
+
   LIBPATH	*= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib /dev/libogg/lib
   DEFINES	*= WIN32
   INCLUDEPATH	*= /dev/OpenSSL/include /dev/libogg/include

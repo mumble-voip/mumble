@@ -38,7 +38,6 @@ static LCDEngine *G15LCDEngineNew() {
 static LCDEngineRegistrar registrar(G15LCDEngineNew);
 
 G15LCDEngineWin::G15LCDEngineWin() : LCDEngine() {
-	BOOL bErr;
 	bRunning = false;
 	bUnavailable = false;
 
@@ -73,9 +72,6 @@ QList<LCDDevice *> G15LCDEngineWin::devices() const {
 }
 
 void G15LCDEngineWin::setProcessStatus(bool run) {
-	BOOL bErr;
-	DWORD dwErr;
-
 	if (bUnavailable)
 		return;
 

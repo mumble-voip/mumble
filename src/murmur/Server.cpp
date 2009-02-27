@@ -122,7 +122,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 				log(QString("Failed to bind UDP Socket to port %1").arg(usPort));
 			} else {
 #ifdef Q_OS_UNIX
-				int val = IPTOS_PREC_FLASHOVERRIDE | IPTOS_LOWDELAY | IPTOS_THROUGHPUT;
+				int val = 0xe0;
 				if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 					log("Server: Failed to set TOS for UDP Socket");
 #endif
@@ -348,8 +348,11 @@ void Server::run() {
 #endif
 
 		fromlen = sizeof(from);
+#ifdef Q_OS_WIN
+		len=::recvfrom(sUdpSocket, encrypted, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+#else
 		len=::recvfrom(sUdpSocket, encrypted, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
-
+#endif
 		if (len == 0) {
 			break;
 		} else if (len == SOCKET_ERROR) {
@@ -460,7 +463,18 @@ void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) 
 		STACKVAR(char, buffer, len+4);
 #endif
 		u->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), reinterpret_cast<unsigned char *>(buffer), len);
+#ifdef Q_OS_WIN
+		DWORD dwFlow = 0;
+		if (Meta::hQoS)
+			QOSAddSocketToFlow(Meta::hQoS, sUdpSocket, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlow);
 		::sendto(sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
+		if (Meta::hQoS && dwFlow)
+			QOSRemoveSocketFromFlow(Meta::hQoS, 0, dwFlow, 0);
+#else
+		::sendto(sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
+#endif
+
+
 	} else {
 		if (cache.isEmpty())
 			cache = QByteArray(data, len);
@@ -593,6 +607,8 @@ void Server::newClient() {
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 
 		log(u, QString("New connection: %1:%2").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
+
+		u->setToS();
 
 		sock->startServerEncryption();
 	}

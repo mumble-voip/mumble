@@ -41,6 +41,7 @@ win32 {
   INCLUDEPATH *= /dev/OpenSSL/include
   LIBPATH *= /dev/OpenSSL/lib
   LIBS *= -llibeay32 -luser32
+  LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
 }
 
 unix {

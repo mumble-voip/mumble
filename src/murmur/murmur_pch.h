@@ -1,6 +1,8 @@
 #ifndef _MURMUR_PCH_H
 #define _MURMUR_PCH_H
 
+#define _WINSOCKAPI_
+
 #define _USE_MATH_DEFINES
 #if defined(__INTEL_COMPILER)
 #include <mathimf.h>
@@ -17,6 +19,7 @@
 #ifdef Q_OS_WIN
 #include <QtGui/QtGui>
 #include <winsock2.h>
+#include <qos2.h>
 #include <windows.h>
 #include <shellapi.h>
 #include <intrin.h>

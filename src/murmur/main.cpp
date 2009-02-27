@@ -90,8 +90,7 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 #else
 		qlErrors << m;
 #ifndef QT_NO_DEBUG
-		if (detach)
-			fprintf(stderr, "%s\n", qPrintable(m));
+		fprintf(stderr, "%s\n", qPrintable(m));
 #endif
 #endif
 	} else {

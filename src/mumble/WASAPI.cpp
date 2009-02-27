@@ -607,7 +607,7 @@ void WASAPIOutput::run() {
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME hnsRequestedDuration = g.s.iOutputDelay * 20 * 10000;
+	REFERENCE_TIME hnsRequestedDuration = 20 * 10000;
 	REFERENCE_TIME def, min;
 	UINT32 numFramesAvailable;
 	UINT32 packetLength = 0;

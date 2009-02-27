@@ -36,6 +36,10 @@
 
 MetaParams Meta::mp;
 
+#ifdef Q_OS_WIN
+HANDLE Meta::hQoS = NULL;
+#endif
+
 MetaParams::MetaParams() {
 	qsPassword = QString();
 	usPort = 64738;
@@ -58,7 +62,7 @@ MetaParams::MetaParams() {
 	iBanTries = 10;
 	iBanTimeframe = 120;
 	iBanTime = 300;
-	
+
 	uiUid = uiGid = 0;
 
 	qrPlayerName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
@@ -168,7 +172,7 @@ void MetaParams::read(QString fname) {
 	iBanTries = qs.value("autobanAttempts", iBanTries).toInt();
 	iBanTimeframe = qs.value("autobanTimeframe", iBanTimeframe).toInt();
 	iBanTime = qs.value("autobanTime", iBanTime).toInt();
-	
+
 #ifdef Q_OS_UNIX
 	const QString uname = qs.value("uname").toString();
 	if (! uname.isEmpty() && (geteuid() == 0)) {
@@ -280,6 +284,33 @@ void MetaParams::read(QString fname) {
 }
 
 Meta::Meta() {
+#ifdef Q_OS_WIN
+	QOS_VERSION qvVer;
+	qvVer.MajorVersion = 1;
+	qvVer.MinorVersion = 0;
+
+	hQoS = NULL;
+
+	HMODULE hLib = LoadLibrary(L"qWave.dll");
+	if (hLib == NULL) {
+		qWarning("Meta: Failed to load qWave.dll, no QoS available");
+	} else {
+		FreeLibrary(hLib);
+		if (! QOSCreateHandle(&qvVer, &hQoS))
+			qWarning("Meta: Failed to create QOS2 handle");
+		else
+			Connection::setQoS(hQoS);
+	}
+#endif
+}
+
+Meta::~Meta() {
+#ifdef Q_OS_WIN
+	if (hQoS) {
+		QOSCloseHandle(hQoS);
+		Connection::setQoS(NULL);
+	}
+#endif
 }
 
 void Meta::getOSInfo() {

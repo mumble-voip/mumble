@@ -84,7 +84,7 @@ struct MetaParams {
 	QByteArray qbaPassPhrase;
 
 	QMap<QString, QString> qmConfig;
-	
+
 	unsigned int uiUid, uiGid;
 
 	MetaParams();
@@ -102,7 +102,12 @@ class Meta : public QObject {
 		QHash<QHostAddress, Timer> qhBans;
 		QString qsOS, qsOSVersion;
 
+#ifdef Q_OS_WIN
+		static HANDLE hQoS;
+#endif
+
 		Meta();
+		~Meta();
 		void bootAll();
 		bool boot(int);
 		bool banCheck(const QHostAddress &);

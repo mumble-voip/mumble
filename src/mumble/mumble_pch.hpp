@@ -4,6 +4,8 @@
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
 
+#define _WINSOCKAPI_
+
 #if defined(__INTEL_COMPILER)
 #define _MSC_EXTENSIONS
 #include <mathimf.h>
@@ -48,6 +50,8 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #include <shellapi.h>
+#include <winsock2.h>
+#include <qos2.h>
 #ifndef Q_CC_INTEL
 #include <math.h>
 #define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )

@@ -48,6 +48,10 @@ class Connection : public QObject {
 		QTime qtLastPacket;
 		int iPacketLength;
 		bool bDisconnectedEmitted;
+#ifdef Q_OS_WIN
+		static HANDLE hQoS;
+		DWORD dwFlow;
+#endif
 	protected slots:
 		void socketRead();
 		void socketError(QAbstractSocket::SocketError);
@@ -85,6 +89,11 @@ class Connection : public QObject {
 		QSslCipher sessionCipher() const;
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;
+
+		void setToS();
+#ifdef Q_OS_WIN
+		static void setQoS(HANDLE hParentQoS);
+#endif
 };
 
 #else

@@ -36,6 +36,7 @@
 #include "mumble_pch.hpp"
 #include "Timer.h"
 
+
 class Connection;
 class Message;
 
@@ -58,6 +59,11 @@ class ServerHandler : public QThread {
 		QString qsPassword;
 		QString qsDigest;
 		unsigned short usPort;
+
+#ifdef Q_OS_WIN
+		HANDLE hQoS;
+		DWORD dwFlowUDP;
+#endif
 
 		QHostAddress qhaRemote;
 		QUdpSocket *qusUdp;

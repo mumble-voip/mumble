@@ -61,10 +61,36 @@ ServerHandler::ServerHandler() {
 	if (pref.isEmpty())
 		qFatal("No ciphers of at least 128 bit found");
 	QSslSocket::setDefaultCiphers(pref);
+
+#ifdef Q_OS_WIN
+	QOS_VERSION qvVer;
+	qvVer.MajorVersion = 1;
+	qvVer.MinorVersion = 0;
+
+	hQoS = NULL;
+
+	HMODULE hLib = LoadLibrary(L"qWave.dll");
+	if (hLib == NULL) {
+		qWarning("ServerHandler: Failed to load qWave.dll, no QoS available");
+	} else {
+		FreeLibrary(hLib);
+		if (! QOSCreateHandle(&qvVer, &hQoS))
+			qWarning("ServerHandler: Failed to create QOS2 handle");
+		else
+			Connection::setQoS(hQoS);
+	}
+#endif
 }
 
 ServerHandler::~ServerHandler() {
 	wait();
+	cConnection.reset();
+#ifdef Q_OS_WIN
+	if (hQoS) {
+		QOSCloseHandle(hQoS);
+		Connection::setQoS(NULL);
+	}
+#endif
 }
 
 void ServerHandler::customEvent(QEvent *evt) {
@@ -190,6 +216,13 @@ void ServerHandler::run() {
 	if (qusUdp) {
 		QMutexLocker qml(&qmUdp);
 
+#ifdef Q_OS_WIN
+		if (hQoS != NULL) {
+			if (! QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0))
+				qWarning("ServerHandler: Failed to remove UDP from QoS");
+			dwFlowUDP = 0;
+		}
+#endif
 		delete qusUdp;
 		qusUdp = NULL;
 	}
@@ -198,7 +231,7 @@ void ServerHandler::run() {
 		serverConnectionClosed(QString());
 
 	ticker->stop();
-	cConnection->disconnectSocket();
+	cConnection->disconnectSocket(true);
 	cConnection.reset();
 }
 
@@ -292,6 +325,8 @@ void ServerHandler::serverConnectionConnected() {
 	qscCert = cConnection->peerCertificateChain();
 	qscCipher = cConnection->sessionCipher();
 
+	cConnection->setToS();
+
 	MessageServerAuthenticate msaMsg;
 	msaMsg.qsUsername = qsUserName;
 	msaMsg.qsPassword = qsPassword;
@@ -304,14 +339,26 @@ void ServerHandler::serverConnectionConnected() {
 		qusUdp = new QUdpSocket(this);
 		qusUdp->bind();
 		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
-#ifdef Q_OS_WIN
-		int tos = 0xb8;
-		if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos)) != 0) {
-			tos = 0x98;
-			setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, 3, reinterpret_cast<char *>(&tos), sizeof(tos));
+
+		qhaRemote = cConnection->peerAddress();
+
+#if defined(Q_OS_UNIX)
+		int val = 0xe0;
+		if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+			log("Server: Failed to set TOS for UDP Socket");
+#elif defined(Q_OS_WIN)
+		if (hQoS != NULL) {
+			struct sockaddr_in addr;
+			memset(&addr, 0, sizeof(addr));
+			addr.sin_family = AF_INET;
+			addr.sin_port = htons(usPort);
+			addr.sin_addr.s_addr = htonl(qhaRemote.toIPv4Address());
+
+			dwFlowUDP = 0;
+			if (! QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast<sockaddr *>(&addr), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlowUDP))
+				qWarning("Failed to add UDP to QOS");
 		}
 #endif
-		qhaRemote = cConnection->peerAddress();
 	}
 
 	emit connected();

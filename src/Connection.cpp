@@ -42,6 +42,10 @@
 int Connection::iReceiveLevel = 0;
 QSet<Connection *> Connection::qsReceivers;
 
+#ifdef Q_OS_WIN
+HANDLE Connection::hQoS = NULL;
+#endif
+
 Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	qtsSocket->setParent(this);
@@ -57,10 +61,34 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 	connect(qtsSocket, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(socketSslErrors(const QList<QSslError> &)));
 	qtLastPacket.restart();
+#ifdef Q_OS_WIN
+	dwFlow = 0;
+#endif
 }
 
 Connection::~Connection() {
 	qsReceivers.remove(this);
+#ifdef Q_OS_WIN
+	if (dwFlow && hQoS) {
+		if (! QOSRemoveSocketFromFlow(hQoS, 0, dwFlow, 0))
+			qWarning("Connection: Failed to remove flow from QoS");
+	}
+#endif
+}
+
+void Connection::setToS() {
+#if defined(Q_OS_WIN)
+	if (dwFlow || ! hQoS)
+		return;
+
+	dwFlow = 0;
+	if (! QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), NULL, QOSTrafficTypeAudioVideo, QOS_NON_ADAPTIVE_FLOW, &dwFlow))
+		qWarning("Connection: Failed to add flow to QOS");
+#else if defined(Q_OS_UNIX)
+	int val = 0xa0;
+	if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+		log("Server: Failed to set TOS for TCP Socket");
+#endif
 }
 
 int Connection::activityTime() const {
@@ -265,3 +293,9 @@ QList<QSslCertificate> Connection::peerCertificateChain() const {
 QSslCipher Connection::sessionCipher() const {
 	return qtsSocket->sessionCipher();
 }
+
+#ifdef Q_OS_WIN
+void Connection::setQoS(HANDLE hParentQoS) {
+	hQoS = hParentQoS;
+}
+#endif
