@@ -217,12 +217,9 @@ void UnixMurmur::setuid() {
 			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
 			initialcap();
 		}
-	}
-#ifndef Q_OS_LINUX
-	else if (bRoot) {
+	} else if (bRoot) {
 		qCritical("WARNING: You are running murmurd as root, without setting a uname in the ini file. This might be a security risk.");
 	}
-#endif
 }
 
 void UnixMurmur::initialcap() {
