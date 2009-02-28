@@ -227,7 +227,7 @@ void UnixMurmur::setuid() {
 
 void UnixMurmur::initialcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_SYS_NICE, CAP_SYS_RESOURCE, CAP_NET_ADMIN, CAP_SETUID, CAP_SETGID, CAP_DAC_OVERRIDE };
+	cap_value_t caps[] = {CAP_SYS_NICE, CAP_NET_ADMIN, CAP_SETUID, CAP_SETGID, CAP_DAC_OVERRIDE };
 	
 	if (! bRoot)
 		return;
@@ -257,15 +257,6 @@ void UnixMurmur::finalcap() {
 
 	if (! bRoot)
 		return;
-
-	struct rlimit r;
-	getrlimit(RLIMIT_NOFILE, &r);
-	if (r.rlim_cur < 65536) {
-		r.rlim_max = (r.rlim_max > 65536) ? r.rlim_max : 65536;
-		r.rlim_cur = r.rlim_max;
-		qWarning("Increasing descriptor limit to %d.", static_cast<int>(r.rlim_cur));
-		setrlimit(RLIMIT_NOFILE, &r);
-	}
 
 	int ncap = sizeof(caps)/sizeof(cap_value_t);
 

@@ -25,6 +25,7 @@ test -x $DAEMON || exit 0
 INIFILE=/etc/mumble-server.ini
 DAEMON_OPTS="-ini $INIFILE"
 MURMUR_DAEMON_START=0
+MURMUR_USE_CAPABILITIES=0
 
 # Include murmur defaults if available
 if [ -f /etc/default/$NAME ] ; then
@@ -42,11 +43,18 @@ case "$1" in
   	fi
   	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
 	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR
-	start-stop-daemon --start --quiet \
+	if [ "$MURMUR_USE_CAPABILITIES" != "1" ] ; then
+	  start-stop-daemon --start --quiet \
 		--pidfile $PIDFILE \
 		--chuid $USER:$GROUP \
 		--exec $DAEMON \
 		-- $DAEMON_OPTS
+	else
+	  start-stop-daemon --start --quiet \
+		--pidfile $PIDFILE \
+		--exec $DAEMON \
+		-- $DAEMON_OPTS
+	fi
 	case "$?" in
 		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
 		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
@@ -84,11 +92,18 @@ case "$1" in
 		0|1)
 		  	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR
 			rm -f $PIDFILE
-			start-stop-daemon --start --quiet \
+			if [ "$MURMUR_USE_CAPABILITIES" != "1" ] ; then
+			  start-stop-daemon --start --quiet \
 				--pidfile $PIDFILE \
 				--chuid $USER:$GROUP \
 				--exec $DAEMON \
 				-- $DAEMON_OPTS
+			else
+			  start-stop-daemon --start --quiet \
+				--pidfile $PIDFILE \
+				--exec $DAEMON \
+				-- $DAEMON_OPTS
+			fi
 			case "$?" in
 				0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
 				*) [ "$VERBOSE" != no ] && log_end_msg 1 ;;

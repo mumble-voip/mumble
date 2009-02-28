@@ -44,8 +44,6 @@
 #include <sys/capability.h>
 #include <sys/prctl.h>
 #endif
-#include <sys/time.h>
-#include <sys/resource.h>
 #include <pwd.h>
 #ifdef __FreeBSD__
 #include <netinet/in_systm.h>
