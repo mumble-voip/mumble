@@ -3,6 +3,10 @@ Makefile.Debug
 Makefile.Release
 debug/
 release/
-*~
+speex/
+asio/
 local/
 indent.sh
+*.bat
+vc90.pdb
+*~
