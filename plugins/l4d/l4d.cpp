@@ -88,11 +88,11 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	top[0] = cos(v) * cos(h);
 	top[1] = -sin(h);
 	top[2] = sin(v) * cos(h);
-/*
-	printf("Poll\n");
-	printf("%f %f %f : %f %f\n",pos[0],pos[1],pos[2], rot[0], rot[1]);
-	printf("%f %f %f :: %.2f %.2f %.2f :: %.2f %.2f %.2f\n", opos[0], opos[1], opos[2], front[0], front[1], front[2], top[0], top[1], top[2]);
-*/
+	/*
+		printf("Poll\n");
+		printf("%f %f %f : %f %f\n",pos[0],pos[1],pos[2], rot[0], rot[1]);
+		printf("%f %f %f :: %.2f %.2f %.2f :: %.2f %.2f %.2f\n", opos[0], opos[1], opos[2], front[0], front[1], front[2], top[0], top[1], top[2]);
+	*/
 	return true;
 }
 

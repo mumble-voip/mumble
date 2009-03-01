@@ -57,16 +57,16 @@ void ShortcutKeyWidget::setShortcut(const QList<QVariant> &buttons) {
 }
 
 void ShortcutKeyWidget::focusInEvent(QFocusEvent *) {
-		setText(tr("Press Shortcut"));
+	setText(tr("Press Shortcut"));
 
-		QPalette pal=parentWidget()->palette();
-		pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
-		setPalette(pal);
+	QPalette pal=parentWidget()->palette();
+	pal.setColor(QPalette::Base, pal.color(QPalette::Base).dark(120));
+	setPalette(pal);
 
-		setForegroundRole(QPalette::Button);
-		GlobalShortcutEngine::engine->resetMap();
-		connect(GlobalShortcutEngine::engine, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
-		installEventFilter(this);
+	setForegroundRole(QPalette::Button);
+	GlobalShortcutEngine::engine->resetMap();
+	connect(GlobalShortcutEngine::engine, SIGNAL(buttonPressed(bool)), this, SLOT(updateKeys(bool)));
+	installEventFilter(this);
 }
 
 void ShortcutKeyWidget::focusOutEvent(QFocusEvent *e) {
@@ -157,12 +157,12 @@ int ShortcutActionWidget::index() const {
 }
 
 ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
-    QItemEditorFactory *factory = new QItemEditorFactory;
-    QItemEditorCreatorBase *shortcutCreator = new QStandardItemEditorCreator<ShortcutKeyWidget>();
-    QItemEditorCreatorBase *indexCreator = new QStandardItemEditorCreator<ShortcutActionWidget>();
+	QItemEditorFactory *factory = new QItemEditorFactory;
+	QItemEditorCreatorBase *shortcutCreator = new QStandardItemEditorCreator<ShortcutKeyWidget>();
+	QItemEditorCreatorBase *indexCreator = new QStandardItemEditorCreator<ShortcutActionWidget>();
 
-    factory->registerEditor(QVariant::List, shortcutCreator);
-    factory->registerEditor(QVariant::Int, indexCreator);
+	factory->registerEditor(QVariant::List, shortcutCreator);
+	factory->registerEditor(QVariant::Int, indexCreator);
 	setItemEditorFactory(factory);
 }
 
@@ -241,32 +241,32 @@ void GlobalShortcutConfig::save() const {
 }
 
 QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const {
-		QTreeWidgetItem *item = new QTreeWidgetItem();
-		item->setData(0, Qt::DisplayRole, sc.iIndex);
-		item->setData(1, Qt::DisplayRole, sc.qlButtons);
-		item->setCheckState(2, sc.bSuppress ? Qt::Checked : Qt::Unchecked);
-		item->setFlags(item->flags() | Qt::ItemIsEditable);
+	QTreeWidgetItem *item = new QTreeWidgetItem();
+	item->setData(0, Qt::DisplayRole, sc.iIndex);
+	item->setData(1, Qt::DisplayRole, sc.qlButtons);
+	item->setCheckState(2, sc.bSuppress ? Qt::Checked : Qt::Unchecked);
+	item->setFlags(item->flags() | Qt::ItemIsEditable);
 
-		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
+	::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 
-		if (gs) {
-			if (! gs->qsToolTip.isEmpty())
-				item->setData(0, Qt::ToolTipRole, gs->qsToolTip);
-			if (! gs->qsWhatsThis.isEmpty())
-				item->setData(0, Qt::WhatsThisRole, gs->qsWhatsThis);
-		}
+	if (gs) {
+		if (! gs->qsToolTip.isEmpty())
+			item->setData(0, Qt::ToolTipRole, gs->qsToolTip);
+		if (! gs->qsWhatsThis.isEmpty())
+			item->setData(0, Qt::WhatsThisRole, gs->qsWhatsThis);
+	}
 
-		item->setData(1, Qt::ToolTipRole, tr("Shortcut button combination."));
-		item->setData(1, Qt::WhatsThisRole, tr("<b>This is the global shortcut key combination.</b><br />"
-		                     "Double-click this field and then the desired key/button combo "
-		                     "to rebind."));
+	item->setData(1, Qt::ToolTipRole, tr("Shortcut button combination."));
+	item->setData(1, Qt::WhatsThisRole, tr("<b>This is the global shortcut key combination.</b><br />"
+	                                       "Double-click this field and then the desired key/button combo "
+	                                       "to rebind."));
 
-		item->setData(2, Qt::ToolTipRole, tr("Suppress keys from other applications"));
-		item->setData(2, Qt::WhatsThisRole, tr("<b>This hides the button presses from other applications.</b><br />"
-		                     "Enabling this will hide the button (or the last button of a multi-button combo) "
-		                     "from other applications. Note that not all buttons can be suppressed."));
+	item->setData(2, Qt::ToolTipRole, tr("Suppress keys from other applications"));
+	item->setData(2, Qt::WhatsThisRole, tr("<b>This hides the button presses from other applications.</b><br />"
+	                                       "Enabling this will hide the button (or the last button of a multi-button combo) "
+	                                       "from other applications. Note that not all buttons can be suppressed."));
 
-		return item;
+	return item;
 }
 
 void GlobalShortcutConfig::reload() {

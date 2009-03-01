@@ -78,18 +78,18 @@ typedef struct _Context {
 	GLuint uiProgram;
 } Context;
 
-static const char vshader[] = "" 
-"void main() {"
-"gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
-"gl_TexCoord[0] = gl_MultiTexCoord0;"
-"gl_FrontColor = gl_Color;"
-"}";
+static const char vshader[] = ""
+                              "void main() {"
+                              "gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
+                              "gl_TexCoord[0] = gl_MultiTexCoord0;"
+                              "gl_FrontColor = gl_Color;"
+                              "}";
 
-static const char fshader[] = "" 
-"uniform sampler2D tex;"
-"void main() {" 
-"gl_FragColor = gl_Color * texture2D(tex, gl_TexCoord[0].st);"
-"}";
+static const char fshader[] = ""
+                              "uniform sampler2D tex;"
+                              "void main() {"
+                              "gl_FragColor = gl_Color * texture2D(tex, gl_TexCoord[0].st);"
+                              "}";
 
 const GLfloat fBorder[] = {0.125f, 0.250f, 0.5f, 0.75f};
 
@@ -190,7 +190,7 @@ static void newContext(Context * ctx) {
 	}
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));
-	
+
 	const char *vsource = vshader;
 	const char *fsource = fshader;
 	char buffer[8192];
@@ -238,7 +238,7 @@ static void drawOverlay(Context *ctx, int width, int height) {
 		ods("Fail lock");
 		return;
 	}
-		
+
 	for (i = 0; i < NUM_TEXTS; i++) {
 		if (sm->texts[i].width == 0) {
 			y += iHeight / 4;
@@ -280,11 +280,11 @@ static void drawOverlay(Context *ctx, int width, int height) {
 			x = 1;
 		if ((x + w + 1) > width)
 			x = width - w - 1;
-			
+
 		bool regen = false;
 
 		if ((ctx->textures[index] == -1) || (! glIsTexture(ctx->textures[index]))) {
-			if (ctx->textures[index] != -1) 
+			if (ctx->textures[index] != -1)
 				ods("Lost texture");
 			regen = true;
 		} else {
@@ -364,7 +364,7 @@ static void drawContext(Context * ctx, int width, int height) {
 	glMatrixMode(GL_TEXTURE);
 	glPushMatrix();
 	glLoadIdentity();
-	
+
 
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_AUTO_NORMAL);
@@ -392,7 +392,7 @@ static void drawContext(Context * ctx, int width, int height) {
 	glDisable(GL_TEXTURE_GEN_R);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
-	
+
 	glRenderMode(GL_RENDER);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -401,29 +401,29 @@ static void drawContext(Context * ctx, int width, int height) {
 	glDisableClientState(GL_INDEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_EDGE_FLAG_ARRAY);
-	
+
 	glPixelStorei(GL_UNPACK_SWAP_BYTES, 0);
 	glPixelStorei(GL_UNPACK_LSB_FIRST, 0);
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
 	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	
+
 	GLint texunits = 1;
-	
+
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, &texunits);
-	
-	for(i=texunits-1;i>=0;--i) {
+
+	for (i=texunits-1;i>=0;--i) {
 		glActiveTexture(GL_TEXTURE0 + i);
 		glDisable(GL_TEXTURE_1D);
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE_3D);
 	}
-	
+
 	glDisable(GL_TEXTURE_CUBE_MAP);
 	glDisable(GL_VERTEX_PROGRAM_ARB);
 	glDisable(GL_FRAGMENT_PROGRAM_ARB);
-	
+
 	glUseProgram(ctx->uiProgram);
 
 	glEnable(GL_COLOR_MATERIAL);
@@ -434,21 +434,21 @@ static void drawContext(Context * ctx, int width, int height) {
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glMatrixMode(GL_MODELVIEW);
-	
+
 	GLint uni = glGetUniformLocation(ctx->uiProgram, "tex");
 	glUniform1i(uni, 0);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+
 	drawOverlay(ctx, width, height);
 
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
-	
+
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 
@@ -499,7 +499,7 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 				c->bValid = true;
 				if ((major > 1) || (major==1 && minor >= 3))
 					c->bGlx = true;
-			} 
+			}
 			contexts = c;
 			newContext(c);
 		}
@@ -567,11 +567,11 @@ static void initializeLibrary() {
 		const char *strtab = NULL;
 
 		ElfW(Dyn) *dyn = lm->l_ld;
-		
+
 		while (dyn->d_tag) {
-			switch(dyn->d_tag) {
+			switch (dyn->d_tag) {
 				case DT_HASH:
-					nchains = *(int *) (dyn->d_un.d_ptr + 4);
+					nchains = *(int *)(dyn->d_un.d_ptr + 4);
 					break;
 				case DT_STRTAB:
 					strtab = (const char *) dyn->d_un.d_ptr;
@@ -583,7 +583,7 @@ static void initializeLibrary() {
 			dyn ++;
 		}
 		ods("Iterating dlsym table %p %p %d", symtab, strtab, nchains);
-		for(i=0;i<nchains;++i) {
+		for (i=0;i<nchains;++i) {
 			if (ELF32_ST_TYPE(symtab[i].st_info) != STT_FUNC)
 				continue;
 			if (strcmp(strtab+symtab[i].st_name, "dlsym") == 0)

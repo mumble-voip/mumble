@@ -164,7 +164,7 @@ AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigne
 		memcpy(data, qbaSample.constData(), qbaSample.length());
 		ogg_sync_wrote(&sync, qbaSample.length());
 
-		while(ogg_sync_pageout(&sync, &page)==1) {
+		while (ogg_sync_pageout(&sync, &page)==1) {
 			if (! stream_init)  {
 				ogg_stream_init(&stream, ogg_page_serialno(&page));
 				stream_init = true;
@@ -172,7 +172,7 @@ AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigne
 				ogg_stream_reset_serialno(&stream, ogg_page_serialno(&page));
 			}
 			ogg_stream_pagein(&stream, &page);
-			while(! eos && ogg_stream_packetout(&stream, &packet) == 1) {
+			while (! eos && ogg_stream_packetout(&stream, &packet) == 1) {
 				if (packet.bytes >= 5 && memcmp(packet.packet, "Speex", 5)==0) {
 					speex_serialno = stream.serialno;
 				}

@@ -111,7 +111,7 @@ int UnixMurmur::iTermFd[2];
 
 UnixMurmur::UnixMurmur() {
 	bRoot = true;
-	
+
 	if (geteuid() != 0 && getuid() != 0) {
 		bRoot = false;
 	}
@@ -225,15 +225,15 @@ void UnixMurmur::setuid() {
 void UnixMurmur::initialcap() {
 #ifdef Q_OS_LINUX
 	cap_value_t caps[] = {CAP_SYS_NICE, CAP_NET_ADMIN, CAP_SETUID, CAP_SETGID, CAP_DAC_OVERRIDE };
-	
+
 	if (! bRoot)
 		return;
-		
+
 	int ncap = sizeof(caps)/sizeof(cap_value_t);
-	
+
 	if (geteuid() != 0)
 		ncap--;
-		
+
 	cap_t c = cap_init();
 	cap_clear(c);
 	cap_set_flag(c, CAP_EFFECTIVE, ncap, caps, CAP_SET);

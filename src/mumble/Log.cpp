@@ -235,7 +235,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 			if (gnome.isValid())
 				response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), uiLastId, qsIcon, msgName(mt), console, QStringList(), hints, -1);
 		}
-		
+
 		if (response.type()==QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
 			uiLastId = response.arguments().at(0).toUInt();
 		} else {

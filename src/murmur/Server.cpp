@@ -107,7 +107,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		BOOL bNewBehaviour = FALSE;
 		if (WSAIoctl(sUdpSocket, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
 			log(QString("Failed to set SIO_UDP_CONNRESET: %1").arg(WSAGetLastError()));
-		    }
+		}
 #endif
 		if (sUdpSocket == INVALID_SOCKET) {
 			log("Failed to create UDP Socket");
@@ -125,7 +125,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 				int val = 0xe0;
 				if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
 					int val = 0x80;
-					if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val))) 
+					if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 						log("Server: Failed to set TOS for UDP Socket");
 				}
 #endif

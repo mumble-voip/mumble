@@ -88,7 +88,7 @@ void Connection::setToS() {
 	int val = 0xa0;
 	if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
 		int val = 0x60;
-		if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val))) 
+		if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 			qWarning("Connection: Failed to set TOS for TCP Socket");
 	}
 #endif

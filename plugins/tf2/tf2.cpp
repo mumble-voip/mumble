@@ -67,7 +67,7 @@ static void about(HWND h) {
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
-    
+
 	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
 		return false;
 
@@ -106,17 +106,17 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-    
+
 	// Check if we really have tf2 running
 	/*
-		position tuple:		client.dll+0x4bad7c  (x,y,z, float)               
+		position tuple:		client.dll+0x4bad7c  (x,y,z, float)
 		orientation tuple:	client.dll+0x4b17dc  (v,h float)
 		ID string:			client.dll+0x46623b = "teamJet@@" (9 characters, text)
 	*/
 	char sMagic[9];
-	if(!peekProc(mod + 0x46623b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
-	return false;
-    
+	if (!peekProc(mod + 0x46623b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+		return false;
+
 	// Remember addresses for later
 	posptr = mod + 0x4bad7c;
 	rotptr = mod + 0x4b17dc;
@@ -130,7 +130,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-    // If it failed clean up
+	// If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;

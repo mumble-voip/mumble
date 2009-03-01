@@ -43,8 +43,8 @@
 #include "Global.h"
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED < 1050
- #undef SEM_FAILED
- #define SEM_FAILED ((sem_t *)-1)
+#undef SEM_FAILED
+#define SEM_FAILED ((sem_t *)-1)
 #endif
 
 class SharedMemoryPrivate {
@@ -102,8 +102,8 @@ void SharedMemory::resolve(QLibrary *) {
 bool SharedMemory::tryLock() {
 	if (d->sem) {
 #ifdef Q_OS_MACX
-		#define SLEEP_NSEC 10000000
-		#define SLICE_NSEC (SLEEP_NSEC/5)
+#define SLEEP_NSEC 10000000
+#define SLICE_NSEC (SLEEP_NSEC/5)
 		int ret;
 		long remain = SLEEP_NSEC;
 		struct timespec r, s = { 0, SLICE_NSEC };

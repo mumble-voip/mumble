@@ -691,7 +691,7 @@ static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthentic
 	if (mi->qmServerAuthenticator[server_id])
 		server->disconnectAuthenticator(mi);
 
-	::Murmur::ServerAuthenticatorPrx prx;		
+	::Murmur::ServerAuthenticatorPrx prx;
 
 	try {
 		prx = ::Murmur::ServerAuthenticatorPrx::checkedCast(aptr->ice_connectionCached(false));
