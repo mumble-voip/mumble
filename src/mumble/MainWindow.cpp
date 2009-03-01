@@ -1051,7 +1051,12 @@ void MainWindow::on_qaAudioReset_triggered() {
 }
 
 void MainWindow::on_qaAudioMute_triggered() {
+        AudioInputPtr ai = g.ai;
+        if (ai)
+            ai->tIdle.restart();
+
 	g.s.bMute = qaAudioMute->isChecked();
+
 	if (! g.s.bMute && g.s.bDeaf) {
 		g.s.bDeaf = false;
 		qaAudioDeaf->setChecked(false);
@@ -1071,6 +1076,10 @@ void MainWindow::on_qaAudioMute_triggered() {
 }
 
 void MainWindow::on_qaAudioDeaf_triggered() {
+        AudioInputPtr ai = g.ai;
+        if (ai)
+            ai->tIdle.restart();
+
 	g.s.bDeaf = qaAudioDeaf->isChecked();
 	if (g.s.bDeaf && ! g.s.bMute) {
 		g.s.bMute = true;
