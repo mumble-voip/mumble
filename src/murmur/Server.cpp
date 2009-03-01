@@ -739,31 +739,20 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 }
 
 void Server::sendChannelDescription(Player *p, Channel *c) {
-	// To be backwards compatible to clients prior or equal to version 1.1.7
-	// we will send a server message to each one
-	QString desc;
-
-	desc="<br /><u>";
-	desc.append(c->qsName);
-	desc.append(":</u><br /><br />");
-	desc.append(c->qsDesc);
-
-	sendTextMessage(NULL, static_cast<User*>(p), false, desc);
+	sendTextMessage(NULL, static_cast<User*>(p), false, QString("<u>%1:</u><br />%2").arg(c->qsName).arg(c->qsDesc));
 }
 
 void Server::sendChannelDescriptionUpdate(Channel *changed, Channel *current) {
-	if (current==NULL) {
-		qWarning() << "Itering changed channel " << changed->qsName;
+	if (current==NULL)
 		current=changed;
-	} else qWarning() << "Itering sub-channel " << current->qsName;
 
 	foreach(Player *siblingPlayer, current->qlPlayers) {
-		qWarning() << "Itering player " << siblingPlayer->qsName;
 		sendChannelDescription(siblingPlayer, changed);
 	}
 
 	foreach(Channel *siblingChannel, current->qlChannels) {
-		if (siblingChannel->qsDesc.isEmpty()) sendChannelDescriptionUpdate(changed, siblingChannel);
+		if (siblingChannel->qsDesc.isEmpty())
+			sendChannelDescriptionUpdate(changed, siblingChannel);
 	}
 }
 
