@@ -663,7 +663,7 @@ static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr cb, 
 	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
 
 	try {
-		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::checkedCast(cbptr->ice_oneway());
+		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false));
 		if (! qmList.contains(oneway))
 			qmList.append(oneway);
 		cb->ice_response();
@@ -677,7 +677,7 @@ static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPt
 	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
 
 	try {
-		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::uncheckedCast(cbptr->ice_oneway());
+		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false));
 		qmList.removeAll(oneway);
 		cb->ice_response();
 	} catch (...) {
@@ -685,16 +685,19 @@ static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPt
 	}
 }
 
-static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthenticatorPtr& cb, int server_id, const ::Murmur::ServerAuthenticatorPrx& aptr) {
+static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthenticatorPtr& cb, int server_id, const ::Murmur::ServerAuthenticatorPrx &aptr) {
 	NEED_SERVER;
 
 	if (mi->qmServerAuthenticator[server_id])
 		server->disconnectAuthenticator(mi);
 
-	try {
-		const ::Murmur::ServerUpdatingAuthenticatorPrx uprx = ::Murmur::ServerUpdatingAuthenticatorPrx::checkedCast(aptr);
+	::Murmur::ServerAuthenticatorPrx prx;		
 
-		mi->qmServerAuthenticator[server_id] = aptr;
+	try {
+		prx = ::Murmur::ServerAuthenticatorPrx::checkedCast(aptr->ice_connectionCached(false));
+		const ::Murmur::ServerUpdatingAuthenticatorPrx uprx = ::Murmur::ServerUpdatingAuthenticatorPrx::checkedCast(prx);
+
+		mi->qmServerAuthenticator[server_id] = prx;
 		if (uprx)
 			mi->qmServerUpdatingAuthenticator[server_id] = uprx;
 	} catch (...) {
@@ -702,7 +705,7 @@ static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthentic
 		return;
 	}
 
-	if (aptr)
+	if (prx)
 		server->connectAuthenticator(mi);
 
 	cb->ice_response();
@@ -884,7 +887,7 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 	}
 
 	try {
-		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::checkedCast(cbptr->ice_oneway());
+		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false));
 		qmPrx.insert(fromStdUtf8String(action), oneway);
 		cb->ice_response();
 	} catch (...) {
@@ -906,7 +909,7 @@ static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeCon
 	QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > & qmPrx = mi->qmServerContextCallbacks[server_id];
 
 	try {
-		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::uncheckedCast(cbptr->ice_oneway());
+		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false));
 
 		foreach(int session, qmPrx.keys()) {
 			QMap<QString, ::Murmur::ServerContextCallbackPrx> qm = qmPrx[session];
@@ -1306,7 +1309,7 @@ static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, cons
 
 static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
 	try {
-		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::checkedCast(cbptr->ice_oneway());
+		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false));
 		if (! mi->qmMetaCallbacks.contains(oneway))
 			mi->qmMetaCallbacks.append(oneway);
 		cb->ice_response();
@@ -1317,7 +1320,7 @@ static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr cb, cons
 
 static void impl_Meta_removeCallback(const Murmur::AMD_Meta_removeCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
 	try {
-		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::uncheckedCast(cbptr->ice_oneway());
+		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false));
 		mi->qmMetaCallbacks.removeAll(oneway);
 		cb->ice_response();
 	} catch (...) {
