@@ -1,0 +1,9 @@
+TEMPLATE	=app
+CONFIG  += qt thread warn_on network qdbus xml qtestlib sql debug
+QT += qdbus xml sql network
+LANGUAGE	= C++
+TARGET = Hash
+SOURCES = Hash.cpp Timer.cpp
+HEADERS = Timer.h
+VPATH += ..
+INCLUDEPATH += .. ../murmur ../mumble
