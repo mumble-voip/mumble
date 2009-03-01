@@ -5975,7 +5975,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="WASAPI.cpp" line="202"/>
         <source>Default Device</source>
-        <translation>Standard Gerät</translation>
+        <translation>Standardgerät</translation>
     </message>
 </context>
 <context>
