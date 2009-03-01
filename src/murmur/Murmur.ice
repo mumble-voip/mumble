@@ -421,12 +421,12 @@ module Murmur
 		 */
 		idempotent void setSuperuserPasssword(string pw);
 
-		/** Fetch log.
-		 * @param min Only log entries older than this many seconds will be fetched.
-		 * @param max Only log entries newer than this many seconds will be fetched.
-		 * @return List of log entries for the period.
+		/** Fetch log entries.
+		 * @param first Lowest numbered entry to fetch. 0 is the most recent item.
+		 * @param last Last entry to fetch.
+		 * @return List of log entries.
 		 */
-		idempotent LogList getLog(int min, int max);
+		idempotent LogList getLog(int first, int last);
 
 		/** Fetch all players. This returns all currently connected players on the server.
 		 * @return List of connected players.
