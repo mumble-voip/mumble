@@ -280,6 +280,11 @@ void MainWindow::msgChannelRename(Connection *, MessageChannelRename *msg) {
 		pmModel->renameChannel(c, msg->qsName);
 }
 
+void MainWindow::msgChannelDescUpdate(Connection *, MessageChannelDescUpdate *msg) {
+	Channel *c = Channel::get(msg->iId);
+	if (c) c->qsDesc=msg->qsDesc;
+}
+
 void MainWindow::msgChannelLink(Connection *, MessageChannelLink *msg) {
 	Channel *c = Channel::get(msg->iId);
 	if (!c)

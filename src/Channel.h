@@ -47,6 +47,7 @@ class Channel : public QObject {
 		int iId;
 		Channel *cParent;
 		QString qsName;
+		QString qsDesc;
 		QList<Channel *> qlChannels;
 		QList<Player *> qlPlayers;
 		QHash<QString, Group *> qhGroups;
@@ -63,11 +64,11 @@ class Channel : public QObject {
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;
 
-		Channel(int id, QString name, QObject *p = NULL);
+		Channel(int id, QString name, QString desc, QObject *p = NULL);
 		~Channel();
 
 		static Channel *get(int);
-		static Channel *add(int, QString, QObject *p = NULL);
+		static Channel *add(int, QString, QString, QObject *p = NULL);
 		static void remove(Channel *);
 
 		void addChannel(Channel *c);

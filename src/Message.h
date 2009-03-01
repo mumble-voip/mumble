@@ -43,7 +43,7 @@ class Message {
 		virtual void saveStream(PacketDataStream &) const;
 		virtual void restoreStream(PacketDataStream &);
 	public:
-		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync, PingStats, ContextAction, ContextAddAction };
+		enum MessageType { ServerReject, ServerAuthenticate, Speex, ServerSync, ServerJoin, ServerLeave, ServerBanList, PlayerMute, PlayerDeaf, PlayerKick, PlayerRename, PlayerBan, PlayerMove, PlayerSelfMuteDeaf, ChannelAdd, ChannelRemove, ChannelMove, ChannelLink, ChannelRename, PermissionDenied, EditACL, QueryUsers, Ping, TextMessage, PlayerTexture, CryptSetup, CryptSync, PingStats, ContextAction, ContextAddAction, ChannelDescUpdate };
 		unsigned int uiSession;
 
 		Message();
@@ -309,6 +309,18 @@ class MessageChannelRename : public Message {
 		};
 };
 
+class MessageChannelDescUpdate : public Message {
+	protected:
+		void saveStream(PacketDataStream &) const;
+		void restoreStream(PacketDataStream &);
+	public:
+		int iId;
+		QString qsDesc;
+		Message::MessageType messageType() const {
+			return ChannelDescUpdate;
+		};
+};
+
 class MessageServerBanList : public Message {
 	protected:
 		void saveStream(PacketDataStream &) const;
@@ -486,6 +498,7 @@ class MessageHandler {
 		virtual void msgChannelMove(Connection *, MessageChannelMove *) = 0;
 		virtual void msgChannelLink(Connection *, MessageChannelLink *) = 0;
 		virtual void msgChannelRename(Connection *, MessageChannelRename *) = 0;
+		virtual void msgChannelDescUpdate(Connection *, MessageChannelDescUpdate *) = 0;
 		virtual void msgServerBanList(Connection *, MessageServerBanList *) = 0;
 		virtual void msgTextMessage(Connection *, MessageTextMessage *) = 0;
 		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *) = 0;

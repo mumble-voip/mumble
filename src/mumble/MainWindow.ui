@@ -303,6 +303,17 @@
     <string>This renames a channel.</string>
    </property>
   </action>
+  <action name="qaChannelDescUpdate" >
+   <property name="text" >
+    <string>&amp;Changed Channel Description</string>
+   </property>
+   <property name="toolTip" >
+    <string>Changes the channel description</string>
+   </property>
+   <property name="whatsThis" >
+    <string>This changes the description of a channel.</string>
+   </property>
+  </action>
   <action name="qaChannelLink" >
    <property name="text" >
     <string>&amp;Link</string>

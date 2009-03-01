@@ -133,6 +133,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelRemove_triggered();
 		void on_qaChannelACL_triggered();
 		void on_qaChannelRename_triggered();
+		void on_qaChannelDescUpdate_triggered();
 		void on_qaChannelLink_triggered();
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
@@ -197,6 +198,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void msgChannelMove(Connection *, MessageChannelMove *);
 		virtual void msgChannelLink(Connection *, MessageChannelLink *);
 		virtual void msgChannelRename(Connection *, MessageChannelRename *);
+		virtual void msgChannelDescUpdate(Connection *, MessageChannelDescUpdate *);
 		virtual void msgServerBanList(Connection *, MessageServerBanList *);
 		virtual void msgTextMessage(Connection *, MessageTextMessage *);
 		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);

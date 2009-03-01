@@ -819,6 +819,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelRemove);
 	qmChannel->addAction(qaChannelACL);
 	qmChannel->addAction(qaChannelRename);
+	qmChannel->addAction(qaChannelDescUpdate);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelLink);
 	qmChannel->addAction(qaChannelUnlink);
@@ -841,13 +842,14 @@ void MainWindow::on_qmChannel_aboutToShow() {
 			qmChannel->addAction(a);
 	}
 
-	bool add, remove, acl, rename, link, unlink, unlinkall, msg;
-	add = remove = acl = rename = link = unlink = unlinkall = msg = false;
+	bool add, remove, acl, rename, descUpdate, link, unlink, unlinkall, msg;
+	add = remove = acl = rename = descUpdate = link = unlink = unlinkall = msg = false;
 
 	if (g.uiSession != 0) {
 		add = true;
 		acl = true;
 		msg = true;
+		descUpdate = true;
 
 		Channel *c = pmModel->getChannel(idx);
 		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
@@ -871,6 +873,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	qaChannelRemove->setEnabled(remove);
 	qaChannelACL->setEnabled(acl);
 	qaChannelRename->setEnabled(rename);
+	qaChannelDescUpdate->setEnabled(descUpdate);
 	qaChannelLink->setEnabled(link);
 	qaChannelUnlink->setEnabled(unlink);
 	qaChannelUnlinkAll->setEnabled(unlinkall);
@@ -936,6 +939,31 @@ void MainWindow::on_qaChannelRename_triggered() {
 		mcr.iId = id;
 		mcr.qsName = name;
 		g.sh->sendMessage(&mcr);
+	}
+}
+
+void MainWindow::on_qaChannelDescUpdate_triggered() {
+	bool ok;
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	if (! c)
+		return;
+
+	int id = c->iId;
+
+	TextMessage tm;
+	tm.setWindowTitle(tr("Change description of channel %1").arg(c->qsName));
+	tm.qteEdit->setText(c->qsDesc);
+	int res = tm.exec();
+
+	c = Channel::get(id);
+	if (!c)
+		return;
+
+	if (res==QDialog::Accepted) {
+		MessageChannelDescUpdate mcdu;
+		mcdu.iId = id;
+		mcdu.qsDesc = tm.message();
+		g.sh->sendMessage(&mcdu);
 	}
 }
 

@@ -169,7 +169,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
 			SQLDO("CREATE TRIGGER %1config_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1config WHERE server_id = old.server_id; END;");
 
-			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name TEXT, inheritacl INTEGER)");
+			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name TEXT, inheritacl INTEGER, description TEXT)");
 			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
 			SQLDO("CREATE TRIGGER %1channels_parent_del AFTER DELETE ON %1channels FOR EACH ROW BEGIN DELETE FROM %1channels WHERE parent_id = old.channel_id AND server_id = old.server_id; UPDATE %1players SET lastchannel=0 WHERE lastchannel = old.channel_id AND server_id = old.server_id; END;");
 			SQLDO("CREATE TRIGGER %1channels_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1channels WHERE server_id = old.server_id; END;");
@@ -205,7 +205,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TRIGGER %1bans_del_server AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1bans WHERE server_id = old.server_id; END;");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
-			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','2')");
+			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','3')");
 
 			SQLDO("VACUUM");
 		} else {
@@ -220,7 +220,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX %1config_key ON %1config(server_id, keystring)");
 			SQLDO("ALTER TABLE %1config ADD CONSTRAINT %1config_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name varchar(255), inheritacl INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+			SQLDO("CREATE TABLE %1channels (server_id INTEGER NOT NULL, channel_id INTEGER NOT NULL, parent_id INTEGER, name varchar(255), inheritacl INTEGER, description TEXT) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("CREATE UNIQUE INDEX %1channel_id ON %1channels(server_id, channel_id)");
 			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_parent_del FOREIGN KEY (server_id, parent_id) REFERENCES %1channels(server_id,channel_id) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE %1channels ADD CONSTRAINT %1channels_server_del FOREIGN KEY (server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
@@ -258,7 +258,7 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE %1bans ADD CONSTRAINT %1bans_del_server FOREIGN KEY(server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
-			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','2')");
+			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','3')");
 		}
 
 		if (migrate) {
@@ -288,6 +288,7 @@ ServerDB::ServerDB() {
 
 			SQLDO("UPDATE %1meta SET value='2' WHERE keystring='version'");
 			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
+			SQLDO("ALTER TABLE %1channels ADD COLUMN description TEXT");
 		} else {
 			SQLDO("CREATE TABLE %1slog(server_id INTEGER, msg TEXT, msgtime TIMESTAMP) Type=InnoDB");
 			SQLDO("CREATE INDEX %1slog_time ON %1slog(msgtime)");
@@ -306,6 +307,15 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE %1players CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1servers CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			SQLDO("ALTER TABLE %1slog CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+			SQLDO("ALTER TABLE %1channels ADD COLUMN description TEXT");
+		}
+	} else if (version < 3) {
+		if (Meta::mp.qsDBDriver == "QSQLITE") {
+			SQLDO("UPDATE %1meta SET value='3' WHERE keystring='version'");
+			SQLDO("ALTER TABLE %1channels ADD COLUMN description TEXT");
+		} else {
+			SQLDO("UPDATE %1meta SET value='3' WHERE keystring='version'");
+			SQLDO("ALTER TABLE %1channels ADD COLUMN description TEXT");
 		}
 	}
 	query.clear();
@@ -879,7 +889,7 @@ void Server::removeLink(Channel *c, Channel *l) {
 	}
 }
 
-Channel *Server::addChannel(Channel *p, const QString &name) {
+Channel *Server::addChannel(Channel *p, const QString &name, const QString &desc) {
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
@@ -892,13 +902,14 @@ Channel *Server::addChannel(Channel *p, const QString &name) {
 		id = query.value(0).toInt();
 
 
-	SQLPREP("INSERT INTO %1channels (server_id, parent_id, channel_id, name) VALUES (?,?,?,?)");
+	SQLPREP("INSERT INTO %1channels (server_id, parent_id, channel_id, name, description) VALUES (?,?,?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(p->iId);
 	query.addBindValue(id);
 	query.addBindValue(name);
+	query.addBindValue(desc);
 	SQLEXEC();
-	Channel *c = new Channel(id, name, p);
+	Channel *c = new Channel(id, name, desc, p);
 	qhChannels.insert(id, c);
 	return c;
 }
@@ -920,10 +931,11 @@ void Server::updateChannel(const Channel *c) {
 	ChanACL *acl;
 
 	QSqlQuery &query = *th.qsqQuery;
-	SQLPREP("UPDATE %1channels SET name = ?, parent_id = ?, inheritacl = ? WHERE server_id = ? AND channel_id = ?");
+	SQLPREP("UPDATE %1channels SET name = ?, parent_id = ?, inheritacl = ?, description = ? WHERE server_id = ? AND channel_id = ?");
 	query.addBindValue(c->qsName);
 	query.addBindValue(c->cParent ? c->cParent->iId : QVariant());
 	query.addBindValue(c->bInheritACL ? 1 : 0);
+	query.addBindValue(c->qsDesc);
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	SQLEXEC();
@@ -1045,17 +1057,17 @@ void Server::readChannels(Channel *p) {
 	{
 		TransactionHolder th;
 		if (parentid == -1) {
-			SQLPREP("SELECT channel_id, name, inheritacl FROM %1channels WHERE server_id = ? AND parent_id IS NULL ORDER BY name");
+			SQLPREP("SELECT channel_id, name, inheritacl, description FROM %1channels WHERE server_id = ? AND parent_id IS NULL ORDER BY name");
 			query.addBindValue(iServerNum);
 		} else {
-			SQLPREP("SELECT channel_id, name, inheritacl FROM %1channels WHERE server_id = ? AND parent_id=? ORDER BY name");
+			SQLPREP("SELECT channel_id, name, inheritacl, description FROM %1channels WHERE server_id = ? AND parent_id=? ORDER BY name");
 			query.addBindValue(iServerNum);
 			query.addBindValue(parentid);
 		}
 		SQLEXEC();
 
 		while (query.next()) {
-			c = new Channel(query.value(0).toInt(), query.value(1).toString(), p);
+			c = new Channel(query.value(0).toInt(), query.value(1).toString(), query.value(3).toString(), p);
 			if (! p)
 				c->setParent(this);
 			qhChannels.insert(c->iId, c);
@@ -1134,6 +1146,7 @@ void Server::dumpChannel(const Channel *c) {
 	}
 
 	qWarning("Channel %s (ACLInherit %d)", qPrintable(c->qsName), c->bInheritACL);
+	qWarning("Description: %s", qPrintable(c->qsDesc));
 	foreach(g, c->qhGroups) {
 		qWarning("Group %s (Inh %d  Able %d)", qPrintable(g->qsName), g->bInherit, g->bInheritable);
 		foreach(pid, g->qsAdd)

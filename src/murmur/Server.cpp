@@ -124,7 +124,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 #ifdef Q_OS_UNIX
 				int val = 0xe0;
 				if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
-					int val = 0x80;
+					val = 0x80;
 					if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 						log("Server: Failed to set TOS for UDP Socket");
 				}
@@ -738,6 +738,35 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 			u->sendMessage(mMsg);
 }
 
+void Server::sendChannelDescription(Player *p, Channel *c) {
+	// To be backwards compatible to clients prior or equal to version 1.1.7
+	// we will send a server message to each one
+	QString desc;
+
+	desc="<br /><u>";
+	desc.append(c->qsName);
+	desc.append(":</u><br /><br />");
+	desc.append(c->qsDesc);
+
+	sendTextMessage(NULL, static_cast<User*>(p), false, desc);
+}
+
+void Server::sendChannelDescriptionUpdate(Channel *changed, Channel *current) {
+	if (current==NULL) {
+		qWarning() << "Itering changed channel " << changed->qsName;
+		current=changed;
+	} else qWarning() << "Itering sub-channel " << current->qsName;
+
+	foreach(Player *siblingPlayer, current->qlPlayers) {
+		qWarning() << "Itering player " << siblingPlayer->qsName;
+		sendChannelDescription(siblingPlayer, changed);
+	}
+
+	foreach(Channel *siblingChannel, current->qlChannels) {
+		if (siblingChannel->qsDesc.isEmpty()) sendChannelDescriptionUpdate(changed, siblingChannel);
+	}
+}
+
 void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	Channel *c;
 	Player *p;
@@ -785,10 +814,25 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 	if (quiet && (p->cChannel == c))
 		return;
 
+	// Get old and new channel of user
+	// Lookup first channel in list of parent channels of new and old one
+	// which has a channel description
+	Channel *oldChannel=p->cChannel;
+	Channel *newChannel=c;
+
+	while (oldChannel && oldChannel->qsDesc.isEmpty()) oldChannel=oldChannel->cParent;
+	while (newChannel && newChannel->qsDesc.isEmpty()) newChannel=newChannel->cParent;
+
 	{
 		QWriteLocker wl(&qrwlUsers);
 		c->addPlayer(p);
 	}
+
+	// Only send message with channel description if it changed
+	// That means the channel has its own description or it does not
+	// share the same first parent channel which has one with the channel
+	// the user came from
+	if (newChannel && newChannel!=oldChannel) sendChannelDescription(p, newChannel);
 
 	if (quiet)
 		return;

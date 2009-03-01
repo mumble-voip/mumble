@@ -178,6 +178,13 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 
 		sendMessage(cCon, &mca);
 
+		MessageChannelDescUpdate mcdu;
+
+		mcdu.iId = c->iId;
+		mcdu.qsDesc = c->qsDesc;
+
+		sendMessage(static_cast<User *>(p), &mcdu);
+
 		foreach(c, c->qlChannels)
 			q.enqueue(c);
 	}
@@ -454,7 +461,7 @@ void Server::msgChannelAdd(Connection *cCon, MessageChannelAdd *msg) {
 		}
 	}
 
-	Channel *c = addChannel(p, msg->qsName);
+	Channel *c = addChannel(p, msg->qsName, QString());
 	if (uSource->iId >= 0) {
 		Group *g = new Group(c, "admin");
 		g->qsAdd << uSource->iId;
@@ -521,6 +528,25 @@ void Server::msgChannelRename(Connection *cCon, MessageChannelRename *msg) {
 	sendAll(msg);
 
 	emit channelStateChanged(c);
+}
+
+void Server::msgChannelDescUpdate(Connection *cCon, MessageChannelDescUpdate *msg) {
+	MSG_SETUP(Player::Authenticated);
+	Channel *c = qhChannels.value(msg->iId);
+
+	if (!c)
+		return;
+
+	if (! hasPermission(uSource, c, ChanACL::Write)) {
+		PERM_DENIED(uSource, c, ChanACL::Write);
+		return;
+	}
+
+	log(uSource, QString("Changed description for channel %1 to: %2").arg(*c).arg(msg->qsDesc));
+	c->qsDesc = msg->qsDesc;
+	updateChannel(c);
+	sendAll(msg);
+	sendChannelDescriptionUpdate(c);
 }
 
 void Server::msgChannelMove(Connection *cCon, MessageChannelMove *msg) {

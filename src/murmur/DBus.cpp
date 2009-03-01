@@ -433,7 +433,7 @@ void MurmurDBus::sendMessageChannel(int id, bool tree, const QString &text, cons
 void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMessage &msg, int &newid) {
 	CHANNEL_SETUP_VAR(chanparent);
 
-	Channel *nc = server->addChannel(cChannel, name);
+	Channel *nc = server->addChannel(cChannel, name, QString());
 	server->updateChannel(nc);
 	newid = nc->iId;
 

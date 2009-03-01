@@ -205,6 +205,8 @@ class Server : public QThread, public MessageHandler {
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
 		void sendMessage(Connection *, Message *);
+		void sendChannelDescription(Player *, Channel *);
+		void sendChannelDescriptionUpdate(Channel *changed, Channel *current=NULL);
 
 		void setLiveConf(const QString &key, const QString &value);
 
@@ -256,7 +258,7 @@ class Server : public QThread, public MessageHandler {
 		void initialize();
 		typedef QPair<quint32, int> qpBan;
 		int authenticate(QString &name, const QString &pw);
-		Channel *addChannel(Channel *c, const QString &name);
+		Channel *addChannel(Channel *c, const QString &name, const QString &desc = QString());
 		void removeChannel(const Channel *c);
 		void readChannels(Channel *p = NULL);
 		void readLinks();
@@ -306,6 +308,7 @@ class Server : public QThread, public MessageHandler {
 		virtual void msgChannelMove(Connection *, MessageChannelMove *);
 		virtual void msgChannelLink(Connection *, MessageChannelLink *);
 		virtual void msgChannelRename(Connection *, MessageChannelRename *);
+		virtual void msgChannelDescUpdate(Connection *, MessageChannelDescUpdate *);
 		virtual void msgServerBanList(Connection *, MessageServerBanList *);
 		virtual void msgTextMessage(Connection *, MessageTextMessage *);
 		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);
