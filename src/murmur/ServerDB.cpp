@@ -720,15 +720,35 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 		return false;
 
 	QByteArray tex;
-	if (texture.size() != 600 * 60 * 4)
-		tex = qUncompress(texture);
-	else
-		tex = texture;
+	if (! texture.isEmpty()) {
+		quint32 l = 600*60*4;
+		if (texture.size() < 4)
+			return false;
 
-	if (tex.size() != 600 * 60 * 4)
-		return false;
+		if (texture.size() != l) {
+			const unsigned char *data = reinterpret_cast<const unsigned char *>(texture.constData());
 
-	tex = qCompress(tex);
+			if (((data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3]) == l) {
+				tex = qUncompress(texture);
+			} else {
+				QByteArray qba(4,0);
+				qba[0] = (l >> 24) & 0xFF;
+				qba[1] = (l >> 16) & 0xFF;
+				qba[2] = (l >> 8) & 0xFF;
+				qba[3] = (l >> 0) & 0xFF;
+				qba.append(texture);
+				tex = qUncompress(qba);
+			}
+		} else {
+			tex = texture;
+		}
+
+		if (tex.size() != 600 * 60 * 4)
+			return false;
+	}
+
+	if (! tex.isEmpty())
+		tex = qCompress(tex);
 
 	int res = -2;
 	emit setTextureSig(res, id, tex);
