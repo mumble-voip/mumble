@@ -305,7 +305,7 @@
   </action>
   <action name="qaChannelDescUpdate" >
    <property name="text" >
-    <string>&amp;Changed Channel Description</string>
+    <string>&amp;Change Channel Description</string>
    </property>
    <property name="toolTip" >
     <string>Changes the channel description</string>
