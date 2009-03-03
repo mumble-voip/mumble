@@ -155,6 +155,18 @@ void Server::startThread() {
 	if (! isRunning()) {
 		bRunning = true;
 		start(QThread::HighestPriority);
+#ifdef Q_OS_LINUX
+		// QThread::HighestPriority == Same as everything else...
+		int policy;
+		struct sched_param param;
+		if (pthread_getschedparam(pthread_self(), &policy, &param) == 0) {
+			if (policy == SCHED_OTHER) {
+				policy = SCHED_FIFO;
+				param.sched_priority = 1;
+				pthread_setschedparam(pthread_self(), policy, &param);
+			}
+		}
+#endif
 	}
 	if (! qtTimeout->isActive())
 		qtTimeout->start(15500);

@@ -224,7 +224,7 @@ void UnixMurmur::setuid() {
 
 void UnixMurmur::initialcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_SYS_NICE, CAP_NET_ADMIN, CAP_SETUID, CAP_SETGID, CAP_DAC_OVERRIDE };
+	cap_value_t caps[] = {CAP_NET_ADMIN, CAP_SETUID, CAP_SETGID, CAP_SYS_RESOURCE, CAP_DAC_OVERRIDE };
 
 	if (! bRoot)
 		return;
@@ -250,10 +250,21 @@ void UnixMurmur::initialcap() {
 
 void UnixMurmur::finalcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_SYS_NICE, CAP_NET_ADMIN };
+	cap_value_t caps[] = {CAP_NET_ADMIN};
+	struct rlimit r;
 
 	if (! bRoot)
 		return;
+
+	if (getrlimit(RLIMIT_RTPRIO, &r) != 0) {
+		qCritical("Failed to get priority limits.");
+	} else {
+		qWarning("Was %d %d", r.rlim_cur, r.rlim_max);
+		r.rlim_cur = r.rlim_max = 1;
+		if (setrlimit(RLIMIT_RTPRIO, &r) != 0) {
+			qCritical("Failed to set priority limits.");
+		}
+	}
 
 	int ncap = sizeof(caps)/sizeof(cap_value_t);
 
