@@ -62,20 +62,20 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 3755)", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3698)", L"Mumble CSS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
-
-	if ((v < -360.0f) || (v > 360.0f) || (h < -360.0f) || (h > 360.0f))
+    
+	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
 		return false;
 
 	h *= static_cast<float>(M_PI / 180.0f);
 	v *= static_cast<float>(M_PI / 180.0f);
 
-	// Seems TF2 is in inches. INCHES?!?
+	// Seems CSS is in inches. INCHES?!?
 	opos[0] = pos[0] / 39.37f;
 	opos[1] = pos[2] / 39.37f;
 	opos[2] = pos[1] / 39.37f;
@@ -94,7 +94,6 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 }
 
 static int trylock() {
-
 	h = NULL;
 	posptr = rotptr = NULL;
 
@@ -108,21 +107,21 @@ static int trylock() {
 	if (!h)
 		return false;
     
-	// Check if we really have TF2 running
+	// Check if we really have CSS running
 	/*
-		position tuple:		client.dll+0x4cd594  (x,y,z, float)               
-		orientation tuple:	client.dll+0x52529c  (v,h float)
-		ID string:			client.dll+0x47726b = "teamJet@@" (9 characters, text)
-		spawn state:        client.dll+0x466b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+		position tuple:		client.dll+0x39b504  (x,y,z, float)               
+		orientation tuple:	client.dll+0x3ec684  (v,h float)
+		ID string:			client.dll+0x39cde9 = "CSSpectatorGUI@@" (16 characters, text)
+		spawn state:		client.dll+0x38e050  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
 	*/
-	char sMagic[9];
-	if(!peekProc(mod + 0x47726b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+    char sMagic[16];
+	if(!peekProc(mod + 0x39cde9, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
 	return false;
-    
+
 	// Remember addresses for later
-	posptr = mod + 0x4cd594;
-	rotptr = mod + 0x52529c;
-	stateptr = mod + 0x466b84;
+	posptr = mod + 0x39b504;
+	rotptr = mod + 0x3ec684;
+	stateptr = mod + 0x38e050;
 
 	float pos[3];
 	float rot[3];
@@ -148,30 +147,31 @@ static void unlock() {
 }
 
 static int fetch(float *pos, float *front, float *top) {
-	for (int i=0;i<3;i++)
-		pos[i] = front[i] = top[i] = 0;
-
 	float ipos[3], rot[3];
 	bool ok;
 	char state;
 
+	for (int i=0;i<3;i++)
+		pos[i] = front[i] = top[i] = 0;
+
 	ok = peekProc(posptr, ipos, 12) &&
 		 peekProc(rotptr, rot, 12) &&
-		 peekProc(stateptr, &state, 1); 
+		 peekProc(stateptr , &state, 1); 
 	if (!ok)
 		return false;
 
-	// Check to see if you are in a server
-	if (state == 0 || state == 1 || state == 3)
+	//Check to see if you are in a server
+	//spawn state: client.dll+0x38e050  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
+	if (state == 0 || state == 3)
 		return true; // Deactivate plugin
 	
 	return calcout(ipos, rot, pos, front, top);
 }
 
-static MumblePlugin tf2plug = {
+static MumblePlugin cssplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Team Fortress 2 (Build 3755)",
-	L"Team Fortress 2",
+	L"Counter-Strike: Source (Build 3698)",
+	L"Counter-Strike: Source",
 	about,
 	NULL,
 	trylock,
@@ -180,5 +180,5 @@ static MumblePlugin tf2plug = {
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &tf2plug;
+	return &cssplug;
 }

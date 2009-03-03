@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 3755)", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Half-Life 2: Deathmatch (Build 3698)", L"Mumble HL2DM Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -75,7 +75,7 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	h *= static_cast<float>(M_PI / 180.0f);
 	v *= static_cast<float>(M_PI / 180.0f);
 
-	// Seems TF2 is in inches. INCHES?!?
+	// Seems HL2DM is in inches. INCHES?!?
 	opos[0] = pos[0] / 39.37f;
 	opos[1] = pos[2] / 39.37f;
 	opos[2] = pos[1] / 39.37f;
@@ -108,21 +108,21 @@ static int trylock() {
 	if (!h)
 		return false;
     
-	// Check if we really have TF2 running
+	// Check if we really have HL2DM running
 	/*
-		position tuple:		client.dll+0x4cd594  (x,y,z, float)               
-		orientation tuple:	client.dll+0x52529c  (v,h float)
-		ID string:			client.dll+0x47726b = "teamJet@@" (9 characters, text)
-		spawn state:        client.dll+0x466b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+		position tuple:		client.dll+0x3dcad4  (x,y,z, float)               
+		orientation tuple:	client.dll+0x3dcae0  (v,h float)
+		ID string:			client.dll+0x3a5674 = "Dm/$" (4 characters, text)
+        spawn state:        client.dll+0x37e180  (0 when at main menu, 2 when not spawned, 7 when spawned, byte)
 	*/
-	char sMagic[9];
-	if(!peekProc(mod + 0x47726b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+    char sMagic[4];
+	if(!peekProc(mod + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4)!=0)
 	return false;
-    
+
 	// Remember addresses for later
-	posptr = mod + 0x4cd594;
-	rotptr = mod + 0x52529c;
-	stateptr = mod + 0x466b84;
+	posptr = mod + 0x3dcad4;
+	rotptr = mod + 0x3dcae0;
+    stateptr = mod + 0x37e180;
 
 	float pos[3];
 	float rot[3];
@@ -150,28 +150,28 @@ static void unlock() {
 static int fetch(float *pos, float *front, float *top) {
 	for (int i=0;i<3;i++)
 		pos[i] = front[i] = top[i] = 0;
-
+	
 	float ipos[3], rot[3];
 	bool ok;
-	char state;
-
+    char state;
+	
 	ok = peekProc(posptr, ipos, 12) &&
-		 peekProc(rotptr, rot, 12) &&
-		 peekProc(stateptr, &state, 1); 
+	     peekProc(rotptr, rot, 12) &&
+         peekProc(stateptr, &state, 1);
 	if (!ok)
 		return false;
 
-	// Check to see if you are in a server
-	if (state == 0 || state == 1 || state == 3)
+	// Check to see if you are spawned
+	if (state == 0 || state == 2)
 		return true; // Deactivate plugin
-	
+
 	return calcout(ipos, rot, pos, front, top);
 }
 
-static MumblePlugin tf2plug = {
+static MumblePlugin hl2dmplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Team Fortress 2 (Build 3755)",
-	L"Team Fortress 2",
+	L"Half-Life 2: Deathmatch (Build 3698)",
+	L"Half-Life 2: Deathmatch",
 	about,
 	NULL,
 	trylock,
@@ -180,5 +180,5 @@ static MumblePlugin tf2plug = {
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &tf2plug;
+	return &hl2dmplug;
 }

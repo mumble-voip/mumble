@@ -62,20 +62,20 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 3755)", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Age of Chivalry (Build 3740)", L"Mumble AOC Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
-
+    
 	if ((v < -360.0f) || (v > 360.0f) || (h < -360.0f) || (h > 360.0f))
 		return false;
 
 	h *= static_cast<float>(M_PI / 180.0f);
 	v *= static_cast<float>(M_PI / 180.0f);
 
-	// Seems TF2 is in inches. INCHES?!?
+	// Seems AOC is in inches. INCHES?!?
 	opos[0] = pos[0] / 39.37f;
 	opos[1] = pos[2] / 39.37f;
 	opos[2] = pos[1] / 39.37f;
@@ -94,7 +94,6 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 }
 
 static int trylock() {
-
 	h = NULL;
 	posptr = rotptr = NULL;
 
@@ -108,21 +107,22 @@ static int trylock() {
 	if (!h)
 		return false;
     
-	// Check if we really have TF2 running
+	// Check if we really have AOC running
 	/*
-		position tuple:		client.dll+0x4cd594  (x,y,z, float)               
-		orientation tuple:	client.dll+0x52529c  (v,h float)
-		ID string:			client.dll+0x47726b = "teamJet@@" (9 characters, text)
-		spawn state:        client.dll+0x466b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+		position tuple:		client.dll+0xb72ad0  (x,y,z, float)               
+		orientation tuple:	client.dll+0xb73b90  (v,h float)
+		ID string:			client.dll+0xb2e6e0 = "ageofchivalry" (13 characters, text)
+		spawn state:        client.dll+0xb33ae8  (0 when at main menu, 1 when at team selection, 2 when not spawned, 
+		                                          6 when spawned on red team, 7 when spawned on blue team, byte)
 	*/
-	char sMagic[9];
-	if(!peekProc(mod + 0x47726b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+    char sMagic[13];
+	if(!peekProc(mod + 0xb2e6e0, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
 	return false;
-    
+
 	// Remember addresses for later
-	posptr = mod + 0x4cd594;
-	rotptr = mod + 0x52529c;
-	stateptr = mod + 0x466b84;
+	posptr = mod + 0xb72ad0;
+	rotptr = mod + 0xb73b90;
+	stateptr = mod + 0xb33ae8;
 
 	float pos[3];
 	float rot[3];
@@ -161,17 +161,17 @@ static int fetch(float *pos, float *front, float *top) {
 	if (!ok)
 		return false;
 
-	// Check to see if you are in a server
-	if (state == 0 || state == 1 || state == 3)
+	// Check to see if you are spawned
+	if (state == 0 || state == 1 || state == 2)
 		return true; // Deactivate plugin
 	
 	return calcout(ipos, rot, pos, front, top);
 }
 
-static MumblePlugin tf2plug = {
+static MumblePlugin aocplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Team Fortress 2 (Build 3755)",
-	L"Team Fortress 2",
+	L"Age of Chivalry (Build 3740)",
+	L"Age of Chivalry",
 	about,
 	NULL,
 	trylock,
@@ -180,5 +180,5 @@ static MumblePlugin tf2plug = {
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &tf2plug;
+	return &aocplug;
 }
