@@ -5,7 +5,6 @@ use warnings;
 use Carp;
 use Switch;
 use Archive::Tar;
-use Compress::Bzip2;
 use LWP::UserAgent;
 
 my %files;
@@ -32,13 +31,19 @@ foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro
 }
 
 if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
-  my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)=gmtime(time);
-  $ver=sprintf("%04d-%02d-%02d-%02d%02d",$year+1900,$mon+1,$mday,$hour,$min);
+  open(F, "git rev-parse --short=6 origin|");
+  $ver = "";
+  while (<F>) {
+    chomp();
+    $ver .= $_;
+  }
+  close(F);
+  print "REVISION $ver\n";
 }
 
-system("/usr/local/Trolltech/Qt-4.4.3/bin/qmake CONFIG+=static CONFIG+=no-client");
+system("/usr/local/Trolltech/Qt-4.5.0/bin/qmake CONFIG+=static CONFIG+=no-client");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.4.3/bin/qmake CONFIG+=static CONFIG+=no-client");
+system("/usr/local/Trolltech/Qt-4.5.0/bin/qmake CONFIG+=static CONFIG+=no-client");
 system("make");
 system("strip release/murmurd");
 
@@ -77,8 +82,7 @@ foreach my $file (sort keys %files) {
   close(F);
 }
 
-my $bz=bzopen("murmur-static_x86-${ver}.tar.bz2", "w");
-$bz->bzwrite($tar->write());
-$bz->bzclose();
-system("/usr/bin/scp","murmur-static_x86-${ver}.tar.bz2", "xeno\@mix.hive.no:WEB/mumble.hive.no/snapshot/");
+$tar->write("murmur-static_x86-${ver}.tar");
+system("lzma -9 murmur-static_x86-${ver}.tar");
+system("/usr/bin/scp","murmur-static_x86-${ver}.tar.lzma", "xeno\@mix.hive.no:WEB/mumble.hive.no/snapshot/");
 system("/usr/bin/ssh","xeno\@mix.hive.no","/home/xeno/WEB/mumble.hive.no/snapshot.cgi");
