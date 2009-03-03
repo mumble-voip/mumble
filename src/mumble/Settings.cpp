@@ -136,7 +136,10 @@ Settings::Settings() {
 	dMaxPacketDelay = 0.0f;
 
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
-		qmMessages.insert(i, Settings::LogConsole | Settings::LogTTS | Settings::LogBalloon);
+		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
+
+	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
+		qmMessageSounds.insert(i, QString(""));
 
 	qmMessages[Log::DebugInfo] = Settings::LogConsole;
 	qmMessages[Log::Information] = Settings::LogConsole;
@@ -314,6 +317,13 @@ void Settings::load() {
 	}
 	g.qs->endArray();
 
+	g.qs->beginReadArray(QLatin1String("messagesounds"));
+	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {
+		g.qs->setArrayIndex(it.key());
+		SAVELOAD(qmMessageSounds[it.key()], "logsound");
+	}
+	g.qs->endArray();
+
 	g.qs->beginGroup(QLatin1String("lcd/devices"));
 	foreach(const QString &d, g.qs->childKeys()) {
 		qmLCDDevices.insert(d, g.qs->value(d, true).toBool());
@@ -450,6 +460,13 @@ void Settings::save() {
 	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
 		g.qs->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
+	}
+	g.qs->endArray();
+
+	g.qs->beginWriteArray(QLatin1String("messagesounds"));
+	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {
+		g.qs->setArrayIndex(it.key());
+		SAVELOAD(qmMessageSounds[it.key()], "logsound");
 	}
 	g.qs->endArray();
 
