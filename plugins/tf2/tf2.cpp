@@ -11,6 +11,7 @@
 HANDLE h;
 BYTE *posptr;
 BYTE *rotptr;
+BYTE *stateptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -68,7 +69,7 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	float h = rot[0];
 	float v = rot[1];
 
-	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
+	if ((v < -360.0f) || (v > 360.0f) || (h < -360.0f) || (h > 360.0f))
 		return false;
 
 	h *= static_cast<float>(M_PI / 180.0f);
@@ -106,20 +107,22 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-
-	// Check if we really have tf2 running
+    
+	// Check if we really have TF2 running
 	/*
-		position tuple:		client.dll+0x4bad7c  (x,y,z, float)
-		orientation tuple:	client.dll+0x4b17dc  (v,h float)
-		ID string:			client.dll+0x46623b = "teamJet@@" (9 characters, text)
+		position tuple:		client.dll+0x4cd594  (x,y,z, float)               
+		orientation tuple:	client.dll+0x52529c  (v,h float)
+		ID string:			client.dll+0x47726b = "teamJet@@" (9 characters, text)
+		spawn state:        client.dll+0x466b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
 	*/
 	char sMagic[9];
-	if (!peekProc(mod + 0x46623b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
-		return false;
-
+	if(!peekProc(mod + 0x47726b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	return false;
+    
 	// Remember addresses for later
-	posptr = mod + 0x4bad7c;
-	rotptr = mod + 0x4b17dc;
+	posptr = mod + 0x4cd594;
+	rotptr = mod + 0x52529c;
+	stateptr = mod + 0x466b84;
 
 	float pos[3];
 	float rot[3];
@@ -130,7 +133,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-	// If it failed clean up
+    // If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -145,15 +148,24 @@ static void unlock() {
 }
 
 static int fetch(float *pos, float *front, float *top) {
+	for (int i=0;i<3;i++)
+		pos[i] = front[i] = top[i] = 0;
+
 	float ipos[3], rot[3];
 	bool ok;
+	char state;
+
 	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12);
+		 peekProc(rotptr, rot, 12) &&
+		 peekProc(stateptr, &state, 1); 
+	if (!ok)
+		return false;
 
-	if (ok)
-		return calcout(ipos, rot, pos, front, top);
-
-	return false;
+	// Check to see if you are in a server
+	if (state == 0 || state == 1 || state == 3)
+		return true; // Deactivate plugin
+	
+	return calcout(ipos, rot, pos, front, top);
 }
 
 static MumblePlugin tf2plug = {
