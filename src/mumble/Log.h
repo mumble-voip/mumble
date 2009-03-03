@@ -33,6 +33,7 @@
 
 #include "mumble_pch.hpp"
 #include "ConfigDialog.h"
+#include "AudioOutput.h"
 #include "ui_Log.h"
 
 class TextToSpeech;

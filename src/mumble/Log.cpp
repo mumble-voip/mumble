@@ -171,6 +171,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 
 	quint32 flags = g.s.qmMessages.value(mt);
 
+	// Message output on console
 	if ((flags & Settings::LogConsole)) {
 		QTextCursor tc=g.mw->qteLog->textCursor();
 		tc.movePosition(QTextCursor::End);
@@ -189,6 +190,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		g.mw->qteLog->ensureCursorVisible();
 	}
 
+	// Message notification with balloon tooltips
 	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))  {
 		QString qsIcon;
 		switch (mt) {
@@ -260,6 +262,16 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		}
 	}
 
+	// Message notification with static sounds
+	if ((flags & Settings::LogSoundfile) && g.ao) {
+		QString sSound = g.s.qmMessageSounds.value(mt, QString(""));
+		qWarning(QString("Soundfile: '%1'").arg(sSound).toAscii());
+		if (sSound != "") {
+			(g.ao)->playSample(sSound, false);
+		}
+	}
+
+	// Message notification with Text-To-Speech
 	if (! g.s.bTTS || !(flags & Settings::LogTTS))
 		return;
 
