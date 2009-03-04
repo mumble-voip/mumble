@@ -41,15 +41,14 @@
 #include "mach_inject.h"
 #include "../stub/stub.h"
 
-#define STUB_BUNDLE     "Contents/Overlay/Stub.framework"
-#define OVERLAY_BUNDLE  "Contents/Overlay/Overlay.framework"
+#define STUB_BUNDLE     "/System/Library/MumbleOverlay/Bundles/Stub.framework"
+#define OVERLAY_BUNDLE  "/System/Library/MumbleOverlay/Bundles/Overlay.framework"
 
 static void
 usage(void)
 {
 	printf("Usage: mumble-overlay-injector [options] <pid>\n");
 	printf("\n");
-	printf("  -a      Force a specific Mumble app-bundle to be used for injection.\n");
 	printf("  -h -?   Show usage information.\n");
 	printf("\n");
 	exit(0);
@@ -69,7 +68,7 @@ main(int argc, char *argv[])
 	pid_t injectpid = 0;
 	char *appbundle = NULL;
 
-	while ((c = getopt(argc, argv, "ha:")) != -1) {
+	while ((c = getopt(argc, argv, "h?")) != -1) {
 		switch (c) {
 			case 'h':
 			case '?':
@@ -88,37 +87,15 @@ main(int argc, char *argv[])
 		usage();
 
 	/*
-	 * Look up Mumble app bundle.
-	 */
-	if (!appbundle) {
-		if (LSFindApplicationForInfo('MBLE', CFSTR("net.sourceforge.mumble"),
-		                               CFSTR("Mumble.app"), &fsr, &url) != noErr) {
-			fprintf(stderr, "Unable to find Mumble application bundle.\n");
-			return 1;
-		}
-	} else {
-		CFStringRef str = CFStringCreateWithCString(kCFAllocatorDefault, appbundle, kCFStringEncodingUTF8);
-		if (! str) {
-			fprintf(stderr, "Unable to convert string to CFStringRef.\n");
-			return 1;
-		}
-		url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, str, kCFURLPOSIXPathStyle, TRUE); 
-		if (! url) {
-			fprintf(stderr, "Unable to create default AppBundle URL.\n");
-			return 1;
-		}
-	}
-
-	/*
 	 * Ready up the strings of our bundles.
 	 */
-	CFURLRef stubBundle = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, url, CFSTR(STUB_BUNDLE), false);
+	CFURLRef stubBundle = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, CFSTR(STUB_BUNDLE), kCFURLPOSIXPathStyle, true);
 	if (! stubBundle) {
 		fprintf(stderr, "CFURLCreateCopyAppendingPathComponent failed for STUB_BUNDLE.\n");
 		return 1;
 	}
 
-	CFURLRef overlayBundle = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, url, CFSTR(OVERLAY_BUNDLE), false);
+	CFURLRef overlayBundle = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, CFSTR(STUB_BUNDLE), kCFURLPOSIXPathStyle, true);
 	if (! overlayBundle) {
 		fprintf(stderr, "CFURLCreateCopyAppendingPathComponent failed for OVERLAY_BUNDLE.\n");
 		return 1;
@@ -129,13 +106,13 @@ main(int argc, char *argv[])
 	 */
 	CFBooleanRef stubExists = CFURLCreatePropertyFromResource(kCFAllocatorDefault, stubBundle, kCFURLFileExists, NULL);
 	if (!stubExists || !CFBooleanGetValue(stubExists)) {
-		fprintf(stderr, "Stub bundle not found in application bundle.\n");
+		fprintf(stderr, "Unable to locate Stub bundle.\n");
 		return 1;
 	}
 
 	CFBooleanRef overlayExists = CFURLCreatePropertyFromResource(kCFAllocatorDefault, overlayBundle, kCFURLFileExists, NULL);
 	if (!overlayExists || !CFBooleanGetValue(overlayExists)) {
-		fprintf(stderr, "Overlay bundle not found in application bundle.\n");
+		fprintf(stderr, "Unable to locate Overlay bundle.\n");
 		return 1;
 	}
 
@@ -152,7 +129,7 @@ main(int argc, char *argv[])
 	if (! entry) {
 		fprintf(stderr, "Unable to find symbol '%s' in bundle.\n", INJECT_ENTRY_SYMBOL);
 		return 1;
-    	}
+	}
 
 	/*
 	 * Set up stub parameters.
