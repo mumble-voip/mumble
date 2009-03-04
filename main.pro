@@ -30,4 +30,6 @@ CONFIG *= ordered debug_and_release
   SUBDIRS *= src/murmur
 }
 
-DIST=LICENSE INSTALL README README.Linux CHANGES compiler.pri
+DIST=LICENSE INSTALL README README.Linux CHANGES
+
+include(scripts/scripts.pro)
