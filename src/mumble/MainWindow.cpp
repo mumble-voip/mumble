@@ -227,10 +227,6 @@ void MainWindow::createActions() {
 	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 
-	qmTray = new QMenu(this);
-	qmTray->addAction(tr("&Quit"), this, SLOT(on_qaQuit_triggered()));
-	qstiIcon->setContextMenu(qmTray);
-	updateTrayIcon();
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -291,6 +287,14 @@ void MainWindow::setupGui()  {
 	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
 
 	setupView(false);
+
+	qmTray = new QMenu(this);
+	qmTray->addAction(qaAudioMute);
+	qmTray->addAction(qaAudioDeaf);
+	qmTray->addSeparator();
+	qmTray->addAction(qaQuit);
+	qstiIcon->setContextMenu(qmTray);
+	updateTrayIcon();
 }
 
 MainWindow::~MainWindow() {
