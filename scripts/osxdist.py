@@ -138,29 +138,6 @@ class AppBundle(object):
 
 		shutil.copy(src, dst)
 
-	def copy_overlay(self):
-		'''
-			Copy resources needed by the overlay.
-		'''
-		print ' * Copying overlay resources'
-		dst = os.path.join(self.bundle, 'Contents', 'Overlay')
-		if os.path.exists(dst):
-			shutil.rmtree(dst)
-		os.mkdir(dst)
-		dirs = [ 'Overlay.framework', 'Stub.framework' ]
-		for dir in dirs:
-			shutil.copytree(os.path.join(self.bundle, '..', dir), os.path.join(dst, dir))
-
-		print ' * Copying mumble-overlay-injector binary'
-		src = os.path.join(self.bundle, '..', 'mumble-overlay-injector')
-		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'mumble-overlay-injector')
-
-		# Is it universal?
-		if self.universal and not self.is_universal_binary(src):
-			raise self.UniversalBinaryException("Murmur executable is not an Universal Binary. Aborting.")
-
-		shutil.copy(src, dst)
-
 	def copy_resources(self, rsrcs):
 		'''
 			Copy needed resources into our bundle.
@@ -297,7 +274,6 @@ if __name__ == '__main__':
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
-	a.copy_overlay()
 	a.copy_murmur()
 	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns'])
