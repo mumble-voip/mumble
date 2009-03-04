@@ -68,7 +68,7 @@ static void about(HWND h) {
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
-    
+
 	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
 		return false;
 
@@ -106,17 +106,17 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-    
+
 	// Check if we really have CSS running
 	/*
-		position tuple:		client.dll+0x39b504  (x,y,z, float)               
+		position tuple:		client.dll+0x39b504  (x,y,z, float)
 		orientation tuple:	client.dll+0x3ec684  (v,h float)
 		ID string:			client.dll+0x39cde9 = "CSSpectatorGUI@@" (16 characters, text)
 		spawn state:		client.dll+0x38e050  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
 	*/
-    char sMagic[16];
-	if(!peekProc(mod + 0x39cde9, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
-	return false;
+	char sMagic[16];
+	if (!peekProc(mod + 0x39cde9, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
+		return false;
 
 	// Remember addresses for later
 	posptr = mod + 0x39b504;
@@ -132,7 +132,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-    // If it failed clean up
+	// If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -155,8 +155,8 @@ static int fetch(float *pos, float *front, float *top) {
 		pos[i] = front[i] = top[i] = 0;
 
 	ok = peekProc(posptr, ipos, 12) &&
-		 peekProc(rotptr, rot, 12) &&
-		 peekProc(stateptr , &state, 1); 
+	     peekProc(rotptr, rot, 12) &&
+	     peekProc(stateptr , &state, 1);
 	if (!ok)
 		return false;
 
@@ -164,7 +164,7 @@ static int fetch(float *pos, float *front, float *top) {
 	//spawn state: client.dll+0x38e050  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
 	if (state == 0 || state == 3)
 		return true; // Deactivate plugin
-	
+
 	return calcout(ipos, rot, pos, front, top);
 }
 

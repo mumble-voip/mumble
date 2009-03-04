@@ -68,7 +68,7 @@ static void about(HWND h) {
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
-    
+
 	if ((v < -360.0f) || (v > 360.0f) || (h < -360.0f) || (h > 360.0f))
 		return false;
 
@@ -106,17 +106,17 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-    
+
 	// Check if we really have Gmod running
 	/*
-		position tuple:		client.dll+0x5ee120  (x,y,z, float)               
+		position tuple:		client.dll+0x5ee120  (x,y,z, float)
 		orientation tuple:	client.dll+0x43e2dc  (v,h float)
 		ID string:			client.dll+0x44e740 = "GMod@@" (6 characters, text)
 		spawn state:        client.dll+0x5b6a9d  (0 when at main menu, 8 when spawned, byte)
 	*/
-    char sMagic[6];
-	if(!peekProc(mod + 0x44e740, sMagic, 6) || strncmp("GMod@@", sMagic, 6)!=0)
-	return false;
+	char sMagic[6];
+	if (!peekProc(mod + 0x44e740, sMagic, 6) || strncmp("GMod@@", sMagic, 6)!=0)
+		return false;
 
 	// Remember addresses for later
 	posptr = mod + 0x5ee120;
@@ -132,7 +132,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-    // If it failed clean up
+	// If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -155,15 +155,15 @@ static int fetch(float *pos, float *front, float *top) {
 	char state;
 
 	ok = peekProc(posptr, ipos, 12) &&
-		 peekProc(rotptr, rot, 12) &&
-		 peekProc(stateptr, &state, 1); 
+	     peekProc(rotptr, rot, 12) &&
+	     peekProc(stateptr, &state, 1);
 	if (!ok)
 		return false;
 
 	// Check to see if you are in a server
 	if (state == 0)
 		return true; // Deactivate plugin
-	
+
 	return calcout(ipos, rot, pos, front, top);
 }
 

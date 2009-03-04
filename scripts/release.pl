@@ -31,41 +31,58 @@ my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'f
 system("rm mumble-*");
 
 
-my @pro = ("main.pro", "src/mumble.pri");
-adddir(".", \@pro);
+my @pro = ("main.pro");
+#, "src/mumble.pri");
+#adddir(".", \@pro);
 
-foreach my $pro (@pro) {
+while (my $pro = shift @pro) {
   open(F, $pro) or croak "Failed to open $pro";
   print "Processing $pro\n";
   $files{$pro}=1;
   my $basedir=$pro;
   $basedir =~ s/[^\/]+\Z//g;
+  my @vpath = ($basedir);
   while(<F>) {
     chomp();
-    if (/^\s*(\w+)\s*?[\+\-\*]{0,1}=\s*(.+)$/) {
+    if (/^include\((.+)\)/) {
+      my $f = $basedir . $1;
+      $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+      $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+      $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+      push @pro, $f;
+    } elsif (/^\s*(\w+)\s*?[\+\-\*]{0,1}=\s*(.+)$/) {
       my ($var,$value)=(lc $1,$2);
       switch ($var) {
         case "version" {
           croak "Versions don't match" if (defined($ver) && ($ver ne $value));
           $ver=$value;
         }
+        case "vpath" {
+          push @vpath,map { "$basedir$_/"} split(/\s/, $value);
+        }
+        case "subdirs" {
+          push @pro,map { my ($b,$p) = ($_,$_); $p =~ s/^.+\///g; "$basedir$b/$p.pro" } split(/\s/, $value);
+        }
         case %filevars {
           foreach my $f (split(/\s+/,$value)) {
-            $f =~ s/^.+\///g;
-            if (-f "${basedir}$f") {
-              $files{$basedir.$f}=1;
-            } else {
               my $ok = 0;
-              foreach my $d ("", "speexbuild/", "speexbuild/speex/", "src/", "src/mumble/", "src/murmur/", "icons/", "scripts/", "plugins/", "overlay/", "overlay_gl/", "speex/libspeex/", "g15helper/") {
+              foreach my $d (@vpath) {
                 if (-f "$d$f") {
-                  $files{$d.$f}=1;
+                  $f = $d.$f;
                   $ok = 1;
+                  last;
                 }
               }
               if (! $ok) {
-                croak "Failed to find $f";
+                croak "Failed to find $f in ".join(" ",@vpath);
+              } else {
+                if ($f =~ /\.\./) {
+                  $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+                  $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+                  $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+                }
+                $files{$f}=1;
               }
-            }
           }
         }
       }
@@ -80,7 +97,11 @@ while(<F>) {
   if (/\<file\>(.+)<\/file\>/) {
     $files{$1}=1;
   } elsif (/\<file alias=\"(.+)\"\>/) {
-    $files{"icons/$1"}=1;
+    if ( -f "icons/$1") {
+      $files{"icons/$1"}=1;
+    } else {
+      $files{"samples/$1"}=1;
+    }
   }
 }
 close(F);

@@ -107,22 +107,22 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-    
+
 	// Check if we really have HL2DM running
 	/*
-		position tuple:		client.dll+0x3dcad4  (x,y,z, float)               
+		position tuple:		client.dll+0x3dcad4  (x,y,z, float)
 		orientation tuple:	client.dll+0x3dcae0  (v,h float)
 		ID string:			client.dll+0x3a5674 = "Dm/$" (4 characters, text)
-        spawn state:        client.dll+0x37e180  (0 when at main menu, 2 when not spawned, 7 when spawned, byte)
+	    spawn state:        client.dll+0x37e180  (0 when at main menu, 2 when not spawned, 7 when spawned, byte)
 	*/
-    char sMagic[4];
-	if(!peekProc(mod + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4)!=0)
-	return false;
+	char sMagic[4];
+	if (!peekProc(mod + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4)!=0)
+		return false;
 
 	// Remember addresses for later
 	posptr = mod + 0x3dcad4;
 	rotptr = mod + 0x3dcae0;
-    stateptr = mod + 0x37e180;
+	stateptr = mod + 0x37e180;
 
 	float pos[3];
 	float rot[3];
@@ -133,7 +133,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-    // If it failed clean up
+	// If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -150,14 +150,14 @@ static void unlock() {
 static int fetch(float *pos, float *front, float *top) {
 	for (int i=0;i<3;i++)
 		pos[i] = front[i] = top[i] = 0;
-	
+
 	float ipos[3], rot[3];
 	bool ok;
-    char state;
-	
+	char state;
+
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
-         peekProc(stateptr, &state, 1);
+	     peekProc(stateptr, &state, 1);
 	if (!ok)
 		return false;
 
