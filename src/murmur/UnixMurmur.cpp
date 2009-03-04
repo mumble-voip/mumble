@@ -209,6 +209,23 @@ void UnixMurmur::handleSigTerm() {
 
 void UnixMurmur::setuid() {
 	if (Meta::mp.uiUid != 0) {
+#ifdef Q_OS_DARWIN
+		qCritical("WARNING: You are launching murmurd as root on Mac OS X or Darwin. Murmur does not need "
+		          "special privileges to set itself up on these systems, so this behavior is highly discouraged.");
+
+		if (::setgid(Meta::mp.uiGid) != 0)
+			qFatal("Failed to switch to gid %d", Meta::mp.uiGid);
+		if (::setuid(Meta::mp.uiUid) != 0)
+			qFatal("Failed to switch to uid %d", Meta::mp.uiUid);
+
+		uid_t uid = getuid(), euid = geteuid();
+		gid_t gid = getgid(), egid = getegid();
+		if (uid == Meta::mp.uiUid && euid == Meta::mp.uiUid
+		     && gid == Meta::mp.uiGid && egid == Meta::mp.uiGid) {
+			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
+		} else
+			qFatal("Couldn't switch uid/gid.");
+#else
 		if (setregid(Meta::mp.uiGid, Meta::mp.uiGid) != 0)
 			qCritical("Failed to switch to gid %d", Meta::mp.uiGid);
 		if (setresuid(Meta::mp.uiUid, Meta::mp.uiUid, 0) != 0) {
@@ -217,6 +234,7 @@ void UnixMurmur::setuid() {
 			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
 			initialcap();
 		}
+#endif
 	} else if (bRoot) {
 		qCritical("WARNING: You are running murmurd as root, without setting a uname in the ini file. This might be a security risk.");
 	}
