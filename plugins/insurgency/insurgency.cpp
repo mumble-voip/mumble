@@ -68,7 +68,7 @@ static void about(HWND h) {
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
-    
+
 	if ((v < -360.0f) || (v > 360.0f) || (h < -360.0f) || (h > 360.0f))
 		return false;
 
@@ -106,17 +106,17 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-    
+
 	// Check if we really have Insurgency running
 	/*
-		position tuple:		client.dll+0x38a950  (x,y,z, float)               
+		position tuple:		client.dll+0x38a950  (x,y,z, float)
 		orientation tuple:	client.dll+0x38abc0  (v,h float)
 		ID string:			client.dll+0x31a80a = "CombatWeapon@@" (14 characters, text)
 		spawn state:        client.dll+0x3536a8  (0 when at main menu, 1 when not spawned, 4 when spawned)
 	*/
-    char sMagic[14];
-	if(!peekProc(mod + 0x31a80a, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
-	return false;
+	char sMagic[14];
+	if (!peekProc(mod + 0x31a80a, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
+		return false;
 
 	// Remember addresses for later
 	posptr = mod + 0x38a950;
@@ -132,7 +132,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-    // If it failed clean up
+	// If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -155,15 +155,15 @@ static int fetch(float *pos, float *front, float *top) {
 	char state;
 
 	ok = peekProc(posptr, ipos, 12) &&
-		 peekProc(rotptr, rot, 12) &&
-		 peekProc(stateptr, &state, 1); 
+	     peekProc(rotptr, rot, 12) &&
+	     peekProc(stateptr, &state, 1);
 	if (!ok)
 		return false;
 
 	// Check to see if you are spawned
 	if (state == 0 || state == 1)
 		return true; // Deactivate plugin
-	
+
 	return calcout(ipos, rot, pos, front, top);
 }
 
