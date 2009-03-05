@@ -1,0 +1,23 @@
+<pkgref spec="1.12" uuid="6AB1E063-9961-4D61-A451-60139AFE7955">
+  <config>
+    <identifier>net.sourceforge.mumble.base</identifier>
+    <version>1.1.8</version>
+    <description></description>
+    <post-install type="none" />
+    <requireAuthorization />
+    <installTo>/</installTo>
+    <flags>
+      <followSymbolicLinks />
+    </flags>
+    <packageStore type="internal"></packageStore>
+    <mod>parent</mod>
+    <mod>version</mod>
+    <mod>postInstall</mod>
+    <mod>identifier</mod>
+    <mod>installTo</mod>
+  </config>
+  <extra>
+    <packagePath relative="true" mod="true">../release/Mumble-Base.pkg</packagePath>
+    <title>Mumble Base</title>
+  </extra>
+</pkgref>

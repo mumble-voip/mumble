@@ -1,0 +1,32 @@
+<pkmkdoc spec="1.12">
+  <properties>
+    <title>Mumble</title>
+    <build>release/Install Mumble.pkg</build>
+    <organization>net.sourceforge.mumble</organization>
+    <userSees ui="easy" />
+    <min-target os="3" />
+    <domain system="true" />
+  </properties>
+  <distribution>
+    <versions min-spec="1.000000" />
+    <scripts></scripts>
+  </distribution>
+  <contents>
+    <choice title="Mumble Base" id="base" starts_selected="true" starts_enabled="true" starts_hidden="false">
+      <pkgref id="net.sourceforge.mumble.base" />
+    </choice>
+  </contents>
+  <resources bg-scale="none" bg-align="left">
+    <locale lang="en">
+      <resource relative="true" mod="true" type="background">../icons/mumble.osx.installer.png</resource>
+      <resource relative="true" mod="true" type="license" mime-type="text/html">license.html</resource>
+      <resource relative="true" mod="true" type="welcome" mime-type="text/html">en/welcome.html</resource>
+      <resource relative="true" mod="true" type="conclusion" mime-type="text/html">en/complete.html</resource>
+    </locale>
+  </resources>
+  <flags />
+  <item type="flat-pkgref">01mumble.xml</item>
+  <mod>properties.systemDomain</mod>
+  <mod>properties.anywhereDomain</mod>
+  <mod>properties.title</mod>
+</pkmkdoc>

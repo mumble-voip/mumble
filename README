@@ -22,8 +22,8 @@ Running Mumble
 On Windows, after installation, you should have a new Mumble folder in your
 Start Menu, from which you can start Mumble.
 
-On Mac OS X, drag the Mumble application into your Applications folder. You
-should then able to run it from there.
+On Mac OS X, after installation, you can launch Mumble from your Applications
+folder.
 
 Once Mumble is launched, you need a server to connect to. Either create your
 own or join a friend's.

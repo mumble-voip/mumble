@@ -138,6 +138,10 @@ class AppBundle(object):
 
 		shutil.copy(src, dst)
 
+		print ' * Copying murmurd configuration'
+		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmur.ini')
+		shutil.copy('scripts/murmur.ini.osx', dst)
+
 	def copy_resources(self, rsrcs):
 		'''
 			Copy needed resources into our bundle.
@@ -186,25 +190,22 @@ class AppBundle(object):
 			print ' * Main executable not universal. Disabling universal binary checks.'
 
 
-class DiskImage(object):
+class FolderObject(object):
 
-	class Bargh(exceptions.Exception):
+	class Exception(exceptions.Exception):
 		pass
 
-	def __init__(self, filename, volname):
-		print ' * Preparing to create diskimage'
-		self.filename = filename
-		self.volname = volname
+	def __init__(self):
 		self.tmp = tempfile.mkdtemp()
 
 	def copy(self, src, dst='/'):
 		'''
-			Copy a file or directory into the disk image.
+			Copy a file or directory into the folder.
 		'''
 		asrc = os.path.abspath(src)
 
 		if dst[0] != '/':
-			raise self.Blargh
+			raise self.Exception
 
 		# Determine destination
 		if dst[-1] == '/':
@@ -221,20 +222,29 @@ class DiskImage(object):
 
 	def symlink(self, src, dst):
 		'''
-			Create a symlink inside the disk image.
+			Create a symlink inside the folder.
 		'''
 		asrc = os.path.abspath(src)
-		adst = os.path.join(self.tmp, dst)
+		adst = self.tmp + '/' + dst
 		print ' * Creating symlink %s' % os.path.basename(asrc)
 		os.symlink(asrc, adst)
 
 	def mkdir(self, name):
 		'''
-			Create a directory inside the disk image.
+			Create a directory inside the folder.
 		'''
 		print ' * Creating directory %s' % os.path.basename(name)
-		adst = os.path.join(self.tmp, name)
+		adst = self.tmp + '/'  + name
 		os.mkdir(adst)
+
+
+class DiskImage(FolderObject):
+
+	def __init__(self, filename, volname):
+		FolderObject.__init__(self)
+		print ' * Preparing to create diskimage'
+		self.filename = filename
+		self.volname = volname
 
 	def create(self):
 		'''
@@ -254,23 +264,53 @@ class DiskImage(object):
 		print ' * Done!'
 
 
+class PackageMaker(FolderObject):
+
+	def __init__(self, filename, id, title, version):
+		FolderObject.__init__(self)
+		print self.tmp
+		print 'Preparing to create package installer'
+		self.filename = filename
+		self.id = id
+		self.title = title
+		self.version = version
+
+	def create(self):
+		'''
+			Create the .pkg installer
+		'''
+		print ' * Creating installer. Please wait...'
+		if os.path.exists(self.filename):
+			os.remove(self.filename)
+		p = Popen(['/Developer/usr/bin/packagemaker',
+		           '--root',     self.tmp,
+		           '--id',       self.id,
+		           '--title',    self.title,
+		           '--version',  self.version,
+		           '--out',      self.filename])
+		retval = p.wait()
+		print ' * Removing temporary directory.'
+		shutil.rmtree(self.tmp)
+		print ' * Done!'
+
 if __name__ == '__main__':
 
 	argc = len(sys.argv)
 
-
 	# Release
 	if argc > 1:
 		ver = sys.argv[1]
-		dmgfn = 'release/Mumble-%s.dmg' % ver
-		dmgtitle = 'Mumble %s' % ver
+		fn = 'release/Mumble-%s' % ver
+		dmgfn = fn + '.dmg'
+		title = 'Mumble %s' % ver
 	# Snapshot
 	else:
 		n = datetime.datetime.now()
 		d = n.strftime('%F-%H%M')
 		ver = 'Snapshot %s' % d
-		dmgfn = 'release/Mumble-Snapshot-%s.dmg' % d
-		dmgtitle = 'Mumble Snapshot (%s)' %d
+		fn = 'release/Mumble-Snapshot-%s' % d
+		dmgfn = fn + '.dmg'
+		title = 'Mumble Snapshot (%s)' %d
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
@@ -281,17 +321,33 @@ if __name__ == '__main__':
 	a.update_plist()
 	a.done()
 
-	if 'nodmg' in sys.argv:
-		sys.exit(0)
+	# Prepare the base installer .pkg
+	f = PackageMaker('release/Mumble-Base.pkg', 'net.sourceforge.mumble.base', 'Mumble Base', ver)
+	f.mkdir('/Applications/')
+	f.copy('release/Mumble.app', '/Applications/Mumble.app')
+	f.mkdir('/Library/')
+	f.mkdir('/Library/MumbleOverlay/')
+	f.mkdir('/Library/MumbleOverlay/Bundles/')
+	f.copy('release/mumble-overlay-injector', '/Library/MumbleOverlay/')
+	f.copy('release/Stub.framework', '/Library/MumbleOverlay/Bundles/')
+	f.copy('release/Overlay.framework', '/Library/MumbleOverlay/Bundles/')
+	f.create()
 
-	# Prepare diskimage
-	d = DiskImage(dmgfn, dmgtitle)
-	d.copy('release/Mumble.app')
-	d.copy('scripts/murmur.ini.osx', '/Mumble.app/Contents/MacOS/murmur.ini')
+	# Combine the base installer with our pretty installer wrapper
+	p = Popen(['/Developer/usr/bin/packagemaker',
+	           '--doc',    'installer_macx/MumbleInstaller.pmdoc',
+	           '--id',     'net.sourceforge.mumble',
+	           '--out',    'release/Install Mumble.pkg'])
+	if p.wait() != 0:
+		print 'Creating master installer failed.'
+		sys.exit(1)
+
+	# Create diskimage
+	d = DiskImage(dmgfn, title)
+	d.copy('release/Install Mumble.pkg')
 	d.copy('README', '/ReadMe.txt')
 	d.copy('CHANGES', '/Changes.txt')
-	d.copy('installer/DS_Store', '/.DS_Store')
-	d.symlink('/Applications/', 'Applications')
+	d.copy('installer_macx/DS_Store', '/.DS_Store')
 	d.mkdir('Licenses')
 	d.copy('LICENSE', '/Licenses/Mumble.txt')
 	d.copy('installer/qt.txt', '/Licenses/Qt.txt')
