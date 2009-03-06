@@ -54,7 +54,7 @@
            <string>Peak power in last frame</string>
           </property>
           <property name="whatsThis" >
-           <string>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</string>
+           <string>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</string>
           </property>
           <property name="text" >
            <string>TextLabel</string>

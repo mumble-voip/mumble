@@ -283,7 +283,7 @@
       <item row="0" column="3" colspan="3" >
        <widget class="QCheckBox" name="qcbHeadphones" >
         <property name="toolTip" >
-         <string>Connected "speakers" are actually headphones.</string>
+         <string>The connected "speakers" are actually headphones.</string>
         </property>
         <property name="whatsThis" >
          <string>Checking this indicates that you don't have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</string>
@@ -306,7 +306,7 @@
       <item row="1" column="3" >
        <widget class="QSlider" name="qsMinDistance" >
         <property name="toolTip" >
-         <string>Minimum distance to player before sound decreases</string>
+         <string>Minimum distance to player before sound volume decreases</string>
         </property>
         <property name="statusTip" >
          <string/>
@@ -486,7 +486,7 @@
          <string>Variance in packet latency</string>
         </property>
         <property name="whatsThis" >
-         <string>&lt;b>This sets the packet latency variance for loopback testing&lt;/b>&lt;br />Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</string>
+         <string>&lt;b>This sets the packet latency variance for loopback testing.&lt;/b>&lt;br />Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</string>
         </property>
         <property name="maximum" >
          <number>100</number>
