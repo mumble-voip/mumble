@@ -43,6 +43,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		Q_OBJECT
 		Q_DISABLE_COPY(LogConfig)
 	public:
+		enum Column{ ColMessage, ColConsole, ColNotification, ColTTS, ColStaticSound, ColStaticSoundPath };
 		LogConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
@@ -51,6 +52,16 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		virtual void save() const;
 		virtual void load(const Settings &);
 		virtual bool expert(bool);
+		void on_qtwMessages_itemSelectionChanged();
+		void on_qtwMessages_itemChanged(QTreeWidgetItem*, int);
+		void on_qpbPlay_clicked();
+		void on_qpbBrowse_clicked();
+		void on_qlePath_editingFinished();
+		void on_qcbConsole_toggled(bool);
+		void on_qcbNotification_toggled(bool);
+		void on_qrbTTS_toggled(bool);
+		void on_qrbSoundfile_toggled(bool);
+		void on_qrbOff_toggled(bool);
 };
 
 class Log : public QObject {
