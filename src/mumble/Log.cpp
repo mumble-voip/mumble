@@ -33,6 +33,9 @@
 #include "MainWindow.h"
 #include "Global.h"
 
+#ifdef Q_OS_MAC
+extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
+#endif
 
 static ConfigWidget *LogConfigDialogNew(Settings &st) {
 	return new LogConfig(st);
@@ -120,6 +123,30 @@ Log::Log(QObject *p) : QObject(p) {
 	tts=new TextToSpeech(this);
 	tts->setVolume(g.s.iTTSVolume);
 	uiLastId = 0;
+
+#ifdef Q_OS_MAC
+	QStringList qslAllEvents;
+	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
+		Log::MsgType t = static_cast<Log::MsgType>(i);
+		qslAllEvents << QString("\"%1\"").arg(g.l->msgName(t));
+	}
+	QString qsGrowlEvents = QString("{%1}").arg(qslAllEvents.join(","));
+	QString qsScript = QString(
+		"tell application \"System Events\"\n"
+		"	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
+		"end tell\n"
+		"if isRunning then\n"
+		"	tell application \"GrowlHelperApp\"\n"
+		"		set the allNotificationsList to %1\n"
+		"		set the enabledNotificationsList to %1\n"
+		"		register as application \"Mumble\""
+		"			all notifications allNotificationsList"
+		"			default notifications enabledNotificationsList"
+		"			icon of application \"Mumble\"\n"
+		"	end tell\n"
+		"end if\n").arg(qsGrowlEvents);
+	qt_mac_execute_apple_script(qsScript, NULL);
+#endif
 }
 
 const char *Log::msgNames[] = {
@@ -258,6 +285,18 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 				g.mw->qstiIcon->showMessage(msgName(mt), console, msgIcon);
 			}
 		}
+#ifdef Q_OS_MAC
+	QString qsScript = QString(
+		"tell application \"System Events\"\n"
+		"	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
+		"end tell\n"
+		"if isRunning then\n"
+		"	tell application \"GrowlHelperApp\"\n"
+		"		notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
+		"	end tell\n"
+		"end if\n").arg(msgName(mt)).arg(console);
+	qt_mac_execute_apple_script(qsScript, NULL);
+#endif
 	}
 
 	if (! g.s.bTTS || !(flags & Settings::LogTTS))
