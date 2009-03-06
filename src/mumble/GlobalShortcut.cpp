@@ -192,6 +192,8 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 	qtwShortcuts->setColumnCount(canSuppress ? 3 : 2);
 	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
+
+	qtwShortcuts->header()->setResizeMode(QHeaderView::ResizeToContents);
 }
 
 void GlobalShortcutConfig::on_qpbAdd_clicked(bool) {
