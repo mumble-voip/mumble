@@ -46,10 +46,13 @@ static ConfigRegistrar registrar(4000, LogConfigDialogNew);
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	qtwMessages->header()->setResizeMode(0, QHeaderView::Stretch);
-	qtwMessages->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-	qtwMessages->header()->setResizeMode(2, QHeaderView::ResizeToContents);
-	qtwMessages->header()->setResizeMode(3, QHeaderView::ResizeToContents);
+	
+	qtwMessages->header()->setResizeMode(ColMessage, QHeaderView::Stretch);
+	qtwMessages->header()->setResizeMode(ColConsole, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setResizeMode(ColNotification, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setResizeMode(ColTTS, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
+	//qtwMessages->setColumnHidden(ColStaticSoundPath, true);
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
@@ -57,16 +60,19 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		const QString messageName = g.l->msgName(t);
 
 		twi = new QTreeWidgetItem(qtwMessages);
-		twi->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
-		twi->setData(0, Qt::UserRole, i);
-		twi->setText(0, messageName);
-		twi->setCheckState(1, Qt::Unchecked);
-		twi->setCheckState(2, Qt::Unchecked);
-		twi->setCheckState(3, Qt::Unchecked);
-		twi->setToolTip(1, tr("Enable console for %1").arg(messageName));
-		twi->setToolTip(2, tr("Enable Text-To-Speech for %1").arg(messageName));
-		twi->setToolTip(3, tr("Enable ballon tool-tip for %1").arg(messageName));
+		twi->setData(ColMessage, Qt::UserRole, i);
+		twi->setText(ColMessage, messageName);
+		twi->setCheckState(ColConsole, Qt::Unchecked);
+		twi->setCheckState(ColNotification, Qt::Unchecked);
+		twi->setCheckState(ColTTS, Qt::Unchecked);
+		twi->setCheckState(ColStaticSound, Qt::Unchecked);
+		twi->setToolTip(ColConsole, tr("Enable console for %1").arg(messageName));
+		twi->setToolTip(ColNotification, tr("Enable ballon tool-tip for %1").arg(messageName));
+		twi->setToolTip(ColTTS, tr("Enable Text-To-Speech for %1").arg(messageName));
+		twi->setToolTip(ColStaticSound, tr("Enable static sound for %1").arg(messageName));
+
 	}
+	on_qtwMessages_itemSelectionChanged();
 }
 
 QString LogConfig::title() const {
@@ -80,12 +86,14 @@ QIcon LogConfig::icon() const {
 void LogConfig::load(const Settings &r) {
 	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
 	foreach(QTreeWidgetItem *i, qlItems) {
-		Log::MsgType mt = static_cast<Log::MsgType>(i->data(0, Qt::UserRole).toInt());
+		Log::MsgType mt = static_cast<Log::MsgType>(i->data(ColMessage, Qt::UserRole).toInt());
 		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(mt));
 
-		i->setCheckState(1, (ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
-		i->setCheckState(2, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
-		i->setCheckState(3, (ml & Settings::LogBalloon) ? Qt::Checked : Qt::Unchecked);
+		i->setCheckState(ColConsole, (ml & Settings::LogConsole) ? Qt::Checked : Qt::Unchecked);
+		i->setCheckState(ColNotification, (ml & Settings::LogBalloon) ? Qt::Checked : Qt::Unchecked);
+		i->setCheckState(ColTTS, (ml & Settings::LogTTS) ? Qt::Checked : Qt::Unchecked);
+		i->setCheckState(ColStaticSound, (ml & Settings::LogSoundfile) ? Qt::Checked : Qt::Unchecked);
+		i->setText(ColStaticSoundPath, r.qmMessageSounds.value(mt));
 	}
 
 	loadSlider(qsVolume, r.iTTSVolume);
@@ -95,16 +103,19 @@ void LogConfig::load(const Settings &r) {
 void LogConfig::save() const {
 	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
 	foreach(QTreeWidgetItem *i, qlItems) {
-		Log::MsgType mt = static_cast<Log::MsgType>(i->data(0, Qt::UserRole).toInt());
+		Log::MsgType mt = static_cast<Log::MsgType>(i->data(ColMessage, Qt::UserRole).toInt());
 
 		int v = 0;
-		if (i->checkState(1) == Qt::Checked)
+		if (i->checkState(ColConsole) == Qt::Checked)
 			v |= Settings::LogConsole;
-		if (i->checkState(2) == Qt::Checked)
-			v |= Settings::LogTTS;
-		if (i->checkState(3) == Qt::Checked)
+		if (i->checkState(ColNotification) == Qt::Checked)
 			v |= Settings::LogBalloon;
+		if (i->checkState(ColTTS) == Qt::Checked)
+			v |= Settings::LogTTS;
+		if (i->checkState(ColStaticSound) == Qt::Checked)
+			v |= Settings::LogSoundfile;
 		s.qmMessages[mt] = v;
+		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
 
 	s.iTTSVolume=qsVolume->value();
@@ -117,6 +128,114 @@ void LogConfig::accept() const {
 
 bool LogConfig::expert(bool) {
 	return false;
+}
+
+void LogConfig::on_qtwMessages_itemSelectionChanged() {
+	QList<QTreeWidgetItem *> qlSelected = qtwMessages->selectedItems();
+	if (qlSelected.empty()) {
+		// Nothing selected
+		qcbConsole->setEnabled(false);
+		qcbNotification->setEnabled(false);
+		qrbTTS->setEnabled(false);
+		qrbSoundfile->setEnabled(false);
+		qrbOff->setEnabled(false);
+		qlePath->setText("");
+		qlePath->setEnabled(false);
+		qpbBrowse->setEnabled(false);
+		qpbPlay->setEnabled(false);
+	}
+	else {
+		QTreeWidgetItem *i = qlSelected[0];
+
+		qcbConsole->setEnabled(true);
+		qcbNotification->setEnabled(true);
+		qrbTTS->setEnabled(true);
+		qrbSoundfile->setEnabled(true);
+		qrbOff->setEnabled(true);
+		qlePath->setEnabled(true);
+		qpbBrowse->setEnabled(true);
+		qpbPlay->setEnabled(true);
+
+		qcbConsole->setChecked(i->checkState(ColConsole));
+		qcbNotification->setChecked(i->checkState(ColNotification));
+		if(i->checkState(ColTTS)) qrbTTS->setChecked(true);
+		else if(i->checkState(ColStaticSound)) qrbSoundfile->setChecked(true);
+		else qrbOff->setChecked(true);
+		qlePath->setText(i->text(ColStaticSoundPath));
+	}
+}
+
+void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
+	if (! i->isSelected()) return;
+	switch (column) {
+		case ColConsole: qcbConsole->setChecked(i->checkState(column)); break;
+		case ColNotification: qcbNotification->setChecked(i->checkState(column)); break;
+		case ColTTS:
+		case ColStaticSound:
+			if(i->checkState(ColTTS) && column == ColTTS) {
+				i->setCheckState(ColStaticSound, Qt::Unchecked);
+				qrbTTS->setChecked(true);
+			}
+			else if(i->checkState(ColStaticSound)) {
+				i->setCheckState(ColTTS, Qt::Unchecked);
+				qrbSoundfile->setChecked(true);
+			}
+			else qrbOff->setChecked(true);
+			break;
+		case ColStaticSoundPath: qlePath->setText(i->text(ColStaticSoundPath)); break;
+		default:break;
+	}		
+}
+
+void LogConfig::on_qpbPlay_clicked() {
+	QString file = qlePath->text();
+	if (! file.isEmpty() && g.ao) {
+		(g.ao)->playSample(file, false);
+	}
+}
+
+void LogConfig::on_qpbBrowse_clicked() {
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.spx"));
+	if (! file.isEmpty()) {
+		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+		i->setText(ColStaticSoundPath, file);
+		i->setCheckState(ColStaticSound, Qt::Checked);
+
+	}
+}
+
+void LogConfig::on_qlePath_editingFinished() {
+	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+	i->setText(ColStaticSoundPath, qlePath->text());
+	i->setCheckState(ColStaticSound, Qt::Checked);
+}
+
+void LogConfig::on_qcbConsole_toggled(bool checked) {
+	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+	i->setCheckState(ColConsole, checked ? Qt::Checked : Qt::Unchecked);
+}
+
+void LogConfig::on_qcbNotification_toggled(bool checked) {
+	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+	i->setCheckState(ColNotification, checked ? Qt::Checked : Qt::Unchecked);
+}
+
+void LogConfig::on_qrbTTS_toggled(bool checked) {
+	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+	i->setCheckState(ColTTS, checked ? Qt::Checked : Qt::Unchecked);
+}
+
+void LogConfig::on_qrbSoundfile_toggled(bool checked) {
+	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+	i->setCheckState(ColStaticSound, checked ? Qt::Checked : Qt::Unchecked);
+}
+
+void LogConfig::on_qrbOff_toggled(bool checked) {
+	if (checked) {
+		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+		i->setCheckState(ColTTS, Qt::Unchecked);
+		i->setCheckState(ColStaticSound, Qt::Unchecked);
+	}
 }
 
 Log::Log(QObject *p) : QObject(p) {
@@ -198,6 +317,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 
 	quint32 flags = g.s.qmMessages.value(mt);
 
+	// Message output on console
 	if ((flags & Settings::LogConsole)) {
 		QTextCursor tc=g.mw->qteLog->textCursor();
 		tc.movePosition(QTextCursor::End);
@@ -216,6 +336,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		g.mw->qteLog->ensureCursorVisible();
 	}
 
+	// Message notification with balloon tooltips
 	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))  {
 		QString qsIcon;
 		switch (mt) {
@@ -299,6 +420,15 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 #endif
 	}
 
+	// Message notification with static sounds
+	if ((flags & Settings::LogSoundfile) && g.ao) {
+		QString sSound = g.s.qmMessageSounds.value(mt, QString(""));
+		if (sSound != "") {
+			(g.ao)->playSample(sSound, false);
+		}
+	}
+
+	// Message notification with Text-To-Speech
 	if (! g.s.bTTS || !(flags & Settings::LogTTS))
 		return;
 
