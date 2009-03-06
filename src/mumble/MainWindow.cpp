@@ -956,7 +956,10 @@ void MainWindow::on_qaChannelDescUpdate_triggered() {
 
 	TextMessage tm;
 	tm.setWindowTitle(tr("Change description of channel %1").arg(c->qsName));
-	tm.qteEdit->setText(c->qsDesc);
+
+	const QString html = QTextDocumentFragment::fromPlainText(c->qsDesc).toHtml();
+
+	tm.qteEdit->setText(html);
 	int res = tm.exec();
 
 	c = Channel::get(id);
