@@ -46,7 +46,7 @@ static ConfigRegistrar registrar(4000, LogConfigDialogNew);
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	
+
 	qtwMessages->header()->setResizeMode(ColMessage, QHeaderView::Stretch);
 	qtwMessages->header()->setResizeMode(ColConsole, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColNotification, QHeaderView::ResizeToContents);
@@ -188,7 +188,7 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 			break;
 		case ColStaticSoundPath: qlePath->setText(i->text(ColStaticSoundPath)); break;
 		default:break;
-	}		
+	}
 }
 
 void LogConfig::on_qpbPlay_clicked() {
@@ -408,7 +408,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 						break;
 				}
 
-				g.mw->qstiIcon->showMessage(msgName(mt), console, msgIcon);
+				g.mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
 			}
 		}
 #ifdef Q_OS_MAC
