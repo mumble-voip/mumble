@@ -139,7 +139,7 @@ Settings::Settings() {
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
 
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
-		qmMessageSounds.insert(i, QString(""));
+		qmMessageSounds.insert(i, QString());
 
 	qmMessages[Log::DebugInfo] = Settings::LogConsole;
 	qmMessages[Log::Information] = Settings::LogConsole;

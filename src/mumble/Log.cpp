@@ -139,7 +139,7 @@ void LogConfig::on_qtwMessages_itemSelectionChanged() {
 		qrbTTS->setEnabled(false);
 		qrbSoundfile->setEnabled(false);
 		qrbOff->setEnabled(false);
-		qlePath->setText("");
+		qlePath->setText(QString());
 		qlePath->setEnabled(false);
 		qpbBrowse->setEnabled(false);
 		qpbPlay->setEnabled(false);
@@ -171,16 +171,20 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 		case ColConsole: qcbConsole->setChecked(i->checkState(column)); break;
 		case ColNotification: qcbNotification->setChecked(i->checkState(column)); break;
 		case ColTTS:
-		case ColStaticSound:
-			if(i->checkState(ColTTS) && column == ColTTS) {
+			if(i->checkState(ColTTS)) {
 				i->setCheckState(ColStaticSound, Qt::Unchecked);
 				qrbTTS->setChecked(true);
 			}
-			else if(i->checkState(ColStaticSound)) {
+			else if (i->checkState(ColStaticSound) == Qt::Unchecked)
+				qrbOff->setChecked(true);
+			break;
+		case ColStaticSound:
+			if(i->checkState(ColStaticSound)) {
 				i->setCheckState(ColTTS, Qt::Unchecked);
 				qrbSoundfile->setChecked(true);
-			}
-			else qrbOff->setChecked(true);
+				if (i->text(ColStaticSoundPath).isEmpty()) qpbBrowse->click();
+			}else if (i->checkState(ColTTS) == Qt::Unchecked)
+				qrbOff->setChecked(true);
 			break;
 		case ColStaticSoundPath: qlePath->setText(i->text(ColStaticSoundPath)); break;
 		default:break;
@@ -189,8 +193,9 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 
 void LogConfig::on_qpbPlay_clicked() {
 	QString file = qlePath->text();
-	if (! file.isEmpty() && g.ao) {
-		(g.ao)->playSample(file, false);
+	AudioOutputPtr ao = g.ao;
+	if (! file.isEmpty() && ao) {
+		ao->playSample(file, false);
 	}
 }
 
@@ -421,10 +426,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	}
 
 	// Message notification with static sounds
-	if ((flags & Settings::LogSoundfile) && g.ao) {
-		QString sSound = g.s.qmMessageSounds.value(mt, QString(""));
-		if (sSound != "") {
-			(g.ao)->playSample(sSound, false);
+
+	if ((flags & Settings::LogSoundfile)) {
+		QString sSound = g.s.qmMessageSounds.value(mt);
+		AudioOutputPtr ao = g.ao;
+		if (! sSound.isEmpty() && ao) {
+			ao->playSample(sSound, false);
 		}
 	}
 
