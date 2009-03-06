@@ -822,9 +822,11 @@ void AudioWizard::on_Ticker_timeout() {
 		}
 
 		qgiSource->setPos(xp, yp);
-		aosSource->fPos[0] = xp;
-		aosSource->fPos[1] = 0;
-		aosSource->fPos[2] = yp;
+		if (aosSource) {
+			aosSource->fPos[0] = xp;
+			aosSource->fPos[1] = 0;
+			aosSource->fPos[2] = yp;
+		}
 	}
 }
 

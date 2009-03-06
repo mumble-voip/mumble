@@ -113,7 +113,7 @@ void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
 	}
 }
 
-AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigned int freq) : AudioOutputPlayer(filename) {
+AudioOutputSample::AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputPlayer(filename) {
 	dsDecState=speex_decoder_init(&speex_wb_mode);
 
 	int iArg=1;
@@ -135,12 +135,25 @@ AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigne
 
 	iPacketIndex = -1;
 
+	qlPackets = packets;
+
 	speex_bits_init(&sbBits);
+
+	bLoop = loop;
+}
+
+AudioOutputSample::~AudioOutputSample() {
+	speex_decoder_destroy(dsDecState);
+	speex_bits_destroy(&sbBits);
+}
+
+QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename) {
+	QList<QByteArray> packets;
 
 	QFile f(filename);
 	if (! f.open(QIODevice::ReadOnly)) {
 		qWarning("AudioOutputSample: Failed to open %s for reading", qPrintable(filename));
-		return;
+		return QList<QByteArray>();
 	}
 
 	QByteArray qbaSample = f.readAll();
@@ -195,7 +208,7 @@ AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigne
 				} else {
 					if (packet.e_o_s)
 						eos = true;
-					qlPackets << QByteArray(reinterpret_cast<const char *>(packet.packet), packet.bytes);
+					packets << QByteArray(reinterpret_cast<const char *>(packet.packet), packet.bytes);
 				}
 			}
 		}
@@ -209,13 +222,7 @@ AudioOutputSample::AudioOutputSample(const QString &filename, bool loop, unsigne
 	} else {
 		qWarning("AudioOutputSample: %s is not an ogg file", qPrintable(filename));
 	}
-
-	bLoop = loop;
-}
-
-AudioOutputSample::~AudioOutputSample() {
-	speex_decoder_destroy(dsDecState);
-	speex_bits_destroy(&sbBits);
+	return packets;
 }
 
 bool AudioOutputSample::needSamples(unsigned int snum) {
@@ -517,10 +524,14 @@ AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float v
 }
 
 AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
+	QList<QByteArray> packets = AudioOutputSample::getPacketsFromFile(filename);
+	if (packets.isEmpty())
+		return NULL;
+
 	while ((iMixerFreq == 0) && isRunning()) {}
 
 	qrwlOutputs.lockForWrite();
-	AudioOutputSample *aos = new AudioOutputSample(filename, loop, iMixerFreq);
+	AudioOutputSample *aos = new AudioOutputSample(filename, packets, loop, iMixerFreq);
 	qmOutputs.insert(NULL, aos);
 	qrwlOutputs.unlock();
 	return aos;

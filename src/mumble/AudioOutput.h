@@ -159,8 +159,9 @@ class AudioOutputSample : public AudioOutputPlayer {
 		bool bLastAlive;
 		bool bLoop;
 	public:
+		static QList<QByteArray> getPacketsFromFile(const QString &filename);
 		virtual bool needSamples(unsigned int snum);
-		AudioOutputSample(const QString &filename, bool repeat, unsigned int freq);
+		AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool repeat, unsigned int freq);
 		~AudioOutputSample();
 };
 
