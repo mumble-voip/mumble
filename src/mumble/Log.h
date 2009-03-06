@@ -43,7 +43,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		Q_OBJECT
 		Q_DISABLE_COPY(LogConfig)
 	public:
-		enum Column{ ColMessage, ColConsole, ColNotification, ColTTS, ColStaticSound, ColStaticSoundPath };
+		enum Column { ColMessage, ColConsole, ColNotification, ColTTS, ColStaticSound, ColStaticSoundPath };
 		LogConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;

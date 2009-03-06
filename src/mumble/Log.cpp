@@ -143,8 +143,7 @@ void LogConfig::on_qtwMessages_itemSelectionChanged() {
 		qlePath->setEnabled(false);
 		qpbBrowse->setEnabled(false);
 		qpbPlay->setEnabled(false);
-	}
-	else {
+	} else {
 		QTreeWidgetItem *i = qlSelected[0];
 
 		qcbConsole->setEnabled(true);
@@ -158,8 +157,8 @@ void LogConfig::on_qtwMessages_itemSelectionChanged() {
 
 		qcbConsole->setChecked(i->checkState(ColConsole));
 		qcbNotification->setChecked(i->checkState(ColNotification));
-		if(i->checkState(ColTTS)) qrbTTS->setChecked(true);
-		else if(i->checkState(ColStaticSound)) qrbSoundfile->setChecked(true);
+		if (i->checkState(ColTTS)) qrbTTS->setChecked(true);
+		else if (i->checkState(ColStaticSound)) qrbSoundfile->setChecked(true);
 		else qrbOff->setChecked(true);
 		qlePath->setText(i->text(ColStaticSoundPath));
 	}
@@ -168,26 +167,32 @@ void LogConfig::on_qtwMessages_itemSelectionChanged() {
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 	if (! i->isSelected()) return;
 	switch (column) {
-		case ColConsole: qcbConsole->setChecked(i->checkState(column)); break;
-		case ColNotification: qcbNotification->setChecked(i->checkState(column)); break;
+		case ColConsole:
+			qcbConsole->setChecked(i->checkState(column));
+			break;
+		case ColNotification:
+			qcbNotification->setChecked(i->checkState(column));
+			break;
 		case ColTTS:
-			if(i->checkState(ColTTS)) {
+			if (i->checkState(ColTTS)) {
 				i->setCheckState(ColStaticSound, Qt::Unchecked);
 				qrbTTS->setChecked(true);
-			}
-			else if (i->checkState(ColStaticSound) == Qt::Unchecked)
+			} else if (i->checkState(ColStaticSound) == Qt::Unchecked)
 				qrbOff->setChecked(true);
 			break;
 		case ColStaticSound:
-			if(i->checkState(ColStaticSound)) {
+			if (i->checkState(ColStaticSound)) {
 				i->setCheckState(ColTTS, Qt::Unchecked);
 				qrbSoundfile->setChecked(true);
 				if (i->text(ColStaticSoundPath).isEmpty()) qpbBrowse->click();
-			}else if (i->checkState(ColTTS) == Qt::Unchecked)
+			} else if (i->checkState(ColTTS) == Qt::Unchecked)
 				qrbOff->setChecked(true);
 			break;
-		case ColStaticSoundPath: qlePath->setText(i->text(ColStaticSoundPath)); break;
-		default:break;
+		case ColStaticSoundPath:
+			qlePath->setText(i->text(ColStaticSoundPath));
+			break;
+		default:
+			break;
 	}
 }
 
@@ -256,19 +261,19 @@ Log::Log(QObject *p) : QObject(p) {
 	}
 	QString qsGrowlEvents = QString("{%1}").arg(qslAllEvents.join(","));
 	QString qsScript = QString(
-		"tell application \"System Events\"\n"
-		"	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
-		"end tell\n"
-		"if isRunning then\n"
-		"	tell application \"GrowlHelperApp\"\n"
-		"		set the allNotificationsList to %1\n"
-		"		set the enabledNotificationsList to %1\n"
-		"		register as application \"Mumble\""
-		"			all notifications allNotificationsList"
-		"			default notifications enabledNotificationsList"
-		"			icon of application \"Mumble\"\n"
-		"	end tell\n"
-		"end if\n").arg(qsGrowlEvents);
+	                       "tell application \"System Events\"\n"
+	                       "	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
+	                       "end tell\n"
+	                       "if isRunning then\n"
+	                       "	tell application \"GrowlHelperApp\"\n"
+	                       "		set the allNotificationsList to %1\n"
+	                       "		set the enabledNotificationsList to %1\n"
+	                       "		register as application \"Mumble\""
+	                       "			all notifications allNotificationsList"
+	                       "			default notifications enabledNotificationsList"
+	                       "			icon of application \"Mumble\"\n"
+	                       "	end tell\n"
+	                       "end if\n").arg(qsGrowlEvents);
 	qt_mac_execute_apple_script(qsScript, NULL);
 #endif
 }
@@ -412,16 +417,16 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 			}
 		}
 #ifdef Q_OS_MAC
-	QString qsScript = QString(
-		"tell application \"System Events\"\n"
-		"	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
-		"end tell\n"
-		"if isRunning then\n"
-		"	tell application \"GrowlHelperApp\"\n"
-		"		notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
-		"	end tell\n"
-		"end if\n").arg(msgName(mt)).arg(console);
-	qt_mac_execute_apple_script(qsScript, NULL);
+		QString qsScript = QString(
+		                       "tell application \"System Events\"\n"
+		                       "	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
+		                       "end tell\n"
+		                       "if isRunning then\n"
+		                       "	tell application \"GrowlHelperApp\"\n"
+		                       "		notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
+		                       "	end tell\n"
+		                       "end if\n").arg(msgName(mt)).arg(console);
+		qt_mac_execute_apple_script(qsScript, NULL);
 #endif
 	}
 

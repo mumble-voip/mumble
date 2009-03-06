@@ -221,7 +221,7 @@ void UnixMurmur::setuid() {
 		uid_t uid = getuid(), euid = geteuid();
 		gid_t gid = getgid(), egid = getegid();
 		if (uid == Meta::mp.uiUid && euid == Meta::mp.uiUid
-		     && gid == Meta::mp.uiGid && egid == Meta::mp.uiGid) {
+		        && gid == Meta::mp.uiGid && egid == Meta::mp.uiGid) {
 			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
 		} else
 			qFatal("Couldn't switch uid/gid.");
