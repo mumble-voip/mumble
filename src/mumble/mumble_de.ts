@@ -3839,12 +3839,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="155"/>
         <source>Disconnect from server</source>
-        <translation>Vom Server trennen</translation>
+        <translation>Verbindung zum Server trennen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="158"/>
         <source>Disconnects you from the server.</source>
-        <translation>Vom Server trennen.</translation>
+        <translation>Trennt Ihre Verbindung zum Server.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="166"/>
@@ -3854,77 +3854,77 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="169"/>
         <source>Edit ban lists on server</source>
-        <translation>Banlisten auf Server editieren</translation>
+        <translation>Bannlisten des Server editieren</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="172"/>
         <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Hierdurch lässt sich die serverseitige IP Banliste editieren.</translation>
+        <translation>Dies lässt Sie die serverseitige IP Bannliste editieren.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="191"/>
         <source>&amp;Kick</source>
-        <translation>&amp;Kick</translation>
+        <translation>&amp;Kicken</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="194"/>
         <source>Kick player (with reason)</source>
-        <translation>Kick Spieler (mit Grund)</translation>
+        <translation>Benutzer Kicken (mit Grund)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="197"/>
         <source>Kick selected player off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Den ausgewählten Spieler vom Server kicken. Man wird nach einem Grund gefragt.</translation>
+        <translation>Den ausgewählten Benutzer vom Server schmeissen. Sie werden aufgefordert werden einen Grund anzugeben.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="216"/>
         <source>&amp;Ban</source>
-        <translation>&amp;Ban</translation>
+        <translation>&amp;Bannen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="219"/>
         <source>Kick and ban player (with reason)</source>
-        <translation>Kick und ban Spieler (mit Grund)</translation>
+        <translation>Benutzer vom Server Kicken und Verbannen (mit Grund)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="222"/>
         <source>Kick and ban selected player from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Den ausgewählten Spieler vom Server kicken und bannen. Man wird nach einem Grund gefragt.</translation>
+        <translation>Den ausgewählten Benutzer vom Server schmeissen und bannen. Man wird aufgefordert, einen Grund anzugeben.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="205"/>
         <source>&amp;Mute</source>
-        <translation>&amp;Stumm</translation>
+        <translation>&amp;Stumm stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="208"/>
         <source>Mute player</source>
-        <translation>Spieler stummstellen</translation>
+        <translation>Benutzer stumm stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="211"/>
         <source>Mute or unmute player on server. Unmuting a deafened player will also undeafen them.</source>
-        <translation>Stummstellen der Spieler auf dem Server an- oder abstellen. Einem taubgestellten Spieler Stummstellen abschalten wird ebenso das Taubstellen abschalten.</translation>
+        <translation>Den Benutzer stumm stellen oder das reden wieder erlauben. Erlaubt man einem Taub gestellten Benutzer das reden, darf er automatisch auch wieder etwas hören.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="230"/>
         <source>&amp;Deafen</source>
-        <translation>&amp;Taubstellen</translation>
+        <translation>&amp;Taub stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="233"/>
         <source>Deafen player</source>
-        <translation>Spieler taubstellen</translation>
+        <translation>Benutzer taub stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="236"/>
         <source>Deafen or undeafen player on server. Deafening a player will also mute them.</source>
-        <translation>Taubstellen des Spielers auf dem Server an- oder abstellen. Einen Spieler taubstellen wird ihn ebenso stummstellen.</translation>
+        <translation>Benutzer taub stellen oder das zuhören wieder erlauben. Einen Benutzer taub zu stellen wird ihn automatisch auch stumm stellen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="244"/>
         <source>&amp;Local Mute</source>
-        <translation>&amp;Lokal Stumm</translation>
+        <translation>&amp;Lokal stumm stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="126"/>
@@ -3969,27 +3969,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="291"/>
         <source>Edit Groups and ACL for channel</source>
-        <translation>Gruppen und ACL des Channels editieren</translation>
+        <translation>Gruppen und ACL des Channels bearbeiten</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="294"/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation>Dies öffnet den Gruppen- und ACL-Dialog des Kanals um die Rechte einzustellen.</translation>
+        <translation>Dies öffnet den Gruppen- und ACL-Dialog des Kanals um die Berechtigungen einzustellen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="310"/>
         <source>&amp;Link</source>
-        <translation>&amp;Link</translation>
+        <translation>&amp;Verknüpfen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="313"/>
         <source>Link your channel to another channel</source>
-        <translation>Den Kanal mit einem anderen verbinden</translation>
+        <translation>Verknüpft Ihren aktuellen Kanal mit einem anderen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="316"/>
         <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
-        <translation>Dies verbindet den aktuellen Kanal mit dem gewählten. Wenn Spieler Spracherlaubnis im anderen Kanal haben, so können sie sich jetzt gegenseitig hören. Dies ist eine permanente Verbindung die solange bestehen bleibt bis die Verbindung manuell aufgehoben oder der Server neugestart wird.</translation>
+        <translation>Dies verbindet den aktuellen Kanal mit dem Gewählten. Wenn Spieler Spracherlaubnis im anderen Kanal haben, so können sie sich jetzt gegenseitig hören. Dies ist eine permanente Verbindung die solange bestehen bleibt, bis die Verknüpfung manuell aufgehoben oder der Server neugestart wird.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="411"/>
@@ -3999,17 +3999,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="324"/>
         <source>Unlink your channel from another channel</source>
-        <translation>Verbindung des Kanals von anderem Kanal trennen</translation>
+        <translation>Die Verknüpfung des aktuellen Kanals zu einem anderen Kanal trennen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="327"/>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation>Dies trennt die Verbindung des aktuellen Kanals vom ausgewählten.</translation>
+        <translation>Dies trennt die Verknüpfung des aktuellen Kanals zum Ausgewählten.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="332"/>
         <source>Unlink &amp;All</source>
-        <translation>&amp;Alle Verbindungen trennen</translation>
+        <translation>&amp;Alle Verknüpfungen entfernen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="335"/>
@@ -4019,7 +4019,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="338"/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation>Dies trennt die Verbindung des Kanals von allen verbundenen Kanälen.</translation>
+        <translation>Dies trennt die Verbindungen des aktuellen Kanals (nicht des ausgewählten) zu allen verknüpften Kanälen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="343"/>
@@ -4029,57 +4029,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="346"/>
         <source>Reset audio preprocessor</source>
-        <translation>Setzt Audio-Präprozessor zurück</translation>
+        <translation>Setzt den Audio-Präprozessor zurück</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="349"/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Setzt den Audio-Präprozessor zurück: unter anderem Geräuschunterdrückung, automatisches Gain und Stimmaktivierungserkennung. Wenn etwas plötzlich die Audioumgebung verschlechtert (z.B. das Mikrofon fallen lassen), kann dies benutzt werden um den Präprozessor sofort neu auszurichten.</translation>
+        <translation>Setzt den Audio-Präprozessor zurück: unter anderem Geräuschunterdrückung, automatisches Gain und Stimmaktivierungserkennung. Wenn etwas plötzlich die Audioumgebung verschlechtert (z.B. das Fallen lassen des Mikrofons), so kann dies verwendet werden um nicht auf das anpassen des Präprozessor warten zu müssen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="357"/>
         <source>&amp;Mute Self</source>
-        <translation>Selbst &amp;Stummstellen</translation>
+        <translation>Selbst &amp;Stumm stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="360"/>
         <source>Mute yourself</source>
-        <translation>Sich selber stummstellen</translation>
+        <translation>Sich selber stumm stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="363"/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Stummstellen an/aus.. When stummgestellt, werden keine Daten an den Server gesandt. Stummstellen abschalten führt während des Taubstellens auch zu dessen Deaktivierung.</translation>
+        <translation>Stellen Sie sich selbst stumm oder deaktivieren es. Wenn Sie stumm gestellt sind werden keine Daten von Ihnen an den Server gesandt. Deaktivieren Sie das stumm stellen währen Sie taub gestellt sind, wird dieses auch deaktiviert.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="371"/>
         <source>&amp;Deafen Self</source>
-        <translation>Selbst &amp;Taubstellen</translation>
+        <translation>Selbst &amp;Taub stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="374"/>
         <source>Deafen yourself</source>
-        <translation>Sich selbst taubstellen</translation>
+        <translation>Sich selbst taub stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="377"/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Taubstellen an/aus. When taub, kann man nichts hören. Taubstellen aktiviert auch Stummstellen.</translation>
+        <translation>Sich selbst Taub stellen an/aus. Wenn taub gestellt hört man nichts. Sich taub zu stellen stellt einen automatisch stumm.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="385"/>
         <source>&amp;Text-To-Speech</source>
-        <translation>&amp;Text-To-Speech</translation>
+        <translation>&amp;Text-Zu-Sprache</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="388"/>
         <source>Toggle Text-To-Speech</source>
-        <translation>Text-To-Speech ein-/ausschalten</translation>
+        <translation>Text-Zu-Sprache ein-/ausschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="391"/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Text-To-Speech-Engine ein- oder ausschalten. Nur Nachrichten die im Konfigurationsdialog entsprechend aktiviert sind werden tatsächlich gesprochen.</translation>
+        <translation>Text-Zu-Sprache-Engine ein- oder ausschalten. Nur Nachrichten die in den Einstellungen entsprechend aktiviert sind werden tatsächlich gesprochen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="396"/>
@@ -4094,17 +4094,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="402"/>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation>Zeigt einen kleinen Dialog mit Informationen über den aktuellen Audio Input an.</translation>
+        <translation>Zeigt einen kleinen Dialog mit Informationen über den aktuellen Audio Eingang an.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="410"/>
         <source>Forcibly unlink plugin</source>
-        <translation>Plugin trennen</translation>
+        <translation>Trennen des Plugins erzwingen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="413"/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation>Dies zwingt das aktuelle Plugin zu trennen, was hilfreich ist, wenn es völlig falsche Daten liest.</translation>
+        <translation>Dies zwingt das aktuelle Plugin zur Trennenung, was hilfreich sein kann, wenn es völlig falsche Daten einliest.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="418"/>
@@ -4129,12 +4129,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="446"/>
         <source>Enter What&apos;s This? mode</source>
-        <translation>Was ist das Modus?-Modus betreten</translation>
+        <translation>Was ist das? Modus betreten</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="449"/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>Dies anklicken um den &quot;Was ist das?&quot;-Modus zu aktivieren. Der Cursor wird sich in ein Fragezeichen ändern. Klickt man damit auf irgendeinen Button, Menüeintrag oder ein Gebiet, wird eine kurze Beschreibung ausgegeben.</translation>
+        <translation>Dies anklicken um den &quot;Was ist das?&quot;-Modus zu aktivieren. Der Cursor wird sich in ein Fragezeichen ändern. Klickt man damit auf irgendeinen Button, Menüeintrag oder ein Gebiet, wird eine kurze Beschreibung angezeigt.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="454"/>
@@ -4149,7 +4149,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="460"/>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation>Zeigt einen kleinen Dialog mit Informationen und Lizenzierung von Mumble.</translation>
+        <translation>Zeigt einen kleinen Dialog mit Informationen über Mumble und zur Lizenzierung.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="468"/>
@@ -4184,17 +4184,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="496"/>
         <source>Check for &amp;Updates</source>
-        <translation>Nach &amp;Updates suchen</translation>
+        <translation>Auf &amp;Updates prüfen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="499"/>
         <source>Check for new version of Mumble</source>
-        <translation>Nach einer neuen Version von Mumble suchen</translation>
+        <translation>Prüfen, ob eine neue Version von Mumble vverfügbar ist</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="502"/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Verbindet sich mit der Mumble Webseite um zu prüfen ob eine neue Version verfügbar ist. In dem Fall wird mit einer passenden Download URL darauf hingewiesen.</translation>
+        <translation>Verbindet sich mit der Mumble Webseite um zu prüfen ob eine neue Version verfügbar ist. Ist eine neue Version verfügbar wird mit einer passenden Download URL darauf hingewiesen.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="226"/>
@@ -4209,7 +4209,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="115"/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>Dieser Bereicht zeigt die letzten Nachrichten an. Verbindungen zum Server, Fehler und Informationsnachrichten werden hier angezeigt.&lt;br /&gt;Zur Konfigurierung der Anzeigen, müssen die &lt;b&gt;Einstellungen&lt;/b&gt; im Konfigurationsmenü geändert werden.</translation>
+        <translation>Dieser Bereich zeigt die letzten Aktivitäten an. Verbindungen zum Server, Fehler und Informationsnachrichten werden hier angezeigt.&lt;br /&gt;Um genau festzulegen welche Nachrichten hier angezeigt werden verwenden Sie den &lt;b&gt;Einstellungen&lt;/b&gt; Menüeintrag und öffnen den Tab &lt;b&gt;Nachrichten&lt;/b&gt;.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="43"/>
@@ -4219,7 +4219,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="54"/>
         <source>&amp;Player</source>
-        <translation>S&amp;pieler</translation>
+        <translation>B&amp;enutzer</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="59"/>
@@ -4244,7 +4244,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="693"/>
         <source>Kicking player %1</source>
-        <translation>Kicke Spieler %1</translation>
+        <translation>Kicke Benutzer %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="715"/>
@@ -4254,7 +4254,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="715"/>
         <source>Banning player %1</source>
-        <translation>Banne Spieler %1</translation>
+        <translation>Banne Benutzer %1</translation>
     </message>
     <message>
         <location filename="main.cpp" line="221"/>
@@ -4273,12 +4273,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1007"/>
         <source>Unmuted and undeafened.</source>
-        <translation>Stumm- und Taubstellen ausgeschaltet.</translation>
+        <translation>Stumm und taub stellen ausgeschaltet.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1009"/>
         <source>Unmuted.</source>
-        <translation>Stummstellen aus.</translation>
+        <translation>Stumm stellen aus.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1011"/>
@@ -4323,7 +4323,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1310"/>
         <source>Disconnected from server.</source>
-        <translation>Verbindung zum Server abgebrochen.</translation>
+        <translation>Verbindung zum Server unterbrochen.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="543"/>
@@ -4343,17 +4343,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="110"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 ist jetzt stumm und taubgestellt.</translation>
+        <translation>%1 ist jetzt stumm und taub gestellt.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="112"/>
         <source>%1 is now muted.</source>
-        <translation>%1 ist jetzt stummgestellt.</translation>
+        <translation>%1 ist jetzt stumm gestellt.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="114"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 ist jetzt nicht mehr stummgestellt.</translation>
+        <translation>%1 ist jetzt nicht mehr stumm gestellt.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="147"/>
@@ -4363,17 +4363,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="130"/>
         <source>You were muted by %1.</source>
-        <translation>Du wurdest von %1 stummgestellt.</translation>
+        <translation>Du wurdest von %1 stumm gestellt.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="130"/>
         <source>You were unmuted by %1.</source>
-        <translation>Stummstellen wurde von %1 deaktiviert.</translation>
+        <translation>Stumm gestellt sein wurde von %1 deaktiviert.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="133"/>
         <source>%1 muted by %2.</source>
-        <translation>%1 von %2 stummgestellt.</translation>
+        <translation>%1 von %2 stumm gestellt.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="133"/>
@@ -4383,7 +4383,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="150"/>
         <source>You were deafened by %1.</source>
-        <translation>Du wurdest von %1 taubgestellt.</translation>
+        <translation>Du wurdest von %1 taub gestellt.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="150"/>
@@ -4393,7 +4393,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="153"/>
         <source>%1 deafened by %2.</source>
-        <translation>%1 wurde von %2 taubgestellt.</translation>
+        <translation>%1 wurde von %2 taub gestellt.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="153"/>
@@ -4453,7 +4453,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="main.cpp" line="204"/>
         <source>Welcome to Mumble.</source>
-        <translation>Willkommen zu Mumble.</translation>
+        <translation>Willkommen in Mumble.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="156"/>
@@ -4471,13 +4471,13 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="162"/>
         <source>Toggle Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Selbst stummstellen umschalten</translation>
+        <translation>Selbst stumm stellen umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="165"/>
         <source>Toggle Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Selbst taubstellen umschalten</translation>
+        <translation>Selbst taub stellen umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="171"/>
@@ -4489,25 +4489,25 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="176"/>
         <source>Chan Parent</source>
         <comment>Global Shortcut</comment>
-        <translation>Kanal Eltern</translation>
+        <translation>Elternkanal</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="181"/>
         <source>Chan Sub#%1</source>
         <comment>Global Shortcut</comment>
-        <translation>Kanal Sub#%1</translation>
+        <translation>Unterkanal #%1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="186"/>
         <source>Chan All Subs</source>
         <comment>Global Shortcut</comment>
-        <translation>Kanal alle Subs</translation>
+        <translation>Alle Unterkanäle</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="190"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>Push-To-Mute</translation>
+        <translation>Stumm stellen</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="193"/>
@@ -4519,7 +4519,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="196"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Overlay umschalten</translation>
+        <translation>Overlay-Modus umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="200"/>
@@ -4531,17 +4531,17 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="168"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation>Plugin ausklinken</translation>
+        <translation>Plugin trennen</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="856"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>Sicher %1 und all seine Unterkanäle zu löschen?</translation>
+        <translation>Sind Sie sicher, dass Sie %1 und alle Unterkanäle löschen möchten?</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="124"/>
         <source>&amp;Quit Mumble</source>
-        <translation>&amp;Beenden</translation>
+        <translation>Mumble B&amp;eenden</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="127"/>
@@ -4597,12 +4597,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1323"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation>Sie haben sich mit ungültigem Benutzernamen angemeldet, bitte versuchen Sie einen anderen.</translation>
+        <translation>Sie haben sich mit ungültigem Benutzernamen verbunden. Bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1323"/>
         <source>That username is already in use, please try another username.</source>
-        <translation>Dieser Benutzername ist bereits vergeben, bitte versuchen Sie einen anderen.</translation>
+        <translation>Dieser Benutzername ist bereits vergeben. Bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1328"/>
@@ -4612,12 +4612,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1328"/>
         <source>Wrong password for registered users, please try again.</source>
-        <translation>Falsches Passwort für registrierte Benutzer, bitte noch einmal versuchen.</translation>
+        <translation>Falsches Passwort für registrierte Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1328"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Falsches Serverpasswort für unregistrierten Benutzer-Account, bitte noch einmal versuchen.</translation>
+        <translation>Falsches Serverpasswort für unregistrierte Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="341"/>
@@ -4647,7 +4647,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="438"/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation>Dies leitet Sie durch den Hardwarekonfigurierungs-Prozess.</translation>
+        <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1266"/>
@@ -4657,12 +4657,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1271"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat eine anderes Zertifikat, als das gespeicherte.</translation>
+        <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat ein Zertifikat gesendet, das sich vom für diesen Server gespeicherten Zertifikat unterscheidet.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1273"/>
         <source>Sever presented a certificate which failed verification.</source>
-        <translation>Server hat Zertifikat, das Überprüfung nicht standhielt.</translation>
+        <translation>Der Server hat Zertifikat gesendet, dessen Überprüfung gescheitert ist.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="965"/>
@@ -4702,12 +4702,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="180"/>
         <source>&amp;Information</source>
-        <translation>&amp;Information</translation>
+        <translation>&amp;Informationen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="183"/>
         <source>Show information about the server connection</source>
-        <translation>Zeige Informationen über Serververbindung an</translation>
+        <translation>Zeigt Informationen über die Serververbindung an</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="186"/>
@@ -4727,7 +4727,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1287"/>
         <source>&amp;View Certificate</source>
-        <translation>&amp;Zeige Zertifikat</translation>
+        <translation>&amp;Zertifikat zeigen</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="380"/>
@@ -4777,7 +4777,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="580"/>
         <source>Voice channel is sent over control channel.</source>
-        <translation>Sprachkanal wird über Kontrollkanal gesendet.</translation>
+        <translation>Sprachkanal wird über den Kontrollkanal gesendet.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="582"/>
@@ -4817,7 +4817,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="589"/>
         <source>Resync</source>
-        <translation>Resync</translation>
+        <translation>Neu Synchronisieren</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="736"/>
@@ -4832,12 +4832,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="247"/>
         <source>Mute player locally</source>
-        <translation>Spieler lokal stummstellen</translation>
+        <translation>Benutzer lokal stummstellen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="250"/>
         <source>Mute or unmute player locally. Use this on other players in the same room.</source>
-        <translation>Spieler lokal stummstellen. Benutzen Sie dies wenn sich andere Spieler im selben Raum befinden.</translation>
+        <translation>Benutzer lokal stummstellen. Benutzen Sie dies wenn sich andere Spieler im selben Raum befinden.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="299"/>
@@ -4897,7 +4897,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="521"/>
         <source>Send message to channel tree.</source>
-        <translation>Sende Nachricht an Kanalbaum.</translation>
+        <translation>Sende Nachricht an Kanalbaum (Kanal und Unterkanäle).</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="524"/>
@@ -4907,7 +4907,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="330"/>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
-        <translation>Maximale Bandbreite des Servers ist nur %1 kbit/s. Qualität wird automatisch angepasst.</translation>
+        <translation>Maximale Bandbreite des Servers ist nur %1 kbit/s. Die Qualität wurde automatisch angepasst.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="593"/>
@@ -4922,7 +4922,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="293"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>Mumble ist zu einem Server verbunden. Wollen Sie Schließen oder Minimieren?</translation>
+        <translation>Mumble ist gerade zu einem Server verbunden. Möchten Sie es schließen oder minimieren?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="294"/>
@@ -4953,7 +4953,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="203"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation>Minimalansicht umschalten</translation>
+        <translation>Minimalansichts-Modus umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="532"/>
@@ -4963,12 +4963,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="535"/>
         <source>Toggle minimal window modes</source>
-        <translation>Zwischen Minimalen Fenster Modi umschalten</translation>
+        <translation>Zwischen Minimalansichts-Modi umschalten</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="538"/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation>Dies schaltet in den Minimal Modus um, in dem das Logfenster und das Menu versteckt sind.</translation>
+        <translation>Dies schaltet in den Minimal-Modus um, in dem das Logfenster und das Menu versteckt sind.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="105"/>
@@ -4995,7 +4995,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="PlayerModel.cpp" line="995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation>Kanal Ziehen wurde auf &quot;Nichts tun&quot; gesetzt, der Kanal wurde nicht bewegt.</translation>
+        <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="1001"/>
@@ -5006,13 +5006,13 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.ui" line="321"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation>&amp;Unlink</translation>
+        <translation>&amp;Verknüpfung entfernen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="407"/>
         <source>&amp;Unlink</source>
         <comment>Plugin</comment>
-        <translation>&amp;Unlink</translation>
+        <translation>&amp;Deaktivieren</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="340"/>
@@ -5033,7 +5033,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="549"/>
         <source>Toggle showing frame on minimal window</source>
-        <translation>Anzeige des Ramhens im Minimal Modus wechseln</translation>
+        <translation>Anzeige des Rahmens im Minimal-Modus wechseln</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="552"/>
