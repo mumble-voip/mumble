@@ -100,6 +100,8 @@ macx {
 		GCC42=$$system(readlink /usr/bin/gcc | grep "gcc-4.[2-9][.0-9]*")
 		!isEmpty(GCC42):!CONFIG(no-gcc42) {
 			QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
+			QMAKE_CFLAGS += -mmacosx-version-min=10.4
+			QMAKE_CXXFLAGS += -mmacosx-version-min=10.4
 			contains(ARCH, 'i386') {
 				QMAKE_CFLAGS += -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 				QMAKE_CXXFLAGS += -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2

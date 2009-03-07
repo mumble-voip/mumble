@@ -141,20 +141,20 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	}
 
 	kbdLayout = NULL;
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
-	TISInputSourceRef inputSource = TISCopyCurrentKeyboardInputSource();
-	if (inputSource) {
-		CFDataRef data = static_cast<CFDataRef>(TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData));
-		if (data)
-			kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
+	if (TISCopyCurrentKeyboardInputSource && TISGetInputSourceProperty) {
+		TISInputSourceRef inputSource = TISCopyCurrentKeyboardInputSource();
+		if (inputSource) {
+			CFDataRef data = static_cast<CFDataRef>(TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData));
+			if (data)
+				kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
+		}
+	} else {
+		SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript);
+		SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys);
+		Handle handle = GetResource('uchr', lastKeyLayoutID);
+		if (handle)
+			kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
 	}
-#else
-	SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript);
-	SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys);
-	Handle handle = GetResource('uchr', lastKeyLayoutID);
-	if (handle)
-		kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
-#endif
 	if (! kbdLayout)
 		qWarning("GlobalShortcutMac: No keyboard layout mapping available. Unable to perform key translation.");
 
