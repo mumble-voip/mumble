@@ -289,10 +289,11 @@ void MainWindow::setupGui()  {
 	setupView(false);
 
 	qmTray = new QMenu(this);
+	qmTray->addAction(qaQuit);
+	qmTray->addAction(qaHelpAbout);
+	qmTray->addSeparator();
 	qmTray->addAction(qaAudioMute);
 	qmTray->addAction(qaAudioDeaf);
-	qmTray->addSeparator();
-	qmTray->addAction(qaQuit);
 	qstiIcon->setContextMenu(qmTray);
 	updateTrayIcon();
 }
