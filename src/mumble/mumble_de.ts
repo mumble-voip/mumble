@@ -3874,7 +3874,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="197"/>
         <source>Kick selected player off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Den ausgewählten Benutzer vom Server schmeissen. Sie werden aufgefordert werden einen Grund anzugeben.</translation>
+        <translation>Den ausgewählten Benutzer vom Server schmeissen. Sie werden aufgefordert, einen Grund anzugeben.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="216"/>
