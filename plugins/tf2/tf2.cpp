@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 3755)", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 3771)", L"Mumble TF2 Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -107,22 +107,22 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-
+    
 	// Check if we really have TF2 running
 	/*
-		position tuple:		client.dll+0x4cd594  (x,y,z, float)
-		orientation tuple:	client.dll+0x52529c  (v,h float)
-		ID string:			client.dll+0x47726b = "teamJet@@" (9 characters, text)
-		spawn state:        client.dll+0x466b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+		position tuple:		client.dll+0x47ef90  (x,y,z, float)               
+		orientation tuple:	client.dll+0x47ef14  (v,h float)
+		ID string:			client.dll+0x47826b = "teamJet@@" (9 characters, text)
+		spawn state:        client.dll+0x467b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
 	*/
 	char sMagic[9];
-	if (!peekProc(mod + 0x47726b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
-		return false;
-
+	if(!peekProc(mod + 0x47826b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	return false;
+    
 	// Remember addresses for later
-	posptr = mod + 0x4cd594;
-	rotptr = mod + 0x52529c;
-	stateptr = mod + 0x466b84;
+	posptr = mod + 0x47ef90;
+	rotptr = mod + 0x47ef14;
+	stateptr = mod + 0x467b84;
 
 	float pos[3];
 	float rot[3];
@@ -133,7 +133,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-	// If it failed clean up
+    // If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -156,21 +156,21 @@ static int fetch(float *pos, float *front, float *top) {
 	char state;
 
 	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1);
+		 peekProc(rotptr, rot, 12) &&
+		 peekProc(stateptr, &state, 1); 
 	if (!ok)
 		return false;
 
 	// Check to see if you are in a server
 	if (state == 0 || state == 1 || state == 3)
 		return true; // Deactivate plugin
-
+	
 	return calcout(ipos, rot, pos, front, top);
 }
 
 static MumblePlugin tf2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Team Fortress 2 (Build 3755)",
+	L"Team Fortress 2 (Build 3771)",
 	L"Team Fortress 2",
 	about,
 	NULL,
