@@ -64,11 +64,11 @@ class Channel : public QObject {
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;
 
-		Channel(int id, QString name, QString desc, QObject *p = NULL);
+		Channel(int id, const QString &name, const QString &desc, QObject *p = NULL);
 		~Channel();
 
 		static Channel *get(int);
-		static Channel *add(int, QString, QString, QObject *p = NULL);
+		static Channel *add(int, const QString &, const QString & = QString());
 		static void remove(Channel *);
 
 		void addChannel(Channel *c);

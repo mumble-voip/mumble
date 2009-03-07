@@ -40,7 +40,7 @@ uint qHash(const Channel::qpPlayerLink & pl) {
 	return qHash(pl.first) + qHash(pl.second);
 }
 
-Channel::Channel(int id, QString name, QString desc, QObject *p) : QObject(p) {
+Channel::Channel(int id, const QString &name, const QString &desc, QObject *p) : QObject(p) {
 	iId = id;
 	qsName = name;
 	qsDesc = desc;
@@ -73,13 +73,13 @@ Channel *Channel::get(int id) {
 	return c_qhChannels.value(id);
 }
 
-Channel *Channel::add(int id, QString name, QString desc, QObject *po) {
+Channel *Channel::add(int id, const QString &name, const QString &desc) {
 	QWriteLocker lock(&c_qrwlChannels);
 
 	if (c_qhChannels.contains(id))
 		return NULL;
 
-	Channel *c = new Channel(id,name, desc, po);
+	Channel *c = new Channel(id,name, desc, NULL);
 	c_qhChannels.insert(id, c);
 	return c;
 }

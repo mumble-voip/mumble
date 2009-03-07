@@ -125,7 +125,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qApp->setWindowIcon(qiIcon);
 #endif
 
-	Channel::add(0, tr("Root"), NULL);
+	Channel::add(0, tr("Root"));
 
 	aclEdit = NULL;
 	banEdit = NULL;
@@ -948,7 +948,6 @@ void MainWindow::on_qaChannelRename_triggered() {
 }
 
 void MainWindow::on_qaChannelDescUpdate_triggered() {
-	bool ok;
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	if (! c)
 		return;

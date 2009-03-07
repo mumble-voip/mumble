@@ -753,7 +753,7 @@ void PlayerModel::renameChannel(Channel *c, const QString &name) {
 
 
 Channel *PlayerModel::addChannel(int id, Channel *p, const QString &name) {
-	Channel *c = Channel::add(id, name, NULL);
+	Channel *c = Channel::add(id, name);
 
 	if (! c)
 		return NULL;
