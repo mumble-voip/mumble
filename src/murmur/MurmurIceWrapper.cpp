@@ -42,8 +42,8 @@ void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,
 	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_setConf, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::setSuperuserPasssword_async(const ::Murmur::AMD_Server_setSuperuserPassswordPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
-	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_setSuperuserPasssword, cb, QString::fromStdString(current.id.name).toInt(), p1));
+void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_setSuperuserPasswordPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
+	IceEvent *ie = new IceEvent(boost::bind(&impl_Server_setSuperuserPassword, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
 void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2, const ::Ice::Current &current) {

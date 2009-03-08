@@ -746,7 +746,7 @@ static void impl_Server_setConf(const ::Murmur::AMD_Server_setConfPtr cb, int se
 	cb->ice_response();
 }
 
-static void impl_Server_setSuperuserPasssword(const ::Murmur::AMD_Server_setSuperuserPassswordPtr cb, int server_id,  const ::std::string& pw) {
+static void impl_Server_setSuperuserPassword(const ::Murmur::AMD_Server_setSuperuserPasswordPtr cb, int server_id,  const ::std::string& pw) {
 	NEED_SERVER_EXISTS;
 	ServerDB::setSUPW(server_id, fromStdUtf8String(pw));
 	cb->ice_response();

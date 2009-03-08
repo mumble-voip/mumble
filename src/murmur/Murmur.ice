@@ -419,7 +419,7 @@ module Murmur
 		/** Set superuser password. This is just a convenience for using [updateregistration] on player id 0.
 		 * @param pw Password.
 		 */
-		idempotent void setSuperuserPasssword(string pw);
+		idempotent void setSuperuserPassword(string pw);
 
 		/** Fetch log entries.
 		 * @param first Lowest numbered entry to fetch. 0 is the most recent item.
