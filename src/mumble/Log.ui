@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
-    <height>454</height>
+    <width>347</width>
+    <height>191</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -15,20 +15,20 @@
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QTreeWidget" name="qtwMessages" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
      <property name="alternatingRowColors" >
       <bool>true</bool>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
      </property>
      <property name="rootIsDecorated" >
       <bool>false</bool>
      </property>
      <property name="uniformRowHeights" >
       <bool>true</bool>
+     </property>
+     <property name="itemsExpandable" >
+      <bool>false</bool>
      </property>
      <column>
       <property name="text" >
@@ -57,118 +57,15 @@
      </column>
      <column>
       <property name="text" >
-       <string>Soundfile path</string>
+       <string>Path</string>
       </property>
      </column>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="qgbMsgConfig" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Maximum" hsizetype="Minimum" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title" >
-      <string>Message configuration</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout" >
-      <item row="4" column="0" >
-       <widget class="QCheckBox" name="qcbNotification" >
-        <property name="text" >
-         <string>Notification</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QCheckBox" name="qcbConsole" >
-        <property name="text" >
-         <string>Console</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3" >
-       <widget class="QLineEdit" name="qlePath" />
-      </item>
-      <item row="5" column="2" >
-       <widget class="QRadioButton" name="qrbOff" >
-        <property name="text" >
-         <string>Off</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2" >
-       <widget class="QRadioButton" name="qrbSoundfile" >
-        <property name="text" >
-         <string>Soundfile</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="4" >
-       <widget class="QPushButton" name="qpbBrowse" >
-        <property name="text" >
-         <string>Browse</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <spacer name="spacer_2" >
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="4" column="1" >
-       <spacer name="spacer" >
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QRadioButton" name="qrbTTS" >
-        <property name="text" >
-         <string>Text-To-Speech</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="4" >
-       <widget class="QPushButton" name="qpbPlay" >
-        <property name="text" >
-         <string>Play</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-     <zorder>qcbNotification</zorder>
-     <zorder>qcbConsole</zorder>
-     <zorder>qlePath</zorder>
-     <zorder>qrbOff</zorder>
-     <zorder>qrbSoundfile</zorder>
-     <zorder>qpbBrowse</zorder>
-     <zorder>spacer_2</zorder>
-     <zorder>spacer</zorder>
-     <zorder>qrbTTS</zorder>
-     <zorder>qpbPlay</zorder>
-    </widget>
-   </item>
-   <item>
     <widget class="QGroupBox" name="qgbTTS" >
      <property name="title" >
-      <string>Global Text-To-Speech configuration</string>
+      <string>Text To Speech</string>
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" >
@@ -242,7 +139,7 @@
        </widget>
       </item>
       <item row="1" column="2" >
-       <spacer name="spacer_3" >
+       <spacer>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
@@ -258,9 +155,6 @@
     </widget>
    </item>
   </layout>
-  <zorder>qtwMessages</zorder>
-  <zorder>qgbTTS</zorder>
-  <zorder>qgbMsgConfig</zorder>
  </widget>
  <resources>
   <include location="mumble.qrc" />
