@@ -52,17 +52,11 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		virtual void save() const;
 		virtual void load(const Settings &);
 		virtual bool expert(bool);
-		void on_qtwMessages_itemSelectionChanged();
+
 		void on_qtwMessages_itemChanged(QTreeWidgetItem*, int);
-		void on_qtwMessages_clicked(const QModelIndex & index);
-		void on_qpbPlay_clicked();
-		void on_qpbBrowse_clicked();
-		void on_qlePath_editingFinished();
-		void on_qcbConsole_toggled(bool);
-		void on_qcbNotification_toggled(bool);
-		void on_qrbTTS_toggled(bool);
-		void on_qrbSoundfile_toggled(bool);
-		void on_qrbOff_toggled(bool);
+		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);
+		void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem*, int);
+		void BrowseForSpxFile();
 };
 
 class Log : public QObject {

@@ -69,10 +69,9 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setToolTip(ColNotification, tr("Enable ballon tool-tip for %1").arg(messageName));
 		twi->setToolTip(ColTTS, tr("Enable Text-To-Speech for %1").arg(messageName));
 		twi->setToolTip(ColStaticSound, tr("Enable static sound for %1").arg(messageName));
-		twi->setToolTip(ColStaticSoundPath, tr("Static sound path for %1").arg(messageName));
+		twi->setToolTip(ColStaticSoundPath, tr("Static sound path for %1\nsingle click to play\ndoubleclick to change").arg(messageName));
 
 	}
-	on_qtwMessages_itemSelectionChanged();
 }
 
 QString LogConfig::title() const {
@@ -130,88 +129,40 @@ bool LogConfig::expert(bool) {
 	return false;
 }
 
-void LogConfig::on_qtwMessages_itemSelectionChanged() {
-	QList<QTreeWidgetItem *> qlSelected = qtwMessages->selectedItems();
-	if (qlSelected.empty()) {
-		// Nothing selected
-		qcbConsole->setEnabled(false);
-		qcbNotification->setEnabled(false);
-		qrbTTS->setEnabled(false);
-		qrbSoundfile->setEnabled(false);
-		qrbOff->setEnabled(false);
-		qlePath->setText(QString());
-		qlePath->setEnabled(false);
-		qpbBrowse->setEnabled(false);
-		qpbPlay->setEnabled(false);
-	} else {
-		QTreeWidgetItem *i = qlSelected[0];
-
-		qcbConsole->setEnabled(true);
-		qcbNotification->setEnabled(true);
-		qrbTTS->setEnabled(true);
-		qrbSoundfile->setEnabled(true);
-		qrbOff->setEnabled(true);
-		qlePath->setEnabled(true);
-		qpbBrowse->setEnabled(true);
-		qpbPlay->setEnabled(true);
-
-		qcbConsole->setChecked(i->checkState(ColConsole));
-		qcbNotification->setChecked(i->checkState(ColNotification));
-		if (i->checkState(ColTTS)) qrbTTS->setChecked(true);
-		else if (i->checkState(ColStaticSound)) qrbSoundfile->setChecked(true);
-		else qrbOff->setChecked(true);
-		qlePath->setText(i->text(ColStaticSoundPath));
-	}
-}
-
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 	if (! i->isSelected()) return;
 	switch (column) {
-		case ColConsole:
-			qcbConsole->setChecked(i->checkState(column));
-			break;
-		case ColNotification:
-			qcbNotification->setChecked(i->checkState(column));
-			break;
 		case ColTTS:
-			if (i->checkState(ColTTS)) {
+			if (i->checkState(ColTTS))
 				i->setCheckState(ColStaticSound, Qt::Unchecked);
-				qrbTTS->setChecked(true);
-			} else if (i->checkState(ColStaticSound) == Qt::Unchecked)
-				qrbOff->setChecked(true);
 			break;
 		case ColStaticSound:
 			if (i->checkState(ColStaticSound)) {
 				i->setCheckState(ColTTS, Qt::Unchecked);
-				qrbSoundfile->setChecked(true);
-				if (i->text(ColStaticSoundPath).isEmpty()) qpbBrowse->click();
-			} else if (i->checkState(ColTTS) == Qt::Unchecked)
-				qrbOff->setChecked(true);
-			break;
-		case ColStaticSoundPath:
-			qlePath->setText(i->text(ColStaticSoundPath));
+				if (i->text(ColStaticSoundPath).isEmpty()) BrowseForSpxFile();
+			}
 			break;
 		default:
 			break;
 	}
 }
 
-void LogConfig::on_qtwMessages_clicked(const QModelIndex & index) {
-	if(index.isValid()) {
-		if(index.column() == ColStaticSoundPath)
-			qpbBrowse->click();
+void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
+	if(item && column == ColStaticSoundPath) {
+		AudioOutputPtr ao = g.ao;
+		if (ao) {
+			if(!ao->playSample(item->text(ColStaticSoundPath), false))
+				BrowseForSpxFile();
+		}
 	}
 }
 
-void LogConfig::on_qpbPlay_clicked() {
-	QString file = qlePath->text();
-	AudioOutputPtr ao = g.ao;
-	if (! file.isEmpty() && ao) {
-		ao->playSample(file, false);
-	}
+void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int column) {
+	if(item && column == ColStaticSoundPath)
+		BrowseForSpxFile();
 }
 
-void LogConfig::on_qpbBrowse_clicked() {
+void LogConfig::BrowseForSpxFile() {
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.spx"));
 	if (! file.isEmpty()) {
 		if (AudioOutputSample::getPacketsFromFile(file).isEmpty()) {
@@ -227,39 +178,6 @@ void LogConfig::on_qpbBrowse_clicked() {
 	}
 }
 
-void LogConfig::on_qlePath_editingFinished() {
-	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
-	i->setText(ColStaticSoundPath, qlePath->text());
-	i->setCheckState(ColStaticSound, Qt::Checked);
-}
-
-void LogConfig::on_qcbConsole_toggled(bool checked) {
-	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
-	i->setCheckState(ColConsole, checked ? Qt::Checked : Qt::Unchecked);
-}
-
-void LogConfig::on_qcbNotification_toggled(bool checked) {
-	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
-	i->setCheckState(ColNotification, checked ? Qt::Checked : Qt::Unchecked);
-}
-
-void LogConfig::on_qrbTTS_toggled(bool checked) {
-	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
-	i->setCheckState(ColTTS, checked ? Qt::Checked : Qt::Unchecked);
-}
-
-void LogConfig::on_qrbSoundfile_toggled(bool checked) {
-	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
-	i->setCheckState(ColStaticSound, checked ? Qt::Checked : Qt::Unchecked);
-}
-
-void LogConfig::on_qrbOff_toggled(bool checked) {
-	if (checked) {
-		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
-		i->setCheckState(ColTTS, Qt::Unchecked);
-		i->setCheckState(ColStaticSound, Qt::Unchecked);
-	}
-}
 
 Log::Log(QObject *p) : QObject(p) {
 	tts=new TextToSpeech(this);
