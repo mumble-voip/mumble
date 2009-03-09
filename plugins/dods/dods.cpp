@@ -106,17 +106,17 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-    
+
 	// Check if we really have DODS running
 	/*
-		position tuple:		client.dll+0x3f3230  (x,y,z, float)               
+		position tuple:		client.dll+0x3f3230  (x,y,z, float)
 		orientation tuple:	client.dll+0x3f31a4  (v,h float)
 		ID string:			client.dll+0x3f3d21 = "DODSpectatorGUI@@" (17 characters, text)
 		spawn state:        client.dll+0x3dfb7c  (0 when at main menu, 2 when at team selection menu or when not spawned, and between 4 and 5 when spawned, byte)
 	*/
-    char sMagic[17];
-	if(!peekProc(mod + 0x3f3d21, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
-	return false;
+	char sMagic[17];
+	if (!peekProc(mod + 0x3f3d21, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
+		return false;
 
 	// Remember addresses for later
 	posptr = mod + 0x3f3230;
@@ -132,7 +132,7 @@ static int trylock() {
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
-    // If it failed clean up
+	// If it failed clean up
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -155,15 +155,15 @@ static int fetch(float *pos, float *front, float *top) {
 	char state;
 
 	ok = peekProc(posptr, ipos, 12) &&
-		 peekProc(rotptr, rot, 12) &&
-		 peekProc(stateptr, &state, 1); 
+	     peekProc(rotptr, rot, 12) &&
+	     peekProc(stateptr, &state, 1);
 	if (!ok)
 		return false;
 
 	// Check to see if you are spawned
 	if (state == 0 || state == 2)
 		return true; // Deactivate plugin
-	
+
 	return calcout(ipos, rot, pos, front, top);
 }
 

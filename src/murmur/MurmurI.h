@@ -41,8 +41,8 @@ class ServerI : virtual public Server {
 		                           const Ice::Current&);
 
 		virtual void setSuperuserPassword_async(const ::Murmur::AMD_Server_setSuperuserPasswordPtr&,
-		        const ::std::string&,
-		        const Ice::Current&);
+		                                        const ::std::string&,
+		                                        const Ice::Current&);
 
 		virtual void getLog_async(const ::Murmur::AMD_Server_getLogPtr&,
 		                          ::Ice::Int,

@@ -148,17 +148,17 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 }
 
 void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
-	if(item && column == ColStaticSoundPath) {
+	if (item && column == ColStaticSoundPath) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
-			if(!ao->playSample(item->text(ColStaticSoundPath), false))
+			if (!ao->playSample(item->text(ColStaticSoundPath), false))
 				BrowseForSpxFile();
 		}
 	}
 }
 
 void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int column) {
-	if(item && column == ColStaticSoundPath)
+	if (item && column == ColStaticSoundPath)
 		BrowseForSpxFile();
 }
 
@@ -167,8 +167,8 @@ void LogConfig::BrowseForSpxFile() {
 	if (! file.isEmpty()) {
 		if (AudioOutputSample::getPacketsFromFile(file).isEmpty()) {
 			QMessageBox::critical(this,
-				tr("Invalid sound file"),
-				tr("The file '%1' does not exist or is not a valid speex file.").arg(file));
+			                      tr("Invalid sound file"),
+			                      tr("The file '%1' does not exist or is not a valid speex file.").arg(file));
 			return;
 		}
 		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
@@ -366,8 +366,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	if ((flags & Settings::LogSoundfile)) {
 		QString sSound = g.s.qmMessageSounds.value(mt);
 		AudioOutputPtr ao = g.ao;
-		if(!ao || !ao->playSample(sSound, false))
-		{
+		if (!ao || !ao->playSample(sSound, false)) {
 			qWarning() << "Sound file" << sSound << "is not a valid speex file, fallback to TTS.";
 			flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS
 		}
