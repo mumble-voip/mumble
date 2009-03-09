@@ -448,7 +448,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	if ((flags & Settings::LogSoundfile)) {
 		QString sSound = g.s.qmMessageSounds.value(mt);
 		AudioOutputPtr ao = g.ao;
-		if(ao || !ao->playSample(sSound, false))
+		if(!ao || !ao->playSample(sSound, false))
 		{
 			qWarning() << "Sound file" << sSound << "is not a valid speex file, fallback to TTS.";
 			flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS
