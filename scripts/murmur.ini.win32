@@ -1,5 +1,5 @@
 # Path to database. If blank, will search for
-# murmur.sqlite in default locations.
+# murmur.sqlite in default locations or create it if not found.
 database=
 
 # If you wish to use something other than SQLite, you'll need to set the name
@@ -13,13 +13,13 @@ database=
 #dbPrefix=murmur_
 #dbOpts=
 
-# Murmur defaults to not using D-Bus. If you wish to use dbus, please
-# specify so here.
+# Murmur defaults to not using D-Bus. If you wish to use dbus, which is one of the
+# RPC methods available in murmur, please specify so here.
 #
 dbus=session
 
 # Alternate service name. Only use if you are running distinct
-# murmurd processes connected to the same dbus daemon.
+# murmurd processes connected to the same D-Bus daemon.
 #dbusservice=net.sourceforge.mumble.murmur
 
 # If you want to use ZeroC ICE to communicate with Murmur, you need
@@ -44,9 +44,9 @@ ice="tcp -h 127.0.0.1 -p 6502"
 
 # The below will be used as defaults for new configured servers.
 # If you're just running one server (the default), it's easier to
-# configure it here than through DBus/SQL.
+# configure it here than through D-Bus/ICE/SQL.
 #
-# Welcome message sent to users
+# Welcome message sent to clients when they connect
 welcometext="<br />Welcome to this server running <b>Murmur</b> on Win32.<br />Enjoy your stay!<br />"
 
 # Port to bind TCP and UDP sockets to
@@ -60,21 +60,21 @@ port=64738
 serverpassword=
 
 # Maximum bandwidth (in bytes per second) clients are allowed
-# send speech at.
+# to send speech at.
 bandwidth=100000
 
 # Maximum number of concurrent clients allowed.
 users=100
 
 # Murmur retains the per-server log entries in an internal database which
-# allows it to be accessed over D-Bus.
+# allows it to be accessed over D-Bus/ICE.
 # How many days should such entries be kept?
 #logdays=31
 
-# To enable public registration, the serverpassword must be blank, and this
-# must all be filled out.
+# To enable public server registration, the serverpassword must be blank, and
+# this must all be filled out.
 # The password here is used to create a registry for the server name; subsequent
-# updates will need the same password. Don't loose your password.
+# updates will need the same password. Don't lose your password.
 # The URL is your own website, and only set the registerHostname for static IP
 # addresses.
 #
