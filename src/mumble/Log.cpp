@@ -52,7 +52,6 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	qtwMessages->header()->setResizeMode(ColNotification, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColTTS, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
-	//qtwMessages->setColumnHidden(ColStaticSoundPath, true);
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
@@ -70,6 +69,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setToolTip(ColNotification, tr("Enable ballon tool-tip for %1").arg(messageName));
 		twi->setToolTip(ColTTS, tr("Enable Text-To-Speech for %1").arg(messageName));
 		twi->setToolTip(ColStaticSound, tr("Enable static sound for %1").arg(messageName));
+		twi->setToolTip(ColStaticSoundPath, tr("Static sound path for %1").arg(messageName));
 
 	}
 	on_qtwMessages_itemSelectionChanged();
@@ -196,6 +196,13 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 	}
 }
 
+void LogConfig::on_qtwMessages_clicked(const QModelIndex & index) {
+	if(index.isValid()) {
+		if(index.column() == ColStaticSoundPath)
+			qpbBrowse->click();
+	}
+}
+
 void LogConfig::on_qpbPlay_clicked() {
 	QString file = qlePath->text();
 	AudioOutputPtr ao = g.ao;
@@ -207,6 +214,12 @@ void LogConfig::on_qpbPlay_clicked() {
 void LogConfig::on_qpbBrowse_clicked() {
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.spx"));
 	if (! file.isEmpty()) {
+		if (AudioOutputSample::getPacketsFromFile(file).isEmpty()) {
+			QMessageBox::critical(this,
+				tr("Invalid sound file"),
+				tr("The file '%1' does not exist or is not a valid speex file.").arg(file));
+			return;
+		}
 		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
 		i->setText(ColStaticSoundPath, file);
 		i->setCheckState(ColStaticSound, Qt::Checked);
@@ -435,8 +448,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	if ((flags & Settings::LogSoundfile)) {
 		QString sSound = g.s.qmMessageSounds.value(mt);
 		AudioOutputPtr ao = g.ao;
-		if (! sSound.isEmpty() && ao) {
-			ao->playSample(sSound, false);
+		if(ao || !ao->playSample(sSound, false))
+		{
+			qWarning() << "Sound file" << sSound << "is not a valid speex file, fallback to TTS.";
+			flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS
 		}
 	}
 

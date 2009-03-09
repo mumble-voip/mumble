@@ -54,6 +54,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		virtual bool expert(bool);
 		void on_qtwMessages_itemSelectionChanged();
 		void on_qtwMessages_itemChanged(QTreeWidgetItem*, int);
+		void on_qtwMessages_clicked(const QModelIndex & index);
 		void on_qpbPlay_clicked();
 		void on_qpbBrowse_clicked();
 		void on_qlePath_editingFinished();
