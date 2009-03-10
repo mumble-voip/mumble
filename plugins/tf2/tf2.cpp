@@ -111,7 +111,7 @@ static int trylock() {
 	// Check if we really have TF2 running
 	/*
 		position tuple:		client.dll+0x47ef90  (x,y,z, float)
-		orientation tuple:	client.dll+0x47ef14  (v,h float)
+		orientation tuple:	client.dll+0x47ef10  (v,h float)
 		ID string:			client.dll+0x47826b = "teamJet@@" (9 characters, text)
 		spawn state:        client.dll+0x467b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
 	*/
@@ -121,7 +121,7 @@ static int trylock() {
 
 	// Remember addresses for later
 	posptr = mod + 0x47ef90;
-	rotptr = mod + 0x47ef14;
+	rotptr = mod + 0x47ef10;
 	stateptr = mod + 0x467b84;
 
 	float pos[3];
