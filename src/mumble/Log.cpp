@@ -71,7 +71,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setToolTip(ColTTS, tr("Toggle Text-To-Speech for %1 events").arg(messageName));
 		twi->setToolTip(ColStaticSound, tr("Toggle static sound for %1 events").arg(messageName));
 		twi->setToolTip(ColStaticSoundPath, tr("Static sound path for %1 events<br />Single click to play<br />Doubleclick to change").arg(messageName));
-		
+
 		twi->setWhatsThis(ColConsole, tr("Click here to toggle console output for %1 events").arg(messageName));
 		twi->setWhatsThis(ColNotification, tr("Click here to toggle pop-up notifications for %1 events").arg(messageName));
 		twi->setWhatsThis(ColTTS, tr("Click here to toggle Text-To-Speech for %1 events").arg(messageName));
