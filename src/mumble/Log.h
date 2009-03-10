@@ -56,7 +56,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		void on_qtwMessages_itemChanged(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem*, int);
-		void BrowseForSpxFile();
+		void browseForSpxFile();
 };
 
 class Log : public QObject {

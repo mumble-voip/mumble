@@ -65,12 +65,18 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setCheckState(ColNotification, Qt::Unchecked);
 		twi->setCheckState(ColTTS, Qt::Unchecked);
 		twi->setCheckState(ColStaticSound, Qt::Unchecked);
-		twi->setToolTip(ColConsole, tr("Enable console for %1").arg(messageName));
-		twi->setToolTip(ColNotification, tr("Enable ballon tool-tip for %1").arg(messageName));
-		twi->setToolTip(ColTTS, tr("Enable Text-To-Speech for %1").arg(messageName));
-		twi->setToolTip(ColStaticSound, tr("Enable static sound for %1").arg(messageName));
-		twi->setToolTip(ColStaticSoundPath, tr("Static sound path for %1\nsingle click to play\ndoubleclick to change").arg(messageName));
 
+		twi->setToolTip(ColConsole, tr("Toggle console for %1 events").arg(messageName));
+		twi->setToolTip(ColNotification, tr("Toggle pop-up notifications for %1 events").arg(messageName));
+		twi->setToolTip(ColTTS, tr("Toggle Text-To-Speech for %1 events").arg(messageName));
+		twi->setToolTip(ColStaticSound, tr("Toggle static sound for %1 events").arg(messageName));
+		twi->setToolTip(ColStaticSoundPath, tr("Static sound path for %1 events<br />Single click to play<br />Doubleclick to change").arg(messageName));
+		
+		twi->setWhatsThis(ColConsole, tr("Click here to toggle console output for %1 events").arg(messageName));
+		twi->setWhatsThis(ColNotification, tr("Click here to toggle pop-up notifications for %1 events").arg(messageName));
+		twi->setWhatsThis(ColTTS, tr("Click here to toggle Text-To-Speech for %1 events").arg(messageName));
+		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle static sound for %1 events").arg(messageName));
+		twi->setWhatsThis(ColStaticSoundPath, tr("Static sound path for %1 events<br />Single click to play<br />Doubleclick to change").arg(messageName));
 	}
 }
 
@@ -139,7 +145,7 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 		case ColStaticSound:
 			if (i->checkState(ColStaticSound)) {
 				i->setCheckState(ColTTS, Qt::Unchecked);
-				if (i->text(ColStaticSoundPath).isEmpty()) BrowseForSpxFile();
+				if (i->text(ColStaticSoundPath).isEmpty()) browseForSpxFile();
 			}
 			break;
 		default:
@@ -152,17 +158,17 @@ void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
 			if (!ao->playSample(item->text(ColStaticSoundPath), false))
-				BrowseForSpxFile();
+				browseForSpxFile();
 		}
 	}
 }
 
 void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int column) {
 	if (item && column == ColStaticSoundPath)
-		BrowseForSpxFile();
+		browseForSpxFile();
 }
 
-void LogConfig::BrowseForSpxFile() {
+void LogConfig::browseForSpxFile() {
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.spx"));
 	if (! file.isEmpty()) {
 		if (AudioOutputSample::getPacketsFromFile(file).isEmpty()) {
