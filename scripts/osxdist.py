@@ -268,7 +268,6 @@ class PackageMaker(FolderObject):
 
 	def __init__(self, filename, id, title, version):
 		FolderObject.__init__(self)
-		print self.tmp
 		print 'Preparing to create package installer'
 		self.filename = filename
 		self.id = id
@@ -287,6 +286,8 @@ class PackageMaker(FolderObject):
 		           '--id',       self.id,
 		           '--title',    self.title,
 		           '--version',  self.version,
+		           '--target',   '10.4',
+		           '--scripts',  'installer_macx/scripts/',
 		           '--out',      self.filename])
 		retval = p.wait()
 		print ' * Removing temporary directory.'
@@ -337,14 +338,16 @@ if __name__ == '__main__':
 	p = Popen(['/Developer/usr/bin/packagemaker',
 	           '--doc',    'installer_macx/MumbleInstaller.pmdoc',
 	           '--id',     'net.sourceforge.mumble',
-	           '--out',    'release/Install Mumble.pkg'])
+	           '--out',    'release/Install Mumble.mpkg'])
 	if p.wait() != 0:
 		print 'Creating master installer failed.'
 		sys.exit(1)
+	# A bug in PackageMaker? It doesn't copy over the script itself.
+	shutil.copy('installer_macx/scripts/postflight', 'release/Install Mumble.mpkg/Contents/Packages/Mumble-Base.pkg/Contents/Resources/postflight')
 
 	# Create diskimage
 	d = DiskImage(dmgfn, title)
-	d.copy('release/Install Mumble.pkg')
+	d.copy('release/Install Mumble.mpkg')
 	d.copy('README', '/ReadMe.txt')
 	d.copy('CHANGES', '/Changes.txt')
 	d.copy('installer_macx/DS_Store', '/.DS_Store')

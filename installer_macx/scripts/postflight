@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Change owner/group of app bundle
+chown -R root:admin /Applications/Mumble.app/
+
+# Overlay permissions
+chown -R root:wheel /Library/MumbleOverlay/
+chown root:procmod /Library/MumbleOverlay/mumble-overlay-injector
+chmod 2755 /Library/MumbleOverlay/mumble-overlay-injector
