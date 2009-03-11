@@ -252,7 +252,7 @@ class DiskImage(FolderObject):
 		'''
 		print ' * Creating diskimage. Please wait...'
 		if os.path.exists(self.filename):
-			os.remove(self.filename)
+			shutil.rmtree(self.filename)
 		p = Popen(['hdiutil', 'create',
 		           '-srcfolder', self.tmp,
 		           '-format', 'UDBZ',
@@ -353,8 +353,10 @@ if __name__ == '__main__':
 	d.copy('installer_macx/DS_Store', '/.DS_Store')
 	d.mkdir('Licenses')
 	d.copy('LICENSE', '/Licenses/Mumble.txt')
-	d.copy('installer/qt.txt', '/Licenses/Qt.txt')
+	d.copy('installer/lgpl.txt', '/Licenses/Qt.txt')
 	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
+	d.copy('installer/portaudio.txt', '/Licenses/PortAudio.txt')
+	d.copy('installer/gpl.txt', '/Licenses/ZeroC-Ice.txt')
 	d.mkdir('Murmur')
 	d.copy('scripts/murmur.ini.osx', '/Murmur/murmur.ini')
 	d.copy('scripts/murmur.conf', '/Murmur/')
