@@ -313,6 +313,9 @@ if __name__ == '__main__':
 		dmgfn = fn + '.dmg'
 		title = 'Mumble Snapshot (%s)' %d
 
+	# Fix .ini files
+	os.system('cd scripts && sh mkini.sh')
+
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
 	a.copy_murmur()
@@ -365,6 +368,12 @@ if __name__ == '__main__':
 	d.copy('scripts/weblist.pl', '/Murmur/')
 	d.copy('scripts/weblist.php', '/Murmur/')
 	d.copy('scripts/icedemo.php', '/Murmur/')
+	d.copy('scripts/ListUsers.cs', '/Murmur/')
+	d.copy('scripts/mumble-auth.py', '/Murmur/')
+	d.copy('scripts/rubytest.rb', '/Murmur')
+	d.copy('scripts/simpleregister.php', '/Murmur/')
+	d.copy('scripts/testcallback.py', '/Murmur/')
+	d.copy('scripts/testauth.py', '/Murmur/')
 	d.copy('scripts/php.ini', '/Murmur/')
 	d.copy('src/murmur/Murmur.ice', '/Murmur/')
 	d.create()
