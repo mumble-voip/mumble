@@ -1,10 +1,11 @@
-Copyright 2002-2007 
-        Xiph.org Foundation
-        Jean-Marc Valin
-        David Rowe
-        EpicGames
-        Analog Devices
-        Commonwealth Scientific and Industrial Research Organisation (CSIRO)
+Copyright 2002-2008 	Xiph.org Foundation
+Copyright 2002-2008 	Jean-Marc Valin
+Copyright 2005-2007	Analog Devices Inc.
+Copyright 2005-2008	Commonwealth Scientific and Industrial Research 
+                        Organisation (CSIRO)
+Copyright 1993, 2002, 2006 David Rowe
+Copyright 2003 		EpicGames
+Copyright 1992-1994	Jutta Degener, Carsten Bormann
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
