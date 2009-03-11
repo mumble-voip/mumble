@@ -105,7 +105,6 @@ static void resolveSM() {
 	char semname[256];
 	snprintf(memname, 256, "/MumbleOverlayMem.%d", getuid());
 	snprintf(semname, 256, "/MumbleOverlaySem.%d", getuid());
-	fprintf(stderr, "semName = %s\n", semname);
 
 	int fd = shm_open(memname, O_RDWR, 0600);
 	if (fd >= 0) {

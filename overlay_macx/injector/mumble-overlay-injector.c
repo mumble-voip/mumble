@@ -41,8 +41,8 @@
 #include "mach_inject.h"
 #include "../stub/stub.h"
 
-#define STUB_BUNDLE     "/System/Library/MumbleOverlay/Bundles/Stub.framework"
-#define OVERLAY_BUNDLE  "/System/Library/MumbleOverlay/Bundles/Overlay.framework"
+#define STUB_BUNDLE     "/Library/MumbleOverlay/Bundles/Stub.framework"
+#define OVERLAY_BUNDLE  "/Library/MumbleOverlay/Bundles/Overlay.framework"
 
 static void
 usage(void)
@@ -95,7 +95,7 @@ main(int argc, char *argv[])
 		return 1;
 	}
 
-	CFURLRef overlayBundle = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, CFSTR(STUB_BUNDLE), kCFURLPOSIXPathStyle, true);
+	CFURLRef overlayBundle = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, CFSTR(OVERLAY_BUNDLE), kCFURLPOSIXPathStyle, true);
 	if (! overlayBundle) {
 		fprintf(stderr, "CFURLCreateCopyAppendingPathComponent failed for OVERLAY_BUNDLE.\n");
 		return 1;
