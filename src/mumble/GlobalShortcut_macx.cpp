@@ -141,6 +141,8 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	}
 
 	kbdLayout = NULL;
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
 	if (TISCopyCurrentKeyboardInputSource && TISGetInputSourceProperty) {
 		TISInputSourceRef inputSource = TISCopyCurrentKeyboardInputSource();
 		if (inputSource) {
@@ -148,7 +150,9 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 			if (data)
 				kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
 		}
-	} else {
+	} else
+#endif
+	{
 		SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript);
 		SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys);
 		Handle handle = GetResource('uchr', lastKeyLayoutID);
