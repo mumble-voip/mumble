@@ -247,6 +247,17 @@ void HardHook::print() {
 	    baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
 }
 
+void HardHook::check() {
+	if (memcmp(baseptr, replace, 6) != 0) {
+		if (memcmp(baseptr, orig, 6) == 0) {
+			ods("HH: Restoring function %p", baseptr);
+			inject(true);
+		} else {
+			ods("HH: Function %p replaced by third party. Lost.");
+		}
+	}
+}
+
 FakeInterface::FakeInterface(IUnknown *orig, int entries) {
 	this->pOriginal = orig;
 	pAssembly = VirtualAlloc(NULL, entries * 256, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);

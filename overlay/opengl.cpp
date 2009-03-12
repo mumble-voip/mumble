@@ -408,6 +408,8 @@ void checkOpenGLHook() {
 			} else {
 				ods("OpenGL: Failed to find GDI32");
 			}
+		} else {
+			hhwglSwapBuffers.check();
 		}
 	}
 
