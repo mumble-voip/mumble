@@ -89,6 +89,7 @@ class AppBundle(object):
 		'''
 			Fix up dylib depends for a specific binary.
 		'''
+
 		# Does our fwpath exist?
 		fwpath = os.path.join(os.path.abspath(self.bundle), 'Contents', 'Frameworks')
 		if not os.path.exists(fwpath):
@@ -116,13 +117,11 @@ class AppBundle(object):
 				dst = os.path.join(fwpath, baselib)
 				self.change_lib_reference(macho, lib, baselib)
 
-				# If we were run on an executable
-				if not macho or macho.find(fwpath) == -1:
-					if dst == lib:
-						continue
-					if not os.path.exists(dst):
-						shutil.copy(lib, dst)
-					self.handle_binary_libs(dst)
+				if os.path.basename(macho) == os.path.basename(lib):
+					continue
+				if not os.path.exists(dst):
+					shutil.copy(lib, dst)
+				self.handle_binary_libs(dst)
 
 	def copy_murmur(self):
 		'''
@@ -324,6 +323,9 @@ if __name__ == '__main__':
 	a.copy_plugins()
 	a.update_plist()
 	a.done()
+
+	if 'nodmg' in sys.argv:
+		sys.exit(0)
 
 	# Prepare the base installer .pkg
 	f = PackageMaker('release/Mumble-Base.pkg', 'net.sourceforge.mumble.base', 'Mumble Base', ver)
