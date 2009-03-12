@@ -205,8 +205,8 @@ class Server : public QThread, public MessageHandler {
 		void sendAll(Message *);
 		void sendExcept(Message *, Connection *);
 		void sendMessage(Connection *, Message *);
-		void sendChannelDescription(Player *, Channel *);
-		void sendChannelDescriptionUpdate(Channel *changed, Channel *current=NULL);
+		void sendChannelDescription(Player *, const Channel *);
+		void sendChannelDescriptionUpdate(const Channel *changed, const Channel *current=NULL);
 
 		void setLiveConf(const QString &key, const QString &value);
 

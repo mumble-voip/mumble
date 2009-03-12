@@ -750,11 +750,11 @@ void Server::sendExcept(Message *mMsg, Connection *cCon) {
 			u->sendMessage(mMsg);
 }
 
-void Server::sendChannelDescription(Player *p, Channel *c) {
+void Server::sendChannelDescription(Player *p, const Channel *c) {
 	sendTextMessage(NULL, static_cast<User*>(p), false, QString("<u>%1:</u><br />%2").arg(c->qsName).arg(c->qsDesc));
 }
 
-void Server::sendChannelDescriptionUpdate(Channel *changed, Channel *current) {
+void Server::sendChannelDescriptionUpdate(const Channel *changed, const Channel *current) {
 	if (current==NULL)
 		current=changed;
 
@@ -818,25 +818,28 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 	// Get old and new channel of user
 	// Lookup first channel in list of parent channels of new and old one
 	// which has a channel description
-	Channel *oldChannel=p->cChannel;
-	Channel *newChannel=c;
-
-	while (oldChannel && oldChannel->qsDesc.isEmpty()) oldChannel=oldChannel->cParent;
-	while (newChannel && newChannel->qsDesc.isEmpty()) newChannel=newChannel->cParent;
+	const Channel *oldChannel=p->cChannel;
+	const Channel *newChannel=c;
 
 	{
 		QWriteLocker wl(&qrwlUsers);
 		c->addPlayer(p);
 	}
 
+	if (quiet)
+		return;
+
+	while (oldChannel && oldChannel->qsDesc.isEmpty())
+		oldChannel=oldChannel->cParent;
+	while (newChannel && newChannel->qsDesc.isEmpty())
+		newChannel=newChannel->cParent;
+
 	// Only send message with channel description if it changed
 	// That means the channel has its own description or it does not
 	// share the same first parent channel which has one with the channel
 	// the user came from
-	if (newChannel && newChannel!=oldChannel) sendChannelDescription(p, newChannel);
-
-	if (quiet)
-		return;
+	if (newChannel && newChannel!=oldChannel)
+		sendChannelDescription(p, newChannel);
 
 	setLastChannel(p);
 
