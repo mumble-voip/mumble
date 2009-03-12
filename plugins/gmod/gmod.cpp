@@ -109,19 +109,19 @@ static int trylock() {
 
 	// Check if we really have Gmod running
 	/*
-		position tuple:		client.dll+0x5ee120  (x,y,z, float)
+		position tuple:		client.dll+0x5ee110  (x,y,z, float)
 		orientation tuple:	client.dll+0x43e2dc  (v,h float)
-		ID string:			client.dll+0x44e740 = "GMod@@" (6 characters, text)
-		spawn state:        client.dll+0x5b6a9d  (0 when at main menu, 8 when spawned, byte)
+		ID string:			client.dll+0x5e3310 = "garrysmod" (9 characters, text)
+		spawn state:        client.dll+0x435a4c  (0 when at main menu, 2 or 14 when not spawned, 15 when spawned, byte)
 	*/
-	char sMagic[6];
-	if (!peekProc(mod + 0x44e740, sMagic, 6) || strncmp("GMod@@", sMagic, 6)!=0)
+	char sMagic[9];
+	if (!peekProc(mod + 0x5e3310, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x5ee120;
+	posptr = mod + 0x5ee110;
 	rotptr = mod + 0x43e2dc;
-	stateptr = mod + 0x5b6a9d;
+	stateptr = mod + 0x435a4c;
 
 	float pos[3];
 	float rot[3];
@@ -160,8 +160,8 @@ static int fetch(float *pos, float *front, float *top) {
 	if (!ok)
 		return false;
 
-	// Check to see if you are in a server
-	if (state == 0)
+	// Check to see if you are spawned
+	if (state != 15)
 		return true; // Deactivate plugin
 
 	return calcout(ipos, rot, pos, front, top);
