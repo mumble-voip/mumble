@@ -351,10 +351,10 @@
       <item row="3" column="3" >
        <widget class="QSlider" name="qsMaxDistance" >
         <property name="toolTip" >
-         <string>Maximum distance, beyond which sound won't decrease</string>
+         <string>Maximum distance, beyond which speech volume won't decrease</string>
         </property>
         <property name="whatsThis" >
-         <string>This sets the maximum distance for sound calculations. When farther away than this, other players' sound volume will not decrease any more.</string>
+         <string>This sets the maximum distance for sound calculations. When farther away than this, other players' speech volume will not decrease any further.</string>
         </property>
         <property name="minimum" >
          <number>10</number>
