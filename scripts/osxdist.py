@@ -157,11 +157,20 @@ class AppBundle(object):
 		'''
 			Copy over any built Mumble plugins.
 		'''
-		print ' * Copying plugins'
+		print ' * Copying positional audio plugins'
 		dst = os.path.join(self.bundle, 'Contents', 'Plugins')
 		if os.path.exists(dst):
 			shutil.rmtree(dst)
 		shutil.copytree('release/plugins/', dst)
+
+	def copy_qt_plugins(self):
+		'''
+			Copy over any needed Qt plugins.
+		'''
+		print ' * Copying Qt plugins'
+		shutil.copy('installer_macx/qt.conf', os.path.join(self.bundle, 'Contents', 'Resources', 'qt.conf'))
+		qtplugindir = os.path.join(self.bundle, 'Contents', 'QtPlugins')
+		os.mkdir(qtplugindir)
 
 	def update_plist(self):
 		'''
@@ -321,6 +330,7 @@ if __name__ == '__main__':
 	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns'])
 	a.copy_plugins()
+	a.copy_qt_plugins()
 	a.update_plist()
 	a.done()
 
