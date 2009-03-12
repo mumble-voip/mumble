@@ -2808,12 +2808,12 @@
     <message>
         <location filename="ConnectDialog.ui" line="40"/>
         <source>&amp;Label</source>
-        <translation type="unfinished">&amp;Bezeichnung</translation>
+        <translation>&amp;Bezeichnung</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="187"/>
         <source>Label</source>
-        <translation type="unfinished">Bezeichnung</translation>
+        <translation>Bezeichnung</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="349"/>
@@ -2870,7 +2870,7 @@
     <message>
         <location filename="DirectSound.cpp" line="532"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
-        <translation type="unfinished">Öffnen des DirectSound Eingangsgerätes fehlgeschlagen. Standardgerät wird benutzt.</translation>
+        <translation>Öffnen des DirectSound Eingangsgerätes fehlgeschlagen. Standardgerät wird benutzt.</translation>
     </message>
     <message>
         <location filename="DirectSound.cpp" line="172"/>
@@ -2880,7 +2880,7 @@
     <message>
         <location filename="DirectSound.cpp" line="527"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation type="unfinished">Öffnen des DirectSound Eingangsgerätes fehlgeschlagen. Es wird kein Mikrofonsound aufgenommen.</translation>
+        <translation>Öffnen des DirectSound Eingangsgerätes fehlgeschlagen. Es wird kein Mikrofonsound aufgenommen.</translation>
     </message>
     <message>
         <location filename="DirectSound.cpp" line="638"/>
@@ -2898,7 +2898,7 @@
     <message>
         <location filename="DirectSound.cpp" line="462"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
-        <translation type="unfinished">Öffnen des DirectSound Ausgabegerätes fehlgeschlagen. Es kann kein Ton gehört werden.</translation>
+        <translation>Öffnen des DirectSound Ausgabegerätes fehlgeschlagen. Es kann kein Ton gehört werden.</translation>
     </message>
     <message>
         <source>Opening chosen DirectSound Output failed. Using defaults.</source>
@@ -2907,7 +2907,7 @@
     <message>
         <location filename="DirectSound.cpp" line="380"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
-        <translation type="unfinished">Öffnen des DirectSound Ausgabegerätes fehlgeschlagen. Standardgerät wird benutzt.</translation>
+        <translation>Öffnen des DirectSound Ausgabegerätes fehlgeschlagen. Standardgerät wird benutzt.</translation>
     </message>
     <message>
         <location filename="DirectSound.cpp" line="132"/>
@@ -3140,7 +3140,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="176"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">Kurzbefehle</translation>
+        <translation>Kurzbefehle</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="128"/>
@@ -3150,22 +3150,22 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="130"/>
         <source>Shortcut</source>
-        <translation type="unfinished">Kurzbefehl</translation>
+        <translation>Kurzbefehl</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="149"/>
         <source>Shortcut bound to %1.</source>
-        <translation type="unfinished">Kurzbefehl auf %1 gebunden.</translation>
+        <translation>Kurzbefehl auf %1 gebunden.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="152"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
-        <translation type="unfinished">&lt;b&gt;Dies ist der globale Kurzbefehl, der an %1 gebunden ist&lt;/b&gt;&lt;br /&gt;Klicken Sie dieses Feld an und drücken Sie dann die gewünschte Tastenkombination um sie neu zu binden. Doppelklicken zum löschen.</translation>
+        <translation>&lt;b&gt;Dies ist der globale Kurzbefehl, der an %1 gebunden ist&lt;/b&gt;&lt;br /&gt;Klicken Sie dieses Feld an und drücken Sie dann die gewünschte Tastenkombination um sie neu zu binden. Doppelklicken zum löschen.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="165"/>
         <source>Double-click an entry to clear the shortcut.</source>
-        <translation type="unfinished">Auf einen Eintrag doppelklicken, um den Kurzbefehl zu entfernen.</translation>
+        <translation>Auf einen Eintrag doppelklicken, um den Kurzbefehl zu entfernen.</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="132"/>
@@ -5816,7 +5816,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="GlobalShortcut.cpp" line="57"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished">Kurzbefehl drücken</translation>
+        <translation>Kurzbefehl drücken</translation>
     </message>
 </context>
 <context>
@@ -5834,7 +5834,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="TextMessage.ui" line="16"/>
         <source>Send raw message</source>
-        <translation>Sende rohe Nachrichten</translation>
+        <translation>Roh-Nachricht senden</translation>
     </message>
     <message>
         <location filename="TextMessage.ui" line="19"/>
