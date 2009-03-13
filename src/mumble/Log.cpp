@@ -37,8 +37,8 @@
 extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
 
 static bool growl_available(void) {
-        OSStatus err = LSFindApplicationForInfo('GRRR', CFSTR("com.Growl.GrowlHelperApp"), CFSTR("GrowlHelperApp.app"), NULL, NULL);
-        return err != kLSApplicationNotFoundErr;
+	OSStatus err = LSFindApplicationForInfo('GRRR', CFSTR("com.Growl.GrowlHelperApp"), CFSTR("GrowlHelperApp.app"), NULL, NULL);
+	return err != kLSApplicationNotFoundErr;
 }
 #endif
 
@@ -358,7 +358,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		QString qsScript = QString(
 		                       "tell application \"GrowlHelperApp\"\n"
 		                       "	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
-		                       "end tell\n").arg(msgName(mt)).arg(console);
+		                       "end tell\n").arg(msgName(mt)).arg(plain);
 		if (growl_available())
 			qt_mac_execute_apple_script(qsScript, NULL);
 #endif
