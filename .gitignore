@@ -3,7 +3,6 @@ Makefile.Debug
 Makefile.Release
 debug/
 release/
-speex/
 asio/
 local/
 indent.sh

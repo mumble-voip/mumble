@@ -1,0 +1,3 @@
+[submodule "speex"]
+	path = speex
+	url = http://git.xiph.org/speex.git/
