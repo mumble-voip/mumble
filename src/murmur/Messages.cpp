@@ -259,7 +259,7 @@ void Server::msgServerAuthenticate(Connection *cCon, MessageServerAuthenticate *
 
 	emit playerConnected(uSource);
 	playerEnterChannel(uSource, lc, false);
-	
+
 	while (lc && lc->qsDesc.isEmpty())
 		lc = lc->cParent;
 	if (lc)
