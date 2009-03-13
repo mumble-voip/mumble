@@ -8,6 +8,11 @@
 #include <mathimf.h>
 #endif
 
+#ifdef __APPLE__
+#include <CoreServices/CoreServices.h>
+#undef check
+#endif
+
 #include <QtCore/QtCore>
 #include <QtNetwork/QtNetwork>
 #include <QtSql/QtSql>

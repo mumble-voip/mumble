@@ -17,6 +17,7 @@
 #include <Carbon/Carbon.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <ApplicationServices/ApplicationServices.h>
+#undef check
 #endif
 
 #include <QtCore/QtCore>
