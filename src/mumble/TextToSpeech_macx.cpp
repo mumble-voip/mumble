@@ -30,12 +30,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* need the undef or else the include would not work
- it would help to include the header before QT, but that might mess with QT */
-#undef qDebug
-#include <Carbon/Carbon.h>
-
-#undef check
 #include "Global.h"
 #include "TextToSpeech.h"
 

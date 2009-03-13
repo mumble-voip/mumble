@@ -13,6 +13,12 @@
 #define BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
 #endif
 
+#ifdef __APPLE__
+#include <Carbon/Carbon.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <ApplicationServices/ApplicationServices.h>
+#endif
+
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #ifdef USE_DBUS

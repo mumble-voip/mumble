@@ -29,11 +29,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#undef qDebug
-#include <Carbon/Carbon.h>
 #include <stdlib.h>
-#undef check
-
 #include "GlobalShortcut.h"
 #include "Global.h"
 

@@ -37,8 +37,6 @@
 
 #ifdef Q_WS_MAC
 #include <mach-o/arch.h>
-#undef qDebug
-#include <CoreServices/CoreServices.h>
 #endif
 
 QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
