@@ -9,6 +9,7 @@
 
 import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime
 from subprocess import Popen, PIPE
+from optparse import OptionParser
 
 class AppBundle(object):
 
@@ -170,7 +171,8 @@ class AppBundle(object):
 		print ' * Copying Qt plugins'
 		shutil.copy('installer_macx/qt.conf', os.path.join(self.bundle, 'Contents', 'Resources', 'qt.conf'))
 		qtplugindir = os.path.join(self.bundle, 'Contents', 'QtPlugins')
-		os.mkdir(qtplugindir)
+		if not os.path.exists(qtplugindir):
+			os.mkdir(qtplugindir)
 
 	def update_plist(self):
 		'''
@@ -288,7 +290,7 @@ class PackageMaker(FolderObject):
 		'''
 		print ' * Creating installer. Please wait...'
 		if os.path.exists(self.filename):
-			os.remove(self.filename)
+			shutil.rmtree(self.filename)
 		p = Popen(['/Developer/usr/bin/packagemaker',
 		           '--root',     self.tmp,
 		           '--id',       self.id,
@@ -302,24 +304,35 @@ class PackageMaker(FolderObject):
 		shutil.rmtree(self.tmp)
 		print ' * Done!'
 
+
 if __name__ == '__main__':
 
-	argc = len(sys.argv)
+	parser = OptionParser()
+	parser.add_option('', '--release', dest='snapshot', help='Build a release. This determines the version number of the release.', default='unknown')
+	parser.add_option('', '--snasphot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.', default='unknown')
+	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
+
+	options, args = parser.parse_args()
 
 	# Release
-	if argc > 1:
-		ver = sys.argv[1]
-		fn = 'release/Mumble-%s' % ver
-		dmgfn = fn + '.dmg'
+	if hasattr(options, 'release'):
+		ver = options.release
+		fn = 'release/Mumble-%s.dmg' % ver
 		title = 'Mumble %s' % ver
 	# Snapshot
-	else:
+	elif hasattr(options, 'snapshot'):
 		n = datetime.datetime.now()
 		d = n.strftime('%F-%H%M')
-		ver = 'Snapshot %s' % d
-		fn = 'release/Mumble-Snapshot-%s' % d
-		dmgfn = fn + '.dmg'
-		title = 'Mumble Snapshot (%s)' %d
+		ver = options.snapshot
+		fn = 'release/Mumble-Snapshot-%s-%s.dmg' % (d, ver)
+		title = 'Mumble Snapshot %s (%s)' % (ver, d)
+	else:
+		print 'Neither snapshot or release selected. Bailing.'
+		sys.exit(1)
+
+	if not os.path.exists('release'):
+		print 'This script needs to be run from the root of the Mumble source tree.'
+		sys.exit(1)
 
 	# Fix .ini files
 	os.system('cd scripts && sh mkini.sh')
@@ -334,7 +347,7 @@ if __name__ == '__main__':
 	a.update_plist()
 	a.done()
 
-	if 'nodmg' in sys.argv:
+	if options.only_appbundle:
 		sys.exit(0)
 
 	# Prepare the base installer .pkg
@@ -361,7 +374,7 @@ if __name__ == '__main__':
 	shutil.copy('installer_macx/scripts/postflight', 'release/Install Mumble.mpkg/Contents/Packages/Mumble-Base.pkg/Contents/Resources/postflight')
 
 	# Create diskimage
-	d = DiskImage(dmgfn, title)
+	d = DiskImage(fn, title)
 	d.copy('release/Install Mumble.mpkg')
 	d.copy('README', '/ReadMe.txt')
 	d.copy('CHANGES', '/Changes.txt')
