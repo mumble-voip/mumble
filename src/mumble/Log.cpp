@@ -35,6 +35,11 @@
 
 #ifdef Q_OS_MAC
 extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
+
+static bool growl_available(void) {
+        OSStatus err = LSFindApplicationForInfo('GRRR', CFSTR("com.Growl.GrowlHelperApp"), CFSTR("GrowlHelperApp.app"), NULL, NULL);
+        return err != kLSApplicationNotFoundErr;
+}
 #endif
 
 static ConfigWidget *LogConfigDialogNew(Settings &st) {
@@ -198,20 +203,16 @@ Log::Log(QObject *p) : QObject(p) {
 	}
 	QString qsGrowlEvents = QString("{%1}").arg(qslAllEvents.join(","));
 	QString qsScript = QString(
-	                       "tell application \"System Events\"\n"
-	                       "	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
-	                       "end tell\n"
-	                       "if isRunning then\n"
-	                       "	tell application \"GrowlHelperApp\"\n"
-	                       "		set the allNotificationsList to %1\n"
-	                       "		set the enabledNotificationsList to %1\n"
-	                       "		register as application \"Mumble\""
-	                       "			all notifications allNotificationsList"
-	                       "			default notifications enabledNotificationsList"
-	                       "			icon of application \"Mumble\"\n"
-	                       "	end tell\n"
-	                       "end if\n").arg(qsGrowlEvents);
-	qt_mac_execute_apple_script(qsScript, NULL);
+	                       "tell application \"GrowlHelperApp\"\n"
+	                       "	set the allNotificationsList to %1\n"
+	                       "	set the enabledNotificationsList to %1\n"
+	                       "	register as application \"Mumble\""
+	                       "		all notifications allNotificationsList"
+	                       "		default notifications enabledNotificationsList"
+	                       "		icon of application \"Mumble\"\n"
+	                       "end tell\n").arg(qsGrowlEvents);
+	if (growl_available())
+		qt_mac_execute_apple_script(qsScript, NULL);
 #endif
 }
 
@@ -355,15 +356,11 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		}
 #ifdef Q_OS_MAC
 		QString qsScript = QString(
-		                       "tell application \"System Events\"\n"
-		                       "	set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0\n"
-		                       "end tell\n"
-		                       "if isRunning then\n"
-		                       "	tell application \"GrowlHelperApp\"\n"
-		                       "		notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
-		                       "	end tell\n"
-		                       "end if\n").arg(msgName(mt)).arg(console);
-		qt_mac_execute_apple_script(qsScript, NULL);
+		                       "tell application \"GrowlHelperApp\"\n"
+		                       "	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
+		                       "end tell\n").arg(msgName(mt)).arg(console);
+		if (growl_available())
+			qt_mac_execute_apple_script(qsScript, NULL);
 #endif
 	}
 
