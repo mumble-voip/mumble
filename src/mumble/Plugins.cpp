@@ -195,6 +195,11 @@ bool Plugins::fetch() {
 		return true;
 	}
 
+	if (! locked) {
+		bValid = false;
+		return bValid;
+	}
+
 	QMutexLocker lock(&qmPlugins);
 
 	if (! locked) {
