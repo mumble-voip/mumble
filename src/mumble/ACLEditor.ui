@@ -318,7 +318,7 @@
           <item>
            <widget class="QCheckBox" name="qcbACLApplyHere" >
             <property name="toolTip" >
-             <string>Entry should apply to this channel</string>
+             <string>Entry should apply to this channel.</string>
             </property>
             <property name="whatsThis" >
              <string>This makes the entry apply to this channel.</string>
