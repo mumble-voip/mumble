@@ -207,9 +207,9 @@ void MainWindow::msgPlayerMove(Connection *, MessagePlayerMove *msg) {
 			g.l->log(Log::ChannelJoin, MainWindow::tr("You were moved to %1 by %2.").arg(c->qsName).arg(admin));
 		} else if (pDst->cChannel == ClientPlayer::get(g.uiSession)->cChannel) {
 			if (pDst == pSrc || (!pSrc))
-				g.l->log(Log::ChannelJoin, MainWindow::tr("%1 left channel.").arg(pname));
+				g.l->log(Log::ChannelLeave, MainWindow::tr("%1 left channel.").arg(pname));
 			else
-				g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved out by %2 to %3.").arg(pname).arg(admin).arg(c->qsName));
+				g.l->log(Log::ChannelLeavve, MainWindow::tr("%1 moved out by %2 to %3.").arg(pname).arg(admin).arg(c->qsName));
 		}
 	}
 
@@ -217,9 +217,9 @@ void MainWindow::msgPlayerMove(Connection *, MessagePlayerMove *msg) {
 
 	if (log && (g.uiSession != msg->uiVictim) && (pDst->cChannel == ClientPlayer::get(g.uiSession)->cChannel)) {
 		if (pDst == pSrc || (!pSrc))
-			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 entered channel.").arg(pname));
+			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 entered channel.").arg(pname));
 		else
-			g.l->log(Log::ChannelLeave, MainWindow::tr("%1 moved in by %2 from %3.").arg(pname).arg(admin).arg(old->qsName));
+			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved in by %2 from %3.").arg(pname).arg(admin).arg(old->qsName));
 	}
 }
 
