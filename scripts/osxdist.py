@@ -308,19 +308,19 @@ class PackageMaker(FolderObject):
 if __name__ == '__main__':
 
 	parser = OptionParser()
-	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.', default='unknown')
-	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.', default='unknown')
+	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.')
+	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.')
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 
 	options, args = parser.parse_args()
 
 	# Release
-	if hasattr(options, 'release'):
+	if options.release:
 		ver = options.release
 		fn = 'release/Mumble-%s.dmg' % ver
 		title = 'Mumble %s' % ver
 	# Snapshot
-	elif hasattr(options, 'snapshot'):
+	elif options.snapshot:
 		n = datetime.datetime.now()
 		d = n.strftime('%F-%H%M')
 		ver = options.snapshot
