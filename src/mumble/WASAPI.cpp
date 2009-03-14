@@ -272,7 +272,6 @@ void WASAPIInput::run() {
 	WAVEFORMATEX *micpwfx = NULL, *echopwfx = NULL;
 	WAVEFORMATEXTENSIBLE *micpwfxe = NULL, *echopwfxe = NULL;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME hnsRequestedDuration = 200 * 10000;
 	UINT32 numFramesAvailable;
 	UINT32 numFramesLeft;
 	UINT32 micPacketLength = 0, echoPacketLength = 0;
@@ -355,7 +354,7 @@ void WASAPIInput::run() {
 		goto cleanup;
 	}
 
-	hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, hnsRequestedDuration, 0, micpwfx, NULL);
+	hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, NULL);
 	if (FAILED(hr)) {
 		qWarning("WASAPIInput: Mic Initialize failed");
 		goto cleanup;
@@ -398,7 +397,7 @@ void WASAPIInput::run() {
 			goto cleanup;
 		}
 
-		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, hnsRequestedDuration, 0, echopwfx, NULL);
+		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0, echopwfx, NULL);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Echo Initialize failed");
 			goto cleanup;
@@ -607,8 +606,7 @@ void WASAPIOutput::run() {
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME hnsRequestedDuration = 20 * 10000;
-	REFERENCE_TIME def, min;
+	REFERENCE_TIME def, min, latency;
 	UINT32 numFramesAvailable;
 	UINT32 packetLength = 0;
 	UINT32 wantLength;
@@ -673,20 +671,19 @@ void WASAPIOutput::run() {
 		goto cleanup;
 	}
 
-	pAudioClient->GetDevicePeriod(&def, &min);
-	qWarning("WASAPIOutput: Periods %lld %lld", def / 10, min / 10);
-	if (def < min)
-		def = min;
-	if (hnsRequestedDuration < (2 * def))
-		hnsRequestedDuration = 2 * def;
-
-	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, hnsRequestedDuration, 0, pwfx, NULL);
+	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, pwfx, NULL);
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: Initialize failed");
 		goto cleanup;
 	}
 
-	hr = pAudioClient->GetBufferSize(&bufferFrameCount);
+	pAudioClient->GetDevicePeriod(&def, &min);
+	pAudioClient->GetBufferSize(&bufferFrameCount);
+	pAudioClient->GetStreamLatency(&latency);
+
+	qWarning("WASAPIOutput: Periods %lldus %lldus (latency %lldus)", def / 10LL, min / 10LL, latency / 10LL);
+	qWarning("WASAPIOutput: Buffer is %dus", (bufferFrameCount * 1000000) / iMixerFreq);
+
 	hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void**)&pRenderClient);
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: GetService failed");
