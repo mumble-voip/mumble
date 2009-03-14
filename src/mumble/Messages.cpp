@@ -209,7 +209,7 @@ void MainWindow::msgPlayerMove(Connection *, MessagePlayerMove *msg) {
 			if (pDst == pSrc || (!pSrc))
 				g.l->log(Log::ChannelLeave, MainWindow::tr("%1 left channel.").arg(pname));
 			else
-				g.l->log(Log::ChannelLeavve, MainWindow::tr("%1 moved out by %2 to %3.").arg(pname).arg(admin).arg(c->qsName));
+				g.l->log(Log::ChannelLeave, MainWindow::tr("%1 moved out by %2 to %3.").arg(pname).arg(admin).arg(c->qsName));
 		}
 	}
 
