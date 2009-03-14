@@ -4350,12 +4350,6 @@ p, li { white-space: pre-wrap; }
         <translation>Muestra un pequeño cuadro de diálogo con información acerca de Speex.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="478"/>
-        <source>About &amp;Speex</source>
-        <oldsource>&amp;About QT</oldsource>
-        <translation type="unfinished">&amp;Acerca de Qt</translation>
-    </message>
-    <message>
         <location filename="MainWindow.ui" line="495"/>
         <source>Information about Qt</source>
         <translation>Información acerca de Qt</translation>
