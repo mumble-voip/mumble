@@ -80,10 +80,10 @@
          </sizepolicy>
         </property>
         <property name="toolTip" >
-         <string>Output method for audio</string>
+         <string>Input device for audio</string>
         </property>
         <property name="whatsThis" >
-         <string>&lt;b>This is the output method to use for audio.&lt;/b>&lt;br />Most likely you want to use DirectSound.</string>
+         <string>&lt;b>This is the input device to use for audio.&lt;/b></string>
         </property>
         <property name="sizeAdjustPolicy" >
          <enum>QComboBox::AdjustToMinimumContentsLength</enum>
