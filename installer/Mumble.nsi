@@ -209,7 +209,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File /oname=cod5.dll "..\release\plugins\cod5.dll"
   File /oname=css.dll "..\release\plugins\css.dll"
   File /oname=dods.dll "..\release\plugins\dods.dll"
-  File /oname=dods.dll "..\release\plugins\dys.dll"
+  File /oname=dys.dll "..\release\plugins\dys.dll"
   File /oname=gmod.dll "..\release\plugins\gmod.dll"
   File /oname=hl2dm.dll "..\release\plugins\hl2dm.dll"
   File /oname=insurgency.dll "..\release\plugins\insurgency.dll"
