@@ -75,6 +75,13 @@ int main(int argc, char **argv) {
 
 	Global::g_global_struct = new Global();
 
+	QUrl url;
+	if (a.arguments().count() > 1) {
+		QUrl u = QUrl::fromEncoded(a.arguments().last().toUtf8());
+		if (u.isValid() && (u.scheme() == QLatin1String("mumble")))
+			url = u;
+	}
+
 #ifdef USE_DBUS
 #ifdef Q_OS_WIN
 	// By default, windbus expects the path to dbus-daemon to be in PATH, and the path
@@ -97,9 +104,8 @@ int main(int argc, char **argv) {
 	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 	QDBusMessage reply=qdbi.call(QLatin1String("focus"));
 	if (reply.type() == QDBusMessage::ReplyMessage) {
-		if (a.arguments().count() > 1) {
-			qdbi.call(QLatin1String("openUrl"), a.arguments().last());
-		}
+		if (url.isValid())
+			qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
 		return 0;
 	}
 #endif
@@ -225,8 +231,8 @@ int main(int argc, char **argv) {
 	if (g.s.bUpdateCheck)
 		new VersionCheck(true, g.mw);
 
-	if (a.arguments().count() > 1) {
-		g.mw->openUrl(QUrl::fromEncoded(a.arguments().last().toLatin1()));
+	if (url.isValid()) {
+		g.mw->openUrl(url);
 #ifdef Q_OS_MAC
 	} else if (os_url) {
 		g.mw->openUrl(QUrl::fromEncoded(QByteArray(os_url)));
