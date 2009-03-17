@@ -146,7 +146,7 @@ Section "" SectionCommon
   File "\dev\dbus\bin\dbus-daemon.exe"
   File "\dev\dbus\etc\session.conf"
 
-  File "\Program Files (x86)\Intel\Compiler\11.0\066\cpp\Bin\ia32\libmmd.dll"
+  File "\Program Files (x86)\Intel\Compiler\11.0\072\cpp\Bin\ia32\libmmd.dll"
 
   File "Microsoft.VC90.CRT.manifest"
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
