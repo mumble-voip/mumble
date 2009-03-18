@@ -1,0 +1,166 @@
+option optimize_for = SPEED;
+
+message	Version {
+	required uint32 major = 1;
+	required uint32 minor = 2;
+	required uint32 patch = 3;
+	required string version = 4;
+}
+
+message UDPTunnel {
+	required bytes packet = 1;
+}
+
+message Authenticate {
+	required string username = 1;
+	optional string password = 2;
+	optional bool want_textures = 3 [default = true];
+}
+
+message Ping {
+	optional uint64 timestamp = 1;
+}
+
+message PingStats {
+	optional uint64 timestamp = 1;
+	required uint32 good = 2;
+	required uint32 late = 3;
+	required uint32 lost = 4;
+	required uint32 resync = 5;
+	required uint32 udp_packets = 6;
+	required uint32 tcp_packets = 7;
+	optional float udp_ping_avg = 8;
+	optional float udp_ping_var = 9;
+	optional float tcp_ping_avg = 10;
+	optional float tcp_ping_var = 11;
+}
+
+message Reject {
+	enum RejectType {
+		None = 0;
+		WrongVersion = 1;
+		InvalidUsername = 2;
+		WrongUserPW = 3;
+		WrongServerPW = 4;
+		UsernameInUse = 5;
+		ServerFull = 6;
+	}
+	required RejectType type = 1;
+	optional string reason = 2;
+}
+
+message ServerSync {
+	optional uint32 maxbandwidth = 1;
+	optional string welcometext = 2;
+}
+
+message ChannelRemove {
+	required uint32 channel_id = 1;
+}
+
+message ChannelState {
+	optional uint32 channel_id = 1;
+	optional uint32 parent = 2;
+	optional string name = 3;
+	repeated uint32 links = 4;
+	optional string description = 5;
+}
+
+message UserRemove {
+	required uint32 session = 1;
+}
+
+message UserState {
+	required uint32 session = 1;
+	optional uint32 actor = 2;
+	optional string name = 3;
+	optional uint32 player_id = 4;
+	optional uint32 channel = 5;
+	optional bool mute = 6;
+	optional bool deaf = 7;
+	optional bool suppressed = 8;
+	optional bool selfmute = 9;
+	optional bool selfdeaf = 10;
+	optional bytes texture = 11;
+}
+
+message Kick {
+	required uint32 session = 1;
+	optional uint32 actor = 2;
+	optional string reason = 3;
+	optional bool ban = 4;
+}
+
+message BanList {
+	message BanEntry {
+		required bytes address = 1;
+		required uint32 mask = 2;
+	}
+	repeated BanEntry bans = 1;
+	optional bool query = 2 [default = false];
+}
+
+message TextMessage {
+	required uint32 actor = 1;
+	repeated uint32 session = 2;
+	repeated uint32 channel_id = 3;
+	required string message = 4;
+}
+
+message PermissionDenied {
+	// Change to use an enum
+	optional string reason = 2;
+}
+
+message ACL {
+	message ChanGroup {
+		required string name = 1;
+		optional bool inherited = 2 [default = true];
+		optional bool inherit = 3 [default = true];
+		optional bool inheritable = 4 [default = true];
+		repeated uint32 add = 5;
+		repeated uint32 remove = 6;
+		repeated uint32 inherited_members = 7;
+	}
+	message ChanACL {
+		optional bool apply_here = 1 [default = true];
+		optional bool apply_subs = 2 [default = true];
+		optional bool inherited = 3 [default = true];
+		optional uint32 player_id = 4;
+		optional string group = 5;
+		required uint32 grant = 6;
+		required uint32 deny = 7;
+	}
+	required uint32 channel_id = 1;
+	optional bool inherit_acls = 2 [default = true];
+	repeated ChanGroup groups = 3;
+	repeated ChanACL acls = 4;
+	optional bool query = 5 [default = false];
+}
+
+message QueryUsers {
+	repeated uint32 ids = 1;
+	repeated string names = 2;
+}
+
+message CryptSetup {
+	optional bytes key = 1;
+	optional bytes nonce = 2;
+}
+
+message ContextActionAdd {
+	enum Context {
+		CtxServer = 0x01;
+		CtxChannel = 0x02;
+		CtxPlayer = 0x04;
+	}
+	required string action = 1;
+	required string text = 2;
+	optional uint32 context = 3;
+}
+
+message ContextAction {
+	optional uint32 session = 1;
+	optional uint32 channel_id = 2;
+	required string action = 3;
+}
