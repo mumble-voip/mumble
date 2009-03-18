@@ -209,8 +209,8 @@
     </message>
     <message>
         <location filename="ACLEditor.ui" line="321"/>
-        <source>Entry should apply to this channel</source>
-        <translation>Eintrag soll für diesen Kanal gelten</translation>
+        <source>Entry should apply to this channel.</source>
+        <translation>Eintrag soll für diesen Kanal gelten.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="324"/>
@@ -610,7 +610,7 @@
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="475"/>
+        <location filename="ASIOInput.cpp" line="476"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>Es muss mindestens eine Mikrofon- und eine Lautsprecherquelle ausgewählt sein um ASIO zu nutzen. Wenn Sie lediglich den Mikrofoneingang nutzen wählen Sie DirectSound.</translation>
     </message>
@@ -651,7 +651,7 @@
         <translation>Über Mumble</translation>
     </message>
     <message>
-        <location filename="About.cpp" line="53"/>
+        <location filename="About.cpp" line="58"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Deutsche Übersetzung von Jan Klass und Matthias Vogelgesang&lt;br /&gt; m0ta@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Voicechat-Programm für Spieler&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
@@ -673,7 +673,7 @@
         <translation>Über Speex</translation>
     </message>
     <message>
-        <location filename="About.cpp" line="81"/>
+        <location filename="About.cpp" line="88"/>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Über Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Dieses Programm nutzt Speex Version %1&lt;/p&gt;&lt;p&gt;Speex wird zur Echoreduktion, Rauschfilterung,&lt;br /&gt; Stimmaktivierungserkennung und&lt;br /&gt;Sprachkompression verwendet.&lt;/p&gt;</translation>
     </message>
@@ -1075,13 +1075,13 @@
     </message>
     <message>
         <location filename="AudioInput.ui" line="83"/>
-        <source>Output method for audio</source>
-        <translation>Ausgabemethode für Audio</translation>
+        <source>Input device for audio</source>
+        <translation>Eingabegerät für Audio</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Dies ist die zu verwendende Ausgabemethode für Audio.&lt;/b&gt;&lt;br /&gt;Am wahrscheinlichsten sollte DirectSound ausgewählt werden.</translation>
+        <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Dies ist  das zu verwendende Eingabegerät für Audio.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="99"/>
@@ -1409,28 +1409,18 @@
     </message>
     <message>
         <location filename="AudioOutput.ui" line="41"/>
-        <source>Input method for audio</source>
-        <translation>Eingabemethode für Audio</translation>
+        <source>Output method for audio</source>
+        <translation>Ausgabemethode für Audio</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Dies ist die Eingabemethode die für Audio verwendet werden soll.&lt;/b&gt;&lt;br /&gt;Am wahrscheinlichsten sollte DirectSound ausgewählt werden.</translation>
+        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
+        <translation>&lt;b&gt;Dies ist die Ausgabemethode die für Audio verwendet werden soll.&lt;/b&gt;&lt;br /&gt;Am wahrscheinlichsten sollte DirectSound ausgewählt werden.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="67"/>
         <source>Device</source>
         <translation>Gerät</translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="83"/>
-        <source>Output method for audio</source>
-        <translation>Ausgabemethode für Audio</translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="86"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Dies ist die Ausgabemethode die für Audio verwendet werden soll.&lt;/b&gt;&lt;br /&gt;Am wahrscheinlichsten sollte DirectSound ausgewählt werden.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="280"/>
@@ -1961,12 +1951,12 @@
         <translation>Willkommen zum Mumble Audio Assistenten</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="118"/>
+        <location filename="AudioWizard.cpp" line="119"/>
         <source>This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.</source>
         <translation>Dies ist der Audio Einstellungs-Assistent von Mumble. Er wird Ihnen helfen, die richtigen Eingabelautstärken ihrer Soundkarte und die korrekten Parameter für die Tonverarbeitung festzulegen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="123"/>
+        <location filename="AudioWizard.cpp" line="124"/>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
         <translation>Bitte beachten Sie, dass, während dieser Assistent ausgeführt wird, jegliche Tondaten lokal zurückgekoppelt werden und keine Ton-Daten an den Server gesendet werden.</translation>
     </message>
@@ -2076,17 +2066,17 @@
         <translation>Mikrofonhardware-Lautstärke auf optimale Werte einstellen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="322"/>
+        <location filename="AudioWizard.cpp" line="323"/>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
         <translation>Öffnen Sie die Lautstärkeeinstellungen und gehen Sie zu den Aufnahmeeinstellungen. Versichern Sie sich, dass das Mikrofon als aktives Eingabegerät mit maximaler Aufnahmelautstärke ausgewählt ist. Falls es eine Option &quot;Mikrofon Boost&quot; gibt, sollte diese aktiviert sein.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="327"/>
+        <location filename="AudioWizard.cpp" line="330"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
         <translation>Sprechen Sie so laut, als wären Sie verärgert oder aufgeregt. Verringern Sie die Lautstärke in den Lautstärkeeinstellungen bis der Balken so weit wie möglich oben im blauen und grünen, aber nicht im roten Bereich ist, während Sie sprechen.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="338"/>
+        <location filename="AudioWizard.cpp" line="339"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
         <translation>Sprechen Sie jetzt so ruhig, als würden sie spät nachts sprechen und niemanden stören wollen. Bewegen Sie den Schieber so, dass der Balken im Grünen ist während Sie sprechen, aber im Blauen bleibt wenn Sie nichts sagen.</translation>
     </message>
@@ -2116,12 +2106,12 @@
         <translation>Signal-Rausch-Verhältnis</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="415"/>
+        <location filename="AudioWizard.cpp" line="417"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <translation>Als nächstes müssen Sie die folgenden beiden Schieber einstellen. Die ersten paar Geräusche die Sie beim Sprechen machen sollten im grünen Bereich (definitv Sprache) landen. Während Sie sprechen sollten Sie im gelben Bereich (könnte Sprache sein) bleiben und wenn Sie nicht sprechen, sollte alles im roten Bereich (definitiv keine Sprache) bleiben.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="439"/>
+        <location filename="AudioWizard.cpp" line="440"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
         <translation>Als letztes müssen Sie die Aufschubzeit festlegen. Mumble kann so lange weiteren Ton aufnehmen und weiterhin übertragen, bevor es abbricht. Dies erlaubt ihnen während des Sprechens Luft zu holen.</translation>
     </message>
@@ -2136,7 +2126,7 @@
         <translation>Setze Hardware Ausgabeverzögerungen auf ein Minimum.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="472"/>
+        <location filename="AudioWizard.cpp" line="474"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>Um die Latenz auf ein Minimum zu reduzieren ist es wichtig, so wenig Audio wie möglich auf der Soundkarte zu puffern. Viele Soundkarten geben jedoch einen deutlich geringeren Puffer an als jenen, den Sie eigentlich zum arbeiten benötigen. Deshalb ist der einzige Weg die Größe auszutesten.</translation>
     </message>
@@ -2150,7 +2140,7 @@
         <translation>Menge an zu puffernden Daten.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="496"/>
+        <location filename="AudioWizard.cpp" line="498"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>Dies legt die Menge an Daten fest, die im Ausgabepuffer vorgepuffert werden sollen. Experimentieren Sie mit verschiedenen Werten und setzen Sie es auf den niedrigsten Wert, der noch kein schnelles Zittern oder Vibrieren im Ton verursacht.</translation>
     </message>
@@ -2165,12 +2155,12 @@
         <translation>%1 s</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="478"/>
+        <location filename="AudioWizard.cpp" line="480"/>
         <source>You should hear a single tone that&apos;s changing in frequency. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test to improve audio path recognition.</source>
         <translation>Sie sollten eine Person reden hören. Schieben Sie den Regler auf den niedrigsten Wert der noch &lt;b&gt;keine&lt;/b&gt; Unterbrechungen oder Knacken im Ton liefert. Bitte beachten Sie, dass die lokale Rückkopplung ausgeschaltet ist, um die Ausgabe besser zu hören.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="502"/>
+        <location filename="AudioWizard.cpp" line="504"/>
         <source>If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path delay in your system; this means the delay from a sample is placed in an outbound buffer until it&apos;s found in a matching incoming buffer.</source>
         <translation>Wenn Sie das Mikrofon so positionieren, dass es die Lautsprecher oder das Headset aufnimmt, wird Mumble die Audiopfad-Gesamtverzögerung in Ihrem System messen. Dies ist die Zeit zwischen dem Ausgeben eines Tons bis er im Eingangspuffer gefunden wird.</translation>
     </message>
@@ -2225,7 +2215,7 @@
         <translation>Einstellen der Lautstärkenverminderung positionsabhängiger Audio-Signale.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="283"/>
+        <location filename="AudioWizard.cpp" line="285"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
         <translation>Mumble unterstützt positionsabhängiges Audio für einige Spiele und positioniert die Stimmen der anderen Spieler relativ zu Ihrer Position im Spiel. In Abhängigkeit von ihrer Position wird die Lautstärke der Stimmen geändert um Richtung und Abstand der Spieler zu simulieren. Solch eine Positionierung hängt von einer korrekten Lautsprecherkonfiguration in Ihrem Betriebssystem ab, weshalb hier ein Test gemacht wird.</translation>
     </message>
@@ -2250,7 +2240,7 @@
         <translation>Dies ignoriert die Betriebssystem Lautsprechereinstellungen und konfiguriert die Positionierung stattdessen für Kopfhörer.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="141"/>
+        <location filename="AudioWizard.cpp" line="144"/>
         <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
         <translation>Mumble ist in ständiger Entwicklung und das Entwicklungsteam will sich auf die Features konzentrieren, die den meisten Benutzern nützen. Dazu unterstützt Mumble das Senden anonymer Statistiken über die Konfiguration. Diese Statistiken sind essentiell für die weitere Entwicklung und stellen sicher, dass die benutzten Features die Sie nutzen nicht entfernt werden.</translation>
     </message>
@@ -2429,47 +2419,47 @@
         <translation>Dies repräsentiert keine Privilegien.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="193"/>
+        <location filename="../ACL.cpp" line="194"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
         <translation>Dies repräsentiert vollen Zugriff zum Kanal, einschließlich Fähigkeiten Gruppen und ACL-Informationen zu ändern. Dieses Privileg impliziert alle anderen Privilegien.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="196"/>
+        <location filename="../ACL.cpp" line="198"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
         <translation>Dies repräsentiert das Recht um mit dem Kanal zu durchqueren. Wenn ein Benutzer dieses Privileg nicht hat, kann er auf keinen Kanal oder Unterkanal zugreifen, egal welche Rechte er in den Unterkanälen hat.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="200"/>
+        <location filename="../ACL.cpp" line="201"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
         <translation>Dies repräsentiert Rechte um den Kanal zu betreten. Hat man eine hierarchische Kanalstruktur, sollte man jedem Traverse geben aber Betreten in der Wurzel der Hierarchie einschränken.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="203"/>
+        <location filename="../ACL.cpp" line="205"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
         <translation>Dies repräsentiert das Recht in einem Kanal zu sprechen. Benutzer ohne dieses Privileg werden vom Server unterdrückt (gekennzeichnet als stumm) und können in diesem Channel so lange nicht sprechen, bis sie von jemandem mit den entsprechenden Rechten ent-stummgestellt werden.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="207"/>
+        <location filename="../ACL.cpp" line="209"/>
         <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
         <translation>Dies repräsentiert das Recht in einem Kanal mit alternativer Sprache (AltSpeak) zu sprechen. Dies funktioniert genauso wie das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg, betrifft aber Audio-Daten die aufgenommen wurden, während Alt-Push-To-Talk gedrückt wurde. Es wird genutzt um Sprache in einer Hierarchie von Kanälen zu verbreiten ohne sie zu verbinden.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="211"/>
+        <location filename="../ACL.cpp" line="212"/>
         <source>This represents the permission to mute and deafen other players. Once muted, a player will stay muted until he is unmuted by another privileged player or reconnects to the server.</source>
         <translation>Dies repräsentiert das Recht andere Benutzer stumm oder taub zu stellen. Einmal stummgestellt bleibt ein Benutzer stumm bis ein anderer Benutzer mit entsprechenden Privilegien dies ändert oder sich neu zum Server verbunden wird.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="214"/>
+        <location filename="../ACL.cpp" line="217"/>
         <source>This represents the permission to move a player to another channel or kick him from the server. To actually move the player, either the moving player must have Move/Kick privileges in the destination channel, or the player must normally be allowed to enter the channel. Players with this privilege can move players into channels the target player normally wouldn&apos;t have permission to enter.</source>
         <translation>Dies repräsentiert das Recht einen Benutzer in einen anderen Kanal zu verschieben oder ihn vom Server zu kicken. Um einen Benutzer auch wirklich zu verschieben muss der verschiebende Benutzer entweder Verschieben/Kick-Rechte im Zielkanal haben, oder dem verschobenen Benutzer muss es erlaubt sein, den Zielkanal zu betreten. Benutzer mit diesem Privileg können also (ausreichende Rechte im Zielkanal vorausgesetzt) andere Benutzer in Kanäle verschieben, die diese normalerweise nicht betreten dürfen.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="219"/>
+        <location filename="../ACL.cpp" line="220"/>
         <source>This represents the permission to make sub-channels. The player making the sub-channel will be added to the admin group of the sub-channel.</source>
         <translation>Dies repräsentiert das Recht Unterkanäle zu erstellen. Der Benutzer, der den Unterkanal erstellt, gehört automatisch zur Admingruppe des Kanals.</translation>
     </message>
     <message>
-        <location filename="../ACL.cpp" line="222"/>
+        <location filename="../ACL.cpp" line="224"/>
         <source>This represents the permission to link channels. Players in linked channels hear each other, as long as the speaking player has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
         <translation>Dies repräsentiert das Recht Kanäle zu verbinden. Benutzer in verbundenen Kanälen können sich gegenseitig hören, solange der sprechende Benutzer das &lt;i&gt;Sprechen&lt;/i&gt;-Privileg im Kanal des Hörers hat. Man benötigt Verbindungsprivilegien in beiden Kanälen um eine Verbindung aufzubauen, aber nur in einem der Beiden um sie aufzuheben.</translation>
     </message>
@@ -2529,7 +2519,7 @@
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="108"/>
+        <location filename="ConfigDialog.cpp" line="109"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Dieser Button übernimmt die aktuellen Einstellungen und kehrt zur Anwendung zurück.&lt;br /&gt;Die Einstellungen werden beim Beenden der Anwendung gespeichert.</translation>
     </message>
@@ -2543,7 +2533,7 @@
         <translation>Änderungen verwerfen</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="113"/>
+        <location filename="ConfigDialog.cpp" line="114"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Der Button wird alle Änderungen verwerfen und zur Anwendung zurückkehren.&lt;br /&gt;Die Einstellungen werden auf die vorherigen Werte zurückgesetzt.</translation>
     </message>
@@ -2577,7 +2567,7 @@
         <translation>Standard für die aktuelle Seite wiederherstellen</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="126"/>
+        <location filename="ConfigDialog.cpp" line="128"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation>Dieser Knopf stellt die Einstellungen der aktuellen Seite auf ihre Standardwerte zurück. Andere Seiten werden nicht verändert.&lt;br /&gt;Um alle Einstellungen auf Standardwerte zu setzen, muss dieser Knopf auf allen Seiten betätigt werden.</translation>
     </message>
@@ -3083,7 +3073,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Tastenkombination des Tastenkürzels.</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="262"/>
+        <location filename="GlobalShortcut.cpp" line="264"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</source>
         <translation>&lt;b&gt;Dies ist die globale Tastenkombination des Tastenkürzels.&lt;/b&gt;&lt;br /&gt;Doppelklicken Sie dieses Feld und dann die gewünschte Tastenkombination um sie neu zu setzen.</translation>
     </message>
@@ -3093,7 +3083,7 @@ der möglichen Orte initialisieren.</translation>
         <translation>Unterdrücke Tasten vor anderen Anwendungen</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="267"/>
+        <location filename="GlobalShortcut.cpp" line="269"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
         <translation>&lt;b&gt;Dies unterdrückt Tastendrücke von anderen Anwendungen.&lt;/b&gt;&lt;br /&gt;Durch Aktivierung wird der Tastendruck (oder die letzte Taste einer Mehrfachtasten-Kombination) vor anderen Anwendungen versteckt. Es können aber nicht alle Tasten unterdrückt werden.</translation>
     </message>
@@ -3101,7 +3091,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.cpp" line="60"/>
+        <location filename="GlobalShortcut_macx.cpp" line="62"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble hat festgestellt, dass es keine Globalen Tastenkürzel Ereignisse erhalten kann, wenn es im Hintergrund läuft.&lt;br /&gt;&lt;br /&gt;Dies wird durch die Deaktivierung des Universal Access Features &quot;Enable access for assitive devices&quot; verursacht.&lt;br /&gt;&lt;br /&gt;Bitte &lt;a href=&quot;&quot;&gt;aktivieren sie diese Einstellung&lt;/a&gt;.</translation>
     </message>
@@ -3395,14 +3385,14 @@ p, li { white-space: pre-wrap; }
         <translation>Erlaubnis verweigert</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="238"/>
+        <location filename="Log.cpp" line="239"/>
         <source>Text Message</source>
         <translation>Textnachricht</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="239"/>
         <source>Script Errors</source>
-        <translation>Skript Fehler</translation>
+        <translation type="obsolete">Skript Fehler</translation>
     </message>
 </context>
 <context>
@@ -4265,7 +4255,7 @@ p, li { white-space: pre-wrap; }
         <translation>Banne Benutzer %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="217"/>
+        <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4471,7 +4461,7 @@ p, li { white-space: pre-wrap; }
         <translation>Abgelehnt: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="200"/>
+        <location filename="main.cpp" line="206"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen in Mumble.</translation>
     </message>
@@ -4760,7 +4750,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Bundesstaat:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1387"/>
+        <location filename="MainWindow.cpp" line="1389"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Die Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
@@ -4828,7 +4818,7 @@ p, li { white-space: pre-wrap; }
         <translation>Dies benennt einen Kanal um.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="217"/>
+        <location filename="main.cpp" line="223"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Dies ist das erste Mal, dass Sie Mumble starten.&lt;br /&gt;Wollen Sie den Audio Assistenten starten, um Ihre Soundkarte zu konfigurieren?</translation>
     </message>
@@ -5332,7 +5322,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="194"/>
+        <location filename="Overlay.cpp" line="197"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
@@ -5627,7 +5617,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Spielerattribute</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="421"/>
+        <location filename="PlayerModel.cpp" line="425"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
         <translation>Dies ist ein mit dem Server verbundener Benutzer. Das Icon links vom Spieler zeigt an, ob er spricht oder nicht: &lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt;Sprechend&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot;/&gt; Nicht sprechend</translation>
     </message>
@@ -5637,7 +5627,7 @@ p, li { white-space: pre-wrap; }
         <translation>Dies ist ein Kanal auf dem Server. Nur Spieler im selben Kanal können sich gegenseitig hören.</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="429"/>
+        <location filename="PlayerModel.cpp" line="437"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation>Dies zeigt die Attribute an, die ein Benutzer auf dem Server hat:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authentifizierter Benutzer&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Stummgestellt (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Stummgestellt (durch Admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Taubgestellt (durch sich selbst)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Taubgestellt (durch Admin)&lt;br /&gt;Ein Benutzer der sich selbst stummgestellt hat, ist vermutlich weg oder ist am Telefon.&lt;br /&gt;Ein Benutzer der durch einen Admin stummgestellt wurde, ist vermutlich auch weg, aber die Geräusche die der Spieler macht, waren so störend, dass der Admin ihn stummgestellt hat.</translation>
     </message>
@@ -5762,7 +5752,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Plugin %1 hat Verbindung verloren.</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="223"/>
+        <location filename="Plugins.cpp" line="228"/>
         <source>%1 lost link.</source>
         <translation>%1 hat Verbindung verloren.</translation>
     </message>
@@ -5771,7 +5761,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Plugin %1 hat sich verbunden.</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="262"/>
+        <location filename="Plugins.cpp" line="267"/>
         <source>%1 linked.</source>
         <translation>%1 verbunden.</translation>
     </message>
