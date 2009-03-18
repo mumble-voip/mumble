@@ -72,6 +72,7 @@ Settings::Settings() {
 	bFirstTime = true;
 	ceExpand = ChannelsWithPlayers;
 	ceChannelDrag = Ask;
+	bShowChatbar = true;
 	bMinimalView = false;
 	bHideFrame = false;
 	bAlwaysOnTop = false;
@@ -278,6 +279,7 @@ void Settings::load() {
 	LOADENUM(ceChannelDrag, "ui/drag");
 	SAVELOAD(bAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
+	SAVELOAD(bShowChatbar, "ui/shotchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bPlayerTop, "ui/playertop");
@@ -429,6 +431,7 @@ void Settings::save() {
 	SAVELOAD(ceChannelDrag, "ui/drag");
 	SAVELOAD(bAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
+	SAVELOAD(bShowChatbar, "ui/showchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bPlayerTop, "ui/playertop");

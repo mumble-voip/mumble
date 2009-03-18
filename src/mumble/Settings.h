@@ -126,6 +126,7 @@ struct Settings {
 	QByteArray qbaConfigGeometry;
 	ChannelExpand ceExpand;
 	ChannelDrag ceChannelDrag;
+	bool bShowChatbar;
 	bool bMinimalView;
 	bool bHideFrame;
 	bool bAlwaysOnTop;

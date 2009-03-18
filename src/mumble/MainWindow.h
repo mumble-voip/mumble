@@ -53,16 +53,16 @@ class MessageBoxEvent : public QEvent {
 		MessageBoxEvent(QString msg);
 };
 
-class LogTitleBar : public QWidget {
+class DockTitleBar : public QWidget {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(LogTitleBar)
+		Q_DISABLE_COPY(DockTitleBar)
 	protected:
 		QTimer *qtTick;
 		int size;
 		int newsize;
 	public:
-		LogTitleBar();
+		DockTitleBar();
 		QSize sizeHint() const;
 		QSize minimumSizeHint() const;
 	public slots:
@@ -85,7 +85,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
 		GlobalShortcut *gsAltTalk, *gsMinimal, *gsVolumeUp, *gsVolumeDown;
-		LogTitleBar *ltbDockTitle;
+		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
@@ -156,6 +156,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaHelpAboutQt_triggered();
 		void on_qaHelpVersionCheck_triggered();
 		void on_qaQuit_triggered();
+		void on_qleChat_returnPressed();
 		void on_qteLog_customContextMenuRequested(const QPoint &pos);
 		void on_qteLog_anchorClicked(const QUrl &);
 		void on_qteLog_highlighted(const QUrl & link);

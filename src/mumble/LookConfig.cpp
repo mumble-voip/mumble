@@ -96,6 +96,7 @@ void LookConfig::load(const Settings &r) {
 	qleCSS->setText(r.qsSkin);
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
+	loadCheckBox(qcbShowChatbar, r.bShowChatbar);
 	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
 	loadCheckBox(qcbAlwaysOnTop, r.bAlwaysOnTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
@@ -120,6 +121,7 @@ void LookConfig::save() const {
 		s.qsSkin = qleCSS->text();
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
+	s.bShowChatbar = qcbShowChatbar->isChecked();
 	s.bPlayerTop=qcbPlayersTop->isChecked();
 	s.bAlwaysOnTop = qcbAlwaysOnTop->isChecked();
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();

@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>311</width>
-    <height>353</height>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -123,7 +123,7 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1" colspan="2" >
+      <item row="5" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbPlayersTop" >
         <property name="toolTip" >
          <string>List players above subchannels (requires restart).</string>
@@ -136,7 +136,7 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1" colspan="2" >
+      <item row="6" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbAskOnQuit" >
         <property name="toolTip" >
          <string>Ask whether to close or minimize when quitting Mumble.</string>
@@ -149,7 +149,7 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="1" colspan="2" >
+      <item row="7" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbHideTray" >
         <property name="toolTip" >
          <string>Hide the main Mumble window in the tray when it is minimized.</string>
@@ -162,7 +162,7 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1" colspan="2" >
+      <item row="8" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbAlwaysOnTop" >
         <property name="toolTip" >
          <string>Make the Mumble window appear on top of other windows.</string>
@@ -175,7 +175,7 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="1" colspan="2" >
+      <item row="9" column="1" colspan="2" >
        <widget class="QCheckBox" name="qcbExpert" >
         <property name="toolTip" >
          <string>Show all configuration items</string>
@@ -185,6 +185,19 @@
         </property>
         <property name="text" >
          <string>Expert Config</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" >
+       <widget class="QCheckBox" name="qcbShowChatbar" >
+        <property name="toolTip" >
+         <string>Check to show chat bar</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>If checked the chat bar is shown&lt;/b>&lt;br />Uncheck to hide it</string>
+        </property>
+        <property name="text" >
+         <string>Show chatbar</string>
         </property>
        </widget>
       </item>

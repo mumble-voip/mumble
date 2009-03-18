@@ -56,22 +56,22 @@ MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(M
 	msg = m;
 }
 
-LogTitleBar::LogTitleBar() {
+DockTitleBar::DockTitleBar() {
 	qtTick = new QTimer(this);
 	qtTick->setSingleShot(true);
 	connect(qtTick, SIGNAL(timeout()), this, SLOT(tick()));
 	size = newsize = 0;
 }
 
-QSize LogTitleBar::sizeHint() const {
+QSize DockTitleBar::sizeHint() const {
 	return minimumSizeHint();
 }
 
-QSize LogTitleBar::minimumSizeHint() const {
+QSize DockTitleBar::minimumSizeHint() const {
 	return QSize(size,size);
 }
 
-bool LogTitleBar::eventFilter(QObject *, QEvent *evt) {
+bool DockTitleBar::eventFilter(QObject *, QEvent *evt) {
 	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
 
 	switch (evt->type()) {
@@ -97,7 +97,7 @@ bool LogTitleBar::eventFilter(QObject *, QEvent *evt) {
 	return false;
 }
 
-void LogTitleBar::tick() {
+void DockTitleBar::tick() {
 	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
 
 	if (newsize == size)
@@ -270,13 +270,17 @@ void MainWindow::setupGui()  {
 	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down()), qaConfigMinimal, SLOT(trigger()));
 
-	ltbDockTitle = new LogTitleBar();
-	qdwLog->setTitleBarWidget(ltbDockTitle);
+	dtbLogDockTitle = new DockTitleBar();
+	qdwLog->setTitleBarWidget(dtbLogDockTitle);
 
 	foreach(QWidget *w, qdwLog->findChildren<QWidget *>()) {
-		w->installEventFilter(ltbDockTitle);
+		w->installEventFilter(dtbLogDockTitle);
 		w->setMouseTracking(true);
 	}
+
+	dtbChatDockTitle = new DockTitleBar();
+	qdwChat->setTitleBarWidget(dtbChatDockTitle);
+	qdwChat->installEventFilter(dtbChatDockTitle);
 
 	if (g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull())
 		restoreGeometry(g.s.qbaMinimalViewGeometry);
@@ -519,6 +523,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 	setWindowFlags(f);
 
 	qdwLog->setVisible(showit);
+	qdwChat->setVisible(showit && g.s.bShowChatbar);
 	qtvPlayers->header()->setVisible(showit);
 	menuBar()->setVisible(showit);
 
@@ -800,6 +805,33 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 
 void MainWindow::on_qaQuit_triggered() {
 	this->close();
+}
+
+void MainWindow::on_qleChat_returnPressed() {
+	if (qleChat->text().isEmpty() || !g.sh || !g.sh->isRunning()) return; // Check if text & connection is available
+
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+
+	MumbleProto::TextMessage mptm;
+	mptm.set_message(u8(qleChat->text()));
+
+	if (p == NULL || p->uiSession == g.uiSession) {
+		// Channel tree message
+		if (c == NULL) // If no channel selected fallback to current one
+			c = ClientPlayer::get(g.uiSession)->cChannel;
+
+		mptm.add_channel_id(c->iId);
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(c->qsName).arg(qleChat->text()), tr("Message to %1").arg(c->qsName));
+	}
+	else {
+		// Player message
+		mptm.add_session(p->uiSession);
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(qleChat->text()), tr("Message to %1").arg(p->qsName));
+	}
+
+	g.sh->sendMessage(mptm);
+	qleChat->setText(QString());
 }
 
 void MainWindow::on_qmConfig_aboutToShow() {
@@ -1141,7 +1173,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 void MainWindow::on_qaConfigDialog_triggered() {
 	ConfigDialog *dlg= new ConfigDialog(this);
 	if (dlg->exec() == QDialog::Accepted)
-		setOnTop(g.s.bAlwaysOnTop);
+		setupView(false);
 	delete dlg;
 }
 
