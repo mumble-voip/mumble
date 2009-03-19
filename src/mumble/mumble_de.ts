@@ -1081,7 +1081,7 @@
     <message>
         <location filename="AudioInput.ui" line="86"/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dies ist  das zu verwendende Eingabegerät für Audio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Dies ist das zu verwendende Eingabegerät für Audio.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="99"/>
