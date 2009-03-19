@@ -47,17 +47,21 @@ class ServerCallbackI(Murmur.ServerCallback):
         self.contextR=Murmur.ServerContextCallbackPrx.uncheckedCast(adapter.addWithUUID(ServerContextCallbackI(server)))
 
     def playerConnected(self, p, current=None):
-        # Check if the user is in the right acl class and add the context menu
-        allowed = False
-        for acl in self.server.getACL(0)[1]:
-            if acl.name == group and p.playerid in acl.members:
-                allowed = True
-                break
-        if allowed:
-            self.server.addContextCallback(p.session,
-                                           "sendregurl",
-                                           "Send registration URL",
-                                           self.contextR, Murmur.ContextPlayer)
+        if p.playerid != 0: # SuperUser is always allowed
+            # Check if the user is in the right acl class and add the context menu
+            allowed = False
+            for acl in self.server.getACL(0)[1]:
+                if acl.name == group and p.playerid in acl.members:
+                    allowed = True
+                    break
+            if not allowed:
+                return
+
+        self.server.addContextCallback(p.session,
+                                       "sendregurl",
+                                       "Send registration URL",
+                                       self.contextR, Murmur.ContextPlayer)
+
     def playerDisconnected(self, p, current=None): pass # Unused callbacks
     def playerStateChanged(self, p, current=None): pass
     def channelCreated(self, c, current=None): pass
@@ -76,15 +80,16 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
 
     def contextAction(self, action, p, session, chanid, current=None):
         if action == "sendregurl" and chanid == 0:
-            # Check if user is in the right acl group
-            allowed = False
-            for acl in self.server.getACL(0)[1]:
-                if acl.name == group and p.playerid in acl.members:
-                    allowed = True
-                    break
-            if not allowed:
-                self.server.sendMessage(p, self.err_notallowed)
-                return
+            if p.playerid != 0:
+                # If it isn't SuperUser check if he is in the right acl group
+                allowed = False
+                for acl in self.server.getACL(0)[1]:
+                    if acl.name == group and p.playerid in acl.members:
+                        allowed = True
+                        break
+                if not allowed:
+                    self.server.sendMessage(p, self.err_notallowed)
+                    return
                     
             sema_ids.acquire()
             try:
@@ -126,6 +131,12 @@ class mumble_auth(object):
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
         <head>
             <title>%(title)s</title>
+            <style type="text/css">
+            label { display:block; font-size:smaller; }
+            fieldset { border:1px solid; width:250px; }
+            h1 { border-bottom:2px solid; }
+            h2 { border-bottom:2px solid red; color:red; }
+            </style>
         </head>
         <body>
         <h1>%(title)s</h1>
@@ -133,49 +144,51 @@ class mumble_auth(object):
         </body>
     </html>"""
     
-    err_id = """<h2>Invalid ID</h2>
-    The ID for your registration has already been used or is invalid.</br>
-    Please request a new registreation link from a Mumble administrator.</br>"""
+    err_id = """<h2>Invalid ID</h2><p>
+    The ID for your registration has already been used or is invalid.<br />
+    Please request a new registration link from a Mumble administrator.<br /></p>"""
     
-    err_username = """<h2>Invalid username</h2>
+    err_username = """<h2>Invalid username</h2><p>
     The username you chose contains characters which are not allowed.<br/>
-    Please only use normal characters without whitespaces.</br>"""
+    Please only use normal characters without whitespaces.<br /></p>"""
     
-    err_username_existing = """<h2>Username already registered</h2>
-    The username you chose is already registered on this server.</br>
-    Please choose another one.</br>"""
+    err_username_existing = """<h2>Username already registered</h2><p>
+    The username you chose is already registered on this server.<br />
+    Please choose another one.<br /></p>"""
     
-    err_password = """<h2>Invalid password</h2>
-    The password you chose didn't match the criterias enforced by this server.<br/>
-    Your password should be at least 6 characters long.</br>"""
+    err_password = """<h2>Invalid password</h2><p>
+    The password you chose didn't match the criteria enforced by this server.<br/>
+    Your password should be at least 6 characters long.<br /></p>"""
     
-    err_password_mismatch = """<h2>Passwords do not match</h2>
+    err_password_mismatch = """<h2>Passwords do not match</h2><p>
     The password you entered did not match the one in the confirmation box.<br/>
-    Make sure both boxes contain the same password.</br>"""
+    Make sure both boxes contain the same password.<br /></p>"""
     
     snippet_retry = '<br/><a href="%(url)s">Click here to try again</a>'
     
-    body_index = """This is the mumble-auth script, to be able to register yourself
-    an account please ask a admin on the mumble server."""
+    body_index = """<p>This is the mumble-auth script, to be able to register yourself
+    an account please ask a admin on the mumble server.</p>"""
     
-    body_complete = """<h2>Success</h2>
-    You have been registered with the server successfully,</br>
-    please try to login to the server with your new login credentials!"""
+    body_complete = """<h2>Success</h2><p>
+    You have been registered with the server successfully,<br />
+    please try to login to the server with your new login credentials!</p>"""
     
-    body_regform = """<h2>Enter user information</h2>
+    body_regform = """
     <form action="doregister" method="post">
-        <p>Username</p>
-        <input type="text" name="username" value="%(username)s" 
-            size="15" maxlength="40"/>
-        <p>Password</p>
-        <input type="password" name="password" value="" 
-            size="10" maxlength="40"/>
-        <p>Confirm password</p>
-        <input type="password" name="cpassword" value="" 
-            size="10" maxlength="40"/>
-        <input type="hidden" name="id" value="%(id)s"
-        <p><input type="submit" value="Register"/></p>
-        <p><input type="reset" value="Clear"/></p>
+        <fieldset>
+            <legend>Enter user information</legend>
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" value="%(username)s"
+                size="20" maxlength="40" /><br />
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" value="" 
+                size="20" maxlength="40" /><br />
+            <label for="cpassword">Confirm password</label>
+            <input id="cpassword" type="password" name="cpassword" value="" 
+                size="20" maxlength="40" /><br />
+            <input type="hidden" name="id" value="%(id)s" />
+            <input id="register" type="submit" value="Register" />
+        </fieldset>
     </form>"""
                 
     def __init__(self, murmur):
