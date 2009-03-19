@@ -1,10 +1,10 @@
+package MumbleProto;
+
 option optimize_for = SPEED;
 
 message	Version {
-	required uint32 major = 1;
-	required uint32 minor = 2;
-	required uint32 patch = 3;
-	required string version = 4;
+	required uint32 version = 1;
+	required string release = 2;
 }
 
 message UDPTunnel {
@@ -74,7 +74,7 @@ message UserState {
 	required uint32 session = 1;
 	optional uint32 actor = 2;
 	optional string name = 3;
-	optional uint32 player_id = 4;
+	optional uint32 user_id = 4;
 	optional uint32 channel = 5;
 	optional bool mute = 6;
 	optional bool deaf = 7;
@@ -126,7 +126,7 @@ message ACL {
 		optional bool apply_here = 1 [default = true];
 		optional bool apply_subs = 2 [default = true];
 		optional bool inherited = 3 [default = true];
-		optional uint32 player_id = 4;
+		optional uint32 user_id = 4;
 		optional string group = 5;
 		required uint32 grant = 6;
 		required uint32 deny = 7;
@@ -152,7 +152,7 @@ message ContextActionAdd {
 	enum Context {
 		CtxServer = 0x01;
 		CtxChannel = 0x02;
-		CtxPlayer = 0x04;
+		CtxUser = 0x04;
 	}
 	required string action = 1;
 	required string text = 2;
