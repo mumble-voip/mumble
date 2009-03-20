@@ -619,13 +619,11 @@
     <message>
         <location filename="AudioInput.ui" line="83"/>
         <source>Input device for audio</source>
-        <oldsource>Output method for audio</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <oldsource>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -937,7 +935,6 @@
     <message>
         <location filename="AudioOutput.ui" line="41"/>
         <source>Output method for audio</source>
-        <oldsource>Input method for audio</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -949,16 +946,6 @@
     <message>
         <location filename="AudioOutput.ui" line="67"/>
         <source>Device</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="41"/>
-        <source>Output method for audio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

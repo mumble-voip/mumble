@@ -1247,16 +1247,6 @@
         <translation type="unfinished">Устройство</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="41"/>
-        <source>Output method for audio</source>
-        <translation type="unfinished">Мытод вывода для аудио</translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;Этот метод вывода используется для аудио.&lt;/b&gt;&lt;br /&gt;Скорее всего вы захотите использовать DirectSound.</translation>
-    </message>
-    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>

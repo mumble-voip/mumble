@@ -971,16 +971,6 @@
         <translation>Urządzenie</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="41"/>
-        <source>Output method for audio</source>
-        <translation>Metoda wyjścia dźwięku</translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;To jest system używany dla wyjścia audio.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
-    </message>
-    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>

@@ -1487,16 +1487,6 @@
         <translation>デバイス</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="41"/>
-        <source>Output method for audio</source>
-        <translation>音声の出力方法</translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
-    </message>
-    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>

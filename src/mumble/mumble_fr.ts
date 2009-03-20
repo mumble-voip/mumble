@@ -1402,16 +1402,6 @@
         <translation>Périphérique</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="41"/>
-        <source>Output method for audio</source>
-        <translation>Méthode de sortie audio</translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Méthode de sortie audio. &lt;/b&gt;&lt;br /&gt;En général vous utilisez DirectSound.</translation>
-    </message>
-    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>

@@ -1279,16 +1279,6 @@
         <translation type="unfinished">Zařízení</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="41"/>
-        <source>Output method for audio</source>
-        <translation type="unfinished">Výstupní metoda pro zvuk</translation>
-    </message>
-    <message>
-        <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
-    </message>
-    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>
