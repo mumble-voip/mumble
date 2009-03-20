@@ -78,9 +78,9 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setToolTip(ColStaticSoundPath, tr("Path to soundfile used for sound notifications in the case of %1 events<br />Single click to play<br />Doubleclick to change").arg(messageName));
 
 		twi->setWhatsThis(ColConsole, tr("Click here to toggle console output for %1 events.<br />If checked, this option makes Mumble output all %1 events in its message log.").arg(messageName));
-		twi->setWhatsThis(ColNotification, tr("Click here to toggle pop-up notifications for %1 events.<br />If checked, a notification pop-up will be created by mumble for every %1 event.").arg(messageName));
-		twi->setWhatsThis(ColTTS, tr("Click here to toggle Text-To-Speech for %1 events.<br />If checked, mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.").arg(messageName));
-		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.").arg(messageName));
+		twi->setWhatsThis(ColNotification, tr("Click here to toggle pop-up notifications for %1 events.<br />If checked, a notification pop-up will be created by Mumble for every %1 event.").arg(messageName));
+		twi->setWhatsThis(ColTTS, tr("Click here to toggle Text-To-Speech for %1 events.<br />If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.").arg(messageName));
+		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.").arg(messageName));
 		twi->setWhatsThis(ColStaticSoundPath, tr("Path to soundfile used for sound notifications in the case of %1 events.<br />Single click to play<br />Doubleclick to change<br />Be sure that sound notifications for these events are enabled or this field will not have any effect.").arg(messageName));
 	}
 }
