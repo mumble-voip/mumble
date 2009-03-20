@@ -25,6 +25,7 @@
         <translation>Uprawnienia</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="29"/>
         <location filename="ACLEditor.ui" line="363"/>
         <source>Group</source>
         <translation>Grupa</translation>
@@ -85,11 +86,15 @@
         <translation>Zezwól</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="54"/>
+        <location filename="ACLEditor.ui" line="125"/>
+        <location filename="ACLEditor.ui" line="161"/>
         <location filename="ACLEditor.ui" line="168"/>
         <source>Remove</source>
         <translation>Usuń</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="70"/>
         <location filename="ACLEditor.ui" line="135"/>
         <source>Inherit</source>
         <translation>Dziedzicz</translation>
@@ -105,6 +110,8 @@
         <translation>Odziedziczony</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="115"/>
+        <location filename="ACLEditor.ui" line="195"/>
         <location filename="ACLEditor.ui" line="202"/>
         <source>Add</source>
         <translation>Dodaj</translation>
@@ -186,9 +193,10 @@
     </message>
     <message>
         <location filename="ACLEditor.ui" line="321"/>
-        <source>Entry should apply to this channel</source>
+        <source>Entry should apply to this channel.</source>
+        <oldsource>Entry should apply to this channel</oldsource>
         <translatorcomment>slicer nie wstawil kropki jak poprawi to nie bedzie na pomaranczowo //Zuko</translatorcomment>
-        <translation>Reguła powinna być zastosowana do tego kanału.</translation>
+        <translation type="unfinished">Reguła powinna być zastosowana do tego kanału.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="324"/>
@@ -426,11 +434,13 @@
         <translation>Mikrofon</translation>
     </message>
     <message>
+        <location filename="ASIOInput.ui" line="199"/>
         <location filename="ASIOInput.ui" line="295"/>
         <source>&lt;-</source>
         <translation>&lt;-</translation>
     </message>
     <message>
+        <location filename="ASIOInput.ui" line="212"/>
         <location filename="ASIOInput.ui" line="282"/>
         <source>-&gt;</source>
         <translation>-&gt;</translation>
@@ -463,16 +473,21 @@
         <translation>%1 ms -&gt; %2 ms (%3 ms rozdzielczość) %4Hz -- Niemożliwy do wykorzystania</translation>
     </message>
     <message>
+        <location filename="ASIOInput.cpp" line="317"/>
+        <location filename="ASIOInput.cpp" line="321"/>
+        <location filename="ASIOInput.cpp" line="344"/>
         <location filename="ASIOInput.cpp" line="348"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
+        <location filename="ASIOInput.cpp" line="317"/>
         <location filename="ASIOInput.cpp" line="344"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>Inizjalizacja ASIO nie powiodła się: %1</translation>
     </message>
     <message>
+        <location filename="ASIOInput.cpp" line="321"/>
         <location filename="ASIOInput.cpp" line="348"/>
         <source>Failed to instantiate ASIO driver</source>
         <translatorcomment>prawdopodobnie bledne tlumaczenie //Zuko</translatorcomment>
@@ -499,6 +514,7 @@
         <translation>Formularz</translation>
     </message>
     <message>
+        <location filename="ASIOInput.ui" line="96"/>
         <location filename="ASIOInput.ui" line="116"/>
         <source>TextLabel</source>
         <translation>Tekst</translation>
@@ -512,6 +528,7 @@
 <context>
     <name>ASIOInput</name>
     <message>
+        <location filename="ASIOInput.cpp" line="475"/>
         <location filename="ASIOInput.cpp" line="543"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
@@ -607,13 +624,15 @@
     </message>
     <message>
         <location filename="AudioInput.ui" line="83"/>
-        <source>Output method for audio</source>
-        <translation>Metoda wyjścia dźwięku</translation>
+        <source>Input device for audio</source>
+        <oldsource>Output method for audio</oldsource>
+        <translation type="unfinished">Metoda wyjścia dźwięku</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Jest to metoda wyjścia dźwięku.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
+        <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
+        <oldsource>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
+        <translation type="unfinished">&lt;b&gt;Jest to metoda wyjścia dźwięku.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="99"/>
@@ -646,6 +665,13 @@
         <translation>Ustaw czas￼ potrzebny na włączenie podwójnego kliknięcia:&lt;br /&gt;&lt;br /&gt;Podwójne kliknięcie ￼włącza ciągłą transmisję głosu, &lt;br /&gt;ponowne podwójne￼ kliknięcie wyłącza ją.</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="174"/>
+        <location filename="AudioInput.ui" line="263"/>
+        <location filename="AudioInput.ui" line="387"/>
+        <location filename="AudioInput.ui" line="444"/>
+        <location filename="AudioInput.ui" line="489"/>
+        <location filename="AudioInput.ui" line="507"/>
+        <location filename="AudioInput.ui" line="564"/>
         <location filename="AudioInput.ui" line="609"/>
         <source>TextLabel</source>
         <translation>Tekst</translation>
@@ -720,6 +746,7 @@
         <translation>Sygnał poniżej podanej wartości traktowany jest jako cisza</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="296"/>
         <location filename="AudioInput.ui" line="328"/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
         <translation>&lt;b&gt;Ta opcja określa próg aktywacji detekcji mowy.&lt;/b&gt;&lt;br /&gt;Użyj tego razem z &lt;Statystykami&lt;/i&gt; aby manualnie wyregulować próg aktywacji głosowej. Wartości wejścia poniżej &quot;Cisza&quot; zawsze są traktowane jakie cisza. Wartości powyżej &quot;Mowa&quot; zawsze są traktowane jako mowa. Wartości poniżej są traktowane jako mowa ale nie są traktowane jako nowa detekcja mowy.</translation>
@@ -877,11 +904,13 @@
         <translation>Wejście audio</translation>
     </message>
     <message>
+        <location filename="AudioConfigDialog.cpp" line="167"/>
         <location filename="AudioConfigDialog.cpp" line="175"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
+        <location filename="AudioConfigDialog.cpp" line="173"/>
         <location filename="AudioConfigDialog.cpp" line="203"/>
         <source>Off</source>
         <translation>Wył.</translation>
@@ -926,13 +955,15 @@
     </message>
     <message>
         <location filename="AudioOutput.ui" line="41"/>
-        <source>Input method for audio</source>
-        <translation>Metoda wejścia dźwięku</translation>
+        <source>Output method for audio</source>
+        <oldsource>Input method for audio</oldsource>
+        <translation type="unfinished">Metoda wejścia dźwięku</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;To jest system używany dla wejścia audio.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
+        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
+        <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
+        <translation type="unfinished">&lt;b&gt;To jest system używany dla wejścia audio.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="67"/>
@@ -940,16 +971,17 @@
         <translation>Urządzenie</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="83"/>
+        <location filename="AudioOutput.ui" line="41"/>
         <source>Output method for audio</source>
         <translation>Metoda wyjścia dźwięku</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="86"/>
+        <location filename="AudioOutput.ui" line="44"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;To jest system używany dla wyjścia audio.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>
         <translation>Dźwięk pozycyjny</translation>
@@ -975,6 +1007,15 @@
         <translation>&lt;b&gt;Granica bezpieczeństwa dla bufora drgań.&lt;/b&gt;&lt;br /&gt;Każdy przychodzący dźwięk jest najpierw buforowany, przez co opóźnienie jest najniższe jak to tylko możliwe. Ta opcja ustawia minimalny rozmiar bufora. Jeśli mowa jest dla ciebie lekko zniekształcona spróbuj zwiększyć ilość milisekund.</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="153"/>
+        <location filename="AudioOutput.ui" line="192"/>
+        <location filename="AudioOutput.ui" line="231"/>
+        <location filename="AudioOutput.ui" line="238"/>
+        <location filename="AudioOutput.ui" line="337"/>
+        <location filename="AudioOutput.ui" line="379"/>
+        <location filename="AudioOutput.ui" line="418"/>
+        <location filename="AudioOutput.ui" line="441"/>
+        <location filename="AudioOutput.ui" line="508"/>
         <location filename="AudioOutput.ui" line="553"/>
         <source>TextLabel</source>
         <translation>Tekst</translation>
@@ -1214,11 +1255,16 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
         <translation>Wyjście audio</translation>
     </message>
     <message>
+        <location filename="AudioConfigDialog.cpp" line="421"/>
         <location filename="AudioConfigDialog.cpp" line="440"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
+        <location filename="AudioConfigDialog.cpp" line="432"/>
+        <location filename="AudioConfigDialog.cpp" line="436"/>
+        <location filename="AudioConfigDialog.cpp" line="444"/>
+        <location filename="AudioConfigDialog.cpp" line="475"/>
         <location filename="AudioConfigDialog.cpp" line="479"/>
         <source>%1%</source>
         <translation>%1%</translation>
@@ -1229,6 +1275,7 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
         <translation>%1 ms</translation>
     </message>
     <message>
+        <location filename="AudioConfigDialog.cpp" line="463"/>
         <location filename="AudioConfigDialog.cpp" line="469"/>
         <source>%1m</source>
         <translation>%1m</translation>
@@ -1261,6 +1308,8 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
         <translation>Prawdopodobieństwo mowy</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="34"/>
+        <location filename="AudioStats.ui" line="54"/>
         <location filename="AudioStats.ui" line="74"/>
         <source>Peak power in last frame</source>
         <translation></translation>
@@ -1351,6 +1400,13 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
         <translation></translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="40"/>
+        <location filename="AudioStats.ui" line="60"/>
+        <location filename="AudioStats.ui" line="80"/>
+        <location filename="AudioStats.ui" line="109"/>
+        <location filename="AudioStats.ui" line="129"/>
+        <location filename="AudioStats.ui" line="149"/>
+        <location filename="AudioStats.ui" line="180"/>
         <location filename="AudioStats.ui" line="197"/>
         <source>TextLabel</source>
         <translation>Tekst</translation>
@@ -1488,6 +1544,7 @@ Przejdź Dalej, aby rozpocząć konfigurację!</translation>
         <translation>Urządzenie, do którego podłączony jest mikrofon.</translation>
     </message>
     <message>
+        <location filename="AudioWizard.cpp" line="180"/>
         <location filename="AudioWizard.cpp" line="232"/>
         <source>System</source>
         <translation>System</translation>
@@ -1503,6 +1560,7 @@ Przejdź Dalej, aby rozpocząć konfigurację!</translation>
         <translation>&lt;b&gt;System wyjścia audio.&lt;/b&gt;&lt;br /&gt;DirectSound zalecane.</translation>
     </message>
     <message>
+        <location filename="AudioWizard.cpp" line="196"/>
         <location filename="AudioWizard.cpp" line="248"/>
         <source>Device</source>
         <translation>Urządzenie</translation>
@@ -2072,6 +2130,7 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>&amp;Hasło</translation>
     </message>
     <message>
+        <location filename="ConnectDialog.ui" line="128"/>
         <location filename="ConnectDialog.ui" line="207"/>
         <source>&amp;Connect</source>
         <translation>&amp;Połącz</translation>
@@ -2172,11 +2231,13 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>Nieznany</translation>
     </message>
     <message>
+        <location filename="ConnectDialog.cpp" line="265"/>
         <location filename="ConnectDialog.cpp" line="287"/>
         <source>New</source>
         <translation>Nowy</translation>
     </message>
     <message>
+        <location filename="ConnectDialog.cpp" line="349"/>
         <location filename="ConnectDialog.cpp" line="376"/>
         <source>Add</source>
         <translation>Dodaj</translation>
@@ -2476,6 +2537,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Ta opcja ustawia minimalną szerokość kolumny w Widoku Graczy.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Jeśli rozmawia zbyt duża ilość ludzi jednocześnie to kolumna z Widokiem Graczy podzieli się na dwie różne kolumny.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Możesz użyc tej opcji aby wybrać kompromis pomiędzy liczbą wyświetlanych graczy na ekranie LCD oraz szerokością nazw graczy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
+        <location filename="LCD.ui" line="126"/>
         <location filename="LCD.ui" line="160"/>
         <source>TextLabel</source>
         <translation>Tekst</translation>
@@ -2593,9 +2655,8 @@ p, li { white-space: pre-wrap; }
         <translation>Wiadomość tekstowa</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="239"/>
         <source>Script Errors</source>
-        <translation>Błędy skryptów</translation>
+        <translation type="obsolete">Błędy skryptów</translation>
     </message>
 </context>
 <context>
@@ -2632,18 +2693,21 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="Log.cpp" line="81"/>
-        <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</source>
-        <translation>Kliknij tutaj, aby włączyć powiadomienia dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie pokazywać wszystkie %1 w obszarze powiadomień.</translation>
+        <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
+        <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
+        <translation type="unfinished">Kliknij tutaj, aby włączyć powiadomienia dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie pokazywać wszystkie %1 w obszarze powiadomień.</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="82"/>
-        <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
-        <translation>Kliknij tutaj, aby włączyć tekst na mowęi dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie używać tekstu na mowę do odczytania %1 na głos. Tekst na mowę i powiadomienia dźwiękowe nie mogą być uaktywnione razem.</translation>
+        <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
+        <oldsource>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</oldsource>
+        <translation type="unfinished">Kliknij tutaj, aby włączyć tekst na mowęi dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie używać tekstu na mowę do odczytania %1 na głos. Tekst na mowę i powiadomienia dźwiękowe nie mogą być uaktywnione razem.</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="83"/>
-        <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</source>
-        <translation>Kliknij tutaj, aby włączyć powiadomienia dźwiękowe dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie odtwarzać dźwięki dla %1. Powiadomienia dźwiękowe nie mogą być uaktywnione razem z tekstem na mowę.</translation>
+        <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</source>
+        <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
+        <translation type="unfinished">Kliknij tutaj, aby włączyć powiadomienia dźwiękowe dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie odtwarzać dźwięki dla %1. Powiadomienia dźwiękowe nie mogą być uaktywnione razem z tekstem na mowę.</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="84"/>
@@ -2752,6 +2816,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LookConfig</name>
     <message>
+        <location filename="LookConfig.ui" line="19"/>
         <location filename="LookConfig.ui" line="25"/>
         <source>Language</source>
         <translation>Język aplikacji</translation>
@@ -2762,6 +2827,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wygląd</translation>
     </message>
     <message>
+        <location filename="LookConfig.cpp" line="46"/>
         <location filename="LookConfig.cpp" line="57"/>
         <source>System default</source>
         <translation>Domyślny (zgodny z systemem operacyjnym)</translation>
@@ -2973,6 +3039,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
+        <location filename="MainWindow.cpp" line="128"/>
         <location filename="MainWindow.cpp" line="1322"/>
         <source>Root</source>
         <translation>Źródło</translation>
@@ -3409,6 +3476,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wykopywanie użytkownika %1</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="741"/>
         <location filename="MainWindow.cpp" line="763"/>
         <source>Enter reason</source>
         <translation>Podaj powód</translation>
@@ -3419,7 +3487,14 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Banowanie użytkownika %1</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="217"/>
+        <location filename="MainWindow.cpp" line="227"/>
+        <location filename="MainWindow.cpp" line="316"/>
+        <location filename="MainWindow.cpp" line="893"/>
+        <location filename="MainWindow.cpp" line="915"/>
+        <location filename="MainWindow.cpp" line="936"/>
+        <location filename="MainWindow.cpp" line="1386"/>
+        <location filename="MainWindow.ui" line="14"/>
+        <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -3472,6 +3547,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Ta opcja zmieni tryb nakładki w grze trzema dostępnymi trybami.</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="893"/>
         <location filename="MainWindow.cpp" line="936"/>
         <source>Channel Name</source>
         <translation>Podaj nazwę kanału:</translation>
@@ -3562,6 +3638,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>%1 nie ma już wyciszonego mikrofonu.</translation>
     </message>
     <message>
+        <location filename="Messages.cpp" line="127"/>
         <location filename="Messages.cpp" line="147"/>
         <source>server</source>
         <translation>Serwer</translation>
@@ -3670,7 +3747,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Zabroniono: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="200"/>
+        <location filename="main.cpp" line="206"/>
         <source>Welcome to Mumble.</source>
         <translation>Witamy w Mumble.</translation>
     </message>
@@ -3773,11 +3850,13 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wyłącza aplikację.</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="254"/>
         <location filename="MainWindow.ui" line="517"/>
         <source>Send Messa&amp;ge</source>
         <translation>Wyślij wiado&amp;mość</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="257"/>
         <location filename="MainWindow.ui" line="520"/>
         <source>Send a Text Message</source>
         <translation>Wyślij wiadomość tekstową</translation>
@@ -3788,11 +3867,13 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wysyłanie wiadomości do %1</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="798"/>
         <location filename="MainWindow.cpp" line="1050"/>
         <source>To %1: %2</source>
         <translation>Do %1: %2</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="798"/>
         <location filename="MainWindow.cpp" line="1050"/>
         <source>Message to %1</source>
         <translation>Wiadomość do %1</translation>
@@ -3898,6 +3979,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Serwer Mumble - Informacje</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="641"/>
         <location filename="MainWindow.cpp" line="1394"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zobacz certyfikat</translation>
@@ -3933,7 +4015,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Zmienia nazwę kanału.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="217"/>
+        <location filename="main.cpp" line="223"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Program Mumble został uruchomiony po raz pierwszy na tym komputerze.&lt;br /&gt; Czy chcesz uruchomić kreator ustawień dźwięku, aby skonfigurować podstawowe opcje aplikacji?</translation>
     </message>
@@ -4079,6 +4161,7 @@ Chcesz zakończyć czy zminimalizować program?</translation>
         <translation>Zakończ</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="242"/>
         <location filename="MainWindow.cpp" line="318"/>
         <source>Minimize</source>
         <translation>Minimalizuj</translation>
@@ -4534,6 +4617,10 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation>Maksymalna wysokość</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="244"/>
+        <location filename="Overlay.ui" line="265"/>
+        <location filename="Overlay.ui" line="286"/>
+        <location filename="Overlay.ui" line="307"/>
         <location filename="Overlay.ui" line="328"/>
         <source>Change</source>
         <translation>Zmień</translation>
@@ -4609,6 +4696,12 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation>Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w dół jeśli trzeba.</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="183"/>
+        <location filename="Overlay.ui" line="223"/>
+        <location filename="Overlay.ui" line="237"/>
+        <location filename="Overlay.ui" line="258"/>
+        <location filename="Overlay.ui" line="279"/>
+        <location filename="Overlay.ui" line="300"/>
         <location filename="Overlay.ui" line="321"/>
         <source>TextLabel</source>
         <translation>Tekst</translation>
@@ -4662,6 +4755,7 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
         <translation>Opcje</translation>
     </message>
     <message>
+        <location filename="Plugins.cpp" line="64"/>
         <location filename="Plugins.ui" line="41"/>
         <source>Plugins</source>
         <translation>Wtyczki</translation>
@@ -4727,6 +4821,7 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
         <translation>Pokazuje ustawienia danej wtyczki, o ile jaką kolwiek posiada.</translation>
     </message>
     <message>
+        <location filename="Plugins.cpp" line="92"/>
         <location filename="Plugins.cpp" line="104"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
@@ -4750,12 +4845,12 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="223"/>
+        <location filename="Plugins.cpp" line="228"/>
         <source>%1 lost link.</source>
         <translation>%1 utracił połączenie.</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="262"/>
+        <location filename="Plugins.cpp" line="267"/>
         <source>%1 linked.</source>
         <translation>%1 połączony.</translation>
     </message>
@@ -4859,11 +4954,13 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
         <translation>%1 %2</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="76"/>
         <location filename="ViewCert.cpp" line="89"/>
         <source>Common Name: %1</source>
         <translation>Nazwa pospolita: %1</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="77"/>
         <location filename="ViewCert.cpp" line="90"/>
         <source>Organization: %1</source>
         <translation>Organizacja: %1</translation>
@@ -4874,16 +4971,19 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
         <translation>Pod-jednostka: %1</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="79"/>
         <location filename="ViewCert.cpp" line="92"/>
         <source>Country: %1</source>
         <translation>Kraj: %1</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="80"/>
         <location filename="ViewCert.cpp" line="93"/>
         <source>Locality: %1</source>
         <translation>Lokalizacja: %1</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="81"/>
         <location filename="ViewCert.cpp" line="94"/>
         <source>State: %1</source>
         <translation>Kraj: %1</translation>

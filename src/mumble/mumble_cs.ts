@@ -216,8 +216,9 @@
     </message>
     <message>
         <location filename="ACLEditor.ui" line="321"/>
-        <source>Entry should apply to this channel</source>
-        <translation>Použít pro tento kanál</translation>
+        <source>Entry should apply to this channel.</source>
+        <oldsource>Entry should apply to this channel</oldsource>
+        <translation type="unfinished">Použít pro tento kanál</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="324"/>
@@ -932,12 +933,14 @@
     </message>
     <message>
         <location filename="AudioInput.ui" line="83"/>
-        <source>Output method for audio</source>
+        <source>Input device for audio</source>
+        <oldsource>Output method for audio</oldsource>
         <translation type="unfinished">Výstupní metoda pro zvuk</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
-        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
+        <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
+        <oldsource>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
         <translation type="unfinished">&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
@@ -1260,13 +1263,15 @@
     </message>
     <message>
         <location filename="AudioOutput.ui" line="41"/>
-        <source>Input method for audio</source>
+        <source>Output method for audio</source>
+        <oldsource>Input method for audio</oldsource>
         <translation type="unfinished">Vstupní metoda pro audio</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="44"/>
-        <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
+        <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
+        <translation type="unfinished">&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="67"/>
@@ -1274,12 +1279,12 @@
         <translation type="unfinished">Zařízení</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="83"/>
+        <location filename="AudioOutput.ui" line="41"/>
         <source>Output method for audio</source>
         <translation type="unfinished">Výstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location filename="AudioOutput.ui" line="86"/>
+        <location filename="AudioOutput.ui" line="44"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation type="unfinished">&lt;b&gt;To je metoda pro přehrávání zvuku.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít ALSA nebo DirectSound.</translation>
     </message>
@@ -3089,11 +3094,6 @@ p, li { white-space: pre-wrap; }
         <translation>Textová zpráva</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="239"/>
-        <source>Script Errors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>[%2] %1</source>
         <translation type="obsolete">[%2] %1</translation>
     </message>
@@ -3132,17 +3132,20 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="Log.cpp" line="81"/>
-        <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</source>
+        <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
+        <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Log.cpp" line="82"/>
-        <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
+        <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
+        <oldsource>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Log.cpp" line="83"/>
-        <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</source>
+        <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</source>
+        <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3495,7 +3498,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="200"/>
+        <location filename="main.cpp" line="206"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
@@ -4177,7 +4180,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="936"/>
         <location filename="MainWindow.cpp" line="1386"/>
         <location filename="MainWindow.ui" line="14"/>
-        <location filename="main.cpp" line="217"/>
+        <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4617,7 +4620,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="217"/>
+        <location filename="main.cpp" line="223"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5413,12 +5416,12 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="223"/>
+        <location filename="Plugins.cpp" line="228"/>
         <source>%1 lost link.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="262"/>
+        <location filename="Plugins.cpp" line="267"/>
         <source>%1 linked.</source>
         <translation type="unfinished"></translation>
     </message>
