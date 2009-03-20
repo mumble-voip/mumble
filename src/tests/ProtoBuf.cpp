@@ -1,8 +1,11 @@
 #include <QtCore>
+#include <vector>
 #include "Timer.h"
 #include "Message.h"
 #include "PacketDataStream.h"
 #include "ProtoBuf.pb.h"
+
+using namespace std;
 
 int main(int argc, char **argv) {
 	QCoreApplication a(argc, argv);
@@ -40,13 +43,13 @@ int main(int argc, char **argv) {
 	for (int i=0;i<1000000;++i) {
 		Authenticate apb;
 		apb.set_version(-1);
+		apb.set_session(1);
 		apb.set_name(n.toStdString());
 		apb.set_pw(p.toStdString());
 
 		std::string str;
 
 		Universal u;
-		u.set_session(1);
 		* (u.mutable_authenticate()) = apb;
 
 		u.SerializeToString(&str);
@@ -65,9 +68,9 @@ int main(int argc, char **argv) {
 	t.restart();
 	for (int i=0;i<1000000;++i) {
 		Universal u;
-		u.set_session(1);
 		Authenticate *apb = u.mutable_authenticate();
 		apb->set_version(-1);
+		apb->set_session(1);
 		apb->set_name(n.toStdString());
 		apb->set_pw(p.toStdString());
 
@@ -91,9 +94,9 @@ int main(int argc, char **argv) {
 	t.restart();
 	for (int i=0;i<1000000;++i) {
 		Universal u;
-		u.set_session(1);
 		Authenticate *apb = u.mutable_authenticate();
 		apb->set_version(-1);
+		apb->set_session(1);
 		apb->set_name(sn);
 		apb->set_pw(sp);
 
@@ -114,9 +117,9 @@ int main(int argc, char **argv) {
 	t.restart();
 	for (int i=0;i<1000000;++i) {
 		Universal u;
-		u.set_session(1);
 		Authenticate *apb = u.mutable_authenticate();
 		apb->set_version(-1);
+		apb->set_session(1);
 		apb->set_name(n.toStdString());
 		apb->set_pw(p.toStdString());
 
@@ -137,9 +140,9 @@ int main(int argc, char **argv) {
 	t.restart();
 	for (int i=0;i<1000000;++i) {
 		Universal u;
-		u.set_session(1);
 		Authenticate *apb = u.MutableExtension(extauth);
 		apb->set_version(-1);
+		apb->set_session(1);
 		apb->set_name(n.toStdString());
 		apb->set_pw(p.toStdString());
 
@@ -159,10 +162,30 @@ int main(int argc, char **argv) {
 
 	t.restart();
 	for (int i=0;i<1000000;++i) {
+		Authenticate apb;
+		apb.set_version(-1);
+		apb.set_session(1);
+		apb.set_name(n.toStdString());
+		apb.set_pw(p.toStdString());
+
+		v = apb.ByteSize();
+
+		apb.SerializeToArray(buff, v);
+		apb.ParseFromArray(buff, v);
+		apb.DiscardUnknownFields();
+
+		QString qn = QString::fromStdString(apb.name());
+		QString qp = QString::fromStdString(apb.pw());
+	}
+	printf("PBNoWrap : %8lld %d\n", t.elapsed(), v);
+
+
+	t.restart();
+	for (int i=0;i<1000000;++i) {
 		LongUniversal u;
-		u.set_session(1);
 		Authenticate *apb = u.mutable_z();
 		apb->set_version(-1);
+		apb->set_session(1);
 		apb->set_name(n.toStdString());
 		apb->set_pw(p.toStdString());
 
@@ -181,26 +204,40 @@ int main(int argc, char **argv) {
 	printf("PBLong   : %8lld %d\n", t.elapsed(), v);
 
 	LongUniversal u;
+	const LongUniversal::Reflection *r = u.GetReflection();
 	t.restart();
 	for (int i=0;i<1000000;++i) {
 		u.Clear();
-		u.set_session(1);
+
 		Authenticate *apb = u.mutable_z();
 		apb->set_version(-1);
+		apb->set_session(1);
 		apb->set_name(n.toStdString());
 		apb->set_pw(p.toStdString());
 
-		std::string str;
+//		std::string str;
 
 		v = u.ByteSize();
 
 		u.SerializeToArray(buff, v);
+		u.Clear();
 		u.ParseFromArray(buff, v);
+//		u.DiscardUnknownFields();
+		
+//		vector<const google::protobuf::FieldDescriptor *> v;
+//		r->ListFields(u, &v);
+//		printf("%d\n", v.size());
 
-		const Authenticate &a = u.z();
+		if (u.has_a() || u.has_b() || u.has_c() || u.has_d() || u.has_e() || u.has_f() || u.has_g() || u.has_h() || u.has_i() || u.has_j() || u.has_k() || u.has_l() || u.has_m() || u.has_n() || u.has_o() || u.has_p() || u.has_q() )
+			continue;
+		
+		
+		Authenticate *a = u.mutable_z();
+		a->DiscardUnknownFields();
+		
 
-		QString qn = QString::fromStdString(a.name());
-		QString qp = QString::fromStdString(a.pw());
+		QString qn = QString::fromStdString(a->name());
+		QString qp = QString::fromStdString(a->pw());
 	}
 	printf("PBCache  : %8lld %d\n", t.elapsed(), v);
 

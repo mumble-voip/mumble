@@ -9,6 +9,7 @@ VPATH += .. proto
 INCLUDEPATH += .. ../murmur ../mumble proto
 LIBS += -lboost_signals -lprotobuf
 QMAKE_CXXFLAGS *= -O3
+DEFINES *= NDEBUG
 
 protoc.output = ${QMAKE_FILE_BASE}.pb.cc ${QMAKE_FILE_BASE}.pb.h
 protoc.commands = protoc ${QMAKE_FILE_NAME} --cpp_out=.
