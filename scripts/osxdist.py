@@ -360,6 +360,7 @@ if __name__ == '__main__':
 	f.copy('release/mumble-overlay-injector', '/Library/MumbleOverlay/')
 	f.copy('release/Stub.framework', '/Library/MumbleOverlay/Bundles/')
 	f.copy('release/Overlay.framework', '/Library/MumbleOverlay/Bundles/')
+	f.copy('release/MumbleOverlayContextMenu.framework', '/Library/Contextual Menu Items/')
 	f.create()
 
 	# Combine the base installer with our pretty installer wrapper

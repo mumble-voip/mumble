@@ -1,5 +1,5 @@
 /*
-   Copyright (C) 2008, Mikkel Krautz <mikkel@krautz.dk>
+   Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
