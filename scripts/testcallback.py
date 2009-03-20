@@ -2,7 +2,7 @@
 # -*- coding: utf-8
 import Ice, sys
 
-Ice.loadSlice('Murmur.ice') 
+Ice.loadSlice('Murmur.ice')
 import Murmur
 
 class MetaCallbackI(Murmur.MetaCallback):
@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     print "Creating callbacks...",
     ice = Ice.initialize(sys.argv)
-    
+
     meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'))
 
     adapter = ice.createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1")
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     adapter.activate()
 
     meta.addCallback(metaR)
-    
+
     for server in meta.getBootedServers():
       serverR=Murmur.ServerCallbackPrx.uncheckedCast(adapter.addWithUUID(ServerCallbackI(server, adapter)))
       server.addCallback(serverR)

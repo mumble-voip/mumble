@@ -8,7 +8,7 @@
 #        * python 2.5 or higher
 #        * cherrypy 3 or higher
 #        * python ice bindings
-#        * murmur + mumble rev 1530 or higher 
+#        * murmur + mumble rev 1530 or higher
 
 import cherrypy
 import Ice
@@ -73,8 +73,8 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
     err_notallowed = "You are not allowed to send registration urls"
     msg_regurl = "You've been allowed to register with this mumble server, " \
                  "please <a href='%(url)s'>click here to register</a>."
-    
-    
+
+
     def __init__(self, server):
       self.server = server
 
@@ -90,7 +90,7 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
                 if not allowed:
                     self.server.sendMessage(p, self.err_notallowed)
                     return
-                    
+
             sema_ids.acquire()
             try:
                 # Take the chance to cleanup old entries
@@ -100,19 +100,19 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
                         todel.append(key)
                 for key in todel:
                     del ids[key]
-                
+
                 # Ok, now generate his registration id (64bit)
                 rid = None
                 while not rid or rid in ids:
                     rid = random.randrange(0, pow(2,64))
                 sid = self.server.id()
-                
+
                 # Remember his username
                 try:
                     username = self.server.getState(session).name
                 except Murmur.InvalidSessionException:
                     username = ""
-                
+
                 # Save everything
                 ids[str(rid)] = (sid, username, int(time.time()))
                 # Send reg url to the player
@@ -123,7 +123,7 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
                 sema_ids.release()
 
 
-    
+
 class mumble_auth(object):
     #--- Web template strings
     template = """<?xml version="1.0" encoding="utf-8" ?>
@@ -143,36 +143,36 @@ class mumble_auth(object):
         %(body)s
         </body>
     </html>"""
-    
+
     err_id = """<h2>Invalid ID</h2><p>
     The ID for your registration has already been used or is invalid.<br />
     Please request a new registration link from a Mumble administrator.<br /></p>"""
-    
+
     err_username = """<h2>Invalid username</h2><p>
     The username you chose contains characters which are not allowed.<br/>
     Please only use normal characters without whitespaces.<br /></p>"""
-    
+
     err_username_existing = """<h2>Username already registered</h2><p>
     The username you chose is already registered on this server.<br />
     Please choose another one.<br /></p>"""
-    
+
     err_password = """<h2>Invalid password</h2><p>
     The password you chose didn't match the criteria enforced by this server.<br/>
     Your password should be at least 6 characters long.<br /></p>"""
-    
+
     err_password_mismatch = """<h2>Passwords do not match</h2><p>
     The password you entered did not match the one in the confirmation box.<br/>
     Make sure both boxes contain the same password.<br /></p>"""
-    
+
     snippet_retry = '<br/><a href="%(url)s">Click here to try again</a>'
-    
+
     body_index = """<p>This is the mumble-auth script, to be able to register yourself
     an account please ask a admin on the mumble server.</p>"""
-    
+
     body_complete = """<h2>Success</h2><p>
     You have been registered with the server successfully,<br />
     please try to login to the server with your new login credentials!</p>"""
-    
+
     body_regform = """
     <form action="doregister" method="post">
         <fieldset>
@@ -181,25 +181,25 @@ class mumble_auth(object):
             <input id="username" type="text" name="username" value="%(username)s"
                 size="20" maxlength="40" /><br />
             <label for="password">Password</label>
-            <input id="password" type="password" name="password" value="" 
+            <input id="password" type="password" name="password" value=""
                 size="20" maxlength="40" /><br />
             <label for="cpassword">Confirm password</label>
-            <input id="cpassword" type="password" name="cpassword" value="" 
+            <input id="cpassword" type="password" name="cpassword" value=""
                 size="20" maxlength="40" /><br />
             <input type="hidden" name="id" value="%(id)s" />
             <input id="register" type="submit" value="Register" />
         </fieldset>
     </form>"""
-                
+
     def __init__(self, murmur):
         self.murmur = murmur
-        
+
     def index(self):
         title = "Mumble Auth - Index"
         return self.template % {'title':title,
                                 'body':self.body_index}
     index.exposed = True
-    
+
     def register(self, id = None):
         title = "Mumble Auth - Register";
         if not id in ids:
@@ -208,7 +208,7 @@ class mumble_auth(object):
             # In case of a valid ID
             body = self.body_regform % {'username':ids[id][1],
                                         'id':id}
-            
+
         return self.template % {'title':title,
                                 'body':body}
     register.exposed = True
@@ -250,7 +250,7 @@ class mumble_auth(object):
         return self.template % {'title':title,
                                 'body':body}
     doregister.exposed = True
-    
+
 if __name__ == "__main__":
     random.seed()
     ice = Ice.initialize()
@@ -259,7 +259,7 @@ if __name__ == "__main__":
         adapter = ice.createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1")
         metaR=Murmur.MetaCallbackPrx.uncheckedCast(adapter.addWithUUID(MetaCallbackI()))
         adapter.activate()
-        
+
         meta.addCallback(metaR)
         for server in meta.getBootedServers():
             serverR=Murmur.ServerCallbackPrx.uncheckedCast(adapter.addWithUUID(ServerCallbackI(server, adapter)))

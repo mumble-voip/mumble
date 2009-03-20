@@ -2,13 +2,13 @@
 # -*- coding: utf-8
 import Ice, sys
 
-Ice.loadSlice('Murmur.ice') 
+Ice.loadSlice('Murmur.ice')
 import Murmur
 
 class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
     def __init__(self, server, adapter):
       self.server = server
-      
+
     def authenticate(self, name, pw, current=None):
       if (name == "One"):
         if (pw == "Magic"):
@@ -21,8 +21,8 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
         else:
           return (-1, None, None)
       return (-2, None, None)
-      
-      
+
+
     def nameToId(self, name, current=None):
       if (name == "One"):
         return 1
@@ -38,28 +38,28 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
         return "Two"
       else:
         return None
-        
+
     def idToTexture(self, id, current=None):
       return None
-      
+
     # The expanded methods from UpdatingAuthenticator. We only implement a subset for this example, but
     # a valid implementation has to define all of them
     def registerPlayer(self, name, current=None):
       print "Someone tried to register " + name
       return -2
-      
+
     def unregisterPlayer(self, id, current=None):
       return -2
-      
+
     def getRegistration(self, id, current=None):
       return (-2, None, None)
-    
+
 if __name__ == "__main__":
     global contextR
 
     print "Creating callbacks...",
     ice = Ice.initialize(sys.argv)
-    
+
     meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'))
 
     adapter = ice.createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1")

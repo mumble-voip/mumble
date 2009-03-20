@@ -15,7 +15,7 @@ open(MH, "Murmur.h");
 
 sub func($$\@\@\@) {
   my ($class, $func, $wrapargs, $callargs, $implargs) = @_;
-  
+
     print I "void ::Murmur::${class}I::${func}_async(". join(", ", @{$wrapargs}).") {\n";
 #    print I "\tqWarning(\"CALL ${func}\");\n";
     print I "\tIceEvent *ie = new IceEvent(boost::bind(&impl_${class}_$func, " . join(", ", @${callargs})."));\n";
@@ -39,10 +39,10 @@ while(<MH>) {
     my $func=$1;
     my $obj=$2;
     my $args=$3;
-    
+
     my $class="Meta";
     $class = "Server" if ($obj =~ /AMD_Server/);
-    
+
     my @wrapargs;
     my @callargs;
     my @implargs;

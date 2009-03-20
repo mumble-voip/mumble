@@ -33,7 +33,7 @@ public class ListUsers
 			else
 				bus = Connection.Open (args[0]);
 		}
-	
+
 		Meta m = bus.GetObject<Meta>("net.sourceforge.mumble.murmur", new ObjectPath("/"));
 		int [] servers = m.getBootedServers();
 

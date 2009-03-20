@@ -50,7 +50,7 @@ is64=no
 is32=no
 
 case $(file -L "$binary") in
-	*64-bit*) 
+	*64-bit*)
 		if [ ! -f "${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1" ]; then
 			echo "64-bit libmumble.so.1 not found in ${MUMBLE_OVERLAY_PATH_64}" >&2
 			exit 1

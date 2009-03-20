@@ -28,20 +28,20 @@ if( isset($_GET['uname']) && $_GET['password'] && $_GET['email'] && $_GET['uname
   try {
     $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
     $meta = $base->ice_checkedCast("::Murmur::Meta");
-		
+
     $server = $meta->getServer($serverId);
-		
+
 		if(empty($server)){
 			echo 'Server could not be found.';
 		}else{
 			$registrationId = $server->registerPlayer($_GET['uname']);
-			
+
 	    $registration = $server->getRegistration(intval($registrationId));
 	    $registration->pw = $_GET['password'];
 	    $registration->email = $_GET['email'];
 	    $server->updateregistration($registration);
 		}
-		
+
 	}catch(InvalidPlayerException $ex){
 		echo 'InvalidPlayerException';
 	}catch(ServerBootedException $ex){

@@ -3,7 +3,7 @@
 #
 # Simple Mac OS X Application Bundler for Mumble
 #
-# Loosely based on original bash-version by Sebastian Schlingmann (based, again, on a OSX application bundler 
+# Loosely based on original bash-version by Sebastian Schlingmann (based, again, on a OSX application bundler
 # by Thomas Keller).
 #
 
@@ -110,8 +110,8 @@ class AppBundle(object):
 			if self.is_system_lib(lib):
 				continue
 
-			# At the moment, the only real framework Mumble uses, that isn't already distributed with Mac OS 
-			# X, is Qt. And simply copying the Qt dylibs work just fine. This allows us to get rid of all of 
+			# At the moment, the only real framework Mumble uses, that isn't already distributed with Mac OS
+			# X, is Qt. And simply copying the Qt dylibs work just fine. This allows us to get rid of all of
 			# that framework madness in this script (for now, at least... hopefully forever! :-))
 			else:
 				baselib = os.path.basename(lib)

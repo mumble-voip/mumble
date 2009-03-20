@@ -46,7 +46,7 @@ $confbig['key']=1;
 try {
   $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
   $meta = $base->ice_checkedCast("::Murmur::Meta");
-  
+
   $default = $meta->getDefaultConf();
 
   if (! is_null($_REQUEST['newserver'])) {
@@ -142,10 +142,10 @@ try {
       echo "</form>\n";
     }
   }
-  
+
   $servers = $meta->getAllServers();
   $booted = $meta->getBootedServers();
-  
+
   echo "<h1>Murmur ICE Interface demo</h1>\n";
   echo "<p><b>Warning:</b> This is not intended as a full management suite. It's an example. It has bugs. It has security holes. ";
   echo "It might make precious body parts fall off. <b>Do not run it on a production server</b>.\n";
