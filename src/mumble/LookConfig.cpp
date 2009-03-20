@@ -143,7 +143,6 @@ void LookConfig::accept() const {
 			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
 		}
 	}
-	g.mw->setOnTop(s.bAlwaysOnTop);
 }
 
 bool LookConfig::expert(bool b) {

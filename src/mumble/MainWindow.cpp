@@ -1149,7 +1149,8 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 
 void MainWindow::on_qaConfigDialog_triggered() {
 	ConfigDialog *dlg= new ConfigDialog(this);
-	dlg->exec();
+	if (dlg->exec() == QDialog::Accepted)
+		setOnTop(g.s.bAlwaysOnTop);
 	delete dlg;
 }
 
