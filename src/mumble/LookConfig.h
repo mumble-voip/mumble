@@ -44,7 +44,7 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void accept() const;
+		void accept();
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);

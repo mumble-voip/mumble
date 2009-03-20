@@ -127,7 +127,7 @@ void LookConfig::save() const {
 	s.bExpert = qcbExpert->isChecked();
 }
 
-void LookConfig::accept() const {
+void LookConfig::accept() {
 	if (! s.qsStyle.isEmpty()) {
 		qApp->setStyle(s.qsStyle);
 	}
