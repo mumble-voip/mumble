@@ -1,7 +1,7 @@
 /*******************************************************************************
 	mach_override.c
-		Copyright (c) 2003-2005 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
-		Some rights reserved: <http://creativecommons.org/licenses/by/2.0/>
+		Copyright (c) 2003-2009 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
+		Some rights reserved: <http://opensource.org/licenses/mit-license.php>
 
 	***************************************************************************/
 
@@ -150,11 +150,10 @@ mach_override(
 			originalFunctionSymbolName,
 			(void*) &originalFunctionPtr,
 			NULL );
-
+	
 	printf ("In mach_override\n");
 	return mach_override_ptr( originalFunctionPtr, overrideFunctionAddress,
 		originalFunctionReentryIsland );
-	printf ("Out of mach_override_ptr\n");
 }
 
     mach_error_t
@@ -177,8 +176,6 @@ mach_override_ptr(
 	long	originalInstruction = *originalFunctionPtr;
 	if( !err && ((originalInstruction & kMFCTRMask) == kMFCTRInstruction) )
 		err = err_cannot_override;
-
-        printf("Here...\n");
 #elif defined (__i386__)
 	int eatenCount = 0;
 	char originalInstructions[kOriginalInstructionsSize];
@@ -212,7 +209,7 @@ mach_override_ptr(
 #if defined(__ppc__) || defined(__POWERPC__)
 	if( !err )
 		err = setBranchIslandTarget( escapeIsland, overrideFunctionAddress, 0 );
-
+	
 	//	Build the branch absolute instruction to the escape island.
 	long	branchAbsoluteInstruction = 0; // Set to 0 just to silence warning.
 	if( !err ) {
@@ -478,9 +475,8 @@ typedef struct {
 
 static AsmInstructionMatch possibleInstructions[] = {
 	{ 0x1, {0xFF}, {0x90} },							// nop
-	{ 0x1, {0xFF}, {0x55} },							// push %esp
+	{ 0x1, {0xF8}, {0x50} },							// push %eax | %ebx | %ecx | %edx | %ebp | %esp | %esi | %edi
 	{ 0x2, {0xFF, 0xFF}, {0x89, 0xE5} },				// mov %esp,%ebp
-	{ 0x1, {0xFF}, {0x53} },							// push %ebx
 	{ 0x3, {0xFF, 0xFF, 0x00}, {0x83, 0xEC, 0x00} },	// sub 0x??, %esp
 	{ 0x0 }
 };

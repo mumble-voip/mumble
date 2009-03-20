@@ -2,9 +2,9 @@
 	stub.c - Overlay stub for Mumble
 
 	Based on mach_inject_bundle_stub.c
-		Copyright (c) 2005 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
-		Some rights reserved: <http://creativecommons.org/licenses/by/2.0/>
-	
+		Copyright (c) 2003-2009 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
+		Some rights reserved: <http://opensource.org/licenses/mit-license.php>
+
 	Design inspired by SCPatchLoader, by Jon Gotow of St. Clair Software:
 		<http://www.stclairsoft.com>
 

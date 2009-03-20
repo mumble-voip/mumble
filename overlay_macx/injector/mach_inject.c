@@ -1,7 +1,7 @@
  /*******************************************************************************
 	mach_inject.c
-		Copyright (c) 2003-2005 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
-		Some rights reserved: <http://creativecommons.org/licenses/by/2.0/>
+		Copyright (c) 2003-2009 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
+		Some rights reserved: <http://opensource.org/licenses/mit-license.php>
 
 	***************************************************************************/
 
@@ -27,6 +27,19 @@
 #endif
 #define ASSERT_CAST( CAST_TO, CAST_FROM ) \
 	COMPILE_TIME_ASSERT( sizeof(CAST_TO)==sizeof(CAST_FROM) )
+
+#if !__DARWIN_UNIX03
+ /* ppc */
+ #define __srr0 srr0
+ #define __r1 r1
+ #define __r3 r3
+ #define __r4 r4
+ #define __r5 r5
+ #define __lr lr
+ /* i386 */
+ #define __eip eip
+ #define __esp esp
+#endif
 
 #if defined(__i386__)
 void* fixedUpImageFromImage (
@@ -63,7 +76,7 @@ mach_inject(
 	unsigned int	jumpTableOffset;
 	unsigned int	jumpTableSize;
 	mach_error_t	err = machImageForPointer( threadEntry, &image, &imageSize, &jumpTableOffset, &jumpTableSize );
-
+	
 	//	Initialize stackSize to default if requested.
 	if( stackSize == 0 )
 		/** @bug
@@ -145,29 +158,29 @@ mach_inject(
 		bzero( &remoteThreadState, sizeof(remoteThreadState) );
 		
 		ASSERT_CAST( unsigned int, remoteCode );
-		remoteThreadState.srr0 = (unsigned int) remoteCode;
-		remoteThreadState.srr0 += threadEntryOffset;
-		assert( remoteThreadState.srr0 < (remoteCode + imageSize) );
+		remoteThreadState.__srr0 = (unsigned int) remoteCode;
+		remoteThreadState.__srr0 += threadEntryOffset;
+		assert( remoteThreadState.__srr0 < (remoteCode + imageSize) );
 		
 		ASSERT_CAST( unsigned int, remoteStack );
-		remoteThreadState.r1 = (unsigned int) remoteStack;
+		remoteThreadState.__r1 = (unsigned int) remoteStack;
 		
 		ASSERT_CAST( unsigned int, imageOffset );
-		remoteThreadState.r3 = (unsigned int) imageOffset;
+		remoteThreadState.__r3 = (unsigned int) imageOffset;
 		
 		ASSERT_CAST( unsigned int, remoteParamBlock );
-		remoteThreadState.r4 = (unsigned int) remoteParamBlock;
+		remoteThreadState.__r4 = (unsigned int) remoteParamBlock;
 		
 		ASSERT_CAST( unsigned int, paramSize );
-		remoteThreadState.r5 = (unsigned int) paramSize;
+		remoteThreadState.__r5 = (unsigned int) paramSize;
 		
 		ASSERT_CAST( unsigned int, 0xDEADBEEF );
-		remoteThreadState.lr = (unsigned int) 0xDEADBEEF;
+		remoteThreadState.__lr = (unsigned int) 0xDEADBEEF;
 		
 #if 0
 		printf( "remoteCode start: %p\n", (void*) remoteCode );
 		printf( "remoteCode size: %ld\n", imageSize );
-		printf( "remoteCode pc: %p\n", (void*) remoteThreadState.srr0 );
+		printf( "remoteCode pc: %p\n", (void*) remoteThreadState.__srr0 );
 		printf( "remoteCode end: %p\n",
 			(void*) (((char*)remoteCode)+imageSize) );
 		fflush(0);
@@ -182,7 +195,7 @@ mach_inject(
 		
 		i386_thread_state_t remoteThreadState;
 		bzero( &remoteThreadState, sizeof(remoteThreadState) );
-			
+		
 		vm_address_t dummy_thread_struct = remoteStack;
 		remoteStack += (stackSize / 2); // this is the real stack
 		// (*) increase the stack, since we're simulating a CALL instruction, which normally pushes return address on the stack
@@ -204,15 +217,10 @@ mach_inject(
 		// push stackContents
 		err = vm_write( remoteTask, remoteStack,
 						(pointer_t) stackContents, STACK_CONTENTS_SIZE);
-
-#if !__DARWIN_UNIX03
- #define __eip eip
- #define __esp esp
-#endif
-
+		
 		// set remote Program Counter
 		remoteThreadState.__eip = (unsigned int) (remoteCode);
-		remoteThreadState.__eip += threadEntryOffset;  
+		remoteThreadState.__eip += threadEntryOffset;
 		
 		// set remote Stack Pointer
 		ASSERT_CAST( unsigned int, remoteStack );
@@ -281,24 +289,21 @@ machImageForPointer(
 			if( size ) {
 				;//assertUInt32( st_size );
 				*size = sb.st_size;
-
+				
 				// needed for Universal binaries. Check if file is fat and get image size from there.
 				int fd = open (imageName, O_RDONLY);
-
 				if (fd == -1) {
 					fprintf(stderr, "Unable to open() image. Error: %s\n", strerror(errno));
 					exit(1);
 				}
 
 				size_t mapSize = *size;
-				fprintf(stderr, "mapSize = %u\n", mapSize);
 				char * fileImage = mmap (NULL, mapSize, PROT_READ, MAP_FILE|MAP_SHARED, fd, 0);
-
 				if (fileImage == -1) {
 					fprintf(stderr, "Unable to mmap() image. Error: %s\n", strerror(errno));
 					exit(1);
 				}
-
+				
 				struct fat_header* fatHeader = (struct fat_header *)fileImage;
 				if (fatHeader->magic == OSSwapBigToHostInt32(FAT_MAGIC)) {
 					//printf("This is a fat binary\n");
