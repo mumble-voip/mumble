@@ -302,11 +302,12 @@ void WASAPIInput::run() {
 	}
 
 	if (! g.s.qsWASAPIInput.isEmpty()) {
-		STACKVAR(wchar_t, devname, g.s.qsWASAPIInput.length());
-		g.s.qsWASAPIInput.toWCharArray(devname);
+		STACKVAR(wchar_t, devname, g.s.qsWASAPIInput.length() + 1);
+		int len = g.s.qsWASAPIInput.toWCharArray(devname);
+		devname[len] = 0;
 		hr = pEnumerator->GetDevice(devname, &pMicDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to open selected input device, falling back to default");
+			qWarning("WASAPIInput: Failed to open selected input device %s %ls, falling back to default", qPrintable(g.s.qsWASAPIInput), devname);
 		}
 	}
 
@@ -636,8 +637,9 @@ void WASAPIOutput::run() {
 	}
 
 	if (! g.s.qsWASAPIOutput.isEmpty()) {
-		STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length());
-		g.s.qsWASAPIOutput.toWCharArray(devname);
+		STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length() + 1);
+		int len = g.s.qsWASAPIOutput.toWCharArray(devname);
+		devname[len] = 0;
 		hr = pEnumerator->GetDevice(devname, &pDevice);
 		if (FAILED(hr)) {
 			qWarning("WASAPIOutput: Failed to open selected input device, falling back to default");
