@@ -1,6 +1,7 @@
 # Mac OS X bundle template
 
 include(../compiler.pri)
+include(common.pri)
 
 TEMPLATE = lib
 CONFIG += lib_bundle

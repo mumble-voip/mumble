@@ -35,6 +35,8 @@
 
 #include "contextmenu.h"
 
+#define MUMBLE_OVERLAY_LAUNCHER_PATH    MUMBLE_OVERLAY_MACX_PATH "/mumble-overlay"
+
 static ContextualMenuInterfaceStruct interfaceTable = {
 	NULL,
 
@@ -132,23 +134,66 @@ err:
 }
 
 static OSStatus ContextMenuHandleSelection(ContextMenuPlugin *p, AEDesc *desc, SInt32 commandId) {
-	CFBundleRef bundle;
-	CFURLRef fileUrl;
+	CFBundleRef bundle = NULL;
+	CFURLRef bundleUrl = NULL;
+	CFStringRef bundleFn = NULL;
+	CFArrayRef argv = NULL;
+	OSStatus err = noErr;
+	char *path;
+	FSRef ref;
 
 	if (commandId != 'OLAY')
 		return noErr;
 
-	char *path;
 	ContextMenuGetAppBundlePath(desc, &path, NULL);
-
 	if (path) {
-		fprintf(stderr, "[MumbleOverlayContextPlugin] AppBundle = %s\n", path);
-		/*
-		 * Launch the app :)
-		 */
-		free(path);
+		err = FSPathMakeRef((const UInt8 *) MUMBLE_OVERLAY_LAUNCHER_PATH, &ref, NULL);
+		if (err != noErr)
+			return noErr;
+
+		bundle = ContextMenuGetAppBundleFromDescList(desc);
+		if (!bundle)
+			goto out;
+
+		bundleUrl = CFBundleCopyBundleURL(bundle);
+		if (!bundleUrl)
+			goto out;
+
+		bundleFn = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
+		if (!bundleFn)
+			goto out;
+
+		CFStringRef array[] = { bundleFn };
+		argv = CFArrayCreate(kCFAllocatorDefault, array, 1, NULL);
+		if (!argv)
+			goto out;
+
+		LSApplicationParameters parm = {
+			.version             = 0,
+			.flags               = kLSLaunchDefaults,
+			.application         = &ref,
+			.asyncLaunchRefCon   = NULL,
+			.environment         = NULL,
+			.argv                = argv,
+			.initialEvent        = NULL
+		};
+
+		err = LSOpenApplication(&parm, NULL);
+		if (err != noErr)
+			goto out;
 	}
 
+out:
+	if (path)
+		free(path);
+	if (bundle)
+		CFRelease(bundle);
+	if (bundleUrl)
+		CFRelease(bundleUrl);
+	if (bundleFn)
+		CFRelease(bundleFn);
+	if (argv)
+		CFRelease(argv);
 	return noErr;
 }
 
