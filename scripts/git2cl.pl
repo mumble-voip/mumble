@@ -15,7 +15,7 @@ while(<LOG>) {
   chomp();
   my ($hash,$author,$email,$date,$subject) = split(/\0/,$_);
 
-  if ($subject =~ s/\s*\[(\w+)\]$//) {
+  if ($subject =~ s/\s*\[([\w-]+)\]\s*$//) {
     $author = $1;
     $email = lc "$1\@users.sourceforge.net";
   }

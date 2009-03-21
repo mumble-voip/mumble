@@ -8,6 +8,7 @@
 	     apps with the overlay enabled by right clicking on them.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    e0fe5c7  Update changelog script to credit SVN authors properly
     4eb6d7d  New changelog script
     3732dce  Fix WASAPI device selection
 
@@ -941,11 +942,13 @@
   jakobdettner <jakobdettner@users.sourceforge.net>
     2a6ae35  Patch #2119472: tray icon exit menu entry on right klick
 
+  l-n <l-n@users.sourceforge.net>
+    0e86bb4  Remove C++ flags from CFLAGS
+    3bd6814  Patch #2122639: fix build with older alsa
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     270040d  Deny duplicate channel names
     46ba719  Check valid player ID on texture get/set
-    0e86bb4  Remove C++ flags from CFLAGS [l-n]
-    3bd6814  Patch #2122639: fix build with older alsa [l-n]
 
 2008-09-13
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1665,6 +1668,12 @@
     6bef650  WASAPI Input
 
 2008-03-18
+  dark-storm <dark-storm@users.sourceforge.net>
+    b489aeb  Path #1916131 Compilation Fixes for Visual C++ 2008
+
+  l-n <l-n@users.sourceforge.net>
+    ab6f5e1  Patch to fix no-speechd
+
   Mikkel Krautz <mkrautz@users.sourceforge.net>
     831aa39  Patch #1917558 Implement GlobalShortcut for OSX
 
@@ -1675,10 +1684,7 @@
     9ff6c4b  Update to patched speex API.
     1f89fdd  Move compiler settings to compiler.pri Fix a lot of warnings
 	     with msvc
-    b489aeb  Path #1916131 Compilation Fixes for Visual C++ 2008
-	     [dark-storm]
     716b39e  Add VersionInfo to the .rc files.
-    ab6f5e1  Patch to fix no-speechd [l-n]
 
 2008-03-17
   jerhum <jerhum@users.sourceforge.net>
