@@ -1279,6 +1279,16 @@
         <translation type="unfinished">Zařízení</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="83"/>
+        <source>Output device for audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="86"/>
+        <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>
@@ -3350,7 +3360,7 @@ p, li { white-space: pre-wrap; }
         <translation>Rozhraní</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="159"/>
+        <location filename="LookConfig.cpp" line="158"/>
         <source>Choose skin file</source>
         <translation>Vyberte soubor s motivem</translation>
     </message>
@@ -3494,7 +3504,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="128"/>
-        <location filename="MainWindow.cpp" line="1322"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -4168,7 +4178,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="893"/>
         <location filename="MainWindow.cpp" line="915"/>
         <location filename="MainWindow.cpp" line="936"/>
-        <location filename="MainWindow.cpp" line="1386"/>
+        <location filename="MainWindow.cpp" line="1387"/>
         <location filename="MainWindow.ui" line="14"/>
         <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
@@ -4216,12 +4226,12 @@ p, li { white-space: pre-wrap; }
         <translation>Opět schopen slyšet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1187"/>
+        <location filename="MainWindow.cpp" line="1188"/>
         <source>About Qt</source>
         <translation>O knihovně Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1284"/>
+        <location filename="MainWindow.cpp" line="1285"/>
         <source>Joining %1.</source>
         <translation>Vstupuji do %1.</translation>
     </message>
@@ -4230,42 +4240,42 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Připojen k serveru.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1415"/>
+        <location filename="MainWindow.cpp" line="1416"/>
         <source>Server connection failed: %1.</source>
         <translation>Připojování k serveru selhalo: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>Invalid username</source>
         <translation>Špatné jméno uživatele</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Připojujete se s nesprávným jménem uživatele, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Toto uživatelské jméno je již používáno, prosím zkuste nějaké jiné.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password</source>
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Špatné heslo registrovaného uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Špatné heslo serveru pro neregistrované uživatele, prosím zkuste znova.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1417"/>
+        <location filename="MainWindow.cpp" line="1418"/>
         <source>Disconnected from server.</source>
         <translation>Spojení se serverem bylo zrušeno.</translation>
     </message>
@@ -4455,27 +4465,27 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="641"/>
-        <location filename="MainWindow.cpp" line="1394"/>
+        <location filename="MainWindow.cpp" line="1395"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1373"/>
+        <location filename="MainWindow.cpp" line="1374"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1378"/>
+        <location filename="MainWindow.cpp" line="1379"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1380"/>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1387"/>
+        <location filename="MainWindow.cpp" line="1388"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4620,7 +4630,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1317"/>
+        <location filename="MainWindow.cpp" line="1318"/>
         <source>Connected to server %1.</source>
         <translation type="unfinished"></translation>
     </message>

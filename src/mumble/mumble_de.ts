@@ -3698,7 +3698,7 @@ p, li { white-space: pre-wrap; }
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="159"/>
+        <location filename="LookConfig.cpp" line="158"/>
         <source>Choose skin file</source>
         <translation>Wähle Skindatei</translation>
     </message>
@@ -3867,7 +3867,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="128"/>
-        <location filename="MainWindow.cpp" line="1322"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>Root</source>
         <translation>Wurzel</translation>
     </message>
@@ -4334,7 +4334,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="893"/>
         <location filename="MainWindow.cpp" line="915"/>
         <location filename="MainWindow.cpp" line="936"/>
-        <location filename="MainWindow.cpp" line="1386"/>
+        <location filename="MainWindow.cpp" line="1387"/>
         <location filename="MainWindow.ui" line="14"/>
         <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
@@ -4381,12 +4381,12 @@ p, li { white-space: pre-wrap; }
         <translation>Taubstellung aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1187"/>
+        <location filename="MainWindow.cpp" line="1188"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1284"/>
+        <location filename="MainWindow.cpp" line="1285"/>
         <source>Joining %1.</source>
         <translation>Betrete %1.</translation>
     </message>
@@ -4395,12 +4395,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Mit Server verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1415"/>
+        <location filename="MainWindow.cpp" line="1416"/>
         <source>Server connection failed: %1.</source>
         <translation>Serververbindung fehlgeschlagen: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1417"/>
+        <location filename="MainWindow.cpp" line="1418"/>
         <source>Disconnected from server.</source>
         <translation>Verbindung zum Server unterbrochen.</translation>
     </message>
@@ -4738,32 +4738,32 @@ p, li { white-space: pre-wrap; }
         <translation>Ändere Beschreibung von Kanal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Sie haben sich mit ungültigem Benutzernamen verbunden. Bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Dieser Benutzername ist bereits vergeben. Bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Falsches Passwort für registrierte Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Falsches Serverpasswort für unregistrierte Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
@@ -4798,17 +4798,17 @@ p, li { white-space: pre-wrap; }
         <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1373"/>
+        <location filename="MainWindow.cpp" line="1374"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL Überprüfung fehlgeschlagen: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1378"/>
+        <location filename="MainWindow.cpp" line="1379"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat ein Zertifikat gesendet, das sich vom für diesen Server gespeicherten Zertifikat unterscheidet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1380"/>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Der Server hat Zertifikat gesendet, dessen Überprüfung gescheitert ist.</translation>
     </message>
@@ -4837,7 +4837,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Bundesstaat:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1387"/>
+        <location filename="MainWindow.cpp" line="1388"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Die Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
@@ -4867,7 +4867,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="641"/>
-        <location filename="MainWindow.cpp" line="1394"/>
+        <location filename="MainWindow.cpp" line="1395"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zertifikat zeigen</translation>
     </message>
@@ -5051,7 +5051,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Audio Bandbreite&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Aktuell %2 kbit/s (Qualität %3)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1317"/>
+        <location filename="MainWindow.cpp" line="1318"/>
         <source>Connected to server %1.</source>
         <translation>Mit Server %1 verbunden.</translation>
     </message>

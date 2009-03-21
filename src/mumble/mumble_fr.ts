@@ -1402,6 +1402,16 @@
         <translation>Périphérique</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="83"/>
+        <source>Output device for audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="86"/>
+        <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>
@@ -3614,7 +3624,7 @@ p, li { white-space: pre-wrap; }
         <translation>Interface</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="159"/>
+        <location filename="LookConfig.cpp" line="158"/>
         <source>Choose skin file</source>
         <translation>Choisir le fichier thème</translation>
     </message>
@@ -3780,7 +3790,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="128"/>
-        <location filename="MainWindow.cpp" line="1322"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -4393,7 +4403,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="893"/>
         <location filename="MainWindow.cpp" line="915"/>
         <location filename="MainWindow.cpp" line="936"/>
-        <location filename="MainWindow.cpp" line="1386"/>
+        <location filename="MainWindow.cpp" line="1387"/>
         <location filename="MainWindow.ui" line="14"/>
         <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
@@ -4441,12 +4451,12 @@ p, li { white-space: pre-wrap; }
         <translation>N&apos;est pas sourd(e).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1187"/>
+        <location filename="MainWindow.cpp" line="1188"/>
         <source>About Qt</source>
         <translation>A propos de QT</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1284"/>
+        <location filename="MainWindow.cpp" line="1285"/>
         <source>Joining %1.</source>
         <translation>%1 rejoint le serveur.</translation>
     </message>
@@ -4455,12 +4465,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Connecté au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1415"/>
+        <location filename="MainWindow.cpp" line="1416"/>
         <source>Server connection failed: %1.</source>
         <translation>La connexion au serveur à échoué : %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1417"/>
+        <location filename="MainWindow.cpp" line="1418"/>
         <source>Disconnected from server.</source>
         <translation>Déconnecté du serveur.</translation>
     </message>
@@ -4641,32 +4651,32 @@ p, li { white-space: pre-wrap; }
         <translation>Message à %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>Invalid username</source>
         <translation>Nom d&apos;utilisateur invalide</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Vous vous êtes connectés avec un nom d&apos;utilisateur invalide, veuillez en essayer un autre.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Ce nom d&apos;utilisateur est déjà utilisé, veuillez essayer un autre nom d&apos;utilisateur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password</source>
         <translation>Mauvais mot de passe</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Mauvais mot de passe pour l&apos;utilisateur enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
@@ -4701,17 +4711,17 @@ p, li { white-space: pre-wrap; }
         <translation>Ceci vous guidera dans la configuration de votre matériel audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1373"/>
+        <location filename="MainWindow.cpp" line="1374"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1378"/>
+        <location filename="MainWindow.cpp" line="1379"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ATTENTION:&lt;/b&gt;Le serveur présente un certificat différent de celui stocké.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1380"/>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Le serveur présente un certificat qui a une vérification invalide.</translation>
     </message>
@@ -4757,12 +4767,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="641"/>
-        <location filename="MainWindow.cpp" line="1394"/>
+        <location filename="MainWindow.cpp" line="1395"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir certificat</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1387"/>
+        <location filename="MainWindow.cpp" line="1388"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et ne vous sera pas redemandé.)&lt;/p&gt;</translation>
     </message>
@@ -4915,7 +4925,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Bande passante audio&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Actuel %2 kbit/s (Qualité %3)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1317"/>
+        <location filename="MainWindow.cpp" line="1318"/>
         <source>Connected to server %1.</source>
         <translation>Connecté au serveur %1.</translation>
     </message>

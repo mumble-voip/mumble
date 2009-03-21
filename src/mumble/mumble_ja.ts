@@ -1487,6 +1487,16 @@
         <translation>デバイス</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="83"/>
+        <source>Output device for audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="86"/>
+        <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="AudioOutput.ui" line="99"/>
         <location filename="AudioOutput.ui" line="280"/>
         <source>Positional Audio</source>
@@ -3696,7 +3706,7 @@ p, li { white-space: pre-wrap; }
         <translation>インターフェース</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="159"/>
+        <location filename="LookConfig.cpp" line="158"/>
         <source>Choose skin file</source>
         <translation>スキンファイルを選択</translation>
     </message>
@@ -3870,7 +3880,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="128"/>
-        <location filename="MainWindow.cpp" line="1322"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -4463,7 +4473,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="893"/>
         <location filename="MainWindow.cpp" line="915"/>
         <location filename="MainWindow.cpp" line="936"/>
-        <location filename="MainWindow.cpp" line="1386"/>
+        <location filename="MainWindow.cpp" line="1387"/>
         <location filename="MainWindow.ui" line="14"/>
         <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
@@ -4511,12 +4521,12 @@ p, li { white-space: pre-wrap; }
         <translation>聴取禁止を解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1187"/>
+        <location filename="MainWindow.cpp" line="1188"/>
         <source>About Qt</source>
         <translation>Qtについて</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1284"/>
+        <location filename="MainWindow.cpp" line="1285"/>
         <source>Joining %1.</source>
         <translation>%1 に入る</translation>
     </message>
@@ -4525,12 +4535,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">サーバーに接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1415"/>
+        <location filename="MainWindow.cpp" line="1416"/>
         <source>Server connection failed: %1.</source>
         <translation>サーバーへの接続に失敗しました: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1417"/>
+        <location filename="MainWindow.cpp" line="1418"/>
         <source>Disconnected from server.</source>
         <translation>サーバーから切断しました。</translation>
     </message>
@@ -4723,32 +4733,32 @@ p, li { white-space: pre-wrap; }
         <translation>%1 へのメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>Invalid username</source>
         <translation>不正なユーザー名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>不正なユーザー名で接続しました。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>That username is already in use, please try another username.</source>
         <translation>そのユーザー名は既に使われています。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password</source>
         <translation>誤ったパスワード</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>登録されたユーザーのパスワードが違います。再度試してください</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>未登録ユーザーのパスワードが違います。再度試してください。</translation>
     </message>
@@ -4783,17 +4793,17 @@ p, li { white-space: pre-wrap; }
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1373"/>
+        <location filename="MainWindow.cpp" line="1374"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1378"/>
+        <location filename="MainWindow.cpp" line="1379"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 送信された証明書は保存されたものとは異なっています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1380"/>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>送信された証明書の検証に失敗しました。</translation>
     </message>
@@ -4839,12 +4849,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="641"/>
-        <location filename="MainWindow.cpp" line="1394"/>
+        <location filename="MainWindow.cpp" line="1395"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1387"/>
+        <location filename="MainWindow.cpp" line="1388"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;詳細な証明書エラーの内容: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;この証明書を受け入れますか？&lt;br /&gt;(同時に証明書を保存するので、今後この質問は表示されません。)&lt;/p&gt;</translation>
     </message>
@@ -5009,7 +5019,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;音声帯域幅&lt;/h2&gt;&lt;p&gt;最大値 %1 kbit/s&lt;br /&gt;現在値 %2 kbit/s (品質 %3)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1317"/>
+        <location filename="MainWindow.cpp" line="1318"/>
         <source>Connected to server %1.</source>
         <translation>サーバー %1 に接続しました。</translation>
     </message>

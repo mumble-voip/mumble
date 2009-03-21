@@ -196,7 +196,7 @@
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
         <translatorcomment>slicer nie wstawil kropki jak poprawi to nie bedzie na pomaranczowo //Zuko</translatorcomment>
-        <translation type="unfinished">Reguła powinna być zastosowana do tego kanału.</translation>
+        <translation>Reguła powinna być zastosowana do tego kanału.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="324"/>
@@ -626,13 +626,13 @@
         <location filename="AudioInput.ui" line="83"/>
         <source>Input device for audio</source>
         <oldsource>Output method for audio</oldsource>
-        <translation type="unfinished">Metoda wyjścia dźwięku</translation>
+        <translation>Metoda wejścia dźwięku</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
         <oldsource>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Jest to metoda wyjścia dźwięku.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
+        <translation>&lt;b&gt;Jest to metoda wejścia dźwięku.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="99"/>
@@ -957,18 +957,28 @@
         <location filename="AudioOutput.ui" line="41"/>
         <source>Output method for audio</source>
         <oldsource>Input method for audio</oldsource>
-        <translation type="unfinished">Metoda wejścia dźwięku</translation>
+        <translation>Metoda wyjścia dźwięku</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="44"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation type="unfinished">&lt;b&gt;To jest system używany dla wejścia audio.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
+        <translation>&lt;b&gt;Jest to metoda wyjścia dźwięku.&lt;/b&gt;&lt;br /&gt;Najprawdopodobniej chcesz korzystać z DirectSound.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="67"/>
         <source>Device</source>
         <translation>Urządzenie</translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="83"/>
+        <source>Output device for audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioOutput.ui" line="86"/>
+        <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="99"/>
@@ -2685,19 +2695,19 @@ p, li { white-space: pre-wrap; }
         <location filename="Log.cpp" line="81"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation type="unfinished">Kliknij tutaj, aby włączyć powiadomienia dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie pokazywać wszystkie %1 w obszarze powiadomień.</translation>
+        <translation>Kliknij tutaj, aby włączyć powiadomienia dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie pokazywać wszystkie %1 w obszarze powiadomień.</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="82"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
         <oldsource>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</oldsource>
-        <translation type="unfinished">Kliknij tutaj, aby włączyć tekst na mowęi dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie używać tekstu na mowę do odczytania %1 na głos. Tekst na mowę i powiadomienia dźwiękowe nie mogą być uaktywnione razem.</translation>
+        <translation>Kliknij tutaj, aby włączyć tekst na mowęi dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie używać tekstu na mowę do odczytania %1 na głos. Tekst na mowę i powiadomienia dźwiękowe nie mogą być uaktywnione razem.</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="83"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished">Kliknij tutaj, aby włączyć powiadomienia dźwiękowe dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie odtwarzać dźwięki dla %1. Powiadomienia dźwiękowe nie mogą być uaktywnione razem z tekstem na mowę.</translation>
+        <translation>Kliknij tutaj, aby włączyć powiadomienia dźwiękowe dla %1.&lt;br /&gt;Jeśli zaznaczone Mumble będzie odtwarzać dźwięki dla %1. Powiadomienia dźwiękowe nie mogą być uaktywnione razem z tekstem na mowę.</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="84"/>
@@ -2873,7 +2883,7 @@ p, li { white-space: pre-wrap; }
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="159"/>
+        <location filename="LookConfig.cpp" line="158"/>
         <source>Choose skin file</source>
         <translation>Zmień skórkę</translation>
     </message>
@@ -3030,7 +3040,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="128"/>
-        <location filename="MainWindow.cpp" line="1322"/>
+        <location filename="MainWindow.cpp" line="1323"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -3482,7 +3492,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <location filename="MainWindow.cpp" line="893"/>
         <location filename="MainWindow.cpp" line="915"/>
         <location filename="MainWindow.cpp" line="936"/>
-        <location filename="MainWindow.cpp" line="1386"/>
+        <location filename="MainWindow.cpp" line="1387"/>
         <location filename="MainWindow.ui" line="14"/>
         <location filename="main.cpp" line="223"/>
         <source>Mumble</source>
@@ -3578,22 +3588,22 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Słuchawki ponownie działają.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1187"/>
+        <location filename="MainWindow.cpp" line="1188"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1284"/>
+        <location filename="MainWindow.cpp" line="1285"/>
         <source>Joining %1.</source>
         <translation>Dołączam %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1415"/>
+        <location filename="MainWindow.cpp" line="1416"/>
         <source>Server connection failed: %1.</source>
         <translation>Połączenie z serwerem zostało przerwane: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1417"/>
+        <location filename="MainWindow.cpp" line="1418"/>
         <source>Disconnected from server.</source>
         <translation>Rozłączony od serwera.</translation>
     </message>
@@ -3869,32 +3879,32 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wiadomość do %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>Invalid username</source>
         <translation>Niepoprawna nazwa użytkownika</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Połączyłeś się do serwera z niewłaściwą nazwą użytkownika, spróbuj innej nazwy.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1430"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Ta nazwa użytkownika jest już zajęta, spróbuj innej.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password</source>
         <translation>Błędne hasło</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Podałeś złe hasło dla zarejestrowanych użytkowników, spróbuj jeszcze raz.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1435"/>
+        <location filename="MainWindow.cpp" line="1436"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Podałeś złe hasło dla niezarejestrowanych użytkowników, spróbuj jeszcze raz.</translation>
     </message>
@@ -3929,22 +3939,22 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Ten kreator poprowadzi cię przez proces konfiguracji programu Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1373"/>
+        <location filename="MainWindow.cpp" line="1374"/>
         <source>SSL Verification failed: %1</source>
         <translation>Weryfikacja SSL nie powiodła się: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1378"/>
+        <location filename="MainWindow.cpp" line="1379"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;OSTRZEŻENIE:&lt;/b&gt; Ten serwer posiada obecnie inny certyfikat niż poprzedni, który masz zachowany u siebie.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1380"/>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Serwer posiada certyfikat, który nie przeszedł weryfikacji.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1387"/>
+        <location filename="MainWindow.cpp" line="1388"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Błędy certyfikatu: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Czy mimo to chcesz go zaakceptować?&lt;br /&gt;(Mumble więcej cię o to nie zapyta.)&lt;/p&gt;</translation>
     </message>
@@ -3970,7 +3980,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location filename="MainWindow.cpp" line="641"/>
-        <location filename="MainWindow.cpp" line="1394"/>
+        <location filename="MainWindow.cpp" line="1395"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zobacz certyfikat</translation>
     </message>
@@ -4134,7 +4144,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>&lt;h2&gt;Szerokość pasma dźwięku&lt;/h2&gt;&lt;p&gt;Maksymalnie %1 kbit/s&lt;br /&gt;Obecnie %2 kbit/s (Jakość %3)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1317"/>
+        <location filename="MainWindow.cpp" line="1318"/>
         <source>Connected to server %1.</source>
         <translation>Połączony z serwerem %1.</translation>
     </message>
