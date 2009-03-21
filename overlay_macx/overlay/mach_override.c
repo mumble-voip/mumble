@@ -151,7 +151,6 @@ mach_override(
 			(void*) &originalFunctionPtr,
 			NULL );
 	
-	printf ("In mach_override\n");
 	return mach_override_ptr( originalFunctionPtr, overrideFunctionAddress,
 		originalFunctionReentryIsland );
 }

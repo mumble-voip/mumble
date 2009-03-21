@@ -149,7 +149,8 @@ static void resolveSM() {
 		}
 	}
 
-	fprintf(stderr, "Successfully hooked GL!\n");
+	if (bDebug)
+		fprintf(stderr, "Successfully hooked GL!\n");
 }
 
 __attribute__((format(printf, 1, 2)))
