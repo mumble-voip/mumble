@@ -14,12 +14,21 @@ my $lsub = '';
 while(<LOG>) {
   chomp();
   my ($hash,$author,$email,$date,$subject) = split(/\0/,$_);
+
+  if ($subject =~ s/\s*\[(\w+)\]$//) {
+    $author = $1;
+    $email = lc "$1\@users.sourceforge.net";
+  }
+
   if (! exists($authors{$email})) {
     $authors{$email}=$author;
   }
+
   next if ($subject =~ /^Merge branch 'master/);
   next if ($subject =~ /^Indent and submodule update/);
   next if ($subject =~ /^Indent run/);
+  next if ($subject =~ /^\*\*\* empty log message/);
+  next if ($subject =~ /^git-svn-id: http/);
   next if ($subject eq $lsub);
   $lsub = $subject;
   my $entry = wrap("    $hash  ", "             ", $subject);

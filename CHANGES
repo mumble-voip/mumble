@@ -1,8 +1,15 @@
 2009-03-21
   Mikkel Krautz <mikkel@krautz.dk>
+    4ebaedd  Reduce OSX overlay logspam.
+    2b81e4a  Make contextmenu call `mumble-overlay' to launch apps.
+    ae2ffcf  Add 'mumble-overlay' app-launcher to OSX overlay.
     0d3dd3b  Add contextmenu.h to HEADERS.
     276938f  Add an overlay context menu for Mac OS X. Allows for launching
 	     apps with the overlay enabled by right clicking on them.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4eb6d7d  New changelog script
+    3732dce  Fix WASAPI device selection
 
   Bartek <sumowski@users.sourceforge.net>
     b79e2a2  Polish translation quick fix
@@ -223,18 +230,20 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     792ca1f  Merge branch 'sourceplugs'
     f199f0b  Add new PA plugins to the installer
-    b58cea3  INSURGENCY: Modern Infantry Combat Positional Audio [Snares]
-    5fe671b  Garry's Mod Positional Audio [Snares]
-    d9ecf7d  Age of Chivalry Positional Audio [Snares]
-    8f1f066  Half-Life 2 Deathmatch Positional Audio [Snares]
-    3c9cfae  Counterstrike Source Positional Audio [Snares]
-    1b3c71b  TF2 PA fix [Snares]
     64914f4  Backend support for playing sound files on events.
     76e6416  Save/Load for soundfile paths
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     f2232a5  Use realtime threads on Linux, as posix threads aren't
 	     prioritized under SCHED_OTHER
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    b58cea3  INSURGENCY: Modern Infantry Combat Positional Audio
+    5fe671b  Garry's Mod Positional Audio
+    d9ecf7d  Age of Chivalry Positional Audio
+    8f1f066  Half-Life 2 Deathmatch Positional Audio
+    3c9cfae  Counterstrike Source Positional Audio
+    1b3c71b  TF2 PA fix
 
   Thorvald Natvig <thorvald@debian.localdomain>
     df69aef  Update static murmur for Qt 4.5.0 and lzma compression
@@ -268,27 +277,34 @@
     a41c00b  Fix typo
 
 2009-02-28
+  kissaki <kissaki@users.sourceforge.net>
+    608a90c  Patch #2625917: really simple PHP + ICE registration script
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     5db28fa  Even with dropped capabilities, running murmurd as root is not
 	     a good idea, so always warn the user
     796afe0  Avoid messing with ulimits in murmurd, and first part of
 	     updated init script to use privileged capabilities
-    608a90c  Patch #2625917: really simple PHP + ICE registration script
-	     [kissaki]
 
 2009-02-27
+  kissaki <kissaki@users.sourceforge.net>
+    944501f  Patch #2645062: Installer Translation: German
+    89d5f51  Patch #2638107: Installer Translation: German
+
   Mikkel Krautz <mkrautz@users.sourceforge.net>
     56426af  Overlay for Mac OS X.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
-    944501f  Patch #2645062: Installer Translation: German [kissaki]
-    0ddd167  Patch #2645933: Polish translation (small fix) [sumowski]
-    c317abe  Patch #2645641: NSIS French Translation [theblackstorm]
     7515e31  Update default system ini to include the uname tag
     5d9edfb  Don't keep CAP_DAC_OVERRIDE after switching users
     a5a3a73  Unbreak QoS on Unix
     f56a47f  qWave (QoS for Vista)
-    89d5f51  Patch #2638107: Installer Translation: German [kissaki]
+
+  Bartek <sumowski@users.sourceforge.net>
+    0ddd167  Patch #2645933: Polish translation (small fix)
+
+  theblackstorm <theblackstorm@users.sourceforge.net>
+    c317abe  Patch #2645641: NSIS French Translation
 
 2009-02-26
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -301,9 +317,11 @@
 	     threads
 
 2009-02-25
+  arcenciel <arcenciel@users.sourceforge.net>
+    9f8f3cd  Patch #2637281: NSIS Japanese Translation update
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     0df61d2  Kill running mumble, murmur etc on uninstall.
-    9f8f3cd  Patch #2637281: NSIS Japanese Translation update [arcenciel]
     2350c48  Sections for the installer.
     428bc1b  Fix spelling error in NetworkConfig.ui
     788b3f4  Distribute Murmur.ice with win32 install.
@@ -318,10 +336,12 @@
     ada9056  Update vertex shader
 
 2009-02-23
+  lewellyn <lewellyn@users.sourceforge.net>
+    7041b3f  murmur_pch.h cleanup
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     db3c781  Update Linux overlay to guess window size on GLX<1.2
     c58df3f  Qt4.5.0 on Win32.
-    7041b3f  murmur_pch.h cleanup [lewellyn]
     39c8094  Mutex cleanup
     3568c5d  Valgrind run for mumble.
     66d04b2  Fix a few gcc warnings
@@ -336,18 +356,25 @@
 
 2009-02-21
   Stefan Hacker <dd0t@users.sourceforge.net>
-    35f52a9  Team Fortress 2 PA plugin [Snares]
     f308c58  Fixed possible bug in several plugins and did some minor style
 	     tweaks
 
+  Tuck Therebelos <snares@users.sourceforge.net>
+    35f52a9  Team Fortress 2 PA plugin
+
 2009-02-20
+  arcenciel <arcenciel@users.sourceforge.net>
+    4fd1812  Patch #2620308: NSIS Japanese Translation
+    17a6814  Patch #2620179: NSIS Japanese Translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     58b6aa8  getServer() for Ice doesn't throw, it returns a null proxy.
-    4fd1812  Patch #2620308: NSIS Japanese Translation [arcenciel]
-    17a6814  Patch #2620179: NSIS Japanese Translation [arcenciel]
     5932d65  Use Ogg-Speex for samples.
 
 2009-02-19
+  kissaki <kissaki@users.sourceforge.net>
+    f74911e  German Installer Translation Updated
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     cec4fae  Check unlink state every second.
     50e58c2  Correct L4D plugin.
@@ -355,29 +382,32 @@
 	     Player.
     2a9dcfd  Allow modification of ACL if you have Write on parent channel.
     6c6b3b8  Multiple keycombos per shortcut.
-    f74911e  German Installer Translation Updated [kissaki]
     5257860  Fix typo; murmur now compiles on Win32 again.
     879d3b2  Indenting and moving of a few code blocks
     1d9b576  Support KDE notifications as well
 
 2009-02-18
+  nomad <gmc_holle@users.sourceforge.net>
+    990ab72  Patch #2613323: Support for QT System tray balloon tool-tips
+	     or libnotify
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     b6fbe4a9  Don't use embedded speex if system speex >= 1.2
     46b1594  Use the correct interface for QDBusInterface for focus
-    990ab72  Patch #2613323: Support for QT System tray balloon tool-tips
-	     or libnotify [gmc_holle]
     eb97048  Use default ice port in the example scripts
     b36bfdf  hasPermission for Ice
     5001daa  External Ice Authentication
 
 2009-02-17
   Thorvald Natvig <slicer@users.sourceforge.net>
-    cff1c68  Ruby Ice example [ueber]
     ff728cd  Indenting run
     96b5158  Use QString based logging instead of const char *
     08c7814  Reduce server stack usage
     3fb59f9  QNetworkAccessManager for http loading. Support images in
 	     welcome text.
+
+  ueber <ueber@users.sourceforge.net>
+    cff1c68  Ruby Ice example
 
 2009-02-16
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -397,10 +427,12 @@
     cfba8f0  New sample script which uses the server controlled context
 	     menu entries to create registration tickets from a client
 
+  kissaki <kissaki@users.sourceforge.net>
+    07741df  Patch #2598251: german translation (mumble) updated
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     675c10a  Oops, didn't mean to commit empty directories
     64e3381  Example on how to use DBus with C#. Forgot I made this one.
-    07741df  Patch #2598251: german translation (mumble) updated [kissaki]
     e68d920  Be kinder to systems without working lsb_release
     c7f4f3a  Set current index on context actions for the playerview.
 
@@ -452,14 +484,16 @@
 2009-02-08
   Stefan Hacker <dd0t@users.sourceforge.net>
     3798014  Patch #2580353: bf2 PA increased possible mapsize
+    29c0464  Patch #2579216: cod5 new version 1.2 pa patch
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     49d3385  Positional support Left 4 Dead.
-    ad0a14f  Patch #2574499: NSIS French Translation update [theblackstorm]
     dfa7a82  Switch to "MaxDistVolume" for distancce attenuation.
-    29c0464  Patch #2579216: cod5 new version 1.2 pa patch [dd0t]
     3fa2818  Put MumbleScript on ice for the time being, as it is hard to
 	     get gui elements secure.
+
+  theblackstorm <theblackstorm@users.sourceforge.net>
+    ad0a14f  Patch #2574499: NSIS French Translation update
 
 2009-02-04
   Mikkel Krautz <mkrautz@users.sourceforge.net>
@@ -467,10 +501,11 @@
 	     as well, and we should really only quit on Cmd+Q.
 
 2009-02-03
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  kissaki <kissaki@users.sourceforge.net>
     6004a57  Patch #2557593: Installer Translation German improved
-	     [kissaki]
-    c7b215c  Patch #2560147: NSIS French Translation [theblackstorm]
+
+  theblackstorm <theblackstorm@users.sourceforge.net>
+    c7b215c  Patch #2560147: NSIS French Translation
 
 2009-02-02
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
@@ -492,8 +527,10 @@
 	     Use Unicode NSIS installer
 
 2009-01-30
+  m0ta <m0ta@users.sourceforge.net>
+    2be3586  German translation for installer
+
   Thorvald Natvig <slicer@users.sourceforge.net>
-    2be3586  German translation for installer [m0ta]
     02378c5  Localized Win32 installer.
     e9b3fe8  Clean up a few leftover code lines
     412be5d  First pass at adding inline documentation to the slice file.
@@ -520,7 +557,6 @@
 
 2009-01-25
   Thorvald Natvig <slicer@users.sourceforge.net>
-    901ffe7  Polish translation hotfix [sumowski]
     7508be1  Delay fetching OSInfo, as QProcess doesn't deal well with
 	     fork/detach
     4a07c67  Update distribution scripts
@@ -528,6 +564,9 @@
 	     geometry.
     048343f  Updated mumble-overlay to support biarch systems, based on
 	     patch by ludwig.nussel@suse.de
+
+  Bartek <sumowski@users.sourceforge.net>
+    901ffe7  Polish translation hotfix
 
 2009-01-23
   Mikkel Krautz <mkrautz@users.sourceforge.net>
@@ -549,17 +588,24 @@
     386a8f2  If we don't find an active IPv4 interface, pick any other
 
 2009-01-20
+  julian7 <julian7@users.sourceforge.net>
+    887368a  Patch #2524995: DBus started/stopped signals
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     ae08a5e  On FreeBSD, just link -lcrypto directly
-    887368a  Patch #2524995: DBus started/stopped signals [julian7]
     f3fa9ad  Older input.h doesn't have KEY_CNT
-    490728e  Polish hotfix [sumowski]
-    00bf4ac  Updated polish translation [sumowski]
     cad89be  Attempted workaround for screeching.
     d0bd009  Strip " from lsb_release
     1be6e51  Update to support G15 SDK 3.01
 
+  Bartek <sumowski@users.sourceforge.net>
+    490728e  Polish hotfix
+    00bf4ac  Updated polish translation
+
 2009-01-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    6e01e25  Stop frameless window from creeping around.
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     30460fd  Language update
     e3f271b  Indenting update
@@ -568,21 +614,22 @@
 	     /dev/input at all unless we find a keyboard
     c451437  Fix of the fix of the fix for the frameless mode
     34acfe4  ALSA Locking
-    6e01e25  Stop frameless window from creeping around. [dd0t]
 
 2009-01-18
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    7814dba  Patch #2518154: French translation update [jerhum]
-    6786ed6  Minor cleanup of the noframe patch.
+  Stefan Hacker <dd0t@users.sourceforge.net>
     9fca9fb  Patch #2516734: Independent geometry for Mumbles' Minimal View
-	     [dd0t]
+    0112a1a  Patch #2516400: Self Mute/Deaf via DBus for Mumble client
+
+  jerhum <jerhum@users.sourceforge.net>
+    7814dba  Patch #2518154: French translation update
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6786ed6  Minor cleanup of the noframe patch.
     49fbd6b  Brutally simplified LCD overlay.
     2970f91  Qt 4.4.3 for Win32.
     763a061  Fix for QScrollArea in ConfigDialog.
     4a414a4  Remove debug output from Overlay_win Use QTreeView::scrollTo()
 	     for the playerview.
-    0112a1a  Patch #2516400: Self Mute/Deaf via DBus for Mumble client
-	     [dd0t]
 
 2009-01-17
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -599,15 +646,19 @@
 	     and compress off.
 
 2009-01-15
+  m0ta <m0ta@users.sourceforge.net>
+    318e002  German translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     7121374  WASAPI doesn't need output delay, or so it seems.
     1023428  Add a outputdelay config for AudioOutputRegistrar
     e3d63c5  Stop g15helper from spamming debug log.
-    318e002  German translation [m0ta]
-    7afa56f  polish_for_1.1.7_release_update_v50-FINAL.tar [sumowski]
     88f0732  Typo fix.
     852f60d  Thread-safe AddRef/Release for overlay. Delayed-insertion D3D9
 	     hook, work around bug in SupCom.
+
+  Bartek <sumowski@users.sourceforge.net>
+    7afa56f  polish_for_1.1.7_release_update_v50-FINAL.tar
 
 2009-01-14
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
@@ -629,19 +680,23 @@
 	     as well.
 
 2009-01-12
+  ikasamah <ikasamah@users.sourceforge.net>
+    10aaace  Updated Japanese translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     1948c1d  Fix positional test in Audio Wizard.
     1fe8a5d  Default IdleAudioMute to off.
     3282f3c  Update murmur-static script
     058e073  Qt 4.3 doesn't have -removeidentical for lrelease
-    e2701fa  Updated polish translation [sumowski]
     a450608  Descriptor test only works on *nix.
     f7d5644  Add a descriptor test
-    10aaace  Updated Japanese translation [ikasamah]
     4325826  Fix editor oops in Register.cpp
     864a40a  Updated installation documentation
     d28a8a8  Language file updates
     b13cd6a  Report true Windows version.
+
+  Bartek <sumowski@users.sourceforge.net>
+    e2701fa  Updated polish translation
 
 2009-01-11
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -741,12 +796,16 @@
     6c68408  Avoid stuck ServerHandler when server is unreachable.
 
 2008-12-24
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    02d47ea  Patch #2457331: Make murmur use its own icon
+
+  mokomull <mokomull@users.sourceforge.net>
     82e4966  Patch #2463387: Add configuration option for hiding main
-	     window to tray [mokomull]
+	     window to tray
     28636ed  Patch #2462928: Reload ALSA device list when settings dialog
-	     is opened [mokomull]
-    02d47ea  Patch #2457331: Make murmur use its own icon [dd0t]
+	     is opened
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
     e87688b  Fix for crash with no LCD devices present.
 
 2008-12-21
@@ -762,11 +821,11 @@
 2008-12-13
   Mikkel Krautz <mkrautz@users.sourceforge.net>
     b4806cc  Add g15helper.ico.
+    98da0f9  LCD Support
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     5ab03f2  Fix some Boost/Qt stuff for icl for the G15 code.
     62d3ac4  The G15 library doesn't handle multiple devices.
-    98da0f9  LCD Support [mkrautz]
 
 2008-12-12
   Mikkel Krautz <mkrautz@users.sourceforge.net>
@@ -777,9 +836,11 @@
 	     obfuscate parameter.
 
 2008-12-08
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5665131  Patch #2393239: PA div by zero fix (/ bf2 plugin fix)
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     1b264fb  Add MSVCRT to the plugins directory as well.
-    5665131  Patch #2393239: PA div by zero fix (/ bf2 plugin fix) [dd0t]
 
 2008-12-02
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -790,7 +851,9 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     913cd1e  Keep expanded state of items when moved.
     ffa5621  Updated translation sources
-    5eb15b1  Updated polish translation [sumowski]
+
+  Bartek <sumowski@users.sourceforge.net>
+    5eb15b1  Updated polish translation
 
 2008-11-29
   Mikkel Krautz <mkrautz@users.sourceforge.net>
@@ -801,12 +864,14 @@
 	     Fixes bug #2294035.
 
 2008-11-28
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
-    3eaff86  Patch #2293077: Tray icon update on disconnect [dd0t]
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    3eaff86  Patch #2293077: Tray icon update on disconnect
     d0f05fd  Patch #2293288: Disable PA when position is reported as
-	     (0,0,0) [dd0t]
-    d798227  Patch #2301216: Positional audio for Call of Duty 5 [dd0t]
-    8d72daf  Patch #2338606: Positional audio for Wolfenstein:ET [dd0t]
+	     (0,0,0)
+    d798227  Patch #2301216: Positional audio for Call of Duty 5
+    8d72daf  Patch #2338606: Positional audio for Wolfenstein:ET
+
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
     b5cdef7  Fix rounding issues in AudioConfigDialog. Fixes bug #2293514;
 	     Based on patch #2293714 by dd0t.
 
@@ -820,17 +885,19 @@
 	     quality).
 
 2008-10-22
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    d57321b  Patch #2183224: Call of Duty 2 positional audio [dd0t]
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d57321b  Patch #2183224: Call of Duty 2 positional audio
 
 2008-10-19
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    b40cf89  Patch #2178031: AudioBar in config dialog [mystic_sam]
+  mystic_sam <mystic_sam@users.sourceforge.net>
+    b40cf89  Patch #2178031: AudioBar in config dialog
 
 2008-10-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    9d6f296  Sanity checking for CoD4 plugin
+
   Mikkel Krautz <mkrautz@users.sourceforge.net>
     b535225  Make GlobalShortcutMac build again.
-    9d6f296  Sanity checking for CoD4 plugin [dd0t]
     e61870e  Fix version number in BF2 plugin about dialog.
 
 2008-10-11
@@ -847,18 +914,20 @@
     d680eb9  Add Q_DISABLE_COPY to most classes
 
 2008-10-08
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    2ed7d0f  Patch #2151618: Positional audio for Call of Duty 4
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     6bedde8  Add _USE_MATH_DEFINES to the .pro for Win32 so M_PI is
 	     defined, instead of locally changing the file. Oops.
-    2ed7d0f  Patch #2151618: Positional audio for Call of Duty 4 [dd0t]
 
 2008-09-30
   Thorvald Natvig <slicer@users.sourceforge.net>
     a53239f  Compile on platforms where qreal is float
 
 2008-09-29
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    2cecce4  Patch #2133288: Correction in mumble_de.ts [entitaet]
+  entitaet <entitaet@users.sourceforge.net>
+    2cecce4  Patch #2133288: Correction in mumble_de.ts
 
 2008-09-26
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
@@ -869,22 +938,25 @@
     7460e13  Distribute Qt 4.4.2 for Win32.
 
 2008-09-23
+  jakobdettner <jakobdettner@users.sourceforge.net>
+    2a6ae35  Patch #2119472: tray icon exit menu entry on right klick
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     270040d  Deny duplicate channel names
     46ba719  Check valid player ID on texture get/set
     0e86bb4  Remove C++ flags from CFLAGS [l-n]
     3bd6814  Patch #2122639: fix build with older alsa [l-n]
-    2a6ae35  Patch #2119472: tray icon exit menu entry on right klick
-	     [jakobdettner]
 
 2008-09-13
   Thorvald Natvig <slicer@users.sourceforge.net>
-    9589f64  Updated Polish translation [sumowski]
     be9a94b  Bump BF2 plugin version.
     30c144d  Add uninstaller section for configuration settings and
 	     databases.
     e94da5f  Version bump
     9e33a86  Changelog update
+
+  Bartek <sumowski@users.sourceforge.net>
+    9589f64  Updated Polish translation
 
 2008-09-12
   Mikkel Krautz <mkrautz@users.sourceforge.net>
@@ -899,9 +971,10 @@
     256e218  Include stereo decorrelatation in speex builds.
 
 2008-09-10
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  derandi <derandi@users.sourceforge.net>
     b8ff5ee  Patch #2104222: Workaround for buggy Alsa lib 1.0.17a
-	     [derandi]
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
     f34ca68  getVersion() for DBus/ICE
 
 2008-09-08
@@ -918,6 +991,9 @@
     4498fd6  Support source-less text messages.
 
 2008-09-06
+  m0ta <m0ta@users.sourceforge.net>
+    4d89809  Updated German translation
+
   Mikkel Krautz <mkrautz@users.sourceforge.net>
     5fd6da8  Add mumble.icns to mumble.qrc.
     6dbc29f  Add mumble.plist to DIST.
@@ -929,9 +1005,11 @@
     4c19239  Remove link.pl from distribution list
     84a0d6d  Changelog update
     3dc145d  Fix minor typo in GlobalShortcutMac
-    4d89809  Updated German translation [m0ta]
 
 2008-09-04
+  jerhum <jerhum@users.sourceforge.net>
+    502512d  Updated french translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     92d9f1a  Add warning to user if speex hasn't been checked out.
     b41fc5b  Remove unused FMODAudio
@@ -940,26 +1018,29 @@
     a47fea8  Remove unused DSound/OpenAL hooks from overlay source
     9b32d99  Remove debian/ and debian-hardy/ from SVN as debian builds are
 	     maintained in the official debian SVN.
-    502512d  Updated french translation [jerhum]
 
 2008-09-03
   Thorvald Natvig <slicer@users.sourceforge.net>
     bd660ad  Final version of polish translation
 
 2008-09-02
+  ikasamah <ikasamah@users.sourceforge.net>
+    61f7ce3  Updated Japanese translation
+
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     aa3c45d  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
-    61f7ce3  Updated Japanese translation [ikasamah]
     02da74b  Remove obsolete translations from polish file
-    f1dc16c  Updated polish translation [sumowski]
     01d6c1c  Updated language files to match new context
     2d6d90a  Add context to text "Unlink" for translators (Channel or
 	     Plugin?)
-    df503d5  Polish translation [sumowski]
     16a9832  Work around bug in QDir::addSearchPath() and
 	     QTranslator::load()
+
+  Bartek <sumowski@users.sourceforge.net>
+    f1dc16c  Updated polish translation
+    df503d5  Polish translation
 
 2008-09-01
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1112,9 +1193,9 @@
     b55d6c3  Use softmixer for DirectSound.
 
 2008-07-31
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  derandi <derandi@users.sourceforge.net>
     e1ecd33  Patch #2031394: Call set_rate_near() instead of set_rate_min()
-	     in ALSA Output. [derandi]
+	     in ALSA Output.
 
 2008-07-21
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1170,26 +1251,29 @@
     833c2fc  ICE fixes for Ubuntu
 
 2008-06-27
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  prosper_spurius <prosper_spurius@users.sourceforge.net>
     b2f70a7  Patch 2003574: Cannot save current connection
-	     [prosper_spurius]
 
 2008-06-26
   Mikkel Krautz <mkrautz@users.sourceforge.net>
     91abf12  Add a new icon for the Mac OS X port. Contributed by Karsten
 	     Bruns.
 
+  prosper_spurius <prosper_spurius@users.sourceforge.net>
+    60479dd  Patch #2002867: Patch for Bug: 1986292 Tray Icon disappears on
+	     minimize
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     2f51d05  Fix locking bug with ICE
     c8d5d87  Complete basic implementation for ICE
-    60479dd  Patch #2002867: Patch for Bug: 1986292 Tray Icon disappears on
-	     minimize [prosper_spurius]
     98b1156  More ICE
 
 2008-06-25
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  prosper_spurius <prosper_spurius@users.sourceforge.net>
     f8fe0bd  Patch #1998399: Patch for Feature Request 1934842 Channel
-	     Locking [prosper_spurius]
+	     Locking
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
     c9ffada  Framework for ICE in Murmur
 
 2008-06-24
@@ -1248,8 +1332,8 @@
 	     volume keybind)
 
 2008-05-17
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    ab53c51  Updated translation [m0ta]
+  m0ta <m0ta@users.sourceforge.net>
+    ab53c51  Updated translation
 
 2008-05-11
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
@@ -1306,20 +1390,9 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     11db737  Translation sync
 
-2008-05-04
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    dd38d22  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@1129
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
-
 2008-04-29
   Mikkel Krautz <mkrautz@users.sourceforge.net>
     f88d0cb  Hah. Correct 'passford' typo in Murmur usage output.
-
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    829487c  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@1127
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
 
 2008-04-28
   Mikkel Krautz <mkrautz@users.sourceforge.net>
@@ -1337,9 +1410,6 @@
     2ef7c5a  Don't use internet enabled disk images for OSX distribution.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
-    f414b9d  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@1122
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
     f4a9042  Yet more resampler fixes
 
 2008-04-26
@@ -1355,14 +1425,15 @@
     e4d647f  Debian/Ubuntu packaging updates
 
 2008-04-25
+  derandi <derandi@users.sourceforge.net>
+    7ff1e6e  Patch 1950979: Repair broken ALSA, Changes to Plugins
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     3cae4d8  Remove static reference to database
     c7a2d8a  Explicitly clear SQL queries
     d0e2cb6  Fix crashbug when reconnecting to removed channel
     59c8bf8  Support live changing non-critical murmur parameters
     7d87303  Indenting
-    7ff1e6e  Patch 1950979: Repair broken ALSA, Changes to Plugins
-	     [derandi]
     d0ac8bf  Update for Speex visibility
 
 2008-04-23
@@ -1424,11 +1495,10 @@
     2991d20  Wizard for positional audio.
 
 2008-04-13
+  inequation <inequation@users.sourceforge.net>
+    9952748  Patch #1940944: getCurrentUrl DBus method
+
   Thorvald Natvig <slicer@users.sourceforge.net>
-    6647cda  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@1088
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
-    9952748  Patch #1940944: getCurrentUrl DBus method [inequation]
     e64d938  Updated README and INSTALL
     082e9ec  Minimal mode.
 
@@ -1472,23 +1542,23 @@
     8dcb7d7  Fix a few compiler warnings
 
 2008-04-05
+  derandi <derandi@users.sourceforge.net>
+    8a2fad6  Patch 1934642: A few linkplug fixes
+
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     67de848  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
-    8a2fad6  Patch 1934642: A few linkplug fixes [derandi]
     ee9397e  Make the surround mixer include a resampler and default to
 	     floats. This breaks all *nix audio targets.
     6c78cc7  Forgot plugins.pri and updates to the resampler test
 
 2008-04-04
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    3547a8c  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@1059
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
-    8d67fd1  Don't break Win32 API for link plugin -- there's no need.
+  derandi <derandi@users.sourceforge.net>
     e917075  Patch 1931477: Linux port of Link Plugin, Minor changes to
-	     [derandi]
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    8d67fd1  Don't break Win32 API for link plugin -- there's no need.
     45121cd  Work on the speex resampler
 
 2008-04-03
@@ -1497,8 +1567,8 @@
     ff58997  Fix about dialog icon on Mac OS X
 
 2008-04-01
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    b08b47e  Patch 1930045: Man page spelling error [mark7]
+  mark7 <mark7@users.sourceforge.net>
+    b08b47e  Patch 1930045: Man page spelling error
 
 2008-03-29
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1509,9 +1579,6 @@
 2008-03-28
   Thorvald Natvig <slicer@users.sourceforge.net>
     2c0a0ff  Patch 1927186: Reorder some function calls in the AudioWizard
-    dba5f30  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@1049
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
     3acf851  Fixed installer and use explicit widechar in TestLink.cpp
     2db85f4  Plugin updates.
     7e0e525  Support setting supw from standard input
@@ -1531,11 +1598,13 @@
 	     system-specific audio configs.
 
 2008-03-24
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    3002066  Patch 1923982: Always unmask the NoCancelButton flag in the
+	     AudioWizard
+    ff72785  Patch 1923965: TextToSpeech OSX Update
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     ccdcb68  Bug 1923716: mute -> audio assistant -> bug
-    3002066  Patch 1923982: Always unmask the NoCancelButton flag in the
-	     AudioWizard [mkrautz]
-    ff72785  Patch 1923965: TextToSpeech OSX Update [mkrautz]
 
 2008-03-23
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1544,43 +1613,51 @@
     2fd3801  Infacy of surround mixer
 
 2008-03-22
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
     46510a9  Patch 1922968: Remove old reference to ALSAOutputPlayer in
-	     ALSAAudio.h [mkrautz]
+	     ALSAAudio.h
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
     416e061  Updates Ubuntu packaging
     7114684  Bump version to 1.1.4
     fa43ba7  Fix iOutputDelay on *nix
 
 2008-03-21
+  Arrai <arrai@users.sourceforge.net>
+    1baed7e  Patch 1921066: Option to disable html messages
+
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    c577d45  Patch 1922328: More OSX UI cleanups
+    264bbd0  Patch 1921277: Use powf instead of exp10f in PositionalSound.h
+    d224c59  Patch 1920346: Disable QSysTrayIcon on OSX - use the dock
+	     instead
+    ce7b093  Patch 1919733: Update for GlobalShortcutMac
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     21c33ff  Rename iDXOutputDelay to iOutputDelay and move it to the
 	     general config pane.
-    c577d45  Patch 1922328: More OSX UI cleanups [mkrautz]
     677a399  WASAPI Input and Output
     6f904ef  Add an icon for the network config
     4a901b1  Minor cleanup of PositionalSound and some indenting fixes
-    1baed7e  Patch 1921066: Option to disable html messages [arrai]
-    264bbd0  Patch 1921277: Use powf instead of exp10f in PositionalSound.h
-	     [mkrautz]
-    d224c59  Patch 1920346: Disable QSysTrayIcon on OSX - use the dock
-	     instead [mkrautz]
-    ce7b093  Patch 1919733: Update for GlobalShortcutMac [mkrautz]
 
 2008-03-20
+  derandi <derandi@users.sourceforge.net>
+    0f22bcf  Patch 1920119: ALSA Stereo
+    3b43d94  Patch 1920117: Stereo Mixing
+    013c29b  Patch 1920115: Positional Sound Widget + Volume Models
+
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    83c5b45  Patch #1920346 Disable QSysTrayIcon on OSX - use the dock
+	     instead
+    d296102  Patch #1920332 Add a cancel button to Server Browser of the
+	     Connect Dialog
+    7e79880  Patch #1920239 Prefer /home/xeno/Library/Preferences/Mumble on
+	     OSX
+    5a151a1  Patch #1919466 About Dialog cleanups
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     1231db2  Make the stereo-enabled output compile on Win32 as well.
     e93c194  Indenting run
-    0f22bcf  Patch 1920119: ALSA Stereo [derandi]
-    3b43d94  Patch 1920117: Stereo Mixing [derandi]
-    013c29b  Patch 1920115: Positional Sound Widget + Volume Models
-	     [derandi]
-    83c5b45  Patch #1920346 Disable QSysTrayIcon on OSX - use the dock
-	     instead [mkrautz]
-    d296102  Patch #1920332 Add a cancel button to Server Browser of the
-	     Connect Dialog [mkrautz]
-    7e79880  Patch #1920239 Prefer /home/xeno/Library/Preferences/Mumble on
-	     OSX [mkrautz]
-    5a151a1  Patch #1919466 About Dialog cleanups [mkrautz]
     7c71309  Support system-installed speex (if it's 1.2b4 or newer)
 
 2008-03-19
@@ -1588,6 +1665,9 @@
     6bef650  WASAPI Input
 
 2008-03-18
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    831aa39  Patch #1917558 Implement GlobalShortcut for OSX
+
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     ec619c7  Updated Spanish translation.
 
@@ -1598,17 +1678,20 @@
     b489aeb  Path #1916131 Compilation Fixes for Visual C++ 2008
 	     [dark-storm]
     716b39e  Add VersionInfo to the .rc files.
-    831aa39  Patch #1917558 Implement GlobalShortcut for OSX [mkrautz]
     ab6f5e1  Patch to fix no-speechd [l-n]
 
 2008-03-17
+  jerhum <jerhum@users.sourceforge.net>
+    d90d605  Language update and new french translations
+
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    bcd9c81  Patch #1916734 Fix TTS on OS X and add volume capability
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     99aafd9  Spread registrations out a bit in time
     46ea093  Add no-client and no-server for qmake.
     703f08e  Open Console.txt in User directory if current directory is not
 	     writeable.
-    bcd9c81  Patch #1916734 Fix TTS on OS X and add volume capability
-	     [mkrautz]
     5fc4580  Make Win32 audio modules optional. Don't crash if no modules
 	     are enabled/working.
     77a914c  Add Deafen/Mute self to the player menu if self is selected,
@@ -1619,31 +1702,34 @@
 	     whitespace and punctuation)
     f391624  Remove lefotver festival settings
     033c466  Updated license script
-    d90d605  Language update and new french translations [jerhum]
     2afb03d  Initial support for plugins on non-win32, but disable GUI for
 	     now [Ludwig Nussel <ludwig.nussel@suse.de>]
     0ccde72  Make all audio modules for Unix optional, as well as dbus and
 	     speechd (CONFIG+=no-whatver)
 
 2008-03-16
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    49bb6aa  Patch #1914863 Override TARGET for better OSX integration
+    862186f  Patch #1915779 Add window titles to Mumble's about dialogs
+    731d349  Remove the empty line at the beginning of the log view and
+	     speed it up a bit. Based on patch #1915590
+    093c378  Patch #1915523 enable _MSC_EXT only for MSVC
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     2bb285b  Don't use boost typeof for GCC [Ludwig Nussel
 	     <ludwig.nussel@suse.de>]
-    5399fff  Make murmur compile on freebsd [vader42]
     7894e07  Quit => Quit Mumble
-    49bb6aa  Patch #1914863 Override TARGET for better OSX integration
-	     [mkrautz]
-    862186f  Patch #1915779 Add window titles to Mumble's about dialogs
-	     [mkrautz]
-    731d349  Remove the empty line at the beginning of the log view and
-	     speed it up a bit. Based on patch #1915590 [mkrautz]
-    093c378  Patch #1915523 enable _MSC_EXT only for MSVC [mkrautz]
+
+  vader42 <vader42@users.sourceforge.net>
+    5399fff  Make murmur compile on freebsd
 
 2008-03-15
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    279919a  Patches #1914820: OSX patches (from bug #1914742)
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     ea9820f  Only reload dbus if installed for postinst
     9a01814  Basic WASAPI querying.
-    279919a  Patches #1914820: OSX patches (from bug #1914742) [mkrautz]
     48ecb5e  Minor pulseaudio cleanup
 
 2008-03-11
@@ -1673,10 +1759,11 @@
     77e5ad9  Remove ASCII warning
 
 2008-03-01
+  mit_service <mit_service@users.sourceforge.net>
+    3900560  Patch: #1902036 small fix to make mac version compile
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     677dc28  More directory fixes
-    3900560  Patch: #1902036 small fix to make mac version compile
-	     [mit_service]
     0779a0f  Default databases to ~/.config/Mumble on Linux
     9845a40  Make Vista-friendly paths for sqlite databases.
     d4cc0fe  MSVC doesn't need the thiscallresolver.
@@ -1755,9 +1842,11 @@
     f745174  Fix "move to parent" bug.
 
 2008-02-01
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    e094fc9  Automatically add/remove /dev/input devices
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     595bd13  s/proprietary/non-standard/
-    e094fc9  Automatically add/remove /dev/input devices [mkrautz]
 
 2008-01-26
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1791,22 +1880,23 @@
     67010a3  Rename ubuntu package from murmur back to mumble-server
 
 2008-01-12
+  ikasamah <ikasamah@users.sourceforge.net>
+    d67f7e0  Japanese translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     5235be7  Work around bug in newer debian
-    d67f7e0  Japanese translation [ikasamah]
 
 2008-01-08
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    f8c5319  Proxy support [mkrautz]
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
+    f8c5319  Proxy support
 
 2008-01-07
   Thorvald Natvig <slicer@users.sourceforge.net>
     dae8d2f  Modified manpages
 
 2008-01-06
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  Mikkel Krautz <mkrautz@users.sourceforge.net>
     e83fcc8  Change the size parameter for EVIOCGBIT, based on patch by
-	     [mkrautz]
 
 2008-01-05
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1859,10 +1949,11 @@
     e21e236  Log -h to stdout for murmurd
 
 2007-12-06
-  Thorvald Natvig <slicer@users.sourceforge.net>
+  ars3niy <ars3niy@users.sourceforge.net>
     d2b7357  Patch 1845022 for delayed Global (fixes fonts on X11)
-	     [ars3niy]
-    5106764  Patch #1844930 macx: add app icon / remove window icon [metz]
+
+  metz <metz@users.sourceforge.net>
+    5106764  Patch #1844930 macx: add app icon / remove window icon
 
 2007-12-03
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1898,9 +1989,11 @@
     2238c6d  Audio latency testing
 
 2007-11-18
+  fitti_01 <fitti_01@users.sourceforge.net>
+    fed3ae2  Support setting dbus servie name
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     e1c36ec  Use the new defines for Ubuntu
-    fed3ae2  Support setting dbus servie name [fitti_01]
     ff829e1  Support NO_UPDATE_CHECK
     4447a28  DeferInit -- avoids thread races for global initializers
     d47fa08  Support setting DEFAULT_SOUNDSYS
@@ -1953,17 +2046,19 @@
     9851873  Updated AudioStats. Added voice detect to AudioConfigDialog.
 
 2007-11-04
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     42f0f2a  more spelling errors corrected
     94ef85c  german translation updated and 1825370 fixed
 
 2007-11-03
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    5570be1  Defaultchannel for murmur [fitti_01]
+  fitti_01 <fitti_01@users.sourceforge.net>
+    5570be1  Defaultchannel for murmur
 
 2007-11-02
+  fitti_01 <fitti_01@users.sourceforge.net>
+    940521e  Fix lastchannel when using DBus auth
+
   Thorvald Natvig <slicer@users.sourceforge.net>
-    940521e  Fix lastchannel when using DBus auth [fitti_01]
     379bd6a  Try to work around a few QSslSocket bugs
 
 2007-10-31
@@ -1985,13 +2080,15 @@
     98a1f8f  QVariant based GlobalShortcut
 
 2007-10-27
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     9db7eb0  german translation updates
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     8513f99  Tighten database restrictions
-    4c6231f  Hide MainWindow on trayicon click [vegars]
     b47696b  Unified GlobalShortcut
+
+  vegars <vegars@users.sourceforge.net>
+    4c6231f  Hide MainWindow on trayicon click
 
 2007-10-25
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2014,7 +2111,7 @@
     267542d  Update for SVN release of Speex
 
 2007-10-20
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     dbe4a15  german translation updated
 
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
@@ -2027,7 +2124,7 @@
 	     server information tab.
 
 2007-10-19
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     5b337d1  german translation updated
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2112,7 +2209,7 @@
 	     Auriemma
 
 2007-09-01
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     14c660e  new batch of translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2234,6 +2331,9 @@
     e2f1dfe  Fix a few more SQL problems
 
 2007-08-06
+  dersebi <dersebi@users.sourceforge.net>
+    b6b99c2  Fix typo in mumble.pro for OSX
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     6d169a2  Yet one more try to get -mmmx out of the mac build
     d5a5441  Compile fix for 32-bit lenny
@@ -2242,7 +2342,6 @@
     6bdeb32  Fix two crashbugs in murmur
     7d2c4fa  SQL Fix in ServerDB
     93e427c  Rename channel
-    b6b99c2  Fix typo in mumble.pro for OSX [dersebi]
 
 2007-08-05
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2268,9 +2367,6 @@
     d252e43  Allow multiple tests on same machine
     0df11b8  Microbenchmark
     7168275  URL path == channel support
-    16c6d2b  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@680
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
     ffb4b96  MySQL schema embedded in murmur. Reconnect to SQL server on
 	     connection lost.
     b80bece  plug:"hw instead of plug:hw
@@ -2287,9 +2383,6 @@
     152d58b  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
-    a051fe3  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@674
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
     42a69cc  SQL reconnect on lost connection
     0ef9c34  Per-server logging
     a7186c6  OSX Patch for murmur from mit_service
@@ -2298,11 +2391,6 @@
     fc94f49  Multiserver support
 
 2007-07-31
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
-    93f1860  git-svn-id:
-	     https://mumble.svn.sourceforge.net/svnroot/mumble/trunk@663
-	     05730e5d-ab1b-0410-a4ac-84af385074fa
-
   Thorvald Natvig <slicer@users.sourceforge.net>
     d13bb46  server_id in ServerDB
     11d9b70  Client compiles again
@@ -2334,7 +2422,7 @@
     b4817ee  obsessive PacketDataStream optimization
 
 2007-07-20
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     47fdafe  translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2362,7 +2450,7 @@
     b3ac4e4  Latin1 for Festival
 
 2007-07-18
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     3bbdcb6  German translation added.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2418,7 +2506,7 @@
     c3d7033  Forgot a conditional for the audio wizard
 
 2007-07-13
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     5e25cd3  Should do svn update more often ;)
     d259422  more translations. Unfortunately since I don't have Qt 4.3 I
 	     can't really check if the translations fit the wizard.
@@ -2463,7 +2551,7 @@
     c36e1f6  Test icons with hard edges for overlay for cartoon look. If
 	     this doesn't look good, I will try soft edges.
 
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     3087e08  slight changes to the translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2471,7 +2559,7 @@
     c338f5a  Jitter buffer fixes. Should work better now.
 
 2007-07-07
-  Matthias Vogelgesang <m0ta@users.sourceforge.net>
+  m0ta <m0ta@users.sourceforge.net>
     de744a8  updated german translation
     412fb15  add menu entry for freedesktop.org compliant distributions
     c504036  updated german translation
@@ -2566,9 +2654,11 @@
     a9008bd  New datastream. Breaks all kinds of things
 
 2007-06-28
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    e2a05bc  Updated Spanish translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     960fa0c  Forgot to rerun lupdate prior to release. Oops.
-    e2a05bc  Updated Spanish translation [naproxeno]
 
 2007-06-27
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2975,7 +3065,6 @@
 
 2006-02-14
   Thorvald Natvig <slicer@users.sourceforge.net>
-    3d48052  *** empty log message ***
     9290b59  Server IP TOS
     09b5cf3  IP Type of Service
 
@@ -2991,7 +3080,6 @@
 
 2006-01-17
   Thorvald Natvig <slicer@users.sourceforge.net>
-    d0b82f7  *** empty log message ***
     2e17851  Linux compiles clean
     dccc416  Forgot to check in pch headers
     7efd9c5  Fixed FMOD
@@ -3033,28 +3121,21 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     ec0bc48  Update version to 0.9.3
 
-2005-12-17
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    821ab78  *** empty log message ***
-
 2005-12-16
   Thorvald Natvig <slicer@users.sourceforge.net>
     1bcf0d9  average bandwidth over short time to avoid being kicked for
 	     VBR spike
-    b0eef77  *** empty log message ***
     a531aaf  Bugfixing bandwidth limits
     c02e331  Maximum bandwidth setting serverside.
 
 2005-12-15
   Thorvald Natvig <slicer@users.sourceforge.net>
-    7375051  *** empty log message ***
     50e297c  Allow _ in email addresses (darn@the-space.net)
 
 2005-12-13
   Thorvald Natvig <slicer@users.sourceforge.net>
     3a9374c  Visualize all parts of the echo weights.
     d0f2538  rename from libspeex.dll to just speex.dll
-    b5d63e8  *** empty log message ***
 
 2005-12-12
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -3080,13 +3161,11 @@
 
 2005-12-03
   Thorvald Natvig <slicer@users.sourceforge.net>
-    90867d8  *** empty log message ***
     543b19b  Visualize power spectrum of input and noise estimate.
     63179b9  Add fftpwrap for speex compile
 
 2005-11-09
   Thorvald Natvig <slicer@users.sourceforge.net>
-    65c7290  *** empty log message ***
     99d3749  Ping support
 
 2005-10-14
@@ -3097,21 +3176,14 @@
 2005-10-13
   Thorvald Natvig <slicer@users.sourceforge.net>
     084d465  Banlist editor.
-    9bbd0ca  *** empty log message ***
     6afe64a  Removed TCP voice support; with Nagle it will always be laggy.
 	     Added message to query/set banlist. Reordered message ids.
 
 2005-10-12
   Thorvald Natvig <slicer@users.sourceforge.net>
-    0aaa5e4  *** empty log message ***
     756ba78  Banlist (serverside).
-    797b428  *** empty log message ***
     c4dbb06  Bump version
     819ff2f  Rename player support.
-
-2005-10-11
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    ca8d92b  *** empty log message ***
 
 2005-10-09
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -3123,27 +3195,19 @@
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     a414c4c  Audio bugfixing. Added new icons to code.
-    d3a593b  *** empty log message ***
     97b0ea1  Fix for multispeex-packet in UDP mode.
     1a6e228  Immediate update of overlay on parameter change
 
 2005-10-04
   Thorvald Natvig <slicer@users.sourceforge.net>
     fa62712  Debugging of ~sub
-    0646e12  *** empty log message ***
     51555bf  sub,a,b,c groups
-    0264791  *** empty log message ***
     09c24ee  Config for overlay.
     48d79e9  Make hooking less resource intensive on system.
 
 2005-10-03
   Thorvald Natvig <slicer@users.sourceforge.net>
-    ebf4c5f  *** empty log message ***
     00f231b  Overlay.
-
-2005-10-02
-  Thorvald Natvig <slicer@users.sourceforge.net>
-    2b49cdf  *** empty log message ***
 
 2005-10-01
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -3162,24 +3226,19 @@
     f0dc0a1  Example of how to link murmur to other servers, using qstat
     7e15f99  Fix "in" and "out" groups.
     219d946  More command interface.
-    1392170  *** empty log message ***
     f778342  Serverside commands through SQL.
-    05a2949  *** empty log message ***
     f2233fd  Experimentation with non-actionmapped directinput; will be a
 	     lot of GUI work though. Added push-to-link support to the
 	     server.
     bd5f2d4  Version to 0.9.1
-    b11a5dc  *** empty log message ***
     dd60a2b  Channel linking, part 2.
 
 2005-09-29
   Thorvald Natvig <slicer@users.sourceforge.net>
-    35012fa  *** empty log message ***
     2c12d88  Channel linking, part 1.
     2382f40  Cache ACL lookups.
     c0f9577  Kick off ghost connections, refuse connections with same name
 	     for anonymous users.
-    ba85d45  *** empty log message ***
     7f014bc  Connection table in sqlite
     3478060  Include murmur.ini
     3ab26fe  Use class references in headers instead of .h files, reduces
@@ -3187,9 +3246,7 @@
 
 2005-09-28
   Thorvald Natvig <slicer@users.sourceforge.net>
-    8051008  *** empty log message ***
     faceb19  Move config into registrars.
-    d8a3d8b  *** empty log message ***
     62dd4ef  Remove ACLs when removing channel
 
 2005-09-27
@@ -3199,11 +3256,8 @@
 	     channel icon
 
   Thorvald Natvig <slicer@users.sourceforge.net>
-    3336ba4  *** empty log message ***
     a035a3c  Fix flag display
-    13ee80e  *** empty log message ***
     6794972  lowercase groupnames
-    b6a2cc5  *** empty log message ***
     155d342  Massively reduce debugging statements.
     4c7a6f7  PlayerModel fixes, work around bug in QSet operator ==
     4d52920  Doubleclick to join channel
@@ -3215,21 +3269,16 @@
 2005-09-26
   Thorvald Natvig <slicer@users.sourceforge.net>
     3c55c1f  qPrintable()
-    2947e7e  *** empty log message ***
     6f4c0b6  Fix tree
-    a02309c  *** empty log message ***
     e705eb1  Bugfixing session
-    670bfd5  *** empty log message ***
     66e90fb  Tooltips and whatsthis for ACL part of ACLEditor.
 
 2005-09-25
   Thorvald Natvig <slicer@users.sourceforge.net>
-    92b4c53  *** empty log message ***
     5fc1e91  Have long strings in "" in .ini files.
     aa1d309  .ini files for the server, updating documentation to reflect
 	     this.
     93fe6b8  Functional ACL/Group editor. Let the bugfest commence.
-    0a4b9bf  *** empty log message ***
     ff614da  ACLEditor, ACL actions started, server bugfixes.
     5c24663  ACLEditor, GUI elements done, missing action-logic.
 
@@ -3242,24 +3291,19 @@
 
 2005-09-23
   Thorvald Natvig <slicer@users.sourceforge.net>
-    36b3749  *** empty log message ***
     3e52eaa  Warning fixes.
-    a016965  *** empty log message ***
     fdde84f  On channel creation, add creator to "admin" group.
     7f73d73  Channel ACLs and groups. (Still missing a edit function)
 
 2005-09-22
   Thorvald Natvig <slicer@users.sourceforge.net>
     c1f3446  Update version string
-    50f090b  *** empty log message ***
     e27b074  Preliminary support for channels
 
 2005-09-21
   Thorvald Natvig <slicer@users.sourceforge.net>
-    868d876  *** empty log message ***
     3efd365  Only check if registered player if there ARE registered
 	     players. Without any, everybody is priviliged.
-    7929f3a  *** empty log message ***
     ae8b33e  like =
 
 2005-09-20
@@ -3270,17 +3314,13 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     578978a  Slightly more agressive defaults, sounds better for most
 	     people.
-    5023c0d  *** empty log message ***
     f23d9f7  Slightly more permissive namecheck
-    6f74f4e  *** empty log message ***
     15bc047  Only registered users can mute/deafen/kick others
-    3418d08  *** empty log message ***
     540b5cc  And remove the authcode used...
     d0df397  Notify use when it succeeded as well.
     eb41fcf  Registration script.
     2691157  Empty tts should not be spoken.
     0548bfe  Welcome messages.
-    c3a9ae2  *** empty log message ***
     a465ab4  Per-player password. Persistant storage on server. Minor ASIO
 	     fixes.
 
@@ -3290,7 +3330,6 @@
     62f573b  UDP bugfixes on server.
     b36bf6d  Version 0.3.2. First part of UDP support.
     46d1a8d  No console in release!
-    25d083a  *** empty log message ***
     3ca1264  Provide feedback if an error occured.
     1072c99  Minimize to tray.
 
@@ -3315,7 +3354,6 @@
     95d066d  Fix the versionchecker so it doesn't delete itself before
 	     showing the message.
     7250279  Fixups for release script
-    67f5551  *** empty log message ***
     2cdf489  Failing to open DirectSound shouldn't be fatal, just a
 	     messagebox error Add Apply button to the config screen
     9bc83a6  Fix a few missing Q_OBJECT
@@ -3387,10 +3425,8 @@
     d290745  Audio statistics window
     beb7b04  Make list of players sorted by name and make local user bold
     6a5e9cc  Offset status icons by 1 pixel
-    671ae64  *** empty log message ***
     c5c9848  Turn cvs log into CHANGES, and restart CHANGES to get rid of
 	     cvs log messages for it
-    854b2a7  *** empty log message ***
 
 2005-09-09
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -3428,7 +3464,6 @@
 	     GUI guides
     4ce9b9b  Check version against sourceforge
     15fc873  Show correct version in title
-    cac5019  *** empty log message ***
     2d92fb8  Separate log window
     8658883  Reduce dependencies in MainWindow.h
     3475fc3  Add changes file Add persistant storage of server lists
@@ -3498,7 +3533,6 @@
     bf304fe  Encode and display "speaking" state
     37c10ca  Accept some paramenters for murmur, to enable e.g. local loop
 	     test
-    c5ceecc  *** empty log message ***
     1955a89  Update libspeex makefile to match dynamic libs Move license
 	     agreements to installer instead of embedded in program
     d99273e  License files for qt and speex for installer
