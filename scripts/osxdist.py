@@ -358,6 +358,7 @@ if __name__ == '__main__':
 	f.mkdir('/Library/MumbleOverlay/')
 	f.mkdir('/Library/MumbleOverlay/Bundles/')
 	f.copy('release/mumble-overlay-injector', '/Library/MumbleOverlay/')
+	f.copy('release/mumble-overlay', '/Library/MumbleOverlay/')
 	f.copy('release/Stub.framework', '/Library/MumbleOverlay/Bundles/')
 	f.copy('release/Overlay.framework', '/Library/MumbleOverlay/Bundles/')
 	f.copy('release/MumbleOverlayContextMenu.framework', '/Library/Contextual Menu Items/')

@@ -41,41 +41,43 @@
 #include "mach_inject.h"
 #include "../stub/stub.h"
 
-#define STUB_BUNDLE     "/Library/MumbleOverlay/Bundles/Stub.framework"
-#define OVERLAY_BUNDLE  "/Library/MumbleOverlay/Bundles/Overlay.framework"
+#define STUB_BUNDLE     MUMBLE_OVERLAY_MACX_PATH "/Bundles/Stub.framework"
+#define OVERLAY_BUNDLE  MUMBLE_OVERLAY_MACX_PATH "/Bundles/Overlay.framework"
 
-static void
-usage(void)
-{
+static void usage(void) {
 	printf("Usage: mumble-overlay-injector [options] <pid>\n");
 	printf("\n");
-	printf("  -h -?   Show usage information.\n");
+	printf(" Injects the Mumble overlay into an already-running process given\n");
+	printf(" using the `pid' argument.\n");
+	printf("\n");
+	printf(" -h -?  Show usage information.\n");
+	printf(" -v     Show version information.\n");
 	printf("\n");
 	exit(0);
 }
 
-int
-main(int argc, char *argv[])
-{
+static void version(void) {
+	printf("%s\n", VERSION);
+	exit(0);
+}
+
+int main(int argc, char *argv[]) {
 	StubParameters *p = NULL;
 	mach_error_t err;
-	CFURLRef url;
 	void *entry;
 	size_t len;
-	FSRef fsr;
 
 	int c;
 	pid_t injectpid = 0;
-	char *appbundle = NULL;
 
-	while ((c = getopt(argc, argv, "h?")) != -1) {
+	while ((c = getopt(argc, argv, "h?v")) != -1) {
 		switch (c) {
 			case 'h':
 			case '?':
 				usage();
 				break;
-			case 'a':
-				appbundle = optarg;
+			case 'v':
+				version();
 				break;
 		}
 	}
