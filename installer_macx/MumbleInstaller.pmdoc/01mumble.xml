@@ -3,7 +3,7 @@
     <identifier>net.sourceforge.mumble.base</identifier>
     <version>1.1.8</version>
     <description></description>
-    <post-install type="none" />
+    <post-install type="req-logout" />
     <requireAuthorization />
     <installTo>/</installTo>
     <flags>
@@ -19,5 +19,6 @@
   <extra>
     <packagePath relative="true" mod="true">../release/Mumble-Base.pkg</packagePath>
     <title>Mumble Base</title>
+    <file-prefix />
   </extra>
 </pkgref>
