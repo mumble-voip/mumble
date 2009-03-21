@@ -611,6 +611,7 @@ static void entryPoint() {
 	   nsgl ? "true" : "false",
 	    cgl ? "true" : "false");
 
+#if 0
 	/* AGL */
 	if (agl) {
 		ods("Attempting to hook AGL");
@@ -635,6 +636,7 @@ static void entryPoint() {
 		} else
 			ods("Unable to look up class NSOpenGLContext.");
 	}
+#endif
 
 	/* CGL */
 	if (cgl) {
