@@ -5,6 +5,6 @@
 	delaycompress
 	missingok
 	postrotate
-		start-stop-daemon --quiet --stop --signal 1 --exec /usr/sbin/murmurd --user mumble-server --pidfile /var/run/mumble-server/mumble-server.pid
+		start-stop-daemon --quiet --oknodo --stop --signal 1 --exec /usr/sbin/murmurd --user mumble-server --pidfile /var/run/mumble-server/mumble-server.pid
 	endscript
 }
