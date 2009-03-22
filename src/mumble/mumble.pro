@@ -121,6 +121,10 @@ unix {
 
     HEADERS *= GlobalShortcut_macx.h
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
+
+    QT_CONF.path = Contents/Resources
+    QT_CONF.files = ../../scripts/qt.conf
+    QMAKE_BUNDLE_DATA += QT_CONF
   }
 }
 

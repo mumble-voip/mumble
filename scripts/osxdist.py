@@ -169,7 +169,6 @@ class AppBundle(object):
 			Copy over any needed Qt plugins.
 		'''
 		print ' * Copying Qt plugins'
-		shutil.copy('installer_macx/qt.conf', os.path.join(self.bundle, 'Contents', 'Resources', 'qt.conf'))
 		qtplugindir = os.path.join(self.bundle, 'Contents', 'QtPlugins')
 		if not os.path.exists(qtplugindir):
 			os.mkdir(qtplugindir)
