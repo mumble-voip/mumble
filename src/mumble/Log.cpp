@@ -302,6 +302,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 				break;
 		}
 
+#ifdef USE_DBUS
 		QDBusMessage response;
 		QVariantMap hints;
 		hints.insert(QLatin1String("desktop-entry"), QLatin1String("mumble"));
@@ -334,6 +335,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		if (response.type()==QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
 			uiLastId = response.arguments().at(0).toUInt();
 		} else {
+#else
+		if (true) {
+#endif
 			if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
 				QSystemTrayIcon::MessageIcon msgIcon;
 
