@@ -139,53 +139,47 @@ static OSStatus ContextMenuHandleSelection(ContextMenuPlugin *p, AEDesc *desc, S
 	CFStringRef bundleFn = NULL;
 	CFArrayRef argv = NULL;
 	OSStatus err = noErr;
-	char *path;
 	FSRef ref;
 
 	if (commandId != 'OLAY')
 		return noErr;
 
-	ContextMenuGetAppBundlePath(desc, &path, NULL);
-	if (path) {
-		err = FSPathMakeRef((const UInt8 *) MUMBLE_OVERLAY_LAUNCHER_PATH, &ref, NULL);
-		if (err != noErr)
-			return noErr;
+	err = FSPathMakeRef((const UInt8 *) MUMBLE_OVERLAY_LAUNCHER_PATH, &ref, NULL);
+	if (err != noErr)
+		return noErr;
 
-		bundle = ContextMenuGetAppBundleFromDescList(desc);
-		if (!bundle)
-			goto out;
+	bundle = ContextMenuGetAppBundleFromDescList(desc);
+	if (!bundle)
+		goto out;
 
-		bundleUrl = CFBundleCopyBundleURL(bundle);
-		if (!bundleUrl)
-			goto out;
+	bundleUrl = CFBundleCopyBundleURL(bundle);
+	if (!bundleUrl)
+		goto out;
 
-		bundleFn = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
-		if (!bundleFn)
-			goto out;
+	bundleFn = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
+	if (!bundleFn)
+		goto out;
 
-		CFStringRef array[] = { bundleFn };
-		argv = CFArrayCreate(kCFAllocatorDefault, array, 1, NULL);
-		if (!argv)
-			goto out;
+	CFStringRef array[] = { bundleFn };
+	argv = CFArrayCreate(kCFAllocatorDefault, array, 1, NULL);
+	if (!argv)
+		goto out;
 
-		LSApplicationParameters parm = {
-			.version             = 0,
-			.flags               = kLSLaunchDefaults,
-			.application         = &ref,
-			.asyncLaunchRefCon   = NULL,
-			.environment         = NULL,
-			.argv                = argv,
-			.initialEvent        = NULL
-		};
+	LSApplicationParameters parm = {
+		.version             = 0,
+		.flags               = kLSLaunchDefaults,
+		.application         = &ref,
+		.asyncLaunchRefCon   = NULL,
+		.environment         = NULL,
+		.argv                = argv,
+		.initialEvent        = NULL
+	};
 
-		err = LSOpenApplication(&parm, NULL);
-		if (err != noErr)
-			goto out;
-	}
+	err = LSOpenApplication(&parm, NULL);
+	if (err != noErr)
+		goto out;
 
 out:
-	if (path)
-		free(path);
 	if (bundle)
 		CFRelease(bundle);
 	if (bundleUrl)
@@ -263,29 +257,4 @@ static bool ContextMenuAEDescIsAppBundle(const AEDesc *desc) {
 	}
 
 	return false;
-}
-
-static void ContextMenuGetAppBundlePath(const AEDesc *desc, char **path, int *len) {
-	if (!path)
-		return;
-
-	CFBundleRef bundle = ContextMenuGetAppBundleFromDescList(desc);
-
-	if (!bundle)
-		return;
-
-	CFURLRef bundleUrl = CFBundleCopyBundleURL(bundle);
-	CFStringRef bundleStr = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
-	CFIndex strLen = CFStringGetMaximumSizeForEncoding(CFStringGetLength(bundleStr), kCFStringEncodingUTF8);
-	*path = calloc(strLen+1, 1);
-
-	if (*path) {
-		CFStringGetCString(bundleStr, *path, strLen, kCFStringEncodingUTF8);
-		if (len)
-			*len = (int) strLen;
-	}
-
-	CFRelease(bundleUrl);
-	CFRelease(bundleStr);
-	CFRelease(bundle);
 }

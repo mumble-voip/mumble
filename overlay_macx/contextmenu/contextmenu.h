@@ -71,6 +71,5 @@ static void ContextMenuDeallocateInstance(ContextMenuPlugin *p);
 
 static CFBundleRef ContextMenuGetAppBundleFromDescList(const AEDesc *desc);
 static bool ContextMenuAEDescIsAppBundle(const AEDesc *desc);
-static void ContextMenuGetAppBundlePath(const AEDesc *desc, char **path, int *len);
 
 #endif /* __CONTEXTMENU_H__ */
