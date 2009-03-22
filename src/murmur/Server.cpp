@@ -39,7 +39,6 @@
 #include "Connection.h"
 #include "Server.h"
 #include "DBus.h"
-#include "PacketDataStream.h"
 #include "Meta.h"
 
 uint qHash(const Peer &p) {
@@ -327,9 +326,6 @@ void Server::run() {
 #endif
 	char buffer[512];
 
-	quint32 msgType = 0;
-	unsigned int uiSession = 0;
-
 	sockaddr_in from;
 #ifdef Q_OS_UNIX
 	socklen_t fromlen;
@@ -372,7 +368,7 @@ void Server::run() {
 			break;
 		} else if (len == SOCKET_ERROR) {
 			break;
-		} else if (len < 6) {
+		} else if (len < 5) {
 			// 4 bytes crypt header + type + session
 			continue;
 		} else if (len > 512) {
@@ -382,78 +378,49 @@ void Server::run() {
 		QReadLocker rl(&qrwlUsers);
 
 		quint64 key = (static_cast<unsigned long long>(from.sin_addr.s_addr) << 16) ^ from.sin_port;
-		PacketDataStream pds(buffer, len - 4);
 
 		User *u = qhPeerUsers.value(key);
 		if (u) {
 			if (! checkDecrypt(u, encrypted, buffer, len)) {
 				continue;
 			}
-			pds >> msgType >> uiSession;
-			if (u->uiSession != uiSession) {
-				continue;
-			}
 		} else {
 			// Unknown peer
 			foreach(User *usr, qhHostUsers.value(from.sin_addr.s_addr)) {
-				pds.rewind();
 				if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypted, buffer, len)) {
-					pds >> msgType >> uiSession;
-					if (usr->uiSession == uiSession) {
-						// Every time we relock, reverify users' existance.
-						// The main thread might delete the user while the lock isn't held.
-						rl.unlock();
-						qrwlUsers.lockForWrite();
-						if (qhUsers.contains(uiSession)) {
-							u = usr;
-							qhHostUsers[from.sin_addr.s_addr].remove(u);
-							qhPeerUsers.insert(key, u);
-							u->saiUdpAddress.sin_port = from.sin_port;
-							qrwlUsers.unlock();
-							rl.relock();
-							if (! qhUsers.contains(uiSession))
-								u = NULL;
-						}
+					// Every time we relock, reverify users' existance.
+					// The main thread might delete the user while the lock isn't held.
+					unsigned int uiSession = usr->uiSession;
+					rl.unlock();
+					qrwlUsers.lockForWrite();
+					if (qhUsers.contains(uiSession)) {
+						u = usr;
+						qhHostUsers[from.sin_addr.s_addr].remove(u);
+						qhPeerUsers.insert(key, u);
+						u->saiUdpAddress.sin_port = from.sin_port;
+						qrwlUsers.unlock();
+						rl.relock();
+						if (! qhUsers.contains(uiSession))
+							u = NULL;
 					}
-
+					break;
 				}
 			}
 			if (! u) {
 				continue;
 			}
-			len -= 4;
 		}
+		len -= 4;
 
-		if ((msgType != Message::Speex) && (msgType != Message::Ping))
-			continue;
-		if (! pds.isValid())
-			continue;
-
-		if (msgType == Message::Ping) {
+		unsigned int msgType = (buffer[0] >> 5) & 0x7;
+		
+		if (msgType == MessageHandler::UDPPing) {
 			QByteArray qba;
 			sendMessage(u, buffer, len, qba);
-		} else {
-			processMsg(pds, qhUsers.value(uiSession));
+		} else if (msgType == MessageHandler::UDPVoice) {
+			processMsg(u, buffer, len);
 		}
 	}
-}
-
-void Server::fakeUdpPacket(Message *msg, Connection *source) {
-	char buffer[512];
-	PacketDataStream pds(buffer, 512);
-	msg->messageToNetwork(pds);
-	if (! pds.isValid())
-		return;
-
-	pds.rewind();
-
-	quint32 msgType;
-	int uiSession;
-
-	pds >> msgType >> uiSession;
-
-	QReadLocker rl(&qrwlUsers);
-	processMsg(pds, source);
 }
 
 bool Server::checkDecrypt(User *u, const char *encrypted, char *plain, unsigned int len) {
@@ -497,24 +464,16 @@ void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) 
 	}
 }
 
-void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
-	User *u = static_cast<User *>(cCon);
-	if (! u || (u->sState != Player::Authenticated))
+void Server::processMsg(User *u, const char *data, int len) {
+	if (u->sState != Player::Authenticated || u->bMute || u->bSuppressed)
 		return;
 
 	Player *p;
-	int seq, flags;
-
-	if (u->bMute || u->bSuppressed)
-		return;
 
 	BandwidthRecord *bw = & u->bwr;
 
-	pds >> seq;
-	pds >> flags;
-
 	// IP + UDP + Crypt + Data
-	int packetsize = 20 + 8 + 4 + pds.capacity();
+	int packetsize = 20 + 8 + 4 + len;
 	bw->addFrame(packetsize);
 
 	if (bw->bytesPerSec() > iMaxBandwidth) {
@@ -526,11 +485,9 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 
 	QByteArray qba;
 
-	pds.rewind();
-	const char *data = pds.charPtr();
-	int len = pds.left();
+	unsigned int target = data[0] & 0x1f;
 
-	if (flags & MessageSpeex::LoopBack) {
+	if (target == 0x1f) {
 		sendMessage(u, data, len, qba);
 		return;
 	}
@@ -547,7 +504,7 @@ void Server::processMsg(PacketDataStream &pds, Connection *cCon) {
 		QMutexLocker qml(&qmCache);
 
 		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(u, l, (flags & MessageSpeex::AltSpeak) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
+			if (ChanACL::hasPermission(u, l, (target == 1) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
 						sendMessage(static_cast<User *>(p), data, len, qba);
@@ -658,9 +615,9 @@ void Server::connectionClosed(QString reason) {
 	log(u, QString("Connection closed: %1").arg(reason));
 
 	if (u->sState == Player::Authenticated) {
-		MessageServerLeave mslMsg;
-		mslMsg.uiSession=u->uiSession;
-		sendExcept(&mslMsg, c);
+		MumbleProto::UserRemove mpur;
+		mpur.set_session(u->uiSession);
+		sendExcept(u, mpur, MessageHandler::UserRemove);
 
 		emit playerDisconnected(u);
 	}
@@ -689,20 +646,12 @@ void Server::connectionClosed(QString reason) {
 		stopThread();
 }
 
-void Server::message(QByteArray &qbaMsg, Connection *cCon) {
+void Server::message(const QByteArray &qbaMsg, unsigned int msgType, Connection *cCon) {
 	if (cCon == NULL) {
 		cCon = static_cast<Connection *>(sender());
 	}
-	Message *mMsg = Message::networkToMessage(qbaMsg);
-
-	if (mMsg) {
-		dispatch(cCon, mMsg);
-		delete mMsg;
-	} else {
-		cCon->disconnectSocket();
-	}
+	dispatch(cCon, msgType, qbaMsg);
 }
-
 
 void Server::checkTimeout() {
 	QList<User *> qlClose;
@@ -731,23 +680,25 @@ void Server::doSync(unsigned int id) {
 	User *u = qhUsers.value(id);
 	if (u) {
 		log(u, "Requesting crypt-nonce resync");
-		MessageCryptSync mcs;
-		u->sendMessage(&mcs);
+		MumbleProto::CryptSetup mpcs;
+		sendMessage(u, mpcs, MessageHandler::CryptSetup);
 	}
 }
 
-void Server::sendMessage(Connection *c, Message *mMsg) {
-	c->sendMessage(mMsg);
+void Server::sendMessage(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
+	QByteArray cache;
+	u->sendMessage(msg, msgType, cache);
 }
 
-void Server::sendAll(Message *mMsg) {
-	sendExcept(mMsg, NULL);
+void Server::sendAll(const ::google::protobuf::Message &msg, unsigned int msgType) {
+	sendExcept(NULL, msg, msgType);
 }
 
-void Server::sendExcept(Message *mMsg, Connection *cCon) {
-	foreach(User *u, qhUsers)
-		if ((static_cast<Connection *>(u) != cCon) && (u->sState == Player::Authenticated))
-			u->sendMessage(mMsg);
+void Server::sendExcept(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
+	QByteArray cache;
+	foreach(User *usr, qhUsers)
+		if ((usr != u) && (usr->sState == Player::Authenticated))
+			usr->sendMessage(msg, msgType, cache);
 }
 
 void Server::sendChannelDescription(Player *p, const Channel *c) {
@@ -783,20 +734,18 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 
 	foreach(p, chan->qlPlayers) {
 		chan->removePlayer(p);
-
-		MessagePlayerMove mpm;
-		mpm.uiSession = 0;
-		mpm.uiVictim = p->uiSession;
-		mpm.iChannelId = dest->iId;
-		sendAll(&mpm);
+		
+		MumbleProto::UserState mpus;
+		mpus.set_session(p->uiSession);
+		mpus.set_channel_id(dest->iId);
+		sendAll(mpus, MessageHandler::UserState);
 
 		playerEnterChannel(p, dest);
 	}
-
-	MessageChannelRemove mcr;
-	mcr.uiSession = src ? src->uiSession : 0;
-	mcr.iId = chan->iId;
-	sendAll(&mcr);
+	
+	MumbleProto::ChannelRemove mpcr;
+	mpcr.set_channel_id(chan->iId);
+	sendAll(mpcr, MessageHandler::ChannelRemove);
 
 	removeChannel(chan);
 	emit channelRemoved(chan);
@@ -851,11 +800,10 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 			// Ok, he can speak and was suppressed, or vice versa
 			p->bSuppressed = ! mayspeak;
 
-			MessagePlayerMute mpm;
-			mpm.uiSession = 0;
-			mpm.uiVictim = p->uiSession;
-			mpm.bMute = p->bSuppressed;
-			sendAll(&mpm);
+			MumbleProto::UserState mpus;
+			mpus.set_session(p->uiSession);
+			mpus.set_suppressed(p->bSuppressed);
+			sendAll(mpus, MessageHandler::UserState);
 		}
 	}
 	emit playerStateChanged(p);

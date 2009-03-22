@@ -36,58 +36,45 @@
 #include "Version.h"
 
 void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed) {
-	bool changed = false;
+	// FIXME: What if nothing changed? Then don't emit and don't sendAll.
 
 	if (deaf)
 		mute = true;
 	if (! mute)
 		deaf = false;
-
-	if ((pPlayer->bDeaf != deaf) && (deaf || (!deaf && mute))) {
-		pPlayer->bDeaf = deaf;
-		pPlayer->bMute = mute;
-		MessagePlayerDeaf mpd;
-		mpd.uiSession = 0;
-		mpd.uiVictim=pPlayer->uiSession;
-		mpd.bDeaf = deaf;
-		sendAll(&mpd);
-		changed = true;
-	} else if ((pPlayer->bDeaf != deaf) || (pPlayer->bMute != mute)) {
-		pPlayer->bDeaf = deaf;
-		pPlayer->bMute = mute;
-
-		MessagePlayerMute mpm;
-		mpm.uiSession = 0;
-		mpm.uiVictim=pPlayer->uiSession;
-		mpm.bMute=mute;
-		sendAll(&mpm);
-		changed = true;
-	}
-
+		
+	MumbleProto::UserState mpus;
+	mpus.set_session(pPlayer->uiSession);
+	if (mute != pPlayer->bMute)
+		mpus.set_mute(mute);
+	if (deaf != pPlayer->bDeaf)
+		mpus.set_deaf(deaf);
+	if (suppressed != pPlayer->bSuppressed)
+		mpus.set_suppressed(suppressed);
+		
+	pPlayer->bDeaf = deaf;
+	pPlayer->bMute = mute;
+	pPlayer->bSuppressed = suppressed;
+	
 	if (cChannel != pPlayer->cChannel) {
+		mpus.set_channel_id(cChannel->iId);
 		playerEnterChannel(pPlayer, cChannel);
-		MessagePlayerMove mpm;
-		mpm.uiSession = 0;
-		mpm.uiVictim = pPlayer->uiSession;
-		mpm.iChannelId = cChannel->iId;
-		sendAll(&mpm);
-		changed = true;
 	}
-
+	
+	sendAll(mpus, MessageHandler::UserState);
 	emit playerStateChanged(pPlayer);
 }
 
 bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links) {
 	bool changed = false;
 	bool updated = false;
-
+	
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(cChannel->iId);
+	
 	if (cChannel->qsName != qsName) {
 		cChannel->qsName = qsName;
-		MessageChannelRename mcr;
-		mcr.uiSession = 0;
-		mcr.iId = cChannel->iId;
-		mcr.qsName = cChannel->qsName;
-		sendAll(&mcr);
+		mpcs.set_name(u8(qsName));
 		updated = true;
 		changed = true;
 	}
@@ -102,12 +89,8 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 
 		cChannel->cParent->removeChannel(cChannel);
 		cParent->addChannel(cChannel);
-
-		MessageChannelMove mcm;
-		mcm.uiSession = 0;
-		mcm.iId = cChannel->iId;
-		mcm.iParent = cParent->iId;
-		sendAll(&mcm);
+		
+		mpcs.set_parent(cParent->iId);
 
 		updated = true;
 		changed = true;
@@ -120,13 +103,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		foreach(Channel *l, links) {
 			if (! links.contains(l)) {
 				removeLink(cChannel, l);
-
-				MessageChannelLink mcl;
-				mcl.uiSession = 0;
-				mcl.iId = cChannel->iId;
-				mcl.qlTargets << l->iId;
-				mcl.ltType = MessageChannelLink::Unlink;
-				sendAll(&mcl);
+				mpcs.add_links_remove(l->iId);
 			}
 		}
 
@@ -134,13 +111,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		foreach(Channel *l, links) {
 			if (! oldset.contains(l)) {
 				addLink(cChannel, l);
-
-				MessageChannelLink mcl;
-				mcl.uiSession = 0;
-				mcl.iId = cChannel->iId;
-				mcl.qlTargets << l->iId;
-				mcl.ltType = MessageChannelLink::Link;
-				sendAll(&mcl);
+				mpcs.add_links_add(l->iId);
 			}
 		}
 
@@ -149,25 +120,26 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 
 	if (updated)
 		updateChannel(cChannel);
-	if (changed)
+	if (changed) {
+		sendAll(mpcs, MessageHandler::ChannelState);
 		emit channelStateChanged(cChannel);
+	}
 
 	return true;
 }
 
 void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const QString &text) {
-	MessageTextMessage mtm;
-	mtm.uiSession = 0;
-	mtm.qsMessage = text;
+	MumbleProto::TextMessage mptm;
+	mptm.set_message(u8(text));
+
 	if (pPlayer) {
-		mtm.uiVictim = pPlayer->uiSession;
-		mtm.iChannel = -1;
-		mtm.bTree = false;
-		sendMessage(pPlayer, &mtm);
+		mptm.add_session(pPlayer->uiSession);
+		sendMessage(pPlayer, mptm, MessageHandler::TextMessage);
 	} else {
-		mtm.uiVictim = 0;
-		mtm.iChannel = cChannel->iId;
-		mtm.bTree = tree;
+		if (tree)
+			mptm.add_tree_id(cChannel->iId);
+		else
+			mptm.add_channel_id(cChannel->iId);
 
 		QSet<Channel *> chans;
 		QQueue<Channel *> q;
@@ -185,7 +157,7 @@ void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const 
 		}
 		foreach(c, chans) {
 			foreach(Player *p, c->qlPlayers)
-				sendMessage(static_cast<User *>(p), &mtm);
+				sendMessage(static_cast<User *>(p), mptm, MessageHandler::TextMessage);
 		}
 	}
 }

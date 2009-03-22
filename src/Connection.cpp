@@ -30,7 +30,6 @@
 
 #include "Message.h"
 #include "Connection.h"
-#include "PacketDataStream.h"
 
 #ifdef Q_OS_UNIX
 #include <sys/socket.h>
@@ -87,7 +86,7 @@ void Connection::setToS() {
 #elif defined(Q_OS_UNIX)
 	int val = 0xa0;
 	if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
-		int val = 0x60;
+		val = 0x60;
 		if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 			qWarning("Connection: Failed to set TOS for TCP Socket");
 	}
@@ -204,11 +203,22 @@ void Connection::socketDisconnected() {
 	}
 }
 
-void Connection::sendMessage(const Message *mMsg) {
-	QByteArray qbaBuffer;
-	mMsg->messageToNetwork(qbaBuffer);
+void Connection::sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
+	if (cache.isEmpty()) {
+		int len = msg.ByteSize();
+		if (len > 0x7fffff)
+			return;
+		cache.resize(len + 4);
+		unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
+		uc[0] = msgType;
+		uc[1] = (len >> 16) & 0xFF;
+		uc[2] = (len >> 8) & 0xFF;
+		uc[3] = len & 0xFF;
+		
+		msg.SerializeToArray(uc + 4, len);
+	}
 
-	sendMessage(qbaBuffer);
+	sendMessage(cache);
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {

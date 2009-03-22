@@ -844,6 +844,9 @@ QByteArray Server::getUserTexture(int id) {
 	SQLEXEC();
 	if (query.next()) {
 		qba = query.value(0).toByteArray();
+		if (! qba.isEmpty())
+			if (qba.size() == 600 * 60 * 4)
+				qba = qCompress(qba);
 	}
 	return qba;
 }

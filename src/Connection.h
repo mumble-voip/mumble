@@ -33,8 +33,7 @@
 
 #include "murmur_pch.h"
 #include "CryptState.h"
-
-class Message;
+#include "Mumble.pb.h"
 
 class Connection : public QObject {
 	private:
@@ -68,7 +67,7 @@ class Connection : public QObject {
 	public:
 		Connection(QObject *parent, QSslSocket *qtsSocket);
 		~Connection();
-		void sendMessage(const Message *mMsg);
+		void sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);
 		void sendMessage(const QByteArray &qbaMsg);
 		void disconnectSocket(bool force=false);
 		void forceFlush();

@@ -36,6 +36,7 @@
 #include "Timer.h"
 #include "Player.h"
 #include "Connection.h"
+#include "ACL.h"
 #include "DBus.h"
 
 class Channel;
@@ -157,7 +158,7 @@ class Server : public QThread, public MessageHandler {
 		void newClient();
 		void connectionClosed(QString);
 		void sslError(const QList<QSslError> &);
-		void message(QByteArray &, Connection *cCon = NULL);
+		void message(const QByteArray &, unsigned int, Connection *cCon = NULL);
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
 		void doSync(unsigned int);
@@ -189,9 +190,8 @@ class Server : public QThread, public MessageHandler {
 
 		QList<QPair<quint32, int> > qlBans;
 
-		void processMsg(PacketDataStream &pds, Connection *cCon);
+		void processMsg(User *u, const char *data, int len);
 		void sendMessage(User *u, const char *data, int len, QByteArray &cache);
-		void fakeUdpPacket(Message *msg, Connection *source);
 		void run();
 
 		bool validateChannelName(const QString &name);
@@ -202,9 +202,10 @@ class Server : public QThread, public MessageHandler {
 		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
 		void clearACLCache(Player *p = NULL);
 
-		void sendAll(Message *);
-		void sendExcept(Message *, Connection *);
-		void sendMessage(Connection *, Message *);
+		void sendAll(const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendExcept(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendMessage(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
+
 		void sendChannelDescription(Player *, const Channel *);
 		void sendChannelDescriptionUpdate(const Channel *changed, const Channel *current=NULL);
 
@@ -288,37 +289,24 @@ class Server : public QThread, public MessageHandler {
 		void dblog(const QString &str);
 
 		// From msgHandler. Implementation in Messages.cpp
-		virtual void msgSpeex(Connection *, MessageSpeex *);
-		virtual void msgServerAuthenticate(Connection *, MessageServerAuthenticate *);
-		virtual void msgPing(Connection *, MessagePing *);
-		virtual void msgPingStats(Connection *, MessagePingStats *);
-		virtual void msgServerReject(Connection *, MessageServerReject *);
-		virtual void msgServerSync(Connection *, MessageServerSync *);
-		virtual void msgServerJoin(Connection *, MessageServerJoin *);
-		virtual void msgServerLeave(Connection *, MessageServerLeave *);
-		virtual void msgPlayerMute(Connection *, MessagePlayerMute *);
-		virtual void msgPlayerDeaf(Connection *, MessagePlayerDeaf *);
-		virtual void msgPlayerSelfMuteDeaf(Connection *, MessagePlayerSelfMuteDeaf *);
-		virtual void msgPlayerKick(Connection *, MessagePlayerKick *);
-		virtual void msgPlayerBan(Connection *, MessagePlayerBan *);
-		virtual void msgPlayerMove(Connection *, MessagePlayerMove *);
-		virtual void msgPlayerRename(Connection *, MessagePlayerRename *);
-		virtual void msgChannelAdd(Connection *, MessageChannelAdd *);
-		virtual void msgChannelRemove(Connection *, MessageChannelRemove *);
-		virtual void msgChannelMove(Connection *, MessageChannelMove *);
-		virtual void msgChannelLink(Connection *, MessageChannelLink *);
-		virtual void msgChannelRename(Connection *, MessageChannelRename *);
-		virtual void msgChannelDescUpdate(Connection *, MessageChannelDescUpdate *);
-		virtual void msgServerBanList(Connection *, MessageServerBanList *);
-		virtual void msgTextMessage(Connection *, MessageTextMessage *);
-		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);
-		virtual void msgEditACL(Connection *, MessageEditACL *);
-		virtual void msgQueryUsers(Connection *, MessageQueryUsers *);
-		virtual void msgTexture(Connection *, MessageTexture *);
-		virtual void msgCryptSetup(Connection *, MessageCryptSetup *);
-		virtual void msgCryptSync(Connection *, MessageCryptSync *);
-		virtual void msgContextAddAction(Connection *, MessageContextAddAction *);
-		virtual void msgContextAction(Connection *, MessageContextAction *);
+		virtual void msgVersion(Connection *, MumbleProto::Version *);
+		virtual void msgUDPTunnel(Connection *, MumbleProto::UDPTunnel *);
+		virtual void msgAuthenticate(Connection *, MumbleProto::Authenticate *);
+		virtual void msgPing(Connection *, MumbleProto::Ping *);
+		virtual void msgReject(Connection *, MumbleProto::Reject *);
+		virtual void msgServerSync(Connection *, MumbleProto::ServerSync *);
+		virtual void msgChannelRemove(Connection *, MumbleProto::ChannelRemove *);
+		virtual void msgChannelState(Connection *, MumbleProto::ChannelState *);
+		virtual void msgUserRemove(Connection *, MumbleProto::UserRemove *);
+		virtual void msgUserState(Connection *, MumbleProto::UserState *);
+		virtual void msgBanList(Connection *, MumbleProto::BanList *);
+		virtual void msgTextMessage(Connection *, MumbleProto::TextMessage *);
+		virtual void msgPermissionDenied(Connection *, MumbleProto::PermissionDenied *);
+		virtual void msgACL(Connection *, MumbleProto::ACL *);
+		virtual void msgQueryUsers(Connection *, MumbleProto::QueryUsers *);
+		virtual void msgCryptSetup(Connection *, MumbleProto::CryptSetup *);
+		virtual void msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd *);
+		virtual void msgContextAction(Connection *, MumbleProto::ContextAction *);
 };
 
 
