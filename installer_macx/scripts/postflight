@@ -1,13 +1,18 @@
-#!/bin/sh
+#!/bin/bash
+
+INSTALL_PKG=$1
+INSTALL_DEST=$2
+INSTALL_VOL=$3
+INSTALL_ROOT=$4
 
 # Change owner/group of app bundle
-chown -R root:admin /Applications/Mumble.app/
+chown -R root:admin ${INSTALL_DEST}/Applications/Mumble.app/
 
 # Overlay permissions
-chown -R root:wheel /Library/MumbleOverlay/
-chown root:procmod /Library/MumbleOverlay/mumble-overlay-injector
-chmod 2755 /Library/MumbleOverlay/mumble-overlay-injector
-chmod 755 /Library/MumbleOverlay/mumble-overlay
+chown -R root:wheel ${INSTALL_DEST}/Library/MumbleOverlay/
+chown root:procmod ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay-injector
+chmod 2755 ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay-injector
+chmod 755 ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay
 
 # Context menu plugin
-chown -R root:wheel /Library/Contextual\ Menu\ Items/MumbleOverlayContextMenu.framework/
+chown -R root:wheel ${INSTALL_DEST}/Library/Contextual\ Menu\ Items/MumbleOverlayContextMenu.framework/
