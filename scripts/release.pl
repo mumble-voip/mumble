@@ -67,6 +67,7 @@ while (my $pro = shift @pro) {
         }
         case %filevars {
           foreach my $f (split(/\s+/,$value)) {
+              next if ($f =~ /^Murmur\.(h|cpp)$/);
               my $ok = 0;
               foreach my $d (@vpath) {
                 if (-f "$d$f") {
@@ -97,7 +98,9 @@ open(F, "src/mumble/mumble.qrc");
 while(<F>) {
   chomp();
   if (/\<file\>(.+)<\/file\>/) {
-    $files{$1}=1;
+    my $f = $1;
+    next if $f =~ /\.qm$/;
+    $files{$f}=1;
   } elsif (/\<file alias=\"(.+)\"\>/) {
     if ( -f "icons/$1") {
       $files{"icons/$1"}=1;
@@ -130,10 +133,6 @@ my $dir="mumble-$ver/";
 my $zipdir = $zip->addDirectory($dir);
 
 foreach my $file ('LICENSE', sort keys %files) {
-  if (($file =~ /\.qm$/) || ($file =~ /\/Murmur\.(h|cpp)/)) {
-    print "Skipping $file\n";
-    next;
-  }
   print "Adding $file\n";
   open(F, $file) or croak "Missing $file";
   sysread(F, $blob, 1000000000);
