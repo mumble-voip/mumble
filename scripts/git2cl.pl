@@ -26,6 +26,7 @@ while(<LOG>) {
 
   next if ($subject =~ /^Merge branch 'master/);
   next if ($subject =~ /^Indent and submodule update/);
+  next if ($subject =~ /^Indent, changelog and submodule update/);
   next if ($subject =~ /^Indent run/);
   next if ($subject =~ /^\*\*\* empty log message/);
   next if ($subject =~ /^git-svn-id: http/);
