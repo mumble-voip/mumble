@@ -1,5 +1,20 @@
+2009-03-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    fc80d64  Add addban.php script to osxdist.
+    5fcee7b  Copy qt.conf into AppBundle via qmake instead of dist script.
+    629fabc  Be more explicit in postflight script.
+    fbd9fa2  Remove dead code from OSX overlay contextmenu.
+    5b42a49  Handle symlinks properly in osxdist.py.
+
+  Thorvald Natvig <thorvald@natvig.com>
+    46e1e60  Update release script to work without a make
+    a0d5920  Add mumble_plugin.h to distribution
+
 2009-03-21
   Mikkel Krautz <mikkel@krautz.dk>
+    e17401d  Require a logout for OSX installer.
+    15e4cb7  Apparently, only hooking CGLFlushDrawable is just fine. This
+	     didn't seem to work first time I checked. :(
     4ebaedd  Reduce OSX overlay logspam.
     2b81e4a  Make contextmenu call `mumble-overlay' to launch apps.
     ae2ffcf  Add 'mumble-overlay' app-launcher to OSX overlay.
@@ -8,6 +23,7 @@
 	     apps with the overlay enabled by right clicking on them.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    5edfee0  Fix a few more odd writing cases for authors
     e0fe5c7  Update changelog script to credit SVN authors properly
     4eb6d7d  New changelog script
     3732dce  Fix WASAPI device selection
