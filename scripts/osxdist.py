@@ -400,6 +400,7 @@ if __name__ == '__main__':
 	d.copy('scripts/simpleregister.php', '/Murmur/')
 	d.copy('scripts/testcallback.py', '/Murmur/')
 	d.copy('scripts/testauth.py', '/Murmur/')
+	d.copy('scripts/addban.php', '/Murmur/')
 	d.copy('scripts/php.ini', '/Murmur/')
 	d.copy('src/murmur/Murmur.ice', '/Murmur/')
 	d.create()
