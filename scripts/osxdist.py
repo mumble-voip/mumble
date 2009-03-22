@@ -162,7 +162,7 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Plugins')
 		if os.path.exists(dst):
 			shutil.rmtree(dst)
-		shutil.copytree('release/plugins/', dst)
+		shutil.copytree('release/plugins/', dst, symlinks=True)
 
 	def copy_qt_plugins(self):
 		'''
@@ -225,7 +225,7 @@ class FolderObject(object):
 
 		if os.path.isdir(asrc):
 			print ' * Copying directory: %s' % os.path.basename(asrc)
-			shutil.copytree(asrc, adst)
+			shutil.copytree(asrc, adst, symlinks=True)
 		elif os.path.isfile(asrc):
 			print ' * Copying file: %s' % os.path.basename(asrc)
 			shutil.copy(asrc, adst)
