@@ -9,3 +9,5 @@ indent.sh
 *.bat
 vc90.pdb
 *~
+*.pb.h
+*.pb.cc
