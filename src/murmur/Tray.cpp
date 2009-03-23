@@ -30,6 +30,7 @@
 
 #include "Tray.h"
 #include "Server.h"
+#include "Meta.h"
 #include "Version.h"
 
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
