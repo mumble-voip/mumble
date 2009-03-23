@@ -671,7 +671,7 @@ bool Server::setPW(int id, const QString &pw) {
 }
 
 bool Server::setEmail(int id, const QString &email) {
-	if (id <= 0)
+	if (id < 0)
 		return false;
 
 	int res = -2;
