@@ -781,23 +781,22 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 
 	unsigned int session = p->uiSession;
 
-	TextMessage tm;
-	tm.setWindowTitle(tr("Sending message to %1").arg(p->qsName));
-	int res = tm.exec();
+	TextMessage *tm = new TextMessage(this);
+	tm->setWindowTitle(tr("Sending message to %1").arg(p->qsName));
+	int res = tm->exec();
 
 	p = ClientPlayer::get(session);
-	if (!p)
-		return;
 
-	if (res==QDialog::Accepted) {
+	if (p && (res==QDialog::Accepted)) {
 		MessageTextMessage mtxt;
 		mtxt.iChannel = -1;
 		mtxt.bTree = false;
 		mtxt.uiVictim = p->uiSession;
-		mtxt.qsMessage = tm.message();
+		mtxt.qsMessage = tm->message();
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(mtxt.qsMessage), tr("Message to %1").arg(p->qsName));
 		g.sh->sendMessage(&mtxt);
 	}
+	delete tm;
 }
 
 void MainWindow::on_qaQuit_triggered() {
