@@ -5,15 +5,25 @@ DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h O
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
 INCLUDEPATH	+= $$PWD
-SOURCES	*= Mumble.pb.cc
+SOURCES		*= Mumble.pb.cc
 PROTOBUF	*= ../Mumble.proto
-LIBS		*= -lprotobuf
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc
 pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
 pb.input = PROTOBUF
-pb.config *= no_link target_predeps
+pb.CONFIG *= no_link
 
+win32 {
+	INCLUDEPATH	*= /dev/protobuf-2.0.3/vsprojects/include
+	CONFIG(debug, debug|release) {
+		LIBPATH *= /dev/protobuf-2.0.3/vsprojects/Debug
+	} else {
+		LIBPATH *= /dev/protobuf-2.0.3/vsprojects/Release
+	}
+	LIBS		*= -llibprotobuf
+} else {
+	LIBS		*= -lprotobuf
+}
 
 QMAKE_EXTRA_COMPILERS *= pb
 
