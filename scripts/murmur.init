@@ -46,10 +46,6 @@ fi
 
 case "$1" in
   start)
-  	if [ "$MURMUR_DAEMON_START" != "1" ] ; then
-  		log_warning_msg "Not starting $DESC $NAME, disabled via /etc/default/$NAME"
-  		exit 0
-  	fi
   	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
 	[ -d $PIDDIR ] || install -o $USER -d $PIDDIR
 	if [ "$MURMUR_USE_CAPABILITIES" != "1" ] ; then
