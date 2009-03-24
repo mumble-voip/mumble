@@ -204,6 +204,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   SetOutPath "$INSTDIR\plugins"
   File /oname=aoc.dll "..\release\plugins\aoc.dll"
   File /oname=bf2.dll "..\release\plugins\bf2.dll"
+  File /oname=bf2142.dll "..\release\plugins\bf2142.dll"
   File /oname=cod2.dll "..\release\plugins\cod2.dll"
   File /oname=cod4.dll "..\release\plugins\cod4.dll"
   File /oname=cod5.dll "..\release\plugins\cod5.dll"
@@ -306,6 +307,7 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
 
   Delete "$INSTDIR\plugins\aoc.dll"
   Delete "$INSTDIR\plugins\bf2.dll"
+  Delete "$INSTDIR\plugins\bf2142.dll"
   Delete "$INSTDIR\plugins\cod2.dll"
   Delete "$INSTDIR\plugins\cod4.dll"
   Delete "$INSTDIR\plugins\cod5.dll"
