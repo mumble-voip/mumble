@@ -33,14 +33,13 @@
 
 void MessageHandler::dispatch(Connection *cCon, int type, const QByteArray &msg) {
 	switch (type) {
-		case MessageHandler::Version:
-			{
+		case MessageHandler::Version: {
 				MumbleProto::Version mpv;
 				mpv.ParseFromArray(msg.constData(), msg.size());
 				msgVersion(cCon, &mpv);
 			}
 			break;
 		default:
-			break;	
-	}			
+			break;
+	}
 }

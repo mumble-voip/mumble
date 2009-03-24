@@ -214,7 +214,7 @@ void Connection::sendMessage(const ::google::protobuf::Message &msg, unsigned in
 		uc[1] = (len >> 16) & 0xFF;
 		uc[2] = (len >> 8) & 0xFF;
 		uc[3] = len & 0xFF;
-		
+
 		msg.SerializeToArray(uc + 4, len);
 	}
 

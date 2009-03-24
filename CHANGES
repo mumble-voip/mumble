@@ -1,3 +1,21 @@
+2009-03-23
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    2fd181a  Make ProtoBuf work on Win32
+    b377df8  Allow Tray to compile without DBus/Ice
+    3a05740  Fix TextMessage when AlwaysOnTop
+    feca72d  Revert "Make init script stop complaining", because it really
+	     should complain.
+    4518e1a  Make init script stop complaining
+    d4d7f36  Allow changing SuperUser email
+    b831cfc  Bump version to 1.2.0
+    1e9c437  Merge branch 'v1.1.x'
+    40884a3  Allow no-dbus to work for mumble
+    0f46c9e  Update gitignore
+    481760c  ProtoBuf for murmur (no DBus/Ice yet)
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    b7a974d  Added BF2142 plugin
+
 2009-03-22
   Mikkel Krautz <mikkel@krautz.dk>
     fc80d64  Add addban.php script to osxdist.
@@ -5,6 +23,10 @@
     629fabc  Be more explicit in postflight script.
     fbd9fa2  Remove dead code from OSX overlay contextmenu.
     5b42a49  Handle symlinks properly in osxdist.py.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    dff9e3a  Make the logrotate fail gracefully if murmur isn't running
+    e710a84  Update indent script
 
   Thorvald Natvig <thorvald@natvig.com>
     46e1e60  Update release script to work without a make
@@ -42,6 +64,7 @@
     f48f816  Updated Spanish translation for 1.1.8
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    a295819  Extended protobuf testing
     0bd7c1c  Workaround for alwaysontop bug
     17537bd  Fix broken output from lupdated, and remove empty 'tr'
 	     translation
@@ -60,6 +83,7 @@
     0d45cd8  minor German translation update (double spaces)
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    14616d7  Add protobuf compiler
     27b7e15  Example of how to use structs from PHP
     027ae42  Start of new protocol
 

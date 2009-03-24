@@ -42,7 +42,7 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 		mute = true;
 	if (! mute)
 		deaf = false;
-		
+
 	MumbleProto::UserState mpus;
 	mpus.set_session(pPlayer->uiSession);
 	if (mute != pPlayer->bMute)
@@ -51,16 +51,16 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 		mpus.set_deaf(deaf);
 	if (suppressed != pPlayer->bSuppressed)
 		mpus.set_suppressed(suppressed);
-		
+
 	pPlayer->bDeaf = deaf;
 	pPlayer->bMute = mute;
 	pPlayer->bSuppressed = suppressed;
-	
+
 	if (cChannel != pPlayer->cChannel) {
 		mpus.set_channel_id(cChannel->iId);
 		playerEnterChannel(pPlayer, cChannel);
 	}
-	
+
 	sendAll(mpus, MessageHandler::UserState);
 	emit playerStateChanged(pPlayer);
 }
@@ -68,10 +68,10 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links) {
 	bool changed = false;
 	bool updated = false;
-	
+
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(cChannel->iId);
-	
+
 	if (cChannel->qsName != qsName) {
 		cChannel->qsName = qsName;
 		mpcs.set_name(u8(qsName));
@@ -89,7 +89,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 
 		cChannel->cParent->removeChannel(cChannel);
 		cParent->addChannel(cChannel);
-		
+
 		mpcs.set_parent(cParent->iId);
 
 		updated = true;

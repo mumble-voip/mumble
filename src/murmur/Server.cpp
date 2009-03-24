@@ -413,7 +413,7 @@ void Server::run() {
 		len -= 4;
 
 		unsigned int msgType = (buffer[0] >> 5) & 0x7;
-		
+
 		if (msgType == MessageHandler::UDPPing) {
 			QByteArray qba;
 			sendMessage(u, buffer, len, qba);
@@ -734,7 +734,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 
 	foreach(p, chan->qlPlayers) {
 		chan->removePlayer(p);
-		
+
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
 		mpus.set_channel_id(dest->iId);
@@ -742,7 +742,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 
 		playerEnterChannel(p, dest);
 	}
-	
+
 	MumbleProto::ChannelRemove mpcr;
 	mpcr.set_channel_id(chan->iId);
 	sendAll(mpcr, MessageHandler::ChannelRemove);

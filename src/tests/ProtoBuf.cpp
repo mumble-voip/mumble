@@ -223,18 +223,18 @@ int main(int argc, char **argv) {
 		u.Clear();
 		u.ParseFromArray(buff, v);
 //		u.DiscardUnknownFields();
-		
+
 //		vector<const google::protobuf::FieldDescriptor *> v;
 //		r->ListFields(u, &v);
 //		printf("%d\n", v.size());
 
-		if (u.has_a() || u.has_b() || u.has_c() || u.has_d() || u.has_e() || u.has_f() || u.has_g() || u.has_h() || u.has_i() || u.has_j() || u.has_k() || u.has_l() || u.has_m() || u.has_n() || u.has_o() || u.has_p() || u.has_q() )
+		if (u.has_a() || u.has_b() || u.has_c() || u.has_d() || u.has_e() || u.has_f() || u.has_g() || u.has_h() || u.has_i() || u.has_j() || u.has_k() || u.has_l() || u.has_m() || u.has_n() || u.has_o() || u.has_p() || u.has_q())
 			continue;
-		
-		
+
+
 		Authenticate *a = u.mutable_z();
 		a->DiscardUnknownFields();
-		
+
 
 		QString qn = QString::fromStdString(a->name());
 		QString qp = QString::fromStdString(a->pw());

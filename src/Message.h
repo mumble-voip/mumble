@@ -62,14 +62,14 @@ class MessageHandler {
 };
 
 inline QString u8(const ::std::string &str) {
-        return QString::fromUtf8(str.data(), str.length());
+	return QString::fromUtf8(str.data(), str.length());
 }
 
 inline ::std::string u8(const QString &str) {
 	const QByteArray &qba = str.toUtf8();
-        return ::std::string(qba.constData(), qba.length());
+	return ::std::string(qba.constData(), qba.length());
 }
-                
+
 #else
 class Message;
 #endif
