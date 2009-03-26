@@ -61,7 +61,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Left 4 Dead (Build 3777)", L"Mumble L4D Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Left 4 Dead (Build 3790)", L"Mumble L4D Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -112,8 +112,8 @@ static int trylock() {
 	if (!h)
 		return false;
 
-	posptr = mod + 0x576240;
-	rotptr = mod + 0x576240 + 24;
+	posptr = mod + 0x5772c0;
+	rotptr = mod + 0x5772c0 + 24;
 
 	float pos[3];
 	float rot[3];
@@ -152,7 +152,7 @@ static int fetch(float *pos, float *front, float *top) {
 
 static MumblePlugin l4dplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Left 4 Dead (Build 3777)",
+	L"Left 4 Dead (Build 3790)",
 	L"Left 4 Dead",
 	about,
 	NULL,
