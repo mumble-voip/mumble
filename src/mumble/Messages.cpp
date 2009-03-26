@@ -50,295 +50,55 @@
 #include "Database.h"
 #include "ViewCert.h"
 
-
-void MainWindow::msgServerJoin(Connection *, MessageServerJoin *msg) {
-	ClientPlayer *p = pmModel->addPlayer(msg->uiSession, msg->qsPlayerName);
-	p->iId = msg->iId;
-	g.l->log(Log::PlayerJoin, MainWindow::tr("Joined server: %1.").arg(p->qsName));
-}
-
-#define MSG_INIT \
-	ClientPlayer *pSrc=ClientPlayer::get(msg->uiSession); \
+#define ACTOR_INIT \
+	ClientPlayer *pSrc=NULL; \
+	if (msg->has_actor()) \
+		pSrc = ClientPlayer::get(msg->actor()); \
 	Q_UNUSED(pSrc);
 
 #define VICTIM_INIT \
-	ClientPlayer *pDst=ClientPlayer::get(msg->uiVictim); \
+	ClientPlayer *pDst=ClientPlayer::get(msg->session()); \
 	 if (! pDst) { \
- 		qWarning("MainWindow: Message for nonexistant victim %d.", msg->uiVictim); \
+ 		qWarning("MainWindow: Message for nonexistant victim %d.", msg->session()); \
 		return; \
 	}
 
-void MainWindow::msgServerLeave(Connection *, MessageServerLeave *msg) {
-	MSG_INIT;
+#define SELF_INIT \
+	ClientPlayer *pSelf = ClientPlayer::get(g.uiSession);
 
-	if (! pSrc)
-		return;
 
-	g.l->log(Log::PlayerLeave, MainWindow::tr("Left server: %1.").arg(pSrc->qsName));
-	pmModel->removePlayer(pSrc);
+void MainWindow::msgAuthenticate(Connection *, MumbleProto::Authenticate *) {
 }
 
-void MainWindow::msgServerBanList(Connection *, MessageServerBanList *msg) {
+void MainWindow::msgBanList(Connection *, MumbleProto::BanList *msg) {
 	if (banEdit) {
 		banEdit->reject();
 		delete banEdit;
 		banEdit = NULL;
 	}
-	banEdit = new BanEditor(msg, this);
+	banEdit = new BanEditor(*msg, this);
 	banEdit->show();
-
 }
 
-void MainWindow::msgSpeex(Connection *, MessageSpeex *) {
-}
-
-void MainWindow::msgPlayerSelfMuteDeaf(Connection *, MessagePlayerSelfMuteDeaf *msg) {
-	MSG_INIT;
-
-	if (! pSrc)
-		return;
-
-	pSrc->setSelfMuteDeaf(msg->bMute, msg->bDeaf);
-
-	if (msg->uiSession == g.uiSession || ! g.uiSession)
-		return;
-	if (pSrc->cChannel != ClientPlayer::get(g.uiSession)->cChannel)
-		return;
-
-	QString name = pSrc->qsName;
-	if (msg->bMute && msg->bDeaf)
-		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted and deafened.").arg(name));
-	else if (msg->bMute)
-		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now muted.").arg(name));
-	else
-		g.l->log(Log::OtherSelfMute, MainWindow::tr("%1 is now unmuted.").arg(name));
-}
-
-void MainWindow::msgPlayerMute(Connection *, MessagePlayerMute *msg) {
-	MSG_INIT;
-	VICTIM_INIT;
-
-	pDst->setMute(msg->bMute);
-
-	if (!g.uiSession || pDst->cChannel != ClientPlayer::get(g.uiSession)->cChannel)
-		return;
-
-	QString vic = pDst->qsName;
-	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
-
-	if (msg->uiVictim == g.uiSession) {
-		g.l->log(Log::YouMuted, msg->bMute ? MainWindow::tr("You were muted by %1.").arg(admin) : MainWindow::tr("You were unmuted by %1.").arg(admin));
-		updateTrayIcon();
-	} else {
-		g.l->log((msg->uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, msg->bMute ? MainWindow::tr("%1 muted by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 unmuted by %2.").arg(vic).arg(admin));
-	}
-}
-
-void MainWindow::msgPlayerDeaf(Connection *, MessagePlayerDeaf *msg) {
-	MSG_INIT;
-	VICTIM_INIT;
-
-	pDst->setDeaf(msg->bDeaf);
-
-	if (!g.uiSession || pDst->cChannel != ClientPlayer::get(g.uiSession)->cChannel)
-		return;
-
-	QString vic = pDst->qsName;
-	QString admin = pSrc ? pSrc->qsName : MainWindow::tr("server");
-
-	if (msg->uiVictim == g.uiSession) {
-		g.l->log(Log::YouMuted, msg->bDeaf ? MainWindow::tr("You were deafened by %1.").arg(admin) : MainWindow::tr("You were undeafened by %1.").arg(admin));
-		updateTrayIcon();
-	} else {
-		g.l->log((msg->uiSession == g.uiSession) ? Log::YouMutedOther : Log::OtherMutedOther, msg->bDeaf ? MainWindow::tr("%1 deafened by %2.").arg(vic).arg(admin) : MainWindow::tr("%1 undeafened by %2.").arg(vic).arg(admin));
-	}
-}
-
-void MainWindow::msgPlayerKick(Connection *, MessagePlayerKick *msg) {
-	MSG_INIT;
-	VICTIM_INIT;
-	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
-
-	if (msg->uiVictim == g.uiSession) {
-		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked from the server by %1: %2.").arg(admin).arg(msg->qsReason));
-		g.l->setIgnore(Log::ServerDisconnected, 1);
-	} else {
-		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((msg->uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(msg->qsReason).arg(pDst->qsName));
-	}
-}
-
-void MainWindow::msgPlayerBan(Connection *, MessagePlayerBan *msg) {
-	MSG_INIT;
-	VICTIM_INIT;
-	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
-	if (msg->uiVictim == g.uiSession) {
-		g.l->log(Log::YouKicked, MainWindow::tr("You were kicked and banned from the server by %1: %2.").arg(admin).arg(msg->qsReason));
-		g.l->setIgnore(Log::ServerDisconnected, 1);
-	} else {
-		g.l->setIgnore(Log::PlayerLeave, 1);
-		g.l->log((msg->uiSession == g.uiSession) ? Log::YouKicked : Log::PlayerKicked, MainWindow::tr("%3 was kicked and banned from the server by %1: %2.").arg(admin).arg(msg->qsReason).arg(pDst->qsName));
-	}
-}
-
-void MainWindow::msgPlayerMove(Connection *, MessagePlayerMove *msg) {
-	MSG_INIT;
-	VICTIM_INIT;
-
-	Channel *c = Channel::get(msg->iChannelId);
-	if (!c) {
-		qWarning("MessagePlayerMove for unknown channel.");
-		c = Channel::get(0);
-	}
-
-	bool log = true;
-	if ((msg->uiVictim == g.uiSession) && (msg->uiSession == msg->uiVictim))
-		log = false;
-	if (g.uiSession == 0)
-		log = false;
-
-	QString pname = pDst->qsName;
-	QString admin = pSrc ? pSrc->qsName : QLatin1String("server");
-
-	Channel *old = pDst->cChannel;
-
-	if (log) {
-		if (g.uiSession == msg->uiVictim) {
-			g.l->log(Log::ChannelJoin, MainWindow::tr("You were moved to %1 by %2.").arg(c->qsName).arg(admin));
-		} else if (pDst->cChannel == ClientPlayer::get(g.uiSession)->cChannel) {
-			if (pDst == pSrc || (!pSrc))
-				g.l->log(Log::ChannelLeave, MainWindow::tr("%1 left channel.").arg(pname));
-			else
-				g.l->log(Log::ChannelLeave, MainWindow::tr("%1 moved out by %2 to %3.").arg(pname).arg(admin).arg(c->qsName));
-		}
-	}
-
-	pmModel->movePlayer(pDst, c);
-
-	if (log && (g.uiSession != msg->uiVictim) && (pDst->cChannel == ClientPlayer::get(g.uiSession)->cChannel)) {
-		if (pDst == pSrc || (!pSrc))
-			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 entered channel.").arg(pname));
-		else
-			g.l->log(Log::ChannelJoin, MainWindow::tr("%1 moved in by %2 from %3.").arg(pname).arg(admin).arg(old->qsName));
-	}
-}
-
-void MainWindow::msgPlayerRename(Connection *, MessagePlayerRename *msg) {
-	MSG_INIT;
-	if (pSrc)
-		pmModel->renamePlayer(pSrc, msg->qsName);
-}
-
-void MainWindow::msgChannelAdd(Connection *, MessageChannelAdd *msg) {
-	if (msg->qsName.isEmpty())
-		return;
-
-	if (msg->iId == 0) {
-		pmModel->renameChannel(Channel::get(0), msg->qsName);
-		return;
-	}
-
-	Channel *p = Channel::get(msg->iParent);
-	if (p)
-		pmModel->addChannel(msg->iId, p, msg->qsName);
-}
-
-void MainWindow::msgChannelRemove(Connection *, MessageChannelRemove *msg) {
-	if (msg->iId == 0)
-		return;
-
-	Channel *c = Channel::get(msg->iId);
-	if (c)
-		pmModel->removeChannel(c);
-}
-
-void MainWindow::msgChannelMove(Connection *, MessageChannelMove *msg) {
-	if (msg->iId == 0)
-		return;
-
-	Channel *c = Channel::get(msg->iId);
-	Channel *p = Channel::get(msg->iParent);
-	if (!c || !p)
-		return;
-
-	Channel *pp = p;
-	while (pp) {
-		if (pp == c)
-			return;
-		pp = pp->cParent;
-	}
-	if (c && p)
-		pmModel->moveChannel(c, p);
-}
-
-void MainWindow::msgChannelRename(Connection *, MessageChannelRename *msg) {
-	if (msg->iId == 0)
-		return;
-
-	Channel *c = Channel::get(msg->iId);
-	if (c && c->cParent)
-		pmModel->renameChannel(c, msg->qsName);
-}
-
-void MainWindow::msgChannelDescUpdate(Connection *, MessageChannelDescUpdate *msg) {
-	Channel *c = Channel::get(msg->iId);
-	if (c) c->qsDesc=msg->qsDesc;
-}
-
-void MainWindow::msgChannelLink(Connection *, MessageChannelLink *msg) {
-	Channel *c = Channel::get(msg->iId);
-	if (!c)
-		return;
-
-	QList<Channel *> qlChans;
-	foreach(int id, msg->qlTargets) {
-		Channel *l = Channel::get(id);
-		if (l)
-			qlChans << l;
-	}
-
-	switch (msg->ltType) {
-		case MessageChannelLink::Link:
-			pmModel->linkChannels(c, qlChans);
-			break;
-		case MessageChannelLink::Unlink:
-			pmModel->unlinkChannels(c, qlChans);
-			break;
-		case MessageChannelLink::UnlinkAll:
-			pmModel->unlinkAll(c);
-			break;
-		default:
-			qFatal("Unknown link message");
-	}
-}
-
-void MainWindow::msgServerAuthenticate(Connection *, MessageServerAuthenticate *) {
-}
-
-void MainWindow::msgServerReject(Connection *, MessageServerReject *msg) {
-	rtLast = msg->rtType;
-	g.l->log(Log::ServerDisconnected, MainWindow::tr("Server connection rejected: %1.").arg(msg->qsReason));
+void MainWindow::msgReject(Connection *, MumbleProto::Reject *msg) {
+	rtLast = msg->type();
+	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(u8(msg->reason())));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
 
-void MainWindow::msgPermissionDenied(Connection *, MessagePermissionDenied *msg) {
-	g.l->log(Log::PermissionDenied, MainWindow::tr("Denied: %1.").arg(msg->qsReason));
-}
-
-void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
-	MSG_INIT;
-	g.iMaxBandwidth = msg->iMaxBandwidth;
-	g.uiSession = msg->uiSession;
+void MainWindow::msgServerSync(Connection *, MumbleProto::ServerSync *msg) {
+	g.iMaxBandwidth = msg->max_bandwidth();
+	g.uiSession = msg->session();
 	g.l->clearIgnore();
-	g.l->log(Log::Information, msg->qsWelcomeText);
+	g.l->log(Log::Information, u8(msg->welcome_text()));
 	pmModel->ensureSelfVisible();
 	pmModel->recheckLinks();
 
 	AudioInputPtr ai = g.ai;
 	if (ai) {
 		int bw = ai->getMaxBandwidth();
-		if (bw > msg->iMaxBandwidth) {
-			g.l->log(Log::Information, MainWindow::tr("Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.").arg(msg->iMaxBandwidth / 125));
+		if (bw > g.iMaxBandwidth) {
+			g.l->log(Log::Information, tr("Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.").arg(g.iMaxBandwidth / 125));
 		}
 		ai->setMaxBandwidth(g.iMaxBandwidth);
 	}
@@ -346,70 +106,279 @@ void MainWindow::msgServerSync(Connection *, MessageServerSync *msg) {
 	findDesiredChannel();
 }
 
-void MainWindow::msgTextMessage(Connection *, MessageTextMessage *msg) {
-	MSG_INIT;
-	const QString &name = pSrc ? pSrc->qsName : tr("Server", "message from");
-	g.l->log(Log::TextMessage, MainWindow::tr("From %1: %2").arg(name).arg(msg->qsMessage),
-	         MainWindow::tr("Message from %1").arg(name));
+void MainWindow::msgPermissionDenied(Connection *, MumbleProto::PermissionDenied *msg) {
+	g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg->reason())));
 }
 
-void MainWindow::msgEditACL(Connection *, MessageEditACL *msg) {
+void MainWindow::msgUDPTunnel(Connection *, MumbleProto::UDPTunnel *) {
+	qWarning("Fudge!");
+}
+
+void MainWindow::msgUserState(Connection *, MumbleProto::UserState *msg) {
+	ACTOR_INIT;
+	SELF_INIT;
+	ClientPlayer *pDst=ClientPlayer::get(msg->session());
+
+	if (! pDst) {
+		if (msg->has_name()) {
+			pDst = pmModel->addPlayer(msg->session(), u8(msg->name()));
+			g.l->log(Log::PlayerJoin, tr("Joined server: %1.").arg(pDst->qsName));
+			msg->clear_name();
+		} else {
+			return;
+		}
+	}
+
+	if (msg->has_self_deaf() || msg->has_self_mute()) {
+		if (msg->has_self_mute())
+			pDst->setSelfMute(msg->self_mute());
+		if (msg->has_self_deaf())
+			pDst->setSelfDeaf(msg->self_deaf());
+
+		if (pSelf && pDst != pSelf && (pDst->cChannel == pSelf->cChannel)) {
+			QString name = pDst->qsName;
+			if (pDst->bSelfMute && pDst->bSelfDeaf)
+				g.l->log(Log::OtherSelfMute, tr("%1 is now muted and deafened.").arg(name));
+			else if (pDst->bSelfMute)
+				g.l->log(Log::OtherSelfMute, tr("%1 is now muted.").arg(name));
+			else
+				g.l->log(Log::OtherSelfMute, tr("%1 is now unmuted.").arg(name));
+		}
+	}
+
+	if (msg->has_deaf() || msg->has_mute()) {
+		if (msg->has_mute())
+			pDst->setMute(msg->mute());
+		if (msg->has_deaf())
+			pDst->setDeaf(msg->deaf());
+
+		if (pSelf && (pDst->cChannel == pSelf->cChannel)) {
+			QString vic = pDst->qsName;
+			QString admin = pSrc ? pSrc->qsName : tr("the server");
+
+			if (pDst == pSelf) {
+				if (pDst->bMute && pDst->bDeaf)
+					g.l->log(Log::YouMuted, tr("You were deafened by %1.").arg(admin));
+				else if (pDst->bMute)
+					g.l->log(Log::YouMuted, tr("You were muted by %1.").arg(admin));
+				else
+					g.l->log(Log::YouMuted, tr("You were unmuted by %1.").arg(admin));
+
+				updateTrayIcon();
+			} else {
+				if (pDst->bMute && pDst->bDeaf)
+					g.l->log(Log::YouMuted, tr("%1 deafened by %2.").arg(vic).arg(admin));
+				else if (pDst->bMute)
+					g.l->log(Log::YouMuted, tr("%1 muted by %2.").arg(vic).arg(admin));
+				else
+					g.l->log(Log::YouMuted, tr("%1 unmuted by %2.").arg(vic).arg(admin));
+			}
+		}
+	}
+
+	if (msg->has_channel_id()) {
+		Channel *c = Channel::get(msg->channel_id());
+		if (!c) {
+			qWarning("MessagePlayerMove for unknown channel.");
+			c = Channel::get(0);
+		}
+
+		Channel *old = pDst->cChannel;
+		if (c != old) {
+			bool log = pSelf && !((pDst == pSelf) && (pSrc == pSelf));
+
+			QString pname = pDst->qsName;
+			QString admin = pSrc ? pSrc->qsName : tr("the server");
+
+			if (log) {
+				if (pDst == pSelf) {
+					g.l->log(Log::ChannelJoin, tr("You were moved to %1 by %2.").arg(c->qsName).arg(admin));
+				} else if (pDst->cChannel == ClientPlayer::get(g.uiSession)->cChannel) {
+					if (pDst == pSrc)
+						g.l->log(Log::ChannelLeave, tr("%1 moved to %2.").arg(pname).arg(c->qsName));
+					else
+						g.l->log(Log::ChannelLeave, tr("%1 moved to %2 by %3.").arg(pname).arg(c->qsName).arg(admin));
+				}
+			}
+
+			pmModel->movePlayer(pDst, c);
+
+
+			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {
+				if (pDst == pSrc)
+					g.l->log(Log::ChannelJoin, tr("%1 entered channel.").arg(pname));
+				else
+					g.l->log(Log::ChannelJoin, tr("%1 moved in from %2 by %3.").arg(pname).arg(old->qsName).arg(admin));
+			}
+		}
+	}
+	if (msg->has_name()) {
+		pmModel->renamePlayer(pDst, u8(msg->name()));
+	}
+}
+
+void MainWindow::msgUserRemove(Connection *, MumbleProto::UserRemove *msg) {
+	VICTIM_INIT;
+	ACTOR_INIT;
+	SELF_INIT;
+
+	QString admin = pSrc ? pSrc->qsName : tr("the server");
+	QString reason = u8(msg->reason());
+
+	if (pDst == pSelf) {
+		if (msg->ban())
+			g.l->log(Log::YouKicked, tr("You were kicked and banned from the server by %1: %2.").arg(admin).arg(reason));
+		else
+			g.l->log(Log::YouKicked, tr("You were kicked from the server by %1: %2.").arg(admin).arg(reason));
+	} else if (pSrc) {
+		if (msg->ban())
+			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::PlayerKicked, tr("%3 was kicked and banned from the server by %1: %2.").arg(admin).arg(reason).arg(pDst->qsName));
+		else
+			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::PlayerKicked, tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(reason).arg(pDst->qsName));
+	} else {
+		g.l->log(Log::PlayerLeave, tr("Left server: %1.").arg(pSrc->qsName));
+	}
+	pmModel->removePlayer(pSrc);
+}
+
+void MainWindow::msgChannelState(Connection *, MumbleProto::ChannelState *msg) {
+	if (! msg->has_channel_id())
+		return;
+
+	Channel *c = Channel::get(msg->channel_id());
+	Channel *p = Channel::get(msg->parent());
+
+	if (!c) {
+		if (msg->has_parent() && p && msg->has_name()) {
+			pmModel->addChannel(msg->channel_id(), p, u8(msg->name()));
+			msg->clear_name();
+			msg->clear_parent();
+			p = NULL;
+		} else {
+			return;
+		}
+	}
+
+	if (p) {
+		Channel *pp = p;
+		while(pp) {
+			if (pp == c)
+				return;
+			pp = pp->cParent;
+		}
+		pmModel->moveChannel(c, p);
+	}
+
+	if (msg->has_name())
+		pmModel->renameChannel(c, u8(msg->name()));
+
+	if (msg->has_description())
+		c->qsDesc = u8(msg->description());
+
+	if (msg->links_size()) {
+		QList<Channel *> ql;
+		pmModel->unlinkAll(c);
+		for(int i=0;i<msg->links_size();++i) {
+			Channel *l = Channel::get(msg->links(i));
+			if (l)
+				ql << l;
+		}
+		if (! ql.isEmpty())
+			pmModel->linkChannels(c, ql);
+	}
+	if (msg->links_remove_size()) {
+		QList<Channel *> ql;
+		for(int i=0;i<msg->links_remove_size();++i) {
+			Channel *l = Channel::get(msg->links_remove(i));
+			if (l)
+				ql << l;
+		}
+		if (! ql.isEmpty())
+			pmModel->unlinkChannels(c, ql);
+	}
+	if (msg->links_add_size()) {
+		QList<Channel *> ql;
+		for(int i=0;i<msg->links_add_size();++i) {
+			Channel *l = Channel::get(msg->links_add(i));
+			if (l)
+				ql << l;
+		}
+		if (! ql.isEmpty())
+			pmModel->linkChannels(c, ql);
+	}
+}
+
+void MainWindow::msgChannelRemove(Connection *, MumbleProto::ChannelRemove *msg) {
+	Channel *c = Channel::get(msg->channel_id());
+	if (c && (c->iId != 0))
+		pmModel->removeChannel(c);
+}
+
+void MainWindow::msgTextMessage(Connection *, MumbleProto::TextMessage *msg) {
+	ACTOR_INIT;
+	const QString &name = pSrc ? pSrc->qsName : tr("the server", "message from");
+	g.l->log(Log::TextMessage, tr("From %1: %2").arg(name).arg(u8(msg->message())),
+	         tr("Message from %1").arg(name));
+}
+
+void MainWindow::msgACL(Connection *, MumbleProto::ACL *msg) {
+	// FIXME: Check if channel exists first.
+
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
 		aclEdit = NULL;
 	}
-	aclEdit = new ACLEditor(msg, this);
+	aclEdit = new ACLEditor(*msg, this);
 	aclEdit->show();
 }
 
-void MainWindow::msgQueryUsers(Connection *, MessageQueryUsers *msg) {
+void MainWindow::msgQueryUsers(Connection *, MumbleProto::QueryUsers *msg) {
 	if (aclEdit)
-		aclEdit->returnQuery(msg);
+		aclEdit->returnQuery(*msg);
 }
 
-void MainWindow::msgPing(Connection *, MessagePing *) {
+void MainWindow::msgPing(Connection *, MumbleProto::Ping *) {
+	// FIXME: Do the logic *here*, since this ping is what matters.
 }
 
-void MainWindow::msgPingStats(Connection *, MessagePingStats *) {
-}
-
-void MainWindow::msgTexture(Connection *, MessageTexture *msg) {
-	if (! msg->qbaTexture.isEmpty())
-		g.o->textureResponse(msg->iPlayerId,msg->qbaTexture);
-}
-
-void MainWindow::msgCryptSetup(Connection *, MessageCryptSetup *msg) {
+void MainWindow::msgCryptSetup(Connection *, MumbleProto::CryptSetup *msg) {
 	ConnectionPtr c= g.sh->cConnection;
 	if (! c)
 		return;
-	c->csCrypt.setKey(reinterpret_cast<const unsigned char *>(msg->qbaKey.constData()), reinterpret_cast<const unsigned char *>(msg->qbaClientNonce.constData()), reinterpret_cast<const unsigned char *>(msg->qbaServerNonce.constData()));
-}
-
-void MainWindow::msgCryptSync(Connection *, MessageCryptSync *msg) {
-	ConnectionPtr c= g.sh->cConnection;
-	if (! c)
-		return;
-	if (msg->qbaNonce.isEmpty()) {
-		msg->qbaNonce = QByteArray(reinterpret_cast<const char *>(c->csCrypt.encrypt_iv), AES_BLOCK_SIZE);
-		g.sh->sendMessage(msg);
-	} else if (msg->qbaNonce.size() == AES_BLOCK_SIZE) {
-		c->csCrypt.uiResync++;
-		memcpy(c->csCrypt.decrypt_iv, msg->qbaNonce.constData(), AES_BLOCK_SIZE);
+	if (msg->has_key() && msg->has_client_nonce() && msg->has_server_nonce()) {
+		const std::string &key = msg->key();
+		const std::string &client_nonce = msg->client_nonce();
+		const std::string &server_nonce = msg->server_nonce();
+		if (key.size() == AES_BLOCK_SIZE && client_nonce.size() == AES_BLOCK_SIZE && server_nonce.size() == AES_BLOCK_SIZE)
+			c->csCrypt.setKey(reinterpret_cast<const unsigned char *>(key.data()), reinterpret_cast<const unsigned char *>(client_nonce.data()), reinterpret_cast<const unsigned char *>(server_nonce.data()));
+	} else if (msg->has_server_nonce()) {
+		const std::string &server_nonce = msg->server_nonce();
+		if (server_nonce.size() == AES_BLOCK_SIZE) {
+			c->csCrypt.uiResync++;
+			memcpy(c->csCrypt.decrypt_iv, server_nonce.data(), AES_BLOCK_SIZE);
+		}
+	} else {
+		msg->set_client_nonce(std::string(reinterpret_cast<const char *>(c->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
+		g.sh->sendMessage(*msg);
 	}
 }
 
-void MainWindow::msgContextAction(Connection *, MessageContextAction *) {
+void MainWindow::msgContextAction(Connection *, MumbleProto::ContextAction *) {
 }
 
-void MainWindow::msgContextAddAction(Connection *, MessageContextAddAction *msg) {
-	QAction *a = new QAction(msg->qsText, g.mw);
-	a->setData(msg->qsAction);
+void MainWindow::msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd *msg) {
+	QAction *a = new QAction(u8(msg->text()), g.mw);
+	a->setData(u8(msg->action()));
 	connect(a, SIGNAL(triggered()), this, SLOT(context_triggered()));
-	if (msg->ctx & MessageContextAddAction::CtxServer)
+	unsigned int ctx = msg->context();
+	if (ctx & MumbleProto::ContextActionAdd_Context_Server)
 		qlServerActions.append(a);
-	if (msg->ctx & MessageContextAddAction::CtxPlayer)
+	if (ctx & MumbleProto::ContextActionAdd_Context_User)
 		qlPlayerActions.append(a);
-	if (msg->ctx & MessageContextAddAction::CtxChannel)
+	if (ctx & MumbleProto::ContextActionAdd_Context_Channel)
 		qlChannelActions.append(a);
+}
+
+void MainWindow::msgVersion(Connection *, MumbleProto::Version *) {
 }

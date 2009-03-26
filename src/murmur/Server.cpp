@@ -650,7 +650,7 @@ void Server::message(const QByteArray &qbaMsg, unsigned int msgType, Connection 
 	if (cCon == NULL) {
 		cCon = static_cast<Connection *>(sender());
 	}
-	dispatch(cCon, msgType, qbaMsg);
+	dispatch(cCon, qbaMsg);
 }
 
 void Server::checkTimeout() {

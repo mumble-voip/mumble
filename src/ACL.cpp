@@ -33,14 +33,16 @@
 #include "Group.h"
 #include "Player.h"
 
-ChanACL::ChanACL(Channel *chan) {
+ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 	bApplyHere = true;
 	bApplySubs = true;
+	bInherited = false;
 
 	iPlayerId = -1;
 
 	c = chan;
-	c->qlACL << this;
+	if (c)
+		c->qlACL << this;
 }
 
 // Check permissions.

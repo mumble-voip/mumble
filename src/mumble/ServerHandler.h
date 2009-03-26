@@ -35,7 +35,8 @@
 
 #include "mumble_pch.hpp"
 #include "Timer.h"
-
+#include "Message.h"
+#include "PacketDataStream.h"
 
 class Connection;
 class Message;
@@ -80,14 +81,21 @@ class ServerHandler : public QThread {
 		void setConnectionInfo(const QString &host, unsigned short port, const QString &username, const QString &pw);
 		void getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw);
 		void customEvent(QEvent *evt);
-		void sendMessage(Message *m);
+
+		void sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendMessage(const char *data, int len);
+
+#define MUMBLE_MH_MSG(x) void sendMessage(const MumbleProto::##x &msg) { sendMessage(msg, MessageHandler::##x); }
+		MUMBLE_MH_ALL
+#undef MUMBLE_MH_MSG
+
 		void disconnect();
 		void run();
 	signals:
 		void disconnected(QString reason);
 		void connected();
 	protected slots:
-		void message(QByteArray &);
+		void message(unsigned int, QByteArray &);
 		void serverConnectionConnected();
 		void serverConnectionClosed(QString);
 		void setSslErrors(const QList<QSslError> &);

@@ -147,9 +147,9 @@ message CryptSetup {
 
 message ContextActionAdd {
 	enum Context {
-		CtxServer = 0x01;
-		CtxChannel = 0x02;
-		CtxUser = 0x04;
+		Server = 0x01;
+		Channel = 0x02;
+		User = 0x04;
 	}
 	required string action = 1;
 	required string text = 2;

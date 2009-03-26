@@ -128,27 +128,32 @@ void ServerHandler::udpReady() {
 		if (! cConnection->csCrypt.isValid())
 			continue;
 
+		if (buflen < 5)
+			continue;
+
 		if (! cConnection->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypted), reinterpret_cast<unsigned char *>(buffer), buflen)) {
 			if (cConnection->csCrypt.tLastGood.elapsed() > 5000000ULL) {
 				if (cConnection->csCrypt.tLastRequest.elapsed() > 5000000ULL) {
 					cConnection->csCrypt.tLastRequest.restart();
-					MessageCryptSync mcs;
-					sendMessage(&mcs);
+					MumbleProto::CryptSetup mpcs;
+					sendMessage(mpcs);
 				}
 			}
 			continue;
 		}
 
-		PacketDataStream pds(buffer, buflen-4);
+		PacketDataStream pds(buffer + 1, buflen-5);
 
-		quint32 msgType, uiSession;
-		pds >> msgType >> uiSession;
+		quint32 msgType;
+		pds >> msgType;
 
-		if (msgType == Message::Ping) {
+		if (msgType == MessageHandler::UDPPing) {
 			quint64 t;
 			pds >> t;
 			Connection::updatePing(cConnection->dUDPPingAvg, cConnection->dUDPPingVar, cConnection->uiUDPPackets, tTimestamp.elapsed() - t);
-		} else if (msgType == Message::Speex) {
+		} else if (msgType == MessageHandler::UDPVoice) {
+			unsigned int uiSession;
+			pds >> uiSession;
 			ClientPlayer *p = ClientPlayer::get(uiSession);
 			AudioOutputPtr ao = g.ao;
 			if (ao) {
@@ -167,28 +172,33 @@ void ServerHandler::udpReady() {
 	}
 }
 
-void ServerHandler::sendMessage(Message *mMsg) {
-	bool mayUdp = (mMsg->messageType() == Message::Speex) || (mMsg->messageType() == Message::Ping);
-	mMsg->uiSession = g.uiSession;
+void ServerHandler::sendMessage(const char *data, int len) {
+	STACKVAR(unsigned char, crypto, len+4);
 
-	if (mayUdp && !NetworkConfig::TcpModeEnabled()) {
-		QMutexLocker qml(&qmUdp);
-		if (! qusUdp)
-			return;
-		if (! cConnection->csCrypt.isValid())
-			return;
-		unsigned char buffer[65536];
-		unsigned char crypto[65540];
-		PacketDataStream pds(buffer, 65536);
-		mMsg->messageToNetwork(pds);
-		cConnection->csCrypt.encrypt(buffer, crypto, pds.size());
-		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), pds.size() + 4, qhaRemote, usPort);
+	QMutexLocker qml(&qmUdp);
+
+	if (! qusUdp)
+		return;
+	if (! cConnection->csCrypt.isValid())
+		return;
+
+	if (NetworkConfig::TcpModeEnabled()) {
+		// FIXME: Tunnel
 	} else {
-		QByteArray qbaBuffer;
-		mMsg->messageToNetwork(qbaBuffer);
+		cConnection->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), crypto, len);
+		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), len + 4, qhaRemote, usPort);
+	}
+}
 
-		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, mayUdp);
+void ServerHandler::sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType) {
+	QByteArray qba;
+
+	if (QThread::currentThread() != thread()) {
+		MessageHandler::messageToNetwork(msg, msgType, qba);
+		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qba, false);
 		QApplication::postEvent(this, shme);
+	} else {
+		cConnection->sendMessage(msg, msgType, qba);
 	}
 }
 
@@ -209,7 +219,7 @@ void ServerHandler::run() {
 	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
 	ticker->start(5000);
 
-	g.mw->rtLast = MessageServerReject::None;
+	g.mw->rtLast = MumbleProto::Reject_RejectType_None;
 
 	exec();
 
@@ -242,65 +252,39 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 
 void ServerHandler::sendPing() {
 	CryptState &cs = cConnection->csCrypt;
-	MessagePingStats mps;
-	mps.uiTimestamp = tTimestamp.elapsed();
-	mps.uiGood = cs.uiGood;
-	mps.uiLate = cs.uiLate;
-	mps.uiLost = cs.uiLost;
-	mps.uiResync = cs.uiResync;
-	mps.dUDPPingAvg = cConnection->dUDPPingAvg;
-	mps.dUDPPingVar = cConnection->dUDPPingVar;
-	mps.dTCPPingAvg = cConnection->dTCPPingAvg;
-	mps.dTCPPingVar = cConnection->dTCPPingVar;
-	sendMessage(&mps);
 
-	if (!NetworkConfig::TcpModeEnabled()) {
-		MessagePing mp;
-		mp.uiTimestamp = mps.uiTimestamp;
-		sendMessage(&mp);
+	quint64 t = tTimestamp.elapsed();
+
+	if (qusUdp) {
+		unsigned char buffer[256];
+		PacketDataStream pds(buffer + 1, 255);
+		buffer[0] = MessageHandler::UDPPing << 5;
+		pds << t;
+		sendMessage(reinterpret_cast<const char *>(buffer), pds.size() + 1);
 	}
+
+	MumbleProto::Ping mpp;
+
+	mpp.set_timestamp(t);
+	mpp.set_good(cs.uiGood);
+	mpp.set_late(cs.uiLate);
+	mpp.set_lost(cs.uiLost);
+	mpp.set_resync(cs.uiResync);
+
+	mpp.set_udp_ping_avg(cConnection->dUDPPingAvg);
+	mpp.set_udp_ping_var(cConnection->dUDPPingVar);
+	mpp.set_tcp_ping_avg(cConnection->dTCPPingAvg);
+	mpp.set_tcp_ping_var(cConnection->dTCPPingVar);
+	sendMessage(mpp);
 }
 
-void ServerHandler::message(QByteArray &qbaMsg) {
-	Message *mMsg = Message::networkToMessage(qbaMsg);
-	if (! mMsg)
-		return;
+void ServerHandler::message(unsigned int msgType, QByteArray &qbaMsg) {
+	// FIXME: Special-case UDP tunnel, don't throw it to GUI thread!
+	// FIXME: UserRemove needs to clear out stale AudioOutput
+	// FIXME: Do something about the msgType, please :)
 
-	ClientPlayer *p = ClientPlayer::get(mMsg->uiSession);
-	AudioOutputPtr ao = g.ao;
-
-	if (mMsg->messageType() == Message::Speex) {
-		if (ao) {
-			if (p) {
-				MessageSpeex *msMsg=static_cast<MessageSpeex *>(mMsg);
-				if (! p->bLocalMute)
-					ao->addFrameToBuffer(p, msMsg->qbaSpeexPacket, msMsg->iSeq);
-			} else {
-				// Eek, we just got a late packet for a player already removed. Remove
-				// the buffer and pretend this never happened.
-				// If ~AudioOutputPlayer or decendants uses the Player object now,
-				// Bad Things happen.
-				ao->removeBuffer(p);
-			}
-		}
-	} else if (mMsg->messageType() == Message::PingStats) {
-		MessagePingStats *mpsMsg = static_cast<MessagePingStats *>(mMsg);
-		CryptState &cs = cConnection->csCrypt;
-		cs.uiRemoteGood = mpsMsg->uiGood;
-		cs.uiRemoteLate = mpsMsg->uiLate;
-		cs.uiRemoteLost = mpsMsg->uiLost;
-		cs.uiRemoteResync = mpsMsg->uiResync;
-		Connection::updatePing(cConnection->dTCPPingAvg, cConnection->dTCPPingVar, cConnection->uiTCPPackets, tTimestamp.elapsed() - mpsMsg->uiTimestamp);
-	} else {
-		if (mMsg->messageType() == Message::ServerLeave) {
-			if (ao)
-				ao->removeBuffer(p);
-		}
-		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, false);
-		QApplication::postEvent(g.mw, shme);
-	}
-
-	delete mMsg;
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, false);
+	QApplication::postEvent(g.mw, shme);
 }
 
 void ServerHandler::disconnect() {
@@ -324,11 +308,13 @@ void ServerHandler::serverConnectionConnected() {
 
 	cConnection->setToS();
 
-	MessageServerAuthenticate msaMsg;
-	msaMsg.qsUsername = qsUserName;
-	msaMsg.qsPassword = qsPassword;
+	MumbleProto::Authenticate mpa;
+	mpa.set_username(u8(qsUserName));
+	mpa.set_password(u8(qsPassword));
+	// FIXME: Check config -- make some way to reset this "on the fly"
+	mpa.set_want_textures(true);
 
-	cConnection->sendMessage(&msaMsg);
+	sendMessage(mpa);
 
 	{
 		QMutexLocker qml(&qmUdp);

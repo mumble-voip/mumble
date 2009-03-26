@@ -90,7 +90,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
 
-		MessageServerReject::RejectType rtLast;
+		MumbleProto::Reject_RejectType rtLast;
 		QString qsDesiredChannel;
 
 		void recheckTTS();
@@ -178,37 +178,24 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		~MainWindow();
 
 		// From msgHandler. Implementation in Messages.cpp
-		virtual void msgSpeex(Connection *, MessageSpeex *);
-		virtual void msgServerAuthenticate(Connection *, MessageServerAuthenticate *);
-		virtual void msgPing(Connection *, MessagePing *);
-		virtual void msgPingStats(Connection *, MessagePingStats *);
-		virtual void msgServerReject(Connection *, MessageServerReject *);
-		virtual void msgServerSync(Connection *, MessageServerSync *);
-		virtual void msgServerJoin(Connection *, MessageServerJoin *);
-		virtual void msgServerLeave(Connection *, MessageServerLeave *);
-		virtual void msgPlayerMute(Connection *, MessagePlayerMute *);
-		virtual void msgPlayerDeaf(Connection *, MessagePlayerDeaf *);
-		virtual void msgPlayerSelfMuteDeaf(Connection *, MessagePlayerSelfMuteDeaf *);
-		virtual void msgPlayerKick(Connection *, MessagePlayerKick *);
-		virtual void msgPlayerBan(Connection *, MessagePlayerBan *);
-		virtual void msgPlayerMove(Connection *, MessagePlayerMove *);
-		virtual void msgPlayerRename(Connection *, MessagePlayerRename *);
-		virtual void msgChannelAdd(Connection *, MessageChannelAdd *);
-		virtual void msgChannelRemove(Connection *, MessageChannelRemove *);
-		virtual void msgChannelMove(Connection *, MessageChannelMove *);
-		virtual void msgChannelLink(Connection *, MessageChannelLink *);
-		virtual void msgChannelRename(Connection *, MessageChannelRename *);
-		virtual void msgChannelDescUpdate(Connection *, MessageChannelDescUpdate *);
-		virtual void msgServerBanList(Connection *, MessageServerBanList *);
-		virtual void msgTextMessage(Connection *, MessageTextMessage *);
-		virtual void msgPermissionDenied(Connection *, MessagePermissionDenied *);
-		virtual void msgEditACL(Connection *, MessageEditACL *);
-		virtual void msgQueryUsers(Connection *, MessageQueryUsers *);
-		virtual void msgTexture(Connection *, MessageTexture *);
-		virtual void msgCryptSetup(Connection *, MessageCryptSetup *);
-		virtual void msgCryptSync(Connection *, MessageCryptSync *);
-		virtual void msgContextAddAction(Connection *, MessageContextAddAction *);
-		virtual void msgContextAction(Connection *, MessageContextAction *);
+		virtual void msgVersion(Connection *, MumbleProto::Version *);
+		virtual void msgUDPTunnel(Connection *, MumbleProto::UDPTunnel *);
+		virtual void msgAuthenticate(Connection *, MumbleProto::Authenticate *);
+		virtual void msgPing(Connection *, MumbleProto::Ping *);
+		virtual void msgReject(Connection *, MumbleProto::Reject *);
+		virtual void msgServerSync(Connection *, MumbleProto::ServerSync *);
+		virtual void msgChannelRemove(Connection *, MumbleProto::ChannelRemove *);
+		virtual void msgChannelState(Connection *, MumbleProto::ChannelState *);
+		virtual void msgUserRemove(Connection *, MumbleProto::UserRemove *);
+		virtual void msgUserState(Connection *, MumbleProto::UserState *);
+		virtual void msgBanList(Connection *, MumbleProto::BanList *);
+		virtual void msgTextMessage(Connection *, MumbleProto::TextMessage *);
+		virtual void msgPermissionDenied(Connection *, MumbleProto::PermissionDenied *);
+		virtual void msgACL(Connection *, MumbleProto::ACL *);
+		virtual void msgQueryUsers(Connection *, MumbleProto::QueryUsers *);
+		virtual void msgCryptSetup(Connection *, MumbleProto::CryptSetup *);
+		virtual void msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd *);
+		virtual void msgContextAction(Connection *, MumbleProto::ContextAction *);
 };
 
 #else

@@ -34,30 +34,42 @@
 #include "Connection.h"
 #include "Mumble.pb.h"
 
+#define MUMBLE_MH_ALL \
+	MUMBLE_MH_MSG(Version) \
+	MUMBLE_MH_MSG(UDPTunnel) \
+	MUMBLE_MH_MSG(Authenticate) \
+	MUMBLE_MH_MSG(Ping) \
+	MUMBLE_MH_MSG(Reject) \
+	MUMBLE_MH_MSG(ServerSync) \
+	MUMBLE_MH_MSG(ChannelRemove) \
+	MUMBLE_MH_MSG(ChannelState) \
+	MUMBLE_MH_MSG(UserRemove) \
+	MUMBLE_MH_MSG(UserState) \
+	MUMBLE_MH_MSG(BanList) \
+	MUMBLE_MH_MSG(TextMessage) \
+	MUMBLE_MH_MSG(PermissionDenied) \
+	MUMBLE_MH_MSG(ACL) \
+	MUMBLE_MH_MSG(QueryUsers) \
+	MUMBLE_MH_MSG(CryptSetup) \
+	MUMBLE_MH_MSG(ContextActionAdd) \
+	MUMBLE_MH_MSG(ContextAction)
+
 class MessageHandler {
 	public:
 		enum UDPMessageType { UDPVoice, UDPPing };
-		enum MessageType { Version, UDPTunnel, Authenticate, Ping, Reject, ServerSync, ChannelRemove, ChannelState, UserRemove, UserState, BanList, TextMessage, PermissionDenied, ACL, QueryUsers, CryptSetup, ContextActionAdd, ContextAction };
+
+#define MUMBLE_MH_MSG(x) x,
+		enum MessageType {
+		MUMBLE_MH_ALL
+		};
+#undef MUMBLE_MH_MSG
+		static void messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);
+
 	protected:
-		virtual void msgVersion(Connection *, MumbleProto::Version *) = 0;
-		virtual void msgUDPTunnel(Connection *, MumbleProto::UDPTunnel *) = 0;
-		virtual void msgAuthenticate(Connection *, MumbleProto::Authenticate *) = 0;
-		virtual void msgPing(Connection *, MumbleProto::Ping *) = 0;
-		virtual void msgReject(Connection *, MumbleProto::Reject *) = 0;
-		virtual void msgServerSync(Connection *, MumbleProto::ServerSync *) = 0;
-		virtual void msgChannelRemove(Connection *, MumbleProto::ChannelRemove *) = 0;
-		virtual void msgChannelState(Connection *, MumbleProto::ChannelState *) = 0;
-		virtual void msgUserRemove(Connection *, MumbleProto::UserRemove *) = 0;
-		virtual void msgUserState(Connection *, MumbleProto::UserState *) = 0;
-		virtual void msgBanList(Connection *, MumbleProto::BanList *) = 0;
-		virtual void msgTextMessage(Connection *, MumbleProto::TextMessage *) = 0;
-		virtual void msgPermissionDenied(Connection *, MumbleProto::PermissionDenied *) = 0;
-		virtual void msgACL(Connection *, MumbleProto::ACL *) = 0;
-		virtual void msgQueryUsers(Connection *, MumbleProto::QueryUsers *) = 0;
-		virtual void msgCryptSetup(Connection *, MumbleProto::CryptSetup *) = 0;
-		virtual void msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd *) = 0;
-		virtual void msgContextAction(Connection *, MumbleProto::ContextAction *) = 0;
-		void dispatch(Connection *, int type, const QByteArray &);
+#define MUMBLE_MH_MSG(x) virtual void msg##x(Connection *, MumbleProto::##x *) = 0;
+		MUMBLE_MH_ALL
+#undef MUMBLE_MH_MSG
+		void dispatch(Connection *, const QByteArray &);
 		virtual ~MessageHandler() { };
 };
 

@@ -719,31 +719,23 @@ void AudioInput::flushCheck() {
 		return;
 
 	int flags = 0;
-	if (g.iAltSpeak > 0)
-		flags += MessageSpeex::AltSpeak;
 	if (g.s.lmLoopMode == Settings::Server)
-		flags += MessageSpeex::LoopBack;
-
-	if (! bPreviousVoice)
-		flags += MessageSpeex::EndSpeech;
-
-	flags += (iFrames - 1) << 4;
+		flags = 0x1f;
+	else if (g.iAltSpeak > 0)
+		flags = 1;
 
 	int len = speex_bits_nbytes(&sbBits);
-	QByteArray qba(len + 1, 0);
-	qba[0] = static_cast<unsigned char>(flags);
+	STACKVAR(char, data, len+1);
+	data[0] = static_cast<unsigned char>(flags);
 
-	speex_bits_write(&sbBits, qba.data() + 1, len);
+	speex_bits_write(&sbBits, data + 1, len);
 
-	MessageSpeex msPacket;
-	msPacket.qbaSpeexPacket = qba;
-	msPacket.iSeq = iFrameCounter;
+	// TODO: Loopback
+	//if (g.s.lmLoopMode == Settings::Local) {
+	//	LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
 
-	if (g.s.lmLoopMode == Settings::Local) {
-		LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
-	} else if (g.sh) {
-		g.sh->sendMessage(&msPacket);
-	}
+	if (g.sh)
+		g.sh->sendMessage(data, len + 1);
 
 	iFrames = 0;
 	speex_bits_reset(&sbBits);

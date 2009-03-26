@@ -763,6 +763,7 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 				foreach(int id, pg->members())
 					group->add_inherited_members(id);
 		}
+		// TODO: Send QueryUsers with it.
 		sendMessage(uSource, *msg, MessageHandler::ACL);
 	} else {
 		Group *g;

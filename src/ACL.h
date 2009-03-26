@@ -65,6 +65,8 @@ class ChanACL : public QObject {
 		bool bApplyHere;
 		bool bApplySubs;
 
+		bool bInherited;
+
 		int iPlayerId;
 		QString qsGroup;
 		Permissions pAllow;

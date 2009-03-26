@@ -979,10 +979,10 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 	expandAll(c);
 
 	if (! isChannel) {
-		MessagePlayerMove mpm;
-		mpm.uiVictim = uiSession;
-		mpm.iChannelId = c->iId;
-		g.sh->sendMessage(&mpm);
+		MumbleProto::UserState mpus;
+		mpus.set_session(uiSession);
+		mpus.set_channel_id(c->iId);
+		g.sh->sendMessage(mpus, MessageHandler::UserState);
 	} else {
 		int ret;
 		switch (g.s.ceChannelDrag) {
@@ -1002,10 +1002,10 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 				g.l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in PlayerModel::dropMimeData."));
 				break;
 		}
-		MessageChannelMove mcm;
-		mcm.iId = iId;
-		mcm.iParent = c->iId;
-		g.sh->sendMessage(&mcm);
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_channel_id(iId);
+		mpcs.set_parent(c->iId);
+		g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
 	}
 
 	return true;

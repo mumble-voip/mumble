@@ -383,10 +383,10 @@ void MainWindow::on_qtvPlayers_doubleClicked(const QModelIndex &idx) {
 	Channel *c = pmModel->getChannel(idx);
 	if (!c)
 		return;
-	MessagePlayerMove mpm;
-	mpm.uiVictim = g.uiSession;
-	mpm.iChannelId = c->iId;
-	g.sh->sendMessage(&mpm);
+	MumbleProto::UserState mpus;
+	mpus.set_session(g.uiSession);
+	mpus.set_channel_id(c->iId);
+	g.sh->sendMessage(mpus, MessageHandler::UserState);
 }
 
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
@@ -440,7 +440,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		g.sh->wait();
 	}
 
-	rtLast = MessageServerReject::None;
+	rtLast = MumbleProto::Reject_RejectType_None;
 	qaServerDisconnect->setEnabled(true);
 	g.sh->setConnectionInfo(host, port, user, pw);
 	g.sh->start(QThread::TimeCriticalPriority);
@@ -469,10 +469,10 @@ void MainWindow::findDesiredChannel() {
 		}
 	}
 	if (found && (chan != ClientPlayer::get(g.uiSession)->cChannel)) {
-		MessagePlayerMove mpm;
-		mpm.uiVictim = g.uiSession;
-		mpm.iChannelId = chan->iId;
-		g.sh->sendMessage(&mpm);
+		MumbleProto::UserState mpus;
+		mpus.set_session(g.uiSession);
+		mpus.set_channel_id(chan->iId);
+		g.sh->sendMessage(mpus, MessageHandler::UserState);
 	}
 }
 
@@ -554,7 +554,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 
 	if (res == QDialog::Accepted) {
 		qsDesiredChannel = QString();
-		rtLast = MessageServerReject::None;
+		rtLast = MumbleProto::Reject_RejectType_None;
 		qaServerDisconnect->setEnabled(true);
 		g.sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
@@ -594,9 +594,9 @@ void MainWindow::on_qaServerDisconnect_triggered() {
 }
 
 void MainWindow::on_qaServerBanList_triggered() {
-	MessageServerBanList msbl;
-	msbl.bQuery = true;
-	g.sh->sendMessage(&msbl);
+	MumbleProto::BanList mpbl;
+	mpbl.set_query(true);
+	g.sh->sendMessage(mpbl, MessageHandler::BanList);
 
 	if (banEdit) {
 		banEdit->reject();
@@ -705,10 +705,10 @@ void MainWindow::on_qaPlayerMute_triggered() {
 	if (!p)
 		return;
 
-	MessagePlayerMute mpmMsg;
-	mpmMsg.uiVictim = p->uiSession;
-	mpmMsg.bMute = ! p->bMute;
-	g.sh->sendMessage(&mpmMsg);
+	MumbleProto::UserState mpus;
+	mpus.set_session(p->uiSession);
+	mpus.set_mute(! p->bMute);
+	g.sh->sendMessage(mpus, MessageHandler::UserState);
 }
 
 void MainWindow::on_qaPlayerLocalMute_triggered() {
@@ -724,10 +724,10 @@ void MainWindow::on_qaPlayerDeaf_triggered() {
 	if (!p)
 		return;
 
-	MessagePlayerDeaf mpdMsg;
-	mpdMsg.uiVictim = p->uiSession;
-	mpdMsg.bDeaf = ! p->bDeaf;
-	g.sh->sendMessage(&mpdMsg);
+	MumbleProto::UserState mpus;
+	mpus.set_session(p->uiSession);
+	mpus.set_deaf(! p->bDeaf);
+	g.sh->sendMessage(mpus, MessageHandler::UserState);
 }
 
 void MainWindow::on_qaPlayerKick_triggered() {
@@ -745,10 +745,10 @@ void MainWindow::on_qaPlayerKick_triggered() {
 		return;
 
 	if (ok) {
-		MessagePlayerKick mpkMsg;
-		mpkMsg.uiVictim=p->uiSession;
-		mpkMsg.qsReason = reason;
-		g.sh->sendMessage(&mpkMsg);
+		MumbleProto::UserRemove mpur;
+		mpur.set_session(p->uiSession);
+		mpur.set_reason(u8(reason));
+		g.sh->sendMessage(mpur, MessageHandler::UserRemove);
 	}
 }
 
@@ -766,10 +766,11 @@ void MainWindow::on_qaPlayerBan_triggered() {
 		return;
 
 	if (ok) {
-		MessagePlayerBan mpbMsg;
-		mpbMsg.uiVictim=p->uiSession;
-		mpbMsg.qsReason = reason;
-		g.sh->sendMessage(&mpbMsg);
+		MumbleProto::UserRemove mpur;
+		mpur.set_session(p->uiSession);
+		mpur.set_reason(u8(reason));
+		mpur.set_ban(true);
+		g.sh->sendMessage(mpur, MessageHandler::UserRemove);
 	}
 }
 
@@ -781,22 +782,20 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 
 	unsigned int session = p->uiSession;
 
-	TextMessage *tm = new TextMessage(this);
-	tm->setWindowTitle(tr("Sending message to %1").arg(p->qsName));
-	int res = tm->exec();
+	::TextMessage *texm = new ::TextMessage(this);
+	texm->setWindowTitle(tr("Sending message to %1").arg(p->qsName));
+	int res = texm->exec();
 
 	p = ClientPlayer::get(session);
 
 	if (p && (res==QDialog::Accepted)) {
-		MessageTextMessage mtxt;
-		mtxt.iChannel = -1;
-		mtxt.bTree = false;
-		mtxt.uiVictim = p->uiSession;
-		mtxt.qsMessage = tm->message();
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(mtxt.qsMessage), tr("Message to %1").arg(p->qsName));
-		g.sh->sendMessage(&mtxt);
+		MumbleProto::TextMessage mptm;
+		mptm.add_session(p->uiSession);
+		mptm.set_message(u8(texm->message()));
+		g.sh->sendMessage(mptm, MessageHandler::TextMessage);
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(texm->message()), tr("Message to %1").arg(p->qsName));
 	}
-	delete tm;
+	delete texm;
 }
 
 void MainWindow::on_qaQuit_triggered() {
@@ -896,10 +895,10 @@ void MainWindow::on_qaChannelAdd_triggered() {
 		return;
 
 	if (ok) {
-		MessageChannelAdd mca;
-		mca.qsName = name;
-		mca.iParent = iParent;
-		g.sh->sendMessage(&mca);
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_name(u8(name));
+		mpcs.set_parent(iParent);
+		g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
 	}
 }
 
@@ -918,9 +917,9 @@ void MainWindow::on_qaChannelRemove_triggered() {
 		return;
 
 	if (ret == QMessageBox::Yes) {
-		MessageChannelRemove mcr;
-		mcr.iId = c->iId;
-		g.sh->sendMessage(&mcr);
+		MumbleProto::ChannelRemove mpcr;
+		mpcr.set_channel_id(c->iId);
+		g.sh->sendMessage(mpcr, MessageHandler::ChannelRemove);
 	}
 }
 
@@ -939,10 +938,10 @@ void MainWindow::on_qaChannelRename_triggered() {
 		return;
 
 	if (ok) {
-		MessageChannelRename mcr;
-		mcr.iId = id;
-		mcr.qsName = name;
-		g.sh->sendMessage(&mcr);
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_channel_id(id);
+		mpcs.set_name(u8(name));
+		g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
 	}
 }
 
@@ -953,34 +952,34 @@ void MainWindow::on_qaChannelDescUpdate_triggered() {
 
 	int id = c->iId;
 
-	TextMessage tm;
-	tm.setWindowTitle(tr("Change description of channel %1").arg(c->qsName));
+	::TextMessage *texm = new ::TextMessage(this);
+	texm->setWindowTitle(tr("Change description of channel %1").arg(c->qsName));
 
 	const QString html = QTextDocumentFragment::fromPlainText(c->qsDesc).toHtml();
 
-	tm.qteEdit->setText(html);
-	int res = tm.exec();
+	texm->qteEdit->setText(html);
+	int res = texm->exec();
 
 	c = Channel::get(id);
-	if (!c)
-		return;
 
-	if (res==QDialog::Accepted) {
-		MessageChannelDescUpdate mcdu;
-		mcdu.iId = id;
-		mcdu.qsDesc = tm.message();
-		g.sh->sendMessage(&mcdu);
+	if (c && (res==QDialog::Accepted)) {
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_channel_id(id);
+		mpcs.set_description(u8(texm->message()));
+		g.sh->sendMessage(mpcs);
 	}
+	delete texm;
 }
 
 void MainWindow::on_qaChannelACL_triggered() {
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	int id = c ? c->iId : 0;
 
-	MessageEditACL mea;
-	mea.iId = id;
-	mea.bQuery = true;
-	g.sh->sendMessage(&mea);
+	MumbleProto::ACL mpacl;
+	mpacl.set_channel_id(id);
+	mpacl.set_query(true);
+
+	g.sh->sendMessage(mpacl);
 
 	if (aclEdit) {
 		aclEdit->reject();
@@ -995,11 +994,10 @@ void MainWindow::on_qaChannelLink_triggered() {
 	if (! l)
 		l = Channel::get(0);
 
-	MessageChannelLink mcl;
-	mcl.iId = c->iId;
-	mcl.qlTargets << l->iId;
-	mcl.ltType = MessageChannelLink::Link;
-	g.sh->sendMessage(&mcl);
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(c->iId);
+	mpcs.add_links_add(l->iId);
+	g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
 }
 
 void MainWindow::on_qaChannelUnlink_triggered() {
@@ -1008,20 +1006,20 @@ void MainWindow::on_qaChannelUnlink_triggered() {
 	if (! l)
 		l = Channel::get(0);
 
-	MessageChannelLink mcl;
-	mcl.iId = c->iId;
-	mcl.qlTargets << l->iId;
-	mcl.ltType = MessageChannelLink::Unlink;
-	g.sh->sendMessage(&mcl);
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(c->iId);
+	mpcs.add_links_remove(l->iId);
+	g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
 }
 
 void MainWindow::on_qaChannelUnlinkAll_triggered() {
 	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
 
-	MessageChannelLink mcl;
-	mcl.iId = c->iId;
-	mcl.ltType = MessageChannelLink::UnlinkAll;
-	g.sh->sendMessage(&mcl);
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(c->iId);
+	foreach(Channel *l, c->qsPermLinks)
+		mpcs.add_links_remove(l->iId);
+	g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
 }
 
 void MainWindow::on_qaChannelSendMessage_triggered() {
@@ -1032,23 +1030,20 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 
 	int id = c->iId;
 
-	TextMessage tm;
-	tm.setWindowTitle(tr("Sending message to channel %1").arg(c->qsName));
-	int res = tm.exec();
+	::TextMessage *texm = new ::TextMessage(this);
+	texm->setWindowTitle(tr("Sending message to channel %1").arg(c->qsName));
+	int res = texm->exec();
 
 	c = Channel::get(id);
-	if (!c)
-		return;
 
-	if (res==QDialog::Accepted) {
-		MessageTextMessage mtxt;
-		mtxt.iChannel = id;
-		mtxt.bTree = false;
-		mtxt.uiVictim = 0;
-		mtxt.qsMessage = tm.message();
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(c->qsName).arg(mtxt.qsMessage), tr("Message to %1").arg(c->qsName));
-		g.sh->sendMessage(&mtxt);
+	if (c && (res==QDialog::Accepted)) {
+		MumbleProto::TextMessage mptm;
+		mptm.add_channel_id(id);
+		mptm.set_message(u8(texm->message()));
+		g.sh->sendMessage(mptm, MessageHandler::TextMessage);
+		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
 	}
+	delete texm;
 }
 
 void MainWindow::on_qaChannelSendTreeMessage_triggered() {
@@ -1059,23 +1054,20 @@ void MainWindow::on_qaChannelSendTreeMessage_triggered() {
 
 	int id = c->iId;
 
-	TextMessage tm;
-	tm.setWindowTitle(tr("Sending message to channel tree %1").arg(c->qsName));
-	int res = tm.exec();
+	::TextMessage *texm = new ::TextMessage(this);
+	texm->setWindowTitle(tr("Sending message to channel tree %1").arg(c->qsName));
+	int res = texm->exec();
 
 	c = Channel::get(id);
-	if (!c)
-		return;
 
-	if (res==QDialog::Accepted) {
-		MessageTextMessage mtxt;
-		mtxt.iChannel = id;
-		mtxt.bTree = true;
-		mtxt.uiVictim = 0;
-		mtxt.qsMessage = tm.message();
-		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(mtxt.qsMessage), tr("Message to tree %1").arg(c->qsName));
-		g.sh->sendMessage(&mtxt);
+	if (c && (res==QDialog::Accepted)) {
+		MumbleProto::TextMessage mptm;
+		mptm.add_tree_id(id);
+		mptm.set_message(u8(texm->message()));
+		g.sh->sendMessage(mptm, MessageHandler::TextMessage);
+		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
 	}
+	delete texm;
 }
 
 void MainWindow::on_qaAudioReset_triggered() {
@@ -1101,10 +1093,10 @@ void MainWindow::on_qaAudioMute_triggered() {
 		g.l->log(Log::SelfMute, tr("Muted."));
 	}
 
-	MessagePlayerSelfMuteDeaf mpsmd;
-	mpsmd.bMute = g.s.bMute;
-	mpsmd.bDeaf = g.s.bDeaf;
-	g.sh->sendMessage(&mpsmd);
+	MumbleProto::UserState mpus;
+	mpus.set_self_mute(g.s.bMute);
+	mpus.set_self_deaf(g.s.bDeaf);
+	g.sh->sendMessage(mpus);
 
 	updateTrayIcon();
 }
@@ -1125,10 +1117,10 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		g.l->log(Log::SelfMute, tr("Undeafened."));
 	}
 
-	MessagePlayerSelfMuteDeaf mpsmd;
-	mpsmd.bMute = g.s.bMute;
-	mpsmd.bDeaf = g.s.bDeaf;
-	g.sh->sendMessage(&mpsmd);
+	MumbleProto::UserState mpus;
+	mpus.set_self_mute(g.s.bMute);
+	mpus.set_self_deaf(g.s.bDeaf);
+	g.sh->sendMessage(mpus);
 
 	updateTrayIcon();
 }
@@ -1277,27 +1269,13 @@ void MainWindow::pushLink(bool down) {
 		if (! target || ! down)
 			return;
 
-		MessagePlayerMove mpm;
-		mpm.uiVictim = g.uiSession;
-		mpm.iChannelId = target->iId;
-		g.sh->sendMessage(&mpm);
+		// FIXME: This was shortcut to move to a channel.
+
 		g.l->log(Log::Information, tr("Joining %1.").arg(target->qsName));
 	} else {
-		MessageChannelLink mcl;
-		mcl.iId = home->iId;
-		if (down)
-			mcl.ltType = MessageChannelLink::PushLink;
-		else
-			mcl.ltType = MessageChannelLink::PushUnlink;
-		if (idx == 10) {
-			foreach(Channel *l, home->qlChannels)
-				mcl.qlTargets << l->iId;
-		} else if (target) {
-			mcl.qlTargets << target->iId;
-		}
-		if (mcl.qlTargets.count() == 0)
-			return;
-		g.sh->sendMessage(&mcl);
+
+		// FIXME: This was shortcut to temp-link a channel. Replace with target.
+
 	}
 }
 
@@ -1323,10 +1301,10 @@ void MainWindow::serverConnected() {
 	qtvPlayers->setRowHidden(0, QModelIndex(), false);
 
 	if (g.s.bMute || g.s.bDeaf) {
-		MessagePlayerSelfMuteDeaf mpsmd;
-		mpsmd.bMute = g.s.bMute;
-		mpsmd.bDeaf = g.s.bDeaf;
-		g.sh->sendMessage(&mpsmd);
+		MumbleProto::UserState mpus;
+		mpus.set_self_mute(g.s.bMute);
+		mpus.set_self_deaf(g.s.bDeaf);
+		g.sh->sendMessage(mpus);
 	}
 }
 
@@ -1424,15 +1402,15 @@ void MainWindow::serverDisconnected(QString reason) {
 #endif
 
 		switch (rtLast) {
-			case MessageServerReject::InvalidUsername:
-			case MessageServerReject::UsernameInUse:
+			case MumbleProto::Reject_RejectType_InvalidUsername:
+			case MumbleProto::Reject_RejectType_UsernameInUse:
 				matched = true;
-				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MessageServerReject::InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok, wf);
+				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MumbleProto::Reject_RejectType_InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok, wf);
 				break;
-			case MessageServerReject::WrongUserPW:
-			case MessageServerReject::WrongServerPW:
+			case MumbleProto::Reject_RejectType_WrongUserPW:
+			case MumbleProto::Reject_RejectType_WrongServerPW:
 				matched = true;
-				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MessageServerReject::WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok, wf);
+				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MumbleProto::Reject_RejectType_WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok, wf);
 				break;
 			default:
 				break;
@@ -1475,11 +1453,7 @@ void MainWindow::customEvent(QEvent *evt) {
 
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
-	Message *mMsg = Message::networkToMessage(shme->qbaMsg);
-	if (mMsg) {
-		dispatch(NULL, mMsg);
-		delete mMsg;
-	}
+	dispatch(NULL, shme->qbaMsg);
 }
 
 void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
@@ -1499,11 +1473,11 @@ void MainWindow::context_triggered() {
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 
-	MessageContextAction mca;
-	mca.uiSession = g.uiSession;
-	mca.qsAction = a->data().toString();
-	mca.uiVictim = p ? p->uiSession : 0;
-	mca.iChannel = c ? c->iId : -1;
-
-	g.sh->sendMessage(&mca);
+	MumbleProto::ContextAction mpca;
+	mpca.set_action(u8(a->data().toString()));
+	if (p->uiSession)
+		mpca.set_session(p->uiSession);
+	if (c)
+		mpca.set_channel_id(c->iId);
+	g.sh->sendMessage(mpca);
 }

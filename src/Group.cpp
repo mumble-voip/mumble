@@ -36,8 +36,10 @@ Group::Group(Channel *assoc, QString name) {
 	c = assoc;
 	bInherit = true;
 	bInheritable = true;
+	bInherited = false;
 	qsName = name;
-	c->qhGroups[name] = this;
+	if (c)
+		c->qhGroups[name] = this;
 }
 
 QSet<int> Group::members() {

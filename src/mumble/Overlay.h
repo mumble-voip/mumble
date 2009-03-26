@@ -120,7 +120,6 @@ class Overlay : public QObject {
 		Overlay();
 		~Overlay();
 		bool isActive() const;
-		void textureResponse(int id, const QByteArray &texture);
 	public slots:
 		void on_Timer_timeout();
 		void updateOverlay();

@@ -125,7 +125,7 @@ void ClientPlayer::setMute(bool mute) {
 	if (bMute == mute)
 		return;
 	bMute = mute;
-	if (! bMute && bDeaf)
+	if (! bMute)
 		bDeaf = false;
 	emit muteDeafChanged();
 }
@@ -138,16 +138,22 @@ void ClientPlayer::setLocalMute(bool mute) {
 }
 
 void ClientPlayer::setDeaf(bool deaf) {
-	if (bDeaf == deaf)
-		return;
 	bDeaf = deaf;
-	if (bDeaf && ! bMute)
+	if (bDeaf)
 		bMute = true;
 	emit muteDeafChanged();
 }
 
-void ClientPlayer::setSelfMuteDeaf(bool mute, bool deaf) {
-	bSelfDeaf = deaf;
+void ClientPlayer::setSelfMute(bool mute) {
 	bSelfMute = mute;
+	if (! mute)
+		bSelfDeaf = false;
+	emit muteDeafChanged();
+}
+
+void ClientPlayer::setSelfDeaf(bool deaf) {
+	bSelfDeaf = deaf;
+	if (deaf)
+		bSelfMute = true;
 	emit muteDeafChanged();
 }

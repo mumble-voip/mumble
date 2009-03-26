@@ -49,6 +49,8 @@ class Player {
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
+		// TODO: Server-side precache
+		QByteArray qbaTexture;
 		QString getFlagsString() const;
 
 		Player();
@@ -75,7 +77,8 @@ class ClientPlayer : public QObject, public Player {
 		void setMute(bool mute);
 		void setDeaf(bool deaf);
 		void setLocalMute(bool mute);
-		void setSelfMuteDeaf(bool mute, bool deaf);
+		void setSelfMute(bool mute);
+		void setSelfDeaf(bool deaf);
 	signals:
 		void talkingChanged(bool talking);
 		void muteDeafChanged();

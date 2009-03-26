@@ -395,16 +395,19 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			spx_int32_t startofs = 0;
 
 			if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
-				ucFlags = jbp.data[0];
+				ucFlags = jbp.data[0] & 0x1f;
 				fPos[0] = fPos[1] = fPos[2] = 0.0;
 				speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);
 				speex_decode(dsDecState, &sbBits, pOut);
 				bLastAlive = true;
 			} else {
+				// FIXME: End-of-speech flags
+				/*
 				if (ucFlags & MessageSpeex::EndSpeech) {
 					memset(pOut, 0, sizeof(float) * iFrameSize);
 					bLastAlive = false;
 				} else {
+				*/
 					iMissCount++;
 					if (iMissCount < 5) {
 						speex_decode(dsDecState, NULL, pOut);
@@ -412,7 +415,6 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 						bLastAlive = false;
 					}
-				}
 			}
 
 			int activity;
@@ -430,7 +432,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 	}
 
 	if (p)
-		p->setTalking(bLastAlive, ((ucFlags & MessageSpeex::AltSpeak) ? true : false));
+		p->setTalking(bLastAlive, ((ucFlags == 1) ? true : false));
 	return bLastAlive;
 }
 

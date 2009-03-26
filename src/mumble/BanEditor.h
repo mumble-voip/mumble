@@ -42,7 +42,7 @@ class BanEditor : public QDialog, public Ui::BanEditor {
 	protected:
 		QList<QPair<quint32, int> > qlBans;
 	public:
-		BanEditor(const MessageServerBanList *msbl, QWidget *p = NULL);
+		BanEditor(const MumbleProto::BanList &msbl, QWidget *p = NULL);
 	public slots:
 		void accept();
 	public slots:

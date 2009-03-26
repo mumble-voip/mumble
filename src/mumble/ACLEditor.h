@@ -33,6 +33,8 @@
 
 #include "mumble_pch.hpp"
 #include "Message.h"
+#include "ACL.h"
+#include "Group.h"
 
 #include "ui_ACLEditor.h"
 
@@ -41,35 +43,29 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		Q_OBJECT
 		Q_DISABLE_COPY(ACLEditor)
 	protected:
+		MumbleProto::ACL msg;
 		enum WaitID {
 			GroupAdd, GroupRemove, GroupInherit, ACLList
 		};
-		int iId;
 		QHash<int, QString> qhNameCache;
 		QHash<QString, int> qhIDCache;
+		QHash<QString, int> qhNameWait;
 
-		QHash<int, QSet<WaitID> > qhIDWait;
-		QHash<QString, QSet<WaitID> > qhNameWait;
+		int iUnknown;
 
-		void addQuery(WaitID me, int id);
-		void addQuery(WaitID me, QString name);
-		void doneQuery();
-		void cleanQuery();
 		void refill(WaitID what);
 
-		QHash<MessageEditACL::ACLStruct *, QString> qhACLNameWait;
-		QHash<MessageEditACL::GroupStruct *, QString> qhAddNameWait;
-		QHash<MessageEditACL::GroupStruct *, QString> qhRemoveNameWait;
+		Group *currentGroup();
+		ChanACL *currentACL();
 
-		MessageEditACL::GroupStruct *currentGroup();
-		MessageEditACL::ACLStruct *currentACL();
-
+		int iId;
 		bool bInheritACL;
-		QList<MessageEditACL::ACLStruct *> acls;
-		QList<MessageEditACL::GroupStruct *> groups;
+		QList<ChanACL *> qlACLs;
+		QList<Group *> qlGroups;
 		int numInheritACL;
 
-		QString userName(int id);
+		const QString userName(int id);
+		int id(const QString &uname);
 
 		QList<QCheckBox *> qlACLAllow;
 		QList<QCheckBox *> qlACLDeny;
@@ -78,9 +74,9 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 
 		void showEvent(QShowEvent *);
 	public:
-		ACLEditor(const MessageEditACL *mea, QWidget *p = NULL);
+		ACLEditor(const MumbleProto::ACL &mea, QWidget *p = NULL);
 		~ACLEditor();
-		void returnQuery(const MessageQueryUsers *mqu);
+		void returnQuery(const MumbleProto::QueryUsers &mqu);
 	public slots:
 		void accept();
 	public slots:

@@ -293,6 +293,8 @@ void Overlay::forceSettings() {
 	updateOverlay();
 }
 
+/*
+FIXME: Move into update check.
 void Overlay::textureResponse(int id, const QByteArray &texture) {
 	QString s = qhQueried.value(id);
 	if (s.isEmpty())
@@ -316,6 +318,7 @@ void Overlay::textureResponse(int id, const QByteArray &texture) {
 	qsForce.insert(id);
 	setTexts(qlCurrentTexts);
 }
+*/
 
 typedef QPair<QString, quint32> qpChanCol;
 
@@ -366,12 +369,6 @@ void Overlay::updateOverlay() {
 
 		foreach(Player *p, ClientPlayer::get(g.uiSession)->cChannel->qlPlayers) {
 			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == ClientPlayer::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
-				if (g.s.bOverlayUserTextures && (p->iId >= 0) && (! qhQueried.contains(p->iId))) {
-					qhQueried.insert(p->iId, p->qsName);
-					MessageTexture mt;
-					mt.iPlayerId = p->iId;
-					g.sh->sendMessage(&mt);
-				}
 				QString name = p->qsName;
 				Decoration dec = None;
 				if (p->bDeaf || p->bSelfDeaf)

@@ -33,25 +33,49 @@
 #include "Channel.h"
 #include "Global.h"
 
-BanEditor::BanEditor(const MessageServerBanList *msbl, QWidget *p) : QDialog(p) {
+typedef QPair<quint32, int> ban;
+
+BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
 
 	QRegExp rx(QLatin1String("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"));
 	QValidator *validator = new QRegExpValidator(rx, this);
 	qleIP->setValidator(validator);
 
-	qlBans = msbl->qlBans;
+	qlBans.clear();
+	for(int i=0;i < msg.bans_size(); ++i) {
+		const MumbleProto::BanList_BanEntry &be = msg.bans(i);
+		quint32 v = 0;
+		std::string s = be.address();
+		if (s.length() == 4) {
+			const char *data = s.data();
+			v += (data[0] << 24);
+			v += (data[1] << 16);
+			v += (data[2] << 8);
+			v += (data[3] << 0);
+			qlBans << ban(v, be.mask());
+		}
+	}
+
 	refreshBanList();
 
 }
 
 void BanEditor::accept() {
-	MessageServerBanList msbl;
+	MumbleProto::BanList msg;
 
-	msbl.bQuery = false;
-	msbl.qlBans = qlBans;
+	foreach(const ban &b, qlBans) {
+		MumbleProto::BanList_BanEntry *be = msg.add_bans();
+		char buff[4];
+		buff[0] = (b.first >> 24) & 0xFF;
+		buff[1] = (b.first >> 16) & 0xFF;
+		buff[2] = (b.first >> 8) & 0xFF;
+		buff[3] = (b.first >> 0) & 0xFF;
+		be->set_address(std::string(buff, 4));
+		be->set_mask(b.second);
+	}
 
-	g.sh->sendMessage(&msbl);
+	g.sh->sendMessage(msg, MessageHandler::BanList);
 	QDialog::accept();
 }
 
