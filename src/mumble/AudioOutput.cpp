@@ -408,13 +408,13 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					bLastAlive = false;
 				} else {
 				*/
-					iMissCount++;
-					if (iMissCount < 5) {
-						speex_decode(dsDecState, NULL, pOut);
-					} else {
-						memset(pOut, 0, sizeof(float) * iFrameSize);
-						bLastAlive = false;
-					}
+				iMissCount++;
+				if (iMissCount < 5) {
+					speex_decode(dsDecState, NULL, pOut);
+				} else {
+					memset(pOut, 0, sizeof(float) * iFrameSize);
+					bLastAlive = false;
+				}
 			}
 
 			int activity;

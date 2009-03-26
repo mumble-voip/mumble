@@ -20,7 +20,7 @@
 /* #undef FIXED_POINT */
 
 /* Compile as floating-point */
-#define FLOATING_POINT 
+#define FLOATING_POINT
 
 /* Define to 1 if you have the <alloca.h> header file. */
 #define HAVE_ALLOCA_H 1
@@ -119,7 +119,7 @@
 /* #undef USE_ALLOCA */
 
 /* Use C99 variable-size arrays */
-#define VAR_ARRAYS 
+#define VAR_ARRAYS
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */

@@ -38,7 +38,7 @@ static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const cha
 	if (a.size() != b.size()) {
 		qFatal("%s: %d <=> %d", n, a.size(), b.size());
 	}
-	for(int i=0;i<a.size();++i) {
+	for (int i=0;i<a.size();++i) {
 		double diff = fabs(a[i] - b[i]);
 		rms += diff * diff;
 		if (diff > gdiff)
@@ -47,7 +47,9 @@ static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const cha
 
 		if (a[i] != b[i]) {
 #else
-		union { T tv; quint32 uv; } v1, v2;
+		union { T tv;
+			quint32 uv;
+		} v1, v2;
 		v1.uv = v2.uv = 0;
 		v1.tv = a[i];
 		v2.tv = b[i];
@@ -63,23 +65,23 @@ static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const cha
 
 template<class T>
 QPair<T, T> confint(const QVector<T> &vecin) {
-  long double avg = 0.0;
-  long double stddev = 0.0;
-  QVector<T> vec = vecin;
-  qSort(vec.begin(), vec.end());
-  for(int i=0;i<vec.count() / 20;++i) {
-  	vec.pop_front();
-  	vec.pop_back();
-  }
+	long double avg = 0.0;
+	long double stddev = 0.0;
+	QVector<T> vec = vecin;
+	qSort(vec.begin(), vec.end());
+	for (int i=0;i<vec.count() / 20;++i) {
+		vec.pop_front();
+		vec.pop_back();
+	}
 
-  foreach(T v, vec)
-  	avg += v;
-  avg /= vec.count();
+	foreach(T v, vec)
+		avg += v;
+	avg /= vec.count();
 
-  foreach(T v, vec)
-  	stddev += (v-avg)*(v-avg);
-  stddev = sqrtl(stddev / vec.count());
-  return QPair<T,T>(static_cast<T>(avg), static_cast<T>(1.96 * stddev));
+	foreach(T v, vec)
+		stddev += (v-avg)*(v-avg);
+	stddev = sqrtl(stddev / vec.count());
+	return QPair<T,T>(static_cast<T>(avg), static_cast<T>(1.96 * stddev));
 }
 
 int main(int argc, char **argv) {
@@ -111,7 +113,7 @@ int main(int argc, char **argv) {
 	const int iFrameSize = 320;
 
 	QVector<QByteArray> v;
-	while(1) {
+	while (1) {
 		QByteArray qba = f.read(iFrameSize * 2);
 		if (qba.size() != iFrameSize * 2)
 			break;
@@ -154,11 +156,11 @@ int main(int argc, char **argv) {
 	QVector<float> f96(nframes * iOutSize96);
 	QVector<float> f8(nframes *iOutSize8);
 
-	for(int i=0;i<nframes;i++) {
+	for (int i=0;i<nframes;i++) {
 		short *s = reinterpret_cast<short *>(v[i].data());
 		float *f = fInput.data() + i * iFrameSize;
 
-		for(int j=0;j<iFrameSize;j++)
+		for (int j=0;j<iFrameSize;j++)
 			f[j]=s[j]+20;
 
 		qvInShort.append(s);
@@ -183,8 +185,8 @@ int main(int argc, char **argv) {
 
 
 #ifdef Q_OS_WIN
-    if (!SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS))
-             qWarning("Application: Failed to set priority!");
+	if (!SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS))
+		qWarning("Application: Failed to set priority!");
 #endif
 
 	int len;
@@ -213,7 +215,7 @@ int main(int argc, char **argv) {
 		sched_yield();
 #endif
 
-		for(int i=0;i<nframes;++i) {
+		for (int i=0;i<nframes;++i) {
 			inlen = iFrameSize;
 			outlen = iOutSize96;
 			speex_resampler_process_float(srsto96, 0, qvIn[i], &inlen, qv96[i], &outlen);
@@ -222,9 +224,9 @@ int main(int argc, char **argv) {
 		QVector<unsigned long long> qvTimes;
 		QPair<unsigned long long, unsigned long long> ci;
 
-		for(int j=0;j<loops;j++) {
+		for (int j=0;j<loops;j++) {
 			t.restart();
-			for(int i=0;i<nframes;i++) {
+			for (int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize1;
 				speex_resampler_process_float(srs1, 0, qvIn[i], &inlen, qvDirect[i], &outlen);
@@ -234,12 +236,12 @@ int main(int argc, char **argv) {
 		}
 		ci = confint(qvTimes);
 		qWarning("Direct:      %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count(), qvTimes.count());
-		
+
 		qvTimes.clear();
 
-		for(int j=0;j<loops;j++) {
+		for (int j=0;j<loops;j++) {
 			t.restart();
-			for(int i=0;i<nframes;i++) {
+			for (int i=0;i<nframes;i++) {
 				inlen = iFrameSize;
 				outlen = iOutSize2;
 				speex_resampler_process_float(srs2, 0, qvIn[i], &inlen, qvInterpolate[i], &outlen);
@@ -251,9 +253,9 @@ int main(int argc, char **argv) {
 		qWarning("Interpolate: %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count());
 
 		qvTimes.clear();
-		for(int j=0;j<loops;j++) {
+		for (int j=0;j<loops;j++) {
 			t.restart();
-			for(int i=0;i<nframes;i++) {
+			for (int i=0;i<nframes;i++) {
 				inlen = iOutSize96;
 				outlen = iOutSize8;
 				speex_resampler_process_float(srs96to8, 0, qv96[i], &inlen, qv8[i], &outlen);
@@ -266,9 +268,9 @@ int main(int argc, char **argv) {
 
 		qvTimes.clear();
 		t.restart();
-		for(int j=0;j<loops;j++) {
+		for (int j=0;j<loops;j++) {
 			t.restart();
-			for(int i=0;i<nframes;i++) {
+			for (int i=0;i<nframes;i++) {
 				inlen = iOutSize8;
 				outlen = iOutSize96;
 				speex_resampler_process_float(srs8to96, 0, qv8[i], &inlen, qv96[i], &outlen);
@@ -279,14 +281,14 @@ int main(int argc, char **argv) {
 		ci = confint(qvTimes);
 		qWarning("8 => 96:     %8llu +/- %3llu usec (%d)", ci.first, ci.second, qvTimes.count());
 
-               speex_resampler_reset_mem(srs1);
-               speex_resampler_reset_mem(srs2);
+		speex_resampler_reset_mem(srs1);
+		speex_resampler_reset_mem(srs2);
 	}
 
 	t.restart();
 	CALLGRIND_START_INSTRUMENTATION;
 
-	for(int i=0;i<nframes;i++) {
+	for (int i=0;i<nframes;i++) {
 		inlen = iFrameSize;
 		outlen = iOutSize1;
 		speex_resampler_process_float(srs1, 0, qvIn[i], &inlen, qvDirect[i], &outlen);
@@ -306,48 +308,48 @@ int main(int argc, char **argv) {
 	e = t.elapsed();
 
 #ifdef Q_OS_WIN
-    if (!SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS))
-             qWarning("Application: Failed to reset priority!");
+	if (!SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS))
+		qWarning("Application: Failed to reset priority!");
 #endif
 
 	const int freq[10] = { 22050, 32000, 11025, 16000, 48000, 41000, 8000, 96000, 11025, 1600 };
 
 	QVector<float> fMagic;
 
-	for(int f=0;f<10;f++) {
+	for (int f=0;f<10;f++) {
 		float fbuff[32767];
 		speex_resampler_set_rate(srs1, 16000, freq[f]);
-		for(int q = 0;q < 10;q++) {
+		for (int q = 0;q < 10;q++) {
 			speex_resampler_set_quality(srs1, (3*q) % 7);
 			inlen = iFrameSize;
 			outlen = 32767;
 			speex_resampler_process_float(srs1, 0, qvIn[(f*10+q) % nframes], &inlen, fbuff, &outlen);
-			for(int j=0;j<outlen;j++)
+			for (int j=0;j<outlen;j++)
 				fMagic.append(fbuff[j]);
 		}
 		inlen = iFrameSize;
 		outlen = 32767;
 		speex_resampler_process_float(srs1, 0, NULL, &inlen, fbuff, &outlen);
-		for(int j=0;j<outlen;j++)
+		for (int j=0;j<outlen;j++)
 			fMagic.append(fbuff[j]);
 	}
 
 	// Cropped magic test
-	for(int f=0;f<10;f++) {
+	for (int f=0;f<10;f++) {
 		float fbuff[32767];
 		speex_resampler_set_rate(srs1, 16000, freq[f]);
-		for(int q = 0;q < 10;q++) {
+		for (int q = 0;q < 10;q++) {
 			speex_resampler_set_quality(srs1, (3*q) % 7);
 			inlen = iFrameSize;
 			outlen = 16;
 			speex_resampler_process_float(srs1, 0, qvIn[(f*10+q) % nframes], &inlen, fbuff, &outlen);
-			for(int j=0;j<outlen;j++)
+			for (int j=0;j<outlen;j++)
 				fMagic.append(fbuff[j]);
 		}
 		inlen = iFrameSize;
 		outlen = 32767;
 		speex_resampler_process_float(srs1, 0, NULL, &inlen, fbuff, &outlen);
-		for(int j=0;j<outlen;j++)
+		for (int j=0;j<outlen;j++)
 			fMagic.append(fbuff[j]);
 	}
 
@@ -358,27 +360,27 @@ int main(int argc, char **argv) {
 	qWarning("%.2f times realtime", (20000ULL * nframes) / (e * 1.0));
 
 	if (! RUNNING_ON_VALGRIND) {
-			QVector<float> vDirect;
-			QVector<float> vInterpolate;
-			QVector<short> vsInterpolate;
-			QVector<float> vMagic;
-			QVector<float> vInterpolateMC;
+		QVector<float> vDirect;
+		QVector<float> vInterpolate;
+		QVector<short> vsInterpolate;
+		QVector<float> vMagic;
+		QVector<float> vInterpolateMC;
 
-			out << fDirect << fInterpolate << sInterpolate << fMagic << fInterpolateMC;
+		out << fDirect << fInterpolate << sInterpolate << fMagic << fInterpolateMC;
 
-			if (vf.isOpen()) {
-				verify >> vDirect >> vInterpolate >> vsInterpolate >> vMagic >> vInterpolateMC;
+		if (vf.isOpen()) {
+			verify >> vDirect >> vInterpolate >> vsInterpolate >> vMagic >> vInterpolateMC;
 
-				double rmsd = veccomp(vDirect, fDirect, "SRS1");
-				double rmsi = veccomp(vInterpolate, fInterpolate, "SRS2");
-				veccomp(vsInterpolate, sInterpolate, "SRS2i");
-				veccomp(vMagic, fMagic, "Magic");
-				veccomp(vInterpolateMC, fInterpolateMC, "MC");
-				qWarning("Direct: %g", rmsd);
-				qWarning("Interp: %g", rmsi);
-			} else {
-				qWarning("No verification!");
-			}
+			double rmsd = veccomp(vDirect, fDirect, "SRS1");
+			double rmsi = veccomp(vInterpolate, fInterpolate, "SRS2");
+			veccomp(vsInterpolate, sInterpolate, "SRS2i");
+			veccomp(vMagic, fMagic, "Magic");
+			veccomp(vInterpolateMC, fInterpolateMC, "MC");
+			qWarning("Direct: %g", rmsd);
+			qWarning("Interp: %g", rmsi);
+		} else {
+			qWarning("No verification!");
+		}
 	}
 
 	return 0;

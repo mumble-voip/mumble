@@ -32,30 +32,30 @@
 #include "murmur_pch.h"
 
 void MessageHandler::dispatch(Connection *cCon, const QByteArray &msg) {
-/*
-	switch (type) {
-		case MessageHandler::Version: {
-				MumbleProto::Version mpv;
-				mpv.ParseFromArray(msg.constData(), msg.size());
-				msgVersion(cCon, &mpv);
-			}
-			break;
-		default:
-			break;
-	}
-*/
+	/*
+		switch (type) {
+			case MessageHandler::Version: {
+					MumbleProto::Version mpv;
+					mpv.ParseFromArray(msg.constData(), msg.size());
+					msgVersion(cCon, &mpv);
+				}
+				break;
+			default:
+				break;
+		}
+	*/
 }
 
 void MessageHandler::messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
-		int len = msg.ByteSize();
-		if (len > 0x7fffff)
-				return;
-		cache.resize(len + 4);
-		unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
-		uc[0] = msgType;
-		uc[1] = (len >> 16) & 0xFF;
-		uc[2] = (len >> 8) & 0xFF;
-		uc[3] = len & 0xFF;
+	int len = msg.ByteSize();
+	if (len > 0x7fffff)
+		return;
+	cache.resize(len + 4);
+	unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
+	uc[0] = msgType;
+	uc[1] = (len >> 16) & 0xFF;
+	uc[2] = (len >> 8) & 0xFF;
+	uc[3] = len & 0xFF;
 
-		msg.SerializeToArray(uc + 4, len);
+	msg.SerializeToArray(uc + 4, len);
 }

@@ -60,7 +60,7 @@ class MessageHandler {
 
 #define MUMBLE_MH_MSG(x) x,
 		enum MessageType {
-		MUMBLE_MH_ALL
+			MUMBLE_MH_ALL
 		};
 #undef MUMBLE_MH_MSG
 		static void messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);

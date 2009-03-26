@@ -6,7 +6,7 @@ CONFIG *= ordered debug_and_release
 	CONFIG *= no-bundled-speex
   }
   !CONFIG(no-bundled-speex) {
-    SUBDIRS *= speexbuild 
+    SUBDIRS *= speexbuild
   }
   SUBDIRS *= src/mumble plugins
 

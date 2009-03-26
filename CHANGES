@@ -1,3 +1,12 @@
+2009-03-26
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1718cde  Make Mumble compile with protobuf.
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    e36f901  Gmod addresses update
+    efe2334  Updated L4D for Build 3790
+    35d6fd2  crlf
+
 2009-03-23
   Thorvald Natvig <slicer@users.sourceforge.net>
     2fd181a  Make ProtoBuf work on Win32

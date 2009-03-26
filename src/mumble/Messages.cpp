@@ -261,7 +261,7 @@ void MainWindow::msgChannelState(Connection *, MumbleProto::ChannelState *msg) {
 
 	if (p) {
 		Channel *pp = p;
-		while(pp) {
+		while (pp) {
 			if (pp == c)
 				return;
 			pp = pp->cParent;
@@ -278,7 +278,7 @@ void MainWindow::msgChannelState(Connection *, MumbleProto::ChannelState *msg) {
 	if (msg->links_size()) {
 		QList<Channel *> ql;
 		pmModel->unlinkAll(c);
-		for(int i=0;i<msg->links_size();++i) {
+		for (int i=0;i<msg->links_size();++i) {
 			Channel *l = Channel::get(msg->links(i));
 			if (l)
 				ql << l;
@@ -288,7 +288,7 @@ void MainWindow::msgChannelState(Connection *, MumbleProto::ChannelState *msg) {
 	}
 	if (msg->links_remove_size()) {
 		QList<Channel *> ql;
-		for(int i=0;i<msg->links_remove_size();++i) {
+		for (int i=0;i<msg->links_remove_size();++i) {
 			Channel *l = Channel::get(msg->links_remove(i));
 			if (l)
 				ql << l;
@@ -298,7 +298,7 @@ void MainWindow::msgChannelState(Connection *, MumbleProto::ChannelState *msg) {
 	}
 	if (msg->links_add_size()) {
 		QList<Channel *> ql;
-		for(int i=0;i<msg->links_add_size();++i) {
+		for (int i=0;i<msg->links_add_size();++i) {
 			Channel *l = Channel::get(msg->links_add(i));
 			if (l)
 				ql << l;

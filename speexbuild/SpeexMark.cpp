@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 
 	void *dec = speex_decoder_init(&speex_wb_mode);
 	iarg = 1;
-        speex_decoder_ctl(dec, SPEEX_SET_ENH, &iarg);
+	speex_decoder_ctl(dec, SPEEX_SET_ENH, &iarg);
 
 	SpeexPreprocessState *spp = speex_preprocess_state_init(iFrameSize, 16000);
 	iarg = 1;
@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
 	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_ECHO_STATE, ses);
 
 	QVector<QByteArray> v;
-	while(1) {
+	while (1) {
 		QByteArray qba = f.read(iFrameSize * 2);
 		if (qba.size() != iFrameSize * 2)
 			break;
@@ -95,10 +95,10 @@ int main(int argc, char **argv) {
 	QVector<short *> sv;
 
 	short tframe[2048];
-	for(int i=0;i<iFrameSize;i++)
+	for (int i=0;i<iFrameSize;i++)
 		tframe[i] = 0;
 
-	for(int i=0;i<nframes;i++) {
+	for (int i=0;i<nframes;i++) {
 		sv.append(reinterpret_cast<short *>(v[i].data()));
 	}
 
@@ -122,8 +122,8 @@ int main(int argc, char **argv) {
 	speex_bits_init(&sb);
 
 #ifdef Q_OS_WIN
-    if (!SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS))
-             qWarning("Application: Failed to set priority!");
+	if (!SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS))
+		qWarning("Application: Failed to set priority!");
 #endif
 
 	int len;
@@ -140,8 +140,8 @@ int main(int argc, char **argv) {
 
 	CALLGRIND_START_INSTRUMENTATION;
 
-	for(int j=0;j<iter;j++) {
-		for(int i=0;i<nframes-2;i++) {
+	for (int j=0;j<iter;j++) {
+		for (int i=0;i<nframes-2;i++) {
 			speex_bits_reset(&sb);
 
 			speex_echo_cancellation(ses, sv[i], sv[i+2], tframe);
@@ -170,8 +170,8 @@ int main(int argc, char **argv) {
 	quint64 e = t.elapsed();
 
 #ifdef Q_OS_WIN
-    if (!SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS))
-             qWarning("Application: Failed to reset priority!");
+	if (!SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS))
+		qWarning("Application: Failed to reset priority!");
 #endif
 
 	qWarning("Used %llu usec", e);

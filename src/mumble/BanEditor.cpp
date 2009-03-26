@@ -43,7 +43,7 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 	qleIP->setValidator(validator);
 
 	qlBans.clear();
-	for(int i=0;i < msg.bans_size(); ++i) {
+	for (int i=0;i < msg.bans_size(); ++i) {
 		const MumbleProto::BanList_BanEntry &be = msg.bans(i);
 		quint32 v = 0;
 		std::string s = be.address();

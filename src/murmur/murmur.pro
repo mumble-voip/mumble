@@ -49,7 +49,7 @@ unix {
   contains(UNAME, Linux) {
     LIBS *= -lcap
   }
-  
+
   contains(UNAME, FreeBSD) {
     LIBS *= -lcrypto
   } else {
@@ -86,7 +86,7 @@ ice {
 		LIBS *= -lIce -lIceUtil
 	}
 	DEFINES *= USE_ICE
-	
+
 	win32 {
 		INCLUDEPATH *= /dev/Ice/include
 		LIBPATH *= /dev/Ice/lib

@@ -16,8 +16,8 @@ win32 {
 		QMAKE_CFLAGS_RELEASE -= -GL
 		QMAKE_CXXFLAGS_RELEASE *= -O3 -Ob0
 		QMAKE_CXXFLAGS_RELEASE -= -GL
-		QMAKE_CFLAGS_DEBUG *= -O2 -Ob0 
-		QMAKE_CXXFLAGS_DEBUG *= -O2 -Ob0 
+		QMAKE_CFLAGS_DEBUG *= -O2 -Ob0
+		QMAKE_CXXFLAGS_DEBUG *= -O2 -Ob0
 
 		CONFIG(optgen) {
 			QMAKE_CFLAGS *= -Qprof-gen
@@ -37,7 +37,7 @@ win32 {
 		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Oy-
 		QMAKE_LFLAGS *= -fixed:no -debug
 	}
-	
+
 } else {
 	DEFINES *= RESTRICT=__restrict__
 	CONFIG(opt-gcc) {

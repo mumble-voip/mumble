@@ -83,7 +83,7 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 
 	qlACLs << def;
 
-	for(int i=0;i<mea.acls_size();++i) {
+	for (int i=0;i<mea.acls_size();++i) {
 		const MumbleProto::ACL_ChanACL &as = mea.acls(i);
 
 		ChanACL *acl = new ChanACL(NULL);
@@ -101,15 +101,15 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 		qlACLs << acl;
 	}
 
-	for(int i=0;i<mea.groups_size();++i) {
+	for (int i=0;i<mea.groups_size();++i) {
 		const MumbleProto::ACL_ChanGroup &gs = mea.groups(i);
 
 		Group *gp = new Group(NULL, u8(gs.name()));
-		for(int j=0;j<gs.add_size();++j)
+		for (int j=0;j<gs.add_size();++j)
 			gp->qsAdd.insert(gs.add(j));
-		for(int j=0;j<gs.remove_size();++j)
+		for (int j=0;j<gs.remove_size();++j)
 			gp->qsRemove.insert(gs.remove(j));
-		for(int j=0;j<gs.inherited_members_size();++j)
+		for (int j=0;j<gs.inherited_members_size();++j)
 			gp->qsTemporary.insert(gs.inherited_members(j));
 
 		qlGroups << gp;
@@ -234,7 +234,7 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 	if (mqu.names_size() != mqu.ids_size())
 		return;
 
-	for(int i=0;i < mqu.names_size(); ++i) {
+	for (int i=0;i < mqu.names_size(); ++i) {
 		int id = mqu.ids(i);
 		QString name = u8(mqu.names(i));
 		qhIDCache.insert(name, id);
