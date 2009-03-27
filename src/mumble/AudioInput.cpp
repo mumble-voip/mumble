@@ -725,17 +725,22 @@ void AudioInput::flushCheck() {
 		flags = 1;
 
 	int len = speex_bits_nbytes(&sbBits);
-	STACKVAR(char, data, len+1);
-	data[0] = static_cast<unsigned char>(flags);
+	char data[1024];
 
-	speex_bits_write(&sbBits, data + 1, len);
+	PacketDataStream pds(data + 1, 1023);
+	data[0] = static_cast<unsigned char>(flags);
+	pds << iFrameCounter;
+	*(const_cast<char *>(pds.charPtr())) = (iFrames - 1) << 4;
+	pds.skip(1);
+	speex_bits_write(&sbBits, const_cast<char *>(pds.charPtr()), len);
+	pds.skip(len);
 
 	// TODO: Loopback
 	//if (g.s.lmLoopMode == Settings::Local) {
 	//	LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
 
 	if (g.sh)
-		g.sh->sendMessage(data, len + 1);
+		g.sh->sendMessage(data, pds.size() + 1);
 
 	iFrames = 0;
 	speex_bits_reset(&sbBits);

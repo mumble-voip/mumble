@@ -40,6 +40,7 @@
 #include "Server.h"
 #include "DBus.h"
 #include "Meta.h"
+#include "PacketDataStream.h"
 
 uint qHash(const Peer &p) {
 	return p.first ^ p.second;
@@ -412,6 +413,7 @@ void Server::run() {
 		}
 		len -= 4;
 
+
 		unsigned int msgType = (buffer[0] >> 5) & 0x7;
 
 		if (msgType == MessageHandler::UDPPing) {
@@ -469,8 +471,12 @@ void Server::processMsg(User *u, const char *data, int len) {
 		return;
 
 	Player *p;
-
 	BandwidthRecord *bw = & u->bwr;
+	Channel *c = u->cChannel;
+	QByteArray qba;
+	char buffer[512];
+	PacketDataStream pds(buffer+1, 511);
+	unsigned int target = data[0] & 0x1f;
 
 	// IP + UDP + Crypt + Data
 	int packetsize = 20 + 8 + 4 + len;
@@ -481,20 +487,20 @@ void Server::processMsg(User *u, const char *data, int len) {
 		return;
 	}
 
-	Channel *c = u->cChannel;
+	buffer[0] = target;
+	pds << u->uiSession;
+	pds.append(data + 1, len - 1);
 
-	QByteArray qba;
-
-	unsigned int target = data[0] & 0x1f;
+	len = pds.size() + 1;
 
 	if (target == 0x1f) {
-		sendMessage(u, data, len, qba);
+		sendMessage(u, buffer, len, qba);
 		return;
 	}
 
 	foreach(p, c->qlPlayers) {
 		if (! p->bDeaf && ! p->bSelfDeaf && (p != static_cast<Player *>(u)))
-			sendMessage(static_cast<User *>(p), data, len, qba);
+			sendMessage(static_cast<User *>(p), buffer, len, qba);
 	}
 
 	if (! c->qhLinks.isEmpty()) {
@@ -507,7 +513,7 @@ void Server::processMsg(User *u, const char *data, int len) {
 			if (ChanACL::hasPermission(u, l, (target == 1) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
 				foreach(p, l->qlPlayers) {
 					if (! p->bDeaf && ! p->bSelfDeaf)
-						sendMessage(static_cast<User *>(p), data, len, qba);
+						sendMessage(static_cast<User *>(p), buffer, len, qba);
 				}
 			}
 		}

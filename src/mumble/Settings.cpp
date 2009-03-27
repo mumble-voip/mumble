@@ -127,8 +127,10 @@ Settings::Settings() {
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 
-#ifdef AUDIO_TEST
-	lmLoopMode = Local;
+// FIXME: Er. Right.
+#if 1
+// defined(AUDIO_TEST) || 1
+	lmLoopMode = Server;
 #else
 	lmLoopMode = None;
 #endif

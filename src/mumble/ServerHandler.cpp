@@ -145,8 +145,8 @@ void ServerHandler::udpReady() {
 
 		PacketDataStream pds(buffer + 1, buflen-5);
 
-		quint32 msgType;
-		pds >> msgType;
+		quint32 msgType = (buffer[0] >> 5) & 0x7;
+
 
 		if (msgType == MessageHandler::UDPPing) {
 			quint64 t;
