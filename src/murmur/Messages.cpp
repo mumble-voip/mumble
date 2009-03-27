@@ -218,6 +218,7 @@ void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate *msg) {
 
 		mpus.Clear();
 		mpus.set_session(u->uiSession);
+		qWarning() << u->qsName;
 		mpus.set_name(u8(u->qsName));
 		if (u->iId >= 0)
 			mpus.set_user_id(u->iId);
@@ -451,8 +452,8 @@ void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState *msg) {
 
 	if (msg->has_parent()) {
 		p = qhChannels.value(msg->parent());
-		if (! p);
-		return;
+		if (! p)
+			return;
 	}
 
 	msg->clear_links();

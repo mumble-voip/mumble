@@ -98,74 +98,18 @@ int Connection::activityTime() const {
 }
 
 void Connection::socketRead() {
-	// QSslSocket will, during writes, emit readyRead. Meaning we'd reenter from the message handlers.
-	// At the same time, DBus connections don't like getting multiple concurrent requests.
-	// So, this is a big workaround to serialize user requests.
-
-#if (QT_VERSION < 0x040400)
-	int iPrevLevel = iReceiveLevel;
-
-	iReceiveLevel = 2;
-
-	if (iPrevLevel == 2) {
-		// Recursive entry. Put on list and ignore.
-		qsReceivers.insert(this);
-		return;
-	} else if (iPrevLevel == 1) {
-		// We're iterating from the topmost one.
-		qsReceivers.remove(this);
-	}
-
-	int iAvailable = qtsSocket->bytesAvailable();
-
-
-	if (iPacketLength == -1) {
-		if (iAvailable < 3) {
-			iReceiveLevel = iPrevLevel;
-			return;
-		}
-
-		unsigned char a_ucBuffer[3];
-
-		qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
-		iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
-		iAvailable -= 3;
-	}
-
-	if ((iPacketLength != -1) && (iAvailable >= iPacketLength)) {
-		QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
-		iPacketLength = -1;
-		qtLastPacket.restart();
-		iAvailable -= iPacketLength;
-		if (iAvailable >= 3)
-			qsReceivers.insert(this);
-
-		emit message(qbaBuffer);
-	}
-
-	// At this point, the current *this might be destroyed.
-
-	if (iPrevLevel == 0) {
-		iReceiveLevel = 1;
-		QSet<Connection *>::const_iterator i = qsReceivers.constBegin();
-		while (i != qsReceivers.constEnd()) {
-			(*i)->socketRead();
-			i = qsReceivers.constBegin();
-		}
-	}
-	iReceiveLevel = iPrevLevel;
-#else
 	while (true) {
 		qint64 iAvailable = qtsSocket->bytesAvailable();
 		if (iPacketLength == -1) {
-			if (iAvailable < 3)
+			if (iAvailable < 4)
 				return;
 
-			unsigned char a_ucBuffer[3];
+			unsigned char a_ucBuffer[4];
 
-			qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 3);
-			iPacketLength = ((a_ucBuffer[0] << 16) & 0xff0000) + ((a_ucBuffer[1] << 8) & 0xff00) + a_ucBuffer[2];
-			iAvailable -= 3;
+			qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 4);
+			uiType = a_ucBuffer[0];
+			iPacketLength = ((a_ucBuffer[1] << 16) & 0xff0000) + ((a_ucBuffer[2] << 8) & 0xff00) + a_ucBuffer[3];
+			iAvailable -= 4;
 		}
 
 		if ((iPacketLength == -1) || (iAvailable < iPacketLength))
@@ -176,9 +120,8 @@ void Connection::socketRead() {
 		qtLastPacket.restart();
 		iAvailable -= iPacketLength;
 
-		emit message(qbaBuffer);
+		emit message(uiType, qbaBuffer);
 	}
-#endif
 }
 
 void Connection::socketError(QAbstractSocket::SocketError) {
@@ -222,41 +165,7 @@ void Connection::sendMessage(const ::google::protobuf::Message &msg, unsigned in
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	STACKVAR(unsigned char, a_ucBuffer, 3 + qbaMsg.size());
-
-	if (qtsSocket->state() != QAbstractSocket::ConnectedState)
-		return;
-
-	if (! qtsSocket->isEncrypted())
-		return;
-
-	if (qbaMsg.size() > 0xfffff) {
-		qFatal("Connection: Oversized message (%d bytes)", qbaMsg.size());
-	}
-
-	a_ucBuffer[0]=static_cast<unsigned char>((qbaMsg.size() >> 16) & 0xff);
-	a_ucBuffer[1]=static_cast<unsigned char>((qbaMsg.size() >> 8) & 0xff);
-	a_ucBuffer[2]=static_cast<unsigned char>(qbaMsg.size() & 0xff);
-	memcpy(a_ucBuffer + 3, qbaMsg.constData(), qbaMsg.size());
-
-#if (QT_VERSION < 0x040400)
-	int iPrevLevel = iReceiveLevel;
-	iReceiveLevel = 2;
-#endif
-
-	qtsSocket->write(reinterpret_cast<const char *>(a_ucBuffer), 3 + qbaMsg.size());
-
-#if (QT_VERSION < 0x040400)
-	if (iPrevLevel == 0) {
-		iReceiveLevel = 1;
-		QSet<Connection *>::const_iterator i = qsReceivers.constBegin();
-		while (i != qsReceivers.constEnd()) {
-			(*i)->socketRead();
-			i = qsReceivers.constBegin();
-		}
-	}
-	iReceiveLevel = iPrevLevel;
-#endif
+	qtsSocket->write(qbaMsg);
 }
 
 void Connection::forceFlush() {

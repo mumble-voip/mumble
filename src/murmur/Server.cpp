@@ -574,8 +574,8 @@ void Server::newClient() {
 			qhHostUsers[htonl(sock->peerAddress().toIPv4Address())].insert(u);
 		}
 
-		connect(u, SIGNAL(connectionClosed(QString)), this, SLOT(connectionClosed(QString)));
-		connect(u, SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
+		connect(u, SIGNAL(connectionClosed(const QString &)), this, SLOT(connectionClosed(const QString &)));
+		connect(u, SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 
 		log(u, QString("New connection: %1:%2").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
@@ -606,7 +606,7 @@ void Server::sslError(const QList<QSslError> &errors) {
 		c->disconnectSocket();
 }
 
-void Server::connectionClosed(QString reason) {
+void Server::connectionClosed(const QString &reason) {
 	Connection *c = qobject_cast<Connection *>(sender());
 	if (! c)
 		return;
@@ -646,11 +646,25 @@ void Server::connectionClosed(QString reason) {
 		stopThread();
 }
 
-void Server::message(const QByteArray &qbaMsg, unsigned int msgType, Connection *cCon) {
+void Server::message(unsigned int uiType, const QByteArray &qbaMsg, Connection *cCon) {
 	if (cCon == NULL) {
 		cCon = static_cast<Connection *>(sender());
 	}
-	dispatch(cCon, qbaMsg);
+
+#define MUMBLE_MH_MSG(x) case MessageHandler::##x : { \
+		MumbleProto::##x msg; \
+		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
+			printf("%s:\n", #x); \
+			msg.PrintDebugString(); \
+			msg.DiscardUnknownFields(); \
+			msg##x(cCon, &msg); \
+		} \
+		break; \
+	}
+
+	switch(uiType) {
+		MUMBLE_MH_ALL
+	}
 }
 
 void Server::checkTimeout() {

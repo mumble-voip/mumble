@@ -43,9 +43,10 @@ class Message;
 
 class ServerHandlerMessageEvent : public QEvent {
 	public:
+		unsigned int uiType;
 		QByteArray qbaMsg;
 		bool bFlush;
-		ServerHandlerMessageEvent(QByteArray &msg, bool flush);
+		ServerHandlerMessageEvent(const QByteArray &msg, unsigned int type, bool flush = false);
 };
 
 typedef boost::shared_ptr<Connection> ConnectionPtr;
@@ -95,9 +96,9 @@ class ServerHandler : public QThread {
 		void disconnected(QString reason);
 		void connected();
 	protected slots:
-		void message(unsigned int, QByteArray &);
+		void message(unsigned int, const QByteArray &);
 		void serverConnectionConnected();
-		void serverConnectionClosed(QString);
+		void serverConnectionClosed(const QString &);
 		void setSslErrors(const QList<QSslError> &);
 		void udpReady();
 		void sendPing();

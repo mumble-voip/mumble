@@ -1453,7 +1453,22 @@ void MainWindow::customEvent(QEvent *evt) {
 
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
-	dispatch(NULL, shme->qbaMsg);
+#define MUMBLE_MH_MSG(x) case MessageHandler::##x : { \
+		MumbleProto::##x msg; \
+		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) { \
+			printf("%s:\n", #x); \
+			msg.PrintDebugString(); \
+			msg##x(NULL, &msg); \
+		} \
+		break; \
+	}
+
+	switch(shme->uiType) {
+		MUMBLE_MH_ALL
+	}
+
+
+#undef MUMBLE_MH_MSG
 }
 
 void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {

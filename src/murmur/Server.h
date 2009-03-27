@@ -156,9 +156,9 @@ class Server : public QThread, public MessageHandler {
 
 	public slots:
 		void newClient();
-		void connectionClosed(QString);
+		void connectionClosed(const QString &);
 		void sslError(const QList<QSslError> &);
-		void message(const QByteArray &, unsigned int, Connection *cCon = NULL);
+		void message(unsigned int, const QByteArray &, Connection *cCon = NULL);
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
 		void doSync(unsigned int);

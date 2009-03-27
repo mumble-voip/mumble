@@ -250,7 +250,7 @@ void MainWindow::msgChannelState(Connection *, MumbleProto::ChannelState *msg) {
 
 	if (!c) {
 		if (msg->has_parent() && p && msg->has_name()) {
-			pmModel->addChannel(msg->channel_id(), p, u8(msg->name()));
+			c = pmModel->addChannel(msg->channel_id(), p, u8(msg->name()));
 			msg->clear_name();
 			msg->clear_parent();
 			p = NULL;

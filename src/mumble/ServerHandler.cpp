@@ -40,8 +40,9 @@
 #include "PacketDataStream.h"
 #include "NetworkConfig.h"
 
-ServerHandlerMessageEvent::ServerHandlerMessageEvent(QByteArray &msg, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
+ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int type, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
+	uiType = type;
 	bFlush = flush;
 }
 
@@ -195,7 +196,7 @@ void ServerHandler::sendMessage(const ::google::protobuf::Message &msg, unsigned
 
 	if (QThread::currentThread() != thread()) {
 		MessageHandler::messageToNetwork(msg, msgType, qba);
-		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qba, false);
+		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qba, 0, false);
 		QApplication::postEvent(this, shme);
 	} else {
 		cConnection->sendMessage(msg, msgType, qba);
@@ -210,8 +211,8 @@ void ServerHandler::run() {
 	qscCert.clear();
 
 	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
-	connect(cConnection.get(), SIGNAL(connectionClosed(QString)), this, SLOT(serverConnectionClosed(QString)));
-	connect(cConnection.get(), SIGNAL(message(QByteArray &)), this, SLOT(message(QByteArray &)));
+	connect(cConnection.get(), SIGNAL(connectionClosed(const QString &)), this, SLOT(serverConnectionClosed(const QString &)));
+	connect(cConnection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
 	qtsSock->connectToHostEncrypted(qsHostName, usPort);
 
@@ -278,23 +279,23 @@ void ServerHandler::sendPing() {
 	sendMessage(mpp);
 }
 
-void ServerHandler::message(unsigned int msgType, QByteArray &qbaMsg) {
+void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 	// FIXME: Special-case UDP tunnel, don't throw it to GUI thread!
 	// FIXME: UserRemove needs to clear out stale AudioOutput
 	// FIXME: Do something about the msgType, please :)
 
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, false);
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);
 	QApplication::postEvent(g.mw, shme);
 }
 
 void ServerHandler::disconnect() {
 	// Actual TCP object is in a different thread, so signal it
 	QByteArray qbaBuffer;
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, false);
+	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaBuffer, 0, false);
 	QApplication::postEvent(this, shme);
 }
 
-void ServerHandler::serverConnectionClosed(QString reason) {
+void ServerHandler::serverConnectionClosed(const QString &reason) {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();

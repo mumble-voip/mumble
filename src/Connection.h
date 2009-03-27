@@ -45,6 +45,7 @@ class Connection : public QObject {
 	protected:
 		QSslSocket *qtsSocket;
 		QTime qtLastPacket;
+		unsigned int uiType;
 		int iPacketLength;
 		bool bDisconnectedEmitted;
 #ifdef Q_OS_WIN
@@ -59,8 +60,8 @@ class Connection : public QObject {
 	public slots:
 		void proceedAnyway();
 	signals:
-		void connectionClosed(QString reason);
-		void message(QByteArray &);
+		void connectionClosed(const QString &reason);
+		void message(unsigned int type, const QByteArray &);
 		void handleSslErrors(const QList<QSslError> &);
 
 		void recheckBuffer();
