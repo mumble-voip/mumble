@@ -1453,8 +1453,8 @@ void MainWindow::customEvent(QEvent *evt) {
 
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
-#define MUMBLE_MH_MSG(x) case MessageHandler::##x : { \
-		MumbleProto::##x msg; \
+#define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
+		MumbleProto:: x msg; \
 		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) { \
 			printf("%s:\n", #x); \
 			msg.PrintDebugString(); \

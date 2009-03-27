@@ -66,7 +66,7 @@ class MessageHandler {
 		static void messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);
 
 	protected:
-#define MUMBLE_MH_MSG(x) virtual void msg##x(Connection *, MumbleProto::##x *) = 0;
+#define MUMBLE_MH_MSG(x) virtual void msg##x(Connection *, MumbleProto:: x *) = 0;
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 		void dispatch(Connection *, const QByteArray &);

@@ -86,7 +86,7 @@ class ServerHandler : public QThread {
 		void sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
 		void sendMessage(const char *data, int len);
 
-#define MUMBLE_MH_MSG(x) void sendMessage(const MumbleProto::##x &msg) { sendMessage(msg, MessageHandler::##x); }
+#define MUMBLE_MH_MSG(x) void sendMessage(const MumbleProto:: x &msg) { sendMessage(msg, MessageHandler:: x); }
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 

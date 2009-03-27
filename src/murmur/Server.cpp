@@ -657,8 +657,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, Connection *
 		cCon = static_cast<Connection *>(sender());
 	}
 
-#define MUMBLE_MH_MSG(x) case MessageHandler::##x : { \
-		MumbleProto::##x msg; \
+#define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
+		MumbleProto:: x msg; \
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
 			printf("%s:\n", #x); \
 			msg.PrintDebugString(); \
