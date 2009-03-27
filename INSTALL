@@ -7,24 +7,6 @@ on sourceforge.net, see http://www.sourceforge.net/projects/mumble/
 The only legitimate releases of Mumble will be on sourceforge, any other
 place offering Mumble is likely to contain trojans or viruses.
 
-Pre-requisites
-==============
-
-Mumble and murmur depends on Qt version 4.3.0 or above; either the opensource
-or commercial versions will do.
-Please see http://www.trolltech.com/qt/ for more information. As we use the Qt
-build system, it's important that you have a fully functional Qt installation.
-
-The mumble build uses pre-comiled headers. If you use GCC, make sure it's at
-least version 3.4, and preferably 4.2 or newer.
-
-Mumble needs the Boost C++ library. http://www.boost.org
-
-You need ZeroC ICE. http://www.zeroc.com
-
-You may need to adjust the paths in mumble.pro, murmur.pro and mumble.pri to
-reflect where your installed versions of dependant libraries are.
-
 Windows pre-requisites
 ======================
 
@@ -42,13 +24,9 @@ to follow them to the letter.
 Linux pre-requisites
 ====================
 
-Mumble needs the developer libraries for the sound backend you want to use
-(ALSA, OSS or PulseAudio), as well as the developer libraries for Xevie, 
-speech-dispatcher, dbus and g15-daemon.
-
-The Linux version of the client is developed on Ubuntu 8.10. It may work on
-other updated distributions. The server should work on any modern UNIX-based
-distribution and on Windows.
+Detailed build instructions are available at
+http://mumble.sourceforge.net/BuildingLinux and it is highly recommended
+to follow them to the letter.
 
 Building Mumble and Murmur
 ==========================
