@@ -77,10 +77,6 @@ class Connection : public QObject {
 
 		CryptState csCrypt;
 
-		boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::mean, boost::accumulators::tag::variance> > accTCP, accUDP;
-
-		static void updatePing(double &avg, double &var, quint32 &samples, quint64 usec);
-
 		QList<QSslCertificate> peerCertificateChain() const;
 		QSslCipher sessionCipher() const;
 		QHostAddress peerAddress() const;

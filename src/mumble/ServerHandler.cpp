@@ -152,7 +152,7 @@ void ServerHandler::udpReady() {
 		if (msgType == MessageHandler::UDPPing) {
 			quint64 t;
 			pds >> t;
-			cConnection->accUDP((tTimestamp.elapsed() - t) / 1000.0);
+			accUDP((tTimestamp.elapsed() - t) / 1000.0);
 		} else if (msgType == MessageHandler::UDPVoice) {
 			handleVoicePacket(msgFlags, pds);
 		}
@@ -231,6 +231,8 @@ void ServerHandler::run() {
 
 	g.mw->rtLast = MumbleProto::Reject_RejectType_None;
 
+	accUDP = accTCP = accClean;
+
 	exec();
 
 	if (qusUdp) {
@@ -281,10 +283,12 @@ void ServerHandler::sendPing() {
 	mpp.set_lost(cs.uiLost);
 	mpp.set_resync(cs.uiResync);
 
-	mpp.set_udp_ping_avg(boost::accumulators::mean(cConnection->accUDP));
-	mpp.set_udp_ping_var(boost::accumulators::variance(cConnection->accUDP));
-	mpp.set_tcp_ping_avg(boost::accumulators::mean(cConnection->accTCP));
-	mpp.set_tcp_ping_var(boost::accumulators::variance(cConnection->accTCP));
+	mpp.set_udp_ping_avg(boost::accumulators::mean(accUDP));
+	mpp.set_udp_ping_var(boost::accumulators::variance(accUDP));
+	mpp.set_udp_packets(boost::accumulators::count(accUDP));
+	mpp.set_tcp_ping_avg(boost::accumulators::mean(accTCP));
+	mpp.set_tcp_ping_var(boost::accumulators::variance(accTCP));
+	mpp.set_tcp_packets(boost::accumulators::count(accTCP));
 	sendMessage(mpp);
 }
 
@@ -309,7 +313,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 				cs.uiRemoteLate = msg.late();
 				cs.uiRemoteLost = msg.lost();
 				cs.uiRemoteResync = msg.resync();
-				cConnection->accTCP((g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+				accTCP((g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
 		}
 	} else {
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);

@@ -96,6 +96,10 @@ class User : public Connection, public Player {
 	protected:
 		Server *s;
 	public:
+		double dUDPPingAvg, dUDPPingVar;
+		double dTCPPingAvg, dTCPPingVar;
+		quint64 uiUDPPackets, uiTCPPackets;
+
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
 		User(Server *parent, QSslSocket *socket);

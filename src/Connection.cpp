@@ -194,14 +194,6 @@ void Connection::disconnectSocket(bool force) {
 		qtsSocket->disconnectFromHost();
 }
 
-void Connection::updatePing(double &avg, double &var, quint32 &samples, quint64 usec) {
-	samples++;
-	double x = static_cast<double>(usec) / 1000.0;
-	double delta = x - avg;
-	avg += delta / static_cast<double>(samples);
-	var += delta * (x - avg);
-};
-
 QHostAddress Connection::peerAddress() const {
 	return qtsSocket->peerAddress();
 }

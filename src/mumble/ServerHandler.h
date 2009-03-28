@@ -79,6 +79,8 @@ class ServerHandler : public QThread {
 		QSslCipher qscCipher;
 		ConnectionPtr cConnection;
 
+		boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::mean, boost::accumulators::tag::variance, boost::accumulators::tag::count> > accTCP, accUDP, accClean;
+
 		ServerHandler();
 		~ServerHandler();
 		void setConnectionInfo(const QString &host, unsigned short port, const QString &username, const QString &pw);
