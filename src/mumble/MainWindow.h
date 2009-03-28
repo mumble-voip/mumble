@@ -178,24 +178,24 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		~MainWindow();
 
 		// From msgHandler. Implementation in Messages.cpp
-		virtual void msgVersion(Connection *, MumbleProto::Version *);
-		virtual void msgUDPTunnel(Connection *, MumbleProto::UDPTunnel *);
-		virtual void msgAuthenticate(Connection *, MumbleProto::Authenticate *);
-		virtual void msgPing(Connection *, MumbleProto::Ping *);
-		virtual void msgReject(Connection *, MumbleProto::Reject *);
-		virtual void msgServerSync(Connection *, MumbleProto::ServerSync *);
-		virtual void msgChannelRemove(Connection *, MumbleProto::ChannelRemove *);
-		virtual void msgChannelState(Connection *, MumbleProto::ChannelState *);
-		virtual void msgUserRemove(Connection *, MumbleProto::UserRemove *);
-		virtual void msgUserState(Connection *, MumbleProto::UserState *);
-		virtual void msgBanList(Connection *, MumbleProto::BanList *);
-		virtual void msgTextMessage(Connection *, MumbleProto::TextMessage *);
-		virtual void msgPermissionDenied(Connection *, MumbleProto::PermissionDenied *);
-		virtual void msgACL(Connection *, MumbleProto::ACL *);
-		virtual void msgQueryUsers(Connection *, MumbleProto::QueryUsers *);
-		virtual void msgCryptSetup(Connection *, MumbleProto::CryptSetup *);
-		virtual void msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd *);
-		virtual void msgContextAction(Connection *, MumbleProto::ContextAction *);
+		virtual void msgVersion(const MumbleProto::Version &);
+		virtual void msgUDPTunnel(const MumbleProto::UDPTunnel &);
+		virtual void msgAuthenticate(const MumbleProto::Authenticate &);
+		virtual void msgPing(const MumbleProto::Ping &);
+		virtual void msgReject(const MumbleProto::Reject &);
+		virtual void msgServerSync(const MumbleProto::ServerSync &);
+		virtual void msgChannelRemove(const MumbleProto::ChannelRemove &);
+		virtual void msgChannelState(const MumbleProto::ChannelState &);
+		virtual void msgUserRemove(const MumbleProto::UserRemove &);
+		virtual void msgUserState(const MumbleProto::UserState &);
+		virtual void msgBanList(const MumbleProto::BanList &);
+		virtual void msgTextMessage(const MumbleProto::TextMessage &);
+		virtual void msgPermissionDenied(const MumbleProto::PermissionDenied &);
+		virtual void msgACL(const MumbleProto::ACL &);
+		virtual void msgQueryUsers(const MumbleProto::QueryUsers &);
+		virtual void msgCryptSetup(const MumbleProto::CryptSetup &);
+		virtual void msgContextActionAdd(const MumbleProto::ContextActionAdd &);
+		virtual void msgContextAction(const MumbleProto::ContextAction &);
 };
 
 #else

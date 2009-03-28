@@ -1458,7 +1458,7 @@ void MainWindow::customEvent(QEvent *evt) {
 		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) { \
 			printf("%s:\n", #x); \
 			msg.PrintDebugString(); \
-			msg##x(NULL, &msg); \
+			msg##x(msg); \
 		} \
 		break; \
 	}

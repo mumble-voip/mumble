@@ -120,7 +120,8 @@ void Connection::socketRead() {
 		qtLastPacket.restart();
 		iAvailable -= iPacketLength;
 
-		emit message(uiType, qbaBuffer);
+		if (! qbaBuffer.isEmpty())
+			emit message(uiType, qbaBuffer);
 	}
 }
 
@@ -146,26 +147,31 @@ void Connection::socketDisconnected() {
 	}
 }
 
+void Connection::messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
+	int len = msg.ByteSize();
+	if (len > 0x7fffff)
+		return;
+	cache.resize(len + 4);
+	unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
+	uc[0] = msgType;
+	uc[1] = (len >> 16) & 0xFF;
+	uc[2] = (len >> 8) & 0xFF;
+	uc[3] = len & 0xFF;
+
+	msg.SerializeToArray(uc + 4, len);
+}
+
 void Connection::sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
 	if (cache.isEmpty()) {
-		int len = msg.ByteSize();
-		if (len > 0x7fffff)
-			return;
-		cache.resize(len + 4);
-		unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
-		uc[0] = msgType;
-		uc[1] = (len >> 16) & 0xFF;
-		uc[2] = (len >> 8) & 0xFF;
-		uc[3] = len & 0xFF;
-
-		msg.SerializeToArray(uc + 4, len);
+		messageToNetwork(msg, msgType, cache);
 	}
 
 	sendMessage(cache);
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	qtsSocket->write(qbaMsg);
+	if (! qbaMsg.isEmpty())
+		qtsSocket->write(qbaMsg);
 }
 
 void Connection::forceFlush() {

@@ -15,7 +15,7 @@ FORMS =
 HEADERS *= Server.h Meta.h
 SOURCES *= main.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp RPC.cpp
 HEADERS	*= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../Player.h
-SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Message.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp
+SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Connection.cpp ../Player.cpp ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp
 
 DIST = DBus.h ServerDB.h ../../icons/murmur.ico Murmur.ice MurmurI.h MurmurIceWrapper.cpp
 PRECOMPILED_HEADER = murmur_pch.h

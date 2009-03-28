@@ -45,8 +45,8 @@
 
 #define VICTIM_SETUP \
 	User *pDstUser = uSource; \
-	if (msg->has_session()) \
-		pDstUser = qhUsers.value(msg->session()); \
+	if (msg.has_session()) \
+		pDstUser = qhUsers.value(msg.session()); \
 	if (! pDstUser) \
 		return; \
 	Q_UNUSED(pDstUser)
@@ -66,17 +66,16 @@
 		sendMessage(uSource, mppd, MessageHandler::PermissionDenied); \
 	}
 
-
-void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate *msg) {
+void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate &msg) {
 	MSG_SETUP(Player::Connected);
 
 	Channel *c;
 
-	uSource->qsName = u8(msg->username());
+	uSource->qsName = u8(msg.username());
 
 	bool ok = false;
 	bool nameok = validatePlayerName(uSource->qsName);
-	QString pw = u8(msg->password());
+	QString pw = u8(msg.password());
 
 	// Fetch ID and stored username.
 	// Since this may call DBus, which may recall our dbus messages, this function needs
@@ -259,7 +258,7 @@ void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate *msg) {
 	playerEnterChannel(uSource, lc, false);
 }
 
-void Server::msgBanList(Connection *cCon, MumbleProto::BanList *msg) {
+void Server::msgBanList(Connection *cCon, MumbleProto::BanList &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	typedef QPair<quint32, int> ban;
@@ -267,11 +266,11 @@ void Server::msgBanList(Connection *cCon, MumbleProto::BanList *msg) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Write);
 		return;
 	}
-	if (msg->query()) {
-		msg->clear_query();
-		msg->clear_bans();
+	if (msg.query()) {
+		msg.clear_query();
+		msg.clear_bans();
 		foreach(const ban &b, qlBans) {
-			MumbleProto::BanList_BanEntry *be = msg->add_bans();
+			MumbleProto::BanList_BanEntry *be = msg.add_bans();
 			char buff[4];
 			buff[0] = (b.first >> 24) & 0xFF;
 			buff[1] = (b.first >> 16) & 0xFF;
@@ -280,11 +279,11 @@ void Server::msgBanList(Connection *cCon, MumbleProto::BanList *msg) {
 			be->set_address(std::string(buff, 4));
 			be->set_mask(b.second);
 		}
-		sendMessage(uSource, *msg, MessageHandler::BanList);
+		sendMessage(uSource, msg, MessageHandler::BanList);
 	} else {
 		qlBans.clear();
-		for (int i=0;i < msg->bans_size(); ++i) {
-			const MumbleProto::BanList_BanEntry &be = msg->bans(i);
+		for (int i=0;i < msg.bans_size(); ++i) {
+			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
 			quint32 v = 0;
 			std::string s = be.address();
 			if (s.length() == 4) {
@@ -301,19 +300,19 @@ void Server::msgBanList(Connection *cCon, MumbleProto::BanList *msg) {
 	}
 }
 
-void Server::msgReject(Connection *, MumbleProto::Reject *) {
+void Server::msgReject(Connection *, MumbleProto::Reject &) {
 }
 
-void Server::msgServerSync(Connection *, MumbleProto::ServerSync *) {
+void Server::msgServerSync(Connection *, MumbleProto::ServerSync &) {
 }
 
-void Server::msgPermissionDenied(Connection *, MumbleProto::PermissionDenied *) {
+void Server::msgPermissionDenied(Connection *, MumbleProto::PermissionDenied &) {
 }
 
-void Server::msgUDPTunnel(Connection *cCon, MumbleProto::UDPTunnel *msg) {
+void Server::msgUDPTunnel(Connection *cCon, MumbleProto::UDPTunnel &msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	const std::string &str = msg->packet();
+	const std::string &str = msg.packet();
 	int len = str.length();
 	if (len < 1)
 		return;
@@ -321,7 +320,7 @@ void Server::msgUDPTunnel(Connection *cCon, MumbleProto::UDPTunnel *msg) {
 	processMsg(uSource, str.data(), len);
 }
 
-void Server::msgUserState(Connection *cCon, MumbleProto::UserState *msg) {
+void Server::msgUserState(Connection *cCon, MumbleProto::UserState &msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
@@ -330,11 +329,11 @@ void Server::msgUserState(Connection *cCon, MumbleProto::UserState *msg) {
 		return;
 	}
 
-	msg->set_session(pDstUser->uiSession);
-	msg->set_actor(uSource->uiSession);
+	msg.set_session(pDstUser->uiSession);
+	msg.set_actor(uSource->uiSession);
 
-	if (msg->has_channel_id()) {
-		Channel *c = qhChannels.value(msg->channel_id());
+	if (msg.has_channel_id()) {
+		Channel *c = qhChannels.value(msg.channel_id());
 		if (!c || (c == pDstUser->cChannel))
 			return;
 
@@ -349,72 +348,72 @@ void Server::msgUserState(Connection *cCon, MumbleProto::UserState *msg) {
 		}
 	}
 
-	if (msg->has_mute() || msg->has_deaf() || msg->has_suppressed()) {
-		if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen) || msg->suppressed()) {
+	if (msg.has_mute() || msg.has_deaf() || msg.has_suppressed()) {
+		if (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MuteDeafen) || msg.suppressed()) {
 			PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MuteDeafen);
 			return;
 		}
 	}
 
-	if ((pDstUser != uSource) && (msg->has_self_deaf() || msg->has_self_mute() || msg->has_texture()))
+	if ((pDstUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture()))
 		return;
 
 	// Permission checks done. Now enact this.
 
-	if (msg->has_self_deaf()) {
-		uSource->bSelfDeaf = msg->self_deaf();
+	if (msg.has_self_deaf()) {
+		uSource->bSelfDeaf = msg.self_deaf();
 		if (uSource->bSelfDeaf)
-			msg->set_self_mute(true);
+			msg.set_self_mute(true);
 	}
 
-	if (msg->has_self_mute()) {
-		uSource->bSelfMute = msg->self_mute();
+	if (msg.has_self_mute()) {
+		uSource->bSelfMute = msg.self_mute();
 		if (! uSource->bSelfMute) {
-			msg->set_self_deaf(false);
+			msg.set_self_deaf(false);
 			uSource->bSelfDeaf = false;
 		}
 	}
 
 
-	if (msg->has_channel_id()) {
-		Channel *c = qhChannels.value(msg->channel_id());
+	if (msg.has_channel_id()) {
+		Channel *c = qhChannels.value(msg.channel_id());
 
 		playerEnterChannel(pDstUser, c);
 		log(uSource, QString("Moved %1 to %2").arg(*pDstUser).arg(*c));
 	}
 
 
-	if (msg->has_mute() || msg->has_deaf() || msg->has_suppressed()) {
-		if (msg->has_deaf()) {
-			pDstUser->bDeaf = msg->deaf();
+	if (msg.has_mute() || msg.has_deaf() || msg.has_suppressed()) {
+		if (msg.has_deaf()) {
+			pDstUser->bDeaf = msg.deaf();
 			if (pDstUser->bDeaf)
-				msg->set_mute(true);
+				msg.set_mute(true);
 		}
-		if (msg->has_mute()) {
-			pDstUser->bMute = msg->mute();
+		if (msg.has_mute()) {
+			pDstUser->bMute = msg.mute();
 			if (! pDstUser->bMute) {
-				msg->set_deaf(false);
+				msg.set_deaf(false);
 				pDstUser->bDeaf = false;
 			}
 		}
-		if (msg->has_suppressed())
-			pDstUser->bSuppressed = msg->suppressed();
+		if (msg.has_suppressed())
+			pDstUser->bSuppressed = msg.suppressed();
 
 		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(*pDstUser).arg(pDstUser->bMute).arg(pDstUser->bDeaf).arg(pDstUser->bSuppressed));
 	}
 
-	sendAll(*msg, MessageHandler::UserState);
+	sendAll(msg, MessageHandler::UserState);
 
 	emit playerStateChanged(pDstUser);
 }
 
-void Server::msgUserRemove(Connection *cCon, MumbleProto::UserRemove *msg) {
+void Server::msgUserRemove(Connection *cCon, MumbleProto::UserRemove &msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
-	msg->set_actor(uSource->uiSession);
+	msg.set_actor(uSource->uiSession);
 
-	bool ban = msg->has_ban() && msg->ban();
+	bool ban = msg.has_ban() && msg.ban();
 
 	Channel *c = ban ? qhChannels.value(0) : pDstUser->cChannel;
 
@@ -430,40 +429,40 @@ void Server::msgUserRemove(Connection *cCon, MumbleProto::UserRemove *msg) {
 		saveBans();
 	}
 
-	sendAll(*msg, MessageHandler::UserRemove);
+	sendAll(msg, MessageHandler::UserRemove);
 	if (ban)
-		log(uSource, QString("Kickbanned %1 (%2)").arg(*pDstUser).arg(u8(msg->reason())));
+		log(uSource, QString("Kickbanned %1 (%2)").arg(*pDstUser).arg(u8(msg.reason())));
 	else
-		log(uSource, QString("Kicked %1 (%2)").arg(*pDstUser).arg(u8(msg->reason())));
+		log(uSource, QString("Kicked %1 (%2)").arg(*pDstUser).arg(u8(msg.reason())));
 	pDstUser->disconnectSocket();
 }
 
-void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState *msg) {
+void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	Channel *c = NULL;
 	Channel *p = NULL;
 
-	if (msg->has_channel_id()) {
-		c = qhChannels.value(msg->channel_id());
+	if (msg.has_channel_id()) {
+		c = qhChannels.value(msg.channel_id());
 		if (! c)
 			return;
 	}
 
-	if (msg->has_parent()) {
-		p = qhChannels.value(msg->parent());
+	if (msg.has_parent()) {
+		p = qhChannels.value(msg.parent());
 		if (! p)
 			return;
 	}
 
-	msg->clear_links();
+	msg.clear_links();
 
 	QString qsName;
 	QString qsDesc;
-	if (msg->has_description())
-		qsDesc = u8(msg->description());
-	if (msg->has_name()) {
-		qsName = u8(msg->name());
+	if (msg.has_description())
+		qsDesc = u8(msg.description());
+	if (msg.has_name()) {
+		qsName = u8(msg.name());
 
 		if (! validateChannelName(qsName)) {
 			PERM_DENIED_TEXT("Illegal channel name");
@@ -502,7 +501,7 @@ void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState *msg) {
 		}
 		updateChannel(c);
 
-		msg->set_channel_id(c->iId);
+		msg.set_channel_id(c->iId);
 		log(uSource, QString("Added channel %1 under %2").arg(*c).arg(*p));
 		emit channelCreated(c);
 	} else {
@@ -551,23 +550,23 @@ void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState *msg) {
 		QList<Channel *> qlAdd;
 		QList<Channel *> qlRemove;
 
-		if (msg->links_add_size() || msg->links_remove_size()) {
+		if (msg.links_add_size() || msg.links_remove_size()) {
 			if (! hasPermission(uSource, c, ChanACL::LinkChannel)) {
 				PERM_DENIED(uSource, c, ChanACL::LinkChannel);
 				return;
 			}
-			if (msg->links_remove_size()) {
-				for (int i=0;i < msg->links_remove_size(); ++i) {
-					unsigned int link = msg->links_remove(i);
+			if (msg.links_remove_size()) {
+				for (int i=0;i < msg.links_remove_size(); ++i) {
+					unsigned int link = msg.links_remove(i);
 					Channel *l = qhChannels.value(link);
 					if (! l)
 						return;
 					qlRemove << l;
 				}
 			}
-			if (msg->links_add_size()) {
-				for (int i=0;i < msg->links_add_size(); ++i) {
-					unsigned int link = msg->links_add(i);
+			if (msg.links_add_size()) {
+				for (int i=0;i < msg.links_add_size(); ++i) {
+					unsigned int link = msg.links_add(i);
 					Channel *l = qhChannels.value(link);
 					if (! l)
 						return;
@@ -608,13 +607,13 @@ void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState *msg) {
 		emit channelStateChanged(c);
 	}
 
-	sendAll(*msg, MessageHandler::ChannelState);
+	sendAll(msg, MessageHandler::ChannelState);
 }
 
-void Server::msgChannelRemove(Connection *cCon, MumbleProto::ChannelRemove *msg) {
+void Server::msgChannelRemove(Connection *cCon, MumbleProto::ChannelRemove &msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	Channel *c = qhChannels.value(msg->channel_id());
+	Channel *c = qhChannels.value(msg.channel_id());
 	if (!c)
 		return;
 
@@ -628,17 +627,17 @@ void Server::msgChannelRemove(Connection *cCon, MumbleProto::ChannelRemove *msg)
 	removeChannel(c, uSource);
 }
 
-void Server::msgTextMessage(Connection *cCon, MumbleProto::TextMessage *msg) {
+void Server::msgTextMessage(Connection *cCon, MumbleProto::TextMessage &msg) {
 	MSG_SETUP(Player::Authenticated);
 	QMutexLocker qml(&qmCache);
 
 	QSet<User *> users;
 	QQueue<Channel *> q;
 
-	msg->set_actor(uSource->uiSession);
+	msg.set_actor(uSource->uiSession);
 
-	for (int i=0;i<msg->channel_id_size(); ++i) {
-		unsigned int id = msg->channel_id(i);
+	for (int i=0;i<msg.channel_id_size(); ++i) {
+		unsigned int id = msg.channel_id(i);
 
 		Channel *c = qhChannels.value(id);
 		if (! c)
@@ -653,8 +652,8 @@ void Server::msgTextMessage(Connection *cCon, MumbleProto::TextMessage *msg) {
 			users.insert(static_cast<User *>(p));
 	}
 
-	for (int i=0;i<msg->tree_id_size(); ++i) {
-		unsigned int id = msg->tree_id(i);
+	for (int i=0;i<msg.tree_id_size(); ++i) {
+		unsigned int id = msg.tree_id(i);
 
 		Channel *c = qhChannels.value(id);
 		if (! c)
@@ -678,8 +677,8 @@ void Server::msgTextMessage(Connection *cCon, MumbleProto::TextMessage *msg) {
 		}
 	}
 
-	for (int i=0;i < msg->session_size(); ++i) {
-		unsigned int session = msg->session(i);
+	for (int i=0;i < msg.session_size(); ++i) {
+		unsigned int session = msg.session(i);
 		User *u = qhUsers.value(session);
 		if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
 			PERM_DENIED(uSource, u->cChannel, ChanACL::Speak);
@@ -689,13 +688,13 @@ void Server::msgTextMessage(Connection *cCon, MumbleProto::TextMessage *msg) {
 	}
 
 	foreach(User *u, users)
-		sendMessage(u, *msg, MessageHandler::TextMessage);
+		sendMessage(u, msg, MessageHandler::TextMessage);
 }
 
-void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
+void Server::msgACL(Connection *cCon, MumbleProto::ACL &msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	Channel *c = qhChannels.value(msg->channel_id());
+	Channel *c = qhChannels.value(msg.channel_id());
 	if (!c)
 		return;
 
@@ -704,15 +703,15 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 		return;
 	}
 
-	if (msg->has_query() && msg->query()) {
+	if (msg.has_query() && msg.query()) {
 		QStack<Channel *> chans;
 		Channel *p;
 		ChanACL *acl;
 
-		msg->clear_groups();
-		msg->clear_acls();
-		msg->clear_query();
-		msg->set_inherit_acls(c->bInheritACL);
+		msg.clear_groups();
+		msg.clear_acls();
+		msg.clear_query();
+		msg.set_inherit_acls(c->bInheritACL);
 
 		p = c;
 		while (p) {
@@ -727,7 +726,7 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 			p = chans.pop();
 			foreach(acl, p->qlACL) {
 				if ((p == c) || (acl->bApplySubs)) {
-					MumbleProto::ACL_ChanACL *mpacl = msg->add_acls();
+					MumbleProto::ACL_ChanACL *mpacl = msg.add_acls();
 
 					mpacl->set_inherited(p != c);
 					mpacl->set_apply_here(acl->bApplyHere);
@@ -749,7 +748,7 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 			Group *g = c->qhGroups.value(name);
 			Group *pg = p ? Group::getGroup(p, name) : NULL;
 
-			MumbleProto::ACL_ChanGroup *group = msg->add_groups();
+			MumbleProto::ACL_ChanGroup *group = msg.add_groups();
 			group->set_name(u8(name));
 			group->set_inherit(g ? g->bInherit : true);
 			group->set_inheritable(g ? g->bInheritable : true);
@@ -765,7 +764,7 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 					group->add_inherited_members(id);
 		}
 		// TODO: Send QueryUsers with it.
-		sendMessage(uSource, *msg, MessageHandler::ACL);
+		sendMessage(uSource, msg, MessageHandler::ACL);
 	} else {
 		Group *g;
 		ChanACL *a;
@@ -783,10 +782,10 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 		c->qhGroups.clear();
 		c->qlACL.clear();
 
-		c->bInheritACL = msg->inherit_acls();
+		c->bInheritACL = msg.inherit_acls();
 
-		for (int i=0;i<msg->groups_size(); ++i) {
-			const MumbleProto::ACL_ChanGroup &group = msg->groups(i);
+		for (int i=0;i<msg.groups_size(); ++i) {
+			const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
 			g = new Group(c, u8(group.name()));
 			g->bInherit = group.inherit();
 			g->bInheritable = group.inheritable();
@@ -797,8 +796,8 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 			g->qsTemporary = hOldTemp.value(g->qsName);
 		}
 
-		for (int i=0;i<msg->acls_size(); ++i) {
-			const MumbleProto::ACL_ChanACL &mpacl = msg->acls(i);
+		for (int i=0;i<msg.acls_size(); ++i) {
+			const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
 			a = new ChanACL(c);
 			a->bApplyHere=mpacl.apply_here();
 			a->bApplySubs=mpacl.apply_subs();
@@ -828,73 +827,73 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL *msg) {
 	}
 }
 
-void Server::msgQueryUsers(Connection *cCon, MumbleProto::QueryUsers *msg) {
+void Server::msgQueryUsers(Connection *cCon, MumbleProto::QueryUsers &msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	if (msg->ids_size()) {
-		msg->clear_names();
-		for (int i=0;i<msg->ids_size();++i) {
-			int id = msg->ids(i);
+	if (msg.ids_size()) {
+		msg.clear_names();
+		for (int i=0;i<msg.ids_size();++i) {
+			int id = msg.ids(i);
 			if (! qhUserNameCache.contains(id)) {
 				QString name = getUserName(id);
 				if (! name.isEmpty())
 					qhUserNameCache[id] = name;
 			}
-			msg->add_names(u8(qhUserNameCache.value(id)));
+			msg.add_names(u8(qhUserNameCache.value(id)));
 		}
 	} else {
-		msg->clear_ids();
-		for (int i=0;i<msg->names_size();++i) {
-			QString name = u8(msg->names(i));
+		msg.clear_ids();
+		for (int i=0;i<msg.names_size();++i) {
+			QString name = u8(msg.names(i));
 			int id = qhUserIDCache.value(name);
 			if (! qhUserIDCache.contains(name)) {
 				id = getUserID(name);
 				if (id >= 0)
 					qhUserIDCache[name] = id;
 			}
-			msg->add_ids((id >= 0) ? id : -1);
+			msg.add_ids((id >= 0) ? id : -1);
 		}
 	}
 
-	sendMessage(uSource, *msg, MessageHandler::QueryUsers);
+	sendMessage(uSource, msg, MessageHandler::QueryUsers);
 }
 
-void Server::msgPing(Connection *cCon, MumbleProto::Ping *msg) {
+void Server::msgPing(Connection *cCon, MumbleProto::Ping &msg) {
 	MSG_SETUP(Player::Authenticated);
 	CryptState &cs=uSource->csCrypt;
 
-	cs.uiRemoteGood = msg->good();
-	cs.uiRemoteLate = msg->late();
-	cs.uiRemoteLost = msg->lost();
-	cs.uiRemoteResync = msg->resync();
+	cs.uiRemoteGood = msg.good();
+	cs.uiRemoteLate = msg.late();
+	cs.uiRemoteLost = msg.lost();
+	cs.uiRemoteResync = msg.resync();
 
-	uSource->dUDPPingAvg = msg->udp_ping_avg();
-	uSource->dUDPPingVar = msg->udp_ping_var();
-	uSource->uiUDPPackets = msg->udp_packets();
-	uSource->dTCPPingAvg = msg->tcp_ping_avg();
-	uSource->dTCPPingVar = msg->tcp_ping_var();
-	uSource->uiTCPPackets = msg->tcp_packets();
+	uSource->dUDPPingAvg = msg.udp_ping_avg();
+	uSource->dUDPPingVar = msg.udp_ping_var();
+	uSource->uiUDPPackets = msg.udp_packets();
+	uSource->dTCPPingAvg = msg.tcp_ping_avg();
+	uSource->dTCPPingVar = msg.tcp_ping_var();
+	uSource->uiTCPPackets = msg.tcp_packets();
 
-	quint64 ts = msg->timestamp();
+	quint64 ts = msg.timestamp();
 
-	msg->Clear();
-	msg->set_timestamp(ts);
-	msg->set_good(cs.uiGood);
-	msg->set_late(cs.uiLate);
-	msg->set_lost(cs.uiLost);
-	msg->set_resync(cs.uiResync);
+	msg.Clear();
+	msg.set_timestamp(ts);
+	msg.set_good(cs.uiGood);
+	msg.set_late(cs.uiLate);
+	msg.set_lost(cs.uiLost);
+	msg.set_resync(cs.uiResync);
 
-	sendMessage(uSource, *msg, MessageHandler::Ping);
+	sendMessage(uSource, msg, MessageHandler::Ping);
 }
 
-void Server::msgCryptSetup(Connection *cCon, MumbleProto::CryptSetup *msg) {
+void Server::msgCryptSetup(Connection *cCon, MumbleProto::CryptSetup &msg) {
 	MSG_SETUP(Player::Authenticated);
-	if (! msg->has_client_nonce()) {
+	if (! msg.has_client_nonce()) {
 		log(uSource, "Requested crypt-nonce resync");
-		msg->set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
-		sendMessage(uSource, *msg, MessageHandler::CryptSetup);
+		msg.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
+		sendMessage(uSource, msg, MessageHandler::CryptSetup);
 	} else {
-		const std::string &str = msg->client_nonce();
+		const std::string &str = msg.client_nonce();
 		if (str.size()  == AES_BLOCK_SIZE) {
 			uSource->csCrypt.uiResync++;
 			memcpy(uSource->csCrypt.decrypt_iv, str.data(), AES_BLOCK_SIZE);
@@ -902,22 +901,22 @@ void Server::msgCryptSetup(Connection *cCon, MumbleProto::CryptSetup *msg) {
 	}
 }
 
-void Server::msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd *) {
+void Server::msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd &) {
 }
 
-void Server::msgContextAction(Connection *cCon, MumbleProto::ContextAction *msg) {
+void Server::msgContextAction(Connection *cCon, MumbleProto::ContextAction &msg) {
 	MSG_SETUP(Player::Authenticated);
 
-	unsigned int session = msg->has_session() ? msg->session() : 0;
-	int id = msg->has_channel_id() ? static_cast<int>(msg->channel_id()) : -1;
+	unsigned int session = msg.has_session() ? msg.session() : 0;
+	int id = msg.has_channel_id() ? static_cast<int>(msg.channel_id()) : -1;
 
 	if (session && ! qhUsers.contains(session))
 		return;
 	if ((id >= 0) && ! qhChannels.contains(id))
 		return;
-	emit contextAction(uSource, u8(msg->action()), session, id);
+	emit contextAction(uSource, u8(msg.action()), session, id);
 }
 
-void Server::msgVersion(Connection *, MumbleProto::Version *) {
+void Server::msgVersion(Connection *, MumbleProto::Version &) {
 }
 

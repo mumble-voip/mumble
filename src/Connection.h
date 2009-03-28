@@ -68,6 +68,7 @@ class Connection : public QObject {
 	public:
 		Connection(QObject *parent, QSslSocket *qtsSocket);
 		~Connection();
+		static void messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);
 		void sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);
 		void sendMessage(const QByteArray &qbaMsg);
 		void disconnectSocket(bool force=false);

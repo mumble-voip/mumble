@@ -71,6 +71,9 @@ class ServerHandler : public QThread {
 		QUdpSocket *qusUdp;
 		QMutex qmUdp;
 		Timer tTimestamp;
+
+		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds);
+
 	public:
 		QList<QSslError> qlErrors;
 		QList<QSslCertificate> qscCert;

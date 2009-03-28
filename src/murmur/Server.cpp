@@ -656,14 +656,43 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, Connection *
 	if (cCon == NULL) {
 		cCon = static_cast<Connection *>(sender());
 	}
+	User *u = static_cast<User *>(cCon);
+
+	if (uiType == MessageHandler::UDPTunnel) {
+		int l = qbaMsg.size();
+		if (l < 2)
+			return;
+
+		QReadLocker rl(&qrwlUsers);
+		if (u->saiUdpAddress.sin_port) {
+			rl.unlock();
+			qrwlUsers.lockForWrite();
+
+			qhHostUsers[u->saiUdpAddress.sin_addr.s_addr].remove(u);
+			quint64 key = (static_cast<unsigned long long>(u->saiUdpAddress.sin_addr.s_addr) << 16) ^ u->saiUdpAddress.sin_port;
+			qhPeerUsers.remove(key);
+			u->saiUdpAddress.sin_port = 0;
+
+			qrwlUsers.unlock();
+			rl.relock();
+		}
+
+		const char *buffer = qbaMsg.constData();
+
+		unsigned int msgType = (buffer[0] >> 5) & 0x7;
+
+		if (msgType == MessageHandler::UDPVoice)
+			processMsg(u, buffer, l);
+		return;
+	}
 
 #define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
 		MumbleProto:: x msg; \
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-			printf("%s:\n", #x); \
+			printf("== %s:\n", #x); \
 			msg.PrintDebugString(); \
 			msg.DiscardUnknownFields(); \
-			msg##x(cCon, &msg); \
+			msg##x(cCon, msg); \
 		} \
 		break; \
 	}
@@ -691,7 +720,18 @@ void Server::checkTimeout() {
 void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 	Connection *c = qhUsers.value(id);
 	if (c) {
-		c->sendMessage(a);
+		QByteArray qba;
+		int len = a.size();
+
+		qba.resize(len + 4);
+		unsigned char *uc = reinterpret_cast<unsigned char *>(qba.data());
+		uc[0] = MessageHandler::UDPTunnel;
+		uc[1] = (len >> 16) & 0xFF;
+		uc[2] = (len >> 8) & 0xFF;
+		uc[3] = len & 0xFF;
+		memcpy(uc + 4, a.constData(), len);
+
+		c->sendMessage(qba);
 		c->forceFlush();
 	}
 }

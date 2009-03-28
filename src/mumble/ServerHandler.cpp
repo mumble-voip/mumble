@@ -145,7 +145,8 @@ void ServerHandler::udpReady() {
 
 		PacketDataStream pds(buffer + 1, buflen-5);
 
-		quint32 msgType = (buffer[0] >> 5) & 0x7;
+		unsigned int msgType = (buffer[0] >> 5) & 0x7;
+		unsigned int msgFlags = buffer[0] & 0x1f;
 
 
 		if (msgType == MessageHandler::UDPPing) {
@@ -153,24 +154,22 @@ void ServerHandler::udpReady() {
 			pds >> t;
 			Connection::updatePing(cConnection->dUDPPingAvg, cConnection->dUDPPingVar, cConnection->uiUDPPackets, tTimestamp.elapsed() - t);
 		} else if (msgType == MessageHandler::UDPVoice) {
-			unsigned int uiSession;
-			pds >> uiSession;
-			ClientPlayer *p = ClientPlayer::get(uiSession);
-			AudioOutputPtr ao = g.ao;
-			if (ao) {
-				if (p) {
-					if (! p->bLocalMute) {
-						unsigned int iSeq;
-						pds >> iSeq;
-						QByteArray qbaSpeexPacket(pds.dataBlock(pds.left()));
-						ao->addFrameToBuffer(p, qbaSpeexPacket, iSeq);
-					}
-				} else {
-					ao->removeBuffer(p);
-				}
-			}
+			handleVoicePacket(msgFlags, pds);
 		}
 	}
+}
+
+void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds) {
+		unsigned int uiSession;
+		pds >> uiSession;
+		ClientPlayer *p = ClientPlayer::get(uiSession);
+		AudioOutputPtr ao = g.ao;
+		if (ao && p && ! p->bLocalMute) {
+			unsigned int iSeq;
+			pds >> iSeq;
+			QByteArray qbaSpeexPacket(pds.dataBlock(pds.left()));
+			ao->addFrameToBuffer(p, qbaSpeexPacket, iSeq);
+		}
 }
 
 void ServerHandler::sendMessage(const char *data, int len) {
@@ -184,7 +183,17 @@ void ServerHandler::sendMessage(const char *data, int len) {
 		return;
 
 	if (NetworkConfig::TcpModeEnabled()) {
-		// FIXME: Tunnel
+		QByteArray qba;
+
+		qba.resize(len + 4);
+		unsigned char *uc = reinterpret_cast<unsigned char *>(qba.data());
+		uc[0] = MessageHandler::UDPTunnel;
+		uc[1] = (len >> 16) & 0xFF;
+		uc[2] = (len >> 8) & 0xFF;
+		uc[3] = len & 0xFF;
+		memcpy(uc + 4, data, len);
+
+		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
 	} else {
 		cConnection->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), crypto, len);
 		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), len + 4, qhaRemote, usPort);
@@ -195,7 +204,7 @@ void ServerHandler::sendMessage(const ::google::protobuf::Message &msg, unsigned
 	QByteArray qba;
 
 	if (QThread::currentThread() != thread()) {
-		MessageHandler::messageToNetwork(msg, msgType, qba);
+		Connection::messageToNetwork(msg, msgType, qba);
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qba, 0, false);
 		QApplication::postEvent(this, shme);
 	} else {
@@ -280,12 +289,22 @@ void ServerHandler::sendPing() {
 }
 
 void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
-	// FIXME: Special-case UDP tunnel, don't throw it to GUI thread!
-	// FIXME: UserRemove needs to clear out stale AudioOutput
-	// FIXME: Do something about the msgType, please :)
+	const char *ptr = qbaMsg.constData();
+	if (msgType == MessageHandler::UDPTunnel) {
+		if (qbaMsg.length() < 1)
+			return;
 
-	ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);
-	QApplication::postEvent(g.mw, shme);
+		unsigned int msgType = (ptr[0] >> 5) & 0x7;
+		unsigned int msgFlags = ptr[0] & 0x1f;
+		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
+
+		if (msgType == MessageHandler::UDPVoice) {
+			handleVoicePacket(msgFlags, pds);
+		}
+	} else {
+		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);
+		QApplication::postEvent(g.mw, shme);
+	}
 }
 
 void ServerHandler::disconnect() {
