@@ -355,12 +355,11 @@ void MurmurDBus::kickPlayer(unsigned int session, const QString &reason, const Q
 	Connection *c = server->qhUsers.value(session);
 	if (!c)
 		return;
-
-	MessagePlayerKick mpk;
-	mpk.uiSession = 0;
-	mpk.uiVictim = session;
-	mpk.qsReason=reason;
-	server->sendAll(&mpk);
+	
+	MumbleProto::UserRemove mpur;
+	mpur.set_session(session);
+	mpur.set_reason(u8(reason));
+	server->sendAll(mpur);
 	c->disconnectSocket();
 }
 
@@ -373,49 +372,8 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 	PLAYER_SETUP_VAR(npi.session);
 	CHANNEL_SETUP_VAR(npi.channel);
 	PlayerInfo pi(pPlayer);
-
-	bool changed = false;
-
-	bool deaf = npi.deaf;
-	bool mute = npi.mute;
-	if (deaf)
-		mute = true;
-	if (! mute)
-		deaf = false;
-
-	if ((pi.deaf != deaf) && (deaf || (!deaf && mute))) {
-		pPlayer->bDeaf = deaf;
-		pPlayer->bMute = mute;
-		MessagePlayerDeaf mpd;
-		mpd.uiSession = 0;
-		mpd.uiVictim=pPlayer->uiSession;
-		mpd.bDeaf = deaf;
-		server->sendAll(&mpd);
-		changed = true;
-	} else if ((pi.deaf != deaf) || (pi.mute != mute)) {
-		pPlayer->bDeaf = deaf;
-		pPlayer->bMute = mute;
-
-		MessagePlayerMute mpm;
-		mpm.uiSession = 0;
-		mpm.uiVictim=pPlayer->uiSession;
-		mpm.bMute=mute;
-		server->sendAll(&mpm);
-		changed = true;
-	}
-
-	if (cChannel->iId != pi.channel) {
-		server->playerEnterChannel(pPlayer, cChannel);
-		MessagePlayerMove mpm;
-		mpm.uiSession = 0;
-		mpm.uiVictim = pPlayer->uiSession;
-		mpm.iChannelId = cChannel->iId;
-		server->sendAll(&mpm);
-		changed = true;
-	}
-
-	if (changed)
-		emit playerStateChanged(PlayerInfo(pPlayer));
+	
+	server->setPlayerState(pPlayer, cChannel, npi.mute, npi.deaf, npi.suppressed);
 }
 
 void MurmurDBus::sendMessage(unsigned int session, const QString &text, const QDBusMessage &msg) {
@@ -436,13 +394,12 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 	Channel *nc = server->addChannel(cChannel, name, QString());
 	server->updateChannel(nc);
 	newid = nc->iId;
-
-	MessageChannelAdd mca;
-	mca.uiSession = 0;
-	mca.qsName = name;
-	mca.iParent = chanparent;
-	mca.iId = nc->iId;
-	server->sendAll(&mca);
+	
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(nc->iId);
+	mpcs.set_parent(cChannel->iId);
+	mpcs.set_name(u8(name));
+	server->sendAll(mpcs);
 }
 
 void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
@@ -461,93 +418,18 @@ void MurmurDBus::getChannelState(int id, const QDBusMessage &msg, ChannelInfo &s
 
 void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(nci.id);
-	ChannelInfo ci(cChannel);
-
 	CHANNEL_SETUP_VAR2(cParent, nci.parent);
-
-	bool changed = false;
-	bool update = false;
 
 	QSet<Channel *> newset;
 	foreach(int id, nci.links) {
 		CHANNEL_SETUP_VAR2(cLink, id);
 		newset << cLink;
 	}
-
-	if (cChannel->qsName != nci.name) {
-		cChannel->qsName = nci.name;
-		MessageChannelRename mcr;
-		mcr.uiSession = 0;
-		mcr.iId = cChannel->iId;
-		mcr.qsName = nci.name;
-		server->sendAll(&mcr);
-		update = true;
-		changed = true;
+	
+	if (! server->setChannelState(cChannel, cParent, nci.name, newset)) {
+		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Moving channel to subchannel"));
+		return;
 	}
-
-	if ((cParent != cChannel) && (cParent != cChannel->cParent)) {
-
-		Channel *p = cParent;
-		while (p) {
-			if (p == cChannel) {
-				qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Moving channel to subchannel"));
-				return;
-			}
-			p = p->cParent;
-		}
-
-		cChannel->cParent->removeChannel(cChannel);
-		cParent->addChannel(cChannel);
-
-		MessageChannelMove mcm;
-		mcm.uiSession = 0;
-		mcm.iId = nci.id;
-		mcm.iParent = nci.parent;
-		server->sendAll(&mcm);
-
-		update = true;
-		changed = true;
-	}
-
-	QSet<Channel *> oldset = cChannel->qsPermLinks;
-
-	if (newset != oldset) {
-		// Remove
-
-		foreach(Channel *l, oldset) {
-			if (! newset.contains(l)) {
-				server->removeLink(cChannel, l);
-
-				MessageChannelLink mcl;
-				mcl.uiSession = 0;
-				mcl.iId = nci.id;
-				mcl.qlTargets << l->iId;
-				mcl.ltType = MessageChannelLink::Unlink;
-				server->sendAll(&mcl);
-			}
-		}
-
-		// Add
-		foreach(Channel *l, newset) {
-			if (! oldset.contains(l)) {
-				server->addLink(cChannel, l);
-
-				MessageChannelLink mcl;
-				mcl.uiSession = 0;
-				mcl.iId = nci.id;
-				mcl.qlTargets << l->iId;
-				mcl.ltType = MessageChannelLink::Link;
-				server->sendAll(&mcl);
-			}
-		}
-
-		changed = true;
-	}
-
-	if (update)
-		server->updateChannel(cChannel);
-	if (changed)
-		emit channelStateChanged(ChannelInfo(cChannel));
 }
 
 void MurmurDBus::getACL(int id, const QDBusMessage &msg, QList<ACLInfo> &acls, QList<GroupInfo> &groups, bool &inherit) {

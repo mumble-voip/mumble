@@ -850,12 +850,11 @@ static void impl_Server_setBans(const ::Murmur::AMD_Server_setBansPtr cb, int se
 static void impl_Server_kickPlayer(const ::Murmur::AMD_Server_kickPlayerPtr cb, int server_id,  ::Ice::Int session,  const ::std::string& reason) {
 	NEED_SERVER;
 	NEED_PLAYER;
-
-	MessagePlayerKick mpk;
-	mpk.uiSession = 0;
-	mpk.uiVictim = session;
-	mpk.qsReason = fromStdUtf8String(reason);
-	server->sendAll(&mpk);
+	
+	MumbleProto::UserRemove mpur;
+	mpur.set_session(session);
+	mpur.set_reason(reason);
+	server->sendAll(mpur);
 	user->disconnectSocket();
 	cb->ice_response();
 }
@@ -881,7 +880,7 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 
 	QMap<QString, ::Murmur::ServerContextCallbackPrx> & qmPrx = mi->qmServerContextCallbacks[server_id][session];
 
-	if (!(ctx & (MessageContextAddAction::CtxServer | MessageContextAddAction::CtxChannel | MessageContextAddAction::CtxPlayer))) {
+	if (!(ctx & (MumbleProto::ContextActionAdd_Context_Server | MumbleProto::ContextActionAdd_Context_Channel | MumbleProto::ContextActionAdd_Context_User))) {
 		cb->ice_exception(InvalidCallbackException());
 		return;
 	}
@@ -894,13 +893,12 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 		cb->ice_exception(InvalidCallbackException());
 		return;
 	}
-
-	MessageContextAddAction mcaa;
-	mcaa.uiSession = 0;
-	mcaa.qsAction = fromStdUtf8String(action);
-	mcaa.qsText = fromStdUtf8String(text);
-	mcaa.ctx = static_cast<MessageContextAddAction::Context>(ctx);
-	server->sendMessage(user, &mcaa);
+	
+	MumbleProto::ContextActionAdd mpcaa;
+	mpcaa.set_action(action);
+	mpcaa.set_text(text);
+	mpcaa.set_context(ctx);
+	server->sendMessage(user, mpcaa);
 }
 
 static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeContextCallbackPtr cb, int server_id, const Murmur::ServerContextCallbackPrx& cbptr) {
@@ -999,13 +997,12 @@ static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, 
 	nc = server->addChannel(p, qsName);
 	server->updateChannel(nc);
 	int newid = nc->iId;
-
-	MessageChannelAdd mca;
-	mca.uiSession = 0;
-	mca.qsName = qsName;
-	mca.iParent = parent;
-	mca.iId = newid;
-	server->sendAll(&mca);
+	
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(newid);
+	mpcs.set_parent(parent);
+	mpcs.set_name(name);
+	server->sendAll(mpcs);
 
 	cb->ice_response(newid);
 }
