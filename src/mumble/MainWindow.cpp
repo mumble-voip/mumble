@@ -1463,8 +1463,8 @@ void MainWindow::customEvent(QEvent *evt) {
 		break; \
 	}
 
-	switch(shme->uiType) {
-		MUMBLE_MH_ALL
+	switch (shme->uiType) {
+			MUMBLE_MH_ALL
 	}
 
 

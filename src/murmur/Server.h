@@ -213,7 +213,7 @@ class Server : public QThread {
 		void sendAll(const MumbleProto:: x &msg) { sendProtoAll(msg, MessageHandler:: x); } \
 		void sendExcept(User *u, const MumbleProto:: x &msg) { sendProtoExcept(u, msg, MessageHandler:: x); } \
 		void sendMessage(User *u, const MumbleProto:: x &msg) { sendProtoMessage(u, msg, MessageHandler:: x); }
-		
+
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 
@@ -302,7 +302,7 @@ class Server : public QThread {
 		// From msgHandler. Implementation in Messages.cpp
 #define MUMBLE_MH_MSG(x) void msg##x(User *, MumbleProto:: x &);
 		MUMBLE_MH_ALL
-#undef MUMBLE_MH_MSG	
+#undef MUMBLE_MH_MSG
 };
 
 

@@ -241,7 +241,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
 			mpus.set_self_mute(true);
-			
+
 
 		sendMessage(uSource, mpus);
 	}
@@ -708,7 +708,7 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 		QStack<Channel *> chans;
 		Channel *p;
 		ChanACL *acl;
-		
+
 		QSet<int> qsId;
 
 		msg.clear_groups();

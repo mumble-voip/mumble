@@ -160,16 +160,16 @@ void ServerHandler::udpReady() {
 }
 
 void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds) {
-		unsigned int uiSession;
-		pds >> uiSession;
-		ClientPlayer *p = ClientPlayer::get(uiSession);
-		AudioOutputPtr ao = g.ao;
-		if (ao && p && ! p->bLocalMute) {
-			unsigned int iSeq;
-			pds >> iSeq;
-			QByteArray qbaSpeexPacket(pds.dataBlock(pds.left()));
-			ao->addFrameToBuffer(p, qbaSpeexPacket, iSeq);
-		}
+	unsigned int uiSession;
+	pds >> uiSession;
+	ClientPlayer *p = ClientPlayer::get(uiSession);
+	AudioOutputPtr ao = g.ao;
+	if (ao && p && ! p->bLocalMute) {
+		unsigned int iSeq;
+		pds >> iSeq;
+		QByteArray qbaSpeexPacket(pds.dataBlock(pds.left()));
+		ao->addFrameToBuffer(p, qbaSpeexPacket, iSeq);
+	}
 }
 
 void ServerHandler::sendMessage(const char *data, int len) {
@@ -308,12 +308,12 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 	} else if (msgType == MessageHandler::Ping) {
 		MumbleProto::Ping msg;
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
-                CryptState &cs = cConnection->csCrypt;
-				cs.uiRemoteGood = msg.good();
-				cs.uiRemoteLate = msg.late();
-				cs.uiRemoteLost = msg.lost();
-				cs.uiRemoteResync = msg.resync();
-				accTCP((g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+			CryptState &cs = cConnection->csCrypt;
+			cs.uiRemoteGood = msg.good();
+			cs.uiRemoteLate = msg.late();
+			cs.uiRemoteLost = msg.lost();
+			cs.uiRemoteResync = msg.resync();
+			accTCP((g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
 		}
 	} else {
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);

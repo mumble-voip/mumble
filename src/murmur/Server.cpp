@@ -695,8 +695,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, User *u) {
 		break; \
 	}
 
-	switch(uiType) {
-		MUMBLE_MH_ALL
+	switch (uiType) {
+			MUMBLE_MH_ALL
 	}
 }
 

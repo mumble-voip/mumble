@@ -1,3 +1,26 @@
+2009-03-28
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c971091  Add experimental warning to installer
+    9f56cbf  Use generated sendX handlers
+    64cdec6  Use Player to precache textures
+    95bf2c8  Textures aren't optional
+    c2efc69  Use cache for textures
+    1803b93  Use MUMBLE_MH_ALL for headers
+    b388ef0  Have UserQuery automatically follow ACL
+    47485ed  Move accumulator to ServerHandler, avoid having murmur depend
+	     on boost::accumulators
+    715239c  Accumulator based pingstats
+    52d386d  Pass User instead of Connection to murmur message handlers
+    54466d5  Message references instead of pointers, and make UDPTunnel
+	     work
+
+2009-03-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    561b7f2  Make preprocessing tokens gcc compatible
+    ef1ea0c  UDP Voice data works
+    c0da46e  Working TCP communication
+    68d3159  Update build instructions
+
 2009-03-26
   Thorvald Natvig <slicer@users.sourceforge.net>
     1718cde  Make Mumble compile with protobuf.
