@@ -203,10 +203,15 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	uSource->sState = Player::Authenticated;
 	mpus.set_session(uSource->uiSession);
 	mpus.set_name(u8(uSource->qsName));
-	if (uSource->iId >= 0)
+	if (uSource->iId >= 0) {
 		mpus.set_user_id(uSource->iId);
+		const QByteArray &tex = getUserTexture(uSource->iId);
+		if (! tex.isEmpty())
+			mpus.set_texture(std::string(tex.constData(), tex.size()));
+	}
 	if (uSource->cChannel->iId != 0)
 		mpus.set_channel_id(uSource->cChannel->iId);
+
 
 	sendExcept(uSource, mpus, MessageHandler::UserState);
 
@@ -218,8 +223,13 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		mpus.set_session(u->uiSession);
 		qWarning() << u->qsName;
 		mpus.set_name(u8(u->qsName));
-		if (u->iId >= 0)
+		if (u->iId >= 0) {
 			mpus.set_user_id(u->iId);
+			const QByteArray &texture = getUserTexture(u->iId);
+			if (! texture.isEmpty())
+				mpus.set_texture(std::string(texture.constData(), texture.size()));
+		}
+
 		if (u->cChannel->iId != 0)
 			mpus.set_channel_id(u->cChannel->iId);
 		if (u->bDeaf)
@@ -232,14 +242,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
 			mpus.set_self_mute(true);
-
-		if (! qhUserTextureCache.contains(u->iId)) {
-			QByteArray qba = getUserTexture(u->iId);
-			qhUserTextureCache.insert(u->iId, qba);
-		}
-		QByteArray texture = qhUserTextureCache.value(u->iId);
-		if (! texture.isEmpty())
-			mpus.set_texture(std::string(texture.constData(), texture.size()));
+			
 
 		sendMessage(uSource, mpus, MessageHandler::UserState);
 	}
