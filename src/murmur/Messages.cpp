@@ -734,9 +734,10 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 					mpacl->set_inherited(p != c);
 					mpacl->set_apply_here(acl->bApplyHere);
 					mpacl->set_apply_subs(acl->bApplySubs);
-					if (acl->iPlayerId >= 0)
+					if (acl->iPlayerId >= 0) {
 						mpacl->set_user_id(acl->iPlayerId);
-					else
+						qsId.insert(acl->iPlayerId);
+					} else
 						mpacl->set_group(u8(acl->qsGroup));
 					mpacl->set_grant(acl->pAllow);
 					mpacl->set_deny(acl->pDeny);
@@ -757,14 +758,20 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 			group->set_inheritable(g ? g->bInheritable : true);
 			group->set_inherited((pg != NULL) && pg->bInheritable);
 			if (g) {
-				foreach(int id, g->qsAdd)
+				foreach(int id, g->qsAdd) {
+					qsId.insert(id);
 					group->add_add(id);
-				foreach(int id, g->qsRemove)
+				}
+				foreach(int id, g->qsRemove) {
+					qsId.insert(id);
 					group->add_remove(id);
+				}
 			}
 			if (pg)
-				foreach(int id, pg->members())
+				foreach(int id, pg->members()) {
+					qsId.insert(id);
 					group->add_inherited_members(id);
+				}
 		}
 
 		sendMessage(uSource, msg);
@@ -772,6 +779,7 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 		MumbleProto::QueryUsers mpqu;
 		foreach(int id, qsId) {
 			QString name=getUserName(id);
+			qWarning() << id << name;
 			if (! name.isEmpty()) {
 				mpqu.add_ids(id);
 				mpqu.add_names(u8(name));
@@ -843,23 +851,30 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 
 void Server::msgQueryUsers(User *uSource, MumbleProto::QueryUsers &msg) {
 	MSG_SETUP(Player::Authenticated);
+	
+	MumbleProto::QueryUsers reply;
 
-	if (msg.ids_size()) {
-		msg.clear_names();
 		for (int i=0;i<msg.ids_size();++i) {
 			int id = msg.ids(i);
-			msg.add_names(u8(getUserName(id)));
+			if (id >= 0) {
+				const QString &name = getUserName(id);
+				if (! name.isEmpty()) {
+					reply.add_ids(id);
+					reply.add_names(u8(name));
+				}
+			}
 		}
-	} else {
-		msg.clear_ids();
+
 		for (int i=0;i<msg.names_size();++i) {
 			QString name = u8(msg.names(i));
 			int id = getUserID(name);
-			msg.add_ids((id >= 0) ? id : -1);
+			if (id >= 0) {
+				reply.add_ids(id);
+				reply.add_names(u8(name));
+			}
 		}
-	}
 
-	sendMessage(uSource, msg);
+	sendMessage(uSource, reply);
 }
 
 void Server::msgPing(User *uSource, MumbleProto::Ping &msg) {
