@@ -14,7 +14,6 @@ message UDPTunnel {
 message Authenticate {
 	optional string username = 1;
 	optional string password = 2;
-	optional bool want_textures = 3 [default = true];
 }
 
 message Ping {

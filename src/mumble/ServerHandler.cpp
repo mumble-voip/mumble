@@ -345,8 +345,6 @@ void ServerHandler::serverConnectionConnected() {
 	MumbleProto::Authenticate mpa;
 	mpa.set_username(u8(qsUserName));
 	mpa.set_password(u8(qsPassword));
-	// FIXME: Check config -- make some way to reset this "on the fly"
-	mpa.set_want_textures(true);
 
 	sendMessage(mpa);
 
