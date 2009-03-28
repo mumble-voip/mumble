@@ -673,7 +673,7 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 		if (ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
 			foreach(Channel *sub, c->qlChannels)
 				q.enqueue(sub);
-			foreach(Player *p, c->qlPlayers) 
+			foreach(Player *p, c->qlPlayers)
 				users.insert(static_cast<User *>(p));
 		}
 	}
@@ -687,7 +687,7 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 		}
 		users.insert(u);
 	}
-	
+
 	users.remove(uSource);
 
 	foreach(User *u, users)
@@ -853,28 +853,28 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 
 void Server::msgQueryUsers(User *uSource, MumbleProto::QueryUsers &msg) {
 	MSG_SETUP(Player::Authenticated);
-	
+
 	MumbleProto::QueryUsers reply;
 
-		for (int i=0;i<msg.ids_size();++i) {
-			int id = msg.ids(i);
-			if (id >= 0) {
-				const QString &name = getUserName(id);
-				if (! name.isEmpty()) {
-					reply.add_ids(id);
-					reply.add_names(u8(name));
-				}
-			}
-		}
-
-		for (int i=0;i<msg.names_size();++i) {
-			QString name = u8(msg.names(i));
-			int id = getUserID(name);
-			if (id >= 0) {
+	for (int i=0;i<msg.ids_size();++i) {
+		int id = msg.ids(i);
+		if (id >= 0) {
+			const QString &name = getUserName(id);
+			if (! name.isEmpty()) {
 				reply.add_ids(id);
 				reply.add_names(u8(name));
 			}
 		}
+	}
+
+	for (int i=0;i<msg.names_size();++i) {
+		QString name = u8(msg.names(i));
+		int id = getUserID(name);
+		if (id >= 0) {
+			reply.add_ids(id);
+			reply.add_names(u8(name));
+		}
+	}
 
 	sendMessage(uSource, reply);
 }

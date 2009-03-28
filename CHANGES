@@ -1,5 +1,8 @@
 2009-03-28
   Thorvald Natvig <slicer@users.sourceforge.net>
+    cdfd8b7  Fix QueryUsers
+    c18b1a2  Fix ACL Editor
+    5ec7a58  ProtoBuf for Ice/DBus
     c971091  Add experimental warning to installer
     9f56cbf  Use generated sendX handlers
     64cdec6  Use Player to precache textures

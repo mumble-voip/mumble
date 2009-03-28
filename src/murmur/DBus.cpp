@@ -355,7 +355,7 @@ void MurmurDBus::kickPlayer(unsigned int session, const QString &reason, const Q
 	Connection *c = server->qhUsers.value(session);
 	if (!c)
 		return;
-	
+
 	MumbleProto::UserRemove mpur;
 	mpur.set_session(session);
 	mpur.set_reason(u8(reason));
@@ -372,7 +372,7 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 	PLAYER_SETUP_VAR(npi.session);
 	CHANNEL_SETUP_VAR(npi.channel);
 	PlayerInfo pi(pPlayer);
-	
+
 	server->setPlayerState(pPlayer, cChannel, npi.mute, npi.deaf, npi.suppressed);
 }
 
@@ -394,7 +394,7 @@ void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMess
 	Channel *nc = server->addChannel(cChannel, name, QString());
 	server->updateChannel(nc);
 	newid = nc->iId;
-	
+
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(nc->iId);
 	mpcs.set_parent(cChannel->iId);
@@ -425,7 +425,7 @@ void MurmurDBus::setChannelState(const ChannelInfo &nci, const QDBusMessage &msg
 		CHANNEL_SETUP_VAR2(cLink, id);
 		newset << cLink;
 	}
-	
+
 	if (! server->setChannelState(cChannel, cParent, nci.name, newset)) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Moving channel to subchannel"));
 		return;
