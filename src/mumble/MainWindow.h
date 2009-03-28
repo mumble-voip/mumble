@@ -178,24 +178,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		~MainWindow();
 
 		// From msgHandler. Implementation in Messages.cpp
-		virtual void msgVersion(const MumbleProto::Version &);
-		virtual void msgUDPTunnel(const MumbleProto::UDPTunnel &);
-		virtual void msgAuthenticate(const MumbleProto::Authenticate &);
-		virtual void msgPing(const MumbleProto::Ping &);
-		virtual void msgReject(const MumbleProto::Reject &);
-		virtual void msgServerSync(const MumbleProto::ServerSync &);
-		virtual void msgChannelRemove(const MumbleProto::ChannelRemove &);
-		virtual void msgChannelState(const MumbleProto::ChannelState &);
-		virtual void msgUserRemove(const MumbleProto::UserRemove &);
-		virtual void msgUserState(const MumbleProto::UserState &);
-		virtual void msgBanList(const MumbleProto::BanList &);
-		virtual void msgTextMessage(const MumbleProto::TextMessage &);
-		virtual void msgPermissionDenied(const MumbleProto::PermissionDenied &);
-		virtual void msgACL(const MumbleProto::ACL &);
-		virtual void msgQueryUsers(const MumbleProto::QueryUsers &);
-		virtual void msgCryptSetup(const MumbleProto::CryptSetup &);
-		virtual void msgContextActionAdd(const MumbleProto::ContextActionAdd &);
-		virtual void msgContextAction(const MumbleProto::ContextAction &);
+#define MUMBLE_MH_MSG(x) void msg##x(const MumbleProto:: x &);
+		MUMBLE_MH_ALL
+#undef MUMBLE_MH_MSG
 };
 
 #else

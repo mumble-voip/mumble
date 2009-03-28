@@ -293,24 +293,9 @@ class Server : public QThread {
 		void dblog(const QString &str);
 
 		// From msgHandler. Implementation in Messages.cpp
-		virtual void msgVersion(User *, MumbleProto::Version &);
-		virtual void msgUDPTunnel(User *, MumbleProto::UDPTunnel &);
-		virtual void msgAuthenticate(User *, MumbleProto::Authenticate &);
-		virtual void msgPing(User *, MumbleProto::Ping &);
-		virtual void msgReject(User *, MumbleProto::Reject &);
-		virtual void msgServerSync(User *, MumbleProto::ServerSync &);
-		virtual void msgChannelRemove(User *, MumbleProto::ChannelRemove &);
-		virtual void msgChannelState(User *, MumbleProto::ChannelState &);
-		virtual void msgUserRemove(User *, MumbleProto::UserRemove &);
-		virtual void msgUserState(User *, MumbleProto::UserState &);
-		virtual void msgBanList(User *, MumbleProto::BanList &);
-		virtual void msgTextMessage(User *, MumbleProto::TextMessage &);
-		virtual void msgPermissionDenied(User *, MumbleProto::PermissionDenied &);
-		virtual void msgACL(User *, MumbleProto::ACL &);
-		virtual void msgQueryUsers(User *, MumbleProto::QueryUsers &);
-		virtual void msgCryptSetup(User *, MumbleProto::CryptSetup &);
-		virtual void msgContextActionAdd(User *, MumbleProto::ContextActionAdd &);
-		virtual void msgContextAction(User *, MumbleProto::ContextAction &);
+#define MUMBLE_MH_MSG(x) void msg##x(User *, MumbleProto:: x &);
+		MUMBLE_MH_ALL
+#undef MUMBLE_MH_MSG	
 };
 
 
