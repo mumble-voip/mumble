@@ -77,12 +77,7 @@ class Connection : public QObject {
 
 		CryptState csCrypt;
 
-		double dUDPPingAvg;
-		double dUDPPingVar;
-		quint32 uiUDPPackets;
-		double dTCPPingAvg;
-		double dTCPPingVar;
-		quint32 uiTCPPackets;
+		boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::mean, boost::accumulators::tag::variance> > accTCP, accUDP;
 
 		static void updatePing(double &avg, double &var, quint32 &samples, quint64 usec);
 

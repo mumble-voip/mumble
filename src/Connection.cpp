@@ -51,10 +51,6 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
 
-	dUDPPingAvg = dUDPPingVar = 0.0L;
-	dTCPPingAvg = dTCPPingVar = 0.0L;
-	uiUDPPackets = uiTCPPackets = 0;
-
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
 	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));

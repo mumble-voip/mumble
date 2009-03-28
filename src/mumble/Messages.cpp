@@ -319,15 +319,15 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 }
 
 void MainWindow::msgACL(const MumbleProto::ACL &msg) {
-	// FIXME: Check if channel exists first.
-
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
 		aclEdit = NULL;
 	}
-	aclEdit = new ACLEditor(msg, this);
-	aclEdit->show();
+	if (Channel::get(msg.channel_id())) {
+		aclEdit = new ACLEditor(msg, this);
+		aclEdit->show();
+	}
 }
 
 void MainWindow::msgQueryUsers(const MumbleProto::QueryUsers &msg) {
@@ -335,8 +335,7 @@ void MainWindow::msgQueryUsers(const MumbleProto::QueryUsers &msg) {
 		aclEdit->returnQuery(msg);
 }
 
-void MainWindow::msgPing(const MumbleProto::Ping &) {
-	// FIXME: Do the logic *here*, since this ping is what matters.
+void MainWindow::msgPing(const MumbleProto::Ping &msg) {
 }
 
 void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {

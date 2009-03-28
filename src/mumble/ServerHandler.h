@@ -70,11 +70,10 @@ class ServerHandler : public QThread {
 		QHostAddress qhaRemote;
 		QUdpSocket *qusUdp;
 		QMutex qmUdp;
-		Timer tTimestamp;
 
 		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds);
-
 	public:
+		Timer tTimestamp;
 		QList<QSslError> qlErrors;
 		QList<QSslCertificate> qscCert;
 		QSslCipher qscCipher;
