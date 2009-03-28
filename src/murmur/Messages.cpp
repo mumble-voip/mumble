@@ -671,9 +671,9 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 	while (! q.isEmpty()) {
 		Channel *c = q.dequeue();
 		if (ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
-			foreach(c, c->qlChannels)
-				q.enqueue(c);
-			foreach(Player *p, c->qlPlayers)
+			foreach(Channel *sub, c->qlChannels)
+				q.enqueue(sub);
+			foreach(Player *p, c->qlPlayers) 
 				users.insert(static_cast<User *>(p));
 		}
 	}
@@ -687,6 +687,8 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 		}
 		users.insert(u);
 	}
+	
+	users.remove(uSource);
 
 	foreach(User *u, users)
 		sendMessage(u, msg);
