@@ -386,7 +386,7 @@ void MainWindow::on_qtvPlayers_doubleClicked(const QModelIndex &idx) {
 	MumbleProto::UserState mpus;
 	mpus.set_session(g.uiSession);
 	mpus.set_channel_id(c->iId);
-	g.sh->sendMessage(mpus, MessageHandler::UserState);
+	g.sh->sendMessage(mpus);
 }
 
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
@@ -472,7 +472,7 @@ void MainWindow::findDesiredChannel() {
 		MumbleProto::UserState mpus;
 		mpus.set_session(g.uiSession);
 		mpus.set_channel_id(chan->iId);
-		g.sh->sendMessage(mpus, MessageHandler::UserState);
+		g.sh->sendMessage(mpus);
 	}
 }
 
@@ -596,7 +596,7 @@ void MainWindow::on_qaServerDisconnect_triggered() {
 void MainWindow::on_qaServerBanList_triggered() {
 	MumbleProto::BanList mpbl;
 	mpbl.set_query(true);
-	g.sh->sendMessage(mpbl, MessageHandler::BanList);
+	g.sh->sendMessage(mpbl);
 
 	if (banEdit) {
 		banEdit->reject();
@@ -708,7 +708,7 @@ void MainWindow::on_qaPlayerMute_triggered() {
 	MumbleProto::UserState mpus;
 	mpus.set_session(p->uiSession);
 	mpus.set_mute(! p->bMute);
-	g.sh->sendMessage(mpus, MessageHandler::UserState);
+	g.sh->sendMessage(mpus);
 }
 
 void MainWindow::on_qaPlayerLocalMute_triggered() {
@@ -727,7 +727,7 @@ void MainWindow::on_qaPlayerDeaf_triggered() {
 	MumbleProto::UserState mpus;
 	mpus.set_session(p->uiSession);
 	mpus.set_deaf(! p->bDeaf);
-	g.sh->sendMessage(mpus, MessageHandler::UserState);
+	g.sh->sendMessage(mpus);
 }
 
 void MainWindow::on_qaPlayerKick_triggered() {
@@ -748,7 +748,7 @@ void MainWindow::on_qaPlayerKick_triggered() {
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(p->uiSession);
 		mpur.set_reason(u8(reason));
-		g.sh->sendMessage(mpur, MessageHandler::UserRemove);
+		g.sh->sendMessage(mpur);
 	}
 }
 
@@ -770,7 +770,7 @@ void MainWindow::on_qaPlayerBan_triggered() {
 		mpur.set_session(p->uiSession);
 		mpur.set_reason(u8(reason));
 		mpur.set_ban(true);
-		g.sh->sendMessage(mpur, MessageHandler::UserRemove);
+		g.sh->sendMessage(mpur);
 	}
 }
 
@@ -792,7 +792,7 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 		MumbleProto::TextMessage mptm;
 		mptm.add_session(p->uiSession);
 		mptm.set_message(u8(texm->message()));
-		g.sh->sendMessage(mptm, MessageHandler::TextMessage);
+		g.sh->sendMessage(mptm);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(texm->message()), tr("Message to %1").arg(p->qsName));
 	}
 	delete texm;
@@ -898,7 +898,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_name(u8(name));
 		mpcs.set_parent(iParent);
-		g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
+		g.sh->sendMessage(mpcs);
 	}
 }
 
@@ -919,7 +919,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 	if (ret == QMessageBox::Yes) {
 		MumbleProto::ChannelRemove mpcr;
 		mpcr.set_channel_id(c->iId);
-		g.sh->sendMessage(mpcr, MessageHandler::ChannelRemove);
+		g.sh->sendMessage(mpcr);
 	}
 }
 
@@ -941,7 +941,7 @@ void MainWindow::on_qaChannelRename_triggered() {
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(id);
 		mpcs.set_name(u8(name));
-		g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
+		g.sh->sendMessage(mpcs);
 	}
 }
 
@@ -997,7 +997,7 @@ void MainWindow::on_qaChannelLink_triggered() {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(c->iId);
 	mpcs.add_links_add(l->iId);
-	g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
+	g.sh->sendMessage(mpcs);
 }
 
 void MainWindow::on_qaChannelUnlink_triggered() {
@@ -1009,7 +1009,7 @@ void MainWindow::on_qaChannelUnlink_triggered() {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(c->iId);
 	mpcs.add_links_remove(l->iId);
-	g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
+	g.sh->sendMessage(mpcs);
 }
 
 void MainWindow::on_qaChannelUnlinkAll_triggered() {
@@ -1019,7 +1019,7 @@ void MainWindow::on_qaChannelUnlinkAll_triggered() {
 	mpcs.set_channel_id(c->iId);
 	foreach(Channel *l, c->qsPermLinks)
 		mpcs.add_links_remove(l->iId);
-	g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
+	g.sh->sendMessage(mpcs);
 }
 
 void MainWindow::on_qaChannelSendMessage_triggered() {
@@ -1040,7 +1040,7 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 		MumbleProto::TextMessage mptm;
 		mptm.add_channel_id(id);
 		mptm.set_message(u8(texm->message()));
-		g.sh->sendMessage(mptm, MessageHandler::TextMessage);
+		g.sh->sendMessage(mptm);
 		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
 	}
 	delete texm;
@@ -1064,7 +1064,7 @@ void MainWindow::on_qaChannelSendTreeMessage_triggered() {
 		MumbleProto::TextMessage mptm;
 		mptm.add_tree_id(id);
 		mptm.set_message(u8(texm->message()));
-		g.sh->sendMessage(mptm, MessageHandler::TextMessage);
+		g.sh->sendMessage(mptm);
 		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
 	}
 	delete texm;

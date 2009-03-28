@@ -200,7 +200,7 @@ void ACLEditor::accept() {
 				mpg->add_remove(id);
 	}
 
-	g.sh->sendMessage(msg, MessageHandler::ACL);
+	g.sh->sendMessage(msg);
 
 	QDialog::accept();
 }
@@ -220,7 +220,7 @@ int ACLEditor::id(const QString &uname) {
 		if (! qhNameWait.contains(uname)) {
 			MumbleProto::QueryUsers mpuq;
 			mpuq.add_names(u8(uname));
-			g.sh->sendMessage(mpuq, MessageHandler::QueryUsers);
+			g.sh->sendMessage(mpuq);
 
 			iUnknown--;
 			qhNameWait.insert(uname, iUnknown);

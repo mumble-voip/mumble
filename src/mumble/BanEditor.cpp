@@ -75,7 +75,7 @@ void BanEditor::accept() {
 		be->set_mask(b.second);
 	}
 
-	g.sh->sendMessage(msg, MessageHandler::BanList);
+	g.sh->sendMessage(msg);
 	QDialog::accept();
 }
 

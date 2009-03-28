@@ -61,7 +61,7 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 		playerEnterChannel(pPlayer, cChannel);
 	}
 
-	sendAll(mpus, MessageHandler::UserState);
+	sendAll(mpus);
 	emit playerStateChanged(pPlayer);
 }
 
@@ -121,7 +121,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	if (updated)
 		updateChannel(cChannel);
 	if (changed) {
-		sendAll(mpcs, MessageHandler::ChannelState);
+		sendAll(mpcs);
 		emit channelStateChanged(cChannel);
 	}
 
@@ -134,7 +134,7 @@ void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const 
 
 	if (pPlayer) {
 		mptm.add_session(pPlayer->uiSession);
-		sendMessage(pPlayer, mptm, MessageHandler::TextMessage);
+		sendMessage(pPlayer, mptm);
 	} else {
 		if (tree)
 			mptm.add_tree_id(cChannel->iId);
@@ -157,7 +157,7 @@ void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const 
 		}
 		foreach(c, chans) {
 			foreach(Player *p, c->qlPlayers)
-				sendMessage(static_cast<User *>(p), mptm, MessageHandler::TextMessage);
+				sendMessage(static_cast<User *>(p), mptm);
 		}
 	}
 }

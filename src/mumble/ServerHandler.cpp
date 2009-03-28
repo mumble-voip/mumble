@@ -200,7 +200,7 @@ void ServerHandler::sendMessage(const char *data, int len) {
 	}
 }
 
-void ServerHandler::sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType) {
+void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, unsigned int msgType) {
 	QByteArray qba;
 
 	if (QThread::currentThread() != thread()) {

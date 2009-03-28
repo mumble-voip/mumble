@@ -982,7 +982,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 		MumbleProto::UserState mpus;
 		mpus.set_session(uiSession);
 		mpus.set_channel_id(c->iId);
-		g.sh->sendMessage(mpus, MessageHandler::UserState);
+		g.sh->sendMessage(mpus);
 	} else {
 		int ret;
 		switch (g.s.ceChannelDrag) {
@@ -1005,7 +1005,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(iId);
 		mpcs.set_parent(c->iId);
-		g.sh->sendMessage(mpcs, MessageHandler::ChannelState);
+		g.sh->sendMessage(mpcs);
 	}
 
 	return true;

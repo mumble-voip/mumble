@@ -205,9 +205,17 @@ class Server : public QThread {
 		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
 		void clearACLCache(Player *p = NULL);
 
-		void sendAll(const ::google::protobuf::Message &msg, unsigned int msgType);
-		void sendExcept(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
-		void sendMessage(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendProtoExcept(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendProtoMessage(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
+
+#define MUMBLE_MH_MSG(x) \
+		void sendAll(const MumbleProto:: x &msg) { sendProtoAll(msg, MessageHandler:: x); } \
+		void sendExcept(User *u, const MumbleProto:: x &msg) { sendProtoExcept(u, msg, MessageHandler:: x); } \
+		void sendMessage(User *u, const MumbleProto:: x &msg) { sendProtoMessage(u, msg, MessageHandler:: x); }
+		
+		MUMBLE_MH_ALL
+#undef MUMBLE_MH_MSG
 
 		void sendChannelDescription(Player *, const Channel *);
 		void sendChannelDescriptionUpdate(const Channel *changed, const Channel *current=NULL);

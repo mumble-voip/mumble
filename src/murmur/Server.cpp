@@ -623,7 +623,7 @@ void Server::connectionClosed(const QString &reason) {
 	if (u->sState == Player::Authenticated) {
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
-		sendExcept(u, mpur, MessageHandler::UserRemove);
+		sendExcept(u, mpur);
 
 		emit playerDisconnected(u);
 	}
@@ -739,20 +739,20 @@ void Server::doSync(unsigned int id) {
 	if (u) {
 		log(u, "Requesting crypt-nonce resync");
 		MumbleProto::CryptSetup mpcs;
-		sendMessage(u, mpcs, MessageHandler::CryptSetup);
+		sendMessage(u, mpcs);
 	}
 }
 
-void Server::sendMessage(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
+void Server::sendProtoMessage(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
 	QByteArray cache;
 	u->sendMessage(msg, msgType, cache);
 }
 
-void Server::sendAll(const ::google::protobuf::Message &msg, unsigned int msgType) {
-	sendExcept(NULL, msg, msgType);
+void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType) {
+	sendProtoExcept(NULL, msg, msgType);
 }
 
-void Server::sendExcept(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
+void Server::sendProtoExcept(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
 	QByteArray cache;
 	foreach(User *usr, qhUsers)
 		if ((usr != u) && (usr->sState == Player::Authenticated))
@@ -796,14 +796,14 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
 		mpus.set_channel_id(dest->iId);
-		sendAll(mpus, MessageHandler::UserState);
+		sendAll(mpus);
 
 		playerEnterChannel(p, dest);
 	}
 
 	MumbleProto::ChannelRemove mpcr;
 	mpcr.set_channel_id(chan->iId);
-	sendAll(mpcr, MessageHandler::ChannelRemove);
+	sendAll(mpcr);
 
 	removeChannel(chan);
 	emit channelRemoved(chan);
@@ -861,7 +861,7 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 			MumbleProto::UserState mpus;
 			mpus.set_session(p->uiSession);
 			mpus.set_suppressed(p->bSuppressed);
-			sendAll(mpus, MessageHandler::UserState);
+			sendAll(mpus);
 		}
 	}
 	emit playerStateChanged(p);
