@@ -43,6 +43,7 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		Q_OBJECT
 		Q_DISABLE_COPY(ACLEditor)
 	protected:
+		typedef QPair<QString, int> idname;
 		MumbleProto::ACL msg;
 		enum WaitID {
 			GroupAdd, GroupRemove, GroupInherit, ACLList
@@ -71,8 +72,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		QList<QCheckBox *> qlACLDeny;
 
 		void addToolTipsWhatsThis();
-
 		void showEvent(QShowEvent *);
+		void fillWidgetFromSet(QListWidget *, const QSet<int> &);
 	public:
 		ACLEditor(const MumbleProto::ACL &mea, QWidget *p = NULL);
 		~ACLEditor();

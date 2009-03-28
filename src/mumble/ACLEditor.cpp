@@ -254,6 +254,9 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 			}
 		}
 	}
+	refillGroupInherit();
+	refillGroupRemove();
+	refillGroupAdd();
 }
 
 void ACLEditor::refill(WaitID wid) {
@@ -348,22 +351,32 @@ ChanACL *ACLEditor::currentACL() {
 	return qlACLs[idx];
 }
 
+void ACLEditor::fillWidgetFromSet(QListWidget *qlw, const QSet<int> &qs) {
+	qlw->clear();
+
+	QList<idname> ql;
+	foreach(int id, qs) {
+		ql << idname(userName(id), id);
+	}
+	qStableSort(ql);
+	foreach(idname i, ql) {
+		QListWidgetItem *qlwi = new QListWidgetItem(i.first, qlw);
+		qlwi->setData(Qt::UserRole, i.second);
+		if (i.second < 0) {
+			QFont f = qlwi->font();
+			f.setItalic(true);
+			qlwi->setFont(f);
+		}
+	}
+}
+
 void ACLEditor::refillGroupAdd() {
 	Group *gp = currentGroup();
 
 	if (! gp)
 		return;
 
-
-	QStringList qsl;
-	foreach(int id, gp->qsAdd) {
-		qsl << userName(id);
-	}
-	qsl.sort();
-	qlwGroupAdd->clear();
-	foreach(QString name, qsl) {
-		qlwGroupAdd->addItem(name);
-	}
+	fillWidgetFromSet(qlwGroupAdd, gp->qsAdd);
 }
 
 void ACLEditor::refillGroupRemove() {
@@ -371,15 +384,7 @@ void ACLEditor::refillGroupRemove() {
 	if (! gp)
 		return;
 
-	QStringList qsl;
-	foreach(int id, gp->qsRemove) {
-		qsl << userName(id);
-	}
-	qsl.sort();
-	qlwGroupRemove->clear();
-	foreach(QString name, qsl) {
-		qlwGroupRemove->addItem(name);
-	}
+	fillWidgetFromSet(qlwGroupRemove, gp->qsRemove);
 }
 
 void ACLEditor::refillGroupInherit() {
@@ -388,15 +393,7 @@ void ACLEditor::refillGroupInherit() {
 	if (! gp)
 		return;
 
-	QStringList qsl;
-	foreach(int id, gp->qsTemporary) {
-		qsl << userName(id);
-	}
-	qsl.sort();
-	qlwGroupInherit->clear();
-	foreach(QString name, qsl) {
-		qlwGroupInherit->addItem(name);
-	}
+	fillWidgetFromSet(qlwGroupInherit, gp->qsTemporary);
 }
 
 void ACLEditor::groupEnableCheck() {
@@ -698,6 +695,7 @@ void ACLEditor::on_qpbGroupAddAdd_clicked() {
 		return;
 
 	gs->qsAdd << id(text);
+	refillGroupAdd();
 }
 
 void ACLEditor::on_qpbGroupAddRemove_clicked() {
@@ -709,7 +707,7 @@ void ACLEditor::on_qpbGroupAddRemove_clicked() {
 	if (! item)
 		return;
 
-	gs->qsAdd.remove(id(item->text()));
+	gs->qsAdd.remove(item->data(Qt::UserRole).toInt());
 	refillGroupAdd();
 }
 
@@ -724,6 +722,7 @@ void ACLEditor::on_qpbGroupRemoveAdd_clicked() {
 		return;
 
 	gs->qsRemove << id(text);
+	refillGroupRemove();
 }
 
 void ACLEditor::on_qpbGroupRemoveRemove_clicked() {
@@ -735,7 +734,7 @@ void ACLEditor::on_qpbGroupRemoveRemove_clicked() {
 	if (! item)
 		return;
 
-	gs->qsRemove.remove(id(item->text()));
+	gs->qsRemove.remove(item->data(Qt::UserRole).toInt());
 	refillGroupRemove();
 }
 
@@ -748,6 +747,6 @@ void ACLEditor::on_qpbGroupInheritRemove_clicked() {
 	if (! item)
 		return;
 
-	gs->qsRemove.insert(id(item->text()));
+	gs->qsRemove.insert(item->data(Qt::UserRole).toInt());
 	refillGroupRemove();
 }
