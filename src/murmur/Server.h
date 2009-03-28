@@ -158,7 +158,7 @@ class Server : public QThread {
 		void newClient();
 		void connectionClosed(const QString &);
 		void sslError(const QList<QSslError> &);
-		void message(unsigned int, const QByteArray &, Connection *cCon = NULL);
+		void message(unsigned int, const QByteArray &, User *cCon = NULL);
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
 		void doSync(unsigned int);
@@ -289,24 +289,24 @@ class Server : public QThread {
 		void dblog(const QString &str);
 
 		// From msgHandler. Implementation in Messages.cpp
-		virtual void msgVersion(Connection *, MumbleProto::Version &);
-		virtual void msgUDPTunnel(Connection *, MumbleProto::UDPTunnel &);
-		virtual void msgAuthenticate(Connection *, MumbleProto::Authenticate &);
-		virtual void msgPing(Connection *, MumbleProto::Ping &);
-		virtual void msgReject(Connection *, MumbleProto::Reject &);
-		virtual void msgServerSync(Connection *, MumbleProto::ServerSync &);
-		virtual void msgChannelRemove(Connection *, MumbleProto::ChannelRemove &);
-		virtual void msgChannelState(Connection *, MumbleProto::ChannelState &);
-		virtual void msgUserRemove(Connection *, MumbleProto::UserRemove &);
-		virtual void msgUserState(Connection *, MumbleProto::UserState &);
-		virtual void msgBanList(Connection *, MumbleProto::BanList &);
-		virtual void msgTextMessage(Connection *, MumbleProto::TextMessage &);
-		virtual void msgPermissionDenied(Connection *, MumbleProto::PermissionDenied &);
-		virtual void msgACL(Connection *, MumbleProto::ACL &);
-		virtual void msgQueryUsers(Connection *, MumbleProto::QueryUsers &);
-		virtual void msgCryptSetup(Connection *, MumbleProto::CryptSetup &);
-		virtual void msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd &);
-		virtual void msgContextAction(Connection *, MumbleProto::ContextAction &);
+		virtual void msgVersion(User *, MumbleProto::Version &);
+		virtual void msgUDPTunnel(User *, MumbleProto::UDPTunnel &);
+		virtual void msgAuthenticate(User *, MumbleProto::Authenticate &);
+		virtual void msgPing(User *, MumbleProto::Ping &);
+		virtual void msgReject(User *, MumbleProto::Reject &);
+		virtual void msgServerSync(User *, MumbleProto::ServerSync &);
+		virtual void msgChannelRemove(User *, MumbleProto::ChannelRemove &);
+		virtual void msgChannelState(User *, MumbleProto::ChannelState &);
+		virtual void msgUserRemove(User *, MumbleProto::UserRemove &);
+		virtual void msgUserState(User *, MumbleProto::UserState &);
+		virtual void msgBanList(User *, MumbleProto::BanList &);
+		virtual void msgTextMessage(User *, MumbleProto::TextMessage &);
+		virtual void msgPermissionDenied(User *, MumbleProto::PermissionDenied &);
+		virtual void msgACL(User *, MumbleProto::ACL &);
+		virtual void msgQueryUsers(User *, MumbleProto::QueryUsers &);
+		virtual void msgCryptSetup(User *, MumbleProto::CryptSetup &);
+		virtual void msgContextActionAdd(User *, MumbleProto::ContextActionAdd &);
+		virtual void msgContextAction(User *, MumbleProto::ContextAction &);
 };
 
 

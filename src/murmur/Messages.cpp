@@ -39,7 +39,6 @@
 #include "DBus.h"
 
 #define MSG_SETUP(st) \
-	User *uSource = static_cast<User *>(cCon); \
 	if (uSource->sState != st) \
 		return
 
@@ -66,7 +65,7 @@
 		sendMessage(uSource, mppd, MessageHandler::PermissionDenied); \
 	}
 
-void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate &msg) {
+void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	MSG_SETUP(Player::Connected);
 
 	Channel *c;
@@ -113,7 +112,7 @@ void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate &msg) {
 
 	// Allow reuse of name from same IP
 	if (ok && uOld && (uSource->iId == -1)) {
-		if (uOld->peerAddress() != cCon->peerAddress()) {
+		if (uOld->peerAddress() != uSource->peerAddress()) {
 			reason = "Playername already in use";
 			rtType = MumbleProto::Reject_RejectType_UsernameInUse;
 			ok = false;
@@ -132,7 +131,7 @@ void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate &msg) {
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
 		sendMessage(uSource, mpr, MessageHandler::Reject);
-		cCon->disconnectSocket(true);
+		uSource->disconnectSocket(true);
 		return;
 	}
 
@@ -258,7 +257,7 @@ void Server::msgAuthenticate(Connection *cCon, MumbleProto::Authenticate &msg) {
 	playerEnterChannel(uSource, lc, false);
 }
 
-void Server::msgBanList(Connection *cCon, MumbleProto::BanList &msg) {
+void Server::msgBanList(User *uSource, MumbleProto::BanList &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	typedef QPair<quint32, int> ban;
@@ -300,16 +299,16 @@ void Server::msgBanList(Connection *cCon, MumbleProto::BanList &msg) {
 	}
 }
 
-void Server::msgReject(Connection *, MumbleProto::Reject &) {
+void Server::msgReject(User *, MumbleProto::Reject &) {
 }
 
-void Server::msgServerSync(Connection *, MumbleProto::ServerSync &) {
+void Server::msgServerSync(User *, MumbleProto::ServerSync &) {
 }
 
-void Server::msgPermissionDenied(Connection *, MumbleProto::PermissionDenied &) {
+void Server::msgPermissionDenied(User *, MumbleProto::PermissionDenied &) {
 }
 
-void Server::msgUDPTunnel(Connection *cCon, MumbleProto::UDPTunnel &msg) {
+void Server::msgUDPTunnel(User *uSource, MumbleProto::UDPTunnel &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	const std::string &str = msg.packet();
@@ -320,7 +319,7 @@ void Server::msgUDPTunnel(Connection *cCon, MumbleProto::UDPTunnel &msg) {
 	processMsg(uSource, str.data(), len);
 }
 
-void Server::msgUserState(Connection *cCon, MumbleProto::UserState &msg) {
+void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
@@ -407,7 +406,7 @@ void Server::msgUserState(Connection *cCon, MumbleProto::UserState &msg) {
 	emit playerStateChanged(pDstUser);
 }
 
-void Server::msgUserRemove(Connection *cCon, MumbleProto::UserRemove &msg) {
+void Server::msgUserRemove(User *uSource, MumbleProto::UserRemove &msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
@@ -437,7 +436,7 @@ void Server::msgUserRemove(Connection *cCon, MumbleProto::UserRemove &msg) {
 	pDstUser->disconnectSocket();
 }
 
-void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState &msg) {
+void Server::msgChannelState(User *uSource, MumbleProto::ChannelState &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	Channel *c = NULL;
@@ -610,7 +609,7 @@ void Server::msgChannelState(Connection *cCon, MumbleProto::ChannelState &msg) {
 	sendAll(msg, MessageHandler::ChannelState);
 }
 
-void Server::msgChannelRemove(Connection *cCon, MumbleProto::ChannelRemove &msg) {
+void Server::msgChannelRemove(User *uSource, MumbleProto::ChannelRemove &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -627,7 +626,7 @@ void Server::msgChannelRemove(Connection *cCon, MumbleProto::ChannelRemove &msg)
 	removeChannel(c, uSource);
 }
 
-void Server::msgTextMessage(Connection *cCon, MumbleProto::TextMessage &msg) {
+void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 	MSG_SETUP(Player::Authenticated);
 	QMutexLocker qml(&qmCache);
 
@@ -691,7 +690,7 @@ void Server::msgTextMessage(Connection *cCon, MumbleProto::TextMessage &msg) {
 		sendMessage(u, msg, MessageHandler::TextMessage);
 }
 
-void Server::msgACL(Connection *cCon, MumbleProto::ACL &msg) {
+void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
@@ -827,7 +826,7 @@ void Server::msgACL(Connection *cCon, MumbleProto::ACL &msg) {
 	}
 }
 
-void Server::msgQueryUsers(Connection *cCon, MumbleProto::QueryUsers &msg) {
+void Server::msgQueryUsers(User *uSource, MumbleProto::QueryUsers &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	if (msg.ids_size()) {
@@ -858,7 +857,7 @@ void Server::msgQueryUsers(Connection *cCon, MumbleProto::QueryUsers &msg) {
 	sendMessage(uSource, msg, MessageHandler::QueryUsers);
 }
 
-void Server::msgPing(Connection *cCon, MumbleProto::Ping &msg) {
+void Server::msgPing(User *uSource, MumbleProto::Ping &msg) {
 	MSG_SETUP(Player::Authenticated);
 	CryptState &cs=uSource->csCrypt;
 
@@ -886,7 +885,7 @@ void Server::msgPing(Connection *cCon, MumbleProto::Ping &msg) {
 	sendMessage(uSource, msg, MessageHandler::Ping);
 }
 
-void Server::msgCryptSetup(Connection *cCon, MumbleProto::CryptSetup &msg) {
+void Server::msgCryptSetup(User *uSource, MumbleProto::CryptSetup &msg) {
 	MSG_SETUP(Player::Authenticated);
 	if (! msg.has_client_nonce()) {
 		log(uSource, "Requested crypt-nonce resync");
@@ -901,10 +900,10 @@ void Server::msgCryptSetup(Connection *cCon, MumbleProto::CryptSetup &msg) {
 	}
 }
 
-void Server::msgContextActionAdd(Connection *, MumbleProto::ContextActionAdd &) {
+void Server::msgContextActionAdd(User *, MumbleProto::ContextActionAdd &) {
 }
 
-void Server::msgContextAction(Connection *cCon, MumbleProto::ContextAction &msg) {
+void Server::msgContextAction(User *uSource, MumbleProto::ContextAction &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	unsigned int session = msg.has_session() ? msg.session() : 0;
@@ -917,6 +916,6 @@ void Server::msgContextAction(Connection *cCon, MumbleProto::ContextAction &msg)
 	emit contextAction(uSource, u8(msg.action()), session, id);
 }
 
-void Server::msgVersion(Connection *, MumbleProto::Version &) {
+void Server::msgVersion(User *, MumbleProto::Version &) {
 }
 

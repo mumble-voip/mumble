@@ -652,11 +652,10 @@ void Server::connectionClosed(const QString &reason) {
 		stopThread();
 }
 
-void Server::message(unsigned int uiType, const QByteArray &qbaMsg, Connection *cCon) {
-	if (cCon == NULL) {
-		cCon = static_cast<Connection *>(sender());
+void Server::message(unsigned int uiType, const QByteArray &qbaMsg, User *u) {
+	if (u == NULL) {
+		u = static_cast<User *>(sender());
 	}
-	User *u = static_cast<User *>(cCon);
 
 	if (uiType == MessageHandler::UDPTunnel) {
 		int l = qbaMsg.size();
@@ -692,7 +691,7 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, Connection *
 			printf("== %s:\n", #x); \
 			msg.PrintDebugString(); \
 			msg.DiscardUnknownFields(); \
-			msg##x(cCon, msg); \
+			msg##x(u, msg); \
 		} \
 		break; \
 	}
