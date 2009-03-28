@@ -641,7 +641,6 @@ void Server::connectionClosed(const QString &reason) {
 	}
 
 	qqIds.enqueue(u->uiSession);
-	qhUserTextureCache.remove(u->iId);
 
 	if (u->sState == Player::Authenticated)
 		clearACLCache(u);

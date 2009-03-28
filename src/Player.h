@@ -49,7 +49,6 @@ class Player {
 		bool bSelfMute, bSelfDeaf;
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
-		// TODO: Server-side precache
 		QByteArray qbaTexture;
 		QString getFlagsString() const;
 

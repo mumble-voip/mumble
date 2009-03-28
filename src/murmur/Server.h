@@ -188,7 +188,6 @@ class Server : public QThread {
 		QReadWriteLock qrwlUsers;
 		ChanACL::ACLCache acCache;
 		QMutex qmCache;
-		QHash<int, QByteArray> qhUserTextureCache;
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;
 

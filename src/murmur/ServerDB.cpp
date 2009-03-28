@@ -619,7 +619,6 @@ int Server::authenticate(QString &name, const QString &pw) {
 			SQLEXEC();
 		}
 		if (res >= 0) {
-			qhUserTextureCache.remove(res);
 			qhUserNameCache.remove(res);
 			qhUserIDCache.remove(name);
 		}
@@ -650,7 +649,6 @@ int Server::authenticate(QString &name, const QString &pw) {
 		}
 	}
 	if (res >= 0) {
-		qhUserTextureCache.remove(res);
 		qhUserNameCache.remove(res);
 		qhUserIDCache.remove(name);
 	}
@@ -767,10 +765,12 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 			return false;
 	}
 	
-	qhUserTextureCache.remove(id);
-
 	if (! tex.isEmpty())
 		tex = qCompress(tex);
+
+	User *u = qhUsers.value(id);
+	if (u)
+		u->qbaTexture = tex;
 
 	int res = -2;
 	emit setTextureSig(res, id, tex);
@@ -855,12 +855,9 @@ int Server::getUserID(const QString &name) {
 }
 
 QByteArray Server::getUserTexture(int id) {
-	if (qhUserTextureCache.contains(id))
-		return qhUserTextureCache.value(id);
 	QByteArray qba;
 	emit idToTextureSig(qba, id);
 	if (! qba.isNull()) {
-		qhUserTextureCache.insert(id, qba);
 		return qba;
 	}
 
@@ -877,7 +874,6 @@ QByteArray Server::getUserTexture(int id) {
 			if (qba.size() == 600 * 60 * 4)
 				qba = qCompress(qba);
 	}
-	qhUserTextureCache.insert(id, qba);
 	return qba;
 }
 

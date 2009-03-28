@@ -204,10 +204,10 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	mpus.set_session(uSource->uiSession);
 	mpus.set_name(u8(uSource->qsName));
 	if (uSource->iId >= 0) {
+		uSource->qbaTexture = getUserTexture(uSource->iId);
 		mpus.set_user_id(uSource->iId);
-		const QByteArray &tex = getUserTexture(uSource->iId);
-		if (! tex.isEmpty())
-			mpus.set_texture(std::string(tex.constData(), tex.size()));
+		if (! uSource->qbaTexture.isEmpty())
+			mpus.set_texture(std::string(uSource->qbaTexture.constData(), uSource->qbaTexture.size()));
 	}
 	if (uSource->cChannel->iId != 0)
 		mpus.set_channel_id(uSource->cChannel->iId);
@@ -225,9 +225,8 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		mpus.set_name(u8(u->qsName));
 		if (u->iId >= 0) {
 			mpus.set_user_id(u->iId);
-			const QByteArray &texture = getUserTexture(u->iId);
-			if (! texture.isEmpty())
-				mpus.set_texture(std::string(texture.constData(), texture.size()));
+			if (! u->qbaTexture.isEmpty())
+				mpus.set_texture(std::string(u->qbaTexture.constData(), u->qbaTexture.size()));
 		}
 
 		if (u->cChannel->iId != 0)
