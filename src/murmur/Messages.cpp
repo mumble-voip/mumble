@@ -706,6 +706,8 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 		QStack<Channel *> chans;
 		Channel *p;
 		ChanACL *acl;
+		
+		QSet<int> qsId;
 
 		msg.clear_groups();
 		msg.clear_acls();
@@ -762,8 +764,19 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 				foreach(int id, pg->members())
 					group->add_inherited_members(id);
 		}
-		// TODO: Send QueryUsers with it.
+
 		sendMessage(uSource, msg, MessageHandler::ACL);
+
+		MumbleProto::QueryUsers mpqu;
+		foreach(int id, qsId) {
+			QString name=getUserName(id);
+			if (! name.isEmpty()) {
+				mpqu.add_ids(id);
+				mpqu.add_names(u8(name));
+			}
+		}
+		if (mpqu.ids_size())
+			sendMessage(uSource, mpqu, MessageHandler::QueryUsers);
 	} else {
 		Group *g;
 		ChanACL *a;
@@ -833,23 +846,13 @@ void Server::msgQueryUsers(User *uSource, MumbleProto::QueryUsers &msg) {
 		msg.clear_names();
 		for (int i=0;i<msg.ids_size();++i) {
 			int id = msg.ids(i);
-			if (! qhUserNameCache.contains(id)) {
-				QString name = getUserName(id);
-				if (! name.isEmpty())
-					qhUserNameCache[id] = name;
-			}
-			msg.add_names(u8(qhUserNameCache.value(id)));
+			msg.add_names(u8(getUserName(id)));
 		}
 	} else {
 		msg.clear_ids();
 		for (int i=0;i<msg.names_size();++i) {
 			QString name = u8(msg.names(i));
-			int id = qhUserIDCache.value(name);
-			if (! qhUserIDCache.contains(name)) {
-				id = getUserID(name);
-				if (id >= 0)
-					qhUserIDCache[name] = id;
-			}
+			int id = getUserID(name);
 			msg.add_ids((id >= 0) ? id : -1);
 		}
 	}

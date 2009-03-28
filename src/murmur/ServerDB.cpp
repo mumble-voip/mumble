@@ -471,7 +471,7 @@ int Server::registerPlayer(const QString &name) {
 	int res = -2;
 	emit registerPlayerSig(res, name);
 	if (res != -2) {
-		qhUserNameCache.remove(res);
+		qhUserIDCache.remove(name);
 	}
 	if (res == -1)
 		return res;
@@ -618,6 +618,10 @@ int Server::authenticate(QString &name, const QString &pw) {
 			query.addBindValue(lchan);
 			SQLEXEC();
 		}
+		if (res >= 0) {
+			qhUserNameCache.remove(res);
+			qhUserIDCache.remove(name);
+		}
 		return res;
 	}
 
@@ -643,6 +647,10 @@ int Server::authenticate(QString &name, const QString &pw) {
 				setPW(res, pw);
 			}
 		}
+	}
+	if (res >= 0) {
+		qhUserNameCache.remove(res);
+		qhUserIDCache.remove(name);
 	}
 	return res;
 }
@@ -793,10 +801,15 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 }
 
 QString Server::getUserName(int id) {
+	if (qhUserNameCache.contains(id))
+		return qhUserNameCache.value(id);
 	QString name;
 	emit idToNameSig(name, id);
-	if (! name.isEmpty())
+	if (! name.isEmpty()) {
+		qhUserIDCache.insert(name, id);
+		qhUserNameCache.insert(id, name);
 		return name;
+	}
 
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
@@ -806,15 +819,22 @@ QString Server::getUserName(int id) {
 	SQLEXEC();
 	if (query.next()) {
 		name = query.value(0).toString();
+		qhUserIDCache.insert(name, id);
+		qhUserNameCache.insert(id, name);
 	}
 	return name;
 }
 
 int Server::getUserID(const QString &name) {
+	if (qhUserIDCache.contains(name))
+		return qhUserIDCache.value(name);
 	int id = -2;
 	emit nameToIdSig(id, name);
-	if (id != -2)
+	if (id != -2) {
+		qhUserIDCache.insert(name, id);
+		qhUserNameCache.insert(id, name);
 		return id;
+	}
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
@@ -824,6 +844,8 @@ int Server::getUserID(const QString &name) {
 	SQLEXEC();
 	if (query.next()) {
 		id = query.value(0).toInt();
+		qhUserIDCache.insert(name, id);
+		qhUserNameCache.insert(id, name);
 	}
 	return id;
 }
