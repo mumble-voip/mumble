@@ -488,15 +488,17 @@ reinst_done:
 FunctionEnd
 
 Function .onInit
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "This is an experimental release of the 1.2 series of Mumble and Murmur, and is not compatible with clients and servers from the 1.1.x series. Do you still wish to install?" IDYES +2
+  Abort
   Push $R0
   CPUFeatures::hasSSE
   Pop $0
   ${IfNot} $0 == "1"
-    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_SSE) IDYES +1
+    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_SSE) IDYES +2
     Abort
   ${EndIf}
   ${IfNot} ${AtLeastWinXP}
-    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_XP) IDYES +1
+    MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 $(MUMBLE_NO_XP) IDYES +2
     Abort
   ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
