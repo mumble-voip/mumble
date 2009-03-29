@@ -33,6 +33,7 @@
 
 #include "../../overlay/overlay.h"
 #include "ConfigDialog.h"
+#include "Player.h"
 #include "ui_Overlay.h"
 
 class Player;
@@ -79,7 +80,6 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		bool expert(bool);
 };
 
-
 class OverlayPrivate;
 class Overlay : public QObject {
 		friend class OverlayConfig;
@@ -93,20 +93,17 @@ class Overlay : public QObject {
 
 		struct TextLine {
 			QString qsText;
-			int iPlayer;
+			unsigned int uiSession;
 			quint32 uiColor;
 			Decoration dDecor;
-			TextLine(const QString &t, quint32 c, int p = -1, Decoration d = None) : qsText(t), iPlayer(p), uiColor(c), dDecor(d) { };
+			TextLine(const QString &t, quint32 c, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), uiColor(c), dDecor(d) { };
 		};
 
-		typedef QPair<unsigned int, QByteArray> UserTexture;
 		QByteArray qbaMuted, qbaDeafened;
 		QList<TextLine> qlCurrentTexts;
 		QHash<QString, unsigned char *> qhTextures;
-		QHash<int, UserTexture> qhUserTextures;
 		QHash<QString, short> qhWidths;
-		QHash<int, QString> qhQueried;
-		QSet<int> qsForce;
+		QSet<unsigned int> qsForce;
 		QLibrary *qlOverlay;
 		QTimer *qtTimer;
 		QFont qfFont;
@@ -120,6 +117,7 @@ class Overlay : public QObject {
 		Overlay();
 		~Overlay();
 		bool isActive() const;
+		void verifyTexture(ClientPlayer *cp);
 	public slots:
 		void on_Timer_timeout();
 		void updateOverlay();

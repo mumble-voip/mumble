@@ -63,6 +63,7 @@ class ClientPlayer : public QObject, public Player {
 		Q_OBJECT
 		Q_DISABLE_COPY(ClientPlayer)
 	public:
+		int iTextureWidth;
 		ClientPlayer(QObject *p = NULL);
 		static QHash<unsigned int, ClientPlayer *> c_qmPlayers;
 		static QReadWriteLock c_qrwlPlayers;

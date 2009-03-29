@@ -123,6 +123,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (msg.has_name()) {
 			pDst = pmModel->addPlayer(msg.session(), u8(msg.name()));
 			g.l->log(Log::PlayerJoin, tr("Joined server: %1.").arg(pDst->qsName));
+			if (! msg.has_texture())
+				g.o->verifyTexture(pDst);
 		} else {
 			return;
 		}
@@ -213,6 +215,11 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 	if (msg.has_name()) {
 		pmModel->renamePlayer(pDst, u8(msg.name()));
+	}
+	if (msg.has_texture()) {
+		const std::string &str = msg.texture();
+		pDst->qbaTexture = QByteArray(str.data(), str.size());
+		g.o->verifyTexture(pDst);
 	}
 }
 

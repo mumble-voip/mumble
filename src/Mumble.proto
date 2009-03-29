@@ -72,7 +72,7 @@ message UserRemove {
 }
 
 message UserState {
-	required uint32 session = 1;
+	optional uint32 session = 1;
 	optional uint32 actor = 2;
 	optional string name = 3;
 	optional uint32 user_id = 4;

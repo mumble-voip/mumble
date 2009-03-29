@@ -293,32 +293,28 @@ void Overlay::forceSettings() {
 	updateOverlay();
 }
 
-/*
-FIXME: Move into update check.
-void Overlay::textureResponse(int id, const QByteArray &texture) {
-	QString s = qhQueried.value(id);
-	if (s.isEmpty())
+void Overlay::verifyTexture(ClientPlayer *cp) {
+	qsForce.insert(cp->uiSession);
+	if (! cp->qbaTexture.isEmpty() && (cp->qbaTexture.size() != TEXTURE_SIZE)) {
+		cp->qbaTexture = qUncompress(cp->qbaTexture);
+		if (cp->qbaTexture.size() != TEXTURE_SIZE)
+			cp->qbaTexture = QByteArray();
+	}
+	if (cp->qbaTexture.isEmpty()) {
+		cp->iTextureWidth = 0;
 		return;
+	}
 
-	QByteArray t = qUncompress(texture);
-
-	if (t.size() != TEXTURE_SIZE)
-		return;
-
-	const unsigned char *data = reinterpret_cast<const unsigned char *>(t.constData());
-
+	unsigned char *data = reinterpret_cast<unsigned char *>(cp->qbaTexture.data());
 	int width = 0;
-	for (int y=0;y<TEXT_HEIGHT;y++) {
-		for (int x=0;x<TEXT_WIDTH; x++) {
+	for (int y=0;y<TEXT_HEIGHT;++y) {
+		for (int x=0;x<TEXT_WIDTH; ++x) {
 			if ((x > width) && (data[(y*TEXT_WIDTH+x)*4] != 0x00))
 				width = x;
 		}
 	}
-	qhUserTextures[id] = UserTexture(width, t);
-	qsForce.insert(id);
-	setTexts(qlCurrentTexts);
+	cp->iTextureWidth = width;
 }
-*/
 
 typedef QPair<QString, quint32> qpChanCol;
 
@@ -355,7 +351,6 @@ void Overlay::updateOverlay() {
 	QList<TextLine> lines;
 
 	if (g.uiSession) {
-
 		if (g.s.bOverlayTop) {
 			foreach(qpChanCol cc, linkchans) {
 				if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
@@ -375,7 +370,7 @@ void Overlay::updateOverlay() {
 					dec = Deafened;
 				else if (p->bMute || p->bSelfMute || p->bLocalMute)
 					dec = Muted;
-				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer, p->iId, dec);
+				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer, p->uiSession, dec);
 			}
 		}
 
@@ -390,7 +385,6 @@ void Overlay::updateOverlay() {
 			}
 		}
 	} else {
-		qhUserTextures.clear();
 		clearCache();
 	}
 	setTexts(lines);
@@ -432,12 +426,12 @@ void Overlay::clearCache() {
 
 	qhTextures.clear();
 	qhWidths.clear();
-	qhQueried.clear();
 }
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
 	foreach(const TextLine &e, lines) {
-		if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && (! qhUserTextures.contains(e.iPlayer))) {
+		ClientPlayer *cp = ClientPlayer::get(e.uiSession);
+		if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && !(g.s.bOverlayUserTextures && cp && cp->iTextureWidth)) {
 			unsigned char *td = new unsigned char[TEXTURE_SIZE];
 			memset(td, 0, TEXTURE_SIZE);
 
@@ -479,17 +473,17 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		tl.qsText.left(127).toWCharArray(te->text);
 		te->color = lines[i].uiColor;
 
-		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].dDecor != tl.dDecor) || (qlCurrentTexts[i].qsText != tl.qsText) || qsForce.contains(tl.iPlayer)) {
+		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].dDecor != tl.dDecor) || (qlCurrentTexts[i].qsText != tl.qsText) || qsForce.contains(tl.uiSession)) {
 			if (tl.qsText.isNull()) {
 				te->width = 0;
 			} else {
 				int width = 0;
 				const unsigned char *src = NULL;
+				ClientPlayer *cp = ClientPlayer::get(tl.uiSession);
 
-				if (qhUserTextures.contains(tl.iPlayer)) {
-					const UserTexture &ut=qhUserTextures.value(tl.iPlayer);
-					width = ut.first;
-					src = reinterpret_cast<const unsigned char *>(ut.second.constData());
+				if (g.s.bOverlayUserTextures && cp && cp->iTextureWidth) {
+					width = cp->iTextureWidth;
+					src = reinterpret_cast<const unsigned char *>(cp->qbaTexture.constData());
 				} else {
 					width = qhWidths[tl.qsText];
 					src = qhTextures[tl.qsText];
@@ -526,7 +520,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 				te->width = static_cast<short>(width);
 				te->uiCounter++;
 			}
-			qsForce.remove(tl.iPlayer);
+			qsForce.remove(tl.uiSession);
 		}
 	}
 
