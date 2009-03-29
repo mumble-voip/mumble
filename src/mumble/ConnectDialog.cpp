@@ -54,10 +54,6 @@ QList<PublicInfo> ConnectDialog::qlPublicServers;
 Timer ConnectDialog::tPublicServers;
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
-
-	qhList = new QHttp(QLatin1String("mumble.hive.no"), 80, this);
-	qhList->setObjectName(QLatin1String("Request"));
-
 	setupUi(this);
 #ifdef Q_OS_MAC
 	setWindowFlags(Qt::Sheet);
@@ -169,7 +165,15 @@ void ConnectDialog::initList() {
 
 	bPublicInit = true;
 
-	qhList->get(QString::fromLatin1("/list.cgi?qcompress=1&version=%1").arg(QLatin1String(MUMBLE_RELEASE)));
+	qhList = new QHttp(QLatin1String("mumble.hive.no"), 80, this);
+	qhList->setObjectName(QLatin1String("Request"));
+
+	QUrl url(QLatin1String("http://mumble.hive.no/list2.cgi"));
+	url.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+
+	QNetworkRequest req(url);
+	QNetworkReply *rep = g.nam->get(req);
+	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
 void ConnectDialog::fillList() {
@@ -218,14 +222,15 @@ void ConnectDialog::on_qpbCopy_clicked() {
 	on_qpbAdd_clicked();
 }
 
-void ConnectDialog::on_Request_done(bool err) {
-	if (err) {
+void ConnectDialog::finished() {
+	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+	if (rep->error() != QNetworkReply::NoError) {
 		QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
 
 	QDomDocument doc;
-	doc.setContent(qUncompress(qhList->readAll()));
+	doc.setContent(rep->readAll());
 
 	qlPublicServers.clear();
 
@@ -249,6 +254,8 @@ void ConnectDialog::on_Request_done(bool err) {
 	tPublicServers.restart();
 
 	fillList();
+
+	rep->deleteLater();
 }
 
 void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIndex &) {

@@ -67,13 +67,13 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void fillEmpty();
 	public slots:
 		void accept();
+		void finished();
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();
 		void onSelection_Changed(const QModelIndex &n, const QModelIndex &p);
 		void onDirty(const QString &qs = QString());
 
 		void on_qtwTab_currentChanged(int);
-		void on_Request_done(bool);
 		void on_qpbURL_clicked();
 		void on_qpbCopy_clicked();
 	public:
