@@ -1490,7 +1490,7 @@ void MainWindow::context_triggered() {
 
 	MumbleProto::ContextAction mpca;
 	mpca.set_action(u8(a->data().toString()));
-	if (p->uiSession)
+	if (p && p->uiSession)
 		mpca.set_session(p->uiSession);
 	if (c)
 		mpca.set_channel_id(c->iId);
