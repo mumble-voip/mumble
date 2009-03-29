@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="ja_JP">
 <context>
     <name>ACLEditor</name>
     <message>
@@ -671,7 +671,7 @@
     <message>
         <location filename="About.cpp" line="53"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -693,7 +693,7 @@
     <message>
         <location filename="About.cpp" line="81"/>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h3&gt;Speexについて&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1127,13 +1127,13 @@
         <location filename="AudioInput.ui" line="83"/>
         <source>Input device for audio</source>
         <oldsource>Output method for audio</oldsource>
-        <translation type="unfinished">音声出力方法</translation>
+        <translation type="unfinished">音声入力方法</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="86"/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
         <oldsource>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation type="unfinished">&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
+        <translation type="unfinished">&lt;b&gt;音声のための入力デバイスです。&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="99"/>
@@ -1359,12 +1359,12 @@
     <message>
         <location filename="AudioInput.ui" line="181"/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&quot;キー押下で有効化&quot;設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="203"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;S/N比を使用して発言認識を設定します。&lt;/b&gt;&lt;br /&gt;このモードでは、入力は明らかな信号に似た何かに分析され、その信号の明快さは、音声検出ののために使用されます。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="279"/>
@@ -1389,7 +1389,7 @@
     <message>
         <location filename="AudioInput.ui" line="501"/>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音声を送信するために使う最大帯域</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="539"/>
@@ -1473,13 +1473,13 @@
         <location filename="AudioOutput.ui" line="41"/>
         <source>Output method for audio</source>
         <oldsource>Input method for audio</oldsource>
-        <translation type="unfinished">音声入力方法</translation>
+        <translation type="unfinished">音声出力方法</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="44"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation type="unfinished">&lt;b&gt;音声の入力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
+        <translation type="unfinished">&lt;b&gt;音声の出力方法です。&lt;/b&gt;&lt;br /&gt;ほとんどの場合DirectSoundで問題ありません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="67"/>
@@ -1489,12 +1489,12 @@
     <message>
         <location filename="AudioOutput.ui" line="83"/>
         <source>Output device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音声のための出力デバイス</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="86"/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これは音声を出力するために使うデバイスです。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="99"/>
@@ -1672,42 +1672,42 @@
     <message>
         <location filename="AudioOutput.ui" line="286"/>
         <source>The connected &quot;speakers&quot; are actually headphones.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">接続されたスピーカは実際はヘッドフォンです。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="299"/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最小距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="309"/>
         <source>Minimum distance to player before sound volume decreases</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サウンドのボリュームが減る前のプレイヤに対する最小の距離です。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="344"/>
         <source>Maximum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最大距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="354"/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音声のボリュームが減少しない最大の距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="357"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音の計算のために最大距離の設定します。 これよりより遠くに離れているとき、他のプレーヤーのスピーチボリュームはこれ以上減少しないでしょう。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="386"/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最小音量</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="399"/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ボリュームは最大距離がどのくらいであるべきか?</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="451"/>
@@ -3070,12 +3070,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui" line="17"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ショートカット</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="23"/>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">設定されたショートカットのリスト</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="48"/>
@@ -3095,12 +3095,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui" line="66"/>
         <source>Add new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しいショートカットを追加</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="69"/>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これにより新しいグローバルショートカットを追加するだろう</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="72"/>
@@ -3110,12 +3110,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui" line="82"/>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">選択されたショートカットを削除します</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="85"/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これにより選択されたショートカットを永久に削除します</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="88"/>
@@ -3157,12 +3157,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="261"/>
         <source>Shortcut button combination.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ショートカットボタンの組み合わせ</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="262"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;これはグローバルショットカットキーの組み合わせです。&lt;/b&gt;&lt;br /&gt;このフィールドをダブルクリックして、バインドしなおしたいキーかボタンのコンボをダブルクリックしてください。</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="266"/>
@@ -3250,12 +3250,12 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="113"/>
         <source>Graphic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="115"/>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">キャラクタ</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="126"/>
@@ -3332,7 +3332,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LCD.ui" line="89"/>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ビュー</translation>
     </message>
     <message>
         <location filename="LCD.ui" line="95"/>
@@ -3480,70 +3480,70 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Log.cpp" line="74"/>
         <source>Toggle console for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」 のためのコンソールを切り替える</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="75"/>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のためのポップアップ通知を切り替える</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="76"/>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のためのテキスト読み上げを切り替える</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="77"/>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」の音声通知を切り替えるためにはここをクリック</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="78"/>
         <source>Path to soundfile used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="80"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のコンソール出力を切り替えるためにはここをクリック。&lt;br /&gt;チェックされた場合、メッセージログに全てのイベント「%1」を出力する。</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="81"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のポップアップ通知を切り替えるためにはここをクリック。&lt;br /&gt;チェックされた場合、イベント「%1」がおきるたびポップアップ通知が行われる。</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="82"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
         <oldsource>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」の適すと読み上げを切り替えるためにはここをクリック。&lt;br /&gt;チェックされた場合、イベント「%1」が読み上げられる。テキスト読み上げはサウンドファイルではでいない、イベントの内容を読み上げがが可能である。テキスト読み上げとサウンドファイルは同時に使用することはできない。</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="83"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」の音声通知を切り替えるためにはここをクリック。&lt;br /&gt;チェックされた場合、あなたが用意したイベント「%1」を示す音声ファイルが使用さる。サウンドファイルと適すと読み上げは同時に使用することはできない。</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="84"/>
         <source>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更&lt;br /&gt;これらのイベントのための音声通知が有効であるか、またはこのフィールドが無効であることを確認してください。</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="177"/>
         <source>Choose sound file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サウンドファイルを選択してください</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="181"/>
         <source>Invalid sound file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">不正なサウンドファイル</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="182"/>
         <source>The file &apos;%1&apos; does not exist or is not a valid speex file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイル「%1」は存在しないか、適切な speex ファイルではありません。</translation>
     </message>
     <message>
         <location filename="Log.ui" line="13"/>
@@ -3610,7 +3610,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Log.ui" line="45"/>
         <source>Notification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">通知</translation>
     </message>
     <message>
         <location filename="Log.ui" line="50"/>
@@ -3620,12 +3620,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Log.ui" line="55"/>
         <source>Soundfile</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サウンドファイル</translation>
     </message>
     <message>
         <location filename="Log.ui" line="60"/>
         <source>Path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">パス</translation>
     </message>
     <message>
         <location filename="Log.ui" line="131"/>
@@ -4046,22 +4046,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="298"/>
         <source>&amp;Rename</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル名を変更する</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="309"/>
         <source>&amp;Change Description</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">説明を変更する(&amp;C)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="312"/>
         <source>Changes the channel description</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルの説明を変更する</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="315"/>
         <source>This changes the description of a channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルの説明を変更する</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="320"/>
@@ -4335,13 +4335,13 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="163"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">声を送るときに押し続けるボタン</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="164"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">キー押し下げのボタンを設定する。このボタンを押している間あなたの声は送信される。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="167"/>
@@ -4359,13 +4359,13 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="172"/>
         <source>Toggle self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分の発言禁止状態を切り替え</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="173"/>
         <source>This will toggle your muted status. If you toggle this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これはあなたの消音状態を切り換えるでしょう。また、これをオフに切り替えると、聴取禁止も無効になるだろう。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="175"/>
@@ -4377,13 +4377,13 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="177"/>
         <source>Toggle self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分の聴取禁止状態を切り替える</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="178"/>
         <source>This will toggle your deafen status. If you toggle this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これはあなたの聴取禁止状態を切り換えるでしょう。また、これをオンに切り替えると、発言禁止も有効になるだろう。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="180"/>
@@ -4437,13 +4437,13 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="210"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ゲーム中でのオーバーレイの状態を切り替える</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="211"/>
         <source>This will switch the states of the ingame overlay between showing everybody, just the players who are talking, and nobody.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ゲーム中でのオーバーレイの状態を「全員」と「話している人だけ」、「なし」の間で切り替える。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="214"/>
@@ -4643,7 +4643,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="207"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %2 によって %1 に移動されました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="210"/>
@@ -4653,12 +4653,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="212"/>
         <source>%1 moved out by %2 to %3.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は %2 によって %3 に移動させられました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="222"/>
         <source>%1 moved in by %2 from %3.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は %2 によって %3 から移動させられました。</translation>
     </message>
     <message>
         <source>%1 moved out by %2.</source>
@@ -4911,7 +4911,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="958"/>
         <source>Change description of channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル 「%1」 の説明を変更する</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1037"/>
@@ -5131,17 +5131,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="556"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレームを隠す</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="559"/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">小さく表示したときにフレームを見せるか見せないかを切り替えます</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="562"/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">小さく表示したとき移動やサイズ変更のためにフレームを表示するかを切り替えます</translation>
     </message>
 </context>
 <context>
@@ -5291,7 +5291,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="241"/>
         <source>Mumble services</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble サービス</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="247"/>
@@ -5976,7 +5976,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="GlobalShortcut.cpp" line="124"/>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">未割り当て</translation>
     </message>
 </context>
 <context>
@@ -5984,7 +5984,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="GlobalShortcut.cpp" line="182"/>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">未割り当て</translation>
     </message>
 </context>
 <context>
