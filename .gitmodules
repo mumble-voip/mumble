@@ -1,3 +1,6 @@
 [submodule "speex"]
 	path = speex
 	url = http://git.xiph.org/speex.git/
+[submodule "celt"]
+	path = celt
+	url = http://git.xiph.org/celt.git/
