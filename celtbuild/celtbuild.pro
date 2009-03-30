@@ -20,10 +20,11 @@ CONFIG -= warn_on
 CONFIG += warn_off
 VPATH	= ../celt/libcelt
 TARGET = celt
-DEFINES += NDEBUG HAVE_CONFIG_H
+DEFINES += HAVE_CONFIG_H
 
 win32 {
-  DEFINES+=WIN32 _WINDOWS _USE_SSE _USE_MATH_DEFINES
+  DEFINES+=WIN32 _WIN32
+  INCLUDEPATH += ../celtbuild/win32
 }
 
 unix {
@@ -32,7 +33,7 @@ unix {
 
 DIST = config.h 
 
-SOURCES *= bands.c celt.c cwrs.c ecintrin.h entcode.c entdec.c entenc.c header.c kfft_single.c kiss_fft.c kiss_fftr.c laplace.c mdct.c modes.c pitch.c psy.c quant_bands.c rangedec.c rangeenc.c rate.c vq.c
+SOURCES *= bands.c celt.c cwrs.c ecintrin.h entcode.c entdec.c entenc.c header.c kiss_fft.c kiss_fftr.c laplace.c mdct.c modes.c pitch.c psy.c quant_bands.c rangedec.c rangeenc.c rate.c vq.c
 
 CONFIG(debug, debug|release) {
   CONFIG += console
@@ -42,5 +43,3 @@ CONFIG(debug, debug|release) {
 CONFIG(release, debug|release) {
   DESTDIR	= ../release
 }
-
-
