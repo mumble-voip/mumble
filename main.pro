@@ -8,6 +8,9 @@ CONFIG *= ordered debug_and_release
   !CONFIG(no-bundled-speex) {
     SUBDIRS *= speexbuild
   }
+  !CONFIG(no-bundled-celt) {
+    SUBDIRS *= celtbuild
+  }
   SUBDIRS *= src/mumble plugins
 
   win32 {

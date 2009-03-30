@@ -4,7 +4,8 @@ include(../compiler.pri)
 	message("The speex/ directory was not found. You need to do one of the following:")
 	message("")
 	message("Option 1: Use Speex Git:")
-	message("git clone http://git.xiph.org/speex.git")
+	message("git submodule init");
+	message("git submodule update");
 	message("")
 	message("Option 2: Use system speex (only if it's a bleeding edge version):")
 	message("qmake CONFIG+=no-bundled-speex -recursive")

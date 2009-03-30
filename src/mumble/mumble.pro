@@ -32,6 +32,19 @@ CONFIG(no-bundled-speex) {
   LIBS 		*= -lspeex
 }
 
+unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.5.3 celt) {
+  CONFIG	*= no-bundled-celt
+}
+
+CONFIG(no-bundled-celt) {
+  PKGCONFIG	*= celt
+}
+
+!CONFIG(no-bundled-celt) {
+  INCLUDEPATH	*= ../../celt/libcelt
+  LIBS 		*= -lcelt
+}
+
 !win32 {
   QMAKE_CXXFLAGS	*= -Wall -Wextra
 }
