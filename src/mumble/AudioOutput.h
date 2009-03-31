@@ -123,8 +123,12 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		SpeexBits sbBits;
 		QMutex qmJitter;
 		JitterBuffer *jbJitter;
-		void *dsDecState;
 		int iMissCount;
+
+		CELTMode *cmMode;
+		CELTDecoder *cdDecoder;
+
+		QList<QByteArray> qlFrames;
 
 		unsigned char ucFlags;
 

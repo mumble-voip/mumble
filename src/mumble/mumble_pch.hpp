@@ -33,6 +33,7 @@
 #include <openssl/aes.h>
 #include <openssl/rand.h>
 
+#include <celt.h>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
 #include <speex/speex_preprocess.h>

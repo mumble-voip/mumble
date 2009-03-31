@@ -84,12 +84,9 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 
 
 AudioInput::AudioInput() {
-	speex_bits_init(&sbBits);
-	speex_bits_reset(&sbBits);
-	iFrames = 0;
-
-	esEncState=speex_encoder_init(&speex_wb_mode);
-	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
+	iFrameSize = SAMPLE_RATE / 100;
+	cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
+	ceEncoder = celt_encoder_create(cmMode);
 
 	mumble_drft_init(&fftTable, iFrameSize);
 
@@ -97,23 +94,6 @@ AudioInput::AudioInput() {
 	iSilentFrames = 0;
 	iHoldFrames = 0;
 	iBestBin = 0;
-
-	int iArg=1;
-	float fArg=0.0;
-	speex_encoder_ctl(esEncState,SPEEX_SET_VBR, &iArg);
-
-	iArg = 0;
-
-	speex_encoder_ctl(esEncState,SPEEX_SET_VAD, &iArg);
-	speex_encoder_ctl(esEncState,SPEEX_SET_DTX, &iArg);
-
-	fArg = static_cast<float>(g.s.iQuality);
-	speex_encoder_ctl(esEncState,SPEEX_SET_VBR_QUALITY, &fArg);
-	speex_encoder_ctl(esEncState,SPEEX_GET_BITRATE, &iArg);
-	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_MAX_BITRATE, &iArg);
-
-	iArg = 5;
-	speex_encoder_ctl(esEncState,SPEEX_SET_COMPLEXITY, &iArg);
 
 	bResetProcessor = true;
 
@@ -152,8 +132,10 @@ AudioInput::AudioInput() {
 AudioInput::~AudioInput() {
 	bRunning = false;
 	wait();
-	speex_bits_destroy(&sbBits);
-	speex_encoder_destroy(esEncState);
+
+	celt_encoder_destroy(ceEncoder);
+	celt_mode_destroy(cmMode);
+
 	mumble_drft_clear(&fftTable);
 	jitter_buffer_destroy(jb);
 
@@ -429,12 +411,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 int AudioInput::getMaxBandwidth() {
 	int audiorate;
 
-	void *es;
-	float f = static_cast<float>(g.s.iQuality);
-	es = speex_encoder_init(&speex_wb_mode);
-	speex_encoder_ctl(es,SPEEX_SET_VBR_QUALITY, &f);
-	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
-	speex_encoder_destroy(es);
+	audiorate = 1000;
 
 	audiorate /= 400/g.s.iFramesPerPacket;
 
@@ -457,13 +434,13 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 	int baserate;
 
 	void *es;
-	es = speex_encoder_init(&speex_wb_mode);
+	es = speex_encoder_init(&speex_uwb_mode);
 
 	float f = static_cast<float>(g.s.iQuality);
 
 	do {
-		speex_encoder_ctl(es, SPEEX_SET_VBR_QUALITY, &f);
-		speex_encoder_ctl(es, SPEEX_GET_BITRATE, &baserate);
+		// FIXME: Autoreduce quality
+		baserate = 100;
 		audiorate = baserate;
 
 		audiorate /= 400/g.s.iFramesPerPacket;
@@ -486,11 +463,6 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 			f -= 1.0f;
 		}
 	} while (audiorate > bytespersec);
-
-	speex_encoder_destroy(es);
-
-	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_QUALITY, &f);
-	speex_encoder_ctl(esEncState, SPEEX_SET_VBR_MAX_BITRATE, &baserate);
 
 	g.iAudioBandwidth = audiorate;
 	g.iAudioQuality = lroundf(f);
@@ -598,9 +570,6 @@ void AudioInput::encodeAudioFrame() {
 			sesEcho = NULL;
 		}
 
-		iFrames = 0;
-		speex_bits_reset(&sbBits);
-
 		bResetProcessor = false;
 	}
 
@@ -689,7 +658,8 @@ void AudioInput::encodeAudioFrame() {
 	if (! iIsSpeech) {
 		memset(psMic, 0, sizeof(short) * iFrameSize);
 	}
-
+/*
+	FIXME: Once per packet, moved into flushCheck
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (iFrames == 0) && g.p->fetch()) {
 		QByteArray q;
 		QDataStream ds(&q, QIODevice::WriteOnly);
@@ -705,17 +675,17 @@ void AudioInput::encodeAudioFrame() {
 			speex_bits_pack(&sbBits, d[i], 8);
 		}
 	}
+*/
+	unsigned char buffer[512];
+	int len = celt_encode(ceEncoder, psSource, NULL, buffer, 75);
+	iBitrate = len * 100 * 8;
 
-	speex_encode_int(esEncState, psSource, &sbBits);
-	iFrames++;
-
-	speex_encoder_ctl(esEncState, SPEEX_GET_BITRATE, &iBitrate);
-
-	flushCheck();
+	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len));
 }
 
-void AudioInput::flushCheck() {
-	if (bPreviousVoice && iFrames < g.s.iFramesPerPacket)
+void AudioInput::flushCheck(const QByteArray &qba) {
+	qlFrames << qba;
+	if (bPreviousVoice && qlFrames.count() < g.s.iFramesPerPacket)
 		return;
 
 	int flags = 0;
@@ -724,16 +694,12 @@ void AudioInput::flushCheck() {
 	else if (g.iAltSpeak > 0)
 		flags = 1;
 
-	int len = speex_bits_nbytes(&sbBits);
 	char data[1024];
+	data[0] = static_cast<unsigned char>(flags);
 
 	PacketDataStream pds(data + 1, 1023);
-	data[0] = static_cast<unsigned char>(flags);
 	pds << iFrameCounter;
-	*(const_cast<char *>(pds.charPtr())) = (iFrames - 1) << 4;
-	pds.skip(1);
-	speex_bits_write(&sbBits, const_cast<char *>(pds.charPtr()), len);
-	pds.skip(len);
+	pds << qlFrames;
 
 	// TODO: Loopback
 	//if (g.s.lmLoopMode == Settings::Local) {
@@ -742,6 +708,5 @@ void AudioInput::flushCheck() {
 	if (g.sh)
 		g.sh->sendMessage(data, pds.size() + 1);
 
-	iFrames = 0;
-	speex_bits_reset(&sbBits);
+	qlFrames.clear();
 }

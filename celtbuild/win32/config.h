@@ -136,7 +136,7 @@
 
 /* Make use of alloca */
 /* #undef USE_ALLOCA */
-#define USE_ALLOCA
+#define USE_ALLOCA 1
 
 /* Use C99 variable-size arrays */
 // #define VAR_ARRAYS /**/
@@ -159,20 +159,10 @@
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
-/* #undef inline */
+#define inline
 #endif
 
 /* Define to the equivalent of the C99 'restrict' keyword, or to
    nothing if this is not supported.  Do not define if restrict is
    supported directly.  */
 #define restrict
-#define inline
-// #define restrict _restrict
-/* Work around a bug in Sun C++: it does not support _Restrict, even
-   though the corresponding Sun C compiler does, which causes
-   "#define restrict _Restrict" in the previous line.  Perhaps some future
-   version of Sun C++ will work with _Restrict; if so, it'll probably
-   define __RESTRICT, just as Sun C does.  */
-#if defined __SUNPRO_CC && !defined __RESTRICT
-# define _Restrict
-#endif

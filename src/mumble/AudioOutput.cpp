@@ -34,6 +34,7 @@
 #include "Global.h"
 #include "Message.h"
 #include "Plugins.h"
+#include "PacketDataStream.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -116,18 +117,16 @@ void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
 AudioOutputSample::AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputPlayer(filename) {
 	dsDecState=speex_decoder_init(&speex_wb_mode);
 
-	int iArg=1;
 	int err;
 
-	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
-	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
-
-	if (freq != SAMPLE_RATE)
-		srs = speex_resampler_init(1, SAMPLE_RATE, freq, 3, &err);
+	if (freq != 16000)
+		srs = speex_resampler_init(1, 16000, freq, 3, &err);
 	else
 		srs = NULL;
 
-	iOutputSize = lroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
+	iFrameSize = 320;
+
+	iOutputSize = lroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(16000)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 
@@ -277,15 +276,12 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 }
 
 AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : AudioOutputPlayer(player->qsName) {
+	int err;
 	p = player;
 
-	dsDecState=speex_decoder_init(&speex_wb_mode);
-
-	int iArg=1;
-	int err;
-
-	speex_decoder_ctl(dsDecState, SPEEX_SET_ENH, &iArg);
-	speex_decoder_ctl(dsDecState, SPEEX_GET_FRAME_SIZE, &iFrameSize);
+	iFrameSize = SAMPLE_RATE / 100;
+	cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
+	cdDecoder = celt_decoder_create(cmMode);
 
 	if (freq != SAMPLE_RATE)
 		srs = speex_resampler_init(1, SAMPLE_RATE, freq, 3, &err);
@@ -296,13 +292,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;
-
-	SpeexCallback sc;
-	sc.callback_id = 1;
-	sc.func = speexCallback;
-	sc.data = this;
-
-	speex_decoder_ctl(dsDecState, SPEEX_SET_USER_HANDLER, &sc);
 
 	iMissCount = 0;
 	iMissedFrames = 0;
@@ -315,9 +304,10 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
-	speex_decoder_destroy(dsDecState);
+	celt_decoder_destroy(cdDecoder);
+	celt_mode_destroy(cmMode);
+
 	jitter_buffer_destroy(jbJitter);
-	speex_bits_destroy(&sbBits);
 }
 
 int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *, void *data) {
@@ -346,7 +336,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		return;
 
 	unsigned int flags = qbaPacket.at(0);
-	unsigned int frames = (flags >> 4) + 1;
+	unsigned int frames = flags & 0xf;
 
 	JitterBufferPacket jbp;
 	jbp.data = const_cast<char *>(qbaPacket.constData());
@@ -368,24 +358,18 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		return bLastAlive;
 
 	float *pOut;
-	STACKVAR(float, fOut, iFrameSize);
-
+	STACKVAR(float, fOut, iFrameSize + 4096);
 
 	while (iBufferFilled < snum) {
 		resizeBuffer(iBufferFilled + iOutputSize);
 
-		pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
+		pOut = (srs) ? fOut : (pfBuffer + iBufferFilled);
 
 		if (p == &LoopPlayer::lpLoopy)
 			LoopPlayer::lpLoopy.fetchFrames();
 
-
-		if (speex_decode(dsDecState, &sbBits, pOut) == 0) {
-			jitter_buffer_tick(jbJitter);
-			bLastAlive = true;
-		} else {
+		if (qlFrames.isEmpty()) {
 			QMutexLocker lock(&qmJitter);
-
 
 			char data[4096];
 			JitterBufferPacket jbp;
@@ -395,34 +379,29 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			spx_int32_t startofs = 0;
 
 			if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
-				ucFlags = jbp.data[0] & 0x1f;
-				fPos[0] = fPos[1] = fPos[2] = 0.0;
-				speex_bits_read_from(&sbBits, jbp.data + 1, jbp.len - 1);
-				speex_decode(dsDecState, &sbBits, pOut);
-				bLastAlive = true;
+				PacketDataStream pds(jbp.data, jbp.len);
+				pds >> qlFrames;
+				if (pds.isValid())
+					bLastAlive = true;
 			} else {
-				// FIXME: End-of-speech flags
-				/*
-				if (ucFlags & MessageSpeex::EndSpeech) {
-					memset(pOut, 0, sizeof(float) * iFrameSize);
-					bLastAlive = false;
-				} else {
-				*/
 				iMissCount++;
-				if (iMissCount < 5) {
-					speex_decode(dsDecState, NULL, pOut);
-				} else {
+				if (iMissCount > 10) {
 					memset(pOut, 0, sizeof(float) * iFrameSize);
 					bLastAlive = false;
 				}
 			}
 
-			int activity;
-			speex_decoder_ctl(dsDecState, SPEEX_GET_ACTIVITY, &activity);
-			if (activity < 30)
-				jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+			jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+		}
 
-			jitter_buffer_tick(jbJitter);
+		jitter_buffer_tick(jbJitter);
+
+		if (! qlFrames.isEmpty()) {
+			QByteArray qba = qlFrames.takeFirst();
+			celt_decode_float(cdDecoder, reinterpret_cast<unsigned char *>(qba.data()), qba.size(), pOut);
+			bLastAlive = true;
+		} else {
+			celt_decode_float(cdDecoder, NULL, 0, pOut);
 		}
 		spx_uint32_t inlen = iFrameSize;
 		spx_uint32_t outlen = iOutputSize;
@@ -438,9 +417,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 
 AudioOutput::AudioOutput() {
-	void *ds=speex_decoder_init(&speex_wb_mode);
-	speex_decoder_ctl(ds, SPEEX_GET_FRAME_SIZE, &iFrameSize);
-	speex_decoder_destroy(ds);
+	iFrameSize = SAMPLE_RATE / 100;
 	bRunning = false;
 
 	iChannels = 0;
@@ -705,7 +682,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	if (g.s.fVolume < 0.01)
 		return false;
 
-	const float mul = g.s.fVolume / 32768.0f;
+	const float mul = g.s.fVolume;
 	const unsigned int nchan = iChannels;
 
 	qrwlOutputs.lockForRead();

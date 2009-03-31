@@ -88,11 +88,12 @@ class AudioInput : public QThread {
 		int	iFrameSize;
 
 		QMutex qmSpeex;
-		SpeexBits sbBits;
 		SpeexPreprocessState *sppPreprocess;
 		SpeexEchoState *sesEcho;
 
-		void *esEncState;
+		CELTMode *cmMode;
+		CELTEncoder *ceEncoder;
+
 		drft_lookup fftTable;
 
 		short *psMic;
@@ -114,9 +115,8 @@ class AudioInput : public QThread {
 		int iSilentFrames;
 		int iHoldFrames;
 
-		int iFrames;
-
-		void flushCheck();
+		QList<QByteArray> qlFrames;
+		void flushCheck(const QByteArray &);
 
 		void initializeMixer();
 	signals:

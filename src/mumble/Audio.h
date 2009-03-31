@@ -34,7 +34,7 @@
 #include "mumble_pch.hpp"
 #include "Player.h"
 
-#define SAMPLE_RATE 16000
+#define SAMPLE_RATE 48000
 
 typedef QPair<QString,QVariant> audioDevice;
 

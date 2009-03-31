@@ -725,16 +725,16 @@ void WASAPIOutput::run() {
 
 		packetLength = bufferFrameCount - numFramesAvailable;
 
-		while (packetLength >= wantLength) {
-			hr = pRenderClient->GetBuffer(wantLength, &pData);
+		while (packetLength > 0) {
+			hr = pRenderClient->GetBuffer(packetLength, &pData);
 			if (FAILED(hr))
 				goto cleanup;
 
-			bool mixed = mix(reinterpret_cast<float *>(pData), wantLength);
+			bool mixed = mix(reinterpret_cast<float *>(pData), packetLength);
 			if (mixed)
-				hr = pRenderClient->ReleaseBuffer(wantLength, 0);
+				hr = pRenderClient->ReleaseBuffer(packetLength, 0);
 			else
-				hr = pRenderClient->ReleaseBuffer(wantLength, AUDCLNT_BUFFERFLAGS_SILENT);
+				hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
 			if (FAILED(hr))
 				goto cleanup;
 
