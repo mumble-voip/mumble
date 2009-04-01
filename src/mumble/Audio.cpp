@@ -33,6 +33,7 @@
 #include "Audio.h"
 #include "AudioOutput.h"
 #include "Global.h"
+#include "PacketDataStream.h"
 
 #define DOUBLE_RAND (rand()/static_cast<double>(RAND_MAX))
 
@@ -51,7 +52,7 @@ LoopPlayer::LoopPlayer() {
 	qtTicker.start();
 }
 
-void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
+void LoopPlayer::addFrame(const QByteArray &packet) {
 	if (DOUBLE_RAND < g.s.dPacketLoss) {
 		qWarning("Drop");
 		return;
@@ -70,7 +71,7 @@ void LoopPlayer::addFrame(const QByteArray &packet, int seq) {
 		else
 			r = DOUBLE_RAND * g.s.dMaxPacketDelay;
 
-		qmPackets.insert(static_cast<float>(time + r), Packet(seq, packet));
+		qmPackets.insert(static_cast<float>(time + r), packet);
 	}
 
 	// Restart check
@@ -92,12 +93,18 @@ void LoopPlayer::fetchFrames() {
 
 	double cmp = qtTicker.elapsed();
 
-	QMultiMap<float, Packet>::iterator i = qmPackets.begin();
+	QMultiMap<float, QByteArray>::iterator i = qmPackets.begin();
 
 	while (i != qmPackets.end()) {
 		if (i.key() > cmp)
 			break;
-		ao->addFrameToBuffer(this, i.value().second, i.value().first);
+
+		int iSeq;
+		const QByteArray &qba = i.value();
+		PacketDataStream pds(qba.constData(), qba.size());
+		pds >> iSeq;
+
+		ao->addFrameToBuffer(this, pds.dataBlock(pds.left()), iSeq);
 		i = qmPackets.erase(i);
 	}
 

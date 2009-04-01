@@ -702,10 +702,9 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	pds << qlFrames;
 
 	// TODO: Loopback
-	//if (g.s.lmLoopMode == Settings::Local) {
-	//	LoopPlayer::lpLoopy.addFrame(qba, msPacket.iSeq);
-
-	if (g.sh)
+	if (g.s.lmLoopMode == Settings::Local)
+		LoopPlayer::lpLoopy.addFrame(QByteArray(data+1, pds.size()));
+	else if (g.sh)
 		g.sh->sendMessage(data, pds.size() + 1);
 
 	qlFrames.clear();

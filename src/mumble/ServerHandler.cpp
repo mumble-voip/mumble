@@ -167,8 +167,7 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 	if (ao && p && ! p->bLocalMute) {
 		unsigned int iSeq;
 		pds >> iSeq;
-		QByteArray qbaSpeexPacket(pds.dataBlock(pds.left()));
-		ao->addFrameToBuffer(p, qbaSpeexPacket, iSeq);
+		ao->addFrameToBuffer(p, pds.dataBlock(pds.left()), iSeq);
 	}
 }
 

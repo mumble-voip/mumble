@@ -42,15 +42,14 @@ class LoopPlayer : public ClientPlayer {
 	private:
 		Q_DISABLE_COPY(LoopPlayer)
 	protected:
-		typedef QPair<quint32, QByteArray> Packet;
 		QMutex qmLock;
 		QTime qtTicker;
 		QTime qtLastFetch;
-		QMultiMap<float, Packet> qmPackets;
+		QMultiMap<float, QByteArray> qmPackets;
 		LoopPlayer();
 	public:
 		static LoopPlayer lpLoopy;
-		void addFrame(const QByteArray &packet, int seq);
+		void addFrame(const QByteArray &packet);
 		void fetchFrames();
 };
 
