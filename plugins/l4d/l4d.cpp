@@ -138,26 +138,44 @@ static void unlock() {
 	return;
 }
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float ipos[3], rot[3];
 	bool ok;
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12);
 
-	if (ok)
-		return calcout(ipos, rot, pos, front, top);
+	if (ok) {
+		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
+		if (res) {
+			for(int i=0;i<3;++i) {
+				camera_pos[i] = avatar_pos[i];
+				camera_front[i] = avatar_front[i];
+				camera_top[i] = avatar_top[i];
+
+				// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
+				context = std::string("server/map/blah");
+				identity = std::wstring(L"STEAM_1:2:3456789");
+			}
+			return res;
+		}
+	}
 
 	return false;
 }
 
+static const std::wstring longdesc() {
+	return std::wstring(L"Supports L4D version 3790 only. Supports no fancy stuff.");
+}
+
 static MumblePlugin l4dplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Left 4 Dead (Build 3790)",
-	L"Left 4 Dead",
+	std::wstring(L"Left 4 Dead (Build 3790)"),
+	std::wstring(L"Left 4 Dead"),
 	about,
 	NULL,
 	trylock,
 	unlock,
+	longdesc,
 	fetch
 };
 

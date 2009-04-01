@@ -31,18 +31,20 @@
 #ifndef _MUMBLE_PLUGIN_H
 #define _MUMBLE_PLUGIN_H
 
+#include <string>
+
 #define MUMBLE_PLUGIN_MAGIC 0xd63ab7ef
 
 typedef struct _MumblePlugin {
 	unsigned int magic;
-	const wchar_t *description;
-	const wchar_t *shortname;
+	const std::wstring description;
+	const std::wstring shortname;
 	void (__cdecl *about)(HWND);
 	void (__cdecl *config)(HWND);
 	int (__cdecl *trylock)();
 	void (__cdecl *unlock)();
-	wchar_t *(__cdecl longdesc)();
-	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, unsigned char *context, int *ctx_len, wchar_t *identity, int *id_len);
+	const std::wstring (__cdecl *longdesc)();
+	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity);
 } MumblePlugin;
 
 typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
