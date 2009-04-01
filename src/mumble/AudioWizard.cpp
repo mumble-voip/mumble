@@ -657,6 +657,7 @@ int AudioWizard::nextId() const {
 }
 
 void AudioWizard::playChord() {
+	// FIXME: This doesn't really work for detecting audio path length, does it? ;)
 	AudioOutputPtr ao = g.ao;
 	if (! ao || aosSource)
 		return;
