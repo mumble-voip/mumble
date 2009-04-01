@@ -42,7 +42,7 @@ typedef struct _MumblePlugin {
 	int (__cdecl *trylock)();
 	void (__cdecl *unlock)();
 	wchar_t *(__cdecl longdesc)();
-	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, unsigned char *context, unsigned int *ctx_len, wchar_t *identity, unsigned int *id_len);
+	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, unsigned char *context, int *ctx_len, wchar_t *identity, int *id_len);
 } MumblePlugin;
 
 typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
