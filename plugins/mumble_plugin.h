@@ -31,7 +31,7 @@
 #ifndef _MUMBLE_PLUGIN_H
 #define _MUMBLE_PLUGIN_H
 
-#define MUMBLE_PLUGIN_MAGIC 0xd63ab7fe
+#define MUMBLE_PLUGIN_MAGIC 0xd63ab7ef
 
 typedef struct _MumblePlugin {
 	unsigned int magic;
@@ -41,7 +41,8 @@ typedef struct _MumblePlugin {
 	void (__cdecl *config)(HWND);
 	int (__cdecl *trylock)();
 	void (__cdecl *unlock)();
-	int (__cdecl *fetch)(float *pos, float *front, float *top);
+	wchar_t *(__cdecl longdesc)();
+	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, unsigned char *context, unsigned int *ctx_len, wchar_t *identity, unsigned int *id_len);
 } MumblePlugin;
 
 typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
@@ -61,15 +62,34 @@ typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
  *		no other plugins will be queried.
  * unlock() - Unlock from process. Either from user intervention or
  *		because fetch failed.
- * fetch(...) - Fetch data from locked process. pos is position in
- *		world coordinates (1 meter per unit). front and top specify
- *		the heading of the player, as in where he is looking.
+ * fetch(...) - Fetch data from locked process. avatar_pos is position in
+ *		world coordinates (1 meter per unit). avatar_front and avatar_top
+ *      specify the heading of the player, as in where he is looking.
  *		You need at minimum to figure out pos and front, otherwise
  *		sounds cannot be placed. If you do not fetch top, make it the
- *		same as front but rotated 90 degrees "upwards". Fetching
- *		velocity is optional.
+ *		same as front but rotated 90 degrees "upwards".
+ *
+ *      camera_x is the same, but for the camera. Make this identical to the
+ *      avatar position if you don't know (or if it's a 1st person
+ *      perspective).
+ *
  *		It is important that you set all fields to 0.0 if you can't
  *		fetch meaningfull values, like between rounds and such.
+ *
+ *      context and identity are transmitted to the server. Only players
+ *      with identical context will hear positional audio from each other.
+ *      Mumble will automatically prepend the shortname of the plugin to
+ *      the context, so make this a representation of the game server and
+ *      team the player is on.
+ *
+ *      identity is retained by the server and is pollable over Ice/DBus,
+ *      to be used by external scripts. This should uniquiely identify the
+ *      player inside the game.
+ *
+ *      ctx_len and id_len are initialized to the bufferspace available. Set these
+ *      to -1 to keep the previous value (as parsing and optimizing can be CPU
+ *      intensive)
+ *
  *		The function should return 1 if it is still "locked on",
  *		otherwise it should return 0. Mumble will call unlock()
  *		if it return 0, and go back to polling with trylock()
