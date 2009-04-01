@@ -67,9 +67,12 @@ class Plugins : public QObject {
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
 	public:
+		std::string context;
+		std::wstring identity;
 		bool bValid;
 		bool bUnlink;
 		float fPosition[3], fFront[3], fTop[3];
+		float fCameraPosition[3], fCameraFront[3], fCameraTop[3];
 
 		Plugins(QObject *p = NULL);
 	public slots:

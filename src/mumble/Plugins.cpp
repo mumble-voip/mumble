@@ -167,8 +167,8 @@ void Plugins::rescanPlugins() {
 				if (mpf) {
 					pi->p = mpf();
 					if (pi->p) {
-						pi->description=QString::fromWCharArray(pi->p->description);
-						pi->shortname=QString::fromWCharArray(pi->p->shortname);
+						pi->description=QString::fromStdWString(pi->p->description);
+						pi->shortname=QString::fromStdWString(pi->p->shortname);
 						qlPlugins << pi;
 						continue;
 					}
@@ -191,6 +191,13 @@ bool Plugins::fetch() {
 		fTop[0] = 0.0f;
 		fTop[1] = 1.0f;
 		fTop[2] = 0.0f;
+
+		for(int i=0;i<3;++i) {
+			fCameraPosition[i] = fPosition[i];
+			fCameraFront[i] = fFront[i];
+			fCameraTop[i] = fTop[i];
+		}
+
 		bValid = true;
 		return true;
 	}
@@ -206,14 +213,15 @@ bool Plugins::fetch() {
 		bValid = false;
 		return bValid;
 	}
-	bool ok=locked->p->fetch(fPosition, fFront, fTop);
+	// FIXME: If context or identity changes, send an update message.
+	bool ok=locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, context, identity);
 	if (! ok || bUnlink) {
 		locked->p->unlock();
 		locked->locked = false;
 		prevlocked = locked;
 		locked = NULL;
 		for (int i=0;i<3;i++)
-			fPosition[i]=fFront[i]=fTop[i]= 0.0f;
+			fPosition[i]=fFront[i]=fTop[i]=fCameraPosition[i]=fCameraFront[i]=fCameraTop[i] = 0.0f;
 	}
 	bValid = ok;
 	return bValid;
@@ -263,7 +271,7 @@ void Plugins::on_Timer_timeout() {
 
 	foreach(PluginInfo *pi, qlPlugins) {
 		if (pi->p->trylock()) {
-			pi->shortname = QString::fromWCharArray(pi->p->shortname);
+			pi->shortname = QString::fromStdWString(pi->p->shortname);
 			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
 			pi->locked = true;
 			bUnlink = false;
