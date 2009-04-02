@@ -66,8 +66,14 @@ static int trylock() {
 	return false;
 }
 
+static const std::wstring longdesc() {
+	return std::wstring(L"The link plugin provides an interface for game authors to link their games to Mumble without writing their own plugin.");
+}
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
+                 float *camera_pos, float *camera_front, float *camera_top,
+                 std::string &context, std::wstring &identity) {
+
 	if (lm->ui32count != last_count) {
 		last_tick = GetTickCount();
 		last_count = lm->ui32count;
@@ -75,11 +81,11 @@ static int fetch(float *pos, float *front, float *top) {
 		return false;
 
 	for (int i=0;i<3;i++)
-		pos[i]=lm->fPosition[i];
+		avatar_pos[i]=lm->fPosition[i];
 	for (int i=0;i<3;i++)
-		front[i]=lm->fFront[i];
+		avatar_front[i]=lm->fFront[i];
 	for (int i=0;i<3;i++)
-		top[i]=lm->fTop[i];
+		avatar_top[i]=lm->fTop[i];
 
 	return true;
 }
@@ -124,12 +130,13 @@ static void unload_plugin() {
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Link v1.0.1",
-	wcPluginName,
+	std::wstring(L"Link Plugin"),
+	std::wstring(L"Link v1.0.1"),
 	NULL,
 	NULL,
 	trylock,
 	unlock,
+	longdesc,
 	fetch
 };
 

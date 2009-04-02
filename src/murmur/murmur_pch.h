@@ -35,6 +35,8 @@
 #include <openssl/pem.h>
 #include <openssl/conf.h>
 #include <openssl/x509v3.h>
+/* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
+#undef set_key
 
 #ifdef Q_OS_UNIX
 #include <stdio.h>

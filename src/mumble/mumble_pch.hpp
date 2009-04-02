@@ -18,6 +18,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <ApplicationServices/ApplicationServices.h>
 #undef check
+#undef nil
 #endif
 
 #include <QtCore/QtCore>

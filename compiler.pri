@@ -70,7 +70,7 @@ win32 {
 }
 
 macx {
-	INCLUDEPATH *= /opt/mumble/boost
+	INCLUDEPATH *= /opt/mumble/boost/include/boost-1_38/
 
 	CONFIG(cocoa) {
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5

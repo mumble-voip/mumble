@@ -14,15 +14,21 @@ pb.input = PROTOBUF
 pb.CONFIG *= no_link
 
 win32 {
-	INCLUDEPATH	*= /dev/protobuf-2.0.3/vsprojects/include
+	INCLUDEPATH *= /dev/protobuf-2.0.3/vsprojects/include
 	CONFIG(debug, debug|release) {
 		LIBPATH *= /dev/protobuf-2.0.3/vsprojects/Debug
 	} else {
 		LIBPATH *= /dev/protobuf-2.0.3/vsprojects/Release
 	}
-	LIBS		*= -llibprotobuf
-} else {
-	LIBS		*= -lprotobuf
+	LIBS *= -llibprotobuf
+}
+
+unix {
+	LIBS *= -lprotobuf
+	macx {
+		INCLUDEPATH *= /opt/mumble/protobuf/include/
+		LIBPATH *= /opt/mumble/protobuf/lib/
+	}
 }
 
 QMAKE_EXTRA_COMPILERS *= pb
