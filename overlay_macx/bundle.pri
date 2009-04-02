@@ -17,6 +17,7 @@ QMAKE_LFLAGS_SHLIB += -bundle -undefined dynamic_lookup -dynamic
 QMAKE_LFLAGS_COMPAT_VERSION =
 QMAKE_LFLAGS_VERSION =
 QMAKE_LFLAGS_SONAME =
+QMAKE_BUNDLE_EXTENSION = .bundle
 
 equals(QMAKE_LINK,g++) {
   QMAKE_LINK = gcc

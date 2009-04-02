@@ -41,8 +41,8 @@
 #include "mach_inject.h"
 #include "../stub/stub.h"
 
-#define STUB_BUNDLE     MUMBLE_OVERLAY_MACX_PATH "/Bundles/Stub.framework"
-#define OVERLAY_BUNDLE  MUMBLE_OVERLAY_MACX_PATH "/Bundles/Overlay.framework"
+#define STUB_BUNDLE     MUMBLE_OVERLAY_MACX_PATH "/Bundles/Stub.bundle"
+#define OVERLAY_BUNDLE  MUMBLE_OVERLAY_MACX_PATH "/Bundles/Overlay.bundle"
 
 static void usage(void) {
 	printf("Usage: mumble-overlay-injector [options] <pid>\n");
