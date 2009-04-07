@@ -36,33 +36,42 @@
 #include "Version.h"
 
 void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed) {
-	// FIXME: What if nothing changed? Then don't emit and don't sendAll.
+	bool changed = false;
 
-	if (deaf)
+	if (deaf) 
 		mute = true;
 	if (! mute)
 		deaf = false;
 
 	MumbleProto::UserState mpus;
 	mpus.set_session(pPlayer->uiSession);
-	if (mute != pPlayer->bMute)
+	if (mute != pPlayer->bMute) {
+		changed = true;
 		mpus.set_mute(mute);
-	if (deaf != pPlayer->bDeaf)
+	}
+	if (deaf != pPlayer->bDeaf) {
+		changed = true;
 		mpus.set_deaf(deaf);
-	if (suppressed != pPlayer->bSuppressed)
+	}
+	if (suppressed != pPlayer->bSuppressed) {
+		changed = true;
 		mpus.set_suppressed(suppressed);
+	}
 
 	pPlayer->bDeaf = deaf;
 	pPlayer->bMute = mute;
 	pPlayer->bSuppressed = suppressed;
 
 	if (cChannel != pPlayer->cChannel) {
+		changed = true;
 		mpus.set_channel_id(cChannel->iId);
 		playerEnterChannel(pPlayer, cChannel);
 	}
 
-	sendAll(mpus);
-	emit playerStateChanged(pPlayer);
+	if (changed) {
+		sendAll(mpus);
+		emit playerStateChanged(pPlayer);
+	}
 }
 
 bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links) {
