@@ -11,6 +11,22 @@ import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime
 from subprocess import Popen, PIPE
 from optparse import OptionParser
 
+def codesign(id, path):
+	'''Call the codesign executable.'''
+
+	if type(path) == list:
+		for p in path:
+			p = Popen(('codesign', '-vvvv', '-s', id, p))
+			retval = p.wait()
+			if retval != 0:
+				return retval
+	else:
+		p = Popen(('codesign', '-vvvv', '-s', id, path))
+		retval = p.wait()
+		if retval != 0:
+			return retval
+	return 0
+
 class AppBundle(object):
 
 	class UniversalBinaryException(exceptions.Exception):
@@ -310,6 +326,7 @@ if __name__ == '__main__':
 	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.')
 	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.')
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
+	parser.add_option('', '--codesign', dest='codesign', help='Create a codesigned build.')
 
 	options, args = parser.parse_args()
 
@@ -346,6 +363,22 @@ if __name__ == '__main__':
 	a.update_plist()
 	a.done()
 
+	# Sign our binaries, etc.
+	if options.codesign:
+		print ' * Signing binaries with identity `%s\'' % options.codesign
+		binaries = (
+			'release/Mumble.app',
+			'release/Mumble.app/Contents/MacOS/murmurd',
+			'release/Mumble.app/Contents/Plugins/liblink.dylib',
+			'release/MumbleOverlayContextMenu.plugin',
+			'release/Overlay.bundle',
+			'release/Stub.bundle',
+			'release/mumble-overlay-injector',
+			'release/mumble-overlay'
+		)
+		codesign(options.codesign, binaries)
+		print ''
+
 	if options.only_appbundle:
 		sys.exit(0)
 
@@ -364,15 +397,23 @@ if __name__ == '__main__':
 	f.create()
 
 	# Combine the base installer with our pretty installer wrapper
-	p = Popen(['/Developer/usr/bin/packagemaker',
+	p = Popen(('/Developer/usr/bin/packagemaker',
 	           '--doc',    'installer_macx/MumbleInstaller.pmdoc',
 	           '--id',     'net.sourceforge.mumble',
-	           '--out',    'release/Install Mumble.mpkg'])
+	           '--out',    'release/Install Mumble.mpkg'))
 	if p.wait() != 0:
 		print 'Creating master installer failed.'
 		sys.exit(1)
 	# A bug in PackageMaker? It doesn't copy over the script itself.
 	shutil.copy('installer_macx/scripts/postflight', 'release/Install Mumble.mpkg/Contents/Packages/Mumble-Base.pkg/Contents/Resources/postflight')
+	# Sign package (10.5 ONLY!)
+	# if options.codesign:
+	#	p = Popen(('/Developer/usr/bin/packagemaker',
+	#	           '--sign', 'release/Install Mumble.mpkg',
+	#	           '--certificate', options.codesign))
+	#	if p.wait() != 0:
+	#		print 'Unable to sign package.'
+	#		sys.exit(1)
 
 	# Create diskimage
 	d = DiskImage(fn, title)
