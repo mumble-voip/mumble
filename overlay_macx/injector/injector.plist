@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>mumble-overlay-injector</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Injects the Mumble overlay into a running process via its PID.</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.mumble.overlay.injector</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>MBOI</string>
+	<key>CFBundleVersion</key>
+	<string>1.2.0</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright (c) 2009 Mikkel Krautz &lt;mikkel@krautz.dk&gt;</string>
+	<key>SecTaskAccess</key>
+	<string>allowed</string>
+</dict>
+</plist>

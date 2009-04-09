@@ -10,8 +10,7 @@ chown -R root:admin ${INSTALL_DEST}/Applications/Mumble.app/
 
 # Overlay permissions
 chown -R root:wheel ${INSTALL_DEST}/Library/MumbleOverlay/
-chown root:procmod ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay-injector
-chmod 2755 ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay-injector
+chmod 755 ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay-injector
 chmod 755 ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay
 
 # Context menu plugin
