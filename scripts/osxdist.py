@@ -14,7 +14,7 @@ from optparse import OptionParser
 def codesign(id, path):
 	'''Call the codesign executable.'''
 
-	if type(path) == list:
+	if type(path) == list or type(path) == tuple:
 		for p in path:
 			p = Popen(('codesign', '-vvvv', '-s', id, p))
 			retval = p.wait()
