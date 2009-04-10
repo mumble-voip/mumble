@@ -242,9 +242,9 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 		else
 			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::PlayerKicked, tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(reason).arg(pDst->qsName));
 	} else {
-		g.l->log(Log::PlayerLeave, tr("Left server: %1.").arg(pSrc->qsName));
+		g.l->log(Log::PlayerLeave, tr("Left server: %1.").arg(pDst->qsName));
 	}
-	pmModel->removePlayer(pSrc);
+	pmModel->removePlayer(pDst);
 }
 
 void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
