@@ -1,5 +1,61 @@
+2009-04-11
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7a6b6ae  Fix crash on player left
+
+2009-04-09
+  Mikkel Krautz <mikkel@krautz.dk>
+    f195dc7  Remove setgid hack from overlay OSX injector. We're now
+	     properly signed, and can access the task_for_pid() API without
+	     being part of the procmod group.
+    b810504  OSX codesign fix.
+    eef5e81  Initial codesigning changes to osxdist.py
+
+2009-04-07
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b597f4c  Have setPlayerState only emit messages when something actually
+	     changed
+
+2009-04-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    09a775a  Rename some framework extensions for OSX overlay.
+    89886d9  Make 1.2 branch build on OSX.
+
+2009-04-01
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    122a104  Make mumble use new plugin type
+    3ebfe2b  Have plugins use std::basic_string, and use l4d as example
+    14d59e1  Make context and id length signed, so we can return -1
+    65aef28  Update plugin header
+    6b04d81  Add fixme for audiowizard path length
+    ab2ee8d  Fix loopback
+
+2009-03-31
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c95557c  CELT as audiocodec
+
+2009-03-30
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0a0ab34  CELT for Win32
+    8421f29  CELT build
+    ffe7929  Add CELT submodule
+
+2009-03-29
+  arcenciel <arcenciel@users.sourceforge.net>
+    1399c24  Updated Japanese Translation
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    fbf395c  Updated Spanish translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a33b3d1  Make ConnectDialog use QNetwork stuff and use a new URL for
+	     1.2.x
+    a4b1b1b  Fix custom textures
+    3a6e2ae  Murmur prints version info in log on startup
+    94aaf63  Fix crash with playercontext and context action
+
 2009-03-28
   Thorvald Natvig <slicer@users.sourceforge.net>
+    34c0788  Fix treemessage
     cdfd8b7  Fix QueryUsers
     c18b1a2  Fix ACL Editor
     5ec7a58  ProtoBuf for Ice/DBus

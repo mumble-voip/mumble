@@ -38,7 +38,7 @@
 void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed) {
 	bool changed = false;
 
-	if (deaf) 
+	if (deaf)
 		mute = true;
 	if (! mute)
 		deaf = false;

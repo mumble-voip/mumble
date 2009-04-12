@@ -43,7 +43,7 @@ typedef struct _MumblePlugin {
 	void (__cdecl *config)(HWND);
 	int (__cdecl *trylock)();
 	void (__cdecl *unlock)();
-	const std::wstring (__cdecl *longdesc)();
+	const std::wstring(__cdecl *longdesc)();
 	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity);
 } MumblePlugin;
 

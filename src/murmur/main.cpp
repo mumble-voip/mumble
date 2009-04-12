@@ -402,13 +402,13 @@ int main(int argc, char **argv) {
 
 	int major, minor, patch;
 	QString strver;
-	
+
 	meta->getVersion(major, minor, patch, strver);
-	
+
 	qWarning("Murmur %d.%d.%d (%s) running on %s: %s: Booting servers", major, minor, patch, qPrintable(strver), qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
 
 	meta->bootAll();
-	
+
 	res=a.exec();
 
 	qWarning("Killing running servers");

@@ -192,7 +192,7 @@ bool Plugins::fetch() {
 		fTop[1] = 1.0f;
 		fTop[2] = 0.0f;
 
-		for(int i=0;i<3;++i) {
+		for (int i=0;i<3;++i) {
 			fCameraPosition[i] = fPosition[i];
 			fCameraFront[i] = fFront[i];
 			fCameraTop[i] = fTop[i];
