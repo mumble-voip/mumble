@@ -128,6 +128,8 @@ Settings::Settings() {
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 	iMaxImageSize = 50 * 1024; // Allow 50KiB
+	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
+	iMaxImageHeight = 1024;
 
 // FIXME: Er. Right.
 #if 1
@@ -272,6 +274,8 @@ void Settings::load() {
 	SAVELOAD(qsProxyUsername, "net/proxyusername");
 	SAVELOAD(qsProxyPassword, "net/proxypassword");
 	SAVELOAD(iMaxImageSize, "net/maximagesize");
+	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
+	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
@@ -425,6 +429,8 @@ void Settings::save() {
 	SAVELOAD(qsProxyUsername, "net/proxyusername");
 	SAVELOAD(qsProxyPassword, "net/proxypassword");
 	SAVELOAD(iMaxImageSize, "net/maximagesize");
+	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
+	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");

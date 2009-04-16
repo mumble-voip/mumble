@@ -431,8 +431,15 @@ void LogDocument::finished() {
 
 	if (rep->error() == QNetworkReply::NoError) {
 		QVariant qv = rep->readAll();
-		addResource(QTextDocument::ImageResource, rep->request().url(), qv);
-		g.mw->qteLog->setDocument(this);
+		QImage qi;
+
+		if (qi.loadFromData(qv.toByteArray()) && qi.width() <= g.s.iMaxImageWidth && qi.height() <= g.s.iMaxImageHeight) {
+			addResource(QTextDocument::ImageResource, rep->request().url(), qi);
+			g.mw->qteLog->setDocument(this);
+		}
+		else qWarning() << "Image "<< rep->url().toString() <<" (" << qi.width() << "x" << qi.height() <<") to large.";
 	}
+	else qWarning() << "Image "<< rep->url().toString() << " download failed.";
+
 	rep->deleteLater();
 }
