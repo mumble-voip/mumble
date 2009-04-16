@@ -127,6 +127,7 @@ Settings::Settings() {
 	bReconnect = true;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
+	iMaxImageSize = 50 * 1024; // Allow 50KiB
 
 // FIXME: Er. Right.
 #if 1
@@ -270,6 +271,7 @@ void Settings::load() {
 	SAVELOAD(usProxyPort, "net/proxyport");
 	SAVELOAD(qsProxyUsername, "net/proxyusername");
 	SAVELOAD(qsProxyPassword, "net/proxypassword");
+	SAVELOAD(iMaxImageSize, "net/maximagesize");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
@@ -422,6 +424,7 @@ void Settings::save() {
 	SAVELOAD(usProxyPort, "net/proxyport");
 	SAVELOAD(qsProxyUsername, "net/proxyusername");
 	SAVELOAD(qsProxyPassword, "net/proxypassword");
+	SAVELOAD(iMaxImageSize, "net/maximagesize");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");

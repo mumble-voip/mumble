@@ -395,6 +395,8 @@ LogDocument::LogDocument(QObject *p) : QTextDocument(p) {
 QVariant LogDocument::loadResource(int type, const QUrl &url) {
 	if ((type != QTextDocument::ImageResource))
 		return QLatin1String("No external resources allowed.");
+	if (g.s.iMaxImageSize <= 0)
+		return QLatin1String("Image download disabled.");
 
 	QImage qi(0, 0, QImage::Format_Mono);
 
@@ -410,8 +412,18 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 
 	QNetworkRequest req(url);
 	QNetworkReply *rep = g.nam->get(req);
+	connect(rep, SIGNAL(metaDataChanged()), this, SLOT(receivedHead()));
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 	return qi;
+}
+
+void LogDocument::receivedHead() {
+	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+	QVariant size = rep->header(QNetworkRequest::ContentLengthHeader);
+	if (size == QVariant::Invalid || size.toInt() > g.s.iMaxImageSize) {
+		qWarning() << "Image "<< rep->url().toString() <<" (" << size.toInt() << " byte) to big, request aborted. ";
+		rep->abort();
+	}
 }
 
 void LogDocument::finished() {

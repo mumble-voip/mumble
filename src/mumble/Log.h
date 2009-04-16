@@ -91,6 +91,7 @@ class LogDocument : public QTextDocument {
 		LogDocument(QObject *p);
 		QVariant loadResource(int, const QUrl &);
 	public slots:
+		void receivedHead();
 		void finished();
 };
 

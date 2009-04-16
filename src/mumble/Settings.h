@@ -145,6 +145,7 @@ struct Settings {
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
+	int iMaxImageSize;
 
 	// Nonsaved
 	LoopMode lmLoopMode;
