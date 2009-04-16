@@ -814,7 +814,14 @@ void MainWindow::on_qleChat_returnPressed() {
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 
 	MumbleProto::TextMessage mptm;
-	mptm.set_message(u8(qleChat->text()));
+	QString qsText;
+
+	qsText = qleChat->text();
+	if (! Qt::mightBeRichText(qsText)) {
+	    qsText = TextMessage::autoFormat(qsText);
+	}
+
+	mptm.set_message(u8(qsText));
 
 	if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree message
@@ -822,16 +829,16 @@ void MainWindow::on_qleChat_returnPressed() {
 			c = ClientPlayer::get(g.uiSession)->cChannel;
 
 		mptm.add_channel_id(c->iId);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(c->qsName).arg(qleChat->text()), tr("Message to %1").arg(c->qsName));
+		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(qsText), tr("Message to channel %1").arg(c->qsName));
 	}
 	else {
 		// Player message
 		mptm.add_session(p->uiSession);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(qleChat->text()), tr("Message to %1").arg(p->qsName));
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(qsText), tr("Message to %1").arg(p->qsName));
 	}
 
 	g.sh->sendMessage(mptm);
-	qleChat->setText(QString());
+	qleChat->clear();
 }
 
 void MainWindow::on_qmConfig_aboutToShow() {
@@ -1073,7 +1080,7 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 		mptm.add_channel_id(id);
 		mptm.set_message(u8(texm->message()));
 		g.sh->sendMessage(mptm);
-		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
+		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
 	}
 	delete texm;
 }

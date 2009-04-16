@@ -44,6 +44,7 @@ class TextMessage : public QDialog, public Ui::TextMessage {
 		TextMessage(QWidget *parent = NULL);
 		QString message();
 		bool eventFilter(QObject *obj, QEvent *event);
+		static QString autoFormat(QString qsPlain);
 	public slots:
 		void on_qteEdit_textChanged();
 		void on_qcbRawMessage_stateChanged(int);
