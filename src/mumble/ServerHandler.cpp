@@ -39,6 +39,7 @@
 #include "Database.h"
 #include "PacketDataStream.h"
 #include "NetworkConfig.h"
+#include "OSInfo.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int type, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -247,6 +248,8 @@ void ServerHandler::run() {
 			int patch = rx.cap(3).toInt();
 			mpv.set_version((major << 16) | (minor << 8) | patch);
 	}
+	mpv.set_os(u8(OSInfo::getOS()));
+	mpv.set_os_version(u8(OSInfo::getOSVersion()));
 	sendMessage(mpv);
 
 	exec();
