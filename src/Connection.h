@@ -60,11 +60,10 @@ class Connection : public QObject {
 	public slots:
 		void proceedAnyway();
 	signals:
+		void encrypted();
 		void connectionClosed(const QString &reason);
 		void message(unsigned int type, const QByteArray &);
 		void handleSslErrors(const QList<QSslError> &);
-
-		void recheckBuffer();
 	public:
 		Connection(QObject *parent, QSslSocket *qtsSocket);
 		~Connection();

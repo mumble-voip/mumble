@@ -99,6 +99,9 @@ class User : public Connection, public Player {
 		double dUDPPingAvg, dUDPPingVar;
 		double dTCPPingAvg, dTCPPingVar;
 		quint64 uiUDPPackets, uiTCPPackets;
+		
+		unsigned int uiVersion;
+		QString qsRelease;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
@@ -166,6 +169,7 @@ class Server : public QThread {
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
 		void doSync(unsigned int);
+		void encrypted();
 	signals:
 		void reqSync(unsigned int);
 		void tcpTransmit(QByteArray, unsigned int id);

@@ -938,6 +938,9 @@ void Server::msgContextAction(User *uSource, MumbleProto::ContextAction &msg) {
 	emit contextAction(uSource, u8(msg.action()), session, id);
 }
 
-void Server::msgVersion(User *, MumbleProto::Version &) {
+void Server::msgVersion(User *uSource, MumbleProto::Version &msg) {
+	if (msg.has_version())
+		uSource->uiVersion=msg.version();
+	if (msg.has_release())
+		uSource->qsRelease = u8(msg.release());
 }
-

@@ -52,6 +52,7 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	bDisconnectedEmitted = false;
 
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
+	connect(qtsSocket, SIGNAL(encrypted()), this, SIGNAL(encrypted()));
 	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 	connect(qtsSocket, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(socketSslErrors(const QList<QSslError> &)));

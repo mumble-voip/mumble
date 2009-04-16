@@ -95,6 +95,8 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	const User *u=static_cast<const User *>(p);
 	mp.onlinesecs = u->bwr.onlineSeconds();
 	mp.bytespersec = u->bwr.bandwidth();
+	mp.version = u->uiVersion;
+	mp.release = toStdUtf8String(u->qsRelease);
 }
 
 static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {

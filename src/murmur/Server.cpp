@@ -72,6 +72,8 @@ User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 	saiUdpAddress.sin_port = 0;
 	saiUdpAddress.sin_addr.s_addr = htonl(socket->peerAddress().toIPv4Address());
 	saiUdpAddress.sin_family = AF_INET;
+	
+	uiVersion = 0;
 }
 
 
@@ -321,9 +323,9 @@ void Server::run() {
 	qint32 len;
 #if defined(__LP64__)
 	char encbuff[512+8];
-	char *encrypted = encbuff + 4;
+	char *encrypt = encbuff + 4;
 #else
-	char encrypted[512];
+	char encrypt[512];
 #endif
 	char buffer[512];
 
@@ -361,9 +363,9 @@ void Server::run() {
 
 		fromlen = sizeof(from);
 #ifdef Q_OS_WIN
-		len=::recvfrom(sUdpSocket, encrypted, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+		len=::recvfrom(sUdpSocket, encrypt, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 #else
-		len=::recvfrom(sUdpSocket, encrypted, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+		len=::recvfrom(sUdpSocket, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 #endif
 		if (len == 0) {
 			break;
@@ -382,13 +384,13 @@ void Server::run() {
 
 		User *u = qhPeerUsers.value(key);
 		if (u) {
-			if (! checkDecrypt(u, encrypted, buffer, len)) {
+			if (! checkDecrypt(u, encrypt, buffer, len)) {
 				continue;
 			}
 		} else {
 			// Unknown peer
 			foreach(User *usr, qhHostUsers.value(from.sin_addr.s_addr)) {
-				if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypted, buffer, len)) {
+				if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypt, buffer, len)) {
 					// Every time we relock, reverify users' existance.
 					// The main thread might delete the user while the lock isn't held.
 					unsigned int uiSession = usr->uiSession;
@@ -425,8 +427,8 @@ void Server::run() {
 	}
 }
 
-bool Server::checkDecrypt(User *u, const char *encrypted, char *plain, unsigned int len) {
-	if (u->csCrypt.isValid() && u->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypted), reinterpret_cast<unsigned char *>(plain), len))
+bool Server::checkDecrypt(User *u, const char *encrypt, char *plain, unsigned int len) {
+	if (u->csCrypt.isValid() && u->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypt), reinterpret_cast<unsigned char *>(plain), len))
 		return true;
 
 	if (u->csCrypt.tLastGood.elapsed() > 5000000ULL) {
@@ -583,6 +585,7 @@ void Server::newClient() {
 		connect(u, SIGNAL(connectionClosed(const QString &)), this, SLOT(connectionClosed(const QString &)));
 		connect(u, SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
+		connect(u, SIGNAL(encrypted()), this, SLOT(encrypted()));
 
 		log(u, QString("New connection: %1:%2").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
 
@@ -590,6 +593,18 @@ void Server::newClient() {
 
 		sock->startServerEncryption();
 	}
+}
+
+void Server::encrypted() {
+	int major, minor, patch;
+	QString release;
+	
+	Meta::getVersion(major, minor, patch, release);
+	
+	MumbleProto::Version mpv;
+	mpv.set_version((major << 16) | (minor << 8) | patch);
+	mpv.set_release(u8(release));
+	sendMessage(qobject_cast<User *>(sender()), mpv);
 }
 
 void Server::sslError(const QList<QSslError> &errors) {
