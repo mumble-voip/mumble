@@ -131,7 +131,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
 		sendMessage(uSource, mpr);
-		uSource->disconnectSocket(true);
+		uSource->disconnectSocket();
 		return;
 	}
 
