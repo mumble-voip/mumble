@@ -1,3 +1,27 @@
+2009-04-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    39a3b77  Disable 1.2 incompatible plugins until they get updated.
+    a9a5574  Add auto formating capability to chatbar.
+
+  Hengqing Hu <esrms@users.sourceforge.net>
+    686df2c  Chinese Translation in UTF-8 coding for Mumble 1.1.8
+
+  He Tal <hetao29@users.sourceforge.net>
+    9243dbd  to support Chinese languages need a patch
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0fff088  Allow reject message to be sent before we close the socket
+    7c6ec3e  Add tooltip and whatsthis for chedk updates on startup
+    0f18efb  Add .it to project files
+    cb45da6  Add zh_CN to project files
+    027bc04  Have the client actually send the os info. Oops.
+    86d61cb  OS info in version exchange
+    f67b83e  Add version info to mumble
+    c760d4d  Have murmur accept and send version packets
+
+  Spaccaossi <spaccaossi@users.sourceforge.net>
+    d48588a  italian translation - finished for 1.1.8
+
 2009-04-11
   Stefan Hacker <dd0t@users.sourceforge.net>
     7a6b6ae  Fix crash on player left
@@ -179,6 +203,9 @@
     027ae42  Start of new protocol
 
 2009-03-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    75868a3  Added Chatbar dock widget to MainWindow
+
   Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     68ba119  German translation for latest changes
 

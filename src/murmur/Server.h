@@ -99,7 +99,7 @@ class User : public Connection, public Player {
 		double dUDPPingAvg, dUDPPingVar;
 		double dTCPPingAvg, dTCPPingVar;
 		quint64 uiUDPPackets, uiTCPPackets;
-		
+
 		unsigned int uiVersion;
 		QString qsRelease;
 		QString qsOS;

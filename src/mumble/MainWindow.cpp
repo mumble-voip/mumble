@@ -821,7 +821,7 @@ void MainWindow::on_qleChat_returnPressed() {
 
 	qsText = qleChat->text();
 	if (! Qt::mightBeRichText(qsText)) {
-	    qsText = TextMessage::autoFormat(qsText);
+		qsText = TextMessage::autoFormat(qsText);
 	}
 
 	mptm.set_message(u8(qsText));
@@ -833,8 +833,7 @@ void MainWindow::on_qleChat_returnPressed() {
 
 		mptm.add_channel_id(c->iId);
 		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(qsText), tr("Message to channel %1").arg(c->qsName));
-	}
-	else {
+	} else {
 		// Player message
 		mptm.add_session(p->uiSession);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(qsText), tr("Message to %1").arg(p->qsName));

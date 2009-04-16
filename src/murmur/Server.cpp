@@ -72,7 +72,7 @@ User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 	saiUdpAddress.sin_port = 0;
 	saiUdpAddress.sin_addr.s_addr = htonl(socket->peerAddress().toIPv4Address());
 	saiUdpAddress.sin_family = AF_INET;
-	
+
 	uiVersion = 0;
 }
 
@@ -598,9 +598,9 @@ void Server::newClient() {
 void Server::encrypted() {
 	int major, minor, patch;
 	QString release;
-	
+
 	Meta::getVersion(major, minor, patch, release);
-	
+
 	MumbleProto::Version mpv;
 	mpv.set_version((major << 16) | (minor << 8) | patch);
 	mpv.set_release(u8(release));
