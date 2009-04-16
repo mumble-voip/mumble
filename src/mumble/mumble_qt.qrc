@@ -6,5 +6,6 @@
  <file>qt_ru.qm</file>
  <file>qt_pl.qm</file>
  <file>qt_ja_jp.qm</file>
+ <file>qt_zh_CN.qm</file>
 </qresource>
 </RCC>
