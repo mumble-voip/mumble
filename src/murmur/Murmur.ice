@@ -37,6 +37,10 @@ module Murmur
 		int version;
 		/** Client release. For official releases, this equals the version. For snapshots and git compiles, this will be something else. */
 		string release;
+		/** Client OS. */
+		string os;
+		/** Client OS Version. */
+		string osversion;
 	};
 
 	sequence<int> IntList;

@@ -81,6 +81,8 @@ class ServerHandler : public QThread {
 
 		unsigned int uiVersion;
 		QString qsRelease;
+		QString qsOS;
+		QString qsOSVersion;
 
 		boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::mean, boost::accumulators::tag::variance, boost::accumulators::tag::count> > accTCP, accUDP, accClean;
 

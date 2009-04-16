@@ -3,8 +3,10 @@ package MumbleProto;
 option optimize_for = SPEED;
 
 message	Version {
-	required uint32 version = 1;
-	required string release = 2;
+	optional uint32 version = 1;
+	optional string release = 2;
+	optional string os = 3;
+	optional string os_version = 4;
 }
 
 message UDPTunnel {

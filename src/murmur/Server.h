@@ -102,6 +102,8 @@ class User : public Connection, public Player {
 		
 		unsigned int uiVersion;
 		QString qsRelease;
+		QString qsOS;
+		QString qsOSVersion;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;

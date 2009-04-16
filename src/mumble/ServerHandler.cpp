@@ -234,6 +234,8 @@ void ServerHandler::run() {
 
 	uiVersion = 0;
 	qsRelease = QString();
+	qsOS = QString();
+	qsOSVersion = QString();
 
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));

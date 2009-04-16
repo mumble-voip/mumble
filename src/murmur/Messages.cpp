@@ -943,4 +943,9 @@ void Server::msgVersion(User *uSource, MumbleProto::Version &msg) {
 		uSource->uiVersion=msg.version();
 	if (msg.has_release())
 		uSource->qsRelease = u8(msg.release());
+	if (msg.has_os()) {
+		uSource->qsOS = u8(msg.os());
+		if (msg.has_os_version())
+			uSource->qsOSVersion = u8(msg.os_version());
+	}
 }
