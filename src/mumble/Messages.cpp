@@ -384,5 +384,9 @@ void MainWindow::msgContextActionAdd(const MumbleProto::ContextActionAdd &msg) {
 		qlChannelActions.append(a);
 }
 
-void MainWindow::msgVersion(const MumbleProto::Version &) {
+void MainWindow::msgVersion(const MumbleProto::Version &msg) {
+	if (msg.has_version())
+		g.sh->uiVersion = msg.version();
+	if (msg.has_release())
+		g.sh->qsRelease = u8(msg.release());
 }

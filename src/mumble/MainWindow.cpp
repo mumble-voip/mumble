@@ -620,6 +620,9 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 	QSslCipher qsc = g.sh->qscCipher;
 
+	unsigned int version = g.sh->uiVersion;
+
+	QString qsVersion=tr("<h2>Version</h2><p>Protocol version %1.%2.%3.<br />Release %4.</p>").arg((version >> 16) & 0xFF).arg((version >> 8) & 0xFF).arg(version & 0xFF).arg(g.sh->qsRelease);
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p>").arg(qsc.usedBits()).arg(qsc.name()).arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2).arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2);
 	QString qsVoice, qsCrypt, qsAudio;
 
@@ -639,7 +642,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 	}
 	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s (Quality %3)</p>").arg(g.iMaxBandwidth / 125.0,0,'f',1).arg(g.iAudioBandwidth / 125.0,0,'f',1).arg(g.iAudioQuality);
 
-	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
+	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsVersion + qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
 	qmb.setDefaultButton(QMessageBox::Ok);
 	qmb.setEscapeButton(QMessageBox::Ok);
 

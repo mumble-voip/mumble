@@ -232,6 +232,21 @@ void ServerHandler::run() {
 
 	accUDP = accTCP = accClean;
 
+	uiVersion = 0;
+	qsRelease = QString();
+
+	MumbleProto::Version mpv;
+	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
+
+	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
+	if (rx.exactMatch(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)))) {
+			int major = rx.cap(1).toInt();
+			int minor = rx.cap(2).toInt();
+			int patch = rx.cap(3).toInt();
+			mpv.set_version((major << 16) | (minor << 8) | patch);
+	}
+	sendMessage(mpv);
+
 	exec();
 
 	if (qusUdp) {

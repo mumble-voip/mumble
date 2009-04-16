@@ -79,6 +79,9 @@ class ServerHandler : public QThread {
 		QSslCipher qscCipher;
 		ConnectionPtr cConnection;
 
+		unsigned int uiVersion;
+		QString qsRelease;
+
 		boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::mean, boost::accumulators::tag::variance, boost::accumulators::tag::count> > accTCP, accUDP, accClean;
 
 		ServerHandler();
