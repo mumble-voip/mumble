@@ -7,15 +7,23 @@
 
 #include "../mumble_plugin.h"
 
-static wchar_t wcPluginName[256];
+static std::wstring wsPluginName;
+static std::wstring wsDescription;
 
 struct LinkedMem {
 	UINT32  uiVersion;
 	DWORD   dwcount;
-	float	fPosition[3];
-	float	fFront[3];
-	float	fTop[3];
+	float	fAvatarPosition[3];
+	float	fAvatarFront[3];
+	float	fAvatarTop[3];
 	wchar_t	name[256];
+	float	fCameraPosition[3];
+	float	fCameraFront[3];
+	float	fCameraTop[3];
+	wchar_t	identity[256];
+	UINT32 context_len;
+	unsigned char context[256];
+	wchar_t description[2048];
 };
 
 static void about(HWND h) {
@@ -31,22 +39,34 @@ static void unlock() {
 	lm->dwcount = last_count = 0;
 	lm->uiVersion = 0;
 	lm->name[0] = 0;
-	wcscpy_s(wcPluginName, 256, L"Link");
+	wsPluginName.assign(L"Link");
+	wsDescription.clear();
 	return;
 }
 
 static int trylock() {
-	if (lm->uiVersion == 1) {
+	if ((lm->uiVersion == 1) || (lm->uiVersion == 2)) {
 		if (lm->dwcount != last_count) {
 			last_count = lm->dwcount;
 			last_tick = GetTickCount();
 
+			errno_t err = 0;
+			wchar_t buff[2048];
+
 			if (lm->name[0]) {
-				errno_t err = wcscpy_s(wcPluginName, 256, lm->name);
-				if (err != 0) {
-					wcscpy_s(wcPluginName, 256, L"Link");
-					return false;
-				}
+				err = wcscpy_s(buff, 256, lm->name);
+				if (! err)
+					wsPluginName.assign(buff);
+			}
+			if (!err && lm->description[0]) {
+				err = wcscpy_s(buff, 2048, lm->description);
+				if (! err)
+					wsDescription.assign(buff);
+			}
+			if (err) {
+				wsPluginName.assign(L"Link");
+				wsDescription.clear();
+				return false;
 			}
 			return true;
 		}
@@ -55,31 +75,57 @@ static int trylock() {
 }
 
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	if (lm->dwcount != last_count) {
 		last_count = lm->dwcount;
 		last_tick = GetTickCount();
 	} else 	if ((GetTickCount() - last_tick) > 5000)
 		return false;
 
-	if (lm->uiVersion != 1)
+	if ((lm->uiVersion != 1) && (lm->uiVersion != 2))
 		return false;
 
-	for (int i=0;i<3;i++)
-		pos[i]=lm->fPosition[i];
-	for (int i=0;i<3;i++)
-		front[i]=lm->fFront[i];
-	for (int i=0;i<3;i++)
-		top[i]=lm->fTop[i];
+	for (int i=0;i<3;++i) {
+		avatar_pos[i]=lm->fAvatarPosition[i];
+		avatar_front[i]=lm->fAvatarFront[i];
+		avatar_top[i]=lm->fAvatarTop[i];
+	}
+
+	if (lm->uiVersion == 2) {
+		for(int i=0;i<3;++i) {
+			camera_pos[i]=lm->fCameraPosition[i];
+			camera_front[i]=lm->fCameraFront[i];
+			camera_top[i]=lm->fCameraTop[i];
+		}
+
+		if (lm->context_len > 255)
+			lm->context_len = 255;
+		lm->identity[255] = 0;
+
+		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
+		identity.assign(lm->identity);
+	} else {
+		for(int i=0;i<3;++i) {
+			camera_pos[i]=lm->fAvatarPosition[i];
+			camera_front[i]=lm->fAvatarFront[i];
+			camera_top[i]=lm->fAvatarTop[i];
+		}
+		context.clear();
+		identity.clear();
+	}
 
 	return true;
+}
+
+static const std::wstring getdesc() {
+	return wsDescription;
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	bool bCreated = false;
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
-			wcscpy_s(wcPluginName, 256, L"Link");
+			wsPluginName.assign(L"Link");
 			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
 			if (hMapObject == NULL) {
 				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
@@ -112,12 +158,13 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Link v1.0.1",
-	wcPluginName,
+	std::wstring(L"Link v1.2.0"),
+	wsPluginName,
 	about,
 	NULL,
 	trylock,
 	unlock,
+	getdesc,
 	fetch
 };
 
