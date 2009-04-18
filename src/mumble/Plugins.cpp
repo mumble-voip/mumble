@@ -166,7 +166,7 @@ void Plugins::rescanPlugins() {
 				mumblePluginFunc mpf = reinterpret_cast<mumblePluginFunc>(pi->lib.resolve("getMumblePlugin"));
 				if (mpf) {
 					pi->p = mpf();
-					if (pi->p) {
+					if (pi->p && (pi->p->magic == MUMBLE_PLUGIN_MAGIC)) {
 						pi->description=QString::fromStdWString(pi->p->description);
 						pi->shortname=QString::fromStdWString(pi->p->shortname);
 						qlPlugins << pi;

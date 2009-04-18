@@ -41,7 +41,6 @@ static void unlock() {
 	lm->name[0] = 0;
 	wsPluginName.assign(L"Link");
 	wsDescription.clear();
-	return;
 }
 
 static int trylock() {
