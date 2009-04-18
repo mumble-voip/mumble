@@ -67,8 +67,8 @@ class Plugins : public QObject {
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
 	public:
-		std::string context;
-		std::wstring identity;
+		std::string ssContext, ssContextSent;
+		std::wstring swsIdentity, swsIdentitySent;
 		bool bValid;
 		bool bUnlink;
 		float fPosition[3], fFront[3], fTop[3];

@@ -85,6 +85,8 @@ message UserState {
 	optional bool self_mute = 9;
 	optional bool self_deaf = 10;
 	optional bytes texture = 11;
+	optional string plugin_context = 12;
+	optional string plugin_identity = 13;
 }
 
 message BanList {

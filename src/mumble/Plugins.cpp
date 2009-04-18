@@ -30,6 +30,8 @@
 
 #include "Plugins.h"
 #include "Log.h"
+#include "Message.h"
+#include "ServerHandler.h"
 #include "../../plugins/mumble_plugin.h"
 #include "Global.h"
 
@@ -214,7 +216,7 @@ bool Plugins::fetch() {
 		return bValid;
 	}
 	// FIXME: If context or identity changes, send an update message.
-	bool ok=locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, context, identity);
+	bool ok=locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
 	if (! ok || bUnlink) {
 		locked->p->unlock();
 		locked->locked = false;
@@ -237,8 +239,34 @@ void Plugins::on_Timer_timeout() {
 		prevlocked = NULL;
 	}
 
-	if (locked)
+	if (! locked) {
+		ssContext.clear();
+		swsIdentity.clear();
+	}
+
+	if (! g.uiSession) {
+		ssContextSent.clear();
+		swsIdentitySent.clear();
+	} else if ((ssContext != ssContextSent) || (swsIdentity != swsIdentitySent)) {
+		MumbleProto::UserState mpus;
+		mpus.set_session(g.uiSession);
+		if (ssContext != ssContextSent) {
+			ssContextSent.assign(ssContext);
+			if (locked)
+				mpus.set_plugin_context(u8(QString::fromStdWString(locked->p->shortname)) + ssContextSent);
+			else
+				mpus.set_plugin_context(ssContextSent);
+		}
+		if (swsIdentity != swsIdentitySent) {
+			swsIdentitySent.assign(swsIdentity);
+			mpus.set_plugin_identity(u8(QString::fromStdWString(swsIdentitySent)));
+		}
+		g.sh->sendMessage(mpus);
+	}
+
+	if (locked) {
 		return;
+	}
 
 	if (! g.s.bTransmitPosition)
 		return;
