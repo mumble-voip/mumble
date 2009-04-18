@@ -16,16 +16,24 @@ typedef unsigned long HWND;
 #include <fcntl.h>
 #include <time.h>
 
-static wchar_t wcPluginName[256];
+static std::wstring wsPluginName;
+static std::wstring wsDescription;
 static char memname[256];
 
 struct LinkedMem {
 	uint32_t uiVersion;
 	uint32_t ui32count;
-	float	fPosition[3];
-	float	fFront[3];
-	float	fTop[3];
+	float	fAvatarPosition[3];
+	float	fAvatarFront[3];
+	float	fAvatarTop[3];
 	wchar_t	name[256];
+	float	fCameraPosition[3];
+	float	fCameraFront[3];
+	float	fCameraTop[3];
+	wchar_t	identity[256];
+	uint32_t context_len;
+	unsigned char context[256];
+	wchar_t description[2048];
 };
 
 static int32_t GetTickCount() {
@@ -45,20 +53,31 @@ static uint32_t last_count = 0;
 static void unlock() {
 	lm->ui32count = last_count = 0;
 	lm->uiVersion = 0;
-	wcsncpy(wcPluginName, L"Link", 256);
+	lm->name[0] = 0;
+	wsPluginName.assign(L"Link");
+	wsDescription.clear();
 }
 
 static int trylock() {
 	if (lm == lm_invalid)
 		return false;
 
-	if (lm->uiVersion == 1) {
+	if ((lm->uiVersion == 1) || (lm->uiVersion == 2)) {
 		if (lm->ui32count != last_count) {
 			last_tick = GetTickCount();
 			last_count = lm->ui32count;
 
+			wchar_t buff[2048];
+
 			if (lm->name[0]) {
-				wcsncpy(wcPluginName, lm->name, 256);
+				wcsncpy(buff, lm->name, 256);
+				buff[255] = 0;
+				wsPluginName.assign(buff);
+			}
+			if (lm->description[0]) {
+				wcsncpy(buff, lm->description, 2048);
+				buff[2047] = 0;
+				wsDescription.assign(buff);
 			}
 			return true;
 		}
@@ -67,7 +86,7 @@ static int trylock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"The link plugin provides an interface for game authors to link their games to Mumble without writing their own plugin.");
+	return wsDescription;
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
@@ -80,12 +99,37 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top,
 	} else if ((GetTickCount() - last_tick) > 5000)
 		return false;
 
-	for (int i=0;i<3;i++)
-		avatar_pos[i]=lm->fPosition[i];
-	for (int i=0;i<3;i++)
-		avatar_front[i]=lm->fFront[i];
-	for (int i=0;i<3;i++)
-		avatar_top[i]=lm->fTop[i];
+	if ((lm->uiVersion != 1) && (lm->uiVersion != 2))
+		return false;
+
+	for (int i=0;i<3;++i) {
+		avatar_pos[i]=lm->fAvatarPosition[i];
+		avatar_front[i]=lm->fAvatarFront[i];
+		avatar_top[i]=lm->fAvatarTop[i];
+	}
+
+	if (lm->uiVersion == 2) {
+		for (int i=0;i<3;++i) {
+			camera_pos[i]=lm->fCameraPosition[i];
+			camera_front[i]=lm->fCameraFront[i];
+			camera_top[i]=lm->fCameraTop[i];
+		}
+
+		if (lm->context_len > 255)
+			lm->context_len = 255;
+		lm->identity[255] = 0;
+
+		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
+		identity.assign(lm->identity);
+	} else {
+		for (int i=0;i<3;++i) {
+			camera_pos[i]=lm->fAvatarPosition[i];
+			camera_front[i]=lm->fAvatarFront[i];
+			camera_top[i]=lm->fAvatarTop[i];
+		}
+		context.clear();
+		identity.clear();
+	}
 
 	return true;
 }
@@ -130,8 +174,8 @@ static void unload_plugin() {
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Link Plugin"),
-	std::wstring(L"Link v1.0.1"),
+	std::wstring(L"Link v1.2.0"),
+	wsPluginName,
 	NULL,
 	NULL,
 	trylock,
