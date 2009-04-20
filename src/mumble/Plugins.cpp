@@ -244,18 +244,19 @@ void Plugins::on_Timer_timeout() {
 		swsIdentity.clear();
 	}
 
+	std::string context;
+	if (locked)
+		context.assign(u8(QString::fromStdWString(locked->p->shortname)) + static_cast<char>(0) + ssContext);
+
 	if (! g.uiSession) {
 		ssContextSent.clear();
 		swsIdentitySent.clear();
-	} else if ((ssContext != ssContextSent) || (swsIdentity != swsIdentitySent)) {
+	} else if ((context != ssContextSent) || (swsIdentity != swsIdentitySent)) {
 		MumbleProto::UserState mpus;
 		mpus.set_session(g.uiSession);
-		if (ssContext != ssContextSent) {
-			ssContextSent.assign(ssContext);
-			if (locked)
-				mpus.set_plugin_context(u8(QString::fromStdWString(locked->p->shortname)) + static_cast<char>(0) + ssContextSent);
-			else
-				mpus.set_plugin_context(ssContextSent);
+		if (context != ssContextSent) {
+			ssContextSent.assign(context);
+			mpus.set_plugin_context(context);
 		}
 		if (swsIdentity != swsIdentitySent) {
 			swsIdentitySent.assign(swsIdentity);
