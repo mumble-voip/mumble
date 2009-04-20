@@ -658,24 +658,6 @@ void AudioInput::encodeAudioFrame() {
 	if (! iIsSpeech) {
 		memset(psMic, 0, sizeof(short) * iFrameSize);
 	}
-	/*
-		FIXME: Once per packet, moved into flushCheck
-		if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && (iFrames == 0) && g.p->fetch()) {
-			QByteArray q;
-			QDataStream ds(&q, QIODevice::WriteOnly);
-			ds << g.p->fPosition[0];
-			ds << g.p->fPosition[1];
-			ds << g.p->fPosition[2];
-
-			speex_bits_pack(&sbBits, 13, 5);
-			speex_bits_pack(&sbBits, q.size(), 4);
-
-			const unsigned char *d=reinterpret_cast<const unsigned char*>(q.data());
-			for (i=0;i<q.size();i++) {
-				speex_bits_pack(&sbBits, d[i], 8);
-			}
-		}
-	*/
 	unsigned char buffer[512];
 	int len = celt_encode(ceEncoder, psSource, NULL, buffer, 75);
 	iBitrate = len * 100 * 8;
@@ -700,6 +682,12 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	PacketDataStream pds(data + 1, 1023);
 	pds << iFrameCounter;
 	pds << qlFrames;
+
+	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch()) {
+			pds << g.p->fPosition[0];
+			pds << g.p->fPosition[1];
+			pds << g.p->fPosition[2];
+	}
 
 	// TODO: Loopback
 	if (g.s.lmLoopMode == Settings::Local)

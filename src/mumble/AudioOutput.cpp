@@ -381,8 +381,17 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
 				PacketDataStream pds(jbp.data, jbp.len);
 				pds >> qlFrames;
-				if (pds.isValid())
+				if (pds.left()) {
+					pds >> fPos[0];
+					pds >> fPos[1];
+					pds >> fPos[2];
+				} else {
+					fPos[0] = fPos[1] = fPos[2] = 0.0f;
+				}
+				if (pds.isValid()) {
+					iMissCount = 0;
 					bLastAlive = true;
+				}
 			} else {
 				iMissCount++;
 				if (iMissCount > 10) {
@@ -522,6 +531,7 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 		return;
 	qrwlOutputs.lockForRead();
 	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(player));
+
 	if (! aop) {
 		qrwlOutputs.unlock();
 
@@ -751,6 +761,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			}
 			validListener = true;
 		}
+
 		foreach(aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 
@@ -794,6 +805,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			}
 		}
+
 		// Clip
 		if (eSampleFormat == SampleFloat)
 			for (unsigned int i=0;i<nsamp*iChannels;i++)

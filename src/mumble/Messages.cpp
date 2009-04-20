@@ -221,10 +221,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		pDst->qbaTexture = QByteArray(str.data(), str.size());
 		g.o->verifyTexture(pDst);
 	}
-	if (msg.has_plugin_context()) {
-		QMutexLocker qml(&g.p->qmPlugins);
-		pDst->ssContext = msg.plugin_context();
-	}
 }
 
 void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {

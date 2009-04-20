@@ -105,6 +105,9 @@ class User : public Connection, public Player {
 		QString qsOS;
 		QString qsOSVersion;
 
+		std::string ssContext;
+		QString qsIdentity;
+
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
 		User(Server *parent, QSslSocket *socket);

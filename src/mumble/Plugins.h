@@ -62,11 +62,11 @@ class Plugins : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(Plugins)
 	protected:
+		QMutex qmPlugins;
 		QList<PluginInfo *> qlPlugins;
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
 	public:
-		QMutex qmPlugins;
 		std::string ssContext, ssContextSent;
 		std::wstring swsIdentity, swsIdentitySent;
 		bool bValid;

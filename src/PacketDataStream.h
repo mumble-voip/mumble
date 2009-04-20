@@ -328,6 +328,24 @@ class PacketDataStream {
 			return *this;
 		}
 
+		union float32u {
+			quint32 ui;
+			float f;
+		};
+
+		PacketDataStream &operator <<(const float v) {
+			float32u u;
+			u.f = v;
+			return *this << u.ui;
+		}
+
+		PacketDataStream &operator >>(float &v) {
+			float32u u;
+			*this >> u.ui;
+			v = u.f;
+			return *this;
+		}
+
 		template <typename T>
 		PacketDataStream &operator <<(const QList<T> &l) {
 			*this << l.size();

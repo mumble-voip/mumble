@@ -475,10 +475,13 @@ void Server::processMsg(User *u, const char *data, int len) {
 	Player *p;
 	BandwidthRecord *bw = & u->bwr;
 	Channel *c = u->cChannel;
-	QByteArray qba;
+	QByteArray qba, qba_npos;
+	unsigned int counter;
 	char buffer[512];
+	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, 511);
 	unsigned int target = data[0] & 0x1f;
+	unsigned int poslen;
 
 	// IP + UDP + Crypt + Data
 	int packetsize = 20 + 8 + 4 + len;
@@ -488,6 +491,18 @@ void Server::processMsg(User *u, const char *data, int len) {
 		// Suppress packet.
 		return;
 	}
+
+	pdi >> counter;
+
+	// Skip QList<QByteArray>
+	pdi >> counter;
+	while (counter && pdi.isValid()) {
+		unsigned int v;
+		pdi >> v;
+		pdi.skip(v);
+	}
+
+	poslen = pdi.left();
 
 	buffer[0] = target;
 	pds << u->uiSession;
@@ -501,8 +516,13 @@ void Server::processMsg(User *u, const char *data, int len) {
 	}
 
 	foreach(p, c->qlPlayers) {
-		if (! p->bDeaf && ! p->bSelfDeaf && (p != static_cast<Player *>(u)))
-			sendMessage(static_cast<User *>(p), buffer, len, qba);
+		User *pDst = static_cast<User *>(p);
+		if (! p->bDeaf && ! p->bSelfDeaf && (pDst != u)) {
+			if (poslen && pDst->ssContext == u->ssContext)
+				sendMessage(pDst, buffer, len, qba);
+			else
+				sendMessage(pDst, buffer, len - poslen, qba_npos);
+		}
 	}
 
 	if (! c->qhLinks.isEmpty()) {
@@ -514,8 +534,13 @@ void Server::processMsg(User *u, const char *data, int len) {
 		foreach(Channel *l, chans) {
 			if (ChanACL::hasPermission(u, l, (target == 1) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
 				foreach(p, l->qlPlayers) {
-					if (! p->bDeaf && ! p->bSelfDeaf)
-						sendMessage(static_cast<User *>(p), buffer, len, qba);
+					User *pDst = static_cast<User *>(pDst);
+					if (! p->bDeaf && ! p->bSelfDeaf) {
+						if (poslen && pDst->ssContext == u->ssContext)
+							sendMessage(pDst, buffer, len, qba);
+						else
+							sendMessage(pDst, buffer, len - poslen, qba_npos);
+					}
 				}
 			}
 		}

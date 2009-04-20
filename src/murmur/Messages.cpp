@@ -242,9 +242,6 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		else if (u->bSelfMute)
 			mpus.set_self_mute(true);
 
-		if (! u->ssContext.empty())
-			mpus.set_plugin_context(u->ssContext);
-
 		sendMessage(uSource, mpus);
 	}
 
@@ -327,6 +324,8 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 	MSG_SETUP(Player::Authenticated);
 	VICTIM_SETUP;
 
+	bool bNoBroadcast = false;
+
 	if (pDstUser->iId == 0) {
 		PERM_DENIED_TEXT("Can't modify SuperUser");
 		return;
@@ -376,14 +375,15 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 			uSource->bSelfDeaf = false;
 		}
 	}
-	
+
 	if (msg.has_plugin_context()) {
+		bNoBroadcast = true;
 		uSource->ssContext = msg.plugin_context();
 	}
 
 	if (msg.has_plugin_identity()) {
+		bNoBroadcast = true;
 		uSource->qsIdentity = u8(msg.plugin_identity());
-		msg.clear_plugin_identity();
 	}
 
 	if (msg.has_channel_id()) {
@@ -413,7 +413,8 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(*pDstUser).arg(pDstUser->bMute).arg(pDstUser->bDeaf).arg(pDstUser->bSuppressed));
 	}
 
-	sendAll(msg);
+	if (! bNoBroadcast)
+		sendAll(msg);
 
 	emit playerStateChanged(pDstUser);
 }
