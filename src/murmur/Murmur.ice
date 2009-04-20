@@ -41,6 +41,10 @@ module Murmur
 		string os;
 		/** Client OS Version. */
 		string osversion;
+		/** Plugin Identity. This will be the user's unique ID inside the current game. */
+		string identity;
+		/** Plugin context. This is a binary blob identifying the game and team the user is on. */
+		string context;
 	};
 
 	sequence<int> IntList;

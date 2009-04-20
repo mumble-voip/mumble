@@ -99,6 +99,8 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.release = toStdUtf8String(u->qsRelease);
 	mp.os = toStdUtf8String(u->qsOS);
 	mp.osversion = toStdUtf8String(u->qsOSVersion);
+	mp.identity = toStdUtf8String(u->qsIdentity);
+	mp.context = u->ssContext;
 }
 
 static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
