@@ -146,9 +146,9 @@ static void unlock() {
 	return;
 }
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
-		pos[i] = front[i] = top[i] = 0;
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
 
 	float ipos[3], rot[3];
 	bool ok;
@@ -164,17 +164,34 @@ static int fetch(float *pos, float *front, float *top) {
 	if (state == 0 || state == 2)
 		return true; // Deactivate plugin
 
-	return calcout(ipos, rot, pos, front, top);
+	if (ok) {
+		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
+		if (res) {
+			for(int i=0;i<3;++i) {
+				camera_pos[i] = avatar_pos[i];
+				camera_front[i] = avatar_front[i];
+				camera_top[i] = avatar_top[i];
+			}
+			return res;
+		}
+	}
+	
+	return false;
+}
+
+static const std::wstring longdesc() {
+	return std::wstring(L"Supports DODS build 3771. No identity or context support yet.");
 }
 
 static MumblePlugin dodsplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Day of Defeat: Source (Build 3771)",
-	L"Day of Defeat: Source",
+	std::wstring(L"Day of Defeat: Source (Build 3771)"),
+	std::wstring(L"Day of Defeat: Source"),
 	about,
 	NULL,
 	trylock,
 	unlock,
+	longdesc,
 	fetch
 };
 

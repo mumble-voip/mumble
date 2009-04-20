@@ -12,6 +12,7 @@ HANDLE h;
 BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
+BYTE *ccontextptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -103,6 +104,9 @@ static int trylock() {
 	BYTE *mod=getModuleAddr(pid, L"client.dll");
 	if (!mod)
 		return false;
+	BYTE *mod2=getModuleAddr(pid, L"server.dll");
+	if (!mod2)
+		return false;
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
@@ -123,6 +127,7 @@ static int trylock() {
 	posptr = mod + 0xb72ad0;
 	rotptr = mod + 0xb73b90;
 	stateptr = mod + 0xb33ae8;
+	ccontextptr = mod2 + 0x653338;
 
 	float pos[3];
 	float rot[3];
@@ -147,35 +152,54 @@ static void unlock() {
 	return;
 }
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
-		pos[i] = front[i] = top[i] = 0;
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
 
 	float ipos[3], rot[3];
 	bool ok;
 	char state;
+	char ccontext[256];
+	
+	context = std::string(ccontext);
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1);
-	if (!ok)
-		return false;
+	     peekProc(stateptr, &state, 1) &&
+		 peekProc(ccontextptr, ccontext, 256);
+		 
+	if (ok) {
+		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
+		if (res) {
+			for(int i=0;i<3;++i) {
+				camera_pos[i] = avatar_pos[i];
+				camera_front[i] = avatar_front[i];
+				camera_top[i] = avatar_top[i];
+			}
+			return res;
+		}
+	}
 
 	// Check to see if you are spawned
 	if (state == 0 || state == 1 || state == 2)
 		return true; // Deactivate plugin
 
-	return calcout(ipos, rot, pos, front, top);
+	return false;
+}
+
+static const std::wstring longdesc() {
+	return std::wstring(L"Supports AOC Build 3740. Context support only.");
 }
 
 static MumblePlugin aocplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Age of Chivalry (Build 3740)",
-	L"Age of Chivalry",
+	std::wstring(L"Age of Chivalry (Build 3740)"),
+	std::wstring(L"Age of Chivalry"),
 	about,
 	NULL,
 	trylock,
 	unlock,
+	longdesc,
 	fetch
 };
 

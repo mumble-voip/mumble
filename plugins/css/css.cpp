@@ -69,7 +69,7 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	float h = rot[0];
 	float v = rot[1];
 
-	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
+	if ((v < -360.0f) || (v > 360.0f) || (h < -360.0f) || (h > 360.0f))
 		return false;
 
 	h *= static_cast<float>(M_PI / 180.0f);
@@ -146,13 +146,13 @@ static void unlock() {
 	return;
 }
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+	for (int i=0;i<3;i++)
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
+
 	float ipos[3], rot[3];
 	bool ok;
 	char state;
-
-	for (int i=0;i<3;i++)
-		pos[i] = front[i] = top[i] = 0;
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
@@ -161,21 +161,37 @@ static int fetch(float *pos, float *front, float *top) {
 		return false;
 
 	//Check to see if you are in a server
-	//spawn state: client.dll+0x38e050  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
 	if (state == 0 || state == 3)
 		return true; // Deactivate plugin
+		
+	if (ok) {
+		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
+		if (res) {
+			for(int i=0;i<3;++i) {
+				camera_pos[i] = avatar_pos[i];
+				camera_front[i] = avatar_front[i];
+				camera_top[i] = avatar_top[i];
+			}
+			return res;
+		}
+	}
 
-	return calcout(ipos, rot, pos, front, top);
+	return false;
+}
+
+static const std::wstring longdesc() {
+	return std::wstring(L"Supports CSS build 3698. No identity or context support yet.");
 }
 
 static MumblePlugin cssplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Counter-Strike: Source (Build 3698)",
-	L"Counter-Strike: Source",
+	std::wstring(L"Counter-Strike: Source (Build 3790)"),
+	std::wstring(L"Counter-Strike: Source"),
 	about,
 	NULL,
 	trylock,
 	unlock,
+	longdesc,
 	fetch
 };
 
