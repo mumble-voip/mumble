@@ -242,6 +242,8 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		else if (u->bSelfMute)
 			mpus.set_self_mute(true);
 
+		if (! u->ssContext.empty())
+			mpus.set_plugin_context(u->ssContext);
 
 		sendMessage(uSource, mpus);
 	}
@@ -356,7 +358,7 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
-	if ((pDstUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture()))
+	if ((pDstUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture() || msg.has_plugin_context() || msg.has_plugin_identity()))
 		return;
 
 	// Permission checks done. Now enact this.
@@ -374,7 +376,15 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 			uSource->bSelfDeaf = false;
 		}
 	}
+	
+	if (msg.has_plugin_context()) {
+		uSource->ssContext = msg.plugin_context();
+	}
 
+	if (msg.has_plugin_identity()) {
+		uSource->qsIdentity = u8(msg.plugin_identity());
+		msg.clear_plugin_identity();
+	}
 
 	if (msg.has_channel_id()) {
 		Channel *c = qhChannels.value(msg.channel_id());

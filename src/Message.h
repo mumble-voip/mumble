@@ -69,6 +69,10 @@ inline QString u8(const ::std::string &str) {
 	return QString::fromUtf8(str.data(), str.length());
 }
 
+inline QString u8(const ::std::wstring &str) {
+	return QString::fromStdWString(str);
+}
+
 inline ::std::string u8(const QString &str) {
 	const QByteArray &qba = str.toUtf8();
 	return ::std::string(qba.constData(), qba.length());

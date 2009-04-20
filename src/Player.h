@@ -50,6 +50,8 @@ class Player {
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
 		QByteArray qbaTexture;
+		std::string ssContext;
+		QString qsIdentity;
 		QString getFlagsString() const;
 
 		Player();
