@@ -253,7 +253,7 @@ void Plugins::on_Timer_timeout() {
 		if (ssContext != ssContextSent) {
 			ssContextSent.assign(ssContext);
 			if (locked)
-				mpus.set_plugin_context(u8(QString::fromStdWString(locked->p->shortname)) + ssContextSent);
+				mpus.set_plugin_context(u8(QString::fromStdWString(locked->p->shortname)) + static_cast<char>(0) + ssContextSent);
 			else
 				mpus.set_plugin_context(ssContextSent);
 		}
