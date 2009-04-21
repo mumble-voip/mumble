@@ -989,8 +989,14 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 static void impl_Server_removeChannel(const ::Murmur::AMD_Server_removeChannelPtr cb, int server_id,  ::Ice::Int channelid) {
 	NEED_SERVER;
 	NEED_CHANNEL;
-	server->removeChannel(channel, NULL);
-	cb->ice_response();
+
+	if (!channel->cParent) {
+		cb->ice_exception(::Murmur::InvalidChannelException());
+	}
+	else {
+		server->removeChannel(channel, NULL);
+		cb->ice_response();
+	}
 }
 
 static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, int server_id,  const ::std::string& name,  ::Ice::Int parent) {
