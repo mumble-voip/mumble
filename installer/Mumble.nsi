@@ -488,7 +488,7 @@ reinst_done:
 FunctionEnd
 
 Function .onInit
-  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "This is an experimental release of the 1.2 series of Mumble and Murmur, and is not compatible with clients and servers from the 1.1.x series. Do you still wish to install?" IDYES +2
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "This is an experimental release of the 1.2 series of Mumble and Murmur, and is not compatible with clients and servers from the 1.1.x series or other 1.2 snapshots. Do you still wish to install?" IDYES +2
   Abort
   Push $R0
   CPUFeatures::hasSSE
