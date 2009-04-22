@@ -189,7 +189,6 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TRIGGER %1bans_del_server AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1bans WHERE server_id = old.server_id; END;");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
-			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','3')");
 
 			SQLDO("VACUUM");
 		} else {
@@ -245,8 +244,8 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE %1bans ADD CONSTRAINT %1bans_del_server FOREIGN KEY(server_id) REFERENCES %1servers(server_id) ON DELETE CASCADE");
 
 			SQLDO("INSERT INTO %1servers (server_id) VALUES(1)");
-			SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','4')");
 		}
+		SQLDO("INSERT INTO %1meta (keystring, value) VALUES('version','4')");
 	} else {
 		if (version < 2) {
 			qWarning("Upgrading SQL Schema to version 2");
