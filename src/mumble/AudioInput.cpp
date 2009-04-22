@@ -684,9 +684,9 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	pds << qlFrames;
 
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch()) {
-			pds << g.p->fPosition[0];
-			pds << g.p->fPosition[1];
-			pds << g.p->fPosition[2];
+		pds << g.p->fPosition[0];
+		pds << g.p->fPosition[1];
+		pds << g.p->fPosition[2];
 	}
 
 	// TODO: Loopback

@@ -91,7 +91,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	if (lm->uiVersion == 2) {
-		for(int i=0;i<3;++i) {
+		for (int i=0;i<3;++i) {
 			camera_pos[i]=lm->fCameraPosition[i];
 			camera_front[i]=lm->fCameraFront[i];
 			camera_top[i]=lm->fCameraTop[i];
@@ -104,7 +104,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
 		identity.assign(lm->identity);
 	} else {
-		for(int i=0;i<3;++i) {
+		for (int i=0;i<3;++i) {
 			camera_pos[i]=lm->fAvatarPosition[i];
 			camera_front[i]=lm->fAvatarFront[i];
 			camera_top[i]=lm->fAvatarTop[i];

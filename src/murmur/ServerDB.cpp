@@ -126,7 +126,7 @@ ServerDB::ServerDB() {
 
 	int version = 0;
 
-	if (Meta::mp.qsDBDriver == "QSQLITE") 
+	if (Meta::mp.qsDBDriver == "QSQLITE")
 		SQLDO("CREATE TABLE IF NOT EXISTS %1meta (keystring TEXT PRIMARY KEY, value TEXT)");
 	else
 		SQLDO("CREATE TABLE IF NOT EXISTS %1meta(keystring varchar(255) PRIMARY KEY, value varchar(255)) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
@@ -163,7 +163,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX %1players_id ON %1players (server_id, player_id)");
 			SQLDO("CREATE TRIGGER %1players_server_del AFTER DELETE ON %1servers FOR EACH ROW BEGIN DELETE FROM %1players WHERE server_id = old.server_id; END;");
 			SQLDO("CREATE TRIGGER %1players_update_timestamp AFTER UPDATE OF lastchannel ON %1players FOR EACH ROW BEGIN UPDATE %1players SET last_active = datetime('now') WHERE player_id = old.player_id AND server_id = old.server_id; END;");
-			
+
 			SQLDO("CREATE TABLE %1player_info (server_id INTEGER NOT NULL, player_id INTEGER NOT NULL, key TEXT, value TEXT)");
 			SQLDO("CREATE UNIQUE INDEX %1player_info_id ON %1player_info(server_id, player_id, key)");
 			SQLDO("CREATE TRIGGER %1player_info_del_player AFTER DELETE on %1players FOR EACH ROW BEGIN DELETE FROM %1player_info WHERE player_id = old.player_id AND server_id = old.server_id; END;");
@@ -308,7 +308,7 @@ ServerDB::ServerDB() {
 				SQLDO("CREATE UNIQUE INDEX %1channel_info_id ON %1channel_info(server_id, channel_id, key)");
 				SQLDO("ALTER TABLE %1channel_info ADD CONSTRAINT %1channel_info_del_channel FOREIGN KEY (server_id, channel_id) REFERENCES %1channels(server_id,channel_id) ON DELETE CASCADE");
 			}
-			
+
 			SQLDO("INSERT INTO %1player_info SELECT server_id,player_id,'email',email FROM %1players");
 			SQLDO("INSERT INTO %1channel_info SELECT server_id,channel_id,'description',description FROM %1channels");
 			SQLDO("UPDATE %1meta SET value='4' WHERE keystring='version'");
@@ -495,16 +495,16 @@ int Server::registerPlayer(const QMap<QString, QString> &info) {
 	query.addBindValue(name);
 	SQLEXEC();
 	qhUserNameCache.remove(id);
-	
+
 	setInfo(id, info);
-	
+
 	return id;
 }
 
 bool Server::unregisterPlayer(int id) {
 	if (id <= 0)
 		return false;
-		
+
 	QMap<QString, QString> info = getRegistration(id);
 
 	if (info.isEmpty())
@@ -592,7 +592,7 @@ QMap<QString, QString> Server::getRegistration(int id) {
 	SQLEXEC();
 	if (query.next()) {
 		info.insert("name", query.value(0).toString());
-		
+
 		SQLPREP("SELECT key, value FROM %1player_info WHERE server_id = ? AND player_id = ?");
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
@@ -661,7 +661,7 @@ int Server::authenticate(QString &name, const QString &pw) {
 
 bool Server::setInfo(int id, const QMap<QString, QString> &info) {
 	int res = -2;
-	
+
 	if (info.contains("name")) {
 		qhUserIDCache.remove(qhUserNameCache.value(id));
 		qhUserNameCache.remove(id);
@@ -940,7 +940,7 @@ void Server::updateChannel(const Channel *c) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	SQLEXEC();
-	
+
 	SQLPREP("REPLACE INTO %1channel_info (server_id, channel_id, key, value) VALUES (?,?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
@@ -1011,7 +1011,7 @@ void Server::readChannelPrivs(Channel *c) {
 	int cid = c->iId;
 
 	QSqlQuery &query = *th.qsqQuery;
-	
+
 	SQLPREP("SELECT key, value FROM %1channel_info WHERE server_id = ? AND channel_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(cid);
@@ -1019,10 +1019,10 @@ void Server::readChannelPrivs(Channel *c) {
 	while (query.next()) {
 		const QString &key = query.value(0).toString();
 		const QString &value = query.value(1).toString();
-		if (key == "decription") 
+		if (key == "decription")
 			c->qsDesc = value;
 	}
-	
+
 	SQLPREP("SELECT group_id, name, inherit, inheritable FROM %1groups WHERE server_id = ? AND channel_id = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(cid);

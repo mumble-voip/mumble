@@ -163,11 +163,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//Check to see if you are in a server
 	if (state == 0 || state == 3)
 		return true; // Deactivate plugin
-		
+
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
 		if (res) {
-			for(int i=0;i<3;++i) {
+			for (int i=0;i<3;++i) {
 				camera_pos[i] = avatar_pos[i];
 				camera_front[i] = avatar_front[i];
 				camera_top[i] = avatar_top[i];

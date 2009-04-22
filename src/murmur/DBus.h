@@ -145,8 +145,8 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void registerPlayerSlot(int &res, const QMap<QString, QString> &);
 		void unregisterPlayerSlot(int &res, int id);
 		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QString> &res);
-                void getRegistrationSlot(int &, int, QMap<QString, QString> &);
-                void setInfoSlot(int &, int, const QMap<QString, QString> &);
+		void getRegistrationSlot(int &, int, QMap<QString, QString> &);
+		void setInfoSlot(int &, int, const QMap<QString, QString> &);
 		void setTextureSlot(int &res, int id, const QByteArray &texture);
 		void nameToIdSlot(int &res, const QString &name);
 		void idToNameSlot(QString &res, int id);

@@ -436,10 +436,8 @@ void LogDocument::finished() {
 		if (qi.loadFromData(qv.toByteArray()) && qi.width() <= g.s.iMaxImageWidth && qi.height() <= g.s.iMaxImageHeight) {
 			addResource(QTextDocument::ImageResource, rep->request().url(), qi);
 			g.mw->qteLog->setDocument(this);
-		}
-		else qWarning() << "Image "<< rep->url().toString() <<" (" << qi.width() << "x" << qi.height() <<") to large.";
-	}
-	else qWarning() << "Image "<< rep->url().toString() << " download failed.";
+		} else qWarning() << "Image "<< rep->url().toString() <<" (" << qi.width() << "x" << qi.height() <<") to large.";
+	} else qWarning() << "Image "<< rep->url().toString() << " download failed.";
 
 	rep->deleteLater();
 }

@@ -600,7 +600,7 @@ void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlay
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
-	
+
 	player.id = id;
 	player.name = info.value("name");
 	player.email = info.value("email");
@@ -617,13 +617,13 @@ void MurmurDBus::setRegistration(int id, const QString &name, const QString &ema
 
 void MurmurDBus::updateRegistration(const RegisteredPlayer &player, const QDBusMessage &msg) {
 	QMap<QString, QString> info;
-	
+
 	if (! player.name.isEmpty())
 		info.insert("name", player.name);
 
 	if (! player.email.isEmpty())
 		info.insert("email", player.email);
-		
+
 	if (! player.pw.isEmpty())
 		info.insert("pw", player.pw);
 

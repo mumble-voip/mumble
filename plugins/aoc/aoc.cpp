@@ -160,18 +160,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 	char ccontext[256];
-	
+
 	context = std::string(ccontext);
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
-		 peekProc(ccontextptr, ccontext, 256);
-		 
+	     peekProc(ccontextptr, ccontext, 256);
+
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
 		if (res) {
-			for(int i=0;i<3;++i) {
+			for (int i=0;i<3;++i) {
 				camera_pos[i] = avatar_pos[i];
 				camera_front[i] = avatar_front[i];
 				camera_top[i] = avatar_top[i];

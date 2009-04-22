@@ -1,5 +1,29 @@
+2009-04-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    151240e  Prevent deletion of root channel via Ice.
+
+2009-04-20
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    8a716dc  Always use shortname as part of context
+    e59ca71  Zero-terminate context, so it can be used as a string
+    1a36b56  Handle positional audio distribution server-side
+    820194a  Export identity/context over Ice
+    6ec2d36  Store context
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    25bdfb0  Source plugins update for 1.2 PA
+
+2009-04-18
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4ef52e9  Send plugin context/identity to server
+    965a354  Check magic signature on plugins
+    5e79b06  Link 1.2.0 for nix
+    82c7cdc  Link 1.2.0 for Win32
+
 2009-04-16
   Stefan Hacker <dd0t@users.sourceforge.net>
+    67f0459  Add resolution restriction to images.
+    e89759a  Added size restriction for image download.
     39a3b77  Disable 1.2 incompatible plugins until they get updated.
     a9a5574  Add auto formating capability to chatbar.
 

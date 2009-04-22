@@ -129,13 +129,13 @@ static void banToBan(const QPair<quint32,int> b, Murmur::Ban &mb) {
 
 static void infoToInfo(const QMap<QString, QString> &info, Murmur::InfoMap &im) {
 	QMap<QString, QString>::const_iterator i;
-	for(i = info.constBegin(); i != info.constEnd(); ++i)
+	for (i = info.constBegin(); i != info.constEnd(); ++i)
 		im[u8(i.key())] = u8(i.value());
 }
 
 static void infoToInfo(const Murmur::InfoMap &im, QMap<QString, QString> &info) {
 	Murmur::InfoMap::const_iterator i;
-	for(i = im.begin(); i != im.end(); ++i) 
+	for (i = im.begin(); i != im.end(); ++i)
 		info.insert(u8((*i).first), u8((*i).second));
 }
 
@@ -471,7 +471,7 @@ void MurmurIce::registerPlayerSlot(int &res, const QMap<QString, QString> &info)
 		return;
 
 	::Murmur::InfoMap im;
-	
+
 	infoToInfo(info, im);
 	try {
 		res = prx->registerPlayer(im);
@@ -529,7 +529,7 @@ void  MurmurIce::getRegisteredPlayersSlot(const QString &filter, QMap<int, QStri
 		return;
 	}
 	::Murmur::NameMap::const_iterator i;
-	for(i=lst.begin(); i != lst.end(); ++i)
+	for (i=lst.begin(); i != lst.end(); ++i)
 		m.insert((*i).first, u8((*i).second));
 }
 
@@ -539,7 +539,7 @@ void MurmurIce::setInfoSlot(int &res, int id, const QMap<QString, QString> &info
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
-		
+
 	Murmur::InfoMap im;
 	infoToInfo(info, im);
 
@@ -975,8 +975,7 @@ static void impl_Server_removeChannel(const ::Murmur::AMD_Server_removeChannelPt
 
 	if (!channel->cParent) {
 		cb->ice_exception(::Murmur::InvalidChannelException());
-	}
-	else {
+	} else {
 		server->removeChannel(channel, NULL);
 		cb->ice_response();
 	}
@@ -1136,10 +1135,10 @@ static void impl_Server_getPlayerIds(const ::Murmur::AMD_Server_getPlayerIdsPtr 
 
 static void impl_Server_registerPlayer(const ::Murmur::AMD_Server_registerPlayerPtr cb, int server_id, const ::Murmur::InfoMap &im) {
 	NEED_SERVER;
-	
+
 	QMap<QString, QString> info;
 	infoToInfo(im, info);
-	
+
 	int playerid = server->registerPlayer(info);
 	if (playerid < 0)
 		cb->ice_exception(InvalidPlayerException());
@@ -1162,27 +1161,27 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 		cb->ice_exception(InvalidPlayerException());
 		return;
 	}
-	
+
 	QMap<QString, QString> info;
 	infoToInfo(im, info);
-	
+
 	if (! server->setInfo(id, info)) {
-			cb->ice_exception(InvalidPlayerException());
-			return;
-		}
+		cb->ice_exception(InvalidPlayerException());
+		return;
+	}
 	cb->ice_response();
 }
 
 static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrationPtr cb, int server_id,  ::Ice::Int playerid) {
 	NEED_SERVER;
-	
+
 	QMap<QString, QString> info = server->getRegistration(playerid);
 
 	if (info.isEmpty()) {
 		cb->ice_exception(InvalidPlayerException());
 		return;
 	}
-	
+
 	Murmur::InfoMap im;
 	infoToInfo(info, im);
 	cb->ice_response(im);

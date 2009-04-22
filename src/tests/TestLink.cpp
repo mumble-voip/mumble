@@ -42,25 +42,25 @@ void initMumble() {
 		return;
 	}
 #else
-  char memname[256];
-  snprintf(memname, 256, "/MumbleLink.%d", getuid());
+	char memname[256];
+	snprintf(memname, 256, "/MumbleLink.%d", getuid());
 
-  int shmfd = shm_open(memname, O_RDWR, S_IRUSR | S_IWUSR);
+	int shmfd = shm_open(memname, O_RDWR, S_IRUSR | S_IWUSR);
 
-  if(shmfd < 0) {
-    return;
-  }
+	if (shmfd < 0) {
+		return;
+	}
 
-  lm = (LinkedMem *) (mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
+	lm = (LinkedMem *)(mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));
 
-  if (lm == (void *) (-1)) {
-	lm = NULL;
-	return;
-  }
+	if (lm == (void *)(-1)) {
+		lm = NULL;
+		return;
+	}
 #endif
 
-  wcsncpy(lm->name, L"TestLink", 256);
-  wcsncpy(lm->description, L"TestLink is a test of the Link plugin.", 2048);
+	wcsncpy(lm->name, L"TestLink", 256);
+	wcsncpy(lm->description, L"TestLink is a test of the Link plugin.", 2048);
 }
 
 void updateMumble() {
