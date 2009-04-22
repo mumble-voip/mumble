@@ -131,15 +131,16 @@ class ServerI : virtual public Server {
 		                                const Ice::Current&);
 
 		virtual void registerPlayer_async(const ::Murmur::AMD_Server_registerPlayerPtr&,
-		                                  const ::std::string&,
+		                                  const Murmur::InfoMap&,
 		                                  const Ice::Current&);
 
 		virtual void unregisterPlayer_async(const ::Murmur::AMD_Server_unregisterPlayerPtr&,
 		                                    ::Ice::Int,
 		                                    const Ice::Current&);
 
-		virtual void updateregistration_async(const ::Murmur::AMD_Server_updateregistrationPtr&,
-		                                      const ::Murmur::RegisteredPlayer&,
+		virtual void updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr&,
+		                                      Ice::Int,
+		                                      const Murmur::InfoMap&,
 		                                      const Ice::Current&);
 
 		virtual void getRegistration_async(const ::Murmur::AMD_Server_getRegistrationPtr&,

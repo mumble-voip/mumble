@@ -13,7 +13,7 @@ module Murmur
 	struct Player {
 		/** Session ID. This identifies the connection to the server. */
 		int session;
-		/** Player ID. Matches [RegisteredPlayer::playerid] or -1 if the player is anonymous. */
+		/** Player ID. -1 if the player is anonymous. */
 		int playerid;
 		/** Is player muted by the server? */
 		bool mute;
@@ -130,19 +130,6 @@ module Murmur
 		int bits;
 	};
 
-	/** A registered player.
-	 **/
-	struct RegisteredPlayer {
-		/** Player id. Matches the playerid in [Player::playerid]. */
-		int playerid;
-		/** Player name. */
-		string name;
-		/** Player email. */
-		string email;
-		/** Player password. Write-only. */
-		string pw;
-	};
-
 	/** A entry in the log.
 	 **/
 	struct LogEntry {
@@ -167,7 +154,7 @@ module Murmur
 	sequence<string> NameList;
 	dictionary<int, string> NameMap;
 	dictionary<string, int> IdMap;
-	sequence<RegisteredPlayer> RegisteredPlayerList;
+	dictionary<string, string> InfoMap;
 	sequence<byte> Texture;
 	dictionary<string, string> ConfigMap;
 	sequence<string> GroupNameList;
@@ -194,7 +181,7 @@ module Murmur
 	exception ServerBootedException extends MurmurException {};
 	/** This is thrown if [Server::start] fails, and should generally be the cause for some concern. */
 	exception ServerFailureException extends MurmurException {};
-	/** This is thrown when you specify an invalid playerid. See [RegisteredPlayer::playerid]. */
+	/** This is thrown when you specify an invalid playerid. */
 	exception InvalidPlayerException extends MurmurException {};
 	/** This is thrown when you try to set an invalid texture. */
 	exception InvalidTextureException extends MurmurException {};
@@ -265,7 +252,7 @@ module Murmur
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
 	 *  Please note that unlike [ServerCallback] and [ServerContextCallback], these methods are called
 	 *  synchronously. If the response lags, the entire murmur server will lag.
-	 *  Also note that, as the method calls are synchronous, calling a function from [Server] or [Meta] will
+	 *  Also note that, as the method calls are synchronous, making a call to [Server] or [Meta] will
 	 *  deadlock the server.
 	 */
 	interface ServerAuthenticator {
@@ -282,6 +269,15 @@ module Murmur
 		 */
 		idempotent int authenticate(string name, string pw, out string newname, out GroupNameList groups);
 
+		/** Fetch information about a player. This is used to retrieve information like email address, keyhash etc. If you
+		 *  want murmur to take care of this information itself, simply return false to fall through.
+		 *  @param id Player id.
+		 *  @param key Key of information to be retrieved.
+		 *  @param info Information about player. This needs to include at least "name".
+		 *  @return true if information is present, false to fall through.
+		 */
+		idempotent bool getInfo(int id, out InfoMap info);
+	
 		/** Map a name to a player id.
 		 *  @param name Playername to map.
 		 *  @return Player id or -2 for unknown name.
@@ -305,15 +301,15 @@ module Murmur
 	 *  and account updating.
 	 *  You do not need to implement this if all you want is authentication, you only need this if other scripts
 	 *  connected to the same server calls e.g. [Server::setTexture].
-	 *  Almost all of these methods all fall through, meaning murmur should continue the operation against its
+	 *  Almost all of these methods support fall through, meaning murmur should continue the operation against its
 	 *  own database.
 	 */
 	interface ServerUpdatingAuthenticator extends ServerAuthenticator {
 		/** Register a new player.
-		 *  @param name Playername to register.
+		 *  @param info Information about player to register.
 		 *  @return Player id of new player, -1 for registration failure, or -2 to fall through.
 		 */
-		int registerPlayer(string name);
+		int registerPlayer(InfoMap info);
 
 		/** Unregister a player.
 		 *  @param id Playerid to unregister.
@@ -325,36 +321,14 @@ module Murmur
 		 *  @param filter Substring playernames must contain. If empty, return all registered players.
 		 *  @return List of matching registered players.
 		 */
-		idempotent RegisteredPlayerList getRegisteredPlayers(string filter);
+		idempotent NameMap getRegisteredPlayers(string filter);
 
-		/** Get single player registration.
+		/** Set additional information for player registration.
 		 *  @param id Playerid of registered player.
-		 *  @param name Name of registered player.
-		 *  @param email Email address of registered player.
-		 *  @return 1 for successfull fetch, 0 for unsuccessfull fetch, -1 to fall through.
-		 */
-		idempotent int getRegistration(int id, out string name, out string email);
-
-		/** Set password of player registration.
-		 *  @param id Playerid of registered player.
-		 *  @param pw New password.
+		 *  @param info Information to set about player. This should be merged with existing information.
 		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
 		 */
-		idempotent int setPassword(int id, string pw);
-
-		/** Set Email address of player registration.
-		 *  @param id Playerid of registered player.
-		 *  @param pw email New Email address.
-		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
-		 */
-		idempotent int setEmail(int id, string email);
-
-		/** Set playername of player registration.
-		 *  @param id Playerid of registered player.
-		 *  @param name New Playername.
-		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
-		 */
-		idempotent int setName(int id, string name);
+		idempotent int setInfo(int id, InfoMap info);
 
 		/** Set texture of player registration.
 		 *  @param id Playerid of registered player.
@@ -428,7 +402,7 @@ module Murmur
 		 */
 		idempotent void setConf(string key, string value);
 
-		/** Set superuser password. This is just a convenience for using [updateregistration] on player id 0.
+		/** Set superuser password. This is just a convenience for using [updateRegistration] on player id 0.
 		 * @param pw Password.
 		 */
 		idempotent void setSuperuserPassword(string pw);
@@ -572,23 +546,23 @@ module Murmur
 		 */
 		idempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException;
 
-		/** Map a list of [Player::playerid] or [RegisteredPlayer::playerid] to a matching name.
+		/** Map a list of [Player::playerid] to a matching name.
 		 * @param List of ids.
 		 * @return Matching list of names, with an empty string representing invalid or unknown ids.
 		 */
 		idempotent NameMap getPlayerNames(IdList ids) throws ServerBootedException;
 
-		/** Map a list of player names to a matching [RegisteredPlayer::playerid].
+		/** Map a list of player names to a matching id.
 		 * @param List of names.
 		 * @reuturn List of matching ids, with -1 representing invalid or unknown player names.
 		 */
 		idempotent IdMap getPlayerIds(NameList names) throws ServerBootedException;
 
 		/** Register a new player.
-		 * @param name Name of player to register.
+		 * @param info Information about new player. Must include at least "name".
 		 * @return The ID of the player. See [RegisteredPlayer::playerid].
 		 */
-		int registerPlayer(string name) throws ServerBootedException, InvalidPlayerException;
+		int registerPlayer(InfoMap info) throws ServerBootedException, InvalidPlayerException;
 		
 		/** Remove a player registration.
 		 * @param playerid ID of registered player. See [RegisteredPlayer::playerid].
@@ -599,19 +573,19 @@ module Murmur
 		 * and can also use it to change the player's name.
 		 * @param registration Updated registration record.
 		 */
-		idempotent void updateregistration(RegisteredPlayer registration) throws ServerBootedException, InvalidPlayerException;
+		idempotent void updateRegistration(int playerid, InfoMap info) throws ServerBootedException, InvalidPlayerException;
 
 		/** Fetch registration for a single player.
 		 * @param playerid ID of registered player. See [RegisteredPlayer::playerid].
 		 * @return Registration record.
 		 */
-		idempotent RegisteredPlayer getRegistration(int playerid) throws ServerBootedException, InvalidPlayerException;
+		idempotent InfoMap getRegistration(int playerid) throws ServerBootedException, InvalidPlayerException;
 
 		/** Fetch a group of registered players.
 		 * @param filter Substring of player name. If blank, will retrieve all registered players.
 		 * @return List of registration records.
 		 */
-		idempotent RegisteredPlayerList getRegisteredPlayers(string filter) throws ServerBootedException;
+		idempotent NameMap getRegisteredPlayers(string filter) throws ServerBootedException;
 
 		/** Verify the password of a player. You can use this to verify a player's credentials.
 		 * @param name Player name. See [RegisteredPlayer::name].

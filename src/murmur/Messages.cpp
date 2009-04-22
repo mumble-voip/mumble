@@ -506,7 +506,8 @@ void Server::msgChannelState(User *uSource, MumbleProto::ChannelState &msg) {
 			return;
 		}
 
-		c = addChannel(p, qsName, qsDesc);
+		c = addChannel(p, qsName);
+		c->qsDesc = qsDesc;
 		if (uSource->iId >= 0) {
 			Group *g = new Group(c, "admin");
 			g->qsAdd << uSource->iId;

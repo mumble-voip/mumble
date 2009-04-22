@@ -57,15 +57,6 @@ class IceEvent : public QEvent {
 		};
 };
 
-static inline QString fromStdUtf8String(const ::std::string &str) {
-	return QString::fromUtf8(str.data(), str.length());
-}
-
-static inline ::std::string toStdUtf8String(const QString &str) {
-	const QByteArray &qba = str.toUtf8();
-	return ::std::string(qba.constData(), qba.length());
-}
-
 void IceStart() {
 	mi = new MurmurIce();
 }
@@ -78,13 +69,13 @@ void IceStop() {
 
 static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
 	le.timestamp = r.first;
-	le.txt = toStdUtf8String(r.second);
+	le.txt = u8(r.second);
 }
 
 static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.session = p->uiSession;
 	mp.playerid = p->iId;
-	mp.name = toStdUtf8String(p->qsName);
+	mp.name = u8(p->qsName);
 	mp.mute = p->bMute;
 	mp.deaf = p->bDeaf;
 	mp.suppressed = p->bSuppressed;
@@ -96,16 +87,16 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.onlinesecs = u->bwr.onlineSeconds();
 	mp.bytespersec = u->bwr.bandwidth();
 	mp.version = u->uiVersion;
-	mp.release = toStdUtf8String(u->qsRelease);
-	mp.os = toStdUtf8String(u->qsOS);
-	mp.osversion = toStdUtf8String(u->qsOSVersion);
-	mp.identity = toStdUtf8String(u->qsIdentity);
+	mp.release = u8(u->qsRelease);
+	mp.os = u8(u->qsOS);
+	mp.osversion = u8(u->qsOSVersion);
+	mp.identity = u8(u->qsIdentity);
 	mp.context = u->ssContext;
 }
 
 static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.id = c->iId;
-	mc.name = toStdUtf8String(c->qsName);
+	mc.name = u8(c->qsName);
 	mc.parent = c->cParent ? c->cParent->iId : -1;
 	mc.links.clear();
 	foreach(::Channel *chn, c->qsPermLinks)
@@ -117,13 +108,13 @@ static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
 	ma.applySubs = acl->bApplySubs;
 	ma.inherited = false;
 	ma.playerid = acl->iPlayerId;
-	ma.group = toStdUtf8String(acl->qsGroup);
+	ma.group = u8(acl->qsGroup);
 	ma.allow = acl->pAllow;
 	ma.deny = acl->pDeny;
 }
 
 static void groupToGroup(const ::Group *g, Murmur::Group &mg) {
-	mg.name = toStdUtf8String(g->qsName);
+	mg.name = u8(g->qsName);
 	mg.inherit = g->bInherit;
 	mg.inheritable = g->bInheritable;
 	mg.add.clear();
@@ -136,6 +127,17 @@ static void banToBan(const QPair<quint32,int> b, Murmur::Ban &mb) {
 	mb.bits = b.second;
 }
 
+static void infoToInfo(const QMap<QString, QString> &info, Murmur::InfoMap &im) {
+	QMap<QString, QString>::const_iterator i;
+	for(i = info.constBegin(); i != info.constEnd(); ++i)
+		im[u8(i.key())] = u8(i.value());
+}
+
+static void infoToInfo(const Murmur::InfoMap &im, QMap<QString, QString> &info) {
+	Murmur::InfoMap::const_iterator i;
+	for(i = im.begin(); i != im.end(); ++i) 
+		info.insert(u8((*i).first), u8((*i).second));
+}
 
 class ServerLocator : public virtual Ice::ServantLocator {
 	public:
@@ -161,12 +163,12 @@ MurmurIce::MurmurIce() {
 
 		adapter->activate();
 		foreach(const Ice::EndpointPtr ep, mprx->ice_getEndpoints()) {
-			qWarning("MurmurIce: Endpoint \"%s\" running", qPrintable(fromStdUtf8String(ep->toString())));
+			qWarning("MurmurIce: Endpoint \"%s\" running", qPrintable(u8(ep->toString())));
 		}
 
 		meta->connectListener(this);
 	} catch (Ice::Exception &e) {
-		qCritical("MurmurIce: Initialization failed: %s", qPrintable(fromStdUtf8String(e.ice_name())));
+		qCritical("MurmurIce: Initialization failed: %s", qPrintable(u8(e.ice_name())));
 	}
 }
 
@@ -209,7 +211,7 @@ void MurmurIce::badAuthenticator(::Server *server) {
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
-	ident.name = toStdUtf8String(QString::number(id));
+	ident.name = u8(QString::number(id));
 
 	return ServerPrx::uncheckedCast(adapter->createProxy(ident));
 }
@@ -394,7 +396,7 @@ void MurmurIce::contextAction(const ::Player *pSrc, const QString &action, unsig
 	playerToPlayer(pSrc, mp);
 
 	try {
-		prx->contextAction(toStdUtf8String(action), mp, session, iChannel);
+		prx->contextAction(u8(action), mp, session, iChannel);
 	} catch (...) {
 		qCritical("Registered Ice ServerContextCallback %s on server %d, session %d, action %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), s->iServerNum, pSrc->uiSession, qPrintable(action));
 		qmPlayer.remove(action);
@@ -406,7 +408,7 @@ void MurmurIce::idToNameSlot(QString &name, int id) {
 
 	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
 	try {
-		name = fromStdUtf8String(prx->idToName(id));
+		name = u8(prx->idToName(id));
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -432,7 +434,7 @@ void MurmurIce::nameToIdSlot(int &id, const QString &name) {
 
 	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
 	try {
-		id = prx->nameToId(toStdUtf8String(name));
+		id = prx->nameToId(u8(name));
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -445,30 +447,34 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, const QString &pw) {
 	::std::string newname;
 	::Murmur::GroupNameList groups;
 	try {
-		res = prx->authenticate(toStdUtf8String(uname), toStdUtf8String(pw), newname, groups);
+		res = prx->authenticate(u8(uname), u8(pw), newname, groups);
 	} catch (...) {
 		badAuthenticator(server);
 	}
 	if (res >= 0) {
 		if (newname.length() > 0)
-			uname = fromStdUtf8String(newname);
+			uname = u8(newname);
 		QStringList qsl;
 		foreach(const ::std::string &str, groups) {
-			qsl << fromStdUtf8String(str);
+			qsl << u8(str);
 		}
 		if (! qsl.isEmpty())
 			server->setTempGroups(res, NULL, qsl);
 	}
 }
 
-void MurmurIce::registerPlayerSlot(int &res, const QString &name) {
+void MurmurIce::registerPlayerSlot(int &res, const QMap<QString, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
+
+	::Murmur::InfoMap im;
+	
+	infoToInfo(info, im);
 	try {
-		res = prx->registerPlayer(toStdUtf8String(name));
+		res = prx->registerPlayer(im);
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -487,81 +493,58 @@ void MurmurIce::unregisterPlayerSlot(int &res, int id) {
 	}
 }
 
-void MurmurIce::getRegistrationSlot(int &res, int id, QString &name, QString &email) {
+void MurmurIce::getRegistrationSlot(int &res, int id, QMap<QString, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
 
-	::std::string rname;
-	::std::string remail;
+	Murmur::InfoMap im;
 	try {
-		res = prx->getRegistration(id, rname, remail);
+		res = prx->getInfo(id, im);
 	} catch (...) {
 		badAuthenticator(server);
 		return;
 	}
 
 	if (res >= 0) {
-		name = fromStdUtf8String(rname);
-		email = fromStdUtf8String(remail);
+		infoToInfo(im, info);
 	}
 }
 
-void  MurmurIce::getRegisteredPlayersSlot(const QString &filter, QMap<int, QPair<QString, QString> > &m) {
+void  MurmurIce::getRegisteredPlayersSlot(const QString &filter, QMap<int, QString> &m) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
 
-	::Murmur::RegisteredPlayerList lst;
+	::Murmur::NameMap lst;
 
 	try {
-		lst = prx->getRegisteredPlayers(toStdUtf8String(filter));
+		lst = prx->getRegisteredPlayers(u8(filter));
 	} catch (...) {
 		badAuthenticator(server);
 		return;
 	}
-	foreach(const ::Murmur::RegisteredPlayer &p, lst)
-		m.insert(p.playerid, QPair<QString, QString>(fromStdUtf8String(p.name),fromStdUtf8String(p.email)));
+	::Murmur::NameMap::const_iterator i;
+	for(i=lst.begin(); i != lst.end(); ++i)
+		m.insert((*i).first, u8((*i).second));
 }
 
-void MurmurIce::setNameSlot(int &res, int id, const QString &name) {
+void MurmurIce::setInfoSlot(int &res, int id, const QMap<QString, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
+		
+	Murmur::InfoMap im;
+	infoToInfo(info, im);
+
 	try {
-		res = prx->setName(id, toStdUtf8String(name));
-	} catch (...) {
-		badAuthenticator(server);
-	}
-}
-
-void MurmurIce::setEmailSlot(int &res, int id, const QString &email) {
-	::Server *server = qobject_cast< ::Server *> (sender());
-
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
-	if (! prx)
-		return;
-	try {
-		res = prx->setEmail(id, toStdUtf8String(email));
-	} catch (...) {
-		badAuthenticator(server);
-	}
-}
-
-void MurmurIce::setPwSlot(int &res, int id, const QString &pw) {
-	::Server *server = qobject_cast< ::Server *> (sender());
-
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
-	if (! prx)
-		return;
-	try {
-		res = prx->setPassword(id, toStdUtf8String(pw));
+		res = prx->setInfo(id, im);
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -628,7 +611,7 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 
 void ServerI::ice_ping(const Ice::Current &current) const {
 	// This is executed in the ice thread.
-	int server_id = fromStdUtf8String(current.id.name).toInt();
+	int server_id = u8(current.id.name).toInt();
 	if (! ServerDB::serverExists(server_id))
 		throw ::Ice::ObjectNotExistException(__FILE__, __LINE__);
 }
@@ -726,7 +709,7 @@ static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {
 
 static void impl_Server_getConf(const ::Murmur::AMD_Server_getConfPtr cb, int server_id,  const ::std::string& key) {
 	NEED_SERVER_EXISTS;
-	cb->ice_response(toStdUtf8String(ServerDB::getConf(server_id, fromStdUtf8String(key)).toString()));
+	cb->ice_response(u8(ServerDB::getConf(server_id, u8(key)).toString()));
 }
 
 static void impl_Server_getAllConf(const ::Murmur::AMD_Server_getAllConfPtr cb, int server_id) {
@@ -737,15 +720,15 @@ static void impl_Server_getAllConf(const ::Murmur::AMD_Server_getAllConfPtr cb, 
 	QMap<QString, QString> values = ServerDB::getAllConf(server_id);
 	QMap<QString, QString>::const_iterator i;
 	for (i=values.constBegin();i != values.constEnd(); ++i) {
-		cm[toStdUtf8String(i.key())] = toStdUtf8String(i.value());
+		cm[u8(i.key())] = u8(i.value());
 	}
 	cb->ice_response(cm);
 }
 
 static void impl_Server_setConf(const ::Murmur::AMD_Server_setConfPtr cb, int server_id,  const ::std::string& key,  const ::std::string& value) {
 	NEED_SERVER_EXISTS;
-	QString k=fromStdUtf8String(key);
-	QString v=fromStdUtf8String(value);
+	QString k=u8(key);
+	QString v=u8(value);
 	ServerDB::setConf(server_id, k, v);
 	if (server)
 		server->setLiveConf(k, v);
@@ -754,7 +737,7 @@ static void impl_Server_setConf(const ::Murmur::AMD_Server_setConfPtr cb, int se
 
 static void impl_Server_setSuperuserPassword(const ::Murmur::AMD_Server_setSuperuserPasswordPtr cb, int server_id,  const ::std::string& pw) {
 	NEED_SERVER_EXISTS;
-	ServerDB::setSUPW(server_id, fromStdUtf8String(pw));
+	ServerDB::setSUPW(server_id, u8(pw));
 	cb->ice_response();
 }
 
@@ -869,7 +852,7 @@ static void impl_Server_sendMessage(const ::Murmur::AMD_Server_sendMessagePtr cb
 	NEED_SERVER;
 	NEED_PLAYER;
 
-	server->sendTextMessage(NULL, user, false, fromStdUtf8String(text));
+	server->sendTextMessage(NULL, user, false, u8(text));
 	cb->ice_response();
 }
 
@@ -893,7 +876,7 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 
 	try {
 		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false));
-		qmPrx.insert(fromStdUtf8String(action), oneway);
+		qmPrx.insert(u8(action), oneway);
 		cb->ice_response();
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
@@ -951,7 +934,7 @@ static void impl_Server_sendMessageChannel(const ::Murmur::AMD_Server_sendMessag
 	NEED_SERVER;
 	NEED_CHANNEL;
 
-	server->sendTextMessage(channel, NULL, tree, fromStdUtf8String(text));
+	server->sendTextMessage(channel, NULL, tree, u8(text));
 	cb->ice_response();
 }
 
@@ -971,7 +954,7 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 	::Channel *np;
 	NEED_CHANNEL_VAR(np, state.parent);
 
-	QString qsName = fromStdUtf8String(state.name);
+	QString qsName = u8(state.name);
 
 	QSet< ::Channel *> newset;
 	foreach(int linkid, state.links) {
@@ -1004,7 +987,7 @@ static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, 
 	::Channel *p, *nc;
 	NEED_CHANNEL_VAR(p, parent);
 
-	QString qsName = fromStdUtf8String(name);
+	QString qsName = u8(name);
 
 	nc = server->addChannel(p, qsName);
 	server->updateChannel(nc);
@@ -1100,7 +1083,7 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 
 	channel->bInheritACL = inherit;
 	foreach(const ::Murmur::Group &gi, groups) {
-		QString name = fromStdUtf8String(gi.name);
+		QString name = u8(gi.name);
 		g = new ::Group(channel, name);
 		g->bInherit = gi.inherit;
 		g->bInheritable = gi.inheritable;
@@ -1113,7 +1096,7 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 		acl->bApplyHere = ai.applyHere;
 		acl->bApplySubs = ai.applySubs;
 		acl->iPlayerId = ai.playerid;
-		acl->qsGroup = fromStdUtf8String(ai.group);
+		acl->qsGroup = u8(ai.group);
 		acl->pDeny = static_cast<ChanACL::Permissions>(ai.deny);
 		acl->pAllow = static_cast<ChanACL::Permissions>(ai.allow);
 	}
@@ -1131,7 +1114,7 @@ static void impl_Server_getPlayerNames(const ::Murmur::AMD_Server_getPlayerNames
 			if (! name.isEmpty())
 				server->qhUserNameCache.insert(playerid, name);
 		}
-		nm[playerid] = toStdUtf8String(server->qhUserNameCache.value(playerid));
+		nm[playerid] = u8(server->qhUserNameCache.value(playerid));
 	}
 	cb->ice_response(nm);
 }
@@ -1140,7 +1123,7 @@ static void impl_Server_getPlayerIds(const ::Murmur::AMD_Server_getPlayerIdsPtr 
 	NEED_SERVER;
 	::Murmur::IdMap im;
 	foreach(const string &n, names) {
-		QString name = fromStdUtf8String(n);
+		QString name = u8(n);
 		if (! server->qhUserIDCache.contains(name)) {
 			int playerid = server->getUserID(name);
 			if (playerid != -1)
@@ -1151,9 +1134,13 @@ static void impl_Server_getPlayerIds(const ::Murmur::AMD_Server_getPlayerIdsPtr 
 	cb->ice_response(im);
 }
 
-static void impl_Server_registerPlayer(const ::Murmur::AMD_Server_registerPlayerPtr cb, int server_id,  const ::std::string& name) {
+static void impl_Server_registerPlayer(const ::Murmur::AMD_Server_registerPlayerPtr cb, int server_id, const ::Murmur::InfoMap &im) {
 	NEED_SERVER;
-	int playerid = server->registerPlayer(fromStdUtf8String(name));
+	
+	QMap<QString, QString> info;
+	infoToInfo(im, info);
+	
+	int playerid = server->registerPlayer(info);
 	if (playerid < 0)
 		cb->ice_exception(InvalidPlayerException());
 	else
@@ -1168,62 +1155,47 @@ static void impl_Server_unregisterPlayer(const ::Murmur::AMD_Server_unregisterPl
 		cb->ice_response();
 }
 
-static void impl_Server_updateregistration(const ::Murmur::AMD_Server_updateregistrationPtr cb, int server_id,  const ::Murmur::RegisteredPlayer& registration) {
+static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegistrationPtr cb, int server_id,  int id, const ::Murmur::InfoMap &im) {
 	NEED_SERVER;
 
-	QString name, email;
-	if (! server->getRegistration(registration.playerid, name, email)) {
+	if (! server->isPlayerId(id)) {
 		cb->ice_exception(InvalidPlayerException());
 		return;
 	}
-
-	QString newname = fromStdUtf8String(registration.name);
-	QString newemail = fromStdUtf8String(registration.email);
-	QString newpw = fromStdUtf8String(registration.pw);
-
-	if ((! newname.isEmpty()) && (newname != name))
-		if (! server->setName(registration.playerid, newname)) {
+	
+	QMap<QString, QString> info;
+	infoToInfo(im, info);
+	
+	if (! server->setInfo(id, info)) {
 			cb->ice_exception(InvalidPlayerException());
 			return;
 		}
-
-	if ((! newemail.isEmpty()) && (newemail != email))
-		server->setEmail(registration.playerid, newemail);
-
-	if ((! newpw.isEmpty()))
-		server->setPW(registration.playerid, newpw);
-
 	cb->ice_response();
 }
 
 static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrationPtr cb, int server_id,  ::Ice::Int playerid) {
 	NEED_SERVER;
+	
+	QMap<QString, QString> info = server->getRegistration(playerid);
 
-	QString name, email;
-	if (! server->getRegistration(playerid, name, email)) {
+	if (info.isEmpty()) {
 		cb->ice_exception(InvalidPlayerException());
 		return;
 	}
-
-	::Murmur::RegisteredPlayer reg;
-	reg.playerid = playerid;
-	reg.name = toStdUtf8String(name);
-	reg.email = toStdUtf8String(email);
-	cb->ice_response(reg);
+	
+	Murmur::InfoMap im;
+	infoToInfo(info, im);
+	cb->ice_response(im);
 }
 
 static void impl_Server_getRegisteredPlayers(const ::Murmur::AMD_Server_getRegisteredPlayersPtr cb, int server_id,  const ::std::string& filter) {
 	NEED_SERVER;
-	Murmur::RegisteredPlayerList rpl;
-	Murmur::RegisteredPlayer reg;
+	Murmur::NameMap rpl;
 
-	const QMap<int, QPair<QString, QString> > l = server->getRegisteredPlayers(fromStdUtf8String(filter));
-	QMap<int, QPair<QString, QString > >::const_iterator i;
+	const QMap<int, QString> l = server->getRegisteredPlayers(u8(filter));
+	QMap<int, QString>::const_iterator i;
 	for (i = l.constBegin(); i != l.constEnd(); ++i) {
-		reg.playerid = i.key();
-		reg.name = toStdUtf8String(i.value().first);
-		reg.email = toStdUtf8String(i.value().second);
-		rpl.push_back(reg);
+		rpl[i.key()] = u8(i.value());
 	}
 
 	cb->ice_response(rpl);
@@ -1231,8 +1203,8 @@ static void impl_Server_getRegisteredPlayers(const ::Murmur::AMD_Server_getRegis
 
 static void impl_Server_verifyPassword(const ::Murmur::AMD_Server_verifyPasswordPtr cb, int server_id,  const ::std::string& name,  const ::std::string& pw) {
 	NEED_SERVER;
-	QString uname = fromStdUtf8String(name);
-	cb->ice_response(server->authenticate(uname, fromStdUtf8String(pw)));
+	QString uname = u8(name);
+	cb->ice_response(server->authenticate(uname, u8(pw)));
 }
 
 static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, int server_id,  ::Ice::Int playerid) {
@@ -1296,7 +1268,7 @@ static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr 
 	::Murmur::ConfigMap cm;
 	QMap<QString, QString>::const_iterator i;
 	for (i=meta->mp.qmConfig.constBegin();i != meta->mp.qmConfig.constEnd(); ++i) {
-		cm[toStdUtf8String(i.key())] = toStdUtf8String(i.value());
+		cm[u8(i.key())] = u8(i.value());
 	}
 	cb->ice_response(cm);
 }
@@ -1313,7 +1285,7 @@ static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, cons
 	int major, minor, patch;
 	QString txt;
 	::Meta::getVersion(major, minor, patch, txt);
-	cb->ice_response(major, minor, patch, toStdUtf8String(txt));
+	cb->ice_response(major, minor, patch, u8(txt));
 }
 
 static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {

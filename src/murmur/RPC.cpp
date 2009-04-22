@@ -195,14 +195,12 @@ void Server::setTempGroups(int playerid, Channel *cChannel, const QStringList &g
 
 
 void Server::connectAuthenticator(QObject *obj) {
-	connect(this, SIGNAL(registerPlayerSig(int &, const QString &)), obj, SLOT(registerPlayerSlot(int &, const QString &)));
+	connect(this, SIGNAL(registerPlayerSig(int &, const QMap<QString, QString> &)), obj, SLOT(registerPlayerSlot(int &, const QMap<QString, QString> &)));
 	connect(this, SIGNAL(unregisterPlayerSig(int &, int)), obj, SLOT(unregisterPlayerSlot(int &, int)));
-	connect(this, SIGNAL(getRegisteredPlayersSig(const QString &, QMap<int, QPair<QString, QString> > &)), obj, SLOT(getRegisteredPlayersSlot(const QString &, QMap<int, QPair<QString, QString> > &)));
-	connect(this, SIGNAL(getRegistrationSig(int &, int, QString &, QString &)), obj, SLOT(getRegistrationSlot(int &, int, QString &, QString &)));
+	connect(this, SIGNAL(getRegisteredPlayersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredPlayersSlot(const QString &, QMap<int, QString, QString> &)));
+	connect(this, SIGNAL(getRegistrationSig(int &, int, QMap<QString, QString> &)), obj, SLOT(getRegistrationSlot(int &, int, QMap<QString, QString> &)));
 	connect(this, SIGNAL(authenticateSig(int &, QString &, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QString &)));
-	connect(this, SIGNAL(setPwSig(int &, int, const QString &)), obj, SLOT(setPwSlot(int &, int, const QString &)));
-	connect(this, SIGNAL(setEmailSig(int &, int, const QString &)), obj, SLOT(setEmailSlot(int &, int, const QString &)));
-	connect(this, SIGNAL(setNameSig(int &, int, const QString &)), obj, SLOT(setNameSlot(int &, int, const QString &)));
+	connect(this, SIGNAL(setInfoSig(int &, int, const QMap<QString, QString> &)), obj, SLOT(setInfoSlot(int &, int, const QMap<QString, QString> &)));
 	connect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj, SLOT(setTextureSlot(int &, int, const QByteArray &)));
 	connect(this, SIGNAL(idToNameSig(QString &, int)), obj, SLOT(idToNameSlot(QString &, int)));
 	connect(this, SIGNAL(nameToIdSig(int &, const QString &)), obj, SLOT(nameToIdSlot(int &, const QString &)));

@@ -249,14 +249,12 @@ class Server : public QThread {
 		void disconnectListener(QObject *p);
 		void setTempGroups(const int playerid, Channel *cChannel, const QStringList &groups);
 	signals:
-		void registerPlayerSig(int &, const QString &);
+		void registerPlayerSig(int &, const QMap<QString, QString> &);
 		void unregisterPlayerSig(int &, int);
-		void getRegisteredPlayersSig(const QString &, QMap<int, QPair<QString, QString> > &);
-		void getRegistrationSig(int &, int, QString &, QString &);
+		void getRegisteredPlayersSig(const QString &, QMap<int, QString > &);
+		void getRegistrationSig(int &, int, QMap<QString, QString> &);
 		void authenticateSig(int &, QString &, const QString &);
-		void setPwSig(int &, int, const QString &);
-		void setEmailSig(int &, int, const QString &);
-		void setNameSig(int &, int, const QString &);
+		void setInfoSig(int &, int, const QMap<QString, QString> &);
 		void setTextureSig(int &, int, const QByteArray &);
 		void idToNameSig(QString &, int);
 		void nameToIdSig(int &, const QString &);
@@ -279,7 +277,7 @@ class Server : public QThread {
 		void initialize();
 		typedef QPair<quint32, int> qpBan;
 		int authenticate(QString &name, const QString &pw);
-		Channel *addChannel(Channel *c, const QString &name, const QString &desc = QString());
+		Channel *addChannel(Channel *c, const QString &name);
 		void removeChannel(const Channel *c);
 		void readChannels(Channel *p = NULL);
 		void readLinks();
@@ -291,15 +289,13 @@ class Server : public QThread {
 		int getUserID(const QString &name);
 		QString getUserName(int id);
 		QByteArray getUserTexture(int id);
-		int registerPlayer(const QString &name);
+		QMap<QString, QString> getRegistration(int id);
+		int registerPlayer(const QMap<QString, QString> &info);
 		bool unregisterPlayer(int id);
-		QMap<int, QPair<QString, QString> > getRegisteredPlayers(const QString &filter);
-		bool setPW(int id, const QString &pw);
-		bool setName(int id, const QString &name);
-		bool setEmail(int id, const QString &email);
+		QMap<int, QString > getRegisteredPlayers(const QString &filter);
+		bool setInfo(int id, const QMap<QString, QString> &info);
 		bool setTexture(int id, const QByteArray &texture);
 		bool isPlayerId(int id);
-		bool getRegistration(int id, QString &name, QString &email);
 		void addLink(Channel *c, Channel *l);
 		void removeLink(Channel *c, Channel *l);
 		void getBans();
