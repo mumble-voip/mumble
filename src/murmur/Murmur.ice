@@ -45,6 +45,8 @@ module Murmur
 		string identity;
 		/** Plugin context. This is a binary blob identifying the game and team the user is on. */
 		string context;
+		/** Player comment. Shown as tooltip for this player. */
+		string comment;
 	};
 
 	sequence<int> IntList;

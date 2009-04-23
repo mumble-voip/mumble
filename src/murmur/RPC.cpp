@@ -35,7 +35,7 @@
 #include "Meta.h"
 #include "Version.h"
 
-void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed) {
+void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed, const QString &comment) {
 	bool changed = false;
 
 	if (deaf)
@@ -56,6 +56,15 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 	if (suppressed != pPlayer->bSuppressed) {
 		changed = true;
 		mpus.set_suppressed(suppressed);
+	}
+	if (! comment.isNull() && comment != pPlayer->qsComment) {
+		changed = true;
+		mpus.set_comment(u8(comment));
+		if (pPlayer->iId >= 0) {
+			QMap<QString, QString> info;
+			info.insert("comment", comment);
+			setInfo(pPlayer->iId, info);
+		}
 	}
 
 	pPlayer->bDeaf = deaf;

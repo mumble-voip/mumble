@@ -82,6 +82,7 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.selfMute = p->bSelfMute;
 	mp.selfDeaf = p->bSelfDeaf;
 	mp.channel = p->cChannel->iId;
+	mp.comment = u8(p->qsComment);
 
 	const User *u=static_cast<const User *>(p);
 	mp.onlinesecs = u->bwr.onlineSeconds();
@@ -926,7 +927,7 @@ static void impl_Server_setState(const ::Murmur::AMD_Server_setStatePtr cb, int 
 	NEED_PLAYER;
 	NEED_CHANNEL_VAR(channel, state.channel);
 
-	server->setPlayerState(user, channel, state.mute, state.deaf, state.suppressed);
+	server->setPlayerState(user, channel, state.mute, state.deaf, state.suppressed, u8(state.comment));
 	cb->ice_response();
 }
 
