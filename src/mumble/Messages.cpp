@@ -221,6 +221,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		pDst->qbaTexture = QByteArray(str.data(), str.size());
 		g.o->verifyTexture(pDst);
 	}
+	if (msg.has_comment()) {
+		pDst->qsComment = u8(msg.comment());
+	}
 }
 
 void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
@@ -252,7 +255,7 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 		return;
 
 	Channel *c = Channel::get(msg.channel_id());
-	Channel *p = Channel::get(msg.parent());
+	Channel *p = msg.has_parent() ? Channel::get(msg.parent()) : NULL;
 
 	if (!c) {
 		if (msg.has_parent() && p && msg.has_name()) {

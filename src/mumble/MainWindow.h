@@ -122,6 +122,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaServerBanList_triggered();
 		void on_qaServerInformation_triggered();
 		void on_qmPlayer_aboutToShow();
+		void on_qaPlayerComment_triggered();
 		void on_qaPlayerKick_triggered();
 		void on_qaPlayerBan_triggered();
 		void on_qaPlayerMute_triggered();

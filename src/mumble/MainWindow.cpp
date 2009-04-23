@@ -665,6 +665,7 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 	qmPlayer->addAction(qaPlayerMute);
 	qmPlayer->addAction(qaPlayerDeaf);
 	qmPlayer->addAction(qaPlayerLocalMute);
+	qmPlayer->addAction(qaPlayerComment);
 	qmPlayer->addAction(qaPlayerTextMessage);
 
 	if (self) {
@@ -805,6 +806,34 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 	}
 	delete texm;
 }
+
+void MainWindow::on_qaPlayerComment_triggered() {
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+
+	if (!p)
+		return;
+
+	unsigned int session = p->uiSession;
+
+	::TextMessage *texm = new ::TextMessage(this);
+	texm->setWindowTitle(tr("Change comment on player %1").arg(p->qsName));
+
+	const QString html = QTextDocumentFragment::fromPlainText(p->qsComment).toHtml();
+
+	texm->qteEdit->setText(html);
+	int res = texm->exec();
+
+	p = ClientPlayer::get(session);
+
+	if (p && (res==QDialog::Accepted)) {
+		MumbleProto::UserState mpus;
+		mpus.set_session(session);
+		mpus.set_comment(u8(texm->message()));
+		g.sh->sendMessage(mpus);
+	}
+	delete texm;
+}
+
 
 void MainWindow::on_qaQuit_triggered() {
 	this->close();
