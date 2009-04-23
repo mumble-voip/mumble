@@ -208,6 +208,10 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		mpus.set_user_id(uSource->iId);
 		if (! uSource->qbaTexture.isEmpty())
 			mpus.set_texture(std::string(uSource->qbaTexture.constData(), uSource->qbaTexture.size()));
+			
+		const QMap<QString, QString> &info = getRegistration(uSource->iId);
+		if (info.contains("comment"))
+			mpus.set_comment(u8(info.value("comment")));
 	}
 	if (uSource->cChannel->iId != 0)
 		mpus.set_channel_id(uSource->cChannel->iId);
@@ -241,6 +245,8 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
 			mpus.set_self_mute(true);
+		if (! u->qsComment.isEmpty())
+			mpus.set_comment(u8(u->qsComment));
 
 		sendMessage(uSource, mpus);
 	}
@@ -356,6 +362,14 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 	}
+	
+	if (msg.has_comment() && (uSource != pDstUser)) {
+		Channel *root = qhChannels.value(0);
+		if (! hasPermission(uSource, root, ChanACL::MoveKick)) {
+			PERM_DENIED(uSource, root, ChanACL::MoveKick);
+			return;
+		}
+	}
 
 	if ((pDstUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture() || msg.has_plugin_context() || msg.has_plugin_identity()))
 		return;
@@ -384,6 +398,16 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 	if (msg.has_plugin_identity()) {
 		bNoBroadcast = true;
 		uSource->qsIdentity = u8(msg.plugin_identity());
+	}
+	
+	if (msg.has_comment()) {
+		pDstUser->qsComment = u8(msg.comment());
+		
+		if (pDstUser->iId >= 0) {
+			QMap<QString, QString> info;
+			info.insert("comment", pDstUser->qsComment);
+			setInfo(pDstUser->iId, info);
+		}
 	}
 
 	if (msg.has_channel_id()) {
