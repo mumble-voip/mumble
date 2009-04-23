@@ -57,6 +57,7 @@ class ServerDB {
 		static QList<LogRecord> getLog(int server_id, unsigned int offs_min, unsigned int offs_max);
 		static bool prepare(QSqlQuery &, const QString &, bool fatal = true);
 		static bool exec(QSqlQuery &, const QString &str = QString(), bool fatal= true);
+		static bool execBatch(QSqlQuery &, const QString &str = QString(), bool fatal= true);
 };
 
 #endif

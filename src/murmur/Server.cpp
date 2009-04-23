@@ -801,24 +801,6 @@ void Server::sendProtoExcept(User *u, const ::google::protobuf::Message &msg, un
 			usr->sendMessage(msg, msgType, cache);
 }
 
-void Server::sendChannelDescription(Player *p, const Channel *c) {
-	sendTextMessage(NULL, static_cast<User*>(p), false, QString("<u>%1:</u><br />%2").arg(c->qsName).arg(c->qsDesc));
-}
-
-void Server::sendChannelDescriptionUpdate(const Channel *changed, const Channel *current) {
-	if (current==NULL)
-		current=changed;
-
-	foreach(Player *siblingPlayer, current->qlPlayers) {
-		sendChannelDescription(siblingPlayer, changed);
-	}
-
-	foreach(Channel *siblingChannel, current->qlChannels) {
-		if (siblingChannel->qsDesc.isEmpty())
-			sendChannelDescriptionUpdate(changed, siblingChannel);
-	}
-}
-
 void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	Channel *c;
 	Player *p;
@@ -864,12 +846,6 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 	if (quiet && (p->cChannel == c))
 		return;
 
-	// Get old and new channel of user
-	// Lookup first channel in list of parent channels of new and old one
-	// which has a channel description
-	const Channel *oldChannel=p->cChannel;
-	const Channel *newChannel=c;
-
 	{
 		QWriteLocker wl(&qrwlUsers);
 		c->addPlayer(p);
@@ -877,18 +853,6 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 
 	if (quiet)
 		return;
-
-	while (oldChannel && oldChannel->qsDesc.isEmpty())
-		oldChannel=oldChannel->cParent;
-	while (newChannel && newChannel->qsDesc.isEmpty())
-		newChannel=newChannel->cParent;
-
-	// Only send message with channel description if it changed
-	// That means the channel has its own description or it does not
-	// share the same first parent channel which has one with the channel
-	// the user came from
-	if (newChannel && newChannel!=oldChannel)
-		sendChannelDescription(p, newChannel);
 
 	setLastChannel(p);
 

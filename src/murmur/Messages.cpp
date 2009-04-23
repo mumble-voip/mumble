@@ -210,8 +210,10 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 			mpus.set_texture(std::string(uSource->qbaTexture.constData(), uSource->qbaTexture.size()));
 			
 		const QMap<QString, QString> &info = getRegistration(uSource->iId);
-		if (info.contains("comment"))
-			mpus.set_comment(u8(info.value("comment")));
+		if (info.contains("comment")) {
+			uSource->qsComment = info.value("comment");
+			mpus.set_comment(u8(uSource->qsComment));
+		}
 	}
 	if (uSource->cChannel->iId != 0)
 		mpus.set_channel_id(uSource->cChannel->iId);

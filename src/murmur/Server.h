@@ -226,9 +226,6 @@ class Server : public QThread {
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 
-		void sendChannelDescription(Player *, const Channel *);
-		void sendChannelDescriptionUpdate(const Channel *changed, const Channel *current=NULL);
-
 		void setLiveConf(const QString &key, const QString &value);
 
 		QString addressToString(const QHostAddress &);

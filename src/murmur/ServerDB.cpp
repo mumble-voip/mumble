@@ -41,6 +41,7 @@
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), false)
 #define SQLPREP(x) ServerDB::prepare(query, QLatin1String(x))
 #define SQLEXEC() ServerDB::exec(query)
+#define SQLEXECBATCH() ServerDB::execBatch(query)
 #define SOFTEXEC() ServerDB::exec(query, QString(), false)
 
 class TransactionHolder {
@@ -371,6 +372,22 @@ bool ServerDB::exec(QSqlQuery &query, const QString &str, bool fatal) {
 	}
 }
 
+bool ServerDB::execBatch(QSqlQuery &query, const QString &str, bool fatal) {
+	if (! str.isEmpty())
+		prepare(query, str, fatal);
+	if (query.execBatch()) {
+		return true;
+	} else {
+
+		if (fatal) {
+			*db = QSqlDatabase();
+			qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+		} else
+			qDebug("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+		return false;
+	}
+}
+
 void Server::initialize() {
 	QSqlQuery query;
 
@@ -658,8 +675,10 @@ int Server::authenticate(QString &name, const QString &pw) {
 	return res;
 }
 
-bool Server::setInfo(int id, const QMap<QString, QString> &info) {
+bool Server::setInfo(int id, const QMap<QString, QString> &setinfo) {
 	int res = -2;
+	
+	QMap<QString, QString> info = setinfo;
 
 	if (info.contains("name")) {
 		qhUserIDCache.remove(qhUserNameCache.value(id));
@@ -684,6 +703,7 @@ bool Server::setInfo(int id, const QMap<QString, QString> &info) {
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
+		info.remove("pw");
 	}
 	if (info.contains("email")) {
 		const QString &email = info.value("email");
@@ -692,6 +712,7 @@ bool Server::setInfo(int id, const QMap<QString, QString> &info) {
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
+		info.remove("email");
 	}
 	if (info.contains("name")) {
 		const QString &name = info.value("name");
@@ -700,6 +721,25 @@ bool Server::setInfo(int id, const QMap<QString, QString> &info) {
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
+		info.remove("name");
+	}
+	if (! info.isEmpty()) {
+		QMap<QString, QString>::const_iterator i;
+		SQLPREP("REPLACE INTO %1player_info (server_id, player_id, key, value) VALUES (?,?,?,?)");
+		
+		QVariantList serverids, playerids, keys, values;
+		
+		for(i=info.constBegin(); i != info.constEnd(); ++i) {
+			serverids << iServerNum;
+			playerids << id;
+			keys << i.key();
+			values << i.value();
+		}
+		query.addBindValue(serverids);
+		query.addBindValue(playerids);
+		query.addBindValue(keys);
+		query.addBindValue(values);
+		SQLEXECBATCH();
 	}
 
 	return true;
