@@ -8,6 +8,11 @@
 
 module Murmur
 {
+
+	/** A network address in IPv6 format.
+	 **/
+	["python:seq:tuple"] sequence<byte> NetAddress;
+
 	/** A connected player.
          **/
 	struct Player {
@@ -47,6 +52,10 @@ module Murmur
 		string context;
 		/** Player comment. Shown as tooltip for this player. */
 		string comment;
+		/** Client address. */
+		NetAddress address;
+		/** TCP only. True until UDP connectivity is established. */
+		bool tcponly;
 	};
 
 	sequence<int> IntList;
