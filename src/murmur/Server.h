@@ -267,7 +267,7 @@ class Server : public QThread {
 		void contextAction(const Player *, const QString &, unsigned int, int);
 	public:
 		void setPlayerState(Player *p, Channel *parent, bool mute, bool deaf, bool suppressed, const QString &comment = QString());
-		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links);
+		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString());
 		void sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const QString &text);
 
 		// Database / DBus functions. Implementation in ServerDB.cpp

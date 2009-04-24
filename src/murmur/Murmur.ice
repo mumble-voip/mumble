@@ -62,6 +62,8 @@ module Murmur
 		int parent;
 		/** List of id of linked channels. */
 		IntList links;
+		/** Description of channel. Shown as tooltip for this channel. */
+		string description;
 	};
 
 	/** A group. Groups are defined per channel, and can inherit members from parent channels.

@@ -100,6 +100,8 @@ static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.name = u8(c->qsName);
 	mc.parent = c->cParent ? c->cParent->iId : -1;
 	mc.links.clear();
+	if (! c->qsDesc.isEmpty())
+		mc.description = u8(c->qsDesc);
 	foreach(::Channel *chn, c->qsPermLinks)
 		mc.links.push_back(chn->iId);
 }
@@ -964,7 +966,7 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 		newset << cLink;
 	}
 
-	if (! server->setChannelState(channel, np, qsName, newset))
+	if (! server->setChannelState(channel, np, qsName, newset, u8(state.description)))
 		cb->ice_exception(::Murmur::InvalidChannelException());
 	else
 		cb->ice_response();

@@ -83,7 +83,7 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 	}
 }
 
-bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links) {
+bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links, const QString &desc) {
 	bool changed = false;
 	bool updated = false;
 
@@ -134,6 +134,13 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		}
 
 		changed = true;
+	}
+	
+	if (! desc.isNull() && desc != cChannel->qsDesc) {
+		updated = true;
+		changed = true;
+		cChannel->qsDesc = desc;
+		mpcs.set_description(u8(desc));
 	}
 
 	if (updated)
