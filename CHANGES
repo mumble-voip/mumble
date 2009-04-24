@@ -1,3 +1,18 @@
+2009-04-23
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    139d4e0  Ice comment support
+    b038dac  Store infopairs in DB
+    4a83072  Clientside comment support
+    13dc3d6  Serverside comment support
+
+2009-04-22
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    922d9e8  Warn of incompatibilities among 1.2 snapshots
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    128a669  SQL Schema is version 4, not 3
+    6a4fa30  info-based storage for registration
+
 2009-04-21
   Stefan Hacker <dd0t@users.sourceforge.net>
     151240e  Prevent deletion of root channel via Ice.

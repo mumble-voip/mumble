@@ -677,7 +677,7 @@ int Server::authenticate(QString &name, const QString &pw) {
 
 bool Server::setInfo(int id, const QMap<QString, QString> &setinfo) {
 	int res = -2;
-	
+
 	QMap<QString, QString> info = setinfo;
 
 	if (info.contains("name")) {
@@ -726,10 +726,10 @@ bool Server::setInfo(int id, const QMap<QString, QString> &setinfo) {
 	if (! info.isEmpty()) {
 		QMap<QString, QString>::const_iterator i;
 		SQLPREP("REPLACE INTO %1player_info (server_id, player_id, key, value) VALUES (?,?,?,?)");
-		
+
 		QVariantList serverids, playerids, keys, values;
-		
-		for(i=info.constBegin(); i != info.constEnd(); ++i) {
+
+		for (i=info.constBegin(); i != info.constEnd(); ++i) {
 			serverids << iServerNum;
 			playerids << id;
 			keys << i.key();

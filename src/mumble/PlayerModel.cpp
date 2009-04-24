@@ -408,8 +408,7 @@ QVariant PlayerModel::otherRoles(const QModelIndex &idx, int role) const {
 	switch (role) {
 		case Qt::ToolTipRole:
 			switch (section) {
-				case 0:
-					{
+				case 0: {
 						if (isPlayer) {
 							if (p->qsComment.isEmpty())
 								return p->qsName;

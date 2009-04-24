@@ -208,7 +208,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		mpus.set_user_id(uSource->iId);
 		if (! uSource->qbaTexture.isEmpty())
 			mpus.set_texture(std::string(uSource->qbaTexture.constData(), uSource->qbaTexture.size()));
-			
+
 		const QMap<QString, QString> &info = getRegistration(uSource->iId);
 		if (info.contains("comment")) {
 			uSource->qsComment = info.value("comment");
@@ -364,7 +364,7 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 	}
-	
+
 	if (msg.has_comment() && (uSource != pDstUser)) {
 		Channel *root = qhChannels.value(0);
 		if (! hasPermission(uSource, root, ChanACL::MoveKick)) {
@@ -401,10 +401,10 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 		bNoBroadcast = true;
 		uSource->qsIdentity = u8(msg.plugin_identity());
 	}
-	
+
 	if (msg.has_comment()) {
 		pDstUser->qsComment = u8(msg.comment());
-		
+
 		if (pDstUser->iId >= 0) {
 			QMap<QString, QString> info;
 			info.insert("comment", pDstUser->qsComment);

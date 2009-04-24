@@ -135,7 +135,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 
 		changed = true;
 	}
-	
+
 	if (! desc.isNull() && desc != cChannel->qsDesc) {
 		updated = true;
 		changed = true;

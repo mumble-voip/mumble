@@ -94,14 +94,14 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.identity = u8(u->qsIdentity);
 	mp.context = u->ssContext;
 	mp.idlesecs = u->bwr.idleSeconds();
-	
+
 	mp.tcponly = (u->saiUdpAddress.sin_port == 0);
-	
+
 	const QHostAddress &qha = u->peerAddress();
 	::Murmur::NetAddress addr(16, 0);
 	if (qha.protocol() == QAbstractSocket::IPv6Protocol) {
 		Q_IPV6ADDR a = qha.toIPv6Address();
-		for(int i=0;i<16;++i)
+		for (int i=0;i<16;++i)
 			addr[i] = a[i];
 	} else {
 		quint32 a = htonl(qha.toIPv4Address());
