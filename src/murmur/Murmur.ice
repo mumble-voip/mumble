@@ -56,6 +56,8 @@ module Murmur
 		NetAddress address;
 		/** TCP only. True until UDP connectivity is established. */
 		bool tcponly;
+		/** Idle time. This is how many seconds it is since the user last spoke. Other activity is not counted. */
+		int idlesecs;
 	};
 
 	sequence<int> IntList;

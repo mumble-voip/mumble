@@ -61,6 +61,7 @@ struct BandwidthRecord {
 	void addFrame(int size);
 	int bytesPerSec() const;
 	int onlineSeconds() const;
+	int idleSeconds() const;
 	int bandwidth() const;
 };
 

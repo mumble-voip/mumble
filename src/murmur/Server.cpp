@@ -307,6 +307,10 @@ int BandwidthRecord::onlineSeconds() const {
 	return static_cast<int>(qtFirst.elapsed() / 1000000LL);
 }
 
+int BandwidthRecord::idleSeconds() const {
+	return static_cast<int>(a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed() / 1000000LL);
+}
+
 int BandwidthRecord::bandwidth() const {
 	int sincelast = static_cast<int>(a_qtWhen[iRecNum].elapsed() / 20000LL);
 	int todo = N_BANDWIDTH_SLOTS - sincelast;

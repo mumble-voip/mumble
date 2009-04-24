@@ -93,6 +93,7 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.osversion = u8(u->qsOSVersion);
 	mp.identity = u8(u->qsIdentity);
 	mp.context = u->ssContext;
+	mp.idlesecs = u->bwr.idleSeconds();
 	
 	mp.tcponly = (u->saiUdpAddress.sin_port == 0);
 	
