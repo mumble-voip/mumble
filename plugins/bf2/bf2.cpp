@@ -78,7 +78,7 @@ static void about(HWND h) {
 	::MessageBox(h, L"Reads audio position information from BF2 (v1.41)", L"Mumble BF2 Plugin", MB_OK);
 }
 
-static bool sane(float *pos, float *vel, float *face, float *top, bool initial = false) {
+static bool sane(float *avatar_pos, float *vel, float *avatar_face, float *avatar_top, bool initial = false) {
 	int i;
 	bool ok = true;
 
@@ -86,8 +86,8 @@ static bool sane(float *pos, float *vel, float *face, float *top, bool initial =
 
 	// Sanity check #1: Position should be from -2000 to +2000, and not 0.
 	for (i=0;i<3;i++) {
-		ok = ok && (fabs(pos[i]) > min);
-		ok = ok && (fabs(pos[i]) < 2000.0);
+		ok = ok && (fabs(avatar_pos[i]) > min);
+		ok = ok && (fabs(avatar_pos[i]) < 2000.0);
 	}
 	if (! ok) {
 		return false;
@@ -95,13 +95,13 @@ static bool sane(float *pos, float *vel, float *face, float *top, bool initial =
 
 	// Sanity check #2: Directional vectors should have length 1. (and 1 * 1 == 1, so no sqrt)
 	double sqdist;
-	sqdist=face[0] * face[0] + face[1] * face[1] + face[2] * face[2];
+	sqdist=avatar_face[0] * avatar_face[0] + avatar_face[1] * avatar_face[1] + avatar_face[2] * avatar_face[2];
 	if (fabs(sqdist - 1.0) > 0.1) {
 		return false;
 	}
 
 
-	sqdist=top[0] * top[0] + top[1] * top[1] + top[2] * top[2];
+	sqdist=avatar_top[0] * avatar_top[0] + avatar_top[1] * avatar_top[1] + avatar_top[2] * avatar_top[2];
 	if (fabs(sqdist - 1.0) > 0.1) {
 		return false;
 	}
@@ -110,9 +110,9 @@ static bool sane(float *pos, float *vel, float *face, float *top, bool initial =
 		return true;
 
 	// .. and it's not looking STRAIGHT ahead...
-	if (face[2] == 1.0)
+	if (avatar_face[2] == 1.0)
 		return false;
-	if (top[1] == 1.0)
+	if (avatar_top[1] == 1.0)
 		return false;
 
 	// Sanity check #3: Initial speed vector should be >0.2 (BF2 gravity) and < 1.0
@@ -148,18 +148,18 @@ static int trylock() {
 	topptr = peekProcPtr(cache + 0xbc);
 	velptr = peekProcPtr(cache + 0xc0);
 	if (cache && posptr && faceptr && topptr && velptr) {
-		float pos[3];
+		float avatar_pos[3];
 		float vel[3];
-		float face[3];
-		float top[3];
+		float avatar_face[3];
+		float avatar_top[3];
 
-		bool ok = peekProc(posptr, pos, 12) &&
+		bool ok = peekProc(posptr, avatar_pos, 12) &&
 		          peekProc(velptr, vel, 12) &&
-		          peekProc(faceptr, face, 12) &&
-		          peekProc(topptr, top, 12);
+		          peekProc(faceptr, avatar_face, 12) &&
+		          peekProc(topptr, avatar_top, 12);
 
 		if (ok)
-			ok = sane(pos, vel, face, top, true);
+			ok = sane(avatar_pos, vel, avatar_face, avatar_top, true);
 
 		if (ok)
 			return true;
@@ -177,29 +177,40 @@ static void unlock() {
 	return;
 }
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float vel[3];
 	bool ok;
-	ok = peekProc(posptr, pos, 12) &&
+	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(velptr, vel, 12) &&
-	     peekProc(faceptr, front, 12) &&
-	     peekProc(topptr, top, 12);
+	     peekProc(faceptr, avatar_front, 12) &&
+	     peekProc(topptr, avatar_top, 12);
+	 
+	     for (int i=0;i<3;i++) {
+            camera_pos[i] = avatar_pos[i];
+            camera_front[i] = avatar_front[i];
+            camera_top[i] = avatar_top[i];
+         }
 
 	if (ok) {
-		ok = sane(pos, vel, front, top);
+		ok = sane(avatar_pos, vel, avatar_front, avatar_top);
 	}
 
 	return ok;
 }
 
+static const std::wstring longdesc() {
+    return std::wstring(L"Supports Battlefield 2 v1.41. No context or identity support yet.");
+}
+
 static MumblePlugin bf2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Battlefield 2 v1.41",
-	L"Battlefield 2",
+    std::wstring(L"Battlefield 2 v1.41"),
+    std::wstring(L"Battlefield 2"),
 	about,
 	NULL,
 	trylock,
 	unlock,
+	longdesc,
 	fetch
 };
 

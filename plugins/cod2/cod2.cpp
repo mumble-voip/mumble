@@ -42,12 +42,12 @@ static void about(HWND h) {
 }
 
 
-static int fetch(float *pos, float *front, float *top) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float viewHor, viewVer;
 	char state;
 
 	for (int i=0;i<3;i++)
-		pos[i]=front[i]=top[i]=0.0f;
+		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
 	bool ok;
 
@@ -70,9 +70,9 @@ static int fetch(float *pos, float *front, float *top) {
 	if (state == 4)
 		return true; // If this magic value is 4 we are spectating, so switch of PA
 
-	ok = peekProc((BYTE *) 0x01516608, pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x0151660C, pos, 4) &&	//X
-	     peekProc((BYTE *) 0x01516610, pos+1, 4) && //Y
+	ok = peekProc((BYTE *) 0x01516608, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x0151660C, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x01516610, avatar_pos+1, 4) && //Y
 	     peekProc((BYTE *) 0x0151A114, &viewHor, 4) && //Hor
 	     peekProc((BYTE *) 0x0151A110, &viewVer, 4); //Ver
 
@@ -90,8 +90,8 @@ static int fetch(float *pos, float *front, float *top) {
 	   40 units = 1 meter (not confirmed)
 	*/
 	for (int i=0;i<3;i++)
-		pos[i]/=40.0f; // Scale to meters
-	pos[0]*=(-1.0f); // Convert right to left handed
+		avatar_pos[i]/=40.0f; // Scale to meters
+	avatar_pos[0]*=(-1.0f); // Convert right to left handed
 
 	// Calculate view unit vector
 	/*
@@ -109,9 +109,9 @@ static int fetch(float *pos, float *front, float *top) {
 	viewVer *= static_cast<float>(M_PI / 180.0f);
 	viewHor *= static_cast<float>(M_PI / 180.0f);
 
-	front[0] = -sin(viewHor) * cos(viewVer);
-	front[1] = -sin(viewVer);
-	front[2] = cos(viewHor) * cos(viewVer);
+	avatar_front[0] = -sin(viewHor) * cos(viewVer);
+	avatar_front[1] = -sin(viewVer);
+	avatar_front[2] = cos(viewHor) * cos(viewVer);
 
 	return ok;
 }
@@ -126,8 +126,11 @@ static int trylock() {
 	if (!h)
 		return false;
 
-	float pos[3], front[3], top[3];
-	if (fetch(pos, front, top))
+    float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
+    std::string context;
+    std::wstring identity;
+        
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
 
 	CloseHandle(h);
@@ -142,14 +145,19 @@ static void unlock() {
 	}
 }
 
+static const std::wstring longdesc() {
+        return std::wstring(L"Supports Call of Duty 2 v1.3. No context or identity support yet.");
+}
+
 static MumblePlugin cod2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	L"Call of Duty 2 v1.3",
-	L"Call of Duty 2",
+	std::wstring(L"Call of Duty 2 v1.3"),
+	std::wstring(L"Call of Duty 2"),
 	about,
 	NULL,
 	trylock,
 	unlock,
+	longdesc,
 	fetch
 };
 

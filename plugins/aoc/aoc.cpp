@@ -160,8 +160,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 	char ccontext[256];
-
-	context = std::string(ccontext);
+	
+	context.assign(ccontext);
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
