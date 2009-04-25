@@ -538,7 +538,7 @@ void Server::processMsg(User *u, const char *data, int len) {
 		foreach(Channel *l, chans) {
 			if (ChanACL::hasPermission(u, l, (target == 1) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
 				foreach(p, l->qlPlayers) {
-					User *pDst = static_cast<User *>(pDst);
+					User *pDst = static_cast<User *>(p);
 					if (! p->bDeaf && ! p->bSelfDeaf) {
 						if (poslen && pDst->ssContext == u->ssContext)
 							sendMessage(pDst, buffer, len, qba);
