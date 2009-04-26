@@ -102,7 +102,7 @@ static int trylock() {
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
     std::string context;
     std::wstring identity;
-        
+
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
 
@@ -123,10 +123,13 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports World of Warcraft 1.1.0(Euro). No context or identity support.");
 }
 
+static std::wstring description(L"World of Warcraft 1.10(Euro)");
+static std::wstring shortname(L"World of Warcraft");
+
 static MumblePlugin wowplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"World of Warcraft 1.10(Euro)"),
-	std::wstring(L"World of Warcraft"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

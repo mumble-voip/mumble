@@ -183,10 +183,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Gmod build 3740. No identity or context support yet.");
 }
 
+static std::wstring description(L"Garry's Mod 11 (Build 3740)");
+static std::wstring shortname(L"Garry's Mod 11");
+
 static MumblePlugin gmodplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Garry's Mod 11 (Build 3740)"),
-	std::wstring(L"Garry's Mod 11"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

@@ -184,10 +184,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Dystopia build 3698. No identity or context support yet.");
 }
 
+static std::wstring description(L"Dystopia (Build 3698)");
+static std::wstring shortname(L"Dystopia");
+
 static MumblePlugin dysplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Dystopia (Build 3698)"),
-	std::wstring(L"Dystopia"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

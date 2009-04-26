@@ -184,7 +184,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(velptr, vel, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12);
-	 
+
 		 for (int i=0;i<3;i++) {
             camera_pos[i] = avatar_pos[i];
             camera_front[i] = avatar_front[i];
@@ -202,10 +202,13 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports Battlefield 2142 v1.50. No context or identity support yet.");
 }
 
+static std::wstring description(L"Battlefield 2142 v1.50");
+static std::wstring shortname(L"Battlefield 2142");
+
 static MumblePlugin bf2142plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Battlefield 2142 v1.50"),
-	std::wstring(L"Battlefield 2142"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

@@ -167,10 +167,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports L4D version 3790 only. Supports no fancy stuff.");
 }
 
+static std::wstring description(L"Left 4 Dead (Build 3790)");
+static std::wstring shortname(L"Left 4 Dead");
+
 static MumblePlugin l4dplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Left 4 Dead (Build 3790)"),
-	std::wstring(L"Left 4 Dead"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

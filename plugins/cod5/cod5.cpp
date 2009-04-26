@@ -121,7 +121,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_front[0] = -sin(viewHor) * cos(viewVer);
 	avatar_front[1] = -sin(viewVer);
 	avatar_front[2] = cos(viewHor) * cos(viewVer);
-	
+
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
@@ -144,7 +144,7 @@ static int trylock() {
     float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
     std::string context;
     std::wstring identity;
-        
+
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
 
@@ -164,10 +164,13 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports Call of Duty 5 v1.4.1144 only. No context or identity support yet.");
 }
 
+static std::wstring description(L"Call of Duty 5 v1.4.1144");
+static std::wstring shortname(L"Call of Duty 5");
+
 static MumblePlugin cod5plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Call of Duty 5 v1.4.1144"),
-	std::wstring(L"Call of Duty 5"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

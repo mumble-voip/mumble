@@ -184,10 +184,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports HL2DM build 3698. No identity or context support yet.");
 }
 
+static std::wstring description(L"Half-Life 2: Deathmatch (Build 3698)");
+static std::wstring shortname(L"Half-Life 2: Deathmatch");
+
 static MumblePlugin hl2dmplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Half-Life 2: Deathmatch (Build 3698)"),
-	std::wstring(L"Half-Life 2: Deathmatch"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

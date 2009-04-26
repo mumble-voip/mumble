@@ -183,10 +183,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports CSS build 3698. No identity or context support yet.");
 }
 
+static std::wstring description(L"Counter-Strike: Source (Build 3790)");
+static std::wstring shortname(L"Counter-Strike: Source");
+
 static MumblePlugin cssplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Counter-Strike: Source (Build 3790)"),
-	std::wstring(L"Counter-Strike: Source"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

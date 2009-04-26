@@ -183,10 +183,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports DODS build 3771. No identity or context support yet.");
 }
 
+static std::wstring description(L"Day of Defeat: Source (Build 3771)");
+static std::wstring shortname(L"Day of Defeat: Source");
+
 static MumblePlugin dodsplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Day of Defeat: Source (Build 3771)"),
-	std::wstring(L"Day of Defeat: Source"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

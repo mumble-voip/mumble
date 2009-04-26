@@ -160,7 +160,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 	char ccontext[256];
-	
+
 	context.assign(ccontext);
 
 	ok = peekProc(posptr, ipos, 12) &&
@@ -191,10 +191,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports AOC Build 3740. Context support only.");
 }
 
+static std::wstring description(L"Age of Chivalry (Build 3740)");
+static std::wstring shortname(L"Age of Chivalry");
+
 static MumblePlugin aocplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Age of Chivalry (Build 3740)"),
-	std::wstring(L"Age of Chivalry"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

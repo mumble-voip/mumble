@@ -107,7 +107,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_front[0] = cos(viewVer) * cos(viewHor);
 	avatar_front[1] = -sin(viewVer);
 	avatar_front[2] = cos(viewVer) * sin(viewHor);
-	
+
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
@@ -130,7 +130,7 @@ static int trylock() {
     float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
     std::string context;
     std::wstring identity;
-        
+
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
 
@@ -150,10 +150,13 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports Wolfenstien: Enemy Territory 2.60b. No context or identity support yet.");
 }
 
+static std::wstring description(L"Wolfenstein: Enemy Territory 2.60b");
+static std::wstring shortname(L"Wolfenstein: Enemy Territory");
+
 static MumblePlugin wolfetplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Wolfenstein: Enemy Territory 2.60b"),
-	std::wstring(L"Wolfenstein: Enemy Territory"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

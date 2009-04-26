@@ -151,7 +151,7 @@ static int trylock() {
     float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
     std::string context;
     std::wstring identity;
-        
+
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
 
@@ -171,10 +171,13 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports Call of Duty 4 v1.7.568 only. Only supports context.");
 }
 
+static std::wstring description(L"Call of Duty 4 v1.7.568");
+static std::wstring shortname(L"Call of Duty 4");
+
 static MumblePlugin cod4plug = {
     MUMBLE_PLUGIN_MAGIC,
-    std::wstring(L"Call of Duty 4 v1.7.568"),
-    std::wstring(L"Call of Duty 4"),
+	description,
+	shortname,
     about,
     NULL,
     trylock,

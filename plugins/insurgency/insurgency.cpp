@@ -183,10 +183,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Insurgency mod build 3698. No identity or context support yet.");
 }
 
+static std::wstring description(L"Insurgency: Modern Infantry Combat (Build 3698)");
+static std::wstring shortname(L"Insurgency: Modern Infantry Combat");
+
 static MumblePlugin insurgencyplug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Insurgency: Modern Infantry Combat (Build 3698)"),
-	std::wstring(L"Insurgency: Modern Infantry Combat"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,

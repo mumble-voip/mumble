@@ -184,10 +184,13 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports TF2 build 3771. No identity or context support yet.");
 }
 
+static std::wstring description(L"Team Fortress 2 (Build 3771)");
+static std::wstring shortname(L"Team Fortress 2");
+
 static MumblePlugin tf2plug = {
 	MUMBLE_PLUGIN_MAGIC,
-	std::wstring(L"Team Fortress 2 (Build 3771)"),
-	std::wstring(L"Team Fortress 2"),
+	description,
+	shortname,
 	about,
 	NULL,
 	trylock,
