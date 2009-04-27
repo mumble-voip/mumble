@@ -378,10 +378,10 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 		if (bEchoMulti) {
 			if (eEchoFormat == SampleFloat)
-				for(unsigned int i=0;i<iEchoMCLength;++i)
+				for (unsigned int i=0;i<iEchoMCLength;++i)
 					pfEchoInput[i] = reinterpret_cast<const float *>(data)[i];
 			else
-				for(unsigned int i=0;i<iEchoMCLength;++i)
+				for (unsigned int i=0;i<iEchoMCLength;++i)
 					pfEchoInput[i] = reinterpret_cast<const short *>(data)[i] * (1.0f / 32768.f);
 		} else {
 			imfEcho(pfEchoInput + iEchoFilled, data, left, iEchoChannels);

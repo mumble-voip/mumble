@@ -44,7 +44,7 @@ static void about(HWND h) {
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float viewHor, viewVer;
 	char state;
-    char ccontext[256];
+	char ccontext[256];
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
@@ -79,21 +79,21 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-        ok = peekProc((BYTE *) 0x0072AFD0, avatar_pos+2, 4) &&	//Z
-             peekProc((BYTE *) 0x0072AFE0, avatar_pos, 4) &&	//X
-             peekProc((BYTE *) 0x0072AFF0, avatar_pos+1, 4) && //Y
-			 peekProc((BYTE *) 0x0072AF3C, &viewHor, 4) && //Hor
-             peekProc((BYTE *) 0x0072AF38, &viewVer, 4) && //Ver
-             peekProc((BYTE *) 0x01410BE8, ccontext, 256);
+	ok = peekProc((BYTE *) 0x0072AFD0, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x0072AFE0, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x0072AFF0, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x0072AF3C, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x0072AF38, &viewVer, 4) && //Ver
+	     peekProc((BYTE *) 0x01410BE8, ccontext, 256);
 
 	if (! ok)
 		return false;
 
-        /*
-            Get context string, in this plugin this will be an
-            ip:port (char 256 bytes) string
-        */
-        context = std::string(ccontext);
+	/*
+	    Get context string, in this plugin this will be an
+	    ip:port (char 256 bytes) string
+	*/
+	context = std::string(ccontext);
 
 	// Scale Coordinates
 	/*
@@ -125,15 +125,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	viewVer *= static_cast<float>(M_PI / 180.0f);
 	viewHor *= static_cast<float>(M_PI / 180.0f);
 
-    avatar_front[0] = -sin(viewHor) * cos(viewVer);
-    avatar_front[1] = -sin(viewVer);
-    avatar_front[2] = cos(viewHor) * cos(viewVer);
+	avatar_front[0] = -sin(viewHor) * cos(viewVer);
+	avatar_front[1] = -sin(viewVer);
+	avatar_front[2] = cos(viewHor) * cos(viewVer);
 
-    for (int i=0;i<3;i++) {
+	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
 		camera_top[i] = avatar_top[i];
-    }
+	}
 
 	return ok;
 }
@@ -148,9 +148,9 @@ static int trylock() {
 	if (!h)
 		return false;
 
-    float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-    std::string context;
-    std::wstring identity;
+	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
+	std::string context;
+	std::wstring identity;
 
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
@@ -168,22 +168,22 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-    return std::wstring(L"Supports Call of Duty 4 v1.7.568 only. Only supports context.");
+	return std::wstring(L"Supports Call of Duty 4 v1.7.568 only. Only supports context.");
 }
 
 static std::wstring description(L"Call of Duty 4 v1.7.568");
 static std::wstring shortname(L"Call of Duty 4");
 
 static MumblePlugin cod4plug = {
-    MUMBLE_PLUGIN_MAGIC,
+	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-    about,
-    NULL,
-    trylock,
-    unlock,
-    longdesc,
-    fetch
+	about,
+	NULL,
+	trylock,
+	unlock,
+	longdesc,
+	fetch
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {

@@ -185,11 +185,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12);
 
-	     for (int i=0;i<3;i++) {
-            camera_pos[i] = avatar_pos[i];
-            camera_front[i] = avatar_front[i];
-            camera_top[i] = avatar_top[i];
-         }
+	for (int i=0;i<3;i++) {
+		camera_pos[i] = avatar_pos[i];
+		camera_front[i] = avatar_front[i];
+		camera_top[i] = avatar_top[i];
+	}
 
 	if (ok) {
 		ok = sane(avatar_pos, vel, avatar_front, avatar_top);
@@ -199,7 +199,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-    return std::wstring(L"Supports Battlefield 2 v1.41. No context or identity support yet.");
+	return std::wstring(L"Supports Battlefield 2 v1.41. No context or identity support yet.");
 }
 
 static std::wstring description(L"Battlefield 2 v1.41");

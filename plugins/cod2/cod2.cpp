@@ -126,9 +126,9 @@ static int trylock() {
 	if (!h)
 		return false;
 
-    float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-    std::string context;
-    std::wstring identity;
+	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
+	std::string context;
+	std::wstring identity;
 
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
@@ -146,7 +146,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-        return std::wstring(L"Supports Call of Duty 2 v1.3. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty 2 v1.3. No context or identity support yet.");
 }
 
 static std::wstring description(L"Call of Duty 2 v1.3");

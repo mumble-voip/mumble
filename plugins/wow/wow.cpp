@@ -62,9 +62,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
-        camera_front[i] = avatar_front[i];
-        camera_top[i] = avatar_top[i];
-    }
+		camera_front[i] = avatar_front[i];
+		camera_top[i] = avatar_top[i];
+	}
 
 	if (! ok)
 		return false;
@@ -100,8 +100,8 @@ static int trylock() {
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
-    std::string context;
-    std::wstring identity;
+	std::string context;
+	std::wstring identity;
 
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
@@ -120,7 +120,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-    return std::wstring(L"Supports World of Warcraft 1.1.0(Euro). No context or identity support.");
+	return std::wstring(L"Supports World of Warcraft 1.1.0(Euro). No context or identity support.");
 }
 
 static std::wstring description(L"World of Warcraft 1.10(Euro)");

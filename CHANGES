@@ -1,3 +1,28 @@
+2009-04-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    34a4b1f  Use Qt 4.5.1
+    6ecfa23  Check IDs on client (get those A icons back)
+    9f37777  Finish Cert Wizard
+    380205c  Accept certificates
+    c12d03c  Start of Certificate Wizard
+    3f61167  Multichannel echo cancellation
+    f916473  Avoid constref initializers of std::wstring inside const
+	     structs
+
+2009-04-25
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f32c878  Intel C++ 11.0.074 for releases, and fix a bug with linked
+	     speaking
+
+2009-04-24
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    103df83  Measure idle time and export over Ice
+    3e4c38a  Export client address and TCP state over Ice
+    031bf2b  Export channel description over Ice
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    f594ce8  Plugins update for 1.2 PA; Cod5 and L4D patch update
+
 2009-04-23
   Thorvald Natvig <slicer@users.sourceforge.net>
     139d4e0  Ice comment support

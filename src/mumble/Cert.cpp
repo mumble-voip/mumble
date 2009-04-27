@@ -99,8 +99,7 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 
 int CertWizard::nextId() const {
 	switch (currentId()) {
-		case 0:	// Welcome
-			{
+		case 0: {	// Welcome
 				if (qrbCreate->isChecked())
 					return 1;
 				else if (qrbImport->isChecked())
@@ -150,46 +149,46 @@ void CertWizard::initializePage(int id) {
 
 bool CertWizard::validateCurrentPage() {
 	if (currentPage() == qwpNew) {
-			kpNew = generateNewCert(qleName->text(), qleEmail->text());
-			if (! validateCert(kpNew)) {
-				QToolTip::showText(QCursor::pos(), tr("There was an error generating your certificate. Please try again."), this);
-				return false;
-			}
+		kpNew = generateNewCert(qleName->text(), qleEmail->text());
+		if (! validateCert(kpNew)) {
+			QToolTip::showText(QCursor::pos(), tr("There was an error generating your certificate. Please try again."), this);
+			return false;
+		}
 	}
 	if (currentPage() == qwpExport) {
 		QByteArray qba = exportCert(kpNew);
 		if (qba.isEmpty()) {
-				QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate."), qleExportFile);
-				return false;
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate."), qleExportFile);
+			return false;
 		}
 		QFile f(qleExportFile->text());
 		if (! f.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Unbuffered)) {
-				QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for writing. Please use another file."), qleExportFile);
-				return false;
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for writing. Please use another file."), qleExportFile);
+			return false;
 		}
 		qint64 written = f.write(qba);
 		f.close();
 		if (written != qba.length()) {
-				QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be written successfully. Please use another file."), qleExportFile);
-				return false;
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be written successfully. Please use another file."), qleExportFile);
+			return false;
 		}
 	}
 	if (currentPage() == qwpImport) {
 		QFile f(qleImportFile->text());
 		if (! f.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
-				QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for reading. Please use another file."), qleImportFile);
-				return false;
+			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for reading. Please use another file."), qleImportFile);
+			return false;
 		}
 		QByteArray qba = f.readAll();
 		f.close();
 		if (qba.isEmpty()) {
-				QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file is empty or could not be read. Please use another file."), qleImportFile);
-				return false;
+			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file is empty or could not be read. Please use another file."), qleImportFile);
+			return false;
 		}
 		QPair<QList<QSslCertificate>, QSslKey> imp = importCert(qba, qlePassword->text());
 		if (! validateCert(imp)) {
-				QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file did not contain a valid certificate and key. Please use another file."), qleImportFile);
-				return false;
+			QToolTip::showText(qleImportFile->mapToGlobal(QPoint(0,0)), tr("The file did not contain a valid certificate and key. Please use another file."), qleImportFile);
+			return false;
 		}
 		kpNew = imp;
 	}
@@ -411,8 +410,7 @@ Settings::KeyPair CertWizard::generateNewCert(QString qsname, const QString &qse
 	return Settings::KeyPair(qlCert, qskKey);
 }
 
-Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw)
-{
+Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 	X509 *x509 = NULL;
 	EVP_PKEY *pkey = NULL;
 	PKCS12 *pkcs = NULL;
@@ -451,7 +449,7 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw)
 			qlCerts << qscCert;
 
 			if (certs) {
-				for(int i=0;i<sk_num(certs);++i) {
+				for (int i=0;i<sk_num(certs);++i) {
 					X509 *c = sk_X509_value(certs, i);
 
 					crt.resize(i2d_X509(c, NULL));
@@ -479,10 +477,10 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw)
 		sk_free(certs);
 	if (pkcs)
 		PKCS12_free(pkcs);
-/*
-	if (mem)
-		BIO_free(mem);
-*/
+	/*
+		if (mem)
+			BIO_free(mem);
+	*/
 	return kp;
 }
 
