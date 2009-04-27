@@ -36,13 +36,13 @@
 #include "LCD.h"
 #include "../../g15helper/g15helper.h"
 
-class G15LCDDeviceWin;
+class G15LCDDeviceLGLCD;
 
-class G15LCDEngineWin : public LCDEngine {
-		friend class G15LCDDeviceWin;
+class G15LCDEngineLGLCD : public LCDEngine {
+		friend class G15LCDDeviceLGLCD;
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(G15LCDEngineWin)
+		Q_DISABLE_COPY(G15LCDEngineLGLCD)
 	protected:
 		bool bUnavailable;
 		bool bRunning;
@@ -52,20 +52,20 @@ class G15LCDEngineWin : public LCDEngine {
 		void submitFrame(bool alert, uchar *buf, size_t len);
 		void setProcessStatus(bool run);
 	public:
-		G15LCDEngineWin();
-		~G15LCDEngineWin();
+		G15LCDEngineLGLCD();
+		~G15LCDEngineLGLCD();
 		QList<LCDDevice *> devices() const;
 	public slots:
 		void on_Helper_finished(int exitCode, QProcess::ExitStatus status);
 };
 
-class G15LCDDeviceWin : public LCDDevice {
+class G15LCDDeviceLGLCD : public LCDDevice {
 	protected:
-		G15LCDEngineWin *engine;
+		G15LCDEngineLGLCD *engine;
 		bool bEnabled;
 	public:
-		G15LCDDeviceWin(G15LCDEngineWin *e);
-		~G15LCDDeviceWin();
+		G15LCDDeviceLGLCD(G15LCDEngineLGLCD *e);
+		~G15LCDDeviceLGLCD();
 		bool enabled();
 		void setEnabled(bool e);
 		void blitImage(QImage *img, bool alert);
@@ -75,6 +75,6 @@ class G15LCDDeviceWin : public LCDDevice {
 };
 
 #else
-class G15LCDEngine;
-class G15LCDDevice;
+class G15LCDEngineLGLCD;
+class G15LCDDeviceLGLCD;
 #endif

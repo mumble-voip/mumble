@@ -29,22 +29,25 @@
 */
 
 /*
- * G15 Helper Daemon for Win32.
+ * G15 Helper Daemon for Mac OS X.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 #include <time.h>
-#include <wchar.h>
+#include <CoreFoundation/CoreFoundation.h>
 
 #include "g15helper.h"
 #include "lglcd.h"
 
-static void __cdecl ods(const char *fmt, va_list args) {
-	char buffer[2048];
-	_vsnprintf_s(buffer, 2048, _TRUNCATE, fmt, args);
-	OutputDebugStringA(buffer);
+#define ERROR_SUCCESS 0
+#define BOOL unsigned char
+#define BYTE unsigned char
+#define TRUE 1
+#define FALSE 0
+
+static void ods(const char *fmt, va_list args) {
+	vfprintf(stderr, fmt, args);
 }
 
 static void __cdecl warn(const char *fmt, ...) {
@@ -62,43 +65,30 @@ static void __cdecl die(int err, const char *fmt, ...) {
 	exit(err);
 }
 
-int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	DWORD dwErr;
-	BOOL bErr;
+int main(int argc, char *argv[]) {
+	int dwErr;
 	BOOL bDetect = FALSE;
 	int i;
-	HANDLE hStdin, hStdout;
-	DWORD dwLen;
 	lgLcdConnectContextEx conn;
 	lgLcdOpenByTypeContext ctx;
 	lgLcdBitmap160x43x1 bitmap;
 
-	warn("Args: %s", lpCmdLine);
-
-	if (lpCmdLine && (strcmp(lpCmdLine, "/detect") == 0)) {
+	if (argc > 1 && (strcmp(argv[1], "/detect") == 0)) {
 		warn("Detect mode!");
 		bDetect = TRUE;
-	} else if (! lpCmdLine || (strcmp(lpCmdLine, "/mumble") != 0)) {
-		MessageBox(NULL, L"This program is run by Mumble, and should not be started separately.", L"Nothing to see here, move along", MB_OK | MB_ICONERROR);
+	} else if (!(argc > 1) || (strcmp(argv[1], "/mumble") != 0)) {
+		CFUserNotificationDisplayAlert(0, 0, NULL,  NULL, NULL, CFSTR("Nothing to see here"), CFSTR("This program is run by Mumble, and should not be started separately."), CFSTR("OK"), NULL, NULL, NULL);
 		return 0;
 	}
-
-	hStdin = GetStdHandle(STD_INPUT_HANDLE);
-	if (hStdin == INVALID_HANDLE_VALUE)
-		die(G15_ERR_INIT, "Failed to get standard input");
-
-	hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (hStdout == INVALID_HANDLE_VALUE)
-		die(G15_ERR_INIT, "Failed to get standard output");
 
 	/*
 	 * Clear and set up initial structures.
 	 */
-	ZeroMemory(&conn, sizeof(conn));
-	ZeroMemory(&ctx, sizeof(ctx));
-	ZeroMemory(&bitmap, sizeof(bitmap));
+	memset(&conn, 0, sizeof(conn));
+	memset(&ctx, 0, sizeof(ctx));
+	memset(&bitmap, 0, sizeof(bitmap));
 
-	conn.appFriendlyName = G15_WIDGET_NAME;
+	conn.appFriendlyName = CFSTR(G15_WIDGET_NAME);
 	conn.isAutostartable = FALSE;
 	conn.isPersistent = FALSE;
 	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_BW;
@@ -137,29 +127,20 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	 * Main drawing loop.
 	 */
 	while (1) {
-		DWORD dwRead;
-		DWORD dwTotRead = 0;
+		int ret;
+		int remain = 0;
 		BYTE bPriority;
 
-		dwErr = WaitForSingleObject(hStdin, 2000);
-		if (dwErr != WAIT_OBJECT_0) {
-			die(0, "Unable to wait for object.");
-		}
-
-		bErr = ReadFile(hStdin, &bPriority, 1, &dwRead, NULL);
-		if ((bErr == FALSE) || (dwRead != 1))
+		ret = read(0, &bPriority, 1);
+		if (ret == -1 || ret != 1)
 			die(G15_ERR_READFILE, "Error while reading priority.");
 
 		do {
-			dwErr = WaitForSingleObject(hStdin, 2000);
-			if (dwErr != WAIT_OBJECT_0) {
-				die(0, "Unable to wait for object.");
-			}
-			bErr = ReadFile(hStdin, bitmap.pixels + dwTotRead, G15_MAX_FBMEM - dwTotRead, &dwRead, NULL);
-			if (bErr == FALSE || dwRead == 0)
-				die(G15_ERR_READFILE, "Error while reading framebuffer. %d %x",dwRead,GetLastError());
-			dwTotRead += dwRead;
-		} while (dwTotRead < G15_MAX_FBMEM);
+			ret = read(0, bitmap.pixels + remain, G15_MAX_FBMEM - remain);
+			if (ret < 1)
+				die(G15_ERR_READFILE, "Error while reading framebuffer. %d (%s)", ret, strerror(errno));
+			remain += ret;
+		} while (remain < G15_MAX_FBMEM);
 
 		dwErr = lgLcdUpdateBitmap(ctx.device, (const lgLcdBitmapHeader *) &bitmap, bPriority ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
 		if (dwErr != ERROR_SUCCESS)

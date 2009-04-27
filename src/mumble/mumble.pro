@@ -210,15 +210,13 @@ wasapi {
 
 g15 {
 	DEFINES *= USE_G15
-	win32 {
-		SOURCES *= G15LCDEngine_win.cpp
-		HEADERS *= G15LCDEngine_win.h ../../g15helper/g15helper.h
-	}
-
 	unix:!macx {
 		SOURCES *= G15LCDEngine_unix.cpp
 		HEADERS *= G15LCDEngine_unix.h
 		LIBS *= -lg15daemon_client
+	} else {
+		SOURCES *= G15LCDEngine_lglcd.cpp
+		HEADERS *= G15LCDEngine_lglcd.h ../../g15helper/g15helper.h
 	}
 }
 

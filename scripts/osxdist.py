@@ -158,6 +158,16 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmur.ini')
 		shutil.copy('scripts/murmur.ini.osx', dst)
 
+	def copy_g15helper(self):
+		'''
+			Copy the Mumble G15 helper daemon into our Mumble app bundle.
+		'''
+		# Note: the OSX g15helper is i386 only. Don't check for universal binary.
+		print ' * Copying G15 helper'
+		src = os.path.join(self.bundle, '..', 'mumble-g15-helper')
+		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'mumble-g15-helper')
+		shutil.copy(src, dst)
+
 	def copy_resources(self, rsrcs):
 		'''
 			Copy needed resources into our bundle.
@@ -356,6 +366,7 @@ if __name__ == '__main__':
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
 	a.copy_murmur()
+	a.copy_g15helper()
 	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns'])
 	a.copy_plugins()
@@ -369,6 +380,7 @@ if __name__ == '__main__':
 		binaries = (
 			'release/Mumble.app',
 			'release/Mumble.app/Contents/MacOS/murmurd',
+			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/MumbleOverlayContextMenu.plugin',
 			'release/Overlay.bundle',

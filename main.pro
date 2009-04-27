@@ -26,6 +26,9 @@ CONFIG *= ordered debug_and_release
 
   macx {
     SUBDIRS *= overlay_macx
+    !CONFIG(no-g15) {
+      SUBDIRS *= g15helper
+    }
   }
 }
 

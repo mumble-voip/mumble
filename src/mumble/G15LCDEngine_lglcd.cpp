@@ -29,19 +29,25 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "G15LCDEngine_win.h"
+#include "G15LCDEngine_lglcd.h"
 
 static LCDEngine *G15LCDEngineNew() {
-	return new G15LCDEngineWin();
+	return new G15LCDEngineLGLCD();
 }
+
+#ifdef Q_OS_WIN32
+ #define G15_LGLCD_EXEC_SUFFIX ".exe"
+#else
+ #define G15_LGLCD_EXEC_SUFFIX ""
+#endif
 
 static LCDEngineRegistrar registrar(G15LCDEngineNew);
 
-G15LCDEngineWin::G15LCDEngineWin() : LCDEngine() {
+G15LCDEngineLGLCD::G15LCDEngineLGLCD() : LCDEngine() {
 	bRunning = false;
 	bUnavailable = false;
 
-	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper.exe\"").arg(qApp->applicationDirPath());
+	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper%2\"").arg(qApp->applicationDirPath()).arg(G15_LGLCD_EXEC_SUFFIX);
 
 	qpHelper = new QProcess(this);
 	qpHelper->setObjectName(QLatin1String("Helper"));
@@ -54,24 +60,24 @@ G15LCDEngineWin::G15LCDEngineWin() : LCDEngine() {
 	qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/detect")));
 	qpHelper->waitForFinished();
 	if (qpHelper->exitCode() != 0) {
-		qWarning("G15LCDEngine_win: Logitech LCD Manager not detected.");
+		qWarning("G15LCDEngine_lglcd: Logitech LCD Manager not detected.");
 		return;
 	}
 
-	qlDevices << new G15LCDDeviceWin(this);
+	qlDevices << new G15LCDDeviceLGLCD(this);
 
 	QMetaObject::connectSlotsByName(this);
 }
 
-G15LCDEngineWin::~G15LCDEngineWin() {
+G15LCDEngineLGLCD::~G15LCDEngineLGLCD() {
 	setProcessStatus(false);
 }
 
-QList<LCDDevice *> G15LCDEngineWin::devices() const {
+QList<LCDDevice *> G15LCDEngineLGLCD::devices() const {
 	return qlDevices;
 }
 
-void G15LCDEngineWin::setProcessStatus(bool run) {
+void G15LCDEngineLGLCD::setProcessStatus(bool run) {
 	if (bUnavailable)
 		return;
 
@@ -79,7 +85,7 @@ void G15LCDEngineWin::setProcessStatus(bool run) {
 		bRunning = true;
 		qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/mumble")));
 		if (! qpHelper->waitForStarted(2000)) {
-			qWarning("G15LCDEngine_win: Unable to launch G15 helper.");
+			qWarning("G15LCDEngine_lglcd: Unable to launch G15 helper.");
 			bRunning = false;
 			return;
 		}
@@ -90,49 +96,49 @@ void G15LCDEngineWin::setProcessStatus(bool run) {
 	}
 }
 
-void G15LCDEngineWin::on_Helper_finished(int exitCode, QProcess::ExitStatus status) {
+void G15LCDEngineLGLCD::on_Helper_finished(int exitCode, QProcess::ExitStatus status) {
 	/* Skip the signal if we killed ourselves. */
 	if (! bRunning)
 		return;
 
 	if (status == QProcess::CrashExit) {
-		qWarning("G15LCDEngine_win: Helper process crashed. Restarting.");
+		qWarning("G15LCDEngine_lglcd: Helper process crashed. Restarting.");
 		qpHelper->start(qsHelperExecutable, QStringList(QLatin1String("/mumble")));
 	} else if (status == QProcess::NormalExit && exitCode != 0) {
-		qWarning("G15LCDEngine_win: Helper process exited. Exit code was: `%i'. Not attempting recovery.", exitCode);
+		qWarning("G15LCDEngine_lglcd: Helper process exited. Exit code was: `%i'. Not attempting recovery.", exitCode);
 		bUnavailable = true;
 	}
 }
 
-bool G15LCDEngineWin::framebufferReady() const {
+bool G15LCDEngineLGLCD::framebufferReady() const {
 	return !bUnavailable;
 }
 
-void G15LCDEngineWin::submitFrame(bool alert, unsigned char *buf, size_t len) {
+void G15LCDEngineLGLCD::submitFrame(bool alert, unsigned char *buf, size_t len) {
 	char pri = alert ? 1 : 0;
 	if ((qpHelper->write(&pri, 1) != 1) || (qpHelper->write(reinterpret_cast<char *>(buf), len) != len))
-		qWarning("G15LCDEngine_win: failed to write");
+		qWarning("G15LCDEngine_lglcd: failed to write");
 }
 
 /* -- */
 
-G15LCDDeviceWin::G15LCDDeviceWin(G15LCDEngineWin *e) : LCDDevice() {
+G15LCDDeviceLGLCD::G15LCDDeviceLGLCD(G15LCDEngineLGLCD *e) : LCDDevice() {
 	engine = e;
 }
 
-G15LCDDeviceWin::~G15LCDDeviceWin() {
+G15LCDDeviceLGLCD::~G15LCDDeviceLGLCD() {
 }
 
-bool G15LCDDeviceWin::enabled() {
+bool G15LCDDeviceLGLCD::enabled() {
 	return bEnabled;
 }
 
-void G15LCDDeviceWin::setEnabled(bool b) {
+void G15LCDDeviceLGLCD::setEnabled(bool b) {
 	engine->setProcessStatus(b);
 	bEnabled = b;
 }
 
-void G15LCDDeviceWin::blitImage(QImage *img, bool alert) {
+void G15LCDDeviceLGLCD::blitImage(QImage *img, bool alert) {
 	Q_ASSERT(img);
 	int len = G15_MAX_FBMEM_BITS;
 	uchar *tmp = img->bits();
@@ -175,14 +181,14 @@ void G15LCDDeviceWin::blitImage(QImage *img, bool alert) {
 	engine->submitFrame(alert, buf, G15_MAX_FBMEM);
 }
 
-QString G15LCDDeviceWin::name() const {
+QString G15LCDDeviceLGLCD::name() const {
 	return QString::fromLatin1("Logitech Gamepanel");
 }
 
-LCDDevice::Type G15LCDDeviceWin::type() const {
+LCDDevice::Type G15LCDDeviceLGLCD::type() const {
 	return LCDDevice::GraphicLCD;
 }
 
-QSize G15LCDDeviceWin::size() const {
+QSize G15LCDDeviceLGLCD::size() const {
 	return QSize(G15_MAX_WIDTH, G15_MAX_HEIGHT);
 }

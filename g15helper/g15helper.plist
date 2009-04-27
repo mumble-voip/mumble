@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>mumble-g15-helper</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Mumble helper daemon for interfacing with G15 and compatible keyboards.</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.mumble.g15helper</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>G15H</string>
+	<key>CFBundleVersion</key>
+	<string>1.2.0</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright (c) 2009 Mikkel Krautz &lt;mikkel@krautz.dk&gt;</string>
+</dict>
+</plist>
