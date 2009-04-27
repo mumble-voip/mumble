@@ -31,7 +31,7 @@
 #include "Server.h"
 #include "Meta.h"
 
-int add_ext(X509 * crt, int nid, char *value) {
+static int add_ext(X509 * crt, int nid, char *value) {
 	X509_EXTENSION *ex;
 	X509V3_CTX ctx;
 	X509V3_set_ctx_nodb(&ctx);
@@ -101,11 +101,7 @@ void Server::initializeCert() {
 		if (qscCert.isNull() || qskKey.isNull()) {
 			log("Generating new server certificate.");
 
-			BIO *bio_err;
-
 			CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
-
-			bio_err=BIO_new_fp(stderr, BIO_NOCLOSE);
 
 			X509 *x509 = X509_new();
 			EVP_PKEY *pkey = EVP_PKEY_new();
@@ -115,7 +111,7 @@ void Server::initializeCert() {
 			X509_set_version(x509, 2);
 			ASN1_INTEGER_set(X509_get_serialNumber(x509),1);
 			X509_gmtime_adj(X509_get_notBefore(x509),0);
-			X509_gmtime_adj(X509_get_notAfter(x509),60*60*24*365);
+			X509_gmtime_adj(X509_get_notAfter(x509),60*60*24*365*20);
 			X509_set_pubkey(x509, pkey);
 
 			X509_NAME *name=X509_get_subject_name(x509);

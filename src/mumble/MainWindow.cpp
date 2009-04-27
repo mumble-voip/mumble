@@ -30,6 +30,7 @@
 
 #include "MainWindow.h"
 #include "AudioWizard.h"
+#include "Cert.h"
 #include "AudioInput.h"
 #include "ConnectDialog.h"
 #include "Player.h"
@@ -878,6 +879,7 @@ void MainWindow::on_qmConfig_aboutToShow() {
 		if (a != qaConfigDialog)
 			qmConfig->removeAction(a);
 	qmConfig->addAction(qaAudioWizard);
+	qmConfig->addAction(qaConfigCert);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
 	if (g.s.bMinimalView)
@@ -1223,6 +1225,12 @@ void MainWindow::on_qaConfigMinimal_triggered() {
 void MainWindow::on_qaConfigHideFrame_triggered() {
 	g.s.bHideFrame = qaConfigHideFrame->isChecked();
 	setupView(false);
+}
+
+void MainWindow::on_qaConfigCert_triggered() {
+	CertWizard *cw = new CertWizard(this);
+	cw->exec();
+	delete cw;
 }
 
 void MainWindow::on_qaAudioWizard_triggered() {

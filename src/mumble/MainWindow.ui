@@ -613,6 +613,17 @@
     <string>This allows you to change the comment (shown as a tooltip) of a player. Unless you've been given extra privileges on the server, you can only change your own comment.</string>
    </property>
   </action>
+  <action name="qaConfigCert">
+   <property name="text">
+    <string>Certificate Wizard</string>
+   </property>
+   <property name="toolTip">
+    <string>Configure certificates for strong authentication</string>
+   </property>
+   <property name="whatsThis">
+    <string>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -33,6 +33,12 @@
 
 #include <openssl/aes.h>
 #include <openssl/rand.h>
+#include <openssl/pem.h>
+#include <openssl/conf.h>
+#include <openssl/x509v3.h>
+#include <openssl/pkcs12.h>
+/* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
+#undef set_key
 
 #include <celt.h>
 #include <speex/speex.h>

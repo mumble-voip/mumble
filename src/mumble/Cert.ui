@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Certificates</class>
+ <widget class="QWizard" name="Certificates">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>669</width>
+    <height>606</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Certificates</string>
+  </property>
+  <widget class="QWizardPage" name="qwpWelcome">
+   <property name="title">
+    <string>Certificate Authentication</string>
+   </property>
+   <property name="subTitle">
+    <string>Authenticating to servers without using passwords</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">0</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Mumble can use certificates to autenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>While Mumble can work without certificates, the majority of servers will expect you to have one.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="qrbCreate">
+      <property name="text">
+       <string>Create a new certificate</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="qrbImport">
+      <property name="text">
+       <string>Import a certificate</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="qrbExport">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Export current certificate</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="CompletablePage" name="qwpImport">
+   <property name="title">
+    <string>Import Certificate</string>
+   </property>
+   <property name="subTitle">
+    <string>PKCS #12 Certificate import</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">2</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="3">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Mumble can import certicates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Import from</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="qleImportFile"/>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="qpbImportFile">
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="3">
+     <widget class="CertView" name="cvImport">
+      <property name="title">
+       <string>Certificate Details</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="qwpReplace">
+   <property name="title">
+    <string>Replace Certificate</string>
+   </property>
+   <property name="subTitle">
+    <string>Replace existing certificate with new certificate?</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">4</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="label_7">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>You already have a certificate stored in Mumble, and you are about to replace it. Are you sure you wish to do this?</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="CertView" name="cvCurrent">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Current Certificate</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="CertView" name="cvNew">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>New Certificate</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="CompletablePage" name="qwpExport">
+   <property name="title">
+    <string>Export Certificate</string>
+   </property>
+   <property name="subTitle">
+    <string>Make a backup of your certificate</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">3</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0" colspan="3">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>If you ever loose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;strongly&lt;/b&gt; recommended that you make a backup of your certificate on removable storage, such as USB flash memory.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="3">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>Export to</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="qleExportFile"/>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="qpbExportFile">
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="3">
+     <widget class="CertView" name="cvExport">
+      <property name="title">
+       <string>Certificate Details</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="CompletablePage" name="qwpNew">
+   <property name="title">
+    <string>New Certificate</string>
+   </property>
+   <property name="subTitle">
+    <string>Generate a new certificate for strong authentication</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">1</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>Mumble will now generate a strong certificate for authentication to servers.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_11">
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="qleName"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_12">
+      <property name="text">
+       <string>E-Mail</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="qleEmail"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLabel" name="qlEmailError">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="qwpFinish">
+   <property name="title">
+    <string>Finish</string>
+   </property>
+   <property name="subTitle">
+    <string>Certificate Authentication ready for use</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">5</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QLabel" name="label_13">
+      <property name="text">
+       <string>Enjoy using Mumble with strong authentication.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CertView</class>
+   <extends>QGroupBox</extends>
+   <header>Cert.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CompletablePage</class>
+   <extends>QWizardPage</extends>
+   <header>AudioWizard.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
