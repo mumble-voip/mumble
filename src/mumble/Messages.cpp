@@ -130,6 +130,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
+	if (msg.has_user_id())
+		pDst->iId = msg.user_id();
+
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
 		if (msg.has_self_mute())
 			pDst->setSelfMute(msg.self_mute());
