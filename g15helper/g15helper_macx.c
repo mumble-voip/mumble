@@ -50,14 +50,14 @@ static void ods(const char *fmt, va_list args) {
 	vfprintf(stderr, fmt, args);
 }
 
-static void __cdecl warn(const char *fmt, ...) {
+static void warn(const char *fmt, ...) {
 	va_list args;
 	va_start(args, fmt);
 	ods(fmt, args);
 	va_end(args);
 }
 
-static void __cdecl die(int err, const char *fmt, ...) {
+static void die(int err, const char *fmt, ...) {
 	va_list args;
 	va_start(args, fmt);
 	ods(fmt, args);
