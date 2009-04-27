@@ -231,24 +231,13 @@ void CertWizard::on_qleEmail_textChanged(const QString &email) {
 }
 
 void CertWizard::on_qpbExportFile_clicked() {
-	QFileDialog *qfd = new QFileDialog(this, tr("Select file to export certificate to"));
-	QStringList qsl;
-	qsl << tr("PKCS12 (*.p12 *.pfx)");
-	qsl << tr("All (*)");
-	qfd->setNameFilters(qsl);
-	qfd->setFilter(QDir::Files | QDir::Writable);
-	qfd->selectFile(QDir::fromNativeSeparators(qleExportFile->text()));
-	if (qfd->exec()) {
-		QStringList qsl = qfd->selectedFiles();
-		if (! qsl.isEmpty()) {
-			QString name = qsl.at(0);
-			QFileInfo fi(name);
-			if (fi.suffix().isEmpty())
-				name += QLatin1String(".p12");
-			qleExportFile->setText(QDir::toNativeSeparators(name));
-		}
+	QString fname = QFileDialog::getSaveFileName(this, tr("Select file to export certificate to"), qleExportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx);;All (*)"));
+	if (! fname.isNull()) {
+		QFileInfo fi(fname);
+		if (fi.suffix().isEmpty())
+			fname += QLatin1String(".p12");
+		qleExportFile->setText(QDir::toNativeSeparators(fname));
 	}
-	delete qfd;
 }
 
 void CertWizard::on_qleExportFile_textChanged(const QString &text) {
@@ -257,7 +246,10 @@ void CertWizard::on_qleExportFile_textChanged(const QString &text) {
 		return;
 	}
 
-	QFile f(QDir::fromNativeSeparators(text));
+	QString fname = QDir::fromNativeSeparators(text);
+
+	QFile f(fname);
+
 	QFileInfo fi(f);
 	if (! fi.isWritable()) {
 		qwpExport->setComplete(false);
@@ -278,24 +270,10 @@ void CertWizard::on_qleExportFile_textChanged(const QString &text) {
 }
 
 void CertWizard::on_qpbImportFile_clicked() {
-	QFileDialog *qfd = new QFileDialog(this, tr("Select file to import certificate from"));
-	QStringList qsl;
-	qsl << tr("PKCS12 (*.p12 *.pfx)");
-	qsl << tr("All (*)");
-	qfd->setNameFilters(qsl);
-	qfd->setFilter(QDir::Files | QDir::Readable);
-	qfd->selectFile(QDir::fromNativeSeparators(qleImportFile->text()));
-	if (qfd->exec()) {
-		QStringList qsl = qfd->selectedFiles();
-		if (! qsl.isEmpty()) {
-			QString name = qsl.at(0);
-			QFileInfo fi(name);
-			if (fi.suffix().isEmpty())
-				name += QLatin1String(".p12");
-			qleImportFile->setText(QDir::toNativeSeparators(name));
-		}
+	QString fname = QFileDialog::getOpenFileName(this, tr("Select file to import certificate from"), qleImportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx);;All (*)"));
+	if (! fname.isNull()) {
+		qleImportFile->setText(QDir::toNativeSeparators(fname));
 	}
-	delete qfd;
 }
 
 void CertWizard::on_qleImportFile_textChanged(const QString &text) {
@@ -307,7 +285,9 @@ void CertWizard::on_qleImportFile_textChanged(const QString &text) {
 		return;
 	}
 
-	QFile f(QDir::fromNativeSeparators(text));
+	QString fname = QDir::fromNativeSeparators(text);
+
+	QFile f(fname);
 	if (f.open(QIODevice::ReadOnly)) {
 		QByteArray qba = f.readAll();
 		QPair<QList<QSslCertificate>, QSslKey> imp = importCert(qba, qlePassword->text());
