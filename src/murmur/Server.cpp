@@ -639,23 +639,27 @@ void Server::encrypted() {
 }
 
 void Server::sslError(const QList<QSslError> &errors) {
+	User *u = qobject_cast<User *>(sender());
 	bool ok = true;
 	foreach(QSslError e, errors) {
 		switch (e.error()) {
 			case QSslError::NoPeerCertificate:
+			case QSslError::SelfSignedCertificate:
+			case QSslError::SelfSignedCertificateInChain:
+			case QSslError::UnableToGetLocalIssuerCertificate:
 				break;
 			default:
+				log(u, QString("SSL Error: %1").arg(e.errorString()));
 				ok = false;
 		}
 	}
-	Connection *c = qobject_cast<User *>(sender());
-	if (! c)
+	if (! u)
 		return;
 
 	if (ok)
-		c->proceedAnyway();
+		u->proceedAnyway();
 	else
-		c->disconnectSocket();
+		u->disconnectSocket(true);
 }
 
 void Server::connectionClosed(const QString &reason) {

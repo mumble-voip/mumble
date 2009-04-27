@@ -218,7 +218,6 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	if (uSource->cChannel->iId != 0)
 		mpus.set_channel_id(uSource->cChannel->iId);
 
-
 	sendExcept(uSource, mpus);
 
 	foreach(User *u, qhUsers) {
