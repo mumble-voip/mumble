@@ -89,6 +89,7 @@ struct Settings {
 	QByteArray qbaDXInput, qbaDXOutput;
 
 	bool bEcho;
+	bool bEchoMulti;
 	bool bPositionalAudio;
 	bool bPositionalHeadphone;
 	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;

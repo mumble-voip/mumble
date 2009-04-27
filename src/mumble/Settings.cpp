@@ -86,6 +86,7 @@ Settings::Settings() {
 	qsALSAOutput=QLatin1String("default");
 
 	bEcho = false;
+	bEchoMulti = true;
 
 	iPortAudioInput = -1; // default device
 	iPortAudioOutput = -1; // default device
@@ -213,6 +214,7 @@ void Settings::load() {
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
+	SAVELOAD(bEchoMulti, "audio/echomulti");
 	SAVELOAD(bPositionalAudio, "audio/positional");
 	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");
@@ -368,6 +370,7 @@ void Settings::save() {
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
+	SAVELOAD(bEchoMulti, "audio/echomulti");
 	SAVELOAD(bPositionalAudio, "audio/positional");
 	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");

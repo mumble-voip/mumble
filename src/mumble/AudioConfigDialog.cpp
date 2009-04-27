@@ -121,7 +121,12 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsNoise, - r.iNoiseSuppress);
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
 	loadSlider(qsIdle, r.iIdleTime);
-	loadCheckBox(qcbEcho, r.bEcho);
+
+	int echo = 0;
+	if (r.bEcho)
+		echo = r.bEchoMulti ? 2 : 1;
+
+	loadComboBox(qcbEcho, echo);
 }
 
 void AudioInputDialog::save() const {
@@ -139,7 +144,8 @@ void AudioInputDialog::save() const {
 	s.iIdleTime = qsIdle->value();
 
 	s.qsAudioInput = qcbSystem->currentText();
-	s.bEcho = qcbEcho->isChecked();
+	s.bEcho = qcbEcho->currentIndex() > 0;
+	s.bEchoMulti = qcbEcho->currentIndex() == 2;
 
 	if (AudioInputRegistrar::qmNew) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());

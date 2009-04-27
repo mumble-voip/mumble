@@ -84,7 +84,9 @@ class AudioInput : public QThread {
 		unsigned int iMicFreq, iEchoFreq;
 		unsigned int iMicLength, iEchoLength;
 		unsigned int iMicSampleSize, iEchoSampleSize;
+		unsigned int iEchoMCLength, iEchoFrameSize;
 
+		bool bEchoMulti;
 		int	iFrameSize;
 
 		QMutex qmSpeex;

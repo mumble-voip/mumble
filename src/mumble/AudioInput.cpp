@@ -97,6 +97,8 @@ AudioInput::AudioInput() {
 
 	bResetProcessor = true;
 
+	bEchoMulti = false;
+
 	sppPreprocess = NULL;
 	sesEcho = NULL;
 	srsMic = srsEcho = NULL;
@@ -104,8 +106,9 @@ AudioInput::AudioInput() {
 	iJitterSeq = 1;
 
 	psMic = new short[iFrameSize];
-	psSpeaker = new short[iFrameSize];
 	psClean = new short[iFrameSize];
+
+	psSpeaker = NULL;
 
 	iEchoChannels = iMicChannels = 0;
 	iEchoFreq = iMicFreq = SAMPLE_RATE;
@@ -294,13 +297,17 @@ void AudioInput::initializeMixer() {
 	iMicLength = (iFrameSize * iMicFreq) / SAMPLE_RATE;
 
 	pfMicInput = new float[iMicLength];
-	pfOutput = new float[iFrameSize];
+	pfOutput = new float[iFrameSize * qMax(1U,iEchoChannels)];
 
 	if (iEchoChannels > 0) {
+		psSpeaker = new short[iFrameSize * iEchoChannels];
+		bEchoMulti = g.s.bEchoMulti;
 		if (iEchoFreq != SAMPLE_RATE)
-			srsEcho = speex_resampler_init(1, iEchoFreq, SAMPLE_RATE, 3, &err);
+			srsEcho = speex_resampler_init(bEchoMulti ? iEchoChannels : 1, iEchoFreq, SAMPLE_RATE, 3, &err);
 		iEchoLength = (iFrameSize * iEchoFreq) / SAMPLE_RATE;
-		pfEchoInput = new float[iEchoLength];
+		iEchoMCLength = bEchoMulti ? iEchoLength * iEchoChannels : iEchoLength;
+		iEchoFrameSize = bEchoMulti ? iFrameSize * iEchoChannels : iFrameSize;
+		pfEchoInput = new float[iEchoMCLength];
 	} else {
 		srsEcho = NULL;
 		pfEchoInput = NULL;
@@ -349,7 +356,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 			if (iEchoChannels > 0) {
 				JitterBufferPacket jbp;
 				jbp.data = reinterpret_cast<char *>(psSpeaker);
-				jbp.len = iFrameSize * sizeof(short);
+				jbp.len = iFrameSize * sizeof(short) * iEchoFrameSize;
 				jbp.timestamp = 0;
 				jbp.span = 0;
 				jbp.sequence = 0;
@@ -369,7 +376,16 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 	while (nsamp > 0) {
 		unsigned int left = qMin(nsamp, iEchoLength - iEchoFilled);
 
-		imfEcho(pfEchoInput + iEchoFilled, data, left, iEchoChannels);
+		if (bEchoMulti) {
+			if (eEchoFormat == SampleFloat)
+				for(unsigned int i=0;i<iEchoMCLength;++i)
+					pfEchoInput[i] = reinterpret_cast<const float *>(data)[i];
+			else
+				for(unsigned int i=0;i<iEchoMCLength;++i)
+					pfEchoInput[i] = reinterpret_cast<const short *>(data)[i] * (1.0f / 32768.f);
+		} else {
+			imfEcho(pfEchoInput + iEchoFilled, data, left, iEchoChannels);
+		}
 
 		iEchoFilled += left;
 		nsamp -= left;
@@ -384,20 +400,21 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 		if (iEchoFilled == iEchoLength) {
 			iEchoFilled = 0;
 
-			STACKVAR(short, outbuff, iFrameSize);
+			STACKVAR(short, outbuff, iEchoFrameSize);
 			float *ptr = srsEcho ? pfOutput : pfEchoInput;
 			if (srsEcho) {
+				qWarning("RESAMP!");
 				spx_uint32_t inlen = iEchoLength;
 				spx_uint32_t outlen = iFrameSize;
-				speex_resampler_process_float(srsEcho, 0, pfEchoInput, &inlen, pfOutput, &outlen);
+				speex_resampler_process_interleaved_float(srsEcho, pfEchoInput, &inlen, pfOutput, &outlen);
 			}
 			const float mul = 32768.f;
-			for (int j=0;j<iFrameSize;++j)
+			for (int j=0;j<iEchoFrameSize;++j)
 				outbuff[j] = static_cast<short>(ptr[j] * mul);
 
 			JitterBufferPacket jbp;
 			jbp.data = reinterpret_cast<char *>(outbuff);
-			jbp.len = iFrameSize * sizeof(short);
+			jbp.len = iEchoFrameSize * sizeof(short);
 			jbp.timestamp = ++iJitterSeq * 10;
 			jbp.span = 10;
 			jbp.sequence = static_cast<unsigned short>(iJitterSeq);
@@ -559,7 +576,7 @@ void AudioInput::encodeAudioFrame() {
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
 		if (iEchoChannels > 0) {
-			sesEcho = speex_echo_state_init(iFrameSize, iFrameSize*10);
+			sesEcho = speex_echo_state_init_mc(iFrameSize, iFrameSize*10, 1, bEchoMulti ? iEchoChannels : 1);
 			iArg = SAMPLE_RATE;
 			speex_echo_ctl(sesEcho, SPEEX_SET_SAMPLING_RATE, &iArg);
 			speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
