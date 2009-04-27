@@ -31,6 +31,8 @@
 #ifndef _CERT_H
 #define _CERT_H
 
+#include "Settings.h"
+
 class CertView : public QGroupBox {
 	protected:
 		QList<QSslCertificate> qlCert;
@@ -42,28 +44,31 @@ class CertView : public QGroupBox {
 
 #include "ui_Cert.h"
 
-
 class CertWizard : public QWizard, public Ui::Certificates {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(CertWizard)
 	protected:
-		QList<QSslCertificate> qscCurrent, qscNew;
-		QSslKey qskCurrent, qskNew;
+		Settings::KeyPair kpCurrent, kpNew;
 
 		QMap<QString, QHostInfo> qmDomains;
 		bool bPendingDns;
-		void generateNewCert();
-		QByteArray exportCert();
 	public:
 		CertWizard(QWidget *p = NULL);
 		int nextId() const;
 		void initializePage(int);
 		bool validateCurrentPage();
+		static bool validateCert(const Settings::KeyPair &);
+		static Settings::KeyPair generateNewCert(QString name, const QString &email);
+		static QByteArray exportCert(const Settings::KeyPair &cert);
+		static Settings::KeyPair importCert(QByteArray, const QString & = QString());
 	public slots:
 		void on_qleEmail_textChanged(const QString &);
 		void on_qpbExportFile_clicked();
 		void on_qleExportFile_textChanged(const QString &);
+		void on_qpbImportFile_clicked();
+		void on_qleImportFile_textChanged(const QString &);
+		void on_qlePassword_textChanged(const QString &);
 		void lookedUp(QHostInfo);
 };
 

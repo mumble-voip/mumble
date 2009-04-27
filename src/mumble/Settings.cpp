@@ -32,6 +32,7 @@
 #include "Log.h"
 #include "Global.h"
 #include "AudioInput.h"
+#include "Cert.h"
 
 bool Shortcut::operator <(const Shortcut &other) const {
 	return (iIndex < other.iIndex);
@@ -307,6 +308,9 @@ void Settings::load() {
 	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
 	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
 
+	QByteArray qba = qvariant_cast<QByteArray>(g.qs->value(QLatin1String("net/certificate")));
+	kpCertificate = CertWizard::importCert(qba);
+
 	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0;i<nshorts;i++) {
 		g.qs->setArrayIndex(i);
@@ -462,6 +466,9 @@ void Settings::save() {
 
 	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
 	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
+
+	QByteArray qba = CertWizard::exportCert(kpCertificate);
+	g.qs->setValue(QLatin1String("net/certificate"), qba);
 
 	g.qs->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

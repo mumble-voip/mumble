@@ -54,6 +54,8 @@ struct Settings {
 	enum OverlayShow { Nothing, Talking, All };
 	enum ChannelExpand { NoChannels, ChannelsWithPlayers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
+	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
+
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
 
@@ -149,6 +151,7 @@ struct Settings {
 	int iMaxImageSize;
 	int iMaxImageWidth;
 	int iMaxImageHeight;
+	KeyPair kpCertificate;
 
 	// Nonsaved
 	LoopMode lmLoopMode;

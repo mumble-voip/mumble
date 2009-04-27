@@ -32,6 +32,7 @@
 #include "MainWindow.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#include "Cert.h"
 #include "Message.h"
 #include "Player.h"
 #include "Connection.h"
@@ -214,6 +215,15 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 
 void ServerHandler::run() {
 	QSslSocket *qtsSock = new QSslSocket(this);
+
+	if (CertWizard::validateCert(g.s.kpCertificate)) {
+		qtsSock->setPrivateKey(g.s.kpCertificate.second);
+		qtsSock->setLocalCertificate(g.s.kpCertificate.first.at(0));
+		QList<QSslCertificate> certs = qtsSock->caCertificates();
+		certs << g.s.kpCertificate.first;
+		qtsSock->setCaCertificates(certs);
+	}
+
 	cConnection = ConnectionPtr(new Connection(this, qtsSock));
 
 	qlErrors.clear();

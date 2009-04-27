@@ -34,6 +34,7 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "AudioWizard.h"
+#include "Cert.h"
 #include "Database.h"
 #include "Log.h"
 #include "Plugins.h"
@@ -226,6 +227,12 @@ int main(int argc, char **argv) {
 			delete aw;
 		}
 		g.s.bFirstTime = false;
+	}
+
+	if (! CertWizard::validateCert(g.s.kpCertificate)) {
+		CertWizard *cw = new CertWizard(g.mw);
+		cw->exec();
+		delete cw;
 	}
 
 	if (g.s.bUpdateCheck)
