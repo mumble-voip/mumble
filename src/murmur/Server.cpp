@@ -643,7 +643,7 @@ void Server::sslError(const QList<QSslError> &errors) {
 	bool ok = true;
 	foreach(QSslError e, errors) {
 		switch (e.error()) {
-			case QSslError::QSslError::InvalidPurpose:
+			case QSslError::InvalidPurpose:
 				// Allow email certificates.
 				break;
 			case QSslError::NoPeerCertificate:
