@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Certificates</string>
+   <string>Certificate Management</string>
   </property>
   <widget class="QWizardPage" name="qwpWelcome">
    <property name="title">
@@ -41,6 +41,13 @@
       </property>
       <property name="wordWrap">
        <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="CertView" name="cvWelcome">
+      <property name="title">
+       <string>Current Certificate</string>
       </property>
      </widget>
     </item>

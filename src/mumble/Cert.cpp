@@ -90,11 +90,6 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	bPendingDns = false;
 	qwpExport->setCommitPage(true);
 	qwpExport->setComplete(false);
-
-	kpCurrent = kpNew = g.s.kpCertificate;
-
-	if (validateCert(kpCurrent))
-		qrbExport->setEnabled(true);
 }
 
 int CertWizard::nextId() const {
@@ -133,6 +128,18 @@ int CertWizard::nextId() const {
 }
 
 void CertWizard::initializePage(int id) {
+	if (id == 0) {
+		kpCurrent = kpNew = g.s.kpCertificate;
+
+		if (validateCert(kpCurrent)) {
+			qrbExport->setEnabled(true);
+			cvWelcome->setCert(kpCurrent.first);
+			cvWelcome->setVisible(true);
+		} else {
+			qrbExport->setEnabled(false);
+			cvWelcome->setVisible(false);
+		}
+	}
 	if (id == 3) {
 		cvExport->setCert(kpNew.first);
 	}
@@ -148,9 +155,6 @@ void CertWizard::initializePage(int id) {
 }
 
 bool CertWizard::validateCurrentPage() {
-	if (currentPage() == qwpWelcome) {
-		kpCurrent = kpNew = g.s.kpCertificate;
-	}
 	if (currentPage() == qwpNew) {
 		kpNew = generateNewCert(qleName->text(), qleEmail->text());
 		if (! validateCert(kpNew)) {
