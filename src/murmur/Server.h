@@ -108,6 +108,8 @@ class User : public Connection, public Player {
 
 		std::string ssContext;
 		QString qsIdentity;
+		
+		bool bVerified;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
@@ -274,7 +276,7 @@ class Server : public QThread {
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
 		typedef QPair<quint32, int> qpBan;
-		int authenticate(QString &name, const QString &pw);
+		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false);
 		Channel *addChannel(Channel *c, const QString &name);
 		void removeChannel(const Channel *c);
 		void readChannels(Channel *p = NULL);

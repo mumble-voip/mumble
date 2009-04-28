@@ -60,7 +60,6 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 #ifdef Q_OS_WIN
 	dwFlow = 0;
 #endif
-	bVerified = true;
 }
 
 Connection::~Connection() {
@@ -131,7 +130,6 @@ void Connection::socketError(QAbstractSocket::SocketError) {
 }
 
 void Connection::socketSslErrors(const QList<QSslError> &qlErr) {
-	bVerified = false;
 	emit handleSslErrors(qlErr);
 }
 
@@ -206,11 +204,7 @@ quint16 Connection::peerPort() const {
 }
 
 QList<QSslCertificate> Connection::peerCertificateChain() const {
-	return qtsSocket->peerCertificateChain();
-}
-
-bool Connection::peerVerified() const {
-	return bVerified;
+	return qtsSocket->peerCertificateChain() << qtsSocket->peerCertificate();
 }
 
 QSslCipher Connection::sessionCipher() const {

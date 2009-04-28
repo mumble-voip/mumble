@@ -74,8 +74,8 @@ User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
 	saiUdpAddress.sin_family = AF_INET;
 
 	uiVersion = 0;
+	bVerified = true;
 }
-
 
 Server::Server(int snum, QObject *p) : QThread(p) {
 	bValid = true;
@@ -643,10 +643,14 @@ void Server::sslError(const QList<QSslError> &errors) {
 	bool ok = true;
 	foreach(QSslError e, errors) {
 		switch (e.error()) {
+			case QSslError::QSslError::InvalidPurpose:
+				// Allow email certificates.
+				break;
 			case QSslError::NoPeerCertificate:
 			case QSslError::SelfSignedCertificate:
 			case QSslError::SelfSignedCertificateInChain:
 			case QSslError::UnableToGetLocalIssuerCertificate:
+				u->bVerified = false;
 				break;
 			default:
 				log(u, QString("SSL Error: %1").arg(e.errorString()));

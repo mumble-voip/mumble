@@ -623,12 +623,13 @@ QMap<QString, QString> Server::getRegistration(int id) {
 // -1 Wrong PW
 // -2 Anonymous
 
-int Server::authenticate(QString &name, const QString &pw) {
+int Server::authenticate(QString &name, const QString &pw, const QStringList &emails, const QString &certhash, bool bStrongCert) {
 	int res = -2;
 
 	emit authenticateSig(res, name, pw);
 
 	if (res != -2) {
+		// External authentication handled it. Ignore certificate completely.
 		if (res != -1) {
 			TransactionHolder th;
 			QSqlQuery &query = *th.qsqQuery;
@@ -659,13 +660,62 @@ int Server::authenticate(QString &name, const QString &pw) {
 	if (query.next()) {
 		res = -1;
 		QString storedpw = query.value(2).toString();
-		if (! storedpw.isEmpty()) {
-			QCryptographicHash hash(QCryptographicHash::Sha1);
-			hash.addData(pw.toUtf8());
-			if (storedpw == QString::fromLatin1(hash.result().toHex())) {
-				name = query.value(1).toString();
-				res = query.value(0).toInt();
+		QString hashedpw = QString::fromLatin1(QCryptographicHash::hash(pw.toUtf8(), QCryptographicHash::Sha1).toHex());
+		
+		if (! storedpw.isEmpty() && (storedpw == hashedpw)) {
+			name = query.value(1).toString();
+			res = query.value(0).toInt();
+		}
+	}
+	
+	// No password match. Try cert or email match, but only for non-SuperUser.
+	if (!certhash.isEmpty() && (res < 0)) {
+		SQLPREP("SELECT player_id FROM %1player_info WHERE server_id = ? AND key = ? AND value = ?");
+		query.addBindValue(iServerNum);
+		query.addBindValue(QLatin1String("certhash"));
+		query.addBindValue(certhash);
+		SQLEXEC();
+		if (query.next()) {
+			res = query.value(0).toInt();
+		} else if (bStrongCert) {
+			foreach(const QString &email, emails) {
+				if (! email.isEmpty()) {
+					query.addBindValue(iServerNum);
+					query.addBindValue(QLatin1String("email"));
+					query.addBindValue(email);
+					SQLEXEC();
+					if (query.next()) {
+						res = query.value(0).toInt();
+						break;
+					}
+				}
 			}
+		}
+		if (res > 0) {
+			SQLPREP("SELECT name FROM %1players WHERE server_id = ? AND player_id = ?");
+			query.addBindValue(iServerNum);
+			query.addBindValue(res);
+			SQLEXEC();
+			if (! query.next()) {
+				res = -1;
+			} else {
+				name = query.value(0).toString();
+			}
+		}
+	}
+	if (! certhash.isEmpty() && (res > 0)) {
+		SQLPREP("REPLACE INTO %1player_info (server_id, player_id, key, value) VALUES (?, ?, ?, ?)");
+		query.addBindValue(iServerNum);
+		query.addBindValue(res);
+		query.addBindValue(QLatin1String("certhash"));
+		query.addBindValue(certhash);
+		SQLEXEC();
+		if (! emails.isEmpty()) {
+			query.addBindValue(iServerNum);
+			query.addBindValue(res);
+			query.addBindValue(QLatin1String("email"));
+			query.addBindValue(emails.at(0));
+			SQLEXEC();
 		}
 	}
 	if (res >= 0) {
@@ -751,7 +801,7 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 
 	QByteArray tex;
 	if (! texture.isEmpty()) {
-		quint32 l = 600*60*4;
+		qint32 l = 600*60*4;
 		if (texture.size() < 4)
 			return false;
 

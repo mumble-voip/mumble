@@ -75,11 +75,21 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	bool ok = false;
 	bool nameok = validatePlayerName(uSource->qsName);
 	QString pw = u8(msg.password());
+	
+	QString qsHash;
+	QStringList qslEmail;
+	
+	QList<QSslCertificate> certs = uSource->peerCertificateChain();
+	if (! certs.isEmpty()) {
+		const QSslCertificate &cert = certs.last();
+		qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
+		qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
+	}
 
 	// Fetch ID and stored username.
 	// Since this may call DBus, which may recall our dbus messages, this function needs
 	// to support re-entrancy, and also to support the fact that sessions may go away.
-	int id = authenticate(uSource->qsName, pw);
+	int id = authenticate(uSource->qsName, pw, qslEmail, qsHash, uSource->bVerified);
 
 	uSource->iId = id >= 0 ? id : -1;
 
@@ -226,7 +236,6 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 
 		mpus.Clear();
 		mpus.set_session(u->uiSession);
-		qWarning() << u->qsName;
 		mpus.set_name(u8(u->qsName));
 		if (u->iId >= 0) {
 			mpus.set_user_id(u->iId);
@@ -818,7 +827,6 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 		MumbleProto::QueryUsers mpqu;
 		foreach(int id, qsId) {
 			QString name=getUserName(id);
-			qWarning() << id << name;
 			if (! name.isEmpty()) {
 				mpqu.add_ids(id);
 				mpqu.add_names(u8(name));
