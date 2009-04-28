@@ -148,6 +148,9 @@ void CertWizard::initializePage(int id) {
 }
 
 bool CertWizard::validateCurrentPage() {
+	if (currentPage() == qwpWelcome) {
+		kpCurrent = kpNew = g.s.kpCertificate;
+	}
 	if (currentPage() == qwpNew) {
 		kpNew = generateNewCert(qleName->text(), qleEmail->text());
 		if (! validateCert(kpNew)) {
