@@ -123,7 +123,7 @@ void Server::initializeCert() {
 			add_ext(x509, NID_subject_key_identifier, "hash");
 			add_ext(x509, NID_netscape_comment, "Generated from murmur");
 
-			X509_sign(x509, pkey, EVP_md5());
+			X509_sign(x509, pkey, EVP_sha1());
 
 			crt.resize(i2d_X509(x509, NULL));
 			unsigned char *dptr=reinterpret_cast<unsigned char *>(crt.data());
