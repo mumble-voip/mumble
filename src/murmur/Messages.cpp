@@ -84,6 +84,9 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		const QSslCertificate &cert = certs.last();
 		qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
 		qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
+		if (! qslEmail.isEmpty() && uSource->bVerified) {
+			log(uSource, QString("Strong certificate for %1 <%2> (signed by %3)").arg(cert.subjectInfo(QSslCertificate::CommonName)).arg(qslEmail.join(", ")).arg(certs.first().issuerInfo(QSslCertificate::CommonName)));
+		}
 	}
 
 	// Fetch ID and stored username.
