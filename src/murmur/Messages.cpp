@@ -55,7 +55,7 @@
 		MumbleProto::PermissionDenied mppd; \
 		mppd.set_permission(static_cast<int>(what)); \
 		mppd.set_channel_id(where->iId); \
-		mppd.set_actor_id(who->uiSession); \
+		mppd.set_session(who->uiSession); \
 		sendMessage(uSource, mppd); \
 		log(uSource, QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName)); \
 	}
