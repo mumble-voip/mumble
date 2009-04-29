@@ -352,6 +352,8 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 	VICTIM_SETUP;
 
 	bool bNoBroadcast = false;
+	Channel *root = qhChannels.value(0);
+	QList<QSslCertificate> certs;
 
 	if (pDstUser->iId == 0) {
 		PERM_DENIED_TEXT("Can't modify SuperUser");
@@ -385,9 +387,16 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_comment() && (uSource != pDstUser)) {
-		Channel *root = qhChannels.value(0);
 		if (! hasPermission(uSource, root, ChanACL::Move)) {
 			PERM_DENIED(uSource, root, ChanACL::Move);
+			return;
+		}
+	}
+	
+	if (msg.has_user_id()) {
+	 	certs = pDstUser->peerCertificateChain();
+		if ((pDstUser->iId >= 0) || certs.isEmpty() || ! hasPermission(uSource, root, ChanACL::Register)) {
+			PERM_DENIED(uSource, root, ChanACL::Register);
 			return;
 		}
 	}
@@ -456,6 +465,24 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 			pDstUser->bSuppressed = msg.suppressed();
 
 		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(*pDstUser).arg(pDstUser->bMute).arg(pDstUser->bDeaf).arg(pDstUser->bSuppressed));
+	}
+	
+	if (msg.has_user_id()) {
+		QMap<QString, QString> info;
+		const QSslCertificate &cert = certs.last();
+		QStringList qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
+		
+		info.insert("name", pDstUser->qsName);
+		info.insert("certhash", cert.digest(QCryptographicHash::Sha1).toHex());
+		if (! qslEmail.isEmpty())
+			info.insert("email", qslEmail.first());
+		int id = registerPlayer(info);
+		if (id > 0) {
+			pDstUser->iId = id;
+			msg.set_user_id(id);
+		} else {
+			msg.clear_user_id();
+		}
 	}
 
 	if (! bNoBroadcast)
