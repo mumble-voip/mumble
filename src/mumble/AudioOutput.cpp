@@ -114,40 +114,39 @@ void AudioOutputUser::resizeBuffer(unsigned int newsize) {
 	}
 }
 
-AudioOutputSample::AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputUser(filename) {
-	dsDecState=speex_decoder_init(&speex_wb_mode);
-
+AudioOutputSample::AudioOutputSample(const QString &name, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputUser(name) {
 	int err;
 
-	if (freq != 16000)
-		srs = speex_resampler_init(1, 16000, freq, 3, &err);
+	iFrameSize = SAMPLE_RATE / 100;
+	cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
+	cdDecoder = celt_decoder_create(cmMode);
+
+	if (freq != SAMPLE_RATE)
+		srs = speex_resampler_init(1, SAMPLE_RATE, freq, 3, &err);
 	else
 		srs = NULL;
 
-	iFrameSize = 320;
-
-	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(16000)));
+	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 
 	bLoop = false;
 
 	iPacketIndex = -1;
-
 	qlPackets = packets;
-
-	speex_bits_init(&sbBits);
 
 	bLoop = loop;
 }
 
 AudioOutputSample::~AudioOutputSample() {
-	speex_decoder_destroy(dsDecState);
-	speex_bits_destroy(&sbBits);
+	celt_decoder_destroy(cdDecoder);
+	celt_mode_destroy(cmMode);
 }
 
 QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename) {
 	QList<QByteArray> packets;
+	int celt_bitstream_version;
+	celt_mode_info(NULL, CELT_GET_BITSTREAM_VERSION, &celt_bitstream_version);
 
 	QFile f(filename);
 	if (! f.open(QIODevice::ReadOnly)) {
@@ -165,10 +164,9 @@ QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename)
 		ogg_stream_state stream;
 		bool stream_init = false;
 		bool eos = false;
-		int speex_serialno = -1;
+		int celt_serialno = -1;
 		int packetno = -1;
 		bool header_ok = false;
-		int nframes = -1;
 		int extra_headers = 0;
 
 		ogg_sync_init(&sync);
@@ -184,23 +182,29 @@ QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename)
 				ogg_stream_reset_serialno(&stream, ogg_page_serialno(&page));
 			}
 			ogg_stream_pagein(&stream, &page);
-			while (! eos && ogg_stream_packetout(&stream, &packet) == 1) {
-				if (packet.bytes >= 5 && memcmp(packet.packet, "Speex", 5)==0) {
-					speex_serialno = static_cast<int>(stream.serialno);
+			while (! eos && ogg_stream_packetout(&stream, &packet) == 1 && packet.bytes >= 8) {
+				if (memcmp(packet.packet, "CELT    ", 8) == 0) {
+					celt_serialno = static_cast<int>(stream.serialno);
 				}
-				if (speex_serialno == -1 || stream.serialno != speex_serialno)
+				if (celt_serialno == -1 || stream.serialno != celt_serialno)
 					break;
 
 				++packetno;
 
 				if (packetno == 0) {
-					SpeexHeader *header = speex_packet_to_header(reinterpret_cast<char *>(packet.packet), static_cast<int>(packet.bytes));
+					CELTHeader header;
+					celt_header_from_packet(reinterpret_cast<unsigned char *>(packet.packet), static_cast<int>(packet.bytes), &header);
 
-					if (header && header->speex_version_id == 1 && header->rate == 16000 && header->nb_channels == 1) {
+					if (header.version_id == celt_bitstream_version &&
+					    header.sample_rate == SAMPLE_RATE &&
+					    header.frame_size == (SAMPLE_RATE / 100) &&
+					    header.nb_channels == 1) {
 						header_ok = true;
-						extra_headers = header->extra_headers;
-						nframes = header->frames_per_packet;
-					} else {
+						extra_headers = header.extra_headers;
+					}
+					else {
+						qWarning("Sample rate: %i\nFrame size: %i\nBitstream version: %i\nChannels: %i",
+							 header.frame_size, header.sample_rate, header.version_id, header.nb_channels);
 						break;
 					}
 				} else if (packetno <= 1 + extra_headers) {
@@ -237,37 +241,23 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	float *pOut;
 	STACKVAR(float, fOut, iFrameSize);
 
-
 	while (iBufferFilled < snum) {
 		resizeBuffer(iBufferFilled + iOutputSize);
 
 		pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
 
-		if (speex_bits_remaining(&sbBits) < 43) {
-			++iPacketIndex;
-			if (iPacketIndex >= qlPackets.count()) {
-				if (qlPackets.isEmpty() || !bLoop) {
-					memset(pfBuffer + iBufferFilled, 0, sizeof(float) * (snum-iBufferFilled));
-					return false;
-				} else {
-					iPacketIndex = 0;
-				}
+		++iPacketIndex;
+		if (iPacketIndex >= qlPackets.count()) {
+			if (qlPackets.isEmpty() || !bLoop) {
+				memset(pfBuffer + iBufferFilled, 0, sizeof(float) * (snum-iBufferFilled));
+				return false;
+			} else {
+				iPacketIndex = 0;
 			}
-
-			const QByteArray &qba = qlPackets[iPacketIndex];
-
-			speex_bits_set_bit_buffer(&sbBits, reinterpret_cast<void *>(const_cast<char *>(qba.constData())), qba.length());
-			speex_bits_rewind(&sbBits);
 		}
+		const QByteArray &qba = qlPackets[iPacketIndex];
 
-		if (speex_decode(dsDecState, &sbBits, pOut) != 0) {
-			memset(pfBuffer + iBufferFilled, 0, sizeof(float) * (snum-iBufferFilled));
-			return false;
-		} else {
-			float m = 1.f / 32768.f;
-			for(int i=0;i<iFrameSize;++i)
-				pOut[i] *= m;
-		}
+		celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.data()), qba.size(), pOut);
 
 		spx_uint32_t inlen = iFrameSize;
 		spx_uint32_t outlen = iOutputSize;
@@ -275,7 +265,6 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
 		iBufferFilled += outlen;
 	}
-
 	return true;
 }
 
@@ -303,8 +292,6 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq) : Audi
 	jbJitter = jitter_buffer_init(iFrameSize);
 	int margin = g.s.iJitterBufferSize * iFrameSize;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
-
-	speex_bits_init(&sbBits);
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
@@ -312,25 +299,6 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 	celt_mode_destroy(cmMode);
 
 	jitter_buffer_destroy(jbJitter);
-}
-
-int AudioOutputSpeech::speexCallback(SpeexBits *bits, void *, void *data) {
-	AudioOutputSpeech *aos=reinterpret_cast<AudioOutputSpeech *>(data);
-
-	int len=speex_bits_unpack_unsigned(bits, 4);
-
-	QByteArray qba(len, 0);
-	unsigned char *ptr = reinterpret_cast<unsigned char *>(qba.data());
-
-	for (int i=0;i<len;i++)
-		ptr[i]=static_cast<unsigned char>(speex_bits_unpack_unsigned(bits, 8));
-	QDataStream ds(qba);
-	ds >> aos->fPos[0];
-	ds >> aos->fPos[1];
-	ds >> aos->fPos[2];
-	aos->iMissCount = 0;
-
-	return 0;
 }
 
 void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned int iSeq) {

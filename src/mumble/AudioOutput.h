@@ -120,7 +120,6 @@ class AudioOutputSpeech : public AudioOutputUser {
 
 		SpeexResamplerState *srs;
 
-		SpeexBits sbBits;
 		QMutex qmJitter;
 		JitterBuffer *jbJitter;
 		int iMissCount;
@@ -131,8 +130,6 @@ class AudioOutputSpeech : public AudioOutputUser {
 		QList<QByteArray> qlFrames;
 
 		unsigned char ucFlags;
-
-		static int speexCallback(SpeexBits *bits, void *state, void *data);
 	public:
 		int iMissedFrames;
 		ClientUser *p;
@@ -157,14 +154,17 @@ class AudioOutputSample : public AudioOutputUser {
 		unsigned int iFrameSize;
 		int iPacketIndex;
 		QList<QByteArray> qlPackets;
-		SpeexBits sbBits;
-		void *dsDecState;
 		SpeexResamplerState *srs;
+
+		CELTMode *cmMode;
+		CELTDecoder *cdDecoder;
+
+		bool bLastAlive;
 		bool bLoop;
 	public:
 		static QList<QByteArray> getPacketsFromFile(const QString &filename);
 		virtual bool needSamples(unsigned int snum);
-		AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool repeat, unsigned int freq);
+		AudioOutputSample(const QString &name, const QList<QByteArray> &packets, bool repeat, unsigned int freq);
 		~AudioOutputSample();
 };
 

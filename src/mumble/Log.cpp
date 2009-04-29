@@ -150,7 +150,7 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 		case ColStaticSound:
 			if (i->checkState(ColStaticSound)) {
 				i->setCheckState(ColTTS, Qt::Unchecked);
-				if (i->text(ColStaticSoundPath).isEmpty()) browseForSpxFile();
+				if (i->text(ColStaticSoundPath).isEmpty()) browseForAudioFile();
 			}
 			break;
 		default:
@@ -163,23 +163,23 @@ void LogConfig::on_qtwMessages_itemClicked(QTreeWidgetItem * item, int column) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
 			if (!ao->playSample(item->text(ColStaticSoundPath), false))
-				browseForSpxFile();
+				browseForAudioFile();
 		}
 	}
 }
 
 void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int column) {
 	if (item && column == ColStaticSoundPath)
-		browseForSpxFile();
+		browseForAudioFile();
 }
 
-void LogConfig::browseForSpxFile() {
-	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.spx"));
+void LogConfig::browseForAudioFile() {
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.clt *.oga"));
 	if (! file.isEmpty()) {
 		if (AudioOutputSample::getPacketsFromFile(file).isEmpty()) {
 			QMessageBox::critical(this,
 			                      tr("Invalid sound file"),
-			                      tr("The file '%1' does not exist or is not a valid Speex file.").arg(file));
+					      tr("The file '%1' does not exist or is not a valid celt file.").arg(file));
 			return;
 		}
 		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];

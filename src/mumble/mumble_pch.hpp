@@ -43,6 +43,7 @@
 #undef set_key
 
 #include <celt.h>
+#include <celt_header.h>
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
 #include <speex/speex_preprocess.h>
