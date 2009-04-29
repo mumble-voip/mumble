@@ -133,32 +133,6 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, QFlags<Perm> perm, ACLCach
 		return ((granted & perm) != None);
 }
 
-QString ChanACL::shortName(Perm p) {
-	switch (p) {
-		case Write:
-			return tr("W");
-		case Traverse:
-			return tr("T");
-		case Enter:
-			return tr("E");
-		case Speak:
-			return tr("S");
-		case AltSpeak:
-			return tr("A");
-		case MuteDeafen:
-			return tr("M");
-		case MoveKick:
-			return tr("K");
-		case MakeChannel:
-			return tr("C");
-		case LinkChannel:
-			return tr("L");
-		default:
-			break;
-	}
-	return QString();
-}
-
 QString ChanACL::permName(Perm p) {
 	switch (p) {
 		case None:
@@ -175,12 +149,20 @@ QString ChanACL::permName(Perm p) {
 			return tr("AltSpeak");
 		case MuteDeafen:
 			return tr("Mute/Deafen");
-		case MoveKick:
-			return tr("Move/Kick");
+		case Move:
+			return tr("Move");
 		case MakeChannel:
 			return tr("Make channel");
 		case LinkChannel:
 			return tr("Link channel");
+		case TextMessage:
+			return tr("Text message");
+		case Kick:
+			return tr("Kick");
+		case Ban:
+			return tr("Ban");
+		case Register:
+			return tr("Register User");
 		default:
 			break;
 	}
@@ -212,9 +194,9 @@ QString ChanACL::whatsThis(Perm p) {
 		case MuteDeafen:
 			return tr("This represents the permission to mute and deafen other players. Once muted, a player will stay muted "
 			          "until he is unmuted by another privileged player or reconnects to the server.");
-		case MoveKick:
+		case Move:
 			return tr("This represents the permission to move a player to another channel or kick him from the server. To actually "
-			          "move the player, either the moving player must have Move/Kick privileges in the destination channel, or "
+			          "move the player, either the moving player must have Move privileges in the destination channel, or "
 			          "the player must normally be allowed to enter the channel. Players with this privilege can move players "
 			          "into channels the target player normally wouldn't have permission to enter.");
 		case MakeChannel:
@@ -224,6 +206,14 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents the permission to link channels. Players in linked channels hear each other, as long as "
 			          "the speaking player has the <i>speak</i> privilege in the channel of the listener. You need the link "
 			          "privilege in both channels to create a link, but just in either channel to remove it.");
+		case TextMessage:
+			return tr("This represents the permission to write text messages to other players in this channel.");
+		case Kick:
+			return tr("This represents the permission to forcibly remove players from the server.");
+		case Ban:
+			return tr("This represents the permission to permanently remove players from the server.");
+		case Register:
+			return tr("This represents the permission to register new users on the server.");
 		default:
 			break;
 	}

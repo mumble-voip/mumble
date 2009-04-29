@@ -53,10 +53,11 @@
 #define PERM_DENIED(who, where, what) \
 	{ \
 		MumbleProto::PermissionDenied mppd; \
-		QString reason = QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName); \
-		mppd.set_reason(u8(reason)); \
+		mppd.set_permission(what); \
+		mppd.set_channel_id(where->iId); \
+		mppd.set_actor_id(who->uiSession); \
 		sendMessage(uSource, mppd); \
-		log(uSource, reason); \
+		log(uSource, QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName)); \
 	}
 #define PERM_DENIED_TEXT(text) \
 	{ \
@@ -68,6 +69,7 @@
 void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	MSG_SETUP(Player::Connected);
 
+	Channel *root = qhChannels.value(0);
 	Channel *c;
 
 	uSource->qsName = u8(msg.username());
@@ -168,15 +170,15 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		lchan = iDefaultChan;
 	Channel *lc = qhChannels.value(lchan);
 	if (! lc)
-		lc = qhChannels.value(0);
+		lc = root;
 	else if (! hasPermission(uSource, lc, ChanACL::Enter))
-		lc = qhChannels.value(0);
+		lc = root;
 
 	playerEnterChannel(uSource, lc, true);
 
 	QQueue<Channel *> q;
 	QSet<Channel *> chans;
-	q << qhChannels.value(0);
+	q << root;
 	MumbleProto::ChannelState mpcs;
 	while (! q.isEmpty()) {
 		c = q.dequeue();
@@ -269,6 +271,12 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	if (! qsWelcomeText.isEmpty())
 		mpss.set_welcome_text(u8(qsWelcomeText));
 	mpss.set_max_bandwidth(iMaxBandwidth);
+	
+	{
+		hasPermission(uSource, root, ChanACL::Enter);
+		QMutexLocker qml(&qmCache);
+		mpss.set_permissions(acCache.value(uSource)->value(root));
+	}
 
 	sendMessage(uSource, mpss);
 	log(uSource, "Authenticated");
@@ -281,8 +289,8 @@ void Server::msgBanList(User *uSource, MumbleProto::BanList &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	typedef QPair<quint32, int> ban;
-	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Write)) {
-		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Write);
+	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Ban)) {
+		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Ban);
 		return;
 	}
 	if (msg.query()) {
@@ -358,12 +366,12 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 		if (!c || (c == pDstUser->cChannel))
 			return;
 
-		if ((uSource != pDstUser) && (! hasPermission(uSource, pDstUser->cChannel, ChanACL::MoveKick))) {
-			PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::MoveKick);
+		if ((uSource != pDstUser) && (! hasPermission(uSource, pDstUser->cChannel, ChanACL::Move))) {
+			PERM_DENIED(uSource, pDstUser->cChannel, ChanACL::Move);
 			return;
 		}
 
-		if (! hasPermission(uSource, c, ChanACL::MoveKick) && ! hasPermission(pDstUser, c, ChanACL::Enter)) {
+		if (! hasPermission(uSource, c, ChanACL::Move) && ! hasPermission(pDstUser, c, ChanACL::Enter)) {
 			PERM_DENIED(pDstUser, c, ChanACL::Enter);
 			return;
 		}
@@ -378,8 +386,8 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_comment() && (uSource != pDstUser)) {
 		Channel *root = qhChannels.value(0);
-		if (! hasPermission(uSource, root, ChanACL::MoveKick)) {
-			PERM_DENIED(uSource, root, ChanACL::MoveKick);
+		if (! hasPermission(uSource, root, ChanACL::Move)) {
+			PERM_DENIED(uSource, root, ChanACL::Move);
 			return;
 		}
 	}
@@ -464,10 +472,11 @@ void Server::msgUserRemove(User *uSource, MumbleProto::UserRemove &msg) {
 
 	bool ban = msg.has_ban() && msg.ban();
 
-	Channel *c = ban ? qhChannels.value(0) : pDstUser->cChannel;
+	Channel *c = qhChannels.value(0);
+	ChanACL::Perm perm = ban ? ChanACL::Ban : ChanACL::Kick;
 
-	if ((pDstUser->iId ==0) || ! hasPermission(uSource, c, ChanACL::MoveKick)) {
-		PERM_DENIED(uSource, c, ChanACL::MoveKick);
+	if ((pDstUser->iId ==0) || ! hasPermission(uSource, c, perm)) {
+		PERM_DENIED(uSource, c, perm);
 		return;
 	}
 
@@ -693,8 +702,8 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 		if (! c)
 			return;
 
-		if (! ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
-			PERM_DENIED(uSource, c, ChanACL::Speak);
+		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, acCache)) {
+			PERM_DENIED(uSource, c, ChanACL::TextMessage);
 			return;
 		}
 
@@ -709,8 +718,8 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 		if (! c)
 			return;
 
-		if (! ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
-			PERM_DENIED(uSource, c, ChanACL::Speak);
+		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, acCache)) {
+			PERM_DENIED(uSource, c, ChanACL::TextMessage);
 			return;
 		}
 
@@ -719,7 +728,7 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 
 	while (! q.isEmpty()) {
 		Channel *c = q.dequeue();
-		if (ChanACL::hasPermission(uSource, c, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
+		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, acCache)) {
 			foreach(Channel *sub, c->qlChannels)
 				q.enqueue(sub);
 			foreach(Player *p, c->qlPlayers)
@@ -730,8 +739,8 @@ void Server::msgTextMessage(User *uSource, MumbleProto::TextMessage &msg) {
 	for (int i=0;i < msg.session_size(); ++i) {
 		unsigned int session = msg.session(i);
 		User *u = qhUsers.value(session);
-		if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::Speak | ChanACL::AltSpeak, acCache)) {
-			PERM_DENIED(uSource, u->cChannel, ChanACL::Speak);
+		if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, acCache)) {
+			PERM_DENIED(uSource, u->cChannel, ChanACL::TextMessage);
 			return;
 		}
 		users.insert(u);
@@ -871,8 +880,8 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 		for (int i=0;i<msg.acls_size(); ++i) {
 			const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
 			a = new ChanACL(c);
-			a->bApplyHere=mpacl.apply_here();
-			a->bApplySubs=mpacl.apply_subs();
+			a->bApplyHere=mpacl.apply_here() & ChanACL::All;
+			a->bApplySubs=mpacl.apply_subs() & ChanACL::All;
 			if (mpacl.has_user_id())
 				a->iPlayerId=mpacl.user_id();
 			else

@@ -50,6 +50,7 @@ message ServerSync {
 	optional uint32 session = 1;
 	optional uint32 max_bandwidth = 2;
 	optional string welcome_text = 3;
+	optional uint64 permissions = 4;
 }
 
 message ChannelRemove {
@@ -94,6 +95,10 @@ message BanList {
 	message BanEntry {
 		required bytes address = 1;
 		required uint32 mask = 2;
+		// FIXME: Implement these
+		optional string name = 3;
+		optional string reason = 4;
+		optional uint32 duration = 5;
 	}
 	repeated BanEntry bans = 1;
 	optional bool query = 2 [default = false];
@@ -108,8 +113,11 @@ message TextMessage {
 }
 
 message PermissionDenied {
-	// Change to use an enum
-	optional string reason = 2;
+	// FIXME: Implement this clientside
+	optional uint32 permission = 1;
+	optional uint32 channel_id = 2;
+	optional uint32 actor_id = 3;
+	optional string reason = 4;
 }
 
 message ACL {

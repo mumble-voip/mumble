@@ -48,12 +48,19 @@ class ChanACL : public QObject {
 			Enter = 0x4,
 			Speak = 0x8,
 			MuteDeafen = 0x10,
-			MoveKick = 0x20,
+			Move = 0x20,
 			MakeChannel = 0x40,
 			LinkChannel = 0x80,
 			AltSpeak = 0x100,
+			TextMessage = 0x200,
+			
+			// Root channel only
+			Kick = 0x1000,
+			Ban = 0x2000,
+			Register = 0x4000,
+			
 			Cached = 0x8000000,
-			All = 0xffff
+			All = 0x703ff
 		};
 
 		Q_DECLARE_FLAGS(Permissions, Perm)
@@ -74,7 +81,6 @@ class ChanACL : public QObject {
 
 		ChanACL(Channel *c);
 		static bool hasPermission(Player *p, Channel *c, QFlags<Perm> perm, ACLCache &cache);
-		static QString shortName(Perm p);
 		static QString permName(Perm p);
 		static QString whatsThis(Perm p);
 };

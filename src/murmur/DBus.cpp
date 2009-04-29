@@ -528,8 +528,8 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 		a->bApplySubs = ai.applySubs;
 		a->iPlayerId = ai.playerid;
 		a->qsGroup = ai.group;
-		a->pDeny = static_cast<ChanACL::Permissions>(ai.deny);
-		a->pAllow = static_cast<ChanACL::Permissions>(ai.allow);
+		a->pDeny = static_cast<ChanACL::Permissions>(ai.deny) & ChanACL::All;
+		a->pAllow = static_cast<ChanACL::Permissions>(ai.allow) & ChanACL::All;
 	}
 
 	server->clearACLCache();

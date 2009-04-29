@@ -1120,9 +1120,10 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 		acl->bApplySubs = ai.applySubs;
 		acl->iPlayerId = ai.playerid;
 		acl->qsGroup = u8(ai.group);
-		acl->pDeny = static_cast<ChanACL::Permissions>(ai.deny);
-		acl->pAllow = static_cast<ChanACL::Permissions>(ai.allow);
+		acl->pDeny = static_cast<ChanACL::Permissions>(ai.deny) & ChanACL::All;
+		acl->pAllow = static_cast<ChanACL::Permissions>(ai.allow) & ChanACL::All;
 	}
+
 	server->clearACLCache();
 	server->updateChannel(channel);
 	cb->ice_response();
