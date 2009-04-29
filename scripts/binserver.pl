@@ -41,9 +41,9 @@ if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
   print "REVISION $ver\n";
 }
 
-system("/usr/local/Trolltech/Qt-4.5.0/bin/qmake CONFIG+=static CONFIG+=no-client");
+system("/usr/local/Trolltech/Qt-4.5.1/bin/qmake CONFIG+=static CONFIG+=no-client");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.5.0/bin/qmake CONFIG+=static CONFIG+=no-client");
+system("/usr/local/Trolltech/Qt-4.5.1/bin/qmake CONFIG+=static CONFIG+=no-client");
 system("make");
 system("strip release/murmurd");
 
