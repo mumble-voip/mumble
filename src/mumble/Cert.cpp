@@ -97,7 +97,7 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	setupUi(this);
 
-        setOption(QWizard::NoCancelButton, false);
+	setOption(QWizard::NoCancelButton, false);
 
 	bPendingDns = false;
 	qwpExport->setCommitPage(true);

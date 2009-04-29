@@ -52,7 +52,7 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	grid->addWidget(l,0,2);
 
 	int idx=1;
-	for(int i=0;i< ((iId == 0) ? 30 : 16);++i) {
+	for (int i=0;i< ((iId == 0) ? 30 : 16);++i) {
 		ChanACL::Perm perm = static_cast<ChanACL::Perm>(1 << i);
 		QString name = ChanACL::permName(perm);
 

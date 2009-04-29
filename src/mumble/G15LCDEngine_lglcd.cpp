@@ -36,9 +36,9 @@ static LCDEngine *G15LCDEngineNew() {
 }
 
 #ifdef Q_OS_WIN32
- #define G15_LGLCD_EXEC_SUFFIX ".exe"
+#define G15_LGLCD_EXEC_SUFFIX ".exe"
 #else
- #define G15_LGLCD_EXEC_SUFFIX ""
+#define G15_LGLCD_EXEC_SUFFIX ""
 #endif
 
 static LCDEngineRegistrar registrar(G15LCDEngineNew);

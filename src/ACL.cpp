@@ -135,7 +135,7 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, QFlags<Perm> perm, ACLCach
 
 QString ChanACL::permName(QFlags<Perm> p) {
 	QStringList qsl;
-	for(int i=0;i<=31;++i) {
+	for (int i=0;i<=31;++i) {
 		if (p & (1<<i))
 			qsl << permName(static_cast<Perm>(1<<i));
 	}

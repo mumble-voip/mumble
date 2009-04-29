@@ -661,13 +661,13 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 		res = -1;
 		QString storedpw = query.value(2).toString();
 		QString hashedpw = QString::fromLatin1(QCryptographicHash::hash(pw.toUtf8(), QCryptographicHash::Sha1).toHex());
-		
+
 		if (! storedpw.isEmpty() && (storedpw == hashedpw)) {
 			name = query.value(1).toString();
 			res = query.value(0).toInt();
 		}
 	}
-	
+
 	// No password match. Try cert or email match, but only for non-SuperUser.
 	if (!certhash.isEmpty() && (res < 0)) {
 		SQLPREP("SELECT player_id FROM %1player_info WHERE server_id = ? AND key = ? AND value = ?");

@@ -1,3 +1,42 @@
+2009-04-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    b564f33  Add cancel button for Certificate Wizard on OSX.
+    3cf945a  We may now resize QWizards on OSX again, so enable that for
+	     the OSX AudioWizard again.
+    66bbbd0  Fix Cert.cpp for OpenSSL >=0.9.8.
+    ae3ee8a  Fix constness issues with OpenSSL versions prior to 0.9.8.
+	     (Allows us to build against vendor-provided OpenSSL libraries
+	     on OSX)
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    702fe90  Write permission on root is good enough for registrations
+    962a2d4  Server-side support for in-client registration
+    0efd1dc  Clientside user registration, and hide ban/kick if not allowed
+	     to use
+    d3f6874  Use session instead of actor for permissiondenied
+    efe0420  Update ACL Editor for new permissions
+    7925e61  Support flag sets for permission
+    d6b878a  Expand ACL permissions serverside
+    53e9b9d  Print strong cert identities in log
+    56c139c  Show current certificate (if any) on welcomepage of certwizard
+    e7606f6  Rename qt translations to match 4.5.1
+    906cd1a  Always reset certs if the user returns to the start of the
+	     cert dialog
+
+  Thorvald Natvig <thorvald@-e false.(none)>
+    98eb6a5  Fix error messages from celt/speex build files
+
+2009-04-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    1ffbd81  Remove cdecl delcarations from g15helper_macx.
+    91a9f16  Add (untested) G15 LCD support for Mac OS X.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6015d4a  Fix double :: :: in Server
+    0e54cfa  Use SHA1 instead of MD5 for selfsigned certs
+    b76ad9e  Certificate based authentication and account recovery
+    3727bf9  Use native dialogs
+
 2009-04-27
   Thorvald Natvig <slicer@users.sourceforge.net>
     34a4b1f  Use Qt 4.5.1

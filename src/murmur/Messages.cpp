@@ -77,10 +77,10 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	bool ok = false;
 	bool nameok = validatePlayerName(uSource->qsName);
 	QString pw = u8(msg.password());
-	
+
 	QString qsHash;
 	QStringList qslEmail;
-	
+
 	QList<QSslCertificate> certs = uSource->peerCertificateChain();
 	if (! certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();
@@ -271,7 +271,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	if (! qsWelcomeText.isEmpty())
 		mpss.set_welcome_text(u8(qsWelcomeText));
 	mpss.set_max_bandwidth(iMaxBandwidth);
-	
+
 	{
 		hasPermission(uSource, root, ChanACL::Enter);
 		QMutexLocker qml(&qmCache);
@@ -392,9 +392,9 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 	}
-	
+
 	if (msg.has_user_id()) {
-	 	certs = pDstUser->peerCertificateChain();
+		certs = pDstUser->peerCertificateChain();
 		if ((pDstUser->iId >= 0) || certs.isEmpty() || ! hasPermission(uSource, root, ChanACL::Register)) {
 			PERM_DENIED(uSource, root, ChanACL::Register);
 			return;
@@ -466,12 +466,12 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 
 		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(*pDstUser).arg(pDstUser->bMute).arg(pDstUser->bDeaf).arg(pDstUser->bSuppressed));
 	}
-	
+
 	if (msg.has_user_id()) {
 		QMap<QString, QString> info;
 		const QSslCertificate &cert = certs.last();
 		QStringList qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
-		
+
 		info.insert("name", pDstUser->qsName);
 		info.insert("certhash", cert.digest(QCryptographicHash::Sha1).toHex());
 		if (! qslEmail.isEmpty())

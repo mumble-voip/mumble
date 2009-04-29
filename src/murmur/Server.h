@@ -108,7 +108,7 @@ class User : public Connection, public Player {
 
 		std::string ssContext;
 		QString qsIdentity;
-		
+
 		bool bVerified;
 
 		BandwidthRecord bwr;
