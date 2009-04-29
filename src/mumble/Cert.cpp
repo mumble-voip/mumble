@@ -36,7 +36,9 @@
    had the const specifier added to their buffers. This hack mostly
    applies to the OS X port, where we rely on the vendor-provided
    OpenSSL libraries. */
-#define SSL_OUTBUF(x) (const_cast<unsigned char **>(x))
+#define SSL_OUTBUF(x) const_cast<unsigned char **>(x)
+#else
+#define SSL_OUTBUF(x) x
 #endif
 
 CertView::CertView(QWidget *p) : QGroupBox(p) {
