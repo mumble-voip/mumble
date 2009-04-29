@@ -14,6 +14,11 @@ my $lsub = '';
 while(<LOG>) {
   chomp();
   my ($hash,$author,$email,$date,$subject) = split(/\0/,$_);
+  
+  if ($author eq "Thorvald Natvig") {
+    # Because someone forgets to set their git username on every platform...
+    $email = 'slicer@users.sourceforge.net';
+  }
 
   if ($subject =~ s/\s*\[([\w-]+)\]\s*$//) {
     $author = $1;

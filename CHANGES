@@ -11,6 +11,7 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     702fe90  Write permission on root is good enough for registrations
     962a2d4  Server-side support for in-client registration
+    98eb6a5  Fix error messages from celt/speex build files
     0efd1dc  Clientside user registration, and hide ban/kick if not allowed
 	     to use
     d3f6874  Use session instead of actor for permissiondenied
@@ -22,9 +23,6 @@
     e7606f6  Rename qt translations to match 4.5.1
     906cd1a  Always reset certs if the user returns to the start of the
 	     cert dialog
-
-  Thorvald Natvig <thorvald@-e false.(none)>
-    98eb6a5  Fix error messages from celt/speex build files
 
 2009-04-28
   Mikkel Krautz <mikkel@krautz.dk>
@@ -245,8 +243,6 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     dff9e3a  Make the logrotate fail gracefully if murmur isn't running
     e710a84  Update indent script
-
-  Thorvald Natvig <thorvald@natvig.com>
     46e1e60  Update release script to work without a make
     a0d5920  Add mumble_plugin.h to distribution
 
@@ -484,8 +480,6 @@
     ac0b3cf  Indenting
     a2765a6  CRLF merge
     1561941  Add mute/deafen to icon context menu
-
-  Thorvald Natvig <thorvald@debian.localdomain>
     467cd16  Update release script
 
 2009-03-03
@@ -496,6 +490,7 @@
     76e6416  Save/Load for soundfile paths
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    df69aef  Update static murmur for Qt 4.5.0 and lzma compression
     f2232a5  Use realtime threads on Linux, as posix threads aren't
 	     prioritized under SCHED_OTHER
 
@@ -506,9 +501,6 @@
     8f1f066  Half-Life 2 Deathmatch Positional Audio
     3c9cfae  Counterstrike Source Positional Audio
     1b3c71b  TF2 PA fix
-
-  Thorvald Natvig <thorvald@debian.localdomain>
-    df69aef  Update static murmur for Qt 4.5.0 and lzma compression
 
 2009-03-02
   Thorvald Natvig <slicer@users.sourceforge.net>
