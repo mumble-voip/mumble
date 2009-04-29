@@ -187,12 +187,12 @@ void ACLEditor::accept() {
 			continue;
 		MumbleProto::ACL_ChanGroup *mpg = msg.add_groups();
 		mpg->set_name(u8(gp->qsName));
-		foreach(int id, gp->qsAdd)
-			if (id >= 0)
-				mpg->add_add(id);
-		foreach(int id, gp->qsRemove)
-			if (id >= 0)
-				mpg->add_remove(id);
+		foreach(int pid, gp->qsAdd)
+			if (pid >= 0)
+				mpg->add_add(pid);
+		foreach(int pid, gp->qsRemove)
+			if (pid >= 0)
+				mpg->add_remove(pid);
 	}
 
 	g.sh->sendMessage(msg);
@@ -201,11 +201,11 @@ void ACLEditor::accept() {
 }
 
 
-const QString ACLEditor::userName(int id) {
-	if (qhNameCache.contains(id))
-		return qhNameCache.value(id);
+const QString ACLEditor::userName(int pid) {
+	if (qhNameCache.contains(pid))
+		return qhNameCache.value(pid);
 	else
-		return QString::fromLatin1("#%1").arg(id);
+		return QString::fromLatin1("#%1").arg(pid);
 }
 
 int ACLEditor::id(const QString &uname) {
@@ -230,22 +230,22 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 		return;
 
 	for (int i=0;i < mqu.names_size(); ++i) {
-		int id = mqu.ids(i);
+		int pid = mqu.ids(i);
 		QString name = u8(mqu.names(i));
-		qhIDCache.insert(name, id);
-		qhNameCache.insert(id, name);
+		qhIDCache.insert(name, pid);
+		qhNameCache.insert(pid, name);
 
 		if (qhNameWait.contains(name)) {
 			int tid = qhNameWait.take(name);
 
 			foreach(ChanACL *acl, qlACLs)
 				if (acl->iPlayerId == tid)
-					acl->iPlayerId = id;
+					acl->iPlayerId = pid;
 			foreach(Group *gp, qlGroups) {
 				if (gp->qsAdd.remove(tid))
-					gp->qsAdd.insert(id);
+					gp->qsAdd.insert(pid);
 				if (gp->qsRemove.remove(tid))
-					gp->qsRemove.insert(id);
+					gp->qsRemove.insert(pid);
 			}
 		}
 	}
@@ -350,8 +350,8 @@ void ACLEditor::fillWidgetFromSet(QListWidget *qlw, const QSet<int> &qs) {
 	qlw->clear();
 
 	QList<idname> ql;
-	foreach(int id, qs) {
-		ql << idname(userName(id), id);
+	foreach(int pid, qs) {
+		ql << idname(userName(pid), pid);
 	}
 	qStableSort(ql);
 	foreach(idname i, ql) {
