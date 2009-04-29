@@ -102,7 +102,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i]/=40.0f; // Scale to meters
 	avatar_pos[0]*=(-1.0f); // Convert right to left handed
 	
-	top[2] = -1; // Head movement is in front vector
+	avatar_top[2] = -1; // Head movement is in front vector
 
 	// Calculate view unit vector
 	/*
