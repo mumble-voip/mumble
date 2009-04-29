@@ -866,7 +866,7 @@ void MainWindow::on_qaQuit_triggered() {
 }
 
 void MainWindow::on_qleChat_returnPressed() {
-	if (qleChat->text().isEmpty() || !g.sh || !g.sh->isRunning()) return; // Check if text & connection is available
+	if (qleChat->text().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
 
 	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
