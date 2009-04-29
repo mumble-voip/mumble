@@ -214,7 +214,7 @@ class Server : public QThread {
 
 		bool checkDecrypt(User *u, const char *encrypted, char *plain, unsigned int cryptlen);
 
-		bool hasPermission(Player *p, Channel *c, ChanACL::Perm perm);
+		bool hasPermission(Player *p, Channel *c, QFlags<ChanACL::Perm> perm);
 		void clearACLCache(Player *p = NULL);
 
 		void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType);

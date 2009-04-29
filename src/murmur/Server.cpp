@@ -885,7 +885,7 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 	emit playerStateChanged(p);
 }
 
-bool Server::hasPermission(Player *p, Channel *c, ChanACL::Perm perm) {
+bool Server::hasPermission(Player *p, Channel *c, QFlags<ChanACL::Perm> perm) {
 	QMutexLocker qml(&qmCache);
 	return ChanACL::hasPermission(p, c, perm, acCache);
 }

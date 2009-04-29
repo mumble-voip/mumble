@@ -53,7 +53,7 @@
 #define PERM_DENIED(who, where, what) \
 	{ \
 		MumbleProto::PermissionDenied mppd; \
-		mppd.set_permission(what); \
+		mppd.set_permission(static_cast<int>(what)); \
 		mppd.set_channel_id(where->iId); \
 		mppd.set_actor_id(who->uiSession); \
 		sendMessage(uSource, mppd); \
@@ -473,7 +473,7 @@ void Server::msgUserRemove(User *uSource, MumbleProto::UserRemove &msg) {
 	bool ban = msg.has_ban() && msg.ban();
 
 	Channel *c = qhChannels.value(0);
-	ChanACL::Perm perm = ban ? ChanACL::Ban : ChanACL::Kick;
+	QFlags<ChanACL::Perm> perm = ban ? ChanACL::Ban : (ChanACL::Ban|ChanACL::Kick);
 
 	if ((pDstUser->iId ==0) || ! hasPermission(uSource, c, perm)) {
 		PERM_DENIED(uSource, c, perm);

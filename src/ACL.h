@@ -81,6 +81,7 @@ class ChanACL : public QObject {
 
 		ChanACL(Channel *c);
 		static bool hasPermission(Player *p, Channel *c, QFlags<Perm> perm, ACLCache &cache);
+		static QString permName(QFlags<Perm> p);
 		static QString permName(Perm p);
 		static QString whatsThis(Perm p);
 };
