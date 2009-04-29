@@ -51,9 +51,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit = true;
 
 	setOption(QWizard::NoCancelButton, false);
-#ifndef Q_OS_MAC
 	resize(700, 500);
-#endif
 
 	addPage(qwpIntro = introPage());
 	addPage(qwpDevice = devicePage());
