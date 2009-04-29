@@ -4,8 +4,8 @@ include(../compiler.pri)
 	message("The celt/ directory was not found. You need to do one of the following:")
 	message("")
 	message("Option 1: Use CELT Git:")
-	message("git submodule init");
-	message("git submodule update");
+	message("git submodule init")
+	message("git submodule update")
 	message("")
 	message("Option 2: Use system celt (only if it's a bleeding edge version):")
 	message("qmake CONFIG+=no-bundled-celt -recursive")
