@@ -111,8 +111,14 @@ This field describes the size of an LCD device. The size is given either in pixe
       </item>
       <item row="0" column="2">
        <widget class="QLabel" name="qlMinColWidth">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -141,8 +147,14 @@ This field describes the size of an LCD device. The size is given either in pixe
       </item>
       <item row="1" column="2">
        <widget class="QLabel" name="qlSplitterWidth">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>

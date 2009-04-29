@@ -210,7 +210,7 @@ void MainWindow::createActions() {
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
-	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the ingame overlay between showing everybody, just the players who are talking, and nobody.", "Global Shortcut");
+	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay between showing everybody, just the players who are talking, and nobody.", "Global Shortcut");
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));

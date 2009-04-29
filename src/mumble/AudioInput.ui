@@ -164,7 +164,7 @@
       <item row="1" column="0" colspan="3">
        <widget class="QStackedWidget" name="qswTransmit">
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="qwPTT">
          <layout class="QGridLayout">
@@ -286,7 +286,7 @@
              </size>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -316,7 +316,7 @@
           <item row="3" column="1">
            <widget class="QSlider" name="qsTransmitMin">
             <property name="toolTip">
-             <string>Signal values below this counts as silence</string>
+             <string>Signal values below this count as silence</string>
             </property>
             <property name="whatsThis">
              <string>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you're already talking, but will not trigger a new detection.</string>
@@ -409,8 +409,14 @@
       </item>
       <item row="2" column="2">
        <widget class="QLabel" name="qlIdle">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -467,7 +473,7 @@
          </size>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -512,7 +518,7 @@
          </size>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -530,7 +536,7 @@
          <string>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</string>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -562,7 +568,7 @@
          <string>Noise suppression</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</string>
+         <string>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</string>
         </property>
         <property name="minimum">
          <number>15</number>
@@ -587,7 +593,7 @@
          </size>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -632,7 +638,7 @@
          </size>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>

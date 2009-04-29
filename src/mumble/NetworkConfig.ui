@@ -86,7 +86,7 @@
          <string>Type of proxy to connect through</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Type of proxy to connect through&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</string>
+         <string>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</string>
         </property>
         <item>
          <property name="text">
@@ -261,7 +261,7 @@
          <string>Submit anonymous statistics to the Mumble project</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus it's development where it's needed most. By submitting a bit of statistics you help the project determine where to focus development.</string>
+         <string>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</string>
         </property>
         <property name="text">
          <string>Submit anonymous statistics</string>

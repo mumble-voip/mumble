@@ -33,7 +33,7 @@
     <item>
      <widget class="QLabel" name="qlIntroText">
       <property name="text">
-       <string>&lt;p&gt;Mumble can use certificates to autenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</string>
+       <string>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -144,7 +144,7 @@
     <item row="0" column="0" colspan="3">
      <widget class="QLabel" name="qlImportText">
       <property name="text">
-       <string>&lt;p&gt;Mumble can import certicates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</string>
+       <string>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -309,7 +309,7 @@ Are you sure you wish to replace your certificate?
     <item row="0" column="0" colspan="3">
      <widget class="QLabel" name="qlExport">
       <property name="text">
-       <string>&lt;p&gt;If you ever loose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
+       <string>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">

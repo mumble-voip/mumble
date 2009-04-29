@@ -138,7 +138,7 @@ CompletablePage *AudioWizard::donePage() {
 
 	label=new QLabel(tr("Mumble is under continuous development, and the development team wants to focus on the features "
 	                    "that benefit the most users. To this end, Mumble supports submitting anonymous statistics "
-	                    "about your configuration to the developers. These statistcs are essential for future development, and also "
+	                    "about your configuration to the developers. These statistics are essential for future development, and also "
 	                    "make sure the features you use aren't deprecated."));
 	label->setWordWrap(true);
 	v->addWidget(label);
@@ -467,7 +467,7 @@ CompletablePage *AudioWizard::deviceTuningPage() {
 
 	QGridLayout *grid = new QGridLayout(qwpage);
 
-	QLabel *l = new QLabel(tr("To keep latency to an absolute minium, it's important to buffer as little audio as possible on the soundcard. "
+	QLabel *l = new QLabel(tr("To keep latency to an absolute minimum, it's important to buffer as little audio as possible on the soundcard. "
 	                          "However, many soundcards report that they require a much smaller buffer than what they can actually work with, "
 	                          "so the only way to set this value is to try and fail."), qwpage);
 	l->setWordWrap(true);
@@ -491,7 +491,7 @@ CompletablePage *AudioWizard::deviceTuningPage() {
 	qlOutputDelay->setMinimumWidth(30);
 	on_OutputDelay_valueChanged(qsOutputDelay->value());
 	qsOutputDelay->setToolTip(tr("Amount of data to buffer."));
-	qsOutputDelay->setWhatsThis(tr("This sets the amount of data to prebuffer in the output buffer. "
+	qsOutputDelay->setWhatsThis(tr("This sets the amount of data to pre-buffer in the output buffer. "
 	                               "Experiment with different values and set it to the lowest which doesn't "
 	                               "cause rapid jitter in the sound."));
 	grid->addWidget(qsOutputDelay, 2, 1);

@@ -180,7 +180,7 @@
     <string>Open the server connection dialog</string>
    </property>
    <property name="whatsThis">
-    <string>Shows a dialog of registered servers, and also allows quick connect.</string>
+    <string>Shows a dialog of registered servers, and also allows quick-connect.</string>
    </property>
   </action>
   <action name="qaServerDisconnect">
@@ -571,7 +571,7 @@
     <string>Send message to channel tree.</string>
    </property>
    <property name="whatsThis">
-    <string>This sends a text message to a channel and it's subchannels.</string>
+    <string>This sends a text message to a channel and its subchannels.</string>
    </property>
   </action>
   <action name="qaConfigMinimal">
