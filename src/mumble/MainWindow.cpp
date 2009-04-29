@@ -674,7 +674,7 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 	qmPlayer->addAction(qaPlayerComment);
 	qmPlayer->addAction(qaPlayerTextMessage);
 
-	if (p && (p->iId < 0) & (g.pPermissions & ChanACL::Register)) {
+	if (p && (p->iId < 0) & (g.pPermissions & (ChanACL::Register | ChanACL::Write))) {
 		qmPlayer->addSeparator();
 		qmPlayer->addAction(qaPlayerRegister);
 	}
