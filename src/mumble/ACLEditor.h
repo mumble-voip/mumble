@@ -70,8 +70,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 
 		QList<QCheckBox *> qlACLAllow;
 		QList<QCheckBox *> qlACLDeny;
+		QList<ChanACL::Perm> qlPerms;
 
-		void addToolTipsWhatsThis();
 		void showEvent(QShowEvent *);
 		void fillWidgetFromSet(QListWidget *, const QSet<int> &);
 	public:

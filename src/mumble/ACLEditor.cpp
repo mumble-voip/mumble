@@ -51,24 +51,36 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	l=new QLabel(tr("Allow"), qgbACLpermissions);
 	grid->addWidget(l,0,2);
 
-	int perm=1;
 	int idx=1;
-	QString name;
-	while (!(name = ChanACL::permName(static_cast<ChanACL::Perm>(perm))).isEmpty()) {
-		QCheckBox *qcb;
-		l = new QLabel(name, qgbACLpermissions);
-		grid->addWidget(l,idx,0);
-		qcb=new QCheckBox(qgbACLpermissions);
-		connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
-		grid->addWidget(qcb,idx,1);
-		qlACLDeny << qcb;
-		qcb=new QCheckBox(qgbACLpermissions);
-		connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
-		grid->addWidget(qcb,idx,2);
-		qlACLAllow << qcb;
+	for(int i=0;i< ((iId == 0) ? 30 : 16);++i) {
+		ChanACL::Perm perm = static_cast<ChanACL::Perm>(1 << i);
+		QString name = ChanACL::permName(perm);
 
-		idx++;
-		perm = perm * 2;
+		if (! name.isEmpty()) {
+			QCheckBox *qcb;
+			l = new QLabel(name, qgbACLpermissions);
+			grid->addWidget(l,idx,0);
+			qcb=new QCheckBox(qgbACLpermissions);
+			qcb->setToolTip(tr("Deny %1").arg(name));
+			qcb->setWhatsThis(tr("This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(name).arg(ChanACL::whatsThis(perm)));
+			connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
+			grid->addWidget(qcb,idx,1);
+
+			qlACLDeny << qcb;
+
+
+			qcb=new QCheckBox(qgbACLpermissions);
+			qcb->setToolTip(tr("Allow %1").arg(name));
+			qcb->setWhatsThis(tr("This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(name).arg(ChanACL::whatsThis(perm)));
+			connect(qcb, SIGNAL(clicked(bool)), this, SLOT(ACLPermissions_clicked()));
+			grid->addWidget(qcb,idx,2);
+
+			qlACLAllow << qcb;
+
+			qlPerms << perm;
+
+			++idx;
+		}
 	}
 
 	ChanACL *def = new ChanACL(NULL);
@@ -135,8 +147,6 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 
 	ACLEnableCheck();
 	groupEnableCheck();
-
-	addToolTipsWhatsThis();
 }
 
 ACLEditor::~ACLEditor() {
@@ -152,21 +162,6 @@ void ACLEditor::showEvent(QShowEvent *evt) {
 	ACLEnableCheck();
 	QDialog::showEvent(evt);
 }
-
-void ACLEditor::addToolTipsWhatsThis() {
-	int idx;
-	int p = 0x1;
-	for (idx=0;idx<qlACLAllow.count();idx++) {
-		ChanACL::Perm prm=static_cast<ChanACL::Perm>(p);
-		QString perm = ChanACL::permName(prm);
-		qlACLAllow[idx]->setToolTip(tr("Allow %1").arg(perm));
-		qlACLDeny[idx]->setToolTip(tr("Deny %1").arg(perm));
-		qlACLAllow[idx]->setWhatsThis(tr("This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(perm).arg(ChanACL::whatsThis(prm)));
-		qlACLDeny[idx]->setWhatsThis(tr("This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.<br />%2").arg(perm).arg(ChanACL::whatsThis(prm)));
-		p = p * 2;
-	}
-}
-
 
 void ACLEditor::accept() {
 	msg.set_inherit_acls(bInheritACL);
@@ -453,11 +448,10 @@ void ACLEditor::ACLEnableCheck() {
 	if (as) {
 		qcbACLApplyHere->setChecked(as->bApplyHere);
 		qcbACLApplySubs->setChecked(as->bApplySubs);
-		int p = 0x1;
 		for (idx=0;idx<qlACLAllow.count();idx++) {
+			ChanACL::Perm p = qlPerms[idx];
 			qlACLAllow[idx]->setChecked(static_cast<int>(as->pAllow) & p);
 			qlACLDeny[idx]->setChecked(static_cast<int>(as->pDeny) & p);
-			p = p * 2;
 		}
 		qcbACLGroup->clear();
 		qcbACLGroup->addItem(QString());
@@ -609,8 +603,8 @@ void ACLEditor::ACLPermissions_clicked() {
 	a = 0;
 	d = 0;
 
-	p = 0x1;
 	for (idx=0;idx<qlACLAllow.count();idx++) {
+		ChanACL::Perm p = qlPerms[idx];
 		if (qlACLAllow[idx]->isChecked() && qlACLDeny[idx]->isChecked()) {
 			if (source == qlACLAllow[idx])
 				qlACLDeny[idx]->setChecked(false);
@@ -621,7 +615,6 @@ void ACLEditor::ACLPermissions_clicked() {
 			a |= p;
 		if (qlACLDeny[idx]->isChecked())
 			d |= p;
-		p = p * 2;
 	}
 
 	as->pAllow=static_cast<ChanACL::Permissions>(a);

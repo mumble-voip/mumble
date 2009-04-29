@@ -116,7 +116,7 @@ message PermissionDenied {
 	// FIXME: Implement this clientside
 	optional uint32 permission = 1;
 	optional uint32 channel_id = 2;
-	optional uint32 actor_id = 3;
+	optional uint32 session = 3;
 	optional string reason = 4;
 }
 

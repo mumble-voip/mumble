@@ -53,12 +53,12 @@ class ChanACL : public QObject {
 			LinkChannel = 0x80,
 			AltSpeak = 0x100,
 			TextMessage = 0x200,
-			
+
 			// Root channel only
-			Kick = 0x1000,
-			Ban = 0x2000,
-			Register = 0x4000,
-			
+			Kick = 0x10000,
+			Ban = 0x20000,
+			Register = 0x40000,
+
 			Cached = 0x8000000,
 			All = 0x703ff
 		};

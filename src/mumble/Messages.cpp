@@ -107,7 +107,22 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 }
 
 void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
-	g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
+	if (msg.has_session() && msg.has_permission() && msg.has_channel_id()) {
+		VICTIM_INIT;
+		SELF_INIT;
+		Channel *c = Channel::get(msg.channel_id());
+		QString pname = ChanACL::permName(static_cast<ChanACL::Perm>(msg.permission()));
+		if (pDst == pSelf)
+			g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(pname).arg(c->qsName));
+		else
+			g.l->log(Log::PermissionDenied, tr("%3 was denied %1 privileges in %2.").arg(pname).arg(c->qsName).arg(pDst->qsName));
+	} else if (msg.has_reason()) {
+		g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
+	} else {
+		g.l->log(Log::PermissionDenied, tr("Permission denied."));
+	}
+
+
 }
 
 void MainWindow::msgUDPTunnel(const MumbleProto::UDPTunnel &) {
