@@ -143,7 +143,7 @@
          <string>Ask whether to close or minimize when quitting Mumble.</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;If set, will verify you want to quit if connected.&lt;b&gt;</string>
+         <string>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</string>
         </property>
         <property name="text">
          <string>Ask on quit while connected</string>

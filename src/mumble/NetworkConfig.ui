@@ -127,7 +127,7 @@
          <string>Hostname of the proxy</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Hostname of the proxy.&lt;b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</string>
+         <string>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</string>
         </property>
         <property name="text">
          <string/>
