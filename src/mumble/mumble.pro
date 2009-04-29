@@ -240,6 +240,10 @@ CONFIG(no-update) {
 	RESOURCES *= mumble_qt.qrc
 }
 
+!CONFIG(no-embed-tango-icons) {
+	RESOURCES *= mumble_tango.qrc
+}
+
 lrel.output = ${QMAKE_FILE_BASE}.qm
 lrel.commands = $${QMAKE_LRELEASE} ${QMAKE_FILE_NAME}
 lrel.input = TRANSLATIONS

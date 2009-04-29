@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>Certificate Management</string>
   </property>
+  <property name="toolTip">
+   <string>Select file to export to</string>
+  </property>
+  <property name="whatsThis">
+   <string>This opens a file selection dialog to choose a file to export the certificate to.</string>
+  </property>
   <widget class="QWizardPage" name="qwpWelcome">
    <property name="title">
     <string>Certificate Authentication</string>
@@ -25,19 +31,9 @@
    </attribute>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="qlIntroText">
       <property name="text">
-       <string>Mumble can use certificates to autenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.</string>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>While Mumble can work without certificates, the majority of servers will expect you to have one.</string>
+       <string>&lt;p&gt;Mumble can use certificates to autenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -46,6 +42,12 @@
     </item>
     <item>
      <widget class="CertView" name="cvWelcome">
+      <property name="toolTip">
+       <string>Current certificate</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the certificate Mumble currently uses.</string>
+      </property>
       <property name="title">
        <string>Current Certificate</string>
       </property>
@@ -53,8 +55,24 @@
     </item>
     <item>
      <widget class="QRadioButton" name="qrbCreate">
+      <property name="toolTip">
+       <string>Create a new certificate</string>
+      </property>
+      <property name="whatsThis">
+       <string>This will create a new certificate.</string>
+      </property>
       <property name="text">
        <string>Create a new certificate</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>:actions/document-new.svg</normaloff>:actions/document-new.svg</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -63,8 +81,24 @@
     </item>
     <item>
      <widget class="QRadioButton" name="qrbImport">
+      <property name="toolTip">
+       <string>Import certificate from file</string>
+      </property>
+      <property name="whatsThis">
+       <string>This will import a certificate from file.</string>
+      </property>
       <property name="text">
        <string>Import a certificate</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>:actions/document-open.svg</normaloff>:actions/document-open.svg</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -73,8 +107,24 @@
       <property name="enabled">
        <bool>false</bool>
       </property>
+      <property name="toolTip">
+       <string>Export Certificate</string>
+      </property>
+      <property name="whatsThis">
+       <string>This will export a certificate to file.</string>
+      </property>
       <property name="text">
        <string>Export current certificate</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>:actions/document-save-as.svg</normaloff>:actions/document-save-as.svg</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -92,46 +142,82 @@
    </attribute>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0" colspan="3">
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="qlImportText">
       <property name="text">
-       <string>Mumble can import certicates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.</string>
+       <string>&lt;p&gt;Mumble can import certicates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_4">
+    <item row="1" column="0" rowspan="2">
+     <widget class="QLabel" name="qlImportFile">
       <property name="text">
        <string>Import from</string>
       </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="qleImportFile"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="qpbImportFile">
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0" colspan="3">
-     <widget class="CertView" name="cvImport">
-      <property name="title">
-       <string>Certificate Details</string>
+      <property name="buddy">
+       <cstring>qleImportFile</cstring>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="qlePassword"/>
+     <widget class="QLineEdit" name="qleImportFile">
+      <property name="toolTip">
+       <string>Filename to import from</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the filename you wish to import a certificate from.</string>
+      </property>
+     </widget>
     </item>
-    <item row="2" column="0">
+    <item row="1" column="2" rowspan="2">
+     <widget class="QPushButton" name="qpbImportFile">
+      <property name="toolTip">
+       <string>Select file to import from</string>
+      </property>
+      <property name="whatsThis">
+       <string>This opens a file selection dialog to choose a file to import a certificate from.</string>
+      </property>
+      <property name="text">
+       <string>Open...</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>:actions/document-open.svg</normaloff>:actions/document-open.svg</iconset>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
      <widget class="QLabel" name="qlPassword">
       <property name="text">
        <string>Password</string>
+      </property>
+      <property name="buddy">
+       <cstring>qlePassword</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="qlePassword">
+      <property name="toolTip">
+       <string>Password for PKCS#12 file</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the password for the PKCS#12 file containing your certificate.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="3">
+     <widget class="CertView" name="cvImport">
+      <property name="toolTip">
+       <string>Certificate to import</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the certificate you are importing.</string>
+      </property>
+      <property name="title">
+       <string>Certificate Details</string>
       </property>
      </widget>
     </item>
@@ -149,12 +235,20 @@
    </attribute>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0" colspan="2">
-     <widget class="QLabel" name="label_7">
+     <widget class="QLabel" name="qlReplace">
       <property name="enabled">
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>You already have a certificate stored in Mumble, and you are about to replace it. Are you sure you wish to do this?</string>
+       <string>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
+&lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the email addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognize the strong certificate for your email address.
+&lt;/p&gt;
+&lt;p&gt;If this is not the case, you will no longer be recognized by any server you previously have authenticated with. If you haven't been registered on any server yet, this is nothing to worry about.
+&lt;/p&gt;
+&lt;p&gt;
+Are you sure you wish to replace your certificate?
+&lt;/p&gt;
+</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -169,6 +263,12 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="toolTip">
+       <string>Current certificate</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the certificate Mumble currently uses. It will be replaced.</string>
+      </property>
       <property name="title">
        <string>Current Certificate</string>
       </property>
@@ -181,6 +281,12 @@
         <horstretch>1</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>New certificate</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the new certificate that will replace the old one.</string>
       </property>
       <property name="title">
        <string>New Certificate</string>
@@ -201,48 +307,55 @@
    </attribute>
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0" colspan="3">
-     <widget class="QLabel" name="label_5">
+     <widget class="QLabel" name="qlExport">
       <property name="text">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If you ever loose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;span style=&quot; font-weight:600;&quot;&gt;mandatory &lt;/span&gt;that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;p&gt;If you ever loose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="3">
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.</string>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_8">
+    <item row="1" column="0" rowspan="2">
+     <widget class="QLabel" name="qlExportFile">
       <property name="text">
        <string>Export to</string>
+      </property>
+      <property name="buddy">
+       <cstring>qleExportFile</cstring>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="qleExportFile"/>
+     <widget class="QLineEdit" name="qleExportFile">
+      <property name="toolTip">
+       <string>Filename to export to</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the filename you wish to export a certificate to.</string>
+      </property>
+     </widget>
     </item>
-    <item row="2" column="2">
+    <item row="1" column="2" rowspan="2">
      <widget class="QPushButton" name="qpbExportFile">
       <property name="text">
-       <string>...</string>
+       <string>Save As...</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>:actions/document-save-as.svg</normaloff>:actions/document-save-as.svg</iconset>
       </property>
      </widget>
     </item>
     <item row="3" column="0" colspan="3">
      <widget class="CertView" name="cvExport">
+      <property name="toolTip">
+       <string>Current certificate</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is the certificate Mumble currently uses. It will be exported.</string>
+      </property>
       <property name="title">
        <string>Certificate Details</string>
       </property>
@@ -262,49 +375,59 @@ p, li { white-space: pre-wrap; }
    </attribute>
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0" colspan="2">
-     <widget class="QLabel" name="label_9">
+     <widget class="QLabel" name="qlNewText">
       <property name="text">
-       <string>Mumble will now generate a strong certificate for authentication to servers.</string>
+       <string>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="2">
-     <widget class="QLabel" name="label_10">
+    <item row="1" column="0">
+     <widget class="QLabel" name="qlName">
       <property name="text">
-       <string>If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.</string>
+       <string>Name</string>
       </property>
-      <property name="wordWrap">
-       <bool>true</bool>
+      <property name="buddy">
+       <cstring>qleName</cstring>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
-     <widget class="QLabel" name="label_11">
+     <widget class="QLabel" name="qlEmail">
       <property name="text">
-       <string>Name</string>
+       <string>Email</string>
+      </property>
+      <property name="buddy">
+       <cstring>qleEmail</cstring>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="qleName"/>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_12">
-      <property name="text">
-       <string>E-Mail</string>
+     <widget class="QLineEdit" name="qleEmail">
+      <property name="toolTip">
+       <string>Your email address (e.g. johndoe@mumble.info)</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</string>
       </property>
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="QLineEdit" name="qleEmail"/>
-    </item>
-    <item row="4" column="1">
      <widget class="QLabel" name="qlEmailError">
       <property name="text">
        <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="qleName">
+      <property name="toolTip">
+       <string>Your name (e.g. John Doe)</string>
+      </property>
+      <property name="whatsThis">
+       <string>This is your name, and will be filled out in the certificate. This field is entirely optional.</string>
       </property>
      </widget>
     </item>
@@ -315,14 +438,14 @@ p, li { white-space: pre-wrap; }
     <string>Finish</string>
    </property>
    <property name="subTitle">
-    <string>Certificate Authentication ready for use</string>
+    <string>Certificate-based authentication is ready for use</string>
    </property>
    <attribute name="pageId">
     <string notr="true">5</string>
    </attribute>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QLabel" name="label_13">
+     <widget class="QLabel" name="qlFinishText">
       <property name="text">
        <string>Enjoy using Mumble with strong authentication.</string>
       </property>
@@ -348,6 +471,21 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <tabstops>
+  <tabstop>qleName</tabstop>
+  <tabstop>qleEmail</tabstop>
+  <tabstop>qlePassword</tabstop>
+  <tabstop>qrbExport</tabstop>
+  <tabstop>qpbImportFile</tabstop>
+  <tabstop>qrbCreate</tabstop>
+  <tabstop>qrbImport</tabstop>
+  <tabstop>qleImportFile</tabstop>
+  <tabstop>qleExportFile</tabstop>
+  <tabstop>qpbExportFile</tabstop>
+ </tabstops>
+ <resources>
+  <include location="mumble.qrc"/>
+  <include location="mumble_tango.qrc"/>
+ </resources>
  <connections/>
 </ui>

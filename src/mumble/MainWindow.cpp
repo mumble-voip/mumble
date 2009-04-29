@@ -757,7 +757,7 @@ void MainWindow::on_qaPlayerRegister_triggered() {
 
 	unsigned int session = p->uiSession;
 
-	if (QMessageBox::question(this, tr("Register player %1").arg(p->qsName), tr("You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.<br />Are you sure you want to register %1?").arg(p->qsName), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
+	if (QMessageBox::question(this, tr("Register player %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
 		mpus.set_user_id(0);
