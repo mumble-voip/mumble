@@ -176,6 +176,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 
 	playerEnterChannel(uSource, lc, true);
 
+	// Transmit channel tree
 	QQueue<Channel *> q;
 	QSet<Channel *> chans;
 	q << root;
@@ -202,6 +203,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 			q.enqueue(c);
 	}
 
+	// Transmit links
 	foreach(c, chans) {
 		if (c->qhLinks.count() > 0) {
 			mpcs.Clear();
@@ -213,6 +215,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		}
 	}
 
+	// Transmit player profile
 	MumbleProto::UserState mpus;
 
 	uSource->sState = Player::Authenticated;
@@ -235,6 +238,7 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 
 	sendExcept(uSource, mpus);
 
+	// Transmit other players profiles
 	foreach(User *u, qhUsers) {
 		if (u->sState != Player::Authenticated)
 			continue;
@@ -266,13 +270,17 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 		sendMessage(uSource, mpus);
 	}
 
+	// Send syncronisation packet
 	MumbleProto::ServerSync mpss;
 	mpss.set_session(uSource->uiSession);
 	if (! qsWelcomeText.isEmpty())
 		mpss.set_welcome_text(u8(qsWelcomeText));
 	mpss.set_max_bandwidth(iMaxBandwidth);
 
-	{
+	if (uSource->iId == 0) {
+		mpss.set_permissions(ChanACL::All);
+	}
+	else {
 		hasPermission(uSource, root, ChanACL::Enter);
 		QMutexLocker qml(&qmCache);
 		mpss.set_permissions(acCache.value(uSource)->value(root));
