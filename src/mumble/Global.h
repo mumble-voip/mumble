@@ -34,6 +34,7 @@
 #include "Settings.h"
 #include "Timer.h"
 #include "Version.h"
+#include "ACL.h"
 
 // Global helper class to spread variables around across threads.
 
@@ -75,6 +76,7 @@ public:
 	bool bPosTest;
 	int iAudioPathTime;
 	unsigned int uiSession;
+	ChanACL::Permissions pPermissions;
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	int iAudioQuality;

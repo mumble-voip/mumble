@@ -52,6 +52,7 @@
 #include "ViewCert.h"
 #include "TextMessage.h"
 #include "NetworkConfig.h"
+#include "ACL.h"
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
@@ -331,6 +332,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	}
 #endif
 	g.uiSession = 0;
+	g.pPermissions = ChanACL::None;
 
 	g.s.qbaMainWindowState = saveState();
 	if (g.s.bMinimalView) {
@@ -579,7 +581,8 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->clear();
 	qmServer->addAction(qaServerConnect);
 	qmServer->addAction(qaServerDisconnect);
-	qmServer->addAction(qaServerBanList);
+	if (g.pPermissions & (ChanACL::Ban | ChanACL::Write))
+		qmServer->addAction(qaServerBanList);
 	qmServer->addAction(qaServerInformation);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
@@ -661,13 +664,20 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 
 	qmPlayer->clear();
 
-	qmPlayer->addAction(qaPlayerKick);
-	qmPlayer->addAction(qaPlayerBan);
+	if (g.pPermissions & (ChanACL::Kick | ChanACL::Ban | ChanACL::Write))
+		qmPlayer->addAction(qaPlayerKick);
+	if (g.pPermissions & (ChanACL::Ban | ChanACL::Write))
+		qmPlayer->addAction(qaPlayerBan);
 	qmPlayer->addAction(qaPlayerMute);
 	qmPlayer->addAction(qaPlayerDeaf);
 	qmPlayer->addAction(qaPlayerLocalMute);
 	qmPlayer->addAction(qaPlayerComment);
 	qmPlayer->addAction(qaPlayerTextMessage);
+
+	if (p && (p->iId < 0) & (g.pPermissions & ChanACL::Register)) {
+		qmPlayer->addSeparator();
+		qmPlayer->addAction(qaPlayerRegister);
+	}
 
 	if (self) {
 		qmPlayer->addSeparator();
@@ -738,6 +748,21 @@ void MainWindow::on_qaPlayerDeaf_triggered() {
 	mpus.set_session(p->uiSession);
 	mpus.set_deaf(! p->bDeaf);
 	g.sh->sendMessage(mpus);
+}
+
+void MainWindow::on_qaPlayerRegister_triggered() {
+	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
+		return;
+
+	unsigned int session = p->uiSession;
+
+	if (QMessageBox::question(this, tr("Register player %1").arg(p->qsName), tr("You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.<br />Are you sure you want to register %1?").arg(p->qsName), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
+		MumbleProto::UserState mpus;
+		mpus.set_session(p->uiSession);
+		mpus.set_user_id(0);
+		g.sh->sendMessage(mpus);
+	}
 }
 
 void MainWindow::on_qaPlayerKick_triggered() {
@@ -1364,6 +1389,7 @@ void MainWindow::viewCertificate(bool) {
 
 void MainWindow::serverConnected() {
 	g.uiSession = 0;
+	g.pPermissions = ChanACL::None;
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::PlayerJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
@@ -1388,6 +1414,7 @@ void MainWindow::serverConnected() {
 
 void MainWindow::serverDisconnected(QString reason) {
 	g.uiSession = 0;
+	g.pPermissions = ChanACL::None;
 	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);

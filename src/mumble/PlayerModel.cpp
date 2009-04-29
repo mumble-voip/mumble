@@ -748,6 +748,12 @@ void PlayerModel::renamePlayer(ClientPlayer *p, const QString &name) {
 		updateOverlay();
 }
 
+void PlayerModel::setPlayerId(ClientPlayer *p, int id) {
+	p->iId = id;
+	QModelIndex idx = index(p, 1);
+	emit dataChanged(idx, idx);
+}
+
 void PlayerModel::renameChannel(Channel *c, const QString &name) {
 	c->qsName = name;
 

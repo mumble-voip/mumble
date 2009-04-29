@@ -624,6 +624,17 @@
     <string>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</string>
    </property>
   </action>
+  <action name="qaPlayerRegister">
+   <property name="text">
+    <string>Register</string>
+   </property>
+   <property name="toolTip">
+    <string>Register player on server</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will permanently register the player on the server. Note that you can't change the username later on, nor can you easily unregister a player, so make sure you really want to do this.</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

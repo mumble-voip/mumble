@@ -130,6 +130,7 @@ class PlayerModel : public QAbstractItemModel {
 
 		void renamePlayer(ClientPlayer *p, const QString &name);
 		void renameChannel(Channel *c, const QString &name);
+		void setPlayerId(ClientPlayer *p, int id);
 
 		void movePlayer(ClientPlayer *p, Channel *c);
 		void moveChannel(Channel *c, Channel *p);

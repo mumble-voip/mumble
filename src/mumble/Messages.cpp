@@ -89,6 +89,7 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	g.iMaxBandwidth = msg.max_bandwidth();
 	g.uiSession = msg.session();
+	g.pPermissions = static_cast<ChanACL::Permissions>(msg.permissions());
 	g.l->clearIgnore();
 	g.l->log(Log::Information, u8(msg.welcome_text()));
 	pmModel->ensureSelfVisible();
@@ -111,7 +112,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 		VICTIM_INIT;
 		SELF_INIT;
 		Channel *c = Channel::get(msg.channel_id());
-		QString pname = ChanACL::permName(static_cast<ChanACL::Perm>(msg.permission()));
+		QString pname = ChanACL::permName(static_cast<ChanACL::Permissions>(msg.permission()));
 		if (pDst == pSelf)
 			g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(pname).arg(c->qsName));
 		else
@@ -146,7 +147,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_user_id())
-		pDst->iId = msg.user_id();
+		pmModel->setPlayerId(pDst, msg.user_id());
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
 		if (msg.has_self_mute())
@@ -221,7 +222,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			}
 
 			pmModel->movePlayer(pDst, c);
-
 
 			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {
 				if (pDst == pSrc)
@@ -363,7 +363,7 @@ void MainWindow::msgQueryUsers(const MumbleProto::QueryUsers &msg) {
 		aclEdit->returnQuery(msg);
 }
 
-void MainWindow::msgPing(const MumbleProto::Ping &msg) {
+void MainWindow::msgPing(const MumbleProto::Ping &) {
 }
 
 void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {

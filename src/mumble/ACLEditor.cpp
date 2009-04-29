@@ -599,7 +599,7 @@ void ACLEditor::ACLPermissions_clicked() {
 	if (! as || as->bInherited)
 		return;
 
-	int a, d, p, idx;
+	int a, d, idx;
 	a = 0;
 	d = 0;
 
