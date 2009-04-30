@@ -113,11 +113,17 @@ message TextMessage {
 }
 
 message PermissionDenied {
-	// FIXME: Implement this clientside
+	enum DenyType {
+		Text = 0;
+		Permission = 1;
+		SuperUser = 2;
+		ChannelName = 3;
+	}
 	optional uint32 permission = 1;
 	optional uint32 channel_id = 2;
 	optional uint32 session = 3;
 	optional string reason = 4;
+	optional uint32 type = 5;
 }
 
 message ACL {

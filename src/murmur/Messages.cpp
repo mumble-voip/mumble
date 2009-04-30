@@ -56,13 +56,14 @@
 		mppd.set_permission(static_cast<int>(what)); \
 		mppd.set_channel_id(where->iId); \
 		mppd.set_session(who->uiSession); \
+		mppd.set_type(MumbleProto::PermissionDenied_DenyType_Permission); \
 		sendMessage(uSource, mppd); \
 		log(uSource, QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName)); \
 	}
-#define PERM_DENIED_TEXT(text) \
+#define PERM_DENIED_TYPE(type) \
 	{ \
 		MumbleProto::PermissionDenied mppd; \
-		mppd.set_reason(std::string(text)); \
+		mppd.set_type(MumbleProto::PermissionDenied_DenyType_##type); \
 		sendMessage(uSource, mppd); \
 	}
 
@@ -364,7 +365,7 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 	QList<QSslCertificate> certs;
 
 	if (pDstUser->iId == 0) {
-		PERM_DENIED_TEXT("Can't modify SuperUser");
+		PERM_DENIED_TYPE(SuperUser);
 		return;
 	}
 
@@ -558,13 +559,13 @@ void Server::msgChannelState(User *uSource, MumbleProto::ChannelState &msg) {
 		qsName = u8(msg.name());
 
 		if (! validateChannelName(qsName)) {
-			PERM_DENIED_TEXT("Illegal channel name");
+			PERM_DENIED_TYPE(ChannelName);
 			return;
 		}
 
 		QRegExp re2("\\w");
 		if (re2.indexIn(qsName) == -1) {
-			PERM_DENIED_TEXT("Must have alphanumeric in name");
+			PERM_DENIED_TYPE(ChannelName);
 			return;
 		}
 
@@ -572,7 +573,7 @@ void Server::msgChannelState(User *uSource, MumbleProto::ChannelState &msg) {
 			Channel *cp = p ? p : c->cParent;
 			foreach(Channel *sibling, cp->qlChannels) {
 				if (sibling->qsName == qsName) {
-					PERM_DENIED_TEXT("Duplicate channel name");
+					PERM_DENIED_TYPE(ChannelName);
 					return;
 				}
 			}
@@ -636,7 +637,7 @@ void Server::msgChannelState(User *uSource, MumbleProto::ChannelState &msg) {
 
 			foreach(Channel *sibling, p->qlChannels) {
 				if (sibling->qsName == name) {
-					PERM_DENIED_TEXT("Duplicate channel name");
+					PERM_DENIED_TYPE(ChannelName);
 					return;
 				}
 			}
