@@ -34,6 +34,10 @@
 #include "Channel.h"
 #include "Global.h"
 
+ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
+	bInherited = false;
+}
+
 ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	QLabel *l;
 
@@ -116,7 +120,7 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	for (int i=0;i<mea.groups_size();++i) {
 		const MumbleProto::ACL_ChanGroup &gs = mea.groups(i);
 
-		Group *gp = new Group(NULL, u8(gs.name()));
+		ACLGroup *gp = new ACLGroup(u8(gs.name()));
 		for (int j=0;j<gs.add_size();++j)
 			gp->qsAdd.insert(gs.add(j));
 		for (int j=0;j<gs.remove_size();++j)
@@ -153,7 +157,7 @@ ACLEditor::~ACLEditor() {
 	foreach(ChanACL *acl, qlACLs) {
 		delete acl;
 	}
-	foreach(Group *gp, qlGroups) {
+	foreach(ACLGroup *gp, qlGroups) {
 		delete gp;
 	}
 }
@@ -182,7 +186,7 @@ void ACLEditor::accept() {
 		mpa->set_deny(acl->pDeny);
 	}
 
-	foreach(Group *gp, qlGroups) {
+	foreach(ACLGroup *gp, qlGroups) {
 		if (gp->bInherited && gp->bInherit && gp->bInheritable && (gp->qsAdd.count() == 0) && (gp->qsRemove.count() == 0))
 			continue;
 		MumbleProto::ACL_ChanGroup *mpg = msg.add_groups();
@@ -241,7 +245,7 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 			foreach(ChanACL *acl, qlACLs)
 				if (acl->iPlayerId == tid)
 					acl->iPlayerId = pid;
-			foreach(Group *gp, qlGroups) {
+			foreach(ACLGroup *gp, qlGroups) {
 				if (gp->qsAdd.remove(tid))
 					gp->qsAdd.insert(pid);
 				if (gp->qsRemove.remove(tid))
@@ -309,7 +313,7 @@ void ACLEditor::refillGroupNames() {
 	QString text = qcbGroupList->currentText().toLower();
 	QStringList qsl;
 
-	foreach(Group *gp, qlGroups) {
+	foreach(ACLGroup *gp, qlGroups) {
 		qsl << gp->qsName;
 	}
 	qsl.sort();
@@ -324,10 +328,10 @@ void ACLEditor::refillGroupNames() {
 	qcbGroupList->setCurrentIndex(wantindex);
 }
 
-Group *ACLEditor::currentGroup() {
+ACLGroup *ACLEditor::currentGroup() {
 	QString group = qcbGroupList->currentText().toLower();
 
-	foreach(Group *gp, qlGroups) {
+	foreach(ACLGroup *gp, qlGroups) {
 		if (gp->qsName == group) {
 			return gp;
 		}
@@ -366,7 +370,7 @@ void ACLEditor::fillWidgetFromSet(QListWidget *qlw, const QSet<int> &qs) {
 }
 
 void ACLEditor::refillGroupAdd() {
-	Group *gp = currentGroup();
+	ACLGroup *gp = currentGroup();
 
 	if (! gp)
 		return;
@@ -375,7 +379,7 @@ void ACLEditor::refillGroupAdd() {
 }
 
 void ACLEditor::refillGroupRemove() {
-	Group *gp = currentGroup();
+	ACLGroup *gp = currentGroup();
 	if (! gp)
 		return;
 
@@ -383,7 +387,7 @@ void ACLEditor::refillGroupRemove() {
 }
 
 void ACLEditor::refillGroupInherit() {
-	Group *gp = currentGroup();
+	ACLGroup *gp = currentGroup();
 
 	if (! gp)
 		return;
@@ -392,7 +396,7 @@ void ACLEditor::refillGroupInherit() {
 }
 
 void ACLEditor::groupEnableCheck() {
-	Group *gp = currentGroup();
+	ACLGroup *gp = currentGroup();
 
 	bool ena = true;
 
@@ -463,7 +467,7 @@ void ACLEditor::ACLEnableCheck() {
 		qcbACLGroup->addItem(QLatin1String("~in"));
 		qcbACLGroup->addItem(QLatin1String("~sub"));
 		qcbACLGroup->addItem(QLatin1String("~out"));
-		foreach(Group *gs, qlGroups)
+		foreach(ACLGroup *gs, qlGroups)
 			qcbACLGroup->addItem(gs->qsName);
 		if (as->iPlayerId == -1) {
 			qleACLUser->setText(QString());
@@ -622,12 +626,12 @@ void ACLEditor::ACLPermissions_clicked() {
 }
 
 void ACLEditor::on_qcbGroupList_activated(const QString &text) {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (text.isEmpty())
 		return;
 	if (! gs) {
 		QString name = text.toLower();
-		gs = new Group(NULL, name);
+		gs = new ACLGroup(name);
 		gs->bInherited = false;
 		gs->bInherit = true;
 		gs->bInheritable = true;
@@ -643,7 +647,7 @@ void ACLEditor::on_qcbGroupList_activated(const QString &text) {
 }
 
 void ACLEditor::on_qpbGroupRemove_clicked() {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (! gs)
 		return;
 	if (gs->bInherited) {
@@ -663,7 +667,7 @@ void ACLEditor::on_qpbGroupRemove_clicked() {
 }
 
 void ACLEditor::on_qcbGroupInherit_clicked(bool checked) {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (! gs)
 		return;
 	gs->bInherit = checked;
@@ -671,14 +675,14 @@ void ACLEditor::on_qcbGroupInherit_clicked(bool checked) {
 }
 
 void ACLEditor::on_qcbGroupInheritable_clicked(bool checked) {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (! gs)
 		return;
 	gs->bInheritable = checked;
 }
 
 void ACLEditor::on_qpbGroupAddAdd_clicked() {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	QString text = qleGroupAdd->text();
 
 	if (! gs)
@@ -692,7 +696,7 @@ void ACLEditor::on_qpbGroupAddAdd_clicked() {
 }
 
 void ACLEditor::on_qpbGroupAddRemove_clicked() {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (! gs)
 		return;
 
@@ -707,7 +711,7 @@ void ACLEditor::on_qpbGroupAddRemove_clicked() {
 void ACLEditor::on_qpbGroupRemoveAdd_clicked() {
 	QString text = qleGroupRemove->text();
 
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (! gs)
 		return;
 
@@ -719,7 +723,7 @@ void ACLEditor::on_qpbGroupRemoveAdd_clicked() {
 }
 
 void ACLEditor::on_qpbGroupRemoveRemove_clicked() {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (! gs)
 		return;
 
@@ -732,7 +736,7 @@ void ACLEditor::on_qpbGroupRemoveRemove_clicked() {
 }
 
 void ACLEditor::on_qpbGroupInheritRemove_clicked() {
-	Group *gs = currentGroup();
+	ACLGroup *gs = currentGroup();
 	if (! gs)
 		return;
 

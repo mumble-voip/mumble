@@ -50,7 +50,7 @@ class Group {
 		QSet<int> qsRemove;
 		QSet<int> qsTemporary;
 		QSet<int> members();
-		Group(Channel *assoc, QString name);
+		Group(Channel *assoc, const QString &name);
 
 		static QSet<QString> groupNames(Channel *c);
 		static Group *getGroup(Channel *c, QString name);

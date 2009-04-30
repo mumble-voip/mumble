@@ -38,6 +38,14 @@
 
 #include "ui_ACLEditor.h"
 
+class ACLGroup : public Group {
+	private:
+		Q_DISABLE_COPY(ACLGroup)
+	public:
+		bool bInherited;
+		ACLGroup(const QString &name);
+};
+
 class ACLEditor : public QDialog, public Ui::ACLEditor {
 	private:
 		Q_OBJECT
@@ -56,13 +64,13 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 
 		void refill(WaitID what);
 
-		Group *currentGroup();
+		ACLGroup *currentGroup();
 		ChanACL *currentACL();
 
 		int iId;
 		bool bInheritACL;
 		QList<ChanACL *> qlACLs;
-		QList<Group *> qlGroups;
+		QList<ACLGroup *> qlGroups;
 		int numInheritACL;
 
 		const QString userName(int id);

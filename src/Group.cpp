@@ -32,11 +32,10 @@
 #include "Channel.h"
 #include "Player.h"
 
-Group::Group(Channel *assoc, QString name) {
+Group::Group(Channel *assoc, const QString &name) {
 	c = assoc;
 	bInherit = true;
 	bInheritable = true;
-	bInherited = false;
 	qsName = name;
 	if (c)
 		c->qhGroups[name] = this;
