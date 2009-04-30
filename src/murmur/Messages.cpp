@@ -950,6 +950,7 @@ void Server::msgQueryUsers(User *uSource, MumbleProto::QueryUsers &msg) {
 		QString name = u8(msg.names(i));
 		int id = getUserID(name);
 		if (id >= 0) {
+			name = getUserName(id);
 			reply.add_ids(id);
 			reply.add_names(u8(name));
 		}
