@@ -107,23 +107,13 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 		qtwi->setText(0, d->name());
 		qtwi->setToolTip(0, d->name());
 
-		LCDDevice::Type type = d->type();
-		QString qsType;
-		if (type == LCDDevice::GraphicLCD)
-			qsType = tr("Graphic");
-		else if (type == LCDDevice::CharacterLCD)
-			qsType = tr("Character");
-
-		qtwi->setText(1, qsType);
-		qtwi->setToolTip(1, qsType);
-
 		QSize lcdsize = d->size();
 		QString qsSize = QString::fromLatin1("%1x%2").arg(lcdsize.width()).arg(lcdsize.height());
-		qtwi->setText(2, qsSize);
-		qtwi->setToolTip(2, qsSize);
+		qtwi->setText(1, qsSize);
+		qtwi->setToolTip(1, qsSize);
 
-		qtwi->setCheckState(3, Qt::Unchecked);
-		qtwi->setToolTip(3, tr("Enable this device"));
+		qtwi->setCheckState(2, Qt::Unchecked);
+		qtwi->setToolTip(2, tr("Enable this device"));
 	}
 }
 
@@ -393,16 +383,10 @@ void LCD::updatePlayerView() {
 	}
 
 	foreach(LCDDevice *d, devmgr.qlDevices) {
-		LCDDevice::Type type = d->type();
-		if (type == LCDDevice::GraphicLCD) {
-			QImage *img = qhImages[d->size()];
-			if (! img)
-				continue;
-			d->blitImage(img, alert);
-		} else if (type == LCDDevice::CharacterLCD) {
-			/* TODO. */
-			qWarning("LCD: Unable to draw to Character LCD.");
-		}
+		QImage *img = qhImages[d->size()];
+		if (! img)
+			continue;
+		d->blitImage(img, alert);
 	}
 }
 

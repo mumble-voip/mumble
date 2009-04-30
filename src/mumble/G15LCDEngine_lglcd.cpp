@@ -185,10 +185,6 @@ QString G15LCDDeviceLGLCD::name() const {
 	return QString::fromLatin1("Logitech Gamepanel");
 }
 
-LCDDevice::Type G15LCDDeviceLGLCD::type() const {
-	return LCDDevice::GraphicLCD;
-}
-
 QSize G15LCDDeviceLGLCD::size() const {
 	return QSize(G15_MAX_WIDTH, G15_MAX_HEIGHT);
 }

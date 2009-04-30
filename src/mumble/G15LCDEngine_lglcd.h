@@ -70,7 +70,6 @@ class G15LCDDeviceLGLCD : public LCDDevice {
 		void setEnabled(bool e);
 		void blitImage(QImage *img, bool alert);
 		QString name() const;
-		Type type() const;
 		QSize size() const;
 };
 
