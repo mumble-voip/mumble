@@ -444,7 +444,7 @@ void MurmurIce::idToTextureSlot(QByteArray &qba, int id) {
 	try {
 		const ::Murmur::Texture &tex = prx->idToTexture(id);
 
-		qba.resize(tex.size());
+		qba.resize(static_cast<int>(tex.size()));
 		char *ptr = qba.data();
 		for (unsigned int i=0;i<tex.size();++i)
 			ptr[i] = tex[i];
@@ -1258,7 +1258,7 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 		return;
 	}
 
-	QByteArray qba(tex.size(), 0);
+	QByteArray qba(static_cast<int>(tex.size()), 0);
 	char *ptr = qba.data();
 	for (unsigned int i=0;i<tex.size();++i)
 		ptr[i] = tex[i];

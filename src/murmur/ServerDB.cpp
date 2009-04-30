@@ -812,10 +812,10 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 				tex = qUncompress(texture);
 			} else {
 				QByteArray qba(4,0);
-				qba[0] = (l >> 24) & 0xFF;
-				qba[1] = (l >> 16) & 0xFF;
-				qba[2] = (l >> 8) & 0xFF;
-				qba[3] = (l >> 0) & 0xFF;
+				qba[0] = static_cast<char>((l >> 24) & 0xFF);
+				qba[1] = static_cast<char>((l >> 16) & 0xFF);
+				qba[2] = static_cast<char>((l >> 8) & 0xFF);
+				qba[3] = static_cast<char>((l >> 0) & 0xFF);
 				qba.append(texture);
 				tex = qUncompress(qba);
 			}

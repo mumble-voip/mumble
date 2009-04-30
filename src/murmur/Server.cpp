@@ -369,7 +369,7 @@ void Server::run() {
 #ifdef Q_OS_WIN
 		len=::recvfrom(sUdpSocket, encrypt, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 #else
-		len=::recvfrom(sUdpSocket, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+		len=static_cast<qint32>(::recvfrom(sUdpSocket, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
 #endif
 		if (len == 0) {
 			break;
@@ -508,7 +508,7 @@ void Server::processMsg(User *u, const char *data, int len) {
 
 	poslen = pdi.left();
 
-	buffer[0] = target;
+	buffer[0] = static_cast<char>(target);
 	pds << u->uiSession;
 	pds.append(data + 1, len - 1);
 
@@ -778,9 +778,9 @@ void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 		qba.resize(len + 4);
 		unsigned char *uc = reinterpret_cast<unsigned char *>(qba.data());
 		uc[0] = MessageHandler::UDPTunnel;
-		uc[1] = (len >> 16) & 0xFF;
-		uc[2] = (len >> 8) & 0xFF;
-		uc[3] = len & 0xFF;
+		uc[1] = static_cast<unsigned char>((len >> 16) & 0xFF);
+		uc[2] = static_cast<unsigned char>((len >> 8) & 0xFF);
+		uc[3] = static_cast<unsigned char>(len & 0xFF);
 		memcpy(uc + 4, a.constData(), len);
 
 		c->sendMessage(qba);

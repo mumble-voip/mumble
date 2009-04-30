@@ -60,8 +60,8 @@ void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbTop, r.bOverlayTop);
 	loadCheckBox(qcbBottom, r.bOverlayBottom);
 
-	loadSlider(qsX, static_cast<int>(lroundf(r.fOverlayX * 100.0f)));
-	loadSlider(qsY, 100 - static_cast<int>(lroundf(r.fOverlayY * 100.0f)));
+	loadSlider(qsX, iroundf(r.fOverlayX * 100.0f));
+	loadSlider(qsY, 100 - iroundf(r.fOverlayY * 100.0f));
 	qfFont = r.qfOverlayFont;
 	qcPlayer = r.qcOverlayPlayer;
 	qcTalking= r.qcOverlayTalking;
@@ -69,7 +69,7 @@ void OverlayConfig::load(const Settings &r) {
 	qcChannel = r.qcOverlayChannel;
 	qcChannelTalking = r.qcOverlayChannelTalking;
 	qlCurrentFont->setText(qfFont.family());
-	loadSlider(qsMaxHeight, static_cast<int>(lroundf(r.fOverlayHeight * 1000.0f)));
+	loadSlider(qsMaxHeight, iroundf(r.fOverlayHeight * 1000.0f));
 	setColorLabel(qlPlayer, qcPlayer);
 	setColorLabel(qlTalking, qcTalking);
 	setColorLabel(qlAltTalking, qcAltTalking);

@@ -236,7 +236,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 	if (msg.has_texture()) {
 		const std::string &str = msg.texture();
-		pDst->qbaTexture = QByteArray(str.data(), str.size());
+		pDst->qbaTexture = QByteArray(str.data(), static_cast<int>(str.size()));
 		g.o->verifyTexture(pDst);
 	}
 	if (msg.has_comment()) {

@@ -48,11 +48,11 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 		quint32 v = 0;
 		std::string s = be.address();
 		if (s.length() == 4) {
-			const char *data = s.data();
-			v += (data[0] << 24);
-			v += (data[1] << 16);
-			v += (data[2] << 8);
-			v += (data[3] << 0);
+			const char *dataptr = s.data();
+			v += (dataptr[0] << 24);
+			v += (dataptr[1] << 16);
+			v += (dataptr[2] << 8);
+			v += (dataptr[3] << 0);
 			qlBans << ban(v, be.mask());
 		}
 	}
@@ -67,10 +67,10 @@ void BanEditor::accept() {
 	foreach(const ban &b, qlBans) {
 		MumbleProto::BanList_BanEntry *be = msg.add_bans();
 		char buff[4];
-		buff[0] = (b.first >> 24) & 0xFF;
-		buff[1] = (b.first >> 16) & 0xFF;
-		buff[2] = (b.first >> 8) & 0xFF;
-		buff[3] = (b.first >> 0) & 0xFF;
+		buff[0] = static_cast<char>((b.first >> 24) & 0xFF);
+		buff[1] = static_cast<char>((b.first >> 16) & 0xFF);
+		buff[2] = static_cast<char>((b.first >> 8) & 0xFF);
+		buff[3] = static_cast<char>((b.first >> 0) & 0xFF);
 		be->set_address(std::string(buff, 4));
 		be->set_mask(b.second);
 	}

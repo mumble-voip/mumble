@@ -92,4 +92,6 @@ typedef WId HWND;
 #include <mmintrin.h>
 #endif
 
+#define iroundf(x) ( static_cast<int>(x) )
+
 #endif

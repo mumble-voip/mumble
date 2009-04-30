@@ -307,10 +307,10 @@ void Server::msgBanList(User *uSource, MumbleProto::BanList &msg) {
 		foreach(const ban &b, qlBans) {
 			MumbleProto::BanList_BanEntry *be = msg.add_bans();
 			char buff[4];
-			buff[0] = (b.first >> 24) & 0xFF;
-			buff[1] = (b.first >> 16) & 0xFF;
-			buff[2] = (b.first >> 8) & 0xFF;
-			buff[3] = (b.first >> 0) & 0xFF;
+			buff[0] = static_cast<char>((b.first >> 24) & 0xFF);
+			buff[1] = static_cast<char>((b.first >> 16) & 0xFF);
+			buff[2] = static_cast<char>((b.first >> 8) & 0xFF);
+			buff[3] = static_cast<char>((b.first >> 0) & 0xFF);
 			be->set_address(std::string(buff, 4));
 			be->set_mask(b.second);
 		}
@@ -348,7 +348,7 @@ void Server::msgUDPTunnel(User *uSource, MumbleProto::UDPTunnel &msg) {
 	MSG_SETUP(Player::Authenticated);
 
 	const std::string &str = msg.packet();
-	int len = str.length();
+	int len = static_cast<int>(str.length());
 	if (len < 1)
 		return;
 	QReadLocker rl(&qrwlUsers);
@@ -842,8 +842,7 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 
 		p = c->cParent;
 		QSet<QString> allnames=Group::groupNames(c);
-		QString name;
-		foreach(name, allnames) {
+		foreach(const QString &name, allnames) {
 			Group *g = c->qhGroups.value(name);
 			Group *pg = p ? Group::getGroup(p, name) : NULL;
 
@@ -873,10 +872,10 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 
 		MumbleProto::QueryUsers mpqu;
 		foreach(int id, qsId) {
-			QString name=getUserName(id);
-			if (! name.isEmpty()) {
+			QString uname=getUserName(id);
+			if (! uname.isEmpty()) {
 				mpqu.add_ids(id);
-				mpqu.add_names(u8(name));
+				mpqu.add_names(u8(uname));
 			}
 		}
 		if (mpqu.ids_size())

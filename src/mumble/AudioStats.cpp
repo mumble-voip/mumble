@@ -69,12 +69,12 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	float scale = static_cast<float>(width()) / static_cast<float>(iMax - iMin);
 	int h = height();
 
-	int val = lroundf(iValue * scale);
-	int below = lroundf(iBelow * scale);
-	int above = lroundf(iAbove * scale);
-	int max = lroundf(iMax * scale);
-	int min = lroundf(iMin * scale);
-	int peak = lroundf(iPeak * scale);
+	int val = iroundf(static_cast<float>(iValue) * scale);
+	int below = iroundf(static_cast<float>(iBelow) * scale);
+	int above = iroundf(static_cast<float>(iAbove) * scale);
+	int max = iroundf(static_cast<float>(iMax) * scale);
+	int min = iroundf(static_cast<float>(iMin) * scale);
+	int peak = iroundf(static_cast<float>(iPeak) * scale);
 
 	if (val <= below) {
 		p.fillRect(0, 0, val, h, qcBelow);
@@ -385,13 +385,13 @@ void AudioStats::on_Tick_timeout() {
 		txt.sprintf("%04llums",g.uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
-	abSpeech->iBelow = lroundf(g.s.fVADmin * 32767.0f);
-	abSpeech->iAbove = lroundf(g.s.fVADmax * 32767.0f);
+	abSpeech->iBelow = iroundf(g.s.fVADmin * 32767.0f);
+	abSpeech->iAbove = iroundf(g.s.fVADmax * 32767.0f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-		abSpeech->iValue = lroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
+		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
 	} else {
-		abSpeech->iValue = lroundf(ai->fSpeechProb * 32767.0f);
+		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f);
 	}
 
 	abSpeech->update();

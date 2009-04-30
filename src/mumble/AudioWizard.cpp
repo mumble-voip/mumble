@@ -781,7 +781,7 @@ void AudioWizard::on_Ticker_timeout() {
 	abVAD->iAbove = qsMaxVAD->value();
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-		abVAD->iValue = lroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
+		abVAD->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
 	} else {
 		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0);
 	}

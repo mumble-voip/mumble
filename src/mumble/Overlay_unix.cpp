@@ -147,5 +147,5 @@ void Overlay::setActive(bool) {
 
 void Overlay::on_Timer_timeout() {
 	if (sm.sm)
-		sm.sm->lastAppAlive = time(NULL);
+		sm.sm->lastAppAlive = static_cast<int>(time(NULL));
 }

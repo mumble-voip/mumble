@@ -306,7 +306,7 @@ ALSAAudioInput::~ALSAAudioInput() {
 
 void ALSAAudioInput::run() {
 	QMutexLocker qml(&qmALSA);
-	int readblapp;
+	snd_pcm_sframes_t readblapp;
 
 	QByteArray device_name = g.s.qsALSAInput.toLatin1();
 	snd_pcm_hw_params_t *hw_params = NULL;
@@ -376,18 +376,18 @@ void ALSAAudioInput::run() {
 		snd_pcm_status_dump(status, log);
 		snd_pcm_status_free(status);
 #endif
-		readblapp = snd_pcm_readi(capture_handle, inbuff, wantPeriod);
+		readblapp = snd_pcm_readi(capture_handle, inbuff, static_cast<int>(wantPeriod));
 		if (readblapp == -ESTRPIPE) {
 			// suspend event - what to do?
-			qWarning("ALSAAudioInput: %s", snd_strerror(readblapp));
+			qWarning("ALSAAudioInput: %s", snd_strerror(static_cast<int>(readblapp)));
 		} else if (readblapp == -EPIPE) {
 			err = snd_pcm_prepare(capture_handle);
-			qWarning("ALSAAudioInput: %s: %s", snd_strerror(readblapp), snd_strerror(err));
+			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
 		} else if (readblapp < 0) {
 			err = snd_pcm_prepare(capture_handle);
-			qWarning("ALSAAudioInput: %s: %s", snd_strerror(readblapp), snd_strerror(err));
+			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
 		} else if (wantPeriod == static_cast<unsigned int>(readblapp)) {
-			addMic(inbuff, readblapp);
+			addMic(inbuff, static_cast<int>(readblapp));
 		}
 	}
 
@@ -467,7 +467,7 @@ void ALSAAudioOutput::run() {
 
 	ALSA_ERRBAIL(snd_pcm_prepare(pcm_handle));
 
-	const unsigned int buffsize = period_size * iChannels;
+	const unsigned int buffsize = static_cast<unsigned int>(period_size * iChannels);
 
 	float zerobuff[buffsize];
 	float outbuff[buffsize];
@@ -523,14 +523,14 @@ void ALSAAudioOutput::run() {
 			snd_pcm_prepare(pcm_handle);
 		} else if (revents & POLLOUT) {
 			while (snd_pcm_avail_update(pcm_handle) >= static_cast<int>(period_size)) {
-				stillRun = mix(outbuff, period_size);
-				int w = 0;
+				stillRun = mix(outbuff, static_cast<int>(period_size));
+				snd_pcm_sframes_t w = 0;
 				if (stillRun)
 					w=snd_pcm_writei(pcm_handle, outbuff, period_size);
 				else
 					break;
 				if (w == -EPIPE) {
-					qWarning("ALSAAudioOutput: %s", snd_strerror(w));
+					qWarning("ALSAAudioOutput: %s", snd_strerror(static_cast<int>(w)));
 					snd_pcm_prepare(pcm_handle);
 					for (unsigned int i=0;i< buffer_size / period_size;i++)
 						snd_pcm_writei(pcm_handle, zerobuff, period_size);

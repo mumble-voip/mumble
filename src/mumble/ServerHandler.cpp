@@ -42,9 +42,9 @@
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 
-ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int type, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
+ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
-	uiType = type;
+	uiType = mtype;
 	bFlush = flush;
 }
 
@@ -154,7 +154,7 @@ void ServerHandler::udpReady() {
 		if (msgType == MessageHandler::UDPPing) {
 			quint64 t;
 			pds >> t;
-			accUDP((tTimestamp.elapsed() - t) / 1000.0);
+			accUDP(static_cast<double>(tTimestamp.elapsed() - t) / 1000.0);
 		} else if (msgType == MessageHandler::UDPVoice) {
 			handleVoicePacket(msgFlags, pds);
 		}
@@ -189,9 +189,9 @@ void ServerHandler::sendMessage(const char *data, int len) {
 		qba.resize(len + 4);
 		unsigned char *uc = reinterpret_cast<unsigned char *>(qba.data());
 		uc[0] = MessageHandler::UDPTunnel;
-		uc[1] = (len >> 16) & 0xFF;
-		uc[2] = (len >> 8) & 0xFF;
-		uc[3] = len & 0xFF;
+		uc[1] = static_cast<unsigned char>((len >> 16) & 0xFF);
+		uc[2] = static_cast<unsigned char>((len >> 8) & 0xFF);
+		uc[3] = static_cast<unsigned char>(len & 0xFF);
 		memcpy(uc + 4, data, len);
 
 		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
@@ -312,12 +312,12 @@ void ServerHandler::sendPing() {
 	mpp.set_lost(cs.uiLost);
 	mpp.set_resync(cs.uiResync);
 
-	mpp.set_udp_ping_avg(boost::accumulators::mean(accUDP));
-	mpp.set_udp_ping_var(boost::accumulators::variance(accUDP));
-	mpp.set_udp_packets(boost::accumulators::count(accUDP));
-	mpp.set_tcp_ping_avg(boost::accumulators::mean(accTCP));
-	mpp.set_tcp_ping_var(boost::accumulators::variance(accTCP));
-	mpp.set_tcp_packets(boost::accumulators::count(accTCP));
+	mpp.set_udp_ping_avg(static_cast<float>(boost::accumulators::mean(accUDP)));
+	mpp.set_udp_ping_var(static_cast<float>(boost::accumulators::variance(accUDP)));
+	mpp.set_udp_packets(static_cast<int>(boost::accumulators::count(accUDP)));
+	mpp.set_tcp_ping_avg(static_cast<float>(boost::accumulators::mean(accTCP)));
+	mpp.set_tcp_ping_var(static_cast<float>(boost::accumulators::variance(accTCP)));
+	mpp.set_tcp_packets(static_cast<int>(boost::accumulators::count(accTCP)));
 	sendMessage(mpp);
 }
 
@@ -327,11 +327,11 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		if (qbaMsg.length() < 1)
 			return;
 
-		unsigned int msgType = (ptr[0] >> 5) & 0x7;
+		unsigned int msgUDPType = (ptr[0] >> 5) & 0x7;
 		unsigned int msgFlags = ptr[0] & 0x1f;
 		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
 
-		if (msgType == MessageHandler::UDPVoice) {
+		if (msgUDPType == MessageHandler::UDPVoice) {
 			handleVoicePacket(msgFlags, pds);
 		}
 	} else if (msgType == MessageHandler::Ping) {
@@ -342,7 +342,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 			cs.uiRemoteLate = msg.late();
 			cs.uiRemoteLost = msg.lost();
 			cs.uiRemoteResync = msg.resync();
-			accTCP((g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+			accTCP(static_cast<double>(g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
 		}
 	} else {
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);

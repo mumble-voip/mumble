@@ -150,10 +150,10 @@ void Connection::messageToNetwork(const ::google::protobuf::Message &msg, unsign
 		return;
 	cache.resize(len + 4);
 	unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
-	uc[0] = msgType;
-	uc[1] = (len >> 16) & 0xFF;
-	uc[2] = (len >> 8) & 0xFF;
-	uc[3] = len & 0xFF;
+	uc[0] = static_cast<unsigned char>(msgType);
+	uc[1] = static_cast<unsigned char>((len >> 16) & 0xFF);
+	uc[2] = static_cast<unsigned char>((len >> 8) & 0xFF);
+	uc[3] = static_cast<unsigned char>(len & 0xFF);
 
 	msg.SerializeToArray(uc + 4, len);
 }

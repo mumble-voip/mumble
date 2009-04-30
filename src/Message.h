@@ -66,7 +66,7 @@ class MessageHandler {
 };
 
 inline QString u8(const ::std::string &str) {
-	return QString::fromUtf8(str.data(), str.length());
+	return QString::fromUtf8(str.data(), static_cast<int>(str.length()));
 }
 
 inline QString u8(const ::std::wstring &str) {

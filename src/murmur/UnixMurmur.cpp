@@ -277,7 +277,7 @@ void UnixMurmur::finalcap() {
 	if (getrlimit(RLIMIT_RTPRIO, &r) != 0) {
 		qCritical("Failed to get priority limits.");
 	} else {
-		qWarning("Was %d %d", r.rlim_cur, r.rlim_max);
+		qWarning("Resource limits were %ld %ld", r.rlim_cur, r.rlim_max);
 		r.rlim_cur = r.rlim_max = 1;
 		if (setrlimit(RLIMIT_RTPRIO, &r) != 0) {
 			qCritical("Failed to set priority limits.");

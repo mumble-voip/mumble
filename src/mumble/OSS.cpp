@@ -245,10 +245,10 @@ void OSSInput::run() {
 	short buffer[iMicLength];
 
 	while (bRunning) {
-		int len = iMicLength * iMicChannels * sizeof(short);
+		int len = static_cast<int>(iMicLength * iMicChannels * sizeof(short));
 		ssize_t l = read(fd, buffer, len);
 		if (l != len) {
-			qWarning("OSSInput: Read %d", l);
+			qWarning("OSSInput: Read %ld", l);
 			break;
 		}
 		addMic(buffer, iMicLength);
@@ -342,15 +342,15 @@ void OSSOutput::run() {
 
 	qWarning("OSSOutput: Staring audio playback to %s", device.constData());
 
-	const int blocklen = iOutputBlock * iChannels * sizeof(short);
+	ssize_t blocklen = iOutputBlock * iChannels * sizeof(short);
 	short mbuffer[iOutputBlock * iChannels];
 
 	while (bRunning) {
 		bool stillRun = mix(mbuffer, iOutputBlock);
 		if (stillRun) {
-			int l = write(fd, mbuffer, blocklen);
+			ssize_t l = write(fd, mbuffer, blocklen);
 			if (l != blocklen) {
-				qWarning("OSSOutput: Write %d != %d", l, blocklen);
+				qWarning("OSSOutput: Write %ld != %ld", l, blocklen);
 				break;
 			}
 		} else {

@@ -419,9 +419,9 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 
 void LogDocument::receivedHead() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	QVariant size = rep->header(QNetworkRequest::ContentLengthHeader);
-	if (size == QVariant::Invalid || size.toInt() > g.s.iMaxImageSize) {
-		qWarning() << "Image "<< rep->url().toString() <<" (" << size.toInt() << " byte) to big, request aborted. ";
+	QVariant length = rep->header(QNetworkRequest::ContentLengthHeader);
+	if (length == QVariant::Invalid || length.toInt() > g.s.iMaxImageSize) {
+		qWarning() << "Image "<< rep->url().toString() <<" (" << length.toInt() << " byte) to big, request aborted. ";
 		rep->abort();
 	}
 }

@@ -126,7 +126,7 @@ AudioOutputSample::AudioOutputSample(const QString &filename, const QList<QByteA
 
 	iFrameSize = 320;
 
-	iOutputSize = lroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(16000)));
+	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(16000)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 
@@ -186,7 +186,7 @@ QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename)
 			ogg_stream_pagein(&stream, &page);
 			while (! eos && ogg_stream_packetout(&stream, &packet) == 1) {
 				if (packet.bytes >= 5 && memcmp(packet.packet, "Speex", 5)==0) {
-					speex_serialno = stream.serialno;
+					speex_serialno = static_cast<int>(stream.serialno);
 				}
 				if (speex_serialno == -1 || stream.serialno != speex_serialno)
 					break;
@@ -194,7 +194,7 @@ QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename)
 				++packetno;
 
 				if (packetno == 0) {
-					SpeexHeader *header = speex_packet_to_header(reinterpret_cast<char *>(packet.packet), packet.bytes);
+					SpeexHeader *header = speex_packet_to_header(reinterpret_cast<char *>(packet.packet), static_cast<int>(packet.bytes));
 
 					if (header && header->speex_version_id == 1 && header->rate == 16000 && header->nb_channels == 1) {
 						header_ok = true;
@@ -207,7 +207,7 @@ QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename)
 				} else {
 					if (packet.e_o_s)
 						eos = true;
-					packets << QByteArray(reinterpret_cast<const char *>(packet.packet), packet.bytes);
+					packets << QByteArray(reinterpret_cast<const char *>(packet.packet), static_cast<int>(packet.bytes));
 				}
 			}
 		}
@@ -288,7 +288,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : 
 	else
 		srs = NULL;
 
-	iOutputSize = lroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
+	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;
@@ -679,7 +679,7 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 			}
 		}
 	}
-	iSampleSize = iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short));
+	iSampleSize = static_cast<int>(iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 }
 
