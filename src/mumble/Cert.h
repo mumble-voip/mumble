@@ -34,6 +34,9 @@
 #include "Settings.h"
 
 class CertView : public QGroupBox {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(CertView)
 	protected:
 		QList<QSslCertificate> qlCert;
 		QLabel *qlSubjectName, *qlSubjectEmail, *qlIssuerName;
