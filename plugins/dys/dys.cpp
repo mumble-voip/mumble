@@ -110,19 +110,19 @@ static int trylock() {
 
 	// Check if we really have Dystopia running
 	/*
-		position tuple:		client.dll+0x4238a0  (x,y,z, float)
-		orientation tuple:	client.dll+0x423930  (v,h float)
-		ID string:			client.dll+0x3c947e = "DysObjective@@" (14 characters, text)
-	    spawn state:        client.dll+0x3c6260  (0 when at main menu, 2 when not spawned, 6 when spawned, byte)
+		position tuple:		client.dll+0x423990  (x,y,z, float)
+		orientation tuple:	client.dll+0x423924  (v,h float)
+		ID string:			client.dll+0x3c948e = "DysObjective@@" (14 characters, text)
+	    spawn state:        client.dll+0x3c6270  (0 when at main menu, 2 when not spawned, 6 when spawned, byte)
 	*/
 	char sMagic[14];
-	if (!peekProc(mod + 0x3c947e, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
+	if (!peekProc(mod + 0x3c948e, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x4238a0;
-	rotptr = mod + 0x423930;
-	stateptr = mod + 0x3c6260;
+	posptr = mod + 0x423990;
+	rotptr = mod + 0x423924;
+	stateptr = mod + 0x3c6270;
 
 	float pos[3];
 	float rot[3];

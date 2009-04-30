@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Garry's Mod 11 (Build 3740)", L"Mumble Gmod Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Garry's Mod 11 (Build 3791)", L"Mumble Gmod Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -109,19 +109,19 @@ static int trylock() {
 
 	// Check if we really have Gmod running
 	/*
-		position tuple:		client.dll+0x618350  (x,y,z, float)
-		orientation tuple:	client.dll+0x61841c  (v,h float)
-		ID string:			client.dll+0x60d550 = "garrysmod" (9 characters, text)
-		spawn state:        client.dll+0x45fa4c  (0 when at main menu, 2 or 14 when not spawned, 15 when spawned, byte)
+		position tuple:		client.dll+0x47a9c0  (x,y,z, float)
+		orientation tuple:	client.dll+0x47a940  (v,h float)
+		ID string:			client.dll+0x60f5d0 = "garrysmod" (9 characters, text)
+		spawn state:        client.dll+0x461a4c  (0 when at main menu, 2 or 14 when not spawned, 15 when spawned, byte)
 	*/
 	char sMagic[9];
-	if (!peekProc(mod + 0x60d550, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x60f5d0, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x618350;
-	rotptr = mod + 0x61841c;
-	stateptr = mod + 0x45fa4c;
+	posptr = mod + 0x47a9c0;
+	rotptr = mod + 0x47a940;
+	stateptr = mod + 0x461a4c;
 
 	float pos[3];
 	float rot[3];
@@ -180,10 +180,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Gmod build 3740. No identity or context support yet.");
+	return std::wstring(L"Supports Gmod build 3791. No identity or context support yet.");
 }
 
-static std::wstring description(L"Garry's Mod 11 (Build 3740)");
+static std::wstring description(L"Garry's Mod 11 (Build 3791)");
 static std::wstring shortname(L"Garry's Mod 11");
 
 static MumblePlugin gmodplug = {
