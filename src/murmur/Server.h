@@ -110,6 +110,7 @@ class User : public Connection, public Player {
 		QString qsIdentity;
 
 		bool bVerified;
+		QStringList qslEmail;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;

@@ -625,6 +625,7 @@ void Server::newClient() {
 }
 
 void Server::encrypted() {
+	User *uSource = qobject_cast<User *>(sender());
 	int major, minor, patch;
 	QString release;
 
@@ -635,7 +636,17 @@ void Server::encrypted() {
 	mpv.set_release(u8(release));
 	mpv.set_os(u8(meta->qsOS));
 	mpv.set_os_version(u8(meta->qsOSVersion));
-	sendMessage(qobject_cast<User *>(sender()), mpv);
+	sendMessage(uSource, mpv);
+	
+	QList<QSslCertificate> certs = uSource->peerCertificateChain();
+	if (!certs.isEmpty()) {
+		const QSslCertificate &cert = certs.last();
+		uSource->qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
+		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
+		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
+			log(uSource, QString("Strong certificate for %1 <%2> (signed by %3)").arg(cert.subjectInfo(QSslCertificate::CommonName)).arg(uSource->qslEmail.join(", ")).arg(certs.first().issuerInfo(QSslCertificate::CommonName)));
+		}
+	}
 }
 
 void Server::sslError(const QList<QSslError> &errors) {

@@ -79,23 +79,10 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 	bool nameok = validatePlayerName(uSource->qsName);
 	QString pw = u8(msg.password());
 
-	QString qsHash;
-	QStringList qslEmail;
-
-	QList<QSslCertificate> certs = uSource->peerCertificateChain();
-	if (! certs.isEmpty()) {
-		const QSslCertificate &cert = certs.last();
-		qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
-		qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
-		if (! qslEmail.isEmpty() && uSource->bVerified) {
-			log(uSource, QString("Strong certificate for %1 <%2> (signed by %3)").arg(cert.subjectInfo(QSslCertificate::CommonName)).arg(qslEmail.join(", ")).arg(certs.first().issuerInfo(QSslCertificate::CommonName)));
-		}
-	}
-
 	// Fetch ID and stored username.
 	// Since this may call DBus, which may recall our dbus messages, this function needs
 	// to support re-entrancy, and also to support the fact that sessions may go away.
-	int id = authenticate(uSource->qsName, pw, qslEmail, qsHash, uSource->bVerified);
+	int id = authenticate(uSource->qsName, pw, uSource->qslEmail, uSource->qsHash, uSource->bVerified);
 
 	uSource->iId = id >= 0 ? id : -1;
 
@@ -234,6 +221,8 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 			mpus.set_comment(u8(uSource->qsComment));
 		}
 	}
+	if (! uSource->qsHash.isEmpty())
+		mpus.set_hash(u8(uSource->qsHash));
 	if (uSource->cChannel->iId != 0)
 		mpus.set_channel_id(uSource->cChannel->iId);
 
@@ -267,6 +256,8 @@ void Server::msgAuthenticate(User *uSource, MumbleProto::Authenticate &msg) {
 			mpus.set_self_mute(true);
 		if (! u->qsComment.isEmpty())
 			mpus.set_comment(u8(u->qsComment));
+		if (! u->qsHash.isEmpty())
+			mpus.set_hash(u8(u->qsHash));
 
 		sendMessage(uSource, mpus);
 	}
@@ -362,7 +353,6 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 
 	bool bNoBroadcast = false;
 	Channel *root = qhChannels.value(0);
-	QList<QSslCertificate> certs;
 
 	if (pDstUser->iId == 0) {
 		PERM_DENIED_TYPE(SuperUser);
@@ -403,8 +393,7 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_user_id()) {
-		certs = pDstUser->peerCertificateChain();
-		if ((pDstUser->iId >= 0) || certs.isEmpty() || ! hasPermission(uSource, root, ChanACL::Register)) {
+		if ((pDstUser->iId >= 0) || (pDstUser->qsHash.isEmpty()) || ! hasPermission(uSource, root, ChanACL::Register)) {
 			PERM_DENIED(uSource, root, ChanACL::Register);
 			return;
 		}
@@ -478,13 +467,11 @@ void Server::msgUserState(User *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_user_id()) {
 		QMap<QString, QString> info;
-		const QSslCertificate &cert = certs.last();
-		QStringList qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
 
 		info.insert("name", pDstUser->qsName);
-		info.insert("certhash", cert.digest(QCryptographicHash::Sha1).toHex());
-		if (! qslEmail.isEmpty())
-			info.insert("email", qslEmail.first());
+		info.insert("certhash", pDstUser->qsHash);
+		if (! pDstUser->qslEmail.isEmpty())
+			info.insert("email", pDstUser->qslEmail.first());
 		int id = registerPlayer(info);
 		if (id > 0) {
 			pDstUser->iId = id;

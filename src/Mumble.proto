@@ -89,6 +89,7 @@ message UserState {
 	optional string plugin_context = 12;
 	optional string plugin_identity = 13;
 	optional string comment = 14;
+	optional string hash = 15;
 }
 
 message BanList {

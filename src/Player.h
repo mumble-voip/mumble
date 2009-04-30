@@ -45,6 +45,7 @@ class Player {
 		int iId;
 		QString qsName;
 		QString qsComment;
+		QString qsHash;
 		bool bMute, bDeaf, bSuppressed;
 		bool bLocalMute;
 		bool bSelfMute, bSelfDeaf;
