@@ -914,14 +914,14 @@ void Server::msgACL(User *uSource, MumbleProto::ACL &msg) {
 		for (int i=0;i<msg.acls_size(); ++i) {
 			const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
 			a = new ChanACL(c);
-			a->bApplyHere=mpacl.apply_here() & ChanACL::All;
-			a->bApplySubs=mpacl.apply_subs() & ChanACL::All;
+			a->bApplyHere=mpacl.apply_here();
+			a->bApplySubs=mpacl.apply_subs();
 			if (mpacl.has_user_id())
 				a->iPlayerId=mpacl.user_id();
 			else
 				a->qsGroup=u8(mpacl.group());
-			a->pDeny=static_cast<ChanACL::Permissions>(mpacl.deny());
-			a->pAllow=static_cast<ChanACL::Permissions>(mpacl.grant());
+			a->pDeny=static_cast<ChanACL::Permissions>(mpacl.deny())  & ChanACL::All;
+			a->pAllow=static_cast<ChanACL::Permissions>(mpacl.grant()) & ChanACL::All;
 		}
 
 		clearACLCache();

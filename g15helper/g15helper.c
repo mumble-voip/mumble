@@ -66,9 +66,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	DWORD dwErr;
 	BOOL bErr;
 	BOOL bDetect = FALSE;
-	int i;
 	HANDLE hStdin, hStdout;
-	DWORD dwLen;
 	lgLcdConnectContextEx conn;
 	lgLcdOpenByTypeContext ctx;
 	lgLcdBitmap160x43x1 bitmap;
@@ -163,7 +161,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 		dwErr = lgLcdUpdateBitmap(ctx.device, (const lgLcdBitmapHeader *) &bitmap, bPriority ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
 		if (dwErr != ERROR_SUCCESS)
-			warn("Unable to update bitmap for device #%i successfully. (Error: %i)", i, dwErr);
+			warn("Unable to update bitmap for device. (Error: %i)", dwErr);
 	}
 
 	/*

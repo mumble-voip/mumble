@@ -550,7 +550,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 		if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(__uuidof(IAudioSessionQuery), (void **) &pMysticQuery))) {
 			if (SUCCEEDED(hr = pMysticQuery->GetQueryInterface(&pAudioQuerier))) {
 				if (SUCCEEDED(hr = pAudioQuerier->GetNumSessions(&max))) {
-					for (int i=0;i<max;++i) {
+					for (unsigned int i=0;i<max;++i) {
 						IUnknown *pUnknown = NULL;
 						if (SUCCEEDED(hr = pAudioQuerier->QuerySession(i, &pUnknown))) {
 							IRemoteAudioSession *prem = NULL;
