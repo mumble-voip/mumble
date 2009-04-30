@@ -706,7 +706,6 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 		pds << g.p->fPosition[2];
 	}
 
-	// TODO: Loopback
 	if (g.s.lmLoopMode == Settings::Local)
 		LoopPlayer::lpLoopy.addFrame(QByteArray(data+1, pds.size()));
 	else if (g.sh)

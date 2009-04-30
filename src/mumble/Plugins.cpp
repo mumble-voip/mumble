@@ -215,7 +215,7 @@ bool Plugins::fetch() {
 		bValid = false;
 		return bValid;
 	}
-	// FIXME: If context or identity changes, send an update message.
+
 	bool ok=locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
 	if (! ok || bUnlink) {
 		locked->p->unlock();
