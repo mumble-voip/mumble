@@ -79,7 +79,7 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
       self.server = server
 
     def contextAction(self, action, p, session, chanid, current=None):
-        if action == "sendregurl" and chanid == 0:
+        if action == "sendregurl" and p:
             if p.playerid != 0:
                 # If it isn't SuperUser check if he is in the right acl group
                 allowed = False
