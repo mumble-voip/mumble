@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="qtwTab">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -120,7 +120,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
+          <item row="0" column="3">
            <widget class="QLabel" name="label_2">
             <property name="text">
              <string>Remove</string>
@@ -130,7 +130,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="4">
+          <item row="0" column="6">
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>Inherit</string>
@@ -140,67 +140,97 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0" colspan="2">
+          <item row="1" column="0" colspan="3">
            <widget class="QListWidget" name="qlwGroupAdd"/>
           </item>
-          <item row="1" column="2" colspan="2">
+          <item row="1" column="3" colspan="3">
            <widget class="QListWidget" name="qlwGroupRemove"/>
           </item>
-          <item row="1" column="4" rowspan="2">
+          <item row="1" column="6" rowspan="2">
            <widget class="QListWidget" name="qlwGroupInherit"/>
           </item>
-          <item row="3" column="4">
+          <item row="3" column="6">
            <widget class="QPushButton" name="qpbGroupInheritRemove">
             <property name="text">
              <string>Add to Remove</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="2" colspan="2">
+          <item row="3" column="3" colspan="3">
            <widget class="QPushButton" name="qpbGroupRemoveRemove">
             <property name="text">
              <string>Remove</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0" colspan="2">
+          <item row="3" column="0" colspan="3">
            <widget class="QPushButton" name="qpbGroupAddRemove">
             <property name="text">
              <string>Remove</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLineEdit" name="qleGroupAdd">
-            <property name="toolTip">
-             <string>Add member to group</string>
-            </property>
-            <property name="whatsThis">
-             <string>Type in the name of a player you wish to add to the group and click Add.</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="2">
-           <widget class="QLineEdit" name="qleGroupRemove">
-            <property name="toolTip">
-             <string>Remove member from group</string>
-            </property>
-            <property name="whatsThis">
-             <string>Type in the name of a player you wish to remove from the group and click Add.</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
            <widget class="QPushButton" name="qpbGroupAddAdd">
             <property name="text">
              <string>Add</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="3">
+          <item row="2" column="5">
            <widget class="QPushButton" name="qpbGroupRemoveAdd">
             <property name="text">
              <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QComboBox" name="qcbGroupAdd">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>Add member to group</string>
+            </property>
+            <property name="whatsThis">
+             <string>Type in the name of a player you wish to add to the group and click Add.</string>
+            </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <property name="insertPolicy">
+             <enum>QComboBox::NoInsert</enum>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" colspan="2">
+           <widget class="QComboBox" name="qcbGroupRemove">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>Remove member from group</string>
+            </property>
+            <property name="whatsThis">
+             <string>Type in the name of a player you wish to remove from the group and click Add.</string>
+            </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <property name="insertPolicy">
+             <enum>QComboBox::NoInsert</enum>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
             </property>
            </widget>
           </item>
@@ -370,6 +400,12 @@
           </item>
           <item row="0" column="1">
            <widget class="QComboBox" name="qcbACLGroup">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>Group this entry applies to</string>
             </property>
@@ -386,18 +422,27 @@
             <property name="text">
              <string>User ID</string>
             </property>
-            <property name="buddy">
-             <cstring>qleACLUser</cstring>
-            </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="qleACLUser">
+           <widget class="QComboBox" name="qcbACLUser">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="toolTip">
              <string>User this entry applies to</string>
             </property>
             <property name="whatsThis">
              <string>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</string>
+            </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
             </property>
            </widget>
           </item>
@@ -420,6 +465,34 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>qtwTab</tabstop>
+  <tabstop>qcbGroupList</tabstop>
+  <tabstop>qpbGroupRemove</tabstop>
+  <tabstop>qcbGroupInherit</tabstop>
+  <tabstop>qcbGroupInheritable</tabstop>
+  <tabstop>qcbGroupInherited</tabstop>
+  <tabstop>qlwGroupAdd</tabstop>
+  <tabstop>qcbGroupAdd</tabstop>
+  <tabstop>qpbGroupAddAdd</tabstop>
+  <tabstop>qpbGroupAddRemove</tabstop>
+  <tabstop>qlwGroupRemove</tabstop>
+  <tabstop>qcbGroupRemove</tabstop>
+  <tabstop>qpbGroupRemoveAdd</tabstop>
+  <tabstop>qpbGroupRemoveRemove</tabstop>
+  <tabstop>qlwGroupInherit</tabstop>
+  <tabstop>qpbGroupInheritRemove</tabstop>
+  <tabstop>qdbbButtons</tabstop>
+  <tabstop>qpbACLUp</tabstop>
+  <tabstop>qpbACLDown</tabstop>
+  <tabstop>qpbACLAdd</tabstop>
+  <tabstop>qpbACLRemove</tabstop>
+  <tabstop>qcbACLApplyHere</tabstop>
+  <tabstop>qcbACLApplySubs</tabstop>
+  <tabstop>qcbACLGroup</tabstop>
+  <tabstop>qcbACLInherit</tabstop>
+  <tabstop>qlwACLs</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -429,8 +502,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>583</y>
+     <x>236</x>
+     <y>499</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -445,44 +518,12 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>295</x>
-     <y>589</y>
+     <x>304</x>
+     <y>499</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>qleGroupAdd</sender>
-   <signal>returnPressed()</signal>
-   <receiver>qpbGroupAddAdd</receiver>
-   <slot>animateClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>82</x>
-     <y>494</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>176</x>
-     <y>493</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>qleGroupRemove</sender>
-   <signal>returnPressed()</signal>
-   <receiver>qpbGroupRemoveAdd</receiver>
-   <slot>animateClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>268</x>
-     <y>494</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>365</x>
-     <y>495</y>
     </hint>
    </hints>
   </connection>
@@ -497,8 +538,8 @@
      <y>316</y>
     </hint>
     <hint type="destinationlabel">
-     <x>481</x>
-     <y>525</y>
+     <x>574</x>
+     <y>445</y>
     </hint>
    </hints>
   </connection>

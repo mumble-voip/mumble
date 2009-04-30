@@ -94,6 +94,7 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void refillGroupAdd();
 		void refillGroupRemove();
 		void refillGroupInherit();
+		void refillComboBoxes();
 		void groupEnableCheck();
 		void ACLEnableCheck();
 
@@ -106,7 +107,7 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void on_qcbACLApplyHere_clicked(bool checked);
 		void on_qcbACLApplySubs_clicked(bool checked);
 		void on_qcbACLGroup_activated(const QString &text);
-		void on_qleACLUser_editingFinished();
+		void on_qcbACLUser_activated();
 		void ACLPermissions_clicked();
 
 		void on_qcbGroupList_activated(const QString &text);

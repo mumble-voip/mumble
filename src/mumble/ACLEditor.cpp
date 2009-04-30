@@ -32,6 +32,7 @@
 #include "ACL.h"
 #include "ServerHandler.h"
 #include "Channel.h"
+#include "Player.h"
 #include "Global.h"
 
 ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
@@ -84,6 +85,16 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 			qlPerms << perm;
 
 			++idx;
+		}
+	}
+
+	connect(qcbGroupAdd->lineEdit(), SIGNAL(returnPressed()), qpbGroupAddAdd, SLOT(animateClick()));
+	connect(qcbGroupRemove->lineEdit(), SIGNAL(returnPressed()), qpbGroupRemoveAdd, SLOT(animateClick()));
+
+	foreach(Player *p, ClientPlayer::c_qmPlayers) {
+		if (p->iId >= 0) {
+			qhNameCache.insert(p->iId, p->qsName);
+			qhIDCache.insert(p->qsName.toLower(), p->iId);
 		}
 	}
 
@@ -213,19 +224,20 @@ const QString ACLEditor::userName(int pid) {
 }
 
 int ACLEditor::id(const QString &uname) {
-	if (qhIDCache.contains(uname))
-		return qhIDCache.value(uname);
+	QString name = uname.toLower();
+	if (qhIDCache.contains(name))
+		return qhIDCache.value(name);
 	else {
-		if (! qhNameWait.contains(uname)) {
+		if (! qhNameWait.contains(name)) {
 			MumbleProto::QueryUsers mpuq;
-			mpuq.add_names(u8(uname));
+			mpuq.add_names(u8(name));
 			g.sh->sendMessage(mpuq);
 
 			iUnknown--;
-			qhNameWait.insert(uname, iUnknown);
-			qhNameCache.insert(iUnknown, uname);
+			qhNameWait.insert(name, iUnknown);
+			qhNameCache.insert(iUnknown, name);
 		}
-		return qhNameWait.value(uname);
+		return qhNameWait.value(name);
 	}
 }
 
@@ -236,11 +248,12 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 	for (int i=0;i < mqu.names_size(); ++i) {
 		int pid = mqu.ids(i);
 		QString name = u8(mqu.names(i));
-		qhIDCache.insert(name, pid);
+		QString lname = name.toLower();
+		qhIDCache.insert(lname, pid);
 		qhNameCache.insert(pid, name);
 
-		if (qhNameWait.contains(name)) {
-			int tid = qhNameWait.take(name);
+		if (qhNameWait.contains(lname)) {
+			int tid = qhNameWait.take(lname);
 
 			foreach(ChanACL *acl, qlACLs)
 				if (acl->iPlayerId == tid)
@@ -251,11 +264,14 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 				if (gp->qsRemove.remove(tid))
 					gp->qsRemove.insert(pid);
 			}
+			qhNameCache.remove(tid);
 		}
 	}
 	refillGroupInherit();
 	refillGroupRemove();
 	refillGroupAdd();
+	refillComboBoxes();
+	refillACL();
 }
 
 void ACLEditor::refill(WaitID wid) {
@@ -272,6 +288,22 @@ void ACLEditor::refill(WaitID wid) {
 		case GroupAdd:
 			refillGroupAdd();
 			break;
+	}
+}
+
+void ACLEditor::refillComboBoxes() {
+	QList<QComboBox *> ql;
+	ql << qcbGroupAdd;
+	ql << qcbGroupRemove;
+	ql << qcbACLUser;
+
+	QStringList names = qhNameCache.values();
+	names.sort();
+
+	foreach(QComboBox *qcb, ql) {
+		qcb->clear();
+		qcb->addItems(names);
+		qcb->clearEditText();
 	}
 }
 
@@ -407,13 +439,14 @@ void ACLEditor::groupEnableCheck() {
 
 	qlwGroupRemove->setEnabled(ena);
 	qlwGroupInherit->setEnabled(ena);
-	qleGroupRemove->setEnabled(ena);
+	qcbGroupRemove->setEnabled(ena);
 	qpbGroupRemoveAdd->setEnabled(ena);
 	qpbGroupRemoveRemove->setEnabled(ena);
 	qpbGroupInheritRemove->setEnabled(ena);
 
 	ena = (gp != NULL);
 	qlwGroupAdd->setEnabled(ena);
+	qcbGroupAdd->setEnabled(ena);
 	qpbGroupAddAdd->setEnabled(ena);
 	qpbGroupAddRemove->setEnabled(ena);
 	qcbGroupInherit->setEnabled(ena);
@@ -441,7 +474,7 @@ void ACLEditor::ACLEnableCheck() {
 	qcbACLApplyHere->setEnabled(ena);
 	qcbACLApplySubs->setEnabled(ena);
 	qcbACLGroup->setEnabled(ena);
-	qleACLUser->setEnabled(ena);
+	qcbACLUser->setEnabled(ena);
 
 	int idx;
 	for (idx=0;idx<qlACLAllow.count();idx++) {
@@ -470,11 +503,11 @@ void ACLEditor::ACLEnableCheck() {
 		foreach(ACLGroup *gs, qlGroups)
 			qcbACLGroup->addItem(gs->qsName);
 		if (as->iPlayerId == -1) {
-			qleACLUser->setText(QString());
+			qcbACLUser->clearEditText();
 			qcbACLGroup->addItem(as->qsGroup);
 			qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
 		} else {
-			qleACLUser->setText(userName(as->iPlayerId));
+			qcbACLUser->setEditText(userName(as->iPlayerId));
 		}
 	}
 	foreach(QAbstractButton *b, qdbbButtons->buttons()) {
@@ -519,7 +552,7 @@ void ACLEditor::on_qpbACLUp_clicked() {
 		return;
 
 	int idx = qlACLs.indexOf(as);
-	if (idx <= numInheritACL)
+	if (idx <= numInheritACL + 1)
 		return;
 	qlACLs.swap(idx - 1, idx);
 	qlwACLs->setCurrentRow(qlwACLs->currentRow() - 1);
@@ -570,14 +603,17 @@ void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 		qcbACLGroup->setCurrentIndex(1);
 		as->qsGroup=QLatin1String("all");
 	} else {
-		qleACLUser->setText(QString());
+		qcbACLUser->clearEditText();
 		as->qsGroup=text;
 	}
 	refillACL();
 }
 
-void ACLEditor::on_qleACLUser_editingFinished() {
-	QString text = qleACLUser->text();
+void ACLEditor::on_qcbACLUser_activated() {
+	QString text = qcbACLUser->currentText();
+
+	qWarning("ACLUSER INDEXED!");
+	qWarning() << text;
 
 	ChanACL *as = currentACL();
 	if (! as || as->bInherited)
@@ -593,6 +629,7 @@ void ACLEditor::on_qleACLUser_editingFinished() {
 	} else {
 		qcbACLGroup->setCurrentIndex(0);
 		as->iPlayerId = id(text);
+		refillACL();
 	}
 }
 
@@ -683,7 +720,7 @@ void ACLEditor::on_qcbGroupInheritable_clicked(bool checked) {
 
 void ACLEditor::on_qpbGroupAddAdd_clicked() {
 	ACLGroup *gs = currentGroup();
-	QString text = qleGroupAdd->text();
+	QString text = qcbGroupAdd->currentText();
 
 	if (! gs)
 		return;
@@ -693,6 +730,7 @@ void ACLEditor::on_qpbGroupAddAdd_clicked() {
 
 	gs->qsAdd << id(text);
 	refillGroupAdd();
+	qcbGroupAdd->clearEditText();
 }
 
 void ACLEditor::on_qpbGroupAddRemove_clicked() {
@@ -706,10 +744,11 @@ void ACLEditor::on_qpbGroupAddRemove_clicked() {
 
 	gs->qsAdd.remove(item->data(Qt::UserRole).toInt());
 	refillGroupAdd();
+	qcbGroupRemove->clearEditText();
 }
 
 void ACLEditor::on_qpbGroupRemoveAdd_clicked() {
-	QString text = qleGroupRemove->text();
+	QString text = qcbGroupRemove->currentText();
 
 	ACLGroup *gs = currentGroup();
 	if (! gs)
