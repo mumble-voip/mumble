@@ -755,15 +755,6 @@ bool Server::setInfo(int id, const QMap<QString, QString> &setinfo) {
 		SQLEXEC();
 		info.remove("pw");
 	}
-	if (info.contains("email")) {
-		const QString &email = info.value("email");
-		SQLPREP("UPDATE %1players SET email=? WHERE server_id = ? AND player_id=?");
-		query.addBindValue(email);
-		query.addBindValue(iServerNum);
-		query.addBindValue(id);
-		SQLEXEC();
-		info.remove("email");
-	}
 	if (info.contains("name")) {
 		const QString &name = info.value("name");
 		SQLPREP("UPDATE %1players SET name=? WHERE server_id = ? AND player_id=?");
