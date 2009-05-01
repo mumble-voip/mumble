@@ -1012,11 +1012,10 @@ void Server::updateChannel(const Channel *c) {
 	ChanACL *acl;
 
 	QSqlQuery &query = *th.qsqQuery;
-	SQLPREP("UPDATE `%1channels` SET `name` = ?, `parent_id` = ?, `inheritacl` = ?, description = ? WHERE `server_id` = ? AND `channel_id` = ?");
+	SQLPREP("UPDATE `%1channels` SET `name` = ?, `parent_id` = ?, `inheritacl` = ? WHERE `server_id` = ? AND `channel_id` = ?");
 	query.addBindValue(c->qsName);
 	query.addBindValue(c->cParent ? c->cParent->iId : QVariant());
 	query.addBindValue(c->bInheritACL ? 1 : 0);
-	query.addBindValue(c->qsDesc);
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	SQLEXEC();
