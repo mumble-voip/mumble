@@ -101,19 +101,19 @@ Database::Database() {
 	}
 
 	QSqlQuery query;
-	// query.exec("DROP TABLE servers");
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"));
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS cert (id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT, port INTEGER, digest TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS cert_host_port ON cert(hostname,port)"));
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS friends (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hash TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS friends_name ON friends(name)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS friends_hash ON friends(hash)"));
+	// query.exec("DROP TABLE `servers`");
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `cert_host_port` ON `cert`(`hostname`,`port`)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `friends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hash` TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
 }
 
 const QString Database::getFriend(const QString &hash) {
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("SELECT name FROM friends WHERE hash = ?"));
+	query.prepare(QLatin1String("SELECT `name` FROM `friends` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	query.exec();
 	if (query.next())
@@ -124,7 +124,7 @@ const QString Database::getFriend(const QString &hash) {
 void Database::addFriend(const QString &name, const QString &hash) {
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("REPLACE INTO friends (name, hash) VALUES (?,?)"));
+	query.prepare(QLatin1String("REPLACE INTO `friends` (`name`, `hash`) VALUES (?,?)"));
 	query.addBindValue(name);
 	query.addBindValue(hash);
 	query.exec();
@@ -133,7 +133,7 @@ void Database::addFriend(const QString &name, const QString &hash) {
 void Database::removeFriend(const QString &hash) {
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("DELETE FROM friends WHERE hash = ?"));
+	query.prepare(QLatin1String("DELETE FROM `friends` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	query.exec();
 }
@@ -141,7 +141,7 @@ void Database::removeFriend(const QString &hash) {
 const QString Database::getDigest(const QString &hostname, unsigned short port) {
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("SELECT digest FROM cert WHERE hostname = ? AND port = ?"));
+	query.prepare(QLatin1String("SELECT `digest` FROM `cert` WHERE `hostname` = ? AND `port` = ?"));
 	query.addBindValue(hostname);;
 	query.addBindValue(port);
 	query.exec();
@@ -153,7 +153,7 @@ const QString Database::getDigest(const QString &hostname, unsigned short port) 
 
 void Database::setDigest(const QString &hostname, unsigned short port, const QString &digest) {
 	QSqlQuery query;
-	query.prepare(QLatin1String("REPLACE INTO cert (hostname,port,digest) VALUES (?,?,?)"));
+	query.prepare(QLatin1String("REPLACE INTO `cert` (`hostname`,`port`,`digest`) VALUES (?,?,?)"));
 	query.addBindValue(hostname);
 	query.addBindValue(port);
 	query.addBindValue(digest);
@@ -163,10 +163,10 @@ void Database::setDigest(const QString &hostname, unsigned short port, const QSt
 bool Database::fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port) {
 	QSqlQuery query;
 	if (! user.isEmpty()) {
-		query.prepare(QLatin1String("SELECT username, password, hostname FROM servers WHERE username LIKE ? AND hostname LIKE ? AND port=?"));
+		query.prepare(QLatin1String("SELECT `username`, `password`, `hostname` FROM `servers` WHERE `username` LIKE ? AND `hostname` LIKE ? AND `port`=?"));
 		query.addBindValue(user);
 	} else {
-		query.prepare(QLatin1String("SELECT username, password, hostname FROM servers WHERE hostname LIKE ? AND port=?"));
+		query.prepare(QLatin1String("SELECT `username`, `password`, `hostname` FROM `servers` WHERE `hostname` LIKE ? AND `port`=?"));
 	}
 	query.addBindValue(hostname);
 	query.addBindValue(port);
