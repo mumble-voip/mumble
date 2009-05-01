@@ -72,9 +72,6 @@ bool G15LCDDeviceUnix::enabled() {
 }
 
 void G15LCDDeviceUnix::setEnabled(bool b) {
-	if (bUnavailable)
-		return;
-
 	bEnabled = b;
 }
 

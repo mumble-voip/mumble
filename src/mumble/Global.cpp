@@ -47,6 +47,7 @@ Global::Global() {
 	bEchoTest = false;
 	bPosTest = false;
 	iAudioPathTime = 0;
+	iMaxBandwidth = 0;
 }
 
 QMultiMap<int, DeferInit *> *DeferInit::qmDeferers = NULL;
@@ -75,4 +76,6 @@ void DeferInit::run_destroyers() {
 	foreach(DeferInit *d, *qmDeferers) {
 		d->destroy();
 	}
+	delete qmDeferers;
+	qmDeferers = NULL;
 }

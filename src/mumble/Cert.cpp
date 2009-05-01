@@ -272,13 +272,11 @@ void CertWizard::on_qleExportFile_textChanged(const QString &text) {
 	QFile f(fname);
 
 	QFileInfo fi(f);
-	if (! fi.isWritable()) {
-		qwpExport->setComplete(false);
-		return;
-	}
-
 	if (fi.exists()) {
-		qwpExport->setComplete(f.open(QIODevice::WriteOnly | QIODevice::Append));
+		if (fi.isWritable()) {
+			qwpExport->setComplete(f.open(QIODevice::WriteOnly | QIODevice::Append));
+			return;
+		}
 	} else {
 		if (f.open(QIODevice::WriteOnly)) {
 			if (f.remove()) {
@@ -286,8 +284,8 @@ void CertWizard::on_qleExportFile_textChanged(const QString &text) {
 				return;
 			}
 		}
-		qwpExport->setComplete(false);
-	}
+	} 
+	qwpExport->setComplete(false);
 }
 
 void CertWizard::on_qpbImportFile_clicked() {
@@ -468,7 +466,6 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 				kp = Settings::KeyPair(qlCerts, qskKey);
 		}
 	}
-	BIO_free(mem);
 
 	if (pkey)
 		EVP_PKEY_free(pkey);
@@ -478,10 +475,8 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 		sk_free(certs);
 	if (pkcs)
 		PKCS12_free(pkcs);
-	/*
-		if (mem)
-			BIO_free(mem);
-	*/
+	if (mem)
+		BIO_free(mem);
 	return kp;
 }
 

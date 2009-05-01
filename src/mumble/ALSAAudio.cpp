@@ -365,7 +365,7 @@ void ALSAAudioInput::run() {
 		return;
 	}
 
-	char inbuff[wantPeriod * iChannels * sizeof(float)];
+	char inbuff[wantPeriod * iChannels * sizeof(short)];
 
 	qml.unlock();
 

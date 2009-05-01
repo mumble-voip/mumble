@@ -222,7 +222,7 @@ void LCD::destroyBuffers() {
 	qhImages.clear();
 
 	foreach(unsigned char *buf, qhImageBuffers)
-		delete buf;
+		delete [] buf;
 	qhImageBuffers.clear();
 }
 

@@ -245,7 +245,7 @@ void AudioInputDialog::updateBitrate() {
 
 	QPalette pal;
 
-	if ((total / 8 > g.iMaxBandwidth) && g.uiSession) {
+	if (g.uiSession && (total / 8 > g.iMaxBandwidth)) {
 		pal.setColor(qlBitrate->foregroundRole(), Qt::red);
 	}
 

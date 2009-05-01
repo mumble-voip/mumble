@@ -134,16 +134,25 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	QMetaObject::connectSlotsByName(this);
 }
 
-void Plugins::rescanPlugins() {
+Plugins::~Plugins() {
+	clearPlugins();
+}
+
+void Plugins::clearPlugins() {
 	QMutexLocker lock(&qmPlugins);
-	PluginInfo *pi;
-	foreach(pi, qlPlugins) {
+	foreach(PluginInfo *pi, qlPlugins) {
 		if (pi->locked)
 			pi->p->unlock();
 		pi->lib.unload();
 		delete pi;
 	}
 	qlPlugins.clear();
+}
+
+void Plugins::rescanPlugins() {
+	clearPlugins();
+
+	QMutexLocker lock(&qmPlugins);
 	prevlocked = locked = NULL;
 	bValid = false;
 
@@ -161,7 +170,7 @@ void Plugins::rescanPlugins() {
 	foreach(const QFileInfo &libinfo, libs) {
 		QString libname = libinfo.absoluteFilePath();
 		if (QLibrary::isLibrary(libname)) {
-			pi = new PluginInfo();
+			PluginInfo *pi = new PluginInfo();
 			pi->filename = libname;
 			pi->lib.setFileName(pi->filename);
 			if (pi->lib.load()) {

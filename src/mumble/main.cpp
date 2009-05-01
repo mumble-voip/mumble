@@ -263,6 +263,7 @@ int main(int argc, char **argv) {
 	delete g.lcd;
 
 	delete g.db;
+	delete g.p;
 	delete g.l;
 
 
@@ -272,5 +273,7 @@ int main(int argc, char **argv) {
 
 	DeferInit::run_destroyers();
 
+	delete Global::g_global_struct;
+	Global::g_global_struct = NULL;
 	return res;
 }

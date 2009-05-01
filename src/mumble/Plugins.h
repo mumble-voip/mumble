@@ -66,6 +66,7 @@ class Plugins : public QObject {
 		QList<PluginInfo *> qlPlugins;
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
+		void clearPlugins();
 	public:
 		std::string ssContext, ssContextSent;
 		std::wstring swsIdentity, swsIdentitySent;
@@ -75,6 +76,7 @@ class Plugins : public QObject {
 		float fCameraPosition[3], fCameraFront[3], fCameraTop[3];
 
 		Plugins(QObject *p = NULL);
+		~Plugins();
 	public slots:
 		void on_Timer_timeout();
 		void rescanPlugins();

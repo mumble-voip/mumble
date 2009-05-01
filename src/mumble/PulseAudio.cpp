@@ -620,8 +620,8 @@ void PulseAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings
 }
 
 PulseAudioInput::PulseAudioInput() {
-	pssMic.rate = 0;
-	pssEcho.rate = 0;
+	memset(&pssMic, 0, sizeof(pssMic));
+	memset(&pssEcho, 0, sizeof(pssEcho));
 	bRunning = true;
 	if (pasys)
 		pasys->wakeup();
@@ -634,8 +634,8 @@ PulseAudioInput::~PulseAudioInput() {
 }
 
 PulseAudioOutput::PulseAudioOutput() {
-	pss.rate = 0;
-	pcm.channels = 0;
+	memset(&pss, 0, sizeof(pss));
+	memset(&pcm, 0, sizeof(pcm));
 	bRunning = true;
 	if (pasys)
 		pasys->wakeup();

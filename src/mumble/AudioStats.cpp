@@ -42,6 +42,7 @@ AudioBar::AudioBar(QWidget *p) : QWidget(p) {
 	iBelow = 2000;
 	iAbove = 22000;
 	iValue = 1000;
+	iPeak = -1;
 	setMinimumSize(100,20);
 }
 

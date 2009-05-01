@@ -51,7 +51,6 @@ class G15LCDEngineUnix : public LCDEngine {
 
 class G15LCDDeviceUnix : public LCDDevice {
 	protected:
-		bool bUnavailable;
 		bool bEnabled;
 		G15LCDEngineUnix *engine;
 	public:

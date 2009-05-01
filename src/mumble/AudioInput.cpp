@@ -450,9 +450,6 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 	int audiorate;
 	int baserate;
 
-	void *es;
-	es = speex_encoder_init(&speex_uwb_mode);
-
 	float f = static_cast<float>(g.s.iQuality);
 
 	do {

@@ -335,6 +335,8 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 	if (qbaPacket.size() < 1)
 		return;
 
+	// FIXME: This is wrong, flags aren't at byte 0, that's just the frames. Need the complete packet here.
+
 	unsigned int flags = qbaPacket.at(0);
 	unsigned int frames = flags & 0xf;
 
