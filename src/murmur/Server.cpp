@@ -637,7 +637,7 @@ void Server::encrypted() {
 	mpv.set_os(u8(meta->qsOS));
 	mpv.set_os_version(u8(meta->qsOSVersion));
 	sendMessage(uSource, mpv);
-	
+
 	QList<QSslCertificate> certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();

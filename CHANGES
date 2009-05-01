@@ -1,4 +1,40 @@
+2009-05-01
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e3b0a63  Remove restriction to root channel.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d8f5d4b  Persistent BFF
+    b0632cf  Add combobox for usernames in ACLEditor, and fix a few bugs
+    d110fef  Send proper case for name on QueryUsers
+
+2009-04-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    53d2343  Fix crash on SuperUser connect
+
+  Hengqing Hu <esrms@users.sourceforge.net>
+    faa55b0  Chinese translation for Mumble 1.1.8 update
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5c0730e  Distribute hash with the UserState, to allow players to
+	     recognize friends
+    317cfe5  Add Q_OBJECT for CertView
+    8ab8c51  Remove character LCDs, which we never had an implementation
+	     for
+    38ad1a0  Remove a few fixed FIXME
+    0764034  Use ACLGroup for ACLEditor instead of base Group
+    58f15cb  Convert last deny messages to identifiers
+    a787cb1  Fix a few more compiler warnings
+    936ef86  Remove a lot of compiler warnings
+    4760546  Add script to convert ts files to HTML for proofreading
+    55513e7  The big spelling fix
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    4a560b6  Dys, gmod, tf2 build updates
+
 2009-04-29
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1ccf22e  Fix chatbars session detection
+
   Mikkel Krautz <mikkel@krautz.dk>
     b564f33  Add cancel button for Certificate Wizard on OSX.
     3cf945a  We may now resize QWizards on OSX again, so enable that for
@@ -9,6 +45,12 @@
 	     on OSX)
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    389175d  Fix a few HTML errors
+    a88d62b  de-doctype
+    b015fc7  Build static releases with Qt 4.5.1
+    ec40b7b  Fix a few warnings in the ACLEditor
+    cff157f  Add tooltips and whatsthis to cert dialog, and add some icons
+    c35c6e8  Update changelog script to fix silly email mistakes
     702fe90  Write permission on root is good enough for registrations
     962a2d4  Server-side support for in-client registration
     98eb6a5  Fix error messages from celt/speex build files
@@ -23,6 +65,10 @@
     e7606f6  Rename qt translations to match 4.5.1
     906cd1a  Always reset certs if the user returns to the start of the
 	     cert dialog
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    6c760f0  Need avatar_ for top
+    5c4d8c5  Add back dummy top vector to Quake based games
 
 2009-04-28
   Mikkel Krautz <mikkel@krautz.dk>

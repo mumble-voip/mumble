@@ -108,9 +108,8 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 }
 
 void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
-	switch(msg.type()) {
-		case MumbleProto::PermissionDenied_DenyType_Permission:
-			{
+	switch (msg.type()) {
+		case MumbleProto::PermissionDenied_DenyType_Permission: {
 				VICTIM_INIT;
 				SELF_INIT;
 				Channel *c = Channel::get(msg.channel_id());
@@ -121,13 +120,11 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.l->log(Log::PermissionDenied, tr("%3 was denied %1 privileges in %2.").arg(pname).arg(c->qsName).arg(pDst->qsName));
 			}
 			break;
-		case MumbleProto::PermissionDenied_DenyType_SuperUser:
-			{
+		case MumbleProto::PermissionDenied_DenyType_SuperUser: {
 				g.l->log(Log::PermissionDenied, tr("Denied: Cannot modify SuperUser."));
 			}
 			break;
-		case MumbleProto::PermissionDenied_DenyType_ChannelName:
-			{
+		case MumbleProto::PermissionDenied_DenyType_ChannelName: {
 				g.l->log(Log::PermissionDenied, tr("Denied: Invalid channel name."));
 			}
 			break;

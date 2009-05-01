@@ -79,7 +79,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	avatar_top[2] = -1; // Head movement is in front vector
-		
+
 	/*
 	   Z-Value is increasing when heading north
 				  decreasing when heading south
