@@ -130,6 +130,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaPlayerLocalMute_triggered();
 		void on_qaPlayerTextMessage_triggered();
 		void on_qaPlayerRegister_triggered();
+		void on_qaPlayerFriendAdd_triggered();
+		void on_qaPlayerFriendRemove_triggered();
+		void on_qaPlayerFriendUpdate_triggered();
 		void on_qmChannel_aboutToShow();
 		void on_qaChannelAdd_triggered();
 		void on_qaChannelRemove_triggered();

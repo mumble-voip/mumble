@@ -46,25 +46,6 @@ Player::Player() {
 	cChannel = 0;
 }
 
-QString Player::getFlagsString() const {
-	QStringList flags;
-
-	if (iId >= 0)
-		flags << ClientPlayer::tr("Authenticated");
-	if (bMute)
-		flags << ClientPlayer::tr("Muted (server)");
-	if (bDeaf)
-		flags << ClientPlayer::tr("Deafened (server)");
-	if (bLocalMute)
-		flags << ClientPlayer::tr("Local Mute");
-	if (bSelfMute)
-		flags << ClientPlayer::tr("Muted (self)");
-	if (bSelfDeaf)
-		flags << ClientPlayer::tr("Deafened (self)");
-
-	return flags.join(QLatin1String(", "));
-}
-
 Player::operator const QString() const {
 	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
 }
@@ -111,6 +92,27 @@ void ClientPlayer::remove(unsigned int uiSession) {
 
 void ClientPlayer::remove(ClientPlayer *p) {
 	remove(p->uiSession);
+}
+
+QString ClientPlayer::getFlagsString() const {
+	QStringList flags;
+
+	if (! qsFriendName.isEmpty())
+		flags << ClientPlayer::tr("Friend");
+	if (iId >= 0)
+		flags << ClientPlayer::tr("Authenticated");
+	if (bMute)
+		flags << ClientPlayer::tr("Muted (server)");
+	if (bDeaf)
+		flags << ClientPlayer::tr("Deafened (server)");
+	if (bLocalMute)
+		flags << ClientPlayer::tr("Local Mute");
+	if (bSelfMute)
+		flags << ClientPlayer::tr("Muted (self)");
+	if (bSelfDeaf)
+		flags << ClientPlayer::tr("Deafened (self)");
+
+	return flags.join(QLatin1String(", "));
 }
 
 void ClientPlayer::setTalking(bool talking, bool altspeech) {

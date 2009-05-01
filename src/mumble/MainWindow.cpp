@@ -659,7 +659,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 }
 
 void MainWindow::on_qmPlayer_aboutToShow() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
 	bool self = p && (p->uiSession == g.uiSession);
 
 	qmPlayer->clear();
@@ -677,6 +677,17 @@ void MainWindow::on_qmPlayer_aboutToShow() {
 	if (p && (p->iId < 0) & (g.pPermissions & (ChanACL::Register | ChanACL::Write))) {
 		qmPlayer->addSeparator();
 		qmPlayer->addAction(qaPlayerRegister);
+	}
+
+	if (p && ! p->qsHash.isEmpty() && (!p->qsFriendName.isEmpty() || (p->uiSession != g.uiSession))) {
+		qmPlayer->addSeparator();
+		if (p->qsFriendName.isEmpty())
+			qmPlayer->addAction(qaPlayerFriendAdd);
+		else {
+			if (p->qsFriendName != p->qsName)
+				qmPlayer->addAction(qaPlayerFriendUpdate);
+			qmPlayer->addAction(qaPlayerFriendRemove);
+		}
 	}
 
 	if (self) {
@@ -766,6 +777,28 @@ void MainWindow::on_qaPlayerRegister_triggered() {
 		mpus.set_user_id(0);
 		g.sh->sendMessage(mpus);
 	}
+}
+
+void MainWindow::on_qaPlayerFriendAdd_triggered() {
+	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
+		return;
+
+	Database::addFriend(p->qsName, p->qsHash);
+	pmModel->setFriendName(p, p->qsName);
+}
+
+void MainWindow::on_qaPlayerFriendUpdate_triggered() {
+	on_qaPlayerFriendAdd_triggered();
+}
+
+void MainWindow::on_qaPlayerFriendRemove_triggered() {
+	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	if (!p)
+		return;
+
+	Database::removeFriend(p->qsHash);
+	pmModel->setFriendName(p, QString());
 }
 
 void MainWindow::on_qaPlayerKick_triggered() {

@@ -52,7 +52,6 @@ class Player {
 		bool bTalking, bAltSpeak;
 		Channel *cChannel;
 		QByteArray qbaTexture;
-		QString getFlagsString() const;
 
 		Player();
 		virtual ~Player() {};
@@ -65,7 +64,9 @@ class ClientPlayer : public QObject, public Player {
 		Q_OBJECT
 		Q_DISABLE_COPY(ClientPlayer)
 	public:
+		QString qsFriendName;
 		int iTextureWidth;
+		QString getFlagsString() const;
 		ClientPlayer(QObject *p = NULL);
 		static QHash<unsigned int, ClientPlayer *> c_qmPlayers;
 		static QReadWriteLock c_qrwlPlayers;

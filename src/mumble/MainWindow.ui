@@ -635,6 +635,39 @@
     <string>This will permanently register the player on the server. Note that you can't change the username later on, nor can you easily unregister a player, so make sure you really want to do this.</string>
    </property>
   </action>
+  <action name="qaPlayerFriendAdd">
+   <property name="text">
+    <string>Add &amp;Friend</string>
+   </property>
+   <property name="toolTip">
+    <string>Adds a player as your friend.</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will add the player as a friend, so you can recognize him on this and other servers.</string>
+   </property>
+  </action>
+  <action name="qaPlayerFriendRemove">
+   <property name="text">
+    <string>&amp;Remove Friend</string>
+   </property>
+   <property name="toolTip">
+    <string>Removes a user from your friends.</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will remove a player from your friends list.</string>
+   </property>
+  </action>
+  <action name="qaPlayerFriendUpdate">
+   <property name="text">
+    <string>&amp;Update Friend</string>
+   </property>
+   <property name="toolTip">
+    <string>Update name of your friend.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Your friend uses a different name than what is in your database. This will update the name.</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

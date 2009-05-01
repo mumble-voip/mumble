@@ -194,6 +194,7 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.png"));
 	qiChannel=QIcon(QLatin1String("skin:channel.png"));
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.png"));
+	qiFriend=QIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
 
 	ModelItem::bPlayersTop = g.s.bPlayerTop;
 
@@ -338,8 +339,14 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 				}
 				break;
 			case Qt::DisplayRole:
-				if (idx.column() == 0)
-					return p->qsName;
+				if (idx.column() == 0) {
+					if (! p->qsFriendName.isEmpty() && (p->qsFriendName.toLower() != p->qsName.toLower()))
+						return QString::fromLatin1("%1 (%2)").arg(p->qsName).arg(p->qsFriendName);
+					else
+						return p->qsName;
+				}
+				if (! p->qsFriendName.isEmpty())
+					l << qiFriend;
 				if (p->iId >= 0)
 					l << qiAuthenticated;
 				if (p->bMute)
@@ -439,6 +446,7 @@ QVariant PlayerModel::otherRoles(const QModelIndex &idx, int role) const {
 						return tr("This is a channel on the server. Only players in the same channel can hear each other.");
 				case 1:
 					return tr("This shows the flags the player has on the server, if any:<br />"
+					          "<img src=\":/emblems/emblem-favorite.svg\" />On your friend list<br />"
 					          "<img src=\"skin:authenticated.png\" />Authenticated user<br />"
 					          "<img src=\"skin:muted_self.png\" />Muted (by self)<br />"
 					          "<img src=\"skin:muted_server.png\" />Muted (by admin)<br />"
@@ -754,6 +762,13 @@ void PlayerModel::setPlayerId(ClientPlayer *p, int id) {
 	emit dataChanged(idx, idx);
 }
 
+void PlayerModel::setFriendName(ClientPlayer *p, const QString &name) {
+	p->qsFriendName = name;
+	QModelIndex idx_a = index(p, 0);
+	QModelIndex idx_b = index(p, 1);
+	emit dataChanged(idx_a, idx_b);
+}
+
 void PlayerModel::renameChannel(Channel *c, const QString &name) {
 	c->qsName = name;
 
@@ -1001,7 +1016,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 		mpus.set_session(uiSession);
 		mpus.set_channel_id(c->iId);
 		g.sh->sendMessage(mpus);
-	} else {
+	} else if (c->iId != iId) {
 		int ret;
 		switch (g.s.ceChannelDrag) {
 			case Settings::Ask:

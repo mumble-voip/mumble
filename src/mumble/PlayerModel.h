@@ -93,6 +93,7 @@ class PlayerModel : public QAbstractItemModel {
 		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal;
 		QIcon qiDeafenedSelf, qiDeafenedServer;
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
+		QIcon qiFriend;
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 
@@ -131,6 +132,7 @@ class PlayerModel : public QAbstractItemModel {
 		void renamePlayer(ClientPlayer *p, const QString &name);
 		void renameChannel(Channel *c, const QString &name);
 		void setPlayerId(ClientPlayer *p, int id);
+		void setFriendName(ClientPlayer *p, const QString &name);
 
 		void movePlayer(ClientPlayer *p, Channel *c);
 		void moveChannel(Channel *c, Channel *p);

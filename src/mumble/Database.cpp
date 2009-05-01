@@ -102,9 +102,40 @@ Database::Database() {
 
 	QSqlQuery query;
 	// query.exec("DROP TABLE servers");
-	query.exec(QLatin1String("CREATE TABLE servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"));
-	query.exec(QLatin1String("CREATE TABLE cert (id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT, port INTEGER, digest TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX cert_host_port ON cert(hostname,port)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS servers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hostname TEXT, port INTEGER DEFAULT 64738, username TEXT, password TEXT)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS cert (id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT, port INTEGER, digest TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS cert_host_port ON cert(hostname,port)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS friends (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, hash TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS friends_name ON friends(name)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS friends_hash ON friends(hash)"));
+}
+
+const QString Database::getFriend(const QString &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT name FROM friends WHERE hash = ?"));
+	query.addBindValue(hash);
+	query.exec();
+	if (query.next())
+		return query.value(0).toString();
+	return QString();
+}
+
+void Database::addFriend(const QString &name, const QString &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("REPLACE INTO friends (name, hash) VALUES (?,?)"));
+	query.addBindValue(name);
+	query.addBindValue(hash);
+	query.exec();
+}
+
+void Database::removeFriend(const QString &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("DELETE FROM friends WHERE hash = ?"));
+	query.addBindValue(hash);
+	query.exec();
 }
 
 const QString Database::getDigest(const QString &hostname, unsigned short port) {

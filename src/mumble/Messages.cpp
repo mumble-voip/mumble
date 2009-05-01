@@ -163,9 +163,13 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 	if (msg.has_user_id())
 		pmModel->setPlayerId(pDst, msg.user_id());
-		
-	if (msg.has_hash())
+
+	if (msg.has_hash()) {
 		pDst->qsHash = u8(msg.hash());
+		const QString &name = Database::getFriend(pDst->qsHash);
+		if (! name.isEmpty())
+			pmModel->setFriendName(pDst, name);
+	}
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
 		if (msg.has_self_mute())

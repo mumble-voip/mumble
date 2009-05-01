@@ -39,6 +39,9 @@ class Database : public QObject {
 		Q_DISABLE_COPY(Database)
 	public:
 		Database();
+		static void addFriend(const QString &name, const QString &hash);
+		static void removeFriend(const QString &hash);
+		static const QString getFriend(const QString &hash);
 		static const QString getDigest(const QString &hostname, unsigned short port);
 		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
 		static bool fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port);
