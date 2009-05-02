@@ -31,7 +31,7 @@
 #include "DirectSound.h"
 #include "MainWindow.h"
 #include "Plugins.h"
-#include "Player.h"
+#include "User.h"
 #include "Global.h"
 
 #undef FAILED
@@ -365,17 +365,17 @@ void DXAudioOutput::run() {
 	dsbdesc.lpwfxFormat     = reinterpret_cast<WAVEFORMATEX *>(&wfx);
 
 	if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBOutput, NULL))) {
-		qWarning("DXAudioOutputPlayer: CreateSoundBuffer (Secondary): 0x%08lx", hr);
+		qWarning("DXAudioOutputUser: CreateSoundBuffer (Secondary): 0x%08lx", hr);
 		goto cleanup;
 	}
 
 
 	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify)))) {
-		qWarning("DXAudioOutputPlayer: QueryInterface (Notify)");
+		qWarning("DXAudioOutputUser: QueryInterface (Notify)");
 		goto cleanup;
 	}
 
-	qWarning("DXAudioOutputPlayer: New %dHz output buffer of %ld bytes", SAMPLE_RATE, dsbdesc.dwBufferBytes);
+	qWarning("DXAudioOutputUser: New %dHz output buffer of %ld bytes", SAMPLE_RATE, dsbdesc.dwBufferBytes);
 
 	if (failed)
 		g.mw->msgBox(tr("Opening chosen DirectSound Output failed. Default device will be used."));
@@ -383,7 +383,7 @@ void DXAudioOutput::run() {
 	initializeMixer(chanmasks, bHead);
 
 	if (FAILED(hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER))) {
-		qWarning("DXAudioOutputPlayer: Initial Lock");
+		qWarning("DXAudioOutputUser: Initial Lock");
 		goto cleanup;
 	}
 
@@ -394,12 +394,12 @@ void DXAudioOutput::run() {
 		ZeroMemory(aptr2, nbytes2);
 
 	if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
-		qWarning("DXAudioOutputPlayer: Initial Unlock");
+		qWarning("DXAudioOutputUser: Initial Unlock");
 		goto cleanup;
 	}
 
 	if (FAILED(hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING))) {
-		qWarning("DXAudioOutputPlayer: Play");
+		qWarning("DXAudioOutputUser: Play");
 		goto cleanup;
 	}
 
@@ -413,7 +413,7 @@ void DXAudioOutput::run() {
 
 	while (bRunning && ! FAILED(hr)) {
 		if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
-			qWarning("DXAudioOutputPlayer: GetCurrentPosition");
+			qWarning("DXAudioOutputUser: GetCurrentPosition");
 			break;
 		}
 
@@ -444,7 +444,7 @@ void DXAudioOutput::run() {
 			}
 
 			if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
-				qWarning("DXAudioOutputPlayer: GetCurrentPosition");
+				qWarning("DXAudioOutputUser: GetCurrentPosition");
 				break;
 			}
 

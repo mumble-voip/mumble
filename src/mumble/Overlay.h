@@ -33,10 +33,10 @@
 
 #include "../../overlay/overlay.h"
 #include "ConfigDialog.h"
-#include "Player.h"
+#include "ClientUser.h"
 #include "ui_Overlay.h"
 
-class Player;
+class User;
 
 class SharedMemoryPrivate;
 class SharedMemory {
@@ -59,7 +59,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		Q_DISABLE_COPY(OverlayConfig)
 	protected:
 		QFont qfFont;
-		QColor qcPlayer, qcAltTalking, qcTalking, qcChannel, qcChannelTalking;
+		QColor qcUser, qcAltTalking, qcTalking, qcChannel, qcChannelTalking;
 
 		static void setColorLabel(QLabel *label, QColor col);
 	public:
@@ -69,7 +69,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	public slots:
 		void on_qsMaxHeight_valueChanged(int v);
 		void on_qpbSetFont_clicked();
-		void on_qpbPlayer_clicked();
+		void on_qpbUser_clicked();
 		void on_qpbTalking_clicked();
 		void on_qpbAltTalking_clicked();
 		void on_qpbChannel_clicked();
@@ -117,7 +117,7 @@ class Overlay : public QObject {
 		Overlay();
 		~Overlay();
 		bool isActive() const;
-		void verifyTexture(ClientPlayer *cp);
+		void verifyTexture(ClientUser *cp);
 	public slots:
 		void on_Timer_timeout();
 		void updateOverlay();

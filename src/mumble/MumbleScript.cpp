@@ -33,54 +33,54 @@
 #include "Log.h"
 #include "ServerHandler.h"
 
-ScriptPlayer::ScriptPlayer(ClientPlayer *p) : QObject(p) {
+ScriptUser::ScriptUser(ClientUser *p) : QObject(p) {
 }
 
-QString ScriptPlayer::getName() const {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+QString ScriptUser::getName() const {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	return cp->qsName;
 }
 
-unsigned int ScriptPlayer::getSession() const {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+unsigned int ScriptUser::getSession() const {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	return cp->uiSession;
 }
 
-int ScriptPlayer::getId() const {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+int ScriptUser::getId() const {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	return cp->iId;
 }
 
-QScriptValue ScriptPlayer::getChannel() const {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+QScriptValue ScriptUser::getChannel() const {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	Channel *c = cp->cChannel;
 	QScriptEngine *qse = engine();
 	MumbleScript *ms = qobject_cast<MumbleScript *>(qse->parent());
 	return qse->newQObject(ms->qmChannels.value(Channel::get(0)), QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
 }
 
-bool ScriptPlayer::isMute() const {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+bool ScriptUser::isMute() const {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	return cp->bMute || cp->bDeaf;
 }
 
-bool ScriptPlayer::isDeaf() const {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+bool ScriptUser::isDeaf() const {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	return cp->bDeaf;
 }
 
-void ScriptPlayer::setMute(bool m) {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+void ScriptUser::setMute(bool m) {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	qWarning("Want to set mute to %d", m);
 }
 
-void ScriptPlayer::setDeaf(bool m) {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+void ScriptUser::setDeaf(bool m) {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	qWarning("Want to set deaf to %d", m);
 }
 
-void ScriptPlayer::setChannel(const QScriptValue &sv) {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+void ScriptUser::setChannel(const QScriptValue &sv) {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	ScriptChannel *sc = qobject_cast<ScriptChannel *>(sv.toQObject());
 	if (sc) {
 		Channel *c = qobject_cast<Channel *>(sc->parent());
@@ -90,8 +90,8 @@ void ScriptPlayer::setChannel(const QScriptValue &sv) {
 	}
 }
 
-void ScriptPlayer::sendMessage(const QString &msg) {
-	ClientPlayer *cp = qobject_cast<ClientPlayer *>(parent());
+void ScriptUser::sendMessage(const QString &msg) {
+	ClientUser *cp = qobject_cast<ClientUser *>(parent());
 	qWarning("Want to send msg %s", qPrintable(msg));
 }
 
@@ -128,18 +128,18 @@ void ScriptChannel::sendMessage(const QString &msg, bool tree) {
 	qWarning() << "ScriptChannel::sendMessage" << msg << tree;
 }
 
-QScriptValue ScriptChannel::getPlayers() const {
+QScriptValue ScriptChannel::getUsers() const {
 	Channel *c = qobject_cast<Channel *>(parent());
 	QScriptEngine *qse = engine();
 	MumbleScript *ms = qobject_cast<MumbleScript *>(qse->parent());
 
-	QScriptValue a = engine()->newArray(c->qlPlayers.count());
+	QScriptValue a = engine()->newArray(c->qlUsers.count());
 
 	quint32 idx = 0;
 
-	foreach(Player *p, c->qlPlayers) {
-		ClientPlayer *cp = static_cast<ClientPlayer *>(p);
-		QScriptValue sv = qse->newQObject(ms->qmPlayers.value(cp), QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+	foreach(User *p, c->qlUsers) {
+		ClientUser *cp = static_cast<ClientUser *>(p);
+		QScriptValue sv = qse->newQObject(ms->qmUsers.value(cp), QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
 		a.setProperty(idx, sv);
 		idx++;
 	}
@@ -214,7 +214,7 @@ MumbleScript::MumbleScript(MumbleScripts *p) : QObject(p) {
 }
 
 MumbleScript::~MumbleScript() {
-	foreach(ScriptPlayer *sp, qmPlayers)
+	foreach(ScriptUser *sp, qmUsers)
 		delete sp;
 }
 
@@ -233,15 +233,15 @@ void MumbleScript::errorHandler(const QScriptValue &exception) {
 	delete this;
 }
 
-void MumbleScript::addPlayer(ClientPlayer *p) {
-	connect(p, SIGNAL(destroyed(QObject *)), this, SLOT(playerDeleted(QObject *)));
-	ScriptPlayer *sp = new ScriptPlayer(p);
-	qmPlayers.insert(p, sp);
-	emit ssServer->newPlayer(qseEngine->newQObject(sp, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject));
+void MumbleScript::addUser(ClientUser *p) {
+	connect(p, SIGNAL(destroyed(QObject *)), this, SLOT(userDeleted(QObject *)));
+	ScriptUser *sp = new ScriptUser(p);
+	qmUsers.insert(p, sp);
+	emit ssServer->newUser(qseEngine->newQObject(sp, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject));
 }
 
-void MumbleScript::movePlayer(ClientPlayer *p) {
-	ScriptPlayer *sp = qmPlayers.value(p);
+void MumbleScript::moveUser(ClientUser *p) {
+	ScriptUser *sp = qmUsers.value(p);
 	emit sp->moved();
 }
 
@@ -257,9 +257,9 @@ void MumbleScript::moveChannel(Channel *c) {
 	emit sc->moved();
 }
 
-void MumbleScript::playerDeleted(QObject *obj) {
-	ClientPlayer *cp=qobject_cast<ClientPlayer *>(obj);
-	qmPlayers.remove(cp);
+void MumbleScript::userDeleted(QObject *obj) {
+	ClientUser *cp=qobject_cast<ClientUser *>(obj);
+	qmUsers.remove(cp);
 }
 
 void MumbleScript::channelDeleted(QObject *obj) {
@@ -285,14 +285,14 @@ void MumbleScripts::createEvaluate(const QString &qs) {
 	ms->evaluate(qs);
 }
 
-void MumbleScripts::addPlayer(ClientPlayer *p) {
+void MumbleScripts::addUser(ClientUser *p) {
 	foreach(MumbleScript *ms, qlScripts)
-		ms->addPlayer(p);
+		ms->addUser(p);
 }
 
-void MumbleScripts::movePlayer(ClientPlayer *p) {
+void MumbleScripts::moveUser(ClientUser *p) {
 	foreach(MumbleScript *ms, qlScripts)
-		ms->movePlayer(p);
+		ms->moveUser(p);
 }
 
 void MumbleScripts::addChannel(Channel *c) {

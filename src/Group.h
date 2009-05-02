@@ -34,7 +34,7 @@
 #include "murmur_pch.h"
 
 class Channel;
-class Player;
+class User;
 
 class Group {
 	private:
@@ -55,7 +55,7 @@ class Group {
 		static QSet<QString> groupNames(Channel *c);
 		static Group *getGroup(Channel *c, QString name);
 
-		static bool isMember(Channel *c, Channel *aclChan, QString name, Player *);
+		static bool isMember(Channel *c, Channel *aclChan, QString name, User *);
 };
 
 #else

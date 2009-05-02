@@ -28,51 +28,35 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Player.h"
+#include "ClientUser.h"
 #include "Channel.h"
 
-QHash<unsigned int, ClientPlayer *> ClientPlayer::c_qmPlayers;
-QReadWriteLock ClientPlayer::c_qrwlPlayers;
+QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
+QReadWriteLock ClientUser::c_qrwlUsers;
 
-Player::Player() {
-	sState = Player::Connected;
-	uiSession = 0;
-	iId = -1;
-	bMute = bDeaf = false;
-	bSelfMute = bSelfDeaf = false;
-	bTalking = bAltSpeak = false;
-	bLocalMute = false;
-	bSuppressed = false;
-	cChannel = 0;
+ClientUser::ClientUser(QObject *p) : QObject(p) {
 }
 
-Player::operator const QString() const {
-	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
-}
-
-ClientPlayer::ClientPlayer(QObject *p) : QObject(p) {
-}
-
-ClientPlayer *ClientPlayer::get(unsigned int uiSession) {
-	QReadLocker lock(&c_qrwlPlayers);
-	ClientPlayer *p = c_qmPlayers.value(uiSession);
+ClientUser *ClientUser::get(unsigned int uiSession) {
+	QReadLocker lock(&c_qrwlUsers);
+	ClientUser *p = c_qmUsers.value(uiSession);
 	return p;
 }
 
-ClientPlayer *ClientPlayer::add(unsigned int uiSession, QObject *po) {
-	QWriteLocker lock(&c_qrwlPlayers);
+ClientUser *ClientUser::add(unsigned int uiSession, QObject *po) {
+	QWriteLocker lock(&c_qrwlUsers);
 
-	ClientPlayer *p = new ClientPlayer(po);
+	ClientUser *p = new ClientUser(po);
 	p->uiSession = uiSession;
-	c_qmPlayers[uiSession] = p;
+	c_qmUsers[uiSession] = p;
 	return p;
 }
 
-ClientPlayer *ClientPlayer::match(const ClientPlayer *other, bool matchname) {
-	QReadLocker lock(&c_qrwlPlayers);
+ClientUser *ClientUser::match(const ClientUser *other, bool matchname) {
+	QReadLocker lock(&c_qrwlUsers);
 
-	ClientPlayer *p;
-	foreach(p, c_qmPlayers) {
+	ClientUser *p;
+	foreach(p, c_qmUsers) {
 		if (p == other)
 			continue;
 		if ((p->iId >= 0) && (p->iId == other->iId))
@@ -83,39 +67,39 @@ ClientPlayer *ClientPlayer::match(const ClientPlayer *other, bool matchname) {
 	return NULL;
 }
 
-void ClientPlayer::remove(unsigned int uiSession) {
-	QWriteLocker lock(&c_qrwlPlayers);
-	Player *p = c_qmPlayers.take(uiSession);
+void ClientUser::remove(unsigned int uiSession) {
+	QWriteLocker lock(&c_qrwlUsers);
+	User *p = c_qmUsers.take(uiSession);
 	if (p && p->cChannel)
-		p->cChannel->removePlayer(p);
+		p->cChannel->removeUser(p);
 }
 
-void ClientPlayer::remove(ClientPlayer *p) {
+void ClientUser::remove(ClientUser *p) {
 	remove(p->uiSession);
 }
 
-QString ClientPlayer::getFlagsString() const {
+QString ClientUser::getFlagsString() const {
 	QStringList flags;
 
 	if (! qsFriendName.isEmpty())
-		flags << ClientPlayer::tr("Friend");
+		flags << ClientUser::tr("Friend");
 	if (iId >= 0)
-		flags << ClientPlayer::tr("Authenticated");
+		flags << ClientUser::tr("Authenticated");
 	if (bMute)
-		flags << ClientPlayer::tr("Muted (server)");
+		flags << ClientUser::tr("Muted (server)");
 	if (bDeaf)
-		flags << ClientPlayer::tr("Deafened (server)");
+		flags << ClientUser::tr("Deafened (server)");
 	if (bLocalMute)
-		flags << ClientPlayer::tr("Local Mute");
+		flags << ClientUser::tr("Local Mute");
 	if (bSelfMute)
-		flags << ClientPlayer::tr("Muted (self)");
+		flags << ClientUser::tr("Muted (self)");
 	if (bSelfDeaf)
-		flags << ClientPlayer::tr("Deafened (self)");
+		flags << ClientUser::tr("Deafened (self)");
 
 	return flags.join(QLatin1String(", "));
 }
 
-void ClientPlayer::setTalking(bool talking, bool altspeech) {
+void ClientUser::setTalking(bool talking, bool altspeech) {
 	if ((bTalking == talking) && (bAltSpeak == altspeech))
 		return;
 	bTalking = talking;
@@ -123,7 +107,7 @@ void ClientPlayer::setTalking(bool talking, bool altspeech) {
 	emit talkingChanged(bTalking);
 }
 
-void ClientPlayer::setMute(bool mute) {
+void ClientUser::setMute(bool mute) {
 	if (bMute == mute)
 		return;
 	bMute = mute;
@@ -132,30 +116,37 @@ void ClientPlayer::setMute(bool mute) {
 	emit muteDeafChanged();
 }
 
-void ClientPlayer::setLocalMute(bool mute) {
+void ClientUser::setLocalMute(bool mute) {
 	if (bLocalMute == mute)
 		return;
 	bLocalMute = mute;
 	emit muteDeafChanged();
 }
 
-void ClientPlayer::setDeaf(bool deaf) {
+void ClientUser::setDeaf(bool deaf) {
 	bDeaf = deaf;
 	if (bDeaf)
 		bMute = true;
 	emit muteDeafChanged();
 }
 
-void ClientPlayer::setSelfMute(bool mute) {
+void ClientUser::setSelfMute(bool mute) {
 	bSelfMute = mute;
 	if (! mute)
 		bSelfDeaf = false;
 	emit muteDeafChanged();
 }
 
-void ClientPlayer::setSelfDeaf(bool deaf) {
+void ClientUser::setSelfDeaf(bool deaf) {
 	bSelfDeaf = deaf;
 	if (deaf)
 		bSelfMute = true;
 	emit muteDeafChanged();
+}
+
+/* From Channel.h
+ */
+void Channel::addClientUser(ClientUser *p) {
+	addUser(p);
+	p->setParent(this);
 }

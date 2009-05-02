@@ -33,61 +33,61 @@
 
 #include "mumble_pch.hpp"
 
-class Player;
-class ClientPlayer;
+class User;
+class ClientUser;
 class Channel;
 
-class PlayerDelegate : public QItemDelegate {
+class UserDelegate : public QItemDelegate {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(PlayerDelegate)
+		Q_DISABLE_COPY(UserDelegate)
 	public:
-		PlayerDelegate(QObject *parent = NULL);
+		UserDelegate(QObject *parent = NULL);
 		QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
 struct ModelItem {
-	friend class PlayerModel;
+	friend class UserModel;
 
 private:
 	Q_DISABLE_COPY(ModelItem);
 public:
 	Channel *cChan;
-	ClientPlayer *pPlayer;
+	ClientUser *pUser;
 
 	ModelItem *parent;
 	QList<ModelItem *> qlChildren;
-	int iPlayers;
+	int iUsers;
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
-	static QHash <ClientPlayer *, ModelItem *> c_qhPlayers;
-	static bool bPlayersTop;
+	static QHash <ClientUser *, ModelItem *> c_qhUsers;
+	static bool bUsersTop;
 
 	ModelItem(Channel *c);
-	ModelItem(ClientPlayer *p);
+	ModelItem(ClientUser *p);
 	ModelItem(ModelItem *);
 	~ModelItem();
 
 	ModelItem *child(int idx) const;
 
 	bool validRow(int idx) const;
-	ClientPlayer *playerAt(int idx) const;
+	ClientUser *userAt(int idx) const;
 	Channel *channelAt(int idx) const;
 	int rowOf(Channel *c) const;
-	int rowOf(ClientPlayer *p) const;
+	int rowOf(ClientUser *p) const;
 	int rowOfSelf() const;
 	int rows() const;
 	int insertIndex(Channel *c) const;
-	int insertIndex(ClientPlayer *p) const;
+	int insertIndex(ClientUser *p) const;
 	void wipe();
 };
 
-class PlayerModel : public QAbstractItemModel {
+class UserModel : public QAbstractItemModel {
 		friend struct ModelItem;
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(PlayerModel)
+		Q_DISABLE_COPY(UserModel)
 	protected:
 		QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
 		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal;
@@ -97,7 +97,7 @@ class PlayerModel : public QAbstractItemModel {
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 
-		QModelIndex index(ClientPlayer *, int column = 0) const;
+		QModelIndex index(ClientUser *, int column = 0) const;
 		QModelIndex index(Channel *) const;
 		QModelIndex index(ModelItem *) const;
 
@@ -106,8 +106,8 @@ class PlayerModel : public QAbstractItemModel {
 
 		QString stringIndex(const QModelIndex &index) const;
 	public:
-		PlayerModel(QObject *parent = 0);
-		~PlayerModel();
+		UserModel(QObject *parent = 0);
+		~UserModel();
 
 		QVariant data(const QModelIndex &index, int role) const;
 		Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -121,23 +121,23 @@ class PlayerModel : public QAbstractItemModel {
 		QMimeData *mimeData(const QModelIndexList &idx) const;
 		bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
 
-		ClientPlayer *addPlayer(unsigned int id, const QString &name);
-		ClientPlayer *getPlayer(const QModelIndex &idx) const;
+		ClientUser *addUser(unsigned int id, const QString &name);
+		ClientUser *getUser(const QModelIndex &idx) const;
 
 		Channel *addChannel(int id, Channel *p, const QString &name);
 		Channel *getChannel(const QModelIndex &idx) const;
 
 		Channel *getSubChannel(Channel *p, int idx) const;
 
-		void renamePlayer(ClientPlayer *p, const QString &name);
+		void renameUser(ClientUser *p, const QString &name);
 		void renameChannel(Channel *c, const QString &name);
-		void setPlayerId(ClientPlayer *p, int id);
-		void setFriendName(ClientPlayer *p, const QString &name);
+		void setUserId(ClientUser *p, int id);
+		void setFriendName(ClientUser *p, const QString &name);
 
-		void movePlayer(ClientPlayer *p, Channel *c);
+		void moveUser(ClientUser *p, Channel *c);
 		void moveChannel(Channel *c, Channel *p);
 
-		void removePlayer(ClientPlayer *p);
+		void removeUser(ClientUser *p);
 		void removeChannel(Channel *c);
 
 		void linkChannels(Channel *c, QList<Channel *> links);
@@ -151,13 +151,13 @@ class PlayerModel : public QAbstractItemModel {
 
 		QVariant otherRoles(const QModelIndex &idx, int role) const;
 	public slots:
-		void playerTalkingChanged(bool talking);
-		void playerMuteDeafChanged();
+		void userTalkingChanged(bool talking);
+		void userMuteDeafChanged();
 		void ensureSelfVisible();
 		void recheckLinks();
 		void updateOverlay() const;
 };
 
 #else
-class PlayerModel;
+class UserModel;
 #endif

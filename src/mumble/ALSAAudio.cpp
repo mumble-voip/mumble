@@ -29,7 +29,7 @@
 */
 
 #include "ALSAAudio.h"
-#include "Player.h"
+#include "User.h"
 #include "Global.h"
 #include "MainWindow.h"
 #include <sys/poll.h>

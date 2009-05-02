@@ -32,7 +32,7 @@
 #include "ACL.h"
 #include "ServerHandler.h"
 #include "Channel.h"
-#include "Player.h"
+#include "User.h"
 #include "Global.h"
 
 ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
@@ -91,10 +91,10 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	connect(qcbGroupAdd->lineEdit(), SIGNAL(returnPressed()), qpbGroupAddAdd, SLOT(animateClick()));
 	connect(qcbGroupRemove->lineEdit(), SIGNAL(returnPressed()), qpbGroupRemoveAdd, SLOT(animateClick()));
 
-	foreach(Player *p, ClientPlayer::c_qmPlayers) {
-		if (p->iId >= 0) {
-			qhNameCache.insert(p->iId, p->qsName);
-			qhIDCache.insert(p->qsName.toLower(), p->iId);
+	foreach(User *u, ClientUser::c_qmUsers) {
+		if (u->iId >= 0) {
+			qhNameCache.insert(u->iId, u->qsName);
+			qhIDCache.insert(u->qsName.toLower(), u->iId);
 		}
 	}
 
@@ -103,7 +103,7 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	def->bApplyHere = true;
 	def->bApplySubs = true;
 	def->bInherited = true;
-	def->iPlayerId = -1;
+	def->iUserId = -1;
 	def->qsGroup = QLatin1String("all");
 	def->pAllow = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::AltSpeak;
 	def->pDeny = 0;
@@ -117,9 +117,9 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 		acl->bApplyHere = as.apply_here();
 		acl->bApplySubs = as.apply_subs();
 		acl->bInherited = as.inherited();
-		acl->iPlayerId = -1;
+		acl->iUserId = -1;
 		if (as.has_user_id())
-			acl->iPlayerId = as.user_id();
+			acl->iUserId = as.user_id();
 		else
 			acl->qsGroup = u8(as.group());
 		acl->pAllow = static_cast<ChanACL::Permissions>(as.grant());
@@ -184,13 +184,13 @@ void ACLEditor::accept() {
 	msg.clear_groups();
 
 	foreach(ChanACL *acl, qlACLs) {
-		if (acl->bInherited || (acl->iPlayerId < -1))
+		if (acl->bInherited || (acl->iUserId < -1))
 			continue;
 		MumbleProto::ACL_ChanACL *mpa = msg.add_acls();
 		mpa->set_apply_here(acl->bApplyHere);
 		mpa->set_apply_subs(acl->bApplySubs);
-		if (acl->iPlayerId != -1)
-			mpa->set_user_id(acl->iPlayerId);
+		if (acl->iUserId != -1)
+			mpa->set_user_id(acl->iUserId);
 		else
 			mpa->set_group(u8(acl->qsGroup));
 		mpa->set_grant(acl->pAllow);
@@ -256,8 +256,8 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 			int tid = qhNameWait.take(lname);
 
 			foreach(ChanACL *acl, qlACLs)
-				if (acl->iPlayerId == tid)
-					acl->iPlayerId = pid;
+				if (acl->iUserId == tid)
+					acl->iUserId = pid;
 			foreach(ACLGroup *gp, qlGroups) {
 				if (gp->qsAdd.remove(tid))
 					gp->qsAdd.insert(pid);
@@ -322,10 +322,10 @@ void ACLEditor::refillACL() {
 		else if (! bInheritACL && acl->bInherited)
 			continue;
 		QString text;
-		if (acl->iPlayerId == -1)
+		if (acl->iUserId == -1)
 			text=QString::fromLatin1("@%1").arg(acl->qsGroup);
 		else
-			text=userName(acl->iPlayerId);
+			text=userName(acl->iUserId);
 		QListWidgetItem *item=new QListWidgetItem(text, qlwACLs);
 		if (acl->bInherited) {
 			QFont f = item->font();
@@ -502,12 +502,12 @@ void ACLEditor::ACLEnableCheck() {
 		qcbACLGroup->addItem(QLatin1String("~out"));
 		foreach(ACLGroup *gs, qlGroups)
 			qcbACLGroup->addItem(gs->qsName);
-		if (as->iPlayerId == -1) {
+		if (as->iUserId == -1) {
 			qcbACLUser->clearEditText();
 			qcbACLGroup->addItem(as->qsGroup);
 			qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
 		} else {
-			qcbACLUser->setEditText(userName(as->iPlayerId));
+			qcbACLUser->setEditText(userName(as->iUserId));
 		}
 	}
 	foreach(QAbstractButton *b, qdbbButtons->buttons()) {
@@ -529,7 +529,7 @@ void ACLEditor::on_qpbACLAdd_clicked() {
 	as->bApplySubs = true;
 	as->bInherited = false;
 	as->qsGroup = QLatin1String("all");
-	as->iPlayerId = -1;
+	as->iUserId = -1;
 	as->pAllow = ChanACL::None;
 	as->pDeny = ChanACL::None;
 	qlACLs << as;
@@ -597,7 +597,7 @@ void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 	if (! as || as->bInherited)
 		return;
 
-	as->iPlayerId = -1;
+	as->iUserId = -1;
 
 	if (text.isEmpty()) {
 		qcbACLGroup->setCurrentIndex(1);
@@ -620,7 +620,7 @@ void ACLEditor::on_qcbACLUser_activated() {
 		return;
 
 	if (text.isEmpty()) {
-		as->iPlayerId = -1;
+		as->iUserId = -1;
 		if (qcbACLGroup->currentIndex() == 0) {
 			qcbACLGroup->setCurrentIndex(1);
 			as->qsGroup=QLatin1String("all");
@@ -628,7 +628,7 @@ void ACLEditor::on_qcbACLUser_activated() {
 		refillACL();
 	} else {
 		qcbACLGroup->setCurrentIndex(0);
-		as->iPlayerId = id(text);
+		as->iUserId = id(text);
 		refillACL();
 	}
 }

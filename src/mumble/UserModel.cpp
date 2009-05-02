@@ -28,49 +28,49 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "PlayerModel.h"
+#include "UserModel.h"
 #include "MainWindow.h"
 #include "Message.h"
 #include "ServerHandler.h"
 #include "Channel.h"
-#include "Player.h"
+#include "User.h"
 #include "Global.h"
 #include "Overlay.h"
 #include "LCD.h"
 #include "Log.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
-QHash <ClientPlayer *, ModelItem *> ModelItem::c_qhPlayers;
-bool ModelItem::bPlayersTop = false;
+QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
+bool ModelItem::bUsersTop = false;
 
 ModelItem::ModelItem(Channel *c) {
 	this->cChan = c;
-	this->pPlayer = NULL;
+	this->pUser = NULL;
 	c_qhChannels.insert(c, this);
 	parent = c_qhChannels.value(c->cParent);
-	iPlayers = 0;
+	iUsers = 0;
 }
 
-ModelItem::ModelItem(ClientPlayer *p) {
+ModelItem::ModelItem(ClientUser *p) {
 	this->cChan = NULL;
-	this->pPlayer = p;
-	c_qhPlayers.insert(p, this);
+	this->pUser = p;
+	c_qhUsers.insert(p, this);
 	parent = c_qhChannels.value(p->cChannel);
-	iPlayers = 0;
+	iUsers = 0;
 }
 
 ModelItem::ModelItem(ModelItem *i) {
 	// Create a shallow clone
 	this->cChan = i->cChan;
-	this->pPlayer = i->pPlayer;
+	this->pUser = i->pUser;
 	this->parent = i->parent;
 
-	if (pPlayer)
-		c_qhPlayers.insert(pPlayer, this);
+	if (pUser)
+		c_qhUsers.insert(pUser, this);
 	else if (cChan)
 		c_qhChannels.insert(cChan, this);
 
-	iPlayers = i->iPlayers;
+	iUsers = i->iUsers;
 }
 
 ModelItem::~ModelItem() {
@@ -78,8 +78,8 @@ ModelItem::~ModelItem() {
 
 	if (cChan && c_qhChannels.value(cChan) == this)
 		c_qhChannels.remove(cChan);
-	if (pPlayer && c_qhPlayers.value(pPlayer) == this)
-		c_qhPlayers.remove(pPlayer);
+	if (pUser && c_qhUsers.value(pUser) == this)
+		c_qhUsers.remove(pUser);
 }
 
 void ModelItem::wipe() {
@@ -88,7 +88,7 @@ void ModelItem::wipe() {
 		delete i;
 	}
 	qlChildren.clear();
-	iPlayers = 0;
+	iUsers = 0;
 }
 
 ModelItem *ModelItem::child(int idx) const {
@@ -102,10 +102,10 @@ bool ModelItem::validRow(int idx) const {
 	return ((idx >= 0) && (idx < qlChildren.count()));
 }
 
-ClientPlayer *ModelItem::playerAt(int idx) const {
+ClientUser *ModelItem::userAt(int idx) const {
 	if (! validRow(idx))
 		return NULL;
-	return qlChildren.at(idx)->pPlayer;
+	return qlChildren.at(idx)->pUser;
 }
 
 Channel *ModelItem::channelAt(int idx) const {
@@ -121,9 +121,9 @@ int ModelItem::rowOf(Channel *c) const {
 	return -1;
 }
 
-int ModelItem::rowOf(ClientPlayer *p) const {
+int ModelItem::rowOf(ClientUser *p) const {
 	for (int i=0;i<qlChildren.count();i++)
-		if (qlChildren.at(i)->pPlayer == p)
+		if (qlChildren.at(i)->pUser == p)
 			return i;
 	return -1;
 }
@@ -133,8 +133,8 @@ int ModelItem::rowOfSelf() const {
 	if (! parent)
 		return 0;
 
-	if (pPlayer)
-		return parent->rowOf(pPlayer);
+	if (pUser)
+		return parent->rowOf(pUser);
 	else
 		return parent->rowOf(cChan);
 }
@@ -159,19 +159,19 @@ int ModelItem::insertIndex(Channel *c) const {
 	qls << c->qsName;
 	qSort(qls);
 
-	return qls.indexOf(c->qsName) + (bPlayersTop ? ocount : 0);
+	return qls.indexOf(c->qsName) + (bUsersTop ? ocount : 0);
 }
 
-int ModelItem::insertIndex(ClientPlayer *p) const {
+int ModelItem::insertIndex(ClientUser *p) const {
 	QList<QString> qls;
 	ModelItem *item;
 
 	int ocount = 0;
 
 	foreach(item, qlChildren) {
-		if (item->pPlayer) {
-			if (item->pPlayer != p)
-				qls << item->pPlayer->qsName;
+		if (item->pUser) {
+			if (item->pUser != p)
+				qls << item->pUser->qsName;
 		} else
 			ocount++;
 	}
@@ -179,10 +179,10 @@ int ModelItem::insertIndex(ClientPlayer *p) const {
 	qls << p->qsName;
 	qSort(qls);
 
-	return qls.indexOf(p->qsName) + (bPlayersTop ? 0 : ocount);
+	return qls.indexOf(p->qsName) + (bUsersTop ? 0 : ocount);
 }
 
-PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
+UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.png"));
 	qiTalkingAlt=QIcon(QLatin1String("skin:talking_alt.png"));
 	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.png"));
@@ -196,24 +196,24 @@ PlayerModel::PlayerModel(QObject *p) : QAbstractItemModel(p) {
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.png"));
 	qiFriend=QIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
 
-	ModelItem::bPlayersTop = g.s.bPlayerTop;
+	ModelItem::bUsersTop = g.s.bUserTop;
 
 	miRoot = new ModelItem(Channel::get(0));
 }
 
-PlayerModel::~PlayerModel() {
+UserModel::~UserModel() {
 	removeAll();
-	Q_ASSERT(ModelItem::c_qhPlayers.count() == 0);
+	Q_ASSERT(ModelItem::c_qhUsers.count() == 0);
 	Q_ASSERT(ModelItem::c_qhChannels.count() == 1);
 	delete miRoot;
 }
 
 
-int PlayerModel::columnCount(const QModelIndex &) const {
+int UserModel::columnCount(const QModelIndex &) const {
 	return 2;
 }
 
-QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const {
+QModelIndex UserModel::index(int row, int column, const QModelIndex &p) const {
 	ModelItem *item;
 	QModelIndex idx = QModelIndex();
 
@@ -238,8 +238,8 @@ QModelIndex PlayerModel::index(int row, int column, const QModelIndex &p) const 
 	return idx;
 }
 
-QModelIndex PlayerModel::index(ClientPlayer *p, int column) const {
-	ModelItem *item = ModelItem::c_qhPlayers.value(p);
+QModelIndex UserModel::index(ClientUser *p, int column) const {
+	ModelItem *item = ModelItem::c_qhUsers.value(p);
 	Q_ASSERT(p);
 	Q_ASSERT(item);
 	if (!p || ! item)
@@ -248,7 +248,7 @@ QModelIndex PlayerModel::index(ClientPlayer *p, int column) const {
 	return idx;
 }
 
-QModelIndex PlayerModel::index(Channel *c) const {
+QModelIndex UserModel::index(Channel *c) const {
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
 	Q_ASSERT(c);
 	Q_ASSERT(item);
@@ -258,11 +258,11 @@ QModelIndex PlayerModel::index(Channel *c) const {
 	return idx;
 }
 
-QModelIndex PlayerModel::index(ModelItem *item) const {
+QModelIndex UserModel::index(ModelItem *item) const {
 	return createIndex(item->rowOfSelf(), 0, item);
 }
 
-QModelIndex PlayerModel::parent(const QModelIndex &idx) const {
+QModelIndex UserModel::parent(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return QModelIndex();
 
@@ -276,7 +276,7 @@ QModelIndex PlayerModel::parent(const QModelIndex &idx) const {
 	return createIndex(pitem->rowOfSelf(), 0, pitem);
 }
 
-int PlayerModel::rowCount(const QModelIndex &p) const {
+int UserModel::rowCount(const QModelIndex &p) const {
 	ModelItem *item;
 
 	int val = 0;
@@ -294,26 +294,26 @@ int PlayerModel::rowCount(const QModelIndex &p) const {
 	return val;
 }
 
-QString PlayerModel::stringIndex(const QModelIndex &idx) const {
+QString UserModel::stringIndex(const QModelIndex &idx) const {
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 	if (!idx.isValid())
 		return QLatin1String("invIdx");
 	if (!item)
 		return QLatin1String("invPtr");
-	if (item->pPlayer)
-		return QString::fromLatin1("P:%1 [%2,%3]").arg(item->pPlayer->qsName).arg(idx.row()).arg(idx.column());
+	if (item->pUser)
+		return QString::fromLatin1("P:%1 [%2,%3]").arg(item->pUser->qsName).arg(idx.row()).arg(idx.column());
 	else
 		return QString::fromLatin1("C:%1 [%2,%3]").arg(item->cChan->qsName).arg(idx.row()).arg(idx.column());
 }
 
-QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
+QVariant UserModel::data(const QModelIndex &idx, int role) const {
 	if (!idx.isValid())
 		return QVariant();
 
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 
 	Channel *c = item->cChan;
-	ClientPlayer *p = item->pPlayer;
+	ClientUser *p = item->pUser;
 
 	if (!c && !p) {
 		return QVariant();
@@ -376,7 +376,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 					return l;
 			case Qt::FontRole:
 				if (g.uiSession) {
-					Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+					Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 					if ((c == home) || qsLinked.contains(c)) {
 						QFont f = g.mw->font();
@@ -395,7 +395,7 @@ QVariant PlayerModel::data(const QModelIndex &idx, int role) const {
 	return QVariant();
 }
 
-Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const {
+Qt::ItemFlags UserModel::flags(const QModelIndex &idx) const {
 	if (!idx.isValid())
 		return Qt::ItemIsDropEnabled;
 
@@ -405,18 +405,18 @@ Qt::ItemFlags PlayerModel::flags(const QModelIndex &idx) const {
 	return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
 }
 
-QVariant PlayerModel::otherRoles(const QModelIndex &idx, int role) const {
+QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
-	ClientPlayer *p = item->pPlayer;
+	ClientUser *p = item->pUser;
 	Channel *c = item->cChan;
 	int section = idx.column();
-	bool isPlayer = p != NULL;
+	bool isUser = p != NULL;
 
 	switch (role) {
 		case Qt::ToolTipRole:
 			switch (section) {
 				case 0: {
-						if (isPlayer) {
+						if (isUser) {
 							if (p->qsComment.isEmpty())
 								return p->qsName;
 							else
@@ -430,30 +430,30 @@ QVariant PlayerModel::otherRoles(const QModelIndex &idx, int role) const {
 					}
 					break;
 				case 1:
-					return isPlayer ? p->getFlagsString() : QVariant();
+					return isUser ? p->getFlagsString() : QVariant();
 			}
 			break;
 		case Qt::WhatsThisRole:
 			switch (section) {
 				case 0:
-					if (isPlayer)
-						return tr("This is a player connected to the server. The icon to the left of the player indicates "
+					if (isUser)
+						return tr("This is a user connected to the server. The icon to the left of the user indicates "
 						          "whether or not they are talking:<br />"
 						          "<img src=\"skin:talking_on.png\" /> Talking<br />"
 						          "<img src=\"skin:talking_off.png\" /> Not talking"
 						         );
 					else
-						return tr("This is a channel on the server. Only players in the same channel can hear each other.");
+						return tr("This is a channel on the server. Only users in the same channel can hear each other.");
 				case 1:
-					return tr("This shows the flags the player has on the server, if any:<br />"
+					return tr("This shows the flags the user has on the server, if any:<br />"
 					          "<img src=\":/emblems/emblem-favorite.svg\" />On your friend list<br />"
 					          "<img src=\"skin:authenticated.png\" />Authenticated user<br />"
 					          "<img src=\"skin:muted_self.png\" />Muted (by self)<br />"
 					          "<img src=\"skin:muted_server.png\" />Muted (by admin)<br />"
 					          "<img src=\"skin:deafened_self.png\" />Deafened (by self)<br />"
 					          "<img src=\"skin:deafened_server.png\" />Deafened (by admin)<br />"
-					          "A player muted by himself is probably just away, talking on the phone or something like that.<br />"
-					          "A player muted by an admin is probably also just away, and the noise the player is making was annoying "
+					          "A user muted by himself is probably just away, talking on the phone or something like that.<br />"
+					          "A user muted by an admin is probably also just away, and the noise the user is making was annoying "
 					          "enough that an admin muted him.");
 			}
 			break;
@@ -461,7 +461,7 @@ QVariant PlayerModel::otherRoles(const QModelIndex &idx, int role) const {
 	return QVariant();
 }
 
-QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
+QVariant UserModel::headerData(int section, Qt::Orientation orientation,
                                  int role) const {
 	if (orientation != Qt::Horizontal)
 		return QVariant();
@@ -479,7 +479,7 @@ QVariant PlayerModel::headerData(int section, Qt::Orientation orientation,
 	return QVariant();
 }
 
-void PlayerModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to) {
+void UserModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to) {
 	if (old->qlChildren.isEmpty())
 		return;
 
@@ -504,7 +504,7 @@ void PlayerModel::recursiveClone(const ModelItem *old, ModelItem *item, QModelIn
 		recursiveClone(old->qlChildren.at(i), item->qlChildren.at(i), from, to);
 }
 
-ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item) {
+ModelItem *UserModel::moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item) {
 	// Here's the idea. We insert the item, update persistent indexes, THEN remove it.
 
 	int oldrow = oldparent->qlChildren.indexOf(item);
@@ -513,7 +513,7 @@ ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Mod
 	if (item->cChan)
 		newrow = newparent->insertIndex(item->cChan);
 	else
-		newrow = newparent->insertIndex(item->pPlayer);
+		newrow = newparent->insertIndex(item->pUser);
 
 	if ((oldparent == newparent) && (newrow == oldrow)) {
 		emit dataChanged(index(item),index(item));
@@ -527,7 +527,7 @@ ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Mod
 	// The selection is stored as "from"-"to" pairs, so if we move up in the same channel,
 	// we'd move only "from" and select half the channel.
 
-	QTreeView *v=g.mw->qtvPlayers;
+	QTreeView *v=g.mw->qtvUsers;
 	QItemSelectionModel *sel=v->selectionModel();
 	QPersistentModelIndex active;
 	QModelIndex oindex = createIndex(oldrow, 0, item);
@@ -556,7 +556,7 @@ ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Mod
 		oldparent->cChan->removeChannel(item->cChan);
 		newparent->cChan->addChannel(item->cChan);
 	} else {
-		newparent->cChan->addPlayer(item->pPlayer);
+		newparent->cChan->addClientUser(item->pUser);
 	}
 
 	endInsertRows();
@@ -587,7 +587,7 @@ ModelItem *PlayerModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Mod
 	return t;
 }
 
-void PlayerModel::expandAll(Channel *c) {
+void UserModel::expandAll(Channel *c) {
 	QStack<Channel *> chans;
 
 	while (c) {
@@ -596,35 +596,35 @@ void PlayerModel::expandAll(Channel *c) {
 	}
 	while (! chans.isEmpty()) {
 		c = chans.pop();
-		g.mw->qtvPlayers->setExpanded(index(c), true);
+		g.mw->qtvUsers->setExpanded(index(c), true);
 	}
 }
 
-void PlayerModel::collapseEmpty(Channel *c) {
+void UserModel::collapseEmpty(Channel *c) {
 	while (c) {
 		ModelItem *mi = ModelItem::c_qhChannels.value(c);
-		if (mi->iPlayers == 0)
-			g.mw->qtvPlayers->setExpanded(index(c), false);
+		if (mi->iUsers == 0)
+			g.mw->qtvUsers->setExpanded(index(c), false);
 		else
 			break;
 		c = c->cParent;
 	}
 }
 
-void PlayerModel::ensureSelfVisible() {
+void UserModel::ensureSelfVisible() {
 	if (! g.uiSession)
 		return;
 
-	g.mw->qtvPlayers->scrollTo(index(ClientPlayer::get(g.uiSession)));
+	g.mw->qtvUsers->scrollTo(index(ClientUser::get(g.uiSession)));
 }
 
-void PlayerModel::recheckLinks() {
+void UserModel::recheckLinks() {
 	if (! g.uiSession)
 		return;
 
 	bool bChanged = false;
 
-	Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+	Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 	QSet<Channel *> all = home->allLinks();
 
@@ -648,14 +648,14 @@ void PlayerModel::recheckLinks() {
 		updateOverlay();
 }
 
-ClientPlayer *PlayerModel::addPlayer(unsigned int id, const QString &name) {
-	ClientPlayer *p = ClientPlayer::add(id, this);
+ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
+	ClientUser *p = ClientUser::add(id, this);
 	p->qsName = name;
 
 	ModelItem *item = new ModelItem(p);
 
-	connect(p, SIGNAL(talkingChanged(bool)), this, SLOT(playerTalkingChanged(bool)));
-	connect(p, SIGNAL(muteDeafChanged()), this, SLOT(playerMuteDeafChanged()));
+	connect(p, SIGNAL(talkingChanged(bool)), this, SLOT(userTalkingChanged(bool)));
+	connect(p, SIGNAL(muteDeafChanged()), this, SLOT(userMuteDeafChanged()));
 
 	Channel *c = Channel::get(0);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
@@ -666,55 +666,55 @@ ClientPlayer *PlayerModel::addPlayer(unsigned int id, const QString &name) {
 
 	beginInsertRows(index(citem), row, row);
 	citem->qlChildren.insert(row, item);
-	c->addPlayer(p);
+	c->addClientUser(p);
 	endInsertRows();
 
 	while (citem) {
-		citem->iPlayers++;
+		citem->iUsers++;
 		citem = citem->parent;
 	}
 
-	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
 
 	return p;
 }
 
-void PlayerModel::removePlayer(ClientPlayer *p) {
+void UserModel::removeUser(ClientUser *p) {
 	Channel *c = p->cChannel;
-	ModelItem *item = ModelItem::c_qhPlayers.value(p);
+	ModelItem *item = ModelItem::c_qhUsers.value(p);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
 
 	int row = citem->qlChildren.indexOf(item);
 
 	beginRemoveRows(index(citem), row, row);
-	c->removePlayer(p);
+	c->removeUser(p);
 	citem->qlChildren.removeAt(row);
 	endRemoveRows();
 
 	p->cChannel = NULL;
 
-	ClientPlayer::remove(p);
+	ClientUser::remove(p);
 	delete p;
 	delete item;
 
 	while (citem) {
-		citem->iPlayers--;
+		citem->iUsers--;
 		citem = citem->parent;
 	}
 
-	if (g.s.ceExpand == Settings::ChannelsWithPlayers)
+	if (g.s.ceExpand == Settings::ChannelsWithUsers)
 		collapseEmpty(c);
 
-	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
 }
 
-void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
+void UserModel::moveUser(ClientUser *p, Channel *np) {
 	Channel *oc = p->cChannel;
 	ModelItem *opi = ModelItem::c_qhChannels.value(oc);
 	ModelItem *pi = ModelItem::c_qhChannels.value(np);
-	ModelItem *item = ModelItem::c_qhPlayers.value(p);
+	ModelItem *item = ModelItem::c_qhUsers.value(p);
 
 	item = moveItem(opi, pi, item);
 
@@ -724,52 +724,52 @@ void PlayerModel::movePlayer(ClientPlayer *p, Channel *np) {
 	}
 
 	while (opi) {
-		opi->iPlayers--;
+		opi->iUsers--;
 		opi = opi->parent;
 	}
 	while (pi) {
-		pi->iPlayers++;
+		pi->iUsers++;
 		pi = pi->parent;
 	}
 
-	if (g.s.ceExpand == Settings::ChannelsWithPlayers) {
+	if (g.s.ceExpand == Settings::ChannelsWithUsers) {
 		expandAll(np);
 		collapseEmpty(oc);
 	}
 
 	if (g.uiSession) {
-		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 		if (home==np || home == oc)
 			updateOverlay();
 	}
 }
 
-void PlayerModel::renamePlayer(ClientPlayer *p, const QString &name) {
+void UserModel::renameUser(ClientUser *p, const QString &name) {
 	Channel *c = p->cChannel;
 	p->qsName = name;
 
 	ModelItem *pi = ModelItem::c_qhChannels.value(c);
-	ModelItem *item = ModelItem::c_qhPlayers.value(p);
+	ModelItem *item = ModelItem::c_qhUsers.value(p);
 	moveItem(pi, pi, item);
 
-	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
 }
 
-void PlayerModel::setPlayerId(ClientPlayer *p, int id) {
+void UserModel::setUserId(ClientUser *p, int id) {
 	p->iId = id;
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
 }
 
-void PlayerModel::setFriendName(ClientPlayer *p, const QString &name) {
+void UserModel::setFriendName(ClientUser *p, const QString &name) {
 	p->qsFriendName = name;
 	QModelIndex idx_a = index(p, 0);
 	QModelIndex idx_b = index(p, 1);
 	emit dataChanged(idx_a, idx_b);
 }
 
-void PlayerModel::renameChannel(Channel *c, const QString &name) {
+void UserModel::renameChannel(Channel *c, const QString &name) {
 	c->qsName = name;
 
 	if (c->iId == 0) {
@@ -785,7 +785,7 @@ void PlayerModel::renameChannel(Channel *c, const QString &name) {
 }
 
 
-Channel *PlayerModel::addChannel(int id, Channel *p, const QString &name) {
+Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name);
 
 	if (! c)
@@ -804,19 +804,19 @@ Channel *PlayerModel::addChannel(int id, Channel *p, const QString &name) {
 	endInsertRows();
 
 	if (g.s.ceExpand == Settings::AllChannels)
-		g.mw->qtvPlayers->setExpanded(index(item), true);
+		g.mw->qtvUsers->setExpanded(index(item), true);
 
 	return c;
 }
 
-void PlayerModel::removeChannel(Channel *c) {
+void UserModel::removeChannel(Channel *c) {
 	ModelItem *item, *i;
 
 	item=ModelItem::c_qhChannels.value(c);
 
 	foreach(i, item->qlChildren) {
-		if (i->pPlayer)
-			removePlayer(i->pPlayer);
+		if (i->pUser)
+			removeUser(i->pUser);
 		else
 			removeChannel(i->cChan);
 	}
@@ -842,7 +842,7 @@ void PlayerModel::removeChannel(Channel *c) {
 	delete c;
 }
 
-void PlayerModel::moveChannel(Channel *c, Channel *p) {
+void UserModel::moveChannel(Channel *c, Channel *p) {
 	Channel *oc = c->cParent;
 	ModelItem *opi = ModelItem::c_qhChannels.value(c->cParent);
 	ModelItem *pi = ModelItem::c_qhChannels.value(p);
@@ -850,45 +850,45 @@ void PlayerModel::moveChannel(Channel *c, Channel *p) {
 	item = moveItem(opi, pi, item);
 
 	while (opi) {
-		opi->iPlayers -= item->iPlayers;
+		opi->iUsers -= item->iUsers;
 		opi = opi->parent;
 	}
 	while (pi) {
-		pi->iPlayers += item->iPlayers;
+		pi->iUsers += item->iUsers;
 		pi = pi->parent;
 	}
 
 	ensureSelfVisible();
 
-	if (g.s.ceExpand == Settings::ChannelsWithPlayers) {
+	if (g.s.ceExpand == Settings::ChannelsWithUsers) {
 		collapseEmpty(oc);
 	}
 }
 
-void PlayerModel::linkChannels(Channel *c, QList<Channel *> links) {
+void UserModel::linkChannels(Channel *c, QList<Channel *> links) {
 	foreach(Channel *l, links)
 		c->link(l);
 	recheckLinks();
 }
 
-void PlayerModel::unlinkChannels(Channel *c, QList<Channel *> links) {
+void UserModel::unlinkChannels(Channel *c, QList<Channel *> links) {
 	foreach(Channel *l, links)
 		c->unlink(l);
 	recheckLinks();
 }
 
-void PlayerModel::unlinkAll(Channel *c) {
+void UserModel::unlinkAll(Channel *c) {
 	c->unlink(NULL);
 	recheckLinks();
 }
 
-void PlayerModel::removeAll() {
+void UserModel::removeAll() {
 	ModelItem *item = miRoot;
 	ModelItem *i;
 
 	foreach(i, item->qlChildren) {
-		if (i->pPlayer)
-			removePlayer(i->pPlayer);
+		if (i->pUser)
+			removeUser(i->pUser);
 		else
 			removeChannel(i->cChan);
 	}
@@ -898,30 +898,30 @@ void PlayerModel::removeAll() {
 	updateOverlay();
 }
 
-ClientPlayer *PlayerModel::getPlayer(const QModelIndex &idx) const {
+ClientUser *UserModel::getUser(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return NULL;
 
 	ModelItem *item;
 	item = static_cast<ModelItem *>(idx.internalPointer());
 
-	return item->pPlayer;
+	return item->pUser;
 }
 
-Channel *PlayerModel::getChannel(const QModelIndex &idx) const {
+Channel *UserModel::getChannel(const QModelIndex &idx) const {
 	if (! idx.isValid())
 		return NULL;
 
 	ModelItem *item;
 	item = static_cast<ModelItem *>(idx.internalPointer());
 
-	if (item->pPlayer)
-		return item->pPlayer->cChannel;
+	if (item->pUser)
+		return item->pUser->cChannel;
 	else
 		return item->cChan;
 }
 
-Channel *PlayerModel::getSubChannel(Channel *p, int idx) const {
+Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 	ModelItem *item=ModelItem::c_qhChannels.value(p);
 	if (! item)
 		return NULL;
@@ -936,38 +936,38 @@ Channel *PlayerModel::getSubChannel(Channel *p, int idx) const {
 	return NULL;
 }
 
-void PlayerModel::playerTalkingChanged(bool) {
-	ClientPlayer *p=static_cast<ClientPlayer *>(sender());
+void UserModel::userTalkingChanged(bool) {
+	ClientUser *p=static_cast<ClientUser *>(sender());
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 	updateOverlay();
 }
 
-void PlayerModel::playerMuteDeafChanged() {
-	ClientPlayer *p=static_cast<ClientPlayer *>(sender());
+void UserModel::userMuteDeafChanged() {
+	ClientUser *p=static_cast<ClientUser *>(sender());
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
-	if (g.uiSession && (p->cChannel == ClientPlayer::get(g.uiSession)->cChannel))
+	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
 }
 
-Qt::DropActions PlayerModel::supportedDropActions() const {
+Qt::DropActions UserModel::supportedDropActions() const {
 	return Qt::CopyAction;
 }
 
-QStringList PlayerModel::mimeTypes() const {
+QStringList UserModel::mimeTypes() const {
 	QStringList sl;
 	sl << QLatin1String("mumble/dragentry");
 	return sl;
 }
 
-QMimeData *PlayerModel::mimeData(const QModelIndexList &idxs) const {
+QMimeData *UserModel::mimeData(const QModelIndexList &idxs) const {
 	QModelIndex idx;
 	QByteArray qba;
 	QDataStream ds(&qba, QIODevice::WriteOnly);
 
 	foreach(idx, idxs) {
-		ClientPlayer *p = getPlayer(idx);
+		ClientUser *p = getUser(idx);
 		Channel *c = getChannel(idx);
 		if (p) {
 			ds << false;
@@ -982,7 +982,7 @@ QMimeData *PlayerModel::mimeData(const QModelIndexList &idxs) const {
 	return md;
 }
 
-bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, const QModelIndex &p) {
+bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, const QModelIndex &p) {
 	if (! md->hasFormat(mimeTypes().at(0)))
 		return false;
 
@@ -1032,7 +1032,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 			case Settings::Move:
 				break;
 			default:
-				g.l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in PlayerModel::dropMimeData."));
+				g.l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in UserModel::dropMimeData."));
 				break;
 		}
 		MumbleProto::ChannelState mpcs;
@@ -1044,15 +1044,15 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 	return true;
 }
 
-void PlayerModel::updateOverlay() const {
+void UserModel::updateOverlay() const {
 	g.o->updateOverlay();
-	g.lcd->updatePlayerView();
+	g.lcd->updateUserView();
 }
 
-PlayerDelegate::PlayerDelegate(QObject *p) : QItemDelegate(p) {
+UserDelegate::UserDelegate(QObject *p) : QItemDelegate(p) {
 }
 
-QSize PlayerDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
+QSize UserDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
 	if (index.column() == 1) {
 		const QAbstractItemModel *m = index.model();
 		QVariant data = m->data(index);
@@ -1063,7 +1063,7 @@ QSize PlayerDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelI
 	}
 }
 
-void PlayerDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
 	if (index.column() == 1) {
 		const QAbstractItemModel *m = index.model();
 		QVariant data = m->data(index);

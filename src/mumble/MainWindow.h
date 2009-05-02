@@ -41,7 +41,7 @@ class BanEditor;
 class ServerHandler;
 class GlobalShortcut;
 class TextToSpeech;
-class PlayerModel;
+class UserModel;
 
 #include "Message.h"
 #include "Usage.h"
@@ -72,12 +72,12 @@ class DockTitleBar : public QWidget {
 };
 
 class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWindow {
-		friend class PlayerModel;
+		friend class UserModel;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(MainWindow)
 	public:
-		PlayerModel *pmModel;
+		UserModel *pmModel;
 		QSystemTrayIcon *qstiIcon;
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMute, qiIconDeaf;
@@ -103,7 +103,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		QList<QAction *> qlServerActions;
 		QList<QAction *> qlChannelActions;
-		QList<QAction *> qlPlayerActions;
+		QList<QAction *> qlUserActions;
 
 		void createActions();
 		void setupGui();
@@ -114,25 +114,25 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
 	public slots:
-		void on_qtvPlayers_customContextMenuRequested(const QPoint &pos);
-		void on_qtvPlayers_doubleClicked(const QModelIndex &idx);
+		void on_qtvUsers_customContextMenuRequested(const QPoint &pos);
+		void on_qtvUsers_doubleClicked(const QModelIndex &idx);
 		void on_qmServer_aboutToShow();
 		void on_qaServerConnect_triggered();
 		void on_qaServerDisconnect_triggered();
 		void on_qaServerBanList_triggered();
 		void on_qaServerInformation_triggered();
-		void on_qmPlayer_aboutToShow();
-		void on_qaPlayerComment_triggered();
-		void on_qaPlayerKick_triggered();
-		void on_qaPlayerBan_triggered();
-		void on_qaPlayerMute_triggered();
-		void on_qaPlayerDeaf_triggered();
-		void on_qaPlayerLocalMute_triggered();
-		void on_qaPlayerTextMessage_triggered();
-		void on_qaPlayerRegister_triggered();
-		void on_qaPlayerFriendAdd_triggered();
-		void on_qaPlayerFriendRemove_triggered();
-		void on_qaPlayerFriendUpdate_triggered();
+		void on_qmUser_aboutToShow();
+		void on_qaUserComment_triggered();
+		void on_qaUserKick_triggered();
+		void on_qaUserBan_triggered();
+		void on_qaUserMute_triggered();
+		void on_qaUserDeaf_triggered();
+		void on_qaUserLocalMute_triggered();
+		void on_qaUserTextMessage_triggered();
+		void on_qaUserRegister_triggered();
+		void on_qaUserFriendAdd_triggered();
+		void on_qaUserFriendRemove_triggered();
+		void on_qaUserFriendUpdate_triggered();
 		void on_qmChannel_aboutToShow();
 		void on_qaChannelAdd_triggered();
 		void on_qaChannelRemove_triggered();

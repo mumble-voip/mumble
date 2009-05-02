@@ -120,20 +120,20 @@
          <string>When to automatically expand channels</string>
         </property>
         <property name="whatsThis">
-         <string>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with players&lt;/i&gt; will expand and collapse channels as players join and leave them.</string>
+         <string>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</string>
         </property>
        </widget>
       </item>
       <item row="5" column="1" colspan="2">
-       <widget class="QCheckBox" name="qcbPlayersTop">
+       <widget class="QCheckBox" name="qcbUsersTop">
         <property name="toolTip">
-         <string>List players above subchannels (requires restart).</string>
+         <string>List users above subchannels (requires restart).</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;If set, players will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</string>
+         <string>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</string>
         </property>
         <property name="text">
-         <string>Players above Channels</string>
+         <string>Users above Channels</string>
         </property>
        </widget>
       </item>

@@ -75,7 +75,7 @@
            <string>Peak power in last frame</string>
           </property>
           <property name="whatsThis">
-           <string>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you're not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you're not talking, your setup is not working, and you'll annoy other players with echoes.</string>
+           <string>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you're not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you're not talking, your setup is not working, and you'll annoy other users with echoes.</string>
           </property>
           <property name="text">
            <string/>

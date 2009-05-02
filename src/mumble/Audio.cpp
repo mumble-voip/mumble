@@ -37,13 +37,13 @@
 
 #define DOUBLE_RAND (rand()/static_cast<double>(RAND_MAX))
 
-LoopPlayer LoopPlayer::lpLoopy;
+LoopUser LoopUser::lpLoopy;
 
-LoopPlayer::LoopPlayer() {
+LoopUser::LoopUser() {
 	qsName = QLatin1String("Loopy");
 	uiSession = 0;
 	iId = 0;
-	sState = Player::Authenticated;
+	sState = User::Authenticated;
 	bMute = bDeaf = bSuppressed = false;
 	bLocalMute = bSelfDeaf = false;
 	bTalking = false;
@@ -52,7 +52,7 @@ LoopPlayer::LoopPlayer() {
 	qtTicker.start();
 }
 
-void LoopPlayer::addFrame(const QByteArray &packet) {
+void LoopUser::addFrame(const QByteArray &packet) {
 	if (DOUBLE_RAND < g.s.dPacketLoss) {
 		qWarning("Drop");
 		return;
@@ -84,7 +84,7 @@ void LoopPlayer::addFrame(const QByteArray &packet) {
 
 }
 
-void LoopPlayer::fetchFrames() {
+void LoopUser::fetchFrames() {
 	QMutexLocker l(&qmLock);
 
 	AudioOutputPtr ao = g.ao;

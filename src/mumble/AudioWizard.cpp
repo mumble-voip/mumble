@@ -278,8 +278,8 @@ CompletablePage *AudioWizard::positionalPage() {
 	QVBoxLayout *v = new QVBoxLayout(qwpage);
 	QLabel *l;
 
-	l = new QLabel(tr("Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the "
-	                  "volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker "
+	l = new QLabel(tr("Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the "
+	                  "volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker "
 	                  "configuration being correct in your operating system, so a test is done here."), qwpage);
 	l->setWordWrap(true);
 	v->addWidget(l);

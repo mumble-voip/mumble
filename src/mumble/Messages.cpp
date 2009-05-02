@@ -32,7 +32,7 @@
 #include "AudioWizard.h"
 #include "AudioInput.h"
 #include "ConnectDialog.h"
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "ACLEditor.h"
 #include "BanEditor.h"
@@ -41,7 +41,7 @@
 #include "About.h"
 #include "GlobalShortcut.h"
 #include "VersionCheck.h"
-#include "PlayerModel.h"
+#include "UserModel.h"
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
@@ -51,20 +51,20 @@
 #include "ViewCert.h"
 
 #define ACTOR_INIT \
-	ClientPlayer *pSrc=NULL; \
+	ClientUser *pSrc=NULL; \
 	if (msg.has_actor()) \
-		pSrc = ClientPlayer::get(msg.actor()); \
+		pSrc = ClientUser::get(msg.actor()); \
 	Q_UNUSED(pSrc);
 
 #define VICTIM_INIT \
-	ClientPlayer *pDst=ClientPlayer::get(msg.session()); \
+	ClientUser *pDst=ClientUser::get(msg.session()); \
 	 if (! pDst) { \
  		qWarning("MainWindow: Message for nonexistant victim %d.", msg.session()); \
 		return; \
 	}
 
 #define SELF_INIT \
-	ClientPlayer *pSelf = ClientPlayer::get(g.uiSession);
+	ClientUser *pSelf = ClientUser::get(g.uiSession);
 
 
 void MainWindow::msgAuthenticate(const MumbleProto::Authenticate &) {
@@ -145,12 +145,12 @@ void MainWindow::msgUDPTunnel(const MumbleProto::UDPTunnel &) {
 void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
-	ClientPlayer *pDst=ClientPlayer::get(msg.session());
+	ClientUser *pDst=ClientUser::get(msg.session());
 
 	if (! pDst) {
 		if (msg.has_name()) {
-			pDst = pmModel->addPlayer(msg.session(), u8(msg.name()));
-			g.l->log(Log::PlayerJoin, tr("Joined server: %1.").arg(pDst->qsName));
+			pDst = pmModel->addUser(msg.session(), u8(msg.name()));
+			g.l->log(Log::UserJoin, tr("Joined server: %1.").arg(pDst->qsName));
 			if (! msg.has_texture())
 				g.o->verifyTexture(pDst);
 		} else {
@@ -159,7 +159,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_user_id())
-		pmModel->setPlayerId(pDst, msg.user_id());
+		pmModel->setUserId(pDst, msg.user_id());
 
 	if (msg.has_hash()) {
 		pDst->qsHash = u8(msg.hash());
@@ -218,7 +218,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	if (msg.has_channel_id()) {
 		Channel *c = Channel::get(msg.channel_id());
 		if (!c) {
-			qWarning("MessagePlayerMove for unknown channel.");
+			qWarning("MessageUserMove for unknown channel.");
 			c = Channel::get(0);
 		}
 
@@ -232,7 +232,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			if (log) {
 				if (pDst == pSelf) {
 					g.l->log(Log::ChannelJoin, tr("You were moved to %1 by %2.").arg(c->qsName).arg(admin));
-				} else if (pDst->cChannel == ClientPlayer::get(g.uiSession)->cChannel) {
+				} else if (pDst->cChannel == ClientUser::get(g.uiSession)->cChannel) {
 					if (pDst == pSrc)
 						g.l->log(Log::ChannelLeave, tr("%1 moved to %2.").arg(pname).arg(c->qsName));
 					else
@@ -240,7 +240,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				}
 			}
 
-			pmModel->movePlayer(pDst, c);
+			pmModel->moveUser(pDst, c);
 
 			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {
 				if (pDst == pSrc)
@@ -251,7 +251,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 	if (msg.has_name()) {
-		pmModel->renamePlayer(pDst, u8(msg.name()));
+		pmModel->renameUser(pDst, u8(msg.name()));
 	}
 	if (msg.has_texture()) {
 		const std::string &str = msg.texture();
@@ -278,13 +278,13 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 			g.l->log(Log::YouKicked, tr("You were kicked from the server by %1: %2.").arg(admin).arg(reason));
 	} else if (pSrc) {
 		if (msg.ban())
-			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::PlayerKicked, tr("%3 was kicked and banned from the server by %1: %2.").arg(admin).arg(reason).arg(pDst->qsName));
+			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked and banned from the server by %1: %2.").arg(admin).arg(reason).arg(pDst->qsName));
 		else
-			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::PlayerKicked, tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(reason).arg(pDst->qsName));
+			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked from the server by %1: %2.").arg(admin).arg(reason).arg(pDst->qsName));
 	} else {
-		g.l->log(Log::PlayerLeave, tr("Left server: %1.").arg(pDst->qsName));
+		g.l->log(Log::UserLeave, tr("Left server: %1.").arg(pDst->qsName));
 	}
-	pmModel->removePlayer(pDst);
+	pmModel->removeUser(pDst);
 }
 
 void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
@@ -419,7 +419,7 @@ void MainWindow::msgContextActionAdd(const MumbleProto::ContextActionAdd &msg) {
 	if (ctx & MumbleProto::ContextActionAdd_Context_Server)
 		qlServerActions.append(a);
 	if (ctx & MumbleProto::ContextActionAdd_Context_User)
-		qlPlayerActions.append(a);
+		qlUserActions.append(a);
 	if (ctx & MumbleProto::ContextActionAdd_Context_Channel)
 		qlChannelActions.append(a);
 }

@@ -228,12 +228,12 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Color for players</string>
+         <string>Color for users</string>
         </property>
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QPushButton" name="qpbPlayer">
+       <widget class="QPushButton" name="qpbUser">
         <property name="text">
          <string>Change</string>
         </property>
@@ -242,7 +242,7 @@
       <item row="3" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Color for talking players</string>
+         <string>Color for talking users</string>
         </property>
        </widget>
       </item>
@@ -263,7 +263,7 @@
       <item row="4" column="0">
        <widget class="QLabel" name="label_8">
         <property name="text">
-         <string>Color for alt-talking players</string>
+         <string>Color for alt-talking users</string>
         </property>
        </widget>
       </item>
@@ -324,7 +324,7 @@
        </widget>
       </item>
       <item row="2" column="1" colspan="2">
-       <widget class="QLabel" name="qlPlayer">
+       <widget class="QLabel" name="qlUser">
         <property name="text">
          <string/>
         </property>

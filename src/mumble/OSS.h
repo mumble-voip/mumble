@@ -48,7 +48,7 @@ class OSSInput : public AudioInput {
 };
 
 class OSSOutput : public AudioOutput {
-		friend class OSSPlayer;
+		friend class OSSUser;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(OSSOutput)

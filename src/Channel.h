@@ -33,9 +33,11 @@
 
 #include "murmur_pch.h"
 
-class Player;
+class User;
 class Group;
 class ChanACL;
+
+class ClientUser;
 
 class Channel : public QObject {
 	private:
@@ -49,15 +51,15 @@ class Channel : public QObject {
 		QString qsName;
 		QString qsDesc;
 		QList<Channel *> qlChannels;
-		QList<Player *> qlPlayers;
+		QList<User *> qlUsers;
 		QHash<QString, Group *> qhGroups;
 		QList<ChanACL *> qlACL;
 
 		QSet<Channel *> qsPermLinks;
 		QHash<Channel *, int> qhLinks;
 
-		typedef QPair<Player *, Channel *> qpPlayerLink;
-		QSet<qpPlayerLink> qsPlayerLinks;
+		typedef QPair<User *, Channel *> qpUserLink;
+		QSet<qpUserLink> qsUserLinks;
 
 		bool bInheritACL;
 
@@ -73,15 +75,17 @@ class Channel : public QObject {
 
 		void addChannel(Channel *c);
 		void removeChannel(Channel *c);
-		void addPlayer(Player *p);
-		void removePlayer(Player *p);
+		void addUser(User *p);
+		void removeUser(User *p);
+		
+		void addClientUser(ClientUser *p);
 
 		bool isLinked(Channel *c);
 		void link(Channel *c);
 		void unlink(Channel *c);
 
-		void playerLink(Channel *c, Player *p);
-		void playerUnlink(Channel *c, Player *p);
+		void userLink(Channel *c, User *p);
+		void userUnlink(Channel *c, User *p);
 
 		QSet<Channel *> allLinks();
 

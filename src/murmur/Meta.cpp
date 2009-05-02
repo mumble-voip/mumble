@@ -65,7 +65,7 @@ MetaParams::MetaParams() {
 
 	uiUid = uiGid = 0;
 
-	qrPlayerName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
+	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 }
 
@@ -148,7 +148,7 @@ void MetaParams::read(QString fname) {
 	qsDatabase = qs.value("database", qsDatabase).toString();
 
 	qsDBDriver = qs.value("dbDriver", qsDBDriver).toString();
-	qsDBUserName = qs.value("dbUsername", qsDBUserName).toString();
+	qsDBServerUserName = qs.value("dbServerUsername", qsDBServerUserName).toString();
 	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
 	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
@@ -188,7 +188,7 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	qrPlayerName = QRegExp(qs.value("playername", qrPlayerName.pattern()).toString());
+	qrUserName = QRegExp(qs.value("username", qrUserName.pattern()).toString());
 	qrChannelName = QRegExp(qs.value("channelname", qrChannelName.pattern()).toString());
 
 	bool bObfuscate = qs.value("obfuscate", false).toBool();
@@ -279,7 +279,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("certificate"),qscCert.toPem());
 	qmConfig.insert(QLatin1String("key"),qskKey.toPem());
 	qmConfig.insert(QLatin1String("obfuscate"),bObfuscate ? QLatin1String("true") : QLatin1String("false"));
-	qmConfig.insert(QLatin1String("playername"),qrPlayerName.pattern());
+	qmConfig.insert(QLatin1String("username"),qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"),qrChannelName.pattern());
 }
 

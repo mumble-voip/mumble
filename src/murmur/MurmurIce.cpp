@@ -34,7 +34,7 @@
 #include "Meta.h"
 #include "Server.h"
 #include "ServerDB.h"
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "Group.h"
 #include "MurmurIce.h"
@@ -72,9 +72,9 @@ static void logToLog(const ServerDB::LogRecord &r, Murmur::LogEntry &le) {
 	le.txt = u8(r.second);
 }
 
-static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
+static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.session = p->uiSession;
-	mp.playerid = p->iId;
+	mp.userid = p->iId;
 	mp.name = u8(p->qsName);
 	mp.mute = p->bMute;
 	mp.deaf = p->bDeaf;
@@ -84,7 +84,7 @@ static void playerToPlayer(const ::Player *p, Murmur::Player &mp) {
 	mp.channel = p->cChannel->iId;
 	mp.comment = u8(p->qsComment);
 
-	const User *u=static_cast<const User *>(p);
+	const ServerUser *u=static_cast<const ServerUser *>(p);
 	mp.onlinesecs = u->bwr.onlineSeconds();
 	mp.bytespersec = u->bwr.bandwidth();
 	mp.version = u->uiVersion;
@@ -131,7 +131,7 @@ static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
 	ma.applyHere = acl->bApplyHere;
 	ma.applySubs = acl->bApplySubs;
 	ma.inherited = false;
-	ma.playerid = acl->iPlayerId;
+	ma.userid = acl->iUserId;
 	ma.group = u8(acl->qsGroup);
 	ma.allow = acl->pAllow;
 	ma.deny = acl->pDeny;
@@ -242,7 +242,7 @@ static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
 
 void MurmurIce::started(::Server *s) {
 	s->connectListener(mi);
-	connect(s, SIGNAL(contextAction(const Player *, const QString &, unsigned int, int)), this, SLOT(contextAction(const Player *, const QString &, unsigned int, int)));
+	connect(s, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
 
 	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
 
@@ -277,7 +277,7 @@ void MurmurIce::stopped(::Server *s) {
 	}
 }
 
-void MurmurIce::playerConnected(const ::Player *p) {
+void MurmurIce::userConnected(const ::User *p) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
 	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
@@ -285,19 +285,19 @@ void MurmurIce::playerConnected(const ::Player *p) {
 	if (qmList.isEmpty())
 		return;
 
-	::Murmur::Player mp;
-	playerToPlayer(p, mp);
+	::Murmur::User mp;
+	userToUser(p, mp);
 
 	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
-			prx->playerConnected(mp);
+			prx->userConnected(mp);
 		} catch (...) {
 			badServerProxy(prx, s->iServerNum);
 		}
 	}
 }
 
-void MurmurIce::playerDisconnected(const ::Player *p) {
+void MurmurIce::userDisconnected(const ::User *p) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
 	mi->qmServerContextCallbacks[s->iServerNum].remove(p->uiSession);
@@ -307,19 +307,19 @@ void MurmurIce::playerDisconnected(const ::Player *p) {
 	if (qmList.isEmpty())
 		return;
 
-	::Murmur::Player mp;
-	playerToPlayer(p, mp);
+	::Murmur::User mp;
+	userToUser(p, mp);
 
 	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
-			prx->playerDisconnected(mp);
+			prx->userDisconnected(mp);
 		} catch (...) {
 			badServerProxy(prx, s->iServerNum);
 		}
 	}
 }
 
-void MurmurIce::playerStateChanged(const ::Player *p) {
+void MurmurIce::userStateChanged(const ::User *p) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
 	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
@@ -327,12 +327,12 @@ void MurmurIce::playerStateChanged(const ::Player *p) {
 	if (qmList.isEmpty())
 		return;
 
-	::Murmur::Player mp;
-	playerToPlayer(p, mp);
+	::Murmur::User mp;
+	userToUser(p, mp);
 
 	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
-			prx->playerStateChanged(mp);
+			prx->userStateChanged(mp);
 		} catch (...) {
 			badServerProxy(prx, s->iServerNum);
 		}
@@ -399,7 +399,7 @@ void MurmurIce::channelStateChanged(const ::Channel *c) {
 	}
 }
 
-void MurmurIce::contextAction(const ::Player *pSrc, const QString &action, unsigned int session, int iChannel) {
+void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigned int session, int iChannel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
 	QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > &qmAll = mi->qmServerContextCallbacks;
@@ -410,20 +410,20 @@ void MurmurIce::contextAction(const ::Player *pSrc, const QString &action, unsig
 	if (! qmServer.contains(pSrc->uiSession))
 		return;
 
-	QMap<QString, ::Murmur::ServerContextCallbackPrx> &qmPlayer = qmServer[pSrc->uiSession];
-	if (! qmPlayer.contains(action))
+	QMap<QString, ::Murmur::ServerContextCallbackPrx> &qmUser = qmServer[pSrc->uiSession];
+	if (! qmUser.contains(action))
 		return;
 
-	const ::Murmur::ServerContextCallbackPrx &prx = qmPlayer[action];
+	const ::Murmur::ServerContextCallbackPrx &prx = qmUser[action];
 
-	::Murmur::Player mp;
-	playerToPlayer(pSrc, mp);
+	::Murmur::User mp;
+	userToUser(pSrc, mp);
 
 	try {
 		prx->contextAction(u8(action), mp, session, iChannel);
 	} catch (...) {
 		qCritical("Registered Ice ServerContextCallback %s on server %d, session %d, action %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), s->iServerNum, pSrc->uiSession, qPrintable(action));
-		qmPlayer.remove(action);
+		qmUser.remove(action);
 	}
 }
 
@@ -487,7 +487,7 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, const QString &pw) {
 	}
 }
 
-void MurmurIce::registerPlayerSlot(int &res, const QMap<QString, QString> &info) {
+void MurmurIce::registerUserSlot(int &res, const QMap<QString, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
@@ -498,20 +498,20 @@ void MurmurIce::registerPlayerSlot(int &res, const QMap<QString, QString> &info)
 
 	infoToInfo(info, im);
 	try {
-		res = prx->registerPlayer(im);
+		res = prx->registerUser(im);
 	} catch (...) {
 		badAuthenticator(server);
 	}
 }
 
-void MurmurIce::unregisterPlayerSlot(int &res, int id) {
+void MurmurIce::unregisterUserSlot(int &res, int id) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
 	try {
-		res = prx->unregisterPlayer(id);
+		res = prx->unregisterUser(id);
 	} catch (...) {
 		badAuthenticator(server);
 	}
@@ -537,7 +537,7 @@ void MurmurIce::getRegistrationSlot(int &res, int id, QMap<QString, QString> &in
 	}
 }
 
-void  MurmurIce::getRegisteredPlayersSlot(const QString &filter, QMap<int, QString> &m) {
+void  MurmurIce::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &m) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
@@ -547,7 +547,7 @@ void  MurmurIce::getRegisteredPlayersSlot(const QString &filter, QMap<int, QStri
 	::Murmur::NameMap lst;
 
 	try {
-		lst = prx->getRegisteredPlayers(u8(filter));
+		lst = prx->getRegisteredUsers(u8(filter));
 	} catch (...) {
 		badAuthenticator(server);
 		return;
@@ -616,7 +616,7 @@ Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &
 	}
 
 #define NEED_PLAYER \
-	User *user = server->qhUsers.value(session); \
+	ServerUser *user = server->qhUsers.value(session); \
 	if (!user) { \
 		cb->ice_exception(::Murmur::InvalidSessionException()); \
 		return; \
@@ -779,13 +779,13 @@ static void impl_Server_getLog(const ::Murmur::AMD_Server_getLogPtr cb, int serv
 	cb->ice_response(ll);
 }
 
-static void impl_Server_getPlayers(const ::Murmur::AMD_Server_getPlayersPtr cb, int server_id) {
+static void impl_Server_getUsers(const ::Murmur::AMD_Server_getUsersPtr cb, int server_id) {
 	NEED_SERVER;
-	::Murmur::PlayerMap pm;
-	::Murmur::Player mp;
-	foreach(const ::Player *p, server->qhUsers) {
-		if (p->sState == ::Player::Authenticated) {
-			playerToPlayer(p, mp);
+	::Murmur::UserMap pm;
+	::Murmur::User mp;
+	foreach(const ::User *p, server->qhUsers) {
+		if (p->sState == ::User::Authenticated) {
+			userToUser(p, mp);
 			pm[p->uiSession] = mp;
 		}
 	}
@@ -803,7 +803,7 @@ static void impl_Server_getChannels(const ::Murmur::AMD_Server_getChannelsPtr cb
 	cb->ice_response(cm);
 }
 
-static bool playerSort(const ::Player *a, const ::Player *b) {
+static bool userSort(const ::User *a, const ::User *b) {
 	return a->qsName < b->qsName;
 }
 
@@ -814,13 +814,13 @@ static bool channelSort(const ::Channel *a, const ::Channel *b) {
 TreePtr recurseTree(const ::Channel *c) {
 	TreePtr t = new Tree();
 	channelToChannel(c, t->c);
-	QList< ::Player *> players = c->qlPlayers;
-	qSort(players.begin(), players.end(), playerSort);
+	QList< ::User *> users = c->qlUsers;
+	qSort(users.begin(), users.end(), userSort);
 
-	foreach(const ::Player *p, players) {
-		::Murmur::Player mp;
-		playerToPlayer(p, mp);
-		t->players.push_back(mp);
+	foreach(const ::User *p, users) {
+		::Murmur::User mp;
+		userToUser(p, mp);
+		t->users.push_back(mp);
 	}
 
 	QList< ::Channel *> channels = c->qlChannels;
@@ -860,7 +860,7 @@ static void impl_Server_setBans(const ::Murmur::AMD_Server_setBansPtr cb, int se
 	cb->ice_response();
 }
 
-static void impl_Server_kickPlayer(const ::Murmur::AMD_Server_kickPlayerPtr cb, int server_id,  ::Ice::Int session,  const ::std::string& reason) {
+static void impl_Server_kickUser(const ::Murmur::AMD_Server_kickUserPtr cb, int server_id,  ::Ice::Int session,  const ::std::string& reason) {
 	NEED_SERVER;
 	NEED_PLAYER;
 
@@ -938,19 +938,19 @@ static void impl_Server_getState(const ::Murmur::AMD_Server_getStatePtr cb, int 
 	NEED_SERVER;
 	NEED_PLAYER;
 
-	::Murmur::Player mp;
-	playerToPlayer(user, mp);
+	::Murmur::User mp;
+	userToUser(user, mp);
 	cb->ice_response(mp);
 }
 
-static void impl_Server_setState(const ::Murmur::AMD_Server_setStatePtr cb, int server_id,  const ::Murmur::Player& state) {
+static void impl_Server_setState(const ::Murmur::AMD_Server_setStatePtr cb, int server_id,  const ::Murmur::User& state) {
 	int session = state.session;
 	::Channel *channel;
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL_VAR(channel, state.channel);
 
-	server->setPlayerState(user, channel, state.mute, state.deaf, state.suppressed, u8(state.comment));
+	server->setUserState(user, channel, state.mute, state.deaf, state.suppressed, u8(state.comment));
 	cb->ice_response();
 }
 
@@ -1118,7 +1118,7 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 		acl = new ChanACL(channel);
 		acl->bApplyHere = ai.applyHere;
 		acl->bApplySubs = ai.applySubs;
-		acl->iPlayerId = ai.playerid;
+		acl->iUserId = ai.userid;
 		acl->qsGroup = u8(ai.group);
 		acl->pDeny = static_cast<ChanACL::Permissions>(ai.deny) & ChanACL::All;
 		acl->pAllow = static_cast<ChanACL::Permissions>(ai.allow) & ChanACL::All;
@@ -1129,52 +1129,52 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 	cb->ice_response();
 }
 
-static void impl_Server_getPlayerNames(const ::Murmur::AMD_Server_getPlayerNamesPtr cb, int server_id,  const ::Murmur::IdList& ids) {
+static void impl_Server_getUserNames(const ::Murmur::AMD_Server_getUserNamesPtr cb, int server_id,  const ::Murmur::IdList& ids) {
 	NEED_SERVER;
 	::Murmur::NameMap nm;
-	foreach(int playerid, ids) {
-		if (! server->qhUserNameCache.contains(playerid)) {
-			QString name=server->getUserName(playerid);
+	foreach(int userid, ids) {
+		if (! server->qhUserNameCache.contains(userid)) {
+			QString name=server->getUserName(userid);
 			if (! name.isEmpty())
-				server->qhUserNameCache.insert(playerid, name);
+				server->qhUserNameCache.insert(userid, name);
 		}
-		nm[playerid] = u8(server->qhUserNameCache.value(playerid));
+		nm[userid] = u8(server->qhUserNameCache.value(userid));
 	}
 	cb->ice_response(nm);
 }
 
-static void impl_Server_getPlayerIds(const ::Murmur::AMD_Server_getPlayerIdsPtr cb, int server_id,  const ::Murmur::NameList& names) {
+static void impl_Server_getUserIds(const ::Murmur::AMD_Server_getUserIdsPtr cb, int server_id,  const ::Murmur::NameList& names) {
 	NEED_SERVER;
 	::Murmur::IdMap im;
 	foreach(const string &n, names) {
 		QString name = u8(n);
 		if (! server->qhUserIDCache.contains(name)) {
-			int playerid = server->getUserID(name);
-			if (playerid != -1)
-				server->qhUserIDCache.insert(name, playerid);
+			int userid = server->getUserID(name);
+			if (userid != -1)
+				server->qhUserIDCache.insert(name, userid);
 		}
 		im[n] = server->qhUserIDCache.value(name);
 	}
 	cb->ice_response(im);
 }
 
-static void impl_Server_registerPlayer(const ::Murmur::AMD_Server_registerPlayerPtr cb, int server_id, const ::Murmur::InfoMap &im) {
+static void impl_Server_registerUser(const ::Murmur::AMD_Server_registerUserPtr cb, int server_id, const ::Murmur::InfoMap &im) {
 	NEED_SERVER;
 
 	QMap<QString, QString> info;
 	infoToInfo(im, info);
 
-	int playerid = server->registerPlayer(info);
-	if (playerid < 0)
-		cb->ice_exception(InvalidPlayerException());
+	int userid = server->registerUser(info);
+	if (userid < 0)
+		cb->ice_exception(InvalidUserException());
 	else
-		cb->ice_response(playerid);
+		cb->ice_response(userid);
 }
 
-static void impl_Server_unregisterPlayer(const ::Murmur::AMD_Server_unregisterPlayerPtr cb, int server_id,  ::Ice::Int playerid) {
+static void impl_Server_unregisterUser(const ::Murmur::AMD_Server_unregisterUserPtr cb, int server_id,  ::Ice::Int userid) {
 	NEED_SERVER;
-	if (! server->unregisterPlayer(playerid))
-		cb->ice_exception(InvalidPlayerException());
+	if (! server->unregisterUser(userid))
+		cb->ice_exception(InvalidUserException());
 	else
 		cb->ice_response();
 }
@@ -1182,8 +1182,8 @@ static void impl_Server_unregisterPlayer(const ::Murmur::AMD_Server_unregisterPl
 static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegistrationPtr cb, int server_id,  int id, const ::Murmur::InfoMap &im) {
 	NEED_SERVER;
 
-	if (! server->isPlayerId(id)) {
-		cb->ice_exception(InvalidPlayerException());
+	if (! server->isUserId(id)) {
+		cb->ice_exception(InvalidUserException());
 		return;
 	}
 
@@ -1191,19 +1191,19 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 	infoToInfo(im, info);
 
 	if (! server->setInfo(id, info)) {
-		cb->ice_exception(InvalidPlayerException());
+		cb->ice_exception(InvalidUserException());
 		return;
 	}
 	cb->ice_response();
 }
 
-static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrationPtr cb, int server_id,  ::Ice::Int playerid) {
+static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrationPtr cb, int server_id,  ::Ice::Int userid) {
 	NEED_SERVER;
 
-	QMap<QString, QString> info = server->getRegistration(playerid);
+	QMap<QString, QString> info = server->getRegistration(userid);
 
 	if (info.isEmpty()) {
-		cb->ice_exception(InvalidPlayerException());
+		cb->ice_exception(InvalidUserException());
 		return;
 	}
 
@@ -1212,11 +1212,11 @@ static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrati
 	cb->ice_response(im);
 }
 
-static void impl_Server_getRegisteredPlayers(const ::Murmur::AMD_Server_getRegisteredPlayersPtr cb, int server_id,  const ::std::string& filter) {
+static void impl_Server_getRegisteredUsers(const ::Murmur::AMD_Server_getRegisteredUsersPtr cb, int server_id,  const ::std::string& filter) {
 	NEED_SERVER;
 	Murmur::NameMap rpl;
 
-	const QMap<int, QString> l = server->getRegisteredPlayers(u8(filter));
+	const QMap<int, QString> l = server->getRegisteredUsers(u8(filter));
 	QMap<int, QString>::const_iterator i;
 	for (i = l.constBegin(); i != l.constEnd(); ++i) {
 		rpl[i.key()] = u8(i.value());
@@ -1231,15 +1231,15 @@ static void impl_Server_verifyPassword(const ::Murmur::AMD_Server_verifyPassword
 	cb->ice_response(server->authenticate(uname, u8(pw)));
 }
 
-static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, int server_id,  ::Ice::Int playerid) {
+static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, int server_id,  ::Ice::Int userid) {
 	NEED_SERVER;
 
-	if (! server->isPlayerId(playerid)) {
-		cb->ice_exception(InvalidPlayerException());
+	if (! server->isUserId(userid)) {
+		cb->ice_exception(InvalidUserException());
 		return;
 	}
 
-	const QByteArray &qba = server->getUserTexture(playerid);
+	const QByteArray &qba = server->getUserTexture(userid);
 
 	::Murmur::Texture tex;
 	tex.resize(qba.size());
@@ -1250,11 +1250,11 @@ static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, 
 	cb->ice_response(tex);
 }
 
-static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, int server_id,  ::Ice::Int playerid,  const ::Murmur::Texture& tex) {
+static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, int server_id,  ::Ice::Int userid,  const ::Murmur::Texture& tex) {
 	NEED_SERVER;
 
-	if (! server->isPlayerId(playerid)) {
-		cb->ice_exception(InvalidPlayerException());
+	if (! server->isUserId(userid)) {
+		cb->ice_exception(InvalidUserException());
 		return;
 	}
 
@@ -1262,7 +1262,7 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 	char *ptr = qba.data();
 	for (unsigned int i=0;i<tex.size();++i)
 		ptr[i] = tex[i];
-	if (! server->setTexture(playerid, qba))
+	if (! server->setTexture(userid, qba))
 		cb->ice_exception(InvalidTextureException());
 	else
 		cb->ice_response();

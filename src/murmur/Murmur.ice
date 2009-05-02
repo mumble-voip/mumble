@@ -13,28 +13,28 @@ module Murmur
 	 **/
 	["python:seq:tuple"] sequence<byte> NetAddress;
 
-	/** A connected player.
+	/** A connected user.
          **/
-	struct Player {
+	struct User {
 		/** Session ID. This identifies the connection to the server. */
 		int session;
-		/** Player ID. -1 if the player is anonymous. */
-		int playerid;
-		/** Is player muted by the server? */
+		/** User ID. -1 if the user is anonymous. */
+		int userid;
+		/** Is user muted by the server? */
 		bool mute;
-		/** Is player deafened by the server? If true, this implies mute. */
+		/** Is user deafened by the server? If true, this implies mute. */
 		bool deaf;
-		/** Is the player suppressed by the server? This means the user is not muted, but does not have speech privileges in the current channel. */
+		/** Is the user suppressed by the server? This means the user is not muted, but does not have speech privileges in the current channel. */
 		bool suppressed;
-		/** Is the player self-muted? */
+		/** Is the user self-muted? */
 		bool selfMute;
-		/** Is the player self-deafened? If true, this implies mute. */
+		/** Is the user self-deafened? If true, this implies mute. */
 		bool selfDeaf;
-		/** Channel ID the player is in. Matches [Channel::id]. */
+		/** Channel ID the user is in. Matches [Channel::id]. */
 		int channel;
-		/** The name of the player. */
+		/** The name of the user. */
 		string name;
-		/** Seconds player has been online. */
+		/** Seconds user has been online. */
 		int onlinesecs;
 		/** Average transmission rate in bytes per second over the last few seconds. */
 		int bytespersec;
@@ -50,7 +50,7 @@ module Murmur
 		string identity;
 		/** Plugin context. This is a binary blob identifying the game and team the user is on. */
 		string context;
-		/** Player comment. Shown as tooltip for this player. */
+		/** User comment. Shown as tooltip for this user. */
 		string comment;
 		/** Client address. */
 		NetAddress address;
@@ -88,9 +88,9 @@ module Murmur
 		bool inherit;
 		/** Can subchannels inherit members from this group? */
 		bool inheritable;
-		/** List of players to add to the group. */
+		/** List of users to add to the group. */
 		IntList add;
-		/** List of inherited players to remove from the group. */
+		/** List of inherited users to remove from the group. */
 		IntList remove;
 		/** Current members of the group, including inherited members. Read-only. */
 		IntList members;
@@ -106,10 +106,10 @@ module Murmur
 	const int PermissionSpeak = 0x08;
 	/** Alt-speak in channel. This is different from Speak, so you can set up different permissions. */
 	const int PermissionAltSpeak = 0x100;
-	/** Mute and deafen other players in this channel. */
+	/** Mute and deafen other users in this channel. */
 	const int PermissionMuteDeafen = 0x10;
-	/** Move and Kick players from channel. You need this permission in both the source and destination channel to move another player.
-         *  If you have this privilege on the root channel, you can ban players.
+	/** Move and Kick users from channel. You need this permission in both the source and destination channel to move another user.
+         *  If you have this privilege on the root channel, you can ban users.
 	 */
         const int PermissionMoveKick = 0x20;
 	/** Make new channel as a subchannel of this channel. */
@@ -126,9 +126,9 @@ module Murmur
 		bool applySubs;
 		/** Is this ACL inherited from a parent channel? Read-only. */
 		bool inherited;
-		/** ID of player this ACL applies to. -1 if using a group name. */
-		int playerid;
-		/** Group this ACL applies to. Blank if using playerid. */
+		/** ID of user this ACL applies to. -1 if using a group name. */
+		int userid;
+		/** Group this ACL applies to. Blank if using userid. */
 		string group;
 		/** Binary mask of privileges to allow. */
 		int allow;
@@ -157,10 +157,10 @@ module Murmur
 	class Tree;
 	sequence<Tree> TreeList;
 
-	dictionary<int, Player> PlayerMap;
+	dictionary<int, User> UserMap;
 	dictionary<int, Channel> ChannelMap;
 	sequence<Channel> ChannelList;
-	sequence<Player> PlayerList;
+	sequence<User> UserList;
 	sequence<Group> GroupList;
 	sequence<ACL> ACLList;
 	sequence<LogEntry> LogList;
@@ -174,30 +174,30 @@ module Murmur
 	dictionary<string, string> ConfigMap;
 	sequence<string> GroupNameList;
 
-	/** Player and subchannel state. Read-only.
+	/** User and subchannel state. Read-only.
          **/
 	class Tree {
 		/** Channel definition of current channel. */
 		Channel c;
 		/** List of subchannels. */
 		TreeList children;
-		/** Players in this channel. */
-		PlayerList players;
+		/** Users in this channel. */
+		UserList users;
 	};
 
 	exception MurmurException {};
-	/** This is thrown when you specify an invalid session. This may happen if the player has disconnected since your last call to [Server::getPlayers]. See [Player::session] */
+	/** This is thrown when you specify an invalid session. This may happen if the user has disconnected since your last call to [Server::getUsers]. See [User::session] */
 	exception InvalidSessionException extends MurmurException {};
 	/** This is thrown when you specify an invalid channel id. This may happen if the channel was removed by another provess. It can also be thrown if you try to add an invalid channel. */
 	exception InvalidChannelException extends MurmurException {};
 	/** This is thrown when you try to do an operation on a server that does not exist. This may happen if someone has removed the server. */
 	exception InvalidServerException extends MurmurException {};
-	/** This happens if you try to fetch player or channel state on a stopped server, if you try to stop an already stopped server or start an already started server. */
+	/** This happens if you try to fetch user or channel state on a stopped server, if you try to stop an already stopped server or start an already started server. */
 	exception ServerBootedException extends MurmurException {};
 	/** This is thrown if [Server::start] fails, and should generally be the cause for some concern. */
 	exception ServerFailureException extends MurmurException {};
-	/** This is thrown when you specify an invalid playerid. */
-	exception InvalidPlayerException extends MurmurException {};
+	/** This is thrown when you specify an invalid userid. */
+	exception InvalidUserException extends MurmurException {};
 	/** This is thrown when you try to set an invalid texture. */
 	exception InvalidTextureException extends MurmurException {};
 	/** This is thrown when you supply an invalid callback. */
@@ -214,19 +214,19 @@ module Murmur
 	 *  @see Server::addCallback
 	 */
 	interface ServerCallback {
-		/** Called when a player connects to the server. 
-		 *  @param state State of connected player.
+		/** Called when a user connects to the server. 
+		 *  @param state State of connected user.
 		 */ 
-		idempotent void playerConnected(Player state);
-		/** Called when a player disconnects from the server. The player has already been removed, so you can no longer use methods like [Server::getState]
-		 *  to retrieve the player's state.
-		 *  @param state State of disconnected player.
+		idempotent void userConnected(User state);
+		/** Called when a user disconnects from the server. The user has already been removed, so you can no longer use methods like [Server::getState]
+		 *  to retrieve the user's state.
+		 *  @param state State of disconnected user.
 		 */ 
-		idempotent void playerDisconnected(Player state);
-		/** Called when a player state changes. This is called if the player moves, is renamed, is muted, deafened etc.
-		 *  @param state New state of player.
+		idempotent void userDisconnected(User state);
+		/** Called when a user state changes. This is called if the user moves, is renamed, is muted, deafened etc.
+		 *  @param state New state of user.
 		 */ 
-		idempotent void playerStateChanged(Player state);
+		idempotent void userStateChanged(User state);
 		/** Called when a new channel is created. 
 		 *  @param state State of new channel.
 		 */ 
@@ -245,8 +245,8 @@ module Murmur
 	const int ContextServer = 0x01;
 	/** Context for actions in the Channel menu. */
 	const int ContextChannel = 0x02;
-	/** Context for actions in the Player menu. */
-	const int ContextPlayer = 0x04;
+	/** Context for actions in the User menu. */
+	const int ContextUser = 0x04;
 
 	/** Callback interface for context actions. You need to supply one of these for [Server::addContext]. 
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
@@ -256,11 +256,11 @@ module Murmur
 	interface ServerContextCallback {
 		/** Called when a context action is performed.
 		 *  @param action Action to be performed.
-		 *  @param user User which initiated the action.
-		 *  @param session If nonzero, session of target player.
+		 *  @param usr User which initiated the action.
+		 *  @param session If nonzero, session of target user.
 		 *  @param channelid If nonzero, session of target channel.
 		 */
-		idempotent void contextAction(string action, Player user, int session, int channelid);
+		idempotent void contextAction(string action, User usr, int session, int channelid);
 	};
 
 	/** Callback interface for server authentication. You need to supply one of these for [Server::setAuthenticator].
@@ -271,43 +271,43 @@ module Murmur
 	 *  deadlock the server.
 	 */
 	interface ServerAuthenticator {
-		/** Called to authenticate a player. If you do not know the playername in question, always return -2 from this
+		/** Called to authenticate a user. If you do not know the username in question, always return -2 from this
 		 *  method to fall through to normal database authentication.
-		 *  Note that if authentication succeeds, murmur will create a record of the player in it's database, reserving
-		 *  the playername and id so it cannot be used for normal database authentication.
+		 *  Note that if authentication succeeds, murmur will create a record of the user in it's database, reserving
+		 *  the username and id so it cannot be used for normal database authentication.
 		 *
-		 *  @param name Playername to authenticate.
+		 *  @param name Username to authenticate.
 		 *  @param pw Password to authenticate with.
-		 *  @param newname Set this to change the playername from the supplied one.
-		 *  @param groups List of groups on the root channel that the player will be added to for the duration of the connection.
-		 *  @return PlayerID of authenticated player, -1 for authentication failures and -2 for unknown player (fallthrough).
+		 *  @param newname Set this to change the username from the supplied one.
+		 *  @param groups List of groups on the root channel that the user will be added to for the duration of the connection.
+		 *  @return UserID of authenticated user, -1 for authentication failures and -2 for unknown user (fallthrough).
 		 */
 		idempotent int authenticate(string name, string pw, out string newname, out GroupNameList groups);
 
-		/** Fetch information about a player. This is used to retrieve information like email address, keyhash etc. If you
+		/** Fetch information about a user. This is used to retrieve information like email address, keyhash etc. If you
 		 *  want murmur to take care of this information itself, simply return false to fall through.
-		 *  @param id Player id.
+		 *  @param id User id.
 		 *  @param key Key of information to be retrieved.
-		 *  @param info Information about player. This needs to include at least "name".
+		 *  @param info Information about user. This needs to include at least "name".
 		 *  @return true if information is present, false to fall through.
 		 */
 		idempotent bool getInfo(int id, out InfoMap info);
 	
-		/** Map a name to a player id.
-		 *  @param name Playername to map.
-		 *  @return Player id or -2 for unknown name.
+		/** Map a name to a user id.
+		 *  @param name Username to map.
+		 *  @return User id or -2 for unknown name.
 		 */
 		idempotent int nameToId(string name);
 
-		/** Map a player to a Player id.
-		 *  @param id Player id to map.
-		 *  @return Name of player or empty string for unknown id.
+		/** Map a user to a User id.
+		 *  @param id User id to map.
+		 *  @return Name of user or empty string for unknown id.
 		 */
 		idempotent string idToName(int id);
 
-		/** Map a player to a custom Texture.
-		 *  @param id Player id to map.
-		 *  @return User texture or an empty texture for unknwon players or players without textures.
+		/** Map a user to a custom Texture.
+		 *  @param id User id to map.
+		 *  @return User texture or an empty texture for unknwon users or users without textures.
 		 */
 		idempotent Texture idToTexture(int id);
 	};
@@ -320,33 +320,33 @@ module Murmur
 	 *  own database.
 	 */
 	interface ServerUpdatingAuthenticator extends ServerAuthenticator {
-		/** Register a new player.
-		 *  @param info Information about player to register.
-		 *  @return Player id of new player, -1 for registration failure, or -2 to fall through.
+		/** Register a new user.
+		 *  @param info Information about user to register.
+		 *  @return User id of new user, -1 for registration failure, or -2 to fall through.
 		 */
-		int registerPlayer(InfoMap info);
+		int registerUser(InfoMap info);
 
-		/** Unregister a player.
-		 *  @param id Playerid to unregister.
+		/** Unregister a user.
+		 *  @param id Userid to unregister.
 		 *  @return 1 for successfull unregistration, 0 for unsuccessfull unregistration, -1 to fall through.
 		 */
-		int unregisterPlayer(int id);
+		int unregisterUser(int id);
 
-		/** Get a list of registered players matching filter.
-		 *  @param filter Substring playernames must contain. If empty, return all registered players.
-		 *  @return List of matching registered players.
+		/** Get a list of registered users matching filter.
+		 *  @param filter Substring usernames must contain. If empty, return all registered users.
+		 *  @return List of matching registered users.
 		 */
-		idempotent NameMap getRegisteredPlayers(string filter);
+		idempotent NameMap getRegisteredUsers(string filter);
 
-		/** Set additional information for player registration.
-		 *  @param id Playerid of registered player.
-		 *  @param info Information to set about player. This should be merged with existing information.
+		/** Set additional information for user registration.
+		 *  @param id Userid of registered user.
+		 *  @param info Information to set about user. This should be merged with existing information.
 		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
 		 */
 		idempotent int setInfo(int id, InfoMap info);
 
-		/** Set texture of player registration.
-		 *  @param id Playerid of registered player.
+		/** Set texture of user registration.
+		 *  @param id Userid of registered user.
 		 *  @param tex New texture.
 		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
 		 */
@@ -358,7 +358,7 @@ module Murmur
          * from one of the methods in [Meta].
          **/
 	["amd"] interface Server {
-		/** Shows if the server currently running (accepting players).
+		/** Shows if the server currently running (accepting users).
 		 *
 		 * @return Run-state of server.
 		 */
@@ -379,7 +379,7 @@ module Murmur
 		 */
 		idempotent int id();
 
-		/** Add a callback. The callback will receive notifications about changes to players and channels.
+		/** Add a callback. The callback will receive notifications about changes to users and channels.
 		 *
 		 * @param cb Callback interface which will receive notifications.
 		 * @see removeCallback
@@ -417,7 +417,7 @@ module Murmur
 		 */
 		idempotent void setConf(string key, string value);
 
-		/** Set superuser password. This is just a convenience for using [updateRegistration] on player id 0.
+		/** Set superuser password. This is just a convenience for using [updateRegistration] on user id 0.
 		 * @param pw Password.
 		 */
 		idempotent void setSuperuserPassword(string pw);
@@ -429,11 +429,11 @@ module Murmur
 		 */
 		idempotent LogList getLog(int first, int last);
 
-		/** Fetch all players. This returns all currently connected players on the server.
-		 * @return List of connected players.
+		/** Fetch all users. This returns all currently connected users on the server.
+		 * @return List of connected users.
 		 * @see getState
 		 */
-		idempotent PlayerMap getPlayers() throws ServerBootedException;
+		idempotent UserMap getUsers() throws ServerBootedException;
 
 		/** Fetch all channels. This returns all defined channels on the server. The root channel is always channel 0.
 		 * @return List of defined channels.
@@ -441,9 +441,9 @@ module Murmur
 		 */
 		idempotent ChannelMap getChannels() throws ServerBootedException;
 
-		/** Fetch all channels and connected players as a tree. This retrieves an easy-to-use representation of the server
+		/** Fetch all channels and connected users as a tree. This retrieves an easy-to-use representation of the server
 		 *  as a tree. This is primarily used for viewing the state of the server on a webpage.
-		 * @return Recursive tree of all channels and connected players.
+		 * @return Recursive tree of all channels and connected users.
 		 */
 		idempotent Tree getTree() throws ServerBootedException;
 
@@ -458,55 +458,55 @@ module Murmur
 		 */
 		idempotent void setBans(BanList bans) throws ServerBootedException;
 
-		/** Kick a player. The player is not banned, and is free to rejoin the server.
-		 * @param session Connection ID of player. See [Player::session].
-		 * @param reason Text message to show when player is kicked.
+		/** Kick a user. The user is not banned, and is free to rejoin the server.
+		 * @param session Connection ID of user. See [User::session].
+		 * @param reason Text message to show when user is kicked.
 		 */
-		void kickPlayer(int session, string reason) throws ServerBootedException, InvalidSessionException;
+		void kickUser(int session, string reason) throws ServerBootedException, InvalidSessionException;
 
-		/** Get state of a single connected player. 
-		 * @param session Connection ID of player. See [Player::session].
-		 * @return State of connected player.
+		/** Get state of a single connected user. 
+		 * @param session Connection ID of user. See [User::session].
+		 * @return State of connected user.
 		 * @see setState
-		 * @see getPlayers
+		 * @see getUsers
 		 */
-		idempotent Player getState(int session) throws ServerBootedException, InvalidSessionException;
+		idempotent User getState(int session) throws ServerBootedException, InvalidSessionException;
 
-		/** Set player state. You can use this to move, mute and deafen players.
-		 * @param state Player state to set.
+		/** Set user state. You can use this to move, mute and deafen users.
+		 * @param state User state to set.
 		 * @see getState
 		 */
-		idempotent void setState(Player state) throws ServerBootedException, InvalidSessionException, InvalidChannelException;
+		idempotent void setState(User state) throws ServerBootedException, InvalidSessionException, InvalidChannelException;
 
-		/** Send text message to a single player.
-		 * @param session Connection ID of player. See [Player::session].
+		/** Send text message to a single user.
+		 * @param session Connection ID of user. See [User::session].
 		 * @param text Message to send.
 		 * @see sendMessageChannel
 		 */
 		void sendMessage(int session, string text) throws ServerBootedException, InvalidSessionException;
 
-		/** Check if player is permitted to perform action.
-		 * @param session Connection ID of player. See [Player::session].
+		/** Check if user is permitted to perform action.
+		 * @param session Connection ID of user. See [User::session].
 		 * @param channelid ID of Channel. See [Channel::id].
 		 * @param perm Permission bits to check.
 		 * @return true if any of the permissions in perm were set for the user.
 		 */
 		bool hasPermission(int session, int channelid, int perm) throws ServerBootedException, InvalidSessionException, InvalidChannelException;
 
-		/** Add a context callback. This is done per player, and will add a context menu action for the player.
+		/** Add a context callback. This is done per user, and will add a context menu action for the user.
 		 *
 		 * @param session Session of user which should receive context entry.
 		 * @param action Action string, a unique name to associate with the action.
 		 * @param text Name of action shown to user.
 		 * @param cb Callback interface which will receive notifications.
-		 * @param ctx Context this should be used in. Needs to be one or a combination of [ContextServer], [ContextChannel] and [ContextPlayer].
+		 * @param ctx Context this should be used in. Needs to be one or a combination of [ContextServer], [ContextChannel] and [ContextUser].
 		 * @see removeContextCallback
 		 */
 		void addContextCallback(int session, string action, string text, ServerContextCallback *cb, int ctx) throws ServerBootedException, InvalidCallbackException;
 
 		/** Remove a callback.
 		 *
-		 * @param cb Callback interface to be removed. This callback will be removed from all from all players.
+		 * @param cb Callback interface to be removed. This callback will be removed from all from all users.
 		 * @see addContextCallback
 		 */
 		void removeContextCallback(ServerContextCallback *cb) throws ServerBootedException, InvalidCallbackException;
@@ -561,65 +561,65 @@ module Murmur
 		 */
 		idempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException;
 
-		/** Map a list of [Player::playerid] to a matching name.
+		/** Map a list of [User::userid] to a matching name.
 		 * @param List of ids.
 		 * @return Matching list of names, with an empty string representing invalid or unknown ids.
 		 */
-		idempotent NameMap getPlayerNames(IdList ids) throws ServerBootedException;
+		idempotent NameMap getUserNames(IdList ids) throws ServerBootedException;
 
-		/** Map a list of player names to a matching id.
+		/** Map a list of user names to a matching id.
 		 * @param List of names.
-		 * @reuturn List of matching ids, with -1 representing invalid or unknown player names.
+		 * @reuturn List of matching ids, with -1 representing invalid or unknown user names.
 		 */
-		idempotent IdMap getPlayerIds(NameList names) throws ServerBootedException;
+		idempotent IdMap getUserIds(NameList names) throws ServerBootedException;
 
-		/** Register a new player.
-		 * @param info Information about new player. Must include at least "name".
-		 * @return The ID of the player. See [RegisteredPlayer::playerid].
+		/** Register a new user.
+		 * @param info Information about new user. Must include at least "name".
+		 * @return The ID of the user. See [RegisteredUser::userid].
 		 */
-		int registerPlayer(InfoMap info) throws ServerBootedException, InvalidPlayerException;
+		int registerUser(InfoMap info) throws ServerBootedException, InvalidUserException;
 		
-		/** Remove a player registration.
-		 * @param playerid ID of registered player. See [RegisteredPlayer::playerid].
+		/** Remove a user registration.
+		 * @param userid ID of registered user. See [RegisteredUser::userid].
 		 */
-		void unregisterPlayer(int playerid) throws ServerBootedException, InvalidPlayerException;
+		void unregisterUser(int userid) throws ServerBootedException, InvalidUserException;
 
-		/** Update the registration for a player. You can use this to set the email or password of a player,
-		 * and can also use it to change the player's name.
+		/** Update the registration for a user. You can use this to set the email or password of a user,
+		 * and can also use it to change the user's name.
 		 * @param registration Updated registration record.
 		 */
-		idempotent void updateRegistration(int playerid, InfoMap info) throws ServerBootedException, InvalidPlayerException;
+		idempotent void updateRegistration(int userid, InfoMap info) throws ServerBootedException, InvalidUserException;
 
-		/** Fetch registration for a single player.
-		 * @param playerid ID of registered player. See [RegisteredPlayer::playerid].
+		/** Fetch registration for a single user.
+		 * @param userid ID of registered user. See [RegisteredUser::userid].
 		 * @return Registration record.
 		 */
-		idempotent InfoMap getRegistration(int playerid) throws ServerBootedException, InvalidPlayerException;
+		idempotent InfoMap getRegistration(int userid) throws ServerBootedException, InvalidUserException;
 
-		/** Fetch a group of registered players.
-		 * @param filter Substring of player name. If blank, will retrieve all registered players.
+		/** Fetch a group of registered users.
+		 * @param filter Substring of user name. If blank, will retrieve all registered users.
 		 * @return List of registration records.
 		 */
-		idempotent NameMap getRegisteredPlayers(string filter) throws ServerBootedException;
+		idempotent NameMap getRegisteredUsers(string filter) throws ServerBootedException;
 
-		/** Verify the password of a player. You can use this to verify a player's credentials.
-		 * @param name Player name. See [RegisteredPlayer::name].
-		 * @param pw Player password.
-		 * @return Player ID of registered player (See [RegisteredPlayer::playerid]), -1 for failed authentication or -2 for unknown usernames.
+		/** Verify the password of a user. You can use this to verify a user's credentials.
+		 * @param name User name. See [RegisteredUser::name].
+		 * @param pw User password.
+		 * @return User ID of registered user (See [RegisteredUser::userid]), -1 for failed authentication or -2 for unknown usernames.
 		 */
 		idempotent int verifyPassword(string name, string pw) throws ServerBootedException;
 
 		/** Fetch user texture. Textures are stored as zlib compress()ed 600x60 32-bit RGBA data.
-		 * @param playerid ID of registered player. See [RegisteredPlayer::playerid].
-		 * @return Custom texture associated with player or an empty texture.
+		 * @param userid ID of registered user. See [RegisteredUser::userid].
+		 * @return Custom texture associated with user or an empty texture.
 		 */
-		idempotent Texture getTexture(int playerid) throws ServerBootedException, InvalidPlayerException;
+		idempotent Texture getTexture(int userid) throws ServerBootedException, InvalidUserException;
 
 		/** Set user texture. The texture is a 600x60 32-bit RGBA raw texture, optionally zlib compress()ed.
-		 * @param playerid ID of registered player. See [RegisteredPlayer::playerid].
-		 * @param tex Texture to set for the player, or an empty texture to remove the existing texture.
+		 * @param userid ID of registered user. See [RegisteredUser::userid].
+		 * @param tex Texture to set for the user, or an empty texture to remove the existing texture.
 		 */
-		idempotent void setTexture(int playerid, Texture tex) throws ServerBootedException, InvalidPlayerException, InvalidTextureException;
+		idempotent void setTexture(int userid, Texture tex) throws ServerBootedException, InvalidUserException, InvalidTextureException;
 	};
 
 	/** Callback interface for Meta. You can supply an implementation of this to recieve notifications

@@ -59,7 +59,7 @@ Settings::Settings() {
 	fVADmax = 0.98f;
 	bPushClick = false;
 
-	bPlayerTop = false;
+	bUserTop = false;
 
 	uiDoublePush = 0;
 	bExpert = false;
@@ -71,7 +71,7 @@ Settings::Settings() {
 #endif
 
 	bFirstTime = true;
-	ceExpand = ChannelsWithPlayers;
+	ceExpand = ChannelsWithUsers;
 	ceChannelDrag = Ask;
 	bShowChatbar = true;
 	bMinimalView = false;
@@ -115,14 +115,14 @@ Settings::Settings() {
 	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
 #endif
 	fOverlayHeight = .03f;
-	qcOverlayPlayer = QColor(255,255,255,128);
+	qcOverlayUser = QColor(255,255,255,128);
 	qcOverlayTalking = QColor(255,255,196,255);
 	qcOverlayAltTalking = QColor(255,128,128,255);
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
 
-	iLCDPlayerViewMinColWidth = 50;
-	iLCDPlayerViewSplitterWidth = 2;
+	iLCDUserViewMinColWidth = 50;
+	iLCDUserViewSplitterWidth = 2;
 
 	// Network settings
 	bTCPCompat = false;
@@ -263,7 +263,7 @@ void Settings::load() {
 	SAVELOAD(bOverlayRight, "overlay/right");
 	SAVELOAD(qfOverlayFont, "overlay/font");
 	SAVELOAD(fOverlayHeight, "overlay/height");
-	SAVELOAD(qcOverlayPlayer, "overlay/player");
+	SAVELOAD(qcOverlayUser, "overlay/user");
 	SAVELOAD(qcOverlayTalking, "overlay/talking");
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
@@ -291,7 +291,7 @@ void Settings::load() {
 	SAVELOAD(bShowChatbar, "ui/shotchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
-	SAVELOAD(bPlayerTop, "ui/playertop");
+	SAVELOAD(bUserTop, "ui/usertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
@@ -305,8 +305,8 @@ void Settings::load() {
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 
-	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
-	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
+	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
+	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
 	QByteArray qba = qvariant_cast<QByteArray>(g.qs->value(QLatin1String("net/certificate")));
 	kpCertificate = CertWizard::importCert(qba);
@@ -422,7 +422,7 @@ void Settings::save() {
 	SAVELOAD(bOverlayRight, "overlay/right");
 	SAVELOAD(qfOverlayFont, "overlay/font");
 	SAVELOAD(fOverlayHeight, "overlay/height");
-	SAVELOAD(qcOverlayPlayer, "overlay/player");
+	SAVELOAD(qcOverlayUser, "overlay/user");
 	SAVELOAD(qcOverlayTalking, "overlay/talking");
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
@@ -450,7 +450,7 @@ void Settings::save() {
 	SAVELOAD(bShowChatbar, "ui/showchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
-	SAVELOAD(bPlayerTop, "ui/playertop");
+	SAVELOAD(bUserTop, "ui/usertop");
 	SAVELOAD(bFirstTime, "ui/firsttime");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
@@ -464,8 +464,8 @@ void Settings::save() {
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 
-	SAVELOAD(iLCDPlayerViewMinColWidth, "lcd/playerview/mincolwidth");
-	SAVELOAD(iLCDPlayerViewSplitterWidth, "lcd/playerview/splitterwidth");
+	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
+	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
 	QByteArray qba = CertWizard::exportCert(kpCertificate);
 	g.qs->setValue(QLatin1String("net/certificate"), qba);

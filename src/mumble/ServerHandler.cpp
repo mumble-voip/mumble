@@ -34,7 +34,7 @@
 #include "AudioOutput.h"
 #include "Cert.h"
 #include "Message.h"
-#include "Player.h"
+#include "User.h"
 #include "Connection.h"
 #include "Global.h"
 #include "Database.h"
@@ -164,7 +164,7 @@ void ServerHandler::udpReady() {
 void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds) {
 	unsigned int uiSession;
 	pds >> uiSession;
-	ClientPlayer *p = ClientPlayer::get(uiSession);
+	ClientUser *p = ClientUser::get(uiSession);
 	AudioOutputPtr ao = g.ao;
 	if (ao && p && ! p->bLocalMute) {
 		unsigned int iSeq;

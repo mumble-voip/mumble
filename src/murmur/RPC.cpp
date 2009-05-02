@@ -29,13 +29,13 @@
 */
 
 #include "Server.h"
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "Group.h"
 #include "Meta.h"
 #include "Version.h"
 
-void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool deaf, bool suppressed, const QString &comment) {
+void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, const QString &comment) {
 	bool changed = false;
 
 	if (deaf)
@@ -44,42 +44,42 @@ void Server::setPlayerState(Player *pPlayer, Channel *cChannel, bool mute, bool 
 		deaf = false;
 
 	MumbleProto::UserState mpus;
-	mpus.set_session(pPlayer->uiSession);
-	if (mute != pPlayer->bMute) {
+	mpus.set_session(pUser->uiSession);
+	if (mute != pUser->bMute) {
 		changed = true;
 		mpus.set_mute(mute);
 	}
-	if (deaf != pPlayer->bDeaf) {
+	if (deaf != pUser->bDeaf) {
 		changed = true;
 		mpus.set_deaf(deaf);
 	}
-	if (suppressed != pPlayer->bSuppressed) {
+	if (suppressed != pUser->bSuppressed) {
 		changed = true;
 		mpus.set_suppressed(suppressed);
 	}
-	if (! comment.isNull() && comment != pPlayer->qsComment) {
+	if (! comment.isNull() && comment != pUser->qsComment) {
 		changed = true;
 		mpus.set_comment(u8(comment));
-		if (pPlayer->iId >= 0) {
+		if (pUser->iId >= 0) {
 			QMap<QString, QString> info;
 			info.insert("comment", comment);
-			setInfo(pPlayer->iId, info);
+			setInfo(pUser->iId, info);
 		}
 	}
 
-	pPlayer->bDeaf = deaf;
-	pPlayer->bMute = mute;
-	pPlayer->bSuppressed = suppressed;
+	pUser->bDeaf = deaf;
+	pUser->bMute = mute;
+	pUser->bSuppressed = suppressed;
 
-	if (cChannel != pPlayer->cChannel) {
+	if (cChannel != pUser->cChannel) {
 		changed = true;
 		mpus.set_channel_id(cChannel->iId);
-		playerEnterChannel(pPlayer, cChannel);
+		userEnterChannel(pUser, cChannel);
 	}
 
 	if (changed) {
 		sendAll(mpus);
-		emit playerStateChanged(pPlayer);
+		emit userStateChanged(pUser);
 	}
 }
 
@@ -153,13 +153,13 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	return true;
 }
 
-void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const QString &text) {
+void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text) {
 	MumbleProto::TextMessage mptm;
 	mptm.set_message(u8(text));
 
-	if (pPlayer) {
-		mptm.add_session(pPlayer->uiSession);
-		sendMessage(pPlayer, mptm);
+	if (pUser) {
+		mptm.add_session(pUser->uiSession);
+		sendMessage(pUser, mptm);
 	} else {
 		if (tree)
 			mptm.add_tree_id(cChannel->iId);
@@ -181,19 +181,19 @@ void Server::sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const 
 			}
 		}
 		foreach(c, chans) {
-			foreach(Player *p, c->qlPlayers)
-				sendMessage(static_cast<User *>(p), mptm);
+			foreach(User *p, c->qlUsers)
+				sendMessage(static_cast<ServerUser *>(p), mptm);
 		}
 	}
 }
 
-void Server::setTempGroups(int playerid, Channel *cChannel, const QStringList &groups) {
+void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &groups) {
 	if (! cChannel)
 		cChannel = qhChannels.value(0);
 
 	Group *g;
 	foreach(g, cChannel->qhGroups)
-		g->qsTemporary.remove(playerid);
+		g->qsTemporary.remove(userid);
 
 	QString gname;
 	foreach(gname, groups) {
@@ -201,19 +201,19 @@ void Server::setTempGroups(int playerid, Channel *cChannel, const QStringList &g
 		if (! g) {
 			g = new Group(cChannel, gname);
 		}
-		g->qsTemporary.insert(playerid);
+		g->qsTemporary.insert(userid);
 	}
 
-	Player *p = qhUsers.value(playerid);
+	User *p = qhUsers.value(userid);
 	if (p)
 		clearACLCache(p);
 }
 
 
 void Server::connectAuthenticator(QObject *obj) {
-	connect(this, SIGNAL(registerPlayerSig(int &, const QMap<QString, QString> &)), obj, SLOT(registerPlayerSlot(int &, const QMap<QString, QString> &)));
-	connect(this, SIGNAL(unregisterPlayerSig(int &, int)), obj, SLOT(unregisterPlayerSlot(int &, int)));
-	connect(this, SIGNAL(getRegisteredPlayersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredPlayersSlot(const QString &, QMap<int, QString, QString> &)));
+	connect(this, SIGNAL(registerUserSig(int &, const QMap<QString, QString> &)), obj, SLOT(registerUserSlot(int &, const QMap<QString, QString> &)));
+	connect(this, SIGNAL(unregisterUserSig(int &, int)), obj, SLOT(unregisterUserSlot(int &, int)));
+	connect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QString, QString> &)));
 	connect(this, SIGNAL(getRegistrationSig(int &, int, QMap<QString, QString> &)), obj, SLOT(getRegistrationSlot(int &, int, QMap<QString, QString> &)));
 	connect(this, SIGNAL(authenticateSig(int &, QString &, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QString &)));
 	connect(this, SIGNAL(setInfoSig(int &, int, const QMap<QString, QString> &)), obj, SLOT(setInfoSlot(int &, int, const QMap<QString, QString> &)));
@@ -224,9 +224,9 @@ void Server::connectAuthenticator(QObject *obj) {
 }
 
 void Server::disconnectAuthenticator(QObject *obj) {
-	disconnect(this, SIGNAL(registerPlayerSig(int &, const QString &)), obj, SLOT(registerPlayerSlot(int &, const QString &)));
-	disconnect(this, SIGNAL(unregisterPlayerSig(int &, int)), obj, SLOT(unregisterPlayerSlot(int &, int)));
-	disconnect(this, SIGNAL(getRegisteredPlayersSig(const QString &, QMap<int, QPair<QString, QString> > &)), obj, SLOT(getRegisteredPlayersSlot(const QString &, QMap<int, QPair<QString, QString> > &)));
+	disconnect(this, SIGNAL(registerUserSig(int &, const QString &)), obj, SLOT(registerUserSlot(int &, const QString &)));
+	disconnect(this, SIGNAL(unregisterUserSig(int &, int)), obj, SLOT(unregisterUserSlot(int &, int)));
+	disconnect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QPair<QString, QString> > &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QPair<QString, QString> > &)));
 	disconnect(this, SIGNAL(getRegistrationSig(int &, int, QString &, QString &)), obj, SLOT(getRegistrationSlot(int &, int, QString &, QString &)));
 	disconnect(this, SIGNAL(authenticateSig(int &, QString &, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QString &)));
 	disconnect(this, SIGNAL(setPwSig(int &, int, const QString &)), obj, SLOT(setPwSlot(int &, int, const QString &)));
@@ -239,18 +239,18 @@ void Server::disconnectAuthenticator(QObject *obj) {
 }
 
 void Server::connectListener(QObject *obj) {
-	connect(this, SIGNAL(playerStateChanged(const Player *)), obj, SLOT(playerStateChanged(const Player *)));
-	connect(this, SIGNAL(playerConnected(const Player *)), obj, SLOT(playerConnected(const Player *)));
-	connect(this, SIGNAL(playerDisconnected(const Player *)), obj, SLOT(playerDisconnected(const Player *)));
+	connect(this, SIGNAL(userStateChanged(const User *)), obj, SLOT(userStateChanged(const User *)));
+	connect(this, SIGNAL(userConnected(const User *)), obj, SLOT(userConnected(const User *)));
+	connect(this, SIGNAL(userDisconnected(const User *)), obj, SLOT(userDisconnected(const User *)));
 	connect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));
 	connect(this, SIGNAL(channelCreated(const Channel *)), obj, SLOT(channelCreated(const Channel *)));
 	connect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));
 }
 
 void Server::disconnectListener(QObject *obj) {
-	disconnect(this, SIGNAL(playerStateChanged(const Player *)), obj, SLOT(playerStateChanged(const Player *)));
-	disconnect(this, SIGNAL(playerConnected(const Player *)), obj, SLOT(playerConnected(const Player *)));
-	disconnect(this, SIGNAL(playerDisconnected(const Player *)), obj, SLOT(playerDisconnected(const Player *)));
+	disconnect(this, SIGNAL(userStateChanged(const User *)), obj, SLOT(userStateChanged(const User *)));
+	disconnect(this, SIGNAL(userConnected(const User *)), obj, SLOT(userConnected(const User *)));
+	disconnect(this, SIGNAL(userDisconnected(const User *)), obj, SLOT(userDisconnected(const User *)));
 	disconnect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));
 	disconnect(this, SIGNAL(channelCreated(const Channel *)), obj, SLOT(channelCreated(const Channel *)));
 	disconnect(this, SIGNAL(channelRemoved(const Channel *)), obj, SLOT(channelRemoved(const Channel *)));

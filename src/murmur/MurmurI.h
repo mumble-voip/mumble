@@ -49,7 +49,7 @@ class ServerI : virtual public Server {
 		                          ::Ice::Int,
 		                          const Ice::Current&);
 
-		virtual void getPlayers_async(const ::Murmur::AMD_Server_getPlayersPtr&,
+		virtual void getUsers_async(const ::Murmur::AMD_Server_getUsersPtr&,
 		                              const Ice::Current&);
 
 		virtual void getChannels_async(const ::Murmur::AMD_Server_getChannelsPtr&,
@@ -65,7 +65,7 @@ class ServerI : virtual public Server {
 		                           const ::Murmur::BanList&,
 		                           const Ice::Current&);
 
-		virtual void kickPlayer_async(const ::Murmur::AMD_Server_kickPlayerPtr&,
+		virtual void kickUser_async(const ::Murmur::AMD_Server_kickUserPtr&,
 		                              ::Ice::Int,
 		                              const ::std::string&,
 		                              const Ice::Current&);
@@ -85,7 +85,7 @@ class ServerI : virtual public Server {
 		                            const Ice::Current&);
 
 		virtual void setState_async(const ::Murmur::AMD_Server_setStatePtr&,
-		                            const ::Murmur::Player&,
+		                            const ::Murmur::User&,
 		                            const Ice::Current&);
 
 		virtual void getChannelState_async(const ::Murmur::AMD_Server_getChannelStatePtr&,
@@ -122,19 +122,19 @@ class ServerI : virtual public Server {
 		                          bool,
 		                          const Ice::Current&);
 
-		virtual void getPlayerNames_async(const ::Murmur::AMD_Server_getPlayerNamesPtr&,
+		virtual void getUserNames_async(const ::Murmur::AMD_Server_getUserNamesPtr&,
 		                                  const ::Murmur::IdList&,
 		                                  const Ice::Current&);
 
-		virtual void getPlayerIds_async(const ::Murmur::AMD_Server_getPlayerIdsPtr&,
+		virtual void getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPtr&,
 		                                const ::Murmur::NameList&,
 		                                const Ice::Current&);
 
-		virtual void registerPlayer_async(const ::Murmur::AMD_Server_registerPlayerPtr&,
+		virtual void registerUser_async(const ::Murmur::AMD_Server_registerUserPtr&,
 		                                  const Murmur::InfoMap&,
 		                                  const Ice::Current&);
 
-		virtual void unregisterPlayer_async(const ::Murmur::AMD_Server_unregisterPlayerPtr&,
+		virtual void unregisterUser_async(const ::Murmur::AMD_Server_unregisterUserPtr&,
 		                                    ::Ice::Int,
 		                                    const Ice::Current&);
 
@@ -147,7 +147,7 @@ class ServerI : virtual public Server {
 		                                   ::Ice::Int,
 		                                   const Ice::Current&);
 
-		virtual void getRegisteredPlayers_async(const ::Murmur::AMD_Server_getRegisteredPlayersPtr&,
+		virtual void getRegisteredUsers_async(const ::Murmur::AMD_Server_getRegisteredUsersPtr&,
 		                                        const ::std::string&,
 		                                        const Ice::Current&);
 

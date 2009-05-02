@@ -35,7 +35,7 @@
 #include "Timer.h"
 
 class Channel;
-class Player;
+class User;
 class Connection;
 
 class ServerDB {

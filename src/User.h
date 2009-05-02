@@ -28,29 +28,37 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIO_H
-#define _AUDIO_H
+#ifndef _MUMBLE_USER_H
+#define _MUMBLE_USER_H
 
-#include "mumble_pch.hpp"
-#include "ClientUser.h"
+#include "murmur_pch.h"
 
-#define SAMPLE_RATE 48000
+class Channel;
 
-typedef QPair<QString,QVariant> audioDevice;
-
-class LoopUser : public ClientUser {
+class User {
 	private:
-		Q_DISABLE_COPY(LoopUser)
-	protected:
-		QMutex qmLock;
-		QTime qtTicker;
-		QTime qtLastFetch;
-		QMultiMap<float, QByteArray> qmPackets;
-		LoopUser();
+		Q_DISABLE_COPY(User)
 	public:
-		static LoopUser lpLoopy;
-		void addFrame(const QByteArray &packet);
-		void fetchFrames();
+		enum State { Connected, Authenticated };
+		State sState;
+		unsigned int uiSession;
+		int iId;
+		QString qsName;
+		QString qsComment;
+		QString qsHash;
+		bool bMute, bDeaf, bSuppressed;
+		bool bLocalMute;
+		bool bSelfMute, bSelfDeaf;
+		bool bTalking, bAltSpeak;
+		Channel *cChannel;
+		QByteArray qbaTexture;
+
+		User();
+		virtual ~User() {};
+
+		operator const QString() const;
 };
 
+#else
+class User;
 #endif

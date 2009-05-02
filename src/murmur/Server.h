@@ -34,7 +34,7 @@
 #include "murmur_pch.h"
 #include "Message.h"
 #include "Timer.h"
-#include "Player.h"
+#include "User.h"
 #include "Connection.h"
 #include "ACL.h"
 #include "DBus.h"
@@ -90,10 +90,10 @@ class SslServer : public QTcpServer {
 
 class Server;
 
-class User : public Connection, public Player {
+class ServerUser : public Connection, public User {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(User)
+		Q_DISABLE_COPY(ServerUser)
 	protected:
 		Server *s;
 	public:
@@ -114,7 +114,7 @@ class User : public Connection, public Player {
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
-		User(Server *parent, QSslSocket *socket);
+		ServerUser(Server *parent, QSslSocket *socket);
 };
 
 class Server : public QThread {
@@ -143,7 +143,7 @@ class Server : public QThread {
 		QString qsRegHost;
 		QUrl qurlRegWeb;
 
-		QRegExp qrPlayerName;
+		QRegExp qrUserName;
 		QRegExp qrChannelName;
 
 		QSslCertificate qscCert;
@@ -174,7 +174,7 @@ class Server : public QThread {
 		void newClient();
 		void connectionClosed(const QString &);
 		void sslError(const QList<QSslError> &);
-		void message(unsigned int, const QByteArray &, User *cCon = NULL);
+		void message(unsigned int, const QByteArray &, ServerUser *cCon = NULL);
 		void checkTimeout();
 		void tcpTransmitData(QByteArray, unsigned int);
 		void doSync(unsigned int);
@@ -194,9 +194,9 @@ class Server : public QThread {
 		SOCKET sUdpSocket;
 #endif
 
-		QHash<unsigned int, User *> qhUsers;
-		QHash<quint64, User *> qhPeerUsers;
-		QHash<unsigned int, QSet<User *> > qhHostUsers;
+		QHash<unsigned int, ServerUser *> qhUsers;
+		QHash<quint64, ServerUser *> qhPeerUsers;
+		QHash<unsigned int, QSet<ServerUser *> > qhHostUsers;
 		QHash<unsigned int, Channel *> qhChannels;
 		QReadWriteLock qrwlUsers;
 		ChanACL::ACLCache acCache;
@@ -206,26 +206,26 @@ class Server : public QThread {
 
 		QList<QPair<quint32, int> > qlBans;
 
-		void processMsg(User *u, const char *data, int len);
-		void sendMessage(User *u, const char *data, int len, QByteArray &cache);
+		void processMsg(ServerUser *u, const char *data, int len);
+		void sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache);
 		void run();
 
 		bool validateChannelName(const QString &name);
-		bool validatePlayerName(const QString &name);
+		bool validateUserName(const QString &name);
 
-		bool checkDecrypt(User *u, const char *encrypted, char *plain, unsigned int cryptlen);
+		bool checkDecrypt(ServerUser *u, const char *encrypted, char *plain, unsigned int cryptlen);
 
-		bool hasPermission(Player *p, Channel *c, QFlags<ChanACL::Perm> perm);
-		void clearACLCache(Player *p = NULL);
+		bool hasPermission(User *p, Channel *c, QFlags<ChanACL::Perm> perm);
+		void clearACLCache(User *p = NULL);
 
 		void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType);
-		void sendProtoExcept(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
-		void sendProtoMessage(User *, const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendProtoMessage(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType);
 
 #define MUMBLE_MH_MSG(x) \
 		void sendAll(const MumbleProto:: x &msg) { sendProtoAll(msg, MessageHandler:: x); } \
-		void sendExcept(User *u, const MumbleProto:: x &msg) { sendProtoExcept(u, msg, MessageHandler:: x); } \
-		void sendMessage(User *u, const MumbleProto:: x &msg) { sendProtoMessage(u, msg, MessageHandler:: x); }
+		void sendExcept(ServerUser *u, const MumbleProto:: x &msg) { sendProtoExcept(u, msg, MessageHandler:: x); } \
+		void sendMessage(ServerUser *u, const MumbleProto:: x &msg) { sendProtoMessage(u, msg, MessageHandler:: x); }
 
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
@@ -235,10 +235,10 @@ class Server : public QThread {
 		QString addressToString(const QHostAddress &);
 
 		void log(const QString &);
-		void log(User *u, const QString &);
+		void log(ServerUser *u, const QString &);
 
-		void removeChannel(Channel *c, Player *src, Channel *dest = NULL);
-		void playerEnterChannel(Player *u, Channel *c, bool quiet = false);
+		void removeChannel(Channel *c, User *src, Channel *dest = NULL);
+		void userEnterChannel(User *u, Channel *c, bool quiet = false);
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
@@ -248,11 +248,11 @@ class Server : public QThread {
 		void disconnectAuthenticator(QObject *p);
 		void connectListener(QObject *p);
 		void disconnectListener(QObject *p);
-		void setTempGroups(const int playerid, Channel *cChannel, const QStringList &groups);
+		void setTempGroups(const int userid, Channel *cChannel, const QStringList &groups);
 	signals:
-		void registerPlayerSig(int &, const QMap<QString, QString> &);
-		void unregisterPlayerSig(int &, int);
-		void getRegisteredPlayersSig(const QString &, QMap<int, QString > &);
+		void registerUserSig(int &, const QMap<QString, QString> &);
+		void unregisterUserSig(int &, int);
+		void getRegisteredUsersSig(const QString &, QMap<int, QString > &);
 		void getRegistrationSig(int &, int, QMap<QString, QString> &);
 		void authenticateSig(int &, QString &, const QString &);
 		void setInfoSig(int &, int, const QMap<QString, QString> &);
@@ -261,18 +261,18 @@ class Server : public QThread {
 		void nameToIdSig(int &, const QString &);
 		void idToTextureSig(QByteArray &, int);
 
-		void playerStateChanged(const Player *);
-		void playerConnected(const Player *);
-		void playerDisconnected(const Player *);
+		void userStateChanged(const User *);
+		void userConnected(const User *);
+		void userDisconnected(const User *);
 		void channelStateChanged(const Channel *);
 		void channelCreated(const Channel *);
 		void channelRemoved(const Channel *);
 
-		void contextAction(const Player *, const QString &, unsigned int, int);
+		void contextAction(const User *, const QString &, unsigned int, int);
 	public:
-		void setPlayerState(Player *p, Channel *parent, bool mute, bool deaf, bool suppressed, const QString &comment = QString());
+		void setUserState(User *p, Channel *parent, bool mute, bool deaf, bool suppressed, const QString &comment = QString());
 		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString());
-		void sendTextMessage(Channel *cChannel, User *pPlayer, bool tree, const QString &text);
+		void sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text);
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
@@ -284,19 +284,19 @@ class Server : public QThread {
 		void readLinks();
 		void updateChannel(const Channel *c);
 		void readChannelPrivs(Channel *c);
-		void setLastChannel(const Player *u);
+		void setLastChannel(const User *u);
 		int readLastChannel(int id);
 		void dumpChannel(const Channel *c);
 		int getUserID(const QString &name);
 		QString getUserName(int id);
 		QByteArray getUserTexture(int id);
 		QMap<QString, QString> getRegistration(int id);
-		int registerPlayer(const QMap<QString, QString> &info);
-		bool unregisterPlayer(int id);
-		QMap<int, QString > getRegisteredPlayers(const QString &filter);
+		int registerUser(const QMap<QString, QString> &info);
+		bool unregisterUser(int id);
+		QMap<int, QString > getRegisteredUsers(const QString &filter);
 		bool setInfo(int id, const QMap<QString, QString> &info);
 		bool setTexture(int id, const QByteArray &texture);
-		bool isPlayerId(int id);
+		bool isUserId(int id);
 		void addLink(Channel *c, Channel *l);
 		void removeLink(Channel *c, Channel *l);
 		void getBans();
@@ -306,7 +306,7 @@ class Server : public QThread {
 		void dblog(const QString &str);
 
 		// From msgHandler. Implementation in Messages.cpp
-#define MUMBLE_MH_MSG(x) void msg##x(User *, MumbleProto:: x &);
+#define MUMBLE_MH_MSG(x) void msg##x(ServerUser *, MumbleProto:: x &);
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 };

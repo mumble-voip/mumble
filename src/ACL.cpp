@@ -31,14 +31,14 @@
 #include "ACL.h"
 #include "Channel.h"
 #include "Group.h"
-#include "Player.h"
+#include "User.h"
 
 ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 	bApplyHere = true;
 	bApplySubs = true;
 	bInherited = false;
 
-	iPlayerId = -1;
+	iUserId = -1;
 
 	c = chan;
 	if (c)
@@ -50,7 +50,7 @@ ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 // and will return false if a user isn't allowed to
 // traverse to the channel. (Need "read" in all preceeding channels)
 
-bool ChanACL::hasPermission(Player *p, Channel *chan, QFlags<Perm> perm, ACLCache &cache) {
+bool ChanACL::hasPermission(User *p, Channel *chan, QFlags<Perm> perm, ACLCache &cache) {
 	QStack<Channel *> chanstack;
 	Channel *ch;
 	ChanACL *acl;
@@ -99,9 +99,9 @@ bool ChanACL::hasPermission(Player *p, Channel *chan, QFlags<Perm> perm, ACLCach
 			granted = def;
 
 		foreach(acl, ch->qlACL) {
-			bool matchPlayer = (acl->iPlayerId != -1) && (acl->iPlayerId == p->iId);
+			bool matchUser = (acl->iUserId != -1) && (acl->iUserId == p->iId);
 			bool matchGroup = Group::isMember(chan, ch, acl->qsGroup, p);
-			if (matchPlayer || matchGroup) {
+			if (matchUser || matchGroup) {
 				if (acl->pAllow & Traverse)
 					traverse = true;
 				if (acl->pDeny & Traverse)
@@ -201,26 +201,26 @@ QString ChanACL::whatsThis(Perm p) {
 			          "privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy "
 			          "of channels without linking.");
 		case MuteDeafen:
-			return tr("This represents the permission to mute and deafen other players. Once muted, a player will stay muted "
-			          "until he is unmuted by another privileged player or reconnects to the server.");
+			return tr("This represents the permission to mute and deafen other users. Once muted, a user will stay muted "
+			          "until he is unmuted by another privileged user or reconnects to the server.");
 		case Move:
-			return tr("This represents the permission to move a player to another channel or kick him from the server. To actually "
-			          "move the player, either the moving player must have Move privileges in the destination channel, or "
-			          "the player must normally be allowed to enter the channel. Players with this privilege can move players "
-			          "into channels the target player normally wouldn't have permission to enter.");
+			return tr("This represents the permission to move a user to another channel or kick him from the server. To actually "
+			          "move the user, either the moving user must have Move privileges in the destination channel, or "
+			          "the user must normally be allowed to enter the channel. Users with this privilege can move users "
+			          "into channels the target user normally wouldn't have permission to enter.");
 		case MakeChannel:
-			return tr("This represents the permission to make sub-channels. The player making the sub-channel will be added to the "
+			return tr("This represents the permission to make sub-channels. The user making the sub-channel will be added to the "
 			          "admin group of the sub-channel.");
 		case LinkChannel:
-			return tr("This represents the permission to link channels. Players in linked channels hear each other, as long as "
-			          "the speaking player has the <i>speak</i> privilege in the channel of the listener. You need the link "
+			return tr("This represents the permission to link channels. Users in linked channels hear each other, as long as "
+			          "the speaking user has the <i>speak</i> privilege in the channel of the listener. You need the link "
 			          "privilege in both channels to create a link, but just in either channel to remove it.");
 		case TextMessage:
-			return tr("This represents the permission to write text messages to other players in this channel.");
+			return tr("This represents the permission to write text messages to other users in this channel.");
 		case Kick:
-			return tr("This represents the permission to forcibly remove players from the server.");
+			return tr("This represents the permission to forcibly remove users from the server.");
 		case Ban:
-			return tr("This represents the permission to permanently remove players from the server.");
+			return tr("This represents the permission to permanently remove users from the server.");
 		case Register:
 			return tr("This represents the permission to register new users on the server.");
 		default:

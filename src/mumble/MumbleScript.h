@@ -32,18 +32,18 @@
 #define _SCRIPT_H
 
 #include "mumble_pch.hpp"
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 
-class ScriptPlayer;
+class ScriptUser;
 class ScriptChannel;
 class MumbleScript;
 class MumbleScripts;
 
-class ScriptPlayer : public QObject, protected QScriptable {
+class ScriptUser : public QObject, protected QScriptable {
 		friend class MumbleScript;
 		Q_OBJECT
-		Q_DISABLE_COPY(ScriptPlayer)
+		Q_DISABLE_COPY(ScriptUser)
 		Q_PROPERTY(QString name READ getName)
 		Q_PROPERTY(unsigned int session READ getSession)
 		Q_PROPERTY(int id READ getId)
@@ -51,7 +51,7 @@ class ScriptPlayer : public QObject, protected QScriptable {
 		Q_PROPERTY(bool mute READ isMute WRITE setMute)
 		Q_PROPERTY(bool deaf READ isDeaf WRITE setDeaf)
 	public:
-		ScriptPlayer(ClientPlayer *p);
+		ScriptUser(ClientUser *p);
 		QString getName() const;
 		unsigned int getSession() const;
 		int getId() const;
@@ -75,7 +75,7 @@ class ScriptChannel : public QObject, protected QScriptable {
 		Q_PROPERTY(int id READ getId)
 		Q_PROPERTY(int parent READ getParent WRITE setParent)
 		Q_PROPERTY(QScriptValue children READ getChildren)
-		Q_PROPERTY(QScriptValue players READ getPlayers)
+		Q_PROPERTY(QScriptValue users READ getUsers)
 	public:
 		ScriptChannel(Channel *c);
 		QString getName() const;
@@ -84,7 +84,7 @@ class ScriptChannel : public QObject, protected QScriptable {
 	public slots:
 		void setName(const QString &);
 		void setParent(int);
-		QScriptValue getPlayers() const;
+		QScriptValue getUsers() const;
 		QScriptValue getChildren() const;
 		void sendMessage(const QString &, bool);
 	signals:
@@ -95,7 +95,7 @@ class ScriptServer : public QObject, protected QScriptable {
 		friend class MumbleScript;
 		Q_OBJECT
 		Q_DISABLE_COPY(ScriptServer)
-		Q_PROPERTY(QScriptValue playerContextMenu)
+		Q_PROPERTY(QScriptValue userContextMenu)
 		Q_PROPERTY(QScriptValue channelContextMenu)
 		Q_PROPERTY(QScriptValue msgHandler)
 		Q_PROPERTY(QScriptValue root READ getRoot)
@@ -106,7 +106,7 @@ class ScriptServer : public QObject, protected QScriptable {
 		QScriptValue loadUi(const QString &);
 		void sendMsg(const QString &, const QStringList &);
 	signals:
-		void newPlayer(QScriptValue);
+		void newUser(QScriptValue);
 		void newChannel(QScriptValue);
 		void connected();
 		void disconnected(QString reason);
@@ -119,7 +119,7 @@ class MumbleScript : public QObject {
 		QScriptEngine *qseEngine;
 		ScriptServer *ssServer;
 		QString qsFilename;
-		QMap<ClientPlayer *, ScriptPlayer *> qmPlayers;
+		QMap<ClientUser *, ScriptUser *> qmUsers;
 		QMap<Channel *, ScriptChannel *> qmChannels;
 		QMap<QString, QByteArray> qmResources;
 		bool bLocal;
@@ -129,13 +129,13 @@ class MumbleScript : public QObject {
 		void load(const QString &source);
 		void evaluate(const QString &code);
 
-		void addPlayer(ClientPlayer *p);
-		void movePlayer(ClientPlayer *p);
+		void addUser(ClientUser *p);
+		void moveUser(ClientUser *p);
 		void addChannel(Channel *c);
 		void moveChannel(Channel *c);
 		void connected();
 	public slots:
-		void playerDeleted(QObject *);
+		void userDeleted(QObject *);
 		void channelDeleted(QObject *);
 		void errorHandler(const QScriptValue &);
 };
@@ -150,8 +150,8 @@ class MumbleScripts : public QObject {
 		MumbleScripts(QObject *p);
 		~MumbleScripts();
 		void createEvaluate(const QString &code);
-		void addPlayer(ClientPlayer *p);
-		void movePlayer(ClientPlayer *p);
+		void addUser(ClientUser *p);
+		void moveUser(ClientUser *p);
 		void addChannel(Channel *c);
 		void moveChannel(Channel *c);
 		void connected();

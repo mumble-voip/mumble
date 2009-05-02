@@ -29,7 +29,7 @@
 */
 
 #include "OSS.h"
-#include "Player.h"
+#include "User.h"
 #include "Global.h"
 #include "MainWindow.h"
 #include <sys/soundcard.h>

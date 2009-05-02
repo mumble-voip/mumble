@@ -59,7 +59,7 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		qcbStyle->addItem(key);
 	}
 	qcbExpand->addItem(tr("None"), Settings::NoChannels);
-	qcbExpand->addItem(tr("Only with players"), Settings::ChannelsWithPlayers);
+	qcbExpand->addItem(tr("Only with users"), Settings::ChannelsWithUsers);
 	qcbExpand->addItem(tr("All"), Settings::AllChannels);
 
 	qcbChannelDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
@@ -97,7 +97,7 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
 	loadCheckBox(qcbShowChatbar, r.bShowChatbar);
-	loadCheckBox(qcbPlayersTop, r.bPlayerTop);
+	loadCheckBox(qcbUsersTop, r.bUserTop);
 	loadCheckBox(qcbAlwaysOnTop, r.bAlwaysOnTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbHideTray, r.bHideTray);
@@ -122,7 +122,7 @@ void LookConfig::save() const {
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
 	s.bShowChatbar = qcbShowChatbar->isChecked();
-	s.bPlayerTop=qcbPlayersTop->isChecked();
+	s.bUserTop=qcbUsersTop->isChecked();
 	s.bAlwaysOnTop = qcbAlwaysOnTop->isChecked();
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bHideTray = qcbHideTray->isChecked();
@@ -150,7 +150,7 @@ void LookConfig::accept() const {
 bool LookConfig::expert(bool b) {
 	qcbExpand->setVisible(b);
 	qliExpand->setVisible(b);
-	qcbPlayersTop->setVisible(b);
+	qcbUsersTop->setVisible(b);
 	qcbStyle->setVisible(b);
 	qliStyle->setVisible(b);
 	return true;

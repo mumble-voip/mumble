@@ -196,7 +196,7 @@
              <string>Add member to group</string>
             </property>
             <property name="whatsThis">
-             <string>Type in the name of a player you wish to add to the group and click Add.</string>
+             <string>Type in the name of a user you wish to add to the group and click Add.</string>
             </property>
             <property name="editable">
              <bool>true</bool>
@@ -221,7 +221,7 @@
              <string>Remove member from group</string>
             </property>
             <property name="whatsThis">
-             <string>Type in the name of a player you wish to remove from the group and click Add.</string>
+             <string>Type in the name of a user you wish to remove from the group and click Add.</string>
             </property>
             <property name="editable">
              <bool>true</bool>

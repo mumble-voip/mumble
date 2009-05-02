@@ -33,7 +33,7 @@
 #include "DBus.h"
 #include "ServerHandler.h"
 #include "Channel.h"
-#include "../Player.h"
+#include "ClientUser.h"
 
 
 MumbleDBus::MumbleDBus(QObject *mw) : QDBusAbstractAdaptor(mw) {
@@ -65,7 +65,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 	u.setPort(port);
 	u.setUserName(user);
 	QStringList path;
-	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
+	Channel *c = ClientUser::get(g.uiSession)->cChannel;
 	while (c->cParent) {
 		path.prepend(c->qsName);
 		c = c->cParent;

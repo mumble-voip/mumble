@@ -36,7 +36,7 @@
 #include "Timer.h"
 #include "ui_LCD.h"
 
-class Player;
+class User;
 class LCDDevice;
 
 class LCDConfig : public ConfigWidget, public Ui::LCDConfig {
@@ -114,7 +114,7 @@ class LCD : public QObject {
 	public:
 		LCD();
 		~LCD();
-		void updatePlayerView();
+		void updateUserView();
 		bool hasDevices();
 };
 

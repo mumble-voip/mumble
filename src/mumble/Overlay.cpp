@@ -29,7 +29,7 @@
 */
 
 #include "Overlay.h"
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "Global.h"
 #include "Message.h"
@@ -63,14 +63,14 @@ void OverlayConfig::load(const Settings &r) {
 	loadSlider(qsX, iroundf(r.fOverlayX * 100.0f));
 	loadSlider(qsY, 100 - iroundf(r.fOverlayY * 100.0f));
 	qfFont = r.qfOverlayFont;
-	qcPlayer = r.qcOverlayPlayer;
+	qcUser = r.qcOverlayUser;
 	qcTalking= r.qcOverlayTalking;
 	qcAltTalking= r.qcOverlayAltTalking;
 	qcChannel = r.qcOverlayChannel;
 	qcChannelTalking = r.qcOverlayChannelTalking;
 	qlCurrentFont->setText(qfFont.family());
 	loadSlider(qsMaxHeight, iroundf(r.fOverlayHeight * 1000.0f));
-	setColorLabel(qlPlayer, qcPlayer);
+	setColorLabel(qlUser, qcUser);
 	setColorLabel(qlTalking, qcTalking);
 	setColorLabel(qlAltTalking, qcAltTalking);
 	setColorLabel(qlChannel, qcChannel);
@@ -105,12 +105,12 @@ void OverlayConfig::on_qsMaxHeight_valueChanged(int v) {
 }
 
 
-void OverlayConfig::on_qpbPlayer_clicked() {
+void OverlayConfig::on_qpbUser_clicked() {
 	bool ok;
-	QRgb rgb=QColorDialog::getRgba(qcPlayer.rgba(), &ok, this);
+	QRgb rgb=QColorDialog::getRgba(qcUser.rgba(), &ok, this);
 	if (ok) {
-		qcPlayer = QColor::fromRgba(rgb);
-		setColorLabel(qlPlayer, qcPlayer);
+		qcUser = QColor::fromRgba(rgb);
+		setColorLabel(qlUser, qcUser);
 	}
 }
 
@@ -171,7 +171,7 @@ void OverlayConfig::save() const {
 	s.bOverlayBottom = qcbBottom->isChecked();
 	s.qfOverlayFont = qfFont;
 	s.fOverlayHeight = static_cast<float>(qsMaxHeight->value()) / 1000.0f;
-	s.qcOverlayPlayer = qcPlayer;
+	s.qcOverlayUser = qcUser;
 	s.qcOverlayTalking = qcTalking;
 	s.qcOverlayAltTalking = qcAltTalking;
 	s.qcOverlayChannel = qcChannel;
@@ -293,7 +293,7 @@ void Overlay::forceSettings() {
 	updateOverlay();
 }
 
-void Overlay::verifyTexture(ClientPlayer *cp) {
+void Overlay::verifyTexture(ClientUser *cp) {
 	qsForce.insert(cp->uiSession);
 	if (! cp->qbaTexture.isEmpty() && (cp->qbaTexture.size() != TEXTURE_SIZE)) {
 		cp->qbaTexture = qUncompress(cp->qbaTexture);
@@ -319,7 +319,7 @@ void Overlay::verifyTexture(ClientPlayer *cp) {
 typedef QPair<QString, quint32> qpChanCol;
 
 void Overlay::updateOverlay() {
-	quint32 colPlayer = g.s.qcOverlayPlayer.rgba();
+	quint32 colUser = g.s.qcOverlayUser.rgba();
 	quint32 colTalking = g.s.qcOverlayTalking.rgba();
 	quint32 colAltTalking = g.s.qcOverlayAltTalking.rgba();
 	quint32 colChannel = g.s.qcOverlayChannel.rgba();
@@ -331,13 +331,13 @@ void Overlay::updateOverlay() {
 		return;
 
 	if (g.uiSession) {
-		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 		foreach(Channel *c, home->allLinks()) {
 			if (home == c)
 				continue;
 
 			bool act = false;
-			foreach(Player *p, c->qlPlayers) {
+			foreach(User *p, c->qlUsers) {
 				act = act || p->bTalking;
 				if (p->bTalking)
 					linkchans << qpChanCol(p->qsName + QString::fromLatin1("[") + c->qsName + QString::fromLatin1("]"), colChannelTalking);
@@ -362,15 +362,15 @@ void Overlay::updateOverlay() {
 			}
 		}
 
-		foreach(Player *p, ClientPlayer::get(g.uiSession)->cChannel->qlPlayers) {
-			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == ClientPlayer::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
+		foreach(User *p, ClientUser::get(g.uiSession)->cChannel->qlUsers) {
+			if ((g.s.osOverlay == Settings::All) || p->bTalking || ((p == ClientUser::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
 				QString name = p->qsName;
 				Decoration dec = None;
 				if (p->bDeaf || p->bSelfDeaf)
 					dec = Deafened;
 				else if (p->bMute || p->bSelfMute || p->bLocalMute)
 					dec = Muted;
-				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colPlayer, p->uiSession, dec);
+				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colUser, p->uiSession, dec);
 			}
 		}
 
@@ -430,7 +430,7 @@ void Overlay::clearCache() {
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
 	foreach(const TextLine &e, lines) {
-		ClientPlayer *cp = ClientPlayer::get(e.uiSession);
+		ClientUser *cp = ClientUser::get(e.uiSession);
 		if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && !(g.s.bOverlayUserTextures && cp && cp->iTextureWidth)) {
 			unsigned char *td = new unsigned char[TEXTURE_SIZE];
 			memset(td, 0, TEXTURE_SIZE);
@@ -479,7 +479,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 			} else {
 				int width = 0;
 				const unsigned char *src = NULL;
-				ClientPlayer *cp = ClientPlayer::get(tl.uiSession);
+				ClientUser *cp = ClientUser::get(tl.uiSession);
 
 				if (g.s.bOverlayUserTextures && cp && cp->iTextureWidth) {
 					width = cp->iTextureWidth;

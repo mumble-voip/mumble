@@ -30,7 +30,7 @@
 
 #include "AudioOutput.h"
 #include "AudioInput.h"
-#include "Player.h"
+#include "User.h"
 #include "Global.h"
 #include "Message.h"
 #include "Plugins.h"
@@ -88,21 +88,21 @@ bool AudioOutputRegistrar::usesOutputDelay() const {
 	return true;
 }
 
-AudioOutputPlayer::AudioOutputPlayer(const QString name) : qsName(name) {
+AudioOutputUser::AudioOutputUser(const QString name) : qsName(name) {
 	iBufferSize = 0;
 	pfBuffer = NULL;
 	pfVolume = NULL;
 	fPos[0]=fPos[1]=fPos[2]=0.0;
 }
 
-AudioOutputPlayer::~AudioOutputPlayer() {
+AudioOutputUser::~AudioOutputUser() {
 	if (pfBuffer)
 		delete [] pfBuffer;
 	if (pfVolume)
 		delete [] pfVolume;
 }
 
-void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
+void AudioOutputUser::resizeBuffer(unsigned int newsize) {
 	if (newsize > iBufferSize) {
 		float *n = new float[newsize];
 		if (pfBuffer) {
@@ -114,7 +114,7 @@ void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
 	}
 }
 
-AudioOutputSample::AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputPlayer(filename) {
+AudioOutputSample::AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputUser(filename) {
 	dsDecState=speex_decoder_init(&speex_wb_mode);
 
 	int err;
@@ -275,9 +275,9 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	return true;
 }
 
-AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : AudioOutputPlayer(player->qsName) {
+AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq) : AudioOutputUser(user->qsName) {
 	int err;
-	p = player;
+	p = user;
 
 	iFrameSize = SAMPLE_RATE / 100;
 	cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
@@ -367,8 +367,8 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 		pOut = (srs) ? fOut : (pfBuffer + iBufferFilled);
 
-		if (p == &LoopPlayer::lpLoopy)
-			LoopPlayer::lpLoopy.fetchFrames();
+		if (p == &LoopUser::lpLoopy)
+			LoopUser::lpLoopy.fetchFrames();
 
 		if (qlFrames.isEmpty()) {
 			QMutexLocker lock(&qmJitter);
@@ -491,7 +491,7 @@ float AudioOutput::calcGain(float dotproduct, float distance) {
 }
 
 void AudioOutput::wipe() {
-	foreach(AudioOutputPlayer *aop, qmOutputs)
+	foreach(AudioOutputUser *aop, qmOutputs)
 		removeBuffer(aop);
 }
 
@@ -528,11 +528,11 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 
 }
 
-void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPacket, unsigned int iSeq) {
+void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq) {
 	if (iChannels == 0)
 		return;
 	qrwlOutputs.lockForRead();
-	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(player));
+	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(user));
 
 	if (! aop) {
 		qrwlOutputs.unlock();
@@ -540,8 +540,8 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 		while ((iMixerFreq == 0) && isRunning()) {}
 
 		qrwlOutputs.lockForWrite();
-		aop = new AudioOutputSpeech(player, iMixerFreq);
-		qmOutputs.replace(player,aop);
+		aop = new AudioOutputSpeech(user, iMixerFreq);
+		qmOutputs.replace(user,aop);
 	}
 
 	aop->addFrameToBuffer(qbaPacket, iSeq);
@@ -549,13 +549,13 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 	qrwlOutputs.unlock();
 }
 
-void AudioOutput::removeBuffer(const ClientPlayer *player) {
-	removeBuffer(qmOutputs.value(player));
+void AudioOutput::removeBuffer(const ClientUser *user) {
+	removeBuffer(qmOutputs.value(user));
 }
 
-void AudioOutput::removeBuffer(AudioOutputPlayer *aop) {
+void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 	QWriteLocker locker(&qrwlOutputs);
-	QMultiHash<const ClientPlayer *, AudioOutputPlayer *>::iterator i;
+	QMultiHash<const ClientUser *, AudioOutputUser *>::iterator i;
 	for (i=qmOutputs.begin(); i != qmOutputs.end(); ++i) {
 		if (i.value() == aop) {
 			qmOutputs.erase(i);
@@ -686,9 +686,9 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
-	AudioOutputPlayer *aop;
-	QList<AudioOutputPlayer *> qlMix;
-	QList<AudioOutputPlayer *> qlDel;
+	AudioOutputUser *aop;
+	QList<AudioOutputUser *> qlMix;
+	QList<AudioOutputUser *> qlDel;
 
 
 	if (g.s.fVolume < 0.01)
@@ -825,7 +825,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	return (! qlMix.isEmpty());
 }
 
-AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol, unsigned int freq) : AudioOutputPlayer(QLatin1String("Sine")) {
+AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol, unsigned int freq) : AudioOutputUser(QLatin1String("Sine")) {
 	float hfreq = static_cast<float>(freq) / 2.0f;
 	v = 0.0;
 	inc = static_cast<float>(M_PI * hz / hfreq);

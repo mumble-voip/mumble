@@ -28,65 +28,21 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PLAYER_H
-#define _PLAYER_H
+#include "User.h"
+#include "Channel.h"
 
-#include "murmur_pch.h"
+User::User() {
+	sState = User::Connected;
+	uiSession = 0;
+	iId = -1;
+	bMute = bDeaf = false;
+	bSelfMute = bSelfDeaf = false;
+	bTalking = bAltSpeak = false;
+	bLocalMute = false;
+	bSuppressed = false;
+	cChannel = 0;
+}
 
-class Channel;
-
-class Player {
-	private:
-		Q_DISABLE_COPY(Player)
-	public:
-		enum State { Connected, Authenticated };
-		State sState;
-		unsigned int uiSession;
-		int iId;
-		QString qsName;
-		QString qsComment;
-		QString qsHash;
-		bool bMute, bDeaf, bSuppressed;
-		bool bLocalMute;
-		bool bSelfMute, bSelfDeaf;
-		bool bTalking, bAltSpeak;
-		Channel *cChannel;
-		QByteArray qbaTexture;
-
-		Player();
-		virtual ~Player() {};
-
-		operator const QString() const;
-};
-
-class ClientPlayer : public QObject, public Player {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ClientPlayer)
-	public:
-		QString qsFriendName;
-		int iTextureWidth;
-		QString getFlagsString() const;
-		ClientPlayer(QObject *p = NULL);
-		static QHash<unsigned int, ClientPlayer *> c_qmPlayers;
-		static QReadWriteLock c_qrwlPlayers;
-		static ClientPlayer *get(unsigned int);
-		static ClientPlayer *add(unsigned int, QObject *p = NULL);
-		static ClientPlayer *match(const ClientPlayer *p, bool matchname = false);
-		static void remove(unsigned int);
-		static void remove(ClientPlayer *);
-	public slots:
-		void setTalking(bool talking, bool altspeech);
-		void setMute(bool mute);
-		void setDeaf(bool deaf);
-		void setLocalMute(bool mute);
-		void setSelfMute(bool mute);
-		void setSelfDeaf(bool deaf);
-	signals:
-		void talkingChanged(bool talking);
-		void muteDeafChanged();
-};
-
-#else
-class Player;
-#endif
+User::operator const QString() const {
+	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
+}

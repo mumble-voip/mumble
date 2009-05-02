@@ -34,7 +34,7 @@
 
 #include "murmur_pch.h"
 
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "Group.h"
 #include "ACL.h"
@@ -48,7 +48,7 @@ struct PlayerInfo {
 	bool selfMute, selfDeaf;
 	int channel;
 	PlayerInfo() { };
-	PlayerInfo(const Player *);
+	PlayerInfo(const User *);
 };
 Q_DECLARE_METATYPE(PlayerInfo);
 
@@ -58,7 +58,7 @@ struct PlayerInfoExtended : public PlayerInfo {
 	int onlinesecs;
 	int bytespersec;
 	PlayerInfoExtended() {};
-	PlayerInfoExtended(const Player *);
+	PlayerInfoExtended(const User *);
 };
 Q_DECLARE_METATYPE(PlayerInfoExtended);
 Q_DECLARE_METATYPE(QList<PlayerInfoExtended>);
@@ -142,8 +142,8 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 	public slots:
 		// These have the result ref as the first parameter, so won't be converted to DBus
 		void authenticateSlot(int &res, QString &uname, const QString &pw);
-		void registerPlayerSlot(int &res, const QMap<QString, QString> &);
-		void unregisterPlayerSlot(int &res, int id);
+		void registerUserSlot(int &res, const QMap<QString, QString> &);
+		void unregisterUserSlot(int &res, int id);
 		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QString> &res);
 		void getRegistrationSlot(int &, int, QMap<QString, QString> &);
 		void setInfoSlot(int &, int, const QMap<QString, QString> &);
@@ -153,9 +153,9 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void idToTextureSlot(QByteArray &res, int id);
 
 		// These use private types, so won't be converted to DBus
-		void playerStateChanged(const Player *p);
-		void playerConnected(const Player *p);
-		void playerDisconnected(const Player *p);
+		void userStateChanged(const User *p);
+		void userConnected(const User *p);
+		void userDisconnected(const User *p);
 
 		void channelStateChanged(const Channel *c);
 		void channelCreated(const Channel *c);

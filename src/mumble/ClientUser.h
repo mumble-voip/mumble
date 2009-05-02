@@ -28,29 +28,37 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIO_H
-#define _AUDIO_H
+#ifndef _CLIENTUSER_H
+#define _CLIENTUSER_H
 
-#include "mumble_pch.hpp"
-#include "ClientUser.h"
+#include "User.h"
 
-#define SAMPLE_RATE 48000
-
-typedef QPair<QString,QVariant> audioDevice;
-
-class LoopUser : public ClientUser {
+class ClientUser : public QObject, public User {
 	private:
-		Q_DISABLE_COPY(LoopUser)
-	protected:
-		QMutex qmLock;
-		QTime qtTicker;
-		QTime qtLastFetch;
-		QMultiMap<float, QByteArray> qmPackets;
-		LoopUser();
+		Q_OBJECT
+		Q_DISABLE_COPY(ClientUser)
 	public:
-		static LoopUser lpLoopy;
-		void addFrame(const QByteArray &packet);
-		void fetchFrames();
+		QString qsFriendName;
+		int iTextureWidth;
+		QString getFlagsString() const;
+		ClientUser(QObject *p = NULL);
+		static QHash<unsigned int, ClientUser *> c_qmUsers;
+		static QReadWriteLock c_qrwlUsers;
+		static ClientUser *get(unsigned int);
+		static ClientUser *add(unsigned int, QObject *p = NULL);
+		static ClientUser *match(const ClientUser *p, bool matchname = false);
+		static void remove(unsigned int);
+		static void remove(ClientUser *);
+	public slots:
+		void setTalking(bool talking, bool altspeech);
+		void setMute(bool mute);
+		void setDeaf(bool deaf);
+		void setLocalMute(bool mute);
+		void setSelfMute(bool mute);
+		void setSelfDeaf(bool deaf);
+	signals:
+		void talkingChanged(bool talking);
+		void muteDeafChanged();
 };
 
 #endif

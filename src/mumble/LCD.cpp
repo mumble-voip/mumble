@@ -30,7 +30,7 @@
 */
 
 #include "LCD.h"
-#include "Player.h"
+#include "ClientUser.h"
 #include "Channel.h"
 #include "Global.h"
 #include "Message.h"
@@ -137,8 +137,8 @@ void LCDConfig::load(const Settings &r) {
 		qtwi->setCheckState(3, enabled ? Qt::Checked : Qt::Unchecked);
 	}
 
-	loadSlider(qsMinColWidth, r.iLCDPlayerViewMinColWidth);
-	loadSlider(qsSplitterWidth, r.iLCDPlayerViewSplitterWidth);
+	loadSlider(qsMinColWidth, r.iLCDUserViewMinColWidth);
+	loadSlider(qsSplitterWidth, r.iLCDUserViewSplitterWidth);
 }
 
 void LCDConfig::save() const {
@@ -149,8 +149,8 @@ void LCDConfig::save() const {
 		s.qmLCDDevices.insert(qsName, qtwi->checkState(3) == Qt::Checked);
 	}
 
-	s.iLCDPlayerViewMinColWidth = qsMinColWidth->value();
-	s.iLCDPlayerViewSplitterWidth = qsSplitterWidth->value();
+	s.iLCDUserViewMinColWidth = qsMinColWidth->value();
+	s.iLCDUserViewSplitterWidth = qsSplitterWidth->value();
 }
 
 void LCDConfig::accept() const {
@@ -158,7 +158,7 @@ void LCDConfig::accept() const {
 		bool enabled = s.qmLCDDevices.value(d->name());
 		d->setEnabled(enabled);
 	}
-	g.lcd->updatePlayerView();
+	g.lcd->updateUserView();
 }
 
 void LCDConfig::on_qsMinColWidth_valueChanged(int v) {
@@ -197,12 +197,12 @@ LCD::LCD() : QObject() {
 		d->setEnabled(enabled);
 	}
 	qiLogo = QImage(QLatin1String("skin:mumble.48x48.png")).convertToFormat(QImage::Format_MonoLSB);
-	updatePlayerView();
+	updateUserView();
 }
 
 void LCD::tick() {
 	iFrameIndex ++;
-	updatePlayerView();
+	updateUserView();
 }
 
 void LCD::initBuffers() {
@@ -237,12 +237,12 @@ static bool entriesSort(const ListEntry &a, const ListEntry &b) {
 	return a.qsString < b.qsString;
 }
 
-void LCD::updatePlayerView() {
+void LCD::updateUserView() {
 	if (qhImages.count() == 0)
 		return;
 
 	QStringList qslTalking;
-	Player *me = g.uiSession ? ClientPlayer::get(g.uiSession) : NULL;
+	User *me = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
 	Channel *home = me ? me->cChannel : NULL;
 	bool alert = false;
 
@@ -265,7 +265,7 @@ void LCD::updatePlayerView() {
 			continue;
 		}
 
-		foreach(Player *p, me->cChannel->qlPlayers) {
+		foreach(User *p, me->cChannel->qlUsers) {
 			if (! qmNew.contains(p->uiSession)) {
 				qmNew.insert(p->uiSession, Timer());
 				qmNameCache.insert(p->uiSession, p->qsName);
@@ -274,7 +274,7 @@ void LCD::updatePlayerView() {
 		}
 
 		foreach(unsigned int session, qmNew.keys()) {
-			Player *p = ClientPlayer::get(session);
+			User *p = ClientUser::get(session);
 			if (!p || (p->cChannel != me->cChannel)) {
 				qmNew.remove(session);
 				qmOld.insert(session, Timer());
@@ -301,7 +301,7 @@ void LCD::updatePlayerView() {
 		QMap<unsigned int, Timer> speaking;
 
 		foreach(Channel *c, home->allLinks()) {
-			foreach(Player *p, c->qlPlayers) {
+			foreach(User *p, c->qlUsers) {
 				bool bTalk = p->bTalking;
 				if (bTalk) {
 					speaking.insert(p->uiSession, Timer());
@@ -340,16 +340,16 @@ void LCD::updatePlayerView() {
 
 		const int iWidth = size.width();
 		const int iHeight = size.height();
-		const int iPlayersPerColumn = iHeight / iFontHeight;
-		const int iSplitterWidth = g.s.iLCDPlayerViewSplitterWidth;
-		const int iPlayerColumns = (entries.count() + iPlayersPerColumn - 1) / iPlayersPerColumn;
+		const int iUsersPerColumn = iHeight / iFontHeight;
+		const int iSplitterWidth = g.s.iLCDUserViewSplitterWidth;
+		const int iUserColumns = (entries.count() + iUsersPerColumn - 1) / iUsersPerColumn;
 
-		int iColumns = iPlayerColumns;
+		int iColumns = iUserColumns;
 		int iColumnWidth = 1;
 
 		while (iColumns >= 1) {
 			iColumnWidth = (iWidth - (iColumns-1)*iSplitterWidth) / iColumns;
-			if (iColumnWidth >= g.s.iLCDPlayerViewMinColWidth)
+			if (iColumnWidth >= g.s.iLCDUserViewMinColWidth)
 				break;
 			--iColumns;
 		}
@@ -359,7 +359,7 @@ void LCD::updatePlayerView() {
 
 
 		foreach(const ListEntry &le, entries) {
-			if (row >= iPlayersPerColumn) {
+			if (row >= iUsersPerColumn) {
 				row = 0;
 				++col;
 			}

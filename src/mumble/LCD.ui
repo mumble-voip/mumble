@@ -87,8 +87,8 @@ This field describes the size of an LCD device. The size is given either in pixe
       <item row="0" column="1">
        <widget class="QSlider" name="qsMinColWidth">
         <property name="whatsThis">
-         <string>&lt;p&gt;This option decides the minimum width a column in the Player View.&lt;/p&gt;
-&lt;p&gt;If too many people are speaking at once, the Player View will split itself into columns. You can use this option to pick a compromise between number of players shown on the LCD, and width of player names.&lt;/p&gt;
+         <string>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
+&lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </string>
         </property>
         <property name="minimum">

@@ -29,14 +29,14 @@
 */
 
 #include "Channel.h"
-#include "Player.h"
+#include "User.h"
 #include "Group.h"
 #include "ACL.h"
 
 QHash<int, Channel *> Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
 
-uint qHash(const Channel::qpPlayerLink & pl) {
+uint qHash(const Channel::qpUserLink & pl) {
 	return qHash(pl.first) + qHash(pl.second);
 }
 
@@ -108,13 +108,13 @@ void Channel::unlink(Channel *l) {
 		l->qsPermLinks.remove(this);
 		l->qhLinks.remove(this);
 
-		foreach(qpPlayerLink pl, qsPlayerLinks) {
+		foreach(qpUserLink pl, qsUserLinks) {
 			if (pl.second == l)
-				qsPlayerLinks.remove(pl);
+				qsUserLinks.remove(pl);
 		}
-		foreach(qpPlayerLink pl, l->qsPlayerLinks) {
+		foreach(qpUserLink pl, l->qsUserLinks) {
 			if (pl.second == l)
-				qsPlayerLinks.remove(pl);
+				qsUserLinks.remove(pl);
 		}
 	} else {
 		foreach(Channel *c, qhLinks.keys())
@@ -122,24 +122,24 @@ void Channel::unlink(Channel *l) {
 	}
 }
 
-void Channel::playerLink(Channel *l, Player *p) {
-	qpPlayerLink pl(p, l);
-	if (qsPlayerLinks.contains(pl))
+void Channel::userLink(Channel *l, User *p) {
+	qpUserLink pl(p, l);
+	if (qsUserLinks.contains(pl))
 		return;
 
-	qsPlayerLinks.insert(pl);
-	l->qsPlayerLinks.insert(pl);
+	qsUserLinks.insert(pl);
+	l->qsUserLinks.insert(pl);
 	qhLinks[l]++;
 	l->qhLinks[this]++;
 }
 
-void Channel::playerUnlink(Channel *l, Player *p) {
-	qpPlayerLink pl(p, l);
-	if (! qsPlayerLinks.contains(pl))
+void Channel::userUnlink(Channel *l, User *p) {
+	qpUserLink pl(p, l);
+	if (! qsUserLinks.contains(pl))
 		return;
 
-	qsPlayerLinks.remove(pl);
-	l->qsPlayerLinks.remove(qpPlayerLink(p, this));
+	qsUserLinks.remove(pl);
+	l->qsUserLinks.remove(qpUserLink(p, this));
 	qhLinks[l]--;
 	l->qhLinks[this]--;
 
@@ -183,25 +183,22 @@ void Channel::removeChannel(Channel *c) {
 	qlChannels.removeAll(c);
 }
 
-void Channel::addPlayer(Player *p) {
+void Channel::addUser(User *p) {
 	if (p->cChannel)
-		p->cChannel->removePlayer(p);
-	ClientPlayer *cp = dynamic_cast<ClientPlayer *>(p);
-	if (cp)
-		cp->setParent(this);
+		p->cChannel->removeUser(p);
 	p->cChannel = this;
-	qlPlayers << p;
+	qlUsers << p;
 }
 
-void Channel::removePlayer(Player *p) {
-	foreach(qpPlayerLink pl, qsPlayerLinks) {
+void Channel::removeUser(User *p) {
+	foreach(qpUserLink pl, qsUserLinks) {
 		if (pl.first == p) {
-			qsPlayerLinks.remove(pl);
-			pl.second->qsPlayerLinks.remove(qpPlayerLink(p, this));
+			qsUserLinks.remove(pl);
+			pl.second->qsUserLinks.remove(qpUserLink(p, this));
 		}
 	}
 
-	qlPlayers.removeAll(p);
+	qlUsers.removeAll(p);
 }
 
 Channel::operator const QString() const {

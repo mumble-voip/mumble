@@ -35,6 +35,7 @@
 #include "Message.h"
 #include "ACL.h"
 #include "Group.h"
+#include "ClientUser.h"
 
 #include "ui_ACLEditor.h"
 

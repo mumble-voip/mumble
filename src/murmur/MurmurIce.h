@@ -67,9 +67,9 @@ class MurmurIce : public QObject {
 		void stopped(Server *);
 
 		void authenticateSlot(int &res, QString &uname, const QString &pw);
-		void registerPlayerSlot(int &res, const QMap<QString, QString> &);
-		void unregisterPlayerSlot(int &res, int id);
-		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QString> &res);
+		void registerUserSlot(int &res, const QMap<QString, QString> &);
+		void unregisterUserSlot(int &res, int id);
+		void getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res);
 		void getRegistrationSlot(int &, int, QMap<QString, QString> &);
 		void setInfoSlot(int &, int, const QMap<QString, QString> &);
 		void setTextureSlot(int &res, int id, const QByteArray &texture);
@@ -77,15 +77,15 @@ class MurmurIce : public QObject {
 		void idToNameSlot(QString &res, int id);
 		void idToTextureSlot(QByteArray &res, int id);
 
-		void playerStateChanged(const Player *p);
-		void playerConnected(const Player *p);
-		void playerDisconnected(const Player *p);
+		void userStateChanged(const User *p);
+		void userConnected(const User *p);
+		void userDisconnected(const User *p);
 
 		void channelStateChanged(const Channel *c);
 		void channelCreated(const Channel *c);
 		void channelRemoved(const Channel *c);
 
-		void contextAction(const Player *, const QString &, unsigned int, int);
+		void contextAction(const User *, const QString &, unsigned int, int);
 };
 #endif
 #endif

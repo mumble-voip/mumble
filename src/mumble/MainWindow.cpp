@@ -33,7 +33,7 @@
 #include "Cert.h"
 #include "AudioInput.h"
 #include "ConnectDialog.h"
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "ACLEditor.h"
 #include "BanEditor.h"
@@ -42,7 +42,7 @@
 #include "About.h"
 #include "GlobalShortcut.h"
 #include "VersionCheck.h"
-#include "PlayerModel.h"
+#include "UserModel.h"
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
@@ -152,7 +152,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	on_qmServer_aboutToShow();
 	on_qmChannel_aboutToShow();
-	on_qmPlayer_aboutToShow();
+	on_qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
 
 	setOnTop(g.s.bAlwaysOnTop);
@@ -210,7 +210,7 @@ void MainWindow::createActions() {
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
-	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay between showing everybody, just the players who are talking, and nobody.", "Global Shortcut");
+	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.", "Global Shortcut");
 	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
@@ -236,7 +236,7 @@ void MainWindow::createActions() {
 
 void MainWindow::setupGui()  {
 	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
-	setCentralWidget(qtvPlayers);
+	setCentralWidget(qtvUsers);
 
 #ifdef Q_OS_MAC
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
@@ -249,12 +249,12 @@ void MainWindow::setupGui()  {
 
 	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 
-	pmModel = new PlayerModel(qtvPlayers);
+	pmModel = new UserModel(qtvUsers);
 
-	qtvPlayers->setModel(pmModel);
-	qtvPlayers->setItemDelegate(new PlayerDelegate(qtvPlayers));
+	qtvUsers->setModel(pmModel);
+	qtvUsers->setItemDelegate(new UserDelegate(qtvUsers));
 
-	qtvPlayers->setRowHidden(0, QModelIndex(), true);
+	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
 	qaServerConnect->setShortcuts(QKeySequence::Open);
 	qaServerDisconnect->setShortcuts(QKeySequence::Close);
@@ -290,7 +290,7 @@ void MainWindow::setupGui()  {
 		restoreGeometry(g.s.qbaMainWindowGeometry);
 
 	restoreState(g.s.qbaMainWindowState);
-	qtvPlayers->header()->restoreState(g.s.qbaHeaderState);
+	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
 
 	setupView(false);
 
@@ -307,7 +307,7 @@ void MainWindow::setupGui()  {
 MainWindow::~MainWindow() {
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
-	delete qtvPlayers;
+	delete qtvUsers;
 	delete Channel::get(0);
 }
 
@@ -339,7 +339,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		g.s.qbaMinimalViewGeometry = saveGeometry();
 	} else {
 		g.s.qbaMainWindowGeometry = saveGeometry();
-		g.s.qbaHeaderState = qtvPlayers->header()->saveState();
+		g.s.qbaHeaderState = qtvUsers->header()->saveState();
 	}
 	QMainWindow::closeEvent(e);
 	qApp->quit();
@@ -353,23 +353,23 @@ void MainWindow::hideEvent(QHideEvent *e) {
 #endif
 }
 
-void MainWindow::on_qtvPlayers_customContextMenuRequested(const QPoint &mpos) {
-	QModelIndex idx = qtvPlayers->indexAt(mpos);
+void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
+	QModelIndex idx = qtvUsers->indexAt(mpos);
 	if (! idx.isValid())
-		idx = qtvPlayers->currentIndex();
+		idx = qtvUsers->currentIndex();
 	else
-		qtvPlayers->setCurrentIndex(idx);
-	Player *p = pmModel->getPlayer(idx);
+		qtvUsers->setCurrentIndex(idx);
+	User *p = pmModel->getUser(idx);
 
 	if (p) {
-		qmPlayer->popup(qtvPlayers->mapToGlobal(mpos), qaPlayerMute);
+		qmUser->popup(qtvUsers->mapToGlobal(mpos), qaUserMute);
 	} else {
-		qmChannel->popup(qtvPlayers->mapToGlobal(mpos), qaChannelACL);
+		qmChannel->popup(qtvUsers->mapToGlobal(mpos), qaChannelACL);
 	}
 }
 
 void MainWindow::updateTrayIcon() {
-	ClientPlayer *p=ClientPlayer::get(g.uiSession);
+	ClientUser *p=ClientUser::get(g.uiSession);
 
 	if (g.s.bDeaf || (p && p->bDeaf)) {
 		qstiIcon->setIcon(qiIconDeaf);
@@ -380,10 +380,10 @@ void MainWindow::updateTrayIcon() {
 	}
 }
 
-void MainWindow::on_qtvPlayers_doubleClicked(const QModelIndex &idx) {
-	Player *p = pmModel->getPlayer(idx);
+void MainWindow::on_qtvUsers_doubleClicked(const QModelIndex &idx) {
+	User *p = pmModel->getUser(idx);
 	if (p) {
-		on_qaPlayerTextMessage_triggered();
+		on_qaUserTextMessage_triggered();
 		return;
 	}
 
@@ -475,7 +475,7 @@ void MainWindow::findDesiredChannel() {
 			}
 		}
 	}
-	if (found && (chan != ClientPlayer::get(g.uiSession)->cChannel)) {
+	if (found && (chan != ClientUser::get(g.uiSession)->cChannel)) {
 		MumbleProto::UserState mpus;
 		mpus.set_session(g.uiSession);
 		mpus.set_channel_id(chan->iId);
@@ -506,7 +506,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 	if (toggle_minimize) {
 		if (! showit) {
 			g.s.qbaMainWindowGeometry = saveGeometry();
-			g.s.qbaHeaderState = qtvPlayers->header()->saveState();
+			g.s.qbaHeaderState = qtvUsers->header()->saveState();
 		} else {
 			g.s.qbaMinimalViewGeometry = saveGeometry();
 		}
@@ -527,7 +527,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	qdwLog->setVisible(showit);
 	qdwChat->setVisible(showit && g.s.bShowChatbar);
-	qtvPlayers->header()->setVisible(showit);
+	qtvUsers->header()->setVisible(showit);
 	menuBar()->setVisible(showit);
 
 	if (toggle_minimize) {
@@ -658,81 +658,81 @@ void MainWindow::on_qaServerInformation_triggered() {
 	}
 }
 
-void MainWindow::on_qmPlayer_aboutToShow() {
-	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qmUser_aboutToShow() {
+	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	bool self = p && (p->uiSession == g.uiSession);
 
-	qmPlayer->clear();
+	qmUser->clear();
 
 	if (g.pPermissions & (ChanACL::Kick | ChanACL::Ban | ChanACL::Write))
-		qmPlayer->addAction(qaPlayerKick);
+		qmUser->addAction(qaUserKick);
 	if (g.pPermissions & (ChanACL::Ban | ChanACL::Write))
-		qmPlayer->addAction(qaPlayerBan);
-	qmPlayer->addAction(qaPlayerMute);
-	qmPlayer->addAction(qaPlayerDeaf);
-	qmPlayer->addAction(qaPlayerLocalMute);
-	qmPlayer->addAction(qaPlayerComment);
-	qmPlayer->addAction(qaPlayerTextMessage);
+		qmUser->addAction(qaUserBan);
+	qmUser->addAction(qaUserMute);
+	qmUser->addAction(qaUserDeaf);
+	qmUser->addAction(qaUserLocalMute);
+	qmUser->addAction(qaUserComment);
+	qmUser->addAction(qaUserTextMessage);
 
 	if (p && (p->iId < 0) & (g.pPermissions & (ChanACL::Register | ChanACL::Write))) {
-		qmPlayer->addSeparator();
-		qmPlayer->addAction(qaPlayerRegister);
+		qmUser->addSeparator();
+		qmUser->addAction(qaUserRegister);
 	}
 
 	if (p && ! p->qsHash.isEmpty() && (!p->qsFriendName.isEmpty() || (p->uiSession != g.uiSession))) {
-		qmPlayer->addSeparator();
+		qmUser->addSeparator();
 		if (p->qsFriendName.isEmpty())
-			qmPlayer->addAction(qaPlayerFriendAdd);
+			qmUser->addAction(qaUserFriendAdd);
 		else {
 			if (p->qsFriendName != p->qsName)
-				qmPlayer->addAction(qaPlayerFriendUpdate);
-			qmPlayer->addAction(qaPlayerFriendRemove);
+				qmUser->addAction(qaUserFriendUpdate);
+			qmUser->addAction(qaUserFriendRemove);
 		}
 	}
 
 	if (self) {
-		qmPlayer->addSeparator();
-		qmPlayer->addAction(qaAudioMute);
-		qmPlayer->addAction(qaAudioDeaf);
+		qmUser->addSeparator();
+		qmUser->addAction(qaAudioMute);
+		qmUser->addAction(qaAudioDeaf);
 	}
 
 	if (g.s.bMinimalView) {
-		qmPlayer->addSeparator();
-		qmPlayer->addMenu(qmServer);
-		qmPlayer->addMenu(qmAudio);
-		qmPlayer->addMenu(qmConfig);
-		qmPlayer->addMenu(qmHelp);
+		qmUser->addSeparator();
+		qmUser->addMenu(qmServer);
+		qmUser->addMenu(qmAudio);
+		qmUser->addMenu(qmConfig);
+		qmUser->addMenu(qmHelp);
 	}
 
-	if (! qlPlayerActions.isEmpty()) {
-		qmPlayer->addSeparator();
-		foreach(QAction *a, qlPlayerActions)
-			qmPlayer->addAction(a);
+	if (! qlUserActions.isEmpty()) {
+		qmUser->addSeparator();
+		foreach(QAction *a, qlUserActions)
+			qmUser->addAction(a);
 	}
 
 	if (! p) {
-		qaPlayerKick->setEnabled(false);
-		qaPlayerBan->setEnabled(false);
-		qaPlayerMute->setEnabled(false);
-		qaPlayerLocalMute->setEnabled(false);
-		qaPlayerDeaf->setEnabled(false);
-		qaPlayerTextMessage->setEnabled(false);
+		qaUserKick->setEnabled(false);
+		qaUserBan->setEnabled(false);
+		qaUserMute->setEnabled(false);
+		qaUserLocalMute->setEnabled(false);
+		qaUserDeaf->setEnabled(false);
+		qaUserTextMessage->setEnabled(false);
 	} else {
-		qaPlayerKick->setEnabled(! self);
-		qaPlayerBan->setEnabled(! self);
-		qaPlayerMute->setEnabled(! self || p->bMute);
-		qaPlayerDeaf->setEnabled(! self || p->bDeaf);
-		qaPlayerTextMessage->setEnabled(true);
-		qaPlayerLocalMute->setEnabled(! self);
+		qaUserKick->setEnabled(! self);
+		qaUserBan->setEnabled(! self);
+		qaUserMute->setEnabled(! self || p->bMute);
+		qaUserDeaf->setEnabled(! self || p->bDeaf);
+		qaUserTextMessage->setEnabled(true);
+		qaUserLocalMute->setEnabled(! self);
 
-		qaPlayerMute->setChecked(p->bMute);
-		qaPlayerDeaf->setChecked(p->bDeaf);
-		qaPlayerLocalMute->setChecked(p->bLocalMute);
+		qaUserMute->setChecked(p->bMute);
+		qaUserDeaf->setChecked(p->bDeaf);
+		qaUserLocalMute->setChecked(p->bLocalMute);
 	}
 }
 
-void MainWindow::on_qaPlayerMute_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserMute_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
@@ -742,16 +742,16 @@ void MainWindow::on_qaPlayerMute_triggered() {
 	g.sh->sendMessage(mpus);
 }
 
-void MainWindow::on_qaPlayerLocalMute_triggered() {
-	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserLocalMute_triggered() {
+	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
-	p->setLocalMute(qaPlayerLocalMute->isChecked());
+	p->setLocalMute(qaUserLocalMute->isChecked());
 }
 
-void MainWindow::on_qaPlayerDeaf_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserDeaf_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
@@ -761,15 +761,15 @@ void MainWindow::on_qaPlayerDeaf_triggered() {
 	g.sh->sendMessage(mpus);
 }
 
-void MainWindow::on_qaPlayerRegister_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserRegister_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
 	unsigned int session = p->uiSession;
 
-	if (QMessageBox::question(this, tr("Register player %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
-		p = ClientPlayer::get(session);
+	if (QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
+		p = ClientUser::get(session);
 		if (! p)
 			return;
 		MumbleProto::UserState mpus;
@@ -779,8 +779,8 @@ void MainWindow::on_qaPlayerRegister_triggered() {
 	}
 }
 
-void MainWindow::on_qaPlayerFriendAdd_triggered() {
-	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserFriendAdd_triggered() {
+	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
@@ -788,12 +788,12 @@ void MainWindow::on_qaPlayerFriendAdd_triggered() {
 	pmModel->setFriendName(p, p->qsName);
 }
 
-void MainWindow::on_qaPlayerFriendUpdate_triggered() {
-	on_qaPlayerFriendAdd_triggered();
+void MainWindow::on_qaUserFriendUpdate_triggered() {
+	on_qaUserFriendAdd_triggered();
 }
 
-void MainWindow::on_qaPlayerFriendRemove_triggered() {
-	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserFriendRemove_triggered() {
+	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
@@ -801,17 +801,17 @@ void MainWindow::on_qaPlayerFriendRemove_triggered() {
 	pmModel->setFriendName(p, QString());
 }
 
-void MainWindow::on_qaPlayerKick_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserKick_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
 	unsigned int session = p->uiSession;
 
 	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Kicking player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
+	QString reason = QInputDialog::getText(this, tr("Kicking user %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
 
-	p = ClientPlayer::get(session);
+	p = ClientUser::get(session);
 	if (!p)
 		return;
 
@@ -823,16 +823,16 @@ void MainWindow::on_qaPlayerKick_triggered() {
 	}
 }
 
-void MainWindow::on_qaPlayerBan_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserBan_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	if (!p)
 		return;
 
 	unsigned int session = p->uiSession;
 
 	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Banning player %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
-	p = ClientPlayer::get(session);
+	QString reason = QInputDialog::getText(this, tr("Banning user %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
+	p = ClientUser::get(session);
 	if (!p)
 		return;
 
@@ -845,8 +845,8 @@ void MainWindow::on_qaPlayerBan_triggered() {
 	}
 }
 
-void MainWindow::on_qaPlayerTextMessage_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserTextMessage_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
 
 	if (!p)
 		return;
@@ -857,7 +857,7 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 	texm->setWindowTitle(tr("Sending message to %1").arg(p->qsName));
 	int res = texm->exec();
 
-	p = ClientPlayer::get(session);
+	p = ClientUser::get(session);
 
 	if (p && (res==QDialog::Accepted)) {
 		MumbleProto::TextMessage mptm;
@@ -869,8 +869,8 @@ void MainWindow::on_qaPlayerTextMessage_triggered() {
 	delete texm;
 }
 
-void MainWindow::on_qaPlayerComment_triggered() {
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+void MainWindow::on_qaUserComment_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
 
 	if (!p)
 		return;
@@ -878,14 +878,14 @@ void MainWindow::on_qaPlayerComment_triggered() {
 	unsigned int session = p->uiSession;
 
 	::TextMessage *texm = new ::TextMessage(this);
-	texm->setWindowTitle(tr("Change comment on player %1").arg(p->qsName));
+	texm->setWindowTitle(tr("Change comment on user %1").arg(p->qsName));
 
 	const QString html = QTextDocumentFragment::fromPlainText(p->qsComment).toHtml();
 
 	texm->qteEdit->setText(html);
 	int res = texm->exec();
 
-	p = ClientPlayer::get(session);
+	p = ClientUser::get(session);
 
 	if (p && (res==QDialog::Accepted)) {
 		MumbleProto::UserState mpus;
@@ -904,8 +904,8 @@ void MainWindow::on_qaQuit_triggered() {
 void MainWindow::on_qleChat_returnPressed() {
 	if (qleChat->text().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
 
-	Player *p = pmModel->getPlayer(qtvPlayers->currentIndex());
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	MumbleProto::TextMessage mptm;
 	QString qsText;
@@ -920,12 +920,12 @@ void MainWindow::on_qleChat_returnPressed() {
 	if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree message
 		if (c == NULL) // If no channel selected fallback to current one
-			c = ClientPlayer::get(g.uiSession)->cChannel;
+			c = ClientUser::get(g.uiSession)->cChannel;
 
 		mptm.add_channel_id(c->iId);
 		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(qsText), tr("Message to channel %1").arg(c->qsName));
 	} else {
-		// Player message
+		// User message
 		mptm.add_session(p->uiSession);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(qsText), tr("Message to %1").arg(p->qsName));
 	}
@@ -948,7 +948,7 @@ void MainWindow::on_qmConfig_aboutToShow() {
 }
 
 void MainWindow::on_qmChannel_aboutToShow() {
-	QModelIndex idx = qtvPlayers->currentIndex();
+	QModelIndex idx = qtvUsers->currentIndex();
 
 	qmChannel->clear();
 	qmChannel->addAction(qaChannelAdd);
@@ -988,7 +988,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 		descUpdate = true;
 
 		Channel *c = pmModel->getChannel(idx);
-		Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 		if (c && c->iId != 0) {
 			rename = true;
@@ -1019,7 +1019,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 
 void MainWindow::on_qaChannelAdd_triggered() {
 	bool ok;
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 	int iParent = c ? c->iId : 0;
 	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, QString(), &ok);
 
@@ -1037,7 +1037,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 
 void MainWindow::on_qaChannelRemove_triggered() {
 	int ret;
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 	if (! c)
 		return;
 
@@ -1058,7 +1058,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 
 void MainWindow::on_qaChannelRename_triggered() {
 	bool ok;
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 	if (! c)
 		return;
 
@@ -1079,7 +1079,7 @@ void MainWindow::on_qaChannelRename_triggered() {
 }
 
 void MainWindow::on_qaChannelDescUpdate_triggered() {
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 	if (! c)
 		return;
 
@@ -1105,7 +1105,7 @@ void MainWindow::on_qaChannelDescUpdate_triggered() {
 }
 
 void MainWindow::on_qaChannelACL_triggered() {
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 	int id = c ? c->iId : 0;
 
 	MumbleProto::ACL mpacl;
@@ -1122,8 +1122,8 @@ void MainWindow::on_qaChannelACL_triggered() {
 }
 
 void MainWindow::on_qaChannelLink_triggered() {
-	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
-	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = ClientUser::get(g.uiSession)->cChannel;
+	Channel *l = pmModel->getChannel(qtvUsers->currentIndex());
 	if (! l)
 		l = Channel::get(0);
 
@@ -1134,8 +1134,8 @@ void MainWindow::on_qaChannelLink_triggered() {
 }
 
 void MainWindow::on_qaChannelUnlink_triggered() {
-	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
-	Channel *l = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = ClientUser::get(g.uiSession)->cChannel;
+	Channel *l = pmModel->getChannel(qtvUsers->currentIndex());
 	if (! l)
 		l = Channel::get(0);
 
@@ -1146,7 +1146,7 @@ void MainWindow::on_qaChannelUnlink_triggered() {
 }
 
 void MainWindow::on_qaChannelUnlinkAll_triggered() {
-	Channel *c = ClientPlayer::get(g.uiSession)->cChannel;
+	Channel *c = ClientUser::get(g.uiSession)->cChannel;
 
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(c->iId);
@@ -1156,7 +1156,7 @@ void MainWindow::on_qaChannelUnlinkAll_triggered() {
 }
 
 void MainWindow::on_qaChannelSendMessage_triggered() {
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (!c)
 		return;
@@ -1180,7 +1180,7 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 }
 
 void MainWindow::on_qaChannelSendTreeMessage_triggered() {
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (!c)
 		return;
@@ -1389,7 +1389,7 @@ void MainWindow::pushLink(bool down) {
 	if (! gs)
 		return;
 	int idx = gs->data.toInt();
-	Channel *home = ClientPlayer::get(g.uiSession)->cChannel;
+	Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 	Channel *target = NULL;
 	switch (idx) {
@@ -1427,7 +1427,7 @@ void MainWindow::serverConnected() {
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 	g.l->clearIgnore();
-	g.l->setIgnore(Log::PlayerJoin);
+	g.l->setIgnore(Log::UserJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
 	QString host, uname, pw;
 	unsigned short port;
@@ -1438,7 +1438,7 @@ void MainWindow::serverConnected() {
 	qaServerBanList->setEnabled(true);
 
 	pmModel->renameChannel(Channel::get(0), tr("Root"));
-	qtvPlayers->setRowHidden(0, QModelIndex(), false);
+	qtvUsers->setRowHidden(0, QModelIndex(), false);
 
 	if (g.s.bMute || g.s.bDeaf) {
 		MumbleProto::UserState mpus;
@@ -1475,17 +1475,17 @@ void MainWindow::serverDisconnected(QString reason) {
 	QSet<QAction *> qs;
 	qs += qlServerActions.toSet();
 	qs += qlChannelActions.toSet();
-	qs += qlPlayerActions.toSet();
+	qs += qlUserActions.toSet();
 
 	foreach(QAction *a, qs)
 		delete a;
 
 	qlServerActions.clear();
 	qlChannelActions.clear();
-	qlPlayerActions.clear();
+	qlUserActions.clear();
 
 	pmModel->removeAll();
-	qtvPlayers->setRowHidden(0, QModelIndex(), true);
+	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
@@ -1626,8 +1626,8 @@ void MainWindow::on_qteLog_highlighted(const QUrl &url) {
 void MainWindow::context_triggered() {
 	QAction *a = qobject_cast<QAction *>(sender());
 
-	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
-	ClientPlayer *p = pmModel->getPlayer(qtvPlayers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 
 	MumbleProto::ContextAction mpca;
 	mpca.set_action(u8(a->data().toString()));

@@ -32,7 +32,7 @@
 #include "AudioOutput.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
-#include "Player.h"
+#include "User.h"
 #include "Plugins.h"
 #include "Message.h"
 #include "Global.h"
@@ -484,7 +484,7 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 
 void AudioInput::encodeAudioFrame() {
 	int iArg;
-	ClientPlayer *p=ClientPlayer::get(g.uiSession);
+	ClientUser *p=ClientUser::get(g.uiSession);
 	int i;
 	float sum;
 	short max;
@@ -704,7 +704,7 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	}
 
 	if (g.s.lmLoopMode == Settings::Local)
-		LoopPlayer::lpLoopy.addFrame(QByteArray(data+1, pds.size()));
+		LoopUser::lpLoopy.addFrame(QByteArray(data+1, pds.size()));
 	else if (g.sh)
 		g.sh->sendMessage(data, pds.size() + 1);
 

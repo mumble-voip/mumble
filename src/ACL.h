@@ -34,7 +34,7 @@
 #include "murmur_pch.h"
 
 class Channel;
-class Player;
+class User;
 
 class ChanACL : public QObject {
 	private:
@@ -66,7 +66,7 @@ class ChanACL : public QObject {
 		Q_DECLARE_FLAGS(Permissions, Perm)
 
 		typedef QHash<Channel *, Permissions> ChanCache;
-		typedef QHash<Player *, ChanCache * > ACLCache;
+		typedef QHash<User *, ChanCache * > ACLCache;
 
 		Channel *c;
 		bool bApplyHere;
@@ -74,13 +74,13 @@ class ChanACL : public QObject {
 
 		bool bInherited;
 
-		int iPlayerId;
+		int iUserId;
 		QString qsGroup;
 		Permissions pAllow;
 		Permissions pDeny;
 
 		ChanACL(Channel *c);
-		static bool hasPermission(Player *p, Channel *c, QFlags<Perm> perm, ACLCache &cache);
+		static bool hasPermission(User *p, Channel *c, QFlags<Perm> perm, ACLCache &cache);
 		static QString permName(QFlags<Perm> p);
 		static QString permName(Perm p);
 		static QString whatsThis(Perm p);

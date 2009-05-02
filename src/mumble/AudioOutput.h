@@ -31,10 +31,10 @@
 #ifndef _AUDIOOUTPUT_H
 #define _AUDIOOUTPUT_H
 
-// AudioOutput depends on Player being valid. This means it's important
-// to removeBuffer from here BEFORE MainWindow gets any PlayerLeft
-// messages. Any decendant player should feel free to remove unused
-// AudioOutputPlayer objects; it's better to recreate them than
+// AudioOutput depends on User being valid. This means it's important
+// to removeBuffer from here BEFORE MainWindow gets any UserLeft
+// messages. Any decendant user should feel free to remove unused
+// AudioOutputUser objects; it's better to recreate them than
 // having them use resources while unused.
 
 #ifndef SPEAKER_FRONT_LEFT
@@ -63,7 +63,7 @@
 #include "smallft.h"
 
 class AudioOutput;
-class ClientPlayer;
+class ClientUser;
 
 typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
@@ -87,17 +87,17 @@ class AudioOutputRegistrar {
 		virtual bool usesOutputDelay() const;
 };
 
-class AudioOutputPlayer : public QObject {
+class AudioOutputUser : public QObject {
 		friend class AudioOutput;
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutputPlayer)
+		Q_DISABLE_COPY(AudioOutputUser)
 	protected:
 		unsigned int iBufferSize;
 		void resizeBuffer(unsigned int newsize);
 	public:
-		AudioOutputPlayer(const QString name);
-		~AudioOutputPlayer();
+		AudioOutputUser(const QString name);
+		~AudioOutputUser();
 		const QString qsName;
 		float *pfBuffer;
 		float *pfVolume;
@@ -105,7 +105,7 @@ class AudioOutputPlayer : public QObject {
 		virtual bool needSamples(unsigned int snum) = 0;
 };
 
-class AudioOutputSpeech : public AudioOutputPlayer {
+class AudioOutputSpeech : public AudioOutputUser {
 		friend class AudioOutput;
 	private:
 		Q_OBJECT
@@ -135,16 +135,16 @@ class AudioOutputSpeech : public AudioOutputPlayer {
 		static int speexCallback(SpeexBits *bits, void *state, void *data);
 	public:
 		int iMissedFrames;
-		ClientPlayer *p;
+		ClientUser *p;
 
 		virtual bool needSamples(unsigned int snum);
 
 		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
-		AudioOutputSpeech(ClientPlayer *, unsigned int freq);
+		AudioOutputSpeech(ClientUser *, unsigned int freq);
 		~AudioOutputSpeech();
 };
 
-class AudioOutputSample : public AudioOutputPlayer {
+class AudioOutputSample : public AudioOutputUser {
 		friend class AudioOutput;
 	private:
 		Q_OBJECT
@@ -169,7 +169,7 @@ class AudioOutputSample : public AudioOutputPlayer {
 		~AudioOutputSample();
 };
 
-class AudioSine : public AudioOutputPlayer {
+class AudioSine : public AudioOutputUser {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioSine)
@@ -204,9 +204,9 @@ class AudioOutput : public QThread {
 		unsigned int iChannels;
 		unsigned int iSampleSize;
 		QReadWriteLock qrwlOutputs;
-		QMultiHash<const ClientPlayer *, AudioOutputPlayer *> qmOutputs;
+		QMultiHash<const ClientUser *, AudioOutputUser *> qmOutputs;
 
-		virtual void removeBuffer(AudioOutputPlayer *);
+		virtual void removeBuffer(AudioOutputUser *);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
 		bool mix(void *output, unsigned int nsamp);
 	public:
@@ -214,8 +214,8 @@ class AudioOutput : public QThread {
 
 		AudioOutput();
 		~AudioOutput();
-		void addFrameToBuffer(ClientPlayer *, const QByteArray &, unsigned int iSeq);
-		void removeBuffer(const ClientPlayer *);
+		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq);
+		void removeBuffer(const ClientUser *);
 		AudioSine *playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3f);
 		AudioOutputSample *playSample(const QString &filename, bool loop);
 		void run() = 0;

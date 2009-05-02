@@ -216,7 +216,7 @@ void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
 	}
 }
 
-void MurmurDBus::registerPlayerSlot(int &res, const QMap<QString, QString> &info) {
+void MurmurDBus::registerUserSlot(int &res, const QMap<QString, QString> &info) {
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "registerPlayer", info.value("name"));
 	if (reply.isValid()) {
@@ -226,7 +226,7 @@ void MurmurDBus::registerPlayerSlot(int &res, const QMap<QString, QString> &info
 	}
 }
 
-void MurmurDBus::unregisterPlayerSlot(int &res, int id) {
+void MurmurDBus::unregisterUserSlot(int &res, int id) {
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "unregisterPlayer", id);
 	if (reply.isValid())
@@ -317,8 +317,8 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
 }
 
 #define PLAYER_SETUP_VAR(var) \
-  User *pPlayer = server->qhUsers.value(var); \
-  if (! pPlayer) { \
+  ServerUser *pUser = server->qhUsers.value(var); \
+  if (! pUser) { \
     qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.session", "Invalid session id")); \
     return; \
   }
@@ -336,8 +336,8 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
 
 void MurmurDBus::getPlayers(QList<PlayerInfoExtended> &a) {
 	a.clear();
-	foreach(Player *p, server->qhUsers) {
-		if (p->sState == Player::Authenticated)
+	foreach(User *p, server->qhUsers) {
+		if (p->sState == User::Authenticated)
 			a << PlayerInfoExtended(p);
 	}
 }
@@ -369,21 +369,21 @@ void MurmurDBus::kickPlayer(unsigned int session, const QString &reason, const Q
 
 void MurmurDBus::getPlayerState(unsigned int session, const QDBusMessage &msg, PlayerInfo &pi) {
 	PLAYER_SETUP;
-	pi = PlayerInfo(pPlayer);
+	pi = PlayerInfo(pUser);
 }
 
 void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) {
 	PLAYER_SETUP_VAR(npi.session);
 	CHANNEL_SETUP_VAR(npi.channel);
-	PlayerInfo pi(pPlayer);
+	PlayerInfo pi(pUser);
 
-	server->setPlayerState(pPlayer, cChannel, npi.mute, npi.deaf, npi.suppressed);
+	server->setUserState(pUser, cChannel, npi.mute, npi.deaf, npi.suppressed);
 }
 
 void MurmurDBus::sendMessage(unsigned int session, const QString &text, const QDBusMessage &msg) {
 	PLAYER_SETUP;
 
-	server->sendTextMessage(NULL, pPlayer, false, text);
+	server->sendTextMessage(NULL, pUser, false, text);
 }
 
 void MurmurDBus::sendMessageChannel(int id, bool tree, const QString &text, const QDBusMessage &msg) {
@@ -526,7 +526,7 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 		a = new ChanACL(cChannel);
 		a->bApplyHere = ai.applyHere;
 		a->bApplySubs = ai.applySubs;
-		a->iPlayerId = ai.playerid;
+		a->iUserId = ai.playerid;
 		a->qsGroup = ai.group;
 		a->pDeny = static_cast<ChanACL::Permissions>(ai.deny) & ChanACL::All;
 		a->pAllow = static_cast<ChanACL::Permissions>(ai.allow) & ChanACL::All;
@@ -580,7 +580,7 @@ void MurmurDBus::getPlayerIds(const QStringList &names, const QDBusMessage &, QL
 void MurmurDBus::registerPlayer(const QString &name, const QDBusMessage &msg, int &id) {
 	QMap<QString, QString> info;
 	info.insert("name", name);
-	id = server->registerPlayer(info);
+	id = server->registerUser(info);
 	if (id < 0) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
 		return;
@@ -588,53 +588,53 @@ void MurmurDBus::registerPlayer(const QString &name, const QDBusMessage &msg, in
 }
 
 void MurmurDBus::unregisterPlayer(int id, const QDBusMessage &msg) {
-	if (! server->unregisterPlayer(id)) {
+	if (! server->unregisterUser(id)) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 }
 
-void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlayer &player) {
+void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlayer &user) {
 	QMap<QString, QString> info = server->getRegistration(id);
 	if (info.isEmpty()) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 
-	player.id = id;
-	player.name = info.value("name");
-	player.email = info.value("email");
+	user.id = id;
+	user.name = info.value("name");
+	user.email = info.value("email");
 }
 
 void MurmurDBus::setRegistration(int id, const QString &name, const QString &email, const QString &pw, const QDBusMessage &msg) {
-	RegisteredPlayer player;
-	player.id = id;
-	player.name = name;
-	player.email = email;
-	player.pw = pw;
-	updateRegistration(player, msg);
+	RegisteredPlayer user;
+	user.id = id;
+	user.name = name;
+	user.email = email;
+	user.pw = pw;
+	updateRegistration(user, msg);
 }
 
-void MurmurDBus::updateRegistration(const RegisteredPlayer &player, const QDBusMessage &msg) {
+void MurmurDBus::updateRegistration(const RegisteredPlayer &user, const QDBusMessage &msg) {
 	QMap<QString, QString> info;
 
-	if (! player.name.isEmpty())
-		info.insert("name", player.name);
+	if (! user.name.isEmpty())
+		info.insert("name", user.name);
 
-	if (! player.email.isEmpty())
-		info.insert("email", player.email);
+	if (! user.email.isEmpty())
+		info.insert("email", user.email);
 
-	if (! player.pw.isEmpty())
-		info.insert("pw", player.pw);
+	if (! user.pw.isEmpty())
+		info.insert("pw", user.pw);
 
-	if (info.isEmpty() || !server->setInfo(player.id, info)) {
+	if (info.isEmpty() || !server->setInfo(user.id, info)) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 }
 
 void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture) {
-	if (! server->isPlayerId(id)) {
+	if (! server->isUserId(id)) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
@@ -642,7 +642,7 @@ void MurmurDBus::getTexture(int id, const QDBusMessage &msg, QByteArray &texture
 }
 
 void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessage &msg) {
-	if (! server->isPlayerId(id)) {
+	if (! server->isUserId(id)) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
@@ -652,15 +652,15 @@ void MurmurDBus::setTexture(int id, const QByteArray &texture, const QDBusMessag
 	}
 }
 
-void MurmurDBus::getRegisteredPlayers(const QString &filter, QList<RegisteredPlayer> &players) {
-	players.clear();
-	QMap<int, QString > l = server->getRegisteredPlayers(filter);
+void MurmurDBus::getRegisteredPlayers(const QString &filter, QList<RegisteredPlayer> &users) {
+	users.clear();
+	QMap<int, QString > l = server->getRegisteredUsers(filter);
 	QMap<int, QString >::const_iterator i;
 	for (i = l.constBegin(); i != l.constEnd(); ++i) {
 		RegisteredPlayer r;
 		r.id = i.key();
 		r.name = i.value();
-		players << r;
+		users << r;
 	}
 }
 
@@ -693,13 +693,13 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 	server->log(QString("DBus Authenticator set to %1 %2 (%3)").arg(qsAuthService).arg(qsAuthPath).arg(reentrant));
 }
 
-void MurmurDBus::setTemporaryGroups(int channel, int playerid, const QStringList &groups, const QDBusMessage &msg) {
+void MurmurDBus::setTemporaryGroups(int channel, int userid, const QStringList &groups, const QDBusMessage &msg) {
 	CHANNEL_SETUP_VAR(channel);
 
-	server->setTempGroups(playerid, cChannel, groups);
+	server->setTempGroups(userid, cChannel, groups);
 }
 
-PlayerInfo::PlayerInfo(const Player *p) {
+PlayerInfo::PlayerInfo(const User *p) {
 	session = p->uiSession;
 	mute = p->bMute;
 	deaf = p->bDeaf;
@@ -709,11 +709,11 @@ PlayerInfo::PlayerInfo(const Player *p) {
 	channel = p->cChannel->iId;
 }
 
-PlayerInfoExtended::PlayerInfoExtended(const Player *p) : PlayerInfo(p) {
+PlayerInfoExtended::PlayerInfoExtended(const User *p) : PlayerInfo(p) {
 	id = p->iId;
 	name = p->qsName;
 
-	const User *u = static_cast<const User *>(p);
+	const ServerUser *u = static_cast<const ServerUser *>(p);
 	onlinesecs = u->bwr.onlineSeconds();
 	bytespersec = u->bwr.bandwidth();
 }
@@ -730,7 +730,7 @@ ACLInfo::ACLInfo(const ChanACL *acl) {
 	applyHere = acl->bApplyHere;
 	applySubs = acl->bApplySubs;
 	inherited = false;
-	playerid = acl->iPlayerId;
+	playerid = acl->iUserId;
 	group = acl->qsGroup;
 	allow = acl->pAllow;
 	deny = acl->pDeny;
@@ -761,15 +761,15 @@ LogEntry::LogEntry(const ServerDB::LogRecord &r) {
 	txt = r.second;
 }
 
-void MurmurDBus::playerStateChanged(const Player *p) {
+void MurmurDBus::userStateChanged(const User *p) {
 	emit playerStateChanged(PlayerInfo(p));
 }
 
-void MurmurDBus::playerConnected(const Player *p) {
+void MurmurDBus::userConnected(const User *p) {
 	emit playerConnected(PlayerInfo(p));
 }
 
-void MurmurDBus::playerDisconnected(const Player *p) {
+void MurmurDBus::userDisconnected(const User *p) {
 	emit playerDisconnected(PlayerInfo(p));
 }
 

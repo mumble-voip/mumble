@@ -307,13 +307,13 @@
       <item row="1" column="3">
        <widget class="QSlider" name="qsMinDistance">
         <property name="toolTip">
-         <string>Minimum distance to player before sound volume decreases</string>
+         <string>Minimum distance to user before sound volume decreases</string>
         </property>
         <property name="statusTip">
          <string/>
         </property>
         <property name="whatsThis">
-         <string>This sets the minimum distance for sound calculations. The volume of other players' speech will not decrease until they are at least this far away from you.</string>
+         <string>This sets the minimum distance for sound calculations. The volume of other users' speech will not decrease until they are at least this far away from you.</string>
         </property>
         <property name="minimum">
          <number>10</number>
@@ -355,7 +355,7 @@
          <string>Maximum distance, beyond which speech volume won't decrease</string>
         </property>
         <property name="whatsThis">
-         <string>This sets the maximum distance for sound calculations. When farther away than this, other players' speech volume will not decrease any further.</string>
+         <string>This sets the maximum distance for sound calculations. When farther away than this, other users' speech volume will not decrease any further.</string>
         </property>
         <property name="minimum">
          <number>10</number>
@@ -571,7 +571,7 @@
          <string>Desired loopback mode</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</string>
+         <string>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</string>
         </property>
        </widget>
       </item>

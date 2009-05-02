@@ -30,7 +30,7 @@
 
 #include "murmur_pch.h"
 
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "ACL.h"
 #include "Group.h"
@@ -68,7 +68,7 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 	return qlSockets.takeFirst();
 }
 
-User::User(Server *p, QSslSocket *socket) : Connection(p, socket), Player() {
+ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User() {
 	saiUdpAddress.sin_port = 0;
 	saiUdpAddress.sin_addr.s_addr = htonl(socket->peerAddress().toIPv4Address());
 	saiUdpAddress.sin_family = AF_INET;
@@ -210,7 +210,7 @@ void Server::readParams() {
 	qsRegPassword = Meta::mp.qsRegPassword;
 	qsRegHost = Meta::mp.qsRegHost;
 	qurlRegWeb = Meta::mp.qurlRegWeb;
-	qrPlayerName = Meta::mp.qrPlayerName;
+	qrUserName = Meta::mp.qrUserName;
 	qrChannelName = Meta::mp.qrChannelName;
 
 	QString qsHost = getConf("host", QString()).toString();
@@ -245,7 +245,7 @@ void Server::readParams() {
 	qsRegHost = getConf("registerhostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
 
-	qrPlayerName=QRegExp(getConf("playername", qrPlayerName.pattern()).toString());
+	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
 }
 
@@ -272,8 +272,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
-	else if (key == "playername")
-		qrPlayerName=!v.isNull() ? QRegExp(v) : Meta::mp.qrPlayerName;
+	else if (key == "username")
+		qrUserName=!v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")
 		qrChannelName=!v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
 }
@@ -386,14 +386,14 @@ void Server::run() {
 
 		quint64 key = (static_cast<unsigned long long>(from.sin_addr.s_addr) << 16) ^ from.sin_port;
 
-		User *u = qhPeerUsers.value(key);
+		ServerUser *u = qhPeerUsers.value(key);
 		if (u) {
 			if (! checkDecrypt(u, encrypt, buffer, len)) {
 				continue;
 			}
 		} else {
 			// Unknown peer
-			foreach(User *usr, qhHostUsers.value(from.sin_addr.s_addr)) {
+			foreach(ServerUser *usr, qhHostUsers.value(from.sin_addr.s_addr)) {
 				if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypt, buffer, len)) {
 					// Every time we relock, reverify users' existance.
 					// The main thread might delete the user while the lock isn't held.
@@ -431,7 +431,7 @@ void Server::run() {
 	}
 }
 
-bool Server::checkDecrypt(User *u, const char *encrypt, char *plain, unsigned int len) {
+bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
 	if (u->csCrypt.isValid() && u->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypt), reinterpret_cast<unsigned char *>(plain), len))
 		return true;
 
@@ -444,7 +444,7 @@ bool Server::checkDecrypt(User *u, const char *encrypt, char *plain, unsigned in
 	return false;
 }
 
-void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) {
+void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache) {
 	if ((u->saiUdpAddress.sin_port != 0) && u->csCrypt.isValid()) {
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, len+4+16);
@@ -472,11 +472,11 @@ void Server::sendMessage(User *u, const char *data, int len, QByteArray &cache) 
 	}
 }
 
-void Server::processMsg(User *u, const char *data, int len) {
-	if (u->sState != Player::Authenticated || u->bMute || u->bSuppressed)
+void Server::processMsg(ServerUser *u, const char *data, int len) {
+	if (u->sState != User::Authenticated || u->bMute || u->bSuppressed)
 		return;
 
-	Player *p;
+	User *p;
 	BandwidthRecord *bw = & u->bwr;
 	Channel *c = u->cChannel;
 	QByteArray qba, qba_npos;
@@ -519,8 +519,8 @@ void Server::processMsg(User *u, const char *data, int len) {
 		return;
 	}
 
-	foreach(p, c->qlPlayers) {
-		User *pDst = static_cast<User *>(p);
+	foreach(p, c->qlUsers) {
+		ServerUser *pDst = static_cast<ServerUser *>(p);
 		if (! p->bDeaf && ! p->bSelfDeaf && (pDst != u)) {
 			if (poslen && pDst->ssContext == u->ssContext)
 				sendMessage(pDst, buffer, len, qba);
@@ -537,8 +537,8 @@ void Server::processMsg(User *u, const char *data, int len) {
 
 		foreach(Channel *l, chans) {
 			if (ChanACL::hasPermission(u, l, (target == 1) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
-				foreach(p, l->qlPlayers) {
-					User *pDst = static_cast<User *>(p);
+				foreach(p, l->qlUsers) {
+					ServerUser *pDst = static_cast<ServerUser *>(p);
 					if (! p->bDeaf && ! p->bSelfDeaf) {
 						if (poslen && pDst->ssContext == u->ssContext)
 							sendMessage(pDst, buffer, len, qba);
@@ -551,7 +551,7 @@ void Server::processMsg(User *u, const char *data, int len) {
 	}
 }
 
-void Server::log(User *u, const QString &str) {
+void Server::log(ServerUser *u, const QString &str) {
 	QString msg = QString("<%1:%2(%3)> %4").arg(u->uiSession).arg(u->qsName).arg(u->iId).arg(str);
 	log(msg);
 }
@@ -602,7 +602,7 @@ void Server::newClient() {
 		if (qhUsers.isEmpty())
 			startThread();
 
-		User *u = new User(this, sock);
+		ServerUser *u = new ServerUser(this, sock);
 		u->uiSession = qqIds.dequeue();
 
 		{
@@ -625,7 +625,7 @@ void Server::newClient() {
 }
 
 void Server::encrypted() {
-	User *uSource = qobject_cast<User *>(sender());
+	ServerUser *uSource = qobject_cast<ServerUser *>(sender());
 	int major, minor, patch;
 	QString release;
 
@@ -650,7 +650,7 @@ void Server::encrypted() {
 }
 
 void Server::sslError(const QList<QSslError> &errors) {
-	User *u = qobject_cast<User *>(sender());
+	ServerUser *u = qobject_cast<ServerUser *>(sender());
 	bool ok = true;
 	foreach(QSslError e, errors) {
 		switch (e.error()) {
@@ -681,16 +681,16 @@ void Server::connectionClosed(const QString &reason) {
 	Connection *c = qobject_cast<Connection *>(sender());
 	if (! c)
 		return;
-	User *u = static_cast<User *>(c);
+	ServerUser *u = static_cast<ServerUser *>(c);
 
 	log(u, QString("Connection closed: %1").arg(reason));
 
-	if (u->sState == Player::Authenticated) {
+	if (u->sState == User::Authenticated) {
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
 		sendExcept(u, mpur);
 
-		emit playerDisconnected(u);
+		emit userDisconnected(u);
 	}
 
 	{
@@ -702,12 +702,12 @@ void Server::connectionClosed(const QString &reason) {
 		qhPeerUsers.remove(key);
 
 		if (u->cChannel)
-			u->cChannel->removePlayer(u);
+			u->cChannel->removeUser(u);
 	}
 
 	qqIds.enqueue(u->uiSession);
 
-	if (u->sState == Player::Authenticated)
+	if (u->sState == User::Authenticated)
 		clearACLCache(u);
 
 	u->deleteLater();
@@ -716,9 +716,9 @@ void Server::connectionClosed(const QString &reason) {
 		stopThread();
 }
 
-void Server::message(unsigned int uiType, const QByteArray &qbaMsg, User *u) {
+void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *u) {
 	if (u == NULL) {
-		u = static_cast<User *>(sender());
+		u = static_cast<ServerUser *>(sender());
 	}
 
 	if (uiType == MessageHandler::UDPTunnel) {
@@ -766,17 +766,17 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, User *u) {
 }
 
 void Server::checkTimeout() {
-	QList<User *> qlClose;
+	QList<ServerUser *> qlClose;
 
 	qrwlUsers.lockForRead();
-	foreach(User *u, qhUsers) {
+	foreach(ServerUser *u, qhUsers) {
 		if (u->activityTime() > (iTimeout * 1000)) {
 			log(u, "Timeout");
 			qlClose.append(u);
 		}
 	}
 	qrwlUsers.unlock();
-	foreach(User *u, qlClose)
+	foreach(ServerUser *u, qlClose)
 		u->disconnectSocket(true);
 }
 
@@ -800,7 +800,7 @@ void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 }
 
 void Server::doSync(unsigned int id) {
-	User *u = qhUsers.value(id);
+	ServerUser *u = qhUsers.value(id);
 	if (u) {
 		log(u, "Requesting crypt-nonce resync");
 		MumbleProto::CryptSetup mpcs;
@@ -808,7 +808,7 @@ void Server::doSync(unsigned int id) {
 	}
 }
 
-void Server::sendProtoMessage(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
+void Server::sendProtoMessage(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
 	QByteArray cache;
 	u->sendMessage(msg, msgType, cache);
 }
@@ -817,16 +817,16 @@ void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int m
 	sendProtoExcept(NULL, msg, msgType);
 }
 
-void Server::sendProtoExcept(User *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
+void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
 	QByteArray cache;
-	foreach(User *usr, qhUsers)
-		if ((usr != u) && (usr->sState == Player::Authenticated))
+	foreach(ServerUser *usr, qhUsers)
+		if ((usr != u) && (usr->sState == User::Authenticated))
 			usr->sendMessage(msg, msgType, cache);
 }
 
-void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
+void Server::removeChannel(Channel *chan, User *src, Channel *dest) {
 	Channel *c;
-	Player *p;
+	User *p;
 
 	if (dest == NULL)
 		dest = chan->cParent;
@@ -837,15 +837,15 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 		removeChannel(c, src, dest);
 	}
 
-	foreach(p, chan->qlPlayers) {
-		chan->removePlayer(p);
+	foreach(p, chan->qlUsers) {
+		chan->removeUser(p);
 
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
 		mpus.set_channel_id(dest->iId);
 		sendAll(mpus);
 
-		playerEnterChannel(p, dest);
+		userEnterChannel(p, dest);
 	}
 
 	MumbleProto::ChannelRemove mpcr;
@@ -863,7 +863,7 @@ void Server::removeChannel(Channel *chan, Player *src, Channel *dest) {
 	delete chan;
 }
 
-void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
+void Server::userEnterChannel(User *p, Channel *c, bool quiet) {
 	clearACLCache(p);
 
 	if (quiet && (p->cChannel == c))
@@ -871,7 +871,7 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 
 	{
 		QWriteLocker wl(&qrwlUsers);
-		c->addPlayer(p);
+		c->addUser(p);
 	}
 
 	if (quiet)
@@ -893,15 +893,15 @@ void Server::playerEnterChannel(Player *p, Channel *c, bool quiet) {
 			sendAll(mpus);
 		}
 	}
-	emit playerStateChanged(p);
+	emit userStateChanged(p);
 }
 
-bool Server::hasPermission(Player *p, Channel *c, QFlags<ChanACL::Perm> perm) {
+bool Server::hasPermission(User *p, Channel *c, QFlags<ChanACL::Perm> perm) {
 	QMutexLocker qml(&qmCache);
 	return ChanACL::hasPermission(p, c, perm, acCache);
 }
 
-void Server::clearACLCache(Player *p) {
+void Server::clearACLCache(User *p) {
 	QMutexLocker qml(&qmCache);
 
 	if (p) {
@@ -925,8 +925,8 @@ QString Server::addressToString(const QHostAddress &adr) {
 	return n.toString();
 }
 
-bool Server::validatePlayerName(const QString &name) {
-	return (qrPlayerName.exactMatch(name) && (name.length() <= 512));
+bool Server::validateUserName(const QString &name) {
+	return (qrUserName.exactMatch(name) && (name.length() <= 512));
 }
 
 bool Server::validateChannelName(const QString &name) {

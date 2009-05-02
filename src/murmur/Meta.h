@@ -54,7 +54,7 @@ struct MetaParams {
 
 	QString qsDatabase;
 	QString qsDBDriver;
-	QString qsDBUserName;
+	QString qsDBServerUserName;
 	QString qsDBPassword;
 	QString qsDBHostName;
 	QString qsDBPrefix;
@@ -76,7 +76,7 @@ struct MetaParams {
 	QString qsRegHost;
 	QUrl qurlRegWeb;
 
-	QRegExp qrPlayerName;
+	QRegExp qrUserName;
 	QRegExp qrChannelName;
 
 	QSslCertificate qscCert;

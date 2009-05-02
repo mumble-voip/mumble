@@ -16,7 +16,7 @@
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AnimatedDocks</set>
   </property>
-  <widget class="QTreeView" name="qtvPlayers">
+  <widget class="QTreeView" name="qtvUsers">
    <property name="contextMenuPolicy">
     <enum>Qt::CustomContextMenu</enum>
    </property>
@@ -50,9 +50,9 @@
      <string>&amp;Server</string>
     </property>
    </widget>
-   <widget class="QMenu" name="qmPlayer">
+   <widget class="QMenu" name="qmUser">
     <property name="title">
-     <string>&amp;Player</string>
+     <string>&amp;User</string>
     </property>
    </widget>
    <widget class="QMenu" name="qmChannel">
@@ -93,7 +93,7 @@
     <addaction name="qaHelpVersionCheck"/>
    </widget>
    <addaction name="qmServer"/>
-   <addaction name="qmPlayer"/>
+   <addaction name="qmUser"/>
    <addaction name="qmChannel"/>
    <addaction name="qmAudio"/>
    <addaction name="qmConfig"/>
@@ -132,7 +132,7 @@
     <string/>
    </property>
    <property name="whatsThis">
-    <string>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the player or channel that was selected. If nothing is selected the message is sent to your current channel.</string>
+    <string>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</string>
    </property>
    <property name="features">
     <set>QDockWidget::DockWidgetMovable</set>
@@ -225,18 +225,18 @@
     <string>This will show extended information about the connection to the server.</string>
    </property>
   </action>
-  <action name="qaPlayerKick">
+  <action name="qaUserKick">
    <property name="text">
     <string>&amp;Kick</string>
    </property>
    <property name="toolTip">
-    <string>Kick player (with reason)</string>
+    <string>Kick user (with reason)</string>
    </property>
    <property name="whatsThis">
-    <string>Kick selected player off server. You'll be asked to specify a reason.</string>
+    <string>Kick selected user off server. You'll be asked to specify a reason.</string>
    </property>
   </action>
-  <action name="qaPlayerMute">
+  <action name="qaUserMute">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -244,24 +244,24 @@
     <string>&amp;Mute</string>
    </property>
    <property name="toolTip">
-    <string>Mute player</string>
+    <string>Mute user</string>
    </property>
    <property name="whatsThis">
-    <string>Mute or unmute player on server. Unmuting a deafened player will also undeafen them.</string>
+    <string>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</string>
    </property>
   </action>
-  <action name="qaPlayerBan">
+  <action name="qaUserBan">
    <property name="text">
     <string>&amp;Ban</string>
    </property>
    <property name="toolTip">
-    <string>Kick and ban player (with reason)</string>
+    <string>Kick and ban user (with reason)</string>
    </property>
    <property name="whatsThis">
-    <string>Kick and ban selected player from server. You'll be asked to specify a reason.</string>
+    <string>Kick and ban selected user from server. You'll be asked to specify a reason.</string>
    </property>
   </action>
-  <action name="qaPlayerDeaf">
+  <action name="qaUserDeaf">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -269,13 +269,13 @@
     <string>&amp;Deafen</string>
    </property>
    <property name="toolTip">
-    <string>Deafen player</string>
+    <string>Deafen user</string>
    </property>
    <property name="whatsThis">
-    <string>Deafen or undeafen player on server. Deafening a player will also mute them.</string>
+    <string>Deafen or undeafen user on server. Deafening a user will also mute them.</string>
    </property>
   </action>
-  <action name="qaPlayerLocalMute">
+  <action name="qaUserLocalMute">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -283,13 +283,13 @@
     <string>&amp;Local Mute</string>
    </property>
    <property name="toolTip">
-    <string>Mute player locally</string>
+    <string>Mute user locally</string>
    </property>
    <property name="whatsThis">
-    <string>Mute or unmute player locally. Use this on other players in the same room.</string>
+    <string>Mute or unmute user locally. Use this on other users in the same room.</string>
    </property>
   </action>
-  <action name="qaPlayerTextMessage">
+  <action name="qaUserTextMessage">
    <property name="text">
     <string>Send Messa&amp;ge</string>
    </property>
@@ -363,7 +363,7 @@
     <string>Link your channel to another channel</string>
    </property>
    <property name="whatsThis">
-    <string>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</string>
+    <string>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</string>
    </property>
   </action>
   <action name="qaChannelUnlink">
@@ -602,15 +602,15 @@
     <string>This will toggle whether the minimal window should have a frame for moving and resizing.</string>
    </property>
   </action>
-  <action name="qaPlayerComment">
+  <action name="qaUserComment">
    <property name="text">
     <string>&amp;Change Comment</string>
    </property>
    <property name="toolTip">
-    <string>Change the comment on the selected player.</string>
+    <string>Change the comment on the selected user.</string>
    </property>
    <property name="whatsThis">
-    <string>This allows you to change the comment (shown as a tooltip) of a player. Unless you've been given extra privileges on the server, you can only change your own comment.</string>
+    <string>This allows you to change the comment (shown as a tooltip) of a user. Unless you've been given extra privileges on the server, you can only change your own comment.</string>
    </property>
   </action>
   <action name="qaConfigCert">
@@ -624,29 +624,29 @@
     <string>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</string>
    </property>
   </action>
-  <action name="qaPlayerRegister">
+  <action name="qaUserRegister">
    <property name="text">
     <string>Register</string>
    </property>
    <property name="toolTip">
-    <string>Register player on server</string>
+    <string>Register user on server</string>
    </property>
    <property name="whatsThis">
-    <string>This will permanently register the player on the server. Note that you can't change the username later on, nor can you easily unregister a player, so make sure you really want to do this.</string>
+    <string>This will permanently register the user on the server. Note that you can't change the username later on, nor can you easily unregister a user, so make sure you really want to do this.</string>
    </property>
   </action>
-  <action name="qaPlayerFriendAdd">
+  <action name="qaUserFriendAdd">
    <property name="text">
     <string>Add &amp;Friend</string>
    </property>
    <property name="toolTip">
-    <string>Adds a player as your friend.</string>
+    <string>Adds a user as your friend.</string>
    </property>
    <property name="whatsThis">
-    <string>This will add the player as a friend, so you can recognize him on this and other servers.</string>
+    <string>This will add the user as a friend, so you can recognize him on this and other servers.</string>
    </property>
   </action>
-  <action name="qaPlayerFriendRemove">
+  <action name="qaUserFriendRemove">
    <property name="text">
     <string>&amp;Remove Friend</string>
    </property>
@@ -654,10 +654,10 @@
     <string>Removes a user from your friends.</string>
    </property>
    <property name="whatsThis">
-    <string>This will remove a player from your friends list.</string>
+    <string>This will remove a user from your friends list.</string>
    </property>
   </action>
-  <action name="qaPlayerFriendUpdate">
+  <action name="qaUserFriendUpdate">
    <property name="text">
     <string>&amp;Update Friend</string>
    </property>

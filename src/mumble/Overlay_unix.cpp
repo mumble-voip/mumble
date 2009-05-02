@@ -37,7 +37,7 @@
 #include <errno.h>
 #include <string.h>
 
-#include "Player.h"
+#include "User.h"
 #include "Channel.h"
 #include "Overlay.h"
 #include "Global.h"

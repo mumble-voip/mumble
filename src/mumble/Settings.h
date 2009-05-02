@@ -52,7 +52,7 @@ struct Settings {
 	enum VADSource { Amplitude, SignalToNoise };
 	enum LoopMode { None, Local, Server };
 	enum OverlayShow { Nothing, Talking, All };
-	enum ChannelExpand { NoChannels, ChannelsWithPlayers, AllChannels };
+	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
@@ -65,7 +65,7 @@ struct Settings {
 	bool bPushClick;
 	bool bMute, bDeaf;
 	bool bTTS;
-	bool bPlayerTop;
+	bool bUserTop;
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
@@ -105,14 +105,14 @@ struct Settings {
 	bool bOverlayLeft, bOverlayRight, bOverlayTop, bOverlayBottom;
 	QFont qfOverlayFont;
 	float fOverlayHeight;
-	QColor qcOverlayPlayer;
+	QColor qcOverlayUser;
 	QColor qcOverlayTalking;
 	QColor qcOverlayAltTalking;
 	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
 
-	int iLCDPlayerViewMinColWidth;
-	int iLCDPlayerViewSplitterWidth;
+	int iLCDUserViewMinColWidth;
+	int iLCDUserViewSplitterWidth;
 	QMap<QString, bool> qmLCDDevices;
 
 	QList<Shortcut> qlShortcuts;

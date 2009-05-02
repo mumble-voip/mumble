@@ -30,7 +30,7 @@
 
 #include "Group.h"
 #include "Channel.h"
-#include "Player.h"
+#include "User.h"
 
 Group::Group(Channel *assoc, const QString &name) {
 	c = assoc;
@@ -117,7 +117,7 @@ QSet<QString> Group::groupNames(Channel *chan) {
 #define RET_FALSE (invert ? true : false)
 #define RET_TRUE (invert ? false : true)
 
-bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, Player *pl) {
+bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, User *pl) {
 	Channel *p;
 	Channel *c;
 	Group *g;
