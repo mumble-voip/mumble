@@ -522,7 +522,19 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 					sk_X509_push(certs, c);
 			}
 
-			pkcs = PKCS12_create(SSL_STRING(""), SSL_STRING("Mumble Identity"), pkey, x509, certs, -1, -1, 0, 0, 0);
+			int nid = -1;
+#if OPENSSL_VERSION_NUMBER < 0x0090800fL
+			/* OpenSSL versions prior to 0.9.8 doesn't allow passing -1 for the
+			 * nid_key and nid_cert parameters. Passing -1 means that no encryption
+			 * should be used.
+			 *
+			 * For 0.9.7 compatibility, we pass 0, which makes OpenSSL choose the best
+			 * fit encryption scheme itself. Since we use an empty passphrase, it doesn't
+			 * really matter. */
+			nid = 0;
+#endif
+
+			pkcs = PKCS12_create(SSL_STRING(""), SSL_STRING("Mumble Identity"), pkey, x509, certs, nid, nid, 0, 0, 0);
 
 			if (pkcs) {
 				mem = BIO_new(BIO_s_mem());
