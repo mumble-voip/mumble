@@ -1,5 +1,6 @@
 #ifndef _MUMBLE_PCH_H
 #define _MUMBLE_PCH_H
+
 #define QT_NO_DEBUG_STREAM
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
@@ -19,6 +20,7 @@
 #include <ApplicationServices/ApplicationServices.h>
 #undef check
 #undef nil
+#undef TYPE_BOOL
 #endif
 
 #include <QtCore/QtCore>

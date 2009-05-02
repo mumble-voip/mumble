@@ -11,6 +11,7 @@
 #ifdef __APPLE__
 #include <CoreServices/CoreServices.h>
 #undef check
+#undef TYPE_BOOL
 #endif
 
 #include <QtCore/QtCore>
