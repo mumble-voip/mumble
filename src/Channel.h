@@ -82,7 +82,7 @@ class Channel : public QObject {
 
 		bool isLinked(Channel *c);
 		void link(Channel *c);
-		void unlink(Channel *c);
+		void unlink(Channel *c = NULL);
 
 		void userLink(Channel *c, User *p);
 		void userUnlink(Channel *c, User *p);

@@ -676,11 +676,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			c->qsDesc = qsDesc;
 
 		foreach(Channel *l, qlAdd) {
-			c->link(l);
 			addLink(c, l);
 		}
 		foreach(Channel *l, qlRemove) {
-			c->unlink(l);
 			removeLink(c, l);
 		}
 

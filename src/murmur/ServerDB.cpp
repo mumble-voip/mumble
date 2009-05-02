@@ -992,6 +992,8 @@ void Server::addLink(Channel *c, Channel *l) {
 	query.addBindValue(l->iId);
 	query.addBindValue(c->iId);
 	SQLEXEC();
+	
+	c->link(l);
 }
 
 void Server::removeLink(Channel *c, Channel *l) {
@@ -1010,12 +1012,16 @@ void Server::removeLink(Channel *c, Channel *l) {
 		query.addBindValue(l->iId);
 		query.addBindValue(c->iId);
 		SQLEXEC();
+		
+		c->unlink(l);
 	} else {
 		SQLPREP("DELETE FROM `%1channel_links` WHERE `server_id` = ? AND (`channel_id` = ? OR `link_id` = ?)");
 		query.addBindValue(iServerNum);
 		query.addBindValue(c->iId);
 		query.addBindValue(c->iId);
 		SQLEXEC();
+		
+		c->unlink();
 	}
 }
 
