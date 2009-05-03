@@ -263,6 +263,10 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 		if (speex_decode(dsDecState, &sbBits, pOut) != 0) {
 			memset(pfBuffer + iBufferFilled, 0, sizeof(float) * (snum-iBufferFilled));
 			return false;
+		} else {
+			float m = 1.f / 32768.f;
+			for(int i=0;i<iFrameSize;++i)
+				pOut[i] *= m;
 		}
 
 		spx_uint32_t inlen = iFrameSize;
