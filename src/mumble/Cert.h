@@ -53,9 +53,7 @@ class CertWizard : public QWizard, public Ui::Certificates {
 		Q_DISABLE_COPY(CertWizard)
 	protected:
 		Settings::KeyPair kpCurrent, kpNew;
-
-		QMap<QString, QHostInfo> qmDomains;
-		bool bPendingDns;
+		bool bValidDomain, bPendingDns;
 	public:
 		CertWizard(QWidget *p = NULL);
 		int nextId() const;

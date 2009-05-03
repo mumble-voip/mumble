@@ -415,7 +415,7 @@ Are you sure you wish to replace your certificate?
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="QLabel" name="qlEmailError">
+     <widget class="QLabel" name="qlError">
       <property name="text">
        <string/>
       </property>

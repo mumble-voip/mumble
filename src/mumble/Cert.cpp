@@ -101,7 +101,9 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 
 	setOption(QWizard::NoCancelButton, false);
 
+	bValidDomain = true;
 	bPendingDns = false;
+
 	qwpExport->setCommitPage(true);
 	qwpExport->setComplete(false);
 }
@@ -170,10 +172,27 @@ void CertWizard::initializePage(int id) {
 
 bool CertWizard::validateCurrentPage() {
 	if (currentPage() == qwpNew) {
-		kpNew = generateNewCert(qleName->text(), qleEmail->text());
-		if (! validateCert(kpNew)) {
-			QToolTip::showText(QCursor::pos(), tr("There was an error generating your certificate. Please try again."), this);
-			return false;
+		if (! bValidDomain) {
+			QRegExp ereg(QLatin1String("(.+)@(.+)"), Qt::CaseInsensitive, QRegExp::RegExp2);
+			if (ereg.exactMatch(qleEmail->text())) {
+				const QString &domain = ereg.cap(2);
+				if (! domain.isEmpty()) {
+					qlError->setText(tr("Resolving domain %1.").arg(domain));
+					bPendingDns = true;
+					QHostInfo::lookupHost(domain, this, SLOT(lookedUp(QHostInfo)));
+				} else
+					bValidDomain = true;
+			}
+			if (! bValidDomain) {
+				qwpNew->setComplete(false);
+				return false;
+			}
+		} else {
+			kpNew = generateNewCert(qleName->text(), qleEmail->text());
+			if (! validateCert(kpNew)) {
+				qlError->setText(tr("There was an error generating your certificate. Please try again."));
+				return false;
+			}
 		}
 	}
 	if (currentPage() == qwpExport) {
@@ -220,35 +239,9 @@ bool CertWizard::validateCurrentPage() {
 }
 
 void CertWizard::on_qleEmail_textChanged(const QString &email) {
-	if (email.isEmpty())
+	bValidDomain = false;
+	if (! bPendingDns)
 		qwpNew->setComplete(true);
-	else {
-		QRegExp ereg(QLatin1String("(.+)@(.+)"), Qt::CaseInsensitive, QRegExp::RegExp2);
-
-		if (ereg.exactMatch(email)) {
-			const QString &domain = ereg.cap(2);
-			if (! qmDomains.contains(domain)) {
-				qwpNew->setComplete(false);
-				if (! bPendingDns) {
-					bPendingDns = true;
-					qlEmailError->setText(tr("Resolving domain %1.").arg(domain));
-					QHostInfo::lookupHost(domain, this, SLOT(lookedUp(QHostInfo)));
-				}
-			} else {
-				QHostInfo info = qmDomains.value(domain);
-				if (info.error() == QHostInfo::NoError) {
-					qlEmailError->setText(QString());
-					qwpNew->setComplete(true);
-				} else {
-					qlEmailError->setText(tr("Resolving domain %1 failed.").arg(domain));
-					qwpNew->setComplete(false);
-				}
-			}
-		} else {
-			qlEmailError->setText(tr("Email must be blank or a valid email address."));
-			qwpNew->setComplete(false);
-		}
-	}
 }
 
 void CertWizard::on_qpbExportFile_clicked() {
@@ -335,8 +328,16 @@ void CertWizard::on_qlePassword_textChanged(const QString &) {
 
 void CertWizard::lookedUp(QHostInfo info) {
 	bPendingDns = false;
-	qmDomains.insert(info.hostName(), info);
-	on_qleEmail_textChanged(qleEmail->text());
+	if (info.error() == QHostInfo::NoError) {
+		bValidDomain = true;
+		qlError->setText(QString());
+		qwpNew->setComplete(true);
+		next();
+	} else {
+		bValidDomain = false;
+		qlError->setText(tr("Unable to resolve domain."));
+		qwpNew->setComplete(false);
+	}
 }
 
 static int add_ext(X509 * crt, int nid, char *value) {
