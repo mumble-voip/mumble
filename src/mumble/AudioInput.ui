@@ -571,7 +571,7 @@
          <string>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</string>
         </property>
         <property name="minimum">
-         <number>15</number>
+         <number>14</number>
         </property>
         <property name="maximum">
          <number>60</number>

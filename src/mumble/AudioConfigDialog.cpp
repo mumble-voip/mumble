@@ -118,7 +118,11 @@ void AudioInputDialog::load(const Settings &r) {
 
 	loadCheckBox(qcbPushClick, r.bPushClick);
 	loadSlider(qsQuality, r.iQuality);
-	loadSlider(qsNoise, - r.iNoiseSuppress);
+	if (r.iNoiseSuppress != 0)
+		loadSlider(qsNoise, - r.iNoiseSuppress);
+	else
+		loadSlider(qsNoise, 14);
+
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
 	loadSlider(qsIdle, r.iIdleTime);
 
@@ -131,7 +135,7 @@ void AudioInputDialog::load(const Settings &r) {
 
 void AudioInputDialog::save() const {
 	s.iQuality = qsQuality->value();
-	s.iNoiseSuppress = - qsNoise->value();
+	s.iNoiseSuppress = (qsNoise->value() == 14) ? 0 : - qsNoise->value();
 	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
 	s.iVoiceHold = qsTransmitHold->value();
 	s.fVADmin = static_cast<float>(qsTransmitMin->value()) / 32767.0f;
@@ -193,7 +197,15 @@ void AudioInputDialog::on_qsQuality_valueChanged(int v) {
 }
 
 void AudioInputDialog::on_qsNoise_valueChanged(int v) {
-	qlNoise->setText(tr("-%1 dB").arg(v));
+	QPalette pal;
+
+	if (v < 15) {
+		qlNoise->setText(tr("Off"));
+		pal.setColor(qlNoise->foregroundRole(), Qt::red);
+	} else {
+		qlNoise->setText(tr("-%1 dB").arg(v));
+	}
+	qlNoise->setPalette(pal);
 }
 
 void AudioInputDialog::on_qsAmp_valueChanged(int v) {
