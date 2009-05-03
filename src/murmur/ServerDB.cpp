@@ -462,11 +462,11 @@ void Server::initialize() {
 		SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?, ?, ?)");
 		query.addBindValue(iServerNum);
 		query.addBindValue(0);
-		query.addBindValue(QLatin1String("SuperServerUser"));
+		query.addBindValue(QLatin1String("SuperUser"));
 		SQLEXEC();
 		SQLPREP("UPDATE `%1users` SET `user_id` = 0 WHERE `server_id` = ? AND `name` = ?");
 		query.addBindValue(iServerNum);
-		query.addBindValue(QLatin1String("SuperServerUser"));
+		query.addBindValue(QLatin1String("SuperUser"));
 		SQLEXEC();
 	}
 
@@ -716,7 +716,7 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 		}
 	}
 
-	// No password match. Try cert or email match, but only for non-SuperServerUser.
+	// No password match. Try cert or email match, but only for non-SuperUser.
 	if (!certhash.isEmpty() && (res < 0)) {
 		SQLPREP("SELECT `user_id` FROM `%1user_info` WHERE `server_id` = ? AND `key` = ? AND `value` = ?");
 		query.addBindValue(iServerNum);
