@@ -124,26 +124,32 @@
         <translation>&amp;LCA</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="213"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;Aceptar</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="213"/>
         <source>Accept changes</source>
         <translation type="obsolete">Aceptar cambios</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="213"/>
         <source>This button will accept current groups/ACLs and send them to the server. Note that if you mistakenly remove write permission from yourself, the server will add it.</source>
         <translation type="obsolete">Este botón aceptará los grupos/LCAs actuales y los enviará al servidor. Fíjese en que si elimina por error su propio permiso de escritura, el servidor lo agregará.</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="213"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="213"/>
         <source>Reject changes</source>
         <translation type="obsolete">Rechazar cambios</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="213"/>
         <source>This button will cancels all changes and closes the dialog without updating the ACLs or groups on the server.</source>
         <translation type="obsolete">Este botón cancelará todos los cambios y cerrará el cuadro de diálogo sin actualizar las LCAs o los grupos en el servidor.</translation>
     </message>
@@ -153,6 +159,7 @@
         <translation>Lista de entradas</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="225"/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.</source>
         <translation type="obsolete">Muestra todas las entradas activas en este canal. Las entradas heredadas de los canales padre se mostrarán en cursiva.</translation>
     </message>
@@ -317,6 +324,7 @@
         <translation>Agregar miembro al grupo</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="175"/>
         <source>Type in the name of a player you wish to add to the group and press enter.</source>
         <translation type="obsolete">Escriba el nombre de un jugador que desee agregar al grupo y presione intro.</translation>
     </message>
@@ -326,10 +334,12 @@
         <translation>Eliminar miembro del grupo</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="185"/>
         <source>Type in the name of a player you wish to remove from the group and press enter.</source>
         <translation type="obsolete">Escriba el nombre de un jugador que desee eliminar del grupo y presione intro.</translation>
     </message>
     <message>
+        <location filename="ACLEditor.ui" line="185"/>
         <source>This control which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a groupname starts with a !, it&apos;s membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a subchannel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;.&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;.&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
         <translation type="obsolete">Controla a que grupo de usuarios se aplica esta entrada.&lt;br /&gt;Preste atención a que el grupo se evalúa en el contexto del canal en el que se usa la entrada. Por ejemplo, la LCA en el canal Raíz da el permiso &lt;i&gt;Escritura&lt;/i&gt; al grupo &lt;i&gt;admin&lt;/i&gt;. Esta entrada, si es heredada por un canal, dará al usuario privilegios de escritura si pertenece al grupo &lt;i&gt;admin&lt;/i&gt; en ese canal, incluso si no pertence al grupo &lt;i&gt;admin&lt;/i&gt; en el canal donde la LCA se originó. &lt;br /&gt;Si un nombre de grupo comienza por !, se niega su pertenencia, y si comienza por ~, se evalúa en el canal en el que la LCA se definió, en vez de en el canal en el que la LCA está activa. El orden es importante; &lt;i&gt;!~in&lt;/i&gt; es válido, pero &lt;i&gt;~!in&lt;/i&gt; no lo es.&lt;br/&gt;Algunos grupos especiales predefinidos son:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Representa a todos los usuarios.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Representa a todos los usuarios autenticados.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Representa a un usuario en un subcanal con un mínimo de &lt;i&gt;a&lt;/i&gt; padres comunes, y entre &lt;i&gt;b&lt;/i&gt; y &lt;i&gt;c&lt;/i&gt; canales por debajo en la cadena. Vea nuestro sitio web para una documentación más extensa acerca de éste.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Representa a los usuarios actualmente en el canal (abreviatura de &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Representa los usuarios fuera del canal (abreviatura de &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Fíjese en que una entrada se aplica o a un usuario o a un grupo, no a ambos.</translation>
     </message>
@@ -339,6 +349,7 @@
         <translation>Mumble- Editar LCA para %1</translation>
     </message>
     <message>
+        <location filename="ACLEditor.cpp" line="47"/>
         <source>This button will cancel all changes and closes the dialog without updating the ACLs or groups on the server.</source>
         <translation type="obsolete">Este botón cancelará todos los cambios y cerrará el cuadro de diálogo sin actualizar las LCAs o los grupos en el servidor.</translation>
     </message>
@@ -397,62 +408,77 @@
 <context>
     <name>ALSAConfig</name>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Device selection</source>
         <translation type="obsolete">Selección del dispositivo</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Device to use for microphone</source>
         <translation type="obsolete">Dispositivo a usar para el micrófono</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is whatever you have configured in alsaconfig, the &lt;i&gt;hwplug&lt;/i&gt; devices are specific hardware devices backed by the ALSA mixer and the &lt;i&gt;hw&lt;/i&gt; devices are raw hardware access. Unless your soundcard supports hardware mixing of audio, using the &lt;i&gt;hw&lt;/i&gt; device will exclude all other programs from using audio.</source>
         <translation type="obsolete">Establece qué dispositivo debería usar mumble. El dispositivo &lt;i&gt;default&lt;/i&gt; es aquel que haya seleccionado en alsaconfig, los dispositivos &lt;i&gt;hwplug&lt;/i&gt; son dispositivos hardware específicos respaldados por el mezclador ALSA y los dispotivos &lt;i&gt;hw&lt;/i&gt; son dispositivos de acceso directo al hardware. A menos que su tarjeta de sonido soporte la mezcla de audio por hardware, el uso de un dispositivo &lt;i&gt;hw&lt;/i&gt; excluirá al resto de programas del uso del audio.</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Device to use for speakers/headphones</source>
         <translation type="obsolete">Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Input</source>
         <translation type="obsolete">Entrada</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Output</source>
         <translation type="obsolete">Salida</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Output Options</source>
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Output Delay</source>
         <translation type="obsolete">Retraso de salida</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Amount of data to buffer for ALSA</source>
         <translation type="obsolete">Cantidad de datos a almacenar en el búfer para ALSA</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation type="obsolete">Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause ruido en el sonido.</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>ALSA</source>
         <translation type="obsolete">ALSA</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>%1ms</source>
         <translation type="obsolete">%1ms</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Form</source>
         <translation type="obsolete">Formulario</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>TextLabel</source>
         <translation type="obsolete">EtiquetaDeTexto</translation>
     </message>
     <message>
+        <location filename="ALSAAudio.cpp" line="173"/>
         <source>Default ALSA Card</source>
         <translation type="obsolete">Tarjeta ALSA por defecto</translation>
     </message>
@@ -480,6 +506,7 @@
         <translation>Configurar canales de entrada</translation>
     </message>
     <message>
+        <location filename="ASIOInput.ui" line="126"/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &quot;What you hear&quot;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &quot;Mic L&quot; while Speaker should be &quot;Mix L&quot; and &quot;Mix R&quot;</source>
         <translation type="obsolete">Configura los canales de entrada para ASIO. Asegúrese de seleccionar al menos un canal como micrófono y altavoz. &lt;i&gt;Micrófono&lt;/i&gt; debería ser al que está conectado su micrófono, y &lt;i&gt;Altavoz&lt;/i&gt; debería ser un canal que muestree &quot;Lo que oye&quot;.&lt;br /&gt;Por ejemplo, para Audigy 2 ZS, una buena selección para Micrófono sería &quot;Mic L&quot; mientras que Altavoz debería ser &quot;Mix L&quot; y &quot;Mix R&quot;</translation>
     </message>
@@ -635,6 +662,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
+        <location filename="ASIOInput.cpp" line="543"/>
         <source>&lt;h3&gt;Mumble v1.0.0&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h3&gt;Mumble v1.0.0&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Traducción al español por Álvaro M. Recio Pérez&lt;br /&gt;naproxeno@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla por voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
@@ -654,10 +682,12 @@
         <translation>Aceptar</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="66"/>
         <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2006 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla por voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="66"/>
         <source>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2008 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright 2005-2008 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Traducción al español por Álvaro M. Recio Pérez&lt;br /&gt;naproxeno@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Una utilidad de charla por voz para jugadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;http://mumble.sourceforge.net/&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
@@ -675,6 +705,7 @@
 <context>
     <name>AboutSpeexDialog</name>
     <message>
+        <location filename="About.cpp" line="53"/>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;http://www.speex.org/&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h3&gt;Acerca de Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;http://www.speex.org/&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Este programa usa Speex versión %1&lt;/p&gt;&lt;p&gt;Speex se usa para cancelación de eco, filtrado de&lt;br /&gt;ruido, detección de actividad vocal y compresión del&lt;br /&gt;habla.&lt;/p&gt;</translation>
     </message>
@@ -697,414 +728,517 @@
 <context>
     <name>AudioConfigDialog</name>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Interfaces</source>
         <translation type="obsolete">Interfaces</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Transmission</source>
         <translation type="obsolete">Transmisión</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Compression</source>
         <translation type="obsolete">Compresión</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Jitter Buffer</source>
         <translation type="obsolete">Búfer de jitter</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Input</source>
         <translation type="obsolete">Entrada</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Input method for audio</source>
         <translation type="obsolete">Método de entrada para el audio</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation type="obsolete">&lt;b&gt;Éste es el método de entrada a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente desee utilizar DirectSound.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Output</source>
         <translation type="obsolete">Salida</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Output method for audio</source>
         <translation type="obsolete">Método de salida para el audio</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation type="obsolete">&lt;b&gt;Éste es el método de salida a usar para el audio.&lt;/b&gt;&lt;br /&gt;Muy probablemente quiera utilizar DirectSound.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Voice Activity</source>
         <translation type="obsolete">Actividad Vocal</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Push To Talk</source>
         <translation type="obsolete">Presionar Para Hablar</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Transmit</source>
         <translation type="obsolete">Transmitir</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>When to transmit your speech</source>
         <translation type="obsolete">Cuándo transmitir su habla</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Voice Hold</source>
         <translation type="obsolete">Persistencia de la voz</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>How long to keep transmitting after silence</source>
         <translation type="obsolete">Cuánto tiempo continuar transmitiendo tras un silencio</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</source>
         <translation type="obsolete">&lt;b&gt;Selecciona cuánto tiempo debería continuar la transmisión tras una detección percibida en el habla.&lt;/b&gt;Auméntelo si su voz es interrumpida mientras habla (observable por un icono de voz parpadeando rápidamente junto a su nombre).&lt;br /&gt;Sólo tiene sentido cuando se usa con la transmisión por Actividad Vocal.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Audio per packet</source>
         <translation type="obsolete">Audio por paquete</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>How many audio frames to send per packet</source>
         <translation type="obsolete">Cuántas tramas de audio enviar por paquete</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
         <translation type="obsolete">&lt;b&gt;Selecciona cuántas tramas de audio deberían insertarse en un paquete.&lt;/b&gt;&lt;br /&gt;Aumentar esto incrementará la latencia de su voz, pero también reducirá los requisitos de ancho de banda.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Use TCP mode</source>
         <translation type="obsolete">Usar modo TCP</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Automatic Reconnect</source>
         <translation type="obsolete">Reconexión automática</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Reconnect when disconnected</source>
         <translation type="obsolete">Volver a conectar cuando sea desconectado</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
         <translation type="obsolete">&lt;b&gt;Volver a conectar cuando sea desconectado&lt;/b&gt;.&lt;br /&gt;Hace que Mumble intente volver a conectar automáticamente después de 10 segundos si falla su conexión con el servidor.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Maximum bandwidth used for sent audio</source>
         <translation type="obsolete">Ancho de banda máximo usado para el audio enviado</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Outgoing Bitrate</source>
         <translation type="obsolete">Velocidad de transmisión saliente</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Quality</source>
         <translation type="obsolete">Calidad</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Quality of compression (peak bandwidth)</source>
         <translation type="obsolete">Calidad de la compresión (ancho de banda máximo)</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
         <translation type="obsolete">&lt;b&gt;Establece la calidad de compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánto ancho de banda se le permite usar a Mumble para el audio saliente.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Complexity</source>
         <translation type="obsolete">Complejidad</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Complexity of compression (CPU)</source>
         <translation type="obsolete">Complejidad de la compresión (CPU)</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the complexity of compression.&lt;/b&gt;&lt;br /&gt;This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</source>
         <translation type="obsolete">&lt;b&gt;Establece la complejidad de la compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánta CPU se le permite usar a Mumble para incrementer la calidad de la voz transmitida. Valores por encima de 5 proporcionan sólo una ganancia marginal.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Amp</source>
         <translation type="obsolete">Amplificación</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Maximum amplification of input sound</source>
         <translation type="obsolete">Amplificación máxima del sonido de entrada</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
         <translation type="obsolete">&lt;b&gt;Amplificación máxima de la entrada.&lt;/b&gt;&lt;br /&gt;Mumble normaliza el volumen de entrada antes de la compresión, y esto establece cuánto se le permite amplificar.&lt;br /&gt;El nivel real se actualiza continuamente basado en su patrón de habla actual, pero nunca sobrepasará el nivel especificado aquí.&lt;br /&gt;Si el nivel de &lt;i&gt;Volumen del Micrófono&lt;/i&gt; de las estadísticas de audio ronda el 100%, probablemente desee establecer esto alrededor de 2.0, pero si, como la mayoría de la gente, no consigue alcanzar 100%, establezca esto a algo mucho mayor.&lt;br /&gt;Idealmente, fíjelo de tal forma que &lt;i&gt;Volumen del Micrófono * Factor de Amplificación &gt;= 100&lt;/i&gt;, incluso cuando hable realmente bajo.&lt;br /&gt;&lt;br /&gt;Fíjese en que no es perjudicial establecer esto al máximo, pero Mumble comenzará a captar otras conversaciones si lo deja autoajustarse a ese nivel.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Default Jitter Buffer</source>
         <translation type="obsolete">Búfer de jitter por defecto</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>How long to prebuffer on first packet</source>
         <translation type="obsolete">Cuánto tiempo prealmacenar con el primer paquete</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the default buffer size for the jitter buffer&lt;/b&gt;.&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the default buffer size to use on the first packet to arrive from a new speaker, or when a speaker using Voice Activity or Push-To-Talk just started talking again. If the start of sentences you hear is very jittery, increase this value.</source>
         <translation type="obsolete">&lt;b&gt;Establece el tamaño de búfer por defecto del búfer de jitter&lt;/b&gt;.&lt;br /&gt;Todo el audio entrante es almacenado en un búfer, y el búfer de jitter contínuamente trata de reducir el búfer al mínimo sostenible por su red, para que la latencia sea tan baja como sea posible. Esto establece el tamaño de búfer por defecto a usar con el primer paquete que llegue de un nuevo interlocutor, o cuando un interlocutor que use Actividad Vocal o Presionar-Para-Hablar comience a hablar de nuevo. Si el comienzo de las frases que oye es muy fluctuante, incremente este valor.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Basic Audio</source>
         <translation type="obsolete">Audio básico</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>%1 ms</source>
         <translation type="obsolete">%1 ms</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>%1s</source>
         <translation type="obsolete">%1 s</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Continuous</source>
         <translation type="obsolete">Contínuo</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
         <translation type="obsolete">&lt;b&gt;Establece cuándo debería transmitirse el habla.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Contínuo&lt;/i&gt; - Todo el tiempo&lt;br /&gt;&lt;i&gt;Actividad Vocal&lt;/i&gt; - Cuando está hablando claramente.&lt;br /&gt;&lt;i&gt;Presionar Para Hablar&lt;/i&gt; - Cuando presiona la tecla establecida en &lt;i&gt;Métodos abreviados&lt;/i&gt;.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Use TCP Compatibility mode</source>
         <translation type="obsolete">Usar modo de Compatibilidad TCP</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;Enable TCP Compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
         <translation type="obsolete">&lt;b&gt;Habilita el modo de Compatibilidad TCP&lt;/b&gt;.&lt;br /&gt;Esto hará que Mumble sólo use TCP cuando se comunique con el servidor. Esto aumentará la sobrecarga y provocará que los paquetes perdidos produzcan notables pausas en la comunicación, así que sólo debería ser usado si no consigue usar la opción por defecto (que emplea UDP para la voz y TCP para el control).</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 90% of this overhead).</source>
         <translation type="obsolete">&lt;b&gt;Muestra el ancho de banda máximo empleado.&lt;/b&gt;&lt;br /&gt;Esto muestra la cantidad máxima de ancho de banda enviado desde su máquina. Velocidad de transmisión del audio es la velocidad de transmisión máxima (ya que se usa VBR) únicamente para los datos de audio. Posición es la velocidad de transmisión usada para información posicional. Sobrecarga son las cabeceras de nuestras tramas y de los paquetes IP (IP y UDP son el 90% de esta sobrecarga).</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation type="obsolete">%1kbit/s (Audio %2, Posición %4, Sobrecarga %3)</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Loopback Test</source>
         <translation type="obsolete">Prueba de bucle de retorno</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>PTT Audio cue</source>
         <translation type="obsolete">Indicación de audio PTT</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
         <translation type="obsolete">Indicación de audio sonora cuando se presione o suelte presionar-para-hablar (PTT)</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
         <translation type="obsolete">&lt;b&gt;Habilita las indicaciones de audio para presionar para hablar.&lt;/b&gt;&lt;br /&gt;Si se activa, se produciran pitidos cortos de audio cuando se presione o suelte presionar para hablar.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>None</source>
         <translation type="obsolete">Ninguno</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Local</source>
         <translation type="obsolete">Local</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Server</source>
         <translation type="obsolete">Servidor</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Loopback</source>
         <translation type="obsolete">Bucle de retorno</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Desired loopback mode</source>
         <translation type="obsolete">Modo de bucle de retorno deseado</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
         <translation type="obsolete">&lt;b&gt;Activa uno de los modos de prueba de bucle de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ninguno&lt;/i&gt; - Bucle de retorno desactivado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula un servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Solicita un bucle de retorno desde el servidor.&lt;br /&gt;Por favor, fíjese en que cuando está activado el modo de bucle de retorno, ningún otro jugador oirá su voz. Esta opción no se guarda al salir de la aplicación.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Delay Variance</source>
         <translation type="obsolete">Varianza del retraso</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Variance in packet latency</source>
         <translation type="obsolete">Varianza de la latencia de los paquetes</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
         <translation type="obsolete">&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15ms, se emulará una red con 20-35ms de latencia de ping u 80-95ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Packet Loss</source>
         <translation type="obsolete">Pérdida de paquetes</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Packet loss for loopback mode</source>
         <translation type="obsolete">Pérdida de paquetes para el modo de bucle de retorno</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%%</source>
         <translation type="obsolete">&lt;b&gt;Establece la pérdida de paquetes para el modo de bucle de retorno.&lt;/b&gt;&lt;br /&gt;Esta será la tasa de paquetes perdidos. A menos que su ancho de banda de salida haya alcanzado el máximo o haya algún problema con su conexión, esto será 0%%</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>%1 s</source>
         <translation type="obsolete">%1 s</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>%1%</source>
         <translation type="obsolete">%1%</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>-%1 dB</source>
         <translation type="obsolete">-%1 dB</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Form</source>
         <translation type="obsolete">Formulario</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&amp;Input</source>
         <translation type="obsolete">&amp;Entrada</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&amp;Output</source>
         <translation type="obsolete">&amp;Salida</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&amp;Transmit</source>
         <translation type="obsolete">&amp;Transmitir</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Voice &amp;Hold</source>
         <translation type="obsolete">&amp;Persistencia de la voz</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>TextLabel</source>
         <translation type="obsolete">EtiquetaDeTexto</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation type="obsolete">&lt;b&gt;Muestra el ancho de banda máximo empleado.&lt;/b&gt;&lt;br /&gt;Esto muestra la cantidad máxima de ancho de banda enviado desde su máquina. Velocidad de transmisión del audio es la velocidad de transmisión máxima (ya que se usa VBR) únicamente para los datos de audio. Posición es la velocidad de transmisión usada para información posicional. Sobrecarga son las cabeceras de nuestras tramas y de los paquetes IP (IP y UDP son el 75% de esta sobrecarga).</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&amp;Quality</source>
         <translation type="obsolete">&amp;Calidad</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&amp;Complexity</source>
         <translation type="obsolete">C&amp;omplejidad</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Audio Processing</source>
         <translation type="obsolete">Procesamiento del audio</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Noise Suppression</source>
         <translation type="obsolete">Supresión de ruido</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Noise suppression</source>
         <translation type="obsolete">Supresión de ruido</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
         <translation type="obsolete">&lt;b&gt;Establece la cantidad de supresión de ruido a aplicar.&lt;b&gt;&lt;br /&gt;Cuanto más alto sea este valor, mas agresivamente se suprimirá el ruido estacionario.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Amplification</source>
         <translation type="obsolete">Amplificación</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Audio Output</source>
         <translation type="obsolete">Salida de audio</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Default &amp;Jitter Buffer</source>
         <translation type="obsolete">Búfer de &amp;vibración por defecto</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Safety margin for jitter buffer</source>
         <translation type="obsolete">Márgen de seguridad para el búfer de vibración</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
         <translation type="obsolete">&lt;b&gt;Establece el márgen de seguridad máximo para el búfer de vibración.&lt;/b&gt;&lt;br /&gt;Todo el audio entrante es almacenado en un búfer, y el búfer de vibración trata de forzar continuamente a este búfer al mínimo sostenible por su red, para que la latencia sea tan baja como sea posible. Ésto establece el tamaño mínimo de búfer a usar. Si el comienzo de las frases que oye es muy tembloroso, aumente este valor.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Volume</source>
         <translation type="obsolete">Volúmen</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Volume of incoming speech</source>
         <translation type="obsolete">Volúmen del habla entrante</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that this can only be used to decrease the volume. No amplification is possible.</source>
         <translation type="obsolete">&lt;b&gt;Ajusta el volúmen del habla entrante.&lt;/b&gt;&lt;br /&gt;Fíjese en que sólo se puede usar para disminuir el volúmen. No es posible la amplificación.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
         <translation type="obsolete">&lt;b&gt;Establece la pérdida de paquetes para el modo de bucle de retorno.&lt;/b&gt;&lt;br /&gt;Ésta será la tasa de paquetes perdidos. A menos que su ancho de banda de salida haya alcanzado el máximo o haya algún problema con su conexión, ésta será siempre 0%</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&amp;Loopback</source>
         <translation type="obsolete">&amp;Bucle de retorno</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Off</source>
         <translation type="obsolete">Desconectado</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>DoublePush Time</source>
         <translation type="obsolete">Tiempo para DoblePulsación</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Use SNR based speech detection</source>
         <translation type="obsolete">Usar detección basada en SNR</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
         <translation type="obsolete">&lt;b&gt;Establece el uso de la relación señal/ruido para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se analiza la entrada en busca de algo que parezca una señal clara, y la clarida de la señal se usa para provocar la detección vocal.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Signal to Noise</source>
         <translation type="obsolete">Señal/ruido</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Use Amplitude based speech detection.</source>
         <translation type="obsolete">Usar detección vocal basada en la amplitud.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
         <translation type="obsolete">&lt;b&gt;Establece el uso de la amplitud para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se usa la intensidad de la señal de entrada para detectar el habla.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Amplitude</source>
         <translation type="obsolete">Amplitud</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Silence Below</source>
         <translation type="obsolete">Silencio por debajo de</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Signal values below this counts as silence</source>
         <translation type="obsolete">Los valores de la señal por debajo de éste se consideran como silencio</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
         <translation type="obsolete">&lt;b&gt;Establece los valores que provocaran la detección vocal.&lt;/b&gt;&lt;br /&gt;Use ésto junto con la ventana la ventana de estadísticas del audio para ajustar manualmente los valores que provocan la detección del habla. Los valores de entrada por debajo del &quot;Silencio por debajo de&quot; siempre se consideran como silencio. Los valores por encima del &quot;Habla por encima de&quot; siempre se consideran como voz. Los valores intermedios se considerarán como voz si usted ya estaba hablando, pero no provocarán una nueva detección.</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Speech Above</source>
         <translation type="obsolete">Habla por encima de</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Signal values above this count as voice</source>
         <translation type="obsolete">Los valores de la señal por encima de éste se consideran como voz</translation>
     </message>
     <message>
+        <location filename="About.cpp" line="81"/>
         <source>Connection</source>
         <translation type="obsolete">Conexión</translation>
     </message>
@@ -1187,6 +1321,7 @@
         <translation>EtiquetaDeTexto</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="609"/>
         <source>Audible audio cue when push-to-talk pressed and released</source>
         <translation type="obsolete">Indicación de audio sonora cuando se presione o suelte presionar-para-hablar (PTT)</translation>
     </message>
@@ -1206,6 +1341,7 @@
         <translation>Usar detección basada en SNR</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="200"/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear singal, and the clarity of that signal is used to trigger speech detection.</source>
         <translation type="obsolete">&lt;b&gt;Establece el uso de la relación señal/ruido para la detección vocal.&lt;/b&gt;&lt;br /&gt;En este modo, se analiza la entrada en busca de algo que parezca una señal clara, y la clarida de la señal se usa para provocar la detección vocal.</translation>
     </message>
@@ -1290,14 +1426,17 @@
         <translation>&lt;b&gt;Establece la calidad de compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánto ancho de banda se le permite usar a Mumble para el audio saliente.</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="416"/>
         <source>&amp;Complexity</source>
         <translation type="obsolete">C&amp;omplejidad</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="416"/>
         <source>Complexity of compression (CPU)</source>
         <translation type="obsolete">Complejidad de la compresión (CPU)</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="416"/>
         <source>&lt;b&gt;This sets the complexity of compression.&lt;/b&gt;&lt;br /&gt;This determines how much CPU Mumble is allowed to use to increase transmitted voice quality. Settings above 5 give only marginal gain.</source>
         <translation type="obsolete">&lt;b&gt;Establece la complejidad de la compresión.&lt;/b&gt;&lt;br /&gt;Esto determina cuánta CPU se le permite usar a Mumble para incrementer la calidad de la voz transmitida. Valores por encima de 5 proporcionan sólo una ganancia marginal.</translation>
     </message>
@@ -1317,6 +1456,7 @@
         <translation>&lt;b&gt;Selecciona cuántas tramas de audio deberían insertarse en un paquete.&lt;/b&gt;&lt;br /&gt;Aumentar esto incrementará la latencia de su voz, pero también reducirá los requisitos de ancho de banda.</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="464"/>
         <source>Maximum bandwidth used for sent audio</source>
         <translation type="obsolete">Ancho de banda máximo usado para el audio enviado</translation>
     </message>
@@ -1341,6 +1481,7 @@
         <translation>Supresión de ruido</translation>
     </message>
     <message>
+        <location filename="AudioInput.ui" line="536"/>
         <source>&lt;b&gt;This sets the ammount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be supressed.</source>
         <translation type="obsolete">&lt;b&gt;Establece la cantidad de supresión de ruido a aplicar.&lt;b&gt;&lt;br /&gt;Cuanto más alto sea este valor, mas agresivamente se suprimirá el ruido estacionario.</translation>
     </message>
@@ -1561,14 +1702,17 @@
         <translation>Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="212"/>
         <source>Volume attenuation</source>
         <translation type="obsolete">Atenuación del volúmen</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="212"/>
         <source>MinDistance</source>
         <translation type="obsolete">Distancia mínima</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="212"/>
         <source>Minimum distance to player before sound decreases</source>
         <translation type="obsolete">Distancia mínima al jugador antes de que el sonido disminuya</translation>
     </message>
@@ -1578,18 +1722,22 @@
         <translation>Establece la distancia mínima para cálculos de sonido. El volumen del habla de otros jugadores no disminuirá hasta que estén al menos a esta distancia de ti.</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="315"/>
         <source>MaxDistance</source>
         <translation type="obsolete">Distancia máxima</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="315"/>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
         <translation type="obsolete">Distancia máxima, más allá de la cual el sonido no disminuirá</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="315"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
         <translation type="obsolete">Establece la distancia máxima para cálculos de sonido. Cuando estén más lejos que esto, el volumen del sonido de otros jugadores no disminuirá más.</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="315"/>
         <source>RollOff</source>
         <translation type="obsolete">Atenuación</translation>
     </message>
@@ -1599,6 +1747,7 @@
         <translation>Factor para la disminución del volumen del sonido</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="396"/>
         <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
         <translation type="obsolete">Cuán rápido debería disminuir el volumen del sonido cuando pase más allá de la distancia mínima. Lo normal (1.0) es que el volumen del sonido disminuya la mitad cada vez que la distancia se doble. Aumentar este valor quiere decir que el volumen disminuye más rápidamente, mientras que reducirlo quiere decir que disminuye más lentamente.</translation>
     </message>
@@ -1708,6 +1857,7 @@
         <translation>¿Cuánto debería aumentar el sonido para fuentes que están muy cerca?</translation>
     </message>
     <message>
+        <location filename="AudioOutput.ui" line="451"/>
         <source>Connected &quot;speakers&quot; are actually headphones.</source>
         <translation type="obsolete">Los &quot;altavoces&quot; conectados son en realidad auriculares.</translation>
     </message>
@@ -1780,6 +1930,7 @@
         <translation>%1m</translation>
     </message>
     <message>
+        <location filename="AudioConfigDialog.cpp" line="469"/>
         <source>%1</source>
         <translation type="obsolete">%1</translation>
     </message>
@@ -1802,10 +1953,12 @@
         <translation>Nivel limpio máximo</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="67"/>
         <source>Microphone loudness</source>
         <translation type="obsolete">Intensidad del micrófono</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="67"/>
         <source>Mic Signal-To-Noise</source>
         <translation type="obsolete">Señal/Ruido del micrófono</translation>
     </message>
@@ -1815,6 +1968,7 @@
         <translation>Probabilidad de habla</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="136"/>
         <source>Audio bitrate</source>
         <translation type="obsolete">Velocidad de transmisión del audio</translation>
     </message>
@@ -1824,6 +1978,7 @@
         <translation>Potencia máxima en la última trama</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="74"/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Loudness&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
         <translation type="obsolete">Muestra la potencia máxima en la última trama (20 ms), y es la misma medida que generalmente encontrará mostrada como &quot;potencia de entrada&quot;. Por favor, no haga caso a esto y vea &lt;b&gt;Intensidad&lt;/b&gt; en su lugar, que es mucho más estable e ignora las muestras extremas.</translation>
     </message>
@@ -1838,6 +1993,7 @@
         <translation>Cuán próximo al ideal está el nivel de entrada actual</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="103"/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality</source>
         <translation type="obsolete">Muestra cuán próximo al ideal está su nivel de volumen de entrada actual. Para ajustar su nivel de micrófono, abra el programa que emplea para ajustar el volumen de grabación, y observe el valor de aquí mientras habla.&lt;br /&gt;&lt;b&gt;Hable alto, como lo haría cuando está enfadado por perder ante un novato.&lt;/b&gt;&lt;br /&gt;Ajuste el volumen hasta que este valor esté próximo a 100%, pero asegúrese de que no lo sobrepasa. Si lo sobrepasa, es probable que se produzcan cortes en partes de su habla, lo que degradará la calidad de sonido</translation>
     </message>
@@ -1897,22 +2053,27 @@
         <translation>Muestra la potencia máxima en la última trama (20 ms) tras todo el procesado. Idealmente, esto debería ser -96 dB cuando no esté hablando. En realidad, un estudio de sonido debería ver -60 dB, y usted debería ver con suerte en torno a -20 dB. Cuando hable, esto debería aumentar hasta un valor entre -5 y -10 dB.&lt;br /&gt;Si está usando cancelación de eco, y esto sube a más de -15 dB cuando no está hablando, su instalación no está funcionando, y molestará con ecos a otros jugadores.</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="77"/>
         <source>Mumble</source>
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="77"/>
         <source>Real</source>
         <translation type="obsolete">Real</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="77"/>
         <source>Imaginary</source>
         <translation type="obsolete">Imaginaria</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="77"/>
         <source>Modulus</source>
         <translation type="obsolete">Módulo</translation>
     </message>
     <message>
+        <location filename="AudioStats.ui" line="77"/>
         <source>Phase</source>
         <translation type="obsolete">Fase</translation>
     </message>
@@ -2205,6 +2366,7 @@
         <translation>Para mantener la latencia en el mínimo absoluto, es importante almacenar en la tarjeta de sonido la menor cantidad de audio que sea posible. Sin embargo, muchas tarjetas de sonido informan de que requieren un búfer mucho más pequeño del que en realidad necesitan para funcionar, asi que la única forma de establecer este valor es mediante prueba y error.</translation>
     </message>
     <message>
+        <location filename="AudioWizard.cpp" line="472"/>
         <source>You should hear a multitone chord. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound.</source>
         <translation type="obsolete">Debería oir un acorde multitono. Cambie el control deslizante de abajo al valor mas bajo con el que no obtenga &lt;b&gt;ninguna&lt;/b&gt; interrupción ni ruido en el sonido.</translation>
     </message>
@@ -2347,26 +2509,32 @@
         <translation>&amp;Eliminar</translation>
     </message>
     <message>
+        <location filename="BanEditor.ui" line="86"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;Aceptar</translation>
     </message>
     <message>
+        <location filename="BanEditor.ui" line="86"/>
         <source>Accept changes</source>
         <translation type="obsolete">Aceptar cambios</translation>
     </message>
     <message>
+        <location filename="BanEditor.ui" line="86"/>
         <source>This button will accept current groups/ACLs and send them to the server. Note that if you mistakenly remove write permission from yourself, the server will add it.</source>
         <translation type="obsolete">Este botón aceptará los grupos/LCAs actuales y los enviará al servidor. Fíjese en que si elimina por error su propio permiso de escritura, el servidor lo agregará.</translation>
     </message>
     <message>
+        <location filename="BanEditor.ui" line="86"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
+        <location filename="BanEditor.ui" line="86"/>
         <source>Reject changes</source>
         <translation type="obsolete">Rechazar cambios</translation>
     </message>
     <message>
+        <location filename="BanEditor.ui" line="86"/>
         <source>This button will cancels all changes and closes the dialog without updating the ACLs or groups on the server.</source>
         <translation type="obsolete">Este botón cancelará todos los cambios y cerrá el cuadro de diálogo sin actualizar las LCAs o los grupos en el servidor.</translation>
     </message>
@@ -2444,6 +2612,7 @@
         <translation>Ninguno</translation>
     </message>
     <message>
+        <location filename="../ACL.cpp" line="163"/>
         <source>Write</source>
         <translation type="obsolete">Escritura</translation>
     </message>
@@ -2513,6 +2682,7 @@
         <translation>Representa el permiso de hablar en un canal. Los usuarios sin este privilegio serán suprimidos por el servidor (vistos como mudos), y no podrán hablar hasta que se les de voz con los privilegios adecuados.</translation>
     </message>
     <message>
+        <location filename="../ACL.cpp" line="203"/>
         <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speek&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. Used to broadcast to a hierarchy of channels without linking.</source>
         <translation type="obsolete">Representa el permiso de hablar en un canal con habla marcada. Funciona exactamente como el privilegio &lt;i&gt;hablar&lt;/i&gt;, pero se aplica a paquetes hablados con PresionarParaHablarAlt pulsado. Se usa para transmitir a una jerarquía de canales sin vincular.</translation>
     </message>
@@ -2588,6 +2758,7 @@
         <translation>Configuración de Mumble</translation>
     </message>
     <message>
+        <location filename="ConfigDialog.ui" line="13"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;Aceptar</translation>
     </message>
@@ -2602,6 +2773,7 @@
         <translation>Este botón aceptará las opciones actuales y volverá a la aplicación.&lt;br /&gt;Las opciones se almacenarán en el disco cuando salga de la aplicación.</translation>
     </message>
     <message>
+        <location filename="ConfigDialog.cpp" line="108"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -2616,6 +2788,7 @@
         <translation>Este botón rechazará todos los cambios y volverá a la aplicación.&lt;br /&gt;Las opciones se restaurarán a las posiciones previas.</translation>
     </message>
     <message>
+        <location filename="ConfigDialog.cpp" line="113"/>
         <source>&amp;Apply</source>
         <translation type="obsolete">&amp;Aplicar</translation>
     </message>
@@ -2650,14 +2823,17 @@
         <translation>Este boton restaurará sólo las opciones en la página actual a sus valores por defecto. No se cambiarán otras páginas.&lt;br /&gt;Para restaurar todas las opciones a sus valores por defecto, tendrá que usar este botón en cada página.</translation>
     </message>
     <message>
+        <location filename="ConfigDialog.cpp" line="126"/>
         <source>Show all configuration items</source>
         <translation type="obsolete">Muestra todos las opciones de configuración</translation>
     </message>
     <message>
+        <location filename="ConfigDialog.cpp" line="126"/>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
         <translation type="obsolete">&lt;b&gt;Muestra todos las opciones de configuración.&lt;/b&gt;&lt;br /&gt;Mumble contiene muchas opciones de configuración que la mayoría de usuarios no necesitarán cambiar. Marcar ésto mostrará todas las opciones configurables.</translation>
     </message>
     <message>
+        <location filename="ConfigDialog.cpp" line="126"/>
         <source>Expert Config</source>
         <translation type="obsolete">Configuración experta</translation>
     </message>
@@ -2670,6 +2846,7 @@
 <context>
     <name>ConnectDialog</name>
     <message>
+        <location filename="ConfigDialog.ui" line="26"/>
         <source>&amp;Name</source>
         <translation type="obsolete">&amp;Nombre</translation>
     </message>
@@ -2724,6 +2901,7 @@
         <translation>&amp;Explorador de servidores</translation>
     </message>
     <message>
+        <location filename="ConnectDialog.ui" line="165"/>
         <source>Name</source>
         <translation type="obsolete">Nombre</translation>
     </message>
@@ -2816,14 +2994,17 @@
 <context>
     <name>DXAudioInput</name>
     <message>
+        <location filename="ConnectDialog.cpp" line="374"/>
         <source>Mumble</source>
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
+        <location filename="ConnectDialog.cpp" line="374"/>
         <source>Opening chosen DirectSound Input failed. No microphone capture will be done.</source>
         <translation type="obsolete">Falló la apertura del dispositivo DirectSound elegido. No se realizará ninguna captura del micrófono.</translation>
     </message>
     <message>
+        <location filename="ConnectDialog.cpp" line="374"/>
         <source>Opening chosen DirectSound Input failed. Using defaults.</source>
         <translation type="obsolete">Falló la apertura del dispositivo DirectSound elegido. Usando los valores por defecto.</translation>
     </message>
@@ -2851,6 +3032,7 @@
 <context>
     <name>DXAudioOutput</name>
     <message>
+        <location filename="DirectSound.cpp" line="638"/>
         <source>Mumble</source>
         <translation type="obsolete">Mumble</translation>
     </message>
@@ -2878,162 +3060,202 @@
 <context>
     <name>DXConfigDialog</name>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Default DirectSound Voice Input</source>
         <translation type="obsolete">Entrada de voz DirectSound por defecto</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Default DirectSound Voice Output</source>
         <translation type="obsolete">Salida de voz DirectSound por defecto</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Device selection</source>
         <translation type="obsolete">Selección del dispositivo</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Device to use for microphone</source>
         <translation type="obsolete">Dispositivo a usar para el micrófono</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets the input device to use, which is where you have connected the microphone.</source>
         <translation type="obsolete">Establece el dispositivo de entrada a usar, que es donde ha conectado el micrófono.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Input</source>
         <translation type="obsolete">Entrada</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Device to use for speakers/headphones</source>
         <translation type="obsolete">Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets the output device to use, which is where you have connected your speakers or your headset</source>
         <translation type="obsolete">Establece el dispositivo de salida a usar, que es donde ha conectado sus altavoces o auriculares.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Output</source>
         <translation type="obsolete">Salida</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Output Options</source>
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Output Delay</source>
         <translation type="obsolete">Retraso de salida</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Amount of data to buffer for DirectSound</source>
         <translation type="obsolete">Cantidad de datos a almacenar en el búfer para DirectSound</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets the amount of data to prebuffer in the directsound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation type="obsolete">Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Positional Audio</source>
         <translation type="obsolete">Audio posicional</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>None</source>
         <translation type="obsolete">Ninguno</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Panning</source>
         <translation type="obsolete">Panning</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Light HRTF</source>
         <translation type="obsolete">HRTF ligera</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Full HRTF</source>
         <translation type="obsolete">HRTF completa</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>3D Sound Algorithm</source>
         <translation type="obsolete">Algoritmo de sonido 3D</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets what 3D Sound algorithm to use.&lt;br /&gt;&lt;b&gt;None&lt;/b&gt; - Disable 3D Sound (least CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Just use stereo panning (some CPU).&lt;br /&gt;&lt;b&gt;Light/Full HRTF&lt;/b&gt; - Head-Related Transfer Functions enabled. This may use a small amount of CPU.&lt;br /&gt;Note that if you have a soundcard with &lt;i&gt;hardware&lt;/i&gt; 3D processing, HRTF processing will be done on the soundcard and will use practically no processing power.</source>
         <translation type="obsolete">Establece qué algoritmo de Sonido 3D usar.&lt;br /&gt;&lt;b&gt;Ninguno&lt;/b&gt; - Desactiva el Sonido 3D (menos CPU).&lt;br /&gt;&lt;b&gt;Panning&lt;/b&gt; - Sólo usa panning estéreo (poca CPU).&lt;br /&gt;&lt;b&gt;HRTF Ligera/Completa&lt;/b&gt; - Activa las Funciones de Transferencia Relativas a la Cabeza (HRTF). Esto podría usar una pequeña cantidad de CPU.&lt;br /&gt;Fíjese en que si tiene una tarjeta de sonido con procesamiento 3D &lt;i&gt;hardware&lt;/i&gt;, el procesado de HRTF se hará en la tarjeta de sonido y casi no usará  poder de procesamiento.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Method</source>
         <translation type="obsolete">Método</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>MinDistance</source>
         <translation type="obsolete">Distancia mínima</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Minimum distance to player before sound decreases</source>
         <translation type="obsolete">Distancia mínima al jugador antes de que el sonido disminuya</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets the minimum distance for sound calculations. The volume of other players&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation type="obsolete">Establece la distancia mínima para cálculos de sonido. El volumen del habla de otros jugadores no disminuirá hasta que estén al menos a esta distancia de ti.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>MaxDistance</source>
         <translation type="obsolete">Distancia máxima</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
         <translation type="obsolete">Distancia máxima, más allá de la cual el sonido no disminuirá</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; sound volume will not decrease any more.</source>
         <translation type="obsolete">Establece la distancia máxima para cálculos de sonido. Cuando estén más lejos que esto, el volumen del sonido de otros jugadores no disminuirá más.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>RollOff</source>
         <translation type="obsolete">Atenuación</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Factor for sound volume decrease</source>
         <translation type="obsolete">Factor para la disminución del volumen del sonido</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>How fast should sound volume drop when passing beyond the minimum distance. The normal (1.0) is that sound volume halves each time the distance doubles. Increasing this value means sound volume drops faster, while decreasing it means it drops slower.</source>
         <translation type="obsolete">Cuán rápido debería disminuir el volumen del sonido cuando pase más allá de la distancia mínima. Lo normal (1.0) es que el volumen del sonido disminuya la mitad cada vez que la distancia se doble. Aumentar este valor quiere decir que el volumen disminuye más rápidamente, mientras que reducirlo quiere decir que disminuye más lentamente.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>DirectSound</source>
         <translation type="obsolete">DirectSound</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>%1 ms</source>
         <translation type="obsolete">%1 ms</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>%1m</source>
         <translation type="obsolete">%1m</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>%1</source>
         <translation type="obsolete">%1</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Players more than %1 meters away have %2% intensity</source>
         <translation type="obsolete">Los jugadores alejados más de %1 metros tendrán %2% de intensidad</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets the output device to use, which is where you have connected your speakers or your headset.</source>
         <translation type="obsolete">Establece el dispositivo de salida a usar, que es donde ha conectado sus altavoces o sus auriculares.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>This sets the amount of data to prebuffer in the DirectSound buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation type="obsolete">Establece la cantidad de datos que prealmacenar en el búfer directsound. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>%1ms</source>
         <translation type="obsolete">%1ms</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>Form</source>
         <translation type="obsolete">Formulario</translation>
     </message>
     <message>
+        <location filename="DirectSound.cpp" line="458"/>
         <source>TextLabel</source>
         <translation type="obsolete">EtiquetaDeTexto</translation>
     </message>
@@ -3056,6 +3278,7 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>DirectInputKeyWidget</name>
     <message>
+        <location filename="Database.cpp" line="99"/>
         <source>Press Shortcut</source>
         <translation type="obsolete">Presione la tecla de método abreviado</translation>
     </message>
@@ -3126,26 +3349,32 @@ de las ubicaciones posibles.</translation>
         <translation>Métodos abreviados</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut.cpp" line="228"/>
         <source>Function</source>
         <translation type="obsolete">Función</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut.cpp" line="228"/>
         <source>Shortcut</source>
         <translation type="obsolete">Método abreviado</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut.cpp" line="228"/>
         <source>Shortcut bound to %1.</source>
         <translation type="obsolete">Método abreviado asignado a %1.</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut.cpp" line="228"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
         <translation type="obsolete">&lt;b&gt;Éste es el método abreviado global asociado a %1&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas/botones deseada para volver a asociarlo. Haga doble click para borrar.</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut.cpp" line="228"/>
         <source>Double-click an entry to clear the shortcut.</source>
         <translation type="obsolete">Haga doble click en una entrada para borrar el método abreviado.</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut.cpp" line="228"/>
         <source>Suppress</source>
         <translation type="obsolete">Esconder</translation>
     </message>
@@ -3181,26 +3410,32 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>GlobalShortcutWinConfig</name>
     <message>
+        <location filename="GlobalShortcut_macx.cpp" line="60"/>
         <source>Shortcuts</source>
         <translation type="obsolete">Métodos abreviados</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_macx.cpp" line="60"/>
         <source>Function</source>
         <translation type="obsolete">Función</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_macx.cpp" line="60"/>
         <source>Shortcut</source>
         <translation type="obsolete">Método abreviado</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_macx.cpp" line="60"/>
         <source>Shortcut bound to %1.</source>
         <translation type="obsolete">Método abreviado asignado a %1.</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_macx.cpp" line="60"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key/button combo to rebind. Double-click to clear.</source>
         <translation type="obsolete">&lt;b&gt;Éste es el método abreviado global asociado a %1&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas/botones deseada para volver a asociarlo. Haga doble click para borrar.</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_macx.cpp" line="60"/>
         <source>Double-click an entry to clear the shortcut.</source>
         <translation type="obsolete">Haga doble click en una entrada para borrar el método abreviado.</translation>
     </message>
@@ -3216,22 +3451,27 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>GlobalShortcutXConfig</name>
     <message>
+        <location filename="GlobalShortcut_unix.cpp" line="319"/>
         <source>Shortcuts</source>
         <translation type="obsolete">Métodos abreviados</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_unix.cpp" line="319"/>
         <source>Function</source>
         <translation type="obsolete">Función</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_unix.cpp" line="319"/>
         <source>Shortcut</source>
         <translation type="obsolete">Método abreviado</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_unix.cpp" line="319"/>
         <source>Shortcut bound to %1.</source>
         <translation type="obsolete">Método abreviado asignado a %1.</translation>
     </message>
     <message>
+        <location filename="GlobalShortcut_unix.cpp" line="319"/>
         <source>&lt;b&gt;This is the global shortcut bound to %1&lt;/b&gt;&lt;br /&gt;Click this field and then the desired key combo to rebind. Double-click to clear.</source>
         <translation type="obsolete">&lt;b&gt;Éste es el método abreviado global asociado a %1&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas deseada para volver a asociarlo. Haga doble click para borrar.</translation>
     </message>
@@ -3385,6 +3625,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Log</name>
     <message>
+        <location filename="LCD.ui" line="140"/>
         <source>[%2] %1</source>
         <translation type="obsolete">[%2] %1</translation>
     </message>
@@ -3461,7 +3702,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Log.cpp" line="234"/>
         <source>Player muted (other)</source>
-        <translation>Jugador enmudecido (otro)</translation>
+        <translation>Jugador enmudeció (a otro)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="235"/>
@@ -3484,6 +3725,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mensaje de texto</translation>
     </message>
     <message>
+        <location filename="Log.cpp" line="238"/>
         <source>Script Errors</source>
         <translation type="obsolete">Errores de guión</translation>
     </message>
@@ -3566,14 +3808,17 @@ p, li { white-space: pre-wrap; }
         <translation>Consola</translation>
     </message>
     <message>
+        <location filename="Log.ui" line="40"/>
         <source>TTS</source>
         <translation type="obsolete">TTS</translation>
     </message>
     <message>
+        <location filename="Log.ui" line="40"/>
         <source>Enable console for %1</source>
         <translation type="obsolete">Habilitar consola para %1</translation>
     </message>
     <message>
+        <location filename="Log.ui" line="40"/>
         <source>Enable Text-To-Speech for %1</source>
         <translation type="obsolete">Habilitar Texto-A-Voz (TTS) para %1</translation>
     </message>
@@ -3666,6 +3911,7 @@ p, li { white-space: pre-wrap; }
         <translation>Idioma a usar (requiere reiniciar)</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="35"/>
         <source>&lt;b&gt;This sets which language mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
         <translation type="obsolete">&lt;b&gt;Establece qué idioma debería usar mumble&lt;/b&gt;&lt;br /&gt;Tendrá que reiniciar Mumble para usar el nuevo idioma.</translation>
     </message>
@@ -3695,18 +3941,22 @@ p, li { white-space: pre-wrap; }
         <translation>Archivo de carátula a usar</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="95"/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style.</source>
         <translation type="obsolete">&lt;b&gt;Establece qué carátula debería usar Mumble.&lt;/b&gt;&lt;br /&gt;La carátula es un archivo de estilo aplicado sobre el estilo de control básico.</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="95"/>
         <source>Use Horizontal Splitter</source>
         <translation type="obsolete">Usar divisor horizontal</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="95"/>
         <source>Use horizontal or vertical splitter for the main window</source>
         <translation type="obsolete">Usar un divisor horizontal o vertical para la ventana principal</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="95"/>
         <source>&lt;b&gt;This sets whether the split in the main window is horizontal or vertical.&lt;/b&gt;</source>
         <translation type="obsolete">&lt;b&gt;Establece si la división en la ventana principal es horizontal o vertical.&lt;/b&gt;</translation>
     </message>
@@ -3736,14 +3986,17 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;b&gt;Si se marca, los jugadores se mostrarán encima de los subcanales en la vista del canal.&lt;/b&gt;&lt;br /&gt;Se requiere reiniciar Mumble para ver el cambio.</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="132"/>
         <source>Expand All Channels</source>
         <translation type="obsolete">Expandir todos los canales</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="132"/>
         <source>Expand all channels when connecting</source>
         <translation type="obsolete">Expandir todos los canales al conectar</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="132"/>
         <source>&lt;b&gt;If set, all channels will be expanded by default when you connect to a server.&lt;/b&gt;</source>
         <translation type="obsolete">&lt;b&gt;Si se marca, por defecto se expandirán todos los canales al conectarse a un servidor.&lt;/b&gt;</translation>
     </message>
@@ -3768,10 +4021,12 @@ p, li { white-space: pre-wrap; }
         <translation>Formulario</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="13"/>
         <source>New version check</source>
         <translation type="obsolete">Comprobación de nueva versión</translation>
     </message>
     <message>
+        <location filename="LookConfig.ui" line="13"/>
         <source>Check for updates on startup</source>
         <translation type="obsolete">Busca actualizaciones al inicio</translation>
     </message>
@@ -4019,6 +4274,7 @@ p, li { white-space: pre-wrap; }
         <translation>Enmudecer &amp;localmente</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="243"/>
         <source>Mute or unmute player locally.</source>
         <translation type="obsolete">Enmudece o da voz localmente a un jugador.</translation>
     </message>
@@ -4103,6 +4359,7 @@ p, li { white-space: pre-wrap; }
         <translation>Vincula su canal actual al canal seleccionado. Si tienen permiso para hablar en el otro canal, los jugadores pueden oirse entre sí. Éste es un vínculo permanente, y durará hasta que se desvincule manualmente o se reinicie el servidor. Por favor vea los métodos abreviados para presionar-para-vincular.</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="326"/>
         <source>&amp;Unlink</source>
         <translation type="obsolete">&amp;Desvincular</translation>
     </message>
@@ -4302,6 +4559,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble -- %1</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="236"/>
         <source>Log of messages</source>
         <translation type="obsolete">Registro de mensajes</translation>
     </message>
@@ -4361,6 +4619,7 @@ p, li { white-space: pre-wrap; }
         <translation>Nombre del canal</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="936"/>
         <source>Are you sure you want to delete %1 and all it&apos;s subchannels?</source>
         <translation type="obsolete">¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -4405,6 +4664,7 @@ p, li { white-space: pre-wrap; }
         <translation>Uniéndose a %1.</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1285"/>
         <source>Connected to server.</source>
         <translation type="obsolete">Conectado al servidor.</translation>
     </message>
@@ -4529,6 +4789,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 fue traído por %2 desde %3.</translation>
     </message>
     <message>
+        <location filename="Messages.cpp" line="222"/>
         <source>%1 moved out by %2</source>
         <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
@@ -4538,6 +4799,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 ingresó en el canal.</translation>
     </message>
     <message>
+        <location filename="Messages.cpp" line="220"/>
         <source>%1 moved in by %2.</source>
         <translation type="obsolete">%2 trajo a %1.</translation>
     </message>
@@ -4645,10 +4907,12 @@ p, li { white-space: pre-wrap; }
         <translation>Presionar-para-Hablar Alt</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="214"/>
         <source>&amp;About Qt</source>
         <translation type="obsolete">&amp;Acerca de Qt</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="214"/>
         <source>%1 moved out by %2.</source>
         <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
@@ -4673,6 +4937,7 @@ p, li { white-space: pre-wrap; }
         <translation>Sale de la aplicación.</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="129"/>
         <source>Ctrl+Q</source>
         <comment>Quit</comment>
         <translation type="obsolete">Ctrl+S</translation>
@@ -4693,6 +4958,7 @@ p, li { white-space: pre-wrap; }
         <translation>Enviando mensaje a %1</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="785"/>
         <source>Enter message</source>
         <translation type="obsolete">Introduzca el mensaje</translation>
     </message>
@@ -4782,26 +5048,32 @@ p, li { white-space: pre-wrap; }
         <translation>El servidor presento un certificado que no superó la verificación.</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>&lt;li&gt;&lt;b&gt;Common Name:&lt;/b&gt; %1&lt;/li&gt;</source>
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Nombre común:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>&lt;li&gt;&lt;b&gt;Organization:&lt;/b&gt; %1&lt;/li&gt;</source>
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Organización:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>&lt;li&gt;&lt;b&gt;Subunit:&lt;/b&gt; %1&lt;/li&gt;</source>
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Subunidad:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>&lt;li&gt;&lt;b&gt;Country:&lt;/b&gt; %1&lt;/li&gt;</source>
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;País:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>&lt;li&gt;&lt;b&gt;Locality:&lt;/b&gt; %1&lt;/li&gt;</source>
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Localidad:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1381"/>
         <source>&lt;li&gt;&lt;b&gt;State:&lt;/b&gt; %1&lt;/li&gt;</source>
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Estado:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
@@ -4851,6 +5123,7 @@ p, li { white-space: pre-wrap; }
         <translation>Información del servidor Mumble</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="637"/>
         <source>Control channel: %1 ms latency, Encrypted with %3 bit %4&lt;br /&gt;Voice channel: %2 ms latency, Unencrypted</source>
         <translation type="obsolete">Canal de control: latencia %1 ms, Cifrado con %3 bit %4&lt;br /&gt;Canal de voz: latencia %2 ms, Sin cifrar</translation>
     </message>
@@ -4983,6 +5256,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mensaje para el árbol %1</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="1077"/>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
         <translation type="obsolete">Ahora está en el modo de ensordecimiento local. Este modo no se refleja en el servidor, y aun seguirá transmitiendo su voz al servidor. Este modo sólo debe ser usado si hay varias personas en la misma habitación y una de ellas usa Mumble con altavoces.</translation>
     </message>
@@ -5002,6 +5276,7 @@ p, li { white-space: pre-wrap; }
         <translation>Enmudece o da voz a un jugador localmente. Use ésto sobre jugadores en la misma habitación.</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="249"/>
         <source>&amp;Rename Channel</source>
         <translation type="obsolete">&amp;Renombrar canal</translation>
     </message>
@@ -5016,14 +5291,17 @@ p, li { white-space: pre-wrap; }
         <translation>Renombra un canal.</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="304"/>
         <source>&amp;Local deafen</source>
         <translation type="obsolete">Ensordecer &amp;localmente</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="304"/>
         <source>Silence loudspeakers</source>
         <translation type="obsolete">Silenciar altavoces</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="304"/>
         <source>Sets you in local deafen mode, wherein your speakers are silenced but you are still transmitting audio.</source>
         <translation type="obsolete">Le pone en el modo de ensordecimiento local, donde sus altavoces son silenciados pero aun sigue transmitiendo audio.</translation>
     </message>
@@ -5098,6 +5376,7 @@ p, li { white-space: pre-wrap; }
         <translation>Ctrl+M</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="242"/>
         <source>Ctrl+W</source>
         <translation type="obsolete">Ctrl+W</translation>
     </message>
@@ -5173,6 +5452,7 @@ p, li { white-space: pre-wrap; }
         <translation>Servidor</translation>
     </message>
     <message>
+        <location filename="Messages.cpp" line="351"/>
         <source>&amp;Quit</source>
         <translation type="obsolete">&amp;Salir</translation>
     </message>
@@ -5363,62 +5643,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>OSSConfig</name>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>OSS</source>
         <translation type="obsolete">OSS</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>%1ms</source>
         <translation type="obsolete">%1ms</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Form</source>
         <translation type="obsolete">Formulario</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Device selection</source>
         <translation type="obsolete">Selección del dispositivo</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Input</source>
         <translation type="obsolete">Entrada</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Device to use for microphone</source>
         <translation type="obsolete">Dispositivo a usar para el micrófono</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is whatever you have configured in alsaconfig, the &lt;i&gt;hwplug&lt;/i&gt; devices are specific hardware devices backed by the ALSA mixer and the &lt;i&gt;hw&lt;/i&gt; devices are raw hardware access. Unless your soundcard supports hardware mixing of audio, using the &lt;i&gt;hw&lt;/i&gt; device will exclude all other programs from using audio.</source>
         <translation type="obsolete">Establece qué dispositivo debería usar mumble. El dispositivo &lt;i&gt;default&lt;/i&gt; es aquel que haya seleccionado en alsaconfig, los dispositivos &lt;i&gt;hwplug&lt;/i&gt; son dispositivos hardware específicos respaldados por el mezclador ALSA y los dispotivos &lt;i&gt;hw&lt;/i&gt; son dispositivos de acceso directo al hardware. A menos que su tarjeta de sonido soporte la mezcla de audio por hardware, el uso de un dispositivo &lt;i&gt;hw&lt;/i&gt; excluirá al resto de programas del uso del audio.</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Output</source>
         <translation type="obsolete">Salida</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Device to use for speakers/headphones</source>
         <translation type="obsolete">Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Output Options</source>
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Output Delay</source>
         <translation type="obsolete">Retraso de salida</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>Amount of data to buffer for OSS</source>
         <translation type="obsolete">Cantidad de datos a almacenar en el búfer para OSS</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation type="obsolete">Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>TextLabel</source>
         <translation type="obsolete">EtiquetaDeTexto</translation>
     </message>
     <message>
+        <location filename="NetworkConfig.ui" line="260"/>
         <source>This set which device mumble should use. The &lt;i&gt;default&lt;/i&gt; device is your primary sound device.</source>
         <translation type="obsolete">Establece qué dispositivo deberia usar Mumble. El dispositivo &lt;i&gt;por defecto&lt;/i&gt; es su dispositivo de sonido principal.</translation>
     </message>
@@ -5431,6 +5726,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble</translation>
     </message>
     <message>
+        <location filename="Overlay.cpp" line="194"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran mumble from
 - you&apos;re on an OS earlier than WinXP SP2
@@ -5441,6 +5737,7 @@ p, li { white-space: pre-wrap; }
 - no tiene la versión actualizada en agosto de 2006 de DX9.0c</translation>
     </message>
     <message>
+        <location filename="Overlay.cpp" line="194"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
@@ -5492,18 +5789,22 @@ p, li { white-space: pre-wrap; }
         <translation>Establece si la sobreimpresión está habilitada o no. Esta opción se comprueba sólo cuando se inician aplicaciones D3D9, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor, fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="28"/>
         <source>No one</source>
         <translation type="obsolete">Nadie</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="28"/>
         <source>Only talking</source>
         <translation type="obsolete">Sólo hablando</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="28"/>
         <source>Everyone</source>
         <translation type="obsolete">Todos</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="28"/>
         <source>Show</source>
         <translation type="obsolete">Mostrar</translation>
     </message>
@@ -5513,6 +5814,7 @@ p, li { white-space: pre-wrap; }
         <translation>Quién mostrar en la sobreimpresión</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="38"/>
         <source>&lt;b&gt;This sets who to show in the ingame overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
         <translation type="obsolete">&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use ésto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo hablando&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
     </message>
@@ -5547,10 +5849,12 @@ p, li { white-space: pre-wrap; }
         <translation>Crecer hacia la derecha</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="131"/>
         <source>Let overlay grow to the Right</source>
         <translation type="obsolete">Hacer crecer la sobreimpresión hacia la derecha</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="131"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the Right if needed.</source>
         <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la derecha si es necesario.</translation>
     </message>
@@ -5565,6 +5869,7 @@ p, li { white-space: pre-wrap; }
         <translation>Permitir a la sobreimpresión crecer hacia arriba</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="83"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the top if needed.</source>
         <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la arriba si es necesario.</translation>
     </message>
@@ -5579,6 +5884,7 @@ p, li { white-space: pre-wrap; }
         <translation>Permitir a la sobreimpresión crecer hacia abajo</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="138"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow towards the bottom if needed.</source>
         <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la abajo si es necesario.</translation>
     </message>
@@ -5613,14 +5919,17 @@ p, li { white-space: pre-wrap; }
         <translation>Establece la fuente</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="190"/>
         <source>Maximum width of names.</source>
         <translation type="obsolete">Anchura máxima de los nombres.</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="190"/>
         <source>This sets the maximum width of names shows, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than it&apos;s height, and so on.</source>
         <translation type="obsolete">Establece la anchura máxima de los nombres mostrados, relativa a la altura. Si fija ésto a 100%, ninguna línea de texto será más ancha que su altura. A 500%, ninguna línea será 5 veces más ancha que su altura, y así sucesivamente.</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="190"/>
         <source>Maximum width</source>
         <translation type="obsolete">Anchura máxima</translation>
     </message>
@@ -5670,6 +5979,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use esto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo a los que hablan&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="41"/>
         <source>This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than its height, and so on.</source>
         <translation type="obsolete">Establece la anchura máxima de los nombres mostrados, relativa a la altura. Si fija esto a 100%, ninguna línea de texto será más ancha que su altura. A 500%, ninguna línea será 5 veces más ancha que su altura, y así sucesivamente.</translation>
     </message>
@@ -5752,14 +6062,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PAAudioConfig</name>
     <message>
+        <location filename="Overlay.ui" line="321"/>
         <source>PortAudio</source>
         <translation type="obsolete">PortAudio</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="321"/>
         <source>Input Device</source>
         <translation type="obsolete">Dispositivo de entrada</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="321"/>
         <source>Output Device</source>
         <translation type="obsolete">Dispositivo de salida</translation>
     </message>
@@ -5767,18 +6080,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PlayerModel</name>
     <message>
+        <location filename="Overlay.ui" line="321"/>
         <source>Name of player</source>
         <translation type="obsolete">Nombre del jugador</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="321"/>
         <source>Name of channel</source>
         <translation type="obsolete">Nombre del canal</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="321"/>
         <source>Player flags</source>
         <translation type="obsolete">Emblemas del jugador</translation>
     </message>
     <message>
+        <location filename="Overlay.ui" line="321"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; Not talking</source>
         <translation type="obsolete">Éste es un jugador conectado al servidor. El icono a la izquierda del jugador indica si está hablando o no:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; Hablando&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; Sin hablar</translation>
     </message>
@@ -5788,6 +6105,7 @@ p, li { white-space: pre-wrap; }
         <translation>Esto es un canal del servidor. Sólo los jugadores en el mismo canal pueden oirse entre sí.</translation>
     </message>
     <message>
+        <location filename="PlayerModel.cpp" line="427"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
         <translation type="obsolete">Muestra los emblemas que el jugador tiene en el servidor, si los hubiera:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Usuario autenticado&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Mudo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Mudo (por un administrador)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Sordo (por sí mismo)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Sordo (por un administrador)&lt;br /&gt;Un jugador enmudecido por sí mismo probablemente sólo está ausente, hablando por teléfono o algo similar.&lt;br /&gt;Un jugador enmudecido por un administrador probablemente está también sólo ausente, y el ruido que estaba haciendo el jugador era lo bastante molesto para que un adminstrador lo haya enmudecido.</translation>
     </message>
@@ -5918,6 +6236,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Plugins</name>
     <message>
+        <location filename="Plugins.ui" line="13"/>
         <source>Plugin %1 lost link.</source>
         <translation type="obsolete">El plugin %1 perdió el vínculo.</translation>
     </message>
@@ -5927,6 +6246,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 perdió el vínculo.</translation>
     </message>
     <message>
+        <location filename="Plugins.cpp" line="228"/>
         <source>Plugin %1 linked.</source>
         <translation type="obsolete">Plugin %1 vínculado.</translation>
     </message>
@@ -5947,70 +6267,87 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PulseAudioConfig</name>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>PulseAudio</source>
         <translation type="obsolete">PulseAudio</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>%1ms</source>
         <translation type="obsolete">%1ms</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Form</source>
         <translation type="obsolete">Formulario</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Device selection</source>
         <translation type="obsolete">Selección del dispositivo</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Input (Microphone)</source>
         <translation type="obsolete">Entrada (micrófono)</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Device to use for microphone</source>
         <translation type="obsolete">Dispositivo a usar para el micrófono</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
         <translation type="obsolete">Establece qué dispositivo deberia usar Mumble para el micrófono. El dispositivo &lt;i&gt;por defecto&lt;/i&gt; quiere decir usar la opción por defecto de PulseAudio.</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Output</source>
         <translation type="obsolete">Salida</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Device to use for speakers/headphones</source>
         <translation type="obsolete">Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Enable echo cancellation</source>
         <translation type="obsolete">Habilitar cancelación de eco</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>This enables echo cancellation. Don&apos;t enable this unless you are listening on speakers; for headphones it will cause audio degradation.</source>
         <translation type="obsolete">Habilita la cancelación de eco. No habilite ésto a menos que esté escuchando mediante de altavoces; causará degradación del audio con auriculares.</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Use echo cancellation</source>
         <translation type="obsolete">Usar cancelación de eco</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Output Options</source>
         <translation type="obsolete">Opciones de salida</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Output Delay</source>
         <translation type="obsolete">Retraso de salida</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>Amount of data to buffer for ALSA</source>
         <translation type="obsolete">Cantidad de datos a almacenar en el búfer para ALSA</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation type="obsolete">Establece la cantidad de datos que prealmacenar en el búfer de salida. Experimente con diferentes valores y fíjelo al más bajo que no cause fluctuaciones rápidas en el sonido.</translation>
     </message>
     <message>
+        <location filename="PAAudio.cpp" line="275"/>
         <source>TextLabel</source>
         <translation type="obsolete">EtiquetaDeTexto</translation>
     </message>
@@ -6078,10 +6415,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>VersionCheck</name>
     <message>
+        <location filename="TextMessage.ui" line="19"/>
         <source>Mumble</source>
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
+        <location filename="TextMessage.ui" line="19"/>
         <source>Failed to retrieve version information from server.</source>
         <translation type="obsolete">No se pudo recuperar del servidor la información de la versión.</translation>
     </message>
@@ -6192,46 +6531,57 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WASAPIConfig</name>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>WASAPI</source>
         <translation type="obsolete">WASAPI</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Form</source>
         <translation type="obsolete">Formulario</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Device selection</source>
         <translation type="obsolete">Selección del dispositivo</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Input (Microphone)</source>
         <translation type="obsolete">Entrada (micrófono)</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Device to use for microphone</source>
         <translation type="obsolete">Dispositivo a usar para el micrófono</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>This set which source mumble should use for the microphone. The &lt;i&gt;default&lt;/i&gt; device means to use the PulseAudio defaults.</source>
         <translation type="obsolete">Establece qué dispositivo deberia usar Mumble para el micrófono. El dispositivo &lt;i&gt;por defecto&lt;/i&gt; quiere decir usar la opción por defecto de PulseAudio.</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Output</source>
         <translation type="obsolete">Salida</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Device to use for speakers/headphones</source>
         <translation type="obsolete">Dispositivo a usar para los altavoces/auriculares</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Enable echo cancellation</source>
         <translation type="obsolete">Habilitar cancelación de eco</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>This enables echo cancellation. Don&apos;t enable this unless you are listening on speakers; for headphones it will cause audio degradation.</source>
         <translation type="obsolete">Habilita la cancelación de eco. No habilite ésto a menos que esté escuchando mediante de altavoces; causará degradación del audio con auriculares.</translation>
     </message>
     <message>
+        <location filename="ViewCert.cpp" line="91"/>
         <source>Use echo cancellation</source>
         <translation type="obsolete">Usar cancelación de eco</translation>
     </message>
@@ -6247,6 +6597,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>XInputKeyWidget</name>
     <message>
+        <location filename="WASAPI.cpp" line="202"/>
         <source>Press Shortcut</source>
         <translation type="obsolete">Presione la tecla de método abreviado</translation>
     </message>
