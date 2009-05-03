@@ -53,13 +53,6 @@ class DXAudioInput : public AudioInput {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(DXAudioInput)
-	protected:
-		LPDIRECTSOUNDCAPTURE8      pDSCapture;
-		LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
-		LPDIRECTSOUNDNOTIFY8       pDSNotify;
-
-		DWORD dwBufferSize;
-		bool bOk;
 	public:
 		DXAudioInput();
 		~DXAudioInput();

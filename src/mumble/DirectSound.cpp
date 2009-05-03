@@ -479,6 +479,29 @@ cleanup:
 #define NBUFFBLOCKS 50
 
 DXAudioInput::DXAudioInput() {
+	bRunning = true;
+}
+
+DXAudioInput::~DXAudioInput() {
+	bRunning = false;
+	wait();
+}
+
+void DXAudioInput::run() {
+	LPDIRECTSOUNDCAPTURE8      pDSCapture;
+	LPDIRECTSOUNDCAPTUREBUFFER pDSCaptureBuffer;
+	LPDIRECTSOUNDNOTIFY8       pDSNotify;
+
+	DWORD dwBufferSize;
+	bool bOk;
+	DWORD dwReadyBytes;
+	DWORD dwLastReadPos = 0;
+	DWORD dwReadPosition;
+	DWORD dwCapturePosition;
+
+	LPVOID aptr1, aptr2;
+	DWORD nbytes1, nbytes2;
+
 	HRESULT       hr;
 	WAVEFORMATEX  wfx;
 	DSCBUFFERDESC dscbd;
@@ -490,6 +513,11 @@ DXAudioInput::DXAudioInput() {
 	bOk = false;
 
 	bool failed = false;
+	float safety = 2.0f;
+	bool didsleep = false;
+	bool firstsleep = false;
+
+	Timer t;
 
 	ZeroMemory(&wfx, sizeof(wfx));
 	wfx.wFormatTag = WAVE_FORMAT_PCM;
@@ -524,49 +552,14 @@ DXAudioInput::DXAudioInput() {
 		bOk = true;
 
 
-	if (! bOk) {
-		g.mw->msgBox(tr("Opening chosen DirectSound Input device failed. No microphone capture will be done."));
-		return;
-	}
 
 	if (failed)
 		g.mw->msgBox(tr("Opening chosen DirectSound Input failed. Default device will be used."));
 
 	qWarning("DXAudioInput: Initialized");
 
-	bRunning = true;
-}
-
-DXAudioInput::~DXAudioInput() {
-	bRunning = false;
-	wait();
-
-	if (pDSNotify)
-		pDSNotify->Release();
-	if (pDSCaptureBuffer)
-		pDSCaptureBuffer->Release();
-	if (pDSCapture)
-		pDSCapture->Release();
-}
-
-void DXAudioInput::run() {
-	HRESULT       hr;
-	DWORD dwReadyBytes;
-	DWORD dwLastReadPos = 0;
-	DWORD dwReadPosition;
-	DWORD dwCapturePosition;
-
-	LPVOID aptr1, aptr2;
-	DWORD nbytes1, nbytes2;
-
 	if (! bOk)
-		return;
-
-	float safety = 2.0f;
-	bool didsleep = false;
-	bool firstsleep = false;
-
-	Timer t;
+		goto cleanup;
 
 	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING))) {
 		qWarning("DXAudioInput: Start failed");
@@ -588,7 +581,6 @@ void DXAudioInput::run() {
 
 				if (static_cast<int>(dwReadyBytes) < sizeof(short) * iFrameSize) {
 					double msecleft = 20.0 - (dwReadyBytes * 20.0) / (sizeof(short) * iFrameSize);
-					Timer t;
 
 					if (didsleep)
 						safety *= 1.1f;
@@ -638,4 +630,15 @@ void DXAudioInput::run() {
 	if (FAILED(hr)) {
 		g.mw->msgBox(tr("Lost DirectSound input device."));
 	}
+
+cleanup:
+	if (! bOk) {
+		g.mw->msgBox(tr("Opening chosen DirectSound Input device failed. No microphone capture will be done."));
+	}
+	if (pDSNotify)
+		pDSNotify->Release();
+	if (pDSCaptureBuffer)
+		pDSCaptureBuffer->Release();
+	if (pDSCapture)
+		pDSCapture->Release();
 }
