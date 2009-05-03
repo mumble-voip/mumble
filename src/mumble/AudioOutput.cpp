@@ -232,7 +232,7 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	iLastConsume = snum;
 
 	if (iBufferFilled >= snum)
-		return bLastAlive;
+		return true;
 
 	float *pOut;
 	STACKVAR(float, fOut, iFrameSize);
@@ -693,7 +693,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	AudioOutputUser *aop;
 	QList<AudioOutputUser *> qlMix;
 	QList<AudioOutputUser *> qlDel;
-
 
 	if (g.s.fVolume < 0.01)
 		return false;

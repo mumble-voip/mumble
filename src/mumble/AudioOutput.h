@@ -160,7 +160,6 @@ class AudioOutputSample : public AudioOutputUser {
 		SpeexBits sbBits;
 		void *dsDecState;
 		SpeexResamplerState *srs;
-		bool bLastAlive;
 		bool bLoop;
 	public:
 		static QList<QByteArray> getPacketsFromFile(const QString &filename);

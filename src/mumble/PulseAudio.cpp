@@ -446,8 +446,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	AudioOutputPtr ao = g.ao;
 	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(ao.get());
 
-	int samples = bytes / sizeof(float);
-	float buffer[samples];
+	unsigned char buffer[bytes];
 
 	if (! pao) {
 		// Transitioning, but most likely transitions back, so just zero.
@@ -514,12 +513,11 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pao->initializeMixer(chanmasks);
 	}
 
-
 	const unsigned int iSampleSize = pao->iSampleSize;
-	samples = bytes / iSampleSize;
+	const unsigned int samples = bytes / iSampleSize;
 
-	if (! pao->mix(buffer, samples))
-		memset(buffer, 0, samples * iSampleSize);
+	if (! pao->mix(buffer, samples)) 
+		memset(buffer, 0, bytes);
 	pa_stream_write(s, buffer, iSampleSize * samples, NULL, 0, PA_SEEK_RELATIVE);
 }
 

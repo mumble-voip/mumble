@@ -403,7 +403,6 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 			STACKVAR(short, outbuff, iEchoFrameSize);
 			float *ptr = srsEcho ? pfOutput : pfEchoInput;
 			if (srsEcho) {
-				qWarning("RESAMP!");
 				spx_uint32_t inlen = iEchoLength;
 				spx_uint32_t outlen = iFrameSize;
 				speex_resampler_process_interleaved_float(srsEcho, pfEchoInput, &inlen, pfOutput, &outlen);
