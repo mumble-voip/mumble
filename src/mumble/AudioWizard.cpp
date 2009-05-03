@@ -659,7 +659,7 @@ void AudioWizard::playChord() {
 	AudioOutputPtr ao = g.ao;
 	if (! ao || aosSource)
 		return;
-	aosSource = ao->playSample(QLatin1String("skin:wb_male.spx"), true);
+	aosSource = ao->playSample(QLatin1String("skin:wb_male.oga"), true);
 }
 
 void AudioWizard::restartAudio() {

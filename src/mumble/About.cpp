@@ -71,21 +71,17 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 }
 
 AboutSpeexDialog::AboutSpeexDialog(QWidget *p) : QDialog(p) {
-	char *verptr;
-	speex_lib_ctl(SPEEX_LIB_GET_VERSION_STRING, &verptr);
-
 	setWindowTitle(tr("About Speex"));
 
 	QLabel *text=new QLabel(this);
 	text->setOpenExternalLinks(true);
 	text->setText(tr(
 	                  "<h3>About Speex</h3>"
-	                  "<p><tt><a href=\"%2\">%2</a></tt></p>"
-	                  "<p>This program uses Speex version %1</p>"
+	                  "<p><tt><a href=\"%1\">%1</a></tt></p>"
+	                  "<p>This program uses SpeexDSP.</p>"
 	                  "<p>Speex is used for echo cancellation, noise<br />"
-	                  "filtering, voice activity detection and speech<br />"
-	                  "compression.</p>"
-	              ).arg(QLatin1String(verptr)).arg(QLatin1String("http://www.speex.org/")));
+	                  "filtering and voice activity detection.</p>"
+	              ).arg(QLatin1String("http://www.speex.org/")));
 
 	QPushButton *okButton = new QPushButton(tr("OK"), this);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));

@@ -216,13 +216,8 @@ void AudioInputDialog::updateBitrate() {
 	int p = qsFrames->value();
 
 	int audiorate, overhead, posrate;
-	float f = static_cast<float>(q);
-	void *es;
 
-	es = speex_encoder_init(&speex_uwb_mode);
-	speex_encoder_ctl(es,SPEEX_SET_VBR_QUALITY, &f);
-	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
-	speex_encoder_destroy(es);
+	audiorate = 8000;
 
 	// 50 packets, in bits, IP + UDP + Crypt + type/id (Message header) + flags + seq
 	overhead = 50 * 8 * (20 + 8 + 4 + 3 + 1 + 2);

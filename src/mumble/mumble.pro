@@ -24,12 +24,12 @@ unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
 }
 
 CONFIG(no-bundled-speex) {
-  PKGCONFIG	*= speex speexdsp
+  PKGCONFIG	*= speexdsp
 }
 
 !CONFIG(no-bundled-speex) {
   INCLUDEPATH	*= ../../speex/include ../../speex/libspeex ../../speexbuild
-  LIBS 		*= -lspeex
+  LIBS 		*= -lspeexdsp
 }
 
 unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.5.3 celt) {

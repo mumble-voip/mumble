@@ -574,7 +574,7 @@ void AudioInput::encodeAudioFrame() {
 		if (iEchoChannels > 0) {
 			sesEcho = speex_echo_state_init_mc(iFrameSize, iFrameSize*10, 1, bEchoMulti ? iEchoChannels : 1);
 			iArg = SAMPLE_RATE;
-			speex_echo_ctl(sesEcho, SPEEX_SET_SAMPLING_RATE, &iArg);
+			speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
 			speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
 
 			jitter_buffer_reset(jb);
