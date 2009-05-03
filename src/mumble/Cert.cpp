@@ -86,7 +86,11 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 		const QString &name = qscCert.subjectInfo(QSslCertificate::CommonName);
 
 		qlSubjectName->setText(name);
-		qlSubjectEmail->setText(emails.join(QLatin1String("<br />")));
+
+		if (emails.length() > 0)
+			qlSubjectEmail->setText(emails.join(QLatin1String("<br />")));
+		else
+			qlSubjectEmail->setText(tr("(none)"));
 
 		if (qlCert.count() > 1)
 			qscCert = qlCert.last();
