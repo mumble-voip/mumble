@@ -196,15 +196,14 @@ QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename)
 					celt_header_from_packet(reinterpret_cast<unsigned char *>(packet.packet), static_cast<int>(packet.bytes), &header);
 
 					if (header.version_id == celt_bitstream_version &&
-					    header.sample_rate == SAMPLE_RATE &&
-					    header.frame_size == (SAMPLE_RATE / 100) &&
-					    header.nb_channels == 1) {
+					        header.sample_rate == SAMPLE_RATE &&
+					        header.frame_size == (SAMPLE_RATE / 100) &&
+					        header.nb_channels == 1) {
 						header_ok = true;
 						extra_headers = header.extra_headers;
-					}
-					else {
+					} else {
 						qWarning("Sample rate: %i\nFrame size: %i\nBitstream version: %i\nChannels: %i",
-							 header.frame_size, header.sample_rate, header.version_id, header.nb_channels);
+						         header.frame_size, header.sample_rate, header.version_id, header.nb_channels);
 						break;
 					}
 				} else if (packetno <= 1 + extra_headers) {

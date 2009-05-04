@@ -179,7 +179,7 @@ void LogConfig::browseForAudioFile() {
 		if (AudioOutputSample::getPacketsFromFile(file).isEmpty()) {
 			QMessageBox::critical(this,
 			                      tr("Invalid sound file"),
-					      tr("The file '%1' does not exist or is not a valid celt file.").arg(file));
+			                      tr("The file '%1' does not exist or is not a valid celt file.").arg(file));
 			return;
 		}
 		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];

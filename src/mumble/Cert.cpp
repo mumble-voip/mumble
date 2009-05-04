@@ -286,7 +286,7 @@ void CertWizard::on_qleExportFile_textChanged(const QString &text) {
 				return;
 			}
 		}
-	} 
+	}
 	qwpExport->setComplete(false);
 }
 

@@ -1,8 +1,43 @@
+2009-05-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    dc6e8d1  Fix blank email corner-case. Abort in-progress host lookups on
+	     email change. Show proper error on invalid email.
+    92e9ef6  Show '(none)' for email-less certificates in CertView.
+    67ed2b0  Delayed email validation in CertWizard.
+
+2009-05-03
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    3c9ea0e  Updated Spanish translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4a7251b  s/SuperServerUser/SuperUser/
+    a067f2e  Support enabling noise
+    a65ebd0  Cleanup speexbuild.pro file
+    df6c8ed  Move DX Input initialization to one thread
+    803781d  Remove libspeex, as we only use libspeexdsp
+    32d16cd  Fix PulseAudio
+    9b21329  Rescale .spx to float
+    5de517f  Link channels over Ice
+
+2009-05-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    d3915cb  Fix certificate genration on OpenSSL 0.9.7.
+    21da51d  Fix PCH for Protobuf on OSX. Apple's headers really pollute
+	     the preprocssor with all sorts of junk.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    51120fe  s/Player/User/
+
 2009-05-01
   Stefan Hacker <dd0t@users.sourceforge.net>
     e3b0a63  Remove restriction to root channel.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    7dcfa00  Valgrind run
+    5049bea  Mention that we really prefer SQLite in the .ini files
+    ade79f8  description is also an info-value
+    42b53e4  `fieldname` for SQL
+    fabb1ef  email is now an info-value, not a db field
     d8f5d4b  Persistent BFF
     b0632cf  Add combobox for usernames in ACLEditor, and fix a few bugs
     d110fef  Send proper case for name on QueryUsers
@@ -33,6 +68,7 @@
 
 2009-04-29
   Stefan Hacker <dd0t@users.sourceforge.net>
+    bf8ccda  Replace speex event sound support with celt support.
     1ccf22e  Fix chatbars session detection
 
   Mikkel Krautz <mikkel@krautz.dk>

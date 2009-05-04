@@ -250,7 +250,7 @@ void ServerHandler::run() {
 
 
 	exec();
-	
+
 	if (qusUdp) {
 		QMutexLocker qml(&qmUdp);
 
@@ -371,7 +371,7 @@ void ServerHandler::serverConnectionConnected() {
 	mpv.set_os(u8(OSInfo::getOS()));
 	mpv.set_os_version(u8(OSInfo::getOSVersion()));
 	sendMessage(mpv);
-	
+
 	MumbleProto::Authenticate mpa;
 	mpa.set_username(u8(qsUserName));
 	mpa.set_password(u8(qsPassword));

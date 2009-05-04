@@ -516,7 +516,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	const unsigned int iSampleSize = pao->iSampleSize;
 	const unsigned int samples = bytes / iSampleSize;
 
-	if (! pao->mix(buffer, samples)) 
+	if (! pao->mix(buffer, samples))
 		memset(buffer, 0, bytes);
 	pa_stream_write(s, buffer, iSampleSize * samples, NULL, 0, PA_SEEK_RELATIVE);
 }

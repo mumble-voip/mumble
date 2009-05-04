@@ -291,7 +291,7 @@ ServerDB::ServerDB() {
 		if (version < 4) {
 			qWarning("Upgrading SQL Schema to version 4");
 
-			
+
 			if (Meta::mp.qsDBDriver == "QSQLITE") {
 				SQLDO("ALTER TABLE `%1group_members` RENAME TO `%1old_group_members`");
 				SQLDO("ALTER TABLE `%1channels` RENAME TO `%1old_channels`");
@@ -327,13 +327,13 @@ ServerDB::ServerDB() {
 				SQLDO("CREATE UNIQUE INDEX `%1acl_channel_pri` ON `%1acl`(`server_id`, `channel_id`, `priority`)");
 				SQLDO("DROP TRIGGER `%1acl_del_player`");
 				SQLDO("CREATE TRIGGER `%1acl_del_user` AFTER DELETE ON `%1users` FOR EACH ROW BEGIN DELETE FROM `%1acl` WHERE `user_id` = old.`user_id` AND `server_id` = old.`server_id`; END;");
-				
-				
+
+
 				SQLDO("INSERT INTO `%1channels` SELECT `server_id`, `channel_id`, `parent_id`, `name`, `inheritacl` FROM `%1old_channels`");
 				SQLDO("INSERT INTO `%1users` SELECT `server_id`, `player_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active` FROM `%1players`");
 				SQLDO("INSERT INTO `%1acl` SELECT `server_id`, `channel_id`, `priority`, `player_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1old_acl`");
 				SQLDO("INSERT INTO `%1group_members` SELECT `group_id`, `server_id`, `player_id`, `addit` FROM `%1old_group_members`");
-				
+
 				SQLDO("DROP TABLE `%1players`");
 				SQLDO("DROP TABLE `%1old_channels`");
 				SQLDO("DROP TABLE `%1old_group_members`");
@@ -354,7 +354,7 @@ ServerDB::ServerDB() {
 
 				SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`user_id`,'email',email FROM `%1users` WHERE email IS NOT NULL");
 				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,'description',description FROM `%1channels` WHERE description IS NOT NULL");
-				
+
 				SQLDO("ALTER TABLE `%1users` DROP COLUMN `email`");
 				SQLDO("ALTER TABLE `%1channels` DROP COLUMN `description`");
 			}
@@ -992,7 +992,7 @@ void Server::addLink(Channel *c, Channel *l) {
 	query.addBindValue(l->iId);
 	query.addBindValue(c->iId);
 	SQLEXEC();
-	
+
 	c->link(l);
 }
 
@@ -1012,7 +1012,7 @@ void Server::removeLink(Channel *c, Channel *l) {
 		query.addBindValue(l->iId);
 		query.addBindValue(c->iId);
 		SQLEXEC();
-		
+
 		c->unlink(l);
 	} else {
 		SQLPREP("DELETE FROM `%1channel_links` WHERE `server_id` = ? AND (`channel_id` = ? OR `link_id` = ?)");
@@ -1020,7 +1020,7 @@ void Server::removeLink(Channel *c, Channel *l) {
 		query.addBindValue(c->iId);
 		query.addBindValue(c->iId);
 		SQLEXEC();
-		
+
 		c->unlink();
 	}
 }

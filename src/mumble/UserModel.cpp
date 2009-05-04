@@ -462,7 +462,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 }
 
 QVariant UserModel::headerData(int section, Qt::Orientation orientation,
-                                 int role) const {
+                               int role) const {
 	if (orientation != Qt::Horizontal)
 		return QVariant();
 

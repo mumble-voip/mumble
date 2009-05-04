@@ -77,7 +77,7 @@ class Channel : public QObject {
 		void removeChannel(Channel *c);
 		void addUser(User *p);
 		void removeUser(User *p);
-		
+
 		void addClientUser(ClientUser *p);
 
 		bool isLinked(Channel *c);
