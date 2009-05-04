@@ -83,7 +83,9 @@ class Log : public QObject {
 };
 
 class LogDocument : public QTextDocument {
+	private:
 		Q_OBJECT
+		Q_DISABLE_COPY(LogDocument)
 	public:
 		QVariant qvVariant;
 		int iType;
