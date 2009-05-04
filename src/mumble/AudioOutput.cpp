@@ -303,21 +303,30 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned int iSeq) {
 	QMutexLocker lock(&qmJitter);
 
-	if (qbaPacket.size() < 1)
+	if (qbaPacket.size() < 2)
 		return;
 
-	// FIXME: This is wrong, flags aren't at byte 0, that's just the frames. Need the complete packet here.
+	PacketDataStream pds(qbaPacket);
 
-	unsigned int flags = qbaPacket.at(0);
-	unsigned int frames = flags & 0xf;
+	pds.next();
 
-	JitterBufferPacket jbp;
-	jbp.data = const_cast<char *>(qbaPacket.constData());
-	jbp.len = qbaPacket.size();
-	jbp.span = iFrameSize * frames;
-	jbp.timestamp = iFrameSize * iSeq;
+	int frames = 0;
+	unsigned int header = 0;
+	do {
+		header = pds.next();
+		frames++;
+		pds.skip(header & 0x7f);
+	} while ((header & 0x80) && pds.isValid());
 
-	jitter_buffer_put(jbJitter, &jbp);
+	if (pds.isValid()) {
+		JitterBufferPacket jbp;
+		jbp.data = const_cast<char *>(qbaPacket.constData());
+		jbp.len = qbaPacket.size();
+		jbp.span = iFrameSize * frames;
+		jbp.timestamp = iFrameSize * iSeq;
+
+		jitter_buffer_put(jbJitter, &jbp);
+	}
 }
 
 bool AudioOutputSpeech::needSamples(unsigned int snum) {
@@ -353,7 +362,15 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 			if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
 				PacketDataStream pds(jbp.data, jbp.len);
-				pds >> qlFrames;
+
+				ucFlags = pds.next();
+
+				unsigned int header = 0;
+				do {
+					header = pds.next();
+					qlFrames << pds.dataBlock(header & 0x7f);
+				} while ((header & 0x80) && pds.isValid());
+
 				if (pds.left()) {
 					pds >> fPos[0];
 					pds >> fPos[1];
@@ -380,8 +397,12 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 		if (! qlFrames.isEmpty()) {
 			QByteArray qba = qlFrames.takeFirst();
-			celt_decode_float(cdDecoder, reinterpret_cast<unsigned char *>(qba.data()), qba.size(), pOut);
-			bLastAlive = true;
+			if (! qba.isEmpty()) {
+				celt_decode_float(cdDecoder, reinterpret_cast<unsigned char *>(qba.data()), qba.size(), pOut);
+				bLastAlive = true;
+			} else {
+				bLastAlive = false;
+			}
 		} else {
 			celt_decode_float(cdDecoder, NULL, 0, pOut);
 		}

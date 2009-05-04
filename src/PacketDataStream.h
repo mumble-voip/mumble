@@ -154,6 +154,15 @@ class PacketDataStream {
 			setup(d, msize);
 		};
 
+		PacketDataStream(const QByteArray &qba) {
+			setup(const_cast<unsigned char *>(reinterpret_cast<const unsigned char *>(qba.constData())), qba.size());
+		}
+
+		PacketDataStream(QByteArray &qba) {
+			unsigned char *ptr=reinterpret_cast<unsigned char *>(qba.data());
+			setup(ptr, qba.capacity());
+		}
+
 		PacketDataStream &operator <<(const quint64 value) {
 			quint64 i = value;
 

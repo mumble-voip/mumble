@@ -672,7 +672,7 @@ void AudioInput::encodeAudioFrame() {
 		memset(psMic, 0, sizeof(short) * iFrameSize);
 	}
 	unsigned char buffer[512];
-	int len = celt_encode(ceEncoder, psSource, NULL, buffer, 75);
+	int len = celt_encode(ceEncoder, psSource, NULL, buffer, 50);
 	iBitrate = len * 100 * 8;
 
 	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len));
@@ -694,7 +694,18 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 
 	PacketDataStream pds(data + 1, 1023);
 	pds << iFrameCounter;
-	pds << qlFrames;
+
+	for(int i=0;i<qlFrames.count(); ++i) {
+		const QByteArray &qba = qlFrames.at(i);
+		unsigned char head = qba.size();
+		if ((i < qlFrames.count() - 1) || !bPreviousVoice)
+			head |= 0x80;
+		pds.append(head);
+		pds.append(qba.constData(), qba.size());
+	}
+
+	if (! bPreviousVoice)
+		pds.append(0x00);
 
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch()) {
 		pds << g.p->fPosition[0];
@@ -703,7 +714,7 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	}
 
 	if (g.s.lmLoopMode == Settings::Local)
-		LoopUser::lpLoopy.addFrame(QByteArray(data+1, pds.size()));
+		LoopUser::lpLoopy.addFrame(QByteArray(data, pds.size() + 1));
 	else if (g.sh)
 		g.sh->sendMessage(data, pds.size() + 1);
 

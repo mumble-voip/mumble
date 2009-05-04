@@ -174,7 +174,7 @@ bool AudioInputDialog::expert(bool b) {
 }
 
 void AudioInputDialog::on_qsFrames_valueChanged(int v) {
-	qlFrames->setText(tr("%1 ms").arg(v*20));
+	qlFrames->setText(tr("%1 ms").arg(v*10));
 	updateBitrate();
 }
 

@@ -150,7 +150,6 @@ void ServerHandler::udpReady() {
 		unsigned int msgType = (buffer[0] >> 5) & 0x7;
 		unsigned int msgFlags = buffer[0] & 0x1f;
 
-
 		if (msgType == MessageHandler::UDPPing) {
 			quint64 t;
 			pds >> t;
@@ -169,7 +168,12 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 	if (ao && p && ! p->bLocalMute) {
 		unsigned int iSeq;
 		pds >> iSeq;
-		ao->addFrameToBuffer(p, pds.dataBlock(pds.left()), iSeq);
+		QByteArray qba;
+		qba.reserve(pds.left() + 1);
+		qba.append(static_cast<char>(msgFlags));
+		qba.append(pds.dataBlock(pds.left()));
+
+		ao->addFrameToBuffer(p, qba, iSeq);
 	}
 }
 

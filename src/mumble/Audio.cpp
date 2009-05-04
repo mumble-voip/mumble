@@ -100,11 +100,19 @@ void LoopUser::fetchFrames() {
 			break;
 
 		int iSeq;
-		const QByteArray &qba = i.value();
-		PacketDataStream pds(qba.constData(), qba.size());
+		const QByteArray &data = i.value();
+		PacketDataStream pds(data.constData(), data.size());
+
+		unsigned int msgFlags = pds.next();
+
 		pds >> iSeq;
 
-		ao->addFrameToBuffer(this, pds.dataBlock(pds.left()), iSeq);
+		QByteArray qba;
+		qba.reserve(pds.left() + 1);
+		qba.append(static_cast<char>(msgFlags));
+		qba.append(pds.dataBlock(pds.left()));
+
+		ao->addFrameToBuffer(this, qba, iSeq);
 		i = qmPackets.erase(i);
 	}
 
