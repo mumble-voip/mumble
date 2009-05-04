@@ -117,7 +117,7 @@ void ConnectDialog::accept() {
 			return;
 
 		bool ok;
-		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(item->text(0)), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok);
+		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(item->text(0)), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
 		if (! ok)
 			return;
 
@@ -128,10 +128,10 @@ void ConnectDialog::accept() {
 		qsServer = a.at(0);
 		usPort = a.at(1).toUShort();
 	} else {
-		qsServer = qleServer->text();
-		qsUsername = qleUsername->text();
-		qsPassword = qlePassword->text();
-		usPort = qlePort->text().toUShort();
+		qsServer = qleServer->text().trimmed();
+		qsUsername = qleUsername->text().trimmed();
+		qsPassword = qlePassword->text().trimmed();
+		usPort = qlePort->text().trimmed().toUShort();
 
 		int row = qlwServers->currentIndex().row();
 		g.s.iServerRow = (row >= 0) ? row : 0;
