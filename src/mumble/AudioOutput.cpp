@@ -408,7 +408,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		}
 		spx_uint32_t inlen = iFrameSize;
 		spx_uint32_t outlen = iOutputSize;
-		if (srs)
+		if (srs && bLastAlive)
 			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
 		iBufferFilled += outlen;
 	}

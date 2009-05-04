@@ -641,7 +641,7 @@ void AudioInput::encodeAudioFrame() {
 		iSilentFrames = 0;
 	} else {
 		iSilentFrames++;
-		if (iSilentFrames > 200)
+		if (iSilentFrames > 500)
 			iFrameCounter = 0;
 	}
 
@@ -664,23 +664,25 @@ void AudioInput::encodeAudioFrame() {
 		return;
 	}
 
-	bPreviousVoice = iIsSpeech;
-
 	tIdle.restart();
 
 	if (! iIsSpeech) {
-		memset(psMic, 0, sizeof(short) * iFrameSize);
-	}
-	unsigned char buffer[512];
-	int len = celt_encode(ceEncoder, psSource, NULL, buffer, 50);
-	iBitrate = len * 100 * 8;
+		flushCheck(QByteArray());
+		iBitrate = 0;
+	} else {
+		unsigned char buffer[512];
+		int len = celt_encode(ceEncoder, psSource, NULL, buffer, 50);
+		iBitrate = len * 100 * 8;
 
-	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len));
+		flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len));
+	}
+
+	bPreviousVoice = iIsSpeech;
 }
 
 void AudioInput::flushCheck(const QByteArray &qba) {
 	qlFrames << qba;
-	if (bPreviousVoice && qlFrames.count() < g.s.iFramesPerPacket)
+	if (! qba.isEmpty() && qlFrames.count() < g.s.iFramesPerPacket)
 		return;
 
 	int flags = 0;
@@ -698,7 +700,7 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	for (int i=0;i<qlFrames.count(); ++i) {
 		const QByteArray &qba = qlFrames.at(i);
 		unsigned char head = qba.size();
-		if ((i < qlFrames.count() - 1) || !bPreviousVoice)
+		if (i < qlFrames.count() - 1)
 			head |= 0x80;
 		pds.append(head);
 		pds.append(qba.constData(), qba.size());
