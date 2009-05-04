@@ -54,6 +54,7 @@ class CertWizard : public QWizard, public Ui::Certificates {
 	protected:
 		Settings::KeyPair kpCurrent, kpNew;
 		bool bValidDomain, bPendingDns;
+		int iLookupId;
 	public:
 		CertWizard(QWidget *p = NULL);
 		int nextId() const;

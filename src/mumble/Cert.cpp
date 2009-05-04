@@ -183,10 +183,11 @@ bool CertWizard::validateCurrentPage() {
 				if (! domain.isEmpty()) {
 					qlError->setText(tr("Resolving domain %1.").arg(domain));
 					bPendingDns = true;
-					QHostInfo::lookupHost(domain, this, SLOT(lookedUp(QHostInfo)));
+					iLookupId = QHostInfo::lookupHost(domain, this, SLOT(lookedUp(QHostInfo)));
 				} else
 					bValidDomain = true;
-			}
+			} else
+				qlError->setText(tr("Unable to validate email.<br />Enter a valid (or blank) email to continue."));
 			if (! bValidDomain) {
 				qwpNew->setComplete(false);
 				return false;
@@ -194,7 +195,7 @@ bool CertWizard::validateCurrentPage() {
 		} else {
 			kpNew = generateNewCert(qleName->text(), qleEmail->text());
 			if (! validateCert(kpNew)) {
-				qlError->setText(tr("There was an error generating your certificate. Please try again."));
+				qlError->setText(tr("There was an error generating your certificate.<br />Please try again."));
 				return false;
 			}
 		}
@@ -243,9 +244,13 @@ bool CertWizard::validateCurrentPage() {
 }
 
 void CertWizard::on_qleEmail_textChanged(const QString &email) {
-	bValidDomain = false;
-	if (! bPendingDns)
-		qwpNew->setComplete(true);
+	bValidDomain = email.isEmpty();
+	if (bPendingDns) {
+		qlError->setText(QString());
+		QHostInfo::abortHostLookup(iLookupId);
+		bPendingDns = false;
+	}
+	qwpNew->setComplete(true);
 }
 
 void CertWizard::on_qpbExportFile_clicked() {
