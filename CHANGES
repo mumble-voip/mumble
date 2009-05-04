@@ -5,6 +5,11 @@
     92e9ef6  Show '(none)' for email-less certificates in CertView.
     67ed2b0  Delayed email validation in CertWizard.
 
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    534753f  Optimize audio framing, and preserve flags
+    c6b204c  Add missing disable_copy()
+    3cc160b  Trim whitespace from ConnectDialog input
+
 2009-05-03
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     3c9ea0e  Updated Spanish translation

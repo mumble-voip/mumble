@@ -695,7 +695,7 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	PacketDataStream pds(data + 1, 1023);
 	pds << iFrameCounter;
 
-	for(int i=0;i<qlFrames.count(); ++i) {
+	for (int i=0;i<qlFrames.count(); ++i) {
 		const QByteArray &qba = qlFrames.at(i);
 		unsigned char head = qba.size();
 		if ((i < qlFrames.count() - 1) || !bPreviousVoice)
