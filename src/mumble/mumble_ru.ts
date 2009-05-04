@@ -2769,7 +2769,7 @@
         <location filename="Database.cpp" line="99"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation>Mumble не удалось инициализировать базу данных ни в 
+        <translation>Mumble не удалось инициализировать базу данных ни в
 одном из доступных мест.</translation>
     </message>
 </context>
