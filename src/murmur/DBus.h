@@ -42,6 +42,8 @@
 #include "ServerDB.h"
 #include "Meta.h"
 
+struct Ban;
+
 struct PlayerInfo {
 	unsigned int session;
 	bool mute, deaf, suppressed;
@@ -99,7 +101,7 @@ struct BanInfo {
 	unsigned int address;
 	int bits;
 	BanInfo() { };
-	BanInfo(QPair<quint32,int>);
+	BanInfo(const Ban &);
 };
 Q_DECLARE_METATYPE(BanInfo);
 Q_DECLARE_METATYPE(QList<BanInfo>);

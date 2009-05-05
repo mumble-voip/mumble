@@ -538,17 +538,18 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 
 void MurmurDBus::getBans(QList<BanInfo> &bi) {
 	bi.clear();
-	QPair<quint32,int> ban;
-	foreach(ban, server->qlBans) {
-		bi << BanInfo(ban);
+	foreach(const Ban &b, server->qlBans) {
+		bool ok = true;
+		for(int i=0;i<10;++i)
+			ok = ok && (b.qip6Address[i] == 0);
+		for(int i=10;i<12;++i)
+			ok = ok && (b.qip6Address[i] == 0xFF);
+		if (ok)
+			bi << BanInfo(b);
 	}
 }
 
-void MurmurDBus::setBans(const QList<BanInfo> &bans, const QDBusMessage &) {
-	server->qlBans.clear();
-	foreach(BanInfo bi, bans)
-		server->qlBans << QPair<quint32,int>(bi.address,bi.bits);
-	server->saveBans();
+void MurmurDBus::setBans(const QList<BanInfo> &, const QDBusMessage &) {
 }
 
 void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QStringList &names) {
@@ -743,9 +744,9 @@ GroupInfo::GroupInfo(const Group *g) {
 	members.clear();
 }
 
-BanInfo::BanInfo(QPair<quint32,int> b) {
-	address = b.first;
-	bits = b.second;
+BanInfo::BanInfo(const Ban &b) {
+	address = (b.qip6Address[12] << 24) | (b.qip6Address[13] << 16) | (b.qip6Address[14] << 8) | b.qip6Address[15];
+	bits = b.iMask;
 }
 
 RegisteredPlayer::RegisteredPlayer() {

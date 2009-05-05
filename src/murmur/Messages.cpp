@@ -287,7 +287,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 	MSG_SETUP(User::Authenticated);
 
-	typedef QPair<quint32, int> ban;
 	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Ban)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Ban);
 		return;
@@ -295,30 +294,36 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 	if (msg.query()) {
 		msg.clear_query();
 		msg.clear_bans();
-		foreach(const ban &b, qlBans) {
+		foreach(const Ban &b, qlBans) {
 			MumbleProto::BanList_BanEntry *be = msg.add_bans();
-			char buff[4];
-			buff[0] = static_cast<char>((b.first >> 24) & 0xFF);
-			buff[1] = static_cast<char>((b.first >> 16) & 0xFF);
-			buff[2] = static_cast<char>((b.first >> 8) & 0xFF);
-			buff[3] = static_cast<char>((b.first >> 0) & 0xFF);
-			be->set_address(std::string(buff, 4));
-			be->set_mask(b.second);
+			be->set_address(std::string(reinterpret_cast<const char *>(b.qip6Address.c), 16));
+			be->set_mask(b.iMask);
+			be->set_name(u8(b.qsUsername));
+			be->set_hash(u8(b.qsHash));
+			be->set_reason(u8(b.qsReason));
+			be->set_start(u8(b.qdtStart.toString(Qt::ISODate)));
+			be->set_duration(b.iDuration);
 		}
 		sendMessage(uSource, msg);
 	} else {
 		qlBans.clear();
 		for (int i=0;i < msg.bans_size(); ++i) {
 			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
-			quint32 v = 0;
 			std::string s = be.address();
-			if (s.length() == 4) {
-				const char *data = s.data();
-				v += (data[0] << 24);
-				v += (data[1] << 16);
-				v += (data[2] << 8);
-				v += (data[3] << 0);
-				qlBans << ban(v, be.mask());
+			if (s.length() == 16) {
+				Ban b;
+				for(int j=0;j<16;++j)
+					b.qip6Address[j] = s[j];
+				b.iMask = be.mask();
+				b.qsUsername = u8(be.name());
+				b.qsHash = u8(be.hash());
+				b.qsReason = u8(be.reason());
+				if (be.has_start())
+					b.qdtStart = QDateTime::fromString(u8(be.start()), Qt::ISODate);
+				else
+					b.qdtStart = QDateTime::currentDateTime().toUTC();
+				b.iDuration = be.duration();
+				qlBans << b;
 			}
 		}
 		saveBans();
@@ -503,9 +508,15 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 	}
 
 	if (ban) {
-		QHostAddress adr = pDstServerUser->peerAddress();
-		quint32 base = adr.toIPv4Address();
-		qlBans << QPair<quint32,int>(base, 32);
+		Ban b;
+		b.qip6Address = pDstServerUser->qip6Address;
+		b.iMask = 128;
+		b.qsReason = u8(msg.reason());
+		b.qsUsername = pDstServerUser->qsName;
+		b.qsHash = pDstServerUser->qsHash;
+		b.qdtStart = QDateTime::currentDateTime().toUTC();
+		b.iDuration = 0;
+		qlBans << b;
 		saveBans();
 	}
 

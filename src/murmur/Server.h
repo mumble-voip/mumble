@@ -111,10 +111,22 @@ class ServerUser : public Connection, public User {
 
 		bool bVerified;
 		QStringList qslEmail;
+		
+		Q_IPV6ADDR qip6Address;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
 		ServerUser(Server *parent, QSslSocket *socket);
+};
+
+struct Ban {
+	Q_IPV6ADDR qip6Address;
+	int iMask;
+	QString qsUsername;
+	QString qsHash;
+	QString qsReason;
+	QDateTime qdtStart;
+	unsigned int iDuration;
 };
 
 class Server : public QThread {
@@ -204,7 +216,7 @@ class Server : public QThread {
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;
 
-		QList<QPair<quint32, int> > qlBans;
+		QList<Ban> qlBans;
 
 		void processMsg(ServerUser *u, const char *data, int len);
 		void sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache);
@@ -276,7 +288,6 @@ class Server : public QThread {
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
-		typedef QPair<quint32, int> qpBan;
 		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false);
 		Channel *addChannel(Channel *c, const QString &name);
 		void removeChannel(const Channel *c);

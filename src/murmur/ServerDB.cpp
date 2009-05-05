@@ -124,7 +124,9 @@ ServerDB::ServerDB() {
 		qFatal("ServerDB: Failed initialization: %s",qPrintable(e.text()));
 	}
 
-	QSqlQuery query;
+	TransactionHolder th;
+
+	QSqlQuery &query = *th.qsqQuery;
 
 	int version = 0;
 
@@ -232,7 +234,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TRIGGER `%1channel_links_del_channel` AFTER DELETE ON `%1channels` FOR EACH ROW BEGIN DELETE FROM `%1channel_links` WHERE `server_id` = old.`server_id` AND (`channel_id` = old.`channel_id` OR `link_id` = old.`channel_id`); END;");
 			SQLDO("DELETE FROM `%1channel_links`");
 
-			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` INTEGER, `mask` INTEGER)");
+			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BLOB, `mask` INTEGER, `name` TEXT, `hash` TEXT, `reason` TEXT, `start` DATE, `duration` INTEGER)");
 			SQLDO("CREATE TRIGGER `%1bans_del_server` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1bans` WHERE `server_id` = old.`server_id`; END;");
 
 			SQLDO("VACUUM");
@@ -286,7 +288,7 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE `%1channel_links` ADD CONSTRAINT `%1channel_links_del_channel` FOREIGN KEY(`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
 			SQLDO("DELETE FROM `%1channel_links`");
 
-			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` INTEGER, `mask` INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BINARY(16), `mask` INTEGER, `name` varchar(255), `hash` CHAR(40), `reason` TEXT, `start` DATETIME, `duration` INTEGER) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 			SQLDO("ALTER TABLE `%1bans` ADD CONSTRAINT `%1bans_del_server` FOREIGN KEY(`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 		}
 		if (version == 0) {
@@ -304,8 +306,37 @@ ServerDB::ServerDB() {
 			SQLDO("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) SELECT `group_id`, `server_id`, `player_id`, `addit` FROM `%1group_members_old`");
 			SQLDO("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv`) SELECT `server_id`, `channel_id`, `priority`, `player_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1acl_old`");
 			SQLDO("INSERT INTO `%1channel_links` (`server_id`, `channel_id`, `link_id`) SELECT `server_id`, `channel_id`, `link_id` FROM `%1channel_links_old`");
-			SQLDO("INSERT INTO `%1bans` (`server_id`, `base`, `mask`) SELECT `server_id`, `base`, `mask` FROM `%1bans_old`");
+			
+			QList<QList<QVariant> > ql;
+			SQLPREP("SELECT `server_id`, `base`, `mask` FROM `%1bans_old`");
+			SQLEXEC();
+			while (query.next()) {
+				QList<QVariant> l;
+				l << query.value(0);
+				l << query.value(1);
+				l << query.value(2);
+				ql << l;
+			}
+			SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`, `mask`) VALUES (?, ?, ?)");
+			foreach(const QList<QVariant> &l, ql) {
+				
+				quint32 addr = htonl(l.at(1).toUInt());
+				const char *ptr = reinterpret_cast<const char *>(&addr);
+				
+				QByteArray qba(16, 0);
+				qba[10] = static_cast<char>(0xFF);
+				qba[11] = static_cast<char>(0xFF);
+				qba[12] = ptr[0];
+				qba[13] = ptr[1];
+				qba[14] = ptr[2];
+				qba[15] = ptr[3];
 
+				query.addBindValue(l.at(0));
+				query.addBindValue(qba);
+				query.addBindValue(l.at(2).toInt() + 96);
+				SQLEXEC();
+			}
+			
 			SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`player_id`,'email',email FROM `%1players_old` WHERE `email` IS NOT NULL");
 			
 			if (version == 3) {
@@ -322,6 +353,8 @@ ServerDB::ServerDB() {
 			SQLDO("DROP TABLE IF EXISTS `%1acl_old`");
 			SQLDO("DROP TABLE IF EXISTS `%1channel_links_old`");
 			SQLDO("DROP TABLE IF EXISTS `%1bans_old`");
+			
+			SQLDO("UPDATE `%1meta` SET `value` = '4' WHERE `keystring` = 'version'");
 		}
 	}
 	query.clear();
@@ -401,7 +434,9 @@ bool ServerDB::execBatch(QSqlQuery &query, const QString &str, bool fatal) {
 }
 
 void Server::initialize() {
-	QSqlQuery query;
+	TransactionHolder th;
+
+	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("SELECT `channel_id` FROM `%1channels` WHERE `server_id` = ? AND `channel_id` = 0");
 	query.addBindValue(iServerNum);
@@ -1288,30 +1323,49 @@ void Server::getBans() {
 	qlBans.clear();
 
 	QSqlQuery &query = *th.qsqQuery;
-	SQLPREP("SELECT `base`,`mask` FROM `%1bans` WHERE `server_id` = ?");
+	SQLPREP("SELECT `base`,`mask`,`name`,`hash`,`reason`,`start`,`duration` FROM `%1bans` WHERE `server_id` = ?");
 	query.addBindValue(iServerNum);
 	SQLEXEC();
 	while (query.next()) {
-		qpBan ban;
-		ban.first = query.value(0).toUInt();
-		ban.second = query.value(1).toInt();
-		qlBans << ban;
+		QByteArray qba = query.value(0).toByteArray();
+		if (qba.length() == 16) {
+			Ban ban;
+			for(int i=0;i<16;++i)
+				ban.qip6Address[i] = qba.at(i);
+				
+			ban.iMask = query.value(1).toInt();
+			ban.qsUsername = query.value(2).toString();
+			ban.qsHash = query.value(3).toString();
+			ban.qsReason = query.value(4).toString();
+			ban.qdtStart = query.value(5).toDateTime();
+			ban.iDuration = query.value(6).toInt();
+
+			qlBans << ban;
+		}
 	}
 }
 
 void Server::saveBans() {
 	TransactionHolder th;
-	qpBan ban;
 
 	QSqlQuery &query = *th.qsqQuery;
 	SQLPREP("DELETE FROM `%1bans` WHERE `server_id` = ? ");
 	query.addBindValue(iServerNum);
 	SQLEXEC();
-	foreach(ban, qlBans) {
-		SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`,`mask`) VALUES (?,?,?)");
+
+	SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`,`mask`,`name`,`hash`,`reason`,`start`,`duration`) VALUES (?,?,?,?,?,?,?,?)");
+	foreach(const Ban &ban, qlBans) {
+		QByteArray qba(16, 0);
+		for(int i=0;i<16;++i)
+			qba[i] = ban.qip6Address[i];
 		query.addBindValue(iServerNum);
-		query.addBindValue(ban.first);
-		query.addBindValue(ban.second);
+		query.addBindValue(qba);
+		query.addBindValue(ban.iMask);
+		query.addBindValue(ban.qsUsername);
+		query.addBindValue(ban.qsHash);
+		query.addBindValue(ban.qsReason);
+		query.addBindValue(ban.qdtStart);
+		query.addBindValue(ban.iDuration);
 		SQLEXEC();
 	}
 }

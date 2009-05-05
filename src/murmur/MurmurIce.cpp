@@ -97,22 +97,11 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 
 	mp.tcponly = (u->saiUdpAddress.sin_port == 0);
 
-	const QHostAddress &qha = u->peerAddress();
 	::Murmur::NetAddress addr(16, 0);
-	if (qha.protocol() == QAbstractSocket::IPv6Protocol) {
-		Q_IPV6ADDR a = qha.toIPv6Address();
-		for (int i=0;i<16;++i)
-			addr[i] = a[i];
-	} else {
-		quint32 a = htonl(qha.toIPv4Address());
-		const unsigned char *ptr = reinterpret_cast<const unsigned char *>(&a);
-		addr[10] = 0xFF;
-		addr[11] = 0xFF;
-		addr[12] = ptr[0];
-		addr[13] = ptr[1];
-		addr[14] = ptr[2];
-		addr[15] = ptr[3];
-	}
+	const Q_IPV6ADDR &a = u->qip6Address;
+	for (int i=0;i<16;++i)
+		addr[i] = a[i];
+
 	mp.address = addr;
 }
 
@@ -146,9 +135,34 @@ static void groupToGroup(const ::Group *g, Murmur::Group &mg) {
 	mg.members.clear();
 }
 
-static void banToBan(const QPair<quint32,int> b, Murmur::Ban &mb) {
-	mb.address = b.first;
-	mb.bits = b.second;
+static void banToBan(const ::Ban &b, Murmur::Ban &mb) {
+	::Murmur::NetAddress addr(16, 0);
+	const Q_IPV6ADDR &a = b.qip6Address;
+	for (int i=0;i<16;++i)
+		addr[i] = a[i];
+
+	mb.address = addr;
+	mb.bits = b.iMask;
+	mb.name = u8(b.qsUsername);
+	mb.hash = u8(b.qsHash);
+	mb.reason = u8(b.qsReason);
+	mb.start = b.qdtStart.toTime_t();
+	mb.duration = b.iDuration;
+}
+
+static void banToBan(const ::Murmur::Ban &mb, ::Ban &b) {
+	if (mb.address.size() != 16)
+		for(int i=0;i<16;++i)
+			b.qip6Address[i] = 0;
+	else
+		for(int i=0;i<16;++i)
+			b.qip6Address[i] = mb.address[i];
+	b.iMask = mb.bits;
+	b.qsUsername = u8(mb.name);
+	b.qsHash = u8(mb.hash);
+	b.qsReason = u8(mb.reason);
+	b.qdtStart = QDateTime::fromTime_t(static_cast<quint32>(mb.start));
+	b.iDuration = mb.duration;
 }
 
 static void infoToInfo(const QMap<QString, QString> &info, Murmur::InfoMap &im) {
@@ -842,8 +856,7 @@ static void impl_Server_getBans(const ::Murmur::AMD_Server_getBansPtr cb, int se
 	NEED_SERVER;
 	::Murmur::BanList bl;
 	::Murmur::Ban mb;
-	QPair<quint32, int> ban;
-	foreach(ban, server->qlBans) {
+	foreach(const ::Ban &ban, server->qlBans) {
 		banToBan(ban, mb);
 		bl.push_back(mb);
 	}
@@ -854,7 +867,9 @@ static void impl_Server_setBans(const ::Murmur::AMD_Server_setBansPtr cb, int se
 	NEED_SERVER;
 	server->qlBans.clear();
 	foreach(const ::Murmur::Ban &mb, bans) {
-		server->qlBans << QPair<quint32,int>(mb.address,mb.bits);
+		::Ban ban;
+		banToBan(mb, ban);
+		server->qlBans << ban;
 	}
 	server->saveBans();
 	cb->ice_response();

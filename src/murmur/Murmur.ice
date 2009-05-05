@@ -139,10 +139,20 @@ module Murmur
 	/** A single ip mask for a ban.
          **/
 	struct Ban {
-		/** IPv4 address to ban, represented as a single integer. */
-		int address;
-		/** Number of bits in ban to apply. This uses CIDR notation, so putting 24 here is the equivalent of netmask 255.255.255.0. */
+		/** Address to ban. */
+		NetAddress address;
+		/** Number of bits in ban to apply. */
 		int bits;
+		/** Username associated with ban. */
+		string name;
+		/** Hash of banned user. */
+		string hash;
+		/** Reason for ban. */
+		string reason;
+		/** Date ban was applied in unix time format. */
+		long start;
+		/** Duration of ban. */
+		int duration;
 	};
 
 	/** A entry in the log.

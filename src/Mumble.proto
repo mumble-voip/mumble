@@ -98,8 +98,10 @@ message BanList {
 		required uint32 mask = 2;
 		// FIXME: Implement these
 		optional string name = 3;
-		optional string reason = 4;
-		optional uint32 duration = 5;
+		optional string hash = 4;
+		optional string reason = 5;
+		optional string start = 6;
+		optional uint32 duration = 7;
 	}
 	repeated BanEntry bans = 1;
 	optional bool query = 2 [default = false];
