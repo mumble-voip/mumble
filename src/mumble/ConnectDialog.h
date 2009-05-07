@@ -39,6 +39,7 @@ struct PublicInfo {
 	QString name;
 	QUrl url;
 	QString ip;
+	QString cc;
 	unsigned short port;
 };
 

@@ -181,12 +181,15 @@ void ConnectDialog::fillList() {
 
 	QList<QTreeWidgetItem *> ql;
 
-	foreach(PublicInfo pi, qlPublicServers) {
+	foreach(const PublicInfo &pi, qlPublicServers) {
 		QStringList qsl;
 		qsl << pi.name;
 		qsl << QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port);
 		qsl << pi.url.toString();
-		ql << new TextSortedItem(NULL,qsl);
+		TextSortedItem *tsi = new TextSortedItem(NULL, qsl);
+		if (! pi.cc.isEmpty())
+			tsi->setIcon(1, QIcon(QString::fromLatin1(":/flags/%1.png").arg(pi.cc)));
+		ql << tsi;
 	}
 	qtwServers->addTopLevelItems(ql);
 }
@@ -245,6 +248,7 @@ void ConnectDialog::finished() {
 				pi.url = e.attribute(QLatin1String("url"));
 				pi.ip = e.attribute(QLatin1String("ip"));
 				pi.port = e.attribute(QLatin1String("port")).toUShort();
+				pi.cc = e.attribute(QLatin1String("country_code")).toLower();
 				qlPublicServers << pi;
 			}
 		}

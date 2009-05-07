@@ -175,7 +175,7 @@ ServerDB::ServerDB() {
 				SQLDO("DROP TRIGGER IF EXISTS `%1acl_del_player`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1channel_links_del_channel`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1bans_del_server`");
-				
+
 				SQLDO("DROP INDEX IF EXISTS `%1log_time`");
 				SQLDO("DROP INDEX IF EXISTS `%1slog_time`");
 				SQLDO("DROP INDEX IF EXISTS `%1config_key`");
@@ -236,7 +236,7 @@ ServerDB::ServerDB() {
 
 			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BLOB, `mask` INTEGER, `name` TEXT, `hash` TEXT, `reason` TEXT, `start` DATE, `duration` INTEGER)");
 			SQLDO("CREATE TRIGGER `%1bans_del_server` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1bans` WHERE `server_id` = old.`server_id`; END;");
-		} else {			
+		} else {
 			SQLDO("CREATE TABLE `%1servers`(`server_id` INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 
 			SQLDO("CREATE TABLE `%1slog`(`server_id` INTEGER NOT NULL, `msg` TEXT, `msgtime` TIMESTAMP) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
@@ -293,7 +293,7 @@ ServerDB::ServerDB() {
 			SQLDO("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('version','4')");
 		} else {
 			qWarning("Importing old data...");
-			
+
 			SQLDO("INSERT INTO `%1servers` (`server_id`) SELECT `server_id` FROM `%1servers_old`");
 			SQLDO("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) SELECT `server_id`, `msg`, `msgtime` FROM `%1slog_old`");
 			SQLDO("INSERT INTO `%1config` (`server_id`, `key`, `value`) SELECT `server_id`, `keystring`, `value` FROM `%1config_old`");
@@ -303,7 +303,7 @@ ServerDB::ServerDB() {
 			SQLDO("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) SELECT `group_id`, `server_id`, `player_id`, `addit` FROM `%1group_members_old`");
 			SQLDO("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv`) SELECT `server_id`, `channel_id`, `priority`, `player_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1acl_old`");
 			SQLDO("INSERT INTO `%1channel_links` (`server_id`, `channel_id`, `link_id`) SELECT `server_id`, `channel_id`, `link_id` FROM `%1channel_links_old`");
-			
+
 			QList<QList<QVariant> > ql;
 			SQLPREP("SELECT `server_id`, `base`, `mask` FROM `%1bans_old`");
 			SQLEXEC();
@@ -316,13 +316,13 @@ ServerDB::ServerDB() {
 			}
 			SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`, `mask`) VALUES (?, ?, ?)");
 			foreach(const QList<QVariant> &l, ql) {
-				
+
 				quint32 addr = htonl(l.at(1).toUInt());
 				const char *ptr = reinterpret_cast<const char *>(&addr);
-				
+
 				QByteArray qba(16, 0);
-				qba[10] = static_cast<char>(0xFF);
-				qba[11] = static_cast<char>(0xFF);
+				qba[10] = static_cast<char>(-1);
+				qba[11] = static_cast<char>(-1);
 				qba[12] = ptr[0];
 				qba[13] = ptr[1];
 				qba[14] = ptr[2];
@@ -333,13 +333,13 @@ ServerDB::ServerDB() {
 				query.addBindValue(l.at(2).toInt() + 96);
 				SQLEXEC();
 			}
-			
+
 			SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`player_id`,'email',email FROM `%1players_old` WHERE `email` IS NOT NULL");
-			
+
 			if (version == 3) {
 				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,'description',description FROM `%1channels_old` WHERE `description` IS NOT NULL");
 			}
-			
+
 			qWarning("Removing old tables...");
 			SQLDO("DROP TABLE IF EXISTS `%1slog_old`");
 			SQLDO("DROP TABLE IF EXISTS `%1config_old`");
@@ -350,7 +350,7 @@ ServerDB::ServerDB() {
 			SQLDO("DROP TABLE IF EXISTS `%1acl_old`");
 			SQLDO("DROP TABLE IF EXISTS `%1channel_links_old`");
 			SQLDO("DROP TABLE IF EXISTS `%1bans_old`");
-			
+
 			SQLDO("UPDATE `%1meta` SET `value` = '4' WHERE `keystring` = 'version'");
 		}
 	}
@@ -1329,7 +1329,7 @@ void Server::getBans() {
 			Ban ban;
 			for(int i=0;i<16;++i)
 				ban.qip6Address[i] = qba.at(i);
-				
+
 			ban.iMask = query.value(1).toInt();
 			ban.qsUsername = query.value(2).toString();
 			ban.qsHash = query.value(3).toString();
