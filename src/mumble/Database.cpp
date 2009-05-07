@@ -160,6 +160,16 @@ void Database::setDigest(const QString &hostname, unsigned short port, const QSt
 	query.exec();
 }
 
+void Database::setPassword(const QString &hostname, unsigned short port, const QString &uname, const QString &pw) {
+	QSqlQuery query;
+	query.prepare(QLatin1String("UPDATE `servers` SET `password` = ? WHERE `hostname` = ? AND `port` = ? AND `username` = ?"));
+	query.addBindValue(pw);
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+	query.addBindValue(uname);
+	query.exec();
+}
+
 bool Database::fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port) {
 	QSqlQuery query;
 	if (! user.isEmpty()) {

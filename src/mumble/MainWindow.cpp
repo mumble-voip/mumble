@@ -1557,6 +1557,7 @@ void MainWindow::serverDisconnected(QString reason) {
 				break;
 		}
 		if (ok && matched) {
+			Database::setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			g.sh->setConnectionInfo(host, port, uname, pw);
 			g.sh->start(QThread::TimeCriticalPriority);

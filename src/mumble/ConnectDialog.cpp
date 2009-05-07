@@ -85,7 +85,6 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qleName, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qleServer, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qleUsername, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
-	connect(qlePassword, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePort, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
@@ -130,7 +129,6 @@ void ConnectDialog::accept() {
 	} else {
 		qsServer = qleServer->text().trimmed();
 		qsUsername = qleUsername->text().trimmed();
-		qsPassword = qlePassword->text().trimmed();
 		usPort = qlePort->text().trimmed().toUShort();
 
 		int row = qlwServers->currentIndex().row();
@@ -145,7 +143,6 @@ QSqlRecord ConnectDialog::toRecord() const {
 	QString name = qleName->text();
 	QString host = qleServer->text();
 	QString user = qleUsername->text();
-	QString pw = qlePassword->text();
 	int port = qlePort->text().toInt();
 
 	if (name.isEmpty() || host.isEmpty() || user.isEmpty() || (port == 0)) {
@@ -155,7 +152,7 @@ QSqlRecord ConnectDialog::toRecord() const {
 	r.setValue(QLatin1String("hostname"), host);
 	r.setValue(QLatin1String("port"), port);
 	r.setValue(QLatin1String("username"), user);
-	r.setValue(QLatin1String("password"), pw);
+	r.setValue(QLatin1String("password"), qsPassword);
 	return r;
 }
 
@@ -216,7 +213,6 @@ void ConnectDialog::on_qpbCopy_clicked() {
 		qleUsername->setText(tr("Unknown"));
 	else
 		qleUsername->setText(g.s.qsUsername);
-	qlePassword->setText(QString());
 	qlePort->setText(a.at(1));
 
 	qtwTab->setCurrentIndex(0);
@@ -268,9 +264,9 @@ void ConnectDialog::onSelection_Changed(const QModelIndex &index, const QModelIn
 		qleName->setText(r.value(QLatin1String("name")).toString());
 		qleServer->setText(r.value(QLatin1String("hostname")).toString());
 		qleUsername->setText(r.value(QLatin1String("username")).toString());
-		qlePassword->setText(r.value(QLatin1String("password")).toString());
 		qlePort->setText(r.value(QLatin1String("port")).toString());
 		bDirty = false;
+		qsPassword = r.value(QLatin1String("password")).toString();
 		qpbRemove->setEnabled(true);
 		qpbAdd->setEnabled(true);
 		qpbAdd->setText(tr("New"));
@@ -354,7 +350,7 @@ void ConnectDialog::fillEmpty() {
 	qleName->setText(name);
 	qleServer->setText(host);
 	qleUsername->setText(user);
-	qlePassword->setText(pw);
+	qsPassword = pw;
 	qlePort->setText(QString::number(port));
 
 	qpbAdd->setText(tr("Add"));
