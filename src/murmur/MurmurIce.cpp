@@ -152,10 +152,10 @@ static void banToBan(const ::Ban &b, Murmur::Ban &mb) {
 
 static void banToBan(const ::Murmur::Ban &mb, ::Ban &b) {
 	if (mb.address.size() != 16)
-		for(int i=0;i<16;++i)
+		for (int i=0;i<16;++i)
 			b.qip6Address[i] = 0;
 	else
-		for(int i=0;i<16;++i)
+		for (int i=0;i<16;++i)
 			b.qip6Address[i] = mb.address[i];
 	b.iMask = mb.bits;
 	b.qsUsername = u8(mb.name);

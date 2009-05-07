@@ -111,7 +111,7 @@ class ServerUser : public Connection, public User {
 
 		bool bVerified;
 		QStringList qslEmail;
-		
+
 		Q_IPV6ADDR qip6Address;
 
 		BandwidthRecord bwr;

@@ -312,7 +312,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 			std::string s = be.address();
 			if (s.length() == 16) {
 				Ban b;
-				for(int j=0;j<16;++j)
+				for (int j=0;j<16;++j)
 					b.qip6Address[j] = s[j];
 				b.iMask = be.mask();
 				b.qsUsername = u8(be.name());

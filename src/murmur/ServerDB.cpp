@@ -141,19 +141,19 @@ ServerDB::ServerDB() {
 
 	if (version < 4) {
 		if (version > 0) {
-				qWarning("Renaming old tables...");
-				SQLDO("ALTER TABLE `%1servers` RENAME TO `%1servers_old`");
-				if (version < 2)
-					SQLMAY("ALTER TABLE `%1log` RENAME TO `%1slog`");
-				SQLDO("ALTER TABLE `%1slog` RENAME TO `%1slog_old`");
-				SQLDO("ALTER TABLE `%1config` RENAME TO `%1config_old`");
-				SQLDO("ALTER TABLE `%1channels` RENAME TO `%1channels_old`");
-				SQLDO("ALTER TABLE `%1players` RENAME TO `%1players_old`");
-				SQLDO("ALTER TABLE `%1groups` RENAME TO `%1groups_old`");
-				SQLDO("ALTER TABLE `%1group_members` RENAME TO `%1group_members_old`");
-				SQLDO("ALTER TABLE `%1acl` RENAME TO `%1acl_old`");
-				SQLDO("ALTER TABLE `%1channel_links` RENAME TO `%1channel_links_old`");
-				SQLDO("ALTER TABLE `%1bans` RENAME TO `%1bans_old`");
+			qWarning("Renaming old tables...");
+			SQLDO("ALTER TABLE `%1servers` RENAME TO `%1servers_old`");
+			if (version < 2)
+				SQLMAY("ALTER TABLE `%1log` RENAME TO `%1slog`");
+			SQLDO("ALTER TABLE `%1slog` RENAME TO `%1slog_old`");
+			SQLDO("ALTER TABLE `%1config` RENAME TO `%1config_old`");
+			SQLDO("ALTER TABLE `%1channels` RENAME TO `%1channels_old`");
+			SQLDO("ALTER TABLE `%1players` RENAME TO `%1players_old`");
+			SQLDO("ALTER TABLE `%1groups` RENAME TO `%1groups_old`");
+			SQLDO("ALTER TABLE `%1group_members` RENAME TO `%1group_members_old`");
+			SQLDO("ALTER TABLE `%1acl` RENAME TO `%1acl_old`");
+			SQLDO("ALTER TABLE `%1channel_links` RENAME TO `%1channel_links_old`");
+			SQLDO("ALTER TABLE `%1bans` RENAME TO `%1bans_old`");
 		}
 
 		qWarning("Generating new tables...");
@@ -1327,7 +1327,7 @@ void Server::getBans() {
 		QByteArray qba = query.value(0).toByteArray();
 		if (qba.length() == 16) {
 			Ban ban;
-			for(int i=0;i<16;++i)
+			for (int i=0;i<16;++i)
 				ban.qip6Address[i] = qba.at(i);
 
 			ban.iMask = query.value(1).toInt();
@@ -1353,7 +1353,7 @@ void Server::saveBans() {
 	SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`,`mask`,`name`,`hash`,`reason`,`start`,`duration`) VALUES (?,?,?,?,?,?,?,?)");
 	foreach(const Ban &ban, qlBans) {
 		QByteArray qba(16, 0);
-		for(int i=0;i<16;++i)
+		for (int i=0;i<16;++i)
 			qba[i] = ban.qip6Address[i];
 		query.addBindValue(iServerNum);
 		query.addBindValue(qba);

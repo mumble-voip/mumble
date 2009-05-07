@@ -540,9 +540,9 @@ void MurmurDBus::getBans(QList<BanInfo> &bi) {
 	bi.clear();
 	foreach(const Ban &b, server->qlBans) {
 		bool ok = true;
-		for(int i=0;i<10;++i)
+		for (int i=0;i<10;++i)
 			ok = ok && (b.qip6Address[i] == 0);
-		for(int i=10;i<12;++i)
+		for (int i=10;i<12;++i)
 			ok = ok && (b.qip6Address[i] == 0xFF);
 		if (ok)
 			bi << BanInfo(b);

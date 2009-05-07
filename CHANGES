@@ -1,3 +1,18 @@
+2009-05-07
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    226402f  Flags in public server list
+    dc41e53  CRLF
+    8634a9c  Avoid vacuum in initialization
+
+2009-05-06
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    39ec136  Flags
+
+2009-05-05
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e3cc00c  Store date, duration, username, reason and hash with bans
+    53a9b08  Recreate SQL when upgrading
+
 2009-05-04
   Mikkel Krautz <mikkel@krautz.dk>
     dc6e8d1  Fix blank email corner-case. Abort in-progress host lookups on
@@ -6,6 +21,7 @@
     67ed2b0  Delayed email validation in CertWizard.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    4194703  Avoid encoding empty packet at end-of-speech
     534753f  Optimize audio framing, and preserve flags
     c6b204c  Add missing disable_copy()
     3cc160b  Trim whitespace from ConnectDialog input
