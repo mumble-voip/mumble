@@ -61,7 +61,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Left 4 Dead (Build 3790)", L"Mumble L4D Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Left 4 Dead (Build 3826)", L"Mumble L4D Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -112,8 +112,8 @@ static int trylock() {
 	if (!h)
 		return false;
 
-	posptr = mod + 0x5772c0;
-	rotptr = mod + 0x5772c0 + 24;
+	posptr = mod + 0x57fb20;
+	rotptr = mod + 0x57fb20 + 24;
 
 	float pos[3];
 	float rot[3];
@@ -164,10 +164,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D version 3790 only. Supports no fancy stuff.");
+	return std::wstring(L"Supports L4D version 3826 only. Supports no fancy stuff.");
 }
 
-static std::wstring description(L"Left 4 Dead (Build 3790)");
+static std::wstring description(L"Left 4 Dead (Build 3826)");
 static std::wstring shortname(L"Left 4 Dead");
 
 static MumblePlugin l4dplug = {
