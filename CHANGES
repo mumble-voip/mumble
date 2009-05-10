@@ -1,5 +1,11 @@
+2009-05-08
+  Tuck Therebelos <snares@users.sourceforge.net>
+    8415c87  L4d, TF2 build update
+
 2009-05-07
   Thorvald Natvig <slicer@users.sourceforge.net>
+    f56fca0  Submodule update
+    23389b3  Remove password from ConnectDialog gui
     226402f  Flags in public server list
     dc41e53  CRLF
     8634a9c  Avoid vacuum in initialization
