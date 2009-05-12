@@ -177,7 +177,7 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 	}
 }
 
-void ServerHandler::sendMessage(const char *data, int len) {
+void ServerHandler::sendMessage(const char *data, int len, bool force) {
 	STACKVAR(unsigned char, crypto, len+4);
 
 	QMutexLocker qml(&qmUdp);
@@ -187,7 +187,7 @@ void ServerHandler::sendMessage(const char *data, int len) {
 	if (! cConnection->csCrypt.isValid())
 		return;
 
-	if (NetworkConfig::TcpModeEnabled()) {
+	if (!force && (NetworkConfig::TcpModeEnabled() || !bUdp)) {
 		QByteArray qba;
 
 		qba.resize(len + 4);
@@ -237,7 +237,12 @@ void ServerHandler::run() {
 	connect(cConnection.get(), SIGNAL(connectionClosed(const QString &)), this, SLOT(serverConnectionClosed(const QString &)));
 	connect(cConnection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
+
+	bUdp = Database::getUdp(qsHostName, usPort);
+
 	qtsSock->connectToHostEncrypted(qsHostName, usPort);
+
+	tTimestamp.restart();
 
 	QTimer *ticker = new QTimer(this);
 	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
@@ -292,7 +297,7 @@ void ServerHandler::sendPing() {
 		PacketDataStream pds(buffer + 1, 255);
 		buffer[0] = MessageHandler::UDPPing << 5;
 		pds << t;
-		sendMessage(reinterpret_cast<const char *>(buffer), pds.size() + 1);
+		sendMessage(reinterpret_cast<const char *>(buffer), pds.size() + 1, true);
 	}
 
 	MumbleProto::Ping mpp;
@@ -334,6 +339,27 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 			cs.uiRemoteLost = msg.lost();
 			cs.uiRemoteResync = msg.resync();
 			accTCP(static_cast<double>(g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+
+			if (((cs.uiRemoteGood == 0) || (cs.uiGood == 0)) && bUdp && (tTimestamp.elapsed() > 20000000ULL)) {
+				bUdp = false;
+				if (! NetworkConfig::TcpModeEnabled()) {
+					if ((cs.uiRemoteGood == 0) && (cs.uiRemoteGood == 0))
+						g.mw->msgBox(tr("UDP packets can not be sent to or received from the server. Switching to TCP mode."));
+					else if (cs.uiRemoteGood == 0)
+						g.mw->msgBox(tr("UDP packets can not be sent to the server. Switching to TCP mode."));
+					else
+						g.mw->msgBox(tr("UDP packets can not be received from the server. Switching to TCP mode."));
+
+					Database::setUdp(qsHostName, usPort, false);
+				}
+			} else if (!bUdp && (cs.uiRemoteGood > 3) && (cs.uiGood > 3)) {
+				bUdp = true;
+				if (! NetworkConfig::TcpModeEnabled()) {
+					g.mw->msgBox(tr("UDP packets can be sent to and received from the server. Switching back to UDP mode."));
+
+					Database::setUdp(qsHostName, usPort, true);
+				}
+			}
 		}
 	} else {
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);

@@ -105,6 +105,8 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `cert_host_port` ON `cert`(`hostname`,`port`)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `udp` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `udp_host_port` ON `udp`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `friends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hash` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
@@ -167,6 +169,29 @@ void Database::setPassword(const QString &hostname, unsigned short port, const Q
 	query.addBindValue(hostname);
 	query.addBindValue(port);
 	query.addBindValue(uname);
+	query.exec();
+}
+
+bool Database::getUdp(const QString &hostname, unsigned short port) {
+	QSqlQuery query;
+	query.prepare(QLatin1String("SELECT COUNT(*) FROM `udp` WHERE `hostname` = ? AND `port` = ?"));
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+	query.exec();
+	if (query.next()) {
+		return (query.value(0).toInt() == 0);
+	}
+	return true;
+}
+
+void Database::setUdp(const QString &hostname, unsigned short port, bool udp) {
+	QSqlQuery query;
+	if (! udp)
+		query.prepare(QLatin1String("REPLACE INTO `udp` (`hostname`,`port`) VALUES (?,?)"));
+	else
+		query.prepare(QLatin1String("DELETE FROM `udp` WHERE `hostname` = ? AND `port` = ?)"));
+	query.addBindValue(hostname);
+	query.addBindValue(port);
 	query.exec();
 }
 

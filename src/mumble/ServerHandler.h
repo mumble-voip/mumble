@@ -61,6 +61,7 @@ class ServerHandler : public QThread {
 		QString qsPassword;
 		QString qsDigest;
 		unsigned short usPort;
+		bool bUdp;
 
 #ifdef Q_OS_WIN
 		HANDLE hQoS;
@@ -93,7 +94,7 @@ class ServerHandler : public QThread {
 		void customEvent(QEvent *evt);
 
 		void sendProtoMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
-		void sendMessage(const char *data, int len);
+		void sendMessage(const char *data, int len, bool force = false);
 
 #define MUMBLE_MH_MSG(x) void sendMessage(const MumbleProto:: x &msg) { sendProtoMessage(msg, MessageHandler:: x); }
 		MUMBLE_MH_ALL
