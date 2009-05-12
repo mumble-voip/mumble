@@ -113,6 +113,8 @@ class ServerUser : public Connection, public User {
 		QStringList qslEmail;
 
 		Q_IPV6ADDR qip6Address;
+		
+		bool bUdp;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
@@ -219,7 +221,7 @@ class Server : public QThread {
 		QList<Ban> qlBans;
 
 		void processMsg(ServerUser *u, const char *data, int len);
-		void sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache);
+		void sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force = false);
 		void run();
 
 		bool validateChannelName(const QString &name);

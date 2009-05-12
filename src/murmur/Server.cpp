@@ -73,6 +73,7 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 	saiUdpAddress.sin_addr.s_addr = htonl(socket->peerAddress().toIPv4Address());
 	saiUdpAddress.sin_family = AF_INET;
 
+	bUdp = true;
 	uiVersion = 0;
 	bVerified = true;
 }
@@ -424,8 +425,9 @@ void Server::run() {
 
 		if (msgType == MessageHandler::UDPPing) {
 			QByteArray qba;
-			sendMessage(u, buffer, len, qba);
+			sendMessage(u, buffer, len, qba, true);
 		} else if (msgType == MessageHandler::UDPVoice) {
+			u->bUdp = true;
 			processMsg(u, buffer, len);
 		}
 	}
@@ -444,8 +446,8 @@ bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsig
 	return false;
 }
 
-void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache) {
-	if ((u->saiUdpAddress.sin_port != 0) && u->csCrypt.isValid()) {
+void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force) {
+	if ((u->bUdp || force) && (u->saiUdpAddress.sin_port != 0) && u->csCrypt.isValid()) {
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, len+4+16);
 		char *buffer = reinterpret_cast<char *>(((reinterpret_cast<quint64>(ebuffer) + 8) & ~7) + 4);
@@ -758,18 +760,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			return;
 
 		QReadLocker rl(&qrwlUsers);
-		if (u->saiUdpAddress.sin_port) {
-			rl.unlock();
-			qrwlUsers.lockForWrite();
-
-			qhHostUsers[u->saiUdpAddress.sin_addr.s_addr].remove(u);
-			quint64 key = (static_cast<unsigned long long>(u->saiUdpAddress.sin_addr.s_addr) << 16) ^ u->saiUdpAddress.sin_port;
-			qhPeerUsers.remove(key);
-			u->saiUdpAddress.sin_port = 0;
-
-			qrwlUsers.unlock();
-			rl.relock();
-		}
+		
+		u->bUdp = false;
 
 		const char *buffer = qbaMsg.constData();
 
