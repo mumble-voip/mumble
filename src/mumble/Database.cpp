@@ -189,7 +189,7 @@ void Database::setUdp(const QString &hostname, unsigned short port, bool udp) {
 	if (! udp)
 		query.prepare(QLatin1String("REPLACE INTO `udp` (`hostname`,`port`) VALUES (?,?)"));
 	else
-		query.prepare(QLatin1String("DELETE FROM `udp` WHERE `hostname` = ? AND `port` = ?)"));
+		query.prepare(QLatin1String("DELETE FROM `udp` WHERE `hostname` = ? AND `port` = ?"));
 	query.addBindValue(hostname);
 	query.addBindValue(port);
 	query.exec();
