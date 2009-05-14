@@ -35,13 +35,33 @@
 #include "CryptState.h"
 #include "Mumble.pb.h"
 
+struct HostAddress {
+	union {
+		Q_IPV6ADDR qip6;
+		quint32 hash[4];
+		quint64 addr[2];
+	};
+
+	HostAddress();
+	HostAddress(const Q_IPV6ADDR &);
+	HostAddress(const std::string &);
+	HostAddress(const QHostAddress &);
+
+	bool isV6() const;
+
+	bool operator < (const HostAddress &) const;
+	bool operator == (const HostAddress &) const;
+
+	std::string toStdString() const;
+	QHostAddress toAddress() const;
+};
+
+quint32 qHash(const HostAddress &);
+
 class Connection : public QObject {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(Connection)
-	private:
-		static int iReceiveLevel;
-		static QSet<Connection *> qsReceivers;
 	protected:
 		QSslSocket *qtsSocket;
 		QTime qtLastPacket;

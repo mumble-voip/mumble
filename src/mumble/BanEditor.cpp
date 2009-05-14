@@ -33,28 +33,31 @@
 #include "Channel.h"
 #include "Global.h"
 
-typedef QPair<quint32, int> ban;
+bool Ban::operator <(const Ban &other) const {
+	return haAddress < other.haAddress;
+}
+
+bool Ban::operator ==(const Ban &other) const {
+	return (haAddress == other.haAddress) && (qsUsername == other.qsUsername) && (qsHash == other.qsHash) && (qsReason == other.qsReason) && (qdtStart == other.qdtStart) && (iDuration == other.iDuration);
+}
 
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
 
-	QRegExp rx(QLatin1String("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"));
-	QValidator *validator = new QRegExpValidator(rx, this);
-	qleIP->setValidator(validator);
-
 	qlBans.clear();
 	for (int i=0;i < msg.bans_size(); ++i) {
 		const MumbleProto::BanList_BanEntry &be = msg.bans(i);
-		quint32 v = 0;
-		std::string s = be.address();
-		if (s.length() == 4) {
-			const char *dataptr = s.data();
-			v += (dataptr[0] << 24);
-			v += (dataptr[1] << 16);
-			v += (dataptr[2] << 8);
-			v += (dataptr[3] << 0);
-			qlBans << ban(v, be.mask());
-		}
+		Ban b;
+		b.haAddress = be.address();
+		b.iMask = be.mask();
+		b.qsUsername = u8(be.name());
+		b.qsHash = u8(be.hash());
+		b.qsReason = u8(be.reason());
+		b.qdtStart = QDateTime::fromString(u8(be.start()), Qt::ISODate);
+		if (! b.qdtStart.isValid())
+			b.qdtStart = QDateTime::currentDateTime();
+		b.iDuration = be.duration();
+		qlBans << b;
 	}
 
 	refreshBanList();
@@ -64,15 +67,15 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 void BanEditor::accept() {
 	MumbleProto::BanList msg;
 
-	foreach(const ban &b, qlBans) {
+	foreach(const Ban &b, qlBans) {
 		MumbleProto::BanList_BanEntry *be = msg.add_bans();
-		char buff[4];
-		buff[0] = static_cast<char>((b.first >> 24) & 0xFF);
-		buff[1] = static_cast<char>((b.first >> 16) & 0xFF);
-		buff[2] = static_cast<char>((b.first >> 8) & 0xFF);
-		buff[3] = static_cast<char>((b.first >> 0) & 0xFF);
-		be->set_address(std::string(buff, 4));
-		be->set_mask(b.second);
+		be->set_address(b.haAddress.toStdString());
+		be->set_mask(b.iMask);
+		be->set_name(u8(b.qsUsername));
+		be->set_hash(u8(b.qsHash));
+		be->set_reason(u8(b.qsReason));
+		be->set_start(u8(b.qdtStart.toString(Qt::ISODate)));
+		be->set_duration(b.iDuration);
 	}
 
 	g.sh->sendMessage(msg);
@@ -80,39 +83,78 @@ void BanEditor::accept() {
 }
 
 void BanEditor::on_qlwBans_currentRowChanged() {
-	QPair<quint32, int> ban;
 	int idx = qlwBans->currentRow();
 	if (idx < 0)
 		return;
-	ban = qlBans[idx];
+	const Ban &ban = qlBans.at(idx);
 
-	QHostAddress addr(ban.first);
+	int mask = ban.iMask;
+
+	const QHostAddress &addr = ban.haAddress.toAddress();
 	qleIP->setText(addr.toString());
-	qsbMask->setValue(ban.second);
+	if (! ban.haAddress.isV6())
+		mask -= 96;
+	qsbMask->setValue(mask);
+	qlUser->setText(ban.qsUsername);
+	qlHash->setText(ban.qsHash);
+	qleReason->setText(ban.qsReason);
+	qdteStart->setDateTime(ban.qdtStart);
+	qdteEnd->setDateTime(ban.qdtStart.addSecs(ban.iDuration));
+
+}
+
+Ban BanEditor::toBan(bool &ok) {
+	Ban b;
+
+	QHostAddress addr;
+
+	ok = addr.setAddress(qleIP->text());
+
+	if (ok) {
+		b.haAddress = addr;
+		b.iMask = qsbMask->value();
+		if (! b.haAddress.isV6())
+			b.iMask += 96;
+		b.qsUsername = qlUser->text();
+		b.qsHash = qlHash->text();
+		b.qsReason = qleReason->text();
+		b.qdtStart = qdteStart->dateTime();
+		const QDateTime &qdte = qdteEnd->dateTime();
+		if (qdte <= b.qdtStart)
+			b.iDuration = 0;
+		else
+			b.iDuration = b.qdtStart.secsTo(qdte);
+	}
+	return b;
 }
 
 void BanEditor::on_qpbAdd_clicked() {
-	QPair<quint32, int> ban;
 	QHostAddress addr;
 
 	bool ok;
 
-	ok = addr.setAddress(qleIP->text());
+	qdteStart->setDateTime(QDateTime::currentDateTime());
+
+	Ban b = toBan(ok);
+
 	if (ok) {
-		quint32 base = addr.toIPv4Address();
-		quint32 nmask = qsbMask->value();
-		quint32 bitmask = (1<<(32-nmask))-1;
-		ban.first = base & ~bitmask;
-		ban.second = nmask;
-		qlBans << ban;
+		qlBans << b;
 		refreshBanList();
-		qlwBans->setCurrentRow(qlBans.indexOf(ban));
+		qlwBans->setCurrentRow(qlBans.indexOf(b));
 	}
 }
 
 void BanEditor::on_qpbUpdate_clicked() {
-	on_qpbRemove_clicked();
-	on_qpbAdd_clicked();
+	int idx = qlwBans->currentRow();
+	if (idx >= 0) {
+		bool ok;
+		Ban b = toBan(ok);
+		if (ok) {
+			qlBans.replace(idx, b);
+			refreshBanList();
+			qlwBans->setCurrentRow(qlBans.indexOf(b));
+		}
+	}
 }
 
 void BanEditor::on_qpbRemove_clicked() {
@@ -123,15 +165,16 @@ void BanEditor::on_qpbRemove_clicked() {
 }
 
 void BanEditor::refreshBanList() {
-	QPair<quint32, int> ban;
-
 	qlwBans->clear();
 
 	qSort(qlBans);
 
-	foreach(ban,qlBans) {
-		QHostAddress addr(ban.first);
-		QString qs = QString::fromLatin1("%1/%2").arg(addr.toString()).arg(ban.second);
+	foreach(const Ban &ban, qlBans) {
+		int mask = ban.iMask;
+		const QHostAddress &addr=ban.haAddress.toAddress();
+		if (! ban.haAddress.isV6())
+			mask -= 96;
+		QString qs = QString::fromLatin1("%1/%2").arg(addr.toString()).arg(mask);
 		qlwBans->addItem(qs);
 	}
 }

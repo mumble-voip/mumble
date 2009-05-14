@@ -35,12 +35,25 @@
 #include "ui_BanEditor.h"
 #include "Message.h"
 
+struct Ban {
+        HostAddress haAddress;
+        int iMask;
+        QString qsUsername;
+        QString qsHash;
+        QString qsReason;
+        QDateTime qdtStart;
+        unsigned int iDuration;
+        bool operator < (const Ban &) const;
+        bool operator == (const Ban &) const;
+};
+
 class BanEditor : public QDialog, public Ui::BanEditor {
 	private:
 		Q_OBJECT;
 		Q_DISABLE_COPY(BanEditor)
 	protected:
-		QList<QPair<quint32, int> > qlBans;
+		QList<Ban> qlBans;
+		Ban toBan(bool &);
 	public:
 		BanEditor(const MumbleProto::BanList &msbl, QWidget *p = NULL);
 	public slots:
