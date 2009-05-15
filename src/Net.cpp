@@ -35,14 +35,14 @@ HostAddress::HostAddress() {
 }
 
 HostAddress::HostAddress(const Q_IPV6ADDR &address) {
-    memcpy(qip6.c, address.c, 16);
+	memcpy(qip6.c, address.c, 16);
 }
 
 HostAddress::HostAddress(const std::string &address) {
 	if (address.length() != 16)
 		addr[0] = addr[1] = 0ULL;
 	else
-		for(int i=0;i<16;++i)
+		for (int i=0;i<16;++i)
 			qip6[i] = address[i];
 }
 
@@ -50,14 +50,14 @@ HostAddress::HostAddress(const QByteArray &address) {
 	if (address.length() != 16)
 		addr[0] = addr[1] = 0ULL;
 	else
-		for(int i=0;i<16;++i)
+		for (int i=0;i<16;++i)
 			qip6[i] = address[i];
 }
 
 HostAddress::HostAddress(const QHostAddress &address) {
 	if (address.protocol() == QAbstractSocket::IPv6Protocol) {
-	        const Q_IPV6ADDR &a = address.toIPv6Address();
-	        memcpy(qip6.c, a.c, 16);
+		const Q_IPV6ADDR &a = address.toIPv6Address();
+		memcpy(qip6.c, a.c, 16);
 	} else {
 		addr[0] = 0ULL;
 		shorts[4] = 0;
@@ -75,18 +75,18 @@ bool HostAddress::operator == (const HostAddress &other) const {
 }
 
 bool HostAddress::match(const HostAddress &netmask, int bits) const {
-    quint64 mask[2];
+	quint64 mask[2];
 
-    if (bits == 128) {
-      mask[0] = mask[1] = 0xffffffffffffffffULL;
-    } else if (bits > 64) {
-      mask[0] = 0xffffffffffffffffULL;
-      mask[1] = SWAP64(~((1ULL << (128-bits)) - 1));
-    } else {
-      mask[0] = SWAP64(~((1ULL << (64-bits)) - 1));
-      mask[1] = 0ULL;
-    }
-    return ((addr[0] & mask[0]) == (netmask.addr[0] & mask[0])) && ((addr[1] & mask[1]) == (netmask.addr[1] & mask[1]));
+	if (bits == 128) {
+		mask[0] = mask[1] = 0xffffffffffffffffULL;
+	} else if (bits > 64) {
+		mask[0] = 0xffffffffffffffffULL;
+		mask[1] = SWAP64(~((1ULL << (128-bits)) - 1));
+	} else {
+		mask[0] = SWAP64(~((1ULL << (64-bits)) - 1));
+		mask[1] = 0ULL;
+	}
+	return ((addr[0] & mask[0]) == (netmask.addr[0] & mask[0])) && ((addr[1] & mask[1]) == (netmask.addr[1] & mask[1]));
 }
 
 std::string HostAddress::toStdString() const {
@@ -94,11 +94,11 @@ std::string HostAddress::toStdString() const {
 }
 
 bool HostAddress::isV6() const {
-    return (addr[0] != 0ULL) || (shorts[4] != 0) || (shorts[5] != 0xffff);
+	return (addr[0] != 0ULL) || (shorts[4] != 0) || (shorts[5] != 0xffff);
 }
 
 bool HostAddress::isValid() const {
-    return (addr[0] != 0ULL) || (addr[1] != 0ULL);
+	return (addr[0] != 0ULL) || (addr[1] != 0ULL);
 }
 
 QHostAddress HostAddress::toAddress() const {
@@ -110,7 +110,7 @@ QHostAddress HostAddress::toAddress() const {
 }
 
 QByteArray HostAddress::toByteArray() const {
-  return QByteArray(reinterpret_cast<const char *>(qip6.c), 16);
+	return QByteArray(reinterpret_cast<const char *>(qip6.c), 16);
 }
 
 quint32 qHash(const HostAddress &ha) {
@@ -118,13 +118,13 @@ quint32 qHash(const HostAddress &ha) {
 }
 
 bool Ban::operator <(const Ban &other) const {
-        return haAddress < other.haAddress;
+	return haAddress < other.haAddress;
 }
 
 bool Ban::operator ==(const Ban &other) const {
-        return (haAddress == other.haAddress) && (qsUsername == other.qsUsername) && (qsHash == other.qsHash) && (qsReason == other.qsReason) && (qdtStart == other.qdtStart) && (iDuration == other.iDuration);
+	return (haAddress == other.haAddress) && (qsUsername == other.qsUsername) && (qsHash == other.qsHash) && (qsReason == other.qsReason) && (qdtStart == other.qdtStart) && (iDuration == other.iDuration);
 }
 
 bool Ban::isValid() const {
-  return haAddress.isValid() && (iMask >= 8) && (iMask <= 128);
+	return haAddress.isValid() && (iMask >= 8) && (iMask <= 128);
 }

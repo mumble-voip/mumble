@@ -112,7 +112,7 @@ class ServerUser : public Connection, public User {
 
 		bool bVerified;
 		QStringList qslEmail;
-		
+
 		HostAddress haAddress;
 		bool bUdp;
 

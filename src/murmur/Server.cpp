@@ -577,7 +577,7 @@ void Server::newClient() {
 			sock->deleteLater();
 			return;
 		}
-		
+
 		HostAddress ha(adr);
 
 		foreach(const Ban &ban, qlBans) {
@@ -734,7 +734,7 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			return;
 
 		QReadLocker rl(&qrwlUsers);
-		
+
 		u->bUdp = false;
 
 		const char *buffer = qbaMsg.constData();

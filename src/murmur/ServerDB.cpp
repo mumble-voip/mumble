@@ -1324,19 +1324,19 @@ void Server::getBans() {
 	query.addBindValue(iServerNum);
 	SQLEXEC();
 	while (query.next()) {
-		
-			Ban ban;
-			ban.haAddress = query.value(0).toByteArray();
 
-			ban.iMask = query.value(1).toInt();
-			ban.qsUsername = query.value(2).toString();
-			ban.qsHash = query.value(3).toString();
-			ban.qsReason = query.value(4).toString();
-			ban.qdtStart = query.value(5).toDateTime();
-			ban.iDuration = query.value(6).toInt();
+		Ban ban;
+		ban.haAddress = query.value(0).toByteArray();
 
-			if (ban.isValid())
-				qlBans << ban;
+		ban.iMask = query.value(1).toInt();
+		ban.qsUsername = query.value(2).toString();
+		ban.qsHash = query.value(3).toString();
+		ban.qsReason = query.value(4).toString();
+		ban.qdtStart = query.value(5).toDateTime();
+		ban.iDuration = query.value(6).toInt();
+
+		if (ban.isValid())
+			qlBans << ban;
 	}
 }
 

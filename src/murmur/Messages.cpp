@@ -309,20 +309,20 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		qlBans.clear();
 		for (int i=0;i < msg.bans_size(); ++i) {
 			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
-			
-				Ban b;
-				b.haAddress = be.address();
-				b.iMask = be.mask();
-				b.qsUsername = u8(be.name());
-				b.qsHash = u8(be.hash());
-				b.qsReason = u8(be.reason());
-				if (be.has_start())
-					b.qdtStart = QDateTime::fromString(u8(be.start()), Qt::ISODate);
-				else
-					b.qdtStart = QDateTime::currentDateTime().toUTC();
-				b.iDuration = be.duration();
-				if (b.isValid())
-					qlBans << b;
+
+			Ban b;
+			b.haAddress = be.address();
+			b.iMask = be.mask();
+			b.qsUsername = u8(be.name());
+			b.qsHash = u8(be.hash());
+			b.qsReason = u8(be.reason());
+			if (be.has_start())
+				b.qdtStart = QDateTime::fromString(u8(be.start()), Qt::ISODate);
+			else
+				b.qdtStart = QDateTime::currentDateTime().toUTC();
+			b.iDuration = be.duration();
+			if (b.isValid())
+				qlBans << b;
 		}
 		saveBans();
 		log(uSource, "Updated banlist");

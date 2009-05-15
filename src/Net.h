@@ -52,7 +52,7 @@ struct HostAddress {
 
 	bool operator < (const HostAddress &) const;
 	bool operator == (const HostAddress &) const;
-	
+
 	bool match(const HostAddress &, int) const;
 
 	std::string toStdString() const;
@@ -63,17 +63,17 @@ struct HostAddress {
 quint32 qHash(const HostAddress &);
 
 struct Ban {
-        HostAddress haAddress;
-        int iMask;
-        QString qsUsername;
-        QString qsHash;
-        QString qsReason;
-        QDateTime qdtStart;
-        unsigned int iDuration;
-        bool isExpired() const;
-        bool isValid() const;
-        bool operator < (const Ban &) const;
-        bool operator == (const Ban &) const;
+	HostAddress haAddress;
+	int iMask;
+	QString qsUsername;
+	QString qsHash;
+	QString qsReason;
+	QDateTime qdtStart;
+	unsigned int iDuration;
+	bool isExpired() const;
+	bool isValid() const;
+	bool operator < (const Ban &) const;
+	bool operator == (const Ban &) const;
 };
 
 #if __BYTE_ORDER == __BIG_ENDIAN

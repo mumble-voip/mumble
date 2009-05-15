@@ -1,3 +1,19 @@
+2009-05-15
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9f7ef74  Updated Ban Editor
+
+2009-05-13
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    03ef639  Fix SQL for udp database
+
+2009-05-12
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9df364f  Automatically switch to TCP mode.
+    a826a9e  Only count voice packets as "switch to UDP" signal
+
+  withgod <withgod@users.sourceforge.net>
+    a30fc85  weblist.pl modified
+
 2009-05-08
   Tuck Therebelos <snares@users.sourceforge.net>
     8415c87  L4d, TF2 build update
