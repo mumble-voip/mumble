@@ -49,7 +49,8 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 		if (! b.qdtStart.isValid())
 			b.qdtStart = QDateTime::currentDateTime();
 		b.iDuration = be.duration();
-		qlBans << b;
+		if (b.isValid())
+			qlBans << b;
 	}
 
 	refreshBanList();
@@ -116,6 +117,8 @@ Ban BanEditor::toBan(bool &ok) {
 			b.iDuration = 0;
 		else
 			b.iDuration = b.qdtStart.secsTo(qdte);
+
+		ok = b.isValid();
 	}
 	return b;
 }
