@@ -1324,11 +1324,9 @@ void Server::getBans() {
 	query.addBindValue(iServerNum);
 	SQLEXEC();
 	while (query.next()) {
-		QByteArray qba = query.value(0).toByteArray();
-		if (qba.length() == 16) {
+		
 			Ban ban;
-			for (int i=0;i<16;++i)
-				ban.qip6Address[i] = qba.at(i);
+			ban.haAddress = query.value(0).toByteArray();
 
 			ban.iMask = query.value(1).toInt();
 			ban.qsUsername = query.value(2).toString();
@@ -1337,8 +1335,8 @@ void Server::getBans() {
 			ban.qdtStart = query.value(5).toDateTime();
 			ban.iDuration = query.value(6).toInt();
 
-			qlBans << ban;
-		}
+			if (ban.isValid())
+				qlBans << ban;
 	}
 }
 
@@ -1352,11 +1350,8 @@ void Server::saveBans() {
 
 	SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`,`mask`,`name`,`hash`,`reason`,`start`,`duration`) VALUES (?,?,?,?,?,?,?,?)");
 	foreach(const Ban &ban, qlBans) {
-		QByteArray qba(16, 0);
-		for (int i=0;i<16;++i)
-			qba[i] = ban.qip6Address[i];
 		query.addBindValue(iServerNum);
-		query.addBindValue(qba);
+		query.addBindValue(ban.haAddress.toByteArray());
 		query.addBindValue(ban.iMask);
 		query.addBindValue(ban.qsUsername);
 		query.addBindValue(ban.qsHash);

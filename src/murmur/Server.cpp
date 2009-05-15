@@ -577,37 +577,11 @@ void Server::newClient() {
 			sock->deleteLater();
 			return;
 		}
-
-		Q_IPV6ADDR base;
-		Q_IPV6ADDR mask;
-		if (adr.protocol() == QAbstractSocket::IPv6Protocol) {
-			base = adr.toIPv6Address();
-		} else {
-			quint32 a = htonl(adr.toIPv4Address());
-			const unsigned char *ptr = reinterpret_cast<const unsigned char *>(&a);
-
-			for (int i=0;i<10;++i)
-				base[i] = 0;
-			base[10] = 0xff;
-			base[11] = 0xff;
-			base[12] = ptr[0];
-			base[13] = ptr[1];
-			base[14] = ptr[2];
-			base[15] = ptr[3];
-		}
-
+		
+		HostAddress ha(adr);
 
 		foreach(const Ban &ban, qlBans) {
-			for (int i=0;i<16;++i)
-				mask[i] = 0x00;
-			for (int i=0;i<ban.iMask;++i)
-				mask[i/8] |= static_cast<unsigned char>(0x80 >>(i%8));
-
-			bool match = true;
-			for (int i=0;i<16;++i)
-				match = match & ((base[i] & mask[i]) == (ban.qip6Address[i] & mask[i]));
-
-			if (match) {
+			if (ban.haAddress.match(ha, ban.iMask)) {
 				log(QString("Ignoring connection: %1:%2 (Server ban)").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
 				sock->disconnectFromHost();
 				sock->deleteLater();
@@ -629,7 +603,7 @@ void Server::newClient() {
 
 		ServerUser *u = new ServerUser(this, sock);
 		u->uiSession = qqIds.dequeue();
-		u->qip6Address = base;
+		u->haAddress = ha;
 
 		{
 			QWriteLocker wl(&qrwlUsers);

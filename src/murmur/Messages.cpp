@@ -296,7 +296,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		msg.clear_bans();
 		foreach(const Ban &b, qlBans) {
 			MumbleProto::BanList_BanEntry *be = msg.add_bans();
-			be->set_address(std::string(reinterpret_cast<const char *>(b.qip6Address.c), 16));
+			be->set_address(b.haAddress.toStdString());
 			be->set_mask(b.iMask);
 			be->set_name(u8(b.qsUsername));
 			be->set_hash(u8(b.qsHash));
@@ -309,11 +309,9 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		qlBans.clear();
 		for (int i=0;i < msg.bans_size(); ++i) {
 			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
-			std::string s = be.address();
-			if (s.length() == 16) {
+			
 				Ban b;
-				for (int j=0;j<16;++j)
-					b.qip6Address[j] = s[j];
+				b.haAddress = be.address();
 				b.iMask = be.mask();
 				b.qsUsername = u8(be.name());
 				b.qsHash = u8(be.hash());
@@ -323,8 +321,8 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 				else
 					b.qdtStart = QDateTime::currentDateTime().toUTC();
 				b.iDuration = be.duration();
-				qlBans << b;
-			}
+				if (b.isValid())
+					qlBans << b;
 		}
 		saveBans();
 		log(uSource, "Updated banlist");
@@ -509,7 +507,7 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 
 	if (ban) {
 		Ban b;
-		b.qip6Address = pDstServerUser->qip6Address;
+		b.haAddress = pDstServerUser->haAddress;
 		b.iMask = 128;
 		b.qsReason = u8(msg.reason());
 		b.qsUsername = pDstServerUser->qsName;

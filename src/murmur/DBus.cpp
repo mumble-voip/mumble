@@ -539,12 +539,7 @@ void MurmurDBus::setACL(int id, const QList<ACLInfo> &acls, const QList<GroupInf
 void MurmurDBus::getBans(QList<BanInfo> &bi) {
 	bi.clear();
 	foreach(const Ban &b, server->qlBans) {
-		bool ok = true;
-		for (int i=0;i<10;++i)
-			ok = ok && (b.qip6Address[i] == 0);
-		for (int i=10;i<12;++i)
-			ok = ok && (b.qip6Address[i] == 0xFF);
-		if (ok)
+		if (! b.haAddress.isV6())
 			bi << BanInfo(b);
 	}
 }
@@ -745,7 +740,7 @@ GroupInfo::GroupInfo(const Group *g) {
 }
 
 BanInfo::BanInfo(const Ban &b) {
-	address = (b.qip6Address[12] << 24) | (b.qip6Address[13] << 16) | (b.qip6Address[14] << 8) | b.qip6Address[15];
+	address = ntohl(b.haAddress.hash[3]);
 	bits = b.iMask;
 }
 

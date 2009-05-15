@@ -38,6 +38,7 @@
  */
 
 #include "CryptState.h"
+#include "Net.h"
 
 CryptState::CryptState() {
 	for (int i=0;i<0x100;i++)
@@ -187,15 +188,8 @@ bool CryptState::decrypt(const unsigned char *source, unsigned char *dst, unsign
 #define SHIFTBITS 63
 typedef quint64 subblock;
 
-#if __BYTE_ORDER == __BIG_ENDIAN
-#define SWAPPED(x) (x)
-#else
-#ifdef __x86_64__
-#define SWAPPED(x) ({register quint64 __out, __in = (x); __asm__("bswap %q0" : "=r"(__out) : "0"(__in)); __out;})
-#else
-#define SWAPPED(x) qbswap<quint64>(x)
-#endif
-#endif
+#define SWAPPED(x) SWAP64(x)
+
 #else
 #define BLOCKSIZE 4
 #define SHIFTBITS 31

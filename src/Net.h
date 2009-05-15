@@ -28,62 +28,62 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef _NET_H
+#define _NET_H
 
 #include "murmur_pch.h"
-#include "CryptState.h"
-#include "Mumble.pb.h"
 
-class Connection : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(Connection)
-	protected:
-		QSslSocket *qtsSocket;
-		QTime qtLastPacket;
-		unsigned int uiType;
-		int iPacketLength;
-		bool bDisconnectedEmitted;
-#ifdef Q_OS_WIN
-		static HANDLE hQoS;
-		DWORD dwFlow;
-#endif
-	protected slots:
-		void socketRead();
-		void socketError(QAbstractSocket::SocketError);
-		void socketDisconnected();
-		void socketSslErrors(const QList<QSslError> &errors);
-	public slots:
-		void proceedAnyway();
-	signals:
-		void encrypted();
-		void connectionClosed(const QString &reason);
-		void message(unsigned int type, const QByteArray &);
-		void handleSslErrors(const QList<QSslError> &);
-	public:
-		Connection(QObject *parent, QSslSocket *qtsSocket);
-		~Connection();
-		static void messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);
-		void sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache);
-		void sendMessage(const QByteArray &qbaMsg);
-		void disconnectSocket(bool force=false);
-		void forceFlush();
-		int activityTime() const;
+struct HostAddress {
+	union {
+		Q_IPV6ADDR qip6;
+		quint16 shorts[8];
+		quint32 hash[4];
+		quint64 addr[2];
+	};
 
-		CryptState csCrypt;
+	HostAddress();
+	HostAddress(const Q_IPV6ADDR &);
+	HostAddress(const std::string &);
+	HostAddress(const QHostAddress &);
+	HostAddress(const QByteArray &);
 
-		QList<QSslCertificate> peerCertificateChain() const;
-		QSslCipher sessionCipher() const;
-		QHostAddress peerAddress() const;
-		quint16 peerPort() const;
+	bool isV6() const;
+	bool isValid() const;
 
-		void setToS();
-#ifdef Q_OS_WIN
-		static void setQoS(HANDLE hParentQoS);
-#endif
+	bool operator < (const HostAddress &) const;
+	bool operator == (const HostAddress &) const;
+	
+	bool match(const HostAddress &, int) const;
+
+	std::string toStdString() const;
+	QHostAddress toAddress() const;
+	QByteArray toByteArray() const;
 };
 
+quint32 qHash(const HostAddress &);
+
+struct Ban {
+        HostAddress haAddress;
+        int iMask;
+        QString qsUsername;
+        QString qsHash;
+        QString qsReason;
+        QDateTime qdtStart;
+        unsigned int iDuration;
+        bool isExpired() const;
+        bool isValid() const;
+        bool operator < (const Ban &) const;
+        bool operator == (const Ban &) const;
+};
+
+#if __BYTE_ORDER == __BIG_ENDIAN
+#define SWAP64(x) (x)
 #else
-class Connection;
+#ifdef __x86_64__
+#define SWAP64(x) ({register quint64 __out, __in = (x); __asm__("bswap %q0" : "=r"(__out) : "0"(__in)); __out;})
+#else
+#define SWAP64(x) qbswap<quint64>(x)
+#endif
+#endif
+
 #endif

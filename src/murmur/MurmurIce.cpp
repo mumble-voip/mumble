@@ -98,7 +98,7 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.tcponly = (u->saiUdpAddress.sin_port == 0);
 
 	::Murmur::NetAddress addr(16, 0);
-	const Q_IPV6ADDR &a = u->qip6Address;
+	const Q_IPV6ADDR &a = u->haAddress.qip6;
 	for (int i=0;i<16;++i)
 		addr[i] = a[i];
 
@@ -137,7 +137,7 @@ static void groupToGroup(const ::Group *g, Murmur::Group &mg) {
 
 static void banToBan(const ::Ban &b, Murmur::Ban &mb) {
 	::Murmur::NetAddress addr(16, 0);
-	const Q_IPV6ADDR &a = b.qip6Address;
+	const Q_IPV6ADDR &a = b.haAddress.qip6;
 	for (int i=0;i<16;++i)
 		addr[i] = a[i];
 
@@ -153,10 +153,10 @@ static void banToBan(const ::Ban &b, Murmur::Ban &mb) {
 static void banToBan(const ::Murmur::Ban &mb, ::Ban &b) {
 	if (mb.address.size() != 16)
 		for (int i=0;i<16;++i)
-			b.qip6Address[i] = 0;
+			b.haAddress.qip6[i] = 0;
 	else
 		for (int i=0;i<16;++i)
-			b.qip6Address[i] = mb.address[i];
+			b.haAddress.qip6[i] = mb.address[i];
 	b.iMask = mb.bits;
 	b.qsUsername = u8(mb.name);
 	b.qsHash = u8(mb.hash);

@@ -36,6 +36,7 @@
 #include "Timer.h"
 #include "User.h"
 #include "Connection.h"
+#include "Net.h"
 #include "ACL.h"
 #include "DBus.h"
 
@@ -111,24 +112,13 @@ class ServerUser : public Connection, public User {
 
 		bool bVerified;
 		QStringList qslEmail;
-
-		Q_IPV6ADDR qip6Address;
 		
+		HostAddress haAddress;
 		bool bUdp;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;
 		ServerUser(Server *parent, QSslSocket *socket);
-};
-
-struct Ban {
-	Q_IPV6ADDR qip6Address;
-	int iMask;
-	QString qsUsername;
-	QString qsHash;
-	QString qsReason;
-	QDateTime qdtStart;
-	unsigned int iDuration;
 };
 
 class Server : public QThread {

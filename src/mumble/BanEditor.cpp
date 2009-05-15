@@ -33,14 +33,6 @@
 #include "Channel.h"
 #include "Global.h"
 
-bool Ban::operator <(const Ban &other) const {
-	return haAddress < other.haAddress;
-}
-
-bool Ban::operator ==(const Ban &other) const {
-	return (haAddress == other.haAddress) && (qsUsername == other.qsUsername) && (qsHash == other.qsHash) && (qsReason == other.qsReason) && (qdtStart == other.qdtStart) && (iDuration == other.iDuration);
-}
-
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
 

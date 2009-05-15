@@ -34,18 +34,7 @@
 #include "mumble_pch.hpp"
 #include "ui_BanEditor.h"
 #include "Message.h"
-
-struct Ban {
-        HostAddress haAddress;
-        int iMask;
-        QString qsUsername;
-        QString qsHash;
-        QString qsReason;
-        QDateTime qdtStart;
-        unsigned int iDuration;
-        bool operator < (const Ban &) const;
-        bool operator == (const Ban &) const;
-};
+#include "Net.h"
 
 class BanEditor : public QDialog, public Ui::BanEditor {
 	private:
