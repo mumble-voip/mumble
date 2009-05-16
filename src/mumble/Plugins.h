@@ -67,9 +67,9 @@ class Plugins : public QObject {
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
 		void clearPlugins();
-                QMap<QString, QString> qmPluginHash;
-                QString qsSystemPlugins;
-                QString qsUserPlugins;
+		QMap<QString, QString> qmPluginHash;
+		QString qsSystemPlugins;
+		QString qsUserPlugins;
 	public:
 		std::string ssContext, ssContextSent;
 		std::wstring swsIdentity, swsIdentitySent;

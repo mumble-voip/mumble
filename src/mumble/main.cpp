@@ -239,7 +239,7 @@ int main(int argc, char **argv) {
 		new VersionCheck(true, g.mw);
 
 	if (g.s.bPluginCheck)
-                g.p->checkUpdates();
+		g.p->checkUpdates();
 
 	if (url.isValid()) {
 		g.mw->openUrl(url);

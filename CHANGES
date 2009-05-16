@@ -1,5 +1,11 @@
+2009-05-16
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f1859f2  Automatically download updated plugins
+
 2009-05-15
   Thorvald Natvig <slicer@users.sourceforge.net>
+    8750f00  Validate bans before adding to the list
+    a98d45a  Faster quint64 based netaddress handling
     9f7ef74  Updated Ban Editor
 
 2009-05-13
