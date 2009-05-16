@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>257</width>
-    <height>328</height>
+    <width>283</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -251,7 +251,20 @@
          <string>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</string>
         </property>
         <property name="text">
-         <string>Check for updates on startup</string>
+         <string>Check for application updates on startup</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbPluginUpdate">
+        <property name="toolTip">
+         <string>Check for new releases of plugins automatically.</string>
+        </property>
+        <property name="whatsThis">
+         <string>This will check for new releases of plugins every time you start the program, and download them automatically.</string>
+        </property>
+        <property name="text">
+         <string>Download plugin updates on startup</string>
         </property>
        </widget>
       </item>

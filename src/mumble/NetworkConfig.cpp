@@ -70,6 +70,7 @@ void NetworkConfig::load(const Settings &r) {
 	qlePassword->setText(r.qsProxyPassword);
 
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
+	loadCheckBox(qcbPluginUpdate, r.bPluginCheck);
 	loadCheckBox(qcbUsage, r.bUsage);
 }
 
@@ -84,6 +85,7 @@ void NetworkConfig::save() const {
 	s.qsProxyPassword = qlePassword->text();
 
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
+	s.bPluginCheck=qcbPluginUpdate->isChecked();
 	s.bUsage=qcbUsage->isChecked();
 }
 

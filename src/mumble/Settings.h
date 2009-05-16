@@ -141,6 +141,7 @@ struct Settings {
 	int iServerRow;
 
 	bool bUpdateCheck;
+	bool bPluginCheck;
 
 	// Network settings
 	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };

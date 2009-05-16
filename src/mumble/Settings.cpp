@@ -66,8 +66,10 @@ Settings::Settings() {
 
 #ifdef NO_UPDATE_CHECK
 	bUpdateCheck = false;
+	bPluginCheck = false;
 #else
 	bUpdateCheck = true;
+	bPluginCheck = true;
 #endif
 
 	bFirstTime = true;
@@ -302,6 +304,7 @@ void Settings::load() {
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(iServerRow, "ui/serverrow");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
+	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 
@@ -461,6 +464,7 @@ void Settings::save() {
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(iServerRow, "ui/serverrow");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
+	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 

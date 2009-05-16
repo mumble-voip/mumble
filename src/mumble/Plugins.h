@@ -67,6 +67,9 @@ class Plugins : public QObject {
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
 		void clearPlugins();
+                QMap<QString, QString> qmPluginHash;
+                QString qsSystemPlugins;
+                QString qsUserPlugins;
 	public:
 		std::string ssContext, ssContextSent;
 		std::wstring swsIdentity, swsIdentitySent;
@@ -81,6 +84,8 @@ class Plugins : public QObject {
 		void on_Timer_timeout();
 		void rescanPlugins();
 		bool fetch();
+		void checkUpdates();
+		void finished();
 };
 
 #else

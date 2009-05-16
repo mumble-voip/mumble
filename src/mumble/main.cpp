@@ -238,6 +238,9 @@ int main(int argc, char **argv) {
 	if (g.s.bUpdateCheck)
 		new VersionCheck(true, g.mw);
 
+	if (g.s.bPluginCheck)
+                g.p->checkUpdates();
+
 	if (url.isValid()) {
 		g.mw->openUrl(url);
 #ifdef Q_OS_MAC
