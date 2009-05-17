@@ -562,6 +562,7 @@ int Server::registerUser(const QMap<QString, QString> &info) {
 }
 
 bool Server::unregisterUser(int id) {
+	// FIXME: Update ACLs and groups to remove id.
 	if (id <= 0)
 		return false;
 

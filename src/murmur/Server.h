@@ -296,7 +296,7 @@ class Server : public QThread {
 		QMap<QString, QString> getRegistration(int id);
 		int registerUser(const QMap<QString, QString> &info);
 		bool unregisterUser(int id);
-		QMap<int, QString > getRegisteredUsers(const QString &filter);
+		QMap<int, QString > getRegisteredUsers(const QString &filter = QString());
 		bool setInfo(int id, const QMap<QString, QString> &info);
 		bool setTexture(int id, const QByteArray &texture);
 		bool isUserId(int id);

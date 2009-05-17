@@ -182,3 +182,11 @@ message ContextAction {
 	optional uint32 channel_id = 2;
 	required string action = 3;
 }
+
+message UserList {
+	message User {
+		required uint32 user_id = 1;
+		optional string name = 2;
+	}
+	repeated User users = 1;
+}

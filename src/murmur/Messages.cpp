@@ -1035,3 +1035,44 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 			uSource->qsOSVersion = u8(msg.os_version());
 	}
 }
+
+void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
+	MSG_SETUP(User::Authenticated);
+
+	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Register)) {
+		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Register);
+		return;
+	}
+	
+	if (msg.users_size() == 0) {
+		// Query mode.
+		QMap<int, QString> users = getRegisteredUsers();
+		QMap<int, QString>::const_iterator i;
+		for(i = users.constBegin(); i != users.constEnd(); ++i) {
+			::MumbleProto::UserList_User *u = msg.add_users();
+			u->set_user_id(i.key());
+			u->set_name(u8(i.value()));
+		}
+		sendMessage(uSource, msg);
+	} else {
+		for (int i=0;i < msg.users_size(); ++i) {
+			const MumbleProto::UserList_User &u = msg.users(i);
+			
+			int id = u.user_id();
+			if (id == 0)
+				continue;
+				
+			if (! u.has_name()) {
+				log(uSource, QString::fromLatin1("Unregistered user %1").arg(id));
+				unregisterUser(id);
+			} else {
+				const QString &name = u8(u.name());
+				log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(id).arg(name));
+
+				QMap<QString, QString> info;
+				info.insert("name", name);
+				setInfo(id, info);
+			}
+		}
+	}
+}
