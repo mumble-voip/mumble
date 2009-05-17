@@ -668,6 +668,17 @@
     <string>Your friend uses a different name than what is in your database. This will update the name.</string>
    </property>
   </action>
+  <action name="qaServerUserList">
+   <property name="text">
+    <string>Registered &amp;Users</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit registered users list</string>
+   </property>
+   <property name="whatsThis">
+    <string>This opens the editor for registered users, which allow you to change their name or unregister them.</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

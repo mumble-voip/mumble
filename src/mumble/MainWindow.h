@@ -38,6 +38,7 @@
 
 class ACLEditor;
 class BanEditor;
+class UserEdit;
 class ServerHandler;
 class GlobalShortcut;
 class TextToSpeech;
@@ -89,6 +90,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
+		UserEdit *userEdit;
 
 		MumbleProto::Reject_RejectType rtLast;
 		QString qsDesiredChannel;
@@ -120,6 +122,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaServerConnect_triggered();
 		void on_qaServerDisconnect_triggered();
 		void on_qaServerBanList_triggered();
+		void on_qaServerUserList_triggered();
 		void on_qaServerInformation_triggered();
 		void on_qmUser_aboutToShow();
 		void on_qaUserComment_triggered();

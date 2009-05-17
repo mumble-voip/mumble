@@ -36,6 +36,7 @@
 #include "Channel.h"
 #include "ACLEditor.h"
 #include "BanEditor.h"
+#include "UserEdit.h"
 #include "Connection.h"
 #include "ServerHandler.h"
 #include "About.h"
@@ -434,4 +435,14 @@ void MainWindow::msgVersion(const MumbleProto::Version &msg) {
 		if (msg.has_os_version())
 			g.sh->qsOSVersion = u8(msg.os_version());
 	}
+}
+
+void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
+	if (userEdit) {
+		userEdit->reject();
+		delete userEdit;
+		userEdit = NULL;
+	}
+	userEdit = new UserEdit(msg, this);
+	userEdit->show();
 }

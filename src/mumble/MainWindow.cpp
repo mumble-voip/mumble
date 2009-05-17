@@ -37,6 +37,7 @@
 #include "Channel.h"
 #include "ACLEditor.h"
 #include "BanEditor.h"
+#include "UserEdit.h"
 #include "Connection.h"
 #include "ServerHandler.h"
 #include "About.h"
@@ -131,6 +132,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	aclEdit = NULL;
 	banEdit = NULL;
+	userEdit = NULL;
 	bNoHide = false;
 
 	qtReconnect = new QTimer(this);
@@ -583,6 +585,8 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addAction(qaServerDisconnect);
 	if (g.pPermissions & (ChanACL::Ban | ChanACL::Write))
 		qmServer->addAction(qaServerBanList);
+	if (g.pPermissions & (ChanACL::Register | ChanACL::Write))
+		qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerInformation);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
@@ -593,7 +597,6 @@ void MainWindow::on_qmServer_aboutToShow() {
 			qmServer->addAction(a);
 	}
 }
-
 
 void MainWindow::on_qaServerDisconnect_triggered() {
 	if (qtReconnect->isActive())
@@ -611,6 +614,17 @@ void MainWindow::on_qaServerBanList_triggered() {
 		banEdit->reject();
 		delete banEdit;
 		banEdit = NULL;
+	}
+}
+
+void MainWindow::on_qaServerUserList_triggered() {
+	MumbleProto::UserList mpul;
+	g.sh->sendMessage(mpul);
+
+	if (userEdit) {
+		userEdit->reject();
+		delete userEdit;
+		userEdit = NULL;
 	}
 }
 
@@ -1470,6 +1484,12 @@ void MainWindow::serverDisconnected(QString reason) {
 		banEdit->reject();
 		delete banEdit;
 		banEdit = NULL;
+	}
+
+	if (userEdit) {
+		userEdit->reject();
+		delete userEdit;
+		userEdit = NULL;
 	}
 
 	QSet<QAction *> qs;
