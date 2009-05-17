@@ -113,8 +113,7 @@ void Connection::socketRead() {
 		qtLastPacket.restart();
 		iAvailable -= iPacketLength;
 
-		if (! qbaBuffer.isEmpty())
-			emit message(uiType, qbaBuffer);
+		emit message(uiType, qbaBuffer);
 	}
 }
 
