@@ -147,24 +147,19 @@ class AudioOutputSample : public AudioOutputUser {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutputSample)
 	protected:
-		unsigned int iBufferOffset;
-		unsigned int iBufferFilled;
-		unsigned int iOutputSize;
 		unsigned int iLastConsume;
-		unsigned int iFrameSize;
-		int iPacketIndex;
-		QList<QByteArray> qlPackets;
+		unsigned int iBufferFilled;
+		unsigned int iOutSampleRate;
 		SpeexResamplerState *srs;
 
-		CELTMode *cmMode;
-		CELTDecoder *cdDecoder;
+		SndfileHandle *sfHandle;
 
 		bool bLastAlive;
 		bool bLoop;
 	public:
-		static QList<QByteArray> getPacketsFromFile(const QString &filename);
+		static SndfileHandle* loadSndfile(const QString &filename);
 		virtual bool needSamples(unsigned int snum);
-		AudioOutputSample(const QString &name, const QList<QByteArray> &packets, bool repeat, unsigned int freq);
+		AudioOutputSample(const QString &name, SndfileHandle *psndfile, bool repeat, unsigned int freq);
 		~AudioOutputSample();
 };
 

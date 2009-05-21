@@ -114,157 +114,124 @@ void AudioOutputUser::resizeBuffer(unsigned int newsize) {
 	}
 }
 
-AudioOutputSample::AudioOutputSample(const QString &name, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputUser(name) {
+AudioOutputSample::AudioOutputSample(const QString &name, SndfileHandle *psndfile, bool loop, unsigned int freq) : AudioOutputUser(name) {
 	int err;
 
-	iFrameSize = SAMPLE_RATE / 100;
-	cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
-	cdDecoder = celt_decoder_create(cmMode);
+	sfHandle = psndfile;
+	iOutSampleRate = freq;
 
-	if (freq != SAMPLE_RATE)
-		srs = speex_resampler_init(1, SAMPLE_RATE, freq, 3, &err);
-	else
+	// Check if the file is good
+	if (sfHandle->channels() < 0 || sfHandle->channels() > 2) {
+		sfHandle = NULL;
+		return;
+	}
+
+	/* qWarning() << "Channels: " << sfHandle->channels();
+	qWarning() << "Samplerate: " << sfHandle->samplerate();
+	qWarning() << "Target Sr.: " << freq;
+	qWarning() << "Format: " << sfHandle->format() << endl; */
+
+	// If the frequencies don't match initialize the resampler
+	if (sfHandle->samplerate() != freq) {
+		srs = speex_resampler_init(1, sfHandle->samplerate(), iOutSampleRate, 3, &err);
+		if (err != RESAMPLER_ERR_SUCCESS) {
+			qWarning() << "Initialize " << sfHandle->samplerate() << " to " << iOutSampleRate << " resampler failed!";
+			srs = NULL;
+			sfHandle = NULL;
+			return;
+		}
+	}
+	else {
 		srs = NULL;
+	}
 
-	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
-
-	iBufferOffset = iBufferFilled = iLastConsume = 0;
-
-	bLoop = false;
-
-	iPacketIndex = -1;
-	qlPackets = packets;
-
+	iLastConsume = iBufferFilled = 0;
 	bLoop = loop;
 }
 
 AudioOutputSample::~AudioOutputSample() {
-	celt_decoder_destroy(cdDecoder);
-	celt_mode_destroy(cmMode);
+	if(sfHandle) {
+		delete sfHandle;
+		sfHandle = NULL;
+	}
 }
 
-QList<QByteArray> AudioOutputSample::getPacketsFromFile(const QString &filename) {
-	QList<QByteArray> packets;
-	int celt_bitstream_version;
-	celt_mode_info(NULL, CELT_GET_BITSTREAM_VERSION, &celt_bitstream_version);
+SndfileHandle* AudioOutputSample::loadSndfile(const QString &filename) {
+	SndfileHandle *handle;
+	// Create the filehandle and do a quick check if everything is ok
+	handle = new SndfileHandle(filename.toStdString(), SFM_READ, 0, 1, SAMPLE_RATE);
+	if(handle == NULL) return handle;
 
-	QFile f(filename);
-	if (! f.open(QIODevice::ReadOnly)) {
-		qWarning("AudioOutputSample: Failed to open %s for reading", qPrintable(filename));
-		return QList<QByteArray>();
+	else if (handle->error() != SF_ERR_NO_ERROR) {
+		qWarning() << "File " << filename << " couldn't be loaded: " << handle->strError();
+		delete handle;
+		return NULL;
 	}
 
-	QByteArray qbaSample = f.readAll();
-	f.close();
-
-	if (qbaSample.startsWith(QString::fromLatin1("OggS").toUtf8())) {
-		ogg_sync_state sync;
-		ogg_page page;
-		ogg_packet packet;
-		ogg_stream_state stream;
-		bool stream_init = false;
-		bool eos = false;
-		int celt_serialno = -1;
-		int packetno = -1;
-		bool header_ok = false;
-		int extra_headers = 0;
-
-		ogg_sync_init(&sync);
-		char *data = ogg_sync_buffer(&sync, qbaSample.length());
-		memcpy(data, qbaSample.constData(), qbaSample.length());
-		ogg_sync_wrote(&sync, qbaSample.length());
-
-		while (ogg_sync_pageout(&sync, &page)==1) {
-			if (! stream_init)  {
-				ogg_stream_init(&stream, ogg_page_serialno(&page));
-				stream_init = true;
-			} else if (ogg_page_serialno(&page) != stream.serialno) {
-				ogg_stream_reset_serialno(&stream, ogg_page_serialno(&page));
-			}
-			ogg_stream_pagein(&stream, &page);
-			while (! eos && ogg_stream_packetout(&stream, &packet) == 1 && packet.bytes >= 8) {
-				if (memcmp(packet.packet, "CELT    ", 8) == 0) {
-					celt_serialno = static_cast<int>(stream.serialno);
-				}
-				if (celt_serialno == -1 || stream.serialno != celt_serialno)
-					break;
-
-				++packetno;
-
-				if (packetno == 0) {
-					CELTHeader header;
-					celt_header_from_packet(reinterpret_cast<unsigned char *>(packet.packet), static_cast<int>(packet.bytes), &header);
-
-					if (header.version_id == celt_bitstream_version &&
-					        header.sample_rate == SAMPLE_RATE &&
-					        header.frame_size == (SAMPLE_RATE / 100) &&
-					        header.nb_channels == 1) {
-						header_ok = true;
-						extra_headers = header.extra_headers;
-					} else {
-						qWarning("Sample rate: %i\nFrame size: %i\nBitstream version: %i\nChannels: %i",
-						         header.frame_size, header.sample_rate, header.version_id, header.nb_channels);
-						break;
-					}
-				} else if (packetno <= 1 + extra_headers) {
-				} else {
-					if (packet.e_o_s)
-						eos = true;
-					packets << QByteArray(reinterpret_cast<const char *>(packet.packet), static_cast<int>(packet.bytes));
-				}
-			}
-		}
-		ogg_sync_clear(&sync);
-		if (stream_init)
-			ogg_stream_clear(&stream);
-
-		if (! header_ok) {
-			qWarning("AudioOutputSample: %s contained invalid data", qPrintable(filename));
-		}
-	} else {
-		qWarning("AudioOutputSample: %s is not an ogg file", qPrintable(filename));
+	if (handle->channels() < 0 || handle->channels() > 2) {
+		qWarning() << "File " << filename << " contains " << handle->channels() << " Channels, only 1 or 2 are supported.";
+		delete handle;
+		return NULL;
 	}
-	return packets;
+	return handle;
 }
 
 bool AudioOutputSample::needSamples(unsigned int snum) {
+	// Forward the buffer
 	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
 		pfBuffer[i-iLastConsume]=pfBuffer[i];
 	iBufferFilled -= iLastConsume;
-
 	iLastConsume = snum;
 
+
+	// Check if we can satisfy request with current buffer
 	if (iBufferFilled >= snum)
 		return true;
 
+	// Calculate the required buffersize to hold the results
+	int iInputSamples = iroundf(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate))) * sfHandle->channels();
+
 	float *pOut;
-	STACKVAR(float, fOut, iFrameSize);
+	STACKVAR(float, fOut, iInputSamples);
 
-	while (iBufferFilled < snum) {
-		resizeBuffer(iBufferFilled + iOutputSize);
+	bool mix = sfHandle->channels() > 1;
+	bool eof = false;
+	sf_count_t read;
+	do {
+		resizeBuffer(iBufferFilled + snum);
 
-		pOut = (srs) ? fOut : pfBuffer + iBufferFilled;
+		pOut = (srs || mix) ? fOut : pfBuffer + iBufferFilled;
 
-		++iPacketIndex;
-		if (iPacketIndex >= qlPackets.count()) {
-			if (qlPackets.isEmpty() || !bLoop) {
-				memset(pfBuffer + iBufferFilled, 0, sizeof(float) * (snum-iBufferFilled));
-				return false;
+		// Try to read all samples needed to satifsy this request
+		if ((read = sfHandle->read(pOut, iInputSamples)) < iInputSamples) {
+			if (sfHandle->error() != SF_ERR_NO_ERROR || !bLoop) {
+				// We reached the eof or encountered an error, stuff with zeroes
+				memset(pOut, 0, sizeof(float) * (iInputSamples - read));
+				read = iInputSamples;
+				eof = true;
 			} else {
-				iPacketIndex = 0;
+				sfHandle->seek(SEEK_SET, 0);
 			}
 		}
-		const QByteArray &qba = qlPackets[iPacketIndex];
 
-		celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.data()), qba.size(), pOut);
+		if (mix) {
+			// Mix the channels (only two channels)
+			float *pTarget = srs ? fOut : pfBuffer + iBufferFilled;
 
-		spx_uint32_t inlen = iFrameSize;
-		spx_uint32_t outlen = iOutputSize;
-		if (srs)
+			for(float *pSource = fOut; pSource < fOut + read; pSource+=2) {
+				*pTarget = (*pSource + pSource[1]) / 2.0f;
+				pTarget++;
+			}
+		}
+
+		spx_uint32_t inlen = read;
+		spx_uint32_t outlen = snum;
+		if (srs) // If necessary resample
 			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+
 		iBufferFilled += outlen;
-	}
-	return true;
+	} while (iBufferFilled < snum);
+	return !eof;
 }
 
 AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq) : AudioOutputUser(user->qsName) {
@@ -506,14 +473,15 @@ AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float v
 }
 
 AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
-	QList<QByteArray> packets = AudioOutputSample::getPacketsFromFile(filename);
-	if (packets.isEmpty())
+	SndfileHandle *handle;
+	handle = AudioOutputSample::loadSndfile(filename);
+	if (handle == NULL)
 		return NULL;
 
 	while ((iMixerFreq == 0) && isRunning()) {}
 
 	qrwlOutputs.lockForWrite();
-	AudioOutputSample *aos = new AudioOutputSample(filename, packets, loop, iMixerFreq);
+	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq);
 	qmOutputs.insert(NULL, aos);
 	qrwlOutputs.unlock();
 	return aos;
