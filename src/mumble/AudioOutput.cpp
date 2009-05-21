@@ -188,18 +188,21 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	if (iBufferFilled >= snum)
 		return true;
 
-	// Calculate the required buffersize to hold the results
-	int iInputSamples = iroundf(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate))) * sfHandle->channels();
+	// Calculate the required buffersize to hold the results	
+	unsigned int iInputFrames = iroundf(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
+	unsigned int iInputSamples = iInputFrames * sfHandle->channels();
 
 	float *pOut;
-	STACKVAR(float, fOut, iInputSamples);
-
 	bool mix = sfHandle->channels() > 1;
+	STACKVAR(float, fOut, iInputSamples);
+	STACKVAR(float, fMix, iInputFrames);
+
 	bool eof = false;
 	sf_count_t read;
 	do {
 		resizeBuffer(iBufferFilled + snum);
 
+		// If we need to resample or mix write to the buffer on stack
 		pOut = (srs || mix) ? fOut : pfBuffer + iBufferFilled;
 
 		// Try to read all samples needed to satifsy this request
@@ -214,20 +217,19 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 			}
 		}
 
-		if (mix) {
-			// Mix the channels (only two channels)
-			float *pTarget = srs ? fOut : pfBuffer + iBufferFilled;
+		if (mix) { // Mix the channels (only two channels)
+			read /= 2;
+			// If we need to resample after this write to extra buffer
+			pOut = srs ? fMix : pfBuffer + iBufferFilled;
+			for (unsigned int i = 0; i < read; i++)
+				pOut[i] = (fOut[i*2] + fOut[i*2 + 1]) * 0.5f;
 
-			for(float *pSource = fOut; pSource < fOut + read; pSource+=2) {
-				*pTarget = (*pSource + pSource[1]) / 2.0f;
-				pTarget++;
-			}
 		}
 
 		spx_uint32_t inlen = read;
 		spx_uint32_t outlen = snum;
 		if (srs) // If necessary resample
-			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+			speex_resampler_process_float(srs, 0, pOut, &inlen, pfBuffer + iBufferFilled, &outlen);
 
 		iBufferFilled += outlen;
 	} while (iBufferFilled < snum);
