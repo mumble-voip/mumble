@@ -107,7 +107,7 @@ unix {
 
   CONFIG *= link_pkgconfig
 
-  PKGCONFIG *= openssl ogg
+  PKGCONFIG *= openssl sndfile
 
   contains(UNAME, Linux) {
     !CONFIG(no-oss) {

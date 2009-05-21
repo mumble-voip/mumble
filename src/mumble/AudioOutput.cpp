@@ -159,7 +159,7 @@ AudioOutputSample::~AudioOutputSample() {
 SndfileHandle* AudioOutputSample::loadSndfile(const QString &filename) {
 	SndfileHandle *handle;
 	// Create the filehandle and do a quick check if everything is ok
-	handle = new SndfileHandle(filename.toStdString(), SFM_READ, 0, 1, SAMPLE_RATE);
+	handle = new SndfileHandle(filename.toUtf8().constData(), SFM_READ, 0, 1, SAMPLE_RATE);
 	if(handle == NULL) return handle;
 
 	else if (handle->error() != SF_ERR_NO_ERROR) {

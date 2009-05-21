@@ -161,7 +161,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	QDir(qsUserPlugins).mkpath(QLatin1String("Mumble/Plugins"));
 	qsUserPlugins+= QLatin1String("/Mumble/Plugins");
 #else
-	QDir::homePath().mkpath(QLatin1String(".config/Mumble/Plugins"));
+	QDir(QDir::homePath()).mkpath(QLatin1String(".config/Mumble/Plugins"));
 	qsUserPlugins = QDir::homePath() + QLatin1String("/.config/Mumble/Plugins");
 #endif
 }
