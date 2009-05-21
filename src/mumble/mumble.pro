@@ -61,12 +61,12 @@ win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
-  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg -lwintrust -llibsndfile-1
+  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -lwintrust -llibsndfile-1
   LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
 
-  LIBPATH	*= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib /dev/libogg/lib /dev/libsndfile
+  LIBPATH	*= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib /dev/libsndfile
   DEFINES	*= WIN32
-  INCLUDEPATH	*= /dev/OpenSSL/include /dev/libogg/include /dev/libsndfile/include
+  INCLUDEPATH	*= /dev/OpenSSL/include /dev/libsndfile/include
   !CONFIG(no-asio) {
     CONFIG	*= asio
   }
