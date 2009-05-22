@@ -150,9 +150,9 @@ class Server : public QThread {
 		QRegExp qrUserName;
 		QRegExp qrChannelName;
 
+		QList<QSslCertificate> qlCA;
 		QSslCertificate qscCert;
 		QSslKey qskKey;
-		QByteArray qbaPassPhrase;
 
 		bool bValid;
 
@@ -171,6 +171,7 @@ class Server : public QThread {
 
 		// Certificate stuff, implemented partially in Cert.cpp
 	public:
+		static bool isKeyForCert(const QSslKey &key, const QSslCertificate &cert);
 		void initializeCert();
 		const QString getDigest() const;
 

@@ -199,8 +199,25 @@ void MetaParams::read(QString fname) {
 
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();
+	QString qsSSLCA = qs.value("sslCA").toString();
 
 	qbaPassPhrase = qs.value("sslPassPhrase").toByteArray();
+
+	if (! qsSSLCA.isEmpty()) {
+		QFile pem(qsSSLCA);
+		if (pem.open(QIODevice::ReadOnly)) {
+			QByteArray qba = pem.readAll();
+			pem.close();
+			QList<QSslCertificate> ql = QSslCertificate::fromData(qba);
+			if (ql.isEmpty()) {
+				qCritical("Failed to parse any CA certificates from %s", qPrintable(qsSSLCA));
+			} else {
+				QSslSocket::addDefaultCaCertificates(ql);
+			}
+		} else {
+			qCritical("Failed to read %s", qPrintable(qsSSLCert));
+		}
+	}
 
 	QByteArray crt, key;
 
@@ -223,45 +240,54 @@ void MetaParams::read(QString fname) {
 		}
 	}
 
-	if (! crt.isEmpty()) {
-		qscCert = QSslCertificate(crt);
-		if (qscCert.isNull()) {
-			qCritical("Failed to parse certificate.");
-		}
-	}
-
-	if (! key.isEmpty() && qscCert.isNull()) {
-		qscCert = QSslCertificate(key);
-		if (! qscCert.isNull()) {
-			qWarning("Using certificate from key file.");
-		}
-	}
-
-	if (! qscCert.isNull()) {
-		QSsl::KeyAlgorithm alg = qscCert.publicKey().algorithm();
-
+	if (! key.isEmpty() || ! crt.isEmpty()) {
 		if (! key.isEmpty()) {
-			qskKey = QSslKey(key, alg, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
-			if (qskKey.isNull()) {
-				qCritical("Failed to parse key file.");
-			}
+			qskKey = QSslKey(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+			if (qskKey.isNull())
+				qskKey = QSslKey(key, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
 		}
-
-		if (! crt.isEmpty() && qskKey.isNull()) {
-			qskKey = QSslKey(crt, alg, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
-			if (! qskKey.isNull()) {
-				qWarning("Using key from certificate file.");
-			}
+		if (qskKey.isNull() && ! crt.isEmpty()) {
+			qskKey = QSslKey(crt, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+			if (qskKey.isNull())
+				qskKey = QSslKey(crt, QSsl::Dsa, QSsl::Pem, QSsl::PrivateKey, qbaPassPhrase);
+			if (! qskKey.isNull())
+				qCritical("Using private key found in certificate file.");
 		}
 		if (qskKey.isNull())
-			qscCert = QSslCertificate();
-	}
+			qFatal("No private key found in certificate or key file.");
 
-	if (qscCert.isNull() || qskKey.isNull()) {
-		if (! key.isEmpty() || ! crt.isEmpty()) {
-			qFatal("Certificate specified, but failed to load.");
+		QList<QSslCertificate> ql = QSslCertificate::fromData(crt);
+		ql << QSslCertificate::fromData(key);
+		for (int i=0;i<ql.size(); ++i) {
+			const QSslCertificate &c = ql.at(i);
+			if (Server::isKeyForCert(qskKey, c)) {
+				qscCert = c;
+				ql.removeAt(i);
+				break;
+			}
+		}
+		if (qscCert.isNull()) {
+			qFatal("Failed to find certificate matching private key.");
+		}
+		if (ql.length() > 0) {
+			QSslSocket::addDefaultCaCertificates(ql);
+			qCritical("Adding %d CA certificates from certificate file.", ql.length());
 		}
 	}
+
+        if (! QSslSocket::supportsSsl()) {
+                        qFatal("Qt without SSL Support");
+	}
+
+	QList<QSslCipher> pref;
+	foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
+		if (c.usedBits() < 128)
+			continue;
+		pref << c;
+	}
+	if (pref.isEmpty())
+		qFatal("No SSL ciphers of at least 128 bit found");
+	QSslSocket::setDefaultCiphers(pref);
 
 	qmConfig.clear();
 	qmConfig.insert(QLatin1String("host"),qhaBind.toString());

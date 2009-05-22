@@ -591,6 +591,7 @@ void Server::newClient() {
 
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
+		sock->addCaCertificates(qlCA);
 
 		if (qqIds.isEmpty()) {
 			sock->disconnectFromHost();
