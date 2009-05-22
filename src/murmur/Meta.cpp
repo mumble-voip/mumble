@@ -275,8 +275,8 @@ void MetaParams::read(QString fname) {
 		}
 	}
 
-        if (! QSslSocket::supportsSsl()) {
-                        qFatal("Qt without SSL Support");
+	if (! QSslSocket::supportsSsl()) {
+		qFatal("Qt without SSL Support");
 	}
 
 	QList<QSslCipher> pref;

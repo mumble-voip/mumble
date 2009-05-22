@@ -1,3 +1,19 @@
+2009-05-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e5cdd85  Remove libogg
+    177a58c  Optimized mixer code.
+    6c5b9e6  Use libsndfile for audio file processing.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ae02f97  Add sndfile pkgconfig for *nix, switch to utf8 const char *
+	     paths, and fix a leftover compilebug in Plugins
+
+2009-05-17
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e3a122c  Allow empty messages
+    3b0c702  Clientside useredit
+    73131d2  Server-side unregister
+
 2009-05-16
   Thorvald Natvig <slicer@users.sourceforge.net>
     f1859f2  Automatically download updated plugins
@@ -25,6 +41,9 @@
     8415c87  L4d, TF2 build update
 
 2009-05-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1c1cb64  Reorder tray actions
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     f56fca0  Submodule update
     23389b3  Remove password from ConnectDialog gui

@@ -180,7 +180,7 @@ void LogConfig::browseForAudioFile() {
 		if ((handle = AudioOutputSample::loadSndfile(file)) == NULL) {
 			QMessageBox::critical(this,
 			                      tr("Invalid sound file"),
-					      tr("The file '%1' does not exist or is not a valid file.").arg(file));
+			                      tr("The file '%1' does not exist or is not a valid file.").arg(file));
 			return;
 		}
 		delete handle;

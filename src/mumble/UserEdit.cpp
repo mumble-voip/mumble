@@ -35,7 +35,7 @@
 UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
 
-	for(int i=0;i<msg.users_size(); ++i) {
+	for (int i=0;i<msg.users_size(); ++i) {
 		const MumbleProto::UserList_User &u = msg.users(i);
 		int id = u.user_id();
 		const QString &name = u8(u.name());
@@ -61,7 +61,7 @@ void UserEdit::accept() {
 	if (! qmChanged.isEmpty()) {
 		MumbleProto::UserList mpul;
 		QMap<int, QString>::const_iterator i;
-		for(i=qmChanged.constBegin(); i!=qmChanged.constEnd(); ++i) {
+		for (i=qmChanged.constBegin(); i!=qmChanged.constEnd(); ++i) {
 			MumbleProto::UserList_User *u = mpul.add_users();
 			u->set_user_id(i.key());
 			if (! i.value().isEmpty())

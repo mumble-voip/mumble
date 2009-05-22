@@ -140,8 +140,7 @@ AudioOutputSample::AudioOutputSample(const QString &name, SndfileHandle *psndfil
 			sfHandle = NULL;
 			return;
 		}
-	}
-	else {
+	} else {
 		srs = NULL;
 	}
 
@@ -150,7 +149,7 @@ AudioOutputSample::AudioOutputSample(const QString &name, SndfileHandle *psndfil
 }
 
 AudioOutputSample::~AudioOutputSample() {
-	if(sfHandle) {
+	if (sfHandle) {
 		delete sfHandle;
 		sfHandle = NULL;
 	}
@@ -160,7 +159,7 @@ SndfileHandle* AudioOutputSample::loadSndfile(const QString &filename) {
 	SndfileHandle *handle;
 	// Create the filehandle and do a quick check if everything is ok
 	handle = new SndfileHandle(filename.toUtf8().constData(), SFM_READ, 0, 1, SAMPLE_RATE);
-	if(handle == NULL) return handle;
+	if (handle == NULL) return handle;
 
 	else if (handle->error() != SF_ERR_NO_ERROR) {
 		qWarning() << "File " << filename << " couldn't be loaded: " << handle->strError();
@@ -188,7 +187,7 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	if (iBufferFilled >= snum)
 		return true;
 
-	// Calculate the required buffersize to hold the results	
+	// Calculate the required buffersize to hold the results
 	unsigned int iInputFrames = iroundf(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
 	unsigned int iInputSamples = iInputFrames * sfHandle->channels();
 
