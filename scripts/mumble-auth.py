@@ -22,6 +22,7 @@ baseurl = "http://localhost:8080/register?id=" # Baseurl for registrations
 storage_time = 10*24*60*60 # Time in seconds a reg entry is guaranteed to be valid
 proxy = "Meta:tcp -h 127.0.0.1 -p 6502"
 group = "admin" # ACL group which has the right to send regurls
+host = "0.0.0.0" # Interface to listen on
 port = 8080 # Cherrypy port
 slice = "Murmur.ice"
 production = False # Set this to true to surpress tracebacks
@@ -266,6 +267,7 @@ if __name__ == "__main__":
             server.addCallback(serverR)
 
         if production: cherrypy.config.update({'environment': 'production'})
+        cherrypy.server.socket_host = host
         cherrypy.server.socket_port = port
         cherrypy.quickstart(mumble_auth(meta))
     finally:
