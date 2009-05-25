@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>266</width>
-    <height>261</height>
+    <width>645</width>
+    <height>468</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -17,49 +17,6 @@
       <string>Shortcuts</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0" colspan="3">
-       <widget class="QTreeWidget" name="qtwShortcuts">
-        <property name="toolTip">
-         <string>List of configured shortcuts</string>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="rootIsDecorated">
-         <bool>false</bool>
-        </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
-        <attribute name="headerDefaultSectionSize">
-         <number>300</number>
-        </attribute>
-        <attribute name="headerMinimumSectionSize">
-         <number>200</number>
-        </attribute>
-        <attribute name="headerDefaultSectionSize">
-         <number>300</number>
-        </attribute>
-        <attribute name="headerMinimumSectionSize">
-         <number>200</number>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Function</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Shortcut</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Suppress</string>
-         </property>
-        </column>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="qpbAdd">
         <property name="toolTip">
@@ -101,6 +58,51 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QTreeWidget" name="qtwShortcuts">
+        <property name="toolTip">
+         <string>List of configured shortcuts</string>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::AllEditTriggers</set>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
+        <property name="itemsExpandable">
+         <bool>false</bool>
+        </property>
+        <attribute name="headerDefaultSectionSize">
+         <number>300</number>
+        </attribute>
+        <attribute name="headerMinimumSectionSize">
+         <number>200</number>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Function</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Data</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Shortcut</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Suppress</string>
+         </property>
+        </column>
+       </widget>
       </item>
      </layout>
     </widget>

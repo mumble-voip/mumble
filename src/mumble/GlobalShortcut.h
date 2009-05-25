@@ -47,17 +47,17 @@ class GlobalShortcut : public QObject {
 		bool bActive;
 	signals:
 		void down();
-		void up();
 		void triggered(bool);
 	public:
 		QString qsToolTip;
 		QString qsWhatsThis;
 		QString name;
 		QVariant data;
+		QVariant qvDefault;
 		bool bExpert;
 		int idx;
 
-		GlobalShortcut(QObject *parent, int index, QString qsName, bool expert = true);
+		GlobalShortcut(QObject *parent, int index, QString qsName, bool expert = true, QVariant def = QVariant());
 		~GlobalShortcut();
 
 		bool active() const {
@@ -92,11 +92,38 @@ class ShortcutActionWidget : public QComboBox {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ShortcutActionWidget)
-		Q_PROPERTY(int index READ index WRITE setIndex USER true)
+		Q_PROPERTY(unsigned int index READ index WRITE setIndex USER true)
 	public:
 		ShortcutActionWidget(QWidget *p = NULL);
+		unsigned int index() const;
+		void setIndex(int);
+};
+
+class ShortcutToggleWidget : public QComboBox {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ShortcutToggleWidget)
+		Q_PROPERTY(int index READ index WRITE setIndex USER true)
+	public:
+		ShortcutToggleWidget(QWidget *p = NULL);
 		int index() const;
 		void setIndex(int);
+};
+
+class ShortcutTargetWidget : public QFrame {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ShortcutTargetWidget)
+		Q_PROPERTY(ShortcutTarget target READ target WRITE setTarget USER true)
+	protected:
+		QLineEdit *qleTarget;
+		QPushButton *qpbEdit;
+	public:
+		ShortcutTargetWidget(QWidget *p = NULL);
+		ShortcutTarget target() const;
+		void setTarget(const ShortcutTarget &);
+	public slots:
+		void on_qpbEdit_clicked();
 };
 
 class ShortcutDelegate : public QStyledItemDelegate {

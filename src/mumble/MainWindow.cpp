@@ -171,12 +171,12 @@ void MainWindow::createActions() {
 	gsResetAudio=new GlobalShortcut(this, idx++, tr("Reset Audio Processor", "Global Shortcut"));
 	gsResetAudio->setObjectName(QLatin1String("ResetAudio"));
 
-	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Toggle Mute Self", "Global Shortcut"), false);
+	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Toggle Mute Self", "Global Shortcut"), false, 0);
 	gsMuteSelf->setObjectName(QLatin1String("MuteSelf"));
 	gsMuteSelf->qsToolTip = tr("Toggle self-mute status.", "Global Shortcut");
 	gsMuteSelf->qsWhatsThis = tr("This will toggle your muted status. If you toggle this off, you will also disable self-deafen.", "Global Shortcut");
 
-	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Toggle Deafen Self", "Global Shortcut"), false);
+	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Toggle Deafen Self", "Global Shortcut"), false, 0);
 	gsDeafSelf->setObjectName(QLatin1String("DeafSelf"));
 	gsDeafSelf->qsToolTip = tr("Toggle self-deafen status.", "Global Shortcut");
 	gsDeafSelf->qsWhatsThis = tr("This will toggle your deafen status. If you toggle this on, you will also enable self-mute.", "Global Shortcut");
@@ -230,6 +230,8 @@ void MainWindow::createActions() {
 	qstiIcon = new QSystemTrayIcon(qiIcon, this);
 	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
+
+	gs = new GlobalShortcut(this, idx++, tr("Fudge it"), false, QVariant::fromValue(ShortcutTarget()));
 
 #ifndef Q_OS_MAC
 	qstiIcon->show();

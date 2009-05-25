@@ -33,7 +33,7 @@
 
 #include "mumble_pch.hpp"
 
-// Global helper class to spread variables around across threads
+// Global helper classes to spread variables around across threads
 // especially helpfull to initialize things like the stored
 // preference for audio transmission, since the GUI elements
 // will be created long before the AudioInput object, and the
@@ -43,9 +43,22 @@
 struct Shortcut {
 	int iIndex;
 	QList<QVariant> qlButtons;
+	QVariant qvData;
 	bool bSuppress;
 	bool operator <(const Shortcut &) const;
 };
+
+struct ShortcutTarget {
+	QList<QByteArray> qlUsers;
+	unsigned int uiChannel;
+	QString qsGroup;
+	bool bLinks;
+	bool bChildren;
+	ShortcutTarget();
+};
+QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
+QDataStream &operator>>(QDataStream &, ShortcutTarget &);
+Q_DECLARE_METATYPE(ShortcutTarget);
 
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };

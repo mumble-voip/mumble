@@ -190,3 +190,15 @@ message UserList {
 	}
 	repeated User users = 1;
 }
+
+message VoiceTarget {
+	message Target {
+		optional uint32 player_id = 1;
+		optional uint32 channel = 2;
+		optional string group = 3;
+		optional bool links = 4;
+		optional bool children = 5;
+	}
+	optional uint32 id = 1;
+	repeated Target targets = 2;
+}

@@ -38,7 +38,24 @@ bool Shortcut::operator <(const Shortcut &other) const {
 	return (iIndex < other.iIndex);
 }
 
+ShortcutTarget::ShortcutTarget() {
+	uiChannel = 0;
+	bLinks = bChildren = false;
+}
+
+QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
+	return qds << st.qlUsers << st.uiChannel << st.qsGroup << st.bLinks << st.bChildren;
+}
+
+QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
+	return qds >> st.qlUsers >> st.uiChannel >> st.qsGroup >> st.bLinks >> st.bChildren;
+}
+
+
 Settings::Settings() {
+	qRegisterMetaType<ShortcutTarget>("ShortcutTarget");
+	qRegisterMetaTypeStreamOperators<ShortcutTarget>("ShortcutTarget");
+
 	atTransmit = VAD;
 	bTransmitPosition = false;
 	bMute = bDeaf = false;
@@ -324,6 +341,7 @@ void Settings::load() {
 		SAVELOAD(s.iIndex, "index");
 		SAVELOAD(s.qlButtons, "keys");
 		SAVELOAD(s.bSuppress, "suppress");
+		s.qvData = g.qs->value(QLatin1String("data"));
 		if (s.iIndex >= -1)
 			qlShortcuts << s;
 	}
@@ -481,6 +499,7 @@ void Settings::save() {
 		g.qs->setValue(QLatin1String("index"), s.iIndex);
 		g.qs->setValue(QLatin1String("keys"), s.qlButtons);
 		g.qs->setValue(QLatin1String("suppress"), s.bSuppress);
+		g.qs->setValue(QLatin1String("data"), s.qvData);
 	}
 	g.qs->endArray();
 
