@@ -36,6 +36,7 @@
 #include "ConfigDialog.h"
 #include "Timer.h"
 #include "ui_GlobalShortcut.h"
+#include "ui_GlobalShortcutTarget.h"
 
 class GlobalShortcut : public QObject {
 		friend class GlobalShortcutEngine;
@@ -110,12 +111,31 @@ class ShortcutToggleWidget : public QComboBox {
 		void setIndex(int);
 };
 
+class ShortcutTargetDialog : public QDialog, public Ui::GlobalShortcutTarget {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ShortcutTargetDialog);
+	protected:
+		QMap<QString, QString> qmHashNames;
+		ShortcutTarget stTarget;
+	public:
+		ShortcutTargetDialog(const ShortcutTarget &, QWidget *p = NULL);
+		ShortcutTarget target() const;
+	public slots:
+		void accept();
+		void on_qrbUsers_clicked();
+		void on_qrbChannel_clicked();
+		void on_qpbAdd_clicked();
+		void on_qpbRemove_clicked();
+};
+
 class ShortcutTargetWidget : public QFrame {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ShortcutTargetWidget)
 		Q_PROPERTY(ShortcutTarget target READ target WRITE setTarget USER true)
 	protected:
+		ShortcutTarget stTarget;
 		QLineEdit *qleTarget;
 		QPushButton *qpbEdit;
 	public:

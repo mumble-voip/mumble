@@ -31,6 +31,8 @@
 #include "GlobalShortcut.h"
 #include "MainWindow.h"
 #include "Global.h"
+#include "Database.h"
+#include "ClientUser.h"
 
 GlobalShortcutEngine *GlobalShortcutEngine::engine = NULL;
 
@@ -180,6 +182,106 @@ int ShortcutToggleWidget::index() const {
 	return itemData(currentIndex()).toInt();
 }
 
+ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p) : QDialog(p) {
+	stTarget = st;
+	setupUi(this);
+
+	if (st.bUsers) {
+		qrbUsers->setChecked(true);
+		qswStack->setCurrentWidget(qwUserPage);
+	} else {
+		qrbChannel->setChecked(true);
+		qswStack->setCurrentWidget(qwChannelPage);
+	}
+
+	qcbLinks->setChecked(st.bLinks);
+	qcbChildren->setChecked(st.bChildren);
+
+	const QMap<QString, QString> &friends = Database::getFriends();
+	QMap<QString, QString>::const_iterator i;
+	if (! friends.isEmpty()) {
+		for(i = friends.constBegin(); i != friends.constEnd(); ++i) {
+			qcbUser->addItem(i.key(), i.value());
+			qmHashNames.insert(i.value(), i.key());
+		}
+		qcbUser->insertSeparator(qcbUser->count());
+	}
+
+	if (g.uiSession) {
+		QMap<QString, QString> others;
+
+		QReadLocker lock(& ClientUser::c_qrwlUsers);
+		foreach(ClientUser *p, ClientUser::c_qmUsers) {
+			if ((p->uiSession != g.uiSession) && p->qsFriendName.isEmpty() && ! p->qsHash.isEmpty()) {
+				others.insert(p->qsName, p->qsHash);
+				qmHashNames.insert(p->qsHash, p->qsName);
+			}
+		}
+
+		for(i = others.constBegin(); i != others.constEnd(); ++i) {
+				qcbUser->addItem(i.key(), i.value());
+		}
+	}
+
+	QMap<QString, QString> users;
+
+	foreach(const QString &hash, st.qlUsers) {
+		if (qmHashNames.contains(hash))
+			users.insert(qmHashNames.value(hash), hash);
+		else
+			users.insert(QString::fromLatin1("#%1").arg(hash), hash);
+	}
+
+	for(i=users.constBegin(); i != users.constEnd(); ++i) {
+		QListWidgetItem *itm = new QListWidgetItem(i.key());
+		itm->setData(Qt::UserRole, i.value());
+		qlwUsers->addItem(itm);
+	}
+}
+
+ShortcutTarget ShortcutTargetDialog::target() const {
+	return stTarget;
+}
+
+void ShortcutTargetDialog::accept() {
+	stTarget.bLinks = qcbLinks->isChecked();
+	stTarget.bChildren = qcbChildren->isChecked();
+
+	stTarget.qlUsers.clear();
+	QList<QListWidgetItem *> ql = qlwUsers->findItems(QString(), Qt::MatchStartsWith);
+	foreach(QListWidgetItem *itm, ql) {
+		stTarget.qlUsers << itm->data(Qt::UserRole).toString();
+	}
+
+	QDialog::accept();
+}
+
+void ShortcutTargetDialog::on_qrbUsers_clicked() {
+	stTarget.bUsers = true;
+	qswStack->setCurrentWidget(qwUserPage);
+}
+
+void ShortcutTargetDialog::on_qrbChannel_clicked() {
+	stTarget.bUsers = false;
+	qswStack->setCurrentWidget(qwChannelPage);
+}
+
+void ShortcutTargetDialog::on_qpbAdd_clicked() {
+	if (qcbUser->currentIndex() < 0)
+		return;
+
+	QListWidgetItem *itm = new QListWidgetItem(qcbUser->currentText());
+	itm->setData(Qt::UserRole, qcbUser->itemData(qcbUser->currentIndex()));
+	qlwUsers->addItem(itm);
+}
+
+void ShortcutTargetDialog::on_qpbRemove_clicked() {
+	QListWidgetItem *itm = qlwUsers->currentItem();
+	if (itm) {
+		delete itm;
+	}
+}
+
 ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 	qleTarget = new QLineEdit(tr("Butterfly"));
 	qleTarget->setReadOnly(true);
@@ -196,14 +298,18 @@ ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 }
 
 ShortcutTarget ShortcutTargetWidget::target() const {
-	return ShortcutTarget();
+	return stTarget;
 }
 
-void ShortcutTargetWidget::setTarget(const ShortcutTarget &) {
+void ShortcutTargetWidget::setTarget(const ShortcutTarget &st) {
+	stTarget = st;
 }
 
 void ShortcutTargetWidget::on_qpbEdit_clicked() {
-	QMessageBox::warning(this, tr("Test"), tr("Test"));
+	ShortcutTargetDialog *std = new ShortcutTargetDialog(stTarget, this);
+	if (std->exec() == QDialog::Accepted)
+		stTarget = std->target();
+	delete std;
 }
 
 ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {

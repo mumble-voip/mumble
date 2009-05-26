@@ -39,16 +39,30 @@ bool Shortcut::operator <(const Shortcut &other) const {
 }
 
 ShortcutTarget::ShortcutTarget() {
-	uiChannel = 0;
+	bUsers = true;
+	iChannel = 0;
 	bLinks = bChildren = false;
 }
 
+bool ShortcutTarget::isServerSpecific() const {
+	return (! bUsers && (iChannel > 0));
+}
+
 QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
-	return qds << st.qlUsers << st.uiChannel << st.qsGroup << st.bLinks << st.bChildren;
+	qds << st.bUsers;
+
+	if (st.bUsers)
+		return qds << st.qlUsers;
+	else
+		return qds << st.iChannel << st.qsGroup << st.bLinks << st.bChildren;
 }
 
 QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
-	return qds >> st.qlUsers >> st.uiChannel >> st.qsGroup >> st.bLinks >> st.bChildren;
+	qds >> st.bUsers;
+	if (st.bUsers)
+		return qds >> st.qlUsers;
+	else
+		return qds >> st.iChannel >> st.qsGroup >> st.bLinks >> st.bChildren;
 }
 
 

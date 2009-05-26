@@ -10,7 +10,7 @@ SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Connection.cpp ../User.cpp 
 SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_flags.qrc
-FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui Cert.ui UserEdit.ui
+FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui GlobalShortcutTarget.ui Cert.ui UserEdit.ui
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_pl.ts mumble_ru.ts mumble_cs.ts mumble_it.ts mumble_ja.ts mumble_zh_CN.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 

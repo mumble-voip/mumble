@@ -42,6 +42,7 @@ class Database : public QObject {
 		static void addFriend(const QString &name, const QString &hash);
 		static void removeFriend(const QString &hash);
 		static const QString getFriend(const QString &hash);
+		static const QMap<QString, QString> getFriends();
 		static const QString getDigest(const QString &hostname, unsigned short port);
 		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
 		static void setPassword(const QString &hostname, unsigned short port, const QString &user, const QString &pw);

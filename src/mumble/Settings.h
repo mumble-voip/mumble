@@ -49,13 +49,16 @@ struct Shortcut {
 };
 
 struct ShortcutTarget {
-	QList<QByteArray> qlUsers;
-	unsigned int uiChannel;
+	bool bUsers;
+	QStringList qlUsers;
+	int iChannel;
 	QString qsGroup;
 	bool bLinks;
 	bool bChildren;
 	ShortcutTarget();
+	bool isServerSpecific() const;
 };
+
 QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
 QDataStream &operator>>(QDataStream &, ShortcutTarget &);
 Q_DECLARE_METATYPE(ShortcutTarget);

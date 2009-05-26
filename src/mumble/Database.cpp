@@ -112,6 +112,17 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
 }
 
+const QMap<QString, QString> Database::getFriends() {
+	QMap<QString, QString> qm;
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `name`, `hash` FROM `friends`"));
+	query.exec();
+	while (query.next())
+		qm.insert(query.value(0).toString(), query.value(1).toString());
+	return qm;
+}
+
 const QString Database::getFriend(const QString &hash) {
 	QSqlQuery query;
 
