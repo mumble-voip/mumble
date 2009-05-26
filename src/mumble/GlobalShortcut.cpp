@@ -203,7 +203,6 @@ void ShortcutTargetWidget::setTarget(const ShortcutTarget &) {
 }
 
 void ShortcutTargetWidget::on_qpbEdit_clicked() {
-	qWarning("Fluff!");
 	QMessageBox::warning(this, tr("Test"), tr("Test"));
 }
 
@@ -245,7 +244,7 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 		return tr("Whisper target");
 	}
 
-	qWarning("Unknown type %d", item.type());
+	qWarning("ShortcutDelegate::displayText Unknown type %d", item.type());
 
 	return QStyledItemDelegate::displayText(item,loc);
 }
@@ -291,7 +290,6 @@ void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, in
 
 	const ::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 	if (gs && sc.qvData.type() != gs->qvDefault.type()) {
-		qWarning("Invalid typish! %d vs %d", sc.qvData.userType(), gs->qvDefault.userType());
 		item->setData(1, Qt::DisplayRole, gs->qvDefault);
 	}
 }
@@ -470,8 +468,8 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 				}
 				if (! gs->bActive) {
 					gs->bActive = true;
-					emit gs->triggered(sk->gs->bActive);
-					emit gs->down();
+					emit gs->triggered(sk->gs->bActive, sk->s.qvData);
+					emit gs->down(sk->s.qvData);
 				}
 			} else if (sk->iNumUp < 0) {
 				sk->iNumUp = 0;
@@ -486,7 +484,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 				GlobalShortcut *gs = sk->gs;
 				if (gs->bActive) {
 					gs->bActive = false;
-					emit gs->triggered(sk->gs->bActive);
+					emit gs->triggered(sk->gs->bActive, sk->s.qvData);
 				}
 			} else if (sk->iNumUp > sk->s.qlButtons.count()) {
 				sk->iNumUp = sk->s.qlButtons.count();

@@ -171,15 +171,15 @@ void MainWindow::createActions() {
 	gsResetAudio=new GlobalShortcut(this, idx++, tr("Reset Audio Processor", "Global Shortcut"));
 	gsResetAudio->setObjectName(QLatin1String("ResetAudio"));
 
-	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Toggle Mute Self", "Global Shortcut"), false, 0);
-	gsMuteSelf->setObjectName(QLatin1String("MuteSelf"));
-	gsMuteSelf->qsToolTip = tr("Toggle self-mute status.", "Global Shortcut");
-	gsMuteSelf->qsWhatsThis = tr("This will toggle your muted status. If you toggle this off, you will also disable self-deafen.", "Global Shortcut");
+	gsMuteSelf=new GlobalShortcut(this, idx++, tr("Mute Self", "Global Shortcut"), false, 0);
+	gsMuteSelf->setObjectName(QLatin1String("gsMuteSelf"));
+	gsMuteSelf->qsToolTip = tr("Set self-mute status.", "Global Shortcut");
+	gsMuteSelf->qsWhatsThis = tr("This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.", "Global Shortcut");
 
-	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Toggle Deafen Self", "Global Shortcut"), false, 0);
-	gsDeafSelf->setObjectName(QLatin1String("DeafSelf"));
-	gsDeafSelf->qsToolTip = tr("Toggle self-deafen status.", "Global Shortcut");
-	gsDeafSelf->qsWhatsThis = tr("This will toggle your deafen status. If you toggle this on, you will also enable self-mute.", "Global Shortcut");
+	gsDeafSelf=new GlobalShortcut(this, idx++, tr("Deafen Self", "Global Shortcut"), false, 0);
+	gsDeafSelf->setObjectName(QLatin1String("gsDeafSelf"));
+	gsDeafSelf->qsToolTip = tr("Set self-deafen status.", "Global Shortcut");
+	gsDeafSelf->qsWhatsThis = tr("This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.", "Global Shortcut");
 
 	gsUnlink=new GlobalShortcut(this, idx++, tr("Unlink Plugin", "Global Shortcut"));
 	gsUnlink->setObjectName(QLatin1String("UnlinkPlugin"));
@@ -191,17 +191,17 @@ void MainWindow::createActions() {
 
 	gs = new GlobalShortcut(this, idx++, tr("Chan Parent", "Global Shortcut"));
 	gs->data = 0;
-	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
+	connect(gs, SIGNAL(triggered(bool, QVariant)), this, SLOT(pushLink(bool)));
 
 	for (int i = 1; i< 10;i++) {
 		gs = new GlobalShortcut(this, idx++, tr("Chan Sub#%1", "Global Shortcut").arg(i));
 		gs->data = i;
-		connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
+		connect(gs, SIGNAL(triggered(bool, QVariant)), this, SLOT(pushLink(bool)));
 	}
 
 	gs = new GlobalShortcut(this, idx++, tr("Chan All Subs", "Global Shortcut"));
 	gs->data = 10;
-	connect(gs, SIGNAL(triggered(bool)), this, SLOT(pushLink(bool)));
+	connect(gs, SIGNAL(triggered(bool, QVariant)), this, SLOT(pushLink(bool)));
 
 	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
 	gsPushMute->setObjectName(QLatin1String("PushToMute"));
@@ -213,7 +213,7 @@ void MainWindow::createActions() {
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
 	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.", "Global Shortcut");
-	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
+	connect(gsToggleOverlay, SIGNAL(down(QVariant)), g.o, SLOT(toggleShow()));
 
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));
@@ -270,11 +270,9 @@ void MainWindow::setupGui()  {
 	qaConfigMinimal->setChecked(g.s.bMinimalView);
 	qaConfigHideFrame->setChecked(g.s.bHideFrame);
 
-	connect(gsResetAudio, SIGNAL(down()), qaAudioReset, SLOT(trigger()));
-	connect(gsMuteSelf, SIGNAL(down()), qaAudioMute, SLOT(trigger()));
-	connect(gsDeafSelf, SIGNAL(down()), qaAudioDeaf, SLOT(trigger()));
-	connect(gsUnlink, SIGNAL(down()), qaAudioUnlink, SLOT(trigger()));
-	connect(gsMinimal, SIGNAL(down()), qaConfigMinimal, SLOT(trigger()));
+	connect(gsResetAudio, SIGNAL(down(QVariant)), qaAudioReset, SLOT(trigger()));
+	connect(gsUnlink, SIGNAL(down(QVariant)), qaAudioUnlink, SLOT(trigger()));
+	connect(gsMinimal, SIGNAL(down(QVariant)), qaConfigMinimal, SLOT(trigger()));
 
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
@@ -1338,7 +1336,31 @@ void MainWindow::on_qaHelpVersionCheck_triggered() {
 	new VersionCheck(false, this);
 }
 
-void MainWindow::on_PushToTalk_triggered(bool down) {
+void MainWindow::on_gsMuteSelf_down(QVariant v) {
+	int val = v.toInt();
+	if (
+		((val > 0) && ! g.s.bMute) ||
+		((val < 0) && g.s.bMute) ||
+		(val == 0)
+		) {
+		qaAudioMute->setChecked(! qaAudioMute->isChecked());
+		on_qaAudioMute_triggered();
+	}
+}
+
+void MainWindow::on_gsDeafSelf_down(QVariant v) {
+	int val = v.toInt();
+	if (
+		((val > 0) && ! g.s.bDeaf) ||
+		((val < 0) && g.s.bDeaf) ||
+		(val == 0)
+		) {
+		qaAudioDeaf->setChecked(! qaAudioDeaf->isChecked());
+		on_qaAudioDeaf_triggered();
+	}
+}
+
+void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 	if (down) {
 		g.uiDoublePush = g.tDoublePush.restart();
 		g.iPushToTalk++;
@@ -1347,11 +1369,11 @@ void MainWindow::on_PushToTalk_triggered(bool down) {
 	}
 }
 
-void MainWindow::on_PushToMute_triggered(bool down) {
+void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	g.bPushToMute = down;
 }
 
-void MainWindow::on_AltPushToTalk_triggered(bool down) {
+void MainWindow::on_AltPushToTalk_triggered(bool down, QVariant) {
 	if (down) {
 		g.iAltSpeak++;
 		g.iPushToTalk++;
@@ -1361,7 +1383,7 @@ void MainWindow::on_AltPushToTalk_triggered(bool down) {
 	}
 }
 
-void MainWindow::on_CenterPos_triggered(bool down) {
+void MainWindow::on_CenterPos_triggered(bool down, QVariant) {
 	g.bCenterPosition = down;
 
 	if (down) {
@@ -1373,7 +1395,7 @@ void MainWindow::on_CenterPos_triggered(bool down) {
 	}
 }
 
-void MainWindow::on_VolumeUp_triggered(bool down) {
+void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
 	if (down) {
 		float v = floorf(g.s.fVolume * 10.0f);
 		if (v < 20.0f)
@@ -1381,7 +1403,7 @@ void MainWindow::on_VolumeUp_triggered(bool down) {
 	}
 }
 
-void MainWindow::on_VolumeDown_triggered(bool down) {
+void MainWindow::on_VolumeDown_triggered(bool down, QVariant) {
 	if (down) {
 		float v = ceilf(g.s.fVolume * 10.0f);
 		if (v > 0.0f)

@@ -46,8 +46,8 @@ class GlobalShortcut : public QObject {
 	protected:
 		bool bActive;
 	signals:
-		void down();
-		void triggered(bool);
+		void down(QVariant);
+		void triggered(bool, QVariant);
 	public:
 		QString qsToolTip;
 		QString qsWhatsThis;

@@ -55,6 +55,7 @@ QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 Settings::Settings() {
 	qRegisterMetaType<ShortcutTarget>("ShortcutTarget");
 	qRegisterMetaTypeStreamOperators<ShortcutTarget>("ShortcutTarget");
+	qRegisterMetaType<QVariant>("QVariant");
 
 	atTransmit = VAD;
 	bTransmitPosition = false;
