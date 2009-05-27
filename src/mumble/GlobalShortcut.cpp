@@ -293,9 +293,6 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 	}
 
 	qleGroup->setText(stTarget.qsGroup);
-
-	// Channel should have "Root", "Parent", "Current", "Subchannel #1, #2, #3 etc"
-	// and the current server tree.
 }
 
 ShortcutTarget ShortcutTargetDialog::target() const {
@@ -427,6 +424,21 @@ void ShortcutTargetWidget::on_qpbEdit_clicked() {
 	if (std->exec() == QDialog::Accepted) {
 		stTarget = std->target();
 		qleTarget->setText(ShortcutTargetWidget::targetString(stTarget));
+
+		// Qt bug? Who knows, but since there won't be focusOut events for this widget anymore,
+		// we need to force the commit.
+		QWidget *p = parentWidget();
+		while (p) {
+			if (QAbstractItemView *qaiv = qobject_cast<QAbstractItemView *>(p)) {
+				QStyledItemDelegate *qsid = qobject_cast<QStyledItemDelegate *>(qaiv->itemDelegate());
+				if (qsid) {
+					QMetaObject::invokeMethod(qsid, "_q_commitDataAndCloseEditor",
+											  Qt::QueuedConnection, Q_ARG(QWidget*, this));
+				}
+				break;
+			}
+			p = p->parentWidget();
+		}
 	}
 	delete std;
 }
