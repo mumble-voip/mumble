@@ -40,7 +40,7 @@ bool Shortcut::operator <(const Shortcut &other) const {
 
 ShortcutTarget::ShortcutTarget() {
 	bUsers = true;
-	iChannel = 0;
+	iChannel = -3;
 	bLinks = bChildren = false;
 }
 

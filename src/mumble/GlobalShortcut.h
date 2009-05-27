@@ -142,6 +142,7 @@ class ShortcutTargetWidget : public QFrame {
 		ShortcutTargetWidget(QWidget *p = NULL);
 		ShortcutTarget target() const;
 		void setTarget(const ShortcutTarget &);
+		static QString targetString(const ShortcutTarget &);
 	public slots:
 		void on_qpbEdit_clicked();
 };

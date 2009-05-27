@@ -33,6 +33,7 @@
 #include "Global.h"
 #include "Database.h"
 #include "ClientUser.h"
+#include "Channel.h"
 
 GlobalShortcutEngine *GlobalShortcutEngine::engine = NULL;
 
@@ -182,6 +183,15 @@ int ShortcutToggleWidget::index() const {
 	return itemData(currentIndex()).toInt();
 }
 
+void iterateChannelChildren(QTreeWidgetItem *root, Channel *chan, QMap<int, QTreeWidgetItem *> &map) {
+	foreach(Channel *c, chan->qlChannels) {
+		QTreeWidgetItem *sub = new QTreeWidgetItem(root, QStringList(c->qsName));
+		sub->setData(0, Qt::UserRole, c->iId);
+		map.insert(c->iId, sub);
+		iterateChannelChildren(sub, c, map);
+	}
+}
+
 ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p) : QDialog(p) {
 	stTarget = st;
 	setupUi(this);
@@ -237,6 +247,54 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 		itm->setData(Qt::UserRole, i.value());
 		qlwUsers->addItem(itm);
 	}
+
+	QMap<int, QTreeWidgetItem *> qmTree;
+
+	QTreeWidgetItem *root = new QTreeWidgetItem(qtwChannels, QStringList(tr("Root")));
+	root->setData(0, Qt::UserRole, -1);
+	root->setExpanded(true);
+	qmTree.insert(-1, root);
+
+	QTreeWidgetItem *parent = new QTreeWidgetItem(root, QStringList(tr("Parent")));
+	parent->setData(0, Qt::UserRole, -2);
+	parent->setExpanded(true);
+	qmTree.insert(-2, parent);
+
+	QTreeWidgetItem *current = new QTreeWidgetItem(parent, QStringList(tr("Current")));
+	current->setData(0, Qt::UserRole, -3);
+	qmTree.insert(-3, current);
+
+	for(int i=0;i<8;++i) {
+		QTreeWidgetItem *sub = new QTreeWidgetItem(current, QStringList(tr("Subchannel #%1").arg(i+1)));
+		sub->setData(0, Qt::UserRole, -4 - i);
+		qmTree.insert(-4-i, sub);
+	}
+
+	if (g.uiSession) {
+		Channel *c = Channel::get(0);
+		QTreeWidgetItem *sroot = new QTreeWidgetItem(qtwChannels, QStringList(c->qsName));
+		qmTree.insert(0, sroot);
+		iterateChannelChildren(sroot, c, qmTree);
+	}
+
+	qtwChannels->sortByColumn(0, Qt::AscendingOrder);
+
+	QTreeWidgetItem *qtwi;
+	if (g.uiSession) {
+	 	qtwi = qmTree.value(ClientUser::get(g.uiSession)->cChannel->iId);
+		if (qtwi)
+			qtwChannels->scrollToItem(qtwi);
+	}
+
+	qtwi = qmTree.value(st.iChannel);
+	if (qtwi) {
+		qtwChannels->scrollToItem(qtwi);
+		qtwChannels->setCurrentItem(qtwi);
+	}
+
+
+	// Channel should have "Root", "Parent", "Current", "Subchannel #1, #2, #3 etc"
+	// and the current server tree.
 }
 
 ShortcutTarget ShortcutTargetDialog::target() const {
@@ -252,6 +310,10 @@ void ShortcutTargetDialog::accept() {
 	foreach(QListWidgetItem *itm, ql) {
 		stTarget.qlUsers << itm->data(Qt::UserRole).toString();
 	}
+
+	QTreeWidgetItem *qtwi = qtwChannels->currentItem();
+	if (qtwi)
+		stTarget.iChannel = qtwi->data(0, Qt::UserRole).toInt();
 
 	QDialog::accept();
 }
@@ -283,7 +345,7 @@ void ShortcutTargetDialog::on_qpbRemove_clicked() {
 }
 
 ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
-	qleTarget = new QLineEdit(tr("Butterfly"));
+	qleTarget = new QLineEdit();
 	qleTarget->setReadOnly(true);
 
 	qpbEdit = new QPushButton(tr("..."));
@@ -297,18 +359,72 @@ ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 	QMetaObject::connectSlotsByName(this);
 }
 
+QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
+	if (st.bUsers) {
+		if (! st.qlUsers.isEmpty()) {
+			QMap<QString, QString> hashes;
+
+			QReadLocker lock(& ClientUser::c_qrwlUsers);
+			foreach(ClientUser *p, ClientUser::c_qmUsers) {
+				if (! p->qsHash.isEmpty()) {
+					hashes.insert(p->qsHash, p->qsName);
+				}
+			}
+
+			QStringList users;
+			foreach(const QString &hash, st.qlUsers) {
+				QString name;
+				if (hashes.contains(hash)) {
+					name = hashes.value(hash);
+				} else {
+					name = Database::getFriend(hash);
+					if (name.isEmpty())
+						name = QString::fromLatin1("#%1").arg(hash);
+				}
+				users << name;
+			}
+
+			users.sort();
+			return users.join(tr(", "));
+		}
+	} else {
+		if (st.iChannel < 0) {
+			switch (st.iChannel) {
+				case -1:
+					return tr("Root");
+				case -2:
+					return tr("Parent");
+				case -3:
+					return tr("Current");
+				default:
+					return tr("Subchannel #%1").arg(-3 - st.iChannel);
+			}
+		} else {
+			Channel *c = Channel::get(st.iChannel);
+			if (c)
+				return c->qsName;
+			else
+				return tr("Invalid");
+		}
+	}
+	return tr("<Empty>");
+}
+
 ShortcutTarget ShortcutTargetWidget::target() const {
 	return stTarget;
 }
 
 void ShortcutTargetWidget::setTarget(const ShortcutTarget &st) {
 	stTarget = st;
+	qleTarget->setText(ShortcutTargetWidget::targetString(st));
 }
 
 void ShortcutTargetWidget::on_qpbEdit_clicked() {
 	ShortcutTargetDialog *std = new ShortcutTargetDialog(stTarget, this);
-	if (std->exec() == QDialog::Accepted)
+	if (std->exec() == QDialog::Accepted) {
 		stTarget = std->target();
+		qleTarget->setText(ShortcutTargetWidget::targetString(stTarget));
+	}
 	delete std;
 }
 
@@ -347,7 +463,7 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 		else
 			return tr("Unassigned");
 	} else if (item.userType() == QVariant::fromValue(ShortcutTarget()).userType()) {
-		return tr("Whisper target");
+		return ShortcutTargetWidget::targetString(item.value<ShortcutTarget>());
 	}
 
 	qWarning("ShortcutDelegate::displayText Unknown type %d", item.type());
