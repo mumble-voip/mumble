@@ -631,9 +631,9 @@ void AudioInput::encodeAudioFrame() {
 	else if (g.s.atTransmit == Settings::PushToTalk)
 		iIsSpeech = g.s.uiDoublePush && ((g.uiDoublePush < g.s.uiDoublePush) || (g.tDoublePush.elapsed() < g.s.uiDoublePush));
 
-	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0) || (g.iAltSpeak > 0);
+	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0);
 
-	if (g.s.bMute || ((g.s.lmLoopMode != Settings::Local) && p && p->bMute) || g.bPushToMute) {
+	if (g.s.bMute || ((g.s.lmLoopMode != Settings::Local) && p && p->bMute) || g.bPushToMute || (g.iTarget < 0)) {
 		iIsSpeech = 0;
 	}
 
@@ -646,7 +646,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	if (p)
-		p->setTalking(iIsSpeech, (g.iAltSpeak > 0));
+		p->setTalking(iIsSpeech, (g.iTarget != 0));
 
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;
@@ -685,11 +685,9 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	if (! qba.isEmpty() && qlFrames.count() < g.s.iFramesPerPacket)
 		return;
 
-	int flags = 0;
+	int flags = g.iTarget;
 	if (g.s.lmLoopMode == Settings::Server)
 		flags = 0x1f;
-	else if (g.iAltSpeak > 0)
-		flags = 1;
 
 	char data[1024];
 	data[0] = static_cast<unsigned char>(flags);

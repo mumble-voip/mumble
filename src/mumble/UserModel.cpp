@@ -695,6 +695,8 @@ void UserModel::removeUser(ClientUser *p) {
 	p->cChannel = NULL;
 
 	ClientUser::remove(p);
+	qmHashes.remove(p->qsHash);
+
 	delete p;
 	delete item;
 
@@ -760,6 +762,14 @@ void UserModel::setUserId(ClientUser *p, int id) {
 	p->iId = id;
 	QModelIndex idx = index(p, 1);
 	emit dataChanged(idx, idx);
+}
+
+void UserModel::setHash(ClientUser *p, const QString &hash) {
+		if (! p->qsHash.isEmpty())
+			qmHashes.remove(p->qsHash);
+
+		p->qsHash = hash;
+		qmHashes.insert(p->qsHash, p);
 }
 
 void UserModel::setFriendName(ClientUser *p, const QString &name) {
@@ -906,6 +916,10 @@ ClientUser *UserModel::getUser(const QModelIndex &idx) const {
 	item = static_cast<ModelItem *>(idx.internalPointer());
 
 	return item->pUser;
+}
+
+ClientUser *UserModel::getUser(const QString &hash) const {
+	return qmHashes.value(hash);
 }
 
 Channel *UserModel::getChannel(const QModelIndex &idx) const {

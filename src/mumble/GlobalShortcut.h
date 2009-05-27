@@ -53,7 +53,6 @@ class GlobalShortcut : public QObject {
 		QString qsToolTip;
 		QString qsWhatsThis;
 		QString name;
-		QVariant data;
 		QVariant qvDefault;
 		bool bExpert;
 		int idx;

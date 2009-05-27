@@ -96,6 +96,13 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	pmModel->ensureSelfVisible();
 	pmModel->recheckLinks();
 
+	qmTargetUse.clear();
+	qmTargets.clear();
+	for(int i=1;i<6;++i) {
+		qmTargetUse.insert(i, i);
+	}
+	iTargetCounter = 100;
+
 	AudioInputPtr ai = g.ai;
 	if (ai) {
 		int bw = ai->getMaxBandwidth();
@@ -163,7 +170,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		pmModel->setUserId(pDst, msg.user_id());
 
 	if (msg.has_hash()) {
-		pDst->qsHash = u8(msg.hash());
+		pmModel->setHash(pDst, u8(msg.hash()));
 		const QString &name = Database::getFriend(pDst->qsHash);
 		if (! name.isEmpty())
 			pmModel->setFriendName(pDst, name);
@@ -445,4 +452,7 @@ void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
 	}
 	userEdit = new UserEdit(msg, this);
 	userEdit->show();
+}
+
+void MainWindow::msgVoiceTarget(const MumbleProto::VoiceTarget &) {
 }

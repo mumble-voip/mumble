@@ -187,22 +187,6 @@ void MainWindow::createActions() {
 	gsCenterPos=new GlobalShortcut(this, idx++, tr("Force Center Position", "Global Shortcut"));
 	gsCenterPos->setObjectName(QLatin1String("CenterPos"));
 
-	GlobalShortcut *gs;
-
-	gs = new GlobalShortcut(this, idx++, tr("Chan Parent", "Global Shortcut"));
-	gs->data = 0;
-	connect(gs, SIGNAL(triggered(bool, QVariant)), this, SLOT(pushLink(bool)));
-
-	for (int i = 1; i< 10;i++) {
-		gs = new GlobalShortcut(this, idx++, tr("Chan Sub#%1", "Global Shortcut").arg(i));
-		gs->data = i;
-		connect(gs, SIGNAL(triggered(bool, QVariant)), this, SLOT(pushLink(bool)));
-	}
-
-	gs = new GlobalShortcut(this, idx++, tr("Chan All Subs", "Global Shortcut"));
-	gs->data = 10;
-	connect(gs, SIGNAL(triggered(bool, QVariant)), this, SLOT(pushLink(bool)));
-
 	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
 	gsPushMute->setObjectName(QLatin1String("PushToMute"));
 
@@ -214,9 +198,6 @@ void MainWindow::createActions() {
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
 	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.", "Global Shortcut");
 	connect(gsToggleOverlay, SIGNAL(down(QVariant)), g.o, SLOT(toggleShow()));
-
-	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
-	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));
 
 	gsMinimal=new GlobalShortcut(this, idx++, tr("Toggle Minimal", "Global Shortcut"));
 	gsMinimal->setObjectName(QLatin1String("ToggleMinimal"));
@@ -231,7 +212,8 @@ void MainWindow::createActions() {
 	qstiIcon->setToolTip(tr("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 
-	gs = new GlobalShortcut(this, idx++, tr("Fudge it"), false, QVariant::fromValue(ShortcutTarget()));
+	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper"), false, QVariant::fromValue(ShortcutTarget()));
+	gsWhisper->setObjectName(QLatin1String("gsWhisper"));
 
 #ifndef Q_OS_MAC
 	qstiIcon->show();
@@ -1373,24 +1355,13 @@ void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	g.bPushToMute = down;
 }
 
-void MainWindow::on_AltPushToTalk_triggered(bool down, QVariant) {
-	if (down) {
-		g.iAltSpeak++;
-		g.iPushToTalk++;
-	} else if (g.iPushToTalk) {
-		g.iAltSpeak--;
-		g.iPushToTalk--;
-	}
-}
-
 void MainWindow::on_CenterPos_triggered(bool down, QVariant) {
+	// TODO: Make this be a targetshortcut option
 	g.bCenterPosition = down;
 
 	if (down) {
-		g.iAltSpeak++;
 		g.iPushToTalk++;
 	} else if (g.iPushToTalk) {
-		g.iAltSpeak--;
 		g.iPushToTalk--;
 	}
 }
@@ -1411,48 +1382,151 @@ void MainWindow::on_VolumeDown_triggered(bool down, QVariant) {
 	}
 }
 
-void MainWindow::pushLink(bool down) {
+Channel *MainWindow::mapChannel(int idx) const {
+	if (! g.uiSession)
+		return NULL;
+
+	Channel *c = NULL;
+
+	if (idx < 0) {
+		switch (idx) {
+			case -1:
+				c = Channel::get(0);
+				break;
+			case -2:
+			case -3:
+				c = ClientUser::get(g.uiSession)->cChannel;
+				if (idx == -2)
+					c = c->cParent;
+				break;
+			default:
+				c = pmModel->getSubChannel(c, -4 - idx);
+				break;
+		}
+	} else {
+		c = Channel::get(idx);
+	}
+	return c;
+}
+
+void MainWindow::updateTarget() {
+	if (qsCurrentTargets.isEmpty())
+		g.iTarget = 0;
+	else {
+		QList<ShortcutTarget> ql;
+		foreach(const ShortcutTarget &st, qsCurrentTargets) {
+			ShortcutTarget nt;
+			nt.bUsers = st.bUsers;
+			if (st.bUsers) {
+				foreach(const QString &hash, st.qlUsers) {
+					ClientUser *p = pmModel->getUser(hash);
+					if (p)
+						nt.qlSessions.append(p->uiSession);
+				}
+				if (! nt.qlSessions.isEmpty())
+					ql << nt;
+			} else {
+				Channel *c = mapChannel(st.iChannel);
+				if (c) {
+					nt.bLinks = st.bLinks;
+					nt.bChildren = st.bChildren;
+					nt.iChannel = c->iId;
+					nt.qsGroup = st.qsGroup;
+					ql << nt;
+				}
+			}
+		}
+		if (ql.isEmpty()) {
+			g.iTarget = -1;
+		} else {
+			++iTargetCounter;
+
+			int idx = qmTargets.value(ql);
+			if (idx == 0) {
+				QMap<int, int> qm;
+				QMap<int, int>::const_iterator i;
+				for(i=qmTargetUse.constBegin(); i != qmTargetUse.constEnd(); ++i) {
+					qm.insert(i.value(), i.key());
+				}
+
+				i = qm.constBegin();
+				idx = i.value();
+
+
+
+				MumbleProto::VoiceTarget mpvt;
+				mpvt.set_id(idx);
+
+				foreach(const ShortcutTarget &st, ql) {
+					MumbleProto::VoiceTarget_Target *t = mpvt.add_targets();
+					if (st.bUsers) {
+						foreach(unsigned int uisession, st.qlSessions)
+							t->add_session(uisession);
+					} else {
+						t->set_channel_id(st.iChannel);
+						if (st.bChildren)
+							t->set_children(true);
+						if (st.bLinks)
+							t->set_links(true);
+						if (! st.qsGroup.isEmpty())
+							t->set_group(u8(st.qsGroup));
+					}
+				}
+				g.sh->sendMessage(mpvt);
+
+				qmTargets.insert(ql, idx);
+
+				++i;
+				++i;
+				int oldidx = i.value();
+				if (oldidx) {
+					QHash<QList<ShortcutTarget>, int>::iterator mi;
+					for(mi = qmTargets.begin(); mi != qmTargets.end(); ++mi) {
+						if (mi.value() == oldidx) {
+							qmTargets.erase(mi);
+
+							mpvt.Clear();
+							mpvt.set_id(oldidx);
+							g.sh->sendMessage(mpvt);
+
+							break;
+						}
+					}
+				}
+			}
+			qmTargetUse.insert(idx, iTargetCounter);
+			g.iTarget = idx;
+		}
+	}
+}
+
+void MainWindow::on_gsWhisper_triggered(bool down, QVariant data) {
+	ShortcutTarget st = data.value<ShortcutTarget>();
+
+
 	if (down) {
-		g.iAltSpeak++;
+		if (gsMetaChannel->active()) {
+			if (! st.bUsers) {
+				Channel *c = mapChannel(st.iChannel);
+				if (c) {
+					MumbleProto::UserState mpus;
+					mpus.set_session(g.uiSession);
+					mpus.set_channel_id(c->iId);
+					g.sh->sendMessage(mpus);
+				}
+				return;
+			}
+		}
+
+		qsCurrentTargets.insert(st);
+		updateTarget();
+
 		g.iPushToTalk++;
 	} else if (g.iPushToTalk) {
-		g.iAltSpeak--;
+		qsCurrentTargets.remove(st);
+		updateTarget();
+
 		g.iPushToTalk--;
-	}
-
-	if (g.uiSession == 0)
-		return;
-
-	GlobalShortcut *gs = qobject_cast<GlobalShortcut *>(sender());
-	if (! gs)
-		return;
-	int idx = gs->data.toInt();
-	Channel *home = ClientUser::get(g.uiSession)->cChannel;
-
-	Channel *target = NULL;
-	switch (idx) {
-		case 0:
-			target = home->cParent;
-			break;
-		case 10:
-			break;
-		default:
-			target = pmModel->getSubChannel(home, idx-1);
-			break;
-	}
-
-
-	if (gsMetaChannel->active()) {
-		if (! target || ! down)
-			return;
-
-		// FIXME: This was shortcut to move to a channel.
-
-		g.l->log(Log::Information, tr("Joining %1.").arg(target->qsName));
-	} else {
-
-		// FIXME: This was shortcut to temp-link a channel. Replace with target.
-
 	}
 }
 

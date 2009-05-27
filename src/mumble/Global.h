@@ -69,7 +69,7 @@ public:
 	int iPushToTalk;
 	Timer tDoublePush;
 	quint64 uiDoublePush;
-	int iAltSpeak;
+	int iTarget;
 	bool bPushToMute;
 	bool bCenterPosition;
 	bool bEchoTest;

@@ -382,7 +382,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 	}
 
 	if (p)
-		p->setTalking(bLastAlive, ((ucFlags == 1) ? true : false));
+		p->setTalking(bLastAlive, ((ucFlags != 0) ? true : false));
 	return bLastAlive;
 }
 

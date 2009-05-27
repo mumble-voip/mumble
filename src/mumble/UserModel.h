@@ -96,6 +96,7 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiFriend;
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
+		QMap<QString, ClientUser *> qmHashes;
 
 		QModelIndex index(ClientUser *, int column = 0) const;
 		QModelIndex index(Channel *) const;
@@ -123,6 +124,7 @@ class UserModel : public QAbstractItemModel {
 
 		ClientUser *addUser(unsigned int id, const QString &name);
 		ClientUser *getUser(const QModelIndex &idx) const;
+		ClientUser *getUser(const QString &hash) const;
 
 		Channel *addChannel(int id, Channel *p, const QString &name);
 		Channel *getChannel(const QModelIndex &idx) const;
@@ -132,6 +134,7 @@ class UserModel : public QAbstractItemModel {
 		void renameUser(ClientUser *p, const QString &name);
 		void renameChannel(Channel *c, const QString &name);
 		void setUserId(ClientUser *p, int id);
+		void setHash(ClientUser *p, const QString &hash);
 		void setFriendName(ClientUser *p, const QString &name);
 
 		void moveUser(ClientUser *p, Channel *c);

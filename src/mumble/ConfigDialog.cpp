@@ -244,7 +244,6 @@ void ConfigDialog::apply() {
 
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
-	g.iAltSpeak = 0;
 }
 
 void ConfigDialog::accept() {

@@ -45,7 +45,40 @@ ShortcutTarget::ShortcutTarget() {
 }
 
 bool ShortcutTarget::isServerSpecific() const {
-	return (! bUsers && (iChannel > 0));
+	return (! bUsers && (iChannel >= 0));
+}
+
+bool ShortcutTarget::operator ==(const ShortcutTarget &o) const {
+	if (bUsers != o.bUsers)
+		return false;
+	if (bUsers)
+		return (qlUsers == o.qlUsers) && (qlSessions == o.qlSessions);
+	else
+		return (iChannel == o.iChannel) && (bLinks == o.bLinks) && (bChildren == o.bChildren) && (qsGroup == o.qsGroup);
+}
+
+quint32 qHash(const ShortcutTarget &t) {
+	quint32 h = 0;
+	if (t.bUsers) {
+		foreach(unsigned int u, t.qlSessions)
+			h ^= u;
+	} else {
+		h ^= t.iChannel;
+		if (t.bLinks)
+			h ^= 0x80000000;
+		if (t.bChildren)
+			h ^= 0x40000000;
+		h ^= qHash(t.qsGroup);
+		h = ~h;
+	}
+	return h;
+}
+
+quint32 qHash(const QList<ShortcutTarget> &l) {
+	quint32 h = l.count();
+	foreach(const ShortcutTarget &st, l)
+		h ^= qHash(st);
+	return h;
 }
 
 QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {

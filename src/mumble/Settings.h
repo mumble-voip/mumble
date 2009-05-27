@@ -51,13 +51,19 @@ struct Shortcut {
 struct ShortcutTarget {
 	bool bUsers;
 	QStringList qlUsers;
+	QList<unsigned int> qlSessions;
 	int iChannel;
 	QString qsGroup;
 	bool bLinks;
 	bool bChildren;
 	ShortcutTarget();
 	bool isServerSpecific() const;
+	bool operator <(const ShortcutTarget &) const;
+	bool operator ==(const ShortcutTarget &) const;
 };
+
+quint32 qHash(const ShortcutTarget &);
+quint32 qHash(const QList<ShortcutTarget> &);
 
 QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
 QDataStream &operator>>(QDataStream &, ShortcutTarget &);

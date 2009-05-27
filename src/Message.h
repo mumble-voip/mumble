@@ -53,7 +53,8 @@
 	MUMBLE_MH_MSG(CryptSetup) \
 	MUMBLE_MH_MSG(ContextActionAdd) \
 	MUMBLE_MH_MSG(ContextAction) \
-	MUMBLE_MH_MSG(UserList)
+	MUMBLE_MH_MSG(UserList) \
+	MUMBLE_MH_MSG(VoiceTarget)
 
 class MessageHandler {
 	public:

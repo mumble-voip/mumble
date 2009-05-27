@@ -43,6 +43,9 @@ class ServerHandler;
 class GlobalShortcut;
 class TextToSpeech;
 class UserModel;
+class Channel;
+
+struct ShortcutTarget;
 
 #include "Message.h"
 #include "Usage.h"
@@ -85,7 +88,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
-		GlobalShortcut *gsAltTalk, *gsMinimal, *gsVolumeUp, *gsVolumeDown;
+		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
@@ -106,6 +109,12 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QList<QAction *> qlServerActions;
 		QList<QAction *> qlChannelActions;
 		QList<QAction *> qlUserActions;
+
+		QSet<ShortcutTarget> qsCurrentTargets;
+		QHash<QList<ShortcutTarget>, int> qmTargets;
+		QMap<int, int> qmTargetUse;
+		Channel *mapChannel(int idx) const;
+		int iTargetCounter;
 
 		void createActions();
 		void setupGui();
@@ -171,20 +180,20 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteLog_highlighted(const QUrl & link);
 		void on_PushToTalk_triggered(bool, QVariant);
 		void on_PushToMute_triggered(bool, QVariant);
-		void on_AltPushToTalk_triggered(bool, QVariant);
 		void on_CenterPos_triggered(bool, QVariant);
 		void on_VolumeUp_triggered(bool, QVariant);
 		void on_VolumeDown_triggered(bool, QVariant);
 		void on_gsMuteSelf_down(QVariant);
 		void on_gsDeafSelf_down(QVariant);
+		void on_gsWhisper_triggered(bool, QVariant);
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 		void serverConnected();
 		void serverDisconnected(QString reason);
-		void pushLink(bool down);
 		void viewCertificate(bool);
 		void openUrl(const QUrl &url);
 		void context_triggered();
+		void updateTarget();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();
