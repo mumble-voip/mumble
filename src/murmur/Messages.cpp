@@ -1076,3 +1076,6 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 		}
 	}
 }
+
+void Server::msgVoiceTarget(ServerUser *, MumbleProto::VoiceTarget &) {
+}
