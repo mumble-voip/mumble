@@ -292,6 +292,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 		qtwChannels->setCurrentItem(qtwi);
 	}
 
+	qleGroup->setText(stTarget.qsGroup);
 
 	// Channel should have "Root", "Parent", "Current", "Subchannel #1, #2, #3 etc"
 	// and the current server tree.
@@ -312,8 +313,10 @@ void ShortcutTargetDialog::accept() {
 	}
 
 	QTreeWidgetItem *qtwi = qtwChannels->currentItem();
-	if (qtwi)
+	if (qtwi) {
 		stTarget.iChannel = qtwi->data(0, Qt::UserRole).toInt();
+		stTarget.qsGroup = qleGroup->text().trimmed();
+	}
 
 	QDialog::accept();
 }
