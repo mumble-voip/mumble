@@ -210,7 +210,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 	const QMap<QString, QString> &friends = Database::getFriends();
 	QMap<QString, QString>::const_iterator i;
 	if (! friends.isEmpty()) {
-		for(i = friends.constBegin(); i != friends.constEnd(); ++i) {
+		for (i = friends.constBegin(); i != friends.constEnd(); ++i) {
 			qcbUser->addItem(i.key(), i.value());
 			qmHashNames.insert(i.value(), i.key());
 		}
@@ -228,8 +228,8 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 			}
 		}
 
-		for(i = others.constBegin(); i != others.constEnd(); ++i) {
-				qcbUser->addItem(i.key(), i.value());
+		for (i = others.constBegin(); i != others.constEnd(); ++i) {
+			qcbUser->addItem(i.key(), i.value());
 		}
 	}
 
@@ -242,7 +242,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 			users.insert(QString::fromLatin1("#%1").arg(hash), hash);
 	}
 
-	for(i=users.constBegin(); i != users.constEnd(); ++i) {
+	for (i=users.constBegin(); i != users.constEnd(); ++i) {
 		QListWidgetItem *itm = new QListWidgetItem(i.key());
 		itm->setData(Qt::UserRole, i.value());
 		qlwUsers->addItem(itm);
@@ -264,7 +264,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 	current->setData(0, Qt::UserRole, -3);
 	qmTree.insert(-3, current);
 
-	for(int i=0;i<8;++i) {
+	for (int i=0;i<8;++i) {
 		QTreeWidgetItem *sub = new QTreeWidgetItem(current, QStringList(tr("Subchannel #%1").arg(i+1)));
 		sub->setData(0, Qt::UserRole, -4 - i);
 		qmTree.insert(-4-i, sub);
@@ -281,7 +281,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 
 	QTreeWidgetItem *qtwi;
 	if (g.uiSession) {
-	 	qtwi = qmTree.value(ClientUser::get(g.uiSession)->cChannel->iId);
+		qtwi = qmTree.value(ClientUser::get(g.uiSession)->cChannel->iId);
 		if (qtwi)
 			qtwChannels->scrollToItem(qtwi);
 	}
@@ -433,7 +433,7 @@ void ShortcutTargetWidget::on_qpbEdit_clicked() {
 				QStyledItemDelegate *qsid = qobject_cast<QStyledItemDelegate *>(qaiv->itemDelegate());
 				if (qsid) {
 					QMetaObject::invokeMethod(qsid, "_q_commitDataAndCloseEditor",
-											  Qt::QueuedConnection, Q_ARG(QWidget*, this));
+					                          Qt::QueuedConnection, Q_ARG(QWidget*, this));
 				}
 				break;
 			}

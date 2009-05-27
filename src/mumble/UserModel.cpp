@@ -765,11 +765,11 @@ void UserModel::setUserId(ClientUser *p, int id) {
 }
 
 void UserModel::setHash(ClientUser *p, const QString &hash) {
-		if (! p->qsHash.isEmpty())
-			qmHashes.remove(p->qsHash);
+	if (! p->qsHash.isEmpty())
+		qmHashes.remove(p->qsHash);
 
-		p->qsHash = hash;
-		qmHashes.insert(p->qsHash, p);
+	p->qsHash = hash;
+	qmHashes.insert(p->qsHash, p);
 }
 
 void UserModel::setFriendName(ClientUser *p, const QString &name) {

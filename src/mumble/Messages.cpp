@@ -98,7 +98,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	qmTargetUse.clear();
 	qmTargets.clear();
-	for(int i=1;i<6;++i) {
+	for (int i=1;i<6;++i) {
 		qmTargetUse.insert(i, i);
 	}
 	iTargetCounter = 100;

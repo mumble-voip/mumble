@@ -1,3 +1,31 @@
+2009-05-28
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    10a359d  VoiceTarget clientside
+
+2009-05-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    fa5d4e5  Workaround for focus bug in itemdelegate editors with dialogs
+    e3efc68  Forgot group name for whisper
+    2009992  Shortcut Editor for Whisper
+
+2009-05-26
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    2dab6a2  ShortcutTargetDialog (WIP)
+    f7f7da7  Make shortcuts mute/deafen take parameter
+
+2009-05-25
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b43f237  Shortcut target editor (WIP)
+
+2009-05-23
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    6cfb223  Fixed script for newer cherrypy versions
+
+2009-05-22
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6d82782  Add workaround for MSVC for __int64_t
+    39e2f5a  Allow adding CA chain to cert files
+
 2009-05-21
   Stefan Hacker <dd0t@users.sourceforge.net>
     e5cdd85  Remove libogg

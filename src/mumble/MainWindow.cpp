@@ -1321,10 +1321,10 @@ void MainWindow::on_qaHelpVersionCheck_triggered() {
 void MainWindow::on_gsMuteSelf_down(QVariant v) {
 	int val = v.toInt();
 	if (
-		((val > 0) && ! g.s.bMute) ||
-		((val < 0) && g.s.bMute) ||
-		(val == 0)
-		) {
+	    ((val > 0) && ! g.s.bMute) ||
+	    ((val < 0) && g.s.bMute) ||
+	    (val == 0)
+	) {
 		qaAudioMute->setChecked(! qaAudioMute->isChecked());
 		on_qaAudioMute_triggered();
 	}
@@ -1333,10 +1333,10 @@ void MainWindow::on_gsMuteSelf_down(QVariant v) {
 void MainWindow::on_gsDeafSelf_down(QVariant v) {
 	int val = v.toInt();
 	if (
-		((val > 0) && ! g.s.bDeaf) ||
-		((val < 0) && g.s.bDeaf) ||
-		(val == 0)
-		) {
+	    ((val > 0) && ! g.s.bDeaf) ||
+	    ((val < 0) && g.s.bDeaf) ||
+	    (val == 0)
+	) {
 		qaAudioDeaf->setChecked(! qaAudioDeaf->isChecked());
 		on_qaAudioDeaf_triggered();
 	}
@@ -1445,7 +1445,7 @@ void MainWindow::updateTarget() {
 			if (idx == 0) {
 				QMap<int, int> qm;
 				QMap<int, int>::const_iterator i;
-				for(i=qmTargetUse.constBegin(); i != qmTargetUse.constEnd(); ++i) {
+				for (i=qmTargetUse.constBegin(); i != qmTargetUse.constEnd(); ++i) {
 					qm.insert(i.value(), i.key());
 				}
 
@@ -1481,7 +1481,7 @@ void MainWindow::updateTarget() {
 				int oldidx = i.value();
 				if (oldidx) {
 					QHash<QList<ShortcutTarget>, int>::iterator mi;
-					for(mi = qmTargets.begin(); mi != qmTargets.end(); ++mi) {
+					for (mi = qmTargets.begin(); mi != qmTargets.end(); ++mi) {
 						if (mi.value() == oldidx) {
 							qmTargets.erase(mi);
 
