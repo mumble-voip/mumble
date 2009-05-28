@@ -14,11 +14,11 @@ pb.input = PROTOBUF
 pb.CONFIG *= no_link
 
 win32 {
-	INCLUDEPATH *= /dev/protobuf-2.0.3/vsprojects/include
+	INCLUDEPATH *= /dev/protobuf-2.1.0/vsprojects/include
 	CONFIG(debug, debug|release) {
-		LIBPATH *= /dev/protobuf-2.0.3/vsprojects/Debug
+		LIBPATH *= /dev/protobuf-2.1.0/vsprojects/Debug
 	} else {
-		LIBPATH *= /dev/protobuf-2.0.3/vsprojects/Release
+		LIBPATH *= /dev/protobuf-2.1.0/vsprojects/Release
 	}
 	LIBS *= -llibprotobuf
 }
