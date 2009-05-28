@@ -405,6 +405,14 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		return;
 
 	// Permission checks done. Now enact this.
+	
+	if (msg.has_texture()) {
+		if (uSource->iId > 0) {
+			QByteArray qba = QByteArray(msg.texture().data(), msg.texture().size());
+			if (! setTexture(uSource->iId, qba))
+				return;
+		}
+	}
 
 	if (msg.has_self_deaf()) {
 		uSource->bSelfDeaf = msg.self_deaf();
