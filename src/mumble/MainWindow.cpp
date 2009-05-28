@@ -565,13 +565,17 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->clear();
 	qmServer->addAction(qaServerConnect);
 	qmServer->addAction(qaServerDisconnect);
-	if (g.pPermissions & (ChanACL::Ban | ChanACL::Write))
-		qmServer->addAction(qaServerBanList);
-	if (g.pPermissions & (ChanACL::Register | ChanACL::Write))
-		qmServer->addAction(qaServerUserList);
+	qmServer->addAction(qaServerBanList);
+	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerInformation);
+	qmServer->addAction(qaServerTexture);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
+
+	qaServerBanList->setEnabled(g.pPermissions & (ChanACL::Ban | ChanACL::Write));
+	qaServerUserList->setEnabled(g.pPermissions & (ChanACL::Register | ChanACL::Write));
+	qaServerInformation->setEnabled(g.uiSession != 0);
+	qaServerTexture->setEnabled(g.uiSession != 0);
 
 	if (! qlServerActions.isEmpty()) {
 		qmServer->addSeparator();
@@ -651,6 +655,34 @@ void MainWindow::on_qaServerInformation_triggered() {
 	if ((res == 0) && (qmb.clickedButton() == qp)) {
 		ViewCert vc(g.sh->qscCert, this);
 		vc.exec();
+	}
+}
+
+void MainWindow::on_qaServerTexture_triggered() {
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file to use as texture"), QString(), tr("Images (*.png *.jpg)"));
+	if (! fname.isEmpty()) {
+		QImage img(fname);
+		if (! img.isNull()) {
+			img = img.convertToFormat(QImage::Format_ARGB32);
+			if ((img.height() != 60) || (img.width() != 600)) {
+				QImage final(600, 60, QImage::Format_ARGB32);
+				img = img.scaled(600, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+				qWarning() << img.width() << img.height();
+				final.fill(0);
+				{
+					QPainter p(&final);
+					p.drawImage(0, 0, img);
+				}
+				img = final;
+			}
+			QByteArray qba(reinterpret_cast<const char *>(img.bits()), img.numBytes());
+			qba = qCompress(qba);
+			MumbleProto::UserState mpus;
+			mpus.set_texture(qba.constData(), qba.length());
+			g.sh->sendMessage(mpus);
+		} else {
+			QMessageBox::warning(this, tr("Could not open file."), tr("Failed to open image file."));
+		}
 	}
 }
 

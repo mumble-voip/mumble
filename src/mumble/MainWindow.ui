@@ -679,6 +679,14 @@
     <string>This opens the editor for registered users, which allow you to change their name or unregister them.</string>
    </property>
   </action>
+  <action name="qaServerTexture">
+   <property name="text">
+    <string>Change Texture</string>
+   </property>
+   <property name="toolTip">
+    <string>Change your overlay texture on this server</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
