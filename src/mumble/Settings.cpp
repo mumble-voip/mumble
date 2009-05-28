@@ -200,10 +200,8 @@ Settings::Settings() {
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
 	iMaxImageHeight = 1024;
 
-// FIXME: Er. Right.
-#if 1
-// defined(AUDIO_TEST) || 1
-	lmLoopMode = Server;
+#if defined(AUDIO_TEST)
+	lmLoopMode = Local;
 #else
 	lmLoopMode = None;
 #endif

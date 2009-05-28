@@ -292,7 +292,8 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	} else {
 		g.l->log(Log::UserLeave, tr("Left server: %1.").arg(pDst->qsName));
 	}
-	pmModel->removeUser(pDst);
+	if (pDst != pSelf)
+		pmModel->removeUser(pDst);
 }
 
 void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
