@@ -51,7 +51,7 @@ class ChanACL : public QObject {
 			Move = 0x20,
 			MakeChannel = 0x40,
 			LinkChannel = 0x80,
-			AltSpeak = 0x100,
+			Whisper = 0x100,
 			TextMessage = 0x200,
 
 			// Root channel only

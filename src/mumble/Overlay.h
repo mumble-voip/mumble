@@ -59,7 +59,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		Q_DISABLE_COPY(OverlayConfig)
 	protected:
 		QFont qfFont;
-		QColor qcUser, qcAltTalking, qcTalking, qcChannel, qcChannelTalking;
+		QColor qcUser, qcWhisper, qcTalking, qcChannel, qcChannelTalking;
 
 		static void setColorLabel(QLabel *label, QColor col);
 	public:
@@ -71,7 +71,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qpbSetFont_clicked();
 		void on_qpbUser_clicked();
 		void on_qpbTalking_clicked();
-		void on_qpbAltTalking_clicked();
+		void on_qpbWhisper_clicked();
 		void on_qpbChannel_clicked();
 		void on_qpbChannelTalking_clicked();
 		void accept() const;

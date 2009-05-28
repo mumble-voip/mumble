@@ -59,7 +59,7 @@ bool ChanACL::hasPermission(User *p, Channel *chan, QFlags<Perm> perm, ACLCache 
 	if (p->iId == 0) {
 		switch (perm) {
 			case Speak:
-			case AltSpeak:
+			case Whisper:
 				return false;
 			default:
 				return true;
@@ -73,7 +73,7 @@ bool ChanACL::hasPermission(User *p, Channel *chan, QFlags<Perm> perm, ACLCache 
 		granted = h->value(chan);
 
 	if (granted & Cached) {
-		if ((perm != Speak) && (perm != AltSpeak))
+		if ((perm != Speak) && (perm != Whisper))
 			return ((granted & (perm | Write)) != None);
 		else
 			return ((granted & perm) != None);
@@ -86,7 +86,7 @@ bool ChanACL::hasPermission(User *p, Channel *chan, QFlags<Perm> perm, ACLCache 
 	}
 
 	// Default permissions
-	Permissions def = Traverse | Enter | Speak | AltSpeak;
+	Permissions def = Traverse | Enter | Speak | Whisper;
 
 	granted = def;
 
@@ -127,7 +127,7 @@ bool ChanACL::hasPermission(User *p, Channel *chan, QFlags<Perm> perm, ACLCache 
 
 	cache.value(p)->insert(chan, granted | Cached);
 
-	if ((perm != Speak) && (perm != AltSpeak))
+	if ((perm != Speak) && (perm != Whisper))
 		return ((granted & (perm | Write)) != None);
 	else
 		return ((granted & perm) != None);
@@ -154,8 +154,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Enter");
 		case Speak:
 			return tr("Speak");
-		case AltSpeak:
-			return tr("AltSpeak");
+		case Whisper:
+			return tr("Whisper");
 		case MuteDeafen:
 			return tr("Mute/Deafen");
 		case Move:
@@ -196,9 +196,9 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents the permission to speak in a channel. Users without this privilege will be suppressed by "
 			          "the server (seen as muted), and will be unable to speak until they are unmuted by someone with the "
 			          "appropriate privileges.");
-		case AltSpeak:
-			return tr("This represents the permission to speak in a channel with flagged speech. This works exactly like the <i>speak</i> "
-			          "privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy "
+		case Whisper:
+			return tr("This represents the permission to whisper to this channel from the outside. This works exactly like the <i>speak</i> "
+			          "privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy "
 			          "of channels without linking.");
 		case MuteDeafen:
 			return tr("This represents the permission to mute and deafen other users. Once muted, a user will stay muted "

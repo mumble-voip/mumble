@@ -263,19 +263,19 @@
       <item row="4" column="0">
        <widget class="QLabel" name="label_8">
         <property name="text">
-         <string>Color for alt-talking users</string>
+         <string>Color for whispering users</string>
         </property>
        </widget>
       </item>
       <item row="4" column="1" colspan="2">
-       <widget class="QLabel" name="qlAltTalking">
+       <widget class="QLabel" name="qlWhisper">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
       <item row="4" column="3">
-       <widget class="QPushButton" name="qpbAltTalking">
+       <widget class="QPushButton" name="qpbWhisper">
         <property name="text">
          <string>Change</string>
         </property>

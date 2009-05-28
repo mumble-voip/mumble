@@ -129,7 +129,7 @@ struct Settings {
 	float fOverlayHeight;
 	QColor qcOverlayUser;
 	QColor qcOverlayTalking;
-	QColor qcOverlayAltTalking;
+	QColor qcOverlayWhisper;
 	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
 

@@ -570,7 +570,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 						bool group = ! wtc.qsGroup.isEmpty();
 						if (!link && !dochildren && ! group) {
 							// Common case
-							if (ChanACL::hasPermission(u, wc, ChanACL::AltSpeak, acCache)) {
+							if (ChanACL::hasPermission(u, wc, ChanACL::Whisper, acCache)) {
 								foreach(p, wc->qlUsers) {
 									channel.insert(static_cast<ServerUser *>(p));
 								}
@@ -584,7 +584,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 							if (dochildren)
 								channels.unite(wc->allChildren());
 							foreach(Channel *tc, channels) {
-								if (ChanACL::hasPermission(u, tc, ChanACL::AltSpeak, acCache)) {
+								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, acCache)) {
 									foreach(p, tc->qlUsers) {
 										if (! group || Group::isMember(tc, tc, wtc.qsGroup, p)) {
 											channel.insert(static_cast<ServerUser *>(p));

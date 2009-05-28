@@ -65,14 +65,14 @@ void OverlayConfig::load(const Settings &r) {
 	qfFont = r.qfOverlayFont;
 	qcUser = r.qcOverlayUser;
 	qcTalking= r.qcOverlayTalking;
-	qcAltTalking= r.qcOverlayAltTalking;
+	qcWhisper= r.qcOverlayWhisper;
 	qcChannel = r.qcOverlayChannel;
 	qcChannelTalking = r.qcOverlayChannelTalking;
 	qlCurrentFont->setText(qfFont.family());
 	loadSlider(qsMaxHeight, iroundf(r.fOverlayHeight * 1000.0f));
 	setColorLabel(qlUser, qcUser);
 	setColorLabel(qlTalking, qcTalking);
-	setColorLabel(qlAltTalking, qcAltTalking);
+	setColorLabel(qlWhisper, qcWhisper);
 	setColorLabel(qlChannel, qcChannel);
 	setColorLabel(qlChannelTalking, qcChannelTalking);
 }
@@ -123,12 +123,12 @@ void OverlayConfig::on_qpbTalking_clicked() {
 	}
 }
 
-void OverlayConfig::on_qpbAltTalking_clicked() {
+void OverlayConfig::on_qpbWhisper_clicked() {
 	bool ok;
-	QRgb rgb=QColorDialog::getRgba(qcAltTalking.rgba(), &ok, this);
+	QRgb rgb=QColorDialog::getRgba(qcWhisper.rgba(), &ok, this);
 	if (ok) {
-		qcAltTalking = QColor::fromRgba(rgb);
-		setColorLabel(qlAltTalking, qcAltTalking);
+		qcWhisper = QColor::fromRgba(rgb);
+		setColorLabel(qlWhisper, qcWhisper);
 	}
 }
 
@@ -173,7 +173,7 @@ void OverlayConfig::save() const {
 	s.fOverlayHeight = static_cast<float>(qsMaxHeight->value()) / 1000.0f;
 	s.qcOverlayUser = qcUser;
 	s.qcOverlayTalking = qcTalking;
-	s.qcOverlayAltTalking = qcAltTalking;
+	s.qcOverlayWhisper = qcWhisper;
 	s.qcOverlayChannel = qcChannel;
 	s.qcOverlayChannelTalking = qcChannelTalking;
 }
@@ -321,7 +321,7 @@ typedef QPair<QString, quint32> qpChanCol;
 void Overlay::updateOverlay() {
 	quint32 colUser = g.s.qcOverlayUser.rgba();
 	quint32 colTalking = g.s.qcOverlayTalking.rgba();
-	quint32 colAltTalking = g.s.qcOverlayAltTalking.rgba();
+	quint32 colWhisper = g.s.qcOverlayWhisper.rgba();
 	quint32 colChannel = g.s.qcOverlayChannel.rgba();
 	quint32 colChannelTalking = g.s.qcOverlayChannelTalking.rgba();
 	QString str;
@@ -370,7 +370,7 @@ void Overlay::updateOverlay() {
 					dec = Deafened;
 				else if (p->bMute || p->bSelfMute || p->bLocalMute)
 					dec = Muted;
-				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colAltTalking : colTalking) : colUser, p->uiSession, dec);
+				lines << TextLine(name, p->bTalking ? (p->bAltSpeak ? colWhisper : colTalking) : colUser, p->uiSession, dec);
 			}
 		}
 

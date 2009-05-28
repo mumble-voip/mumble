@@ -104,8 +104,8 @@ module Murmur
 	const int PermissionEnter = 0x04;
 	/** Speak in channel. */
 	const int PermissionSpeak = 0x08;
-	/** Alt-speak in channel. This is different from Speak, so you can set up different permissions. */
-	const int PermissionAltSpeak = 0x100;
+	/** Whisper to channel. This is different from Speak, so you can set up different permissions. */
+	const int PermissionWhisper = 0x100;
 	/** Mute and deafen other users in this channel. */
 	const int PermissionMuteDeafen = 0x10;
 	/** Move and Kick users from channel. You need this permission in both the source and destination channel to move another user.
