@@ -91,6 +91,18 @@ class SslServer : public QTcpServer {
 
 class Server;
 
+
+struct WhisperTarget {
+	struct Channel {
+		int iId;
+		bool bChildren;
+		bool bLinks;
+		QString qsGroup;
+	};
+	QList<unsigned int> qlSessions;
+	QList<WhisperTarget::Channel> qlChannels;
+};
+
 class ServerUser : public Connection, public User {
 	private:
 		Q_OBJECT
@@ -115,6 +127,10 @@ class ServerUser : public Connection, public User {
 
 		HostAddress haAddress;
 		bool bUdp;
+		
+		QMap<int, WhisperTarget> qmTargets;
+		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;
+		QMap<int, TargetCache> qmTargetCache;
 
 		BandwidthRecord bwr;
 		struct sockaddr_in saiUdpAddress;

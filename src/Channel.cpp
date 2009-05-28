@@ -88,7 +88,7 @@ void Channel::remove(Channel *c) {
 	c_qhChannels.remove(c->iId);
 }
 
-bool Channel::isLinked(Channel *l) {
+bool Channel::isLinked(Channel *l) const {
 	return qhLinks.contains(l);
 }
 
@@ -165,6 +165,24 @@ QSet<Channel *> Channel::allLinks() {
 			if (! seen.contains(l)) {
 				seen.insert(l);
 				stack.push(l);
+			}
+		}
+	}
+	return seen;
+}
+
+QSet<Channel *> Channel::allChildren() {
+	QSet<Channel *> seen;
+	if (! qlChannels.isEmpty()) {
+		QStack<Channel *> stack;
+		stack.push(this);
+
+		while (! stack.isEmpty()) {
+			Channel *c = stack.pop();
+			foreach(Channel *chld, c->qlChannels) {
+				seen.insert(chld);
+				if (! chld->qlChannels.isEmpty())
+					stack.append(chld);
 			}
 		}
 	}

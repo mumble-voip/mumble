@@ -1077,5 +1077,45 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 	}
 }
 
-void Server::msgVoiceTarget(ServerUser *, MumbleProto::VoiceTarget &) {
+void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) {
+	MSG_SETUP(User::Authenticated);
+
+	int target = msg.id();
+	if ((target < 1) || (target >= 0x1f))
+		return;
+
+	QWriteLocker lock(&qrwlUsers);
+	
+	uSource->qmTargetCache.remove(target);
+
+	int count = msg.targets_size();	
+	if (count == 0) {
+		uSource->qmTargets.remove(target);
+	} else {
+		WhisperTarget wt;
+		for(int i=0;i<count;++i) {
+			const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
+			for(int j=0;j<t.session_size(); ++j) {
+				unsigned int s = t.session(j);
+				if (qhUsers.contains(s))
+					wt.qlSessions << s;
+			}
+			if (t.has_channel_id()) {
+				unsigned int id = t.channel_id();
+				if (qhChannels.contains(id)) {
+					WhisperTarget::Channel wtc;
+					wtc.iId = id;
+					wtc.bChildren = t.children();
+					wtc.bLinks = t.links();
+					if (t.has_group())
+						wtc.qsGroup = u8(t.group());
+					wt.qlChannels << wtc;
+				}
+			}
+		}
+		if (wt.qlSessions.isEmpty() && wt.qlChannels.isEmpty())
+			uSource->qmTargets.remove(target);
+		else
+			uSource->qmTargets.insert(target, wt);
+	}
 }

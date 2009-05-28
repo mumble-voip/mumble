@@ -474,6 +474,14 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 	}
 }
 
+#define SENDTO \
+		if (! pDst->bDeaf && ! pDst->bSelfDeaf && (pDst != u)) { \
+			if (poslen && pDst->ssContext == u->ssContext) \
+				sendMessage(pDst, buffer, len, qba); \
+			else \
+				sendMessage(pDst, buffer, len - poslen, qba_npos); \
+		}
+
 void Server::processMsg(ServerUser *u, const char *data, int len) {
 	if (u->sState != User::Authenticated || u->bMute || u->bSuppressed)
 		return;
@@ -510,44 +518,116 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 	poslen = pdi.left();
 
-	buffer[0] = static_cast<char>(target);
 	pds << u->uiSession;
 	pds.append(data + 1, len - 1);
 
 	len = pds.size() + 1;
 
 	if (target == 0x1f) {
+		buffer[0] = static_cast<char>(target);
 		sendMessage(u, buffer, len, qba);
 		return;
-	}
-
-	foreach(p, c->qlUsers) {
-		ServerUser *pDst = static_cast<ServerUser *>(p);
-		if (! p->bDeaf && ! p->bSelfDeaf && (pDst != u)) {
-			if (poslen && pDst->ssContext == u->ssContext)
-				sendMessage(pDst, buffer, len, qba);
-			else
-				sendMessage(pDst, buffer, len - poslen, qba_npos);
+	} else if (target == 0) {
+		buffer[0] = 0;
+		foreach(p, c->qlUsers) {
+			ServerUser *pDst = static_cast<ServerUser *>(p);
+			SENDTO;
 		}
-	}
 
-	if (! c->qhLinks.isEmpty()) {
-		QSet<Channel *> chans = c->allLinks();
-		chans.remove(c);
+		if (! c->qhLinks.isEmpty()) {
+			QSet<Channel *> chans = c->allLinks();
+			chans.remove(c);
 
-		QMutexLocker qml(&qmCache);
+			QMutexLocker qml(&qmCache);
 
-		foreach(Channel *l, chans) {
-			if (ChanACL::hasPermission(u, l, (target == 1) ? ChanACL::AltSpeak : ChanACL::Speak, acCache)) {
-				foreach(p, l->qlUsers) {
-					ServerUser *pDst = static_cast<ServerUser *>(p);
-					if (! p->bDeaf && ! p->bSelfDeaf) {
-						if (poslen && pDst->ssContext == u->ssContext)
-							sendMessage(pDst, buffer, len, qba);
-						else
-							sendMessage(pDst, buffer, len - poslen, qba_npos);
+			foreach(Channel *l, chans) {
+				if (ChanACL::hasPermission(u, l, ChanACL::Speak, acCache)) {
+					foreach(p, l->qlUsers) {
+						ServerUser *pDst = static_cast<ServerUser *>(p);
+						SENDTO;
 					}
 				}
+			}
+		}
+	} else if (u->qmTargets.contains(target)) {
+		QSet<ServerUser *> channel;
+		QSet<ServerUser *> direct;
+
+		if (u->qmTargetCache.contains(target)) {
+			const ServerUser::TargetCache &cache = u->qmTargetCache.value(target);
+			channel = cache.first;
+			direct = cache.second;
+		} else {
+			const WhisperTarget &wt = u->qmTargets.value(target);
+			if (! wt.qlChannels.isEmpty()) {
+				QMutexLocker qml(&qmCache);
+
+				foreach(const WhisperTarget::Channel &wtc, wt.qlChannels) {
+					Channel *wc = qhChannels.value(wtc.iId);
+					if (wc) {
+						bool link = wtc.bLinks && ! wc->qhLinks.isEmpty();
+						bool dochildren = wtc.bChildren && ! wc->qlChannels.isEmpty();
+						bool group = ! wtc.qsGroup.isEmpty();
+						if (!link && !dochildren && ! group) {
+							// Common case
+							if (ChanACL::hasPermission(u, wc, ChanACL::AltSpeak, acCache)) {
+								foreach(p, wc->qlUsers) {
+									channel.insert(static_cast<ServerUser *>(p));
+								}
+							}
+						} else {
+							QSet<Channel *> channels;
+							if (link)
+								channels = wc->allLinks();
+							else
+								channels.insert(wc);
+							if (dochildren)
+								channels.unite(wc->allChildren());
+							foreach(Channel *tc, channels) {
+								if (ChanACL::hasPermission(u, tc, ChanACL::AltSpeak, acCache)) {
+									foreach(p, tc->qlUsers) {
+										if (! group || Group::isMember(tc, tc, wtc.qsGroup, p)) {
+											channel.insert(static_cast<ServerUser *>(p));
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			foreach(unsigned int id, wt.qlSessions) {
+				ServerUser *pDst = qhUsers.value(id);
+				if (pDst && ! channel.contains(pDst))
+					direct.insert(pDst);
+			}
+			
+			int uiSession = u->uiSession;
+			qrwlUsers.unlock();
+			qrwlUsers.lockForWrite();
+
+			if (qhUsers.contains(uiSession))
+				u->qmTargetCache.insert(target, ServerUser::TargetCache(channel, direct));
+			qrwlUsers.unlock();
+			qrwlUsers.lockForRead();
+			if (! qhUsers.contains(uiSession))
+				return;
+		}
+		if (! channel.isEmpty()) {
+			buffer[0] = 1;
+			foreach(ServerUser *pDst, channel) {
+				SENDTO;
+			}
+			if (! direct.isEmpty()) {
+				qba.clear();
+				qba_npos.clear();
+			}
+		}
+		if (! direct.isEmpty()) {
+			buffer[0] = 2;
+			foreach(ServerUser *pDst, direct) {
+				SENDTO;
 			}
 		}
 	}
@@ -900,16 +980,25 @@ bool Server::hasPermission(User *p, Channel *c, QFlags<ChanACL::Perm> perm) {
 }
 
 void Server::clearACLCache(User *p) {
-	QMutexLocker qml(&qmCache);
+	{
+		QMutexLocker qml(&qmCache);
 
-	if (p) {
-		ChanACL::ChanCache *h = acCache.take(p);
-		if (h)
-			delete h;
-	} else {
-		foreach(ChanACL::ChanCache *h, acCache)
-			delete h;
-		acCache.clear();
+		if (p) {
+			ChanACL::ChanCache *h = acCache.take(p);
+			if (h)
+				delete h;
+		} else {
+			foreach(ChanACL::ChanCache *h, acCache)
+				delete h;
+			acCache.clear();
+		}
+	}
+	
+	{
+		QWriteLocker lock(&qrwlUsers);
+		
+		foreach(ServerUser *u, qhUsers)
+			u->qmTargetCache.clear();
 	}
 }
 

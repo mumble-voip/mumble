@@ -80,7 +80,7 @@ class Channel : public QObject {
 
 		void addClientUser(ClientUser *p);
 
-		bool isLinked(Channel *c);
+		bool isLinked(Channel *c) const;
 		void link(Channel *c);
 		void unlink(Channel *c = NULL);
 
@@ -88,6 +88,7 @@ class Channel : public QObject {
 		void userUnlink(Channel *c, User *p);
 
 		QSet<Channel *> allLinks();
+		QSet<Channel *> allChildren();
 
 		operator const QString() const;
 };
