@@ -138,6 +138,8 @@ Section "" SectionCommon
   File "\dev\OpenSSL\bin\ssleay32.dll"
 
   File "\dev\MySQL\lib\opt\libmysql.dll"
+  
+  File "\dev\libsndfile\libsndfile-1.dll"
 
   File "\dev\dbus\bin\dbus-1.dll"
   File "\dev\dbus\bin\libxml2.dll"
@@ -347,6 +349,8 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   Delete "$INSTDIR\dbus-daemon.exe"
   Delete "$INSTDIR\dbus-send.exe"
   Delete "$INSTDIR\session.conf"
+
+  Delete "$INSTDIR\libsndfile-1.dll"
 
   Delete "$INSTDIR\libmmd.dll"
 
