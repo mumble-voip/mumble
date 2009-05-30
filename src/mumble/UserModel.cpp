@@ -193,7 +193,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.png"));
 	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.png"));
 	qiChannel=QIcon(QLatin1String("skin:channel.png"));
-	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.png"));
+	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
 	qiFriend=QIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;

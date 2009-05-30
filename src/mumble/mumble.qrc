@@ -16,7 +16,7 @@
  <file alias="muted_local.png">../../icons/muted_local.png</file>
  <file alias="authenticated.png">../../icons/authenticated.png</file>
  <file alias="channel.png">../../icons/channel.png</file>
- <file alias="channel_linked.png">../../icons/channel_linked.png</file>
+ <file alias="channel_linked.svg">../../icons/channel_linked.svg</file>
  <file alias="config_basic.png">../../icons/config_basic.png</file>
  <file alias="config_dsound.png">../../icons/config_dsound.png</file>
  <file alias="config_msgs.png">../../icons/config_msgs.png</file>
