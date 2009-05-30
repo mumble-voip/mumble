@@ -132,8 +132,6 @@ class AudioInput : public QThread {
 		float dPeakMic, dPeakSpeaker, dPeakSignal, dMaxMic;
 		float fSpeechProb;
 
-		unsigned int iBestBin;
-
 		bool isTransmitting() {
 			return bPreviousVoice;
 		};

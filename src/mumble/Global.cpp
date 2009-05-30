@@ -44,7 +44,6 @@ Global::Global() {
 	iTarget = 0;
 	bPushToMute = false;
 	bCenterPosition = false;
-	bEchoTest = false;
 	bPosTest = false;
 	iAudioPathTime = 0;
 	iMaxBandwidth = 0;

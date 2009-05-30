@@ -164,6 +164,7 @@ class AudioOutputSample : public AudioOutputUser {
 };
 
 class AudioSine : public AudioOutputUser {
+	// FIXME: This is redundant.
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioSine)
@@ -175,7 +176,6 @@ class AudioSine : public AudioOutputUser {
 		unsigned int frames;
 		unsigned int cntr;
 		unsigned int tbin;
-		bool bSearch;
 	public:
 		virtual bool needSamples(unsigned int snum);
 		AudioSine(float hz, float i, unsigned int frm, float v, unsigned int freq);

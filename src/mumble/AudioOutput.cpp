@@ -809,7 +809,6 @@ bool AudioSine::needSamples(unsigned int snum) {
 
 		if (inc == 0.0) {
 			if (++cntr == 50) {
-				bSearch = true;
 				cntr = 0;
 				tbin *= 2;
 				if (tbin >= 64)
@@ -817,10 +816,6 @@ bool AudioSine::needSamples(unsigned int snum) {
 			}
 
 			AudioInputPtr ai = g.ai;
-			if (ai && bSearch && ai->iBestBin == tbin) {
-				bSearch = false;
-				g.iAudioPathTime = cntr;
-			}
 
 			// FIXME: Not * snum, * something else
 			const float m = static_cast<float>(M_PI * static_cast<float>(tbin) / static_cast<float>(snum));

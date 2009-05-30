@@ -93,7 +93,6 @@ AudioInput::AudioInput() {
 	iFrameCounter = 0;
 	iSilentFrames = 0;
 	iHoldFrames = 0;
-	iBestBin = 0;
 
 	bResetProcessor = true;
 
@@ -507,32 +506,6 @@ void AudioInput::encodeAudioFrame() {
 	for (i=0;i<iFrameSize;i++)
 		max = static_cast<short>(abs(psMic[i]) > max ? abs(psMic[i]) : max);
 	dMaxMic = max;
-
-	if (g.bEchoTest) {
-		STACKVAR(float, fft, iFrameSize);
-		STACKVAR(float, power, iFrameSize);
-		float scale = 1.f / static_cast<float>(iFrameSize);
-		for (i=0;i<iFrameSize;i++)
-			fft[i] = static_cast<float>(psMic[i]) * scale;
-		mumble_drft_forward(&fftTable, fft);
-		float mp = 0.0f;
-		int bin = 0;
-		power[0]=power[1]=0.0f;
-		for (i=2;i < iFrameSize / 2;i++) {
-			power[i] = sqrtf(fft[2*i]*fft[2*i]+fft[2*i-1]*fft[2*i-1]);
-			if (power[i] > mp) {
-				bin = i;
-				mp = power[i];
-			}
-		}
-		for (i=2;i< iFrameSize / 2;i++) {
-			if (power[i] * 2 > mp) {
-				if (i != bin)
-					bin = 0;
-			}
-		}
-		iBestBin = bin * 2;
-	}
 
 	if (iEchoChannels > 0) {
 		sum=1.0f;
