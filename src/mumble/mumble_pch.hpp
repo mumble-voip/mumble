@@ -49,7 +49,7 @@
 #include <speex/speex_echo.h>
 #include <speex/speex_resampler.h>
 #define __int64_t __int64
-#include <sndfile.hh>
+#include <sndfile.h>
 #undef __int64_t
 
 #include <boost/accumulators/accumulators.hpp>

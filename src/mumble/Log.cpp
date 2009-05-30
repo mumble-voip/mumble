@@ -174,16 +174,16 @@ void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int col
 }
 
 void LogConfig::browseForAudioFile() {
-	SndfileHandle *handle = NULL;
+	SoundFile *sf = NULL;
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
 	if (! file.isEmpty()) {
-		if ((handle = AudioOutputSample::loadSndfile(file)) == NULL) {
+		if ((sf = AudioOutputSample::loadSndfile(file)) == NULL) {
 			QMessageBox::critical(this,
 			                      tr("Invalid sound file"),
 			                      tr("The file '%1' does not exist or is not a valid file.").arg(file));
 			return;
 		}
-		delete handle;
+		delete sf;
 		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
 		i->setText(ColStaticSoundPath, file);
 		i->setCheckState(ColStaticSound, Qt::Checked);

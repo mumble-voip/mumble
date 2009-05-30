@@ -114,14 +114,118 @@ void AudioOutputUser::resizeBuffer(unsigned int newsize) {
 	}
 }
 
-AudioOutputSample::AudioOutputSample(const QString &name, SndfileHandle *psndfile, bool loop, unsigned int freq) : AudioOutputUser(name) {
+SoundFile::SoundFile(const QString &fname) {
+	siInfo.frames = 0 ;
+	siInfo.channels = 1 ;
+	siInfo.samplerate = SAMPLE_RATE ;
+	siInfo.samplerate = 0 ;
+	siInfo.sections = 0 ;
+	siInfo.seekable = 0 ;
+
+	sfFile = NULL;
+
+	qfFile.setFileName(fname);
+
+	if (qfFile.open(QIODevice::ReadOnly)) {
+		static SF_VIRTUAL_IO svi = {&SoundFile::vio_get_filelen, &SoundFile::vio_seek, &SoundFile::vio_read, &SoundFile::vio_write, &SoundFile::vio_tell};
+
+		sfFile = sf_open_virtual (&svi, SFM_READ, &siInfo, this) ;
+	}
+}
+
+SoundFile::~SoundFile() {
+	if (sfFile)
+		sf_close(sfFile);
+}
+
+bool SoundFile::isOpen() const {
+	return (sfFile != NULL) && qfFile.isOpen();
+}
+
+int SoundFile::channels() const {
+	return siInfo.channels;
+}
+
+int SoundFile::samplerate() const {
+	return siInfo.samplerate;
+}
+
+int SoundFile::error() const {
+	return sf_error(sfFile);
+}
+
+QString SoundFile::strError() const {
+	return QLatin1String(sf_strerror(sfFile));
+}
+
+sf_count_t SoundFile::seek(sf_count_t frames, int whence) {
+	return sf_seek(sfFile, frames, whence);
+}
+
+sf_count_t SoundFile::read(float *ptr, sf_count_t items) {
+	return sf_read_float(sfFile, ptr, items);
+}
+
+sf_count_t SoundFile::vio_get_filelen(void *user_data) {
+	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+
+	if (! sf->qfFile.isOpen())
+		return -1;
+
+	return (sf->qfFile.size());
+}
+
+sf_count_t SoundFile::vio_seek(sf_count_t offset, int whence, void *user_data) {
+	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+
+	if (! sf->qfFile.isOpen())
+		return -1;
+
+	if (whence == SEEK_SET) {
+		sf->qfFile.seek(offset);
+	} else if (whence == SEEK_END) {
+		sf->qfFile.seek(sf->qfFile.size() - offset);
+	} else {
+		sf->qfFile.seek(sf->qfFile.pos() + offset);
+	}
+	return sf->qfFile.pos();
+}
+
+sf_count_t SoundFile::vio_read(void *ptr, sf_count_t count, void *user_data) {
+	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+
+	if (! sf->qfFile.isOpen())
+		return -1;
+
+	return sf->qfFile.read(reinterpret_cast<char *>(ptr), count);
+}
+
+sf_count_t SoundFile::vio_write(const void *ptr, sf_count_t count, void *user_data) {
+	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+
+	if (! sf->qfFile.isOpen())
+		return -1;
+
+	return sf->qfFile.write(reinterpret_cast<const char *>(ptr), count);
+}
+
+sf_count_t SoundFile::vio_tell(void *user_data) {
+	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
+
+	if (! sf->qfFile.isOpen())
+		return -1;
+
+	return sf->qfFile.pos();
+}
+
+AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, bool loop, unsigned int freq) : AudioOutputUser(name) {
 	int err;
 
 	sfHandle = psndfile;
 	iOutSampleRate = freq;
 
 	// Check if the file is good
-	if (sfHandle->channels() < 0 || sfHandle->channels() > 2) {
+	if (sfHandle->channels() <= 0 || sfHandle->channels() > 2) {
 		sfHandle = NULL;
 		return;
 	}
@@ -155,24 +259,30 @@ AudioOutputSample::~AudioOutputSample() {
 	}
 }
 
-SndfileHandle* AudioOutputSample::loadSndfile(const QString &filename) {
-	SndfileHandle *handle;
+SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
+	SoundFile *sf;
+
 	// Create the filehandle and do a quick check if everything is ok
-	handle = new SndfileHandle(filename.toUtf8().constData(), SFM_READ, 0, 1, SAMPLE_RATE);
-	if (handle == NULL) return handle;
+	sf = new SoundFile(filename);
 
-	else if (handle->error() != SF_ERR_NO_ERROR) {
-		qWarning() << "File " << filename << " couldn't be loaded: " << handle->strError();
-		delete handle;
+	if (! sf->isOpen()) {
+		qWarning() << "File " << filename << " failed to open";
+		delete sf;
 		return NULL;
 	}
 
-	if (handle->channels() < 0 || handle->channels() > 2) {
-		qWarning() << "File " << filename << " contains " << handle->channels() << " Channels, only 1 or 2 are supported.";
-		delete handle;
+	if (sf->error() != SF_ERR_NO_ERROR) {
+		qWarning() << "File " << filename << " couldn't be loaded: " << sf->strError();
+		delete sf;
 		return NULL;
 	}
-	return handle;
+
+	if (sf->channels() <= 0 || sf->channels() > 2) {
+		qWarning() << "File " << filename << " contains " << sf->channels() << " Channels, only 1 or 2 are supported.";
+		delete sf;
+		return NULL;
+	}
+	return sf;
 }
 
 bool AudioOutputSample::needSamples(unsigned int snum) {
@@ -474,7 +584,7 @@ AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float v
 }
 
 AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
-	SndfileHandle *handle;
+	SoundFile *handle;
 	handle = AudioOutputSample::loadSndfile(filename);
 	if (handle == NULL)
 		return NULL;
@@ -485,6 +595,7 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq);
 	qmOutputs.insert(NULL, aos);
 	qrwlOutputs.unlock();
+
 	return aos;
 
 }

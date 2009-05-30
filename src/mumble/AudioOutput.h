@@ -141,6 +141,33 @@ class AudioOutputSpeech : public AudioOutputUser {
 		~AudioOutputSpeech();
 };
 
+class SoundFile : public QObject {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(SoundFile);
+	protected:
+		SNDFILE *sfFile;
+		SF_INFO siInfo;
+		QFile qfFile;
+		static sf_count_t vio_get_filelen(void *user_data);
+		static sf_count_t vio_seek(sf_count_t offset, int whence, void *user_data);
+		static sf_count_t vio_read(void *ptr, sf_count_t count, void *user_data);
+		static sf_count_t vio_write(const void *ptr, sf_count_t count, void *user_data);
+		static sf_count_t vio_tell(void *user_data);
+	public:
+		SoundFile(const QString &fname);
+		virtual ~SoundFile();
+
+		int channels() const;
+		int samplerate() const;
+		int error() const ;
+		QString strError() const;
+		bool isOpen() const;
+
+		sf_count_t seek(sf_count_t frames, int whence);
+		sf_count_t read(float *ptr, sf_count_t items);
+};
+
 class AudioOutputSample : public AudioOutputUser {
 		friend class AudioOutput;
 	private:
@@ -152,14 +179,14 @@ class AudioOutputSample : public AudioOutputUser {
 		unsigned int iOutSampleRate;
 		SpeexResamplerState *srs;
 
-		SndfileHandle *sfHandle;
+		SoundFile *sfHandle;
 
 		bool bLastAlive;
 		bool bLoop;
 	public:
-		static SndfileHandle* loadSndfile(const QString &filename);
+		static SoundFile* loadSndfile(const QString &filename);
 		virtual bool needSamples(unsigned int snum);
-		AudioOutputSample(const QString &name, SndfileHandle *psndfile, bool repeat, unsigned int freq);
+		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq);
 		~AudioOutputSample();
 };
 
