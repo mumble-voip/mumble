@@ -191,7 +191,7 @@ class AudioOutputSample : public AudioOutputUser {
 };
 
 class AudioSine : public AudioOutputUser {
-	// FIXME: This is redundant.
+		// FIXME: This is redundant.
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioSine)

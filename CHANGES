@@ -1,5 +1,33 @@
+2009-05-31
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    90e189a  Fall back to .ini cert if one is specified, currently using
+	     selfgenerated, and bind address matches
+    8bdc1a2  Use new svg icon for linked channels
+    26b3449  SoundFile class which wraps QFile to allow resource-based
+	     samples
+
+2009-05-30
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    4d5b94e  First test of svg icon.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ce76715  .ui based AudioWizard
+    29df24c  Speech sample in Ogg/Vorbis
+
+2009-05-29
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    71853df  Force database to .ini path in roaming mode and fix a banlist
+	     crashbug
+
 2009-05-28
   Thorvald Natvig <slicer@users.sourceforge.net>
+    07a1e49  Store textures for registered users.
+    0c67135  Change texture from client
+    2738bb6  Add libsndfile to installer
+    0c66fe4  Protobuf 2.1.0 for Win32
+    b9b5cd5  s/AltSpeak/Whisper/
+    47fe8d2  Whisper
+    ac75cef  Skeleton for server-side voicetarget
     10a359d  VoiceTarget clientside
 
 2009-05-27

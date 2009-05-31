@@ -129,7 +129,7 @@ SoundFile::SoundFile(const QString &fname) {
 	if (qfFile.open(QIODevice::ReadOnly)) {
 		static SF_VIRTUAL_IO svi = {&SoundFile::vio_get_filelen, &SoundFile::vio_seek, &SoundFile::vio_read, &SoundFile::vio_write, &SoundFile::vio_tell};
 
-		sfFile = sf_open_virtual (&svi, SFM_READ, &siInfo, this) ;
+		sfFile = sf_open_virtual(&svi, SFM_READ, &siInfo, this) ;
 	}
 }
 

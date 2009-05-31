@@ -602,7 +602,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				if (pDst && ! channel.contains(pDst))
 					direct.insert(pDst);
 			}
-			
+
 			int uiSession = u->uiSession;
 			qrwlUsers.unlock();
 			qrwlUsers.lockForWrite();
@@ -993,10 +993,10 @@ void Server::clearACLCache(User *p) {
 			acCache.clear();
 		}
 	}
-	
+
 	{
 		QWriteLocker lock(&qrwlUsers);
-		
+
 		foreach(ServerUser *u, qhUsers)
 			u->qmTargetCache.clear();
 	}

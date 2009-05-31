@@ -405,7 +405,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		return;
 
 	// Permission checks done. Now enact this.
-	
+
 	if (msg.has_texture()) {
 		if (uSource->iId > 0) {
 			QByteArray qba = QByteArray(msg.texture().data(), msg.texture().size());
@@ -1093,17 +1093,17 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 		return;
 
 	QWriteLocker lock(&qrwlUsers);
-	
+
 	uSource->qmTargetCache.remove(target);
 
-	int count = msg.targets_size();	
+	int count = msg.targets_size();
 	if (count == 0) {
 		uSource->qmTargets.remove(target);
 	} else {
 		WhisperTarget wt;
-		for(int i=0;i<count;++i) {
+		for (int i=0;i<count;++i) {
 			const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
-			for(int j=0;j<t.session_size(); ++j) {
+			for (int j=0;j<t.session_size(); ++j) {
 				unsigned int s = t.session(j);
 				if (qhUsers.contains(s))
 					wt.qlSessions << s;
