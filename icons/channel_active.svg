@@ -28,15 +28,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.41"
-     inkscape:cx="86.514523"
+     inkscape:cx="10.373444"
      inkscape:cy="150"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1680"
      inkscape:window-height="989"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-x="0"
+     inkscape:window-y="18"
      width="300px"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -668,7 +668,7 @@
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title>channel_linked</dc:title>
         <cc:license
-           rdf:resource="BSD" />
+           rdf:resource="" />
         <dc:rights>
           <cc:Agent>
             <dc:title>Martin Skilnand</dc:title>
@@ -679,16 +679,16 @@
             <dc:title>Martin Skilnand</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:date>2009.05.30</dc:date>
+        <dc:date>2009.05.31</dc:date>
         <dc:publisher>
           <cc:Agent>
-            <dc:title>Mumble project</dc:title>
+            <dc:title>Mumble team</dc:title>
           </cc:Agent>
         </dc:publisher>
         <dc:description>Icon for voice chat program mumble</dc:description>
         <dc:subject>
           <rdf:Bag>
-            <rdf:li>mumble channel link</rdf:li>
+            <rdf:li>mumble channel active</rdf:li>
           </rdf:Bag>
         </dc:subject>
       </cc:Work>
@@ -869,7 +869,7 @@
        sodipodi:cy="45.643154"
        sodipodi:rx="21.784233"
        sodipodi:ry="18.257261"
-       d="m 79.668049,45.643154 a 21.784233,18.257261 0 1 1 -43.568466,0 21.784233,18.257261 0 1 1 43.568466,0 z"
+       d="m 79.668049,45.643154 c 0,10.083207 -9.753134,18.257261 -21.784233,18.257261 -12.0311,0 -21.784233,-8.174054 -21.784233,-18.257261 0,-10.083207 9.753133,-18.257261 21.784233,-18.257261 12.031099,0 21.784233,8.174054 21.784233,18.257261 z"
        transform="matrix(2.39143,0,0,2.3710795,-65.371869,-117.56474)" />
     <path
        sodipodi:type="arc"

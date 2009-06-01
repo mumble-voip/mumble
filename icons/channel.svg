@@ -28,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.41"
-     inkscape:cx="86.514523"
-     inkscape:cy="195.27901"
+     inkscape:cx="73.858921"
+     inkscape:cy="150"
      inkscape:document-units="px"
      inkscape:current-layer="g121"
      showgrid="false"
@@ -518,7 +518,7 @@
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title>channel_linked</dc:title>
         <cc:license
-           rdf:resource="BSD" />
+           rdf:resource="" />
         <dc:rights>
           <cc:Agent>
             <dc:title>Martin Skilnand</dc:title>
@@ -532,7 +532,7 @@
         <dc:date>2009.05.30</dc:date>
         <dc:publisher>
           <cc:Agent>
-            <dc:title>Mumble project</dc:title>
+            <dc:title>Mumble team</dc:title>
           </cc:Agent>
         </dc:publisher>
         <dc:description>Icon for voice chat program mumble</dc:description>
@@ -702,7 +702,7 @@
          transform="matrix(0.97126434,0,0,1,32.675486,-38.386838)" />
       <path
          transform="matrix(0.97126434,0,0,1,32.676088,-44.62277)"
-         d="m 154.35685,50.829876 a 18.049793,4.7717843 0 1 1 -36.09959,0 18.049793,4.7717843 0 1 1 36.09959,0 z"
+         d="m 154.35685,50.829876 c 0,2.635384 -8.08117,4.771784 -18.0498,4.771784 -9.96862,0 -18.04979,-2.1364 -18.04979,-4.771784 0,-2.635384 8.08117,-4.771784 18.04979,-4.771784 9.96863,0 18.0498,2.1364 18.0498,4.771784 z"
          sodipodi:ry="4.7717843"
          sodipodi:rx="18.049793"
          sodipodi:cy="50.829876"
