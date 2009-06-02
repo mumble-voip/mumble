@@ -183,7 +183,7 @@ int ModelItem::insertIndex(ClientUser *p) const {
 }
 
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.png"));
+	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
 	qiTalkingAlt=QIcon(QLatin1String("skin:talking_alt.png"));
 	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.png"));
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.png"));
@@ -192,7 +192,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.png"));
 	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.png"));
 	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.png"));
-	qiChannel=QIcon(QLatin1String("skin:channel.png"));
+	qiChannel=QIcon(QLatin1String("skin:channel.svg"));
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
 	qiFriend=QIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
 
@@ -439,7 +439,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					if (isUser)
 						return tr("This is a user connected to the server. The icon to the left of the user indicates "
 						          "whether or not they are talking:<br />"
-						          "<img src=\"skin:talking_on.png\" /> Talking<br />"
+						          "<img src=\"skin:talking_on.svg\" width=32 /> Talking<br />"
 						          "<img src=\"skin:talking_off.png\" /> Not talking"
 						         );
 					else
