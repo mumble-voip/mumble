@@ -44,8 +44,6 @@ class Group {
 		QString qsName;
 		bool bInherit;
 		bool bInheritable;
-		// TODO: Make local class for ACLEditor, inherited from this
-		bool bInherited;
 		QSet<int> qsAdd;
 		QSet<int> qsRemove;
 		QSet<int> qsTemporary;
