@@ -480,6 +480,58 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 	g.iAudioQuality = iroundf(f);
 }
 
+
+/*
+ * FIXME: Experimental zero-latency callback-based preprocessing.
+
+extern "C" {
+	int speex_preprocess_run_cb(SpeexPreprocessState *st, float *ft);
+	SpeexPreprocessState *speex_preprocess_callback_init(int frame_size, int sampling_rate);
+};
+
+celt_int32_t celtBack(CELTEncoder *enc, void *rawdata, celt_int32_t format, celt_int32_t bits, celt_int32_t num, void *data) {
+	qWarning() << "CB" << enc << rawdata << format << bits << num << data;
+
+	static SpeexPreprocessState *st = NULL;
+	if (! st) {
+		int samp = 480;
+		int freq = 48000;
+
+		celt_encoder_ctl(enc, CELT_GET_SAMPLE_RATE, &freq);
+		celt_encoder_ctl(enc, CELT_GET_FRAME_SIZE, &samp);
+
+		qWarning() << "Init" << samp << freq;
+		st= speex_preprocess_callback_init(samp, freq);
+
+		int iArg;
+
+		iArg = 1;
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_VAD, &iArg);
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_AGC, &iArg);
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
+
+		iArg = 30000;
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
+
+		iArg = 30000;
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
+
+		float v = 30000.0f / static_cast<float>(g.s.iMinLoudness);
+		iArg = iroundf(floorf(20.0f * log10f(v)));
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
+
+		iArg = g.s.iNoiseSuppress;
+		speex_preprocess_ctl(st, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+	}
+	qWarning() << "Call";
+//	int res = 1;
+	int res = speex_preprocess_run_cb(st, (float *) rawdata);
+	qWarning() << "Result" << res;
+	return 1;
+}
+ */
+
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	ClientUser *p=ClientUser::get(g.uiSession);
@@ -638,7 +690,10 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	tIdle.restart();
-
+/*
+	int r = celt_encoder_ctl(ceEncoder, CELT_SET_POST_MDCT_CALLBACK(celtBack, NULL));
+	qWarning() << "Set Callback" << r;
+*/
 	if (! iIsSpeech) {
 		flushCheck(QByteArray());
 		iBitrate = 0;
