@@ -96,7 +96,6 @@ message BanList {
 	message BanEntry {
 		required bytes address = 1;
 		required uint32 mask = 2;
-		// FIXME: Implement these
 		optional string name = 3;
 		optional string hash = 4;
 		optional string reason = 5;
