@@ -690,10 +690,10 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	tIdle.restart();
-/*
-	int r = celt_encoder_ctl(ceEncoder, CELT_SET_POST_MDCT_CALLBACK(celtBack, NULL));
-	qWarning() << "Set Callback" << r;
-*/
+	/*
+		int r = celt_encoder_ctl(ceEncoder, CELT_SET_POST_MDCT_CALLBACK(celtBack, NULL));
+		qWarning() << "Set Callback" << r;
+	*/
 	if (! iIsSpeech) {
 		flushCheck(QByteArray());
 		iBitrate = 0;

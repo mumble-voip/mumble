@@ -1,4 +1,24 @@
+2009-06-05
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6b9ab90  Glue code for the experimental zero-latency preprocessing (not
+	     merged yet)
+
+2009-06-02
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e6c9d33  Use new svg icons
+
+2009-06-01
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    e2e75ae  fixed metadata. still need to find way to include bsd license
+	     information. Added test of talking_on.svg for review.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    75262e9  Fix typo of QsslKey
+
 2009-05-31
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    68deaf3  Second batch of test icons in .svg for review.
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     90e189a  Fall back to .ini cert if one is specified, currently using
 	     selfgenerated, and bind address matches
