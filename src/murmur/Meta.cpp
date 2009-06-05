@@ -269,9 +269,9 @@ void MetaParams::read(QString fname) {
 		if (qscCert.isNull()) {
 			qFatal("Failed to find certificate matching private key.");
 		}
-		if (ql.length() > 0) {
+		if (ql.size() > 0) {
 			QSslSocket::addDefaultCaCertificates(ql);
-			qCritical("Adding %d CA certificates from certificate file.", ql.length());
+			qCritical("Adding %d CA certificates from certificate file.", ql.size());
 		}
 	}
 

@@ -749,6 +749,7 @@ void Server::sslError(const QList<QSslError> &errors) {
 			case QSslError::SelfSignedCertificate:
 			case QSslError::SelfSignedCertificateInChain:
 			case QSslError::UnableToGetLocalIssuerCertificate:
+			case QSslError::HostNameMismatch:
 				u->bVerified = false;
 				break;
 			default:
