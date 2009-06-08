@@ -90,8 +90,7 @@ void DirectSoundInit::initialize() {
 		if (hLib != NULL) {
 			FreeLibrary(hLib);
 			qWarning("DirectSound: Disabled as WASAPI is available");
-//			FIXME: Re-enable
-//			return;
+			return;
 		}
 	}
 #endif
