@@ -196,6 +196,9 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 	stTarget = st;
 	setupUi(this);
 
+	qcbForceCenter->setChecked(st.bForceCenter);
+	qgbModifiers->setVisible(g.s.bExpert);
+
 	if (st.bUsers) {
 		qrbUsers->setChecked(true);
 		qswStack->setCurrentWidget(qwUserPage);
@@ -302,6 +305,8 @@ ShortcutTarget ShortcutTargetDialog::target() const {
 void ShortcutTargetDialog::accept() {
 	stTarget.bLinks = qcbLinks->isChecked();
 	stTarget.bChildren = qcbChildren->isChecked();
+
+	stTarget.bForceCenter = qcbForceCenter->isChecked();
 
 	stTarget.qlUsers.clear();
 	QList<QListWidgetItem *> ql = qlwUsers->findItems(QString(), Qt::MatchStartsWith);

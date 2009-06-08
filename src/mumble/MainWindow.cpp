@@ -184,9 +184,6 @@ void MainWindow::createActions() {
 	gsUnlink=new GlobalShortcut(this, idx++, tr("Unlink Plugin", "Global Shortcut"));
 	gsUnlink->setObjectName(QLatin1String("UnlinkPlugin"));
 
-	gsCenterPos=new GlobalShortcut(this, idx++, tr("Force Center Position", "Global Shortcut"));
-	gsCenterPos->setObjectName(QLatin1String("CenterPos"));
-
 	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
 	gsPushMute->setObjectName(QLatin1String("PushToMute"));
 
@@ -1387,17 +1384,6 @@ void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
 	g.bPushToMute = down;
 }
 
-void MainWindow::on_CenterPos_triggered(bool down, QVariant) {
-	// TODO: Make this be a targetshortcut option
-	g.bCenterPosition = down;
-
-	if (down) {
-		g.iPushToTalk++;
-	} else if (g.iPushToTalk) {
-		g.iPushToTalk--;
-	}
-}
-
 void MainWindow::on_VolumeUp_triggered(bool down, QVariant) {
 	if (down) {
 		float v = floorf(g.s.fVolume * 10.0f);
@@ -1442,12 +1428,15 @@ Channel *MainWindow::mapChannel(int idx) const {
 }
 
 void MainWindow::updateTarget() {
-	if (qsCurrentTargets.isEmpty())
+	if (qsCurrentTargets.isEmpty()) {
+		g.bCenterPosition = false;
 		g.iTarget = 0;
-	else {
+	} else {
+		bool center = false;
 		QList<ShortcutTarget> ql;
 		foreach(const ShortcutTarget &st, qsCurrentTargets) {
 			ShortcutTarget nt;
+			center = center || st.bForceCenter;
 			nt.bUsers = st.bUsers;
 			if (st.bUsers) {
 				foreach(const QString &hash, st.qlUsers) {
@@ -1527,6 +1516,7 @@ void MainWindow::updateTarget() {
 				}
 			}
 			qmTargetUse.insert(idx, iTargetCounter);
+			g.bCenterPosition = center;
 			g.iTarget = idx;
 		}
 	}

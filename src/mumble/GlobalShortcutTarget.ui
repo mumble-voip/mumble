@@ -140,7 +140,7 @@
      </widget>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
+   <item row="4" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="qbbButtons">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -155,6 +155,22 @@
      <property name="text">
       <string>Whisper to Channel</string>
      </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QGroupBox" name="qgbModifiers">
+     <property name="title">
+      <string>Modifiers</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QCheckBox" name="qcbForceCenter">
+        <property name="text">
+         <string>Ignore positional audio</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

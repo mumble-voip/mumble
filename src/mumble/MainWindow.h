@@ -87,7 +87,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QIcon qiIcon, qiIconMute, qiIconDeaf;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
-		GlobalShortcut *gsUnlink, *gsCenterPos, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
+		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
 		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -181,7 +181,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteLog_highlighted(const QUrl & link);
 		void on_PushToTalk_triggered(bool, QVariant);
 		void on_PushToMute_triggered(bool, QVariant);
-		void on_CenterPos_triggered(bool, QVariant);
 		void on_VolumeUp_triggered(bool, QVariant);
 		void on_VolumeDown_triggered(bool, QVariant);
 		void on_gsMuteSelf_down(QVariant);

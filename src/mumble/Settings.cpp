@@ -41,7 +41,7 @@ bool Shortcut::operator <(const Shortcut &other) const {
 ShortcutTarget::ShortcutTarget() {
 	bUsers = true;
 	iChannel = -3;
-	bLinks = bChildren = false;
+	bLinks = bChildren = bForceCenter = false;
 }
 
 bool ShortcutTarget::isServerSpecific() const {
@@ -49,7 +49,7 @@ bool ShortcutTarget::isServerSpecific() const {
 }
 
 bool ShortcutTarget::operator ==(const ShortcutTarget &o) const {
-	if (bUsers != o.bUsers)
+	if ((bUsers != o.bUsers) || (bForceCenter != o.bForceCenter))
 		return false;
 	if (bUsers)
 		return (qlUsers == o.qlUsers) && (qlSessions == o.qlSessions);
@@ -58,7 +58,7 @@ bool ShortcutTarget::operator ==(const ShortcutTarget &o) const {
 }
 
 quint32 qHash(const ShortcutTarget &t) {
-	quint32 h = 0;
+	quint32 h = t.bForceCenter ? 0x55555555 : 0xaaaaaaaa;
 	if (t.bUsers) {
 		foreach(unsigned int u, t.qlSessions)
 			h ^= u;
@@ -82,7 +82,7 @@ quint32 qHash(const QList<ShortcutTarget> &l) {
 }
 
 QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
-	qds << st.bUsers;
+	qds << st.bUsers << st.bForceCenter;
 
 	if (st.bUsers)
 		return qds << st.qlUsers;
@@ -91,7 +91,7 @@ QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
 }
 
 QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
-	qds >> st.bUsers;
+	qds >> st.bUsers >> st.bForceCenter;
 	if (st.bUsers)
 		return qds >> st.qlUsers;
 	else

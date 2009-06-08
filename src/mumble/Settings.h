@@ -56,6 +56,7 @@ struct ShortcutTarget {
 	QString qsGroup;
 	bool bLinks;
 	bool bChildren;
+	bool bForceCenter;
 	ShortcutTarget();
 	bool isServerSpecific() const;
 	bool operator <(const ShortcutTarget &) const;
