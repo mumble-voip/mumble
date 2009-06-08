@@ -1,5 +1,19 @@
-2009-06-05
+2009-06-08
   Thorvald Natvig <slicer@users.sourceforge.net>
+    5248ca4  Avoid cert warning when falling back to .ini cert
+    26e4f3a  Remove player from ACLs / Groups when unregistered
+    2635598  Re-disable DirectSound on Vista
+    fb96eed  VBR for CELT, and auto-readjust based on server quality levels
+    19e91f5  Replace AudioSine with samples
+    709289f  Make centerpos be a whisper option
+
+2009-06-05
+  Christoph Hofmann <christoph.hofmann@vfc2.eu>
+    733ee3d  Make compile on Qt from Lenny
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    2191991  Remove a few FIXMEs
+    c5874e1  Remove redundant flag from Group
     6b9ab90  Glue code for the experimental zero-latency preprocessing (not
 	     merged yet)
 

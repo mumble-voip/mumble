@@ -578,14 +578,14 @@ bool Server::unregisterUser(int id) {
 	if (res == 0) {
 		return false;
 	}
-	
+
 	{
 		QMutexLocker lock(&qmCache);
 
 		foreach(Channel *c, qhChannels) {
 			bool write = false;
 			QList<ChanACL *> ql = c->qlACL;
-			
+
 			foreach(ChanACL *acl, ql) {
 				if (acl->iUserId == id) {
 					c->qlACL.removeAll(acl);
@@ -601,7 +601,7 @@ bool Server::unregisterUser(int id) {
 				updateChannel(c);
 		};
 	}
-	
+
 
 	TransactionHolder th;
 
