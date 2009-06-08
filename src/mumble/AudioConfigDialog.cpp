@@ -192,7 +192,7 @@ void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
 }
 
 void AudioInputDialog::on_qsQuality_valueChanged(int v) {
-	qlQuality->setText(QString::number(v));
+	qlQuality->setText(tr("%1 kb/s").arg(v / 1000.0f, 0, 'f', 1));
 	updateBitrate();
 }
 
@@ -229,21 +229,21 @@ void AudioInputDialog::updateBitrate() {
 
 	int audiorate, overhead, posrate;
 
-	audiorate = 8000;
+	audiorate = q;
 
-	// 50 packets, in bits, IP + UDP + Crypt + type/id (Message header) + flags + seq
-	overhead = 50 * 8 * (20 + 8 + 4 + 3 + 1 + 2);
+	// 50 packets, in bits, IP + UDP + Crypt + type + seq
+	overhead = 100 * 8 * (20 + 8 + 4 + 1 + 2);
 
 	// TCP is 12 more bytes than UDP
 	if (NetworkConfig::TcpModeEnabled())
-		overhead += 50 * 8 * 12;
+		overhead += 100 * 8 * 12;
 
 	if (g.s.bTransmitPosition)
 		posrate = 12;
 	else
 		posrate = 0;
 
-	posrate = posrate * 50 * 8;
+	posrate = posrate * 100 * 8;
 
 	overhead = overhead / p;
 	posrate = posrate / p;

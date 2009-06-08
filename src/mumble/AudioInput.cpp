@@ -424,60 +424,30 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 }
 
 int AudioInput::getMaxBandwidth() {
-	int audiorate;
-
-	audiorate = 1000;
-
-	audiorate /= 400/g.s.iFramesPerPacket;
-
 	// Overhead
-	audiorate += 20 + 8 + 4 + 3 + 1 + 2;
+	int overhead = 20 + 8 + 4 + 1 + 2;
 
 	if (g.s.bTransmitPosition)
-		audiorate += 12;
+		overhead += 12;
 
 	if (NetworkConfig::TcpModeEnabled())
-		audiorate += 12;
+		overhead += 12;
 
-	audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
-
-	return audiorate;
+	return (g.s.iQuality / 8)  + (overhead * 100/g.s.iFramesPerPacket);
 }
 
 void AudioInput::setMaxBandwidth(int bytespersec) {
-	int audiorate;
-	int baserate;
+	int overhead = 20 + 8 + 4 + 1 + 2 + (g.s.bTransmitPosition ? 12 : 0) + (NetworkConfig::TcpModeEnabled() ? 12 : 0);
+	overhead *= (100 / g.s.iFramesPerPacket);
 
-	float f = static_cast<float>(g.s.iQuality);
+	bytespersec -= overhead;
 
-	do {
-		// FIXME: Autoreduce quality
-		baserate = 100;
-		audiorate = baserate;
+	int target = qMin(bytespersec * 8, g.s.iQuality);
+	if (target < 16000)
+		target = 16000;
 
-		audiorate /= 400/g.s.iFramesPerPacket;
-
-		// Overhead
-		audiorate += 20 + 8 + 4 + 3 + 1 + 2;
-
-		if (g.s.bTransmitPosition)
-			audiorate += 12;
-
-		if (NetworkConfig::TcpModeEnabled())
-			audiorate += 12;
-
-		audiorate = (audiorate * 50) / g.s.iFramesPerPacket;
-
-		if (f <= 1.9)
-			break;
-
-		if (audiorate > bytespersec) {
-			f -= 1.0f;
-		}
-	} while (audiorate > bytespersec);
-
-	g.iAudioBandwidth = audiorate;
-	g.iAudioQuality = iroundf(f);
+	g.iAudioBandwidth = (target/8 + overhead);
+	g.iAudioQuality = target;
 }
 
 
@@ -676,9 +646,9 @@ void AudioInput::encodeAudioFrame() {
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;
 		if (iIsSpeech && ! bPreviousVoice && ao)
-			ao->playSample(":/on.ogg");
+			ao->playSample(QLatin1String(":/on.ogg"));
 		else if (ao && !iIsSpeech && bPreviousVoice && ao)
-			ao->playSample(":/off.ogg");
+			ao->playSample(QLatin1String(":/off.ogg"));
 	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
@@ -699,7 +669,10 @@ void AudioInput::encodeAudioFrame() {
 		iBitrate = 0;
 	} else {
 		unsigned char buffer[512];
-		int len = celt_encode(ceEncoder, psSource, NULL, buffer, 50);
+
+		celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(g.iAudioQuality));
+
+		int len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(g.iAudioQuality / 400, 127));
 		iBitrate = len * 100 * 8;
 
 		flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len));
