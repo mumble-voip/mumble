@@ -573,16 +573,6 @@ const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
 	return NULL;
 }
 
-AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float volume) {
-	while ((iMixerFreq == 0) && isRunning()) {}
-
-	qrwlOutputs.lockForWrite();
-	AudioSine *as = new AudioSine(hz,i,frames, volume, iMixerFreq);
-	qmOutputs.insert(NULL, as);
-	qrwlOutputs.unlock();
-	return as;
-}
-
 AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	SoundFile *handle;
 	handle = AudioOutputSample::loadSndfile(filename);
@@ -894,59 +884,4 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
-}
-
-AudioSine::AudioSine(float hz, float i, unsigned int frm, float vol, unsigned int freq) : AudioOutputUser(QLatin1String("Sine")) {
-	float hfreq = static_cast<float>(freq) / 2.0f;
-	v = 0.0;
-	inc = static_cast<float>(M_PI * hz / hfreq);
-	dinc = static_cast<float>(M_PI * i / (hfreq * hfreq));
-	volume = vol * 32768.f;
-	frames = frm;
-	cntr = 0;
-	tbin = 4;
-
-	if (inc == 0.0)
-		g.iAudioPathTime = 0;
-}
-
-AudioSine::~AudioSine() {
-}
-
-bool AudioSine::needSamples(unsigned int snum) {
-	resizeBuffer(snum);
-	if (frames > 0) {
-		frames--;
-
-		if (inc == 0.0) {
-			if (++cntr == 50) {
-				cntr = 0;
-				tbin *= 2;
-				if (tbin >= 64)
-					tbin = 4;
-			}
-
-			AudioInputPtr ai = g.ai;
-
-			// FIXME: Not * snum, * something else
-			const float m = static_cast<float>(M_PI * static_cast<float>(tbin) / static_cast<float>(snum));
-			for (unsigned int i=0;i<snum;i++)
-				pfBuffer[i] = volume * sinf(m * static_cast<float>(i));
-
-			return true;
-		}
-
-		float t = v;
-
-		for (unsigned int i=0;i<snum;i++) {
-			pfBuffer[i]=sinf(t) * volume;
-			inc+=dinc;
-			t+=inc;
-		}
-		v = t;
-		return true;
-	} else {
-		memset(pfBuffer, 0, sizeof(float) * snum);
-		return false;
-	}
 }

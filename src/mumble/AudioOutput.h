@@ -190,25 +190,6 @@ class AudioOutputSample : public AudioOutputUser {
 		~AudioOutputSample();
 };
 
-class AudioSine : public AudioOutputUser {
-		// FIXME: This is redundant.
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioSine)
-	protected:
-		float v;
-		float inc;
-		float dinc;
-		float volume;
-		unsigned int frames;
-		unsigned int cntr;
-		unsigned int tbin;
-	public:
-		virtual bool needSamples(unsigned int snum);
-		AudioSine(float hz, float i, unsigned int frm, float v, unsigned int freq);
-		~AudioSine();
-};
-
 class AudioOutput : public QThread {
 	private:
 		Q_OBJECT
@@ -237,8 +218,7 @@ class AudioOutput : public QThread {
 		~AudioOutput();
 		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq);
 		void removeBuffer(const ClientUser *);
-		AudioSine *playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3f);
-		AudioOutputSample *playSample(const QString &filename, bool loop);
+		AudioOutputSample *playSample(const QString &filename, bool loop = false);
 		void run() = 0;
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);

@@ -676,9 +676,9 @@ void AudioInput::encodeAudioFrame() {
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;
 		if (iIsSpeech && ! bPreviousVoice && ao)
-			ao->playSine(400.0f,1200.0f,5);
+			ao->playSample(":/on.ogg");
 		else if (ao && !iIsSpeech && bPreviousVoice && ao)
-			ao->playSine(620.0f,-1200.0f,5);
+			ao->playSample(":/off.ogg");
 	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;

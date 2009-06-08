@@ -30,6 +30,8 @@
  <file alias="muted_overlay.png">../../icons/muted_overlay.png</file>
  <file alias="deafened_overlay.png">../../icons/deafened_overlay.png</file>
  <file alias="wb_male.oga">../../samples/wb_male.oga</file>
+ <file alias="on.ogg">../../samples/on.ogg</file>
+ <file alias="off.ogg">../../samples/off.ogg</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>
  <file>mumble_fr.qm</file>

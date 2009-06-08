@@ -266,10 +266,7 @@ void AudioWizard::on_qsOutputDelay_valueChanged(int v) {
 	qlOutputDelay->setText(tr("%1ms").arg(v*20));
 	g.s.iOutputDelay = v;
 	on_qcbOutputDevice_activated(0);
-	if (! bInit) {
-		AudioOutputPtr ao = g.ao;
-		ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
-	}
+	playChord();
 }
 
 void AudioWizard::on_qsMaxAmp_valueChanged(int v) {
