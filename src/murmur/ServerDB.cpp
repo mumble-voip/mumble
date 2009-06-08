@@ -562,7 +562,6 @@ int Server::registerUser(const QMap<QString, QString> &info) {
 }
 
 bool Server::unregisterUser(int id) {
-	// FIXME: Update ACLs and groups to remove id.
 	if (id <= 0)
 		return false;
 
@@ -579,6 +578,30 @@ bool Server::unregisterUser(int id) {
 	if (res == 0) {
 		return false;
 	}
+	
+	{
+		QMutexLocker lock(&qmCache);
+
+		foreach(Channel *c, qhChannels) {
+			bool write = false;
+			QList<ChanACL *> ql = c->qlACL;
+			
+			foreach(ChanACL *acl, ql) {
+				if (acl->iUserId == id) {
+					c->qlACL.removeAll(acl);
+					write = true;
+				}
+			}
+			foreach(Group *g, c->qhGroups) {
+				bool addrem = (g->qsAdd.remove(id) > 0);
+				bool remrem = (g->qsRemove.remove(id) > 0);
+				write = write || addrem || remrem;
+			}
+			if (write)
+				updateChannel(c);
+		};
+	}
+	
 
 	TransactionHolder th;
 
