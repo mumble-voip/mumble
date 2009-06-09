@@ -110,13 +110,13 @@ Settings::Settings() {
 	bTTS = true;
 	iTTSVolume = 75;
 	iTTSThreshold = 250;
-	iQuality = 6;
+	iQuality = 48000;
 	fVolume = 1.0f;
 	fOtherVolume = 0.5f;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
-	iFramesPerPacket = 2;
+	iFramesPerPacket = 1;
 	iNoiseSuppress = -30;
 	iIdleTime = 0;
 	vsVAD = SignalToNoise;
