@@ -619,13 +619,13 @@ module Murmur
 		 */
 		idempotent int verifyPassword(string name, string pw) throws ServerBootedException;
 
-		/** Fetch user texture. Textures are stored as zlib compress()ed 600x60 32-bit RGBA data.
+		/** Fetch user texture. Textures are stored as zlib compress()ed 600x60 32-bit BGRA data.
 		 * @param userid ID of registered user. See [RegisteredUser::userid].
 		 * @return Custom texture associated with user or an empty texture.
 		 */
 		idempotent Texture getTexture(int userid) throws ServerBootedException, InvalidUserException;
 
-		/** Set user texture. The texture is a 600x60 32-bit RGBA raw texture, optionally zlib compress()ed.
+		/** Set user texture. The texture is a 600x60 32-bit BGRA raw texture, optionally zlib compress()ed.
 		 * @param userid ID of registered user. See [RegisteredUser::userid].
 		 * @param tex Texture to set for the user, or an empty texture to remove the existing texture.
 		 */
