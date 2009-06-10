@@ -40,6 +40,9 @@
 #include "Plugins.h"
 #include "Global.h"
 #include "LCD.h"
+#ifdef USE_BONJOUR
+#include "BonjourClient.h"
+#endif
 #ifdef USE_DBUS
 #include "DBus.h"
 #endif
@@ -201,6 +204,11 @@ int main(int argc, char **argv) {
 	// Initialize database
 	g.db = new Database();
 
+#ifdef USE_BONJOUR
+	// Initialize bonjour
+	g.bc = new BonjourClient();
+#endif
+
 	// Initialize the serverhandler
 	g.sh = new ServerHandler();
 	g.sh->moveToThread(g.sh);
@@ -294,6 +302,9 @@ int main(int argc, char **argv) {
 	delete g.p;
 	delete g.l;
 
+#ifdef USE_BONJOUR
+	delete g.bc;
+#endif
 
 	delete g.o;
 

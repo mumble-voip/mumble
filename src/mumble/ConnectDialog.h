@@ -35,6 +35,10 @@
 #include "ui_ConnectDialog.h"
 #include "Timer.h"
 
+#ifdef USE_BONJOUR
+#include "BonjourClient.h"
+#endif
+
 struct PublicInfo {
 	QString name;
 	QUrl url;
@@ -61,14 +65,24 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QModelIndex qmiDirty;
 		QSqlRecord toRecord() const;
 		bool bDirty;
+		bool bResolving;
 		QHttp *qhList;
 
+		bool initLanList();
 		void initList();
 		void fillList();
 		void fillEmpty();
 	public slots:
 		void accept();
 		void finished();
+#ifdef USE_BONJOUR
+		void accept(const QHostInfo &, int);
+		void onUpdateLanList(const QList<BonjourRecord> &);
+		void onLanBrowseError(DNSServiceErrorType);
+		void onLanResolveError(DNSServiceErrorType);
+
+		void on_qpbLanBrowserConnect_clicked();
+#endif
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();
 		void onSelection_Changed(const QModelIndex &n, const QModelIndex &p);

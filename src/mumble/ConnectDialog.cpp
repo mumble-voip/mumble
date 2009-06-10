@@ -58,7 +58,6 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 #ifdef Q_OS_MAC
 	setWindowFlags(Qt::Sheet);
 #endif
-
 	bPublicInit = false;
 	bDirty = false;
 
@@ -86,6 +85,9 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qleServer, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qleUsername, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePort, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
+#ifdef USE_BONJOUR
+	connect(qtwLanServers, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_qpbLanBrowserConnect_clicked()));
+#endif
 
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 
@@ -101,12 +103,15 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	}
 
 	fillList();
-	qtwTab->setCurrentIndex(0);
-
 	if (qstmServers->rowCount() < 1) {
 		on_qpbAdd_clicked();
 		qtwTab->setCurrentIndex(1);
 	}
+
+	if (!initLanList())
+		qtwTab->removeTab(qtwTab->indexOf(qwTabLan));
+
+	qtwTab->setCurrentIndex(0);
 }
 
 void ConnectDialog::accept() {
@@ -172,6 +177,80 @@ void ConnectDialog::initList() {
 	QNetworkReply *rep = g.nam->get(req);
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
+
+bool ConnectDialog::initLanList() {
+#ifdef USE_BONJOUR
+	// Make sure the we got the objects we need, then wire them up
+	if (g.bc->bsbBrowser == NULL || g.bc->bsrResolver == NULL) return false;
+	connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
+		this, SLOT(onLanBrowseError(DNSServiceErrorType)));
+	connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
+		this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
+	connect(g.bc->bsrResolver, SIGNAL(error(DNSServiceErrorType)),
+		this, SLOT(onLanResolveError(DNSServiceErrorType)));
+	connect(g.bc->bsrResolver, SIGNAL(bonjourRecordResolved(const QHostInfo &, int)),
+		this, SLOT(accept(const QHostInfo &, int)));
+	// Manually update list
+	onUpdateLanList(g.bc->bsbBrowser->currentRecords());
+	return true;
+#else
+	return false;
+#endif
+}
+
+#ifdef USE_BONJOUR
+void ConnectDialog::accept(const QHostInfo &host, int port) {
+	if (!bResolving) return;
+	bResolving = false;
+
+	const QList<QHostAddress> &addrs = host.addresses();
+	if (addrs.isEmpty()) return;
+
+	QHostAddress addr(addrs.first());
+
+	bool ok;
+	QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(host.hostName()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
+	if (! ok)
+		return;
+	g.s.qsUsername = defUserName;
+	qsUsername = defUserName;
+	qsPassword = QString();
+	qsServer = addr.toString();
+	usPort = port;
+
+	QDialog::accept();
+}
+
+void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
+	qtwLanServers->clear();
+
+	foreach (BonjourRecord record, list) {
+		QVariant hrecord;
+		hrecord.setValue(record);
+		QTreeWidgetItem *tmp = new QTreeWidgetItem(qtwLanServers, QStringList() << record.serviceName);
+		tmp->setData(0, Qt::UserRole, hrecord);
+	}
+}
+
+void ConnectDialog::onLanBrowseError(DNSServiceErrorType err) {
+	/*DEBUG REMOVE LATER TOFIX TODO*/qWarning()<<"Bonjour reported browser error "<< err;
+}
+
+void ConnectDialog::onLanResolveError(DNSServiceErrorType err) {
+	bResolving = false; // Make sure we don't get stuck due to failed resolving
+	/*DEBUG REMOVE LATER TOFIX TODO*/qWarning()<<"Bonjour reported resolver error "<< err;
+}
+
+void ConnectDialog::on_qpbLanBrowserConnect_clicked() {
+	QTreeWidgetItem *item = qtwLanServers->currentItem();
+	if (! item)
+		return;
+
+	QVariant hrecord = item->data(0, Qt::UserRole);
+	g.bc->bsrResolver->resolveBonjourRecord(hrecord.value<BonjourRecord>());
+	bResolving = true;
+}
+#endif
 
 void ConnectDialog::fillList() {
 	qtwServers->clear();
@@ -386,5 +465,6 @@ void ConnectDialog::on_qtwTab_currentChanged(int idx) {
 	if (idx != 1)
 		return;
 
-	initList();
+	if (idx == 1)
+		initList();
 }

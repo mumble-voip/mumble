@@ -48,6 +48,7 @@ class Plugins;
 class QSettings;
 class Overlay;
 class LCD;
+class BonjourClient;
 
 struct Global {
 private:
@@ -65,6 +66,7 @@ public:
 	QSettings *qs;
 	Overlay *o;
 	LCD *lcd;
+	BonjourClient *bc;
 	QNetworkAccessManager *nam;
 	int iPushToTalk;
 	Timer tDoublePush;

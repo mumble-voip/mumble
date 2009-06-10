@@ -75,6 +75,7 @@ struct MetaParams {
 	QString qsRegPassword;
 	QString qsRegHost;
 	QUrl qurlRegWeb;
+	bool bBonjour;
 
 	QRegExp qrUserName;
 	QRegExp qrChannelName;

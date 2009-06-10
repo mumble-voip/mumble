@@ -29,6 +29,9 @@ PRECOMPILED_HEADER = murmur_pch.h
 	CONFIG *= dbus
 }
 
+!CONFIG(no-bonjour) {
+	CONFIG *= bonjour
+}
 
 win32 {
   RC_FILE = murmur.rc
@@ -106,3 +109,19 @@ ice {
 		slice.commands = /opt/Ice-3.3/bin/slice2cpp Murmur.ice
 	}
 }
+
+bonjour {
+	DEFINES *= USE_BONJOUR
+
+	HEADERS *= ../bonjour/bonjourrecord.h ../bonjour/bonjourserviceregister.h BonjourServer.h
+	SOURCES *= ../bonjour/bonjourserviceregister.cpp BonjourServer.cpp
+	win32 {
+		INCLUDEPATH *= /dev/Bonjour/include
+		LIBPATH *= /dev/Bonjour/lib/win32
+		LIBS *= -ldelayimp -lDNSSD -delayload:DNSSD.DLL
+	}
+	unix {
+		PKGCONFIG *= avahi-compat-libdns_sd
+	}
+}
+

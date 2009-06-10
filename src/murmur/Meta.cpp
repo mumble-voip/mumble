@@ -188,6 +188,7 @@ void MetaParams::read(QString fname) {
 	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
 	qsRegHost = qs.value("registerHostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
+	bBonjour = qs.value("bonjour", bBonjour).toBool();
 
 	iBanTries = qs.value("autobanAttempts", iBanTries).toInt();
 	iBanTimeframe = qs.value("autobanTimeframe", iBanTimeframe).toInt();
@@ -326,6 +327,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("registerpassword"),qsRegPassword);
 	qmConfig.insert(QLatin1String("registerhostname"),qsRegHost);
 	qmConfig.insert(QLatin1String("registerurl"),qurlRegWeb.toString());
+	qmConfig.insert(QLatin1String("bonjour"), bBonjour ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("certificate"),qscCert.toPem());
 	qmConfig.insert(QLatin1String("key"),qskKey.toPem());
 	qmConfig.insert(QLatin1String("obfuscate"),bObfuscate ? QLatin1String("true") : QLatin1String("false"));

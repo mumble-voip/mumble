@@ -40,6 +40,10 @@
 #include "ACL.h"
 #include "DBus.h"
 
+#ifdef USE_BONJOUR
+#include "BonjourServer.h"
+#endif
+
 class Channel;
 class PacketDataStream;
 
@@ -162,6 +166,10 @@ class Server : public QThread {
 	protected:
 		bool bRunning;
 
+#ifdef USE_BONJOUR
+		BonjourServer *bsRegistration;
+#endif
+
 		void startThread();
 		void stopThread();
 		
@@ -181,6 +189,7 @@ class Server : public QThread {
 		QString qsRegPassword;
 		QString qsRegHost;
 		QUrl qurlRegWeb;
+		bool bBonjour;
 
 		QRegExp qrUserName;
 		QRegExp qrChannelName;

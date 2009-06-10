@@ -81,6 +81,9 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 Server::Server(int snum, QObject *p) : QThread(p) {
 	bValid = true;
 	iServerNum = snum;
+#ifdef USE_BONJOUR
+	bsRegistration = NULL;
+#endif
 
 #ifdef Q_OS_UNIX
 	aiNotify[0] = aiNotify[1] = -1;
@@ -181,7 +184,18 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	readLinks();
 	initializeCert();
 
-	initRegister();
+	if (bValid) {
+#ifdef USE_BONJOUR
+		bsRegistration = new BonjourServer();
+		if (bsRegistration->bsrRegister) {
+			log("Announcing server via bonjour");
+			bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_murmur._tcp", ""),
+								     usPort);
+		}
+#endif
+		initRegister();
+
+	}
 }
 
 void Server::startThread() {
@@ -220,6 +234,11 @@ void Server::stopThread() {
 }
 
 Server::~Server() {
+#ifdef USE_BONJOUR
+	if (bsRegistration)
+		delete bsRegistration;
+#endif
+
 	stopThread();
 
 #ifdef Q_OS_UNIX
@@ -254,6 +273,7 @@ void Server::readParams() {
 	qsRegPassword = Meta::mp.qsRegPassword;
 	qsRegHost = Meta::mp.qsRegHost;
 	qurlRegWeb = Meta::mp.qurlRegWeb;
+	bBonjour = Meta::mp.bBonjour;
 	qrUserName = Meta::mp.qrUserName;
 	qrChannelName = Meta::mp.qrChannelName;
 
@@ -296,6 +316,7 @@ void Server::readParams() {
 	qsRegPassword = getConf("registerpassword", qsRegPassword).toString();
 	qsRegHost = getConf("registerhostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
+	bBonjour = getConf("bonjour", bBonjour).toBool();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -324,6 +345,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
+	else if (key == "bonjour")
+		bBonjour = !v.isNull() ? (v.toLower() == QLatin1String("true") || v.toLower() == QLatin1String("1") ) : Meta::mp.bBonjour;
 	else if (key == "username")
 		qrUserName=!v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")

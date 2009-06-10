@@ -58,6 +58,10 @@ CONFIG(no-bundled-celt) {
   CONFIG *= g15
 }
 
+!CONFIG(no-bonjour) {
+  CONFIG *= bonjour
+}
+
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h
@@ -176,6 +180,21 @@ asio {
 	SOURCES	*= ASIOInput.cpp
 	FORMS *= ASIOInput.ui
 	INCLUDEPATH *= ../../asio/common ../../asio/host ../../asio/host/pc
+}
+
+bonjour {
+	DEFINES *= USE_BONJOUR
+
+	HEADERS *= ../bonjour/bonjourrecord.h ../bonjour/bonjourserviceresolver.h ../bonjour/bonjourservicebrowser.h BonjourClient.h
+	SOURCES *= ../bonjour/bonjourserviceresolver.cpp ../bonjour/bonjourservicebrowser.cpp BonjourClient.cpp
+	win32 {
+		INCLUDEPATH *= /dev/Bonjour/include
+		LIBPATH *= /dev/Bonjour/lib/win32
+		LIBS *= -ldelayimp -lDNSSD -delayload:DNSSD.DLL
+	}
+	unix {
+		PKGCONFIG *= avahi-compat-libdns_sd
+	}
 }
 
 dbus {
