@@ -126,6 +126,8 @@ Settings::Settings() {
 
 	bUserTop = false;
 
+	bWhisperFriends = false;
+
 	uiDoublePush = 0;
 	bExpert = false;
 
@@ -285,6 +287,7 @@ void Settings::load() {
 	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
+	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
@@ -446,6 +449,7 @@ void Settings::save() {
 	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
+	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");

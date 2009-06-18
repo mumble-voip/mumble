@@ -89,6 +89,7 @@ struct Settings {
 	bool bMute, bDeaf;
 	bool bTTS;
 	bool bUserTop;
+	bool bWhisperFriends;
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;

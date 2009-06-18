@@ -108,6 +108,7 @@ void LogConfig::load(const Settings &r) {
 
 	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
+	qcbWhisperFriends->setChecked(r.bWhisperFriends);
 }
 
 void LogConfig::save() const {
@@ -130,6 +131,7 @@ void LogConfig::save() const {
 
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
+	s.bWhisperFriends = qcbWhisperFriends->isChecked();
 }
 
 void LogConfig::accept() const {
