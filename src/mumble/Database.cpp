@@ -41,6 +41,7 @@ Database::Database() {
 	if (g.qs->fileName().compare(QString::fromLatin1("%1/mumble.ini").arg(QApplication::instance()->applicationDirPath()), Qt::CaseInsensitive) == 0) {
 		datapaths << qApp->applicationDirPath();
 	} else {
+		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #if defined(Q_OS_WIN)
 		size_t reqSize;
 		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");

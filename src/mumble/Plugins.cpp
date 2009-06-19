@@ -144,26 +144,9 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	qsSystemPlugins=QLatin1String(MUMTEXT(PLUGIN_PATH));
 #endif
 
-#ifdef Q_OS_WIN
-	size_t reqSize, bSize;
-	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-	if (reqSize > 0) {
-		reqSize += strlen("/Mumble/Plugins");
-		bSize = reqSize;
-
-		STACKVAR(wchar_t, buff, reqSize+1);
-
-		_wgetenv_s(&reqSize, buff, bSize, L"APPDATA");
-		qsUserPlugins=QDir::fromNativeSeparators(QString::fromWCharArray(buff));
-	} else {
-		qsUserPlugins=QDir::homePath();
-	}
-	QDir(qsUserPlugins).mkpath(QLatin1String("Mumble/Plugins"));
-	qsUserPlugins+= QLatin1String("/Mumble/Plugins");
-#else
-	QDir(QDir::homePath()).mkpath(QLatin1String(".config/Mumble/Plugins"));
-	qsUserPlugins = QDir::homePath() + QLatin1String("/.config/Mumble/Plugins");
-#endif
+	qsUserPlugins = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+	qsUserPlugins += QLatin1String("/Plugins");
+	QDir::root().mkpath(qsUserPlugins);
 }
 
 Plugins::~Plugins() {

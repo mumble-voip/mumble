@@ -74,6 +74,8 @@ void MetaParams::read(QString fname) {
 		QStringList datapaths;
 
 #if defined(Q_OS_WIN)
+		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+
 		size_t reqSize;
 		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
 		if (reqSize > 0) {
@@ -87,6 +89,7 @@ void MetaParams::read(QString fname) {
 #elif defined(Q_OS_MAC)
 		datapaths << QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/");
 #else
+		datapaths << QDir::homePath() + QLatin1String("/.murmurd");
 		datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
 		datapaths << QDir::homePath();
@@ -94,11 +97,13 @@ void MetaParams::read(QString fname) {
 		datapaths << QCoreApplication::instance()->applicationDirPath();
 
 		foreach(const QString &p, datapaths) {
-			QFileInfo fi(p, "murmur.ini");
-			if (fi.exists() && fi.isReadable()) {
-				qdBasePath = QDir(p);
-				fname = fi.absoluteFilePath();
-				break;
+			if (! p.isEmpty()) {
+				QFileInfo fi(p, "murmur.ini");
+				if (fi.exists() && fi.isReadable()) {
+					qdBasePath = QDir(p);
+					fname = fi.absoluteFilePath();
+					break;
+				}
 			}
 		}
 		if (fname.isEmpty()) {

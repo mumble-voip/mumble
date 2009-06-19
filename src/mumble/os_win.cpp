@@ -137,6 +137,7 @@ void os_init() {
 
 
 #ifdef QT_NO_DEBUG
+	// FIXME: QDesktopServices::storageLocation
 	errno_t res = 0;
 	size_t reqSize, bSize;
 	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
