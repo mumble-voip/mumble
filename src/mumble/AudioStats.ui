@@ -17,13 +17,13 @@
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="QGroupBox" name="groupBox">
+      <widget class="QGroupBox" name="qgbInput">
        <property name="title">
         <string>Input Levels</string>
        </property>
        <layout class="QGridLayout">
         <item row="0" column="0">
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="qliMicLevel">
           <property name="text">
            <string>Peak microphone level</string>
           </property>
@@ -43,7 +43,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_3">
+         <widget class="QLabel" name="qliSpeakerLevel">
           <property name="text">
            <string>Peak speaker level</string>
           </property>
@@ -63,7 +63,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_5">
+         <widget class="QLabel" name="qliSignalLevel">
           <property name="text">
            <string>Peak clean level</string>
           </property>
@@ -86,13 +86,13 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_2">
+      <widget class="QGroupBox" name="qgbSignal">
        <property name="title">
         <string>Signal Analysis</string>
        </property>
        <layout class="QGridLayout">
         <item row="0" column="0">
-         <widget class="QLabel" name="label_7">
+         <widget class="QLabel" name="qliMicVolume">
           <property name="text">
            <string>Microphone power</string>
           </property>
@@ -112,7 +112,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_8">
+         <widget class="QLabel" name="qliMicSNR">
           <property name="text">
            <string>Signal-To-Noise ratio</string>
           </property>
@@ -132,7 +132,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_9">
+         <widget class="QLabel" name="qliSpeechProb">
           <property name="text">
            <string>Speech Probability</string>
           </property>
@@ -157,13 +157,13 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_5">
+    <widget class="QGroupBox" name="qgbConfiguration">
      <property name="title">
       <string>Configuration feedback</string>
      </property>
      <layout class="QGridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_13">
+       <widget class="QLabel" name="qliBitrate">
         <property name="text">
          <string>Current audio bitrate</string>
         </property>
@@ -189,7 +189,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QLabel" name="label_15">
+       <widget class="QLabel" name="qliDoublePush">
         <property name="text">
          <string>DoublePush interval</string>
         </property>
@@ -212,7 +212,7 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_17">
+       <widget class="QLabel" name="qliSpeech">
         <property name="text">
          <string>Speech Detection</string>
         </property>
@@ -245,7 +245,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_3">
+    <widget class="QGroupBox" name="qgbSpectrum">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>

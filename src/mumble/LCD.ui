@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="qgbDevices">
      <property name="minimumSize">
       <size>
        <width>160</width>
@@ -66,7 +66,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_3">
+    <widget class="QGroupBox" name="qgbViews">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
        <horstretch>0</horstretch>
@@ -78,7 +78,7 @@ This field describes the size of an LCD device. The size is given either in pixe
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="qliMinColWidth">
         <property name="text">
          <string>Minimum Column Width</string>
         </property>
@@ -116,7 +116,7 @@ This field describes the size of an LCD device. The size is given either in pixe
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="qliSplitterWidth">
         <property name="text">
          <string>Splitter Width</string>
         </property>

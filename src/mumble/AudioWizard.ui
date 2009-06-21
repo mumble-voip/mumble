@@ -66,7 +66,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="qliInputText">
          <property name="text">
           <string>This is the device your microphone is connected to.</string>
          </property>
@@ -76,7 +76,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="qliInput">
          <property name="text">
           <string>System</string>
          </property>
@@ -96,7 +96,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="label_5">
+        <widget class="QLabel" name="qliInputDevice">
          <property name="text">
           <string>Device</string>
          </property>
@@ -138,7 +138,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="qliOutputText">
          <property name="text">
           <string>This is the device your speakers or headphones are connected to.</string>
          </property>
@@ -148,7 +148,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_6">
+        <widget class="QLabel" name="qliOutput">
          <property name="text">
           <string>System</string>
          </property>
@@ -168,7 +168,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="label_7">
+        <widget class="QLabel" name="qliOutputDevice">
          <property name="text">
           <string>Device</string>
          </property>
@@ -227,7 +227,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0" colspan="3">
-     <widget class="QLabel" name="label_8">
+     <widget class="QLabel" name="qliDeviceTuningText">
       <property name="text">
        <string>&lt;p&gt;
 To keep latency to an absolute minimum, it's important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.
@@ -310,7 +310,7 @@ You should hear a single tone that's changing in frequency. Change the slider be
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <widget class="QLabel" name="label_9">
+     <widget class="QLabel" name="qliVolumeTuningText">
       <property name="text">
        <string>&lt;p&gt;
 Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a &quot;Microphone boost&quot; make sure it's checked.
@@ -336,7 +336,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_10">
+     <widget class="QLabel" name="qliAmpTuningText">
       <property name="text">
        <string>Now talk softly, as you would when talking late at night and you don't want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you're silent.</string>
       </property>
@@ -385,7 +385,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
-     <widget class="QLabel" name="label_12">
+     <widget class="QLabel" name="qliVADText">
       <property name="text">
        <string>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</string>
       </property>
@@ -439,7 +439,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_13">
+        <widget class="QLabel" name="qliVadTuningText">
          <property name="text">
           <string>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</string>
          </property>
@@ -513,7 +513,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_5">
     <item>
-     <widget class="QLabel" name="label_11">
+     <widget class="QLabel" name="qliPositionalText">
       <property name="text">
        <string>&lt;p&gt;
 Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.

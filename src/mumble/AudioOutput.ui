@@ -21,7 +21,7 @@
      </property>
      <layout class="QGridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="qliSystem">
         <property name="text">
          <string>System</string>
         </property>
@@ -63,7 +63,7 @@
        </spacer>
       </item>
       <item row="0" column="3">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="qliDevice">
         <property name="text">
          <string>Device</string>
         </property>
@@ -111,7 +111,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_17">
+       <widget class="QLabel" name="qliJitter">
         <property name="text">
          <string>Default &amp;Jitter Buffer</string>
         </property>
@@ -156,7 +156,7 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="qliVolume">
         <property name="text">
          <string>Volume</string>
         </property>
@@ -195,7 +195,7 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="qliDelay">
         <property name="text">
          <string>Output Delay</string>
         </property>
@@ -241,12 +241,12 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_12">
+       <widget class="QLabel" name="qliOtherVolume">
         <property name="text">
          <string>Other Applications</string>
         </property>
         <property name="buddy">
-         <cstring>qsVolume</cstring>
+         <cstring>qsOtherVolume</cstring>
         </property>
        </widget>
       </item>
@@ -295,7 +295,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLabel" name="label_10">
+       <widget class="QLabel" name="qliMinDistancce">
         <property name="text">
          <string>Minimum Distance</string>
         </property>
@@ -340,7 +340,7 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLabel" name="label_8">
+       <widget class="QLabel" name="qliMaxDistancce">
         <property name="text">
          <string>Maximum Distance</string>
         </property>
@@ -382,7 +382,7 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="qliMaxDistVolume">
         <property name="text">
          <string>Minimum Volume</string>
         </property>
@@ -421,7 +421,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="label_11">
+       <widget class="QLabel" name="qliBloom">
         <property name="text">
          <string>Bloom</string>
         </property>
@@ -472,7 +472,7 @@
      </property>
      <layout class="QGridLayout">
       <item row="1" column="0">
-       <widget class="QLabel" name="label_19">
+       <widget class="QLabel" name="qliPacketDelay">
         <property name="text">
          <string>Delay Variance</string>
         </property>
@@ -511,7 +511,7 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_21">
+       <widget class="QLabel" name="qliPacketLoss">
         <property name="text">
          <string>Packet Loss</string>
         </property>
@@ -556,7 +556,7 @@
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="label_23">
+       <widget class="QLabel" name="qliLoopback">
         <property name="text">
          <string>&amp;Loopback</string>
         </property>

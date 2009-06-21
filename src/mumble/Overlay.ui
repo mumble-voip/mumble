@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="qgbOptions">
      <property name="title">
       <string>Options</string>
      </property>
@@ -73,7 +73,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="qgbPosition">
      <property name="title">
       <string>Position</string>
      </property>
@@ -166,13 +166,13 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_3">
+    <widget class="QGroupBox" name="qgbFont">
      <property name="title">
       <string>Font</string>
      </property>
      <layout class="QGridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="qliSetFont">
         <property name="text">
          <string>Current Font</string>
         </property>
@@ -193,7 +193,7 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="qliMaxHeight">
         <property name="text">
          <string>Maximum height</string>
         </property>
@@ -226,7 +226,7 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="qliUser">
         <property name="text">
          <string>Color for users</string>
         </property>
@@ -240,7 +240,7 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="qliTalking">
         <property name="text">
          <string>Color for talking users</string>
         </property>
@@ -261,7 +261,7 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QLabel" name="label_8">
+       <widget class="QLabel" name="qliWhisper">
         <property name="text">
          <string>Color for whispering users</string>
         </property>
@@ -282,7 +282,7 @@
        </widget>
       </item>
       <item row="5" column="0">
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="qliChannel">
         <property name="text">
          <string>Color for Channels</string>
         </property>
@@ -303,7 +303,7 @@
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="qliChannelTalking">
         <property name="text">
          <string>Color for active Channels</string>
         </property>

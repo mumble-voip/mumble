@@ -19,7 +19,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="qwCustom">
       <attribute name="title">
        <string>&amp;Custom Servers</string>
       </attribute>
@@ -36,7 +36,7 @@
          <item>
           <layout class="QGridLayout">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="qliName">
              <property name="text">
               <string>&amp;Label</string>
              </property>
@@ -46,7 +46,7 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="qliServer">
              <property name="text">
               <string>A&amp;ddress</string>
              </property>
@@ -56,7 +56,7 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_3">
+            <widget class="QLabel" name="qliPort">
              <property name="text">
               <string>&amp;Port</string>
              </property>
@@ -66,7 +66,7 @@
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="qliUsername">
              <property name="text">
               <string>&amp;Username</string>
              </property>
@@ -144,7 +144,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="qwPublic">
       <attribute name="title">
        <string>Server &amp;Browser</string>
       </attribute>
@@ -234,7 +234,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>21</x>
-     <y>246</y>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -250,7 +250,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>248</x>
-     <y>246</y>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel">
      <x>444</x>
@@ -297,8 +297,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>138</x>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel">
      <x>20</x>
