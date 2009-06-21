@@ -117,6 +117,16 @@ quint32 qHash(const HostAddress &ha) {
 	return (ha.hash[0] ^ ha.hash[1] ^ ha.hash[2] ^ ha.hash[3]);
 }
 
+QString HostAddress::toString() const {
+	if (isV6()) {
+		QString qs;
+		qs.sprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]));
+		return qs.replace(QRegExp(QLatin1String("(:0)+")),QLatin1String(":"));
+	} else {
+		return QHostAddress(ntohl(hash[3])).toString();
+	}
+}
+
 bool Ban::operator <(const Ban &other) const {
 	return haAddress < other.haAddress;
 }

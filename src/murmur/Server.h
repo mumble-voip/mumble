@@ -253,7 +253,7 @@ class Server : public QThread {
 
 		void setLiveConf(const QString &key, const QString &value);
 
-		QString addressToString(const QHostAddress &);
+		QString addressToString(const QHostAddress &, unsigned short port);
 
 		void log(const QString &);
 		void log(ServerUser *u, const QString &);

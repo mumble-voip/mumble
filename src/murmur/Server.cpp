@@ -219,12 +219,12 @@ void Server::readParams() {
 		if (! qhaBind.setAddress(qsHost)) {
 			QHostInfo hi = QHostInfo::fromName(qsHost);
 			foreach(QHostAddress qha, hi.addresses()) {
-				if (qha.protocol() == QAbstractSocket::IPv4Protocol) {
+				if ((qha.protocol() == QAbstractSocket::IPv4Protocol) || (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
 					qhaBind = qha;
 					break;
 				}
 			}
-			if ((qhaBind == QHostAddress::Any) || (qhaBind.isNull())) {
+			if ((qhaBind == QHostAddress::AnyIPv6) || (qhaBind.isNull())) {
 				log(QString("Lookup of bind hostname %1 failed").arg(qsHost));
 				qhaBind = Meta::mp.qhaBind;
 			}
@@ -652,7 +652,7 @@ void Server::newClient() {
 		QHostAddress adr = sock->peerAddress();
 
 		if (meta->banCheck(adr)) {
-			log(QString("Ignoring connection: %1:%2 (Global ban)").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
+			log(QString("Ignoring connection: %1 (Global ban)").arg(addressToString(sock->peerAddress(), sock->peerPort())));
 			sock->disconnectFromHost();
 			sock->deleteLater();
 			return;
@@ -662,7 +662,7 @@ void Server::newClient() {
 
 		foreach(const Ban &ban, qlBans) {
 			if (ban.haAddress.match(ha, ban.iMask)) {
-				log(QString("Ignoring connection: %1:%2 (Server ban)").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
+				log(QString("Ignoring connection: %1 (Server ban)").arg(addressToString(sock->peerAddress(), sock->peerPort())));
 				sock->disconnectFromHost();
 				sock->deleteLater();
 				return;
@@ -697,7 +697,7 @@ void Server::newClient() {
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 		connect(u, SIGNAL(encrypted()), this, SLOT(encrypted()));
 
-		log(u, QString("New connection: %1:%2").arg(addressToString(sock->peerAddress())).arg(sock->peerPort()));
+		log(u, QString("New connection: %1").arg(addressToString(sock->peerAddress(), sock->peerPort())));
 
 		u->setToS();
 
@@ -1003,14 +1003,17 @@ void Server::clearACLCache(User *p) {
 	}
 }
 
-QString Server::addressToString(const QHostAddress &adr) {
-	if (Meta::mp.iObfuscate == 0)
-		return adr.toString();
+QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
+	HostAddress ha(adr);
 
-	quint32 num = adr.toIPv4Address() ^ Meta::mp.iObfuscate;
+	if ((Meta::mp.iObfuscate != 0) && adr.protocol() == QAbstractSocket::IPv4Protocol) {
+		quint32 num = adr.toIPv4Address() ^ Meta::mp.iObfuscate;
 
-	QHostAddress n(num);
-	return n.toString();
+		QHostAddress n(num);
+		ha = HostAddress(n);
+	}
+	QString p = QString::number(port);
+	return QString("%1:%2").arg(ha.toString(), p);
 }
 
 bool Server::validateUserName(const QString &name) {

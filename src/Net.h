@@ -54,6 +54,8 @@ struct HostAddress {
 	bool operator == (const HostAddress &) const;
 
 	bool match(const HostAddress &, int) const;
+	
+	QString toString() const;
 
 	std::string toStdString() const;
 	QHostAddress toAddress() const;

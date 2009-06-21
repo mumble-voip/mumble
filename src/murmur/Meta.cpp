@@ -53,7 +53,7 @@ MetaParams::MetaParams() {
 	qsDBusService = "net.sourceforge.mumble.murmur";
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
-	qhaBind = QHostAddress(QHostAddress::Any);
+	qhaBind = QHostAddress(QHostAddress::AnyIPv6);
 
 	iLogDays = 31;
 
@@ -129,12 +129,12 @@ void MetaParams::read(QString fname) {
 		if (! qhaBind.setAddress(qsHost)) {
 			QHostInfo hi = QHostInfo::fromName(qsHost);
 			foreach(QHostAddress qha, hi.addresses()) {
-				if (qha.protocol() == QAbstractSocket::IPv4Protocol) {
+				if ((qha.protocol() == QAbstractSocket::IPv4Protocol) || (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
 					qhaBind = qha;
 					break;
 				}
 			}
-			if ((qhaBind == QHostAddress::Any) || (qhaBind.isNull())) {
+			if ((qhaBind == QHostAddress::AnyIPv6) || (qhaBind.isNull())) {
 				qFatal("Lookup of bind hostname %s failed", qPrintable(qsHost));
 			}
 
