@@ -952,6 +952,8 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 
 void UserModel::userTalkingChanged(bool) {
 	ClientUser *p=static_cast<ClientUser *>(sender());
+	if (!p)
+		return;
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 	updateOverlay();

@@ -411,11 +411,16 @@ void ServerHandler::serverConnectionConnected() {
 	{
 		QMutexLocker qml(&qmUdp);
 
+		qhaRemote = cConnection->peerAddress();
+
 		qusUdp = new QUdpSocket(this);
-		qusUdp->bind();
+		if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol)
+			qusUdp->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
+		else
+			qusUdp->bind(QHostAddress(QHostAddress::Any), 0);
+
 		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 
-		qhaRemote = cConnection->peerAddress();
 
 #if defined(Q_OS_UNIX)
 		int val = 0xe0;
