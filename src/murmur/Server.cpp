@@ -69,9 +69,9 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 }
 
 ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User() {
-	saiUdpAddress.sin_port = 0;
-	saiUdpAddress.sin_addr.s_addr = htonl(socket->peerAddress().toIPv4Address());
-	saiUdpAddress.sin_family = AF_INET;
+	sUdpSocket = INVALID_SOCKET;
+
+	memset(&saiUdpAddress, 0, sizeof(saiUdpAddress));
 
 	bUdp = true;
 	uiVersion = 0;
@@ -81,60 +81,86 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 Server::Server(int snum, QObject *p) : QThread(p) {
 	bValid = true;
 	iServerNum = snum;
+	
+	aiNotify[0] = aiNotify[1] = -1;
 
 	readParams();
 	initialize();
 
-	qtsServer = new SslServer(this);
+	foreach(const QHostAddress &qha, qlBind) {
+		SslServer *ss = new SslServer(this);
 
-	connect(qtsServer, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
+		connect(ss, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
-	if (! qtsServer->listen(qhaBind, usPort)) {
-		log(QString("Server: TCP Listen on port %1 failed").arg(usPort));
-		bValid = false;
-	} else {
-		log(QString("Server listening on port %1").arg(usPort));
+		if (! ss->listen(qha, usPort)) {
+			log(QString("Server: TCP Listen on %1 failed").arg(addressToString(qha,usPort)));
+			bValid = false;
+		} else {
+			log(QString("Server listening on %1").arg(addressToString(qha,usPort)));
+		}
+		qlServer << ss;
 	}
 
-	sUdpSocket = INVALID_SOCKET;
+	if (! bValid)
+		return;
 
-	if (bValid) {
+	foreach(SslServer *ss, qlServer) {
+		sockaddr_storage addr;
 #ifdef Q_OS_UNIX
-		sUdpSocket = ::socket(PF_INET, SOCK_DGRAM, 0);
+		int tcpsock = ss->socketDescriptor();
+		socklen_t len = sizeof(addr);
+#else
+		SOCKET tcpsock = ss->socketDescriptor();
+		int len = sizeof(addr);
+#endif
+		memset(&addr, 0, sizeof(addr));
+		getsockname(tcpsock, reinterpret_cast<struct sockaddr *>(&addr), &len);
+#ifdef Q_OS_UNIX
+		int sock = ::socket(addr.ss_family, SOCK_DGRAM, 0);
 #else
 #ifndef SIO_UDP_CONNRESET
 #define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR,12)
 #endif
-		sUdpSocket = ::WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
+		SOCKET sock = ::WSASocket(addr.ss_family, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
 		DWORD dwBytesReturned = 0;
 		BOOL bNewBehaviour = FALSE;
-		if (WSAIoctl(sUdpSocket, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
+		if (WSAIoctl(sock, SIO_UDP_CONNRESET, &bNewBehaviour, sizeof(bNewBehaviour), NULL, 0, &dwBytesReturned, NULL, NULL) == SOCKET_ERROR) {
 			log(QString("Failed to set SIO_UDP_CONNRESET: %1").arg(WSAGetLastError()));
 		}
 #endif
-		if (sUdpSocket == INVALID_SOCKET) {
+		if (sock == INVALID_SOCKET) {
 			log("Failed to create UDP Socket");
 			bValid = false;
+			return;
 		} else {
-			struct sockaddr_in addr;
-			memset(&addr, 0, sizeof(addr));
-			addr.sin_family = AF_INET;
-			addr.sin_port = htons(usPort);
-			addr.sin_addr.s_addr = htonl(qhaBind.toIPv4Address());
-			if (::bind(sUdpSocket, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) == SOCKET_ERROR) {
-				log(QString("Failed to bind UDP Socket to port %1").arg(usPort));
+			if (::bind(sock, reinterpret_cast<sockaddr *>(&addr), len) == SOCKET_ERROR) {
+				log(QString("Failed to bind UDP Socket to %1").arg(addressToString(ss->serverAddress(), usPort)));
 			} else {
 #ifdef Q_OS_UNIX
 				int val = 0xe0;
-				if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+				if (setsockopt(sock, IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
 					val = 0x80;
-					if (setsockopt(sUdpSocket, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+					if (setsockopt(sock, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 						log("Server: Failed to set TOS for UDP Socket");
 				}
 #endif
 			}
+			qlUdpSocket << sock;
 		}
 	}
+
+	bValid = bValid && (qlServer.count() == qlBind.count()) && (qlUdpSocket.count() == qlBind.count());
+	if (! bValid)
+		return;
+
+#ifdef Q_OS_UNIX
+	if (socketpair(AF_UNIX, SOCK_STREAM, 0, aiNotify) != 0) {
+		log("Failed to create notify socket");
+		bValid = false;
+		return;
+	}
+#else
+#endif
 
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
 	connect(this, SIGNAL(reqSync(unsigned int)), this, SLOT(doSync(unsigned int)));
@@ -150,8 +176,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	readLinks();
 	initializeCert();
 
-	if (bValid)
-		initRegister();
+	initRegister();
 }
 
 void Server::startThread() {
@@ -178,23 +203,34 @@ void Server::startThread() {
 void Server::stopThread() {
 	bRunning = false;
 	if (isRunning()) {
-		qrwlUsers.lockForWrite();
-		terminate();
+#ifdef Q_OS_UNIX
+		unsigned char val = 0;
+		::write(aiNotify[1], &val, 1);
+#else
+		panic;
+#endif
 		wait();
-		qrwlUsers.unlock();
 	}
 	qtTimeout->stop();
 }
 
 Server::~Server() {
 	stopThread();
-	if (sUdpSocket != INVALID_SOCKET)
+
 #ifdef Q_OS_UNIX
-		close(sUdpSocket);
+	foreach(int s, qlUdpSocket)
+		close(s);
+		
+	if (aiNotify[0] >= 0)
+		close(aiNotify[0]);
+	if (aiNotify[1] >= 0)
+		close(aiNotify[1]);
 #else
-		closesocket(sUdpSocket);
+	foreach(SOCKET s, qlUdpSocket)
+		closesocket(s);
 #endif
 	clearACLCache();
+	
 	log("Stopped");
 }
 
@@ -206,7 +242,7 @@ void Server::readParams() {
 	iMaxUsers = Meta::mp.iMaxUsers;
 	iDefaultChan = Meta::mp.iDefaultChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
-	qhaBind = Meta::mp.qhaBind;
+	qlBind = Meta::mp.qlBind;
 	qsRegName = Meta::mp.qsRegName;
 	qsRegPassword = Meta::mp.qsRegPassword;
 	qsRegHost = Meta::mp.qsRegHost;
@@ -216,21 +252,29 @@ void Server::readParams() {
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
-		if (! qhaBind.setAddress(qsHost)) {
-			QHostInfo hi = QHostInfo::fromName(qsHost);
-			foreach(QHostAddress qha, hi.addresses()) {
-				if ((qha.protocol() == QAbstractSocket::IPv4Protocol) || (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
-					qhaBind = qha;
-					break;
+		qlBind.clear();
+		foreach(const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
+			QHostAddress qhaddr;
+			if (qhaddr.setAddress(qsHost)) {
+				qlBind << qhaddr;
+			} else {
+				bool found = false;
+				QHostInfo hi = QHostInfo::fromName(host);
+				foreach(QHostAddress qha, hi.addresses()) {
+					if ((qha.protocol() == QAbstractSocket::IPv4Protocol) || (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
+						qlBind << qha;
+						found = true;
+					}
+				}
+				if (! found) {
+					log(QString("Lookup of bind hostname %1 failed").arg(host));
 				}
 			}
-			if ((qhaBind == QHostAddress::AnyIPv6) || (qhaBind.isNull())) {
-				log(QString("Lookup of bind hostname %1 failed").arg(qsHost));
-				qhaBind = Meta::mp.qhaBind;
-			}
-
 		}
-		log(QString("Binding to address %1").arg(qhaBind.toString()));
+		foreach(const QHostAddress &qha, qlBind)
+			log(QString("Binding to address %1").arg(qha.toString()));
+		if (qlBind.isEmpty())
+			qlBind = Meta::mp.qlBind;
 	}
 
 	qsPassword = getConf("password", qsPassword).toString();
@@ -325,6 +369,7 @@ int BandwidthRecord::bandwidth() const {
 }
 
 void Server::run() {
+
 	qint32 len;
 #if defined(__LP64__)
 	char encbuff[512+8];
@@ -334,103 +379,130 @@ void Server::run() {
 #endif
 	char buffer[512];
 
-	sockaddr_in from;
+	sockaddr_storage from;
 #ifdef Q_OS_UNIX
 	socklen_t fromlen;
 #else
 	int fromlen;
 #endif
 
-	if (sUdpSocket == INVALID_SOCKET)
-		return;
+	int nfds = qlUdpSocket.count();
+	STACKVAR(struct pollfd, fds, nfds+1);
+
+	for (int i=0;i<nfds;++i) {
+		fds[i].fd = qlUdpSocket.at(i);
+		fds[i].events = POLLIN;
+		fds[i].revents = 0;
+	}
+	
+	fds[nfds].fd=aiNotify[0];
+	fds[nfds].events = POLLIN;
+	fds[nfds].revents = 0;
+	
+	nfds++;
+
+	log("Starting voice thread");
 
 	while (bRunning) {
-#ifdef Q_OS_DARWIN
-		/*
-		 * Pthreads on Darwin suck.  They won't allow us to shut down the
-		 * server thread while we're in the recvfrom() syscall.
-		 *
-		 * We use this little hack to loop through our outer loop once in
-		 * a while to determine if we should still be running.
-		 */
-		static struct pollfd fds = {
-			sUdpSocket, POLLIN, 0
-		};
-		int ret = poll(&fds, 1, 1000);
-
-		if (ret == 0) {
-			continue;
-		} else if (ret == -1) {
-			qCritical("poll() failed: %s", strerror(errno));
+		int pret = poll(fds, nfds, -1);
+		if (pret <= 0) {
+			log("poll failure");
+			bRunning = false;
 			break;
 		}
-#endif
 
-		fromlen = sizeof(from);
-#ifdef Q_OS_WIN
-		len=::recvfrom(sUdpSocket, encrypt, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
-#else
-		len=static_cast<qint32>(::recvfrom(sUdpSocket, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
-#endif
-		if (len == 0) {
+		if (fds[nfds - 1].revents) {
+			// Drain pipe
+			unsigned char val;
+			while(::recv(aiNotify[0], &val, 1, MSG_DONTWAIT) == 1) {};
 			break;
-		} else if (len == SOCKET_ERROR) {
-			break;
-		} else if (len < 5) {
-			// 4 bytes crypt header + type + session
-			continue;
-		} else if (len > 512) {
-			continue;
 		}
 
-		QReadLocker rl(&qrwlUsers);
-
-		quint64 key = (static_cast<unsigned long long>(from.sin_addr.s_addr) << 16) ^ from.sin_port;
-
-		ServerUser *u = qhPeerUsers.value(key);
-		if (u) {
-			if (! checkDecrypt(u, encrypt, buffer, len)) {
-				continue;
-			}
-		} else {
-			// Unknown peer
-			foreach(ServerUser *usr, qhHostUsers.value(from.sin_addr.s_addr)) {
-				if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypt, buffer, len)) {
-					// Every time we relock, reverify users' existance.
-					// The main thread might delete the user while the lock isn't held.
-					unsigned int uiSession = usr->uiSession;
-					rl.unlock();
-					qrwlUsers.lockForWrite();
-					if (qhUsers.contains(uiSession)) {
-						u = usr;
-						qhHostUsers[from.sin_addr.s_addr].remove(u);
-						qhPeerUsers.insert(key, u);
-						u->saiUdpAddress.sin_port = from.sin_port;
-						qrwlUsers.unlock();
-						rl.relock();
-						if (! qhUsers.contains(uiSession))
-							u = NULL;
-					}
+		for (int i=0;i<nfds-1;++i) {
+			if (fds[i].revents) {
+				if (fds[i].revents & (POLLHUP | POLLERR | POLLNVAL)) {
+					log("poll event failure");
+					bRunning = false;
 					break;
 				}
+
+				int sock = fds[i].fd;
+
+				fromlen = sizeof(from);
+#ifdef Q_OS_WIN
+				len=::recvfrom(sock, encrypt, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+#else
+				len=static_cast<qint32>(::recvfrom(sock, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
+#endif
+				if (len == 0) {
+					break;
+				} else if (len == SOCKET_ERROR) {
+					break;
+				} else if (len < 5) {
+					// 4 bytes crypt header + type + session
+					continue;
+				} else if (len > 512) {
+					continue;
+				}
+
+				QReadLocker rl(&qrwlUsers);
+
+				quint16 port = (from.ss_family == AF_INET6) ? (reinterpret_cast<sockaddr_in6 *>(&from)->sin6_port) : (reinterpret_cast<sockaddr_in *>(&from)->sin_port);
+				const HostAddress &ha = HostAddress(from);
+
+				qWarning() << "Got UDP From" << ha.toString();
+
+				const QPair<HostAddress, quint16> &key = QPair<HostAddress, quint16>(ha, port);
+
+				ServerUser *u = qhPeerUsers.value(key);
+				if (u) {
+					if (! checkDecrypt(u, encrypt, buffer, len)) {
+						continue;
+					}
+				} else {
+					// Unknown peer
+					foreach(ServerUser *usr, qhHostUsers.value(ha)) {
+						if (usr->csCrypt.isValid() && checkDecrypt(usr, encrypt, buffer, len)) {
+							// Every time we relock, reverify users' existance.
+							// The main thread might delete the user while the lock isn't held.
+							unsigned int uiSession = usr->uiSession;
+							rl.unlock();
+							qrwlUsers.lockForWrite();
+							if (qhUsers.contains(uiSession)) {
+								u = usr;
+								u->sUdpSocket = sock;
+								memcpy(& u->saiUdpAddress, &from, sizeof(from));
+								qhHostUsers[from].remove(u);
+								qhPeerUsers.insert(key, u);
+								qrwlUsers.unlock();
+								rl.relock();
+								if (! qhUsers.contains(uiSession))
+									u = NULL;
+							}
+							break;
+						}
+					}
+					if (! u) {
+						continue;
+					}
+				}
+				len -= 4;
+
+
+				unsigned int msgType = (buffer[0] >> 5) & 0x7;
+
+				if (msgType == MessageHandler::UDPPing) {
+					QByteArray qba;
+					sendMessage(u, buffer, len, qba, true);
+				} else if (msgType == MessageHandler::UDPVoice) {
+					u->bUdp = true;
+					processMsg(u, buffer, len);
+				}
+				fds[i].revents = 0;
 			}
-			if (! u) {
-				continue;
-			}
-		}
-		len -= 4;
-
-
-		unsigned int msgType = (buffer[0] >> 5) & 0x7;
-
-		if (msgType == MessageHandler::UDPPing) {
-			QByteArray qba;
-			sendMessage(u, buffer, len, qba, true);
-		} else if (msgType == MessageHandler::UDPVoice) {
-			u->bUdp = true;
-			processMsg(u, buffer, len);
 		}
 	}
+	log("Ending voice thread");
 }
 
 bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
@@ -447,7 +519,7 @@ bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsig
 }
 
 void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force) {
-	if ((u->bUdp || force) && (u->saiUdpAddress.sin_port != 0) && u->csCrypt.isValid()) {
+	if ((u->bUdp || force) && (u->sUdpSocket != INVALID_SOCKET) && u->csCrypt.isValid()) {
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, len+4+16);
 		char *buffer = reinterpret_cast<char *>(((reinterpret_cast<quint64>(ebuffer) + 8) & ~7) + 4);
@@ -458,12 +530,13 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 #ifdef Q_OS_WIN
 		DWORD dwFlow = 0;
 		if (Meta::hQoS)
-			QOSAddSocketToFlow(Meta::hQoS, sUdpSocket, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlow);
-		::sendto(sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
+			QOSAddSocketToFlow(Meta::hQoS, u->sUdpSocket, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlow);
+#endif
+		::sendto(u->sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), (u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in));
+#ifdef Q_OS_WIN
 		if (Meta::hQoS && dwFlow)
 			QOSRemoveSocketFromFlow(Meta::hQoS, 0, dwFlow, 0);
 #else
-		::sendto(sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), sizeof(u->saiUdpAddress));
 #endif
 
 
@@ -644,8 +717,11 @@ void Server::log(const QString &msg) {
 }
 
 void Server::newClient() {
+	SslServer *ss = qobject_cast<SslServer *>(sender());
+	if (! ss)
+		return;
 	forever {
-		QSslSocket *sock = qtsServer->nextPendingSSLConnection();
+		QSslSocket *sock = ss->nextPendingSSLConnection();
 		if (! sock)
 			return;
 
@@ -679,9 +755,6 @@ void Server::newClient() {
 			return;
 		}
 
-		if (qhUsers.isEmpty())
-			startThread();
-
 		ServerUser *u = new ServerUser(this, sock);
 		u->uiSession = qqIds.dequeue();
 		u->haAddress = ha;
@@ -689,7 +762,7 @@ void Server::newClient() {
 		{
 			QWriteLocker wl(&qrwlUsers);
 			qhUsers.insert(u->uiSession, u);
-			qhHostUsers[htonl(sock->peerAddress().toIPv4Address())].insert(u);
+			qhHostUsers[ha].insert(u);
 		}
 
 		connect(u, SIGNAL(connectionClosed(const QString &)), this, SLOT(connectionClosed(const QString &)));
@@ -786,8 +859,10 @@ void Server::connectionClosed(const QString &reason) {
 		QWriteLocker wl(&qrwlUsers);
 
 		qhUsers.remove(u->uiSession);
-		qhHostUsers[u->saiUdpAddress.sin_addr.s_addr].remove(u);
-		quint64 key = (static_cast<unsigned long long>(u->saiUdpAddress.sin_addr.s_addr) << 16) ^ u->saiUdpAddress.sin_port;
+		qhHostUsers[u->haAddress].remove(u);
+
+		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6) ? (reinterpret_cast<sockaddr_in6 *>(&u->saiUdpAddress)->sin6_port) : (reinterpret_cast<sockaddr_in *>(&u->saiUdpAddress)->sin_port);
+		const QPair<HostAddress, quint16> &key = QPair<HostAddress, quint16>(u->haAddress, port);
 		qhPeerUsers.remove(key);
 
 		if (u->cChannel)

@@ -39,7 +39,7 @@
 #include <mach-o/arch.h>
 #endif
 
-QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
+QString OSInfo::getMacHash(const QList<QHostAddress> &qlBind) {
 	QString first, second, third;
 	foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
 		if (! qni.isValid())
@@ -62,7 +62,7 @@ QString OSInfo::getMacHash(const QHostAddress &qhaBind) {
 
 		foreach(const QNetworkAddressEntry &qnae, qni.addressEntries()) {
 			const QHostAddress &qha = qnae.ip();
-			if (((qhaBind == QHostAddress::Any) && (qha.protocol() ==  QAbstractSocket::IPv4Protocol)) || (qha == qhaBind)) {
+			if (qlBind.isEmpty() || qlBind.contains(qha)) {
 				if (first.isEmpty() || first > hash)
 					first = hash;
 			}
@@ -144,14 +144,14 @@ QString OSInfo::getOSVersion() {
 #endif
 }
 
-void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, const QString &osver, const QHostAddress &qhaBind) {
+void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, const QString &osver, const QList<QHostAddress> &qlBind) {
 	QDomElement tag;
 	QDomText t;
 	bool bIs64;
 
 	tag=doc.createElement(QLatin1String("machash"));
 	root.appendChild(tag);
-	t=doc.createTextNode(OSInfo::getMacHash(qhaBind));
+	t=doc.createTextNode(OSInfo::getMacHash(qlBind));
 	tag.appendChild(t);
 
 	tag=doc.createElement(QLatin1String("version"));

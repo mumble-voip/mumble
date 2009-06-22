@@ -35,10 +35,10 @@
 
 class OSInfo {
 	public:
-		static QString getMacHash(const QHostAddress & = QHostAddress(QHostAddress::Any));
+		static QString getMacHash(const QList<QHostAddress> & = QList<QHostAddress>());
 		static QString getOS();
 		static QString getOSVersion();
-		static void fillXml(QDomDocument &doc, QDomElement &root, const QString &os = OSInfo::getOS(), const QString &osver = OSInfo::getOSVersion(), const QHostAddress & = QHostAddress(QHostAddress::Any));
+		static void fillXml(QDomDocument &doc, QDomElement &root, const QString &os = OSInfo::getOS(), const QString &osver = OSInfo::getOSVersion(), const QList<QHostAddress> & = QList<QHostAddress>());
 };
 
 #endif

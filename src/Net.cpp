@@ -66,6 +66,21 @@ HostAddress::HostAddress(const QHostAddress &address) {
 	}
 }
 
+HostAddress::HostAddress(const sockaddr_storage &address) {
+	if (address.ss_family == AF_INET) {
+		const struct sockaddr_in *in = reinterpret_cast<const struct sockaddr_in *>(&address);
+		addr[0] = 0ULL;
+		shorts[4] = 0;
+		shorts[5] = 0xffff;
+		hash[3] = in->sin_addr.s_addr;
+	} else if (address.ss_family == AF_INET6) {
+		const struct sockaddr_in6 *in6 = reinterpret_cast<const struct sockaddr_in6 *>(&address);
+		memcpy(qip6.c, in6->sin6_addr.s6_addr, 16);
+	} else {
+		addr[0] = addr[1] = 0ULL;
+	}
+}
+
 bool HostAddress::operator < (const HostAddress &other) const {
 	return memcmp(qip6.c, other.qip6.c, 16) < 0;
 }
@@ -119,9 +134,13 @@ quint32 qHash(const HostAddress &ha) {
 
 QString HostAddress::toString() const {
 	if (isV6()) {
-		QString qs;
-		qs.sprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]));
-		return qs.replace(QRegExp(QLatin1String("(:0)+")),QLatin1String(":"));
+		if (isValid()) {
+			QString qs;
+			qs.sprintf("[%x:%x:%x:%x:%x:%x:%x:%x]", ntohs(shorts[0]), ntohs(shorts[1]), ntohs(shorts[2]), ntohs(shorts[3]), ntohs(shorts[4]), ntohs(shorts[5]), ntohs(shorts[6]), ntohs(shorts[7]));
+			return qs.replace(QRegExp(QLatin1String("(:0)+")),QLatin1String(":"));
+		} else {
+			return QLatin1String("[::]");
+		}
 	} else {
 		return QHostAddress(ntohl(hash[3])).toString();
 	}

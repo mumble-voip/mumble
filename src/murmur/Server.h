@@ -132,8 +132,14 @@ class ServerUser : public Connection, public User {
 		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;
 		QMap<int, TargetCache> qmTargetCache;
 
+#ifdef Q_OS_UNIX
+		int sUdpSocket;
+#else
+		SOCKET sUdpSocket;
+#endif
+
 		BandwidthRecord bwr;
-		struct sockaddr_in saiUdpAddress;
+		struct sockaddr_storage saiUdpAddress;
 		ServerUser(Server *parent, QSslSocket *socket);
 };
 
@@ -149,7 +155,7 @@ class Server : public QThread {
 
 		// Former ServerParams
 	public:
-		QHostAddress qhaBind;
+		QList<QHostAddress> qlBind;
 		unsigned short usPort;
 		int iTimeout;
 		int iMaxBandwidth;
@@ -206,18 +212,20 @@ class Server : public QThread {
 	public:
 		int iServerNum;
 		QQueue<int> qqIds;
-		SslServer *qtsServer;
+		QList<SslServer *> qlServer;
 		QTimer *qtTimeout;
 
 #ifdef Q_OS_UNIX
-		int sUdpSocket;
+		int aiNotify[2];
+		QList<int> qlUdpSocket;
 #else
-		SOCKET sUdpSocket;
+		HANDLE hNotify;
+		QList<SOCKET> qlUdpSocket;
 #endif
 
 		QHash<unsigned int, ServerUser *> qhUsers;
-		QHash<quint64, ServerUser *> qhPeerUsers;
-		QHash<unsigned int, QSet<ServerUser *> > qhHostUsers;
+		QHash<QPair<HostAddress, quint16>, ServerUser *> qhPeerUsers;
+		QHash<HostAddress, QSet<ServerUser *> > qhHostUsers;
 		QHash<unsigned int, Channel *> qhChannels;
 		QReadWriteLock qrwlUsers;
 		ChanACL::ACLCache acCache;

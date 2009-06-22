@@ -46,6 +46,7 @@ struct HostAddress {
 	HostAddress(const std::string &);
 	HostAddress(const QHostAddress &);
 	HostAddress(const QByteArray &);
+	HostAddress(const struct sockaddr_storage &);
 
 	bool isV6() const;
 	bool isValid() const;

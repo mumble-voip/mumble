@@ -53,7 +53,6 @@ MetaParams::MetaParams() {
 	qsDBusService = "net.sourceforge.mumble.murmur";
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
-	qhaBind = QHostAddress(QHostAddress::AnyIPv6);
 
 	iLogDays = 31;
 
@@ -126,20 +125,35 @@ void MetaParams::read(QString fname) {
 
 	QString qsHost = qs.value("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
-		if (! qhaBind.setAddress(qsHost)) {
-			QHostInfo hi = QHostInfo::fromName(qsHost);
-			foreach(QHostAddress qha, hi.addresses()) {
-				if ((qha.protocol() == QAbstractSocket::IPv4Protocol) || (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
-					qhaBind = qha;
-					break;
+		foreach(const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
+			QHostAddress qhaddr;
+			if (qhaddr.setAddress(host)) {
+				qlBind << qhaddr;
+			} else {
+				bool found = false;
+				QHostInfo hi = QHostInfo::fromName(host);
+				foreach(QHostAddress qha, hi.addresses()) {
+					if ((qha.protocol() == QAbstractSocket::IPv4Protocol) || (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
+						qlBind << qha;
+						found = true;
+					}
+				}
+				if (! found) {
+					qFatal("Lookup of bind hostname %s failed", qPrintable(host));
 				}
 			}
-			if ((qhaBind == QHostAddress::AnyIPv6) || (qhaBind.isNull())) {
-				qFatal("Lookup of bind hostname %s failed", qPrintable(qsHost));
-			}
-
 		}
-		qWarning("Binding to address %s", qPrintable(qhaBind.toString()));
+		foreach(const QHostAddress &qha, qlBind)
+			qWarning("Binding to address %s", qPrintable(qha.toString()));
+	}
+	
+	if (qlBind.isEmpty()) {
+#ifdef Q_OS_WIN
+		if (QSysInfo::windowsVersion() < QSysInfo::WV_VISTA)
+			qlBind << QHostAddress(QHostAddress::Any)
+		else
+#endif
+		qlBind << QHostAddress(QHostAddress::AnyIPv6);
 	}
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
@@ -295,7 +309,11 @@ void MetaParams::read(QString fname) {
 	QSslSocket::setDefaultCiphers(pref);
 
 	qmConfig.clear();
-	qmConfig.insert(QLatin1String("host"),qhaBind.toString());
+	QStringList hosts;
+	foreach(const QHostAddress &qha, qlBind) {
+		hosts << qha.toString();
+	}
+	qmConfig.insert(QLatin1String("host"),hosts.join(" "));
 	qmConfig.insert(QLatin1String("password"),qsPassword);
 	qmConfig.insert(QLatin1String("port"),QString::number(usPort));
 	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
@@ -361,6 +379,10 @@ bool Meta::boot(int srvnum) {
 	if (! ServerDB::serverExists(srvnum))
 		return false;
 	Server *s = new Server(srvnum, this);
+	if (! s->bValid) {
+		delete s;
+		return false;
+	}
 	qhServers.insert(srvnum, s);
 	emit started(s);
 	return true;

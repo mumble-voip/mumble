@@ -95,7 +95,7 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.context = u->ssContext;
 	mp.idlesecs = u->bwr.idleSeconds();
 
-	mp.tcponly = (u->saiUdpAddress.sin_port == 0);
+	mp.tcponly = ! u->bUdp;
 
 	::Murmur::NetAddress addr(16, 0);
 	const Q_IPV6ADDR &a = u->haAddress.qip6;

@@ -62,6 +62,7 @@
 #include <netinet/ip.h>
 #include <errno.h>
 #include <signal.h>
+#include <poll.h>
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 #ifdef Q_OS_DARWIN

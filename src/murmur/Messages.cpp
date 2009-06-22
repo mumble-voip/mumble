@@ -137,6 +137,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		uSource->disconnectSocket();
 		return;
 	}
+	
+	startThread();
 
 	// Kick ghost
 	if (uOld) {
