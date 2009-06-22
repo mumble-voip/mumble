@@ -430,6 +430,7 @@ void MainWindow::openUrl(const QUrl &url) {
 
 	rtLast = MumbleProto::Reject_RejectType_None;
 	qaServerDisconnect->setEnabled(true);
+	g.l->log(Log::ServerConnected, tr("Connecting to server %1.").arg(host));
 	g.sh->setConnectionInfo(host, port, user, pw);
 	g.sh->start(QThread::TimeCriticalPriority);
 }
@@ -545,6 +546,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 		qsDesiredChannel = QString();
 		rtLast = MumbleProto::Reject_RejectType_None;
 		qaServerDisconnect->setEnabled(true);
+		g.l->log(Log::ServerConnected, tr("Connecting to server %1.").arg(cd->qsServer));
 		g.sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
 	}
@@ -1566,7 +1568,7 @@ void MainWindow::serverConnected() {
 	QString host, uname, pw;
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	g.l->log(Log::ServerConnected, tr("Connected to server %1.").arg(host));
+	g.l->log(Log::ServerConnected, tr("Connected."));
 	qaServerDisconnect->setEnabled(true);
 	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
@@ -1661,7 +1663,7 @@ void MainWindow::serverDisconnected(QString reason) {
 				} else if (res == QMessageBox::Yes) {
 					Database::setDigest(host, port, QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
 					qaServerDisconnect->setEnabled(true);
-					g.sh->start(QThread::TimeCriticalPriority);
+					on_Reconnect_timeout();
 				}
 				break;
 			}
@@ -1700,7 +1702,7 @@ void MainWindow::serverDisconnected(QString reason) {
 			Database::setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			g.sh->setConnectionInfo(host, port, uname, pw);
-			g.sh->start(QThread::TimeCriticalPriority);
+			on_Reconnect_timeout();
 		} else if (!matched && g.s.bReconnect && ! reason.isEmpty()) {
 			qaServerDisconnect->setEnabled(true);
 			qtReconnect->start();

@@ -480,8 +480,6 @@ void Server::run() {
 				quint16 port = (from.ss_family == AF_INET6) ? (reinterpret_cast<sockaddr_in6 *>(&from)->sin6_port) : (reinterpret_cast<sockaddr_in *>(&from)->sin_port);
 				const HostAddress &ha = HostAddress(from);
 
-				qWarning() << "Got UDP From" << ha.toString();
-
 				const QPair<HostAddress, quint16> &key = QPair<HostAddress, quint16>(ha, port);
 
 				ServerUser *u = qhPeerUsers.value(key);
