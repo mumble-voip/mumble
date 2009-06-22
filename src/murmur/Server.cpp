@@ -448,7 +448,6 @@ void Server::run() {
 			{
 				DWORD ret = WaitForMultipleObjects(nfds, events, FALSE, INFINITE);
 				if (ret == (WAIT_OBJECT_0 + nfds - 1)) {
-					qWarning("Signaled!");
 					break;
 				}
 				if (ret == WAIT_FAILED) {
