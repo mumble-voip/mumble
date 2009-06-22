@@ -146,12 +146,11 @@ void MetaParams::read(QString fname) {
 		foreach(const QHostAddress &qha, qlBind)
 			qWarning("Binding to address %s", qPrintable(qha.toString()));
 	}
-	
+
 	if (qlBind.isEmpty()) {
 #ifdef Q_OS_WIN
-		if (QSysInfo::windowsVersion() < QSysInfo::WV_VISTA)
-			qlBind << QHostAddress(QHostAddress::Any)
-		else
+		qlBind << QHostAddress(QHostAddress::Any);
+		if (QSysInfo::windowsVersion() >= QSysInfo::WV_VISTA)
 #endif
 		qlBind << QHostAddress(QHostAddress::AnyIPv6);
 	}

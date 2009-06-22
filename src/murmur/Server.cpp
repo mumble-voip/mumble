@@ -81,8 +81,12 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 Server::Server(int snum, QObject *p) : QThread(p) {
 	bValid = true;
 	iServerNum = snum;
-	
+
+#ifdef Q_OS_UNIX
 	aiNotify[0] = aiNotify[1] = -1;
+#else
+	hNotify = NULL;
+#endif
 
 	readParams();
 	initialize();
@@ -160,6 +164,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		return;
 	}
 #else
+	hNotify = CreateEvent(NULL, FALSE, FALSE, NULL);
 #endif
 
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
@@ -207,7 +212,7 @@ void Server::stopThread() {
 		unsigned char val = 0;
 		::write(aiNotify[1], &val, 1);
 #else
-		panic;
+		SetEvent(hNotify);
 #endif
 		wait();
 	}
@@ -220,7 +225,7 @@ Server::~Server() {
 #ifdef Q_OS_UNIX
 	foreach(int s, qlUdpSocket)
 		close(s);
-		
+
 	if (aiNotify[0] >= 0)
 		close(aiNotify[0]);
 	if (aiNotify[1] >= 0)
@@ -228,9 +233,11 @@ Server::~Server() {
 #else
 	foreach(SOCKET s, qlUdpSocket)
 		closesocket(s);
+	if (hNotify)
+		CloseHandle(hNotify);
 #endif
 	clearACLCache();
-	
+
 	log("Stopped");
 }
 
@@ -380,13 +387,10 @@ void Server::run() {
 	char buffer[512];
 
 	sockaddr_storage from;
+	int nfds = qlUdpSocket.count();
+
 #ifdef Q_OS_UNIX
 	socklen_t fromlen;
-#else
-	int fromlen;
-#endif
-
-	int nfds = qlUdpSocket.count();
 	STACKVAR(struct pollfd, fds, nfds+1);
 
 	for (int i=0;i<nfds;++i) {
@@ -394,16 +398,28 @@ void Server::run() {
 		fds[i].events = POLLIN;
 		fds[i].revents = 0;
 	}
-	
+
 	fds[nfds].fd=aiNotify[0];
 	fds[nfds].events = POLLIN;
 	fds[nfds].revents = 0;
-	
-	nfds++;
+#else
+	int fromlen;
+	STACKVAR(SOCKET, fds, nfds);
+	STACKVAR(HANDLE, events, nfds+1);
+	for(int i=0;i<nfds;++i) {
+		fds[i] = qlUdpSocket.at(i);
+		events[i] = CreateEvent(NULL, FALSE, FALSE, NULL);
+		::WSAEventSelect(fds[i], events[i], FD_READ);
+	}
+	events[nfds] = hNotify;
+#endif
+
+	++nfds;
 
 	log("Starting voice thread");
 
 	while (bRunning) {
+#ifdef Q_OS_UNIX
 		int pret = poll(fds, nfds, -1);
 		if (pret <= 0) {
 			log("poll failure");
@@ -427,6 +443,21 @@ void Server::run() {
 				}
 
 				int sock = fds[i].fd;
+#else
+		{
+			{
+				DWORD ret = WaitForMultipleObjects(nfds, events, FALSE, INFINITE);
+				if (ret == (WAIT_OBJECT_0 + nfds - 1)) {
+					qWarning("Signaled!");
+					break;
+				}
+				if (ret == WAIT_FAILED) {
+					log("UDP wait failed");
+					bRunning = false;
+					break;
+				}
+				SOCKET sock = fds[ret - WAIT_OBJECT_0];
+#endif
 
 				fromlen = sizeof(from);
 #ifdef Q_OS_WIN
@@ -498,10 +529,18 @@ void Server::run() {
 					u->bUdp = true;
 					processMsg(u, buffer, len);
 				}
+#ifdef Q_OS_UNIX
 				fds[i].revents = 0;
+#endif
 			}
 		}
 	}
+#ifdef Q_OS_WIN
+	for(int i=0;i<nfds-1;++i) {
+		::WSAEventSelect(fds[i], NULL, 0);
+		CloseHandle(events[i]);
+	}
+#endif
 	log("Ending voice thread");
 }
 
