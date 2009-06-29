@@ -152,7 +152,7 @@ void MetaParams::read(QString fname) {
 		qlBind << QHostAddress(QHostAddress::Any);
 		if (QSysInfo::windowsVersion() >= QSysInfo::WV_VISTA)
 #endif
-		qlBind << QHostAddress(QHostAddress::AnyIPv6);
+			qlBind << QHostAddress(QHostAddress::AnyIPv6);
 	}
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();

@@ -1,3 +1,24 @@
+2009-06-29
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3fe520c  Update echo jitter buffer
+
+2009-06-22
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    44dfffa  Notify on connection attempt start
+    4ec866a  Remove silly debug output
+    a83592e  Multibind for Win32
+    3976433  Multibind for nix
+    9b226ca  Clientside IPv6 support
+    c1c460b  Allow IPv6 control connections
+
+2009-06-21
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3c8745f  Add proper names instead of label_123 in .ui files
+
+2009-06-19
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6f9c7d6  Use QDesktopServices for datalocations
+
 2009-06-18
   Thorvald Natvig <slicer@users.sourceforge.net>
     5074ef0  Option to only accept whispers from friends

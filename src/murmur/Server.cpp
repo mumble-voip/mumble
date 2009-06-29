@@ -406,7 +406,7 @@ void Server::run() {
 	int fromlen;
 	STACKVAR(SOCKET, fds, nfds);
 	STACKVAR(HANDLE, events, nfds+1);
-	for(int i=0;i<nfds;++i) {
+	for (int i=0;i<nfds;++i) {
 		fds[i] = qlUdpSocket.at(i);
 		events[i] = CreateEvent(NULL, FALSE, FALSE, NULL);
 		::WSAEventSelect(fds[i], events[i], FD_READ);
@@ -430,7 +430,7 @@ void Server::run() {
 		if (fds[nfds - 1].revents) {
 			// Drain pipe
 			unsigned char val;
-			while(::recv(aiNotify[0], &val, 1, MSG_DONTWAIT) == 1) {};
+			while (::recv(aiNotify[0], &val, 1, MSG_DONTWAIT) == 1) {};
 			break;
 		}
 
@@ -533,7 +533,7 @@ void Server::run() {
 		}
 	}
 #ifdef Q_OS_WIN
-	for(int i=0;i<nfds-1;++i) {
+	for (int i=0;i<nfds-1;++i) {
 		::WSAEventSelect(fds[i], NULL, 0);
 		CloseHandle(events[i]);
 	}
