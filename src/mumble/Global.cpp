@@ -41,6 +41,7 @@ Global::Global() {
 	uiSession = 0;
 	uiDoublePush = 1000000;
 	iPushToTalk = 0;
+	iAudioQuality = 64000;
 	iTarget = 0;
 	bPushToMute = false;
 	bCenterPosition = false;

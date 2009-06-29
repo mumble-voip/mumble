@@ -104,6 +104,11 @@ AudioInput::AudioInput() {
 	jb = jitter_buffer_init(10);
 	iJitterSeq = 1;
 
+	int iArg = 90;
+	jitter_buffer_ctl(jb, JITTER_BUFFER_SET_MAX_LATE_RATE, &iArg);
+	iArg = 10;
+	jitter_buffer_ctl(jb, JITTER_BUFFER_SET_LATE_COST, &iArg);
+
 	psMic = new short[iFrameSize];
 	psClean = new short[iFrameSize];
 
