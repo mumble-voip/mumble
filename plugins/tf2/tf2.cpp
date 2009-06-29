@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 3792)", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 3861)", L"Mumble TF2 Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -110,19 +110,19 @@ static int trylock() {
 
 	// Check if we really have TF2 running
 	/*
-		position tuple:		client.dll+0x4d6b40  (x,y,z, float)
-		orientation tuple:	client.dll+0x4d6b4c  (v,h float)
-		ID string:			client.dll+0x4802a3 = "teamJet@@" (9 characters, text)
-		spawn state:        client.dll+0x46fb84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+		position tuple:		client.dll+0x4bb170  (x,y,z, float)
+		orientation tuple:	client.dll+0x4f24f0  (v,h float)
+		ID string:			client.dll+0x4972ab = "teamJet@@" (9 characters, text)
+		spawn state:        client.dll+0x489b84  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
 	*/
 	char sMagic[9];
-	if (!peekProc(mod + 0x4802a3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x49a2ab, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x4d6b40;
-	rotptr = mod + 0x4d6b4c;
-	stateptr = mod + 0x46fb84;
+	posptr = mod + 0x4bb170;
+	rotptr = mod + 0x4f24f0;
+	stateptr = mod + 0x489b84;
 
 	float pos[3];
 	float rot[3];
@@ -181,10 +181,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 3792. No identity or context support yet.");
+	return std::wstring(L"Supports TF2 build 3861. No identity or context support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 3792)");
+static std::wstring description(L"Team Fortress 2 (Build 3861)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static MumblePlugin tf2plug = {
