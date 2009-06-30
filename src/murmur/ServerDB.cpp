@@ -593,8 +593,8 @@ bool Server::unregisterUser(int id) {
 				}
 			}
 			foreach(Group *g, c->qhGroups) {
-				bool addrem = (g->qsAdd.remove(id) > 0);
-				bool remrem = (g->qsRemove.remove(id) > 0);
+				bool addrem = g->qsAdd.remove(id);
+				bool remrem = g->qsRemove.remove(id);
 				write = write || addrem || remrem;
 			}
 			if (write)
