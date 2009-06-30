@@ -4,7 +4,7 @@ VERSION		= 1.2.0
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
-INCLUDEPATH	+= $$PWD
+INCLUDEPATH	+= $$PWD .
 SOURCES		*= Mumble.pb.cc
 PROTOBUF	*= ../Mumble.proto
 

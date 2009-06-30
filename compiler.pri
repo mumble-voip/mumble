@@ -1,7 +1,7 @@
 CONFIG *= warn_on
 
 win32 {
-	INCLUDEPATH *= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_38
+	INCLUDEPATH *= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_39
 	CONFIG(intelcpp) {
 		DEFINES *= RESTRICT=restrict
 		DEFINES *= VAR_ARRAYS
