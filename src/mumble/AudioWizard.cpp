@@ -112,8 +112,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	abVAD->qcInside = Qt::yellow;
 	abVAD->qcAbove = Qt::green;
 
-	qsMinVAD->setValue(static_cast<int>(g.s.fVADmin * 32767.0));
-	qsMaxVAD->setValue(static_cast<int>(g.s.fVADmax * 32767));
+	qsVAD->setValue(static_cast<int>(g.s.fVADmax * 32767.f));
 
 	// Positional
 	qcbHeadphone->setChecked(g.s.bPositionalHeadphone);
@@ -436,13 +435,13 @@ void AudioWizard::on_Ticker_timeout() {
 	abAmplify->iPeak = iMaxPeak;
 	abAmplify->update();
 
-	abVAD->iBelow = qsMinVAD->value();
-	abVAD->iAbove = qsMaxVAD->value();
+	abVAD->iBelow = static_cast<int>(g.s.fVADmin * 32767.0f);
+	abVAD->iAbove = static_cast<int>(g.s.fVADmax * 32767.0f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
 		abVAD->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
 	} else {
-		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0);
+		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0f);
 	}
 	abVAD->update();
 
@@ -481,12 +480,11 @@ void AudioWizard::on_Ticker_timeout() {
 	}
 }
 
-void AudioWizard::on_qsMinVAD_valueChanged(int v) {
-	g.s.fVADmin = static_cast<float>(v) / 32767.0f;
-}
-
-void AudioWizard::on_qsMaxVAD_valueChanged(int v) {
-	g.s.fVADmax = static_cast<float>(v) / 32767.0f;
+void AudioWizard::on_qsVAD_valueChanged(int v) {
+	if (! bInit) {
+		g.s.fVADmax = static_cast<float>(v) / 32767.0f;
+		g.s.fVADmin = g.s.fVADmax * 0.9f;
+	}
 }
 
 void AudioWizard::on_qrSNR_clicked(bool on) {

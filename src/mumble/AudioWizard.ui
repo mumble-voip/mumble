@@ -449,26 +449,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         </widget>
        </item>
        <item>
-        <widget class="QSlider" name="qsMinVAD">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>32767</number>
-         </property>
-         <property name="singleStep">
-          <number>100</number>
-         </property>
-         <property name="pageStep">
-          <number>1000</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSlider" name="qsMaxVAD">
+        <widget class="QSlider" name="qsVAD">
          <property name="minimum">
           <number>1</number>
          </property>

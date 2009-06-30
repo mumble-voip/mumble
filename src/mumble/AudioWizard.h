@@ -83,8 +83,7 @@ class AudioWizard: public QWizard, public Ui::AudioWizard {
 		void on_qsOutputDelay_valueChanged(int);
 		void on_qsMaxAmp_valueChanged(int);
 		void on_Ticker_timeout();
-		void on_qsMinVAD_valueChanged(int);
-		void on_qsMaxVAD_valueChanged(int);
+		void on_qsVAD_valueChanged(int);
 		void on_qrAmplitude_clicked(bool);
 		void on_qrSNR_clicked(bool);
 		void on_qrPTT_clicked(bool);
