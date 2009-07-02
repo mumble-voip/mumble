@@ -133,6 +133,7 @@ Section "" SectionCommon
   File "\dev\Qt4.5.2\lib\QtOpenGL4.dll"
   File "\dev\Qt4.5.2\lib\QtXml4.dll"
   File "\dev\Qt4.5.2\lib\QtDBus4.dll"
+  File "\dev\Qt4.5.2\lib\QtSvg4.dll"
 
   File "\dev\OpenSSL\bin\libeay32.dll"
   File "\dev\OpenSSL\bin\ssleay32.dll"
@@ -339,6 +340,7 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   Delete "$INSTDIR\QtOpenGL4.dll"
   Delete "$INSTDIR\QtDBus4.dll"
   Delete "$INSTDIR\QtXml4.dll"
+  Delete "$INSTDIR\QtSvg4.dll"
 
   Delete "$INSTDIR\libmySQL.dll"
 
