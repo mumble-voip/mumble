@@ -75,6 +75,7 @@ class ASIOInput : public AudioInput {
 		IASIO *iasio;
 
 		int iNumMic, iNumSpeaker;
+		long lBufSize;
 		ASIOBufferInfo *abiInfo;
 		ASIOChannelInfo *aciInfo;
 
@@ -84,17 +85,13 @@ class ASIOInput : public AudioInput {
 		static void sampleRateChanged(ASIOSampleRate sRate);
 		static long asioMessages(long selector, long value, void* message, double* opt);
 		static void bufferSwitch(long index, ASIOBool processNow);
-		static void addBuffer(long sampType, void *src, float *dst);
 		static ASIOTime *bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBool processNow);
 
+		void addBuffer(long sampType, int interleave, void *src, float * RESTRICT dst);
 		void bufferReady(long index);
 		bool initializeDriver();
 
-		float *pdInputBuffer;
-		float *pdOutputBuffer;
-
 		QWaitCondition qwDone;
-		SpeexResamplerState *srsResampleMic, *srsResampleSpeaker;
 	public:
 		ASIOInput();
 		~ASIOInput();

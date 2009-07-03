@@ -201,8 +201,6 @@ void ASIOConfig::on_qpbQuery_clicked() {
 	CLSID clsid;
 	IASIO *iasio;
 
-	bool ok = false;
-
 	clearQuery();
 
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
@@ -219,97 +217,53 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			long ver = iasio->getDriverVersion();
 			SleepEx(10, false);
 
-			ASIOSampleRate srate;
+			ASIOSampleRate srate = 0.0;
+			iasio->setSampleRate(48000.0);
 			iasio->getSampleRate(&srate);
 			SleepEx(10, false);
-			if (fabs(srate-48000.0) > 1.0) {
-				iasio->setSampleRate(48000.0);
-				SleepEx(10, false);
-				iasio->getSampleRate(&srate);
-				SleepEx(10, false);
-			}
 
 			long minSize, maxSize, prefSize, granSize;
 			iasio->getBufferSize(&minSize, &maxSize, &prefSize, &granSize);
 			SleepEx(10, false);
 
-			// We need sample sizes in ms for 2 bytes at 48khz
-
-			bOk = false;
-
-			if ((fabs(srate-48000.0) < 1.0) && (minSize <= 1920) && (maxSize >= 1920)) {
-				if (granSize > 0) {
-					long remain;
-					remain = 1920 - minSize;
-					if ((remain % granSize) == 0)
-						bOk = true;
-				} else if (granSize == -1) {
-					long v = minSize;
-					for (int i=0;i<100;i++) {
-						if (v == 1920) {
-							bOk = true;
-							break;
-						}
-						v = v * 2;
-					}
-				}
-			}
-
-			long divider = lround(srate * 2.0 / 1000.0);
-			if (divider < 1)
-				divider = 1;
-
-			if (granSize > 0)
-				granSize /= divider;
-			minSize /= divider;
-			maxSize /= divider;
-			prefSize /= divider;
-
 			QString str = tr("%1 (ver %2)").arg(QLatin1String(buff)).arg(ver);
 			qlName->setText(str);
 
-			if (bOk)
-				str = tr("%1 ms -> %2 ms (%3 ms resolution) %4Hz").arg(minSize).arg(maxSize).arg(granSize).arg(srate,0,'f',0);
-			else
-				str = tr("%1 ms -> %2 ms (%3 ms resolution) %4Hz -- Unusable").arg(minSize).arg(maxSize).arg(granSize).arg(srate,0,'f',0);
+			str = tr("%1 -> %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz").arg(minSize).arg(maxSize).arg(granSize).arg(prefSize).arg(srate,0,'f',0);
 
 			qlBuffers->setText(str);
 
-			if (bOk) {
-				long ichannels, ochannels;
-				iasio->getChannels(&ichannels, &ochannels);
-				SleepEx(10, false);
-				long cnum;
+			long ichannels, ochannels;
+			iasio->getChannels(&ichannels, &ochannels);
+			SleepEx(10, false);
+			long cnum;
 
-				bool match = (g.s.qsASIOclass == qsCls);
-				for (cnum=0;cnum<ichannels;cnum++) {
-					ASIOChannelInfo aci;
-					aci.channel = cnum;
-					aci.isInput = true;
-					iasio->getChannelInfo(&aci);
-					SleepEx(10, false);
-					switch (aci.type) {
-						case ASIOSTInt32LSB:
-						case ASIOSTInt16LSB: {
-								QListWidget *widget = qlwUnused;
-								QVariant v = static_cast<int>(cnum);
-								if (match && s.qlASIOmic.contains(v))
-									widget = qlwMic;
-								else if (match && s.qlASIOspeaker.contains(v))
-									widget = qlwSpeaker;
-								QListWidgetItem *item = new QListWidgetItem(QLatin1String(aci.name), widget);
-								item->setData(Qt::UserRole, static_cast<int>(cnum));
-							}
-							break;
-						default:
-							qWarning("ASIOInput: Channel %ld %s (Unusable format %ld)", cnum, aci.name,aci.type);
-					}
+			bool match = (g.s.qsASIOclass == qsCls);
+			for (cnum=0;cnum<ichannels;cnum++) {
+				ASIOChannelInfo aci;
+				aci.channel = cnum;
+				aci.isInput = true;
+				iasio->getChannelInfo(&aci);
+				SleepEx(10, false);
+				switch (aci.type) {
+					case ASIOSTFloat32LSB:
+					case ASIOSTInt32LSB:
+					case ASIOSTInt16LSB: {
+							QListWidget *widget = qlwUnused;
+							QVariant v = static_cast<int>(cnum);
+							if (match && s.qlASIOmic.contains(v))
+								widget = qlwMic;
+							else if (match && s.qlASIOspeaker.contains(v))
+								widget = qlwSpeaker;
+							QListWidgetItem *item = new QListWidgetItem(QLatin1String(aci.name), widget);
+							item->setData(Qt::UserRole, static_cast<int>(cnum));
+						}
+						break;
+					default:
+						qWarning("ASIOInput: Channel %ld %s (Unusable format %ld)", cnum, aci.name,aci.type);
 				}
 			}
-
-			ok = true;
-		}
-		if (! ok) {
+		} else {
 			SleepEx(10, false);
 			char err[255];
 			iasio->getErrorMessage(err);
@@ -456,16 +410,6 @@ ASIOInput::ASIOInput() {
 
 	int i, idx;
 
-	iEchoChannels = 1;
-
-	// Allocate buffers
-	pdInputBuffer = new float[960];
-	pdOutputBuffer = new float[iFrameSize];
-
-	int err = 0;
-	srsResampleMic = speex_resampler_init(1, 48000, SAMPLE_RATE, 3, &err);
-	srsResampleSpeaker = speex_resampler_init(1, 48000, SAMPLE_RATE, 3, &err);
-
 	// Sanity check things first.
 
 	iNumMic=g.s.qlASIOmic.count();
@@ -480,63 +424,98 @@ ASIOInput::ASIOInput() {
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		if (iasio->init(NULL)) {
+			iasio->setSampleRate(48000.0);
 			ASIOSampleRate srate = 0.0;
 			iasio->getSampleRate(&srate);
-			if ((fabs(srate - 48000.0) < 1.0) || (iasio->setSampleRate(48000.0) == ASE_OK)) {
 
-				abiInfo = new ASIOBufferInfo[iNumMic + iNumSpeaker];
-				aciInfo = new ASIOChannelInfo[iNumMic + iNumSpeaker];
-				idx = 0;
-				for (i=0;i<iNumMic;i++) {
-					abiInfo[idx].isInput = true;
-					abiInfo[idx].channelNum = g.s.qlASIOmic[i].toInt();
+			if (srate <= 0.0)
+				return;
 
-					aciInfo[idx].channel = abiInfo[idx].channelNum;
-					aciInfo[idx].isInput = true;
-					iasio->getChannelInfo(&aciInfo[idx]);
-					SleepEx(10, false);
+			long minSize, maxSize, prefSize, granSize;
+			iasio->getBufferSize(&minSize, &maxSize, &prefSize, &granSize);
 
-					idx++;
-				}
-				for (i=0;i<iNumSpeaker;i++) {
-					abiInfo[idx].isInput = true;
-					abiInfo[idx].channelNum = g.s.qlASIOspeaker[i].toInt();
+			bool halfit = true;
 
-					aciInfo[idx].channel = abiInfo[idx].channelNum;
-					aciInfo[idx].isInput = true;
-					iasio->getChannelInfo(&aciInfo[idx]);
-					SleepEx(10, false);
+			double wbuf = (srate / 100.0);
+			long wantBuf = lround(wbuf);
+			lBufSize = wantBuf;
 
-					idx++;
-				}
-
-				ASIOCallbacks asioCallbacks;
-				ZeroMemory(&asioCallbacks, sizeof(asioCallbacks));
-				asioCallbacks.bufferSwitch = &bufferSwitch;
-				asioCallbacks.sampleRateDidChange = &sampleRateChanged;
-				asioCallbacks.asioMessage = &asioMessages;
-				asioCallbacks.bufferSwitchTimeInfo = &bufferSwitchTimeInfo;
-
-				if (iasio->createBuffers(abiInfo, idx, 960, &asioCallbacks) == ASE_OK) {
-					bRunning = true;
-					return;
+			if (static_cast<double>(wantBuf) == wbuf) {
+				qWarning("ASIOInput: Exact buffer match possible.");
+				if ((wantBuf >= minSize) && (wantBuf <= maxSize)) {
+					if (wantBuf == minSize)
+						halfit = false;
+					else if ((granSize >= 1) && (((wantBuf-minSize)%granSize)==0))
+						halfit = false;
 				}
 			}
-		}
-	}
-	if (abiInfo) {
-		delete [] abiInfo;
-		abiInfo = NULL;
-	}
 
-	if (aciInfo) {
-		delete [] aciInfo;
-		aciInfo = NULL;
+			if (halfit) {
+				if (granSize == 0) {
+					qWarning("ASIOInput: Single buffer size");
+					lBufSize = minSize;
+				} else {
+					long target = wantBuf / 2;
+					lBufSize = target;
+					while (lBufSize < target) {
+						if (granSize < 0)
+							lBufSize *= 2;
+						else
+							lBufSize += granSize;
+					}
+				}
+				qWarning("ASIOInput: Buffer mismatch mode. Wanted %d, got %d", wantBuf, lBufSize);
+			}
+
+
+			abiInfo = new ASIOBufferInfo[iNumMic + iNumSpeaker];
+			aciInfo = new ASIOChannelInfo[iNumMic + iNumSpeaker];
+			idx = 0;
+			for (i=0;i<iNumMic;i++) {
+				abiInfo[idx].isInput = true;
+				abiInfo[idx].channelNum = g.s.qlASIOmic[i].toInt();
+
+				aciInfo[idx].channel = abiInfo[idx].channelNum;
+				aciInfo[idx].isInput = true;
+				iasio->getChannelInfo(&aciInfo[idx]);
+				SleepEx(10, false);
+
+				idx++;
+			}
+			for (i=0;i<iNumSpeaker;i++) {
+				abiInfo[idx].isInput = true;
+				abiInfo[idx].channelNum = g.s.qlASIOspeaker[i].toInt();
+
+				aciInfo[idx].channel = abiInfo[idx].channelNum;
+				aciInfo[idx].isInput = true;
+				iasio->getChannelInfo(&aciInfo[idx]);
+				SleepEx(10, false);
+
+				idx++;
+			}
+
+			iEchoChannels = iNumSpeaker;
+			iMicChannels = iNumMic;
+			iEchoFreq = iMicFreq = iroundf(srate);
+
+			initializeMixer();
+
+			ASIOCallbacks asioCallbacks;
+			ZeroMemory(&asioCallbacks, sizeof(asioCallbacks));
+			asioCallbacks.bufferSwitch = &bufferSwitch;
+			asioCallbacks.sampleRateDidChange = &sampleRateChanged;
+			asioCallbacks.asioMessage = &asioMessages;
+			asioCallbacks.bufferSwitchTimeInfo = &bufferSwitchTimeInfo;
+
+			if (iasio->createBuffers(abiInfo, idx, lBufSize, &asioCallbacks) == ASE_OK) {
+				bRunning = true;
+				return;
+			}
+		}
 	}
 
 	if (iasio) {
 		iasio->Release();
-
 		iasio = NULL;
 	}
 
@@ -558,11 +537,10 @@ ASIOInput::~ASIOInput() {
 		delete [] abiInfo;
 		abiInfo = NULL;
 	}
-
-	delete [] pdInputBuffer;
-	delete [] pdOutputBuffer;
-	speex_resampler_destroy(srsResampleMic);
-	speex_resampler_destroy(srsResampleSpeaker);
+	if (aciInfo) {
+		delete [] aciInfo;
+		aciInfo = NULL;
+	}
 }
 
 void ASIOInput::run() {
@@ -581,18 +559,26 @@ ASIOTime *ASIOInput::bufferSwitchTimeInfo(ASIOTime *, long index, ASIOBool) {
 }
 
 void
-ASIOInput::addBuffer(ASIOSampleType sampType, void *src, float *dst) {
+ASIOInput::addBuffer(ASIOSampleType sampType, int interleave, void *src, float * RESTRICT dst) {
 	switch (sampType) {
 		case ASIOSTInt16LSB: {
-				short *buf=static_cast<short *>(src);
-				for (int i=0;i<960;i++)
-					dst[i]+=buf[i];
+				const float m = 1.0f / 32768.f;
+				const short * RESTRICT buf=static_cast<short *>(src);
+				for (int i=0;i<lBufSize;i++)
+					dst[i*interleave]=buf[i] * m;
 			}
 			break;
 		case ASIOSTInt32LSB: {
-				int *buf=static_cast<int *>(src);
-				for (int i=0;i<960;i++)
-					dst[i]+=(buf[i] >> 16);
+				const float m = 1.0f / 2147483648.f;
+				const int * RESTRICT buf=static_cast<int *>(src);
+				for (int i=0;i<lBufSize;i++)
+					dst[i*interleave]=buf[i] * m;
+			}
+			break;
+		case ASIOSTFloat32LSB: {
+				const float * RESTRICT buf=static_cast<float *>(src);
+				for (int i=0;i<lBufSize;i++)
+					dst[i*interleave]=buf[i];
 			}
 			break;
 	}
@@ -600,41 +586,15 @@ ASIOInput::addBuffer(ASIOSampleType sampType, void *src, float *dst) {
 
 void
 ASIOInput::bufferReady(long buffindex) {
-	int c, i;
+	STACKVAR(float, buffer, lBufSize * qMax(iNumMic,iNumSpeaker));
 
-	// Microphone inputs
-	ZeroMemory(pdInputBuffer, sizeof(float) * 960);
-	for (c=0;c<iNumMic;c++)
-		addBuffer(aciInfo[c].type, abiInfo[c].buffers[buffindex], pdInputBuffer);
+	for(int c=0;c<iNumSpeaker;++c)
+		addBuffer(aciInfo[iNumMic+c].type, iNumSpeaker, abiInfo[iNumMic+c].buffers[buffindex], buffer+c);
+	addEcho(buffer, lBufSize);
 
-	float mul = 1.0 / (iNumMic);
-
-	spx_uint32_t inlen, outlen;
-
-	inlen = 960;
-	outlen = 320;
-	speex_resampler_process_float(srsResampleMic, 0, pdInputBuffer, &inlen, pdOutputBuffer, &outlen);
-
-	for (i=0;i<320;i++)
-		psMic[i] = static_cast<short>(pdOutputBuffer[i] * mul);
-
-
-	// Speaker inputs
-	ZeroMemory(pdInputBuffer, sizeof(float) * 960);
-	for (c=0;c<iNumMic;c++)
-		addBuffer(aciInfo[iNumMic+c].type, abiInfo[iNumMic+c].buffers[buffindex], pdInputBuffer);
-
-	mul = 1.0 / iNumSpeaker;
-
-
-	inlen = 960;
-	outlen = 320;
-	speex_resampler_process_float(srsResampleSpeaker, 0, pdInputBuffer, &inlen, pdOutputBuffer, &outlen);
-
-	for (i=0;i<320;i++)
-		psSpeaker[i] = static_cast<short>(pdOutputBuffer[i] * mul);
-
-	encodeAudioFrame();
+	for(int c=0;c<iNumMic;++c)
+		addBuffer(aciInfo[c].type, iNumMic, abiInfo[c].buffers[buffindex], buffer+c);
+	addMic(buffer, lBufSize);
 }
 
 void ASIOInput::bufferSwitch(long index, ASIOBool processNow) {
