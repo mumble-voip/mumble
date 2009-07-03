@@ -75,6 +75,7 @@
 #include <qos2.h>
 #include <wintrust.h>
 #include <Softpub.h>
+#include <Dbt.h>
 #ifndef Q_CC_INTEL
 #include <math.h>
 #define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )

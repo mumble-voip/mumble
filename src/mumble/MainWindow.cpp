@@ -128,6 +128,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qApp->setWindowIcon(qiIcon);
 #endif
 
+#ifdef Q_OS_WIN
+	uiNewHardware = 1;
+#endif
+
 	Channel::add(0, tr("Root"));
 
 	aclEdit = NULL;
@@ -296,6 +300,14 @@ void MainWindow::msgBox(QString msg) {
 	MessageBoxEvent *mbe=new MessageBoxEvent(msg);
 	QApplication::postEvent(this, mbe);
 }
+
+#ifdef Q_OS_WIN
+bool MainWindow::winEvent(MSG *msg, long *res) {
+	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
+		uiNewHardware++;
+	return false;
+}
+#endif
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 #ifndef Q_OS_MAC
