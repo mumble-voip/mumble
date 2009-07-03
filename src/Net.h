@@ -63,6 +63,8 @@ struct HostAddress {
 	QByteArray toByteArray() const;
 };
 
+Q_DECLARE_TYPEINFO(HostAddress, Q_MOVABLE_TYPE);
+
 quint32 qHash(const HostAddress &);
 
 struct Ban {
