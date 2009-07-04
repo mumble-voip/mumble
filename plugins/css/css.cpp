@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3698)", L"Mumble CSS Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3846)", L"Mumble CSS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -180,10 +180,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports CSS build 3698. No identity or context support yet.");
+	return std::wstring(L"Supports CSS build 3846. No identity or context support yet.");
 }
 
-static std::wstring description(L"Counter-Strike: Source (Build 3790)");
+static std::wstring description(L"Counter-Strike: Source (Build 3846)");
 static std::wstring shortname(L"Counter-Strike: Source");
 
 static MumblePlugin cssplug = {

@@ -107,6 +107,9 @@ static int trylock() {
 	BYTE *mod2=getModuleAddr(pid, L"server.dll");
 	if (!mod2)
 		return false;
+	BYTE *mod3=getModuleAddr(pid, L"engine.dll");
+	if (!mod3)
+		return false;
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
@@ -118,6 +121,7 @@ static int trylock() {
 		ID string:			client.dll+0xb2e6e0 = "ageofchivalry" (13 characters, text)
 		spawn state:        client.dll+0xb33ae8  (0 when at main menu, 1 when at team selection, 2 when not spawned,
 		                                          6 when spawned on red team, 7 when spawned on blue team, byte)
+	    context offsets:    mod2 + 0x653338 = team info; mod3 + 0x5acd40 = ip:port
 	*/
 	char sMagic[13];
 	if (!peekProc(mod + 0xb2e6e0, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
@@ -128,6 +132,7 @@ static int trylock() {
 	rotptr = mod + 0xb73b90;
 	stateptr = mod + 0xb33ae8;
 	ccontextptr = mod2 + 0x653338;
+	ccontextptr = mod3 + 0x5acd40;
 
 	float pos[3];
 	float rot[3];
