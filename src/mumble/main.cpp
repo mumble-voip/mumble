@@ -104,11 +104,16 @@ int main(int argc, char **argv) {
 
 #ifdef QT_NO_DEBUG
 	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
-	QDBusMessage reply=qdbi.call(QLatin1String("focus"));
-	if (reply.type() == QDBusMessage::ReplyMessage) {
-		if (url.isValid())
-			qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
-		return 0;
+	if (url.isValid()) {
+		QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+		if (reply.type() == QDBusMessage::ReplyMessage) {
+			return 0;
+		}
+	} else {
+		QDBusMessage reply=qdbi.call(QLatin1String("focus"));
+		if (reply.type() == QDBusMessage::ReplyMessage) {
+			return 0;
+		}
 	}
 #endif
 #endif
