@@ -46,6 +46,8 @@ struct Shortcut {
 	QVariant qvData;
 	bool bSuppress;
 	bool operator <(const Shortcut &) const;
+	bool isServerSpecific() const;
+	bool operator ==(const Shortcut &) const;
 };
 
 struct ShortcutTarget {

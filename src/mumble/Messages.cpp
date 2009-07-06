@@ -113,6 +113,21 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	}
 
 	findDesiredChannel();
+
+	QString host, uname, pw;
+	unsigned short port;
+
+	g.sh->getConnectionInfo(host, port, uname, pw);
+
+	QList<Shortcut> sc = Database::getShortcuts(host, port);
+	if (! sc.isEmpty()) {
+		for(int i=0;i<sc.count(); ++i) {
+			Shortcut &s = sc[i];
+			s.iIndex = g.mw->gsWhisper->idx;
+		}
+		g.s.qlShortcuts << sc;
+		GlobalShortcutEngine::engine->bNeedRemap = true;
+	}
 }
 
 void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {

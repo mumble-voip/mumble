@@ -34,8 +34,20 @@
 #include "AudioInput.h"
 #include "Cert.h"
 
+bool Shortcut::isServerSpecific() const {
+	if (qvData.canConvert<ShortcutTarget>()) {
+		const ShortcutTarget &sc = qvariant_cast<ShortcutTarget>(qvData);
+		return sc.isServerSpecific();
+	}
+	return false;
+}
+
 bool Shortcut::operator <(const Shortcut &other) const {
 	return (iIndex < other.iIndex);
+}
+
+bool Shortcut::operator ==(const Shortcut &other) const {
+	return (iIndex == other.iIndex) && (qlButtons == other.qlButtons) && (qvData == other.qvData) && (bSuppress == other.bSuppress);
 }
 
 ShortcutTarget::ShortcutTarget() {
@@ -545,11 +557,13 @@ void Settings::save() {
 	g.qs->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
 	foreach(const Shortcut &s, qlShortcuts) {
-		g.qs->setArrayIndex(idx++);
-		g.qs->setValue(QLatin1String("index"), s.iIndex);
-		g.qs->setValue(QLatin1String("keys"), s.qlButtons);
-		g.qs->setValue(QLatin1String("suppress"), s.bSuppress);
-		g.qs->setValue(QLatin1String("data"), s.qvData);
+		if (! s.isServerSpecific()) {
+			g.qs->setArrayIndex(idx++);
+			g.qs->setValue(QLatin1String("index"), s.iIndex);
+			g.qs->setValue(QLatin1String("keys"), s.qlButtons);
+			g.qs->setValue(QLatin1String("suppress"), s.bSuppress);
+			g.qs->setValue(QLatin1String("data"), s.qvData);
+		}
 	}
 	g.qs->endArray();
 

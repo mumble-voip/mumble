@@ -32,6 +32,8 @@
 #define _DATABASE_H
 
 #include "mumble_pch.hpp"
+#include "Settings.h"
+
 
 class Database : public QObject {
 	private:
@@ -39,6 +41,8 @@ class Database : public QObject {
 		Q_DISABLE_COPY(Database)
 	public:
 		Database();
+		static QList<Shortcut> getShortcuts(const QString &hostname, unsigned short port);
+		static bool setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts);
 		static void addFriend(const QString &name, const QString &hash);
 		static void removeFriend(const QString &hash);
 		static const QString getFriend(const QString &hash);

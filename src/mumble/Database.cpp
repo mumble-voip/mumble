@@ -102,8 +102,9 @@ Database::Database() {
 	}
 
 	QSqlQuery query;
-	// query.exec("DROP TABLE `servers`");
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `cert_host_port` ON `cert`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `udp` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER)"));
@@ -111,6 +112,82 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `friends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hash` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
+}
+
+QList<Shortcut> Database::getShortcuts(const QString &hostname, unsigned short port) {
+	QList<Shortcut> ql;
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `shortcut`,`target`,`suppress` FROM `shortcut` WHERE `hostname` = ? AND `port` = ?"));
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+	query.exec();
+	while (query.next()) {
+		Shortcut sc;
+
+		QByteArray a = query.value(0).toByteArray();
+
+		{
+			QDataStream s(&a, QIODevice::ReadOnly);
+			s.setVersion(QDataStream::Qt_4_0);
+			s >> sc.qlButtons;
+		}
+
+		a = query.value(1).toByteArray();
+
+		{
+			QDataStream s(&a, QIODevice::ReadOnly);
+			s.setVersion(QDataStream::Qt_4_0);
+			s >> sc.qvData;
+		}
+
+		sc.bSuppress=query.value(2).toBool();
+		ql << sc;
+	}
+	return ql;
+}
+
+bool Database::setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts) {
+	QSqlQuery query;
+	bool updated = false;
+
+	query.prepare(QLatin1String("DELETE FROM `shortcut` WHERE `hostname` = ? AND `port` = ?"));
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+	query.exec();
+
+	const QList<Shortcut> scs = shortcuts;
+
+	query.prepare(QLatin1String("INSERT INTO `shortcut` (`hostname`, `port`, `shortcut`, `target`, `suppress`) VALUES (?,?,?,?,?)"));
+	foreach(const Shortcut &sc, scs) {
+		if (sc.isServerSpecific()) {
+			shortcuts.removeAll(sc);
+			updated = true;
+
+			query.addBindValue(hostname);
+			query.addBindValue(port);
+
+			QByteArray a;
+			{
+				QDataStream s(&a, QIODevice::WriteOnly);
+				s.setVersion(QDataStream::Qt_4_0);
+				s << sc.qlButtons;
+			}
+			query.addBindValue(a);
+
+			a.clear();
+			{
+				QDataStream s(&a, QIODevice::WriteOnly);
+				s.setVersion(QDataStream::Qt_4_0);
+				s << sc.qvData;
+			}
+			query.addBindValue(a);
+
+			query.addBindValue(sc.bSuppress);
+			query.exec();
+		}
+	}
+	return updated;
 }
 
 const QMap<QString, QString> Database::getFriends() {
@@ -156,7 +233,7 @@ const QString Database::getDigest(const QString &hostname, unsigned short port) 
 	QSqlQuery query;
 
 	query.prepare(QLatin1String("SELECT `digest` FROM `cert` WHERE `hostname` = ? AND `port` = ?"));
-	query.addBindValue(hostname);;
+	query.addBindValue(hostname);
 	query.addBindValue(port);
 	query.exec();
 	if (query.next()) {
