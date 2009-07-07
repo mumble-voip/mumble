@@ -116,22 +116,23 @@ static int trylock() {
 
 	// Check if we really have AOC running
 	/*
-		position tuple:		client.dll+0xb72ad0  (x,y,z, float)
-		orientation tuple:	client.dll+0xb73b90  (v,h float)
-		ID string:			client.dll+0xb2e6e0 = "ageofchivalry" (13 characters, text)
+		position tuple:		client.dll+0xba54a8  (x,y,z, float)
+		orientation tuple:	client.dll+0xb98e84  (v,h float)
+		ID string:			client.dll+0xb60fc0 = "ageofchivalry" (13 characters, text)
 		spawn state:        client.dll+0xb33ae8  (0 when at main menu, 1 when at team selection, 2 when not spawned,
 		                                          6 when spawned on red team, 7 when spawned on blue team, byte)
-	    context offsets:    mod2 + 0x653338 = team info; mod3 + 0x5acd40 = ip:port
+	    context offsets:    server.dll + 0x65e538 = team info
+							engine.dll + 0x5acd40 = ip:port
 	*/
 	char sMagic[13];
-	if (!peekProc(mod + 0xb2e6e0, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
+	if (!peekProc(mod + 0xb60fc0, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0xb72ad0;
-	rotptr = mod + 0xb73b90;
+	posptr = mod + 0xba54a8;
+	rotptr = mod + 0xb98e84;
 	stateptr = mod + 0xb33ae8;
-	ccontextptr = mod2 + 0x653338;
+	ccontextptr = mod2 + 0x65e538;
 	ccontextptr = mod3 + 0x5acd40;
 
 	float pos[3];
