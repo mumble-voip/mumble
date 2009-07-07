@@ -13,6 +13,7 @@ LangString MUMBLE_LICENSE_LNK ${LANG_ENGLISH} "Mumble License"
 LangString MUMBLE_QT_LNK ${LANG_ENGLISH} "Qt License"
 LangString MUMBLE_SPEEX_LNK ${LANG_ENGLISH} "Speex License"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_ENGLISH} "Uninstall Mumble"
+LangString MUMBLE_COMPAT_LNK ${LANG_ENGLISH} "Mumble (Compatibility Mode)"
 
 ; Install types
 LangString INSTALL_FULL ${LANG_ENGLISH} "Full"
@@ -21,9 +22,11 @@ LangString INSTALL_SERVER ${LANG_ENGLISH} "Server only"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_ENGLISH} "Mumble (client)"
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_ENGLISH} "Mumble (backwards compatible client)"
 LangString MUMBLE_SEC_MURMUR ${LANG_ENGLISH} "Murmur (server)"
 LangString MUMBLE_SEC_DEBUG ${LANG_ENGLISH} "Debug files"
 LangString DESC_SectionMumble ${LANG_ENGLISH} "The Mumble client, which you will need to connect to a server."
+LangString DESC_SectionMumble11X ${LANG_ENGLISH} "The Mumble client for connecting to older servers."
 LangString DESC_SectionMurmur ${LANG_ENGLISH} "The server for Mumble. Includes everything needed to run your own server."
 LangString DESC_SectionDebug ${LANG_ENGLISH} "Symbol files for Mumble and Murmur. Only needed for debugging."
 

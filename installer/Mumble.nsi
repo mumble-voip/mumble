@@ -244,6 +244,21 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
 
 SectionEnd
 
+Section "!$(MUMBLE_SEC_MUMBLE11X)" SectionMumble11X
+  SectionIn 1 2
+  SetShellVarContext all
+
+  SetOutPath "$INSTDIR"
+
+  File "..\release\mumble11x.exe"
+
+  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+    ;Create shortcuts
+    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_COMPAT_LNK).lnk" "$INSTDIR\mumble11x.exe"
+  !insertmacro MUI_STARTMENU_WRITE_END
+
+SectionEnd
+
 Section /o "$(MUMBLE_SEC_MURMUR)" SectionMurmur
   SectionIn 1 3
   SetShellVarContext all
@@ -294,11 +309,13 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   SetShellVarContext all
 
   FindProcUnicode::KillProc "$INSTDIR\mumble.exe"
+  FindProcUnicode::KillProc "$INSTDIR\mumble11x.exe"
   FindProcUnicode::KillProc "$INSTDIR\murmur.exe"
   FindProcUnicode::KillProc "$INSTDIR\mumble-g15-helper.exe"
   FindProcUnicode::KillProc "$INSTDIR\dbus-daemon.exe"
 
   Delete "$INSTDIR\mumble.exe"
+  Delete "$INSTDIR\mumble11x.exe"
   Delete "$INSTDIR\murmur.exe"
   Delete "$INSTDIR\mumble-g15-helper.exe"
   Delete "$INSTDIR\mumble.pdb"
