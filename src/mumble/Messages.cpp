@@ -121,7 +121,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	QList<Shortcut> sc = Database::getShortcuts(host, port);
 	if (! sc.isEmpty()) {
-		for(int i=0;i<sc.count(); ++i) {
+		for (int i=0;i<sc.count(); ++i) {
 			Shortcut &s = sc[i];
 			s.iIndex = g.mw->gsWhisper->idx;
 		}

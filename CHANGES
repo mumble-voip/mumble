@@ -1,6 +1,51 @@
+2009-07-08
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0f3d2dc  Installer link for compatible client
+
+2009-07-06
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1d23889  Store server-specific whisper in a per-server config
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    ecef2b6  AOC offsets update
+
+2009-07-04
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    29c26d6  Don't focus on URL open
+    2c74fa1  Qt 4.5.2 for murmur static
+    6738419  Make HostAddress a movable type for faster containers
+    1c6ac0c  Update ASIO driver to use new format
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    606bff7  CSS, AOC updates
+
+2009-07-03
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    44439c6  Rediscover DInput devices on hotplug
+    37886d4  Don't show dragbar over scroll buttons
+
+2009-07-02
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    801a9e9  Add the QtSvg4 library to the installer. Kind of necesarry to
+	     actually show those SVGs.
+
+2009-07-01
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c06ca3e  Updated Intel compiler on Win32
+
+2009-06-30
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4703fa7  Single-slider VAD for the wizard
+    f99300b  Don't compare bool to 0
+    5e539d8  Qt 4.5.2 for Win32
+
 2009-06-29
   Thorvald Natvig <slicer@users.sourceforge.net>
+    59dff3c  Use git:// instead of http:// for xiph submodules
     3fe520c  Update echo jitter buffer
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    10f4572  Source game updates
 
 2009-06-22
   Thorvald Natvig <slicer@users.sourceforge.net>

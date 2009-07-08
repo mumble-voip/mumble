@@ -588,11 +588,11 @@ void
 ASIOInput::bufferReady(long buffindex) {
 	STACKVAR(float, buffer, lBufSize * qMax(iNumMic,iNumSpeaker));
 
-	for(int c=0;c<iNumSpeaker;++c)
+	for (int c=0;c<iNumSpeaker;++c)
 		addBuffer(aciInfo[iNumMic+c].type, iNumSpeaker, abiInfo[iNumMic+c].buffers[buffindex], buffer+c);
 	addEcho(buffer, lBufSize);
 
-	for(int c=0;c<iNumMic;++c)
+	for (int c=0;c<iNumMic;++c)
 		addBuffer(aciInfo[c].type, iNumMic, abiInfo[c].buffers[buffindex], buffer+c);
 	addMic(buffer, lBufSize);
 }
