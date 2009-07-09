@@ -120,6 +120,7 @@ void MetaParams::read(QString fname) {
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
 	QSettings qs(fname, QSettings::IniFormat);
+	qs.setIniCodec("UTF-8");
 
 	qWarning("Initializing settings from %s (basepath %s)", qPrintable(qs.fileName()), qPrintable(qdBasePath.absolutePath()));
 

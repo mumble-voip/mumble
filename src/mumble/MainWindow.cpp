@@ -403,6 +403,28 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 
 void MainWindow::openUrl(const QUrl &url) {
 	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString()));
+	if (url.scheme() == QLatin1String("file")) {
+		QFile f(url.toLocalFile());
+		if (! f.exists() || ! f.open(QIODevice::ReadOnly)) {
+			g.l->log(Log::Warning, tr("File does not exist"));
+			return;
+		}
+		f.close();
+
+		QSettings *qs = new QSettings(f.fileName(), QSettings::IniFormat);
+		qs->setIniCodec("UTF-8");
+		if (qs->status() != QSettings::NoError) {
+			g.l->log(Log::Warning, tr("File is not a config file."));
+		} else {
+			qSwap(qs, g.qs);
+			g.s.load();
+			qSwap(qs, g.qs);
+
+			g.l->log(Log::Warning, tr("Settings merged from file."));
+		}
+		delete qs;
+		return;
+	}
 	if (url.scheme() != QLatin1String("mumble")) {
 		g.l->log(Log::Warning, tr("URL scheme is not 'mumble'"));
 		return;

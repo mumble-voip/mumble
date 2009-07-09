@@ -79,8 +79,14 @@ int main(int argc, char **argv) {
 	QUrl url;
 	if (a.arguments().count() > 1) {
 		QUrl u = QUrl::fromEncoded(a.arguments().last().toUtf8());
-		if (u.isValid() && (u.scheme() == QLatin1String("mumble")))
+		if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
 			url = u;
+		} else {
+			QFile f(a.arguments().last());
+			if (f.exists()) {
+				url = QUrl::fromLocalFile(f.fileName());
+			}
+		}
 	}
 
 #ifdef USE_DBUS
@@ -123,6 +129,8 @@ int main(int argc, char **argv) {
 		g.qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
 	else
 		g.qs = new QSettings();
+
+	g.qs->setIniCodec("UTF-8");
 
 	// Load preferences
 	g.s.load();

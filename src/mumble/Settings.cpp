@@ -390,7 +390,8 @@ void Settings::load() {
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
 	QByteArray qba = qvariant_cast<QByteArray>(g.qs->value(QLatin1String("net/certificate")));
-	kpCertificate = CertWizard::importCert(qba);
+	if (! qba.isEmpty())
+		kpCertificate = CertWizard::importCert(qba);
 
 	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0;i<nshorts;i++) {
