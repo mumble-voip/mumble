@@ -255,7 +255,6 @@ Section /o "$(MUMBLE_SEC_MUMBLE11X)" SectionMumble11X
   SetOutPath "$INSTDIR\plugins11x"
   File /oname=aoc.dll "..\release\plugins11x\aoc.dll"
   File /oname=bf2.dll "..\release\plugins11x\bf2.dll"
-  File /oname=bf2142.dll "..\release\plugins11x\bf2142.dll"
   File /oname=cod2.dll "..\release\plugins11x\cod2.dll"
   File /oname=cod4.dll "..\release\plugins11x\cod4.dll"
   File /oname=cod5.dll "..\release\plugins11x\cod5.dll"
