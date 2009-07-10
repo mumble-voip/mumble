@@ -7,6 +7,14 @@ LangString MUMBLE_NO_SSE ${LANG_NORWEGIAN} "Mumble krever SSE, en prosessorutvid
 LangString MUMBLE_NO_XP ${LANG_NORWEGIAN} "Mumble krever Windows XP SP2 eller nyere. Du bruker et eldre og inkompatibelt operativsystem, og det er usannsynlig at Mumble vil fungere. Ønsker du fortsatt å installerer Mumble?"
 LangString MUMBLE_START ${LANG_NORWEGIAN} "Start Mumble"
 
+; For the start menu
+LangString MUMBLE_README_LNK ${LANG_NORWEGIAN} "Mumble Lesmeg"
+LangString MUMBLE_LICENSE_LNK ${LANG_NORWEGIAN} "Mumble Lisens"
+LangString MUMBLE_QT_LNK ${LANG_NORWEGIAN} "Qt Lisens"
+LangString MUMBLE_SPEEX_LNK ${LANG_NORWEGIAN} "Speex Lisens"
+LangString MUMBLE_UNINSTALL_LNK ${LANG_NORWEGIAN} "Avinstallere Mumble"
+LangString MUMBLE_COMPAT_LNK ${LANG_NORWEGIAN} "Mumble (Bakoverkompatibel)"
+
 ; Install types
 LangString INSTALL_FULL ${LANG_NORWEGIAN} "Full"
 LangString INSTALL_CLIENT ${LANG_NORWEGIAN} "Bare klient"
@@ -14,18 +22,13 @@ LangString INSTALL_SERVER ${LANG_NORWEGIAN} "Bare server"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_NORWEGIAN} "Mumble (klient)"
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_ENGLISH} "Mumble (bakoverkompatibel klient)"
 LangString MUMBLE_SEC_MURMUR ${LANG_NORWEGIAN} "Murmur (server)"
 LangString MUMBLE_SEC_DEBUG ${LANG_NORWEGIAN} "Filer for feilsøking"
 LangString DESC_SectionMumble ${LANG_NORWEGIAN} "Klienten for Mumble, som du trenger for å koble deg til en server."
+LangString DESC_SectionMumble11X ${LANG_NORWEGIAN} "Bakoverkompatibel klient for bruk mot eldre servere."
 LangString DESC_SectionMurmur ${LANG_NORWEGIAN} "Serveren for Mumble. Inkluderer alt som trengs for å kjøre din egen server."
 LangString DESC_SectionDebug ${LANG_NORWEGIAN} "Symbolfiler for Mumble og Murmur. Trengs bare for debugging."
-
-; For the start menu
-LangString MUMBLE_README_LNK ${LANG_NORWEGIAN} "Mumble Lesmeg"
-LangString MUMBLE_LICENSE_LNK ${LANG_NORWEGIAN} "Mumble Lisens"
-LangString MUMBLE_QT_LNK ${LANG_NORWEGIAN} "Qt Lisens"
-LangString MUMBLE_SPEEX_LNK ${LANG_NORWEGIAN} "Speex Lisens"
-LangString MUMBLE_UNINSTALL_LNK ${LANG_NORWEGIAN} "Avinstallere Mumble"
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_NORWEGIAN} "Mumble og Murmur" 

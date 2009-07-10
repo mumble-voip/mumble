@@ -13,7 +13,7 @@ LangString MUMBLE_LICENSE_LNK ${LANG_ENGLISH} "Mumble License"
 LangString MUMBLE_QT_LNK ${LANG_ENGLISH} "Qt License"
 LangString MUMBLE_SPEEX_LNK ${LANG_ENGLISH} "Speex License"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_ENGLISH} "Uninstall Mumble"
-LangString MUMBLE_COMPAT_LNK ${LANG_ENGLISH} "Mumble (Compatibility Mode)"
+LangString MUMBLE_COMPAT_LNK ${LANG_ENGLISH} "Mumble (Backwards Compatible)"
 
 ; Install types
 LangString INSTALL_FULL ${LANG_ENGLISH} "Full"
