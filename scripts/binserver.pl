@@ -41,9 +41,13 @@ if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
   print "REVISION $ver\n";
 }
 
-system("/usr/local/Trolltech/Qt-4.5.2/bin/qmake CONFIG+=static CONFIG+=no-client");
+system("/usr/local/Trolltech/Qt-4.5.1/bin/qmake CONFIG+=static CONFIG+=no-client -recursive");
 system("make distclean");
-system("/usr/local/Trolltech/Qt-4.5.2/bin/qmake CONFIG+=static CONFIG+=no-client");
+unlink("src/murmur/Murmur.h");
+unlink("src/murmur/Murmur.cpp");
+unlink("src/murmur/Mumble.pb.h");
+unlink("src/murmur/Mumble.pb.cc");
+system("/usr/local/Trolltech/Qt-4.5.1/bin/qmake CONFIG+=static CONFIG+=no-client -recursive");
 system("make");
 system("strip release/murmurd");
 
