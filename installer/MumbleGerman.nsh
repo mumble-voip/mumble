@@ -10,6 +10,7 @@ LangString MUMBLE_START ${LANG_GERMAN} "Mumble starten"
 ; For the start menu
 LangString MUMBLE_README_LNK ${LANG_GERMAN} "Mumble Liesmich"
 LangString MUMBLE_LICENSE_LNK ${LANG_GERMAN} "Mumble Lizenz"
+LangString MUMBLE_COMPAT_LNK ${LANG_GERMAN} "Mumble (Abwärtskompatibel)"
 LangString MUMBLE_QT_LNK ${LANG_GERMAN} "Qt Lizenz"
 LangString MUMBLE_SPEEX_LNK ${LANG_GERMAN} "Speex Lizenz"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_GERMAN} "Mumble Deinstallieren"
@@ -22,8 +23,10 @@ LangString INSTALL_SERVER ${LANG_GERMAN} "Nur Server"
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_GERMAN} "Mumble (Client)"
 LangString MUMBLE_SEC_MURMUR ${LANG_GERMAN} "Murmur (Server)"
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_GERMAN} "Mumble (Abwärtskompatibler Client)"
 LangString MUMBLE_SEC_DEBUG ${LANG_GERMAN} "Debug Dateien"
 LangString DESC_SectionMumble ${LANG_GERMAN} "Der Mumble Client, welchen Sie zum Verbinden mit einem Server benötigen."
+LangString DESC_SectionMumble11X ${LANG_GERMAN} "Der Mumble Client, welchen Sie zum Verbinden mit einem älteren Server benötigen."
 LangString DESC_SectionMurmur ${LANG_GERMAN} "Der Server für Mumble. Beinhaltet alles, was Sie zum Starten ihres eigenen Servers benötigen."
 LangString DESC_SectionDebug ${LANG_GERMAN} "Symbol Dateien für Mumble und Murmur. Nur für das Debuggen benötigt."
 
