@@ -137,6 +137,9 @@ int main(int argc, char **argv) {
 
 	DeferInit::run_initializers();
 
+	// Forcibly link QtSvg
+	delete new QSvgRenderer();
+
 	if (! g.s.qsStyle.isEmpty()) {
 		a.setStyle(g.s.qsStyle);
 	}
