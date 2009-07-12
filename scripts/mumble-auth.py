@@ -47,12 +47,12 @@ class ServerCallbackI(Murmur.ServerCallback):
         self.server = server
         self.contextR=Murmur.ServerContextCallbackPrx.uncheckedCast(adapter.addWithUUID(ServerContextCallbackI(server)))
 
-    def playerConnected(self, p, current=None):
-        if p.playerid != 0: # SuperUser is always allowed
+    def userConnected(self, p, current=None):
+        if p.userid != 0: # SuperUser is always allowed
             # Check if the user is in the right acl class and add the context menu
             allowed = False
             for acl in self.server.getACL(0)[1]:
-                if acl.name == group and p.playerid in acl.members:
+                if acl.name == group and p.userid in acl.members:
                     allowed = True
                     break
             if not allowed:
@@ -61,10 +61,10 @@ class ServerCallbackI(Murmur.ServerCallback):
         self.server.addContextCallback(p.session,
                                        "sendregurl",
                                        "Send registration URL",
-                                       self.contextR, Murmur.ContextPlayer)
+                                       self.contextR, Murmur.ContextUser)
 
-    def playerDisconnected(self, p, current=None): pass # Unused callbacks
-    def playerStateChanged(self, p, current=None): pass
+    def userDisconnected(self, p, current=None): pass # Unused callbacks
+    def userStateChanged(self, p, current=None): pass
     def channelCreated(self, c, current=None): pass
     def channelRemoved(self, c, current=None): pass
     def channelStateChanged(self, c, current=None): pass
@@ -81,11 +81,11 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
 
     def contextAction(self, action, p, session, chanid, current=None):
         if action == "sendregurl" and p:
-            if p.playerid != 0:
+            if p.userid != 0:
                 # If it isn't SuperUser check if he is in the right acl group
                 allowed = False
                 for acl in self.server.getACL(0)[1]:
-                    if acl.name == group and p.playerid in acl.members:
+                    if acl.name == group and p.userid in acl.members:
                         allowed = True
                         break
                 if not allowed:
@@ -116,7 +116,7 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
 
                 # Save everything
                 ids[str(rid)] = (sid, username, int(time.time()))
-                # Send reg url to the player
+                # Send reg url to the user
                 url = baseurl + str(rid)
                 self.server.sendMessage(session,
                                         self.msg_regurl % {'url':url})
@@ -233,12 +233,12 @@ class mumble_auth(object):
             else:
                 # Ok, try to register him
                 server = self.murmur.getServer(ids[id][0])
-                if (len(server.getRegisteredPlayers(username))!=0):
+                if (len(server.getRegisteredUsers(username))!=0):
                     body = self.err_username_existing + \
                             self.snippet_retry % {'url':baseurl+id}
                 else:
-                    # Register player
-                    pid = server.registerPlayer(username)
+                    # Register user
+                    pid = server.registerUser(username)
                     reg = server.getRegistration(pid)
                     reg.pw = password
                     server.updateregistration(reg)

@@ -213,7 +213,7 @@ void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &gro
 void Server::connectAuthenticator(QObject *obj) {
 	connect(this, SIGNAL(registerUserSig(int &, const QMap<QString, QString> &)), obj, SLOT(registerUserSlot(int &, const QMap<QString, QString> &)));
 	connect(this, SIGNAL(unregisterUserSig(int &, int)), obj, SLOT(unregisterUserSlot(int &, int)));
-	connect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QString, QString> &)));
+	connect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QString> &)));
 	connect(this, SIGNAL(getRegistrationSig(int &, int, QMap<QString, QString> &)), obj, SLOT(getRegistrationSlot(int &, int, QMap<QString, QString> &)));
 	connect(this, SIGNAL(authenticateSig(int &, QString &, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QString &)));
 	connect(this, SIGNAL(setInfoSig(int &, int, const QMap<QString, QString> &)), obj, SLOT(setInfoSlot(int &, int, const QMap<QString, QString> &)));
@@ -224,14 +224,12 @@ void Server::connectAuthenticator(QObject *obj) {
 }
 
 void Server::disconnectAuthenticator(QObject *obj) {
-	disconnect(this, SIGNAL(registerUserSig(int &, const QString &)), obj, SLOT(registerUserSlot(int &, const QString &)));
+	disconnect(this, SIGNAL(registerUserSig(int &, const QMap<QString, QString> &)), obj, SLOT(registerUserSlot(int &, const QMap<QString, QString> &)));
 	disconnect(this, SIGNAL(unregisterUserSig(int &, int)), obj, SLOT(unregisterUserSlot(int &, int)));
-	disconnect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QPair<QString, QString> > &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QPair<QString, QString> > &)));
-	disconnect(this, SIGNAL(getRegistrationSig(int &, int, QString &, QString &)), obj, SLOT(getRegistrationSlot(int &, int, QString &, QString &)));
+	disconnect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QString> &)));
+	disconnect(this, SIGNAL(getRegistrationSig(int &, int, QMap<QString, QString> &)), obj, SLOT(getRegistrationSlot(int &, int, QMap<QString, QString> &)));
 	disconnect(this, SIGNAL(authenticateSig(int &, QString &, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QString &)));
-	disconnect(this, SIGNAL(setPwSig(int &, int, const QString &)), obj, SLOT(setPwSlot(int &, int, const QString &)));
-	disconnect(this, SIGNAL(setEmailSig(int &, int, const QString &)), obj, SLOT(setEmailSlot(int &, int, const QString &)));
-	disconnect(this, SIGNAL(setNameSig(int &, int, const QString &)), obj, SLOT(setNameSlot(int &, int, const QString &)));
+	disconnect(this, SIGNAL(setInfoSig(int &, int, const QMap<QString, QString> &)), obj, SLOT(setInfoSlot(int &, int, const QMap<QString, QString> &)));
 	disconnect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj, SLOT(setTextureSlot(int &, int, const QByteArray &)));
 	disconnect(this, SIGNAL(idToNameSig(QString &, int)), obj, SLOT(idToNameSlot(QString &, int)));
 	disconnect(this, SIGNAL(nameToIdSig(int &, const QString &)), obj, SLOT(nameToIdSlot(int &, const QString &)));

@@ -22,6 +22,14 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
           return (-1, None, None)
       return (-2, None, None)
 
+    def getInfo(self, id, current=None):
+      print "getInfo ", id
+      name = self.idToName(id);
+      if (name == None):
+        return (False, {})
+      map = {}
+      map['name']=name
+      return (True, map)
 
     def nameToId(self, name, current=None):
       if (name == "One"):
@@ -44,15 +52,20 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 
     # The expanded methods from UpdatingAuthenticator. We only implement a subset for this example, but
     # a valid implementation has to define all of them
-    def registerPlayer(self, name, current=None):
-      print "Someone tried to register " + name
+    def registerUser(self, name, current=None):
+      print "Someone tried to register " + name['name']
       return -2
 
-    def unregisterPlayer(self, id, current=None):
+    def unregisterUser(self, id, current=None):
+      print "Unregister ", id
       return -2
 
     def getRegistration(self, id, current=None):
       return (-2, None, None)
+    
+    def setInfo(self, id, info, current=None):
+      print "Set", id, info
+      return -1
 
 if __name__ == "__main__":
     global contextR
@@ -68,15 +81,20 @@ if __name__ == "__main__":
     for server in meta.getBootedServers():
       serverR=Murmur.ServerUpdatingAuthenticatorPrx.uncheckedCast(adapter.addWithUUID(ServerAuthenticatorI(server, adapter)))
       server.setAuthenticator(serverR)
-#      server.registerPlayer("TestPlayer")
+#      server.registerUser("TestUser")
 
     print "Done"
+    
+    map = {};
+    map['name'] = 'TestUser';
 
     for server in meta.getBootedServers():
-      ids= server.getPlayerIds(["TestPlayer"])
+      ids= server.getUserIds(["TestUser"])
       for name,id in ids.iteritems():
-        server.unregisterPlayer(id)
-      server.registerPlayer("TestPlayer")
+        if (id > 0):
+          print "Will unregister ", id
+          server.unregisterUser(id)
+      server.registerUser(map)
 
     print 'Script running (press CTRL-C to abort)';
     try:

@@ -19,18 +19,18 @@ class ServerCallbackI(Murmur.ServerCallback):
       self.server = server
       self.contextR=Murmur.ServerContextCallbackPrx.uncheckedCast(adapter.addWithUUID(ServerContextCallbackI(server)))
 
-    def playerConnected(self, p, current=None):
+    def userConnected(self, p, current=None):
       print "connected"
       print p
-      self.server.addContextCallback(p.session, "flubber", "Power up the T", self.contextR, Murmur.ContextChannel | Murmur.ContextPlayer)
+      self.server.addContextCallback(p.session, "flubber", "Power up the T", self.contextR, Murmur.ContextChannel | Murmur.ContextUser)
       if (self.server.hasPermission(p.session, 0, Murmur.PermissionWrite)):
         print "Is a global admin"
 
-    def playerDisconnected(self, p, current=None):
+    def userDisconnected(self, p, current=None):
       print "disconnected"
       print p
 
-    def playerStateChanged(self, p, current=None):
+    def userStateChanged(self, p, current=None):
       print "stateChanged"
       print self.server
       print p

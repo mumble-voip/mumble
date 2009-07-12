@@ -540,14 +540,13 @@ void MurmurIce::getRegistrationSlot(int &res, int id, QMap<QString, QString> &in
 
 	Murmur::InfoMap im;
 	try {
-		res = prx->getInfo(id, im);
+		if (prx->getInfo(id, im)) {
+			res = 1;
+			infoToInfo(im, info);
+		}
 	} catch (...) {
 		badAuthenticator(server);
 		return;
-	}
-
-	if (res >= 0) {
-		infoToInfo(im, info);
 	}
 }
 
