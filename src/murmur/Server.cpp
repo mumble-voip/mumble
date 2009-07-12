@@ -364,15 +364,15 @@ int BandwidthRecord::idleSeconds() const {
 }
 
 int BandwidthRecord::bandwidth() const {
-	int sincelast = static_cast<int>(a_qtWhen[iRecNum].elapsed() / 20000LL);
+	int sincelast = static_cast<int>(a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed() / 10000LL);
 	int todo = N_BANDWIDTH_SLOTS - sincelast;
 	if (todo < 0)
 		return 0;
 
 	int sum = 0;
-	for (int i=0;i<todo;i++)
+	for (int i=1;i<=todo;++i)
 		sum += a_iBW[(iRecNum+N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS];
-	return (sum*50)/sincelast;
+	return (sum*100)/N_BANDWIDTH_SLOTS;
 }
 
 void Server::run() {
