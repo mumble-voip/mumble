@@ -28,8 +28,8 @@ LangString DESC_SectionMurmur ${LANG_SPANISH} "The server for Mumble. Includes e
 LangString DESC_SectionDebug ${LANG_SPANISH} "Symbol files for Mumble and Murmur. Only needed for debugging."
 
 ; Uninstall sections
-LangString MUMBLE_UNSEC_BASE ${LANG_SPANISH} "Mumble y Murmur" 
-LangString MUMBLE_UNSEC_ALL ${LANG_SPANISH} "Preferencias y bases de datos" 
+LangString MUMBLE_UNSEC_BASE ${LANG_SPANISH} "Mumble y Murmur"
+LangString MUMBLE_UNSEC_ALL ${LANG_SPANISH} "Preferencias y bases de datos"
 LangString DESC_SectionUninstBase ${LANG_SPANISH} "Desinstalar los programas Mumble y Murmur"
 LangString DESC_SectionUninstAll ${LANG_SPANISH} "Eliminar completamente Mumble y Murmur, incluyendo las preferencias y las bases de datos."
 

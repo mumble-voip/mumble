@@ -32,8 +32,8 @@ LangString DESC_SectionDebug ${LANG_GERMAN} "Symbol Dateien für Mumble und Murm
 
 
 ; Uninstall sections
-LangString MUMBLE_UNSEC_BASE ${LANG_GERMAN} "Mumble und Murmur" 
-LangString MUMBLE_UNSEC_ALL ${LANG_GERMAN} "Einstellungen und Datenbanken" 
+LangString MUMBLE_UNSEC_BASE ${LANG_GERMAN} "Mumble und Murmur"
+LangString MUMBLE_UNSEC_ALL ${LANG_GERMAN} "Einstellungen und Datenbanken"
 LangString DESC_SectionUninstBase ${LANG_GERMAN} "Mumble und Murmur deinstallieren"
 LangString DESC_SectionUninstAll ${LANG_GERMAN} "Alles von Mumble und Murmur deinstallieren, einschließlich der Einstellungen und Datenbanken."
 

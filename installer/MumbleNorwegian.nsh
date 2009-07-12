@@ -31,8 +31,8 @@ LangString DESC_SectionMurmur ${LANG_NORWEGIAN} "Serveren for Mumble. Inkluderer
 LangString DESC_SectionDebug ${LANG_NORWEGIAN} "Symbolfiler for Mumble og Murmur. Trengs bare for debugging."
 
 ; Uninstall sections
-LangString MUMBLE_UNSEC_BASE ${LANG_NORWEGIAN} "Mumble og Murmur" 
-LangString MUMBLE_UNSEC_ALL ${LANG_NORWEGIAN} "Brukerinstillinger og databaser" 
+LangString MUMBLE_UNSEC_BASE ${LANG_NORWEGIAN} "Mumble og Murmur"
+LangString MUMBLE_UNSEC_ALL ${LANG_NORWEGIAN} "Brukerinstillinger og databaser"
 LangString DESC_SectionUninstBase ${LANG_NORWEGIAN} "Avinstallere Mumble og Murmur programmer"
 LangString DESC_SectionUninstAll ${LANG_NORWEGIAN} "Avinstallere Mumble og Murmur og fjern alle spor av dem, inkludert brukerinstillinger og databaser."
 

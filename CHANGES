@@ -1,3 +1,30 @@
+2009-07-12
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    85c9c78  Fix Ice callbacks and examples
+    5ccce13  Fix bandwidth()
+
+2009-07-11
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    3861102  Updated German installer
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b45eac1  Revert murmur static to Qt 4.5.1; 4.5.2 crashes
+    96fe83c  Link QtSvg. I really mean it.
+    8483892  Explicitly link svg
+
+  Bartek Sumowksi <sumowski@gmail.com>
+    0afb4c7  Updated Polish installer
+
+2009-07-10
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    55233df  1.1.x doesn't have BF2142 plugin
+    cc4263d  Update Norwegian installer
+    ba4c405  Add 11x plugins to installer
+
+2009-07-09
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4391a12  Use UTF-8 ini files, and support importing partial configs
+
 2009-07-08
   Thorvald Natvig <slicer@users.sourceforge.net>
     0f3d2dc  Installer link for compatible client

@@ -33,8 +33,8 @@ LangString MUMBLE_SPEEX_LNK ${LANG_POLISH} "Licencja Speex"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_POLISH} "Deinstalacja Mumble"
 
 ; Uninstall sections
-LangString MUMBLE_UNSEC_BASE ${LANG_POLISH} "Mumble i Murmur" 
-LangString MUMBLE_UNSEC_ALL ${LANG_POLISH} "Preferencje i bazy danych" 
+LangString MUMBLE_UNSEC_BASE ${LANG_POLISH} "Mumble i Murmur"
+LangString MUMBLE_UNSEC_ALL ${LANG_POLISH} "Preferencje i bazy danych"
 LangString DESC_SectionUninstBase ${LANG_POLISH} "Usuwa oba programy."
 LangString DESC_SectionUninstAll ${LANG_POLISH} "Usuwa wszystkie pliki programu, ustawienia oraz bazy danych (adresy serwerów, loginy, hasła)."
 

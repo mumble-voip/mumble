@@ -29,8 +29,8 @@ LangString MUMBLE_SPEEX_LNK ${LANG_JAPANESE} "Speex License"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_JAPANESE} "Mumble のアンインストール"
 
 ; Uninstall sections
-LangString MUMBLE_UNSEC_BASE ${LANG_JAPANESE} "Mumble と Murmur" 
-LangString MUMBLE_UNSEC_ALL ${LANG_JAPANESE} "設定 と データベース" 
+LangString MUMBLE_UNSEC_BASE ${LANG_JAPANESE} "Mumble と Murmur"
+LangString MUMBLE_UNSEC_ALL ${LANG_JAPANESE} "設定 と データベース"
 LangString DESC_SectionUninstBase ${LANG_JAPANESE} "Mumble と Murmur をアンイストールする"
 LangString DESC_SectionUninstAll ${LANG_JAPANESE} "設定 と データベースを含む Mumble と Murmur のすべての痕跡をアンインストールする"
 
