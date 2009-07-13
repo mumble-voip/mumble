@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>
+/* copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -28,35 +28,53 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DATABASE_H
-#define _DATABASE_H
+#include "Tokens.h"
+#include "Global.h"
+#include "ServerHandler.h"
+#include "Database.h"
 
-#include "mumble_pch.hpp"
-#include "Settings.h"
+Tokens::Tokens(QWidget *p) : QDialog(p) {
+	setupUi(this);
 
+	QString uname, pw;
+	g.sh->getConnectionInfo(qsHostname, usPort, uname, pw);
+	QStringList tokens = Database::getTokens(qsHostname, usPort);
+	tokens.sort();
+	foreach(const QString &qs, tokens) {
+		QListWidgetItem *qlwi = new QListWidgetItem(qs);
+		qlwi->setFlags(qlwi->flags() | Qt::ItemIsEditable);
+		qlwTokens->addItem(qlwi);
+	}
+}
 
-class Database : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(Database)
-	public:
-		Database();
-		static QStringList getTokens(const QString &hostname, unsigned short port);
-		static void setTokens(const QString &hostname, unsigned short port, QStringList &tokens);
-		static QList<Shortcut> getShortcuts(const QString &hostname, unsigned short port);
-		static bool setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts);
-		static void addFriend(const QString &name, const QString &hash);
-		static void removeFriend(const QString &hash);
-		static const QString getFriend(const QString &hash);
-		static const QMap<QString, QString> getFriends();
-		static const QString getDigest(const QString &hostname, unsigned short port);
-		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
-		static void setPassword(const QString &hostname, unsigned short port, const QString &user, const QString &pw);
-		static bool getUdp(const QString &hostname, unsigned short port);
-		static void setUdp(const QString &hostname, unsigned short port, bool udp);
-		static bool fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port);
-};
+void Tokens::accept() {
+	QStringList qsl;
 
-#else
-class Database;
-#endif
+	QList<QListWidgetItem *> items = qlwTokens->findItems(QString(), Qt::MatchStartsWith);
+	foreach(QListWidgetItem *qlwi, items) {
+		const QString &text = qlwi->text();
+		if (! text.isEmpty())
+			qsl << text;
+	}
+	Database::setTokens(qsHostname, usPort, qsl);
+
+	MumbleProto::Authenticate msg;
+	foreach(const QString &qs, qsl)
+		msg.add_tokens(u8(qs));
+	g.sh->sendMessage(msg);
+
+	QDialog::accept();
+}
+
+void Tokens::on_qpbAdd_clicked() {
+	QListWidgetItem *qlwi = new QListWidgetItem(tr("Empty Token"));
+	qlwi->setFlags(qlwi->flags() | Qt::ItemIsEditable);
+
+	qlwTokens->addItem(qlwi);
+}
+
+void Tokens::on_qpbRemove_clicked() {
+	foreach(QListWidgetItem *qlwi, qlwTokens->selectedItems())
+		delete qlwi;
+}
+

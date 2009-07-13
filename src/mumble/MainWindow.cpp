@@ -38,6 +38,7 @@
 #include "ACLEditor.h"
 #include "BanEditor.h"
 #include "UserEdit.h"
+#include "Tokens.h"
 #include "Connection.h"
 #include "ServerHandler.h"
 #include "About.h"
@@ -137,6 +138,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	aclEdit = NULL;
 	banEdit = NULL;
 	userEdit = NULL;
+	tokenEdit = NULL;
 	bNoHide = false;
 
 	qtReconnect = new QTimer(this);
@@ -302,7 +304,7 @@ void MainWindow::msgBox(QString msg) {
 }
 
 #ifdef Q_OS_WIN
-bool MainWindow::winEvent(MSG *msg, long *res) {
+bool MainWindow::winEvent(MSG *msg, long *) {
 	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
 		uiNewHardware++;
 	return false;
@@ -602,6 +604,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerInformation);
 	qmServer->addAction(qaServerTexture);
+	qmServer->addAction(qaServerTokens);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
 
@@ -609,6 +612,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qaServerUserList->setEnabled(g.pPermissions & (ChanACL::Register | ChanACL::Write));
 	qaServerInformation->setEnabled(g.uiSession != 0);
 	qaServerTexture->setEnabled(g.uiSession != 0);
+	qaServerTokens->setEnabled(g.uiSession != 0);
 
 	if (! qlServerActions.isEmpty()) {
 		qmServer->addSeparator();
@@ -717,6 +721,17 @@ void MainWindow::on_qaServerTexture_triggered() {
 			QMessageBox::warning(this, tr("Could not open file."), tr("Failed to open image file."));
 		}
 	}
+}
+
+void MainWindow::on_qaServerTokens_triggered() {
+	if (tokenEdit) {
+		tokenEdit->reject();
+		delete tokenEdit;
+		tokenEdit = NULL;
+	}
+
+	tokenEdit = new Tokens(this);
+	tokenEdit->show();
 }
 
 void MainWindow::on_qmUser_aboutToShow() {
@@ -1649,6 +1664,12 @@ void MainWindow::serverDisconnected(QString reason) {
 		userEdit->reject();
 		delete userEdit;
 		userEdit = NULL;
+	}
+
+	if (tokenEdit) {
+		tokenEdit->reject();
+		delete tokenEdit;
+		tokenEdit = NULL;
 	}
 
 	QSet<QAction *> qs;

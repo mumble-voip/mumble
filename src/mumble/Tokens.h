@@ -28,35 +28,26 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DATABASE_H
-#define _DATABASE_H
+#ifndef _TOKENS_H
+#define _TOKENS_H
 
 #include "mumble_pch.hpp"
-#include "Settings.h"
+#include "ui_Tokens.h"
 
-
-class Database : public QObject {
+class Tokens : public QDialog, public Ui::Tokens {
 	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(Database)
+		Q_OBJECT;
+		Q_DISABLE_COPY(Tokens)
+	protected:
+		QString qsHostname;
+		unsigned short usPort;
 	public:
-		Database();
-		static QStringList getTokens(const QString &hostname, unsigned short port);
-		static void setTokens(const QString &hostname, unsigned short port, QStringList &tokens);
-		static QList<Shortcut> getShortcuts(const QString &hostname, unsigned short port);
-		static bool setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts);
-		static void addFriend(const QString &name, const QString &hash);
-		static void removeFriend(const QString &hash);
-		static const QString getFriend(const QString &hash);
-		static const QMap<QString, QString> getFriends();
-		static const QString getDigest(const QString &hostname, unsigned short port);
-		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
-		static void setPassword(const QString &hostname, unsigned short port, const QString &user, const QString &pw);
-		static bool getUdp(const QString &hostname, unsigned short port);
-		static void setUdp(const QString &hostname, unsigned short port, bool udp);
-		static bool fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port);
+		Tokens(QWidget *p = NULL);
+	public slots:
+		void accept();
+	public slots:
+		void on_qpbAdd_clicked();
+		void on_qpbRemove_clicked();
 };
 
-#else
-class Database;
 #endif

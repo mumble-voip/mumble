@@ -687,6 +687,14 @@
     <string>Change your overlay texture on this server</string>
    </property>
   </action>
+  <action name="qaServerTokens">
+   <property name="text">
+    <string>&amp;Access Tokens</string>
+   </property>
+   <property name="toolTip">
+    <string>Add or remove text-based access tokens</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

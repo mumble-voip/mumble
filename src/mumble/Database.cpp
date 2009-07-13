@@ -103,6 +103,8 @@ Database::Database() {
 
 	QSqlQuery query;
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `token` TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
@@ -112,6 +114,37 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `friends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hash` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
+}
+
+QStringList Database::getTokens(const QString &hostname, unsigned short port) {
+	QList<QString> qsl;
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `token` FROM `tokens` WHERE `hostname` = ? AND `port` = ?"));
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+	query.exec();
+	while (query.next()) {
+		qsl << query.value(0).toString();
+	}
+	return qsl;
+}
+
+void Database::setTokens(const QString &hostname, unsigned short port, QStringList &tokens) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("DELETE FROM `tokens` WHERE `hostname` = ? AND `port` = ?"));
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+	query.exec();
+
+	query.prepare(QLatin1String("INSERT INTO `tokens` (`hostname`, `port`, `token`) VALUES (?,?,?)"));
+	foreach(const QString &qs, tokens) {
+		query.addBindValue(hostname);
+		query.addBindValue(port);
+		query.addBindValue(qs);
+		query.exec();
+	}
 }
 
 QList<Shortcut> Database::getShortcuts(const QString &hostname, unsigned short port) {

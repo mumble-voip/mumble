@@ -43,6 +43,7 @@ class ServerHandler;
 class GlobalShortcut;
 class TextToSpeech;
 class UserModel;
+class Tokens;
 class Channel;
 
 struct ShortcutTarget;
@@ -94,6 +95,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
 		UserEdit *userEdit;
+		Tokens *tokenEdit;
 
 		MumbleProto::Reject_RejectType rtLast;
 		QString qsDesiredChannel;
@@ -138,6 +140,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaServerUserList_triggered();
 		void on_qaServerInformation_triggered();
 		void on_qaServerTexture_triggered();
+		void on_qaServerTokens_triggered();
 		void on_qmUser_aboutToShow();
 		void on_qaUserComment_triggered();
 		void on_qaUserKick_triggered();
