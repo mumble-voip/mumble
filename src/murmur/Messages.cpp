@@ -68,13 +68,13 @@
 	}
 
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
-	if (msg.tokens_size() > 0) {
-		QList<QString> qsl;
+	if ((msg.tokens_size() > 0) || (uSource->sState == User::Authenticated)) {
+		QStringList qsl;
 		for(int i=0;i<msg.tokens_size();++i)
 			qsl << u8(msg.tokens(i));
 		{
 			QMutexLocker qml(&qmCache);
-			uSource->qlAccessTokens = qsl;
+			uSource->qslAccessTokens = qsl;
 		}
 		clearACLCache(uSource);
 	}

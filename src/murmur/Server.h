@@ -128,7 +128,7 @@ class ServerUser : public Connection, public User {
 		HostAddress haAddress;
 		bool bUdp;
 		
-		QList<QString> qlAccessTokens;
+		QStringList qslAccessTokens;
 
 		QMap<int, WhisperTarget> qmTargets;
 		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;

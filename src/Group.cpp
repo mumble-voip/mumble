@@ -158,7 +158,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 	}
 
 	if (token) 
-		m = pl->qlAccessTokens.contains(name);
+		m = pl->qslAccessTokens.contains(name, Qt::CaseInsensitive);
 	else if (name == QLatin1String("none"))
 		m = false;
 	else if (name == QLatin1String("all"))
