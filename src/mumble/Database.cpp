@@ -102,11 +102,16 @@ Database::Database() {
 	}
 
 	QSqlQuery query;
+
+	// FIXME: Oops. These were unique. Leave them in for people using the snapshots for a few releases.
+	query.exec(QLatin1String("DROP INDEX IF EXISTS `tokens_host_port`"));
+	query.exec(QLatin1String("DROP TABLE IF EXISTS `shortcut_host_port`"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `token` TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`hostname`,`port`)"));
+	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`hostname`,`port`)"));
+	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `cert_host_port` ON `cert`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `udp` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER)"));

@@ -406,6 +406,10 @@ void ServerHandler::serverConnectionConnected() {
 	mpa.set_username(u8(qsUserName));
 	mpa.set_password(u8(qsPassword));
 
+	QStringList tokens = Database::getTokens(qsHostName, usPort);
+	foreach(const QString &qs, tokens)
+		mpa.add_tokens(u8(qs));
+
 	sendMessage(mpa);
 
 	{

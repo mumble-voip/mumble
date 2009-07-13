@@ -52,7 +52,7 @@ void Tokens::accept() {
 
 	QList<QListWidgetItem *> items = qlwTokens->findItems(QString(), Qt::MatchStartsWith);
 	foreach(QListWidgetItem *qlwi, items) {
-		const QString &text = qlwi->text();
+		const QString &text = qlwi->text().trimmed();
 		if (! text.isEmpty())
 			qsl << text;
 	}
@@ -71,6 +71,7 @@ void Tokens::on_qpbAdd_clicked() {
 	qlwi->setFlags(qlwi->flags() | Qt::ItemIsEditable);
 
 	qlwTokens->addItem(qlwi);
+	qlwTokens->editItem(qlwi);
 }
 
 void Tokens::on_qpbRemove_clicked() {
