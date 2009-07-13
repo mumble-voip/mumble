@@ -156,6 +156,15 @@ Section "" SectionCommon
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
 
+  SetOutPath "$INSTDIR\iconengines"
+  File /x q*d4.dll "\dev\Qt4.5.2\iconengines\q*4.dll"
+  
+  SetOutPath "$INSTDIR\imageformats"
+  File /x q*d4.dll "\dev\Qt4.5.2\imageformats\q*4.dll"
+
+  SetOutPath "$INSTDIR\codecs"
+  File /x q*d4.dll "\dev\Qt4.5.2\codecs\q*4.dll"
+
   ;Store installation folder
   WriteRegStr HKLM "Software\Mumble" "" $INSTDIR
   WriteRegStr HKLM "Software\Mumble\Mumble" "InstPath" $INSTDIR
@@ -400,6 +409,10 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   Delete "$INSTDIR\QtDBus4.dll"
   Delete "$INSTDIR\QtXml4.dll"
   Delete "$INSTDIR\QtSvg4.dll"
+  
+  RMDir /r "$INSTDIR\iconengines"
+  RMDir /r "$INSTDIR\imageformats"
+  RMDir /r "$INSTDIR\codecs"
 
   Delete "$INSTDIR\libmySQL.dll"
 

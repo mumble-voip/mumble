@@ -137,8 +137,15 @@ int main(int argc, char **argv) {
 
 	DeferInit::run_initializers();
 
-	// Forcibly link QtSvg
-	delete new QSvgRenderer();
+#ifdef QT_NO_DEBUG
+	// Remove the hardcoded dev-path to plugins. We don't want those.
+	QStringList np;
+	foreach(const QString &qs, a.libraryPaths()) {
+		if (! qs.startsWith(QLatin1String("C:/dev/Qt")))
+			np << qs;
+	}
+	a.setLibraryPaths(np);
+#endif
 
 	if (! g.s.qsStyle.isEmpty()) {
 		a.setStyle(g.s.qsStyle);
