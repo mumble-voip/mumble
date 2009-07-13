@@ -157,13 +157,13 @@ Section "" SectionCommon
   File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
 
   SetOutPath "$INSTDIR\iconengines"
-  File /x q*d4.dll "\dev\Qt4.5.2\iconengines\q*4.dll"
+  File /x q*d4.dll "\dev\Qt4.5.2\plugins\iconengines\q*4.dll"
   
   SetOutPath "$INSTDIR\imageformats"
-  File /x q*d4.dll "\dev\Qt4.5.2\imageformats\q*4.dll"
+  File /x q*d4.dll "\dev\Qt4.5.2\plugins\imageformats\q*4.dll"
 
   SetOutPath "$INSTDIR\codecs"
-  File /x q*d4.dll "\dev\Qt4.5.2\codecs\q*4.dll"
+  File /x q*d4.dll "\dev\Qt4.5.2\plugins\codecs\q*4.dll"
 
   ;Store installation folder
   WriteRegStr HKLM "Software\Mumble" "" $INSTDIR
