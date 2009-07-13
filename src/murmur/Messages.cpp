@@ -68,6 +68,16 @@
 	}
 
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
+	if (msg.tokens_size() > 0) {
+		QList<QString> qsl;
+		for(int i=0;i<msg.tokens_size();++i)
+			qsl << u8(msg.tokens(i));
+		{
+			QMutexLocker qml(&qmCache);
+			uSource->qlAccessTokens = qsl;
+		}
+		clearACLCache(uSource);
+	}
 	MSG_SETUP(User::Connected);
 
 	Channel *root = qhChannels.value(0);

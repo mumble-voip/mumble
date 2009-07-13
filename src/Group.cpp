@@ -129,22 +129,37 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 
 	bool m = false;
 	bool invert = false;
+	bool token = false;
 	c = curChan;
 
-	if (name.isEmpty())
-		return false;
+	while (1) {
+		if (name.isEmpty())
+			return false;
 
-	if (name.startsWith(QChar::fromAscii('!'))) {
-		invert = true;
-		name = name.remove(0,1);
+		if (name.startsWith(QChar::fromAscii('!'))) {
+			invert = true;
+			name = name.remove(0,1);
+			continue;
+		}
+
+		if (name.startsWith(QChar::fromAscii('~'))) {
+			c = aclChan;
+			name = name.remove(0,1);
+			continue;
+		}
+
+		if (name.startsWith(QChar::fromAscii('#'))) {
+			token = true;
+			name = name.remove(0,1);
+			continue;
+		}
+		
+		break;
 	}
 
-	if (name.startsWith(QChar::fromAscii('~'))) {
-		c = aclChan;
-		name = name.remove(0,1);
-	}
-
-	if (name == QLatin1String("none"))
+	if (token) 
+		m = pl->qlAccessTokens.contains(name);
+	else if (name == QLatin1String("none"))
 		m = false;
 	else if (name == QLatin1String("all"))
 		m = true;

@@ -16,6 +16,7 @@ message UDPTunnel {
 message Authenticate {
 	optional string username = 1;
 	optional string password = 2;
+	repeated string tokens = 3;
 }
 
 message Ping {
