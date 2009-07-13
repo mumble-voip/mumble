@@ -35,6 +35,7 @@
 
 class Channel;
 class User;
+class ServerUser;
 
 class Group {
 	private:
@@ -47,13 +48,15 @@ class Group {
 		QSet<int> qsAdd;
 		QSet<int> qsRemove;
 		QSet<int> qsTemporary;
-		QSet<int> members();
 		Group(Channel *assoc, const QString &name);
 
+#ifdef MURMUR
+		QSet<int> members();
 		static QSet<QString> groupNames(Channel *c);
 		static Group *getGroup(Channel *c, QString name);
 
-		static bool isMember(Channel *c, Channel *aclChan, QString name, User *);
+		static bool isMember(Channel *c, Channel *aclChan, QString name, ServerUser *);
+#endif
 };
 
 #else

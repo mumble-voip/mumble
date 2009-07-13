@@ -31,6 +31,9 @@
 #include "Group.h"
 #include "Channel.h"
 #include "User.h"
+#ifdef MURMUR
+#include "Server.h"
+#endif
 
 Group::Group(Channel *assoc, const QString &name) {
 	c = assoc;
@@ -40,6 +43,8 @@ Group::Group(Channel *assoc, const QString &name) {
 	if (c)
 		c->qhGroups[name] = this;
 }
+
+#ifdef MURMUR
 
 QSet<int> Group::members() {
 	QStack<Group *> s;
@@ -117,7 +122,7 @@ QSet<QString> Group::groupNames(Channel *chan) {
 #define RET_FALSE (invert ? true : false)
 #define RET_TRUE (invert ? false : true)
 
-bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, User *pl) {
+bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUser *pl) {
 	Channel *p;
 	Channel *c;
 	Group *g;
@@ -234,3 +239,5 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, User *pl)
 	}
 	return invert ? !m : m;
 }
+
+#endif

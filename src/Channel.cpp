@@ -33,12 +33,10 @@
 #include "Group.h"
 #include "ACL.h"
 
+#ifdef MUMBLE
 QHash<int, Channel *> Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
-
-uint qHash(const Channel::qpUserLink & pl) {
-	return qHash(pl.first) + qHash(pl.second);
-}
+#endif
 
 Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 	iId = id;
@@ -67,6 +65,7 @@ Channel::~Channel() {
 	Q_ASSERT(children().count() == 0);
 }
 
+#ifdef MUMBLE
 Channel *Channel::get(int id) {
 	QReadLocker lock(&c_qrwlChannels);
 	return c_qhChannels.value(id);
@@ -87,6 +86,7 @@ void Channel::remove(Channel *c) {
 	QWriteLocker lock(&c_qrwlChannels);
 	c_qhChannels.remove(c->iId);
 }
+#endif
 
 bool Channel::isLinked(Channel *l) const {
 	return qhLinks.contains(l);
@@ -107,46 +107,10 @@ void Channel::unlink(Channel *l) {
 		qhLinks.remove(l);
 		l->qsPermLinks.remove(this);
 		l->qhLinks.remove(this);
-
-		foreach(qpUserLink pl, qsUserLinks) {
-			if (pl.second == l)
-				qsUserLinks.remove(pl);
-		}
-		foreach(qpUserLink pl, l->qsUserLinks) {
-			if (pl.second == l)
-				qsUserLinks.remove(pl);
-		}
 	} else {
 		foreach(Channel *c, qhLinks.keys())
 			unlink(c);
 	}
-}
-
-void Channel::userLink(Channel *l, User *p) {
-	qpUserLink pl(p, l);
-	if (qsUserLinks.contains(pl))
-		return;
-
-	qsUserLinks.insert(pl);
-	l->qsUserLinks.insert(pl);
-	qhLinks[l]++;
-	l->qhLinks[this]++;
-}
-
-void Channel::userUnlink(Channel *l, User *p) {
-	qpUserLink pl(p, l);
-	if (! qsUserLinks.contains(pl))
-		return;
-
-	qsUserLinks.remove(pl);
-	l->qsUserLinks.remove(qpUserLink(p, this));
-	qhLinks[l]--;
-	l->qhLinks[this]--;
-
-	if (qhLinks[l] == 0)
-		qhLinks.remove(l);
-	if (l->qhLinks[this] == 0)
-		l->qhLinks.remove(this);
 }
 
 QSet<Channel *> Channel::allLinks() {
@@ -209,13 +173,6 @@ void Channel::addUser(User *p) {
 }
 
 void Channel::removeUser(User *p) {
-	foreach(qpUserLink pl, qsUserLinks) {
-		if (pl.first == p) {
-			qsUserLinks.remove(pl);
-			pl.second->qsUserLinks.remove(qpUserLink(p, this));
-		}
-	}
-
 	qlUsers.removeAll(p);
 }
 

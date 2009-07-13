@@ -43,7 +43,6 @@ LoopUser::LoopUser() {
 	qsName = QLatin1String("Loopy");
 	uiSession = 0;
 	iId = 0;
-	sState = User::Authenticated;
 	bMute = bDeaf = bSuppressed = false;
 	bLocalMute = bSelfDeaf = false;
 	bTalking = false;

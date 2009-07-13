@@ -695,8 +695,9 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 							foreach(Channel *tc, channels) {
 								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, acCache)) {
 									foreach(p, tc->qlUsers) {
-										if (! group || Group::isMember(tc, tc, wtc.qsGroup, p)) {
-											channel.insert(static_cast<ServerUser *>(p));
+										ServerUser *su = static_cast<ServerUser *>(p);
+										if (! group || Group::isMember(tc, tc, wtc.qsGroup, su)) {
+											channel.insert(su);
 										}
 									}
 								}
@@ -1069,7 +1070,7 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet) {
 
 	setLastChannel(p);
 
-	bool mayspeak = hasPermission(p, c, ChanACL::Speak);
+	bool mayspeak = hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak);
 	bool sup = p->bSuppressed;
 
 	if (! p->bMute) {
@@ -1086,7 +1087,7 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet) {
 	emit userStateChanged(p);
 }
 
-bool Server::hasPermission(User *p, Channel *c, QFlags<ChanACL::Perm> perm) {
+bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm) {
 	QMutexLocker qml(&qmCache);
 	return ChanACL::hasPermission(p, c, perm, acCache);
 }

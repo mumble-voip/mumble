@@ -58,34 +58,29 @@ class Channel : public QObject {
 		QSet<Channel *> qsPermLinks;
 		QHash<Channel *, int> qhLinks;
 
-		typedef QPair<User *, Channel *> qpUserLink;
-		QSet<qpUserLink> qsUserLinks;
-
 		bool bInheritACL;
-
-		static QHash<int, Channel *> c_qhChannels;
-		static QReadWriteLock c_qrwlChannels;
 
 		Channel(int id, const QString &name, QObject *p = NULL);
 		~Channel();
+
+#ifdef MUMBLE
+		static QHash<int, Channel *> c_qhChannels;
+		static QReadWriteLock c_qrwlChannels;
 
 		static Channel *get(int);
 		static Channel *add(int, const QString &);
 		static void remove(Channel *);
 
+		void addClientUser(ClientUser *p);
+#endif
 		void addChannel(Channel *c);
 		void removeChannel(Channel *c);
 		void addUser(User *p);
 		void removeUser(User *p);
 
-		void addClientUser(ClientUser *p);
-
 		bool isLinked(Channel *c) const;
 		void link(Channel *c);
 		void unlink(Channel *c = NULL);
-
-		void userLink(Channel *c, User *p);
-		void userUnlink(Channel *c, User *p);
 
 		QSet<Channel *> allLinks();
 		QSet<Channel *> allChildren();

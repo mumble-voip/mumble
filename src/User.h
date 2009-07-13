@@ -39,24 +39,27 @@ class User {
 	private:
 		Q_DISABLE_COPY(User)
 	public:
+#ifdef MURMUR
 		enum State { Connected, Authenticated };
 		State sState;
+		operator const QString() const;
+#endif
 		unsigned int uiSession;
 		int iId;
 		QString qsName;
 		QString qsComment;
 		QString qsHash;
 		bool bMute, bDeaf, bSuppressed;
+#ifdef MUMBLE
 		bool bLocalMute;
-		bool bSelfMute, bSelfDeaf;
 		bool bTalking, bAltSpeak;
+#endif
+		bool bSelfMute, bSelfDeaf;
 		Channel *cChannel;
 		QByteArray qbaTexture;
 
 		User();
 		virtual ~User() {};
-
-		operator const QString() const;
 };
 
 #else

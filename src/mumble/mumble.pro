@@ -1,5 +1,6 @@
 include(../mumble.pri)
 
+DEFINES		*= MUMBLE
 TEMPLATE	= app
 QT		*= network sql opengl xml svg
 TARGET		= mumble

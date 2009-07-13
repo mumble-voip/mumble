@@ -35,6 +35,7 @@
 
 class Channel;
 class User;
+class ServerUser;
 
 class ChanACL : public QObject {
 	private:
@@ -80,10 +81,13 @@ class ChanACL : public QObject {
 		Permissions pDeny;
 
 		ChanACL(Channel *c);
-		static bool hasPermission(User *p, Channel *c, QFlags<Perm> perm, ACLCache &cache);
+#ifdef MURMUR
+		static bool hasPermission(ServerUser *p, Channel *c, QFlags<Perm> perm, ACLCache &cache);
+#else
+		static QString whatsThis(Perm p);
+#endif
 		static QString permName(QFlags<Perm> p);
 		static QString permName(Perm p);
-		static QString whatsThis(Perm p);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ChanACL::Permissions)

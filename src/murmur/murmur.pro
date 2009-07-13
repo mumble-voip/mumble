@@ -1,5 +1,6 @@
 include(../mumble.pri)
 
+DEFINES *= MURMUR
 TEMPLATE	=app
 CONFIG  *= network
 CONFIG(static) {

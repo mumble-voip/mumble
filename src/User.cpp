@@ -32,17 +32,23 @@
 #include "Channel.h"
 
 User::User() {
+#ifdef MURMUR
 	sState = User::Connected;
+#endif
 	uiSession = 0;
 	iId = -1;
 	bMute = bDeaf = false;
 	bSelfMute = bSelfDeaf = false;
+#ifdef MUMBLE
 	bTalking = bAltSpeak = false;
 	bLocalMute = false;
+#endif
 	bSuppressed = false;
 	cChannel = 0;
 }
 
+#ifdef MURMUR
 User::operator const QString() const {
 	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
 }
+#endif

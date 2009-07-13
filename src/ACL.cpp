@@ -33,6 +33,10 @@
 #include "Group.h"
 #include "User.h"
 
+#ifdef MURMUR
+#include "Server.h"
+#endif
+
 ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 	bApplyHere = true;
 	bApplySubs = true;
@@ -50,7 +54,9 @@ ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 // and will return false if a user isn't allowed to
 // traverse to the channel. (Need "read" in all preceeding channels)
 
-bool ChanACL::hasPermission(User *p, Channel *chan, QFlags<Perm> perm, ACLCache &cache) {
+#ifdef MURMUR
+
+bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACLCache &cache) {
 	QStack<Channel *> chanstack;
 	Channel *ch;
 	ChanACL *acl;
@@ -133,50 +139,7 @@ bool ChanACL::hasPermission(User *p, Channel *chan, QFlags<Perm> perm, ACLCache 
 		return ((granted & perm) != None);
 }
 
-QString ChanACL::permName(QFlags<Perm> p) {
-	QStringList qsl;
-	for (int i=0;i<=31;++i) {
-		if (p & (1<<i))
-			qsl << permName(static_cast<Perm>(1<<i));
-	}
-	return qsl.join(QLatin1String(", "));
-}
-
-QString ChanACL::permName(Perm p) {
-	switch (p) {
-		case None:
-			return tr("None");
-		case Write:
-			return tr("Write ACL");
-		case Traverse:
-			return tr("Traverse");
-		case Enter:
-			return tr("Enter");
-		case Speak:
-			return tr("Speak");
-		case Whisper:
-			return tr("Whisper");
-		case MuteDeafen:
-			return tr("Mute/Deafen");
-		case Move:
-			return tr("Move");
-		case MakeChannel:
-			return tr("Make channel");
-		case LinkChannel:
-			return tr("Link channel");
-		case TextMessage:
-			return tr("Text message");
-		case Kick:
-			return tr("Kick");
-		case Ban:
-			return tr("Ban");
-		case Register:
-			return tr("Register User");
-		default:
-			break;
-	}
-	return QString();
-}
+#else
 
 QString ChanACL::whatsThis(Perm p) {
 	switch (p) {
@@ -223,6 +186,53 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents the permission to permanently remove users from the server.");
 		case Register:
 			return tr("This represents the permission to register new users on the server.");
+		default:
+			break;
+	}
+	return QString();
+}
+
+#endif
+
+QString ChanACL::permName(QFlags<Perm> p) {
+	QStringList qsl;
+	for (int i=0;i<=31;++i) {
+		if (p & (1<<i))
+			qsl << permName(static_cast<Perm>(1<<i));
+	}
+	return qsl.join(QLatin1String(", "));
+}
+
+QString ChanACL::permName(Perm p) {
+	switch (p) {
+		case None:
+			return tr("None");
+		case Write:
+			return tr("Write ACL");
+		case Traverse:
+			return tr("Traverse");
+		case Enter:
+			return tr("Enter");
+		case Speak:
+			return tr("Speak");
+		case Whisper:
+			return tr("Whisper");
+		case MuteDeafen:
+			return tr("Mute/Deafen");
+		case Move:
+			return tr("Move");
+		case MakeChannel:
+			return tr("Make channel");
+		case LinkChannel:
+			return tr("Link channel");
+		case TextMessage:
+			return tr("Text message");
+		case Kick:
+			return tr("Kick");
+		case Ban:
+			return tr("Ban");
+		case Register:
+			return tr("Register User");
 		default:
 			break;
 	}
