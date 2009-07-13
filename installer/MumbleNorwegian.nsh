@@ -22,7 +22,7 @@ LangString INSTALL_SERVER ${LANG_NORWEGIAN} "Bare server"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_NORWEGIAN} "Mumble (klient)"
-LangString MUMBLE_SEC_MUMBLE11X ${LANG_ENGLISH} "Mumble (bakoverkompatibel klient)"
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_NORWEGIAN} "Mumble (bakoverkompatibel klient)"
 LangString MUMBLE_SEC_MURMUR ${LANG_NORWEGIAN} "Murmur (server)"
 LangString MUMBLE_SEC_DEBUG ${LANG_NORWEGIAN} "Filer for feilsøking"
 LangString DESC_SectionMumble ${LANG_NORWEGIAN} "Klienten for Mumble, som du trenger for å koble deg til en server."
