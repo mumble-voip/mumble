@@ -253,37 +253,13 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
 
 SectionEnd
 
-Section /o "$(MUMBLE_SEC_MUMBLE11X)" SectionMumble11X
+Section "$(MUMBLE_SEC_MUMBLE11X)" SectionMumble11X
   SectionIn 1 2
   SetShellVarContext all
 
   SetOutPath "$INSTDIR"
 
   File "..\release\mumble11x.exe"
-
-  SetOutPath "$INSTDIR\plugins11x"
-  File /oname=aoc.dll "..\release\plugins11x\aoc.dll"
-  File /oname=bf2.dll "..\release\plugins11x\bf2.dll"
-  File /oname=cod2.dll "..\release\plugins11x\cod2.dll"
-  File /oname=cod4.dll "..\release\plugins11x\cod4.dll"
-  File /oname=cod5.dll "..\release\plugins11x\cod5.dll"
-  File /oname=css.dll "..\release\plugins11x\css.dll"
-  File /oname=dods.dll "..\release\plugins11x\dods.dll"
-  File /oname=dys.dll "..\release\plugins11x\dys.dll"
-  File /oname=gmod.dll "..\release\plugins11x\gmod.dll"
-  File /oname=hl2dm.dll "..\release\plugins11x\hl2dm.dll"
-  File /oname=insurgency.dll "..\release\plugins11x\insurgency.dll"
-  File /oname=link.dll "..\release\plugins11x\link.dll"
-  File /oname=l4d.dll "..\release\plugins11x\l4d.dll"
-  File /oname=tf2.dll "..\release\plugins11x\tf2.dll"
-  File /oname=wolfet.dll "..\release\plugins11x\wolfet.dll"  
-
-  File "Microsoft.VC90.CRT.manifest"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
-
-  SetOutPath "$INSTDIR"
 
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     ;Create shortcuts
@@ -375,24 +351,6 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   Delete "$INSTDIR\plugins\tf2.dll"
   Delete "$INSTDIR\plugins\wolfet.dll"  
   ;Delete "$INSTDIR\plugins\wow.dll"
-
-  Delete "$INSTDIR\plugins11x\aoc.dll"
-  Delete "$INSTDIR\plugins11x\bf2.dll"
-  Delete "$INSTDIR\plugins11x\bf2142.dll"
-  Delete "$INSTDIR\plugins11x\cod2.dll"
-  Delete "$INSTDIR\plugins11x\cod4.dll"
-  Delete "$INSTDIR\plugins11x\cod5.dll"
-  Delete "$INSTDIR\plugins11x\css.dll"
-  Delete "$INSTDIR\plugins11x\dods.dll"
-  Delete "$INSTDIR\plugins11x\dys.dll"
-  Delete "$INSTDIR\plugins11x\gmod.dll"
-  Delete "$INSTDIR\plugins11x\hl2dm.dll"
-  Delete "$INSTDIR\plugins11x\insurgency.dll"
-  Delete "$INSTDIR\plugins11x\link.dll"
-  Delete "$INSTDIR\plugins11x\l4d.dll"
-  Delete "$INSTDIR\plugins11x\tf2.dll"
-  Delete "$INSTDIR\plugins11x\wolfet.dll"  
-  ;Delete "$INSTDIR\plugins11x\wow.dll"
   
   Delete "$INSTDIR\Murmur.ice"
 
@@ -450,7 +408,6 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   RMDir "$INSTDIR\bin"
   RMDir "$INSTDIR\etc"
   RMDir "$INSTDIR\plugins"
-  RMDir "$INSTDIR\plugins11x"
   RMDir "$INSTDIR"
 
   Delete "$DESKTOP\Mumble.lnk"
@@ -465,6 +422,7 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_LICENSE_LNK).lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_QT_LNK).lnk"
   Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_SPEEX_LNK).lnk"
+  Delete "$SMPROGRAMS\$MUI_TEMP\$(MUMBLE_COMPAT_LNK).lnk"
 
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
