@@ -1060,11 +1060,11 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary) {
 	int id = 0;
 	if (query.next())
 		id = query.value(0).toInt();
-		
+
 	// Temporary channels might "complicate" this somewhat.
 	while (qhChannels.contains(id))
 		++id;
-		
+
 	if (! temporary) {
 		SQLPREP("INSERT INTO `%1channels` (`server_id`, `parent_id`, `channel_id`, `name`) VALUES (?,?,?,?)");
 		query.addBindValue(iServerNum);
@@ -1290,7 +1290,7 @@ void Server::readLinks() {
 void Server::setLastChannel(const User *p) {
 	if (p->iId < 0)
 		return;
-	
+
 	if (p->cChannel->bTemporary)
 		return;
 

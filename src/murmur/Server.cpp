@@ -190,7 +190,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		if (bsRegistration->bsrRegister) {
 			log("Announcing server via bonjour");
 			bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""),
-								     usPort);
+			        usPort);
 		}
 #endif
 		initRegister();
@@ -346,7 +346,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
 	else if (key == "bonjour")
-		bBonjour = !v.isNull() ? (v.toLower() == QLatin1String("true") || v.toLower() == QLatin1String("1") ) : Meta::mp.bBonjour;
+		bBonjour = !v.isNull() ? (v.toLower() == QLatin1String("true") || v.toLower() == QLatin1String("1")) : Meta::mp.bBonjour;
 	else if (key == "username")
 		qrUserName=!v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")

@@ -42,31 +42,32 @@ typedef uint32_t DNSServiceFlags;
 typedef int32_t DNSServiceErrorType;
 typedef struct _DNSServiceRef_t *DNSServiceRef;
 
-class BonjourServiceRegister : public QObject
-{
-    Q_OBJECT
-public:
-    BonjourServiceRegister(QObject *parent = 0);
-    ~BonjourServiceRegister();
+class BonjourServiceRegister : public QObject {
+		Q_OBJECT
+	public:
+		BonjourServiceRegister(QObject *parent = 0);
+		~BonjourServiceRegister();
 
-    void registerService(const BonjourRecord &record, quint16 servicePort);
-    inline BonjourRecord registeredRecord() const {return finalRecord; }
+		void registerService(const BonjourRecord &record, quint16 servicePort);
+		inline BonjourRecord registeredRecord() const {
+			return finalRecord;
+		}
 
-signals:
-    void error(DNSServiceErrorType error);
-    void serviceRegistered(const BonjourRecord &record);
+	signals:
+		void error(DNSServiceErrorType error);
+		void serviceRegistered(const BonjourRecord &record);
 
-private slots:
-    void bonjourSocketReadyRead();
+	private slots:
+		void bonjourSocketReadyRead();
 
-private:
-    static void DNSSD_API bonjourRegisterService(DNSServiceRef sdRef, DNSServiceFlags,
-                                       DNSServiceErrorType errorCode, const char *name,
-                                       const char *regtype, const char *domain,
-                                       void *context);
-    DNSServiceRef dnssref;
-    QSocketNotifier *bonjourSocket;
-    BonjourRecord finalRecord;
+	private:
+		static void DNSSD_API bonjourRegisterService(DNSServiceRef sdRef, DNSServiceFlags,
+		        DNSServiceErrorType errorCode, const char *name,
+		        const char *regtype, const char *domain,
+		        void *context);
+		DNSServiceRef dnssref;
+		QSocketNotifier *bonjourSocket;
+		BonjourRecord finalRecord;
 };
 
 #endif // BONJOURSERVICEREGISTER_H

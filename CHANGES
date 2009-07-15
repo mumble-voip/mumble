@@ -1,3 +1,41 @@
+2009-07-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a89c5e2  Switch bonjour identifier to _mumble._tcp
+    ca0f1c8  Fixed cancel button and added resolver delay workaround.
+    b94dd05  Update INSTALL and LICENSE file
+    12e0e80  Reorder murmur tray menu
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    6270d5d  Don't use Avahi compatibility layer on Mac OS X.
+    5cc3d0d  Update Mac OS X build environment.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9f2b29d  Final CRT
+    31106d3  More AssemblyCRT
+    1a38dd4  Build bonjour on nix
+    19fde80  AssemblyCRT again
+    1062965  Send channelRemove after userState for temp channel removal
+    b11d633  Clientside tempchannels
+    8562704  CRT Assemblies
+    efbba85  Temprary channels protocol changes
+
+2009-07-14
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1ba33d0  Update installer for new v1.1.x plugins, and fix start menu on
+	     undelete
+
+2009-07-13
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    34eea53  The Norwegian translation isn't in English
+    892cf9f  Plugins in the plugin directory
+    416cfb8  Distribute Qt plugins
+    3e281c1  Update WhatsThis for new # groups
+    6b5b174  Send access tokens on authenticate
+    e2875f5  Access Token Editor
+    9c5ecca  Use QStringList for tokens
+    37076e3  Token-based ACL
+    866a66d  ifdef out module-specific parts of shared code
+
 2009-07-12
   Thorvald Natvig <slicer@users.sourceforge.net>
     85c9c78  Fix Ice callbacks and examples
@@ -94,6 +132,10 @@
 2009-06-18
   Thorvald Natvig <slicer@users.sourceforge.net>
     5074ef0  Option to only accept whispers from friends
+
+2009-06-10
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    6582af7  Bonjour support.
 
 2009-06-09
   Thorvald Natvig <slicer@users.sourceforge.net>

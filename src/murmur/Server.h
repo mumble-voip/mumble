@@ -109,7 +109,7 @@ struct WhisperTarget {
 #define EXEC_QEVENT (QEvent::User + 959)
 
 class ExecEvent : public QEvent {
-	Q_DISABLE_COPY(ExecEvent);
+		Q_DISABLE_COPY(ExecEvent);
 	protected:
 		boost::function<void ()> func;
 	public:
@@ -141,7 +141,7 @@ class ServerUser : public Connection, public User {
 
 		HostAddress haAddress;
 		bool bUdp;
-		
+
 		QStringList qslAccessTokens;
 
 		QMap<int, WhisperTarget> qmTargets;
@@ -172,7 +172,7 @@ class Server : public QThread {
 
 		void startThread();
 		void stopThread();
-		
+
 		void customEvent(QEvent *evt);
 		// Former ServerParams
 	public:

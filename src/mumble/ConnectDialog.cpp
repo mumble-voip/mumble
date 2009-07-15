@@ -185,13 +185,13 @@ bool ConnectDialog::initLanList() {
 	// Make sure the we got the objects we need, then wire them up
 	if (g.bc->bsbBrowser == NULL || g.bc->bsrResolver == NULL) return false;
 	connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
-		this, SLOT(onLanBrowseError(DNSServiceErrorType)));
+	        this, SLOT(onLanBrowseError(DNSServiceErrorType)));
 	connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
-		this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
+	        this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
 	connect(g.bc->bsrResolver, SIGNAL(error(DNSServiceErrorType)),
-		this, SLOT(onLanResolveError(DNSServiceErrorType)));
+	        this, SLOT(onLanResolveError(DNSServiceErrorType)));
 	connect(g.bc->bsrResolver, SIGNAL(bonjourRecordResolved(const QHostInfo &, int)),
-		this, SLOT(accept(const QHostInfo &, int)));
+	        this, SLOT(accept(const QHostInfo &, int)));
 	// Manually update list
 	onUpdateLanList(g.bc->bsbBrowser->currentRecords());
 	return true;
@@ -237,8 +237,7 @@ void ConnectDialog::accept(const QHostInfo &host, int port) {
 
 		bDirty = true;
 		on_qpbAdd_clicked();
-	}
-	else {
+	} else {
 		bool ok;
 		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(item->text(0)), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
 		if (! ok)
@@ -256,7 +255,7 @@ void ConnectDialog::accept(const QHostInfo &host, int port) {
 void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 	qtwLanServers->clear();
 
-	foreach (BonjourRecord record, list) {
+	foreach(BonjourRecord record, list) {
 		QVariant hrecord;
 		hrecord.setValue(record);
 		QTreeWidgetItem *tmp = new QTreeWidgetItem(qtwLanServers, QStringList() << record.serviceName);

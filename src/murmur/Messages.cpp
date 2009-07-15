@@ -70,7 +70,7 @@
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
 	if ((msg.tokens_size() > 0) || (uSource->sState == User::Authenticated)) {
 		QStringList qsl;
-		for(int i=0;i<msg.tokens_size();++i)
+		for (int i=0;i<msg.tokens_size();++i)
 			qsl << u8(msg.tokens(i));
 		{
 			QMutexLocker qml(&qmCache);
@@ -598,13 +598,13 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	if (! c) {
 		if (! p || qsName.isNull())
 			return;
-			
+
 		ChanACL::Perm perm = msg.temporary() ? ChanACL::MakeTempChannel : ChanACL::MakeChannel;
 		if (! hasPermission(uSource, p, perm)) {
 			PERM_DENIED(uSource, p, perm);
 			return;
 		}
-		
+
 		Channel *tmp = p;
 		while (tmp) {
 			if (tmp->bTemporary) {
@@ -626,7 +626,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		log(uSource, QString("Added channel %1 under %2").arg(*c).arg(*p));
 		emit channelCreated(c);
 		sendAll(msg);
-		
+
 		if (c->bTemporary) {
 			MumbleProto::UserState mpus;
 			mpus.set_session(uSource->uiSession);
