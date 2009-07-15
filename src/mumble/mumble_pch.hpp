@@ -77,6 +77,7 @@
 #include <wintrust.h>
 #include <Softpub.h>
 #include <Dbt.h>
+#include <delayimp.h>
 #ifndef Q_CC_INTEL
 #include <math.h>
 #define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )
@@ -99,5 +100,9 @@ typedef WId HWND;
 #endif
 
 #define iroundf(x) ( static_cast<int>(x) )
+
+#ifdef USE_BONJOUR
+#include <dns_sd.h>
+#endif
 
 #endif

@@ -187,6 +187,7 @@ bonjour {
 
 	HEADERS *= ../bonjour/bonjourrecord.h ../bonjour/bonjourserviceresolver.h ../bonjour/bonjourservicebrowser.h BonjourClient.h
 	SOURCES *= ../bonjour/bonjourserviceresolver.cpp ../bonjour/bonjourservicebrowser.cpp BonjourClient.cpp
+	INCLUDEPATH *= ../bonjour
 	win32 {
 		INCLUDEPATH *= /dev/Bonjour/include
 		LIBPATH *= /dev/Bonjour/lib/win32

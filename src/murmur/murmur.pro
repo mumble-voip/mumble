@@ -115,6 +115,7 @@ bonjour {
 
 	HEADERS *= ../bonjour/bonjourrecord.h ../bonjour/bonjourserviceregister.h BonjourServer.h
 	SOURCES *= ../bonjour/bonjourserviceregister.cpp BonjourServer.cpp
+	INCLUDEPATH *= ../bonjour
 	win32 {
 		INCLUDEPATH *= /dev/Bonjour/include
 		LIBPATH *= /dev/Bonjour/lib/win32
@@ -124,4 +125,3 @@ bonjour {
 		PKGCONFIG *= avahi-compat-libdns_sd
 	}
 }
-

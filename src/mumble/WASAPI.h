@@ -43,7 +43,6 @@
 #include <functiondiscoverykeys.h>
 #include <propidl.h>
 #include <initguid.h>
-#include <delayimp.h>
 #include <Audiopolicy.h>
 
 class WASAPISystem : public QObject {

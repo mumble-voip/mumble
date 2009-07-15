@@ -30,9 +30,8 @@
 #ifndef _BONJOURCLIENT_H
 #define _BONJOURCLIENT_H
 
-#include <delayimp.h>
-#include "../Bonjour/bonjourservicebrowser.h"
-#include "../Bonjour/bonjourserviceresolver.h"
+#include "bonjourservicebrowser.h"
+#include "bonjourserviceresolver.h"
 
 class BonjourClient : public QObject {
 	private:
@@ -47,6 +46,5 @@ class BonjourClient : public QObject {
 };
 
 #else
-class Bonjour;
-class BonjourServer;
+class BonjourClient;
 #endif

@@ -27,16 +27,20 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include "BonjourClient.h"
 
-BonjourClient::BonjourClient() : bsrResolver(NULL), bsbBrowser(NULL) {
+BonjourClient::BonjourClient() {
+	bsrResolver = NULL;
+	bsbBrowser = NULL;
+#ifdef Q_OS_WIN
 	HMODULE hLib = LoadLibrary(L"DNSSD.DLL");
 	if (hLib == NULL) {
 		qWarning("Bonjour: Failed to load dnssd.dll");
 		return;
 	}
 	FreeLibrary(hLib);
-
+#endif
 	bsbBrowser = new BonjourServiceBrowser(this);
 	bsbBrowser->browseForServiceType(QLatin1String("_murmur._tcp"));
 	bsrResolver = new BonjourServiceResolver(this);

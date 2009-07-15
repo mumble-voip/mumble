@@ -29,6 +29,7 @@
 #include <windows.h>
 #include <shellapi.h>
 #include <intrin.h>
+#include <delayimp.h>
 #endif
 
 #include <openssl/aes.h>
@@ -92,6 +93,10 @@
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
+#endif
+
+#ifdef USE_BONJOUR
+#include <dns_sd.h>
 #endif
 
 #endif

@@ -30,15 +30,12 @@
 #ifndef _BONJOURSERVER_H
 #define _BONJOURSERVER_H
 
-#include <delayimp.h>
-#include "../Bonjour/bonjourserviceregister.h"
+#include "bonjourserviceregister.h"
 
 class BonjourServer : public QObject {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(BonjourServer)
-	protected:
-		static bool bDelayLoadFailed;
 	public:
 		BonjourServer();
 		~BonjourServer();
@@ -47,6 +44,5 @@ class BonjourServer : public QObject {
 };
 
 #else
-class Bonjour;
 class BonjourServer;
 #endif

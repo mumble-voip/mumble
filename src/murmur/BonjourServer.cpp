@@ -29,9 +29,10 @@
 */
 #include "BonjourServer.h"
 
-bool BonjourServer::bDelayLoadFailed = false;
-
-BonjourServer::BonjourServer() : bsrRegister(NULL) {
+BonjourServer::BonjourServer() {
+	bsrRegister = NULL;
+#ifdef Q_OS_WIN
+	static bool bDelayLoadFailed = false;
 	if (bDelayLoadFailed) return;
 
 	HMODULE hLib = LoadLibrary(L"DNSSD.DLL");
@@ -41,6 +42,7 @@ BonjourServer::BonjourServer() : bsrRegister(NULL) {
 		return;
 	}
 	FreeLibrary(hLib);
+#endif
 
 	bsrRegister = new BonjourServiceRegister(this);
 }
