@@ -86,6 +86,8 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qleUsername, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 	connect(qlePort, SIGNAL(textEdited(const QString &)), this, SLOT(onDirty(const QString &)));
 #ifdef USE_BONJOUR
+	bCopyOnResolve = false;
+	bResolving = false;
 	connect(qtwLanServers, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_qpbLanBrowserConnect_clicked()));
 #endif
 
@@ -201,24 +203,54 @@ bool ConnectDialog::initLanList() {
 #ifdef USE_BONJOUR
 void ConnectDialog::accept(const QHostInfo &host, int port) {
 	if (!bResolving) return;
-	bResolving = false;
+
+	QTreeWidgetItem *item = qtwLanServers->currentItem();
+	if (! item)
+		return;
+
+	qpbLanBrowserConnect->setEnabled(true);
+	qpbLanBrowserCopy->setEnabled(true);
+	qtwServers->setEnabled(true);
+	qtwTab->setEnabled(true);
 
 	const QList<QHostAddress> &addrs = host.addresses();
 	if (addrs.isEmpty()) return;
 
 	QHostAddress addr(addrs.first());
 
-	bool ok;
-	QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(host.hostName()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
-	if (! ok)
-		return;
-	g.s.qsUsername = defUserName;
-	qsUsername = defUserName;
-	qsPassword = QString();
-	qsServer = addr.toString();
-	usPort = port;
+	bResolving = false;
+	if (bCopyOnResolve) {
+		bCopyOnResolve = false;
+		qlwServers->setCurrentIndex(QModelIndex());
 
-	QDialog::accept();
+		QStringList a = item->text(1).split(QLatin1Char(':'));
+
+		qleName->setText(item->text(0));
+		qleServer->setText(addr.toString());
+		if (g.s.qsUsername.isEmpty())
+			qleUsername->setText(tr("Unknown"));
+		else
+			qleUsername->setText(g.s.qsUsername);
+		qlePort->setText(QVariant(port).toString());
+
+		qtwTab->setCurrentIndex(0);
+
+		bDirty = true;
+		on_qpbAdd_clicked();
+	}
+	else {
+		bool ok;
+		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(item->text(0)), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
+		if (! ok)
+			return;
+		g.s.qsUsername = defUserName;
+		qsUsername = defUserName;
+		qsPassword = QString();
+		qsServer = addr.toString();
+		usPort = port;
+
+		QDialog::accept();
+	}
 }
 
 void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
@@ -233,15 +265,23 @@ void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 }
 
 void ConnectDialog::onLanBrowseError(DNSServiceErrorType err) {
-	/*DEBUG REMOVE LATER TOFIX TODO*/qWarning()<<"Bonjour reported browser error "<< err;
+	qWarning()<<"Bonjour reported browser error "<< err;
 }
 
 void ConnectDialog::onLanResolveError(DNSServiceErrorType err) {
-	bResolving = false; // Make sure we don't get stuck due to failed resolving
-	/*DEBUG REMOVE LATER TOFIX TODO*/qWarning()<<"Bonjour reported resolver error "<< err;
+	if (bResolving) {
+		qpbLanBrowserConnect->setEnabled(true);
+		qpbLanBrowserCopy->setEnabled(true);
+		qtwServers->setEnabled(true);
+		qpbLanBrowserCopy->setEnabled(true);
+		qtwTab->setEnabled(true);
+		bResolving = false; // Make sure we don't get stuck due to failed resolving
+	}
+	qWarning()<<"Bonjour reported resolver error "<< err;
 }
 
 void ConnectDialog::on_qpbLanBrowserConnect_clicked() {
+	if (bResolving) return;
 	QTreeWidgetItem *item = qtwLanServers->currentItem();
 	if (! item)
 		return;
@@ -249,6 +289,27 @@ void ConnectDialog::on_qpbLanBrowserConnect_clicked() {
 	QVariant hrecord = item->data(0, Qt::UserRole);
 	g.bc->bsrResolver->resolveBonjourRecord(hrecord.value<BonjourRecord>());
 	bResolving = true;
+	qpbLanBrowserConnect->setDisabled(true);
+	qpbLanBrowserCopy->setDisabled(true);
+	qtwServers->setDisabled(true);
+	qtwTab->setDisabled(true);
+}
+
+
+void ConnectDialog::on_qpbLanBrowserCopy_clicked() {
+	if (bResolving) return;
+	bCopyOnResolve = true;
+	QTreeWidgetItem *item = qtwLanServers->currentItem();
+	if (! item)
+		return;
+
+	QVariant hrecord = item->data(0, Qt::UserRole);
+	g.bc->bsrResolver->resolveBonjourRecord(hrecord.value<BonjourRecord>());
+	bResolving = true;
+	qpbLanBrowserConnect->setDisabled(true);
+	qpbLanBrowserCopy->setDisabled(true);
+	qtwServers->setDisabled(true);
+	qtwTab->setDisabled(true);
 }
 #endif
 

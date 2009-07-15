@@ -66,6 +66,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QSqlRecord toRecord() const;
 		bool bDirty;
 		bool bResolving;
+		bool bCopyOnResolve;
 		QHttp *qhList;
 
 		bool initLanList();
@@ -82,6 +83,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void onLanResolveError(DNSServiceErrorType);
 
 		void on_qpbLanBrowserConnect_clicked();
+		void on_qpbLanBrowserCopy_clicked();
 #endif
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();

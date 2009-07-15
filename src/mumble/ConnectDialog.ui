@@ -269,9 +269,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="qpbLanCopy">
+          <widget class="QPushButton" name="qpbLanBrowserCopy">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string>C&amp;opy to custom</string>
@@ -381,6 +381,22 @@
     <hint type="destinationlabel">
      <x>185</x>
      <y>436</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qpbLanBrowserCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>ConnectDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>252</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>252</x>
+     <y>147</y>
     </hint>
    </hints>
   </connection>
