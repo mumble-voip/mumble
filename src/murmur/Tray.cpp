@@ -51,9 +51,9 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 	// Can't construct a QMenu which decends from QObject, and qsti is a QObject.
 	// Qt bug?
 	qm = new QMenu(tr("Murmur"), NULL);
-	qm->addAction(qaQuit);
-	qm->addSeparator();
 	qm->addAction(qaShowLog);
+	qm->addSeparator();
+	qm->addAction(qaQuit);
 	qsti->setContextMenu(qm);
 
 	qsti->show();
