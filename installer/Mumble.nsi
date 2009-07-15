@@ -372,6 +372,8 @@ fail2:
   DetailPrint $1
   Goto end
 end:
+  DetailPrint "Done"
+  Sleep 10000
 
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\mumble11x.exe"
