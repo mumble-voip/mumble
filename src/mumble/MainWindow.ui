@@ -695,6 +695,17 @@
     <string>Add or remove text-based access tokens</string>
    </property>
   </action>
+  <action name="qaChannelAddTemp">
+   <property name="text">
+    <string>Add &amp;Temporary</string>
+   </property>
+   <property name="toolTip">
+    <string>Add new temporary channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>This adds a new temporary sub-channel to the currently selected channel, which will disappear when the last user leaves.</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

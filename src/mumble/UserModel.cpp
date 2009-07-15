@@ -681,6 +681,8 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 }
 
 void UserModel::removeUser(ClientUser *p) {
+	if (g.uiSession && p->uiSession == g.uiSession)
+		g.uiSession = 0;
 	Channel *c = p->cChannel;
 	ModelItem *item = ModelItem::c_qhUsers.value(p);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
@@ -697,9 +699,6 @@ void UserModel::removeUser(ClientUser *p) {
 	ClientUser::remove(p);
 	qmHashes.remove(p->qsHash);
 
-	delete p;
-	delete item;
-
 	while (citem) {
 		citem->iUsers--;
 		citem = citem->parent;
@@ -710,6 +709,9 @@ void UserModel::removeUser(ClientUser *p) {
 
 	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
+
+	delete p;
+	delete item;
 }
 
 void UserModel::moveUser(ClientUser *p, Channel *np) {

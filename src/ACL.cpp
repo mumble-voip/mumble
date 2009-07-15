@@ -227,7 +227,7 @@ QString ChanACL::permName(Perm p) {
 		case MakeChannel:
 			return tr("Make channel");
 		case MakeTempChannel:
-			return tr("Make temporary channel");
+			return tr("Make temporary");
 		case LinkChannel:
 			return tr("Link channel");
 		case TextMessage:

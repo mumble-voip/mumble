@@ -1028,6 +1028,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 
 	qmChannel->clear();
 	qmChannel->addAction(qaChannelAdd);
+	qmChannel->addAction(qaChannelAddTemp);
 	qmChannel->addAction(qaChannelRemove);
 	qmChannel->addAction(qaChannelACL);
 	qmChannel->addAction(qaChannelRename);
@@ -1054,17 +1055,21 @@ void MainWindow::on_qmChannel_aboutToShow() {
 			qmChannel->addAction(a);
 	}
 
-	bool add, remove, acl, rename, descUpdate, link, unlink, unlinkall, msg;
-	add = remove = acl = rename = descUpdate = link = unlink = unlinkall = msg = false;
+	bool add, addtemp, remove, acl, rename, descUpdate, link, unlink, unlinkall, msg;
+	add = addtemp = remove = acl = rename = descUpdate = link = unlink = unlinkall = msg = false;
 
 	if (g.uiSession != 0) {
 		add = true;
+		addtemp = true;
 		acl = true;
 		msg = true;
 		descUpdate = true;
 
 		Channel *c = pmModel->getChannel(idx);
 		Channel *home = ClientUser::get(g.uiSession)->cChannel;
+
+		if (c && c->bTemporary)
+			addtemp = false;
 
 		if (c && c->iId != 0) {
 			rename = true;
@@ -1082,6 +1087,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	}
 
 	qaChannelAdd->setEnabled(add);
+	qaChannelAddTemp->setEnabled(addtemp);
 	qaChannelRemove->setEnabled(remove);
 	qaChannelACL->setEnabled(acl);
 	qaChannelRename->setEnabled(rename);
@@ -1107,6 +1113,25 @@ void MainWindow::on_qaChannelAdd_triggered() {
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_name(u8(name));
 		mpcs.set_parent(iParent);
+		g.sh->sendMessage(mpcs);
+	}
+}
+
+void MainWindow::on_qaChannelAddTemp_triggered() {
+	bool ok;
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	int iParent = c ? c->iId : 0;
+	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Temporary Channel Name"), QLineEdit::Normal, QString(), &ok);
+
+	c = Channel::get(iParent);
+	if (! c)
+		return;
+
+	if (ok) {
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_name(u8(name));
+		mpcs.set_parent(iParent);
+		mpcs.set_temporary(true);
 		g.sh->sendMessage(mpcs);
 	}
 }
