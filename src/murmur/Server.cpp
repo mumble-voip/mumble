@@ -189,7 +189,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		bsRegistration = new BonjourServer();
 		if (bsRegistration->bsrRegister) {
 			log("Announcing server via bonjour");
-			bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_murmur._tcp", ""),
+			bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""),
 								     usPort);
 		}
 #endif

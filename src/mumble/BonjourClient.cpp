@@ -42,7 +42,7 @@ BonjourClient::BonjourClient() {
 	FreeLibrary(hLib);
 #endif
 	bsbBrowser = new BonjourServiceBrowser(this);
-	bsbBrowser->browseForServiceType(QLatin1String("_murmur._tcp"));
+	bsbBrowser->browseForServiceType(QLatin1String("_mumble._tcp"));
 	bsrResolver = new BonjourServiceResolver(this);
 	return;
 }
