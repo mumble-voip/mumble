@@ -46,17 +46,6 @@ using namespace Murmur;
 static MurmurIce *mi = NULL;
 static Ice::ObjectPtr iopServer;
 
-class IceEvent : public QEvent {
-		Q_DISABLE_COPY(IceEvent);
-	protected:
-		boost::function<void ()> func;
-	public:
-		IceEvent(boost::function<void ()> f) : QEvent(static_cast<QEvent::Type>(ICE_QEVENT)), func(f) {};
-		void execute() {
-			func();
-		};
-};
-
 void IceStart() {
 	mi = new MurmurIce();
 }
@@ -223,10 +212,8 @@ MurmurIce::~MurmurIce() {
 }
 
 void MurmurIce::customEvent(QEvent *evt) {
-	if (evt->type() == ICE_QEVENT) {
-		IceEvent *ie = static_cast<IceEvent *>(evt);
-		ie->execute();
-	}
+	if (evt->type() == EXEC_QEVENT)
+		static_cast<ExecEvent *>(evt)->execute();
 }
 
 void MurmurIce::badMetaProxy(const ::Murmur::MetaCallbackPrx &prx) {

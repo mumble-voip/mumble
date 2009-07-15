@@ -39,8 +39,6 @@
 #include "MurmurI.h"
 #include "Server.h"
 
-#define ICE_QEVENT (QEvent::User + 959)
-
 class MurmurIce : public QObject {
 		friend class MurmurLocker;
 		Q_OBJECT;

@@ -91,7 +91,6 @@ class SslServer : public QTcpServer {
 
 class Server;
 
-
 struct WhisperTarget {
 	struct Channel {
 		int iId;
@@ -101,6 +100,17 @@ struct WhisperTarget {
 	};
 	QList<unsigned int> qlSessions;
 	QList<WhisperTarget::Channel> qlChannels;
+};
+
+#define EXEC_QEVENT (QEvent::User + 959)
+
+class ExecEvent : public QEvent {
+	Q_DISABLE_COPY(ExecEvent);
+	protected:
+		boost::function<void ()> func;
+	public:
+		ExecEvent(boost::function<void ()>);
+		void execute();
 };
 
 class ServerUser : public Connection, public User {
@@ -154,7 +164,8 @@ class Server : public QThread {
 
 		void startThread();
 		void stopThread();
-
+		
+		void customEvent(QEvent *evt);
 		// Former ServerParams
 	public:
 		QList<QHostAddress> qlBind;
@@ -268,6 +279,7 @@ class Server : public QThread {
 		void log(const QString &);
 		void log(ServerUser *u, const QString &);
 
+		void removeChannel(int id);
 		void removeChannel(Channel *c, Channel *dest = NULL);
 		void userEnterChannel(User *u, Channel *c, bool quiet = false, bool ignoretemp = false);
 
@@ -309,7 +321,7 @@ class Server : public QThread {
 		void initialize();
 		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false);
 		Channel *addChannel(Channel *c, const QString &name, bool temporary = false);
-		void removeChannel(const Channel *c);
+		void removeChannelDB(const Channel *c);
 		void readChannels(Channel *p = NULL);
 		void readLinks();
 		void updateChannel(const Channel *c);

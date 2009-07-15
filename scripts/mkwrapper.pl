@@ -18,7 +18,7 @@ sub func($$\@\@\@) {
 
     print I "void ::Murmur::${class}I::${func}_async(". join(", ", @{$wrapargs}).") {\n";
 #    print I "\tqWarning(\"CALL ${func}\");\n";
-    print I "\tIceEvent *ie = new IceEvent(boost::bind(&impl_${class}_$func, " . join(", ", @${callargs})."));\n";
+    print I "\tExecEvent *ie = new ExecEvent(boost::bind(&impl_${class}_$func, " . join(", ", @${callargs})."));\n";
     print I "\tQCoreApplication::instance()->postEvent(mi, ie);\n";
     print I "};\n";
 

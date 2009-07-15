@@ -375,6 +375,19 @@ int BandwidthRecord::bandwidth() const {
 	return (sum*100)/N_BANDWIDTH_SLOTS;
 }
 
+ExecEvent::ExecEvent(boost::function<void ()> f) : QEvent(static_cast<QEvent::Type>(EXEC_QEVENT)) {
+	func = f;
+}
+
+void ExecEvent::execute() {
+	func();
+}
+
+void Server::customEvent(QEvent *evt) {
+	if (evt->type() == EXEC_QEVENT)
+		static_cast<ExecEvent *>(evt)->execute();
+}
+
 void Server::run() {
 
 	qint32 len;
@@ -1015,6 +1028,12 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 			usr->sendMessage(msg, msgType, cache);
 }
 
+void Server::removeChannel(int id) {
+	Channel *c = qhChannels.value(id);
+	if (c)
+		removeChannel(c);
+}
+
 void Server::removeChannel(Channel *chan, Channel *dest) {
 	Channel *c;
 	User *p;
@@ -1043,7 +1062,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	mpcr.set_channel_id(chan->iId);
 	sendAll(mpcr);
 
-	removeChannel(chan);
+	removeChannelDB(chan);
 	emit channelRemoved(chan);
 
 	if (chan->cParent) {
@@ -1060,6 +1079,8 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 	if (quiet && (p->cChannel == c))
 		return;
 
+	Channel *old = p->cChannel;
+
 	{
 		QWriteLocker wl(&qrwlUsers);
 		c->addUser(p);
@@ -1067,9 +1088,8 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 
 	if (quiet)
 		return;
-		
-	Channel *old = p->cChannel;
-		
+
+
 	setLastChannel(p);
 
 	bool mayspeak = hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak);
@@ -1087,9 +1107,9 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 		}
 	}
 	emit userStateChanged(p);
-	
-	if (old->bTemporary && old->qlUsers.isEmpty() && ! ignoretemp) {
-		removeChannel(old);
+
+	if (old && old->bTemporary && old->qlUsers.isEmpty() && ! ignoretemp) {
+		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 	}
 }
 

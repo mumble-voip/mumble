@@ -1079,7 +1079,7 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary) {
 	return c;
 }
 
-void Server::removeChannel(const Channel *c) {
+void Server::removeChannelDB(const Channel *c) {
 	if (! c->bTemporary) {
 		TransactionHolder th;
 
