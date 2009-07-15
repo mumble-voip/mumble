@@ -109,6 +109,9 @@ CONFIG+=no-embed-qt-translations (Mumble)
 
 CONFIG+=no-ice (Murmur)
  Don't build support for Ice RPC.
+ 
+CONFIG+=no-bonjour
+ Don't build support for Bonjour.
 
 
 User Registrations
