@@ -21,8 +21,8 @@ macx {
   CONFIG -= app_bundle
   SOURCES = g15helper_macx.c
   LIBS *= -llgLcd
-  LIBPATH *= /opt/mumble/g15sdk/SDK/lib/
-  INCLUDEPATH *= /opt/mumble/g15sdk/SDK/Src/
+  LIBPATH *= /opt/mumble-1.2/lglcd-sdk/SDK/lib/
+  INCLUDEPATH *= /opt/mumble-1.2/lglcd-sdk/SDK/Src/
   QMAKE_LFLAGS *= -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
 }
 

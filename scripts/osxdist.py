@@ -178,7 +178,10 @@ class AppBundle(object):
 			os.mkdir(rsrcpath)
 		for rsrc in rsrcs:
 			b = os.path.basename(rsrc)
-			shutil.copy(rsrc, os.path.join(rsrcpath, b))
+			if os.path.isdir(rsrc):
+	                        shutil.copytree(rsrc, os.path.join(rsrcpath, b), symlinks=True)
+			elif os.path.isfile(rsrc):
+				shutil.copy(rsrc, os.path.join(rsrcpath, b))
 
 	def copy_plugins(self):
 		'''
@@ -368,7 +371,7 @@ if __name__ == '__main__':
 	a.copy_murmur()
 	a.copy_g15helper()
 	a.handle_libs()
-	a.copy_resources(['icons/mumble.icns'])
+	a.copy_resources(['icons/mumble.icns','/opt/mumble-1.2/qt-framework-4.5.2/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib'])
 	a.copy_plugins()
 	a.copy_qt_plugins()
 	a.update_plist()

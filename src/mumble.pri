@@ -25,10 +25,6 @@ win32 {
 
 unix {
 	LIBS *= -lprotobuf
-	macx {
-		INCLUDEPATH *= /opt/mumble/protobuf/include/
-		LIBPATH *= /opt/mumble/protobuf/lib/
-	}
 }
 
 QMAKE_EXTRA_COMPILERS *= pb

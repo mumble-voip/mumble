@@ -48,9 +48,6 @@ win32 {
 
 	QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
 	QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
-	!macx {
-		QMAKE_LFLAGS *= -Wl,--as-needed
-	}
 
 	CONFIG(optgen) {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
@@ -70,49 +67,31 @@ win32 {
 }
 
 macx {
-	INCLUDEPATH *= /opt/mumble/boost/include/boost-1_38/
+	CONFIG(debug, debug|release) {
+		CONFIG += no-universal
+	}
 
-	CONFIG(cocoa) {
-		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
-		QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
+	!CONFIG(no-universal) {
+		CONFIG += x86 ppc
 
-		CONFIG += x86_64
-		QMAKE_CFLAGS += -mmmx -msse
-		QMAKE_CXXFLAGS += -mmmx -msse
-	} else {
-		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4
-		QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.4u.sdk
-
-		CONFIG(debug, debug|release) {
-			CONFIG += no-universal
-		}
-
-		!CONFIG(no-universal) {
-			CONFIG += x86 ppc
-
-			# Precompiled headers are broken when using Makefiles.
-			!macx-xcode {
-				CONFIG += no-pch
-			}
-		}
-
-		ARCH=$$system(uname -m)
-		GCC42=$$system(readlink /usr/bin/gcc | grep "gcc-4.[2-9][.0-9]*")
-		!isEmpty(GCC42):!CONFIG(no-gcc42) {
-			QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
-			QMAKE_CFLAGS += -mmacosx-version-min=10.4
-			QMAKE_CXXFLAGS += -mmacosx-version-min=10.4
-			contains(ARCH, 'i386') {
-				QMAKE_CFLAGS += -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
-				QMAKE_CXXFLAGS += -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
-			}
-		} else {
-			CONFIG(no-universal):contains(ARCH, 'i386') {
-				QMAKE_CFLAGS += -mmmx -msse -msse2
-				QMAKE_CXXFLAGS += -mmmx -msse -msse2
-			}
+		# Precompiled headers are broken when using Makefiles.
+		!macx-xcode {
+			CONFIG += no-pch
 		}
 	}
+
+	INCLUDEPATH *= /opt/mumble-1.2/include/boost-1_39/
+	INCLUDEPATH *= /opt/mumble-1.2/include/
+	LIBPATH *= /opt/mumble-1.2/lib/
+
+	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
+	XCODE_PATH=$$system(xcode-select -print-path)
+	QMAKE_MAC_SDK = $${XCODE_PATH}/SDKs/MacOSX10.5.sdk
+	QMAKE_CC = $${XCODE_PATH}/usr/bin/gcc-4.2
+	QMAKE_CXX = $${XCODE_PATH}/usr/bin/g++-4.2
+	QMAKE_LINK = $${XCODE_PATH}/usr/bin/g++-4.2
+	QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+	QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 }
 
 CONFIG(no-pch) {

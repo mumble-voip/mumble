@@ -97,8 +97,8 @@ ice {
 	}
 
 	macx {
-		INCLUDEPATH *= /opt/mumble/ice-3.3.0/include/
-		LIBPATH *= /opt/mumble/ice-3.3.0/lib/
+		INCLUDEPATH *= /opt/mumble-1.2/ice-3.3.1/include/
+		LIBPATH *= /opt/mumble-1.2/ice-3.3.1/lib/
 	}
 
 	unix:CONFIG(static) {
