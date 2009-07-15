@@ -2,6 +2,8 @@
 
 XPStyle on
 SetCompressor /SOLID lzma
+SetPluginUnload alwaysoff
+ShowInstDetails show
 
 ;--------------------------------
 ;Include Modern UI
@@ -151,11 +153,6 @@ Section "" SectionCommon
 
   File "\Program Files (x86)\Intel\Compiler\11.0\075\cpp\Bin\ia32\libmmd.dll"
 
-  File "Microsoft.VC90.CRT.manifest"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
-
   SetOutPath "$INSTDIR\iconengines"
   File /x q*d4.dll "\dev\Qt4.5.2\plugins\iconengines\q*4.dll"
   
@@ -201,6 +198,44 @@ Section "" SectionCommon
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_UNINSTALL_LNK).lnk" "$INSTDIR\Uninstall.exe"
 
   !insertmacro MUI_STARTMENU_WRITE_END
+
+# Based on http://kobyk.wordpress.com/2008/04/12/deploying-the-visual-c-libraries-with-an-nsis-installer/
+
+InitPluginsDir
+SetOutPath $PLUGINSDIR
+  File "$%WINDIR%\winsxs\Manifests\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91.cat"
+  File "$%WINDIR%\winsxs\Manifests\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91.manifest"
+  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91\msvcm90.dll"
+  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91\msvcp90.dll"
+  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91\msvcr90.dll"
+  DetailPrint "Installing CRT assembly..."
+  System::Call "sxs::CreateAssemblyCache(*i .r0, i 0) i.r1"
+  StrCmp $1 0 0 fail
+# Fill a FUSION_INSTALL_REFERENCE.
+# fir.cbSize = sizeof(FUSION_INSTALL_REFERENCE) == 32
+# fir.dwFlags = 0
+# fir.guidScheme = FUSION_REFCOUNT_UNINSTALL_SUBKEY_GUID
+# fir.szIdentifier = "nsissxs"
+# fir.szNonCanonicalData = 0
+  System::Call "*(i 32, i 0, i 2364391957, i 1217113163, i 178634899, i 3090139977, w 'mumble', w '') i.s"
+  Pop $2
+# IAssemblyCache::InstallAssembly(0, manifestPath, fir)
+  System::Call "$0->7(i 0, w '$PLUGINSDIR\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_bcb86ed6ac711f91.manifest', i r2) i.r1"
+  System::Free $2
+  StrCmp $1 0 0 fail2
+  System::Call "$0->2()"
+Goto end
+fail:
+  DetailPrint "CreateAssemblyCache failed."
+  DetailPrint $1
+  Goto end
+fail2:
+  DetailPrint "InstallAssembly failed."
+  DetailPrint $1
+  Goto end
+end:
+  DetailPrint "Done"
+  Sleep 10000
 SectionEnd
 
 Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
@@ -231,11 +266,6 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File /oname=tf2.dll "..\release\plugins\tf2.dll"
   File /oname=wolfet.dll "..\release\plugins\wolfet.dll"  
   ;File /oname=wow.dll "..\release\plugins\wow.dll"
-
-  File "Microsoft.VC90.CRT.manifest"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcm90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcp90.dll"
-  File "\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\x86\Microsoft.VC90.CRT\msvcr90.dll"
 
   SetOutPath "$INSTDIR"
 
@@ -323,6 +353,26 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   FindProcUnicode::KillProc "$INSTDIR\mumble-g15-helper.exe"
   FindProcUnicode::KillProc "$INSTDIR\dbus-daemon.exe"
 
+  DetailPrint "Removing CRT assembly..."
+  System::Call "sxs::CreateAssemblyCache(*i .r0, i 0) i.r1"
+  StrCmp $1 0 0 fail
+  System::Call "*(i 32, i 0, i 2364391957, i 1217113163, i 178634899, i 3090139977, w 'mumble', w '') i.s"
+  Pop $2
+  System::Call "$0->3(i 0, w 'Microsoft.VC90.CRT,version=$\"9.0.21022.8$\",type=$\"win32$\",processorArchitecture=$\"x86$\",publicKeyToken=$\"1fc8b3b9a1e18e3b$\"', i r2, *i . r3) i.r1"
+  StrCmp $1 0 0 fail2
+  DetailPrint "Disposition returned is $3"
+  System::Call "$0->2()"
+  Goto end
+fail:
+  DetailPrint "CreateAssemblyCache failed."
+  DetailPrint $1
+  Goto end
+fail2:
+  DetailPrint "UninstallAssembly failed."
+  DetailPrint $1
+  Goto end
+end:
+
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\mumble11x.exe"
   Delete "$INSTDIR\murmur.exe"
@@ -353,11 +403,6 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   ;Delete "$INSTDIR\plugins\wow.dll"
   
   Delete "$INSTDIR\Murmur.ice"
-
-  Delete "$INSTDIR\plugins\Microsoft.VC90.CRT.manifest"
-  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\plugins\msvcm90.dll"
-  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\plugins\msvcp90.dll"
-  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\plugins\msvcr90.dll"
 
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
@@ -392,11 +437,6 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
 
   Delete "$INSTDIR\libeay32.dll"
   Delete "$INSTDIR\ssleay32.dll"
-
-  Delete "$INSTDIR\Microsoft.VC90.CRT.manifest"
-  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\msvcm90.dll"
-  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\msvcp90.dll"
-  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\msvcr90.dll"
 
   Delete "$INSTDIR\Changes.txt"
   Delete "$INSTDIR\qt.txt"
