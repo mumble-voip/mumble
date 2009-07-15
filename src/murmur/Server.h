@@ -268,8 +268,8 @@ class Server : public QThread {
 		void log(const QString &);
 		void log(ServerUser *u, const QString &);
 
-		void removeChannel(Channel *c, User *src, Channel *dest = NULL);
-		void userEnterChannel(User *u, Channel *c, bool quiet = false);
+		void removeChannel(Channel *c, Channel *dest = NULL);
+		void userEnterChannel(User *u, Channel *c, bool quiet = false, bool ignoretemp = false);
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
@@ -308,7 +308,7 @@ class Server : public QThread {
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
 		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false);
-		Channel *addChannel(Channel *c, const QString &name);
+		Channel *addChannel(Channel *c, const QString &name, bool temporary = false);
 		void removeChannel(const Channel *c);
 		void readChannels(Channel *p = NULL);
 		void readLinks();

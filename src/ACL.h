@@ -54,6 +54,7 @@ class ChanACL : public QObject {
 			LinkChannel = 0x80,
 			Whisper = 0x100,
 			TextMessage = 0x200,
+			MakeTempChannel = 0x400,
 
 			// Root channel only
 			Kick = 0x10000,

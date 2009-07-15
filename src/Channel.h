@@ -47,6 +47,7 @@ class Channel : public QObject {
 		QSet<Channel *> qsUnseen;
 	public:
 		int iId;
+		bool bTemporary;
 		Channel *cParent;
 		QString qsName;
 		QString qsDesc;

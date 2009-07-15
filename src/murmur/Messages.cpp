@@ -598,12 +598,23 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	if (! c) {
 		if (! p || qsName.isNull())
 			return;
-		if (! hasPermission(uSource, p, ChanACL::MakeChannel)) {
-			PERM_DENIED(uSource, p, ChanACL::MakeChannel);
+			
+		ChanACL::Perm perm = msg.temporary() ? ChanACL::MakeTempChannel : ChanACL::MakeChannel;
+		if (! hasPermission(uSource, p, perm)) {
+			PERM_DENIED(uSource, p, perm);
 			return;
 		}
+		
+		Channel *tmp = p;
+		while (tmp) {
+			if (tmp->bTemporary) {
+				PERM_DENIED(uSource, tmp, perm);
+				return;
+			}
+			tmp = tmp->cParent;
+		}
 
-		c = addChannel(p, qsName);
+		c = addChannel(p, qsName, msg.temporary());
 		c->qsDesc = qsDesc;
 		if (uSource->iId >= 0) {
 			Group *g = new Group(c, "admin");
@@ -614,6 +625,15 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		msg.set_channel_id(c->iId);
 		log(uSource, QString("Added channel %1 under %2").arg(*c).arg(*p));
 		emit channelCreated(c);
+		sendAll(msg);
+		
+		if (c->bTemporary) {
+			MumbleProto::UserState mpus;
+			mpus.set_session(uSource->uiSession);
+			mpus.set_channel_id(c->iId);
+			sendAll(mpus);
+			userEnterChannel(uSource, c);
+		}
 	} else {
 		if (! qsName.isNull()) {
 			if (! hasPermission(uSource, c, ChanACL::Write) || (c->iId == 0)) {
@@ -713,9 +733,8 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 		updateChannel(c);
 		emit channelStateChanged(c);
+		sendAll(msg);
 	}
-
-	sendAll(msg);
 }
 
 void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &msg) {
@@ -732,7 +751,7 @@ void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &m
 
 	log(uSource, QString("Removed channel %1").arg(*c));
 
-	removeChannel(c, uSource);
+	removeChannel(c);
 }
 
 void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) {

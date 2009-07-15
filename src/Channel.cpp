@@ -42,6 +42,7 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 	iId = id;
 	qsName = name;
 	bInheritACL = true;
+	bTemporary = false;
 	cParent = qobject_cast<Channel *>(p);
 	if (cParent)
 		cParent->addChannel(this);
@@ -177,5 +178,5 @@ void Channel::removeUser(User *p) {
 }
 
 Channel::operator const QString() const {
-	return QString::fromLatin1("%1[%2:%3]").arg(qsName).arg(iId).arg(cParent ? cParent->iId : -1);
+	return QString::fromLatin1("%1[%2:%3%4]").arg(qsName).arg(iId).arg(cParent ? cParent->iId : -1).arg(bTemporary ? QLatin1String("*") : QLatin1String(""));
 }

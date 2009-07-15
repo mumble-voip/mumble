@@ -1015,7 +1015,7 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 			usr->sendMessage(msg, msgType, cache);
 }
 
-void Server::removeChannel(Channel *chan, User *src, Channel *dest) {
+void Server::removeChannel(Channel *chan, Channel *dest) {
 	Channel *c;
 	User *p;
 
@@ -1025,7 +1025,7 @@ void Server::removeChannel(Channel *chan, User *src, Channel *dest) {
 	chan->unlink(NULL);
 
 	foreach(c, chan->qlChannels) {
-		removeChannel(c, src, dest);
+		removeChannel(c, dest);
 	}
 
 	foreach(p, chan->qlUsers) {
@@ -1036,7 +1036,7 @@ void Server::removeChannel(Channel *chan, User *src, Channel *dest) {
 		mpus.set_channel_id(dest->iId);
 		sendAll(mpus);
 
-		userEnterChannel(p, dest);
+		userEnterChannel(p, dest, true);
 	}
 
 	MumbleProto::ChannelRemove mpcr;
@@ -1054,7 +1054,7 @@ void Server::removeChannel(Channel *chan, User *src, Channel *dest) {
 	delete chan;
 }
 
-void Server::userEnterChannel(User *p, Channel *c, bool quiet) {
+void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) {
 	clearACLCache(p);
 
 	if (quiet && (p->cChannel == c))
@@ -1067,7 +1067,9 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet) {
 
 	if (quiet)
 		return;
-
+		
+	Channel *old = p->cChannel;
+		
 	setLastChannel(p);
 
 	bool mayspeak = hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak);
@@ -1085,6 +1087,10 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet) {
 		}
 	}
 	emit userStateChanged(p);
+	
+	if (old->bTemporary && old->qlUsers.isEmpty() && ! ignoretemp) {
+		removeChannel(old);
+	}
 }
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm) {

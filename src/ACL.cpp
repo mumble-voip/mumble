@@ -174,6 +174,9 @@ QString ChanACL::whatsThis(Perm p) {
 		case MakeChannel:
 			return tr("This represents the permission to make sub-channels. The user making the sub-channel will be added to the "
 			          "admin group of the sub-channel.");
+		case MakeTempChannel:
+			return tr("This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the "
+			          "admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.");
 		case LinkChannel:
 			return tr("This represents the permission to link channels. Users in linked channels hear each other, as long as "
 			          "the speaking user has the <i>speak</i> privilege in the channel of the listener. You need the link "
@@ -223,6 +226,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Move");
 		case MakeChannel:
 			return tr("Make channel");
+		case MakeTempChannel:
+			return tr("Make temporary channel");
 		case LinkChannel:
 			return tr("Link channel");
 		case TextMessage:

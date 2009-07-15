@@ -75,6 +75,8 @@ module Murmur
 		IntList links;
 		/** Description of channel. Shown as tooltip for this channel. */
 		string description;
+		/** Channel is temporary, and will be removed when the last user leaves it. */
+		bool temporary;
 	};
 
 	/** A group. Groups are defined per channel, and can inherit members from parent channels.
@@ -108,14 +110,23 @@ module Murmur
 	const int PermissionWhisper = 0x100;
 	/** Mute and deafen other users in this channel. */
 	const int PermissionMuteDeafen = 0x10;
-	/** Move and Kick users from channel. You need this permission in both the source and destination channel to move another user.
-         *  If you have this privilege on the root channel, you can ban users.
-	 */
-        const int PermissionMoveKick = 0x20;
+	/** Move users from channel. You need this permission in both the source and destination channel to move another user. */
+        const int PermissionMove = 0x20;
 	/** Make new channel as a subchannel of this channel. */
 	const int PermissionMakeChannel = 0x40;
+	/** Make new temporary channel as a subchannel of this channel. */
+	const int PermissionMakeTempChannel = 0x400;
 	/** Link this channel. You need this permission in both the source and destination channel to link channels, or in either channel to unlink them. */
 	const int PermissionLinkChannel = 0x80;
+	/** Send text message to channel. */
+	const int PermissionTextMessage = 0x200;
+	/** Kick user from server. Only valid on root channel. */
+	const int PermissionKick = 0x10000;
+	/** Ban user from server. Only valid on root channel. */
+	const int PermissionBan = 0x20000;
+	/** Register and unregister users. Only valid on root channel. */
+	const int PermissionRegister = 0x40000;
+
 
 	/** Access Control List for a channel. ACLs are defined per channel, and can be inherited from parent channels.
 	 **/

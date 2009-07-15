@@ -337,7 +337,7 @@ ServerDB::ServerDB() {
 			SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`player_id`,'email',email FROM `%1players_old` WHERE `email` IS NOT NULL");
 
 			if (version == 3) {
-				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,'description',description FROM `%1channels_old` WHERE `description` IS NOT NULL");
+				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,'description',`description` FROM `%1channels_old` WHERE `description` IS NOT NULL");
 			}
 
 			qWarning("Removing old tables...");
@@ -999,6 +999,8 @@ QByteArray Server::getUserTexture(int id) {
 }
 
 void Server::addLink(Channel *c, Channel *l) {
+	if (c->bTemporary || l->bTemporary)
+		return;
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
@@ -1017,6 +1019,8 @@ void Server::addLink(Channel *c, Channel *l) {
 }
 
 void Server::removeLink(Channel *c, Channel *l) {
+	if (c->bTemporary || l->bTemporary)
+		return;
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
@@ -1045,7 +1049,7 @@ void Server::removeLink(Channel *c, Channel *l) {
 	}
 }
 
-Channel *Server::addChannel(Channel *p, const QString &name) {
+Channel *Server::addChannel(Channel *p, const QString &name, bool temporary) {
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
@@ -1056,31 +1060,41 @@ Channel *Server::addChannel(Channel *p, const QString &name) {
 	int id = 0;
 	if (query.next())
 		id = query.value(0).toInt();
-
-
-	SQLPREP("INSERT INTO `%1channels` (`server_id`, `parent_id`, `channel_id`, `name`) VALUES (?,?,?,?)");
-	query.addBindValue(iServerNum);
-	query.addBindValue(p->iId);
-	query.addBindValue(id);
-	query.addBindValue(name);
-	SQLEXEC();
+		
+	// Temporary channels might "complicate" this somewhat.
+	while (qhChannels.contains(id))
+		++id;
+		
+	if (! temporary) {
+		SQLPREP("INSERT INTO `%1channels` (`server_id`, `parent_id`, `channel_id`, `name`) VALUES (?,?,?,?)");
+		query.addBindValue(iServerNum);
+		query.addBindValue(p->iId);
+		query.addBindValue(id);
+		query.addBindValue(name);
+		SQLEXEC();
+	}
 	Channel *c = new Channel(id, name, p);
+	c->bTemporary = temporary;
 	qhChannels.insert(id, c);
 	return c;
 }
 
 void Server::removeChannel(const Channel *c) {
-	TransactionHolder th;
+	if (! c->bTemporary) {
+		TransactionHolder th;
 
-	QSqlQuery &query = *th.qsqQuery;
-	SQLPREP("DELETE FROM `%1channels` WHERE `server_id` = ? AND `channel_id` = ?");
-	query.addBindValue(iServerNum);
-	query.addBindValue(c->iId);
-	SQLEXEC();
+		QSqlQuery &query = *th.qsqQuery;
+		SQLPREP("DELETE FROM `%1channels` WHERE `server_id` = ? AND `channel_id` = ?");
+		query.addBindValue(iServerNum);
+		query.addBindValue(c->iId);
+		SQLEXEC();
+	}
 	qhChannels.remove(c->iId);
 }
 
 void Server::updateChannel(const Channel *c) {
+	if (c->bTemporary)
+		return;
 	TransactionHolder th;
 	Group *g;
 	ChanACL *acl;
@@ -1274,8 +1288,10 @@ void Server::readLinks() {
 }
 
 void Server::setLastChannel(const User *p) {
-
 	if (p->iId < 0)
+		return;
+	
+	if (p->cChannel->bTemporary)
 		return;
 
 	TransactionHolder th;

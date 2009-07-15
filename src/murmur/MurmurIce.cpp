@@ -114,6 +114,7 @@ static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 		mc.description = u8(c->qsDesc);
 	foreach(::Channel *chn, c->qsPermLinks)
 		mc.links.push_back(chn->iId);
+	mc.temporary = c->bTemporary;
 }
 
 static void ACLtoACL(const ::ChanACL *acl, Murmur::ACL &ma) {
@@ -1014,7 +1015,7 @@ static void impl_Server_removeChannel(const ::Murmur::AMD_Server_removeChannelPt
 	if (!channel->cParent) {
 		cb->ice_exception(::Murmur::InvalidChannelException());
 	} else {
-		server->removeChannel(channel, NULL);
+		server->removeChannel(channel);
 		cb->ice_response();
 	}
 }

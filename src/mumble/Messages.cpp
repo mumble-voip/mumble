@@ -321,6 +321,7 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	if (!c) {
 		if (msg.has_parent() && p && msg.has_name()) {
 			c = pmModel->addChannel(msg.channel_id(), p, u8(msg.name()));
+			c->bTemporary = msg.temporary();
 			p = NULL;
 		} else {
 			return;
