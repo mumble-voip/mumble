@@ -186,7 +186,7 @@ void AudioInputDialog::on_qsDoublePush_valueChanged(int v) {
 }
 
 void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
-	float val = static_cast<float>(v * 20);
+	float val = static_cast<float>(v * 10);
 	val = val / 1000.0f;
 	qlTransmitHold->setText(tr("%1 s").arg(val, 0, 'f', 2));
 }
@@ -431,7 +431,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 }
 
 void AudioOutputDialog::on_qsJitter_valueChanged(int v) {
-	qlJitter->setText(tr("%1 ms").arg(v*20));
+	qlJitter->setText(tr("%1 ms").arg(v*10));
 }
 
 void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
@@ -458,7 +458,7 @@ void AudioOutputDialog::on_qsPacketLoss_valueChanged(int v) {
 }
 
 void AudioOutputDialog::on_qsDelay_valueChanged(int v) {
-	qlDelay->setText(tr("%1ms").arg(v*20));
+	qlDelay->setText(tr("%1ms").arg(v*10));
 }
 
 void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {

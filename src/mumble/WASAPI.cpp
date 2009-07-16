@@ -85,7 +85,6 @@ class WASAPIOutputRegistrar : public AudioOutputRegistrar {
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
 		bool canMuteOthers() const;
-		bool usesOutputDelay() const;
 };
 
 class WASAPIInit : public DeferInit {
@@ -168,10 +167,6 @@ void WASAPIOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s)
 
 bool WASAPIOutputRegistrar::canMuteOthers() const {
 	return true;
-}
-
-bool WASAPIOutputRegistrar::usesOutputDelay() const {
-	return false;
 }
 
 const QHash<QString, QString> WASAPISystem::getInputDevices() {
@@ -673,7 +668,8 @@ void WASAPIOutput::run() {
 		goto cleanup;
 	}
 
-	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, pwfx, NULL);
+	REFERENCE_TIME bufferDuration = (g.s.iOutputDelay > 1) ? (g.s.iOutputDelay + 1) * 100000 : 0;
+	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: Initialize failed");
 		goto cleanup;
@@ -684,7 +680,7 @@ void WASAPIOutput::run() {
 	pAudioClient->GetStreamLatency(&latency);
 
 	qWarning("WASAPIOutput: Periods %lldus %lldus (latency %lldus)", def / 10LL, min / 10LL, latency / 10LL);
-	qWarning("WASAPIOutput: Buffer is %dus", (bufferFrameCount * 1000000) / iMixerFreq);
+	qWarning("WASAPIOutput: Buffer is %dus (%d)", (bufferFrameCount * 1000000) / iMixerFreq, g.s.iOutputDelay);
 
 	hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void**)&pRenderClient);
 	if (FAILED(hr)) {

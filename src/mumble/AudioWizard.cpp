@@ -262,10 +262,9 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 }
 
 void AudioWizard::on_qsOutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1ms").arg(v*20));
+	qlOutputDelay->setText(tr("%1ms").arg(v*10));
 	g.s.iOutputDelay = v;
-	on_qcbOutputDevice_activated(0);
-	playChord();
+	restartAudio();
 }
 
 void AudioWizard::on_qsMaxAmp_valueChanged(int v) {
@@ -317,7 +316,7 @@ int AudioWizard::nextId() const {
 
 void AudioWizard::playChord() {
 	AudioOutputPtr ao = g.ao;
-	if (! ao || aosSource)
+	if (! ao || aosSource || bInit)
 		return;
 	aosSource = ao->playSample(QLatin1String("skin:wb_male.oga"), true);
 }
@@ -351,7 +350,7 @@ void AudioWizard::restartAudio() {
 		qgsScene = NULL;
 	}
 
-	if (currentPage() == qwpPositional)
+	if ((currentPage() == qwpPositional) || (currentPage() == qwpDeviceTuning))
 		playChord();
 }
 
