@@ -104,16 +104,35 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 		}
 	}
 
+	qtwTab->setTabEnabled(2, false);
+
+#ifdef USE_BONJOUR
+	// Make sure the we got the objects we need, then wire them up
+	if (g.bc->bsbBrowser == NULL || g.bc->bsrResolver == NULL) {
+		qtwTab->setTabToolTip(2, tr("Bonjour runtime not installed."));
+	} else {
+		qtwTab->setTabToolTip(2, tr("No LAN servers found."));
+		connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
+				this, SLOT(onLanBrowseError(DNSServiceErrorType)));
+		connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
+				this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
+		connect(g.bc->bsrResolver, SIGNAL(error(DNSServiceErrorType)),
+				this, SLOT(onLanResolveError(DNSServiceErrorType)));
+		connect(g.bc->bsrResolver, SIGNAL(bonjourRecordResolved(const QHostInfo &, int)),
+				this, SLOT(accept(const QHostInfo &, int)));
+		onUpdateLanList(g.bc->bsbBrowser->currentRecords());
+	}
+#else
+	qtwtab->setTabToolTip(2, tr("Bonjour support disabled during compilation."));
+#endif
+
 	fillList();
 	if (qstmServers->rowCount() < 1) {
 		on_qpbAdd_clicked();
-		qtwTab->setCurrentIndex(1);
+		qtwTab->setCurrentIndex(qtwTab->isTabEnabled(2) ? 2 : 1);
+	} else {
+		qtwTab->setCurrentIndex(0);
 	}
-
-	if (!initLanList())
-		qtwTab->removeTab(qtwTab->indexOf(qwTabLan));
-
-	qtwTab->setCurrentIndex(0);
 }
 
 void ConnectDialog::accept() {
@@ -180,26 +199,6 @@ void ConnectDialog::initList() {
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
-bool ConnectDialog::initLanList() {
-#ifdef USE_BONJOUR
-	// Make sure the we got the objects we need, then wire them up
-	if (g.bc->bsbBrowser == NULL || g.bc->bsrResolver == NULL) return false;
-	connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
-	        this, SLOT(onLanBrowseError(DNSServiceErrorType)));
-	connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
-	        this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
-	connect(g.bc->bsrResolver, SIGNAL(error(DNSServiceErrorType)),
-	        this, SLOT(onLanResolveError(DNSServiceErrorType)));
-	connect(g.bc->bsrResolver, SIGNAL(bonjourRecordResolved(const QHostInfo &, int)),
-	        this, SLOT(accept(const QHostInfo &, int)));
-	// Manually update list
-	onUpdateLanList(g.bc->bsbBrowser->currentRecords());
-	return true;
-#else
-	return false;
-#endif
-}
-
 #ifdef USE_BONJOUR
 void ConnectDialog::accept(const QHostInfo &host, int port) {
 	if (!bResolving) return;
@@ -256,10 +255,16 @@ void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 	qtwLanServers->clear();
 
 	foreach(BonjourRecord record, list) {
+
 		QVariant hrecord;
 		hrecord.setValue(record);
 		QTreeWidgetItem *tmp = new QTreeWidgetItem(qtwLanServers, QStringList() << record.serviceName);
 		tmp->setData(0, Qt::UserRole, hrecord);
+	}
+
+	if (! list.isEmpty()) {
+		qtwTab->setTabEnabled(2, true);
+		qtwTab->setTabToolTip(2, QString());
 	}
 }
 

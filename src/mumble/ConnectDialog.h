@@ -69,7 +69,6 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		bool bCopyOnResolve;
 		QHttp *qhList;
 
-		bool initLanList();
 		void initList();
 		void fillList();
 		void fillEmpty();
