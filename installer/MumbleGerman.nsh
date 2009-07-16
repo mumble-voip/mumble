@@ -1,8 +1,8 @@
 ﻿; By Thorvald Natvig <slicer@users.sourceforge.net>
 
-LangString MUMBLE_CREATE_SHORTCUT ${LANG_GERMAN} "Desktop Verknüpfung erstellen"
+LangString MUMBLE_CREATE_SHORTCUT ${LANG_GERMAN} "Desktop-Verknüpfung erstellen"
 LangString MUMBLE_DONATE ${LANG_GERMAN} "Spende an das Mumble Projekt"
-LangString MUMBLE_TERMINATE_DBUS ${LANG_GERMAN} "Momentan läuft der von Mumble verwendete DBus Daemon. Soll er beendet werden, damit er aktualisiert werden kann?"
+LangString MUMBLE_TERMINATE_DBUS ${LANG_GERMAN} "Momentan läuft der von Mumble verwendete DBus-Daemon. Soll er beendet werden, damit er aktualisiert werden kann?"
 LangString MUMBLE_NO_SSE ${LANG_GERMAN} "Mumble benötigt SSE, ein Feature was nur auf Intel Pentium III, AMD Athlon XP und neueren Prozessoren zu finden ist. Da keine SSE Unterstützung gefunden wurde, wird Mumble wahrscheinlich nicht funktionieren. Möchten Sie Mumble trotzdem installieren?"
 LangString MUMBLE_NO_XP ${LANG_GERMAN} "Mumble läuft nur auf Windows XP SP2 oder einer neueren Version. Ein älteres und inkompatibles Betriebssystem wurde gefunden, weshalb Mumble wahrscheinlich nicht funktionieren wird. Möchten Sie Mumble trotzdem installieren?"
 LangString MUMBLE_START ${LANG_GERMAN} "Mumble starten"
@@ -30,7 +30,7 @@ LangString DESC_SectionMumble ${LANG_GERMAN} "Der Mumble Client, welchen Sie zum
 LangString DESC_SectionMumble11X ${LANG_GERMAN} "Der Mumble Client, welchen Sie zum Verbinden mit einem älteren Server benötigen."
 LangString DESC_SectionMurmur ${LANG_GERMAN} "Der Server für Mumble. Beinhaltet alles, was Sie zum Starten ihres eigenen Servers benötigen."
 LangString DESC_SectionDebug ${LANG_GERMAN} "Symbol Dateien für Mumble und Murmur. Nur für das Debuggen benötigt."
-LangString DESC_SectionBonjour ${LANG_GERMAN} "Bonjour ermöglicht das bekanntmachen und finden von Murmur Servern im LAN. Diese Option lädt Bonjour herunter und startet die Installationsroutine."
+LangString DESC_SectionBonjour ${LANG_GERMAN} "Bonjour ermöglicht das Bekanntmachen und Finden von Murmur Servern im LAN. Diese Option lädt Bonjour herunter und startet die Installationsroutine."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_GERMAN} "Mumble und Murmur"
