@@ -10,6 +10,8 @@
     5cc3d0d  Update Mac OS X build environment.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    69ebadc  No, really don't replace CRLF in the signed manifest, please
+    34b5e28  Preserve CRLF in signed manifest
     9f2b29d  Final CRT
     31106d3  More AssemblyCRT
     1a38dd4  Build bonjour on nix
