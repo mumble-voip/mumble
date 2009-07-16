@@ -200,8 +200,8 @@ Section "" SectionCommon
 
 # Based on http://kobyk.wordpress.com/2008/04/12/deploying-the-visual-c-libraries-with-an-nsis-installer/
 
-InitPluginsDir
-SetOutPath $PLUGINSDIR
+  InitPluginsDir
+  SetOutPath $PLUGINSDIR
   File "x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_8550c6b5d18a9128.cat"
   File "x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_8550c6b5d18a9128.manifest"
   File "$%WINDIR%\winsxs\Manifests\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_e163563597edeada.cat"
@@ -329,6 +329,17 @@ Section /o "$(MUMBLE_SEC_MURMUR)" SectionMurmur
     CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\Murmur.lnk" "$INSTDIR\murmur.exe"
   !insertmacro MUI_STARTMENU_WRITE_END
 
+SectionEnd
+
+Section /o "$(MUMBLE_SEC_BONJOUR)" SectionBonjour
+  SetShellVarContext all
+  InitPluginsDir
+  SetOutPath $PLUGINSDIR
+  NSISdl::download http://support.apple.com/downloads/DL755/en_US/BonjourSetup.exe "$PLUGINSDIR\BonjourSetup.exe"
+  Pop $R0
+  StrCmp $R0 "success" 0 end
+  ExecWait '"$PLUGINSDIR\BonjourSetup.exe" /passive /norestart' 
+end:
 SectionEnd
 
 Section /o "$(MUMBLE_SEC_DEBUG)" SectionDebug
@@ -592,6 +603,16 @@ Function .onInit
     Abort
   ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
+
+  System::Call kernel32::LoadLibrary(t"dnssd.dll")i.r0
+  ${If} $0 != 0
+    System::Call kernel32::FindProcAddress(i r0, t 'DNSServiceBrowse')i.r1
+    ${If} $1 != 0
+      SectionSetText ${SectionBonjour} ""
+      !insertmacro SetSectionFlag ${SectionBonjour} ${SF_RO}
+    ${EndIf}
+    System::Call 'kernel32::FreeLibrary(i r0)'
+  ${EndIf}
 FunctionEnd
 
 Function un.onInit

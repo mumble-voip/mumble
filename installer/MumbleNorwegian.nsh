@@ -25,10 +25,12 @@ LangString MUMBLE_SEC_MUMBLE ${LANG_NORWEGIAN} "Mumble (klient)"
 LangString MUMBLE_SEC_MUMBLE11X ${LANG_NORWEGIAN} "Mumble (bakoverkompatibel klient)"
 LangString MUMBLE_SEC_MURMUR ${LANG_NORWEGIAN} "Murmur (server)"
 LangString MUMBLE_SEC_DEBUG ${LANG_NORWEGIAN} "Filer for feilsøking"
+LangString MUMBLE_SEC_BONJOUR ${LANG_NORWEGIAN} "Bonjour for Windows"
 LangString DESC_SectionMumble ${LANG_NORWEGIAN} "Klienten for Mumble, som du trenger for å koble deg til en server."
 LangString DESC_SectionMumble11X ${LANG_NORWEGIAN} "Bakoverkompatibel klient for bruk mot eldre servere."
 LangString DESC_SectionMurmur ${LANG_NORWEGIAN} "Serveren for Mumble. Inkluderer alt som trengs for å kjøre din egen server."
 LangString DESC_SectionDebug ${LANG_NORWEGIAN} "Symbolfiler for Mumble og Murmur. Trengs bare for debugging."
+LangString DESC_SectionBonjour ${LANG_NORWEGIAN} "Bonjour annonserer og oppdater Murmur servere på ditt lokale nettverk. Dette vil laste ned og installere Bonjour."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_NORWEGIAN} "Mumble og Murmur"
