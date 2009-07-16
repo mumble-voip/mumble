@@ -209,8 +209,9 @@ void ConnectDialog::accept(const QHostInfo &host, int port) {
 
 	qpbLanBrowserConnect->setEnabled(true);
 	qpbLanBrowserCopy->setEnabled(true);
-	qtwServers->setEnabled(true);
-	qtwTab->setEnabled(true);
+	qtwLanServers->setEnabled(true);
+	qtwTab->setTabEnabled(0, true);
+	qtwTab->setTabEnabled(1, true);
 
 	const QList<QHostAddress> &addrs = host.addresses();
 	if (addrs.isEmpty()) return;
@@ -276,9 +277,10 @@ void ConnectDialog::onLanResolveError(DNSServiceErrorType err) {
 	if (bResolving) {
 		qpbLanBrowserConnect->setEnabled(true);
 		qpbLanBrowserCopy->setEnabled(true);
-		qtwServers->setEnabled(true);
 		qpbLanBrowserCopy->setEnabled(true);
-		qtwTab->setEnabled(true);
+		qtwLanServers->setEnabled(true);
+		qtwTab->setTabEnabled(0, true);
+		qtwTab->setTabEnabled(1, true);
 		bResolving = false; // Make sure we don't get stuck due to failed resolving
 	}
 	qWarning()<<"Bonjour reported resolver error "<< err;
@@ -295,8 +297,9 @@ void ConnectDialog::on_qpbLanBrowserConnect_clicked() {
 	bResolving = true;
 	qpbLanBrowserConnect->setDisabled(true);
 	qpbLanBrowserCopy->setDisabled(true);
-	qtwServers->setDisabled(true);
-	qtwTab->setDisabled(true);
+	qtwLanServers->setDisabled(true);
+	qtwTab->setTabEnabled(0, false);
+	qtwTab->setTabEnabled(1, false);
 }
 
 
@@ -312,8 +315,9 @@ void ConnectDialog::on_qpbLanBrowserCopy_clicked() {
 	bResolving = true;
 	qpbLanBrowserConnect->setDisabled(true);
 	qpbLanBrowserCopy->setDisabled(true);
-	qtwServers->setDisabled(true);
-	qtwTab->setDisabled(true);
+	qtwLanServers->setDisabled(true);
+	qtwTab->setTabEnabled(0, false);
+	qtwTab->setTabEnabled(1, false);
 }
 #endif
 
