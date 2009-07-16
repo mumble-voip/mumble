@@ -25,11 +25,12 @@ LangString MUMBLE_SEC_MUMBLE ${LANG_GERMAN} "Mumble (Client)"
 LangString MUMBLE_SEC_MURMUR ${LANG_GERMAN} "Murmur (Server)"
 LangString MUMBLE_SEC_MUMBLE11X ${LANG_GERMAN} "Mumble (Abwärtskompatibler Client)"
 LangString MUMBLE_SEC_DEBUG ${LANG_GERMAN} "Debug Dateien"
+LangString MUMBLE_SEC_BONJOUR ${LANG_GERMAN} "Bonjour für Windows"
 LangString DESC_SectionMumble ${LANG_GERMAN} "Der Mumble Client, welchen Sie zum Verbinden mit einem Server benötigen."
 LangString DESC_SectionMumble11X ${LANG_GERMAN} "Der Mumble Client, welchen Sie zum Verbinden mit einem älteren Server benötigen."
 LangString DESC_SectionMurmur ${LANG_GERMAN} "Der Server für Mumble. Beinhaltet alles, was Sie zum Starten ihres eigenen Servers benötigen."
 LangString DESC_SectionDebug ${LANG_GERMAN} "Symbol Dateien für Mumble und Murmur. Nur für das Debuggen benötigt."
-
+LangString DESC_SectionBonjour ${LANG_GERMAN} "Bonjour ermöglicht das bekanntmachen und finden von Murmur Servern im LAN. Diese Option lädt Bonjour herunter und startet die Installationsroutine."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_GERMAN} "Mumble und Murmur"
