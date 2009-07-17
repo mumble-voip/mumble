@@ -62,7 +62,7 @@ class ChanACL : public QObject {
 			Register = 0x40000,
 
 			Cached = 0x8000000,
-			All = 0x703ff
+			All = 0x707ff
 		};
 
 		Q_DECLARE_FLAGS(Permissions, Perm)

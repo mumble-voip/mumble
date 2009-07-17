@@ -600,7 +600,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 
 		ChanACL::Perm perm = msg.temporary() ? ChanACL::MakeTempChannel : ChanACL::MakeChannel;
-		if (! hasPermission(uSource, p, perm)) {
+		if (! hasPermission(uSource, p, perm) || ((uSource->iId < 0) && uSource->qsHash.isEmpty())) {
 			PERM_DENIED(uSource, p, perm);
 			return;
 		}
@@ -619,6 +619,20 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		if (uSource->iId >= 0) {
 			Group *g = new Group(c, "admin");
 			g->qsAdd << uSource->iId;
+		}
+
+		if (! hasPermission(uSource, c, ChanACL::Write)) {
+			ChanACL *a = new ChanACL(c);
+			a->bApplyHere=true;
+			a->bApplySubs=false;
+			if (uSource->iId >= 0) 
+				a->iUserId=uSource->iId;
+			else
+				a->qsGroup=QLatin1Char('$') + uSource->qsHash;
+			a->pDeny=ChanACL::None;
+			a->pAllow=ChanACL::Write | ChanACL::Traverse;
+
+			clearACLCache();
 		}
 		updateChannel(c);
 
@@ -959,10 +973,14 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 		clearACLCache();
 
-		if (! hasPermission(uSource, c, ChanACL::Write)) {
+		if (! hasPermission(uSource, c, ChanACL::Write) && ((uSource->iId >= 0) || !uSource->qsHash.isEmpty())) {
 			a = new ChanACL(c);
 			a->bApplyHere=true;
 			a->bApplySubs=false;
+			if (uSource->iId >= 0) 
+				a->iUserId=uSource->iId;
+			else
+				a->qsGroup=QLatin1Char('$') + uSource->qsHash;
 			a->iUserId=uSource->iId;
 			a->pDeny=ChanACL::None;
 			a->pAllow=ChanACL::Write | ChanACL::Traverse;

@@ -130,6 +130,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 	bool m = false;
 	bool invert = false;
 	bool token = false;
+	bool hash = false;
 	c = curChan;
 
 	while (1) {
@@ -153,12 +154,19 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 			name = name.remove(0,1);
 			continue;
 		}
+		if (name.startsWith(QChar::fromAscii('$'))) {
+			hash = true;
+			name = name.remove(0,1);
+			continue;
+		}
 
 		break;
 	}
 
 	if (token)
 		m = pl->qslAccessTokens.contains(name, Qt::CaseInsensitive);
+	else if (hash)
+		m = pl->qsHash == name;
 	else if (name == QLatin1String("none"))
 		m = false;
 	else if (name == QLatin1String("all"))
