@@ -377,6 +377,7 @@ void Settings::load() {
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
 	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
+	SAVELOAD(iWindowLayout, "ui/WindowLayout");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
@@ -540,6 +541,7 @@ void Settings::save() {
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
 	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
+	SAVELOAD(iWindowLayout, "ui/WindowLayout");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");

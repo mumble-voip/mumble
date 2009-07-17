@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="64"
+   height="64"
+   id="svg2383">
+  <defs
+     id="defs2385" />
+  <g
+     id="layer3"
+     style="display:none" />
+  <g
+     id="layer1"
+     style="display:inline">
+    <path
+       d="M 13.627273,45.318215 L 3.2181818,45.269753 L 3.2181818,27.907604 L 3.2181818,10.545455 L 17.581818,10.545455 L 31.945455,10.545455 L 31.945455,28 L 31.945455,45.454545 L 27.990909,45.410611 C 25.815909,45.386445 19.352273,45.344865 13.627273,45.318211 L 13.627273,45.318215 z"
+       id="path2454"
+       style="fill:#afdde9;fill-opacity:1;stroke:#afdde9;stroke-width:0.227;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       d="M 33.127635,30.090909 L 33.127635,10.545818 L 47.309092,10.545818 L 61.490546,10.545818 L 61.490546,30.090909 L 61.490546,49.636001 L 47.309092,49.636001 L 33.127635,49.636001 L 33.127635,30.090909 z"
+       id="path2456"
+       style="fill:#37c8ab;fill-opacity:1;stroke:#37c8ab;stroke-width:0.22745244;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       d="M 3.2181818,47.970593 L 3.2181818,46.30482 L 9.2478545,46.425138 C 12.564182,46.491313 19.027818,46.545455 23.611491,46.545455 L 31.945455,46.545455 L 31.945455,48.090909 L 31.945455,49.636364 L 17.581818,49.636364 L 3.2181818,49.636364 L 3.2181818,47.970593 z"
+       id="path2458"
+       style="fill:#3771c8;fill-opacity:1;stroke:#3771c8;stroke-width:0.227;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+  <g
+     id="layer2"
+     style="display:inline">
+    <text
+       x="9.454545"
+       y="49.272724"
+       id="text2415"
+       xml:space="preserve"
+       style="font-size:3.5px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"><tspan
+         x="9.454545"
+         y="49.272724"
+         id="tspan2417">Chatbar</tspan></text>
+    <text
+       x="-43.004704"
+       y="51.743607"
+       transform="matrix(0,-1,1,0,0,0)"
+       id="text2419"
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"><tspan
+         x="-43.004704"
+         y="51.743607"
+         id="tspan2421">Tree</tspan></text>
+    <rect
+       width="59.636364"
+       height="40.545456"
+       x="2.5454547"
+       y="9.818182"
+       id="rect2393"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.24699998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
+    <path
+       d="M 32.545455,50.181818 L 32.545455,9.8181818"
+       id="path2403"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
+    <path
+       d="M 2.5454545,45.818181 L 32.545455,46"
+       id="path2405"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
+    <text
+       x="-37.822887"
+       y="20.56179"
+       transform="matrix(0,-1,1,0,0,0)"
+       id="text3190"
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Bitstream Vera Sans"><tspan
+         x="-37.822887"
+         y="20.56179"
+         id="tspan3192">Log</tspan></text>
+  </g>
+</svg>

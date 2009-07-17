@@ -153,6 +153,8 @@ struct Settings {
 	bool bFirstTime;
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaSplitterState, qbaHeaderState;
 	QByteArray qbaConfigGeometry;
+	enum WindowLayout { LayoutClassic, LayoutStacked, LayoutHybrid, LayoutCustom };
+	int iWindowLayout;
 	ChannelExpand ceExpand;
 	ChannelDrag ceChannelDrag;
 	bool bShowChatbar;

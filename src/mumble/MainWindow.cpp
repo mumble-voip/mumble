@@ -519,6 +519,36 @@ void MainWindow::setupView(bool toggle_minimize) {
 	bool showit = ! g.s.bMinimalView;
 
 	bNoHide = true;
+
+	// Update window layout
+	int iTmp = g.s.iWindowLayout;
+	switch (iTmp) {
+		case Settings::LayoutClassic:
+		removeDockWidget(qdwLog);
+		addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
+		qdwLog->show();
+		splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+		break;
+		case Settings::LayoutStacked:
+		removeDockWidget(qdwLog);
+		addDockWidget(Qt::BottomDockWidgetArea, qdwLog);
+		qdwLog->show();
+		splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+		break;
+		case Settings::LayoutHybrid:
+		removeDockWidget(qdwLog);
+		addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
+		qdwLog->show();
+		removeDockWidget(qdwChat);
+		addDockWidget(Qt::BottomDockWidgetArea, qdwChat);
+		if (g.s.bShowChatbar) qdwChat->show();
+		break;
+		default:
+			iTmp = Settings::LayoutCustom;
+		break;
+	}
+	g.s.iWindowLayout = iTmp;
+
 	QRect geom = frameGeometry();
 
 	if (toggle_minimize) {
@@ -1847,6 +1877,14 @@ void MainWindow::on_qteLog_highlighted(const QUrl &url) {
 		QToolTip::hideText();
 	else
 		QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
+}
+
+void MainWindow::on_qdwChat_dockLocationChanged(Qt::DockWidgetArea) {
+	g.s.iWindowLayout = Settings::LayoutCustom;
+}
+
+void MainWindow::on_qdwLog_dockLocationChanged(Qt::DockWidgetArea) {
+	g.s.iWindowLayout = Settings::LayoutCustom;
 }
 
 void MainWindow::context_triggered() {

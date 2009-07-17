@@ -29,6 +29,10 @@
  <file alias="config_lcd.png">../../icons/config_lcd.png</file>
  <file alias="muted_overlay.png">../../icons/muted_overlay.png</file>
  <file alias="deafened_overlay.png">../../icons/deafened_overlay.png</file>
+ <file alias="layout_classic.svg">../../icons/layout_classic.svg</file>
+ <file alias="layout_stacked.svg">../../icons/layout_stacked.svg</file>
+ <file alias="layout_hybrid.svg">../../icons/layout_hybrid.svg</file>
+ <file alias="layout_custom.svg">../../icons/layout_custom.svg</file>
  <file alias="wb_male.oga">../../samples/wb_male.oga</file>
  <file alias="on.ogg">../../samples/on.ogg</file>
  <file alias="off.ogg">../../samples/off.ogg</file>

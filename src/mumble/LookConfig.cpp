@@ -80,6 +80,22 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbStyle, 0);
 	loadComboBox(qcbChannelDrag, 0);
 
+	// Load Layout checkbox state
+	switch (r.iWindowLayout) {
+		case Settings::LayoutClassic: qrbLClassic->setChecked(true);
+			break;
+		case Settings::LayoutStacked: qrbLStacked->setChecked(true);
+			break;
+		case Settings::LayoutHybrid: qrbLHybrid->setChecked(true);
+			break;
+		case Settings::LayoutCustom:
+		default:
+			s.iWindowLayout = Settings::LayoutCustom;
+			qrbLCustom->setChecked(true);
+			break;
+	}
+
+
 	for (int i=0;i<qcbLanguage->count();i++) {
 		if (qcbLanguage->itemText(i) == r.qsLanguage) {
 			loadComboBox(qcbLanguage, i);
@@ -119,6 +135,21 @@ void LookConfig::save() const {
 		s.qsSkin = QString();
 	else
 		s.qsSkin = qleCSS->text();
+
+	// Save Layout radioboxes state
+	if (qrbLClassic->isChecked()) {
+		s.iWindowLayout = Settings::LayoutClassic;
+	}
+	else if (qrbLStacked->isChecked()) {
+		s.iWindowLayout = Settings::LayoutStacked;
+	}
+	else if (qrbLHybrid->isChecked()) {
+		s.iWindowLayout = Settings::LayoutHybrid;
+	}
+	else {
+		s.iWindowLayout = Settings::LayoutCustom;
+	}
+
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
 	s.bShowChatbar = qcbShowChatbar->isChecked();
