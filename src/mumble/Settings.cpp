@@ -161,6 +161,7 @@ Settings::Settings() {
 	bAskOnQuit = true;
 	bHideTray = true;
 	bUsage = true;
+	iWindowLayout = LayoutClassic;
 
 	iOutputDelay = 5;
 
