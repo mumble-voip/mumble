@@ -61,6 +61,18 @@ extern void os_init();
 extern char *os_url;
 extern char *os_lang;
 
+class QAppMumble:public QApplication {
+	public:
+	QAppMumble(int & argc, char ** argv) : QApplication(argc, argv) {}
+	void commitData(QSessionManager&);
+};
+
+void QAppMumble::commitData(QSessionManager &manager) {
+	// Make sure the config is saved and supress the ask on quite message
+	g.s.save();
+	g.mw->bSupressAskOnQuit = true;
+}
+
 int main(int argc, char **argv) {
 	int res;
 
@@ -71,7 +83,7 @@ int main(int argc, char **argv) {
 	QT_REQUIRE_VERSION(argc, argv, "4.4.1");
 
 	// Initialize application object.
-	QApplication a(argc, argv);
+	QAppMumble a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));

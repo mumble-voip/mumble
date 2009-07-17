@@ -100,6 +100,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		MumbleProto::Reject_RejectType rtLast;
 		QString qsDesiredChannel;
 
+		bool bSupressAskOnQuit;
+
 		void recheckTTS();
 		void msgBox(QString msg);
 		void setOnTop(bool top);
