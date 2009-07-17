@@ -122,6 +122,6 @@ bonjour {
 		LIBS *= -ldelayimp -lDNSSD -delayload:DNSSD.DLL
 	}
 	unix {
-		PKGCONFIG *= avahi-compat-libdns_sd
+		PKGCONFIG *= avahi-compat-libdns_sd avahi-client
 	}
 }

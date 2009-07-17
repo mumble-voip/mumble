@@ -152,6 +152,9 @@ int main(int argc, char **argv) {
 	icon.addFile(QLatin1String(":/murmur.64x64.png"));
 	a.setWindowIcon(icon);
 #else
+#ifndef Q_OS_MAC
+	setenv("AVAHI_COMPAT_NOWARN", "1", 1);
+#endif
 	QCoreApplication a(argc, argv);
 	UnixMurmur unixhandler;
 	unixhandler.initialcap();
