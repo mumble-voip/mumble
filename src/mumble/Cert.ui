@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>Certificate Management</string>
   </property>
-  <property name="toolTip">
-   <string>Select file to export to</string>
-  </property>
   <property name="whatsThis">
    <string>This opens a file selection dialog to choose a file to export the certificate to.</string>
   </property>
