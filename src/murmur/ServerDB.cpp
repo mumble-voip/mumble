@@ -1113,6 +1113,7 @@ void Server::updateChannel(const Channel *c) {
 	query.addBindValue(c->iId);
 	query.addBindValue("description");
 	query.addBindValue(c->qsDesc);
+	SQLEXEC();
 
 	SQLPREP("DELETE FROM `%1groups` WHERE `server_id` = ? AND `channel_id` = ?");
 	query.addBindValue(iServerNum);
