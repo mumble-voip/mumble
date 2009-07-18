@@ -1049,7 +1049,7 @@ void Server::removeLink(Channel *c, Channel *l) {
 	}
 }
 
-Channel *Server::addChannel(Channel *p, const QString &name, bool temporary) {
+Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int position) {
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
@@ -1073,8 +1073,17 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary) {
 		query.addBindValue(name);
 		SQLEXEC();
 	}
+
+	// Add channel sorting information
+	SQLPREP("INSERT INTO `%1channel_info` ( `server_id`, `channel_id`, `key`, `value`) VALUES(?,?,?,?)");
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	query.addBindValue("position");
+	query.addBindValue(QVariant(position).toString());
+
 	Channel *c = new Channel(id, name, p);
 	c->bTemporary = temporary;
+	c->iPosition = position;
 	qhChannels.insert(id, c);
 	return c;
 }
@@ -1108,11 +1117,20 @@ void Server::updateChannel(const Channel *c) {
 	query.addBindValue(c->iId);
 	SQLEXEC();
 
+	// Update channel description information
 	SQLPREP("REPLACE INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	query.addBindValue("description");
 	query.addBindValue(c->qsDesc);
+	SQLEXEC();
+
+	// Update channel position information
+	SQLPREP("REPLACE INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
+	query.addBindValue(iServerNum);
+	query.addBindValue(c->iId);
+	query.addBindValue("position");
+	query.addBindValue(QVariant(c->iPosition).toString());
 	SQLEXEC();
 
 	SQLPREP("DELETE FROM `%1groups` WHERE `server_id` = ? AND `channel_id` = ?");
@@ -1173,6 +1191,9 @@ void Server::updateChannel(const Channel *c) {
 	}
 }
 
+/** Reads the channel privileges (group and acl) as well as the channel information key/value pairs from the database.
+ * @param c Channel to fetch information for
+ */
 void Server::readChannelPrivs(Channel *c) {
 	TransactionHolder th;
 
@@ -1189,6 +1210,9 @@ void Server::readChannelPrivs(Channel *c) {
 		const QString &value = query.value(1).toString();
 		if (key == "decription")
 			c->qsDesc = value;
+		else if (key == "position") {
+			c->iPosition = QVariant(value).toInt(); // If the conversion fails it'll return the default value 0
+		}
 	}
 
 	SQLPREP("SELECT `group_id`, `name`, `inherit`, `inheritable` FROM `%1groups` WHERE `server_id` = ? AND `channel_id` = ?");

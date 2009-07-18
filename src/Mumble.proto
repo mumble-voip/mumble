@@ -67,6 +67,7 @@ message ChannelState {
 	repeated uint32 links_add = 6;
 	repeated uint32 links_remove = 7;
 	optional bool temporary = 8 [default = false];
+	optional int32 position = 9 [default = 0];
 }
 
 message UserRemove {

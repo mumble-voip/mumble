@@ -77,6 +77,8 @@ module Murmur
 		string description;
 		/** Channel is temporary, and will be removed when the last user leaves it. */
 		bool temporary;
+        /** Position of the channel which is used in Client for sorting. */
+        int position;
 	};
 
 	/** A group. Groups are defined per channel, and can inherit members from parent channels.

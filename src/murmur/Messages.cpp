@@ -196,6 +196,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpcs.set_name(u8(c->qsName));
 		if (! c->qsDesc.isEmpty())
 			mpcs.set_description(u8(c->qsDesc));
+		mpcs.set_position(c->iPosition);
 
 		sendMessage(uSource, mpcs);
 
@@ -556,12 +557,14 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	Channel *c = NULL;
 	Channel *p = NULL;
 
+	// If this message relates to an existing channel check if the id is really valid
 	if (msg.has_channel_id()) {
 		c = qhChannels.value(msg.channel_id());
 		if (! c)
 			return;
 	}
 
+	// Check if the parent exists
 	if (msg.has_parent()) {
 		p = qhChannels.value(msg.parent());
 		if (! p)
@@ -575,6 +578,8 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	if (msg.has_description())
 		qsDesc = u8(msg.description());
 	if (msg.has_name()) {
+		// If we are sent a channel name this means we want to create this channel so
+		// check if the name is valid and not already in use.
 		qsName = u8(msg.name());
 
 		if (! validateChannelName(qsName)) {
@@ -600,6 +605,8 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	}
 
 	if (! c) {
+		// If we don't have a channel handle up to now we want to create a new channel
+		// so check if the user has enough rights and we got everything we need.
 		if (! p || qsName.isNull())
 			return;
 
@@ -618,8 +625,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			tmp = tmp->cParent;
 		}
 
-		c = addChannel(p, qsName, msg.temporary());
+		c = addChannel(p, qsName, msg.temporary(), msg.position());
 		c->qsDesc = qsDesc;
+
 		if (uSource->iId >= 0) {
 			Group *g = new Group(c, "admin");
 			g->qsAdd << uSource->iId;
@@ -646,6 +654,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		sendAll(msg);
 
 		if (c->bTemporary) {
+			// If a temporary channel has been created move the creator right in there
 			MumbleProto::UserState mpus;
 			mpus.set_session(uSource->uiSession);
 			mpus.set_channel_id(c->iId);
@@ -653,6 +662,8 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			userEnterChannel(uSource, c);
 		}
 	} else {
+		// The message is related to an existing channel c so check if the user is allowed to modify it
+		// and perform the modifications
 		if (! qsName.isNull()) {
 			if (! hasPermission(uSource, c, ChanACL::Write) || (c->iId == 0)) {
 				PERM_DENIED(uSource, c, ChanACL::Write);
@@ -666,6 +677,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			}
 		}
 		if (p) {
+			// If we received a parent channel check if it differs from the old one. If yes
+			// check if the user has enough rights and if the channel name is not used in the
+			// target location. Abort otherwise.
 			if (p == c->cParent)
 				return;
 
@@ -741,6 +755,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		}
 		if (! qsDesc.isNull())
 			c->qsDesc = qsDesc;
+
+		if (msg.has_position())
+			c->iPosition = msg.position();
 
 		foreach(Channel *l, qlAdd) {
 			addLink(c, l);

@@ -101,6 +101,7 @@ static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.links.clear();
 	if (! c->qsDesc.isEmpty())
 		mc.description = u8(c->qsDesc);
+	mc.position = c->iPosition;
 	foreach(::Channel *chn, c->qsPermLinks)
 		mc.links.push_back(chn->iId);
 	mc.temporary = c->bTemporary;
@@ -809,7 +810,7 @@ static bool userSort(const ::User *a, const ::User *b) {
 }
 
 static bool channelSort(const ::Channel *a, const ::Channel *b) {
-	return a->qsName < b->qsName;
+	return ::Channel::lessThan(a, b);
 }
 
 TreePtr recurseTree(const ::Channel *c) {
@@ -989,7 +990,7 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 		newset << cLink;
 	}
 
-	if (! server->setChannelState(channel, np, qsName, newset, u8(state.description)))
+	if (! server->setChannelState(channel, np, qsName, newset, u8(state.description), state.position))
 		cb->ice_exception(::Murmur::InvalidChannelException());
 	else
 		cb->ice_response();

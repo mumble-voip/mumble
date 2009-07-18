@@ -354,6 +354,10 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	if (msg.has_description())
 		c->qsDesc = u8(msg.description());
 
+	if (msg.has_position()) {
+		pmModel->repositionChannel(c, msg.position());
+	}
+
 	if (msg.links_size()) {
 		QList<Channel *> ql;
 		pmModel->unlinkAll(c);

@@ -133,6 +133,7 @@ class UserModel : public QAbstractItemModel {
 
 		void renameUser(ClientUser *p, const QString &name);
 		void renameChannel(Channel *c, const QString &name);
+		void repositionChannel(Channel *c, const int position);
 		void setUserId(ClientUser *p, int id);
 		void setHash(ClientUser *p, const QString &hash);
 		void setFriendName(ClientUser *p, const QString &name);

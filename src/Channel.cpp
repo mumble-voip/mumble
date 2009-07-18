@@ -40,6 +40,7 @@ QReadWriteLock Channel::c_qrwlChannels;
 
 Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 	iId = id;
+	iPosition = 0;
 	qsName = name;
 	bInheritACL = true;
 	bTemporary = false;
@@ -88,6 +89,13 @@ void Channel::remove(Channel *c) {
 	c_qhChannels.remove(c->iId);
 }
 #endif
+
+bool Channel::lessThan(const Channel *first, const Channel *second) {
+	if (first->iPosition != second->iPosition)
+		return first->iPosition < second->iPosition;
+	else
+		return first->qsName < second->qsName;
+}
 
 bool Channel::isLinked(Channel *l) const {
 	return qhLinks.contains(l);

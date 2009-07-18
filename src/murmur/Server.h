@@ -323,13 +323,13 @@ class Server : public QThread {
 		void contextAction(const User *, const QString &, unsigned int, int);
 	public:
 		void setUserState(User *p, Channel *parent, bool mute, bool deaf, bool suppressed, const QString &comment = QString());
-		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString());
+		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString(), const int position = 0);
 		void sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text);
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
 		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false);
-		Channel *addChannel(Channel *c, const QString &name, bool temporary = false);
+		Channel *addChannel(Channel *c, const QString &name, bool temporary = false, int position = 0);
 		void removeChannelDB(const Channel *c);
 		void readChannels(Channel *p = NULL);
 		void readLinks();

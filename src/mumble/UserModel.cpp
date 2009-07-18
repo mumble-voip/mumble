@@ -144,22 +144,22 @@ int ModelItem::rows() const {
 }
 
 int ModelItem::insertIndex(Channel *c) const {
-	QList<QString> qls;
+	QList<Channel*> qlpc;
 	ModelItem *item;
 
 	int ocount = 0;
 
 	foreach(item, qlChildren) {
 		if (item->cChan) {
-			if (item->cChan != c)
-				qls << item->cChan->qsName;
+			if (item->cChan != c) {
+				qlpc << item->cChan;
+			}
 		} else
 			ocount++;
 	}
-	qls << c->qsName;
-	qSort(qls);
-
-	return qls.indexOf(c->qsName) + (bUsersTop ? ocount : 0);
+	qlpc << c;
+	qSort(qlpc.begin(), qlpc.end(), Channel::lessThan);
+	return qlpc.indexOf(c) + (bUsersTop ? ocount : 0);
 }
 
 int ModelItem::insertIndex(ClientUser *p) const {
@@ -799,6 +799,20 @@ void UserModel::renameChannel(Channel *c, const QString &name) {
 	}
 }
 
+void UserModel::repositionChannel(Channel *c, const int position) {
+	c->iPosition = position;
+
+	if (c->iId == 0) {
+		QModelIndex idx = index(c);
+		emit dataChanged(idx, idx);
+	} else {
+		Channel *pc = c->cParent;
+		ModelItem *pi = ModelItem::c_qhChannels.value(pc);
+		ModelItem *item = ModelItem::c_qhChannels.value(c);
+
+		moveItem(pi, pi, item);
+	}
+}
 
 Channel *UserModel::addChannel(int id, Channel *p, const QString &name) {
 	Channel *c = Channel::add(id, name);

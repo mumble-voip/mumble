@@ -83,7 +83,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	}
 }
 
-bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links, const QString &desc) {
+bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links, const QString &desc, const int position) {
 	bool changed = false;
 	bool updated = false;
 
@@ -134,6 +134,13 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		}
 
 		changed = true;
+	}
+
+	if (position != cChannel->iPosition) {
+		changed = true;
+		updated = true;
+		cChannel->iPosition = position;
+		mpcs.set_position(position);
 	}
 
 	if (! desc.isNull() && desc != cChannel->qsDesc) {

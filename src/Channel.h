@@ -47,6 +47,7 @@ class Channel : public QObject {
 		QSet<Channel *> qsUnseen;
 	public:
 		int iId;
+		int iPosition;
 		bool bTemporary;
 		Channel *cParent;
 		QString qsName;
@@ -74,6 +75,8 @@ class Channel : public QObject {
 
 		void addClientUser(ClientUser *p);
 #endif
+		static bool lessThan(const Channel *, const Channel *);
+
 		void addChannel(Channel *c);
 		void removeChannel(Channel *c);
 		void addUser(User *p);
