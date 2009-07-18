@@ -1,3 +1,41 @@
+2009-07-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    0e1b3f3  Improve forced shutdown behavior
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    947a420  Certhash-based ACL, and creators have full write on created
+	     channels
+
+2009-07-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a89e7c6  Added layout default value
+    cc57d13  Layout presets
+    fb8ca85  Removed wrong tooltip
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f1c926e  Quiet the Avahi warnings for now, and make the static murmur
+	     compile with bonjour
+
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
+    95fd031  Bonjour installer strings in Polish
+
+2009-07-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b236e4c  Allow cancel while bj resolving
+    aa82976  Update German installer translation
+
+  Hengqing Hu <esrms@users.sourceforge.net>
+    9555bf6  Simplified Chinese Installer
+
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
+    b3fa0e5  * fix german translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    43ac694  Bonjour download in installer
+    477a065  Grey out LAN tab with suitable tooltip if empty
+    45705e2  Re-add variable buffer to WASAPI; hardware-reported minimums
+	     are often false
+
 2009-07-15
   Stefan Hacker <dd0t@users.sourceforge.net>
     a89c5e2  Switch bonjour identifier to _mumble._tcp
@@ -52,7 +90,7 @@
     96fe83c  Link QtSvg. I really mean it.
     8483892  Explicitly link svg
 
-  Bartek Sumowksi <sumowski@gmail.com>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     0afb4c7  Updated Polish installer
 
 2009-07-10

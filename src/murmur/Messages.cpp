@@ -625,7 +625,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			ChanACL *a = new ChanACL(c);
 			a->bApplyHere=true;
 			a->bApplySubs=false;
-			if (uSource->iId >= 0) 
+			if (uSource->iId >= 0)
 				a->iUserId=uSource->iId;
 			else
 				a->qsGroup=QLatin1Char('$') + uSource->qsHash;
@@ -977,7 +977,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			a = new ChanACL(c);
 			a->bApplyHere=true;
 			a->bApplySubs=false;
-			if (uSource->iId >= 0) 
+			if (uSource->iId >= 0)
 				a->iUserId=uSource->iId;
 			else
 				a->qsGroup=QLatin1Char('$') + uSource->qsHash;

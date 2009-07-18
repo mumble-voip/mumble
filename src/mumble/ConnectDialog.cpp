@@ -113,13 +113,13 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	} else {
 		qtwTab->setTabToolTip(2, tr("No LAN servers found."));
 		connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
-				this, SLOT(onLanBrowseError(DNSServiceErrorType)));
+		        this, SLOT(onLanBrowseError(DNSServiceErrorType)));
 		connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
-				this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
+		        this, SLOT(onUpdateLanList(const QList<BonjourRecord> &)));
 		connect(g.bc->bsrResolver, SIGNAL(error(DNSServiceErrorType)),
-				this, SLOT(onLanResolveError(DNSServiceErrorType)));
+		        this, SLOT(onLanResolveError(DNSServiceErrorType)));
 		connect(g.bc->bsrResolver, SIGNAL(bonjourRecordResolved(const QHostInfo &, int)),
-				this, SLOT(accept(const QHostInfo &, int)));
+		        this, SLOT(accept(const QHostInfo &, int)));
 		onUpdateLanList(g.bc->bsbBrowser->currentRecords());
 	}
 #else

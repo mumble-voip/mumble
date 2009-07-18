@@ -82,11 +82,14 @@ void LookConfig::load(const Settings &r) {
 
 	// Load Layout checkbox state
 	switch (r.iWindowLayout) {
-		case Settings::LayoutClassic: qrbLClassic->setChecked(true);
+		case Settings::LayoutClassic:
+			qrbLClassic->setChecked(true);
 			break;
-		case Settings::LayoutStacked: qrbLStacked->setChecked(true);
+		case Settings::LayoutStacked:
+			qrbLStacked->setChecked(true);
 			break;
-		case Settings::LayoutHybrid: qrbLHybrid->setChecked(true);
+		case Settings::LayoutHybrid:
+			qrbLHybrid->setChecked(true);
 			break;
 		case Settings::LayoutCustom:
 		default:
@@ -139,14 +142,11 @@ void LookConfig::save() const {
 	// Save Layout radioboxes state
 	if (qrbLClassic->isChecked()) {
 		s.iWindowLayout = Settings::LayoutClassic;
-	}
-	else if (qrbLStacked->isChecked()) {
+	} else if (qrbLStacked->isChecked()) {
 		s.iWindowLayout = Settings::LayoutStacked;
-	}
-	else if (qrbLHybrid->isChecked()) {
+	} else if (qrbLHybrid->isChecked()) {
 		s.iWindowLayout = Settings::LayoutHybrid;
-	}
-	else {
+	} else {
 		s.iWindowLayout = Settings::LayoutCustom;
 	}
 

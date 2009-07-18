@@ -31,8 +31,8 @@ LangString DESC_SectionMurmur ${LANG_SIMPCHINESE} "Mumble 服务器端包含所�
 LangString DESC_SectionDebug ${LANG_SIMPCHINESE} "Mumble 和 Murmur 的符号文件。仅用于调试。"
 
 ; Uninstall sections
-LangString MUMBLE_UNSEC_BASE ${LANG_SIMPCHINESE} "Mumble 和 Murmur" 
-LangString MUMBLE_UNSEC_ALL ${LANG_SIMPCHINESE} "个人偏好和数据库" 
+LangString MUMBLE_UNSEC_BASE ${LANG_SIMPCHINESE} "Mumble 和 Murmur"
+LangString MUMBLE_UNSEC_ALL ${LANG_SIMPCHINESE} "个人偏好和数据库"
 LangString DESC_SectionUninstBase ${LANG_SIMPCHINESE} "卸载 Mumble 和 Murmur 应用程序"
 LangString DESC_SectionUninstAll ${LANG_SIMPCHINESE} "完全卸载 Mumble 和 Murmur， 包括个人偏好和数据库。"
 
