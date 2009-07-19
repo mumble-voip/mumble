@@ -90,6 +90,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 #else
 	hNotify = NULL;
 #endif
+	qtTimeout = new QTimer(this);
 
 	readParams();
 	initialize();
@@ -176,7 +177,6 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	for (int i=1;i<5000;i++)
 		qqIds.enqueue(i);
 
-	qtTimeout = new QTimer(this);
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
 
 	getBans();
