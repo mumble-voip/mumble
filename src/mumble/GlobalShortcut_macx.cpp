@@ -119,6 +119,10 @@ CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
 }
 
 GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
+#ifndef QT_NO_DEBUG
+	qWarning("GlobalShortcutMac: Debug build detected. Disabling shortcut engine.");
+	return;
+#endif
 
 	static const CGEventType evmask = CGEventMaskBit(kCGEventLeftMouseDown) |
 	                                  CGEventMaskBit(kCGEventLeftMouseUp) |
@@ -166,6 +170,9 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 }
 
 GlobalShortcutMac::~GlobalShortcutMac() {
+#ifndef QT_NO_DEBUG
+	return;
+#endif
 	CFRunLoopStop(loop);
 	loop = NULL;
 	wait();
