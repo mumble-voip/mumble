@@ -150,11 +150,39 @@ void MetaParams::read(QString fname) {
 	}
 
 	if (qlBind.isEmpty()) {
-#ifdef Q_OS_WIN
-		qlBind << QHostAddress(QHostAddress::Any);
-		if (QSysInfo::windowsVersion() >= QSysInfo::WV_VISTA)
-#endif
+		bool hasipv6 = false;
+		bool hasipv4 = false;
+		
+		foreach(const QNetworkInterface &qni, QNetworkInterface::allInterfaces()) {
+			if (! (qni.flags() & QNetworkInterface::IsUp))
+				continue;
+			if (! (qni.flags() & QNetworkInterface::IsRunning))
+				continue;
+			if (qni.flags() & QNetworkInterface::IsLoopBack)
+				continue;
+				
+			foreach(const QNetworkAddressEntry &qna, qni.addressEntries()) {
+				const QHostAddress &qha = qna.ip();
+				switch(qha.protocol()) {
+					case QAbstractSocket::IPv4Protocol:
+						hasipv4 = true;
+						break;
+					case QAbstractSocket::IPv6Protocol:
+						hasipv6 = true;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		
+		if (hasipv6)
 			qlBind << QHostAddress(QHostAddress::AnyIPv6);
+#ifdef Q_OS_UNIX
+		else
+#endif
+		if (hasipv4)
+			qlBind << QHostAddress(QHostAddress::Any);
 	}
 
 	qsPassword = qs.value("serverpassword", qsPassword).toString();
