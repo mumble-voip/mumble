@@ -356,7 +356,9 @@ SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionMumble} $(DESC_SectionMumble)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SectionMumble11X} $(DESC_SectionMumble11X)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionMurmur} $(DESC_SectionMurmur)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SectionBonjour} $(DESC_SectionBonjour)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionDebug} $(DESC_SectionDebug)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
