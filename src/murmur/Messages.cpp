@@ -368,7 +368,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	bool bNoBroadcast = false;
 	Channel *root = qhChannels.value(0);
 
-	if (pDstServerUser->iId == 0) {
+	if ((pDstServerUser->iId == 0) && (uSource->iId != 0)) { 
 		PERM_DENIED_TYPE(SuperUser);
 		return;
 	}
@@ -393,6 +393,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_mute() || msg.has_deaf() || msg.has_suppressed()) {
+		if (pDstServerUser->iId == 0) { 
+			PERM_DENIED_TYPE(SuperUser);
+			return;
+		}
 		if (! hasPermission(uSource, pDstServerUser->cChannel, ChanACL::MuteDeafen) || msg.suppressed()) {
 			PERM_DENIED(uSource, pDstServerUser->cChannel, ChanACL::MuteDeafen);
 			return;
