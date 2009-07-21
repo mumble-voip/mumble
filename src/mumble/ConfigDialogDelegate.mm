@@ -71,6 +71,7 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 			NSValue *ptr = [NSValue valueWithPointer: cw];
 			[nameWidgetMapping setObject:ptr forKey:str];
 			[identifiers addObject:str];
+			[str release];
 		}
 	}
 
@@ -104,8 +105,10 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 	ConfigWidget *cw = reinterpret_cast<ConfigWidget *>([[nameWidgetMapping valueForKey: identifier] pointerValue]);
 
 	NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
+	NSImage *img = ConfigDialogDelegate_QIcon_to_NSImage(cw->icon());
+
 	[item setLabel: identifier];
-	[item setImage: ConfigDialogDelegate_QIcon_to_NSImage(cw->icon())]; 
+	[item setImage: img];
 	[item setTarget: self];
 	[item setAction: @selector(itemSelected:)];
 
@@ -113,6 +116,8 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 	if (toolbarCache == nil) {
 		toolbarCache = toolbar;
 	}
+
+	[img release];
 
 	return item;
 }
