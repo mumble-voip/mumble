@@ -260,8 +260,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_deaf(true);
 		else if (u->bMute)
 			mpus.set_mute(true);
-		if (u->bSuppressed)
-			mpus.set_suppressed(true);
+		if (u->bSuppress)
+			mpus.set_suppress(true);
 		if (u->bSelfDeaf)
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
@@ -368,7 +368,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	bool bNoBroadcast = false;
 	Channel *root = qhChannels.value(0);
 
-	if ((pDstServerUser->iId == 0) && (uSource->iId != 0)) { 
+	if ((pDstServerUser->iId == 0) && (uSource->iId != 0)) {
 		PERM_DENIED_TYPE(SuperUser);
 		return;
 	}
@@ -392,12 +392,12 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_mute() || msg.has_deaf() || msg.has_suppressed()) {
-		if (pDstServerUser->iId == 0) { 
+	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress()) {
+		if (pDstServerUser->iId == 0) {
 			PERM_DENIED_TYPE(SuperUser);
 			return;
 		}
-		if (! hasPermission(uSource, pDstServerUser->cChannel, ChanACL::MuteDeafen) || msg.suppressed()) {
+		if (! hasPermission(uSource, pDstServerUser->cChannel, ChanACL::MuteDeafen) || msg.suppress()) {
 			PERM_DENIED(uSource, pDstServerUser->cChannel, ChanACL::MuteDeafen);
 			return;
 		}
@@ -472,7 +472,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 
-	if (msg.has_mute() || msg.has_deaf() || msg.has_suppressed()) {
+	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress()) {
 		if (msg.has_deaf()) {
 			pDstServerUser->bDeaf = msg.deaf();
 			if (pDstServerUser->bDeaf)
@@ -485,10 +485,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 				pDstServerUser->bDeaf = false;
 			}
 		}
-		if (msg.has_suppressed())
-			pDstServerUser->bSuppressed = msg.suppressed();
+		if (msg.has_suppress())
+			pDstServerUser->bSuppress = msg.suppress();
 
-		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(*pDstServerUser).arg(pDstServerUser->bMute).arg(pDstServerUser->bDeaf).arg(pDstServerUser->bSuppressed));
+		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(*pDstServerUser).arg(pDstServerUser->bMute).arg(pDstServerUser->bDeaf).arg(pDstServerUser->bSuppress));
 	}
 
 	if (msg.has_user_id()) {

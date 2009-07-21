@@ -845,7 +845,14 @@ void MainWindow::on_qaUserMute_triggered() {
 
 	MumbleProto::UserState mpus;
 	mpus.set_session(p->uiSession);
-	mpus.set_mute(! p->bMute);
+	if (p->bMute || p->bSuppress) {
+		if (p->bMute)
+			mpus.set_mute(false);
+		if (p->bSuppress)
+			mpus.set_suppress(false);
+	} else {
+			mpus.set_mute(true);
+	}
 	g.sh->sendMessage(mpus);
 }
 

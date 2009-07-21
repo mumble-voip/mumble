@@ -699,7 +699,7 @@ PlayerInfo::PlayerInfo(const User *p) {
 	session = p->uiSession;
 	mute = p->bMute;
 	deaf = p->bDeaf;
-	suppressed = p->bSuppressed;
+	suppressed = p->bSuppress;
 	selfMute = p->bSelfMute;
 	selfDeaf = p->bSelfDeaf;
 	channel = p->cChannel->iId;

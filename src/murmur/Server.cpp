@@ -628,7 +628,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		}
 
 void Server::processMsg(ServerUser *u, const char *data, int len) {
-	if (u->sState != User::Authenticated || u->bMute || u->bSuppressed)
+	if (u->sState != User::Authenticated || u->bMute || u->bSuppress)
 		return;
 
 	User *p;
@@ -1116,16 +1116,16 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 	setLastChannel(p);
 
 	bool mayspeak = hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak);
-	bool sup = p->bSuppressed;
+	bool sup = p->bSuppress;
 
 	if (! p->bMute) {
 		if (mayspeak == sup) {
 			// Ok, he can speak and was suppressed, or vice versa
-			p->bSuppressed = ! mayspeak;
+			p->bSuppress = ! mayspeak;
 
 			MumbleProto::UserState mpus;
 			mpus.set_session(p->uiSession);
-			mpus.set_suppressed(p->bSuppressed);
+			mpus.set_suppress(p->bSuppress);
 			sendAll(mpus);
 		}
 	}

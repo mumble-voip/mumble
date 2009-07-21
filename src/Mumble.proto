@@ -84,7 +84,7 @@ message UserState {
 	optional uint32 channel_id = 5;
 	optional bool mute = 6;
 	optional bool deaf = 7;
-	optional bool suppressed = 8;
+	optional bool suppress = 8;
 	optional bool self_mute = 9;
 	optional bool self_deaf = 10;
 	optional bytes texture = 11;

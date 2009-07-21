@@ -53,6 +53,7 @@ class ClientUser : public QObject, public User {
 		void setTalking(bool talking, bool altspeech);
 		void setMute(bool mute);
 		void setDeaf(bool deaf);
+		void setSuppress(bool suppress);
 		void setLocalMute(bool mute);
 		void setSelfMute(bool mute);
 		void setSelfDeaf(bool deaf);

@@ -116,6 +116,13 @@ void ClientUser::setMute(bool mute) {
 	emit muteDeafChanged();
 }
 
+void ClientUser::setSuppress(bool suppress) {
+	if (bSuppress == suppress)
+		return;
+	bSuppress = suppress;
+	emit muteDeafChanged();
+}
+
 void ClientUser::setLocalMute(bool mute) {
 	if (bLocalMute == mute)
 		return;

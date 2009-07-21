@@ -208,30 +208,40 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_deaf() || msg.has_mute()) {
+	if (msg.has_deaf() || msg.has_mute() || msg.has_suppress()) {
 		if (msg.has_mute())
 			pDst->setMute(msg.mute());
 		if (msg.has_deaf())
 			pDst->setDeaf(msg.deaf());
+		if (msg.has_suppress())
+			pDst->setSuppress(msg.suppress());
 
 		if (pSelf && (pDst->cChannel == pSelf->cChannel)) {
 			QString vic = pDst->qsName;
 			QString admin = pSrc ? pSrc->qsName : tr("the server");
 
 			if (pDst == pSelf) {
-				if (pDst->bMute && pDst->bDeaf)
+				if (pDst->bDeaf)
 					g.l->log(Log::YouMuted, tr("You were deafened by %1.").arg(admin));
-				else if (pDst->bMute)
+				else if (msg.has_mute() && pDst->bMute)
 					g.l->log(Log::YouMuted, tr("You were muted by %1.").arg(admin));
+				else if (msg.has_suppress() && pDst->bSuppress)
+					g.l->log(Log::YouMuted, tr("You were suppressed by %1.").arg(admin));
+				else if (msg.has_suppress())
+					g.l->log(Log::YouMuted, tr("You were unsuppressed by %1.").arg(admin));
 				else
 					g.l->log(Log::YouMuted, tr("You were unmuted by %1.").arg(admin));
 
 				updateTrayIcon();
 			} else {
-				if (pDst->bMute && pDst->bDeaf)
+				if (msg.has_suppress() && ! pSrc) {
+				}
+				else if (msg.has_deaf() && pDst->bDeaf)
 					g.l->log(Log::YouMuted, tr("%1 deafened by %2.").arg(vic).arg(admin));
-				else if (pDst->bMute)
+				else if (msg.has_mute() && pDst->bMute)
 					g.l->log(Log::YouMuted, tr("%1 muted by %2.").arg(vic).arg(admin));
+				else if (msg.has_suppress() && ! pDst->bSuppress)
+					g.l->log(Log::YouMuted, tr("%1 unsuppressed by %2.").arg(vic).arg(admin));
 				else
 					g.l->log(Log::YouMuted, tr("%1 unmuted by %2.").arg(vic).arg(admin));
 			}

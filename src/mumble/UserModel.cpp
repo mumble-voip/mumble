@@ -189,6 +189,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.png"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.png"));
 	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.png"));
+	qiMutedSuppressed=QIcon(QLatin1String("skin:muted_suppressed.png"));
 	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.png"));
 	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.png"));
 	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.png"));
@@ -351,6 +352,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiAuthenticated;
 				if (p->bMute)
 					l << qiMutedServer;
+				if (p->bSuppress)
+					l << qiMutedSuppressed;
 				if (p->bDeaf)
 					l << qiDeafenedServer;
 				if (p->bSelfMute)

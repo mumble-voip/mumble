@@ -49,7 +49,7 @@ class User {
 		QString qsName;
 		QString qsComment;
 		QString qsHash;
-		bool bMute, bDeaf, bSuppressed;
+		bool bMute, bDeaf, bSuppress;
 #ifdef MUMBLE
 		bool bLocalMute;
 		bool bTalking, bAltSpeak;

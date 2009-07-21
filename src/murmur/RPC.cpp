@@ -53,9 +53,9 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 		changed = true;
 		mpus.set_deaf(deaf);
 	}
-	if (suppressed != pUser->bSuppressed) {
+	if (suppressed != pUser->bSuppress) {
 		changed = true;
-		mpus.set_suppressed(suppressed);
+		mpus.set_suppress(suppressed);
 	}
 	if (! comment.isNull() && comment != pUser->qsComment) {
 		changed = true;
@@ -69,7 +69,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 
 	pUser->bDeaf = deaf;
 	pUser->bMute = mute;
-	pUser->bSuppressed = suppressed;
+	pUser->bSuppress = suppressed;
 
 	if (cChannel != pUser->cChannel) {
 		changed = true;

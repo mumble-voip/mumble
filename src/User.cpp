@@ -43,7 +43,7 @@ User::User() {
 	bTalking = bAltSpeak = false;
 	bLocalMute = false;
 #endif
-	bSuppressed = false;
+	bSuppress = false;
 	cChannel = 0;
 }
 

@@ -25,7 +25,7 @@ module Murmur
 		/** Is user deafened by the server? If true, this implies mute. */
 		bool deaf;
 		/** Is the user suppressed by the server? This means the user is not muted, but does not have speech privileges in the current channel. */
-		bool suppressed;
+		bool suppress;
 		/** Is the user self-muted? */
 		bool selfMute;
 		/** Is the user self-deafened? If true, this implies mute. */

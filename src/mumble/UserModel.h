@@ -90,7 +90,7 @@ class UserModel : public QAbstractItemModel {
 		Q_DISABLE_COPY(UserModel)
 	protected:
 		QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
-		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal;
+		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal, qiMutedSuppressed;
 		QIcon qiDeafenedSelf, qiDeafenedServer;
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
 		QIcon qiFriend;

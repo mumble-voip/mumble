@@ -14,6 +14,7 @@
  <file alias="muted_self.png">../../icons/muted_self.png</file>
  <file alias="muted_server.png">../../icons/muted_server.png</file>
  <file alias="muted_local.png">../../icons/muted_local.png</file>
+ <file alias="muted_suppressed.png">../../icons/muted_suppressed.png</file>
  <file alias="authenticated.png">../../icons/authenticated.png</file>
  <file alias="channel.svg">../../icons/channel.svg</file>
  <file alias="channel_linked.svg">../../icons/channel_linked.svg</file>
