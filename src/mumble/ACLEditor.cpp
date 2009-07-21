@@ -106,7 +106,7 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	def->iUserId = -1;
 	def->qsGroup = QLatin1String("all");
 	def->pAllow = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper;
-	def->pDeny = 0;
+	def->pDeny = (~def->pAllow) & ChanACL::All;
 
 	qlACLs << def;
 
