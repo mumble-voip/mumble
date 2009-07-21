@@ -28,47 +28,58 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGDIALOG_H
-#define _CONFIGDIALOG_H
-
-#include "mumble_pch.hpp"
-#include "ui_ConfigDialog.h"
 #include "ConfigWidget.h"
-#include "Settings.h"
 
-class ConfigDialog : public QDialog, public Ui::ConfigDialog {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ConfigDialog)
-	protected:
-		QHash<ConfigWidget *, QWidget *> qhPages;
-		QMap<unsigned int, ConfigWidget *> qmWidgets;
-		void addPage(ConfigWidget *aw, unsigned int idx);
-		Settings s;
+QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;
 
-	public:
-		ConfigDialog(QWidget *p = NULL);
-		~ConfigDialog();
-#ifdef Q_OS_MAC
-	protected:
-		ConfigWidget *cwCurrentWidget;
-		void setCurrentWidget(ConfigWidget *);
-		ConfigWidget *currentWidget();
+ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {
+	if (! c_qmNew)
+		c_qmNew = new QMap<int, ConfigWidgetNew>();
+	iPriority = priority;
+	c_qmNew->insert(priority,n);
+}
 
-		void setupMacToolbar(bool expert);
-		void removeMacToolbar();
+ConfigRegistrar::~ConfigRegistrar() {
+	c_qmNew->remove(iPriority);
+}
 
-	public:
-		void on_widgetSelected(ConfigWidget *);
-#endif
-	public slots:
-		void on_pageButtonBox_clicked(QAbstractButton *);
-		void on_dialogButtonBox_clicked(QAbstractButton *);
-		void updateExpert(bool);
-		void apply();
-		void accept();
-};
+ConfigWidget::ConfigWidget(Settings &st) : s(st) {
+}
 
-#else
-class ConfigDialog;
-#endif
+QIcon ConfigWidget::icon() const {
+	return qApp->windowIcon();
+}
+
+void ConfigWidget::accept() const {
+}
+
+void ConfigWidget::loadSlider(QSlider *slider, int v) {
+	if (v != slider->value()) {
+		slider->setValue(v);
+	} else {
+		connect(this, SIGNAL(intSignal(int)), slider, SIGNAL(valueChanged(int)));
+		emit intSignal(v);
+		disconnect(SIGNAL(intSignal(int)));
+	}
+}
+
+void ConfigWidget::loadCheckBox(QAbstractButton *c, bool v) {
+	if (v != c->isChecked()) {
+		c->setChecked(v);
+	} else {
+		connect(this, SIGNAL(intSignal(int)), c, SIGNAL(stateChanged(int)));
+		emit intSignal(v ? 1 : 0);
+		disconnect(SIGNAL(intSignal(int)));
+	}
+}
+
+void ConfigWidget::loadComboBox(QComboBox *c, int v) {
+	if (c->currentIndex() != v) {
+		c->setCurrentIndex(v);
+	} else {
+		connect(this, SIGNAL(intSignal(int)), c, SIGNAL(currentIndexChanged(int)));
+		emit intSignal(v);
+		disconnect(SIGNAL(intSignal(int)));
+	}
+}
+

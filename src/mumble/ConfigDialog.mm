@@ -1,4 +1,5 @@
 /* Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -33,14 +34,27 @@
 #include "AudioOutput.h"
 #include "Global.h"
 
+#import "ConfigDialogDelegate.h"
+
+/*
+ * This file implements the Mumble configuration dialog on Mac OS X.
+ *
+ * It implements a Mac OS X-style Preferences window (a toolbar at the
+ * top of the window that blends in with the rest of the window, that
+ * allows each item to be selected independently.)
+ */
+
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 
 	s = g.s;
 
-	QWidget *w;
-	while ((w = qtwWidgets->widget(0)))
-		delete w;
+	cwCurrentWidget = NULL;
+	setWindowTitle(tr("Preferences"));
+
+	/* Remove QTabWidget from the layout. We don't use it on OSX. */
+	qvblVertical->removeWidget(qtwWidgets);
+	delete qtwWidgets;
 
 	unsigned int idx = 0;
 	ConfigWidgetNew cwn;
@@ -112,10 +126,13 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 ConfigDialog::~ConfigDialog() {
 	foreach(QWidget *qw, qhPages)
 		delete qw;
+
+	removeMacToolbar();
 }
 
 void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
-	ConfigWidget *conf = qobject_cast<ConfigWidget *>(qtwWidgets->currentWidget());
+	ConfigWidget *conf = currentWidget();
+
 	switch (pageButtonBox->standardButton(b)) {
 		case QDialogButtonBox::RestoreDefaults: {
 				Settings def;
@@ -144,23 +161,95 @@ void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
 	}
 }
 
-void ConfigDialog::updateExpert(bool b) {
-	QWidget *ccw = qtwWidgets->currentWidget();
+void ConfigDialog::setupMacToolbar(bool expert) {
+	NSWindow *window = qt_mac_window_for(this);
 
-	bool found = false;
-	qtwWidgets->clear();
-	foreach(ConfigWidget *cw, qmWidgets) {
-		bool showit = cw->expert(b);
-		if (showit || b)  {
-			QWidget *w = qhPages.value(cw);
-			qtwWidgets->addTab(w, cw->icon(), cw->title());
+	/* Allocate a NSToolbar for our Config Dialog. Most programs on Mac OS X use Preferences dialogs
+	   with a toolbar on top, so this makes Mumble fit in well with native Mac apps.
 
-			if (w == ccw)
-				found = true;
-		}
+	   The identifier string is simply an unique string for this particular toolbar. The OS will graphically
+	   synchronize toolbars with the same identifier, so that if multiple NSToolbars with the same identifier
+	   are used within the same application, they all stay in sync automatically. */
+	NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier: @"MumbleConfigDialog"];
+        [toolbar setDisplayMode: NSToolbarDisplayModeIconAndLabel];
+        [toolbar setSizeMode: NSToolbarSizeModeRegular];
+	[toolbar setAllowsUserCustomization:NO];
+	[toolbar setAutosavesConfiguration:NO];
+
+	ConfigDialogDelegate *delegate = [[ConfigDialogDelegate alloc] initWithConfigDialog:this
+	                                                               andWidgetMap:&qmWidgets
+	                                                               inExpertMode:expert];
+	[toolbar setDelegate: delegate];
+
+	[window setToolbar: toolbar];
+}
+
+void ConfigDialog::removeMacToolbar() {
+	NSWindow *window = qt_mac_window_for(this);
+	NSToolbar *toolbar = [window toolbar];
+
+	if (toolbar != nil) {
+		[[toolbar delegate] release];
+		[toolbar setDelegate: nil];
+		[toolbar release];
 	}
-	if (found)
-		qtwWidgets->setCurrentWidget(ccw);
+}
+
+void ConfigDialog::setCurrentWidget(ConfigWidget *cw) {
+
+	QWidget *w = qhPages[cw];
+	QVBoxLayout *layout = qvblVertical;
+
+	/*
+	 * For flicker-free widget switching we do the following:
+	 *  - Get the currently shown widget.
+	 *  - Insert the new widget (it's hidden until we show() it).
+	 *  - Hide the currently shown widget, then show the new one.
+	 *  - Delete the QItemLayout for the old widget.
+	 */
+
+	QWidget *ccw = NULL;
+	if (layout->count() > 1) {
+		ccw = layout->itemAt(0)->widget();
+	}
+
+	if (w) {
+		qvblVertical->insertWidget(0, w);
+		if (ccw)
+			ccw->hide();
+		w->show();
+		cwCurrentWidget = cw;
+	}
+
+	if (layout->count() > 2) {
+		QLayoutItem *item = layout->takeAt(1);
+		delete item;
+	}
+
+	NSWindow *window = qt_mac_window_for(this);
+	ConfigDialogDelegate *delegate = [[window toolbar] delegate];
+	[delegate selectItem: cw];
+}
+
+ConfigWidget *ConfigDialog::currentWidget() {
+	return cwCurrentWidget;
+}
+
+void ConfigDialog::on_widgetSelected(ConfigWidget *cw) {
+	setCurrentWidget(cw);
+}
+
+void ConfigDialog::updateExpert(bool b) {
+	removeMacToolbar();
+	setupMacToolbar(b);
+
+	ConfigWidget *cw = currentWidget();
+	/* If there's no 'current' widget (i.e. this is the first time the dialog is shown),
+	 * simply use the first available widget. */
+	if (cw == NULL)
+		cw = *(qmWidgets.begin());
+
+	setCurrentWidget(cw);
 }
 
 void ConfigDialog::apply() {

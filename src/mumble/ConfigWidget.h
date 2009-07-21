@@ -1,3 +1,4 @@
+
 /* Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
@@ -28,47 +29,50 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGDIALOG_H
-#define _CONFIGDIALOG_H
+#ifndef _CONFIGWIDGET_H
+#define _CONFIGWIDGET_H
 
-#include "mumble_pch.hpp"
-#include "ui_ConfigDialog.h"
-#include "ConfigWidget.h"
 #include "Settings.h"
 
-class ConfigDialog : public QDialog, public Ui::ConfigDialog {
+class ConfigDialog;
+
+class ConfigWidget : public QWidget {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(ConfigDialog)
+		Q_DISABLE_COPY(ConfigWidget)
 	protected:
-		QHash<ConfigWidget *, QWidget *> qhPages;
-		QMap<unsigned int, ConfigWidget *> qmWidgets;
-		void addPage(ConfigWidget *aw, unsigned int idx);
-		Settings s;
-
+		void loadSlider(QSlider *, int);
+		void loadCheckBox(QAbstractButton *, bool);
+		void loadComboBox(QComboBox *, int);
+	signals:
+		void intSignal(int);
 	public:
-		ConfigDialog(QWidget *p = NULL);
-		~ConfigDialog();
-#ifdef Q_OS_MAC
-	protected:
-		ConfigWidget *cwCurrentWidget;
-		void setCurrentWidget(ConfigWidget *);
-		ConfigWidget *currentWidget();
-
-		void setupMacToolbar(bool expert);
-		void removeMacToolbar();
-
-	public:
-		void on_widgetSelected(ConfigWidget *);
-#endif
+		Settings &s;
+		ConfigWidget(Settings &st);
+		virtual QString title() const = 0;
+		virtual QIcon icon() const;
 	public slots:
-		void on_pageButtonBox_clicked(QAbstractButton *);
-		void on_dialogButtonBox_clicked(QAbstractButton *);
-		void updateExpert(bool);
-		void apply();
-		void accept();
+		virtual void accept() const;
+		virtual void save() const = 0;
+		virtual void load(const Settings &r) = 0;
+		virtual bool expert(bool) = 0;
+};
+
+typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);
+
+class ConfigRegistrar {
+		friend class ConfigDialog;
+	private:
+		Q_DISABLE_COPY(ConfigRegistrar)
+	protected:
+		int iPriority;
+		static QMap<int, ConfigWidgetNew> *c_qmNew;
+	public:
+		ConfigRegistrar(int priority, ConfigWidgetNew n);
+		~ConfigRegistrar();
 };
 
 #else
-class ConfigDialog;
+class ConfigWidget;
+class ConfigRegistrar;
 #endif

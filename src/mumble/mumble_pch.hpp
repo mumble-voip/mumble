@@ -18,8 +18,8 @@
 #include <Carbon/Carbon.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <ApplicationServices/ApplicationServices.h>
-#undef check
 #undef nil
+#undef check
 #undef TYPE_BOOL
 #endif
 
@@ -103,6 +103,10 @@ typedef WId HWND;
 
 #ifdef USE_BONJOUR
 #include <dns_sd.h>
+#endif
+
+#ifdef __OBJC__
+ #define nil 0
 #endif
 
 #endif

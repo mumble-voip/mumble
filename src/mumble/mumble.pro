@@ -4,8 +4,8 @@ DEFINES		*= MUMBLE
 TEMPLATE	= app
 QT		*= network sql opengl xml svg
 TARGET		= mumble
-HEADERS		*= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h Tokens.h
-SOURCES		*= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp Tokens.cpp
+HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h Tokens.h
+SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp Tokens.cpp
 HEADERS	*= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../User.h ../Net.h
 SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Connection.cpp ../User.cpp ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp ../Net.cpp
 SOURCES *= smallft.cpp
@@ -137,8 +137,10 @@ unix {
     QMAKE_INFO_PLIST = mumble.plist
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
-    HEADERS *= GlobalShortcut_macx.h
+    HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
+    SOURCES -= ConfigDialog.cpp
+    SOURCES += ConfigDialog.mm ConfigDialogDelegate.mm
 
     QT_CONF.path = Contents/Resources
     QT_CONF.files = ../../scripts/qt.conf

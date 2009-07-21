@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2009, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -28,47 +28,41 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGDIALOG_H
-#define _CONFIGDIALOG_H
+#ifndef _CONFIGDIALOG_DELEGATE
+#define _CONFIGDIALOG_DELEGATE
 
-#include "mumble_pch.hpp"
-#include "ui_ConfigDialog.h"
+#include "ConfigDialog.h"
 #include "ConfigWidget.h"
-#include "Settings.h"
+#import <Cocoa/Cocoa.h>
 
-class ConfigDialog : public QDialog, public Ui::ConfigDialog {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ConfigDialog)
-	protected:
-		QHash<ConfigWidget *, QWidget *> qhPages;
-		QMap<unsigned int, ConfigWidget *> qmWidgets;
-		void addPage(ConfigWidget *aw, unsigned int idx);
-		Settings s;
+@class NSToolbarItem;
 
-	public:
-		ConfigDialog(QWidget *p = NULL);
-		~ConfigDialog();
-#ifdef Q_OS_MAC
-	protected:
-		ConfigWidget *cwCurrentWidget;
-		void setCurrentWidget(ConfigWidget *);
-		ConfigWidget *currentWidget();
+@interface ConfigDialogDelegate : NSObject {
+	ConfigDialog *configDialog;
+	QMap<unsigned int, ConfigWidget *> *widgetMap;
 
-		void setupMacToolbar(bool expert);
-		void removeMacToolbar();
+	BOOL inExpertMode;
+	NSMutableDictionary *nameWidgetMapping;
+	NSMutableArray *identifiers;
+	NSToolbar *toolbarCache;
+}
 
-	public:
-		void on_widgetSelected(ConfigWidget *);
-#endif
-	public slots:
-		void on_pageButtonBox_clicked(QAbstractButton *);
-		void on_dialogButtonBox_clicked(QAbstractButton *);
-		void updateExpert(bool);
-		void apply();
-		void accept();
-};
+- (id) initWithConfigDialog: (ConfigDialog *)dialog andWidgetMap:(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:(BOOL)flag;
 
-#else
-class ConfigDialog;
-#endif
+- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *)toolbar;
+- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *)toolbar;
+- (NSArray *) toolbarSelectableItemIdentifiers: (NSToolbar *)toolbar;
+
+- (void) toolbarWillAddItem: (NSNotification*)notification;
+- (void) toolbarDidRemoveItem: (NSNotification *)notification;
+
+- (NSToolbarItem *) toolbar: (NSToolbar *)toolbar itemForItemIdentifier: (NSString *)identifier willBeInsertedIntoToolbar:(BOOL)flag;
+
+- (BOOL) validateToolbarItem: (NSToolbarItem *)toolbarItem;
+
+- (void) selectItem: (ConfigWidget *)cw;
+- (void) itemSelected: (NSToolbarItem *)toolbarItem;
+
+@end
+
+#endif /* _CONFIGDIALOG_DELEGATE */
