@@ -23,12 +23,16 @@ TARGET = celt
 DEFINES += HAVE_CONFIG_H
 
 win32 {
-  DEFINES+=WIN32 _WIN32
+  DEFINES += WIN32 _WIN32
   INCLUDEPATH += ../celtbuild/win32
 }
 
 unix {
 	INCLUDEPATH += ../celtbuild
+}
+
+macx {
+	DEFINES += CUSTOM_SUPPORT
 }
 
 DIST = config.h

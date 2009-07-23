@@ -32,6 +32,10 @@ unix {
 	INCLUDEPATH += ../speexbuild
 }
 
+macx {
+	DEFINES += OS_SUPPORT_CUSTOM
+}
+
 DIST = config.h speex.def speex/speex_config_types.h
 
 DEF_FILE = speex.def
