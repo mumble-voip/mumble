@@ -496,7 +496,7 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();
 
-	qtwShortcuts->setColumnCount(canSuppress ? 3 : 2);
+	qtwShortcuts->setColumnCount(canSuppress ? 4 : 3);
 	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
 
 	qtwShortcuts->header()->setResizeMode(QHeaderView::ResizeToContents);
