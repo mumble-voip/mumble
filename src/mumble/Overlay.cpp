@@ -104,50 +104,26 @@ void OverlayConfig::on_qsMaxHeight_valueChanged(int v) {
 	qfFont.setPointSize(v);
 }
 
+#define UPDCOLOR(var, text) { QColor col = QColorDialog::getColor(qc##var, this, text, QColorDialog::ShowAlphaChannel); if (col.isValid()) { qc##var = col; setColorLabel(ql##var, qc##var); } }
 
 void OverlayConfig::on_qpbUser_clicked() {
-	bool ok;
-	QRgb rgb=QColorDialog::getRgba(qcUser.rgba(), &ok, this);
-	if (ok) {
-		qcUser = QColor::fromRgba(rgb);
-		setColorLabel(qlUser, qcUser);
-	}
+	UPDCOLOR(User, tr("Color for users"));
 }
 
 void OverlayConfig::on_qpbTalking_clicked() {
-	bool ok;
-	QRgb rgb=QColorDialog::getRgba(qcTalking.rgba(), &ok, this);
-	if (ok) {
-		qcTalking = QColor::fromRgba(rgb);
-		setColorLabel(qlTalking, qcTalking);
-	}
+	UPDCOLOR(Talking, tr("Color for talking users"));
 }
 
 void OverlayConfig::on_qpbWhisper_clicked() {
-	bool ok;
-	QRgb rgb=QColorDialog::getRgba(qcWhisper.rgba(), &ok, this);
-	if (ok) {
-		qcWhisper = QColor::fromRgba(rgb);
-		setColorLabel(qlWhisper, qcWhisper);
-	}
+	UPDCOLOR(Whisper, tr("Color for whispering users"));
 }
 
 void OverlayConfig::on_qpbChannel_clicked() {
-	bool ok;
-	QRgb rgb=QColorDialog::getRgba(qcChannel.rgba(), &ok, this);
-	if (ok) {
-		qcChannel = QColor::fromRgba(rgb);
-		setColorLabel(qlChannel, qcChannel);
-	}
+	UPDCOLOR(Channel, tr("Color for channels"));
 }
 
 void OverlayConfig::on_qpbChannelTalking_clicked() {
-	bool ok;
-	QRgb rgb=QColorDialog::getRgba(qcChannelTalking.rgba(), &ok, this);
-	if (ok) {
-		qcChannelTalking = QColor::fromRgba(rgb);
-		setColorLabel(qlChannelTalking, qcChannelTalking);
-	}
+	UPDCOLOR(ChannelTalking, tr("Color for active channels"));
 }
 
 QString OverlayConfig::title() const {
