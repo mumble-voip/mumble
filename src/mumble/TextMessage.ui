@@ -17,7 +17,7 @@
       <string>Disables html formatting</string>
      </property>
      <property name="text">
-      <string>Send raw message</string>
+      <string>Disable text formatting</string>
      </property>
     </widget>
    </item>
