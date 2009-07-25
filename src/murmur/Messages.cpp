@@ -490,9 +490,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			pDstServerUser->bSuppress = msg.suppress();
 
 		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(QString(*pDstServerUser),
-										 QString(pDstServerUser->bMute),
-										 QString(pDstServerUser->bDeaf),
-										 QString(pDstServerUser->bSuppress)));
+										 QString::number(pDstServerUser->bMute),
+										 QString::number(pDstServerUser->bDeaf),
+										 QString::number(pDstServerUser->bSuppress)));
 	}
 
 	if (msg.has_user_id()) {
@@ -1151,7 +1151,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				unregisterUser(id);
 			} else {
 				const QString &name = u8(u.name());
-				log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString(id), name));
+				log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
 				QMap<QString, QString> info;
 				info.insert("name", name);

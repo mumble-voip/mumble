@@ -121,7 +121,7 @@ const QList<audioDevice> ALSAAudioInputRegistrar::getDeviceChoices() {
 	}
 
 	foreach(const QString &dev, qlInputDevs) {
-		QString t=QString::fromLatin1("[%1] %2").arg(dev, QLatin1String(cards->qhInput.value(dev));
+		QString t=QString::fromLatin1("[%1] %2").arg(dev.toLatin1(), QLatin1String(cards->qhInput.value(dev));
 		qlReturn << audioDevice(t, dev);
 	}
 
