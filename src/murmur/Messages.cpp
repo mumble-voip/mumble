@@ -469,7 +469,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		Channel *c = qhChannels.value(msg.channel_id());
 
 		userEnterChannel(pDstServerUser, c);
-		log(uSource, QString("Moved %1 to %2").arg(*pDstServerUser).arg(*c));
+		log(uSource, QString("Moved %1 to %2").arg(QString(*pDstServerUser), QString(*c)));
 	}
 
 
@@ -489,7 +489,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		if (msg.has_suppress())
 			pDstServerUser->bSuppress = msg.suppress();
 
-		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(*pDstServerUser).arg(pDstServerUser->bMute).arg(pDstServerUser->bDeaf).arg(pDstServerUser->bSuppress));
+		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(QString(*pDstServerUser),
+										 QString(pDstServerUser->bMute),
+										 QString(pDstServerUser->bDeaf),
+										 QString(pDstServerUser->bSuppress)));
 	}
 
 	if (msg.has_user_id()) {
@@ -545,9 +548,9 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 
 	sendAll(msg);
 	if (ban)
-		log(uSource, QString("Kickbanned %1 (%2)").arg(*pDstServerUser).arg(u8(msg.reason())));
+		log(uSource, QString("Kickbanned %1 (%2)").arg(QString(*pDstServerUser), u8(msg.reason())));
 	else
-		log(uSource, QString("Kicked %1 (%2)").arg(*pDstServerUser).arg(u8(msg.reason())));
+		log(uSource, QString("Kicked %1 (%2)").arg(QString(*pDstServerUser), u8(msg.reason())));
 	pDstServerUser->disconnectSocket();
 }
 
@@ -649,7 +652,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		updateChannel(c);
 
 		msg.set_channel_id(c->iId);
-		log(uSource, QString("Added channel %1 under %2").arg(*c).arg(*p));
+		log(uSource, QString("Added channel %1 under %2").arg(QString(*c), QString(*p)));
 		emit channelCreated(c);
 		sendAll(msg);
 
@@ -744,13 +747,16 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		// All permission checks done -- the update is good.
 
 		if (p) {
-			log(uSource, QString("Moved channel %1 from %2 to %3").arg(*c).arg(* c->cParent).arg(*p));
+			log(uSource, QString("Moved channel %1 from %2 to %3").arg(QString(*c),
+										   QString(* c->cParent),
+										   QString(*p)));
 
 			c->cParent->removeChannel(c);
 			p->addChannel(c);
 		}
 		if (! qsName.isNull()) {
-			log(uSource, QString("Renamed channel %1 to %2").arg(*c).arg(qsName));
+			log(uSource, QString("Renamed channel %1 to %2").arg(QString(*c),
+									     QString(qsName)));
 			c->qsName = qsName;
 		}
 		if (! qsDesc.isNull())
@@ -1145,7 +1151,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				unregisterUser(id);
 			} else {
 				const QString &name = u8(u.name());
-				log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(id).arg(name));
+				log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString(id), name));
 
 				QMap<QString, QString> info;
 				info.insert("name", name);

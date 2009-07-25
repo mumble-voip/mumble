@@ -192,7 +192,7 @@ void MurmurDBus::idToNameSlot(QString &name, int id) {
 	if (reply.isValid())
 		name = reply.value();
 	else {
-		server->log(QString("DBus Authenticator failed getUserName for %1: %2").arg(id).arg(reply.error().message()));
+		server->log(QString("DBus Authenticator failed getUserName for %1: %2").arg(QString(id), QString(reply.error().message())));
 		removeAuthenticator();
 	}
 }
@@ -686,7 +686,7 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 	qsAuthPath = path.path();
 	qsAuthService = msg.service();
 	bReentrant = reentrant;
-	server->log(QString("DBus Authenticator set to %1 %2 (%3)").arg(qsAuthService).arg(qsAuthPath).arg(reentrant));
+	server->log(QString("DBus Authenticator set to %1 %2 (%3)").arg(qsAuthService, qsAuthPath, QString(reentrant)));
 }
 
 void MurmurDBus::setTemporaryGroups(int channel, int userid, const QStringList &groups, const QDBusMessage &msg) {
