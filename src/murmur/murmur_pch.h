@@ -28,8 +28,10 @@
 #include <qos2.h>
 #include <windows.h>
 #include <shellapi.h>
-#include <intrin.h>
 #include <delayimp.h>
+extern "C" {
+void __cpuid(int a[4], int b);
+};
 #endif
 
 #include <openssl/aes.h>

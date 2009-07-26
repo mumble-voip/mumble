@@ -31,7 +31,9 @@
 #include <windows.h>
 #include <tlhelp32.h>
 
-#include <intrin.h>
+extern "C" {
+void __cpuid(int a[4], int b);
+};
 
 static FILE *fConsole;
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
