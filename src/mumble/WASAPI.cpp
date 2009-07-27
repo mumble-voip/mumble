@@ -614,6 +614,7 @@ void WASAPIOutput::run() {
 	unsigned int chanmasks[32];
 	QMap<DWORD, float> qmVolumes;
 	bool lastspoke = false;
+	REFERENCE_TIME bufferDuration = (g.s.iOutputDelay > 1) ? (g.s.iOutputDelay + 1) * 100000 : 0;
 
 	CoInitialize(NULL);
 
@@ -668,7 +669,6 @@ void WASAPIOutput::run() {
 		goto cleanup;
 	}
 
-	REFERENCE_TIME bufferDuration = (g.s.iOutputDelay > 1) ? (g.s.iOutputDelay + 1) * 100000 : 0;
 	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: Initialize failed");

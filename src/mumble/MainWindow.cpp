@@ -702,9 +702,9 @@ void MainWindow::on_qaServerInformation_triggered() {
 														 g.sh->qsOSVersion);
 
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p>").arg(QString::number(qsc.usedBits()),
-																      qsc.name().toLatin1(),
-																      QString("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
-																      QString("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2));
+																      qsc.name(),
+																      QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
+																      QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2));
 	QString qsVoice, qsCrypt, qsAudio;
 
 	if (NetworkConfig::TcpModeEnabled()) {
