@@ -11,7 +11,9 @@ win32 {
 		QMAKE_LINK = xilink
 		QMAKE_CFLAGS *= -Qstd=c99 -Qrestrict -Qvc9
 		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict -Qvc9
-		# Disable IPO and -GL due to bugs in Intel C++ 11.0
+		# Disable IPO and -GL due to bugs in Intel C++ 11.0 and 11.1
+		QMAKE_CFLAGS_LTCG =
+		QMAKE_LFLAGS_LTCG =
 		QMAKE_CFLAGS_RELEASE *= -O3 -Ob0
 		QMAKE_CFLAGS_RELEASE -= -GL
 		QMAKE_CXXFLAGS_RELEASE *= -O3 -Ob0
