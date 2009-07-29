@@ -37,7 +37,7 @@ class User;
 class ClientUser;
 class Channel;
 
-class UserDelegate : public QItemDelegate {
+class UserDelegate : public QStyledItemDelegate {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(UserDelegate)

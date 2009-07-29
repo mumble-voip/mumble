@@ -1084,7 +1084,7 @@ void UserModel::updateOverlay() const {
 	g.lcd->updateUserView();
 }
 
-UserDelegate::UserDelegate(QObject *p) : QItemDelegate(p) {
+UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
 QSize UserDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
@@ -1094,7 +1094,7 @@ QSize UserDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInd
 		QList<QVariant> ql = data.toList();
 		return QSize(18 * ql.count(), 18);
 	} else {
-		return QItemDelegate::sizeHint(option, index);
+		return QStyledItemDelegate::sizeHint(option, index);
 	}
 }
 
@@ -1116,6 +1116,6 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 		painter->restore();
 		return;
 	} else {
-		QItemDelegate::paint(painter,option,index);
+		QStyledItemDelegate::paint(painter,option,index);
 	}
 }
