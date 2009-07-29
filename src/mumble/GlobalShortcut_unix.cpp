@@ -29,29 +29,18 @@
 */
 
 #include "GlobalShortcut_unix.h"
-#include "Global.h"
-#include <QX11Info>
-#include <X11/X.h>
-#include <X11/Xlib.h>
-#ifdef USE_XEVIE
-#include <X11/extensions/Xevie.h>
-#endif
-
-#ifdef Q_OS_LINUX
-#include <linux/input.h>
-#include <fcntl.h>
-#endif
 
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutX();
 }
 
 GlobalShortcutX::GlobalShortcutX() {
-	int min, maj;
 	bRunning=false;
-	bXevie = false;
+	bXInput = false;
 
 	display = NULL;
+	
+	iKeyPress = iKeyRelease = iButtonPress = iButtonRelease = -1;
 
 #ifdef Q_OS_LINUX
 	QString dir = QLatin1String("/dev/input");
@@ -65,7 +54,7 @@ GlobalShortcutX::GlobalShortcutX() {
 		qmInputDevices.clear();
 
 		delete fsw;
-		qWarning("GlobalShortcutX: Unable to open any keyboard input devices under /dev/input, falling back to XEVIE");
+		qWarning("GlobalShortcutX: Unable to open any keyboard input devices under /dev/input, falling back to XInput");
 	} else {
 		return;
 	}
@@ -78,89 +67,82 @@ GlobalShortcutX::GlobalShortcutX() {
 		return;
 	}
 
-	maj = 1;
-	min = 1;
-
-#ifdef USE_XEVIE
-	if (! XevieQueryVersion(display, &maj, &min)) {
-		qWarning("GlobalShortcutX: XEVIE extension not found. Enable it in xorg.conf");
-	} else {
-		qWarning("GlobalShortcutX: XEVIE %d.%d", maj, min);
-
-#ifdef QT_NO_DEBUG
-		if (! XevieStart(display)) {
-			qWarning("GlobalShortcutX: Another client is already using XEVIE");
+	XExtensionVersion *version = XGetExtensionVersion(display, INAME);
+	if (version && (version != reinterpret_cast<XExtensionVersion *>(NoSuchExtension))) {
+		qWarning("GlobalShortcutX: Using XInput %d.%d", version->major_version, version->minor_version);
+		bXInput = true;
+		XFree(version);
+		initXInput();
+		if (qmXDevices.isEmpty()) {
+			qWarning("GlobalShortcutX: No XInput devices");
 		} else {
-			XevieSelectInput(display, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask);
-			bXevie = true;
+			connect(new QSocketNotifier(ConnectionNumber(display), QSocketNotifier::Read, this), SIGNAL(activated(int)), this, SLOT(displayReadyRead(int)));
+			return;
 		}
-#endif
+	} else {
+		qWarning("GlobalShortcutX: No XInput support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
+		bRunning=true;
+		start(QThread::TimeCriticalPriority);
 	}
-#else
-	qWarning("GlobalShortcutX: Not compiled with XEVIE support.");
-#endif
-	if (! bXevie) {
-		qWarning("GlobalShortcutX: No XEVIE support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
-	}
-
-	bRunning=true;
-	start(QThread::TimeCriticalPriority);
 }
 
 GlobalShortcutX::~GlobalShortcutX() {
 	bRunning = false;
 	wait();
+	foreach(XDevice *dev, qmXDevices) 
+		XCloseDevice(display, dev);
+	if (display)
+		XCloseDisplay(display);
 }
 
-bool GlobalShortcutX::canSuppress() {
-	return bXevie;
+void GlobalShortcutX::initXInput() {
+	foreach(XDevice *dev, qmXDevices) 
+		XCloseDevice(display, dev);
+		
+	qmXDevices.clear();
+
+	int numdev;
+	XDeviceInfo *infolist = XListInputDevices(display, &numdev);
+	if (! infolist)
+		return;
+	for(int i=0;i<numdev;++i) {
+		XDeviceInfo *info = infolist + i;
+		XDevice *dev = XOpenDevice(display, info->id);
+		if (dev) {
+			bool key = false, button = false;
+			for(int j=0;j<dev->num_classes;++j) {
+				XInputClassInfo *ici = dev->classes + j;
+				key = key || (ici->input_class == KeyClass);
+				button = button || (ici->input_class == ButtonClass);
+			}
+
+			XEventClass events[4];
+			int nevents = 0;
+			if (key) {
+				DeviceKeyPress(dev, iKeyPress, events[nevents]);
+				++nevents;
+				DeviceKeyRelease(dev, iKeyRelease, events[nevents]);
+				++nevents;
+			}
+			if (button) {
+				DeviceButtonPress(dev, iButtonPress, events[nevents]);
+				++nevents;
+				DeviceButtonRelease(dev, iButtonRelease, events[nevents]);
+				++nevents;
+			}
+
+			if ((nevents != 0) && ! XSelectExtensionEvent(display, XDefaultRootWindow(display), events, nevents)) {
+				qWarning("GlobalShortcutX: XInput %ld:%s", info->id, info->name);
+				qmXDevices.insert(info->id, dev);
+			} else {
+				XCloseDevice(display, dev);
+			}
+		}
+	}
+	XFree(infolist);
 }
 
 void GlobalShortcutX::run() {
-	fd_set in_fds;
-	XEvent evt;
-	struct timeval tv;
-
-	if (bXevie) {
-#ifdef USE_XEVIE
-		while (bRunning) {
-			if (bNeedRemap)
-				remap();
-			FD_ZERO(&in_fds);
-			FD_SET(ConnectionNumber(display), &in_fds);
-			tv.tv_sec = 0;
-			tv.tv_usec = 100000;
-			if (select(ConnectionNumber(display)+1, &in_fds, NULL, NULL, &tv)) {
-				while (XPending(display)) {
-					bool suppress = false;
-					XNextEvent(display, &evt);
-
-					switch (evt.type) {
-						case KeyPress:
-						case KeyRelease:
-						case ButtonPress:
-						case ButtonRelease: {
-								bool down = (evt.type == KeyPress || evt.type == ButtonPress);
-								int evtcode;
-								if (evt.type == KeyPress || evt.type == KeyRelease)
-									evtcode = evt.xkey.keycode;
-								else
-									evtcode = 0x118 + evt.xbutton.button;
-
-								suppress = handleButton(evtcode, down);
-							}
-							break;
-						default:
-							qWarning("GlobalShortcutX: EVT %x", evt.type);
-					}
-					if (! suppress)
-						XevieSendEvent(display, &evt, XEVIE_UNMODIFIED);
-				}
-			}
-		}
-		XevieEnd(display);
-#endif
-	} else {
 		Window root = XDefaultRootWindow(display);
 		Window root_ret, child_ret;
 		int root_x, root_y;
@@ -182,11 +164,7 @@ void GlobalShortcutX::run() {
 
 			idx = next;
 			next = idx ^ 1;
-			if (! XQueryPointer(display, root, &root_ret, &child_ret, &root_x, &root_y, &win_x, &win_y, &mask[next]) ||
-			        ! XQueryKeymap(display, keys[next])) {
-				qWarning("GlobalShortcutX: Lost connection");
-				bRunning = false;
-			} else {
+			if (XQueryPointer(display, root, &root_ret, &child_ret, &root_x, &root_y, &win_x, &win_y, &mask[next]) && XQueryKeymap(display, keys[next])) {
 				for (int i=0;i<256;++i) {
 					int index = i / 8;
 					int keymask = 1 << (i % 8);
@@ -205,8 +183,36 @@ void GlobalShortcutX::run() {
 				}
 			}
 		}
+}
+
+void GlobalShortcutX::displayReadyRead(int) {
+	XEvent evt;
+
+	if (bNeedRemap)
+		remap();
+	
+	while (XPending(display)) {
+		XNextEvent(display, &evt);
+		if ((evt.type == iButtonPress) || (evt.type == iButtonRelease)) {
+			XDeviceButtonEvent *be = reinterpret_cast<XDeviceButtonEvent *>(&evt);
+			handleButton(be->button + 0x117, evt.type == iButtonPress);
+		} else if ((evt.type == iKeyPress) || (evt.type == iKeyRelease)) {
+			XDeviceKeyEvent *ke = reinterpret_cast<XDeviceKeyEvent *>(&evt);
+			if ((evt.type == iKeyRelease) && XPending(display)) {
+				// Is it a silly key repeat?
+				XEvent nxt;
+				XPeekEvent(display, &nxt);
+				if (nxt.type == iKeyPress) {
+					XDeviceKeyEvent *ne = reinterpret_cast<XDeviceKeyEvent *>(&nxt);
+					if (ke->keycode == ne->keycode) {
+						XNextEvent(display, &nxt);
+						continue;
+					}
+				}
+			}
+			handleButton(ke->keycode, evt.type == iKeyPress);
+		}
 	}
-	XCloseDisplay(display);
 }
 
 void GlobalShortcutX::inputReadyRead(int) {

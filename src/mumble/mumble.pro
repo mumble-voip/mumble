@@ -88,7 +88,6 @@ unix {
 
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
-  HAVE_XEVIE=$$system(pkg-config --modversion --silence-errors xevie)
 
   !isEmpty(HAVE_PORTAUDIO):!CONFIG(no-portaudio) {
     CONFIG *= portaudio
@@ -97,10 +96,6 @@ unix {
   !isEmpty(HAVE_PULSEAUDIO):!CONFIG(no-pulseaudio) {
     CONFIG -= portaudio
     CONFIG *= pulseaudio
-  }
-
-  !isEmpty(HAVE_XEVIE):!CONFIG(no-xevie):!macx {
-    CONFIG *= xevie
   }
 
   !CONFIG(no-bundled-speex) {
@@ -129,6 +124,10 @@ unix {
 
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
+  }
+
+  !macx {
+    LIBS *= -lXi
   }
 
   macx {
@@ -210,11 +209,6 @@ dbus {
 speechd {
 	DEFINES *= USE_SPEECHD
 	LIBS *= -lspeechd
-}
-
-xevie {
-	DEFINES *= USE_XEVIE
-	PKGCONFIG *= xevie
 }
 
 directsound {

@@ -30,6 +30,17 @@
 
 #include "GlobalShortcut.h"
 #include "ConfigDialog.h"
+#include "Global.h"
+
+#include <QX11Info>
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/extensions/XInput.h>
+#include <X11/Xutil.h>
+#ifdef Q_OS_LINUX
+#include <linux/input.h>
+#include <fcntl.h>
+#endif
 
 #define NUM_BUTTONS 0x2ff
 
@@ -40,16 +51,21 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 	public:
 		Display *display;
 		volatile bool bRunning;
-		bool bXevie;
+		bool bXInput;
 		QSet<QString> qsKeyboards;
 		QMap<QString, QFile *> qmInputDevices;
+		QMap<XID, XDevice *> qmXDevices;
 
 		GlobalShortcutX();
 		~GlobalShortcutX();
 		void run();
 		QString buttonName(const QVariant &);
-		virtual bool canSuppress();
+		
+		int iKeyPress, iKeyRelease, iButtonPress, iButtonRelease;
+		
+		void initXInput();
 	public slots:
+	        void displayReadyRead(int);
 		void inputReadyRead(int);
 		void directoryChanged(const QString &);
 };
