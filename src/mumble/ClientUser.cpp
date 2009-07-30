@@ -30,6 +30,8 @@
 
 #include "ClientUser.h"
 #include "Channel.h"
+#include "Global.h"
+#include "AudioOutput.h"
 
 QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
 QReadWriteLock ClientUser::c_qrwlUsers;
@@ -69,9 +71,14 @@ ClientUser *ClientUser::match(const ClientUser *other, bool matchname) {
 
 void ClientUser::remove(unsigned int uiSession) {
 	QWriteLocker lock(&c_qrwlUsers);
-	User *p = c_qmUsers.take(uiSession);
+	ClientUser *p = c_qmUsers.take(uiSession);
 	if (p && p->cChannel)
 		p->cChannel->removeUser(p);
+	if (p) {
+		AudioOutputPtr ao = g.ao;
+		if (ao)
+			ao->removeBuffer(p);
+	}
 }
 
 void ClientUser::remove(ClientUser *p) {
