@@ -204,13 +204,13 @@ Section "" SectionCommon
 
   InitPluginsDir
   SetOutPath $PLUGINSDIR
-  File "x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_8550c6b5d18a9128.cat"
-  File "x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_8550c6b5d18a9128.manifest"
-  File "x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_e163563597edeada.cat"
-  File "x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_e163563597edeada.manifest"
-  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_e163563597edeada\msvcm90.dll"
-  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_e163563597edeada\msvcp90.dll"
-  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_e163563597edeada\msvcr90.dll"
+  File "$%WINDIR%\winsxs\Manifests\x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_f47e1bd6f6571810.cat"
+  File "$%WINDIR%\winsxs\Manifests\x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_f47e1bd6f6571810.manifest"
+  File "$%WINDIR%\winsxs\Manifests\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2.cat"
+  File "$%WINDIR%\winsxs\Manifests\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2.manifest"
+  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2\msvcm90.dll"
+  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2\msvcp90.dll"
+  File "$%WINDIR%\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2\msvcr90.dll"
   DetailPrint "Installing CRT assembly..."
   System::Call "sxs::CreateAssemblyCache(*i .r0, i 0) i.r1"
   StrCmp $1 0 0 fail
@@ -223,10 +223,10 @@ Section "" SectionCommon
   System::Call "*(i 32, i 0, i 2364391957, i 1217113163, i 178634899, i 3090139977, w 'mumble', w '') i.s"
   Pop $2
 # IAssemblyCache::InstallAssembly(0, manifestPath, fir)
-  System::Call "$0->7(i 0, w '$PLUGINSDIR\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_e163563597edeada.manifest', i r2) i.r1"
+  System::Call "$0->7(i 0, w '$PLUGINSDIR\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_5090ab56bcba71c2.manifest', i r2) i.r1"
   StrCmp $1 0 0 fail2
 
-  System::Call "$0->7(i 0, w '$PLUGINSDIR\x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_8550c6b5d18a9128.manifest', i r2) i.r1"
+  System::Call "$0->7(i 0, w '$PLUGINSDIR\x86_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_f47e1bd6f6571810.manifest', i r2) i.r1"
   System::Free $2
   StrCmp $1 0 0 fail3
 
@@ -381,11 +381,11 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   System::Call "*(i 32, i 0, i 2364391957, i 1217113163, i 178634899, i 3090139977, w 'mumble', w '') i.s"
   Pop $2
 
-  System::Call "$0->3(i 0, w 'policy.9.0.Microsoft.VC90.CRT,version=$\"9.0.30729.1$\",type=$\"win32-policy$\",processorArchitecture=$\"x86$\",publicKeyToken=$\"1fc8b3b9a1e18e3b$\"', i r2, *i . r3) i.r1"
+  System::Call "$0->3(i 0, w 'policy.9.0.Microsoft.VC90.CRT,version=$\"9.0.30729.4148$\",type=$\"win32-policy$\",processorArchitecture=$\"x86$\",publicKeyToken=$\"1fc8b3b9a1e18e3b$\"', i r2, *i . r3) i.r1"
   StrCmp $1 0 0 fail2
   DetailPrint "Disposition returned from policy removal is $3"
 
-  System::Call "$0->3(i 0, w 'Microsoft.VC90.CRT,version=$\"9.0.30729.1$\",type=$\"win32$\",processorArchitecture=$\"x86$\",publicKeyToken=$\"1fc8b3b9a1e18e3b$\"', i r2, *i . r3) i.r1"
+  System::Call "$0->3(i 0, w 'Microsoft.VC90.CRT,version=$\"9.0.30729.4148$\",type=$\"win32$\",processorArchitecture=$\"x86$\",publicKeyToken=$\"1fc8b3b9a1e18e3b$\"', i r2, *i . r3) i.r1"
   StrCmp $1 0 0 fail2
   DetailPrint "Disposition returned from CRT removal is $3"
 
