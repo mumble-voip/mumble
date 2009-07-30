@@ -48,6 +48,7 @@
 #endif
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
+#include "CrashReporter.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -231,6 +232,9 @@ int main(int argc, char **argv) {
 	g.lcd = new LCD();
 
 	g.nam = new QNetworkAccessManager();
+
+	CrashReporter cr;
+	cr.run();
 
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,

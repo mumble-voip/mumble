@@ -30,12 +30,17 @@
 
 #include <windows.h>
 #include <tlhelp32.h>
+#include <dbghelp.h>
 
 extern "C" {
 void __cpuid(int a[4], int b);
 };
 
-static FILE *fConsole;
+#define PATH_MAX 1024
+
+static FILE *fConsole = NULL;
+static wchar_t wcCrashDumpPath[PATH_MAX] = { 0, };
+
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	char c;
 	switch (type) {
@@ -60,70 +65,24 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	}
 }
 
-#define ER ExceptionInfo->ExceptionRecord
-#define CT ExceptionInfo->ContextRecord
 static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* ExceptionInfo) {
-	EXCEPTION_RECORD *er = ExceptionInfo->ExceptionRecord;
-	CONTEXT *ctx = ExceptionInfo->ContextRecord;
+	MINIDUMP_EXCEPTION_INFORMATION i;
+	i.ThreadId = GetCurrentThreadId();
+	i.ExceptionPointers = ExceptionInfo;
 
-	qWarning("=============================================================================");
-	qWarning("Mumble crash report. Cut and paste this entire report as well as the previos");
-	qWarning("10 seconds (see the timestamps). Build " __DATE__ " " __TIME__);
-	qWarning("=============================================================================");
-
-	while (er) {
-		qWarning("Unhandled exception. Code 0x%08lx, Flags 0x%08lx, Address %p.",er->ExceptionCode,er->ExceptionFlags,er->ExceptionAddress);
-
-		MODULEENTRY32 me;
-		me.dwSize = sizeof(me);
-		HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, GetCurrentProcessId());
-		if (hSnap != INVALID_HANDLE_VALUE) {
-			bool ok = Module32First(hSnap, &me);
-
-			while (ok) {
-				BYTE *start = me.modBaseAddr;
-				BYTE *stop = me.modBaseAddr + me.modBaseSize;
-				if ((er->ExceptionAddress >= start) && (er->ExceptionAddress <= stop)) {
-					qWarning("Modulematch: %ls (%p %08x)", me.szModule, start, static_cast<BYTE *>(er->ExceptionAddress) - start);
-				}
-				ok = Module32Next(hSnap, &me);
-			}
-			CloseHandle(hSnap);
-		}
-
-		for (unsigned int i=0;i<er->NumberParameters;i++) {
-			qWarning("Parameter %4d: %08lx", i, er->ExceptionInformation[i]);
-		}
-		if (er->ExceptionRecord)
-			qWarning("Chaining record...");
-		er = er->ExceptionRecord;
+	HANDLE hMinidump = CreateFile(wcCrashDumpPath, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (hMinidump == INVALID_HANDLE_VALUE) {
+		goto out;
 	}
 
-	qWarning("EAX %08lx EBX %08lx ECX %08lx EDX %08lx",ctx->Eax,ctx->Ebx,ctx->Ecx,ctx->Edx);
-	qWarning("ESI %08lx EDI %08lx EBP %08lx ESP %08lx",ctx->Esi,ctx->Edi,ctx->Ebp,ctx->Esp);
-
-	DWORD Sp=ctx->Esp;
-	DWORD Bp=ctx->Ebp;
-
-	DWORD start,stop;
-	start = Sp;
-	stop = Bp + 0x40;
-	if ((stop < start) || (stop-start >512))
-		stop = start + 512;
-	for (Sp=stop;Sp>=start;Sp-=(sizeof(DWORD)*4)) {
-		DWORD val[4] = {0,0,0,0};
-		DWORD nbytes = sizeof(DWORD)*4;
-		if (ReadProcessMemory(GetCurrentProcess(), reinterpret_cast<const void *>(Sp), &val[0],sizeof(DWORD)*4, &nbytes))
-			qWarning("%08lx[%04lx][%08lx] %08lx %08lx %08lx %08lx", Sp, Sp-ctx->Esp,Sp-Bp, val[0],val[1],val[2],val[3]);
-		else
-			break;
+	if (! MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hMinidump, MiniDumpWithThreadInfo, &i, NULL, NULL)) {
+		goto out;
 	}
 
-	qWarning("=============================================================================");
-	qWarning("Crash report ends");
-	qWarning("=============================================================================");
+	FlushFileBuffers(hMinidump);
+	CloseHandle(hMinidump);
 
-
+out:
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
@@ -136,7 +95,6 @@ void os_init() {
 		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
-
 
 #ifdef QT_NO_DEBUG
 	// FIXME: QDesktopServices::storageLocation
@@ -158,7 +116,12 @@ void os_init() {
 	}
 	if ((res == 0) && fConsole)
 		qInstallMsgHandler(mumbleMessageOutput);
-	SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
+
+	_wgetenv_s(&reqSize, wcCrashDumpPath, PATH_MAX, L"APPDATA");
+	if (reqSize > 0) {
+		wcscat_s(wcCrashDumpPath, PATH_MAX, L"/Mumble/mumble.dmp");
+		SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
+	}
 
 	// Increase our priority class to live alongside games.
 	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
