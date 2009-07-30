@@ -39,6 +39,7 @@ unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.5.3 celt) {
 
 CONFIG(no-bundled-celt) {
   PKGCONFIG	*= celt
+  INCLUDEPATH	*= /usr/include/celt
 }
 
 !CONFIG(no-bundled-celt) {

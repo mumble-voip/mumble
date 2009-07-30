@@ -7,6 +7,8 @@ use Switch;
 use Archive::Tar;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use Compress::Zlib;
+use POSIX;
+use File::Copy;
 
 sub adddir($$) {
   my ($dir, $ref) = @_;
@@ -37,6 +39,8 @@ my @pro = ("main.pro");
 #, "src/mumble.pri");
 #adddir(".", \@pro);
 
+my @resources;
+
 while (my $pro = shift @pro) {
   open(F, $pro) or croak "Failed to open $pro";
   print "Processing $pro\n";
@@ -48,9 +52,9 @@ while (my $pro = shift @pro) {
     chomp();
     if (/^include\((.+)\)/) {
       my $f = $basedir . $1;
-      $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
-      $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
-      $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+      while ($f =~ /\.\./) {
+        $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+      }
       push @pro, $f;
     } elsif (/^\s*(\w+)\s*?[\+\-\*]{0,1}=\s*(.+)$/) {
       my ($var,$value)=(lc $1,$2);
@@ -68,6 +72,7 @@ while (my $pro = shift @pro) {
         case %filevars {
           foreach my $f (split(/\s+/,$value)) {
               next if ($f =~ /^Murmur\.(h|cpp)$/);
+              next if ($f =~ /^Mumble\.pb\.(h|cc)$/);
               my $ok = 0;
               foreach my $d (@vpath) {
                 if (-f "$d$f") {
@@ -79,12 +84,13 @@ while (my $pro = shift @pro) {
               if (! $ok) {
                 croak "Failed to find $f in ".join(" ",@vpath);
               } else {
-                if ($f =~ /\.\./) {
-                  $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
-                  $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+                while ($f =~ /\.\./) {
                   $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
                 }
                 $files{$f}=1;
+                if ($var eq "resources") {
+                  push @resources,$f;
+                }
               }
           }
         }
@@ -94,22 +100,24 @@ while (my $pro = shift @pro) {
   close(F);
 }
 
-open(F, "src/mumble/mumble.qrc");
-while(<F>) {
-  chomp();
-  if (/\<file\>(.+)<\/file\>/) {
-    my $f = $1;
-    next if $f =~ /\.qm$/;
-    $files{$f}=1;
-  } elsif (/\<file alias=\"(.+)\"\>/) {
-    if ( -f "icons/$1") {
-      $files{"icons/$1"}=1;
-    } else {
-      $files{"samples/$1"}=1;
+foreach my $resfile (@resources) {
+  open(F, $resfile);
+  my $basedir=$resfile;
+  $basedir =~ s/[^\/]+\Z//g;
+  while(<F>) {
+    chomp();
+    if (/\>(.+)<\/file\>/) {
+      my $f = $basedir.$1;
+      next if $f =~ /\.qm$/;
+      while ($f =~ /\.\./) {
+                  $f =~ s/(\/|\A)[^\/]+\/\.\.\//$1/g;
+      }
+      
+      $files{$f}=1;
     }
   }
+  close(F);
 }
-close(F);
 
 foreach my $dir ('speex','speex/include/speex','speex/libspeex','man') {
   opendir(D, $dir) or croak "Could not open $dir";
@@ -124,6 +132,16 @@ foreach my $dir ('speex','speex/include/speex','speex/libspeex','man') {
 }
 
 delete($files{'LICENSE'});
+
+if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
+  open(F, "git rev-parse --short=6 origin|"); 
+  while (<F>) {
+    chomp();   
+    $ver .= "~" . strftime("%Y%m%d%H%M",gmtime()) . "-" . $_;
+  }
+  close(F);
+  print "REVISION $ver\n";
+}
 
 my $tar = new Archive::Tar();
 my $zip = new Archive::Zip();
@@ -153,3 +171,5 @@ $gz->gzwrite($tar->write());
 $gz->gzclose();
 
 $zip->writeToFileNamed("mumble-${ver}.zip");
+
+copy("mumble-${ver}.tar.gz", "../deb-mumble/tarballs/mumble_${ver}.orig.tar.gz");

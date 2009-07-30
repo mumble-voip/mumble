@@ -246,6 +246,7 @@ int main(int argc, char **argv) {
 			       "default locations.", argv[0]);
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
+			Meta::mp.read(inifile);
 			unixhandler.setuid();
 			unixhandler.finalcap();
 			LimitTest::testLimits(a);
