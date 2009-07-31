@@ -36,7 +36,7 @@
 #include "Version.h"
 
 extern "C" {
-void __cpuid(int a[4], int b);
+	void __cpuid(int a[4], int b);
 };
 
 #define PATH_MAX 1024

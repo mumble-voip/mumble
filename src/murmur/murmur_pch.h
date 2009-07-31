@@ -30,7 +30,7 @@
 #include <shellapi.h>
 #include <delayimp.h>
 extern "C" {
-void __cpuid(int a[4], int b);
+	void __cpuid(int a[4], int b);
 };
 #endif
 

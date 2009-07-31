@@ -149,12 +149,12 @@ void os_init() {
  */
 extern "C" {
 
-void mumble_macx_celt_fatal(const char *str, const char *file, int line) {
-	qFatal("Fatal (internal) libcelt error in %s, line %d: %s", file, line, str);
-}
+	void mumble_macx_celt_fatal(const char *str, const char *file, int line) {
+		qFatal("Fatal (internal) libcelt error in %s, line %d: %s", file, line, str);
+	}
 
-void mumble_macx_speex_fatal(const char *str, const char *file, int line) {
-	qFatal("Fatal (internal) libspeex error in %s, line %d: %s", file, line, str);
-}
+	void mumble_macx_speex_fatal(const char *str, const char *file, int line) {
+		qFatal("Fatal (internal) libspeex error in %s, line %d: %s", file, line, str);
+	}
 
 } /* extern "C" */

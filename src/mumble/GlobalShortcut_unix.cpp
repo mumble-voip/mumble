@@ -39,7 +39,7 @@ GlobalShortcutX::GlobalShortcutX() {
 	bXInput = false;
 
 	display = NULL;
-	
+
 	iKeyPress = iKeyRelease = iButtonPress = iButtonRelease = -1;
 
 #ifdef Q_OS_LINUX
@@ -89,28 +89,28 @@ GlobalShortcutX::GlobalShortcutX() {
 GlobalShortcutX::~GlobalShortcutX() {
 	bRunning = false;
 	wait();
-	foreach(XDevice *dev, qmXDevices) 
+	foreach(XDevice *dev, qmXDevices)
 		XCloseDevice(display, dev);
 	if (display)
 		XCloseDisplay(display);
 }
 
 void GlobalShortcutX::initXInput() {
-	foreach(XDevice *dev, qmXDevices) 
+	foreach(XDevice *dev, qmXDevices)
 		XCloseDevice(display, dev);
-		
+
 	qmXDevices.clear();
 
 	int numdev;
 	XDeviceInfo *infolist = XListInputDevices(display, &numdev);
 	if (! infolist)
 		return;
-	for(int i=0;i<numdev;++i) {
+	for (int i=0;i<numdev;++i) {
 		XDeviceInfo *info = infolist + i;
 		XDevice *dev = XOpenDevice(display, info->id);
 		if (dev) {
 			bool key = false, button = false;
-			for(int j=0;j<dev->num_classes;++j) {
+			for (int j=0;j<dev->num_classes;++j) {
 				XInputClassInfo *ici = dev->classes + j;
 				key = key || (ici->input_class == KeyClass);
 				button = button || (ici->input_class == ButtonClass);
@@ -143,46 +143,46 @@ void GlobalShortcutX::initXInput() {
 }
 
 void GlobalShortcutX::run() {
-		Window root = XDefaultRootWindow(display);
-		Window root_ret, child_ret;
-		int root_x, root_y;
-		int win_x, win_y;
-		unsigned int mask[2];
-		int idx = 0;
-		int next = 0;
-		char keys[2][32];
+	Window root = XDefaultRootWindow(display);
+	Window root_ret, child_ret;
+	int root_x, root_y;
+	int win_x, win_y;
+	unsigned int mask[2];
+	int idx = 0;
+	int next = 0;
+	char keys[2][32];
 
-		memset(keys[0], 0, 32);
-		memset(keys[1], 0, 32);
-		mask[0] = mask[1] = 0;
+	memset(keys[0], 0, 32);
+	memset(keys[1], 0, 32);
+	mask[0] = mask[1] = 0;
 
-		while (bRunning) {
-			if (bNeedRemap)
-				remap();
+	while (bRunning) {
+		if (bNeedRemap)
+			remap();
 
-			msleep(10);
+		msleep(10);
 
-			idx = next;
-			next = idx ^ 1;
-			if (XQueryPointer(display, root, &root_ret, &child_ret, &root_x, &root_y, &win_x, &win_y, &mask[next]) && XQueryKeymap(display, keys[next])) {
-				for (int i=0;i<256;++i) {
-					int index = i / 8;
-					int keymask = 1 << (i % 8);
-					bool oldstate = (keys[idx][index] & keymask) != 0;
-					bool newstate = (keys[next][index] & keymask) != 0;
-					if (oldstate != newstate) {
-						handleButton(i, newstate);
-					}
+		idx = next;
+		next = idx ^ 1;
+		if (XQueryPointer(display, root, &root_ret, &child_ret, &root_x, &root_y, &win_x, &win_y, &mask[next]) && XQueryKeymap(display, keys[next])) {
+			for (int i=0;i<256;++i) {
+				int index = i / 8;
+				int keymask = 1 << (i % 8);
+				bool oldstate = (keys[idx][index] & keymask) != 0;
+				bool newstate = (keys[next][index] & keymask) != 0;
+				if (oldstate != newstate) {
+					handleButton(i, newstate);
 				}
-				for (int i=8;i<=12;++i) {
-					bool oldstate = (mask[idx] & (1 << i)) != 0;
-					bool newstate = (mask[next] & (1 << i)) != 0;
-					if (oldstate != newstate) {
-						handleButton(0x110 + i, newstate);
-					}
+			}
+			for (int i=8;i<=12;++i) {
+				bool oldstate = (mask[idx] & (1 << i)) != 0;
+				bool newstate = (mask[next] & (1 << i)) != 0;
+				if (oldstate != newstate) {
+					handleButton(0x110 + i, newstate);
 				}
 			}
 		}
+	}
 }
 
 void GlobalShortcutX::displayReadyRead(int) {
@@ -190,7 +190,7 @@ void GlobalShortcutX::displayReadyRead(int) {
 
 	if (bNeedRemap)
 		remap();
-	
+
 	while (XPending(display)) {
 		XNextEvent(display, &evt);
 		if ((evt.type == iButtonPress) || (evt.type == iButtonRelease)) {

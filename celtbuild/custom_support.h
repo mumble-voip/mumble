@@ -17,7 +17,7 @@ static inline void _celt_fatal(const char *str, const char *file, int line) {
 
 	mumble_macx_celt_fatal(str, file, line);
 }
-	
+
 #endif /* __APPLE__ */
 
 #endif /* _CELT_SUPPORT_MUMBLE */

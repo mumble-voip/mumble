@@ -40,7 +40,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	QLabel *l;
 
 	l = new QLabel(tr("<p><b>We're terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?</b></p>"
-					  "<p>The crash report contains a partial copy of Mumble's memory at the time it crashed, and will help the developers fix the problem.</p>"));
+	                  "<p>The crash report contains a partial copy of Mumble's memory at the time it crashed, and will help the developers fix the problem.</p>"));
 
 	vbl->addWidget(l);
 
@@ -70,8 +70,8 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	QDialogButtonBox *dbb = new QDialogButtonBox(Qt::Horizontal);
 	dbb->addButton(pbOk, QDialogButtonBox::AcceptRole);
 	dbb->addButton(pbCancel, QDialogButtonBox::RejectRole);
-    connect(dbb, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(dbb, SIGNAL(rejected()), this, SLOT(reject()));
+	connect(dbb, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(dbb, SIGNAL(rejected()), this, SLOT(reject()));
 	vbl->addWidget(dbb);
 
 	qelLoop = new QEventLoop(this);

@@ -60,12 +60,12 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		~GlobalShortcutX();
 		void run();
 		QString buttonName(const QVariant &);
-		
+
 		int iKeyPress, iKeyRelease, iButtonPress, iButtonRelease;
-		
+
 		void initXInput();
 	public slots:
-	        void displayReadyRead(int);
+		void displayReadyRead(int);
 		void inputReadyRead(int);
 		void directoryChanged(const QString &);
 };

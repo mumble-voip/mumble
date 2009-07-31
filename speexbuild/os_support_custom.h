@@ -17,7 +17,7 @@ static inline void _speex_fatal(const char *str, const char *file, int line) {
 
 	mumble_macx_speex_fatal(str, file, line);
 }
-	
+
 #endif /* __APPLE__ */
 
 #endif /* _SPEEX_SUPPORT_MUMBLE */

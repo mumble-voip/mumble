@@ -235,8 +235,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				updateTrayIcon();
 			} else {
 				if (msg.has_suppress() && ! pSrc) {
-				}
-				else if (msg.has_deaf() && pDst->bDeaf)
+				} else if (msg.has_deaf() && pDst->bDeaf)
 					g.l->log(Log::YouMuted, tr("%1 deafened by %2.").arg(vic, admin));
 				else if (msg.has_mute() && pDst->bMute)
 					g.l->log(Log::YouMuted, tr("%1 muted by %2.").arg(vic, admin));

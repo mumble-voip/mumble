@@ -781,9 +781,9 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 void Server::log(ServerUser *u, const QString &str) {
 	QString msg = QString("<%1:%2(%3)> %4").arg(QString::number(u->uiSession),
-						    u->qsName,
-						    QString::number(u->iId),
-						    str);
+	              u->qsName,
+	              QString::number(u->iId),
+	              str);
 	log(msg);
 }
 

@@ -1,3 +1,86 @@
+2009-07-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    e923c0d  Add CrashReporter. Generate minidumps on Win32 and report them
+	     via CrashReporter.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    01cf723  Allow to add email/comment on crash
+    a2812c4  Compile without bonjour
+    16a44d9  Use basepath in minidumpwrite, and add some comments and a
+	     progress bar
+    7530b91  Global qdBasePath
+
+2009-07-30
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b30efc5  Explicitly remove output buffers when clients disconnect
+    8cec38e  Updated release scripts for new files and paths
+    b5b94c0  http://support.microsoft.com/kb/971092
+    6991334  Replace XEViE with XInput
+
+2009-07-29
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1141eee  Autoexpand usermodel on hover, and use QStyledItemDelegate
+
+2009-07-28
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    113a294  Fix a few compiler warnings
+
+2009-07-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d0690b8  Use local copy of manifest/cat for vc90.crt
+    f2c804a  Disable LTCG also for new Intel versions
+
+2009-07-26
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    2082b4b  Compile with Intel C++ 11.1
+
+2009-07-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    65a0f65  Make the fix actually work.
+    144c631  Fix argument injection.
+
+2009-07-24
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5893adc  With the data column, there's now 4 columns for the shortcut
+	     editor
+    9e25322  Use new QColorDialog::getColor for alpha-editing for overlay
+	     colors
+    e2ebe02  Raw Message => Disable formatting
+
+2009-07-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    f67a93a  Add CELT and Speex fatal error handling for Mac OS X.
+
+2009-07-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    4eac398  Memory management fixes for ConfigDialogDelegate.
+
+2009-07-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    2b96f33  Native-feeling ConfigDialog for Mac OS X.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    057df90  Default-ACL for @all shows default deny as well as default
+	     allow
+    fe47903  Show suppress state in client
+
+2009-07-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    1ef334b  Disable GlobalShortcutMac for debug builds.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f1ec2d8  Use translated section strings
+    d095fd9  Allow SuperUser to move self
+
+2009-07-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d3c9806  Channel sorting.
+    d552f0b  Fix comment save
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9510ab8  Always initialize qtTimeout
+    5a41af1  Don't bind to IPv6 if no interfaces has a v6 address
+
 2009-07-18
   Stefan Hacker <dd0t@users.sourceforge.net>
     0e1b3f3  Improve forced shutdown behavior

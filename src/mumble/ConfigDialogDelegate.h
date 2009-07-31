@@ -38,30 +38,44 @@
 @class NSToolbarItem;
 
 @interface ConfigDialogDelegate : NSObject {
-	ConfigDialog *configDialog;
-	QMap<unsigned int, ConfigWidget *> *widgetMap;
+    ConfigDialog *configDialog;
+    QMap<unsigned int, ConfigWidget *> *widgetMap;
 
-	BOOL inExpertMode;
-	NSMutableDictionary *nameWidgetMapping;
-	NSMutableArray *identifiers;
-	NSToolbar *toolbarCache;
+    BOOL inExpertMode;
+    NSMutableDictionary *nameWidgetMapping;
+    NSMutableArray *identifiers;
+    NSToolbar *toolbarCache;
 }
 
-- (id) initWithConfigDialog: (ConfigDialog *)dialog andWidgetMap:(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:(BOOL)flag;
+- (id) initWithConfigDialog:
+(ConfigDialog *)dialog andWidgetMap:
+(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:
+(BOOL)flag;
 
-- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *)toolbar;
-- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *)toolbar;
-- (NSArray *) toolbarSelectableItemIdentifiers: (NSToolbar *)toolbar;
+- (NSArray *) toolbarAllowedItemIdentifiers:
+(NSToolbar *)toolbar;
+- (NSArray *) toolbarDefaultItemIdentifiers:
+(NSToolbar *)toolbar;
+- (NSArray *) toolbarSelectableItemIdentifiers:
+(NSToolbar *)toolbar;
 
-- (void) toolbarWillAddItem: (NSNotification*)notification;
-- (void) toolbarDidRemoveItem: (NSNotification *)notification;
+- (void) toolbarWillAddItem:
+(NSNotification*)notification;
+- (void) toolbarDidRemoveItem:
+(NSNotification *)notification;
 
-- (NSToolbarItem *) toolbar: (NSToolbar *)toolbar itemForItemIdentifier: (NSString *)identifier willBeInsertedIntoToolbar:(BOOL)flag;
+- (NSToolbarItem *) toolbar:
+(NSToolbar *)toolbar itemForItemIdentifier:
+(NSString *)identifier willBeInsertedIntoToolbar:
+(BOOL)flag;
 
-- (BOOL) validateToolbarItem: (NSToolbarItem *)toolbarItem;
+- (BOOL) validateToolbarItem:
+(NSToolbarItem *)toolbarItem;
 
-- (void) selectItem: (ConfigWidget *)cw;
-- (void) itemSelected: (NSToolbarItem *)toolbarItem;
+- (void) selectItem:
+(ConfigWidget *)cw;
+- (void) itemSelected:
+(NSToolbarItem *)toolbarItem;
 
 @end
 

@@ -695,16 +695,16 @@ void MainWindow::on_qaServerInformation_triggered() {
 	unsigned int version = g.sh->uiVersion;
 
 	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1.%2.%3. Release %4.<br />Running on %5 %6.</p>").arg(QString::number((version >> 16) & 0xFF),
-														 QString::number((version >> 8) & 0xFF),
-														 QString::number(version & 0xFF),
-														 g.sh->qsRelease,
-														 g.sh->qsOS,
-														 g.sh->qsOSVersion);
+	                  QString::number((version >> 8) & 0xFF),
+	                  QString::number(version & 0xFF),
+	                  g.sh->qsRelease,
+	                  g.sh->qsOS,
+	                  g.sh->qsOSVersion);
 
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p>").arg(QString::number(qsc.usedBits()),
-																      qsc.name(),
-																      QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
-																      QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2));
+	                  qsc.name(),
+	                  QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
+	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2));
 	QString qsVoice, qsCrypt, qsAudio;
 
 	if (NetworkConfig::TcpModeEnabled()) {
@@ -860,7 +860,7 @@ void MainWindow::on_qaUserMute_triggered() {
 		if (p->bSuppress)
 			mpus.set_suppress(false);
 	} else {
-			mpus.set_mute(true);
+		mpus.set_mute(true);
 	}
 	g.sh->sendMessage(mpus);
 }

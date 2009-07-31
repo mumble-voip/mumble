@@ -490,9 +490,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			pDstServerUser->bSuppress = msg.suppress();
 
 		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(QString(*pDstServerUser),
-										 QString::number(pDstServerUser->bMute),
-										 QString::number(pDstServerUser->bDeaf),
-										 QString::number(pDstServerUser->bSuppress)));
+		        QString::number(pDstServerUser->bMute),
+		        QString::number(pDstServerUser->bDeaf),
+		        QString::number(pDstServerUser->bSuppress)));
 	}
 
 	if (msg.has_user_id()) {
@@ -748,15 +748,15 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 		if (p) {
 			log(uSource, QString("Moved channel %1 from %2 to %3").arg(QString(*c),
-										   QString(* c->cParent),
-										   QString(*p)));
+			        QString(* c->cParent),
+			        QString(*p)));
 
 			c->cParent->removeChannel(c);
 			p->addChannel(c);
 		}
 		if (! qsName.isNull()) {
 			log(uSource, QString("Renamed channel %1 to %2").arg(QString(*c),
-									     QString(qsName)));
+			        QString(qsName)));
 			c->qsName = qsName;
 		}
 		if (! qsDesc.isNull())
