@@ -30,42 +30,59 @@
 
 #include "CrashReporter.h"
 #include "Global.h"
+#include "OSInfo.h"
 
-CrashReporter::CrashReporter(QWidget *p) : QMessageBox(p) {
+CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("Mumble Crash Report"));
-	setIcon(QMessageBox::Question);
-	setText(tr("<b>Mumble has recovered from a crash.</b>"));
-	setInformativeText(tr("Do you wish to send the crash report to the Mumble developers?<br /><br />" \
-	                      "The report will contain a partial copy of Mumble's memory at the time it crashed, as well as information on all DLLs loaded into Mumble."));
-	setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+
+	QVBoxLayout *vbl= new QVBoxLayout(this);
+
+	QLabel *l;
+
+	l = new QLabel(tr("<p><b>We're terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?</b></p>"
+					  "<p>The crash report contains a partial copy of Mumble's memory at the time it crashed, and will help the developers fix the problem.</p>"));
+
+	vbl->addWidget(l);
+
+	QHBoxLayout *hbl = new QHBoxLayout();
+
+	qleEmail = new QLineEdit(g.qs->value(QLatin1String("crashemail")).toString());
+	l = new QLabel(tr("Email address"));
+	l->setBuddy(qleEmail);
+
+	hbl->addWidget(l);
+	hbl->addWidget(qleEmail, 1);
+	vbl->addLayout(hbl);
+
+	qteDescription=new QTextEdit();
+	l->setBuddy(qteDescription);
+	l = new QLabel(tr("Please briefly describe what you were doing at the time of the crash"));
+
+	vbl->addWidget(l);
+	vbl->addWidget(qteDescription, 1);
+
+	QPushButton *pbOk = new QPushButton(tr("Send Report"));
+	pbOk->setDefault(true);
+
+	QPushButton *pbCancel = new QPushButton(tr("Don't send report"));
+	pbCancel->setAutoDefault(false);
+
+	QDialogButtonBox *dbb = new QDialogButtonBox(Qt::Horizontal);
+	dbb->addButton(pbOk, QDialogButtonBox::AcceptRole);
+	dbb->addButton(pbCancel, QDialogButtonBox::RejectRole);
+    connect(dbb, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(dbb, SIGNAL(rejected()), this, SLOT(reject()));
+	vbl->addWidget(dbb);
+
 	qelLoop = new QEventLoop(this);
 	qpdProgress = NULL;
 	qnrReply = NULL;
 }
 
 CrashReporter::~CrashReporter() {
-	if (qpdProgress)
-		delete qpdProgress;
+	g.qs->setValue(QLatin1String("crashemail"), qleEmail->text());
 	if (qnrReply)
 		delete qnrReply;
-}
-
-void CrashReporter::reportCrash(const QByteArray &qbaCrashReport) {
-	QUrl url(QLatin1String("https://mumble.hive.no/crashreport.php"));
-
-	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
-#if defined(Q_OS_WIN)
-	url.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
-#elif defined(Q_OS_MAC)
-	url.addQueryItem(QLatin1String("os"), QLatin1String("MacOSX"));
-#else
-	url.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
-#endif
-
-	QNetworkRequest req(url);
-	qnrReply = g.nam->post(req, qbaCrashReport);
-	connect(qnrReply, SIGNAL(finished()), this, SLOT(uploadFinished()));
-	connect(qnrReply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(uploadProgress(qint64, qint64)));
 }
 
 void CrashReporter::uploadFinished() {
@@ -100,11 +117,32 @@ void CrashReporter::run() {
 		return;
 #endif
 
-	if (exec() == QMessageBox::Ok) {
+	if (exec() == QDialog::Accepted) {
+		QByteArray dump = qfMinidump.readAll();
+
 		qpdProgress = new QProgressDialog(tr("Uploading crash report"), tr("Abort upload"), 0, 100, this);
+		qpdProgress->setMinimumDuration(500);
 		qpdProgress->setValue(0);
 		connect(qpdProgress, SIGNAL(canceled()), qelLoop, SLOT(quit()));
-		reportCrash(qfMinidump.readAll());
+
+		QString boundary = QString::fromLatin1("---------------------------%1").arg(QDateTime::currentDateTime().toTime_t());
+
+		QString os = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"os\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2 %3\r\n").arg(boundary, OSInfo::getOS(), OSInfo::getOSVersion());
+		QString ver = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"ver\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2 %3\r\n").arg(boundary, QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)), QLatin1String(MUMBLE_RELEASE));
+		QString email = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"email\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2\r\n").arg(boundary, qleEmail->text());
+		QString descr = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"desc\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2\r\n").arg(boundary, qteDescription->toPlainText());
+		QString head = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"dump\"; filename=\"mumble.dmp\"\r\nContent-Type: binary/octet-stream\r\n\r\n").arg(boundary);
+		QString end = QString::fromLatin1("\r\n--%1--\r\n").arg(boundary);
+
+		QByteArray post = os.toUtf8() + ver.toUtf8() + email.toUtf8() + descr.toUtf8() + head.toUtf8() + dump + end.toUtf8();
+
+		QUrl url(QLatin1String("https://mumble.hive.no/crashreport.php"));
+		QNetworkRequest req(url);
+		req.setHeader(QNetworkRequest::ContentTypeHeader, QString::fromLatin1("multipart/form-data; boundary=%1").arg(boundary));
+		req.setHeader(QNetworkRequest::ContentLengthHeader, QString::number(post.size()));
+		qnrReply = g.nam->post(req, post);
+		connect(qnrReply, SIGNAL(finished()), this, SLOT(uploadFinished()));
+		connect(qnrReply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(uploadProgress(qint64, qint64)));
 
 		qelLoop->exec(QEventLoop::DialogExec);
 	}

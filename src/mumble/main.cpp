@@ -205,11 +205,9 @@ int main(int argc, char **argv) {
 
 	g.nam = new QNetworkAccessManager();
 
-	{
-		CrashReporter *cr = new CrashReporter();
-		cr->run();
-		delete cr;
-	}
+	CrashReporter *cr = new CrashReporter();
+	cr->run();
+	delete cr;
 
 	// Initialize logger
 	g.l = new Log();
@@ -227,10 +225,6 @@ int main(int argc, char **argv) {
 	g.sh->moveToThread(g.sh);
 
 	g.o = new Overlay();
-
-	// FIXME
-	g.o = NULL;
-
 	g.o->setActive(g.s.bOverlayEnable);
 
 	g.lcd = new LCD();

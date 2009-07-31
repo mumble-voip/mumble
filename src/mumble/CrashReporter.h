@@ -33,7 +33,7 @@
 
 #include "mumble_pch.hpp"
 
-class CrashReporter : QMessageBox {
+class CrashReporter : QDialog {
 	Q_OBJECT
 	Q_DISABLE_COPY(CrashReporter)
 
@@ -45,8 +45,8 @@ protected:
 	QEventLoop *qelLoop;
 	QProgressDialog *qpdProgress;
 	QNetworkReply *qnrReply;
-	void reportCrash(const QByteArray &);
-
+	QLineEdit *qleEmail;
+	QTextEdit *qteDescription;
 public slots:
 	void uploadFinished();
 	void uploadProgress(qint64, qint64);
