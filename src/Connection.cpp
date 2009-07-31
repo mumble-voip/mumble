@@ -199,7 +199,11 @@ quint16 Connection::peerPort() const {
 }
 
 QList<QSslCertificate> Connection::peerCertificateChain() const {
-	return qtsSocket->peerCertificateChain() << qtsSocket->peerCertificate();
+	const QSslCertificate cert = qtsSocket->peerCertificate();
+	if (cert.isNull())
+		return QList<QSslCertificate>();
+	else
+		return qtsSocket->peerCertificateChain() << cert;
 }
 
 QSslCipher Connection::sessionCipher() const {
