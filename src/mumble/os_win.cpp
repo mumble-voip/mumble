@@ -32,14 +32,20 @@
 #include <tlhelp32.h>
 #include <dbghelp.h>
 
+#include "Global.h"
+#include "Version.h"
+
 extern "C" {
 void __cpuid(int a[4], int b);
 };
 
 #define PATH_MAX 1024
 
+static wchar_t wcCrashDumpPath[PATH_MAX];
 static FILE *fConsole = NULL;
-static wchar_t wcCrashDumpPath[PATH_MAX] = { 0, };
+
+static wchar_t wcComment[PATH_MAX] = L"";
+static MINIDUMP_USER_STREAM musComment;
 
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	char c;
@@ -70,19 +76,19 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	i.ThreadId = GetCurrentThreadId();
 	i.ExceptionPointers = ExceptionInfo;
 
+	MINIDUMP_USER_STREAM_INFORMATION musi;
+
+	musi.UserStreamCount = 1;
+	musi.UserStreamArray = &musComment;
+
 	HANDLE hMinidump = CreateFile(wcCrashDumpPath, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if (hMinidump == INVALID_HANDLE_VALUE) {
-		goto out;
+	if (hMinidump != INVALID_HANDLE_VALUE) {
+		if (MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hMinidump, static_cast<MINIDUMP_TYPE>(MiniDumpWithIndirectlyReferencedMemory | MiniDumpWithThreadInfo), &i, &musi, NULL)) {
+			FlushFileBuffers(hMinidump);
+		}
+		CloseHandle(hMinidump);
 	}
 
-	if (! MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hMinidump, MiniDumpWithThreadInfo, &i, NULL, NULL)) {
-		goto out;
-	}
-
-	FlushFileBuffers(hMinidump);
-	CloseHandle(hMinidump);
-
-out:
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
@@ -97,31 +103,35 @@ void os_init() {
 	}
 
 #ifdef QT_NO_DEBUG
-	// FIXME: QDesktopServices::storageLocation
-	errno_t res = 0;
-	size_t reqSize, bSize;
-	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-	if (reqSize > 0) {
-		reqSize += strlen("/Mumble/Console.txt");
-		bSize = reqSize;
+	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
+	errno_t res = _wfopen_s(&fConsole, console.utf16(), L"a+");
 
-		STACKVAR(wchar_t, buff, reqSize+1);
-
-		_wgetenv_s(&reqSize, buff, bSize, L"APPDATA");
-		wcscat_s(buff, bSize, L"/Mumble/Console.txt");
-		res = _wfopen_s(&fConsole, buff, L"a+");
-	}
-	if ((res != 0) || (! fConsole)) {
-		res=_wfopen_s(&fConsole, L"Console.txt", L"a+");
-	}
 	if ((res == 0) && fConsole)
 		qInstallMsgHandler(mumbleMessageOutput);
 
-	_wgetenv_s(&reqSize, wcCrashDumpPath, PATH_MAX, L"APPDATA");
-	if (reqSize > 0) {
-		wcscat_s(wcCrashDumpPath, PATH_MAX, L"/Mumble/mumble.dmp");
-		SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
+	QString hash;
+	QFile f(qApp->applicationFilePath());
+	if (! f.open(QIODevice::ReadOnly)) {
+		qWarning("VersionCheck: Failed to open binary");
+	} else {
+		QByteArray a = f.readAll();
+		if (a.size() > 0) {
+			QCryptographicHash qch(QCryptographicHash::Sha1);
+			qch.addData(a);
+			hash = QLatin1String(qch.result().toHex());
+		}
 	}
+
+	QString comment = QString::fromLatin1("%1\n%2\n%3").arg(QString::fromLatin1(MUMBLE_RELEASE), QString::fromLatin1(MUMTEXT(MUMBLE_VERSION_STRING)), hash);
+
+	wcscpy_s(wcComment, PATH_MAX, comment.utf16());
+	musComment.Type = CommentStreamW;
+	musComment.Buffer = wcComment;
+	musComment.BufferSize = wcslen(wcComment) * sizeof(wchar_t);
+
+	QString dump = g.qdBasePath.filePath(QLatin1String("mumble.dmp"));
+	if (wcscpy_s(wcCrashDumpPath, PATH_MAX, dump.utf16()) == 0)
+		SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
 
 	// Increase our priority class to live alongside games.
 	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))

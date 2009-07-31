@@ -68,7 +68,7 @@ class QAppMumble:public QApplication {
 		void commitData(QSessionManager&);
 };
 
-void QAppMumble::commitData(QSessionManager &manager) {
+void QAppMumble::commitData(QSessionManager &) {
 	// Make sure the config is saved and supress the ask on quite message
 	g.s.save();
 	g.mw->bSupressAskOnQuit = true;
@@ -203,6 +203,14 @@ int main(int argc, char **argv) {
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
 
+	g.nam = new QNetworkAccessManager();
+
+	{
+		CrashReporter *cr = new CrashReporter();
+		cr->run();
+		delete cr;
+	}
+
 	// Initialize logger
 	g.l = new Log();
 
@@ -219,14 +227,13 @@ int main(int argc, char **argv) {
 	g.sh->moveToThread(g.sh);
 
 	g.o = new Overlay();
+
+	// FIXME
+	g.o = NULL;
+
 	g.o->setActive(g.s.bOverlayEnable);
 
 	g.lcd = new LCD();
-
-	g.nam = new QNetworkAccessManager();
-
-	CrashReporter cr;
-	cr.run();
 
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,

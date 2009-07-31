@@ -75,10 +75,9 @@ Global::Global() {
 				qdBasePath = QDir::home();
 		}
 	}
-	if (! qdBasePath.exists(QLatin1String("Plugins"))
+	if (! qdBasePath.exists(QLatin1String("Plugins")))
 		qdBasePath.mkpath(QLatin1String("Plugins"));
 
-	qWarning() << "Basepath" << qdBasePath.absolutePath();
 	qs->setIniCodec("UTF-8");
 }
 

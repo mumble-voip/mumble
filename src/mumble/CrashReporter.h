@@ -39,13 +39,17 @@ class CrashReporter : QMessageBox {
 
 public:
 	CrashReporter(QWidget *p = 0);
+	~CrashReporter();
 	void run();
-
 protected:
+	QEventLoop *qelLoop;
+	QProgressDialog *qpdProgress;
+	QNetworkReply *qnrReply;
 	void reportCrash(const QByteArray &);
 
 public slots:
 	void uploadFinished();
+	void uploadProgress(qint64, qint64);
 };
 
 #else

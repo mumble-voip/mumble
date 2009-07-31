@@ -344,22 +344,11 @@ Section /o "$(MUMBLE_SEC_BONJOUR)" SectionBonjour
 end:
 SectionEnd
 
-Section /o "$(MUMBLE_SEC_DEBUG)" SectionDebug
-  SetShellVarContext all
-
-  SetOutPath "$INSTDIR"
-
-  File "..\release\mumble.pdb"
-  File "..\release\murmur.pdb"
-  File "..\release\mumble-g15-helper.pdb"
-SectionEnd
-
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionMumble} $(DESC_SectionMumble)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionMumble11X} $(DESC_SectionMumble11X)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionMurmur} $(DESC_SectionMurmur)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionBonjour} $(DESC_SectionBonjour)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SectionDebug} $(DESC_SectionDebug)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
@@ -405,9 +394,6 @@ end:
   Delete "$INSTDIR\mumble11x.exe"
   Delete "$INSTDIR\murmur.exe"
   Delete "$INSTDIR\mumble-g15-helper.exe"
-  Delete "$INSTDIR\mumble.pdb"
-  Delete "$INSTDIR\murmur.pdb"
-  Delete "$INSTDIR\mumble-g15-helper.pdb"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"

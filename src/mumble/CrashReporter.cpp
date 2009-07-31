@@ -38,10 +38,20 @@ CrashReporter::CrashReporter(QWidget *p) : QMessageBox(p) {
 	setInformativeText(tr("Do you wish to send the crash report to the Mumble developers?<br /><br />" \
 	                      "The report will contain a partial copy of Mumble's memory at the time it crashed, as well as information on all DLLs loaded into Mumble."));
 	setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	qelLoop = new QEventLoop(this);
+	qpdProgress = NULL;
+	qnrReply = NULL;
+}
+
+CrashReporter::~CrashReporter() {
+	if (qpdProgress)
+		delete qpdProgress;
+	if (qnrReply)
+		delete qnrReply;
 }
 
 void CrashReporter::reportCrash(const QByteArray &qbaCrashReport) {
-	QUrl url(QLatin1String("http://mumble.hive.no/crashreport.php"));
+	QUrl url(QLatin1String("https://mumble.hive.no/crashreport.php"));
 
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 #if defined(Q_OS_WIN)
@@ -53,40 +63,52 @@ void CrashReporter::reportCrash(const QByteArray &qbaCrashReport) {
 #endif
 
 	QNetworkRequest req(url);
-	QNetworkReply *rep = g.nam->post(req, qbaCrashReport);
-	connect(rep, SIGNAL(finished()), this, SLOT(uploadFinished()));
+	qnrReply = g.nam->post(req, qbaCrashReport);
+	connect(qnrReply, SIGNAL(finished()), this, SLOT(uploadFinished()));
+	connect(qnrReply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(uploadProgress(qint64, qint64)));
 }
 
 void CrashReporter::uploadFinished() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	if (rep->error() == QNetworkReply::NoError)
-		qWarning("CrashReporter: File uploaded successfully.");
-	else
-		qWarning("CrashReporter: File upload failed with error: %i", rep->error());
+	qpdProgress->reset();
+	if (qnrReply->error() == QNetworkReply::NoError) {
+		if (qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)
+			QMessageBox::information(NULL, tr("Crash upload successfull"), tr("Thank you for helping make Mumble better!"));
+		else
+			QMessageBox::critical(NULL, tr("Crash upload failed"), tr("We're really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.").arg(qnrReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt()).arg(qnrReply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString()));
+	} else {
+		QMessageBox::critical(NULL, tr("Crash upload failed"), tr("This really isn't funny, but apparantly there's a bug in the crash reporting code, and we've failed to upload the report. You may inform a developer about error %1").arg(qnrReply->error()));
+	}
+	qelLoop->exit(0);
+}
+
+void CrashReporter::uploadProgress(qint64 sent, qint64 total) {
+	qpdProgress->setMaximum(total);
+	qpdProgress->setValue(sent);
 }
 
 void CrashReporter::run() {
-#ifdef Q_OS_WIN
-	QString qsAppData;
-	size_t reqSize, bSize;
-	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-	if (reqSize > 0) {
-		STACKVAR(wchar_t, buff, reqSize+1);
-		_wgetenv_s(&reqSize, buff, reqSize, L"APPDATA");
-		qsAppData=QDir::fromNativeSeparators(QString::fromWCharArray(buff));
-	}
 
-	QFile qfMinidump(QString::fromLatin1("%1/Mumble/mumble.dmp").arg(qsAppData));
+
+	QFile qfMinidump(g.qdBasePath.filePath(QLatin1String("mumble.dmp")));
 	if (! qfMinidump.exists())
 		return;
 
+	qfMinidump.open(QIODevice::ReadOnly);
+
+#ifdef Q_OS_WIN
+	if (qfMinidump.peek(4) != "MDMP")
+		return;
+#endif
+
 	if (exec() == QMessageBox::Ok) {
-		qfMinidump.open(QIODevice::ReadOnly);
-		if (qfMinidump.peek(4) == "MDMP")
-			reportCrash(qfMinidump.readAll());
+		qpdProgress = new QProgressDialog(tr("Uploading crash report"), tr("Abort upload"), 0, 100, this);
+		qpdProgress->setValue(0);
+		connect(qpdProgress, SIGNAL(canceled()), qelLoop, SLOT(quit()));
+		reportCrash(qfMinidump.readAll());
+
+		qelLoop->exec(QEventLoop::DialogExec);
 	}
 
 	if (! qfMinidump.remove())
 		qWarning("CrashReporeter: Unable to remove minidump.");
-#endif
 }

@@ -37,7 +37,7 @@ Database::Database() {
 	QStringList datapaths;
 	int i;
 
-	datapahts << g.qdBasePath.absolutePath();
+	datapaths << g.qdBasePath.absolutePath();
 	datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #if defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
 	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
