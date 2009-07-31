@@ -54,7 +54,7 @@ struct MetaParams {
 
 	QString qsDatabase;
 	QString qsDBDriver;
-	QString qsDBServerUserName;
+	QString qsDBUserName;
 	QString qsDBPassword;
 	QString qsDBHostName;
 	QString qsDBPrefix;

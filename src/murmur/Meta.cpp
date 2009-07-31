@@ -196,7 +196,7 @@ void MetaParams::read(QString fname) {
 	qsDatabase = qs.value("database", qsDatabase).toString();
 
 	qsDBDriver = qs.value("dbDriver", qsDBDriver).toString();
-	qsDBServerUserName = qs.value("dbServerUsername", qsDBServerUserName).toString();
+	qsDBUserName = qs.value("dbUsername", qsDBUserName).toString();
 	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
 	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
 	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
