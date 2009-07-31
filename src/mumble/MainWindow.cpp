@@ -790,7 +790,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 	qmUser->addAction(qaUserComment);
 	qmUser->addAction(qaUserTextMessage);
 
-	if (p && (p->iId < 0) & (g.pPermissions & (ChanACL::Register | ChanACL::Write))) {
+	if (p && (p->iId < 0) && (g.pPermissions & (ChanACL::Register | ChanACL::Write))) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaUserRegister);
 	}
