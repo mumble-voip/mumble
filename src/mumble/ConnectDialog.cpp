@@ -123,7 +123,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 		onUpdateLanList(g.bc->bsbBrowser->currentRecords());
 	}
 #else
-	qtwtab->setTabToolTip(2, tr("Bonjour support disabled during compilation."));
+	qtwTab->setTabToolTip(2, tr("Bonjour support disabled during compilation."));
 #endif
 
 	fillList();
