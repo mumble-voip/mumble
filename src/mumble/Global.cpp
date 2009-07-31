@@ -48,6 +48,42 @@ Global::Global() {
 	bPosTest = false;
 	iAudioPathTime = 0;
 	iMaxBandwidth = 0;
+
+	QString apppath = QCoreApplication::instance()->applicationDirPath();
+	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(apppath));
+	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
+		qdBasePath = apppath;
+		qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
+	} else {
+		qs = new QSettings();
+#if defined(Q_OS_WIN)
+		QSettings settings(QSettings::UserScope, QLatin1String("Microsoft"), QLatin1String("Windows"));
+		settings.beginGroup(QLatin1String("CurrentVersion/Explorer/Shell Folders"));
+		QString dir = QDir::fromNativeSeparators(settings.value(QLatin1String("AppData")).toString());
+		if (! dir.isEmpty()) {
+			dir.append(QLatin1String("/Mumble"));
+			qdBasePath.setPath(dir);
+		}
+#elif defined(Q_OS_MAC)
+		qdBasePath.setPath(QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/"));
+#else
+		qdBasePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
+		if (! qdBasePath.exists()) {
+			QDir::root().mkpath(qdBasePath.absolutePath());
+			if (! qdBasePath.exists())
+				qdBasePath = QDir::home();
+		}
+	}
+	if (! qdBasePath.exists(QLatin1String("Plugins"))
+		qdBasePath.mkpath(QLatin1String("Plugins"));
+
+	qWarning() << "Basepath" << qdBasePath.absolutePath();
+	qs->setIniCodec("UTF-8");
+}
+
+Global::~Global() {
+	delete qs;
 }
 
 QMultiMap<int, DeferInit *> *DeferInit::qmDeferers = NULL;

@@ -144,9 +144,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	qsSystemPlugins=QLatin1String(MUMTEXT(PLUGIN_PATH));
 #endif
 
-	qsUserPlugins = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-	qsUserPlugins += QLatin1String("/Plugins");
-	QDir::root().mkpath(qsUserPlugins);
+	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");
 }
 
 Plugins::~Plugins() {

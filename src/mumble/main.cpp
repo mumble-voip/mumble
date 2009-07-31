@@ -77,11 +77,8 @@ void QAppMumble::commitData(QSessionManager &manager) {
 int main(int argc, char **argv) {
 	int res;
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-	os_init();
-#endif
 
-	QT_REQUIRE_VERSION(argc, argv, "4.4.1");
+	QT_REQUIRE_VERSION(argc, argv, "4.5.0");
 
 	// Initialize application object.
 	QAppMumble a(argc, argv);
@@ -91,6 +88,10 @@ int main(int argc, char **argv) {
 	a.setQuitOnLastWindowClosed(false);
 
 	Global::g_global_struct = new Global();
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	os_init();
+#endif
 
 	QUrl url;
 	if (a.arguments().count() > 1) {
@@ -139,15 +140,6 @@ int main(int argc, char **argv) {
 	}
 #endif
 #endif
-
-	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(a.applicationDirPath()));
-	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser))
-		g.qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
-	else
-		g.qs = new QSettings();
-
-	g.qs->setIniCodec("UTF-8");
-
 	// Load preferences
 	g.s.load();
 
@@ -323,8 +315,6 @@ int main(int argc, char **argv) {
 #endif
 
 	delete g.o;
-
-	delete g.qs;
 
 	DeferInit::run_destroyers();
 

@@ -37,28 +37,11 @@ Database::Database() {
 	QStringList datapaths;
 	int i;
 
-	// Check if running with local .ini file (Roaming mode)
-	if (g.qs->fileName().compare(QString::fromLatin1("%1/mumble.ini").arg(QApplication::instance()->applicationDirPath()), Qt::CaseInsensitive) == 0) {
-		datapaths << qApp->applicationDirPath();
-	} else {
-		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#if defined(Q_OS_WIN)
-		size_t reqSize;
-		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-		if (reqSize > 0) {
-			STACKVAR(wchar_t, buff, reqSize+1);
-			_wgetenv_s(&reqSize, buff, reqSize, L"APPDATA");
-
-			QDir appdir = QDir(QDir::fromNativeSeparators(QString::fromWCharArray(buff)));
-
-			datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
-		}
-#elif defined(Q_OS_MAC)
-		datapaths << QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/");
-#else
-		datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
+	datapahts << g.qdBasePath.absolutePath();
+	datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#if defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
+	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
-	}
 	datapaths << QDir::homePath();
 	datapaths << QDir::currentPath();
 	datapaths << qApp->applicationDirPath();

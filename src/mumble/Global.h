@@ -81,7 +81,9 @@ public:
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	int iAudioQuality;
+	QDir qdBasePath;
 	Global();
+	~Global();
 };
 
 // Class to handle ordered initialization of globals.
