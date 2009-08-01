@@ -57,6 +57,7 @@ MetaParams::MetaParams() {
 	iLogDays = 31;
 
 	iObfuscate = 0;
+	bSendVersion = true;
 
 	iBanTries = 10;
 	iBanTimeframe = 120;
@@ -245,6 +246,7 @@ void MetaParams::read(QString fname) {
 		qWarning("IP address obfuscation enabled.");
 		iObfuscate = qrand();
 	}
+	bSendVersion = qs.value("sendversion", bSendVersion).toBool();
 
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();

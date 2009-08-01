@@ -64,6 +64,7 @@ struct MetaParams {
 	int iLogDays;
 
 	int iObfuscate;
+	bool bSendVersion;
 
 	QString qsDBus;
 	QString qsDBusService;
