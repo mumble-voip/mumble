@@ -499,7 +499,13 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qtwShortcuts->setColumnCount(canSuppress ? 4 : 3);
 	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
 
-	qtwShortcuts->header()->setResizeMode(QHeaderView::ResizeToContents);
+	qtwShortcuts->header()->setResizeMode(0, QHeaderView::Fixed);
+	qtwShortcuts->header()->resizeSection(0, 150);
+	qtwShortcuts->header()->setResizeMode(2, QHeaderView::Stretch);
+	if (canSuppress) {
+		qtwShortcuts->header()->setResizeMode(3, QHeaderView::Fixed);
+		qtwShortcuts->header()->resizeSection(3, 60);
+	}
 }
 
 void GlobalShortcutConfig::on_qpbAdd_clicked(bool) {

@@ -76,21 +76,27 @@
         <property name="uniformRowHeights">
          <bool>true</bool>
         </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
         <attribute name="headerDefaultSectionSize">
-         <number>200</number>
-        </attribute>
-        <attribute name="headerMinimumSectionSize">
          <number>100</number>
         </attribute>
         <attribute name="headerMinimumSectionSize">
+         <number>50</number>
+        </attribute>
+        <attribute name="headerStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="headerDefaultSectionSize">
          <number>100</number>
+        </attribute>
+        <attribute name="headerMinimumSectionSize">
+         <number>50</number>
+        </attribute>
+        <attribute name="headerStretchLastSection">
+         <bool>false</bool>
         </attribute>
         <column>
          <property name="text">
-          <string>Shortcut function</string>
+          <string>Function</string>
          </property>
         </column>
         <column>
