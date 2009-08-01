@@ -981,6 +981,16 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 		return;
 	}
 
+#ifdef QT_NO_DEBUG
+#define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
+		MumbleProto:: x msg; \
+		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
+			msg.DiscardUnknownFields(); \
+			msg##x(u, msg); \
+		} \
+		break; \
+	}
+#else
 #define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
 		MumbleProto:: x msg; \
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
@@ -991,6 +1001,7 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 		} \
 		break; \
 	}
+#endif
 
 	switch (uiType) {
 			MUMBLE_MH_ALL

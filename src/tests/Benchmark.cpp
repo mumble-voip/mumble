@@ -16,6 +16,7 @@
 #include "Timer.h"
 #include "Message.h"
 #include "CryptState.h"
+#include "Mumble.pb.h"
 
 class Client : public QThread {
 		Q_OBJECT
@@ -32,9 +33,11 @@ class Client : public QThread {
 		void ping();
 		void sendVoice();
 		int numbytes;
+		int ptype;
 		QSslSocket *ssl;
 		Client(QObject *parent, QHostAddress srvaddr, unsigned short prt, bool send, bool tcponly);
 		void doUdp(const unsigned char *buffer, int size);
+		void sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
 		~Client();
 	public slots:
 		void readyRead();
@@ -42,7 +45,6 @@ class Client : public QThread {
 };
 
 Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool tcponly) : QThread(p) {
-
 	srv.sin_family = AF_INET;
 	srv.sin_addr.s_addr = htonl(qha.toIPv4Address());
 	srv.sin_port = htons(prt);
@@ -69,22 +71,16 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 
 	ctr++;
 
-	unsigned char buffer[65535];
-	PacketDataStream ods(buffer + 3, 5000);
+	MumbleProto::Version mpv;
+	mpv.set_release(u8(QLatin1String("1.2.0 Benchmark")));
+	mpv.set_version(0x010200);
 
-	ods << Message::ServerAuthenticate;
-	ods << 0;
-	ods << MESSAGE_STREAM_VERSION;
-	ods << name;
-	ods << QString();
+	sendMessage(mpv, MessageHandler::Version);
 
-	int msize = ods.size();
+	MumbleProto::Authenticate mpa;
+	mpa.set_username(u8(name));
 
-	buffer[0] = (msize >> 16) & 0xFF;
-	buffer[1] = (msize >> 8) & 0xFF;
-	buffer[2] = msize & 0xFF;
-
-	ssl->write(reinterpret_cast<const char *>(buffer), 3 + msize);
+	sendMessage(mpa, MessageHandler::Authenticate);
 
 	if (udp)
 		socket = ::socket(PF_INET, SOCK_DGRAM, 0);
@@ -99,46 +95,53 @@ Client::~Client() {
 	wait();
 }
 
+void Client::sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType) {
+	unsigned char uc[4096];
+	int len = msg.ByteSize();
+	Q_ASSERT(len < 4092);
+	uc[0] = static_cast<unsigned char>(msgType);
+	uc[1] = static_cast<unsigned char>((len >> 16) & 0xFF);
+	uc[2] = static_cast<unsigned char>((len >> 8) & 0xFF);
+	uc[3] = static_cast<unsigned char>(len & 0xFF);
+
+	msg.SerializeToArray(uc + 4, len);
+
+	ssl->write(reinterpret_cast<const char *>(uc), len+4);
+}
+
 void Client::ping() {
-	unsigned char buffer[65535];
-	unsigned char *bp = buffer + 3;
-	PacketDataStream ods(bp, 5000);
-	ods << Message::Ping;
-	ods << uiSession;
-	ods << 123;
+	unsigned char buffer[256];
+	buffer[0] = MessageHandler::UDPPing << 5;
+	PacketDataStream pds(buffer + 1, 255);
+	pds << 123;
 
-	doUdp(bp, ods.size());
+	doUdp(buffer, pds.size() + 1);
 
-	int msize = ods.size();
-
-	buffer[0] = (msize >> 16) & 0xFF;
-	buffer[1] = (msize >> 8) & 0xFF;
-	buffer[2] = msize & 0xFF;
-
-	ssl->write(reinterpret_cast<const char *>(buffer), 3 + msize);
+	MumbleProto::Ping mpp;
+	mpp.set_timestamp(123);
+	sendMessage(mpp, MessageHandler::Ping);
 }
 
 void Client::sendVoice() {
-	unsigned char buffer[65535];
-	PacketDataStream ods(buffer, 65535);
+	unsigned char buffer[1024];
+	int len = 32 + (qrand() & 0x3f);
 
-	char spx[100];
-	spx[0] = MessageSpeex::AltSpeak;
-	for (int i=1;i<100;i++)
-		spx[i]=i;
+	// Regular voice, nothing special
+	buffer[0] = 0;
 
-	ods << Message::Speex;
-	ods << uiSession;
-	ods << seq++;
-	ods.append(spx, 100);
-	doUdp(buffer, ods.size());
+	PacketDataStream ods(buffer + 1, 1024);
+	ods << 1;
+	ods.append(len);
+	ods.skip(len);
+
+	doUdp(buffer, ods.size() + 1);
 }
 
 void Client::doUdp(const unsigned char *buffer, int size) {
 	if (! udp || ! crypt.isValid())
 		return;
 
-	unsigned char crypted[size+4];
+	unsigned char crypted[2048];
 
 	crypt.encrypt(reinterpret_cast<const unsigned char *>(buffer), crypted, size);
 	::sendto(socket, crypted, size+4, 0, reinterpret_cast<struct sockaddr *>(&srv), sizeof(srv));
@@ -146,7 +149,7 @@ void Client::doUdp(const unsigned char *buffer, int size) {
 
 
 void Client::run() {
-	unsigned char buffer[1000];
+	unsigned char buffer[1024];
 	struct sockaddr_in addr;
 	socklen_t sz;
 	int len;
@@ -156,10 +159,10 @@ void Client::run() {
 
 	forever {
 		sz = sizeof(addr);
-		len = ::recvfrom(socket, reinterpret_cast<char *>(buffer), 1000, 0, reinterpret_cast<struct sockaddr *>(&addr), &sz);
+		len = ::recvfrom(socket, reinterpret_cast<char *>(buffer), 1024, 0, reinterpret_cast<struct sockaddr *>(&addr), &sz);
 		if (len <= 0)
 			break;
-		if (len >= 40)
+		if (len >= 32)
 			rcvd++;
 	}
 }
@@ -168,11 +171,12 @@ void Client::readyRead() {
 	forever {
 		int avail = ssl->bytesAvailable();
 		if (numbytes == -1) {
-			if (avail < 3)
+			if (avail < 4)
 				break;
-			unsigned char b[3];
-			ssl->read(reinterpret_cast<char *>(b), 3);
-			numbytes = (b[0] << 16) + (b[1] << 8) + b[2];
+			unsigned char b[4];
+			ssl->read(reinterpret_cast<char *>(b), 4);
+			numbytes = (b[1] << 16) + (b[2] << 8) + b[3];
+			ptype = b[0];
 			avail = ssl->bytesAvailable();
 		}
 		if ((numbytes >= 0) && (avail >= numbytes)) {
@@ -181,24 +185,37 @@ void Client::readyRead() {
 			unsigned char buff[10000];
 			ssl->read(reinterpret_cast<char *>(buff), want);
 			avail = ssl->bytesAvailable();
+			
+			switch (ptype) {
+				case MessageHandler::CryptSetup: {
+						MumbleProto::CryptSetup msg;
+						if (! msg.ParseFromArray(buff, want))
+							qFatal("Failed parse crypt");
 
-			PacketDataStream ids(buff, want);
-			unsigned int ptype;
-			unsigned int sess;
-			ids >> ptype;
-			ids >> sess;
-			if (ptype == Message::CryptSetup) {
-				QByteArray key, server, client;
-				ids >> key >> server >> client;
-				crypt.setKey(reinterpret_cast<const unsigned char *>(key.constData()), reinterpret_cast<const unsigned char *>(client.constData()), reinterpret_cast<const unsigned char *>(server.constData()));
-			} else if (ptype == Message::CryptSync) {
-				qWarning("Crypt desync!");
-				QCoreApplication::instance()->quit();
-			}
-			if (ptype == Message::ServerSync) {
-				uiSession = sess;
-			} else if (ptype == Message::Speex) {
-				rcvd++;
+						if (msg.has_key() && msg.has_client_nonce() && msg.has_server_nonce()) {
+							const std::string &key = msg.key();
+							const std::string &client_nonce = msg.client_nonce();
+							const std::string &server_nonce = msg.server_nonce();
+							if (key.size() == AES_BLOCK_SIZE && client_nonce.size() == AES_BLOCK_SIZE && server_nonce.size() == AES_BLOCK_SIZE)
+								crypt.setKey(reinterpret_cast<const unsigned char *>(key.data()), reinterpret_cast<const unsigned char *>(client_nonce.data()), reinterpret_cast<const unsigned char *>(server_nonce.data()));
+						} else {
+							qFatal("Crypt resync");
+						}
+						break;
+					}
+				case MessageHandler::ServerSync: {
+						MumbleProto::ServerSync msg;
+						if (! msg.ParseFromArray(buff, want))
+							qFatal("Failed parse sync");
+						uiSession = msg.session();
+						break;
+					}
+				case MessageHandler::UDPTunnel: {
+						unsigned int msgUDPType = (buff[0] >> 5) & 0x7;
+						if (msgUDPType == MessageHandler::UDPVoice)
+							rcvd++;
+						break;
+					}
 			}
 		} else {
 			break;
@@ -274,13 +291,13 @@ void Container::tick() {
 					nrcv++;
 				}
 			}
-			qWarning("Sent: %8d  Rcvd: %8lld  Lost: %8d   BW: %6.1fMbit/s", sent, totrcv / nrcv, lost, (totrcv * 8.0 * 123.0) / (tickGo.elapsed() * 1.0));
+			qWarning("Sent: %8d  Rcvd: %8lld  Lost: %8d   BW: %6.1fMbit/s", sent, totrcv / nrcv, (lost + nrcv - 1) / nrcv, (totrcv * 8.0 * 123.0) / (tickGo.elapsed() * 1.0));
 		} else {
 			qWarning("Spawned %3d/%3d", isend+iudp+itcp,nsend+nudp+ntcp);
 		}
 	}
 
-	if (live && tickVoice.isElapsed(20000ULL)) {
+	if (live && tickVoice.isElapsed(10000ULL)) {
 		foreach(Client *c, speakers) {
 			sent++;
 			c->sendVoice();
