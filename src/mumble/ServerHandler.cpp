@@ -276,7 +276,12 @@ void ServerHandler::run() {
 
 	ticker->stop();
 	cConnection->disconnectSocket(true);
+
+	ConnectionPtr cptr = cConnection;
 	cConnection.reset();
+	while (! cptr.unique()) {
+		msleep(100);
+	}
 }
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
@@ -338,7 +343,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 			cs.uiRemoteLate = msg.late();
 			cs.uiRemoteLost = msg.lost();
 			cs.uiRemoteResync = msg.resync();
-			accTCP(static_cast<double>(g.sh->tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+			accTCP(static_cast<double>(tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
 
 			if (((cs.uiRemoteGood == 0) || (cs.uiGood == 0)) && bUdp && (tTimestamp.elapsed() > 20000000ULL)) {
 				bUdp = false;
