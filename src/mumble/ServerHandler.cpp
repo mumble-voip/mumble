@@ -257,7 +257,6 @@ void ServerHandler::run() {
 	qsOS = QString();
 	qsOSVersion = QString();
 
-
 	exec();
 
 	if (qusUdp) {
