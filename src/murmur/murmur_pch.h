@@ -90,12 +90,10 @@ extern "C" {
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
 #endif
 
-#ifdef USE_ICE
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
-#endif
 
 #ifdef USE_BONJOUR
 #include <dns_sd.h>
