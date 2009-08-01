@@ -130,6 +130,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 	timer->start(1000);
 	locked = prevlocked = NULL;
 	bValid = false;
+	iPluginTry = 0;
 	for (int i=0;i<3;i++)
 		fPosition[i]=fFront[i]=fTop[i]= 0.0;
 	QMetaObject::connectSlotsByName(this);
@@ -145,10 +146,40 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 #endif
 
 	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");
+
+#ifdef Q_OS_WIN
+	// According to MS KB Q131065, we need this to OpenProcess()
+
+	hToken = FALSE;
+
+	if (!OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken)) {
+		if (GetLastError() == ERROR_NO_TOKEN) {
+			ImpersonateSelf(SecurityImpersonation);
+			OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken);
+		}
+	}
+
+	TOKEN_PRIVILEGES tp;
+	LUID luid;
+	cbPrevious=sizeof(TOKEN_PRIVILEGES);
+
+	LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &luid);
+
+	tp.PrivilegeCount           = 1;
+	tp.Privileges[0].Luid       = luid;
+	tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+	AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), &tpPrevious, &cbPrevious);
+#endif
 }
 
 Plugins::~Plugins() {
 	clearPlugins();
+
+#ifdef Q_OS_WIN
+	AdjustTokenPrivileges(hToken, FALSE, &tpPrevious, cbPrevious, NULL, NULL);
+	CloseHandle(hToken);
+#endif
 }
 
 void Plugins::clearPlugins() {
@@ -289,47 +320,21 @@ void Plugins::on_Timer_timeout() {
 	if (! g.s.bTransmitPosition)
 		return;
 
-#ifdef Q_OS_WIN
-	// According to MS KB Q131065, we need this to OpenProcess()
+	if (qlPlugins.isEmpty())
+		return;
 
-	HANDLE hToken = NULL;
+	++iPluginTry;
+	if (iPluginTry >= qlPlugins.count())
+		iPluginTry = 0;
 
-	if (!OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken)) {
-		if (GetLastError() == ERROR_NO_TOKEN) {
-			ImpersonateSelf(SecurityImpersonation);
-			OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken);
-		}
+	PluginInfo *pi = qlPlugins.at(iPluginTry);
+	if (pi->p->trylock()) {
+		pi->shortname = QString::fromStdWString(pi->p->shortname);
+		g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
+		pi->locked = true;
+		bUnlink = false;
+		locked = pi;
 	}
-
-	TOKEN_PRIVILEGES tp;
-	LUID luid;
-	TOKEN_PRIVILEGES tpPrevious;
-	DWORD cbPrevious=sizeof(TOKEN_PRIVILEGES);
-
-	LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &luid);
-
-	tp.PrivilegeCount           = 1;
-	tp.Privileges[0].Luid       = luid;
-	tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
-
-	AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), &tpPrevious, &cbPrevious);
-#endif
-
-	foreach(PluginInfo *pi, qlPlugins) {
-		if (pi->p->trylock()) {
-			pi->shortname = QString::fromStdWString(pi->p->shortname);
-			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
-			pi->locked = true;
-			bUnlink = false;
-			locked = pi;
-			break;
-		}
-	}
-
-#ifdef Q_OS_WIN
-	AdjustTokenPrivileges(hToken, FALSE, &tpPrevious, cbPrevious, NULL, NULL);
-	CloseHandle(hToken);
-#endif
 }
 
 void Plugins::checkUpdates() {
