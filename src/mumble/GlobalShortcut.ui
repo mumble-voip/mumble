@@ -83,17 +83,14 @@
          <number>200</number>
         </attribute>
         <attribute name="headerMinimumSectionSize">
-         <number>50</number>
-        </attribute>
-        <attribute name="headerDefaultSectionSize">
-         <number>200</number>
+         <number>100</number>
         </attribute>
         <attribute name="headerMinimumSectionSize">
-         <number>50</number>
+         <number>100</number>
         </attribute>
         <column>
          <property name="text">
-          <string>Function</string>
+          <string>Shortcut function</string>
          </property>
         </column>
         <column>
