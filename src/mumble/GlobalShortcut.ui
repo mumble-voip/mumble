@@ -73,6 +73,9 @@
         <property name="rootIsDecorated">
          <bool>false</bool>
         </property>
+        <property name="uniformRowHeights">
+         <bool>true</bool>
+        </property>
         <property name="itemsExpandable">
          <bool>false</bool>
         </property>
@@ -80,7 +83,10 @@
          <number>300</number>
         </attribute>
         <attribute name="headerMinimumSectionSize">
-         <number>200</number>
+         <number>100</number>
+        </attribute>
+        <attribute name="headerMinimumSectionSize">
+         <number>100</number>
         </attribute>
         <column>
          <property name="text">
