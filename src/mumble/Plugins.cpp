@@ -416,7 +416,6 @@ void Plugins::finished() {
 				QString libname = libinfo.absoluteFilePath();
 				QString filename = libinfo.fileName();
 				QString wanthash = qmPluginHash.value(filename);
-				qWarning() << "Uhash" << libname << filename << wanthash;
 				if (! wanthash.isNull() && QLibrary::isLibrary(libname)) {
 					QFile f(libname);
 					if (wanthash.isEmpty()) {
@@ -486,7 +485,6 @@ void Plugins::finished() {
 
 						QFile deltemp(tempname);
 						deltemp.remove();
-						qWarning() << hr;
 						verified = (hr == 0);
 					}
 #endif
