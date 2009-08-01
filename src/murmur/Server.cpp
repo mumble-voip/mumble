@@ -652,14 +652,11 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	}
 
 	pdi >> counter;
-
-	// Skip QList<QByteArray>
-	pdi >> counter;
-	while (counter && pdi.isValid()) {
-		unsigned int v;
-		pdi >> v;
-		pdi.skip(v);
-	}
+	
+	do {
+		counter = pdi.next();
+		pdi.skip(counter & 0x7f);
+	} while ((counter & 0x80) && pdi.isValid());
 
 	poslen = pdi.left();
 
