@@ -117,6 +117,10 @@ class AudioOutputSpeech : public AudioOutputUser {
 		unsigned int iLastConsume;
 		unsigned int iFrameSize;
 		bool bLastAlive;
+		bool bHasTerminator;
+
+		float *fFadeIn;
+		float *fFadeOut;
 
 		SpeexResamplerState *srs;
 

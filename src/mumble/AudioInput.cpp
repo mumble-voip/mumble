@@ -669,26 +669,24 @@ void AudioInput::encodeAudioFrame() {
 		int r = celt_encoder_ctl(ceEncoder, CELT_SET_POST_MDCT_CALLBACK(celtBack, NULL));
 		qWarning() << "Set Callback" << r;
 	*/
-	if (! iIsSpeech) {
-		flushCheck(QByteArray());
+
+	unsigned char buffer[512];
+
+	celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(g.iAudioQuality));
+
+	int len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(g.iAudioQuality / 400, 127));
+	iBitrate = len * 100 * 8;
+
+	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! iIsSpeech);
+	if (! iIsSpeech)
 		iBitrate = 0;
-	} else {
-		unsigned char buffer[512];
-
-		celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(g.iAudioQuality));
-
-		int len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(g.iAudioQuality / 400, 127));
-		iBitrate = len * 100 * 8;
-
-		flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len));
-	}
 
 	bPreviousVoice = iIsSpeech;
 }
 
-void AudioInput::flushCheck(const QByteArray &qba) {
+void AudioInput::flushCheck(const QByteArray &qba, bool terminator) {
 	qlFrames << qba;
-	if (! qba.isEmpty() && qlFrames.count() < g.s.iFramesPerPacket)
+	if (! terminator && qlFrames.count() < g.s.iFramesPerPacket)
 		return;
 
 	int flags = g.iTarget;
@@ -699,7 +697,10 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 	data[0] = static_cast<unsigned char>(flags);
 
 	PacketDataStream pds(data + 1, 1023);
-	pds << iFrameCounter;
+	pds << iFrameCounter - qlFrames.count();
+
+	if (terminator)
+		qlFrames << QByteArray();
 
 	for (int i=0;i<qlFrames.count(); ++i) {
 		const QByteArray &qba = qlFrames.at(i);
@@ -709,9 +710,6 @@ void AudioInput::flushCheck(const QByteArray &qba) {
 		pds.append(head);
 		pds.append(qba.constData(), qba.size());
 	}
-
-	if (! bPreviousVoice)
-		pds.append(0x00);
 
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch()) {
 		pds << g.p->fPosition[0];

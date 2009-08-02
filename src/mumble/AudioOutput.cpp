@@ -369,6 +369,13 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq) : Audi
 	jbJitter = jitter_buffer_init(iFrameSize);
 	int margin = g.s.iJitterBufferSize * iFrameSize;
 	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
+
+	fFadeIn = new float[iFrameSize];
+	fFadeOut = new float[iFrameSize];
+
+	float mul = M_PI / (2.0f * static_cast<float>(iFrameSize));
+	for(unsigned int i=0;i<iFrameSize;++i)
+		fFadeIn[i] = fFadeOut[iFrameSize-i-1] = sinf(i * mul);
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
@@ -376,6 +383,9 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 	celt_mode_destroy(cmMode);
 
 	jitter_buffer_destroy(jbJitter);
+
+	delete [] fFadeIn;
+	delete [] fFadeOut;
 }
 
 void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned int iSeq) {
@@ -420,69 +430,81 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 	float *pOut;
 	STACKVAR(float, fOut, iFrameSize + 4096);
 
+	bool nextalive = bLastAlive;
+
 	while (iBufferFilled < snum) {
 		resizeBuffer(iBufferFilled + iOutputSize);
 
 		pOut = (srs) ? fOut : (pfBuffer + iBufferFilled);
 
-		if (p == &LoopUser::lpLoopy)
-			LoopUser::lpLoopy.fetchFrames();
-
-		if (qlFrames.isEmpty()) {
-			QMutexLocker lock(&qmJitter);
-
-			char data[4096];
-			JitterBufferPacket jbp;
-			jbp.data = data;
-			jbp.len = 4096;
-
-			spx_int32_t startofs = 0;
-
-			if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
-				PacketDataStream pds(jbp.data, jbp.len);
-
-				ucFlags = pds.next();
-
-				unsigned int header = 0;
-				do {
-					header = pds.next();
-					qlFrames << pds.dataBlock(header & 0x7f);
-				} while ((header & 0x80) && pds.isValid());
-
-				if (pds.left()) {
-					pds >> fPos[0];
-					pds >> fPos[1];
-					pds >> fPos[2];
-				} else {
-					fPos[0] = fPos[1] = fPos[2] = 0.0f;
-				}
-				if (pds.isValid()) {
-					iMissCount = 0;
-					bLastAlive = true;
-				}
-			} else {
-				iMissCount++;
-				if (iMissCount > 10) {
-					memset(pOut, 0, sizeof(float) * iFrameSize);
-					bLastAlive = false;
-				}
-			}
-
-			jitter_buffer_update_delay(jbJitter, &jbp, NULL);
-		}
-
-		jitter_buffer_tick(jbJitter);
-
-		if (! qlFrames.isEmpty()) {
-			QByteArray qba = qlFrames.takeFirst();
-			if (! qba.isEmpty()) {
-				celt_decode_float(cdDecoder, reinterpret_cast<unsigned char *>(qba.data()), qba.size(), pOut);
-				bLastAlive = true;
-			} else {
-				bLastAlive = false;
-			}
+		if(! bLastAlive) {
+			memset(pOut, 0, iFrameSize * sizeof(float));
 		} else {
-			celt_decode_float(cdDecoder, NULL, 0, pOut);
+			int ts = jitter_buffer_get_pointer_timestamp(jbJitter);
+
+			if (p == &LoopUser::lpLoopy)
+				LoopUser::lpLoopy.fetchFrames();
+
+			if (qlFrames.isEmpty()) {
+				QMutexLocker lock(&qmJitter);
+
+				char data[4096];
+				JitterBufferPacket jbp;
+				jbp.data = data;
+				jbp.len = 4096;
+
+				spx_int32_t startofs = 0;
+
+				if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
+					PacketDataStream pds(jbp.data, jbp.len);
+
+					iMissCount = 0;
+					ucFlags = pds.next();
+					bHasTerminator = false;
+
+					unsigned int header = 0;
+					do {
+						header = pds.next();
+						if (header)
+							qlFrames << pds.dataBlock(header & 0x7f);
+						else
+							bHasTerminator = true;
+					} while ((header & 0x80) && pds.isValid());
+
+					if (pds.left()) {
+						pds >> fPos[0];
+						pds >> fPos[1];
+						pds >> fPos[2];
+					} else {
+						fPos[0] = fPos[1] = fPos[2] = 0.0f;
+					}
+				} else {
+					iMissCount++;
+					if (iMissCount > 10)
+						nextalive = false;
+				}
+
+				jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+			}
+
+			jitter_buffer_tick(jbJitter);
+
+			if (! qlFrames.isEmpty()) {
+				const QByteArray &qba = qlFrames.takeFirst();
+				celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.data()), qba.size(), pOut);
+				if (qlFrames.isEmpty() && bHasTerminator)
+					nextalive = false;
+			} else {
+				celt_decode_float(cdDecoder, NULL, 0, pOut);
+			}
+
+			if (! nextalive) {
+				for(unsigned int i=0;i<iFrameSize;++i)
+					pOut[i] *= fFadeOut[i];
+			} else if (ts == 0) {
+				for(unsigned int i=0;i<iFrameSize;++i)
+					pOut[i] *= fFadeIn[i];
+			}
 		}
 		spx_uint32_t inlen = iFrameSize;
 		spx_uint32_t outlen = iOutputSize;
@@ -492,8 +514,11 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 	}
 
 	if (p)
-		p->setTalking(bLastAlive, ((ucFlags != 0) ? true : false));
-	return bLastAlive;
+		p->setTalking(nextalive, ((ucFlags != 0) ? true : false));
+
+	bool tmp = bLastAlive;
+	bLastAlive = nextalive;
+	return tmp;
 }
 
 
