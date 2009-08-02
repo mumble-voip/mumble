@@ -34,6 +34,7 @@
 #include "Channel.h"
 #include "User.h"
 #include "Global.h"
+#include "Log.h"
 
 
 void ACLTabWidget::tabInserted(int index) {
@@ -55,10 +56,10 @@ ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
 	bInherited = false;
 }
 
-ACLEditor::ACLEditor(Channel *channelparent, QWidget *p) : QDialog(p) {
+ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	// Simple constructor for add channel menu
 	bAddChannelMode = true;
-	pChannel = channelparent;
+	iChannel = channelparentid;
 
 	setupUi(this);
 
@@ -75,11 +76,18 @@ ACLEditor::ACLEditor(Channel *channelparent, QWidget *p) : QDialog(p) {
 	adjustSize();
 }
 
-ACLEditor::ACLEditor(Channel *c, const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
+ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	QLabel *l;
 
 	bAddChannelMode = false;
-	pChannel = c;
+
+	iChannel = channelid;
+	Channel *pChannel = Channel::get(iChannel);
+	if (pChannel == NULL) {
+		g.l->log(Log::Warning, tr("Failed: Invalid channel"));
+		QDialog::reject();
+		return;
+	}
 
 	msg = mea;
 
@@ -97,8 +105,8 @@ ACLEditor::ACLEditor(Channel *c, const MumbleProto::ACL &mea, QWidget *p) : QDia
 	iId = mea.channel_id();
 	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(iId)->qsName));
 
-	qleChannelName->setText(c->qsName);
-	qteChannelDescription->setPlainText(c->qsDesc);
+	qleChannelName->setText(pChannel->qsName);
+	qteChannelDescription->setPlainText(pChannel->qsDesc);
 
 	QGridLayout *grid = new QGridLayout(qgbACLpermissions);
 
@@ -233,13 +241,19 @@ void ACLEditor::showEvent(QShowEvent *evt) {
 }
 
 void ACLEditor::accept() {
+	Channel *pChannel = Channel::get(iChannel);
+	if (pChannel == NULL) {
+		// Channel gone while editing
+		g.l->log(Log::Warning, tr("Failed: Invalid channel"));
+		QDialog::reject();
+		return;
+	}
 	// Update channel state
 	if (bAddChannelMode) {
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_name(u8(qleChannelName->text()));
-		qWarning() << qleChannelName->text();
 		mpcs.set_description(u8(qteChannelDescription->toPlainText()));
-		mpcs.set_parent(pChannel->iId);
+		mpcs.set_parent(iChannel);
 		mpcs.set_temporary(qcbChannelTemporary->isChecked());
 		g.sh->sendMessage(mpcs);
 	}

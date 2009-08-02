@@ -271,7 +271,7 @@
           <item row="3" column="6">
            <widget class="QPushButton" name="qpbGroupInheritRemove">
             <property name="text">
-             <string>Add to Remove</string>
+             <string>Exclude</string>
             </property>
            </widget>
           </item>

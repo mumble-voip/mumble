@@ -84,7 +84,7 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		QList<ChanACL *> qlACLs;
 		QList<ACLGroup *> qlGroups;
 		int numInheritACL;
-		Channel *pChannel;
+		int iChannel;
 		bool bAddChannelMode;
 
 		const QString userName(int id);
@@ -97,8 +97,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void showEvent(QShowEvent *);
 		void fillWidgetFromSet(QListWidget *, const QSet<int> &);
 	public:
-		ACLEditor(Channel *channelparent, QWidget *p = NULL);
-		ACLEditor(Channel *channel, const MumbleProto::ACL &mea, QWidget *p = NULL);
+		ACLEditor(int parentchannelid, QWidget *p = NULL);
+		ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p = NULL);
 		~ACLEditor();
 		void returnQuery(const MumbleProto::QueryUsers &mqu);
 	public slots:

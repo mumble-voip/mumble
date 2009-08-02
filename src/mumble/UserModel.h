@@ -128,7 +128,6 @@ class UserModel : public QAbstractItemModel {
 
 		Channel *addChannel(int id, Channel *p, const QString &name);
 		Channel *getChannel(const QModelIndex &idx) const;
-		Channel *getChannel(int id) const;
 
 		Channel *getSubChannel(Channel *p, int idx) const;
 

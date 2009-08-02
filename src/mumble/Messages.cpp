@@ -410,8 +410,7 @@ void MainWindow::msgACL(const MumbleProto::ACL &msg) {
 		aclEdit = NULL;
 	}
 	if (Channel::get(msg.channel_id())) {
-		Channel *c = pmModel->getChannel(msg.channel_id());
-		aclEdit = new ACLEditor(c, msg, this);
+		aclEdit = new ACLEditor(msg.channel_id(), msg, this);
 		aclEdit->show();
 	}
 }

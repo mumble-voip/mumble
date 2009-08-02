@@ -954,30 +954,6 @@ Channel *UserModel::getChannel(const QModelIndex &idx) const {
 		return item->cChan;
 }
 
-Channel *UserModel::getChannel(int id) const {
-	QList<ModelItem *> qlMi;
-	ModelItem *result = NULL;
-
-	// Search the tree for our channel
-	ModelItem *current = NULL;
-	qlMi.append(miRoot);
-	while (result == NULL && !qlMi.empty()) {
-		current = qlMi.takeLast();
-		foreach(ModelItem *i, current->qlChildren) {
-			if (i->cChan != NULL) {
-				if (id == i->cChan->iId) {
-					// Found it
-					result = i;
-					break;
-				}
-				if (!i->qlChildren.empty())
-					qlMi.append(i->qlChildren);
-			}
-		}
-	}
-	return result->cChan;
-}
-
 Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 	ModelItem *item=ModelItem::c_qhChannels.value(p);
 	if (! item)

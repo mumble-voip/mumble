@@ -1154,7 +1154,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 		aclEdit = NULL;
 	}
 
-	aclEdit = new ACLEditor(c, this);
+	aclEdit = new ACLEditor(c->iId, this);
 	aclEdit->show();
 }
 
