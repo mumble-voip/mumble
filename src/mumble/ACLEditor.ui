@@ -15,10 +15,61 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <widget class="QTabWidget" name="qtwTab">
+    <widget class="ACLTabWidget" name="qtwTab">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
+     <widget class="QWidget" name="qwChannel">
+      <attribute name="title">
+       <string>Properties</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="qlChannelName">
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="qleChannelName"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="qlChannelDescription">
+         <property name="text">
+          <string>Description</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QTextEdit" name="qteChannelDescription"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="qlChannelPassword">
+         <property name="text">
+          <string>Password</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="qleChannelPassword"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QCheckBox" name="qcbChannelTemporary">
+         <property name="text">
+          <string>Temporary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QCheckBox" name="qcbAdvancedCfg">
+         <property name="text">
+          <string>Advanced configuration</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="qwGroups">
       <attribute name="title">
        <string>&amp;Groups</string>
@@ -110,30 +161,20 @@
           <string>Members</string>
          </property>
          <layout class="QGridLayout">
-          <item row="0" column="0">
+          <item row="0" column="0" colspan="3">
            <widget class="QLabel" name="qliGroupAdd">
             <property name="text">
-             <string>Add</string>
+             <string>Members</string>
             </property>
             <property name="buddy">
              <cstring>qlwGroupAdd</cstring>
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="qliGroupRemove">
-            <property name="text">
-             <string>Remove</string>
-            </property>
-            <property name="buddy">
-             <cstring>qlwGroupRemove</cstring>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="6">
            <widget class="QLabel" name="qliGroupInherit">
             <property name="text">
-             <string>Inherit</string>
+             <string>Inherited members</string>
             </property>
             <property name="buddy">
              <cstring>qlwGroupInherit</cstring>
@@ -148,41 +189,6 @@
           </item>
           <item row="1" column="6" rowspan="2">
            <widget class="QListWidget" name="qlwGroupInherit"/>
-          </item>
-          <item row="3" column="6">
-           <widget class="QPushButton" name="qpbGroupInheritRemove">
-            <property name="text">
-             <string>Add to Remove</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3" colspan="3">
-           <widget class="QPushButton" name="qpbGroupRemoveRemove">
-            <property name="text">
-             <string>Remove</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" colspan="3">
-           <widget class="QPushButton" name="qpbGroupAddRemove">
-            <property name="text">
-             <string>Remove</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="qpbGroupAddAdd">
-            <property name="text">
-             <string>Add</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="5">
-           <widget class="QPushButton" name="qpbGroupRemoveAdd">
-            <property name="text">
-             <string>Add</string>
-            </property>
-           </widget>
           </item>
           <item row="2" column="0" colspan="2">
            <widget class="QComboBox" name="qcbGroupAdd">
@@ -209,6 +215,13 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="qpbGroupAddAdd">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="3" colspan="2">
            <widget class="QComboBox" name="qcbGroupRemove">
             <property name="sizePolicy">
@@ -231,6 +244,44 @@
             </property>
             <property name="sizeAdjustPolicy">
              <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="5">
+           <widget class="QPushButton" name="qpbGroupRemoveAdd">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="3">
+           <widget class="QPushButton" name="qpbGroupAddRemove">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3" colspan="3">
+           <widget class="QPushButton" name="qpbGroupRemoveRemove">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="6">
+           <widget class="QPushButton" name="qpbGroupInheritRemove">
+            <property name="text">
+             <string>Add to Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3" colspan="3">
+           <widget class="QLabel" name="qliGroupRemove">
+            <property name="text">
+             <string>Excluded members</string>
+            </property>
+            <property name="buddy">
+             <cstring>qlwGroupRemove</cstring>
             </property>
            </widget>
           </item>
@@ -468,6 +519,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ACLTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ACLEditor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>qtwTab</tabstop>
   <tabstop>qcbGroupList</tabstop>

@@ -37,6 +37,17 @@
 #include "Group.h"
 #include "ClientUser.h"
 
+
+class ACLTabWidget : public QTabWidget {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ACLTabWidget)
+	public:
+		ACLTabWidget(QWidget * parent = 0) : QTabWidget(parent) {};
+		void tabInserted(int index);
+		void tabRemoved(int index);
+};
+
 #include "ui_ACLEditor.h"
 
 class ACLGroup : public Group {
@@ -73,6 +84,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		QList<ChanACL *> qlACLs;
 		QList<ACLGroup *> qlGroups;
 		int numInheritACL;
+		Channel *pChannel;
+		bool bAddChannelMode;
 
 		const QString userName(int id);
 		int id(const QString &uname);
@@ -84,7 +97,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void showEvent(QShowEvent *);
 		void fillWidgetFromSet(QListWidget *, const QSet<int> &);
 	public:
-		ACLEditor(const MumbleProto::ACL &mea, QWidget *p = NULL);
+		ACLEditor(Channel *channelparent, QWidget *p = NULL);
+		ACLEditor(Channel *channel, const MumbleProto::ACL &mea, QWidget *p = NULL);
 		~ACLEditor();
 		void returnQuery(const MumbleProto::QueryUsers &mqu);
 	public slots:
@@ -120,8 +134,11 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void on_qpbGroupRemoveAdd_clicked();
 		void on_qpbGroupRemoveRemove_clicked();
 		void on_qpbGroupInheritRemove_clicked();
+
+		void on_qcbAdvancedCfg_clicked(bool checked);
 };
 
 #else
 class ACLEditor;
+class ACLTabWidget;
 #endif

@@ -35,19 +35,70 @@
 #include "User.h"
 #include "Global.h"
 
+
+void ACLTabWidget::tabInserted(int index) {
+	Q_UNUSED(index);
+	if (count() >= 2) {
+		tabBar()->show();
+	}
+}
+
+void ACLTabWidget::tabRemoved (int index) {
+	Q_UNUSED(index);
+	if (count() <= 1) {
+		tabBar()->hide();
+	}
+}
+
+
 ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
 	bInherited = false;
 }
 
-ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
+ACLEditor::ACLEditor(Channel *channelparent, QWidget *p) : QDialog(p) {
+	// Simple constructor for add channel menu
+	bAddChannelMode = true;
+	pChannel = channelparent;
+
+	setupUi(this);
+
+	setWindowTitle(tr("Mumble - Add channel"));
+	qtwTab->removeTab(2);
+	qtwTab->removeTab(1);
+	qcbAdvancedCfg->hide();
+
+	// Until I come around implementing it hide the password fields
+	qleChannelPassword->hide();
+	qlChannelPassword->hide();
+
+
+	adjustSize();
+}
+
+ACLEditor::ACLEditor(Channel *c, const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 	QLabel *l;
+
+	bAddChannelMode = false;
+	pChannel = c;
 
 	msg = mea;
 
 	setupUi(this);
 
+	// Until I come around implementing it hide the password fields
+	qleChannelPassword->hide();
+	qlChannelPassword->hide();
+
+
+	qtwTab->removeTab(2);
+	qtwTab->removeTab(1);
+	qcbChannelTemporary->hide();
+
 	iId = mea.channel_id();
-	setWindowTitle(tr("Mumble - Edit ACL for %1").arg(Channel::get(iId)->qsName));
+	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(iId)->qsName));
+
+	qleChannelName->setText(c->qsName);
+	qteChannelDescription->setPlainText(c->qsDesc);
 
 	QGridLayout *grid = new QGridLayout(qgbACLpermissions);
 
@@ -162,6 +213,9 @@ ACLEditor::ACLEditor(const MumbleProto::ACL &mea, QWidget *p) : QDialog(p) {
 
 	ACLEnableCheck();
 	groupEnableCheck();
+
+
+	adjustSize();
 }
 
 ACLEditor::~ACLEditor() {
@@ -179,38 +233,63 @@ void ACLEditor::showEvent(QShowEvent *evt) {
 }
 
 void ACLEditor::accept() {
-	msg.set_inherit_acls(bInheritACL);
-	msg.clear_acls();
-	msg.clear_groups();
-
-	foreach(ChanACL *acl, qlACLs) {
-		if (acl->bInherited || (acl->iUserId < -1))
-			continue;
-		MumbleProto::ACL_ChanACL *mpa = msg.add_acls();
-		mpa->set_apply_here(acl->bApplyHere);
-		mpa->set_apply_subs(acl->bApplySubs);
-		if (acl->iUserId != -1)
-			mpa->set_user_id(acl->iUserId);
-		else
-			mpa->set_group(u8(acl->qsGroup));
-		mpa->set_grant(acl->pAllow);
-		mpa->set_deny(acl->pDeny);
+	// Update channel state
+	if (bAddChannelMode) {
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_name(u8(qleChannelName->text()));
+		qWarning() << qleChannelName->text();
+		mpcs.set_description(u8(qteChannelDescription->toPlainText()));
+		mpcs.set_parent(pChannel->iId);
+		mpcs.set_temporary(qcbChannelTemporary->isChecked());
+		g.sh->sendMessage(mpcs);
 	}
+	else {
+		bool b = false;
+		MumbleProto::ChannelState mpcs;
+		mpcs.set_channel_id(pChannel->iId);
+		if (pChannel->qsName != qleChannelName->text()) {
+			mpcs.set_name(u8(qleChannelName->text()));
+			b = true;
+		}
+		if (pChannel->qsDesc != qteChannelDescription->toPlainText()) {
+			mpcs.set_description(u8(qteChannelDescription->toPlainText()));
+			b = true;
+		}
+		if (b) g.sh->sendMessage(mpcs);
 
-	foreach(ACLGroup *gp, qlGroups) {
-		if (gp->bInherited && gp->bInherit && gp->bInheritable && (gp->qsAdd.count() == 0) && (gp->qsRemove.count() == 0))
-			continue;
-		MumbleProto::ACL_ChanGroup *mpg = msg.add_groups();
-		mpg->set_name(u8(gp->qsName));
-		foreach(int pid, gp->qsAdd)
-			if (pid >= 0)
-				mpg->add_add(pid);
-		foreach(int pid, gp->qsRemove)
-			if (pid >= 0)
-				mpg->add_remove(pid);
+		// Update ACL
+		msg.set_inherit_acls(bInheritACL);
+		msg.clear_acls();
+		msg.clear_groups();
+
+		foreach(ChanACL *acl, qlACLs) {
+			if (acl->bInherited || (acl->iUserId < -1))
+				continue;
+			MumbleProto::ACL_ChanACL *mpa = msg.add_acls();
+			mpa->set_apply_here(acl->bApplyHere);
+			mpa->set_apply_subs(acl->bApplySubs);
+			if (acl->iUserId != -1)
+				mpa->set_user_id(acl->iUserId);
+			else
+				mpa->set_group(u8(acl->qsGroup));
+			mpa->set_grant(acl->pAllow);
+			mpa->set_deny(acl->pDeny);
+		}
+
+		foreach(ACLGroup *gp, qlGroups) {
+			if (gp->bInherited && gp->bInherit && gp->bInheritable && (gp->qsAdd.count() == 0) && (gp->qsRemove.count() == 0))
+				continue;
+			MumbleProto::ACL_ChanGroup *mpg = msg.add_groups();
+			mpg->set_name(u8(gp->qsName));
+			foreach(int pid, gp->qsAdd)
+				if (pid >= 0)
+					mpg->add_add(pid);
+			foreach(int pid, gp->qsRemove)
+				if (pid >= 0)
+					mpg->add_remove(pid);
+		}
+		g.sh->sendMessage(msg);
 	}
-
-	g.sh->sendMessage(msg);
 
 	QDialog::accept();
 }
@@ -785,4 +864,17 @@ void ACLEditor::on_qpbGroupInheritRemove_clicked() {
 
 	gs->qsRemove.insert(item->data(Qt::UserRole).toInt());
 	refillGroupRemove();
+}
+
+void ACLEditor::on_qcbAdvancedCfg_clicked(bool checked) {
+	if (checked) {
+		// Show the ACL and Group tabs
+		qtwTab->insertTab(1, qwACL, tr("&ACL"));
+		qtwTab->insertTab(2, qwGroups, tr("&Groups"));
+	} else {
+		// Hide them
+		qtwTab->removeTab(2);
+		qtwTab->removeTab(1);
+	}
+	adjustSize();
 }

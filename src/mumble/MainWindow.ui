@@ -45,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmServer">
@@ -327,35 +327,13 @@
   </action>
   <action name="qaChannelACL">
    <property name="text">
-    <string>&amp;Edit ACL</string>
+    <string>&amp;Edit</string>
    </property>
    <property name="toolTip">
     <string>Edit Groups and ACL for channel</string>
    </property>
    <property name="whatsThis">
     <string>This opens the Group and ACL dialog for the channel, to control permissions.</string>
-   </property>
-  </action>
-  <action name="qaChannelRename">
-   <property name="text">
-    <string>&amp;Rename</string>
-   </property>
-   <property name="toolTip">
-    <string>Renames the channel</string>
-   </property>
-   <property name="whatsThis">
-    <string>This renames a channel.</string>
-   </property>
-  </action>
-  <action name="qaChannelDescUpdate">
-   <property name="text">
-    <string>&amp;Change Description</string>
-   </property>
-   <property name="toolTip">
-    <string>Changes the channel description</string>
-   </property>
-   <property name="whatsThis">
-    <string>This changes the description of a channel.</string>
    </property>
   </action>
   <action name="qaChannelLink">
@@ -696,17 +674,6 @@
    </property>
    <property name="toolTip">
     <string>Add or remove text-based access tokens</string>
-   </property>
-  </action>
-  <action name="qaChannelAddTemp">
-   <property name="text">
-    <string>Add &amp;Temporary</string>
-   </property>
-   <property name="toolTip">
-    <string>Add new temporary channel</string>
-   </property>
-   <property name="whatsThis">
-    <string>This adds a new temporary sub-channel to the currently selected channel, which will disappear when the last user leaves.</string>
    </property>
   </action>
  </widget>

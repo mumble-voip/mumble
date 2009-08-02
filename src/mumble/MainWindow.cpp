@@ -1079,11 +1079,8 @@ void MainWindow::on_qmChannel_aboutToShow() {
 
 	qmChannel->clear();
 	qmChannel->addAction(qaChannelAdd);
-	qmChannel->addAction(qaChannelAddTemp);
-	qmChannel->addAction(qaChannelRemove);
 	qmChannel->addAction(qaChannelACL);
-	qmChannel->addAction(qaChannelRename);
-	qmChannel->addAction(qaChannelDescUpdate);
+	qmChannel->addAction(qaChannelRemove);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelLink);
 	qmChannel->addAction(qaChannelUnlink);
@@ -1138,11 +1135,8 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	}
 
 	qaChannelAdd->setEnabled(add);
-	qaChannelAddTemp->setEnabled(addtemp);
 	qaChannelRemove->setEnabled(remove);
 	qaChannelACL->setEnabled(acl);
-	qaChannelRename->setEnabled(rename);
-	qaChannelDescUpdate->setEnabled(descUpdate);
 	qaChannelLink->setEnabled(link);
 	qaChannelUnlink->setEnabled(unlink);
 	qaChannelUnlinkAll->setEnabled(unlinkall);
@@ -1151,40 +1145,17 @@ void MainWindow::on_qmChannel_aboutToShow() {
 }
 
 void MainWindow::on_qaChannelAdd_triggered() {
-	bool ok;
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
-	int iParent = c ? c->iId : 0;
-	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, QString(), &ok);
+	int id = c ? c->iId : 0;
 
-	c = Channel::get(iParent);
-	if (! c)
-		return;
-
-	if (ok) {
-		MumbleProto::ChannelState mpcs;
-		mpcs.set_name(u8(name));
-		mpcs.set_parent(iParent);
-		g.sh->sendMessage(mpcs);
+	if (aclEdit) {
+		aclEdit->reject();
+		delete aclEdit;
+		aclEdit = NULL;
 	}
-}
 
-void MainWindow::on_qaChannelAddTemp_triggered() {
-	bool ok;
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
-	int iParent = c ? c->iId : 0;
-	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Temporary Channel Name"), QLineEdit::Normal, QString(), &ok);
-
-	c = Channel::get(iParent);
-	if (! c)
-		return;
-
-	if (ok) {
-		MumbleProto::ChannelState mpcs;
-		mpcs.set_name(u8(name));
-		mpcs.set_parent(iParent);
-		mpcs.set_temporary(true);
-		g.sh->sendMessage(mpcs);
-	}
+	aclEdit = new ACLEditor(c, this);
+	aclEdit->show();
 }
 
 void MainWindow::on_qaChannelRemove_triggered() {
@@ -1206,54 +1177,6 @@ void MainWindow::on_qaChannelRemove_triggered() {
 		mpcr.set_channel_id(c->iId);
 		g.sh->sendMessage(mpcr);
 	}
-}
-
-void MainWindow::on_qaChannelRename_triggered() {
-	bool ok;
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
-	if (! c)
-		return;
-
-	int id = c->iId;
-
-	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, c->qsName, &ok);
-
-	c = Channel::get(id);
-	if (! c)
-		return;
-
-	if (ok) {
-		MumbleProto::ChannelState mpcs;
-		mpcs.set_channel_id(id);
-		mpcs.set_name(u8(name));
-		g.sh->sendMessage(mpcs);
-	}
-}
-
-void MainWindow::on_qaChannelDescUpdate_triggered() {
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
-	if (! c)
-		return;
-
-	int id = c->iId;
-
-	::TextMessage *texm = new ::TextMessage(this);
-	texm->setWindowTitle(tr("Change description of channel %1").arg(c->qsName));
-
-	const QString html = QTextDocumentFragment::fromPlainText(c->qsDesc).toHtml();
-
-	texm->qteEdit->setText(html);
-	int res = texm->exec();
-
-	c = Channel::get(id);
-
-	if (c && (res==QDialog::Accepted)) {
-		MumbleProto::ChannelState mpcs;
-		mpcs.set_channel_id(id);
-		mpcs.set_description(u8(texm->message()));
-		g.sh->sendMessage(mpcs);
-	}
-	delete texm;
 }
 
 void MainWindow::on_qaChannelACL_triggered() {
