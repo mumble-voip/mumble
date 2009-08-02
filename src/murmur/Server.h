@@ -291,6 +291,7 @@ class Server : public QThread {
 		void removeChannel(int id);
 		void removeChannel(Channel *c, Channel *dest = NULL);
 		void userEnterChannel(User *u, Channel *c, bool quiet = false, bool ignoretemp = false);
+		bool unregisterUser(int id);
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
@@ -343,7 +344,7 @@ class Server : public QThread {
 		QByteArray getUserTexture(int id);
 		QMap<QString, QString> getRegistration(int id);
 		int registerUser(const QMap<QString, QString> &info);
-		bool unregisterUser(int id);
+		bool unregisterUserDB(int id);
 		QMap<int, QString > getRegisteredUsers(const QString &filter = QString());
 		bool setInfo(int id, const QMap<QString, QString> &info);
 		bool setTexture(int id, const QByteArray &texture);

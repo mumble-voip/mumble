@@ -652,7 +652,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	}
 
 	pdi >> counter;
-	
+
 	do {
 		counter = pdi.next();
 		pdi.skip(counter & 0x7f);
@@ -1107,6 +1107,45 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	}
 
 	delete chan;
+}
+
+bool Server::unregisterUser(int id) {
+	if (! unregisterUserDB(id))
+		return false;
+
+	{
+		QMutexLocker lock(&qmCache);
+
+		foreach(Channel *c, qhChannels) {
+			bool write = false;
+			QList<ChanACL *> ql = c->qlACL;
+
+			foreach(ChanACL *acl, ql) {
+				if (acl->iUserId == id) {
+					c->qlACL.removeAll(acl);
+					write = true;
+				}
+			}
+			foreach(Group *g, c->qhGroups) {
+				bool addrem = g->qsAdd.remove(id);
+				bool remrem = g->qsRemove.remove(id);
+				write = write || addrem || remrem;
+			}
+			if (write)
+				updateChannel(c);
+		}
+	}
+	
+	foreach(ServerUser *u, qhUsers) {
+		if (u->iId == id) {
+			MumbleProto::UserState mpus;
+			mpus.set_session(u->uiSession);
+			mpus.set_user_id(-1);
+			sendAll(mpus);
+			break;
+		}
+	}
+	return true;
 }
 
 void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) {

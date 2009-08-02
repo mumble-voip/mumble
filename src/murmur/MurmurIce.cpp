@@ -1136,12 +1136,7 @@ static void impl_Server_getUserNames(const ::Murmur::AMD_Server_getUserNamesPtr 
 	NEED_SERVER;
 	::Murmur::NameMap nm;
 	foreach(int userid, ids) {
-		if (! server->qhUserNameCache.contains(userid)) {
-			QString name=server->getUserName(userid);
-			if (! name.isEmpty())
-				server->qhUserNameCache.insert(userid, name);
-		}
-		nm[userid] = u8(server->qhUserNameCache.value(userid));
+		nm[userid] = u8(server->getUserName(userid));
 	}
 	cb->ice_response(nm);
 }
@@ -1151,12 +1146,7 @@ static void impl_Server_getUserIds(const ::Murmur::AMD_Server_getUserIdsPtr cb, 
 	::Murmur::IdMap im;
 	foreach(const string &n, names) {
 		QString name = u8(n);
-		if (! server->qhUserIDCache.contains(name)) {
-			int userid = server->getUserID(name);
-			if (userid != -1)
-				server->qhUserIDCache.insert(name, userid);
-		}
-		im[n] = server->qhUserIDCache.value(name);
+		im[n] = server->getUserID(name);
 	}
 	cb->ice_response(im);
 }

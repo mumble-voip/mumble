@@ -550,26 +550,14 @@ void MurmurDBus::setBans(const QList<BanInfo> &, const QDBusMessage &) {
 void MurmurDBus::getPlayerNames(const QList<int> &ids, const QDBusMessage &, QStringList &names) {
 	names.clear();
 	foreach(int id, ids) {
-		if (! server->qhUserNameCache.contains(id)) {
-			QString name=server->getUserName(id);
-			if (! name.isEmpty()) {
-				server->qhUserNameCache[id]=name;
-			}
-		}
-		names << server->qhUserNameCache.value(id);
+		names << server->getUserName(id);
 	}
 }
 
 void MurmurDBus::getPlayerIds(const QStringList &names, const QDBusMessage &, QList<int> &ids) {
 	ids.clear();
 	foreach(QString name, names) {
-		if (! server->qhUserIDCache.contains(name)) {
-			int id=server->getUserID(name);
-			if (id != -1) {
-				server->qhUserIDCache[name]=id;
-			}
-		}
-		ids << server->qhUserIDCache.value(name);
+		ids << server->getUserID(name);
 	}
 }
 
