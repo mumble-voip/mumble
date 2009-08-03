@@ -16,7 +16,7 @@
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AnimatedDocks</set>
   </property>
-  <widget class="QTreeView" name="qtvUsers">
+  <widget class="UserView" name="qtvUsers">
    <property name="contextMenuPolicy">
     <enum>Qt::CustomContextMenu</enum>
    </property>
@@ -677,6 +677,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>UserView</class>
+   <extends>QTreeView</extends>
+   <header>UserView.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

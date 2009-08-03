@@ -133,8 +133,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
 	public slots:
-		void on_qtvUsers_customContextMenuRequested(const QPoint &pos);
-		void on_qtvUsers_doubleClicked(const QModelIndex &idx);
 		void on_qmServer_aboutToShow();
 		void on_qaServerConnect_triggered();
 		void on_qaServerDisconnect_triggered();

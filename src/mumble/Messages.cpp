@@ -290,9 +290,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		pDst->qbaTexture = QByteArray(str.data(), static_cast<int>(str.size()));
 		g.o->verifyTexture(pDst);
 	}
-	if (msg.has_comment()) {
-		pDst->qsComment = u8(msg.comment());
-	}
+	if (msg.has_comment())
+		pmModel->setComment(pDst, u8(msg.comment()));
 }
 
 void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
@@ -351,7 +350,7 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 		pmModel->renameChannel(c, u8(msg.name()));
 
 	if (msg.has_description())
-		c->qsDesc = u8(msg.description());
+		pmModel->setComment(c, u8(msg.description()));
 
 	if (msg.has_position()) {
 		pmModel->repositionChannel(c, msg.position());

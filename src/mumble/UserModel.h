@@ -37,16 +37,6 @@ class User;
 class ClientUser;
 class Channel;
 
-class UserDelegate : public QStyledItemDelegate {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(UserDelegate)
-	public:
-		UserDelegate(QObject *parent = NULL);
-		QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
-		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-};
-
 struct ModelItem {
 	friend class UserModel;
 
@@ -55,6 +45,8 @@ private:
 public:
 	Channel *cChan;
 	ClientUser *pUser;
+
+	bool bCommentSeen;
 
 	ModelItem *parent;
 	QList<ModelItem *> qlChildren;
@@ -94,12 +86,13 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiDeafenedSelf, qiDeafenedServer;
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
 		QIcon qiFriend;
+		QIcon qiComment, qiCommentSeen;
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
 
 		QModelIndex index(ClientUser *, int column = 0) const;
-		QModelIndex index(Channel *) const;
+		QModelIndex index(Channel *, int column = 0) const;
 		QModelIndex index(ModelItem *) const;
 
 		void recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to);
@@ -137,9 +130,12 @@ class UserModel : public QAbstractItemModel {
 		void setUserId(ClientUser *p, int id);
 		void setHash(ClientUser *p, const QString &hash);
 		void setFriendName(ClientUser *p, const QString &name);
+		void setComment(ClientUser *p, const QString &comment);
+		void seenComment(const QModelIndex &idx);
 
 		void moveUser(ClientUser *p, Channel *c);
 		void moveChannel(Channel *c, Channel *p);
+		void setComment(Channel *c, const QString &comment);
 
 		void removeUser(ClientUser *p);
 		void removeChannel(Channel *c);

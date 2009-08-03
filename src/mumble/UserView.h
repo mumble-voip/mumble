@@ -28,37 +28,35 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DATABASE_H
-#define _DATABASE_H
+#ifndef _USERVIEW_H
+#define _USERVIEW_H
 
 #include "mumble_pch.hpp"
-#include "Settings.h"
 
-
-class Database : public QObject {
+class UserDelegate : public QStyledItemDelegate {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(Database)
+		Q_DISABLE_COPY(UserDelegate)
 	public:
-		Database();
-		static QStringList getTokens(const QString &hostname, unsigned short port);
-		static bool seenComment(const QString &comment);
-		static void setSeenComment(const QString &comment);
-		static void setTokens(const QString &hostname, unsigned short port, QStringList &tokens);
-		static QList<Shortcut> getShortcuts(const QString &hostname, unsigned short port);
-		static bool setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts);
-		static void addFriend(const QString &name, const QString &hash);
-		static void removeFriend(const QString &hash);
-		static const QString getFriend(const QString &hash);
-		static const QMap<QString, QString> getFriends();
-		static const QString getDigest(const QString &hostname, unsigned short port);
-		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
-		static void setPassword(const QString &hostname, unsigned short port, const QString &user, const QString &pw);
-		static bool getUdp(const QString &hostname, unsigned short port);
-		static void setUdp(const QString &hostname, unsigned short port, bool udp);
-		static bool fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port);
+		UserDelegate(QObject *parent = NULL);
+		QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+};
+
+class UserView : public QTreeView {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(UserView);
+	protected:
+		void mouseReleaseEvent(QMouseEvent *);
+		bool event(QEvent *);
+	public:
+		UserView(QWidget *);
+	public slots:
+		void contextMenu(const QPoint &pos);
+		void doubleClick(const QModelIndex &idx);
 };
 
 #else
-class Database;
+class UserView;
 #endif

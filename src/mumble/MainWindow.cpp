@@ -240,10 +240,7 @@ void MainWindow::setupGui()  {
 	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 
 	pmModel = new UserModel(qtvUsers);
-
 	qtvUsers->setModel(pmModel);
-	qtvUsers->setItemDelegate(new UserDelegate(qtvUsers));
-
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
 	qaServerConnect->setShortcuts(QKeySequence::Open);
@@ -349,21 +346,6 @@ void MainWindow::hideEvent(QHideEvent *e) {
 #endif
 }
 
-void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
-	QModelIndex idx = qtvUsers->indexAt(mpos);
-	if (! idx.isValid())
-		idx = qtvUsers->currentIndex();
-	else
-		qtvUsers->setCurrentIndex(idx);
-	User *p = pmModel->getUser(idx);
-
-	if (p) {
-		qmUser->popup(qtvUsers->mapToGlobal(mpos), qaUserMute);
-	} else {
-		qmChannel->popup(qtvUsers->mapToGlobal(mpos), qaChannelACL);
-	}
-}
-
 void MainWindow::updateTrayIcon() {
 	ClientUser *p=ClientUser::get(g.uiSession);
 
@@ -374,22 +356,6 @@ void MainWindow::updateTrayIcon() {
 	} else {
 		qstiIcon->setIcon(qiIcon);
 	}
-}
-
-void MainWindow::on_qtvUsers_doubleClicked(const QModelIndex &idx) {
-	User *p = pmModel->getUser(idx);
-	if (p) {
-		on_qaUserTextMessage_triggered();
-		return;
-	}
-
-	Channel *c = pmModel->getChannel(idx);
-	if (!c)
-		return;
-	MumbleProto::UserState mpus;
-	mpus.set_session(g.uiSession);
-	mpus.set_channel_id(c->iId);
-	g.sh->sendMessage(mpus);
 }
 
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {

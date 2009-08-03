@@ -38,6 +38,7 @@
 #include "Overlay.h"
 #include "LCD.h"
 #include "Log.h"
+#include "Database.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
@@ -46,6 +47,7 @@ bool ModelItem::bUsersTop = false;
 ModelItem::ModelItem(Channel *c) {
 	this->cChan = c;
 	this->pUser = NULL;
+	bCommentSeen = true;
 	c_qhChannels.insert(c, this);
 	parent = c_qhChannels.value(c->cParent);
 	iUsers = 0;
@@ -54,6 +56,7 @@ ModelItem::ModelItem(Channel *c) {
 ModelItem::ModelItem(ClientUser *p) {
 	this->cChan = NULL;
 	this->pUser = p;
+	bCommentSeen = true;
 	c_qhUsers.insert(p, this);
 	parent = c_qhChannels.value(p->cChannel);
 	iUsers = 0;
@@ -64,6 +67,7 @@ ModelItem::ModelItem(ModelItem *i) {
 	this->cChan = i->cChan;
 	this->pUser = i->pUser;
 	this->parent = i->parent;
+	this->bCommentSeen = i->bCommentSeen;
 
 	if (pUser)
 		c_qhUsers.insert(pUser, this);
@@ -196,6 +200,8 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiChannel=QIcon(QLatin1String("skin:channel.svg"));
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
 	qiFriend=QIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
+	qiComment=QIcon(QLatin1String("skin:comment.svg"));
+	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;
 
@@ -249,13 +255,13 @@ QModelIndex UserModel::index(ClientUser *p, int column) const {
 	return idx;
 }
 
-QModelIndex UserModel::index(Channel *c) const {
+QModelIndex UserModel::index(Channel *c, int column) const {
 	ModelItem *item = ModelItem::c_qhChannels.value(c);
 	Q_ASSERT(c);
 	Q_ASSERT(item);
 	if (!item || !c)
 		return QModelIndex();
-	QModelIndex idx=createIndex(item->rowOfSelf(), 0, item);
+	QModelIndex idx=createIndex(item->rowOfSelf(), column, item);
 	return idx;
 }
 
@@ -362,6 +368,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiDeafenedSelf;
 				if (p->bLocalMute)
 					l << qiMutedLocal;
+				if (! p->qsComment.isEmpty())
+					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 				return l;
 			default:
 				break;
@@ -375,8 +383,9 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 			case Qt::DisplayRole:
 				if (idx.column() == 0)
 					return c->qsName;
-				else
-					return l;
+				if (! c->qsDesc.isEmpty())
+					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
+				return l;
 			case Qt::FontRole:
 				if (g.uiSession) {
 					Channel *home = ClientUser::get(g.uiSession)->cChannel;
@@ -420,15 +429,19 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 			switch (section) {
 				case 0: {
 						if (isUser) {
-							if (p->qsComment.isEmpty())
+							if (p->qsComment.isEmpty()) {
 								return p->qsName;
-							else
+							} else {
+								const_cast<UserModel *>(this)->seenComment(idx);
 								return p->qsComment;
+							}
 						} else {
-							if (c->qsDesc.isEmpty())
+							if (c->qsDesc.isEmpty()) {
 								return c->qsName;
-							else
+							} else {
+								const_cast<UserModel *>(this)->seenComment(idx);
 								return c->qsDesc;
+							}
 						}
 					}
 					break;
@@ -440,6 +453,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 			switch (section) {
 				case 0:
 					if (isUser)
+						// FIXME: Update to contain whisper
 						return tr("This is a user connected to the server. The icon to the left of the user indicates "
 						          "whether or not they are talking:<br />"
 						          "<img src=\"skin:talking_on.svg\" width=32 /> Talking<br />"
@@ -448,6 +462,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					else
 						return tr("This is a channel on the server. Only users in the same channel can hear each other.");
 				case 1:
+					// FIXME: Update list to contain new states.
 					return tr("This shows the flags the user has on the server, if any:<br />"
 					          "<img src=\":/emblems/emblem-favorite.svg\" />On your friend list<br />"
 					          "<img src=\"skin:authenticated.png\" />Authenticated user<br />"
@@ -784,6 +799,69 @@ void UserModel::setFriendName(ClientUser *p, const QString &name) {
 	emit dataChanged(idx_a, idx_b);
 }
 
+void UserModel::setComment(ClientUser *cu, const QString &comment) {
+	if (comment != cu->qsComment) {
+		ModelItem *item = ModelItem::c_qhUsers.value(cu);
+		int oldstate = cu->qsComment.isEmpty() ? 0 : (item->bCommentSeen ? 2 : 1);
+		int newstate;
+
+		cu->qsComment = comment;
+
+		if (! comment.isEmpty()) {
+			item->bCommentSeen = Database::seenComment(comment);
+			newstate = item->bCommentSeen ? 2 : 1;
+		} else {
+			item->bCommentSeen = true;
+			newstate = 0;
+		}
+
+		if (oldstate != newstate) {
+			QModelIndex idx = index(cu, 1);
+			emit dataChanged(idx, idx);
+		}
+	}
+}
+
+void UserModel::setComment(Channel *c, const QString &comment) {
+	if (comment != c->qsDesc) {
+		ModelItem *item = ModelItem::c_qhChannels.value(c);
+		int oldstate = c->qsDesc.isEmpty() ? 0 : (item->bCommentSeen ? 2 : 1);
+		int newstate;
+
+		c->qsDesc = comment;
+
+		if (! comment.isEmpty()) {
+			item->bCommentSeen = Database::seenComment(comment);
+			newstate = item->bCommentSeen ? 2 : 1;
+		} else {
+			item->bCommentSeen = true;
+			newstate = 0;
+		}
+
+		if (oldstate != newstate) {
+			QModelIndex idx = index(c, 1);
+			emit dataChanged(idx, idx);
+		}
+	}
+}
+
+void UserModel::seenComment(const QModelIndex &idx) {
+	ModelItem *item;
+	item = static_cast<ModelItem *>(idx.internalPointer());
+
+	if (item->bCommentSeen)
+		return;
+
+	item->bCommentSeen = true;
+
+	emit dataChanged(idx, idx);
+
+	if (item->pUser)
+		Database::setSeenComment(item->pUser->qsComment);
+	else
+		Database::setSeenComment(item->cChan->qsDesc);
+}
+
 void UserModel::renameChannel(Channel *c, const QString &name) {
 	c->qsName = name;
 
@@ -1082,40 +1160,4 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, cons
 void UserModel::updateOverlay() const {
 	g.o->updateOverlay();
 	g.lcd->updateUserView();
-}
-
-UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
-}
-
-QSize UserDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
-	if (index.column() == 1) {
-		const QAbstractItemModel *m = index.model();
-		QVariant data = m->data(index);
-		QList<QVariant> ql = data.toList();
-		return QSize(18 * ql.count(), 18);
-	} else {
-		return QStyledItemDelegate::sizeHint(option, index);
-	}
-}
-
-void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
-	if (index.column() == 1) {
-		const QAbstractItemModel *m = index.model();
-		QVariant data = m->data(index);
-		QList<QVariant> ql = data.toList();
-
-		painter->save();
-		for (int i=0;i<ql.size();i++) {
-			QRect r = option.rect;
-			r.setSize(QSize(16,16));
-			r.translate(i*18+1,1);
-			QPixmap pixmap= (qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
-			QPoint p = QStyle::alignedRect(option.direction, option.decorationAlignment, pixmap.size(), r).topLeft();
-			painter->drawPixmap(p, pixmap);
-		}
-		painter->restore();
-		return;
-	} else {
-		QStyledItemDelegate::paint(painter,option,index);
-	}
 }
