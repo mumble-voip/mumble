@@ -186,6 +186,28 @@ int ModelItem::insertIndex(ClientUser *p) const {
 	return qls.indexOf(p->qsName) + (bUsersTop ? 0 : ocount);
 }
 
+QString ModelItem::hash() const {
+	if (pUser) {
+		if (! pUser->qsHash.isEmpty())
+			return pUser->qsHash;
+		else
+			return QLatin1String(QCryptographicHash::hash(pUser->qsName.toUtf8(), QCryptographicHash::Sha1).toHex());
+	} else {
+		QCryptographicHash hash(QCryptographicHash::Sha1);
+
+		hash.addData(cChan->qsName.toUtf8());
+		hash.addData(QString::number(cChan->iId).toUtf8());
+		if (g.sh && g.sh->isRunning()) {
+			QString host, user, pw;
+			unsigned short port;
+			g.sh->getConnectionInfo(host, port, user, pw);
+			hash.addData(host.toUtf8());
+			hash.addData(QString::number(port).toUtf8());
+		}
+		return hash.result().toHex();
+	}
+}
+
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
 	qiTalkingAlt=QIcon(QLatin1String("skin:talking_alt.png"));
@@ -808,7 +830,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 		cu->qsComment = comment;
 
 		if (! comment.isEmpty()) {
-			item->bCommentSeen = Database::seenComment(comment);
+			item->bCommentSeen = Database::seenComment(item->hash(), comment);
 			newstate = item->bCommentSeen ? 2 : 1;
 		} else {
 			item->bCommentSeen = true;
@@ -831,7 +853,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 		c->qsDesc = comment;
 
 		if (! comment.isEmpty()) {
-			item->bCommentSeen = Database::seenComment(comment);
+			item->bCommentSeen = Database::seenComment(item->hash(), comment);
 			newstate = item->bCommentSeen ? 2 : 1;
 		} else {
 			item->bCommentSeen = true;
@@ -857,9 +879,9 @@ void UserModel::seenComment(const QModelIndex &idx) {
 	emit dataChanged(idx, idx);
 
 	if (item->pUser)
-		Database::setSeenComment(item->pUser->qsComment);
+		Database::setSeenComment(item->hash(), item->pUser->qsComment);
 	else
-		Database::setSeenComment(item->cChan->qsDesc);
+		Database::setSeenComment(item->hash(), item->cChan->qsDesc);
 }
 
 void UserModel::renameChannel(Channel *c, const QString &name) {

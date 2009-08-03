@@ -42,8 +42,8 @@ class Database : public QObject {
 	public:
 		Database();
 		static QStringList getTokens(const QString &hostname, unsigned short port);
-		static bool seenComment(const QString &comment);
-		static void setSeenComment(const QString &comment);
+		static bool seenComment(const QString &hash, const QString &comment);
+		static void setSeenComment(const QString &hash, const QString &comment);
 		static void setTokens(const QString &hostname, unsigned short port, QStringList &tokens);
 		static QList<Shortcut> getShortcuts(const QString &hostname, unsigned short port);
 		static bool setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts);

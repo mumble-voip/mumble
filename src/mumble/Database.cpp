@@ -86,14 +86,16 @@ Database::Database() {
 
 	QSqlQuery query;
 
-	// FIXME: Oops. These were unique. Leave them in for people using the snapshots for a few releases.
-	query.exec(QLatin1String("DROP INDEX IF EXISTS `tokens_host_port`"));
-	query.exec(QLatin1String("DROP TABLE IF EXISTS `shortcut_host_port`"));
-
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`comment` BLOB, `seen` DATE)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`comment`)"));
+
+	// FIXME: Snapshots..
+	query.exec(QLatin1String("DROP TABLE IF EXISTS `comments`"));
+	query.exec(QLatin1String("DROP INDEX IF EXISTS `comments_comment`"));
+
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`who` TEXT, `comment` BLOB, `seen` DATE)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`who`, `comment`)"));
 	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `comments_seen` ON `comments`(`seen`)"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `token` TEXT)"));
 	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
@@ -109,22 +111,32 @@ Database::Database() {
 	query.exec(QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
 }
 
-bool Database::seenComment(const QString &comment) {
+bool Database::seenComment(const QString &hash, const QString &comment) {
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("SELECT COUNT(*) FROM `comments` WHERE `comment` = ?"));
-	query.addBindValue(QCryptographicHash::hash(comment.toUtf8(), QCryptographicHash::Sha1));
+	QByteArray commenthash = QCryptographicHash::hash(comment.toUtf8(), QCryptographicHash::Sha1);
+
+	query.prepare(QLatin1String("SELECT COUNT(*) FROM `comments` WHERE `who` = ? AND `comment` = ?"));
+	query.addBindValue(hash);
+	query.addBindValue(commenthash);
 	query.exec();
 	if (query.next()) {
-		return (query.value(0).toInt() > 0);
+		if (query.value(0).toInt() > 0) {
+			query.prepare(QLatin1String("UPDATE `comments` SET `seen` = datetime('now') WHERE `who` = ? AND `comment` = ?"));
+			query.addBindValue(hash);
+			query.addBindValue(commenthash);
+			query.exec();
+			return true;
+		}
 	}
 	return false;
 }
 
-void Database::setSeenComment(const QString &comment) {
+void Database::setSeenComment(const QString &hash, const QString &comment) {
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("REPLACE INTO `comments` (`comment`, `seen`) VALUES (?, datetime('now'))"));
+	query.prepare(QLatin1String("REPLACE INTO `comments` (`who`, `comment`, `seen`) VALUES (?, ?, datetime('now'))"));
+	query.addBindValue(hash);
 	query.addBindValue(QCryptographicHash::hash(comment.toUtf8(), QCryptographicHash::Sha1));
 	query.exec();
 }

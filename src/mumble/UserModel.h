@@ -72,6 +72,7 @@ public:
 	int rows() const;
 	int insertIndex(Channel *c) const;
 	int insertIndex(ClientUser *p) const;
+	QString hash() const;
 	void wipe();
 };
 
