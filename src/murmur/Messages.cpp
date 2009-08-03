@@ -596,7 +596,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 		}
 
-		if (p || c) {
+		if (p || (c && c->iId != 0)) {
 			Channel *cp = p ? p : c->cParent;
 			foreach(Channel *sibling, cp->qlChannels) {
 				if (sibling->qsName == qsName) {
