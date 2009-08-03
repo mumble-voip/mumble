@@ -1,9 +1,51 @@
+2009-08-03
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    af08aee  Do lookups with Channel::get()
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    018d5a1  Fix crash while trying to rename the root channel
+
+2009-08-02
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    df86a73  Channel Add/Edit dialog.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d559445  Send uid=-1 to all clients when unregistering connected user
+    a651dce  Various jitter fixes, and audio fade
+    237b9e2  Update position-stripping in server to mach updated voice
+	     packets
+
+2009-08-01
+  Alex Maclean <monkeh@monkeh.net>
+    b08972a  We use boost even without Ice now
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    7c27178  Fix column sizes in shortcut dialog
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ccbd3d7  Slightly less blunt obscurity report
+    d10cdb8  Remove some debug noise from plugin download
+    4fe8ea8  Update benchmark
+    7b983c1  Widen the shortcuts again. *Sigh*
+    413dc8c  Time-distribute plugin link attempts
+    91b94d7  Reduce shortcut columns even further
+    5b644a6  Obscure security
+    dd0320f  Ensure cConnection is deleted from serverhandler thread, as Qt
+	     throws a fit if the deleted() signal is emitted from another
+	     thread.
+    8016d1d  Allow shortcut columns to scale slightly better
+    edf7d48  Support not sending any os/build info to the client
+    8abceec  Use CELT 0.6.1 for now
+    835dfec  s/dbServerUsername/dbUsername/
+
 2009-07-31
   Mikkel Krautz <mikkel@krautz.dk>
     e923c0d  Add CrashReporter. Generate minidumps on Win32 and report them
 	     via CrashReporter.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    ffaca57  If no cert, return an empty list, not a list with a null cert
+    1238f2b  Binary != Boolean
     01cf723  Allow to add email/comment on crash
     a2812c4  Compile without bonjour
     16a44d9  Use basepath in minidumpwrite, and add some comments and a

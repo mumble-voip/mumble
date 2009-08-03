@@ -1135,7 +1135,7 @@ bool Server::unregisterUser(int id) {
 				updateChannel(c);
 		}
 	}
-	
+
 	foreach(ServerUser *u, qhUsers) {
 		if (u->iId == id) {
 			MumbleProto::UserState mpus;

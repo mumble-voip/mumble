@@ -374,7 +374,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq) : Audi
 	fFadeOut = new float[iFrameSize];
 
 	float mul = M_PI / (2.0f * static_cast<float>(iFrameSize));
-	for(unsigned int i=0;i<iFrameSize;++i)
+	for (unsigned int i=0;i<iFrameSize;++i)
 		fFadeIn[i] = fFadeOut[iFrameSize-i-1] = sinf(i * mul);
 }
 
@@ -437,7 +437,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 		pOut = (srs) ? fOut : (pfBuffer + iBufferFilled);
 
-		if(! bLastAlive) {
+		if (! bLastAlive) {
 			memset(pOut, 0, iFrameSize * sizeof(float));
 		} else {
 			int ts = jitter_buffer_get_pointer_timestamp(jbJitter);
@@ -499,10 +499,10 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			}
 
 			if (! nextalive) {
-				for(unsigned int i=0;i<iFrameSize;++i)
+				for (unsigned int i=0;i<iFrameSize;++i)
 					pOut[i] *= fFadeOut[i];
 			} else if (ts == 0) {
-				for(unsigned int i=0;i<iFrameSize;++i)
+				for (unsigned int i=0;i<iFrameSize;++i)
 					pOut[i] *= fFadeIn[i];
 			}
 		}

@@ -702,7 +702,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 		qsVersion.append(tr("<p>No build information or OS version available.</p>"));
 	} else {
 		qsVersion.append(tr("<p>%1 (%2)<br />%3</p>")
-		.arg(g.sh->qsRelease, g.sh->qsOS, g.sh->qsOSVersion));
+		                 .arg(g.sh->qsRelease, g.sh->qsOS, g.sh->qsOSVersion));
 	}
 
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p>").arg(QString::number(qsc.usedBits()),

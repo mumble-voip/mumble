@@ -44,7 +44,7 @@ void ACLTabWidget::tabInserted(int index) {
 	}
 }
 
-void ACLTabWidget::tabRemoved (int index) {
+void ACLTabWidget::tabRemoved(int index) {
 	Q_UNUSED(index);
 	if (count() <= 1) {
 		tabBar()->hide();
@@ -256,8 +256,7 @@ void ACLEditor::accept() {
 		mpcs.set_parent(iChannel);
 		mpcs.set_temporary(qcbChannelTemporary->isChecked());
 		g.sh->sendMessage(mpcs);
-	}
-	else {
+	} else {
 		bool b = false;
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(pChannel->iId);

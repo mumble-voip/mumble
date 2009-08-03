@@ -185,7 +185,7 @@ void Client::readyRead() {
 			unsigned char buff[10000];
 			ssl->read(reinterpret_cast<char *>(buff), want);
 			avail = ssl->bytesAvailable();
-			
+
 			switch (ptype) {
 				case MessageHandler::CryptSetup: {
 						MumbleProto::CryptSetup msg;
