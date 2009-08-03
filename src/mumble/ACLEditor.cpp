@@ -97,15 +97,21 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
-
-	qtwTab->removeTab(2);
-	qtwTab->removeTab(1);
+	if (g.s.bAdvancedACLCfg) {
+		qcbAdvancedCfg->setChecked(true);
+	}
+	else {
+		qtwTab->removeTab(2);
+		qtwTab->removeTab(1);
+	}
 	qcbChannelTemporary->hide();
 
 	iId = mea.channel_id();
 	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(iId)->qsName));
 
 	qleChannelName->setText(pChannel->qsName);
+	if (channelid == 0) qleChannelName->setEnabled(false);
+
 	qteChannelDescription->setPlainText(pChannel->qsDesc);
 
 	QGridLayout *grid = new QGridLayout(qgbACLpermissions);
@@ -304,6 +310,7 @@ void ACLEditor::accept() {
 		g.sh->sendMessage(msg);
 	}
 
+	g.s.bAdvancedACLCfg = qcbAdvancedCfg->isChecked();
 	QDialog::accept();
 }
 

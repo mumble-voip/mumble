@@ -161,6 +161,7 @@ Settings::Settings() {
 	bAskOnQuit = true;
 	bHideTray = true;
 	bUsage = true;
+	bAdvancedACLCfg = false;
 	iWindowLayout = LayoutClassic;
 
 	iOutputDelay = 5;
@@ -387,6 +388,7 @@ void Settings::load() {
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
+	SAVELOAD(bAdvancedACLCfg, "ui/advancedaclcfg");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -551,6 +553,7 @@ void Settings::save() {
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
+	SAVELOAD(bAdvancedACLCfg, "ui/advancedaclcfg");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");

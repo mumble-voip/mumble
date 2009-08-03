@@ -164,6 +164,7 @@ struct Settings {
 	bool bAskOnQuit;
 	bool bHideTray;
 	bool bUsage;
+	bool bAdvancedACLCfg;
 
 	QString qsUsername;
 	int iServerRow;

@@ -32,7 +32,14 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="qleChannelName"/>
+        <widget class="QLineEdit" name="qleChannelName">
+         <property name="toolTip">
+          <string>Enter the channel name here.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Name&lt;/b&gt;&lt;br&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</string>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="qlChannelDescription">
@@ -42,7 +49,21 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QTextEdit" name="qteChannelDescription"/>
+        <widget class="QTextEdit" name="qteChannelDescription">
+         <property name="toolTip">
+          <string>Enter the channel description here.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Description&lt;/b&gt;&lt;br&gt;
+Use this field to set and update channel descriptions. This field supports a restricted set of html tags for formatting, e.g.
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;b&amp;gt;text&amp;lt;/b&amp;gt; for &lt;b&gt;bold&lt;/b&gt; text&lt;/li&gt;
+&lt;li&gt;&amp;lt;i&amp;gt;text&amp;lt;/i&amp;gt; for &lt;i&gt;italic&lt;/i&gt; text&lt;/li&gt;
+&lt;li&gt;&amp;lt;u&amp;gt;text&amp;lt;/u&amp;gt; for &lt;u&gt;underlined&lt;/u&gt; text&lt;/li&gt;
+&lt;/ul&gt;
+and so on. Visit &lt;a href=&quot;http://doc.trolltech.com/richtext-html-subset.html&quot;&gt;http://doc.trolltech.com/richtext-html-subset.html&lt;/a&gt; for a full list.</string>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="qlChannelPassword">
@@ -52,10 +73,25 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="qleChannelPassword"/>
+        <widget class="QLineEdit" name="qleChannelPassword">
+         <property name="toolTip">
+          <string>Enter the channel password here.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;
+This field allows you to easily set and change the password of a channel. In the background it uses Mumble's access tokens feature. To allow more fine grained and powerfull access controll directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</string>
+         </property>
+        </widget>
        </item>
        <item row="3" column="1">
         <widget class="QCheckBox" name="qcbChannelTemporary">
+         <property name="toolTip">
+          <string>Check to create a temporary channel.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Temporary&lt;/b&gt;&lt;br&gt;
+When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</string>
+         </property>
          <property name="text">
           <string>Temporary</string>
          </property>
@@ -63,6 +99,13 @@
        </item>
        <item row="4" column="1">
         <widget class="QCheckBox" name="qcbAdvancedCfg">
+         <property name="toolTip">
+          <string>Check to be able to change the ACL and group configuration for this channel.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Advanced configuration&lt;/b&gt;&lt;br&gt;
+When checked the channel editor displays additional controlls to configure the ACL and group settings of a channel. Mumble will remember the state of this checkbox for future edits.</string>
+         </property>
          <property name="text">
           <string>Advanced configuration</string>
          </property>
@@ -87,7 +130,8 @@
              <string>List of groups</string>
             </property>
             <property name="whatsThis">
-             <string>This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</string>
+             <string>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
+This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</string>
             </property>
             <property name="editable">
              <bool>true</bool>
@@ -100,7 +144,7 @@
              <string>Remove selected group</string>
             </property>
             <property name="whatsThis">
-             <string>This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</string>
+             <string>&lt;b&gt;Remove&lt;/b&gt;&lt;br&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</string>
             </property>
             <property name="text">
              <string>Remove</string>
@@ -116,7 +160,7 @@
              <string>Inherit group members from parent</string>
             </property>
             <property name="whatsThis">
-             <string>This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</string>
+             <string>&lt;b&gt;Inherit&lt;/b&gt;&lt;br&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</string>
             </property>
             <property name="text">
              <string>Inherit</string>
@@ -129,7 +173,7 @@
              <string>Make group inheritable to sub-channels</string>
             </property>
             <property name="whatsThis">
-             <string>This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</string>
+             <string>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</string>
             </property>
             <property name="text">
              <string>Inheritable</string>
@@ -145,7 +189,7 @@
              <string>Group was inherited from parent channel</string>
             </property>
             <property name="whatsThis">
-             <string>This indicates that the group was inherited from the parent channel. You cannot edit this flag, it's just for information.</string>
+             <string>&lt;b&gt;Inherited&lt;/b&gt;&lt;br&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it's just for information.</string>
             </property>
             <property name="text">
              <string>Inherited</string>
@@ -182,13 +226,37 @@
            </widget>
           </item>
           <item row="1" column="0" colspan="3">
-           <widget class="QListWidget" name="qlwGroupAdd"/>
+           <widget class="QListWidget" name="qlwGroupAdd">
+            <property name="toolTip">
+             <string>Contains the list of members added to the group by this channel.</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;Members&lt;/b&gt;&lt;br&gt;
+This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="3" colspan="3">
-           <widget class="QListWidget" name="qlwGroupRemove"/>
+           <widget class="QListWidget" name="qlwGroupRemove">
+            <property name="toolTip">
+             <string>Contains a list of members whose group membership will not be inherited to subchannels.</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br&gt;
+Contains a list of members whose group membership will not be inherited to subchannels.</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="6" rowspan="2">
-           <widget class="QListWidget" name="qlwGroupInherit"/>
+           <widget class="QListWidget" name="qlwGroupInherit">
+            <property name="toolTip">
+             <string>Contains the list of members inherited by other channels.</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br&gt;
+Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</string>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0" colspan="2">
            <widget class="QComboBox" name="qcbGroupAdd">
