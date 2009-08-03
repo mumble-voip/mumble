@@ -1184,8 +1184,9 @@ void Server::readChannelPrivs(Channel *c) {
 	while (query.next()) {
 		const QString &key = query.value(0).toString();
 		const QString &value = query.value(1).toString();
-		if (key == "decription")
+		if (key == "description") {
 			c->qsDesc = value;
+		}
 		else if (key == "position") {
 			c->iPosition = QVariant(value).toInt(); // If the conversion fails it'll return the default value 0
 		}
