@@ -929,6 +929,8 @@ void Server::connectionClosed(const QString &reason) {
 
 		emit userDisconnected(u);
 	}
+	
+	Channel *old = u->cChannel;
 
 	{
 		QWriteLocker wl(&qrwlUsers);
@@ -940,12 +942,12 @@ void Server::connectionClosed(const QString &reason) {
 		const QPair<HostAddress, quint16> &key = QPair<HostAddress, quint16>(u->haAddress, port);
 		qhPeerUsers.remove(key);
 
-		if (u->cChannel)
-			u->cChannel->removeUser(u);
+		if (old)
+			old->removeUser(u);
 	}
 
-	if (u->cChannel->bTemporary && u->cChannel->qlUsers.isEmpty())
-		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, u->cChannel->iId)));
+	if (old && old->bTemporary && old->qlUsers.isEmpty())
+		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 
 	qqIds.enqueue(u->uiSession);
 
