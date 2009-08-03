@@ -213,7 +213,7 @@ void MainWindow::createActions() {
 	gsVolumeDown->setObjectName(QLatin1String("VolumeDown"));
 
 	qstiIcon = new QSystemTrayIcon(qiIcon, this);
-	qstiIcon->setToolTip(tr("Mumble"));
+	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 
 	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper"), false, QVariant::fromValue(ShortcutTarget()));
