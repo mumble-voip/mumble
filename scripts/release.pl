@@ -119,7 +119,7 @@ foreach my $resfile (@resources) {
   close(F);
 }
 
-foreach my $dir ('speex','speex/include/speex','speex/libspeex','man') {
+foreach my $dir ('speex','speex/include/speex','speex/libspeex','man','celt','celt/libcelt') {
   opendir(D, $dir) or croak "Could not open $dir";
   foreach my $f (grep(! /^\./,readdir(D))) {
     next if ($f =~ /\~$/);
