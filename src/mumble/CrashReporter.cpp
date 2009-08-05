@@ -47,7 +47,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	QHBoxLayout *hbl = new QHBoxLayout();
 
 	qleEmail = new QLineEdit(g.qs->value(QLatin1String("crashemail")).toString());
-	l = new QLabel(tr("Email address"));
+	l = new QLabel(tr("Email address (optional)"));
 	l->setBuddy(qleEmail);
 
 	hbl->addWidget(l);
