@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GlobalShortcut</class>
+ <widget class="QWidget" name="GlobalShortcut">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>266</width>
+    <height>261</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="qgbShortcuts">
+     <property name="title">
+      <string>Shortcuts</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0" colspan="3">
+       <widget class="QTreeWidget" name="qtwShortcuts">
+        <property name="toolTip">
+         <string>List of configured shortcuts</string>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
+        <property name="itemsExpandable">
+         <bool>false</bool>
+        </property>
+        <attribute name="headerDefaultSectionSize">
+         <number>300</number>
+        </attribute>
+        <attribute name="headerMinimumSectionSize">
+         <number>200</number>
+        </attribute>
+        <attribute name="headerDefaultSectionSize">
+         <number>300</number>
+        </attribute>
+        <attribute name="headerMinimumSectionSize">
+         <number>200</number>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Function</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Shortcut</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Suppress</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="qpbAdd">
+        <property name="toolTip">
+         <string>Add new shortcut</string>
+        </property>
+        <property name="whatsThis">
+         <string>This will add a new global shortcut</string>
+        </property>
+        <property name="text">
+         <string>&amp;Add</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="qpbRemove">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Remove selected shortcut</string>
+        </property>
+        <property name="whatsThis">
+         <string>This will permanently remove a selected shortcut.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Remove</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>59</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

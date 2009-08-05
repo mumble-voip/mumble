@@ -1,0 +1,352 @@
+<ui version="4.0" >
+ <class>OverlayConfig</class>
+ <widget class="QWidget" name="OverlayConfig" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>383</width>
+    <height>591</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Options</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QCheckBox" name="qcbEnable" >
+        <property name="toolTip" >
+         <string>Enable overlay.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br />Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</string>
+        </property>
+        <property name="text" >
+         <string>Enable Overlay</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="qcbShow" >
+        <property name="toolTip" >
+         <string>Who to show on the overlay</string>
+        </property>
+        <property name="whatsThis" >
+         <string>&lt;b>This sets who to show in the in-game overlay.&lt;/b>&lt;br />If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br />&lt;i>No one&lt;/i> - Don't show anyone (but leave overlay running).&lt;br />&lt;i>Only talking&lt;/i> - Only show talking people.&lt;br />&lt;i>Everyone&lt;/i> - Show everyone.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbAlwaysSelf" >
+        <property name="toolTip" >
+         <string>Always show yourself on overlay.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets whether to always show yourself or not. This setting is useful if you aren't showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn't let you see that you were deafened or muted.</string>
+        </property>
+        <property name="text" >
+         <string>Always Show Self</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbUserTextures" >
+        <property name="toolTip" >
+         <string>Show User custom textures instead of text on the overlay.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</string>
+        </property>
+        <property name="text" >
+         <string>Show User Textures</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="title" >
+      <string>Position</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="1" >
+       <widget class="QCheckBox" name="qcbTop" >
+        <property name="toolTip" >
+         <string>Let overlay grow upwards</string>
+        </property>
+        <property name="whatsThis" >
+         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</string>
+        </property>
+        <property name="text" >
+         <string>Grow Up</string>
+        </property>
+       </widget>
+      </item>
+      <item rowspan="3" row="0" column="3" >
+       <widget class="QSlider" name="qsY" >
+        <property name="toolTip" >
+         <string>Y-Position of Overlay</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the relative Y position of the overlay.</string>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QCheckBox" name="qcbLeft" >
+        <property name="toolTip" >
+         <string>Let overlay grow to the left</string>
+        </property>
+        <property name="whatsThis" >
+         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</string>
+        </property>
+        <property name="text" >
+         <string>Grow Left</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QCheckBox" name="qcbRight" >
+        <property name="toolTip" >
+         <string>Let overlay grow to the right</string>
+        </property>
+        <property name="whatsThis" >
+         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</string>
+        </property>
+        <property name="text" >
+         <string>Grow Right</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QCheckBox" name="qcbBottom" >
+        <property name="toolTip" >
+         <string>Let overlay grow downwards</string>
+        </property>
+        <property name="whatsThis" >
+         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</string>
+        </property>
+        <property name="text" >
+         <string>Grow Down</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="3" >
+       <widget class="QSlider" name="qsX" >
+        <property name="toolTip" >
+         <string>X-Position of Overlay</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the relative X position of the overlay.</string>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3" >
+     <property name="title" >
+      <string>Font</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Current Font</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2" >
+       <widget class="QLabel" name="qlCurrentFont" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" >
+       <widget class="QPushButton" name="qpbSetFont" >
+        <property name="text" >
+         <string>Set Font</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>Maximum height</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QSlider" name="qsMaxHeight" >
+        <property name="toolTip" >
+         <string>Maximum height of names.</string>
+        </property>
+        <property name="whatsThis" >
+         <string>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</string>
+        </property>
+        <property name="minimum" >
+         <number>10</number>
+        </property>
+        <property name="maximum" >
+         <number>200</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" >
+       <widget class="QLabel" name="qlMaxHeight" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="label_5" >
+        <property name="text" >
+         <string>Color for players</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2" >
+       <widget class="QLabel" name="qlPlayer" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" >
+       <widget class="QPushButton" name="qpbPlayer" >
+        <property name="text" >
+         <string>Change</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="label_6" >
+        <property name="text" >
+         <string>Color for talking players</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="2" >
+       <widget class="QLabel" name="qlTalking" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3" >
+       <widget class="QPushButton" name="qpbTalking" >
+        <property name="text" >
+         <string>Change</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" >
+       <widget class="QLabel" name="label_8" >
+        <property name="text" >
+         <string>Color for alt-talking players</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" colspan="2" >
+       <widget class="QLabel" name="qlAltTalking" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3" >
+       <widget class="QPushButton" name="qpbAltTalking" >
+        <property name="text" >
+         <string>Change</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" >
+       <widget class="QLabel" name="label_9" >
+        <property name="text" >
+         <string>Color for Channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1" colspan="2" >
+       <widget class="QLabel" name="qlChannel" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="3" >
+       <widget class="QPushButton" name="qpbChannel" >
+        <property name="text" >
+         <string>Change</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" >
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Color for active Channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" >
+       <widget class="QLabel" name="qlChannelTalking" >
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="3" >
+       <widget class="QPushButton" name="qpbChannelTalking" >
+        <property name="text" >
+         <string>Change</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>671</width>
+    <height>435</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Mumble</string>
+  </property>
+  <widget class="QTreeView" name="qtvPlayers">
+   <property name="contextMenuPolicy">
+    <enum>Qt::CustomContextMenu</enum>
+   </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
+   <property name="dragEnabled">
+    <bool>true</bool>
+   </property>
+   <property name="indentation">
+    <number>10</number>
+   </property>
+   <property name="rootIsDecorated">
+    <bool>false</bool>
+   </property>
+   <property name="uniformRowHeights">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>671</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="qmServer">
+    <property name="title">
+     <string>&amp;Server</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="qmPlayer">
+    <property name="title">
+     <string>&amp;Player</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="qmChannel">
+    <property name="title">
+     <string>&amp;Channel</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="qmAudio">
+    <property name="title">
+     <string>&amp;Audio</string>
+    </property>
+    <addaction name="qaAudioMute"/>
+    <addaction name="qaAudioDeaf"/>
+    <addaction name="separator"/>
+    <addaction name="qaAudioReset"/>
+    <addaction name="qaAudioUnlink"/>
+    <addaction name="separator"/>
+    <addaction name="qaAudioTTS"/>
+    <addaction name="separator"/>
+    <addaction name="qaAudioStats"/>
+   </widget>
+   <widget class="QMenu" name="qmConfig">
+    <property name="title">
+     <string>C&amp;onfigure</string>
+    </property>
+    <addaction name="qaConfigDialog"/>
+   </widget>
+   <widget class="QMenu" name="qmHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="qaHelpWhatsThis"/>
+    <addaction name="separator"/>
+    <addaction name="qaHelpAbout"/>
+    <addaction name="qaHelpAboutSpeex"/>
+    <addaction name="qaHelpAboutQt"/>
+    <addaction name="separator"/>
+    <addaction name="qaHelpVersionCheck"/>
+   </widget>
+   <addaction name="qmServer"/>
+   <addaction name="qmPlayer"/>
+   <addaction name="qmChannel"/>
+   <addaction name="qmAudio"/>
+   <addaction name="qmConfig"/>
+   <addaction name="qmHelp"/>
+  </widget>
+  <widget class="QDockWidget" name="qdwLog">
+   <property name="features">
+    <set>QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Log</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QTextBrowser" name="qteLog">
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="whatsThis">
+     <string>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</string>
+    </property>
+    <property name="openLinks">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
+  <action name="qaQuit">
+   <property name="text">
+    <string>&amp;Quit Mumble</string>
+   </property>
+   <property name="toolTip">
+    <string>Closes the program</string>
+   </property>
+   <property name="whatsThis">
+    <string>Exits the application.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="qaServerConnect">
+   <property name="text">
+    <string>&amp;Connect</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the server connection dialog</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows a dialog of registered servers, and also allows quick connect.</string>
+   </property>
+  </action>
+  <action name="qaServerDisconnect">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Disconnect</string>
+   </property>
+   <property name="toolTip">
+    <string>Disconnect from server</string>
+   </property>
+   <property name="whatsThis">
+    <string>Disconnects you from the server.</string>
+   </property>
+  </action>
+  <action name="qaServerBanList">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Ban lists</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit ban lists on server</string>
+   </property>
+   <property name="whatsThis">
+    <string>This lets you edit the server-side IP ban lists.</string>
+   </property>
+  </action>
+  <action name="qaServerInformation">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Information</string>
+   </property>
+   <property name="toolTip">
+    <string>Show information about the server connection</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will show extended information about the connection to the server.</string>
+   </property>
+  </action>
+  <action name="qaPlayerKick">
+   <property name="text">
+    <string>&amp;Kick</string>
+   </property>
+   <property name="toolTip">
+    <string>Kick player (with reason)</string>
+   </property>
+   <property name="whatsThis">
+    <string>Kick selected player off server. You'll be asked to specify a reason.</string>
+   </property>
+  </action>
+  <action name="qaPlayerMute">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Mute</string>
+   </property>
+   <property name="toolTip">
+    <string>Mute player</string>
+   </property>
+   <property name="whatsThis">
+    <string>Mute or unmute player on server. Unmuting a deafened player will also undeafen them.</string>
+   </property>
+  </action>
+  <action name="qaPlayerBan">
+   <property name="text">
+    <string>&amp;Ban</string>
+   </property>
+   <property name="toolTip">
+    <string>Kick and ban player (with reason)</string>
+   </property>
+   <property name="whatsThis">
+    <string>Kick and ban selected player from server. You'll be asked to specify a reason.</string>
+   </property>
+  </action>
+  <action name="qaPlayerDeaf">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Deafen</string>
+   </property>
+   <property name="toolTip">
+    <string>Deafen player</string>
+   </property>
+   <property name="whatsThis">
+    <string>Deafen or undeafen player on server. Deafening a player will also mute them.</string>
+   </property>
+  </action>
+  <action name="qaPlayerLocalMute">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Local Mute</string>
+   </property>
+   <property name="toolTip">
+    <string>Mute player locally</string>
+   </property>
+   <property name="whatsThis">
+    <string>Mute or unmute player locally. Use this on other players in the same room.</string>
+   </property>
+  </action>
+  <action name="qaPlayerTextMessage">
+   <property name="text">
+    <string>Send Messa&amp;ge</string>
+   </property>
+   <property name="toolTip">
+    <string>Send a Text Message</string>
+   </property>
+   <property name="whatsThis">
+    <string>Sends a text message to another user.</string>
+   </property>
+  </action>
+  <action name="qaChannelAdd">
+   <property name="text">
+    <string>&amp;Add</string>
+   </property>
+   <property name="toolTip">
+    <string>Add new channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>This adds a new sub-channel to the currently selected channel.</string>
+   </property>
+  </action>
+  <action name="qaChannelRemove">
+   <property name="text">
+    <string>&amp;Remove</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>This removes a channel and all sub-channels.</string>
+   </property>
+  </action>
+  <action name="qaChannelACL">
+   <property name="text">
+    <string>&amp;Edit ACL</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit Groups and ACL for channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>This opens the Group and ACL dialog for the channel, to control permissions.</string>
+   </property>
+  </action>
+  <action name="qaChannelRename">
+   <property name="text">
+    <string>&amp;Rename</string>
+   </property>
+   <property name="toolTip">
+    <string>Renames the channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>This renames a channel.</string>
+   </property>
+  </action>
+  <action name="qaChannelDescUpdate">
+   <property name="text">
+    <string>&amp;Change Description</string>
+   </property>
+   <property name="toolTip">
+    <string>Changes the channel description</string>
+   </property>
+   <property name="whatsThis">
+    <string>This changes the description of a channel.</string>
+   </property>
+  </action>
+  <action name="qaChannelLink">
+   <property name="text">
+    <string>&amp;Link</string>
+   </property>
+   <property name="toolTip">
+    <string>Link your channel to another channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</string>
+   </property>
+  </action>
+  <action name="qaChannelUnlink">
+   <property name="text">
+    <string comment="Channel">&amp;Unlink</string>
+   </property>
+   <property name="toolTip">
+    <string>Unlink your channel from another channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>This unlinks your current channel from the selected channel.</string>
+   </property>
+  </action>
+  <action name="qaChannelUnlinkAll">
+   <property name="text">
+    <string>Unlink &amp;All</string>
+   </property>
+   <property name="toolTip">
+    <string>Unlinks your channel from all linked channels.</string>
+   </property>
+   <property name="whatsThis">
+    <string>This unlinks your current channel (not the selected one) from all linked channels.</string>
+   </property>
+  </action>
+  <action name="qaAudioReset">
+   <property name="text">
+    <string>&amp;Reset</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset audio preprocessor</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</string>
+   </property>
+  </action>
+  <action name="qaAudioMute">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Mute Self</string>
+   </property>
+   <property name="toolTip">
+    <string>Mute yourself</string>
+   </property>
+   <property name="whatsThis">
+    <string>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</string>
+   </property>
+  </action>
+  <action name="qaAudioDeaf">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Deafen Self</string>
+   </property>
+   <property name="toolTip">
+    <string>Deafen yourself</string>
+   </property>
+   <property name="whatsThis">
+    <string>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</string>
+   </property>
+  </action>
+  <action name="qaAudioTTS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Text-To-Speech</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle Text-To-Speech</string>
+   </property>
+   <property name="whatsThis">
+    <string>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</string>
+   </property>
+  </action>
+  <action name="qaAudioStats">
+   <property name="text">
+    <string>S&amp;tatistics</string>
+   </property>
+   <property name="toolTip">
+    <string>Display audio statistics</string>
+   </property>
+   <property name="whatsThis">
+    <string>Pops up a small dialog with information about your current audio input.</string>
+   </property>
+  </action>
+  <action name="qaAudioUnlink">
+   <property name="text">
+    <string comment="Plugin">&amp;Unlink</string>
+   </property>
+   <property name="toolTip">
+    <string>Forcibly unlink plugin</string>
+   </property>
+   <property name="whatsThis">
+    <string>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</string>
+   </property>
+  </action>
+  <action name="qaConfigDialog">
+   <property name="text">
+    <string>&amp;Settings</string>
+   </property>
+   <property name="toolTip">
+    <string>Configure Mumble</string>
+   </property>
+   <property name="whatsThis">
+    <string>Allows you to change most settings for Mumble.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="qaAudioWizard">
+   <property name="text">
+    <string>&amp;Audio Wizard</string>
+   </property>
+   <property name="toolTip">
+    <string>Start the audio configuration wizard</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will guide you through the process of configuring your audio hardware.</string>
+   </property>
+  </action>
+  <action name="qaHelpWhatsThis">
+   <property name="text">
+    <string>&amp;What's This?</string>
+   </property>
+   <property name="toolTip">
+    <string>Enter What's This? mode</string>
+   </property>
+   <property name="whatsThis">
+    <string>Click this to enter &quot;What's This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</string>
+   </property>
+  </action>
+  <action name="qaHelpAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>Information about Mumble</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows a small dialog with information and license for Mumble.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="qaHelpAboutSpeex">
+   <property name="text">
+    <string>About &amp;Speex</string>
+   </property>
+   <property name="toolTip">
+    <string>Information about Speex</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows a small dialog with information about Speex.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="qaHelpAboutQt">
+   <property name="text">
+    <string>About &amp;Qt</string>
+   </property>
+   <property name="toolTip">
+    <string>Information about Qt</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows a small dialog with information about Qt.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutQtRole</enum>
+   </property>
+  </action>
+  <action name="qaHelpVersionCheck">
+   <property name="text">
+    <string>Check for &amp;Updates</string>
+   </property>
+   <property name="toolTip">
+    <string>Check for new version of Mumble</string>
+   </property>
+   <property name="whatsThis">
+    <string>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</string>
+   </property>
+  </action>
+  <action name="qaChannelSendMessage">
+   <property name="text">
+    <string>Send Messa&amp;ge</string>
+   </property>
+   <property name="toolTip">
+    <string>Send a Text Message</string>
+   </property>
+   <property name="whatsThis">
+    <string>Sends a text message to all users in a channel.</string>
+   </property>
+  </action>
+  <action name="qaChannelSendTreeMessage">
+   <property name="text">
+    <string>Send &amp;Tree Message</string>
+   </property>
+   <property name="toolTip">
+    <string>Send message to channel tree.</string>
+   </property>
+   <property name="whatsThis">
+    <string>This sends a text message to a channel and it's subchannels.</string>
+   </property>
+  </action>
+  <action name="qaConfigMinimal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Minimal View</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle minimal window modes</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will toggle minimal mode, where the log window and menu is hidden.</string>
+   </property>
+  </action>
+  <action name="qaConfigHideFrame">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle showing frame on minimal window</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will toggle whether the minimal window should have a frame for moving and resizing.</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

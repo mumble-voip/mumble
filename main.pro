@@ -11,6 +11,9 @@ CONFIG *= ordered debug_and_release
   !CONFIG(no-bundled-celt) {
     SUBDIRS *= celtbuild
   }
+  !CONFIG(no-11x) {
+    SUBDIRS *= src/mumble11x
+  }
   SUBDIRS *= src/mumble plugins
 
   win32 {

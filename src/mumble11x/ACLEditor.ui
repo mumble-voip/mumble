@@ -1,0 +1,505 @@
+<ui version="4.0" >
+ <class>ACLEditor</class>
+ <widget class="QDialog" name="ACLEditor" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>607</width>
+    <height>509</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QTabWidget" name="qtwTab" >
+     <property name="currentIndex" >
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>&amp;Groups</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QGroupBox" name="qgbGroups" >
+         <property name="title" >
+          <string>Group</string>
+         </property>
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QComboBox" name="qcbGroupList" >
+            <property name="toolTip" >
+             <string>List of groups</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</string>
+            </property>
+            <property name="editable" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="qpbGroupRemove" >
+            <property name="toolTip" >
+             <string>Remove selected group</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</string>
+            </property>
+            <property name="text" >
+             <string>Remove</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="qcbGroupInherit" >
+            <property name="toolTip" >
+             <string>Inherit group members from parent</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This inherits all the members in the group from the parent, if the group is marked as &lt;i>Inheritable&lt;/i> in the parent channel.</string>
+            </property>
+            <property name="text" >
+             <string>Inherit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="qcbGroupInheritable" >
+            <property name="toolTip" >
+             <string>Make group inheritable to sub-channels</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</string>
+            </property>
+            <property name="text" >
+             <string>Inheritable</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="qcbGroupInherited" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="toolTip" >
+             <string>Group was inherited from parent channel</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This indicates that the group was inherited from the parent channel. You cannot edit this flag, it's just for information.</string>
+            </property>
+            <property name="text" >
+             <string>Inherited</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="qgbGroupMembers" >
+         <property name="title" >
+          <string>Members</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>Add</string>
+            </property>
+            <property name="buddy" >
+             <cstring>qlwGroupAdd</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" >
+           <widget class="QLabel" name="label_2" >
+            <property name="text" >
+             <string>Remove</string>
+            </property>
+            <property name="buddy" >
+             <cstring>qlwGroupRemove</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4" >
+           <widget class="QLabel" name="label_3" >
+            <property name="text" >
+             <string>Inherit</string>
+            </property>
+            <property name="buddy" >
+             <cstring>qlwGroupInherit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2" >
+           <widget class="QListWidget" name="qlwGroupAdd" />
+          </item>
+          <item row="1" column="2" colspan="2" >
+           <widget class="QListWidget" name="qlwGroupRemove" />
+          </item>
+          <item rowspan="2" row="1" column="4" >
+           <widget class="QListWidget" name="qlwGroupInherit" />
+          </item>
+          <item row="3" column="4" >
+           <widget class="QPushButton" name="qpbGroupInheritRemove" >
+            <property name="text" >
+             <string>Add to Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2" colspan="2" >
+           <widget class="QPushButton" name="qpbGroupRemoveRemove" >
+            <property name="text" >
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2" >
+           <widget class="QPushButton" name="qpbGroupAddRemove" >
+            <property name="text" >
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" >
+           <widget class="QLineEdit" name="qleGroupAdd" >
+            <property name="toolTip" >
+             <string>Add member to group</string>
+            </property>
+            <property name="whatsThis" >
+             <string>Type in the name of a player you wish to add to the group and click Add.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2" >
+           <widget class="QLineEdit" name="qleGroupRemove" >
+            <property name="toolTip" >
+             <string>Remove member from group</string>
+            </property>
+            <property name="whatsThis" >
+             <string>Type in the name of a player you wish to remove from the group and click Add.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" >
+           <widget class="QPushButton" name="qpbGroupAddAdd" >
+            <property name="text" >
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" >
+           <widget class="QPushButton" name="qpbGroupRemoveAdd" >
+            <property name="text" >
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2" >
+      <attribute name="title" >
+       <string>&amp;ACL</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" colspan="2" >
+        <widget class="QGroupBox" name="qgbACLs" >
+         <property name="title" >
+          <string>Active ACLs</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item rowspan="2" row="0" column="0" colspan="5" >
+           <widget class="QListWidget" name="qlwACLs" >
+            <property name="toolTip" >
+             <string>List of entries</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br />ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" >
+           <widget class="QCheckBox" name="qcbACLInherit" >
+            <property name="toolTip" >
+             <string>Inherit ACL of parent?</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as "Apply to sub-channels" will be inherited.</string>
+            </property>
+            <property name="text" >
+             <string>Inherit ACLs</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" >
+           <widget class="QPushButton" name="qpbACLUp" >
+            <property name="toolTip" >
+             <string>Move entry up</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you'll have to duplicate the inherited entry.</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Up</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2" >
+           <widget class="QPushButton" name="qpbACLDown" >
+            <property name="toolTip" >
+             <string>Move entry down</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Down</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" >
+           <widget class="QPushButton" name="qpbACLAdd" >
+            <property name="toolTip" >
+             <string>Add new entry</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This adds a new entry, initially set with no permissions and applying to all.</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Add</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4" >
+           <widget class="QPushButton" name="qpbACLRemove" >
+            <property name="toolTip" >
+             <string>Remove entry</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This removes the currently selected entry.</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Remove</string>
+            </property>
+            <property name="autoDefault" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QGroupBox" name="qgbACLapply" >
+         <property name="title" >
+          <string>Context</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QCheckBox" name="qcbACLApplyHere" >
+            <property name="toolTip" >
+             <string>Entry should apply to this channel.</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This makes the entry apply to this channel.</string>
+            </property>
+            <property name="text" >
+             <string>Applies to this channel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="qcbACLApplySubs" >
+            <property name="toolTip" >
+             <string>Entry should apply to sub-channels.</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This makes the entry apply to sub-channels of this channel.</string>
+            </property>
+            <property name="text" >
+             <string>Applies to sub-channels</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item rowspan="2" row="1" column="1" >
+        <widget class="QGroupBox" name="qgbACLpermissions" >
+         <property name="title" >
+          <string>Permissions</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QGroupBox" name="qgbACLugroup" >
+         <property name="title" >
+          <string>User/Group</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="label_5" >
+            <property name="text" >
+             <string>Group</string>
+            </property>
+            <property name="buddy" >
+             <cstring>qcbACLGroup</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="qcbACLGroup" >
+            <property name="toolTip" >
+             <string>Group this entry applies to</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This controls which group of users this entry applies to.&lt;br />Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i>Write&lt;/i> permission to the &lt;i>admin&lt;/i> group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i>admin&lt;/i> group in that channel, even if he doesn't belong to the &lt;i>admin&lt;/i> group in the channel where the ACL originated.&lt;br />If a group name starts with a !, its membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i>!~in&lt;/i> is valid, but &lt;i>~!in&lt;/i> is not.&lt;br />A few special predefined groups are:&lt;br />&lt;b>all&lt;/b> - Everyone will match.&lt;br />&lt;b>auth&lt;/b> - All authenticated users will match.&lt;br />&lt;b>sub,a,b,c&lt;/b> - User currently in a sub-channel minimum &lt;i>a&lt;/i> common parents, and between &lt;i>b&lt;/i> and &lt;i>c&lt;/i> channels down the chain. See the website for more extensive documentation on this one.&lt;br />&lt;b>in&lt;/b> - Users currently in the channel will match (convenience for &lt;i>sub,0,0,0&lt;/i>).&lt;br />&lt;b>out&lt;/b> - Users outside the channel will match (convenience for &lt;i>!sub,0,0,0&lt;/i>).&lt;br />Note that an entry applies to either a user or a group, not both.</string>
+            </property>
+            <property name="editable" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="label_6" >
+            <property name="text" >
+             <string>User ID</string>
+            </property>
+            <property name="buddy" >
+             <cstring>qleACLUser</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="qleACLUser" >
+            <property name="toolTip" >
+             <string>User this entry applies to</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="qdbbButtons" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>qdbbButtons</sender>
+   <signal>accepted()</signal>
+   <receiver>ACLEditor</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>227</x>
+     <y>583</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qdbbButtons</sender>
+   <signal>rejected()</signal>
+   <receiver>ACLEditor</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>295</x>
+     <y>589</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qleGroupAdd</sender>
+   <signal>returnPressed()</signal>
+   <receiver>qpbGroupAddAdd</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>82</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>176</x>
+     <y>493</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qleGroupRemove</sender>
+   <signal>returnPressed()</signal>
+   <receiver>qpbGroupRemoveAdd</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>268</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>365</x>
+     <y>495</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qlwGroupInherit</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>qpbGroupInheritRemove</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>476</x>
+     <y>316</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>481</x>
+     <y>525</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
