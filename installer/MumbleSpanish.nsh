@@ -13,7 +13,7 @@ LangString MUMBLE_LICENSE_LNK ${LANG_SPANISH} "Licencia de Mumble"
 LangString MUMBLE_QT_LNK ${LANG_SPANISH} "Licencia de Qt"
 LangString MUMBLE_SPEEX_LNK ${LANG_SPANISH} "Licencia de Speex"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_SPANISH} "Desinstalar Mumble"
-LangString MUMBLE_COMPAT_LNK ${LANG_ENGLISH} "Mumble (Backwards Compatible)"
+LangString MUMBLE_COMPAT_LNK ${LANG_SPANISH} "Mumble (Backwards Compatible)"
 
 ; Install types
 LangString INSTALL_FULL ${LANG_SPANISH} "Full"
@@ -22,13 +22,13 @@ LangString INSTALL_SERVER ${LANG_SPANISH} "Server only"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_SPANISH} "Mumble (client)"
-LangString MUMBLE_SEC_MUMBLE11X ${LANG_ENGLISH} "Mumble (backwards compatible client)"
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_SPANISH} "Mumble (backwards compatible client)"
 LangString MUMBLE_SEC_MURMUR ${LANG_SPANISH} "Murmur (server)"
-LangString MUMBLE_SEC_BONJOUR ${LANG_ENGLISH} "Bonjour for Windows"
+LangString MUMBLE_SEC_BONJOUR ${LANG_SPANISH} "Bonjour for Windows"
 LangString DESC_SectionMumble ${LANG_SPANISH} "The Mumble client, which you will need to connect to a server."
-LangString DESC_SectionMumble11X ${LANG_ENGLISH} "The Mumble client for connecting to older servers."
+LangString DESC_SectionMumble11X ${LANG_SPANISH} "The Mumble client for connecting to older servers."
 LangString DESC_SectionMurmur ${LANG_SPANISH} "The server for Mumble. Includes everything needed to run your own server."
-LangString DESC_SectionBonjour ${LANG_ENGLISH} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
+LangString DESC_SectionBonjour ${LANG_SPANISH} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_SPANISH} "Mumble y Murmur"
