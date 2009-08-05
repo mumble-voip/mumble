@@ -29,14 +29,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#undef qDebug
-#include <Carbon/Carbon.h>
-#include <sys/stat.h>
-#include <stdio.h>
-
-#undef check
-#include "MainWindow.h"
+#include "mumble_pch.hpp"
 #include "Global.h"
+#include "MainWindow.h"
 
 char *os_url = NULL;
 char *os_lang = NULL;
@@ -103,8 +98,9 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	fflush(fConsole);
 
 	if (type == QtFatalMsg) {
-		CFStringRef csMsg = CFStringCreateWithCStringNoCopy(NULL, msg, kCFStringEncodingUTF8, NULL);
-		CFUserNotificationDisplayAlert(0, 0, NULL,  NULL, NULL, CFSTR("Mumble"), csMsg, CFSTR("OK"), NULL, NULL, NULL);
+		CFStringRef csMsg = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%s\n\nThe error has been logged. Please submit your log file to the Mumble project if the problem persists."), msg);
+		CFUserNotificationDisplayAlert(0, 0, NULL,  NULL, NULL, CFSTR("Mumble has encountered a fatal error"), csMsg, CFSTR("OK"), NULL, NULL, NULL);
+		CFRelease(csMsg);
 		exit(0);
 	}
 }
@@ -147,3 +143,18 @@ void os_init() {
 	/* Install Apple Event handler for GURL events. This intercepts any URLs set in Mumble's Info.plist. */
 	AEInstallEventHandler(kInternetEventClass, kAEGetURL, NewAEEventHandlerUPP(urlCallback), 0, false);
 }
+
+/*
+ * Error handlers for CELT and Speex.
+ */
+extern "C" {
+
+	void mumble_macx_celt_fatal(const char *str, const char *file, int line) {
+		qFatal("Fatal (internal) libcelt error in %s, line %d: %s", file, line, str);
+	}
+
+	void mumble_macx_speex_fatal(const char *str, const char *file, int line) {
+		qFatal("Fatal (internal) libspeex error in %s, line %d: %s", file, line, str);
+	}
+
+} /* extern "C" */

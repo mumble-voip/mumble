@@ -33,7 +33,6 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include "ConfigDialog.h"
 #include <mmreg.h>
 #include <strsafe.h>
 #include <mmdeviceapi.h>

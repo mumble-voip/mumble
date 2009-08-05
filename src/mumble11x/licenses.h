@@ -3,6 +3,8 @@ static const char *licenseMumble = "Copyright (C) 2005-2009, Thorvald Natvig <th
                                    "Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>\n"
                                    "Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>\n"
                                    "Copyright (C) 2008, Andreas Messer <andi@bupfen.de>\n"
+                                   "Copyright (C) 2007, Trenton Schulz\n"
+                                   "Copyright (C) 2008-2009, Stefan Hacker <dd0t@users.sourceforge.net>\n"
                                    "\n"
                                    "All rights reserved.\n"
                                    "\n"

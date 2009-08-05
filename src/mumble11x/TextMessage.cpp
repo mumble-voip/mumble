@@ -41,6 +41,42 @@ void TextMessage::on_qcbRawMessage_stateChanged(int) {
 	on_qteEdit_textChanged();
 }
 
+QString TextMessage::autoFormat(QString qsPlain) {
+	QRegExp qr;
+	qr.setMinimal(true);
+	qr.setPatternSyntax(QRegExp::RegExp2);
+	qr.setCaseSensitivity(Qt::CaseInsensitive);
+
+	qr.setPattern(QLatin1String("[\\r\\n]+"));
+	qsPlain.replace(qr, QLatin1String("<br />"));
+
+	qr.setPattern(QLatin1String("\\*(\\w+)\\*"));
+	qsPlain.replace(qr, QLatin1String("<b>\\1</b>"));
+
+	qr.setPattern(QLatin1String("\"([^\"]+)\""));
+	qsPlain.replace(qr, QLatin1String("\"<i>\\1</i>\""));
+
+	qr.setPattern(QLatin1String("[a-z]+://[^ <$]*"));
+	qr.setMinimal(false);
+
+	int idx = 0;
+	do {
+		idx = qr.indexIn(qsPlain, idx);
+		if (idx >= 0) {
+			QString url = qr.capturedTexts().at(0);
+			QUrl u(url);
+			if (u.isValid()) {
+				int len = qr.matchedLength();
+				QString replacement = QString::fromLatin1("<a href=\"%1\">%1</a>").arg(url);
+				qsPlain.replace(idx, len, replacement);
+				idx += replacement.length();
+			} else {
+				idx++;
+			}
+		}
+	} while (idx >= 0);
+	return qsPlain;
+}
 void TextMessage::on_qteEdit_textChanged() {
 	qsRep = qteEdit->toPlainText();
 
@@ -49,39 +85,7 @@ void TextMessage::on_qteEdit_textChanged() {
 	}
 
 	if (! Qt::mightBeRichText(qsRep) && !qcbRawMessage->isChecked())  {
-		QRegExp qr;
-		qr.setMinimal(true);
-		qr.setPatternSyntax(QRegExp::RegExp2);
-		qr.setCaseSensitivity(Qt::CaseInsensitive);
-
-		qr.setPattern(QLatin1String("[\\r\\n]+"));
-		qsRep.replace(qr, QLatin1String("<br />"));
-
-		qr.setPattern(QLatin1String("\\*(\\w+)\\*"));
-		qsRep.replace(qr, QLatin1String("<b>\\1</b>"));
-
-		qr.setPattern(QLatin1String("\"([^\"]+)\""));
-		qsRep.replace(qr, QLatin1String("\"<i>\\1</i>\""));
-
-		qr.setPattern(QLatin1String("[a-z]+://[^ <$]*"));
-		qr.setMinimal(false);
-
-		int idx = 0;
-		do {
-			idx = qr.indexIn(qsRep, idx);
-			if (idx >= 0) {
-				QString url = qr.capturedTexts().at(0);
-				QUrl u(url);
-				if (u.isValid()) {
-					int len = qr.matchedLength();
-					QString replacement = QString::fromLatin1("<a href=\"%1\">%1</a>").arg(url);
-					qsRep.replace(idx, len, replacement);
-					idx += replacement.length();
-				} else {
-					idx++;
-				}
-			}
-		} while (idx >= 0);
+		qsRep = autoFormat(qsRep);
 	}
 
 	qtbPreview->setHtml(qsRep);

@@ -33,57 +33,34 @@
 
 #include "mumble_pch.hpp"
 #include "ui_ConfigDialog.h"
+#include "ConfigWidget.h"
 #include "Settings.h"
-
-class ConfigWidget : public QWidget {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ConfigWidget)
-	protected:
-		void loadSlider(QSlider *, int);
-		void loadCheckBox(QAbstractButton *, bool);
-		void loadComboBox(QComboBox *, int);
-	signals:
-		void intSignal(int);
-	public:
-		Settings &s;
-		ConfigWidget(Settings &st);
-		virtual QString title() const = 0;
-		virtual QIcon icon() const;
-	public slots:
-		virtual void accept() const;
-		virtual void save() const = 0;
-		virtual void load(const Settings &r) = 0;
-		virtual bool expert(bool) = 0;
-};
-
-typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);
-
-class ConfigRegistrar {
-		friend class ConfigDialog;
-	private:
-		Q_DISABLE_COPY(ConfigRegistrar)
-	protected:
-		int iPriority;
-		static QMap<int, ConfigWidgetNew> *c_qmNew;
-	public:
-		ConfigRegistrar(int priority, ConfigWidgetNew n);
-		~ConfigRegistrar();
-};
 
 class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ConfigDialog)
 	protected:
-		QHash<QListWidgetItem *, ConfigWidget *> qhWidgets;
 		QHash<ConfigWidget *, QWidget *> qhPages;
 		QMap<unsigned int, ConfigWidget *> qmWidgets;
 		void addPage(ConfigWidget *aw, unsigned int idx);
 		Settings s;
+
 	public:
 		ConfigDialog(QWidget *p = NULL);
 		~ConfigDialog();
+#ifdef Q_OS_MAC
+	protected:
+		ConfigWidget *cwCurrentWidget;
+		void setCurrentWidget(ConfigWidget *);
+		ConfigWidget *currentWidget();
+
+		void setupMacToolbar(bool expert);
+		void removeMacToolbar();
+
+	public:
+		void on_widgetSelected(ConfigWidget *);
+#endif
 	public slots:
 		void on_pageButtonBox_clicked(QAbstractButton *);
 		void on_dialogButtonBox_clicked(QAbstractButton *);
@@ -93,6 +70,5 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 };
 
 #else
-class ConfigWidget;
 class ConfigDialog;
 #endif

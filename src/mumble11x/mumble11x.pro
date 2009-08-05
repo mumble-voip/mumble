@@ -3,8 +3,8 @@ include(../../compiler.pri)
 TEMPLATE	= app
 QT		*= network sql opengl xml
 TARGET		= mumble11x
-HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h
-SOURCES		= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp
+HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h ConfigWidget.h
+SOURCES		= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp ConfigWidget.cpp
 SOURCES *= ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp
 HEADERS *= Player.h  Channel.h ACL.h Connection.h Group.cpp
 SOURCES *= Message.cpp Player.cpp Channel.cpp ACL.cpp Connection.cpp
@@ -15,10 +15,13 @@ FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.u
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 
+MUMBLE_COPY = ASIOInput.h ASIOInput.cpp DirectSound.h DirectSound.cpp WASAPI.h WASAPI.cpp AudioStats.h AudioStats.cpp AudioStats.ui ConfigDialog.h ConfigDialog.cpp ConfigDialog.ui DBus.h GlobalShortcut_win.cpp GlobalShortcut_win.h licenses.h mumble_pch.hpp os_macx.cpp smallft.h smallft.cpp TextMessage.h TextMessage.cpp TextMessage.ui TextToSpeech.h TextToSpeech_win.cpp Usage.h Usage.cpp VersionCheck.h VersionCheck.cpp ViewCert.h ViewCert.cpp ConfigWidget.h ConfigWidget.cpp
+
 VERSION		= 1.1.8
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=1.1.8
 DEFINES 	*= MUMBLE_VERSION="1.1.x"
+DEFINES		*= COMPAT_CLIENT
 
 INCLUDEPATH	+= ..
 
@@ -82,7 +85,6 @@ unix {
 
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
-  HAVE_XEVIE=$$system(pkg-config --modversion --silence-errors xevie)
 
   !isEmpty(HAVE_PORTAUDIO):!CONFIG(no-portaudio) {
     CONFIG *= portaudio
@@ -119,6 +121,10 @@ unix {
 
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
+  }
+
+  !macx {
+    LIBS *= -lXi
   }
 
   macx {
@@ -184,11 +190,6 @@ speechd {
 	LIBS *= -lspeechd
 }
 
-xevie {
-	DEFINES *= USE_XEVIE
-	PKGCONFIG *= xevie
-}
-
 directsound {
 	DEFINES *= USE_DIRECTSOUND
 	HEADERS	*= DirectSound.h
@@ -209,7 +210,7 @@ DEFINES *= NO_UPDATE_CHECK
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-	QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja_jp.qm
+	QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja_JP.qm
 
 	copytrans.output = ${QMAKE_FILE_NAME}
 	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
@@ -227,3 +228,11 @@ lrel.input = TRANSLATIONS
 lrel.CONFIG *= no_link target_predeps
 
 QMAKE_EXTRA_COMPILERS *= lrel
+
+winsymlink.output = ${QMAKE_FILE_NAME}
+winsymlink.commands = $${QMAKE_COPY} ../mumble/${QMAKE_FILE_NAME} .
+winsymlink.input = MUMBLE_COPY
+winsymlink.depends = ../mumble/${QMAKE_FILE_NAME}
+winsymlink.CONFIG *= no_link target_predeps
+
+QMAKE_EXTRA_COMPILERS *= winsymlink

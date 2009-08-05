@@ -33,7 +33,6 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include "ConfigDialog.h"
 #include <alsa/asoundlib.h>
 
 class ALSAAudioOutput;

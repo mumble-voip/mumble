@@ -60,8 +60,10 @@ while (my $pro = shift @pro) {
       my ($var,$value)=(lc $1,$2);
       switch ($var) {
         case "version" {
-          croak "Versions don't match" if (defined($ver) && ($ver ne $value));
-          $ver=$value;
+          if ($basedir !~ /mumble11x/) {
+            croak "Versions don't match" if (defined($ver) && ($ver ne $value));
+            $ver=$value;
+          }
         }
         case "vpath" {
           push @vpath,map { "$basedir$_/"} split(/\s/, $value);

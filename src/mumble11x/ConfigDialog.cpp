@@ -33,59 +33,6 @@
 #include "AudioOutput.h"
 #include "Global.h"
 
-QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;
-
-ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {
-	if (! c_qmNew)
-		c_qmNew = new QMap<int, ConfigWidgetNew>();
-	iPriority = priority;
-	c_qmNew->insert(priority,n);
-}
-
-ConfigRegistrar::~ConfigRegistrar() {
-	c_qmNew->remove(iPriority);
-}
-
-ConfigWidget::ConfigWidget(Settings &st) : s(st) {
-}
-
-QIcon ConfigWidget::icon() const {
-	return qApp->windowIcon();
-}
-
-void ConfigWidget::accept() const {
-}
-
-void ConfigWidget::loadSlider(QSlider *slider, int v) {
-	if (v != slider->value()) {
-		slider->setValue(v);
-	} else {
-		connect(this, SIGNAL(intSignal(int)), slider, SIGNAL(valueChanged(int)));
-		emit intSignal(v);
-		disconnect(SIGNAL(intSignal(int)));
-	}
-}
-
-void ConfigWidget::loadCheckBox(QAbstractButton *c, bool v) {
-	if (v != c->isChecked()) {
-		c->setChecked(v);
-	} else {
-		connect(this, SIGNAL(intSignal(int)), c, SIGNAL(stateChanged(int)));
-		emit intSignal(v ? 1 : 0);
-		disconnect(SIGNAL(intSignal(int)));
-	}
-}
-
-void ConfigWidget::loadComboBox(QComboBox *c, int v) {
-	if (c->currentIndex() != v) {
-		c->setCurrentIndex(v);
-	} else {
-		connect(this, SIGNAL(intSignal(int)), c, SIGNAL(currentIndexChanged(int)));
-		emit intSignal(v);
-		disconnect(SIGNAL(intSignal(int)));
-	}
-}
-
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 
@@ -123,7 +70,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	QPushButton *restoreButton = pageButtonBox->button(QDialogButtonBox::RestoreDefaults);
 	restoreButton->setToolTip(tr("Restore defaults for current page"));
-	restoreButton->setWhatsThis(tr("This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.<br />"
+	restoreButton->setWhatsThis(tr("This button will restore the settings for the current page only to their defaults. Other pages will not be changed.<br />"
 	                               "To restore all settings to their defaults, you will have to use this button on every page."
 	                              ));
 
@@ -244,7 +191,6 @@ void ConfigDialog::apply() {
 
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
-	g.iAltSpeak = 0;
 }
 
 void ConfigDialog::accept() {

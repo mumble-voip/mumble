@@ -50,6 +50,7 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 
 GlobalShortcutWin::GlobalShortcutWin() {
 	pDI = NULL;
+	uiHardwareDevices = 0;
 	moveToThread(this);
 	start(QThread::LowestPriority);
 }
@@ -76,11 +77,11 @@ void GlobalShortcutWin::run() {
 	while (! g.mw)
 		this->msleep(20);
 
-	pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ALLDEVICES);
-
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
+#ifdef QT_NO_DEBUG
 	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
 	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+#endif
 
 	timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
@@ -178,6 +179,13 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	id->guid = pdidi->guidInstance;
 	id->vguid = QVariant(QUuid(id->guid).toString());
 
+	foreach(InputDevice *dev, cbgsw->qhInputDevices) {
+		if (dev->guid == id->guid) {
+			delete id;
+			return DIENUM_CONTINUE;
+		}
+	}
+
 	if (FAILED(hr = cbgsw->pDI->CreateDevice(pdidi->guidInstance, &id->pDID, NULL)))
 		qFatal("GlobalShortcutWin: CreateDevice: %lx", hr);
 
@@ -230,13 +238,19 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
 		id->pDID->Release();
-		delete(id);
+		delete id;
 	}
 
 	return DIENUM_CONTINUE;
 }
 
 void GlobalShortcutWin::timeTicked() {
+	if (g.mw->uiNewHardware != uiHardwareDevices) {
+		uiHardwareDevices = g.mw->uiNewHardware;
+
+		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ATTACHEDONLY);
+	}
+
 	if (bNeedRemap)
 		remap();
 
@@ -245,7 +259,24 @@ void GlobalShortcutWin::timeTicked() {
 		DWORD   dwItems = DX_SAMPLE_BUFFER_SIZE;
 		HRESULT hr;
 
-		id->pDID->Acquire();
+		hr = id->pDID->Acquire();
+
+		switch (hr) {
+			case DI_OK:
+			case S_FALSE:
+				break;
+			case DIERR_UNPLUGGED:
+			case DIERR_GENERIC:
+				qWarning("Removing device %s", qPrintable(QUuid(id->guid).toString()));
+				id->pDID->Release();
+				qhInputDevices.remove(id->guid);
+				delete id;
+				return;
+			case DIERR_OTHERAPPHASPRIO:
+				continue;
+			default:
+				break;
+		}
 		id->pDID->Poll();
 
 		hr = id->pDID->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0);
