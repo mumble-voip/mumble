@@ -15,8 +15,6 @@ FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.u
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 
-MUMBLE_COPY = ASIOInput.h ASIOInput.cpp DirectSound.h DirectSound.cpp WASAPI.h WASAPI.cpp AudioStats.h AudioStats.cpp AudioStats.ui ConfigDialog.h ConfigDialog.cpp ConfigDialog.ui DBus.h GlobalShortcut_win.cpp GlobalShortcut_win.h licenses.h mumble_pch.hpp os_macx.cpp smallft.h smallft.cpp TextMessage.h TextMessage.cpp TextMessage.ui TextToSpeech.h TextToSpeech_win.cpp Usage.h Usage.cpp VersionCheck.h VersionCheck.cpp ViewCert.h ViewCert.cpp ConfigWidget.h ConfigWidget.cpp
-
 VERSION		= 1.1.8
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=1.1.8
@@ -228,11 +226,3 @@ lrel.input = TRANSLATIONS
 lrel.CONFIG *= no_link target_predeps
 
 QMAKE_EXTRA_COMPILERS *= lrel
-
-winsymlink.output = ${QMAKE_FILE_NAME}
-winsymlink.commands = $${QMAKE_COPY} ../mumble/${QMAKE_FILE_NAME} .
-winsymlink.input = MUMBLE_COPY
-winsymlink.depends = ../mumble/${QMAKE_FILE_NAME}
-winsymlink.CONFIG *= no_link target_predeps
-
-QMAKE_EXTRA_COMPILERS *= winsymlink

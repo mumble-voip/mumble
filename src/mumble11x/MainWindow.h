@@ -97,6 +97,10 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void msgBox(QString msg);
 		void setOnTop(bool top);
 		void updateTrayIcon();
+
+#ifdef Q_OS_WIN
+		unsigned int uiNewHardware;
+#endif
 	protected:
 		Usage uUsage;
 		QTimer *qtReconnect;
