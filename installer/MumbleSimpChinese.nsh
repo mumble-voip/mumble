@@ -24,11 +24,11 @@ LangString INSTALL_SERVER ${LANG_SIMPCHINESE} "仅服务器端"
 LangString MUMBLE_SEC_MUMBLE ${LANG_SIMPCHINESE} "Mumble（客户端）"
 LangString MUMBLE_SEC_MUMBLE11X ${LANG_SIMPCHINESE} "Mumble（与老版本兼容的客户端）"
 LangString MUMBLE_SEC_MURMUR ${LANG_SIMPCHINESE} "Murmur（服务器端）"
-LangString MUMBLE_SEC_DEBUG ${LANG_SIMPCHINESE} "调试文件"
+LangString MUMBLE_SEC_BONJOUR ${LANG_SIMPCHINESE} "Bonjour for Windows"
 LangString DESC_SectionMumble ${LANG_SIMPCHINESE} "该 Mumble 客户端用于连接到一个服务器。"
 LangString DESC_SectionMumble11X ${LANG_SIMPCHINESE} "该 Mumble 客户端用于连接到一个老的服务器。"
 LangString DESC_SectionMurmur ${LANG_SIMPCHINESE} "Mumble 服务器端包含所有您运行个人服务器所必须的文件。"
-LangString DESC_SectionDebug ${LANG_SIMPCHINESE} "Mumble 和 Murmur 的符号文件。仅用于调试。"
+LangString DESC_SectionBonjour ${LANG_SIMPCHINESE} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_SIMPCHINESE} "Mumble 和 Murmur"

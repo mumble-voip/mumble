@@ -9,6 +9,14 @@ LangString MUMBLE_NO_SSE ${LANG_POLISH} "Mumble requires SSE, which is a feature
 LangString MUMBLE_NO_XP ${LANG_POLISH} "Mumble will only work on Windows XP SP2 or newer. An older and incompatible operating system was detected, and Mumble is unlikely to work. Do you still wish to install Mumble?"
 LangString MUMBLE_START ${LANG_POLISH} "Start Mumble"
 
+; For the start menu
+LangString MUMBLE_README_LNK ${LANG_POLISH} "Plik Czytaj To"
+LangString MUMBLE_LICENSE_LNK ${LANG_POLISH} "Licencja Mumble"
+LangString MUMBLE_COMPAT_LNK ${LANG_POLISH} "Mumble (Kompatybilny Wstecz)"
+LangString MUMBLE_QT_LNK ${LANG_POLISH} "Licencja Qt"
+LangString MUMBLE_SPEEX_LNK ${LANG_POLISH} "Licencja Speex"
+LangString MUMBLE_UNINSTALL_LNK ${LANG_POLISH} "Deinstalacja Mumble"
+
 ; Install types
 LangString INSTALL_FULL ${LANG_POLISH} "Full"
 LangString INSTALL_CLIENT ${LANG_POLISH} "Client only"
@@ -18,21 +26,11 @@ LangString INSTALL_SERVER ${LANG_POLISH} "Server only"
 LangString MUMBLE_SEC_MUMBLE ${LANG_POLISH} "Mumble (client)"
 LangString MUMBLE_SEC_MUMBLE11X ${LANG_POLISH} "Mumble (klient kompatybilny wstecz)"
 LangString MUMBLE_SEC_MURMUR ${LANG_POLISH} "Murmur (server)"
-LangString MUMBLE_SEC_DEBUG ${LANG_POLISH} "Debug files"
 LangString MUMBLE_SEC_BONJOUR ${LANG_POLISH} "Bonjour dla Windows"
 LangString DESC_SectionMumble ${LANG_POLISH} "The Mumble client, which you will need to connect to a server."
 LangString DESC_SectionMumble11X ${LANG_POLISH} "Klient Mumble pozwalający na połączenia do starszych serwerów."
 LangString DESC_SectionMurmur ${LANG_POLISH} "The server for Mumble. Includes everything needed to run your own server."
-LangString DESC_SectionDebug ${LANG_POLISH} "Symbol files for Mumble and Murmur. Only needed for debugging."
 LangString DESC_SectionBonjour ${LANG_POLISH} "Bonjour pozwala na automatyczne rozgłaszanie i wykrywanie serwerów Murmur w sieci LAN. Zaznaczając tę opcję instalator Bonjour zostanie pobrany i uruchomiony."
-
-; For the start menu
-LangString MUMBLE_README_LNK ${LANG_POLISH} "Plik Czytaj To"
-LangString MUMBLE_LICENSE_LNK ${LANG_POLISH} "Licencja Mumble"
-LangString MUMBLE_COMPAT_LNK ${LANG_POLISH} "Mumble (Kompatybilny Wstecz)"
-LangString MUMBLE_QT_LNK ${LANG_POLISH} "Licencja Qt"
-LangString MUMBLE_SPEEX_LNK ${LANG_POLISH} "Licencja Speex"
-LangString MUMBLE_UNINSTALL_LNK ${LANG_POLISH} "Deinstalacja Mumble"
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_POLISH} "Mumble i Murmur"

@@ -24,12 +24,10 @@ LangString INSTALL_SERVER ${LANG_ENGLISH} "Server only"
 LangString MUMBLE_SEC_MUMBLE ${LANG_ENGLISH} "Mumble (client)"
 LangString MUMBLE_SEC_MUMBLE11X ${LANG_ENGLISH} "Mumble (backwards compatible client)"
 LangString MUMBLE_SEC_MURMUR ${LANG_ENGLISH} "Murmur (server)"
-LangString MUMBLE_SEC_DEBUG ${LANG_ENGLISH} "Debug files"
 LangString MUMBLE_SEC_BONJOUR ${LANG_ENGLISH} "Bonjour for Windows"
 LangString DESC_SectionMumble ${LANG_ENGLISH} "The Mumble client, which you will need to connect to a server."
 LangString DESC_SectionMumble11X ${LANG_ENGLISH} "The Mumble client for connecting to older servers."
 LangString DESC_SectionMurmur ${LANG_ENGLISH} "The server for Mumble. Includes everything needed to run your own server."
-LangString DESC_SectionDebug ${LANG_ENGLISH} "Symbol files for Mumble and Murmur. Only needed for debugging."
 LangString DESC_SectionBonjour ${LANG_ENGLISH} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
 
 ; Uninstall sections

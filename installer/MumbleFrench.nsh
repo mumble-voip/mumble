@@ -8,6 +8,14 @@ LangString MUMBLE_NO_SSE ${LANG_FRENCH} "Mumble a besoin des instructions SSE, f
 LangString MUMBLE_NO_XP ${LANG_FRENCH} "Mumble fonctionne seulement avec Windows XP SP2 ou plus récent. Un système d'exploitation plus ancien et incompatible a été détecté, Mumble risque donc de ne pas fonctionner. Désirez-vous quand même installer Mumble?"
 LangString MUMBLE_START ${LANG_FRENCH} "Démarrer Mumble"
 
+; For the start menu
+LangString MUMBLE_README_LNK ${LANG_FRENCH} "Fichier README Mumble"
+LangString MUMBLE_LICENSE_LNK ${LANG_FRENCH} "Licence Mumble"
+LangString MUMBLE_QT_LNK ${LANG_FRENCH} "Licence Qt"
+LangString MUMBLE_SPEEX_LNK ${LANG_FRENCH} "Licence Speex"
+LangString MUMBLE_UNINSTALL_LNK ${LANG_FRENCH} "Désinstallation de Mumble"
+LangString MUMBLE_COMPAT_LNK ${LANG_FRENCH} "Mumble (Backwards Compatible)"
+
 ; Install types
 LangString INSTALL_FULL ${LANG_FRENCH} "Complète"
 LangString INSTALL_CLIENT ${LANG_FRENCH} "Client seulement"
@@ -15,18 +23,13 @@ LangString INSTALL_SERVER ${LANG_FRENCH} "Server seulement"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_FRENCH} "Mumble (client)"
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_FRENCH} "Mumble (backwards compatible client)"
 LangString MUMBLE_SEC_MURMUR ${LANG_FRENCH} "Murmur (server)"
-LangString MUMBLE_SEC_DEBUG ${LANG_FRENCH} "Fichier Debug"
+LangString MUMBLE_SEC_BONJOUR ${LANG_FRENCH} "Bonjour for Windows"
 LangString DESC_SectionMumble ${LANG_FRENCH} "Le client Mumble, nécessaire pour vous connecter à un serveur."
+LangString DESC_SectionMumble11X ${LANG_FRENCH} "The Mumble client for connecting to older servers."
 LangString DESC_SectionMurmur ${LANG_FRENCH} "Le serveur pour Mumble. Inclus tout ce dont vous avez besoin pour installer votre propre serveur."
-LangString DESC_SectionDebug ${LANG_FRENCH} "Fichier de symboles Mumble and Murmur. Nécessaire seulement pour debugger."
-
-; For the start menu
-LangString MUMBLE_README_LNK ${LANG_FRENCH} "Fichier README Mumble"
-LangString MUMBLE_LICENSE_LNK ${LANG_FRENCH} "Licence Mumble"
-LangString MUMBLE_QT_LNK ${LANG_FRENCH} "Licence Qt"
-LangString MUMBLE_SPEEX_LNK ${LANG_FRENCH} "Licence Speex"
-LangString MUMBLE_UNINSTALL_LNK ${LANG_FRENCH} "Désinstallation de Mumble"
+LangString DESC_SectionBonjour ${LANG_FRENCH} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_FRENCH} "Mumble et Murmur"
