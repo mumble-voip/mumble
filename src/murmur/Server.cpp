@@ -896,6 +896,8 @@ void Server::sslError(const QList<QSslError> &errors) {
 			case QSslError::SelfSignedCertificateInChain:
 			case QSslError::UnableToGetLocalIssuerCertificate:
 			case QSslError::HostNameMismatch:
+			case QSslError::CertificateNotYetValid:
+			case QSslError::CertificateExpired:
 				u->bVerified = false;
 				break;
 			default:
