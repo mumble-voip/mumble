@@ -760,7 +760,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 	qmUser->addAction(qaUserComment);
 	qmUser->addAction(qaUserTextMessage);
 
-	if (p && (p->iId < 0) && (g.pPermissions & (ChanACL::Register | ChanACL::Write))) {
+	if (p && (p->iId < 0) && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaUserRegister);
 	}
@@ -861,7 +861,14 @@ void MainWindow::on_qaUserRegister_triggered() {
 
 	unsigned int session = p->uiSession;
 
-	if (QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
+	QMessageBox::StandardButton result;
+
+	if (session == g.uiSession)
+		result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+	else
+		result = QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+
+	if (result == QMessageBox::Yes) {
 		p = ClientUser::get(session);
 		if (! p)
 			return;
