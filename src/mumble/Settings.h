@@ -182,6 +182,7 @@ struct Settings {
 	int iMaxImageWidth;
 	int iMaxImageHeight;
 	KeyPair kpCertificate;
+	bool bSuppressIdentity;
 
 	// Nonsaved
 	LoopMode lmLoopMode;

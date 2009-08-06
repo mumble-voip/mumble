@@ -215,6 +215,7 @@ Settings::Settings() {
 	iMaxImageSize = 50 * 1024; // Allow 50KiB
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
 	iMaxImageHeight = 1024;
+	bSuppressIdentity = false;
 
 #if defined(AUDIO_TEST)
 	lmLoopMode = Local;
@@ -353,6 +354,7 @@ void Settings::load() {
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");
 	SAVELOAD(bReconnect, "net/reconnect");
+	SAVELOAD(bSuppressIdentity, "net/suppress");
 	LOADENUM(ptProxyType, "net/proxytype");
 	SAVELOAD(qsProxyHost, "net/proxyhost");
 	SAVELOAD(usProxyPort, "net/proxyport");

@@ -1729,7 +1729,8 @@ void MainWindow::serverDisconnected(QString reason) {
 				break;
 		}
 		if (ok && matched) {
-			Database::setPassword(host, port, uname, pw);
+			if (! g.s.bSuppressIdentity)
+				Database::setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			g.sh->setConnectionInfo(host, port, uname, pw);
 			on_Reconnect_timeout();
