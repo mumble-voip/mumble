@@ -237,6 +237,47 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BLOB, `mask` INTEGER, `name` TEXT, `hash` TEXT, `reason` TEXT, `start` DATE, `duration` INTEGER)");
 			SQLDO("CREATE TRIGGER `%1bans_del_server` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1bans` WHERE `server_id` = old.`server_id`; END;");
 		} else {
+			if (version > 0) {
+				typedef QPair<QString, QString> qsp;
+				QList<qsp> qlForeignKeys;
+				QList<qsp> qlIndexes;
+
+				SQLPREP("SELECT TABLE_NAME, CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA=? AND CONSTRAINT_TYPE='FOREIGN KEY'");
+				query.addBindValue(Meta::mp.qsDatabase);
+				SQLEXEC();
+				while (query.next())
+					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
+
+				foreach(const qsp &key, qlForeignKeys) {
+					qWarning() << key.first << key.second;
+					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP FOREIGN KEY `%2`").arg(key.first).arg(key.second), true);
+				}
+
+
+				SQLPREP("SELECT TABLE_NAME, CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA=? AND CONSTRAINT_TYPE='UNIQUE'");
+				query.addBindValue(Meta::mp.qsDatabase);
+				SQLEXEC();
+				while (query.next())
+					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
+
+				foreach(const qsp &key, qlIndexes) {
+					qWarning() << key.first << key.second;
+					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
+				}
+
+				qlIndexes.clear();
+
+				SQLPREP("SELECT DISTINCT TABLE_NAME, INDEX_NAME FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA=? AND INDEX_NAME != 'PRIMARY';");
+				query.addBindValue(Meta::mp.qsDatabase);
+				SQLEXEC();
+				while (query.next())
+					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
+
+				foreach(const qsp &key, qlIndexes) {
+					qWarning() << key.first << key.second;
+					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
+				}
+			}
 			SQLDO("CREATE TABLE `%1servers`(`server_id` INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
 
 			SQLDO("CREATE TABLE `%1slog`(`server_id` INTEGER NOT NULL, `msg` TEXT, `msgtime` TIMESTAMP) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
@@ -1186,8 +1227,7 @@ void Server::readChannelPrivs(Channel *c) {
 		const QString &value = query.value(1).toString();
 		if (key == "description") {
 			c->qsDesc = value;
-		}
-		else if (key == "position") {
+		} else if (key == "position") {
 			c->iPosition = QVariant(value).toInt(); // If the conversion fails it'll return the default value 0
 		}
 	}

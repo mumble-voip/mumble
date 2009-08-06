@@ -200,6 +200,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 void Server::startThread() {
 	if (! isRunning()) {
+		log("Starting voice thread");
 		bRunning = true;
 		start(QThread::HighestPriority);
 #ifdef Q_OS_LINUX
@@ -222,6 +223,7 @@ void Server::startThread() {
 void Server::stopThread() {
 	bRunning = false;
 	if (isRunning()) {
+		log("Ending voice thread");
 #ifdef Q_OS_UNIX
 		unsigned char val = 0;
 		::write(aiNotify[1], &val, 1);
@@ -412,7 +414,6 @@ void Server::customEvent(QEvent *evt) {
 }
 
 void Server::run() {
-
 	qint32 len;
 #if defined(__LP64__)
 	char encbuff[512+8];
@@ -452,13 +453,11 @@ void Server::run() {
 
 	++nfds;
 
-	log("Starting voice thread");
-
 	while (bRunning) {
 #ifdef Q_OS_UNIX
 		int pret = poll(fds, nfds, -1);
 		if (pret <= 0) {
-			log("poll failure");
+			qCritical("poll failure");
 			bRunning = false;
 			break;
 		}
@@ -473,7 +472,7 @@ void Server::run() {
 		for (int i=0;i<nfds-1;++i) {
 			if (fds[i].revents) {
 				if (fds[i].revents & (POLLHUP | POLLERR | POLLNVAL)) {
-					log("poll event failure");
+					qCritical("poll event failure");
 					bRunning = false;
 					break;
 				}
@@ -487,7 +486,7 @@ void Server::run() {
 					break;
 				}
 				if (ret == WAIT_FAILED) {
-					log("UDP wait failed");
+					qCritical("UDP wait failed");
 					bRunning = false;
 					break;
 				}
@@ -574,7 +573,6 @@ void Server::run() {
 		CloseHandle(events[i]);
 	}
 #endif
-	log("Ending voice thread");
 }
 
 bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsigned int len) {
