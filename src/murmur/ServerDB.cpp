@@ -747,6 +747,8 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 		if (! storedpw.isEmpty() && (storedpw == hashedpw)) {
 			name = query.value(1).toString();
 			res = query.value(0).toInt();
+		} else if (query.value(0).toInt() == 0) {
+			return -1;
 		}
 	}
 
