@@ -249,7 +249,6 @@ ServerDB::ServerDB() {
 					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach(const qsp &key, qlForeignKeys) {
-					qWarning() << key.first << key.second;
 					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP FOREIGN KEY `%2`").arg(key.first).arg(key.second), true);
 				}
 
@@ -261,7 +260,6 @@ ServerDB::ServerDB() {
 					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach(const qsp &key, qlIndexes) {
-					qWarning() << key.first << key.second;
 					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
 				}
 
@@ -274,7 +272,6 @@ ServerDB::ServerDB() {
 					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach(const qsp &key, qlIndexes) {
-					qWarning() << key.first << key.second;
 					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
 				}
 			}
