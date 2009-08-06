@@ -170,7 +170,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	def->bInherited = true;
 	def->iUserId = -1;
 	def->qsGroup = QLatin1String("all");
-	def->pAllow = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper;
+	def->pAllow = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::SelfRegister;
 	def->pDeny = (~def->pAllow) & ChanACL::All;
 
 	qlACLs << def;

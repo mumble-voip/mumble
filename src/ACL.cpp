@@ -92,7 +92,7 @@ bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACL
 	}
 
 	// Default permissions
-	Permissions def = Traverse | Enter | Speak | Whisper;
+	Permissions def = Traverse | Enter | Speak | Whisper | TextMessage | SelfRegister;
 
 	granted = def;
 
@@ -188,7 +188,9 @@ QString ChanACL::whatsThis(Perm p) {
 		case Ban:
 			return tr("This represents the permission to permanently remove users from the server.");
 		case Register:
-			return tr("This represents the permission to register new users on the server.");
+			return tr("This represents the permission to register and unregister users on the server.");
+		case SelfRegister:
+			return tr("This represents the permission to register oneself on the server.");
 		default:
 			break;
 	}
@@ -238,6 +240,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Ban");
 		case Register:
 			return tr("Register User");
+		case SelfRegister:
+			return tr("Register Self");
 		default:
 			break;
 	}

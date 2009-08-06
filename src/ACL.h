@@ -60,9 +60,10 @@ class ChanACL : public QObject {
 			Kick = 0x10000,
 			Ban = 0x20000,
 			Register = 0x40000,
+			SelfRegister = 0x80000,
 
 			Cached = 0x8000000,
-			All = 0x707ff
+			All = 0xf07ff
 		};
 
 		Q_DECLARE_FLAGS(Permissions, Perm)

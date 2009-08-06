@@ -412,8 +412,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_user_id()) {
-		if ((pDstServerUser->iId >= 0) || (pDstServerUser->qsHash.isEmpty()) || ! hasPermission(uSource, root, ChanACL::Register)) {
-			PERM_DENIED(uSource, root, ChanACL::Register);
+		ChanACL::Perm p = (uSource == pDstServerUser) ? ChanACL::SelfRegister : ChanACL::Register;
+		if ((pDstServerUser->iId >= 0) || (pDstServerUser->qsHash.isEmpty()) || ! hasPermission(uSource, root, p)) {
+			PERM_DENIED(uSource, root, p);
 			return;
 		}
 	}
