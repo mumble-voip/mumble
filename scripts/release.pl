@@ -171,7 +171,8 @@ foreach my $file ('LICENSE', sort keys %files) {
 my $gz=gzopen("mumble-${ver}.tar.gz", "w");
 $gz->gzwrite($tar->write());
 $gz->gzclose();
-
 $zip->writeToFileNamed("mumble-${ver}.zip");
 
 copy("mumble-${ver}.tar.gz", "../deb-mumble/tarballs/mumble_${ver}.orig.tar.gz");
+system("/usr/bin/gpg", "--armor", "--default-key", "DEBA6F3E", "--sign", "--detach-sign", "--output", "mumble-${ver}.tar.gz.sig", "mumble-${ver}.tar.gz");
+system("/usr/bin/scp", "mumble-${ver}.tar.gz", "mumble-${ver}.tar.gz.sig", "xeno\@mix.hive.no:WEB/mumble.hive.no/snapshot/");
