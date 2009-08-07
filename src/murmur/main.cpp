@@ -39,6 +39,7 @@
 #include "DBus.h"
 #include "Meta.h"
 #include "Version.h"
+#include "SSL.h"
 
 #ifdef Q_OS_UNIX
 #include "UnixMurmur.h"
@@ -260,8 +261,10 @@ int main(int argc, char **argv) {
 			qFatal("Password arguments must be last.");
 		}
 	}
+	
 
 	Meta::mp.read(inifile);
+	SSL::addSystemCA();
 
 #ifdef Q_OS_UNIX
 	unixhandler.setuid();
@@ -402,11 +405,11 @@ int main(int argc, char **argv) {
 #ifdef USE_ICE
 	IceStart();
 #endif
+
 	meta->getOSInfo();
 
 	int major, minor, patch;
 	QString strver;
-
 	meta->getVersion(major, minor, patch, strver);
 
 	qWarning("Murmur %d.%d.%d (%s) running on %s: %s: Booting servers", major, minor, patch, qPrintable(strver), qPrintable(meta->qsOS), qPrintable(meta->qsOSVersion));
