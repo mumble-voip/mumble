@@ -55,8 +55,8 @@ ServerHandler::ServerHandler() {
 
 	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
 	qWarning("OpenSSL Support: %d", QSslSocket::supportsSsl());
-	
-	SSL::addSystemCA();
+
+	MumbleSSL::addSystemCA();
 
 	QList<QSslCipher> pref;
 	foreach(QSslCipher c, QSslSocket::defaultCiphers()) {

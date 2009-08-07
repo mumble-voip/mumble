@@ -261,10 +261,10 @@ int main(int argc, char **argv) {
 			qFatal("Password arguments must be last.");
 		}
 	}
-	
+
 
 	Meta::mp.read(inifile);
-	SSL::addSystemCA();
+	MumbleSSL::addSystemCA();
 
 #ifdef Q_OS_UNIX
 	unixhandler.setuid();

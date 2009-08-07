@@ -31,7 +31,7 @@
 #ifndef _MUMBLE_SSL_H
 #define _MUMBLE_SSL_H
 
-class SSL {
+class MumbleSSL {
 	public:
 		static void addSystemCA();
 };

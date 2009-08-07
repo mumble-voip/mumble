@@ -31,8 +31,41 @@
 #include <QtNetwork>
 #include "SSL.h"
 
-void SSL::addSystemCA() {
-#if defined(Q_OS_UNIX)
+void MumbleSSL::addSystemCA() {
+#if defined(Q_OS_WIN)
+	QStringList qsl;
+	qsl << QLatin1String("Ca");
+	qsl << QLatin1String("Root");
+	qsl << QLatin1String("AuthRoot");
+	foreach(const QString &store, qsl) {
+		HCERTSTORE hCertStore;
+		PCCERT_CONTEXT pCertContext = NULL;
+
+		bool found = false;
+
+		hCertStore = CertOpenSystemStore(NULL, store.utf16());
+		if (! hCertStore) {
+			qWarning("SSL: Failed to open CA store %s", qPrintable(store));
+			continue;
+		}
+
+		while(pCertContext = CertEnumCertificatesInStore(hCertStore, pCertContext)) {
+			QByteArray qba(reinterpret_cast<const char *>(pCertContext->pbCertEncoded), pCertContext->cbCertEncoded);
+
+			QList<QSslCertificate> ql = QSslCertificate::fromData(qba, QSsl::Pem);
+			ql.append(QSslCertificate::fromData(qba, QSsl::Der));
+			if (! ql.isEmpty()) {
+				found = true;
+				QSslSocket::addDefaultCaCertificates(ql);
+			}
+		}
+		if (found)
+				qWarning("SSL: Added CA certificates from system store '%s'", qPrintable(store));
+
+		CertCloseStore(hCertStore, 0);
+	}
+
+#elif defined(Q_OS_UNIX)
 	QStringList qsl;
 
 	qsl << QLatin1String("/etc/pki/tls/certs/ca-bundle.crt");
@@ -43,11 +76,8 @@ void SSL::addSystemCA() {
 		if (f.exists() && f.open(QIODevice::ReadOnly)) {
 			QList<QSslCertificate> ql = QSslCertificate::fromDevice(&f, QSsl::Pem);
 			ql.append(QSslCertificate::fromDevice(&f, QSsl::Der));
-			foreach(const QSslCertificate &crt, ql) {
-				qWarning() << filename << crt.subjectInfo(QSslCertificate::CommonName);
-			}
 			if (! ql.isEmpty()) {
-				qWarning("Added CA certificates from %s", qPrintable(filename));
+				qWarning("SSL: Added CA certificates from '%s'", qPrintable(filename));
 				QSslSocket::addDefaultCaCertificates(ql);
 			}
 		}
@@ -57,7 +87,7 @@ void SSL::addSystemCA() {
 	QList<QSslCertificate> ql;
 	foreach(const QSslCertificate &crt, QSslSocket::defaultCaCertificates()) {
 		QByteArray digest = crt.digest(QCryptographicHash::Sha1);
-		if (! digests.contains(digest)) {
+		if (! digests.contains(digest) && crt.isValid()) {
 			ql << crt;
 			digests.insert(digest);
 		}

@@ -15,8 +15,6 @@ LANGUAGE	= C++
 FORMS =
 HEADERS *= Server.h Meta.h
 SOURCES *= main.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp RPC.cpp
-HEADERS	*= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../User.h ../Net.h
-SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Connection.cpp ../User.cpp ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp ../Net.cpp ../SSL.cpp
 
 DIST = DBus.h ServerDB.h ../../icons/murmur.ico Murmur.ice MurmurI.h MurmurIceWrapper.cpp
 PRECOMPILED_HEADER = murmur_pch.h
@@ -37,28 +35,17 @@ win32 {
   RC_FILE = murmur.rc
   CONFIG *= gui
   QT *= gui
-  LIBS	*= -lws2_32
   RESOURCES	*= murmur.qrc
   SOURCES *= Tray.cpp
   HEADERS *= Tray.h
-  INCLUDEPATH *= /dev/OpenSSL/include
-  LIBPATH *= /dev/OpenSSL/lib
-  LIBS *= -llibeay32 -luser32
-  LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
+  LIBS *= -luser32
 }
 
 unix {
-  UNAME=$$system(uname -s)
-  CONFIG *= link_pkgconfig
   contains(UNAME, Linux) {
     LIBS *= -lcap
   }
 
-  contains(UNAME, FreeBSD) {
-    LIBS *= -lcrypto
-  } else {
-    PKGCONFIG *= openssl
-  }
   HEADERS *= UnixMurmur.h
   SOURCES *= UnixMurmur.cpp
   TARGET = murmurd

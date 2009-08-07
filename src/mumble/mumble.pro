@@ -6,8 +6,6 @@ QT		*= network sql opengl xml svg
 TARGET		= mumble
 HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h Tokens.h CrashReporter.h UserView.h
 SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp Tokens.cpp CrashReporter.cpp UserView.cpp
-HEADERS	*= ../ACL.h ../Group.h ../Channel.h ../Connection.h ../User.h ../Net.h
-SOURCES *= ../ACL.cpp ../Group.cpp ../Channel.cpp ../Connection.cpp ../User.cpp ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp ../Net.cpp ../SSL.cpp
 SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_flags.qrc
@@ -67,8 +65,7 @@ win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
-  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1
-  LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
+  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1
 
   LIBPATH	*= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib /dev/libsndfile
   DEFINES	*= WIN32
@@ -85,8 +82,6 @@ win32 {
 }
 
 unix {
-  UNAME=$$system(uname -s)
-
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
 
