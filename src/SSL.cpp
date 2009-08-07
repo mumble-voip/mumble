@@ -30,6 +30,7 @@
 
 #include <QtNetwork>
 #include "SSL.h"
+#include "Version.h"
 
 void MumbleSSL::addSystemCA() {
 #if defined(Q_OS_WIN)
@@ -68,8 +69,12 @@ void MumbleSSL::addSystemCA() {
 #elif defined(Q_OS_UNIX)
 	QStringList qsl;
 
+#ifdef SYSTEM_CA_BUNDLE
+	qsl << QLatin1String(MUMTEXT(SYSTEM_CA_BUNDLE));
+#else
 	qsl << QLatin1String("/etc/pki/tls/certs/ca-bundle.crt");
 	qsl << QLatin1String("/etc/ssl/certs/ca-certificates.crt");
+#endif
 
 	foreach(const QString &filename, qsl) {
 		QFile f(filename);
