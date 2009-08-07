@@ -254,7 +254,7 @@ void CertWizard::on_qleEmail_textChanged(const QString &email) {
 }
 
 void CertWizard::on_qpbExportFile_clicked() {
-	QString fname = QFileDialog::getSaveFileName(this, tr("Select file to export certificate to"), qleExportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx);;All (*)"));
+	QString fname = QFileDialog::getSaveFileName(this, tr("Select file to export certificate to"), qleExportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx *.pkcs12);;All (*)"));
 	if (! fname.isNull()) {
 		QFileInfo fi(fname);
 		if (fi.suffix().isEmpty())
@@ -291,7 +291,7 @@ void CertWizard::on_qleExportFile_textChanged(const QString &text) {
 }
 
 void CertWizard::on_qpbImportFile_clicked() {
-	QString fname = QFileDialog::getOpenFileName(this, tr("Select file to import certificate from"), qleImportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx);;All (*)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Select file to import certificate from"), qleImportFile->text(), QLatin1String("PKCS12 (*.p12 *.pfx *.pkcs12);;All (*)"));
 	if (! fname.isNull()) {
 		qleImportFile->setText(QDir::toNativeSeparators(fname));
 	}
