@@ -1,9 +1,68 @@
+2009-08-08
+  Patrick Matthäi <pmatthaei@debian.org>
+    c957ff4  Spelling fix in ACLEditor
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c7cffde  Build protobuf earlier, so header is generated
+
+2009-08-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    203a125  Allow *.pkcs12 file extension for certificate import and
+	     export.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5b3c901  Allow specifying SYSTEM_CA_BUNDLE define to force CA path
+    6296282  Share a bit more of .pro files, and add win32 ca store
+    8159eec  Add system-installed CAs
+    b8dc011  GPG sign and upload source snapshots
+    7294099  Allow expired/not-yet-valid certificates as non-strong certs
+    d9a5206  Add cert-send/pw-store suppress option (nonsaved)
+
+2009-08-06
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    cab2850  Always require password for SuperUser
+    379f88b  Clientside selfregister
+    7a84624  Serverside SelfRegister
+    91c230f  Remove warnings when cleaning indexes
+    0b107aa  Clean out MySQL indexes and foreign keys on upgrade, and
+	     remove multithreaded logging
+
+2009-08-05
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a391d01  Add Message.h to tarball for 11x
+    e4eabb5  Dummy manpage for mumble11x
+    91c5176  Nmake can't handle self-dependencies, so give up and provide a
+	     shell script for the symlinks
+    585b0dd  Symlinks and ugly copy hacks. I want gitsymlink on win32.
+    e3261db  Mumble11x in source tree
+    36e2059  Mark email field in crashreporter as optional, so users aren't
+	     compelled to put bogus addresses there
+    1f52513  Update installation strings to default english ones
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    06d48b9  L4D, Gmod updates; DODS version bump
+    ae26954  TF2 build 3897
+
+2009-08-04
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d20e27e  Include celt in tarball
+    52c42bd  Mystery contexts
+
 2009-08-03
   Stefan Hacker <dd0t@users.sourceforge.net>
+    8835385  Tooltips and What's this for Add/Edit dialog. Saveload
+	     advanced cfg checkbox. Prevent root channel name change.
+    b78c706  Fix channel description loading.
+    2bfb54c  Display client version in tray tooltip
     af08aee  Do lookups with Channel::get()
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     018d5a1  Fix crash while trying to rename the root channel
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0cb7485  uniquie => unique
+    bbd9bfd  Clickable comment icons
+    e6b623e  Remove tempchannels on disconnect too
 
 2009-08-02
   Stefan Hacker <dd0t@users.sourceforge.net>

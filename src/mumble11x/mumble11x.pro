@@ -216,12 +216,12 @@ DEFINES *= NO_UPDATE_CHECK
 	copytrans.CONFIG *= no_link target_predeps
 
 	QMAKE_EXTRA_COMPILERS *= copytrans
-	
+
 	RESOURCES *= mumble_qt.qrc
 }
 
 lrel.output = ${QMAKE_FILE_BASE}.qm
-lrel.commands = $${QMAKE_LRELEASE} ${QMAKE_FILE_NAME} 
+lrel.commands = $${QMAKE_LRELEASE} ${QMAKE_FILE_NAME}
 lrel.input = TRANSLATIONS
 lrel.CONFIG *= no_link target_predeps
 

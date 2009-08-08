@@ -99,8 +99,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	if (g.s.bAdvancedACLCfg) {
 		qcbAdvancedCfg->setChecked(true);
-	}
-	else {
+	} else {
 		qtwTab->removeTab(2);
 		qtwTab->removeTab(1);
 	}

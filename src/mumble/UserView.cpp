@@ -96,7 +96,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 		ClientUser *cu = um->getUser(idx);
 		Channel * c = um->getChannel(idx);
 		if ((cu && ! cu->qsComment.isEmpty()) ||
-			(! cu && c && ! c->qsDesc.isEmpty())) {
+		        (! cu && c && ! c->qsDesc.isEmpty())) {
 			QRect r = visualRect(idx);
 			pos = pos - r.topLeft();
 
@@ -159,7 +159,7 @@ void UserView::doubleClick(const QModelIndex &idx) {
 	}
 
 	Channel *c = um->getChannel(idx);
-	if ( c) {
+	if (c) {
 		MumbleProto::UserState mpus;
 		mpus.set_session(g.uiSession);
 		mpus.set_channel_id(c->iId);

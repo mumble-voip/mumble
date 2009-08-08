@@ -50,7 +50,7 @@ void MumbleSSL::addSystemCA() {
 			continue;
 		}
 
-		while(pCertContext = CertEnumCertificatesInStore(hCertStore, pCertContext)) {
+		while (pCertContext = CertEnumCertificatesInStore(hCertStore, pCertContext)) {
 			QByteArray qba(reinterpret_cast<const char *>(pCertContext->pbCertEncoded), pCertContext->cbCertEncoded);
 
 			QList<QSslCertificate> ql = QSslCertificate::fromData(qba, QSsl::Pem);
@@ -61,7 +61,7 @@ void MumbleSSL::addSystemCA() {
 			}
 		}
 		if (found)
-				qWarning("SSL: Added CA certificates from system store '%s'", qPrintable(store));
+			qWarning("SSL: Added CA certificates from system store '%s'", qPrintable(store));
 
 		CertCloseStore(hCertStore, 0);
 	}

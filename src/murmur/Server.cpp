@@ -929,7 +929,7 @@ void Server::connectionClosed(const QString &reason) {
 
 		emit userDisconnected(u);
 	}
-	
+
 	Channel *old = u->cChannel;
 
 	{

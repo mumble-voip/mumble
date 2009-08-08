@@ -22,7 +22,7 @@ win32 {
 	} else {
 		LIBPATH *= /dev/protobuf-2.1.0/vsprojects/Release
 	}
-	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32 
+	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32
 	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
 
 	INCLUDEPATH *= /dev/OpenSSL/include
