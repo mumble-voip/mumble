@@ -79,7 +79,7 @@ and so on. Visit &lt;a href=&quot;http://doc.trolltech.com/richtext-html-subset.
          </property>
          <property name="whatsThis">
           <string>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;
-This field allows you to easily set and change the password of a channel. In the background it uses Mumble's access tokens feature. To allow more fine grained and powerfull access controll directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</string>
+This field allows you to easily set and change the password of a channel. In the background it uses Mumble's access tokens feature. To allow more fine grained and powerful access controll directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</string>
          </property>
         </widget>
        </item>
