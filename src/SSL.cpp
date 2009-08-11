@@ -66,6 +66,37 @@ void MumbleSSL::addSystemCA() {
 		CertCloseStore(hCertStore, 0);
 	}
 
+#elif defined(Q_OS_MAC)
+	CFArrayRef certs = NULL;
+	bool found = false;
+
+	if (SecTrustCopyAnchorCertificates(&certs) == noErr) {
+		int ncerts = CFArrayGetCount(certs);
+		for (int i = 0; i < ncerts; i++) {
+			CFDataRef data = NULL;
+
+			SecCertificateRef cert = reinterpret_cast<SecCertificateRef>(const_cast<void *>(CFArrayGetValueAtIndex(certs, i)));
+			if (! cert)
+				continue;
+
+			if (SecKeychainItemExport(cert, kSecFormatX509Cert, kSecItemPemArmour, NULL, &data) == noErr) {
+				const char *ptr = reinterpret_cast<const char *>(CFDataGetBytePtr(data));
+				int len = CFDataGetLength(data);
+				QByteArray qba(ptr, len);
+
+				QList<QSslCertificate> ql = QSslCertificate::fromData(qba, QSsl::Pem);
+				if (! ql.isEmpty()) {
+					found = true;
+					QSslSocket::addDefaultCaCertificates(ql);
+				}
+			}
+		}
+
+		CFRelease(certs);
+
+		if (found)
+			qWarning("SSL: Added CA certificates from 'System Roots' store.");
+	}
 #elif defined(Q_OS_UNIX)
 	QStringList qsl;
 

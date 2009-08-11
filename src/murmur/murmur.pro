@@ -53,6 +53,7 @@ unix {
 
 macx {
   CONFIG -= app_bundle
+  LIBS *= -framework Security
 }
 
 dbus {

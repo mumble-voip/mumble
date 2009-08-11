@@ -132,6 +132,8 @@ unix {
     QMAKE_INFO_PLIST = mumble.plist
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
+    LIBS *= -framework Security
+
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
     SOURCES -= ConfigDialog.cpp
