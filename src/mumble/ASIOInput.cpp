@@ -90,8 +90,9 @@ void ASIOInit::initialize() {
 	QStringList blacklist;
 	blacklist << QLatin1String("{a91eaba1-cf4c-11d3-b96a-00a0c9c7b61a}"); // ASIO DirectX
 	blacklist << QLatin1String("{e3186861-3a74-11d1-aef8-0080ad153287}"); // ASIO Multimedia
+#ifdef QT_NO_DEBUG
 	blacklist << QLatin1String("{232685c6-6548-49d8-846d-4141a3ef7560}"); // ASIO4ALL
-
+#endif
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
 			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
@@ -149,8 +150,9 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 	QStringList blacklist;
 	blacklist << QLatin1String("{a91eaba1-cf4c-11d3-b96a-00a0c9c7b61a}"); // ASIO DirectX
 	blacklist << QLatin1String("{e3186861-3a74-11d1-aef8-0080ad153287}"); // ASIO Multimedia
+#ifdef QT_NO_DEBUG
 	blacklist << QLatin1String("{232685c6-6548-49d8-846d-4141a3ef7560}"); // ASIO4ALL
-
+#endif
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
 			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
@@ -231,7 +233,8 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			SleepEx(10, false);
 			long cnum;
 
-			bool match = (g.s.qsASIOclass == qsCls);
+			bool match = (s.qsASIOclass == qsCls);
+
 			for (cnum=0;cnum<ichannels;cnum++) {
 				ASIOChannelInfo aci;
 				aci.channel = cnum;
@@ -256,6 +259,8 @@ void ASIOConfig::on_qpbQuery_clicked() {
 						qWarning("ASIOInput: Channel %ld %s (Unusable format %ld)", cnum, aci.name,aci.type);
 				}
 			}
+
+			bOk = true;
 		} else {
 			SleepEx(10, false);
 			char err[255];
