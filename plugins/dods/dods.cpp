@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 3897)", L"Mumble DODS Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 3930)", L"Mumble DODS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -109,19 +109,19 @@ static int trylock() {
 
 	// Check if we really have DODS running
 	/*
-		position tuple:		client.dll+0x454210  (x,y,z, float)
-		orientation tuple:	client.dll+0x442560  (v,h float)
-		ID string:			client.dll+0x3f4d19 = "DODSpectatorGUI@@" (17 characters, text)
-		spawn state:        client.dll+0x3e0b7c  (0 when at main menu, 2 when at team selection menu or when not spawned, and between 4 and 5 when spawned, byte)
+		position tuple:		client.dll+0x3f62a0  (x,y,z, float)
+		orientation tuple:	client.dll+0x3f6220  (v,h float)
+		ID string:			client.dll+0x3f6d91 = "DODSpectatorGUI@@" (17 characters, text)
+		spawn state:        client.dll+0x3e2b94  (0 when at main menu, 2 when at team selection menu or when not spawned, and between 5 and 6 when spawned, byte)
 	*/
 	char sMagic[17];
-	if (!peekProc(mod + 0x3f4d19, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
+	if (!peekProc(mod + 0x3f6d91, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x454210;
-	rotptr = mod + 0x442560;
-	stateptr = mod + 0x3e0b7c;
+	posptr = mod + 0x3f62a0;
+	rotptr = mod + 0x3f6220;
+	stateptr = mod + 0x3e2b94;
 
 	float pos[3];
 	float rot[3];
@@ -180,10 +180,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports DODS build 3897. No identity or context support yet.");
+	return std::wstring(L"Supports DODS build 3930. No identity or context support yet.");
 }
 
-static std::wstring description(L"Day of Defeat: Source (Build 3897)");
+static std::wstring description(L"Day of Defeat: Source (Build 3930)");
 static std::wstring shortname(L"Day of Defeat: Source");
 
 static MumblePlugin dodsplug = {
