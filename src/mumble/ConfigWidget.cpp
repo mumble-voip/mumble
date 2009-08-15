@@ -41,6 +41,10 @@ ConfigRegistrar::ConfigRegistrar(int priority, ConfigWidgetNew n) {
 
 ConfigRegistrar::~ConfigRegistrar() {
 	c_qmNew->remove(iPriority);
+	if (c_qmNew->isEmpty()) {
+		delete c_qmNew;
+		c_qmNew = NULL;
+	}
 }
 
 ConfigWidget::ConfigWidget(Settings &st) : s(st) {
