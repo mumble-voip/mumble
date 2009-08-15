@@ -329,7 +329,9 @@ int main(int argc, char **argv) {
 	// Hide Qt memory leak.
 	QSslSocket::setDefaultCaCertificates(QList<QSslCertificate>());
 	// Release global protobuf memory allocations.
+#if (GOOGLE_PROTOBUF_VERSION >= 2001000)
 	google::protobuf::ShutdownProtobufLibrary();
+#endif
 #endif
 	return res;
 }
