@@ -48,9 +48,6 @@ G15LCDEngineUnix::G15LCDEngineUnix() {
 }
 
 G15LCDEngineUnix::~G15LCDEngineUnix() {
-	foreach(LCDDevice *d, qlDevices) {
-		delete d;
-	}
 }
 
 QList<LCDDevice *> G15LCDEngineUnix::devices() const {
