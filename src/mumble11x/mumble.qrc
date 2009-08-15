@@ -1,22 +1,24 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
- <file alias="mumble.16x16.png">../../icons/mumble.16x16.png</file>
- <file alias="mumble.32x32.png">../../icons/mumble.32x32.png</file>
- <file alias="mumble.48x48.png">../../icons/mumble.48x48.png</file>
- <file alias="mumble.64x64.png">../../icons/mumble.64x64.png</file>
+ <file alias="mumble.16x16.png">resources/mumble.16x16.png</file>
+ <file alias="mumble.32x32.png">resources/mumble.32x32.png</file>
+ <file alias="mumble.48x48.png">resources/mumble.48x48.png</file>
+ <file alias="mumble.64x64.png">resources/mumble.64x64.png</file>
  <file alias="mumble.icns">../../icons/mumble.icns</file>
  <file alias="mumble.osx.png">../../icons/mumble.osx.png</file>
- <file alias="talking_on.png">../../icons/talking_on.png</file>
- <file alias="talking_alt.png">../../icons/talking_alt.png</file>
- <file alias="talking_off.png">../../icons/talking_off.png</file>
- <file alias="deafened_self.png">../../icons/deafened_self.png</file>
- <file alias="deafened_server.png">../../icons/deafened_server.png</file>
- <file alias="muted_self.png">../../icons/muted_self.png</file>
- <file alias="muted_server.png">../../icons/muted_server.png</file>
+ <file alias="talking_on.png">resources/talking_on.png</file>
+ <file alias="talking_alt.png">resources/talking_alt.png</file>
+ <file alias="talking_off.png">resources/talking_off.png</file>
+ <file alias="deafened_self.png">resources/deafened_self.png</file>
+ <file alias="deafened_server.png">resources/deafened_server.png</file>
+ <file alias="deafened_overlay.png">resources/deafened_overlay.png</file>
+ <file alias="muted_self.png">resources/muted_self.png</file>
+ <file alias="muted_server.png">resources/muted_server.png</file>
  <file alias="muted_local.png">../../icons/muted_local.png</file>
+ <file alias="muted_overlay.png">resources/muted_overlay.png</file>
  <file alias="authenticated.png">../../icons/authenticated.png</file>
- <file alias="channel.png">../../icons/channel.png</file>
- <file alias="channel_linked.png">../../icons/channel_linked.png</file>
+ <file alias="channel.png">resources/channel.png</file>
+ <file alias="channel_linked.png">resources/channel_linked.png</file>
  <file alias="config_basic.png">../../icons/config_basic.png</file>
  <file alias="config_dsound.png">../../icons/config_dsound.png</file>
  <file alias="config_msgs.png">../../icons/config_msgs.png</file>
@@ -27,8 +29,6 @@
  <file alias="config_shortcuts.png">../../icons/config_shortcuts.png</file>
  <file alias="config_ui.png">../../icons/config_ui.png</file>
  <file alias="config_lcd.png">../../icons/config_lcd.png</file>
- <file alias="muted_overlay.png">../../icons/muted_overlay.png</file>
- <file alias="deafened_overlay.png">../../icons/deafened_overlay.png</file>
  <file alias="wb_male.spx">resources/wb_male.spx</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>

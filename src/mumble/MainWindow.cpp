@@ -112,13 +112,9 @@ void DockTitleBar::tick() {
 }
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
-	qiIconMute.addFile(QLatin1String("skin:muted_self.png"));
-	qiIconMute.addFile(QLatin1String("skin:muted_overlay.png"));
-	qiIconDeaf.addFile(QLatin1String("skin:deafened_self.png"));
-	qiIconDeaf.addFile(QLatin1String("skin:deafened_overlay.png"));
-	qiIcon.addFile(QLatin1String("skin:mumble.16x16.png"));
-	qiIcon.addFile(QLatin1String("skin:mumble.32x32.png"));
-	qiIcon.addFile(QLatin1String("skin:mumble.64x64.png"));
+	qiIconMute.addFile(QLatin1String("skin:muted_self.svg"));
+	qiIconDeaf.addFile(QLatin1String("skin:deafened_self.svg"));
+	qiIcon.addFile(QLatin1String("skin:mumble.svg"));
 #ifdef Q_OS_MAC
 	qiIcon.addFile(QLatin1String("skin:mumble.osx.png"));
 #else

@@ -210,16 +210,17 @@ QString ModelItem::hash() const {
 
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
-	qiTalkingAlt=QIcon(QLatin1String("skin:talking_alt.png"));
-	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.png"));
-	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.png"));
-	qiMutedServer=QIcon(QLatin1String("skin:muted_server.png"));
+	qiTalkingAlt=QIcon(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.svg"));
+	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
+	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
 	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.png"));
-	qiMutedSuppressed=QIcon(QLatin1String("skin:muted_suppressed.png"));
-	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.png"));
-	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.png"));
+	qiMutedSuppressed=QIcon(QLatin1String("skin:muted_suppressed.svg"));
+	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.svg"));
+	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.svg"));
 	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.png"));
 	qiChannel=QIcon(QLatin1String("skin:channel.svg"));
+	qiActiveChannel=QIcon(QLatin1String("skin:channel_active.svg"));
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
 	qiFriend=QIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
 	qiComment=QIcon(QLatin1String("skin:comment.svg"));
@@ -400,7 +401,13 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0) {
-					return qsLinked.contains(c) ? qiLinkedChannel : qiChannel;
+					if (qsLinked.contains(c)) {
+						if (ClientUser::get(g.uiSession)->cChannel == c)
+							return qiActiveChannel;
+						else
+							return qiLinkedChannel;
+					}
+					return qiChannel;
 				}
 			case Qt::DisplayRole:
 				if (idx.column() == 0)
@@ -479,7 +486,8 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						return tr("This is a user connected to the server. The icon to the left of the user indicates "
 						          "whether or not they are talking:<br />"
 						          "<img src=\"skin:talking_on.svg\" width=32 /> Talking<br />"
-						          "<img src=\"skin:talking_off.png\" /> Not talking"
+						          "<img src=\"skin:talking_alt.svg\" width=32 /> Whispering<br />"
+						          "<img src=\"skin:talking_off.svg\" width=32/> Not talking"
 						         );
 					else
 						return tr("This is a channel on the server. Only users in the same channel can hear each other.");
@@ -488,10 +496,10 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					return tr("This shows the flags the user has on the server, if any:<br />"
 					          "<img src=\":/emblems/emblem-favorite.svg\" />On your friend list<br />"
 					          "<img src=\"skin:authenticated.png\" />Authenticated user<br />"
-					          "<img src=\"skin:muted_self.png\" />Muted (by self)<br />"
-					          "<img src=\"skin:muted_server.png\" />Muted (by admin)<br />"
-					          "<img src=\"skin:deafened_self.png\" />Deafened (by self)<br />"
-					          "<img src=\"skin:deafened_server.png\" />Deafened (by admin)<br />"
+					          "<img src=\"skin:muted_self.svg\" />Muted (by self)<br />"
+					          "<img src=\"skin:muted_server.svg\" />Muted (by admin)<br />"
+					          "<img src=\"skin:deafened_self.svg\" />Deafened (by self)<br />"
+					          "<img src=\"skin:deafened_server.svg\" />Deafened (by admin)<br />"
 					          "A user muted by himself is probably just away, talking on the phone or something like that.<br />"
 					          "A user muted by an admin is probably also just away, and the noise the user is making was annoying "
 					          "enough that an admin muted him.");

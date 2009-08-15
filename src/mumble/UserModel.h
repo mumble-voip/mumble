@@ -85,7 +85,7 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
 		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal, qiMutedSuppressed;
 		QIcon qiDeafenedSelf, qiDeafenedServer;
-		QIcon qiAuthenticated, qiChannel, qiLinkedChannel;
+		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
 		QIcon qiFriend;
 		QIcon qiComment, qiCommentSeen;
 		ModelItem *miRoot;
