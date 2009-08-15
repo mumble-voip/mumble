@@ -511,22 +511,32 @@ void Server::initialize() {
 		int c = query.value(0).toInt();
 		if (c == 0) {
 			SQLPREP("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`) VALUES (?,?,?,?,?,?,?)");
+
 			query.addBindValue(iServerNum);
 			query.addBindValue(0);
 			query.addBindValue(1);
-			query.addBindValue(QLatin1String("auth"));
+			query.addBindValue(QLatin1String("admin"));
 			query.addBindValue(1);
-			query.addBindValue(0);
-			query.addBindValue(64);
+			query.addBindValue(1);
+			query.addBindValue(static_cast<int>(ChanACL::Write));
 			SQLEXEC();
 
 			query.addBindValue(iServerNum);
 			query.addBindValue(0);
 			query.addBindValue(2);
-			query.addBindValue(QLatin1String("admin"));
+			query.addBindValue(QLatin1String("auth"));
 			query.addBindValue(1);
 			query.addBindValue(1);
+			query.addBindValue(static_cast<int>(ChanACL::MakeTempChannel));
+			SQLEXEC();
+
+			query.addBindValue(iServerNum);
+			query.addBindValue(0);
+			query.addBindValue(3);
+			query.addBindValue(QLatin1String("all"));
 			query.addBindValue(1);
+			query.addBindValue(0);
+			query.addBindValue(static_cast<int>(ChanACL::SelfRegister));
 			SQLEXEC();
 		}
 	}
