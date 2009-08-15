@@ -160,6 +160,7 @@ void OverlayConfig::accept() const {
 }
 
 Overlay::Overlay() : QObject() {
+	d = NULL;
 	qlOverlay = new QLibrary(this);
 
 #ifdef Q_OS_WIN
@@ -213,6 +214,8 @@ Overlay::Overlay() : QObject() {
 
 Overlay::~Overlay() {
 	setActive(false);
+	if (d)
+		delete d;
 	qlOverlay->unload();
 }
 

@@ -46,6 +46,9 @@
 #ifdef USE_DBUS
 #include "DBus.h"
 #endif
+#ifdef USE_VLD
+#include "vld.h"
+#endif
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
@@ -321,5 +324,12 @@ int main(int argc, char **argv) {
 
 	delete Global::g_global_struct;
 	Global::g_global_struct = NULL;
+
+#ifndef QT_NO_DEBUG
+	// Hide Qt memory leak.
+	QSslSocket::setDefaultCaCertificates(QList<QSslCertificate>());
+	// Release global protobuf memory allocations.
+	google::protobuf::ShutdownProtobufLibrary();
+#endif
 	return res;
 }

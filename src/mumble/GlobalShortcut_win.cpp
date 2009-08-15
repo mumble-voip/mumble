@@ -99,6 +99,7 @@ void GlobalShortcutWin::run() {
 			id->pDID->Unacquire();
 			id->pDID->Release();
 		}
+		delete id;
 	}
 	pDI->Release();
 }
@@ -197,7 +198,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		qSort(types);
 
 		int nbuttons = types.count();
-		DIOBJECTDATAFORMAT *rgodf = new DIOBJECTDATAFORMAT[nbuttons];
+		STACKVAR(DIOBJECTDATAFORMAT, rgodf, nbuttons);
 		DIDATAFORMAT df;
 		ZeroMemory(&df, sizeof(df));
 		df.dwSize = sizeof(df);
@@ -234,7 +235,6 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 			qFatal("GlobalShortcutWin::SetProperty");
 
 		qWarning("Adding device %s %s %s:%d", qPrintable(QUuid(id->guid).toString()),qPrintable(name),qPrintable(sname),id->qhNames.count());
-
 		cbgsw->qhInputDevices[id->guid] = id;
 	} else {
 		id->pDID->Release();

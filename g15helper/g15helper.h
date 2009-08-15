@@ -40,7 +40,7 @@
 #define G15_WIDGET_NAME     L"Mumble G15 Display"
 
 enum {
-	G15_ERR_INIT,
+	G15_ERR_INIT = 1,
 	G15_ERR_CONNECT,
 	G15_ERR_ENUMERATE,
 	G15_ERR_OPEN,

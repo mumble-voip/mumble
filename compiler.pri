@@ -39,7 +39,11 @@ win32 {
 		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Oy-
 		QMAKE_LFLAGS *= -fixed:no -debug
 	}
-
+	CONFIG(debug, debug|release) {
+		INCLUDEPATH *= /dev/vld/include
+		LIBPATH *= /dev/vld/lib
+		DEFINES *= USE_VLD
+	}
 } else {
 	DEFINES *= RESTRICT=__restrict__
 	CONFIG(opt-gcc) {

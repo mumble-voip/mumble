@@ -47,6 +47,10 @@ LCDEngineRegistrar::LCDEngineRegistrar(LCDEngineNew cons) {
 
 LCDEngineRegistrar::~LCDEngineRegistrar() {
 	qlInitializers->removeAll(n);
+	if (qlInitializers->isEmpty()) {
+		delete qlInitializers;
+		qlInitializers = NULL;
+	}
 }
 
 static ConfigWidget *LCDConfigDialogNew(Settings &st) {
@@ -404,6 +408,8 @@ LCDEngine::LCDEngine() : QObject() {
 }
 
 LCDEngine::~LCDEngine() {
+	foreach(LCDDevice *lcd, qlDevices)
+		delete lcd;
 }
 
 LCDDevice::LCDDevice() {
