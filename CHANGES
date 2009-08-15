@@ -1,8 +1,36 @@
+2009-08-15
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    9958cfe  Attempt to fix corrupt icons/mumble.svg
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    afa6f35  Get rid of global memory from ConfigRegistrars
+    ce3df76  Use enum for InfoMap
+    bcaa6c7  Use VLD for debug builds
+    c63e4f5  Use the new SVG icons
+    f62ae27  Make hardcoded ACL default be without selfregister, and make
+	     it a part of initial ACLs added to new servers
+
+2009-08-14
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    edf3369  New attempt of icons for 1.2.0 release.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3a686bd  Fix ASIO config save
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    4884458  Cod5 update for 1.5
+    a1767db  TF2, DODS updates
+
+2009-08-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    df9b900  Use system CA certificates on OS X.
+
 2009-08-08
   Patrick Matthäi <pmatthaei@debian.org>
     c957ff4  Spelling fix in ACLEditor
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    88dcb4c  Don't show lip icon if suppressed
     c7cffde  Build protobuf earlier, so header is generated
 
 2009-08-07
