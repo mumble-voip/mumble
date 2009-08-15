@@ -228,9 +228,9 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (! uSource->qbaTexture.isEmpty())
 			mpus.set_texture(std::string(uSource->qbaTexture.constData(), uSource->qbaTexture.size()));
 
-		const QMap<QString, QString> &info = getRegistration(uSource->iId);
-		if (info.contains("comment")) {
-			uSource->qsComment = info.value("comment");
+		const QMap<int, QString> &info = getRegistration(uSource->iId);
+		if (info.contains(ServerDB::User_Comment)) {
+			uSource->qsComment = info.value(ServerDB::User_Comment);
 			mpus.set_comment(u8(uSource->qsComment));
 		}
 	}
@@ -460,8 +460,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		pDstServerUser->qsComment = u8(msg.comment());
 
 		if (pDstServerUser->iId >= 0) {
-			QMap<QString, QString> info;
-			info.insert("comment", pDstServerUser->qsComment);
+			QMap<int, QString> info;
+			info.insert(ServerDB::User_Comment, pDstServerUser->qsComment);
 			setInfo(pDstServerUser->iId, info);
 		}
 	}
@@ -497,12 +497,12 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_user_id()) {
-		QMap<QString, QString> info;
+		QMap<int, QString> info;
 
-		info.insert("name", pDstServerUser->qsName);
-		info.insert("certhash", pDstServerUser->qsHash);
+		info.insert(ServerDB::User_Name, pDstServerUser->qsName);
+		info.insert(ServerDB::User_Hash, pDstServerUser->qsHash);
 		if (! pDstServerUser->qslEmail.isEmpty())
-			info.insert("email", pDstServerUser->qslEmail.first());
+			info.insert(ServerDB::User_Email, pDstServerUser->qslEmail.first());
 		int id = registerUser(info);
 		if (id > 0) {
 			pDstServerUser->iId = id;
@@ -1154,8 +1154,8 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				const QString &name = u8(u.name());
 				log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
-				QMap<QString, QString> info;
-				info.insert("name", name);
+				QMap<int, QString> info;
+				info.insert(ServerDB::User_Name, name);
 				setInfo(id, info);
 			}
 		}

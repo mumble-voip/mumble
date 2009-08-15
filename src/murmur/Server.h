@@ -303,12 +303,12 @@ class Server : public QThread {
 		void disconnectListener(QObject *p);
 		void setTempGroups(const int userid, Channel *cChannel, const QStringList &groups);
 	signals:
-		void registerUserSig(int &, const QMap<QString, QString> &);
+		void registerUserSig(int &, const QMap<int, QString> &);
 		void unregisterUserSig(int &, int);
 		void getRegisteredUsersSig(const QString &, QMap<int, QString > &);
-		void getRegistrationSig(int &, int, QMap<QString, QString> &);
+		void getRegistrationSig(int &, int, QMap<int, QString> &);
 		void authenticateSig(int &, QString &, const QString &);
-		void setInfoSig(int &, int, const QMap<QString, QString> &);
+		void setInfoSig(int &, int, const QMap<int, QString> &);
 		void setTextureSig(int &, int, const QByteArray &);
 		void idToNameSig(QString &, int);
 		void nameToIdSig(int &, const QString &);
@@ -342,11 +342,11 @@ class Server : public QThread {
 		int getUserID(const QString &name);
 		QString getUserName(int id);
 		QByteArray getUserTexture(int id);
-		QMap<QString, QString> getRegistration(int id);
-		int registerUser(const QMap<QString, QString> &info);
+		QMap<int, QString> getRegistration(int id);
+		int registerUser(const QMap<int, QString> &info);
 		bool unregisterUserDB(int id);
 		QMap<int, QString > getRegisteredUsers(const QString &filter = QString());
-		bool setInfo(int id, const QMap<QString, QString> &info);
+		bool setInfo(int id, const QMap<int, QString> &info);
 		bool setTexture(int id, const QByteArray &texture);
 		bool isUserId(int id);
 		void addLink(Channel *c, Channel *l);

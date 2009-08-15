@@ -216,9 +216,9 @@ void MurmurDBus::nameToIdSlot(int &id, const QString &name) {
 	}
 }
 
-void MurmurDBus::registerUserSlot(int &res, const QMap<QString, QString> &info) {
+void MurmurDBus::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "registerPlayer", info.value("name"));
+	QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "registerPlayer", info.value(ServerDB::User_Name));
 	if (reply.isValid()) {
 		res = reply.value();
 		if ((info.count() > 1) && (res > 0))
@@ -233,14 +233,14 @@ void MurmurDBus::unregisterUserSlot(int &res, int id) {
 		res = reply.value();
 }
 
-void MurmurDBus::getRegistrationSlot(int &res, int id, QMap<QString, QString> &info) {
+void MurmurDBus::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<RegisteredPlayer> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegistration", id);
 	if (reply.isValid()) {
 		const RegisteredPlayer &r = reply.value();
-		info.insert("name", r.name);
+		info.insert(ServerDB::User_Name, r.name);
 		if (! r.email.isEmpty())
-			info.insert("email", r.email);
+			info.insert(ServerDB::User_Email, r.email);
 		res = 1;
 	}
 }
@@ -256,22 +256,22 @@ void  MurmurDBus::getRegisteredPlayersSlot(const QString &filter, QMap<int, QStr
 	}
 }
 
-void MurmurDBus::setInfoSlot(int &res, int id, const QMap<QString, QString> &info) {
-	if (info.contains("name")) {
+void MurmurDBus::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
+	if (info.contains(ServerDB::User_Name)) {
 		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setName",id, info.value("name"));
+		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setName",id, info.value(ServerDB::User_Name));
 		if (reply.isValid())
 			res = reply.value();
 	}
-	if (info.contains("pw")) {
+	if (info.contains(ServerDB::User_Password)) {
 		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setPW",id, info.value("pw"));
+		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setPW",id, info.value(ServerDB::User_Password));
 		if (reply.isValid())
 			res = reply.value();
 	}
-	if (info.contains("email")) {
+	if (info.contains(ServerDB::User_Email)) {
 		QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
-		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setEmail",id, info.value("email"));
+		QDBusReply<int> reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "setEmail",id, info.value(ServerDB::User_Email));
 		if (reply.isValid())
 			res = reply.value();
 	}
@@ -562,8 +562,8 @@ void MurmurDBus::getPlayerIds(const QStringList &names, const QDBusMessage &, QL
 }
 
 void MurmurDBus::registerPlayer(const QString &name, const QDBusMessage &msg, int &id) {
-	QMap<QString, QString> info;
-	info.insert("name", name);
+	QMap<int, QString> info;
+	info.insert(ServerDB::User_Name, name);
 	id = server->registerUser(info);
 	if (id < 0) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playername", "Illegal player name"));
@@ -579,15 +579,15 @@ void MurmurDBus::unregisterPlayer(int id, const QDBusMessage &msg) {
 }
 
 void MurmurDBus::getRegistration(int id, const QDBusMessage &msg, RegisteredPlayer &user) {
-	QMap<QString, QString> info = server->getRegistration(id);
+	QMap<int, QString> info = server->getRegistration(id);
 	if (info.isEmpty()) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));
 		return;
 	}
 
 	user.id = id;
-	user.name = info.value("name");
-	user.email = info.value("email");
+	user.name = info.value(ServerDB::User_Name);
+	user.email = info.value(ServerDB::User_Email);
 }
 
 void MurmurDBus::setRegistration(int id, const QString &name, const QString &email, const QString &pw, const QDBusMessage &msg) {
@@ -600,16 +600,16 @@ void MurmurDBus::setRegistration(int id, const QString &name, const QString &ema
 }
 
 void MurmurDBus::updateRegistration(const RegisteredPlayer &user, const QDBusMessage &msg) {
-	QMap<QString, QString> info;
+	QMap<int, QString> info;
 
 	if (! user.name.isEmpty())
-		info.insert("name", user.name);
+		info.insert(ServerDB::User_Name, user.name);
 
 	if (! user.email.isEmpty())
-		info.insert("email", user.email);
+		info.insert(ServerDB::User_Email, user.email);
 
 	if (! user.pw.isEmpty())
-		info.insert("pw", user.pw);
+		info.insert(ServerDB::User_Password, user.pw);
 
 	if (info.isEmpty() || !server->setInfo(user.id, info)) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.playerid", "Invalid player id"));

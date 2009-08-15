@@ -156,16 +156,16 @@ static void banToBan(const ::Murmur::Ban &mb, ::Ban &b) {
 	b.iDuration = mb.duration;
 }
 
-static void infoToInfo(const QMap<QString, QString> &info, Murmur::InfoMap &im) {
-	QMap<QString, QString>::const_iterator i;
+static void infoToInfo(const QMap<int, QString> &info, Murmur::UserInfoMap &im) {
+	QMap<int, QString>::const_iterator i;
 	for (i = info.constBegin(); i != info.constEnd(); ++i)
-		im[u8(i.key())] = u8(i.value());
+		im[static_cast<Murmur::UserInfo>(i.key())] = u8(i.value());
 }
 
-static void infoToInfo(const Murmur::InfoMap &im, QMap<QString, QString> &info) {
-	Murmur::InfoMap::const_iterator i;
+static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) {
+	Murmur::UserInfoMap::const_iterator i;
 	for (i = im.begin(); i != im.end(); ++i)
-		info.insert(u8((*i).first), u8((*i).second));
+		info.insert((*i).first, u8((*i).second));
 }
 
 class ServerLocator : public virtual Ice::ServantLocator {
@@ -490,14 +490,14 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, const QString &pw) {
 	}
 }
 
-void MurmurIce::registerUserSlot(int &res, const QMap<QString, QString> &info) {
+void MurmurIce::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
 
-	::Murmur::InfoMap im;
+	::Murmur::UserInfoMap im;
 
 	infoToInfo(info, im);
 	try {
@@ -520,14 +520,14 @@ void MurmurIce::unregisterUserSlot(int &res, int id) {
 	}
 }
 
-void MurmurIce::getRegistrationSlot(int &res, int id, QMap<QString, QString> &info) {
+void MurmurIce::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
 
-	Murmur::InfoMap im;
+	Murmur::UserInfoMap im;
 	try {
 		if (prx->getInfo(id, im)) {
 			res = 1;
@@ -559,14 +559,14 @@ void  MurmurIce::getRegisteredUsersSlot(const QString &filter, QMap<int, QString
 		m.insert((*i).first, u8((*i).second));
 }
 
-void MurmurIce::setInfoSlot(int &res, int id, const QMap<QString, QString> &info) {
+void MurmurIce::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
 	if (! prx)
 		return;
 
-	Murmur::InfoMap im;
+	Murmur::UserInfoMap im;
 	infoToInfo(info, im);
 
 	try {
@@ -1151,10 +1151,10 @@ static void impl_Server_getUserIds(const ::Murmur::AMD_Server_getUserIdsPtr cb, 
 	cb->ice_response(im);
 }
 
-static void impl_Server_registerUser(const ::Murmur::AMD_Server_registerUserPtr cb, int server_id, const ::Murmur::InfoMap &im) {
+static void impl_Server_registerUser(const ::Murmur::AMD_Server_registerUserPtr cb, int server_id, const ::Murmur::UserInfoMap &im) {
 	NEED_SERVER;
 
-	QMap<QString, QString> info;
+	QMap<int, QString> info;
 	infoToInfo(im, info);
 
 	int userid = server->registerUser(info);
@@ -1172,7 +1172,7 @@ static void impl_Server_unregisterUser(const ::Murmur::AMD_Server_unregisterUser
 		cb->ice_response();
 }
 
-static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegistrationPtr cb, int server_id,  int id, const ::Murmur::InfoMap &im) {
+static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegistrationPtr cb, int server_id,  int id, const ::Murmur::UserInfoMap &im) {
 	NEED_SERVER;
 
 	if (! server->isUserId(id)) {
@@ -1180,7 +1180,7 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 		return;
 	}
 
-	QMap<QString, QString> info;
+	QMap<int, QString> info;
 	infoToInfo(im, info);
 
 	if (! server->setInfo(id, info)) {
@@ -1193,14 +1193,14 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrationPtr cb, int server_id,  ::Ice::Int userid) {
 	NEED_SERVER;
 
-	QMap<QString, QString> info = server->getRegistration(userid);
+	QMap<int, QString> info = server->getRegistration(userid);
 
 	if (info.isEmpty()) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
 
-	Murmur::InfoMap im;
+	Murmur::UserInfoMap im;
 	infoToInfo(info, im);
 	cb->ice_response(im);
 }

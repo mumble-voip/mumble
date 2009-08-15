@@ -134,7 +134,7 @@ void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPt
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUserIds, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUserPtr &cb,  const ::Murmur::InfoMap& p1, const ::Ice::Current &current) {
+void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUserPtr &cb,  const ::Murmur::UserInfoMap& p1, const ::Ice::Current &current) {
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_registerUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
@@ -142,7 +142,7 @@ void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregist
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_unregisterUser, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
-void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr &cb,  ::Ice::Int p1,  const ::Murmur::InfoMap& p2, const ::Ice::Current &current) {
+void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr &cb,  ::Ice::Int p1,  const ::Murmur::UserInfoMap& p2, const ::Ice::Current &current) {
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_updateRegistration, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };

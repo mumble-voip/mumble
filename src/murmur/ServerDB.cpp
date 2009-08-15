@@ -203,7 +203,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TRIGGER `%1channels_parent_del` AFTER DELETE ON `%1channels` FOR EACH ROW BEGIN DELETE FROM `%1channels` WHERE `parent_id` = old.`channel_id` AND `server_id` = old.`server_id`; UPDATE `%1users` SET `lastchannel`=0 WHERE `lastchannel` = old.`channel_id` AND `server_id` = old.`server_id`; END;");
 			SQLDO("CREATE TRIGGER `%1channels_server_del` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1channels` WHERE `server_id` = old.`server_id`; END;");
 
-			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` TEXT, `value` TEXT)");
+			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` INTEGER, `value` TEXT)");
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("CREATE TRIGGER `%1channel_info_del_channel` AFTER DELETE on `%1channels` FOR EACH ROW BEGIN DELETE FROM `%1channel_info` WHERE `channel_id` = old.`channel_id` AND `server_id` = old.`server_id`; END;");
 
@@ -213,7 +213,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE TRIGGER `%1users_server_del` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1users` WHERE `server_id` = old.`server_id`; END;");
 			SQLDO("CREATE TRIGGER `%1users_update_timestamp` AFTER UPDATE OF `lastchannel` ON `%1users` FOR EACH ROW BEGIN UPDATE `%1users` SET `last_active` = datetime('now') WHERE `user_id` = old.`user_id` AND `server_id` = old.`server_id`; END;");
 
-			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` TEXT, `value` TEXT)");
+			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` INTEGER, `value` TEXT)");
 			SQLDO("CREATE UNIQUE INDEX `%1user_info_id` ON `%1user_info`(`server_id`, `user_id`, `key`)");
 			SQLDO("CREATE TRIGGER `%1user_info_del_user` AFTER DELETE on `%1users` FOR EACH ROW BEGIN DELETE FROM `%1user_info` WHERE `user_id` = old.`user_id` AND `server_id` = old.`server_id`; END;");
 
@@ -290,7 +290,7 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_parent_del` FOREIGN KEY (`server_id`, `parent_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` varchar(255), `value` varchar(255))");
+			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` INTEGER, `value` varchar(255))");
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 
@@ -300,7 +300,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
 			SQLDO("ALTER TABLE `%1users` ADD CONSTRAINT `%1users_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` varchar(255), `value` varchar(255))");
+			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` INTEGER, `value` varchar(255))");
 			SQLDO("CREATE UNIQUE INDEX `%1user_info_id` ON `%1user_info`(`server_id`, `user_id`, `key`)");
 			SQLDO("ALTER TABLE `%1user_info` ADD CONSTRAINT `%1user_info_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`,`user_id`) ON DELETE CASCADE");
 
@@ -372,10 +372,10 @@ ServerDB::ServerDB() {
 				SQLEXEC();
 			}
 
-			SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`player_id`,'email',email FROM `%1players_old` WHERE `email` IS NOT NULL");
+			SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`player_id`,1,`email` FROM `%1players_old` WHERE `email` IS NOT NULL");
 
 			if (version == 3) {
-				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,'description',`description` FROM `%1channels_old` WHERE `description` IS NOT NULL");
+				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,0,`description` FROM `%1channels_old` WHERE `description` IS NOT NULL");
 			}
 
 			qWarning("Removing old tables...");
@@ -560,8 +560,8 @@ void Server::initialize() {
 	query.clear();
 }
 
-int Server::registerUser(const QMap<QString, QString> &info) {
-	const QString &name = info.value("name");
+int Server::registerUser(const QMap<int, QString> &info) {
+	const QString &name = info.value(ServerDB::User_Name);
 
 	if (name.isEmpty())
 		return -1;
@@ -613,12 +613,12 @@ bool Server::unregisterUserDB(int id) {
 	if (id <= 0)
 		return false;
 
-	QMap<QString, QString> info = getRegistration(id);
+	QMap<int, QString> info = getRegistration(id);
 
 	if (info.isEmpty())
 		return false;
 
-	qhUserIDCache.remove(info.value("name"));
+	qhUserIDCache.remove(info.value(ServerDB::User_Name));
 	qhUserNameCache.remove(id);
 
 	int res = -2;
@@ -665,7 +665,7 @@ QMap<int, QString > Server::getRegisteredUsers(const QString &filter) {
 }
 
 bool Server::isUserId(int id) {
-	QMap<QString, QString> info;
+	QMap<int, QString> info;
 	int res = -2;
 	emit getRegistrationSig(res, id, info);
 	if (res >= 0)
@@ -684,8 +684,8 @@ bool Server::isUserId(int id) {
 	return false;
 }
 
-QMap<QString, QString> Server::getRegistration(int id) {
-	QMap<QString, QString> info;
+QMap<int, QString> Server::getRegistration(int id) {
+	QMap<int, QString> info;
 	int res = -2;
 	emit getRegistrationSig(res, id, info);
 	if (res >= 0)
@@ -699,14 +699,14 @@ QMap<QString, QString> Server::getRegistration(int id) {
 	query.addBindValue(id);
 	SQLEXEC();
 	if (query.next()) {
-		info.insert("name", query.value(0).toString());
+		info.insert(ServerDB::User_Name, query.value(0).toString());
 
 		SQLPREP("SELECT `key`, `value` FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ?");
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
 		while (query.next()) {
-			info.insert(query.value(0).toString(), query.value(1).toString());
+			info.insert(query.value(0).toInt(), query.value(1).toString());
 		}
 	}
 	return info;
@@ -766,7 +766,7 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 	if (!certhash.isEmpty() && (res < 0)) {
 		SQLPREP("SELECT `user_id` FROM `%1user_info` WHERE `server_id` = ? AND `key` = ? AND `value` = ?");
 		query.addBindValue(iServerNum);
-		query.addBindValue(QLatin1String("certhash"));
+		query.addBindValue(ServerDB::User_Hash);
 		query.addBindValue(certhash);
 		SQLEXEC();
 		if (query.next()) {
@@ -775,7 +775,7 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 			foreach(const QString &email, emails) {
 				if (! email.isEmpty()) {
 					query.addBindValue(iServerNum);
-					query.addBindValue(QLatin1String("email"));
+					query.addBindValue(ServerDB::User_Email);
 					query.addBindValue(email);
 					SQLEXEC();
 					if (query.next()) {
@@ -801,13 +801,13 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 		SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
 		query.addBindValue(iServerNum);
 		query.addBindValue(res);
-		query.addBindValue(QLatin1String("certhash"));
+		query.addBindValue(ServerDB::User_Hash);
 		query.addBindValue(certhash);
 		SQLEXEC();
 		if (! emails.isEmpty()) {
 			query.addBindValue(iServerNum);
 			query.addBindValue(res);
-			query.addBindValue(QLatin1String("email"));
+			query.addBindValue(ServerDB::User_Email);
 			query.addBindValue(emails.at(0));
 			SQLEXEC();
 		}
@@ -819,15 +819,15 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 	return res;
 }
 
-bool Server::setInfo(int id, const QMap<QString, QString> &setinfo) {
+bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 	int res = -2;
 
-	QMap<QString, QString> info = setinfo;
+	QMap<int, QString> info = setinfo;
 
-	if (info.contains("name")) {
+	if (info.contains(ServerDB::User_Name)) {
 		qhUserIDCache.remove(qhUserNameCache.value(id));
 		qhUserNameCache.remove(id);
-		qhUserIDCache.remove(info.value("name"));
+		qhUserIDCache.remove(info.value(ServerDB::User_Name));
 	}
 
 	emit setInfoSig(res, id, info);
@@ -837,8 +837,8 @@ bool Server::setInfo(int id, const QMap<QString, QString> &setinfo) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	if (info.contains("pw")) {
-		const QString &pw = info.value("pw");
+	if (info.contains(ServerDB::User_Password)) {
+		const QString &pw = info.value(ServerDB::User_Password);
 		QCryptographicHash hash(QCryptographicHash::Sha1);
 		hash.addData(pw.toUtf8());
 
@@ -847,19 +847,19 @@ bool Server::setInfo(int id, const QMap<QString, QString> &setinfo) {
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
-		info.remove("pw");
+		info.remove(ServerDB::User_Password);
 	}
-	if (info.contains("name")) {
-		const QString &name = info.value("name");
+	if (info.contains(ServerDB::User_Name)) {
+		const QString &name = info.value(ServerDB::User_Name);
 		SQLPREP("UPDATE `%1users` SET `name`=? WHERE `server_id` = ? AND `user_id`=?");
 		query.addBindValue(name);
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
-		info.remove("name");
+		info.remove(ServerDB::User_Name);
 	}
 	if (! info.isEmpty()) {
-		QMap<QString, QString>::const_iterator i;
+		QMap<int, QString>::const_iterator i;
 		SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?,?,?,?)");
 
 		QVariantList serverids, userids, keys, values;
@@ -1104,7 +1104,7 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int
 	SQLPREP("INSERT INTO `%1channel_info` ( `server_id`, `channel_id`, `key`, `value`) VALUES(?,?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
-	query.addBindValue("position");
+	query.addBindValue(ServerDB::Channel_Position);
 	query.addBindValue(QVariant(position).toString());
 
 	Channel *c = new Channel(id, name, p);
@@ -1147,15 +1147,14 @@ void Server::updateChannel(const Channel *c) {
 	SQLPREP("REPLACE INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
-	query.addBindValue("description");
+	query.addBindValue(ServerDB::Channel_Description);
 	query.addBindValue(c->qsDesc);
 	SQLEXEC();
 
 	// Update channel position information
-	SQLPREP("REPLACE INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
-	query.addBindValue("position");
+	query.addBindValue(ServerDB::Channel_Position);
 	query.addBindValue(QVariant(c->iPosition).toString());
 	SQLEXEC();
 
@@ -1232,11 +1231,11 @@ void Server::readChannelPrivs(Channel *c) {
 	query.addBindValue(cid);
 	SQLEXEC();
 	while (query.next()) {
-		const QString &key = query.value(0).toString();
+		int key = query.value(0).toInt();
 		const QString &value = query.value(1).toString();
-		if (key == "description") {
+		if (key == ServerDB::Channel_Description) {
 			c->qsDesc = value;
-		} else if (key == "position") {
+		} else if (key == ServerDB::Channel_Position) {
 			c->iPosition = QVariant(value).toInt(); // If the conversion fails it'll return the default value 0
 		}
 	}

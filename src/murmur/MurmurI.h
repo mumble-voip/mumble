@@ -131,7 +131,7 @@ class ServerI : virtual public Server {
 		                              const Ice::Current&);
 
 		virtual void registerUser_async(const ::Murmur::AMD_Server_registerUserPtr&,
-		                                const Murmur::InfoMap&,
+		                                const Murmur::UserInfoMap&,
 		                                const Ice::Current&);
 
 		virtual void unregisterUser_async(const ::Murmur::AMD_Server_unregisterUserPtr&,
@@ -140,7 +140,7 @@ class ServerI : virtual public Server {
 
 		virtual void updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr&,
 		                                      Ice::Int,
-		                                      const Murmur::InfoMap&,
+		                                      const Murmur::UserInfoMap&,
 		                                      const Ice::Current&);
 
 		virtual void getRegistration_async(const ::Murmur::AMD_Server_getRegistrationPtr&,

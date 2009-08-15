@@ -65,11 +65,11 @@ class MurmurIce : public QObject {
 		void stopped(Server *);
 
 		void authenticateSlot(int &res, QString &uname, const QString &pw);
-		void registerUserSlot(int &res, const QMap<QString, QString> &);
+		void registerUserSlot(int &res, const QMap<int, QString> &);
 		void unregisterUserSlot(int &res, int id);
 		void getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res);
-		void getRegistrationSlot(int &, int, QMap<QString, QString> &);
-		void setInfoSlot(int &, int, const QMap<QString, QString> &);
+		void getRegistrationSlot(int &, int, QMap<int, QString> &);
+		void setInfoSlot(int &, int, const QMap<int, QString> &);
 		void setTextureSlot(int &res, int id, const QByteArray &texture);
 		void nameToIdSlot(int &res, const QString &name);
 		void idToNameSlot(QString &res, int id);
