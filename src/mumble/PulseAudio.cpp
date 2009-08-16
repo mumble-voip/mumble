@@ -203,16 +203,17 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasOutput);
 			const unsigned int iBlockLen = ((pao->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * ((pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short));
-			buff.maxlength = iBlockLen * NBLOCKS;
-			buff.tlength = g.s.iOutputDelay * iBlockLen;
-			buff.prebuf = buff.tlength;
+			buff.tlength = iBlockLen * (g.s.iOutputDelay+1);
 			buff.minreq = iBlockLen;
+			buff.maxlength = -1;
+			buff.prebuf = -1;
+			buff.fragsize = iBlockLen;
 
 			iDelayCache = g.s.iOutputDelay;
 			bPositionalCache = g.s.doPositionalAudio();
 			qsOutputCache = odev;
 
-			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_INTERPOLATE_TIMING, NULL, NULL);
+			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, NULL, NULL);
 		}
 	}
 
@@ -237,7 +238,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 							pss.format = PA_SAMPLE_FLOAT32NE;
 
-						pasInput = pa_stream_new(pacContext, "Mumble Microphone", &pss, NULL);
+						pasInput = pa_stream_new(pacContext, "Microphone", &pss, NULL);
 						pa_stream_set_state_callback(pasInput, stream_callback, this);
 						pa_stream_set_read_callback(pasInput, read_callback, this);
 					}
@@ -262,12 +263,15 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasInput);
 			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * ((pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short));
-			buff.maxlength = iBlockLen * NBLOCKS;
+			buff.tlength = iBlockLen;
+			buff.minreq = iBlockLen;
+			buff.maxlength = -1;
+			buff.prebuf = -1;
 			buff.fragsize = iBlockLen;
 
 			qsInputCache = idev;
 
-			pa_stream_connect_record(pasInput, qPrintable(idev), &buff, PA_STREAM_INTERPOLATE_TIMING);
+			pa_stream_connect_record(pasInput, qPrintable(idev), &buff, PA_STREAM_ADJUST_LATENCY);
 		}
 	}
 
@@ -317,12 +321,15 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasSpeaker);
 			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * ((pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short));
-			buff.maxlength = iBlockLen * NBLOCKS;
+			buff.tlength = iBlockLen;
+			buff.minreq = iBlockLen;
+			buff.maxlength = -1;
+			buff.prebuf = -1;
 			buff.fragsize = iBlockLen;
 
 			qsEchoCache = edev;
 
-			pa_stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_INTERPOLATE_TIMING);
+			pa_stream_connect_record(pasSpeaker, qPrintable(edev), &buff, PA_STREAM_ADJUST_LATENCY);
 		}
 	}
 }
@@ -333,7 +340,7 @@ void PulseAudioSystem::context_state_callback(pa_context *c, void *userdata) {
 }
 
 void PulseAudioSystem::subscribe_callback(pa_context *, pa_subscription_event_type evt, unsigned int, void *userdata) {
-	switch (evt) {
+	switch (evt & PA_SUBSCRIPTION_EVENT_FACILITY_MASK) {
 		case PA_SUBSCRIPTION_EVENT_SINK:
 		case PA_SUBSCRIPTION_EVENT_SOURCE:
 			break;
