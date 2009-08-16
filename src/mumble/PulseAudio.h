@@ -93,11 +93,13 @@ class PulseAudioInput : public AudioInput {
 		Q_OBJECT
 		Q_DISABLE_COPY(PulseAudioInput)
 	protected:
+		QMutex qmMutex;
+		QWaitCondition qwcWait;
 		pa_sample_spec pssMic, pssEcho;
 	public:
 		PulseAudioInput();
 		~PulseAudioInput();
-		void run() { };
+		void run();
 };
 
 class PulseAudioOutput : public AudioOutput {
@@ -106,12 +108,14 @@ class PulseAudioOutput : public AudioOutput {
 		Q_OBJECT
 		Q_DISABLE_COPY(PulseAudioOutput)
 	protected:
+		QMutex qmMutex;
+		QWaitCondition qwcWait;
 		pa_sample_spec pss;
 		pa_channel_map pcm;
 	public:
 		PulseAudioOutput();
 		~PulseAudioOutput();
-		void run() { };
+		void run();
 };
 
 #endif

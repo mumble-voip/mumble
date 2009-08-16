@@ -649,8 +649,19 @@ PulseAudioInput::PulseAudioInput() {
 
 PulseAudioInput::~PulseAudioInput() {
 	bRunning = false;
+	qmMutex.lock();
+	qwcWait.wakeAll();
+	qmMutex.unlock();
+	wait();
 	if (pasys)
 		pasys->wakeup_lock();
+}
+
+void PulseAudioInput::run() {
+	qmMutex.lock();
+	while (bRunning) 
+		qwcWait.wait(&qmMutex);
+	qmMutex.unlock();
 }
 
 PulseAudioOutput::PulseAudioOutput() {
@@ -663,6 +674,17 @@ PulseAudioOutput::PulseAudioOutput() {
 
 PulseAudioOutput::~PulseAudioOutput() {
 	bRunning = false;
+	qmMutex.lock();
+	qwcWait.wakeAll();
+	qmMutex.unlock();
+	wait();
 	if (pasys)
 		pasys->wakeup_lock();
+}
+
+void PulseAudioOutput::run() {
+	qmMutex.lock();
+	while (bRunning) 
+		qwcWait.wait(&qmMutex);
+	qmMutex.unlock();
 }
