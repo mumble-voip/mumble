@@ -422,7 +422,6 @@ void ALSAAudioOutput::run() {
 	int err = 0;
 	bool bOk = true;
 
-	iMixerFreq = SAMPLE_RATE;
 
 	snd_pcm_hw_params_t *hw_params = NULL;
 	snd_pcm_sw_params_t *sw_params = NULL;
@@ -448,9 +447,10 @@ void ALSAAudioOutput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_access(pcm_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_format(pcm_handle, hw_params, SND_PCM_FORMAT_S16));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_channels_near(pcm_handle, hw_params, &iChannels));
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &iMixerFreq, NULL));
+	unsigned int rrate = SAMPLE_RATE;
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_rate_near(pcm_handle, hw_params, &rrate, NULL));
 
-	unsigned int iOutputSize = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
+	unsigned int iOutputSize = (iFrameSize * rrate) / SAMPLE_RATE;
 
 	snd_pcm_uframes_t period_size = iOutputSize;
 	snd_pcm_uframes_t buffer_size = iOutputSize * (g.s.iOutputDelay + 1);
@@ -461,7 +461,7 @@ void ALSAAudioOutput::run() {
 	ALSA_ERRBAIL(snd_pcm_hw_params(pcm_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(pcm_handle, hw_params));
 
-	qWarning("ALSAAudioOutput: Actual buffer %d hz, %d channel %ld samples [%ld per period]",iMixerFreq,iChannels,buffer_size,period_size);
+	qWarning("ALSAAudioOutput: Actual buffer %d hz, %d channel %ld samples [%ld per period]",rrate,iChannels,buffer_size,period_size);
 
 	ALSA_ERRBAIL(snd_pcm_sw_params_current(pcm_handle, sw_params));
 	ALSA_ERRBAIL(snd_pcm_sw_params_set_avail_min(pcm_handle, sw_params, period_size));
@@ -510,7 +510,8 @@ void ALSAAudioOutput::run() {
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(pcm_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_get_channels(hw_params, &iChannels));
-	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &iMixerFreq, NULL));
+	ALSA_ERRBAIL(snd_pcm_hw_params_get_rate(hw_params, &rrate, NULL));
+	iMixerFreq = rrate;
 	eSampleFormat = SampleShort;
 
 	qWarning("ALSAAudioOutput: Initializing %d channel, %d hz mixer", iChannels, iMixerFreq);

@@ -206,7 +206,7 @@ class AudioOutput : public QThread {
 		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;
 		unsigned int iFrameSize;
-		unsigned int iMixerFreq;
+		volatile unsigned int iMixerFreq;
 		unsigned int iChannels;
 		unsigned int iSampleSize;
 		QReadWriteLock qrwlOutputs;
