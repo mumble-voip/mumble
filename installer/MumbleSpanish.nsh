@@ -41,4 +41,4 @@ LangString MUMBLE_ALREADY_INSTALLED ${LANG_SPANISH} "Mumble ya se encuentra inst
 LangString MUMBLE_ALREADY_INSTALLED_HEAD ${LANG_SPANISH} "Ya instalado"
 LangString MUMBLE_ALREADY_INSTALLED_SUBTEXT ${LANG_SPANISH} "Elija como desea instalar Mumble."
 LangString MUMBLE_UNINSTALL ${LANG_SPANISH} "Desinstalar antes de instalar"
-LangString MUMBLE_NO_UNINSTALL ${LANG_SPANISH} "No instalar"
+LangString MUMBLE_NO_UNINSTALL ${LANG_SPANISH} "No desinstalar"
