@@ -514,7 +514,9 @@ const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
 }
 
 AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float volume) {
-	while ((iMixerFreq == 0) && isRunning()) {}
+	while ((iMixerFreq == 0) && bRunning) {}
+	if (! iMixerFreq)
+		return NULL;
 
 	qrwlOutputs.lockForWrite();
 	AudioSine *as = new AudioSine(hz,i,frames, volume, iMixerFreq);
@@ -528,7 +530,9 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	if (packets.isEmpty())
 		return NULL;
 
-	while ((iMixerFreq == 0) && isRunning()) {}
+	while ((iMixerFreq == 0) && bRunning) {}
+	if (! iMixerFreq)
+		return NULL;
 
 	qrwlOutputs.lockForWrite();
 	AudioOutputSample *aos = new AudioOutputSample(filename, packets, loop, iMixerFreq);
@@ -546,7 +550,9 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 	if (! aop) {
 		qrwlOutputs.unlock();
 
-		while ((iMixerFreq == 0) && isRunning()) {}
+		while ((iMixerFreq == 0) && bRunning) {}
+		if (! iMixerFreq)
+			return;
 
 		qrwlOutputs.lockForWrite();
 		aop = new AudioOutputSpeech(player, iMixerFreq);

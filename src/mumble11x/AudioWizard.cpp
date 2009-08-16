@@ -536,11 +536,11 @@ void AudioWizard::on_InputDevice_activated(int) {
 	if (! AudioInputRegistrar::qmNew)
 		return;
 
-	boost::weak_ptr<AudioInput> wai(g.ai);
+	AudioInputPtr ai = g.ai;
 	g.ai.reset();
 
-	while (! wai.expired()) {
-	}
+	while (! ai.unique()) {}
+	ai.reset();
 
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
 	int idx = qcbInputDevice->currentIndex();
@@ -579,11 +579,13 @@ void AudioWizard::on_OutputDevice_activated(int) {
 	if (! AudioOutputRegistrar::qmNew)
 		return;
 
-	boost::weak_ptr<AudioOutput> wai(g.ao);
+	AudioOutputPtr ao = g.ao;
 	g.ao.reset();
 
-	while (! wai.expired()) {
-	}
+	while (! ao.unique()) {}
+	ao.reset();
+	
+	aosSource = NULL;
 
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
 	int idx = qcbOutputDevice->currentIndex();
@@ -604,8 +606,7 @@ void AudioWizard::on_OutputDelay_valueChanged(int v) {
 	g.s.iOutputDelay = v;
 	on_OutputDevice_activated(0);
 	if (! bInit) {
-		AudioOutputPtr ao = g.ao;
-		ao->playSine(0.0f, 0.0f, 0xfffffff, 0.5f);
+		playChord();
 	}
 }
 
@@ -657,24 +658,26 @@ int AudioWizard::nextId() const {
 }
 
 void AudioWizard::playChord() {
+	qWarning("RequestPlayChord");
 	AudioOutputPtr ao = g.ao;
+	qWarning("%p %p", ao.get(), aosSource);
 	if (! ao || aosSource)
 		return;
 	aosSource = ao->playSample(QLatin1String("skin:wb_male.spx"), true);
 }
 
 void AudioWizard::restartAudio() {
-	boost::weak_ptr<AudioInput> wai(g.ai);
-	boost::weak_ptr<AudioOutput> wao(g.ao);
+	AudioInputPtr ai = g.ai;
+	AudioOutputPtr ao = g.ao;
 
 	aosSource = NULL;
 
 	g.ai.reset();
 	g.ao.reset();
-
-	while (! wai.expired() || ! wao.expired()) {
-		// Where is QThread::yield() ?
-	}
+	
+	while (! ai.unique() || ! ao.unique()) {}
+	ai.reset();
+	ao.reset();
 
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
