@@ -455,22 +455,29 @@ void ALSAAudioOutput::run() {
 	snd_pcm_uframes_t period_size = iOutputSize;
 	snd_pcm_uframes_t buffer_size = iOutputSize * (g.s.iOutputDelay + 1);
 
-	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(pcm_handle, hw_params, &period_size, NULL));
+	int dir = 1;
+	ALSA_ERRBAIL(snd_pcm_hw_params_set_period_size_near(pcm_handle, hw_params, &period_size, &dir));
 	ALSA_ERRBAIL(snd_pcm_hw_params_set_buffer_size_near(pcm_handle, hw_params, &buffer_size));
 
 	ALSA_ERRBAIL(snd_pcm_hw_params(pcm_handle, hw_params));
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(pcm_handle, hw_params));
+	ALSA_ERRBAIL(snd_pcm_hw_params_get_period_size(hw_params, &period_size, &dir));
+	ALSA_ERRBAIL(snd_pcm_hw_params_get_buffer_size(hw_params, &buffer_size));
 
 	qWarning("ALSAAudioOutput: Actual buffer %d hz, %d channel %ld samples [%ld per period]",rrate,iChannels,buffer_size,period_size);
 
 	ALSA_ERRBAIL(snd_pcm_sw_params_current(pcm_handle, sw_params));
 	ALSA_ERRBAIL(snd_pcm_sw_params_set_avail_min(pcm_handle, sw_params, period_size));
-	ALSA_ERRBAIL(snd_pcm_sw_params_set_start_threshold(pcm_handle, sw_params, buffer_size));
-	ALSA_ERRBAIL(snd_pcm_sw_params_set_stop_threshold(pcm_handle, sw_params, 0));
-	ALSA_ERRBAIL(snd_pcm_sw_params_set_silence_threshold(pcm_handle, sw_params, period_size));
-	ALSA_ERRBAIL(snd_pcm_sw_params_set_silence_size(pcm_handle, sw_params, period_size));
-
+	ALSA_ERRBAIL(snd_pcm_sw_params_set_start_threshold(pcm_handle, sw_params, buffer_size - period_size));
+	ALSA_ERRBAIL(snd_pcm_sw_params_set_stop_threshold(pcm_handle, sw_params, buffer_size));
 	ALSA_ERRBAIL(snd_pcm_sw_params(pcm_handle, sw_params));
+
+#ifdef ALSA_VERBOSE
+	snd_output_t *log;
+	snd_output_stdio_attach(&log, stderr,0);
+	if (pcm_handle)
+		snd_pcm_dump(pcm_handle, log);
+#endif
 
 	ALSA_ERRBAIL(snd_pcm_prepare(pcm_handle));
 
@@ -548,6 +555,7 @@ void ALSAAudioOutput::run() {
 			}
 			
 			if (avail == -EPIPE) {
+				snd_pcm_drain(pcm_handle);
 				ALSA_ERRCHECK(snd_pcm_prepare(pcm_handle));
 				for (unsigned int i=0;i< buffer_size / period_size;++i)
 					ALSA_ERRCHECK(snd_pcm_writei(pcm_handle, zerobuff, period_size));
@@ -566,7 +574,7 @@ void ALSAAudioOutput::run() {
 				snd_pcm_prepare(pcm_handle);
 
 				// Fill one frame
-				for (unsigned int i = 0; i < (buffer_size / period_size) - 1 ; i++)
+				for (unsigned int i = 0; i < (buffer_size / period_size) - 1 ; i++) 
 					snd_pcm_writei(pcm_handle, zerobuff, period_size);
 
 				snd_pcm_writei(pcm_handle, outbuff, period_size);
