@@ -67,7 +67,6 @@ class PulseAudioInit : public DeferInit {
 		void initialize() {
 			pasys = new PulseAudioSystem();
 			pasys->qmWait.lock();
-			pasys->start(QThread::TimeCriticalPriority);
 			pasys->qwcWait.wait(&pasys->qmWait, 1000);
 			pasys->qmWait.unlock();
 			if (pasys->bPulseIsGood) {
@@ -76,6 +75,8 @@ class PulseAudioInit : public DeferInit {
 			} else {
 				airPulseAudio = NULL;
 				aorPulseAudio = NULL;
+				delete pasys;
+				pasys = NULL;
 			}
 		};
 		void destroy() {
@@ -83,8 +84,10 @@ class PulseAudioInit : public DeferInit {
 				delete airPulseAudio;
 			if (aorPulseAudio)
 				delete aorPulseAudio;
-			delete pasys;
-			pasys = NULL;
+			if (pasys) {
+				delete pasys;
+				pasys = NULL;
+			}
 		};
 };
 
@@ -97,8 +100,8 @@ PulseAudioSystem::PulseAudioSystem() {
 	bPositionalCache = false;
 	bPulseIsGood = false;
 
-	pam = pa_mainloop_new();
-	pa_mainloop_api *api = pa_mainloop_get_api(pam);
+	pam = pa_threaded_mainloop_new();
+	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
 
 	pacContext = pa_context_new(api, "Mumble");
 
@@ -109,37 +112,33 @@ PulseAudioSystem::PulseAudioSystem() {
 
 	pade = api->defer_new(api, defer_event_callback, this);
 	api->defer_enable(pade, false);
+	
+	pa_threaded_mainloop_start(pam);
 }
 
 PulseAudioSystem::~PulseAudioSystem() {
-	pa_mainloop_quit(pam, 0);
-	wait();
+	pa_threaded_mainloop_stop(pam);
 	pa_context_disconnect(pacContext);
 	pa_context_unref(pacContext);
-	pa_mainloop_free(pam);
+	pa_threaded_mainloop_free(pam);
 }
 
 void PulseAudioSystem::wakeup() {
-	pa_mainloop_api *api = pa_mainloop_get_api(pam);
+	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
 	api->defer_enable(pade, true);
-	pa_mainloop_wakeup(pam);
 }
 
-void PulseAudioSystem::run() {
-	// Make sure we don't exit too early.
-	qmWait.lock();
-	qmWait.unlock();
-	int rv;
-	pa_mainloop_run(pam, &rv);
-	if (rv != 0)
-		qWarning("PulseAudio: Mainloop quit with retval %d", rv);
+void PulseAudioSystem::wakeup_lock() {
+	pa_threaded_mainloop_lock(pam);
+	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
+	api->defer_enable(pade, true);
+	pa_threaded_mainloop_unlock(pam);
 }
 
 void PulseAudioSystem::defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 	pas->eventCallback(a, e);
 }
-
 
 void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	api->defer_enable(pade, false);
@@ -340,6 +339,13 @@ void PulseAudioSystem::context_state_callback(pa_context *c, void *userdata) {
 }
 
 void PulseAudioSystem::subscribe_callback(pa_context *, pa_subscription_event_type evt, unsigned int, void *userdata) {
+	switch (evt & PA_SUBSCRIPTION_EVENT_TYPE_MASK) {
+		case PA_SUBSCRIPTION_EVENT_NEW:
+		case PA_SUBSCRIPTION_EVENT_REMOVE:
+			break;
+		default:
+			return;
+	}
 	switch (evt & PA_SUBSCRIPTION_EVENT_FACILITY_MASK) {
 		case PA_SUBSCRIPTION_EVENT_SINK:
 		case PA_SUBSCRIPTION_EVENT_SOURCE:
@@ -566,7 +572,9 @@ void PulseAudioSystem::contextCallback(pa_context *c) {
 		default:
 			return;
 	}
+	qmWait.lock();
 	qwcWait.wakeAll();
+	qmWait.unlock();
 }
 
 PulseAudioInputRegistrar::PulseAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("PulseAudio"), 10) {
@@ -636,13 +644,13 @@ PulseAudioInput::PulseAudioInput() {
 	memset(&pssEcho, 0, sizeof(pssEcho));
 	bRunning = true;
 	if (pasys)
-		pasys->wakeup();
+		pasys->wakeup_lock();
 };
 
 PulseAudioInput::~PulseAudioInput() {
 	bRunning = false;
 	if (pasys)
-		pasys->wakeup();
+		pasys->wakeup_lock();
 }
 
 PulseAudioOutput::PulseAudioOutput() {
@@ -650,11 +658,11 @@ PulseAudioOutput::PulseAudioOutput() {
 	memset(&pcm, 0, sizeof(pcm));
 	bRunning = true;
 	if (pasys)
-		pasys->wakeup();
+		pasys->wakeup_lock();
 }
 
 PulseAudioOutput::~PulseAudioOutput() {
 	bRunning = false;
 	if (pasys)
-		pasys->wakeup();
+		pasys->wakeup_lock();
 }

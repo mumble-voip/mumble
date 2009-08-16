@@ -198,11 +198,12 @@ void AudioWizard::on_qcbInputDevice_activated(int) {
 	if (! AudioInputRegistrar::qmNew)
 		return;
 
-	boost::weak_ptr<AudioInput> wai(g.ai);
+	AudioInputPtr ai = g.ai;
 	g.ai.reset();
 
-	while (! wai.expired()) {
+	while (! ai.unique()) {
 	}
+	ai.reset();
 
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
 	int idx = qcbInputDevice->currentIndex();
@@ -241,11 +242,12 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 	if (! AudioOutputRegistrar::qmNew)
 		return;
 
-	boost::weak_ptr<AudioOutput> wai(g.ao);
+	AudioOutputPtr ao = g.ao;
 	g.ao.reset();
 
-	while (! wai.expired()) {
+	while (! ao.unique()) {
 	}
+	ao.reset();
 
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
 	int idx = qcbOutputDevice->currentIndex();
@@ -322,17 +324,20 @@ void AudioWizard::playChord() {
 }
 
 void AudioWizard::restartAudio() {
-	boost::weak_ptr<AudioInput> wai(g.ai);
-	boost::weak_ptr<AudioOutput> wao(g.ao);
+	AudioInputPtr ai = g.ai;
+	AudioOutputPtr ao = g.ao;
 
 	aosSource = NULL;
 
 	g.ai.reset();
 	g.ao.reset();
 
-	while (! wai.expired() || ! wao.expired()) {
+	while (! ai.unique() || ! ao.unique()) {
 		// Where is QThread::yield() ?
 	}
+	
+	ai.reset();
+	ao.reset();
 
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();

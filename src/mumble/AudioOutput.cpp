@@ -604,7 +604,10 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	if (handle == NULL)
 		return NULL;
 
-	while ((iMixerFreq == 0) && isRunning()) {}
+	while ((iMixerFreq == 0) && bRunning) {}
+	
+	if (! iMixerFreq)
+		return NULL;
 
 	qrwlOutputs.lockForWrite();
 	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq);
@@ -624,7 +627,10 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 	if (! aop) {
 		qrwlOutputs.unlock();
 
-		while ((iMixerFreq == 0) && isRunning()) {}
+		while ((iMixerFreq == 0) && bRunning) {}
+		
+		if (! iMixerFreq)
+			return;
 
 		qrwlOutputs.lockForWrite();
 		aop = new AudioOutputSpeech(user, iMixerFreq);

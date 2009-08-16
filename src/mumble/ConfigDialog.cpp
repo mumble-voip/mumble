@@ -166,16 +166,18 @@ void ConfigDialog::updateExpert(bool b) {
 void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->save();
-
-	boost::weak_ptr<AudioInput> wai(g.ai);
-	boost::weak_ptr<AudioOutput> wao(g.ao);
+		
+	AudioInputPtr ai = g.ai;
+	AudioOutputPtr ao = g.ao;
 
 	g.ai.reset();
 	g.ao.reset();
 
-	while (! wai.expired() || ! wao.expired()) {
+	while (! ai.unique() || ! ao.unique()) {
 		// Where is QThread::yield() ?
 	}
+	ai.reset();
+	ao.reset();
 
 	g.s = s;
 
