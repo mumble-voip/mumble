@@ -38,29 +38,24 @@
 class PulseAudioInput;
 class PulseAudioOutput;
 
-class PulseAudioSystem : public QThread {
+class PulseAudioSystem : public QObject {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(PulseAudioSystem)
-	public:
+	protected:
+		void wakeup();
 		pa_context *pacContext;
 		pa_stream *pasInput, *pasOutput, *pasSpeaker;
-		pa_mainloop *pam;
+		pa_threaded_mainloop *pam;
 		pa_defer_event *pade;
 
-		QMutex qmWait;
-		QWaitCondition qwcWait;
-
 		bool bSourceDone, bSinkDone, bServerDone;
-		bool bPulseIsGood;
 
 		QString qsDefaultInput, qsDefaultOutput;
 
 		int iDelayCache;
 		QString qsOutputCache, qsInputCache, qsEchoCache;
 		bool bPositionalCache;
-		QHash<QString, QString> qhInput;
-		QHash<QString, QString> qhOutput;
 		QHash<QString, QString> qhEchoMap;
 		QHash<QString, pa_sample_spec> qhSpecMap;
 		QHash<QString, int> qhIndexMap;
@@ -78,11 +73,18 @@ class PulseAudioSystem : public QThread {
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
 
 		void query();
+		
+	public:
+		QHash<QString, QString> qhInput;
+		QHash<QString, QString> qhOutput;
+		bool bPulseIsGood;
+		QMutex qmWait;
+		QWaitCondition qwcWait;
+
+		void wakeup_lock();
 
 		PulseAudioSystem();
 		~PulseAudioSystem();
-		void run();
-		void wakeup();
 };
 
 class PulseAudioInput : public AudioInput {
