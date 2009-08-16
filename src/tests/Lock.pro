@@ -1,0 +1,10 @@
+TEMPLATE	=app
+CONFIG  += qt thread warn_on network qdbus xml qtestlib sql debug
+QT += qdbus xml sql network
+LANGUAGE	= C++
+TARGET = Lock
+SOURCES = Lock.cpp Timer.cpp
+HEADERS = Timer.h
+VPATH += ..
+INCLUDEPATH += .. ../murmur ../mumble
+QMAKE_CXXFLAGS += -O3 -fno-inline -save-temps
