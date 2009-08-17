@@ -16,17 +16,17 @@ pb.input = PROTOBUF
 pb.CONFIG *= no_link
 
 win32 {
-	INCLUDEPATH *= /dev/protobuf-2.1.0/vsprojects/include
+	INCLUDEPATH *= /dev/protobuf-2.2.0/vsprojects/include
 	CONFIG(debug, debug|release) {
-		LIBPATH *= /dev/protobuf-2.1.0/vsprojects/Debug
+		LIBPATH *= /dev/protobuf-2.2.0/vsprojects/Debug
 	} else {
-		LIBPATH *= /dev/protobuf-2.1.0/vsprojects/Release
+		LIBPATH *= /dev/protobuf-2.2.0/vsprojects/Release
 	}
-	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32
-	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
-
 	INCLUDEPATH *= /dev/OpenSSL/include
 	LIBPATH	*= /dev/OpenSSL/lib
+
+	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32
+	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
 }
 
 unix {
