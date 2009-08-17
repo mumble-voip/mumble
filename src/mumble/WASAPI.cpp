@@ -524,9 +524,6 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 			version = 1;
 	}
 
-	qWarning() << "VOLUMESET" << talking;
-
-
 	if (talking) {
 		qmVolumes.clear();
 		if (qFuzzyCompare(g.s.fOtherVolume, 1.0f))
@@ -554,54 +551,43 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
 						IAudioSessionControl2 *pControl2 = NULL;
 						if (SUCCEEDED(hr = pControl->QueryInterface(version ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {
-							qWarning() << "UNIQSESSION";
-							AudioSessionState ass;
-							if (SUCCEEDED(hr = pControl2->GetState(&ass)))
-								qWarning("STATE %d", ass);
-							LPWSTR pName = NULL;
-							if (SUCCEEDED(hr = pControl2->GetDisplayName(&pName)))
-								qWarning("NAME %ls", pName);
-							GUID group;
-							if (SUCCEEDED(hr = pControl2->GetGroupingParam(&group)))
-								qWarning() << QUuid(group).toString();
-							LPWSTR id = NULL;
-							if (SUCCEEDED(hr = pControl2->GetSessionInstanceIdentifier(&id)))
-								qWarning("UNIQID %ls", id);
-							id = NULL;
-							if (SUCCEEDED(hr = pControl2->GetSessionIdentifier(&id)))
-								qWarning("ID %ls", id);
-							DWORD pid = 0;
-							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)))
-								qWarning("PID %d %x", pid, pid);
-							qWarning("SYS %x", pControl2->IsSystemSoundsSession());
-
-							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && pid && (pid != dwMumble)) {
-								ISimpleAudioVolume *pVolume = NULL;
-								if (SUCCEEDED(hr = pControl2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume))) {
-									if (talking) {
-										BOOL bMute = TRUE;
-										if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
-											float fVolume = 1.0f;
-											if (!qmVolumes.contains(pid) && SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
-												float fSetVolume = fVolume * g.s.fOtherVolume;
-												if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
-													hr = pVolume->GetMasterVolume(&fSetVolume);
-													qmVolumes.insert(pid, VolumePair(fVolume,fSetVolume));
+							DWORD pid;
+							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && (pid != dwMumble)) {
+								AudioSessionState ass;
+								if (SUCCEEDED(hr = pControl2->GetState(&ass)) && (! talking || (ass != AudioSessionStateExpired))) {
+									GUID group;
+									if (SUCCEEDED(hr = pControl2->GetGroupingParam(&group))) {
+										QUuid quuid(group);
+										if (qmVolumes.contains(quuid) != talking) {
+											ISimpleAudioVolume *pVolume = NULL;
+											if (SUCCEEDED(hr = pControl2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume))) {
+												if (talking) {
+													BOOL bMute = TRUE;
+													if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
+														float fVolume = 1.0f;
+														if (!qmVolumes.contains(quuid) && SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
+															float fSetVolume = fVolume * g.s.fOtherVolume;
+															if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
+																hr = pVolume->GetMasterVolume(&fSetVolume);
+																qmVolumes.insert(quuid, VolumePair(fVolume,fSetVolume));
+															}
+														}
+													}
+												} else {
+													VolumePair vp = qmVolumes.value(quuid);
+													if (vp.first) {
+														float fVolume = 1.0f;
+														hr = pVolume->GetMasterVolume(&fVolume);
+														if (qFuzzyCompare(fVolume, vp.second)) {
+															pVolume->SetMasterVolume(vp.first, NULL);
+														}
+														qmVolumes.remove(quuid);
+													}
 												}
+												pVolume->Release();
 											}
-										}
-									} else {
-										VolumePair vp = qmVolumes.value(pid);
-										if (vp.first) {
-											float fVolume = 1.0f;
-											hr = pVolume->GetMasterVolume(&fVolume);
-											if (qFuzzyCompare(fVolume, vp.second)) {
-												pVolume->SetMasterVolume(vp.first, NULL);
-											}
-											qmVolumes.remove(pid);
 										}
 									}
-									pVolume->Release();
 								}
 							}
 							pControl2->Release();

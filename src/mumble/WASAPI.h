@@ -71,7 +71,7 @@ class WASAPIOutput : public AudioOutput {
 		Q_DISABLE_COPY(WASAPIOutput)
 	protected:
 		typedef QPair<float, float> VolumePair;
-		QMap<DWORD, VolumePair> qmVolumes;
+		QMap<QUuid, VolumePair> qmVolumes;
 		void setVolumes(IMMDevice *, bool talking);
 	public:
 		WASAPIOutput();
