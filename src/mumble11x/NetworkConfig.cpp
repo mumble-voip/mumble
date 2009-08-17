@@ -41,6 +41,9 @@ static ConfigRegistrar registrar(1300, NetworkConfigNew);
 
 NetworkConfig::NetworkConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
+#ifdef NO_UPDATE_CHECK
+	qcbAutoUpdate->hide();
+#endif
 }
 
 QString NetworkConfig::title() const {

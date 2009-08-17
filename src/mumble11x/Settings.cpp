@@ -436,7 +436,9 @@ void Settings::save() {
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(iServerRow, "ui/serverrow");
+#ifndef NO_UPDATE_CHECK
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
+#endif
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 
