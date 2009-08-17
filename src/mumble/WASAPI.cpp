@@ -552,7 +552,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 					IAudioSessionControl *pControl = NULL;
 					IUnknown *pUnknown = NULL;
 					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
-						qWarning("Got Control");
+						qWarning() << "UNIQSESSION";
 						AudioSessionState ass;
 						if (SUCCEEDED(hr = pControl->GetState(&ass)))
 							qWarning("STATE %d", ass);
@@ -563,17 +563,23 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 						if (SUCCEEDED(hr = pControl->QueryInterface(version ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {
 							LPWSTR id = NULL;
 							if (SUCCEEDED(hr = pControl2->GetSessionInstanceIdentifier(&id)))
+								qWarning("UNIQID %ls", id);
+							id = NULL;
+							if (SUCCEEDED(hr = pControl2->GetSessionIdentifier(&id)))
 								qWarning("ID %ls", id);
 							DWORD pid = 0;
+							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)))
+								qWarning("PID %d %x", pid, pid);
+							qWarning("SYS %x", pControl2->IsSystemSoundsSession());
+
 							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && pid && (pid != dwMumble)) {
-								qWarning() << "PID" << pid;
 								ISimpleAudioVolume *pVolume = NULL;
 								if (SUCCEEDED(hr = pControl2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume))) {
 									if (talking) {
 										BOOL bMute = TRUE;
 										if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
 											float fVolume = 1.0f;
-											if (SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
+											if (!qmVolumes.contains(pid) && SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
 												float fSetVolume = fVolume * g.s.fOtherVolume;
 												if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
 													hr = pVolume->GetMasterVolume(&fSetVolume);
