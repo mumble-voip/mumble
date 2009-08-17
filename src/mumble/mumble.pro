@@ -67,7 +67,7 @@ win32 {
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1
 
-  LIBPATH	*= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86 /dev/OpenSSL/lib /dev/libsndfile
+  LIBPATH	*= $$(DXSDK_DIR)/Lib/x86 /dev/OpenSSL/lib /dev/libsndfile
   DEFINES	*= WIN32
   INCLUDEPATH	*= /dev/OpenSSL/include /dev/libsndfile/include
   !CONFIG(no-asio) {
