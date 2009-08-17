@@ -35,6 +35,7 @@ while(<LOG>) {
   next if ($subject =~ /^Indent run/);
   next if ($subject =~ /^\*\*\* empty log message/);
   next if ($subject =~ /^git-svn-id: http/);
+  next if ($subject =~ /^TEST/);
   next if ($subject eq $lsub);
   $lsub = $subject;
   my $entry = wrap("    $hash  ", "             ", $subject);

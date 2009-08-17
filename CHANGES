@@ -1,8 +1,35 @@
+2009-08-17
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4923f42  Protobuf 2.2.0 for Win32
+    e4935a8  Fix ALSA periods for raw HW
+
+2009-08-16
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    2acd26f  Removed yellow circle from icons/mumble.svg
+    95dc226  Fixed bugged icons/mumble.svg, verified.
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    59b741f  Updated installer' Spanish translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4f9e599  Volatile the iMixerFreq
+    5688781  Add a dummy thread for pulseinput/output, so we don't delete
+	     it during start()
+    8361a1c  Switch weak to unique-checking for 11x too
+    a71e118  Fix abort on quit with Pulse due to wrong thread deleting a
+	     dummy object.
+    45fad10  Threaded pulseaudio
+    12f9c69  Locking test
+    20eadb6  Make pulseaudio play nice again
+    bcf77b7  Make ALSA work under Pulse on karmic.
+    c70caee  Don't double-delete (G15 unix)
+
 2009-08-15
   Martin Skilnand <cybknight@users.sourceforge.net>
     9958cfe  Attempt to fix corrupt icons/mumble.svg
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    304f12c  #ifdef protobuf 2.1 features
     afa6f35  Get rid of global memory from ConfigRegistrars
     ce3df76  Use enum for InfoMap
     bcaa6c7  Use VLD for debug builds
