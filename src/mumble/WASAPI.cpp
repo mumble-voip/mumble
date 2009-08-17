@@ -552,8 +552,18 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 					IAudioSessionControl *pControl = NULL;
 					IUnknown *pUnknown = NULL;
 					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
+						qWarning("Got Control");
+						AudioSessionState ass;
+						if (SUCCEEDED(hr = pControl->GetState(&ass)))
+							qWarning("STATE %d", ass);
+						LPWSTR pName = NULL;
+						if (SUCCEEDED(hr = pControl->GetDisplayName(&pName)))
+							qWarning("NAME %ls", pName);
 						IAudioSessionControl2 *pControl2 = NULL;
 						if (SUCCEEDED(hr = pControl->QueryInterface(version ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {
+							LPWSTR id = NULL;
+							if (SUCCEEDED(hr = pControl2->GetSessionInstanceIdentifier(&id)))
+								qWarning("ID %ls", id);
 							DWORD pid = 0;
 							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && pid && (pid != dwMumble)) {
 								qWarning() << "PID" << pid;
