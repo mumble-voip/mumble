@@ -1,5 +1,18 @@
+2009-08-18
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    95a9af7  Use group-GUUID based volume history for other applications
+    4848a2d  Don't include test things in the changelog
+    29cc812  More volume testing
+
 2009-08-17
   Thorvald Natvig <slicer@users.sourceforge.net>
+    b17f3b2  Check session states on Vista.
+    a11c188  Don't explicitly state WinSDK path, it will be pulled in by
+	     vcvars. And replace DXSDK with a env var.
+    b6208a7  Unified Win7/Vista volume control. I hope.
+    1077335  Make NO_UPDATE_CHECK hide options completely
+    7e7b3f3  On X11, you can minimize the parent window while a modal
+	     dialog is shown, without reactivating the parent's event loop
     4923f42  Protobuf 2.2.0 for Win32
     e4935a8  Fix ALSA periods for raw HW
 

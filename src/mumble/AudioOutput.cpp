@@ -605,7 +605,7 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 		return NULL;
 
 	while ((iMixerFreq == 0) && bRunning) {}
-	
+
 	if (! iMixerFreq)
 		return NULL;
 
@@ -628,7 +628,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 		qrwlOutputs.unlock();
 
 		while ((iMixerFreq == 0) && bRunning) {}
-		
+
 		if (! iMixerFreq)
 			return;
 

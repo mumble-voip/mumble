@@ -73,7 +73,7 @@ class PulseAudioSystem : public QObject {
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
 
 		void query();
-		
+
 	public:
 		QHash<QString, QString> qhInput;
 		QHash<QString, QString> qhOutput;

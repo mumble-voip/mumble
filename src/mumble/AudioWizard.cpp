@@ -335,7 +335,7 @@ void AudioWizard::restartAudio() {
 	while (! ai.unique() || ! ao.unique()) {
 		// Where is QThread::yield() ?
 	}
-	
+
 	ai.reset();
 	ao.reset();
 

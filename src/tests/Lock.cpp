@@ -3,7 +3,7 @@
 
 #include "Timer.h"
 
-// It's important this is high enough the process doesn't complete in 
+// It's important this is high enough the process doesn't complete in
 // one timeslice.
 #define ITER 100000000
 
@@ -76,17 +76,17 @@ class SpeedTest {
 
 int main(int argc, char **argv) {
 	QCoreApplication a(argc, argv);
-	
+
 	QMutex qm;
 	QMutex qmr(QMutex::Recursive);
 	SillyLock sl;
 	PosixLock pl;
-	
+
 	SpeedTest<QMutex> stqm(qm);
 	SpeedTest<QMutex> stqmr(qmr);
 	SpeedTest<SillyLock> stsl(sl);
 	SpeedTest<PosixLock> stpl(pl);
-	
+
 	quint64 elapsed;
 
 	elapsed = stsl.test();

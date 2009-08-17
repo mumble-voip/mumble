@@ -548,12 +548,11 @@ void ALSAAudioOutput::run() {
 						avail = w;
 						break;
 					}
-				}
-				else
+				} else
 					break;
 				ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
 			}
-			
+
 			if (avail == -EPIPE) {
 				snd_pcm_drain(pcm_handle);
 				ALSA_ERRCHECK(snd_pcm_prepare(pcm_handle));
@@ -574,7 +573,7 @@ void ALSAAudioOutput::run() {
 				snd_pcm_prepare(pcm_handle);
 
 				// Fill one frame
-				for (unsigned int i = 0; i < (buffer_size / period_size) - 1 ; i++) 
+				for (unsigned int i = 0; i < (buffer_size / period_size) - 1 ; i++)
 					snd_pcm_writei(pcm_handle, zerobuff, period_size);
 
 				snd_pcm_writei(pcm_handle, outbuff, period_size);

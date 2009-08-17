@@ -112,7 +112,7 @@ PulseAudioSystem::PulseAudioSystem() {
 
 	pade = api->defer_new(api, defer_event_callback, this);
 	api->defer_enable(pade, false);
-	
+
 	pa_threaded_mainloop_start(pam);
 }
 
@@ -659,7 +659,7 @@ PulseAudioInput::~PulseAudioInput() {
 
 void PulseAudioInput::run() {
 	qmMutex.lock();
-	while (bRunning) 
+	while (bRunning)
 		qwcWait.wait(&qmMutex);
 	qmMutex.unlock();
 }
@@ -684,7 +684,7 @@ PulseAudioOutput::~PulseAudioOutput() {
 
 void PulseAudioOutput::run() {
 	qmMutex.lock();
-	while (bRunning) 
+	while (bRunning)
 		qwcWait.wait(&qmMutex);
 	qmMutex.unlock();
 }

@@ -261,15 +261,15 @@ int main(int argc, char **argv) {
 	res=a.exec();
 
 	g.s.save();
-	
+
 	AudioInputPtr ai = g.ai;
 	AudioOutputPtr ao = g.ao;
-	
+
 	g.ao.reset();
 	g.ai.reset();
-	
+
 	while (! ai.unique() || ! ao.unique()) {}
-	
+
 	ai.reset();
 	ao.reset();
 

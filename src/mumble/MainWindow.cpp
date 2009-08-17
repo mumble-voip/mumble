@@ -342,8 +342,8 @@ void MainWindow::hideEvent(QHideEvent *e) {
 #ifdef Q_OS_UNIX
 	if (! qApp->activeModalWidget() && ! qApp->activePopupWidget())
 #endif
-	if (g.s.bHideTray && !bNoHide && qstiIcon->isSystemTrayAvailable())
-		qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
+		if (g.s.bHideTray && !bNoHide && qstiIcon->isSystemTrayAvailable())
+			qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
 	QMainWindow::hideEvent(e);
 #endif
 }
