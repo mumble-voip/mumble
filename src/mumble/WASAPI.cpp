@@ -34,39 +34,19 @@
 #include "MainWindow.h"
 #include "Timer.h"
 
-// Note that these interfaces are incomplete. They're not published, so I
-// have no idea what they're actually called or what the methods are
-// supposed to be named.
+
+// Now that Win7 is published, which includes public versions of these
+// interfaces, we simply inherit from those but use the "old" IIDs.
 
 MIDL_INTERFACE("33969B1D-D06F-4281-B837-7EAAFD21A9C0")
-IRemoteAudioSession :
-public IUnknown {
-	virtual HRESULT STDMETHODCALLTYPE _a() = 0;
-	virtual HRESULT STDMETHODCALLTYPE _b() = 0; // 0x10
-	virtual HRESULT STDMETHODCALLTYPE _c() = 0;
-	virtual HRESULT STDMETHODCALLTYPE _d() = 0;
-	virtual HRESULT STDMETHODCALLTYPE _e() = 0;
-	virtual HRESULT STDMETHODCALLTYPE _f() = 0; // 0x20
-	virtual HRESULT STDMETHODCALLTYPE _g() = 0;
-	virtual HRESULT STDMETHODCALLTYPE _h() = 0;
-	virtual HRESULT STDMETHODCALLTYPE _i() = 0;
-	virtual HRESULT STDMETHODCALLTYPE _j() = 0; // 0x30
-	virtual HRESULT STDMETHODCALLTYPE _k() = 0;
-	virtual HRESULT STDMETHODCALLTYPE GetProcessId(DWORD *) = 0;
-};
-
-// No idea what it's REFIID actually is.
-MIDL_INTERFACE("94BE9D30-53AC-4802-829C-F13E5AD34776")
-IAudioQuerier :
-public IUnknown {
-	virtual HRESULT STDMETHODCALLTYPE GetNumSessions(DWORD *) = 0;
-	virtual HRESULT STDMETHODCALLTYPE QuerySession(DWORD, IUnknown **) = 0;
+IVistaAudioSessionControl2 :
+public IAudioSessionControl2 {
 };
 
 MIDL_INTERFACE("94BE9D30-53AC-4802-829C-F13E5AD34775")
 IAudioSessionQuery :
 public IUnknown {
-	virtual HRESULT STDMETHODCALLTYPE GetQueryInterface(IAudioQuerier **) = 0;
+	virtual HRESULT STDMETHODCALLTYPE GetQueryInterface(IAudioSessionEnumerator **) = 0;
 };
 
 class WASAPIInputRegistrar : public AudioInputRegistrar {
@@ -525,12 +505,27 @@ WASAPIOutput::~WASAPIOutput() {
 }
 
 void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
-	IAudioSessionManager *pAudioSessionManager = NULL;
-	IAudioSessionQuery *pMysticQuery = NULL;
-	IAudioQuerier *pAudioQuerier = NULL;
-	DWORD max = 0;
+	IAudioSessionManager2 *pAudioSessionManager = NULL;
+	int max = 0;
 	HRESULT hr;
 	DWORD dwMumble = GetCurrentProcessId();
+
+	static int version = -1;
+	if (version == -1) {
+		OSVERSIONINFOEXW ovi;
+		memset(&ovi, 0, sizeof(ovi));
+
+		ovi.dwOSVersionInfoSize=sizeof(ovi);
+		GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
+
+		if ((ovi.dwMajorVersion <= 6) && (ovi.dwBuildNumber < 7100))
+			version = 0;
+		else
+			version = 1;
+	}
+
+	qWarning() << "VOLUMESET" << talking;
+
 
 	if (talking) {
 		qmVolumes.clear();
@@ -540,55 +535,66 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 		return;
 	}
 
-	;
-	if (SUCCEEDED(hr = pDevice->Activate(__uuidof(IAudioSessionManager), CLSCTX_ALL, NULL, (void **) &pAudioSessionManager))) {
-		if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(__uuidof(IAudioSessionQuery), (void **) &pMysticQuery))) {
-			if (SUCCEEDED(hr = pMysticQuery->GetQueryInterface(&pAudioQuerier))) {
-				if (SUCCEEDED(hr = pAudioQuerier->GetNumSessions(&max))) {
-					for (unsigned int i=0;i<max;++i) {
-						IUnknown *pUnknown = NULL;
-						if (SUCCEEDED(hr = pAudioQuerier->QuerySession(i, &pUnknown))) {
-							IRemoteAudioSession *prem = NULL;
-							if (SUCCEEDED(hr = pUnknown->QueryInterface(__uuidof(IRemoteAudioSession), (void **) &prem))) {
-								DWORD pid = 0;
-								if (SUCCEEDED(hr = prem->GetProcessId(&pid)) && pid && (pid != dwMumble)) {
-									ISimpleAudioVolume *isav = NULL;
-									if (SUCCEEDED(hr = prem->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &isav))) {
-										if (talking) {
-											BOOL bMute = TRUE;
-											if (SUCCEEDED(hr = isav->GetMute(&bMute)) && ! bMute) {
-												float fVolume = 1.0f;
-												if (SUCCEEDED(hr = isav->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
-													float fSetVolume = fVolume * g.s.fOtherVolume;
-													if (SUCCEEDED(hr = isav->SetMasterVolume(fSetVolume, NULL))) {
-														hr = isav->GetMasterVolume(&fSetVolume);
-														qmVolumes.insert(pid, VolumePair(fVolume,fSetVolume));
-													}
-												}
-											}
-										} else {
-											VolumePair vp = qmVolumes.value(pid);
-											if (vp.first) {
-												float fVolume = 1.0f;
-												hr = isav->GetMasterVolume(&fVolume);
-												if (qFuzzyCompare(fVolume, vp.second)) {
-													isav->SetMasterVolume(vp.first, NULL);
+
+	if (SUCCEEDED(hr = pDevice->Activate(version ? __uuidof(IAudioSessionManager2) : __uuidof(IAudioSessionManager), CLSCTX_ALL, NULL, (void **) &pAudioSessionManager))) {
+		IAudioSessionEnumerator *pEnumerator = NULL;
+		IAudioSessionQuery *pMysticQuery = NULL;
+		if (version == 0) {
+			if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(__uuidof(IAudioSessionQuery), (void **) &pMysticQuery))) {
+				hr = pMysticQuery->GetQueryInterface(&pEnumerator);
+			}
+		} else {
+			hr = pAudioSessionManager->GetSessionEnumerator(&pEnumerator);
+		}
+		if (SUCCEEDED(hr)) {
+			if (SUCCEEDED(hr = pEnumerator->GetCount(&max))) {
+				for (int i=0;i<max;++i) {
+					IAudioSessionControl *pControl = NULL;
+					IUnknown *pUnknown = NULL;
+					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
+						IAudioSessionControl2 *pControl2 = NULL;
+						if (SUCCEEDED(hr = pControl->QueryInterface(version ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {
+							DWORD pid = 0;
+							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && pid && (pid != dwMumble)) {
+								qWarning() << "PID" << pid;
+								ISimpleAudioVolume *pVolume = NULL;
+								if (SUCCEEDED(hr = pControl2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume))) {
+									if (talking) {
+										BOOL bMute = TRUE;
+										if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
+											float fVolume = 1.0f;
+											if (SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
+												float fSetVolume = fVolume * g.s.fOtherVolume;
+												if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
+													hr = pVolume->GetMasterVolume(&fSetVolume);
+													qmVolumes.insert(pid, VolumePair(fVolume,fSetVolume));
 												}
 											}
 										}
-										isav->Release();
+									} else {
+										VolumePair vp = qmVolumes.value(pid);
+										if (vp.first) {
+											float fVolume = 1.0f;
+											hr = pVolume->GetMasterVolume(&fVolume);
+											if (qFuzzyCompare(fVolume, vp.second)) {
+												pVolume->SetMasterVolume(vp.first, NULL);
+											}
+											qmVolumes.remove(pid);
+										}
 									}
+									pVolume->Release();
 								}
-								prem->Release();
 							}
-							pUnknown->Release();
+							pControl2->Release();
 						}
+						pControl->Release();
 					}
 				}
-				pAudioQuerier->Release();
 			}
-			pMysticQuery->Release();
+			pEnumerator->Release();
 		}
+		if (pMysticQuery)
+			pMysticQuery->Release();
 		pAudioSessionManager->Release();
 	}
 }
