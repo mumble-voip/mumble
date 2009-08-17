@@ -584,7 +584,7 @@ void AudioWizard::on_OutputDevice_activated(int) {
 
 	while (! ao.unique()) {}
 	ao.reset();
-	
+
 	aosSource = NULL;
 
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
@@ -674,7 +674,7 @@ void AudioWizard::restartAudio() {
 
 	g.ai.reset();
 	g.ao.reset();
-	
+
 	while (! ai.unique() || ! ao.unique()) {}
 	ai.reset();
 	ao.reset();

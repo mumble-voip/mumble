@@ -166,7 +166,7 @@ void ConfigDialog::updateExpert(bool b) {
 void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->save();
-		
+
 	AudioInputPtr ai = g.ai;
 	AudioOutputPtr ao = g.ao;
 
