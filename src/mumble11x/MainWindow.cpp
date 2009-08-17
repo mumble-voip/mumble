@@ -154,6 +154,9 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	on_qmConfig_aboutToShow();
 
 	setOnTop(g.s.bAlwaysOnTop);
+#ifdef NO_UPDATE_CHECK
+	delete qaHelpVersionCheck;
+#endif
 }
 
 void MainWindow::createActions() {

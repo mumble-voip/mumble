@@ -386,8 +386,10 @@ void Settings::load() {
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(iServerRow, "ui/serverrow");
+#ifndef NO_UPDATE_CHECK
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
+#endif
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bAdvancedACLCfg, "ui/advancedaclcfg");
