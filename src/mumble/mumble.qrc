@@ -45,5 +45,6 @@
  <file>mumble_cs.qm</file>
  <file>mumble_pl.qm</file>
  <file>mumble_zh_CN.qm</file>
+ <file>mumble_zh_TW.qm</file>
 </qresource>
 </RCC>

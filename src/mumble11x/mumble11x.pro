@@ -12,7 +12,7 @@ SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc
 FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui
-TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts
+TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts mumble_zh_CN.ts mumble_zh_TW.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 
 VERSION		= 1.1.8
@@ -208,7 +208,7 @@ DEFINES *= NO_UPDATE_CHECK
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-	QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja_JP.qm
+	QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja_JP.qm qt_zh_CN.qm qt_zh_TW.qm
 
 	copytrans.output = ${QMAKE_FILE_NAME}
 	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}

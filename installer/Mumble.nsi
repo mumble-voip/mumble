@@ -92,6 +92,7 @@ Page custom PageReinstall PageLeaveReinstall
   !insertmacro MUI_LANGUAGE "Polish"
   !insertmacro MUI_LANGUAGE "Spanish"
   !insertmacro MUI_LANGUAGE "SimpChinese"
+  !insertmacro MUI_LANGUAGE "TradChinese"
   
   
   !include "MumbleEnglish.nsh"
@@ -101,6 +102,7 @@ Page custom PageReinstall PageLeaveReinstall
   !include "MumbleNorwegian.nsh"
   !include "MumblePolish.nsh"
   !include "MumbleSimpChinese.nsh"
+  !include "MumbleTradChinese.nsh"
   !include "MumbleSpanish.nsh"
   
   !insertmacro MUI_RESERVEFILE_LANGDLL
