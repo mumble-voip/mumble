@@ -462,14 +462,14 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								return p->qsName;
 							} else {
 								const_cast<UserModel *>(this)->seenComment(idx);
-								return p->qsComment;
+								return Log::validHtml(p->qsComment);
 							}
 						} else {
 							if (c->qsDesc.isEmpty()) {
 								return c->qsName;
 							} else {
 								const_cast<UserModel *>(this)->seenComment(idx);
-								return c->qsDesc;
+								return Log::validHtml(c->qsDesc);
 							}
 						}
 					}

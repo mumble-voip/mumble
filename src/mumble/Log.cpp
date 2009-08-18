@@ -254,6 +254,29 @@ void Log::clearIgnore() {
 	qmIgnore.clear();
 }
 
+QString Log::validHtml(const QString &html) {
+	QDesktopWidget dw;
+	QTextDocument qtd;
+
+	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
+	qtd.setTextWidth(qr.width());
+
+	qtd.setHtml(html);
+	qtd.adjustSize();
+	QSizeF s = qtd.size();
+
+	if ((s.width() > qr.width()) || (s.height() > qr.height())) {
+		qtd.setPlainText(html);
+		qtd.adjustSize();
+		s = qtd.size();
+
+		if ((s.width() > qr.width()) || (s.height() > qr.height()))
+			return tr("[[ Text object too large to display ]]");
+		return qtd.toHtml();
+	}
+	return html;
+}
+
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	QTime now = QTime::currentTime();
 
@@ -281,7 +304,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(console, now.toString(Qt::LocalDate)));
+		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console), now.toString(Qt::LocalDate)));
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();

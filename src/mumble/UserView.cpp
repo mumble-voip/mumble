@@ -34,6 +34,7 @@
 #include "ClientUser.h"
 #include "Channel.h"
 #include "ServerHandler.h"
+#include "Log.h"
 #include "Global.h"
 
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
@@ -125,7 +126,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 				QModelIndex midx = idx.sibling(idx.row(), 0);
 				r = r.united(visualRect(midx));
 				r.setWidth(r.width() / 2);
-				QWhatsThis::showText(viewport()->mapToGlobal(r.bottomRight()), cu ? cu->qsComment : c->qsDesc, this);
+				QWhatsThis::showText(viewport()->mapToGlobal(r.bottomRight()), Log::validHtml(cu ? cu->qsComment : c->qsDesc), this);
 				um->seenComment(idx);
 				return;
 			}
