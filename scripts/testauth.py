@@ -28,7 +28,7 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
       if (name == None):
         return (False, {})
       map = {}
-      map['name']=name
+      map[Murmur.UserInfo.UserName]=name
       return (True, map)
 
     def nameToId(self, name, current=None):
@@ -53,7 +53,7 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
     # The expanded methods from UpdatingAuthenticator. We only implement a subset for this example, but
     # a valid implementation has to define all of them
     def registerUser(self, name, current=None):
-      print "Someone tried to register " + name['name']
+      print "Someone tried to register " + name[Murmur.UserInfo.UserName]
       return -2
 
     def unregisterUser(self, id, current=None):
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     print "Done"
     
     map = {};
-    map['name'] = 'TestUser';
+    map[Murmur.UserInfo.UserName] = 'TestUser';
 
     for server in meta.getBootedServers():
       ids= server.getUserIds(["TestUser"])
