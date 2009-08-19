@@ -425,7 +425,7 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 	if (g.s.iMaxImageSize <= 0)
 		return QLatin1String("Image download disabled.");
 
-	QImage qi(0, 0, QImage::Format_Mono);
+	QImage qi(1, 1, QImage::Format_Mono);
 
 	addResource(type, url, qi);
 
