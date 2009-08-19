@@ -808,12 +808,12 @@ void MainWindow::on_qmUser_aboutToShow() {
 	} else {
 		qaUserKick->setEnabled(! self);
 		qaUserBan->setEnabled(! self);
-		qaUserMute->setEnabled(! self || p->bMute);
+		qaUserMute->setEnabled(! self || p->bMute || p->bSuppress);
 		qaUserDeaf->setEnabled(! self || p->bDeaf);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
 
-		qaUserMute->setChecked(p->bMute);
+		qaUserMute->setChecked(p->bMute || p->bSuppress);
 		qaUserDeaf->setChecked(p->bDeaf);
 		qaUserLocalMute->setChecked(p->bLocalMute);
 	}
