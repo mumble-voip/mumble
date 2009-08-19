@@ -6,13 +6,14 @@
  <file alias="talking_on.svg">../../icons/talking_on.svg</file>
  <file alias="talking_alt.svg">../../icons/talking_alt.svg</file>
  <file alias="talking_off.svg">../../icons/talking_off.svg</file>
+ <file alias="talking_whisper.svg">../../icons/talking_whisper.svg</file>
  <file alias="deafened_self.svg">../../icons/deafened_self.svg</file>
  <file alias="deafened_server.svg">../../icons/deafened_server.svg</file>
  <file alias="muted_self.svg">../../icons/muted_self.svg</file>
  <file alias="muted_server.svg">../../icons/muted_server.svg</file>
- <file alias="muted_local.png">../../icons/muted_local.png</file>
+ <file alias="muted_local.svg">../../icons/muted_local.svg</file>
  <file alias="muted_suppressed.svg">../../icons/muted_suppressed.svg</file>
- <file alias="authenticated.png">../../icons/authenticated.png</file>
+ <file alias="authenticated.svg">../../icons/authenticated.svg</file>
  <file alias="channel.svg">../../icons/channel.svg</file>
  <file alias="channel_active.svg">../../icons/channel_active.svg</file>
  <file alias="channel_linked.svg">../../icons/channel_linked.svg</file>
