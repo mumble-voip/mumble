@@ -644,7 +644,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	int packetsize = 20 + 8 + 4 + len;
 	bw->addFrame(packetsize);
 
-	if (bw->bytesPerSec() > iMaxBandwidth) {
+	if ((bw->bytesPerSec() * 8)> iMaxBandwidth) {
 		// Suppress packet.
 		return;
 	}
