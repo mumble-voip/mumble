@@ -78,7 +78,7 @@ class Log : public QObject {
 		QString msgName(MsgType t) const;
 		void setIgnore(MsgType t, int ignore = 1 << 30);
 		void clearIgnore();
-		static QString validHtml(const QString &html);
+		static QString validHtml(const QString &html, bool allowReplacement = false);
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString());
 };

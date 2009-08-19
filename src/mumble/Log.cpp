@@ -254,7 +254,7 @@ void Log::clearIgnore() {
 	qmIgnore.clear();
 }
 
-QString Log::validHtml(const QString &html) {
+QString Log::validHtml(const QString &html, bool allowReplacement) {
 	QDesktopWidget dw;
 	QTextDocument qtd;
 
@@ -265,7 +265,7 @@ QString Log::validHtml(const QString &html) {
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
 
-	if ((s.width() > qr.width()) || (s.height() > qr.height())) {
+	if ((!allowReplacement && ! qtd.find(QString(QChar::ObjectReplacementCharacter)).isNull()) || (s.width() > qr.width()) || (s.height() > qr.height())) {
 		qtd.setPlainText(html);
 		qtd.adjustSize();
 		s = qtd.size();
@@ -304,7 +304,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console), now.toString(Qt::LocalDate)));
+		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console, true), now.toString(Qt::LocalDate)));
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();
