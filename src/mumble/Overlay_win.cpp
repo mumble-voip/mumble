@@ -73,15 +73,15 @@ void SharedMemory::unlock() {
 	ReleaseMutex(d->hMutex);
 }
 
-class OverlayPrivate {
+class OverlayPrivateWin : public OverlayPrivate {
 	public:
 		HooksProc hpInstall, hpRemove;
 };
 
 void Overlay::platformInit() {
-	d = new OverlayPrivate();
-	d->hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
-	d->hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
+	d = new OverlayPrivateWin();
+	static_cast<OverlayPrivateWin *>(d)->hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
+	static_cast<OverlayPrivateWin *>(d)->hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
 }
 
 void Overlay::setActive(bool act) {
@@ -89,9 +89,9 @@ void Overlay::setActive(bool act) {
 		return;
 
 	if (act)
-		d->hpInstall();
+		static_cast<OverlayPrivateWin *>(d)->hpInstall();
 	else
-		d->hpRemove();
+		static_cast<OverlayPrivateWin *>(d)->hpRemove();
 }
 
 void Overlay::on_Timer_timeout() {

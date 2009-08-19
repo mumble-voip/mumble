@@ -1121,15 +1121,13 @@ void MainWindow::on_qmChannel_aboutToShow() {
 
 void MainWindow::on_qaChannelAdd_triggered() {
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
-	int id = c ? c->iId : 0;
-
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
 		aclEdit = NULL;
 	}
 
-	aclEdit = new ACLEditor(c->iId, this);
+	aclEdit = new ACLEditor(c ? c->iId : 0, this);
 	aclEdit->show();
 }
 

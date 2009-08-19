@@ -80,7 +80,14 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		bool expert(bool);
 };
 
-class OverlayPrivate;
+class OverlayPrivate : public QObject {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayPrivate);
+	public:
+		OverlayPrivate() : QObject() {};
+};
+
 class Overlay : public QObject {
 		friend class OverlayConfig;
 	private:
