@@ -108,7 +108,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsTransmitHold, r.iVoiceHold);
 	loadSlider(qsTransmitMin, iroundf(r.fVADmin * 32767.0f));
 	loadSlider(qsTransmitMax, iroundf(r.fVADmax * 32767.0f));
-	loadSlider(qsFrames, r.iFramesPerPacket);
+	loadSlider(qsFrames, (r.iFramesPerPacket == 1) ? 1 : (r.iFramesPerPacket/2 + 1));
 	loadSlider(qsDoublePush, iroundf(static_cast<float>(r.uiDoublePush) / 1000.f));
 
 	if (r.vsVAD == Settings::Amplitude)
@@ -142,6 +142,7 @@ void AudioInputDialog::save() const {
 	s.fVADmax = static_cast<float>(qsTransmitMax->value()) / 32767.0f;
 	s.vsVAD = qrbSNR->isChecked() ? Settings::SignalToNoise : Settings::Amplitude;
 	s.iFramesPerPacket = qsFrames->value();
+	s.iFramesPerPacket = (s.iFramesPerPacket == 1) ? 1 : ((s.iFramesPerPacket-1) * 2);
 	s.uiDoublePush = qsDoublePush->value() * 1000;
 	s.bPushClick = qcbPushClick->isChecked();
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
@@ -174,7 +175,7 @@ bool AudioInputDialog::expert(bool b) {
 }
 
 void AudioInputDialog::on_qsFrames_valueChanged(int v) {
-	qlFrames->setText(tr("%1 ms").arg(v*10));
+	qlFrames->setText(tr("%1 ms").arg((v==1) ? 10 : (v-1)*20));
 	updateBitrate();
 }
 
