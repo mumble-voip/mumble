@@ -204,7 +204,7 @@ QString ModelItem::hash() const {
 			hash.addData(host.toUtf8());
 			hash.addData(QString::number(port).toUtf8());
 		}
-		return hash.result().toHex();
+		return QLatin1String(hash.result().toHex());
 	}
 }
 
@@ -214,11 +214,11 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.svg"));
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
-	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.png"));
+	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.svg"));
 	qiMutedSuppressed=QIcon(QLatin1String("skin:muted_suppressed.svg"));
 	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.svg"));
 	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.svg"));
-	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.png"));
+	qiAuthenticated=QIcon(QLatin1String("skin:authenticated.svg"));
 	qiChannel=QIcon(QLatin1String("skin:channel.svg"));
 	qiActiveChannel=QIcon(QLatin1String("skin:channel_active.svg"));
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
@@ -383,14 +383,14 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiMutedServer;
 				if (p->bSuppress)
 					l << qiMutedSuppressed;
-				if (p->bDeaf)
-					l << qiDeafenedServer;
 				if (p->bSelfMute)
 					l << qiMutedSelf;
-				if (p->bSelfDeaf)
-					l << qiDeafenedSelf;
 				if (p->bLocalMute)
 					l << qiMutedLocal;
+				if (p->bDeaf)
+					l << qiDeafenedServer;
+				if (p->bSelfDeaf)
+					l << qiDeafenedSelf;
 				if (! p->qsComment.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 				return l;
@@ -482,27 +482,66 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 			switch (section) {
 				case 0:
 					if (isUser)
-						// FIXME: Update to contain whisper
-						return tr("This is a user connected to the server. The icon to the left of the user indicates "
-						          "whether or not they are talking:<br />"
-						          "<img src=\"skin:talking_on.svg\" width=32 /> Talking<br />"
-						          "<img src=\"skin:talking_alt.svg\" width=32 /> Whispering<br />"
-						          "<img src=\"skin:talking_off.svg\" width=32/> Not talking"
-						         );
+						return QString::fromLatin1("%1"
+						          "<table>"
+						          "<tr><td><img src=\"skin:talking_on.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
+						          "<tr><td><img src=\"skin:talking_alt.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
+						          "<tr><td><img src=\"skin:talking_whisper.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
+						          "<tr><td><img src=\"skin:talking_off.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
+						          "</table>").arg(tr("This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:"),
+						          tr("Talking to your channel."),
+						          tr("Whispering directly to your channel."),
+						          tr("Whispering directly to you."),
+						          tr("Not talking.")
+						          );
 					else
-						return tr("This is a channel on the server. Only users in the same channel can hear each other.");
+						return QString::fromLatin1("%1"
+						          "<table>"
+						          "<tr><td><img src=\"skin:channel_active.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
+						          "<tr><td><img src=\"skin:channel_linked.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
+						          "<tr><td><img src=\"skin:channel.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
+						          "</table>").arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
+						          tr("Your current channel."),
+						          tr("A channel that is linked with your channel. Linked channels can talk to each other."),
+						          tr("A channel on the server that you are not linked to.")
+						          );
 				case 1:
-					// FIXME: Update list to contain new states.
-					return tr("This shows the flags the user has on the server, if any:<br />"
-					          "<img src=\":/emblems/emblem-favorite.svg\" />On your friend list<br />"
-					          "<img src=\"skin:authenticated.png\" />Authenticated user<br />"
-					          "<img src=\"skin:muted_self.svg\" />Muted (by self)<br />"
-					          "<img src=\"skin:muted_server.svg\" />Muted (by admin)<br />"
-					          "<img src=\"skin:deafened_self.svg\" />Deafened (by self)<br />"
-					          "<img src=\"skin:deafened_server.svg\" />Deafened (by admin)<br />"
-					          "A user muted by himself is probably just away, talking on the phone or something like that.<br />"
-					          "A user muted by an admin is probably also just away, and the noise the user is making was annoying "
-					          "enough that an admin muted him.");
+					if (isUser)
+						return QString::fromLatin1("%1"
+									"<table>"
+								  "<tr><td><img src=\":/emblems/emblem-favorite.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
+								  "<tr><td><img src=\"skin:authenticated.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
+								  "<tr><td><img src=\"skin:muted_self.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
+								  "<tr><td><img src=\"skin:muted_server.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
+								  "<tr><td><img src=\"skin:muted_suppressed.svg\" width=64 /></td><td valign=\"middle\">%6</td></tr>"
+								  "<tr><td><img src=\"skin:muted_local.svg\" width=64 /></td><td valign=\"middle\">%7</td></tr>"
+								  "<tr><td><img src=\"skin:deafened_self.svg\" width=64 /></td><td valign=\"middle\">%8</td></tr>"
+								  "<tr><td><img src=\"skin:deafened_server.svg\" width=64 /></td><td valign=\"middle\">%9</td></tr>"
+								  "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
+								  "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
+								  "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
+								  tr("On your friend list"),
+								  tr("Authenticated user"),
+								  tr("Muted (manually muted by self)"),
+								  tr("Muted (manually muted by admin)"),
+								  tr("Muted (not allowed to speak in current channel)"),
+								  tr("Muted (muted by you, only on your machine)")
+								  ).arg(
+								  tr("Deafened (by self)"),
+								  tr("Deafened (by admin)"),
+								  tr("User has a new comment set(click to show)"),
+								  tr("User has a comment set, which you've already seen. (click to show)")
+								);
+					else
+						return QString::fromLatin1("%1"
+									"<table>"
+								  "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
+								  "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
+								  "</table>").arg(tr("This shows the flags the channel has, if any:"),
+								  tr("Channel has a new comment set(click to show)"),
+								  tr("Channel has a comment set, which you've already seen. (click to show)")
+								);
+
 			}
 			break;
 	}

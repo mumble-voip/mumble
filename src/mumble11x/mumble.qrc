@@ -14,9 +14,9 @@
  <file alias="deafened_overlay.png">resources/deafened_overlay.png</file>
  <file alias="muted_self.png">resources/muted_self.png</file>
  <file alias="muted_server.png">resources/muted_server.png</file>
- <file alias="muted_local.png">../../icons/muted_local.png</file>
+ <file alias="muted_local.png">resources/muted_local.png</file>
  <file alias="muted_overlay.png">resources/muted_overlay.png</file>
- <file alias="authenticated.png">../../icons/authenticated.png</file>
+ <file alias="authenticated.png">resources/authenticated.png</file>
  <file alias="channel.png">resources/channel.png</file>
  <file alias="channel_linked.png">resources/channel_linked.png</file>
  <file alias="config_basic.png">../../icons/config_basic.png</file>
