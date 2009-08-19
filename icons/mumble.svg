@@ -19,6 +19,8 @@
    sodipodi:docname="mumble.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    style="display:inline">
+  <title
+     id="title3169">Mumble logo</title>
   <defs
      id="defs4">
     <linearGradient
@@ -1999,7 +2001,28 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title>Mumble logo</dc:title>
+        <dc:date>2009.08.17</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Martin Skilnand</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Martin Skilnand</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Mumble team</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:identifier>mumble.svg</dc:identifier>
+        <dc:source>git://mumble.git.sourceforge.net/gitroot/mumble</dc:source>
+        <dc:description>Logo for voice chat program mumble</dc:description>
+        <cc:license
+           rdf:resource="BSD" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
