@@ -122,7 +122,7 @@ Settings::Settings() {
 	bTTS = true;
 	iTTSVolume = 75;
 	iTTSThreshold = 250;
-	iQuality = 48000;
+	iQuality = 32000;
 	fVolume = 1.0f;
 	fOtherVolume = 0.5f;
 	iMinLoudness = 1000;

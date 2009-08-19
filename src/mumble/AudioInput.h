@@ -95,6 +95,7 @@ class AudioInput : public QThread {
 
 		CELTMode *cmMode;
 		CELTEncoder *ceEncoder;
+		int iAudioQuality;
 
 		drft_lookup fftTable;
 

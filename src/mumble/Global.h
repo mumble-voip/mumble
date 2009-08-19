@@ -80,7 +80,6 @@ public:
 	ChanACL::Permissions pPermissions;
 	int iMaxBandwidth;
 	int iAudioBandwidth;
-	int iAudioQuality;
 	QDir qdBasePath;
 	Global();
 	~Global();

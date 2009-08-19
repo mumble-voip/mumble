@@ -448,7 +448,7 @@
          <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
         </property>
         <property name="minimum">
-         <number>24000</number>
+         <number>16000</number>
         </property>
         <property name="maximum">
          <number>96000</number>
@@ -460,7 +460,7 @@
          <number>5000</number>
         </property>
         <property name="value">
-         <number>24000</number>
+         <number>32000</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>

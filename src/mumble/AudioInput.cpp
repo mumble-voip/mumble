@@ -133,6 +133,11 @@ AudioInput::AudioInput() {
 
 	bRunning = false;
 
+	if (g.sh && g.sh->isRunning())
+		setMaxBandwidth(g.iMaxBandwidth);
+	else
+		iAudioQuality = g.s.iQuality;
+
 	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 }
 
@@ -452,7 +457,7 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 		target = 16000;
 
 	g.iAudioBandwidth = (target/8 + overhead);
-	g.iAudioQuality = target;
+	iAudioQuality = target;
 }
 
 
@@ -672,9 +677,11 @@ void AudioInput::encodeAudioFrame() {
 
 	unsigned char buffer[512];
 
-	celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(g.iAudioQuality));
+	celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
 
-	int len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(g.iAudioQuality / 400, 127));
+
+	int len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
+
 	iBitrate = len * 100 * 8;
 
 	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! iIsSpeech);
