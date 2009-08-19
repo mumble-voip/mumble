@@ -16,10 +16,7 @@ QMAKE_CXXFLAGS_DEBUG	-= -MDd
 QMAKE_CXXFLAGS_RELEASE	*= -MT
 QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
-LIBS *= -ldxguid -luuid -lole32 -luser32
-LIBPATH *= /dev/WinSDK/Lib/i386 /dev/dxsdk/Lib/x86
-
-INCLUDEPATH	*= /dev/WinSDK/Include /dev/dxsdk/Include /dev/Boost/include/boost-1_35
+LIBS *= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -luuid -lole32 -luser32
 
 CONFIG(release, debug|release) {
   DESTDIR       = ../release

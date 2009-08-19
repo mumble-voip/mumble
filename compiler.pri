@@ -1,7 +1,7 @@
 CONFIG *= warn_on
 
 win32 {
-	INCLUDEPATH *= /dev/WinSDK/include /dev/dxsdk/Include /dev/Boost/include/boost-1_39
+	INCLUDEPATH *= /dev/Boost/include/boost-1_39
 	CONFIG(intelcpp) {
 		DEFINES *= RESTRICT=restrict
 		DEFINES *= VAR_ARRAYS
@@ -40,8 +40,14 @@ win32 {
 		QMAKE_LFLAGS *= -fixed:no -debug
 	}
 	CONFIG(debug, debug|release) {
-		INCLUDEPATH *= /dev/vld/include
-		LIBPATH *= /dev/vld/lib
+		exists($$(VLD_DIR)) {
+			VLD_DIR = $$(VLD_DIR)
+		}
+		else {
+			VLD_DIR = /dev/vld
+		}
+		INCLUDEPATH *= "$$VLD_DIR/include"
+		LIBPATH *= "$$VLD_DIR/lib"
 		DEFINES *= USE_VLD
 	}
 } else {
