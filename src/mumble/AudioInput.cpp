@@ -514,7 +514,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 
 	if (bitspersec != -1) {
 		if ((bitrate != g.s.iQuality) || (frames != g.s.iFramesPerPacket))
-			g.mw->msgBox(tr("Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)").arg(bitspersec / 1000).arg(bitrate / 10000).arg(frames*10));
+			g.mw->msgBox(tr("Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)").arg(bitspersec / 1000).arg(bitrate / 1000).arg(frames*10));
 	}
 
 	AudioInputPtr ai = g.ai;
