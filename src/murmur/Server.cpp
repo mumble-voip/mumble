@@ -552,14 +552,21 @@ void Server::run() {
 				len -= 4;
 
 
-				unsigned int msgType = (buffer[0] >> 5) & 0x7;
-
-				if (msgType == MessageHandler::UDPPing) {
-					QByteArray qba;
-					sendMessage(u, buffer, len, qba, true);
-				} else if (msgType == MessageHandler::UDPVoice) {
-					u->bUdp = true;
-					processMsg(u, buffer, len);
+				MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
+				
+				switch(msgType) {
+					case MessageHandler::UDPVoiceSpeex:
+					case MessageHandler::UDPVoiceCELT:
+						{
+							u->bUdp = true;
+							processMsg(u, buffer, len);
+							break;
+						}
+					case MessageHandler::UDPPing:
+						{
+							QByteArray qba;
+							sendMessage(u, buffer, len, qba, true);
+						}
 				}
 #ifdef Q_OS_UNIX
 				fds[i].revents = 0;
@@ -637,6 +644,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	char buffer[512];
 	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, 511);
+	unsigned int type = data[0] & 0xe0;
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
 
@@ -664,11 +672,11 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	len = pds.size() + 1;
 
 	if (target == 0x1f) {
-		buffer[0] = static_cast<char>(target);
+		buffer[0] = type | 0;
 		sendMessage(u, buffer, len, qba);
 		return;
 	} else if (target == 0) {
-		buffer[0] = 0;
+		buffer[0] = type | 0;
 		foreach(p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
 			SENDTO;
@@ -756,7 +764,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				return;
 		}
 		if (! channel.isEmpty()) {
-			buffer[0] = 1;
+			buffer[0] = type | 1;
 			foreach(ServerUser *pDst, channel) {
 				SENDTO;
 			}
@@ -766,7 +774,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			}
 		}
 		if (! direct.isEmpty()) {
-			buffer[0] = 2;
+			buffer[0] = type | 2;
 			foreach(ServerUser *pDst, direct) {
 				SENDTO;
 			}
@@ -976,10 +984,15 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 
 		const char *buffer = qbaMsg.constData();
 
-		unsigned int msgType = (buffer[0] >> 5) & 0x7;
+		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 
-		if (msgType == MessageHandler::UDPVoice)
-			processMsg(u, buffer, l);
+		switch(msgType) {
+			case MessageHandler::UDPVoiceCELT:
+			case MessageHandler::UDPVoiceSpeex:
+				processMsg(u, buffer, l);
+				break;
+		}
+
 		return;
 	}
 
