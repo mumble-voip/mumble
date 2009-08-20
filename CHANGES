@@ -1,11 +1,66 @@
-2009-08-18
+2009-08-21
   Thorvald Natvig <slicer@users.sourceforge.net>
+    9c6b1d0  Re-enable red color for high bandwidth in the
+	     AudioConfigDialog, and allow 8kbit/s transmissions.
+    a4579d2  Fix typo when reducing bandwidth.
+    6479de3  Low bandwidth mode
+
+2009-08-20
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    0fd52da  Parameter change in inkscape to prevent bugging in QT...
+
+2009-08-19
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    b5ba5db  Fixed artifacts in talk icons
+    add5e12  Fixed metadata for mumble.svg, and added talking_whisper.svg.
+
+  unknown <d0t@.(none)>
+    55179d9  Make build environment more flexible
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4ff3993  Get rid of some compiler warnings on Win32
+    6707c8d  Support 10, 20, 40 and 60ms audio packets
+    f8ba374  Make the bandwidth limit on the server be in bit/s instead of
+	     byte/s
+    eb668a1  Add placeholder icons
+    9653d4e  Disallow image links in comments
+    7a7a9b2  Use blank image instead of "missing link" for invalid image
+	     URLs
+    a40cf25  Switch last few icons to temporary svgs, and change formatting
+	     of whatsthis messages.
+    e62f502  Update checkstate for Mute if suppressed
+    1a7f024  Honor requested audio bandwidth slightly better, and lower
+	     minimum allowed
+
+2009-08-18
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    c696a8f  Next test of in UI icons.
+
+  Hengqing Hu <esrms@users.sourceforge.net>
+    2fd9a62  Traditional Chinese translation for Mumble 1.1.8 included
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    cce8c3f  Don't display tooltip/whatsthis for abnormally large
+	     comments/descriptions
+    cf17684  Update testauth script to use new index-based userinfo map
+    028cf24  Use group-GUUID based volume history for other applications
+    8377f00  Don't include test things in the changelog
+    ed384bf  More volume testing
     95a9af7  Use group-GUUID based volume history for other applications
     4848a2d  Don't include test things in the changelog
     29cc812  More volume testing
 
 2009-08-17
   Thorvald Natvig <slicer@users.sourceforge.net>
+    07b5a12  Check session states on Vista.
+    a5a2c66  Don't explicitly state WinSDK path, it will be pulled in by
+	     vcvars. And replace DXSDK with a env var.
+    40d4998  Unified Win7/Vista volume control. I hope.
+    847ed7a  Make NO_UPDATE_CHECK hide options completely
+    b27f0d4  On X11, you can minimize the parent window while a modal
+	     dialog is shown, without reactivating the parent's event loop
+    0978bc7  Protobuf 2.2.0 for Win32
+    4683c46  Fix ALSA periods for raw HW
     b17f3b2  Check session states on Vista.
     a11c188  Don't explicitly state WinSDK path, it will be pulled in by
 	     vcvars. And replace DXSDK with a env var.
@@ -22,9 +77,16 @@
     95dc226  Fixed bugged icons/mumble.svg, verified.
 
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    b0aaa8e  Fixed installer' Spanish translation
     59b741f  Updated installer' Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    2544297  Volatile the iMixerFreq
+    99cd9d4  Add a dummy thread for pulseinput/output, so we don't delete
+	     it during start()
+    02ec1f0  Switch weak to unique-checking for 11x too
+    7da8e1b  Fix abort on quit with Pulse due to wrong thread deleting a
+	     dummy object.
     4f9e599  Volatile the iMixerFreq
     5688781  Add a dummy thread for pulseinput/output, so we don't delete
 	     it during start()

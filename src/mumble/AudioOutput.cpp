@@ -527,7 +527,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				else {
 					speex_bits_read_from(&sbBits, qba.constData(), qba.size());
 					speex_decode(dsSpeex, &sbBits, pOut);
-					for(unsigned int i=0;i<iFrameSize;++i)
+					for (unsigned int i=0;i<iFrameSize;++i)
 						pOut[i] *= (1.0f / 32767.f);
 				}
 
@@ -538,7 +538,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					celt_decode_float(cdDecoder, NULL, 0, pOut);
 				else {
 					speex_decode(dsSpeex, NULL, pOut);
-					for(unsigned int i=0;i<iFrameSize;++i)
+					for (unsigned int i=0;i<iFrameSize;++i)
 						pOut[i] *= (1.0f / 32767.f);
 				}
 			}

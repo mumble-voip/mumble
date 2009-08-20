@@ -553,17 +553,15 @@ void Server::run() {
 
 
 				MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
-				
-				switch(msgType) {
+
+				switch (msgType) {
 					case MessageHandler::UDPVoiceSpeex:
-					case MessageHandler::UDPVoiceCELT:
-						{
+					case MessageHandler::UDPVoiceCELT: {
 							u->bUdp = true;
 							processMsg(u, buffer, len);
 							break;
 						}
-					case MessageHandler::UDPPing:
-						{
+					case MessageHandler::UDPPing: {
 							QByteArray qba;
 							sendMessage(u, buffer, len, qba, true);
 						}
@@ -986,7 +984,7 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 
-		switch(msgType) {
+		switch (msgType) {
 			case MessageHandler::UDPVoiceCELT:
 			case MessageHandler::UDPVoiceSpeex:
 				processMsg(u, buffer, l);

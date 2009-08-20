@@ -483,64 +483,64 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 				case 0:
 					if (isUser)
 						return QString::fromLatin1("%1"
-						          "<table>"
-						          "<tr><td><img src=\"skin:talking_on.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
-						          "<tr><td><img src=\"skin:talking_alt.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
-						          "<tr><td><img src=\"skin:talking_whisper.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
-						          "<tr><td><img src=\"skin:talking_off.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
-						          "</table>").arg(tr("This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:"),
-						          tr("Talking to your channel."),
-						          tr("Whispering directly to your channel."),
-						          tr("Whispering directly to you."),
-						          tr("Not talking.")
-						          );
+						                           "<table>"
+						                           "<tr><td><img src=\"skin:talking_on.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
+						                           "<tr><td><img src=\"skin:talking_alt.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
+						                           "<tr><td><img src=\"skin:talking_whisper.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
+						                           "<tr><td><img src=\"skin:talking_off.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
+						                           "</table>").arg(tr("This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:"),
+						                                           tr("Talking to your channel."),
+						                                           tr("Whispering directly to your channel."),
+						                                           tr("Whispering directly to you."),
+						                                           tr("Not talking.")
+						                                          );
 					else
 						return QString::fromLatin1("%1"
-						          "<table>"
-						          "<tr><td><img src=\"skin:channel_active.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
-						          "<tr><td><img src=\"skin:channel_linked.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
-						          "<tr><td><img src=\"skin:channel.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
-						          "</table>").arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
-						          tr("Your current channel."),
-						          tr("A channel that is linked with your channel. Linked channels can talk to each other."),
-						          tr("A channel on the server that you are not linked to.")
-						          );
+						                           "<table>"
+						                           "<tr><td><img src=\"skin:channel_active.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
+						                           "<tr><td><img src=\"skin:channel_linked.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
+						                           "<tr><td><img src=\"skin:channel.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
+						                           "</table>").arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
+						                                           tr("Your current channel."),
+						                                           tr("A channel that is linked with your channel. Linked channels can talk to each other."),
+						                                           tr("A channel on the server that you are not linked to.")
+						                                          );
 				case 1:
 					if (isUser)
 						return QString::fromLatin1("%1"
-									"<table>"
-								  "<tr><td><img src=\":/emblems/emblem-favorite.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
-								  "<tr><td><img src=\"skin:authenticated.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
-								  "<tr><td><img src=\"skin:muted_self.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
-								  "<tr><td><img src=\"skin:muted_server.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
-								  "<tr><td><img src=\"skin:muted_suppressed.svg\" width=64 /></td><td valign=\"middle\">%6</td></tr>"
-								  "<tr><td><img src=\"skin:muted_local.svg\" width=64 /></td><td valign=\"middle\">%7</td></tr>"
-								  "<tr><td><img src=\"skin:deafened_self.svg\" width=64 /></td><td valign=\"middle\">%8</td></tr>"
-								  "<tr><td><img src=\"skin:deafened_server.svg\" width=64 /></td><td valign=\"middle\">%9</td></tr>"
-								  "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
-								  "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
-								  "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
-								  tr("On your friend list"),
-								  tr("Authenticated user"),
-								  tr("Muted (manually muted by self)"),
-								  tr("Muted (manually muted by admin)"),
-								  tr("Muted (not allowed to speak in current channel)"),
-								  tr("Muted (muted by you, only on your machine)")
-								  ).arg(
-								  tr("Deafened (by self)"),
-								  tr("Deafened (by admin)"),
-								  tr("User has a new comment set(click to show)"),
-								  tr("User has a comment set, which you've already seen. (click to show)")
-								);
+						                           "<table>"
+						                           "<tr><td><img src=\":/emblems/emblem-favorite.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
+						                           "<tr><td><img src=\"skin:authenticated.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_self.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_server.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_suppressed.svg\" width=64 /></td><td valign=\"middle\">%6</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_local.svg\" width=64 /></td><td valign=\"middle\">%7</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_self.svg\" width=64 /></td><td valign=\"middle\">%8</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_server.svg\" width=64 /></td><td valign=\"middle\">%9</td></tr>"
+						                           "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
+						                           "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
+						                                           tr("On your friend list"),
+						                                           tr("Authenticated user"),
+						                                           tr("Muted (manually muted by self)"),
+						                                           tr("Muted (manually muted by admin)"),
+						                                           tr("Muted (not allowed to speak in current channel)"),
+						                                           tr("Muted (muted by you, only on your machine)")
+						                                          ).arg(
+						           tr("Deafened (by self)"),
+						           tr("Deafened (by admin)"),
+						           tr("User has a new comment set(click to show)"),
+						           tr("User has a comment set, which you've already seen. (click to show)")
+						       );
 					else
 						return QString::fromLatin1("%1"
-									"<table>"
-								  "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
-								  "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
-								  "</table>").arg(tr("This shows the flags the channel has, if any:"),
-								  tr("Channel has a new comment set(click to show)"),
-								  tr("Channel has a comment set, which you've already seen. (click to show)")
-								);
+						                           "<table>"
+						                           "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
+						                           "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "</table>").arg(tr("This shows the flags the channel has, if any:"),
+						                                           tr("Channel has a new comment set(click to show)"),
+						                                           tr("Channel has a comment set, which you've already seen. (click to show)")
+						                                          );
 
 			}
 			break;

@@ -105,8 +105,8 @@ AudioInput::AudioInput() {
 
 		iAudioFrames /= 2;
 
-        speex_bits_init(&sbBits);
-        speex_bits_reset(&sbBits);
+		speex_bits_init(&sbBits);
+		speex_bits_reset(&sbBits);
 		esSpeex = speex_encoder_init(&speex_uwb_mode);
 		speex_encoder_ctl(esSpeex,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 		speex_encoder_ctl(esSpeex,SPEEX_GET_SAMPLING_RATE,&iSampleRate);
