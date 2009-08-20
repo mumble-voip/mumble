@@ -46,7 +46,7 @@ Global::Global() {
 	bCenterPosition = false;
 	bPosTest = false;
 	iAudioPathTime = 0;
-	iMaxBandwidth = 0;
+	iMaxBandwidth = -1;
 
 	QString apppath = QCoreApplication::instance()->applicationDirPath();
 	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(apppath));

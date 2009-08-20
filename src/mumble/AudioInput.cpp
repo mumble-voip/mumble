@@ -84,9 +84,51 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 
 
 AudioInput::AudioInput() {
-	iFrameSize = SAMPLE_RATE / 100;
-	cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
-	ceEncoder = celt_encoder_create(cmMode);
+	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames);
+
+	if (preferCELT(iAudioQuality, iAudioFrames))
+		umtType = MessageHandler::UDPVoiceCELT;
+	else
+		umtType = MessageHandler::UDPVoiceSpeex;
+
+	if (umtType == MessageHandler::UDPVoiceCELT) {
+		iSampleRate = SAMPLE_RATE;
+		iFrameSize = SAMPLE_RATE / 100;
+
+		cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
+		ceEncoder = celt_encoder_create(cmMode);
+		esSpeex = NULL;
+		qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
+	} else {
+		cmMode = NULL;
+		ceEncoder = NULL;
+
+		iAudioFrames /= 2;
+
+        speex_bits_init(&sbBits);
+        speex_bits_reset(&sbBits);
+		esSpeex = speex_encoder_init(&speex_uwb_mode);
+		speex_encoder_ctl(esSpeex,SPEEX_GET_FRAME_SIZE,&iFrameSize);
+		speex_encoder_ctl(esSpeex,SPEEX_GET_SAMPLING_RATE,&iSampleRate);
+
+		int iArg=1;
+		speex_encoder_ctl(esSpeex,SPEEX_SET_VBR, &iArg);
+
+		iArg = 0;
+		speex_encoder_ctl(esSpeex,SPEEX_SET_VAD, &iArg);
+		speex_encoder_ctl(esSpeex,SPEEX_SET_DTX, &iArg);
+
+		float fArg=8.0;
+		speex_encoder_ctl(esSpeex,SPEEX_SET_VBR_QUALITY, &fArg);
+
+		iArg = iAudioQuality;
+		speex_encoder_ctl(esSpeex, SPEEX_SET_VBR_MAX_BITRATE, &iArg);
+
+		iArg = 5;
+		speex_encoder_ctl(esSpeex,SPEEX_SET_COMPLEXITY, &iArg);
+		qWarning("AudioInput: %d bits/s, %d hz, %d sample Speex-UWB", iAudioQuality, iSampleRate, iFrameSize);
+	}
+	iEchoFreq = iMicFreq = iSampleRate;
 
 	mumble_drft_init(&fftTable, iFrameSize);
 
@@ -115,7 +157,6 @@ AudioInput::AudioInput() {
 	psSpeaker = NULL;
 
 	iEchoChannels = iMicChannels = 0;
-	iEchoFreq = iMicFreq = SAMPLE_RATE;
 	iEchoFilled = iMicFilled = 0;
 	eMicFormat = eEchoFormat = SampleFloat;
 	iMicSampleSize = iEchoSampleSize = 0;
@@ -133,11 +174,6 @@ AudioInput::AudioInput() {
 
 	bRunning = false;
 
-	if (g.sh && g.sh->isRunning())
-		setMaxBandwidth(g.iMaxBandwidth);
-	else
-		iAudioQuality = g.s.iQuality;
-
 	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 }
 
@@ -145,8 +181,13 @@ AudioInput::~AudioInput() {
 	bRunning = false;
 	wait();
 
-	celt_encoder_destroy(ceEncoder);
-	celt_mode_destroy(cmMode);
+	if (umtType == MessageHandler::UDPVoiceCELT) {
+		celt_encoder_destroy(ceEncoder);
+		celt_mode_destroy(cmMode);
+	} else {
+		speex_bits_destroy(&sbBits);
+		speex_encoder_destroy(esSpeex);
+	}
 
 	mumble_drft_clear(&fftTable);
 	jitter_buffer_destroy(jb);
@@ -300,10 +341,10 @@ void AudioInput::initializeMixer() {
 	if (pfOutput)
 		delete [] pfOutput;
 
-	if (iMicFreq != SAMPLE_RATE)
-		srsMic = speex_resampler_init(1, iMicFreq, SAMPLE_RATE, 3, &err);
+	if (iMicFreq != iSampleRate)
+		srsMic = speex_resampler_init(1, iMicFreq, iSampleRate, 3, &err);
 
-	iMicLength = (iFrameSize * iMicFreq) / SAMPLE_RATE;
+	iMicLength = (iFrameSize * iMicFreq) / iSampleRate;
 
 	pfMicInput = new float[iMicLength];
 	pfOutput = new float[iFrameSize * qMax(1U,iEchoChannels)];
@@ -311,9 +352,9 @@ void AudioInput::initializeMixer() {
 	if (iEchoChannels > 0) {
 		psSpeaker = new short[iFrameSize * iEchoChannels];
 		bEchoMulti = g.s.bEchoMulti;
-		if (iEchoFreq != SAMPLE_RATE)
-			srsEcho = speex_resampler_init(bEchoMulti ? iEchoChannels : 1, iEchoFreq, SAMPLE_RATE, 3, &err);
-		iEchoLength = (iFrameSize * iEchoFreq) / SAMPLE_RATE;
+		if (iEchoFreq != iSampleRate)
+			srsEcho = speex_resampler_init(bEchoMulti ? iEchoChannels : 1, iEchoFreq, iSampleRate, 3, &err);
+		iEchoLength = (iFrameSize * iEchoFreq) / iSampleRate;
 		iEchoMCLength = bEchoMulti ? iEchoLength * iEchoChannels : iEchoLength;
 		iEchoFrameSize = bEchoMulti ? iFrameSize * iEchoChannels : iFrameSize;
 		pfEchoInput = new float[iEchoMCLength];
@@ -433,31 +474,69 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 	}
 }
 
-int AudioInput::getMaxBandwidth() {
-	// Overhead
-	int overhead = 20 + 8 + 4 + 1 + 2;
-
-	if (g.s.bTransmitPosition)
-		overhead += 12;
-
-	if (NetworkConfig::TcpModeEnabled())
-		overhead += 12;
-
-	return (g.s.iQuality / 8)  + (overhead * 100/g.s.iFramesPerPacket);
+bool AudioInput::preferCELT(int bitrate, int frames) {
+	return ((bitrate >= 32000) || (frames == 1));
 }
 
-void AudioInput::setMaxBandwidth(int bytespersec) {
+void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames) {
+	frames = g.s.iFramesPerPacket;
+	bitrate = g.s.iQuality;
+
+	if (bitspersec == -1) {
+		// No limit
+	} else {
+		if (getNetworkBandwidth(bitrate, frames) >= bitspersec) {
+			if ((frames <= 4) && (bitspersec <= 32000))
+				frames = 4;
+			else if ((frames == 1) && (bitspersec <= 64000))
+				frames = 2;
+			else if ((frames == 2) && (bitspersec <= 48000))
+				frames = 4;
+			if (getNetworkBandwidth(bitrate, frames) >= bitspersec) {
+				do {
+					bitrate -= 1000;
+				} while ((bitrate > 8000) && (getNetworkBandwidth(bitrate, frames) >= bitspersec));
+			}
+		}
+	}
+}
+
+void AudioInput::setMaxBandwidth(int bitspersec) {
+	if (bitspersec == g.iMaxBandwidth)
+		return;
+
+	int frames;
+	int bitrate;
+	adjustBandwidth(bitspersec, bitrate, frames);
+
+	g.iMaxBandwidth = bitspersec;
+	g.iAudioBandwidth = bitrate;
+
+	if (bitspersec != -1) {
+		if ((bitrate != g.s.iQuality) || (frames != g.s.iFramesPerPacket))
+			g.mw->msgBox(tr("Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)").arg(bitspersec / 1000).arg(bitrate / 10000).arg(frames*10));
+	}
+
+	AudioInputPtr ai = g.ai;
+	if (ai && (preferCELT(bitrate, frames) == (ai->umtType == MessageHandler::UDPVoiceCELT))) {
+		ai->iAudioQuality = bitrate;
+		ai->iAudioFrames = frames;
+		return;
+	}
+	g.ai.reset();
+	while (! ai.unique()) {}
+	ai.reset();
+	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
+	if (g.ai)
+		g.ai->start(QThread::HighestPriority);
+}
+
+int AudioInput::getNetworkBandwidth(int bitrate, int frames) {
 	int overhead = 20 + 8 + 4 + 1 + 2 + (g.s.bTransmitPosition ? 12 : 0) + (NetworkConfig::TcpModeEnabled() ? 12 : 0);
-	overhead *= (100 / g.s.iFramesPerPacket);
+	overhead *= (800 / frames);
+	int bw = overhead + bitrate;
 
-	bytespersec -= overhead;
-
-	int target = qMin(bytespersec * 8, g.s.iQuality);
-	if (target < 16000)
-		target = 16000;
-
-	g.iAudioBandwidth = (target/8 + overhead);
-	iAudioQuality = target;
+	return bw;
 }
 
 
@@ -558,7 +637,7 @@ void AudioInput::encodeAudioFrame() {
 		if (sesEcho)
 			speex_echo_state_destroy(sesEcho);
 
-		sppPreprocess = speex_preprocess_state_init(iFrameSize, SAMPLE_RATE);
+		sppPreprocess = speex_preprocess_state_init(iFrameSize, iSampleRate);
 
 		iArg = 1;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
@@ -578,7 +657,7 @@ void AudioInput::encodeAudioFrame() {
 
 		if (iEchoChannels > 0) {
 			sesEcho = speex_echo_state_init_mc(iFrameSize, iFrameSize*10, 1, bEchoMulti ? iEchoChannels : 1);
-			iArg = SAMPLE_RATE;
+			iArg = iSampleRate;
 			speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
 			speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
 
@@ -676,15 +755,27 @@ void AudioInput::encodeAudioFrame() {
 	*/
 
 	unsigned char buffer[512];
+	int len;
 
-	celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
+	if (umtType == MessageHandler::UDPVoiceCELT) {
+		celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
+		len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
+	} else {
+		int vbr = 0;
+		speex_encoder_ctl(esSpeex, SPEEX_GET_VBR_MAX_BITRATE, &vbr);
+		if (vbr != iAudioQuality) {
+			vbr = iAudioQuality;
+			speex_encoder_ctl(esSpeex, SPEEX_SET_VBR_MAX_BITRATE, &vbr);
+		}
 
-
-	int len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
+		speex_encode_int(esSpeex, psSource, &sbBits);
+		len = speex_bits_write(&sbBits, reinterpret_cast<char *>(buffer), 127);
+		speex_bits_reset(&sbBits);
+	}
 
 	iBitrate = len * 100 * 8;
-
 	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! iIsSpeech);
+
 	if (! iIsSpeech)
 		iBitrate = 0;
 
@@ -693,12 +784,14 @@ void AudioInput::encodeAudioFrame() {
 
 void AudioInput::flushCheck(const QByteArray &qba, bool terminator) {
 	qlFrames << qba;
-	if (! terminator && qlFrames.count() < g.s.iFramesPerPacket)
+	if (! terminator && qlFrames.count() < iAudioFrames)
 		return;
 
 	int flags = g.iTarget;
 	if (g.s.lmLoopMode == Settings::Server)
 		flags = 0x1f;
+
+	flags |= (umtType << 5);
 
 	char data[1024];
 	data[0] = static_cast<unsigned char>(flags);

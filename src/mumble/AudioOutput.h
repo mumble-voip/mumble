@@ -60,6 +60,7 @@
 
 #include "Audio.h"
 #include "Settings.h"
+#include "Message.h"
 #include "smallft.h"
 
 class AudioOutput;
@@ -111,6 +112,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutputSpeech)
 	protected:
+		MessageHandler::UDPMessageType umtType;
 		unsigned int iBufferOffset;
 		unsigned int iBufferFilled;
 		unsigned int iOutputSize;
@@ -131,6 +133,9 @@ class AudioOutputSpeech : public AudioOutputUser {
 		CELTMode *cmMode;
 		CELTDecoder *cdDecoder;
 
+		SpeexBits sbBits;
+		void *dsSpeex;
+
 		QList<QByteArray> qlFrames;
 
 		unsigned char ucFlags;
@@ -141,7 +146,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 		virtual bool needSamples(unsigned int snum);
 
 		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
-		AudioOutputSpeech(ClientUser *, unsigned int freq);
+		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type);
 		~AudioOutputSpeech();
 };
 
@@ -220,7 +225,7 @@ class AudioOutput : public QThread {
 
 		AudioOutput();
 		~AudioOutput();
-		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq);
+		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
 		void removeBuffer(const ClientUser *);
 		AudioOutputSample *playSample(const QString &filename, bool loop = false);
 		void run() = 0;

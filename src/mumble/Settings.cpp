@@ -217,7 +217,7 @@ Settings::Settings() {
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
 
-#if defined(AUDIO_TEST)
+#if defined(AUDIO_TEST) || 1
 	lmLoopMode = Local;
 #else
 	lmLoopMode = None;

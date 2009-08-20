@@ -693,7 +693,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 		          .arg(cs.uiRemoteGood).arg(cs.uiRemoteLate).arg(cs.uiRemoteLost).arg(cs.uiRemoteResync)
 		          .arg(cs.uiGood).arg(cs.uiLate).arg(cs.uiLost).arg(cs.uiResync);
 	}
-	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s</p>").arg(g.iMaxBandwidth / 125.0,0,'f',1).arg(g.iAudioBandwidth / 125.0,0,'f',1);
+	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s</p>").arg(g.iMaxBandwidth / 1000.0,0,'f',1).arg(g.iAudioBandwidth / 1000.0,0,'f',1);
 
 	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsVersion + qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
 	qmb.setDefaultButton(QMessageBox::Ok);
@@ -1739,6 +1739,7 @@ void MainWindow::serverDisconnected(QString reason) {
 			qtReconnect->start();
 		}
 	}
+	AudioInput::setMaxBandwidth(-1);
 }
 
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
@@ -1757,14 +1758,13 @@ void MainWindow::customEvent(QEvent *evt) {
 	if (evt->type() == TI_QEVENT) {
 		hide();
 		return;
-	}
-	if (evt->type() == MB_QEVENT) {
+	} else if (evt->type() == MB_QEVENT) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
 		g.l->log(Log::Information, mbe->msg);
 		return;
-	}
-	if (evt->type() != SERVERSEND_EVENT)
+	} else if (evt->type() != SERVERSEND_EVENT) {
 		return;
+	}
 
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 

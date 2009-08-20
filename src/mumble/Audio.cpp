@@ -77,7 +77,8 @@ void LoopUser::addFrame(const QByteArray &packet) {
 	if (qtLastFetch.elapsed() > 100) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
-			ao->addFrameToBuffer(this, QByteArray(), 0);
+			MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((packet.at(0) >> 5) & 0x7);
+			ao->addFrameToBuffer(this, QByteArray(), 0, msgType);
 		}
 	}
 
@@ -87,8 +88,9 @@ void LoopUser::fetchFrames() {
 	QMutexLocker l(&qmLock);
 
 	AudioOutputPtr ao = g.ao;
-	if (!ao || qmPackets.isEmpty())
+	if (!ao || qmPackets.isEmpty()) {
 		return;
+	}
 
 	double cmp = qtTicker.elapsed();
 
@@ -111,7 +113,9 @@ void LoopUser::fetchFrames() {
 		qba.append(static_cast<char>(msgFlags));
 		qba.append(pds.dataBlock(pds.left()));
 
-		ao->addFrameToBuffer(this, qba, iSeq);
+		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((msgFlags >> 5) & 0x7);
+
+		ao->addFrameToBuffer(this, qba, iSeq, msgType);
 		i = qmPackets.erase(i);
 	}
 

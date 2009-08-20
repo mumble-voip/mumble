@@ -23,7 +23,7 @@ unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
 }
 
 CONFIG(no-bundled-speex) {
-  PKGCONFIG	*= speexdsp
+  PKGCONFIG	*= speex speexdsp
 }
 
 !CONFIG(no-bundled-speex) {

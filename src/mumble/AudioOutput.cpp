@@ -345,20 +345,39 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	return !eof;
 }
 
-AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq) : AudioOutputUser(user->qsName) {
+AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type) : AudioOutputUser(user->qsName) {
 	int err;
 	p = user;
+	umtType = type;
 
-	iFrameSize = SAMPLE_RATE / 100;
-	cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
-	cdDecoder = celt_decoder_create(cmMode);
+	int srate = 0;
 
-	if (freq != SAMPLE_RATE)
-		srs = speex_resampler_init(1, SAMPLE_RATE, freq, 3, &err);
+	if (umtType == MessageHandler::UDPVoiceCELT) {
+		srate = SAMPLE_RATE;
+		iFrameSize = srate / 100;
+		cmMode = celt_mode_create(srate, 1, iFrameSize, NULL);
+		cdDecoder = celt_decoder_create(cmMode);
+
+		dsSpeex = NULL;
+	} else {
+		cmMode = NULL;
+		cdDecoder = NULL;
+
+		speex_bits_init(&sbBits);
+
+		dsSpeex = speex_decoder_init(&speex_uwb_mode);
+		int iArg=1;
+		speex_decoder_ctl(dsSpeex, SPEEX_SET_ENH, &iArg);
+		speex_decoder_ctl(dsSpeex, SPEEX_GET_FRAME_SIZE, &iFrameSize);
+		speex_decoder_ctl(dsSpeex, SPEEX_GET_SAMPLING_RATE, &srate);
+	}
+
+	if (freq != srate)
+		srs = speex_resampler_init(1, srate, freq, 3, &err);
 	else
 		srs = NULL;
 
-	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(SAMPLE_RATE)));
+	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(srate)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;
@@ -379,8 +398,13 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq) : Audi
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
-	celt_decoder_destroy(cdDecoder);
-	celt_mode_destroy(cmMode);
+	if (umtType == MessageHandler::UDPVoiceCELT) {
+		celt_decoder_destroy(cdDecoder);
+		celt_mode_destroy(cmMode);
+	} else {
+		speex_bits_destroy(&sbBits);
+		speex_decoder_destroy(dsSpeex);
+	}
 
 	jitter_buffer_destroy(jbJitter);
 
@@ -484,18 +508,39 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						nextalive = false;
 				}
 
-				jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+				int activity;
+				if (umtType == MessageHandler::UDPVoiceCELT)
+					activity = 0;
+				else
+					speex_decoder_ctl(dsSpeex, SPEEX_GET_ACTIVITY, &activity);
+
+				if (activity < 30)
+					jitter_buffer_update_delay(jbJitter, &jbp, NULL);
 			}
 
 			jitter_buffer_tick(jbJitter);
 
 			if (! qlFrames.isEmpty()) {
 				const QByteArray &qba = qlFrames.takeFirst();
-				celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.data()), qba.size(), pOut);
+				if (umtType == MessageHandler::UDPVoiceCELT)
+					celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
+				else {
+					speex_bits_read_from(&sbBits, qba.constData(), qba.size());
+					speex_decode(dsSpeex, &sbBits, pOut);
+					for(unsigned int i=0;i<iFrameSize;++i)
+						pOut[i] *= (1.0f / 32767.f);
+				}
+
 				if (qlFrames.isEmpty() && bHasTerminator)
 					nextalive = false;
 			} else {
-				celt_decode_float(cdDecoder, NULL, 0, pOut);
+				if (umtType == MessageHandler::UDPVoiceCELT)
+					celt_decode_float(cdDecoder, NULL, 0, pOut);
+				else {
+					speex_decode(dsSpeex, NULL, pOut);
+					for(unsigned int i=0;i<iFrameSize;++i)
+						pOut[i] *= (1.0f / 32767.f);
+				}
 			}
 
 			if (! nextalive) {
@@ -618,14 +663,17 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 
 }
 
-void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq) {
+void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq, MessageHandler::UDPMessageType type) {
 	if (iChannels == 0)
 		return;
 	qrwlOutputs.lockForRead();
 	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(user));
 
-	if (! aop) {
+	if (! aop || (aop->umtType != type)) {
 		qrwlOutputs.unlock();
+
+		if (aop)
+			removeBuffer(aop);
 
 		while ((iMixerFreq == 0) && bRunning) {}
 
@@ -633,7 +681,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 			return;
 
 		qrwlOutputs.lockForWrite();
-		aop = new AudioOutputSpeech(user, iMixerFreq);
+		aop = new AudioOutputSpeech(user, iMixerFreq, type);
 		qmOutputs.replace(user,aop);
 	}
 

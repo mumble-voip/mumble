@@ -51,10 +51,10 @@
 #include <celt_header.h>
 #else
 #include <ogg/ogg.h>
-#include <speex/speex.h>
-#include <speex/speex_header.h>
 #include <speex/speex_callbacks.h>
 #endif
+#include <speex/speex.h>
+#include <speex/speex_header.h>
 #include <speex/speex_jitter.h>
 #include <speex/speex_preprocess.h>
 #include <speex/speex_echo.h>

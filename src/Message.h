@@ -58,7 +58,7 @@
 
 class MessageHandler {
 	public:
-		enum UDPMessageType { UDPVoice, UDPPing };
+		enum UDPMessageType { UDPVoiceCELT, UDPPing, UDPVoiceSpeex };
 
 #define MUMBLE_MH_MSG(x) x,
 		enum MessageType {

@@ -48,7 +48,6 @@ win32 {
 		}
 		INCLUDEPATH *= "$$VLD_DIR/include"
 		LIBPATH *= "$$VLD_DIR/lib"
-		DEFINES *= USE_VLD
 	}
 } else {
 	DEFINES *= RESTRICT=__restrict__

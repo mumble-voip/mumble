@@ -88,7 +88,6 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 }
 
 void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
-	g.iMaxBandwidth = msg.max_bandwidth();
 	g.uiSession = msg.session();
 	g.pPermissions = static_cast<ChanACL::Permissions>(msg.permissions());
 	g.l->clearIgnore();
@@ -103,14 +102,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	}
 	iTargetCounter = 100;
 
-	AudioInputPtr ai = g.ai;
-	if (ai) {
-		int bw = ai->getMaxBandwidth();
-		if (bw > g.iMaxBandwidth) {
-			g.l->log(Log::Information, tr("Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.").arg(g.iMaxBandwidth / 125));
-		}
-		ai->setMaxBandwidth(g.iMaxBandwidth);
-	}
+	AudioInput::setMaxBandwidth(msg.max_bandwidth());
 
 	findDesiredChannel();
 

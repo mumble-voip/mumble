@@ -150,20 +150,22 @@ void ServerHandler::udpReady() {
 
 		PacketDataStream pds(buffer + 1, buflen-5);
 
-		unsigned int msgType = (buffer[0] >> 5) & 0x7;
+		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 		unsigned int msgFlags = buffer[0] & 0x1f;
 
 		if (msgType == MessageHandler::UDPPing) {
 			quint64 t;
 			pds >> t;
 			accUDP(static_cast<double>(tTimestamp.elapsed() - t) / 1000.0);
-		} else if (msgType == MessageHandler::UDPVoice) {
-			handleVoicePacket(msgFlags, pds);
+		} else if (msgType == MessageHandler::UDPVoiceCELT) {
+			handleVoicePacket(msgFlags, pds, msgType);
+		} else if (msgType == MessageHandler::UDPVoiceSpeex) {
+			handleVoicePacket(msgFlags, pds, msgType);
 		}
 	}
 }
 
-void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds) {
+void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageHandler::UDPMessageType type) {
 	unsigned int uiSession;
 	pds >> uiSession;
 	ClientUser *p = ClientUser::get(uiSession);
@@ -176,7 +178,7 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 		qba.append(static_cast<char>(msgFlags));
 		qba.append(pds.dataBlock(pds.left()));
 
-		ao->addFrameToBuffer(p, qba, iSeq);
+		ao->addFrameToBuffer(p, qba, iSeq, type);
 	}
 }
 
@@ -330,13 +332,14 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		if (qbaMsg.length() < 1)
 			return;
 
-		unsigned int msgUDPType = (ptr[0] >> 5) & 0x7;
+		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((ptr[0] >> 5) & 0x7);
 		unsigned int msgFlags = ptr[0] & 0x1f;
 		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
 
-		if (msgUDPType == MessageHandler::UDPVoice) {
-			handleVoicePacket(msgFlags, pds);
-		}
+		if (msgType == MessageHandler::UDPVoiceCELT)
+			handleVoicePacket(msgFlags, pds, msgType);
+		else if (msgType == MessageHandler::UDPVoiceSpeex)
+			handleVoicePacket(msgFlags, pds, msgType);
 	} else if (msgType == MessageHandler::Ping) {
 		MumbleProto::Ping msg;
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {

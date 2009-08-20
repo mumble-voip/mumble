@@ -72,7 +72,7 @@ class ServerHandler : public QThread {
 		QUdpSocket *qusUdp;
 		QMutex qmUdp;
 
-		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds);
+		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageHandler::UDPMessageType type);
 	public:
 		Timer tTimestamp;
 		QList<QSslError> qlErrors;

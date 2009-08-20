@@ -547,7 +547,6 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 			if (SUCCEEDED(hr = pEnumerator->GetCount(&max))) {
 				for (int i=0;i<max;++i) {
 					IAudioSessionControl *pControl = NULL;
-					IUnknown *pUnknown = NULL;
 					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
 						IAudioSessionControl2 *pControl2 = NULL;
 						if (SUCCEEDED(hr = pControl->QueryInterface(version ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {

@@ -34,6 +34,7 @@
 #include "Audio.h"
 #include "Settings.h"
 #include "Timer.h"
+#include "Message.h"
 #include "smallft.h"
 
 class AudioInput;
@@ -63,11 +64,11 @@ class AudioInput : public QThread {
 		friend class AudioEchoWidget;
 		friend class AudioStats;
 		friend class AudioInputDialog;
-		friend class FMODSystem;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioInput)
 	protected:
+		typedef enum { CodecCELT, CodecSpeex } CodecFormat;
 		typedef enum { SampleShort, SampleFloat } SampleFormat;
 		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int);
 	private:
@@ -78,8 +79,10 @@ class AudioInput : public QThread {
 		inMixerFunc imfMic, imfEcho;
 		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf);
 	protected:
+		MessageHandler::UDPMessageType umtType;
 		SampleFormat eMicFormat, eEchoFormat;
 
+		unsigned int iSampleRate;
 		unsigned int iMicChannels, iEchoChannels;
 		unsigned int iMicFreq, iEchoFreq;
 		unsigned int iMicLength, iEchoLength;
@@ -95,7 +98,12 @@ class AudioInput : public QThread {
 
 		CELTMode *cmMode;
 		CELTEncoder *ceEncoder;
+
+		SpeexBits sbBits;
+		void *esSpeex;
+
 		int iAudioQuality;
+		int iAudioFrames;
 
 		drft_lookup fftTable;
 
@@ -122,6 +130,9 @@ class AudioInput : public QThread {
 		void flushCheck(const QByteArray &, bool terminator);
 
 		void initializeMixer();
+
+		static bool preferCELT(int bitrate, int frames);
+		static void adjustBandwidth(int bitspersec, int &bitrate, int &frames);
 	signals:
 		void doMute();
 	public:
@@ -137,8 +148,8 @@ class AudioInput : public QThread {
 			return bPreviousVoice;
 		};
 
-		static int getMaxBandwidth();
-		void setMaxBandwidth(int bytespersec);
+		static int getNetworkBandwidth(int bitrate, int frames);
+		static void setMaxBandwidth(int bitspersec);
 
 		AudioInput();
 		~AudioInput();
