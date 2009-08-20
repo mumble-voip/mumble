@@ -510,7 +510,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 	adjustBandwidth(bitspersec, bitrate, frames);
 
 	g.iMaxBandwidth = bitspersec;
-	g.iAudioBandwidth = bitrate;
+	g.iAudioBandwidth = getNetworkBandwidth(bitrate, frames);
 
 	if (bitspersec != -1) {
 		if ((bitrate != g.s.iQuality) || (frames != g.s.iFramesPerPacket))

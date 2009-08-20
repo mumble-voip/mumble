@@ -448,7 +448,7 @@
          <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
         </property>
         <property name="minimum">
-         <number>16000</number>
+         <number>8000</number>
         </property>
         <property name="maximum">
          <number>96000</number>
