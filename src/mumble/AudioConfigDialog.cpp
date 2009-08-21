@@ -259,8 +259,14 @@ void AudioInputDialog::updateBitrate() {
 
 	qlBitrate->setPalette(pal);
 
-	QString v = tr("%1kbit/s (Audio %2, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1);
+	QString v = tr("%1kbit/s (Audio %2 %5, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1).arg(::AudioInput::preferCELT(q,p) ? tr("CELT") : tr("Speex"));
 	qlBitrate->setText(v);
+
+	if (p == 1) {
+		qsQuality->setMinimum(24000);
+	} else {
+		qsQuality->setMinimum(8000);
+	}
 }
 
 void AudioInputDialog::on_qcbTransmit_currentIndexChanged(int v) {
