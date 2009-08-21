@@ -128,6 +128,8 @@ module Murmur
 	const int PermissionBan = 0x20000;
 	/** Register and unregister users. Only valid on root channel. */
 	const int PermissionRegister = 0x40000;
+	/** Register and unregister users. Only valid on root channel. */
+	const int PermissionRegisterSelf = 0x80000;
 
 
 	/** Access Control List for a channel. ACLs are defined per channel, and can be inherited from parent channels.
