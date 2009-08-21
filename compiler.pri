@@ -57,8 +57,17 @@ win32 {
 		QMAKE_LINK = /opt/gcc/bin/g++
 	}
 
+	CONFIG(debug, debug|release) {
+		QMAKE_CFLAGS *= -fstack-protector -fPIE -pie
+		QMAKE_CXXFLAGS *= -fstack-protector -fPIE -pie
+	}
+
 	QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
 	QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
+
+	DEFINES *= _FORTIFY_SOURCE=2
+
+	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
 
 	CONFIG(optgen) {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
