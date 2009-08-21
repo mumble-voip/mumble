@@ -292,6 +292,19 @@ void WASAPIInput::run() {
 			qWarning("WASAPIInput: Failed to open input device");
 			goto cleanup;
 		}
+		wchar_t *devname = NULL;
+		hr = pMicDevice->GetId(&devname);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to query input device");
+			goto cleanup;
+		}
+		pMicDevice->Release();
+		hr = pEnumerator->GetDevice(devname, &pMicDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to reopen default input device");
+			goto cleanup;
+		}
+		CoTaskMemFree(devname);
 	}
 
 	if (g.s.doEcho()) {
@@ -310,6 +323,19 @@ void WASAPIInput::run() {
 				qWarning("WASAPIInput: Failed to open echo device");
 				goto cleanup;
 			}
+			wchar_t *devname = NULL;
+			hr = pEchoDevice->GetId(&devname);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Failed to query echo device");
+				goto cleanup;
+			}
+			pEchoDevice->Release();
+			hr = pEnumerator->GetDevice(devname, &pEchoDevice);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Failed to reopen default echo device");
+				goto cleanup;
+			}
+			CoTaskMemFree(devname);
 		}
 	}
 
@@ -658,6 +684,19 @@ void WASAPIOutput::run() {
 			qWarning("WASAPIOutput: Failed to open output device");
 			goto cleanup;
 		}
+		wchar_t *devname = NULL;
+		hr = pDevice->GetId(&devname);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Failed to query output device");
+			goto cleanup;
+		}
+		pDevice->Release();
+		hr = pEnumerator->GetDevice(devname, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Failed to reopen default output device");
+			goto cleanup;
+		}
+		CoTaskMemFree(devname);
 	}
 
 	pEnumerator->Release();
