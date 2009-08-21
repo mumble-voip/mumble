@@ -525,7 +525,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				if (umtType == MessageHandler::UDPVoiceCELT)
 					celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
 				else {
-					speex_bits_read_from(&sbBits, qba.constData(), qba.size());
+					speex_bits_read_from(&sbBits, qba.data(), qba.size());
 					speex_decode(dsSpeex, &sbBits, pOut);
 					for (unsigned int i=0;i<iFrameSize;++i)
 						pOut[i] *= (1.0f / 32767.f);
