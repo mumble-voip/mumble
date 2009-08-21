@@ -209,9 +209,10 @@ QString ModelItem::hash() const {
 }
 
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
-	qiTalkingAlt=QIcon(QLatin1String("skin:talking_alt.svg"));
 	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.svg"));
+	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
+	qiTalkingWhisperChannel=QIcon(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingWhisper=QIcon(QLatin1String("skin:talking_whisper.svg"));
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
 	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.svg"));
@@ -359,7 +360,16 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0)
-					return (p->bTalking) ? (p->bAltSpeak ? qiTalkingAlt : qiTalkingOn) : qiTalkingOff;
+					switch (p->tsState) {
+						case ClientUser::TalkingOff:
+							return qiTalkingOff;
+						case ClientUser::Talking:
+							return qiTalkingOn;
+						case ClientUser::TalkingWhisper:
+							return qiTalkingWhisper;
+						default:
+							return qiTalkingWhisperChannel;
+					}
 				break;
 			case Qt::FontRole:
 				if ((idx.column() == 0) && (p->uiSession == g.uiSession)) {
@@ -741,7 +751,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 
 	ModelItem *item = new ModelItem(p);
 
-	connect(p, SIGNAL(talkingChanged(bool)), this, SLOT(userTalkingChanged(bool)));
+	connect(p, SIGNAL(talkingChanged()), this, SLOT(userTalkingChanged()));
 	connect(p, SIGNAL(muteDeafChanged()), this, SLOT(userMuteDeafChanged()));
 
 	Channel *c = Channel::get(0);
@@ -1116,7 +1126,7 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 	return NULL;
 }
 
-void UserModel::userTalkingChanged(bool) {
+void UserModel::userTalkingChanged() {
 	ClientUser *p=static_cast<ClientUser *>(sender());
 	if (!p)
 		return;

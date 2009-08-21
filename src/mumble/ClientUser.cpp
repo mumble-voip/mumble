@@ -37,7 +37,7 @@ QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
 QReadWriteLock ClientUser::c_qrwlUsers;
 
 ClientUser::ClientUser(QObject *p) : QObject(p) {
-	bTalking = bAltSpeak = false;
+	tsState = TalkingOff;
 	bLocalMute = false;
 	iTextureWidth = 0;
 }
@@ -109,12 +109,11 @@ QString ClientUser::getFlagsString() const {
 	return flags.join(QLatin1String(", "));
 }
 
-void ClientUser::setTalking(bool talking, bool altspeech) {
-	if ((bTalking == talking) && (bAltSpeak == altspeech))
+void ClientUser::setTalking(TalkState ts) {
+	if (tsState == ts)
 		return;
-	bTalking = talking;
-	bAltSpeak = altspeech;
-	emit talkingChanged(bTalking);
+	tsState = ts;
+	emit talkingChanged();
 }
 
 void ClientUser::setMute(bool mute) {

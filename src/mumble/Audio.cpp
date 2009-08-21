@@ -45,8 +45,7 @@ LoopUser::LoopUser() {
 	iId = 0;
 	bMute = bDeaf = bSuppress = false;
 	bLocalMute = bSelfDeaf = false;
-	bTalking = false;
-	bAltSpeak = false;
+	tsState = ClientUser::TalkingOff;
 	cChannel = NULL;
 	qtTicker.start();
 }

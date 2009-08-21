@@ -41,7 +41,6 @@ class ClientUser : public QObject, public User {
 		enum TalkState { TalkingOff, Talking, TalkingWhisperChannel, TalkingWhisper };
 		TalkState tsState;
 		bool bLocalMute;
-		bool bTalking, bAltSpeak;
 
 		QString qsFriendName;
 		int iTextureWidth;
@@ -55,7 +54,7 @@ class ClientUser : public QObject, public User {
 		static void remove(unsigned int);
 		static void remove(ClientUser *);
 	public slots:
-		void setTalking(bool talking, bool altspeech);
+		void setTalking(TalkState ts);
 		void setMute(bool mute);
 		void setDeaf(bool deaf);
 		void setSuppress(bool suppress);
@@ -63,7 +62,7 @@ class ClientUser : public QObject, public User {
 		void setSelfMute(bool mute);
 		void setSelfDeaf(bool deaf);
 	signals:
-		void talkingChanged(bool talking);
+		void talkingChanged();
 		void muteDeafChanged();
 };
 

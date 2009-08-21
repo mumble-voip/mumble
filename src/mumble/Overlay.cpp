@@ -318,8 +318,9 @@ void Overlay::updateOverlay() {
 			bool act = false;
 			foreach(User *p, c->qlUsers) {
 				ClientUser *u = static_cast<ClientUser *>(p);
-				act = act || u->bTalking;
-				if (u->bTalking)
+				bool talking = (u->tsState != ClientUser::TalkingOff);
+				act = act || talking;
+				if (talking)
 					linkchans << qpChanCol(p->qsName + QString::fromLatin1("[") + c->qsName + QString::fromLatin1("]"), colChannelTalking);
 			}
 			if (! act)
@@ -344,14 +345,26 @@ void Overlay::updateOverlay() {
 
 		foreach(User *p, ClientUser::get(g.uiSession)->cChannel->qlUsers) {
 			ClientUser *u = static_cast<ClientUser *>(p);
-			if ((g.s.osOverlay == Settings::All) || u->bTalking || ((u == ClientUser::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
+			if ((g.s.osOverlay == Settings::All) || (u->tsState != ClientUser::TalkingOff) || ((u == ClientUser::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
 				QString name = u->qsName;
 				Decoration dec = None;
 				if (u->bDeaf || u->bSelfDeaf)
 					dec = Deafened;
 				else if (u->bMute || u->bSelfMute || u->bLocalMute)
 					dec = Muted;
-				lines << TextLine(name, u->bTalking ? (u->bAltSpeak ? colWhisper : colTalking) : colUser, u->uiSession, dec);
+				quint32 col;
+				switch (u->tsState) {
+					case ClientUser::TalkingOff:
+						col = colUser;
+						break;
+					case ClientUser::Talking:
+						col = colTalking;
+						break;
+					default:
+						col = colWhisper;
+						break;
+				}
+				lines << TextLine(name, col, u->uiSession, dec);
 			}
 		}
 

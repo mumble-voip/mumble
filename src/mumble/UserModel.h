@@ -82,7 +82,7 @@ class UserModel : public QAbstractItemModel {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserModel)
 	protected:
-		QIcon qiTalkingOn, qiTalkingAlt, qiTalkingOff;
+		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingWhisperChannel, qiTalkingOff;
 		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal, qiMutedSuppressed;
 		QIcon qiDeafenedSelf, qiDeafenedServer;
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
@@ -152,7 +152,7 @@ class UserModel : public QAbstractItemModel {
 
 		QVariant otherRoles(const QModelIndex &idx, int role) const;
 	public slots:
-		void userTalkingChanged(bool talking);
+		void userTalkingChanged();
 		void userMuteDeafChanged();
 		void ensureSelfVisible();
 		void recheckLinks();

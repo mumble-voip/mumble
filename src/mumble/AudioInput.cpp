@@ -729,8 +729,14 @@ void AudioInput::encodeAudioFrame() {
 			iFrameCounter = 0;
 	}
 
-	if (p)
-		p->setTalking(iIsSpeech, (g.iTarget != 0));
+	if (p) {
+		if (! iIsSpeech)
+			p->setTalking(ClientUser::TalkingOff);
+		else if (g.iTarget == 0)
+			p->setTalking(ClientUser::Talking);
+		else
+			p->setTalking(ClientUser::TalkingWhisperChannel);
+	}
 
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;

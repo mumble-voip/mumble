@@ -558,8 +558,25 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		iBufferFilled += outlen;
 	}
 
-	if (p)
-		p->setTalking(nextalive, ((ucFlags != 0) ? true : false));
+	if (p) {
+		ClientUser::TalkState ts;
+		if (! nextalive)
+			ts = ClientUser::TalkingOff;
+		else {
+			switch(ucFlags) {
+				case 0:
+					ts = ClientUser::Talking;
+					break;
+				case 1:
+					ts = ClientUser::TalkingWhisperChannel;
+					break;
+				default:
+					ts = ClientUser::TalkingWhisper;
+					break;
+			}
+		}
+		p->setTalking(ts);
+	}
 
 	bool tmp = bLastAlive;
 	bLastAlive = nextalive;
