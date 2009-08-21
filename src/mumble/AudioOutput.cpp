@@ -521,7 +521,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			jitter_buffer_tick(jbJitter);
 
 			if (! qlFrames.isEmpty()) {
-				const QByteArray &qba = qlFrames.takeFirst();
+				QByteArray qba = qlFrames.takeFirst();
 				if (umtType == MessageHandler::UDPVoiceCELT)
 					celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
 				else {
