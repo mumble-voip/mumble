@@ -124,6 +124,10 @@ class ServerUser : public Connection, public User {
 	protected:
 		Server *s;
 	public:
+		enum State { Connected, Authenticated };
+		State sState;
+		operator const QString() const;
+
 		double dUDPPingAvg, dUDPPingVar;
 		double dTCPPingAvg, dTCPPingVar;
 		quint64 uiUDPPackets, uiTCPPackets;

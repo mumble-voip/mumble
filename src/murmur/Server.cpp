@@ -69,6 +69,7 @@ QSslSocket *SslServer::nextPendingSSLConnection() {
 }
 
 ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), User() {
+	sState = ServerUser::Connected;
 	sUdpSocket = INVALID_SOCKET;
 
 	memset(&saiUdpAddress, 0, sizeof(saiUdpAddress));
@@ -76,6 +77,11 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 	bUdp = true;
 	uiVersion = 0;
 	bVerified = true;
+}
+
+
+ServerUser::operator const QString() const {
+	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
 }
 
 Server::Server(int snum, QObject *p) : QThread(p) {
@@ -631,7 +637,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		}
 
 void Server::processMsg(ServerUser *u, const char *data, int len) {
-	if (u->sState != User::Authenticated || u->bMute || u->bSuppress)
+	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress)
 		return;
 
 	User *p;
@@ -928,7 +934,7 @@ void Server::connectionClosed(const QString &reason) {
 
 	log(u, QString("Connection closed: %1").arg(reason));
 
-	if (u->sState == User::Authenticated) {
+	if (u->sState == ServerUser::Authenticated) {
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
 		sendExcept(u, mpur);
@@ -957,7 +963,7 @@ void Server::connectionClosed(const QString &reason) {
 
 	qqIds.enqueue(u->uiSession);
 
-	if (u->sState == User::Authenticated)
+	if (u->sState == ServerUser::Authenticated)
 		clearACLCache(u);
 
 	u->deleteLater();
@@ -1076,7 +1082,7 @@ void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int m
 void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
 	QByteArray cache;
 	foreach(ServerUser *usr, qhUsers)
-		if ((usr != u) && (usr->sState == User::Authenticated))
+		if ((usr != u) && (usr->sState == ServerUser::Authenticated))
 			usr->sendMessage(msg, msgType, cache);
 }
 

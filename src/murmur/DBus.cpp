@@ -337,7 +337,7 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
 void MurmurDBus::getPlayers(QList<PlayerInfoExtended> &a) {
 	a.clear();
 	foreach(User *p, server->qhUsers) {
-		if (p->sState == User::Authenticated)
+		if (static_cast<ServerUser *>(p)->sState == ServerUser::Authenticated)
 			a << PlayerInfoExtended(p);
 	}
 }

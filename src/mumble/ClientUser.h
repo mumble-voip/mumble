@@ -38,6 +38,11 @@ class ClientUser : public QObject, public User {
 		Q_OBJECT
 		Q_DISABLE_COPY(ClientUser)
 	public:
+		enum TalkState { TalkingOff, Talking, TalkingWhisperChannel, TalkingWhisper };
+		TalkState tsState;
+		bool bLocalMute;
+		bool bTalking, bAltSpeak;
+
 		QString qsFriendName;
 		int iTextureWidth;
 		QString getFlagsString() const;

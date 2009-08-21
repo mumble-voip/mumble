@@ -786,7 +786,7 @@ static void impl_Server_getUsers(const ::Murmur::AMD_Server_getUsersPtr cb, int 
 	::Murmur::UserMap pm;
 	::Murmur::User mp;
 	foreach(const ::User *p, server->qhUsers) {
-		if (p->sState == ::User::Authenticated) {
+		if (static_cast<const ServerUser *>(p)->sState == ::ServerUser::Authenticated) {
 			userToUser(p, mp);
 			pm[p->uiSession] = mp;
 		}

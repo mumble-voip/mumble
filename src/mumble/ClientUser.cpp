@@ -37,6 +37,8 @@ QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
 QReadWriteLock ClientUser::c_qrwlUsers;
 
 ClientUser::ClientUser(QObject *p) : QObject(p) {
+	bTalking = bAltSpeak = false;
+	bLocalMute = false;
 	iTextureWidth = 0;
 }
 

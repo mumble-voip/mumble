@@ -306,7 +306,8 @@ void LCD::updateUserView() {
 
 		foreach(Channel *c, home->allLinks()) {
 			foreach(User *p, c->qlUsers) {
-				bool bTalk = p->bTalking;
+				ClientUser *u = static_cast<ClientUser *>(p);
+				bool bTalk = u->bTalking;
 				if (bTalk) {
 					speaking.insert(p->uiSession, Timer());
 				} else if (qmSpeaking.contains(p->uiSession)) {
