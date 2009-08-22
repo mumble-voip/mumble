@@ -38,7 +38,7 @@ while(<LOG>) {
   next if ($subject =~ /^TEST/);
   next if ($subject eq $lsub);
   $lsub = $subject;
-  my $entry = wrap("    $hash  ", "              ", $subject);
+  my $entry = wrap("    $hash  ", "             ", $subject);
   if (! exists($dates{$date})) {
     $dates{$date} = {};
   }
