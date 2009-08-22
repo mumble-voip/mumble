@@ -133,6 +133,8 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 			++idx;
 		}
 	}
+	QSpacerItem *si = new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	grid->addItem(si, idx, 0);
 
 	connect(qcbGroupAdd->lineEdit(), SIGNAL(returnPressed()), qpbGroupAddAdd, SLOT(animateClick()));
 	connect(qcbGroupRemove->lineEdit(), SIGNAL(returnPressed()), qpbGroupRemoveAdd, SLOT(animateClick()));

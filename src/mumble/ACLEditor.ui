@@ -351,213 +351,229 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
       <attribute name="title">
        <string>&amp;ACL</string>
       </attribute>
-      <layout class="QGridLayout">
-       <item row="0" column="0" colspan="2">
-        <widget class="QGroupBox" name="qgbACLs">
-         <property name="title">
-          <string>Active ACLs</string>
-         </property>
-         <layout class="QGridLayout">
-          <item row="0" column="0" rowspan="2" colspan="5">
-           <widget class="QListWidget" name="qlwACLs">
-            <property name="toolTip">
-             <string>List of entries</string>
-            </property>
-            <property name="whatsThis">
-             <string>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QCheckBox" name="qcbACLInherit">
-            <property name="toolTip">
-             <string>Inherit ACL of parent?</string>
-            </property>
-            <property name="whatsThis">
-             <string>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</string>
-            </property>
-            <property name="text">
-             <string>Inherit ACLs</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="qpbACLUp">
-            <property name="toolTip">
-             <string>Move entry up</string>
-            </property>
-            <property name="whatsThis">
-             <string>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you'll have to duplicate the inherited entry.</string>
-            </property>
-            <property name="text">
-             <string>&amp;Up</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="qpbACLDown">
-            <property name="toolTip">
-             <string>Move entry down</string>
-            </property>
-            <property name="whatsThis">
-             <string>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</string>
-            </property>
-            <property name="text">
-             <string>&amp;Down</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QPushButton" name="qpbACLAdd">
-            <property name="toolTip">
-             <string>Add new entry</string>
-            </property>
-            <property name="whatsThis">
-             <string>This adds a new entry, initially set with no permissions and applying to all.</string>
-            </property>
-            <property name="text">
-             <string>&amp;Add</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="4">
-           <widget class="QPushButton" name="qpbACLRemove">
-            <property name="toolTip">
-             <string>Remove entry</string>
-            </property>
-            <property name="whatsThis">
-             <string>This removes the currently selected entry.</string>
-            </property>
-            <property name="text">
-             <string>&amp;Remove</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="qlVerticalACL">
+         <item>
+          <widget class="QGroupBox" name="qgbACLs">
+           <property name="title">
+            <string>Active ACLs</string>
+           </property>
+           <layout class="QGridLayout">
+            <item row="0" column="0" rowspan="2" colspan="5">
+             <widget class="QListWidget" name="qlwACLs">
+              <property name="toolTip">
+               <string>List of entries</string>
+              </property>
+              <property name="whatsThis">
+               <string>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="qcbACLInherit">
+              <property name="toolTip">
+               <string>Inherit ACL of parent?</string>
+              </property>
+              <property name="whatsThis">
+               <string>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</string>
+              </property>
+              <property name="text">
+               <string>Inherit ACLs</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="qpbACLUp">
+              <property name="toolTip">
+               <string>Move entry up</string>
+              </property>
+              <property name="whatsThis">
+               <string>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you'll have to duplicate the inherited entry.</string>
+              </property>
+              <property name="text">
+               <string>&amp;Up</string>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QPushButton" name="qpbACLDown">
+              <property name="toolTip">
+               <string>Move entry down</string>
+              </property>
+              <property name="whatsThis">
+               <string>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</string>
+              </property>
+              <property name="text">
+               <string>&amp;Down</string>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QPushButton" name="qpbACLAdd">
+              <property name="toolTip">
+               <string>Add new entry</string>
+              </property>
+              <property name="whatsThis">
+               <string>This adds a new entry, initially set with no permissions and applying to all.</string>
+              </property>
+              <property name="text">
+               <string>&amp;Add</string>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QPushButton" name="qpbACLRemove">
+              <property name="toolTip">
+               <string>Remove entry</string>
+              </property>
+              <property name="whatsThis">
+               <string>This removes the currently selected entry.</string>
+              </property>
+              <property name="text">
+               <string>&amp;Remove</string>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="qgbACLapply">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Context</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QCheckBox" name="qcbACLApplySubs">
+              <property name="toolTip">
+               <string>Entry should apply to sub-channels.</string>
+              </property>
+              <property name="whatsThis">
+               <string>This makes the entry apply to sub-channels of this channel.</string>
+              </property>
+              <property name="text">
+               <string>Applies to sub-channels</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="qcbACLApplyHere">
+              <property name="toolTip">
+               <string>Entry should apply to this channel.</string>
+              </property>
+              <property name="whatsThis">
+               <string>This makes the entry apply to this channel.</string>
+              </property>
+              <property name="text">
+               <string>Applies to this channel</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="qgbACLugroup">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>User/Group</string>
+           </property>
+           <layout class="QGridLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="qliACLGroup">
+              <property name="text">
+               <string>Group</string>
+              </property>
+              <property name="buddy">
+               <cstring>qcbACLGroup</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="qcbACLGroup">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Group this entry applies to</string>
+              </property>
+              <property name="whatsThis">
+               <string>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn't belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a '!', its membership is negated, and if it starts with a '~', it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  '#', it is interpreted as an access token. Users must have entered whatever follows the '#' in their list of access tokens to match. This can be used for very simple password access to channels for non-autenticated users.&lt;br /&gt;If a group name starts with a  '$', it will only match users whose certificate hash matches what follows the '$'.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for '&lt;i&gt;sub,0,0,0&lt;/i&gt;').&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for '&lt;i&gt;!sub,0,0,0&lt;/i&gt;').&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</string>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="qliACLUser">
+              <property name="text">
+               <string>User ID</string>
+              </property>
+              <property name="buddy">
+               <cstring>qcbACLUser</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="qcbACLUser">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>User this entry applies to</string>
+              </property>
+              <property name="whatsThis">
+               <string>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</string>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="1" column="0">
-        <widget class="QGroupBox" name="qgbACLapply">
-         <property name="title">
-          <string>Context</string>
-         </property>
-         <layout class="QVBoxLayout">
-          <item>
-           <widget class="QCheckBox" name="qcbACLApplyHere">
-            <property name="toolTip">
-             <string>Entry should apply to this channel.</string>
-            </property>
-            <property name="whatsThis">
-             <string>This makes the entry apply to this channel.</string>
-            </property>
-            <property name="text">
-             <string>Applies to this channel</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="qcbACLApplySubs">
-            <property name="toolTip">
-             <string>Entry should apply to sub-channels.</string>
-            </property>
-            <property name="whatsThis">
-             <string>This makes the entry apply to sub-channels of this channel.</string>
-            </property>
-            <property name="text">
-             <string>Applies to sub-channels</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="1" rowspan="2">
+       <item>
         <widget class="QGroupBox" name="qgbACLpermissions">
          <property name="title">
           <string>Permissions</string>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QGroupBox" name="qgbACLugroup">
-         <property name="title">
-          <string>User/Group</string>
-         </property>
-         <layout class="QGridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="qliACLGroup">
-            <property name="text">
-             <string>Group</string>
-            </property>
-            <property name="buddy">
-             <cstring>qcbACLGroup</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="qcbACLGroup">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>Group this entry applies to</string>
-            </property>
-            <property name="whatsThis">
-             <string>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn't belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a '!', its membership is negated, and if it starts with a '~', it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  '#', it is interpreted as an access token. Users must have entered whatever follows the '#' in their list of access tokens to match. This can be used for very simple password access to channels for non-autenticated users.&lt;br /&gt;If a group name starts with a  '$', it will only match users whose certificate hash matches what follows the '$'.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for '&lt;i&gt;sub,0,0,0&lt;/i&gt;').&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for '&lt;i&gt;!sub,0,0,0&lt;/i&gt;').&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</string>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="qliACLUser">
-            <property name="text">
-             <string>User ID</string>
-            </property>
-            <property name="buddy">
-             <cstring>qcbACLUser</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QComboBox" name="qcbACLUser">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>User this entry applies to</string>
-            </property>
-            <property name="whatsThis">
-             <string>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</string>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
       </layout>
