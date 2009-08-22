@@ -121,6 +121,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbHideTray, r.bHideTray);
 	loadCheckBox(qcbExpert, r.bExpert);
+        loadCheckBox(qcbAdvancedACL, r.bAdvancedACLCfg);
 }
 
 void LookConfig::save() const {
@@ -158,6 +159,7 @@ void LookConfig::save() const {
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bHideTray = qcbHideTray->isChecked();
 	s.bExpert = qcbExpert->isChecked();
+        s.bAdvancedACLCfg = qcbAdvancedACL->isChecked();
 }
 
 void LookConfig::accept() const {
@@ -184,6 +186,7 @@ bool LookConfig::expert(bool b) {
 	qcbUsersTop->setVisible(b);
 	qcbStyle->setVisible(b);
 	qliStyle->setVisible(b);
+        qcbAdvancedACL->setVisible(b);
 	return true;
 }
 

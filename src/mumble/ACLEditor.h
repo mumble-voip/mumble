@@ -37,17 +37,6 @@
 #include "Group.h"
 #include "ClientUser.h"
 
-
-class ACLTabWidget : public QTabWidget {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ACLTabWidget)
-	public:
-		ACLTabWidget(QWidget * p = NULL) : QTabWidget(p) {};
-		void tabInserted(int index);
-		void tabRemoved(int index);
-};
-
 #include "ui_ACLEditor.h"
 
 class ACLGroup : public Group {
@@ -134,8 +123,6 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void on_qpbGroupRemoveAdd_clicked();
 		void on_qpbGroupRemoveRemove_clicked();
 		void on_qpbGroupInheritRemove_clicked();
-
-		void on_qcbAdvancedCfg_clicked(bool checked);
 };
 
 #else

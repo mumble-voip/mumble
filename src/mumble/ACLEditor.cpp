@@ -37,21 +37,6 @@
 #include "Log.h"
 
 
-void ACLTabWidget::tabInserted(int index) {
-	Q_UNUSED(index);
-	if (count() >= 2) {
-		tabBar()->show();
-	}
-}
-
-void ACLTabWidget::tabRemoved(int index) {
-	Q_UNUSED(index);
-	if (count() <= 1) {
-		tabBar()->hide();
-	}
-}
-
-
 ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
 	bInherited = false;
 }
@@ -66,7 +51,6 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("Mumble - Add channel"));
 	qtwTab->removeTab(2);
 	qtwTab->removeTab(1);
-	qcbAdvancedCfg->hide();
 
 	// Until I come around implementing it hide the password fields
 	qleChannelPassword->hide();
@@ -97,9 +81,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
-	if (g.s.bAdvancedACLCfg) {
-		qcbAdvancedCfg->setChecked(true);
-	} else {
+        if (!g.s.bAdvancedACLCfg) {
 		qtwTab->removeTab(2);
 		qtwTab->removeTab(1);
 	}
@@ -308,8 +290,6 @@ void ACLEditor::accept() {
 		}
 		g.sh->sendMessage(msg);
 	}
-
-	g.s.bAdvancedACLCfg = qcbAdvancedCfg->isChecked();
 	QDialog::accept();
 }
 
@@ -883,17 +863,4 @@ void ACLEditor::on_qpbGroupInheritRemove_clicked() {
 
 	gs->qsRemove.insert(item->data(Qt::UserRole).toInt());
 	refillGroupRemove();
-}
-
-void ACLEditor::on_qcbAdvancedCfg_clicked(bool checked) {
-	if (checked) {
-		// Show the ACL and Group tabs
-		qtwTab->insertTab(1, qwACL, tr("&ACL"));
-		qtwTab->insertTab(2, qwGroups, tr("&Groups"));
-	} else {
-		// Hide them
-		qtwTab->removeTab(2);
-		qtwTab->removeTab(1);
-	}
-	adjustSize();
 }

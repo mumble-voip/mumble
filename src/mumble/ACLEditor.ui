@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <widget class="ACLTabWidget" name="qtwTab">
+    <widget class="QTabWidget" name="qtwTab">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -24,6 +24,9 @@
        <string>Properties</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="qlChannelName">
          <property name="text">
@@ -94,20 +97,6 @@ When checked the channel created will be marked as temporary. This means when th
          </property>
          <property name="text">
           <string>Temporary</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QCheckBox" name="qcbAdvancedCfg">
-         <property name="toolTip">
-          <string>Check to be able to change the ACL and group configuration for this channel.</string>
-         </property>
-         <property name="whatsThis">
-          <string>&lt;b&gt;Advanced configuration&lt;/b&gt;&lt;br&gt;
-When checked the channel editor displays additional controlls to configure the ACL and group settings of a channel. Mumble will remember the state of this checkbox for future edits.</string>
-         </property>
-         <property name="text">
-          <string>Advanced configuration</string>
          </property>
         </widget>
        </item>
@@ -587,14 +576,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>ACLTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ACLEditor.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>qtwTab</tabstop>
   <tabstop>qcbGroupList</tabstop>

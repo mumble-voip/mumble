@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>311</width>
+    <width>312</width>
     <height>505</height>
    </rect>
   </property>
@@ -307,6 +307,20 @@
         </property>
         <property name="text">
          <string>Show chatbar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1" colspan="2">
+       <widget class="QCheckBox" name="qcbAdvancedACL">
+        <property name="toolTip">
+         <string>Enabled advanced channel editor</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Advanced channel editor&lt;/b&gt;&lt;br/&gt;
+This will enable advanced group and ACL editor functionality in the channel editor dialog.</string>
+        </property>
+        <property name="text">
+         <string>Advanced channel editor</string>
         </property>
        </widget>
       </item>
