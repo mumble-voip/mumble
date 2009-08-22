@@ -499,6 +499,8 @@ void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames) {
 			}
 		}
 	}
+	if (bitrate <= 8000)
+		bitrate = 8000;
 }
 
 void AudioInput::setMaxBandwidth(int bitspersec) {
