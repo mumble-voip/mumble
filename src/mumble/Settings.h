@@ -178,6 +178,8 @@ struct Settings {
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
+
+	static const int ciDefaultMaxImageSize = 50 * 1024; // Restrict to 50KiB as a default
 	int iMaxImageSize;
 	int iMaxImageWidth;
 	int iMaxImageHeight;

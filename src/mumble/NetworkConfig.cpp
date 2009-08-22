@@ -74,6 +74,8 @@ void NetworkConfig::load(const Settings &r) {
 	qleUsername->setText(r.qsProxyUsername);
 	qlePassword->setText(r.qsProxyPassword);
 
+	loadCheckBox(qcbImageDownload, r.iMaxImageSize <= 0);
+
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 	loadCheckBox(qcbPluginUpdate, r.bPluginCheck);
 	loadCheckBox(qcbUsage, r.bUsage);
@@ -89,6 +91,13 @@ void NetworkConfig::save() const {
 	s.usProxyPort = qlePort->text().toUShort();
 	s.qsProxyUsername = qleUsername->text();
 	s.qsProxyPassword = qlePassword->text();
+
+	if (qcbImageDownload->isChecked()) {
+		s.iMaxImageSize = 0;
+	}
+	else if (s.iMaxImageSize <= 0) {
+		s.iMaxImageSize = s.ciDefaultMaxImageSize;
+	}
 
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
 	s.bPluginCheck=qcbPluginUpdate->isChecked();
@@ -145,6 +154,10 @@ bool NetworkConfig::expert(bool b) {
 	qcbTcpMode->setVisible(b);
 	qgbProxy->setVisible(b);
 	qcbUsage->setVisible(b);
+
+	qgbMisc->setVisible(b); // For now Misc only contains elements visible in expert mode
+	qcbImageDownload->setVisible(b);
+
 	return true;
 }
 

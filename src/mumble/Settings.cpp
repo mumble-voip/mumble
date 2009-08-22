@@ -212,7 +212,8 @@ Settings::Settings() {
 	bReconnect = true;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
-	iMaxImageSize = 50 * 1024; // Allow 50KiB
+
+	iMaxImageSize = ciDefaultMaxImageSize;
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
