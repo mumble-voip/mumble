@@ -86,6 +86,8 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 AudioInput::AudioInput() {
 	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames);
 
+	g.iAudioBandwidth = getNetworkBandwidth(iAudioQuality, iAudioFrames);
+
 	if (preferCELT(iAudioQuality, iAudioFrames))
 		umtType = MessageHandler::UDPVoiceCELT;
 	else
@@ -512,7 +514,6 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 	adjustBandwidth(bitspersec, bitrate, frames);
 
 	g.iMaxBandwidth = bitspersec;
-	g.iAudioBandwidth = getNetworkBandwidth(bitrate, frames);
 
 	if (bitspersec != -1) {
 		if ((bitrate != g.s.iQuality) || (frames != g.s.iFramesPerPacket))
@@ -521,6 +522,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 
 	AudioInputPtr ai = g.ai;
 	if (ai && (preferCELT(bitrate, frames) == (ai->umtType == MessageHandler::UDPVoiceCELT))) {
+		g.iAudioBandwidth = getNetworkBandwidth(bitrate, frames);
 		ai->iAudioQuality = bitrate;
 		ai->iAudioFrames = frames;
 		return;

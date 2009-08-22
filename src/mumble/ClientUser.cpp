@@ -40,6 +40,8 @@ ClientUser::ClientUser(QObject *p) : QObject(p) {
 	tsState = TalkingOff;
 	bLocalMute = false;
 	iTextureWidth = 0;
+	fPowerMin = fPowerMax = 0.0f;
+	fAverageAvailable = 0.0f;
 }
 
 ClientUser *ClientUser::get(unsigned int uiSession) {

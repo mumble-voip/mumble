@@ -42,6 +42,9 @@ class ClientUser : public QObject, public User {
 		TalkState tsState;
 		bool bLocalMute;
 
+		float fPowerMin, fPowerMax;
+		float fAverageAvailable;
+
 		QString qsFriendName;
 		int iTextureWidth;
 		QString getFlagsString() const;

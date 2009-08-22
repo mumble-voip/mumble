@@ -464,10 +464,21 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		if (! bLastAlive) {
 			memset(pOut, 0, iFrameSize * sizeof(float));
 		} else {
-			int ts = jitter_buffer_get_pointer_timestamp(jbJitter);
-
 			if (p == &LoopUser::lpLoopy)
 				LoopUser::lpLoopy.fetchFrames();
+
+			int avail = 0;
+			int ts = jitter_buffer_get_pointer_timestamp(jbJitter);
+			jitter_buffer_ctl(jbJitter, JITTER_BUFFER_GET_AVAILABLE_COUNT, &avail);
+
+			if (p && (ts == 0)) {
+				int want = iroundf(p->fAverageAvailable);
+				if (avail < want) {
+					++iMissCount;
+					if (iMissCount < 20)
+						goto nextframe;
+				}
+			}
 
 			if (qlFrames.isEmpty()) {
 				QMutexLocker lock(&qmJitter);
@@ -502,23 +513,22 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					} else {
 						fPos[0] = fPos[1] = fPos[2] = 0.0f;
 					}
+
+					if (p) {
+						float a = static_cast<float>(avail);
+						if (avail >= p->fAverageAvailable)
+							p->fAverageAvailable = a;
+						else
+							p->fAverageAvailable *= 0.99f;
+					}
 				} else {
+					jitter_buffer_update_delay(jbJitter, &jbp, NULL);
+
 					iMissCount++;
 					if (iMissCount > 10)
 						nextalive = false;
 				}
-
-				int activity;
-				if (umtType == MessageHandler::UDPVoiceCELT)
-					activity = 0;
-				else
-					speex_decoder_ctl(dsSpeex, SPEEX_GET_ACTIVITY, &activity);
-
-				if (activity < 30)
-					jitter_buffer_update_delay(jbJitter, &jbp, NULL);
 			}
-
-			jitter_buffer_tick(jbJitter);
 
 			if (! qlFrames.isEmpty()) {
 				QByteArray qba = qlFrames.takeFirst();
@@ -530,6 +540,32 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					for (unsigned int i=0;i<iFrameSize;++i)
 						pOut[i] *= (1.0f / 32767.f);
 				}
+
+				bool update = true;
+				if (p) {
+					float &fPowerMax = p->fPowerMax;
+					float &fPowerMin = p->fPowerMin;
+
+					float pow = 0.0f;
+					for(unsigned int i=0;i<iFrameSize;++i)
+						pow += pOut[i] * pOut[i];
+					pow = sqrtf(pow / static_cast<float>(iFrameSize));
+
+					if (pow >= fPowerMax) {
+						fPowerMax = pow;
+					} else {
+						if (pow <= fPowerMin) {
+							fPowerMin = pow;
+						} else {
+							fPowerMax = 0.99f * fPowerMax;
+							fPowerMin += 0.0001f * pow;
+						}
+					}
+
+					update = (pow < (fPowerMin + 0.01f * (fPowerMax - fPowerMin)));
+				}
+				if (qlFrames.isEmpty() && update)
+						jitter_buffer_update_delay(jbJitter, NULL, NULL);
 
 				if (qlFrames.isEmpty() && bHasTerminator)
 					nextalive = false;
@@ -550,7 +586,10 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				for (unsigned int i=0;i<iFrameSize;++i)
 					pOut[i] *= fFadeIn[i];
 			}
+
+			jitter_buffer_tick(jbJitter);
 		}
+nextframe:
 		spx_uint32_t inlen = iFrameSize;
 		spx_uint32_t outlen = iOutputSize;
 		if (srs && bLastAlive)
