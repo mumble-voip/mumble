@@ -582,6 +582,11 @@ static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
+static void HookCreateRawEx(voidFunc vfCreate) {
+	ods("D3D9: Injecting CreateDeviceEx Raw");
+	hhCreateDeviceEx.setup(vfCreate, reinterpret_cast<voidFunc>(myCreateDeviceEx));
+}
+
 void checkD3D9Hook(bool preonly) {
 	if (bChaining) {
 		return;
@@ -607,6 +612,8 @@ void checkD3D9Hook(bool preonly) {
 			if (_stricmp(d3dd->cFileName, procname) == 0) {
 				unsigned char *raw = (unsigned char *) hD3D;
 				HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
+				if (d3dd->iOffsetCreateEx)
+					HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
 			} else if (! preonly) {
 				fods("D3D9 Interface changed, can't rawpatch");
 				pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
@@ -675,6 +682,43 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 				}
 			}
 		}
+
+		pDirect3DCreate9Ex d3dc9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
+		if (! d3dc9ex) {
+			ods("D3D9 Library without Direct3DCreate9Ex");
+		} else {
+			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (const char *) d3dc9ex, &hRef)) {
+				ods("Failed to get module for D3D9");
+			} else {
+				GetModuleFileName(hRef, buffb, 2048);
+				if (_stricmp(d3dd->cFileName, buffb) != 0) {
+					ods("Direct3DCreate9Ex is not in D3D9 library");
+				} else {
+					IDirect3D9Ex *id3d9 = NULL;
+					HRESULT hr = d3dc9ex(D3D_SDK_VERSION, &id3d9);
+					if (id3d9) {
+						void ***vtbl = (void ***) id3d9;
+						void *pCreateEx = (*vtbl)[20];
+
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pCreateEx, &hRef)) {
+							ods("Failed to get module for CreateDevice");
+						} else {
+							GetModuleFileName(hRef, buffb, 2048);
+							if (_stricmp(d3dd->cFileName, buffb) != 0) {
+								ods("CreateDevice is not in D3D9 library");
+							} else {
+								unsigned char *b = (unsigned char *) pCreateEx;
+								unsigned char *a = (unsigned char *) hD3D;
+								d3dd->iOffsetCreateEx = b-a;
+								ods("Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreate);
+							}
+						}
+						id3d9->Release();
+					}
+				}
+			}
+		}
+
 		FreeLibrary(hD3D);
 	}
 }

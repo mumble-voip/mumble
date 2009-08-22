@@ -73,8 +73,9 @@ struct HardHook {
 };
 
 struct Direct3D9Data {
-	char cFileName[2048];
 	int iOffsetCreate;
+	int iOffsetCreateEx;
+	char cFileName[2048];
 };
 
 struct FakeInterface {
