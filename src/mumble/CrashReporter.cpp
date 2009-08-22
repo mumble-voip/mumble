@@ -99,8 +99,8 @@ void CrashReporter::uploadFinished() {
 }
 
 void CrashReporter::uploadProgress(qint64 sent, qint64 total) {
-	qpdProgress->setMaximum(total);
-	qpdProgress->setValue(sent);
+	qpdProgress->setMaximum(static_cast<int>(total));
+	qpdProgress->setValue(static_cast<int>(sent));
 }
 
 void CrashReporter::run() {

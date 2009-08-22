@@ -67,7 +67,7 @@ extern char *os_lang;
 
 class QAppMumble:public QApplication {
 	public:
-		QAppMumble(int & argc, char ** argv) : QApplication(argc, argv) {}
+		QAppMumble(int &pargc, char **pargv) : QApplication(pargc, pargv) {}
 		void commitData(QSessionManager&);
 };
 

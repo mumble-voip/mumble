@@ -43,7 +43,7 @@ class ACLTabWidget : public QTabWidget {
 		Q_OBJECT
 		Q_DISABLE_COPY(ACLTabWidget)
 	public:
-		ACLTabWidget(QWidget * parent = 0) : QTabWidget(parent) {};
+		ACLTabWidget(QWidget * p = NULL) : QTabWidget(p) {};
 		void tabInserted(int index);
 		void tabRemoved(int index);
 };

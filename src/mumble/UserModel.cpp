@@ -193,18 +193,18 @@ QString ModelItem::hash() const {
 		else
 			return QLatin1String(QCryptographicHash::hash(pUser->qsName.toUtf8(), QCryptographicHash::Sha1).toHex());
 	} else {
-		QCryptographicHash hash(QCryptographicHash::Sha1);
+		QCryptographicHash chash(QCryptographicHash::Sha1);
 
-		hash.addData(cChan->qsName.toUtf8());
-		hash.addData(QString::number(cChan->iId).toUtf8());
+		chash.addData(cChan->qsName.toUtf8());
+		chash.addData(QString::number(cChan->iId).toUtf8());
 		if (g.sh && g.sh->isRunning()) {
 			QString host, user, pw;
 			unsigned short port;
 			g.sh->getConnectionInfo(host, port, user, pw);
-			hash.addData(host.toUtf8());
-			hash.addData(QString::number(port).toUtf8());
+			chash.addData(host.toUtf8());
+			chash.addData(QString::number(port).toUtf8());
 		}
-		return QLatin1String(hash.result().toHex());
+		return QLatin1String(chash.result().toHex());
 	}
 }
 

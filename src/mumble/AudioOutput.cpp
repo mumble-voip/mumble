@@ -236,7 +236,7 @@ AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, b
 	qWarning() << "Format: " << sfHandle->format() << endl; */
 
 	// If the frequencies don't match initialize the resampler
-	if (sfHandle->samplerate() != freq) {
+	if (sfHandle->samplerate() != static_cast<int>(freq)) {
 		srs = speex_resampler_init(1, sfHandle->samplerate(), iOutSampleRate, 3, &err);
 		if (err != RESAMPLER_ERR_SUCCESS) {
 			qWarning() << "Initialize " << sfHandle->samplerate() << " to " << iOutSampleRate << " resampler failed!";
@@ -335,7 +335,7 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 
 		}
 
-		spx_uint32_t inlen = read;
+		spx_uint32_t inlen = static_cast<unsigned int>(read);
 		spx_uint32_t outlen = snum;
 		if (srs) // If necessary resample
 			speex_resampler_process_float(srs, 0, pOut, &inlen, pfBuffer + iBufferFilled, &outlen);
@@ -350,7 +350,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	p = user;
 	umtType = type;
 
-	int srate = 0;
+	unsigned int srate = 0;
 
 	if (umtType == MessageHandler::UDPVoiceCELT) {
 		srate = SAMPLE_RATE;
@@ -392,9 +392,9 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	fFadeIn = new float[iFrameSize];
 	fFadeOut = new float[iFrameSize];
 
-	float mul = M_PI / (2.0f * static_cast<float>(iFrameSize));
+	float mul = static_cast<float>(M_PI / (2.0 * static_cast<double>(iFrameSize)));
 	for (unsigned int i=0;i<iFrameSize;++i)
-		fFadeIn[i] = fFadeOut[iFrameSize-i-1] = sinf(i * mul);
+		fFadeIn[i] = fFadeOut[iFrameSize-i-1] = sinf(static_cast<float>(i) * mul);
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
@@ -425,7 +425,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 	int frames = 0;
 	unsigned int header = 0;
 	do {
-		header = pds.next();
+		header = static_cast<unsigned char>(pds.next());
 		frames++;
 		pds.skip(header & 0x7f);
 	} while ((header & 0x80) && pds.isValid());
@@ -483,12 +483,12 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					PacketDataStream pds(jbp.data, jbp.len);
 
 					iMissCount = 0;
-					ucFlags = pds.next();
+					ucFlags = static_cast<unsigned char>(pds.next());
 					bHasTerminator = false;
 
 					unsigned int header = 0;
 					do {
-						header = pds.next();
+						header = static_cast<unsigned int>(pds.next());
 						if (header)
 							qlFrames << pds.dataBlock(header & 0x7f);
 						else

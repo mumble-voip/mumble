@@ -103,7 +103,7 @@ void LoopUser::fetchFrames() {
 		const QByteArray &data = i.value();
 		PacketDataStream pds(data.constData(), data.size());
 
-		unsigned int msgFlags = pds.next();
+		unsigned int msgFlags = static_cast<unsigned int>(pds.next());
 
 		pds >> iSeq;
 

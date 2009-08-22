@@ -246,7 +246,7 @@ void ConnectDialog::accept(const QHostInfo &host, int port) {
 		qsUsername = defUserName;
 		qsPassword = QString();
 		qsServer = addr.toString();
-		usPort = port;
+		usPort = static_cast<unsigned short>(port);
 
 		QDialog::accept();
 	}

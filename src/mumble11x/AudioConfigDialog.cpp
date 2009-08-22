@@ -106,10 +106,10 @@ void AudioInputDialog::load(const Settings &r) {
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
-	loadSlider(qsTransmitMin, lroundf(r.fVADmin * 32767.0f));
-	loadSlider(qsTransmitMax, lroundf(r.fVADmax * 32767.0f));
+	loadSlider(qsTransmitMin, iroundf(r.fVADmin * 32767.0f));
+	loadSlider(qsTransmitMax, iroundf(r.fVADmax * 32767.0f));
 	loadSlider(qsFrames, r.iFramesPerPacket);
-	loadSlider(qsDoublePush, lround(static_cast<double>(r.uiDoublePush) / 1000.f));
+	loadSlider(qsDoublePush, iroundf(static_cast<double>(r.uiDoublePush) / 1000.f));
 
 	if (r.vsVAD == Settings::Amplitude)
 		qrbAmplitude->setChecked(true);
@@ -296,9 +296,9 @@ void AudioInputDialog::on_Tick_timeout() {
 	abSpeech->iAbove = qsTransmitMax->value();
 
 	if (qrbAmplitude->isChecked()) {
-		abSpeech->iValue = lroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
+		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
 	} else {
-		abSpeech->iValue = lroundf(ai->fSpeechProb * 32767.0f);
+		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f);
 	}
 	abSpeech->update();
 }
@@ -351,10 +351,10 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
 	loadSlider(qsPacketLoss, static_cast<int>(lroundf(r.dPacketLoss * 100.0f)));
-	loadSlider(qsMinDistance, lroundf(r.fAudioMinDistance * 10.0f));
-	loadSlider(qsMaxDistance, lroundf(r.fAudioMaxDistance * 10.0f));
-	loadSlider(qsMaxDistVolume, lroundf(r.fAudioMaxDistVolume * 100.0f));
-	loadSlider(qsBloom, lround(r.fAudioBloom * 100.0f));
+	loadSlider(qsMinDistance, iroundf(r.fAudioMinDistance * 10.0f));
+	loadSlider(qsMaxDistance, iroundf(r.fAudioMaxDistance * 10.0f));
+	loadSlider(qsMaxDistVolume, iroundf(r.fAudioMaxDistVolume * 100.0f));
+	loadSlider(qsBloom, iroundf(r.fAudioBloom * 100.0f));
 	loadCheckBox(qcbHeadphones, r.bPositionalHeadphone);
 	loadCheckBox(qcbPositional, r.bPositionalAudio);
 }

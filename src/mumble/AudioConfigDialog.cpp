@@ -193,7 +193,7 @@ void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
 }
 
 void AudioInputDialog::on_qsQuality_valueChanged(int v) {
-	qlQuality->setText(tr("%1 kb/s").arg(v / 1000.0f, 0, 'f', 1));
+	qlQuality->setText(tr("%1 kb/s").arg(static_cast<float>(v) / 1000.0f, 0, 'f', 1));
 	updateBitrate();
 }
 

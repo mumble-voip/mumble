@@ -441,8 +441,8 @@ void Plugins::finished() {
 					url.setPath(QString::fromLatin1("plugins/%1").arg(i.key()));
 
 					QNetworkRequest req(url);
-					QNetworkReply *rep = g.nam->get(req);
-					connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+					QNetworkReply *r = g.nam->get(req);
+					connect(r, SIGNAL(finished()), this, SLOT(finished()));
 				}
 			}
 		} else {

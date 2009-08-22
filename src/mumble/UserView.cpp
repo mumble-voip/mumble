@@ -89,9 +89,9 @@ bool UserView::event(QEvent *evt) {
 }
 
 void UserView::mouseReleaseEvent(QMouseEvent *evt) {
-	QPoint pos = evt->pos();
+	QPoint qpos = evt->pos();
 
-	QModelIndex idx = indexAt(pos);
+	QModelIndex idx = indexAt(qpos);
 	if ((evt->button() == Qt::LeftButton) && idx.isValid() && (idx.column() == 1)) {
 		UserModel *um = static_cast<UserModel *>(model());
 		ClientUser *cu = um->getUser(idx);
@@ -99,7 +99,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 		if ((cu && ! cu->qsComment.isEmpty()) ||
 		        (! cu && c && ! c->qsDesc.isEmpty())) {
 			QRect r = visualRect(idx);
-			pos = pos - r.topLeft();
+			qpos = qpos - r.topLeft();
 
 			int offset = 0;
 
@@ -122,7 +122,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 					offset += 18;
 			}
 
-			if ((pos.x() >= offset) && (pos.x() <= (offset+18))) {
+			if ((qpos.x() >= offset) && (qpos.x() <= (offset+18))) {
 				QModelIndex midx = idx.sibling(idx.row(), 0);
 				r = r.united(visualRect(midx));
 				r.setWidth(r.width() / 2);

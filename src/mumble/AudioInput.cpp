@@ -788,8 +788,8 @@ void AudioInput::encodeAudioFrame() {
 	bPreviousVoice = iIsSpeech;
 }
 
-void AudioInput::flushCheck(const QByteArray &qba, bool terminator) {
-	qlFrames << qba;
+void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
+	qlFrames << frame;
 	if (! terminator && qlFrames.count() < iAudioFrames)
 		return;
 
@@ -810,7 +810,7 @@ void AudioInput::flushCheck(const QByteArray &qba, bool terminator) {
 
 	for (int i=0;i<qlFrames.count(); ++i) {
 		const QByteArray &qba = qlFrames.at(i);
-		unsigned char head = qba.size();
+		unsigned char head = static_cast<unsigned char>(qba.size());
 		if (i < qlFrames.count() - 1)
 			head |= 0x80;
 		pds.append(head);

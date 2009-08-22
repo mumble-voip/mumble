@@ -192,7 +192,7 @@ void iterateChannelChildren(QTreeWidgetItem *root, Channel *chan, QMap<int, QTre
 	}
 }
 
-ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p) : QDialog(p) {
+ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw) : QDialog(pw) {
 	stTarget = st;
 	setupUi(this);
 
@@ -211,8 +211,8 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 	qcbChildren->setChecked(st.bChildren);
 
 	const QMap<QString, QString> &friends = Database::getFriends();
-	QMap<QString, QString>::const_iterator i;
 	if (! friends.isEmpty()) {
+		QMap<QString, QString>::const_iterator i;
 		for (i = friends.constBegin(); i != friends.constEnd(); ++i) {
 			qcbUser->addItem(i.key(), i.value());
 			qmHashNames.insert(i.value(), i.key());
@@ -222,6 +222,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 
 	if (g.uiSession) {
 		QMap<QString, QString> others;
+		QMap<QString, QString>::const_iterator i;
 
 		QReadLocker lock(& ClientUser::c_qrwlUsers);
 		foreach(ClientUser *p, ClientUser::c_qmUsers) {
@@ -245,10 +246,13 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 			users.insert(QString::fromLatin1("#%1").arg(hash), hash);
 	}
 
-	for (i=users.constBegin(); i != users.constEnd(); ++i) {
-		QListWidgetItem *itm = new QListWidgetItem(i.key());
-		itm->setData(Qt::UserRole, i.value());
-		qlwUsers->addItem(itm);
+	{
+		QMap<QString, QString>::const_iterator i;
+		for (i=users.constBegin(); i != users.constEnd(); ++i) {
+			QListWidgetItem *itm = new QListWidgetItem(i.key());
+			itm->setData(Qt::UserRole, i.value());
+			qlwUsers->addItem(itm);
+		}
 	}
 
 	QMap<int, QTreeWidgetItem *> qmTree;
@@ -258,12 +262,12 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *p)
 	root->setExpanded(true);
 	qmTree.insert(-1, root);
 
-	QTreeWidgetItem *parent = new QTreeWidgetItem(root, QStringList(tr("Parent")));
-	parent->setData(0, Qt::UserRole, -2);
-	parent->setExpanded(true);
-	qmTree.insert(-2, parent);
+	QTreeWidgetItem *pitem = new QTreeWidgetItem(root, QStringList(tr("Parent")));
+	pitem->setData(0, Qt::UserRole, -2);
+	pitem->setExpanded(true);
+	qmTree.insert(-2, pitem);
 
-	QTreeWidgetItem *current = new QTreeWidgetItem(parent, QStringList(tr("Current")));
+	QTreeWidgetItem *current = new QTreeWidgetItem(pitem, QStringList(tr("Current")));
 	current->setData(0, Qt::UserRole, -3);
 	qmTree.insert(-3, current);
 
