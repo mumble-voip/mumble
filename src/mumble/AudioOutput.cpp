@@ -563,7 +563,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		if (! nextalive)
 			ts = ClientUser::TalkingOff;
 		else {
-			switch(ucFlags) {
+			switch (ucFlags) {
 				case 0:
 					ts = ClientUser::Talking;
 					break;

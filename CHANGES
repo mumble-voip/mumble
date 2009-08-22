@@ -1,5 +1,21 @@
+2009-08-22
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    040f16d  Make sure audio bandwidth never falls below 8kbit/s
+    449cc31  Remove a bunch of compiler warnings
+    2e87ec0  Update config dialog to have minimum 24kbit/s for 10ms mode
+    10c0e74  Add some hardening source flags, to make sure we can be
+	     compiled with them
+    ce7ce45  Work around the ducking in Win7; we always have the device
+	     open.
+
 2009-08-21
   Thorvald Natvig <slicer@users.sourceforge.net>
+    e4d3485  Add RegisterSelf permission to Ice.
+    c3d2198  Copy, don't ref frame to decode
+    403c95b  Don't use post-1.2rc-only speex functions
+    1c88786  Use new whisper icons
+    d41afda  Move mumble/murmur specific state out of User
+    950b104  Server-side low-bandwidth mode
     9c6b1d0  Re-enable red color for high bandwidth in the
 	     AudioConfigDialog, and allow 8kbit/s transmissions.
     a4579d2  Fix typo when reducing bandwidth.
