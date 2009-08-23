@@ -72,6 +72,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		bool bInheritACL;
 		QList<ChanACL *> qlACLs;
 		QList<ACLGroup *> qlGroups;
+		ChanACL *pcaPassword;
+
 		int numInheritACL;
 		int iChannel;
 		bool bAddChannelMode;

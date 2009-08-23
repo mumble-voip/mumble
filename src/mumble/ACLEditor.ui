@@ -670,5 +670,37 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>qleChannelName</sender>
+   <signal>returnPressed()</signal>
+   <receiver>ACLEditor</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qleChannelPassword</sender>
+   <signal>returnPressed()</signal>
+   <receiver>ACLEditor</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

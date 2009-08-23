@@ -56,7 +56,7 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
-
+	pcaPassword = NULL;
 	adjustSize();
 }
 
@@ -76,10 +76,6 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	msg = mea;
 
 	setupUi(this);
-
-	// Until I come around implementing it hide the password fields
-	qleChannelPassword->hide();
-	qlChannelPassword->hide();
 
         if (!g.s.bAdvancedACLCfg) {
 		qtwTab->removeTab(2);
@@ -211,6 +207,25 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	ACLEnableCheck();
 	groupEnableCheck();
 
+	// Try to load password from ACL
+	pcaPassword = NULL;
+	QList<ChanACL *>::iterator i = qlACLs.end();
+	while (i != qlACLs.begin()) {
+		i--;
+
+		// Check for sth that applies to '#<something>' AND grants 'Enter' AND may grant 'Speak', 'Whisper',
+		// 'TextMessage', 'Link' but NOTHING else AND does not deny anything, then '<something>' is the password.
+		if ((*i)->qsGroup.startsWith(QLatin1Char('#')) &&
+		    (*i)->bApplyHere &&
+		    !(*i)->bInherited &&
+		    ((*i)->pAllow & ChanACL::Enter) &&
+		    0 == ((*i)->pAllow & (~(ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel))) &&
+		    (*i)->pDeny == ChanACL::None) {
+			qleChannelPassword->setText((*i)->qsGroup.mid(1));
+			pcaPassword = (*i);
+			break;
+		}
+	}
 
 	adjustSize();
 }
@@ -247,6 +262,30 @@ void ACLEditor::accept() {
 		g.sh->sendMessage(mpcs);
 	} else {
 		bool b = false;
+
+		if (qleChannelPassword->text().isEmpty()) {
+			// Remove the password if we had one to begin with
+			if (pcaPassword && qlACLs.removeOne(pcaPassword))
+				delete pcaPassword;
+		}
+		else {
+			// Add or Update
+			if (pcaPassword == NULL || !qlACLs.contains(pcaPassword)) {
+				pcaPassword = new ChanACL(NULL);
+				pcaPassword->bApplyHere = true;
+				pcaPassword->bApplySubs = true;
+				pcaPassword->bInherited = false;
+				pcaPassword->pAllow = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
+				pcaPassword->pDeny = ChanACL::None;
+				pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
+				qlACLs << pcaPassword;
+			}
+			else {
+				pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
+			}
+		}
+
+
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(pChannel->iId);
 		if (pChannel->qsName != qleChannelName->text()) {
