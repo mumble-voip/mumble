@@ -32,5 +32,5 @@ CONFIG(release, debug|release) {
 
 CONFIG(debug, debug|release) {
   DEFINES += USE_LOGFILE
-  DESTDIR = ../release
+  DESTDIR = ../debug/
 }
