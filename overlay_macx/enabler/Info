@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>BundleName</key>
+	<string>MumbleOverlayEnabler.bundle</string>
+	<key>LoadBundleOnLaunch</key>
+	<string>YES</string>
+	<key>LocalizedNames</key>
+	<dict>
+		<key>English</key>
+		<string>Mumble Overlay Enabler</string>
+	</dict>
+	<key>NoMenuEntry</key>
+	<string>YES</string>
+</dict>
+</plist>

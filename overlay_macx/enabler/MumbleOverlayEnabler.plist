@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>CFBundleDevelopmentRegion</key>
+        <string>English</string>
+        <key>CFBundleExecutable</key>
+        <string>MumbleOverlayEnabler</string>
+        <key>CFBundleName</key>
+        <string>MumbleOverlayEnabler</string>
+        <key>CFBundleIdentifier</key>
+        <string>net.sourceforge.mumble.MumbleOverlayEnabler</string>
+        <key>CFBundleInfoDictionaryVersion</key>
+        <string>6.0</string>
+        <key>CFBundlePackageType</key>
+        <string>BNDL</string>
+        <key>CFBundleSignature</key>
+        <string>MOEB</string>
+        <key>CFBundleVersion</key>
+        <string>1.2.0</string>
+        <key>CSResourcesFileMapped</key>
+        <string>yes</string>
+        <key>NSPrincipalClass</key>
+        <string>MumbleOverlayEnabler</string>
+</dict>
+</plist>
+
