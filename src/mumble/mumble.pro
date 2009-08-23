@@ -138,10 +138,6 @@ unix {
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
     SOURCES -= ConfigDialog.cpp
     SOURCES += ConfigDialog.mm ConfigDialogDelegate.mm
-
-    QT_CONF.path = Contents/Resources
-    QT_CONF.files = ../../scripts/qt.conf
-    QMAKE_BUNDLE_DATA += QT_CONF
   }
 }
 
