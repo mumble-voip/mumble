@@ -85,6 +85,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		QList<QCheckBox *> qlACLDeny;
 		QList<ChanACL::Perm> qlPerms;
 
+		void updatePasswordACL(void);
+		void updatePasswordField(void);
 		void showEvent(QShowEvent *);
 		void fillWidgetFromSet(QListWidget *, const QSet<int> &);
 	public:
@@ -104,6 +106,7 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void groupEnableCheck();
 		void ACLEnableCheck();
 
+		void on_qtwTab_currentChanged(int index);
 		void on_qlwACLs_currentRowChanged();
 		void on_qpbACLAdd_clicked();
 		void on_qpbACLRemove_clicked();

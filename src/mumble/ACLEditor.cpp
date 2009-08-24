@@ -207,25 +207,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	ACLEnableCheck();
 	groupEnableCheck();
 
-	// Try to load password from ACL
-	pcaPassword = NULL;
-	QList<ChanACL *>::iterator i = qlACLs.end();
-	while (i != qlACLs.begin()) {
-		i--;
-
-		// Check for sth that applies to '#<something>' AND grants 'Enter' AND may grant 'Speak', 'Whisper',
-		// 'TextMessage', 'Link' but NOTHING else AND does not deny anything, then '<something>' is the password.
-		if ((*i)->qsGroup.startsWith(QLatin1Char('#')) &&
-		    (*i)->bApplyHere &&
-		    !(*i)->bInherited &&
-		    ((*i)->pAllow & ChanACL::Enter) &&
-		    0 == ((*i)->pAllow & (~(ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel))) &&
-		    (*i)->pDeny == ChanACL::None) {
-			qleChannelPassword->setText((*i)->qsGroup.mid(1));
-			pcaPassword = (*i);
-			break;
-		}
-	}
+	updatePasswordField();
 
 	adjustSize();
 }
@@ -263,52 +245,7 @@ void ACLEditor::accept() {
 	} else {
 		bool b = false;
 
-		if (qleChannelPassword->text().isEmpty()) {
-			// Remove the password if we had one to begin with
-			if (pcaPassword && qlACLs.removeOne(pcaPassword)) {
-				delete pcaPassword;
-				QList<ChanACL *>::iterator i = qlACLs.end();
-				while (i != qlACLs.begin()) {
-					i--;
-					if ((*i)->qsGroup == QLatin1String("all") &&
-					    (*i)->bInherited == false &&
-					    (*i)->bApplyHere == true &&
-					    (*i)->bApplySubs == true &&
-					    (*i)->pAllow == ChanACL::None &&
-					    (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)) {
-						qlACLs.removeOne(*i);
-						delete (*i);
-						break;
-					}
-				}
-			}
-		}
-		else {
-			// Add or Update
-			if (pcaPassword == NULL || !qlACLs.contains(pcaPassword)) {
-				pcaPassword = new ChanACL(NULL);
-				pcaPassword->bApplyHere = true;
-				pcaPassword->bApplySubs = true;
-				pcaPassword->bInherited = false;
-				pcaPassword->pAllow = ChanACL::None;
-				pcaPassword->pDeny = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
-				pcaPassword->qsGroup = QLatin1String("all");
-				qlACLs << pcaPassword;
-
-				pcaPassword = new ChanACL(NULL);
-				pcaPassword->bApplyHere = true;
-				pcaPassword->bApplySubs = true;
-				pcaPassword->bInherited = false;
-				pcaPassword->pAllow = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
-				pcaPassword->pDeny = ChanACL::None;
-				pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
-				qlACLs << pcaPassword;
-			}
-			else {
-				pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
-			}
-		}
-
+		updatePasswordACL();
 
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(pChannel->iId);
@@ -658,6 +595,87 @@ void ACLEditor::ACLEnableCheck() {
 		if (qpb) {
 			qpb->setAutoDefault(false);
 			qpb->setDefault(false);
+		}
+	}
+}
+
+void ACLEditor::on_qtwTab_currentChanged(int index) {
+	if (index == 0)	// Switched to property tab, update password field
+		updatePasswordField();
+	else if (index == 2) {
+		// Switched to ACL tab, update ACL list
+		updatePasswordACL();
+		refillACL();
+	}
+}
+
+void ACLEditor::updatePasswordField() {
+	pcaPassword = NULL;
+	QList<ChanACL *>::iterator i = qlACLs.end();
+	while (i != qlACLs.begin()) {
+		i--;
+
+		// Check for sth that applies to '#<something>' AND grants 'Enter' AND may grant 'Speak', 'Whisper',
+		// 'TextMessage', 'Link' but NOTHING else AND does not deny anything, then '<something>' is the password.
+		if ((*i)->qsGroup.startsWith(QLatin1Char('#')) &&
+		    (*i)->bApplyHere &&
+		    !(*i)->bInherited &&
+		    ((*i)->pAllow & ChanACL::Enter) &&
+		    0 == ((*i)->pAllow & (~(ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel))) &&
+		    (*i)->pDeny == ChanACL::None) {
+			qleChannelPassword->setText((*i)->qsGroup.mid(1));
+			pcaPassword = (*i);
+			break;
+		}
+	}
+	if (!pcaPassword)
+		qleChannelPassword->clear();
+}
+
+void ACLEditor::updatePasswordACL() {
+	if (qleChannelPassword->text().isEmpty()) {
+		// Remove the password if we had one to begin with
+		if (pcaPassword && qlACLs.removeOne(pcaPassword)) {
+			delete pcaPassword;
+			QList<ChanACL *>::iterator i = qlACLs.end();
+			while (i != qlACLs.begin()) {
+				i--;
+				if ((*i)->qsGroup == QLatin1String("all") &&
+				    (*i)->bInherited == false &&
+				    (*i)->bApplyHere == true &&
+				    (*i)->bApplySubs == true &&
+				    (*i)->pAllow == ChanACL::None &&
+				    (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)) {
+					qlACLs.removeOne(*i);
+					delete (*i);
+					break;
+				}
+			}
+		}
+	}
+	else {
+		// Add or Update
+		if (pcaPassword == NULL || !qlACLs.contains(pcaPassword)) {
+			pcaPassword = new ChanACL(NULL);
+			pcaPassword->bApplyHere = true;
+			pcaPassword->bApplySubs = true;
+			pcaPassword->bInherited = false;
+			pcaPassword->pAllow = ChanACL::None;
+			pcaPassword->pDeny = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
+			pcaPassword->qsGroup = QLatin1String("all");
+			qlACLs << pcaPassword;
+
+			pcaPassword = new ChanACL(NULL);
+			pcaPassword->bApplyHere = true;
+			pcaPassword->bApplySubs = true;
+			pcaPassword->bInherited = false;
+			pcaPassword->pAllow = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
+			pcaPassword->pDeny = ChanACL::None;
+			pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
+			qlACLs << pcaPassword;
+		}
+		else {
+			pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
 		}
 	}
 }
