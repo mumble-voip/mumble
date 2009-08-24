@@ -710,7 +710,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 								unsigned char *b = (unsigned char *) pCreateEx;
 								unsigned char *a = (unsigned char *) hD3D;
 								d3dd->iOffsetCreateEx = b-a;
-								ods("Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreate);
+								ods("Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreateEx);
 							}
 						}
 						id3d9->Release();
