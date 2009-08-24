@@ -701,16 +701,16 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						void *pCreateEx = (*vtbl)[20];
 
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pCreateEx, &hRef)) {
-							ods("Failed to get module for CreateDevice");
+							ods("Failed to get module for CreateDeviceEx");
 						} else {
 							GetModuleFileName(hRef, buffb, 2048);
 							if (_stricmp(d3dd->cFileName, buffb) != 0) {
-								ods("CreateDevice is not in D3D9 library");
+								ods("CreateDeviceEx is not in D3D9 library");
 							} else {
 								unsigned char *b = (unsigned char *) pCreateEx;
 								unsigned char *a = (unsigned char *) hD3D;
 								d3dd->iOffsetCreateEx = b-a;
-								ods("Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreate);
+								ods("Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreate);
 							}
 						}
 						id3d9->Release();

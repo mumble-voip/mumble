@@ -5,7 +5,7 @@ CONFIG -= qt
 CONFIG *= dll shared debug_and_release warn_on
 CONFIG -= embed_manifest_dll
 TARGET = mumble_ol
-SOURCES = lib.cpp d3d9.cpp opengl.cpp
+SOURCES = lib.cpp d3d9.cpp d3d10.cpp opengl.cpp
 DIST = overlay.h
 
 DEFINES -= UNICODE
