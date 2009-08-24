@@ -41,6 +41,7 @@ static BOOL bMumble = FALSE;
 static BOOL bDebug = FALSE;
 
 static HardHook hhLoad;
+static HardHook hhLoadW;
 void *HardHook::pCode = NULL;
 unsigned int HardHook::uiCode = 0;
 
@@ -419,6 +420,23 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	return h;
 }
 
+typedef HMODULE(__stdcall *LoadLibraryWType)(const wchar_t *);
+static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
+	LoadLibraryWType oLoadLibrary = (LoadLibraryWType) hhLoadW.call;
+	hhLoadW.restore();
+
+	HMODULE h = oLoadLibrary(lpFileName);
+	ods("Library %ls wloaded to %p", lpFileName, h);
+
+	if (! bMumble) {
+		checkD3D9Hook();
+		checkOpenGLHook();
+	}
+
+	hhLoadW.inject();
+	return h;
+}
+
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 	return CallNextHookEx(hhookWnd, nCode, wParam, lParam);
 }
@@ -516,7 +534,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					return TRUE;
 				}
 
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem) + sizeof(Direct3D9Data), "MumbleSharedMemory");
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData), "MumbleSharedMemory");
 				if (hMapObject == NULL) {
 					ods("Lib: CreateFileMapping failed");
 					ReleaseMutex(hSharedMutex);
@@ -529,6 +547,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 				unsigned char *raw = (unsigned char *) sm;
 				d3dd = (Direct3D9Data *)(raw + sizeof(SharedMem));
+				dxgi = (DXGIData *)(raw + sizeof(SharedMem) + sizeof(Direct3D9Data));
 
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
@@ -553,9 +572,11 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 				if (! bMumble) {
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
+					hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
 
 					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
 					checkD3D9Hook(true);
+					checkDXGIHook(true);
 					checkOpenGLHook();
 					ods("Injected");
 				}
@@ -574,11 +595,13 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					CloseHandle(hHookMutex);
 			}
 			break;
-		case DLL_THREAD_ATTACH: {
+		case DLL_THREAD_ATTACH:
+			{
 				static bool bTriedHook = false;
 				if (! bTriedHook && ! bMumble) {
 					bTriedHook = true;
 					checkD3D9Hook();
+					checkDXGIHook();
 					checkOpenGLHook();
 				}
 			}

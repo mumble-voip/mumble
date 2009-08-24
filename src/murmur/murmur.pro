@@ -109,7 +109,7 @@ bonjour {
 		LIBPATH *= /dev/Bonjour/lib/win32
 		LIBS *= -ldelayimp -lDNSSD -delayload:DNSSD.DLL
 	}
-	unix {
+	unix:!macx {
 		PKGCONFIG *= avahi-compat-libdns_sd avahi-client
 	}
 }

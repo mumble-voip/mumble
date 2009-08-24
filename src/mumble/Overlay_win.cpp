@@ -31,11 +31,13 @@
 #include "User.h"
 #include "Channel.h"
 #include "Overlay.h"
+#include "MainWindow.h"
 #include "Global.h"
 
 typedef void (__cdecl *HooksProc)();
 typedef SharedMem * (__cdecl *GetSharedMemProc)();
 typedef void (__cdecl *PrepProc)();
+typedef void (__cdecl *PrepDXGIProc)();
 
 class SharedMemoryPrivate {
 	public:
@@ -62,6 +64,10 @@ void SharedMemory::resolve(QLibrary *lib) {
 	PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
 	if (pp)
 		pp();
+
+	PrepDXGIProc pdxgi = (PrepDXGIProc) lib->resolve("PrepareDXGI");
+	if (pdxgi)
+		pdxgi();
 }
 
 bool SharedMemory::tryLock() {

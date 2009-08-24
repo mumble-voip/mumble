@@ -9,7 +9,7 @@ SOURCES *= ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp
 HEADERS *= Message.h Player.h  Channel.h ACL.h Connection.h Group.cpp
 SOURCES *= Message.cpp Player.cpp Channel.cpp ACL.cpp Connection.cpp
 SOURCES *= smallft.cpp
-DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
+DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble11x.plist
 RESOURCES	*= mumble.qrc
 FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts mumble_zh_CN.ts mumble_zh_TW.ts
@@ -128,15 +128,11 @@ unix {
   macx {
     TARGET = Mumble11x
     ICON = ../../icons/mumble.icns
-    QMAKE_INFO_PLIST = mumble.plist
+    QMAKE_INFO_PLIST = mumble11x.plist
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
     HEADERS *= GlobalShortcut_macx.h
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
-
-    QT_CONF.path = Contents/Resources
-    QT_CONF.files = ../../scripts/qt.conf
-    QMAKE_BUNDLE_DATA += QT_CONF
   }
 }
 

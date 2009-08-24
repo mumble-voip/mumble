@@ -67,7 +67,9 @@ win32 {
 
 	DEFINES *= _FORTIFY_SOURCE=2
 
-	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
+	!macx {
+		QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
+	}
 
 	CONFIG(optgen) {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
