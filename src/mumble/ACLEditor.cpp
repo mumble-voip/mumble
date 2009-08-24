@@ -265,12 +265,36 @@ void ACLEditor::accept() {
 
 		if (qleChannelPassword->text().isEmpty()) {
 			// Remove the password if we had one to begin with
-			if (pcaPassword && qlACLs.removeOne(pcaPassword))
+			if (pcaPassword && qlACLs.removeOne(pcaPassword)) {
 				delete pcaPassword;
+				QList<ChanACL *>::iterator i = qlACLs.end();
+				while (i != qlACLs.begin()) {
+					i--;
+					if ((*i)->qsGroup == QLatin1String("all") &&
+					    (*i)->bInherited == false &&
+					    (*i)->bApplyHere == true &&
+					    (*i)->bApplySubs == true &&
+					    (*i)->pAllow == ChanACL::None &&
+					    (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)) {
+						qlACLs.removeOne(*i);
+						delete (*i);
+						break;
+					}
+				}
+			}
 		}
 		else {
 			// Add or Update
 			if (pcaPassword == NULL || !qlACLs.contains(pcaPassword)) {
+				pcaPassword = new ChanACL(NULL);
+				pcaPassword->bApplyHere = true;
+				pcaPassword->bApplySubs = true;
+				pcaPassword->bInherited = false;
+				pcaPassword->pAllow = ChanACL::None;
+				pcaPassword->pDeny = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
+				pcaPassword->qsGroup = QLatin1String("all");
+				qlACLs << pcaPassword;
+
 				pcaPassword = new ChanACL(NULL);
 				pcaPassword->bApplyHere = true;
 				pcaPassword->bApplySubs = true;
