@@ -6,7 +6,8 @@ CONFIG *= dll shared debug_and_release warn_on
 CONFIG -= embed_manifest_dll
 TARGET = mumble_ol
 SOURCES = lib.cpp d3d9.cpp d3d10.cpp opengl.cpp
-DIST = overlay.h
+EFFECTS = overlay.fx
+DIST = overlay.h overlay.fx
 
 DEFINES -= UNICODE
 
@@ -28,3 +29,10 @@ CONFIG(debug, debug|release) {
   DESTDIR       = ../release
   DEFINES	*= DEBUG
 }
+
+fxc.output = ${QMAKE_FILE_BASE}.hex
+fxc.commands = fxc /Tfx_4_0 /O3 /Fh${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME}
+fxc.input = EFFECTS
+fxc.CONFIG *= no_link target_predeps
+QMAKE_EXTRA_COMPILERS *= fxc
+

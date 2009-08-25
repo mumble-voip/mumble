@@ -29,13 +29,12 @@
 */
 
 #include "lib.h"
+#include "overlay.hex"
 #include <d3d10.h>
 #include <d3dx10.h>
 
 DXGIData *dxgi;
 
-static char fx[8192];
-static int fxlen = 0;
 static bool bHooked = false;
 static bool bChaining = false;
 static HardHook hhPresent;
@@ -129,14 +128,7 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	float bf[4];
 	pDevice->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
-/*
-	DWORD dwShaderFlags = D3D10_SHADER_ENABLE_STRICTNESS | D3D10_SHADER_DEBUG;
-	hr = D3DX10CreateEffectFromFileW( L"C:\\dev\\dxsdk\\Samples\\C++\\Direct3D10\\Tutorials\\Tutorial02\\Tutorial02.fx", NULL, NULL, "fx_4_0", dwShaderFlags, 0,
-						 pDevice, NULL, NULL, &pEffect, NULL, NULL );
-*/
-	pEffect = NULL;
-	ods("Effectum maximum %p %d", fx, fxlen);
-	pD3D10CreateEffectFromMemory(fx, fxlen, 0, pDevice, NULL, &pEffect);
+	pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
 
 	pTechnique = pEffect->GetTechniqueByName( "Render" );
 
@@ -299,12 +291,6 @@ void checkDXGIHook(bool preonly) {
 				unsigned char *raw = (unsigned char *) hDXGI;
 				HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
 				HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
-
-				FILE *f = fopen("C:\\dev\\mumble\\overlay\\overlay.fxo", "rb");
-				fxlen=fread(fx, 1, 8192, f);
-				ods("Gotcha %p %d", f, fxlen);
-				fclose(f);
-
 			} else if (! preonly) {
 				fods("DXGI Interface changed, can't rawpatch");
 			} else {
