@@ -307,7 +307,6 @@ static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
 	if (ds)
 		ds->lHighMark = res;
 
-	ods("D3D10: Chaining AddRef: %d", res);
 	return res;
 }
 
@@ -322,7 +321,7 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 	D10State *ds = devices[pDevice];
 	if (ds)
 		if (res < (ds->lHighMark / 2)) {
-			ods("D3D10: Deleting resources %p %p %p (%p)", ds, ds->pDevice, ds->pSwapChain, pDevice);
+			ods("D3D10: Deleting resources %d < .5 %d", res, ds->lHighMark);
 			devices.erase(ds->pDevice);
 			chains.erase(ds->pSwapChain);
 			delete ds;
@@ -330,7 +329,6 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 			ds = NULL;
 		}
 
-	ods("D3D10: Chaining Release: %d %d", res, (ds) ? ds->myRefCount : -1);
 	return res;
 }
 
