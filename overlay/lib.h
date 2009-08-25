@@ -81,7 +81,10 @@ struct Direct3D9Data {
 struct DXGIData {
 	int iOffsetPresent;
 	int iOffsetResize;
-	wchar_t wcFileName[2048];
+	int iOffsetAddRef;
+	int iOffsetRelease;
+	wchar_t wcDXGIFileName[2048];
+	wchar_t wcD3D10FileName[2048];
 };
 
 struct FakeInterface {

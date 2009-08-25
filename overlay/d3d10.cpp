@@ -39,6 +39,8 @@ static bool bHooked = false;
 static bool bChaining = false;
 static HardHook hhPresent;
 static HardHook hhResize;
+static HardHook hhAddRef;
+static HardHook hhRelease;
 
 typedef HRESULT(__stdcall *CreateDXGIFactoryType)(REFIID, void **);
 typedef HRESULT(__stdcall *D3D10CreateDeviceAndSwapChainType)(IDXGIAdapter *, D3D10_DRIVER_TYPE, HMODULE, UINT, UINT, DXGI_SWAP_CHAIN_DESC *, IDXGISwapChain **, ID3D10Device **);
@@ -49,6 +51,8 @@ typedef HRESULT(__stdcall *D3D10CreateEffectFromMemoryType)(void *, SIZE_T, UINT
 
 typedef HRESULT(__stdcall *PresentType)(IDXGISwapChain *, UINT, UINT);
 typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT, DXGI_FORMAT, UINT);
+typedef ULONG(__stdcall *AddRefType)(ID3D10Device *);
+typedef ULONG(__stdcall *ReleaseType)(ID3D10Device *);
 
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
@@ -58,7 +62,16 @@ struct SimpleVertex
 };
 
 struct D10State {
+	LONG lHighMark;
+
+	LONG initRefCount;
+	LONG refCount;
+	LONG myRefCount;
+	DWORD dwMyThread;
+
 	ID3D10Device *pDevice;
+	IDXGISwapChain *pSwapChain;
+
 	ID3D10StateBlock *pOrigStateBlock;
 	ID3D10StateBlock *pMyStateBlock;
 	ID3D10RenderTargetView *pRTV;
@@ -70,19 +83,33 @@ struct D10State {
 
 	D10State(IDXGISwapChain *, ID3D10Device *);
 	~D10State();
+	void init();
 	void draw();
 };
 
-map<IDXGISwapChain *, D10State *> states;
+map<IDXGISwapChain *, D10State *> chains;
+map<ID3D10Device *, D10State *> devices;
 
 D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
+	this->pSwapChain = pSwapChain;
+	this->pDevice = pDevice;
+
+	dwMyThread = 0;
+	refCount = 0;
+	myRefCount = 0;
+
+	pDevice->AddRef();
+	initRefCount = pDevice->Release();
+}
+
+void D10State::init() {
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10CreateEffectFromMemory);
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10CreateStateBlock);
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10StateBlockMaskEnableAll);
 
 	HRESULT hr;
 
-	this->pDevice = pDevice;
+	dwMyThread = GetCurrentThreadId();
 
 	D3D10_STATE_BLOCK_MASK StateBlockMask;
 	ZeroMemory(&StateBlockMask, sizeof(StateBlockMask));
@@ -174,6 +201,8 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	pOrigStateBlock->Apply();
 
 	pBackBuffer->Release();
+
+	dwMyThread = 0;
 }
 
 D10State::~D10State() {
@@ -191,6 +220,8 @@ D10State::~D10State() {
 }
 
 void D10State::draw() {
+	dwMyThread = GetCurrentThreadId();
+
 	pOrigStateBlock->Capture();
 	pMyStateBlock->Apply();
 
@@ -204,6 +235,8 @@ void D10State::draw() {
 		pDevice->Draw( 3, 0 );
 	}
 	pOrigStateBlock->Apply();
+
+	dwMyThread = 0;
 }
 
 
@@ -213,22 +246,29 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 //	ods("DXGI: Device Present");
 
 	ID3D10Device *pDevice = NULL;
+
+	ods("DXGI: DrawBegin");
+
 	hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
 	if (pDevice) {
-		D10State *ds = states[pSwapChain];
+		D10State *ds = chains[pSwapChain];
 		if (ds && ds->pDevice != pDevice) {
 			ods("DXGI: SwapChain device changed");
 			delete ds;
+			devices.erase(ds->pDevice);
 			ds = NULL;
 		}
 		if (! ds) {
+			ods("DXGI: New state");
 			ds = new D10State(pSwapChain, pDevice);
-			states[pSwapChain] = ds;
+			chains[pSwapChain] = ds;
+			devices[pDevice] = ds;
+			ds->init();
 		}
 
 		ds->draw();
-
 		pDevice->Release();
+		ods("DXGI: DrawEnd");
 	}
 
 	PresentType oPresent = (PresentType) hhPresent.call;
@@ -241,10 +281,11 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
 	HRESULT hr;
 
-	D10State *ds = states[pSwapChain];
+	D10State *ds = chains[pSwapChain];
 	if (ds) {
+		devices.erase(ds->pDevice);
+		chains.erase(pSwapChain);
 		delete ds;
-		states.erase(pSwapChain);
 	}
 
 	ResizeBuffersType oResize = (ResizeBuffersType) hhResize.call;
@@ -254,9 +295,52 @@ static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, 
 	return hr;
 }
 
+static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
+	AddRefType oAddRef = (AddRefType) hhAddRef.call;
+
+	hhAddRef.restore();
+	LONG res = oAddRef(pDevice);
+	hhAddRef.inject();
+
+	Mutex m;
+	D10State *ds = devices[pDevice];
+	if (ds)
+		ds->lHighMark = res;
+
+	ods("D3D10: Chaining AddRef: %d", res);
+	return res;
+}
+
+static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
+	ReleaseType oRelease = (ReleaseType) hhRelease.call;
+
+	hhRelease.restore();
+	LONG res = oRelease(pDevice);
+	hhRelease.inject();
+
+	Mutex m;
+	D10State *ds = devices[pDevice];
+	if (ds)
+		if (res < (ds->lHighMark / 2)) {
+			ods("D3D10: Deleting resources %p %p %p (%p)", ds, ds->pDevice, ds->pSwapChain, pDevice);
+			devices.erase(ds->pDevice);
+			chains.erase(ds->pSwapChain);
+			delete ds;
+			ods("D3D10: Deleted");
+			ds = NULL;
+		}
+
+	ods("D3D10: Chaining Release: %d %d", res, (ds) ? ds->myRefCount : -1);
+	return res;
+}
+
+static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
+	ods("D3D10: Injecting device add/remove");
+	hhAddRef.setup(vfAdd, reinterpret_cast<voidFunc>(myAddRef));
+	hhRelease.setup(vfRelease, reinterpret_cast<voidFunc>(myRelease));
+}
 
 static void HookPresentRaw(voidFunc vfPresent) {
-	ods("DXGI: Injecting Present Raw");
 	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
 }
 
@@ -274,8 +358,9 @@ void checkDXGIHook(bool preonly) {
 	bChaining = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
+	HMODULE hD3D10 = GetModuleHandleW(L"D3D10CORE.DLL");
 
-	if (hDXGI != NULL) {
+	if (hDXGI && hD3D10) {
 		if (! bHooked) {
 			wchar_t procname[2048];
 			GetModuleFileNameW(NULL, procname, 2048);
@@ -287,10 +372,16 @@ void checkDXGIHook(bool preonly) {
 
 			// Can we use the prepatch data?
 			GetModuleFileNameW(hDXGI, procname, 2048);
-			if (_wcsicmp(dxgi->wcFileName, procname) == 0) {
+			if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
 				unsigned char *raw = (unsigned char *) hDXGI;
 				HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
 				HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
+
+				GetModuleFileNameW(hD3D10, procname, 2048);
+				if (_wcsicmp(dxgi->wcD3D10FileName, procname) == 0) {
+					unsigned char *raw = (unsigned char *) hD3D10;
+					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
+				}
 			} else if (! preonly) {
 				fods("DXGI Interface changed, can't rawpatch");
 			} else {
@@ -309,8 +400,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 	HRESULT hr;
 
-	dxgi->wcFileName[0] = 0;
+	dxgi->wcDXGIFileName[0] = 0;
+	dxgi->wcD3D10FileName[0] = 0;
 	dxgi->iOffsetPresent = 0;
+	dxgi->iOffsetResize = 0;
+	dxgi->iOffsetAddRef = 0;
+	dxgi->iOffsetRelease = 0;
 
 	if (hDXGI != NULL && hD3D10 != NULL) {
 		CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
@@ -369,24 +464,51 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
 							ods("DXGI: Failed to get module for Present");
 						} else {
-							GetModuleFileNameW(hRef, dxgi->wcFileName, 2048);
+							GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
 							unsigned char *b = (unsigned char *) pPresent;
 							unsigned char *a = (unsigned char *) hRef;
 							dxgi->iOffsetPresent = b-a;
-							ods("DXGI: Successfully found Present offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
+							ods("DXGI: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
 						}
 
 						void *pResize = (*vtbl)[13];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-							ods("DXGI: Failed to get module for ReiszeBuffers");
+							ods("DXGI: Failed to get module for ResizeBuffers");
 						} else {
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
-							if (wcscmp(buff, dxgi->wcFileName) == 0) {
+							if (wcscmp(buff, dxgi->wcDXGIFileName) == 0) {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
 								dxgi->iOffsetResize = b-a;
-								ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
+								ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							}
+						}
+
+						vtbl = (void ***) pDevice;
+
+						void *pAddRef = (*vtbl)[1];
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
+							ods("D3D10: Failed to get module for AddRef");
+						} else {
+							GetModuleFileNameW(hRef, dxgi->wcD3D10FileName, 2048);
+							unsigned char *b = (unsigned char *) pAddRef;
+							unsigned char *a = (unsigned char *) hRef;
+							dxgi->iOffsetAddRef = b-a;
+							ods("D3D10: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetAddRef);
+						}
+
+						void *pRelease = (*vtbl)[2];
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
+							ods("D3D10: Failed to get module for Release");
+						} else {
+							wchar_t buff[2048];
+							GetModuleFileNameW(hRef, buff, 2048);
+							if (wcscmp(buff, dxgi->wcD3D10FileName) == 0) {
+								unsigned char *b = (unsigned char *) pRelease;
+								unsigned char *a = (unsigned char *) hRef;
+								dxgi->iOffsetRelease = b-a;
+								ods("D3D10: Successfully found Release offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetRelease);
 							}
 						}
 				}

@@ -125,6 +125,9 @@ void *HardHook::cloneCode(void **porig) {
 			case 0x5e:
 			case 0x5f:
 				break;
+			case 0x68:
+				extra = 4;
+				break;
 			case 0x81: // CMP immediate
 				extra = modrmbytes(a,b) + 5;
 				break;
@@ -135,7 +138,7 @@ void *HardHook::cloneCode(void **porig) {
 				extra = modrmbytes(a,b) + 1;
 				break;
 			default:
-				fods("Unknown opcode %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
+				fods("Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
 				return NULL;
 				break;
 		}
