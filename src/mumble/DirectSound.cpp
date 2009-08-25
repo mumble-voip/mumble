@@ -85,6 +85,7 @@ void DirectSoundInit::initialize() {
 	ovi.dwOSVersionInfoSize=sizeof(ovi);
 	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
 
+#ifdef QT_NO_DEBUG
 	if ((ovi.dwMajorVersion > 6) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
 		HMODULE hLib = LoadLibrary(L"AVRT.DLL");
 		if (hLib != NULL) {
@@ -93,6 +94,7 @@ void DirectSoundInit::initialize() {
 			return;
 		}
 	}
+#endif
 #endif
 
 	airReg = new DXAudioInputRegistrar();
@@ -528,7 +530,7 @@ void DXAudioInput::run() {
 	dscbd.lpwfxFormat = &wfx;
 
 	wfx.nChannels = 1;
-	wfx.nSamplesPerSec = SAMPLE_RATE;
+	wfx.nSamplesPerSec = iSampleRate;
 	wfx.nBlockAlign = 2;
 	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
 	wfx.wBitsPerSample = 16;
