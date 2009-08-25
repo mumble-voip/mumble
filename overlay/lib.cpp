@@ -413,6 +413,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 
 	if (! bMumble) {
 		checkD3D9Hook();
+		checkDXGIHook();
 		checkOpenGLHook();
 	}
 
@@ -430,6 +431,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 
 	if (! bMumble) {
 		checkD3D9Hook();
+		checkDXGIHook();
 		checkOpenGLHook();
 	}
 
@@ -585,6 +587,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 		case DLL_PROCESS_DETACH: {
 				ods("Lib: ProcDetach: %s", procname);
 				hhLoad.restore(true);
+				hhLoadW.restore(true);
 				if (sm)
 					UnmapViewOfFile(sm);
 				if (hMapObject)

@@ -80,6 +80,7 @@ struct Direct3D9Data {
 
 struct DXGIData {
 	int iOffsetPresent;
+	int iOffsetResize;
 	wchar_t wcFileName[2048];
 };
 
