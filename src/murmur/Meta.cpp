@@ -58,6 +58,7 @@ MetaParams::MetaParams() {
 
 	iObfuscate = 0;
 	bSendVersion = true;
+	bAllowPing = true;
 
 	iBanTries = 10;
 	iBanTimeframe = 120;
@@ -247,6 +248,7 @@ void MetaParams::read(QString fname) {
 		iObfuscate = qrand();
 	}
 	bSendVersion = qs.value("sendversion", bSendVersion).toBool();
+	bAllowPing = qs.value("allowping", bAllowPing).toBool();
 
 	QString qsSSLCert = qs.value("sslCert").toString();
 	QString qsSSLKey = qs.value("sslKey").toString();

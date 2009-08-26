@@ -40,10 +40,10 @@ void Server::initRegister() {
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
 
 	if (! qsRegName.isEmpty()) {
-		if ((! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && (qurlRegWeb.isValid()) && (qsPassword.isEmpty()))
+		if ((! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && qurlRegWeb.isValid() && qsPassword.isEmpty() && bAllowPing)
 			qtTick.start((60 + (qrand() % 120))* 1000);
 		else
-			log("Registration needs nonempty name, password and url, and the server must not be password protected.");
+			log("Registration needs nonempty 'registername', 'registerpassword' and 'registerurl', must have an empty 'password' and allowed pings.");
 	} else {
 		log("Not registering server as public");
 	}

@@ -169,11 +169,10 @@ class Server : public QThread {
 		Q_DISABLE_COPY(Server);
 	protected:
 		bool bRunning;
-
+		
 #ifdef USE_BONJOUR
 		BonjourServer *bsRegistration;
 #endif
-
 		void startThread();
 		void stopThread();
 
@@ -194,6 +193,7 @@ class Server : public QThread {
 		QString qsRegHost;
 		QUrl qurlRegWeb;
 		bool bBonjour;
+		bool bAllowPing;
 
 		QRegExp qrUserName;
 		QRegExp qrChannelName;
@@ -232,6 +232,7 @@ class Server : public QThread {
 		void tcpTransmitData(QByteArray, unsigned int);
 		void doSync(unsigned int);
 		void encrypted();
+		void udpActivated(int);
 	signals:
 		void reqSync(unsigned int);
 		void tcpTransmit(QByteArray, unsigned int id);
@@ -248,6 +249,8 @@ class Server : public QThread {
 		HANDLE hNotify;
 		QList<SOCKET> qlUdpSocket;
 #endif
+		quint32 uiVersionBlob;
+		QList<QSocketNotifier *> qlUdpNotifier;
 
 		QHash<unsigned int, ServerUser *> qhUsers;
 		QHash<QPair<HostAddress, quint16>, ServerUser *> qhPeerUsers;

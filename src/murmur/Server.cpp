@@ -159,7 +159,10 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 				}
 #endif
 			}
+			QSocketNotifier *qsn = new QSocketNotifier(sock, QSocketNotifier::Read, this);
+			connect(qsn, SIGNAL(activated(int)), this, SLOT(udpActivated(int)));
 			qlUdpSocket << sock;
+			qlUdpNotifier << qsn;
 		}
 	}
 
@@ -190,6 +193,12 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	readLinks();
 	initializeCert();
 
+	int major, minor, patch;
+	QString release;
+	Meta::getVersion(major, minor, patch, release);
+
+	uiVersionBlob = qToBigEndian(static_cast<quint32>((major<<16) | (minor << 8) | patch));
+
 	if (bValid) {
 #ifdef USE_BONJOUR
 		bsRegistration = new BonjourServer();
@@ -208,6 +217,9 @@ void Server::startThread() {
 	if (! isRunning()) {
 		log("Starting voice thread");
 		bRunning = true;
+
+		foreach(QSocketNotifier *qsn, qlUdpNotifier)
+			qsn->setEnabled(false);
 		start(QThread::HighestPriority);
 #ifdef Q_OS_LINUX
 		// QThread::HighestPriority == Same as everything else...
@@ -230,6 +242,9 @@ void Server::stopThread() {
 	bRunning = false;
 	if (isRunning()) {
 		log("Ending voice thread");
+
+		foreach(QSocketNotifier *qsn, qlUdpNotifier)
+			qsn->setEnabled(true);
 #ifdef Q_OS_UNIX
 		unsigned char val = 0;
 		::write(aiNotify[1], &val, 1);
@@ -248,6 +263,9 @@ Server::~Server() {
 #endif
 
 	stopThread();
+
+	foreach(QSocketNotifier *qsn, qlUdpNotifier)
+		delete qsn;
 
 #ifdef Q_OS_UNIX
 	foreach(int s, qlUdpSocket)
@@ -282,6 +300,7 @@ void Server::readParams() {
 	qsRegHost = Meta::mp.qsRegHost;
 	qurlRegWeb = Meta::mp.qurlRegWeb;
 	bBonjour = Meta::mp.bBonjour;
+	bAllowPing = Meta::mp.bAllowPing;
 	qrUserName = Meta::mp.qrUserName;
 	qrChannelName = Meta::mp.qrChannelName;
 
@@ -325,6 +344,7 @@ void Server::readParams() {
 	qsRegHost = getConf("registerhostname", qsRegHost).toString();
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
 	bBonjour = getConf("bonjour", bBonjour).toBool();
+	bAllowPing = getConf("allowping", bAllowPing).toBool();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -354,7 +374,9 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
 	else if (key == "bonjour")
-		bBonjour = !v.isNull() ? (v.toLower() == QLatin1String("true") || v.toLower() == QLatin1String("1")) : Meta::mp.bBonjour;
+		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
+	else if (key == "allowping")
+		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowPing;
 	else if (key == "username")
 		qrUserName=!v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")
@@ -417,6 +439,30 @@ void ExecEvent::execute() {
 void Server::customEvent(QEvent *evt) {
 	if (evt->type() == EXEC_QEVENT)
 		static_cast<ExecEvent *>(evt)->execute();
+}
+
+void Server::udpActivated(int socket) {
+	qint32 len;
+	char encrypt[512];
+	sockaddr_storage from;
+#ifdef Q_OS_UNIX
+	socklen_t fromlen = sizeof(from);
+	int &sock = socket;
+	len=static_cast<qint32>(::recvfrom(sock, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
+#else
+	int fromlen = sizeof(from);
+	SOCKET sock = static_cast<SOCKET>(socket);
+	len=::recvfrom(sock, encrypt, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+#endif
+
+	// Cloned from ::run(), as it's the only UDP data we care about until the thread is started.
+	quint32 *ping = reinterpret_cast<quint32 *>(encrypt);
+	if ((len == 12) && (*ping == 0) && bAllowPing) {
+		ping[0] = uiVersionBlob;
+		ping[3] = qToBigEndian(static_cast<quint32>(qhUsers.count()));
+
+		::sendto(sock, encrypt, 4 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
+	}
 }
 
 void Server::run() {
@@ -517,6 +563,18 @@ void Server::run() {
 				}
 
 				QReadLocker rl(&qrwlUsers);
+
+				quint32 *ping = reinterpret_cast<quint32 *>(encrypt);
+
+				if ((len == 12) && (*ping == 0) && bAllowPing) {
+					ping[0] = uiVersionBlob;
+					// 1 and 2 will be the timestamp, which we return unmodified.
+					ping[3] = qToBigEndian(static_cast<quint32>(qhUsers.count()));
+
+					::sendto(sock, encrypt, 4 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
+					continue;
+				}
+
 
 				quint16 port = (from.ss_family == AF_INET6) ? (reinterpret_cast<sockaddr_in6 *>(&from)->sin6_port) : (reinterpret_cast<sockaddr_in *>(&from)->sin_port);
 				const HostAddress &ha = HostAddress(from);
@@ -994,6 +1052,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			case MessageHandler::UDPVoiceCELT:
 			case MessageHandler::UDPVoiceSpeex:
 				processMsg(u, buffer, l);
+				break;
+			default:
 				break;
 		}
 

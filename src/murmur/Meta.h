@@ -65,6 +65,7 @@ struct MetaParams {
 
 	int iObfuscate;
 	bool bSendVersion;
+	bool bAllowPing;
 
 	QString qsDBus;
 	QString qsDBusService;
