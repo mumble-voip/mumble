@@ -88,6 +88,8 @@ AudioInput::AudioInput() {
 	speex_bits_reset(&sbBits);
 	iFrames = 0;
 
+	iSampleRate = SAMPLE_RATE;
+
 	esEncState=speex_encoder_init(&speex_wb_mode);
 	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 

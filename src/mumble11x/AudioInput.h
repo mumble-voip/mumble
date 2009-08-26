@@ -80,6 +80,7 @@ class AudioInput : public QThread {
 	protected:
 		SampleFormat eMicFormat, eEchoFormat;
 
+		unsigned int iSampleRate;
 		unsigned int iMicChannels, iEchoChannels;
 		unsigned int iMicFreq, iEchoFreq;
 		unsigned int iMicLength, iEchoLength;
