@@ -58,6 +58,7 @@ MetaParams::MetaParams() {
 
 	iObfuscate = 0;
 	bSendVersion = true;
+	bBonjour = true;
 	bAllowPing = true;
 
 	iBanTries = 10;
