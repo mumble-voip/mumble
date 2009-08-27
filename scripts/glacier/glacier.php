@@ -13,12 +13,13 @@ try {
   $router = $router->ice_uncheckedCast("::Glacier2::Router")->ice_router(null);
   $session = $router->createSession("testuser", "testpass");
       
-  $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
+  $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502")->ice_router($router);
   $meta = $base->ice_checkedCast("::Murmur::Meta");
 
   $servers = $meta->getBootedServers();
   $default = $meta->getDefaultConf();
   foreach($servers as $s) {
+    $s = $s->ice_router($router);
     $name = $s->getConf("registername");
     if (! $name) {
       $name =  $default["registername"];
