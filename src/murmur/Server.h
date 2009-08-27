@@ -206,6 +206,10 @@ class Server : public QThread {
 
 		void readParams();
 
+#ifdef USE_BONJOUR
+		void initBonjour();
+		void removeBonjour();
+#endif
 		// Registration, implementation in Register.cpp
 		QTimer qtTick;
 		QHttp *http;

@@ -201,12 +201,8 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	if (bValid) {
 #ifdef USE_BONJOUR
-		bsRegistration = new BonjourServer();
-		if (bsRegistration->bsrRegister) {
-			log("Announcing server via bonjour");
-			bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""),
-			        usPort);
-		}
+		if (bBonjour)
+			initBonjour();
 #endif
 		initRegister();
 
@@ -258,8 +254,7 @@ void Server::stopThread() {
 
 Server::~Server() {
 #ifdef USE_BONJOUR
-	if (bsRegistration)
-		delete bsRegistration;
+	removeBonjour();
 #endif
 
 	stopThread();
@@ -373,8 +368,15 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
-	else if (key == "bonjour")
+	else if (key == "bonjour") {
 		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
+#ifdef USE_BONJOUR
+		if (bBonjour && !bsRegistration)
+			initBonjour();
+		else if (!bBonjour && bsRegistration)
+			removeBonjour();
+#endif
+	}
 	else if (key == "allowping")
 		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowPing;
 	else if (key == "username")
@@ -383,6 +385,24 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qrChannelName=!v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
 }
 
+#ifdef USE_BONJOUR
+void Server::initBonjour() {
+	bsRegistration = new BonjourServer();
+	if (bsRegistration->bsrRegister) {
+		log("Announcing server via bonjour");
+		bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""),
+							     usPort);
+	}
+}
+
+void Server::removeBonjour() {
+	if (bsRegistration) {
+		delete bsRegistration;
+		bsRegistration = NULL;
+		log("Stopped announcing server via bonjour");
+	}
+}
+#endif
 
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
