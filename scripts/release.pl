@@ -158,7 +158,7 @@ foreach my $file ('LICENSE', sort keys %files) {
   sysread(F, $blob, 1000000000);
 
   if ($file eq "src/Version.h") {
-    $blob =~ s/\#ifndef MUMBLE_VERSION/\#define MUMBLE_VERSION $ver\n\#if 0/;
+    $blob =~ s/(\#ifndef MUMBLE_VERSION)/$1\n\#define MUMBLE_VERSION $ver\n\#endif\n$1/;
   }
 
   $tar->add_data($dir . $file, $blob);
