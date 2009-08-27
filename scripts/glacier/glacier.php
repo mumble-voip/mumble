@@ -8,6 +8,11 @@
 Ice_loadProfile();
 
 try {
+  # Replace IP address with the one your glacier2 is running on
+  $router = $ICE->stringToProxy("Glacier2/router:tcp -p 4063 -h 128.39.114.1");
+  $router = $router->ice_uncheckedCast("::Glacier2::Router")->ice_router(null);
+  $session = $router->createSession("testuser", "testpass");
+      
   $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
   $meta = $base->ice_checkedCast("::Murmur::Meta");
 
