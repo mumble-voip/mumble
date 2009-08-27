@@ -39,18 +39,25 @@
 #include "BonjourClient.h"
 #endif
 
-struct PublicInfo {
-	QString name;
-	QUrl url;
-	QString ip;
-	QString cc;
-	unsigned short port;
-};
-
 class TextSortedItem : public QTreeWidgetItem {
 	public:
 		TextSortedItem(QTreeWidget *, const QStringList &);
 		bool operator< (const QTreeWidgetItem &) const;
+};
+
+typedef QPair<QHostAddress, unsigned short> qpAddress;
+
+struct PublicInfo {
+	QString qsName;
+	QUrl quUrl;
+	QString qsIp;
+	QString qsCountry;
+	QString qsCountryCode;
+	unsigned short usPort;
+
+	quint64 uiPing;
+	quint32 uiUsers;
+	TextSortedItem *tsiItem;
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
@@ -60,6 +67,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 	protected:
 		static QList<PublicInfo> qlPublicServers;
 		static Timer tPublicServers;
+		static int iPingIndex;
+
 		bool bPublicInit;
 		QSqlTableModel *qstmServers;
 		QModelIndex qmiDirty;
@@ -69,12 +78,29 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		bool bCopyOnResolve;
 		QHttp *qhList;
 
+		Timer tPing;
+		QUdpSocket *qusSocket4;
+		QUdpSocket *qusSocket6;
+		QTimer *qtPingTick;
+		QHash<qpAddress, int> qmActivePings;
+		QMap<int, int> qmLookups;
+		bool bIPv4;
+		bool bIPv6;
+
+		void pingList();
+		void sendPing(int, const QHostAddress &, unsigned short port);
+
 		void initList();
 		void fillList();
 		void fillEmpty();
 	public slots:
 		void accept();
 		void finished();
+
+		void udpReply();
+		void lookedUp(QHostInfo);
+		void timeTick();
+
 #ifdef USE_BONJOUR
 		void accept(const QHostInfo &, int);
 		void onUpdateLanList(const QList<BonjourRecord> &);

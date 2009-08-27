@@ -178,6 +178,21 @@
          </column>
          <column>
           <property name="text">
+           <string>Country</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Ping</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Users</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>URL</string>
           </property>
          </column>

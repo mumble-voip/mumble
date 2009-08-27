@@ -52,6 +52,7 @@ bool TextSortedItem::operator <(const QTreeWidgetItem &other) const {
 
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 Timer ConnectDialog::tPublicServers;
+int ConnectDialog::iPingIndex = -1;
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -65,7 +66,12 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 		qlPublicServers.clear();
 	}
 
+
 	qtwServers->sortItems(0, Qt::AscendingOrder);
+	qtwServers->header()->setResizeMode(2, QHeaderView::ResizeToContents);
+	qtwServers->header()->setResizeMode(3, QHeaderView::ResizeToContents);
+	qtwServers->header()->setResizeMode(4, QHeaderView::ResizeToContents);
+	qtwServers->header()->setResizeMode(5, QHeaderView::Stretch);
 
 	qstmServers = new QSqlTableModel(this);
 	qstmServers->setTable(QLatin1String("servers"));
@@ -125,6 +131,21 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 #else
 	qtwTab->setTabToolTip(2, tr("Bonjour support disabled during compilation."));
 #endif
+
+	qtPingTick = new QTimer(this);
+	connect(qtPingTick, SIGNAL(timeout()), this, SLOT(timeTick()));
+
+	qusSocket4 = new QUdpSocket(this);
+	qusSocket6 = new QUdpSocket(this);
+	bIPv4 = qusSocket4->bind(QHostAddress(QHostAddress::Any), 0);
+	bIPv6 = qusSocket6->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
+	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
+	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
+
+	for(int i=0;i<qlPublicServers.count(); ++i) {
+		PublicInfo &info = qlPublicServers[i];
+		info.tsiItem = NULL;
+	}
 
 	fillList();
 	if (qstmServers->rowCount() < 1) {
@@ -322,21 +343,116 @@ void ConnectDialog::on_qpbLanBrowserCopy_clicked() {
 #endif
 
 void ConnectDialog::fillList() {
-	qtwServers->clear();
-
 	QList<QTreeWidgetItem *> ql;
 
-	foreach(const PublicInfo &pi, qlPublicServers) {
+	for(int i=0;i<qlPublicServers.count(); ++i) {
+		PublicInfo &pi = qlPublicServers[i];
+
 		QStringList qsl;
-		qsl << pi.name;
-		qsl << QString::fromLatin1("%1:%2").arg(pi.ip).arg(pi.port);
-		qsl << pi.url.toString();
+		qsl << pi.qsName;
+		qsl << QString::fromLatin1("%1:%2").arg(pi.qsIp).arg(pi.usPort);
+		qsl << pi.qsCountry;
+		qsl << (pi.uiPing ? QString::number(pi.uiPing / 1000) : QString());
+		qsl << (pi.uiUsers ? QString::number(pi.uiUsers) : QString());
+		qsl << pi.quUrl.toString();
+
 		TextSortedItem *tsi = new TextSortedItem(NULL, qsl);
-		if (! pi.cc.isEmpty())
-			tsi->setIcon(1, QIcon(QString::fromLatin1(":/flags/%1.png").arg(pi.cc)));
+		if (! pi.qsCountryCode.isEmpty())
+			tsi->setIcon(2, QIcon(QString::fromLatin1(":/flags/%1.png").arg(pi.qsCountryCode)));
+
+		pi.tsiItem = tsi;
+
 		ql << tsi;
 	}
+	qtwServers->clear();
 	qtwServers->addTopLevelItems(ql);
+}
+
+void ConnectDialog::pingList() {
+	iPingIndex = 0;
+	qtPingTick->start(50);
+}
+
+void ConnectDialog::timeTick() {
+	if (qlPublicServers.isEmpty())
+		return;
+
+	if (++iPingIndex >= qlPublicServers.count())
+		iPingIndex = 0;
+
+	const PublicInfo &pi = qlPublicServers.at(iPingIndex);
+
+	QHostAddress qha(pi.qsIp);
+	if (! qha.isNull())
+		sendPing(iPingIndex, qha, pi.usPort);
+	else
+		qmLookups.insert(QHostInfo::lookupHost(pi.qsIp, this, SLOT(lookedUp(QHostInfo))), iPingIndex);
+}
+
+void ConnectDialog::lookedUp(QHostInfo info) {
+	int id = info.lookupId();
+	if (! qmLookups.contains(id))
+		return;
+	int index = qmLookups.value(id);
+	qmLookups.remove(id);
+
+	if (info.error() != QHostInfo::NoError)
+		return;
+
+	if (index >= qlPublicServers.count())
+		return;
+
+	PublicInfo &pi = qlPublicServers[index];
+
+	foreach(const QHostAddress &host, info.addresses())
+		sendPing(index, host, pi.usPort);
+}
+
+void ConnectDialog::sendPing(int index, const QHostAddress &host, unsigned short port) {
+	char blob[16];
+
+	memset(blob, 0, sizeof(blob));
+	* reinterpret_cast<quint64 *>(blob+8) = tPing.elapsed();
+
+	qmActivePings.insert(qpAddress(host, port), index);
+
+	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol)
+		qusSocket4->writeDatagram(blob+4, 12, host, port);
+	else if (bIPv6 && host.protocol() == QAbstractSocket::IPv6Protocol)
+		qusSocket6->writeDatagram(blob+4, 12, host, port);
+}
+
+void ConnectDialog::udpReply() {
+	QUdpSocket *sock = qobject_cast<QUdpSocket *>(sender());
+	while (sock->hasPendingDatagrams()) {
+		char blob[20];
+
+		QHostAddress host;
+		unsigned short port;
+
+		int len = sock->readDatagram(blob+4, 16, &host, &port);
+		if (len == 16) {
+			qpAddress address(host, port);
+			if (qmActivePings.contains(address)) {
+				int index = qmActivePings.value(address);
+				qmActivePings.remove(address);
+
+				if (index >= qlPublicServers.count())
+					continue;
+
+				PublicInfo &pi = qlPublicServers[index];
+
+				quint32 *ping = reinterpret_cast<quint32 *>(blob+4);
+				quint64 *ts = reinterpret_cast<quint64 *>(blob+8);
+
+				pi.uiPing = tPing.elapsed() - *ts;
+				pi.uiUsers = qFromBigEndian(ping[3]);
+
+				pi.tsiItem->setText(3, QString::number(pi.uiPing / 1000));
+				pi.tsiItem->setText(4, pi.uiUsers ? QString::number(pi.uiUsers) : QString());
+			}
+		}
+	}
 }
 
 void ConnectDialog::on_qpbURL_clicked() {
@@ -380,6 +496,8 @@ void ConnectDialog::finished() {
 	doc.setContent(rep->readAll());
 
 	qlPublicServers.clear();
+	qmLookups.clear();
+	qmActivePings.clear();
 
 	QDomElement root=doc.documentElement();
 	QDomNode n = root.firstChild();
@@ -388,11 +506,17 @@ void ConnectDialog::finished() {
 		if (!e.isNull()) {
 			if (e.tagName() == QLatin1String("server")) {
 				PublicInfo pi;
-				pi.name = e.attribute(QLatin1String("name"));
-				pi.url = e.attribute(QLatin1String("url"));
-				pi.ip = e.attribute(QLatin1String("ip"));
-				pi.port = e.attribute(QLatin1String("port")).toUShort();
-				pi.cc = e.attribute(QLatin1String("country_code")).toLower();
+				pi.qsName = e.attribute(QLatin1String("name"));
+				pi.quUrl = e.attribute(QLatin1String("url"));
+				pi.qsIp = e.attribute(QLatin1String("ip"));
+				pi.usPort = e.attribute(QLatin1String("port")).toUShort();
+				pi.qsCountry = e.attribute(QLatin1String("country"));
+				pi.qsCountryCode = e.attribute(QLatin1String("country_code")).toLower();
+
+				pi.uiPing = 0;
+				pi.uiUsers = 0;
+				pi.tsiItem = NULL;
+
 				qlPublicServers << pi;
 			}
 		}
@@ -534,6 +658,8 @@ void ConnectDialog::on_qtwTab_currentChanged(int idx) {
 	if (idx != 1)
 		return;
 
-	if (idx == 1)
+	if (idx == 1) {
 		initList();
+		pingList();
+	}
 }
