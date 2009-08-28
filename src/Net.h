@@ -81,7 +81,7 @@ struct Ban {
 	bool operator == (const Ban &) const;
 };
 
-#if __BYTE_ORDER == __BIG_ENDIAN
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
 #define SWAP64(x) (x)
 #else
 #ifdef __x86_64__
