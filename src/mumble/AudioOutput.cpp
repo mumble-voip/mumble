@@ -475,8 +475,10 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				int want = iroundf(p->fAverageAvailable);
 				if (avail < want) {
 					++iMissCount;
-					if (iMissCount < 20)
+					if (iMissCount < 20) {
+						memset(pOut, 0, iFrameSize * sizeof(float));
 						goto nextframe;
+					}
 				}
 			}
 
