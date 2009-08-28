@@ -67,7 +67,7 @@
     <widget class="QLineEdit" name="qleUsername"/>
    </item>
    <item row="4" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
+    <widget class="QDialogButtonBox" name="qdbbButtonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
@@ -80,12 +80,12 @@
   <tabstop>qleServer</tabstop>
   <tabstop>qlePort</tabstop>
   <tabstop>qleUsername</tabstop>
-  <tabstop>buttonBox</tabstop>
+  <tabstop>qdbbButtonBox</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>qdbbButtonBox</sender>
    <signal>accepted()</signal>
    <receiver>ConnectDialogEdit</receiver>
    <slot>accept()</slot>
@@ -101,7 +101,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>qdbbButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>ConnectDialogEdit</receiver>
    <slot>reject()</slot>

@@ -167,14 +167,45 @@ QIcon ServerItem::loadIcon(const QString &name) {
 	return qmIcons.value(name);
 }
 
+ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port) : QDialog(p) {
+	setupUi(this);
+	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
+
+	qleName->setText(name);
+	qleServer->setText(host);
+	qleUsername->setText(user.isEmpty() ? g.s.qsUsername : user);
+	qlePort->setText(QString::number(port));
+
+	usPort = 0;
+	bOk = true;
+
+	connect(qleName, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
+	connect(qleServer, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
+	connect(qlePort, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
+	connect(qleUsername, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
+
+	validate();
+}
+
+void ConnectDialogEdit::validate() {
+	qsName = qleName->text().simplified();
+	qsHostname = qleServer->text().simplified();
+	usPort = qlePort->text().toUShort();
+	qsUsername = qleUsername->text().simplified();
+
+	bOk = ! qsName.isEmpty() && ! qsHostname.isEmpty() && ! qsUsername.isEmpty() && usPort;
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
+}
+
+void ConnectDialogEdit::accept() {
+	validate();
+	if (bOk)
+		QDialog::accept();
+}
+
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 Timer ConnectDialog::tPublicServers;
 int ConnectDialog::iPingIndex = -1;
-
-ConnectDialogEdit::ConnectDialogEdit(QWidget *p) : QDialog(p) {
-	setupUi(this);
-	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
-}
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -187,7 +218,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 		qlPublicServers.clear();
 	}
 
-	qbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("Connect"));
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("Connect"));
 
 	qtwServers->sortItems(0, Qt::AscendingOrder);
 	qtwServers->header()->setResizeMode(0, QHeaderView::Stretch);
@@ -292,8 +323,6 @@ void ConnectDialog::on_qaFavoriteAdd_triggered() {
 }
 
 void ConnectDialog::on_qaFavoriteAddNew_triggered() {
-	ConnectDialogEdit *cde = new ConnectDialogEdit(this);
-
 	QString host, user, pw;
 	QString name;
 	unsigned short port = 64738;
@@ -308,17 +337,10 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 	} else
 		user = g.s.qsUsername;
 
-	cde->qleName->setText(name);
-	cde->qleServer->setText(host);
-	cde->qleUsername->setText(user);
-	cde->qlePort->setText(QString::number(port));
+	ConnectDialogEdit *cde = new ConnectDialogEdit(this, name, host, user, port);
 
 	if (cde->exec() == QDialog::Accepted) {
-		name = cde->qleName->text();
-		host = cde->qleServer->text();
-		user = cde->qleUsername->text();
-		port = cde->qlePort->text().toUShort();
-		ServerItem *si = new ServerItem(name, host, port, user);
+		ServerItem *si = new ServerItem(cde->qsName, cde->qsHostname, cde->usPort, cde->qsUsername);
 		qtwServers->addTopLevelItem(si);
 	}
 	delete cde;
@@ -329,18 +351,13 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	if (! si || (si->itType != ServerItem::FavoriteType))
 		return;
 
-	ConnectDialogEdit *cde = new ConnectDialogEdit(this);
-
-	cde->qleName->setText(si->qsName);
-	cde->qleServer->setText(si->qsHostname);
-	cde->qleUsername->setText(si->qsUsername);
-	cde->qlePort->setText(QString::number(si->usPort));
+	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, si->qsHostname, si->qsUsername, si->usPort);
 
 	if (cde->exec() == QDialog::Accepted) {
-		si->qsName = cde->qleName->text();
-		si->qsHostname = cde->qleServer->text();
-		si->qsUsername = cde->qleUsername->text();
-		si->usPort = cde->qlePort->text().toUShort();
+		si->qsName = cde->qsName;
+		si->qsHostname = cde->qsHostname;
+		si->qsUsername = cde->qsUsername;
+		si->usPort = cde->usPort;
 		si->setDatas();
 	}
 	delete cde;

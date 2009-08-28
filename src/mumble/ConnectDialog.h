@@ -94,12 +94,19 @@ class ServerItem : public QTreeWidgetItem {
 		bool operator< (const QTreeWidgetItem &) const;
 };
 
-class ConnectDialogEdit : public QDialog, public Ui::ConnectDialogEdit {
+class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ConnectDialogEdit);
+	protected:
+		bool bOk;
+	public slots:
+		void validate();
+		void accept();
 	public:
-		ConnectDialogEdit(QWidget *parent);
+		QString qsName, qsHostname, qsUsername;
+		unsigned short usPort;
+		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = 64738);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {

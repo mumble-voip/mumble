@@ -60,7 +60,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="qbbButtonBox">
+    <widget class="QDialogButtonBox" name="qdbbButtonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
@@ -99,7 +99,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>qbbButtonBox</sender>
+   <sender>qdbbButtonBox</sender>
    <signal>accepted()</signal>
    <receiver>ConnectDialog</receiver>
    <slot>accept()</slot>
@@ -115,7 +115,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>qbbButtonBox</sender>
+   <sender>qdbbButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>ConnectDialog</receiver>
    <slot>reject()</slot>
