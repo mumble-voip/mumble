@@ -29,6 +29,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <QtCore/QSocketNotifier>
 #include <QtNetwork/QHostInfo>
+#include <QtCore/QtEndian>
 
 #include "bonjourserviceresolver.h"
 
@@ -100,6 +101,6 @@ void BonjourServiceResolver::bonjourResolveReply(DNSServiceRef, DNSServiceFlags 
 		emit rr->bsr->error(rr->record, errorCode);
 		return;
 	}
-	rr->bonjourPort = qFromBigEndian(port);
+	rr->bonjourPort = qFromBigEndian<quint16>(port);
 	emit rr->bsr->bonjourRecordResolved(rr->record, QString::fromUtf8(hosttarget), rr->bonjourPort);
 }

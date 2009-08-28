@@ -32,6 +32,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BONJOURSERVICERESOLVER_H
 
 #include <QtCore/QObject>
+#include <QtCore/QMap>
 #include <dns_sd.h>
 
 #include "bonjourrecord.h"
