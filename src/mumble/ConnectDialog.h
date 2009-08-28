@@ -80,14 +80,13 @@ class ServerItem : public QTreeWidgetItem {
 		QList<QHostAddress> qlAddresses;
 
 		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::non_coherent_tail_mean<boost::accumulators::right> > > asRightType;
-		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::non_coherent_tail_mean<boost::accumulators::left> > > asLeftType;
-
 		asRightType *asRight;
-		asLeftType *asLeft;
 
 		ItemType itType;
 		quint32 uiPing;
 		quint32 uiUsers;
+		quint32 uiMaxUsers;
+		quint32 uiBandwidth;
 
 		ServerItem(const FavoriteServer &fs);
 		ServerItem(const PublicInfo &pi);

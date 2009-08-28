@@ -37,8 +37,11 @@
 QMap<QString, QIcon> ServerItem::qmIcons;
 
 void ServerItem::initAccumulator() {
-	asLeft = new asLeftType(boost::accumulators::left_tail_cache_size = 100);
 	asRight = new asRightType(boost::accumulators::right_tail_cache_size = 100);
+	uiPing = 0;
+	uiUsers = 0;
+	uiMaxUsers = 0;
+	uiBandwidth = 0;
 }
 
 ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
@@ -51,9 +54,6 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 	qsPassword = fs.qsPassword;
 
 	qsUrl = fs.qsUrl;
-
-	uiPing = 0;
-	uiUsers = 0;
 
 	if (qsHostname.startsWith(QLatin1Char('@')))
 		brRecord = BonjourRecord(qsHostname.mid(1), QLatin1String("_mumble._tcp."), QLatin1String("local."));
@@ -71,9 +71,6 @@ ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::
 	qsCountry = pi.qsCountry;
 	qsCountryCode = pi.qsCountryCode;
 
-	uiPing = 0;
-	uiUsers = 0;
-
 	initAccumulator();
 	setDatas();
 }
@@ -85,9 +82,6 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 	usPort = port;
 	qsUsername = username;
 
-	uiPing = 0;
-	uiUsers = 0;
-
 	initAccumulator();
 	setDatas();
 }
@@ -97,9 +91,6 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 	qsName = br.serviceName;
 	qsHostname = QLatin1Char('@') + qsName;
 	brRecord = br;
-	uiPing = 0;
-	uiUsers = 0;
-
 	usPort = 0;
 
 	initAccumulator();
@@ -122,11 +113,8 @@ void ServerItem::setDatas() {
 
 	uiPing = iroundf(boost::accumulators::non_coherent_tail_mean(*asRight, boost::accumulators::quantile_probability = 0.75) / 1000.);
 
-	int left = iroundf(boost::accumulators::non_coherent_tail_mean(*asLeft, boost::accumulators::quantile_probability = 0.95) / 1000.);
-	int right = iroundf(boost::accumulators::non_coherent_tail_mean(*asRight, boost::accumulators::quantile_probability = 0.95) / 1000.);
-
-	setText(2, uiPing ? QString::fromLatin1("%1-%2").arg(left).arg(right) : QString());
-	setText(3, uiUsers ? QString::number(uiUsers) : QString());
+	setText(2, uiPing ? QString::number(uiPing) : QString());
+	setText(3, uiUsers ? QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers) : QString());
 }
 
 FavoriteServer ServerItem::toFavoriteServer() const {
@@ -602,13 +590,13 @@ void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned 
 void ConnectDialog::udpReply() {
 	QUdpSocket *sock = qobject_cast<QUdpSocket *>(sender());
 	while (sock->hasPendingDatagrams()) {
-		char blob[20];
+		char blob[64];
 
 		QHostAddress host;
 		unsigned short port;
 
-		int len = sock->readDatagram(blob+4, 16, &host, &port);
-		if (len == 16) {
+		int len = sock->readDatagram(blob+4, 24, &host, &port);
+		if (len == 24) {
 			qpAddress address(host, port);
 			if (qmActivePings.contains(address)) {
 				ServerItem *si = qmActivePings.value(address);
@@ -619,8 +607,9 @@ void ConnectDialog::udpReply() {
 
 				quint64 elapsed = tPing.elapsed() - *ts;
 				si->uiUsers = qFromBigEndian(ping[3]);
+				si->uiMaxUsers = qFromBigEndian(ping[4]);
+				si->uiBandwidth = qFromBigEndian(ping[5]);
 
-				(* si->asLeft)(elapsed);
 				(* si->asRight)(elapsed);
 
 				si->setDatas();
