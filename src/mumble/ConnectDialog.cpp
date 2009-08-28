@@ -97,24 +97,51 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 	setDatas();
 }
 
-void ServerItem::setDatas() {
-	setText(0, qsName);
-	if (itType == FavoriteType) {
-		setText(1, ConnectDialog::tr("Favorite"));
-		setIcon(1, loadIcon(QLatin1String(":/emblems/emblem-favorite.svg")));
-	} else if (itType == LANType) {
-		setText(1, ConnectDialog::tr("LAN"));
-		setIcon(1, loadIcon(QLatin1String(":/places/network-workgroup.svg")));
-	} else {
-		setText(1, qsCountry);
-		if (! qsCountryCode.isEmpty())
-			setIcon(1, loadIcon(QString::fromLatin1(":/flags/%1.png").arg(qsCountryCode)));
+QVariant ServerItem::data(int column, int role) const {
+	if (role == Qt::DisplayRole) {
+		switch (column) {
+			case 0:
+				return qsName;
+			case 1:
+				if (itType == FavoriteType)
+					return ConnectDialog::tr("Favorite");
+				else if (itType == LANType)
+					return ConnectDialog::tr("LAN");
+				else
+					return qsCountry;
+			case 2:
+				return uiPing ? QString::number(uiPing) : QVariant();
+			case 3:
+				return uiUsers ? QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers) : QVariant();
+		}
+	} else if (role == Qt::DecorationRole) {
+		if (column == 1) {
+				if (itType == FavoriteType)
+					return loadIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
+				else if (itType == LANType)
+					return loadIcon(QLatin1String(":/places/network-workgroup.svg"));
+				else if (! qsCountryCode.isEmpty())
+					return loadIcon(QString::fromLatin1(":/flags/%1.png").arg(qsCountryCode));
+		}
+	} else if (role == Qt::ToolTipRole) {
+		QStringList qsl;
+		foreach(const QHostAddress &qha, qlAddresses)
+			qsl << qha.toString();
+		return QLatin1String("<table>") +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Name"), qsName) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"),qsl.join(QLatin1String(", ")) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping")).arg(uiPing) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
+			QLatin1String("</table>");
 	}
+	return QTreeWidgetItem::data(column, role);
+}
 
-	uiPing = iroundf(boost::accumulators::non_coherent_tail_mean(*asRight, boost::accumulators::quantile_probability = 0.75) / 1000.);
-
-	setText(2, uiPing ? QString::number(uiPing) : QString());
-	setText(3, uiUsers ? QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers) : QString());
+void ServerItem::setDatas() {
+	emitDataChanged();
 }
 
 FavoriteServer ServerItem::toFavoriteServer() const {
@@ -611,6 +638,7 @@ void ConnectDialog::udpReply() {
 				si->uiBandwidth = qFromBigEndian(ping[5]);
 
 				(* si->asRight)(elapsed);
+				si->uiPing = iroundf(boost::accumulators::non_coherent_tail_mean(* si->asRight, boost::accumulators::quantile_probability = 0.75) / 1000.);
 
 				si->setDatas();
 			}

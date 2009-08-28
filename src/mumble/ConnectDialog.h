@@ -99,6 +99,8 @@ class ServerItem : public QTreeWidgetItem {
 
 		void setDatas();
 		bool operator< (const QTreeWidgetItem &) const;
+
+		QVariant data(int column, int role) const;
 };
 
 class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
