@@ -31,6 +31,8 @@
 #ifndef _MUMBLE_SSL_H
 #define _MUMBLE_SSL_H
 
+#include "murmur_pch.h"
+
 class MumbleSSL {
 	public:
 		static void addSystemCA();

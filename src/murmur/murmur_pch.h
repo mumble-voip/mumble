@@ -9,6 +9,7 @@
 #endif
 
 #ifdef __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
 #include <CoreServices/CoreServices.h>
 #undef check
 #undef TYPE_BOOL
