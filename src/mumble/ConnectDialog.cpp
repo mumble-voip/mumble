@@ -104,6 +104,7 @@ void ServerItem::setDatas() {
 		setIcon(1, loadIcon(QLatin1String(":/emblems/emblem-favorite.svg")));
 	} else if (itType == LANType) {
 		setText(1, ConnectDialog::tr("LAN"));
+		setIcon(1, loadIcon(QLatin1String(":/places/network-workgroup.svg")));
 	} else {
 		setText(1, qsCountry);
 		if (! qsCountryCode.isEmpty())
