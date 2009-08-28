@@ -1,6 +1,7 @@
 /*
 Copyright (c) 2007, Trenton Schulz
 Copyright (c) 2009, Stefan Hacker
+Copyright (C) 2009, Thorvald Natvig <thorvald@natvig.com>
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -33,35 +34,40 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtCore/QObject>
 #include <dns_sd.h>
 
+#include "bonjourrecord.h"
+
 class QSocketNotifier;
 class QHostInfo;
-class BonjourRecord;
 
 class BonjourServiceResolver : public QObject {
 		Q_OBJECT
+	protected:
+		struct ResolveRecord {
+			BonjourRecord record;
+			BonjourServiceResolver *bsr;
+			DNSServiceRef dnssref;
+			QSocketNotifier *bonjourSocket;
+			int bonjourPort;
+			ResolveRecord(const BonjourRecord &, BonjourServiceResolver *);
+			~ResolveRecord();
+		};
+
+		QMap<int, ResolveRecord *> qmResolvers;
 	public:
 		BonjourServiceResolver(QObject *parent);
 		~BonjourServiceResolver();
 
 		void resolveBonjourRecord(const BonjourRecord &record);
-
 	signals:
-		void bonjourRecordResolved(const QHostInfo &hostInfo, int port);
-		void error(DNSServiceErrorType error);
-
+		void bonjourRecordResolved(BonjourRecord record, QString hostname, int port);
+		void error(BonjourRecord record, DNSServiceErrorType error);
 	private slots:
-		void bonjourSocketReadyRead();
-		void cleanupResolve();
-		void finishConnect(const QHostInfo &hostInfo);
-
+		void bonjourSocketReadyRead(int);
 	private:
 		static void DNSSD_API bonjourResolveReply(DNSServiceRef sdRef, DNSServiceFlags flags,
 		        quint32 interfaceIndex, DNSServiceErrorType errorCode,
 		        const char *fullName, const char *hosttarget, quint16 port,
 		        quint16 txtLen, const char *txtRecord, void *context);
-		DNSServiceRef dnssref;
-		QSocketNotifier *bonjourSocket;
-		int bonjourPort;
 };
 
 #endif // BONJOURSERVICERESOLVER_H

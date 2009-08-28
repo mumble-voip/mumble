@@ -87,15 +87,10 @@ Database::Database() {
 	QSqlQuery query;
 
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
-
-	// FIXME: Snapshots..
-	query.exec(QLatin1String("DROP TABLE IF EXISTS `comments`"));
-	query.exec(QLatin1String("DROP INDEX IF EXISTS `comments_comment`"));
-
+	query.exec(QLatin1String("ALTER TABLE `servers` ADD COLUMN `url` TEXT"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`who` TEXT, `comment` BLOB, `seen` DATE)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`who`, `comment`)"));
 	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `comments_seen` ON `comments`(`seen`)"));
-
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `token` TEXT)"));
 	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`hostname`,`port`)"));
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
@@ -109,6 +104,46 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
 
 	query.exec(QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
+}
+
+QList<FavoriteServer> Database::getFavorites() {
+	QSqlQuery query;
+	QList<FavoriteServer> ql;
+
+	query.prepare(QLatin1String("SELECT `name`, `hostname`, `port`, `username`, `password`, `url` FROM `servers` ORDER BY `name`"));
+	query.exec();
+	while (query.next()) {
+		FavoriteServer fs;
+		fs.qsName = query.value(0).toString();
+		fs.qsHostname = query.value(1).toString();
+		fs.usPort = query.value(2).toUInt();
+		fs.qsUsername = query.value(3).toString();
+		fs.qsPassword = query.value(4).toString();
+		fs.qsUrl = query.value(5).toString();
+		ql << fs;
+	}
+	return ql;
+}
+
+void Database::setFavorites(const QList<FavoriteServer> &servers) {
+	QSqlQuery query;
+	QSqlDatabase::database().transaction();
+
+	query.prepare(QLatin1String("DELETE FROM `servers`"));
+	query.exec();
+
+	query.prepare(QLatin1String("REPLACE INTO `servers` (`name`, `hostname`, `port`, `username`, `password`, `url`) VALUES (?,?,?,?,?,?)"));
+	foreach(const FavoriteServer &s, servers) {
+		query.addBindValue(s.qsName);
+		query.addBindValue(s.qsHostname);
+		query.addBindValue(s.usPort);
+		query.addBindValue(s.qsUsername);
+		query.addBindValue(s.qsPassword);
+		query.addBindValue(s.qsUrl);
+		query.exec();
+	}
+
+	QSqlDatabase::database().commit();
 }
 
 bool Database::seenComment(const QString &hash, const QString &comment) {

@@ -33,17 +33,13 @@
 
 #include "mumble_pch.hpp"
 #include "ui_ConnectDialog.h"
+#include "ui_ConnectDialogEdit.h"
 #include "Timer.h"
+#include "Database.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourClient.h"
 #endif
-
-class TextSortedItem : public QTreeWidgetItem {
-	public:
-		TextSortedItem(QTreeWidget *, const QStringList &);
-		bool operator< (const QTreeWidgetItem &) const;
-};
 
 typedef QPair<QHostAddress, unsigned short> qpAddress;
 
@@ -54,10 +50,54 @@ struct PublicInfo {
 	QString qsCountry;
 	QString qsCountryCode;
 	unsigned short usPort;
+};
 
-	quint64 uiPing;
-	quint32 uiUsers;
-	TextSortedItem *tsiItem;
+class ServerItem : public QTreeWidgetItem {
+	public:
+		enum ItemType { FavoriteType, LANType, PublicType };
+
+		static QMap<QString, QIcon> qmIcons;
+
+		QString qsName;
+
+		QString qsHostname;
+		unsigned short usPort;
+
+		QString qsUsername;
+		QString qsPassword;
+
+		QString qsCountry;
+		QString qsCountryCode;
+
+		QString qsUrl;
+
+		BonjourRecord brRecord;
+
+		QList<QHostAddress> qlAddresses;
+
+		ItemType itType;
+		quint64 uiPing;
+		quint32 uiUsers;
+
+		ServerItem(const FavoriteServer &fs);
+		ServerItem(const PublicInfo &pi);
+		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname);
+		ServerItem(const BonjourRecord &br);
+
+		FavoriteServer toFavoriteServer() const;
+
+		static QIcon loadIcon(const QString &name);
+
+		void setDatas();
+		bool operator< (const QTreeWidgetItem &) const;
+};
+
+class ConnectDialogEdit : public QDialog, public Ui::ConnectDialogEdit {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ConnectDialogEdit);
+	public:
+		ConnectDialogEdit(QWidget *parent);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
@@ -69,30 +109,26 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		static Timer tPublicServers;
 		static int iPingIndex;
 
+		QMenu *qmPopup;
+
 		bool bPublicInit;
-		QSqlTableModel *qstmServers;
-		QModelIndex qmiDirty;
-		QSqlRecord toRecord() const;
-		bool bDirty;
-		bool bResolving;
-		bool bCopyOnResolve;
-		QHttp *qhList;
 
 		Timer tPing;
 		QUdpSocket *qusSocket4;
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
-		QHash<qpAddress, int> qmActivePings;
-		QMap<int, int> qmLookups;
+		QHash<qpAddress, ServerItem *> qmActivePings;
+		QMap<int, ServerItem *> qmLookups;
 		bool bIPv4;
 		bool bIPv6;
 
+		QMap<QString, QIcon> qmIcons;
+
 		void pingList();
-		void sendPing(int, const QHostAddress &, unsigned short port);
+		void sendPing(ServerItem *, const QHostAddress &, unsigned short port);
 
 		void initList();
 		void fillList();
-		void fillEmpty();
 	public slots:
 		void accept();
 		void finished();
@@ -102,26 +138,24 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void timeTick();
 
 #ifdef USE_BONJOUR
-		void accept(const QHostInfo &, int);
 		void onUpdateLanList(const QList<BonjourRecord> &);
 		void onLanBrowseError(DNSServiceErrorType);
-		void onLanResolveError(DNSServiceErrorType);
 
-		void on_qpbLanBrowserConnect_clicked();
-		void on_qpbLanBrowserCopy_clicked();
+		void onResolved(BonjourRecord, QString, int);
+		void onLanResolveError(BonjourRecord, DNSServiceErrorType);
 #endif
-		void on_qpbAdd_clicked();
-		void on_qpbRemove_clicked();
-		void onSelection_Changed(const QModelIndex &n, const QModelIndex &p);
-		void onDirty(const QString &qs = QString());
-
-		void on_qtwTab_currentChanged(int);
-		void on_qpbURL_clicked();
-		void on_qpbCopy_clicked();
+		void on_qaFavoriteAdd_triggered();
+		void on_qaFavoriteAddNew_triggered();
+		void on_qaFavoriteEdit_triggered();
+		void on_qaFavoriteRemove_triggered();
+		void on_qaUrl_triggered();
+		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
+		void on_qtwServers_customContextMenuRequested (const QPoint &);
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		unsigned short usPort;
 		ConnectDialog(QWidget *parent);
+		~ConnectDialog();
 };
 
 #else

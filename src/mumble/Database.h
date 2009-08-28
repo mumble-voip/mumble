@@ -34,6 +34,14 @@
 #include "mumble_pch.hpp"
 #include "Settings.h"
 
+struct FavoriteServer {
+	QString qsName;
+	QString qsUsername;
+	QString qsPassword;
+	QString qsHostname;
+	QString qsUrl;
+	unsigned short usPort;
+};
 
 class Database : public QObject {
 	private:
@@ -41,6 +49,8 @@ class Database : public QObject {
 		Q_DISABLE_COPY(Database)
 	public:
 		Database();
+		static QList<FavoriteServer> getFavorites();
+		static void setFavorites(const QList<FavoriteServer> &servers);
 		static QStringList getTokens(const QString &hostname, unsigned short port);
 		static bool seenComment(const QString &hash, const QString &comment);
 		static void setSeenComment(const QString &hash, const QString &comment);
