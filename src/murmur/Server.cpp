@@ -480,9 +480,10 @@ void Server::udpActivated(int socket) {
 	if ((len == 12) && (*ping == 0) && bAllowPing) {
 		ping[0] = uiVersionBlob;
 		ping[3] = qToBigEndian(static_cast<quint32>(qhUsers.count()));
-		ping[4] = qToBigEndian(static_cast<quint32>(iMaxBandwidth));
+		ping[4] = qToBigEndian(static_cast<quint32>(iMaxUsers));
+		ping[5] = qToBigEndian(static_cast<quint32>(iMaxBandwidth));
 
-		::sendto(sock, encrypt, 5 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
+		::sendto(sock, encrypt, 6 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
 	}
 }
 
@@ -591,9 +592,10 @@ void Server::run() {
 					ping[0] = uiVersionBlob;
 					// 1 and 2 will be the timestamp, which we return unmodified.
 					ping[3] = qToBigEndian(static_cast<quint32>(qhUsers.count()));
-					ping[4] = qToBigEndian(static_cast<quint32>(iMaxBandwidth));
+					ping[4] = qToBigEndian(static_cast<quint32>(iMaxUsers));
+					ping[5] = qToBigEndian(static_cast<quint32>(iMaxBandwidth));
 
-					::sendto(sock, encrypt, 5 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
+					::sendto(sock, encrypt, 6 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
 					continue;
 				}
 
