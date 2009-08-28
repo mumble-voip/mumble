@@ -36,6 +36,11 @@
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 
+void ServerItem::initAccumulator() {
+	asLeft = new asLeftType(boost::accumulators::left_tail_cache_size = 100);
+	asRight = new asRightType(boost::accumulators::right_tail_cache_size = 100);
+}
+
 ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	itType = FavoriteType;
 	qsName = fs.qsName;
@@ -53,6 +58,7 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 	if (qsHostname.startsWith(QLatin1Char('@')))
 		brRecord = BonjourRecord(qsHostname.mid(1), QLatin1String("_mumble._tcp."), QLatin1String("local."));
 
+	initAccumulator();
 	setDatas();
 }
 
@@ -68,6 +74,7 @@ ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::
 	uiPing = 0;
 	uiUsers = 0;
 
+	initAccumulator();
 	setDatas();
 }
 
@@ -81,6 +88,7 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 	uiPing = 0;
 	uiUsers = 0;
 
+	initAccumulator();
 	setDatas();
 }
 
@@ -94,6 +102,7 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 
 	usPort = 0;
 
+	initAccumulator();
 	setDatas();
 }
 
@@ -111,7 +120,12 @@ void ServerItem::setDatas() {
 			setIcon(1, loadIcon(QString::fromLatin1(":/flags/%1.png").arg(qsCountryCode)));
 	}
 
-	setText(2, uiPing ? QString::number(uiPing / 1000) : QString());
+	uiPing = iroundf(boost::accumulators::non_coherent_tail_mean(*asRight, boost::accumulators::quantile_probability = 0.75) / 1000.);
+
+	int left = iroundf(boost::accumulators::non_coherent_tail_mean(*asLeft, boost::accumulators::quantile_probability = 0.95) / 1000.);
+	int right = iroundf(boost::accumulators::non_coherent_tail_mean(*asRight, boost::accumulators::quantile_probability = 0.95) / 1000.);
+
+	setText(2, uiPing ? QString::fromLatin1("%1-%2").arg(left).arg(right) : QString());
 	setText(3, uiUsers ? QString::number(uiUsers) : QString());
 }
 
@@ -270,6 +284,9 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	initList();
 	fillList();
 	pingList();
+
+	qtwServers->setCurrentItem(NULL);
+	bLastFound = false;
 }
 
 ConnectDialog::~ConnectDialog() {
@@ -292,6 +309,15 @@ void ConnectDialog::accept() {
 	if (! si || si->qlAddresses.isEmpty())
 		return;
 
+	qsPassword = si->qsPassword;
+	qsServer = si->qsHostname;
+	if (qsServer.startsWith(QLatin1Char('@'))) {
+		if (si->qlAddresses.isEmpty())
+			return;
+		qsServer = si->qlAddresses.at(0).toString();
+	}
+	usPort = si->usPort;
+
 	if (si->qsUsername.isEmpty()) {
 		bool ok;
 		QString defUserName = QInputDialog::getText(this, tr("Connecting to %1").arg(si->qsName), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
@@ -301,14 +327,8 @@ void ConnectDialog::accept() {
 	}
 
 	qsUsername = si->qsUsername;
-	qsPassword = si->qsPassword;
-	qsServer = si->qsHostname;
-	if (qsServer.startsWith(QLatin1Char('@'))) {
-		if (si->qlAddresses.isEmpty())
-			return;
-		qsServer = si->qlAddresses.at(0).toString();
-	}
-	usPort = si->usPort;
+
+	g.s.qsLastServer = si->qsName;
 
 	QDialog::accept();
 }
@@ -406,6 +426,15 @@ void ConnectDialog::on_qtwServers_itemDoubleClicked(QTreeWidgetItem *item, int) 
 	accept();
 }
 
+void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
+	ServerItem *si = static_cast<ServerItem *>(item);
+
+	bool bOk = (si && ! si->qlAddresses.isEmpty());
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
+
+	bLastFound = true;
+}
+
 void ConnectDialog::initList() {
 	if (bPublicInit || (qlPublicServers.count() > 0))
 		return;
@@ -491,18 +520,35 @@ void ConnectDialog::fillList() {
 void ConnectDialog::pingList() {
 	iPingIndex = 0;
 	qtPingTick->start(50);
+	timeTick();
 }
 
 void ConnectDialog::timeTick() {
-	QList<QTreeWidgetItem *> ql = qtwServers->findItems(QString(), Qt::MatchStartsWith);
+	if (! bLastFound && ! g.s.qsLastServer.isEmpty()) {
+		QList<QTreeWidgetItem *> items = qtwServers->findItems(g.s.qsLastServer, Qt::MatchExactly);
+		if (!items.isEmpty()) {
+			bLastFound = true;
+			qtwServers->setCurrentItem(items.at(0));
+		}
+	}
+	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
 
-	if (ql.isEmpty())
-		return;
+	if (!si || (tCurrent.elapsed() < 1000000ULL)) {
+		QList<QTreeWidgetItem *> ql = qtwServers->findItems(QString(), Qt::MatchStartsWith);
 
-	if (++iPingIndex >= ql.count())
-		iPingIndex = 0;
+		if (ql.isEmpty())
+			return;
 
-	ServerItem *si = static_cast<ServerItem *>(ql.at(iPingIndex));
+		if (++iPingIndex >= ql.count())
+			iPingIndex = 0;
+
+		si = static_cast<ServerItem *>(ql.at(iPingIndex));
+
+		if (! si)
+			return;
+	} else {
+		tCurrent.restart();
+	}
 
 	if (si->qlAddresses.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
@@ -511,6 +557,8 @@ void ConnectDialog::timeTick() {
 			return;
 		}
 		si->qlAddresses << qha;
+		if (si == qtwServers->currentItem())
+			on_qtwServers_currentItemChanged(si, si);
 	}
 
 	foreach(const QHostAddress &host, si->qlAddresses)
@@ -528,6 +576,9 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 		return;
 
 	si->qlAddresses = info.addresses();
+
+	if (si == qtwServers->currentItem())
+		on_qtwServers_currentItemChanged(si, si);
 
 	foreach(const QHostAddress &host, si->qlAddresses)
 		sendPing(si, host, si->usPort);
@@ -547,6 +598,7 @@ void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned 
 		qusSocket6->writeDatagram(blob+4, 12, host, port);
 }
 
+
 void ConnectDialog::udpReply() {
 	QUdpSocket *sock = qobject_cast<QUdpSocket *>(sender());
 	while (sock->hasPendingDatagrams()) {
@@ -565,8 +617,11 @@ void ConnectDialog::udpReply() {
 				quint32 *ping = reinterpret_cast<quint32 *>(blob+4);
 				quint64 *ts = reinterpret_cast<quint64 *>(blob+8);
 
-				si->uiPing = tPing.elapsed() - *ts;
+				quint64 elapsed = tPing.elapsed() - *ts;
 				si->uiUsers = qFromBigEndian(ping[3]);
+
+				(* si->asLeft)(elapsed);
+				(* si->asRight)(elapsed);
 
 				si->setDatas();
 			}

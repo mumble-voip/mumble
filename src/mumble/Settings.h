@@ -167,7 +167,7 @@ struct Settings {
 	bool bAdvancedACLCfg;
 
 	QString qsUsername;
-	int iServerRow;
+	QString qsLastServer;
 
 	bool bUpdateCheck;
 	bool bPluginCheck;

@@ -55,6 +55,8 @@ struct PublicInfo {
 };
 
 class ServerItem : public QTreeWidgetItem {
+	protected:
+		void initAccumulator();
 	public:
 		enum ItemType { FavoriteType, LANType, PublicType };
 
@@ -77,8 +79,14 @@ class ServerItem : public QTreeWidgetItem {
 
 		QList<QHostAddress> qlAddresses;
 
+		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::non_coherent_tail_mean<boost::accumulators::right> > > asRightType;
+		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::non_coherent_tail_mean<boost::accumulators::left> > > asLeftType;
+
+		asRightType *asRight;
+		asLeftType *asLeft;
+
 		ItemType itType;
-		quint64 uiPing;
+		quint32 uiPing;
 		quint32 uiUsers;
 
 		ServerItem(const FavoriteServer &fs);
@@ -123,6 +131,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		bool bPublicInit;
 
 		Timer tPing;
+		Timer tCurrent;
 		QUdpSocket *qusSocket4;
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
@@ -130,6 +139,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QMap<int, ServerItem *> qmLookups;
 		bool bIPv4;
 		bool bIPv6;
+
+		bool bLastFound;
 
 		QMap<QString, QIcon> qmIcons;
 
@@ -158,6 +169,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qaFavoriteEdit_triggered();
 		void on_qaFavoriteRemove_triggered();
 		void on_qaUrl_triggered();
+		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
 		void on_qtwServers_customContextMenuRequested (const QPoint &);
 	public:

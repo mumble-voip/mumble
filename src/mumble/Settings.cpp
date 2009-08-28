@@ -234,8 +234,6 @@ Settings::Settings() {
 
 	qmMessages[Log::DebugInfo] = Settings::LogConsole;
 	qmMessages[Log::Information] = Settings::LogConsole;
-
-	iServerRow = -1;
 }
 
 bool Settings::doEcho() const {
@@ -386,7 +384,7 @@ void Settings::load() {
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
-	SAVELOAD(iServerRow, "ui/serverrow");
+	SAVELOAD(qsLastServer, "ui/server");
 #ifndef NO_UPDATE_CHECK
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
@@ -553,7 +551,7 @@ void Settings::save() {
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
-	SAVELOAD(iServerRow, "ui/serverrow");
+	SAVELOAD(qsLastServer, "ui/server");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
