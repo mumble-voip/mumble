@@ -39,6 +39,8 @@
 
 #ifdef USE_BONJOUR
 #include "BonjourClient.h"
+#else
+#include "bonjourrecord.h"
 #endif
 
 typedef QPair<QHostAddress, unsigned short> qpAddress;
