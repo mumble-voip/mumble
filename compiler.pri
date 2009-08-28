@@ -102,9 +102,9 @@ macx {
 		}
 	}
 
-	INCLUDEPATH *= /opt/mumble-1.2/include/boost-1_39/
-	INCLUDEPATH *= /opt/mumble-1.2/include/
-	LIBPATH *= /opt/mumble-1.2/lib/
+	INCLUDEPATH *= /opt/mumble-1.2/boost-1_40_0/include
+	INCLUDEPATH *= /opt/mumble-1.2/include
+	LIBPATH *= /opt/mumble-1.2/lib
 
 	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
 	XCODE_PATH=$$system(xcode-select -print-path)
