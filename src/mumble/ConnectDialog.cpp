@@ -42,6 +42,12 @@ void ServerItem::initAccumulator() {
 	uiUsers = 0;
 	uiMaxUsers = 0;
 	uiBandwidth = 0;
+
+	// Without this, columncount is wrong.
+	setData(0, Qt::DisplayRole, QVariant());
+	setData(1, Qt::DisplayRole, QVariant());
+	setData(2, Qt::DisplayRole, QVariant());
+	setData(3, Qt::DisplayRole, QVariant());
 }
 
 ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
@@ -249,7 +255,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("Connect"));
 
-	qtwServers->sortItems(0, Qt::AscendingOrder);
+	qtwServers->sortItems(2, Qt::AscendingOrder);
 	qtwServers->header()->setResizeMode(0, QHeaderView::Stretch);
 	qtwServers->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 	qtwServers->header()->setResizeMode(2, QHeaderView::ResizeToContents);
