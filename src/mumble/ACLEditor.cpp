@@ -56,6 +56,8 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
+	qleChannelName->setFocus();
+
 	pcaPassword = NULL;
 	adjustSize();
 }
@@ -209,6 +211,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	updatePasswordField();
 
+	qleChannelName->setFocus();
 	adjustSize();
 }
 
