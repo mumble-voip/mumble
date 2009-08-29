@@ -42,6 +42,8 @@
 #include "Meta.h"
 #include "PacketDataStream.h"
 
+#define UDP_PACKET_SIZE 1024
+
 uint qHash(const Peer &p) {
 	return p.first ^ p.second;
 }
@@ -463,16 +465,16 @@ void Server::customEvent(QEvent *evt) {
 
 void Server::udpActivated(int socket) {
 	qint32 len;
-	char encrypt[512];
+	char encrypt[UDP_PACKET_SIZE];
 	sockaddr_storage from;
 #ifdef Q_OS_UNIX
 	socklen_t fromlen = sizeof(from);
 	int &sock = socket;
-	len=static_cast<qint32>(::recvfrom(sock, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
+	len=static_cast<qint32>(::recvfrom(sock, encrypt, UDP_PACKET_SIZE, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
 #else
 	int fromlen = sizeof(from);
 	SOCKET sock = static_cast<SOCKET>(socket);
-	len=::recvfrom(sock, encrypt, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+	len=::recvfrom(sock, encrypt, UDP_PACKET_SIZE, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 #endif
 
 	// Cloned from ::run(), as it's the only UDP data we care about until the thread is started.
@@ -490,12 +492,12 @@ void Server::udpActivated(int socket) {
 void Server::run() {
 	qint32 len;
 #if defined(__LP64__)
-	char encbuff[512+8];
+	char encbuff[UDP_PACKET_SIZE+8];
 	char *encrypt = encbuff + 4;
 #else
-	char encrypt[512];
+	char encrypt[UDP_PACKET_SIZE];
 #endif
-	char buffer[512];
+	char buffer[UDP_PACKET_SIZE];
 
 	sockaddr_storage from;
 	int nfds = qlUdpSocket.count();
@@ -569,9 +571,9 @@ void Server::run() {
 
 				fromlen = sizeof(from);
 #ifdef Q_OS_WIN
-				len=::recvfrom(sock, encrypt, 512, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
+				len=::recvfrom(sock, encrypt, UDP_PACKET_SIZE, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 #else
-				len=static_cast<qint32>(::recvfrom(sock, encrypt, 512, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
+				len=static_cast<qint32>(::recvfrom(sock, encrypt, UDP_PACKET_SIZE, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
 #endif
 				if (len == 0) {
 					break;
@@ -580,7 +582,7 @@ void Server::run() {
 				} else if (len < 5) {
 					// 4 bytes crypt header + type + session
 					continue;
-				} else if (len > 512) {
+				} else if (len > UDP_PACKET_SIZE) {
 					continue;
 				}
 
@@ -727,9 +729,9 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	Channel *c = u->cChannel;
 	QByteArray qba, qba_npos;
 	unsigned int counter;
-	char buffer[512];
+	char buffer[UDP_PACKET_SIZE];
 	PacketDataStream pdi(data + 1, len - 1);
-	PacketDataStream pds(buffer+1, 511);
+	PacketDataStream pds(buffer+1, UDP_PACKET_SIZE-1);
 	unsigned int type = data[0] & 0xe0;
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
